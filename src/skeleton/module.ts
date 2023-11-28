@@ -11,14 +11,7 @@ import { ThySkeletonList } from './stylized/list.component';
 import { ThySkeletonParagraph } from './stylized/paragraph.component';
 import { ThySkeletonBulletList } from './stylized/bullet-list.component';
 
-const components = [
-    ThySkeleton,
-    ThySkeletonRectangle,
-    ThySkeletonCircle,
-    ThySkeletonList,
-    ThySkeletonParagraph,
-    ThySkeletonBulletList
-];
+const components = [ThySkeleton, ThySkeletonRectangle, ThySkeletonCircle, ThySkeletonList, ThySkeletonParagraph, ThySkeletonBulletList];
 @NgModule({
     imports: [CommonModule, PortalModule, ThyGridModule, ThyListModule, ...components],
     exports: components,

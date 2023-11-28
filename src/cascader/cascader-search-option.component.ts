@@ -28,16 +28,7 @@ import { ThyCascaderSearchOption } from './types';
     selector: '[thy-cascader-search-option]',
     templateUrl: './cascader-search-option.component.html',
     standalone: true,
-    imports: [
-        NgIf,
-        NgFor,
-        ThyFlexibleText,
-        ThyCheckbox,
-        ThyBreadcrumb,
-        ThyBreadcrumbItem,
-        ThyIcon,
-        FormsModule
-    ]
+    imports: [NgIf, NgFor, ThyFlexibleText, ThyCheckbox, ThyBreadcrumb, ThyBreadcrumbItem, ThyIcon, FormsModule]
 })
 export class ThyCascaderSearchOptionComponent implements OnInit {
     @Input() option: ThyCascaderSearchOption;

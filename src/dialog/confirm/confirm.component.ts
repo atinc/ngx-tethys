@@ -19,15 +19,7 @@ import { DialogHeader } from '../header/dialog-header.component';
     templateUrl: './confirm.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [
-        DialogHeader,
-        DialogBody,
-        FormsModule,
-        ThyFormDirective,
-        ThyFormGroupFooter,
-        NgClass,
-        ThyButton
-    ]
+    imports: [DialogHeader, DialogBody, FormsModule, ThyFormDirective, ThyFormGroupFooter, NgClass, ThyButton]
 })
 export class ThyConfirm implements OnInit, OnDestroy {
     loading: boolean;

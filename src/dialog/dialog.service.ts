@@ -47,11 +47,7 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
         return new ThyInternalDialogRef(overlayRef, containerInstance, config);
     }
 
-    protected createInjector<T>(
-        config: ThyDialogConfig,
-        dialogRef: ThyDialogRef<T>,
-        dialogContainer: ThyDialogContainer
-    ): Injector {
+    protected createInjector<T>(config: ThyDialogConfig, dialogRef: ThyDialogRef<T>, dialogContainer: ThyDialogContainer): Injector {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
 
         const injectionTokens: StaticProvider[] = [

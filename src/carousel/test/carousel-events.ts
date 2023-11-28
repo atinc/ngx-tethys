@@ -3,12 +3,7 @@ import { dispatchEvent, dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethy
 import { ComponentFixture, tick } from '@angular/core/testing';
 import { SafeAny } from 'ngx-tethys/types';
 
-export function mouseSwipe<T extends ComponentFixture<SafeAny>>(
-    carousel: ThyCarousel,
-    distance: number,
-    delay = 0,
-    fixture?: T
-): void {
+export function mouseSwipe<T extends ComponentFixture<SafeAny>>(carousel: ThyCarousel, distance: number, delay = 0, fixture?: T): void {
     carousel.onDrag(
         new MouseEvent('mousedown', {
             clientX: 500,

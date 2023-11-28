@@ -88,16 +88,12 @@ export class ThyColorPickerDirective extends _BaseMixin implements OnInit, OnDes
     /**
      * panel 展开后触发
      */
-    @Output() thyPanelOpen: EventEmitter<ThyPopoverRef<ThyColorPickerPanel>> = new EventEmitter<
-        ThyPopoverRef<ThyColorPickerPanel>
-    >();
+    @Output() thyPanelOpen: EventEmitter<ThyPopoverRef<ThyColorPickerPanel>> = new EventEmitter<ThyPopoverRef<ThyColorPickerPanel>>();
 
     /**
      * panel 关闭后触发
      */
-    @Output() thyPanelClose: EventEmitter<ThyPopoverRef<ThyColorPickerPanel>> = new EventEmitter<
-        ThyPopoverRef<ThyColorPickerPanel>
-    >();
+    @Output() thyPanelClose: EventEmitter<ThyPopoverRef<ThyColorPickerPanel>> = new EventEmitter<ThyPopoverRef<ThyColorPickerPanel>>();
 
     /**
      * 弹出悬浮层的触发方式

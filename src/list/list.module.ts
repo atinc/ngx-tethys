@@ -8,15 +8,7 @@ import { ThyListItemMeta } from './list-item-meta.component';
 import { ThyAvatarModule } from 'ngx-tethys/avatar';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        ThyOptionModule,
-        ThyAvatarModule,
-        ThyList,
-        ThyListItem,
-        ThySelectionList,
-        ThyListItemMeta
-    ],
+    imports: [CommonModule, ThyOptionModule, ThyAvatarModule, ThyList, ThyListItem, ThySelectionList, ThyListItemMeta],
     exports: [ThyList, ThyListItem, ThySelectionList, ThyListItemMeta, ThyOptionModule]
 })
 export class ThyListModule {}

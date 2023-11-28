@@ -86,10 +86,7 @@ const tabItemRight = 20;
         BypassSecurityTrustHtmlPipe
     ]
 })
-export class ThyNav
-    extends _MixinBase
-    implements OnInit, AfterViewInit, AfterContentInit, AfterContentChecked, OnChanges, OnDestroy
-{
+export class ThyNav extends _MixinBase implements OnInit, AfterViewInit, AfterContentInit, AfterContentChecked, OnChanges, OnDestroy {
     private type: ThyNavType = 'pulled';
     private size: ThyNavSize = 'md';
     public initialized = false;

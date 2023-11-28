@@ -32,11 +32,7 @@ export class ThyRadioButton extends ThyRadio implements OnInit {
         this.writeValue(coerceBooleanProperty(value));
     }
 
-    constructor(
-        thyTranslate: ThyTranslate,
-        @Optional() thyRadioGroupComponent: ThyRadioGroup,
-        changeDetectorRef: ChangeDetectorRef
-    ) {
+    constructor(thyTranslate: ThyTranslate, @Optional() thyRadioGroupComponent: ThyRadioGroup, changeDetectorRef: ChangeDetectorRef) {
         super(thyTranslate, thyRadioGroupComponent, changeDetectorRef);
     }
 

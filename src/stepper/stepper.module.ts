@@ -6,14 +6,7 @@ import { ThyStepper } from './stepper.component';
 import { ThyStepperNextDirective, ThyStepperPreviousDirective } from './stepper-button.directive';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        ThyStepHeader,
-        ThyStepper,
-        ThyStep,
-        ThyStepperNextDirective,
-        ThyStepperPreviousDirective
-    ],
+    imports: [CommonModule, ThyStepHeader, ThyStepper, ThyStep, ThyStepperNextDirective, ThyStepperPreviousDirective],
     exports: [ThyStepper, ThyStep, ThyStepHeader, ThyStepperNextDirective, ThyStepperPreviousDirective],
     providers: []
 })

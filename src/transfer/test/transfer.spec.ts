@@ -218,9 +218,7 @@ describe('transfer', () => {
     });
 
     it('should have class thy-transfer', () => {
-        expect(
-            fixture.debugElement.query(By.directive(ThyTransfer)).nativeElement.classList.contains('thy-transfer')
-        ).toBeTruthy();
+        expect(fixture.debugElement.query(By.directive(ThyTransfer)).nativeElement.classList.contains('thy-transfer')).toBeTruthy();
     });
 
     it('should show correct title', () => {

@@ -23,14 +23,6 @@ import { ThyMenu } from './menu.component';
         ThyMenuItemAction,
         ThyMenuDivider
     ],
-    exports: [
-        ThyMenu,
-        ThyMenuGroup,
-        ThyMenuItem,
-        ThyMenuItemName,
-        ThyMenuItemIcon,
-        ThyMenuItemAction,
-        ThyMenuDivider
-    ]
+    exports: [ThyMenu, ThyMenuGroup, ThyMenuItem, ThyMenuItemName, ThyMenuItemIcon, ThyMenuItemAction, ThyMenuDivider]
 })
 export class ThyMenuModule {}

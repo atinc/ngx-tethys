@@ -52,9 +52,7 @@ export const TIMEPICKER_CONTROL_VALUE_ACCESSOR: StaticProvider = {
     standalone: true,
     imports: [NgIf]
 })
-export class ThyInnerTimePicker
-    implements ControlValueAccessor, TimePickerComponentState, TimePickerControls, OnChanges, OnDestroy
-{
+export class ThyInnerTimePicker implements ControlValueAccessor, TimePickerComponentState, TimePickerControls, OnChanges, OnDestroy {
     /** hours change step */
     @Input() hourStep: number;
     /** hours change step */

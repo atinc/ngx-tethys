@@ -55,18 +55,7 @@ const VERTICAL_SPACE = 96 + 106; // top: 96px; bottom: 106px
         '[class.thy-image-preview-moving]': 'isDragging'
     },
     standalone: true,
-    imports: [
-        NgIf,
-        ThyTooltipDirective,
-        ThyAction,
-        CdkDrag,
-        NgFor,
-        ThyLoading,
-        ThyIcon,
-        ThyActions,
-        ThyDivider,
-        ThyCopyDirective
-    ]
+    imports: [NgIf, ThyTooltipDirective, ThyAction, CdkDrag, NgFor, ThyLoading, ThyIcon, ThyActions, ThyDivider, ThyCopyDirective]
 })
 export class ThyImagePreview extends mixinUnsubscribe(MixinBase) implements OnInit, OnDestroy {
     @Output() downloadClicked: EventEmitter<ThyImageInfo> = new EventEmitter();

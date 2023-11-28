@@ -9,15 +9,7 @@ import { ThyGuiderTargetDirective } from './guider.directive';
 import { ThyGuiderHint } from './guider-hint/guider-hint.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        ThySharedModule,
-        ThyIconModule,
-        ThyButtonModule,
-        ThyPopoverModule,
-        ThyGuiderHint,
-        ThyGuiderTargetDirective
-    ],
+    imports: [CommonModule, ThySharedModule, ThyIconModule, ThyButtonModule, ThyPopoverModule, ThyGuiderHint, ThyGuiderTargetDirective],
     exports: [ThyGuiderHint, ThyGuiderTargetDirective],
     providers: [ThyGuider]
 })

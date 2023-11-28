@@ -44,17 +44,7 @@ export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
         '[class.thy-time-picker-readonly]': `readonly`
     },
     standalone: true,
-    imports: [
-        CdkOverlayOrigin,
-        ThyInputDirective,
-        FormsModule,
-        NgTemplateOutlet,
-        NgIf,
-        ThyIcon,
-        NgClass,
-        CdkConnectedOverlay,
-        ThyTimePanel
-    ]
+    imports: [CdkOverlayOrigin, ThyInputDirective, FormsModule, NgTemplateOutlet, NgIf, ThyIcon, NgClass, CdkConnectedOverlay, ThyTimePanel]
 })
 export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccessor {
     @ViewChild(CdkConnectedOverlay, { static: true }) cdkConnectedOverlay: CdkConnectedOverlay;

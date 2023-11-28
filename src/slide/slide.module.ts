@@ -32,14 +32,7 @@ import { ThyActionModule } from 'ngx-tethys/action';
         ThySlideFooter,
         ThyDrawerContainerDirective
     ],
-    exports: [
-        ThySlideLayout,
-        ThySlideHeader,
-        ThySlideBody,
-        ThySlideBodySection,
-        ThySlideFooter,
-        ThyDrawerContainerDirective
-    ],
+    exports: [ThySlideLayout, ThySlideHeader, ThySlideBody, ThySlideBodySection, ThySlideFooter, ThyDrawerContainerDirective],
     providers: [ThyInternalSlideRef, ThySlideService, THY_SLIDE_DEFAULT_CONFIG_PROVIDER]
 })
 export class ThySlideModule {}

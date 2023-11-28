@@ -16,14 +16,7 @@ import { ThyOption } from './option.component';
 import { ThySelectOptionGroup } from './group/option-group.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        ThyIconModule,
-        ThyListOption,
-        ThyOptionGroup,
-        ThyOption,
-        ThySelectOptionGroup
-    ],
+    imports: [CommonModule, ThyIconModule, ThyListOption, ThyOptionGroup, ThyOption, ThySelectOptionGroup],
     exports: [ThyListOption, ThyOptionGroup, ThyOption, ThySelectOptionGroup]
 })
 export class ThyOptionModule {}

@@ -183,16 +183,7 @@ export class ThySidebarDirective implements OnInit {
         }
     ],
     standalone: true,
-    imports: [
-        NgTemplateOutlet,
-        NgIf,
-        ThyResizeHandle,
-        ThyResizableDirective,
-        ThyIcon,
-        ThyTooltipDirective,
-        NgClass,
-        NgStyle
-    ]
+    imports: [NgTemplateOutlet, NgIf, ThyResizeHandle, ThyResizableDirective, ThyIcon, ThyTooltipDirective, NgClass, NgStyle]
 })
 export class ThySidebar implements OnInit, OnDestroy {
     sidebarDirective = inject(ThySidebarDirective);
