@@ -12,10 +12,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { addDays, startOfDay } from 'date-fns';
 
 import { ThyPopover } from '../popover/popover.service';
-import { ThyPropertyOperationComponent, ThyPropertyOperationModule } from '../property-operation';
+import { ThyPropertyOperation, ThyPropertyOperationModule } from '../property-operation';
 import { ThyDatePickerDirective } from './date-picker.directive';
 import { ThyDatePickerModule } from './date-picker.module';
-import { DatePopupComponent } from './lib/popups/date-popup.component';
+import { DatePopup } from './lib/popups/date-popup.component';
 import { ThyPopoverConfig, ThyPopoverModule } from '../popover';
 import { CompatiblePresets, ThyShortcutPosition } from './standard-types';
 
@@ -185,7 +185,7 @@ describe('ThyPickerDirective', () => {
                 openPickerByClickTrigger();
 
                 expect(spy).toHaveBeenCalled();
-                expect(spy).toHaveBeenCalledWith(DatePopupComponent, {
+                expect(spy).toHaveBeenCalledWith(DatePopup, {
                     origin: debugElement.nativeElement.childNodes[0],
                     hasBackdrop: true,
                     backdropClass: 'thy-overlay-transparent-backdrop',
@@ -200,7 +200,7 @@ describe('ThyPickerDirective', () => {
                 fixture.detectChanges();
                 openPickerByClickTrigger();
 
-                expect(spy).toHaveBeenCalledWith(DatePopupComponent, {
+                expect(spy).toHaveBeenCalledWith(DatePopup, {
                     origin: debugElement.nativeElement.childNodes[0],
                     hasBackdrop: false,
                     backdropClass: 'thy-overlay-transparent-backdrop',
@@ -226,7 +226,7 @@ describe('ThyPickerDirective', () => {
 
                 expect(spy).toHaveBeenCalled();
                 expect(spy).toHaveBeenCalledWith(
-                    DatePopupComponent,
+                    DatePopup,
                     Object.assign(
                         {
                             origin: debugElement.nativeElement.childNodes[0],
@@ -254,7 +254,7 @@ describe('ThyPickerDirective', () => {
         });
 
         function getPickerTriggerWrapper() {
-            const element = debugElement.query(By.directive(ThyPropertyOperationComponent)).nativeElement;
+            const element = debugElement.query(By.directive(ThyPropertyOperation)).nativeElement;
             return element;
         }
 
@@ -319,7 +319,7 @@ describe('ThyPickerDirective', () => {
                 openPickerByClickTrigger();
 
                 expect(spy).toHaveBeenCalled();
-                expect(spy).toHaveBeenCalledWith(DatePopupComponent, {
+                expect(spy).toHaveBeenCalledWith(DatePopup, {
                     origin: debugElement.nativeElement.childNodes[0],
                     hasBackdrop: true,
                     backdropClass: 'thy-overlay-transparent-backdrop',
@@ -332,7 +332,7 @@ describe('ThyPickerDirective', () => {
 
         describe('should Date Popup Component enablePrevNext', () => {
             it('should Date Popup Component enablePrevNext', fakeAsync(() => {
-                const popoverRef = popover.open(DatePopupComponent, {
+                const popoverRef = popover.open(DatePopup, {
                     origin: debugElement.nativeElement.childNodes[0],
                     hasBackdrop: true,
                     backdropClass: 'thy-overlay-transparent-backdrop',
@@ -355,7 +355,7 @@ describe('ThyPickerDirective', () => {
         });
 
         function getPickerTriggerWrapper() {
-            const element = debugElement.query(By.directive(ThyPropertyOperationComponent)).nativeElement;
+            const element = debugElement.query(By.directive(ThyPropertyOperation)).nativeElement;
             return element;
         }
 

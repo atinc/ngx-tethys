@@ -1,7 +1,7 @@
 import { isTemplateRef } from 'ngx-tethys/util';
 import { SafeAny } from 'ngx-tethys/types';
 import { ChangeDetectionStrategy, Component, Input, TemplateRef } from '@angular/core';
-import { ThyAvatarComponent } from 'ngx-tethys/avatar';
+import { ThyAvatar } from 'ngx-tethys/avatar';
 import { ThyStringOrTemplateOutletDirective } from 'ngx-tethys/shared';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
 
@@ -17,9 +17,9 @@ import { NgIf, NgTemplateOutlet } from '@angular/common';
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [NgIf, NgTemplateOutlet, ThyStringOrTemplateOutletDirective, ThyAvatarComponent]
+    imports: [NgIf, NgTemplateOutlet, ThyStringOrTemplateOutletDirective, ThyAvatar]
 })
-export class ThyCommentComponent {
+export class ThyComment {
     /**
      * 展示评论作者
      */

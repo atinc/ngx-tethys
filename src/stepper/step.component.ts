@@ -1,7 +1,7 @@
 import { Component, Input, ViewChild, TemplateRef, Inject, InjectionToken, Optional } from '@angular/core';
 
 export interface IThyStepperComponent {
-    selected: ThyStepComponent;
+    selected: ThyStep;
 }
 
 export const THY_STEPPER_COMPONENT = new InjectionToken<IThyStepperComponent>('THY_STEPPER_COMPONENT');
@@ -16,7 +16,7 @@ export const THY_STEPPER_COMPONENT = new InjectionToken<IThyStepperComponent>('T
     templateUrl: './step.component.html',
     standalone: true
 })
-export class ThyStepComponent {
+export class ThyStep {
     @ViewChild(TemplateRef, { static: true }) content: TemplateRef<any>;
 
     @Input() label: string;

@@ -1,5 +1,5 @@
-import { ThyCascaderComponent } from 'ngx-tethys/cascader';
-import { ThyFormGroupComponent } from 'ngx-tethys/form';
+import { ThyCascader } from 'ngx-tethys/cascader';
+import { ThyFormGroup } from 'ngx-tethys/form';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 
 import { CommonModule } from '@angular/common';
@@ -12,9 +12,9 @@ import { clone, options } from '../cascader-address-options';
     selector: 'thy-cascader-any-level-selectable-example',
     templateUrl: './any-level-selectable.component.html',
     standalone: true,
-    imports: [ThyFormGroupComponent, ThyCascaderComponent, CommonModule, FormsModule]
+    imports: [ThyFormGroup, ThyCascader, CommonModule, FormsModule]
 })
-export class ThyCascaderAnyLevelSelectableExampleComponent implements OnInit {
+export class ThyCascaderAnyLevelSelectableExample implements OnInit {
     public areaCode = clone(options);
 
     public singleValues: any[] = ['12', '1201', '120102'];

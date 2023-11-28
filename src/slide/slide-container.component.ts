@@ -37,7 +37,7 @@ import { slideAbstractOverlayOptions, ThySlideConfig, ThySlideFromTypes } from '
     standalone: true,
     imports: [PortalModule, ThyPortalOutlet]
 })
-export class ThySlideContainerComponent extends ThyAbstractOverlayContainer implements OnDestroy {
+export class ThySlideContainer extends ThyAbstractOverlayContainer implements OnDestroy {
     @ViewChild(ThyPortalOutlet, { static: true })
     portalOutlet: ThyPortalOutlet;
 

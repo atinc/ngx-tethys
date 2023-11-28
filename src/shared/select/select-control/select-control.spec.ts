@@ -5,7 +5,7 @@ import { Component, ViewChild } from '@angular/core';
 import { ThyFormModule } from '../../../form';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ThyIconModule } from '../../../icon/icon.module';
-import { ThySelectControlComponent, SelectControlSize } from './select-control.component';
+import { ThySelectControl, SelectControlSize } from './select-control.component';
 import { SelectOptionBase } from '../../option';
 
 @Component({
@@ -45,8 +45,8 @@ class BasicSelectControlComponent {
 
     borderless = false;
 
-    @ViewChild(ThySelectControlComponent, { static: true })
-    selectControlComponent: ThySelectControlComponent;
+    @ViewChild(ThySelectControl, { static: true })
+    selectControlComponent: ThySelectControl;
 }
 
 describe('ThySelectControl', () => {

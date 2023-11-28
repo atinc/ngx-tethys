@@ -1,4 +1,4 @@
-import { ThyInputSearchComponent } from 'ngx-tethys/input';
+import { ThyInputSearch } from 'ngx-tethys/input';
 import {
     bypassSanitizeProvider,
     dispatchFakeEvent,
@@ -20,8 +20,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyFormModule } from '../../form';
 import { ThyInputModule } from '../../input/module';
 import { ThyOptionModule, ThySharedModule } from '../../shared';
-import { ThyOptionComponent } from '../../shared/option/option.component';
-import { ThyAutocompleteComponent } from '../autocomplete.component';
+import { ThyOption } from '../../shared/option/option.component';
+import { ThyAutocomplete } from '../autocomplete.component';
 import { ThyAutocompleteTriggerDirective } from '../autocomplete.trigger.directive';
 import { ThyAutocompleteModule } from '../module';
 
@@ -57,9 +57,9 @@ class BasicSelectComponent {
         { value: 'pasta-6', viewValue: 'Pasta' },
         { value: null, viewValue: 'Sushi' }
     ];
-    @ViewChild(ThyAutocompleteComponent, { static: true }) autocomplete: ThyAutocompleteComponent;
+    @ViewChild(ThyAutocomplete, { static: true }) autocomplete: ThyAutocomplete;
     @ViewChild(ThyAutocompleteTriggerDirective, { static: true }) autocompleteDirective: ThyAutocompleteTriggerDirective;
-    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
+    @ViewChildren(ThyOption) options: QueryList<ThyOption>;
 
     opened() {
         this.openedSpy();
@@ -93,8 +93,8 @@ class InputSearchSelectComponent {
         { value: 'pizza-1', viewValue: 'Pizza' }
     ];
 
-    @ViewChild(ThyAutocompleteComponent, { static: true }) autocomplete: ThyAutocompleteComponent;
-    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
+    @ViewChild(ThyAutocomplete, { static: true }) autocomplete: ThyAutocomplete;
+    @ViewChildren(ThyOption) options: QueryList<ThyOption>;
 }
 
 describe('ThyAutocomplete', () => {
@@ -322,7 +322,7 @@ describe('ThyAutocomplete', () => {
 
             beforeEach(fakeAsync(() => {
                 fixture = TestBed.createComponent(InputSearchSelectComponent);
-                debugSearchElement = fixture.debugElement.query(By.directive(ThyInputSearchComponent));
+                debugSearchElement = fixture.debugElement.query(By.directive(ThyInputSearch));
                 fixture.componentInstance.autocomplete.isMultiple = true;
                 fixture.detectChanges();
                 tick(100);

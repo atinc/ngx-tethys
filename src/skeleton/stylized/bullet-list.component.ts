@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@a
 import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
 
 import { NgFor } from '@angular/common';
-import { ThySkeletonCircleComponent } from '../skeleton-circle.component';
-import { ThySkeletonRectangleComponent } from '../skeleton-rectangle.component';
+import { ThySkeletonCircle } from '../skeleton-circle.component';
+import { ThySkeletonRectangle } from '../skeleton-rectangle.component';
 
 /**
  * 骨架屏无序列表组件
@@ -42,9 +42,9 @@ import { ThySkeletonRectangleComponent } from '../skeleton-rectangle.component';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [NgFor, ThySkeletonCircleComponent, ThySkeletonRectangleComponent]
+    imports: [NgFor, ThySkeletonCircle, ThySkeletonRectangle]
 })
-export class ThySkeletonBulletListComponent {
+export class ThySkeletonBulletList {
     /**
      * 骨架宽度
      * @default 100%

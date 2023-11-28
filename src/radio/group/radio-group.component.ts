@@ -14,8 +14,8 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { InputBoolean } from 'ngx-tethys/core';
 
-import { ThyRadioButtonComponent } from '../button/radio-button.component';
-import { ThyRadioComponent } from '../radio.component';
+import { ThyRadioButton } from '../button/radio-button.component';
+import { ThyRadio } from '../radio.component';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 const buttonGroupSizeMap = {
@@ -37,7 +37,7 @@ const radioGroupLayoutMap = {
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => ThyRadioGroupComponent),
+            useExisting: forwardRef(() => ThyRadioGroup),
             multi: true
         }
     ],
@@ -47,7 +47,7 @@ const radioGroupLayoutMap = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true
 })
-export class ThyRadioGroupComponent implements ControlValueAccessor, OnInit, OnChanges, AfterContentInit {
+export class ThyRadioGroup implements ControlValueAccessor, OnInit, OnChanges, AfterContentInit {
     @HostBinding('class.thy-radio-group') thyRadioGroup = true;
 
     @HostBinding('class.btn-group') isButtonGroup = false;
@@ -78,7 +78,7 @@ export class ThyRadioGroupComponent implements ControlValueAccessor, OnInit, OnC
 
     _innerValue: string | number;
 
-    radios: Array<ThyRadioComponent | ThyRadioButtonComponent> = [];
+    radios: Array<ThyRadio | ThyRadioButton> = [];
 
     private hostRenderer = useHostRenderer();
 
@@ -97,7 +97,7 @@ export class ThyRadioGroupComponent implements ControlValueAccessor, OnInit, OnC
 
     constructor(private changeDetectorRef: ChangeDetectorRef) {}
 
-    addRadio(radio: ThyRadioComponent | ThyRadioButtonComponent): void {
+    addRadio(radio: ThyRadio | ThyRadioButton): void {
         this.radios.push(radio);
         radio.thyChecked = radio.thyValue === this._innerValue;
     }

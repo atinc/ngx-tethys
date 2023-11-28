@@ -8,7 +8,7 @@ import { Inject, Injectable, Injector, OnDestroy, Optional, StaticProvider, Temp
 
 import { ThyConfirmConfig } from './confirm.config';
 import { ThyConfirmAbstractComponent, THY_CONFIRM_COMPONENT_TOKEN } from './confirm/token';
-import { ThyDialogContainerComponent } from './dialog-container.component';
+import { ThyDialogContainer } from './dialog-container.component';
 import { ThyDialogRef, ThyInternalDialogRef } from './dialog-ref';
 import { THY_DIALOG_DEFAULT_OPTIONS, ThyDialogConfig, ThyDialogSizes } from './dialog.config';
 import { dialogAbstractOverlayOptions } from './dialog.options';
@@ -18,7 +18,7 @@ import { dialogAbstractOverlayOptions } from './dialog.options';
  * @order 10
  */
 @Injectable()
-export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDialogContainerComponent> implements OnDestroy {
+export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDialogContainer> implements OnDestroy {
     protected buildOverlayConfig(config: ThyDialogConfig<any>): OverlayConfig {
         const size = config.size || ThyDialogSizes.md;
         const overlayConfig = this.buildBaseOverlayConfig(config, [`dialog-${size}`]);
@@ -27,35 +27,35 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
         return overlayConfig;
     }
 
-    protected attachOverlayContainer(overlay: OverlayRef, config: ThyDialogConfig<any>): ThyDialogContainerComponent {
+    protected attachOverlayContainer(overlay: OverlayRef, config: ThyDialogConfig<any>): ThyDialogContainer {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
         const injector = Injector.create({
             parent: userInjector || this.injector,
             providers: [{ provide: ThyDialogConfig, useValue: config }]
         });
-        const containerPortal = new ComponentPortal(ThyDialogContainerComponent, config.viewContainerRef, injector);
-        const containerRef = overlay.attach<ThyDialogContainerComponent>(containerPortal);
+        const containerPortal = new ComponentPortal(ThyDialogContainer, config.viewContainerRef, injector);
+        const containerRef = overlay.attach<ThyDialogContainer>(containerPortal);
 
         return containerRef.instance;
     }
 
     protected createAbstractOverlayRef<T, TResult>(
         overlayRef: OverlayRef,
-        containerInstance: ThyDialogContainerComponent,
+        containerInstance: ThyDialogContainer,
         config: ThyDialogConfig<any>
-    ): ThyAbstractOverlayRef<T, ThyDialogContainerComponent, TResult> {
+    ): ThyAbstractOverlayRef<T, ThyDialogContainer, TResult> {
         return new ThyInternalDialogRef(overlayRef, containerInstance, config);
     }
 
     protected createInjector<T>(
         config: ThyDialogConfig,
         dialogRef: ThyDialogRef<T>,
-        dialogContainer: ThyDialogContainerComponent
+        dialogContainer: ThyDialogContainer
     ): Injector {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
 
         const injectionTokens: StaticProvider[] = [
-            { provide: ThyDialogContainerComponent, useValue: dialogContainer },
+            { provide: ThyDialogContainer, useValue: dialogContainer },
             {
                 provide: ThyDialogRef,
                 useValue: dialogRef

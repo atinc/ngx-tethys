@@ -2,7 +2,7 @@ import { Component, NgModule } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { ThyVoteComponent } from '../vote.component';
+import { ThyVote } from '../vote.component';
 import { ThyVoteModule } from '../vote.module';
 
 describe('ThyVote', () => {
@@ -24,7 +24,7 @@ describe('ThyVote', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(ThyDemoVoteBasicComponent);
         basicTestComponent = fixture.debugElement.componentInstance;
-        voteComponent = fixture.debugElement.query(By.directive(ThyVoteComponent));
+        voteComponent = fixture.debugElement.query(By.directive(ThyVote));
     });
 
     it('should have correct class', () => {

@@ -29,7 +29,7 @@ import { autocompleteAbstractOverlayOptions } from './autocomplete.options';
     standalone: true,
     imports: [PortalModule, ThyPortalOutlet]
 })
-export class ThyAutocompleteContainerComponent extends ThyAbstractOverlayContainer implements AfterViewInit {
+export class ThyAutocompleteContainer extends ThyAbstractOverlayContainer implements AfterViewInit {
     @ViewChild(ThyPortalOutlet, { static: true })
     portalOutlet: ThyPortalOutlet;
 

@@ -1,6 +1,6 @@
 import { Component, HostBinding, Input, OnInit, ContentChildren, QueryList, NgZone, OnDestroy, AfterContentInit } from '@angular/core';
 import { Observable, defer, Subject, merge, combineLatest } from 'rxjs';
-import { ThyOptionVisibleChangeEvent, ThyOptionComponent } from '../option.component';
+import { ThyOptionVisibleChangeEvent, ThyOption } from '../option.component';
 import { take, switchMap, startWith, takeUntil, reduce, debounceTime, map } from 'rxjs/operators';
 import { THY_OPTION_GROUP_COMPONENT } from '../option.token';
 import { InputBoolean } from 'ngx-tethys/core';
@@ -14,12 +14,12 @@ import { InputBoolean } from 'ngx-tethys/core';
     providers: [
         {
             provide: THY_OPTION_GROUP_COMPONENT,
-            useExisting: ThySelectOptionGroupComponent
+            useExisting: ThySelectOptionGroup
         }
     ],
     standalone: true
 })
-export class ThySelectOptionGroupComponent implements OnDestroy, AfterContentInit {
+export class ThySelectOptionGroup implements OnDestroy, AfterContentInit {
     _hidden = false;
     @Input()
     @InputBoolean()
@@ -35,7 +35,7 @@ export class ThySelectOptionGroupComponent implements OnDestroy, AfterContentIni
 
     @Input() thyGroupLabel: string;
 
-    @ContentChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
+    @ContentChildren(ThyOption) options: QueryList<ThyOption>;
 
     _destroy$: Subject<void> = new Subject<void>();
 

@@ -26,4 +26,4 @@ export class ThySidebarFooterDirective {}
     hostDirectives: [ThySidebarFooterDirective],
     standalone: true
 })
-export class ThySidebarFooterComponent {}
+export class ThySidebarFooter {}

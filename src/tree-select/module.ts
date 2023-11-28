@@ -6,7 +6,7 @@ import { ThyEmptyModule } from 'ngx-tethys/empty';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyListModule } from 'ngx-tethys/list';
 import { ThySelectCommonModule, ThySharedModule } from 'ngx-tethys/shared';
-import { ThyTreeSelectComponent, ThyTreeSelectNodesComponent } from './tree-select.component';
+import { ThyTreeSelect, ThyTreeSelectNodes } from './tree-select.component';
 
 @NgModule({
     imports: [
@@ -18,9 +18,9 @@ import { ThyTreeSelectComponent, ThyTreeSelectNodesComponent } from './tree-sele
         ThyEmptyModule,
         ThySelectCommonModule,
         ThySharedModule,
-        ThyTreeSelectComponent,
-        ThyTreeSelectNodesComponent
+        ThyTreeSelect,
+        ThyTreeSelectNodes
     ],
-    exports: [ThyTreeSelectComponent, ThyTreeSelectNodesComponent]
+    exports: [ThyTreeSelect, ThyTreeSelectNodes]
 })
 export class ThyTreeSelectModule {}

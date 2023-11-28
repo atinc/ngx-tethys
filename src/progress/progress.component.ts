@@ -16,8 +16,8 @@ import {
 import { useHostRenderer } from '@tethys/cdk/dom';
 
 import { ThyProgressGapPositionType, ThyProgressShapeType, ThyProgressStackedValue, ThyProgressType } from './interfaces';
-import { THY_PROGRESS_COMPONENT, ThyParentProgress, ThyProgressStripComponent } from './progress-strip.component';
-import { ThyProgressCircleComponent } from './progress-circle.component';
+import { THY_PROGRESS_COMPONENT, ThyParentProgress, ThyProgressStrip } from './progress-strip.component';
+import { ThyProgressCircle } from './progress-circle.component';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { NgIf, NgFor, NgClass, NgTemplateOutlet } from '@angular/common';
 import { InputNumber } from 'ngx-tethys/core';
@@ -34,7 +34,7 @@ import { InputNumber } from 'ngx-tethys/core';
     providers: [
         {
             provide: THY_PROGRESS_COMPONENT,
-            useExisting: ThyProgressComponent
+            useExisting: ThyProgress
         }
     ],
     host: {
@@ -43,12 +43,12 @@ import { InputNumber } from 'ngx-tethys/core';
         '[class.thy-progress-circle]': `thyShape === 'circle'`
     },
     standalone: true,
-    imports: [NgIf, NgFor, ThyProgressStripComponent, NgClass, ThyTooltipDirective, NgTemplateOutlet, ThyProgressCircleComponent]
+    imports: [NgIf, NgFor, ThyProgressStrip, NgClass, ThyTooltipDirective, NgTemplateOutlet, ThyProgressCircle]
 })
-export class ThyProgressComponent implements ThyParentProgress, OnInit, OnChanges {
+export class ThyProgress implements ThyParentProgress, OnInit, OnChanges {
     value: number | ThyProgressStackedValue[];
 
-    bars: ThyProgressStripComponent[] = [];
+    bars: ThyProgressStrip[] = [];
 
     barsTotalValue: number;
 
@@ -60,8 +60,8 @@ export class ThyProgressComponent implements ThyParentProgress, OnInit, OnChange
 
     @HostBinding(`class.progress-stacked`) isStacked = false;
 
-    @ViewChildren(ThyProgressStripComponent)
-    set barsQueryList(value: QueryList<ThyProgressStripComponent>) {
+    @ViewChildren(ThyProgressStrip)
+    set barsQueryList(value: QueryList<ThyProgressStrip>) {
         this.bars = value.toArray();
     }
 

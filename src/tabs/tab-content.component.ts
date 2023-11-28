@@ -27,7 +27,7 @@ import { NgIf, NgTemplateOutlet } from '@angular/common';
     standalone: true,
     imports: [NgIf, NgTemplateOutlet]
 })
-export class ThyTabContentComponent {
+export class ThyTabContent {
     @Input() content: TemplateRef<void> | null = null;
 
     @Input() active = false;

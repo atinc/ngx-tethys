@@ -1,7 +1,7 @@
 import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
 import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
-import { ThySkeletonRectangleComponent } from '../skeleton-rectangle.component';
+import { ThySkeletonRectangle } from '../skeleton-rectangle.component';
 
 /**
  * 骨架屏列表组件
@@ -29,9 +29,9 @@ import { ThySkeletonRectangleComponent } from '../skeleton-rectangle.component';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [NgFor, ThySkeletonRectangleComponent]
+    imports: [NgFor, ThySkeletonRectangle]
 })
-export class ThySkeletonListComponent {
+export class ThySkeletonList {
     /**
      * 骨架宽度
      */

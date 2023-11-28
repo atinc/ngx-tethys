@@ -21,7 +21,7 @@ import {
 } from '@angular/core';
 
 import { AbstractPickerComponent } from './abstract-picker.component';
-import { DatePopupComponent } from './lib/popups/date-popup.component';
+import { DatePopup } from './lib/popups/date-popup.component';
 import { ThyDateChangeEvent, ThyPanelMode, ThyShortcutValueChange } from './standard-types';
 import { CompatibleValue } from './inner-types';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -139,7 +139,7 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
     private openOverlay(): void {
         this.getInitialState();
         const popoverRef = this.thyPopover.open(
-            DatePopupComponent,
+            DatePopup,
             Object.assign(
                 {
                     origin: this.el,

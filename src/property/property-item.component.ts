@@ -18,8 +18,8 @@ import {
     TemplateRef,
     ViewChild
 } from '@angular/core';
-import { ThyPropertiesComponent } from './properties.component';
-import { ThyFlexibleTextComponent } from 'ngx-tethys/flexible-text';
+import { ThyProperties } from './properties.component';
+import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
 
 export type ThyPropertyItemOperationTrigger = 'hover' | 'always';
@@ -38,9 +38,9 @@ export type ThyPropertyItemOperationTrigger = 'hover' | 'always';
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [NgIf, ThyFlexibleTextComponent, NgTemplateOutlet]
+    imports: [NgIf, ThyFlexibleText, NgTemplateOutlet]
 })
-export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
+export class ThyPropertyItem implements OnInit, OnChanges, OnDestroy {
     /**
      * 属性名称
      * @type sting
@@ -119,7 +119,7 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
         private clickDispatcher: ThyClickDispatcher,
         private ngZone: NgZone,
         private overlayOutsideClickDispatcher: OverlayOutsideClickDispatcher,
-        private parent: ThyPropertiesComponent
+        private parent: ThyProperties
     ) {
         this.originOverlays = [...this.overlayOutsideClickDispatcher._attachedOverlays] as OverlayRef[];
     }

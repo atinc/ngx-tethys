@@ -1,7 +1,7 @@
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyLoadingComponent } from '..';
+import { ThyLoading } from '..';
 import { ThyLoadingModule } from '../loading.module';
 
 @Component({
@@ -33,7 +33,7 @@ describe('test loading', () => {
 
         fixture = TestBed.createComponent(TestLoadingComponent);
         testComponent = fixture.debugElement.componentInstance;
-        loadingComponent = fixture.debugElement.query(By.directive(ThyLoadingComponent));
+        loadingComponent = fixture.debugElement.query(By.directive(ThyLoading));
         loadingElement = loadingComponent.nativeElement;
     });
 

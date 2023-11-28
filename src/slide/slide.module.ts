@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThySharedModule } from 'ngx-tethys/shared';
 import { ThySlideService } from './slide.service';
-import { ThySlideContainerComponent } from './slide-container.component';
+import { ThySlideContainer } from './slide-container.component';
 import { ThyInternalSlideRef } from './slide-ref.service';
-import { ThySlideLayoutComponent } from './slide-layout/slide-layout.component';
-import { ThySlideHeaderComponent } from './slide-header/slide-header.component';
-import { ThySlideBodyComponent } from './slide-body/slide-body.component';
-import { ThySlideBodySectionComponent } from './slide-body/slide-body-section.component';
-import { ThySlideFooterComponent } from './slide-footer/slide-footer.component';
+import { ThySlideLayout } from './slide-layout/slide-layout.component';
+import { ThySlideHeader } from './slide-header/slide-header.component';
+import { ThySlideBody } from './slide-body/slide-body.component';
+import { ThySlideBodySection } from './slide-body/slide-body-section.component';
+import { ThySlideFooter } from './slide-footer/slide-footer.component';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
@@ -24,20 +24,20 @@ import { ThyActionModule } from 'ngx-tethys/action';
         OverlayModule,
         PortalModule,
         ThyActionModule,
-        ThySlideContainerComponent,
-        ThySlideLayoutComponent,
-        ThySlideHeaderComponent,
-        ThySlideBodyComponent,
-        ThySlideBodySectionComponent,
-        ThySlideFooterComponent,
+        ThySlideContainer,
+        ThySlideLayout,
+        ThySlideHeader,
+        ThySlideBody,
+        ThySlideBodySection,
+        ThySlideFooter,
         ThyDrawerContainerDirective
     ],
     exports: [
-        ThySlideLayoutComponent,
-        ThySlideHeaderComponent,
-        ThySlideBodyComponent,
-        ThySlideBodySectionComponent,
-        ThySlideFooterComponent,
+        ThySlideLayout,
+        ThySlideHeader,
+        ThySlideBody,
+        ThySlideBodySection,
+        ThySlideFooter,
         ThyDrawerContainerDirective
     ],
     providers: [ThyInternalSlideRef, ThySlideService, THY_SLIDE_DEFAULT_CONFIG_PROVIDER]

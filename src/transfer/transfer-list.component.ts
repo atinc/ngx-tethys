@@ -15,7 +15,7 @@ import {
 } from '@angular/core';
 
 import { NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
-import { ThyListComponent, ThyListItemComponent } from 'ngx-tethys/list';
+import { ThyList, ThyListItem } from 'ngx-tethys/list';
 import { ThyDragDropDirective } from 'ngx-tethys/shared';
 import { InnerTransferDragEvent, ThyTransferDragEvent, ThyTransferItem, ThyTransferSelectEvent } from './transfer.interface';
 
@@ -30,17 +30,17 @@ import { InnerTransferDragEvent, ThyTransferDragEvent, ThyTransferItem, ThyTrans
     imports: [
         NgIf,
         CdkDropListGroup,
-        ThyListComponent,
+        ThyList,
         CdkDropList,
         ThyDragDropDirective,
         NgFor,
-        ThyListItemComponent,
+        ThyListItem,
         CdkDrag,
         NgClass,
         NgTemplateOutlet
     ]
 })
-export class ThyTransferListComponent implements OnInit, DoCheck {
+export class ThyTransferList implements OnInit, DoCheck {
     public lockItems: ThyTransferItem[] = [];
 
     public unlockItems: ThyTransferItem[] = [];

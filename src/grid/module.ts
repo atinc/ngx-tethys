@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { ThyRowDirective } from './thy-row.directive';
 import { ThyColDirective } from './thy-col.directive';
 import { ThyGrid, ThyGridComponent } from './thy-grid.component';
-import { ThyGridItemComponent } from './thy-grid-item.component';
+import { ThyGridItem } from './thy-grid-item.component';
 import { ThyFlex, ThyFlexComponent, ThyFlexItem, ThyFlexItemComponent } from './flex';
 
 @NgModule({
     exports: [
         ThyGrid,
         ThyGridComponent,
-        ThyGridItemComponent,
+        ThyGridItem,
         ThyRowDirective,
         ThyColDirective,
         ThyFlex,
@@ -20,7 +20,7 @@ import { ThyFlex, ThyFlexComponent, ThyFlexItem, ThyFlexItemComponent } from './
     imports: [
         ThyGrid,
         ThyGridComponent,
-        ThyGridItemComponent,
+        ThyGridItem,
         ThyRowDirective,
         ThyColDirective,
         ThyFlex,

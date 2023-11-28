@@ -17,7 +17,7 @@ import {
 import { ControlValueAccessor } from '@angular/forms';
 
 import { CompatibleValue, RangeAdvancedValue } from './inner-types';
-import { ThyPickerComponent } from './picker.component';
+import { ThyPicker } from './picker.component';
 import { makeValue, transformDateValue } from './picker.util';
 import {
     CompatibleDate,
@@ -172,7 +172,7 @@ export abstract class AbstractPickerComponent
 
     @Output() readonly thyOpenChange = new EventEmitter<boolean>();
 
-    @ViewChild(ThyPickerComponent, { static: true }) public picker: ThyPickerComponent;
+    @ViewChild(ThyPicker, { static: true }) public picker: ThyPicker;
 
     /**
      * 是否禁用

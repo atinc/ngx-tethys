@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit } from '@angular/core';
 import ThyColor from './helpers/color.class';
-import { ThyColorInputsComponent } from './parts/inputs/inputs.component';
-import { ThyIndicatorComponent } from './parts/indicator/indicator.component';
-import { ThyAlphaComponent } from './parts/alpha/alpha.component';
-import { ThyHueComponent } from './parts/hue/hue.component';
-import { ThySaturationComponent } from './parts/saturation/saturation.component';
+import { ThyColorInputs } from './parts/inputs/inputs.component';
+import { ThyIndicator } from './parts/indicator/indicator.component';
+import { ThyAlpha } from './parts/alpha/alpha.component';
+import { ThyHue } from './parts/hue/hue.component';
+import { ThySaturation } from './parts/saturation/saturation.component';
 
 /**
  * @internal
@@ -14,9 +14,9 @@ import { ThySaturationComponent } from './parts/saturation/saturation.component'
     templateUrl: './color-picker-custom-panel.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [ThySaturationComponent, ThyHueComponent, ThyAlphaComponent, ThyIndicatorComponent, ThyColorInputsComponent]
+    imports: [ThySaturation, ThyHue, ThyAlpha, ThyIndicator, ThyColorInputs]
 })
-export class ThyColorPickerCustomPanelComponent implements OnInit {
+export class ThyColorPickerCustomPanel implements OnInit {
     @HostBinding('class.thy-color-picker-custom-panel') className = true;
 
     colorInstance: ThyColor;

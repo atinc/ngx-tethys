@@ -24,7 +24,7 @@ import ThyColor from '../../helpers/color.class';
     standalone: true,
     imports: [ThyCoordinatesDirective]
 })
-export class ThyAlphaComponent implements OnChanges {
+export class ThyAlpha implements OnChanges {
     @HostBinding('class.thy-alpha') className = true;
 
     @Input() color: ThyColor;

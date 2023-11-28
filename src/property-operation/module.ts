@@ -5,8 +5,8 @@ import { ThyIconModule } from 'ngx-tethys/icon';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { ThyPropertyOperationGroupComponent } from './group/property-operation-group.component';
-import { ThyPropertyOperationComponent } from './property-operation.component';
+import { ThyPropertyOperationGroup } from './group/property-operation-group.component';
+import { ThyPropertyOperation } from './property-operation.component';
 
 @NgModule({
     imports: [
@@ -14,9 +14,9 @@ import { ThyPropertyOperationComponent } from './property-operation.component';
         ThyButtonModule,
         ThyIconModule,
         ThyFlexibleTextModule,
-        ThyPropertyOperationComponent,
-        ThyPropertyOperationGroupComponent
+        ThyPropertyOperation,
+        ThyPropertyOperationGroup
     ],
-    exports: [ThyPropertyOperationComponent, ThyPropertyOperationGroupComponent]
+    exports: [ThyPropertyOperation, ThyPropertyOperationGroup]
 })
 export class ThyPropertyOperationModule {}

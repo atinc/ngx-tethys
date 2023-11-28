@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, AfterViewInit, ElementRef, Renderer2 } from '@angular/core';
-import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyIcon } from 'ngx-tethys/icon';
 
 /**
  * 面包屑 Item 组件
@@ -15,9 +15,9 @@ import { ThyIconComponent } from 'ngx-tethys/icon';
         class: 'thy-breadcrumb-item'
     },
     standalone: true,
-    imports: [ThyIconComponent]
+    imports: [ThyIcon]
 })
-export class ThyBreadcrumbItemComponent implements AfterViewInit {
+export class ThyBreadcrumbItem implements AfterViewInit {
     constructor(private renderer: Renderer2, private elementRef: ElementRef) {}
 
     ngAfterViewInit() {

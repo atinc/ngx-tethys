@@ -2,7 +2,7 @@ import { Component, forwardRef, OnInit, Input, Optional, ChangeDetectionStrategy
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyTranslate } from 'ngx-tethys/core';
 import { ThyFormCheckBaseComponent } from 'ngx-tethys/shared';
-import { ThyRadioGroupComponent } from './group/radio-group.component';
+import { ThyRadioGroup } from './group/radio-group.component';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { NgClass, NgIf } from '@angular/common';
 
@@ -18,7 +18,7 @@ import { NgClass, NgIf } from '@angular/common';
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => ThyRadioComponent),
+            useExisting: forwardRef(() => ThyRadio),
             multi: true
         }
     ],
@@ -29,7 +29,7 @@ import { NgClass, NgIf } from '@angular/common';
     standalone: true,
     imports: [NgClass, NgIf]
 })
-export class ThyRadioComponent extends ThyFormCheckBaseComponent implements OnInit {
+export class ThyRadio extends ThyFormCheckBaseComponent implements OnInit {
     name: string;
 
     /**
@@ -44,7 +44,7 @@ export class ThyRadioComponent extends ThyFormCheckBaseComponent implements OnIn
 
     constructor(
         public thyTranslate: ThyTranslate,
-        @Optional() public thyRadioGroupComponent: ThyRadioGroupComponent,
+        @Optional() public thyRadioGroupComponent: ThyRadioGroup,
         changeDetectorRef: ChangeDetectorRef
     ) {
         super(thyTranslate, changeDetectorRef);

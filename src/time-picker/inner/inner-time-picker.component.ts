@@ -37,7 +37,7 @@ import { ThyTimePickerStore } from './inner-time-picker.store';
 
 export const TIMEPICKER_CONTROL_VALUE_ACCESSOR: StaticProvider = {
     provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => ThyInnerTimePickerComponent),
+    useExisting: forwardRef(() => ThyInnerTimePicker),
     multi: true
 };
 
@@ -52,7 +52,7 @@ export const TIMEPICKER_CONTROL_VALUE_ACCESSOR: StaticProvider = {
     standalone: true,
     imports: [NgIf]
 })
-export class ThyInnerTimePickerComponent
+export class ThyInnerTimePicker
     implements ControlValueAccessor, TimePickerComponentState, TimePickerControls, OnChanges, OnDestroy
 {
     /** hours change step */

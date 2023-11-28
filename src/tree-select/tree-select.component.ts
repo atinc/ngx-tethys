@@ -27,9 +27,9 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { ThyEmptyComponent } from 'ngx-tethys/empty';
-import { ThyIconComponent } from 'ngx-tethys/icon';
-import { ThySelectControlComponent, ThyStopPropagationDirective } from 'ngx-tethys/shared';
+import { ThyEmpty } from 'ngx-tethys/empty';
+import { ThyIcon } from 'ngx-tethys/icon';
+import { ThySelectControl, ThyStopPropagationDirective } from 'ngx-tethys/shared';
 import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';
 
 type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
@@ -64,18 +64,18 @@ export function filterTreeData(treeNodes: ThyTreeSelectNode[], searchText: strin
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => ThyTreeSelectComponent),
+            useExisting: forwardRef(() => ThyTreeSelect),
             multi: true
         }
     ],
     standalone: true,
     imports: [
         CdkOverlayOrigin,
-        ThySelectControlComponent,
+        ThySelectControl,
         NgIf,
         NgTemplateOutlet,
         CdkConnectedOverlay,
-        forwardRef(() => ThyTreeSelectNodesComponent),
+        forwardRef(() => ThyTreeSelectNodes),
         ThyStopPropagationDirective
     ],
     host: {
@@ -84,7 +84,7 @@ export function filterTreeData(treeNodes: ThyTreeSelectNode[], searchText: strin
         '(blur)': 'onBlur($event)'
     }
 })
-export class ThyTreeSelectComponent extends TabIndexDisabledControlValueAccessorMixin implements OnInit, OnDestroy, ControlValueAccessor {
+export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin implements OnInit, OnDestroy, ControlValueAccessor {
     @HostBinding('class.thy-select-custom') treeSelectClass = true;
 
     @HostBinding('class.thy-select') isTreeSelect = true;
@@ -565,16 +565,16 @@ const DEFAULT_ITEM_SIZE = 40;
         CdkVirtualScrollViewport,
         CdkFixedSizeVirtualScroll,
         CdkVirtualForOf,
-        ThyEmptyComponent,
+        ThyEmpty,
         NgClass,
         NgStyle,
-        ThyIconComponent
+        ThyIcon
     ],
     host: {
         '[attr.tabindex]': '-1'
     }
 })
-export class ThyTreeSelectNodesComponent implements OnInit {
+export class ThyTreeSelectNodes implements OnInit {
     @HostBinding('class') class: string;
 
     nodeList: ThyTreeSelectNode[] = [];
@@ -606,7 +606,7 @@ export class ThyTreeSelectNodesComponent implements OnInit {
 
     public thyVirtualHeight: string = null;
 
-    constructor(public parent: ThyTreeSelectComponent) {}
+    constructor(public parent: ThyTreeSelect) {}
 
     ngOnInit() {
         this.class = this.isMultiple ? 'thy-tree-select-dropdown thy-tree-select-dropdown-multiple' : 'thy-tree-select-dropdown';

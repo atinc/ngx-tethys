@@ -15,17 +15,17 @@ import { DateHelperService } from '../../date-helper.service';
 import { RangePartType } from '../../inner-types';
 import { isAfterMoreThanLessOneYear, isAfterMoreThanOneDecade, isAfterMoreThanOneMonth, isAfterMoreThanOneYear } from '../../picker.util';
 import { DisabledDateFn, ThyPanelMode } from '../../standard-types';
-import { DateHeaderComponent } from '../date/date-header.component';
-import { DateTableComponent } from '../date/date-table.component';
+import { DateHeader } from '../date/date-header.component';
+import { DateTable } from '../date/date-table.component';
 
 import { NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
 import { ThyInputDirective } from 'ngx-tethys/input';
-import { DecadeHeaderComponent } from '../decade/decade-header.component';
-import { DecadeTableComponent } from '../decade/decade-table.component';
-import { MonthHeaderComponent } from '../month/month-header.component';
-import { MonthTableComponent } from '../month/month-table.component';
-import { YearHeaderComponent } from '../year/year-header.component';
-import { YearTableComponent } from '../year/year-table.component';
+import { DecadeHeader } from '../decade/decade-header.component';
+import { DecadeTable } from '../decade/decade-table.component';
+import { MonthHeader } from '../month/month-header.component';
+import { MonthTable } from '../month/month-table.component';
+import { YearHeader } from '../year/year-header.component';
+import { YearTable } from '../year/year-table.component';
 
 /**
  * @private
@@ -42,18 +42,18 @@ import { YearTableComponent } from '../year/year-table.component';
         ThyInputDirective,
         NgSwitch,
         NgSwitchCase,
-        DecadeHeaderComponent,
-        DecadeTableComponent,
-        YearHeaderComponent,
-        YearTableComponent,
-        MonthHeaderComponent,
-        MonthTableComponent,
+        DecadeHeader,
+        DecadeTable,
+        YearHeader,
+        YearTable,
+        MonthHeader,
+        MonthTable,
         NgSwitchDefault,
-        DateHeaderComponent,
-        DateTableComponent
+        DateHeader,
+        DateTable
     ]
 })
-export class InnerPopupComponent implements OnChanges {
+export class InnerPopup implements OnChanges {
     @HostBinding('class.thy-calendar-picker-inner-popup') className = true;
     @HostBinding('class.thy-calendar-picker-inner-popup-with-range-input') _showDateRangeInput = false;
 

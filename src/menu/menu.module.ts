@@ -2,35 +2,35 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyPopoverModule } from 'ngx-tethys/popover';
-import { ThyMenuDividerComponent } from './divider/menu-divider.component';
-import { ThyMenuGroupComponent } from './group/menu-group.component';
-import { ThyMenuItemActionComponent } from './item/action/menu-item-action.component';
-import { ThyMenuItemIconComponent } from './item/icon/menu-item-icon.component';
-import { ThyMenuItemComponent } from './item/menu-item.component';
-import { ThyMenuItemNameComponent } from './item/name/menu-item-name.component';
-import { ThyMenuComponent } from './menu.component';
+import { ThyMenuDivider } from './divider/menu-divider.component';
+import { ThyMenuGroup } from './group/menu-group.component';
+import { ThyMenuItemAction } from './item/action/menu-item-action.component';
+import { ThyMenuItemIcon } from './item/icon/menu-item-icon.component';
+import { ThyMenuItem } from './item/menu-item.component';
+import { ThyMenuItemName } from './item/name/menu-item-name.component';
+import { ThyMenu } from './menu.component';
 
 @NgModule({
     imports: [
         CommonModule,
         ThyIconModule,
         ThyPopoverModule,
-        ThyMenuComponent,
-        ThyMenuGroupComponent,
-        ThyMenuItemComponent,
-        ThyMenuItemNameComponent,
-        ThyMenuItemIconComponent,
-        ThyMenuItemActionComponent,
-        ThyMenuDividerComponent
+        ThyMenu,
+        ThyMenuGroup,
+        ThyMenuItem,
+        ThyMenuItemName,
+        ThyMenuItemIcon,
+        ThyMenuItemAction,
+        ThyMenuDivider
     ],
     exports: [
-        ThyMenuComponent,
-        ThyMenuGroupComponent,
-        ThyMenuItemComponent,
-        ThyMenuItemNameComponent,
-        ThyMenuItemIconComponent,
-        ThyMenuItemActionComponent,
-        ThyMenuDividerComponent
+        ThyMenu,
+        ThyMenuGroup,
+        ThyMenuItem,
+        ThyMenuItemName,
+        ThyMenuItemIcon,
+        ThyMenuItemAction,
+        ThyMenuDivider
     ]
 })
 export class ThyMenuModule {}

@@ -1,5 +1,5 @@
 import { Component, Input, HostBinding, ChangeDetectionStrategy, TemplateRef, ContentChild } from '@angular/core';
-import { ThyAvatarComponent } from 'ngx-tethys/avatar';
+import { ThyAvatar } from 'ngx-tethys/avatar';
 import { NgIf } from '@angular/common';
 
 /**
@@ -11,9 +11,9 @@ import { NgIf } from '@angular/common';
     templateUrl: './list-item-meta.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [NgIf, ThyAvatarComponent]
+    imports: [NgIf, ThyAvatar]
 })
-export class ThyListItemMetaComponent {
+export class ThyListItemMeta {
     /**
      * 列表项的左侧图片
      */

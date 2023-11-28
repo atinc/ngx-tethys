@@ -17,7 +17,7 @@ import {
 import { AbstractPickerComponent } from './abstract-picker.component';
 import { CompatibleValue, RangeAdvancedValue } from './inner-types';
 import { CompatibleDate, ThyPanelMode } from './standard-types';
-import { ThyPickerComponent } from './picker.component';
+import { ThyPicker } from './picker.component';
 import { hasTimeInStringDate, isValidStringDate, parseStringDate, transformDateValue } from './picker.util';
 
 /**
@@ -32,7 +32,7 @@ import { hasTimeInStringDate, isValidStringDate, parseStringDate, transformDateV
         '(blur)': 'onBlur($event)'
     }
 })
-export class BasePickerComponent extends AbstractPickerComponent implements OnInit, OnChanges {
+export class BasePicker extends AbstractPickerComponent implements OnInit, OnChanges {
     showWeek = false;
 
     panelMode: ThyPanelMode | ThyPanelMode[];
@@ -41,7 +41,7 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
 
     private innerPreviousDate: string;
 
-    @ViewChild('thyPicker', { static: true }) thyPicker: ThyPickerComponent;
+    @ViewChild('thyPicker', { static: true }) thyPicker: ThyPicker;
 
     @Input() thyDateRender: FunctionProp<TemplateRef<Date> | string>;
 

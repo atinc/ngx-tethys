@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import {
     ThyGrid,
     ThyGridComponent,
-    ThyGridItemComponent,
+    ThyGridItem,
     ThyGridModule,
     ThyGridResponsiveDescription,
     ThyGridResponsiveMode
@@ -82,7 +82,7 @@ describe('grid', () => {
             expect(gridElement).toBeTruthy();
             expect(gridElement.classList.contains('thy-grid')).toBeTruthy();
 
-            const gridItems = gridDebugElement.queryAll(By.directive(ThyGridItemComponent));
+            const gridItems = gridDebugElement.queryAll(By.directive(ThyGridItem));
             expect(gridItems).toBeTruthy();
             expect(gridItems.length).toBe(2);
         });
@@ -102,7 +102,7 @@ describe('grid', () => {
         });
 
         it('should have correct default value for grid item', () => {
-            const gridItems = gridDebugElement.queryAll(By.directive(ThyGridItemComponent));
+            const gridItems = gridDebugElement.queryAll(By.directive(ThyGridItem));
             expect(gridItems).toBeTruthy();
             expect(gridItems.length).toBe(2);
             gridItems.forEach(gridItem => {
@@ -220,7 +220,7 @@ describe('grid', () => {
 
         describe('thySpan', () => {
             it('should support default thySpan', () => {
-                const gridItem = gridDebugElement.queryAll(By.directive(ThyGridItemComponent))[1];
+                const gridItem = gridDebugElement.queryAll(By.directive(ThyGridItem))[1];
                 const gridItemElement = gridItem.nativeElement;
                 expect(gridItemElement.style.gridColumn).toContain('span 1');
             });
@@ -230,7 +230,7 @@ describe('grid', () => {
                 fixture.detectChanges();
                 gridInstance.ngAfterContentInit();
 
-                const gridItem = gridDebugElement.queryAll(By.directive(ThyGridItemComponent))[0];
+                const gridItem = gridDebugElement.queryAll(By.directive(ThyGridItem))[0];
                 const gridItemElement = gridItem.nativeElement;
                 expect(gridItemElement.style.display).toBe('none');
             });
@@ -240,7 +240,7 @@ describe('grid', () => {
                 fixture.detectChanges();
                 gridInstance.ngAfterContentInit();
 
-                const gridItem = gridDebugElement.queryAll(By.directive(ThyGridItemComponent))[1];
+                const gridItem = gridDebugElement.queryAll(By.directive(ThyGridItem))[1];
                 const gridItemElement = gridItem.nativeElement;
                 expect(gridItemElement.style.gridColumn).toContain('span 2');
             });
@@ -253,7 +253,7 @@ describe('grid', () => {
                 gridInstance.ngOnInit();
                 gridInstance.ngAfterContentInit();
 
-                const gridItem = gridDebugElement.queryAll(By.directive(ThyGridItemComponent))[0];
+                const gridItem = gridDebugElement.queryAll(By.directive(ThyGridItem))[0];
                 const gridItemElement = gridItem.nativeElement;
                 assertResponsiveSpan(500, 0);
                 assertResponsiveSpan(600, 2);
@@ -275,14 +275,14 @@ describe('grid', () => {
 
         describe('thyOffset', () => {
             it('should support default thyOffset', () => {
-                const gridItem = gridDebugElement.queryAll(By.directive(ThyGridItemComponent))[0];
+                const gridItem = gridDebugElement.queryAll(By.directive(ThyGridItem))[0];
                 const gridItemElement = gridItem.nativeElement;
                 expect(gridItemElement.style.gridColumn).toContain('span 1');
                 expect(gridItemElement.style.marginLeft).toBe('');
             });
 
             it('should support thyOffset is a number', () => {
-                const gridItem = gridDebugElement.queryAll(By.directive(ThyGridItemComponent))[1];
+                const gridItem = gridDebugElement.queryAll(By.directive(ThyGridItem))[1];
                 const gridItemElement = gridItem.nativeElement;
 
                 testComponent.offset2 = 1;
@@ -307,7 +307,7 @@ describe('grid', () => {
             });
 
             it('should support thyOffset is a string', () => {
-                const gridItem = gridDebugElement.queryAll(By.directive(ThyGridItemComponent))[0];
+                const gridItem = gridDebugElement.queryAll(By.directive(ThyGridItem))[0];
                 const gridItemElement = gridItem.nativeElement;
 
                 testComponent.offset = '2';
@@ -325,7 +325,7 @@ describe('grid', () => {
                 gridInstance.ngOnInit();
                 gridInstance.ngAfterContentInit();
 
-                const gridItem = gridDebugElement.queryAll(By.directive(ThyGridItemComponent))[0];
+                const gridItem = gridDebugElement.queryAll(By.directive(ThyGridItem))[0];
                 const gridItemElement = gridItem.nativeElement;
                 assertResponsiveOffset(600, 3);
                 assertResponsiveOffset(800, 2);
@@ -355,7 +355,7 @@ describe('grid', () => {
             it('should show correct grid item added dynamically', () => {
                 testComponent.show = true;
                 fixture.detectChanges();
-                const gridItems = gridDebugElement.queryAll(By.directive(ThyGridItemComponent));
+                const gridItems = gridDebugElement.queryAll(By.directive(ThyGridItem));
                 expect(gridItems.length).toBe(5);
             });
         });

@@ -1,10 +1,10 @@
-import { ThyCarouselComponent } from 'ngx-tethys/carousel';
+import { ThyCarousel } from 'ngx-tethys/carousel';
 import { dispatchEvent, dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing';
 import { ComponentFixture, tick } from '@angular/core/testing';
 import { SafeAny } from 'ngx-tethys/types';
 
 export function mouseSwipe<T extends ComponentFixture<SafeAny>>(
-    carousel: ThyCarouselComponent,
+    carousel: ThyCarousel,
     distance: number,
     delay = 0,
     fixture?: T
@@ -24,7 +24,7 @@ export function mouseSwipe<T extends ComponentFixture<SafeAny>>(
 }
 
 export function touchSwipe<T extends ComponentFixture<SafeAny>>(
-    carousel: ThyCarouselComponent,
+    carousel: ThyCarousel,
     target: HTMLElement,
     distance: number,
     delay = 0,

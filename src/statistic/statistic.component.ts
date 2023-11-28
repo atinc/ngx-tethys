@@ -21,7 +21,7 @@ export type ThyStatisticTitlePosition = 'top' | 'bottom';
     standalone: true,
     imports: [NgIf, NgTemplateOutlet, NgStyle]
 })
-export class ThyStatisticComponent implements OnInit {
+export class ThyStatistic implements OnInit {
     _shape: ThyStatisticShape;
 
     _initialized = false;

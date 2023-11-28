@@ -1,7 +1,7 @@
 import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyInputDirective } from 'ngx-tethys/input';
-import { ThyInputNumberComponent } from 'ngx-tethys/input-number';
+import { ThyInputNumber } from 'ngx-tethys/input-number';
 import { ThyEnterDirective } from 'ngx-tethys/shared';
 import ThyColor from '../../helpers/color.class';
 
@@ -12,9 +12,9 @@ import ThyColor from '../../helpers/color.class';
     selector: 'thy-color-inputs',
     templateUrl: './inputs.component.html',
     standalone: true,
-    imports: [ThyInputDirective, FormsModule, ThyEnterDirective, ThyInputNumberComponent]
+    imports: [ThyInputDirective, FormsModule, ThyEnterDirective, ThyInputNumber]
 })
-export class ThyColorInputsComponent {
+export class ThyColorInputs {
     @HostBinding('class.thy-color-inputs') className = true;
 
     innerColor: ThyColor;

@@ -8,17 +8,17 @@ import { isNumber } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 import { ThyTooltipContent } from './interface';
-import { ThyTooltipComponent } from './tooltip.component';
+import { ThyTooltip } from './tooltip.component';
 import { ThyTooltipConfig } from './tooltip.config';
 
 export class ThyTooltipRef {
     private overlayRef: OverlayRef;
 
-    private tooltipInstance: ThyTooltipComponent;
+    private tooltipInstance: ThyTooltip;
 
     private scrollStrategy: ScrollStrategy;
 
-    private portal: ComponentPortal<ThyTooltipComponent>;
+    private portal: ComponentPortal<ThyTooltip>;
 
     private readonly dispose$ = new Subject<void>();
 
@@ -114,7 +114,7 @@ export class ThyTooltipRef {
         }
         const overlayRef = this.createOverlay();
         this.detach();
-        this.portal = this.portal || new ComponentPortal(ThyTooltipComponent, this.config.viewContainerRef);
+        this.portal = this.portal || new ComponentPortal(ThyTooltip, this.config.viewContainerRef);
         this.tooltipInstance = overlayRef.attach(this.portal).instance;
         this.tooltipInstance
             .afterHidden()

@@ -9,7 +9,7 @@ import ThyColor from '../../helpers/color.class';
     templateUrl: './indicator.component.html',
     standalone: true
 })
-export class ThyIndicatorComponent {
+export class ThyIndicator {
     @HostBinding('class.thy-indicator') className = true;
 
     @Input()

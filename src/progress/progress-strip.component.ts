@@ -6,7 +6,7 @@ import { InputNumber } from 'ngx-tethys/core';
 
 export interface ThyParentProgress {
     max: number;
-    bars: ThyProgressStripComponent[];
+    bars: ThyProgressStrip[];
 }
 export const THY_PROGRESS_COMPONENT = new InjectionToken<ThyParentProgress>('THY_PROGRESS_COMPONENT');
 
@@ -20,7 +20,7 @@ export const THY_PROGRESS_COMPONENT = new InjectionToken<ThyParentProgress>('THY
     standalone: true,
     imports: [NgStyle]
 })
-export class ThyProgressStripComponent {
+export class ThyProgressStrip {
     private value: number;
 
     private hostRenderer = useHostRenderer();

@@ -2,7 +2,7 @@ import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ThyAlertModule } from '../alert.module';
 import { NgModule, Component, ViewChild, TemplateRef, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { ThyAlertComponent } from '../alert.component';
+import { ThyAlert } from '../alert.component';
 import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 
 describe('ThyAlert', () => {
@@ -25,7 +25,7 @@ describe('ThyAlert', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyDemoAlertComponent);
             testComponent = fixture.debugElement.componentInstance;
-            alertComponent = fixture.debugElement.query(By.directive(ThyAlertComponent));
+            alertComponent = fixture.debugElement.query(By.directive(ThyAlert));
             alertElement = alertComponent.nativeElement;
             alertContentElement = alertComponent.nativeElement.children[0];
         });

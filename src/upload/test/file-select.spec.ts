@@ -5,7 +5,7 @@ import { ApplicationRef, Component, DebugElement, NgModule } from '@angular/core
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { ThyFileSelectComponent } from '../file-select.component';
+import { ThyFileSelect } from '../file-select.component';
 import { ThyUploadModule } from '../module';
 import { ThyUploadResponse } from '../upload.service';
 import { createFile } from './utils';
@@ -52,7 +52,7 @@ describe('ThyFileSelect', () => {
     let fixture: ComponentFixture<FileSelectBasicComponent>;
     let testComponent: FileSelectBasicComponent;
     let fileSelectDebugElement: DebugElement;
-    let fileSelectComponent: ThyFileSelectComponent;
+    let fileSelectComponent: ThyFileSelect;
     let inputElement: HTMLInputElement;
     let dataTransfer: DataTransfer;
 
@@ -65,7 +65,7 @@ describe('ThyFileSelect', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(FileSelectBasicComponent);
         testComponent = fixture.debugElement.componentInstance;
-        fileSelectDebugElement = fixture.debugElement.query(By.directive(ThyFileSelectComponent));
+        fileSelectDebugElement = fixture.debugElement.query(By.directive(ThyFileSelect));
         fileSelectComponent = fileSelectDebugElement.componentInstance;
         fileSelectDebugElement.componentInstance;
         inputElement = fileSelectDebugElement.nativeElement.querySelector('input');

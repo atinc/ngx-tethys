@@ -55,7 +55,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
     standalone: true,
     imports: [NgFor, NgTemplateOutlet]
 })
-export class ThySpaceComponent extends _MixinBase implements OnInit, AfterContentInit {
+export class ThySpace extends _MixinBase implements OnInit, AfterContentInit {
     public space: number = getNumericSize(DEFAULT_SIZE);
 
     private hostRenderer = useHostRenderer();

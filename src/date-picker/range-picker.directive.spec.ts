@@ -11,7 +11,7 @@ import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ThyDatePickerModule } from './date-picker.module';
-import { ThyPropertyOperationComponent, ThyPropertyOperationModule } from 'ngx-tethys/property-operation';
+import { ThyPropertyOperation, ThyPropertyOperationModule } from 'ngx-tethys/property-operation';
 import { CompatiblePresets, ThyDateRangeEntry, ThyShortcutPosition, ThyShortcutRange } from './standard-types';
 import { TinyDate } from 'ngx-tethys/util';
 
@@ -207,7 +207,7 @@ describe('ThyRangePickerDirective', () => {
         }
 
         function getPickerTriggerWrapper(): HTMLInputElement {
-            return debugElement.query(By.directive(ThyPropertyOperationComponent)).nativeElement;
+            return debugElement.query(By.directive(ThyPropertyOperation)).nativeElement;
         }
 
         function dispatchClickEvent(selector: HTMLElement | HTMLInputElement): void {

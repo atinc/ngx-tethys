@@ -6,7 +6,7 @@ import { ThyPropertyItemOperationTrigger } from 'ngx-tethys/property';
     templateUrl: './operation.component.html',
     styleUrls: ['./operation.component.scss']
 })
-export class ThyPropertyOperationComponent implements OnInit {
+export class ThyPropertyOperation implements OnInit {
     operationTrigger: ThyPropertyItemOperationTrigger = 'always';
 
     constructor() {}

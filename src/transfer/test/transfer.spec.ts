@@ -7,7 +7,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { ThyTransferComponent } from '../transfer.component';
+import { ThyTransfer } from '../transfer.component';
 import {
     ThyTransferChangeEvent,
     ThyTransferDragEvent,
@@ -149,7 +149,7 @@ function buildDataList() {
     encapsulation: ViewEncapsulation.None
 })
 class TestTransferComponent {
-    @ViewChild('comp', { static: true }) comp: ThyTransferComponent;
+    @ViewChild('comp', { static: true }) comp: ThyTransfer;
     dataSource: any[] = buildDataList();
     titles = ['Source', 'Target'];
 
@@ -170,7 +170,7 @@ class TestTransferComponent {
     `
 })
 class TestTransferCustomRenderComponent {
-    @ViewChild('comp', { static: true }) comp: ThyTransferComponent;
+    @ViewChild('comp', { static: true }) comp: ThyTransfer;
     dataSource: any[] = buildDataList();
 }
 
@@ -179,7 +179,7 @@ class TestTransferCustomRenderComponent {
     encapsulation: ViewEncapsulation.None
 })
 class TestTransferCustomRenderContentComponent {
-    @ViewChild('comp', { static: true }) comp: ThyTransferComponent;
+    @ViewChild('comp', { static: true }) comp: ThyTransfer;
     dataSource: any[] = buildDataList();
     titles = ['Source', 'Target'];
 
@@ -199,7 +199,7 @@ describe('transfer', () => {
     let dl: DebugElement;
     let instance: TestTransferComponent;
     let pageObject: TransferPageObject;
-    let transferComponent: ThyTransferComponent;
+    let transferComponent: ThyTransfer;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -219,7 +219,7 @@ describe('transfer', () => {
 
     it('should have class thy-transfer', () => {
         expect(
-            fixture.debugElement.query(By.directive(ThyTransferComponent)).nativeElement.classList.contains('thy-transfer')
+            fixture.debugElement.query(By.directive(ThyTransfer)).nativeElement.classList.contains('thy-transfer')
         ).toBeTruthy();
     });
 

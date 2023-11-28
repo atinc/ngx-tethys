@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { ThyPaginationComponent } from './pagination.component';
+import { ThyPagination } from './pagination.component';
 import { CommonModule } from '@angular/common';
 import { PaginationTotalCountFormat } from './pagination.pipe';
 import { ThySharedModule } from 'ngx-tethys/shared';
@@ -15,9 +15,9 @@ import { FormsModule } from '@angular/forms';
         ThySharedModule,
         ThyIconModule,
         ThySelectModule,
-        ThyPaginationComponent,
+        ThyPagination,
         PaginationTotalCountFormat
     ],
-    exports: [ThyPaginationComponent]
+    exports: [ThyPagination]
 })
 export class ThyPaginationModule {}

@@ -13,7 +13,7 @@ import {
 } from 'ngx-tethys/core';
 import { ThyPopover, ThyPopoverRef } from 'ngx-tethys/popover';
 import { fromEvent, Subject } from 'rxjs';
-import { ThyColorPickerPanelComponent } from './color-picker-panel.component';
+import { ThyColorPickerPanel } from './color-picker-panel.component';
 import { DEFAULT_COLORS } from './constant';
 import ThyColor from './helpers/color.class';
 import { takeUntil } from 'rxjs/operators';
@@ -88,15 +88,15 @@ export class ThyColorPickerDirective extends _BaseMixin implements OnInit, OnDes
     /**
      * panel 展开后触发
      */
-    @Output() thyPanelOpen: EventEmitter<ThyPopoverRef<ThyColorPickerPanelComponent>> = new EventEmitter<
-        ThyPopoverRef<ThyColorPickerPanelComponent>
+    @Output() thyPanelOpen: EventEmitter<ThyPopoverRef<ThyColorPickerPanel>> = new EventEmitter<
+        ThyPopoverRef<ThyColorPickerPanel>
     >();
 
     /**
      * panel 关闭后触发
      */
-    @Output() thyPanelClose: EventEmitter<ThyPopoverRef<ThyColorPickerPanelComponent>> = new EventEmitter<
-        ThyPopoverRef<ThyColorPickerPanelComponent>
+    @Output() thyPanelClose: EventEmitter<ThyPopoverRef<ThyColorPickerPanel>> = new EventEmitter<
+        ThyPopoverRef<ThyColorPickerPanel>
     >();
 
     /**
@@ -144,7 +144,7 @@ export class ThyColorPickerDirective extends _BaseMixin implements OnInit, OnDes
 
     color: string;
 
-    private popoverRef: ThyPopoverRef<ThyColorPickerPanelComponent>;
+    private popoverRef: ThyPopoverRef<ThyColorPickerPanel>;
 
     private closePanel = true;
 
@@ -191,7 +191,7 @@ export class ThyColorPickerDirective extends _BaseMixin implements OnInit, OnDes
 
     togglePanel() {
         this.closePanel = false;
-        this.popoverRef = this.thyPopover.open(ThyColorPickerPanelComponent, {
+        this.popoverRef = this.thyPopover.open(ThyColorPickerPanel, {
             origin: this.elementRef.nativeElement as HTMLElement,
             offset: this.thyOffset,
             manualClosure: true,

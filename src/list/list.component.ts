@@ -11,7 +11,7 @@ import { InputBoolean } from 'ngx-tethys/core';
     template: '<ng-content></ng-content>',
     standalone: true
 })
-export class ThyListComponent {
+export class ThyList {
     /**
      * 控制分割线的显示与隐藏
      * @default false

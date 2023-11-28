@@ -12,7 +12,7 @@ import { ThyImageDirective } from './image.directive';
     encapsulation: ViewEncapsulation.None,
     standalone: true
 })
-export class ThyImageGroupComponent {
+export class ThyImageGroup {
     constructor(public injector: Injector, public element: ElementRef) {}
 
     images: ThyImageDirective[] = [];

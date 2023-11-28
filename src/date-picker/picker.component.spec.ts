@@ -1,9 +1,9 @@
 import { Component, DebugElement, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testing';
-import { ThyPickerComponent } from './picker.component';
+import { ThyPicker } from './picker.component';
 import { CdkConnectedOverlay, CdkOverlayOrigin, OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule, registerLocaleData } from '@angular/common';
-import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyIcon } from 'ngx-tethys/icon';
 import { By } from '@angular/platform-browser';
 import zh from '@angular/common/locales/zh';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -29,7 +29,7 @@ describe('ThyPickerComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [CommonModule, OverlayModule, ThyPickerComponent, HttpClientTestingModule, ThyIconComponent],
+            imports: [CommonModule, OverlayModule, ThyPicker, HttpClientTestingModule, ThyIcon],
             declarations: [ThyTestPickerComponent],
             providers: [
                 {
@@ -134,7 +134,7 @@ describe('ThyPickerComponent', () => {
     `
 })
 class ThyTestPickerComponent {
-    @ViewChild('thyPicker', { static: true }) thyPicker: ThyPickerComponent;
+    @ViewChild('thyPicker', { static: true }) thyPicker: ThyPicker;
 
     thyValue = new TinyDate(new Date());
     thyDisabled = false;

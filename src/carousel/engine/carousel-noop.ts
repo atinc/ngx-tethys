@@ -1,13 +1,13 @@
 import { ChangeDetectorRef, QueryList, Renderer2 } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 import { Observable, Subject } from 'rxjs';
-import { ThyCarouselComponent } from '../carousel.component';
+import { ThyCarousel } from '../carousel.component';
 import { ThyDistanceVector } from '../typings';
 import { ThyCarouselItemDirective } from '../carousel-item.directive';
 import { ThyCarouselBaseEngine } from '../engine/carousel-base';
 
 export class ThyCarouselNoopEngine extends ThyCarouselBaseEngine {
-    constructor(thyCarouselComponent: ThyCarouselComponent, cdr: ChangeDetectorRef, renderer: Renderer2, platform: Platform) {
+    constructor(thyCarouselComponent: ThyCarousel, cdr: ChangeDetectorRef, renderer: Renderer2, platform: Platform) {
         super(thyCarouselComponent, cdr, renderer, platform);
     }
 

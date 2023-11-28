@@ -1,6 +1,6 @@
 import { InputBoolean, InputNumber, TabIndexDisabledControlValueAccessorMixin, useHostFocusControl } from 'ngx-tethys/core';
 import { ThyMaxDirective, ThyMinDirective } from 'ngx-tethys/form';
-import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { ThyAutofocusDirective } from 'ngx-tethys/shared';
 import { DOWN_ARROW, ENTER, isFloat, isNumber, isUndefinedOrNull, UP_ARROW } from 'ngx-tethys/util';
@@ -40,18 +40,18 @@ enum Type {
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => ThyInputNumberComponent),
+            useExisting: forwardRef(() => ThyInputNumber),
             multi: true
         }
     ],
     standalone: true,
-    imports: [ThyIconComponent, ThyInputDirective, ThyAutofocusDirective, FormsModule, ThyMinDirective, ThyMaxDirective],
+    imports: [ThyIcon, ThyInputDirective, ThyAutofocusDirective, FormsModule, ThyMinDirective, ThyMaxDirective],
     host: {
         class: 'thy-input-number',
         '[attr.tabindex]': 'tabIndex'
     }
 })
-export class ThyInputNumberComponent
+export class ThyInputNumber
     extends TabIndexDisabledControlValueAccessorMixin
     implements ControlValueAccessor, OnChanges, OnInit, OnDestroy
 {

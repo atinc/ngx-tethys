@@ -1,8 +1,8 @@
 import { Component, DebugElement, NgModule, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThySkeletonCircleComponent } from '../skeleton-circle.component';
-import { ThySkeletonRectangleComponent } from '../skeleton-rectangle.component';
+import { ThySkeletonCircle } from '../skeleton-circle.component';
+import { ThySkeletonRectangle } from '../skeleton-rectangle.component';
 import { ThySkeletonModule } from '../module';
 
 @Component({
@@ -40,8 +40,8 @@ describe('skeleton ', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(thySkeletonTestComponent);
         skeletonComponent = fixture.debugElement.componentInstance;
-        circleDebugComponent = fixture.debugElement.query(By.directive(ThySkeletonCircleComponent));
-        rectangleDebugComponent = fixture.debugElement.query(By.directive(ThySkeletonRectangleComponent));
+        circleDebugComponent = fixture.debugElement.query(By.directive(ThySkeletonCircle));
+        rectangleDebugComponent = fixture.debugElement.query(By.directive(ThySkeletonRectangle));
         circleElement = circleDebugComponent.nativeElement;
         rectangleElement = rectangleDebugComponent.nativeElement;
     });

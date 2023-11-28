@@ -27,7 +27,7 @@ import { By } from '@angular/platform-browser';
     imports: [ThyGridModule],
     standalone: true
 })
-class FlexTestComponent implements OnInit {
+class FlexTest implements OnInit {
     direction: ThyFlexDirection;
     wrap: ThyFlexWrap;
     justifyContent: ThyFlexJustifyContent;
@@ -44,8 +44,8 @@ class FlexTestComponent implements OnInit {
 }
 
 describe('flex', () => {
-    let component: FlexTestComponent;
-    let fixture: ComponentFixture<FlexTestComponent>;
+    let component: FlexTest;
+    let fixture: ComponentFixture<FlexTest>;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -55,7 +55,7 @@ describe('flex', () => {
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(FlexTestComponent);
+        fixture = TestBed.createComponent(FlexTest);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

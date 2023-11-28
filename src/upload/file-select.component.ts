@@ -19,7 +19,7 @@ import { InputBoolean, InputNumber } from 'ngx-tethys/core';
     templateUrl: './file-select.component.html',
     standalone: true
 })
-export class ThyFileSelectComponent extends FileSelectBaseDirective implements OnDestroy {
+export class ThyFileSelect extends FileSelectBaseDirective implements OnDestroy {
     private multiple: boolean;
 
     private acceptFolder: boolean;

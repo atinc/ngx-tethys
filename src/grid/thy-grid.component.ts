@@ -18,7 +18,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Observable, Subject } from 'rxjs';
 import { throttleTime } from 'rxjs/operators';
 import { ThyGridToken, THY_GRID_COMPONENT } from './grid.token';
-import { ThyGridItemComponent } from './thy-grid-item.component';
+import { ThyGridItem } from './thy-grid-item.component';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { hasLaterChange } from 'ngx-tethys/util';
 
@@ -61,7 +61,7 @@ export class ThyGrid implements ThyGridToken, OnInit, OnChanges, AfterContentIni
     /**
      * @internal
      */
-    @ContentChildren(ThyGridItemComponent) gridItems!: QueryList<ThyGridItemComponent>;
+    @ContentChildren(ThyGridItem) gridItems!: QueryList<ThyGridItem>;
 
     /**
      * 栅格的列数
@@ -169,7 +169,7 @@ export class ThyGrid implements ThyGridToken, OnInit, OnChanges, AfterContentIni
     }
 
     private handleGridItems() {
-        this.gridItems.forEach((gridItem: ThyGridItemComponent) => {
+        this.gridItems.forEach((gridItem: ThyGridItem) => {
             const rawSpan = getRawSpan(gridItem.thySpan);
             const span = this.calculateActualValue(rawSpan, THY_GRID_ITEM_DEFAULT_SPAN);
             const offset = this.calculateActualValue(gridItem.thyOffset || 0);

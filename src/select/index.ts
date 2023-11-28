@@ -1,4 +1,4 @@
 export * from './module';
-export { ThySelectCustomComponent } from './custom-select/custom-select.component';
-export { ThySelectComponent } from './select.component';
+export { ThySelectCustom } from './custom-select/custom-select.component';
+export { ThySelect } from './select.component';
 export * from './select.config';

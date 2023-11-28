@@ -1,11 +1,11 @@
-import { ThySwitchComponent } from 'ngx-tethys/switch';
+import { ThySwitch } from 'ngx-tethys/switch';
 import { createFakeEvent, dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 
 import { ApplicationRef, Component, DebugElement, NgModule, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { ThyTableComponent } from '../table.component';
+import { ThyTable } from '../table.component';
 import { ThyPage, ThyTableDraggableEvent } from '../table.interface';
 import { ThyTableModule } from '../table.module';
 
@@ -76,7 +76,7 @@ import { ThyTableModule } from '../table.module';
     `
 })
 class ThyDemoDefaultTableComponent {
-    @ViewChild('table') table: ThyTableComponent;
+    @ViewChild('table') table: ThyTable;
 
     isCheckbox = true;
 
@@ -223,7 +223,7 @@ describe('ThyTable: basic', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(ThyDemoDefaultTableComponent);
         testComponent = fixture.debugElement.componentInstance;
-        tableComponent = fixture.debugElement.query(By.directive(ThyTableComponent));
+        tableComponent = fixture.debugElement.query(By.directive(ThyTable));
         table = tableComponent.nativeElement.querySelector('table');
     });
 
@@ -586,10 +586,10 @@ describe('ThyTable: basic', () => {
 
     it('should call onSwitchChange when change switch', fakeAsync(() => {
         fixture.detectChanges();
-        const switchComponent: DebugElement = (tableComponent as DebugElement).query(By.directive(ThySwitchComponent));
+        const switchComponent: DebugElement = (tableComponent as DebugElement).query(By.directive(ThySwitch));
         rows = tableComponent.nativeElement.querySelectorAll('tr');
         const switchChangeSpy = spyOn(testComponent, 'onSwitchChange');
-        (switchComponent.componentInstance as ThySwitchComponent).toggle({} as Event);
+        (switchComponent.componentInstance as ThySwitch).toggle({} as Event);
         fixture.detectChanges();
         tick(1000);
         fixture.detectChanges();
@@ -709,7 +709,7 @@ describe('ThyTable: basic', () => {
     ]
 })
 class ThyDemoGroupTableComponent {
-    @ViewChild('table') innerTable: ThyTableComponent;
+    @ViewChild('table') innerTable: ThyTable;
 
     groups = [
         {
@@ -816,7 +816,7 @@ describe('ThyTable: group', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(ThyDemoGroupTableComponent);
         testComponent = fixture.debugElement.componentInstance;
-        tableComponent = fixture.debugElement.query(By.directive(ThyTableComponent));
+        tableComponent = fixture.debugElement.query(By.directive(ThyTable));
         table = tableComponent.nativeElement.querySelector('table');
         fixture.detectChanges();
         rows = table.querySelectorAll('tr');
@@ -1073,7 +1073,7 @@ describe('ThyTable: empty', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(ThyDemoEmptyTableComponent);
         testComponent = fixture.debugElement.componentInstance;
-        tableComponent = fixture.debugElement.query(By.directive(ThyTableComponent));
+        tableComponent = fixture.debugElement.query(By.directive(ThyTable));
     });
 
     it('should be created table component', () => {
@@ -1123,7 +1123,7 @@ describe('ThyTable: fixed', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(ThyDemoFixedTableComponent);
         testComponent = fixture.debugElement.componentInstance;
-        tableComponent = fixture.debugElement.query(By.directive(ThyTableComponent));
+        tableComponent = fixture.debugElement.query(By.directive(ThyTable));
     });
 
     it('should be created table component', () => {
@@ -1192,7 +1192,7 @@ describe('ThyTable: sort', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(ThyDemoSortTableComponent);
         testComponent = fixture.debugElement.componentInstance;
-        tableComponent = fixture.debugElement.query(By.directive(ThyTableComponent));
+        tableComponent = fixture.debugElement.query(By.directive(ThyTable));
     });
 
     it('should be created table component', () => {

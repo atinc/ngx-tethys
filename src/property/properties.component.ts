@@ -20,7 +20,7 @@ export type ThyPropertiesLayout = 'horizontal' | 'vertical';
     },
     standalone: true
 })
-export class ThyPropertiesComponent implements OnInit {
+export class ThyProperties implements OnInit {
     layout$ = new BehaviorSubject<ThyPropertiesLayout>('horizontal');
 
     layout: ThyPropertiesLayout = 'horizontal';

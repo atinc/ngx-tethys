@@ -4,11 +4,11 @@ import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angu
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { THY_SLIDE_DEFAULT_CONFIG, ThySlideConfig, ThySlideModule, ThySlideRef, ThySlideService, slideDefaultConfigValue } from '../index';
-import { ThySlideBodySectionComponent } from '../slide-body/slide-body-section.component';
-import { ThySlideBodyComponent } from '../slide-body/slide-body.component';
-import { ThySlideFooterComponent } from '../slide-footer/slide-footer.component';
-import { ThySlideHeaderComponent } from '../slide-header/slide-header.component';
-import { ThySlideLayoutComponent } from '../slide-layout/slide-layout.component';
+import { ThySlideBodySection } from '../slide-body/slide-body-section.component';
+import { ThySlideBody } from '../slide-body/slide-body.component';
+import { ThySlideFooter } from '../slide-footer/slide-footer.component';
+import { ThySlideHeader } from '../slide-header/slide-header.component';
+import { ThySlideLayout } from '../slide-layout/slide-layout.component';
 import { SafeAny } from '../../types';
 
 describe('ThySlide', () => {
@@ -610,11 +610,11 @@ describe('ThySlide', () => {
 
         beforeEach(fakeAsync(() => {
             fixture = TestBed.createComponent(SlideLayoutTestComponent);
-            layouts = fixture.debugElement.queryAll(By.directive(ThySlideLayoutComponent));
-            headers = fixture.debugElement.queryAll(By.directive(ThySlideHeaderComponent));
-            bodys = fixture.debugElement.queryAll(By.directive(ThySlideBodyComponent));
-            bodySections = fixture.debugElement.queryAll(By.directive(ThySlideBodySectionComponent));
-            footers = fixture.debugElement.queryAll(By.directive(ThySlideFooterComponent));
+            layouts = fixture.debugElement.queryAll(By.directive(ThySlideLayout));
+            headers = fixture.debugElement.queryAll(By.directive(ThySlideHeader));
+            bodys = fixture.debugElement.queryAll(By.directive(ThySlideBody));
+            bodySections = fixture.debugElement.queryAll(By.directive(ThySlideBodySection));
+            footers = fixture.debugElement.queryAll(By.directive(ThySlideFooter));
         }));
 
         it('should have correct class', fakeAsync(() => {

@@ -10,7 +10,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     template: '<ng-content></ng-content>',
     standalone: true
 })
-export class ThySlideBodySectionComponent implements OnInit {
+export class ThySlideBodySection implements OnInit {
     @HostBinding('class.thy-slide-body-section') thySlideBodyItem = true;
 
     @HostBinding('class.thy-slide-body-section-divider') hasDivider = false;

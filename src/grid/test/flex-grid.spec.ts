@@ -19,7 +19,7 @@ import { By } from '@angular/platform-browser';
     imports: [ThyGridModule],
     standalone: true
 })
-class FlexGridTestComponent implements OnInit {
+class FlexGridTest implements OnInit {
     gutter: number;
     span: number;
 
@@ -29,8 +29,8 @@ class FlexGridTestComponent implements OnInit {
 }
 
 describe('flex-grid', () => {
-    let component: FlexGridTestComponent;
-    let fixture: ComponentFixture<FlexGridTestComponent>;
+    let component: FlexGridTest;
+    let fixture: ComponentFixture<FlexGridTest>;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -40,7 +40,7 @@ describe('flex-grid', () => {
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(FlexGridTestComponent);
+        fixture = TestBed.createComponent(FlexGridTest);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

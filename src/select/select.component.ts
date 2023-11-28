@@ -6,7 +6,7 @@ import { elementMatchClosest } from 'ngx-tethys/util';
 import { NgIf } from '@angular/common';
 import { ElementRef, ViewChild } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyInputDirective } from 'ngx-tethys/input';
 
 export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
@@ -24,19 +24,19 @@ const noop = () => {};
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => ThySelectComponent),
+            useExisting: forwardRef(() => ThySelect),
             multi: true
         }
     ],
     standalone: true,
-    imports: [ThyInputDirective, FormsModule, ThyIconComponent, NgIf],
+    imports: [ThyInputDirective, FormsModule, ThyIcon, NgIf],
     host: {
         '[attr.tabindex]': 'tabIndex',
         '(focus)': 'onFocus($event)',
         '(blur)': 'onBlur($event)'
     }
 })
-export class ThySelectComponent extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor, OnInit {
+export class ThySelect extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor, OnInit {
     @ViewChild('select', { static: true }) selectElement: ElementRef<any>;
 
     // The internal data model

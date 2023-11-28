@@ -1,7 +1,7 @@
 import { NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
 import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
-import { ThySkeletonCircleComponent, ThySkeletonRectangleComponent } from 'ngx-tethys/skeleton';
+import { ThySkeletonCircle, ThySkeletonRectangle } from 'ngx-tethys/skeleton';
 import { ThyTableSkeletonColumn } from './table.interface';
 import { ThyViewOutletDirective } from 'ngx-tethys/shared';
 import { ThyTableColumnSkeletonType } from './enums';
@@ -22,9 +22,9 @@ const COLUMN_COUNT = 5;
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [NgFor, NgClass, NgIf, NgTemplateOutlet, ThyViewOutletDirective, ThySkeletonRectangleComponent, ThySkeletonCircleComponent]
+    imports: [NgFor, NgClass, NgIf, NgTemplateOutlet, ThyViewOutletDirective, ThySkeletonRectangle, ThySkeletonCircle]
 })
-export class ThyTableSkeletonComponent {
+export class ThyTableSkeleton {
     /**
      * 骨架边框圆角
      */

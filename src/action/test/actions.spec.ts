@@ -3,7 +3,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { ThyActionModule } from '../action.module';
 import { injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 import { By } from '@angular/platform-browser';
-import { ThyActionsComponent } from '../actions.component';
+import { ThyActions } from '../actions.component';
 
 @Component({
     selector: 'thy-test-actions-basic',
@@ -37,7 +37,7 @@ describe('thy-actions', () => {
         injectDefaultSvgIconSet();
         fixture = TestBed.createComponent(ThyActionsTestBasicComponent);
         fixture.detectChanges();
-        actionsDebugElement = fixture.debugElement.query(By.directive(ThyActionsComponent));
+        actionsDebugElement = fixture.debugElement.query(By.directive(ThyActions));
     });
 
     function assertActionsExpected(actions: NodeListOf<HTMLElement>, marginRight: string, message: string) {

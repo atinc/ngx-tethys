@@ -1,7 +1,7 @@
 import { Component, OnInit, DebugElement } from '@angular/core';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { ThyBadgeModule } from '../badge.module';
-import { ThyBadgeComponent } from '../badge.component';
+import { ThyBadge } from '../badge.component';
 import { By } from '@angular/platform-browser';
 
 @Component({
@@ -128,7 +128,7 @@ describe('thy-badge', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(BadgeBasicComponent);
             testComponent = fixture.debugElement.componentInstance;
-            badgeComponent = fixture.debugElement.query(By.directive(ThyBadgeComponent));
+            badgeComponent = fixture.debugElement.query(By.directive(ThyBadge));
             badgeElement = badgeComponent.nativeElement;
         });
 
@@ -211,7 +211,7 @@ describe('thy-badge', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(BadgeContentTestComponent);
             testComponent = fixture.debugElement.componentInstance;
-            badgeComponent = fixture.debugElement.query(By.directive(ThyBadgeComponent));
+            badgeComponent = fixture.debugElement.query(By.directive(ThyBadge));
             badgeElement = badgeComponent.nativeElement;
         });
 
@@ -238,7 +238,7 @@ describe('thy-badge', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(BadgeBasicContextComponent);
             testComponent = fixture.debugElement.componentInstance;
-            badgeComponent = fixture.debugElement.query(By.directive(ThyBadgeComponent));
+            badgeComponent = fixture.debugElement.query(By.directive(ThyBadge));
             badgeElement = badgeComponent.nativeElement;
         });
 
@@ -265,7 +265,7 @@ describe('thy-badge', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(BadgeBasicHollowComponent);
             testComponent = fixture.debugElement.componentInstance;
-            badgeComponent = fixture.debugElement.query(By.directive(ThyBadgeComponent));
+            badgeComponent = fixture.debugElement.query(By.directive(ThyBadge));
             badgeElement = badgeComponent.nativeElement;
         });
 
@@ -291,7 +291,7 @@ describe('thy-badge', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(BadgeBasicDotComponent);
             testComponent = fixture.debugElement.componentInstance;
-            badgeComponent = fixture.debugElement.query(By.directive(ThyBadgeComponent));
+            badgeComponent = fixture.debugElement.query(By.directive(ThyBadge));
             badgeElement = badgeComponent.nativeElement;
         });
 
@@ -317,7 +317,7 @@ describe('thy-badge', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(BadgeBasicCustomColorComponent);
             testComponent = fixture.debugElement.componentInstance;
-            badgeComponent = fixture.debugElement.query(By.directive(ThyBadgeComponent));
+            badgeComponent = fixture.debugElement.query(By.directive(ThyBadge));
             badgeElement = badgeComponent.nativeElement;
         });
 

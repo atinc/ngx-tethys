@@ -1,6 +1,6 @@
 import { Overlay } from '@angular/cdk/overlay';
 import { Inject, Injectable, Injector, TemplateRef } from '@angular/core';
-import { ThyMessageContainerComponent } from './message-container.component';
+import { ThyMessageContainer } from './message-container.component';
 import { ThyMessageRef } from './message-ref';
 import { ThyMessageQueue } from './message-queue.service';
 import { ThyGlobalMessageConfig, ThyMessageConfig, THY_MESSAGE_DEFAULT_CONFIG, THY_MESSAGE_DEFAULT_CONFIG_VALUE } from './message.config';
@@ -9,7 +9,7 @@ import { ThyAbstractMessageService } from './abstract';
 @Injectable({
     providedIn: 'root'
 })
-export class ThyMessageService extends ThyAbstractMessageService<ThyMessageContainerComponent> {
+export class ThyMessageService extends ThyAbstractMessageService<ThyMessageContainer> {
     private _lastMessageId = 0;
 
     private defaultConfig: ThyGlobalMessageConfig;
@@ -83,7 +83,7 @@ export class ThyMessageService extends ThyAbstractMessageService<ThyMessageConta
     }
 
     protected show(config: ThyMessageConfig): ThyMessageRef {
-        this.container = this.createContainer(ThyMessageContainerComponent);
+        this.container = this.createContainer(ThyMessageContainer);
 
         const messageConfig = this.formatOptions(config);
         const messageRef = new ThyMessageRef(messageConfig, this.overlayRef, this.messageQueue);

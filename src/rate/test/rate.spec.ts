@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { ComponentFixture, TestBed, fakeAsync, tick, flush, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyRateModule } from '../module';
-import { ThyRateComponent } from '../rate.component';
+import { ThyRate } from '../rate.component';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
 import { ThyRateTemplateExampleComponent } from '../examples/template/template.component';
@@ -36,7 +36,7 @@ describe('Rate basic component', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(RateBasicTestComponent);
         testRateBasicComponent = fixture.debugElement.componentInstance;
-        rateBasicDebugComponent = fixture.debugElement.query(By.directive(ThyRateComponent));
+        rateBasicDebugComponent = fixture.debugElement.query(By.directive(ThyRate));
         rateBasicElement = rateBasicDebugComponent.nativeElement;
     });
 
@@ -133,7 +133,7 @@ describe('Rate count component', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(RateCountTestComponent);
         testRateCountComponent = fixture.debugElement.componentInstance;
-        rateCountDebugComponent = fixture.debugElement.query(By.directive(ThyRateComponent));
+        rateCountDebugComponent = fixture.debugElement.query(By.directive(ThyRate));
         rateCountElement = rateCountDebugComponent.nativeElement;
     });
 
@@ -180,7 +180,7 @@ describe('Rate half component', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(RateHalfTestComponent);
         testRateHalfComponent = fixture.debugElement.componentInstance;
-        rateHalfDebugComponent = fixture.debugElement.query(By.directive(ThyRateComponent));
+        rateHalfDebugComponent = fixture.debugElement.query(By.directive(ThyRate));
         rateHalfElement = rateHalfDebugComponent.nativeElement;
     });
 
@@ -251,7 +251,7 @@ describe('Rate clear component', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(RateClearTestComponent);
         testRateClearComponent = fixture.debugElement.componentInstance;
-        rateClearDebugComponent = fixture.debugElement.query(By.directive(ThyRateComponent));
+        rateClearDebugComponent = fixture.debugElement.query(By.directive(ThyRate));
         rateClearElement = rateClearDebugComponent.nativeElement;
     });
 
@@ -321,7 +321,7 @@ describe('Rate disabled component', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(RateDisabledTestComponent);
         testRateDisabledComponent = fixture.debugElement.componentInstance;
-        rateDisabledDebugComponent = fixture.debugElement.query(By.directive(ThyRateComponent));
+        rateDisabledDebugComponent = fixture.debugElement.query(By.directive(ThyRate));
         rateDisabledElement = rateDisabledDebugComponent.nativeElement;
     });
 
@@ -388,7 +388,7 @@ describe('Rate tooltip component', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(RateTooltipTestComponent);
         testRateTooltipComponent = fixture.debugElement.componentInstance;
-        rateTooltipDebugComponent = fixture.debugElement.query(By.directive(ThyRateComponent));
+        rateTooltipDebugComponent = fixture.debugElement.query(By.directive(ThyRate));
         rateTooltipElement = rateTooltipDebugComponent.nativeElement;
     });
 
@@ -457,7 +457,7 @@ describe('Rate template component', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(RateTemplateTestComponent);
         testRateTemplateComponent = fixture.debugElement.componentInstance;
-        rateTemplateDebugComponent = fixture.debugElement.query(By.directive(ThyRateComponent));
+        rateTemplateDebugComponent = fixture.debugElement.query(By.directive(ThyRate));
         rateTemplateElement = rateTemplateDebugComponent.nativeElement;
         templatesComponent = TestBed.createComponent(ThyRateTemplateExampleComponent).componentInstance;
     });

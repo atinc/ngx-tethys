@@ -19,7 +19,7 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyStopPropagationDirective } from 'ngx-tethys/shared';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
-import { ThyRateItemComponent } from './rate-item.component';
+import { ThyRateItem } from './rate-item.component';
 
 const noop = () => {};
 
@@ -34,7 +34,7 @@ const noop = () => {};
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => ThyRateComponent),
+            useExisting: forwardRef(() => ThyRate),
             multi: true
         }
     ],
@@ -44,9 +44,9 @@ const noop = () => {};
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [NgFor, ThyStopPropagationDirective, ThyRateItemComponent, NgClass, ThyTooltipDirective]
+    imports: [NgFor, ThyStopPropagationDirective, ThyRateItem, NgClass, ThyTooltipDirective]
 })
-export class ThyRateComponent extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor, OnInit, OnChanges {
+export class ThyRate extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor, OnInit, OnChanges {
     private _value = 0;
 
     private currentValue = 0;

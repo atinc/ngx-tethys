@@ -30,7 +30,7 @@ import { ThyNavInkBarDirective } from './nav-ink-bar.directive';
 import { ThyNavItemDirective } from './nav-item.directive';
 import { BypassSecurityTrustHtmlPipe } from './nav.pipe';
 import { ThyDropdownMenuComponent, ThyDropdownMenuItemDirective, ThyDropdownMenuItemActiveDirective } from 'ngx-tethys/dropdown';
-import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyIcon } from 'ngx-tethys/icon';
 import { NgClass, NgTemplateOutlet, NgIf, NgFor } from '@angular/common';
 
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
@@ -77,7 +77,7 @@ const tabItemRight = 20;
         NgTemplateOutlet,
         NgIf,
         ThyNavItemDirective,
-        ThyIconComponent,
+        ThyIcon,
         ThyNavInkBarDirective,
         ThyDropdownMenuComponent,
         NgFor,
@@ -86,7 +86,7 @@ const tabItemRight = 20;
         BypassSecurityTrustHtmlPipe
     ]
 })
-export class ThyNavComponent
+export class ThyNav
     extends _MixinBase
     implements OnInit, AfterViewInit, AfterContentInit, AfterContentChecked, OnChanges, OnDestroy
 {

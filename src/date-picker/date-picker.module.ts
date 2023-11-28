@@ -5,13 +5,13 @@ import localeZhHans from '@angular/common/locales/zh-Hans';
 
 import { LibPackerModule } from './lib/lib-packer.module';
 
-import { BasePickerComponent } from './base-picker.component';
-import { ThyDatePickerComponent } from './date-picker.component';
-import { ThyMonthPickerComponent } from './month-picker.component';
-import { ThyRangePickerComponent } from './range-picker.component';
-import { ThyWeekPickerComponent } from './week-picker.component';
-import { ThyYearPickerComponent } from './year-picker.component';
-import { ThyPickerComponent } from './picker.component';
+import { BasePicker } from './base-picker.component';
+import { ThyDatePicker } from './date-picker.component';
+import { ThyMonthPicker } from './month-picker.component';
+import { ThyRangePicker } from './range-picker.component';
+import { ThyWeekPicker } from './week-picker.component';
+import { ThyYearPicker } from './year-picker.component';
+import { ThyPicker } from './picker.component';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyInputModule } from 'ngx-tethys/input';
 import { DatePickerRequiredValidator, RangePickerRequiredValidator } from './picker.validators';
@@ -31,13 +31,13 @@ registerLocaleData(localeZhHans, 'zh-Hans');
         ThyIconModule,
         ThyInputModule,
         ThyPopoverModule,
-        BasePickerComponent,
-        ThyPickerComponent,
-        ThyDatePickerComponent,
-        ThyMonthPickerComponent,
-        ThyYearPickerComponent,
-        ThyWeekPickerComponent,
-        ThyRangePickerComponent,
+        BasePicker,
+        ThyPicker,
+        ThyDatePicker,
+        ThyMonthPicker,
+        ThyYearPicker,
+        ThyWeekPicker,
+        ThyRangePicker,
         DatePickerRequiredValidator,
         RangePickerRequiredValidator,
         ThyDatePickerFormatPipe,
@@ -46,11 +46,11 @@ registerLocaleData(localeZhHans, 'zh-Hans');
         ThyRangePickerDirective
     ],
     exports: [
-        ThyDatePickerComponent,
-        ThyRangePickerComponent,
-        ThyMonthPickerComponent,
-        ThyYearPickerComponent,
-        ThyWeekPickerComponent,
+        ThyDatePicker,
+        ThyRangePicker,
+        ThyMonthPicker,
+        ThyYearPicker,
+        ThyWeekPicker,
         DatePickerRequiredValidator,
         RangePickerRequiredValidator,
         ThyDatePickerFormatPipe,

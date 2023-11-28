@@ -20,7 +20,7 @@ import { NgTemplateOutlet, NgIf } from '@angular/common';
     standalone: true,
     imports: [NgTemplateOutlet, NgIf]
 })
-export class ThyCardHeaderComponent implements OnInit {
+export class ThyCardHeader implements OnInit {
     public iconClass: string;
 
     /**

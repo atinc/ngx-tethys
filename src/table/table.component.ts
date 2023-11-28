@@ -64,13 +64,13 @@ import {
 } from './table.interface';
 import { TableRowDragDisabledPipe } from './pipes/drag.pipe';
 import { TableIsValidModelValuePipe } from './pipes/table.pipe';
-import { ThyPaginationComponent } from 'ngx-tethys/pagination';
-import { ThyTableSkeletonComponent } from './table-skeleton.component';
-import { ThyEmptyComponent } from 'ngx-tethys/empty';
-import { ThySwitchComponent } from 'ngx-tethys/switch';
+import { ThyPagination } from 'ngx-tethys/pagination';
+import { ThyTableSkeleton } from './table-skeleton.component';
+import { ThyEmpty } from 'ngx-tethys/empty';
+import { ThySwitch } from 'ngx-tethys/switch';
 import { FormsModule } from '@angular/forms';
 import { ThyDragDropDirective, ThyContextMenuDirective } from 'ngx-tethys/shared';
-import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyIcon } from 'ngx-tethys/icon';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { ThyTableColumnSkeletonType } from './enums';
 
@@ -127,7 +127,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
     providers: [
         {
             provide: THY_TABLE_COLUMN_PARENT_COMPONENT,
-            useExisting: ThyTableComponent
+            useExisting: ThyTable
         },
         UpdateHostClassService
     ],
@@ -145,22 +145,22 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
         NgFor,
         NgIf,
         NgTemplateOutlet,
-        ThyIconComponent,
+        ThyIcon,
         ThyDragDropDirective,
         CdkDropList,
         CdkDrag,
         ThyContextMenuDirective,
         NgStyle,
         FormsModule,
-        ThySwitchComponent,
-        ThyEmptyComponent,
-        ThyTableSkeletonComponent,
-        ThyPaginationComponent,
+        ThySwitch,
+        ThyEmpty,
+        ThyTableSkeleton,
+        ThyPagination,
         TableIsValidModelValuePipe,
         TableRowDragDisabledPipe
     ]
 })
-export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, AfterViewInit, OnDestroy, IThyTableColumnParentComponent {
+export class ThyTable extends _MixinBase implements OnInit, OnChanges, AfterViewInit, OnDestroy, IThyTableColumnParentComponent {
     public customType = customType;
 
     public model: object[] = [];

@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { LibPackerModule } from 'ngx-tethys/date-picker';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
-import { DateCarouselComponent } from './date-carousel.component';
+import { DateCarousel } from './date-carousel.component';
 import { RangeAdvancedValue } from '../../inner-types';
 
 registerLocaleData(zh);
@@ -32,7 +32,7 @@ describe('TestDateCarouselComponent', () => {
         fixture = TestBed.createComponent(TestDateCarouselComponent);
         fixtureInstance = fixture.componentInstance;
         debugElement = fixture.debugElement;
-        nativeElement = fixture.debugElement.query(By.directive(DateCarouselComponent)).nativeElement;
+        nativeElement = fixture.debugElement.query(By.directive(DateCarousel)).nativeElement;
     });
 
     describe('date-carousel testing', () => {

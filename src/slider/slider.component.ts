@@ -38,7 +38,7 @@ export type ThySliderSize = 'sm' | 'md' | 'lg';
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => ThySliderComponent),
+            useExisting: forwardRef(() => ThySlider),
             multi: true
         }
     ],
@@ -48,7 +48,7 @@ export type ThySliderSize = 'sm' | 'md' | 'lg';
     standalone: true,
     imports: [NgStyle]
 })
-export class ThySliderComponent
+export class ThySlider
     extends TabIndexDisabledControlValueAccessorMixin
     implements OnInit, AfterViewInit, OnDestroy, OnChanges, ControlValueAccessor
 {
@@ -387,13 +387,13 @@ export class ThySliderComponent
 // Note: keep `verifyMinAndMax` and `verifyStepValues` as separate functions (not as class properties)
 // so they're tree-shakable in production mode.
 
-function verifyMinAndMax(ctx: ThySliderComponent): void | never {
+function verifyMinAndMax(ctx: ThySlider): void | never {
     if (ctx.thyMin >= ctx.thyMax) {
         throw new Error('min value must less than max value.');
     }
 }
 
-function verifyStepValues(ctx: ThySliderComponent): void | never {
+function verifyStepValues(ctx: ThySlider): void | never {
     if (ctx.thyStep <= 0 || !ctx.thyStep) {
         throw new Error('step value must be greater than 0.');
     } else if (Number.isInteger(ctx.thyStep) && (ctx.thyMax - ctx.thyMin) % ctx.thyStep) {

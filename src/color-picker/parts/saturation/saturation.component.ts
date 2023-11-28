@@ -22,7 +22,7 @@ import ThyColor from '../../helpers/color.class';
     standalone: true,
     imports: [ThyCoordinatesDirective]
 })
-export class ThySaturationComponent implements OnChanges {
+export class ThySaturation implements OnChanges {
     @HostBinding('class.thy-saturation') className = true;
 
     @ViewChild('panel', { static: true })

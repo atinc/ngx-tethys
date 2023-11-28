@@ -16,14 +16,14 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyAutofocusDirective } from 'ngx-tethys/shared';
 import { ThyInputDirective, ThyInputSize } from './input.directive';
 import { InputBoolean } from 'ngx-tethys/core';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => ThyInputComponent),
+    useExisting: forwardRef(() => ThyInput),
     multi: true
 };
 
@@ -47,9 +47,9 @@ const password = 'password';
         '[class.disabled]': 'disabled'
     },
     standalone: true,
-    imports: [NgIf, NgTemplateOutlet, ThyInputDirective, ThyAutofocusDirective, FormsModule, ThyIconComponent]
+    imports: [NgIf, NgTemplateOutlet, ThyInputDirective, ThyAutofocusDirective, FormsModule, ThyIcon]
 })
-export class ThyInputComponent implements ControlValueAccessor, OnInit {
+export class ThyInput implements ControlValueAccessor, OnInit {
     /**
      * Placeholder
      */

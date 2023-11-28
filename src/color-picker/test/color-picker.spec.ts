@@ -9,8 +9,8 @@ import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform
 import { ThyDialogModule } from 'ngx-tethys/dialog';
 import { ThyPopover, ThyPopoverModule, ThyPopoverRef } from 'ngx-tethys/popover';
 import { dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing';
-import { ThyColorPickerCustomPanelComponent } from '../color-picker-custom-panel.component';
-import { ThyColorPickerPanelComponent } from '../color-picker-panel.component';
+import { ThyColorPickerCustomPanel } from '../color-picker-custom-panel.component';
+import { ThyColorPickerPanel } from '../color-picker-panel.component';
 import { ThyColorPickerDirective } from '../color-picker.component';
 import { ThyCoordinatesDirective } from '../coordinates.directive';
 import ThyColor from '../helpers/color.class';
@@ -49,7 +49,7 @@ import { ThyColorPickerModule } from '../module';
 })
 class ThyDemoColorPickerComponent {
     @ViewChild(ThyColorPickerDirective, { static: true }) colorPicker: ThyColorPickerDirective;
-    @ViewChild(ThyColorPickerPanelComponent) defaultPanel: ThyColorPickerPanelComponent;
+    @ViewChild(ThyColorPickerPanel) defaultPanel: ThyColorPickerPanel;
     color = '#ddd';
 
     defaultPanelColor = '#fafafa';
@@ -66,7 +66,7 @@ class ThyDemoColorPickerComponent {
 
     disabled = false;
 
-    constructor(public elementRef: ElementRef<HTMLElement>, private thyPopoverRef: ThyPopoverRef<ThyColorPickerPanelComponent>) {}
+    constructor(public elementRef: ElementRef<HTMLElement>, private thyPopoverRef: ThyPopoverRef<ThyColorPickerPanel>) {}
 
     change(color: string) {}
 
@@ -90,7 +90,7 @@ class ThyDemoColorPickerComponent {
     `
 })
 class ThyDemoColorDefaultPanelComponent {
-    @ViewChild(ThyColorPickerPanelComponent) defaultPanel: ThyColorPickerPanelComponent;
+    @ViewChild(ThyColorPickerPanel) defaultPanel: ThyColorPickerPanel;
     defaultPanelColor = '#fafafa';
     defaultColor = '';
     transparentColorSelectable: boolean;
@@ -105,7 +105,7 @@ class ThyDemoColorDefaultPanelComponent {
     template: ` <thy-color-picker-custom-panel [pickerColorChange]="pickerColorChange" [color]="color"></thy-color-picker-custom-panel> `
 })
 class ThyDemoPickerPanelComponent {
-    @ViewChild(ThyColorPickerCustomPanelComponent) pickerPanel: ThyColorPickerCustomPanelComponent;
+    @ViewChild(ThyColorPickerCustomPanel) pickerPanel: ThyColorPickerCustomPanel;
 
     color = '#fafafa';
     constructor(public elementRef: ElementRef<HTMLElement>) {}
@@ -175,7 +175,7 @@ describe(`color-picker`, () => {
                 ThyColorPickerModule,
                 ThyPopoverModule,
                 BrowserAnimationsModule,
-                ThyColorPickerPanelComponent
+                ThyColorPickerPanel
             ],
             providers: [ThyPopover, ThyPopoverRef],
             declarations: [ThyDemoColorPickerComponent]
@@ -438,7 +438,7 @@ describe('color-default-panel', () => {
                 ThyColorPickerModule,
                 ThyPopoverModule,
                 BrowserAnimationsModule,
-                ThyColorPickerPanelComponent
+                ThyColorPickerPanel
             ],
             providers: [
                 ThyPopover,
@@ -570,7 +570,7 @@ describe('picker-panel', () => {
                 ThyColorPickerModule,
                 ThyPopoverModule,
                 BrowserAnimationsModule,
-                ThyColorPickerCustomPanelComponent
+                ThyColorPickerCustomPanel
             ],
             providers: [ThyPopover, ThyPopoverRef],
             declarations: [ThyDemoPickerPanelComponent]
@@ -667,7 +667,7 @@ describe(`for touch usage`, () => {
                 ThyColorPickerModule,
                 ThyPopoverModule,
                 NoopAnimationsModule,
-                ThyColorPickerPanelComponent
+                ThyColorPickerPanel
             ],
             providers: [ThyPopover, ThyPopoverRef, { provide: Platform, useFactory: () => platform }],
             declarations: [ThyDemoColorPickerComponent]

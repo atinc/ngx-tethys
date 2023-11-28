@@ -5,15 +5,15 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
 import { ThyScrollService } from '../../core/scroll';
 import { getOffset } from '../../util/dom';
-import { ThyAnchorLinkComponent } from '../anchor-link.component';
-import { ThyAnchorComponent } from '../anchor.component';
+import { ThyAnchorLink } from '../anchor-link.component';
+import { ThyAnchor } from '../anchor.component';
 import { ThyAnchorModule } from '../anchor.module';
 
 describe('thy-anchor', () => {
     describe('default', () => {
         let fixture: ComponentFixture<TestAnchorComponent>;
         let debugElement: DebugElement;
-        let component: ThyAnchorComponent;
+        let component: ThyAnchor;
         let scrollService: ThyScrollService;
         const id = 'components-anchor-demo-basic';
         beforeEach(() => {
@@ -75,7 +75,7 @@ describe('thy-anchor', () => {
     describe('thyContainer', () => {
         let fixture: ComponentFixture<TestContainerAnchorComponent>;
         let debugElement: DebugElement;
-        let component: ThyAnchorComponent;
+        let component: ThyAnchor;
         let scrollService: ThyScrollService;
         const id = 'components-anchor-demo-basic';
         const containerClass = '.demo-card';
@@ -107,7 +107,7 @@ describe('thy-anchor', () => {
     describe('thyAnchorLink', () => {
         let fixture: ComponentFixture<TestThyAnchorLinkComponent>;
         let debugElement: DebugElement;
-        let component: ThyAnchorComponent;
+        let component: ThyAnchor;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
@@ -124,7 +124,7 @@ describe('thy-anchor', () => {
 
         it('should set link title', () => {
             const comp = fixture.componentInstance;
-            const anchorLinkComponent = fixture.debugElement.query(By.directive(ThyAnchorLinkComponent)).componentInstance;
+            const anchorLinkComponent = fixture.debugElement.query(By.directive(ThyAnchorLink)).componentInstance;
             comp.title = 'Basic demo title';
             fixture.detectChanges();
             expect(anchorLinkComponent.title).toEqual(comp.title);
@@ -134,7 +134,7 @@ describe('thy-anchor', () => {
     describe('horizontal anchor', () => {
         let fixture: ComponentFixture<TestAnchorComponent>;
         let debugElement: DebugElement;
-        let component: ThyAnchorComponent;
+        let component: ThyAnchor;
         let scrollService: ThyScrollService;
         const id = 'components-anchor-demo-basic';
 
@@ -237,8 +237,8 @@ describe('thy-anchor', () => {
 class TestAnchorComponent implements OnInit {
     demos: number[] = [];
 
-    @ViewChild(ThyAnchorComponent, { static: true })
-    thyAnchorComponent: ThyAnchorComponent;
+    @ViewChild(ThyAnchor, { static: true })
+    thyAnchorComponent: ThyAnchor;
 
     thyOffsetTop = 60;
 
@@ -270,8 +270,8 @@ class TestAnchorComponent implements OnInit {
 class TestContainerAnchorComponent implements OnInit {
     demos: number[] = [];
 
-    @ViewChild(ThyAnchorComponent, { static: true })
-    thyAnchorComponent: ThyAnchorComponent;
+    @ViewChild(ThyAnchor, { static: true })
+    thyAnchorComponent: ThyAnchor;
 
     thyOffsetTop = 60;
 
@@ -303,8 +303,8 @@ class TestContainerAnchorComponent implements OnInit {
     `
 })
 class TestThyAnchorLinkComponent implements OnInit {
-    @ViewChild(ThyAnchorComponent, { static: true })
-    thyAnchorComponent: ThyAnchorComponent;
+    @ViewChild(ThyAnchor, { static: true })
+    thyAnchorComponent: ThyAnchor;
 
     @ViewChild('titleTemplate', { static: true })
     titleTemplate: TemplateRef<void>;

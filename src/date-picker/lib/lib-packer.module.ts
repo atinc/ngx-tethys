@@ -1,25 +1,25 @@
-import { MonthHeaderComponent } from './month/month-header.component';
+import { MonthHeader } from './month/month-header.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { CalendarFooterComponent } from './calendar/calendar-footer.component';
-import { DatePopupComponent } from './popups/date-popup.component';
-import { InnerPopupComponent } from './popups/inner-popup.component';
-import { MonthTableComponent } from './month/month-table.component';
-import { DateTableComponent } from './date/date-table.component';
-import { DateTableCellComponent } from './date/date-table-cell.component';
+import { CalendarFooter } from './calendar/calendar-footer.component';
+import { DatePopup } from './popups/date-popup.component';
+import { InnerPopup } from './popups/inner-popup.component';
+import { MonthTable } from './month/month-table.component';
+import { DateTable } from './date/date-table.component';
+import { DateTableCell } from './date/date-table-cell.component';
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyTimePickerModule } from 'ngx-tethys/time-picker';
-import { YearTableComponent } from './year/year-table.component';
-import { YearHeaderComponent } from './year/year-header.component';
-import { DecadeHeaderComponent } from './decade/decade-header.component';
-import { DecadeTableComponent } from './decade/decade-table.component';
-import { DateHeaderComponent } from './date/date-header.component';
+import { YearTable } from './year/year-table.component';
+import { YearHeader } from './year/year-header.component';
+import { DecadeHeader } from './decade/decade-header.component';
+import { DecadeTable } from './decade/decade-table.component';
+import { DateHeader } from './date/date-header.component';
 import { ThyNavModule } from 'ngx-tethys/nav';
 import { ThyInputModule } from 'ngx-tethys/input';
-import { DateCarouselComponent } from './date-carousel/date-carousel.component';
+import { DateCarousel } from './date-carousel/date-carousel.component';
 import { DatePickerAdvancedShowYearTipPipe } from '../picker.pipes';
 
 @NgModule({
@@ -31,35 +31,35 @@ import { DatePickerAdvancedShowYearTipPipe } from '../picker.pipes';
         ThyTimePickerModule,
         ThyNavModule,
         ThyInputModule,
-        CalendarFooterComponent,
-        DateTableComponent,
-        DateHeaderComponent,
-        YearTableComponent,
-        YearHeaderComponent,
-        MonthTableComponent,
-        MonthHeaderComponent,
-        DecadeHeaderComponent,
-        DecadeTableComponent,
-        InnerPopupComponent,
-        DatePopupComponent,
-        DateTableCellComponent,
-        DateCarouselComponent,
+        CalendarFooter,
+        DateTable,
+        DateHeader,
+        YearTable,
+        YearHeader,
+        MonthTable,
+        MonthHeader,
+        DecadeHeader,
+        DecadeTable,
+        InnerPopup,
+        DatePopup,
+        DateTableCell,
+        DateCarousel,
         DatePickerAdvancedShowYearTipPipe
     ],
     exports: [
-        CalendarFooterComponent,
-        DateTableComponent,
-        DateHeaderComponent,
-        YearTableComponent,
-        YearHeaderComponent,
-        MonthTableComponent,
-        MonthHeaderComponent,
-        DecadeHeaderComponent,
-        DecadeTableComponent,
-        InnerPopupComponent,
-        DatePopupComponent,
-        DateTableCellComponent,
-        DateCarouselComponent
+        CalendarFooter,
+        DateTable,
+        DateHeader,
+        YearTable,
+        YearHeader,
+        MonthTable,
+        MonthHeader,
+        DecadeHeader,
+        DecadeTable,
+        InnerPopup,
+        DatePopup,
+        DateTableCell,
+        DateCarousel
     ]
 })
 export class LibPackerModule {}

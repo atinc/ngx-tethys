@@ -10,7 +10,7 @@ import { ThyInputModule } from 'ngx-tethys/input';
 import { ThySelectCommonModule } from 'ngx-tethys/shared';
 import { ThyCascaderOptionComponent } from './cascader-li.component';
 import { ThyCascaderSearchOptionComponent } from './cascader-search-option.component';
-import { ThyCascaderComponent } from './cascader.component';
+import { ThyCascader } from './cascader.component';
 
 @NgModule({
     imports: [
@@ -23,10 +23,10 @@ import { ThyCascaderComponent } from './cascader.component';
         ThySelectCommonModule,
         ThyCheckboxModule,
         ThyFlexibleTextModule,
-        ThyCascaderComponent,
+        ThyCascader,
         ThyCascaderOptionComponent,
         ThyCascaderSearchOptionComponent
     ],
-    exports: [ThyCascaderComponent]
+    exports: [ThyCascader]
 })
 export class ThyCascaderModule {}

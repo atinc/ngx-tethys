@@ -5,9 +5,9 @@ import {
     ScrollToService,
     TabIndexDisabledControlValueAccessorMixin
 } from 'ngx-tethys/core';
-import { ThyEmptyComponent } from 'ngx-tethys/empty';
-import { ThyIconComponent } from 'ngx-tethys/icon';
-import { SelectControlSize, SelectOptionBase, ThySelectControlComponent } from 'ngx-tethys/shared';
+import { ThyEmpty } from 'ngx-tethys/empty';
+import { ThyIcon } from 'ngx-tethys/icon';
+import { SelectControlSize, SelectOptionBase, ThySelectControl } from 'ngx-tethys/shared';
 import { Id } from 'ngx-tethys/types';
 import { coerceBooleanProperty, elementMatchClosest, isArray, isEmpty, set, helpers } from 'ngx-tethys/util';
 import { BehaviorSubject, Subject } from 'rxjs';
@@ -84,7 +84,7 @@ const defaultDisplayRender = (label: any) => label.join(' / ');
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => ThyCascaderComponent),
+            useExisting: forwardRef(() => ThyCascader),
             multi: true
         }
     ],
@@ -104,7 +104,7 @@ const defaultDisplayRender = (label: any) => label.join(' / ');
     imports: [
         CdkOverlayOrigin,
         NgIf,
-        ThySelectControlComponent,
+        ThySelectControl,
         NgClass,
         NgTemplateOutlet,
         CdkConnectedOverlay,
@@ -112,11 +112,11 @@ const defaultDisplayRender = (label: any) => label.join(' / ');
         NgFor,
         ThyCascaderOptionComponent,
         ThyCascaderSearchOptionComponent,
-        ThyEmptyComponent,
-        ThyIconComponent
+        ThyEmpty,
+        ThyIcon
     ]
 })
-export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor, OnInit, OnDestroy {
+export class ThyCascader extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor, OnInit, OnDestroy {
     /**
      * 选项的实际值的属性名
      */
