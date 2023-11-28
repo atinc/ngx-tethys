@@ -540,8 +540,6 @@ describe('thy-cascader', () => {
             dispatchFakeEvent(debugElement.queryAll(By.css(`ul li`))[1].nativeElement, 'mouseover', true);
             dispatchFakeEvent(debugElement.queryAll(By.css(`ul li`))[1].nativeElement, 'click', true);
             fixture.detectChanges();
-            dispatchFakeEvent(document.querySelector('.cdk-overlay-backdrop'), 'click', true);
-            fixture.detectChanges();
         });
 
         it('should select one when click radio and isOnlySelectLeaf is false', done => {
@@ -558,10 +556,6 @@ describe('thy-cascader', () => {
             });
             console.log(debugElement.query(By.css('.form-check-input')).nativeElement);
             debugElement.query(By.css('label')).nativeElement.click();
-
-            fixture.detectChanges();
-            dispatchFakeEvent(document.querySelector('.cdk-overlay-backdrop'), 'click', true);
-            fixture.detectChanges();
         });
 
         it('should menu mouse leave(hover)', () => {
@@ -1110,6 +1104,9 @@ describe('thy-cascader', () => {
         it('should remove item when click x', async () => {
             await fixture.whenStable();
             const originSelectedCount = component.multipleVal?.length;
+            dispatchFakeEvent(debugElement.query(By.css('.form-control')).nativeElement, 'click', true);
+            fixture.detectChanges();
+
             dispatchFakeEvent(debugElement.query(By.css('.thy-icon-close')).nativeElement, 'click', true);
             fixture.detectChanges();
             await fixture.whenStable();
