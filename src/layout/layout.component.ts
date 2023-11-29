@@ -6,7 +6,7 @@ import { ChangeDetectionStrategy, Component, Directive, HostBinding } from '@ang
  * @order 5
  */
 @Directive({
-    selector: '[thyLayout]',
+    selector: '[thyLayout]:not([thyForm])',
     host: {
         class: 'thy-layout',
         '[class.thy-layout--has-sidebar]': 'hasSidebar',
