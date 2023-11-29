@@ -119,6 +119,13 @@
                 top: 0;
                 .thy-icon-close {
                     color: variables.$white;
+                    opacity: 0.7;
+                }
+                &:hover {
+                    .thy-icon-close {
+                        color: variables.$white;
+                        opacity: 1;
+                    }
                 }
             }
         }
