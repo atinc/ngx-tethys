@@ -22,6 +22,7 @@
     <div thyFlex thyWrap="wrap" thyGap="4" thyAlignItems="center" class="w-100">
       <ng-container *ngIf="selectedOptionCustomDisplayTemplate; else default">
         <div
+          thyFlexItem
           class="custom-choice-item text-truncate"
           [ngClass]="{ 'custom-choice-item-panel-opened': panelOpened }"
           *ngFor="let item of maxSelectedTags; trackBy: trackValue">
