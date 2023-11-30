@@ -1674,10 +1674,6 @@ describe('ThyCustomSelect', () => {
             flush();
             fixture.detectChanges();
 
-            const formControl = fixture.nativeElement.querySelector('.form-control');
-            dispatchFakeEvent(formControl, 'click');
-            fixture.detectChanges();
-
             const removeIcon = fixture.debugElement.query(By.css('.choice-remove-link'));
             expect(removeIcon).not.toBeNull();
 
@@ -1696,10 +1692,6 @@ describe('ThyCustomSelect', () => {
             flush();
             fixture.detectChanges();
 
-            const formControl = fixture.nativeElement.querySelector('.form-control');
-            dispatchFakeEvent(formControl, 'click');
-            fixture.detectChanges();
-
             fixture.componentInstance.select.disabled = true;
             const closeIcon = fixture.nativeElement.querySelector('.choice-remove-link');
             dispatchFakeEvent(closeIcon, 'click');
@@ -1712,10 +1704,6 @@ describe('ThyCustomSelect', () => {
             const fixture = TestBed.createComponent(SelectEimtOptionsChangesComponent);
             fixture.detectChanges();
             flush();
-            fixture.detectChanges();
-
-            const formControl = fixture.nativeElement.querySelector('.form-control');
-            dispatchFakeEvent(formControl, 'click');
             fixture.detectChanges();
 
             const closeIcon = fixture.nativeElement.querySelector('.choice-remove-link');
@@ -1732,10 +1720,6 @@ describe('ThyCustomSelect', () => {
             const fixture = TestBed.createComponent(SelectEimtOptionsChangesComponent);
             fixture.detectChanges();
             flush();
-            fixture.detectChanges();
-
-            const formControl = fixture.nativeElement.querySelector('.form-control');
-            dispatchFakeEvent(formControl, 'click');
             fixture.detectChanges();
 
             const trigger = fixture.debugElement.query(By.css('.choice-remove-link')).nativeElement;
@@ -1792,10 +1776,6 @@ describe('ThyCustomSelect', () => {
             fixture.componentInstance.selectedValue = ['sushi-7', 'tacos-2'];
             fixture.detectChanges();
             flush();
-            fixture.detectChanges();
-
-            const formControl = fixture.nativeElement.querySelector('.form-control');
-            dispatchFakeEvent(formControl, 'click');
             fixture.detectChanges();
 
             const trigger = fixture.debugElement.queryAll(By.css('.choice-remove-link'))[1].nativeElement;
