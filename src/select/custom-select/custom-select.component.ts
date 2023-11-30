@@ -369,11 +369,6 @@ export class ThySelectCustomComponent
     @ContentChild('selectedDisplay') selectedValueDisplayRef: TemplateRef<any>;
 
     /**
-     * @private
-     */
-    @ContentChild('selectedOptionDisplay') selectedOptionDisplayRef: TemplateRef<any>;
-
-    /**
      * 初始化时，是否展开面板
      * @default false
      */
@@ -396,6 +391,12 @@ export class ThySelectCustomComponent
      * @default false
      */
     @Input() @InputBoolean() thyBorderless = false;
+
+    /**
+     * 多选选中项的展示方式，默认为空，渲染文字模板，传入tag，渲染展示模板,
+     * @default ''｜tag
+     */
+    @Input() thyPreset: string = '';
 
     @ViewChild('trigger', { read: ElementRef, static: true }) trigger: ElementRef<HTMLElement>;
 

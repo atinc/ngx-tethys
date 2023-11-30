@@ -36,14 +36,14 @@
     [(ngModel)]="multipleValues"
     [thyMultiple]="true"
     (ngModelChange)="selectChanges($event)"
-    [thyLabelRender]="renderTpl"
+    [thyLabelRender]="labelRender"
     style="width: 200px"
     [thyIsOnlySelectLeaf]="false"
     [thyShowSearch]="true"
-    [thySelectedOptionRender]="selectedOptionDisplay">
+    thyPreset="tag">
   </thy-cascader>
 
-  <ng-template #selectedOptionDisplay let-labels="labels" let-selectedOptions="selectedOptions">
+  <ng-template #labelRender let-labels="labels" let-selectedOptions="selectedOptions">
     <thy-tag thyShape="pill" thyColor="info">
       <ng-container *ngFor="let label of labels; let i = index; let isLast = last">
         <span *ngIf="isLast && label"> {{ label }}</span>

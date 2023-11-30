@@ -109,7 +109,7 @@
         }
         &-panel-opened {
             position: relative;
-            > :first-child {
+            .thy-tag {
                 padding-right: 28px;
             }
 

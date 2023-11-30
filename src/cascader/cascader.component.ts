@@ -297,7 +297,11 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
      */
     @Input() @InputBoolean() thyShowSearch: boolean = false;
 
-    @Input('thySelectedOptionRender') selectedOptionDisplayRef: TemplateRef<any>;
+    /**
+     * 多选选中项的展示方式，默认为空，渲染文字模板，传入tag，渲染展示模板,
+     * @default ''｜tag
+     */
+    @Input() thyPreset: string = '';
 
     /**
      * 值发生变化时触发，返回选择项的值
@@ -705,7 +709,7 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
         }
         let labelRenderContext;
         let labelRenderText;
-        if (this.isLabelRenderTemplate || this.selectedOptionDisplayRef) {
+        if (this.isLabelRenderTemplate) {
             labelRenderContext = { labels, selectedOptions };
         } else {
             labelRenderText = defaultDisplayRender.call(this, labels, selectedOptions);

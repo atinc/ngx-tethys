@@ -41,7 +41,7 @@
   </ng-template>
 </thy-custom-select>
 <div class="mt-2 mb-2">多选 自定义选中的option样式</div>
-<thy-custom-select [(ngModel)]="selectedTaskTypes" thyMode="multiple" thyPlaceHolder="请选择" style="width: 500px">
+<thy-custom-select [(ngModel)]="selectedTaskTypes" thyMode="multiple" thyPlaceHolder="请选择" style="width: 500px" thyPreset="tag">
   <thy-option thyValue="" thyLabelText="空"></thy-option>
   <thy-option
     *ngFor="let option of optionData"
@@ -54,7 +54,7 @@
       ><span class="text-truncate">{{ option?.display_name }}</span>
     </span>
   </thy-option>
-  <ng-template #selectedOptionDisplay let-value>
+  <ng-template #selectedDisplay let-value>
     <thy-tag thyShape="pill" [thyColor]="value?.bg_color || 'default'">
       <span *ngIf="!value">!!!空</span>
       <span *ngIf="value" class="text-truncate">{{ value?.display_name }} </span>

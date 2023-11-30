@@ -152,9 +152,6 @@ export class ThySelectControlComponent implements OnInit {
     customDisplayTemplate: TemplateRef<any>;
 
     @Input()
-    selectedOptionCustomDisplayTemplate: TemplateRef<any>;
-
-    @Input()
     @InputBoolean()
     thyAllowClear = false;
 
@@ -182,6 +179,8 @@ export class ThySelectControlComponent implements OnInit {
     @Input() @InputNumber() thyMaxTagCount = 0;
 
     @Input() @InputBoolean() thyBorderless = false;
+
+    @Input() thyPreset: string = '';
 
     @Output()
     thyOnSearch = new EventEmitter<string>();

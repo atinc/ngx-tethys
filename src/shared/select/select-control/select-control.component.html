@@ -20,14 +20,14 @@
   </div>
   <ng-container *ngIf="isMultiple; else single">
     <div thyFlex thyWrap="wrap" thyGap="4" thyAlignItems="center" class="w-100">
-      <ng-container *ngIf="selectedOptionCustomDisplayTemplate; else default">
+      <ng-container *ngIf="thyPreset === 'tag'; else default">
         <div
           thyFlexItem
           class="custom-choice-item text-truncate"
           [ngClass]="{ 'custom-choice-item-panel-opened': panelOpened }"
           *ngFor="let item of maxSelectedTags; trackBy: trackValue">
           <ng-template
-            [ngTemplateOutlet]="selectedOptionCustomDisplayTemplate"
+            [ngTemplateOutlet]="customDisplayTemplate"
             [ngTemplateOutletContext]="{ $implicit: item.thyRawValue || item.thyValue || item }">
           </ng-template>
           <div *ngIf="!disabled && thyPanelOpened" class="choice-remove-link ml-1" (click)="removeHandle(item, $event)">
