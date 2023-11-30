@@ -104,28 +104,24 @@
     }
 
     .custom-choice-item {
-        > :first-child {
+        position: relative;
+        .thy-tag {
             max-width: 100%;
+            padding-right: 28px;
         }
-        &-panel-opened {
-            position: relative;
-            .thy-tag {
-                padding-right: 28px;
-            }
 
-            .choice-remove-link {
-                position: absolute;
-                right: 12px;
-                top: 0;
+        .choice-remove-link {
+            position: absolute;
+            right: 12px;
+            top: 0;
+            .thy-icon-close {
+                color: variables.$white;
+                opacity: 0.7;
+            }
+            &:hover {
                 .thy-icon-close {
                     color: variables.$white;
-                    opacity: 0.7;
-                }
-                &:hover {
-                    .thy-icon-close {
-                        color: variables.$white;
-                        opacity: 1;
-                    }
+                    opacity: 1;
                 }
             }
         }
