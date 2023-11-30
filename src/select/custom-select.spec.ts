@@ -1673,7 +1673,6 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
             fixture.detectChanges();
-
             const removeIcon = fixture.debugElement.query(By.css('.choice-remove-link'));
             expect(removeIcon).not.toBeNull();
 
@@ -1777,7 +1776,6 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
             fixture.detectChanges();
-
             const trigger = fixture.debugElement.queryAll(By.css('.choice-remove-link'))[1].nativeElement;
             trigger.click();
             tick();
