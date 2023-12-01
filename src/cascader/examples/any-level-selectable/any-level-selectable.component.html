@@ -29,3 +29,25 @@
     </ng-container>
   </ng-template>
 </thy-form-group>
+<thy-form-group thyLabelText="级联多选支持tag">
+  <thy-cascader
+    class="d-block w-50 mb-3"
+    [thyOptions]="areaCode"
+    [(ngModel)]="multipleValues"
+    [thyMultiple]="true"
+    (ngModelChange)="selectChanges($event)"
+    [thyLabelRender]="labelRender"
+    style="width: 200px"
+    [thyIsOnlySelectLeaf]="false"
+    [thyShowSearch]="true"
+    thyPreset="tag">
+  </thy-cascader>
+
+  <ng-template #labelRender let-labels="labels" let-selectedOptions="selectedOptions">
+    <thy-tag thyShape="pill" thyColor="info">
+      <ng-container *ngFor="let label of labels; let i = index; let isLast = last">
+        <span *ngIf="isLast && label"> {{ label }}</span>
+      </ng-container>
+    </thy-tag>
+  </ng-template>
+</thy-form-group>

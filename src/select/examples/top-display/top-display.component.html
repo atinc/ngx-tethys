@@ -1,13 +1,12 @@
 <div class="mb-2">单选</div>
-<thy-custom-select [(ngModel)]="selectedTaskType" thyPlaceHolder="请选择" style="width:500px;">
+<thy-custom-select [(ngModel)]="selectedTaskType" thyPlaceHolder="请选择" style="width: 500px">
   <thy-option thyValue="" thyRawValue="" thyLabelText="空"></thy-option>
   <thy-option
     *ngFor="let option of optionData"
     thyShowOptionCustom="true"
     [thyRawValue]="option"
     [thyValue]="option.name"
-    [thyLabelText]="option.display_name"
-  >
+    [thyLabelText]="option.display_name">
     <span thyText
       ><thy-icon thyTextColor="primary" [thyIconName]="option?.icon"></thy-icon
       ><span class="text-truncate">{{ option?.display_name }}</span>
@@ -15,21 +14,20 @@
   </thy-option>
   <ng-template #selectedDisplay let-value>
     <span *ngIf="!value">!!!空</span>
-    <span *ngIf="value" thyText>
+    <span *ngIf="value" thyText class="w-100">
       <thy-icon thyTextColor="primary" [thyIconName]="value?.icon"></thy-icon><span class="text-truncate">{{ value?.display_name }}</span>
     </span>
   </ng-template>
 </thy-custom-select>
 <div class="mt-2 mb-2">多选</div>
-<thy-custom-select thyMode="multiple" thyPlaceHolder="请选择" style="width:500px;">
+<thy-custom-select [(ngModel)]="selectedTaskTypes" thyMode="multiple" thyPlaceHolder="请选择" style="width: 500px">
   <thy-option thyValue="" thyLabelText="空"></thy-option>
   <thy-option
     *ngFor="let option of optionData"
     thyShowOptionCustom="true"
     [thyRawValue]="option"
     [thyValue]="option.name"
-    [thyLabelText]="option.display_name"
-  >
+    [thyLabelText]="option.display_name">
     <span thyText
       ><thy-icon thyTextColor="primary" [thyIconName]="option?.icon"></thy-icon
       ><span class="text-truncate">{{ option?.display_name }}</span>
@@ -37,6 +35,29 @@
   </thy-option>
   <ng-template #selectedDisplay let-value>
     <span *ngIf="!value">!!!空</span>
-    <span *ngIf="value" thyText> <thy-icon thyTextColor="primary" [thyIconName]="value?.icon"></thy-icon>{{ value?.display_name }} </span>
+    <span *ngIf="value" thyText class="w-100">
+      <thy-icon thyTextColor="primary" [thyIconName]="value?.icon"></thy-icon> <span class="text-truncate">{{ value?.display_name }}</span>
+    </span>
+  </ng-template>
+</thy-custom-select>
+<div class="mt-2 mb-2">多选 自定义选中的option样式</div>
+<thy-custom-select [(ngModel)]="selectedTaskTypes" thyMode="multiple" thyPlaceHolder="请选择" style="width: 500px" thyPreset="tag">
+  <thy-option thyValue="" thyLabelText="空"></thy-option>
+  <thy-option
+    *ngFor="let option of optionData"
+    thyShowOptionCustom="true"
+    [thyRawValue]="option"
+    [thyValue]="option.name"
+    [thyLabelText]="option.display_name">
+    <span thyText
+      ><thy-icon thyTextColor="primary" [thyIconName]="option?.icon"></thy-icon
+      ><span class="text-truncate">{{ option?.display_name }}</span>
+    </span>
+  </thy-option>
+  <ng-template #selectedDisplay let-value>
+    <thy-tag thyShape="pill" [thyColor]="value?.bg_color || 'default'">
+      <span *ngIf="!value">!!!空</span>
+      <span *ngIf="value" class="text-truncate">{{ value?.display_name }} </span>
+    </thy-tag>
   </ng-template>
 </thy-custom-select>

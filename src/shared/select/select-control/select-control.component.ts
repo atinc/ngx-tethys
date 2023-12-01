@@ -180,6 +180,8 @@ export class ThySelectControlComponent implements OnInit {
 
     @Input() @InputBoolean() thyBorderless = false;
 
+    @Input() thyPreset: string = '';
+
     @Output()
     thyOnSearch = new EventEmitter<string>();
 
