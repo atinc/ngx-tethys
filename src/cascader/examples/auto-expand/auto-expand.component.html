@@ -1,0 +1,23 @@
+<div>
+  <button class="btn btn-primary mb-3" (click)="isShow = !isShow">Open</button>
+
+  <thy-cascader
+    *ngIf="isShow"
+    class="d-block w-50 mb-3"
+    [thyOptions]="areaCode"
+    [(ngModel)]="multipleValues"
+    [thyMultiple]="true"
+    (ngModelChange)="selectChanges($event)"
+    [thyLabelRender]="renderTpl"
+    style="width: 200px"
+    [thyIsOnlySelectLeaf]="false"
+    [thyShowSearch]="true"
+    [thyAutoExpand]="true">
+  </thy-cascader>
+
+  <ng-template #renderTpl let-labels="labels" let-selectedOptions="selectedOptions">
+    <ng-container *ngFor="let label of labels; let i = index; let isLast = last">
+      <span *ngIf="isLast && label"> {{ label }}</span>
+    </ng-container>
+  </ng-template>
+</div>
