@@ -683,7 +683,7 @@ class SelectDropdownWidthComponent {
 }
 
 @Component({
-    selector: 'select-width-thy-options',
+    selector: 'thy-select-width-thy-options',
     template: `
         <div style="width:100px">
             <thy-custom-select [thyOptions]="options" class="select1" [(ngModel)]="selectedValue"> </thy-custom-select>
