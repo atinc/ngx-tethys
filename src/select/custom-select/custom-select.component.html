@@ -18,7 +18,8 @@
   (thyOnRemove)="remove($event)"
   (thyOnSearch)="onSearchFilter($event)"
   (thyOnBlur)="onBlur($event)"
-  [thyMaxTagCount]="thyMaxTagCount"></div>
+  [thyMaxTagCount]="thyMaxTagCount"
+  [thyPreset]="thyPreset"></div>
 
 <ng-template
   cdk-connected-overlay
@@ -36,7 +37,7 @@
     <ng-container *ngIf="contentOptions?.length > 0 || contentGroups?.length > 0 || _options?.length > 0; else emptyPlaceholder">
       <div
         #panel
-        class="thy-select-dropdown-options"
+        class="thy-select-dropdown-options thy-select-dropdown-options-{{ size }}"
         thyScroll
         (thyOnScrolled)="onOptionsScrolled($event)"
         [thyEnable]="thyEnableScrollLoad">

@@ -15,7 +15,7 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { isValid } from 'date-fns';
 import { getFlexiblePositions, InputBoolean, ThyPlacement } from 'ngx-tethys/core';
-import { TinyDate } from 'ngx-tethys/util';
+import { TinyDate, coerceBooleanProperty } from 'ngx-tethys/util';
 import { ThyTimePanelComponent } from './time-picker-panel.component';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { NgTemplateOutlet, NgIf, NgClass } from '@angular/common';
@@ -132,7 +132,11 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, ControlVal
      * @default false
      */
     @Input() @InputBoolean() set thyDisabled(value: boolean) {
-        this.disabled = value;
+        this.disabled = coerceBooleanProperty(value);
+    }
+
+    get thyDisabled(): boolean {
+        return this.disabled;
     }
 
     /**
@@ -181,6 +185,8 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, ControlVal
     originValue: Date;
 
     keepFocus: boolean;
+
+    private isDisabledFirstChange = true;
 
     onValueChangeFn: (val: number | Date) => void = () => void 0;
 
@@ -331,7 +337,8 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, ControlVal
     }
 
     setDisabledState?(isDisabled: boolean): void {
-        this.disabled = isDisabled;
+        this.disabled = (this.isDisabledFirstChange && this.thyDisabled) || isDisabled;
+        this.isDisabledFirstChange = false;
     }
 
     private setValue(value: Date, formatText: boolean = true) {

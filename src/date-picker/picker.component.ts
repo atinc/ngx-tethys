@@ -22,7 +22,6 @@ import { CompatibleValue, RangePartType } from './inner-types';
 import { getFlexibleAdvancedReadableValue } from './picker.util';
 import { ThyDateGranularity } from './standard-types';
 import { ThyEnterDirective } from 'ngx-tethys/shared';
-import { BehaviorSubject } from 'rxjs';
 
 /**
  * @private
@@ -54,7 +53,6 @@ export class ThyPickerComponent implements AfterViewInit {
     @Input() allowClear: boolean;
     @Input() autoFocus: boolean;
     @Input() className: string;
-    @Input() format: string;
     @Input() size: 'sm' | 'xs' | 'lg' | 'md' | 'default';
     @Input() suffixIcon: string;
     @Input() placement: ThyPlacement = 'bottomLeft';
@@ -68,6 +66,16 @@ export class ThyPickerComponent implements AfterViewInit {
     @ViewChild('origin', { static: true }) origin: CdkOverlayOrigin;
     @ViewChild(CdkConnectedOverlay, { static: true }) cdkConnectedOverlay: CdkConnectedOverlay;
     @ViewChild('pickerInput', { static: true }) pickerInput: ElementRef;
+
+    @Input()
+    get format() {
+        return this.innerFormat;
+    }
+
+    set format(value: string) {
+        this.innerFormat = value;
+        this.updateReadableDate(this.innerValue);
+    }
 
     @Input()
     get flexibleDateGranularity() {
@@ -93,11 +101,11 @@ export class ThyPickerComponent implements AfterViewInit {
 
     private innerflexibleDateGranularity: ThyDateGranularity;
 
+    private innerFormat: string;
+
     private innerValue: TinyDate | TinyDate[] | null;
 
     entering = false;
-
-    readableValue$ = new BehaviorSubject<string | null>(null);
 
     prefixCls = 'thy-calendar';
 
@@ -228,13 +236,13 @@ export class ThyPickerComponent implements AfterViewInit {
             if (this.flexible && this.innerflexibleDateGranularity !== 'day') {
                 return getFlexibleAdvancedReadableValue(tinyDate as TinyDate[], this.innerflexibleDateGranularity);
             } else {
-                const start = tinyDate[0] ? this.dateHelper.format(tinyDate[0].nativeDate, this.format) : '';
-                const end = tinyDate[1] ? this.dateHelper.format(tinyDate[1].nativeDate, this.format) : '';
+                const start = tinyDate[0] ? this.dateHelper.format(tinyDate[0].nativeDate, this.innerFormat) : '';
+                const end = tinyDate[1] ? this.dateHelper.format(tinyDate[1].nativeDate, this.innerFormat) : '';
                 return start && end ? `${start} ~ ${end}` : null;
             }
         } else {
             value = tinyDate as TinyDate;
-            return value ? this.dateHelper.format(value.nativeDate, this.format) : null;
+            return value ? this.dateHelper.format(value.nativeDate, this.innerFormat) : null;
         }
     }
 
@@ -249,13 +257,7 @@ export class ThyPickerComponent implements AfterViewInit {
         if (readableValue === this.pickerInput.nativeElement['value']) {
             return;
         }
-        if (this.readonlyState) {
-            this.readableValue$.next(readableValue);
-        } else {
-            this.readableValue$.next(null);
-            setTimeout(() => {
-                this.readableValue$.next(readableValue);
-            }, 0);
-        }
+
+        this.pickerInput.nativeElement.value = readableValue;
     }
 }

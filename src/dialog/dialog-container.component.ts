@@ -16,6 +16,7 @@ import {
     Inject,
     NgZone,
     OnDestroy,
+    Renderer2,
     ViewChild
 } from '@angular/core';
 
@@ -148,6 +149,7 @@ export class ThyDialogContainerComponent extends ThyAbstractOverlayContainer imp
                 // 手动修改动画状态为从 void 到 enter, 开启动画
             }
             this.animationState = 'enter';
+            this.changeDetectorRef.markForCheck();
         });
     }
 
@@ -158,7 +160,8 @@ export class ThyDialogContainerComponent extends ThyAbstractOverlayContainer imp
         changeDetectorRef: ChangeDetectorRef,
         private clickPositioner: ThyClickPositioner,
         private focusTrapFactory: FocusTrapFactory,
-        private ngZone: NgZone
+        private ngZone: NgZone,
+        private renderer: Renderer2
     ) {
         super(dialogAbstractOverlayOptions, changeDetectorRef);
         this.animationOpeningDone = this.animationStateChanged.pipe(
@@ -171,6 +174,16 @@ export class ThyDialogContainerComponent extends ThyAbstractOverlayContainer imp
                 return event.phaseName === 'done' && event.toState === 'exit';
             })
         );
+        /* Prohibit operations on elements inside the container during animation execution */
+        this.animationStateChanged
+            .pipe(
+                filter((event: AnimationEvent) => {
+                    return event.phaseName === 'start' && event.toState === 'exit';
+                })
+            )
+            .subscribe(() => {
+                this.renderer.setStyle(this.elementRef.nativeElement, 'pointer-events', 'none');
+            });
     }
 
     beforeAttachPortal(): void {

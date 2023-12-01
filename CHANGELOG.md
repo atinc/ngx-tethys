@@ -2,6 +2,80 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.1.16](https://github.com/atinc/ngx-tethys/compare/16.1.15...16.1.16) (2023-11-24)
+
+
+### Bug Fixes
+
+* **anchor:** set  style for horizontal display #INFR-10451 ([#2914](https://github.com/atinc/ngx-tethys/issues/2914)) ([58bef8a](https://github.com/atinc/ngx-tethys/commit/58bef8a86445e32337490a0b7b42f71875bcd267)), closes [#INFR-10451](https://github.com/atinc/ngx-tethys/issues/INFR-10451)
+* **switch:** the switch thyDisabled does not take effect when using ngModel #INFR-10583 ([#2910](https://github.com/atinc/ngx-tethys/issues/2910)) ([700e3b7](https://github.com/atinc/ngx-tethys/commit/700e3b7bddd8d93bda24f105f53d6ed135dc31a2)), closes [#INFR-10583](https://github.com/atinc/ngx-tethys/issues/INFR-10583)
+* **time-picker:** the time-picker thyDisabled does not take effect when using ngModel #INFR-7476 ([#2911](https://github.com/atinc/ngx-tethys/issues/2911)) ([4c9f17a](https://github.com/atinc/ngx-tethys/commit/4c9f17ab20fcdbdbdba88e41c707814641637956)), closes [#INFR-7476](https://github.com/atinc/ngx-tethys/issues/INFR-7476) [#INFR-10583](https://github.com/atinc/ngx-tethys/issues/INFR-10583) [#INFR-10583](https://github.com/atinc/ngx-tethys/issues/INFR-10583)
+
+
+### Features
+
+* **date-picker:** input formatdate sync withTime prop #INFR-10513 ([#2905](https://github.com/atinc/ngx-tethys/issues/2905)) ([3e893ab](https://github.com/atinc/ngx-tethys/commit/3e893ab33f6e5fad14212b13a7d2fd78c93209f1)), closes [#INFR-10513](https://github.com/atinc/ngx-tethys/issues/INFR-10513)
+* **switch:** support thyLoading and loading animation INFR-10495 ([#2917](https://github.com/atinc/ngx-tethys/issues/2917)) ([7298c32](https://github.com/atinc/ngx-tethys/commit/7298c32b5a78994100d599a159eec3b91a44e715))
+
+
+
+## [16.1.15](https://github.com/atinc/ngx-tethys/compare/16.1.14...16.1.15) (2023-11-23)
+
+
+### Bug Fixes
+
+* **anchor:** set the sliding style for horizontal display #INFR-10451 ([#2907](https://github.com/atinc/ngx-tethys/issues/2907)) ([adb7c59](https://github.com/atinc/ngx-tethys/commit/adb7c5905bc6d0e95efcc62a9f2b9f026aa6492b)), closes [#INFR-10451](https://github.com/atinc/ngx-tethys/issues/INFR-10451)
+
+
+### Features
+
+* **dialog:** thy-dialog-container animation to enter add markForCheck #INFR-10586 ([#2908](https://github.com/atinc/ngx-tethys/issues/2908)) ([cddcca2](https://github.com/atinc/ngx-tethys/commit/cddcca2b80e95ce133a84a5b9bc22f54e7b1360b)), closes [#INFR-10586](https://github.com/atinc/ngx-tethys/issues/INFR-10586)
+
+
+
+## [16.1.14](https://github.com/atinc/ngx-tethys/compare/16.1.13...16.1.14) (2023-11-20)
+
+
+### Bug Fixes
+
+* **date-picker:** adjust updateReadableDate function INFR-10167 ([#2900](https://github.com/atinc/ngx-tethys/issues/2900)) ([4c2f14a](https://github.com/atinc/ngx-tethys/commit/4c2f14a59e86264e39343497dbae8aee4fba7440))
+* **input:** adjust left margin of prefix element and right margin of suffix element #INFR-10515 ([8ad60ce](https://github.com/atinc/ngx-tethys/commit/8ad60ce0272e6fbc1313f37ce763455f6d13f1ec)), closes [#INFR-10515](https://github.com/atinc/ngx-tethys/issues/INFR-10515)
+
+
+### Features
+
+* **anchor:** support horizontal display #INFR-10451 ([#2901](https://github.com/atinc/ngx-tethys/issues/2901)) ([bb5d10a](https://github.com/atinc/ngx-tethys/commit/bb5d10a5dde4832a496c24137750e635fead2ec5)), closes [#INFR-10451](https://github.com/atinc/ngx-tethys/issues/INFR-10451)
+
+
+
+## [16.1.13](https://github.com/atinc/ngx-tethys/compare/16.1.12...16.1.13) (2023-11-16)
+
+
+### Bug Fixes
+
+* **cascader:** fix bug of selectall #INFR-10448 ([#2898](https://github.com/atinc/ngx-tethys/issues/2898)) ([974ca51](https://github.com/atinc/ngx-tethys/commit/974ca51cd160958d0874d6ca00bf9cba08529e84)), closes [#INFR-10448](https://github.com/atinc/ngx-tethys/issues/INFR-10448)
+
+
+
+## [16.1.12](https://github.com/atinc/ngx-tethys/compare/16.1.11...16.1.12) (2023-11-16)
+
+
+### Bug Fixes
+
+* **date-picker:** should update display value when thyFormat change #INFR-10428 ([#2897](https://github.com/atinc/ngx-tethys/issues/2897)) ([0581693](https://github.com/atinc/ngx-tethys/commit/05816939dba507c7487c6ee6864d4d89f67f718b)), closes [#INFR-10428](https://github.com/atinc/ngx-tethys/issues/INFR-10428)
+
+
+
+## [16.1.11](https://github.com/atinc/ngx-tethys/compare/16.1.10...16.1.11) (2023-11-15)
+
+
+### Features
+
+* **cascader:** support quick selection all leafs when thyIsOnlySelectLeaf is true #INFR-10253 ([#2891](https://github.com/atinc/ngx-tethys/issues/2891)) ([8087172](https://github.com/atinc/ngx-tethys/commit/80871723dc11e4dd23e1beda8ef18f830d1c3251)), closes [#INFR-10253](https://github.com/atinc/ngx-tethys/issues/INFR-10253)
+* **dialog:** #INFR-10411 prohibit operations when closing animation in dialog container ([#2893](https://github.com/atinc/ngx-tethys/issues/2893)) ([35d2df2](https://github.com/atinc/ngx-tethys/commit/35d2df207012a0f1af3f20ab39f9cbe94e56690e)), closes [#INFR-10411](https://github.com/atinc/ngx-tethys/issues/INFR-10411)
+
+
+
 ## [16.1.10](https://github.com/atinc/ngx-tethys/compare/16.1.9...16.1.10) (2023-11-08)
 
 

@@ -29,6 +29,7 @@
         color: variables.$action-color;
         border-bottom: none;
         opacity: 0.5;
+        cursor: variables.$disabled-cursor;
     }
 
     .thy-icon {

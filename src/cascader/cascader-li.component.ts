@@ -44,6 +44,10 @@ export class ThyCascaderOptionComponent implements OnInit {
 
     @Input()
     @InputBoolean()
+    halfSelected = false;
+
+    @Input()
+    @InputBoolean()
     selected: boolean = false;
 
     @HostBinding('class.thy-cascader-menu-item-disabled')

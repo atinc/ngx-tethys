@@ -1,6 +1,6 @@
 {
   "name": "ngx-tethys",
-  "version": "16.1.10",
+  "version": "16.1.16",
   "license": "MIT",
   "engines": {
     "node": "^16.14.0 || >=18.10.0",
@@ -107,7 +107,7 @@
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "^5.59.2",
     "@typescript-eslint/parser": "^5.59.2",
-    "@worktile/pkg-manager": "^0.0.11",
+    "@worktile/pkg-manager": "^0.1.0",
     "chalk": "^2.4.2",
     "concurrently": "^3.6.0",
     "conventional-changelog-cli": "^2.0.29",

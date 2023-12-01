@@ -10,7 +10,7 @@
         variables.$select-control-padding-y-default,
         variables.$select-control-height-default
     );
-    padding-right: 23px;
+    padding-right: 26px;
 
     &.form-control-sm {
         @include select.select-control-size(
@@ -37,29 +37,21 @@
         width: 100%;
         padding: 0;
         border: none;
+        height: 100%;
         &.hidden {
             visibility: hidden;
         }
     }
     .select-control-rendered {
         position: relative;
-        ul {
-            width: 100%;
-            margin: 0;
-            padding: 0;
-            list-style: none;
-            &::after {
-                display: block;
-                clear: both;
-                height: 0;
-                content: ' ';
-            }
-        }
+        display: flex;
+        align-items: center;
         .text-placeholder,
         .selected-value {
             position: absolute;
             user-select: none;
             width: 100%;
+            align-items: center;
             .thy-tag {
                 vertical-align: top;
             }
@@ -110,10 +102,34 @@
             max-width: 100%;
         }
     }
-    .choice {
+
+    .custom-choice-item {
+        position: relative;
+        .thy-tag {
+            max-width: 100%;
+            padding-right: 28px;
+        }
+
+        .choice-remove-link {
+            position: absolute;
+            right: 12px;
+            top: 0;
+            .thy-icon-close {
+                color: variables.$white;
+                opacity: 0.7;
+            }
+            &:hover {
+                .thy-icon-close {
+                    color: variables.$white;
+                    opacity: 1;
+                }
+            }
+        }
+    }
+    .choice-item {
         float: left;
         max-width: 97%;
-        color: variables.$gray-800;
+        color: variables.$gray-700;
         cursor: default;
         &.disabled {
             cursor: variables.$disabled-cursor;

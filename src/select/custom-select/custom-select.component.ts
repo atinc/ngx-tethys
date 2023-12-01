@@ -461,6 +461,12 @@ export class ThySelectCustomComponent
     }
 
     options: QueryList<ThyOptionComponent>;
+    
+    /**
+     * 多选选中项的展示方式，默认为空，渲染文字模板，传入tag，渲染展示模板,
+     * @default ''｜tag
+     */
+    @Input() thyPreset: string = '';
 
     @ViewChild('trigger', { read: ElementRef, static: true }) trigger: ElementRef<HTMLElement>;
 

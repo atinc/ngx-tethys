@@ -1,7 +1,6 @@
 import { Component, DebugElement, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testing';
 import { ThyPickerComponent } from './picker.component';
-import { DisabledDateFn } from './standard-types';
 import { CdkConnectedOverlay, CdkOverlayOrigin, OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { ThyIconComponent } from 'ngx-tethys/icon';
@@ -81,6 +80,25 @@ describe('ThyPickerComponent', () => {
         getPickerInputElement().dispatchEvent(new Event('input'));
         getPickerInputElement().dispatchEvent(new Event('blur'));
         expect(valueChange).toHaveBeenCalled();
+    }));
+
+    it('should update display value when thyFormat change', fakeAsync(() => {
+        fixture.detectChanges();
+        dispatchKeyboardEvent(getPickerInputElement(), 'keydown', ENTER);
+        flush();
+
+        const setValue = '2023-11-02 12:00';
+        getPickerInputElement().value = setValue;
+        getPickerInputElement().dispatchEvent(new Event('input'));
+        getPickerInputElement().dispatchEvent(new Event('blur'));
+        expect(getPickerInputElement().value).toBe('2023-11-02 12:00');
+
+        // [thyFormat]="dateValue | thyDatePickerFormat"
+        fixtureInstance.thyFormat = '2023-11-02';
+        fixture.detectChanges();
+        flush();
+        fixture.detectChanges();
+        expect(getPickerInputElement().value).toBe('2023-11-02');
     }));
 
     it('should emit now when input null', fakeAsync(() => {

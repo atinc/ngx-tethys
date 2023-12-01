@@ -1,29 +1,32 @@
 export const taskTypes = [
     {
         icon: 'task-square-fill',
-        display_name: '任务',
+        display_name: '任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务',
         name: 'task',
         pin_yin: 'r,re,ren,renw,renwu',
-        _id: '5b0527cfc8f2ff200a33d4aa'
+        _id: '5b0527cfc8f2ff200a33d4aa',
+        bg_color: '#5DCFFF'
     },
     {
         icon: 'user-story-square-fill',
         display_name: '用户故事',
         name: 'requirement',
-        _id: '5b0527cfc8f2ff200a33d4ad'
+        _id: '5b0527cfc8f2ff200a33d4ad',
+        bg_color: '#73D897'
     },
     {
         icon: 'bug-square-fill',
         display_name: 'IOS缺陷',
         name: 'ios',
-        _id: '5b0527cfc8f2ff200a33d4b1'
+        _id: '5b0527cfc8f2ff200a33d4b1',
+        bg_color: '#FFCD5D'
     }
 ];
 
 export const listOfOption = [
-    { value: 'option1', text: '选项一' },
+    { value: 'option1', text: '选项一选项一选项一选项一选项一选项一选项一选项一选项一选项一选项一选项一选项一选项一' },
     { value: 'option2', text: '选项二' },
-    { value: 'option3', text: '选项三' },
+    { value: 'option3', text: '选项三选项三选项三选项三选项三选项三' },
     { value: 'option4', text: '选项四' },
     { value: 'option5', text: '选项五' },
     { value: 'option6', text: '选项六' },
