@@ -18,7 +18,8 @@ import {
     ThySelectControlComponent,
     ThySelectOptionGroupComponent,
     ThyStopPropagationDirective,
-    THY_OPTION_PARENT_COMPONENT
+    THY_OPTION_PARENT_COMPONENT,
+    ThyOptionsContainerComponent
 } from 'ngx-tethys/shared';
 import {
     A,
@@ -51,9 +52,10 @@ import {
     ScrollStrategy,
     ViewportRuler
 } from '@angular/cdk/overlay';
-import { isPlatformBrowser, NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
+import { isPlatformBrowser, NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 import {
     AfterContentInit,
+    AfterViewInit,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -74,7 +76,8 @@ import {
     PLATFORM_ID,
     QueryList,
     TemplateRef,
-    ViewChild
+    ViewChild,
+    ViewChildren
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -106,6 +109,18 @@ export interface OptionValue {
     thyDisabled?: boolean;
     thyShowOptionCustom?: boolean;
     thySearchKey?: string;
+}
+
+export interface ThySelectOptionModel {
+    value?: string | number;
+    disabled?: boolean;
+    label?: string;
+    icon?: string;
+    groupLabel?: string;
+}
+
+interface GroupOptionModel extends ThySelectOptionModel {
+    children?: ThySelectOptionModel[];
 }
 
 const noop = () => {};
@@ -142,7 +157,11 @@ const noop = () => {};
         ThyScrollDirective,
         ThyLoadingComponent,
         ThyEmptyComponent,
-        NgTemplateOutlet
+        ThyOptionsContainerComponent,
+        ThyOptionComponent,
+        ThySelectOptionGroupComponent,
+        NgTemplateOutlet,
+        NgFor
     ],
     host: {
         '[attr.tabindex]': 'tabIndex',
@@ -152,7 +171,7 @@ const noop = () => {};
 })
 export class ThySelectCustomComponent
     extends TabIndexDisabledControlValueAccessorMixin
-    implements ControlValueAccessor, IThyOptionParentComponent, OnInit, AfterContentInit, OnDestroy
+    implements ControlValueAccessor, IThyOptionParentComponent, OnInit, AfterViewInit, AfterContentInit, OnDestroy
 {
     disabled = false;
 
@@ -392,6 +411,57 @@ export class ThySelectCustomComponent
      */
     @Input() @InputBoolean() thyBorderless = false;
 
+    isReactiveDriven = false;
+
+    _options: ThySelectOptionModel[];
+
+    groupOptions: GroupOptionModel[] = [];
+
+    /**
+     * option 列表
+     * @type ThySelectOptionModel[]
+     */
+    @Input()
+    set thyOptions(value: ThySelectOptionModel[]) {
+        if (value === null) {
+            value = [];
+        }
+        this._options = value;
+        this.isReactiveDriven = true;
+        const groupMap = new Map();
+        const groups = [...new Set(this._options.filter(item => item.groupLabel).map(sub => sub.groupLabel))];
+        if (groups.length > 0) {
+            groups.forEach(group => {
+                const children = this._options.filter(item => item.groupLabel === group);
+                const groupOption = {
+                    groupLabel: group,
+                    children: children
+                };
+                groupMap.set(group, groupOption);
+            });
+
+            this._options.forEach(option => {
+                if (option.groupLabel) {
+                    const currentIndex = this.groupOptions.findIndex(item => item.groupLabel === option.groupLabel);
+                    if (currentIndex === -1) {
+                        const item = groupMap.get(option.groupLabel);
+                        this.groupOptions.push(item);
+                    }
+                } else {
+                    this.groupOptions.push(option);
+                }
+            });
+        } else {
+            this.groupOptions = this._options;
+        }
+    }
+
+    get thyOptions() {
+        return this._options;
+    }
+
+    options: QueryList<ThyOptionComponent>;
+
     @ViewChild('trigger', { read: ElementRef, static: true }) trigger: ElementRef<HTMLElement>;
 
     @ViewChild('panel', { read: ElementRef }) panel: ElementRef<HTMLElement>;
@@ -399,12 +469,16 @@ export class ThySelectCustomComponent
     /**
      * @private
      */
-    @ContentChildren(ThyOptionComponent, { descendants: true }) options: QueryList<ThyOptionComponent>;
+    @ContentChildren(ThyOptionComponent, { descendants: true }) contentOptions: QueryList<ThyOptionComponent>;
+
+    @ViewChildren(ThyOptionComponent) viewOptions: QueryList<ThyOptionComponent>;
 
     /**
      * @private
      */
-    @ContentChildren(ThySelectOptionGroupComponent) optionGroups: QueryList<ThySelectOptionGroupComponent>;
+    @ContentChildren(ThySelectOptionGroupComponent) contentGroups: QueryList<ThySelectOptionGroupComponent>;
+
+    @ViewChildren(ThySelectOptionGroupComponent) viewGroups: QueryList<ThySelectOptionGroupComponent>;
 
     @HostListener('keydown', ['$event'])
     handleKeydown(event: KeyboardEvent): void {
@@ -417,6 +491,7 @@ export class ThySelectCustomComponent
     }
 
     get optionsChanges$() {
+        this.options = this.isReactiveDriven ? this.viewOptions : this.contentOptions;
         let previousOptions: ThyOptionComponent[] = this.options.toArray();
         return this.options.changes.pipe(
             map(data => {
@@ -508,7 +583,19 @@ export class ThySelectCustomComponent
         return dropdownMinWidth;
     }
 
+    ngAfterViewInit(): void {
+        if (this.isReactiveDriven) {
+            this.commonFunction();
+        }
+    }
+
     ngAfterContentInit() {
+        if (!this.isReactiveDriven) {
+            this.commonFunction();
+        }
+    }
+
+    commonFunction() {
         this.optionsChanges$.pipe(startWith(null), takeUntil(this.destroy$)).subscribe(data => {
             this.resetOptions();
             this.initializeSelection();
@@ -527,6 +614,7 @@ export class ThySelectCustomComponent
                     }
                 });
         });
+
         if (this.thyAutoExpand) {
             timer(0).subscribe(() => {
                 this.changeDetectorRef.markForCheck();
@@ -670,7 +758,8 @@ export class ThySelectCustomComponent
     }
 
     public getItemCount(): number {
-        return this.options.length + this.optionGroups.length;
+        const group = this.isReactiveDriven ? this.viewGroups : this.contentGroups;
+        return this.options.length + group.length;
     }
 
     public toggle(event: MouseEvent): void {

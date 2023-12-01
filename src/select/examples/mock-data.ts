@@ -42,3 +42,46 @@ export const listOfOption = [
     { value: 'option19', text: '选项十九' },
     { value: 'option20', text: '选项二十' }
 ];
+
+export const options = [
+    {
+        value: 'dog',
+        label: '狗'
+    },
+    {
+        value: 'pig',
+        label: '猪'
+    },
+    {
+        value: 'cat',
+        label: '猫'
+    }
+];
+
+export const groupOptions = [
+    {
+        value: 'dog',
+        label: '狗',
+        groupLabel: 'pet',
+        disabled: true
+    },
+    {
+        value: 'pig',
+        label: '猪',
+        groupLabel: 'animal'
+    },
+    {
+        value: 'cat',
+        groupLabel: 'pet',
+        label: '猫'
+    },
+    {
+        value: 'monkey',
+        label: '猴',
+        groupLabel: 'animal'
+    },
+    {
+        value: 'home',
+        label: '家'
+    }
+];

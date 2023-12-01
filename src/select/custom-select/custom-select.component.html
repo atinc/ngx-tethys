@@ -33,13 +33,14 @@
   (attach)="onAttached()"
   (detach)="close()">
   <div thyStopPropagation [attr.tabindex]="-1" [ngClass]="dropDownClass" (mousemove)="dropDownMouseMove($event)">
-    <ng-container *ngIf="options.length > 0 || optionGroups.length > 0; else emptyPlaceholder">
+    <ng-container *ngIf="contentOptions?.length > 0 || contentGroups?.length > 0 || _options?.length > 0; else emptyPlaceholder">
       <div
         #panel
         class="thy-select-dropdown-options"
         thyScroll
         (thyOnScrolled)="onOptionsScrolled($event)"
         [thyEnable]="thyEnableScrollLoad">
+        <ng-template *ngIf="isReactiveDriven" [ngTemplateOutlet]="optionsContainer.optionsTemplate"></ng-template>
         <ng-content></ng-content>
         <ng-container *ngIf="isHiddenOptions">
           <thy-loading [thyDone]="thyLoadState" thySize="sm"></thy-loading>
@@ -60,3 +61,24 @@
     </div>
   </div>
 </ng-template>
+
+<thy-options-container #optionsContainer>
+  <ng-container *ngFor="let option of groupOptions">
+    <thy-option
+      *ngIf="!option.children; else optionGroup"
+      [thyDisabled]="option.disabled"
+      [thyLabelText]="option.label"
+      [thyValue]="option.value"
+      [thyRawValue]="option"></thy-option>
+    <ng-template #optionGroup>
+      <thy-option-group [thyGroupLabel]="option.groupLabel">
+        <thy-option
+          *ngFor="let sub of option.children"
+          [thyDisabled]="sub.disabled"
+          [thyLabelText]="sub.label"
+          [thyValue]="sub.value"
+          [thyRawValue]="sub"></thy-option>
+      </thy-option-group>
+    </ng-template>
+  </ng-container>
+</thy-options-container>
