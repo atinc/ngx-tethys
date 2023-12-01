@@ -20,6 +20,7 @@ import {
 import { thyPopoverAnimations } from './popover-animations';
 import { ThyPopoverConfig } from './popover.config';
 import { popoverAbstractOverlayOptions } from './popover.options';
+import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core/animation/zoom';
 
 /**
  * @internal
@@ -27,15 +28,25 @@ import { popoverAbstractOverlayOptions } from './popover.options';
 @Component({
     selector: 'thy-popover-container',
     templateUrl: './popover-container.component.html',
-    animations: [thyPopoverAnimations.popoverContainer],
+    // animations: [thyPopoverAnimations.popoverContainer],
+    animations: [scaleXMotion, scaleYMotion, scaleMotion],
     host: {
         class: 'thy-popover-container',
         tabindex: '-1',
         '[attr.role]': `'popover'`,
         '[attr.id]': 'id',
-        '[@popoverContainer]': 'animationState',
-        '(@popoverContainer.start)': 'onAnimationStart($event)',
-        '(@popoverContainer.done)': 'onAnimationDone($event)'
+
+        '[@scaleXMotion]': 'animationTrigger === "scaleXMotion" ? animationState : "void"',
+        '(@scaleXMotion.start)': 'onAnimationStart($event)',
+        '(@scaleXMotion.done)': 'onAnimationDone($event)',
+
+        '[@scaleYMotion]': 'animationTrigger === "scaleYMotion" ? animationState : "void"',
+        '(@scaleYMotion.start)': 'onAnimationStart($event)',
+        '(@scaleYMotion.done)': 'onAnimationDone($event)',
+
+        '[@scaleMotion]': 'animationTrigger === "scaleMotion" ? animationState : "void"',
+        '(@scaleMotion.start)': 'onAnimationStart($event)',
+        '(@scaleMotion.done)': 'onAnimationDone($event)'
     },
     standalone: true,
     imports: [PortalModule, ThyPortalOutlet]
@@ -46,6 +57,8 @@ export class ThyPopoverContainerComponent<TData = unknown> extends ThyAbstractOv
 
     /** State of the popover animation. */
     animationState: 'void' | 'enter' | 'exit' = 'enter';
+
+    animationTrigger: 'scaleXMotion' | 'scaleYMotion' | 'scaleMotion' = 'scaleMotion';
 
     /** Emits when an animation state changes. */
     animationStateChanged = new EventEmitter<AnimationEvent>();
