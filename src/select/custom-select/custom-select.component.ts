@@ -463,7 +463,7 @@ export class ThySelectCustomComponent
     options: QueryList<ThyOptionComponent>;
 
     /**
-     * 多选选中项的展示方式，默认为空，渲染文字模板，传入tag，渲染展示模板,
+     * 目前只支持多选选中项的展示，默认为空，渲染文字模板，传入tag，渲染展示模板,
      * @default ''｜tag
      */
     @Input() thyPreset: string = '';
