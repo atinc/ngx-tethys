@@ -10,7 +10,7 @@ import { ThyIconComponent } from 'ngx-tethys/icon';
 import { SelectControlSize, SelectOptionBase, ThySelectControlComponent } from 'ngx-tethys/shared';
 import { Id } from 'ngx-tethys/types';
 import { coerceBooleanProperty, elementMatchClosest, isArray, isEmpty, set, helpers } from 'ngx-tethys/util';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Subject, timer } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, take, takeUntil } from 'rxjs/operators';
 
 import { SelectionModel } from '@angular/cdk/collections';
@@ -23,6 +23,7 @@ import {
 } from '@angular/cdk/overlay';
 import { NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
+    AfterContentInit,
     ChangeDetectorRef,
     Component,
     ElementRef,
@@ -116,7 +117,10 @@ const defaultDisplayRender = (label: any) => label.join(' / ');
         ThyIconComponent
     ]
 })
-export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor, OnInit, OnDestroy {
+export class ThyCascaderComponent
+    extends TabIndexDisabledControlValueAccessorMixin
+    implements ControlValueAccessor, OnInit, OnDestroy, AfterContentInit
+{
     /**
      * 选项的实际值的属性名
      */
@@ -288,6 +292,12 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
     thyIsOnlySelectLeaf = true;
 
     /**
+     * 初始化时，是否展开面板
+     * @default false
+     */
+    @Input() @InputBoolean() thyAutoExpand: boolean;
+
+    /**
      * 是否支持搜索
      * @default false
      */
@@ -428,6 +438,15 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
         this.valueChange$.pipe(takeUntil(this.destroy$), debounceTime(100)).subscribe(() => {
             this.valueChange();
         });
+    }
+
+    ngAfterContentInit() {
+        if (this.thyAutoExpand) {
+            timer(0).subscribe(() => {
+                this.cdr.markForCheck();
+                this.setMenuVisible(true);
+            });
+        }
     }
 
     private initSelectionModel() {
