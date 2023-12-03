@@ -1,5 +1,14 @@
 import { NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
+import {
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    Input,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
 import { ThySkeletonCircle, ThySkeletonRectangle } from 'ngx-tethys/skeleton';
 import { ThyTableSkeletonColumn } from './table.interface';
@@ -24,7 +33,15 @@ const COLUMN_COUNT = 5;
     standalone: true,
     imports: [NgFor, NgClass, NgIf, NgTemplateOutlet, ThyViewOutletDirective, ThySkeletonRectangle, ThySkeletonCircle]
 })
-export class ThyTableSkeleton {
+export class ThyTableSkeleton implements AfterViewInit {
+    @ViewChild('titleTemplate') titleTemplate: ElementRef<HTMLElement>;
+
+    @ViewChild('memberTemplate') memberTemplate: ElementRef<HTMLElement>;
+
+    @ViewChild('defaultTemplate') defaultTemplate: ElementRef<HTMLElement>;
+
+    @ViewChild('checkboxTemplate') checkboxTemplate: ElementRef<HTMLElement>;
+
     /**
      * 骨架边框圆角
      */
@@ -110,15 +127,19 @@ export class ThyTableSkeleton {
         }
     }
 
-    public titleHeight = '16px';
+    public titleHeight = '20px';
 
     public titleWidth = '50px';
 
-    public checkBoxWidth = '20px';
+    public checkboxWidth = '20px';
 
     public avatarSize = '24px';
 
     public columnType = ThyTableColumnSkeletonType;
+
+    public skeletonColumnsMap: {
+        [key: string]: ElementRef<HTMLElement>;
+    } = {};
 
     get tableClassMap() {
         return {
@@ -152,5 +173,16 @@ export class ThyTableSkeleton {
 
     public trackByFn(index: number) {
         return index;
+    }
+
+    constructor(private cdr: ChangeDetectorRef) {}
+
+    ngAfterViewInit(): void {
+        this.skeletonColumnsMap = {
+            [ThyTableColumnSkeletonType.title]: this.titleTemplate,
+            [ThyTableColumnSkeletonType.member]: this.memberTemplate,
+            [ThyTableColumnSkeletonType.checkbox]: this.checkboxTemplate
+        };
+        this.cdr.detectChanges();
     }
 }
