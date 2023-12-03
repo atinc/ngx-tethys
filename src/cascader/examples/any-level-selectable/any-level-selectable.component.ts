@@ -7,12 +7,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { clone, options } from '../cascader-address-options';
+import { ThyTagModule } from 'ngx-tethys/tag';
 
 @Component({
     selector: 'thy-cascader-any-level-selectable-example',
     templateUrl: './any-level-selectable.component.html',
     standalone: true,
-    imports: [ThyFormGroupComponent, ThyCascaderComponent, CommonModule, FormsModule]
+    imports: [ThyFormGroupComponent, ThyCascaderComponent, ThyTagModule, CommonModule, FormsModule]
 })
 export class ThyCascaderAnyLevelSelectableExampleComponent implements OnInit {
     public areaCode = clone(options);
