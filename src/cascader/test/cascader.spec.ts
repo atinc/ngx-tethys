@@ -270,7 +270,8 @@ const loadDataOption: { [key: string]: { children?: any[]; [key: string]: any }[
             [thyDisabled]="disabled"
             [thyIsOnlySelectLeaf]="isOnlySelectLeaf"
             [thyEmptyStateText]="emptyStateText"
-            (thyExpandStatusChange)="thyExpandStatusChange($event)">
+            (thyExpandStatusChange)="thyExpandStatusChange($event)"
+            [thyAutoExpand]="thyAutoExpand">
         </thy-cascader>
     `
 })
@@ -290,6 +291,7 @@ class CascaderBasicComponent {
     public emptyStateText = '无选项';
     public disabled = false;
     public isOnlySelectLeaf = true;
+    public thyAutoExpand = true;
     @ViewChild('cascader', { static: true }) cascaderRef: ThyCascaderComponent;
 
     thyExpandStatusChange = jasmine.createSpy('thyExpandStatusChange callback');
