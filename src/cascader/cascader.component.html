@@ -15,7 +15,8 @@
       [thyIsMultiple]="thyMultiple"
       [thyPanelOpened]="menuVisible"
       [thyPlaceholder]="thyPlaceholder"
-      [customDisplayTemplate]="customDisplayTemplate">
+      [customDisplayTemplate]="customDisplayTemplate"
+      [thyPreset]="thyPreset">
       <ng-template #customDisplayTemplate let-value>
         <span [ngClass]="labelCls">
           <ng-container *ngIf="!isLabelRenderTemplate; else labelTemplate">{{ value.labelText }}</ng-container>
@@ -30,7 +31,7 @@
 
 <ng-template
   cdkConnectedOverlay
-  cdkConnectedOverlayHasBackdrop
+  [cdkConnectedOverlayHasBackdrop]="false"
   cdkConnectedOverlayBackdropClass="thy-cascader-backdrop"
   [cdkConnectedOverlayOrigin]="origin"
   [cdkConnectedOverlayPositions]="positions"
