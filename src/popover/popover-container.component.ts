@@ -17,7 +17,6 @@ import {
     ViewChild
 } from '@angular/core';
 
-import { thyPopoverAnimations } from './popover-animations';
 import { ThyPopoverConfig } from './popover.config';
 import { popoverAbstractOverlayOptions } from './popover.options';
 import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core/animation/zoom';
@@ -28,7 +27,6 @@ import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core/animati
 @Component({
     selector: 'thy-popover-container',
     templateUrl: './popover-container.component.html',
-    // animations: [thyPopoverAnimations.popoverContainer],
     animations: [scaleXMotion, scaleYMotion, scaleMotion],
     host: {
         class: 'thy-popover-container',
