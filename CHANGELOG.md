@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [16.2.0-next.2](https://github.com/atinc/ngx-tethys/compare/16.1.16...16.2.0-next.2) (2023-12-04)
+
+
+### Bug Fixes
+
+* **action:** #INFR-10604 fix disabled styles,when use <thy-action> ([#2915](https://github.com/atinc/ngx-tethys/issues/2915)) ([e9fc0c5](https://github.com/atinc/ngx-tethys/commit/e9fc0c52dae156fb007805d174e6b51dabffcfd4))
+* **layout:** fix selector for thyLayout and thyContent #INFR-10664 ([#2927](https://github.com/atinc/ngx-tethys/issues/2927)) ([b38c0d1](https://github.com/atinc/ngx-tethys/commit/b38c0d13b3cb39462e09ae206a414764dfe94eb5)), closes [#INFR-10664](https://github.com/atinc/ngx-tethys/issues/INFR-10664)
+
+
+### Features
+
+* **layout:** add directives for the layout component series and refactor existing layout components #INFR-10500 ([#2919](https://github.com/atinc/ngx-tethys/issues/2919)) ([293ba66](https://github.com/atinc/ngx-tethys/commit/293ba66314a55dce1bb2ddd3d8364f9aaf066a85)), closes [#INFR-10500](https://github.com/atinc/ngx-tethys/issues/INFR-10500)
+* **select:** #INFR-5471 custom-select support display avatar or icon… ([#2922](https://github.com/atinc/ngx-tethys/issues/2922)) ([bd0f27c](https://github.com/atinc/ngx-tethys/commit/bd0f27cb915ff49d31266116d16aeebdd40cea56)), closes [#INFR-5471](https://github.com/atinc/ngx-tethys/issues/INFR-5471) [#INFR-5471](https://github.com/atinc/ngx-tethys/issues/INFR-5471) [#2855](https://github.com/atinc/ngx-tethys/issues/2855)
+* **table:** optimization of Table Skeleton Screen Details #INFR-10506 #INFR-10505 ([#2921](https://github.com/atinc/ngx-tethys/issues/2921)) ([80fa550](https://github.com/atinc/ngx-tethys/commit/80fa5501f576f04be9cd9078aa15104ef9bb52e4)), closes [#INFR-10506](https://github.com/atinc/ngx-tethys/issues/INFR-10506) [#INFR-10505](https://github.com/atinc/ngx-tethys/issues/INFR-10505)
+* **table:** table support checkbox skeleton #INFR-10503 ([#2928](https://github.com/atinc/ngx-tethys/issues/2928)) ([320dc7b](https://github.com/atinc/ngx-tethys/commit/320dc7bb123e8daffbb61e8bf55683147520fafe)), closes [#INFR-10503](https://github.com/atinc/ngx-tethys/issues/INFR-10503)
+
+
+
 ## [16.1.16](https://github.com/atinc/ngx-tethys/compare/16.1.15...16.1.16) (2023-11-24)
 
 
