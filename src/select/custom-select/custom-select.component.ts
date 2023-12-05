@@ -119,7 +119,7 @@ export interface ThySelectOptionModel {
     groupLabel?: string;
 }
 
-interface GroupOptionModel extends ThySelectOptionModel {
+interface OptionGroupModel extends ThySelectOptionModel {
     children?: ThySelectOptionModel[];
 }
 
@@ -413,9 +413,9 @@ export class ThySelectCustomComponent
 
     isReactiveDriven = false;
 
-    _options: ThySelectOptionModel[];
+    innerOptions: ThySelectOptionModel[];
 
-    groupOptions: GroupOptionModel[] = [];
+    optionGroups: OptionGroupModel[] = [];
 
     /**
      * option 列表
@@ -426,38 +426,9 @@ export class ThySelectCustomComponent
         if (value === null) {
             value = [];
         }
-        this._options = value;
+        this.innerOptions = value;
         this.isReactiveDriven = true;
-        const groupMap = new Map();
-        const groups = [...new Set(this._options.filter(item => item.groupLabel).map(sub => sub.groupLabel))];
-        if (groups.length > 0) {
-            groups.forEach(group => {
-                const children = this._options.filter(item => item.groupLabel === group);
-                const groupOption = {
-                    groupLabel: group,
-                    children: children
-                };
-                groupMap.set(group, groupOption);
-            });
-
-            this._options.forEach(option => {
-                if (option.groupLabel) {
-                    const currentIndex = this.groupOptions.findIndex(item => item.groupLabel === option.groupLabel);
-                    if (currentIndex === -1) {
-                        const item = groupMap.get(option.groupLabel);
-                        this.groupOptions.push(item);
-                    }
-                } else {
-                    this.groupOptions.push(option);
-                }
-            });
-        } else {
-            this.groupOptions = this._options;
-        }
-    }
-
-    get thyOptions() {
-        return this._options;
+        this.buildReactiveOptions();
     }
 
     options: QueryList<ThyOptionComponent>;
@@ -574,6 +545,35 @@ export class ThySelectCustomComponent
         }
     }
 
+    buildReactiveOptions() {
+        const groupBy = 'groupLabel';
+        const groups = [...new Set(this.innerOptions.filter(item => item[groupBy]).map(sub => sub[groupBy]))];
+        if (groups.length > 0) {
+            const groupMap = new Map();
+            groups.forEach(group => {
+                const children = this.innerOptions.filter(item => item[groupBy] === group);
+                const groupOption = {
+                    groupLabel: group,
+                    children: children
+                };
+                groupMap.set(group, groupOption);
+            });
+            this.innerOptions.forEach(option => {
+                if (option[groupBy]) {
+                    const currentIndex = this.optionGroups.findIndex(item => item[groupBy] === option[groupBy]);
+                    if (currentIndex === -1) {
+                        const item = groupMap.get(option[groupBy]);
+                        this.optionGroups.push(item);
+                    }
+                } else {
+                    this.optionGroups.push(option);
+                }
+            });
+        } else {
+            this.optionGroups = this.innerOptions;
+        }
+    }
+
     getDropdownMinWidth(): number | null {
         const mode = this.thyDropdownWidthMode || this.config.dropdownWidthMode;
         let dropdownMinWidth: number | null = null;
@@ -591,17 +591,17 @@ export class ThySelectCustomComponent
 
     ngAfterViewInit(): void {
         if (this.isReactiveDriven) {
-            this.commonFunction();
+            this.setup();
         }
     }
 
     ngAfterContentInit() {
         if (!this.isReactiveDriven) {
-            this.commonFunction();
+            this.setup();
         }
     }
 
-    commonFunction() {
+    setup() {
         this.optionsChanges$.pipe(startWith(null), takeUntil(this.destroy$)).subscribe(data => {
             this.resetOptions();
             this.initializeSelection();

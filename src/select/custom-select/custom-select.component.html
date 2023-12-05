@@ -34,7 +34,7 @@
   (attach)="onAttached()"
   (detach)="close()">
   <div thyStopPropagation [attr.tabindex]="-1" [ngClass]="dropDownClass" (mousemove)="dropDownMouseMove($event)">
-    <ng-container *ngIf="contentOptions?.length > 0 || contentGroups?.length > 0 || _options?.length > 0; else emptyPlaceholder">
+    <ng-container *ngIf="contentOptions?.length > 0 || contentGroups?.length > 0 || innerOptions?.length > 0; else emptyPlaceholder">
       <div
         #panel
         class="thy-select-dropdown-options thy-select-dropdown-options-{{ size }}"
@@ -64,7 +64,7 @@
 </ng-template>
 
 <thy-options-container #optionsContainer>
-  <ng-container *ngFor="let option of groupOptions">
+  <ng-container *ngFor="let option of optionGroups">
     <thy-option
       *ngIf="!option.children; else optionGroup"
       [thyDisabled]="option.disabled"
