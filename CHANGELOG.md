@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [16.2.0-next.3](https://github.com/atinc/ngx-tethys/compare/16.2.0-next.2...16.2.0-next.3) (2023-12-05)
+
+
+### Bug Fixes
+
+* **slider:** don't change value when slider is display:none; #INFR-10717 [@wangkai](https://github.com/wangkai) ([#2937](https://github.com/atinc/ngx-tethys/issues/2937)) ([e1a7635](https://github.com/atinc/ngx-tethys/commit/e1a7635f52ea0f72ac154436df8a15d8c64902ec)), closes [#INFR-10717](https://github.com/atinc/ngx-tethys/issues/INFR-10717) [#INFR-10717](https://github.com/atinc/ngx-tethys/issues/INFR-10717)
+
+
+### Features
+
+* **select:**  support thyOptions #INFR-10686 ([#2933](https://github.com/atinc/ngx-tethys/issues/2933)) ([6fe2fd1](https://github.com/atinc/ngx-tethys/commit/6fe2fd17797d9651e275126bfb22643785cdc4a7)), closes [#INFR-10686](https://github.com/atinc/ngx-tethys/issues/INFR-10686) [#INFR-10686](https://github.com/atinc/ngx-tethys/issues/INFR-10686) [#INFR-10686](https://github.com/atinc/ngx-tethys/issues/INFR-10686) [#INFR-10686](https://github.com/atinc/ngx-tethys/issues/INFR-10686) [#INFR-10686](https://github.com/atinc/ngx-tethys/issues/INFR-10686)
+* support animation for select and popover #INFR-10478 ([#2931](https://github.com/atinc/ngx-tethys/issues/2931)) ([fe8026b](https://github.com/atinc/ngx-tethys/commit/fe8026b94fda7f4f176d471aaa385bee3c32f674)), closes [#INFR-10478](https://github.com/atinc/ngx-tethys/issues/INFR-10478)
+
+
+
 # [16.2.0-next.2](https://github.com/atinc/ngx-tethys/compare/16.1.16...16.2.0-next.2) (2023-12-04)
 
 
