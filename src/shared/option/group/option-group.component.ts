@@ -1,7 +1,17 @@
-import { Component, HostBinding, Input, OnInit, ContentChildren, QueryList, NgZone, OnDestroy, AfterContentInit } from '@angular/core';
-import { Observable, defer, Subject, merge, combineLatest } from 'rxjs';
+import {
+    Component,
+    HostBinding,
+    Input,
+    ContentChildren,
+    QueryList,
+    NgZone,
+    OnDestroy,
+    AfterContentInit,
+    ChangeDetectorRef
+} from '@angular/core';
+import { Observable, defer, Subject, merge } from 'rxjs';
 import { ThyOptionVisibleChangeEvent, ThyOptionComponent } from '../option.component';
-import { take, switchMap, startWith, takeUntil, reduce, debounceTime, map } from 'rxjs/operators';
+import { take, switchMap, startWith, takeUntil, debounceTime, map } from 'rxjs/operators';
 import { THY_OPTION_GROUP_COMPONENT } from '../option.token';
 import { InputBoolean } from 'ngx-tethys/core';
 
@@ -49,7 +59,7 @@ export class ThySelectOptionGroupComponent implements OnDestroy, AfterContentIni
         );
     }) as Observable<ThyOptionVisibleChangeEvent>;
 
-    constructor(private _ngZone: NgZone) {}
+    constructor(private _ngZone: NgZone, private cdr: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
         this.options.changes.pipe(startWith(null), takeUntil(this._destroy$)).subscribe(() => {
@@ -78,6 +88,7 @@ export class ThySelectOptionGroupComponent implements OnDestroy, AfterContentIni
             )
             .subscribe((data: boolean) => {
                 this._hidden = data;
+                this.cdr.markForCheck();
             });
     }
 
