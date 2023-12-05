@@ -119,7 +119,6 @@ export interface ThySelectOptionModel {
     icon?: string;
     groupLabel?: string;
 }
-
 interface ThyOptionGroupModel extends ThySelectOptionModel {
     children?: ThySelectOptionModel[];
 }
