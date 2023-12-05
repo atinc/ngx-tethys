@@ -325,6 +325,10 @@ export class ThyCascaderComponent
 
     @ViewChild('trigger', { read: ElementRef, static: true }) trigger: ElementRef<any>;
 
+    @ViewChild('input') input: ElementRef;
+
+    @ViewChild('menu') menu: ElementRef;
+
     public dropDownPosition = 'bottom';
 
     public menuVisible = false;
