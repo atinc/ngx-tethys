@@ -1,5 +1,5 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { SelectOptionBase } from 'ngx-tethys/shared';
 import { ThyCascaderOption, ThyCascaderSearchOption } from './types';
 import { helpers, isArray, isEmpty, set } from 'ngx-tethys/util';
@@ -9,7 +9,7 @@ import { debounceTime, finalize, map } from 'rxjs/operators';
 const defaultDisplayRender = (label: any) => label.join(' / ');
 
 @Injectable()
-export class ThyCascaderService implements OnDestroy {
+export class ThyCascaderService {
     public selectionModel: SelectionModel<SelectOptionBase>;
 
     public columns: ThyCascaderOption[][] = [];
@@ -44,8 +44,6 @@ export class ThyCascaderService implements OnDestroy {
     private prevSelectedOptions: Set<ThyCascaderOption> = new Set<ThyCascaderOption>();
 
     public valueChange$ = new Subject();
-
-    constructor() {}
 
     public cascaderValueChange() {
         return this.valueChange$.pipe(
@@ -112,7 +110,7 @@ export class ThyCascaderService implements OnDestroy {
             }
         };
 
-        if (this.isLoaded(index) || !this.cascaderOptions.loadData) {
+        if (this.columns[index]?.length || !this.cascaderOptions.loadData) {
             load();
         } else {
             const node = this.activatedOptions[index - 1] || {};
@@ -126,7 +124,7 @@ export class ThyCascaderService implements OnDestroy {
         event: Event | boolean,
         selectFn?: (option: ThyCascaderOption, index: number) => void
     ) {
-        if (option && option.disabled && !this.cascaderOptions.isMultiple) {
+        if (option?.disabled && !this.cascaderOptions.isMultiple) {
             return;
         }
 
@@ -165,10 +163,8 @@ export class ThyCascaderService implements OnDestroy {
             this.setColumnData(option.children, index + 1);
         } else if (!option.isLeaf && loadChildren) {
             this.loadChildren(option, index);
-        } else {
-            if (index < this.columns.length - 1) {
-                this.columns = this.columns.slice(0, index + 1);
-            }
+        } else if (index < this.columns.length - 1) {
+            this.columns = this.columns.slice(0, index + 1);
         }
 
         if (select) {
@@ -177,29 +173,38 @@ export class ThyCascaderService implements OnDestroy {
     }
 
     private loadChildren(option: ThyCascaderOption, index: number, success?: () => void, failure?: () => void): void {
-        if (this.cascaderOptions?.loadData) {
-            this.isLoading = true;
-            this.cascaderOptions?.loadData(option, index).then(
-                () => {
-                    option.loading = this.isLoading = false;
-                    if (option.children) {
-                        option.children.forEach(child => (child.parent = index < 0 ? undefined : option));
-                        this.setColumnData(option.children, index + 1);
-                    }
-                    if (success) {
-                        success();
-                    }
-                },
-                () => {
-                    option.loading = this.isLoading = false;
-                    option.isLeaf = true;
-                    if (failure) {
-                        failure();
-                    }
-                }
-            );
-        } else {
+        if (!this.cascaderOptions?.loadData) {
             this.setColumnData(option.children || [], index + 1);
+            return;
+        }
+
+        this.isLoading = true;
+
+        this.cascaderOptions.loadData(option, index).then(
+            () => this.handleLoadDataSuccess(option, index, success),
+            () => this.handleLoadDataFailure(option, index, failure)
+        );
+    }
+
+    private handleLoadDataSuccess(option: ThyCascaderOption, index: number, success?: () => void): void {
+        option.loading = this.isLoading = false;
+
+        if (option.children) {
+            option.children.forEach(child => (child.parent = index < 0 ? undefined : option));
+            this.setColumnData(option.children, index + 1);
+        }
+
+        if (success) {
+            success();
+        }
+    }
+
+    private handleLoadDataFailure(option: ThyCascaderOption, index: number, failure?: () => void): void {
+        option.loading = this.isLoading = false;
+        option.isLeaf = true;
+
+        if (failure) {
+            failure();
         }
     }
 
@@ -323,7 +328,7 @@ export class ThyCascaderService implements OnDestroy {
             };
 
             this.flattenOptions.push(node);
-            if (item.children && item.children.length) {
+            if (item?.children?.length) {
                 this.forEachColumns(label, valueList, rowValueList, item.children);
             } else {
                 this.leafNodes.push(node);
@@ -359,10 +364,6 @@ export class ThyCascaderService implements OnDestroy {
             }
         }
         return true;
-    }
-
-    private isLoaded(index: number): boolean {
-        return this.columns[index] && this.columns[index].length > 0;
     }
 
     private findOption(option: any, index: number): ThyCascaderOption {
@@ -470,7 +471,7 @@ export class ThyCascaderService implements OnDestroy {
 
     private addParentSelectedState(selectOptions: ThyCascaderOption[]) {
         selectOptions.forEach(opt => {
-            if (opt.children && opt.children.length && opt.children.every(i => i.selected)) {
+            if (opt?.children?.length && opt.children.every(i => i.selected)) {
                 opt.selected = true;
                 set(opt, 'selected', true);
                 if (opt.parent) {
@@ -552,17 +553,15 @@ export class ThyCascaderService implements OnDestroy {
         if (!this.cascaderOptions?.isMultiple || this.cascaderOptions.isOnlySelectLeaf) {
             const activeOpt = this.activatedOptions[index];
             return activeOpt === option;
+        } else if (option.isLeaf) {
+            return option.selected;
         } else {
-            if (option.isLeaf) {
-                return option.selected;
-            } else {
-                const selectedOpts = this.selectionModel.selected;
-                const appearIndex = selectedOpts.findIndex(item => {
-                    const selectedItem = helpers.get(item, `thyRawValue.value.${index}`);
-                    return helpers.shallowEqual(selectedItem, option);
-                });
-                return appearIndex >= 0;
-            }
+            const selectedOpts = this.selectionModel.selected;
+            const appearIndex = selectedOpts.findIndex(item => {
+                const selectedItem = helpers.get(item, `thyRawValue.value.${index}`);
+                return helpers.shallowEqual(selectedItem, option);
+            });
+            return appearIndex >= 0;
         }
     }
 
@@ -631,6 +630,4 @@ export class ThyCascaderService implements OnDestroy {
 
         return array1.every((element, index) => element === array2[index]);
     }
-
-    ngOnDestroy(): void {}
 }
