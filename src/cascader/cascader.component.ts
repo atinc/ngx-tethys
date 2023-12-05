@@ -566,7 +566,8 @@ export class ThyCascaderComponent
         this._labelCls = {
             [`${this.prefixCls}-picker-label`]: true,
             [`${this.prefixCls}-show-search`]: false,
-            [`${this.prefixCls}-focused`]: false
+            [`${this.prefixCls}-focused`]: false,
+            'text-truncate': true
         };
     }
 
