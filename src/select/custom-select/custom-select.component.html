@@ -18,7 +18,8 @@
   (thyOnRemove)="remove($event)"
   (thyOnSearch)="onSearchFilter($event)"
   (thyOnBlur)="onBlur($event)"
-  [thyMaxTagCount]="thyMaxTagCount"></div>
+  [thyMaxTagCount]="thyMaxTagCount"
+  [thyPreset]="thyPreset"></div>
 
 <ng-template
   cdk-connected-overlay
@@ -30,13 +31,21 @@
   [cdkConnectedOverlayWidth]="triggerRectWidth"
   [cdkConnectedOverlayMinWidth]="dropDownMinWidth"
   [cdkConnectedOverlayScrollStrategy]="scrollStrategy"
+  cdkConnectedOverlayTransformOriginOn=".thy-select-dropdown"
   (attach)="onAttached()"
   (detach)="close()">
-  <div thyStopPropagation [attr.tabindex]="-1" [ngClass]="dropDownClass" (mousemove)="dropDownMouseMove($event)">
+  <div
+    thyStopPropagation
+    [attr.tabindex]="-1"
+    [ngClass]="dropDownClass"
+    [@scaleYMotion]="placement === 'top' || placement === 'bottom' ? 'enter' : 'void'"
+    [@scaleXMotion]="placement === 'left' || placement === 'right' ? 'enter' : 'void'"
+    [@scaleMotion]="placement !== 'top' && placement !== 'bottom' && placement !== 'left' && placement !== 'right' ? 'enter' : 'void'"
+    (mousemove)="dropDownMouseMove($event)">
     <ng-container *ngIf="options.length > 0 || optionGroups.length > 0; else emptyPlaceholder">
       <div
         #panel
-        class="thy-select-dropdown-options"
+        class="thy-select-dropdown-options thy-select-dropdown-options-{{ size }}"
         thyScroll
         (thyOnScrolled)="onOptionsScrolled($event)"
         [thyEnable]="thyEnableScrollLoad">

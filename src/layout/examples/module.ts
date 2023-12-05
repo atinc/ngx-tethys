@@ -1,4 +1,3 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThyLayoutModule } from 'ngx-tethys/layout';
 import { ThyButtonModule } from 'ngx-tethys/button';
@@ -11,6 +10,7 @@ import { ThyTooltipModule } from 'ngx-tethys/tooltip';
 import { ThyActionModule } from 'ngx-tethys/action';
 import { ThyDividerModule } from 'ngx-tethys/divider';
 import { ThySpaceModule } from 'ngx-tethys/space';
+import { ThyResizableModule } from 'ngx-tethys/resizable';
 
 import { FormsModule } from '@angular/forms';
 
@@ -28,6 +28,7 @@ export default {
         ThyTooltipModule,
         ThyActionModule,
         ThyDividerModule,
-        ThySpaceModule
+        ThySpaceModule,
+        ThyResizableModule
     ]
 };

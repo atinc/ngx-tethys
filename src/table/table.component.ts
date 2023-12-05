@@ -556,6 +556,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
             this.hasFixed = !!this.columns.find(item => {
                 return item.fixed === this.fixedDirection.left || item.fixed === this.fixedDirection.right;
             });
+            this.buildSkeletonColumns();
             this._initializeColumns();
             this._initializeDataModel();
         }
@@ -1035,7 +1036,6 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
             .subscribe(() => {
                 this._refreshColumns();
                 this.updateScrollClass();
-                this.buildSkeletonColumns();
                 this.cdr.detectChanges();
             });
 

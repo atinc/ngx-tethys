@@ -3,7 +3,8 @@ import {
     InputBoolean,
     InputNumber,
     ScrollToService,
-    TabIndexDisabledControlValueAccessorMixin
+    TabIndexDisabledControlValueAccessorMixin,
+    ThyClickDispatcher
 } from 'ngx-tethys/core';
 import { ThyEmptyComponent } from 'ngx-tethys/empty';
 import { ThyIconComponent } from 'ngx-tethys/icon';
@@ -18,7 +19,7 @@ import {
     ConnectionPositionPair,
     ViewportRuler
 } from '@angular/cdk/overlay';
-import { NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet, isPlatformBrowser } from '@angular/common';
 import {
     ChangeDetectorRef,
     Component,
@@ -26,11 +27,14 @@ import {
     EventEmitter,
     forwardRef,
     HostListener,
+    Inject,
     Input,
+    NgZone,
     OnChanges,
     OnDestroy,
     OnInit,
     Output,
+    PLATFORM_ID,
     QueryList,
     SimpleChanges,
     TemplateRef,
@@ -270,6 +274,12 @@ export class ThyCascaderComponent
     @Input() @InputBoolean() thyShowSearch: boolean = false;
 
     /**
+     * 多选选中项的展示方式，默认为空，渲染文字模板，传入tag，渲染展示模板,
+     * @default ''｜tag
+     */
+    @Input() thyPreset: string = '';
+
+    /**
      * 值发生变化时触发，返回选择项的值
      * @type EventEmitter<any[]>
      */
@@ -416,6 +426,23 @@ export class ThyCascaderComponent
                 this.thyChange.emit(options.value);
             }
         });
+        if (isPlatformBrowser(this.platformId)) {
+            this.thyClickDispatcher
+                .clicked(0)
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(event => {
+                    if (
+                        !this.elementRef.nativeElement.contains(event.target) &&
+                        !this.menu?.nativeElement.contains(event.target as Node) &&
+                        this.menuVisible
+                    ) {
+                        this.ngZone.run(() => {
+                            this.closeMenu();
+                            this.cdr.markForCheck();
+                        });
+                    }
+                });
+        }
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -679,9 +706,12 @@ export class ThyCascaderComponent
     }
 
     constructor(
+        @Inject(PLATFORM_ID) private platformId: string,
         private cdr: ChangeDetectorRef,
         private viewPortRuler: ViewportRuler,
         public elementRef: ElementRef,
+        private thyClickDispatcher: ThyClickDispatcher,
+        private ngZone: NgZone,
         public thyCascaderService: ThyCascaderService
     ) {
         super();

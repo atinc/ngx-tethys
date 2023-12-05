@@ -1,5 +1,5 @@
 ---
 title: Top Center Bottom
-order: 60
+order: 70
 className: bg-example-striped
 ---

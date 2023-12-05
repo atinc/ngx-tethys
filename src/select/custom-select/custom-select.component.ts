@@ -85,6 +85,7 @@ import {
     ThyDropdownWidthMode,
     DEFAULT_SELECT_CONFIG
 } from '../select.config';
+import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core/animation/zoom';
 
 export type SelectMode = 'multiple' | '';
 
@@ -148,7 +149,8 @@ const noop = () => {};
         '[attr.tabindex]': 'tabIndex',
         '(focus)': 'onFocus($event)',
         '(blur)': 'onBlur($event)'
-    }
+    },
+    animations: [scaleXMotion, scaleYMotion, scaleMotion]
 })
 export class ThySelectCustomComponent
     extends TabIndexDisabledControlValueAccessorMixin
@@ -392,6 +394,12 @@ export class ThySelectCustomComponent
      */
     @Input() @InputBoolean() thyBorderless = false;
 
+    /**
+     * 多选选中项的展示方式，默认为空，渲染文字模板，传入tag，渲染展示模板,
+     * @default ''｜tag
+     */
+    @Input() thyPreset: string = '';
+
     @ViewChild('trigger', { read: ElementRef, static: true }) trigger: ElementRef<HTMLElement>;
 
     @ViewChild('panel', { read: ElementRef }) panel: ElementRef<HTMLElement>;
@@ -439,6 +447,10 @@ export class ThySelectCustomComponent
     }
 
     private isSearching = false;
+
+    get placement(): ThyPlacement {
+        return this.thyPlacement || this.config.placement;
+    }
 
     constructor(
         private ngZone: NgZone,

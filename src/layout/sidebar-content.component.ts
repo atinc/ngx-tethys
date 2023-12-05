@@ -1,20 +1,29 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Directive, OnInit } from '@angular/core';
 
 /**
- * @name thy-sidebar-content
+ * 侧边栏内容布局指令
+ * @name thySidebarContent
  * @order 30
  */
-@Component({
-    selector: 'thy-sidebar-content',
-    template: ` <ng-content></ng-content> `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+@Directive({
+    selector: '[thySidebarContent]',
     host: {
         class: 'sidebar-content'
     },
     standalone: true
 })
-export class ThySidebarContentComponent implements OnInit {
-    constructor() {}
+export class ThySidebarContentDirective {}
 
-    ngOnInit(): void {}
-}
+/**
+ * 侧边栏内容布局组件
+ * @name thy-sidebar-content
+ * @order 31
+ */
+@Component({
+    selector: 'thy-sidebar-content',
+    template: ` <ng-content></ng-content> `,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    hostDirectives: [ThySidebarContentDirective],
+    standalone: true
+})
+export class ThySidebarContentComponent {}
