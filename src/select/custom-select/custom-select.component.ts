@@ -119,8 +119,7 @@ export interface ThySelectOptionModel {
     icon?: string;
     groupLabel?: string;
 }
-
-interface OptionGroupModel extends ThySelectOptionModel {
+interface ThyOptionGroupModel extends ThySelectOptionModel {
     children?: ThySelectOptionModel[];
 }
 
@@ -417,7 +416,7 @@ export class ThySelectCustomComponent
 
     innerOptions: ThySelectOptionModel[];
 
-    optionGroups: OptionGroupModel[] = [];
+    optionGroups: ThyOptionGroupModel[] = [];
 
     /**
      * option 列表
@@ -494,7 +493,7 @@ export class ThySelectCustomComponent
 
     private isSearching = false;
 
-    groupBy = (item: any) => item.groupLabel;
+    groupBy = (item: ThySelectOptionModel) => item.groupLabel;
 
     get placement(): ThyPlacement {
         return this.thyPlacement || this.config.placement;
@@ -554,7 +553,7 @@ export class ThySelectCustomComponent
     }
 
     buildOptionGroups(options: ThySelectOptionModel[]) {
-        const optionGroups: OptionGroupModel[] = [];
+        const optionGroups: ThyOptionGroupModel[] = [];
         const groups = [...new Set(options.filter(item => this.groupBy(item)).map(sub => this.groupBy(sub)))];
         const groupMap = new Map();
         groups.forEach(group => {
