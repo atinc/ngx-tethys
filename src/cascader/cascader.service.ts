@@ -580,29 +580,34 @@ export class ThyCascaderService {
     }
 
     private updatePrevSelectedOptions(option: ThyCascaderOption, isActivateInit: boolean, index?: number) {
-        if (isActivateInit) {
-            if (this.cascaderOptions.isOnlySelectLeaf && option.isLeaf) {
-                set(option, 'selected', true);
-            }
-            this.prevSelectedOptions.add(option);
-        } else {
-            if (!this.cascaderOptions.isMultiple) {
-                const prevSelectedOptions = Array.from(this.prevSelectedOptions);
-                while (prevSelectedOptions.length) {
-                    set(prevSelectedOptions.pop(), 'selected', false);
-                }
-                this.prevSelectedOptions = new Set([]);
-            }
-            if (this.cascaderOptions.isOnlySelectLeaf && !option.isLeaf && this.cascaderOptions.isMultiple) {
-                set(option, 'selected', this.isSelectedOption(option, index));
-            } else {
-                set(option, 'selected', !this.isSelectedOption(option, index));
-            }
-            if (this.cascaderOptions.isOnlySelectLeaf && this.cascaderOptions.isMultiple && option.parent) {
-                this.updatePrevSelectedOptions(option.parent, false, index - 1);
-            }
-            this.prevSelectedOptions.add(option);
+        set(option, 'selected', this.isSelected(option, isActivateInit, index));
+        if (!this.cascaderOptions.isMultiple) {
+            this.clearPrevSelectedOptions();
         }
+
+        if (this.cascaderOptions.isOnlySelectLeaf && this.cascaderOptions.isMultiple && option.parent) {
+            this.updatePrevSelectedOptions(option.parent, false, index - 1);
+        }
+
+        this.prevSelectedOptions.add(option);
+    }
+
+    private isSelected(option: ThyCascaderOption, isActivateInit: boolean, index?: number) {
+        if (isActivateInit && this.cascaderOptions.isOnlySelectLeaf && option.isLeaf) {
+            return true;
+        } else if (!isActivateInit) {
+            return this.cascaderOptions.isOnlySelectLeaf && !option.isLeaf && this.cascaderOptions.isMultiple
+                ? this.isSelectedOption(option, index)
+                : !this.isSelectedOption(option, index);
+        }
+    }
+
+    private clearPrevSelectedOptions() {
+        const prevSelectedOptions = Array.from(this.prevSelectedOptions);
+        while (prevSelectedOptions.length) {
+            set(prevSelectedOptions.pop(), 'selected', false);
+        }
+        this.prevSelectedOptions.clear();
     }
 
     private getOptionLabel(option: ThyCascaderOption): any {
