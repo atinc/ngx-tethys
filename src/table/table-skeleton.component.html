@@ -7,7 +7,7 @@
       <tr>
         <th *ngFor="let column of columns; trackBy: trackByFn">
           <thy-skeleton-rectangle
-            [thyRowWidth]="titleWidth"
+            [thyRowWidth]="column?.type === columnType.checkbox ? checkboxWidth : titleWidth"
             [thyRowHeight]="titleHeight"
             [thyBorderRadius]="thyBorderRadius"
             [thyAnimated]="thyAnimated"
@@ -25,15 +25,12 @@
           <td>
             <ng-container
               *thyViewOutlet="
-                column.type === columnType.title
-                  ? titleTemplate
-                  : column.type === columnType.member
-                  ? memberTemplate
-                  : defaultTemplate;
-                  context:{
-                    trIndex: i,
-                  }
-              "></ng-container>
+              skeletonColumnsMap[column.type] || defaultTemplate
+              context:{
+                  trIndex: i,
+              }
+            ">
+            </ng-container>
           </td>
         </ng-container>
       </tr>
@@ -45,7 +42,7 @@
   <div class="d-flex align-items-center">
     <thy-skeleton-rectangle
       class="mr-2 flex-shrink-0"
-      [thyRowWidth]="checkBoxWidth"
+      [thyRowWidth]="checkboxWidth"
       [thyRowHeight]="thyRowHeight"
       [thyBorderRadius]="thyBorderRadius"
       [thyAnimated]="thyAnimated"
@@ -59,6 +56,17 @@
         rowWidth: trIndex % 3 === 0 ? '75%' : trIndex % 3 === 1 ? '100%' : trIndex % 3 === 2 ? '65%' : '',
       }"></ng-container>
   </div>
+</ng-template>
+
+<ng-template #checkboxTemplate>
+  <thy-skeleton-rectangle
+    [thyRowWidth]="checkboxWidth"
+    [thyRowHeight]="thyRowHeight"
+    [thyBorderRadius]="thyBorderRadius"
+    [thyAnimated]="thyAnimated"
+    [thyAnimatedInterval]="thyAnimatedInterval"
+    [thyPrimaryColor]="thyPrimaryColor"
+    [thySecondaryColor]="thySecondaryColor"></thy-skeleton-rectangle>
 </ng-template>
 
 <ng-template #memberTemplate>

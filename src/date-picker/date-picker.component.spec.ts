@@ -1,4 +1,4 @@
-import { addDays, addWeeks, format, fromUnixTime, isSameDay, startOfDay, startOfMonth, startOfWeek } from 'date-fns';
+import { addDays, addWeeks, format, fromUnixTime, isSameDay, startOfDay, startOfWeek } from 'date-fns';
 import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 
 import { ENTER, ESCAPE } from '@angular/cdk/keycodes';
@@ -17,6 +17,7 @@ import { THY_DATE_PICKER_CONFIG } from './date-picker.config';
 import { DatePopupComponent } from './lib/popups/date-popup.component';
 import { TinyDate } from 'ngx-tethys/util';
 import { take } from 'rxjs/operators';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 registerLocaleData(zh);
 
@@ -44,7 +45,7 @@ describe('ThyDatePickerComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [FormsModule, ThyDatePickerModule],
+            imports: [FormsModule, ThyDatePickerModule, NoopAnimationsModule],
             declarations: [ThyTestDatePickerComponent],
             providers: [
                 {

@@ -6,7 +6,7 @@ import { ChangeDetectionStrategy, Component, Directive } from '@angular/core';
  * @order 15
  */
 @Directive({
-    selector: '[thyContent]',
+    selector: '[thyContent]:not(thy-badge):not([thyBadge])',
     host: {
         class: 'thy-layout-content'
     },

@@ -8,6 +8,7 @@ import { By } from '@angular/platform-browser';
 import { ThyTableComponent } from '../table.component';
 import { ThyPage, ThyTableDraggableEvent } from '../table.interface';
 import { ThyTableModule } from '../table.module';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
     selector: 'thy-demo-default-table',
@@ -214,7 +215,7 @@ describe('ThyTable: basic', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyTableModule, TableTestModule],
+            imports: [ThyTableModule, TableTestModule, NoopAnimationsModule],
             providers: []
         });
         TestBed.compileComponents();
@@ -807,7 +808,7 @@ describe('ThyTable: group', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyTableModule, TableTestModule],
+            imports: [ThyTableModule, TableTestModule, NoopAnimationsModule],
             declarations: [ThyDemoGroupTableComponent]
         });
         TestBed.compileComponents();
@@ -1064,7 +1065,7 @@ describe('ThyTable: empty', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyTableModule],
+            imports: [ThyTableModule, NoopAnimationsModule],
             declarations: [ThyDemoEmptyTableComponent]
         });
         TestBed.compileComponents();
@@ -1114,7 +1115,7 @@ describe('ThyTable: fixed', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyTableModule],
+            imports: [ThyTableModule, NoopAnimationsModule],
             declarations: [ThyDemoFixedTableComponent]
         });
         TestBed.compileComponents();
@@ -1183,7 +1184,7 @@ describe('ThyTable: sort', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyTableModule],
+            imports: [ThyTableModule, NoopAnimationsModule],
             declarations: [ThyDemoSortTableComponent]
         });
         TestBed.compileComponents();

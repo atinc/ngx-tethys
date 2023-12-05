@@ -1,5 +1,6 @@
 export enum ThyTableColumnSkeletonType {
     title = 'title',
     member = 'member',
-    default = 'default'
+    default = 'default',
+    checkbox = 'checkbox'
 }

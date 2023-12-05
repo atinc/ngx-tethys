@@ -19,4 +19,5 @@ export class AnimationCurves {
     static EASE_OUT_QUINT = 'cubic-bezier(0.23, 1, 0.32, 1)';
     static EASE_IN_QUINT = 'cubic-bezier(0.755, 0.05, 0.855, 0.06)';
     static EASE_IN_OUT_QUINT = 'cubic-bezier(0.86, 0, 0.07, 1)';
+    static EASE_IN_OUT_STANDARD = 'cubic-bezier(0.34, 0.69, 0.1, 1)';
 }

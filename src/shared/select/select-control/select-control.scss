@@ -62,6 +62,7 @@
         .select-control-arrow {
             svg {
                 transform: rotate(180deg);
+                transition: transform 0.2s cubic-bezier(0.34, 0.69, 0.1, 1);
             }
         }
         &.select-control-show-search {
@@ -72,6 +73,10 @@
     }
     .select-control-arrow {
         @include mixin.select-arrow-variant();
+        svg {
+            transform: rotate(0deg);
+            transition: transform 0.2s cubic-bezier(0.34, 0.69, 0.1, 1);
+        }
     }
     .select-control-clear {
         display: none;
@@ -102,10 +107,34 @@
             max-width: 100%;
         }
     }
+
+    .custom-choice-item {
+        position: relative;
+        .thy-tag {
+            max-width: 100%;
+            padding-right: 28px;
+        }
+
+        .choice-remove-link {
+            position: absolute;
+            right: 12px;
+            top: 0;
+            .thy-icon-close {
+                color: variables.$white;
+                opacity: 0.7;
+            }
+            &:hover {
+                .thy-icon-close {
+                    color: variables.$white;
+                    opacity: 1;
+                }
+            }
+        }
+    }
     .choice-item {
         float: left;
         max-width: 97%;
-        color: variables.$gray-800;
+        color: variables.$gray-700;
         cursor: default;
         &.disabled {
             cursor: variables.$disabled-cursor;

@@ -175,7 +175,8 @@ describe(`color-picker`, () => {
                 ThyColorPickerModule,
                 ThyPopoverModule,
                 BrowserAnimationsModule,
-                ThyColorPickerPanelComponent
+                ThyColorPickerPanelComponent,
+                NoopAnimationsModule
             ],
             providers: [ThyPopover, ThyPopoverRef],
             declarations: [ThyDemoColorPickerComponent]
@@ -438,7 +439,8 @@ describe('color-default-panel', () => {
                 ThyColorPickerModule,
                 ThyPopoverModule,
                 BrowserAnimationsModule,
-                ThyColorPickerPanelComponent
+                ThyColorPickerPanelComponent,
+                NoopAnimationsModule
             ],
             providers: [
                 ThyPopover,
@@ -570,7 +572,8 @@ describe('picker-panel', () => {
                 ThyColorPickerModule,
                 ThyPopoverModule,
                 BrowserAnimationsModule,
-                ThyColorPickerCustomPanelComponent
+                ThyColorPickerCustomPanelComponent,
+                NoopAnimationsModule
             ],
             providers: [ThyPopover, ThyPopoverRef],
             declarations: [ThyDemoPickerPanelComponent]
@@ -620,7 +623,8 @@ describe('coordinates-directive', () => {
                 ThyColorPickerModule,
                 ThyPopoverModule,
                 BrowserAnimationsModule,
-                ThyCoordinatesDirective
+                ThyCoordinatesDirective,
+                NoopAnimationsModule
             ],
             providers: [ThyPopover, ThyPopoverRef],
             declarations: [ThyDemoCoordinatesDirectiveComponent]

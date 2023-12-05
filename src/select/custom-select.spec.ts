@@ -24,6 +24,7 @@ import { SelectMode, THY_SELECT_PANEL_MIN_WIDTH, ThySelectCustomComponent } from
 import { ThySelectModule } from './module';
 import { THY_SELECT_CONFIG, THY_SELECT_SCROLL_STRATEGY, ThyDropdownWidthMode } from './select.config';
 import { POSITION_MAP, ThyPlacement } from 'ngx-tethys/core';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
     selector: 'thy-select-basic-test',
@@ -684,7 +685,7 @@ describe('ThyCustomSelect', () => {
 
     function configureThyCustomSelectTestingModule(declarations: any[], providers: any[] = []) {
         TestBed.configureTestingModule({
-            imports: [ThyFormModule, ThyOptionModule, ThySelectModule, ReactiveFormsModule, FormsModule],
+            imports: [ThyFormModule, ThyOptionModule, ThySelectModule, ReactiveFormsModule, FormsModule, NoopAnimationsModule],
             declarations: declarations,
             providers: [bypassSanitizeProvider, ...providers]
         }).compileComponents();

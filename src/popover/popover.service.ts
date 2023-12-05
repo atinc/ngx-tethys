@@ -61,6 +61,7 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
         const positions = getFlexiblePositions(config.placement, config.offset, 'thy-popover');
         positionStrategy.withPositions(positions);
         positionStrategy.withGrowAfterOpen(true);
+        positionStrategy.withTransformOriginOn('.thy-popover-container');
         positionStrategy.positionChanges.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(change => {
             if (change.scrollableViewProperties.isOverlayClipped) {
                 // After position changes occur and the overlay is clipped by
@@ -208,6 +209,15 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
         }
 
         const popoverRef = this.openOverlay<T, TResult>(componentOrTemplateRef, config) as ThyPopoverRef<T, TResult, TData>;
+
+        if (config.placement === 'top' || config.placement === 'bottom') {
+            popoverRef.containerInstance.animationTrigger = 'scaleYMotion';
+        } else if (config.placement === 'left' || config.placement === 'right') {
+            popoverRef.containerInstance.animationTrigger = 'scaleXMotion';
+        } else {
+            popoverRef.containerInstance.animationTrigger = 'scaleMotion';
+        }
+
         config = popoverRef.containerInstance.config;
         popoverRef.afterClosed().subscribe(() => {
             this.originElementRemoveActiveClass(config);

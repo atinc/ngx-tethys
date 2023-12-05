@@ -6,7 +6,8 @@ import { ChangeDetectionStrategy, Component, Directive, HostBinding } from '@ang
  * @order 5
  */
 @Directive({
-    selector: '[thyLayout]',
+    selector:
+        '[thyLayout]:not([thyForm]):not(thy-form):not(thy-radio-group):not(thy-properties):not(thy-selection-list):not(thy-vote):not([thyVote])',
     host: {
         class: 'thy-layout',
         '[class.thy-layout--has-sidebar]': 'hasSidebar',
