@@ -1,10 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { DateHelperService } from './date-helper.service';
-import { CompatibleDate, DateEntry, ThyDateRangeEntry, ThyDateGranularity } from './standard-types';
-import { getFlexibleAdvancedReadableValue, transformDateValue } from './picker.util';
 import { TinyDate } from 'ngx-tethys/util';
+import { DateHelperService } from './date-helper.service';
 import { AdvancedSelectableCell } from './inner-types';
+import { getFlexibleAdvancedReadableValue, transformDateValue } from './picker.util';
+import { CompatibleDate, DateEntry, ThyDateGranularity, ThyDateRangeEntry } from './standard-types';
 
+/**
+ * @private
+ */
 @Pipe({
     name: 'thyDatePickerFormat',
     standalone: true
@@ -32,6 +35,9 @@ export class ThyDatePickerFormatPipe implements PipeTransform {
     }
 }
 
+/**
+ * @private
+ */
 @Pipe({
     name: 'thyDatePickerFormatString',
     standalone: true
@@ -45,6 +51,10 @@ export class ThyDatePickerFormatStringPipe implements PipeTransform {
         return withTime ? 'yyyy-MM-dd HH:mm' : 'yyyy-MM-dd';
     }
 }
+
+/**
+ * @private
+ */
 @Pipe({
     name: 'showYearTip',
     standalone: true
