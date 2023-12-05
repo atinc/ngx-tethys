@@ -88,6 +88,7 @@ import {
     ThyDropdownWidthMode,
     DEFAULT_SELECT_CONFIG
 } from '../select.config';
+import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core/animation/zoom';
 
 export type SelectMode = 'multiple' | '';
 
@@ -167,7 +168,8 @@ const noop = () => {};
         '[attr.tabindex]': 'tabIndex',
         '(focus)': 'onFocus($event)',
         '(blur)': 'onBlur($event)'
-    }
+    },
+    animations: [scaleXMotion, scaleYMotion, scaleMotion]
 })
 export class ThySelectCustomComponent
     extends TabIndexDisabledControlValueAccessorMixin
@@ -520,6 +522,10 @@ export class ThySelectCustomComponent
     }
 
     private isSearching = false;
+
+    get placement(): ThyPlacement {
+        return this.thyPlacement || this.config.placement;
+    }
 
     constructor(
         private ngZone: NgZone,
