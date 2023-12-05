@@ -339,6 +339,9 @@ export class ThySliderComponent
     private mousePositionToAdaptiveValue(position: number): number {
         const sliderStartPosition = this.getSliderPagePosition();
         const sliderLength = this.getRailLength();
+        if (!sliderLength) {
+            return this.value;
+        }
         const ratio = this.convertPointerPositionToRatio(position, sliderStartPosition, sliderLength);
         const value = this.ratioToValue(ratio);
         return parseFloat(value.toFixed(this.getDecimals(this.thyStep)));
