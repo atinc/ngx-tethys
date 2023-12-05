@@ -494,6 +494,8 @@ export class ThySelectCustomComponent
 
     private isSearching = false;
 
+    groupBy = (item: any) => item.groupLabel;
+
     get placement(): ThyPlacement {
         return this.thyPlacement || this.config.placement;
     }
@@ -551,30 +553,35 @@ export class ThySelectCustomComponent
         }
     }
 
-    buildReactiveOptions() {
-        const groupBy = 'groupLabel';
-        const groups = [...new Set(this.innerOptions.filter(item => item[groupBy]).map(sub => sub[groupBy]))];
-        if (groups.length > 0) {
-            const groupMap = new Map();
-            groups.forEach(group => {
-                const children = this.innerOptions.filter(item => item[groupBy] === group);
-                const groupOption = {
-                    groupLabel: group,
-                    children: children
-                };
-                groupMap.set(group, groupOption);
-            });
-            this.innerOptions.forEach(option => {
-                if (option[groupBy]) {
-                    const currentIndex = this.optionGroups.findIndex(item => item[groupBy] === option[groupBy]);
-                    if (currentIndex === -1) {
-                        const item = groupMap.get(option[groupBy]);
-                        this.optionGroups.push(item);
-                    }
-                } else {
-                    this.optionGroups.push(option);
+    buildOptionGroups(options: ThySelectOptionModel[]) {
+        const optionGroups: OptionGroupModel[] = [];
+        const groups = [...new Set(options.filter(item => this.groupBy(item)).map(sub => this.groupBy(sub)))];
+        const groupMap = new Map();
+        groups.forEach(group => {
+            const children = options.filter(item => this.groupBy(item) === group);
+            const groupOption = {
+                groupLabel: group,
+                children: children
+            };
+            groupMap.set(group, groupOption);
+        });
+        options.forEach(option => {
+            if (this.groupBy(option)) {
+                const currentIndex = optionGroups.findIndex(item => item.groupLabel === this.groupBy(option));
+                if (currentIndex === -1) {
+                    const item = groupMap.get(this.groupBy(option));
+                    optionGroups.push(item);
                 }
-            });
+            } else {
+                optionGroups.push(option);
+            }
+        });
+        return optionGroups;
+    }
+
+    buildReactiveOptions() {
+        if (this.innerOptions.filter(item => this.groupBy(item)).length > 0) {
+            this.optionGroups = this.buildOptionGroups(this.innerOptions);
         } else {
             this.optionGroups = this.innerOptions;
         }
