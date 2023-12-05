@@ -88,7 +88,7 @@ import {
     ThyDropdownWidthMode,
     DEFAULT_SELECT_CONFIG
 } from '../select.config';
-import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core/animation/zoom';
+import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
 
 export type SelectMode = 'multiple' | '';
 
