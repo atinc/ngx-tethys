@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [16.2.0-next.3](https://github.com/atinc/ngx-tethys/compare/16.2.0-next.2...16.2.0-next.3) (2023-12-06)
+
+
+### Bug Fixes
+
+* **core:** export animations from core module INFR-7856 ([#2942](https://github.com/atinc/ngx-tethys/issues/2942)) ([48a33f2](https://github.com/atinc/ngx-tethys/commit/48a33f2b9c9e3b6dd7fe713d1235b6591618a2db))
+* **shared:** trigger ng ngOnChanges use setInput for thyViewOutlet #INFR-10730 ([#2947](https://github.com/atinc/ngx-tethys/issues/2947)) ([afc7b58](https://github.com/atinc/ngx-tethys/commit/afc7b585cfc62f9317a1dec3d5fc646cfcf0c386)), closes [#INFR-10730](https://github.com/atinc/ngx-tethys/issues/INFR-10730)
+* **slider:** don't change value when slider is display:none; #INFR-10717 [@wangkai](https://github.com/wangkai) ([#2937](https://github.com/atinc/ngx-tethys/issues/2937)) ([e1a7635](https://github.com/atinc/ngx-tethys/commit/e1a7635f52ea0f72ac154436df8a15d8c64902ec)), closes [#INFR-10717](https://github.com/atinc/ngx-tethys/issues/INFR-10717) [#INFR-10717](https://github.com/atinc/ngx-tethys/issues/INFR-10717)
+
+
+### Features
+
+* **popover:** support disable animation #INFR-10811 ([#2943](https://github.com/atinc/ngx-tethys/issues/2943)) ([0e30d02](https://github.com/atinc/ngx-tethys/commit/0e30d021c933bb29ec18224f2d4cb6b8b81cfcfc)), closes [#INFR-10811](https://github.com/atinc/ngx-tethys/issues/INFR-10811)
+* **select:**  support thyOptions #INFR-10686 ([#2933](https://github.com/atinc/ngx-tethys/issues/2933)) ([6fe2fd1](https://github.com/atinc/ngx-tethys/commit/6fe2fd17797d9651e275126bfb22643785cdc4a7)), closes [#INFR-10686](https://github.com/atinc/ngx-tethys/issues/INFR-10686) [#INFR-10686](https://github.com/atinc/ngx-tethys/issues/INFR-10686) [#INFR-10686](https://github.com/atinc/ngx-tethys/issues/INFR-10686) [#INFR-10686](https://github.com/atinc/ngx-tethys/issues/INFR-10686) [#INFR-10686](https://github.com/atinc/ngx-tethys/issues/INFR-10686)
+* support animation for select and popover #INFR-10478 ([#2931](https://github.com/atinc/ngx-tethys/issues/2931)) ([fe8026b](https://github.com/atinc/ngx-tethys/commit/fe8026b94fda7f4f176d471aaa385bee3c32f674)), closes [#INFR-10478](https://github.com/atinc/ngx-tethys/issues/INFR-10478)
+
+
+
 # [16.2.0-next.2](https://github.com/atinc/ngx-tethys/compare/16.1.16...16.2.0-next.2) (2023-12-04)
 
 

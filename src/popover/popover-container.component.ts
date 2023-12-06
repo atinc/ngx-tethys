@@ -19,7 +19,7 @@ import {
 
 import { ThyPopoverConfig } from './popover.config';
 import { popoverAbstractOverlayOptions } from './popover.options';
-import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core/animation/zoom';
+import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
 
 /**
  * @internal
@@ -34,15 +34,18 @@ import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core/animati
         '[attr.role]': `'popover'`,
         '[attr.id]': 'id',
 
-        '[@scaleXMotion]': 'animationTrigger === "scaleXMotion" ? animationState : "void"',
+        '[@.disabled]': '!!config.animationDisabled',
+
+        '[@scaleXMotion]': '(config.placement === "left" || config.placement === "right") ? animationState : "void"',
         '(@scaleXMotion.start)': 'onAnimationStart($event)',
         '(@scaleXMotion.done)': 'onAnimationDone($event)',
 
-        '[@scaleYMotion]': 'animationTrigger === "scaleYMotion" ? animationState : "void"',
+        '[@scaleYMotion]': '(config.placement === "top" || config.placement === "bottom") ? animationState : "void"',
         '(@scaleYMotion.start)': 'onAnimationStart($event)',
         '(@scaleYMotion.done)': 'onAnimationDone($event)',
 
-        '[@scaleMotion]': 'animationTrigger === "scaleMotion" ? animationState : "void"',
+        '[@scaleMotion]':
+            '(config.placement !== "left" && config.placement !== "right" && config.placement !== "top" && config.placement !== "bottom") ? animationState : "void"',
         '(@scaleMotion.start)': 'onAnimationStart($event)',
         '(@scaleMotion.done)': 'onAnimationDone($event)'
     },
@@ -55,8 +58,6 @@ export class ThyPopoverContainerComponent<TData = unknown> extends ThyAbstractOv
 
     /** State of the popover animation. */
     animationState: 'void' | 'enter' | 'exit' = 'enter';
-
-    animationTrigger: 'scaleXMotion' | 'scaleYMotion' | 'scaleMotion' = 'scaleMotion';
 
     /** Emits when an animation state changes. */
     animationStateChanged = new EventEmitter<AnimationEvent>();
