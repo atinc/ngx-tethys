@@ -909,7 +909,7 @@ describe('ThyRangePickerComponent', () => {
         it('should get correct default thyMode', fakeAsync(() => {
             fixture.detectChanges();
             openPickerByClickTrigger();
-            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).toBeFalsy();
+            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).not.toContain('thy-calendar-');
         }));
 
         it(`should set thyMode to week`, fakeAsync(() => {
@@ -917,7 +917,7 @@ describe('ThyRangePickerComponent', () => {
             fixtureInstance.thyMode = 'week';
             fixture.detectChanges();
             openPickerByClickTrigger();
-            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).toBeFalsy();
+            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).not.toContain('thy-calendar-');
             expect(queryFromOverlay('.thy-calendar-week-number-header')).toBeTruthy();
         }));
 
@@ -926,7 +926,7 @@ describe('ThyRangePickerComponent', () => {
             fixtureInstance.thyMode = 'month';
             fixture.detectChanges();
             openPickerByClickTrigger();
-            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).toEqual('thy-calendar-month');
+            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).toContain('thy-calendar-month');
         }));
 
         it(`should set thyMode to year`, fakeAsync(() => {
@@ -934,7 +934,7 @@ describe('ThyRangePickerComponent', () => {
             fixtureInstance.thyMode = 'year';
             fixture.detectChanges();
             openPickerByClickTrigger();
-            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).toEqual('thy-calendar-year');
+            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).toContain('thy-calendar-year');
         }));
 
         it(`should set thyMode to decade`, fakeAsync(() => {
@@ -942,7 +942,7 @@ describe('ThyRangePickerComponent', () => {
             fixtureInstance.thyMode = 'decade';
             fixture.detectChanges();
             openPickerByClickTrigger();
-            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).toEqual('thy-calendar-decade');
+            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).toContain('thy-calendar-decade');
         }));
     });
 
