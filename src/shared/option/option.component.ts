@@ -57,6 +57,10 @@ export class ThyOptionComponent extends SelectOptionBase implements OnDestroy, H
 
     @Input() thyLabelText: string;
 
+    @Input() thyIcon: string;
+
+    @Input() thyIconColor: string;
+
     @Input() thyShowOptionCustom: boolean;
 
     @Input() thySearchKey: string;

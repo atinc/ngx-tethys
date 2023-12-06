@@ -3,6 +3,7 @@
   <thy-icon class="checked-icon" thyIconName="check"></thy-icon>
 </ng-container>
 <ng-template #defaultOption>
+  <thy-icon *ngIf="thyIcon" [thyIconName]="thyIcon" [style.color]="thyIconColor" class="mr-2"></thy-icon>
   <span class="text-truncate">{{ thyLabelText }}</span>
   <thy-icon class="checked-icon" thyIconName="check"></thy-icon>
 </ng-template>

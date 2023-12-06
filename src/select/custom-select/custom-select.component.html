@@ -77,6 +77,8 @@
       *ngIf="!option.children; else optionGroup"
       [thyDisabled]="option.disabled"
       [thyLabelText]="option.label"
+      [thyIcon]="option.icon"
+      [thyIconColor]="option.iconColor"
       [thyValue]="option.value"
       [thyRawValue]="option"></thy-option>
     <ng-template #optionGroup>
@@ -86,6 +88,8 @@
           [thyDisabled]="sub.disabled"
           [thyLabelText]="sub.label"
           [thyValue]="sub.value"
+          [thyIcon]="sub.icon"
+          [thyIconColor]="sub.iconColor"
           [thyRawValue]="sub"></thy-option>
       </thy-option-group>
     </ng-template>

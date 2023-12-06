@@ -117,6 +117,7 @@ export interface ThySelectOptionModel {
     disabled?: boolean;
     label?: string;
     icon?: string;
+    iconColor?: string;
     groupLabel?: string;
 }
 

@@ -83,7 +83,14 @@
             $implicit: selectedValue.thyRawValue || selectedValue.thyValue || selectedValue
           }"></ng-template>
         <ng-container *ngIf="!customDisplayTemplate; else customDisplay">
-          <span class="text-truncate">{{ selectedValue?.thyLabelText }}</span>
+          <span class="text-truncate">
+            <thy-icon
+              *ngIf="selectedValue.thyIcon"
+              [thyIconName]="selectedValue.thyIcon"
+              [style.color]="selectedValue.thyIconColor"
+              class="mr-2"></thy-icon
+            >{{ selectedValue?.thyLabelText }}</span
+          >
         </ng-container>
       </div>
     </ng-container>
