@@ -48,7 +48,7 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyCascaderOptionComponent } from './cascader-li.component';
 import { ThyCascaderSearchOptionComponent } from './cascader-search-option.component';
 import { ThyCascaderExpandTrigger, ThyCascaderOption, ThyCascaderSearchOption, ThyCascaderTriggerType } from './types';
-import { deepCopy } from '@angular-devkit/core';
+import { scaleYMotion } from 'ngx-tethys/core';
 
 function toArray<T>(value: T | T[]): T[] {
     let ret: T[];
@@ -118,7 +118,8 @@ const defaultDisplayRender = (label: any) => label.join(' / ');
         ThyCascaderSearchOptionComponent,
         ThyEmptyComponent,
         ThyIconComponent
-    ]
+    ],
+    animations: [scaleYMotion]
 })
 export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor, OnInit, OnDestroy {
     /**

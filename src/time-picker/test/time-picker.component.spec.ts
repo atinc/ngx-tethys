@@ -6,6 +6,7 @@ import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent, dispatchFakeEvent } from 'ngx-tethys/testing';
 import { ThyTimePickerComponent, TimePickerSize } from '../time-picker.component';
 import { ThyTimePickerModule } from '../time-picker.module';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ThyTimePickerComponent', () => {
     let fixture: ComponentFixture<ThyTestTimePickerBaseComponent>;
@@ -16,7 +17,7 @@ describe('ThyTimePickerComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [FormsModule, ThyTimePickerModule],
+            imports: [FormsModule, ThyTimePickerModule, NoopAnimationsModule],
             declarations: [ThyTestTimePickerBaseComponent]
         });
 

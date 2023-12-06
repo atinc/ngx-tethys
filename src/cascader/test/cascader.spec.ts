@@ -17,6 +17,7 @@ import { By } from '@angular/platform-browser';
 import { clone } from '../examples/cascader-address-options';
 import { ThyCascaderModule } from '../module';
 import { ThyCascaderExpandTrigger, ThyCascaderTriggerType } from '../types';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 registerLocaleData(zh);
 
@@ -404,7 +405,7 @@ class CascaderMultipleComponent {
 describe('thy-cascader', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            imports: [FormsModule, CommonModule, OverlayModule, ThyCascaderModule],
+            imports: [FormsModule, CommonModule, OverlayModule, ThyCascaderModule, NoopAnimationsModule],
             declarations: [CascaderTemplateComponent, CascaderBasicComponent, CascaderLoadComponent, CascaderMultipleComponent],
             providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }]
         });
