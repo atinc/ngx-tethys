@@ -11,7 +11,7 @@ export class ThyPopoverDisabledAnimationExampleComponent {
     openTemplate(event: Event, template: TemplateRef<HTMLElement>) {
         this.thyPopover.open(template, {
             origin: event.currentTarget as HTMLElement,
-            disabledAnimation: true
+            animationDisabled: true
         });
     }
 }

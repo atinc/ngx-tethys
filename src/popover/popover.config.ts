@@ -76,7 +76,7 @@ export class ThyPopoverConfig<TData = unknown> extends ThyAbstractOverlayConfig<
      * 是否禁用动画
      * @default false
      */
-    disabledAnimation?: boolean;
+    animationDisabled?: boolean;
 }
 
 export const THY_POPOVER_DEFAULT_CONFIG = new InjectionToken<ThyPopoverConfig>('thy-popover-default-config');

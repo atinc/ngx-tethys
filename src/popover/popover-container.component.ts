@@ -34,7 +34,7 @@ import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
         '[attr.role]': `'popover'`,
         '[attr.id]': 'id',
 
-        '[@.disabled]': '!!config.disabledAnimation',
+        '[@.disabled]': '!!config.animationDisabled',
 
         '[@scaleXMotion]': '(config.placement === "left" || config.placement === "right") ? animationState : "void"',
         '(@scaleXMotion.start)': 'onAnimationStart($event)',
