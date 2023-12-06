@@ -1,5 +1,5 @@
 import { InputBoolean, ThyPlacement } from 'ngx-tethys/core';
-import { coerceBooleanProperty, elementMatchClosest, FunctionProp, P, TinyDate } from 'ngx-tethys/util';
+import { coerceBooleanProperty, elementMatchClosest, FunctionProp, TinyDate } from 'ngx-tethys/util';
 
 import {
     ChangeDetectorRef,

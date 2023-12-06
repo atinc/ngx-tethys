@@ -22,6 +22,7 @@ import { CompatibleValue, RangePartType } from './inner-types';
 import { getFlexibleAdvancedReadableValue } from './picker.util';
 import { ThyDateGranularity } from './standard-types';
 import { ThyEnterDirective } from 'ngx-tethys/shared';
+import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
 
 /**
  * @private
@@ -42,7 +43,8 @@ import { ThyEnterDirective } from 'ngx-tethys/shared';
         ThyIconComponent,
         NgClass,
         CdkConnectedOverlay
-    ]
+    ],
+    animations: [scaleXMotion, scaleYMotion, scaleMotion]
 })
 export class ThyPickerComponent implements AfterViewInit {
     @Input() isRange = false;
