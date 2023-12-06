@@ -333,8 +333,6 @@ export class ThyCascaderComponent
 
     public menuVisible = false;
 
-    public showSearch = false;
-
     public isLabelRenderTemplate = false;
 
     public triggerRect: DOMRect;
