@@ -19,7 +19,7 @@ import {
 
 import { ThyPopoverConfig } from './popover.config';
 import { popoverAbstractOverlayOptions } from './popover.options';
-import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core/animation/zoom';
+import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
 
 /**
  * @internal
