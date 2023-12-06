@@ -62,7 +62,7 @@ describe('ThyTimePickerComponent', () => {
             openOverlay();
 
             overlayQuery('.cdk-overlay-backdrop').click();
-            fixture.detectChanges();
+            tick(300);
             expect(getTimePickerPanel()).toBeNull();
 
             flush();
@@ -74,6 +74,7 @@ describe('ThyTimePickerComponent', () => {
 
             getTimePickerInput().dispatchEvent(new KeyboardEvent('keyup', { key: 'escape' }));
             fixture.detectChanges();
+            tick(300);
             expect(getTimePickerPanel()).toBeNull();
         }));
 
@@ -248,13 +249,12 @@ describe('ThyTimePickerComponent', () => {
         it('should keep input focus when overlay opened', fakeAsync(() => {
             openOverlay();
             dispatchFakeEvent(getTimePickerInput(), 'blur');
-            fixture.detectChanges();
+            tick(300);
             expect(document.activeElement.classList.contains('thy-time-picker-input')).toBeTruthy();
 
             dispatchMouseEvent(document.body, 'click');
-            fixture.detectChanges();
             dispatchFakeEvent(getTimePickerInput(), 'blur');
-            fixture.detectChanges();
+            tick(300);
             expect(document.activeElement.classList.contains('thy-time-picker-input')).toBeFalsy();
         }));
 
@@ -265,6 +265,7 @@ describe('ThyTimePickerComponent', () => {
             expect(openChange).toHaveBeenCalledWith(true);
 
             dispatchMouseEvent(document.body, 'click');
+            tick(300);
             expect(openChange).toHaveBeenCalledWith(false);
         }));
 
