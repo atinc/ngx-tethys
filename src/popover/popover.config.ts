@@ -71,6 +71,12 @@ export class ThyPopoverConfig<TData = unknown> extends ThyAbstractOverlayConfig<
      * @description.en-us autoAdaptive is true when height change can auto update position
      */
     autoAdaptive?: boolean;
+
+    /**
+     * 是否禁用动画
+     * @default false
+     */
+    disabledAnimation?: boolean;
 }
 
 export const THY_POPOVER_DEFAULT_CONFIG = new InjectionToken<ThyPopoverConfig>('thy-popover-default-config');
