@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.1.17](https://github.com/atinc/ngx-tethys/compare/16.1.16...16.1.17) (2023-12-06)
+
+
+### Bug Fixes
+
+* **slider:** don't change value when slider is display:none; #INFR-10717 [@wangkai](https://github.com/wangkai) ([#2937](https://github.com/atinc/ngx-tethys/issues/2937)) ([#2940](https://github.com/atinc/ngx-tethys/issues/2940)) ([5df68e3](https://github.com/atinc/ngx-tethys/commit/5df68e3f472acaff9850627a4e9b676935173415)), closes [#INFR-10717](https://github.com/atinc/ngx-tethys/issues/INFR-10717)
+
+
+
 ## [16.1.16](https://github.com/atinc/ngx-tethys/compare/16.1.15...16.1.16) (2023-11-24)
 
 
