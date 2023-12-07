@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.1.18](https://github.com/atinc/ngx-tethys/compare/16.1.17...16.1.18) (2023-12-07)
+
+
+### Bug Fixes
+
+* **shared:** trigger ng ngOnChanges use setInput for thyViewOutlet #INFR-10730 ([#2947](https://github.com/atinc/ngx-tethys/issues/2947)) ([ba7a8af](https://github.com/atinc/ngx-tethys/commit/ba7a8af2d22f697d514aea25b73359fbd47c46ae)), closes [#INFR-10730](https://github.com/atinc/ngx-tethys/issues/INFR-10730)
+
+
+
 ## [16.1.17](https://github.com/atinc/ngx-tethys/compare/16.1.16...16.1.17) (2023-12-06)
 
 
