@@ -22,6 +22,7 @@
   (inputChange)="onInputDate($event)">
   <date-popup
     [attr.tabindex]="-1"
+    *ngIf="realOpenState"
     [isRange]="isRange"
     [showWeek]="showWeek"
     [panelMode]="panelMode"
