@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.1.20](https://github.com/atinc/ngx-tethys/compare/16.1.19...16.1.20) (2023-12-08)
+
+
+### Features
+
+* **select:**  custom-select support display avatar or icon、multi-select selected options support template ([#2961](https://github.com/atinc/ngx-tethys/issues/2961)) ([d606eff](https://github.com/atinc/ngx-tethys/commit/d606effa97df39d7a710d62b11df575664bad665))
+
+
+
 ## [16.1.19](https://github.com/atinc/ngx-tethys/compare/16.1.18...16.1.19) (2023-12-08)
 
 
