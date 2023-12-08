@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.1.19](https://github.com/atinc/ngx-tethys/compare/16.1.18...16.1.19) (2023-12-08)
+
+
+### Bug Fixes
+
+* **tree-select:** fix tree select overlay style and position #INFR-10880 ([c937f64](https://github.com/atinc/ngx-tethys/commit/c937f644418cb7e112ed87cba26c816e245c184f)), closes [#INFR-10880](https://github.com/atinc/ngx-tethys/issues/INFR-10880)
+
+
+
 ## [16.1.18](https://github.com/atinc/ngx-tethys/compare/16.1.17...16.1.18) (2023-12-07)
 
 
