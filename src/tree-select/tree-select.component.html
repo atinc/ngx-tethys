@@ -31,9 +31,10 @@
   [cdkConnectedOverlayHasBackdrop]="false"
   [cdkConnectedOverlayPositions]="positions"
   [cdkConnectedOverlayOrigin]="origin"
-  [cdkConnectedOverlayWidth]="cdkConnectOverlayWidth"
+  [cdkConnectedOverlayMinWidth]="cdkConnectOverlayWidth"
   [cdkConnectedOverlayOpen]="expandTreeSelectOptions"
   cdkConnectedOverlayTransformOriginOn=".thy-tree-select-dropdown"
+  [cdkConnectedOverlayPositions]="expandedDropdownPositions"
   (detach)="close()">
   <thy-tree-select-nodes
     thyStopPropagation

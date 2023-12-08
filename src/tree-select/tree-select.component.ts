@@ -1,4 +1,10 @@
-import { TabIndexDisabledControlValueAccessorMixin, getFlexiblePositions, InputBoolean, ThyClickDispatcher } from 'ngx-tethys/core';
+import {
+    TabIndexDisabledControlValueAccessorMixin,
+    getFlexiblePositions,
+    InputBoolean,
+    ThyClickDispatcher,
+    EXPANDED_DROPDOWN_POSITIONS
+} from 'ngx-tethys/core';
 import { ThyTreeNode } from 'ngx-tethys/tree';
 import { elementMatchClosest, isArray, isObject, produce, warnDeprecation } from 'ngx-tethys/util';
 import { Observable, of, Subject } from 'rxjs';
@@ -111,6 +117,8 @@ export class ThyTreeSelectComponent extends TabIndexDisabledControlValueAccessor
     public cdkConnectOverlayWidth = 0;
 
     public positions: ConnectionPositionPair[];
+
+    public expandedDropdownPositions = EXPANDED_DROPDOWN_POSITIONS;
 
     public icons: { expand: string; collapse: string; gap?: number } = {
         expand: 'angle-down',
