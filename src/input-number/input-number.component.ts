@@ -126,6 +126,12 @@ export class ThyInputNumberComponent
     @Input() @InputNumber() thyStep = 1;
 
     /**
+     * 长按按钮时，数值变化的速度 (ms) ，值越小变化的速度越快
+     * @default 300
+     */
+    @Input() thyStepTimer: number;
+
+    /**
      * 输入框大小
      * @type xs | sm | md | lg
      */
@@ -284,7 +290,7 @@ export class ThyInputNumberComponent
         }
         this.autoStepTimer = setTimeout(() => {
             (this[Type[type]] as (e: MouseEvent | KeyboardEvent) => void)(e);
-        }, 300);
+        }, this.thyStepTimer || 300);
     }
 
     upStep(value: number): number {
