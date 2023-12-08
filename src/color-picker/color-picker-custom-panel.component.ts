@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit } from '@angular/core';
-import ThyColor from './helpers/color.class';
+import { ThyColor } from './helpers/color.class';
 import { ThyColorInputsComponent } from './parts/inputs/inputs.component';
 import { ThyIndicatorComponent } from './parts/indicator/indicator.component';
 import { ThyAlphaComponent } from './parts/alpha/alpha.component';
