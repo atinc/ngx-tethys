@@ -15,8 +15,7 @@
     [thySize]="currentSize.name"
     thyMode="multiple"
     [thyShowSearch]="true"
-    [(ngModel)]="listOfSelectedValue"
-  >
+    [(ngModel)]="listOfSelectedValue">
     <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
   </thy-custom-select>
 </div>
