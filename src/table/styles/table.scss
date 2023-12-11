@@ -379,8 +379,24 @@
         .table-boxed {
             thead {
                 top: 1px;
-                border-top-left-radius: 4px;
-                border-top-right-radius: 4px;
+                border-top-left-radius: 3px;
+                border-top-right-radius: 3px;
+                th:first-child::before,
+                th:last-child::after {
+                    width: 1px;
+                    height: 2px;
+                    background: variables.$white;
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    top: -1px;
+                }
+                th:first-child::before {
+                    left: -1px;
+                }
+                th:last-child::after {
+                    right: -1px;
+                }
             }
         }
     }
