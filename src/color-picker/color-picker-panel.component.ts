@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit, ViewCon
 import { InputBoolean } from 'ngx-tethys/core';
 import { ThyPopover, ThyPopoverRef } from 'ngx-tethys/popover';
 import { ThyColorPickerCustomPanelComponent } from './color-picker-custom-panel.component';
-import ThyColor from './helpers/color.class';
+import { ThyColor } from './helpers/color.class';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { NgIf, NgClass, NgTemplateOutlet, NgFor, NgStyle } from '@angular/common';
 
