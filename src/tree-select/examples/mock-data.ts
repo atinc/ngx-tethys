@@ -35,7 +35,79 @@ export const basicTreeSelectData: ThyTreeSelectNode[] = [
                         name: '用户故事',
                         level: 2,
                         icon: 'user-story-square-fill',
-                        children: []
+                        children: [
+                            {
+                                _id: 'user-story-002',
+                                name: '用户故事用户故事',
+                                level: 3,
+                                icon: 'user-story-square-fill',
+                                children: [
+                                    {
+                                        _id: 'user-story-003',
+                                        name: '用户故事用户故事用户故事',
+                                        level: 4,
+                                        icon: 'user-story-square-fill',
+                                        children: [
+                                            {
+                                                _id: 'user-story-004',
+                                                name: '用户故事用户故事用户故事',
+                                                level: 5,
+                                                icon: 'user-story-square-fill',
+                                                children: [
+                                                    {
+                                                        _id: 'user-story-005',
+                                                        name: '用户故事用户故事用户故事用户故事用户故事用',
+                                                        level: 6,
+                                                        icon: 'user-story-square-fill',
+                                                        children: [
+                                                            {
+                                                                _id: 'user-story-006',
+                                                                name: '用户故事用户故事用户故事用户故事用户故事用户故事用户故事用户故事',
+                                                                level: 7,
+                                                                icon: 'user-story-square-fill',
+                                                                children: [
+                                                                    {
+                                                                        _id: 'user-story-007',
+                                                                        name: '用户故事用户故事用户故事用户故事用户故事用户故事用户故事用户故事',
+                                                                        level: 8,
+                                                                        icon: 'user-story-square-fill',
+                                                                        children: [
+                                                                            {
+                                                                                _id: 'user-story-009',
+                                                                                name: '用户故事用户故事用户故事',
+                                                                                level: 9,
+                                                                                icon: 'user-story-square-fill',
+                                                                                children: [
+                                                                                    {
+                                                                                        _id: 'user-story-000',
+                                                                                        name: '用户故事用户故事用户故事用户故事用户故事用户故事用户故事用户故事故事用户故事用户故事用户故事用户故事用户故事用户故事用户故事用户故事用户故事用户故事用户故事用户故事故事用户故事用户故事用户故事用户故事用户故事用户故事用户故事用户故事用户故事用户故事用户故事用户故事故事用户故事用户故事用户故事用户故事用户故事用户故事用户故事用户故事用户故事用户故事用户故事用户故事故事用户故事用户故事用户故事用户故事',
+                                                                                        level: 0,
+                                                                                        icon: 'user-story-square-fill',
+                                                                                        children: [
+                                                                                            {
+                                                                                                _id: 'user-story-0011',
+                                                                                                name: '用户故事用户故事用户故事用户故事用户故事用户故事用户故事用户故事',
+                                                                                                level: 11,
+                                                                                                icon: 'user-story-square-fill',
+                                                                                                children: []
+                                                                                            }
+                                                                                        ]
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
                     }
                 ]
             }

@@ -6,7 +6,7 @@ import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyNavModule } from 'ngx-tethys/nav';
 import { ThySpaceModule } from 'ngx-tethys/space';
 import { ThyActionModule } from 'ngx-tethys/action';
-import { THY_POPOVER_SCROLL_STRATEGY, ThyPopoverModule } from 'ngx-tethys/popover';
+import { ThyPopoverModule } from 'ngx-tethys/popover';
 import { ThySelectModule } from 'ngx-tethys/select';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -14,14 +14,15 @@ import { ThyPopoverBasicContentComponent } from './basic/popover-content.compone
 import { ThyPopoverAutoAdaptiveContentComponent } from './auto-adaptive/auto-adaptive-content.component';
 import { ThyPopoverManualContentComponent } from './manual/popover-content.component';
 import { ThyPopoverPassDataContentComponent } from './pass-data/popover-content.component';
-import { Overlay } from '@angular/cdk/overlay';
+import { ThyPopoverDisabledAnimationExampleComponent } from './disabled-animation/disabled-animation.component';
 
 export default {
     declarations: [
         ThyPopoverBasicContentComponent,
         ThyPopoverManualContentComponent,
         ThyPopoverAutoAdaptiveContentComponent,
-        ThyPopoverPassDataContentComponent
+        ThyPopoverPassDataContentComponent,
+        ThyPopoverDisabledAnimationExampleComponent
     ],
     imports: [
         CommonModule,

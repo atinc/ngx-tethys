@@ -352,12 +352,52 @@
 
     &-fixed-header {
         thead {
-            box-shadow: 0 0 0 0.5px #eee;
+            box-shadow: 0 0 0 1px #eee;
             background-color: variables.$white;
             position: sticky;
             left: 0;
             top: 0;
             z-index: variables.$z-index-6;
+            th {
+                border-bottom: 0;
+            }
+        }
+        .table-bordered {
+            border-top: 0;
+            thead {
+                top: 1px;
+                th {
+                    border-top: 0;
+                }
+            }
+            tbody {
+                tr:first-child td {
+                    border-top: 0;
+                }
+            }
+        }
+        .table-boxed {
+            thead {
+                top: 1px;
+                border-top-left-radius: 3px;
+                border-top-right-radius: 3px;
+                th:first-child::before,
+                th:last-child::after {
+                    width: 1px;
+                    height: 2px;
+                    background: variables.$white;
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    top: -1px;
+                }
+                th:first-child::before {
+                    left: -1px;
+                }
+                th:last-child::after {
+                    right: -1px;
+                }
+            }
         }
     }
 
