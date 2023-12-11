@@ -290,7 +290,7 @@ export class ThyInputNumberComponent
         }
         this.autoStepTimer = setTimeout(() => {
             (this[Type[type]] as (e: MouseEvent | KeyboardEvent) => void)(e);
-        }, this.thyStepTimer);
+        }, this.thyStepDelay);
     }
 
     upStep(value: number): number {
