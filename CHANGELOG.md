@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.1.21](https://github.com/atinc/ngx-tethys/compare/16.1.20...16.1.21) (2023-12-11)
+
+
+### Features
+
+* **table:** optimize header fixed th border style #INFR-10891 ([#2965](https://github.com/atinc/ngx-tethys/issues/2965)) ([8e5cd1b](https://github.com/atinc/ngx-tethys/commit/8e5cd1badb4c84a05b1e21b984c9e708a12764eb)), closes [#INFR-10891](https://github.com/atinc/ngx-tethys/issues/INFR-10891)
+
+
+
 ## [16.1.20](https://github.com/atinc/ngx-tethys/compare/16.1.19...16.1.20) (2023-12-08)
 
 
