@@ -126,7 +126,7 @@ export class ThyInputNumberComponent
     @Input() @InputNumber() thyStep = 1;
 
     /**
-     * 长按按钮时，数值变化的速度 (ms) ，值越小变化的速度越快
+     * 改变步数时的延迟毫秒数，值越小变化的速度越快
      * @default 300
      */
     @input() @InputNumber() thyStepDelay = 300;
