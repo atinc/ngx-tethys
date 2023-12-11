@@ -43,7 +43,6 @@ export class ThyQuarterPickerFormatPipe implements PipeTransform {
     transform(originalValue: CompatibleDate | DateEntry | ThyDateRangeEntry, formatStr?: string): string {
         const { value, withTime } = transformDateValue(originalValue);
 
-        // TODO: format 传 YYYY 会报错，需要去看下原因
         if (!formatStr) {
             formatStr = 'yyyy-qqq';
         }
