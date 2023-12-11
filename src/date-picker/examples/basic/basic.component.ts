@@ -18,11 +18,13 @@ export class ThyDatePickerBasicExampleComponent implements OnInit {
     flexibleDateTime = 1234567890;
     week = { date: new Date(), with_time: 0 };
 
-    dateRange = { begin: new Date('2021-10'), end: new Date('2021-12') };
+    dateRange = { begin: new Date('2023-10'), end: new Date('2023-12') };
 
     weekRange = { begin: new Date('2021-10-03'), end: new Date('2021-12-12') };
 
     yearRange = { begin: new Date('2021'), end: new Date('2028') };
+
+    quarterRange = { begin: new Date('2023-6'), end: new Date('2023-12') };
 
     flexibleDateRange: ThyDateRangeEntry;
 

@@ -236,13 +236,25 @@ export class ThyPickerComponent implements AfterViewInit {
             if (this.flexible && this.innerflexibleDateGranularity !== 'day') {
                 return getFlexibleAdvancedReadableValue(tinyDate as TinyDate[], this.innerflexibleDateGranularity);
             } else {
-                const start = tinyDate[0] ? this.dateHelper.format(tinyDate[0].nativeDate, this.innerFormat) : '';
-                const end = tinyDate[1] ? this.dateHelper.format(tinyDate[1].nativeDate, this.innerFormat) : '';
+                // const start = tinyDate[0] ? this.dateHelper.format(tinyDate[0].nativeDate, this.innerFormat) : '';
+                // const end = tinyDate[1] ? this.dateHelper.format(tinyDate[1].nativeDate, this.innerFormat) : '';
+                const start = tinyDate[0] ? this.formatDate(tinyDate[0]) : '';
+                const end = tinyDate[1] ? this.formatDate(tinyDate[1]) : '';
                 return start && end ? `${start} ~ ${end}` : null;
             }
         } else {
             value = tinyDate as TinyDate;
-            return value ? this.dateHelper.format(value.nativeDate, this.innerFormat) : null;
+            return value ? this.formatDate(value) : null;
+        }
+    }
+
+    formatDate(value: TinyDate) {
+        // dateHelper.format() 使用的是 angular 的 format，不支持季度，修改的话，改动比较大。
+        // 此处通过对 innerFormat 做下判断，如果是季度的 format，使用 date-fns 的 format()
+        if (this.innerFormat && (this.innerFormat.includes('q') || this.innerFormat.includes('Q'))) {
+            return value.format(this.innerFormat);
+        } else {
+            return this.dateHelper.format(value.nativeDate, this.innerFormat);
         }
     }
 
