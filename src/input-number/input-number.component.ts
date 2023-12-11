@@ -129,7 +129,7 @@ export class ThyInputNumberComponent
      * 改变步数时的延迟毫秒数，值越小变化的速度越快
      * @default 300
      */
-    @input() @InputNumber() thyStepDelay = 300;
+    @Input() @InputNumber() thyStepDelay = 300;
 
     /**
      * 输入框大小
