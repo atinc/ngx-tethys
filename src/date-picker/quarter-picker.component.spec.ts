@@ -219,6 +219,25 @@ describe('ThyQuarterPickerComponent', () => {
             expect(queryFromOverlay('.thy-calendar-decade-btn').textContent).toContain('2100');
             expect(queryFromOverlay('.thy-calendar-decade-btn').textContent).toContain('2199');
         }));
+
+        it('should set correct cell selected', fakeAsync(() => {
+            fixtureInstance.thyValue = new Date('2023-12-12');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            expect(getSelectedQuarterCell().textContent.trim()).toBe('Q4');
+            dispatchMouseEvent(queryFromOverlay('.thy-calendar-next-year-btn'), 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(getSelectedQuarterCell()).toBeNull();
+            dispatchMouseEvent(queryFromOverlay('.thy-calendar-prev-year-btn'), 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(getSelectedQuarterCell().textContent.trim()).toBe('Q4');
+        }));
     });
 
     ///////////////
@@ -249,6 +268,10 @@ describe('ThyQuarterPickerComponent', () => {
     function getPickerTrigger(): HTMLInputElement {
         return debugElement.query(By.css('thy-picker input.thy-calendar-picker-input')).nativeElement as HTMLInputElement;
     }
+
+    function getSelectedQuarterCell(): HTMLElement {
+        return queryFromOverlay('tbody.thy-calendar-quarter-panel-tbody td.thy-calendar-quarter-panel-selected-cell') as HTMLElement;
+    }
 });
 
 @Component({
@@ -262,6 +285,7 @@ describe('ThyQuarterPickerComponent', () => {
             [thyDisabledDate]="thyDisabledDate"
             (thyDateChange)="thyDateChange($event)"
             [thyPlaceHolder]="thyPlaceHolder">
+            [thySize]="thySize" [thyFormat]="thyFormat" [thySuffixIcon]="thySuffixIcon" [thyReadonly]="thyReadonly"
         </thy-quarter-picker>
     `
 })
@@ -273,6 +297,10 @@ class TestQuarterPickerComponent {
     thyPanelClassName: string;
     thyValue: Date;
     thyOpen: boolean;
+    thySize: string;
+    thySuffixIcon: string;
+    thyFormat: string;
+    thyReadonly: boolean;
     modelValueChange(): void {}
     thyDateChange(): void {}
 }
