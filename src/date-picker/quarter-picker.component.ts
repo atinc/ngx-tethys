@@ -33,7 +33,7 @@ export class ThyQuarterPickerComponent extends BasePickerComponent {
      * 展示的季度格式
      * @type string
      */
-    @Input() thyFormat = 'yyyy年qqq';
+    @Input() thyFormat = 'yyyy-qqq';
 
     isRange = false;
 

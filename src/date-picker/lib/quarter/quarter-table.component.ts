@@ -15,7 +15,7 @@ import { NgFor, NgClass, NgSwitch, NgSwitchCase } from '@angular/common';
     exportAs: 'quarterTable',
     templateUrl: 'quarter-table.component.html',
     standalone: true,
-    imports: [NgFor, NgClass, NgSwitch, NgSwitchCase]
+    imports: [NgFor, NgClass]
 })
 export class QuarterTableComponent extends CalendarTable implements OnChanges {
     MAX_ROW = 1;

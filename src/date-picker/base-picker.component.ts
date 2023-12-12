@@ -148,7 +148,7 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
         if (!this.thyFormat) {
             const inputFormats: { [key in ThyPanelMode]?: string } = {
                 year: 'yyyy',
-                quarter: 'yyyy年qqq',
+                quarter: 'yyyy-qqq',
                 month: 'yyyy-MM',
                 week: 'yyyy-ww周',
                 date: this.thyShowTime ? 'yyyy-MM-dd HH:mm' : 'yyyy-MM-dd'

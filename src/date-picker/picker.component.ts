@@ -236,8 +236,6 @@ export class ThyPickerComponent implements AfterViewInit {
             if (this.flexible && this.innerflexibleDateGranularity !== 'day') {
                 return getFlexibleAdvancedReadableValue(tinyDate as TinyDate[], this.innerflexibleDateGranularity);
             } else {
-                // const start = tinyDate[0] ? this.dateHelper.format(tinyDate[0].nativeDate, this.innerFormat) : '';
-                // const end = tinyDate[1] ? this.dateHelper.format(tinyDate[1].nativeDate, this.innerFormat) : '';
                 const start = tinyDate[0] ? this.formatDate(tinyDate[0]) : '';
                 const end = tinyDate[1] ? this.formatDate(tinyDate[1]) : '';
                 return start && end ? `${start} ~ ${end}` : null;
