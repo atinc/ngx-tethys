@@ -937,6 +937,14 @@ describe('ThyRangePickerComponent', () => {
             expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).toEqual('thy-calendar-year');
         }));
 
+        it('should set thyMode to quarter', fakeAsync(() => {
+            fixture.detectChanges();
+            fixtureInstance.thyMode = 'quarter';
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).toEqual('thy-calendar-quarter');
+        }));
+
         it(`should set thyMode to decade`, fakeAsync(() => {
             fixture.detectChanges();
             fixtureInstance.thyMode = 'decade';
