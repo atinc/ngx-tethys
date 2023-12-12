@@ -1,11 +1,13 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush, inject, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyDatePickerModule } from './date-picker.module';
 import { TinyDate } from '../util';
+import { ThyQuarterPickerFormatPipe } from './picker.pipes';
+import { ThyQuarterPickerComponent } from './quarter-picker.component';
 
 describe('ThyQuarterPickerComponent', () => {
     let fixture: ComponentFixture<TestQuarterPickerComponent>;
@@ -114,6 +116,43 @@ describe('ThyQuarterPickerComponent', () => {
             fixture.detectChanges();
             expect(getPickerTrigger().getAttribute('placeholder')).toBe(featureKey);
         });
+
+        it('should support thySize', () => {
+            fixture.detectChanges();
+            expect(getPickerTrigger().classList.contains('form-control-lg')).not.toBeTruthy();
+            fixtureInstance.thySize = 'lg';
+            fixture.detectChanges();
+            expect(getPickerTrigger().classList.contains('form-control-lg')).toBeTruthy();
+        });
+
+        it('should support thySuffixIcon', () => {
+            fixture.detectChanges();
+            expect(getPickerTriggerWrapper().querySelector('.thy-icon-angry')).toBeNull();
+            fixtureInstance.thySuffixIcon = 'angry';
+            fixture.detectChanges();
+            expect(getPickerTriggerWrapper().querySelector('.thy-icon-angry')).toBeTruthy();
+        });
+
+        it('should support thyReadonly', fakeAsync(() => {
+            fixtureInstance.thyReadonly = true;
+            fixture.detectChanges();
+            expect(getPickerTrigger().readOnly).toBe(true);
+
+            fixtureInstance.thyReadonly = false;
+            fixture.detectChanges();
+            flush();
+            expect(fixtureInstance.thyQuarterPicker.thyPicker.readonly).toBe(false);
+        }));
+
+        it('should support thyFormat', fakeAsync(() => {
+            fixtureInstance.thyValue = new Date('2023-03-04');
+            fixtureInstance.thyFormat = 'yyyy年QQQ';
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            flush();
+            expect(getPickerTrigger().value).toBe('2023年Q1');
+        }));
 
         it('should support modelValueChange', fakeAsync(() => {
             fixture.detectChanges();
@@ -277,6 +316,7 @@ describe('ThyQuarterPickerComponent', () => {
 @Component({
     template: `
         <thy-quarter-picker
+            #thyQuarterPicker
             class="d-block w-50 mb-3"
             [(ngModel)]="thyValue"
             (ngModelChange)="modelValueChange($event)"
@@ -284,12 +324,16 @@ describe('ThyQuarterPickerComponent', () => {
             [thyDisabled]="thyDisabled"
             [thyDisabledDate]="thyDisabledDate"
             (thyDateChange)="thyDateChange($event)"
-            [thyPlaceHolder]="thyPlaceHolder">
-            [thySize]="thySize" [thyFormat]="thyFormat" [thySuffixIcon]="thySuffixIcon" [thyReadonly]="thyReadonly"
+            [thyPlaceHolder]="thyPlaceHolder"
+            [thySize]="thySize"
+            [thyFormat]="thyFormat"
+            [thySuffixIcon]="thySuffixIcon"
+            [thyReadonly]="thyReadonly">
         </thy-quarter-picker>
     `
 })
 class TestQuarterPickerComponent {
+    @ViewChild('thyQuarterPicker', { static: true }) thyQuarterPicker: ThyQuarterPickerComponent;
     thyAllowClear: boolean;
     thyDisabled: boolean;
     thyDisabledDate: (d: Date) => boolean;
