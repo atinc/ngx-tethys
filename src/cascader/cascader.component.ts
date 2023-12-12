@@ -3,14 +3,15 @@ import {
     InputBoolean,
     InputNumber,
     ScrollToService,
-    TabIndexDisabledControlValueAccessorMixin
+    TabIndexDisabledControlValueAccessorMixin,
+    ThyClickDispatcher
 } from 'ngx-tethys/core';
 import { ThyEmptyComponent } from 'ngx-tethys/empty';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { SelectControlSize, SelectOptionBase, ThySelectControlComponent } from 'ngx-tethys/shared';
 import { Id } from 'ngx-tethys/types';
 import { coerceBooleanProperty, elementMatchClosest, isArray, isEmpty, set, helpers } from 'ngx-tethys/util';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Subject, timer } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, take, takeUntil } from 'rxjs/operators';
 
 import { SelectionModel } from '@angular/cdk/collections';
@@ -21,18 +22,22 @@ import {
     ConnectionPositionPair,
     ViewportRuler
 } from '@angular/cdk/overlay';
-import { NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet, isPlatformBrowser } from '@angular/common';
 import {
+    AfterContentInit,
     ChangeDetectorRef,
     Component,
     ElementRef,
     EventEmitter,
     forwardRef,
     HostListener,
+    Inject,
     Input,
+    NgZone,
     OnDestroy,
     OnInit,
     Output,
+    PLATFORM_ID,
     QueryList,
     TemplateRef,
     ViewChild,
@@ -116,7 +121,10 @@ const defaultDisplayRender = (label: any) => label.join(' / ');
         ThyIconComponent
     ]
 })
-export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor, OnInit, OnDestroy {
+export class ThyCascaderComponent
+    extends TabIndexDisabledControlValueAccessorMixin
+    implements ControlValueAccessor, OnInit, OnDestroy, AfterContentInit
+{
     /**
      * 选项的实际值的属性名
      */
@@ -288,10 +296,22 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
     thyIsOnlySelectLeaf = true;
 
     /**
+     * 初始化时，是否展开面板
+     * @default false
+     */
+    @Input() @InputBoolean() thyAutoExpand: boolean;
+
+    /**
      * 是否支持搜索
      * @default false
      */
     @Input() @InputBoolean() thyShowSearch: boolean = false;
+
+    /**
+     * 多选选中项的展示方式，默认为空，渲染文字模板，传入tag，渲染展示模板,
+     * @default ''｜tag
+     */
+    @Input() thyPreset: string = '';
 
     /**
      * 值发生变化时触发，返回选择项的值
@@ -428,6 +448,33 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
         this.valueChange$.pipe(takeUntil(this.destroy$), debounceTime(100)).subscribe(() => {
             this.valueChange();
         });
+
+        if (isPlatformBrowser(this.platformId)) {
+            this.thyClickDispatcher
+                .clicked(0)
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(event => {
+                    if (
+                        !this.elementRef.nativeElement.contains(event.target) &&
+                        !this.menu?.nativeElement.contains(event.target as Node) &&
+                        this.menuVisible
+                    ) {
+                        this.ngZone.run(() => {
+                            this.closeMenu();
+                            this.cdr.markForCheck();
+                        });
+                    }
+                });
+        }
+    }
+
+    ngAfterContentInit() {
+        if (this.thyAutoExpand) {
+            timer(0).subscribe(() => {
+                this.cdr.markForCheck();
+                this.setMenuVisible(true);
+            });
+        }
     }
 
     private initSelectionModel() {
@@ -763,7 +810,8 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
         this._labelCls = {
             [`${this.prefixCls}-picker-label`]: true,
             [`${this.prefixCls}-show-search`]: false,
-            [`${this.prefixCls}-focused`]: false
+            [`${this.prefixCls}-focused`]: false,
+            'text-truncate': true
         };
     }
 
@@ -1117,7 +1165,14 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
         return values;
     }
 
-    constructor(private cdr: ChangeDetectorRef, private viewPortRuler: ViewportRuler, public elementRef: ElementRef) {
+    constructor(
+        @Inject(PLATFORM_ID) private platformId: string,
+        private cdr: ChangeDetectorRef,
+        private viewPortRuler: ViewportRuler,
+        public elementRef: ElementRef,
+        private thyClickDispatcher: ThyClickDispatcher,
+        private ngZone: NgZone
+    ) {
         super();
     }
 

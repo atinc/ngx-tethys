@@ -7,7 +7,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import ThyColor from '../helpers/color.class';
+import { ThyColor } from '../helpers/color.class';
 import { ThyColorPickerModule } from '../module';
 import { ThyAlphaComponent } from '../parts/alpha/alpha.component';
 import { ThyHueComponent } from '../parts/hue/hue.component';

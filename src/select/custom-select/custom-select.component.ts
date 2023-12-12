@@ -18,7 +18,8 @@ import {
     ThySelectControlComponent,
     ThySelectOptionGroupComponent,
     ThyStopPropagationDirective,
-    THY_OPTION_PARENT_COMPONENT
+    THY_OPTION_PARENT_COMPONENT,
+    ThyOptionsContainerComponent
 } from 'ngx-tethys/shared';
 import {
     A,
@@ -51,9 +52,10 @@ import {
     ScrollStrategy,
     ViewportRuler
 } from '@angular/cdk/overlay';
-import { isPlatformBrowser, NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
+import { isPlatformBrowser, NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 import {
     AfterContentInit,
+    AfterViewInit,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -74,7 +76,8 @@ import {
     PLATFORM_ID,
     QueryList,
     TemplateRef,
-    ViewChild
+    ViewChild,
+    ViewChildren
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -85,6 +88,7 @@ import {
     ThyDropdownWidthMode,
     DEFAULT_SELECT_CONFIG
 } from '../select.config';
+import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
 
 export type SelectMode = 'multiple' | '';
 
@@ -106,6 +110,18 @@ export interface OptionValue {
     thyDisabled?: boolean;
     thyShowOptionCustom?: boolean;
     thySearchKey?: string;
+}
+
+export interface ThySelectOptionModel {
+    value?: string | number;
+    disabled?: boolean;
+    label?: string;
+    icon?: string;
+    groupLabel?: string;
+}
+
+interface ThyOptionGroupModel extends ThySelectOptionModel {
+    children?: ThySelectOptionModel[];
 }
 
 const noop = () => {};
@@ -142,17 +158,22 @@ const noop = () => {};
         ThyScrollDirective,
         ThyLoadingComponent,
         ThyEmptyComponent,
-        NgTemplateOutlet
+        ThyOptionsContainerComponent,
+        ThyOptionComponent,
+        ThySelectOptionGroupComponent,
+        NgTemplateOutlet,
+        NgFor
     ],
     host: {
         '[attr.tabindex]': 'tabIndex',
         '(focus)': 'onFocus($event)',
         '(blur)': 'onBlur($event)'
-    }
+    },
+    animations: [scaleXMotion, scaleYMotion, scaleMotion]
 })
 export class ThySelectCustomComponent
     extends TabIndexDisabledControlValueAccessorMixin
-    implements ControlValueAccessor, IThyOptionParentComponent, OnInit, AfterContentInit, OnDestroy
+    implements ControlValueAccessor, IThyOptionParentComponent, OnInit, AfterViewInit, AfterContentInit, OnDestroy
 {
     disabled = false;
 
@@ -392,6 +413,34 @@ export class ThySelectCustomComponent
      */
     @Input() @InputBoolean() thyBorderless = false;
 
+    isReactiveDriven = false;
+
+    innerOptions: ThySelectOptionModel[];
+
+    optionGroups: ThyOptionGroupModel[] = [];
+
+    /**
+     * option 列表
+     * @type ThySelectOptionModel[]
+     */
+    @Input()
+    set thyOptions(value: ThySelectOptionModel[]) {
+        if (value === null) {
+            value = [];
+        }
+        this.innerOptions = value;
+        this.isReactiveDriven = true;
+        this.buildReactiveOptions();
+    }
+
+    options: QueryList<ThyOptionComponent>;
+
+    /**
+     * 目前只支持多选选中项的展示，默认为空，渲染文字模板，传入tag，渲染展示模板,
+     * @default ''｜tag
+     */
+    @Input() thyPreset: string = '';
+
     @ViewChild('trigger', { read: ElementRef, static: true }) trigger: ElementRef<HTMLElement>;
 
     @ViewChild('panel', { read: ElementRef }) panel: ElementRef<HTMLElement>;
@@ -399,12 +448,16 @@ export class ThySelectCustomComponent
     /**
      * @private
      */
-    @ContentChildren(ThyOptionComponent, { descendants: true }) options: QueryList<ThyOptionComponent>;
+    @ContentChildren(ThyOptionComponent, { descendants: true }) contentOptions: QueryList<ThyOptionComponent>;
+
+    @ViewChildren(ThyOptionComponent) viewOptions: QueryList<ThyOptionComponent>;
 
     /**
      * @private
      */
-    @ContentChildren(ThySelectOptionGroupComponent) optionGroups: QueryList<ThySelectOptionGroupComponent>;
+    @ContentChildren(ThySelectOptionGroupComponent) contentGroups: QueryList<ThySelectOptionGroupComponent>;
+
+    @ViewChildren(ThySelectOptionGroupComponent) viewGroups: QueryList<ThySelectOptionGroupComponent>;
 
     @HostListener('keydown', ['$event'])
     handleKeydown(event: KeyboardEvent): void {
@@ -417,6 +470,7 @@ export class ThySelectCustomComponent
     }
 
     get optionsChanges$() {
+        this.options = this.isReactiveDriven ? this.viewOptions : this.contentOptions;
         let previousOptions: ThyOptionComponent[] = this.options.toArray();
         return this.options.changes.pipe(
             map(data => {
@@ -439,6 +493,12 @@ export class ThySelectCustomComponent
     }
 
     private isSearching = false;
+
+    groupBy = (item: ThySelectOptionModel) => item.groupLabel;
+
+    get placement(): ThyPlacement {
+        return this.thyPlacement || this.config.placement;
+    }
 
     constructor(
         private ngZone: NgZone,
@@ -493,6 +553,40 @@ export class ThySelectCustomComponent
         }
     }
 
+    buildOptionGroups(options: ThySelectOptionModel[]) {
+        const optionGroups: ThyOptionGroupModel[] = [];
+        const groups = [...new Set(options.filter(item => this.groupBy(item)).map(sub => this.groupBy(sub)))];
+        const groupMap = new Map();
+        groups.forEach(group => {
+            const children = options.filter(item => this.groupBy(item) === group);
+            const groupOption = {
+                groupLabel: group,
+                children: children
+            };
+            groupMap.set(group, groupOption);
+        });
+        options.forEach(option => {
+            if (this.groupBy(option)) {
+                const currentIndex = optionGroups.findIndex(item => item.groupLabel === this.groupBy(option));
+                if (currentIndex === -1) {
+                    const item = groupMap.get(this.groupBy(option));
+                    optionGroups.push(item);
+                }
+            } else {
+                optionGroups.push(option);
+            }
+        });
+        return optionGroups;
+    }
+
+    buildReactiveOptions() {
+        if (this.innerOptions.filter(item => this.groupBy(item)).length > 0) {
+            this.optionGroups = this.buildOptionGroups(this.innerOptions);
+        } else {
+            this.optionGroups = this.innerOptions;
+        }
+    }
+
     getDropdownMinWidth(): number | null {
         const mode = this.thyDropdownWidthMode || this.config.dropdownWidthMode;
         let dropdownMinWidth: number | null = null;
@@ -508,7 +602,19 @@ export class ThySelectCustomComponent
         return dropdownMinWidth;
     }
 
+    ngAfterViewInit(): void {
+        if (this.isReactiveDriven) {
+            this.setup();
+        }
+    }
+
     ngAfterContentInit() {
+        if (!this.isReactiveDriven) {
+            this.setup();
+        }
+    }
+
+    setup() {
         this.optionsChanges$.pipe(startWith(null), takeUntil(this.destroy$)).subscribe(data => {
             this.resetOptions();
             this.initializeSelection();
@@ -527,6 +633,7 @@ export class ThySelectCustomComponent
                     }
                 });
         });
+
         if (this.thyAutoExpand) {
             timer(0).subscribe(() => {
                 this.changeDetectorRef.markForCheck();
@@ -670,7 +777,8 @@ export class ThySelectCustomComponent
     }
 
     public getItemCount(): number {
-        return this.options.length + this.optionGroups.length;
+        const group = this.isReactiveDriven ? this.viewGroups : this.contentGroups;
+        return this.options.length + group.length;
     }
 
     public toggle(event: MouseEvent): void {

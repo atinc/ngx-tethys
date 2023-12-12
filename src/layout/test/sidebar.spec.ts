@@ -4,12 +4,12 @@ import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent } from '@tethys/cdk/testing';
 import { ThyResizableDirective, ThyResizeEvent } from 'ngx-tethys/resizable';
 import { bypassSanitizeProvider, createKeyboardEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
-import { ThyLayoutComponent } from '../layout.component';
+import { ThyLayoutComponent, ThyLayoutDirective } from '../layout.component';
 import { ThyLayoutModule } from '../layout.module';
-import { ThySidebarContentComponent } from '../sidebar-content.component';
-import { ThySidebarFooterComponent } from '../sidebar-footer.component';
-import { ThySidebarHeaderComponent } from '../sidebar-header.component';
-import { ThySidebarComponent, ThySidebarDirection, ThySidebarTheme } from '../sidebar.component';
+import { ThySidebarContentComponent, ThySidebarContentDirective } from '../sidebar-content.component';
+import { ThySidebarFooterComponent, ThySidebarFooterDirective } from '../sidebar-footer.component';
+import { ThySidebarHeaderComponent, ThySidebarHeaderDirective } from '../sidebar-header.component';
+import { ThySidebarComponent, ThySidebarDirection, ThySidebarDirective, ThySidebarTheme } from '../sidebar.component';
 
 const SIDEBAR_ISOLATED_CLASS = 'thy-layout-sidebar-isolated';
 @Component({
@@ -93,10 +93,38 @@ class ThyDemoLayoutCustomSidebarComponent {
     sidebarDirection = 'right';
 }
 
+@Component({
+    selector: 'thy-demo-layout-sidebar-directive',
+    template: `
+        <div thyLayout>
+            <div
+                thySidebar
+                [thyDirection]="direction"
+                [thyTheme]="theme"
+                [thyDivided]="isDivided"
+                [thyWidth]="width"
+                [thyIsolated]="isolated">
+                <div thySidebarHeader [thyDivided]="isSidebarHeaderDivided">Title</div>
+                <div thySidebarContent>Content</div>
+                <div thySidebarFooter>Footer</div>
+            </div>
+            <div thyContent>Yeah, I am content</div>
+        </div>
+    `
+})
+class ThyDemoLayoutSidebarDirectiveComponent {
+    direction = 'right';
+    theme: ThySidebarTheme;
+    isDivided = true;
+    width: number | string;
+    isolated = false;
+    isSidebarHeaderDivided = true;
+}
+
 describe(`sidebar`, () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [ThyDemoLayoutSidebarBasicComponent, ThyDemoLayoutCustomSidebarComponent],
+            declarations: [ThyDemoLayoutSidebarBasicComponent, ThyDemoLayoutCustomSidebarComponent, ThyDemoLayoutSidebarDirectiveComponent],
             imports: [ThyLayoutModule],
             providers: [bypassSanitizeProvider]
         });
@@ -283,7 +311,9 @@ describe(`sidebar`, () => {
                 expect(sidebarComponent.collapseTip).toContain('展开');
 
                 const dragWidthChangeSpy = spyOn(sidebarComponent.thyDragWidthChange, 'emit');
-                sidebarComponent.resizeHandler({ width: sidebarComponent.thyLayoutSidebarWidth } as unknown as ThyResizeEvent);
+                sidebarComponent.resizeHandler({
+                    width: sidebarComponent.sidebarDirective.thyLayoutSidebarWidth
+                } as unknown as ThyResizeEvent);
                 expect(dragWidthChangeSpy).not.toHaveBeenCalled();
             }));
         });
@@ -477,6 +507,118 @@ describe(`sidebar`, () => {
 
             expect(sidebarHeaderTitle.innerHTML).toContain('My Custom Sidebar Header Title');
             expect(sidebarHeaderOperation.innerHTML).toContain('My Custom Sidebar Header Operation');
+        });
+    });
+
+    describe('directive', () => {
+        let fixture: ComponentFixture<ThyDemoLayoutSidebarDirectiveComponent>;
+        let testInstance: ThyDemoLayoutSidebarDirectiveComponent;
+        let layoutElement: HTMLElement;
+        let sidebarElement: HTMLElement;
+        let sidebarHeaderElement: HTMLElement;
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(ThyDemoLayoutSidebarDirectiveComponent);
+            fixture.detectChanges();
+            testInstance = fixture.debugElement.componentInstance;
+            layoutElement = fixture.debugElement.query(By.directive(ThyLayoutDirective)).nativeElement;
+            sidebarElement = fixture.debugElement.query(By.directive(ThySidebarDirective)).nativeElement;
+            sidebarHeaderElement = fixture.debugElement.query(By.directive(ThySidebarHeaderDirective)).nativeElement;
+        });
+
+        it(`should get correct class`, () => {
+            expect(layoutElement.classList.contains(`thy-layout`)).toEqual(true);
+            expect(layoutElement.classList.contains(`thy-layout--has-sidebar`)).toEqual(true);
+            expect(sidebarElement.classList.contains(`thy-layout-sidebar`)).toEqual(true);
+        });
+
+        it(`should get correct 300px width when input lg`, () => {
+            expect(sidebarElement.style.width).toEqual('240px');
+            fixture.componentInstance.width = 'lg';
+            fixture.detectChanges();
+            expect(sidebarElement.style.width).toEqual('300px');
+        });
+
+        it(`should get correct 200px width when input 200`, () => {
+            expect(sidebarElement.style.width).toEqual('240px');
+            fixture.componentInstance.width = 200;
+            fixture.detectChanges();
+            expect(sidebarElement.style.width).toEqual('200px');
+        });
+
+        it(`should get correct class with theme dark`, () => {
+            expect(sidebarElement.classList).not.toContain('sidebar-theme-dark');
+            testInstance.theme = 'dark';
+            fixture.detectChanges();
+            expect(sidebarElement.classList).toContain('sidebar-theme-dark');
+        });
+
+        it(`should get correct class with theme light`, () => {
+            expect(sidebarElement.classList).not.toContain('sidebar-theme-light');
+            testInstance.theme = 'light';
+            fixture.detectChanges();
+            expect(sidebarElement.classList).toContain('sidebar-theme-light');
+        });
+
+        it(`should get correct class with ThySidebarHeaderComponent has divided`, () => {
+            expect(sidebarHeaderElement.classList).toContain(`sidebar-header-divided`);
+            testInstance.isSidebarHeaderDivided = false;
+            fixture.detectChanges();
+            expect(sidebarHeaderElement.classList).not.toContain(`sidebar-header-divided`);
+        });
+
+        it(`should get correct class with thy-sidebar-content`, () => {
+            const debugElement = fixture.debugElement.query(By.directive(ThySidebarContentDirective));
+            expect(debugElement).toBeTruthy();
+            const element: HTMLElement = debugElement.nativeElement;
+            expect(element).toBeTruthy();
+            expect(element.classList.contains('sidebar-content')).toBeTruthy();
+            expect(element.textContent.includes('Content')).toBeTruthy();
+        });
+
+        it(`should get correct class with thy-sidebar-footer`, () => {
+            const debugElement = fixture.debugElement.query(By.directive(ThySidebarFooterDirective));
+            expect(debugElement).toBeTruthy();
+            const element: HTMLElement = debugElement.nativeElement;
+            expect(element).toBeTruthy();
+            expect(element.classList.contains('sidebar-footer')).toBeTruthy();
+            expect(element.textContent.includes('Footer')).toBeTruthy();
+        });
+
+        it(`should get correct isolated class when isolated`, () => {
+            expect(sidebarElement.classList.contains(SIDEBAR_ISOLATED_CLASS)).toEqual(false);
+            fixture.componentInstance.isolated = true;
+            fixture.detectChanges();
+            expect(sidebarElement.classList.contains(SIDEBAR_ISOLATED_CLASS)).toEqual(true);
+        });
+
+        it(`should get correct class according to thyDirection value`, () => {
+            expect(sidebarElement.classList).toContain('thy-layout-sidebar-right');
+            expect(layoutElement.classList).toContain('thy-layout--is-sidebar-right');
+
+            testInstance.direction = 'left';
+            fixture.detectChanges();
+            expect(sidebarElement.classList).not.toContain('thy-layout-sidebar-right');
+        });
+
+        it(`should get correct class according to thyDivided value when thyDirection is right`, () => {
+            expect(sidebarElement.classList).not.toContain('thy-layout-sidebar--clear-border-left');
+
+            testInstance.isDivided = false;
+            fixture.detectChanges();
+            expect(sidebarElement.classList).toContain('thy-layout-sidebar--clear-border-left');
+        });
+
+        it(`should get correct class according to thyDivided value when thyDirection is left`, () => {
+            expect(sidebarElement.classList).not.toContain('thy-layout-sidebar--clear-border-right');
+
+            testInstance.direction = 'left';
+            fixture.detectChanges();
+            expect(sidebarElement.classList).not.toContain('thy-layout-sidebar--clear-border-right');
+
+            testInstance.isDivided = false;
+            fixture.detectChanges();
+            expect(sidebarElement.classList).toContain('thy-layout-sidebar--clear-border-right');
         });
     });
 });

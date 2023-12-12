@@ -425,7 +425,6 @@ describe('ThyTimePickerComponent', () => {
             [thySize]="size"
             [thyFormat]="format"
             [thyBackdrop]="backdrop"
-            [disabled]="disabled"
             [thyDisabled]="disabled"
             [thyReadonly]="readonly"
             [thyHourStep]="hourStep"

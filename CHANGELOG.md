@@ -2,6 +2,68 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [16.2.0-next.4](https://github.com/atinc/ngx-tethys/compare/16.2.0-next.3...16.2.0-next.4) (2023-12-07)
+
+
+### Bug Fixes
+
+* **core:** adjust animation scale from 0.5 to 0.9 #INFR-10876 ([#2952](https://github.com/atinc/ngx-tethys/issues/2952)) ([b371ad1](https://github.com/atinc/ngx-tethys/commit/b371ad11ac0485544161aecfb4bf6773bc48138d)), closes [#INFR-10876](https://github.com/atinc/ngx-tethys/issues/INFR-10876)
+
+
+
+# [16.2.0-next.3](https://github.com/atinc/ngx-tethys/compare/16.2.0-next.2...16.2.0-next.3) (2023-12-06)
+
+
+### Bug Fixes
+
+* **core:** export animations from core module INFR-7856 ([#2942](https://github.com/atinc/ngx-tethys/issues/2942)) ([48a33f2](https://github.com/atinc/ngx-tethys/commit/48a33f2b9c9e3b6dd7fe713d1235b6591618a2db))
+* **shared:** trigger ng ngOnChanges use setInput for thyViewOutlet #INFR-10730 ([#2947](https://github.com/atinc/ngx-tethys/issues/2947)) ([afc7b58](https://github.com/atinc/ngx-tethys/commit/afc7b585cfc62f9317a1dec3d5fc646cfcf0c386)), closes [#INFR-10730](https://github.com/atinc/ngx-tethys/issues/INFR-10730)
+* **slider:** don't change value when slider is display:none; #INFR-10717 [@wangkai](https://github.com/wangkai) ([#2937](https://github.com/atinc/ngx-tethys/issues/2937)) ([e1a7635](https://github.com/atinc/ngx-tethys/commit/e1a7635f52ea0f72ac154436df8a15d8c64902ec)), closes [#INFR-10717](https://github.com/atinc/ngx-tethys/issues/INFR-10717) [#INFR-10717](https://github.com/atinc/ngx-tethys/issues/INFR-10717)
+
+
+### Features
+
+* **popover:** support disable animation #INFR-10811 ([#2943](https://github.com/atinc/ngx-tethys/issues/2943)) ([0e30d02](https://github.com/atinc/ngx-tethys/commit/0e30d021c933bb29ec18224f2d4cb6b8b81cfcfc)), closes [#INFR-10811](https://github.com/atinc/ngx-tethys/issues/INFR-10811)
+* **select:**  support thyOptions #INFR-10686 ([#2933](https://github.com/atinc/ngx-tethys/issues/2933)) ([6fe2fd1](https://github.com/atinc/ngx-tethys/commit/6fe2fd17797d9651e275126bfb22643785cdc4a7)), closes [#INFR-10686](https://github.com/atinc/ngx-tethys/issues/INFR-10686) [#INFR-10686](https://github.com/atinc/ngx-tethys/issues/INFR-10686) [#INFR-10686](https://github.com/atinc/ngx-tethys/issues/INFR-10686) [#INFR-10686](https://github.com/atinc/ngx-tethys/issues/INFR-10686) [#INFR-10686](https://github.com/atinc/ngx-tethys/issues/INFR-10686)
+* support animation for select and popover #INFR-10478 ([#2931](https://github.com/atinc/ngx-tethys/issues/2931)) ([fe8026b](https://github.com/atinc/ngx-tethys/commit/fe8026b94fda7f4f176d471aaa385bee3c32f674)), closes [#INFR-10478](https://github.com/atinc/ngx-tethys/issues/INFR-10478)
+
+
+
+# [16.2.0-next.2](https://github.com/atinc/ngx-tethys/compare/16.1.16...16.2.0-next.2) (2023-12-04)
+
+
+### Bug Fixes
+
+* **action:** #INFR-10604 fix disabled styles,when use <thy-action> ([#2915](https://github.com/atinc/ngx-tethys/issues/2915)) ([e9fc0c5](https://github.com/atinc/ngx-tethys/commit/e9fc0c52dae156fb007805d174e6b51dabffcfd4))
+* **layout:** fix selector for thyLayout and thyContent #INFR-10664 ([#2927](https://github.com/atinc/ngx-tethys/issues/2927)) ([b38c0d1](https://github.com/atinc/ngx-tethys/commit/b38c0d13b3cb39462e09ae206a414764dfe94eb5)), closes [#INFR-10664](https://github.com/atinc/ngx-tethys/issues/INFR-10664)
+
+
+### Features
+
+* **layout:** add directives for the layout component series and refactor existing layout components #INFR-10500 ([#2919](https://github.com/atinc/ngx-tethys/issues/2919)) ([293ba66](https://github.com/atinc/ngx-tethys/commit/293ba66314a55dce1bb2ddd3d8364f9aaf066a85)), closes [#INFR-10500](https://github.com/atinc/ngx-tethys/issues/INFR-10500)
+* **select:** #INFR-5471 custom-select support display avatar or icon… ([#2922](https://github.com/atinc/ngx-tethys/issues/2922)) ([bd0f27c](https://github.com/atinc/ngx-tethys/commit/bd0f27cb915ff49d31266116d16aeebdd40cea56)), closes [#INFR-5471](https://github.com/atinc/ngx-tethys/issues/INFR-5471) [#INFR-5471](https://github.com/atinc/ngx-tethys/issues/INFR-5471) [#2855](https://github.com/atinc/ngx-tethys/issues/2855)
+* **table:** optimization of Table Skeleton Screen Details #INFR-10506 #INFR-10505 ([#2921](https://github.com/atinc/ngx-tethys/issues/2921)) ([80fa550](https://github.com/atinc/ngx-tethys/commit/80fa5501f576f04be9cd9078aa15104ef9bb52e4)), closes [#INFR-10506](https://github.com/atinc/ngx-tethys/issues/INFR-10506) [#INFR-10505](https://github.com/atinc/ngx-tethys/issues/INFR-10505)
+* **table:** table support checkbox skeleton #INFR-10503 ([#2928](https://github.com/atinc/ngx-tethys/issues/2928)) ([320dc7b](https://github.com/atinc/ngx-tethys/commit/320dc7bb123e8daffbb61e8bf55683147520fafe)), closes [#INFR-10503](https://github.com/atinc/ngx-tethys/issues/INFR-10503)
+
+
+
+## [16.1.16](https://github.com/atinc/ngx-tethys/compare/16.1.15...16.1.16) (2023-11-24)
+
+
+### Bug Fixes
+
+* **anchor:** set  style for horizontal display #INFR-10451 ([#2914](https://github.com/atinc/ngx-tethys/issues/2914)) ([58bef8a](https://github.com/atinc/ngx-tethys/commit/58bef8a86445e32337490a0b7b42f71875bcd267)), closes [#INFR-10451](https://github.com/atinc/ngx-tethys/issues/INFR-10451)
+* **switch:** the switch thyDisabled does not take effect when using ngModel #INFR-10583 ([#2910](https://github.com/atinc/ngx-tethys/issues/2910)) ([700e3b7](https://github.com/atinc/ngx-tethys/commit/700e3b7bddd8d93bda24f105f53d6ed135dc31a2)), closes [#INFR-10583](https://github.com/atinc/ngx-tethys/issues/INFR-10583)
+* **time-picker:** the time-picker thyDisabled does not take effect when using ngModel #INFR-7476 ([#2911](https://github.com/atinc/ngx-tethys/issues/2911)) ([4c9f17a](https://github.com/atinc/ngx-tethys/commit/4c9f17ab20fcdbdbdba88e41c707814641637956)), closes [#INFR-7476](https://github.com/atinc/ngx-tethys/issues/INFR-7476) [#INFR-10583](https://github.com/atinc/ngx-tethys/issues/INFR-10583) [#INFR-10583](https://github.com/atinc/ngx-tethys/issues/INFR-10583)
+
+
+### Features
+
+* **date-picker:** input formatdate sync withTime prop #INFR-10513 ([#2905](https://github.com/atinc/ngx-tethys/issues/2905)) ([3e893ab](https://github.com/atinc/ngx-tethys/commit/3e893ab33f6e5fad14212b13a7d2fd78c93209f1)), closes [#INFR-10513](https://github.com/atinc/ngx-tethys/issues/INFR-10513)
+* **switch:** support thyLoading and loading animation INFR-10495 ([#2917](https://github.com/atinc/ngx-tethys/issues/2917)) ([7298c32](https://github.com/atinc/ngx-tethys/commit/7298c32b5a78994100d599a159eec3b91a44e715))
+
+
+
 ## [16.1.15](https://github.com/atinc/ngx-tethys/compare/16.1.14...16.1.15) (2023-11-23)
 
 

@@ -8,6 +8,9 @@ import { Overlay, OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThyInputModule } from 'ngx-tethys/input';
+import { ThyAvatarModule } from 'ngx-tethys/avatar';
+import { ThyTagModule } from 'ngx-tethys/tag';
+import { ThyDotModule } from 'ngx-tethys/dot';
 
 export default {
     imports: [
@@ -20,7 +23,10 @@ export default {
         ThyIconModule,
         ThyButtonModule,
         ThyTypographyModule,
-        ThyInputModule
+        ThyInputModule,
+        ThyAvatarModule,
+        ThyTagModule,
+        ThyDotModule
     ],
     providers: [
         {

@@ -270,7 +270,8 @@ const loadDataOption: { [key: string]: { children?: any[]; [key: string]: any }[
             [thyDisabled]="disabled"
             [thyIsOnlySelectLeaf]="isOnlySelectLeaf"
             [thyEmptyStateText]="emptyStateText"
-            (thyExpandStatusChange)="thyExpandStatusChange($event)">
+            (thyExpandStatusChange)="thyExpandStatusChange($event)"
+            [thyAutoExpand]="thyAutoExpand">
         </thy-cascader>
     `
 })
@@ -290,6 +291,7 @@ class CascaderBasicComponent {
     public emptyStateText = '无选项';
     public disabled = false;
     public isOnlySelectLeaf = true;
+    public thyAutoExpand = true;
     @ViewChild('cascader', { static: true }) cascaderRef: ThyCascaderComponent;
 
     thyExpandStatusChange = jasmine.createSpy('thyExpandStatusChange callback');
@@ -540,8 +542,6 @@ describe('thy-cascader', () => {
             dispatchFakeEvent(debugElement.queryAll(By.css(`ul li`))[1].nativeElement, 'mouseover', true);
             dispatchFakeEvent(debugElement.queryAll(By.css(`ul li`))[1].nativeElement, 'click', true);
             fixture.detectChanges();
-            dispatchFakeEvent(document.querySelector('.cdk-overlay-backdrop'), 'click', true);
-            fixture.detectChanges();
         });
 
         it('should select one when click radio and isOnlySelectLeaf is false', done => {
@@ -558,10 +558,6 @@ describe('thy-cascader', () => {
             });
             console.log(debugElement.query(By.css('.form-check-input')).nativeElement);
             debugElement.query(By.css('label')).nativeElement.click();
-
-            fixture.detectChanges();
-            dispatchFakeEvent(document.querySelector('.cdk-overlay-backdrop'), 'click', true);
-            fixture.detectChanges();
         });
 
         it('should menu mouse leave(hover)', () => {
@@ -1038,7 +1034,7 @@ describe('thy-cascader', () => {
 
         it('should show multiple selected label', async () => {
             await fixture.whenStable();
-            const labels = debugElement.queryAll(By.css('.choice'));
+            const labels = debugElement.queryAll(By.css('.choice-item'));
             const selectedValue = component.multipleVal;
             expect(labels.length).toBe(selectedValue.length);
         });
@@ -1075,7 +1071,7 @@ describe('thy-cascader', () => {
 
             expect(component.selectSpy).toHaveBeenCalled();
             expect(component.multipleVal.length).toBe(originSelectedCount + 1);
-            const labels = debugElement.queryAll(By.css('.choice'));
+            const labels = debugElement.queryAll(By.css('.choice-item'));
             expect(labels.length).toBe(component.multipleVal.length);
         });
 
@@ -1103,20 +1099,33 @@ describe('thy-cascader', () => {
 
             expect(component.selectSpy).toHaveBeenCalled();
             expect(component.multipleVal.length).toBe(originSelectedCount + 3);
-            const labels = debugElement.queryAll(By.css('.choice'));
+            const labels = debugElement.queryAll(By.css('.choice-item'));
             expect(labels.length).toBe(component.multipleVal.length);
         });
 
         it('should remove item when click x', async () => {
             await fixture.whenStable();
             const originSelectedCount = component.multipleVal?.length;
+            dispatchFakeEvent(debugElement.query(By.css('.form-control')).nativeElement, 'click', true);
+            fixture.detectChanges();
+
             dispatchFakeEvent(debugElement.query(By.css('.thy-icon-close')).nativeElement, 'click', true);
             fixture.detectChanges();
             await fixture.whenStable();
             expect(component.multipleVal.length).toBe(originSelectedCount - 1);
-            const labels = debugElement.queryAll(By.css('.choice'));
+            const labels = debugElement.queryAll(By.css('.choice-item'));
             expect(labels.length).toBe(component.multipleVal.length);
         });
+
+        it('should close menu when click document', fakeAsync(() => {
+            dispatchFakeEvent(debugElement.query(By.css('.form-control')).nativeElement, 'click', true);
+            fixture.detectChanges();
+            document.body.click();
+            fixture.detectChanges();
+
+            const el = debugElement.query(By.css(`.thy-cascader-picker-open`));
+            expect(el).toBeFalsy();
+        }));
 
         it('should clear item when click clear btn', async () => {
             await fixture.whenStable();
@@ -1138,7 +1147,7 @@ describe('thy-cascader', () => {
             await fixture.whenStable();
 
             expect(component.multipleVal.length).toBe(originSelectedCount - 1);
-            const labels = debugElement.queryAll(By.css('.choice'));
+            const labels = debugElement.queryAll(By.css('.choice-item'));
             expect(labels.length).toBe(component.multipleVal.length);
 
             const updateFirstLevelItem = getOptionByLevel();
@@ -1148,7 +1157,7 @@ describe('thy-cascader', () => {
         it('should show nothing when ngModel is []', fakeAsync(() => {
             component.multipleVal = [];
             fixture.detectChanges();
-            const labels = debugElement.queryAll(By.css('.choice'));
+            const labels = debugElement.queryAll(By.css('.choice-item'));
             expect(labels.length).toBe(0);
         }));
 
@@ -1157,7 +1166,7 @@ describe('thy-cascader', () => {
             fixture.detectChanges();
             await fixture.whenStable();
             const originSelectedCount = component.multipleVal?.length;
-            const labels = debugElement.queryAll(By.css('.choice'));
+            const labels = debugElement.queryAll(By.css('.choice-item'));
             expect(labels.length).toBe(originSelectedCount);
         });
 

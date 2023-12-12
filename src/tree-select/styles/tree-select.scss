@@ -54,13 +54,13 @@
                 margin-left: 6px;
                 display: flex;
                 align-items: center;
-                @include text-truncate.text-truncate();
             }
         }
 
         .thy-option-item {
             @include option.thy-option();
             @include thy-tree-select-option();
+            padding: 9px 0;
         }
     }
 

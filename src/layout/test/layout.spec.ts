@@ -2,12 +2,12 @@ import { Component, DebugElement } from '@angular/core';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { ThyLayoutModule } from '../layout.module';
 import { By } from '@angular/platform-browser';
-import { ThyLayoutComponent } from '../layout.component';
-import { ThyHeaderComponent } from '../header.component';
+import { ThyLayoutComponent, ThyLayoutDirective } from '../layout.component';
+import { ThyHeaderComponent, ThyHeaderDirective } from '../header.component';
 import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing';
-import { ThyContentComponent } from '../content.component';
-import { ThyContentSectionComponent } from '../content-section.component';
-import { ThyContentMainComponent } from '../content-main.component';
+import { ThyContentComponent, ThyContentDirective } from '../content.component';
+import { ThyContentSectionComponent, ThyContentSectionDirective } from '../content-section.component';
+import { ThyContentMainComponent, ThyContentMainDirective } from '../content-main.component';
 
 @Component({
     selector: 'thy-demo-layout-basic',
@@ -44,10 +44,28 @@ class ThyDemoLayoutBasicComponent {
 })
 class ThyDemoLayoutCustomHeaderComponent {}
 
+@Component({
+    selector: 'thy-demo-layout-directive-basic',
+    template: `
+        <div thyLayout>
+            <div thyHeader [thySize]="size" [thyShadow]="shadow" [thyDivided]="isDivided">Header</div>
+            <div thyContent>
+                <div thyContentSection>Content section</div>
+                <div thyContentMain>Content main</div>
+            </div>
+        </div>
+    `
+})
+class ThyDemoLayoutDirectiveBasicComponent {
+    isDivided = false;
+    shadow = false;
+    size = '';
+}
+
 describe(`layout`, () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [ThyDemoLayoutBasicComponent, ThyDemoLayoutCustomHeaderComponent],
+            declarations: [ThyDemoLayoutBasicComponent, ThyDemoLayoutCustomHeaderComponent, ThyDemoLayoutDirectiveBasicComponent],
             imports: [ThyLayoutModule],
             providers: [bypassSanitizeProvider]
         });
@@ -181,6 +199,91 @@ describe(`layout`, () => {
             expect(headerTitle.innerHTML).toContain('My Custom Header Title');
             expect(headerContent.innerHTML).toContain('My Custom Header Content');
             expect(headerOperation.innerHTML).toContain('My Custom Header Operation');
+        });
+    });
+
+    describe('directive', () => {
+        let fixture: ComponentFixture<ThyDemoLayoutDirectiveBasicComponent>;
+        let layoutDebugElement: DebugElement;
+        let layoutElement: HTMLElement;
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(ThyDemoLayoutDirectiveBasicComponent);
+            fixture.detectChanges();
+            layoutDebugElement = fixture.debugElement.query(By.directive(ThyLayoutDirective));
+            layoutElement = layoutDebugElement.nativeElement;
+        });
+
+        it(`should get correct class`, () => {
+            // layout
+            expect(layoutDebugElement).toBeTruthy();
+            expect(layoutElement).toBeTruthy();
+            expect(layoutElement.classList.contains(`thy-layout`)).toBeTruthy();
+
+            // header
+            const headerDebugElement = fixture.debugElement.query(By.directive(ThyHeaderDirective));
+            expect(headerDebugElement).toBeTruthy();
+            const headerElement: HTMLElement = headerDebugElement.nativeElement;
+            expect(headerElement).toBeTruthy();
+            expect(headerElement.classList.contains(`thy-layout-header`)).toBeTruthy();
+
+            // content
+            const contentDebugElement = fixture.debugElement.query(By.directive(ThyContentDirective));
+            expect(contentDebugElement).toBeTruthy();
+            const contentElement: HTMLElement = contentDebugElement.nativeElement;
+            expect(contentElement).toBeTruthy();
+            expect(contentElement.classList.contains(`thy-layout-content`)).toBeTruthy();
+
+            // content section
+            const contentSectionDebugElement = fixture.debugElement.query(By.directive(ThyContentSectionDirective));
+            expect(contentSectionDebugElement).toBeTruthy();
+            const contentSectionElement = contentSectionDebugElement.nativeElement;
+            expect(contentSectionElement).toBeTruthy();
+            expect(contentSectionElement.classList.contains(`thy-layout-content-section`)).toBeTruthy();
+
+            // content main
+            const contentMainDebugElement = fixture.debugElement.query(By.directive(ThyContentMainDirective));
+            expect(contentMainDebugElement).toBeTruthy();
+            const contentMainElement = contentMainDebugElement.nativeElement;
+            expect(contentMainElement).toBeTruthy();
+            expect(contentMainElement.classList.contains(`thy-layout-content-main`)).toBeTruthy();
+        });
+
+        it('should get divided header', () => {
+            const headerDebugElement = fixture.debugElement.query(By.directive(ThyHeaderDirective));
+            expect(headerDebugElement).toBeTruthy();
+            const headerElement: HTMLElement = headerDebugElement.nativeElement;
+            expect(headerElement).toBeTruthy();
+            expect(headerElement.classList.contains(`thy-layout-header`)).toBeTruthy();
+            expect(headerElement.classList.contains(`thy-layout-header-divided`)).toBeFalsy();
+            fixture.componentInstance.isDivided = true;
+            fixture.detectChanges();
+            expect(headerElement.classList.contains(`thy-layout-header-divided`)).toBeTruthy();
+        });
+
+        it('should get shadow header', () => {
+            const headerDebugElement = fixture.debugElement.query(By.directive(ThyHeaderDirective));
+            expect(headerDebugElement).toBeTruthy();
+            const headerElement: HTMLElement = headerDebugElement.nativeElement;
+            expect(headerElement).toBeTruthy();
+            expect(headerElement.classList.contains(`thy-layout-header`)).toBeTruthy();
+            expect(headerElement.classList.contains(`thy-layout-header-shadow`)).toBeFalsy();
+            fixture.componentInstance.shadow = true;
+            fixture.detectChanges();
+            expect(headerElement.classList.contains(`thy-layout-header-shadow`)).toBeTruthy();
+        });
+
+        it('layout header thySize', () => {
+            const headerDebugElement = fixture.debugElement.query(By.directive(ThyHeaderDirective));
+            expect(headerDebugElement).toBeTruthy();
+            const headerElement: HTMLElement = headerDebugElement.nativeElement;
+            expect(headerElement.classList.contains(`thy-layout-header-sm`)).toBeFalsy();
+            fixture.componentInstance.size = 'sm';
+            fixture.detectChanges();
+            expect(headerElement.classList.contains(`thy-layout-header-sm`)).toBeTruthy();
+            fixture.componentInstance.size = 'lg';
+            fixture.detectChanges();
+            expect(headerElement.classList.contains(`thy-layout-header-lg`)).toBeTruthy();
         });
     });
 

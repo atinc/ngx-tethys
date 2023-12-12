@@ -7,7 +7,12 @@ import { ThySwitchModule } from '../switch.module';
 
 @Component({
     selector: 'thy-switch-test',
-    template: `<thy-switch [thySize]="size" [thyType]="type" [thyDisabled]="isDisabled" [(ngModel)]="isChecked"></thy-switch>
+    template: `<thy-switch
+            [thySize]="size"
+            [thyType]="type"
+            [thyDisabled]="isDisabled"
+            [(ngModel)]="isChecked"
+            [thyLoading]="isLoading"></thy-switch>
         <thy-switch disabled [(ngModel)]="isChecked"></thy-switch>`
 })
 class SwitchTestComponent {
@@ -15,6 +20,7 @@ class SwitchTestComponent {
     type = ``;
     isDisabled: boolean;
     isChecked: boolean;
+    isLoading: boolean;
 }
 
 describe('switch component', () => {
@@ -118,4 +124,18 @@ describe('switch component', () => {
         labelNode = disabledSwitchElement.children[0];
         expect(labelNode.classList.contains('thy-switch-disabled')).toBeTruthy();
     }));
+
+    it('should loading work', () => {
+        expect(switchDebugComponent.query(By.css('.thy-switch-loading'))).toBeFalsy();
+
+        testComponent.isLoading = true;
+        fixture.detectChanges();
+        expect(switchDebugComponent.query(By.css('.thy-switch-loading'))).toBeTruthy();
+        expect(labelNode.classList.contains('thy-switch-disabled')).toBeTruthy();
+
+        testComponent.isLoading = false;
+        fixture.detectChanges();
+        expect(switchDebugComponent.query(By.css('.thy-switch-loading'))).toBeFalsy();
+        expect(labelNode.classList.contains('thy-switch-disabled')).toBeFalsy();
+    });
 });
