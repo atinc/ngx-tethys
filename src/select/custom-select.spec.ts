@@ -700,7 +700,7 @@ class SelectWidthThyOptionsComponent {
     selectedValue = this.options[0].value;
 }
 
-fdescribe('ThyCustomSelect', () => {
+describe('ThyCustomSelect', () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
     let platform: Platform;
