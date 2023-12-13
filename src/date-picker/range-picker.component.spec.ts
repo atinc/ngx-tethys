@@ -688,6 +688,22 @@ describe('ThyRangePickerComponent', () => {
         }));
     });
 
+    describe('quarter mode', () => {
+        beforeEach(() => {
+            fixtureInstance.useSuite = 1;
+            fixtureInstance.thyMode = 'quarter';
+        });
+
+        it('should range date provide by "modelValue" be choose', fakeAsync(() => {
+            fixtureInstance.modelValue = { begin: new Date('2022-08'), end: new Date('2023-12') };
+            fixture.detectChanges();
+            tick();
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            expect(getFirstSelectedQuarterCell().textContent.trim()).toBe('Q3');
+        }));
+    });
+
     describe('month mode', () => {
         beforeEach(() => {
             fixtureInstance.useSuite = 1;
@@ -976,6 +992,12 @@ describe('ThyRangePickerComponent', () => {
 
     function getFirstCell(partial: 'left' | 'right'): HTMLElement {
         return queryFromOverlay(`.thy-calendar-range-${partial} tbody.thy-calendar-tbody td.thy-calendar-cell`) as HTMLElement;
+    }
+
+    function getFirstSelectedQuarterCell(): HTMLElement {
+        return queryFromOverlay(
+            '.thy-calendar-range-left tbody.thy-calendar-quarter-panel-tbody td.thy-calendar-quarter-panel-selected-cell'
+        ) as HTMLElement;
     }
 
     function queryFromOverlay(selector: string): HTMLElement {
