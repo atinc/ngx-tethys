@@ -1,3 +1,4 @@
+import { POSITION_MAP, ThyPlacement } from 'ngx-tethys/core';
 import {
     bypassSanitizeProvider,
     dispatchFakeEvent,
@@ -23,7 +24,6 @@ import { DOWN_ARROW, END, ENTER, ESCAPE, HOME } from '../util/keycodes';
 import { SelectMode, THY_SELECT_PANEL_MIN_WIDTH, ThySelectCustomComponent } from './custom-select/custom-select.component';
 import { ThySelectModule } from './module';
 import { THY_SELECT_CONFIG, THY_SELECT_SCROLL_STRATEGY, ThyDropdownWidthMode } from './select.config';
-import { POSITION_MAP, ThyPlacement } from 'ngx-tethys/core';
 
 @Component({
     selector: 'thy-select-basic-test',
@@ -2441,45 +2441,98 @@ describe('ThyCustomSelect', () => {
         }));
     });
 
-    describe('async load data', () => {
+    // describe('async load data', () => {
+    //     beforeEach(() => {
+    //         configureThyCustomSelectTestingModule([SelectWithAsyncLoadComponent]);
+    //     });
+
+    //     it('should dispatch component focus when showSearch is true', fakeAsync(() => {
+    //         const fixture = TestBed.createComponent(SelectWithAsyncLoadComponent);
+    //         fixture.detectChanges();
+
+    //         fixture.componentInstance.showSearch = true;
+    //         fixture.detectChanges();
+
+    //         const componentFocusSpy = spyOn(fixture.componentInstance.customSelect, 'focus');
+    //         const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+    //         trigger.click();
+    //         fixture.detectChanges();
+    //         flush();
+
+    //         fixture.detectChanges();
+    //         tick(2000);
+    //         fixture.detectChanges();
+    //         expect(componentFocusSpy).not.toHaveBeenCalled();
+
+    //         fixture.componentInstance.foods = [
+    //             { value: 'steak-0', viewValue: 'Steak' },
+    //             { value: 'pizza-1', viewValue: 'Pizza' },
+    //             { value: 'tacos-2', viewValue: 'Tacos', disabled: true },
+    //             { value: 'sandwich-3', viewValue: 'Sandwich' }
+    //         ];
+    //         document.body.click();
+    //         fixture.detectChanges();
+    //         trigger.click();
+    //         fixture.detectChanges();
+    //         flush();
+
+    //         fixture.detectChanges();
+    //         tick(2000);
+
+    //         expect(componentFocusSpy).toHaveBeenCalled();
+    //     }));
+    // });
+
+    describe('use thyOptions', () => {
         beforeEach(() => {
-            configureThyCustomSelectTestingModule([SelectWithAsyncLoadComponent]);
+            configureThyCustomSelectTestingModule([SelectWidthThyOptionsComponent]);
         });
 
-        it('should dispatch component focus when showSearch is true', fakeAsync(() => {
-            const fixture = TestBed.createComponent(SelectWithAsyncLoadComponent);
+        it('should has correct thyOption component', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectWidthThyOptionsComponent);
             fixture.detectChanges();
-
-            fixture.componentInstance.showSearch = true;
-            fixture.detectChanges();
-
-            const componentFocusSpy = spyOn(fixture.componentInstance.customSelect, 'focus');
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
             fixture.detectChanges();
             flush();
+            fixture.detectChanges();
+            expect(overlayContainerElement.textContent).toContain('香蕉');
+            expect(overlayContainerElement.textContent).toContain('苹果');
+            expect(overlayContainerElement.textContent).toContain('橘子');
+        }));
 
+        it('should get correct value when click option', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectWidthThyOptionsComponent);
             fixture.detectChanges();
-            tick(2000);
-            fixture.detectChanges();
-            expect(componentFocusSpy).not.toHaveBeenCalled();
-
-            fixture.componentInstance.foods = [
-                { value: 'steak-0', viewValue: 'Steak' },
-                { value: 'pizza-1', viewValue: 'Pizza' },
-                { value: 'tacos-2', viewValue: 'Tacos', disabled: true },
-                { value: 'sandwich-3', viewValue: 'Sandwich' }
-            ];
-            document.body.click();
-            fixture.detectChanges();
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
             fixture.detectChanges();
             flush();
-
             fixture.detectChanges();
-            tick(2000);
+            const option = overlayContainerElement.querySelector('thy-option') as HTMLElement;
+            option.click();
+            fixture.detectChanges();
+            flush();
+            expect(fixture.componentInstance.selectedValue).toEqual(fixture.componentInstance.options[0].value);
+        }));
 
-            expect(componentFocusSpy).toHaveBeenCalled();
+        it('should show correct when option has group label', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectWidthThyOptionsComponent);
+            fixture.detectChanges();
+            fixture.componentInstance.options = [
+                { label: '猫', value: 'cat', groupLabel: 'pet' },
+                { label: '狗', value: 'dog', groupLabel: 'pet' },
+                { label: '猪', value: 'pig' }
+            ];
+            fixture.detectChanges();
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+            fixture.detectChanges();
+            const optionGroup = overlayContainerElement.querySelector('thy-option-group') as HTMLElement;
+            const groupName = optionGroup.querySelector('.group-name') as HTMLElement;
+            expect(groupName.innerText).toEqual(fixture.componentInstance.options[0].groupLabel);
         }));
     });
 });

@@ -1,9 +1,9 @@
 import {
-    TabIndexDisabledControlValueAccessorMixin,
     getFlexiblePositions,
     InputBoolean,
     InputNumber,
     ScrollToService,
+    TabIndexDisabledControlValueAccessorMixin,
     ThyClickDispatcher,
     ThyPlacement
 } from 'ngx-tethys/core';
@@ -12,13 +12,13 @@ import { ThyLoadingComponent } from 'ngx-tethys/loading';
 import {
     IThyOptionParentComponent,
     SelectControlSize,
+    THY_OPTION_PARENT_COMPONENT,
     ThyOptionComponent,
     ThyOptionSelectionChangeEvent,
     ThyScrollDirective,
     ThySelectControlComponent,
     ThySelectOptionGroupComponent,
-    ThyStopPropagationDirective,
-    THY_OPTION_PARENT_COMPONENT
+    ThyStopPropagationDirective
 } from 'ngx-tethys/shared';
 import {
     A,
@@ -79,11 +79,11 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import {
-    THY_SELECT_SCROLL_STRATEGY,
+    DEFAULT_SELECT_CONFIG,
     THY_SELECT_CONFIG,
-    ThySelectConfig,
+    THY_SELECT_SCROLL_STRATEGY,
     ThyDropdownWidthMode,
-    DEFAULT_SELECT_CONFIG
+    ThySelectConfig
 } from '../select.config';
 
 export type SelectMode = 'multiple' | '';
@@ -703,7 +703,6 @@ export class ThySelectCustomComponent
         if (this.panelOpen) {
             this.panelOpen = false;
             this.thyOnExpandStatusChange.emit(this.panelOpen);
-            this.focus();
             this.changeDetectorRef.markForCheck();
             this.onTouchedFn();
         }
