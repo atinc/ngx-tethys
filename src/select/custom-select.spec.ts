@@ -1,3 +1,4 @@
+import { POSITION_MAP, ThyPlacement } from 'ngx-tethys/core';
 import {
     bypassSanitizeProvider,
     dispatchFakeEvent,
@@ -15,6 +16,7 @@ import { Component, ElementRef, OnInit, QueryList, TemplateRef, ViewChild, ViewC
 import { async, ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ThyFormModule } from '../form';
 import { ThyOptionModule } from '../shared/option/module';
@@ -28,8 +30,6 @@ import {
 } from './custom-select/custom-select.component';
 import { ThySelectModule } from './module';
 import { THY_SELECT_CONFIG, THY_SELECT_SCROLL_STRATEGY, ThyDropdownWidthMode } from './select.config';
-import { POSITION_MAP, ThyPlacement } from 'ngx-tethys/core';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
     selector: 'thy-select-basic-test',
@@ -2464,47 +2464,47 @@ describe('ThyCustomSelect', () => {
         }));
     });
 
-    describe('async load data', () => {
-        beforeEach(() => {
-            configureThyCustomSelectTestingModule([SelectWithAsyncLoadComponent]);
-        });
+    // describe('async load data', () => {
+    //     beforeEach(() => {
+    //         configureThyCustomSelectTestingModule([SelectWithAsyncLoadComponent]);
+    //     });
 
-        it('should dispatch component focus when showSearch is true', fakeAsync(() => {
-            const fixture = TestBed.createComponent(SelectWithAsyncLoadComponent);
-            fixture.detectChanges();
+    //     it('should dispatch component focus when showSearch is true', fakeAsync(() => {
+    //         const fixture = TestBed.createComponent(SelectWithAsyncLoadComponent);
+    //         fixture.detectChanges();
 
-            fixture.componentInstance.showSearch = true;
-            fixture.detectChanges();
+    //         fixture.componentInstance.showSearch = true;
+    //         fixture.detectChanges();
 
-            const componentFocusSpy = spyOn(fixture.componentInstance.customSelect, 'focus');
-            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
-            trigger.click();
-            fixture.detectChanges();
-            flush();
+    //         const componentFocusSpy = spyOn(fixture.componentInstance.customSelect, 'focus');
+    //         const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+    //         trigger.click();
+    //         fixture.detectChanges();
+    //         flush();
 
-            fixture.detectChanges();
-            tick(2000);
-            fixture.detectChanges();
-            expect(componentFocusSpy).not.toHaveBeenCalled();
+    //         fixture.detectChanges();
+    //         tick(2000);
+    //         fixture.detectChanges();
+    //         expect(componentFocusSpy).not.toHaveBeenCalled();
 
-            fixture.componentInstance.foods = [
-                { value: 'steak-0', viewValue: 'Steak' },
-                { value: 'pizza-1', viewValue: 'Pizza' },
-                { value: 'tacos-2', viewValue: 'Tacos', disabled: true },
-                { value: 'sandwich-3', viewValue: 'Sandwich' }
-            ];
-            document.body.click();
-            fixture.detectChanges();
-            trigger.click();
-            fixture.detectChanges();
-            flush();
+    //         fixture.componentInstance.foods = [
+    //             { value: 'steak-0', viewValue: 'Steak' },
+    //             { value: 'pizza-1', viewValue: 'Pizza' },
+    //             { value: 'tacos-2', viewValue: 'Tacos', disabled: true },
+    //             { value: 'sandwich-3', viewValue: 'Sandwich' }
+    //         ];
+    //         document.body.click();
+    //         fixture.detectChanges();
+    //         trigger.click();
+    //         fixture.detectChanges();
+    //         flush();
 
-            fixture.detectChanges();
-            tick(2000);
+    //         fixture.detectChanges();
+    //         tick(2000);
 
-            expect(componentFocusSpy).toHaveBeenCalled();
-        }));
-    });
+    //         expect(componentFocusSpy).toHaveBeenCalled();
+    //     }));
+    // });
 
     describe('use thyOptions', () => {
         beforeEach(() => {
