@@ -32,6 +32,8 @@ export class ThyDatePickerDisabledDateExampleComponent implements OnInit {
 
     maxDateRange = endOfDay(addDays(new Date(), -7));
 
+    quarterDate = { date: new Date('2023-02-22'), with_time: 0 };
+
     constructor() {}
 
     ngOnInit() {}

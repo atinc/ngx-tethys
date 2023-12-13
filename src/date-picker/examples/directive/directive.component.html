@@ -4,30 +4,37 @@
   [thyValue]="date | thyDatePickerFormat"
   thyIcon="calendar-check"
   thyDatePicker
-  [(ngModel)]="date"
-></thy-property-operation>
+  [(ngModel)]="date"></thy-property-operation>
 <br />
 
 <thy-property-operation
   class="w-25 mb-3"
   thyLabelText="月份"
-  [thyValue]="date | thyDatePickerFormat: 'YYYY-MM'"
+  [thyValue]="date | thyDatePickerFormat : 'YYYY-MM'"
   thyIcon="calendar-check"
   thyDatePicker
   [thyMode]="'month'"
-  [(ngModel)]="date"
-></thy-property-operation>
+  [(ngModel)]="date"></thy-property-operation>
+<br />
+
+<thy-property-operation
+  class="w-25 mb-3"
+  thyLabelText="季度"
+  [thyValue]="date | thyQuarterPickerFormat : 'yyyy-qqq'"
+  thyIcon="calendar-check"
+  thyDatePicker
+  [thyMode]="'quarter'"
+  [(ngModel)]="date"></thy-property-operation>
 <br />
 
 <thy-property-operation
   class="w-25 mb-3"
   thyLabelText="周"
-  [thyValue]="date | thyDatePickerFormat: 'YYYY-ww周'"
+  [thyValue]="date | thyDatePickerFormat : 'YYYY-ww周'"
   thyIcon="calendar-check"
   thyDatePicker
   [thyMode]="'week'"
-  [(ngModel)]="date"
-></thy-property-operation>
+  [(ngModel)]="date"></thy-property-operation>
 <br />
 
 <thy-property-operation
@@ -37,8 +44,7 @@
   thyIcon="calendar-check"
   thyDatePicker
   [(ngModel)]="time"
-  [thyShowTime]="true"
-></thy-property-operation>
+  [thyShowTime]="true"></thy-property-operation>
 <br />
 
 <thy-property-operation
@@ -47,19 +53,27 @@
   [thyValue]="dateRange | thyDatePickerFormat"
   thyIcon="calendar-check"
   thyRangePicker
-  [(ngModel)]="dateRange"
-></thy-property-operation>
+  [(ngModel)]="dateRange"></thy-property-operation>
 <br />
 
 <thy-property-operation
   class="w-25 mb-3"
-  thyLabelText="月期间"
-  [thyValue]="dateRange | thyDatePickerFormat: 'YYYY-mm'"
+  thyLabelText="月区间"
+  [thyValue]="dateRange | thyDatePickerFormat : 'YYYY-mm'"
   thyIcon="calendar-check"
   thyRangePicker
   thyMode="month"
-  [(ngModel)]="dateRange"
-></thy-property-operation>
+  [(ngModel)]="dateRange"></thy-property-operation>
+<br />
+
+<thy-property-operation
+  class="w-25 mb-3"
+  thyLabelText="季度区间"
+  [thyValue]="dateRange | thyQuarterPickerFormat"
+  thyIcon="calendar-check"
+  thyRangePicker
+  thyMode="quarter"
+  [(ngModel)]="dateRange"></thy-property-operation>
 <br />
 
 <thy-property-operation
@@ -71,8 +85,7 @@
   [thyDisabledDate]="disableDate"
   [(ngModel)]="dateRangeDisabled"
   (thyOnCalendarChange)="calendarChange($event)"
-  (thyOpenChange)="panelOpenChange($event)"
-></thy-property-operation>
+  (thyOpenChange)="panelOpenChange($event)"></thy-property-operation>
 <br />
 <thy-property-operation
   class="w-50 mb-3"
@@ -81,18 +94,16 @@
   thyIcon="calendar-check"
   thyDatePicker
   thyDisabled="true"
-  [(ngModel)]="date"
-></thy-property-operation>
+  [(ngModel)]="date"></thy-property-operation>
 <br />
 <div
   class="w-25 mb-3 d-inline-block"
   thyDatePicker
   [thyShowTime]="true"
   [(ngModel)]="dateTime"
-  [thyPopoverOptions]="{ hasBackdrop: false, outsideClosable: true, originActiveClass: 'popover-origin-active' }"
->
+  [thyPopoverOptions]="{ hasBackdrop: false, outsideClosable: true, originActiveClass: 'popover-origin-active' }">
   <div class="property-control-displayer">
-    <div class="property-control-content" style="cursor:pointer;">
+    <div class="property-control-content" style="cursor: pointer">
       <ng-container *ngIf="dateTime">
         <span> {{ dateTime | thyDatePickerFormat }}</span>
       </ng-container>
@@ -108,18 +119,16 @@
   thyRangePicker
   [(ngModel)]="flexibleDateRange"
   thyMode="flexible"
-  [thyShowShortcut]="true"
-></thy-property-operation>
+  [thyShowShortcut]="true"></thy-property-operation>
 <br />
 
 <thy-property-operation
   class="w-25 mb-3"
   thyLabelText="周区间"
-  [thyValue]="weekRange | thyDatePickerFormat: 'YYYY-ww周'"
+  [thyValue]="weekRange | thyDatePickerFormat : 'YYYY-ww周'"
   thyIcon="calendar-check"
   thyRangePicker
   [(ngModel)]="weekRange"
   thyMode="week"
   [thyShowShortcut]="true"
-  [thyShortcutPresets]="shortcutMonthPresets"
-></thy-property-operation>
+  [thyShortcutPresets]="shortcutMonthPresets"></thy-property-operation>

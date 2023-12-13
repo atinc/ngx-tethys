@@ -15,8 +15,8 @@
         [showNextBtn]="false"
         [showPreBtn]="false"
         (panelModeChange)="panelModeChange.emit($event)"
-        (valueChange)="headerChange.emit($event)"
-      ></decade-header>
+        (valueChange)="headerChange.emit($event)">
+      </decade-header>
       <div class="{{ prefixCls }}-body">
         <decade-table [value]="value" [activeDate]="activeDate" (valueChange)="onChooseDecade($event)"></decade-table>
       </div>
@@ -32,16 +32,16 @@
         [showNextBtn]="false"
         [showPreBtn]="false"
         (panelModeChange)="panelModeChange.emit($event)"
-        (valueChange)="headerChange.emit($event)"
-      ></year-header>
+        (valueChange)="headerChange.emit($event)">
+      </year-header>
       <div class="{{ prefixCls }}-body">
         <year-table
           [value]="value"
           [activeDate]="activeDate"
           [disabledDate]="disabledDate"
           (valueChange)="onChooseYear($event)"
-          [selectedValue]="selectedValue"
-        ></year-table>
+          [selectedValue]="selectedValue">
+        </year-table>
       </div>
     </div>
   </ng-container>
@@ -54,16 +54,38 @@
         [showNextBtn]="false"
         [showPreBtn]="false"
         (panelModeChange)="panelModeChange.emit($event)"
-        (valueChange)="headerChange.emit($event)"
-      ></month-header>
+        (valueChange)="headerChange.emit($event)">
+      </month-header>
       <div class="{{ prefixCls }}-body">
         <month-table
           [value]="value"
           [activeDate]="activeDate"
           [disabledDate]="disabledDate"
           (valueChange)="onChooseMonth($event)"
-          [selectedValue]="selectedValue"
-        ></month-table>
+          [selectedValue]="selectedValue">
+        </month-table>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngSwitchCase="'quarter'">
+    <div class="{{ prefixCls }}-quarter">
+      <month-header
+        [(value)]="activeDate"
+        [showSuperPreBtn]="enableSuperPrevNext('prev', 'month')"
+        [showSuperNextBtn]="enableSuperPrevNext('next', 'month')"
+        [showNextBtn]="false"
+        [showPreBtn]="false"
+        (panelModeChange)="panelModeChange.emit($event)"
+        (valueChange)="headerChange.emit($event)">
+      </month-header>
+      <div class="{{ prefixCls }}-body">
+        <quarter-table
+          [value]="value"
+          [activeDate]="activeDate"
+          [disabledDate]="disabledDate"
+          (valueChange)="onChooseQuarter($event)"
+          [selectedValue]="selectedValue">
+        </quarter-table>
       </div>
     </div>
   </ng-container>
@@ -75,8 +97,7 @@
       [showPreBtn]="enablePrevNext('prev', 'date')"
       [showNextBtn]="enablePrevNext('next', 'date')"
       (panelModeChange)="panelModeChange.emit($event)"
-      (valueChange)="headerChange.emit($event)"
-    ></date-header>
+      (valueChange)="headerChange.emit($event)"></date-header>
     <div class="{{ prefixCls }}-body">
       <date-table
         [showWeek]="showWeek"
@@ -88,8 +109,7 @@
         [cellRender]="dateRender"
         [selectedValue]="selectedValue"
         [hoverValue]="hoverValue"
-        (dayHover)="dayHover.emit($event)"
-      ></date-table>
+        (dayHover)="dayHover.emit($event)"></date-table>
     </div>
   </ng-container>
 </ng-container>
