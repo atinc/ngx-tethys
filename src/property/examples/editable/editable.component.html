@@ -8,54 +8,69 @@
 </ng-template>
 
 <ng-template #properties let-showBtn="showBtn">
-  <thy-properties #properties thyEditTrigger="hover">
-    <thy-property-item thyLabelText="姓名" thyEditable="true">
+  <thy-properties #properties [thyEditTrigger]="thyEditTrigger">
+    <thy-property-item thyLabelText="编辑状态触发方法" thyEditable="false">
+      <thy-button-group thySize="sm" thyType="outline-default">
+        <button thyButton (click)="thyEditTrigger = 'hover'" [ngClass]="{ active: thyEditTrigger === 'hover' }">Hover</button>
+        <button thyButton (click)="thyEditTrigger = 'click'" [ngClass]="{ active: thyEditTrigger === 'click' }">Click</button>
+      </thy-button-group>
+    </thy-property-item>
+
+    <thy-property-item (thyEditingChange)="changeEditing($event, { type: 'text' })" thyLabelText="姓名" thyEditable="true">
       {{ user.name }}
       <ng-template #editor>
-        <input class="active" thyInput thySize="md" [(ngModel)]="user.name" />
+        <input class="active" #text thyInput thySize="md" [(ngModel)]="user.name" />
       </ng-template>
     </thy-property-item>
-    <thy-property-item thyLabelText="年龄" thyEditable="true">
+    <thy-property-item (thyEditingChange)="changeEditing($event, { type: 'number' })" thyLabelText="年龄" thyEditable="true">
       {{ user.age }}
       <ng-template #editor>
         <thy-input-number
+          #number
           thySize="md"
           [(ngModel)]="user.age"
           [thyAutoFocus]="true"
           thyPrecision="0"
           [thyMax]="100"
-          [thyStep]="1"
-        ></thy-input-number>
+          [thyStep]="1"></thy-input-number>
       </ng-template>
     </thy-property-item>
-    <thy-property-item thyLabelText="出生日期" thyEditable="true" #item>
-      {{ user.birth_date * 1000 | date: 'yyyy-MM-dd HH:mm' }}
+    <thy-property-item (thyEditingChange)="changeEditing($event, { type: 'date' })" thyLabelText="出生日期" thyEditable="true" #item>
+      {{ user.birth_date * 1000 | date : 'yyyy-MM-dd HH:mm' }}
       <ng-template #editor>
         <thy-property-editable-date-inner [user]="user"></thy-property-editable-date-inner>
       </ng-template>
     </thy-property-item>
-    <thy-property-item thyLabelText="电话" thyEditable="true">
+    <thy-property-item (thyEditingChange)="changeEditing($event, { type: 'text' })" thyLabelText="电话" thyEditable="true">
       {{ user.phone }}
       <ng-template #editor>
         <input thyInput thySize="md" placeholder="" [(ngModel)]="user.phone" />
       </ng-template>
     </thy-property-item>
-    <thy-property-item thyLabelText="性别" thyEditable="true" #hobby>
+    <thy-property-item
+      (thyEditingChange)="changeEditing($event, { isSex: true, type: 'select' })"
+      thyLabelText="性别"
+      thyEditable="true"
+      #hobby>
       <span>{{ user.sex || '无' }}</span>
       <ng-template #editor>
-        <thy-custom-select thySize="md" [(ngModel)]="user.sex">
+        <thy-custom-select #selectSex thySize="md" (thyOnExpandStatusChange)="thyOnExpandStatusChange($event)" [(ngModel)]="user.sex">
           <thy-option [thyValue]="'男'" [thyLabelText]="'男'"> </thy-option>
           <thy-option [thyValue]="'女'" [thyLabelText]="'女'"> </thy-option>
         </thy-custom-select>
       </ng-template>
     </thy-property-item>
-    <thy-property-item thyLabelText="部门" thyEditable="true" #department>
+    <thy-property-item
+      (thyEditingChange)="changeEditing($event, { type: 'treeSelect' })"
+      thyLabelText="部门"
+      thyEditable="true"
+      #department>
       <span>{{ user.department?.name || '无' }}</span>
       <ng-template #editor>
         <thy-tree-select thySize="md" [thyTreeNodes]="departments" [(ngModel)]="user.department"> </thy-tree-select>
       </ng-template>
     </thy-property-item>
-    <thy-property-item thyLabelText="爱好" thyEditable="true" #hobby>
+    <thy-property-item (thyEditingChange)="changeEditing($event, { type: 'multiSelect' })" thyLabelText="爱好" thyEditable="true" #hobby>
       <span *ngIf="user.likes.length === 0">无</span>
       <thy-tag *ngFor="let item of user.likes" class="mr-1" thyShape="pill" thyColor="success">{{ item }}</thy-tag>
       <ng-template #editor>
@@ -69,11 +84,15 @@
         </thy-custom-select>
       </ng-template>
     </thy-property-item>
-    <thy-property-item thyLabelText="职业" thyEditable="true" #profession>
+    <thy-property-item
+      (thyEditingChange)="changeEditing($event, { isProfession: true, type: 'select' })"
+      thyLabelText="职业"
+      thyEditable="true"
+      #profession>
       <span *ngIf="!user.profession">无</span>
       <thy-tag thyShape="pill" thyColor="warning">{{ user.profession }}</thy-tag>
       <ng-template #editor>
-        <thy-custom-select thySize="md" [(ngModel)]="user.profession">
+        <thy-custom-select #selectProfession (thyOnExpandStatusChange)="thyOnExpandStatusChange($event)" thySize="md" [(ngModel)]="user.profession">
           <thy-option [thyValue]="'教师'" [thyLabelText]="'教师'"> </thy-option>
           <thy-option [thyValue]="'运动员'" [thyLabelText]="'运动员'"> </thy-option>
           <thy-option [thyValue]="'科学家'" [thyLabelText]="'科学家'"> </thy-option>
@@ -86,22 +105,27 @@
         </thy-custom-select>
       </ng-template>
     </thy-property-item>
-    <thy-property-item thyLabelText="居住地址" thyEditable="true">
+    <thy-property-item (thyEditingChange)="changeEditing($event, { type: 'text' })" thyLabelText="居住地址" thyEditable="true">
       {{ user.address }}
       <ng-template #editor>
         <input class="form-control" thyInput thySize="md" [(ngModel)]="user.address" rows="4" />
       </ng-template>
     </thy-property-item>
-    <thy-property-item thyLabelText="打卡时间" thyEditable="true">
-      {{ user.punch_time * 1000 | date: 'HH:mm' }}
+    <thy-property-item (thyEditingChange)="changeEditing($event, { type: 'time' })" thyLabelText="打卡时间" thyEditable="true">
+      {{ user.punch_time * 1000 | date : 'HH:mm' }}
       <ng-template #editor>
         <thy-time-picker [(ngModel)]="user.punch_time" thyFormat="HH:mm" thySize="md"></thy-time-picker>
       </ng-template>
     </thy-property-item>
+    <thy-property-item (thyEditingChange)="changeEditing($event, { type: 'cascader' })" thyLabelText="地区" thyEditable="true">
+      {{ values }}
+      <ng-template #editor>
+        <thy-cascader [thyOptions]="areaCode" [(ngModel)]="values" thyColumnClassName="column-class-name"> </thy-cascader>
+      </ng-template>
+    </thy-property-item>
+
     <thy-property-item thyLabelText="打开弹窗编辑" thyEditable="false" *ngIf="showBtn">
-      <button thyButton="primary" thySize="md" (click)="openTemplateDialog(templateDialog)">
-        Open Detail
-      </button>
+      <button thyButton="primary" thySize="md" (click)="openTemplateDialog(templateDialog)">Open Detail</button>
     </thy-property-item>
   </thy-properties>
 </ng-template>
