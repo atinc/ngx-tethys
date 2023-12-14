@@ -36,12 +36,19 @@
   [cdkConnectedOverlayOrigin]="origin"
   [cdkConnectedOverlayPositions]="positions"
   [cdkConnectedOverlayMinWidth]="menuMinWidth"
+  cdkConnectedOverlayTransformOriginOn=".thy-cascader-menus"
   (backdropClick)="closeMenu()"
   (detach)="closeMenu()"
   (attach)="attached()"
   (positionChange)="positionChange($event)"
   [cdkConnectedOverlayOpen]="menuVisible">
-  <div [attr.tabindex]="-1" #menu [ngClass]="menuCls" [ngStyle]="thyMenuStyle" (mouseleave)="mouseleaveMenu($event)">
+  <div
+    [attr.tabindex]="-1"
+    #menu
+    [ngClass]="menuCls"
+    [ngStyle]="thyMenuStyle"
+    (mouseleave)="mouseleaveMenu($event)"
+    [@scaleYMotion]="'enter'">
     <ng-container *ngIf="!isShowSearchPanel">
       <ng-container *ngIf="columns.length > 0; else emptyPlaceholder">
         <ul #cascaderOptionContainers *ngFor="let options of columns; let i = index" [ngClass]="menuColumnCls">
