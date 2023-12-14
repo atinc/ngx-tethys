@@ -51,6 +51,37 @@
         }
     }
 
+    &.thy-properties-edit-trigger-click {
+        .thy-property-item-content {
+            &.thy-property-item-content-editable {
+                cursor: pointer;
+                position: relative;
+
+                &:hover {
+                    &:after {
+                        content: '';
+                        display: block;
+                        position: absolute;
+                        right: 0;
+                        bottom: 0;
+                        left: 0;
+                        top: 0;
+                        border: solid 1px variables.$primary;
+                        margin-left: variables.$property-item-editor-offset;
+                        border-radius: variables.$border-radius;
+                    }
+                    &:not(.thy-property-item-content-editing):after {
+                        z-index: 999;
+                    }
+                }
+                &.thy-property-item-content-editing:after {
+                    z-index: -1;
+                    transition: 100ms;
+                }
+            }
+        }
+    }
+
     .thy-property-item {
         display: flex;
         // 添加最小宽度是因为内容区域过多时会超出对应宽度区域
