@@ -10,7 +10,7 @@ import { ThyEmptyComponent } from 'ngx-tethys/empty';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { SelectControlSize, SelectOptionBase, ThySelectControlComponent } from 'ngx-tethys/shared';
 import { coerceBooleanProperty, elementMatchClosest, isEmpty } from 'ngx-tethys/util';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Subject, timer } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, take, takeUntil } from 'rxjs/operators';
 import {
     CdkConnectedOverlay,
@@ -21,6 +21,7 @@ import {
 } from '@angular/cdk/overlay';
 import { NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet, isPlatformBrowser } from '@angular/common';
 import {
+    AfterContentInit,
     ChangeDetectorRef,
     Component,
     ElementRef,
@@ -48,6 +49,7 @@ import { ThyCascaderOptionComponent } from './cascader-li.component';
 import { ThyCascaderSearchOptionComponent } from './cascader-search-option.component';
 import { ThyCascaderExpandTrigger, ThyCascaderOption, ThyCascaderSearchOption, ThyCascaderTriggerType } from './types';
 import { ThyCascaderService } from './cascader.service';
+import { scaleYMotion } from 'ngx-tethys/core';
 
 /**
  * 级联选择菜单
@@ -83,11 +85,12 @@ import { ThyCascaderService } from './cascader.service';
         ThyCascaderSearchOptionComponent,
         ThyEmptyComponent,
         ThyIconComponent
-    ]
+    ],
+    animations: [scaleYMotion]
 })
 export class ThyCascaderComponent
     extends TabIndexDisabledControlValueAccessorMixin
-    implements ControlValueAccessor, OnInit, OnChanges, OnDestroy
+    implements ControlValueAccessor, OnInit, OnChanges, OnDestroy, AfterContentInit
 {
     /**
      * 选项的实际值的属性名
@@ -268,6 +271,12 @@ export class ThyCascaderComponent
     thyIsOnlySelectLeaf = true;
 
     /**
+     * 初始化时，是否展开面板
+     * @default false
+     */
+    @Input() @InputBoolean() thyAutoExpand: boolean;
+
+    /**
      * 是否支持搜索
      * @default false
      */
@@ -444,6 +453,15 @@ export class ThyCascaderComponent
                         });
                     }
                 });
+        }
+    }
+
+    ngAfterContentInit() {
+        if (this.thyAutoExpand) {
+            timer(0).subscribe(() => {
+                this.cdr.markForCheck();
+                this.setMenuVisible(true);
+            });
         }
     }
 

@@ -17,6 +17,7 @@ import { By } from '@angular/platform-browser';
 import { clone } from '../examples/cascader-address-options';
 import { ThyCascaderModule } from '../module';
 import { ThyCascaderExpandTrigger, ThyCascaderTriggerType } from '../types';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 registerLocaleData(zh);
 
@@ -271,7 +272,8 @@ const loadDataOption: { [key: string]: { children?: any[]; [key: string]: any }[
             [thyIsOnlySelectLeaf]="isOnlySelectLeaf"
             [thyEmptyStateText]="emptyStateText"
             [thyMultiple]="isMultiple"
-            (thyExpandStatusChange)="thyExpandStatusChange($event)">
+            (thyExpandStatusChange)="thyExpandStatusChange($event)"
+            [thyAutoExpand]="thyAutoExpand">
         </thy-cascader>
     `
 })
@@ -292,6 +294,7 @@ class CascaderBasicComponent {
     public disabled = false;
     public isOnlySelectLeaf = true;
     public isMultiple = false;
+    public thyAutoExpand = true;
     @ViewChild('cascader', { static: true }) cascaderRef: ThyCascaderComponent;
 
     thyExpandStatusChange = jasmine.createSpy('thyExpandStatusChange callback');
@@ -406,7 +409,7 @@ class CascaderMultipleComponent {
 describe('thy-cascader', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            imports: [FormsModule, CommonModule, OverlayModule, ThyCascaderModule],
+            imports: [FormsModule, CommonModule, OverlayModule, ThyCascaderModule, NoopAnimationsModule],
             declarations: [CascaderTemplateComponent, CascaderBasicComponent, CascaderLoadComponent, CascaderMultipleComponent],
             providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }]
         });

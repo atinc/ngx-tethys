@@ -1,26 +1,30 @@
 import { InputBoolean, InputNumber, ThyClickDispatcher } from 'ngx-tethys/core';
-import { combineLatest, fromEvent, Subject, Subscription } from 'rxjs';
+import { ThyFlexibleTextComponent } from 'ngx-tethys/flexible-text';
+import { combineLatest, fromEvent, Subject, Subscription, timer } from 'rxjs';
 import { delay, filter, take, takeUntil } from 'rxjs/operators';
+
 import { OverlayOutsideClickDispatcher, OverlayRef } from '@angular/cdk/overlay';
+import { NgIf, NgTemplateOutlet } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     ContentChild,
     ElementRef,
+    EventEmitter,
     HostBinding,
     Input,
     NgZone,
     OnChanges,
     OnDestroy,
     OnInit,
+    Output,
     SimpleChanges,
     TemplateRef,
     ViewChild
 } from '@angular/core';
+
 import { ThyPropertiesComponent } from './properties.component';
-import { ThyFlexibleTextComponent } from 'ngx-tethys/flexible-text';
-import { NgIf, NgTemplateOutlet } from '@angular/common';
 
 export type ThyPropertyItemOperationTrigger = 'hover' | 'always';
 
@@ -66,6 +70,8 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
      * @type 'hover' | 'always'
      */
     @Input() thyOperationTrigger: ThyPropertyItemOperationTrigger = 'always';
+
+    @Output() thyEditingChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     /**
      * 属性名称自定义模板
@@ -149,6 +155,9 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
 
     setEditing(editing: boolean) {
         this.ngZone.run(() => {
+            if (!!this.editing !== !!editing) {
+                this.thyEditingChange.emit(editing);
+            }
             this.editing = editing;
             this.cdr.markForCheck();
         });
@@ -209,11 +218,13 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     private bindEditorBlurEvent(editorElement: HTMLElement) {
-        if (this.hasOverlay()) {
-            this.subscribeOverlayDetach();
-        } else {
-            this.subscribeDocumentClick(editorElement);
-        }
+        timer(0).subscribe(() => {
+            if (this.hasOverlay()) {
+                this.subscribeOverlayDetach();
+            } else {
+                this.subscribeDocumentClick(editorElement);
+            }
+        });
     }
 
     ngOnDestroy(): void {

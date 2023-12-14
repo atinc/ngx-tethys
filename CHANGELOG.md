@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [16.2.0-next.4](https://github.com/atinc/ngx-tethys/compare/16.2.0-next.3...16.2.0-next.4) (2023-12-07)
+
+
+### Bug Fixes
+
+* **core:** adjust animation scale from 0.5 to 0.9 #INFR-10876 ([#2952](https://github.com/atinc/ngx-tethys/issues/2952)) ([b371ad1](https://github.com/atinc/ngx-tethys/commit/b371ad11ac0485544161aecfb4bf6773bc48138d)), closes [#INFR-10876](https://github.com/atinc/ngx-tethys/issues/INFR-10876)
+
+
+
 # [16.2.0-next.3](https://github.com/atinc/ngx-tethys/compare/16.2.0-next.2...16.2.0-next.3) (2023-12-06)
 
 

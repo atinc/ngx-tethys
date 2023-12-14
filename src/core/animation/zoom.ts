@@ -64,7 +64,7 @@ export const scaleYMotion: AnimationTriggerMetadata = trigger('scaleYMotion', [
 // The animation starts from the point and eases in and out.
 export const scaleMotion: AnimationTriggerMetadata = trigger('scaleMotion', [
     transition('* => enter', [
-        style({ opacity: 0, transform: 'scale(0.5, 0.5)' }),
+        style({ opacity: 0, transform: 'scale(0.9, 0.9)' }),
         animate(
             `${AnimationDuration.BASE} ${AnimationCurves.EASE_IN_OUT_STANDARD}`,
             style({
@@ -79,7 +79,7 @@ export const scaleMotion: AnimationTriggerMetadata = trigger('scaleMotion', [
             `${AnimationDuration.BASE} ${AnimationCurves.EASE_IN_OUT_STANDARD}`,
             style({
                 opacity: 0,
-                transform: 'scale(0.5, 0.5)'
+                transform: 'scale(0.9, 0.9)'
             })
         )
     ])
