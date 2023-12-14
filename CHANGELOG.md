@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.1.23](https://github.com/atinc/ngx-tethys/compare/16.1.22...16.1.23) (2023-12-14)
+
+
+### Bug Fixes
+
+* **select:** markForCheck when open ([#2971](https://github.com/atinc/ngx-tethys/issues/2971)) ([69083b4](https://github.com/atinc/ngx-tethys/commit/69083b4163e5caf50b2948a88332bc9bf12ab05c))
+
+
+
 ## [16.1.22](https://github.com/atinc/ngx-tethys/compare/16.1.21...16.1.22) (2023-12-14)
 
 
