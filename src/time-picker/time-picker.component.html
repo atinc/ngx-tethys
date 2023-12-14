@@ -15,8 +15,7 @@
       (blur)="onInputPickerBlur()"
       (keyup.enter)="onKeyupEnter()"
       (keyup.escape)="onKeyupEsc()"
-      (ngModelChange)="onCustomizeInput($event)"
-    />
+      (ngModelChange)="onCustomizeInput($event)" />
     <ng-container *ngTemplateOutlet="rightIcon"></ng-container>
   </ng-container>
 </span>
@@ -38,13 +37,21 @@
   [cdkConnectedOverlayHasBackdrop]="thyBackdrop"
   [cdkConnectedOverlayPositions]="overlayPositions"
   cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+  cdkConnectedOverlayTransformOriginOn=".thy-time-picker-container"
   (positionChange)="onPositionChange($event)"
   (backdropClick)="onClickBackdrop()"
   (overlayOutsideClick)="onOutsideClick($event)"
   (detach)="onOverlayDetach()"
-  (attach)="onOverlayAttach()"
->
-  <div #overlayContainer style="position: relative;">
+  (attach)="onOverlayAttach()">
+  <div
+    #overlayContainer
+    style="position: relative"
+    [@scaleXMotion]="thyPlacement === 'left' || thyPlacement === 'right' ? 'enter' : 'void'"
+    [@scaleYMotion]="thyPlacement === 'top' || thyPlacement === 'bottom' ? 'enter' : 'void'"
+    [@scaleMotion]="
+      thyPlacement !== 'left' && thyPlacement !== 'right' && thyPlacement !== 'top' && thyPlacement !== 'bottom' ? 'enter' : 'void'
+    "
+    class="thy-time-picker-container">
     <!-- Compatible for overlay that not support offset dynamically and immediately -->
     <thy-time-picker-panel
       [ngClass]="thyPopupClass"
@@ -56,7 +63,6 @@
       [thyShowSelectNow]="thyShowSelectNow"
       (ngModelChange)="onPickTimeConfirm($event)"
       (thyPickChange)="onPickTime($event)"
-      (thyClosePanel)="closeOverlay()"
-    ></thy-time-picker-panel>
+      (thyClosePanel)="closeOverlay()"></thy-time-picker-panel>
   </div>
 </ng-template>

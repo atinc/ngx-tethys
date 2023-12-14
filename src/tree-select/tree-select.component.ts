@@ -37,6 +37,7 @@ import { ThyEmptyComponent } from 'ngx-tethys/empty';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { ThySelectControlComponent, ThyStopPropagationDirective } from 'ngx-tethys/shared';
 import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';
+import { scaleYMotion } from 'ngx-tethys/core';
 
 type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -88,7 +89,8 @@ export function filterTreeData(treeNodes: ThyTreeSelectNode[], searchText: strin
         '[attr.tabindex]': 'tabIndex',
         '(focus)': 'onFocus($event)',
         '(blur)': 'onBlur($event)'
-    }
+    },
+    animations: [scaleYMotion]
 })
 export class ThyTreeSelectComponent extends TabIndexDisabledControlValueAccessorMixin implements OnInit, OnDestroy, ControlValueAccessor {
     @HostBinding('class.thy-select-custom') treeSelectClass = true;

@@ -12,7 +12,7 @@ import { helpers } from 'ngx-tethys/util';
 /**
  * 日期范围选择组件
  * @name thy-range-picker
- * @order 60
+ * @order 70
  */
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,

@@ -21,6 +21,7 @@ import { ThyNavModule } from 'ngx-tethys/nav';
 import { ThyInputModule } from 'ngx-tethys/input';
 import { DateCarouselComponent } from './date-carousel/date-carousel.component';
 import { DatePickerAdvancedShowYearTipPipe } from '../picker.pipes';
+import { QuarterTableComponent } from './quarter/quarter-table.component';
 
 @NgModule({
     imports: [
@@ -38,6 +39,7 @@ import { DatePickerAdvancedShowYearTipPipe } from '../picker.pipes';
         YearHeaderComponent,
         MonthTableComponent,
         MonthHeaderComponent,
+        QuarterTableComponent,
         DecadeHeaderComponent,
         DecadeTableComponent,
         InnerPopupComponent,
@@ -54,6 +56,7 @@ import { DatePickerAdvancedShowYearTipPipe } from '../picker.pipes';
         YearHeaderComponent,
         MonthTableComponent,
         MonthHeaderComponent,
+        QuarterTableComponent,
         DecadeHeaderComponent,
         DecadeTableComponent,
         InnerPopupComponent,

@@ -1,0 +1,14 @@
+<table class="{{ prefixCls }}-quarter-panel-table" cellSpacing="0" role="grid">
+  <tbody class="{{ prefixCls }}-quarter-panel-tbody">
+    <tr role="row" *ngFor="let row of bodyRows; trackBy: trackByBodyRow">
+      <td
+        *ngFor="let quarterCell of row.dateCells; trackBy: trackByBodyColumn"
+        role="gridcell"
+        title="{{ quarterCell.title }}"
+        (click)="quarterCellClick($event, quarterCell)"
+        [ngClass]="quarterCell.classMap">
+        <a class="{{ prefixCls }}-quarter-panel-quarter">{{ quarterCell.content }}</a>
+      </td>
+    </tr>
+  </tbody>
+</table>

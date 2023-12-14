@@ -33,11 +33,13 @@
   [cdkConnectedOverlayOrigin]="origin"
   [cdkConnectedOverlayMinWidth]="cdkConnectOverlayWidth"
   [cdkConnectedOverlayOpen]="expandTreeSelectOptions"
+  cdkConnectedOverlayTransformOriginOn=".thy-tree-select-dropdown"
   [cdkConnectedOverlayPositions]="expandedDropdownPositions"
   (detach)="close()">
   <thy-tree-select-nodes
     thyStopPropagation
     [thyVirtualScroll]="thyVirtualScroll"
-    [treeNodes]="thyVirtualScroll ? virtualTreeNodes : treeNodes">
+    [treeNodes]="thyVirtualScroll ? virtualTreeNodes : treeNodes"
+    [@scaleYMotion]="'enter'">
   </thy-tree-select-nodes>
 </ng-template>

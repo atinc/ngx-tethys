@@ -6,6 +6,7 @@ import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent, dispatchFakeEvent } from 'ngx-tethys/testing';
 import { ThyTimePickerComponent, TimePickerSize } from '../time-picker.component';
 import { ThyTimePickerModule } from '../time-picker.module';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ThyTimePickerComponent', () => {
     let fixture: ComponentFixture<ThyTestTimePickerBaseComponent>;
@@ -16,7 +17,7 @@ describe('ThyTimePickerComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [FormsModule, ThyTimePickerModule],
+            imports: [FormsModule, ThyTimePickerModule, NoopAnimationsModule],
             declarations: [ThyTestTimePickerBaseComponent]
         });
 
@@ -61,7 +62,7 @@ describe('ThyTimePickerComponent', () => {
             openOverlay();
 
             overlayQuery('.cdk-overlay-backdrop').click();
-            fixture.detectChanges();
+            tick(300);
             expect(getTimePickerPanel()).toBeNull();
 
             flush();
@@ -73,6 +74,7 @@ describe('ThyTimePickerComponent', () => {
 
             getTimePickerInput().dispatchEvent(new KeyboardEvent('keyup', { key: 'escape' }));
             fixture.detectChanges();
+            tick(300);
             expect(getTimePickerPanel()).toBeNull();
         }));
 
@@ -247,13 +249,12 @@ describe('ThyTimePickerComponent', () => {
         it('should keep input focus when overlay opened', fakeAsync(() => {
             openOverlay();
             dispatchFakeEvent(getTimePickerInput(), 'blur');
-            fixture.detectChanges();
+            tick(300);
             expect(document.activeElement.classList.contains('thy-time-picker-input')).toBeTruthy();
 
             dispatchMouseEvent(document.body, 'click');
-            fixture.detectChanges();
             dispatchFakeEvent(getTimePickerInput(), 'blur');
-            fixture.detectChanges();
+            tick(300);
             expect(document.activeElement.classList.contains('thy-time-picker-input')).toBeFalsy();
         }));
 
@@ -264,6 +265,7 @@ describe('ThyTimePickerComponent', () => {
             expect(openChange).toHaveBeenCalledWith(true);
 
             dispatchMouseEvent(document.body, 'click');
+            tick(300);
             expect(openChange).toHaveBeenCalledWith(false);
         }));
 
