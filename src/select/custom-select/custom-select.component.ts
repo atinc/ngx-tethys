@@ -801,6 +801,7 @@ export class ThySelectCustomComponent
         this.panelOpen = true;
         this.highlightCorrectOption();
         this.thyOnExpandStatusChange.emit(this.panelOpen);
+        this.changeDetectorRef.markForCheck();
     }
 
     public close(): void {
