@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.1.22](https://github.com/atinc/ngx-tethys/compare/16.1.21...16.1.22) (2023-12-14)
+
+
+### Bug Fixes
+
+* **select:** remove focus() when close panel #INFR-10914 ([#2968](https://github.com/atinc/ngx-tethys/issues/2968)) ([c3d17aa](https://github.com/atinc/ngx-tethys/commit/c3d17aa88a26b8c8bfeb52c9bb632f75d05a4f22)), closes [#INFR-10914](https://github.com/atinc/ngx-tethys/issues/INFR-10914)
+
+
+### Features
+
+* **property:** property-item add thyEditingChange #INFR-10910 ([#2969](https://github.com/atinc/ngx-tethys/issues/2969)) ([e2631cc](https://github.com/atinc/ngx-tethys/commit/e2631cc7a23d2550f7aa9f37ade0f334657709ff)), closes [#INFR-10910](https://github.com/atinc/ngx-tethys/issues/INFR-10910)
+
+
+
 ## [16.1.21](https://github.com/atinc/ngx-tethys/compare/16.1.20...16.1.21) (2023-12-11)
 
 
