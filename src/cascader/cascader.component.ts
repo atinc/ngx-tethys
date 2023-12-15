@@ -9,12 +9,9 @@ import {
 import { ThyEmptyComponent } from 'ngx-tethys/empty';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { SelectControlSize, SelectOptionBase, ThySelectControlComponent } from 'ngx-tethys/shared';
-import { Id } from 'ngx-tethys/types';
-import { coerceBooleanProperty, elementMatchClosest, isArray, isEmpty, set, helpers } from 'ngx-tethys/util';
+import { coerceBooleanProperty, elementMatchClosest, isEmpty } from 'ngx-tethys/util';
 import { BehaviorSubject, Subject, timer } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, take, takeUntil } from 'rxjs/operators';
-
-import { SelectionModel } from '@angular/cdk/collections';
 import {
     CdkConnectedOverlay,
     CdkOverlayOrigin,
@@ -34,11 +31,13 @@ import {
     Inject,
     Input,
     NgZone,
+    OnChanges,
     OnDestroy,
     OnInit,
     Output,
     PLATFORM_ID,
     QueryList,
+    SimpleChanges,
     TemplateRef,
     ViewChild,
     ViewChildren
@@ -49,35 +48,8 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyCascaderOptionComponent } from './cascader-li.component';
 import { ThyCascaderSearchOptionComponent } from './cascader-search-option.component';
 import { ThyCascaderExpandTrigger, ThyCascaderOption, ThyCascaderSearchOption, ThyCascaderTriggerType } from './types';
+import { ThyCascaderService } from './cascader.service';
 import { scaleYMotion } from 'ngx-tethys/core';
-
-function toArray<T>(value: T | T[]): T[] {
-    let ret: T[];
-    if (value == null) {
-        ret = [];
-    } else if (!Array.isArray(value)) {
-        ret = [value];
-    } else {
-        ret = value;
-    }
-    return ret;
-}
-
-function arrayEquals<T>(array1: T[], array2: T[]): boolean {
-    if (!array1 || !array2 || array1.length !== array2.length) {
-        return false;
-    }
-
-    const len = array1.length;
-    for (let i = 0; i < len; i++) {
-        if (array1[i] !== array2[i]) {
-            return false;
-        }
-    }
-    return true;
-}
-
-const defaultDisplayRender = (label: any) => label.join(' / ');
 
 /**
  * 级联选择菜单
@@ -91,20 +63,14 @@ const defaultDisplayRender = (label: any) => label.join(' / ');
             provide: NG_VALUE_ACCESSOR,
             useExisting: forwardRef(() => ThyCascaderComponent),
             multi: true
-        }
+        },
+        ThyCascaderService
     ],
     host: {
         '[attr.tabindex]': `tabIndex`,
         '(focus)': 'onFocus($event)',
         '(blur)': 'onBlur($event)'
     },
-    styles: [
-        `
-            .thy-cascader-menus {
-                position: relative;
-            }
-        `
-    ],
     standalone: true,
     imports: [
         CdkOverlayOrigin,
@@ -124,7 +90,7 @@ const defaultDisplayRender = (label: any) => label.join(' / ');
 })
 export class ThyCascaderComponent
     extends TabIndexDisabledControlValueAccessorMixin
-    implements ControlValueAccessor, OnInit, OnDestroy, AfterContentInit
+    implements ControlValueAccessor, OnInit, OnChanges, OnDestroy, AfterContentInit
 {
     /**
      * 选项的实际值的属性名
@@ -154,9 +120,10 @@ export class ThyCascaderComponent
      */
     @Input()
     set thyOptions(options: ThyCascaderOption[] | null) {
-        this.columns = options && options.length ? [options] : [];
-        if (this.defaultValue && this.columns.length) {
-            this.initOptions(0);
+        const columns = options && options.length ? [options] : [];
+        this.thyCascaderService.initColumns(columns);
+        if (this.thyCascaderService.defaultValue && columns.length) {
+            this.thyCascaderService.initOptions(0);
         }
     }
 
@@ -185,6 +152,7 @@ export class ThyCascaderComponent
     set thyLabelRender(value: TemplateRef<any>) {
         this.labelRenderTpl = value;
         this.isLabelRenderTemplate = value instanceof TemplateRef;
+        this.thyCascaderService.setCascaderOptions({ isLabelRenderTemplate: this.isLabelRenderTemplate });
     }
 
     get thyLabelRender(): TemplateRef<any> {
@@ -194,7 +162,13 @@ export class ThyCascaderComponent
     /**
      * 用于动态加载选项
      */
-    @Input() thyLoadData: (node: ThyCascaderOption, index?: number) => PromiseLike<any>;
+    @Input() set thyLoadData(value: (node: ThyCascaderOption, index?: number) => PromiseLike<any>) {
+        this.thyCascaderService.setCascaderOptions({ loadData: value });
+    }
+
+    get thyLoadData() {
+        return this.thyCascaderService?.cascaderOptions?.loadData;
+    }
 
     /**
      * 控制触发状态, 支持 `click` | `hover`
@@ -275,7 +249,7 @@ export class ThyCascaderComponent
     @InputBoolean()
     set thyMultiple(value: boolean) {
         this.isMultiple = value;
-        this.initSelectionModel();
+        this.thyCascaderService.setCascaderOptions({ isMultiple: value });
     }
 
     get thyMultiple(): boolean {
@@ -365,50 +339,48 @@ export class ThyCascaderComponent
     @ViewChild('menu') menu: ElementRef;
 
     public dropDownPosition = 'bottom';
+
     public menuVisible = false;
-    public isLoading = false;
-    public showSearch = false;
-    public labelRenderText: string;
-    public labelRenderContext: any = {};
+
     public isLabelRenderTemplate = false;
+
     public triggerRect: DOMRect;
-    public columns: ThyCascaderOption[][] = [];
+
     public emptyStateText = '暂无可选项';
 
-    public selectionModel: SelectionModel<SelectOptionBase>;
     private prefixCls = 'thy-cascader';
+
     private menuClassName: string;
+
     private columnClassName: string;
+
     private _menuColumnCls: any;
-    private defaultValue: any[];
+
     private readonly destroy$ = new Subject<void>();
+
     private _menuCls: { [name: string]: any };
+
     private _labelCls: { [name: string]: any };
+
     private labelRenderTpl: TemplateRef<any>;
+
     private hostRenderer = useHostRenderer();
-    private cascaderPosition: ConnectionPositionPair[];
-    positions: ConnectionPositionPair[];
 
-    private value: any[];
-
-    private selectedOptions: ThyCascaderOption[] = [];
-
-    private activatedOptions: ThyCascaderOption[] = [];
+    public positions: ConnectionPositionPair[];
 
     get selected(): SelectOptionBase | SelectOptionBase[] {
         this.cdkConnectedOverlay?.overlayRef?.updatePosition();
-        return this.thyMultiple ? this.selectionModel.selected : this.selectionModel.selected[0];
+        return this.thyMultiple ? this.thyCascaderService.selectionModel.selected : this.thyCascaderService.selectionModel.selected[0];
     }
-
     private isMultiple = false;
-
-    private prevSelectedOptions: Set<ThyCascaderOption> = new Set<ThyCascaderOption>();
 
     public menuMinWidth = 122;
 
     private searchText$ = new BehaviorSubject('');
 
-    public searchResultList: ThyCascaderSearchOption[] = [];
+    public get searchResultList(): ThyCascaderSearchOption[] {
+        return this.thyCascaderService.searchResultList;
+    }
 
     public isShowSearchPanel: boolean = false;
 
@@ -420,11 +392,13 @@ export class ThyCascaderComponent
      */
     private isSelectingSearchState: boolean = false;
 
-    private flattenOptions: ThyCascaderSearchOption[] = [];
+    public get isLoading() {
+        return this.thyCascaderService?.isLoading;
+    }
 
-    private leafNodes: ThyCascaderSearchOption[] = [];
-
-    private valueChange$ = new Subject();
+    public get columns() {
+        return this.thyCascaderService.columns;
+    }
 
     ngOnInit(): void {
         this.setClassMap();
@@ -433,9 +407,16 @@ export class ThyCascaderComponent
         this.setLabelClass();
         this.initPosition();
         this.initSearch();
-        if (!this.selectionModel) {
-            this.selectionModel = new SelectionModel<SelectOptionBase>(this.thyMultiple);
-        }
+        const options = {
+            labelProperty: this.thyLabelProperty,
+            valueProperty: this.thyValueProperty,
+            isMultiple: this.isMultiple,
+            isOnlySelectLeaf: this.thyIsOnlySelectLeaf,
+            isLabelRenderTemplate: this.isLabelRenderTemplate,
+            loadData: this.thyLoadData
+        };
+        this.thyCascaderService.setCascaderOptions(options);
+
         this.viewPortRuler
             .change(100)
             .pipe(takeUntil(this.destroy$))
@@ -446,10 +427,16 @@ export class ThyCascaderComponent
                 }
             });
 
-        this.valueChange$.pipe(takeUntil(this.destroy$), debounceTime(100)).subscribe(() => {
-            this.valueChange();
+        this.thyCascaderService.cascaderValueChange().subscribe(options => {
+            if (!options.isValueEqual) {
+                this.onChangeFn(options.value);
+                if (options.isSelectionModelEmpty) {
+                    this.thyClear.emit();
+                }
+                this.thySelectionChange.emit(this.thyCascaderService.selectedOptions);
+                this.thyChange.emit(options.value);
+            }
         });
-
         if (isPlatformBrowser(this.platformId)) {
             this.thyClickDispatcher
                 .clicked(0)
@@ -478,145 +465,28 @@ export class ThyCascaderComponent
         }
     }
 
-    private initSelectionModel() {
-        if (this.selectionModel) {
-            this.selectionModel.clear();
-        } else {
-            this.selectionModel = new SelectionModel(this.isMultiple);
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes['thyIsOnlySelectLeaf']) {
+            this.thyCascaderService.setCascaderOptions({ isOnlySelectLeaf: changes['thyIsOnlySelectLeaf'].currentValue });
         }
     }
 
     private initPosition() {
-        this.cascaderPosition = EXPANDED_DROPDOWN_POSITIONS.map(item => {
+        const cascaderPosition: ConnectionPositionPair[] = EXPANDED_DROPDOWN_POSITIONS.map(item => {
             return { ...item };
         });
-        this.cascaderPosition[0].offsetY = 4; // 左下
-        this.cascaderPosition[1].offsetY = 4; // 右下
-        this.cascaderPosition[2].offsetY = -4; // 右下
-        this.cascaderPosition[3].offsetY = -4; // 右下
-        this.positions = this.cascaderPosition;
-    }
-
-    private initOptions(index: number) {
-        const vs = this.defaultValue;
-        const load = () => {
-            this.activateOnInit(index, vs[index]);
-            if (index < vs.length - 1) {
-                this.initOptions(index + 1);
-            }
-            if (index === vs.length - 1) {
-                this.afterWriteValue();
-            }
-        };
-
-        if (this.isLoaded(index) || !this.thyLoadData) {
-            load();
-        } else {
-            const node = this.activatedOptions[index - 1] || {};
-            this.loadChildren(node, index - 1, load, this.afterWriteValue.bind(this));
-        }
-    }
-
-    private activateOnInit(index: number, value: any): void {
-        let option = this.findOption(value, index);
-        if (!option) {
-            option =
-                typeof value === 'object'
-                    ? value
-                    : {
-                          [`${this.thyValueProperty || 'value'}`]: value,
-                          [`${this.thyLabelProperty || 'label'}`]: value
-                      };
-        }
-        this.updatePrevSelectedOptions(option, true);
-        this.setActiveOption(option, index, false, false);
-    }
-
-    private updatePrevSelectedOptions(option: ThyCascaderOption, isActivateInit: boolean, index?: number) {
-        if (isActivateInit) {
-            if (this.thyIsOnlySelectLeaf && option.isLeaf) {
-                set(option, 'selected', true);
-            }
-            this.prevSelectedOptions.add(option);
-        } else {
-            if (!this.thyMultiple) {
-                const prevSelectedOptions = Array.from(this.prevSelectedOptions);
-                while (prevSelectedOptions.length) {
-                    set(prevSelectedOptions.pop(), 'selected', false);
-                }
-                this.prevSelectedOptions = new Set([]);
-            }
-            if (this.thyIsOnlySelectLeaf && !option.isLeaf && this.thyMultiple) {
-                set(option, 'selected', this.isSelectedOption(option, index));
-            } else {
-                set(option, 'selected', !this.isSelectedOption(option, index));
-            }
-            if (this.thyIsOnlySelectLeaf && this.thyMultiple && option.parent) {
-                this.updatePrevSelectedOptions(option.parent, false, index - 1);
-            }
-            this.prevSelectedOptions.add(option);
-        }
+        cascaderPosition[0].offsetY = 4; // 左下
+        cascaderPosition[1].offsetY = 4; // 右下
+        cascaderPosition[2].offsetY = -4; // 右下
+        cascaderPosition[3].offsetY = -4; // 右下
+        this.positions = cascaderPosition;
     }
 
     writeValue(value: any): void {
-        if (!this.selectionModel) {
-            this.initSelectionModel();
-        }
-        if (!this.isMultiple) {
-            const vs = (this.defaultValue = toArray(value));
-            if (vs.length) {
-                this.initOptions(0);
-            } else {
-                this.value = vs;
-                this.activatedOptions = [];
-                this.afterWriteValue();
-            }
-        } else {
-            const values = toArray(value);
-            this.selectionModel.clear();
-            values.forEach(item => {
-                const vs = (this.defaultValue = toArray(item));
-                if (vs.length) {
-                    this.initOptions(0);
-                } else {
-                    this.value = vs;
-                    this.activatedOptions = [];
-                    this.afterWriteValue();
-                }
-            });
+        this.thyCascaderService.writeCascaderValue(value);
+        if (this.isMultiple) {
             this.cdr.detectChanges();
         }
-    }
-
-    afterWriteValue(): void {
-        this.selectedOptions = this.activatedOptions;
-        this.value = this.getSubmitValue(this.selectedOptions);
-        this.addSelectedState(this.selectedOptions);
-        this.buildDisplayLabel();
-    }
-
-    private addSelectedState(selectOptions: ThyCascaderOption[]) {
-        if (this.isMultiple && this.thyIsOnlySelectLeaf) {
-            selectOptions.forEach(opt => {
-                if (opt.isLeaf) {
-                    opt.selected = true;
-                    set(opt, 'selected', true);
-                }
-            });
-            this.addParentSelectedState(selectOptions);
-        }
-    }
-
-    addParentSelectedState(selectOptions: ThyCascaderOption[]) {
-        selectOptions.forEach(opt => {
-            if (opt.children && opt.children.length && opt.children.every(i => i.selected)) {
-                opt.selected = true;
-                set(opt, 'selected', true);
-                if (opt.parent) {
-                    this.addParentSelectedState([opt.parent]);
-                }
-            }
-        });
     }
 
     setDisabledState(isDisabled: boolean): void {
@@ -631,62 +501,16 @@ export class ThyCascaderComponent
         }
     }
 
-    private isLoaded(index: number): boolean {
-        return this.columns[index] && this.columns[index].length > 0;
-    }
-
-    public getOptionLabel(option: ThyCascaderOption): any {
-        return option[this.thyLabelProperty || 'label'];
-    }
-
-    public getOptionValue(option: ThyCascaderOption): any {
-        return option[this.thyValueProperty || 'value'];
-    }
-
     public isActivatedOption(option: ThyCascaderOption, index: number): boolean {
-        if (!this.isMultiple || this.thyIsOnlySelectLeaf) {
-            const activeOpt = this.activatedOptions[index];
-            return activeOpt === option;
-        } else {
-            if (option.isLeaf) {
-                return option.selected;
-            } else {
-                const selectedOpts = this.selectionModel.selected;
-                const appearIndex = selectedOpts.findIndex(item => {
-                    const selectedItem = helpers.get(item, `thyRawValue.value.${index}`);
-                    return helpers.shallowEqual(selectedItem, option);
-                });
-                return appearIndex >= 0;
-            }
-        }
+        return this.thyCascaderService.isActivatedOption(option, index);
     }
 
     public isHalfSelectedOption(option: ThyCascaderOption, index: number): boolean {
-        if (!option.selected && this.thyIsOnlySelectLeaf && !option.isLeaf && !this.checkSelectedStatus(option, false)) {
-            return true;
-        }
-        return false;
+        return this.thyCascaderService.isHalfSelectedOption(option, index);
     }
 
     public isSelectedOption(option: ThyCascaderOption, index: number): boolean {
-        if (this.thyIsOnlySelectLeaf) {
-            if (option.isLeaf) {
-                return option.selected;
-            } else {
-                return this.checkSelectedStatus(option, true);
-            }
-        } else {
-            const selectedOpts = this.selectionModel.selected;
-            const appearIndex = selectedOpts.findIndex(item => {
-                if (item.thyRawValue.value.length - 1 === index) {
-                    const selectedItem = helpers.get(item, `thyRawValue.value.${index}`);
-                    return helpers.shallowEqual(selectedItem, option);
-                } else {
-                    return false;
-                }
-            });
-            return appearIndex >= 0;
-        }
+        return this.thyCascaderService.isSelectedOption(option, index);
     }
 
     public attached(): void {
@@ -697,7 +521,7 @@ export class ThyCascaderComponent
     }
 
     private scrollActiveElementIntoView() {
-        if (!isEmpty(this.selectedOptions)) {
+        if (!isEmpty(this.thyCascaderService.selectedOptions)) {
             const activeOptions = this.cascaderOptions
                 .filter(item => item.nativeElement.classList.contains('thy-cascader-menu-item-active'))
                 // for multiple mode
@@ -712,52 +536,11 @@ export class ThyCascaderComponent
         }
     }
 
-    private findOption(option: any, index: number): ThyCascaderOption {
-        const options: ThyCascaderOption[] = this.columns[index];
-        if (options) {
-            const value = typeof option === 'object' ? this.getOptionValue(option) : option;
-            return options.find(o => value === this.getOptionValue(o));
-        }
-        return null;
-    }
-
-    private buildDisplayLabel(): void {
-        const selectedOptions = [...this.selectedOptions];
-        const labels: string[] = selectedOptions.map(o => this.getOptionLabel(o));
-        if (labels.length === 0) {
-            return;
-        }
-        let labelRenderContext;
-        let labelRenderText;
-        if (this.isLabelRenderTemplate) {
-            labelRenderContext = { labels, selectedOptions };
-        } else {
-            labelRenderText = defaultDisplayRender.call(this, labels, selectedOptions);
-            this.labelRenderText = labelRenderText;
-        }
-        if (this.labelRenderText || this.isLabelRenderTemplate) {
-            const selectedData: SelectOptionBase = {
-                thyRawValue: {
-                    value: selectedOptions,
-                    labelText: labelRenderText,
-                    labelRenderContext: labelRenderContext
-                },
-                thyValue: labels,
-                thyLabelText: labelRenderText
-            };
-            this.selectionModel.select(selectedData);
-        }
-    }
-
-    public isMenuVisible(): boolean {
-        return this.menuVisible;
-    }
-
     public setMenuVisible(menuVisible: boolean): void {
         if (this.menuVisible !== menuVisible) {
             this.menuVisible = menuVisible;
 
-            this.initActivatedOptions();
+            this.thyCascaderService.initActivatedOptions(this.menuVisible);
             this.setClassMap();
             this.setMenuClass();
             if (this.menuVisible) {
@@ -765,18 +548,6 @@ export class ThyCascaderComponent
             }
             this.thyExpandStatusChange.emit(menuVisible);
         }
-    }
-
-    private initActivatedOptions() {
-        if (isEmpty(this.selectedOptions) || !this.menuVisible) {
-            return;
-        }
-        this.activatedOptions = [...this.selectedOptions];
-        this.activatedOptions.forEach((item, index) => {
-            if (!isEmpty(item.children) && !item.isLeaf) {
-                this.columns[index + 1] = item.children;
-            }
-        });
     }
 
     public get menuCls(): any {
@@ -869,83 +640,7 @@ export class ThyCascaderComponent
     }
 
     public clickOption(option: ThyCascaderOption, index: number, event: Event | boolean): void {
-        if (option && option.disabled && !this.isMultiple) {
-            return;
-        }
-        const isSelect = event instanceof Event ? !this.isMultiple && option.isLeaf : true;
-        if (this.isMultiple && !option.isLeaf && this.thyIsOnlySelectLeaf && isSelect) {
-            this.toggleAllChildren(option, index, event as boolean);
-        } else {
-            this.setActiveOption(option, index, isSelect);
-        }
-    }
-
-    private toggleAllChildren(option: ThyCascaderOption, index: number, selected: boolean): void {
-        const allLeafs: {
-            option: ThyCascaderOption;
-            index: number;
-        }[] = this.getAllLeafs(option, index, selected);
-        option.selected = selected;
-        while (allLeafs.length) {
-            const { option, index } = allLeafs.shift();
-            option.selected = !selected;
-            this.setActiveOption(option, index, true);
-        }
-        for (let i = 0; i < this.activatedOptions.length; i++) {
-            const option = this.activatedOptions[i];
-            if (isArray(option.children) && option.children.length) {
-                this.setColumnData(option.children, i + 1);
-            }
-        }
-    }
-
-    private getAllLeafs(
-        option: ThyCascaderOption,
-        index: number,
-        selected: boolean
-    ): {
-        option: ThyCascaderOption;
-        index: number;
-    }[] {
-        let allLeafs: {
-            option: ThyCascaderOption;
-            index: number;
-        }[] = [];
-        if (option.children.length > 0) {
-            for (const childOption of option.children) {
-                childOption.parent = option;
-                if (childOption.isLeaf && !childOption.selected === selected) {
-                    allLeafs.push({
-                        option: childOption,
-                        index: index + 1
-                    });
-                } else if (!childOption.isLeaf) {
-                    allLeafs = allLeafs.concat(this.getAllLeafs(childOption, index + 1, selected));
-                }
-            }
-        }
-        return allLeafs;
-    }
-
-    /**
-     * 检查所有所有子项的选择状态, 有一个不符合预期，就直接返回 false
-     * @param option
-     * @param trueOrFalse
-     * @private
-     */
-    private checkSelectedStatus(option: ThyCascaderOption, isSelected: boolean): boolean {
-        if (option.isLeaf) {
-            return option.selected === isSelected;
-        }
-        for (const childOption of option.children) {
-            if (isArray(childOption.children) && childOption.children.length && !this.checkSelectedStatus(childOption, isSelected)) {
-                return false;
-            }
-            if (!childOption.selected === isSelected) {
-                return false;
-            }
-        }
-        return true;
+        this.thyCascaderService.clickOption(option, index, event, this.selectOption);
     }
 
     public mouseoverOption(option: ThyCascaderOption, index: number, event: Event): void {
@@ -993,113 +688,33 @@ export class ThyCascaderComponent
             this.setMenuVisible(false);
             this.onTouchedFn();
             this.isShowSearchPanel = false;
-            this.searchResultList = [];
+            this.thyCascaderService.searchResultList = [];
         }
     }
 
     public setActiveOption(option: ThyCascaderOption, index: number, select: boolean, loadChildren: boolean = true): void {
-        this.activatedOptions[index] = option;
-        for (let i = index - 1; i >= 0; i--) {
-            const originOption = this.activatedOptions[i + 1]?.parent;
-            if (!this.activatedOptions[i] || originOption?.[this.thyValueProperty] !== this.activatedOptions[i]?.[this.thyValueProperty]) {
-                this.activatedOptions[i] = originOption ?? this.activatedOptions[i];
-            }
-        }
-        if (index < this.activatedOptions.length - 1) {
-            this.activatedOptions = this.activatedOptions.slice(0, index + 1);
-        }
-        if (isArray(option.children) && option.children.length) {
-            option.isLeaf = false;
-            option.children.forEach(child => (child.parent = option));
-            this.setColumnData(option.children, index + 1);
-        } else if (!option.isLeaf && loadChildren) {
-            this.loadChildren(option, index);
-        } else {
-            if (index < this.columns.length - 1) {
-                this.columns = this.columns.slice(0, index + 1);
-            }
-        }
-        if (select) {
-            this.selectOption(option, index);
-        }
+        this.thyCascaderService.setActiveOption(option, index, select, loadChildren, this.selectOption);
     }
 
-    private selectOption(option: ThyCascaderOption, index: number): void {
+    private selectOption = (option: ThyCascaderOption, index: number) => {
         this.thySelect.emit({ option, index });
         const isOptionCanSelect = this.thyChangeOnSelect && !this.isMultiple;
         if (option.isLeaf || !this.thyIsOnlySelectLeaf || isOptionCanSelect || this.shouldPerformSelection(option, index)) {
-            this.selectedOptions = this.activatedOptions;
-            this.updatePrevSelectedOptions(option, false, index);
-            if (option.selected) {
-                this.buildDisplayLabel();
-            } else {
-                const selectedItems = this.selectionModel.selected;
-                const currentItem = selectedItems.find(item => {
-                    if (item.thyRawValue.value.length - 1 === index) {
-                        const selectedItem = helpers.get(item, `thyRawValue.value.${index}`);
-                        return helpers.shallowEqual(selectedItem, option);
-                    } else {
-                        return false;
-                    }
-                });
-                this.selectionModel.deselect(currentItem);
-            }
-            this.valueChange$.next();
+            this.thyCascaderService.selectOption(option, index);
         }
         if ((option.isLeaf || !this.thyIsOnlySelectLeaf) && !this.thyMultiple) {
             this.setMenuVisible(false);
             this.onTouchedFn();
         }
-    }
+    };
 
     public removeSelectedItem(event: { item: SelectOptionBase; $eventOrigin: Event }) {
-        const selectedItems = this.selectionModel.selected;
         event.$eventOrigin.stopPropagation();
-        const currentItem = selectedItems.find(item => {
-            return helpers.shallowEqual(item.thyValue, event.item.thyValue);
-        });
-        this.deselectOption(currentItem);
-        this.selectionModel.deselect(currentItem);
-        // update selectedOptions
-        const updatedSelectedItems = this.selectionModel.selected;
-        if (isArray(updatedSelectedItems) && updatedSelectedItems.length) {
-            this.selectedOptions = updatedSelectedItems[updatedSelectedItems.length - 1].thyRawValue.value;
-        }
-        this.valueChange$.next();
-    }
-
-    private deselectOption(option: SelectOptionBase) {
-        const value: ThyCascaderOption[] = option.thyRawValue.value;
-        value.forEach(item => {
-            if (item.isLeaf && item.selected) {
-                set(item, 'selected', false);
-            }
-        });
+        this.thyCascaderService.removeSelectedItem(event?.item);
     }
 
     private shouldPerformSelection(option: ThyCascaderOption, level: number): boolean {
         return typeof this.thyChangeOn === 'function' ? this.thyChangeOn(option, level) === true : false;
-    }
-
-    private valueChange(): void {
-        const value = this.getValues();
-        if (!arrayEquals(this.value, value)) {
-            this.defaultValue = null;
-            this.value = value;
-            this.onChangeFn(value);
-            if (this.selectionModel.isEmpty()) {
-                this.thyClear.emit();
-            }
-            this.thySelectionChange.emit(this.selectedOptions);
-            this.thyChange.emit(value);
-        }
-    }
-
-    private getValues() {
-        let selectedItems: any[];
-        const selected = this.selectionModel.selected;
-        selectedItems = selected.map(item => this.getSubmitValue(item.thyRawValue.value));
-        return this.isMultiple ? selectedItems : selectedItems[0] ?? selectedItems;
     }
 
     public clearSelection($event: Event): void {
@@ -1107,63 +722,8 @@ export class ThyCascaderComponent
             $event.stopPropagation();
             $event.preventDefault();
         }
-        this.labelRenderText = '';
-        this.labelRenderContext = {};
-        this.selectedOptions = [];
-        this.activatedOptions = [];
-        this.deselectAllSelected();
+        this.thyCascaderService.clearSelection();
         this.setMenuVisible(false);
-        this.valueChange$.next();
-    }
-
-    private deselectAllSelected() {
-        const selectedOptions = this.selectionModel.selected;
-        selectedOptions.forEach(item => this.deselectOption(item));
-        this.selectionModel.clear();
-    }
-
-    private loadChildren(option: ThyCascaderOption, index: number, success?: () => void, failure?: () => void): void {
-        if (this.thyLoadData) {
-            this.isLoading = true;
-            this.thyLoadData(option, index).then(
-                () => {
-                    option.loading = this.isLoading = false;
-                    if (option.children) {
-                        option.children.forEach(child => (child.parent = index < 0 ? undefined : option));
-                        this.setColumnData(option.children, index + 1);
-                    }
-                    if (success) {
-                        success();
-                    }
-                },
-                () => {
-                    option.loading = this.isLoading = false;
-                    option.isLeaf = true;
-                    if (failure) {
-                        failure();
-                    }
-                }
-            );
-        } else {
-            this.setColumnData(option.children || [], index + 1);
-        }
-    }
-
-    private setColumnData(options: ThyCascaderOption[], index: number): void {
-        if (!arrayEquals(this.columns[index], options)) {
-            this.columns[index] = options;
-            if (index < this.columns.length - 1) {
-                this.columns = this.columns.slice(0, index + 1);
-            }
-        }
-    }
-
-    private getSubmitValue(originOptions: ThyCascaderOption[]): any[] {
-        const values: any[] = [];
-        (originOptions || []).forEach(option => {
-            values.push(this.getOptionValue(option));
-        });
-        return values;
     }
 
     constructor(
@@ -1172,7 +732,8 @@ export class ThyCascaderComponent
         private viewPortRuler: ViewportRuler,
         public elementRef: ElementRef,
         private thyClickDispatcher: ThyClickDispatcher,
-        private ngZone: NgZone
+        private ngZone: NgZone,
+        public thyCascaderService: ThyCascaderService
     ) {
         super();
     }
@@ -1205,63 +766,13 @@ export class ThyCascaderComponent
             });
     }
 
-    private forEachColumns(
-        currentLabel?: string[],
-        currentValue: Id[] = [],
-        currentRowValue: ThyCascaderOption[] = [],
-        list = this.columns[0]
-    ) {
-        list.forEach(item => {
-            const curOptionLabel = this.getOptionLabel(item);
-            const curOptionValue = this.getOptionValue(item);
-            const label: string[] = currentLabel ? [...currentLabel, curOptionLabel] : [curOptionLabel];
-            const valueList: Id[] = [...currentValue, curOptionValue];
-            const rowValueList: ThyCascaderOption[] = [...currentRowValue, item];
-            const isSelected = this.isSelectedOption(item, valueList.length - 1);
-
-            this.flattenOptions.push({
-                labelList: label,
-                valueList,
-                selected: isSelected,
-                thyRowValue: rowValueList,
-                isLeaf: item.isLeaf,
-                disabled: item.disabled
-            });
-            if (item.children && item.children.length) {
-                this.forEachColumns(label, valueList, rowValueList, item.children);
-            } else {
-                this.leafNodes.push({
-                    labelList: label,
-                    valueList,
-                    selected: isSelected,
-                    thyRowValue: rowValueList,
-                    isLeaf: item.isLeaf,
-                    disabled: item.disabled
-                });
-            }
-        });
-    }
-
-    private setSearchResultList(listOfOption: ThyCascaderSearchOption[], searchText: string) {
-        this.searchResultList = [];
-        listOfOption.forEach(item => {
-            if (!item.disabled && item.isLeaf && item.labelList.join().toLowerCase().indexOf(searchText.toLowerCase()) !== -1) {
-                this.searchResultList.push(item);
-            }
-        });
-    }
-
     private searchInLocal(searchText: string): void {
-        this.forEachColumns();
-
-        this.setSearchResultList(this.thyIsOnlySelectLeaf ? this.leafNodes : this.flattenOptions, searchText);
+        this.thyCascaderService.searchInLocal(searchText);
     }
 
     private resetSearch() {
         this.isShowSearchPanel = false;
-        this.searchResultList = [];
-        this.leafNodes = [];
-        this.flattenOptions = [];
+        this.thyCascaderService.resetSearch();
         this.scrollActiveElementIntoView();
     }
 
@@ -1273,24 +784,20 @@ export class ThyCascaderComponent
             }
             return;
         }
+        selectedOptions.forEach((item: ThyCascaderOption, index: number) => {
+            this.setActiveOption(item, index, index === selectedOptions.length - 1);
+        });
         if (this.isMultiple) {
             this.isSelectingSearchState = true;
             selectOptionData.selected = true;
-            selectedOptions.forEach((item: ThyCascaderOption, index: number) => {
-                this.setActiveOption(item, index, index === selectedOptions.length - 1);
-            });
             const originSearchResultList = this.searchResultList;
             // 保持搜索选项
             setTimeout(() => {
                 this.isShowSearchPanel = true;
-                this.searchResultList = originSearchResultList;
+                this.thyCascaderService.searchResultList = originSearchResultList;
                 this.isSelectingSearchState = false;
             });
         } else {
-            selectedOptions.forEach((item: ThyCascaderOption, index: number) => {
-                this.setActiveOption(item, index, index === selectedOptions.length - 1);
-            });
-
             this.resetSearch();
         }
     }

@@ -271,6 +271,7 @@ const loadDataOption: { [key: string]: { children?: any[]; [key: string]: any }[
             [thyDisabled]="disabled"
             [thyIsOnlySelectLeaf]="isOnlySelectLeaf"
             [thyEmptyStateText]="emptyStateText"
+            [thyMultiple]="isMultiple"
             (thyExpandStatusChange)="thyExpandStatusChange($event)"
             [thyAutoExpand]="thyAutoExpand">
         </thy-cascader>
@@ -292,6 +293,7 @@ class CascaderBasicComponent {
     public emptyStateText = '无选项';
     public disabled = false;
     public isOnlySelectLeaf = true;
+    public isMultiple = false;
     public thyAutoExpand = true;
     @ViewChild('cascader', { static: true }) cascaderRef: ThyCascaderComponent;
 
@@ -630,6 +632,22 @@ describe('thy-cascader', () => {
             const activatedOptionsText: string[] = [];
             activatedOptions.forEach(item => activatedOptionsText.push(item.innerText.trim()));
             expect(activatedOptionsText).toEqual(fixture.componentInstance.curVal);
+        }));
+
+        it('should active selectedOptions when isMultiple is true and isOnlySelectLeaf is false', fakeAsync(() => {
+            component.isMultiple = true;
+            component.isOnlySelectLeaf = false;
+            fixture.componentInstance.curVal = [['zhejiang', 'hangzhou']] as SafeAny;
+            fixture.detectChanges();
+            const trigger = fixture.debugElement.query(By.css('input')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            tick(1000);
+            const activatedOptions: NodeListOf<HTMLElement> = overlayContainerElement.querySelectorAll('.thy-cascader-menu-item-active');
+            const activatedOptionsText: string[] = [];
+            activatedOptions.forEach(item => activatedOptionsText.push(item.innerText.trim()));
+
+            expect(activatedOptionsText).toEqual(fixture.componentInstance.curVal[0]);
         }));
 
         it('should scroll to active item when menu open', fakeAsync(() => {
@@ -995,6 +1013,8 @@ describe('thy-cascader', () => {
 
         it('should display multi', done => {
             component.curVal = ['zhejiang', 'hangzhou', 'xihu'];
+            fixture.detectChanges();
+
             component.isDisplayName$
                 .pipe(take(1))
                 .toPromise()
