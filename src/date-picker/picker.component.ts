@@ -10,7 +10,9 @@ import {
     ElementRef,
     EventEmitter,
     Input,
+    OnChanges,
     Output,
+    SimpleChanges,
     ViewChild
 } from '@angular/core';
 
@@ -22,6 +24,7 @@ import { CompatibleValue, RangePartType } from './inner-types';
 import { getFlexibleAdvancedReadableValue } from './picker.util';
 import { ThyDateGranularity } from './standard-types';
 import { ThyEnterDirective } from 'ngx-tethys/shared';
+import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
 
 /**
  * @private
@@ -42,9 +45,10 @@ import { ThyEnterDirective } from 'ngx-tethys/shared';
         ThyIconComponent,
         NgClass,
         CdkConnectedOverlay
-    ]
+    ],
+    animations: [scaleXMotion, scaleYMotion, scaleMotion]
 })
-export class ThyPickerComponent implements AfterViewInit {
+export class ThyPickerComponent implements OnChanges, AfterViewInit {
     @Input() isRange = false;
     @Input() open: boolean | undefined = undefined;
     @Input() disabled: boolean;
@@ -109,7 +113,7 @@ export class ThyPickerComponent implements AfterViewInit {
 
     prefixCls = 'thy-calendar';
 
-    animationOpenState = false;
+    isShowDatePopup = false;
 
     overlayOpen = false; // Available when "open"=undefined
 
@@ -125,6 +129,17 @@ export class ThyPickerComponent implements AfterViewInit {
     }
 
     constructor(private changeDetector: ChangeDetectorRef, private dateHelper: DateHelperService) {}
+
+    ngOnChanges(changes: SimpleChanges): void {
+        // open by user
+        if (changes.open && changes.open.currentValue !== undefined) {
+            if (changes.open.currentValue) {
+                this.showDatePopup();
+            } else {
+                this.closeDatePopup();
+            }
+        }
+    }
 
     ngAfterViewInit(): void {
         this.overlayPositions = getFlexiblePositions(this.placement, 4);
@@ -162,9 +177,8 @@ export class ThyPickerComponent implements AfterViewInit {
     showOverlay(): void {
         if (!this.realOpenState) {
             this.overlayOpen = true;
-            if (this.realOpenState) {
-                this.animationOpenState = true;
-            }
+            this.showDatePopup();
+
             this.openChange.emit(this.overlayOpen);
             setTimeout(() => {
                 if (this.cdkConnectedOverlay && this.cdkConnectedOverlay.overlayRef) {
@@ -177,12 +191,24 @@ export class ThyPickerComponent implements AfterViewInit {
     hideOverlay(): void {
         if (this.realOpenState) {
             this.overlayOpen = false;
-            if (!this.realOpenState) {
-                this.animationOpenState = false;
-            }
+            this.closeDatePopup();
+
             this.openChange.emit(this.overlayOpen);
             this.focus();
         }
+    }
+
+    showDatePopup() {
+        this.isShowDatePopup = true;
+        this.changeDetector.markForCheck();
+    }
+
+    closeDatePopup() {
+        // Delay 200ms before destroying the date-popup, otherwise you will not see the closing animation.
+        setTimeout(() => {
+            this.isShowDatePopup = false;
+            this.changeDetector.markForCheck();
+        }, 200);
     }
 
     onClickInputBox(): void {

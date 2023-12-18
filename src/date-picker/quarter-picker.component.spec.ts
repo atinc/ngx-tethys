@@ -7,6 +7,7 @@ import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyDatePickerModule } from './date-picker.module';
 import { TinyDate } from '../util';
 import { ThyQuarterPickerComponent } from './quarter-picker.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ThyQuarterPickerComponent', () => {
     let fixture: ComponentFixture<TestQuarterPickerComponent>;
@@ -17,7 +18,7 @@ describe('ThyQuarterPickerComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyDatePickerModule, FormsModule],
+            imports: [ThyDatePickerModule, FormsModule, NoopAnimationsModule],
             providers: [],
             declarations: [TestQuarterPickerComponent]
         });
