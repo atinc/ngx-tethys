@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [16.2.0-next.5](https://github.com/atinc/ngx-tethys/compare/16.2.0-next.4...16.2.0-next.5) (2023-12-18)
+
+
+### Bug Fixes
+
+* **cascader:** fix style for long text ([#2939](https://github.com/atinc/ngx-tethys/issues/2939)) ([89653e1](https://github.com/atinc/ngx-tethys/commit/89653e18b571187e8e987451ef807d04930bf7cf))
+* **select:** markForCheck when open ([#2971](https://github.com/atinc/ngx-tethys/issues/2971)) ([#2973](https://github.com/atinc/ngx-tethys/issues/2973)) ([03e10d4](https://github.com/atinc/ngx-tethys/commit/03e10d47f4717503037511b5eb3ee1d29dd70681))
+* **select:** remove focus() when close panel #INFR-10914 ([#2968](https://github.com/atinc/ngx-tethys/issues/2968)) ([94463cf](https://github.com/atinc/ngx-tethys/commit/94463cf920a4caee71568593add2eecbcc23f1e2)), closes [#INFR-10914](https://github.com/atinc/ngx-tethys/issues/INFR-10914)
+* **tree-select:** fix tree select overlay style and position #INFR-10880 ([e07df4b](https://github.com/atinc/ngx-tethys/commit/e07df4b0bf630ec5af50ff1156effdf9d6f6af2e)), closes [#INFR-10880](https://github.com/atinc/ngx-tethys/issues/INFR-10880)
+
+
+### Features
+
+* **cascader:** add service for cascader #INFR-10254 ([#2894](https://github.com/atinc/ngx-tethys/issues/2894)) ([f516632](https://github.com/atinc/ngx-tethys/commit/f516632e23856c0a48e3248aa99420476bf256c4)), closes [#INFR-10254](https://github.com/atinc/ngx-tethys/issues/INFR-10254)
+* **cascader:** add thyAutoExpand #INFR-10701 ([#2930](https://github.com/atinc/ngx-tethys/issues/2930)) ([1cc1f73](https://github.com/atinc/ngx-tethys/commit/1cc1f73a43ed9adfff8d3be9d18f319c128e9205)), closes [#INFR-10701](https://github.com/atinc/ngx-tethys/issues/INFR-10701)
+* **datePicker:** date-picker support quarter(#INFR-10719) ([#2967](https://github.com/atinc/ngx-tethys/issues/2967)) ([1666961](https://github.com/atinc/ngx-tethys/commit/1666961535eea5c648b8b6f8921e256d2512107f)), closes [#INFR-10719](https://github.com/atinc/ngx-tethys/issues/INFR-10719) [#INFR-10719](https://github.com/atinc/ngx-tethys/issues/INFR-10719)
+* **property:** property-item add thyEditingChange #INFR-10910 ([#2969](https://github.com/atinc/ngx-tethys/issues/2969)) ([573d315](https://github.com/atinc/ngx-tethys/commit/573d315508111768cc65d311b9411612814e0c82)), closes [#INFR-10910](https://github.com/atinc/ngx-tethys/issues/INFR-10910)
+* support animations for cascader, tree-select, time-picker INFR-7856 ([#2950](https://github.com/atinc/ngx-tethys/issues/2950)) ([e41fa5a](https://github.com/atinc/ngx-tethys/commit/e41fa5a1c23e81306b10ef73dc1fcac0ddcbafe1))
+* **table:** optimize header fixed th border style #INFR-10891 ([#2965](https://github.com/atinc/ngx-tethys/issues/2965)) ([b9c2a92](https://github.com/atinc/ngx-tethys/commit/b9c2a92a4c94e98288f507232f121674c4f5ca19)), closes [#INFR-10891](https://github.com/atinc/ngx-tethys/issues/INFR-10891)
+
+
+
 # [16.2.0-next.4](https://github.com/atinc/ngx-tethys/compare/16.2.0-next.3...16.2.0-next.4) (2023-12-07)
 
 
