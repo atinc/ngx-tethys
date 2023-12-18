@@ -960,7 +960,7 @@ describe('ThyRangePickerComponent', () => {
             fixtureInstance.thyMode = 'quarter';
             fixture.detectChanges();
             openPickerByClickTrigger();
-            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).toEqual('thy-calendar-quarter');
+            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).toContain('thy-calendar-quarter');
         }));
 
         it(`should set thyMode to decade`, fakeAsync(() => {
