@@ -2,8 +2,7 @@
   cdkOverlayOrigin
   #origin="cdkOverlayOrigin"
   class="{{ prefixCls }}-picker {{ size ? prefixCls + '-picker-' + size : '' }} {{ className }}"
-  (click)="onClickInputBox()"
->
+  (click)="onClickInputBox()">
   <ng-container>
     <input
       #pickerInput
@@ -19,8 +18,7 @@
       (input)="onInput($event)"
       placeholder="{{ getPlaceholder() }}"
       thyEnter
-      (thyEnter)="onEnter()"
-    />
+      (thyEnter)="onEnter()" />
     <ng-container *ngTemplateOutlet="tplRightRest"></ng-container>
   </ng-container>
 </span>
@@ -32,8 +30,7 @@
       thyIconName="close-circle-bold-fill"
       *ngIf="!disabled && !isEmptyValue(value) && allowClear && !readonly"
       (click)="onClickClear($event)"
-      ngClass="remove-link remove-link-{{ size }}"
-    ></thy-icon>
+      ngClass="remove-link remove-link-{{ size }}"></thy-icon>
   </span>
   <span class="{{ prefixCls }}-picker-icon">
     <thy-icon [thyIconName]="suffixIcon" ngClass="remove-link-{{ size ? size : 'default' }}"></thy-icon>
@@ -48,11 +45,16 @@
   [cdkConnectedOverlayHasBackdrop]="!isOpenHandledByUser()"
   [cdkConnectedOverlayPositions]="overlayPositions"
   cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+  cdkConnectedOverlayTransformOriginOn=".thy-picker-container"
   (positionChange)="onPositionChange($event)"
   (backdropClick)="onClickBackdrop()"
-  (detach)="onOverlayDetach()"
->
-  <div style="position: relative;">
+  (detach)="onOverlayDetach()">
+  <div
+    style="position: relative"
+    class="thy-picker-container"
+    [@scaleXMotion]="placement === 'left' || placement === 'right' ? 'enter' : 'void'"
+    [@scaleYMotion]="placement === 'top' || placement === 'bottom' ? 'enter' : 'void'"
+    [@scaleMotion]="placement !== 'left' && placement !== 'right' && placement !== 'top' && placement !== 'bottom' ? 'enter' : 'void'">
     <!-- Compatible for overlay that not support offset dynamically and immediately -->
     <ng-content></ng-content>
   </div>
