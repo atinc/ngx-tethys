@@ -17,9 +17,9 @@ import {
     ViewChild
 } from '@angular/core';
 
-import { thyPopoverAnimations } from './popover-animations';
 import { ThyPopoverConfig } from './popover.config';
 import { popoverAbstractOverlayOptions } from './popover.options';
+import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
 
 /**
  * @internal
@@ -27,15 +27,27 @@ import { popoverAbstractOverlayOptions } from './popover.options';
 @Component({
     selector: 'thy-popover-container',
     templateUrl: './popover-container.component.html',
-    animations: [thyPopoverAnimations.popoverContainer],
+    animations: [scaleXMotion, scaleYMotion, scaleMotion],
     host: {
         class: 'thy-popover-container',
         tabindex: '-1',
         '[attr.role]': `'popover'`,
         '[attr.id]': 'id',
-        '[@popoverContainer]': 'animationState',
-        '(@popoverContainer.start)': 'onAnimationStart($event)',
-        '(@popoverContainer.done)': 'onAnimationDone($event)'
+
+        '[@.disabled]': '!!config.animationDisabled',
+
+        '[@scaleXMotion]': '(config.placement === "left" || config.placement === "right") ? animationState : "void"',
+        '(@scaleXMotion.start)': 'onAnimationStart($event)',
+        '(@scaleXMotion.done)': 'onAnimationDone($event)',
+
+        '[@scaleYMotion]': '(config.placement === "top" || config.placement === "bottom") ? animationState : "void"',
+        '(@scaleYMotion.start)': 'onAnimationStart($event)',
+        '(@scaleYMotion.done)': 'onAnimationDone($event)',
+
+        '[@scaleMotion]':
+            '(config.placement !== "left" && config.placement !== "right" && config.placement !== "top" && config.placement !== "bottom") ? animationState : "void"',
+        '(@scaleMotion.start)': 'onAnimationStart($event)',
+        '(@scaleMotion.done)': 'onAnimationDone($event)'
     },
     standalone: true,
     imports: [PortalModule, ThyPortalOutlet]

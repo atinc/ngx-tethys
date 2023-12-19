@@ -1,10 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { DateHelperService } from './date-helper.service';
-import { CompatibleDate, DateEntry, ThyDateRangeEntry, ThyDateGranularity } from './standard-types';
-import { getFlexibleAdvancedReadableValue, transformDateValue } from './picker.util';
 import { TinyDate } from 'ngx-tethys/util';
+import { DateHelperService } from './date-helper.service';
 import { AdvancedSelectableCell } from './inner-types';
+import { getFlexibleAdvancedReadableValue, transformDateValue } from './picker.util';
+import { CompatibleDate, DateEntry, ThyDateGranularity, ThyDateRangeEntry } from './standard-types';
 
+/**
+ * @private
+ */
 @Pipe({
     name: 'thyDatePickerFormat',
     standalone: true
@@ -33,6 +36,39 @@ export class ThyDatePickerFormatPipe implements PipeTransform {
 }
 
 @Pipe({
+    name: 'thyQuarterPickerFormat',
+    standalone: true
+})
+export class ThyQuarterPickerFormatPipe implements PipeTransform {
+    transform(originalValue: CompatibleDate | DateEntry | ThyDateRangeEntry, formatStr?: string): string {
+        const { value, withTime } = transformDateValue(originalValue);
+
+        if (!formatStr) {
+            formatStr = 'yyyy-qqq';
+        }
+
+        if (!value) {
+            return;
+        }
+
+        if (!Array.isArray(value)) {
+            const _value = new TinyDate(value);
+            return _value.format(formatStr);
+        } else {
+            return value
+                .map(date => {
+                    const _date = new TinyDate(date);
+                    return _date.format(formatStr);
+                })
+                .join(' ~ ');
+        }
+    }
+}
+
+/**
+ * @private
+ */
+@Pipe({
     name: 'thyDatePickerFormatString',
     standalone: true
 })
@@ -45,6 +81,10 @@ export class ThyDatePickerFormatStringPipe implements PipeTransform {
         return withTime ? 'yyyy-MM-dd HH:mm' : 'yyyy-MM-dd';
     }
 }
+
+/**
+ * @private
+ */
 @Pipe({
     name: 'showYearTip',
     standalone: true

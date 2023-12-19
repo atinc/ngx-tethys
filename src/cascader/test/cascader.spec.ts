@@ -17,6 +17,7 @@ import { By } from '@angular/platform-browser';
 import { clone } from '../examples/cascader-address-options';
 import { ThyCascaderModule } from '../module';
 import { ThyCascaderExpandTrigger, ThyCascaderTriggerType } from '../types';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 registerLocaleData(zh);
 
@@ -270,7 +271,9 @@ const loadDataOption: { [key: string]: { children?: any[]; [key: string]: any }[
             [thyDisabled]="disabled"
             [thyIsOnlySelectLeaf]="isOnlySelectLeaf"
             [thyEmptyStateText]="emptyStateText"
-            (thyExpandStatusChange)="thyExpandStatusChange($event)">
+            [thyMultiple]="isMultiple"
+            (thyExpandStatusChange)="thyExpandStatusChange($event)"
+            [thyAutoExpand]="thyAutoExpand">
         </thy-cascader>
     `
 })
@@ -290,6 +293,8 @@ class CascaderBasicComponent {
     public emptyStateText = '无选项';
     public disabled = false;
     public isOnlySelectLeaf = true;
+    public isMultiple = false;
+    public thyAutoExpand = true;
     @ViewChild('cascader', { static: true }) cascaderRef: ThyCascaderComponent;
 
     thyExpandStatusChange = jasmine.createSpy('thyExpandStatusChange callback');
@@ -404,7 +409,7 @@ class CascaderMultipleComponent {
 describe('thy-cascader', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            imports: [FormsModule, CommonModule, OverlayModule, ThyCascaderModule],
+            imports: [FormsModule, CommonModule, OverlayModule, ThyCascaderModule, NoopAnimationsModule],
             declarations: [CascaderTemplateComponent, CascaderBasicComponent, CascaderLoadComponent, CascaderMultipleComponent],
             providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }]
         });
@@ -540,8 +545,6 @@ describe('thy-cascader', () => {
             dispatchFakeEvent(debugElement.queryAll(By.css(`ul li`))[1].nativeElement, 'mouseover', true);
             dispatchFakeEvent(debugElement.queryAll(By.css(`ul li`))[1].nativeElement, 'click', true);
             fixture.detectChanges();
-            dispatchFakeEvent(document.querySelector('.cdk-overlay-backdrop'), 'click', true);
-            fixture.detectChanges();
         });
 
         it('should select one when click radio and isOnlySelectLeaf is false', done => {
@@ -558,10 +561,6 @@ describe('thy-cascader', () => {
             });
             console.log(debugElement.query(By.css('.form-check-input')).nativeElement);
             debugElement.query(By.css('label')).nativeElement.click();
-
-            fixture.detectChanges();
-            dispatchFakeEvent(document.querySelector('.cdk-overlay-backdrop'), 'click', true);
-            fixture.detectChanges();
         });
 
         it('should menu mouse leave(hover)', () => {
@@ -633,6 +632,22 @@ describe('thy-cascader', () => {
             const activatedOptionsText: string[] = [];
             activatedOptions.forEach(item => activatedOptionsText.push(item.innerText.trim()));
             expect(activatedOptionsText).toEqual(fixture.componentInstance.curVal);
+        }));
+
+        it('should active selectedOptions when isMultiple is true and isOnlySelectLeaf is false', fakeAsync(() => {
+            component.isMultiple = true;
+            component.isOnlySelectLeaf = false;
+            fixture.componentInstance.curVal = [['zhejiang', 'hangzhou']] as SafeAny;
+            fixture.detectChanges();
+            const trigger = fixture.debugElement.query(By.css('input')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            tick(1000);
+            const activatedOptions: NodeListOf<HTMLElement> = overlayContainerElement.querySelectorAll('.thy-cascader-menu-item-active');
+            const activatedOptionsText: string[] = [];
+            activatedOptions.forEach(item => activatedOptionsText.push(item.innerText.trim()));
+
+            expect(activatedOptionsText).toEqual(fixture.componentInstance.curVal[0]);
         }));
 
         it('should scroll to active item when menu open', fakeAsync(() => {
@@ -998,6 +1013,8 @@ describe('thy-cascader', () => {
 
         it('should display multi', done => {
             component.curVal = ['zhejiang', 'hangzhou', 'xihu'];
+            fixture.detectChanges();
+
             component.isDisplayName$
                 .pipe(take(1))
                 .toPromise()
@@ -1110,6 +1127,9 @@ describe('thy-cascader', () => {
         it('should remove item when click x', async () => {
             await fixture.whenStable();
             const originSelectedCount = component.multipleVal?.length;
+            dispatchFakeEvent(debugElement.query(By.css('.form-control')).nativeElement, 'click', true);
+            fixture.detectChanges();
+
             dispatchFakeEvent(debugElement.query(By.css('.thy-icon-close')).nativeElement, 'click', true);
             fixture.detectChanges();
             await fixture.whenStable();
@@ -1117,6 +1137,16 @@ describe('thy-cascader', () => {
             const labels = debugElement.queryAll(By.css('.choice-item'));
             expect(labels.length).toBe(component.multipleVal.length);
         });
+
+        it('should close menu when click document', fakeAsync(() => {
+            dispatchFakeEvent(debugElement.query(By.css('.form-control')).nativeElement, 'click', true);
+            fixture.detectChanges();
+            document.body.click();
+            fixture.detectChanges();
+
+            const el = debugElement.query(By.css(`.thy-cascader-picker-open`));
+            expect(el).toBeFalsy();
+        }));
 
         it('should clear item when click clear btn', async () => {
             await fixture.whenStable();

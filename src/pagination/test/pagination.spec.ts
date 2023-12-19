@@ -1,10 +1,12 @@
-import { TestBed, ComponentFixture, tick, fakeAsync, flush } from '@angular/core/testing';
+import { TestBed, ComponentFixture, tick, fakeAsync } from '@angular/core/testing';
 import { Component, ViewChild, TemplateRef, DebugElement } from '@angular/core';
 import { ThyPaginationModule } from '../pagination.module';
 import { ThyPaginationComponent } from '../pagination.component';
 import { By } from '@angular/platform-browser';
 import { ENTER } from 'ngx-tethys/util';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ThySelectCustomComponent } from 'ngx-tethys/select';
 
 @Component({
     selector: 'thy-test-pagination-basic',
@@ -92,7 +94,7 @@ describe('ThyPagination', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyPaginationModule],
+            imports: [ThyPaginationModule, NoopAnimationsModule],
             declarations: [PaginationTestComponent, PaginationBasicComponent, PaginationCustomPagesComponent],
             providers: []
         });
@@ -438,7 +440,9 @@ describe('ThyPagination', () => {
             componentInstance.pagination.pageSize = 50;
             fixture.detectChanges();
             tick(100);
-            expect(paginationElement.querySelectorAll('.thy-pagination-size')[0].children[0].attributes[0].value).toEqual('50');
+            expect(
+                paginationElement.querySelectorAll('.thy-pagination-size')[0].children[0].attributes['ng-reflect-model'].nodeValue
+            ).toEqual('50');
         }));
 
         it('should set size when thySize changed', fakeAsync(() => {

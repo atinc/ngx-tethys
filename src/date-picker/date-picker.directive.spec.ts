@@ -64,6 +64,7 @@ describe('ThyPickerDirective', () => {
                 expect(queryFromOverlay('.thy-calendar-year-btn').textContent.includes('2021')).toBeTruthy();
                 expect(queryFromOverlay('.thy-calendar-month-btn').textContent.includes('10')).toBeTruthy();
             }));
+
             it('should support thyMaxDate', fakeAsync(() => {
                 fixtureInstance.thyValue = new Date('2021-10-10 10:00');
                 fixtureInstance.thyMaxDate = new Date('2021-10-10');
@@ -74,6 +75,7 @@ describe('ThyPickerDirective', () => {
                 const disabledCell = queryFromOverlay('tbody.thy-calendar-tbody td.thy-calendar-disabled-cell');
                 expect(disabledCell.textContent.trim()).toBe('11');
             }));
+
             it('should support thyMinDate', fakeAsync(() => {
                 fixtureInstance.thyValue = new Date('2021-10-11 11:00');
                 fixtureInstance.thyMinDate = new Date('2021-10-11');
@@ -103,6 +105,7 @@ describe('ThyPickerDirective', () => {
                 expect(debugElement.query(By.css('thy-picker .thy-input-disabled'))).toBeNull();
                 expect(debugElement.query(By.css('thy-picker thy-icon.thy-calendar-picker-clear'))).toBeDefined();
             }));
+
             it('should support thyShowTime', fakeAsync(() => {
                 // fixtureInstance.thyAllowClear = true;
                 fixtureInstance.thyValue = new Date();

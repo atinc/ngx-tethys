@@ -2,6 +2,9 @@ import { SafeAny } from 'ngx-tethys/types';
 
 import { Pipe, PipeTransform } from '@angular/core';
 
+/**
+ * @private
+ */
 @Pipe({
     name: 'tableRowDragDisabled',
     standalone: true

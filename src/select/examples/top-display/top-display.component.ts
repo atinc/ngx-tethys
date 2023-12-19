@@ -10,7 +10,11 @@ export class ThySelectTopDisplayExampleComponent implements OnInit {
 
     selectedTaskType: string;
 
+    selectedTaskTypes: string[];
+
     ngOnInit() {
         this.selectedTaskType = this.optionData[0].name;
+
+        this.selectedTaskTypes = [this.optionData[0].name, this.optionData[2].name];
     }
 }

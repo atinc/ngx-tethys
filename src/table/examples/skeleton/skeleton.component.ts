@@ -40,6 +40,7 @@ export class ThyTableSkeletonExampleComponent {
     size: ThyTableSize = 'md';
 
     columns: ThyTableSkeletonColumn[] = [
+        { width: '52px', type: ThyTableColumnSkeletonType.checkbox },
         { width: '40%', type: ThyTableColumnSkeletonType.title },
         { width: 'auto', type: ThyTableColumnSkeletonType.default },
         { width: 'auto', type: ThyTableColumnSkeletonType.default },

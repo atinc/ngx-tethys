@@ -126,6 +126,12 @@ export class ThyInputNumberComponent
     @Input() @InputNumber() thyStep = 1;
 
     /**
+     * 改变步数时的延迟毫秒数，值越小变化的速度越快
+     * @default 300
+     */
+    @Input() @InputNumber() thyStepDelay = 300;
+
+    /**
      * 输入框大小
      * @type xs | sm | md | lg
      */
@@ -284,7 +290,7 @@ export class ThyInputNumberComponent
         }
         this.autoStepTimer = setTimeout(() => {
             (this[Type[type]] as (e: MouseEvent | KeyboardEvent) => void)(e);
-        }, 300);
+        }, this.thyStepDelay);
     }
 
     upStep(value: number): number {

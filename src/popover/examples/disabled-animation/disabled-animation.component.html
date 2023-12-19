@@ -1,0 +1,16 @@
+<button
+  class="mr-3"
+  thyButton="primary"
+  [thyPopover]="template"
+  [thyConfig]="{
+    animationDisabled: true
+  }">
+  Open By Directive
+</button>
+
+<button thyButton="primary" (click)="openTemplate($event, template)">Open By Service</button>
+
+<ng-template #template>
+  <thy-popover-header thyTitle="Title"></thy-popover-header>
+  <thy-popover-body> Hi, I'm a template popover! </thy-popover-body>
+</ng-template>

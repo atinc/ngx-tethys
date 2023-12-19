@@ -13,6 +13,7 @@ import { ThyDatePickerModule } from './date-picker.module';
 import { CompatiblePresets, ThyDateRangeEntry, ThyPanelMode, ThyShortcutPosition, ThyShortcutRange } from './standard-types';
 import { TinyDate } from 'ngx-tethys/util';
 import { THY_DATE_PICKER_CONFIG } from './date-picker.config';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 registerLocaleData(zh);
 
@@ -46,7 +47,7 @@ describe('ThyRangePickerComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [FormsModule, ThyDatePickerModule],
+            imports: [FormsModule, ThyDatePickerModule, NoopAnimationsModule],
             declarations: [ThyTestRangePickerComponent],
             providers: [
                 {
@@ -669,7 +670,7 @@ describe('ThyRangePickerComponent', () => {
         it('should specified date provide by "modelValue" be choose', fakeAsync(() => {
             fixtureInstance.modelValue = { begin: new Date('2018-11-11'), end: new Date('2018-12-12') };
             fixture.detectChanges();
-            tick(); // Wait writeValue() tobe done
+            tick(500); // Wait writeValue() tobe done
             fixture.detectChanges();
             expect(getFirstSelectedDayCell().textContent.trim()).toBe('11');
 
@@ -682,8 +683,26 @@ describe('ThyRangePickerComponent', () => {
             const rightText = right.textContent.trim();
             dispatchMouseEvent(right, 'click');
             fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
             expect(fromUnixTime(fixtureInstance.modelValue.begin as number).getDate()).toBe(+leftText);
             expect(fromUnixTime(fixtureInstance.modelValue.end as number).getDate()).toBe(+rightText);
+        }));
+    });
+
+    describe('quarter mode', () => {
+        beforeEach(() => {
+            fixtureInstance.useSuite = 1;
+            fixtureInstance.thyMode = 'quarter';
+        });
+
+        it('should range date provide by "modelValue" be choose', fakeAsync(() => {
+            fixtureInstance.modelValue = { begin: new Date('2022-08'), end: new Date('2023-12') };
+            fixture.detectChanges();
+            tick();
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            expect(getFirstSelectedQuarterCell().textContent.trim()).toBe('Q3');
         }));
     });
 
@@ -908,7 +927,7 @@ describe('ThyRangePickerComponent', () => {
         it('should get correct default thyMode', fakeAsync(() => {
             fixture.detectChanges();
             openPickerByClickTrigger();
-            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).toBeFalsy();
+            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).not.toContain('thy-calendar-');
         }));
 
         it(`should set thyMode to week`, fakeAsync(() => {
@@ -916,7 +935,7 @@ describe('ThyRangePickerComponent', () => {
             fixtureInstance.thyMode = 'week';
             fixture.detectChanges();
             openPickerByClickTrigger();
-            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).toBeFalsy();
+            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).not.toContain('thy-calendar-');
             expect(queryFromOverlay('.thy-calendar-week-number-header')).toBeTruthy();
         }));
 
@@ -925,7 +944,7 @@ describe('ThyRangePickerComponent', () => {
             fixtureInstance.thyMode = 'month';
             fixture.detectChanges();
             openPickerByClickTrigger();
-            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).toEqual('thy-calendar-month');
+            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).toContain('thy-calendar-month');
         }));
 
         it(`should set thyMode to year`, fakeAsync(() => {
@@ -933,7 +952,15 @@ describe('ThyRangePickerComponent', () => {
             fixtureInstance.thyMode = 'year';
             fixture.detectChanges();
             openPickerByClickTrigger();
-            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).toEqual('thy-calendar-year');
+            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).toContain('thy-calendar-year');
+        }));
+
+        it('should set thyMode to quarter', fakeAsync(() => {
+            fixture.detectChanges();
+            fixtureInstance.thyMode = 'quarter';
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).toContain('thy-calendar-quarter');
         }));
 
         it(`should set thyMode to decade`, fakeAsync(() => {
@@ -941,7 +968,7 @@ describe('ThyRangePickerComponent', () => {
             fixtureInstance.thyMode = 'decade';
             fixture.detectChanges();
             openPickerByClickTrigger();
-            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).toEqual('thy-calendar-decade');
+            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).toContain('thy-calendar-decade');
         }));
     });
 
@@ -967,6 +994,12 @@ describe('ThyRangePickerComponent', () => {
 
     function getFirstCell(partial: 'left' | 'right'): HTMLElement {
         return queryFromOverlay(`.thy-calendar-range-${partial} tbody.thy-calendar-tbody td.thy-calendar-cell`) as HTMLElement;
+    }
+
+    function getFirstSelectedQuarterCell(): HTMLElement {
+        return queryFromOverlay(
+            '.thy-calendar-range-left tbody.thy-calendar-quarter-panel-tbody td.thy-calendar-quarter-panel-selected-cell'
+        ) as HTMLElement;
     }
 
     function queryFromOverlay(selector: string): HTMLElement {
