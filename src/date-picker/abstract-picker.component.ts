@@ -56,21 +56,6 @@ export abstract class AbstractPickerComponent
         return this._panelMode;
     }
 
-    protected hasBackdrop = true;
-
-    /**
-     * 是否有幕布
-     * @default true
-     */
-    @Input()
-    @InputBoolean()
-    set thyHasBackdrop(value: boolean) {
-        if (typeof ngDevMode === 'undefined' || ngDevMode) {
-            warnDeprecation(`thyHasBackdrop parameter will be deprecated, please use thyPopoverOptions instead.`);
-        }
-        this.hasBackdrop = value;
-    }
-
     /**
      * 是否显示清除按钮
      */
