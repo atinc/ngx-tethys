@@ -8,6 +8,9 @@ import { Subject } from 'rxjs';
 import { debounceTime, finalize, map } from 'rxjs/operators';
 const defaultDisplayRender = (label: any) => label.join(' / ');
 
+/**
+ * @internal
+ */
 @Injectable()
 export class ThyCascaderService {
     public selectionModel: SelectionModel<SelectOptionBase>;
