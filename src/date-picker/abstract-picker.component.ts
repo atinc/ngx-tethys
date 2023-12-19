@@ -1,5 +1,5 @@
 import { InputBoolean, TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
-import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
+import { coerceBooleanProperty, TinyDate, warnDeprecation } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 
 import {
@@ -54,6 +54,21 @@ export abstract class AbstractPickerComponent
 
     get thyMode() {
         return this._panelMode;
+    }
+
+    protected hasBackdrop = true;
+
+    /**
+     * 是否有幕布
+     * @default false
+     */
+    @Input()
+    @InputBoolean()
+    set thyHasBackdrop(value: boolean) {
+        if (typeof ngDevMode === 'undefined' || ngDevMode) {
+            warnDeprecation(`thyHasBackdrop parameter will be deprecated, please use thyPopoverOptions instead.`);
+        }
+        this.hasBackdrop = value;
     }
 
     /**

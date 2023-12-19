@@ -82,21 +82,6 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
         this.offset = value;
     }
 
-    private hasBackdrop = true;
-
-    /**
-     * 是否有幕布
-     * @default false
-     */
-    @Input()
-    @InputBoolean()
-    set thyHasBackdrop(value: boolean) {
-        if (typeof ngDevMode === 'undefined' || ngDevMode) {
-            warnDeprecation(`thyHasBackdrop parameter will be deprecated, please use thyPopoverOptions instead.`);
-        }
-        this.hasBackdrop = value;
-    }
-
     /**
      * popover 的其他参数
      */
