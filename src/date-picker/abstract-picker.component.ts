@@ -1,5 +1,5 @@
 import { InputBoolean, TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
-import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
+import { coerceBooleanProperty, TinyDate, warnDeprecation } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 
 import {
