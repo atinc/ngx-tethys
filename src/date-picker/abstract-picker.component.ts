@@ -60,7 +60,7 @@ export abstract class AbstractPickerComponent
 
     /**
      * 是否有幕布
-     * @default false
+     * @default true
      */
     @Input()
     @InputBoolean()
