@@ -14,7 +14,7 @@ import { listOfOption } from '../mock-data';
     ]
 })
 export class ThySelectVerticalCenterExampleComponent implements OnInit {
-    listOfOption = listOfOption;
+    listOfOption: { value: string; text: string }[];
 
     listOfSelectedValue = ['option1', 'option2'];
 
@@ -41,5 +41,7 @@ export class ThySelectVerticalCenterExampleComponent implements OnInit {
 
     currentSize = this.selectSizes[2];
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.listOfOption = listOfOption;
+    }
 }
