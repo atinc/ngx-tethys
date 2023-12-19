@@ -24,9 +24,6 @@ export class ThyCascaderMultipleExampleComponent implements OnInit {
     }
 
     public selectChanges(values: any): void {
-        clearTimeout(this.timeout);
-        this.timeout = setTimeout(() => {
-            this.notifyService.info(`selected Value is ${values}`);
-        }, 200);
+        this.notifyService.info(`selected Value is ${values}`);
     }
 }

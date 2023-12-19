@@ -1,14 +1,16 @@
+import { ThySelectModule } from 'ngx-tethys/select';
+import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
+import { SafeAny } from 'ngx-tethys/types';
+
 import { Overlay, OverlayModule, OverlayOutsideClickDispatcher } from '@angular/cdk/overlay';
 import { DomPortal } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, NgModule, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, tick, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ThySelectModule } from 'ngx-tethys/select';
-import { dispatchMouseEvent } from 'ngx-tethys/testing';
-import { SafeAny } from 'ngx-tethys/types';
+
 import { ThyPropertyModule } from '../module';
 import { ThyPropertiesComponent, ThyPropertiesLayout } from '../properties.component';
 import { ThyPropertyItemComponent, ThyPropertyItemOperationTrigger } from '../property-item.component';
@@ -18,7 +20,7 @@ import { ThyPropertyItemComponent, ThyPropertyItemOperationTrigger } from '../pr
     template: `
         <thy-properties #properties [thyLayout]="layout" [thyEditTrigger]="editTrigger">
             <thy-property-item thyLabelText="姓名">{{ user.name }}</thy-property-item>
-            <thy-property-item #ageProperty thyLabelText="年龄" [thyEditable]="editable">
+            <thy-property-item #ageProperty thyLabelText="年龄" [thyEditable]="editable" (thyEditingChange)="editingChange($event)">
                 <span>{{ user.age }}</span>
                 <ng-template #editor>
                     <input class="age-input" />
@@ -58,11 +60,17 @@ class ThyPropertiesTestBasicComponent {
 
     showAddress = false;
 
+    editingChangeSpy = jasmine.createSpy('editing change');
+
     constructor(
         public elementRef: ElementRef,
         public overlay: Overlay,
         public overlayOutsideClickDispatcher: OverlayOutsideClickDispatcher
     ) {}
+
+    editingChange(event: boolean) {
+        this.editingChangeSpy(event);
+    }
 }
 
 @Component({
@@ -163,6 +171,22 @@ describe(`thy-properties`, () => {
             );
         });
 
+        it('should emit editingChange when age editing change', fakeAsync(() => {
+            basicComponent.editTrigger = 'click';
+            fixture.detectChanges();
+            const ageEditorElement = fixture.debugElement.query(By.css('.age-input')).parent;
+            dispatchMouseEvent(ageEditorElement.nativeElement, 'click');
+            fixture.detectChanges();
+            tick(50);
+            fixture.detectChanges();
+            expect(basicComponent.editingChangeSpy).toHaveBeenCalledTimes(1);
+            expect(basicComponent.editingChangeSpy).toHaveBeenCalledWith(true);
+
+            dispatchFakeEvent(document, 'click');
+            expect(basicComponent.editingChangeSpy).toHaveBeenCalledTimes(2);
+            expect(basicComponent.editingChangeSpy).toHaveBeenCalledWith(true);
+        }));
+
         it('should add hover trigger class when thyEditTrigger is hover', () => {
             basicComponent.editTrigger = 'hover';
             fixture.detectChanges();
@@ -188,12 +212,15 @@ describe(`thy-properties`, () => {
             const setEditingSpy = spyOn(basicComponent.agePropertyItemComponent, 'setEditing');
             itemContentElement.click();
             fixture.detectChanges();
+            tick(50);
+            fixture.detectChanges();
             expect(setEditingSpy).toHaveBeenCalledTimes(1);
         }));
 
         it('should destroy the subscription of click event when the value of thyEditable is changed from true to false', fakeAsync(() => {
             basicComponent.editable = true;
             fixture.detectChanges();
+            expect(!!(basicComponent.agePropertyItemComponent as SafeAny).clickEventSubscription).toBeTruthy();
 
             const itemContentElement = basicComponent.agePropertyItemComponent.itemContent.nativeElement;
             itemContentElement.click();
@@ -201,6 +228,8 @@ describe(`thy-properties`, () => {
 
             const unsubscribeSpy = spyOn((basicComponent.agePropertyItemComponent as SafeAny).clickEventSubscription, 'unsubscribe');
             basicComponent.editable = false;
+            fixture.detectChanges();
+            tick(60);
             fixture.detectChanges();
             expect(unsubscribeSpy).toHaveBeenCalled();
         }));
@@ -221,9 +250,12 @@ describe(`thy-properties`, () => {
             const overlayRef = basicComponent.overlay.create();
             overlayRef.attach(new DomPortal(basicComponent.elementRef.nativeElement));
             basicComponent.sexPropertyItemComponent.itemContent.nativeElement.click();
+            fixture.detectChanges();
             expect(basicComponent.sexPropertyItemComponent.editing).toBeTruthy();
+            tick(50);
+            fixture.detectChanges();
             overlayRef.detach();
-            tick(60);
+            tick(50);
             expect(basicComponent.sexPropertyItemComponent.editing).toBeFalsy();
         }));
 
@@ -231,8 +263,10 @@ describe(`thy-properties`, () => {
             basicComponent.agePropertyItemComponent.itemContent.nativeElement.click();
             fixture.detectChanges();
             expect(basicComponent.agePropertyItemComponent.editing).toBeTruthy();
-            tick(100);
+            tick(50);
+            fixture.detectChanges();
             dispatchMouseEvent(fixture.debugElement.query(By.css('.thy-property-item-label')).nativeElement, 'click');
+            fixture.detectChanges();
             expect(basicComponent.agePropertyItemComponent.editing).toBeFalsy();
         }));
     });

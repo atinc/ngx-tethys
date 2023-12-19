@@ -10,7 +10,9 @@ import {
     ElementRef,
     EventEmitter,
     Input,
+    OnChanges,
     Output,
+    SimpleChanges,
     ViewChild
 } from '@angular/core';
 
@@ -22,6 +24,7 @@ import { CompatibleValue, RangePartType } from './inner-types';
 import { getFlexibleAdvancedReadableValue } from './picker.util';
 import { ThyDateGranularity } from './standard-types';
 import { ThyEnterDirective } from 'ngx-tethys/shared';
+import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
 
 /**
  * @private
@@ -42,9 +45,10 @@ import { ThyEnterDirective } from 'ngx-tethys/shared';
         ThyIconComponent,
         NgClass,
         CdkConnectedOverlay
-    ]
+    ],
+    animations: [scaleXMotion, scaleYMotion, scaleMotion]
 })
-export class ThyPickerComponent implements AfterViewInit {
+export class ThyPickerComponent implements OnChanges, AfterViewInit {
     @Input() isRange = false;
     @Input() open: boolean | undefined = undefined;
     @Input() disabled: boolean;
@@ -109,7 +113,7 @@ export class ThyPickerComponent implements AfterViewInit {
 
     prefixCls = 'thy-calendar';
 
-    animationOpenState = false;
+    isShowDatePopup = false;
 
     overlayOpen = false; // Available when "open"=undefined
 
@@ -125,6 +129,17 @@ export class ThyPickerComponent implements AfterViewInit {
     }
 
     constructor(private changeDetector: ChangeDetectorRef, private dateHelper: DateHelperService) {}
+
+    ngOnChanges(changes: SimpleChanges): void {
+        // open by user
+        if (changes.open && changes.open.currentValue !== undefined) {
+            if (changes.open.currentValue) {
+                this.showDatePopup();
+            } else {
+                this.closeDatePopup();
+            }
+        }
+    }
 
     ngAfterViewInit(): void {
         this.overlayPositions = getFlexiblePositions(this.placement, 4);
@@ -162,9 +177,8 @@ export class ThyPickerComponent implements AfterViewInit {
     showOverlay(): void {
         if (!this.realOpenState) {
             this.overlayOpen = true;
-            if (this.realOpenState) {
-                this.animationOpenState = true;
-            }
+            this.showDatePopup();
+
             this.openChange.emit(this.overlayOpen);
             setTimeout(() => {
                 if (this.cdkConnectedOverlay && this.cdkConnectedOverlay.overlayRef) {
@@ -177,12 +191,24 @@ export class ThyPickerComponent implements AfterViewInit {
     hideOverlay(): void {
         if (this.realOpenState) {
             this.overlayOpen = false;
-            if (!this.realOpenState) {
-                this.animationOpenState = false;
-            }
+            this.closeDatePopup();
+
             this.openChange.emit(this.overlayOpen);
             this.focus();
         }
+    }
+
+    showDatePopup() {
+        this.isShowDatePopup = true;
+        this.changeDetector.markForCheck();
+    }
+
+    closeDatePopup() {
+        // Delay 200ms before destroying the date-popup, otherwise you will not see the closing animation.
+        setTimeout(() => {
+            this.isShowDatePopup = false;
+            this.changeDetector.markForCheck();
+        }, 200);
     }
 
     onClickInputBox(): void {
@@ -236,13 +262,23 @@ export class ThyPickerComponent implements AfterViewInit {
             if (this.flexible && this.innerflexibleDateGranularity !== 'day') {
                 return getFlexibleAdvancedReadableValue(tinyDate as TinyDate[], this.innerflexibleDateGranularity);
             } else {
-                const start = tinyDate[0] ? this.dateHelper.format(tinyDate[0].nativeDate, this.innerFormat) : '';
-                const end = tinyDate[1] ? this.dateHelper.format(tinyDate[1].nativeDate, this.innerFormat) : '';
+                const start = tinyDate[0] ? this.formatDate(tinyDate[0]) : '';
+                const end = tinyDate[1] ? this.formatDate(tinyDate[1]) : '';
                 return start && end ? `${start} ~ ${end}` : null;
             }
         } else {
             value = tinyDate as TinyDate;
-            return value ? this.dateHelper.format(value.nativeDate, this.innerFormat) : null;
+            return value ? this.formatDate(value) : null;
+        }
+    }
+
+    formatDate(value: TinyDate) {
+        // dateHelper.format() 使用的是 angular 的 format，不支持季度，修改的话，改动比较大。
+        // 此处通过对 innerFormat 做下判断，如果是季度的 format，使用 date-fns 的 format()
+        if (this.innerFormat && (this.innerFormat.includes('q') || this.innerFormat.includes('Q'))) {
+            return value.format(this.innerFormat);
+        } else {
+            return this.dateHelper.format(value.nativeDate, this.innerFormat);
         }
     }
 

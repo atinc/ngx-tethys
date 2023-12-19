@@ -1,5 +1,5 @@
 import { InputBoolean, ThyPlacement } from 'ngx-tethys/core';
-import { coerceBooleanProperty, elementMatchClosest, FunctionProp, P, TinyDate } from 'ngx-tethys/util';
+import { coerceBooleanProperty, elementMatchClosest, FunctionProp, TinyDate } from 'ngx-tethys/util';
 
 import {
     ChangeDetectorRef,
@@ -148,6 +148,7 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
         if (!this.thyFormat) {
             const inputFormats: { [key in ThyPanelMode]?: string } = {
                 year: 'yyyy',
+                quarter: 'yyyy-qqq',
                 month: 'yyyy-MM',
                 week: 'yyyy-ww周',
                 date: this.thyShowTime ? 'yyyy-MM-dd HH:mm' : 'yyyy-MM-dd'

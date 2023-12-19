@@ -35,6 +35,36 @@ export class ThyDatePickerFormatPipe implements PipeTransform {
     }
 }
 
+@Pipe({
+    name: 'thyQuarterPickerFormat',
+    standalone: true
+})
+export class ThyQuarterPickerFormatPipe implements PipeTransform {
+    transform(originalValue: CompatibleDate | DateEntry | ThyDateRangeEntry, formatStr?: string): string {
+        const { value, withTime } = transformDateValue(originalValue);
+
+        if (!formatStr) {
+            formatStr = 'yyyy-qqq';
+        }
+
+        if (!value) {
+            return;
+        }
+
+        if (!Array.isArray(value)) {
+            const _value = new TinyDate(value);
+            return _value.format(formatStr);
+        } else {
+            return value
+                .map(date => {
+                    const _date = new TinyDate(date);
+                    return _date.format(formatStr);
+                })
+                .join(' ~ ');
+        }
+    }
+}
+
 /**
  * @private
  */

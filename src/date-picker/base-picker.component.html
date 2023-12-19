@@ -19,11 +19,10 @@
   [placement]="thyPlacement"
   (openChange)="onOpenChange($event)"
   (blur)="onBlur($event)"
-  (inputChange)="onInputDate($event)"
->
+  (inputChange)="onInputDate($event)">
   <date-popup
     [attr.tabindex]="-1"
-    *ngIf="realOpenState"
+    *ngIf="isShowDatePopup"
     [isRange]="isRange"
     [showWeek]="showWeek"
     [panelMode]="panelMode"
@@ -48,6 +47,5 @@
     (shortcutValueChange)="onShortcutValueChange($event)"
     (dateValueChange)="onDateValueChange($event)"
     [className]="thyPanelClassName"
-    (resultOk)="onResultOk()"
-  ></date-popup>
+    (resultOk)="onResultOk()"></date-popup>
 </thy-picker>

@@ -26,6 +26,7 @@ import { MonthHeaderComponent } from '../month/month-header.component';
 import { MonthTableComponent } from '../month/month-table.component';
 import { YearHeaderComponent } from '../year/year-header.component';
 import { YearTableComponent } from '../year/year-table.component';
+import { QuarterTableComponent } from '../quarter/quarter-table.component';
 
 /**
  * @private
@@ -48,6 +49,7 @@ import { YearTableComponent } from '../year/year-table.component';
         YearTableComponent,
         MonthHeaderComponent,
         MonthTableComponent,
+        QuarterTableComponent,
         NgSwitchDefault,
         DateHeaderComponent,
         DateTableComponent
@@ -123,6 +125,18 @@ export class InnerPopupComponent implements OnChanges {
             this.panelModeChange.emit(this.endPanelMode);
         }
     }
+
+    onChooseQuarter(value: TinyDate): void {
+        this.activeDate = this.activeDate.setQuarter(value.getQuarter());
+        if (this.endPanelMode === 'quarter') {
+            this.value = value;
+            this.selectDate.emit(value);
+        } else {
+            this.headerChange.emit(value);
+            this.panelModeChange.emit(this.endPanelMode);
+        }
+    }
+
     onChooseYear(value: TinyDate): void {
         this.activeDate = this.activeDate.setYear(value.getYear());
         if (this.endPanelMode === 'year') {
@@ -164,7 +178,7 @@ export class InnerPopupComponent implements OnChanges {
                 const [headerLeftDate, headerRightDate] = this.rangeActiveDate;
                 if (panelMode === 'date') {
                     return isAfterMoreThanLessOneYear(headerRightDate, headerLeftDate);
-                } else if (panelMode === 'month') {
+                } else if (panelMode === 'month' || panelMode === 'quarter') {
                     return isAfterMoreThanOneYear(headerRightDate, headerLeftDate);
                 } else if (panelMode === 'year') {
                     return isAfterMoreThanOneDecade(headerRightDate, headerLeftDate);

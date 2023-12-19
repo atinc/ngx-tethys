@@ -210,6 +210,10 @@ export abstract class AbstractPickerComponent
         return this.picker.realOpenState;
     }
 
+    get isShowDatePopup(): boolean {
+        return this.picker.isShowDatePopup;
+    }
+
     initValue(): void {
         this.thyValue = this.isRange ? [] : null;
     }

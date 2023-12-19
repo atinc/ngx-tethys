@@ -15,8 +15,7 @@
   (thyOnBlur)="onBlur($event)"
   (thyOnClear)="clearSelectedValue($event)"
   (thyOnRemove)="removeMultipleSelectedNode($event)"
-  (thyOnSearch)="searchValue($event)"
->
+  (thyOnSearch)="searchValue($event)">
   <ng-template #customDisplayTemplate let-node>
     <ng-container *ngIf="thyTreeSelectTriggerDisplayRef; else noneTemplate">
       <ng-template [ngTemplateOutlet]="thyTreeSelectTriggerDisplayRef" [ngTemplateOutletContext]="{ $implicit: node }"></ng-template>
@@ -32,14 +31,15 @@
   [cdkConnectedOverlayHasBackdrop]="false"
   [cdkConnectedOverlayPositions]="positions"
   [cdkConnectedOverlayOrigin]="origin"
-  [cdkConnectedOverlayWidth]="cdkConnectOverlayWidth"
+  [cdkConnectedOverlayMinWidth]="cdkConnectOverlayWidth"
   [cdkConnectedOverlayOpen]="expandTreeSelectOptions"
-  (detach)="close()"
->
+  cdkConnectedOverlayTransformOriginOn=".thy-tree-select-dropdown"
+  [cdkConnectedOverlayPositions]="expandedDropdownPositions"
+  (detach)="close()">
   <thy-tree-select-nodes
     thyStopPropagation
     [thyVirtualScroll]="thyVirtualScroll"
     [treeNodes]="thyVirtualScroll ? virtualTreeNodes : treeNodes"
-  >
+    [@scaleYMotion]="'enter'">
   </thy-tree-select-nodes>
 </ng-template>

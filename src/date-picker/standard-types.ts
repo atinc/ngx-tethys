@@ -3,7 +3,7 @@ import { CompatibleValue } from './inner-types';
 
 export type DisabledDateFn = (d: Date) => boolean;
 
-export type ThyPanelMode = 'decade' | 'year' | 'month' | 'date' | 'week' | 'flexible';
+export type ThyPanelMode = 'decade' | 'year' | 'month' | 'date' | 'week' | 'flexible' | 'quarter';
 
 export type CompatibleDate = Date | Date[];
 

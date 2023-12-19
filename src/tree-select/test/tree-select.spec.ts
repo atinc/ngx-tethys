@@ -14,6 +14,7 @@ import { bigTreeNodes, searchTreeSelectData } from '../examples/mock-data';
 import { ThyTreeSelectModule } from '../module';
 import { ThyTreeSelectNode } from '../tree-select.class';
 import { filterTreeData, ThyTreeSelectComponent } from '../tree-select.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 function treeNodesExpands(nodes: ThyTreeSelectNode[]) {
     const arr = [] as ThyTreeSelectNode[];
@@ -416,7 +417,7 @@ describe('ThyTreeSelect', () => {
 
     function configureThyCustomSelectTestingModule(declarations: any[]) {
         TestBed.configureTestingModule({
-            imports: [ThyFormModule, ThyTreeSelectModule, ReactiveFormsModule, FormsModule],
+            imports: [ThyFormModule, ThyTreeSelectModule, ReactiveFormsModule, FormsModule, NoopAnimationsModule],
             declarations: declarations,
             providers: [
                 {
