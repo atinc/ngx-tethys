@@ -385,6 +385,31 @@ describe('ThyDatePickerComponent', () => {
             expect(input.value).toBe('04.03.2020');
         }));
 
+        it('should support thyHasBackdrop', fakeAsync(() => {
+            fixtureInstance.hasBackdrop = true;
+            fixture.detectChanges();
+            dispatchMouseEvent(getPickerTriggerWrapper(), 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(getPickerContainer()).not.toBeNull();
+            expect(queryFromOverlay('.cdk-overlay-backdrop')).toBeTruthy();
+
+            dispatchMouseEvent(queryFromOverlay('.cdk-overlay-backdrop'), 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(getPickerContainer()).toBeNull();
+
+            fixtureInstance.hasBackdrop = false;
+            fixture.detectChanges();
+            dispatchMouseEvent(getPickerTriggerWrapper(), 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(queryFromOverlay('.cdk-overlay-backdrop')).toBeFalsy();
+        }));
+
         it('should support thyOpenChange', () => {
             const thyOpenChange = spyOn(fixtureInstance, 'thyOpenChange');
             fixture.detectChanges();
@@ -1284,6 +1309,7 @@ describe('ThyDatePickerComponent', () => {
                 [thyShowTime]="thyShowTime"
                 [thyMinDate]="thyMinDate"
                 [thyMaxDate]="thyMaxDate"
+                [thyHasBackdrop]="hasBackdrop"
                 (thyOnOk)="thyOnOk($event)"></thy-date-picker>
             <ng-template #tplDateRender let-current>
                 <div [class.test-first-day]="current.getDate() === 1">{{ current.getDate() }}</div>
@@ -1305,6 +1331,7 @@ class ThyTestDatePickerComponent {
     @ViewChild(ThyDatePickerComponent, { static: false }) datePicker: ThyDatePickerComponent;
 
     // --- Suite 1
+    hasBackdrop: boolean = true;
     thyAllowClear: boolean;
     thyAutoFocus: boolean;
     thyDisabled: boolean;

@@ -45,7 +45,7 @@
   cdkConnectedOverlay
   [cdkConnectedOverlayOrigin]="origin"
   [cdkConnectedOverlayOpen]="realOpenState"
-  [cdkConnectedOverlayHasBackdrop]="!isOpenHandledByUser()"
+  [cdkConnectedOverlayHasBackdrop]="hasBackdrop"
   [cdkConnectedOverlayPositions]="overlayPositions"
   cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
   (positionChange)="onPositionChange($event)"

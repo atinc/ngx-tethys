@@ -276,7 +276,6 @@ describe('ThyRangePickerComponent', () => {
             tick(500);
             fixture.detectChanges();
             expect(getPickerContainer()).not.toBeNull();
-            expect(queryFromOverlay('.cdk-overlay-backdrop')).toBeNull();
 
             fixtureInstance.thyOpen = false;
             fixture.detectChanges();

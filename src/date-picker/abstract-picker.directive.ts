@@ -86,7 +86,7 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
 
     /**
      * 是否有幕布
-     * @default false
+     * @default true
      */
     @Input()
     @InputBoolean()
@@ -98,7 +98,7 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
     }
 
     /**
-     * popover 的其他参数
+     * popover 的其它参数
      */
     @Input() thyPopoverOptions: ThyPopoverConfig;
 
