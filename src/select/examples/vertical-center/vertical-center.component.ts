@@ -42,10 +42,6 @@ export class ThySelectVerticalCenterExampleComponent implements OnInit {
     currentSize = this.selectSizes[2];
 
     ngOnInit() {
-        listOfOption.unshift({
-            value: 'option0',
-            text: '一个好长好长好长好长的选项里面有好多好多好多好多个字'
-        });
         this.listOfOption = listOfOption;
     }
 }
