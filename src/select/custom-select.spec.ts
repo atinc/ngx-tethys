@@ -685,7 +685,6 @@ class SelectDropdownWidthComponent {
     @ViewChild('select', { read: ElementRef }) select: ElementRef<HTMLElement>;
     @ViewChild('select', { read: ThySelectCustomComponent, static: true }) selectComponent: ThySelectCustomComponent;
 
-
     options = [
         { value: 'steak-0', viewValue: 'Steak' },
         { value: 'pizza-1', viewValue: 'Pizza' },
@@ -1095,11 +1094,11 @@ describe('ThyCustomSelect', () => {
                 trigger = groupFixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
                 trigger.click();
                 groupFixture.detectChanges();
-                tick(1000);
                 expect(document.querySelectorAll('.cdk-overlay-container thy-option').length).toBeGreaterThan(
                     0,
                     'Expected at least one option to be rendered.'
                 );
+                tick();
             }));
 
             it('should custom origin effected when origin is elementRef', fakeAsync(() => {
@@ -1400,8 +1399,7 @@ describe('ThyCustomSelect', () => {
             tick(2000);
             fixture.detectChanges();
             expect(pane.style.width).toBe('200px');
-
-        }))
+        }));
 
         it('should support thyDropdownWidthMode to set cdkConnectedOverlayMinWidth', fakeAsync(() => {
             configureThyCustomSelectTestingModule([SelectDropdownWidthComponent]);
