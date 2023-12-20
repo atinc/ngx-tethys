@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [16.2.0-next.6](https://github.com/atinc/ngx-tethys/compare/16.2.0-next.5...16.2.0-next.6) (2023-12-20)
+
+
+### Bug Fixes
+
+* **cascader:** add [@internal](https://github.com/internal) ([#2976](https://github.com/atinc/ngx-tethys/issues/2976)) ([3291443](https://github.com/atinc/ngx-tethys/commit/3291443f1407196c2ec11354ec62e8c01ca4006c))
+
+
+### Features
+
+* **date-picker:** support animations for date-picker, week-picker, month-picker, quarter-picker, year-picker, range-picker #INFR-10809 ([#2975](https://github.com/atinc/ngx-tethys/issues/2975)) ([513f950](https://github.com/atinc/ngx-tethys/commit/513f9508cfdb15de7313af972ca6662240907598)), closes [#INFR-10809](https://github.com/atinc/ngx-tethys/issues/INFR-10809)
+* **date-picker:** support thyHasBackdrop for thy-date-picker component #INFR-10885 ([#2978](https://github.com/atinc/ngx-tethys/issues/2978)) ([db4c675](https://github.com/atinc/ngx-tethys/commit/db4c675123c3c076f9fcf641c17a162f7b006ee6)), closes [#INFR-10885](https://github.com/atinc/ngx-tethys/issues/INFR-10885)
+* **input-number:** allow custom change step speed ([#2960](https://github.com/atinc/ngx-tethys/issues/2960)) ([f6da45c](https://github.com/atinc/ngx-tethys/commit/f6da45c428afc913f50b9088d419e13380ee5191))
+* **tooltip:** support animations for tooltip and flexibleText #INFR-11005 ([#2977](https://github.com/atinc/ngx-tethys/issues/2977)) ([d71bceb](https://github.com/atinc/ngx-tethys/commit/d71bceb700ac5013a57cb32cdd3d597c8137cd7f)), closes [#INFR-11005](https://github.com/atinc/ngx-tethys/issues/INFR-11005)
+
+
+
 # [16.2.0-next.5](https://github.com/atinc/ngx-tethys/compare/16.2.0-next.4...16.2.0-next.5) (2023-12-18)
 
 
