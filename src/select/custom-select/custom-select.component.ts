@@ -559,7 +559,7 @@ export class ThySelectCustomComponent
             this.triggerRectWidth = width;
             this.changeDetectorRef.markForCheck();
             this.updateCdkConnectedOverlayPositions();
-        })
+        });
     }
 
     buildOptionGroups(options: ThySelectOptionModel[]) {
@@ -1090,7 +1090,7 @@ export class ThySelectCustomComponent
     private observeElementWidthChanges(): void {
         const resizeObserver = new ResizeObserver(() => {
             if (this.panelOpen && !this.thyOrigin) {
-                this.triggerRectWidthChange$.next(this.trigger.nativeElement.offsetWidth)
+                this.triggerRectWidthChange$.next(this.trigger.nativeElement.offsetWidth);
             }
         });
         resizeObserver.observe(this.trigger.nativeElement);
