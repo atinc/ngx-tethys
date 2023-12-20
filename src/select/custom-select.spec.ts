@@ -669,10 +669,22 @@ class SelectWithAsyncLoadComponent implements OnInit {
                 <thy-option *ngFor="let option of options" [thyValue]="option.value" [thyLabelText]="option.viewValue"> </thy-option>
             </thy-custom-select>
         </div>
+
+        <div [style.width.px]="width">
+            <thy-custom-select #select class="select3" [(ngModel)]="selectedValue">
+                <thy-option *ngFor="let option of options" [thyValue]="option.value" [thyLabelText]="option.viewValue"> </thy-option>
+            </thy-custom-select>
+        </div>
     `
 })
 class SelectDropdownWidthComponent {
     dropdownWidthMode: ThyDropdownWidthMode;
+
+    width = 300;
+
+    @ViewChild('select', { read: ElementRef }) select: ElementRef<HTMLElement>;
+    @ViewChild('select', { read: ThySelectCustomComponent, static: true }) selectComponent: ThySelectCustomComponent;
+
 
     options = [
         { value: 'steak-0', viewValue: 'Steak' },
@@ -1083,7 +1095,7 @@ describe('ThyCustomSelect', () => {
                 trigger = groupFixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
                 trigger.click();
                 groupFixture.detectChanges();
-
+                tick(1000);
                 expect(document.querySelectorAll('.cdk-overlay-container thy-option').length).toBeGreaterThan(
                     0,
                     'Expected at least one option to be rendered.'
@@ -1344,6 +1356,7 @@ describe('ThyCustomSelect', () => {
 
                 trigger.click();
                 fixture.detectChanges();
+                tick();
                 expect(fixture.componentInstance.select.panelOpen).toBeFalsy();
             }));
 
@@ -1359,6 +1372,7 @@ describe('ThyCustomSelect', () => {
 
                 trigger.click();
                 fixture.detectChanges();
+                tick();
                 expect(el).toBeTruthy();
             }));
         });
@@ -1366,6 +1380,28 @@ describe('ThyCustomSelect', () => {
 
     describe('dropdown min width', () => {
         let containerSelector: string;
+
+        it('should update pane width & position when overlay opening and width changed', fakeAsync(() => {
+            configureThyCustomSelectTestingModule([SelectDropdownWidthComponent]);
+
+            let fixture: ComponentFixture<SelectDropdownWidthComponent> = TestBed.createComponent(SelectDropdownWidthComponent);
+            fixture.detectChanges();
+            const select = fixture.componentInstance.select;
+            const selectComponent = fixture.componentInstance.selectComponent;
+            const trigger = select.nativeElement.querySelector('.form-control-custom') as HTMLElement;
+            trigger.click();
+            fixture.detectChanges();
+            let pane = overlayContainerElement.querySelector('.cdk-overlay-pane') as HTMLElement;
+            expect(pane.style.width).toBe('300px');
+
+            fixture.componentInstance.width = 200;
+            fixture.detectChanges();
+            selectComponent.triggerRectWidthChange$.next(select.nativeElement.offsetWidth);
+            tick(2000);
+            fixture.detectChanges();
+            expect(pane.style.width).toBe('200px');
+
+        }))
 
         it('should support thyDropdownWidthMode to set cdkConnectedOverlayMinWidth', fakeAsync(() => {
             configureThyCustomSelectTestingModule([SelectDropdownWidthComponent]);
@@ -1377,6 +1413,7 @@ describe('ThyCustomSelect', () => {
             assertDropdownMinWidth(fixture, 'match-select', 'width', 100);
             assertDropdownMinWidth(fixture, 'min-width', 'minWidth', THY_SELECT_PANEL_MIN_WIDTH);
             assertDropdownMinWidth(fixture, { minWidth: 300 }, 'minWidth', 300);
+            tick();
         }));
 
         it('should support global setting dropdownWidthMode in THY_SELECT_CONFIG', () => {
@@ -1454,6 +1491,7 @@ describe('ThyCustomSelect', () => {
 
             expect(overlayContainerElement.textContent).toContain('Steak', `Expected select panel to open normally on re-enabled control`);
             expect(fixture.componentInstance.select.panelOpen).toBe(true, `Expected select panelOpen property to become true.`);
+            tick();
         }));
     });
 
@@ -1542,6 +1580,7 @@ describe('ThyCustomSelect', () => {
 
             expect(fixture.componentInstance.select.thyShowSearch).toBe(true);
             expect(fixture.debugElement.query(By.css('.search-input-field'))).not.toBeNull();
+            tick();
         }));
         it('should hide the options that can not be searched', fakeAsync(() => {
             const fixture = TestBed.createComponent(SelectWithSearchComponent);
@@ -1824,6 +1863,7 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
 
             expect(overlayContainerElement.textContent).not.toContain('Sushi');
+            tick();
         }));
 
         it('should keep selected option when thy-option is removed', fakeAsync(() => {

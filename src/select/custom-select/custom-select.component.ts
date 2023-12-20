@@ -211,6 +211,8 @@ export class ThySelectCustomComponent
 
     public scrollStrategy: ScrollStrategy;
 
+    public triggerRectWidthChange$ = new Subject<number>();
+
     private selectionModelSubscription: Subscription;
 
     /**
@@ -531,8 +533,7 @@ export class ThySelectCustomComponent
             .pipe(takeUntil(this.destroy$))
             .subscribe(() => {
                 if (this.panelOpen) {
-                    this.triggerRectWidth = this.getOriginRectWidth();
-                    this.changeDetectorRef.markForCheck();
+                    this.triggerRectWidthChange$.next(this.getOriginRectWidth());
                 }
             });
         if (!this.selectionModel) {
@@ -553,6 +554,12 @@ export class ThySelectCustomComponent
                     }
                 });
         }
+
+        this.triggerRectWidthChange$.pipe(takeUntil(this.destroy$)).subscribe(width => {
+            this.triggerRectWidth = width;
+            this.changeDetectorRef.markForCheck();
+            this.updateCdkConnectedOverlayPositions();
+        })
     }
 
     buildOptionGroups(options: ThySelectOptionModel[]) {
@@ -608,6 +615,7 @@ export class ThySelectCustomComponent
         if (this.isReactiveDriven) {
             this.setup();
         }
+        this.observeElementWidthChanges();
     }
 
     ngAfterContentInit() {
@@ -797,7 +805,7 @@ export class ThySelectCustomComponent
         if (this.disabled || !this.options || this.panelOpen) {
             return;
         }
-        this.triggerRectWidth = this.getOriginRectWidth();
+        this.triggerRectWidthChange$.next(this.getOriginRectWidth());
         this.panelOpen = true;
         this.highlightCorrectOption();
         this.thyOnExpandStatusChange.emit(this.panelOpen);
@@ -1077,6 +1085,21 @@ export class ThySelectCustomComponent
 
     private getOriginRectWidth() {
         return this.thyOrigin ? coerceElement(this.thyOrigin).offsetWidth : this.trigger.nativeElement.offsetWidth;
+    }
+
+    private observeElementWidthChanges(): void {
+        const resizeObserver = new ResizeObserver(() => {
+            if (this.panelOpen && !this.thyOrigin) {
+                this.triggerRectWidthChange$.next(this.trigger.nativeElement.offsetWidth)
+            }
+        });
+        resizeObserver.observe(this.trigger.nativeElement);
+
+        this.ngZone.runOutsideAngular(() => {
+            window.addEventListener('beforeunload', () => {
+                resizeObserver.disconnect();
+            });
+        });
     }
 
     ngOnDestroy() {
