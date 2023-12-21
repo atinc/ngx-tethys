@@ -31,6 +31,7 @@
         cursor: variables.$hand-cursor;
         text-decoration: none;
         transition: background 200ms;
+        text-align: left;
 
         &:not(.dropdown-menu-item--disabled):hover {
             background-color: variables.$dropdown-menu-item-hover-bg;
@@ -157,6 +158,11 @@
         &--success {
             @include mixin.dropdown-menu-item-type-hover(variables.$success);
         }
+    }
+
+    button.dropdown-menu-item {
+        width: 100%;
+        border: none;
     }
 
     &:not(&--group) {

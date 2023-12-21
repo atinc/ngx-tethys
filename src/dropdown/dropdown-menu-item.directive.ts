@@ -43,6 +43,7 @@ export class ThyDropdownMenuItemDirective implements OnInit {
     @InputBoolean()
     set thyDisabled(value: boolean) {
         this.disabled = coerceBooleanProperty(value);
+        this.hostRenderer.setAttribute('disabled', String(this.disabled));
     }
 
     @HostListener('click', ['$event'])
