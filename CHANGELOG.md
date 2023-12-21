@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.1.24](https://github.com/atinc/ngx-tethys/compare/16.1.23...16.1.24) (2023-12-21)
+
+
+### Features
+
+* **date-picker:** support thyHasBackdrop for thy-date-picker component #INFR-10885 ([#2978](https://github.com/atinc/ngx-tethys/issues/2978)) ([#2981](https://github.com/atinc/ngx-tethys/issues/2981)) ([33606db](https://github.com/atinc/ngx-tethys/commit/33606db119dc08703a8351fd25302bf8068be18f)), closes [#INFR-10885](https://github.com/atinc/ngx-tethys/issues/INFR-10885)
+
+
+
 ## [16.1.23](https://github.com/atinc/ngx-tethys/compare/16.1.22...16.1.23) (2023-12-14)
 
 
