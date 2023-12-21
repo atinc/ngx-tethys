@@ -1025,9 +1025,12 @@ describe('ThyCustomSelect', () => {
 
                 expect(initialWidth).toBeGreaterThan(0);
 
-                trigger.style.width = '400px';
-                dispatchFakeEvent(window, 'resize');
                 fixture.detectChanges();
+                const triggerWidth = 400;
+                trigger.style.width = `${triggerWidth}px`;
+                // mock ResizeObserver callback
+                fixture.componentInstance.select['triggerResizeObserver'].observe(trigger);
+                fixture.componentInstance.select['triggerRectWidthChange$'].next(triggerWidth);
                 tick(1000);
                 fixture.detectChanges();
 
@@ -1123,6 +1126,18 @@ describe('ThyCustomSelect', () => {
                 const pane = overlayContainerElement.querySelector('.cdk-overlay-pane') as HTMLElement;
                 expect(pane.style.width).toBe('200px');
             }));
+
+            it('should trigger width change when ResizeObserver is called', () => {
+                // manually invoked observeElementWidthChanges
+                fixture.componentInstance.select['observeElementWidthChanges']();
+                const triggerWidth = 100;
+                // mock ResizeObserver callback
+                fixture.componentInstance.select['triggerResizeObserver'].observe(trigger);
+
+                fixture.componentInstance.select['triggerRectWidthChange$'].subscribe(width => {
+                    expect(width).toBe(triggerWidth);
+                });
+            });
         });
 
         describe('thyFooter', () => {

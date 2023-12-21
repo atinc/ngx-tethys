@@ -47,14 +47,7 @@ import { filter, map, startWith, switchMap, take, takeUntil } from 'rxjs/operato
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty, coerceElement } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
-import {
-    CdkConnectedOverlay,
-    CdkOverlayOrigin,
-    ConnectionPositionPair,
-    Overlay,
-    ScrollStrategy,
-    ViewportRuler
-} from '@angular/cdk/overlay';
+import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair, Overlay, ScrollStrategy } from '@angular/cdk/overlay';
 import { isPlatformBrowser, NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 import {
     AfterContentInit,
@@ -212,6 +205,8 @@ export class ThySelectCustomComponent
     public scrollStrategy: ScrollStrategy;
 
     public triggerRectWidthChange$ = new Subject<number>();
+
+    private triggerResizeObserver: ResizeObserver;
 
     private selectionModelSubscription: Subscription;
 
@@ -507,7 +502,6 @@ export class ThySelectCustomComponent
     constructor(
         private ngZone: NgZone,
         private elementRef: ElementRef,
-        private viewportRuler: ViewportRuler,
         private changeDetectorRef: ChangeDetectorRef,
         private overlay: Overlay,
         private thyClickDispatcher: ThyClickDispatcher,
@@ -528,18 +522,12 @@ export class ThySelectCustomComponent
     ngOnInit() {
         this.getPositions();
         this.dropDownMinWidth = this.getDropdownMinWidth();
-        this.viewportRuler
-            .change()
-            .pipe(takeUntil(this.destroy$))
-            .subscribe(() => {
-                if (this.panelOpen) {
-                    this.triggerRectWidthChange$.next(this.getOriginRectWidth());
-                }
-            });
         if (!this.selectionModel) {
             this.instanceSelectionModel();
         }
         this.setDropDownClass();
+
+        this.subscribeTriggerWidth();
 
         if (isPlatformBrowser(this.platformId)) {
             this.thyClickDispatcher
@@ -554,12 +542,6 @@ export class ThySelectCustomComponent
                     }
                 });
         }
-
-        this.triggerRectWidthChange$.pipe(takeUntil(this.destroy$)).subscribe(width => {
-            this.triggerRectWidth = width;
-            this.changeDetectorRef.markForCheck();
-            this.updateCdkConnectedOverlayPositions();
-        });
     }
 
     buildOptionGroups(options: ThySelectOptionModel[]) {
@@ -615,7 +597,6 @@ export class ThySelectCustomComponent
         if (this.isReactiveDriven) {
             this.setup();
         }
-        this.observeElementWidthChanges();
     }
 
     ngAfterContentInit() {
@@ -808,6 +789,7 @@ export class ThySelectCustomComponent
         this.triggerRectWidthChange$.next(this.getOriginRectWidth());
         this.panelOpen = true;
         this.highlightCorrectOption();
+        this.observeElementWidthChanges();
         this.thyOnExpandStatusChange.emit(this.panelOpen);
         this.changeDetectorRef.markForCheck();
     }
@@ -815,6 +797,7 @@ export class ThySelectCustomComponent
     public close(): void {
         if (this.panelOpen) {
             this.panelOpen = false;
+            this.disconnectObserveElementWidthChanges();
             this.thyOnExpandStatusChange.emit(this.panelOpen);
             this.changeDetectorRef.markForCheck();
             this.onTouchedFn();
@@ -1088,21 +1071,28 @@ export class ThySelectCustomComponent
     }
 
     private observeElementWidthChanges(): void {
-        const resizeObserver = new ResizeObserver(() => {
-            if (this.panelOpen && !this.thyOrigin) {
+        this.triggerResizeObserver = new ResizeObserver(() => {
+            if (!this.thyOrigin) {
                 this.triggerRectWidthChange$.next(this.trigger.nativeElement.offsetWidth);
             }
         });
-        resizeObserver.observe(this.trigger.nativeElement);
+        this.triggerResizeObserver.observe(this.trigger.nativeElement);
+    }
 
-        this.ngZone.runOutsideAngular(() => {
-            window.addEventListener('beforeunload', () => {
-                resizeObserver.disconnect();
-            });
+    private disconnectObserveElementWidthChanges(): void {
+        this.triggerResizeObserver?.disconnect();
+    }
+
+    private subscribeTriggerWidth() {
+        this.triggerRectWidthChange$.pipe(takeUntil(this.destroy$)).subscribe(width => {
+            this.triggerRectWidth = width;
+            this.changeDetectorRef.markForCheck();
+            this.updateCdkConnectedOverlayPositions();
         });
     }
 
     ngOnDestroy() {
+        this.disconnectObserveElementWidthChanges();
         this.destroy$.next();
         this.destroy$.complete();
     }
