@@ -57,6 +57,12 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
     }
 
     /**
+     * 是否有幕布
+     * @default true
+     */
+    @Input() @InputBoolean() thyHasBackdrop = true;
+
+    /**
      * @type EventEmitter<ThyPanelMode | ThyPanelMode[]>
      */
     @Output() readonly thyOnPanelChange = new EventEmitter<ThyPanelMode | ThyPanelMode[]>();
