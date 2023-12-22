@@ -1,10 +1,10 @@
 <button thyButton="primary" [thyDropdown]="menu">Dropdown <thy-icon thyIconName="caret-down"></thy-icon></button>
 
 <thy-dropdown-menu #menu>
-  <button thyDropdownMenuItem thyDisabled="true" href="javascript:;" (click)="add()">
+  <a thyDropdownMenuItem thyDisabled="true" href="javascript:;">
     <thy-icon thyIconName="plus" thyDropdownMenuItemIcon></thy-icon>
     <span thyDropdownMenuItemName>New</span>
-  </button>
+  </a>
   <a thyDropdownMenuItem href="javascript:;">
     <thy-icon thyIconName="edit" thyDropdownMenuItemIcon></thy-icon>
     <span thyDropdownMenuItemName>Edit</span>

@@ -4,9 +4,4 @@ import { Component } from '@angular/core';
     selector: 'thy-dropdown-disabled-example',
     templateUrl: './disabled.component.html'
 })
-export class ThyDropdownDisabledExampleComponent {
-
-    add() {
-        console.log('xxxxxx')
-    }
-}
+export class ThyDropdownDisabledExampleComponent {}
