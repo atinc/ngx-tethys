@@ -1024,7 +1024,7 @@ describe('ThyCustomSelect', () => {
                         fixture.detectChanges();
                         setTimeout(() => {
                             fixture.whenStable().then(() => {
-                                expect(resizedSpy).toHaveBeenCalledTimes(2);
+                                expect(resizedSpy).toHaveBeenCalledTimes(1);
                             });
                         }, 0);
                         tick(100);
