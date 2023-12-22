@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.1.25](https://github.com/atinc/ngx-tethys/compare/16.1.24...16.1.25) (2023-12-22)
+
+
+### Bug Fixes
+
+* **date-picker:** when the date picker directive's and component's thyHasBackdrop value is false, clicking outside should close #INFR-11053 ([#2985](https://github.com/atinc/ngx-tethys/issues/2985)) ([97f673d](https://github.com/atinc/ngx-tethys/commit/97f673dfc4f44873a503ba35242a8899c8434b23)), closes [#INFR-11053](https://github.com/atinc/ngx-tethys/issues/INFR-11053)
+
+
+
 ## [16.1.24](https://github.com/atinc/ngx-tethys/compare/16.1.23...16.1.24) (2023-12-21)
 
 
