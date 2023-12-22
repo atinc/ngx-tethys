@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, NgZone, PLATFORM_ID, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
@@ -6,7 +6,6 @@ import { BasePickerComponent } from './base-picker.component';
 import { DatePopupComponent } from './lib/popups/date-popup.component';
 import { NgIf } from '@angular/common';
 import { ThyPickerComponent } from './picker.component';
-import { ThyClickDispatcher } from 'ngx-tethys/core';
 
 /**
  * 周选择组件
@@ -33,14 +32,8 @@ export class ThyWeekPickerComponent extends BasePickerComponent {
 
     private hostRenderer = useHostRenderer();
 
-    constructor(
-        cdr: ChangeDetectorRef,
-        protected elementRef: ElementRef,
-        protected thyClickDispatcher: ThyClickDispatcher,
-        @Inject(PLATFORM_ID) protected platformId: string,
-        protected ngZone: NgZone
-    ) {
-        super(cdr, elementRef, thyClickDispatcher, platformId, ngZone);
+    constructor(cdr: ChangeDetectorRef, protected elementRef: ElementRef) {
+        super(cdr, elementRef);
         this.hostRenderer.addClass('thy-calendar-picker');
         this.thyMode = 'week';
     }
