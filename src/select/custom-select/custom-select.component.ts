@@ -204,7 +204,7 @@ export class ThySelectCustomComponent
 
     public scrollStrategy: ScrollStrategy;
 
-    public resizeSubscription: Subscription;
+    private resizeSubscription: Subscription;
 
     private selectionModelSubscription: Subscription;
 
@@ -524,8 +524,6 @@ export class ThySelectCustomComponent
             this.instanceSelectionModel();
         }
         this.setDropDownClass();
-
-        // this.subscribeTriggerWidth();
 
         if (isPlatformBrowser(this.platformId)) {
             this.thyClickDispatcher
