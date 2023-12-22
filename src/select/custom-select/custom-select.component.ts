@@ -1073,7 +1073,7 @@ export class ThySelectCustomComponent
         this.ngZone.runOutsideAngular(() => {
             this.resizeSubscription = new Observable<number>(observer => {
                 const resize = new ResizeObserver((entries: ResizeObserverEntry[]) => {
-                    observer.next(entries);
+                    observer.next();
                 });
                 resize.observe(this.trigger.nativeElement);
             })
