@@ -669,21 +669,10 @@ class SelectWithAsyncLoadComponent implements OnInit {
                 <thy-option *ngFor="let option of options" [thyValue]="option.value" [thyLabelText]="option.viewValue"> </thy-option>
             </thy-custom-select>
         </div>
-
-        <div [style.width.px]="width">
-            <thy-custom-select #select class="select3" [(ngModel)]="selectedValue">
-                <thy-option *ngFor="let option of options" [thyValue]="option.value" [thyLabelText]="option.viewValue"> </thy-option>
-            </thy-custom-select>
-        </div>
     `
 })
 class SelectDropdownWidthComponent {
     dropdownWidthMode: ThyDropdownWidthMode;
-
-    width = 300;
-
-    @ViewChild('select', { read: ElementRef }) select: ElementRef<HTMLElement>;
-    @ViewChild('select', { read: ThySelectCustomComponent, static: true }) selectComponent: ThySelectCustomComponent;
 
     options = [
         { value: 'steak-0', viewValue: 'Steak' },
@@ -710,22 +699,6 @@ class SelectWidthThyOptionsComponent {
     ];
     selectedValue = this.options[0].value;
 }
-
-// 创建 ResizeObserver 模拟
-const resizeObserverMock = (() => {
-    let callback: ResizeObserverCallback;
-
-    return {
-        observe: (target: Element, observer: ResizeObserver) => {
-            callback([{ target } as ResizeObserverEntry], observer); // 立即触发回调
-        },
-        disconnect: () => {},
-        unobserve: () => {},
-        mockCallback: (cb: ResizeObserverCallback) => {
-            callback = cb;
-        }
-    };
-})();
 
 describe('ThyCustomSelect', () => {
     let overlayContainer: OverlayContainer;
@@ -1492,7 +1465,6 @@ describe('ThyCustomSelect', () => {
 
             expect(overlayContainerElement.textContent).toContain('Steak', `Expected select panel to open normally on re-enabled control`);
             expect(fixture.componentInstance.select.panelOpen).toBe(true, `Expected select panelOpen property to become true.`);
-            tick();
         }));
     });
 
