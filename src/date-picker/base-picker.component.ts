@@ -1,17 +1,21 @@
-import { InputBoolean, ThyPlacement } from 'ngx-tethys/core';
-import { coerceBooleanProperty, elementMatchClosest, FunctionProp, P, TinyDate } from 'ngx-tethys/util';
+import { InputBoolean, ThyClickDispatcher, ThyPlacement } from 'ngx-tethys/core';
+import { coerceBooleanProperty, elementMatchClosest, FunctionProp, TinyDate } from 'ngx-tethys/util';
 
 import {
     ChangeDetectorRef,
     Component,
     ElementRef,
     EventEmitter,
+    Inject,
     Input,
+    NgZone,
     OnChanges,
     OnInit,
     Output,
+    PLATFORM_ID,
     TemplateRef,
-    ViewChild
+    ViewChild,
+    inject
 } from '@angular/core';
 
 import { AbstractPickerComponent } from './abstract-picker.component';
@@ -19,6 +23,8 @@ import { CompatibleValue, RangeAdvancedValue } from './inner-types';
 import { CompatibleDate, ThyPanelMode } from './standard-types';
 import { ThyPickerComponent } from './picker.component';
 import { hasTimeInStringDate, isValidStringDate, parseStringDate, transformDateValue } from './picker.util';
+import { isPlatformBrowser } from '@angular/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * @private
@@ -102,6 +108,14 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
      */
     @Output() readonly thyOnOk = new EventEmitter<CompatibleDate | null>();
 
+    takeUntilDestroyed = takeUntilDestroyed();
+
+    thyClickDispatcher = inject(ThyClickDispatcher);
+
+    platformId = inject(PLATFORM_ID);
+
+    ngZone = inject(NgZone);
+
     constructor(cdr: ChangeDetectorRef, protected element: ElementRef) {
         super(cdr);
     }
@@ -110,6 +124,24 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
         super.ngOnInit();
         this.setDefaultTimePickerState(this._panelMode);
         this.initialized = true;
+
+        if (isPlatformBrowser(this.platformId)) {
+            this.thyClickDispatcher
+                .clicked(0)
+                .pipe(this.takeUntilDestroyed)
+                .subscribe((event: Event) => {
+                    if (
+                        !this.element.nativeElement.contains(event.target) &&
+                        !this.thyPicker?.overlayContainer?.nativeElement.contains(event.target as Node) &&
+                        this.realOpenState
+                    ) {
+                        this.ngZone.run(() => {
+                            this.closeOverlay();
+                            this.cdr.markForCheck();
+                        });
+                    }
+                });
+        }
     }
 
     onValueChange(value: CompatibleValue | RangeAdvancedValue): void {
