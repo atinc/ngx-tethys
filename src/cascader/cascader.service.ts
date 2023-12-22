@@ -74,7 +74,9 @@ export class ThyCascaderService {
         loadData?: (node: ThyCascaderOption, index?: number) => PromiseLike<any>;
     }) {
         this.cascaderOptions = { ...this.cascaderOptions, ...options };
-        this.initSelectionModel(this.cascaderOptions.isMultiple);
+        if (this.cascaderOptions.hasOwnProperty('isMultiple')) {
+            this.initSelectionModel(this.cascaderOptions.isMultiple);
+        }
     }
 
     public initSelectionModel(isMultiple?: boolean) {
