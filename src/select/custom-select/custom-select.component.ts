@@ -42,7 +42,7 @@ import {
     UP_ARROW
 } from 'ngx-tethys/util';
 import { defer, merge, Observable, Subject, Subscription, timer } from 'rxjs';
-import { filter, map, startWith, switchMap, take, takeUntil } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, startWith, switchMap, take, takeUntil } from 'rxjs/operators';
 
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty, coerceElement } from '@angular/cdk/coercion';
@@ -204,9 +204,7 @@ export class ThySelectCustomComponent
 
     public scrollStrategy: ScrollStrategy;
 
-    public triggerRectWidthChange$ = new Subject<number>();
-
-    private triggerResizeObserver: ResizeObserver;
+    public resizeSubscription: Subscription;
 
     private selectionModelSubscription: Subscription;
 
@@ -527,7 +525,7 @@ export class ThySelectCustomComponent
         }
         this.setDropDownClass();
 
-        this.subscribeTriggerWidth();
+        // this.subscribeTriggerWidth();
 
         if (isPlatformBrowser(this.platformId)) {
             this.thyClickDispatcher
@@ -786,10 +784,10 @@ export class ThySelectCustomComponent
         if (this.disabled || !this.options || this.panelOpen) {
             return;
         }
-        this.triggerRectWidthChange$.next(this.getOriginRectWidth());
+        this.triggerRectWidth = this.getOriginRectWidth();
+        this.subscribeTriggerResize();
         this.panelOpen = true;
         this.highlightCorrectOption();
-        this.observeElementWidthChanges();
         this.thyOnExpandStatusChange.emit(this.panelOpen);
         this.changeDetectorRef.markForCheck();
     }
@@ -797,7 +795,7 @@ export class ThySelectCustomComponent
     public close(): void {
         if (this.panelOpen) {
             this.panelOpen = false;
-            this.disconnectObserveElementWidthChanges();
+            this.unsubscribeTriggerResize();
             this.thyOnExpandStatusChange.emit(this.panelOpen);
             this.changeDetectorRef.markForCheck();
             this.onTouchedFn();
@@ -1070,29 +1068,41 @@ export class ThySelectCustomComponent
         return this.thyOrigin ? coerceElement(this.thyOrigin).offsetWidth : this.trigger.nativeElement.offsetWidth;
     }
 
-    private observeElementWidthChanges(): void {
-        this.triggerResizeObserver = new ResizeObserver(() => {
-            if (!this.thyOrigin) {
-                this.triggerRectWidthChange$.next(this.trigger.nativeElement.offsetWidth);
-            }
+    private subscribeTriggerResize(): void {
+        this.unsubscribeTriggerResize();
+        this.ngZone.runOutsideAngular(() => {
+            this.resizeSubscription = new Observable<number>(observer => {
+                const resize = new ResizeObserver((entries: ResizeObserverEntry[]) => {
+                    observer.next(entries);
+                });
+                resize.observe(this.trigger.nativeElement);
+            })
+                .pipe(
+                    startWith(),
+                    map(() => {
+                        return this.getOriginRectWidth();
+                    }),
+                    distinctUntilChanged()
+                )
+                .subscribe((width: number) => {
+                    this.ngZone.run(() => {
+                        this.triggerRectWidth = width;
+                        this.updateCdkConnectedOverlayPositions();
+                        this.changeDetectorRef.markForCheck();
+                    });
+                });
         });
-        this.triggerResizeObserver.observe(this.trigger.nativeElement);
     }
 
-    private disconnectObserveElementWidthChanges(): void {
-        this.triggerResizeObserver?.disconnect();
-    }
-
-    private subscribeTriggerWidth() {
-        this.triggerRectWidthChange$.pipe(takeUntil(this.destroy$)).subscribe(width => {
-            this.triggerRectWidth = width;
-            this.changeDetectorRef.markForCheck();
-            this.updateCdkConnectedOverlayPositions();
-        });
+    private unsubscribeTriggerResize(): void {
+        if (this.resizeSubscription) {
+            this.resizeSubscription.unsubscribe();
+            this.resizeSubscription = null;
+        }
     }
 
     ngOnDestroy() {
-        this.disconnectObserveElementWidthChanges();
+        this.unsubscribeTriggerResize();
         this.destroy$.next();
         this.destroy$.complete();
     }
