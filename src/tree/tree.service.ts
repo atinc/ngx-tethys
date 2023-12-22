@@ -110,7 +110,7 @@ export class ThyTreeService implements OnDestroy {
             const index = children.findIndex(n => n.key === node.key);
             if (index > -1) {
                 children.splice(index, 1);
-                node.parentNode.origin.children = node.children.map(item => item.origin);
+                node.parentNode.origin.children = children.map(item => item.origin);
                 this.syncNodeCheckState(node.parentNode);
             }
         } else {
