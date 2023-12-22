@@ -385,7 +385,7 @@ describe('ThyDatePickerComponent', () => {
             expect(input.value).toBe('04.03.2020');
         }));
 
-        it('should support thyHasBackdrop', fakeAsync(() => {
+        it('should support thyHasBackdrop to be true', fakeAsync(() => {
             fixtureInstance.hasBackdrop = true;
             fixture.detectChanges();
             dispatchMouseEvent(getPickerTriggerWrapper(), 'click');
@@ -400,7 +400,9 @@ describe('ThyDatePickerComponent', () => {
             tick(500);
             fixture.detectChanges();
             expect(getPickerContainer()).toBeNull();
+        }));
 
+        it('should support thyHasBackdrop to be false and outside closable', fakeAsync(() => {
             fixtureInstance.hasBackdrop = false;
             fixture.detectChanges();
             dispatchMouseEvent(getPickerTriggerWrapper(), 'click');
@@ -408,6 +410,12 @@ describe('ThyDatePickerComponent', () => {
             tick(500);
             fixture.detectChanges();
             expect(queryFromOverlay('.cdk-overlay-backdrop')).toBeFalsy();
+
+            dispatchMouseEvent(document, 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(getPickerContainer()).toBeNull();
         }));
 
         it('should support thyOpenChange', () => {
