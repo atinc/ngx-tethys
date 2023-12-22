@@ -14,7 +14,8 @@ import {
     Output,
     PLATFORM_ID,
     TemplateRef,
-    ViewChild
+    ViewChild,
+    inject
 } from '@angular/core';
 
 import { AbstractPickerComponent } from './abstract-picker.component';
@@ -109,13 +110,13 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
 
     takeUntilDestroyed = takeUntilDestroyed();
 
-    constructor(
-        cdr: ChangeDetectorRef,
-        protected element: ElementRef,
-        protected thyClickDispatcher: ThyClickDispatcher,
-        @Inject(PLATFORM_ID) protected platformId: string,
-        protected ngZone: NgZone
-    ) {
+    thyClickDispatcher = inject(ThyClickDispatcher);
+
+    platformId = inject(PLATFORM_ID);
+
+    ngZone = inject(NgZone);
+
+    constructor(cdr: ChangeDetectorRef, protected element: ElementRef) {
         super(cdr);
     }
 
