@@ -1,4 +1,4 @@
-import {POSITION_MAP, ThyPlacement} from 'ngx-tethys/core';
+import { POSITION_MAP, ThyPlacement } from 'ngx-tethys/core';
 import {
     bypassSanitizeProvider,
     dispatchFakeEvent,
@@ -7,34 +7,33 @@ import {
     injectDefaultSvgIconSet,
     typeInElement
 } from 'ngx-tethys/testing';
-import {fromEvent, Subject, timer} from 'rxjs';
-import {tap} from 'rxjs/operators';
+import { fromEvent, Subject, timer } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
-import {Overlay, OverlayContainer, ScrollDispatcher} from '@angular/cdk/overlay';
-import {Platform} from '@angular/cdk/platform';
-import {Component, ElementRef, OnInit, QueryList, TemplateRef, ViewChild, ViewChildren} from '@angular/core';
-import {ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync} from '@angular/core/testing';
-import {FormsModule, ReactiveFormsModule, UntypedFormControl} from '@angular/forms';
-import {By} from '@angular/platform-browser';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {ThyFormModule} from '../form';
-import {DOWN_ARROW, END, ENTER, ESCAPE, HOME} from '../util/keycodes';
+import { Overlay, OverlayContainer, ScrollDispatcher } from '@angular/cdk/overlay';
+import { Platform } from '@angular/cdk/platform';
+import { Component, ElementRef, OnInit, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
+import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ThyFormModule } from '../form';
+import { DOWN_ARROW, END, ENTER, ESCAPE, HOME } from '../util/keycodes';
 import {
     SelectMode,
     THY_SELECT_PANEL_MIN_WIDTH,
     ThySelectCustomComponent,
     ThySelectOptionModel
 } from './custom-select/custom-select.component';
-import {ThySelectModule} from './module';
-import {THY_SELECT_CONFIG, THY_SELECT_SCROLL_STRATEGY, ThyDropdownWidthMode} from './select.config';
-import {SelectControlSize, ThyOptionComponent, ThyOptionModule} from 'ngx-tethys/shared';
+import { ThySelectModule } from './module';
+import { THY_SELECT_CONFIG, THY_SELECT_SCROLL_STRATEGY, ThyDropdownWidthMode } from './select.config';
+import { SelectControlSize, ThyOptionComponent, ThyOptionModule } from 'ngx-tethys/shared';
 
 interface FoodsInfo {
     value: string | string[];
     viewValue: string;
-    disabled?: boolean
+    disabled?: boolean;
 }
-
 
 @Component({
     selector: 'thy-select-basic-test',
