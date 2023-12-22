@@ -50,6 +50,7 @@
   (backdropClick)="onClickBackdrop()"
   (detach)="onOverlayDetach()">
   <div
+    #overlayContainer
     style="position: relative"
     class="thy-picker-container"
     [@scaleXMotion]="placement === 'left' || placement === 'right' ? 'enter' : 'void'"

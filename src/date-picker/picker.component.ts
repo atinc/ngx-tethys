@@ -71,6 +71,7 @@ export class ThyPickerComponent implements OnChanges, AfterViewInit {
     @ViewChild('origin', { static: true }) origin: CdkOverlayOrigin;
     @ViewChild(CdkConnectedOverlay, { static: true }) cdkConnectedOverlay: CdkConnectedOverlay;
     @ViewChild('pickerInput', { static: true }) pickerInput: ElementRef;
+    @ViewChild('overlayContainer', { static: false }) overlayContainer: ElementRef<HTMLElement>;
 
     @Input()
     get format() {
