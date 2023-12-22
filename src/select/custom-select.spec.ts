@@ -94,7 +94,7 @@ class BasicSelectComponent {
 @Component({
     selector: 'thy-multiple-select',
     template: `
-        <thy-custom-select class="foods" #Foods thyPlaceHolder="Food">
+        <thy-custom-select class="foods" [thyMode]="'multiple'" [(ngModel)]="selectedFoods" #Foods thyPlaceHolder="Food">
             <thy-option *ngFor="let food of foods" [thyValue]="food.value" [thyDisabled]="food.disabled" [thyLabelText]="food.viewValue">
             </thy-option>
         </thy-custom-select>
@@ -116,6 +116,8 @@ class MultipleSelectComponent {
         { value: 'sushi-7', viewValue: 'Sushi' }
     ];
     vegetables: any[] = [{ value: 'potatoes', viewValue: 'Potatoes' }];
+
+    selectedFoods: any[] = [];
 
     @ViewChild('Foods', { static: true }) foodsComponent: ThySelectCustomComponent;
     @ViewChild('Vegetables', { static: true }) vegetablesComponent: ThySelectCustomComponent;
@@ -1187,6 +1189,18 @@ describe('ThyCustomSelect', () => {
                 flush();
 
                 expect(fixture.componentInstance.foodsComponent.panelOpen).toBe(false);
+            }));
+
+            it('should handle Ctrl + A correctly', fakeAsync(() => {
+                const foodsTrigger = fixture.debugElement.query(By.css('.foods .form-control-custom')).nativeElement;
+                foodsTrigger.click();
+                fixture.detectChanges();
+                flush();
+                dispatchKeyboardEvent(foodsTrigger, 'keydown', 65, 'a', { control: true });
+                fixture.detectChanges();
+                tick(1000);
+                fixture.detectChanges();
+                expect(foodsTrigger.querySelectorAll('.choice-item').length).toBe(7);
             }));
         });
 
