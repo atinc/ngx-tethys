@@ -730,8 +730,10 @@ export class ThyCascaderComponent
             $event.stopPropagation();
             $event.preventDefault();
         }
+        this.afterChangeFn = () => {
+            this.setMenuVisible(false);
+        };
         this.thyCascaderService.clearSelection();
-        this.setMenuVisible(false);
     }
 
     constructor(
