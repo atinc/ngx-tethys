@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [16.2.0-next.7](https://github.com/atinc/ngx-tethys/compare/16.2.0-next.6...16.2.0-next.7) (2023-12-25)
+
+
+### Bug Fixes
+
+* **cascader:** fix change bug for cascader #INFR-11067 ([#2987](https://github.com/atinc/ngx-tethys/issues/2987)) ([d4ff059](https://github.com/atinc/ngx-tethys/commit/d4ff0599095f938cc2c9e214b5802d53daaf68ec)), closes [#INFR-11067](https://github.com/atinc/ngx-tethys/issues/INFR-11067)
+* **date-picker:** when the date picker directive's and component's thyHasBackdrop value is false, clicking outside should close #INFR-11053 ([#2984](https://github.com/atinc/ngx-tethys/issues/2984)) ([2621455](https://github.com/atinc/ngx-tethys/commit/2621455940c2aa6a04199b08c4443054565424b8)), closes [#INFR-11053](https://github.com/atinc/ngx-tethys/issues/INFR-11053)
+* **select:** fix pane width & position when overlay opening and width changed #INFR-11018 [@luxiaobei](https://github.com/luxiaobei) ([#2980](https://github.com/atinc/ngx-tethys/issues/2980)) ([cc7720b](https://github.com/atinc/ngx-tethys/commit/cc7720bfb8131aa616b6fcd10e9c2ecae8c7a93d)), closes [#INFR-11018](https://github.com/atinc/ngx-tethys/issues/INFR-11018)
+* **tree:** fix deleteTreeNode logic #INFR-11063 ([5454741](https://github.com/atinc/ngx-tethys/commit/5454741705d24c7d1d20149cfb6d403689cf5237)), closes [#INFR-11063](https://github.com/atinc/ngx-tethys/issues/INFR-11063)
+
+
+
 # [16.2.0-next.6](https://github.com/atinc/ngx-tethys/compare/16.2.0-next.5...16.2.0-next.6) (2023-12-20)
 
 
