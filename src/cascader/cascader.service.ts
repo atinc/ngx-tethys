@@ -51,15 +51,14 @@ export class ThyCascaderService {
     public cascaderValueChange() {
         return this.valueChange$.pipe(
             map(() => {
-                return {
+                const valueChangeOptions = {
                     value: this.getValues(),
                     isValueEqual: this.arrayEquals(this.value, this.getValues()),
                     isSelectionModelEmpty: this.selectionModel.isEmpty()
                 };
-            }),
-            finalize(() => {
                 this.defaultValue = null;
                 this.value = this.getValues();
+                return valueChangeOptions;
             }),
             debounceTime(100)
         );
@@ -585,26 +584,33 @@ export class ThyCascaderService {
     }
 
     private updatePrevSelectedOptions(option: ThyCascaderOption, isActivateInit: boolean, index?: number) {
-        set(option, 'selected', this.isSelected(option, isActivateInit, index));
-        if (!this.cascaderOptions.isMultiple) {
-            this.clearPrevSelectedOptions();
-        }
+        if (isActivateInit) {
+            this.handleActivateInit(option);
+        } else {
+            if (!this.cascaderOptions.isMultiple) {
+                this.clearPrevSelectedOptions();
+            }
 
-        if (this.cascaderOptions.isOnlySelectLeaf && this.cascaderOptions.isMultiple && option.parent) {
-            this.updatePrevSelectedOptions(option.parent, false, index - 1);
+            set(option, 'selected', this.isSelected(option, index));
+
+            if (this.cascaderOptions.isOnlySelectLeaf && this.cascaderOptions.isMultiple && option.parent) {
+                this.updatePrevSelectedOptions(option.parent, false, index - 1);
+            }
         }
 
         this.prevSelectedOptions.add(option);
     }
 
-    private isSelected(option: ThyCascaderOption, isActivateInit: boolean, index?: number) {
-        if (isActivateInit && this.cascaderOptions.isOnlySelectLeaf && option.isLeaf) {
-            return true;
-        } else if (!isActivateInit) {
-            return this.cascaderOptions.isOnlySelectLeaf && !option.isLeaf && this.cascaderOptions.isMultiple
-                ? this.isSelectedOption(option, index)
-                : !this.isSelectedOption(option, index);
+    private handleActivateInit(option: ThyCascaderOption): void {
+        if (this.cascaderOptions.isOnlySelectLeaf && option.isLeaf) {
+            set(option, 'selected', true);
         }
+    }
+
+    private isSelected(option: ThyCascaderOption, index?: number) {
+        return this.cascaderOptions.isOnlySelectLeaf && !option.isLeaf && this.cascaderOptions.isMultiple
+            ? this.isSelectedOption(option, index)
+            : !this.isSelectedOption(option, index);
     }
 
     private clearPrevSelectedOptions() {
@@ -612,7 +618,7 @@ export class ThyCascaderService {
         while (prevSelectedOptions.length) {
             set(prevSelectedOptions.pop(), 'selected', false);
         }
-        this.prevSelectedOptions.clear();
+        this.prevSelectedOptions = new Set([]);
     }
 
     private getOptionLabel(option: ThyCascaderOption): any {
