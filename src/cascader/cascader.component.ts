@@ -400,6 +400,8 @@ export class ThyCascaderComponent
         return this.thyCascaderService.columns;
     }
 
+    private afterChangeFn: () => void;
+
     ngOnInit(): void {
         this.setClassMap();
         this.setMenuClass();
@@ -435,6 +437,10 @@ export class ThyCascaderComponent
                 }
                 this.thySelectionChange.emit(this.thyCascaderService.selectedOptions);
                 this.thyChange.emit(options.value);
+                if (this.afterChangeFn) {
+                    this.afterChangeFn();
+                    this.afterChangeFn = null;
+                }
             }
         });
         if (isPlatformBrowser(this.platformId)) {
@@ -697,14 +703,16 @@ export class ThyCascaderComponent
     }
 
     private selectOption = (option: ThyCascaderOption, index: number) => {
+        if ((option.isLeaf || !this.thyIsOnlySelectLeaf) && !this.thyMultiple) {
+            this.afterChangeFn = () => {
+                this.setMenuVisible(false);
+                this.onTouchedFn();
+            };
+        }
         this.thySelect.emit({ option, index });
         const isOptionCanSelect = this.thyChangeOnSelect && !this.isMultiple;
         if (option.isLeaf || !this.thyIsOnlySelectLeaf || isOptionCanSelect || this.shouldPerformSelection(option, index)) {
             this.thyCascaderService.selectOption(option, index);
-        }
-        if ((option.isLeaf || !this.thyIsOnlySelectLeaf) && !this.thyMultiple) {
-            this.setMenuVisible(false);
-            this.onTouchedFn();
         }
     };
 
@@ -722,8 +730,10 @@ export class ThyCascaderComponent
             $event.stopPropagation();
             $event.preventDefault();
         }
+        this.afterChangeFn = () => {
+            this.setMenuVisible(false);
+        };
         this.thyCascaderService.clearSelection();
-        this.setMenuVisible(false);
     }
 
     constructor(
