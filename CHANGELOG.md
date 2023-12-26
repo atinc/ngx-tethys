@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [16.2.0-next.8](https://github.com/atinc/ngx-tethys/compare/16.2.0-next.7...16.2.0-next.8) (2023-12-26)
+
+
+### Bug Fixes
+
+* **layout:** thyLayoutSidebarWidth is not default not 240px #INFR-11096 ([#2992](https://github.com/atinc/ngx-tethys/issues/2992)) ([f6e36e2](https://github.com/atinc/ngx-tethys/commit/f6e36e216fa521bddb0e7f95f0f19fef7e19ee98)), closes [#INFR-11096](https://github.com/atinc/ngx-tethys/issues/INFR-11096)
+
+
+
 # [16.2.0-next.7](https://github.com/atinc/ngx-tethys/compare/16.2.0-next.6...16.2.0-next.7) (2023-12-25)
 
 
