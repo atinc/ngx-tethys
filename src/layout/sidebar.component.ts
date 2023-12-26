@@ -56,7 +56,7 @@ export class ThySidebarDirective implements OnInit {
 
     isDivided = true;
 
-    @HostBinding('style.width.px') thyLayoutSidebarWidth: number = SIDEBAR_DEFAULT_WIDTH;
+    @HostBinding('style.width.px') thyLayoutSidebarWidth: number;
 
     /**
      * sidebar 位置，默认在左侧
