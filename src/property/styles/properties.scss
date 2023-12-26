@@ -58,7 +58,8 @@
                 position: relative;
 
                 &:hover {
-                    &:after {
+                    &:after,
+                    &:before {
                         content: '';
                         display: block;
                         position: absolute;
@@ -66,17 +67,32 @@
                         bottom: 0;
                         left: 0;
                         top: 0;
-                        border: solid 1px variables.$primary;
                         margin-left: variables.$property-item-editor-offset;
                         border-radius: variables.$border-radius;
                     }
+
+                    &:after {
+                        border: solid 1px variables.$primary;
+                    }
+
+                    &:before {
+                        border: solid 1px transparent;
+                        background: variables.$white;
+                    }
+
                     &:not(.thy-property-item-content-editing):after {
                         z-index: 999;
+                    }
+                    .thy-property-item-content-text {
+                        z-index: 1;
                     }
                 }
                 &.thy-property-item-content-editing:after {
                     z-index: -1;
                     transition: 100ms;
+                }
+                &.thy-property-item-content-editing:before {
+                    z-index: -1;
                 }
             }
         }
