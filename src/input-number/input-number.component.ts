@@ -226,17 +226,17 @@ export class ThyInputNumberComponent
     }
 
     onModelChange(value: string): void {
+        const parseValue = this.parser(value);
         if (this.isInputNumber(value)) {
             this.activeValue = value;
         } else {
-            this.displayValue = this.activeValue;
-            this.inputElement.nativeElement.value = this.displayValue;
+            this.displayValue = parseValue;
+            this.inputElement.nativeElement.value = parseValue;
         }
-        const parseValue = this.parser(value);
         const validValue = this.getCurrentValidValue(parseValue);
-        if (this.validValue !== validValue) {
+        if (`${this.validValue}` !== `${validValue}`) {
             this.updateValidValue(validValue);
-            this.onChangeFn(this.validValue);
+            this.onChangeFn(validValue);
         }
     }
 
