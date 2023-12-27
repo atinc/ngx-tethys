@@ -369,7 +369,6 @@ export class ThyCascaderComponent
     public positions: ConnectionPositionPair[];
 
     get selected(): SelectOptionBase | SelectOptionBase[] {
-        this.cdkConnectedOverlay?.overlayRef?.updatePosition();
         return this.thyMultiple ? this.thyCascaderService.selectionModel.selected : this.thyCascaderService.selectionModel.selected[0];
     }
     private isMultiple = false;
