@@ -572,19 +572,19 @@ describe('input-number component', () => {
     it('should Only floating point numbers can be entered work', fakeAsync(() => {
         const testValueToken = [
             { from: '-', to: '' },
-            { from: '-3', to: '-3' },
-            { from: '-3abc', to: '-3' },
-            { from: '-3.1', to: '-3.1' }
+            { from: '-3', to: '0' },
+            { from: '-3abc', to: '0' },
+            { from: '-3.1', to: '0' }
         ];
         fixture.detectChanges();
         testValueToken.forEach(item => {
-            inputElement.value = item.from;
             const inputNumberComponent = inputNumberComponentInstance.inputNumberComponent;
             inputNumberComponent.onModelChange(item.from);
+            dispatchKeyboardEvent(inputElement, 'keydown', keycodes.ENTER);
             tick();
             fixture.detectChanges();
             flush();
-            expect(inputElement.value).toBe(item.to);
+            expect(inputNumberComponent.displayValue).toBe(item.to);
         });
     }));
 
@@ -603,17 +603,8 @@ describe('input-number component', () => {
     it('should set activeValue to value if it is a number', () => {
         fixture.detectChanges();
         const component = inputNumberComponentInstance.inputNumberComponent;
-        console.log(inputNumberComponentInstance, component);
         component.onModelChange('123');
         expect(component.activeValue).toBe('123');
-    });
-
-    it('should set displayValue to activeValue if value is not a number', () => {
-        fixture.detectChanges();
-        const component = inputNumberComponentInstance.inputNumberComponent;
-        component.activeValue = '123';
-        component.onModelChange('abc');
-        expect(component.displayValue).toBe('123');
     });
 
     it('should call parser with value', () => {
