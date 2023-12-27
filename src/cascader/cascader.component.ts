@@ -10,15 +10,9 @@ import { ThyEmptyComponent } from 'ngx-tethys/empty';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { SelectControlSize, SelectOptionBase, ThySelectControlComponent } from 'ngx-tethys/shared';
 import { coerceBooleanProperty, elementMatchClosest, isEmpty } from 'ngx-tethys/util';
-import { BehaviorSubject, Subject, timer } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, Subscription, timer } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, take, takeUntil } from 'rxjs/operators';
-import {
-    CdkConnectedOverlay,
-    CdkOverlayOrigin,
-    ConnectedOverlayPositionChange,
-    ConnectionPositionPair,
-    ViewportRuler
-} from '@angular/cdk/overlay';
+import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange, ConnectionPositionPair } from '@angular/cdk/overlay';
 import { NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
@@ -369,7 +363,6 @@ export class ThyCascaderComponent
     public positions: ConnectionPositionPair[];
 
     get selected(): SelectOptionBase | SelectOptionBase[] {
-        this.cdkConnectedOverlay?.overlayRef?.updatePosition();
         return this.thyMultiple ? this.thyCascaderService.selectionModel.selected : this.thyCascaderService.selectionModel.selected[0];
     }
     private isMultiple = false;
@@ -402,6 +395,8 @@ export class ThyCascaderComponent
 
     private afterChangeFn: () => void;
 
+    private resizeSubscription: Subscription;
+
     ngOnInit(): void {
         this.setClassMap();
         this.setMenuClass();
@@ -418,16 +413,6 @@ export class ThyCascaderComponent
             loadData: this.thyLoadData
         };
         this.thyCascaderService.setCascaderOptions(options);
-
-        this.viewPortRuler
-            .change(100)
-            .pipe(takeUntil(this.destroy$))
-            .subscribe(() => {
-                if (this.menuVisible) {
-                    this.triggerRect = this.trigger.nativeElement.getBoundingClientRect();
-                    this.cdr.markForCheck();
-                }
-            });
 
         this.thyCascaderService.cascaderValueChange().subscribe(options => {
             if (!options.isValueEqual) {
@@ -551,6 +536,9 @@ export class ThyCascaderComponent
             this.setMenuClass();
             if (this.menuVisible) {
                 this.triggerRect = this.trigger.nativeElement.getBoundingClientRect();
+                this.subscribeTriggerResize();
+            } else {
+                this.unsubscribeTriggerResize();
             }
             this.thyExpandStatusChange.emit(menuVisible);
         }
@@ -739,7 +727,6 @@ export class ThyCascaderComponent
     constructor(
         @Inject(PLATFORM_ID) private platformId: string,
         private cdr: ChangeDetectorRef,
-        private viewPortRuler: ViewportRuler,
         public elementRef: ElementRef,
         private thyClickDispatcher: ThyClickDispatcher,
         private ngZone: NgZone,
@@ -812,7 +799,35 @@ export class ThyCascaderComponent
         }
     }
 
+    private subscribeTriggerResize(): void {
+        this.unsubscribeTriggerResize();
+        this.ngZone.runOutsideAngular(() => {
+            this.resizeSubscription = new Observable(observer => {
+                const resize = new ResizeObserver((entries: ResizeObserverEntry[]) => {
+                    observer.next();
+                });
+                resize.observe(this.trigger.nativeElement);
+            }).subscribe(() => {
+                this.ngZone.run(() => {
+                    this.triggerRect = this.trigger.nativeElement.getBoundingClientRect();
+                    if (this.cdkConnectedOverlay && this.cdkConnectedOverlay.overlayRef) {
+                        this.cdkConnectedOverlay.overlayRef.updatePosition();
+                    }
+                    this.cdr.markForCheck();
+                });
+            });
+        });
+    }
+
+    private unsubscribeTriggerResize(): void {
+        if (this.resizeSubscription) {
+            this.resizeSubscription.unsubscribe();
+            this.resizeSubscription = null;
+        }
+    }
+
     ngOnDestroy() {
+        this.unsubscribeTriggerResize();
         this.destroy$.next();
         this.destroy$.complete();
     }
