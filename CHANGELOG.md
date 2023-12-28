@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [16.2.0-next.9](https://github.com/atinc/ngx-tethys/compare/16.2.0-next.8...16.2.0-next.9) (2023-12-28)
+
+
+### Bug Fixes
+
+* **cascader:** update position when cascader resize #INFR-11114 ([#3001](https://github.com/atinc/ngx-tethys/issues/3001)) ([6ce3cec](https://github.com/atinc/ngx-tethys/commit/6ce3cec2f19769b393456b22ad5f65c356a180cb)), closes [#INFR-11114](https://github.com/atinc/ngx-tethys/issues/INFR-11114)
+
+
+### Features
+
+* **property:** add background & adjust html for property-item #INFR-11030 #INFR-11089 ([#2994](https://github.com/atinc/ngx-tethys/issues/2994)) ([925972c](https://github.com/atinc/ngx-tethys/commit/925972c982a9b905b324a26129afbbca641a03d2)), closes [#INFR-11030](https://github.com/atinc/ngx-tethys/issues/INFR-11030) [#INFR-11089](https://github.com/atinc/ngx-tethys/issues/INFR-11089)
+
+
+
 # [16.2.0-next.8](https://github.com/atinc/ngx-tethys/compare/16.2.0-next.7...16.2.0-next.8) (2023-12-26)
 
 
