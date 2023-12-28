@@ -2,7 +2,7 @@ import { ThyCascaderComponent } from 'ngx-tethys/cascader';
 import { EXPANDED_DROPDOWN_POSITIONS } from 'ngx-tethys/core';
 import { dispatchFakeEvent, typeInElement } from 'ngx-tethys/testing';
 import { SafeAny } from 'ngx-tethys/types';
-import { of, Subject } from 'rxjs';
+import { Subject, of } from 'rxjs';
 import { delay, take } from 'rxjs/operators';
 
 import { OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
@@ -10,14 +10,14 @@ import { Platform } from '@angular/cdk/platform';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import { Component, DebugElement, ViewChild } from '@angular/core';
-import { ComponentFixture, ComponentFixtureAutoDetect, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, ComponentFixtureAutoDetect, TestBed, fakeAsync, flush, inject, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { clone } from '../examples/cascader-address-options';
 import { ThyCascaderModule } from '../module';
 import { ThyCascaderExpandTrigger, ThyCascaderTriggerType } from '../types';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 registerLocaleData(zh);
 
@@ -559,7 +559,6 @@ describe('thy-cascader', () => {
                 expect(value.length).toBe(1);
                 done();
             });
-            console.log(debugElement.query(By.css('.form-check-input')).nativeElement);
             debugElement.query(By.css('label')).nativeElement.click();
         });
 
@@ -727,6 +726,25 @@ describe('thy-cascader', () => {
             flush();
             const emptySecondMenu = el.queryAll(By.css('.thy-cascader-menu'))[1];
             expect(emptySecondMenu.children.length).toEqual(0);
+        }));
+
+        it('should not selected option when children is [] and multiple is true and isOnlySelectLeaf is true', fakeAsync(() => {
+            fixture.componentInstance.thyCustomerOptions = emptyOptions;
+            fixture.componentInstance.isMultiple = true;
+            fixture.componentInstance.isOnlySelectLeaf = true;
+            fixture.detectChanges();
+            dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
+            fixture.detectChanges();
+            flush();
+            fixture.detectChanges();
+
+            const el = debugElement.query(By.css('.thy-cascader-menus'));
+            const items = el.queryAll(By.css('.thy-cascader-menu-item'));
+            const emptyIndex = emptyOptions.findIndex(item => item.children.length === 0);
+            const emptyItem = items[emptyIndex];
+            const checkedLabel = emptyItem.queryAll(By.css('.form-check-checked'));
+
+            expect(checkedLabel.length).toEqual(0);
         }));
 
         it('should loadData by thyLoadData when thyLoadData is function', async () => {
