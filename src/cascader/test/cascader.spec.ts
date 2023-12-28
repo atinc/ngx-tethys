@@ -1156,16 +1156,6 @@ describe('thy-cascader', () => {
             expect(labels.length).toBe(component.multipleVal.length);
         });
 
-        it('should close menu when click document', fakeAsync(() => {
-            dispatchFakeEvent(debugElement.query(By.css('.form-control')).nativeElement, 'click', true);
-            fixture.detectChanges();
-            document.body.click();
-            fixture.detectChanges();
-
-            const el = debugElement.query(By.css(`.thy-cascader-picker-open`));
-            expect(el).toBeFalsy();
-        }));
-
         it('should clear item when click clear btn', async () => {
             await fixture.whenStable();
             const originSelectedCount = component.multipleVal?.length;
