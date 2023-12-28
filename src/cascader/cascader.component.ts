@@ -3,7 +3,7 @@ import {
     InputBoolean,
     InputNumber,
     ScrollToService,
-    TabIndexDisabledControlValueAccessorMixin,
+    TabIndexDisabledControlValueAccessorMixin
 } from 'ngx-tethys/core';
 import { ThyEmptyComponent } from 'ngx-tethys/empty';
 import { ThyIconComponent } from 'ngx-tethys/icon';
