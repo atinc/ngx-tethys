@@ -3,8 +3,7 @@ import {
     InputBoolean,
     InputNumber,
     ScrollToService,
-    TabIndexDisabledControlValueAccessorMixin,
-    ThyClickDispatcher
+    TabIndexDisabledControlValueAccessorMixin
 } from 'ngx-tethys/core';
 import { ThyEmptyComponent } from 'ngx-tethys/empty';
 import { ThyIconComponent } from 'ngx-tethys/icon';
@@ -13,7 +12,7 @@ import { coerceBooleanProperty, elementMatchClosest, isEmpty } from 'ngx-tethys/
 import { BehaviorSubject, Observable, Subject, Subscription, timer } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, take, takeUntil } from 'rxjs/operators';
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange, ConnectionPositionPair } from '@angular/cdk/overlay';
-import { NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet, isPlatformBrowser } from '@angular/common';
+import { NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
     AfterContentInit,
     ChangeDetectorRef,
@@ -22,14 +21,12 @@ import {
     EventEmitter,
     forwardRef,
     HostListener,
-    Inject,
     Input,
     NgZone,
     OnChanges,
     OnDestroy,
     OnInit,
     Output,
-    PLATFORM_ID,
     QueryList,
     SimpleChanges,
     TemplateRef,
@@ -428,23 +425,6 @@ export class ThyCascaderComponent
                 }
             }
         });
-        if (isPlatformBrowser(this.platformId)) {
-            this.thyClickDispatcher
-                .clicked(0)
-                .pipe(takeUntil(this.destroy$))
-                .subscribe(event => {
-                    if (
-                        !this.elementRef.nativeElement.contains(event.target) &&
-                        !this.menu?.nativeElement.contains(event.target as Node) &&
-                        this.menuVisible
-                    ) {
-                        this.ngZone.run(() => {
-                            this.closeMenu();
-                            this.cdr.markForCheck();
-                        });
-                    }
-                });
-        }
     }
 
     ngAfterContentInit() {
@@ -725,10 +705,8 @@ export class ThyCascaderComponent
     }
 
     constructor(
-        @Inject(PLATFORM_ID) private platformId: string,
         private cdr: ChangeDetectorRef,
         public elementRef: ElementRef,
-        private thyClickDispatcher: ThyClickDispatcher,
         private ngZone: NgZone,
         public thyCascaderService: ThyCascaderService
     ) {

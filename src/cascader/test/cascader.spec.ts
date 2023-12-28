@@ -545,6 +545,8 @@ describe('thy-cascader', () => {
             dispatchFakeEvent(debugElement.queryAll(By.css(`ul li`))[1].nativeElement, 'mouseover', true);
             dispatchFakeEvent(debugElement.queryAll(By.css(`ul li`))[1].nativeElement, 'click', true);
             fixture.detectChanges();
+            dispatchFakeEvent(document.querySelector('.cdk-overlay-backdrop'), 'click', true);
+            fixture.detectChanges();
         });
 
         it('should select one when click radio and isOnlySelectLeaf is false', done => {
@@ -560,6 +562,9 @@ describe('thy-cascader', () => {
                 done();
             });
             debugElement.query(By.css('label')).nativeElement.click();
+            fixture.detectChanges();
+            dispatchFakeEvent(document.querySelector('.cdk-overlay-backdrop'), 'click', true);
+            fixture.detectChanges();
         });
 
         it('should menu mouse leave(hover)', () => {
@@ -1155,16 +1160,6 @@ describe('thy-cascader', () => {
             const labels = debugElement.queryAll(By.css('.choice-item'));
             expect(labels.length).toBe(component.multipleVal.length);
         });
-
-        it('should close menu when click document', fakeAsync(() => {
-            dispatchFakeEvent(debugElement.query(By.css('.form-control')).nativeElement, 'click', true);
-            fixture.detectChanges();
-            document.body.click();
-            fixture.detectChanges();
-
-            const el = debugElement.query(By.css(`.thy-cascader-picker-open`));
-            expect(el).toBeFalsy();
-        }));
 
         it('should clear item when click clear btn', async () => {
             await fixture.whenStable();
