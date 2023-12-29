@@ -35,6 +35,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { ThyEmptyComponent } from 'ngx-tethys/empty';
 import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyFlexibleTextComponent } from 'ngx-tethys/flexible-text';
 import { ThySelectControlComponent, ThyStopPropagationDirective } from 'ngx-tethys/shared';
 import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';
 import { scaleYMotion } from 'ngx-tethys/core';
@@ -578,7 +579,8 @@ const DEFAULT_ITEM_SIZE = 40;
         ThyEmptyComponent,
         NgClass,
         NgStyle,
-        ThyIconComponent
+        ThyIconComponent,
+        ThyFlexibleTextComponent
     ],
     host: {
         '[attr.tabindex]': '-1'
