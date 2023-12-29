@@ -47,7 +47,6 @@
     #menu
     [ngClass]="menuCls"
     [ngStyle]="thyMenuStyle"
-    (mouseenter)="toggleMouseEnter($event)"
     (mouseleave)="toggleMouseLeave($event)"
     [@scaleYMotion]="'enter'">
     <ng-container *ngIf="!isShowSearchPanel">

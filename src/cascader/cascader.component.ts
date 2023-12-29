@@ -627,7 +627,7 @@ export class ThyCascaderComponent
     }
 
     @HostListener('mouseenter', ['$event'])
-    toggleMouseEnter(event: MouseEvent): void {
+    public toggleMouseEnter(event: MouseEvent): void {
         if (this.disabled || !this.isHoverTriggerAction() || this.menuVisible) {
             return;
         }
@@ -636,7 +636,7 @@ export class ThyCascaderComponent
     }
 
     @HostListener('mouseleave', ['$event'])
-    toggleMouseLeave(event: MouseEvent): void {
+    public toggleMouseLeave(event: MouseEvent): void {
         if (this.disabled || !this.isHoverTriggerAction() || !this.menuVisible) {
             event.preventDefault();
             return;
