@@ -284,7 +284,6 @@ export class ThyCascaderComponent
 
     /**
      * 是否有幕布
-     * @default true
      */
     @Input() @InputBoolean() thyHasBackdrop = true;
 
