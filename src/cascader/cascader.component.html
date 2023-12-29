@@ -31,7 +31,7 @@
 
 <ng-template
   cdkConnectedOverlay
-  cdkConnectedOverlayHasBackdrop
+  [cdkConnectedOverlayHasBackdrop]="thyHasBackdrop"
   cdkConnectedOverlayBackdropClass="thy-cascader-backdrop"
   [cdkConnectedOverlayOrigin]="origin"
   [cdkConnectedOverlayPositions]="positions"
@@ -47,7 +47,8 @@
     #menu
     [ngClass]="menuCls"
     [ngStyle]="thyMenuStyle"
-    (mouseleave)="mouseleaveMenu($event)"
+    (mouseenter)="toggleMouseEnter($event)"
+    (mouseleave)="toggleMouseLeave($event)"
     [@scaleYMotion]="'enter'">
     <ng-container *ngIf="!isShowSearchPanel">
       <ng-container *ngIf="columns.length > 0; else emptyPlaceholder">
