@@ -273,7 +273,8 @@ const loadDataOption: { [key: string]: { children?: any[]; [key: string]: any }[
             [thyEmptyStateText]="emptyStateText"
             [thyMultiple]="isMultiple"
             (thyExpandStatusChange)="thyExpandStatusChange($event)"
-            [thyAutoExpand]="thyAutoExpand">
+            [thyAutoExpand]="thyAutoExpand"
+            [thyHasBackdrop]="hasBackdrop">
         </thy-cascader>
     `
 })
@@ -295,6 +296,8 @@ class CascaderBasicComponent {
     public isOnlySelectLeaf = true;
     public isMultiple = false;
     public thyAutoExpand = true;
+    public hasBackdrop: boolean;
+
     @ViewChild('cascader', { static: true }) cascaderRef: ThyCascaderComponent;
 
     thyExpandStatusChange = jasmine.createSpy('thyExpandStatusChange callback');
@@ -526,7 +529,7 @@ describe('thy-cascader', () => {
         it('should hover open', () => {
             component.thyTriggerAction = 'hover';
             fixture.detectChanges();
-            dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'mouseover', true);
+            dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'mouseenter', true);
             const el = debugElement.query(By.css(`.thy-cascader-picker-open`));
             expect(el).toBeTruthy();
         });
@@ -545,8 +548,6 @@ describe('thy-cascader', () => {
             dispatchFakeEvent(debugElement.queryAll(By.css(`ul li`))[1].nativeElement, 'mouseover', true);
             dispatchFakeEvent(debugElement.queryAll(By.css(`ul li`))[1].nativeElement, 'click', true);
             fixture.detectChanges();
-            dispatchFakeEvent(document.querySelector('.cdk-overlay-backdrop'), 'click', true);
-            fixture.detectChanges();
         });
 
         it('should select one when click radio and isOnlySelectLeaf is false', done => {
@@ -563,15 +564,34 @@ describe('thy-cascader', () => {
             });
             debugElement.query(By.css('label')).nativeElement.click();
             fixture.detectChanges();
-            dispatchFakeEvent(document.querySelector('.cdk-overlay-backdrop'), 'click', true);
-            fixture.detectChanges();
         });
+
+        it('should support thyHasBackdrop to be true', fakeAsync(() => {
+            component.hasBackdrop = true;
+            fixture.detectChanges();
+            dispatchFakeEvent(debugElement.query(By.css('.form-control')).nativeElement, 'click', true);
+            fixture.detectChanges();
+            expect(overlayContainerElement.querySelector('.cdk-overlay-backdrop')).toBeTruthy();
+            const cascaderMenusElement = debugElement.query(By.css(`.thy-cascader-menus`));
+            expect(cascaderMenusElement).toBeTruthy();
+        }));
+
+        it('should close menu when click document and thyHasBackdrop is false', fakeAsync(() => {
+            component.hasBackdrop = false;
+            fixture.detectChanges();
+            dispatchFakeEvent(debugElement.query(By.css('.form-control')).nativeElement, 'click', true);
+            fixture.detectChanges();
+            document.body.click();
+            fixture.detectChanges();
+            const cascaderMenusElement = debugElement.query(By.css(`.thy-cascader-menus`));
+            expect(cascaderMenusElement).toBeFalsy();
+        }));
 
         it('should menu mouse leave(hover)', () => {
             const spy = fixture.componentInstance.thyExpandStatusChange;
             component.thyTriggerAction = 'hover';
             fixture.detectChanges();
-            dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'mouseover', true);
+            dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'mouseenter', true);
             fixture.detectChanges();
             let el = debugElement.query(By.css('.thy-cascader-menus'));
             expect(el).toBeTruthy();
