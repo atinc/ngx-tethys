@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [16.2.0-next.11](https://github.com/atinc/ngx-tethys/compare/16.2.0-next.10...16.2.0-next.11) (2023-12-29)
+
+
+### Bug Fixes
+
+* **overlay:** #INFR-11126 adjust dispatch dispose timing ([#3005](https://github.com/atinc/ngx-tethys/issues/3005)) ([468f62d](https://github.com/atinc/ngx-tethys/commit/468f62d1ba6bfc2f23ded8de730e9626ae969265)), closes [#INFR-11126](https://github.com/atinc/ngx-tethys/issues/INFR-11126)
+
+
+### Features
+
+* **cascader:** support thyHasBackdrop and fix some known bugs for trigger hover #INFR-11123 ([#3007](https://github.com/atinc/ngx-tethys/issues/3007)) ([f0c9d9a](https://github.com/atinc/ngx-tethys/commit/f0c9d9a8905e0a0f3002f8f6a421a4f5a04ec4e5)), closes [#INFR-11123](https://github.com/atinc/ngx-tethys/issues/INFR-11123)
+
+
+
 # [16.2.0-next.10](https://github.com/atinc/ngx-tethys/compare/16.2.0-next.9...16.2.0-next.10) (2023-12-29)
 
 
