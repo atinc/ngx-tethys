@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [16.2.0-next.10](https://github.com/atinc/ngx-tethys/compare/16.2.0-next.9...16.2.0-next.10) (2023-12-29)
+
+
+### Bug Fixes
+
+* **action:** fix action-lite disabled style (#INFR-11105) ([#2999](https://github.com/atinc/ngx-tethys/issues/2999)) ([5dae2b6](https://github.com/atinc/ngx-tethys/commit/5dae2b614873bcb869dd32a100a4d03a40c98dbd)), closes [#INFR-11105](https://github.com/atinc/ngx-tethys/issues/INFR-11105)
+* **cascader:** fix option will be auto selected when children is [] #INFR-11090 ([#2998](https://github.com/atinc/ngx-tethys/issues/2998)) ([3aff9c6](https://github.com/atinc/ngx-tethys/commit/3aff9c6a0c39417033fb0e70083c5f2b61de0ef4)), closes [#INFR-11090](https://github.com/atinc/ngx-tethys/issues/INFR-11090)
+* **property:** fix style when  operation's height is not 32 #INFR-11125 ([#3004](https://github.com/atinc/ngx-tethys/issues/3004)) ([4687472](https://github.com/atinc/ngx-tethys/commit/4687472e48f7b34f1166c028dd884efff325073e)), closes [#INFR-11125](https://github.com/atinc/ngx-tethys/issues/INFR-11125)
+
+
+
 # [16.2.0-next.9](https://github.com/atinc/ngx-tethys/compare/16.2.0-next.8...16.2.0-next.9) (2023-12-28)
 
 
