@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [16.2.0](https://github.com/atinc/ngx-tethys/compare/16.2.0-next.11...16.2.0) (2024-01-02)
+
+
+### Bug Fixes
+
+* **input-number:** fix input number display value error with suffix when delete #INFR-11109 ([6cbf2b4](https://github.com/atinc/ngx-tethys/commit/6cbf2b45f080514c1b8dfff71bf9765db2b90c8b)), closes [#INFR-11109](https://github.com/atinc/ngx-tethys/issues/INFR-11109)
+* **tree-select:** optimize tree select popover width style #INFR-11127 ([#3009](https://github.com/atinc/ngx-tethys/issues/3009)) ([3faa2f7](https://github.com/atinc/ngx-tethys/commit/3faa2f7073a62837c4817c6ffde4870d198e50ea)), closes [#INFR-11127](https://github.com/atinc/ngx-tethys/issues/INFR-11127)
+
+
+
 # [16.2.0-next.11](https://github.com/atinc/ngx-tethys/compare/16.2.0-next.10...16.2.0-next.11) (2023-12-29)
 
 
