@@ -4,7 +4,7 @@ describe('thyQuarterPickerFormat', () => {
     const quarterPickerFormatPipe: ThyQuarterPickerFormatPipe = new ThyQuarterPickerFormatPipe();
 
     it(`should return '2023年Q4'`, () => {
-        const date = new Date();
+        const date = new Date('2023-12-31');
         expect(quarterPickerFormatPipe.transform(date, 'yyyy年qqq')).toBe('2023年Q4');
     });
 
