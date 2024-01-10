@@ -263,7 +263,8 @@
 
 .thy-input-group-with-suffix:not(.input-group-sm):not(.input-group-md) {
     .form-control {
-        &:first-child {
+        // search-input-field 是 thy-custom-select 内 input 的样式，这里需要排除掉
+        &:first-child:not(.search-input-field) {
             padding-left: variables.$input-padding-x-fixed-lg;
         }
     }
