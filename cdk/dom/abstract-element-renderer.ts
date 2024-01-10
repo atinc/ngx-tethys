@@ -62,5 +62,11 @@ export abstract class AbstractElementRenderer {
 
     setAttribute(attribute: string, value: string) {
         this.renderer.setAttribute(this.safeElement, attribute, value);
+        return this;
+    }
+
+    removeAttribute(attribute: string) {
+        this.renderer.removeAttribute(this.safeElement, attribute);
+        return this;
     }
 }
