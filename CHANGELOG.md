@@ -2,6 +2,93 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [16.2.0](https://github.com/atinc/ngx-tethys/compare/16.2.0-next.11...16.2.0) (2024-01-02)
+
+
+### Bug Fixes
+
+* **input-number:** fix input number display value error with suffix when delete #INFR-11109 ([6cbf2b4](https://github.com/atinc/ngx-tethys/commit/6cbf2b45f080514c1b8dfff71bf9765db2b90c8b)), closes [#INFR-11109](https://github.com/atinc/ngx-tethys/issues/INFR-11109)
+* **tree-select:** optimize tree select popover width style #INFR-11127 ([#3009](https://github.com/atinc/ngx-tethys/issues/3009)) ([3faa2f7](https://github.com/atinc/ngx-tethys/commit/3faa2f7073a62837c4817c6ffde4870d198e50ea)), closes [#INFR-11127](https://github.com/atinc/ngx-tethys/issues/INFR-11127)
+
+
+
+# [16.2.0-next.11](https://github.com/atinc/ngx-tethys/compare/16.2.0-next.10...16.2.0-next.11) (2023-12-29)
+
+
+### Bug Fixes
+
+* **overlay:** #INFR-11126 adjust dispatch dispose timing ([#3005](https://github.com/atinc/ngx-tethys/issues/3005)) ([468f62d](https://github.com/atinc/ngx-tethys/commit/468f62d1ba6bfc2f23ded8de730e9626ae969265)), closes [#INFR-11126](https://github.com/atinc/ngx-tethys/issues/INFR-11126)
+
+
+### Features
+
+* **cascader:** support thyHasBackdrop and fix some known bugs for trigger hover #INFR-11123 ([#3007](https://github.com/atinc/ngx-tethys/issues/3007)) ([f0c9d9a](https://github.com/atinc/ngx-tethys/commit/f0c9d9a8905e0a0f3002f8f6a421a4f5a04ec4e5)), closes [#INFR-11123](https://github.com/atinc/ngx-tethys/issues/INFR-11123)
+
+
+
+# [16.2.0-next.10](https://github.com/atinc/ngx-tethys/compare/16.2.0-next.9...16.2.0-next.10) (2023-12-29)
+
+
+### Bug Fixes
+
+* **action:** fix action-lite disabled style (#INFR-11105) ([#2999](https://github.com/atinc/ngx-tethys/issues/2999)) ([5dae2b6](https://github.com/atinc/ngx-tethys/commit/5dae2b614873bcb869dd32a100a4d03a40c98dbd)), closes [#INFR-11105](https://github.com/atinc/ngx-tethys/issues/INFR-11105)
+* **cascader:** fix option will be auto selected when children is [] #INFR-11090 ([#2998](https://github.com/atinc/ngx-tethys/issues/2998)) ([3aff9c6](https://github.com/atinc/ngx-tethys/commit/3aff9c6a0c39417033fb0e70083c5f2b61de0ef4)), closes [#INFR-11090](https://github.com/atinc/ngx-tethys/issues/INFR-11090)
+* **property:** fix style when  operation's height is not 32 #INFR-11125 ([#3004](https://github.com/atinc/ngx-tethys/issues/3004)) ([4687472](https://github.com/atinc/ngx-tethys/commit/4687472e48f7b34f1166c028dd884efff325073e)), closes [#INFR-11125](https://github.com/atinc/ngx-tethys/issues/INFR-11125)
+
+
+
+# [16.2.0-next.9](https://github.com/atinc/ngx-tethys/compare/16.2.0-next.8...16.2.0-next.9) (2023-12-28)
+
+
+### Bug Fixes
+
+* **cascader:** update position when cascader resize #INFR-11114 ([#3001](https://github.com/atinc/ngx-tethys/issues/3001)) ([6ce3cec](https://github.com/atinc/ngx-tethys/commit/6ce3cec2f19769b393456b22ad5f65c356a180cb)), closes [#INFR-11114](https://github.com/atinc/ngx-tethys/issues/INFR-11114)
+
+
+### Features
+
+* **property:** add background & adjust html for property-item #INFR-11030 #INFR-11089 ([#2994](https://github.com/atinc/ngx-tethys/issues/2994)) ([925972c](https://github.com/atinc/ngx-tethys/commit/925972c982a9b905b324a26129afbbca641a03d2)), closes [#INFR-11030](https://github.com/atinc/ngx-tethys/issues/INFR-11030) [#INFR-11089](https://github.com/atinc/ngx-tethys/issues/INFR-11089)
+
+
+
+# [16.2.0-next.8](https://github.com/atinc/ngx-tethys/compare/16.2.0-next.7...16.2.0-next.8) (2023-12-26)
+
+
+### Bug Fixes
+
+* **layout:** thyLayoutSidebarWidth is not default not 240px #INFR-11096 ([#2992](https://github.com/atinc/ngx-tethys/issues/2992)) ([f6e36e2](https://github.com/atinc/ngx-tethys/commit/f6e36e216fa521bddb0e7f95f0f19fef7e19ee98)), closes [#INFR-11096](https://github.com/atinc/ngx-tethys/issues/INFR-11096)
+
+
+
+# [16.2.0-next.7](https://github.com/atinc/ngx-tethys/compare/16.2.0-next.6...16.2.0-next.7) (2023-12-25)
+
+
+### Bug Fixes
+
+* **cascader:** fix change bug for cascader #INFR-11067 ([#2987](https://github.com/atinc/ngx-tethys/issues/2987)) ([d4ff059](https://github.com/atinc/ngx-tethys/commit/d4ff0599095f938cc2c9e214b5802d53daaf68ec)), closes [#INFR-11067](https://github.com/atinc/ngx-tethys/issues/INFR-11067)
+* **date-picker:** when the date picker directive's and component's thyHasBackdrop value is false, clicking outside should close #INFR-11053 ([#2984](https://github.com/atinc/ngx-tethys/issues/2984)) ([2621455](https://github.com/atinc/ngx-tethys/commit/2621455940c2aa6a04199b08c4443054565424b8)), closes [#INFR-11053](https://github.com/atinc/ngx-tethys/issues/INFR-11053)
+* **select:** fix pane width & position when overlay opening and width changed #INFR-11018 [@luxiaobei](https://github.com/luxiaobei) ([#2980](https://github.com/atinc/ngx-tethys/issues/2980)) ([cc7720b](https://github.com/atinc/ngx-tethys/commit/cc7720bfb8131aa616b6fcd10e9c2ecae8c7a93d)), closes [#INFR-11018](https://github.com/atinc/ngx-tethys/issues/INFR-11018)
+* **tree:** fix deleteTreeNode logic #INFR-11063 ([5454741](https://github.com/atinc/ngx-tethys/commit/5454741705d24c7d1d20149cfb6d403689cf5237)), closes [#INFR-11063](https://github.com/atinc/ngx-tethys/issues/INFR-11063)
+
+
+
+# [16.2.0-next.6](https://github.com/atinc/ngx-tethys/compare/16.2.0-next.5...16.2.0-next.6) (2023-12-20)
+
+
+### Bug Fixes
+
+* **cascader:** add [@internal](https://github.com/internal) ([#2976](https://github.com/atinc/ngx-tethys/issues/2976)) ([3291443](https://github.com/atinc/ngx-tethys/commit/3291443f1407196c2ec11354ec62e8c01ca4006c))
+
+
+### Features
+
+* **date-picker:** support animations for date-picker, week-picker, month-picker, quarter-picker, year-picker, range-picker #INFR-10809 ([#2975](https://github.com/atinc/ngx-tethys/issues/2975)) ([513f950](https://github.com/atinc/ngx-tethys/commit/513f9508cfdb15de7313af972ca6662240907598)), closes [#INFR-10809](https://github.com/atinc/ngx-tethys/issues/INFR-10809)
+* **date-picker:** support thyHasBackdrop for thy-date-picker component #INFR-10885 ([#2978](https://github.com/atinc/ngx-tethys/issues/2978)) ([db4c675](https://github.com/atinc/ngx-tethys/commit/db4c675123c3c076f9fcf641c17a162f7b006ee6)), closes [#INFR-10885](https://github.com/atinc/ngx-tethys/issues/INFR-10885)
+* **input-number:** allow custom change step speed ([#2960](https://github.com/atinc/ngx-tethys/issues/2960)) ([f6da45c](https://github.com/atinc/ngx-tethys/commit/f6da45c428afc913f50b9088d419e13380ee5191))
+* **tooltip:** support animations for tooltip and flexibleText #INFR-11005 ([#2977](https://github.com/atinc/ngx-tethys/issues/2977)) ([d71bceb](https://github.com/atinc/ngx-tethys/commit/d71bceb700ac5013a57cb32cdd3d597c8137cd7f)), closes [#INFR-11005](https://github.com/atinc/ngx-tethys/issues/INFR-11005)
+
+
+
 # [16.2.0-next.5](https://github.com/atinc/ngx-tethys/compare/16.2.0-next.4...16.2.0-next.5) (2023-12-18)
 
 

@@ -31,8 +31,8 @@
 
             .thy-property-item-operation {
                 display: flex;
-                flex-grow: 1;
                 justify-content: flex-end;
+                align-items: center;
             }
         }
     }
@@ -44,39 +44,58 @@
     }
 
     &.thy-properties-edit-trigger-hover {
-        .thy-property-item-content-editable {
+        .thy-property-item-wrapper {
             &:hover {
-                @include display-item-editor();
+                .thy-property-item-content-editable {
+                    @include display-item-editor();
+                }
             }
         }
     }
 
     &.thy-properties-edit-trigger-click {
-        .thy-property-item-content {
-            &.thy-property-item-content-editable {
-                cursor: pointer;
-                position: relative;
+        .thy-property-item-wrapper {
+            &:hover {
+                .thy-property-item-content {
+                    &.thy-property-item-content-editable {
+                        cursor: pointer;
+                        position: relative;
 
-                &:hover {
-                    &:after {
-                        content: '';
-                        display: block;
-                        position: absolute;
-                        right: 0;
-                        bottom: 0;
-                        left: 0;
-                        top: 0;
-                        border: solid 1px variables.$primary;
-                        margin-left: variables.$property-item-editor-offset;
-                        border-radius: variables.$border-radius;
+                        &:after,
+                        &:before {
+                            content: '';
+                            display: block;
+                            position: absolute;
+                            right: 0;
+                            bottom: 0;
+                            left: 0;
+                            top: 0;
+                            margin-left: variables.$property-item-editor-offset;
+                            border-radius: variables.$border-radius;
+                        }
+
+                        &:after {
+                            border: solid 1px variables.$primary;
+                        }
+
+                        &:before {
+                            background: variables.$white;
+                        }
+
+                        &:not(.thy-property-item-content-editing):after {
+                            z-index: 999;
+                        }
+                        .thy-property-item-content-text {
+                            z-index: 1;
+                        }
+                        &.thy-property-item-content-editing:after {
+                            z-index: -1;
+                            transition: 100ms;
+                        }
+                        &.thy-property-item-content-editing:before {
+                            z-index: -1;
+                        }
                     }
-                    &:not(.thy-property-item-content-editing):after {
-                        z-index: 999;
-                    }
-                }
-                &.thy-property-item-content-editing:after {
-                    z-index: -1;
-                    transition: 100ms;
                 }
             }
         }
@@ -100,6 +119,13 @@
             span {
                 display: inline-block;
             }
+        }
+
+        .thy-property-item-wrapper {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            min-width: 0;
         }
 
         .thy-property-item-content {
@@ -139,7 +165,7 @@
             .thy-property-item-operation {
                 visibility: hidden;
             }
-            .thy-property-item-content {
+            .thy-property-item-wrapper {
                 @include property-item-operation-hover-visible();
             }
         }

@@ -40,7 +40,7 @@
           [ngTemplateOutlet]="treeNodeTemplateRef"
           [ngTemplateOutletContext]="{ $implicit: node }"></ng-template>
         <ng-template #defaultNodeText>
-          {{ node[showKey] }}
+          <span  thyFlexibleText [thyTooltipContent]="node[showKey]">{{ node[showKey] }}</span>
         </ng-template>
       </span>
       <thy-icon class="checked-icon" *ngIf="isMultiple" thyIconName="check"></thy-icon>

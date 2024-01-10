@@ -1,11 +1,11 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { Injectable } from '@angular/core';
-import { SelectOptionBase } from 'ngx-tethys/shared';
-import { ThyCascaderOption, ThyCascaderSearchOption } from './types';
-import { helpers, isArray, isEmpty, set } from 'ngx-tethys/util';
 import { Id } from '@tethys/cdk/immutable';
+import { SelectOptionBase } from 'ngx-tethys/shared';
+import { helpers, isArray, isEmpty, set } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
-import { debounceTime, finalize, map } from 'rxjs/operators';
+import { debounceTime, map } from 'rxjs/operators';
+import { ThyCascaderOption, ThyCascaderSearchOption } from './types';
 const defaultDisplayRender = (label: any) => label.join(' / ');
 
 /**
@@ -51,15 +51,14 @@ export class ThyCascaderService {
     public cascaderValueChange() {
         return this.valueChange$.pipe(
             map(() => {
-                return {
+                const valueChangeOptions = {
                     value: this.getValues(),
                     isValueEqual: this.arrayEquals(this.value, this.getValues()),
                     isSelectionModelEmpty: this.selectionModel.isEmpty()
                 };
-            }),
-            finalize(() => {
                 this.defaultValue = null;
                 this.value = this.getValues();
+                return valueChangeOptions;
             }),
             debounceTime(100)
         );
@@ -74,7 +73,9 @@ export class ThyCascaderService {
         loadData?: (node: ThyCascaderOption, index?: number) => PromiseLike<any>;
     }) {
         this.cascaderOptions = { ...this.cascaderOptions, ...options };
-        this.initSelectionModel(this.cascaderOptions.isMultiple);
+        if (this.cascaderOptions.hasOwnProperty('isMultiple')) {
+            this.initSelectionModel(this.cascaderOptions.isMultiple);
+        }
     }
 
     public initSelectionModel(isMultiple?: boolean) {
@@ -358,6 +359,9 @@ export class ThyCascaderService {
         if (option.isLeaf) {
             return option.selected === isSelected;
         }
+        if (helpers.isEmpty(option.children) && this.cascaderOptions?.isOnlySelectLeaf) {
+            return false;
+        }
         for (const childOption of option.children) {
             if (isArray(childOption.children) && childOption.children.length && !this.checkSelectedStatus(childOption, isSelected)) {
                 return false;
@@ -569,7 +573,13 @@ export class ThyCascaderService {
     }
 
     public isHalfSelectedOption(option: ThyCascaderOption, index: number): boolean {
-        if (!option.selected && this.cascaderOptions.isOnlySelectLeaf && !option.isLeaf && !this.checkSelectedStatus(option, false)) {
+        if (
+            !option.selected &&
+            this.cascaderOptions.isOnlySelectLeaf &&
+            !option.isLeaf &&
+            !this.checkSelectedStatus(option, false) &&
+            !helpers.isEmpty(option.children)
+        ) {
             return true;
         }
         return false;
@@ -583,26 +593,33 @@ export class ThyCascaderService {
     }
 
     private updatePrevSelectedOptions(option: ThyCascaderOption, isActivateInit: boolean, index?: number) {
-        set(option, 'selected', this.isSelected(option, isActivateInit, index));
-        if (!this.cascaderOptions.isMultiple) {
-            this.clearPrevSelectedOptions();
-        }
+        if (isActivateInit) {
+            this.handleActivateInit(option);
+        } else {
+            if (!this.cascaderOptions.isMultiple) {
+                this.clearPrevSelectedOptions();
+            }
 
-        if (this.cascaderOptions.isOnlySelectLeaf && this.cascaderOptions.isMultiple && option.parent) {
-            this.updatePrevSelectedOptions(option.parent, false, index - 1);
+            set(option, 'selected', this.isSelected(option, index));
+
+            if (this.cascaderOptions.isOnlySelectLeaf && this.cascaderOptions.isMultiple && option.parent) {
+                this.updatePrevSelectedOptions(option.parent, false, index - 1);
+            }
         }
 
         this.prevSelectedOptions.add(option);
     }
 
-    private isSelected(option: ThyCascaderOption, isActivateInit: boolean, index?: number) {
-        if (isActivateInit && this.cascaderOptions.isOnlySelectLeaf && option.isLeaf) {
-            return true;
-        } else if (!isActivateInit) {
-            return this.cascaderOptions.isOnlySelectLeaf && !option.isLeaf && this.cascaderOptions.isMultiple
-                ? this.isSelectedOption(option, index)
-                : !this.isSelectedOption(option, index);
+    private handleActivateInit(option: ThyCascaderOption): void {
+        if (this.cascaderOptions.isOnlySelectLeaf && option.isLeaf) {
+            set(option, 'selected', true);
         }
+    }
+
+    private isSelected(option: ThyCascaderOption, index?: number) {
+        return this.cascaderOptions.isOnlySelectLeaf && !option.isLeaf && this.cascaderOptions.isMultiple
+            ? this.isSelectedOption(option, index)
+            : !this.isSelectedOption(option, index);
     }
 
     private clearPrevSelectedOptions() {
@@ -610,7 +627,7 @@ export class ThyCascaderService {
         while (prevSelectedOptions.length) {
             set(prevSelectedOptions.pop(), 'selected', false);
         }
-        this.prevSelectedOptions.clear();
+        this.prevSelectedOptions = new Set([]);
     }
 
     private getOptionLabel(option: ThyCascaderOption): any {

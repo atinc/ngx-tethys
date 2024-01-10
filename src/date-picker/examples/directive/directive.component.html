@@ -4,6 +4,7 @@
   [thyValue]="date | thyDatePickerFormat"
   thyIcon="calendar-check"
   thyDatePicker
+  [thyHasBackdrop]="false"
   [(ngModel)]="date"></thy-property-operation>
 <br />
 
@@ -14,7 +15,8 @@
   thyIcon="calendar-check"
   thyDatePicker
   [thyMode]="'month'"
-  [(ngModel)]="date"></thy-property-operation>
+  [(ngModel)]="date"
+  [thyHasBackdrop]="false"></thy-property-operation>
 <br />
 
 <thy-property-operation

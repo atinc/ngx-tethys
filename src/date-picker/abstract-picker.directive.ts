@@ -146,6 +146,7 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
                     hasBackdrop: this.hasBackdrop,
                     backdropClass: 'thy-overlay-transparent-backdrop',
                     offset: this.offset,
+                    outsideClosable: true,
                     initialState: {
                         isRange: this.isRange,
                         panelMode: this.panelMode,

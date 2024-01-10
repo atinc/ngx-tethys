@@ -35,7 +35,7 @@ export class ThyDatePickerComponent extends BasePickerComponent implements OnIni
 
     private hostRenderer = useHostRenderer();
 
-    constructor(cdr: ChangeDetectorRef, public element: ElementRef) {
+    constructor(cdr: ChangeDetectorRef, element: ElementRef) {
         super(cdr, element);
         this.hostRenderer.addClass('thy-calendar-picker');
     }

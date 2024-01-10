@@ -1,6 +1,6 @@
 import { ESCAPE, helpers } from 'ngx-tethys/util';
 import { Observable, of, Subject } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
+import { filter, finalize, take } from 'rxjs/operators';
 
 import { GlobalPositionStrategy, OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
 
@@ -137,14 +137,20 @@ export abstract class ThyAbstractInternalOverlayRef<
             }
         });
 
-        overlayRef.detachments().subscribe(() => {
-            this._beforeClosed.next(this._result);
-            this._beforeClosed.complete();
-            this._afterClosed.next(this._result);
-            this._afterClosed.complete();
-            this.componentInstance = null;
-            this.overlayRef.dispose();
-        });
+        overlayRef
+            .detachments()
+            .pipe(
+                finalize(() => {
+                    this.overlayRef.dispose();
+                })
+            )
+            .subscribe(() => {
+                this._beforeClosed.next(this._result);
+                this._beforeClosed.complete();
+                this._afterClosed.next(this._result);
+                this._afterClosed.complete();
+                this.componentInstance = null;
+            });
 
         // ESC close
         overlayRef

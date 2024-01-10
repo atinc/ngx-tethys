@@ -192,6 +192,7 @@ describe('ThyPickerDirective', () => {
                     origin: debugElement.nativeElement.childNodes[0],
                     hasBackdrop: true,
                     backdropClass: 'thy-overlay-transparent-backdrop',
+                    outsideClosable: true,
                     offset: 4,
                     initialState: getInitState(),
                     placement: 'bottomLeft'
@@ -207,6 +208,7 @@ describe('ThyPickerDirective', () => {
                     origin: debugElement.nativeElement.childNodes[0],
                     hasBackdrop: false,
                     backdropClass: 'thy-overlay-transparent-backdrop',
+                    outsideClosable: true,
                     offset: fixtureInstance.thyOffset,
                     initialState: getInitState(),
                     placement: fixtureInstance.thyPlacement
@@ -326,6 +328,7 @@ describe('ThyPickerDirective', () => {
                     origin: debugElement.nativeElement.childNodes[0],
                     hasBackdrop: true,
                     backdropClass: 'thy-overlay-transparent-backdrop',
+                    outsideClosable: true,
                     offset: 4,
                     initialState: { ...getInitState(), defaultPickerValue: null, showShortcut: undefined },
                     placement: 'bottom'

@@ -10,15 +10,9 @@ import { ThyEmptyComponent } from 'ngx-tethys/empty';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { SelectControlSize, SelectOptionBase, ThySelectControlComponent } from 'ngx-tethys/shared';
 import { coerceBooleanProperty, elementMatchClosest, isEmpty } from 'ngx-tethys/util';
-import { BehaviorSubject, Subject, timer } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, Subscription, timer } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, take, takeUntil } from 'rxjs/operators';
-import {
-    CdkConnectedOverlay,
-    CdkOverlayOrigin,
-    ConnectedOverlayPositionChange,
-    ConnectionPositionPair,
-    ViewportRuler
-} from '@angular/cdk/overlay';
+import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange, ConnectionPositionPair } from '@angular/cdk/overlay';
 import { NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
@@ -289,6 +283,11 @@ export class ThyCascaderComponent
     @Input() thyPreset: string = '';
 
     /**
+     * 是否有幕布
+     */
+    @Input() @InputBoolean() thyHasBackdrop = true;
+
+    /**
      * 值发生变化时触发，返回选择项的值
      * @type EventEmitter<any[]>
      */
@@ -369,7 +368,6 @@ export class ThyCascaderComponent
     public positions: ConnectionPositionPair[];
 
     get selected(): SelectOptionBase | SelectOptionBase[] {
-        this.cdkConnectedOverlay?.overlayRef?.updatePosition();
         return this.thyMultiple ? this.thyCascaderService.selectionModel.selected : this.thyCascaderService.selectionModel.selected[0];
     }
     private isMultiple = false;
@@ -400,6 +398,10 @@ export class ThyCascaderComponent
         return this.thyCascaderService.columns;
     }
 
+    private afterChangeFn: () => void;
+
+    private resizeSubscription: Subscription;
+
     ngOnInit(): void {
         this.setClassMap();
         this.setMenuClass();
@@ -417,16 +419,6 @@ export class ThyCascaderComponent
         };
         this.thyCascaderService.setCascaderOptions(options);
 
-        this.viewPortRuler
-            .change(100)
-            .pipe(takeUntil(this.destroy$))
-            .subscribe(() => {
-                if (this.menuVisible) {
-                    this.triggerRect = this.trigger.nativeElement.getBoundingClientRect();
-                    this.cdr.markForCheck();
-                }
-            });
-
         this.thyCascaderService.cascaderValueChange().subscribe(options => {
             if (!options.isValueEqual) {
                 this.onChangeFn(options.value);
@@ -435,8 +427,13 @@ export class ThyCascaderComponent
                 }
                 this.thySelectionChange.emit(this.thyCascaderService.selectedOptions);
                 this.thyChange.emit(options.value);
+                if (this.afterChangeFn) {
+                    this.afterChangeFn();
+                    this.afterChangeFn = null;
+                }
             }
         });
+
         if (isPlatformBrowser(this.platformId)) {
             this.thyClickDispatcher
                 .clicked(0)
@@ -475,10 +472,6 @@ export class ThyCascaderComponent
         const cascaderPosition: ConnectionPositionPair[] = EXPANDED_DROPDOWN_POSITIONS.map(item => {
             return { ...item };
         });
-        cascaderPosition[0].offsetY = 4; // 左下
-        cascaderPosition[1].offsetY = 4; // 右下
-        cascaderPosition[2].offsetY = -4; // 右下
-        cascaderPosition[3].offsetY = -4; // 右下
         this.positions = cascaderPosition;
     }
 
@@ -545,6 +538,9 @@ export class ThyCascaderComponent
             this.setMenuClass();
             if (this.menuVisible) {
                 this.triggerRect = this.trigger.nativeElement.getBoundingClientRect();
+                this.subscribeTriggerResize();
+            } else {
+                this.unsubscribeTriggerResize();
             }
             this.thyExpandStatusChange.emit(menuVisible);
         }
@@ -629,14 +625,33 @@ export class ThyCascaderComponent
         }
     }
 
-    @HostListener('mouseover', ['$event'])
-    public toggleHover($event: Event) {
-        if (this.disabled) {
+    @HostListener('mouseenter', ['$event'])
+    public toggleMouseEnter(event: MouseEvent): void {
+        if (this.disabled || !this.isHoverTriggerAction() || this.menuVisible) {
             return;
         }
-        if (this.isHoverTriggerAction()) {
-            this.setMenuVisible(!this.menuVisible);
+
+        this.setMenuVisible(true);
+    }
+
+    @HostListener('mouseleave', ['$event'])
+    public toggleMouseLeave(event: MouseEvent): void {
+        if (this.disabled || !this.isHoverTriggerAction() || !this.menuVisible) {
+            event.preventDefault();
+            return;
         }
+
+        const hostEl = this.elementRef.nativeElement;
+        const mouseTarget = event.relatedTarget as HTMLElement;
+        if (
+            hostEl.contains(mouseTarget) ||
+            mouseTarget?.classList.contains('cdk-overlay-pane') ||
+            mouseTarget?.classList.contains('cdk-overlay-backdrop')
+        ) {
+            return;
+        }
+
+        this.setMenuVisible(false);
     }
 
     public clickOption(option: ThyCascaderOption, index: number, event: Event | boolean): void {
@@ -656,16 +671,6 @@ export class ThyCascaderComponent
             return;
         }
         this.setActiveOption(option, index, false);
-    }
-
-    public mouseleaveMenu(event: Event) {
-        if (event) {
-            event.preventDefault();
-        }
-        if (!this.isHoverTriggerAction()) {
-            return;
-        }
-        this.setMenuVisible(!this.menuVisible);
     }
 
     onBlur(event?: FocusEvent) {
@@ -697,14 +702,16 @@ export class ThyCascaderComponent
     }
 
     private selectOption = (option: ThyCascaderOption, index: number) => {
+        if ((option.isLeaf || !this.thyIsOnlySelectLeaf) && !this.thyMultiple) {
+            this.afterChangeFn = () => {
+                this.setMenuVisible(false);
+                this.onTouchedFn();
+            };
+        }
         this.thySelect.emit({ option, index });
         const isOptionCanSelect = this.thyChangeOnSelect && !this.isMultiple;
         if (option.isLeaf || !this.thyIsOnlySelectLeaf || isOptionCanSelect || this.shouldPerformSelection(option, index)) {
             this.thyCascaderService.selectOption(option, index);
-        }
-        if ((option.isLeaf || !this.thyIsOnlySelectLeaf) && !this.thyMultiple) {
-            this.setMenuVisible(false);
-            this.onTouchedFn();
         }
     };
 
@@ -722,14 +729,15 @@ export class ThyCascaderComponent
             $event.stopPropagation();
             $event.preventDefault();
         }
+        this.afterChangeFn = () => {
+            this.setMenuVisible(false);
+        };
         this.thyCascaderService.clearSelection();
-        this.setMenuVisible(false);
     }
 
     constructor(
         @Inject(PLATFORM_ID) private platformId: string,
         private cdr: ChangeDetectorRef,
-        private viewPortRuler: ViewportRuler,
         public elementRef: ElementRef,
         private thyClickDispatcher: ThyClickDispatcher,
         private ngZone: NgZone,
@@ -802,7 +810,35 @@ export class ThyCascaderComponent
         }
     }
 
+    private subscribeTriggerResize(): void {
+        this.unsubscribeTriggerResize();
+        this.ngZone.runOutsideAngular(() => {
+            this.resizeSubscription = new Observable(observer => {
+                const resize = new ResizeObserver((entries: ResizeObserverEntry[]) => {
+                    observer.next();
+                });
+                resize.observe(this.trigger.nativeElement);
+            }).subscribe(() => {
+                this.ngZone.run(() => {
+                    this.triggerRect = this.trigger.nativeElement.getBoundingClientRect();
+                    if (this.cdkConnectedOverlay && this.cdkConnectedOverlay.overlayRef) {
+                        this.cdkConnectedOverlay.overlayRef.updatePosition();
+                    }
+                    this.cdr.markForCheck();
+                });
+            });
+        });
+    }
+
+    private unsubscribeTriggerResize(): void {
+        if (this.resizeSubscription) {
+            this.resizeSubscription.unsubscribe();
+            this.resizeSubscription = null;
+        }
+    }
+
     ngOnDestroy() {
+        this.unsubscribeTriggerResize();
         this.destroy$.next();
         this.destroy$.complete();
     }

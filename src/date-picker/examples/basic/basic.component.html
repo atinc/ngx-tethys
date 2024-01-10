@@ -6,7 +6,8 @@
     thyPlaceHolder="选择时间"
     [(ngModel)]="dateTime"
     (ngModelChange)="onChange($event)"
-    [thyAllowClear]="isAllowClear"></thy-date-picker>
+    [thyAllowClear]="isAllowClear"
+    [thyHasBackdrop]="false"></thy-date-picker>
 </thy-form-group>
 
 <thy-form-group thyLabelText="高级时间选择器">
@@ -19,7 +20,8 @@
     (ngModelChange)="onChange($event)"
     [thyAllowClear]="isAllowClear"
     [thyShowShortcut]="true"
-    [thyShortcutPresets]="shortcutDatePresets"></thy-date-picker>
+    [thyShortcutPresets]="shortcutDatePresets"
+    [thyHasBackdrop]="false"></thy-date-picker>
 </thy-form-group>
 
 <thy-form-group thyLabelText="周选择器">

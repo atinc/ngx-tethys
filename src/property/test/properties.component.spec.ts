@@ -332,7 +332,7 @@ describe(`thy-properties`, () => {
             expect(propertyItemDebugElement).toBeTruthy();
             const propertyItemElement = propertyItemDebugElement.nativeElement as HTMLElement;
             expect(propertyItemElement.classList.contains(`thy-property-item-operational`)).toBeTruthy();
-            const propertyItemContent: HTMLElement = propertyItemElement.querySelector('.thy-property-item-content');
+            const propertyItemContent: HTMLElement = propertyItemElement.querySelector('.thy-property-item-wrapper');
             expect(propertyItemContent.children.length).toEqual(2);
             const operation = propertyItemContent.children[1];
             expect(operation.classList.contains('thy-property-item-operation')).toBeTruthy();
