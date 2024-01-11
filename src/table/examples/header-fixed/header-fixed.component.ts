@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ThyTableTheme } from 'ngx-tethys/table';
 
 @Component({
     selector: 'thy-table-header-fixed-example',
@@ -15,6 +16,8 @@ export class ThyTableHeaderFixedExampleComponent implements OnInit {
         { id: 7, name: 'Tom', age: 30, job: 'Engineer', address: 'New Industrial Park, Shushan, Hefei, Anhui' },
         { id: 8, name: 'Tom', age: 30, job: 'Engineer', address: 'New Industrial Park, Shushan, Hefei, Anhui' }
     ];
+
+    theme: ThyTableTheme = 'default';
 
     constructor() {}
 

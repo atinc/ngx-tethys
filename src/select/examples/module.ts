@@ -11,6 +11,7 @@ import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyAvatarModule } from 'ngx-tethys/avatar';
 import { ThyTagModule } from 'ngx-tethys/tag';
 import { ThyDotModule } from 'ngx-tethys/dot';
+import { ThyGridModule } from 'ngx-tethys/grid';
 
 export default {
     imports: [
@@ -26,7 +27,8 @@ export default {
         ThyInputModule,
         ThyAvatarModule,
         ThyTagModule,
-        ThyDotModule
+        ThyDotModule,
+        ThyGridModule
     ],
     providers: [
         {

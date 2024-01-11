@@ -1,4 +1,12 @@
-<thy-table [thyModel]="data" thyRowKey="id" [thyHeaderFixed]="true" [thyHeight]="300">
+<div class="mb-2">
+  <thy-radio-group [(ngModel)]="theme">
+    <label thyRadio thyLabelText="Default" thyInline thyValue="default"></label>
+    <label thyRadio thyLabelText="Bordered" thyInline thyValue="bordered"></label>
+    <label thyRadio thyLabelText="Boxed" thyInline thyValue="boxed"></label>
+  </thy-radio-group>
+</div>
+
+<thy-table [thyModel]="data" thyRowKey="id" [thyHeaderFixed]="true" [thyHeight]="300" [thyTheme]="theme">
   <thy-table-column thyTitle="Id" thyModelKey="id"></thy-table-column>
   <thy-table-column thyTitle="Name" thyModelKey="name" thyWidth="15%">
     <ng-template #cell let-row>

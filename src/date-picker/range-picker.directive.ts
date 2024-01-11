@@ -9,7 +9,7 @@ import { helpers } from 'ngx-tethys/util';
 /**
  * 日期范围选择指令
  * @name thyRangePicker
- * @order 70
+ * @order 80
  */
 @Directive({
     selector: '[thyRangePicker]',

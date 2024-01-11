@@ -55,6 +55,11 @@ const customerOptions = [
                 isLeaf: true
             }
         ]
+    },
+    {
+        value: 'heilongjiang',
+        label: '黑龙江',
+        children: []
     }
 ];
 
@@ -65,7 +70,7 @@ const customerOptions = [
 export class ThyCascaderCustomTemplateExampleComponent implements OnInit {
     public values: any[] = [];
 
-    public curVal = 'zhejiang';
+    public curVal: any = [['zhejiang', 'hangzhou', 'xihu']];
 
     public thyCustomerOptions: any[] = null;
 

@@ -24,9 +24,9 @@ export const taskTypes = [
 ];
 
 export const listOfOption = [
-    { value: 'option1', text: '选项一选项一选项一选项一选项一选项一选项一选项一选项一选项一选项一选项一选项一选项一' },
+    { value: 'option1', text: '选项一' },
     { value: 'option2', text: '选项二' },
-    { value: 'option3', text: '选项三选项三选项三选项三选项三选项三' },
+    { value: 'option3', text: '选项三' },
     { value: 'option4', text: '选项四' },
     { value: 'option5', text: '选项五' },
     { value: 'option6', text: '选项六' },
@@ -44,4 +44,47 @@ export const listOfOption = [
     { value: 'option18', text: '选项十八' },
     { value: 'option19', text: '选项十九' },
     { value: 'option20', text: '选项二十' }
+];
+
+export const options = [
+    {
+        value: 'dog',
+        label: '狗'
+    },
+    {
+        value: 'pig',
+        label: '猪'
+    },
+    {
+        value: 'cat',
+        label: '猫'
+    }
+];
+
+export const groupOptions = [
+    {
+        value: 'dog',
+        label: '狗',
+        groupLabel: 'pet',
+        disabled: true
+    },
+    {
+        value: 'pig',
+        label: '猪',
+        groupLabel: 'animal'
+    },
+    {
+        value: 'cat',
+        groupLabel: 'pet',
+        label: '猫'
+    },
+    {
+        value: 'monkey',
+        label: '猴',
+        groupLabel: 'animal'
+    },
+    {
+        value: 'home',
+        label: '家'
+    }
 ];

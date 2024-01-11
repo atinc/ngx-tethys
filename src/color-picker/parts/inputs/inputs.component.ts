@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { ThyInputNumberComponent } from 'ngx-tethys/input-number';
 import { ThyEnterDirective } from 'ngx-tethys/shared';
-import ThyColor from '../../helpers/color.class';
+import { ThyColor } from '../../helpers/color.class';
 
 /**
  * @internal

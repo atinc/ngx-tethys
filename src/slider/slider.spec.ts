@@ -2,7 +2,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ThySliderModule } from './slider.module';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ViewEncapsulation } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 
 @Component({
@@ -21,9 +21,11 @@ import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
                 (thyAfterChange)="afterChange($event)"></thy-slider>
         </div>
     `,
+    encapsulation: ViewEncapsulation.None,
     styles: [
         `
-            .test-slider-container {
+            .thy-slider-rail {
+                display: inline-block;
                 width: 500px;
                 height: 200px;
             }
@@ -113,6 +115,20 @@ describe('ThyTestSliderComponent', () => {
                 fixtureInstance.max = 17;
                 fixture.detectChanges();
             }).toThrowError('(max - min) must be divisible by step.');
+        }));
+
+        it('should not change value when slider is hidden', fakeAsync(() => {
+            fixture.detectChanges();
+            const sliderElement = getSliderElement();
+            const pointerElement = getSliderPointerElement();
+            const pointerElementRect = pointerElement.getBoundingClientRect();
+            dispatchMouseEvent(pointerElement, 'mousedown', pointerElementRect.left + 10);
+            const value = fixtureInstance.value;
+
+            sliderElement.style.display = 'none';
+            fixture.detectChanges();
+            dispatchMouseEvent(pointerElement, 'mousemove', pointerElementRect.left + 50, pointerElementRect.height);
+            expect(fixtureInstance.value).toBe(value);
         }));
 
         it('min/max value will be right', fakeAsync(() => {

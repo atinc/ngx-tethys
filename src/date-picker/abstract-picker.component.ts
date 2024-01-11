@@ -1,5 +1,5 @@
 import { InputBoolean, TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
-import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
+import { coerceBooleanProperty, TinyDate, warnDeprecation } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 
 import {
@@ -208,6 +208,10 @@ export abstract class AbstractPickerComponent
 
     get realOpenState(): boolean {
         return this.picker.realOpenState;
+    }
+
+    get isShowDatePopup(): boolean {
+        return this.picker.isShowDatePopup;
     }
 
     initValue(): void {

@@ -1,7 +1,8 @@
 import { ThyDialog } from 'ngx-tethys/dialog';
+import { ThySelectCustomComponent } from 'ngx-tethys/select';
 import { ThyTreeSelectNode } from 'ngx-tethys/tree-select';
 
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
 
 @Component({
     selector: 'thy-property-editable-example',
@@ -49,11 +50,55 @@ export class ThyPropertyEditableExampleComponent implements OnInit {
         }
     ];
 
-    constructor(public thyDialog: ThyDialog) {}
+    public areaCode: any[] = [];
+
+    public values: any[] = ['12', '1201', '120102'];
+
+    public thyEditTrigger: 'click' | 'hover' = 'hover';
+
+    @ViewChild('text', { read: ElementRef }) text: ElementRef;
+
+    @ViewChild('number', { read: ElementRef }) number: ElementRef;
+
+    @ViewChild('selectSex', { read: ThySelectCustomComponent }) selectSex: ThySelectCustomComponent;
+
+    @ViewChild('selectProfession', { read: ThySelectCustomComponent }) selectProfession: ThySelectCustomComponent;
+
+    constructor(public thyDialog: ThyDialog, private cdr: ChangeDetectorRef) {}
 
     ngOnInit() {}
 
     openTemplateDialog(template: TemplateRef<any>) {
         this.thyDialog.open(template);
+    }
+
+    changeEditing(event: boolean, option?: { isSex?: boolean; isProfession?: boolean; type?: string }) {
+        if (event && option && this.thyEditTrigger === 'click') {
+            if (option.isSex) {
+                setTimeout(() => {
+                    this.selectSex.open();
+                });
+            }
+            if (option.isProfession) {
+                setTimeout(() => {
+                    this.selectProfession.open();
+                });
+            }
+            if (option.type === 'text') {
+                setTimeout(() => {
+                    this.text.nativeElement.focus();
+                });
+            }
+            if (option.type === 'number') {
+                setTimeout(() => {
+                    this.number.nativeElement.focus();
+                });
+            }
+            this.cdr.markForCheck();
+        }
+    }
+
+    thyOnExpandStatusChange(event: boolean) {
+        console.log('thyOnExpandStatusChange', event);
     }
 }

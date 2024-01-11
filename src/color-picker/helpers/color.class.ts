@@ -5,7 +5,7 @@ const hsv2hsl = function (hue: number, sat: number, val: number) {
     return [hue, (sat * val) / ((hue = (2 - sat) * val) < 1 ? hue : 2 - hue) || 0, hue / 2];
 };
 
-export default class ThyColor {
+export class ThyColor {
     hue = 0;
     saturation = 0;
     value = 0;

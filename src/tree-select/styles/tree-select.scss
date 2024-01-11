@@ -55,6 +55,7 @@
                 display: flex;
                 align-items: center;
                 @include text-truncate.text-truncate();
+                max-width:12rem;
             }
         }
 

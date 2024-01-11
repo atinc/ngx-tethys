@@ -12,7 +12,7 @@ import {
     ViewChild
 } from '@angular/core';
 import { ThyCoordinatesDirective } from '../../coordinates.directive';
-import ThyColor from '../../helpers/color.class';
+import { ThyColor } from '../../helpers/color.class';
 
 /**
  * @internal

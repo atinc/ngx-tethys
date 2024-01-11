@@ -9,6 +9,9 @@ const UNIFIED_IDEOGRAPHS_REGEX = /^[\u4e00-\u9fa5]+$/;
 
 const SET_OF_LETTERS_REGEX = /^[a-zA-Z\/ ]+$/;
 
+/**
+ * @private
+ */
 @Pipe({
     name: 'avatarShortName',
     standalone: true
@@ -34,6 +37,9 @@ export class AvatarShortNamePipe implements PipeTransform {
     }
 }
 
+/**
+ * @private
+ */
 @Pipe({
     name: 'avatarBgColor',
     standalone: true
@@ -61,6 +67,9 @@ export class AvatarBgColorPipe implements PipeTransform {
     }
 }
 
+/**
+ * @private
+ */
 @Pipe({
     name: 'thyAvatarSrc',
     standalone: true

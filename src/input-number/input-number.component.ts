@@ -126,6 +126,12 @@ export class ThyInputNumberComponent
     @Input() @InputNumber() thyStep = 1;
 
     /**
+     * 改变步数时的延迟毫秒数，值越小变化的速度越快
+     * @default 300
+     */
+    @Input() @InputNumber() thyStepDelay = 300;
+
+    /**
      * 输入框大小
      * @type xs | sm | md | lg
      */
@@ -220,17 +226,17 @@ export class ThyInputNumberComponent
     }
 
     onModelChange(value: string): void {
+        const parseValue = this.parser(value);
         if (this.isInputNumber(value)) {
             this.activeValue = value;
         } else {
-            this.displayValue = this.activeValue;
-            this.inputElement.nativeElement.value = this.displayValue;
+            this.displayValue = parseValue;
+            this.inputElement.nativeElement.value = parseValue;
         }
-        const parseValue = this.parser(value);
         const validValue = this.getCurrentValidValue(parseValue);
-        if (this.validValue !== validValue) {
+        if (`${this.validValue}` !== `${validValue}`) {
             this.updateValidValue(validValue);
-            this.onChangeFn(this.validValue);
+            this.onChangeFn(validValue);
         }
     }
 
@@ -284,7 +290,7 @@ export class ThyInputNumberComponent
         }
         this.autoStepTimer = setTimeout(() => {
             (this[Type[type]] as (e: MouseEvent | KeyboardEvent) => void)(e);
-        }, 300);
+        }, this.thyStepDelay);
     }
 
     upStep(value: number): number {

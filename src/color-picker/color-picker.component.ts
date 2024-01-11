@@ -15,7 +15,7 @@ import { ThyPopover, ThyPopoverRef } from 'ngx-tethys/popover';
 import { fromEvent, Subject } from 'rxjs';
 import { ThyColorPickerPanelComponent } from './color-picker-panel.component';
 import { DEFAULT_COLORS } from './constant';
-import ThyColor from './helpers/color.class';
+import { ThyColor } from './helpers/color.class';
 import { takeUntil } from 'rxjs/operators';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 

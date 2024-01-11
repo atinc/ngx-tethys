@@ -1,0 +1,67 @@
+@use '../../styles/variables';
+@use 'mixin';
+@use './variables.scss' as style;
+
+.#{style.$calendar-prefix-cls}-quarter-panel-table {
+    width: 100%;
+    height: 100%;
+    table-layout: fixed;
+    border-collapse: separate;
+    .#{style.$calendar-prefix-cls}-in-range-cell {
+        &:first-child {
+            &::before {
+                left: 14px;
+            }
+        }
+        &:last-child {
+            &::before {
+                right: 14px;
+            }
+        }
+        &::before {
+            height: 30px;
+            top: 1px;
+        }
+    }
+}
+
+.#{style.$calendar-prefix-cls}-quarter-panel-selected-cell .#{style.$calendar-prefix-cls}-quarter-panel-quarter {
+    color: variables.$text-color-inverse;
+    background: variables.$primary;
+
+    &:hover {
+        color: variables.$text-color-inverse;
+        background: variables.$primary;
+    }
+}
+
+.#{style.$calendar-prefix-cls}-quarter-panel-cell {
+    text-align: center;
+
+    &-disabled .#{style.$calendar-prefix-cls}-quarter-panel-quarter {
+        &,
+        &:hover {
+            color: style.$disabled-color;
+            background: style.$disabled-bg;
+            cursor: variables.$disabled-cursor;
+        }
+    }
+}
+
+.#{style.$calendar-prefix-cls}-quarter-panel-quarter {
+    display: inline-block;
+    height: 30px;
+    margin: 0 auto;
+    padding: 0 8px;
+    line-height: 30px;
+    text-align: center;
+    color: variables.$input-color;
+    background: transparent;
+    border-radius: variables.$border-radius-lg;
+    transition: background 0.3s ease;
+
+    &:hover {
+        background: style.$item-hover-bg;
+        cursor: variables.$hand-cursor;
+    }
+}

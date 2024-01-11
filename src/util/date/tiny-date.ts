@@ -2,6 +2,7 @@ import {
     differenceInCalendarDays,
     differenceInCalendarMonths,
     differenceInCalendarYears,
+    differenceInCalendarQuarters,
     differenceInWeeks,
     differenceInHours,
     differenceInMinutes,
@@ -23,6 +24,7 @@ import {
     addYears,
     setDay,
     setMonth,
+    setQuarter,
     getUnixTime,
     startOfDay,
     endOfDay,
@@ -161,6 +163,10 @@ export class TinyDate implements Record<string, any> {
         return new TinyDate(setMonth(this.nativeDate, month));
     }
 
+    setQuarter(quarter: number) {
+        return new TinyDate(setQuarter(this.nativeDate, quarter));
+    }
+
     setDay(day: number, options?: { weekStartsOn: WeekDayIndex }): TinyDate {
         return new TinyDate(setDay(this.nativeDate, day, options));
     }
@@ -266,6 +272,10 @@ export class TinyDate implements Record<string, any> {
         return this.compare(date, 'year');
     }
 
+    isBeforeQuarter(date: TinyDate): boolean {
+        return this.compare(date, 'quarter');
+    }
+
     isBeforeMonth(date: TinyDateType): boolean {
         return this.compare(date, 'month');
     }
@@ -292,6 +302,10 @@ export class TinyDate implements Record<string, any> {
 
     isAfterYear(date: TinyDateType): boolean {
         return this.compare(date, 'year', false);
+    }
+
+    isAfterQuarter(date: TinyDate): boolean {
+        return this.compare(date, 'quarter', false);
     }
 
     isAfterMonth(date: TinyDateType): boolean {
@@ -410,6 +424,9 @@ export class TinyDate implements Record<string, any> {
         switch (grain) {
             case 'year':
                 fn = differenceInCalendarYears;
+                break;
+            case 'quarter':
+                fn = differenceInCalendarQuarters;
                 break;
             case 'month':
                 fn = differenceInCalendarMonths;

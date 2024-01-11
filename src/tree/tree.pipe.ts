@@ -2,6 +2,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { ThyTreeNode } from './tree-node.class';
 import { ThyTreeBeforeDragStartContext } from './tree.class';
 
+/**
+ * @private
+ */
 @Pipe({
     name: 'treeNodeDraggable',
     standalone: true

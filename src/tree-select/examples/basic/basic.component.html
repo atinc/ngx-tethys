@@ -1,8 +1,13 @@
+<div style="width: 300px" class="mb-2">
+  <thy-tree-select
+    [thyTreeNodes]="treeSelectNodes"
+    [(ngModel)]="selectedValue"
+    (thyExpandStatusChange)="expandChange($event)"></thy-tree-select>
+</div>
+
 <thy-tree-select
   [thyTreeNodes]="treeSelectNodes"
   [(ngModel)]="selectedValue"
-  (thyExpandStatusChange)="expandChange($event)"
-></thy-tree-select>
+  (thyExpandStatusChange)="expandChange($event)"></thy-tree-select>
 
 <p class="my-3">选择的值的 _id：{{ selectedValue | json }}</p>
-

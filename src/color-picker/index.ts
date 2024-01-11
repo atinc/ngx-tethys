@@ -8,3 +8,6 @@ export * from './parts/hue/hue.component';
 export * from './parts/indicator/indicator.component';
 export * from './parts/inputs/inputs.component';
 export * from './parts/saturation/saturation.component';
+export { ThyColor } from './helpers/color.class';
+export { ThyRgba } from './helpers/rgba.class';
+export { ThyColorsTable } from './helpers/colors-table.class';

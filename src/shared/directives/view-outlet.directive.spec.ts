@@ -1,7 +1,5 @@
-import { ApplicationRef, Component, DebugElement } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { dispatchEvent, dispatchFakeEvent } from 'ngx-tethys/testing';
 
 import { ThySharedModule } from '../shared.module';
 
@@ -34,12 +32,13 @@ class ThyViewOutletComponentTestComponent {
     context = { count: 1 };
 }
 
+let contentMultiTestChanges: SimpleChanges;
 @Component({
     selector: 'thy-shared-view-outlet-content-multi',
-    template: `Count: {{ count }}, Name: {{ innerName }}, Called: {{ nameSetInvokeCount }}`
+    template: `Count: {{ count }}, Name: {{ innerName }}, Called: {{ nameSetInvokeCount }}, Input Name: {{ inputName }}`
 })
-class ThyViewOutletContentMultiTestComponent {
-    count = 1;
+class ThyViewOutletContentMultiTestComponent implements OnChanges {
+    @Input() count = 1;
 
     innerName: string;
 
@@ -49,16 +48,23 @@ class ThyViewOutletContentMultiTestComponent {
         this.innerName = value;
         this.nameSetInvokeCount = this.nameSetInvokeCount + 1;
     }
+
+    @Input() inputName: string;
+
+    ngOnChanges(changes: SimpleChanges): void {
+        contentMultiTestChanges = changes;
+    }
 }
 
 @Component({
     selector: 'thy-shared-view-outlet-component-multi-test',
-    template: `<ng-container *thyViewOutlet="contentComponent; context: { count: count, name: name }"></ng-container>`
+    template: `<ng-container *thyViewOutlet="contentComponent; context: { count: count, name: name, inputName: inputName }"></ng-container>`
 })
 class ThyViewOutletComponentMultiTestComponent {
     contentComponent = ThyViewOutletContentMultiTestComponent;
     count = 1;
     name = 'peter';
+    inputName: string = undefined;
 }
 
 describe('thy-view-outlet', () => {
@@ -164,6 +170,21 @@ describe('thy-view-outlet', () => {
             fixture.detectChanges();
             expect(element.textContent).toContain('Name: lily');
             expect(element.textContent).toContain('Called: 2');
+        });
+
+        it('should trigger ngOnChanges when update inputName', () => {
+            const element = fixture.debugElement.nativeElement as HTMLElement;
+            fixtureInstance.inputName = 'peter';
+            const beforeChanges = contentMultiTestChanges;
+            expect(beforeChanges.inputName.previousValue).toEqual(undefined);
+            expect(beforeChanges.inputName.currentValue).toEqual(undefined);
+            expect(beforeChanges.inputName.isFirstChange()).toEqual(true);
+            fixture.detectChanges();
+            expect(element.textContent).toContain('Input Name: peter');
+            const afterChanges = contentMultiTestChanges;
+            expect(afterChanges.inputName.previousValue).toEqual(undefined);
+            expect(afterChanges.inputName.currentValue).toEqual('peter');
+            expect(afterChanges.inputName.isFirstChange()).toEqual(false);
         });
     });
 });

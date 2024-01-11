@@ -1,5 +1,5 @@
 import { fakeAsync } from '@angular/core/testing';
-import ThyColor from '../helpers/color.class';
+import { ThyColor } from '../helpers/color.class';
 
 describe('thyColor class', () => {
     it('should get Color by string', fakeAsync(() => {

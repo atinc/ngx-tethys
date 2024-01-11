@@ -209,15 +209,6 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
         }
 
         const popoverRef = this.openOverlay<T, TResult>(componentOrTemplateRef, config) as ThyPopoverRef<T, TResult, TData>;
-
-        if (config.placement === 'top' || config.placement === 'bottom') {
-            popoverRef.containerInstance.animationTrigger = 'scaleYMotion';
-        } else if (config.placement === 'left' || config.placement === 'right') {
-            popoverRef.containerInstance.animationTrigger = 'scaleXMotion';
-        } else {
-            popoverRef.containerInstance.animationTrigger = 'scaleMotion';
-        }
-
         config = popoverRef.containerInstance.config;
         popoverRef.afterClosed().subscribe(() => {
             this.originElementRemoveActiveClass(config);

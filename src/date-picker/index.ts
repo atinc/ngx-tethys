@@ -5,6 +5,7 @@ export * from './range-picker.component';
 export * from './month-picker.component';
 export * from './week-picker.component';
 export * from './year-picker.component';
+export * from './quarter-picker.component';
 export * from './picker.validators';
 export * from './picker.pipes';
 export * from './date-picker.directive';

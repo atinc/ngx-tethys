@@ -1,4 +1,4 @@
-@use "../../styles/variables";
+@use '../../styles/variables';
 @use './mixin.scss';
 @use './picker.scss';
 @use './calendar.scss';
@@ -10,6 +10,7 @@
 @use './week-picker.scss';
 @use './time-picker.scss';
 @use './date-carousel.scss';
+@use './quarter-panel.scss';
 
 .thy-calendar-picker {
     &:focus {

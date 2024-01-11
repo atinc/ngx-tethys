@@ -14,6 +14,7 @@ import { ThyOptionGroupComponent } from './option-group.component';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyOptionComponent } from './option.component';
 import { ThySelectOptionGroupComponent } from './group/option-group.component';
+import { ThyOptionsContainerComponent } from './options-container.component';
 
 @NgModule({
     imports: [
@@ -22,8 +23,15 @@ import { ThySelectOptionGroupComponent } from './group/option-group.component';
         ThyListOptionComponent,
         ThyOptionGroupComponent,
         ThyOptionComponent,
-        ThySelectOptionGroupComponent
+        ThySelectOptionGroupComponent,
+        ThyOptionsContainerComponent
     ],
-    exports: [ThyListOptionComponent, ThyOptionGroupComponent, ThyOptionComponent, ThySelectOptionGroupComponent]
+    exports: [
+        ThyListOptionComponent,
+        ThyOptionGroupComponent,
+        ThyOptionComponent,
+        ThySelectOptionGroupComponent,
+        ThyOptionsContainerComponent
+    ]
 })
 export class ThyOptionModule {}

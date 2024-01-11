@@ -14,6 +14,10 @@ import {
 } from '@angular/core';
 import { SafeAny } from 'ngx-tethys/types';
 
+function hasInput(componentRef: ComponentRef<unknown>, inputKey: string) {
+    return componentRef['_tNode'].inputs?.[inputKey];
+}
+
 /**
  * 视图 Outlet 组件，取代 NgComponentOutlet 和 NgTemplateOutlet
  * @name thyViewOutlet
@@ -84,7 +88,12 @@ export class ThyViewOutletDirective implements OnChanges {
 
     private updateContext(context: SafeAny, updatedKeys: string[]) {
         updatedKeys.forEach(key => {
-            context[key] = this.thyViewOutletContext[key];
+            // 兼容组件输入属性没有通过 @Input，设置了 @Input 采用 setInput，否则直接赋值，setInput 会触发 Angular 组件的 onChanges
+            if (this.componentRef && hasInput(this.componentRef, key)) {
+                this.componentRef.setInput(key, this.thyViewOutletContext[key]);
+            } else {
+                context[key] = this.thyViewOutletContext[key];
+            }
         });
     }
 }

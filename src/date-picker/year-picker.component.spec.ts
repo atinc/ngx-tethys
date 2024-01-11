@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { createFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyDatePickerModule } from './date-picker.module';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 registerLocaleData(zh);
 
@@ -19,7 +20,7 @@ describe('ThyYearPickerComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyDatePickerModule, FormsModule],
+            imports: [ThyDatePickerModule, FormsModule, NoopAnimationsModule],
             providers: [],
             declarations: [TestYearPickerComponent]
         });

@@ -304,6 +304,9 @@ export class ThyTimePanelComponent implements OnInit, OnDestroy, ControlValueAcc
     }
 
     ngOnDestroy(): void {
-        this.resetScrollPosition();
+        // 关闭面板时有 0.2s 的动画，所以延迟 200ms 再重置滚动位置
+        setTimeout(() => {
+            this.resetScrollPosition();
+        }, 200);
     }
 }

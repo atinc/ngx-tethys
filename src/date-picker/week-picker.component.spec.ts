@@ -8,6 +8,7 @@ import { By } from '@angular/platform-browser';
 import { getWeekOfMonth } from 'date-fns';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyDatePickerModule } from './date-picker.module';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 registerLocaleData(zh);
 
@@ -20,7 +21,7 @@ describe('ThyWeekPickerComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyDatePickerModule, FormsModule],
+            imports: [ThyDatePickerModule, FormsModule, NoopAnimationsModule],
             providers: [],
             declarations: [TestWeekPickerComponent]
         });
@@ -116,7 +117,7 @@ describe('ThyWeekPickerComponent', () => {
             const index = getWeekOfMonth(new Date());
             const allTrs = document.querySelectorAll('tr');
             expect(allTrs[index].classList[0]).toEqual('thy-calendar-current-week');
-            expect(allTrs[index].classList[1]).toEqual('thy-calendar-active-week');
+            expect(allTrs[index].classList[2]).toEqual('thy-calendar-active-week');
         }));
 
         it('should support thyDateChange', fakeAsync(() => {

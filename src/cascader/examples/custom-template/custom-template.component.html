@@ -2,9 +2,9 @@
   [thyOptions]="thyCustomerOptions"
   (ngModelChange)="selectChange($event)"
   [(ngModel)]="curVal"
-  style="width:400px;"
-  [thyLabelRender]="renderTpl"
->
+  [thyMultiple]="true"
+  style="width: 400px"
+  [thyLabelRender]="renderTpl">
 </thy-cascader>
 <ng-template #renderTpl let-labels="labels" let-selectedOptions="selectedOptions">
   <ng-container>

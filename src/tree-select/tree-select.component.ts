@@ -1,4 +1,10 @@
-import { TabIndexDisabledControlValueAccessorMixin, getFlexiblePositions, InputBoolean, ThyClickDispatcher } from 'ngx-tethys/core';
+import {
+    TabIndexDisabledControlValueAccessorMixin,
+    getFlexiblePositions,
+    InputBoolean,
+    ThyClickDispatcher,
+    EXPANDED_DROPDOWN_POSITIONS
+} from 'ngx-tethys/core';
 import { ThyTreeNode } from 'ngx-tethys/tree';
 import { elementMatchClosest, isArray, isObject, produce, warnDeprecation } from 'ngx-tethys/util';
 import { Observable, of, Subject } from 'rxjs';
@@ -29,8 +35,10 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { ThyEmptyComponent } from 'ngx-tethys/empty';
 import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyFlexibleTextComponent } from 'ngx-tethys/flexible-text';
 import { ThySelectControlComponent, ThyStopPropagationDirective } from 'ngx-tethys/shared';
 import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';
+import { scaleYMotion } from 'ngx-tethys/core';
 
 type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -82,7 +90,8 @@ export function filterTreeData(treeNodes: ThyTreeSelectNode[], searchText: strin
         '[attr.tabindex]': 'tabIndex',
         '(focus)': 'onFocus($event)',
         '(blur)': 'onBlur($event)'
-    }
+    },
+    animations: [scaleYMotion]
 })
 export class ThyTreeSelectComponent extends TabIndexDisabledControlValueAccessorMixin implements OnInit, OnDestroy, ControlValueAccessor {
     @HostBinding('class.thy-select-custom') treeSelectClass = true;
@@ -109,6 +118,8 @@ export class ThyTreeSelectComponent extends TabIndexDisabledControlValueAccessor
     public cdkConnectOverlayWidth = 0;
 
     public positions: ConnectionPositionPair[];
+
+    public expandedDropdownPositions = EXPANDED_DROPDOWN_POSITIONS;
 
     public icons: { expand: string; collapse: string; gap?: number } = {
         expand: 'angle-down',
@@ -568,7 +579,8 @@ const DEFAULT_ITEM_SIZE = 40;
         ThyEmptyComponent,
         NgClass,
         NgStyle,
-        ThyIconComponent
+        ThyIconComponent,
+        ThyFlexibleTextComponent
     ],
     host: {
         '[attr.tabindex]': '-1'

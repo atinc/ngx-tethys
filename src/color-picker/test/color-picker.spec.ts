@@ -13,7 +13,7 @@ import { ThyColorPickerCustomPanelComponent } from '../color-picker-custom-panel
 import { ThyColorPickerPanelComponent } from '../color-picker-panel.component';
 import { ThyColorPickerDirective } from '../color-picker.component';
 import { ThyCoordinatesDirective } from '../coordinates.directive';
-import ThyColor from '../helpers/color.class';
+import { ThyColor } from '../helpers/color.class';
 import { ThyColorPickerModule } from '../module';
 
 @Component({

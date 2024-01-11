@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, OnChanges, ChangeDetectionStrategy, Input, SimpleChanges } from '@angular/core';
 
 @Component({
     selector: 'thy-shared-view-outlet-example',
@@ -26,12 +26,14 @@ export class ThySharedViewOutletExampleComponent implements OnInit {
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ThyViewOutletCounterComponent implements OnInit {
+export class ThyViewOutletCounterComponent implements OnInit, OnChanges {
     @Input() count: number;
 
     @Input() from: string;
 
-    ngOnInit(): void {
-        // console.log(`ngOnInit ${this.count}, from ${this.from}`);
+    ngOnInit(): void {}
+
+    ngOnChanges(changes: SimpleChanges): void {
+        console.log(`ngOnChanges`, changes);
     }
 }

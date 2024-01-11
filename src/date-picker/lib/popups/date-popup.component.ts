@@ -506,6 +506,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
             week: 'month',
             date: 'month',
             month: 'year',
+            quarter: 'year',
             year: 'decade'
         };
         const headerMode = headerModes[mode];
