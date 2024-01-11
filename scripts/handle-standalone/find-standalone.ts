@@ -1,13 +1,14 @@
 import * as path from 'path';
 import * as fs from 'fs-extra';
 import { Project, SyntaxKind } from 'ts-morph';
+import { execSync } from 'child_process';
 
 const allDeclarationNames: string[] = [];
 const srcPath = path.resolve(__dirname, '../../src');
 
 traverseFilesAndFindAllDeclarations(srcPath);
 
-findStandaloneComponents();
+findStandaloneComponents(allDeclarationNames);
 
 function traverseFilesAndFindAllDeclarations(directoryPath: string) {
     const files = fs.readdirSync(directoryPath);
@@ -15,12 +16,14 @@ function traverseFilesAndFindAllDeclarations(directoryPath: string) {
         const filePath = path.resolve(directoryPath, fileName);
         const stat = fs.statSync(filePath);
         if (stat.isDirectory()) {
-            if (!['doc', 'examples', 'styles', 'test'].includes(fileName)) {
+            if (!['doc', 'examples', 'styles', 'test', 'style'].includes(fileName)) {
                 traverseFilesAndFindAllDeclarations(filePath);
             }
         } else {
             if (
-                !['.spec.ts', '.module.ts', '.scss', '.html', '.json', '.js', '.md'].includes(path.extname(fileName)) &&
+                !['.scss', '.html', '.json', '.js', '.md'].includes(path.extname(fileName)) &&
+                !path.basename(fileName).match(/\.spec\.ts$/) &&
+                !path.basename(fileName).match(/\.module\.ts$/) &&
                 fileName !== 'index.ts'
             ) {
                 const project = new Project();
@@ -46,7 +49,7 @@ function traverseFilesAndFindAllDeclarations(directoryPath: string) {
     });
 }
 
-function findStandaloneComponents() {
+function findStandaloneComponents(allDeclarationNames) {
     const project = new Project();
     project.addSourceFilesAtPaths('src/**/*.ts');
     const sourceFiles = project.getSourceFiles();
@@ -64,10 +67,13 @@ function findStandaloneComponents() {
                     if (prop.getKind() === SyntaxKind.PropertyAssignment) {
                         const componentName = classDeclaration.getName();
                         if (prop.getFullText().includes('standalone: true') && componentName.endsWith('Component')) {
-                            if (allDeclarationNames.includes(componentName.replace(/Component$/, ''))) {
-                                conflictComponents.push(componentName);
-                            } else {
-                                renameableComponents.push(componentName);
+                            if (allDeclarationNames.includes(componentName)) {
+                                const newComponentName = componentName.replace(/Component$/, '');
+                                if (allDeclarationNames.includes(newComponentName)) {
+                                    conflictComponents.push(componentName);
+                                } else {
+                                    renameableComponents.push(componentName);
+                                }
                             }
                         }
                     }
@@ -81,6 +87,7 @@ function findStandaloneComponents() {
         conflictComponents
     };
     fs.writeFileSync(path.join(__dirname, './standalones.json'), JSON.stringify(standaloneComponents));
+    execSync('npm run prettier-standalone');
 
     console.log(
         `All standalone components: ${

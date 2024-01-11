@@ -1,13 +1,16 @@
 import * as path from 'path';
 import * as fs from 'fs-extra';
 import { ts, Project } from 'ts-morph';
+import { execSync } from 'child_process';
 
 const allStandaloneComponents = require('./standalones.json');
+globalRenameStandaloneComponents();
 
-(function globalRenameStandaloneComponents() {
+function globalRenameStandaloneComponents() {
     traverseFilesAndRenameStandalones(path.resolve(__dirname, '../../src'));
-    // 最后记得执行 npm run prettier-all 命令进行代码格式化
-})();
+    execSync('npm run prettier-all');
+    console.log('rename standalone components success!');
+}
 
 function traverseFilesAndRenameStandalones(directoryPath: string) {
     const files = fs.readdirSync(directoryPath);
