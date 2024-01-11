@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.2.1](https://github.com/atinc/ngx-tethys/compare/16.2.0-next.11...16.2.1) (2024-01-11)
+
+
+### Bug Fixes
+
+* **input-number:** fix input number display value error with suffix when delete #INFR-11109 ([6cbf2b4](https://github.com/atinc/ngx-tethys/commit/6cbf2b45f080514c1b8dfff71bf9765db2b90c8b)), closes [#INFR-11109](https://github.com/atinc/ngx-tethys/issues/INFR-11109)
+* **input:** adjust padding left of suffix element #INFR-11267 ([#3013](https://github.com/atinc/ngx-tethys/issues/3013)) ([f1fb421](https://github.com/atinc/ngx-tethys/commit/f1fb421b3d681a24da2c5f6ed19e4bc6a6ab2833)), closes [#INFR-11267](https://github.com/atinc/ngx-tethys/issues/INFR-11267)
+* **property:** fix align center #INFR-11191 ([#3011](https://github.com/atinc/ngx-tethys/issues/3011)) ([b99b2d1](https://github.com/atinc/ngx-tethys/commit/b99b2d128f5bc5072109a8ab97dbdd79963913e9)), closes [#INFR-11191](https://github.com/atinc/ngx-tethys/issues/INFR-11191)
+* **tree-select:** optimize tree select popover width style #INFR-11127 ([#3009](https://github.com/atinc/ngx-tethys/issues/3009)) ([3faa2f7](https://github.com/atinc/ngx-tethys/commit/3faa2f7073a62837c4817c6ffde4870d198e50ea)), closes [#INFR-11127](https://github.com/atinc/ngx-tethys/issues/INFR-11127)
+
+
+
 # [16.2.0](https://github.com/atinc/ngx-tethys/compare/16.2.0-next.11...16.2.0) (2024-01-02)
 
 
