@@ -263,7 +263,7 @@
 
 .thy-input-group-with-suffix:not(.input-group-sm):not(.input-group-md) {
     .form-control {
-        &:first-child {
+        &:first-child:not(.search-input-field) {
             padding-left: variables.$input-padding-x-fixed-lg;
         }
     }
