@@ -55,6 +55,7 @@ function findStandaloneComponents(allDeclarationNames) {
     const sourceFiles = project.getSourceFiles();
     const conflictComponents = [];
     const renameableComponents = [];
+    const schematicsRules = [];
 
     sourceFiles.forEach(sourceFile => {
         sourceFile.getClasses().forEach(classDeclaration => {
@@ -73,6 +74,11 @@ function findStandaloneComponents(allDeclarationNames) {
                                     conflictComponents.push(componentName);
                                 } else {
                                     renameableComponents.push(componentName);
+
+                                    schematicsRules.push({
+                                        replace: componentName,
+                                        replaceWith: newComponentName
+                                    });
                                 }
                             }
                         }
@@ -84,7 +90,8 @@ function findStandaloneComponents(allDeclarationNames) {
 
     const standaloneComponents = {
         renameableComponents,
-        conflictComponents
+        conflictComponents,
+        schematicsRules
     };
     fs.writeFileSync(path.join(__dirname, './standalones.json'), JSON.stringify(standaloneComponents));
     execSync('npm run prettier-standalone');
