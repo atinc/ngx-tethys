@@ -6,7 +6,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angul
 import { By } from '@angular/platform-browser';
 
 import { ThyTableComponent } from '../table.component';
-import { ThyPage, ThyTableDraggableEvent } from '../table.interface';
+import { ThyPage, ThyTableDraggableEvent, ThyTableSortDirection } from '../table.interface';
 import { ThyTableModule } from '../table.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -1227,6 +1227,18 @@ describe('ThyTable: sort', () => {
         const sortableColumnHeader = tableComponent.query(By.css('.thy-table-column-sortable'));
         sortableColumnHeader.nativeElement.dispatchEvent(createFakeEvent('click'));
         fixture.detectChanges();
-        expect(testComponent.onThyTableColumnSortChange).toHaveBeenCalledTimes(1);
+        expect(testComponent.onThyTableColumnSortChange).toHaveBeenCalledWith(
+            jasmine.objectContaining({ direction: ThyTableSortDirection.desc })
+        );
+
+        sortableColumnHeader.nativeElement.dispatchEvent(createFakeEvent('click'));
+        expect(testComponent.onThyTableColumnSortChange).toHaveBeenCalledWith(
+            jasmine.objectContaining({ direction: ThyTableSortDirection.asc })
+        );
+
+        sortableColumnHeader.nativeElement.dispatchEvent(createFakeEvent('click'));
+        expect(testComponent.onThyTableColumnSortChange).toHaveBeenCalledWith(
+            jasmine.objectContaining({ direction: ThyTableSortDirection.default })
+        );
     });
 });
