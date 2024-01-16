@@ -148,7 +148,6 @@ function renameStandaloneComponents(filePath: string) {
 }
 
 function main(operate: Operate) {
-    console.log('operate:', operate);
     if (operate === Operate.filter) {
         traverseFilesAndFindAllDeclarations(srcPath);
         findStandaloneComponents(allDeclarationNames);
