@@ -9,13 +9,34 @@ const enum Operate {
     pretty = 'pretty'
 }
 const srcPath = path.resolve(__dirname, '../src');
-const allDeclarationNames: string[] = [];
+const jsonPath = path.join(__dirname, './standalones.json');
+let allDeclarationNames: string[] = [];
 
 let results = {
     renameableComponents: [],
     conflictComponents: [],
     schematicsRules: []
 };
+
+const minimist = require('minimist');
+const args = minimist(process.argv.slice(2));
+main(args.operate);
+
+function main(operate: Operate) {
+    if (operate === Operate.filter) {
+        traverseFilesAndFindAllDeclarations(srcPath);
+        findStandaloneComponents(allDeclarationNames);
+    } else if (operate === Operate.rename) {
+        globalRenameStandaloneComponents();
+    } else if (operate === Operate.pretty) {
+        execSync('npm run prettier-all');
+    } else {
+        traverseFilesAndFindAllDeclarations(srcPath);
+        findStandaloneComponents(allDeclarationNames);
+        globalRenameStandaloneComponents();
+        execSync('npm run prettier-all');
+    }
+}
 
 function traverseFilesAndFindAllDeclarations(directoryPath: string) {
     const files = fs.readdirSync(directoryPath);
@@ -35,7 +56,6 @@ function traverseFilesAndFindAllDeclarations(directoryPath: string) {
             ) {
                 const project = new Project();
                 const sourceFile = project.addSourceFileAtPath(filePath);
-
                 sourceFile.getClasses().forEach(classItem => {
                     allDeclarationNames.push(classItem.getName());
                 });
@@ -95,20 +115,18 @@ function findStandaloneComponents(allDeclarationNames) {
         });
     });
 
-    const standaloneComponents = {
+    results = {
         renameableComponents,
         conflictComponents,
         schematicsRules
     };
-    fs.writeFileSync(path.join(__dirname, './standalones.json'), JSON.stringify(standaloneComponents));
+    fs.writeFileSync(jsonPath, JSON.stringify(results)); // 读 results = require(jsonPath);
     execSync('npm run prettier-standalone');
 
     console.log(
-        `All standalone components: ${
-            standaloneComponents.renameableComponents.length + standaloneComponents.conflictComponents.length
-        }\nRenameable components: ${standaloneComponents.renameableComponents.length}\nConflict components: ${
-            standaloneComponents.conflictComponents.length
-        }\nPlease see standalones.json for details`
+        `All standalone components: ${results.renameableComponents.length + results.conflictComponents.length}\nRenameable components: ${
+            results.renameableComponents.length
+        }\nConflict components: ${results.conflictComponents.length}\nPlease see standalones.json for details`
     );
 }
 
@@ -146,25 +164,3 @@ function renameStandaloneComponents(filePath: string) {
         sourceFile.saveSync();
     });
 }
-
-function main(operate: Operate) {
-    if (operate === Operate.filter) {
-        traverseFilesAndFindAllDeclarations(srcPath);
-        findStandaloneComponents(allDeclarationNames);
-    } else if (operate === Operate.rename) {
-        results = require('./standalones.json');
-        globalRenameStandaloneComponents();
-    } else if (operate === Operate.pretty) {
-        execSync('npm run prettier-all');
-    } else {
-        traverseFilesAndFindAllDeclarations(srcPath);
-        findStandaloneComponents(allDeclarationNames);
-        results = require('./standalones.json');
-        globalRenameStandaloneComponents();
-        execSync('npm run prettier-all');
-    }
-}
-
-const minimist = require('minimist');
-const args = minimist(process.argv.slice(2));
-main(args.operate);
