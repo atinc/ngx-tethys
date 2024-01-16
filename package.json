@@ -53,7 +53,7 @@
     "test-schematics": "TS_NODE_PROJECT=./schematics/tsconfig.json node --require ts-node/register/transpile-only ./node_modules/jasmine/bin/jasmine './schematics/**/*.spec.ts'",
     "prettier-all": "prettier --write \"./src/**/*.ts\"",
     "prettier-schematics": "prettier --write \"./schematics/**/*.ts\"",
-    "prettier-standalone": "prettier --write \"./scripts/handle-standalone/standalones.json\""
+    "prettier-standalone": "prettier --write \"./scripts/standalones.json\""
   },
   "repository": {
     "type": "git",
@@ -132,6 +132,7 @@
     "karma-coverage": "~2.1.0",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
+    "minimist": "^1.2.8",
     "npm-run-all": "^4.1.2",
     "prettier": "^2.8.7",
     "prettier-eslint": "^15.0.1",

@@ -1,14 +1,21 @@
 import * as path from 'path';
 import * as fs from 'fs-extra';
-import { Project, SyntaxKind } from 'ts-morph';
+import { ts, Project, SyntaxKind } from 'ts-morph';
 import { execSync } from 'child_process';
 
+const enum Operate {
+    filter = 'filter',
+    rename = 'rename',
+    pretty = 'pretty'
+}
+const srcPath = path.resolve(__dirname, '../src');
 const allDeclarationNames: string[] = [];
-const srcPath = path.resolve(__dirname, '../../src');
 
-traverseFilesAndFindAllDeclarations(srcPath);
-
-findStandaloneComponents(allDeclarationNames);
+let results = {
+    renameableComponents: [],
+    conflictComponents: [],
+    schematicsRules: []
+};
 
 function traverseFilesAndFindAllDeclarations(directoryPath: string) {
     const files = fs.readdirSync(directoryPath);
@@ -104,3 +111,61 @@ function findStandaloneComponents(allDeclarationNames) {
         }\nPlease see standalones.json for details`
     );
 }
+
+function globalRenameStandaloneComponents() {
+    traverseFilesAndRenameStandalones(srcPath);
+    console.log('Rename standalone components success!');
+}
+
+function traverseFilesAndRenameStandalones(directoryPath: string) {
+    const files = fs.readdirSync(directoryPath);
+    files.forEach(file => {
+        const filePath = path.resolve(directoryPath, file);
+        if (fs.statSync(filePath).isDirectory()) {
+            traverseFilesAndRenameStandalones(filePath);
+        } else if (file.endsWith('.ts')) {
+            renameStandaloneComponents(filePath);
+        }
+    });
+}
+
+function renameStandaloneComponents(filePath: string) {
+    const project = new Project();
+    project.addSourceFilesAtPaths(filePath);
+    const sourceFiles = project.getSourceFiles();
+    sourceFiles.forEach(sourceFile => {
+        sourceFile.transform(traversal => {
+            const node = traversal.visitChildren();
+            if (ts.isIdentifier(node) && results.renameableComponents.includes(node.escapedText)) {
+                const componentName = node.escapedText as string;
+                const newComponentName = componentName.replace(/Component$/, '');
+                return traversal.factory.createIdentifier(newComponentName);
+            }
+            return node;
+        });
+        sourceFile.saveSync();
+    });
+}
+
+function main(operate: Operate) {
+    console.log('operate:', operate);
+    if (operate === Operate.filter) {
+        traverseFilesAndFindAllDeclarations(srcPath);
+        findStandaloneComponents(allDeclarationNames);
+    } else if (operate === Operate.rename) {
+        results = require('./standalones.json');
+        globalRenameStandaloneComponents();
+    } else if (operate === Operate.pretty) {
+        execSync('npm run prettier-all');
+    } else {
+        traverseFilesAndFindAllDeclarations(srcPath);
+        findStandaloneComponents(allDeclarationNames);
+        results = require('./standalones.json');
+        globalRenameStandaloneComponents();
+        execSync('npm run prettier-all');
+    }
+}
+
+const minimist = require('minimist');
+const args = minimist(process.argv.slice(2));
+main(args.operate);
