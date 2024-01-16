@@ -890,9 +890,9 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
             const { sortDirection, model, sortChange } = column;
             let direction;
             if (sortDirection === ThyTableSortDirection.default) {
-                direction = ThyTableSortDirection.asc;
-            } else if (sortDirection === ThyTableSortDirection.asc) {
                 direction = ThyTableSortDirection.desc;
+            } else if (sortDirection === ThyTableSortDirection.desc) {
+                direction = ThyTableSortDirection.asc;
             } else {
                 direction = ThyTableSortDirection.default;
             }
