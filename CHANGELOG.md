@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.2.2](https://github.com/atinc/ngx-tethys/compare/16.2.1...16.2.2) (2024-01-17)
+
+
+### Features
+
+* **table:** change first sort from asc to desc #INFR-11320 ([#3015](https://github.com/atinc/ngx-tethys/issues/3015)) ([f73c256](https://github.com/atinc/ngx-tethys/commit/f73c2567b0d4d1ba9f580ba4701a7c6f51107792)), closes [#INFR-11320](https://github.com/atinc/ngx-tethys/issues/INFR-11320)
+
+
+
 ## [16.2.1](https://github.com/atinc/ngx-tethys/compare/16.2.0-next.11...16.2.1) (2024-01-11)
 
 
