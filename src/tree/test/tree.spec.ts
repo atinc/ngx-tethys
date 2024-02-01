@@ -153,6 +153,13 @@ describe('ThyTreeComponent', () => {
             expect(treeComponent.getSelectedNode().title).toEqual('未分配部门');
         });
 
+        it(`test public function 'getSelectedNodes()`, () => {
+            treeComponent.selectTreeNode(treeComponent.getRootNodes()[1]);
+            fixture.detectChanges();
+            expect(treeComponent.getSelectedNodes().length).toEqual(1);
+            expect(treeComponent.getSelectedNode().title).toEqual('未分配部门');
+        });
+
         it(`test public function 'getCheckedNodes()`, () => {
             const checkNodes = Array.from(treeElement.querySelectorAll('.thy-tree-node-check')) as HTMLElement[];
             checkNodes[4].click();
