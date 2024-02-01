@@ -495,6 +495,8 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
         if (helpers.isFunction(this.thyShowExpand)) {
             return (this.thyShowExpand as Function)(node);
         } else {
+            const a = 'test unit';
+            console.log('a:', a);
             return this.thyShowExpand;
         }
     }
