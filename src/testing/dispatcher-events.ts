@@ -38,10 +38,11 @@ export function dispatchMouseEvent(
     clientY = 0,
     button?: number,
     buttons?: number,
+    detail?: number,
     modifiers?: ModifierKeys,
     relatedTarget?: Element
 ): MouseEvent {
-    return dispatchEvent(node, createMouseEvent(type, clientX, clientY, button, buttons, modifiers, relatedTarget));
+    return dispatchEvent(node, createMouseEvent(type, clientX, clientY, button, buttons, detail, modifiers, relatedTarget));
 }
 
 /**

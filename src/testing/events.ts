@@ -10,6 +10,7 @@ export function createMouseEvent(
     clientY = 0,
     button = 0,
     buttons = 1,
+    detail = 1,
     modifiers: ModifierKeys = {},
     relatedTarget?: Element
 ) {
@@ -24,13 +25,13 @@ export function createMouseEvent(
         bubbles: true,
         cancelable: true,
         view: window,
-        detail: 1,
         screenX,
         screenY,
         clientX,
         clientY,
         button,
         buttons,
+        detail,
         relatedTarget,
         ctrlKey: !!modifiers.control,
         altKey: !!modifiers.alt,
