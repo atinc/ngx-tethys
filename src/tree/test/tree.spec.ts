@@ -1,9 +1,7 @@
-import { createDragEvent, dispatchFakeEvent, dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing';
-import { animationFrameScheduler } from 'rxjs';
+import { dispatchMouseEvent } from 'ngx-tethys/testing';
 
-import { CdkVirtualScrollViewport, ExtendedScrollToOptions } from '@angular/cdk/scrolling';
-import { ApplicationRef, Component, OnInit, ViewChild } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
@@ -25,13 +23,12 @@ import { bigTreeNodes, treeNodes, hasCheckTreeNodes } from './mock';
 import { ThyTreeNodeComponent } from '../tree-node.component';
 import { CDK_DRAG_CONFIG, DragDropConfig } from '@angular/cdk/drag-drop';
 import { DOCUMENT } from '@angular/common';
-import { dargNode, scrollToViewport, scrollToViewportOffset } from './utils';
+import { scrollToViewport, scrollToViewportOffset } from './utils';
 
 const expandSelector = '.thy-tree-expand';
 const expandIconSelector = '.thy-tree-expand-icon';
 const treeNodeSelector = '.thy-tree-node';
 const loadingSelector = '.thy-loading';
-const treeNodeScrollViewport = '.cdk-virtual-scroll-viewport';
 const treeNodeContentSelector = '.thy-tree-node-content';
 
 describe('ThyTreeComponent', () => {
@@ -1094,4 +1091,26 @@ function startDragging(fixture: ComponentFixture<any>, element: Element, x?: num
 
     dispatchMouseEvent(document, 'mousemove', x, y);
     fixture.detectChanges();
+}
+
+function dargNode(fixture: ComponentFixture<any>, startNode: HTMLElement, targetNode: HTMLElement, dropPosition: ThyTreeDropPosition) {
+    startDragging(fixture, startNode, 10, 10);
+
+    const targetClientRect = targetNode.getBoundingClientRect();
+    let targetClientY = 0;
+    if (dropPosition === ThyTreeDropPosition.before) {
+        targetClientY = targetClientRect.top;
+    } else if (dropPosition === ThyTreeDropPosition.in) {
+        targetClientY = targetClientRect.top + targetClientRect.height / 2 - 1;
+    } else {
+        targetClientY = targetClientRect.top + targetClientRect.height - 1;
+    }
+
+    dispatchMouseEvent(targetNode, 'mousemove', targetClientRect.left, targetClientY);
+    fixture.detectChanges();
+
+    dispatchMouseEvent(targetNode, 'mouseup', targetClientRect.left, targetClientY);
+    fixture.detectChanges();
+
+    tick();
 }
