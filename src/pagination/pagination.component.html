@@ -16,27 +16,20 @@
   </div>
   <div class="thy-pagination-content">
     <div class="thy-pagination-size" *ngIf="config.showSizeChanger">
-      <thy-custom-select
-        [(ngModel)]="selectPageSize"
-        [thySize]="selectSize"
-        [thyDisabled]="disabled"
-        (ngModelChange)="onPageSizeChange($event)"
-      >
+      <thy-select [(ngModel)]="selectPageSize" [thySize]="selectSize" [thyDisabled]="disabled" (ngModelChange)="onPageSizeChange($event)">
         <thy-option
           class="page-size-option"
           *ngFor="let option of config.pageSizeOptions"
           [thyValue]="option"
-          [thyLabelText]="option + ' 条/页'"
-        ></thy-option>
-      </thy-custom-select>
+          [thyLabelText]="option + ' 条/页'"></thy-option>
+      </thy-select>
     </div>
     <ul class="thy-pagination-pages">
       <li
         class="thy-page-item"
         [class.disabled]="disabled || pageIndex === firstIndex"
         *ngIf="config.boundaryLinks"
-        (click)="selectPage(firstIndex)"
-      >
+        (click)="selectPage(firstIndex)">
         <a class="thy-page-link thy-page-link-first" href="javascript:;">
           <ng-container *ngIf="config.firstText">{{ config.firstText }}</ng-container>
           <ng-container *ngIf="config.firstIcon">
@@ -48,9 +41,8 @@
         class="thy-page-item"
         [class.disabled]="disabled || pageIndex === firstIndex"
         *ngIf="config.directionLinks"
-        (click)="selectPage(pageIndex - 1)"
-      >
-        <a class="thy-page-link  page-link-pre" href="javascript:;">
+        (click)="selectPage(pageIndex - 1)">
+        <a class="thy-page-link page-link-pre" href="javascript:;">
           <ng-container *ngIf="config.previousText">{{ config.previousText }}</ng-container>
           <ng-container *ngIf="config.previousIcon">
             <thy-icon [thyIconName]="config.previousIcon"></thy-icon>
@@ -62,16 +54,14 @@
         [class.active]="page.active"
         [class.disabled]="disabled"
         (click)="selectPage(page.index)"
-        *ngFor="let page of pages"
-      >
+        *ngFor="let page of pages">
         <a class="thy-page-link" href="javascript:;">{{ page.text }}</a>
       </li>
       <li
         class="thy-page-item page-item-next"
         [class.disabled]="disabled || pageIndex === pageCount"
         *ngIf="config.directionLinks"
-        (click)="selectPage(pageIndex + 1)"
-      >
+        (click)="selectPage(pageIndex + 1)">
         <a class="thy-page-link thy-page-link-next" href="javascript:;">
           <ng-container *ngIf="config.nextText">{{ config.nextText }}</ng-container>
           <ng-container *ngIf="config.nextIcon">
@@ -83,8 +73,7 @@
         class="thy-page-item"
         [class.disabled]="disabled || pageIndex === pageCount"
         *ngIf="config.boundaryLinks"
-        (click)="selectPage(pageCount)"
-      >
+        (click)="selectPage(pageCount)">
         <a class="thy-page-link thy-page-link-last" href="javascript:;">
           <ng-container *ngIf="config.lastText">{{ config.lastText }}</ng-container>
           <ng-container *ngIf="config.lastIcon">
@@ -94,7 +83,7 @@
       </li>
     </ul>
     <ng-container *ngIf="config.showTotalPageCount && config.totalPagesFormat">
-      <div class="thy-pagination-count" [innerHTML]="pageCount | paginationTotalPagesFormat: config.totalPagesFormat"></div>
+      <div class="thy-pagination-count" [innerHTML]="pageCount | paginationTotalPagesFormat : config.totalPagesFormat"></div>
     </ng-container>
     <ng-container *ngIf="config.showQuickJumper">
       <div class="thy-pagination-jumper">

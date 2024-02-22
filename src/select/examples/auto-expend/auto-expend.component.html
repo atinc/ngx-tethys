@@ -1,6 +1,6 @@
 <div>
   <button class="btn btn-primary" (click)="isShow = !isShow">Open</button>
-  <thy-custom-select [thyAutoExpand]="isAutoExpend" style="width:500px; margin-top: 20px;" *ngIf="isShow">
+  <thy-select [thyAutoExpand]="isAutoExpend" style="width: 500px; margin-top: 20px" *ngIf="isShow">
     <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"></thy-option>
-  </thy-custom-select>
+  </thy-select>
 </div>

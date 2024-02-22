@@ -1,12 +1,11 @@
 <div class="mb-2 mt-2">服务端搜索</div>
-<thy-custom-select
+<thy-select
   thyPlaceHolder="请选择"
   [thyShowSearch]="true"
   (thyOnSearch)="thyOnSearch($event)"
   [thyServerSearch]="true"
   [thyMode]="'multiple'"
-  style="width:500px"
-  [(ngModel)]="selectedEnterprise"
->
+  style="width: 500px"
+  [(ngModel)]="selectedEnterprise">
   <thy-option *ngFor="let item of searchResultList" [thyValue]="item._id" [thyLabelText]="item.display_name"></thy-option>
-</thy-custom-select>
+</thy-select>

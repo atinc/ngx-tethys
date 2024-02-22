@@ -1,6 +1,6 @@
 <form thyForm thyLayout="inline">
   <thy-form-group thyLabelText="Placement">
-    <thy-select [(ngModel)]="popoverOptions.placement" name="placement">
+    <thy-native-select [(ngModel)]="popoverOptions.placement" name="placement">
       <option value="top">top</option>
       <option value="topLeft">topLeft</option>
       <option value="topRight">topRight</option>
@@ -13,7 +13,7 @@
       <option value="right">right</option>
       <option value="rightTop">rightTop</option>
       <option value="rightBottom">rightBottom</option>
-    </thy-select>
+    </thy-native-select>
   </thy-form-group>
   <thy-form-group thyLabelText="Height">
     <input thyInput type="number" [(ngModel)]="popoverOptions.height" name="height" />
@@ -47,7 +47,7 @@
 <thy-divider thyText="一些常用参数，比如：thyPlacement、thyMenuInsideClosable、thyPanelClass"></thy-divider>
 <form thyForm>
   <thy-form-group thyLabelText="Placement">
-    <thy-select [(ngModel)]="placement" name="placement">
+    <thy-native-select [(ngModel)]="placement" name="placement">
       <option value="top">top</option>
       <option value="topLeft">topLeft</option>
       <option value="topRight">topRight</option>
@@ -60,7 +60,7 @@
       <option value="right">right</option>
       <option value="rightTop">rightTop</option>
       <option value="rightBottom">rightBottom</option>
-    </thy-select>
+    </thy-native-select>
   </thy-form-group>
   <thy-form-group thyLabelText="Panel Class">
     <input thyInput [(ngModel)]="panelClass" name="panelClass" />

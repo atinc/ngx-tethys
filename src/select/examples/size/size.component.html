@@ -4,18 +4,18 @@
       {{ size.name }} - {{ size.height }}px
     </button>
   </thy-button-group>
-  <thy-custom-select thyPlaceHolder="请选择" [thySize]="currentSize.name" ngModel="option1" [thyAllowClear]="true" [thyShowSearch]="true">
+  <thy-select thyPlaceHolder="请选择" [thySize]="currentSize.name" ngModel="option1" [thyAllowClear]="true" [thyShowSearch]="true">
     <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
-  </thy-custom-select>
-  <thy-custom-select thyPlaceHolder="请选择" [thySize]="currentSize.name" thyMode="multiple" [(ngModel)]="listOfSelectedValue">
+  </thy-select>
+  <thy-select thyPlaceHolder="请选择" [thySize]="currentSize.name" thyMode="multiple" [(ngModel)]="listOfSelectedValue">
     <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
-  </thy-custom-select>
-  <thy-custom-select
+  </thy-select>
+  <thy-select
     thyPlaceHolder="请选择"
     [thySize]="currentSize.name"
     thyMode="multiple"
     [thyShowSearch]="true"
     [(ngModel)]="listOfSelectedValue">
     <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
-  </thy-custom-select>
+  </thy-select>
 </div>

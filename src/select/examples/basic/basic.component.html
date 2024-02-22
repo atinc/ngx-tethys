@@ -1,5 +1,17 @@
-<thy-select [(ngModel)]="selectedOption" style="width: 200px">
-  <option value="">请选择</option>
-  <option value="option1">选项1</option>
-  <option value="option2">选项2</option>
-</thy-select>
+<div class="basic-container">
+  <thy-select ngModel="option1">
+    <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+  </thy-select>
+  <thy-select ngModel="option2" [thyAllowClear]="true" [thyPlaceHolder]="'请选择'">
+    <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+  </thy-select>
+</div>
+
+<thy-input-group class="mt-4" #origin>
+  <thy-select ngModel="option1" class="flex-grow-1 mr-0" [thyOrigin]="customizeOrigin">
+    <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+  </thy-select>
+  <ng-template #prefix>
+    <thy-icon class="text-placeholder" thyIconName="user"></thy-icon>
+  </ng-template>
+</thy-input-group>

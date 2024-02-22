@@ -1,22 +1,22 @@
-<div class="custom-select-container">
-  <thy-custom-select ngModel="option1" thyDropdownWidthMode="match-select">
+<div class="select-container">
+  <thy-select ngModel="option1" thyDropdownWidthMode="match-select">
     <thy-option *ngFor="let option of listOfOption; trackBy: trackByFn" [thyValue]="option.value" [thyLabelText]="option.text">
     </thy-option>
-  </thy-custom-select>
+  </thy-select>
 
-  <thy-custom-select ngModel="option2" thyDropdownWidthMode="min-width">
+  <thy-select ngModel="option2" thyDropdownWidthMode="min-width">
     <thy-option *ngFor="let option of listOfOption; trackBy: trackByFn" [thyValue]="option.value" [thyLabelText]="option.text">
     </thy-option>
-  </thy-custom-select>
+  </thy-select>
 
-  <thy-custom-select ngModel="option3" [thyDropdownWidthMode]="{ minWidth: 300 }">
+  <thy-select ngModel="option3" [thyDropdownWidthMode]="{ minWidth: 300 }">
     <thy-option *ngFor="let option of listOfOption; trackBy: trackByFn" [thyValue]="option.value" [thyLabelText]="option.text">
     </thy-option>
-  </thy-custom-select>
+  </thy-select>
 
   <!-- use THY_SELECT_CONFIG -->
-  <thy-custom-select ngModel="option1">
+  <thy-select ngModel="option1">
     <thy-option *ngFor="let option of listOfOption; trackBy: trackByFn" [thyValue]="option.value" [thyLabelText]="option.text">
     </thy-option>
-  </thy-custom-select>
+  </thy-select>
 </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThySelectOptionModel } from 'ngx-tethys/select/custom-select/custom-select.component';
+import { ThySelectOptionModel } from 'ngx-tethys/select/select.component';
 import { timer } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { groupOptions } from '../mock-data';

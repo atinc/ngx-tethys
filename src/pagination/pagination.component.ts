@@ -19,7 +19,7 @@ import { PaginationTotalCountFormat } from './pagination.pipe';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyOption, ThyEnterDirective } from 'ngx-tethys/shared';
 import { FormsModule } from '@angular/forms';
-import { ThySelectCustom } from 'ngx-tethys/select';
+import { ThySelect } from 'ngx-tethys/select';
 import { NgIf, NgTemplateOutlet, NgFor } from '@angular/common';
 import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 
@@ -33,17 +33,7 @@ import { InputBoolean, InputNumber } from 'ngx-tethys/core';
     templateUrl: './pagination.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [
-        NgIf,
-        NgTemplateOutlet,
-        ThySelectCustom,
-        FormsModule,
-        NgFor,
-        ThyOption,
-        ThyIcon,
-        ThyEnterDirective,
-        PaginationTotalCountFormat
-    ]
+    imports: [NgIf, NgTemplateOutlet, ThySelect, FormsModule, NgFor, ThyOption, ThyIcon, ThyEnterDirective, PaginationTotalCountFormat]
 })
 export class ThyPagination implements OnInit {
     isTemplateRef = isTemplateRef;

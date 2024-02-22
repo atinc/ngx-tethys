@@ -1,5 +1,5 @@
-<thy-custom-select thyEmptyStateText="无任何选择项" thyPlaceHolder="无任何选择项" style="width:500px;"></thy-custom-select>
+<thy-select thyEmptyStateText="无任何选择项" thyPlaceHolder="无任何选择项" style="width: 500px"></thy-select>
 <br />
-<thy-custom-select thyEmptySearchMessageText="搜索结果为空" thyPlaceHolder="搜索结果为空" [thyShowSearch]="true" style="width:500px;">
+<thy-select thyEmptySearchMessageText="搜索结果为空" thyPlaceHolder="搜索结果为空" [thyShowSearch]="true" style="width: 500px">
   <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"></thy-option>
-</thy-custom-select>
+</thy-select>

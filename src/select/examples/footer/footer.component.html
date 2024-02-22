@@ -1,6 +1,6 @@
-<thy-custom-select thyPlaceHolder="自定义 Footer" [thyShowSearch]="true" style="width:500px;" [thyFooterTemplate]="footer">
+<thy-select thyPlaceHolder="自定义 Footer" [thyShowSearch]="true" style="width: 500px" [thyFooterTemplate]="footer">
   <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"></thy-option>
   <ng-template #footer>
     <a class="flex-grow-1">更多页面</a>
   </ng-template>
-</thy-custom-select>
+</thy-select>
