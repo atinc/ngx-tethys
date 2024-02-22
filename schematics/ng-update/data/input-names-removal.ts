@@ -33,7 +33,7 @@ export interface InputNameRemovalUpgradeData {
 }
 
 export const inputNamesRemoval: VersionChanges<InputNameRemovalUpgradeData> = {
-    [TargetVersion.V16]: [
+    [TargetVersion.V17]: [
         {
             pr: '',
             changes: [

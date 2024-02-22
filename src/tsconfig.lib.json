@@ -12,7 +12,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "types": ["../typings/ng-dev-mode"],
+    "types": ["ng-dev-mode"],
     "lib": ["dom", "ES2017"],
     "paths": {
       "ngx-tethys/*": ["./*"],

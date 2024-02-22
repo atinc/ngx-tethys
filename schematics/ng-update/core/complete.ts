@@ -14,11 +14,9 @@ export function onMigrationComplete(context: SchematicContext, targetVersion: Ta
     }
 }
 
-export function onV16MigrationComplete(context: SchematicContext, targetVersion: TargetVersion, hasFailures: boolean) {
+export function onV17MigrationComplete(context: SchematicContext, targetVersion: TargetVersion, hasFailures: boolean) {
     context.logger.info('');
     context.logger.info(`  ✓  Updated NGX-TETHYS to ${targetVersion}`);
-    context.logger.info(`  ✓  Replaced label with tag`);
-    context.logger.info(`  ✓  Replaced action-menu with dropdown-menu`);
     context.logger.info('');
 
     if (hasFailures) {

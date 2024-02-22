@@ -3,7 +3,7 @@
   "compilerOptions": {
     "outDir": "../out-tsc/app",
     "baseUrl": "./",
-    "types": ["../typings/ng-dev-mode"],
+    "types": ["ng-dev-mode"],
     "paths": {
       "ngx-tethys": ["../src/public-api"],
       "ngx-tethys/*": ["../src/*"],

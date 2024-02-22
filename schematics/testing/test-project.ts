@@ -16,20 +16,16 @@ export async function createTestProject(
     appOptions = {},
     tree?: Tree
 ): Promise<UnitTestTree> {
-    const workspaceTree = await runner
-        .runExternalSchematicAsync(
-            '@schematics/angular',
-            'workspace',
-            {
-                name: 'workspace',
-                version: '6.0.0',
-                newProjectRoot: 'projects'
-            },
-            tree
-        )
-        .toPromise();
+    const workspaceTree = await runner.runExternalSchematic(
+        '@schematics/angular',
+        'workspace',
+        {
+            name: 'workspace',
+            version: '6.0.0',
+            newProjectRoot: 'projects'
+        },
+        tree
+    );
 
-    return runner
-        .runExternalSchematicAsync('@schematics/angular', projectType, { name: 'ngx-tethys', ...appOptions }, workspaceTree)
-        .toPromise();
+    return runner.runExternalSchematic('@schematics/angular', projectType, { name: 'ngx-tethys', ...appOptions }, workspaceTree);
 }

@@ -22,7 +22,6 @@ export class ThyTreeAsyncExampleComponent {
     constructor() {}
 
     expandChange(event: ThyTreeEmitEvent) {
-        console.log(event);
         // load child async
         if (event.eventName === 'expand') {
             const node = event.node;
