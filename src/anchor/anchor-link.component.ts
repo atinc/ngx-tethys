@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
-import { ThyAnchorComponent } from './anchor.component';
+import { ThyAnchor } from './anchor.component';
 import { NgIf } from '@angular/common';
 
 /**
@@ -35,7 +35,7 @@ import { NgIf } from '@angular/common';
     standalone: true,
     imports: [NgIf]
 })
-export class ThyAnchorLinkComponent implements OnInit, OnDestroy {
+export class ThyAnchorLink implements OnInit, OnDestroy {
     title: string | null = '';
 
     titleTemplate?: TemplateRef<any>;
@@ -64,7 +64,7 @@ export class ThyAnchorLinkComponent implements OnInit, OnDestroy {
 
     @ViewChild('linkTitle', { static: true }) linkTitle!: ElementRef<HTMLAnchorElement>;
 
-    constructor(public elementRef: ElementRef, private anchorComponent: ThyAnchorComponent, private platform: Platform) {
+    constructor(public elementRef: ElementRef, private anchorComponent: ThyAnchor, private platform: Platform) {
         this.hostRenderer.addClass('thy-anchor-link');
         if (elementRef.nativeElement.tagName.toLowerCase() === 'thy-link') {
             console.warn(`'thy-link' and 'thyLink' are deprecated, please use 'thy-anchor-link' and 'thyAnchorLink' instead.`);

@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyIcon } from 'ngx-tethys/icon';
 import { NgIf, NgClass } from '@angular/common';
 
 /**
@@ -28,9 +28,9 @@ import { NgIf, NgClass } from '@angular/common';
         '[class.thy-breadcrumb-separator-vertical-line]': 'thySeparator === "vertical-line"'
     },
     standalone: true,
-    imports: [NgIf, ThyIconComponent, NgClass]
+    imports: [NgIf, ThyIcon, NgClass]
 })
-export class ThyBreadcrumbComponent {
+export class ThyBreadcrumb {
     iconClasses: string[];
     svgIconName: string;
 

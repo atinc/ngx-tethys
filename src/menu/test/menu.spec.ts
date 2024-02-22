@@ -7,13 +7,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ThyIconModule } from '../../icon/icon.module';
 import { ThyPopover, ThyPopoverModule } from '../../popover';
-import { ThyMenuDividerComponent } from '../divider/menu-divider.component';
-import { ThyMenuGroupComponent } from '../group/menu-group.component';
-import { ThyMenuItemActionComponent } from '../item/action/menu-item-action.component';
-import { ThyMenuItemIconComponent } from '../item/icon/menu-item-icon.component';
-import { ThyMenuItemComponent } from '../item/menu-item.component';
-import { ThyMenuItemNameComponent } from '../item/name/menu-item-name.component';
-import { ThyMenuComponent, ThyMenuTheme } from '../menu.component';
+import { ThyMenuDivider } from '../divider/menu-divider.component';
+import { ThyMenuGroup } from '../group/menu-group.component';
+import { ThyMenuItemAction } from '../item/action/menu-item-action.component';
+import { ThyMenuItemIcon } from '../item/icon/menu-item-icon.component';
+import { ThyMenuItem } from '../item/menu-item.component';
+import { ThyMenuItemName } from '../item/name/menu-item-name.component';
+import { ThyMenu, ThyMenuTheme } from '../menu.component';
 import { ThyMenuModule } from '../menu.module';
 import { ThyDividerModule } from '../../divider';
 
@@ -63,12 +63,12 @@ import { ThyDividerModule } from '../../divider';
     `
 })
 class ThyDemoMenuComponent {
-    @ViewChild(ThyMenuDividerComponent, { static: true }) divider: ThyMenuDividerComponent;
-    @ViewChild(ThyMenuGroupComponent, { static: true }) group: ThyMenuGroupComponent;
-    @ViewChild(ThyMenuItemComponent, { static: true }) item: ThyMenuItemComponent;
-    @ViewChild(ThyMenuItemIconComponent, { static: true }) icon: ThyMenuItemIconComponent;
-    @ViewChild(ThyMenuItemActionComponent, { static: true }) action: ThyMenuItemActionComponent;
-    @ViewChild(ThyMenuItemNameComponent, { static: true }) name: ThyMenuItemNameComponent;
+    @ViewChild(ThyMenuDivider, { static: true }) divider: ThyMenuDivider;
+    @ViewChild(ThyMenuGroup, { static: true }) group: ThyMenuGroup;
+    @ViewChild(ThyMenuItem, { static: true }) item: ThyMenuItem;
+    @ViewChild(ThyMenuItemIcon, { static: true }) icon: ThyMenuItemIcon;
+    @ViewChild(ThyMenuItemAction, { static: true }) action: ThyMenuItemAction;
+    @ViewChild(ThyMenuItemName, { static: true }) name: ThyMenuItemName;
 
     theme = 'default';
     collapsible = true;
@@ -129,7 +129,7 @@ describe('ThyMenu', () => {
             fixture = TestBed.createComponent(ThyMenuTestBasicComponent);
             component = fixture.componentInstance;
             fixture.detectChanges();
-            menuDebugElement = fixture.debugElement.query(By.directive(ThyMenuComponent));
+            menuDebugElement = fixture.debugElement.query(By.directive(ThyMenu));
             menuElement = menuDebugElement.nativeElement;
         });
 
@@ -142,21 +142,21 @@ describe('ThyMenu', () => {
         it('should set theme loose', () => {
             fixture.debugElement.componentInstance.theme = 'loose';
             fixture.detectChanges();
-            const menu = fixture.debugElement.query(By.directive(ThyMenuComponent));
+            const menu = fixture.debugElement.query(By.directive(ThyMenu));
             expect(menu.nativeElement.classList.contains('thy-menu-theme-loose')).toBeTruthy();
         });
 
         it('should set theme dark', () => {
             fixture.debugElement.componentInstance.theme = 'dark';
             fixture.detectChanges();
-            const menu = fixture.debugElement.query(By.directive(ThyMenuComponent));
+            const menu = fixture.debugElement.query(By.directive(ThyMenu));
             expect(menu.nativeElement.classList.contains('thy-menu-theme-dark')).toBeTruthy();
         });
 
         it('should set collapsed success', () => {
             fixture.debugElement.componentInstance.collapsed = true;
             fixture.detectChanges();
-            const menu = fixture.debugElement.query(By.directive(ThyMenuComponent));
+            const menu = fixture.debugElement.query(By.directive(ThyMenu));
             expect(menu.nativeElement.classList.contains('thy-menu-collapsed')).toBeTruthy();
         });
 
@@ -200,7 +200,7 @@ describe('ThyMenu', () => {
         let group: DebugElement;
 
         beforeEach(() => {
-            group = fixture.debugElement.query(By.directive(ThyMenuGroupComponent));
+            group = fixture.debugElement.query(By.directive(ThyMenuGroup));
         });
 
         it('should create thy-menu-group', () => {
@@ -217,7 +217,7 @@ describe('ThyMenu', () => {
             fixture.debugElement.componentInstance.collapsible = false;
             fixture.detectChanges();
             expect(fixture.debugElement.query(By.css('.thy-menu-group-arrow'))).toBeFalsy();
-            const group = fixture.debugElement.query(By.directive(ThyMenuGroupComponent));
+            const group = fixture.debugElement.query(By.directive(ThyMenuGroup));
             const groupHeader = group.nativeElement.querySelector('.thy-menu-group-header');
             groupHeader.click();
             fixture.detectChanges();
@@ -226,7 +226,7 @@ describe('ThyMenu', () => {
 
         it('should toggle worked', () => {
             fixture.detectChanges();
-            const group = fixture.debugElement.query(By.directive(ThyMenuGroupComponent));
+            const group = fixture.debugElement.query(By.directive(ThyMenuGroup));
             const groupHeader = group.nativeElement.querySelector('.thy-menu-group-header');
             const spy = spyOn(fixture.componentInstance, 'toggle');
             groupHeader.click();
@@ -238,7 +238,7 @@ describe('ThyMenu', () => {
         it('should headerContent worked', () => {
             fixture.debugElement.componentInstance.theme = 'loose';
             fixture.detectChanges();
-            const group = fixture.debugElement.query(By.directive(ThyMenuGroupComponent));
+            const group = fixture.debugElement.query(By.directive(ThyMenuGroup));
             expect(group.nativeElement.querySelectorAll('.custom-title')).toBeTruthy();
         });
     });
@@ -247,7 +247,7 @@ describe('ThyMenu', () => {
         let item: DebugElement;
 
         beforeEach(() => {
-            item = fixture.debugElement.query(By.directive(ThyMenuItemComponent));
+            item = fixture.debugElement.query(By.directive(ThyMenuItem));
         });
 
         it('should create thy-menu-item', () => {
@@ -269,7 +269,7 @@ describe('ThyMenu', () => {
         let name: DebugElement;
 
         beforeEach(() => {
-            name = fixture.debugElement.query(By.directive(ThyMenuItemNameComponent));
+            name = fixture.debugElement.query(By.directive(ThyMenuItemName));
         });
 
         it('should create thy-menu-item-name', () => {
@@ -293,18 +293,18 @@ describe('ThyMenu', () => {
 
     describe('thy-menu-item-icon', () => {
         it('should create thy-menu-item-icon', () => {
-            const icon = fixture.debugElement.query(By.directive(ThyMenuItemIconComponent));
+            const icon = fixture.debugElement.query(By.directive(ThyMenuItemIcon));
             expect(icon.componentInstance).toBeTruthy();
             expect(icon.componentInstance === component.icon).toBeTruthy();
         });
 
         it('should have class thy-menu-item-icon', () => {
-            const icon = fixture.debugElement.query(By.directive(ThyMenuItemIconComponent));
+            const icon = fixture.debugElement.query(By.directive(ThyMenuItemIcon));
             expect(icon.nativeElement.classList.contains('thy-menu-item-icon')).toBeTruthy();
         });
 
         it('should not have color when [thyColor] is empty', () => {
-            const icon = fixture.debugElement.query(By.directive(ThyMenuItemIconComponent));
+            const icon = fixture.debugElement.query(By.directive(ThyMenuItemIcon));
             expect(icon.nativeElement.style.color === '').toBeTruthy();
         });
 
@@ -317,7 +317,7 @@ describe('ThyMenu', () => {
     describe('thy-menu-item-action', () => {
         let action: DebugElement;
         beforeEach(() => {
-            action = fixture.debugElement.query(By.directive(ThyMenuItemActionComponent));
+            action = fixture.debugElement.query(By.directive(ThyMenuItemAction));
         });
 
         it('should create thy-menu-item-action', () => {

@@ -18,8 +18,8 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 
 import { NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ThyIconComponent } from 'ngx-tethys/icon';
-import { ThyTagComponent } from 'ngx-tethys/tag';
+import { ThyIcon } from 'ngx-tethys/icon';
+import { ThyTag } from 'ngx-tethys/tag';
 import { SelectOptionBase } from '../../option/select-option-base';
 import { ThyGridModule } from 'ngx-tethys/grid';
 
@@ -33,12 +33,12 @@ export type SelectControlSize = 'sm' | 'md' | 'lg' | '';
     templateUrl: './select-control.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [FormsModule, NgClass, NgIf, NgStyle, NgFor, ThyTagComponent, NgTemplateOutlet, ThyIconComponent, ThyGridModule],
+    imports: [FormsModule, NgClass, NgIf, NgStyle, NgFor, ThyTag, NgTemplateOutlet, ThyIcon, ThyGridModule],
     host: {
         '[class.select-control-borderless]': 'thyBorderless'
     }
 })
-export class ThySelectControlComponent implements OnInit {
+export class ThySelectControl implements OnInit {
     inputValue = '';
 
     isComposing = false;

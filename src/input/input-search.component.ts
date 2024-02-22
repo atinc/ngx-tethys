@@ -28,7 +28,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyAutofocusDirective } from 'ngx-tethys/shared';
 import { ThyInputDirective, ThyInputSize } from './input.directive';
 
@@ -39,7 +39,7 @@ export type ThyInputSearchIconPosition = 'before' | 'after';
 
 export const CUSTOM_INPUT_SEARCH_CONTROL_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => ThyInputSearchComponent),
+    useExisting: forwardRef(() => ThyInputSearch),
     multi: true
 };
 
@@ -70,9 +70,9 @@ const _MixinBase: Constructor<ThyHasTabIndex> &
         '[attr.tabindex]': 'tabIndex'
     },
     standalone: true,
-    imports: [NgIf, ThyIconComponent, ThyInputDirective, ThyAutofocusDirective, FormsModule]
+    imports: [NgIf, ThyIcon, ThyInputDirective, ThyAutofocusDirective, FormsModule]
 })
-export class ThyInputSearchComponent extends _MixinBase implements ControlValueAccessor, OnInit, OnDestroy {
+export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, OnInit, OnDestroy {
     @ViewChild('input', { static: true }) inputElement: ElementRef<any>;
 
     private hostRenderer = useHostRenderer();

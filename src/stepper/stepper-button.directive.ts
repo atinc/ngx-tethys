@@ -1,5 +1,5 @@
 import { Directive, HostListener } from '@angular/core';
-import { ThyStepperComponent } from './stepper.component';
+import { ThyStepper } from './stepper.component';
 
 /**
  * 在步进工作流中移动到下一个步骤的按钮
@@ -12,7 +12,7 @@ import { ThyStepperComponent } from './stepper.component';
     standalone: true
 })
 export class ThyStepperNextDirective {
-    constructor(private stepper: ThyStepperComponent) {}
+    constructor(private stepper: ThyStepper) {}
 
     @HostListener('click', ['$event'])
     click($event: any) {
@@ -31,7 +31,7 @@ export class ThyStepperNextDirective {
     standalone: true
 })
 export class ThyStepperPreviousDirective {
-    constructor(private stepper: ThyStepperComponent) {}
+    constructor(private stepper: ThyStepper) {}
 
     @HostListener('click', ['$event'])
     click($event: any) {

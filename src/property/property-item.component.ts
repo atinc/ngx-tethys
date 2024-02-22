@@ -1,5 +1,5 @@
 import { InputBoolean, InputNumber, ThyClickDispatcher } from 'ngx-tethys/core';
-import { ThyFlexibleTextComponent } from 'ngx-tethys/flexible-text';
+import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
 import { combineLatest, fromEvent, Subject, Subscription, timer } from 'rxjs';
 import { delay, filter, take, takeUntil } from 'rxjs/operators';
 
@@ -24,7 +24,7 @@ import {
     ViewChild
 } from '@angular/core';
 
-import { ThyPropertiesComponent } from './properties.component';
+import { ThyProperties } from './properties.component';
 
 export type ThyPropertyItemOperationTrigger = 'hover' | 'always';
 
@@ -42,9 +42,9 @@ export type ThyPropertyItemOperationTrigger = 'hover' | 'always';
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [NgIf, ThyFlexibleTextComponent, NgTemplateOutlet]
+    imports: [NgIf, ThyFlexibleText, NgTemplateOutlet]
 })
-export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
+export class ThyPropertyItem implements OnInit, OnChanges, OnDestroy {
     /**
      * 属性名称
      * @type sting
@@ -125,7 +125,7 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
         private clickDispatcher: ThyClickDispatcher,
         private ngZone: NgZone,
         private overlayOutsideClickDispatcher: OverlayOutsideClickDispatcher,
-        private parent: ThyPropertiesComponent
+        private parent: ThyProperties
     ) {
         this.originOverlays = [...this.overlayOutsideClickDispatcher._attachedOverlays] as OverlayRef[];
     }

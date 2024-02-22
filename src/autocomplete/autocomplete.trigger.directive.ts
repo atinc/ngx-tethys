@@ -16,8 +16,8 @@ import { OverlayRef, Overlay } from '@angular/cdk/overlay';
 import { InputBoolean, InputNumber, ThyPlacement } from 'ngx-tethys/core';
 import { ThyAutocompleteService } from './overlay/autocomplete.service';
 import { ThyAutocompleteRef } from './overlay/autocomplete-ref';
-import { ThyAutocompleteComponent } from './autocomplete.component';
-import { ThyOptionComponent, ThyOptionSelectionChangeEvent } from 'ngx-tethys/shared';
+import { ThyAutocomplete } from './autocomplete.component';
+import { ThyOption, ThyOptionSelectionChangeEvent } from 'ngx-tethys/shared';
 import { DOCUMENT } from '@angular/common';
 import { Subject, Observable, merge, fromEvent, of, Subscription } from 'rxjs';
 import { ESCAPE, UP_ARROW, ENTER, DOWN_ARROW, TAB } from 'ngx-tethys/util';
@@ -43,13 +43,13 @@ import { warnDeprecation } from 'ngx-tethys/util';
 export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
     protected overlayRef: OverlayRef;
 
-    private autocompleteRef: ThyAutocompleteRef<ThyAutocompleteComponent>;
+    private autocompleteRef: ThyAutocompleteRef<ThyAutocomplete>;
 
     private readonly closeKeyEventStream = new Subject<void>();
 
     private closingActionsSubscription: Subscription;
 
-    private _autocompleteComponent: ThyAutocompleteComponent;
+    private _autocompleteComponent: ThyAutocomplete;
 
     @HostBinding(`class.thy-autocomplete-opened`) panelOpened = false;
 
@@ -59,7 +59,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
      * @deprecated
      */
     @Input('thyAutocompleteComponent')
-    set autocompleteComponent(data: ThyAutocompleteComponent) {
+    set autocompleteComponent(data: ThyAutocomplete) {
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
             warnDeprecation(`The property thyAutocompleteComponent will be deprecated, please use thyAutocomplete instead.`);
         }
@@ -71,7 +71,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
      * @type thyAutocompleteComponent
      */
     @Input('thyAutocomplete')
-    set autocomplete(data: ThyAutocompleteComponent) {
+    set autocomplete(data: ThyAutocomplete) {
         this._autocompleteComponent = data;
     }
 
@@ -103,7 +103,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
      */
     @Input() @InputBoolean() thyIsFocusOpen = true;
 
-    get activeOption(): ThyOptionComponent | null {
+    get activeOption(): ThyOption | null {
         if (this.autocompleteComponent && this.autocompleteComponent.keyManager) {
             return this.autocompleteComponent.keyManager.activeItem;
         }

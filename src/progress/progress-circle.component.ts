@@ -28,7 +28,7 @@ import { InputNumber } from 'ngx-tethys/core';
     standalone: true,
     imports: [ThyTooltipDirective, NgClass, NgStyle, NgFor]
 })
-export class ThyProgressCircleComponent implements OnInit, OnChanges {
+export class ThyProgressCircle implements OnInit, OnChanges {
     private hostRenderer = useHostRenderer();
 
     @Input() set thyType(type: ThyProgressType) {

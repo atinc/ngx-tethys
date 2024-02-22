@@ -1,8 +1,8 @@
 import { Component, DebugElement, OnInit } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyAvatarListComponent, ThyAvatarListMode } from '../avatar-list/avatar-list.component';
-import { ThyAvatarComponent } from '../avatar.component';
+import { ThyAvatarList, ThyAvatarListMode } from '../avatar-list/avatar-list.component';
+import { ThyAvatar } from '../avatar.component';
 import { ThyAvatarModule } from '../avatar.module';
 
 const userNameList = [{ name: 'Abigail' }, { name: 'Belle' }, { name: 'Camilla' }, { name: 'Abigail' }, { name: 'Belle' }];
@@ -75,7 +75,7 @@ describe('thy-avatar-list', () => {
         let fixture: ComponentFixture<AvatarListBasicComponent>;
         beforeEach(() => {
             fixture = TestBed.createComponent(AvatarListBasicComponent);
-            avatarListDebugElement = fixture.debugElement.query(By.directive(ThyAvatarListComponent));
+            avatarListDebugElement = fixture.debugElement.query(By.directive(ThyAvatarList));
             componentInstance = fixture.componentInstance;
             avatarListElement = avatarListDebugElement.nativeElement;
             fixture.detectChanges();
@@ -88,14 +88,14 @@ describe('thy-avatar-list', () => {
         });
 
         it('should have correct avatar item', fakeAsync(() => {
-            const avatarComponent = fixture.debugElement.queryAll(By.directive(ThyAvatarComponent));
+            const avatarComponent = fixture.debugElement.queryAll(By.directive(ThyAvatar));
             expect(avatarComponent.length).toEqual(5);
             const moreComponent = fixture.debugElement.query(By.css('.more-36'));
             expect(moreComponent).not.toBeTruthy();
         }));
 
         it('should be 36px size which is the default size When thyAvatarSize is empty', fakeAsync(() => {
-            const avatarComponent = fixture.debugElement.queryAll(By.directive(ThyAvatarComponent));
+            const avatarComponent = fixture.debugElement.queryAll(By.directive(ThyAvatar));
             const avatarElement = avatarComponent[0].nativeElement;
             expect(avatarElement.classList.contains('thy-avatar-36')).toEqual(true);
         }));
@@ -129,7 +129,7 @@ describe('thy-avatar-list', () => {
         it('should be 68px size When input number 80', fakeAsync(() => {
             fixture.componentInstance.size = '80';
             fixture.detectChanges();
-            const avatarComponent = fixture.debugElement.queryAll(By.directive(ThyAvatarComponent));
+            const avatarComponent = fixture.debugElement.queryAll(By.directive(ThyAvatar));
             const avatarElement = avatarComponent[0].nativeElement;
             expect(avatarElement.classList.contains('thy-avatar-68')).toEqual(true);
         }));
@@ -139,7 +139,7 @@ describe('thy-avatar-list', () => {
         let fixture: ComponentFixture<AvatarListTestComponent>;
         beforeEach(() => {
             fixture = TestBed.createComponent(AvatarListTestComponent);
-            avatarListDebugElement = fixture.debugElement.query(By.directive(ThyAvatarListComponent));
+            avatarListDebugElement = fixture.debugElement.query(By.directive(ThyAvatarList));
             avatarListElement = avatarListDebugElement.nativeElement;
             fixture.detectChanges();
         });
@@ -184,7 +184,7 @@ describe('thy-avatar-list', () => {
             fixture.componentInstance.mode = ThyAvatarListMode.overlap;
             fixture.detectChanges();
 
-            const avatarComponent = fixture.debugElement.queryAll(By.directive(ThyAvatarComponent));
+            const avatarComponent = fixture.debugElement.queryAll(By.directive(ThyAvatar));
             expect(avatarComponent[0].styles.zIndex).toBe('5');
             expect(avatarComponent[1].styles.zIndex).toBe('4');
             expect(avatarComponent[2].styles.zIndex).toBe('3');
@@ -193,7 +193,7 @@ describe('thy-avatar-list', () => {
             fixture.componentInstance.data = [fixture.componentInstance.data[0], fixture.componentInstance.data[1]];
             fixture.detectChanges();
 
-            const avatarChangeComponent = fixture.debugElement.queryAll(By.directive(ThyAvatarComponent));
+            const avatarChangeComponent = fixture.debugElement.queryAll(By.directive(ThyAvatar));
             expect(avatarChangeComponent[0].styles.zIndex).toBe('2');
             expect(avatarChangeComponent[1].styles.zIndex).toBe('1');
         });
@@ -203,13 +203,13 @@ describe('thy-avatar-list', () => {
         let fixture: ComponentFixture<AvatarListEmptyComponent>;
         beforeEach(() => {
             fixture = TestBed.createComponent(AvatarListEmptyComponent);
-            avatarListDebugElement = fixture.debugElement.query(By.directive(ThyAvatarListComponent));
+            avatarListDebugElement = fixture.debugElement.query(By.directive(ThyAvatarList));
             fixture.detectChanges();
         });
 
         it('should create when ContentChildren is null ', fakeAsync(() => {
             expect(fixture).toBeTruthy();
-            expect(fixture.debugElement.queryAll(By.directive(ThyAvatarComponent)).length).toEqual(0);
+            expect(fixture.debugElement.queryAll(By.directive(ThyAvatar)).length).toEqual(0);
         }));
     });
 });

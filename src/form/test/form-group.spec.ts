@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 import { By } from '@angular/platform-browser';
-import { ThyFormGroupComponent } from '../form-group.component';
+import { ThyFormGroup } from '../form-group.component';
 import { ThyTranslate } from 'ngx-tethys/core';
 import { ThyFormGroupLabelDirective } from '../form-group-label.directive';
 
@@ -79,7 +79,7 @@ describe('form-group basic', () => {
         fixture = TestBed.createComponent(TestFormWithGroupComponent);
         fixture.detectChanges();
         testComponent = fixture.componentInstance;
-        formGroupDebugElements = fixture.debugElement.queryAll(By.directive(ThyFormGroupComponent));
+        formGroupDebugElements = fixture.debugElement.queryAll(By.directive(ThyFormGroup));
     });
 
     function getFormGroup(index = 0) {
@@ -217,7 +217,7 @@ describe('form-group in vertical', () => {
         fixture = TestBed.createComponent(TestFormGroupVerticalComponent);
         fixture.detectChanges();
         testComponent = fixture.componentInstance;
-        formGroupDebugElement = fixture.debugElement.query(By.directive(ThyFormGroupComponent));
+        formGroupDebugElement = fixture.debugElement.query(By.directive(ThyFormGroup));
     });
 
     it('should get correct form group for vertical', () => {
@@ -286,7 +286,7 @@ describe('form-group for TranslateKey', () => {
         fixture = TestBed.createComponent(TestFormGroupTranslateKeyComponent);
         fixture.detectChanges();
         testComponent = fixture.componentInstance;
-        formGroupDebugElement = fixture.debugElement.query(By.directive(ThyFormGroupComponent));
+        formGroupDebugElement = fixture.debugElement.query(By.directive(ThyFormGroup));
     });
 
     it('should get correct label and tips', () => {

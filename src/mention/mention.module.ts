@@ -7,18 +7,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { ThyMentionDirective } from './mention.directive';
-import { ThyMentionSuggestionsComponent } from './suggestions/suggestions.component';
+import { ThyMentionSuggestions } from './suggestions/suggestions.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        ThyPopoverModule,
-        ThyListModule,
-        ThyLoadingModule,
-        ThyMentionDirective,
-        ThyMentionSuggestionsComponent
-    ],
+    imports: [CommonModule, FormsModule, ThyPopoverModule, ThyListModule, ThyLoadingModule, ThyMentionDirective, ThyMentionSuggestions],
     exports: [ThyMentionDirective],
     providers: []
 })

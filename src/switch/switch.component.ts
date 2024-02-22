@@ -28,7 +28,7 @@ import { InputBoolean, TabIndexDisabledControlValueAccessorMixin } from 'ngx-tet
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => ThySwitchComponent),
+            useExisting: forwardRef(() => ThySwitch),
             multi: true
         }
     ],
@@ -40,7 +40,7 @@ import { InputBoolean, TabIndexDisabledControlValueAccessorMixin } from 'ngx-tet
         '[class.thy-switch-sm]': 'size === "sm"'
     }
 })
-export class ThySwitchComponent extends TabIndexDisabledControlValueAccessorMixin implements OnInit, ControlValueAccessor {
+export class ThySwitch extends TabIndexDisabledControlValueAccessorMixin implements OnInit, ControlValueAccessor {
     public model: boolean;
 
     public type?: string = 'primary';

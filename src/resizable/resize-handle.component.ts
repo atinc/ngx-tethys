@@ -43,7 +43,7 @@ const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveLis
     standalone: true,
     imports: [NgIf]
 })
-export class ThyResizeHandleComponent extends _MixinBase implements OnInit, OnDestroy {
+export class ThyResizeHandle extends _MixinBase implements OnInit, OnDestroy {
     /**
      * 调整方向
      * @type top | right | bottom | left | topRight | bottomRight | bottomLeft | topLeft

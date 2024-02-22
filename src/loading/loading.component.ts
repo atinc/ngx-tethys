@@ -15,7 +15,7 @@ import { InputBoolean } from 'ngx-tethys/core';
     standalone: true,
     imports: [NgIf]
 })
-export class ThyLoadingComponent {
+export class ThyLoading {
     public isDone: boolean;
 
     public tip: string;

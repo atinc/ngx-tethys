@@ -21,7 +21,7 @@ import { ComponentPortal } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
 import { ElementRef, Inject, Injectable, Injector, NgZone, OnDestroy, Optional, StaticProvider, TemplateRef } from '@angular/core';
 
-import { ThyPopoverContainerComponent } from './popover-container.component';
+import { ThyPopoverContainer } from './popover-container.component';
 import { ThyInternalPopoverRef, ThyPopoverRef } from './popover-ref';
 import {
     THY_POPOVER_DEFAULT_CONFIG,
@@ -37,7 +37,7 @@ import { SafeAny } from 'ngx-tethys/types';
  * @order 10
  */
 @Injectable()
-export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyPopoverContainerComponent> implements OnDestroy {
+export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyPopoverContainer> implements OnDestroy {
     private readonly ngUnsubscribe$ = new Subject();
 
     private originInstancesMap = new Map<
@@ -90,34 +90,30 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
         return overlayConfig;
     }
 
-    protected attachOverlayContainer(overlay: OverlayRef, config: ThyPopoverConfig<any>): ThyPopoverContainerComponent {
+    protected attachOverlayContainer(overlay: OverlayRef, config: ThyPopoverConfig<any>): ThyPopoverContainer {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
         const injector = Injector.create({
             parent: userInjector || this.injector,
             providers: [{ provide: ThyPopoverConfig, useValue: config }]
         });
-        const containerPortal = new ComponentPortal(ThyPopoverContainerComponent, config.viewContainerRef, injector);
-        const containerRef = overlay.attach<ThyPopoverContainerComponent>(containerPortal);
+        const containerPortal = new ComponentPortal(ThyPopoverContainer, config.viewContainerRef, injector);
+        const containerRef = overlay.attach<ThyPopoverContainer>(containerPortal);
         return containerRef.instance;
     }
 
     protected createAbstractOverlayRef<T, TResult = unknown>(
         overlayRef: OverlayRef,
-        containerInstance: ThyPopoverContainerComponent,
+        containerInstance: ThyPopoverContainer,
         config: ThyPopoverConfig
-    ): ThyAbstractOverlayRef<T, ThyPopoverContainerComponent, TResult> {
+    ): ThyAbstractOverlayRef<T, ThyPopoverContainer, TResult> {
         return new ThyInternalPopoverRef(overlayRef, containerInstance, config);
     }
 
-    protected createInjector<T>(
-        config: ThyPopoverConfig,
-        popoverRef: ThyPopoverRef<T>,
-        popoverContainer: ThyPopoverContainerComponent
-    ): Injector {
+    protected createInjector<T>(config: ThyPopoverConfig, popoverRef: ThyPopoverRef<T>, popoverContainer: ThyPopoverContainer): Injector {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
 
         const injectionTokens: StaticProvider[] = [
-            { provide: ThyPopoverContainerComponent, useValue: popoverContainer },
+            { provide: ThyPopoverContainer, useValue: popoverContainer },
             {
                 provide: ThyPopoverRef,
                 useValue: popoverRef

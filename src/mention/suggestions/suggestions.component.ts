@@ -1,4 +1,4 @@
-import { ThySelectionListChange, ThySelectionListComponent } from 'ngx-tethys/list';
+import { ThySelectionListChange, ThySelectionList } from 'ngx-tethys/list';
 import { ThyPopoverRef } from 'ngx-tethys/popover';
 import { Observable, of, Subject } from 'rxjs';
 import { catchError, debounceTime, switchMap, take } from 'rxjs/operators';
@@ -7,8 +7,8 @@ import { Component, ElementRef, HostBinding, NgZone, OnDestroy, OnInit } from '@
 
 import { SeekQueryResult } from '../adapter/adapter';
 import { Mention, MentionDefaultDataItem, MentionSuggestionSelectEvent } from '../interfaces';
-import { ThyListOptionComponent } from 'ngx-tethys/shared';
-import { ThyLoadingComponent } from 'ngx-tethys/loading';
+import { ThyListOption } from 'ngx-tethys/shared';
+import { ThyLoading } from 'ngx-tethys/loading';
 import { NgIf, NgTemplateOutlet, NgFor, SlicePipe } from '@angular/common';
 
 /**
@@ -18,9 +18,9 @@ import { NgIf, NgTemplateOutlet, NgFor, SlicePipe } from '@angular/common';
     selector: 'thy-mention-suggestions',
     templateUrl: './suggestions.component.html',
     standalone: true,
-    imports: [NgIf, NgTemplateOutlet, ThyLoadingComponent, ThySelectionListComponent, NgFor, ThyListOptionComponent, SlicePipe]
+    imports: [NgIf, NgTemplateOutlet, ThyLoading, ThySelectionList, NgFor, ThyListOption, SlicePipe]
 })
-export class ThyMentionSuggestionsComponent<TItem = MentionDefaultDataItem> implements OnInit, OnDestroy {
+export class ThyMentionSuggestions<TItem = MentionDefaultDataItem> implements OnInit, OnDestroy {
     data: TItem[];
 
     mention: Mention<TItem>;

@@ -9,6 +9,6 @@ import { Component, HostBinding } from '@angular/core';
     template: ` <ng-content></ng-content> `,
     standalone: true
 })
-export class ThySlideBodyComponent {
+export class ThySlideBody {
     @HostBinding('class.thy-slide-body') slideLayoutBody = true;
 }

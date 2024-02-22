@@ -2,17 +2,17 @@ import { ThyAbstractInternalOverlayRef, ThyAbstractOverlayRef } from 'ngx-tethys
 
 import { OverlayRef } from '@angular/cdk/overlay';
 
-import { ThyAutocompleteContainerComponent } from './autocomplete-container.component';
+import { ThyAutocompleteContainer } from './autocomplete-container.component';
 import { ThyAutocompleteConfig } from './autocomplete.config';
 import { autocompleteAbstractOverlayOptions } from './autocomplete.options';
 
-export abstract class ThyAutocompleteRef<T, TResult = any> extends ThyAbstractOverlayRef<T, ThyAutocompleteContainerComponent, TResult> {}
+export abstract class ThyAutocompleteRef<T, TResult = any> extends ThyAbstractOverlayRef<T, ThyAutocompleteContainer, TResult> {}
 
 export class ThyInternalAutocompleteRef<T, TResult = any>
-    extends ThyAbstractInternalOverlayRef<T, ThyAutocompleteContainerComponent, TResult>
+    extends ThyAbstractInternalOverlayRef<T, ThyAutocompleteContainer, TResult>
     implements ThyAutocompleteRef<T, TResult>
 {
-    constructor(overlayRef: OverlayRef, containerInstance: ThyAutocompleteContainerComponent, config: ThyAutocompleteConfig) {
+    constructor(overlayRef: OverlayRef, containerInstance: ThyAutocompleteContainer, config: ThyAutocompleteConfig) {
         super(autocompleteAbstractOverlayOptions, overlayRef, containerInstance, config);
     }
 

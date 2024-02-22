@@ -40,13 +40,13 @@ const strengthMap = {
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => ThyStrengthComponent),
+            useExisting: forwardRef(() => ThyStrength),
             multi: true
         }
     ],
     standalone: true
 })
-export class ThyStrengthComponent implements OnInit, ControlValueAccessor {
+export class ThyStrength implements OnInit, ControlValueAccessor {
     @HostBinding('class.password-strength-container') styleClass = true;
 
     strengthTitle: string;

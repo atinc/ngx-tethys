@@ -2,12 +2,12 @@ import { Component, DebugElement } from '@angular/core';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { ThyLayoutModule } from '../layout.module';
 import { By } from '@angular/platform-browser';
-import { ThyLayoutComponent, ThyLayoutDirective } from '../layout.component';
-import { ThyHeaderComponent, ThyHeaderDirective } from '../header.component';
+import { ThyLayout, ThyLayoutDirective } from '../layout.component';
+import { ThyHeader, ThyHeaderDirective } from '../header.component';
 import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing';
-import { ThyContentComponent, ThyContentDirective } from '../content.component';
-import { ThyContentSectionComponent, ThyContentSectionDirective } from '../content-section.component';
-import { ThyContentMainComponent, ThyContentMainDirective } from '../content-main.component';
+import { ThyContent, ThyContentDirective } from '../content.component';
+import { ThyContentSection, ThyContentSectionDirective } from '../content-section.component';
+import { ThyContentMain, ThyContentMainDirective } from '../content-main.component';
 
 @Component({
     selector: 'thy-demo-layout-basic',
@@ -81,7 +81,7 @@ describe(`layout`, () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyDemoLayoutBasicComponent);
             fixture.detectChanges();
-            layoutDebugElement = fixture.debugElement.query(By.directive(ThyLayoutComponent));
+            layoutDebugElement = fixture.debugElement.query(By.directive(ThyLayout));
             layoutElement = layoutDebugElement.nativeElement;
         });
 
@@ -92,7 +92,7 @@ describe(`layout`, () => {
             expect(layoutElement.classList.contains(`thy-layout`)).toBeTruthy();
 
             // header
-            const headerDebugElement = fixture.debugElement.query(By.directive(ThyHeaderComponent));
+            const headerDebugElement = fixture.debugElement.query(By.directive(ThyHeader));
             expect(headerDebugElement).toBeTruthy();
             const headerElement: HTMLElement = headerDebugElement.nativeElement;
             expect(headerElement).toBeTruthy();
@@ -104,21 +104,21 @@ describe(`layout`, () => {
             expect(titleNameElement.innerHTML).toContain('I am header');
 
             // content
-            const contentDebugElement = fixture.debugElement.query(By.directive(ThyContentComponent));
+            const contentDebugElement = fixture.debugElement.query(By.directive(ThyContent));
             expect(contentDebugElement).toBeTruthy();
             const contentElement: HTMLElement = contentDebugElement.nativeElement;
             expect(contentElement).toBeTruthy();
             expect(contentElement.classList.contains(`thy-layout-content`)).toBeTruthy();
 
             // content section
-            const contentSectionDebugElement = fixture.debugElement.query(By.directive(ThyContentSectionComponent));
+            const contentSectionDebugElement = fixture.debugElement.query(By.directive(ThyContentSection));
             expect(contentSectionDebugElement).toBeTruthy();
             const contentSectionElement = contentSectionDebugElement.nativeElement;
             expect(contentSectionElement).toBeTruthy();
             expect(contentSectionElement.classList.contains(`thy-layout-content-section`)).toBeTruthy();
 
             // content main
-            const contentMainDebugElement = fixture.debugElement.query(By.directive(ThyContentMainComponent));
+            const contentMainDebugElement = fixture.debugElement.query(By.directive(ThyContentMain));
             expect(contentMainDebugElement).toBeTruthy();
             const contentMainElement = contentMainDebugElement.nativeElement;
             expect(contentMainElement).toBeTruthy();
@@ -126,7 +126,7 @@ describe(`layout`, () => {
         });
 
         it('should get divided header', () => {
-            const headerDebugElement = fixture.debugElement.query(By.directive(ThyHeaderComponent));
+            const headerDebugElement = fixture.debugElement.query(By.directive(ThyHeader));
             expect(headerDebugElement).toBeTruthy();
             const headerElement: HTMLElement = headerDebugElement.nativeElement;
             expect(headerElement).toBeTruthy();
@@ -138,7 +138,7 @@ describe(`layout`, () => {
         });
 
         it('should get shadow header', () => {
-            const headerDebugElement = fixture.debugElement.query(By.directive(ThyHeaderComponent));
+            const headerDebugElement = fixture.debugElement.query(By.directive(ThyHeader));
             expect(headerDebugElement).toBeTruthy();
             const headerElement: HTMLElement = headerDebugElement.nativeElement;
             expect(headerElement).toBeTruthy();
@@ -150,7 +150,7 @@ describe(`layout`, () => {
         });
 
         it('layout header thyIcon', () => {
-            const headerDebugElement = fixture.debugElement.query(By.directive(ThyHeaderComponent));
+            const headerDebugElement = fixture.debugElement.query(By.directive(ThyHeader));
             expect(headerDebugElement).toBeTruthy();
             expect(headerDebugElement.nativeElement.querySelector('.prefix-icon')).toBeFalsy();
             fixture.debugElement.componentInstance.iconName = 'application-fill';
@@ -159,7 +159,7 @@ describe(`layout`, () => {
         });
 
         it('layout header thySize', () => {
-            const headerDebugElement = fixture.debugElement.query(By.directive(ThyHeaderComponent));
+            const headerDebugElement = fixture.debugElement.query(By.directive(ThyHeader));
             expect(headerDebugElement).toBeTruthy();
             const headerElement: HTMLElement = headerDebugElement.nativeElement;
             expect(headerElement.classList.contains(`thy-layout-header-sm`)).toBeFalsy();
@@ -177,7 +177,7 @@ describe(`layout`, () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyDemoLayoutCustomHeaderComponent);
             fixture.detectChanges();
-            headerDebugElement = fixture.debugElement.query(By.directive(ThyHeaderComponent));
+            headerDebugElement = fixture.debugElement.query(By.directive(ThyHeader));
             headerElement = headerDebugElement.nativeElement;
         });
 

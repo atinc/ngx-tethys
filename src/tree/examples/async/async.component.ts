@@ -1,12 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
-import { ThyTreeComponent, ThyTreeEmitEvent, ThyTreeNodeData } from 'ngx-tethys/tree';
+import { ThyTree, ThyTreeEmitEvent, ThyTreeNodeData } from 'ngx-tethys/tree';
 
 @Component({
     selector: 'thy-tree-async-example',
     templateUrl: './async.component.html'
 })
 export class ThyTreeAsyncExampleComponent {
-    @ViewChild('tree') treeComponent: ThyTreeComponent;
+    @ViewChild('tree') treeComponent: ThyTree;
 
     treeNodes: ThyTreeNodeData[] = [
         {

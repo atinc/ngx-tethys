@@ -32,4 +32,4 @@ export class ThyLayoutDirective {
     hostDirectives: [ThyLayoutDirective],
     standalone: true
 })
-export class ThyLayoutComponent {}
+export class ThyLayout {}

@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { ThyResizableDirective } from './resizable.directive';
-import { ThyResizeHandleComponent } from './resize-handle.component';
-import { ThyResizeHandlesComponent } from './resize-handles.component';
+import { ThyResizeHandle } from './resize-handle.component';
+import { ThyResizeHandles } from './resize-handles.component';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
-    imports: [CommonModule, ThyResizableDirective, ThyResizeHandleComponent, ThyResizeHandlesComponent],
-    exports: [ThyResizableDirective, ThyResizeHandleComponent, ThyResizeHandlesComponent]
+    imports: [CommonModule, ThyResizableDirective, ThyResizeHandle, ThyResizeHandles],
+    exports: [ThyResizableDirective, ThyResizeHandle, ThyResizeHandles]
 })
 export class ThyResizableModule {}

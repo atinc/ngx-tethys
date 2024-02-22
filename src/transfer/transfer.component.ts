@@ -9,10 +9,10 @@ import {
     ThyTransferSelectEvent,
     TransferDirection
 } from './transfer.interface';
-import { ThyFlexibleTextComponent } from 'ngx-tethys/flexible-text';
-import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
+import { ThyIcon } from 'ngx-tethys/icon';
 import { NgIf, NgClass, NgTemplateOutlet } from '@angular/common';
-import { ThyTransferListComponent } from './transfer-list.component';
+import { ThyTransferList } from './transfer-list.component';
 
 /**
  * 穿梭框组件
@@ -24,9 +24,9 @@ import { ThyTransferListComponent } from './transfer-list.component';
     templateUrl: './transfer.component.html',
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [ThyTransferListComponent, NgIf, ThyIconComponent, NgClass, NgTemplateOutlet, ThyFlexibleTextComponent]
+    imports: [ThyTransferList, NgIf, ThyIcon, NgClass, NgTemplateOutlet, ThyFlexibleText]
 })
-export class ThyTransferComponent implements OnInit {
+export class ThyTransfer implements OnInit {
     @HostBinding('class') hostClass = 'thy-transfer';
 
     public leftDataSource: ThyTransferItem[] = [];

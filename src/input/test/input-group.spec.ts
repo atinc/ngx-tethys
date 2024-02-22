@@ -1,7 +1,7 @@
 import { Component, DebugElement, NgModule } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyInputGroupComponent } from '../input-group.component';
+import { ThyInputGroup } from '../input-group.component';
 import { ThyInputModule } from './../module';
 import { ThyTranslate } from '../../core';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
@@ -110,7 +110,7 @@ describe('input group', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(TestInputGroupBasicComponent);
             basicTestComponent = fixture.debugElement.componentInstance;
-            debugElement = fixture.debugElement.query(By.directive(ThyInputGroupComponent));
+            debugElement = fixture.debugElement.query(By.directive(ThyInputGroup));
         });
 
         it('thyPrependText', () => {

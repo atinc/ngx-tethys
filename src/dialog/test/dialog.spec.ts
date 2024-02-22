@@ -8,7 +8,7 @@ import { bypassSanitizeProvider, dispatchKeyboardEvent, injectDefaultSvgIconSet 
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { A, ESCAPE } from '../../util/keycodes';
-import { ThyDialogContainerComponent } from '../dialog-container.component';
+import { ThyDialogContainer } from '../dialog-container.component';
 import { ThyDialogRef } from '../dialog-ref';
 import { ThyDialogSizes } from '../dialog.config';
 import { ThyDialog, ThyDialogModule, THY_CONFIRM_DEFAULT_OPTIONS } from '../index';
@@ -789,8 +789,8 @@ describe('ThyDialog', () => {
 
     it('should set the proper animation states', () => {
         const dialogRef = dialog.open(DialogSimpleContentComponent, { viewContainerRef: testViewContainerRef });
-        const dialogContainer: ThyDialogContainerComponent = viewContainerFixture.debugElement.query(
-            By.directive(ThyDialogContainerComponent)
+        const dialogContainer: ThyDialogContainer = viewContainerFixture.debugElement.query(
+            By.directive(ThyDialogContainer)
         ).componentInstance;
 
         expect(dialogContainer.animationState).toBe('void');
@@ -802,7 +802,7 @@ describe('ThyDialog', () => {
 
     it('should has "pointer-event: none" at dialog-container when animation phaseName equal start and toState equal exit', fakeAsync(() => {
         const dialogRef = dialog.open(DialogSimpleContentComponent, { viewContainerRef: testViewContainerRef });
-        const dialogContainer = viewContainerFixture.debugElement.query(By.directive(ThyDialogContainerComponent)).componentInstance;
+        const dialogContainer = viewContainerFixture.debugElement.query(By.directive(ThyDialogContainer)).componentInstance;
 
         expect((getDialogContainerElement() as HTMLElement).style.pointerEvents).toEqual('');
 

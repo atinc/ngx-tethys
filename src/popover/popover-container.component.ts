@@ -52,7 +52,7 @@ import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
     standalone: true,
     imports: [PortalModule, ThyPortalOutlet]
 })
-export class ThyPopoverContainerComponent<TData = unknown> extends ThyAbstractOverlayContainer<TData> implements AfterViewInit, OnDestroy {
+export class ThyPopoverContainer<TData = unknown> extends ThyAbstractOverlayContainer<TData> implements AfterViewInit, OnDestroy {
     @ViewChild(ThyPortalOutlet, { static: true })
     portalOutlet: ThyPortalOutlet;
 

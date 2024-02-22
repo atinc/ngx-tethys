@@ -5,7 +5,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { ThyStrengthComponent } from '../strength.component';
+import { ThyStrength } from '../strength.component';
 import { ThyStrengthModule } from '../strength.module';
 
 @Component({
@@ -34,7 +34,7 @@ describe('Strength basic component', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(StrengthBasicTestComponent);
         testStrengthBasicComponent = fixture.debugElement.componentInstance;
-        strengthBasicDebugComponent = fixture.debugElement.query(By.directive(ThyStrengthComponent));
+        strengthBasicDebugComponent = fixture.debugElement.query(By.directive(ThyStrength));
         strengthBasicElement = strengthBasicDebugComponent.nativeElement;
     });
 
@@ -104,7 +104,7 @@ describe('Strength component', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(StrengthTestComponent);
         testStrengthComponent = fixture.debugElement.componentInstance;
-        strengthDebugComponent = fixture.debugElement.query(By.directive(ThyStrengthComponent));
+        strengthDebugComponent = fixture.debugElement.query(By.directive(ThyStrength));
         strengthElement = strengthDebugComponent.nativeElement;
     });
 

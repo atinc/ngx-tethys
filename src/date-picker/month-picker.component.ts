@@ -3,9 +3,9 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
 import { NgIf } from '@angular/common';
-import { BasePickerComponent } from './base-picker.component';
-import { DatePopupComponent } from './lib/popups/date-popup.component';
-import { ThyPickerComponent } from './picker.component';
+import { BasePicker } from './base-picker.component';
+import { DatePopup } from './lib/popups/date-popup.component';
+import { ThyPicker } from './picker.component';
 
 /**
  * 月份选择组件
@@ -21,13 +21,13 @@ import { ThyPickerComponent } from './picker.component';
         {
             provide: NG_VALUE_ACCESSOR,
             multi: true,
-            useExisting: forwardRef(() => ThyMonthPickerComponent)
+            useExisting: forwardRef(() => ThyMonthPicker)
         }
     ],
     standalone: true,
-    imports: [ThyPickerComponent, NgIf, DatePopupComponent]
+    imports: [ThyPicker, NgIf, DatePopup]
 })
-export class ThyMonthPickerComponent extends BasePickerComponent {
+export class ThyMonthPicker extends BasePicker {
     /**
      * 展示的月份格式
      */

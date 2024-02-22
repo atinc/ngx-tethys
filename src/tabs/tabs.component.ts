@@ -18,11 +18,11 @@ import { Constructor, InputBoolean, MixinBase, mixinUnsubscribe, ThyUnsubscribe 
 import { isString } from 'ngx-tethys/util';
 import { fromEvent } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ThyTabComponent } from './tab.component';
+import { ThyTab } from './tab.component';
 import { ThyActiveTabInfo, ThyTabActiveEvent } from './types';
-import { ThyTabContentComponent } from './tab-content.component';
+import { ThyTabContent } from './tab-content.component';
 import { NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
-import { ThyNavComponent, ThyNavItemDirective } from 'ngx-tethys/nav';
+import { ThyNav, ThyNavItemDirective } from 'ngx-tethys/nav';
 
 export type ThyTabsSize = 'lg' | 'md' | 'sm';
 
@@ -47,10 +47,10 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
         '[style.overflow]': `transitionStarted ? "hidden" : null`
     },
     standalone: true,
-    imports: [ThyNavComponent, NgFor, ThyNavItemDirective, NgIf, NgTemplateOutlet, ThyTabContentComponent]
+    imports: [ThyNav, NgFor, ThyNavItemDirective, NgIf, NgTemplateOutlet, ThyTabContent]
 })
-export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, AfterContentInit {
-    @ContentChildren(ThyTabComponent, { descendants: true }) tabs = new QueryList<ThyTabComponent>();
+export class ThyTabs extends _MixinBase implements OnInit, OnChanges, AfterContentInit {
+    @ContentChildren(ThyTab, { descendants: true }) tabs = new QueryList<ThyTab>();
 
     /**
      * 标签类型
@@ -151,7 +151,7 @@ export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, A
         return '';
     }
 
-    activeTab(tab: ThyTabComponent, index: number) {
+    activeTab(tab: ThyTab, index: number) {
         if (tab.thyDisabled) {
             return;
         }
@@ -162,7 +162,7 @@ export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, A
         this.thyActiveTabChange.emit(activeTab);
     }
 
-    tabTrackBy(index: number, item: ThyTabComponent) {
+    tabTrackBy(index: number, item: ThyTab) {
         return index;
     }
 }

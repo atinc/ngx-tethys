@@ -21,7 +21,7 @@ export type ThyBadgeSize = 'md' | 'sm' | 'lg';
     standalone: true,
     imports: [NgIf]
 })
-export class ThyBadgeComponent implements OnInit {
+export class ThyBadge implements OnInit {
     displayContent = '';
 
     badgeClassName = '';

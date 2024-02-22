@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { InputBoolean, InputNumber, ThumbAnimationProps } from 'ngx-tethys/core';
 import { thumbMotion } from 'ngx-tethys/core';
-import { ThySegmentItemComponent } from './segment-item.component';
+import { ThySegmentItem } from './segment-item.component';
 import { IThySegmentComponent, THY_SEGMENTED_COMPONENT } from './segment.token';
 import { ThySegmentEvent } from './types';
 import { AnimationEvent } from '@angular/animations';
@@ -37,7 +37,7 @@ export type ThySegmentMode = 'block' | 'inline';
     providers: [
         {
             provide: THY_SEGMENTED_COMPONENT,
-            useExisting: ThySegmentComponent
+            useExisting: ThySegment
         }
     ],
     host: {
@@ -51,11 +51,11 @@ export type ThySegmentMode = 'block' | 'inline';
     standalone: true,
     imports: [NgIf]
 })
-export class ThySegmentComponent implements IThySegmentComponent, AfterContentInit {
+export class ThySegment implements IThySegmentComponent, AfterContentInit {
     /**
      * @internal
      */
-    @ContentChildren(ThySegmentItemComponent) options!: QueryList<ThySegmentItemComponent>;
+    @ContentChildren(ThySegmentItem) options!: QueryList<ThySegmentItem>;
 
     /**
      * 大小
@@ -100,7 +100,7 @@ export class ThySegmentComponent implements IThySegmentComponent, AfterContentIn
      */
     @Output() readonly thySelectChange = new EventEmitter<ThySegmentEvent>();
 
-    public selectedItem: ThySegmentItemComponent;
+    public selectedItem: ThySegmentItem;
 
     private activeIndex = 0;
 
@@ -115,7 +115,7 @@ export class ThySegmentComponent implements IThySegmentComponent, AfterContentIn
         this.selectedItem?.select();
     }
 
-    public changeSelectedItem(item: ThySegmentItemComponent, event?: Event): void {
+    public changeSelectedItem(item: ThySegmentItem, event?: Event): void {
         this.animationState = {
             value: 'from',
             params: getThumbAnimationProps(this.options?.get(this.activeIndex)?.elementRef.nativeElement!)

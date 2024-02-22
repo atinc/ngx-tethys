@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
-import { ThyStrengthComponent } from './strength.component';
+import { ThyStrength } from './strength.component';
 
 @NgModule({
-    imports: [ThyStrengthComponent],
-    exports: [ThyStrengthComponent],
+    imports: [ThyStrength],
+    exports: [ThyStrength],
     providers: []
 })
 export class ThyStrengthModule {}

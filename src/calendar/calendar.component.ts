@@ -20,9 +20,9 @@ import {
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { ThyCalendarHeaderOperationDirective as HeaderOperation, ThyDateCellDirective as DateCell } from './calendar-cells';
-import { DateTableComponent, MonthTableComponent } from 'ngx-tethys/date-picker';
+import { DateTable, MonthTable } from 'ngx-tethys/date-picker';
 import { NgIf } from '@angular/common';
-import { ThyCalendarHeaderComponent } from './calendar-header.component';
+import { ThyCalendarHeader } from './calendar-header.component';
 
 export type CalendarMode = 'month' | 'year';
 type CalendarDateTemplate = TemplateRef<{ $implicit: Date }>;
@@ -37,11 +37,11 @@ type CalendarDateTemplate = TemplateRef<{ $implicit: Date }>;
     templateUrl: './calendar.component.html',
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => ThyCalendarComponent), multi: true }],
+    providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => ThyCalendar), multi: true }],
     standalone: true,
-    imports: [ThyCalendarHeaderComponent, NgIf, DateTableComponent, MonthTableComponent]
+    imports: [ThyCalendarHeader, NgIf, DateTable, MonthTable]
 })
-export class ThyCalendarComponent implements OnInit, OnChanges {
+export class ThyCalendar implements OnInit, OnChanges {
     @HostBinding('class.thy-calendar-container') className = true;
 
     @HostBinding('class.thy-calendar-full') className1 = true;

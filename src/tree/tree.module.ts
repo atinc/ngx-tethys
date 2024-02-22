@@ -12,7 +12,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { ThyTreeNodeComponent } from './tree-node.component';
-import { ThyTreeComponent } from './tree.component';
+import { ThyTree } from './tree.component';
 import { ThyTreeService } from './tree.service';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ThyTreeNodeDraggablePipe } from './tree.pipe';
@@ -31,11 +31,11 @@ import { ThyTreeNodeDraggablePipe } from './tree.pipe';
         ThyIconModule,
         ThyCheckboxModule,
         ScrollingModule,
-        ThyTreeComponent,
+        ThyTree,
         ThyTreeNodeComponent,
         ThyTreeNodeDraggablePipe
     ],
-    exports: [ThyTreeComponent, ThyTreeNodeComponent],
+    exports: [ThyTree, ThyTreeNodeComponent],
     providers: [ThyTreeService]
 })
 export class ThyTreeModule {}

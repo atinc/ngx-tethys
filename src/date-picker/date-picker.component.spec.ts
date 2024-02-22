@@ -9,12 +9,12 @@ import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush, inject, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ThyDatePickerComponent } from './date-picker.component';
+import { ThyDatePicker } from './date-picker.component';
 import { ThyDatePickerModule } from './date-picker.module';
-import { ThyPickerComponent } from './picker.component';
+import { ThyPicker } from './picker.component';
 import { DateEntry, DisabledDateFn } from './standard-types';
 import { THY_DATE_PICKER_CONFIG } from './date-picker.config';
-import { DatePopupComponent } from './lib/popups/date-popup.component';
+import { DatePopup } from './lib/popups/date-popup.component';
 import { TinyDate } from 'ngx-tethys/util';
 import { take } from 'rxjs/operators';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -141,7 +141,7 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             openPickerByClickTrigger();
 
-            const datePopupComponent = fixture.debugElement.query(By.directive(DatePopupComponent)).componentInstance;
+            const datePopupComponent = fixture.debugElement.query(By.directive(DatePopup)).componentInstance;
             datePopupComponent.shortcutSetValue({ value: null });
 
             const input = getPickerTrigger();
@@ -227,7 +227,7 @@ describe('ThyDatePickerComponent', () => {
         it('should call onFocus methods when focus', fakeAsync(() => {
             fixture.detectChanges();
             const focusSpy = spyOn<any>(fixture.componentInstance.datePicker, 'onFocus').and.callThrough();
-            const dataPickerElement = fixture.debugElement.query(By.directive(ThyDatePickerComponent)).nativeElement;
+            const dataPickerElement = fixture.debugElement.query(By.directive(ThyDatePicker)).nativeElement;
             dispatchFakeEvent(dataPickerElement, 'focus');
             fixture.detectChanges();
             flush();
@@ -237,7 +237,7 @@ describe('ThyDatePickerComponent', () => {
         it('should call onBlur methods when blur', fakeAsync(() => {
             fixture.detectChanges();
             const blurSpy = spyOn<any>(fixture.componentInstance.datePicker, 'onBlur').and.callThrough();
-            const datePickerElement = fixture.debugElement.query(By.directive(ThyDatePickerComponent)).nativeElement;
+            const datePickerElement = fixture.debugElement.query(By.directive(ThyDatePicker)).nativeElement;
             dispatchFakeEvent(datePickerElement, 'blur');
             fixture.detectChanges();
             flush();
@@ -805,7 +805,7 @@ describe('ThyDatePickerComponent', () => {
             fixtureInstance.thyPlacement = placement;
             fixture.detectChanges();
             openPickerByClickTrigger();
-            const pickComponentInstance = fixture.debugElement.query(By.directive(ThyPickerComponent)).componentInstance;
+            const pickComponentInstance = fixture.debugElement.query(By.directive(ThyPicker)).componentInstance;
             expect(pickComponentInstance.overlayPositions[0].originY).toEqual(placement);
         }));
 
@@ -1337,7 +1337,7 @@ class ThyTestDatePickerComponent {
     useSuite: 1 | 2 | 3;
     @ViewChild('tplDateRender', { static: true }) tplDateRender: TemplateRef<Date>;
 
-    @ViewChild(ThyDatePickerComponent, { static: false }) datePicker: ThyDatePickerComponent;
+    @ViewChild(ThyDatePicker, { static: false }) datePicker: ThyDatePicker;
 
     // --- Suite 1
     hasBackdrop: boolean = true;

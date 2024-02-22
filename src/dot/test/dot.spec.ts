@@ -9,7 +9,7 @@ import {
     DEFAULT_SIZE_NAME,
     DEFAULT_THEME_NAME,
     ThyColorType,
-    ThyDotComponent,
+    ThyDot,
     ThyShapeType,
     ThySizeType,
     ThyThemeType
@@ -38,7 +38,7 @@ describe('ThyDot', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(ThyDemoDotComponent);
         basicTestComponent = fixture.debugElement.componentInstance;
-        dotComponent = fixture.debugElement.query(By.directive(ThyDotComponent));
+        dotComponent = fixture.debugElement.query(By.directive(ThyDot));
     });
 
     const getRandomAttributes = <T extends string>(list: string[]): T => {

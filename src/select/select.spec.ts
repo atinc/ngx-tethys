@@ -1,4 +1,4 @@
-import { ThySelectComponent } from 'ngx-tethys/select';
+import { ThySelect } from 'ngx-tethys/select';
 
 import { Component, DebugElement, Sanitizer, SecurityContext, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
@@ -24,7 +24,7 @@ import { ThySelectModule } from './module';
     `
 })
 class BasicSelectComponent {
-    @ViewChild(ThySelectComponent, { static: false }) selectComponent: ThySelectComponent;
+    @ViewChild(ThySelect, { static: false }) selectComponent: ThySelect;
 
     value = '';
     allowClear = false;
@@ -68,7 +68,7 @@ describe(`select`, () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(BasicSelectComponent);
             testComponent = fixture.debugElement.componentInstance;
-            debugComponent = fixture.debugElement.query(By.directive(ThySelectComponent));
+            debugComponent = fixture.debugElement.query(By.directive(ThySelect));
             selectElement = debugComponent.nativeElement;
             selectElementChildren = selectElement.children;
         });

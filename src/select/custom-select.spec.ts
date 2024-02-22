@@ -19,15 +19,10 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyFormModule } from '../form';
 import { DOWN_ARROW, END, ENTER, ESCAPE, HOME } from '../util/keycodes';
-import {
-    SelectMode,
-    THY_SELECT_PANEL_MIN_WIDTH,
-    ThySelectCustomComponent,
-    ThySelectOptionModel
-} from './custom-select/custom-select.component';
+import { SelectMode, THY_SELECT_PANEL_MIN_WIDTH, ThySelectCustom, ThySelectOptionModel } from './custom-select/custom-select.component';
 import { ThySelectModule } from './module';
 import { THY_SELECT_CONFIG, THY_SELECT_SCROLL_STRATEGY, ThyDropdownWidthMode } from './select.config';
-import { SelectControlSize, ThyOptionComponent, ThyOptionModule } from 'ngx-tethys/shared';
+import { SelectControlSize, ThyOption, ThyOptionModule } from 'ngx-tethys/shared';
 
 interface FoodsInfo {
     value: string | string[];
@@ -85,8 +80,8 @@ class BasicSelectComponent {
     thyAutoActiveFirstItem = true;
     customizeOrigin: ElementRef | HTMLElement;
     borderless = false;
-    @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
-    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
+    @ViewChild(ThySelectCustom, { static: true }) select: ThySelectCustom;
+    @ViewChildren(ThyOption) options: QueryList<ThyOption>;
 
     @ViewChild('footer', { static: true, read: TemplateRef })
     footerTemplate: TemplateRef<any>;
@@ -123,8 +118,8 @@ class MultipleSelectComponent {
 
     selectedFoods: any[] = [];
 
-    @ViewChild('Foods', { static: true }) foodsComponent: ThySelectCustomComponent;
-    @ViewChild('Vegetables', { static: true }) vegetablesComponent: ThySelectCustomComponent;
+    @ViewChild('Foods', { static: true }) foodsComponent: ThySelectCustom;
+    @ViewChild('Vegetables', { static: true }) vegetablesComponent: ThySelectCustom;
 }
 
 @Component({
@@ -145,8 +140,8 @@ class NgModelSelectComponent {
     ];
     isDisabled: boolean;
 
-    @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
-    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
+    @ViewChild(ThySelectCustom, { static: true }) select: ThySelectCustom;
+    @ViewChildren(ThyOption) options: QueryList<ThyOption>;
 }
 
 @Component({
@@ -191,8 +186,8 @@ class SingleSelectWithPreselectedArrayValuesComponent {
 
     selectedFoods = this.foods[1].value;
 
-    @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
-    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
+    @ViewChild(ThySelectCustom, { static: true }) select: ThySelectCustom;
+    @ViewChildren(ThyOption) options: QueryList<ThyOption>;
 }
 
 @Component({
@@ -213,8 +208,8 @@ class SingleSelectNgModelComponent {
 
     selectedValues = this.values[1].value;
 
-    @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
-    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
+    @ViewChild(ThySelectCustom, { static: true }) select: ThySelectCustom;
+    @ViewChildren(ThyOption) options: QueryList<ThyOption>;
 }
 
 @Component({
@@ -270,8 +265,8 @@ class SelectWithSearchComponent {
     ];
     thyShowSearch = false;
     control = new UntypedFormControl();
-    @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
-    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
+    @ViewChild(ThySelectCustom, { static: true }) select: ThySelectCustom;
+    @ViewChildren(ThyOption) options: QueryList<ThyOption>;
 }
 
 @Component({
@@ -314,8 +309,8 @@ class SelectWithSearchUseSearchKeyComponent {
     ];
     thyShowSearch = true;
     control = new UntypedFormControl();
-    @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
-    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
+    @ViewChild(ThySelectCustom, { static: true }) select: ThySelectCustom;
+    @ViewChildren(ThyOption) options: QueryList<ThyOption>;
 }
 
 @Component({
@@ -355,8 +350,8 @@ class SelectWithSearchAndGroupComponent {
         }
     ];
     thyEmptySearchMessageText = 'empty result';
-    @ViewChild(ThySelectCustomComponent, { static: true })
-    select: ThySelectCustomComponent;
+    @ViewChild(ThySelectCustom, { static: true })
+    select: ThySelectCustom;
 }
 
 @Component({
@@ -393,8 +388,8 @@ class SelectWithSearchAndServerSearchComponent {
     selected = this.foods[7];
     thyShowSearch = true;
     control = new UntypedFormControl();
-    @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
-    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
+    @ViewChild(ThySelectCustom, { static: true }) select: ThySelectCustom;
+    @ViewChildren(ThyOption) options: QueryList<ThyOption>;
     thyOnSearch = jasmine.createSpy('thyServerSearch callback');
 }
 
@@ -437,8 +432,8 @@ class SelectEimtOptionsChangesComponent {
     thyAllowClear = true;
     disabled = false;
     isRequired: boolean;
-    @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
-    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
+    @ViewChild(ThySelectCustom, { static: true }) select: ThySelectCustom;
+    @ViewChildren(ThyOption) options: QueryList<ThyOption>;
 }
 
 @Component({
@@ -460,7 +455,7 @@ class SelectWithExpandStatusComponent {
     foods: FoodsInfo[] = [{ value: 'pizza-1', viewValue: 'Pizza' }];
     control = new UntypedFormControl();
     thyOnExpandStatusChange = jasmine.createSpy('thyOnExpandStatusChange callback');
-    @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
+    @ViewChild(ThySelectCustom, { static: true }) select: ThySelectCustom;
 }
 
 @Component({
@@ -483,8 +478,8 @@ class SelectWithThyModeComponent {
 
     selectedFoods: string[] = null;
 
-    @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
-    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
+    @ViewChild(ThySelectCustom, { static: true }) select: ThySelectCustom;
+    @ViewChildren(ThyOption) options: QueryList<ThyOption>;
 }
 
 @Component({
@@ -510,12 +505,12 @@ class SelectWithThySortComparatorComponent {
 
     selectMode: SelectMode = 'multiple';
 
-    thySortComparator: (a: ThyOptionComponent, b: ThyOptionComponent, options: ThyOptionComponent[]) => number;
+    thySortComparator: (a: ThyOption, b: ThyOption, options: ThyOption[]) => number;
 
     selectedFoods: string[] = null;
 
-    @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
-    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
+    @ViewChild(ThySelectCustom, { static: true }) select: ThySelectCustom;
+    @ViewChildren(ThyOption) options: QueryList<ThyOption>;
 }
 
 @Component({
@@ -531,7 +526,7 @@ class SelectWithThyAutoExpendComponent implements OnInit {
 
     isAutoExpend = true;
 
-    @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
+    @ViewChild(ThySelectCustom, { static: true }) select: ThySelectCustom;
 
     constructor() {}
 
@@ -557,7 +552,7 @@ class SelectWithThyPlacementComponent implements OnInit {
 
     thyPlacement: ThyPlacement = 'top';
 
-    @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
+    @ViewChild(ThySelectCustom, { static: true }) select: ThySelectCustom;
 
     constructor() {}
 
@@ -600,8 +595,8 @@ class SelectWithScrollAndSearchComponent {
     serverSearch = true;
     selected: any = null;
     control = new UntypedFormControl();
-    @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
-    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
+    @ViewChild(ThySelectCustom, { static: true }) select: ThySelectCustom;
+    @ViewChildren(ThyOption) options: QueryList<ThyOption>;
     thyOnSearch(value: string) {
         timer(100).subscribe(() => {
             this.foods = this.foods.slice(5);
@@ -619,7 +614,7 @@ class SelectWithScrollAndSearchComponent {
     `
 })
 class SelectWithAsyncLoadComponent implements OnInit {
-    @ViewChild(ThySelectCustomComponent) customSelect: ThySelectCustomComponent;
+    @ViewChild(ThySelectCustom) customSelect: ThySelectCustom;
 
     loadState = true;
 
@@ -769,7 +764,7 @@ describe('ThyCustomSelect', () => {
                 fixture.detectChanges();
                 flush();
 
-                const componentInstance = fixture.debugElement.query(By.directive(ThySelectCustomComponent)).componentInstance;
+                const componentInstance = fixture.debugElement.query(By.directive(ThySelectCustom)).componentInstance;
                 expect(componentInstance.dropDownPositions[0].originY).toEqual('bottom');
             }));
 
@@ -795,7 +790,7 @@ describe('ThyCustomSelect', () => {
             });
 
             it('should auto focus to input element when select focus', fakeAsync(() => {
-                const customSelectDebugElement = fixture.debugElement.query(By.directive(ThySelectCustomComponent));
+                const customSelectDebugElement = fixture.debugElement.query(By.directive(ThySelectCustom));
                 fixture.detectChanges();
                 const focusSpy = spyOn(fixture.componentInstance.select, 'onFocus').and.callThrough();
 
@@ -838,7 +833,7 @@ describe('ThyCustomSelect', () => {
             }));
 
             it('should call onBlur methods when blur', fakeAsync(() => {
-                const customSelectDebugElement = fixture.debugElement.query(By.directive(ThySelectCustomComponent));
+                const customSelectDebugElement = fixture.debugElement.query(By.directive(ThySelectCustom));
                 fixture.detectChanges();
                 const blurSpy = spyOn(fixture.componentInstance.select, 'onBlur').and.callThrough();
 
@@ -1007,7 +1002,7 @@ describe('ThyCustomSelect', () => {
             }));
 
             it('should update the width of the panel on resize', fakeAsync(() => {
-                const selectSelectCustomComponentDebugElement = fixture.debugElement.query(By.directive(ThySelectCustomComponent));
+                const selectSelectCustomComponentDebugElement = fixture.debugElement.query(By.directive(ThySelectCustom));
                 const resizedSpy = spyOn(selectSelectCustomComponentDebugElement.componentInstance, 'getOriginRectWidth');
                 trigger.style.width = '300px';
                 resizedSpy.and.callThrough();
@@ -2279,7 +2274,7 @@ describe('ThyCustomSelect', () => {
             testComponent.thyPlacement = placement;
             fixture.detectChanges();
 
-            const selectComponent = fixture.debugElement.query(By.directive(ThySelectCustomComponent)).componentInstance;
+            const selectComponent = fixture.debugElement.query(By.directive(ThySelectCustom)).componentInstance;
             selectComponent.ngOnInit();
             fixture.detectChanges();
             flush();

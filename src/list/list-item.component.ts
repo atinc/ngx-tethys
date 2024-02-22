@@ -9,7 +9,7 @@ import { Component, HostBinding } from '@angular/core';
     template: '<ng-content></ng-content>',
     standalone: true
 })
-export class ThyListItemComponent {
+export class ThyListItem {
     @HostBinding(`class.thy-list-item`) _isListItem = true;
 
     constructor() {}

@@ -6,9 +6,9 @@ import {
     TabIndexDisabledControlValueAccessorMixin,
     ThyClickDispatcher
 } from 'ngx-tethys/core';
-import { ThyEmptyComponent } from 'ngx-tethys/empty';
-import { ThyIconComponent } from 'ngx-tethys/icon';
-import { SelectControlSize, SelectOptionBase, ThySelectControlComponent } from 'ngx-tethys/shared';
+import { ThyEmpty } from 'ngx-tethys/empty';
+import { ThyIcon } from 'ngx-tethys/icon';
+import { SelectControlSize, SelectOptionBase, ThySelectControl } from 'ngx-tethys/shared';
 import { coerceBooleanProperty, elementMatchClosest, isEmpty } from 'ngx-tethys/util';
 import { BehaviorSubject, Observable, Subject, Subscription, timer } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, take, takeUntil } from 'rxjs/operators';
@@ -55,7 +55,7 @@ import { scaleYMotion } from 'ngx-tethys/core';
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => ThyCascaderComponent),
+            useExisting: forwardRef(() => ThyCascader),
             multi: true
         },
         ThyCascaderService
@@ -69,7 +69,7 @@ import { scaleYMotion } from 'ngx-tethys/core';
     imports: [
         CdkOverlayOrigin,
         NgIf,
-        ThySelectControlComponent,
+        ThySelectControl,
         NgClass,
         NgTemplateOutlet,
         CdkConnectedOverlay,
@@ -77,12 +77,12 @@ import { scaleYMotion } from 'ngx-tethys/core';
         NgFor,
         ThyCascaderOptionComponent,
         ThyCascaderSearchOptionComponent,
-        ThyEmptyComponent,
-        ThyIconComponent
+        ThyEmpty,
+        ThyIcon
     ],
     animations: [scaleYMotion]
 })
-export class ThyCascaderComponent
+export class ThyCascader
     extends TabIndexDisabledControlValueAccessorMixin
     implements ControlValueAccessor, OnInit, OnChanges, OnDestroy, AfterContentInit
 {

@@ -2,7 +2,7 @@ import { Component, DebugElement, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ThyTimePanelComponent } from '../time-picker-panel.component';
+import { ThyTimePanel } from '../time-picker-panel.component';
 import { ThyTimePickerModule } from '../time-picker.module';
 
 describe('ThyTimePanelComponent', () => {
@@ -240,7 +240,7 @@ describe('ThyTimePanelComponent', () => {
     `
 })
 class ThyTestTimePanelComponent {
-    @ViewChild('panel') timePanelRef: ThyTimePanelComponent;
+    @ViewChild('panel') timePanelRef: ThyTimePanel;
 
     value: Date | number;
 

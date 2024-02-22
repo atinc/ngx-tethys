@@ -1,4 +1,4 @@
-import { ThyCommentComponent, ThyCommentModule } from 'ngx-tethys/comment';
+import { ThyComment, ThyCommentModule } from 'ngx-tethys/comment';
 import { waitForAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyCommentNestExampleComponent } from './../examples/nest/nest.component';
@@ -15,7 +15,7 @@ describe('thyCommentComponent', () => {
     describe('basic', () => {
         it('should basic work', () => {
             const fixture = TestBed.createComponent(ThyCommentBasicExampleComponent);
-            const comment = fixture.debugElement.query(By.directive(ThyCommentComponent));
+            const comment = fixture.debugElement.query(By.directive(ThyComment));
 
             fixture.detectChanges();
             expect(comment.nativeElement.classList).toContain('thy-comment');
@@ -36,13 +36,13 @@ describe('thyCommentComponent', () => {
             const fixture = TestBed.createComponent(ThyCommentNestExampleComponent);
             fixture.detectChanges();
 
-            const rootComment = fixture.debugElement.query(By.directive(ThyCommentComponent));
+            const rootComment = fixture.debugElement.query(By.directive(ThyComment));
             expect(rootComment.nativeElement).toBeTruthy();
 
-            const levelTwoComment = rootComment.query(By.directive(ThyCommentComponent));
+            const levelTwoComment = rootComment.query(By.directive(ThyComment));
             expect(levelTwoComment.nativeElement).toBeTruthy();
 
-            const levelThreeComments = levelTwoComment.queryAll(By.directive(ThyCommentComponent));
+            const levelThreeComments = levelTwoComment.queryAll(By.directive(ThyComment));
             expect(levelThreeComments.length).toBe(2);
         });
     });

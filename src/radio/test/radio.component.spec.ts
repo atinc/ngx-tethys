@@ -3,8 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyRadioModule } from '../module';
-import { ThyRadioComponent } from '../radio.component';
-import { ThyRadioGroupComponent } from '../group/radio-group.component';
+import { ThyRadio } from '../radio.component';
+import { ThyRadioGroup } from '../group/radio-group.component';
 
 @Component({
     selector: 'thy-radio-test',
@@ -34,7 +34,7 @@ describe('radio component', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(RadioTestComponent);
         testRadioComponent = fixture.debugElement.componentInstance;
-        radioDebugComponent = fixture.debugElement.query(By.directive(ThyRadioComponent));
+        radioDebugComponent = fixture.debugElement.query(By.directive(ThyRadio));
         radioElement = radioDebugComponent.nativeElement;
         labelNode = radioElement.children[0];
     });
@@ -76,7 +76,7 @@ describe('radio component', () => {
     `
 })
 class RadioGroupTestComponent {
-    @ViewChild('radioGroup', { static: true }) radioGroup: ThyRadioGroupComponent;
+    @ViewChild('radioGroup', { static: true }) radioGroup: ThyRadioGroup;
     checkedValue = 1;
     inlineStatus = false;
     size: string;
@@ -99,7 +99,7 @@ describe('thy-radio-group component', () => {
     beforeEach(() => {
         groupFixture = TestBed.createComponent(RadioGroupTestComponent);
         groupComponent = groupFixture.componentInstance;
-        radioGroupDebugComponent = groupFixture.debugElement.query(By.directive(ThyRadioGroupComponent));
+        radioGroupDebugComponent = groupFixture.debugElement.query(By.directive(ThyRadioGroup));
         labelComponent = radioGroupDebugComponent.nativeElement.children;
         groupFixture.detectChanges();
     });

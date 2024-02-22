@@ -6,7 +6,7 @@ import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyDatePickerModule } from './date-picker.module';
 import { TinyDate } from '../util';
-import { ThyQuarterPickerComponent } from './quarter-picker.component';
+import { ThyQuarterPicker } from './quarter-picker.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ThyQuarterPickerComponent', () => {
@@ -292,7 +292,7 @@ describe('ThyQuarterPickerComponent', () => {
     `
 })
 class TestQuarterPickerComponent {
-    @ViewChild('thyQuarterPicker', { static: true }) thyQuarterPicker: ThyQuarterPickerComponent;
+    @ViewChild('thyQuarterPicker', { static: true }) thyQuarterPicker: ThyQuarterPicker;
     thyAllowClear: boolean;
     thyDisabled: boolean;
     thyDisabledDate: (d: Date) => boolean;

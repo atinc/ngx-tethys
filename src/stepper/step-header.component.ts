@@ -11,7 +11,7 @@ import { InputBoolean, InputNumber } from 'ngx-tethys/core';
     templateUrl: './step-header.component.html',
     standalone: true
 })
-export class ThyStepHeaderComponent {
+export class ThyStepHeader {
     @Input() label: string;
 
     @Input() @InputNumber() index: number;

@@ -1,9 +1,9 @@
 import { fromUnixTime, getMonth, getYear } from 'date-fns';
-import { DateRangeItemInfo, ThyDateRangeComponent } from 'ngx-tethys/date-range';
+import { DateRangeItemInfo, ThyDateRange } from 'ngx-tethys/date-range';
 import { endOfMonth, FunctionProp, getUnixTime, startOfMonth, TinyDate } from 'ngx-tethys/util';
 
 import { ChangeDetectorRef, Component, EventEmitter, HostBinding, Input, OnInit, Output, TemplateRef } from '@angular/core';
-import { ThyButtonComponent } from 'ngx-tethys/button';
+import { ThyButton } from 'ngx-tethys/button';
 import { NgIf, NgTemplateOutlet, JsonPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -16,9 +16,9 @@ import { FormsModule } from '@angular/forms';
     selector: 'thy-calendar-header',
     templateUrl: './calendar-header.component.html',
     standalone: true,
-    imports: [ThyDateRangeComponent, FormsModule, NgIf, ThyButtonComponent, NgTemplateOutlet, JsonPipe]
+    imports: [ThyDateRange, FormsModule, NgIf, ThyButton, NgTemplateOutlet, JsonPipe]
 })
-export class ThyCalendarHeaderComponent implements OnInit {
+export class ThyCalendarHeader implements OnInit {
     @HostBinding('class.thy-calendar-full-header-container') className = true;
 
     /**

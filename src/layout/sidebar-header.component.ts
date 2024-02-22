@@ -41,7 +41,7 @@ export class ThySidebarHeaderDirective {
     standalone: true,
     imports: [NgTemplateOutlet, NgIf]
 })
-export class ThySidebarHeaderComponent {
+export class ThySidebarHeader {
     /**
      * 头部标题
      */

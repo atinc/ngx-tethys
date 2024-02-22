@@ -1,7 +1,7 @@
-import { ThyCheckboxComponent } from 'ngx-tethys/checkbox';
+import { ThyCheckbox } from 'ngx-tethys/checkbox';
 import { InputBoolean } from 'ngx-tethys/core';
-import { ThyFlexibleTextComponent } from 'ngx-tethys/flexible-text';
-import { ThyRadioComponent } from 'ngx-tethys/radio';
+import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
+import { ThyRadio } from 'ngx-tethys/radio';
 import { ThyStopPropagationDirective } from 'ngx-tethys/shared';
 
 import { NgIf } from '@angular/common';
@@ -20,7 +20,7 @@ import { ThyCascaderOption } from './types';
     selector: '[thy-cascader-option]',
     templateUrl: './cascader-li.component.html',
     standalone: true,
-    imports: [NgIf, ThyFlexibleTextComponent, ThyCheckboxComponent, ThyRadioComponent, FormsModule, ThyStopPropagationDirective]
+    imports: [NgIf, ThyFlexibleText, ThyCheckbox, ThyRadio, FormsModule, ThyStopPropagationDirective]
 })
 export class ThyCascaderOptionComponent implements OnInit {
     @Input() option: ThyCascaderOption;

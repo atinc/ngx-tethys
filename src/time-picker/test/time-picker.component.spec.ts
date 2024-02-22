@@ -4,7 +4,7 @@ import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angu
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent, dispatchFakeEvent } from 'ngx-tethys/testing';
-import { ThyTimePickerComponent, TimePickerSize } from '../time-picker.component';
+import { ThyTimePicker, TimePickerSize } from '../time-picker.component';
 import { ThyTimePickerModule } from '../time-picker.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -441,7 +441,7 @@ describe('ThyTimePickerComponent', () => {
     `
 })
 class ThyTestTimePickerBaseComponent {
-    @ViewChild('timePicker', { static: false }) timePickerRef: ThyTimePickerComponent;
+    @ViewChild('timePicker', { static: false }) timePickerRef: ThyTimePicker;
 
     value: Date | number;
 

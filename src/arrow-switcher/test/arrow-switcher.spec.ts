@@ -2,7 +2,7 @@ import { fakeAsync, ComponentFixture, TestBed, flush } from '@angular/core/testi
 import { ThyArrowSwitcherModule } from '../module';
 import { NgModule, Component, DebugElement, ViewChild } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { ThyArrowSwitcherComponent } from '../arrow-switcher.component';
+import { ThyArrowSwitcher } from '../arrow-switcher.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
@@ -24,7 +24,7 @@ describe('ThyArrowSwitcher', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(ThyDemoArrowSwitcherComponent);
         testComponent = fixture.debugElement.componentInstance;
-        arrowSwitcherComponent = fixture.debugElement.query(By.directive(ThyArrowSwitcherComponent));
+        arrowSwitcherComponent = fixture.debugElement.query(By.directive(ThyArrowSwitcher));
     });
 
     it('should create', () => {
@@ -136,7 +136,7 @@ class ThyDemoArrowSwitcherComponent {
     previousTooltip: string;
     nextTooltip: string;
 
-    @ViewChild('switcher', { static: true }) switcherComponent: ThyArrowSwitcherComponent;
+    @ViewChild('switcher', { static: true }) switcherComponent: ThyArrowSwitcher;
 
     previousClick() {}
 

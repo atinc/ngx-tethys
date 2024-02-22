@@ -2,7 +2,7 @@ import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ThyInputCountComponent } from '../input-count.component';
+import { ThyInputCount } from '../input-count.component';
 import { ThyInputModule } from '../module';
 
 @Component({
@@ -55,7 +55,7 @@ describe('input count', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(TestInputCountBasicComponent);
         fixture.detectChanges();
-        countDebugElement = fixture.debugElement.query(By.directive(ThyInputCountComponent));
+        countDebugElement = fixture.debugElement.query(By.directive(ThyInputCount));
     });
 
     it('should create input count', () => {
@@ -80,7 +80,7 @@ describe('input count', () => {
     it('should create with specify input', () => {
         fixture = TestBed.createComponent(TestInputCountSpecifyInputBasicComponent);
         fixture.detectChanges();
-        countDebugElement = fixture.debugElement.query(By.directive(ThyInputCountComponent));
+        countDebugElement = fixture.debugElement.query(By.directive(ThyInputCount));
         expect(countDebugElement).toBeTruthy();
         const countElement = countDebugElement.nativeElement as HTMLElement;
         expect(countElement.classList.contains('text-muted')).toBeTruthy();

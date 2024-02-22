@@ -1,20 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ThyStepHeaderComponent } from './step-header.component';
-import { ThyStepComponent } from './step.component';
-import { ThyStepperComponent } from './stepper.component';
+import { ThyStepHeader } from './step-header.component';
+import { ThyStep } from './step.component';
+import { ThyStepper } from './stepper.component';
 import { ThyStepperNextDirective, ThyStepperPreviousDirective } from './stepper-button.directive';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        ThyStepHeaderComponent,
-        ThyStepperComponent,
-        ThyStepComponent,
-        ThyStepperNextDirective,
-        ThyStepperPreviousDirective
-    ],
-    exports: [ThyStepperComponent, ThyStepComponent, ThyStepHeaderComponent, ThyStepperNextDirective, ThyStepperPreviousDirective],
+    imports: [CommonModule, ThyStepHeader, ThyStepper, ThyStep, ThyStepperNextDirective, ThyStepperPreviousDirective],
+    exports: [ThyStepper, ThyStep, ThyStepHeader, ThyStepperNextDirective, ThyStepperPreviousDirective],
     providers: []
 })
 export class ThyStepperModule {}

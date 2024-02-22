@@ -16,7 +16,7 @@ import { NgFor, NgClass } from '@angular/common';
     standalone: true,
     imports: [NgFor, NgClass]
 })
-export class DecadeTableComponent extends CalendarTable implements OnChanges {
+export class DecadeTable extends CalendarTable implements OnChanges {
     MAX_ROW = 4;
     MAX_COL = 3;
 

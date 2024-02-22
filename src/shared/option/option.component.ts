@@ -25,14 +25,14 @@ import {
 } from './option.token';
 import { NgIf } from '@angular/common';
 import { InputBoolean } from 'ngx-tethys/core';
-import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyIcon } from 'ngx-tethys/icon';
 
 export class ThyOptionSelectionChangeEvent {
-    constructor(public option: ThyOptionComponent, public isUserInput = false) {}
+    constructor(public option: ThyOption, public isUserInput = false) {}
 }
 
 export class ThyOptionVisibleChangeEvent {
-    option: ThyOptionComponent;
+    option: ThyOption;
 }
 
 /**
@@ -44,9 +44,9 @@ export class ThyOptionVisibleChangeEvent {
     templateUrl: './option.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [NgIf, ThyIconComponent]
+    imports: [NgIf, ThyIcon]
 })
-export class ThyOptionComponent extends SelectOptionBase implements OnDestroy, Highlightable {
+export class ThyOption extends SelectOptionBase implements OnDestroy, Highlightable {
     private _selected = false;
     private _hidden = false;
     private _disabled = false;

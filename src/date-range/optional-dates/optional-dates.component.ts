@@ -3,7 +3,7 @@ import { DateRangeItemInfo } from '../date-range.class';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { FormsModule } from '@angular/forms';
 import { ThyRangePickerDirective } from 'ngx-tethys/date-picker';
-import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyIcon } from 'ngx-tethys/icon';
 import {
     ThyDropdownMenuComponent,
     ThyDropdownMenuItemDirective,
@@ -27,12 +27,12 @@ import { NgIf, NgFor } from '@angular/common';
         ThyDropdownMenuItemDirective,
         ThyDropdownMenuItemNameDirective,
         ThyDropdownMenuItemExtendIconDirective,
-        ThyIconComponent,
+        ThyIcon,
         ThyRangePickerDirective,
         FormsModule
     ]
 })
-export class OptionalDateRangesComponent implements OnInit {
+export class OptionalDateRanges implements OnInit {
     hiddenMenu = false;
 
     optionalDateRanges: DateRangeItemInfo[];

@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit, ViewContainerRef } from '@angular/core';
 import { InputBoolean } from 'ngx-tethys/core';
 import { ThyPopover, ThyPopoverRef } from 'ngx-tethys/popover';
-import { ThyColorPickerCustomPanelComponent } from './color-picker-custom-panel.component';
+import { ThyColorPickerCustomPanel } from './color-picker-custom-panel.component';
 import { ThyColor } from './helpers/color.class';
-import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyIcon } from 'ngx-tethys/icon';
 import { NgIf, NgClass, NgTemplateOutlet, NgFor, NgStyle } from '@angular/common';
 
 /**
@@ -17,9 +17,9 @@ import { NgIf, NgClass, NgTemplateOutlet, NgFor, NgStyle } from '@angular/common
         '[class.pt-4]': '!transparentColorSelectable'
     },
     standalone: true,
-    imports: [NgIf, NgClass, NgTemplateOutlet, NgFor, ThyIconComponent, NgStyle]
+    imports: [NgIf, NgClass, NgTemplateOutlet, NgFor, ThyIcon, NgStyle]
 })
-export class ThyColorPickerPanelComponent implements OnInit {
+export class ThyColorPickerPanel implements OnInit {
     @HostBinding('class.thy-color-picker-panel') className = true;
 
     @Input() color: string;
@@ -44,12 +44,12 @@ export class ThyColorPickerPanelComponent implements OnInit {
 
     newColor: string;
 
-    customPanelPopoverRef: ThyPopoverRef<ThyColorPickerCustomPanelComponent>;
+    customPanelPopoverRef: ThyPopoverRef<ThyColorPickerCustomPanel>;
 
     constructor(
         private thyPopover: ThyPopover,
         private viewContainerRef: ViewContainerRef,
-        private thyPopoverRef: ThyPopoverRef<ThyColorPickerPanelComponent>
+        private thyPopoverRef: ThyPopoverRef<ThyColorPickerPanel>
     ) {}
 
     ngOnInit(): void {
@@ -67,7 +67,7 @@ export class ThyColorPickerPanelComponent implements OnInit {
 
     showMoreColor(event: Event) {
         if (!this.customPanelPopoverRef) {
-            this.customPanelPopoverRef = this.thyPopover.open(ThyColorPickerCustomPanelComponent, {
+            this.customPanelPopoverRef = this.thyPopover.open(ThyColorPickerCustomPanel, {
                 origin: event.currentTarget as HTMLElement,
                 offset: -4,
                 placement: 'rightBottom',

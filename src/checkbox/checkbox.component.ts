@@ -16,7 +16,7 @@ import { NgClass, NgIf } from '@angular/common';
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => ThyCheckboxComponent),
+            useExisting: forwardRef(() => ThyCheckbox),
             multi: true
         }
     ],
@@ -28,7 +28,7 @@ import { NgClass, NgIf } from '@angular/common';
     standalone: true,
     imports: [NgClass, NgIf]
 })
-export class ThyCheckboxComponent extends ThyFormCheckBaseComponent {
+export class ThyCheckbox extends ThyFormCheckBaseComponent {
     isIndeterminate = false;
 
     /**

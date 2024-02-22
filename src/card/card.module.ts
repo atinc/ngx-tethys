@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ThyCardComponent } from './card.component';
-import { ThyCardHeaderComponent } from './header.component';
-import { ThyCardContentComponent } from './content.component';
+import { ThyCard } from './card.component';
+import { ThyCardHeader } from './header.component';
+import { ThyCardContent } from './content.component';
 
 @NgModule({
-    imports: [CommonModule, ThyCardComponent, ThyCardHeaderComponent, ThyCardContentComponent],
-    exports: [ThyCardComponent, ThyCardHeaderComponent, ThyCardContentComponent]
+    imports: [CommonModule, ThyCard, ThyCardHeader, ThyCardContent],
+    exports: [ThyCard, ThyCardHeader, ThyCardContent]
 })
 export class ThyCardModule {}

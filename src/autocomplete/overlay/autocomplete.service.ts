@@ -20,7 +20,7 @@ import { ViewportRuler } from '@angular/cdk/scrolling';
 import { DOCUMENT } from '@angular/common';
 import { ElementRef, Inject, Injectable, Injector, NgZone, OnDestroy, StaticProvider, TemplateRef } from '@angular/core';
 
-import { ThyAutocompleteContainerComponent } from './autocomplete-container.component';
+import { ThyAutocompleteContainer } from './autocomplete-container.component';
 import { ThyAutocompleteRef, ThyInternalAutocompleteRef } from './autocomplete-ref';
 import { THY_AUTOCOMPLETE_DEFAULT_CONFIG, ThyAutocompleteConfig } from './autocomplete.config';
 import { autocompleteAbstractOverlayOptions } from './autocomplete.options';
@@ -30,7 +30,7 @@ import { autocompleteAbstractOverlayOptions } from './autocomplete.options';
  */
 @Injectable()
 export class ThyAutocompleteService
-    extends ThyAbstractOverlayService<ThyAutocompleteConfig, ThyAutocompleteContainerComponent>
+    extends ThyAbstractOverlayService<ThyAutocompleteConfig, ThyAutocompleteContainer>
     implements OnDestroy
 {
     private readonly ngUnsubscribe$ = new Subject();
@@ -73,20 +73,20 @@ export class ThyAutocompleteService
         return overlayConfig;
     }
 
-    protected attachOverlayContainer(overlay: OverlayRef, config: ThyAutocompleteConfig<any>): ThyAutocompleteContainerComponent {
+    protected attachOverlayContainer(overlay: OverlayRef, config: ThyAutocompleteConfig<any>): ThyAutocompleteContainer {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
         const injector = Injector.create({
             parent: userInjector || this.injector,
             providers: [{ provide: ThyAutocompleteConfig, useValue: config }]
         });
-        const containerPortal = new ComponentPortal(ThyAutocompleteContainerComponent, config.viewContainerRef, injector);
-        const containerRef = overlay.attach<ThyAutocompleteContainerComponent>(containerPortal);
+        const containerPortal = new ComponentPortal(ThyAutocompleteContainer, config.viewContainerRef, injector);
+        const containerRef = overlay.attach<ThyAutocompleteContainer>(containerPortal);
         return containerRef.instance;
     }
 
     protected createAbstractOverlayRef<T>(
         overlayRef: OverlayRef,
-        containerInstance: ThyAutocompleteContainerComponent,
+        containerInstance: ThyAutocompleteContainer,
         config: ThyAutocompleteConfig<any>
     ): ThyInternalAutocompleteRef<T> {
         return new ThyInternalAutocompleteRef<T>(overlayRef, containerInstance, config);
@@ -95,12 +95,12 @@ export class ThyAutocompleteService
     protected createInjector<T>(
         config: ThyAutocompleteConfig,
         autocompleteRef: ThyAutocompleteRef<T>,
-        autocompleteContainer: ThyAutocompleteContainerComponent
+        autocompleteContainer: ThyAutocompleteContainer
     ): Injector {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
         const injectionTokens: StaticProvider[] = [
             {
-                provide: ThyAutocompleteContainerComponent,
+                provide: ThyAutocompleteContainer,
                 useValue: autocompleteContainer
             },
             {

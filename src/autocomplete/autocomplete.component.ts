@@ -23,22 +23,22 @@ import { SelectionModel } from '@angular/cdk/collections';
 import {
     THY_OPTION_PARENT_COMPONENT,
     IThyOptionParentComponent,
-    ThyOptionComponent,
+    ThyOption,
     ThyOptionSelectionChangeEvent,
     ThyStopPropagationDirective
 } from 'ngx-tethys/shared';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { ThyEmptyComponent } from 'ngx-tethys/empty';
+import { ThyEmpty } from 'ngx-tethys/empty';
 import { NgClass, NgIf } from '@angular/common';
 
 /** Event object that is emitted when an autocomplete option is activated. */
 export interface ThyAutocompleteActivatedEvent {
     /** Reference to the autocomplete panel that emitted the event. */
-    source: ThyAutocompleteComponent;
+    source: ThyAutocomplete;
 
     /** Option that was selected. */
-    option: ThyOptionComponent | null;
+    option: ThyOption | null;
 }
 
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
@@ -54,13 +54,13 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
     providers: [
         {
             provide: THY_OPTION_PARENT_COMPONENT,
-            useExisting: ThyAutocompleteComponent
+            useExisting: ThyAutocomplete
         }
     ],
     standalone: true,
-    imports: [ThyStopPropagationDirective, NgClass, NgIf, ThyEmptyComponent]
+    imports: [ThyStopPropagationDirective, NgClass, NgIf, ThyEmpty]
 })
-export class ThyAutocompleteComponent extends _MixinBase implements IThyOptionParentComponent, OnInit, AfterContentInit, OnDestroy {
+export class ThyAutocomplete extends _MixinBase implements IThyOptionParentComponent, OnInit, AfterContentInit, OnDestroy {
     dropDownClass: { [key: string]: boolean };
 
     isMultiple = false;
@@ -69,12 +69,12 @@ export class ThyAutocompleteComponent extends _MixinBase implements IThyOptionPa
 
     isEmptyOptions = false;
 
-    selectionModel: SelectionModel<ThyOptionComponent>;
+    selectionModel: SelectionModel<ThyOption>;
 
     isOpened = false;
 
     /** Manages active item in option list based on key events. */
-    keyManager: ActiveDescendantKeyManager<ThyOptionComponent>;
+    keyManager: ActiveDescendantKeyManager<ThyOption>;
 
     @ViewChild('contentTemplate', { static: true })
     contentTemplateRef: TemplateRef<any>;
@@ -86,7 +86,7 @@ export class ThyAutocompleteComponent extends _MixinBase implements IThyOptionPa
     /**
      * @private
      */
-    @ContentChildren(ThyOptionComponent, { descendants: true }) options: QueryList<ThyOptionComponent>;
+    @ContentChildren(ThyOption, { descendants: true }) options: QueryList<ThyOption>;
 
     readonly optionSelectionChanges: Observable<ThyOptionSelectionChangeEvent> = defer(() => {
         if (this.options) {
@@ -168,7 +168,7 @@ export class ThyAutocompleteComponent extends _MixinBase implements IThyOptionPa
 
     initKeyManager() {
         const changedOrDestroyed$ = merge(this.options.changes, this.ngUnsubscribe$);
-        this.keyManager = new ActiveDescendantKeyManager<ThyOptionComponent>(this.options).withWrap();
+        this.keyManager = new ActiveDescendantKeyManager<ThyOption>(this.options).withWrap();
         this.keyManager.change.pipe(takeUntil(changedOrDestroyed$)).subscribe(index => {
             this.thyOptionActivated.emit({ source: this, option: this.options.toArray()[index] || null });
         });
@@ -197,14 +197,14 @@ export class ThyAutocompleteComponent extends _MixinBase implements IThyOptionPa
         if (this.selectionModel) {
             this.selectionModel.clear();
         }
-        this.selectionModel = new SelectionModel<ThyOptionComponent>(this.isMultiple);
+        this.selectionModel = new SelectionModel<ThyOption>(this.isMultiple);
         this.selectionModel.changed.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(event => {
             event.added.forEach(option => option.select());
             event.removed.forEach(option => option.deselect());
         });
     }
 
-    private onSelect(option: ThyOptionComponent, isUserInput: boolean) {
+    private onSelect(option: ThyOption, isUserInput: boolean) {
         const wasSelected = this.selectionModel.isSelected(option);
 
         if (option.thyValue == null && !this.isMultiple) {

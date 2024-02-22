@@ -7,8 +7,8 @@ import { async, ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from 
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { ThyCalendarHeaderComponent } from '../calendar-header.component';
-import { ThyCalendarComponent } from '../calendar.component';
+import { ThyCalendarHeader } from '../calendar-header.component';
+import { ThyCalendar } from '../calendar.component';
 import { ThyCalendarModule } from '../module';
 
 @Component({
@@ -128,7 +128,7 @@ describe('calendar', () => {
             fixture = TestBed.createComponent(TestCalendarBasicComponent);
             component = fixture.componentInstance;
             fixture.detectChanges();
-            debugElement = fixture.debugElement.query(By.directive(ThyCalendarComponent));
+            debugElement = fixture.debugElement.query(By.directive(ThyCalendar));
             fixture.detectChanges();
         });
 
@@ -176,7 +176,7 @@ describe('calendar', () => {
             fixture.detectChanges();
             const now = new Date();
 
-            const calendarInstance = fixture.debugElement.queryAll(By.directive(ThyCalendarComponent))[1].componentInstance;
+            const calendarInstance = fixture.debugElement.queryAll(By.directive(ThyCalendar))[1].componentInstance;
             component.value1 = now;
             fixture.detectChanges();
             tick(500);
@@ -187,11 +187,11 @@ describe('calendar', () => {
 
         it('should show the default date in the correct format', waitForAsync(() => {
             fixture.whenStable().then(() => {
-                const calendar = fixture.debugElement.queryAll(By.directive(ThyCalendarComponent))[2];
+                const calendar = fixture.debugElement.queryAll(By.directive(ThyCalendar))[2];
                 const calendarElement = calendar.nativeElement;
                 const selectedDateText = calendarElement.querySelector('.thy-date-range-text').innerText;
 
-                const calendarHeader = calendar.query(By.directive(ThyCalendarHeaderComponent));
+                const calendarHeader = calendar.query(By.directive(ThyCalendarHeader));
                 const calendarHeaderInstance = calendarHeader.componentInstance;
                 const expectedDateText = calendarHeaderInstance._currentDate.format(calendarHeaderInstance.pickerFormat);
 
@@ -216,7 +216,7 @@ describe('calendar', () => {
             fixture = TestBed.createComponent(TestCalendarDisabledDateComponent);
             component = fixture.componentInstance;
             fixture.detectChanges();
-            debugElement = fixture.debugElement.query(By.directive(ThyCalendarComponent));
+            debugElement = fixture.debugElement.query(By.directive(ThyCalendar));
             fixture.detectChanges();
         });
 
@@ -246,7 +246,7 @@ describe('calendar-header', () => {
             fixture = TestBed.createComponent(TestCalendarHeaderComponent);
             component = fixture.componentInstance;
             fixture.detectChanges();
-            debugElement = fixture.debugElement.query(By.directive(ThyCalendarHeaderComponent));
+            debugElement = fixture.debugElement.query(By.directive(ThyCalendarHeader));
             fixture.detectChanges();
         });
 

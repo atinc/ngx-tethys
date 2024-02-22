@@ -50,7 +50,7 @@ import { dialogAbstractOverlayOptions } from './dialog.options';
     standalone: true,
     imports: [PortalModule, ThyPortalOutlet]
 })
-export class ThyDialogContainerComponent extends ThyAbstractOverlayContainer implements OnDestroy {
+export class ThyDialogContainer extends ThyAbstractOverlayContainer implements OnDestroy {
     animationOpeningDone: Observable<AnimationEvent>;
     animationClosingDone: Observable<AnimationEvent>;
 

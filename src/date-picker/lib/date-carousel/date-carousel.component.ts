@@ -1,8 +1,8 @@
 import { NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ThyButtonComponent } from 'ngx-tethys/button';
-import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyButton } from 'ngx-tethys/button';
+import { ThyIcon } from 'ngx-tethys/icon';
 import { TinyDate } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 import { AdvancedSelectableCell, RangeAdvancedValue } from '../../inner-types';
@@ -21,13 +21,13 @@ import { ThyDateGranularity } from '../../standard-types';
         {
             provide: NG_VALUE_ACCESSOR,
             multi: true,
-            useExisting: forwardRef(() => DateCarouselComponent)
+            useExisting: forwardRef(() => DateCarousel)
         }
     ],
     standalone: true,
-    imports: [NgTemplateOutlet, ThyButtonComponent, ThyIconComponent, NgFor, NgClass, NgIf, DatePickerAdvancedShowYearTipPipe]
+    imports: [NgTemplateOutlet, ThyButton, ThyIcon, NgFor, NgClass, NgIf, DatePickerAdvancedShowYearTipPipe]
 })
-export class DateCarouselComponent implements OnInit, ControlValueAccessor, OnDestroy {
+export class DateCarousel implements OnInit, ControlValueAccessor, OnDestroy {
     @HostBinding('class') className = 'thy-date-picker-advanced-carousel';
 
     @Input() activeDate: TinyDate;
