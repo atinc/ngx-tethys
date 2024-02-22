@@ -17,11 +17,10 @@
     "stripInternal": true,
     "strictNullChecks": false,
     "allowSyntheticDefaultImports": true,
-    "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "lib": ["dom", "ES2018"],
-    "types": ["jasmine", "node", "../typings/ng-dev-mode"],
+    "types": ["jasmine", "node", "../typings/ng-dev-mode/index.d.ts"],
     "paths": {
       "ngx-tethys/*": ["./*"],
       "@tethys/cdk/*": ["../cdk/*"]

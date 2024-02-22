@@ -60,6 +60,5 @@ export class ThyTreeDragDropExampleComponent implements OnInit {
     }
 
     onDragDrop(event: ThyTreeDragDropEvent) {
-        console.log(event);
     }
 }

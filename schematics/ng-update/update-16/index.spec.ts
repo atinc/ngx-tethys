@@ -33,20 +33,18 @@ describe('ng-update v16 Schematic', () => {
     const hostTree = new HostTree();
 
     beforeEach(async () => {
-        tree = await schematicRunner
-            .runExternalSchematicAsync(
-                '@schematics/angular',
-                'workspace',
-                {
-                    name: 'test-workspace',
-                    version: '16.0.0',
-                    newProjectRoot: 'projects'
-                },
-                hostTree
-            )
-            .toPromise();
+        tree = await schematicRunner.runExternalSchematic(
+            '@schematics/angular',
+            'workspace',
+            {
+                name: 'test-workspace',
+                version: '16.0.0',
+                newProjectRoot: 'projects'
+            },
+            hostTree
+        );
 
-        await schematicRunner.runExternalSchematicAsync('@schematics/angular', 'application', { name: 'update16test' }, tree).toPromise();
+        await schematicRunner.runExternalSchematic('@schematics/angular', 'application', { name: 'update16test' }, tree);
         hostTree.create(
             TEST_MODULE_PATH,
             `
@@ -83,7 +81,7 @@ describe('ng-update v16 Schematic', () => {
             `
         );
         tree.overwrite('/projects/update16test/src/main.ts', `import './app/module';`);
-        workspaceTree = await schematicRunner.runSchematicAsync('migration-v16', {}, tree).toPromise();
+        workspaceTree = await schematicRunner.runSchematic('migration-v16', {}, tree);
     });
 
     it(`should update ThyLabelModule to ThyTagModule and ThyActionMenuModule to ThyDropdownModule`, async () => {

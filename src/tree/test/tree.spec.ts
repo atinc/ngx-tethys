@@ -533,9 +533,7 @@ describe('ThyTreeComponent', () => {
             fixture.detectChanges();
             const dragDropSpy = spyOn(component, 'onDragDrop');
 
-            dragDropSpy.and.callFake((event: any) => {
-                console.log(JSON.stringify(event.dragNode.origin));
-            });
+            dragDropSpy.and.callFake((event: any) => {});
 
             const document = TestBed.inject(DOCUMENT);
 

@@ -1,6 +1,5 @@
 {
-  "deleteDestPath": true,
-  "lib": {
+"lib": {
     "entryFile": "index.ts"
   }
 }

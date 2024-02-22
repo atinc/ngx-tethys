@@ -124,7 +124,6 @@ function updateImportDeclaration(
         : // The new implementation also accepts `ts.AssertClause` as the last argument.
           factory.updateImportDeclaration(
               node,
-              node.decorators,
               node.modifiers,
               importClause || node.importClause,
               moduleSpecifier || node.moduleSpecifier,

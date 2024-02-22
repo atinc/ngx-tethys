@@ -25,5 +25,5 @@ const migrations: NullableDevkitMigration[] = [
 ];
 
 export default function main(): Rule {
-    return createMigrationSchematicRule(TargetVersion.V16, migrations, ruleUpgradeData, onV16MigrationComplete);
+    return createMigrationSchematicRule(TargetVersion.V17, migrations, ruleUpgradeData, onV16MigrationComplete);
 }
