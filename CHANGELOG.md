@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [17.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/16.2.2...17.0.0-next.0) (2024-02-22)
+
+
+
 ## [16.2.2](https://github.com/atinc/ngx-tethys/compare/16.2.1...16.2.2) (2024-01-17)
 
 
