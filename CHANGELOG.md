@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [17.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/16.2.2...17.0.0-next.1) (2024-02-22)
+
+
+### Features
+
+* remove cyia-code-util #INFR-11666 ([#3025](https://github.com/atinc/ngx-tethys/issues/3025)) ([b4f294a](https://github.com/atinc/ngx-tethys/commit/b4f294a21b7337e20b652db6e3fa343b8e0b5cad)), closes [#INFR-11666](https://github.com/atinc/ngx-tethys/issues/INFR-11666)
+
+
+
 # [17.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/16.2.2...17.0.0-next.0) (2024-02-22)
 
 
