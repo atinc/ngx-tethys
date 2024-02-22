@@ -455,7 +455,7 @@ export const classNames: VersionChanges<ClassNameUpgradeData> = {
                 },
                 {
                     replace: 'ThySelectComponent',
-                    replaceWith: 'ThySelect'
+                    replaceWith: 'ThyNativeSelect'
                 },
                 {
                     replace: 'ThySkeletonCircleComponent',
@@ -675,7 +675,7 @@ export const classNames: VersionChanges<ClassNameUpgradeData> = {
                 },
                 {
                     replace: 'ThySelectCustomComponent',
-                    replaceWith: 'ThySelectCustom'
+                    replaceWith: 'ThySelect'
                 },
                 {
                     replace: 'ThyOptionGroupComponent',
@@ -828,6 +828,10 @@ export const classNames: VersionChanges<ClassNameUpgradeData> = {
                 {
                     replace: 'ThySelectControlComponent',
                     replaceWith: 'ThySelectControl'
+                },
+                {
+                    replace: 'ThyCustomSelectTriggerType',
+                    replaceWith: 'ThySelectTriggerType'
                 }
             ]
         }
