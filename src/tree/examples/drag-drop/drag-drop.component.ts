@@ -59,6 +59,5 @@ export class ThyTreeDragDropExampleComponent implements OnInit {
         return !event.item.title.includes('不可拖拽');
     }
 
-    onDragDrop(event: ThyTreeDragDropEvent) {
-    }
+    onDragDrop(event: ThyTreeDragDropEvent) {}
 }
