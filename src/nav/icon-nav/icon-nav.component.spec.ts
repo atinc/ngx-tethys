@@ -1,8 +1,8 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { Component, OnInit } from '@angular/core';
 import { ThyNavModule } from '../nav.module';
-import { ThyIconNavComponent } from './icon-nav.component';
-import { ThyIconNavLinkComponent } from './icon-nav-link.directive';
+import { ThyIconNav } from './icon-nav.component';
+import { ThyIconNavLink } from './icon-nav-link.directive';
 import { ThyIconModule } from '../../icon';
 import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing';
 import { By } from '@angular/platform-browser';
@@ -47,7 +47,7 @@ describe(`icon-nav`, () => {
         });
 
         it(`should get correct class thy-icon-nav`, () => {
-            const iconNavDebugElement = fixture.debugElement.query(By.directive(ThyIconNavComponent));
+            const iconNavDebugElement = fixture.debugElement.query(By.directive(ThyIconNav));
             const iconNavElement: HTMLElement = iconNavDebugElement.nativeElement;
             expect(iconNavDebugElement).toBeTruthy();
             expect(iconNavElement).toBeTruthy();
@@ -57,7 +57,7 @@ describe(`icon-nav`, () => {
         it(`should get correct class thy-icon-nav-secondary when type is secondary`, async () => {
             fixture.componentInstance.type = 'secondary';
             fixture.detectChanges();
-            const iconNavDebugElement = fixture.debugElement.query(By.directive(ThyIconNavComponent));
+            const iconNavDebugElement = fixture.debugElement.query(By.directive(ThyIconNav));
             const iconNavElement: HTMLElement = iconNavDebugElement.nativeElement;
             expect(iconNavDebugElement).toBeTruthy();
             expect(iconNavElement).toBeTruthy();
@@ -65,7 +65,7 @@ describe(`icon-nav`, () => {
         });
 
         it(`should get correct class 'thy-icon-nav-link' for icon nav link`, async () => {
-            const iconNavLinkDebugElements = fixture.debugElement.queryAll(By.directive(ThyIconNavLinkComponent));
+            const iconNavLinkDebugElements = fixture.debugElement.queryAll(By.directive(ThyIconNavLink));
             expect(iconNavLinkDebugElements).toBeTruthy();
             expect(iconNavLinkDebugElements.length).toEqual(2);
             const inboxIconNavLinkDebugElement = iconNavLinkDebugElements[0];
@@ -76,7 +76,7 @@ describe(`icon-nav`, () => {
         });
 
         it(`should get correct icon for icon nav link when use thyIconNavLinkIcon and custom content`, async () => {
-            const iconNavLinkDebugElements = fixture.debugElement.queryAll(By.directive(ThyIconNavLinkComponent));
+            const iconNavLinkDebugElements = fixture.debugElement.queryAll(By.directive(ThyIconNavLink));
             expect(iconNavLinkDebugElements).toBeTruthy();
             expect(iconNavLinkDebugElements.length).toEqual(2);
             const inboxIconNavLinkDebugElement = iconNavLinkDebugElements[0];

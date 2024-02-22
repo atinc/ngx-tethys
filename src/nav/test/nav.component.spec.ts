@@ -11,7 +11,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { ThyIconModule } from '../../icon';
 import { ThyNavItemDirective } from '../nav-item.directive';
-import { ThyNavComponent, ThyNavHorizontal, ThyNavSize, ThyNavType } from '../nav.component';
+import { ThyNav, ThyNavHorizontal, ThyNavSize, ThyNavType } from '../nav.component';
 import { ThyNavModule } from '../nav.module';
 
 const NAV_CLASS = `thy-nav`;
@@ -106,7 +106,7 @@ export class NavResponsiveComponent implements OnInit {
 
     @ViewChildren(ThyNavItemDirective, { read: ElementRef }) linksElement: QueryList<ElementRef>;
 
-    @ViewChild(ThyNavComponent) nav: ThyNavComponent;
+    @ViewChild(ThyNav) nav: ThyNav;
 
     constructor() {}
 
@@ -150,7 +150,7 @@ describe(`thy-nav`, () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(NavBasicComponent);
             fixture.detectChanges();
-            navDebugElement = fixture.debugElement.query(By.directive(ThyNavComponent));
+            navDebugElement = fixture.debugElement.query(By.directive(ThyNav));
             navElement = navDebugElement.nativeElement;
         });
 
@@ -384,7 +384,7 @@ describe(`thy-nav`, () => {
         it('should support set thyInsideClosable', fakeAsync(() => {
             fixture.debugElement.componentInstance.insideClosable = false;
             fixture.detectChanges();
-            const navDebugElement = fixture.debugElement.query(By.directive(ThyNavComponent));
+            const navDebugElement = fixture.debugElement.query(By.directive(ThyNav));
             expect(navDebugElement.componentInstance.thyInsideClosable).toBe(false);
         }));
 
@@ -411,7 +411,7 @@ describe(`thy-nav`, () => {
     });
 });
 
-function spyLinksAndNavOffset(links: ThyNavItemDirective[], nav: ThyNavComponent) {
+function spyLinksAndNavOffset(links: ThyNavItemDirective[], nav: ThyNav) {
     (links || []).forEach((link, index) => {
         link.offset = {
             width: 30,

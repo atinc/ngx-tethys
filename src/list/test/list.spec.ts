@@ -2,7 +2,7 @@ import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyListModule } from '../list.module';
-import { ThyListComponent } from '../list.component';
+import { ThyList } from '../list.component';
 
 describe('list', () => {
     let fixture: ComponentFixture<TestListComponent>;
@@ -14,7 +14,7 @@ describe('list', () => {
             declarations: [TestListComponent]
         }).compileComponents();
         fixture = TestBed.createComponent(TestListComponent);
-        listDebugElement = fixture.debugElement.query(By.directive(ThyListComponent));
+        listDebugElement = fixture.debugElement.query(By.directive(ThyList));
         listElement = listDebugElement.nativeElement;
         fixture.detectChanges();
     });

@@ -1,8 +1,8 @@
 import { Component, OnInit, HostBinding, HostListener, Input, Optional, ChangeDetectorRef } from '@angular/core';
 import { ThyTranslate } from 'ngx-tethys/core';
-import { ThyRadioGroupComponent } from './../group/radio-group.component';
+import { ThyRadioGroup } from './../group/radio-group.component';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
-import { ThyRadioComponent } from '../radio.component';
+import { ThyRadio } from '../radio.component';
 
 /**
  * @name [thy-radio-button],[thyRadioButton]
@@ -16,7 +16,7 @@ import { ThyRadioComponent } from '../radio.component';
         '[attr.tabindex]': `tabIndex`
     }
 })
-export class ThyRadioButtonComponent extends ThyRadioComponent implements OnInit {
+export class ThyRadioButton extends ThyRadio implements OnInit {
     @HostBinding('class.btn') isButton = true;
     @HostBinding('class.active') isActive = false;
     @HostBinding('class.disabled') get isDisabled() {
@@ -32,11 +32,7 @@ export class ThyRadioButtonComponent extends ThyRadioComponent implements OnInit
         this.writeValue(coerceBooleanProperty(value));
     }
 
-    constructor(
-        thyTranslate: ThyTranslate,
-        @Optional() thyRadioGroupComponent: ThyRadioGroupComponent,
-        changeDetectorRef: ChangeDetectorRef
-    ) {
+    constructor(thyTranslate: ThyTranslate, @Optional() thyRadioGroupComponent: ThyRadioGroup, changeDetectorRef: ChangeDetectorRef) {
         super(thyTranslate, thyRadioGroupComponent, changeDetectorRef);
     }
 

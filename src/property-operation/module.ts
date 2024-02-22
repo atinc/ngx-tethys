@@ -5,18 +5,11 @@ import { ThyIconModule } from 'ngx-tethys/icon';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { ThyPropertyOperationGroupComponent } from './group/property-operation-group.component';
-import { ThyPropertyOperationComponent } from './property-operation.component';
+import { ThyPropertyOperationGroup } from './group/property-operation-group.component';
+import { ThyPropertyOperation } from './property-operation.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        ThyButtonModule,
-        ThyIconModule,
-        ThyFlexibleTextModule,
-        ThyPropertyOperationComponent,
-        ThyPropertyOperationGroupComponent
-    ],
-    exports: [ThyPropertyOperationComponent, ThyPropertyOperationGroupComponent]
+    imports: [CommonModule, ThyButtonModule, ThyIconModule, ThyFlexibleTextModule, ThyPropertyOperation, ThyPropertyOperationGroup],
+    exports: [ThyPropertyOperation, ThyPropertyOperationGroup]
 })
 export class ThyPropertyOperationModule {}

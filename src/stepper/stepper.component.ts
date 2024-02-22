@@ -1,6 +1,6 @@
 import { Component, ViewChildren, ContentChildren, QueryList, HostBinding, Input, Output, EventEmitter } from '@angular/core';
-import { ThyStepComponent, IThyStepperComponent, THY_STEPPER_COMPONENT } from './step.component';
-import { ThyStepHeaderComponent } from './step-header.component';
+import { ThyStep, IThyStepperComponent, THY_STEPPER_COMPONENT } from './step.component';
+import { ThyStepHeader } from './step-header.component';
 import { NgIf, NgFor, NgTemplateOutlet } from '@angular/common';
 import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 
@@ -15,13 +15,13 @@ import { InputBoolean, InputNumber } from 'ngx-tethys/core';
     providers: [
         {
             provide: THY_STEPPER_COMPONENT,
-            useExisting: ThyStepperComponent
+            useExisting: ThyStepper
         }
     ],
     standalone: true,
-    imports: [NgIf, NgFor, ThyStepHeaderComponent, NgTemplateOutlet]
+    imports: [NgIf, NgFor, ThyStepHeader, NgTemplateOutlet]
 })
-export class ThyStepperComponent implements IThyStepperComponent {
+export class ThyStepper implements IThyStepperComponent {
     /**
      * 当前处于激活状态的步骤index
      * @default 0
@@ -33,7 +33,7 @@ export class ThyStepperComponent implements IThyStepperComponent {
     }
 
     @Input()
-    set thySelected(value: ThyStepComponent) {
+    set thySelected(value: ThyStep) {
         this.selected = value;
     }
 
@@ -44,7 +44,7 @@ export class ThyStepperComponent implements IThyStepperComponent {
 
     private _selectedIndex = 0;
 
-    public set selected(step: ThyStepComponent) {
+    public set selected(step: ThyStep) {
         this.selectedIndex = this.steps ? this.steps.toArray().indexOf(step) : -1;
     }
 
@@ -66,9 +66,9 @@ export class ThyStepperComponent implements IThyStepperComponent {
 
     @Output() selectionChange: EventEmitter<any> = new EventEmitter<any>();
 
-    @ViewChildren(ThyStepHeaderComponent) stepHeaders: QueryList<ThyStepHeaderComponent>;
+    @ViewChildren(ThyStepHeader) stepHeaders: QueryList<ThyStepHeader>;
 
-    @ContentChildren(ThyStepComponent) steps: QueryList<ThyStepComponent>;
+    @ContentChildren(ThyStep) steps: QueryList<ThyStep>;
 
     @HostBinding('class.thy-stepper') thyStepper = true;
 

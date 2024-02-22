@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyStepperNextDirective, ThyStepperPreviousDirective } from '../stepper-button.directive';
-import { ThyStepperComponent } from '../stepper.component';
+import { ThyStepper } from '../stepper.component';
 
 @Component({
     template: `
@@ -26,13 +26,13 @@ describe('ThyStepperNext', () => {
             declarations: [ThyStepperButtonDirectiveComponent],
             providers: [
                 {
-                    provide: ThyStepperComponent,
+                    provide: ThyStepper,
                     useClass: MockThyStepperComponent
                 }
             ]
         }).compileComponents();
         fixture = TestBed.createComponent(ThyStepperButtonDirectiveComponent);
-        thyStepperComponent = TestBed.get(ThyStepperComponent) as any;
+        thyStepperComponent = TestBed.get(ThyStepper) as any;
     });
     describe('nextDirective', () => {
         it('next function should be called', () => {

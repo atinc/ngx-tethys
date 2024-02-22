@@ -10,7 +10,7 @@ import { ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild } fr
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true
 })
-export class ThyOptionsContainerComponent implements OnInit {
+export class ThyOptionsContainer implements OnInit {
     @ViewChild('options') optionsTemplate: TemplateRef<any>;
 
     constructor() {}

@@ -17,7 +17,7 @@ import {
     ThyTreeDropPosition,
     ThyTreeEmitEvent
 } from '../tree.class';
-import { ThyTreeComponent } from '../tree.component';
+import { ThyTree } from '../tree.component';
 import { ThyTreeModule } from '../tree.module';
 import { bigTreeNodes, treeNodes, hasCheckTreeNodes } from './mock';
 import { ThyTreeNodeComponent } from '../tree-node.component';
@@ -54,7 +54,7 @@ describe('ThyTreeComponent', () => {
         let component: TestBasicTreeComponent;
         let fixture: ComponentFixture<TestBasicTreeComponent>;
         let multipleFixture: ComponentFixture<TestMultipleTreeComponent>;
-        let treeComponent: ThyTreeComponent;
+        let treeComponent: ThyTree;
 
         beforeEach(fakeAsync(() => {
             configureThyTreeTestingModule([TestBasicTreeComponent, TestMultipleTreeComponent]);
@@ -64,7 +64,7 @@ describe('ThyTreeComponent', () => {
             fixture.detectChanges();
             treeInstance = fixture.debugElement.componentInstance;
             treeComponent = fixture.debugElement.componentInstance.tree;
-            treeElement = fixture.debugElement.query(By.directive(ThyTreeComponent)).nativeElement;
+            treeElement = fixture.debugElement.query(By.directive(ThyTree)).nativeElement;
         }));
 
         it('should create', () => {
@@ -384,7 +384,7 @@ describe('ThyTreeComponent', () => {
             multipleFixture.detectChanges();
             tick(100);
             multipleFixture.detectChanges();
-            const multipleElement = multipleFixture.debugElement.query(By.directive(ThyTreeComponent)).nativeElement;
+            const multipleElement = multipleFixture.debugElement.query(By.directive(ThyTree)).nativeElement;
             const multipleTree = multipleFixture.debugElement.componentInstance.tree;
             const selectionModelSpy = spyOn(multipleTree._selectionModel, 'toggle');
             const nodeElement = multipleElement.querySelector('.thy-tree-node-wrapper') as HTMLElement;
@@ -457,7 +457,7 @@ describe('ThyTreeComponent', () => {
             fixture = TestBed.createComponent(TestAsyncTreeComponent);
             component = fixture.componentInstance;
             fixture.detectChanges();
-            treeElement = fixture.debugElement.query(By.directive(ThyTreeComponent)).nativeElement;
+            treeElement = fixture.debugElement.query(By.directive(ThyTree)).nativeElement;
         }));
 
         it('should create', () => {
@@ -494,7 +494,7 @@ describe('ThyTreeComponent', () => {
             fixture.detectChanges();
             tick(100);
             fixture.detectChanges();
-            treeElement = fixture.debugElement.query(By.directive(ThyTreeComponent)).nativeElement;
+            treeElement = fixture.debugElement.query(By.directive(ThyTree)).nativeElement;
         }));
 
         it('should create', () => {
@@ -579,7 +579,7 @@ describe('ThyTreeComponent', () => {
         let treeInstance: TestHasCheckedTreeComponent;
         let component: TestHasCheckedTreeComponent;
         let fixture: ComponentFixture<TestHasCheckedTreeComponent>;
-        let treeComponent: ThyTreeComponent;
+        let treeComponent: ThyTree;
 
         beforeEach(fakeAsync(() => {
             configureThyTreeTestingModule([TestHasCheckedTreeComponent, TestMultipleTreeComponent]);
@@ -588,7 +588,7 @@ describe('ThyTreeComponent', () => {
             fixture.detectChanges();
             treeInstance = fixture.debugElement.componentInstance;
             treeComponent = fixture.debugElement.componentInstance.tree;
-            treeElement = fixture.debugElement.query(By.directive(ThyTreeComponent)).nativeElement;
+            treeElement = fixture.debugElement.query(By.directive(ThyTree)).nativeElement;
         }));
 
         it('should create', () => {
@@ -623,7 +623,7 @@ describe('ThyTreeComponent', () => {
             component = fixture.componentInstance;
             elementFromPointSpy = spyOn(document, 'elementFromPoint');
             fixture.detectChanges();
-            treeElement = fixture.debugElement.query(By.directive(ThyTreeComponent)).nativeElement;
+            treeElement = fixture.debugElement.query(By.directive(ThyTree)).nativeElement;
             tick();
             fixture.detectChanges();
         }));
@@ -813,7 +813,7 @@ describe('ThyTreeComponent', () => {
     `
 })
 class TestBasicTreeComponent {
-    @ViewChild('tree', { static: true }) tree: ThyTreeComponent;
+    @ViewChild('tree', { static: true }) tree: ThyTree;
 
     // mock 不可变数据
     treeNodes = JSON.parse(JSON.stringify(treeNodes));
@@ -874,7 +874,7 @@ class TestBasicTreeComponent {
 export class TestMultipleTreeComponent {
     mockData = JSON.parse(JSON.stringify(treeNodes));
 
-    @ViewChild('tree', { static: true }) tree: ThyTreeComponent;
+    @ViewChild('tree', { static: true }) tree: ThyTree;
 
     constructor() {}
 }
@@ -898,7 +898,7 @@ export class TestAsyncTreeComponent {
         return { ...item, children: [], expanded: false };
     });
 
-    @ViewChild('tree', { static: true }) treeComponent: ThyTreeComponent;
+    @ViewChild('tree', { static: true }) treeComponent: ThyTree;
 
     constructor() {}
 
@@ -938,7 +938,7 @@ export class TestAsyncTreeComponent {
 export class TestVirtualScrollingTreeComponent implements OnInit {
     mockData = bigTreeNodes;
 
-    @ViewChild('tree', { static: true }) treeComponent: ThyTreeComponent;
+    @ViewChild('tree', { static: true }) treeComponent: ThyTree;
 
     setNodeItemClass(className: string, index: number): void {
         this.mockData[index].itemClass = className;
@@ -998,7 +998,7 @@ export class TestDragDropTreeComponent {
         }
     ];
 
-    @ViewChild('tree', { static: true }) treeComponent: ThyTreeComponent;
+    @ViewChild('tree', { static: true }) treeComponent: ThyTree;
 
     constructor() {}
 
@@ -1046,7 +1046,7 @@ export class TestDragDropTreeComponent {
     `
 })
 class TestHasCheckedTreeComponent {
-    @ViewChild('tree', { static: true }) tree: ThyTreeComponent;
+    @ViewChild('tree', { static: true }) tree: ThyTree;
 
     // mock 不可变数据
     hasCheckTreeNodes = JSON.parse(JSON.stringify(hasCheckTreeNodes));

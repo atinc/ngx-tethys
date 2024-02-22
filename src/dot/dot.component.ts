@@ -38,7 +38,7 @@ export const DEFAULT_SHAPE_NAME = 'circle';
     },
     standalone: true
 })
-export class ThyDotComponent {
+export class ThyDot {
     public size: ThySizeType = DEFAULT_SIZE_NAME;
     public theme: ThyThemeType = DEFAULT_THEME_NAME;
     public shape: ThyShapeType = DEFAULT_SHAPE_NAME;

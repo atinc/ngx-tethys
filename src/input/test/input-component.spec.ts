@@ -4,7 +4,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { ThyInputComponent } from '../input.component';
+import { ThyInput } from '../input.component';
 import { ThyInputDirective } from '../input.directive';
 import { ThyInputModule } from '../module';
 
@@ -75,7 +75,7 @@ describe('input component', () => {
         fixture = TestBed.createComponent(TestBedComponent);
         basicTestComponent = fixture.debugElement.componentInstance;
         debugElement = fixture.debugElement.query(By.directive(ThyInputDirective));
-        debugContainerElement = fixture.debugElement.query(By.directive(ThyInputComponent));
+        debugContainerElement = fixture.debugElement.query(By.directive(ThyInput));
     });
 
     it('thySize empty string', () => {
@@ -174,7 +174,7 @@ describe('input component', () => {
     it('focus and blur ', fakeAsync(() => {
         fixture.detectChanges();
         tick();
-        const debugInputInstance = fixture.debugElement.query(By.directive(ThyInputComponent)).componentInstance;
+        const debugInputInstance = fixture.debugElement.query(By.directive(ThyInput)).componentInstance;
 
         debugInputInstance.onInputFocus();
         fixture.detectChanges();

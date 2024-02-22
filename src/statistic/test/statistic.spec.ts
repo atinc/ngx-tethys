@@ -2,7 +2,7 @@ import { fakeAsync, TestBed, ComponentFixture } from '@angular/core/testing';
 import { ThyStatisticModule } from '../statistic.module';
 import { NgModule, Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { ThyStatisticComponent } from '../statistic.component';
+import { ThyStatistic } from '../statistic.component';
 describe('thy-statistic', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -18,7 +18,7 @@ describe('thy-statistic', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyDemoStatisticBasicComponent);
             basicTestComponent = fixture.debugElement.componentInstance;
-            statisticComponent = fixture.debugElement.query(By.directive(ThyStatisticComponent));
+            statisticComponent = fixture.debugElement.query(By.directive(ThyStatistic));
         });
 
         it('should have correct class', () => {
@@ -98,7 +98,7 @@ describe('thy-statistic', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyDemoStatisticTemplateComponent);
             templateTestComponent = fixture.debugElement.componentInstance;
-            statisticComponent = fixture.debugElement.query(By.directive(ThyStatisticComponent));
+            statisticComponent = fixture.debugElement.query(By.directive(ThyStatistic));
         });
 
         it('prefix template', () => {
@@ -134,7 +134,7 @@ describe('thy-statistic', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyDemoStatisticTemplateOutsideComponent);
             templateTestComponent = fixture.debugElement.componentInstance;
-            statisticComponent = fixture.debugElement.query(By.directive(ThyStatisticComponent));
+            statisticComponent = fixture.debugElement.query(By.directive(ThyStatistic));
         });
 
         it('prefix template', () => {

@@ -19,7 +19,7 @@ export type ThyMenuTheme = 'compact' | 'loose' | 'dark';
     },
     standalone: true
 })
-export class ThyMenuComponent implements OnInit {
+export class ThyMenu implements OnInit {
     theme: ThyMenuTheme = 'compact';
 
     /**

@@ -2,7 +2,7 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { ThyDialogModule } from '../dialog.module';
 import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { DialogHeaderComponent } from '../header/dialog-header.component';
+import { DialogHeader } from '../header/dialog-header.component';
 import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 import { THY_DIALOG_LAYOUT_CONFIG } from '../dialog.config';
 
@@ -63,7 +63,7 @@ describe('dialog-layout', () => {
         beforeEach(() => {
             dialogBasicFixture = TestBed.createComponent(DialogHeaderBasicComponent);
             dialogBasicFixture.detectChanges();
-            dialogHeaderDebugElement = dialogBasicFixture.debugElement.query(By.directive(DialogHeaderComponent));
+            dialogHeaderDebugElement = dialogBasicFixture.debugElement.query(By.directive(DialogHeader));
             dialogHeaderElement = dialogHeaderDebugElement.nativeElement;
         });
 
@@ -113,7 +113,7 @@ describe('dialog-layout', () => {
         beforeEach(() => {
             dialogBasicFixture = TestBed.createComponent(DialogHeaderTitleTranslationComponent);
             dialogBasicFixture.detectChanges();
-            dialogHeaderDebugElement = dialogBasicFixture.debugElement.query(By.directive(DialogHeaderComponent));
+            dialogHeaderDebugElement = dialogBasicFixture.debugElement.query(By.directive(DialogHeader));
             dialogHeaderElement = dialogHeaderDebugElement.nativeElement;
         });
 

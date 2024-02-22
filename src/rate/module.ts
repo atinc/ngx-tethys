@@ -4,12 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThySharedModule } from 'ngx-tethys/shared';
 import { ThyTooltipModule } from 'ngx-tethys/tooltip';
-import { ThyRateItemComponent } from './rate-item.component';
-import { ThyRateComponent } from './rate.component';
+import { ThyRateItem } from './rate-item.component';
+import { ThyRate } from './rate.component';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ThySharedModule, ThyIconModule, ThyTooltipModule, ThyRateComponent, ThyRateItemComponent],
-    exports: [ThyRateComponent],
+    imports: [CommonModule, FormsModule, ThySharedModule, ThyIconModule, ThyTooltipModule, ThyRate, ThyRateItem],
+    exports: [ThyRate],
     providers: []
 })
 export class ThyRateModule {}

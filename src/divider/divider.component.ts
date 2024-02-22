@@ -40,7 +40,7 @@ export type ThyDividerColor = 'lighter' | 'light' | 'danger' | 'primary' | 'succ
     standalone: true,
     imports: [NgIf, NgTemplateOutlet]
 })
-export class ThyDividerComponent implements OnChanges, OnInit {
+export class ThyDivider implements OnChanges, OnInit {
     templateContent: TemplateRef<HTMLElement>;
 
     textContent: string;

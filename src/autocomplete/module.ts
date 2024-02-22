@@ -8,9 +8,9 @@ import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyLoadingModule } from 'ngx-tethys/loading';
 import { ThyOptionModule, ThySharedModule } from 'ngx-tethys/shared';
-import { ThyAutocompleteComponent } from './autocomplete.component';
+import { ThyAutocomplete } from './autocomplete.component';
 import { ThyAutocompleteTriggerDirective } from './autocomplete.trigger.directive';
-import { ThyAutocompleteContainerComponent } from './overlay/autocomplete-container.component';
+import { ThyAutocompleteContainer } from './overlay/autocomplete-container.component';
 import { THY_AUTOCOMPLETE_DEFAULT_CONFIG_PROVIDER } from './overlay/autocomplete.config';
 import { ThyAutocompleteService } from './overlay/autocomplete.service';
 
@@ -27,10 +27,10 @@ import { ThyAutocompleteService } from './overlay/autocomplete.service';
         ThyEmptyModule,
         ThyOptionModule,
         ThyAutocompleteTriggerDirective,
-        ThyAutocompleteComponent,
-        ThyAutocompleteContainerComponent
+        ThyAutocomplete,
+        ThyAutocompleteContainer
     ],
-    exports: [ThyAutocompleteTriggerDirective, ThyAutocompleteComponent, ThyAutocompleteContainerComponent, ThyOptionModule],
+    exports: [ThyAutocompleteTriggerDirective, ThyAutocomplete, ThyAutocompleteContainer, ThyOptionModule],
     providers: [THY_AUTOCOMPLETE_DEFAULT_CONFIG_PROVIDER, ThyAutocompleteService]
 })
 export class ThyAutocompleteModule {}

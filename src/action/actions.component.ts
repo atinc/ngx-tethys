@@ -10,7 +10,7 @@ import {
     SimpleChanges
 } from '@angular/core';
 import { ThySpacingSize, getNumericSize } from 'ngx-tethys/core';
-import { ThyActionComponent } from './action.component';
+import { ThyAction } from './action.component';
 
 /**
  * Actions 组件
@@ -25,8 +25,8 @@ import { ThyActionComponent } from './action.component';
     },
     standalone: true
 })
-export class ThyActionsComponent implements OnInit, AfterContentInit, OnChanges {
-    @ContentChildren(ThyActionComponent) actions: QueryList<ThyActionComponent>;
+export class ThyActions implements OnInit, AfterContentInit, OnChanges {
+    @ContentChildren(ThyAction) actions: QueryList<ThyAction>;
 
     /**
      * 大小，支持 `zero` | `xxs` | `xs` | `sm` | `md` | `lg` | `xlg` 和自定义数字大小
@@ -45,14 +45,14 @@ export class ThyActionsComponent implements OnInit, AfterContentInit, OnChanges 
     }
 
     ngAfterContentInit(): void {
-        this.actions.changes.subscribe((actions: ThyActionComponent[]) => {
+        this.actions.changes.subscribe((actions: ThyAction[]) => {
             this.setActionsSize(actions);
         });
         this.setActionsSize(this.actions.toArray());
     }
 
-    private setActionsSize(actions: ThyActionComponent[]) {
-        actions.forEach((action: ThyActionComponent, index) => {
+    private setActionsSize(actions: ThyAction[]) {
+        actions.forEach((action: ThyAction, index) => {
             // can't set marginRight value for last item
             if (index !== actions.length - 1) {
                 action.setMarginRight(getNumericSize(this.thySize, 'md') + 'px');

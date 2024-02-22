@@ -15,7 +15,7 @@ import {
     ChangeDetectionStrategy
 } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { ThyTimelineItemComponent } from './timeline-item.component';
+import { ThyTimelineItem } from './timeline-item.component';
 import { ThyTimelineService } from './timeline.service';
 import { Subject } from 'rxjs';
 import { InputBoolean } from 'ngx-tethys/core';
@@ -54,7 +54,7 @@ export type ThyTimeDirection = 'horizontal' | 'vertical';
     standalone: true,
     imports: [NgFor, NgTemplateOutlet]
 })
-export class ThyTimelineComponent implements OnInit, AfterContentInit, OnChanges, OnDestroy {
+export class ThyTimeline implements OnInit, AfterContentInit, OnChanges, OnDestroy {
     /**
      * 节点排序是否倒序
      * @default false
@@ -74,7 +74,7 @@ export class ThyTimelineComponent implements OnInit, AfterContentInit, OnChanges
      */
     @Input() thyDirection: ThyTimeDirection = 'vertical';
 
-    public timelineItems: ThyTimelineItemComponent[] = [];
+    public timelineItems: ThyTimelineItem[] = [];
 
     private destroy$ = new Subject<void>();
 
@@ -84,8 +84,8 @@ export class ThyTimelineComponent implements OnInit, AfterContentInit, OnChanges
     @HostBinding(`class.thy-timeline-template`) templateTimeline = false;
     @HostBinding(`class.thy-timeline-horizontal`) horizontal = false;
 
-    @ContentChildren(ThyTimelineItemComponent)
-    listOfItems: QueryList<ThyTimelineItemComponent>;
+    @ContentChildren(ThyTimelineItem)
+    listOfItems: QueryList<ThyTimelineItem>;
 
     constructor(private cdr: ChangeDetectorRef, private timelineService: ThyTimelineService) {}
 

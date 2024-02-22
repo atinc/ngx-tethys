@@ -18,9 +18,9 @@ import { InputBoolean, ThyTranslate } from 'ngx-tethys/core';
 import { htmlElementIsEmpty, coerceBooleanProperty } from 'ngx-tethys/util';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ThyIconComponent } from 'ngx-tethys/icon';
-import { ThyFlexibleTextComponent } from 'ngx-tethys/flexible-text';
-import { ThyButtonIconComponent } from 'ngx-tethys/button';
+import { ThyIcon } from 'ngx-tethys/icon';
+import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
+import { ThyButtonIcon } from 'ngx-tethys/button';
 import { NgTemplateOutlet, NgIf, NgClass } from '@angular/common';
 
 type ThyPropertyOperationTypes = 'primary' | 'success' | 'warning' | 'danger';
@@ -34,9 +34,9 @@ type ThyPropertyOperationTypes = 'primary' | 'success' | 'warning' | 'danger';
     selector: 'thy-property-operation',
     templateUrl: './property-operation.component.html',
     standalone: true,
-    imports: [NgTemplateOutlet, NgIf, NgClass, ThyButtonIconComponent, ThyFlexibleTextComponent, ThyIconComponent]
+    imports: [NgTemplateOutlet, NgIf, NgClass, ThyButtonIcon, ThyFlexibleText, ThyIcon]
 })
-export class ThyPropertyOperationComponent implements OnInit, AfterContentInit, OnDestroy {
+export class ThyPropertyOperation implements OnInit, AfterContentInit, OnDestroy {
     private initialized = false;
 
     private hostRenderer = useHostRenderer();

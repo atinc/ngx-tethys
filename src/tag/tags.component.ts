@@ -12,7 +12,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
     },
     standalone: true
 })
-export class ThyTagsComponent implements OnInit {
+export class ThyTags implements OnInit {
     constructor() {}
 
     ngOnInit(): void {}

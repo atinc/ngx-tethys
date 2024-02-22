@@ -27,4 +27,4 @@ export class ThyContentMainDirective {}
     hostDirectives: [ThyContentMainDirective],
     standalone: true
 })
-export class ThyContentMainComponent {}
+export class ThyContentMain {}

@@ -16,7 +16,7 @@ import { NgSwitch, NgSwitchCase, NgTemplateOutlet, NgSwitchDefault, NgIf } from 
     standalone: true,
     imports: [NgSwitch, NgSwitchCase, NgTemplateOutlet, NgSwitchDefault, NgIf]
 })
-export class DateTableCellComponent {
+export class DateTableCell {
     isTemplateRef = isTemplateRef;
 
     @Input() prefixCls: 'thy-calendar';

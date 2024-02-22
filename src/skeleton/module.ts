@@ -4,21 +4,14 @@ import { PortalModule } from '@angular/cdk/portal';
 import { ThyGridModule } from 'ngx-tethys/grid';
 import { ThyListModule } from 'ngx-tethys/list';
 
-import { ThySkeletonComponent } from './skeleton.component';
-import { ThySkeletonRectangleComponent } from './skeleton-rectangle.component';
-import { ThySkeletonCircleComponent } from './skeleton-circle.component';
-import { ThySkeletonListComponent } from './stylized/list.component';
-import { ThySkeletonParagraphComponent } from './stylized/paragraph.component';
-import { ThySkeletonBulletListComponent } from './stylized/bullet-list.component';
+import { ThySkeleton } from './skeleton.component';
+import { ThySkeletonRectangle } from './skeleton-rectangle.component';
+import { ThySkeletonCircle } from './skeleton-circle.component';
+import { ThySkeletonList } from './stylized/list.component';
+import { ThySkeletonParagraph } from './stylized/paragraph.component';
+import { ThySkeletonBulletList } from './stylized/bullet-list.component';
 
-const components = [
-    ThySkeletonComponent,
-    ThySkeletonRectangleComponent,
-    ThySkeletonCircleComponent,
-    ThySkeletonListComponent,
-    ThySkeletonParagraphComponent,
-    ThySkeletonBulletListComponent
-];
+const components = [ThySkeleton, ThySkeletonRectangle, ThySkeletonCircle, ThySkeletonList, ThySkeletonParagraph, ThySkeletonBulletList];
 @NgModule({
     imports: [CommonModule, PortalModule, ThyGridModule, ThyListModule, ...components],
     exports: components,

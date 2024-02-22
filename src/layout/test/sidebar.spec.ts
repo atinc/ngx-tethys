@@ -4,12 +4,12 @@ import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent } from '@tethys/cdk/testing';
 import { ThyResizableDirective, ThyResizeEvent } from 'ngx-tethys/resizable';
 import { bypassSanitizeProvider, createKeyboardEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
-import { ThyLayoutComponent, ThyLayoutDirective } from '../layout.component';
+import { ThyLayout, ThyLayoutDirective } from '../layout.component';
 import { ThyLayoutModule } from '../layout.module';
-import { ThySidebarContentComponent, ThySidebarContentDirective } from '../sidebar-content.component';
-import { ThySidebarFooterComponent, ThySidebarFooterDirective } from '../sidebar-footer.component';
-import { ThySidebarHeaderComponent, ThySidebarHeaderDirective } from '../sidebar-header.component';
-import { ThySidebarComponent, ThySidebarDirection, ThySidebarDirective, ThySidebarTheme } from '../sidebar.component';
+import { ThySidebarContent, ThySidebarContentDirective } from '../sidebar-content.component';
+import { ThySidebarFooter, ThySidebarFooterDirective } from '../sidebar-footer.component';
+import { ThySidebarHeader, ThySidebarHeaderDirective } from '../sidebar-header.component';
+import { ThySidebar, ThySidebarDirection, ThySidebarDirective, ThySidebarTheme } from '../sidebar.component';
 
 const SIDEBAR_ISOLATED_CLASS = 'thy-layout-sidebar-isolated';
 @Component({
@@ -139,7 +139,7 @@ describe(`sidebar`, () => {
         let layoutElement: HTMLElement;
         let sidebarDebugElement: DebugElement;
         let sidebarElement: HTMLElement;
-        let sidebarComponent: ThySidebarComponent;
+        let sidebarComponent: ThySidebar;
         let sidebarHeaderDebugElement: DebugElement;
         let sidebarHeaderElement: HTMLElement;
 
@@ -148,14 +148,14 @@ describe(`sidebar`, () => {
             fixture.detectChanges();
             testInstance = fixture.debugElement.componentInstance;
 
-            layoutDebugElement = fixture.debugElement.query(By.directive(ThyLayoutComponent));
+            layoutDebugElement = fixture.debugElement.query(By.directive(ThyLayout));
             layoutElement = layoutDebugElement.nativeElement;
 
-            sidebarDebugElement = fixture.debugElement.query(By.directive(ThySidebarComponent));
+            sidebarDebugElement = fixture.debugElement.query(By.directive(ThySidebar));
             sidebarElement = sidebarDebugElement.nativeElement;
             sidebarComponent = sidebarDebugElement.componentInstance;
 
-            sidebarHeaderDebugElement = fixture.debugElement.query(By.directive(ThySidebarHeaderComponent));
+            sidebarHeaderDebugElement = fixture.debugElement.query(By.directive(ThySidebarHeader));
             sidebarHeaderElement = sidebarHeaderDebugElement.nativeElement;
         });
 
@@ -198,7 +198,7 @@ describe(`sidebar`, () => {
         });
 
         it(`should get correct class with thy-sidebar-content`, () => {
-            const debugElement = fixture.debugElement.query(By.directive(ThySidebarContentComponent));
+            const debugElement = fixture.debugElement.query(By.directive(ThySidebarContent));
             expect(debugElement).toBeTruthy();
             const element: HTMLElement = debugElement.nativeElement;
             expect(element).toBeTruthy();
@@ -207,7 +207,7 @@ describe(`sidebar`, () => {
         });
 
         it(`should get correct class with thy-sidebar-footer`, () => {
-            const debugElement = fixture.debugElement.query(By.directive(ThySidebarFooterComponent));
+            const debugElement = fixture.debugElement.query(By.directive(ThySidebarFooter));
             expect(debugElement).toBeTruthy();
             const element: HTMLElement = debugElement.nativeElement;
             expect(element).toBeTruthy();
@@ -483,11 +483,11 @@ describe(`sidebar`, () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyDemoLayoutCustomSidebarComponent);
             fixture.detectChanges();
-            layoutDebugElement = fixture.debugElement.query(By.directive(ThyLayoutComponent));
+            layoutDebugElement = fixture.debugElement.query(By.directive(ThyLayout));
             layoutElement = layoutDebugElement.nativeElement;
-            sidebarDebugElement = fixture.debugElement.query(By.directive(ThySidebarComponent));
+            sidebarDebugElement = fixture.debugElement.query(By.directive(ThySidebar));
             sidebarElement = sidebarDebugElement.nativeElement;
-            sidebarHeaderDebugElement = fixture.debugElement.query(By.directive(ThySidebarHeaderComponent));
+            sidebarHeaderDebugElement = fixture.debugElement.query(By.directive(ThySidebarHeader));
             sidebarHeaderElement = sidebarHeaderDebugElement.nativeElement;
         });
 

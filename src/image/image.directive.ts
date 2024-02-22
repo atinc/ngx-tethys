@@ -11,7 +11,7 @@ import {
     AfterViewInit
 } from '@angular/core';
 import { InputBoolean } from 'ngx-tethys/core';
-import { ThyImageGroupComponent } from './image-group.component';
+import { ThyImageGroup } from './image-group.component';
 import { ThyImageMeta } from './image.class';
 import { ThyImageService } from './image.service';
 
@@ -66,7 +66,7 @@ export class ThyImageDirective implements OnInit, OnChanges, AfterViewInit, OnDe
         return !this.thyDisablePreview;
     }
 
-    private parentGroup: ThyImageGroupComponent;
+    private parentGroup: ThyImageGroup;
 
     constructor(private thyImageService: ThyImageService, private injector: Injector, private elementRef: ElementRef) {}
 
@@ -84,7 +84,7 @@ export class ThyImageDirective implements OnInit, OnChanges, AfterViewInit, OnDe
         while (true) {
             // 多层 thy-image-group 嵌套时，获取最外层 thy-image-group 下的所有图片
             const injector = this.parentGroup?.injector || this.injector;
-            const parentGroup = injector.get(ThyImageGroupComponent, null, InjectFlags.SkipSelf);
+            const parentGroup = injector.get(ThyImageGroup, null, InjectFlags.SkipSelf);
             if (!parentGroup) {
                 break;
             }

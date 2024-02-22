@@ -1,5 +1,5 @@
-import { ThyCollapseComponent, ThyCollapseItemComponent, ThyCollapseModule } from 'ngx-tethys/collapse';
-import { ThyIconComponent, ThyIconModule } from 'ngx-tethys/icon';
+import { ThyCollapse, ThyCollapseItem, ThyCollapseModule } from 'ngx-tethys/collapse';
+import { ThyIcon, ThyIconModule } from 'ngx-tethys/icon';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
 
 import { CommonModule } from '@angular/common';
@@ -79,8 +79,8 @@ describe('collapse', () => {
             fixture = TestBed.createComponent(TestCollapseBasicComponent);
             component = fixture.componentInstance;
             fixture.detectChanges();
-            debugElement = fixture.debugElement.query(By.directive(ThyCollapseComponent));
-            icon = fixture.debugElement.query(By.directive(ThyIconComponent));
+            debugElement = fixture.debugElement.query(By.directive(ThyCollapse));
+            icon = fixture.debugElement.query(By.directive(ThyIcon));
 
             iconRotateSpy = spyOn(icon.componentInstance.render, 'setStyle');
             fixture.detectChanges();
@@ -203,8 +203,8 @@ describe('collapse-panel', () => {
             fixture = TestBed.createComponent(TestCollapsePanelBasicComponent);
             component = fixture.componentInstance;
             fixture.detectChanges();
-            debugElement = fixture.debugElement.query(By.directive(ThyCollapseComponent));
-            icon = fixture.debugElement.query(By.directive(ThyIconComponent));
+            debugElement = fixture.debugElement.query(By.directive(ThyCollapse));
+            icon = fixture.debugElement.query(By.directive(ThyIcon));
 
             iconRotateSpy = spyOn(icon.componentInstance.render, 'setStyle');
             fixture.detectChanges();
@@ -254,7 +254,7 @@ describe('collapse-panel', () => {
         it('should set correct icon when set arrowIcon as boolean', () => {
             fixture.detectChanges();
             const withoutArrowIcon = fixture.debugElement.query(By.css('#without-arrow-icon'));
-            const collapseItem = withoutArrowIcon.componentInstance as ThyCollapseItemComponent;
+            const collapseItem = withoutArrowIcon.componentInstance as ThyCollapseItem;
             collapseItem.thyArrowIcon = true;
             expect(collapseItem.arrowIcon).toEqual('angle-right');
             expect(collapseItem.showArrow).toEqual(true);

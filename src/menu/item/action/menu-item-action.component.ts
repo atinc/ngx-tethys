@@ -16,7 +16,7 @@ import { ThyPopover } from 'ngx-tethys/popover';
     },
     standalone: true
 })
-export class ThyMenuItemActionComponent implements OnDestroy {
+export class ThyMenuItemAction implements OnDestroy {
     _boundEvent = false;
 
     _actionMenu: ComponentType<any> | TemplateRef<any>;

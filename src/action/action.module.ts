@@ -2,11 +2,11 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { ThyIconModule } from 'ngx-tethys/icon';
-import { ThyActionComponent } from './action.component';
-import { ThyActionsComponent } from './actions.component';
+import { ThyAction } from './action.component';
+import { ThyActions } from './actions.component';
 
 @NgModule({
-    imports: [CommonModule, ThyIconModule, ThyActionComponent, ThyActionsComponent],
-    exports: [ThyActionComponent, ThyActionsComponent]
+    imports: [CommonModule, ThyIconModule, ThyAction, ThyActions],
+    exports: [ThyAction, ThyActions]
 })
 export class ThyActionModule {}

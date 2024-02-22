@@ -4,9 +4,9 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
 import { NgIf } from '@angular/common';
-import { BasePickerComponent } from './base-picker.component';
-import { DatePopupComponent } from './lib/popups/date-popup.component';
-import { ThyPickerComponent } from './picker.component';
+import { BasePicker } from './base-picker.component';
+import { DatePopup } from './lib/popups/date-popup.component';
+import { ThyPicker } from './picker.component';
 import { helpers } from 'ngx-tethys/util';
 
 /**
@@ -23,13 +23,13 @@ import { helpers } from 'ngx-tethys/util';
         {
             provide: NG_VALUE_ACCESSOR,
             multi: true,
-            useExisting: forwardRef(() => ThyRangePickerComponent)
+            useExisting: forwardRef(() => ThyRangePicker)
         }
     ],
     standalone: true,
-    imports: [ThyPickerComponent, NgIf, DatePopupComponent]
+    imports: [ThyPicker, NgIf, DatePopup]
 })
-export class ThyRangePickerComponent extends BasePickerComponent implements OnInit {
+export class ThyRangePicker extends BasePicker implements OnInit {
     isRange = true;
 
     private hostRenderer = useHostRenderer();

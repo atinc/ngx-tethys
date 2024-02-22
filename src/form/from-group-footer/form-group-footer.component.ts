@@ -15,7 +15,7 @@ import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
     standalone: true,
     imports: [NgClass, NgIf, NgTemplateOutlet]
 })
-export class ThyFormGroupFooterComponent implements OnInit {
+export class ThyFormGroupFooter implements OnInit {
     @HostBinding('class.form-group') _isFormGroup = true;
 
     @HostBinding('class.row') isHorizontal = true;

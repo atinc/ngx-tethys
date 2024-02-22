@@ -17,7 +17,7 @@ import {
 } from '@angular/core';
 
 import { AsyncPipe, NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
-import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { DateHelperService } from './date-helper.service';
 import { CompatibleValue, RangePartType } from './inner-types';
@@ -42,13 +42,13 @@ import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
         AsyncPipe,
         NgTemplateOutlet,
         NgIf,
-        ThyIconComponent,
+        ThyIcon,
         NgClass,
         CdkConnectedOverlay
     ],
     animations: [scaleXMotion, scaleYMotion, scaleMotion]
 })
-export class ThyPickerComponent implements OnChanges, AfterViewInit {
+export class ThyPicker implements OnChanges, AfterViewInit {
     @Input() isRange = false;
     @Input() open: boolean | undefined = undefined;
     @Input() disabled: boolean;

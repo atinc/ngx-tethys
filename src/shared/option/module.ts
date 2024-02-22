@@ -9,29 +9,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ThyListOptionComponent } from './list-option/list-option.component';
-import { ThyOptionGroupComponent } from './option-group.component';
+import { ThyListOption } from './list-option/list-option.component';
+import { ThyOptionGroup } from './option-group.component';
 import { ThyIconModule } from 'ngx-tethys/icon';
-import { ThyOptionComponent } from './option.component';
-import { ThySelectOptionGroupComponent } from './group/option-group.component';
-import { ThyOptionsContainerComponent } from './options-container.component';
+import { ThyOption } from './option.component';
+import { ThySelectOptionGroup } from './group/option-group.component';
+import { ThyOptionsContainer } from './options-container.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        ThyIconModule,
-        ThyListOptionComponent,
-        ThyOptionGroupComponent,
-        ThyOptionComponent,
-        ThySelectOptionGroupComponent,
-        ThyOptionsContainerComponent
-    ],
-    exports: [
-        ThyListOptionComponent,
-        ThyOptionGroupComponent,
-        ThyOptionComponent,
-        ThySelectOptionGroupComponent,
-        ThyOptionsContainerComponent
-    ]
+    imports: [CommonModule, ThyIconModule, ThyListOption, ThyOptionGroup, ThyOption, ThySelectOptionGroup, ThyOptionsContainer],
+    exports: [ThyListOption, ThyOptionGroup, ThyOption, ThySelectOptionGroup, ThyOptionsContainer]
 })
 export class ThyOptionModule {}

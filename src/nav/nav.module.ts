@@ -6,11 +6,11 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { ThyIconNavLinkComponent } from './icon-nav/icon-nav-link.directive';
-import { ThyIconNavComponent } from './icon-nav/icon-nav.component';
+import { ThyIconNavLink } from './icon-nav/icon-nav-link.directive';
+import { ThyIconNav } from './icon-nav/icon-nav.component';
 import { ThyNavInkBarDirective } from './nav-ink-bar.directive';
 import { ThyNavItemDirective } from './nav-item.directive';
-import { ThyNavComponent } from './nav.component';
+import { ThyNav } from './nav.component';
 import { BypassSecurityTrustHtmlPipe } from './nav.pipe';
 
 @NgModule({
@@ -20,13 +20,13 @@ import { BypassSecurityTrustHtmlPipe } from './nav.pipe';
         ThyPopoverModule,
         ThyDropdownModule,
         RouterModule,
-        ThyNavComponent,
+        ThyNav,
         ThyNavItemDirective,
-        ThyIconNavComponent,
-        ThyIconNavLinkComponent,
+        ThyIconNav,
+        ThyIconNavLink,
         BypassSecurityTrustHtmlPipe,
         ThyNavInkBarDirective
     ],
-    exports: [ThyNavComponent, ThyNavItemDirective, ThyIconNavComponent, ThyIconNavLinkComponent, BypassSecurityTrustHtmlPipe]
+    exports: [ThyNav, ThyNavItemDirective, ThyIconNav, ThyIconNavLink, BypassSecurityTrustHtmlPipe]
 })
 export class ThyNavModule {}

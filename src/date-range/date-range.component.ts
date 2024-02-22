@@ -2,7 +2,7 @@ import { Component, forwardRef, OnInit, Input, ChangeDetectorRef, Output, EventE
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { DateRangeItemInfo } from './date-range.class';
 import { ThyPopover } from 'ngx-tethys/popover';
-import { OptionalDateRangesComponent } from './optional-dates/optional-dates.component';
+import { OptionalDateRanges } from './optional-dates/optional-dates.component';
 
 import {
     getUnixTime,
@@ -18,8 +18,8 @@ import {
     startOfDay
 } from 'date-fns';
 import { ThyDatePickerFormatPipe } from 'ngx-tethys/date-picker';
-import { ThyIconComponent } from 'ngx-tethys/icon';
-import { ThyActionComponent } from 'ngx-tethys/action';
+import { ThyIcon } from 'ngx-tethys/icon';
+import { ThyAction } from 'ngx-tethys/action';
 import { NgIf, NgClass } from '@angular/common';
 import { InputBoolean } from 'ngx-tethys/core';
 
@@ -27,7 +27,7 @@ const allDayTimestamp = 24 * 60 * 60;
 
 const INPUT_CONTROL_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => ThyDateRangeComponent),
+    useExisting: forwardRef(() => ThyDateRange),
     multi: true
 };
 
@@ -41,9 +41,9 @@ const INPUT_CONTROL_VALUE_ACCESSOR: any = {
     templateUrl: './date-range.component.html',
     providers: [INPUT_CONTROL_VALUE_ACCESSOR],
     standalone: true,
-    imports: [NgIf, ThyActionComponent, ThyIconComponent, NgClass, ThyDatePickerFormatPipe]
+    imports: [NgIf, ThyAction, ThyIcon, NgClass, ThyDatePickerFormatPipe]
 })
-export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
+export class ThyDateRange implements OnInit, ControlValueAccessor {
     /**
      * 自定义可选值列表项
      * @type DateRangeItemInfo[]
@@ -257,7 +257,7 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
         if (this.thyHiddenMenu) {
             return;
         }
-        this.thyPopover.open(OptionalDateRangesComponent, {
+        this.thyPopover.open(OptionalDateRanges, {
             origin: event.currentTarget as HTMLElement,
             hasBackdrop: true,
             backdropClass: 'thy-overlay-transparent-backdrop',

@@ -15,8 +15,8 @@ import { FormsModule } from '@angular/forms';
 import { TableRowDragDisabledPipe } from './pipes/drag.pipe';
 import { TableIsValidModelValuePipe } from './pipes/table.pipe';
 import { ThyTableColumnComponent } from './table-column.component';
-import { ThyTableComponent } from './table.component';
-import { ThyTableSkeletonComponent } from './table-skeleton.component';
+import { ThyTable } from './table.component';
+import { ThyTableSkeleton } from './table-skeleton.component';
 
 @NgModule({
     imports: [
@@ -31,12 +31,12 @@ import { ThyTableSkeletonComponent } from './table-skeleton.component';
         ThyIconModule,
         DragDropModule,
         ScrollingModule,
-        ThyTableComponent,
+        ThyTable,
         ThyTableColumnComponent,
         TableIsValidModelValuePipe,
         TableRowDragDisabledPipe,
-        ThyTableSkeletonComponent
+        ThyTableSkeleton
     ],
-    exports: [ThyTableComponent, ThyTableColumnComponent, ThyTableSkeletonComponent]
+    exports: [ThyTable, ThyTableColumnComponent, ThyTableSkeleton]
 })
 export class ThyTableModule {}

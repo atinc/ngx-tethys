@@ -15,7 +15,7 @@ import { useHostRenderer } from '@tethys/cdk/dom';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true
 })
-export class ThyMenuItemIconComponent implements OnInit {
+export class ThyMenuItemIcon implements OnInit {
     /**
      * 设置图标颜色
      */

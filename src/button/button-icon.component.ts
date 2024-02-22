@@ -2,7 +2,7 @@ import { NgClass, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { InputBoolean } from 'ngx-tethys/core';
-import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyIcon } from 'ngx-tethys/icon';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export type ThyButtonIconShape = '' | 'circle-dashed' | 'circle-solid' | 'circle-thick-dashed' | 'circle-thick-solid' | 'self-icon';
@@ -37,9 +37,9 @@ const themeClassesMap: any = {
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [NgIf, ThyIconComponent, NgClass]
+    imports: [NgIf, ThyIcon, NgClass]
 })
-export class ThyButtonIconComponent implements OnInit {
+export class ThyButtonIcon implements OnInit {
     /**
      * 大小
      * @type xs | sm | md | lg

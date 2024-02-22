@@ -13,10 +13,10 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { ThySelectControlComponent } from './select-control/select-control.component';
+import { ThySelectControl } from './select-control/select-control.component';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ThyIconModule, ThyTagModule, ThySelectControlComponent],
-    exports: [ThySelectControlComponent]
+    imports: [CommonModule, FormsModule, ThyIconModule, ThyTagModule, ThySelectControl],
+    exports: [ThySelectControl]
 })
 export class ThySelectCommonModule {}

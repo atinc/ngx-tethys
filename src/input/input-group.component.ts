@@ -49,7 +49,7 @@ const inputGroupSizeMap = {
     standalone: true,
     imports: [NgIf, NgTemplateOutlet]
 })
-export class ThyInputGroupComponent extends mixinUnsubscribe(MixinBase) implements OnInit, AfterContentChecked, OnDestroy {
+export class ThyInputGroup extends mixinUnsubscribe(MixinBase) implements OnInit, AfterContentChecked, OnDestroy {
     private hostRenderer = useHostRenderer();
 
     private hostFocusControl = useHostFocusControl();

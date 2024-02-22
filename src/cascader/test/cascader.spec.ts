@@ -1,4 +1,4 @@
-import { ThyCascaderComponent } from 'ngx-tethys/cascader';
+import { ThyCascader } from 'ngx-tethys/cascader';
 import { EXPANDED_DROPDOWN_POSITIONS } from 'ngx-tethys/core';
 import { dispatchFakeEvent, typeInElement } from 'ngx-tethys/testing';
 import { SafeAny } from 'ngx-tethys/types';
@@ -279,7 +279,7 @@ const loadDataOption: { [key: string]: { children?: any[]; [key: string]: any }[
     `
 })
 class CascaderBasicComponent {
-    @ViewChild(ThyCascaderComponent, { static: false }) cascader: ThyCascaderComponent;
+    @ViewChild(ThyCascader, { static: false }) cascader: ThyCascader;
 
     public thyTriggerAction: ThyCascaderTriggerType = 'click';
     public thyExpandTriggerAction: ThyCascaderExpandTrigger = 'click';
@@ -298,7 +298,7 @@ class CascaderBasicComponent {
     public thyAutoExpand = true;
     public hasBackdrop: boolean;
 
-    @ViewChild('cascader', { static: true }) cascaderRef: ThyCascaderComponent;
+    @ViewChild('cascader', { static: true }) cascaderRef: ThyCascader;
 
     thyExpandStatusChange = jasmine.createSpy('thyExpandStatusChange callback');
 
@@ -817,7 +817,7 @@ describe('thy-cascader', () => {
         it('should call onFocus methods when focus', fakeAsync(() => {
             fixture.detectChanges();
             const focusSpy = spyOn<any>(fixture.componentInstance.cascader, 'onFocus').and.callThrough();
-            const cascaderElement = fixture.debugElement.query(By.directive(ThyCascaderComponent)).nativeElement;
+            const cascaderElement = fixture.debugElement.query(By.directive(ThyCascader)).nativeElement;
             dispatchFakeEvent(cascaderElement, 'focus');
             fixture.detectChanges();
 
@@ -827,7 +827,7 @@ describe('thy-cascader', () => {
         it('should call onBlur methods when blur', fakeAsync(() => {
             fixture.detectChanges();
             const blurSpy = spyOn<any>(fixture.componentInstance.cascader, 'onBlur').and.callThrough();
-            const cascaderElement = fixture.debugElement.query(By.directive(ThyCascaderComponent)).nativeElement;
+            const cascaderElement = fixture.debugElement.query(By.directive(ThyCascader)).nativeElement;
             dispatchFakeEvent(cascaderElement, 'blur');
             fixture.detectChanges();
 

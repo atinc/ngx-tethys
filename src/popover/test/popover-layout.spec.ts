@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
-import { ThyPopoverBodyComponent, ThyPopoverHeaderComponent } from '../index';
+import { ThyPopoverBody, ThyPopoverHeader } from '../index';
 import { ThyPopoverModule } from '../module';
 
 @Component({
@@ -60,7 +60,7 @@ describe('popover-layout', () => {
         beforeEach(() => {
             popoverBasicFixture = TestBed.createComponent(PopoverHeaderBasicComponent);
             popoverBasicFixture.detectChanges();
-            popoverHeaderDebugElement = popoverBasicFixture.debugElement.query(By.directive(ThyPopoverHeaderComponent));
+            popoverHeaderDebugElement = popoverBasicFixture.debugElement.query(By.directive(ThyPopoverHeader));
             popoverHeaderElement = popoverHeaderDebugElement.nativeElement;
         });
 
@@ -125,7 +125,7 @@ describe('popover-layout', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(PopoverHeaderTranslationComponent);
             fixture.detectChanges();
-            popoverHeaderElement = fixture.debugElement.query(By.directive(ThyPopoverHeaderComponent)).nativeElement;
+            popoverHeaderElement = fixture.debugElement.query(By.directive(ThyPopoverHeader)).nativeElement;
         });
 
         it('should create', () => {
@@ -154,7 +154,7 @@ describe('popover-layout', () => {
         beforeEach(() => {
             popoverBasicFixture = TestBed.createComponent(PopoverBodyBasicComponent);
             popoverBasicFixture.detectChanges();
-            popoverBodyDebugElement = popoverBasicFixture.debugElement.query(By.directive(ThyPopoverBodyComponent));
+            popoverBodyDebugElement = popoverBasicFixture.debugElement.query(By.directive(ThyPopoverBody));
             popoverBodyElement = popoverBodyDebugElement.nativeElement;
         });
 
@@ -186,7 +186,7 @@ describe('popover-layout', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(PopoverHeaderTemplateBasicComponent);
             fixture.detectChanges();
-            popoverHeaderDebugElement = fixture.debugElement.query(By.directive(ThyPopoverHeaderComponent));
+            popoverHeaderDebugElement = fixture.debugElement.query(By.directive(ThyPopoverHeader));
             popoverHeaderElement = popoverHeaderDebugElement.nativeElement;
         });
 

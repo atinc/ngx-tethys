@@ -8,7 +8,7 @@ import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Inject, Injectable, Injector, OnDestroy, Optional, StaticProvider } from '@angular/core';
 
-import { ThySlideContainerComponent } from './slide-container.component';
+import { ThySlideContainer } from './slide-container.component';
 import { ThyInternalSlideRef, ThySlideRef } from './slide-ref.service';
 import { slideAbstractOverlayOptions, slideDefaultConfigValue, THY_SLIDE_DEFAULT_CONFIG, ThySlideConfig } from './slide.config';
 
@@ -17,7 +17,7 @@ import { slideAbstractOverlayOptions, slideDefaultConfigValue, THY_SLIDE_DEFAULT
  * @order 10
  */
 @Injectable()
-export class ThySlideService extends ThyAbstractOverlayService<ThySlideConfig, ThySlideContainerComponent> implements OnDestroy {
+export class ThySlideService extends ThyAbstractOverlayService<ThySlideConfig, ThySlideContainer> implements OnDestroy {
     private originElementAddActiveClass(config: ThySlideConfig) {
         if (config.origin) {
             coerceElement<HTMLElement>(config.origin).classList.add(...coerceArray(config.originActiveClass));
@@ -39,34 +39,34 @@ export class ThySlideService extends ThyAbstractOverlayService<ThySlideConfig, T
         return overlayConfig;
     }
 
-    protected attachOverlayContainer(overlay: OverlayRef, config: ThySlideConfig): ThySlideContainerComponent {
+    protected attachOverlayContainer(overlay: OverlayRef, config: ThySlideConfig): ThySlideContainer {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
         const injector = Injector.create({
             parent: userInjector || this.injector,
             providers: [{ provide: ThySlideConfig, useValue: config }]
         });
-        const containerPortal = new ComponentPortal(ThySlideContainerComponent, config.viewContainerRef, injector);
-        const containerRef = overlay.attach<ThySlideContainerComponent>(containerPortal);
+        const containerPortal = new ComponentPortal(ThySlideContainer, config.viewContainerRef, injector);
+        const containerRef = overlay.attach<ThySlideContainer>(containerPortal);
         return containerRef.instance;
     }
 
     protected createAbstractOverlayRef<T>(
         overlayRef: OverlayRef,
-        containerInstance: ThySlideContainerComponent,
+        containerInstance: ThySlideContainer,
         config: ThySlideConfig
-    ): ThyAbstractOverlayRef<T, ThySlideContainerComponent, any> {
+    ): ThyAbstractOverlayRef<T, ThySlideContainer, any> {
         return new ThyInternalSlideRef(overlayRef, containerInstance, config);
     }
 
     protected createInjector<T>(
         config: ThySlideConfig,
-        overlayRef: ThyAbstractOverlayRef<T, ThySlideContainerComponent, any>,
-        containerInstance: ThySlideContainerComponent
+        overlayRef: ThyAbstractOverlayRef<T, ThySlideContainer, any>,
+        containerInstance: ThySlideContainer
     ): Injector {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
 
         const injectionTokens: StaticProvider[] = [
-            { provide: ThySlideContainerComponent, useValue: containerInstance },
+            { provide: ThySlideContainer, useValue: containerInstance },
             { provide: ThySlideRef, useValue: overlayRef }
         ];
 

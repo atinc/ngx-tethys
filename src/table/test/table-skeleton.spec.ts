@@ -7,7 +7,7 @@ import {
     ThyTableModule,
     ThyTableSize,
     ThyTableSkeletonColumn,
-    ThyTableSkeletonComponent,
+    ThyTableSkeleton,
     ThyTableTheme
 } from 'ngx-tethys/table';
 import { SafeAny } from 'ngx-tethys/types';
@@ -63,7 +63,7 @@ class TestTableSkeletonBasicComponent {
 describe('thy-table-skeleton', () => {
     let fixture: ComponentFixture<TestTableSkeletonBasicComponent>;
     let tableSkeletonElement: SafeAny;
-    let tableSkeletonInstance: ThyTableSkeletonComponent;
+    let tableSkeletonInstance: ThyTableSkeleton;
     let tableDebugElement: DebugElement;
     let tableElement: SafeAny;
     let testComponent: TestTableSkeletonBasicComponent;
@@ -76,7 +76,7 @@ describe('thy-table-skeleton', () => {
 
         fixture = TestBed.createComponent(TestTableSkeletonBasicComponent);
 
-        const tableSkeletonDebugElement = fixture.debugElement.query(By.directive(ThyTableSkeletonComponent));
+        const tableSkeletonDebugElement = fixture.debugElement.query(By.directive(ThyTableSkeleton));
         tableSkeletonElement = tableSkeletonDebugElement.nativeElement;
         tableSkeletonInstance = tableSkeletonDebugElement.componentInstance;
 

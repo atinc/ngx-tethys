@@ -2,7 +2,7 @@ import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { DecadeTableComponent } from './lib/decade/decade-table.component';
+import { DecadeTable } from './lib/decade/decade-table.component';
 import { LibPackerModule } from './lib/lib-packer.module';
 
 describe('DecadeTableComponent', () => {
@@ -21,7 +21,7 @@ describe('DecadeTableComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(ThyTestDecadeTableComponent);
         fixtureInstance = fixture.componentInstance;
-        decadeComponent = fixture.debugElement.query(By.directive(DecadeTableComponent));
+        decadeComponent = fixture.debugElement.query(By.directive(DecadeTable));
     });
 
     it('should be created table component', () => {

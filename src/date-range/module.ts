@@ -2,11 +2,11 @@ import { ThyIconModule } from 'ngx-tethys/icon';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ThyDateRangeComponent } from './date-range.component';
+import { ThyDateRange } from './date-range.component';
 import { ThyDropdownModule } from 'ngx-tethys/dropdown';
 import { ThySharedModule } from 'ngx-tethys/shared';
 import { ThyDatePickerModule } from 'ngx-tethys/date-picker';
-import { OptionalDateRangesComponent } from './optional-dates/optional-dates.component';
+import { OptionalDateRanges } from './optional-dates/optional-dates.component';
 import { ThyNavModule } from 'ngx-tethys/nav';
 @NgModule({
     imports: [
@@ -17,9 +17,9 @@ import { ThyNavModule } from 'ngx-tethys/nav';
         ThyIconModule,
         ThyDatePickerModule,
         ThyNavModule,
-        ThyDateRangeComponent,
-        OptionalDateRangesComponent
+        ThyDateRange,
+        OptionalDateRanges
     ],
-    exports: [ThyDateRangeComponent]
+    exports: [ThyDateRange]
 })
 export class ThyDateRangeModule {}

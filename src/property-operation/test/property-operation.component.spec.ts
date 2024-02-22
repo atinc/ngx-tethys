@@ -2,8 +2,8 @@ import { ApplicationRef, Component, DebugElement, ViewChild } from '@angular/cor
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { ThyPropertyOperationModule } from '../module';
 import { By } from '@angular/platform-browser';
-import { ThyPropertyOperationComponent } from '../property-operation.component';
-import { ThyButtonIconComponent } from '../../button';
+import { ThyPropertyOperation } from '../property-operation.component';
+import { ThyButtonIcon } from '../../button';
 import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing';
 
 //#region test component
@@ -26,7 +26,7 @@ import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/test
     `
 })
 class PropertyOperationBasicComponent {
-    @ViewChild(ThyPropertyOperationComponent, { static: true }) component: ThyPropertyOperationComponent;
+    @ViewChild(ThyPropertyOperation, { static: true }) component: ThyPropertyOperation;
 
     thyIcon = 'calendar-check';
 
@@ -75,7 +75,7 @@ describe('ThyPropertyOperation', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(PropertyOperationBasicComponent);
             componentInstance = fixture.debugElement.componentInstance;
-            propertyOperationDebugElement = fixture.debugElement.query(By.directive(ThyPropertyOperationComponent));
+            propertyOperationDebugElement = fixture.debugElement.query(By.directive(ThyPropertyOperation));
             propertyOperationElement = propertyOperationDebugElement.nativeElement;
             fixture.detectChanges();
         });
@@ -89,7 +89,7 @@ describe('ThyPropertyOperation', () => {
             expect(operationIconElement).toBeTruthy();
             expect(operationContentElement).toBeTruthy();
 
-            const btnIcon = fixture.debugElement.query(By.directive(ThyButtonIconComponent));
+            const btnIcon = fixture.debugElement.query(By.directive(ThyButtonIcon));
             expect(btnIcon).toBeTruthy();
             expect(btnIcon.nativeElement.classList.contains(`btn`)).toBeTruthy();
             expect(btnIcon.nativeElement.classList.contains(`btn-icon`)).toBeTruthy();

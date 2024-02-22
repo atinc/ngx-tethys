@@ -1,6 +1,6 @@
 import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
 import { InputBoolean, ThyTranslate } from 'ngx-tethys/core';
-import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
@@ -35,9 +35,9 @@ type TipsMode = 'default' | 'label';
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [NgIf, NgTemplateOutlet, ThyIconComponent, NgClass, ThyTooltipDirective]
+    imports: [NgIf, NgTemplateOutlet, ThyIcon, NgClass, ThyTooltipDirective]
 })
-export class ThyFormGroupComponent implements OnInit {
+export class ThyFormGroup implements OnInit {
     labelText: string;
     labelRequired = false;
     labelPaddingTopClear = false;

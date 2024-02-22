@@ -1,10 +1,10 @@
 import { Component, Input, Output, EventEmitter, ContentChild, TemplateRef, OnInit, Optional, ElementRef } from '@angular/core';
 import { ThyDialog } from '../dialog.service';
-import { ThyDialogContainerComponent } from '../dialog-container.component';
+import { ThyDialogContainer } from '../dialog-container.component';
 import { InputBoolean, ThyTranslate } from 'ngx-tethys/core';
 import { ThyInternalDialogRef } from '../dialog-ref';
-import { ThyActionComponent } from 'ngx-tethys/action';
-import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyAction } from 'ngx-tethys/action';
+import { ThyIcon } from 'ngx-tethys/icon';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
 
 /**
@@ -23,9 +23,9 @@ import { NgIf, NgTemplateOutlet } from '@angular/common';
         '[class.thy-dialog-header-divided]': `thyDivided`
     },
     standalone: true,
-    imports: [NgIf, NgTemplateOutlet, ThyIconComponent, ThyActionComponent]
+    imports: [NgIf, NgTemplateOutlet, ThyIcon, ThyAction]
 })
-export class DialogHeaderComponent implements OnInit {
+export class DialogHeader implements OnInit {
     /**
      * 自定义头部模板
      */
@@ -74,7 +74,7 @@ export class DialogHeaderComponent implements OnInit {
         private elementRef: ElementRef,
         private dialog: ThyDialog,
         private translate: ThyTranslate,
-        @Optional() private dialogContainer: ThyDialogContainerComponent
+        @Optional() private dialogContainer: ThyDialogContainer
     ) {}
 
     ngOnInit() {

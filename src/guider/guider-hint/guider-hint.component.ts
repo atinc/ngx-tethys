@@ -14,7 +14,7 @@ import { NgIf, NgTemplateOutlet, NgFor, NgClass } from '@angular/common';
     standalone: true,
     imports: [NgIf, NgTemplateOutlet, NgFor, NgClass]
 })
-export class ThyGuiderHintComponent implements OnInit {
+export class ThyGuiderHint implements OnInit {
     @HostBinding('class.thy-guider-tip-container') guiderHint = true;
 
     public guiderRef: ThyGuiderRef;
@@ -62,4 +62,4 @@ export class ThyGuiderHintComponent implements OnInit {
     }
 }
 
-defaultGuiderPositionConfig.hintComponent = ThyGuiderHintComponent;
+defaultGuiderPositionConfig.hintComponent = ThyGuiderHint;

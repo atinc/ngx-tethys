@@ -11,7 +11,7 @@ import { InputBoolean } from 'ngx-tethys/core';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true
 })
-export class ThyTabComponent implements OnInit {
+export class ThyTab implements OnInit {
     /**
      * 自定义选项标题的模板
      * @type TemplateRef

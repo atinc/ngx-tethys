@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ThyResultComponent } from './result.component';
+import { ThyResult } from './result.component';
 
 @NgModule({
-    imports: [CommonModule, ThyResultComponent],
-    exports: [ThyResultComponent]
+    imports: [CommonModule, ThyResult],
+    exports: [ThyResult]
 })
 export class ThyResultModule {}

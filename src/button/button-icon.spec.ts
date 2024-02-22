@@ -1,9 +1,9 @@
 import { Component, DebugElement } from '@angular/core';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { ThyButtonModule } from './button.module';
-import { ThyIconComponent } from '../icon';
+import { ThyIcon } from '../icon';
 import { By } from '@angular/platform-browser';
-import { ThyButtonIconComponent } from './button-icon.component';
+import { ThyButtonIcon } from './button-icon.component';
 import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing';
 
 @Component({
@@ -33,7 +33,7 @@ describe(`button-icon`, () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(BasicButtonIconComponent);
         fixture.detectChanges();
-        thyButtonDebugElement = fixture.debugElement.query(By.directive(ThyButtonIconComponent));
+        thyButtonDebugElement = fixture.debugElement.query(By.directive(ThyButtonIcon));
         thyButtonElement = thyButtonDebugElement.nativeElement;
     });
 
@@ -43,7 +43,7 @@ describe(`button-icon`, () => {
         expect(thyButtonElement.classList.contains(`btn`)).toBeTruthy();
         expect(thyButtonElement.classList.contains(`btn-icon`)).toBeTruthy();
 
-        const iconDebugElement = thyButtonDebugElement.query(By.directive(ThyIconComponent));
+        const iconDebugElement = thyButtonDebugElement.query(By.directive(ThyIcon));
         expect(iconDebugElement).toBeTruthy();
         expect(iconDebugElement.nativeElement).toBeTruthy();
         expect(iconDebugElement.nativeElement.classList.contains(`thy-icon`)).toBeTruthy();
@@ -51,7 +51,7 @@ describe(`button-icon`, () => {
     });
 
     it(`should have style color`, () => {
-        const iconDebugElement = thyButtonDebugElement.query(By.directive(ThyIconComponent));
+        const iconDebugElement = thyButtonDebugElement.query(By.directive(ThyIcon));
         expect(iconDebugElement).toBeTruthy();
         expect(iconDebugElement.nativeElement.style.color === 'rgb(93, 207, 255)').toBe(true);
         expect(iconDebugElement.nativeElement.style.borderColor === 'rgb(93, 207, 255)').toBe(true);
@@ -72,7 +72,7 @@ describe(`button-icon`, () => {
         expect(wtfIconElement).toBeTruthy();
         expect(wtfIconElement.classList.contains(`wtf-inbox`)).toBeTruthy();
 
-        const iconDebugElement = thyButtonDebugElement.query(By.directive(ThyIconComponent));
+        const iconDebugElement = thyButtonDebugElement.query(By.directive(ThyIcon));
         expect(iconDebugElement).toBeFalsy();
     });
 });

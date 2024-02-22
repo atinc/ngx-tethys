@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyTooltipModule } from 'ngx-tethys/tooltip';
-import { ThySegmentComponent } from './segment.component';
-import { ThySegmentItemComponent } from './segment-item.component';
+import { ThySegment } from './segment.component';
+import { ThySegmentItem } from './segment-item.component';
 
 @NgModule({
-    imports: [CommonModule, ThyIconModule, ThyTooltipModule, ThySegmentComponent, ThySegmentItemComponent],
-    exports: [ThySegmentComponent, ThySegmentItemComponent]
+    imports: [CommonModule, ThyIconModule, ThyTooltipModule, ThySegment, ThySegmentItem],
+    exports: [ThySegment, ThySegmentItem]
 })
 export class ThySegmentModule {}

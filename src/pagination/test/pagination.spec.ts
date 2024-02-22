@@ -1,12 +1,12 @@
 import { TestBed, ComponentFixture, tick, fakeAsync } from '@angular/core/testing';
 import { Component, ViewChild, TemplateRef, DebugElement } from '@angular/core';
 import { ThyPaginationModule } from '../pagination.module';
-import { ThyPaginationComponent } from '../pagination.component';
+import { ThyPagination } from '../pagination.component';
 import { By } from '@angular/platform-browser';
 import { ENTER } from 'ngx-tethys/util';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ThySelectCustomComponent } from 'ngx-tethys/select';
+import { ThySelectCustom } from 'ngx-tethys/select';
 
 @Component({
     selector: 'thy-test-pagination-basic',
@@ -111,7 +111,7 @@ describe('ThyPagination', () => {
             fixture = TestBed.createComponent(PaginationTestComponent);
             componentInstance = fixture.debugElement.componentInstance;
             fixture.detectChanges();
-            paginationDebugElement = fixture.debugElement.query(By.directive(ThyPaginationComponent));
+            paginationDebugElement = fixture.debugElement.query(By.directive(ThyPagination));
             paginationElement = paginationDebugElement.nativeElement;
             pagination = componentInstance.pagination;
         });
@@ -192,7 +192,7 @@ describe('ThyPagination', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(PaginationBasicComponent);
             basicTestComponent = fixture.debugElement.componentInstance;
-            pageComponent = fixture.debugElement.query(By.directive(ThyPaginationComponent));
+            pageComponent = fixture.debugElement.query(By.directive(ThyPagination));
         });
 
         it('should create', () => {
@@ -422,7 +422,7 @@ describe('ThyPagination', () => {
             fixture = TestBed.createComponent(PaginationTestComponent);
             componentInstance = fixture.debugElement.componentInstance;
             fixture.detectChanges();
-            paginationElement = fixture.debugElement.query(By.directive(ThyPaginationComponent)).nativeElement;
+            paginationElement = fixture.debugElement.query(By.directive(ThyPagination)).nativeElement;
         });
 
         it('should showSizeChanger can works', fakeAsync(() => {

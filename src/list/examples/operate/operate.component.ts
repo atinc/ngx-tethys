@@ -1,16 +1,16 @@
 import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { ThyListOptionComponent } from 'ngx-tethys/shared';
+import { ThyListOption } from 'ngx-tethys/shared';
 import { ThySelectionListChange } from 'ngx-tethys/list';
-import { ThySelectionListComponent } from 'ngx-tethys/list';
+import { ThySelectionList } from 'ngx-tethys/list';
 
 @Component({
     selector: 'app-list-operate-example',
     templateUrl: './operate.component.html'
 })
 export class ThyListOperateExampleComponent implements OnInit {
-    @ViewChild(ThySelectionListComponent, { static: true }) thySelectionListComponent: ThySelectionListComponent;
+    @ViewChild(ThySelectionList, { static: true }) thySelectionListComponent: ThySelectionList;
 
-    @ViewChildren(ThyListOptionComponent) optionQueryList: QueryList<ThyListOptionComponent>;
+    @ViewChildren(ThyListOption) optionQueryList: QueryList<ThyListOption>;
 
     public items = [
         {

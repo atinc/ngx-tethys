@@ -1,9 +1,9 @@
 import { fakeAsync, TestBed, ComponentFixture } from '@angular/core/testing';
 import { ThyBreadcrumbModule } from '../module';
 import { NgModule, Component, DebugElement } from '@angular/core';
-import { ThyBreadcrumbItemComponent } from '../breadcrumb-item.component';
+import { ThyBreadcrumbItem } from '../breadcrumb-item.component';
 import { By } from '@angular/platform-browser';
-import { ThyBreadcrumbComponent } from '../breadcrumb.component';
+import { ThyBreadcrumb } from '../breadcrumb.component';
 import { ThyIconModule } from './../../icon/icon.module';
 
 @Component({
@@ -55,8 +55,8 @@ describe('ThyBreadcrumb', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(ThyDemoBreadcrumbBasicComponent);
         basicTestComponent = fixture.debugElement.componentInstance;
-        breadcrumbItems = fixture.debugElement.queryAll(By.directive(ThyBreadcrumbItemComponent));
-        breadcrumbComponent = fixture.debugElement.query(By.directive(ThyBreadcrumbComponent));
+        breadcrumbItems = fixture.debugElement.queryAll(By.directive(ThyBreadcrumbItem));
+        breadcrumbComponent = fixture.debugElement.query(By.directive(ThyBreadcrumb));
     });
 
     function assertBreadcrumbComponentAndItemsClass() {

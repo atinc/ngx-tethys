@@ -38,7 +38,7 @@ const iconSuffixMap = {
         class: 'thy-icon'
     }
 })
-export class ThyIconComponent implements OnInit, OnChanges {
+export class ThyIcon implements OnInit, OnChanges {
     private initialized = false;
 
     /**

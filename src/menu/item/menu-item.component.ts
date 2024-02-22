@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, ChangeDetectionStrategy, Input, Renderer2, ElementRef, ViewChild } from '@angular/core';
-import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyIcon } from 'ngx-tethys/icon';
 import { NgIf } from '@angular/common';
 
 /**
@@ -15,9 +15,9 @@ import { NgIf } from '@angular/common';
         class: 'thy-menu-item'
     },
     standalone: true,
-    imports: [NgIf, ThyIconComponent]
+    imports: [NgIf, ThyIcon]
 })
-export class ThyMenuItemComponent implements OnInit, AfterViewInit {
+export class ThyMenuItem implements OnInit, AfterViewInit {
     @ViewChild('content', { read: ElementRef }) content: ElementRef<HTMLElement>;
     /**
      * 菜单项的图标

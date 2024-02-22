@@ -12,8 +12,8 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ThyPropertyModule } from '../module';
-import { ThyPropertiesComponent, ThyPropertiesLayout } from '../properties.component';
-import { ThyPropertyItemComponent, ThyPropertyItemOperationTrigger } from '../property-item.component';
+import { ThyProperties, ThyPropertiesLayout } from '../properties.component';
+import { ThyPropertyItem, ThyPropertyItemOperationTrigger } from '../property-item.component';
 
 @Component({
     selector: 'thy-properties-test-basic',
@@ -40,11 +40,11 @@ import { ThyPropertyItemComponent, ThyPropertyItemOperationTrigger } from '../pr
     `
 })
 class ThyPropertiesTestBasicComponent {
-    @ViewChild('properties') propertiesComponent: ThyPropertiesComponent;
+    @ViewChild('properties') propertiesComponent: ThyProperties;
 
-    @ViewChild('ageProperty') agePropertyItemComponent: ThyPropertyItemComponent;
+    @ViewChild('ageProperty') agePropertyItemComponent: ThyPropertyItem;
 
-    @ViewChild('sexProperty') sexPropertyItemComponent: ThyPropertyItemComponent;
+    @ViewChild('sexProperty') sexPropertyItemComponent: ThyPropertyItem;
 
     editable = true;
 
@@ -88,7 +88,7 @@ class ThyPropertiesTestBasicComponent {
     `
 })
 class ThyPropertiesTestColumnComponent {
-    @ViewChild('properties') propertiesComponent: ThyPropertiesComponent;
+    @ViewChild('properties') propertiesComponent: ThyProperties;
 
     column = 3;
 

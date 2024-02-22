@@ -13,10 +13,10 @@ import {
     TemplateRef
 } from '@angular/core';
 
-import { ThyCollapseComponent } from './collapse.component';
+import { ThyCollapse } from './collapse.component';
 import { SafeAny } from 'ngx-tethys/types';
 import { isString } from 'ngx-tethys/util';
-import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyIcon } from 'ngx-tethys/icon';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
 
 const DEFAULT_ARROW_ICON = 'angle-right';
@@ -39,9 +39,9 @@ const DEFAULT_ARROW_ICON = 'angle-right';
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [NgIf, NgTemplateOutlet, ThyIconComponent]
+    imports: [NgIf, NgTemplateOutlet, ThyIcon]
 })
-export class ThyCollapseItemComponent implements OnInit, OnDestroy {
+export class ThyCollapseItem implements OnInit, OnDestroy {
     public showArrow: boolean = true;
 
     public arrowIconTemplate: TemplateRef<SafeAny>;
@@ -98,7 +98,7 @@ export class ThyCollapseItemComponent implements OnInit, OnDestroy {
      */
     @Output() thyActiveChange = new EventEmitter<{ active: boolean; event: Event }>();
 
-    constructor(private cdr: ChangeDetectorRef, @Host() private thyCollapseComponent: ThyCollapseComponent) {}
+    constructor(private cdr: ChangeDetectorRef, @Host() private thyCollapseComponent: ThyCollapse) {}
 
     ngOnInit() {
         this.thyCollapseComponent.addPanel(this);

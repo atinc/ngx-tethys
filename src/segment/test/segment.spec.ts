@@ -3,7 +3,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyAvatarModule } from 'ngx-tethys/avatar';
-import { ThySegmentComponent, ThySegmentEvent, ThySegmentItemComponent, ThySegmentModule, ThySegmentSize } from 'ngx-tethys/segment';
+import { ThySegment, ThySegmentEvent, ThySegmentItem, ThySegmentModule, ThySegmentSize } from 'ngx-tethys/segment';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
 import { ThySegmentMode } from '../segment.component';
 
@@ -155,7 +155,7 @@ describe('segment', () => {
         let fixture: ComponentFixture<TestSegmentBasicComponent>;
         let segmentedDebugElement: DebugElement;
         let segmentedElement: any;
-        let segmentedInstance: ThySegmentComponent;
+        let segmentedInstance: ThySegment;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
@@ -164,7 +164,7 @@ describe('segment', () => {
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestSegmentBasicComponent);
-            segmentedDebugElement = fixture.debugElement.query(By.directive(ThySegmentComponent));
+            segmentedDebugElement = fixture.debugElement.query(By.directive(ThySegment));
             segmentedElement = segmentedDebugElement.nativeElement;
             segmentedInstance = segmentedDebugElement.componentInstance;
             fixture.detectChanges();
@@ -176,7 +176,7 @@ describe('segment', () => {
             expect(segmentedElement).toBeTruthy();
             expect(segmentedElement.classList.contains('thy-segment')).toBeTruthy();
 
-            const items = segmentedDebugElement.queryAll(By.directive(ThySegmentItemComponent));
+            const items = segmentedDebugElement.queryAll(By.directive(ThySegmentItem));
             expect(items).toBeTruthy();
             expect(items.length).toBe(3);
         });
@@ -207,7 +207,7 @@ describe('segment', () => {
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestSegmentOnlyTextComponent);
-            segmentedDebugElement = fixture.debugElement.query(By.directive(ThySegmentComponent));
+            segmentedDebugElement = fixture.debugElement.query(By.directive(ThySegment));
             fixture.detectChanges();
         });
 
@@ -230,7 +230,7 @@ describe('segment', () => {
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestSegmentOnlyIconComponent);
-            segmentedDebugElement = fixture.debugElement.query(By.directive(ThySegmentComponent));
+            segmentedDebugElement = fixture.debugElement.query(By.directive(ThySegment));
             fixture.detectChanges();
         });
 
@@ -253,7 +253,7 @@ describe('segment', () => {
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestSegmentIconAndTextComponent);
-            segmentedDebugElement = fixture.debugElement.query(By.directive(ThySegmentComponent));
+            segmentedDebugElement = fixture.debugElement.query(By.directive(ThySegment));
             fixture.detectChanges();
         });
 
@@ -278,7 +278,7 @@ describe('segment', () => {
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestSegmentSizeComponent);
-            segmentedDebugElement = fixture.debugElement.query(By.directive(ThySegmentComponent));
+            segmentedDebugElement = fixture.debugElement.query(By.directive(ThySegment));
             fixture.detectChanges();
         });
 
@@ -307,7 +307,7 @@ describe('segment', () => {
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestSegmentDisabledComponent);
-            segmentedDebugElement = fixture.debugElement.query(By.directive(ThySegmentComponent));
+            segmentedDebugElement = fixture.debugElement.query(By.directive(ThySegment));
             segmentedElement = segmentedDebugElement.nativeElement;
             testInstance = fixture.debugElement.componentInstance;
             fixture.detectChanges();
@@ -328,7 +328,7 @@ describe('segment', () => {
             const spy = spyOn(testInstance, 'selectedChange');
             testInstance.disableItem = true;
             fixture.detectChanges();
-            const disabledItem = segmentedDebugElement.queryAll(By.directive(ThySegmentItemComponent))[2].nativeElement;
+            const disabledItem = segmentedDebugElement.queryAll(By.directive(ThySegmentItem))[2].nativeElement;
             dispatchFakeEvent(disabledItem, 'click');
             fixture.detectChanges();
             expect(spy).not.toHaveBeenCalled();
@@ -347,7 +347,7 @@ describe('segment', () => {
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestSegmentModeComponent);
-            segmentedDebugElement = fixture.debugElement.query(By.directive(ThySegmentComponent));
+            segmentedDebugElement = fixture.debugElement.query(By.directive(ThySegment));
             fixture.detectChanges();
         });
 
@@ -377,12 +377,12 @@ describe('segment', () => {
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestSegmentActiveComponent);
-            segmentedDebugElement = fixture.debugElement.query(By.directive(ThySegmentComponent));
+            segmentedDebugElement = fixture.debugElement.query(By.directive(ThySegment));
             fixture.detectChanges();
         });
 
         it('should support set default selected item', () => {
-            const items = segmentedDebugElement.queryAll(By.directive(ThySegmentItemComponent));
+            const items = segmentedDebugElement.queryAll(By.directive(ThySegmentItem));
             expect(items[2].nativeElement.classList.contains('active')).toBeTruthy();
         });
 
@@ -419,7 +419,7 @@ describe('segment', () => {
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestSegmentCustomTemplateComponent);
-            segmentedDebugElement = fixture.debugElement.query(By.directive(ThySegmentComponent));
+            segmentedDebugElement = fixture.debugElement.query(By.directive(ThySegment));
             fixture.detectChanges();
         });
 
@@ -435,6 +435,6 @@ describe('segment', () => {
     });
 
     function getSegmentItemByIndex(index: number, debugElement: any): DebugElement {
-        return debugElement.queryAll(By.directive(ThySegmentItemComponent))[index];
+        return debugElement.queryAll(By.directive(ThySegmentItem))[index];
     }
 });

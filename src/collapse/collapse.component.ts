@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { InputBoolean } from 'ngx-tethys/core';
 
-import { ThyCollapseItemComponent } from './collapse-item.component';
+import { ThyCollapseItem } from './collapse-item.component';
 
 export type ThyCollapseTheme = 'divided' | 'bordered' | 'ghost';
 
@@ -30,7 +30,7 @@ export type ThyCollapsedIconPosition = 'left' | 'right';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true
 })
-export class ThyCollapseComponent implements OnInit {
+export class ThyCollapse implements OnInit {
     /**
      * 折叠面板主题，支持 `divided` | `bordered` | `ghost`
      */
@@ -48,21 +48,21 @@ export class ThyCollapseComponent implements OnInit {
      */
     @Input() thyArrowIconPosition: ThyCollapsedIconPosition = 'left';
 
-    private listOfCollapsePanelComponent: ThyCollapseItemComponent[] = [];
+    private listOfCollapsePanelComponent: ThyCollapseItem[] = [];
 
     constructor() {}
 
     ngOnInit() {}
 
-    addPanel(value: ThyCollapseItemComponent): void {
+    addPanel(value: ThyCollapseItem): void {
         this.listOfCollapsePanelComponent.push(value);
     }
 
-    removePanel(value: ThyCollapseItemComponent): void {
+    removePanel(value: ThyCollapseItem): void {
         this.listOfCollapsePanelComponent.splice(this.listOfCollapsePanelComponent.indexOf(value), 1);
     }
 
-    click(collapseItem: ThyCollapseItemComponent, event: Event): void {
+    click(collapseItem: ThyCollapseItem, event: Event): void {
         if (this.thyAccordion && !collapseItem.thyActive) {
             this.listOfCollapsePanelComponent
                 .filter(item => item !== collapseItem)

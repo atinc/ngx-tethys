@@ -10,18 +10,18 @@ import {
     ThyClickDispatcher,
     ThyPlacement
 } from 'ngx-tethys/core';
-import { ThyEmptyComponent } from 'ngx-tethys/empty';
-import { ThyLoadingComponent } from 'ngx-tethys/loading';
+import { ThyEmpty } from 'ngx-tethys/empty';
+import { ThyLoading } from 'ngx-tethys/loading';
 import {
     IThyOptionParentComponent,
     SelectControlSize,
     THY_OPTION_PARENT_COMPONENT,
-    ThyOptionComponent,
-    ThyOptionsContainerComponent,
+    ThyOption,
+    ThyOptionsContainer,
     ThyOptionSelectionChangeEvent,
     ThyScrollDirective,
-    ThySelectControlComponent,
-    ThySelectOptionGroupComponent,
+    ThySelectControl,
+    ThySelectOptionGroup,
     ThyStopPropagationDirective
 } from 'ngx-tethys/shared';
 import {
@@ -133,11 +133,11 @@ const noop = () => {};
     providers: [
         {
             provide: THY_OPTION_PARENT_COMPONENT,
-            useExisting: ThySelectCustomComponent
+            useExisting: ThySelectCustom
         },
         {
             provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => ThySelectCustomComponent),
+            useExisting: forwardRef(() => ThySelectCustom),
             multi: true
         }
     ],
@@ -145,17 +145,17 @@ const noop = () => {};
     standalone: true,
     imports: [
         CdkOverlayOrigin,
-        ThySelectControlComponent,
+        ThySelectControl,
         CdkConnectedOverlay,
         ThyStopPropagationDirective,
         NgClass,
         NgIf,
         ThyScrollDirective,
-        ThyLoadingComponent,
-        ThyEmptyComponent,
-        ThyOptionsContainerComponent,
-        ThyOptionComponent,
-        ThySelectOptionGroupComponent,
+        ThyLoading,
+        ThyEmpty,
+        ThyOptionsContainer,
+        ThyOption,
+        ThySelectOptionGroup,
         NgTemplateOutlet,
         NgFor
     ],
@@ -166,7 +166,7 @@ const noop = () => {};
     },
     animations: [scaleXMotion, scaleYMotion, scaleMotion]
 })
-export class ThySelectCustomComponent
+export class ThySelectCustom
     extends TabIndexDisabledControlValueAccessorMixin
     implements ControlValueAccessor, IThyOptionParentComponent, OnInit, AfterViewInit, AfterContentInit, OnDestroy
 {
@@ -198,7 +198,7 @@ export class ThySelectCustomComponent
 
     public dropDownPositions: ConnectionPositionPair[];
 
-    public selectionModel: SelectionModel<ThyOptionComponent>;
+    public selectionModel: SelectionModel<ThyOption>;
 
     public triggerRectWidth: number;
 
@@ -233,7 +233,7 @@ export class ThySelectCustomComponent
 
     @HostBinding('class.thy-select') isSelect = true;
 
-    keyManager: ActiveDescendantKeyManager<ThyOptionComponent>;
+    keyManager: ActiveDescendantKeyManager<ThyOption>;
 
     @HostBinding('class.menu-is-opened')
     panelOpen = false;
@@ -353,7 +353,7 @@ export class ThySelectCustomComponent
     /**
      * 排序比较函数
      */
-    @Input() thySortComparator: (a: ThyOptionComponent, b: ThyOptionComponent, options: ThyOptionComponent[]) => number;
+    @Input() thySortComparator: (a: ThyOption, b: ThyOption, options: ThyOption[]) => number;
 
     /**
      * Footer 模板，默认值为空不显示 Footer
@@ -430,7 +430,7 @@ export class ThySelectCustomComponent
         this.buildReactiveOptions();
     }
 
-    options: QueryList<ThyOptionComponent>;
+    options: QueryList<ThyOption>;
 
     /**
      * 目前只支持多选选中项的展示，默认为空，渲染文字模板，传入tag，渲染展示模板,
@@ -445,16 +445,16 @@ export class ThySelectCustomComponent
     /**
      * @private
      */
-    @ContentChildren(ThyOptionComponent, { descendants: true }) contentOptions: QueryList<ThyOptionComponent>;
+    @ContentChildren(ThyOption, { descendants: true }) contentOptions: QueryList<ThyOption>;
 
-    @ViewChildren(ThyOptionComponent) viewOptions: QueryList<ThyOptionComponent>;
+    @ViewChildren(ThyOption) viewOptions: QueryList<ThyOption>;
 
     /**
      * @private
      */
-    @ContentChildren(ThySelectOptionGroupComponent) contentGroups: QueryList<ThySelectOptionGroupComponent>;
+    @ContentChildren(ThySelectOptionGroup) contentGroups: QueryList<ThySelectOptionGroup>;
 
-    @ViewChildren(ThySelectOptionGroupComponent) viewGroups: QueryList<ThySelectOptionGroupComponent>;
+    @ViewChildren(ThySelectOptionGroup) viewGroups: QueryList<ThySelectOptionGroup>;
 
     @HostListener('keydown', ['$event'])
     handleKeydown(event: KeyboardEvent): void {
@@ -468,7 +468,7 @@ export class ThySelectCustomComponent
 
     get optionsChanges$() {
         this.options = this.isReactiveDriven ? this.viewOptions : this.contentOptions;
-        let previousOptions: ThyOptionComponent[] = this.options.toArray();
+        let previousOptions: ThyOption[] = this.options.toArray();
         return this.options.changes.pipe(
             map(data => {
                 return this.options.toArray();
@@ -717,7 +717,7 @@ export class ThySelectCustomComponent
         this.manualFocusing = false;
     }
 
-    public remove($event: { item: ThyOptionComponent; $eventOrigin: Event }) {
+    public remove($event: { item: ThyOption; $eventOrigin: Event }) {
         $event.$eventOrigin.stopPropagation();
         if (this.disabled) {
             return;
@@ -751,7 +751,7 @@ export class ThySelectCustomComponent
         });
     }
 
-    public get selected(): ThyOptionComponent | ThyOptionComponent[] {
+    public get selected(): ThyOption | ThyOption[] {
         return this.isMultiple ? this.selectionModel.selected : this.selectionModel.selected[0];
     }
 
@@ -802,7 +802,7 @@ export class ThySelectCustomComponent
 
     private emitModelValueChange() {
         const selectedValues = this.selectionModel.selected;
-        const changeValue = selectedValues.map((option: ThyOptionComponent) => {
+        const changeValue = selectedValues.map((option: ThyOption) => {
             return option.thyValue;
         });
         if (this.isMultiple) {
@@ -846,7 +846,7 @@ export class ThySelectCustomComponent
         if (this.keyManager && this.keyManager.activeItem) {
             this.keyManager.activeItem.setInactiveStyles();
         }
-        this.keyManager = new ActiveDescendantKeyManager<ThyOptionComponent>(this.options)
+        this.keyManager = new ActiveDescendantKeyManager<ThyOption>(this.options)
             .withTypeAhead()
             .withWrap()
             .withVerticalOrientation()
@@ -944,7 +944,7 @@ export class ThySelectCustomComponent
         if (this.selectionModel) {
             this.selectionModel.clear();
         }
-        this.selectionModel = new SelectionModel<ThyOptionComponent>(this.isMultiple);
+        this.selectionModel = new SelectionModel<ThyOption>(this.isMultiple);
         if (this.selectionModelSubscription) {
             this.selectionModelSubscription.unsubscribe();
             this.selectionModelSubscription = null;
@@ -1018,7 +1018,7 @@ export class ThySelectCustomComponent
         this.changeDetectorRef.markForCheck();
     }
 
-    private onSelect(option: ThyOptionComponent, isUserInput: boolean) {
+    private onSelect(option: ThyOption, isUserInput: boolean) {
         const wasSelected = this.selectionModel.isSelected(option);
 
         if (option.thyValue == null && !this.isMultiple) {

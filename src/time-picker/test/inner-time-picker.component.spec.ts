@@ -6,7 +6,7 @@ import { Component, DebugElement, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ThyInnerTimePickerComponent } from '../inner/inner-time-picker.component';
+import { ThyInnerTimePicker } from '../inner/inner-time-picker.component';
 import { ThyTimePickerModule } from '../time-picker.module';
 
 registerLocaleData(zh);
@@ -480,7 +480,7 @@ describe('ThyInnerTimePickerComponent', () => {
 class ThyTestInnerTimePickerBaseComponent {
     public containerClass = CONTAINER_CLASS;
 
-    @ViewChild('timePicker') timePicker: ThyInnerTimePickerComponent;
+    @ViewChild('timePicker') timePicker: ThyInnerTimePicker;
     // 默认值与 timePicker 的默认值一致，见 ../time-picker.config.ts
     readonly = false;
 

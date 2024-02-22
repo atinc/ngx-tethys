@@ -31,7 +31,7 @@ export type thyColor = 'primary' | 'success' | 'warning' | 'danger' | 'info';
     standalone: true,
     imports: [NgIf, NgTemplateOutlet]
 })
-export class ThyTimelineItemComponent implements OnInit, OnChanges {
+export class ThyTimelineItem implements OnInit, OnChanges {
     @ViewChild('timelineItem', { static: false }) template: TemplateRef<void>;
 
     @HostBinding('class') className: string;

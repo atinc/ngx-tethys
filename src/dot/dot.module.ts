@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ThyDotComponent } from './dot.component';
+import { ThyDot } from './dot.component';
 
 @NgModule({
-    imports: [CommonModule, ThyDotComponent],
-    exports: [ThyDotComponent]
+    imports: [CommonModule, ThyDot],
+    exports: [ThyDot]
 })
 export class ThyDotModule {}

@@ -9,7 +9,7 @@ import { Component, OnInit, HostBinding } from '@angular/core';
     template: '<ng-content></ng-content>',
     standalone: true
 })
-export class ThySlideFooterComponent implements OnInit {
+export class ThySlideFooter implements OnInit {
     @HostBinding('class.thy-slide-footer') slideLayoutFooter = true;
 
     ngOnInit() {}

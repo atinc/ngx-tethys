@@ -21,13 +21,13 @@ import { Subject, fromEvent } from 'rxjs';
 import { takeUntil, throttleTime } from 'rxjs/operators';
 
 import { DOCUMENT, NgClass, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
-import { ThyAffixComponent } from 'ngx-tethys/affix';
+import { ThyAffix } from 'ngx-tethys/affix';
 import { InputBoolean, InputNumber, ThyScrollService } from 'ngx-tethys/core';
 import { getOffset } from 'ngx-tethys/util';
-import { ThyAnchorLinkComponent } from './anchor-link.component';
+import { ThyAnchorLink } from './anchor-link.component';
 
 interface Section {
-    linkComponent: ThyAnchorLinkComponent;
+    linkComponent: ThyAnchorLink;
     top: number;
 }
 
@@ -62,9 +62,9 @@ const sharpMatcherRegx = /#([^#]+)$/;
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [NgIf, ThyAffixComponent, NgTemplateOutlet, NgStyle, NgClass]
+    imports: [NgIf, ThyAffix, NgTemplateOutlet, NgStyle, NgClass]
 })
-export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
+export class ThyAnchor implements OnDestroy, AfterViewInit, OnChanges {
     @ViewChild('ink') private ink!: ElementRef;
 
     /**
@@ -101,12 +101,12 @@ export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
     /**
      * 点击项触发
      */
-    @Output() readonly thyClick = new EventEmitter<ThyAnchorLinkComponent>();
+    @Output() readonly thyClick = new EventEmitter<ThyAnchorLink>();
 
     /**
      * 滚动到某锚点时触发
      */
-    @Output() readonly thyScroll = new EventEmitter<ThyAnchorLinkComponent>();
+    @Output() readonly thyScroll = new EventEmitter<ThyAnchorLink>();
 
     visible = false;
 
@@ -114,7 +114,7 @@ export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
 
     container?: HTMLElement | Window;
 
-    private links: ThyAnchorLinkComponent[] = [];
+    private links: ThyAnchorLink[] = [];
 
     private animating = false;
 
@@ -132,11 +132,11 @@ export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
         private elementRef: ElementRef
     ) {}
 
-    registerLink(link: ThyAnchorLinkComponent): void {
+    registerLink(link: ThyAnchorLink): void {
         this.links.push(link);
     }
 
-    unregisterLink(link: ThyAnchorLinkComponent): void {
+    unregisterLink(link: ThyAnchorLink): void {
         this.links.splice(this.links.indexOf(link), 1);
     }
 
@@ -225,7 +225,7 @@ export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
         });
     }
 
-    private handleActive(linkComponent: ThyAnchorLinkComponent): void {
+    private handleActive(linkComponent: ThyAnchorLink): void {
         this.clearActive();
         linkComponent.setActive();
         const linkNode = linkComponent.getLinkTitleElement();
@@ -252,7 +252,7 @@ export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
         }
     }
 
-    handleScrollTo(linkComponent: ThyAnchorLinkComponent): void {
+    handleScrollTo(linkComponent: ThyAnchorLink): void {
         const container: HTMLElement = this.container instanceof HTMLElement ? this.container : this.document;
         const linkElement: HTMLElement = container.querySelector(linkComponent.thyHref);
         if (!linkElement) {

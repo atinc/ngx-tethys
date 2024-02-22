@@ -10,7 +10,7 @@ import { By, DomSanitizer } from '@angular/platform-browser';
 
 import { getWhetherPrintErrorWhenIconNotFound, setPrintErrorWhenIconNotFound } from '../config';
 import { ThyIconRegistry } from '../icon-registry';
-import { ThyIconComponent } from '../icon.component';
+import { ThyIcon } from '../icon.component';
 import { ThyIconModule } from '../icon.module';
 
 @Component({
@@ -67,7 +67,7 @@ describe('ThyIconComponent', () => {
             fixture = TestBed.createComponent(ThyIconTestBasicComponent);
             componentInstance = fixture.debugElement.componentInstance;
             fixture.detectChanges();
-            iconDebugElement = fixture.debugElement.query(By.directive(ThyIconComponent));
+            iconDebugElement = fixture.debugElement.query(By.directive(ThyIcon));
         });
 
         it('should create icon success', () => {

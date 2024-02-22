@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { InputBoolean } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyIcon } from 'ngx-tethys/icon';
 import { NgIf } from '@angular/common';
 import { Subscription, timer } from 'rxjs';
 
@@ -55,9 +55,9 @@ const defaultFeedbackOptions: Record<ThyActionFeedback, ThyActionFeedbackOptions
         '[class.disabled]': 'thyDisabled'
     },
     standalone: true,
-    imports: [NgIf, ThyIconComponent]
+    imports: [NgIf, ThyIcon]
 })
-export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
+export class ThyAction implements OnInit, AfterViewInit, OnChanges, OnDestroy {
     icon: string;
 
     feedback: ThyActionFeedback = null;

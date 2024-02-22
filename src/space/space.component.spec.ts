@@ -1,5 +1,5 @@
 import { ThyButtonModule } from 'ngx-tethys/button';
-import { ThySpaceComponent, ThySpaceModule } from 'ngx-tethys/space';
+import { ThySpace, ThySpaceModule } from 'ngx-tethys/space';
 
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -57,7 +57,7 @@ describe('space', () => {
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicComponent);
-            spaceDebugElement = fixture.debugElement.query(By.directive(ThySpaceComponent));
+            spaceDebugElement = fixture.debugElement.query(By.directive(ThySpace));
             fixture.detectChanges();
         });
 
@@ -115,7 +115,7 @@ describe('space', () => {
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestSizeComponent);
-            spaceDebugElement = fixture.debugElement.query(By.directive(ThySpaceComponent));
+            spaceDebugElement = fixture.debugElement.query(By.directive(ThySpace));
             fixture.detectChanges();
         });
 

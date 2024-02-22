@@ -4,7 +4,7 @@ import { Component, NgModule } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { ThyTableComponent } from '../table.component';
+import { ThyTable } from '../table.component';
 import { ThyTableModule } from '../table.module';
 
 @Component({
@@ -136,7 +136,7 @@ describe('ThyTable: tree', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(ThyDemoTableTreeComponent);
         testComponent = fixture.debugElement.componentInstance;
-        tableComponent = fixture.debugElement.query(By.directive(ThyTableComponent));
+        tableComponent = fixture.debugElement.query(By.directive(ThyTable));
         fixture.detectChanges();
         rows = tableComponent.nativeElement.querySelectorAll('tr');
     });
@@ -187,7 +187,7 @@ describe('ThyTable: tree', () => {
         fixture = TestBed.createComponent(ThyDemoTableTreeComponent);
         fixture.componentInstance.showExpand = true;
         testComponent = fixture.debugElement.componentInstance;
-        tableComponent = fixture.debugElement.query(By.directive(ThyTableComponent));
+        tableComponent = fixture.debugElement.query(By.directive(ThyTable));
         fixture.detectChanges();
         rows = tableComponent.nativeElement.querySelectorAll('tr');
 
