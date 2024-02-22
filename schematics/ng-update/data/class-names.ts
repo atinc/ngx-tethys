@@ -1,7 +1,7 @@
 import { ClassNameUpgradeData, TargetVersion, VersionChanges } from '@angular/cdk/schematics';
 
 export const classNames: VersionChanges<ClassNameUpgradeData> = {
-    ['version 16']: [
+    [TargetVersion.V17]: [
         {
             pr: '',
             changes: [
