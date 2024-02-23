@@ -574,7 +574,7 @@ describe('ThyTable: basic', () => {
     it('should call onPageSizeChange when call table onPageSizeChange', () => {
         fixture.detectChanges();
         const pageSizeChangeSpy = spyOn(testComponent, 'onPageSizeChange');
-        const paginationElement = tableComponent.nativeElement.querySelector('thy-custom-select .form-control-custom');
+        const paginationElement = tableComponent.nativeElement.querySelector('thy-select .form-control-custom');
         paginationElement.click();
         fixture.detectChanges();
 

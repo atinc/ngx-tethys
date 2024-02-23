@@ -1,11 +1,4 @@
-<thy-custom-select
-  [ngModel]="listOfSelectedValue"
-  (thyOnScrollToBottom)="onScrollToBottom()"
-  thyEnableScrollLoad="true"
-  style="width: 500px;"
->
+<thy-select [ngModel]="listOfSelectedValue" (thyOnScrollToBottom)="onScrollToBottom()" thyEnableScrollLoad="true" style="width: 500px">
   <thy-option *ngFor="let option of loadMoreData" [thyValue]="option._id" [thyLabelText]="option.thyLabelText"> </thy-option>
-  <div class="loading-more font-size-xs text-desc" *ngIf="loading">
-    加载中...
-  </div>
-</thy-custom-select>
+  <div class="loading-more font-size-xs text-desc" *ngIf="loading">加载中...</div>
+</thy-select>

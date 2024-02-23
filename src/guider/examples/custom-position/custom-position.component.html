@@ -1,7 +1,7 @@
 <form thyForm thyLayout="vertical" #demoForm="thyForm" #demoVerticalForm="ngForm">
   <div thyRow [thyGutter]="30">
     <thy-form-group thyCol [thySpan]="12" thyLabelText="Placement">
-      <thy-select name="size" [(ngModel)]="hintPlacement" (ngModelChange)="updatePlacement($event)" name="placement">
+      <thy-native-select name="size" [(ngModel)]="hintPlacement" (ngModelChange)="updatePlacement($event)" name="placement">
         <option value="top">top</option>
         <option value="topLeft">topLeft</option>
         <option value="topRight">topRight</option>
@@ -14,7 +14,7 @@
         <option value="right">right</option>
         <option value="rightTop">rightTop</option>
         <option value="rightBottom">rightBottom</option>
-      </thy-select>
+      </thy-native-select>
     </thy-form-group>
 
     <thy-form-group thyCol [thySpan]="12" thyLabelText="hintOffset">
@@ -29,7 +29,7 @@
           <span class="d-inline-block mr-3">X: </span
           ><thy-slider [(ngModel)]="pointXOffset" (thyAfterChange)="updatePointXOffset($event)" name="pointXOffset"></thy-slider>
         </div>
-        <div class="d-flex align-items-center  py-1">
+        <div class="d-flex align-items-center py-1">
           <span class="d-inline-block mr-3">Y: </span
           ><thy-slider [(ngModel)]="pointYOffset" (thyAfterChange)="updatePointYOffset($event)" name="pointYOffset"></thy-slider>
         </div>

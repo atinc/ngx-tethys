@@ -1,15 +1,14 @@
-<thy-custom-select ngModel="option1" thyMode="multiple" [thyShowSearch]="true" [(ngModel)]="listOfSelectedValue" style="width: 400px;">
+<thy-select ngModel="option1" thyMode="multiple" [thyShowSearch]="true" [(ngModel)]="listOfSelectedValue" style="width: 400px">
   <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
-</thy-custom-select>
+</thy-select>
 
 <div class="mb-2 mt-2">设置显示最大数量</div>
-<thy-custom-select
+<thy-select
   ngModel="option1"
   thyMode="multiple"
   thyMaxTagCount="3"
   [thyShowSearch]="true"
   [(ngModel)]="listOfSelectedValue"
-  style="width: 400px;"
->
+  style="width: 400px">
   <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
-</thy-custom-select>
+</thy-select>

@@ -6,7 +6,6 @@ import { By } from '@angular/platform-browser';
 import { ENTER } from 'ngx-tethys/util';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ThySelectCustom } from 'ngx-tethys/select';
 
 @Component({
     selector: 'thy-test-pagination-basic',

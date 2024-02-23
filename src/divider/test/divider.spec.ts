@@ -17,10 +17,10 @@ import { ThyDividerStyle, ThyDividerTextDirection } from '../divider.component';
                 [thyDeeper]="isDeeper"
                 [thyColor]="color"></thy-divider>
             <ng-template #dividerTemplateSelect>
-                <thy-custom-select [(ngModel)]="dividerSelectModel" thyPlaceHolder="请选择">
+                <thy-select [(ngModel)]="dividerSelectModel" thyPlaceHolder="请选择">
                     <thy-option thyValue="or|or" thyLabelText="Or"></thy-option>
                     <thy-option thyValue="and&and" thyLabelText="And"></thy-option>
-                </thy-custom-select>
+                </thy-select>
             </ng-template>
         </ng-container>
     `

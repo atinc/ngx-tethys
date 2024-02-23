@@ -1,7 +1,5 @@
 <div class="body">
-  <button thyButton="primary" (click)="openDialogForm(template)">
-    Open form with dialog
-  </button>
+  <button thyButton="primary" (click)="openDialogForm(template)">Open form with dialog</button>
 
   <ng-template #template>
     <thy-dialog-header [thyTitle]="'New Project'"></thy-dialog-header>
@@ -11,15 +9,13 @@
           <input thyInput name="projectName" [(ngModel)]="model.projectName" required placeholder="Please type project name" />
         </thy-form-group>
         <thy-form-group thyLabelText="Role">
-          <thy-custom-select name="role" [(ngModel)]="model.role" [thyAllowClear]="true" thyShowSearch="true">
+          <thy-select name="role" [(ngModel)]="model.role" [thyAllowClear]="true" thyShowSearch="true">
             <thy-option [thyValue]="1" [thyLabelText]="'Admin'"></thy-option>
             <thy-option [thyValue]="2" [thyLabelText]="'General'"></thy-option>
-          </thy-custom-select>
+          </thy-select>
         </thy-form-group>
         <thy-form-group-footer>
-          <button thyButton="primary" [thyLoading]="saving" (thyFormSubmit)="submit()">
-            Submit
-          </button>
+          <button thyButton="primary" [thyLoading]="saving" (thyFormSubmit)="submit()">Submit</button>
           <button thyButton="link-secondary" (click)="close()">Cancel</button>
         </thy-form-group-footer>
       </form>

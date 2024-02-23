@@ -15,16 +15,16 @@ const noop = () => {};
 
 /**
  * 下拉选择
- * @name thy-select
+ * @name thy-native-select
  * @order 20
  */
 @Component({
-    selector: 'thy-select',
-    templateUrl: './select.component.html',
+    selector: 'thy-native-select',
+    templateUrl: './native-select.component.html',
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => ThySelect),
+            useExisting: forwardRef(() => ThyNativeSelect),
             multi: true
         }
     ],
@@ -36,7 +36,7 @@ const noop = () => {};
         '(blur)': 'onBlur($event)'
     }
 })
-export class ThySelect extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor, OnInit {
+export class ThyNativeSelect extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor, OnInit {
     @ViewChild('select', { static: true }) selectElement: ElementRef<any>;
 
     // The internal data model
@@ -83,7 +83,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     }
 
     onBlur(event: FocusEvent) {
-        if (elementMatchClosest(event?.relatedTarget as HTMLElement, 'thy-select')) {
+        if (elementMatchClosest(event?.relatedTarget as HTMLElement, 'thy-native-select')) {
             return;
         }
         this.onTouchedFn();

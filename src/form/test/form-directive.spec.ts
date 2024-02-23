@@ -93,14 +93,14 @@ export class TestFormFullComponent {
             </thy-form-group>
 
             <thy-form-group thyLabelText="CustomerSelect">
-                <thy-custom-select
+                <thy-select
                     thyPlaceHolder="请选择"
                     formControlName="customersSelect"
                     name="customersSelect"
                     [thyShowSearch]="true"
                     [thyAllowClear]="true">
                     <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
-                </thy-custom-select>
+                </thy-select>
             </thy-form-group>
 
             <thy-form-group thyLabelText="Textarea">

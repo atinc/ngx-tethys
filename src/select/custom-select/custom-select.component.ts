@@ -87,7 +87,7 @@ import {
 
 export type SelectMode = 'multiple' | '';
 
-export type ThyCustomSelectTriggerType = 'click' | 'hover';
+export type ThySelectTriggerType = 'click' | 'hover';
 
 export const SELECT_PANEL_MAX_HEIGHT = 300;
 
@@ -123,21 +123,21 @@ const noop = () => {};
 
 /**
  * 下拉选择组件
- * @name thy-custom-select
+ * @name thy-select,thy-custom-select
  * @order 10
  */
 @Component({
-    selector: 'thy-custom-select',
+    selector: 'thy-select,thy-custom-select',
     templateUrl: './custom-select.component.html',
-    exportAs: 'thyCustomSelect',
+    exportAs: 'thySelect',
     providers: [
         {
             provide: THY_OPTION_PARENT_COMPONENT,
-            useExisting: ThySelectCustom
+            useExisting: ThySelect
         },
         {
             provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => ThySelectCustom),
+            useExisting: forwardRef(() => ThySelect),
             multi: true
         }
     ],
@@ -166,7 +166,7 @@ const noop = () => {};
     },
     animations: [scaleXMotion, scaleYMotion, scaleMotion]
 })
-export class ThySelectCustom
+export class ThySelect
     extends TabIndexDisabledControlValueAccessorMixin
     implements ControlValueAccessor, IThyOptionParentComponent, OnInit, AfterViewInit, AfterContentInit, OnDestroy
 {
@@ -691,7 +691,7 @@ export class ThySelectCustom
 
     onBlur(event?: FocusEvent) {
         // Tab 聚焦后自动聚焦到 input 输入框，此分支下直接返回，无需触发 onTouchedFn
-        if (elementMatchClosest(event?.relatedTarget as HTMLElement, ['.thy-select-dropdown', 'thy-custom-select'])) {
+        if (elementMatchClosest(event?.relatedTarget as HTMLElement, ['.thy-select-dropdown', 'thy-select'])) {
             return;
         }
         this.onTouchedFn();

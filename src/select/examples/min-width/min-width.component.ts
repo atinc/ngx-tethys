@@ -7,12 +7,12 @@ import { THY_SELECT_CONFIG } from 'ngx-tethys/select';
     templateUrl: './min-width.component.html',
     styles: [
         `
-            .custom-select-container {
+            .select-container {
                 display: flex;
                 justify-content: left;
                 flex-wrap: wrap;
             }
-            thy-custom-select {
+            thy-select {
                 flex: 0 0 auto;
                 width: 100px;
                 margin-right: 20px;
@@ -28,7 +28,7 @@ import { THY_SELECT_CONFIG } from 'ngx-tethys/select';
         }
     ]
 })
-export class ThySelectCustomMinWidthExampleComponent {
+export class ThySelectMinWidthExampleComponent {
     listOfOption = listOfOption;
 
     trackByFn(index: number, item: { value: string }) {

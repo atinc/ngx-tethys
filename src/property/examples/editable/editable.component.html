@@ -54,10 +54,10 @@
       #hobby>
       <span>{{ user.sex || '无' }}</span>
       <ng-template #editor>
-        <thy-custom-select #selectSex thySize="md" (thyOnExpandStatusChange)="thyOnExpandStatusChange($event)" [(ngModel)]="user.sex">
+        <thy-select #selectSex thySize="md" (thyOnExpandStatusChange)="thyOnExpandStatusChange($event)" [(ngModel)]="user.sex">
           <thy-option [thyValue]="'男'" [thyLabelText]="'男'"> </thy-option>
           <thy-option [thyValue]="'女'" [thyLabelText]="'女'"> </thy-option>
-        </thy-custom-select>
+        </thy-select>
       </ng-template>
     </thy-property-item>
     <thy-property-item
@@ -74,14 +74,14 @@
       <span *ngIf="user.likes.length === 0">无</span>
       <thy-tag *ngFor="let item of user.likes" class="mr-1" thyShape="pill" thyColor="success">{{ item }}</thy-tag>
       <ng-template #editor>
-        <thy-custom-select thyMode="multiple" thySize="md" [(ngModel)]="user.likes">
+        <thy-select thyMode="multiple" thySize="md" [(ngModel)]="user.likes">
           <thy-option [thyValue]="'羽毛球'" [thyLabelText]="'羽毛球'"> </thy-option>
           <thy-option [thyValue]="'跑步'" [thyLabelText]="'跑步'"> </thy-option>
           <thy-option [thyValue]="'撸铁'" [thyLabelText]="'撸铁'"> </thy-option>
           <thy-option [thyValue]="'游泳'" [thyLabelText]="'游泳'"> </thy-option>
           <thy-option [thyValue]="'滑雪'" [thyLabelText]="'滑雪'"> </thy-option>
           <thy-option [thyValue]="'摩托车'" [thyLabelText]="'摩托车'"> </thy-option>
-        </thy-custom-select>
+        </thy-select>
       </ng-template>
     </thy-property-item>
     <thy-property-item
@@ -92,7 +92,11 @@
       <span *ngIf="!user.profession">无</span>
       <thy-tag thyShape="pill" thyColor="warning">{{ user.profession }}</thy-tag>
       <ng-template #editor>
-        <thy-custom-select #selectProfession (thyOnExpandStatusChange)="thyOnExpandStatusChange($event)" thySize="md" [(ngModel)]="user.profession">
+        <thy-select
+          #selectProfession
+          (thyOnExpandStatusChange)="thyOnExpandStatusChange($event)"
+          thySize="md"
+          [(ngModel)]="user.profession">
           <thy-option [thyValue]="'教师'" [thyLabelText]="'教师'"> </thy-option>
           <thy-option [thyValue]="'运动员'" [thyLabelText]="'运动员'"> </thy-option>
           <thy-option [thyValue]="'科学家'" [thyLabelText]="'科学家'"> </thy-option>
@@ -102,7 +106,7 @@
               <thy-tag thyShape="pill" thyColor="warning">{{ value }}</thy-tag>
             </span>
           </ng-template>
-        </thy-custom-select>
+        </thy-select>
       </ng-template>
     </thy-property-item>
     <thy-property-item (thyEditingChange)="changeEditing($event, { type: 'text' })" thyLabelText="居住地址" thyEditable="true">

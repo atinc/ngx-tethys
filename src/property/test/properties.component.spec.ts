@@ -30,10 +30,10 @@ import { ThyPropertyItem, ThyPropertyItemOperationTrigger } from '../property-it
             <thy-property-item #sexProperty thyLabelText="性别" thyEditable="true" #hobby>
                 <span>{{ user.sex || '无' }}</span>
                 <ng-template #editor>
-                    <thy-custom-select class="sex-select" thySize="md" [(ngModel)]="user.sex">
+                    <thy-select class="sex-select" thySize="md" [(ngModel)]="user.sex">
                         <thy-option [thyValue]="'男'" [thyLabelText]="'男'"> </thy-option>
                         <thy-option [thyValue]="'女'" [thyLabelText]="'女'"> </thy-option>
-                    </thy-custom-select>
+                    </thy-select>
                 </ng-template>
             </thy-property-item>
         </thy-properties>

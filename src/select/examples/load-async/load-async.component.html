@@ -1,12 +1,9 @@
-<thy-custom-select
+<thy-select
   [ngModel]="listOfSelectedValue"
   thyEnableScrollLoad="true"
-  style="width: 500px;"
+  style="width: 500px"
   [thyLoadState]="loadState"
-  (thyOnExpandStatusChange)="expandChange($event)"
->
+  (thyOnExpandStatusChange)="expandChange($event)">
   <thy-option *ngFor="let option of loadMoreData" [thyValue]="option._id" [thyLabelText]="option.thyLabelText"> </thy-option>
-  <div class="loading-more font-size-xs text-desc" *ngIf="loading">
-    加载中...
-  </div>
-</thy-custom-select>
+  <div class="loading-more font-size-xs text-desc" *ngIf="loading">加载中...</div>
+</thy-select>
