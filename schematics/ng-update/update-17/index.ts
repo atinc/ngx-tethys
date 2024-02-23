@@ -373,7 +373,7 @@ const upgradeData: UpgradeData = {
                     },
                     {
                         replace: 'ThySelectComponent',
-                        replaceWith: 'ThySelect'
+                        replaceWith: 'ThyNativeSelect'
                     },
                     {
                         replace: 'ThySkeletonCircleComponent',
@@ -593,7 +593,7 @@ const upgradeData: UpgradeData = {
                     },
                     {
                         replace: 'ThySelectCustomComponent',
-                        replaceWith: 'ThySelectCustom'
+                        replaceWith: 'ThySelect'
                     },
                     {
                         replace: 'ThyOptionGroupComponent',
@@ -746,12 +746,40 @@ const upgradeData: UpgradeData = {
                     {
                         replace: 'ThySelectControlComponent',
                         replaceWith: 'ThySelectControl'
+                    },
+                    {
+                        replace: 'ThyCustomSelectTriggerType',
+                        replaceWith: 'ThySelectTriggerType'
                     }
                 ]
             }
         ]
     },
-    elementSelectors: {},
+    elementSelectors: {
+        [TargetVersion.V17]: [
+            {
+                pr: '',
+                changes: [
+                    {
+                        replace: '<thy-select ',
+                        replaceWith: '<thy-native-select '
+                    },
+                    {
+                        replace: '</thy-select>',
+                        replaceWith: '</thy-native-select>'
+                    },
+                    {
+                        replace: '<thy-custom-select ',
+                        replaceWith: '<thy-select '
+                    },
+                    {
+                        replace: '</thy-custom-select>',
+                        replaceWith: '</thy-select>'
+                    }
+                ]
+            }
+        ]
+    },
     attributeSelectors: {},
     constructorChecks: {},
     cssSelectors: {},
