@@ -2,6 +2,7 @@
 title: 14.x 升级指南
 path: 'migration-v14'
 order: 993
+hidden: true
 ---
 
 <alert>本文档将帮助你从 ngx-tethys 13.x 版本升级到 14.x 版本。</alert>
