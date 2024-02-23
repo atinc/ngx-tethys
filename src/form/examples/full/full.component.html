@@ -8,10 +8,10 @@
     </ng-template>
   </thy-form-group>
   <thy-form-group thyLabelText="Select">
-    <thy-select required [(ngModel)]="model.select" name="power">
+    <thy-native-select required [(ngModel)]="model.select" name="power">
       <option value="">---Select---</option>
       <option *ngFor="let option of options" [value]="option._id">{{ option.value }}</option>
-    </thy-select>
+    </thy-native-select>
   </thy-form-group>
   <thy-form-group thyLabelText="Cascader">
     <thy-cascader
@@ -20,8 +20,7 @@
       [thyOptions]="provinceCities"
       [(ngModel)]="values"
       (ngModelChange)="onChanges($event)"
-      style="width:200px;"
-    >
+      style="width: 200px">
     </thy-cascader>
   </thy-form-group>
   <thy-form-group thyLabelText="Textarea">
@@ -105,9 +104,7 @@
     <div class="text text-success">Submit success!</div>
   </thy-form-group>
   <thy-form-group-footer>
-    <button [thyButton]="'primary'" (thyFormSubmit)="save(demoForm)">
-      Save
-    </button>
+    <button [thyButton]="'primary'" (thyFormSubmit)="save(demoForm)">Save</button>
     <button [thyButton]="'link-secondary'">Cancel</button>
   </thy-form-group-footer>
 </form>

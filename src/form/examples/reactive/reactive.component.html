@@ -1,15 +1,15 @@
 <div class="d-flex mb-4 align-items-center">
   <div>updateOn</div>
   <div class="col-sm-2 col-form-control">
-    <thy-custom-select [(ngModel)]="updateOn" (ngModelChange)="changeUpdateOn($event)">
+    <thy-select [(ngModel)]="updateOn" (ngModelChange)="changeUpdateOn($event)">
       <thy-option *ngFor="let option of updateOnList" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
-    </thy-custom-select>
+    </thy-select>
   </div>
   <div>validateOn</div>
   <div class="col-sm-2 col-form-control">
-    <thy-custom-select [(ngModel)]="validateOn" (ngModelChange)="changeUpdateOn($event)">
+    <thy-select [(ngModel)]="validateOn" (ngModelChange)="changeUpdateOn($event)">
       <thy-option *ngFor="let option of updateOnList" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
-    </thy-custom-select>
+    </thy-select>
   </div>
 </div>
 <form *ngIf="loadingDone" thyForm name="demoForm" thyLayout="horizontal" [thyFormValidatorConfig]="validateConfig" [formGroup]="formGroup">
@@ -31,14 +31,14 @@
   </thy-form-group>
 
   <thy-form-group thyLabelText="CustomerSelect" thyLabelRequired>
-    <thy-custom-select
+    <thy-select
       thyPlaceHolder="请选择"
       formControlName="customersSelect"
       name="customersSelect"
       [thyShowSearch]="true"
       [thyAllowClear]="true">
       <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
-    </thy-custom-select>
+    </thy-select>
   </thy-form-group>
 
   <thy-form-group thyLabelText="Search" thyLayout="horizontal" thyLabelRequired>
@@ -50,7 +50,7 @@
   </thy-form-group>
 
   <thy-form-group thyLabelText="customersMultiSelect" thyLabelRequired>
-    <thy-custom-select
+    <thy-select
       [thyMode]="'multiple'"
       thyPlaceHolder="请选择"
       formControlName="customersMultiSelect"
@@ -58,7 +58,7 @@
       [thyShowSearch]="true"
       [thyAllowClear]="true">
       <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
-    </thy-custom-select>
+    </thy-select>
   </thy-form-group>
 
   <thy-form-group thyLabelText="treeSelectMulti" thyLabelRequired>

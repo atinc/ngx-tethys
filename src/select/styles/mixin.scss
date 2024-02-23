@@ -1,5 +1,5 @@
-@use '../../../styles/mixins/utilities';
-@use '../../../styles/variables';
+@use '../../styles/mixins/utilities.scss';
+@use '../../styles/variables';
 
 @mixin select-arrow-icon-font-variant() {
     content: '\e6b8'; //"\f078";

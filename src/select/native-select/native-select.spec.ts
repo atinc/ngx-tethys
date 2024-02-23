@@ -1,17 +1,17 @@
-import { ThySelect } from 'ngx-tethys/select';
+import { ThyNativeSelect } from 'ngx-tethys/select';
 
 import { Component, DebugElement, Sanitizer, SecurityContext, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { dispatchFakeEvent } from '../testing';
-import { ThySelectModule } from './module';
+import { dispatchFakeEvent } from '../../testing';
+import { ThySelectModule } from '../module';
 
 @Component({
     selector: 'app-basic-select-demo',
     template: `
-        <thy-select
+        <thy-native-select
             [thySize]="size"
             [disabled]="disabled"
             [(ngModel)]="value"
@@ -20,11 +20,11 @@ import { ThySelectModule } from './module';
             <option value="">请选择</option>
             <option value="option1">选项1</option>
             <option value="option2">选项2</option>
-        </thy-select>
+        </thy-native-select>
     `
 })
-class BasicSelectComponent {
-    @ViewChild(ThySelect, { static: false }) selectComponent: ThySelect;
+class BasicNativeSelectComponent {
+    @ViewChild(ThyNativeSelect, { static: false }) selectComponent: ThyNativeSelect;
 
     value = '';
     allowClear = false;
@@ -37,7 +37,7 @@ describe(`select`, () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThySelectModule, FormsModule],
-            declarations: [BasicSelectComponent],
+            declarations: [BasicNativeSelectComponent],
             providers: [
                 {
                     provide: Sanitizer,
@@ -59,16 +59,16 @@ describe(`select`, () => {
     });
 
     describe(`basic`, () => {
-        let fixture: ComponentFixture<BasicSelectComponent>;
-        let testComponent: BasicSelectComponent;
+        let fixture: ComponentFixture<BasicNativeSelectComponent>;
+        let testComponent: BasicNativeSelectComponent;
         let debugComponent: DebugElement;
         let selectElement: any;
         let selectElementChildren: any[];
 
         beforeEach(() => {
-            fixture = TestBed.createComponent(BasicSelectComponent);
+            fixture = TestBed.createComponent(BasicNativeSelectComponent);
             testComponent = fixture.debugElement.componentInstance;
-            debugComponent = fixture.debugElement.query(By.directive(ThySelect));
+            debugComponent = fixture.debugElement.query(By.directive(ThyNativeSelect));
             selectElement = debugComponent.nativeElement;
             selectElementChildren = selectElement.children;
         });
@@ -80,11 +80,11 @@ describe(`select`, () => {
         });
 
         it('should create correct DOM structure', fakeAsync(() => {
-            expect(debugComponent.name).toEqual('thy-select');
+            expect(debugComponent.name).toEqual('thy-native-select');
             expect(selectElementChildren.length).toEqual(2);
             expect(selectElementChildren[0].nodeName).toEqual('SELECT');
             expect(selectElementChildren[0].nodeType).toEqual(1);
-            expect(selectElementChildren[0].parentNode.nodeName).toEqual('THY-SELECT');
+            expect(selectElementChildren[0].parentNode.nodeName).toEqual('THY-NATIVE-SELECT');
             expect(selectElementChildren[0].nextElementSibling.nodeName).toEqual('THY-ICON');
             expect(selectElementChildren[0].attributes[0].nodeName).toEqual('thyinput');
             expect(selectElementChildren[0].attributes[0].nodeType).toEqual(2);

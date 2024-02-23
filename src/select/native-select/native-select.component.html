@@ -7,8 +7,7 @@
   [(ngModel)]="_innerValue"
   (ngModelChange)="ngModelChange()"
   (blur)="onBlur($event)"
-  [class.thy-select-selection-allow-clear]="thyAllowClear"
->
+  [class.thy-select-selection-allow-clear]="thyAllowClear">
   <ng-content></ng-content>
 </select>
 <thy-icon thyIconName="angle-down"></thy-icon>

@@ -4,8 +4,7 @@ import { ThyDividerColor } from 'ngx-tethys/divider';
 @Component({
     encapsulation: ViewEncapsulation.None,
     selector: 'thy-divider-color-example',
-    templateUrl: './color.component.html',
-    styleUrls: ['./color.component.scss']
+    templateUrl: './color.component.html'
 })
 export class ThyDividerColorExampleComponent {
     color: ThyDividerColor = 'default';

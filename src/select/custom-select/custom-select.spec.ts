@@ -17,11 +17,11 @@ import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync
 import { FormsModule, ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ThyFormModule } from '../form';
-import { DOWN_ARROW, END, ENTER, ESCAPE, HOME } from '../util/keycodes';
-import { SelectMode, THY_SELECT_PANEL_MIN_WIDTH, ThySelectCustom, ThySelectOptionModel } from './custom-select/custom-select.component';
-import { ThySelectModule } from './module';
-import { THY_SELECT_CONFIG, THY_SELECT_SCROLL_STRATEGY, ThyDropdownWidthMode } from './select.config';
+import { ThyFormModule } from '../../form';
+import { DOWN_ARROW, END, ENTER, ESCAPE, HOME } from '../../util/keycodes';
+import { SelectMode, THY_SELECT_PANEL_MIN_WIDTH, ThySelect, ThySelectOptionModel } from './custom-select.component';
+import { ThySelectModule } from '../module';
+import { THY_SELECT_CONFIG, THY_SELECT_SCROLL_STRATEGY, ThyDropdownWidthMode } from '../select.config';
 import { SelectControlSize, ThyOption, ThyOptionModule } from 'ngx-tethys/shared';
 
 interface FoodsInfo {
@@ -34,7 +34,7 @@ interface FoodsInfo {
     selector: 'thy-select-basic-test',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select
+            <thy-select
                 thyPlaceHolder="Food"
                 [thyEnableScrollLoad]="enableScrollLoad"
                 (thyOnScrollToBottom)="thyOnScrollToBottom()"
@@ -55,7 +55,7 @@ interface FoodsInfo {
                 <ng-template #footer>
                     <a>更多</a>
                 </ng-template>
-            </thy-custom-select>
+            </thy-select>
         </form>
         <div id="custom-select-origin" #origin style="width: 200px;height: 20px"></div>
     `
@@ -80,7 +80,7 @@ class BasicSelectComponent {
     thyAutoActiveFirstItem = true;
     customizeOrigin: ElementRef | HTMLElement;
     borderless = false;
-    @ViewChild(ThySelectCustom, { static: true }) select: ThySelectCustom;
+    @ViewChild(ThySelect, { static: true }) select: ThySelect;
     @ViewChildren(ThyOption) options: QueryList<ThyOption>;
 
     @ViewChild('footer', { static: true, read: TemplateRef })
@@ -93,14 +93,14 @@ class BasicSelectComponent {
 @Component({
     selector: 'thy-multiple-select',
     template: `
-        <thy-custom-select class="foods" [thyMode]="'multiple'" [(ngModel)]="selectedFoods" #Foods thyPlaceHolder="Food">
+        <thy-select class="foods" [thyMode]="'multiple'" [(ngModel)]="selectedFoods" #Foods thyPlaceHolder="Food">
             <thy-option *ngFor="let food of foods" [thyValue]="food.value" [thyDisabled]="food.disabled" [thyLabelText]="food.viewValue">
             </thy-option>
-        </thy-custom-select>
-        <thy-custom-select class="vegetables" #Vegetables thyPlaceHolder="Vegetables">
+        </thy-select>
+        <thy-select class="vegetables" #Vegetables thyPlaceHolder="Vegetables">
             <thy-option *ngFor="let vegetable of vegetables" [thyValue]="vegetable.value" [thyLabelText]="vegetable.viewValue">
             </thy-option>
-        </thy-custom-select>
+        </thy-select>
     `
 })
 class MultipleSelectComponent {
@@ -118,17 +118,17 @@ class MultipleSelectComponent {
 
     selectedFoods: any[] = [];
 
-    @ViewChild('Foods', { static: true }) foodsComponent: ThySelectCustom;
-    @ViewChild('Vegetables', { static: true }) vegetablesComponent: ThySelectCustom;
+    @ViewChild('Foods', { static: true }) foodsComponent: ThySelect;
+    @ViewChild('Vegetables', { static: true }) vegetablesComponent: ThySelect;
 }
 
 @Component({
     selector: 'thy-ng-model-select',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select thyPlaceHolder="Food" ngModel name="food" [thyDisabled]="isDisabled">
+            <thy-select thyPlaceHolder="Food" ngModel name="food" [thyDisabled]="isDisabled">
                 <thy-option *ngFor="let food of foods" [thyValue]="food.value" [thyLabelText]="food.viewValue"> </thy-option>
-            </thy-custom-select>
+            </thy-select>
         </form>
     `
 })
@@ -140,7 +140,7 @@ class NgModelSelectComponent {
     ];
     isDisabled: boolean;
 
-    @ViewChild(ThySelectCustom, { static: true }) select: ThySelectCustom;
+    @ViewChild(ThySelect, { static: true }) select: ThySelect;
     @ViewChildren(ThyOption) options: QueryList<ThyOption>;
 }
 
@@ -148,13 +148,13 @@ class NgModelSelectComponent {
     selector: 'thy-select-with-groups',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select thyPlaceHolder="Pokemon" [formControl]="control">
+            <thy-select thyPlaceHolder="Pokemon" [formControl]="control">
                 <thy-option-group *ngFor="let group of pokemonTypes" [thyGroupLabel]="group.name">
                     <ng-container *ngFor="let pokemon of group.pokemon">
                         <thy-option [thyValue]="pokemon.value" [thyLabelText]="pokemon.viewValue"></thy-option>
                     </ng-container>
                 </thy-option-group>
-            </thy-custom-select>
+            </thy-select>
         </form>
     `
 })
@@ -171,9 +171,9 @@ class SelectWithGroupsAndNgContainerComponent {
 @Component({
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select placeholder="Food" [(ngModel)]="selectedFoods" name="food">
+            <thy-select placeholder="Food" [(ngModel)]="selectedFoods" name="food">
                 <thy-option *ngFor="let food of foods" [thyValue]="food.value" [thyLabelText]="food.viewValue"></thy-option>
-            </thy-custom-select>
+            </thy-select>
         </form>
     `
 })
@@ -186,16 +186,16 @@ class SingleSelectWithPreselectedArrayValuesComponent {
 
     selectedFoods = this.foods[1].value;
 
-    @ViewChild(ThySelectCustom, { static: true }) select: ThySelectCustom;
+    @ViewChild(ThySelect, { static: true }) select: ThySelect;
     @ViewChildren(ThyOption) options: QueryList<ThyOption>;
 }
 
 @Component({
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select placeholder="Food" [(ngModel)]="selectedValues" name="food">
+            <thy-select placeholder="Food" [(ngModel)]="selectedValues" name="food">
                 <thy-option *ngFor="let item of values" [thyValue]="item.value" [thyLabelText]="item.viewValue"></thy-option>
-            </thy-custom-select>
+            </thy-select>
         </form>
     `
 })
@@ -208,7 +208,7 @@ class SingleSelectNgModelComponent {
 
     selectedValues = this.values[1].value;
 
-    @ViewChild(ThySelectCustom, { static: true }) select: ThySelectCustom;
+    @ViewChild(ThySelect, { static: true }) select: ThySelect;
     @ViewChildren(ThyOption) options: QueryList<ThyOption>;
 }
 
@@ -216,9 +216,9 @@ class SingleSelectNgModelComponent {
     selector: 'thy-basic-select-initially-hidden',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select [style.display]="isVisible ? 'block' : 'none'">
+            <thy-select [style.display]="isVisible ? 'block' : 'none'">
                 <thy-option thyValue="value" thyLabelText="There are no other options"></thy-option>
-            </thy-custom-select>
+            </thy-select>
         </form>
     `
 })
@@ -230,7 +230,7 @@ class BasicSelectInitiallyHiddenComponent {
     selector: 'thy-select-early-sibling-access',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select #select="thyCustomSelect"></thy-custom-select>
+            <thy-select #select="thySelect"></thy-select>
             <div *ngIf="select.selected"></div>
         </form>
     `
@@ -241,14 +241,14 @@ class SelectEarlyAccessSiblingComponent {}
     selector: 'thy-select-with-search',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select thyPlaceHolder="Food" [thyShowSearch]="thyShowSearch">
+            <thy-select thyPlaceHolder="Food" [thyShowSearch]="thyShowSearch">
                 <thy-option
                     *ngFor="let food of foods"
                     [thyValue]="food.value"
                     [thyDisabled]="food.disabled"
                     [thyLabelText]="food.viewValue">
                 </thy-option>
-            </thy-custom-select>
+            </thy-select>
         </form>
     `
 })
@@ -265,7 +265,7 @@ class SelectWithSearchComponent {
     ];
     thyShowSearch = false;
     control = new UntypedFormControl();
-    @ViewChild(ThySelectCustom, { static: true }) select: ThySelectCustom;
+    @ViewChild(ThySelect, { static: true }) select: ThySelect;
     @ViewChildren(ThyOption) options: QueryList<ThyOption>;
 }
 
@@ -273,14 +273,14 @@ class SelectWithSearchComponent {
     selector: 'thy-select-with-search',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select thyPlaceHolder="team-members" [thyShowSearch]="thyShowSearch">
+            <thy-select thyPlaceHolder="team-members" [thyShowSearch]="thyShowSearch">
                 <thy-option
                     *ngFor="let member of teamMembers"
                     [thyValue]="member._id"
                     [thyLabelText]="member.name"
                     thySearchKey="{{ member.name }},{{ member.pin_yin }}">
                 </thy-option>
-            </thy-custom-select>
+            </thy-select>
         </form>
     `
 })
@@ -309,7 +309,7 @@ class SelectWithSearchUseSearchKeyComponent {
     ];
     thyShowSearch = true;
     control = new UntypedFormControl();
-    @ViewChild(ThySelectCustom, { static: true }) select: ThySelectCustom;
+    @ViewChild(ThySelect, { static: true }) select: ThySelect;
     @ViewChildren(ThyOption) options: QueryList<ThyOption>;
 }
 
@@ -317,7 +317,7 @@ class SelectWithSearchUseSearchKeyComponent {
     selector: 'thy-select-with-group-search',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select
+            <thy-select
                 thyPlaceHolder="Pokemon"
                 [thyShowSearch]="true"
                 [thyEmptySearchMessageText]="thyEmptySearchMessageText"
@@ -327,7 +327,7 @@ class SelectWithSearchUseSearchKeyComponent {
                         <thy-option [thyValue]="pokemon.value" [thyLabelText]="pokemon.viewValue"></thy-option>
                     </ng-container>
                 </thy-option-group>
-            </thy-custom-select>
+            </thy-select>
         </form>
     `
 })
@@ -350,15 +350,15 @@ class SelectWithSearchAndGroupComponent {
         }
     ];
     thyEmptySearchMessageText = 'empty result';
-    @ViewChild(ThySelectCustom, { static: true })
-    select: ThySelectCustom;
+    @ViewChild(ThySelect, { static: true })
+    select: ThySelect;
 }
 
 @Component({
     selector: 'thy-select-with-search',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select
+            <thy-select
                 thyPlaceHolder="Food"
                 name="foods"
                 [thyShowSearch]="thyShowSearch"
@@ -370,7 +370,7 @@ class SelectWithSearchAndGroupComponent {
                     [thyDisabled]="food.disabled"
                     [thyLabelText]="food.viewValue">
                 </thy-option>
-            </thy-custom-select>
+            </thy-select>
         </form>
     `
 })
@@ -388,7 +388,7 @@ class SelectWithSearchAndServerSearchComponent {
     selected = this.foods[7];
     thyShowSearch = true;
     control = new UntypedFormControl();
-    @ViewChild(ThySelectCustom, { static: true }) select: ThySelectCustom;
+    @ViewChild(ThySelect, { static: true }) select: ThySelect;
     @ViewChildren(ThyOption) options: QueryList<ThyOption>;
     thyOnSearch = jasmine.createSpy('thyServerSearch callback');
 }
@@ -397,7 +397,7 @@ class SelectWithSearchAndServerSearchComponent {
     selector: 'thy-basic-select',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select
+            <thy-select
                 thyPlaceHolder="Food"
                 [thyMode]="mode"
                 style="width:500px"
@@ -412,7 +412,7 @@ class SelectWithSearchAndServerSearchComponent {
                     [thyDisabled]="food.disabled"
                     [thyLabelText]="food.viewValue">
                 </thy-option>
-            </thy-custom-select>
+            </thy-select>
         </form>
     `
 })
@@ -432,7 +432,7 @@ class SelectEimtOptionsChangesComponent {
     thyAllowClear = true;
     disabled = false;
     isRequired: boolean;
-    @ViewChild(ThySelectCustom, { static: true }) select: ThySelectCustom;
+    @ViewChild(ThySelect, { static: true }) select: ThySelect;
     @ViewChildren(ThyOption) options: QueryList<ThyOption>;
 }
 
@@ -440,14 +440,14 @@ class SelectEimtOptionsChangesComponent {
     selector: 'thy-select-expand-status',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select [formControl]="control" (thyOnExpandStatusChange)="thyOnExpandStatusChange($event)">
+            <thy-select [formControl]="control" (thyOnExpandStatusChange)="thyOnExpandStatusChange($event)">
                 <thy-option
                     *ngFor="let food of foods"
                     [thyValue]="food.value"
                     [thyDisabled]="food.disabled"
                     [thyLabelText]="food.viewValue">
                 </thy-option>
-            </thy-custom-select>
+            </thy-select>
         </form>
     `
 })
@@ -455,15 +455,15 @@ class SelectWithExpandStatusComponent {
     foods: FoodsInfo[] = [{ value: 'pizza-1', viewValue: 'Pizza' }];
     control = new UntypedFormControl();
     thyOnExpandStatusChange = jasmine.createSpy('thyOnExpandStatusChange callback');
-    @ViewChild(ThySelectCustom, { static: true }) select: ThySelectCustom;
+    @ViewChild(ThySelect, { static: true }) select: ThySelect;
 }
 
 @Component({
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select placeholder="Food" [(ngModel)]="selectedFoods" name="food" [thyMode]="selectMode">
+            <thy-select placeholder="Food" [(ngModel)]="selectedFoods" name="food" [thyMode]="selectMode">
                 <thy-option *ngFor="let food of foods" [thyValue]="food.value" [thyLabelText]="food.viewValue"></thy-option>
-            </thy-custom-select>
+            </thy-select>
         </form>
     `
 })
@@ -478,21 +478,21 @@ class SelectWithThyModeComponent {
 
     selectedFoods: string[] = null;
 
-    @ViewChild(ThySelectCustom, { static: true }) select: ThySelectCustom;
+    @ViewChild(ThySelect, { static: true }) select: ThySelect;
     @ViewChildren(ThyOption) options: QueryList<ThyOption>;
 }
 
 @Component({
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select
+            <thy-select
                 placeholder="Food"
                 [(ngModel)]="selectedFoods"
                 name="food"
                 [thyMode]="selectMode"
                 [thySortComparator]="thySortComparator">
                 <thy-option *ngFor="let food of foods" [thyValue]="food.value" [thyLabelText]="food.viewValue"></thy-option>
-            </thy-custom-select>
+            </thy-select>
         </form>
     `
 })
@@ -509,16 +509,16 @@ class SelectWithThySortComparatorComponent {
 
     selectedFoods: string[] = null;
 
-    @ViewChild(ThySelectCustom, { static: true }) select: ThySelectCustom;
+    @ViewChild(ThySelect, { static: true }) select: ThySelect;
     @ViewChildren(ThyOption) options: QueryList<ThyOption>;
 }
 
 @Component({
     selector: 'thy-auto-expend-select',
     template: `
-        <thy-custom-select [thyAutoExpand]="isAutoExpend" style="width:500px;">
+        <thy-select [thyAutoExpand]="isAutoExpend" style="width:500px;">
             <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.label"></thy-option>
-        </thy-custom-select>
+        </thy-select>
     `
 })
 class SelectWithThyAutoExpendComponent implements OnInit {
@@ -526,7 +526,7 @@ class SelectWithThyAutoExpendComponent implements OnInit {
 
     isAutoExpend = true;
 
-    @ViewChild(ThySelectCustom, { static: true }) select: ThySelectCustom;
+    @ViewChild(ThySelect, { static: true }) select: ThySelect;
 
     constructor() {}
 
@@ -542,9 +542,9 @@ class SelectWithThyAutoExpendComponent implements OnInit {
 @Component({
     selector: 'thy-placement-select',
     template: `
-        <thy-custom-select [thyPlacement]="thyPlacement" style="width:500px;">
+        <thy-select [thyPlacement]="thyPlacement" style="width:500px;">
             <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.label"></thy-option>
-        </thy-custom-select>
+        </thy-select>
     `
 })
 class SelectWithThyPlacementComponent implements OnInit {
@@ -552,7 +552,7 @@ class SelectWithThyPlacementComponent implements OnInit {
 
     thyPlacement: ThyPlacement = 'top';
 
-    @ViewChild(ThySelectCustom, { static: true }) select: ThySelectCustom;
+    @ViewChild(ThySelect, { static: true }) select: ThySelect;
 
     constructor() {}
 
@@ -563,7 +563,7 @@ class SelectWithThyPlacementComponent implements OnInit {
     selector: 'thy-select-with-scroll-and-search',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select
+            <thy-select
                 thyPlaceHolder="Food"
                 name="foods"
                 [thyShowSearch]="showSearch"
@@ -576,7 +576,7 @@ class SelectWithThyPlacementComponent implements OnInit {
                     [thyDisabled]="food.disabled"
                     [thyLabelText]="food.viewValue">
                 </thy-option>
-            </thy-custom-select>
+            </thy-select>
         </form>
     `
 })
@@ -595,7 +595,7 @@ class SelectWithScrollAndSearchComponent {
     serverSearch = true;
     selected: any = null;
     control = new UntypedFormControl();
-    @ViewChild(ThySelectCustom, { static: true }) select: ThySelectCustom;
+    @ViewChild(ThySelect, { static: true }) select: ThySelect;
     @ViewChildren(ThyOption) options: QueryList<ThyOption>;
     thyOnSearch(value: string) {
         timer(100).subscribe(() => {
@@ -607,14 +607,14 @@ class SelectWithScrollAndSearchComponent {
 @Component({
     selector: 'thy-select-with-load-state',
     template: `
-        <thy-custom-select (thyOnExpandStatusChange)="expandChange($event)" [thyLoadState]="loadState" [thyShowSearch]="showSearch">
+        <thy-select (thyOnExpandStatusChange)="expandChange($event)" [thyLoadState]="loadState" [thyShowSearch]="showSearch">
             <thy-option *ngFor="let food of foods" [thyValue]="food.value" [thyDisabled]="food.disabled" [thyLabelText]="food.viewValue">
             </thy-option>
-        </thy-custom-select>
+        </thy-select>
     `
 })
 class SelectWithAsyncLoadComponent implements OnInit {
-    @ViewChild(ThySelectCustom) customSelect: ThySelectCustom;
+    @ViewChild(ThySelect) customSelect: ThySelect;
 
     loadState = true;
 
@@ -659,15 +659,14 @@ class SelectWithAsyncLoadComponent implements OnInit {
     selector: 'thy-select-dropdown-width',
     template: `
         <div style="width:100px">
-            <thy-custom-select class="select1" [thyDropdownWidthMode]="dropdownWidthMode" [(ngModel)]="selectedValue">
+            <thy-select class="select1" [thyDropdownWidthMode]="dropdownWidthMode" [(ngModel)]="selectedValue">
                 <thy-option *ngFor="let option of options" [thyValue]="option.value" [thyLabelText]="option.viewValue"> </thy-option>
-            </thy-custom-select>
+            </thy-select>
         </div>
-
         <div style="width:100px">
-            <thy-custom-select class="select2" [(ngModel)]="selectedValue">
+            <thy-select class="select2" [(ngModel)]="selectedValue">
                 <thy-option *ngFor="let option of options" [thyValue]="option.value" [thyLabelText]="option.viewValue"> </thy-option>
-            </thy-custom-select>
+            </thy-select>
         </div>
     `
 })
@@ -687,7 +686,7 @@ class SelectDropdownWidthComponent {
     selector: 'thy-select-width-thy-options',
     template: `
         <div style="width:100px">
-            <thy-custom-select [thyOptions]="options" class="select1" [(ngModel)]="selectedValue"> </thy-custom-select>
+            <thy-select [thyOptions]="options" class="select1" [(ngModel)]="selectedValue"> </thy-select>
         </div>
     `
 })
@@ -764,7 +763,7 @@ describe('ThyCustomSelect', () => {
                 fixture.detectChanges();
                 flush();
 
-                const componentInstance = fixture.debugElement.query(By.directive(ThySelectCustom)).componentInstance;
+                const componentInstance = fixture.debugElement.query(By.directive(ThySelect)).componentInstance;
                 expect(componentInstance.dropDownPositions[0].originY).toEqual('bottom');
             }));
 
@@ -790,7 +789,7 @@ describe('ThyCustomSelect', () => {
             });
 
             it('should auto focus to input element when select focus', fakeAsync(() => {
-                const customSelectDebugElement = fixture.debugElement.query(By.directive(ThySelectCustom));
+                const customSelectDebugElement = fixture.debugElement.query(By.directive(ThySelect));
                 fixture.detectChanges();
                 const focusSpy = spyOn(fixture.componentInstance.select, 'onFocus').and.callThrough();
 
@@ -833,7 +832,7 @@ describe('ThyCustomSelect', () => {
             }));
 
             it('should call onBlur methods when blur', fakeAsync(() => {
-                const customSelectDebugElement = fixture.debugElement.query(By.directive(ThySelectCustom));
+                const customSelectDebugElement = fixture.debugElement.query(By.directive(ThySelect));
                 fixture.detectChanges();
                 const blurSpy = spyOn(fixture.componentInstance.select, 'onBlur').and.callThrough();
 
@@ -1002,7 +1001,7 @@ describe('ThyCustomSelect', () => {
             }));
 
             it('should update the width of the panel on resize', fakeAsync(() => {
-                const selectSelectCustomComponentDebugElement = fixture.debugElement.query(By.directive(ThySelectCustom));
+                const selectSelectCustomComponentDebugElement = fixture.debugElement.query(By.directive(ThySelect));
                 const resizedSpy = spyOn(selectSelectCustomComponentDebugElement.componentInstance, 'getOriginRectWidth');
                 trigger.style.width = '300px';
                 resizedSpy.and.callThrough();
@@ -2274,7 +2273,7 @@ describe('ThyCustomSelect', () => {
             testComponent.thyPlacement = placement;
             fixture.detectChanges();
 
-            const selectComponent = fixture.debugElement.query(By.directive(ThySelectCustom)).componentInstance;
+            const selectComponent = fixture.debugElement.query(By.directive(ThySelect)).componentInstance;
             selectComponent.ngOnInit();
             fixture.detectChanges();
             flush();
