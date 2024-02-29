@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.2.3](https://github.com/atinc/ngx-tethys/compare/16.2.2...16.2.3) (2024-02-29)
+
+
+### Bug Fixes
+
+* **tabs:** tabs change add markForCheck update(#INFR-11694) ([#3035](https://github.com/atinc/ngx-tethys/issues/3035)) ([8754f6f](https://github.com/atinc/ngx-tethys/commit/8754f6f9dfa38bb8b5f366be38e726e4cc4f9c17)), closes [#INFR-11694](https://github.com/atinc/ngx-tethys/issues/INFR-11694)
+
+
+
 ## [16.2.2](https://github.com/atinc/ngx-tethys/compare/16.2.1...16.2.2) (2024-01-17)
 
 
