@@ -16,7 +16,7 @@ describe('ng-update v17 Schematic', () => {
         tree = factory.getTree();
     });
 
-    it('should update to ng v16', async () => {
+    it('should update to ng v17', async () => {
         workspaceTree = await schematicRunner.runSchematic('migration-v17', undefined, tree);
         const file = workspaceTree.get('package.json');
         expect(file.content.toString()).toBeTruthy();
