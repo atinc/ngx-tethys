@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.2.4](https://github.com/atinc/ngx-tethys/compare/16.2.3...16.2.4) (2024-03-01)
+
+
+### Bug Fixes
+
+* **button:** fix button jitter upon hovering when thyShape is circle-dashed or circle-solid #INFR-11703 [@wumeimin](https://github.com/wumeimin) [@xinglu](https://github.com/xinglu) ([#3037](https://github.com/atinc/ngx-tethys/issues/3037)) ([f50dc06](https://github.com/atinc/ngx-tethys/commit/f50dc06050d4b7235fe562c449c393ea71bf4a0e)), closes [#INFR-11703](https://github.com/atinc/ngx-tethys/issues/INFR-11703)
+
+
+
 ## [16.2.3](https://github.com/atinc/ngx-tethys/compare/16.2.2...16.2.3) (2024-02-29)
 
 
