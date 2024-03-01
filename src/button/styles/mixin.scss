@@ -191,17 +191,12 @@
         i,
         .wtf,
         .thy-icon {
-            padding: $round-padding;
+            padding: $round-padding - variables.$btn-icon-circle-padding-difference;
             font-size: $btn-icon-circle-font-size;
             width: $diameter;
             height: $diameter;
         }
         &.border-thick {
-            i,
-            .wtf,
-            .thy-icon {
-                padding: $round-padding - variables.$btn-icon-circle-padding-difference;
-            }
             @include hover.hover-focus {
                 i,
                 .wtf {
@@ -251,6 +246,7 @@
     .thy-icon {
         border-style: solid;
         border-width: 2px;
+        outline: 0 none;
         padding: $round-padding - variables.$btn-icon-circle-padding-difference;
     }
 }

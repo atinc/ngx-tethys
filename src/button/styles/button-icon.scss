@@ -43,14 +43,18 @@
     .wtf,
     .thy-icon {
         color: variables.$btn-icon-color;
-        border-color: variables.$btn-icon-color;
-        border-width: 1px;
+        border-color: transparent;
+        border-width: 2px;
         border-radius: 50%;
         line-height: 1;
+
+        outline-width: 1px;
+        outline-color: variables.$btn-icon-color;
+        outline-offset: -1px;
     }
 
     .thy-icon {
-        transition: border 200ms, padding 200ms;
+        transition: border 200ms, padding 200ms, outline 200ms;
     }
 
     .wtf {
@@ -65,6 +69,7 @@
         .wtf,
         .thy-icon {
             border-width: 2px;
+            outline: 0 none;
         }
         &:not(:hover):not(.invalid):not(.active):not(.btn-icon-active).circle-solid {
             i,
@@ -91,6 +96,7 @@
             border-color: variables.$primary;
             color: variables.$primary;
             border-style: solid;
+            outline: 0 none;
         }
     }
     &.invalid {
@@ -100,6 +106,7 @@
         .thy-icon {
             border-color: variables.$danger;
             color: variables.$danger;
+            outline: 0 none;
         }
         &:hover,
         &:focus {
@@ -116,6 +123,7 @@
         .wtf,
         .thy-icon {
             border-style: dashed;
+            outline-style: dashed;
         }
     }
     &.circle-solid {
@@ -123,6 +131,7 @@
         .wtf,
         .thy-icon {
             border-style: solid;
+            outline-style: dashed;
         }
     }
 
