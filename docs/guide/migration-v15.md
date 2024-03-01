@@ -2,7 +2,6 @@
 title: 15.x 升级指南
 path: 'migration-v15'
 order: 992
-hidden: true
 ---
 
 <alert>本文档将帮助你从 ngx-tethys 14.x 版本升级到 15.x 版本。</alert>

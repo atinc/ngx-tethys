@@ -2,7 +2,7 @@
 title: 16.x 升级指南
 path: 'migration-v16'
 order: 991
-hidden: true
+hidden: false
 ---
 
 <alert>本文档将帮助你从 ngx-tethys 和 @tethys/cdk 的 15.x 版本升级到 16.x 版本。</alert>
