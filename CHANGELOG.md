@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [17.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/17.0.0-next.1...17.0.0-next.2) (2024-03-01)
+
+
+### Features
+
+* update cdk version to v17 INFR-11427 ([#3039](https://github.com/atinc/ngx-tethys/issues/3039)) ([5c64820](https://github.com/atinc/ngx-tethys/commit/5c64820033038871ebccb5691fdfd72e966ccbd0))
+
+
+
 # [17.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/16.2.2...17.0.0-next.1) (2024-02-22)
 
 
