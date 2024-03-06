@@ -1,7 +1,8 @@
-import { apply, applyTemplates, HostTree, mergeWith, move, Tree, url } from '@angular-devkit/schematics';
+import { HostTree } from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import * as fs from 'fs';
 import * as path from 'path';
+
 export class TestWorkspaceFactory {
     private hostTree = new HostTree();
     private tree: UnitTestTree;
