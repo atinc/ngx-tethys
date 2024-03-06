@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [17.0.0-next.5](https://github.com/atinc/ngx-tethys/compare/17.0.0-next.4...17.0.0-next.5) (2024-03-06)
+
+
+### Features
+
+* **schematics:** provide schematics for renaming standalone components and select module in v17 #INFR-11732 ([#3044](https://github.com/atinc/ngx-tethys/issues/3044)) ([90b300e](https://github.com/atinc/ngx-tethys/commit/90b300e2889084a9e11d38183c23a1a7aea020fd)), closes [#INFR-11732](https://github.com/atinc/ngx-tethys/issues/INFR-11732)
+
+
+
 # [17.0.0-next.4](https://github.com/atinc/ngx-tethys/compare/17.0.0-next.3...17.0.0-next.4) (2024-03-05)
 
 
