@@ -623,6 +623,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
             value: helpers.isArray(value) ? this.selectedValue : selectedPresetValue,
             triggerPreset: shortcutPresets
         });
+        this.updateActiveDate();
     }
 
     public trackByFn(index: number) {
