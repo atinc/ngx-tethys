@@ -1,4 +1,3 @@
-import { ThyShortcutPreset, ThyShortcutRange } from './standard-types';
 import { forwardRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -33,18 +32,6 @@ export class ThyRangePicker extends BasePicker implements OnInit {
     isRange = true;
 
     private hostRenderer = useHostRenderer();
-
-    /**
-     * 已废弃，请使用 thyShortcutPresets
-     * @deprecated
-     * @type ThyShortcutRange[]
-     */
-    @Input() set thyShortcutRanges(ranges: ThyShortcutRange[]) {
-        if (ranges && helpers.isArray(ranges)) {
-            const presets: ThyShortcutPreset[] = ranges.map(range => ({ title: range.title, value: [range.begin, range.end] }));
-            this.shortcutPresets = [...presets];
-        }
-    }
 
     constructor(cdr: ChangeDetectorRef, protected elementRef: ElementRef) {
         super(cdr, elementRef);
