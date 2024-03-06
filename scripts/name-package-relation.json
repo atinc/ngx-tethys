@@ -202,8 +202,6 @@
   "SupportTimeOptions": "date-picker",
   "DateEntry": "date-picker",
   "ThyDateRangeEntry": "date-picker",
-  "ThyShortcutRange": "date-picker",
-  "ThyShortcutValueChange": "date-picker",
   "PanelMode": "date-picker",
   "RangeEntry": "date-picker",
   "ThyWeekPicker": "date-picker",
