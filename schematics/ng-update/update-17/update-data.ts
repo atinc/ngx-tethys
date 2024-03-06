@@ -756,16 +756,16 @@ export const upgradeData: UpgradeData = {
                 pr: '',
                 changes: [
                     {
-                        replace: '<thy-select ',
-                        replaceWith: '<thy-native-select '
+                        replace: '<thy-select',
+                        replaceWith: '<thy-native-select'
                     },
                     {
                         replace: '</thy-select>',
                         replaceWith: '</thy-native-select>'
                     },
                     {
-                        replace: '<thy-custom-select ',
-                        replaceWith: '<thy-select '
+                        replace: '<thy-custom-select',
+                        replaceWith: '<thy-select'
                     },
                     {
                         replace: '</thy-custom-select>',
