@@ -745,6 +745,22 @@ export const upgradeData: UpgradeData = {
                     {
                         replace: 'ThyCustomSelectTriggerType',
                         replaceWith: 'ThySelectTriggerType'
+                    },
+                    {
+                        replace: 'ThyShortcutRange',
+                        replaceWith: 'ThyShortcutPreset'
+                    },
+                    {
+                        replace: 'ThyShortcutValueChange',
+                        replaceWith: 'ThyDateChangeEvent'
+                    },
+                    {
+                        replace: 'PanelMode',
+                        replaceWith: 'ThyPanelMode'
+                    },
+                    {
+                        replace: 'RangeEntry',
+                        replaceWith: 'ThyDateRangeEntry'
                     }
                 ]
             }
@@ -791,12 +807,63 @@ export const upgradeData: UpgradeData = {
             }
         ]
     },
+    inputNames: {
+        [TargetVersion.V17]: [
+            {
+                pr: '',
+                changes: [
+                    {
+                        replace: 'thyShortcutRanges',
+                        replaceWith: 'thyShortcutPresets',
+                        limitedTo: {
+                            attributes: ['thyRangePicker', '[thyRangePicker]']
+                        }
+                    },
+                    {
+                        replace: 'thyShortcutRanges',
+                        replaceWith: 'thyShortcutPresets',
+                        limitedTo: {
+                            elements: ['thy-range-picker']
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    outputNames: {
+        [TargetVersion.V17]: [
+            {
+                pr: '',
+                changes: [
+                    {
+                        replace: 'thyShortcutValueChange',
+                        replaceWith: 'thyDateChange',
+                        limitedTo: {
+                            attributes: ['thyDatePicker', '[thyDatePicker]', 'thyRangePicker', '[thyRangePicker]']
+                        }
+                    },
+                    {
+                        replace: 'thyShortcutValueChange',
+                        replaceWith: 'thyDateChange',
+                        limitedTo: {
+                            elements: [
+                                'thy-date-picker',
+                                'thy-week-picker',
+                                'thy-month-picker',
+                                'thy-quarter-picker',
+                                'thy-year-picker',
+                                'thy-range-picker'
+                            ]
+                        }
+                    }
+                ]
+            }
+        ]
+    },
     attributeSelectors: {},
     constructorChecks: {},
     cssSelectors: {},
-    inputNames: {},
     methodCallChecks: {},
-    outputNames: {},
     propertyNames: {},
     symbolRemoval: {}
 };
