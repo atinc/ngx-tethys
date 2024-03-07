@@ -50,13 +50,3 @@ export interface ThyDateChangeEvent {
     value: CompatibleValue;
     triggerPreset?: ThyShortcutPreset;
 }
-
-/**
- * @deprecated please use ThyPanelMode
- */
-export type PanelMode = ThyPanelMode;
-
-/**
- * @deprecated please use ThyDateRangeEntry
- */
-export type RangeEntry = ThyDateRangeEntry;
