@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [17.0.0-next.6](https://github.com/atinc/ngx-tethys/compare/17.0.0-next.5...17.0.0-next.6) (2024-03-07)
+
+
+### Features
+
+* **schematics:** improve schematics for select and custom-select in template #INFR-11735 ([#3047](https://github.com/atinc/ngx-tethys/issues/3047)) ([acb4f95](https://github.com/atinc/ngx-tethys/commit/acb4f95b05e9fce85b03601f173ea74d7f935039)), closes [#INFR-11735](https://github.com/atinc/ngx-tethys/issues/INFR-11735)
+
+
+
 # [17.0.0-next.5](https://github.com/atinc/ngx-tethys/compare/17.0.0-next.4...17.0.0-next.5) (2024-03-06)
 
 
