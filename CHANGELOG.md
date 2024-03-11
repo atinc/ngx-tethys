@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [17.0.0-next.7](https://github.com/atinc/ngx-tethys/compare/17.0.0-next.6...17.0.0-next.7) (2024-03-11)
+
+
+### Features
+
+* **date-picker:** remove date-picker deprecated parameter #INFR-11790 [@wumeimin](https://github.com/wumeimin) [@xuhaifeng](https://github.com/xuhaifeng) (#INFR-11790) ([#3046](https://github.com/atinc/ngx-tethys/issues/3046)) ([58a69ac](https://github.com/atinc/ngx-tethys/commit/58a69acaf5982afbb9fc33dbac150f7dbe0d52a9)), closes [#INFR-11790](https://github.com/atinc/ngx-tethys/issues/INFR-11790) [#INFR-11790](https://github.com/atinc/ngx-tethys/issues/INFR-11790)
+* **schematics:** provide schematics for removing the deprecated interface, type, input attr, and output attr in picker module #INFR-11793 ([#3049](https://github.com/atinc/ngx-tethys/issues/3049)) ([f07ad2c](https://github.com/atinc/ngx-tethys/commit/f07ad2ca94fe6e3803a1b10a215b7d39fea0d711)), closes [#INFR-11793](https://github.com/atinc/ngx-tethys/issues/INFR-11793)
+
+
+
 # [17.0.0-next.6](https://github.com/atinc/ngx-tethys/compare/17.0.0-next.5...17.0.0-next.6) (2024-03-07)
 
 
