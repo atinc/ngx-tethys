@@ -22,7 +22,7 @@ import {
 
 import { AbstractPickerComponent } from './abstract-picker.component';
 import { DatePopup } from './lib/popups/date-popup.component';
-import { ThyDateChangeEvent, ThyPanelMode, ThyShortcutValueChange } from './standard-types';
+import { ThyDateChangeEvent, ThyPanelMode } from './standard-types';
 import { CompatibleValue } from './inner-types';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -185,9 +185,6 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
                 .subscribe((event: boolean) => this.onShowTimePickerChange(event));
             // eslint-disable-next-line max-len
             componentInstance.ngOnChanges({ value: {} as SimpleChange }); // dynamically created components don't call ngOnChanges, manual call
-            componentInstance.shortcutValueChange?.pipe(takeUntil(this.destroy$)).subscribe((event: ThyShortcutValueChange) => {
-                this.thyShortcutValueChange.emit(event);
-            });
             componentInstance.dateValueChange?.pipe(this.takeUntilDestroyed).subscribe((event: ThyDateChangeEvent) => {
                 this.thyDateChange.emit(event);
             });

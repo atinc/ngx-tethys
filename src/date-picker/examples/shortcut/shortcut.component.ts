@@ -1,4 +1,4 @@
-import { ThyDateRangeEntry, ThyShortcutPreset, ThyShortcutValueChange } from 'ngx-tethys/date-picker';
+import { ThyDateChangeEvent, ThyDateRangeEntry, ThyShortcutPreset } from 'ngx-tethys/date-picker';
 
 import { Component, OnInit } from '@angular/core';
 import { addWeeks, startOfDay, startOfWeek } from 'date-fns';
@@ -39,7 +39,7 @@ export class ThyDatePickerShortcutExampleComponent implements OnInit {
         console.log('onChange: ', result);
     }
 
-    shortcutValueChange(event: ThyShortcutValueChange) {
+    dateValueChange(event: ThyDateChangeEvent) {
         console.log(event);
     }
 }

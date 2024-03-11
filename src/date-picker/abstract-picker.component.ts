@@ -27,7 +27,6 @@ import {
     ThyPanelMode,
     ThyShortcutPosition,
     CompatiblePresets,
-    ThyShortcutValueChange,
     ThyDateGranularity,
     ThyDateChangeEvent
 } from './standard-types';
@@ -160,12 +159,6 @@ export abstract class AbstractPickerComponent
     }
 
     /**
-     * 已废弃，请使用 thyDateChange
-     * @deprecated please use thyDateChange
-     */
-    @Output() readonly thyShortcutValueChange = new EventEmitter<ThyShortcutValueChange>();
-
-    /**
      * 日期变化的回调
      */
     @Output() readonly thyDateChange = new EventEmitter<ThyDateChangeEvent>();
@@ -230,10 +223,6 @@ export abstract class AbstractPickerComponent
 
     isFlexible() {
         this.flexible = this.thyMode === 'flexible';
-    }
-
-    onShortcutValueChange(event: ThyShortcutValueChange) {
-        this.thyShortcutValueChange.emit(event);
     }
 
     onDateValueChange(event: ThyDateChangeEvent) {

@@ -31,8 +31,7 @@ import {
     ThyPanelMode,
     ThyShortcutPosition,
     ThyShortcutPreset,
-    ThyShortcutValue,
-    ThyShortcutValueChange
+    ThyShortcutValue
 } from '../../standard-types';
 import { CalendarFooter } from '../calendar/calendar-footer.component';
 import { DateCarousel } from '../date-carousel/date-carousel.component';
@@ -102,10 +101,6 @@ export class DatePopup implements OnChanges, OnInit {
     @Output() readonly valueChange = new EventEmitter<CompatibleValue | RangeAdvancedValue>();
     @Output() readonly resultOk = new EventEmitter<void>(); // Emitted when done with date selecting
     @Output() readonly showTimePickerChange = new EventEmitter<boolean>();
-    /**
-     * @deprecated
-     */
-    @Output() readonly shortcutValueChange = new EventEmitter<ThyShortcutValueChange>();
     @Output() readonly dateValueChange = new EventEmitter<ThyDateChangeEvent>();
 
     prefixCls = 'thy-calendar';
@@ -614,10 +609,6 @@ export class DatePopup implements OnChanges, OnInit {
             const singleTinyDate: TinyDate = this.updateHourMinute(new TinyDate(singleDate));
             selectedPresetValue = this.getSelectedShortcutPreset(singleTinyDate) as TinyDate;
         }
-        this.shortcutValueChange.emit({
-            value: selectedPresetValue,
-            triggerPresets: shortcutPresets
-        });
         this.setValue(selectedPresetValue);
         this.dateValueChange.emit({
             value: helpers.isArray(value) ? this.selectedValue : selectedPresetValue,
