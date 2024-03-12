@@ -55,11 +55,6 @@
     "prettier-schematics": "prettier --write \"./schematics/**/*.ts\"",
     "prepublishOnly": "./scripts/pre-publish.js"
   },
-  "husky": {
-    "hooks": {
-      "pre-push": "./scripts/pre-push.js"
-    }
-  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/atinc/ngx-tethys.git"
