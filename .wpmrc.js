@@ -23,6 +23,7 @@ module.exports = {
     // otherwise, the changelog will rebuild, and will be lost past versions
     tagPrefix: '',
     hooks: {
-        prepublish: 'npm run build'
+        prepublish: 'npm run build',
+        prereleaseBranch: "node ./scripts/pre-release.js {{version}}"
     }
 };
