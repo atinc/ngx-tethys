@@ -16,7 +16,7 @@ import { CdkScrollable } from '@angular/cdk/scrolling';
     standalone: true,
     hostDirectives: [CdkScrollable]
 })
-export class DialogBody implements OnInit {
+export class ThyDialogBody implements OnInit {
     @HostBinding(`class.dialog-body`) _isDialogBody = true;
 
     @HostBinding(`class.dialog-body-clear-padding`)

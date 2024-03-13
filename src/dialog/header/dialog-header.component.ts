@@ -25,7 +25,7 @@ import { NgIf, NgTemplateOutlet } from '@angular/common';
     standalone: true,
     imports: [NgIf, NgTemplateOutlet, ThyIcon, ThyAction]
 })
-export class DialogHeader implements OnInit {
+export class ThyDialogHeader implements OnInit {
     /**
      * 自定义头部模板
      */
