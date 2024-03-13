@@ -33,6 +33,7 @@ describe('ng-update v17 Schematic', () => {
                 import { ThyButtonComponent } from 'ngx-tethys/button';
                 import { ThyOptionComponent } from 'ngx-tethys/shared';
                 import { ThySelectComponent, ThySelectCustomComponent } from 'ngx-tethys/select';
+                import { DialogHeaderComponent, DialogBodyComponent, DialogFooterComponent } from 'ngx-tethys/dialog';
 
                 @Component({
                     selector: 'app-root',
@@ -44,7 +45,10 @@ describe('ng-update v17 Schematic', () => {
                         ThySelectComponent,
                         ThySelectCustomComponent,
                         ThyOptionComponent,
-                        ThyButtonComponent
+                        ThyButtonComponent,
+                        DialogHeaderComponent,
+                        DialogBodyComponent,
+                        DialogFooterComponent
                     ],
                     templateUrl: './app.component.html',
                     styleUrls: ['./app.component.scss'],
@@ -95,6 +99,18 @@ describe('ng-update v17 Schematic', () => {
             const result = workspaceTree.read(TEST_COMPONENT_PATH).toString();
             expect(result).not.toContain(`ThySelectCustomComponent`);
             expect(result).toContain('ThySelect');
+        });
+
+        it('should rename DialogHeaderComponent, DialogBodyComponent, DialogFooterComponent to ThyDialogHeader, ThyDialogBody, ThyDialogFooter', async () => {
+            const result = workspaceTree.read(TEST_COMPONENT_PATH).toString();
+            expect(result).not.toContain(`DialogHeaderComponent`);
+            expect(result).toContain('ThyDialogHeader');
+
+            expect(result).not.toContain(`DialogBodyComponent`);
+            expect(result).toContain('ThyDialogBody');
+
+            expect(result).not.toContain(`DialogFooterComponent`);
+            expect(result).toContain('ThyDialogFooter');
         });
     });
 });

@@ -8,15 +8,15 @@ import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThyFormModule } from 'ngx-tethys/form';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThySharedModule } from 'ngx-tethys/shared';
-import { DialogBody } from './body/dialog-body.component';
+import { ThyDialogBody } from './body/dialog-body.component';
 import { THY_CONFIRM_DEFAULT_OPTIONS_PROVIDER } from './confirm.config';
 import { ThyConfirm } from './confirm/confirm.component';
 import { THY_CONFIRM_COMPONENT_TOKEN } from './confirm/token';
 import { ThyDialogContainer } from './dialog-container.component';
 import { THY_DIALOG_DEFAULT_OPTIONS_PROVIDER, THY_DIALOG_LAYOUT_CONFIG_PROVIDER } from './dialog.config';
 import { ThyDialog } from './dialog.service';
-import { DialogFooter } from './footer/dialog-footer.component';
-import { DialogHeader } from './header/dialog-header.component';
+import { ThyDialogFooter } from './footer/dialog-footer.component';
+import { ThyDialogHeader } from './header/dialog-header.component';
 
 @NgModule({
     imports: [
@@ -30,9 +30,9 @@ import { DialogHeader } from './header/dialog-header.component';
         FormsModule,
         ThyActionModule,
         ThyDialogContainer,
-        DialogHeader,
-        DialogBody,
-        DialogFooter,
+        ThyDialogHeader,
+        ThyDialogBody,
+        ThyDialogFooter,
         ThyConfirm
     ],
     providers: [
@@ -45,6 +45,6 @@ import { DialogHeader } from './header/dialog-header.component';
             useValue: ThyConfirm
         }
     ],
-    exports: [ThyDialogContainer, DialogHeader, DialogBody, DialogFooter]
+    exports: [ThyDialogContainer, ThyDialogHeader, ThyDialogBody, ThyDialogFooter]
 })
 export class ThyDialogModule {}

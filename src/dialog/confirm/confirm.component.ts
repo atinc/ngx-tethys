@@ -6,10 +6,10 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Input, O
 import { NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThyButton } from 'ngx-tethys/button';
-import { DialogBody } from '../body/dialog-body.component';
+import { ThyDialogBody } from '../body/dialog-body.component';
 import { ThyConfirmConfig, THY_CONFIRM_DEFAULT_OPTIONS, THY_CONFIRM_DEFAULT_OPTIONS_VALUE } from '../confirm.config';
 import { ThyDialogRef } from '../dialog-ref';
-import { DialogHeader } from '../header/dialog-header.component';
+import { ThyDialogHeader } from '../header/dialog-header.component';
 
 /**
  * @private
@@ -19,7 +19,7 @@ import { DialogHeader } from '../header/dialog-header.component';
     templateUrl: './confirm.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [DialogHeader, DialogBody, FormsModule, ThyFormDirective, ThyFormGroupFooter, NgClass, ThyButton]
+    imports: [ThyDialogHeader, ThyDialogBody, FormsModule, ThyFormDirective, ThyFormGroupFooter, NgClass, ThyButton]
 })
 export class ThyConfirm implements OnInit, OnDestroy {
     loading: boolean;

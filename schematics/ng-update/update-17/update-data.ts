@@ -508,7 +508,7 @@ export const upgradeData: UpgradeData = {
                     },
                     {
                         replace: 'DialogBodyComponent',
-                        replaceWith: 'DialogBody'
+                        replaceWith: 'ThyDialogBody'
                     },
                     {
                         replace: 'ThyConfirmComponent',
@@ -516,11 +516,11 @@ export const upgradeData: UpgradeData = {
                     },
                     {
                         replace: 'DialogFooterComponent',
-                        replaceWith: 'DialogFooter'
+                        replaceWith: 'ThyDialogFooter'
                     },
                     {
                         replace: 'DialogHeaderComponent',
-                        replaceWith: 'DialogHeader'
+                        replaceWith: 'ThyDialogHeader'
                     },
                     {
                         replace: 'ThyFormGroupErrorComponent',
