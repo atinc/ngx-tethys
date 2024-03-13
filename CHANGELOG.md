@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [17.0.0-next.8](https://github.com/atinc/ngx-tethys/compare/17.0.0-next.7...17.0.0-next.8) (2024-03-13)
+
+
+### Features
+
+* **dialog:** add Thy prefix to DialogHeader, DialogBody and DialogFooter and provide schematics #INFR-11891 ([#3052](https://github.com/atinc/ngx-tethys/issues/3052)) ([872afd3](https://github.com/atinc/ngx-tethys/commit/872afd356cc265f10b2b06bad92c9dee97443066)), closes [#INFR-11891](https://github.com/atinc/ngx-tethys/issues/INFR-11891)
+
+
+
 # [17.0.0-next.7](https://github.com/atinc/ngx-tethys/compare/17.0.0-next.6...17.0.0-next.7) (2024-03-11)
 
 
