@@ -33,7 +33,7 @@ describe('ng-update v17 Schematic', () => {
                 import { ThyButtonComponent } from 'ngx-tethys/button';
                 import { ThyOptionComponent } from 'ngx-tethys/shared';
                 import { ThySelectComponent, ThySelectCustomComponent } from 'ngx-tethys/select';
-                import { DialogHeaderComponent, DialogHeaderComponent, DialogFooterComponent } from 'ngx-tethys/dialog';
+                import { DialogHeaderComponent, DialogBodyComponent, DialogFooterComponent } from 'ngx-tethys/dialog';
 
                 @Component({
                     selector: 'app-root',
