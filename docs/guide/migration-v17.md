@@ -19,6 +19,7 @@ hidden: false
 - 自动移除独立组件的 Component 后缀，比如：将 `ThyButtonComponent` 改成 `ThyButton`。
 - 自动将「原生下拉选择组件」的类名由 `ThySelectComponent` 改成 `ThyNativeSelect`，相应的选择器由  `thy-select` 改成 `thy-native-select` 。
 - 自动将「自定义下拉选择组件」的类名由 `ThySelectCustomComponent` 改成 `ThySelect`，相应的选择器由  `thy-custom-select` 改成 `thy-select` 。
+- 自动将 `DialogHeaderComponent`、`DialogBodyComponent`、`DialogFooterComponent` 组件类重命名为 `ThyDialogHeader`、`ThyDialogBody`、`ThyDialogFooter`。
 - 自动将 `thy-range-picker` 组件和 `thyRangePicker` 指令的输入参数由 `thyShortcutRanges` 改成`thyShortcutPresets`。
 - 自动将 `thyDatePicker`、`thyRangePicker`、`thy-date-picker`、`thy-week-picker`、`thy-month-picker`、`thy-quarter-picker`、`thy-year-picker`、`thy-range-picker` 指令和组件的输出参数由 `thyShortcutValueChange` 改成 `thyDateChange`。
 - 自动将接口 `ThyShortcutRange` 改成 `ThyShortcutPreset`。
