@@ -6,6 +6,7 @@ $resize-line-width: 2px;
 $resize-top: -5px;
 
 .#{$resizable-prefix-cls} {
+    position: relative;
     &-preview {
         position: absolute;
         top: 0;

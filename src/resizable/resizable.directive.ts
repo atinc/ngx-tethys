@@ -164,7 +164,6 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
             return;
         }
         this.nativeElement = this.elementRef.nativeElement;
-        this.setPosition();
         this.ngZone.runOutsideAngular(() => {
             fromEvent(this.nativeElement, 'mouseenter')
                 .pipe(takeUntil(this.ngUnsubscribe$))
@@ -200,13 +199,6 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
                 break;
         }
         setCompatibleStyle(document.body, 'user-select', 'none');
-    }
-
-    setPosition(): void {
-        const position = getComputedStyle(this.nativeElement).position;
-        if (position === 'static' || !position) {
-            this.renderer.setStyle(this.nativeElement, 'position', 'relative');
-        }
     }
 
     endResize(event: MouseEvent | TouchEvent): void {
