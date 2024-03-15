@@ -16,10 +16,10 @@ import { PaginationDefaultConfig, DEFAULT_RANGE_COUNT, THY_PAGINATION_CONFIG, Th
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { isTemplateRef } from 'ngx-tethys/util';
 import { PaginationTotalCountFormat } from './pagination.pipe';
-import { ThyIconComponent } from 'ngx-tethys/icon';
-import { ThyOptionComponent, ThyEnterDirective } from 'ngx-tethys/shared';
+import { ThyIcon } from 'ngx-tethys/icon';
+import { ThyOption, ThyEnterDirective } from 'ngx-tethys/shared';
 import { FormsModule } from '@angular/forms';
-import { ThySelectCustomComponent } from 'ngx-tethys/select';
+import { ThySelect } from 'ngx-tethys/select';
 import { NgIf, NgTemplateOutlet, NgFor } from '@angular/common';
 import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 
@@ -33,19 +33,9 @@ import { InputBoolean, InputNumber } from 'ngx-tethys/core';
     templateUrl: './pagination.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [
-        NgIf,
-        NgTemplateOutlet,
-        ThySelectCustomComponent,
-        FormsModule,
-        NgFor,
-        ThyOptionComponent,
-        ThyIconComponent,
-        ThyEnterDirective,
-        PaginationTotalCountFormat
-    ]
+    imports: [NgIf, NgTemplateOutlet, ThySelect, FormsModule, NgFor, ThyOption, ThyIcon, ThyEnterDirective, PaginationTotalCountFormat]
 })
-export class ThyPaginationComponent implements OnInit {
+export class ThyPagination implements OnInit {
     isTemplateRef = isTemplateRef;
     public config: ThyPaginationConfigModel = Object.assign({}, PaginationDefaultConfig, this.paginationConfig.main);
 

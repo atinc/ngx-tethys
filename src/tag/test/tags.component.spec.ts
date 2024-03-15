@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TestBed, waitForAsync, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyTagsComponent } from '../tags.component';
+import { ThyTags } from '../tags.component';
 import { ThyTagModule } from '../tag.module';
 import { ThyIconModule } from 'ngx-tethys/icon';
 
@@ -35,7 +35,7 @@ describe('thy-tags', () => {
     });
 
     it('should create thy-tags', () => {
-        const tagsDebugElement = fixture.debugElement.query(By.directive(ThyTagsComponent));
+        const tagsDebugElement = fixture.debugElement.query(By.directive(ThyTags));
         expect(tagsDebugElement).toBeTruthy();
         const tagsElement: HTMLElement = tagsDebugElement.nativeElement;
         expect(tagsElement.classList.contains('thy-tags')).toBeTruthy();

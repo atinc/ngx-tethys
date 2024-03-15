@@ -3,7 +3,7 @@ import { THY_SELECT_CONFIG } from 'ngx-tethys/select';
 import { ThyPlacement } from 'ngx-tethys/core';
 
 @Component({
-    selector: 'thy-custom-select-placement-example',
+    selector: 'thy-select-placement-example',
     templateUrl: './placement.component.html',
     styles: [
         `
@@ -12,7 +12,7 @@ import { ThyPlacement } from 'ngx-tethys/core';
                 justify-content: left;
                 flex-wrap: wrap;
             }
-            thy-custom-select {
+            thy-select {
                 flex: 0 0 auto;
                 width: 150px;
                 margin: 0 20px 20px 0;
@@ -29,7 +29,7 @@ import { ThyPlacement } from 'ngx-tethys/core';
         }
     ]
 })
-export class ThySelectCustomPlacementExampleComponent implements OnInit {
+export class ThySelectPlacementExampleComponent implements OnInit {
     _placements: ThyPlacement[] = [
         'top',
         'topLeft',

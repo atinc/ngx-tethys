@@ -3,15 +3,15 @@ import { ThyInputModule } from 'ngx-tethys/input';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ThyColorPickerDirective } from './color-picker.component';
-import { ThyColorPickerCustomPanelComponent } from './color-picker-custom-panel.component';
-import { ThySaturationComponent } from './parts/saturation/saturation.component';
+import { ThyColorPickerCustomPanel } from './color-picker-custom-panel.component';
+import { ThySaturation } from './parts/saturation/saturation.component';
 import { ThyDialogModule } from 'ngx-tethys/dialog';
-import { ThyHueComponent } from './parts/hue/hue.component';
-import { ThyAlphaComponent } from './parts/alpha/alpha.component';
-import { ThyIndicatorComponent } from './parts/indicator/indicator.component';
+import { ThyHue } from './parts/hue/hue.component';
+import { ThyAlpha } from './parts/alpha/alpha.component';
+import { ThyIndicator } from './parts/indicator/indicator.component';
 import { ThyCoordinatesDirective } from './coordinates.directive';
-import { ThyColorPickerPanelComponent } from './color-picker-panel.component';
-import { ThyColorInputsComponent } from './parts/inputs/inputs.component';
+import { ThyColorPickerPanel } from './color-picker-panel.component';
+import { ThyColorInputs } from './parts/inputs/inputs.component';
 import { FormsModule } from '@angular/forms';
 import { ThyInputNumberModule } from 'ngx-tethys/input-number';
 import { ThySharedModule } from 'ngx-tethys/shared';
@@ -26,14 +26,14 @@ import { ThySharedModule } from 'ngx-tethys/shared';
         ThyInputNumberModule,
         ThySharedModule,
         ThyColorPickerDirective,
-        ThyColorPickerCustomPanelComponent,
-        ThySaturationComponent,
-        ThyHueComponent,
-        ThyAlphaComponent,
-        ThyIndicatorComponent,
+        ThyColorPickerCustomPanel,
+        ThySaturation,
+        ThyHue,
+        ThyAlpha,
+        ThyIndicator,
         ThyCoordinatesDirective,
-        ThyColorPickerPanelComponent,
-        ThyColorInputsComponent
+        ThyColorPickerPanel,
+        ThyColorInputs
     ],
     exports: [ThyColorPickerDirective]
 })

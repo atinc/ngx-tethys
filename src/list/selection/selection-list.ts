@@ -1,5 +1,5 @@
 import { ScrollToService } from 'ngx-tethys/core';
-import { IThyListOptionParentComponent, THY_LIST_OPTION_PARENT_COMPONENT, ThyListLayout, ThyListOptionComponent } from 'ngx-tethys/shared';
+import { IThyListOptionParentComponent, THY_LIST_OPTION_PARENT_COMPONENT, ThyListLayout, ThyListOption } from 'ngx-tethys/shared';
 import { coerceBooleanProperty, dom, helpers, keycodes } from 'ngx-tethys/util';
 import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
@@ -44,19 +44,19 @@ const listSizesMap = {
     providers: [
         {
             provide: THY_LIST_OPTION_PARENT_COMPONENT,
-            useExisting: ThySelectionListComponent
+            useExisting: ThySelectionList
         },
         {
             provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => ThySelectionListComponent),
+            useExisting: forwardRef(() => ThySelectionList),
             multi: true
         }
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true
 })
-export class ThySelectionListComponent implements OnInit, OnDestroy, AfterContentInit, IThyListOptionParentComponent, ControlValueAccessor {
-    private _keyManager: ActiveDescendantKeyManager<ThyListOptionComponent>;
+export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IThyListOptionParentComponent, ControlValueAccessor {
+    private _keyManager: ActiveDescendantKeyManager<ThyListOption>;
 
     private _selectionChangesUnsubscribe$ = Subscription.EMPTY;
 
@@ -84,7 +84,7 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
     /**
      * @internal
      */
-    @ContentChildren(ThyListOptionComponent, { descendants: true }) options: QueryList<ThyListOptionComponent>;
+    @ContentChildren(ThyListOption, { descendants: true }) options: QueryList<ThyListOption>;
 
     /**
      * 改变 grid item 的选择模式，使其支持多选
@@ -174,7 +174,7 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
 
     private _onChange: (value: any) => void = (_: any) => {};
 
-    private _emitChangeEvent(option: ThyListOptionComponent, event: Event) {
+    private _emitChangeEvent(option: ThyListOption, event: Event) {
         this.thySelectionChange.emit({
             source: this,
             value: option.thyValue,
@@ -219,7 +219,7 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
     }
 
     private _initializeFocusKeyManager() {
-        this._keyManager = new ActiveDescendantKeyManager<ThyListOptionComponent>(this.options)
+        this._keyManager = new ActiveDescendantKeyManager<ThyListOption>(this.options)
             .withWrap()
             // .withTypeAhead()
             // Allow disabled items to be focusable. For accessibility reasons, there must be a way for
@@ -246,7 +246,7 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
         }
     }
 
-    private _getOptionSelectionValue(option: ThyListOptionComponent) {
+    private _getOptionSelectionValue(option: ThyListOption) {
         if (option.thyValue) {
             return this.thyUniqueKey ? option.thyValue[this.thyUniqueKey] : option.thyValue;
         } else {
@@ -386,7 +386,7 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
         }
     }
 
-    toggleOption(option: ThyListOptionComponent, event?: Event) {
+    toggleOption(option: ThyListOption, event?: Event) {
         if (option && !option.disabled) {
             this.selectionModel.toggle(this._getOptionSelectionValue(option));
             // Emit a change event because the focused option changed its state through user
@@ -396,16 +396,16 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
         }
     }
 
-    setActiveOption(option: ThyListOptionComponent) {
+    setActiveOption(option: ThyListOption) {
         this._keyManager.updateActiveItem(option); // .updateActiveItemIndex(this._getOptionIndex(option));
     }
 
-    scrollIntoView(option: ThyListOptionComponent) {
+    scrollIntoView(option: ThyListOption) {
         const scrollContainerElement = dom.getHTMLElementBySelector(this.thyScrollContainer, this.elementRef);
         ScrollToService.scrollToElement(option.element.nativeElement, scrollContainerElement);
     }
 
-    isSelected(option: ThyListOptionComponent) {
+    isSelected(option: ThyListOption) {
         return this.selectionModel.isSelected(this._getOptionSelectionValue(option));
     }
 

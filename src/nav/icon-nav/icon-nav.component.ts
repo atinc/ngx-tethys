@@ -13,7 +13,7 @@ type IconNavTypes = 'primary' | 'secondary' | 'individual' | '';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true
 })
-export class ThyIconNavComponent implements OnInit {
+export class ThyIconNav implements OnInit {
     private initialized = false;
 
     private hostRenderer = useHostRenderer();

@@ -92,7 +92,7 @@ export class ThyDropdownMenuComponent {
     },
     standalone: true
 })
-export class ThyDropdownMenuGroupComponent {
+export class ThyDropdownMenuGroup {
     title: string;
 
     /**
@@ -119,6 +119,6 @@ export class ThyDropdownMenuGroupComponent {
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true
 })
-export class ThyDropdownMenuDividerComponent {
+export class ThyDropdownMenuDivider {
     constructor() {}
 }

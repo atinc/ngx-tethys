@@ -24,7 +24,7 @@ import { NgIf, NgTemplateOutlet } from '@angular/common';
     standalone: true,
     imports: [NgIf, NgTemplateOutlet]
 })
-export class ThyTooltipComponent implements OnInit {
+export class ThyTooltip implements OnInit {
     @HostBinding(`class.thy-tooltip`) addTooltipContainerClass = true;
 
     _content: string | TemplateRef<HTMLElement>;

@@ -3,10 +3,10 @@ import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { ThyFormGroupFooterComponent } from '../from-group-footer/form-group-footer.component';
+import { ThyFormGroupFooter } from '../from-group-footer/form-group-footer.component';
 import { ThyFormDirective } from '../form.directive';
 import { THY_FORM_CONFIG } from '../form.class';
-import { ThyFormGroupErrorComponent } from '../form-group-error/form-group-error.component';
+import { ThyFormGroupError } from '../form-group-error/form-group-error.component';
 
 @Component({
     selector: 'thy-test-form-group-error-basic',
@@ -52,7 +52,7 @@ describe('form-group-error', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(TestFormGroupErrorBasicComponent);
             formGroupFooterComponent = fixture.debugElement.componentInstance;
-            debugElement = fixture.debugElement.query(By.directive(ThyFormGroupErrorComponent));
+            debugElement = fixture.debugElement.query(By.directive(ThyFormGroupError));
             thyFormDirective = TestBed.inject(ThyFormDirective);
         });
 
@@ -104,7 +104,7 @@ describe('form-group-error', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(TestFormGroupErrorBasicComponent);
             formGroupFooterComponent = fixture.debugElement.componentInstance;
-            debugElement = fixture.debugElement.query(By.directive(ThyFormGroupErrorComponent));
+            debugElement = fixture.debugElement.query(By.directive(ThyFormGroupError));
             thyFormDirective = TestBed.inject(ThyFormDirective);
         });
 

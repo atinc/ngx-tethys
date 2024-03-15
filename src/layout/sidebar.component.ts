@@ -18,8 +18,8 @@ import {
 import { ThyHotkeyDispatcher } from '@tethys/cdk/hotkey';
 import { isMacPlatform } from '@tethys/cdk/is';
 import { InputBoolean, InputNumber } from 'ngx-tethys/core';
-import { ThyIconComponent } from 'ngx-tethys/icon';
-import { ThyResizableDirective, ThyResizeEvent, ThyResizeHandleComponent } from 'ngx-tethys/resizable';
+import { ThyIcon } from 'ngx-tethys/icon';
+import { ThyResizableDirective, ThyResizeEvent, ThyResizeHandle } from 'ngx-tethys/resizable';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { Subscription } from 'rxjs';
@@ -183,18 +183,9 @@ export class ThySidebarDirective implements OnInit {
         }
     ],
     standalone: true,
-    imports: [
-        NgTemplateOutlet,
-        NgIf,
-        ThyResizeHandleComponent,
-        ThyResizableDirective,
-        ThyIconComponent,
-        ThyTooltipDirective,
-        NgClass,
-        NgStyle
-    ]
+    imports: [NgTemplateOutlet, NgIf, ThyResizeHandle, ThyResizableDirective, ThyIcon, ThyTooltipDirective, NgClass, NgStyle]
 })
-export class ThySidebarComponent implements OnInit, OnDestroy {
+export class ThySidebar implements OnInit, OnDestroy {
     sidebarDirective = inject(ThySidebarDirective);
 
     @HostBinding('style.width.px') get sidebarWidth() {

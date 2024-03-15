@@ -1,4 +1,4 @@
-import { ThyImagePreviewComponent } from './image-preview.component';
+import { ThyImagePreview } from './image-preview.component';
 import { ThyDialogRef } from 'ngx-tethys/dialog';
 import { LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
 import { ThyImageInfo, ThyImagePreviewOptions } from '../image.class';
@@ -10,9 +10,9 @@ export class ThyImagePreviewRef {
     }
 
     constructor(
-        public previewInstance: ThyImagePreviewComponent,
+        public previewInstance: ThyImagePreview,
         private config: ThyImagePreviewOptions,
-        private dialogRef: ThyDialogRef<ThyImagePreviewComponent>
+        private dialogRef: ThyDialogRef<ThyImagePreview>
     ) {
         dialogRef
             .keydownEvents()

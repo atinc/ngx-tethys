@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ThyLoadingComponent } from './loading.component';
+import { ThyLoading } from './loading.component';
 
 @NgModule({
-    imports: [CommonModule, ThyLoadingComponent],
-    exports: [ThyLoadingComponent]
+    imports: [CommonModule, ThyLoading],
+    exports: [ThyLoading]
 })
 export class ThyLoadingModule {}

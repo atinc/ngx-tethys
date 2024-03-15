@@ -16,8 +16,8 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/f
 import { isValid } from 'date-fns';
 import { getFlexiblePositions, InputBoolean, ThyPlacement } from 'ngx-tethys/core';
 import { TinyDate, coerceBooleanProperty } from 'ngx-tethys/util';
-import { ThyTimePanelComponent } from './time-picker-panel.component';
-import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyTimePanel } from './time-picker-panel.component';
+import { ThyIcon } from 'ngx-tethys/icon';
 import { NgTemplateOutlet, NgIf, NgClass } from '@angular/common';
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
@@ -36,7 +36,7 @@ export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
         {
             provide: NG_VALUE_ACCESSOR,
             multi: true,
-            useExisting: forwardRef(() => ThyTimePickerComponent)
+            useExisting: forwardRef(() => ThyTimePicker)
         }
     ],
     host: {
@@ -51,14 +51,14 @@ export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
         FormsModule,
         NgTemplateOutlet,
         NgIf,
-        ThyIconComponent,
+        ThyIcon,
         NgClass,
         CdkConnectedOverlay,
-        ThyTimePanelComponent
+        ThyTimePanel
     ],
     animations: [scaleXMotion, scaleYMotion, scaleMotion]
 })
-export class ThyTimePickerComponent implements OnInit, AfterViewInit, ControlValueAccessor {
+export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccessor {
     @ViewChild(CdkConnectedOverlay, { static: true }) cdkConnectedOverlay: CdkConnectedOverlay;
 
     @ViewChild('origin', { static: true }) origin: CdkOverlayOrigin;

@@ -4,9 +4,9 @@ import { Component, DebugElement, NgModule } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { ThyButtonGroupComponent } from '../button-group.component';
-import { ThyButtonIconComponent } from '../button-icon.component';
-import { ThyButtonComponent } from '../button.component';
+import { ThyButtonGroup } from '../button-group.component';
+import { ThyButtonIcon } from '../button-icon.component';
+import { ThyButton } from '../button.component';
 import { ThyButtonModule } from '../button.module';
 
 function assertButtonIcon(iconElement: Element, icon: string) {
@@ -54,7 +54,7 @@ describe('ThyButton', () => {
             fixture = TestBed.createComponent(ThyTestButtonBasicComponent);
             basicTestComponent = fixture.componentInstance;
             fixture.detectChanges();
-            buttonComponent = fixture.debugElement.query(By.directive(ThyButtonComponent));
+            buttonComponent = fixture.debugElement.query(By.directive(ThyButton));
         });
 
         it('should get correct classes', () => {
@@ -224,7 +224,7 @@ describe('ThyIconButton', () => {
         fixture = TestBed.createComponent(ThyTestButtonIconBasicComponent);
         basicTestComponent = fixture.componentInstance;
         fixture.detectChanges();
-        buttonIconComponent = fixture.debugElement.query(By.directive(ThyButtonIconComponent));
+        buttonIconComponent = fixture.debugElement.query(By.directive(ThyButtonIcon));
     });
 
     it('should get correct classes', () => {
@@ -349,7 +349,7 @@ describe('ThyButtonGroup', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(ThyDemoButtonGroupComponent);
         basicTestComponent = fixture.debugElement.componentInstance;
-        buttonGroupComponent = fixture.debugElement.query(By.directive(ThyButtonGroupComponent));
+        buttonGroupComponent = fixture.debugElement.query(By.directive(ThyButtonGroup));
         fixture.detectChanges();
     });
 

@@ -4,7 +4,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angul
 import { By } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
 import { ThyTooltipModule } from '../../tooltip';
-import { ThyFlexibleTextComponent } from '../flexible-text.component';
+import { ThyFlexibleText } from '../flexible-text.component';
 import { ThyFlexibleTextModule } from '../flexible-text.module';
 
 @Component({
@@ -48,7 +48,7 @@ import { ThyFlexibleTextModule } from '../flexible-text.module';
     ]
 })
 class FlexibleTextTestComponent {
-    @ViewChild('FlexibleText', { static: true }) flexibleText: ThyFlexibleTextComponent;
+    @ViewChild('FlexibleText', { static: true }) flexibleText: ThyFlexibleText;
     tooltipContent = '默认内容。。。';
     placement = 'bottom';
     content = '默认内容。。。';
@@ -90,7 +90,7 @@ describe('FlexibleTextComponent', () => {
         }).compileComponents();
 
         // fake resize observer before create component
-        const createResizeSpy = spyOn(ThyFlexibleTextComponent, 'createResizeObserver');
+        const createResizeSpy = spyOn(ThyFlexibleText, 'createResizeObserver');
         createResizeSpy.and.returnValue(fakeResizeObserver);
 
         fixture = TestBed.createComponent(FlexibleTextTestComponent);

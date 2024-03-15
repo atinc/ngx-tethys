@@ -2,8 +2,8 @@ import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ThyStepperModule } from '../stepper.module';
 import { NgModule, Component, ViewChild } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { ThyStepComponent } from '../step.component';
-import { ThyStepperComponent } from '../stepper.component';
+import { ThyStep } from '../step.component';
+import { ThyStepper } from '../stepper.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
@@ -33,7 +33,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     `
 })
 class ThyDemoStepperComponent {
-    @ViewChild('selectedStep', { static: true }) selectedStepperComponent: ThyStepComponent;
+    @ViewChild('selectedStep', { static: true }) selectedStepperComponent: ThyStep;
     showStepHeader = true;
     selectedIndex = 0;
     next() {}
@@ -70,7 +70,7 @@ describe('ThyStepper', () => {
         });
 
         it('should have class thy-stepper', () => {
-            const stepper = fixture.debugElement.query(By.directive(ThyStepperComponent));
+            const stepper = fixture.debugElement.query(By.directive(ThyStepper));
             expect(stepper.nativeElement.classList.contains('thy-stepper')).toBeTruthy();
         });
 
@@ -87,7 +87,7 @@ describe('ThyStepper', () => {
         });
 
         it('toggle step', () => {
-            const stepper = fixture.debugElement.query(By.directive(ThyStepperComponent)).componentInstance;
+            const stepper = fixture.debugElement.query(By.directive(ThyStepper)).componentInstance;
             stepper.next();
             fixture.detectChanges();
             const secondStep = fixture.debugElement.query(By.css('.second-step'));
@@ -109,7 +109,7 @@ describe('ThyStepper', () => {
         });
 
         it('should support thySelected', () => {
-            const stepper = fixture.debugElement.query(By.directive(ThyStepperComponent)).componentInstance;
+            const stepper = fixture.debugElement.query(By.directive(ThyStepper)).componentInstance;
             stepper.thySelected = testComponent.selectedStepperComponent;
             fixture.detectChanges();
             expect(stepper.selected).toEqual(testComponent.selectedStepperComponent);

@@ -3,7 +3,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyCarouselModule } from '../module';
-import { ThyCarouselComponent, ThyCarouselPause } from 'ngx-tethys/carousel';
+import { ThyCarousel, ThyCarouselPause } from 'ngx-tethys/carousel';
 import { ThyCarouselItemDirective } from 'ngx-tethys/carousel';
 import { ThyCarouselEffect, ThyCarouselTrigger } from '../typings';
 import { mouseSwipe, touchSwipe, windowResize } from './carousel-events';
@@ -28,7 +28,7 @@ import { mouseSwipe, touchSwipe, windowResize } from './carousel-events';
     `
 })
 class ThyTestCarouselBasicComponent implements OnInit {
-    @ViewChild(ThyCarouselComponent, { static: false }) thyCarouselComponent!: ThyCarouselComponent;
+    @ViewChild(ThyCarousel, { static: false }) thyCarouselComponent!: ThyCarousel;
     constructor() {}
 
     array: string[] = [];
@@ -67,7 +67,7 @@ class ThyTestCarouselBasicComponent implements OnInit {
     `
 })
 class ThyTestCarouselTouchableComponent implements OnInit {
-    @ViewChild(ThyCarouselComponent, { static: false }) thyCarouselComponent!: ThyCarouselComponent;
+    @ViewChild(ThyCarousel, { static: false }) thyCarouselComponent!: ThyCarousel;
 
     array: string[] = [];
 
@@ -99,7 +99,7 @@ describe('carousel', () => {
             fixture = TestBed.createComponent(ThyTestCarouselBasicComponent);
             fixture.detectChanges();
             basicTestComponent = fixture.debugElement.componentInstance;
-            carouselWrapper = fixture.debugElement.query(By.directive(ThyCarouselComponent));
+            carouselWrapper = fixture.debugElement.query(By.directive(ThyCarousel));
             carouselContents = fixture.debugElement.queryAll(By.directive(ThyCarouselItemDirective));
         });
 

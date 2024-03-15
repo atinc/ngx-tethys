@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, OnChanges, Output } f
 import { DateHelperService } from '../../date-helper.service';
 import { DateCell, DateBodyRow } from './types';
 import { CalendarTable } from '../calendar/calendar-table.component';
-import { DateTableCellComponent } from './date-table-cell.component';
+import { DateTableCell } from './date-table-cell.component';
 import { NgIf, NgFor, NgClass } from '@angular/common';
 import { ThyDatePickerConfigService } from '../../date-picker.service';
 
@@ -17,9 +17,9 @@ import { ThyDatePickerConfigService } from '../../date-picker.service';
     exportAs: 'dateTable',
     templateUrl: 'date-table.component.html',
     standalone: true,
-    imports: [NgIf, NgFor, NgClass, DateTableCellComponent]
+    imports: [NgIf, NgFor, NgClass, DateTableCell]
 })
-export class DateTableComponent extends CalendarTable implements OnChanges {
+export class DateTable extends CalendarTable implements OnChanges {
     @Output() readonly dayHover = new EventEmitter<TinyDate>(); // Emitted when hover on a day by mouse enter
 
     constructor(private dateHelper: DateHelperService, private datePickerConfigService: ThyDatePickerConfigService) {

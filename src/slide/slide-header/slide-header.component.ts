@@ -1,7 +1,7 @@
 import { Component, ContentChild, TemplateRef, Input, OnInit, HostBinding } from '@angular/core';
 import { ThySlideService } from '../slide.service';
-import { ThyActionComponent } from 'ngx-tethys/action';
-import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyAction } from 'ngx-tethys/action';
+import { ThyIcon } from 'ngx-tethys/icon';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
 
 /**
@@ -13,9 +13,9 @@ import { NgIf, NgTemplateOutlet } from '@angular/common';
     selector: 'thy-slide-header',
     templateUrl: './slide-header.component.html',
     standalone: true,
-    imports: [NgIf, NgTemplateOutlet, ThyIconComponent, ThyActionComponent]
+    imports: [NgIf, NgTemplateOutlet, ThyIcon, ThyAction]
 })
-export class ThySlideHeaderComponent implements OnInit {
+export class ThySlideHeader implements OnInit {
     isIconFont = false;
 
     private _iconName = '';

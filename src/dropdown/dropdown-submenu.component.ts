@@ -28,7 +28,7 @@ const SUBMENU_CLASS_PREFIX = 'dropdown-submenu';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true
 })
-export class ThyDropdownSubmenuComponent extends _MixinBase implements OnInit, OnDestroy {
+export class ThyDropdownSubmenu extends _MixinBase implements OnInit, OnDestroy {
     private direction: InnerDropdownSubmenuDirection = 'right';
 
     /**

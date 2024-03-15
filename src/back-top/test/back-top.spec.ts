@@ -3,7 +3,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { ThyBackTopComponent } from '../back-top.component';
+import { ThyBackTop } from '../back-top.component';
 import { ThyBackTopModule } from '../back-top.module';
 import { ThyScrollService } from '../../core';
 
@@ -11,7 +11,7 @@ describe('Component:thy-back-top', () => {
     let scrollService: MockThyScrollService;
     let fixture: ComponentFixture<TestBackTopComponent>;
     let debugElement: DebugElement;
-    let component: ThyBackTopComponent;
+    let component: ThyBackTop;
     let componentObject: ThyBackTopPageObject;
     const defaultVisibilityHeight = 400;
 
@@ -241,8 +241,8 @@ describe('Component:thy-back-top', () => {
     `
 })
 class TestBackTopComponent {
-    @ViewChild(ThyBackTopComponent, { static: true })
-    thyBackTopComponent!: ThyBackTopComponent;
+    @ViewChild(ThyBackTop, { static: true })
+    thyBackTopComponent!: ThyBackTop;
 
     container: HTMLElement | null = null;
 
@@ -262,8 +262,8 @@ class TestBackTopComponent {
     `
 })
 class TestBackTopTemplateComponent {
-    @ViewChild(ThyBackTopComponent)
-    thyBackTopComponent!: ThyBackTopComponent;
+    @ViewChild(ThyBackTop)
+    thyBackTopComponent!: ThyBackTop;
 }
 
 class MockThyScrollService {

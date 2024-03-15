@@ -4,7 +4,7 @@ import { coerceBooleanProperty, isString } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyAvatarService } from './avatar.service';
 import { AvatarShortNamePipe, AvatarBgColorPipe, AvatarSrcPipe } from './avatar.pipe';
-import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyIcon } from 'ngx-tethys/icon';
 import { NgIf, NgClass, NgStyle } from '@angular/common';
 import { InputBoolean } from 'ngx-tethys/core';
 
@@ -36,9 +36,9 @@ export type ThyAvatarFetchPriority = 'high' | 'low' | 'auto';
     templateUrl: './avatar.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [NgIf, NgClass, NgStyle, ThyIconComponent, AvatarShortNamePipe, AvatarBgColorPipe, AvatarSrcPipe]
+    imports: [NgIf, NgClass, NgStyle, ThyIcon, AvatarShortNamePipe, AvatarBgColorPipe, AvatarSrcPipe]
 })
-export class ThyAvatarComponent implements OnInit {
+export class ThyAvatar implements OnInit {
     _src: string;
     _name: string;
     _size: number;

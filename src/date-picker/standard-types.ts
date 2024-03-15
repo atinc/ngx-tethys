@@ -39,15 +39,6 @@ export interface ThyDateRangeEntry {
     end: number | null | Date;
     granularity?: ThyDateGranularity;
 }
-/**
- * * 已废弃，请使用 ThyShortcutPreset
- * @deprecated
- */
-export interface ThyShortcutRange {
-    title: string;
-    begin?: ThyShortcutValue;
-    end?: ThyShortcutValue;
-}
 
 export interface ThyShortcutPreset {
     title: string;
@@ -55,25 +46,7 @@ export interface ThyShortcutPreset {
     disabled?: boolean;
 }
 
-/**
- * @deprecated
- */
-export interface ThyShortcutValueChange {
-    value: CompatibleValue;
-    triggerPresets: ThyShortcutPreset;
-}
-
 export interface ThyDateChangeEvent {
     value: CompatibleValue;
     triggerPreset?: ThyShortcutPreset;
 }
-
-/**
- * @deprecated please use ThyPanelMode
- */
-export type PanelMode = ThyPanelMode;
-
-/**
- * @deprecated please use ThyDateRangeEntry
- */
-export type RangeEntry = ThyDateRangeEntry;

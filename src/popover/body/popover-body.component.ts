@@ -15,4 +15,4 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     },
     standalone: true
 })
-export class ThyPopoverBodyComponent {}
+export class ThyPopoverBody {}

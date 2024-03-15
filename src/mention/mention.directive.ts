@@ -8,7 +8,7 @@ import { NgControl } from '@angular/forms';
 import { createMentionAdapter, MatchedMention, MentionAdapter, MentionInputorElement } from './adapter';
 import { CaretPositioner } from './caret-positioner';
 import { Mention, MentionDefaultDataItem, MentionSuggestionSelectEvent } from './interfaces';
-import { ThyMentionSuggestionsComponent } from './suggestions/suggestions.component';
+import { ThyMentionSuggestions } from './suggestions/suggestions.component';
 import { isInputOrTextarea } from 'ngx-tethys/util';
 
 const SUGGESTION_BACKDROP_CLASS = 'thy-mention-suggestions-backdrop';
@@ -39,7 +39,7 @@ const DEFAULT_MENTION_CONFIG: Partial<Mention> = {
 export class ThyMentionDirective implements OnInit, OnDestroy {
     private adapter: MentionAdapter = null;
 
-    public openedSuggestionsRef: ThyPopoverRef<ThyMentionSuggestionsComponent>;
+    public openedSuggestionsRef: ThyPopoverRef<ThyMentionSuggestions>;
 
     private _mentions: Mention<any>[];
     get mentions() {
@@ -78,7 +78,7 @@ export class ThyMentionDirective implements OnInit, OnDestroy {
 
     private destroy$ = new Subject<void>();
 
-    private openedSuggestionsRef$ = new Subject<ThyPopoverRef<ThyMentionSuggestionsComponent> | null>();
+    private openedSuggestionsRef$ = new Subject<ThyPopoverRef<ThyMentionSuggestions> | null>();
 
     constructor(
         private elementRef: ElementRef<HTMLElement>,
@@ -147,7 +147,7 @@ export class ThyMentionDirective implements OnInit, OnDestroy {
             const position = CaretPositioner.getCaretPosition(inputElement, matched.query.start);
             const fontSize = parseInt(getComputedStyle(this.elementRef.nativeElement).fontSize, 10);
             this.openedSuggestionsRef = this.thyPopover.open(
-                ThyMentionSuggestionsComponent,
+                ThyMentionSuggestions,
                 Object.assign({}, POPOVER_DEFAULT_CONFIG, this.popoverConfig, {
                     origin: this.elementRef,
                     originPosition: {

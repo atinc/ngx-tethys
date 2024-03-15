@@ -1,9 +1,9 @@
 {
   "$schema": "../node_modules/ng-packagr/ng-package.schema.json",
   "dest": "../dist/tethys",
-  "lib": {
+    "lib": {
     "entryFile": "public-api.ts"
   },
   "assets": ["./**/*.scss"],
-  "allowedNonPeerDependencies": ["tslib", "angular", "date-fns", "@tethys/icons", "bootstrap", "cyia-code-util"]
+  "allowedNonPeerDependencies": ["tslib", "angular", "date-fns", "@tethys/icons"]
 }

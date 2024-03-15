@@ -16,8 +16,8 @@ import {
 
 import { NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ThyButtonIconComponent } from 'ngx-tethys/button';
-import { ThyNavComponent, ThyNavItemDirective } from 'ngx-tethys/nav';
+import { ThyButtonIcon } from 'ngx-tethys/button';
+import { ThyNav, ThyNavItemDirective } from 'ngx-tethys/nav';
 import { ThyDatePickerConfigService } from '../../date-picker.service';
 import { CompatibleValue, DatePickerFlexibleTab, RangeAdvancedValue, RangePartType } from '../../inner-types';
 import { dateAddAmount, getShortcutValue, hasValue, makeValue, transformDateValue } from '../../picker.util';
@@ -31,12 +31,11 @@ import {
     ThyPanelMode,
     ThyShortcutPosition,
     ThyShortcutPreset,
-    ThyShortcutValue,
-    ThyShortcutValueChange
+    ThyShortcutValue
 } from '../../standard-types';
-import { CalendarFooterComponent } from '../calendar/calendar-footer.component';
-import { DateCarouselComponent } from '../date-carousel/date-carousel.component';
-import { InnerPopupComponent } from './inner-popup.component';
+import { CalendarFooter } from '../calendar/calendar-footer.component';
+import { DateCarousel } from '../date-carousel/date-carousel.component';
+import { InnerPopup } from './inner-popup.component';
 
 /**
  * @private
@@ -51,17 +50,17 @@ import { InnerPopupComponent } from './inner-popup.component';
     imports: [
         NgIf,
         NgFor,
-        ThyNavComponent,
+        ThyNav,
         ThyNavItemDirective,
-        ThyButtonIconComponent,
-        DateCarouselComponent,
+        ThyButtonIcon,
+        DateCarousel,
         FormsModule,
         NgTemplateOutlet,
-        InnerPopupComponent,
-        CalendarFooterComponent
+        InnerPopup,
+        CalendarFooter
     ]
 })
-export class DatePopupComponent implements OnChanges, OnInit {
+export class DatePopup implements OnChanges, OnInit {
     @Input() isRange: boolean;
     @Input() showWeek: boolean;
 
@@ -102,10 +101,6 @@ export class DatePopupComponent implements OnChanges, OnInit {
     @Output() readonly valueChange = new EventEmitter<CompatibleValue | RangeAdvancedValue>();
     @Output() readonly resultOk = new EventEmitter<void>(); // Emitted when done with date selecting
     @Output() readonly showTimePickerChange = new EventEmitter<boolean>();
-    /**
-     * @deprecated
-     */
-    @Output() readonly shortcutValueChange = new EventEmitter<ThyShortcutValueChange>();
     @Output() readonly dateValueChange = new EventEmitter<ThyDateChangeEvent>();
 
     prefixCls = 'thy-calendar';
@@ -134,7 +129,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
 
     constructor(private cdr: ChangeDetectorRef, private datePickerConfigService: ThyDatePickerConfigService) {}
 
-    setProperty<T extends keyof DatePopupComponent>(key: T, value: this[T]): void {
+    setProperty<T extends keyof DatePopup>(key: T, value: this[T]): void {
         this[key] = value;
         this.cdr.markForCheck();
     }
@@ -614,10 +609,6 @@ export class DatePopupComponent implements OnChanges, OnInit {
             const singleTinyDate: TinyDate = this.updateHourMinute(new TinyDate(singleDate));
             selectedPresetValue = this.getSelectedShortcutPreset(singleTinyDate) as TinyDate;
         }
-        this.shortcutValueChange.emit({
-            value: selectedPresetValue,
-            triggerPresets: shortcutPresets
-        });
         this.setValue(selectedPresetValue);
         this.dateValueChange.emit({
             value: helpers.isArray(value) ? this.selectedValue : selectedPresetValue,

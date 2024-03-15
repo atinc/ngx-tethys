@@ -1,35 +1,10 @@
 {
   "$schema": "../../node_modules/@angular-devkit/schematics/collection-schema.json",
   "schematics": {
-    "migration-v9": {
-      "version": "9.0.0",
-      "factory": "./update-9",
-      "description": "Updates NGX-TETHYS to v9"
-    },
-    "migration-v11": {
-      "version": "11.0.0",
-      "factory": "./update-11",
-      "description": "Updates NGX-TETHYS to v11"
-    },
-    "migration-v13": {
-      "version": "13.0.0",
-      "factory": "./update-13",
-      "description": "Updates NGX-TETHYS to v13"
-    },
-    "migration-v14": {
-      "version": "14.0.0",
-      "factory": "./update-14",
-      "description": "Updates NGX-TETHYS to v14"
-    },
-    "migration-v15": {
-      "version": "15.0.0",
-      "factory": "./update-15",
-      "description": "Updates NGX-TETHYS to v15"
-    },
-    "migration-v16": {
-      "version": "16.0.0",
-      "factory": "./update-16",
-      "description": "Updates NGX-TETHYS to v16. In version 16.x, label and action-menu component were deprecated. This migration replace `label` with `tag`, `action-menu` with `dropdown-menu`."
+    "migration-v17": {
+      "version": "17.0.0",
+      "factory": "./update-17",
+      "description": "Updates NGX-TETHYS to v17."
     }
   }
 }

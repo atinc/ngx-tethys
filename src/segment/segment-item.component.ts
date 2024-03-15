@@ -18,7 +18,7 @@ import { assertIconOnly } from 'ngx-tethys/util';
 import { Subject, fromEvent } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { SafeAny } from 'ngx-tethys/types';
-import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyIcon } from 'ngx-tethys/icon';
 import { NgClass, NgIf } from '@angular/common';
 
 /**
@@ -33,9 +33,9 @@ import { NgClass, NgIf } from '@angular/common';
         class: 'thy-segment-item'
     },
     standalone: true,
-    imports: [NgClass, NgIf, ThyIconComponent]
+    imports: [NgClass, NgIf, ThyIcon]
 })
-export class ThySegmentItemComponent implements AfterViewInit, OnDestroy {
+export class ThySegmentItem implements AfterViewInit, OnDestroy {
     /**
      * 选项的值
      */

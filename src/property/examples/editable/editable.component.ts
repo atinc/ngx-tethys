@@ -1,5 +1,5 @@
 import { ThyDialog } from 'ngx-tethys/dialog';
-import { ThySelectCustomComponent } from 'ngx-tethys/select';
+import { ThySelect } from 'ngx-tethys/select';
 import { ThyTreeSelectNode } from 'ngx-tethys/tree-select';
 
 import { ChangeDetectorRef, Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
@@ -60,9 +60,9 @@ export class ThyPropertyEditableExampleComponent implements OnInit {
 
     @ViewChild('number', { read: ElementRef }) number: ElementRef;
 
-    @ViewChild('selectSex', { read: ThySelectCustomComponent }) selectSex: ThySelectCustomComponent;
+    @ViewChild('selectSex', { read: ThySelect }) selectSex: ThySelect;
 
-    @ViewChild('selectProfession', { read: ThySelectCustomComponent }) selectProfession: ThySelectCustomComponent;
+    @ViewChild('selectProfession', { read: ThySelect }) selectProfession: ThySelect;
 
     constructor(public thyDialog: ThyDialog, private cdr: ChangeDetectorRef) {}
 

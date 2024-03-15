@@ -1,17 +1,17 @@
 <form thyForm thyLayout="inline">
   <thy-form-group thyLabelText="触发方式">
-    <thy-custom-select name="size" [(ngModel)]="tooltipConfig.trigger" (ngModelChange)="triggerChange()" name="trigger">
+    <thy-select name="size" [(ngModel)]="tooltipConfig.trigger" (ngModelChange)="triggerChange()" name="trigger">
       <thy-option *ngFor="let option of triggerOptions" [thyValue]="option" [thyLabelText]="option"></thy-option>
-    </thy-custom-select>
+    </thy-select>
   </thy-form-group>
 
   <thy-form-group thyLabelText="偏移量">
-    <thy-custom-select name="size" [(ngModel)]="tooltipConfig.offset" (ngModelChange)="triggerChange()" name="offset">
+    <thy-select name="size" [(ngModel)]="tooltipConfig.offset" (ngModelChange)="triggerChange()" name="offset">
       <thy-option *ngFor="let option of offsetOptions" [thyValue]="option" [thyLabelText]="option"></thy-option>
-    </thy-custom-select>
+    </thy-select>
   </thy-form-group>
 </form>
-<form thyForm thyLayout="inline" style="margin-top: 15px;">
+<form thyForm thyLayout="inline" style="margin-top: 15px">
   <thy-form-group thyLabelText="展示延时">
     <input thyInput type="number" [(ngModel)]="tooltipConfig.showDelay" name="showDelay" />
   </thy-form-group>
@@ -20,7 +20,7 @@
   </thy-form-group>
 </form>
 
-<form thyForm thyLayout="inline" style="margin-top: 15px;">
+<form thyForm thyLayout="inline" style="margin-top: 15px">
   <thy-form-group thyLabelText="">
     <label thyCheckbox thyLabelText="disabled" [(ngModel)]="tooltipConfig.disabled" name="disabled"></label>
   </thy-form-group>
@@ -37,8 +37,7 @@
     [thyTooltipHideDelay]="tooltipConfig.hideDelay"
     [thyTooltipPin]="tooltipConfig.tooltipPin"
     thyButton="primary"
-    [thyTooltipOffset]="tooltipConfig.offset"
-  >
+    [thyTooltipOffset]="tooltipConfig.offset">
     展示tooltip
   </button>
 </div>

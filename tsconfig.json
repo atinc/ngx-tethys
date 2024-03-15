@@ -11,12 +11,12 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "suppressImplicitAnyIndexErrors": true,
     "skipLibCheck": false,
     "target": "ES2022",
     "typeRoots": [
       "node_modules/@types",
-      "@types/node"
+      "@types/node",
+      "./typings"
     ],
     "lib": [
       "es2017",

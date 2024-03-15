@@ -3,7 +3,7 @@ import { Component, NgModule } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { ThyResultComponent } from '../result.component';
+import { ThyResult } from '../result.component';
 import { ThyResultModule } from '../result.module';
 
 describe('ThyResult', () => {
@@ -22,7 +22,7 @@ describe('ThyResult', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(ThyResultDemoComponent);
         testComponent = fixture.debugElement.componentInstance;
-        thyResultComponent = fixture.debugElement.query(By.directive(ThyResultComponent));
+        thyResultComponent = fixture.debugElement.query(By.directive(ThyResult));
     });
 
     it('should create', () => {

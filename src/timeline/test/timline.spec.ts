@@ -2,7 +2,7 @@ import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { ThyTimelineModule } from '../timeline.module';
 import { By } from '@angular/platform-browser';
-import { ThyTimeDirection, ThyTimelineComponent } from '../timeline.component';
+import { ThyTimeDirection, ThyTimeline } from '../timeline.component';
 
 @Component({
     template: `
@@ -94,7 +94,7 @@ describe('timeline', () => {
             fixture = TestBed.createComponent(TestTimelineBasicComponent);
             component = fixture.componentInstance;
             fixture.detectChanges();
-            debugElement = fixture.debugElement.query(By.directive(ThyTimelineComponent));
+            debugElement = fixture.debugElement.query(By.directive(ThyTimeline));
             items = Array.from((fixture.debugElement.nativeElement as HTMLElement).querySelectorAll('.thy-timeline-item'));
             fixture.detectChanges();
         });
@@ -191,7 +191,7 @@ describe('timeline', () => {
         }));
         beforeEach(() => {
             fixture = TestBed.createComponent(TestTimelineCustomDescriptionComponent);
-            debugElement = fixture.debugElement.query(By.directive(ThyTimelineComponent));
+            debugElement = fixture.debugElement.query(By.directive(ThyTimeline));
             fixture.detectChanges();
         });
 
@@ -211,7 +211,7 @@ describe('timeline', () => {
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestTimelineCustomHorizontalComponent);
-            debugElement = fixture.debugElement.query(By.directive(ThyTimelineComponent));
+            debugElement = fixture.debugElement.query(By.directive(ThyTimeline));
             fixture.detectChanges();
         });
 

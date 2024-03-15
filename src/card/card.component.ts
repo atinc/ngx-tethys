@@ -20,7 +20,7 @@ import { InputBoolean } from 'ngx-tethys/core';
     },
     standalone: true
 })
-export class ThyCardComponent {
+export class ThyCard {
     /**
      * 左右是否有内边距，已废弃，如需配置间距使用 spacing 工具样式覆盖默认间距
      * @deprecated

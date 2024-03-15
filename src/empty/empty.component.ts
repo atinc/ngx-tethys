@@ -18,7 +18,7 @@ import { ThyEmptyConfig } from './empty.config';
 import { PRESET_SVG } from './svgs';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SafeAny } from 'ngx-tethys/types';
-import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyIcon } from 'ngx-tethys/icon';
 import { NgIf, NgClass, NgTemplateOutlet } from '@angular/common';
 
 const sizeClassMap = {
@@ -60,9 +60,9 @@ export type ThyEmptyImageFetchPriority = 'high' | 'low' | 'auto';
     selector: 'thy-empty',
     templateUrl: './empty.component.html',
     standalone: true,
-    imports: [NgIf, ThyIconComponent, NgClass, NgTemplateOutlet]
+    imports: [NgIf, ThyIcon, NgClass, NgTemplateOutlet]
 })
-export class ThyEmptyComponent implements OnInit, AfterViewInit, OnChanges {
+export class ThyEmpty implements OnInit, AfterViewInit, OnChanges {
     /**
      * 显示文本提示信息。同时传入 thyMessage，thyTranslationKey，thyEntityName，thyEntityNameTranslateKey 时优先级最高
      */

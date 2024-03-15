@@ -15,7 +15,7 @@ import {
 } from '@angular/core';
 import { InputBoolean } from 'ngx-tethys/core';
 import { ThyPopover } from 'ngx-tethys/popover';
-import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyIcon } from 'ngx-tethys/icon';
 import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
 
 /**
@@ -52,9 +52,9 @@ import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [NgClass, NgIf, NgTemplateOutlet, ThyIconComponent]
+    imports: [NgClass, NgIf, NgTemplateOutlet, ThyIcon]
 })
-export class ThyMenuGroupComponent implements OnInit {
+export class ThyMenuGroup implements OnInit {
     public _actionMenu: ComponentType<any> | TemplateRef<any>;
 
     public rightIconClass = 'more';

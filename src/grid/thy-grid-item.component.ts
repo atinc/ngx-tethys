@@ -19,7 +19,7 @@ import { useHostRenderer } from '@tethys/cdk/dom';
     },
     standalone: true
 })
-export class ThyGridItemComponent extends mixinUnsubscribe(MixinBase) implements OnInit, OnDestroy {
+export class ThyGridItem extends mixinUnsubscribe(MixinBase) implements OnInit, OnDestroy {
     /**
      * 栅格项的占位列数，为 0 时会隐藏该栅格项
      * @default 1

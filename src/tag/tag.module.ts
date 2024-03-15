@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ThyTagComponent } from './tag.component';
+import { ThyTag } from './tag.component';
 import { ThyIconModule } from 'ngx-tethys/icon';
-import { ThyTagsComponent } from './tags.component';
+import { ThyTags } from './tags.component';
 
 @NgModule({
-    imports: [CommonModule, ThyIconModule, ThyTagComponent, ThyTagsComponent],
-    exports: [ThyTagComponent, ThyTagsComponent]
+    imports: [CommonModule, ThyIconModule, ThyTag, ThyTags],
+    exports: [ThyTag, ThyTags]
 })
 export class ThyTagModule {}

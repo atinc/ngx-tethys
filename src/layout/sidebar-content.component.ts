@@ -26,4 +26,4 @@ export class ThySidebarContentDirective {}
     hostDirectives: [ThySidebarContentDirective],
     standalone: true
 })
-export class ThySidebarContentComponent {}
+export class ThySidebarContent {}

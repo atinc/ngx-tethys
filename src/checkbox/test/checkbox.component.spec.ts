@@ -3,7 +3,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { ThyCheckboxComponent } from '../checkbox.component';
+import { ThyCheckbox } from '../checkbox.component';
 import { ThyCheckboxModule } from '../module';
 
 @Component({
@@ -54,7 +54,7 @@ describe('checkbox component', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(CheckboxTestComponent);
         checkboxTestComponent = fixture.debugElement.componentInstance;
-        checkboxComponent = fixture.debugElement.query(By.directive(ThyCheckboxComponent));
+        checkboxComponent = fixture.debugElement.query(By.directive(ThyCheckbox));
     });
 
     it('should create', () => {

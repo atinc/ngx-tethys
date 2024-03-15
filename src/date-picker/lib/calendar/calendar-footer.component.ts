@@ -12,10 +12,10 @@ import {
 } from '@angular/core';
 
 import { TinyDate } from 'ngx-tethys/util';
-import { ThyButtonComponent } from 'ngx-tethys/button';
+import { ThyButton } from 'ngx-tethys/button';
 import { FormsModule } from '@angular/forms';
-import { ThyInnerTimePickerComponent } from 'ngx-tethys/time-picker';
-import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyInnerTimePicker } from 'ngx-tethys/time-picker';
+import { ThyIcon } from 'ngx-tethys/icon';
 import { NgIf } from '@angular/common';
 import { InputBoolean } from 'ngx-tethys/core';
 
@@ -29,9 +29,9 @@ import { InputBoolean } from 'ngx-tethys/core';
     exportAs: 'calendarFooter',
     templateUrl: 'calendar-footer.component.html',
     standalone: true,
-    imports: [NgIf, ThyIconComponent, ThyInnerTimePickerComponent, FormsModule, ThyButtonComponent]
+    imports: [NgIf, ThyIcon, ThyInnerTimePicker, FormsModule, ThyButton]
 })
-export class CalendarFooterComponent implements OnInit, OnChanges {
+export class CalendarFooter implements OnInit, OnChanges {
     @Input() showTime = false;
     @Input() mustShowTime = false;
     @Input() value: TinyDate;

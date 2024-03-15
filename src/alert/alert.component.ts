@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ContentChild, TemplateRef, OnChanges, ChangeDetectionStrategy, SimpleChanges } from '@angular/core';
 import { isString } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyIcon } from 'ngx-tethys/icon';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
 import { InputBoolean } from 'ngx-tethys/core';
 
@@ -46,9 +46,9 @@ const typeIconsMap: Record<string, string> = {
         '[class.thy-alert-hidden]': 'hidden'
     },
     standalone: true,
-    imports: [NgIf, ThyIconComponent, NgTemplateOutlet]
+    imports: [NgIf, ThyIcon, NgTemplateOutlet]
 })
-export class ThyAlertComponent implements OnInit, OnChanges {
+export class ThyAlert implements OnInit, OnChanges {
     private hidden = false;
 
     private showIcon = true;

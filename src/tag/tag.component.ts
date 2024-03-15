@@ -29,7 +29,7 @@ export type ThyTagSize = 'sm' | 'md' | 'lg';
     },
     standalone: true
 })
-export class ThyTagComponent implements OnInit, OnChanges {
+export class ThyTag implements OnInit, OnChanges {
     private color: ThyTagColor = 'default';
 
     private hostRenderer = useHostRenderer();

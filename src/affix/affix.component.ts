@@ -45,7 +45,7 @@ const THY_AFFIX_DEFAULT_SCROLL_TIME = 20;
     encapsulation: ViewEncapsulation.None,
     standalone: true
 })
-export class ThyAffixComponent implements AfterViewInit, OnChanges, OnDestroy {
+export class ThyAffix implements AfterViewInit, OnChanges, OnDestroy {
     @ViewChild('fixedElement', { static: true }) private fixedElement!: ElementRef<HTMLDivElement>;
 
     /**

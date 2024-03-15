@@ -13,7 +13,7 @@ import { InputBoolean } from 'ngx-tethys/core';
     encapsulation: ViewEncapsulation.None,
     standalone: true
 })
-export class ThySkeletonComponent {
+export class ThySkeleton {
     /**
      * 是否开启动画
      * @default false

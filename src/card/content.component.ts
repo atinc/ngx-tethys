@@ -17,7 +17,7 @@ import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit } from '
     },
     standalone: true
 })
-export class ThyCardContentComponent implements OnInit {
+export class ThyCardContent implements OnInit {
     @HostBinding('class.thy-card-content--scroll') scrollClassName = false;
 
     /**

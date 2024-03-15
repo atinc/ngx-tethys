@@ -11,11 +11,11 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ThyBreadcrumbComponent, ThyBreadcrumbItemComponent } from 'ngx-tethys/breadcrumb';
-import { ThyCheckboxComponent } from 'ngx-tethys/checkbox';
+import { ThyBreadcrumb, ThyBreadcrumbItem } from 'ngx-tethys/breadcrumb';
+import { ThyCheckbox } from 'ngx-tethys/checkbox';
 import { InputBoolean } from 'ngx-tethys/core';
-import { ThyFlexibleTextComponent } from 'ngx-tethys/flexible-text';
-import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
+import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyCascaderSearchOption } from './types';
 
 /**
@@ -28,16 +28,7 @@ import { ThyCascaderSearchOption } from './types';
     selector: '[thy-cascader-search-option]',
     templateUrl: './cascader-search-option.component.html',
     standalone: true,
-    imports: [
-        NgIf,
-        NgFor,
-        ThyFlexibleTextComponent,
-        ThyCheckboxComponent,
-        ThyBreadcrumbComponent,
-        ThyBreadcrumbItemComponent,
-        ThyIconComponent,
-        FormsModule
-    ]
+    imports: [NgIf, NgFor, ThyFlexibleText, ThyCheckbox, ThyBreadcrumb, ThyBreadcrumbItem, ThyIcon, FormsModule]
 })
 export class ThyCascaderSearchOptionComponent implements OnInit {
     @Input() option: ThyCascaderSearchOption;

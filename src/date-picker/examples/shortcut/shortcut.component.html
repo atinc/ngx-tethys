@@ -5,7 +5,7 @@
   [thyMaxDate]="maxDate"
   [thyShowShortcut]="true"
   (ngModelChange)="onChange($event)"
-  (thyShortcutValueChange)="shortcutValueChange($event)"
+  (thyDateChange)="dateValueChange($event)"
 ></thy-range-picker>
 
 <thy-range-picker
@@ -32,7 +32,7 @@
   [thyMinDate]="minDate"
   [thyShowShortcut]="true"
   (ngModelChange)="onChange($event)"
-  (thyShortcutValueChange)="shortcutValueChange($event)"
+  (thyDateChange)="dateValueChange($event)"
 ></thy-date-picker>
 
 <thy-date-picker
@@ -62,7 +62,7 @@
   thyIcon="calendar-check"
   thyRangePicker
   [thyShowShortcut]="false"
-  (thyShortcutValueChange)="shortcutValueChange($event)"
+  (thyDateChange)="dateValueChange($event)"
   [(ngModel)]="dateRange"
 ></thy-property-operation>
 
@@ -75,7 +75,7 @@
   thyIcon="calendar-check"
   thyRangePicker
   [thyShowShortcut]="true"
-  (thyShortcutValueChange)="shortcutValueChange($event)"
+  (thyDateChange)="dateValueChange($event)"
   [(ngModel)]="dateRange"
 ></thy-property-operation>
 
@@ -88,7 +88,7 @@
   thyIcon="calendar-check"
   thyDatePicker
   [thyShowShortcut]="true"
-  (thyShortcutValueChange)="shortcutValueChange($event)"
+  (thyDateChange)="dateValueChange($event)"
   [(ngModel)]="date"
   [thyShortcutPresets]="shortcutDatePresets"
 ></thy-property-operation>

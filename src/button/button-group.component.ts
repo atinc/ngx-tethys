@@ -24,7 +24,7 @@ const buttonGroupSizeMap = {
     encapsulation: ViewEncapsulation.None,
     standalone: true
 })
-export class ThyButtonGroupComponent implements OnInit {
+export class ThyButtonGroup implements OnInit {
     private initialized = false;
 
     private type: string;

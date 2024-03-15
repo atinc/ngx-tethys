@@ -5,7 +5,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { ThyInputSearchComponent, ThyInputSearchIconPosition } from '../input-search.component';
+import { ThyInputSearch, ThyInputSearchIconPosition } from '../input-search.component';
 import { ThyInputDirective } from '../input.directive';
 import { ThyInputModule } from '../module';
 
@@ -26,7 +26,7 @@ import { ThyInputModule } from '../module';
     `
 })
 class TestInputSearchBasicComponent {
-    @ViewChild(ThyInputSearchComponent, { static: false }) inputSearchComponent: ThyInputSearchComponent;
+    @ViewChild(ThyInputSearch, { static: false }) inputSearchComponent: ThyInputSearch;
 
     searchFocus = true;
     searchText = '';
@@ -66,7 +66,7 @@ describe('input search', () => {
         fixture = TestBed.createComponent(TestInputSearchBasicComponent);
         basicTestComponent = fixture.debugElement.componentInstance;
         debugInputElement = fixture.debugElement.query(By.directive(ThyInputDirective));
-        debugSearchElement = fixture.debugElement.query(By.directive(ThyInputSearchComponent));
+        debugSearchElement = fixture.debugElement.query(By.directive(ThyInputSearch));
         searchElement = debugSearchElement.nativeElement;
         injectDefaultSvgIconSet();
     });
@@ -165,7 +165,7 @@ describe('input search', () => {
         fixture.detectChanges();
         expect(searchElement.classList.contains('form-control-active')).toBe(true);
 
-        const debugInputInstance = fixture.debugElement.query(By.directive(ThyInputSearchComponent)).componentInstance;
+        const debugInputInstance = fixture.debugElement.query(By.directive(ThyInputSearch)).componentInstance;
         debugInputInstance.focused = false;
         fixture.detectChanges();
         expect(searchElement.classList.contains('form-control-active')).toBe(false);

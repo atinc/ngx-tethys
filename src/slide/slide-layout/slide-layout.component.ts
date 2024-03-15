@@ -10,7 +10,7 @@ import { Component, ViewEncapsulation, OnInit, HostBinding } from '@angular/core
     encapsulation: ViewEncapsulation.None,
     standalone: true
 })
-export class ThySlideLayoutComponent implements OnInit {
+export class ThySlideLayout implements OnInit {
     @HostBinding('class.thy-slide-layout') slideLayout = true;
 
     constructor() {}

@@ -3,8 +3,8 @@ import { ThySelectionListChange } from './selection.interface';
 import { async, ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
 import { ThyListModule } from '../list.module';
 import { By } from '@angular/platform-browser';
-import { ThyListOptionComponent, ThyListLayout } from '../../shared/option';
-import { ThySelectionListComponent } from './selection-list';
+import { ThyListOption, ThyListLayout } from '../../shared/option';
+import { ThySelectionList } from './selection-list';
 import { FormsModule } from '@angular/forms';
 import { dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { DOWN_ARROW, UP_ARROW, SPACE } from 'ngx-tethys/util';
@@ -37,8 +37,8 @@ describe('ThySelectionList without forms', () => {
         beforeEach(async(() => {
             fixture = TestBed.createComponent(SelectionListWithListOptionsComponent);
             fixture.detectChanges();
-            listOptions = fixture.debugElement.queryAll(By.directive(ThyListOptionComponent));
-            selectionList = fixture.debugElement.query(By.directive(ThySelectionListComponent));
+            listOptions = fixture.debugElement.queryAll(By.directive(ThyListOption));
+            selectionList = fixture.debugElement.query(By.directive(ThySelectionList));
         }));
 
         it('should be able to set a value on a list option', () => {
@@ -72,7 +72,7 @@ describe('ThySelectionList without forms', () => {
         it('should not has class "thy-grid-list" when thyLayout is null', () => {
             const defaultFixture = TestBed.createComponent(SelectionListWithListOptionsDefaultComponent);
             fixture.detectChanges();
-            const defaultListOptions = fixture.debugElement.queryAll(By.directive(ThyListOptionComponent));
+            const defaultListOptions = fixture.debugElement.queryAll(By.directive(ThyListOption));
 
             expect(defaultFixture.nativeElement.classList).not.toContain('thy-grid-list');
             expect(defaultListOptions[0].nativeElement.classList).toContain('thy-list-option');
@@ -91,7 +91,7 @@ describe('ThySelectionList without forms', () => {
             const selectionFixture = TestBed.createComponent(SelectionListWithListOptionsComponent);
             selectionFixture.debugElement.componentInstance.autoActiveFirstItem = true;
             selectionFixture.detectChanges();
-            const selectionListOptions = selectionFixture.debugElement.queryAll(By.directive(ThyListOptionComponent));
+            const selectionListOptions = selectionFixture.debugElement.queryAll(By.directive(ThyListOption));
             expect(selectionListOptions[0].nativeElement.classList).toContain('hover');
         });
 
@@ -106,7 +106,7 @@ describe('ThySelectionList without forms', () => {
             const defaultFixture = TestBed.createComponent(SelectionListWithListOptionsDefaultComponent);
             defaultFixture.componentInstance.autoActiveFirstItem = true;
             defaultFixture.detectChanges();
-            const defaultListOptions = defaultFixture.debugElement.queryAll(By.directive(ThyListOptionComponent));
+            const defaultListOptions = defaultFixture.debugElement.queryAll(By.directive(ThyListOption));
             expect(defaultListOptions[0].nativeElement.classList).toContain('hover');
         });
 
@@ -114,7 +114,7 @@ describe('ThySelectionList without forms', () => {
             const defaultFixture = TestBed.createComponent(SelectionListWithListOptionsDefaultComponent);
             defaultFixture.componentInstance.autoActiveFirstItem = false;
             defaultFixture.detectChanges();
-            const defaultListOptions = defaultFixture.debugElement.queryAll(By.directive(ThyListOptionComponent));
+            const defaultListOptions = defaultFixture.debugElement.queryAll(By.directive(ThyListOption));
             expect(defaultListOptions[0].nativeElement.classList).not.toContain('hover');
         });
 
@@ -215,7 +215,7 @@ describe('ThySelectionList without forms', () => {
             const selectionFixture = TestBed.createComponent(SelectionListWithListOptionsComponent);
             selectionFixture.debugElement.componentInstance.autoActiveFirstItem = true;
             selectionFixture.detectChanges();
-            const selectionListOptions = selectionFixture.debugElement.queryAll(By.directive(ThyListOptionComponent));
+            const selectionListOptions = selectionFixture.debugElement.queryAll(By.directive(ThyListOption));
             expect(selectionListOptions[0].nativeElement.classList).toContain('hover');
             selectionFixture.componentInstance.thySelectionListComponent.clearActiveItem();
             selectionFixture.detectChanges();
@@ -272,9 +272,9 @@ describe('ThySelectionList without forms', () => {
     `
 })
 class SelectionListWithListOptionsComponent {
-    @ViewChild(ThySelectionListComponent, { static: true }) thySelectionListComponent: ThySelectionListComponent;
+    @ViewChild(ThySelectionList, { static: true }) thySelectionListComponent: ThySelectionList;
 
-    @ViewChildren(ThyListOptionComponent) optionQueryList: QueryList<ThyListOptionComponent>;
+    @ViewChildren(ThyListOption) optionQueryList: QueryList<ThyListOption>;
 
     public items = [
         {
@@ -375,7 +375,7 @@ class SelectionListWithListOptionsDefaultComponent {
     `
 })
 class SelectionListWithListOptionsByObjectTypeValueComponent {
-    @ViewChild(ThySelectionListComponent, { static: true }) thySelectionListComponent: ThySelectionListComponent;
+    @ViewChild(ThySelectionList, { static: true }) thySelectionListComponent: ThySelectionList;
 
     selectedValue: { displayName: string; id: string };
 

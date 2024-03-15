@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ThySharedModule } from 'ngx-tethys/shared';
-import { ThyVoteComponent } from './vote.component';
+import { ThyVote } from './vote.component';
 import { ThyIconModule } from 'ngx-tethys/icon';
 @NgModule({
-    imports: [CommonModule, ThySharedModule, ThyIconModule, ThyVoteComponent],
-    exports: [ThyVoteComponent],
+    imports: [CommonModule, ThySharedModule, ThyIconModule, ThyVote],
+    exports: [ThyVote],
     providers: []
 })
 export class ThyVoteModule {}

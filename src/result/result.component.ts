@@ -13,7 +13,7 @@ type ThyResultStatus = 'success' | 'warning' | 'error';
     standalone: true,
     imports: [NgIf, NgTemplateOutlet]
 })
-export class ThyResultComponent implements OnInit {
+export class ThyResult implements OnInit {
     /**
      * @description 结果的状态，决定显示的图标
      * @type success | warning | error

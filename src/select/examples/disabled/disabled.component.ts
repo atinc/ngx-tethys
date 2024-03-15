@@ -6,7 +6,7 @@ import { listOfOption } from '../mock-data';
     templateUrl: './disabled.component.html',
     styles: [
         `
-            thy-custom-select {
+            thy-select {
                 width: 400px;
                 margin-bottom: 12px;
             }

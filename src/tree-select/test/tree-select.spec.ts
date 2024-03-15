@@ -9,11 +9,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By, DomSanitizer } from '@angular/platform-browser';
 
 import { ThyFormModule } from '../../form';
-import { ThyIconComponent, ThyIconRegistry } from '../../icon';
+import { ThyIcon, ThyIconRegistry } from '../../icon';
 import { bigTreeNodes, searchTreeSelectData } from '../examples/mock-data';
 import { ThyTreeSelectModule } from '../module';
 import { ThyTreeSelectNode } from '../tree-select.class';
-import { filterTreeData, ThyTreeSelectComponent } from '../tree-select.component';
+import { filterTreeData, ThyTreeSelect } from '../tree-select.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 function treeNodesExpands(nodes: ThyTreeSelectNode[]) {
@@ -52,7 +52,7 @@ function treeNodesExpands(nodes: ThyTreeSelectNode[]) {
     `
 })
 class BasicTreeSelectComponent {
-    @ViewChild(ThyTreeSelectComponent, { static: false }) treeComponent: ThyTreeSelectComponent;
+    @ViewChild(ThyTreeSelect, { static: false }) treeComponent: ThyTreeSelect;
 
     nodes: ThyTreeSelectNode[] = [
         {
@@ -141,7 +141,7 @@ class BasicTreeSelectComponent {
     expandTreeSelectOptions = false;
 
     @ViewChild('treeSelect', { static: true })
-    treeSelect: ThyTreeSelectComponent;
+    treeSelect: ThyTreeSelect;
 
     asyncNode = true;
 
@@ -268,7 +268,7 @@ class PlaceHolderTreeSelectComponent {
     thyPlaceholder = 'this is a placeholder';
 
     @ViewChild('treeSelect', { static: true })
-    treeSelect: ThyTreeSelectComponent;
+    treeSelect: ThyTreeSelect;
 }
 
 @Component({
@@ -365,7 +365,7 @@ class NgModelTreeSelectComponent {
     multiple = false;
 
     @ViewChild('treeSelect', { static: true })
-    treeSelect: ThyTreeSelectComponent;
+    treeSelect: ThyTreeSelect;
 
     treeSelectChange = jasmine.createSpy('treeSelectChange');
 }
@@ -392,7 +392,7 @@ class SearchTreeSelectComponent {
     treeShowSearch = true;
 
     @ViewChild('treeSelect', { static: true })
-    treeSelect: ThyTreeSelectComponent;
+    treeSelect: ThyTreeSelect;
 }
 
 @Component({
@@ -402,7 +402,7 @@ class SearchTreeSelectComponent {
     `
 })
 export class VirtualScrollingTreeSelectComponent implements OnInit {
-    @ViewChild('treeSelect', { static: true }) treeSelect: ThyTreeSelectComponent;
+    @ViewChild('treeSelect', { static: true }) treeSelect: ThyTreeSelect;
 
     mockData = bigTreeNodes;
     public selectedValue = '';
@@ -457,7 +457,7 @@ describe('ThyTreeSelect', () => {
                 configureThyCustomSelectTestingModule([BasicTreeSelectComponent]);
                 const fixture = TestBed.createComponent(BasicTreeSelectComponent);
                 fixture.detectChanges();
-                treeSelectDebugElement = fixture.debugElement.query(By.directive(ThyTreeSelectComponent));
+                treeSelectDebugElement = fixture.debugElement.query(By.directive(ThyTreeSelect));
                 treeSelectElement = treeSelectDebugElement.nativeElement;
             }));
 
@@ -468,7 +468,7 @@ describe('ThyTreeSelect', () => {
             });
 
             it('should get correct icon class', () => {
-                const iconDebugElement = treeSelectDebugElement.query(By.directive(ThyIconComponent));
+                const iconDebugElement = treeSelectDebugElement.query(By.directive(ThyIcon));
                 expect(iconDebugElement).toBeTruthy();
                 const iconElement = iconDebugElement.nativeElement;
                 expect(iconElement).toBeTruthy();
@@ -603,7 +603,7 @@ describe('ThyTreeSelect', () => {
 
             it('should call onFocus methods when focus', fakeAsync(() => {
                 const fixture = TestBed.createComponent(BasicTreeSelectComponent);
-                const treeSelectDebugElement = fixture.debugElement.query(By.directive(ThyTreeSelectComponent));
+                const treeSelectDebugElement = fixture.debugElement.query(By.directive(ThyTreeSelect));
                 fixture.detectChanges();
                 const focusSpy = spyOn(fixture.componentInstance.treeComponent, 'onFocus').and.callThrough();
 
@@ -888,7 +888,7 @@ describe('ThyTreeSelect', () => {
             tick(100);
             fixture.detectChanges();
 
-            treeSelectElement = fixture.debugElement.query(By.directive(ThyTreeSelectComponent)).nativeElement;
+            treeSelectElement = fixture.debugElement.query(By.directive(ThyTreeSelect)).nativeElement;
         }));
 
         it('should create', () => {

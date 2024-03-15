@@ -2,9 +2,9 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { ThyCardModule } from '../card.module';
 import { Component, OnInit, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { ThyCardComponent } from '../card.component';
-import { ThyCardContentComponent } from '../content.component';
-import { ThyCardHeaderComponent } from '../header.component';
+import { ThyCard } from '../card.component';
+import { ThyCardContent } from '../content.component';
+import { ThyCardHeader } from '../header.component';
 
 @Component({
     selector: 'thy-card-test-basic',
@@ -118,7 +118,7 @@ describe('thy-card', () => {
         beforeEach(() => {
             basicFixture = TestBed.createComponent(CardBasicComponent);
             basicFixture.detectChanges();
-            cardBasicDebugElement = basicFixture.debugElement.query(By.directive(ThyCardComponent));
+            cardBasicDebugElement = basicFixture.debugElement.query(By.directive(ThyCard));
         });
 
         it('should get correct thy-card class', () => {
@@ -130,7 +130,7 @@ describe('thy-card', () => {
 
         it('should header and content align', () => {
             const headerDebugElement = cardBasicDebugElement.query(By.css('.card-header-title'));
-            const contentDebugElement = cardBasicDebugElement.query(By.directive(ThyCardContentComponent));
+            const contentDebugElement = cardBasicDebugElement.query(By.directive(ThyCardContent));
             expect((headerDebugElement.nativeElement as HTMLElement).getBoundingClientRect().left).toEqual(
                 (contentDebugElement.nativeElement as HTMLElement).getBoundingClientRect().left
             );
@@ -154,7 +154,7 @@ describe('thy-card', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(CardDividedComponent);
             fixture.detectChanges();
-            cardDebugElement = fixture.debugElement.query(By.directive(ThyCardComponent));
+            cardDebugElement = fixture.debugElement.query(By.directive(ThyCard));
         });
 
         it('should get correct divided thy-card--divided class', () => {
@@ -172,7 +172,7 @@ describe('thy-card', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(CardBorderedComponent);
             fixture.detectChanges();
-            cardDebugElement = fixture.debugElement.query(By.directive(ThyCardComponent));
+            cardDebugElement = fixture.debugElement.query(By.directive(ThyCard));
         });
 
         it('should get correct bordered thy-card--bordered class', () => {
@@ -191,7 +191,7 @@ describe('thy-card', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(CardClearPaddingComponent);
             fixture.detectChanges();
-            cardDebugElement = fixture.debugElement.query(By.directive(ThyCardComponent));
+            cardDebugElement = fixture.debugElement.query(By.directive(ThyCard));
         });
 
         it('should get correct thy-card--clear-left-right-padding class when thyHasLeftRightPadding is false', () => {
@@ -210,7 +210,7 @@ describe('thy-card', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(CardHeaderSizeComponent);
             fixture.detectChanges();
-            cardHeaderComponent = fixture.debugElement.query(By.directive(ThyCardHeaderComponent));
+            cardHeaderComponent = fixture.debugElement.query(By.directive(ThyCardHeader));
             cardHeaderElement = cardHeaderComponent.nativeElement;
         });
 
@@ -235,7 +235,7 @@ describe('thy-card', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(CardContentSizeAndScrollComponent);
             fixture.detectChanges();
-            cardContentComponent = fixture.debugElement.query(By.directive(ThyCardContentComponent));
+            cardContentComponent = fixture.debugElement.query(By.directive(ThyCardContent));
             cardContentElement = cardContentComponent.nativeElement;
         });
 

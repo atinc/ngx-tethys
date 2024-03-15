@@ -21,7 +21,7 @@ export type ThyBadgeSize = 'md' | 'sm' | 'lg';
     standalone: true,
     imports: [NgIf]
 })
-export class ThyBadgeComponent implements OnInit {
+export class ThyBadge implements OnInit {
     displayContent = '';
 
     badgeClassName = '';
@@ -262,7 +262,7 @@ export class ThyBadgeComponent implements OnInit {
 
     private combineBadgeDisplayContent() {
         this.displayContent = this.value as string;
-        if (this.value && this.maxCount != undefined && this.value > this.maxCount) {
+        if (this.value && this.maxCount != undefined && (this.value as number) > this.maxCount) {
             this.displayContent = `${this.maxCount}+`;
         }
 

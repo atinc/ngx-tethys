@@ -13,7 +13,7 @@ const _MixinBase: ThyCanDisableCtor & typeof MixinBase = mixinDisabled(MixinBase
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true
 })
-export class ThyOptionGroupComponent extends _MixinBase implements ThyCanDisable {
+export class ThyOptionGroup extends _MixinBase implements ThyCanDisable {
     set thyDisabled(value: any) {
         this.thyDisabled = value;
     }

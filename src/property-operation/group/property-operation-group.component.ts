@@ -8,7 +8,7 @@ import { Component, HostBinding } from '@angular/core';
     templateUrl: './property-operation-group.component.html',
     standalone: true
 })
-export class ThyPropertyOperationGroupComponent {
+export class ThyPropertyOperationGroup {
     @HostBinding('class.thy-property-operation-group') _isPropertyOperationGroup = true;
 
     constructor() {}

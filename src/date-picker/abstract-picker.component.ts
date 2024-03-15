@@ -17,7 +17,7 @@ import {
 import { ControlValueAccessor } from '@angular/forms';
 
 import { CompatibleValue, RangeAdvancedValue } from './inner-types';
-import { ThyPickerComponent } from './picker.component';
+import { ThyPicker } from './picker.component';
 import { makeValue, transformDateValue } from './picker.util';
 import {
     CompatibleDate,
@@ -27,7 +27,6 @@ import {
     ThyPanelMode,
     ThyShortcutPosition,
     CompatiblePresets,
-    ThyShortcutValueChange,
     ThyDateGranularity,
     ThyDateChangeEvent
 } from './standard-types';
@@ -160,19 +159,13 @@ export abstract class AbstractPickerComponent
     }
 
     /**
-     * 已废弃，请使用 thyDateChange
-     * @deprecated please use thyDateChange
-     */
-    @Output() readonly thyShortcutValueChange = new EventEmitter<ThyShortcutValueChange>();
-
-    /**
      * 日期变化的回调
      */
     @Output() readonly thyDateChange = new EventEmitter<ThyDateChangeEvent>();
 
     @Output() readonly thyOpenChange = new EventEmitter<boolean>();
 
-    @ViewChild(ThyPickerComponent, { static: true }) public picker: ThyPickerComponent;
+    @ViewChild(ThyPicker, { static: true }) public picker: ThyPicker;
 
     /**
      * 是否禁用
@@ -230,10 +223,6 @@ export abstract class AbstractPickerComponent
 
     isFlexible() {
         this.flexible = this.thyMode === 'flexible';
-    }
-
-    onShortcutValueChange(event: ThyShortcutValueChange) {
-        this.thyShortcutValueChange.emit(event);
     }
 
     onDateValueChange(event: ThyDateChangeEvent) {

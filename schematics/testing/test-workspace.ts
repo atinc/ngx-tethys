@@ -1,7 +1,8 @@
-import { apply, applyTemplates, HostTree, mergeWith, move, Tree, url } from '@angular-devkit/schematics';
+import { HostTree } from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import * as fs from 'fs';
 import * as path from 'path';
+
 export class TestWorkspaceFactory {
     private hostTree = new HostTree();
     private tree: UnitTestTree;
@@ -15,29 +16,27 @@ export class TestWorkspaceFactory {
         strict?: boolean;
         packageManager?: 'npm' | 'yarn' | 'pnpm' | 'cnpm';
     }) {
-        this.tree = await this.runner
-            .runExternalSchematicAsync(
-                '@schematics/angular',
-                'workspace',
-                {
-                    name: 'test-workspace',
-                    version: '9.0.0',
-                    newProjectRoot: 'projects',
-                    ...options
-                },
-                this.hostTree
-            )
-            .toPromise();
+        this.tree = await this.runner.runExternalSchematic(
+            '@schematics/angular',
+            'workspace',
+            {
+                name: 'test-workspace',
+                version: '9.0.0',
+                newProjectRoot: 'projects',
+                ...options
+            },
+            this.hostTree
+        );
         return this.tree;
     }
 
     async addApplication(options: { name: string; [name: string]: any }) {
-        this.tree = await this.runner.runExternalSchematicAsync('@schematics/angular', 'application', options, this.tree).toPromise();
+        this.tree = await this.runner.runExternalSchematic('@schematics/angular', 'application', options, this.tree);
         return this.tree;
     }
 
     async addLibrary(options: { name: string; [name: string]: any }) {
-        this.tree = await this.runner.runExternalSchematicAsync('@schematics/angular', 'library', options, this.tree).toPromise();
+        this.tree = await this.runner.runExternalSchematic('@schematics/angular', 'library', options, this.tree);
         return this.tree;
     }
 

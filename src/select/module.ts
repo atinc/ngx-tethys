@@ -7,8 +7,8 @@ import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyLoadingModule } from 'ngx-tethys/loading';
 import { ThyOptionModule, ThySelectCommonModule, ThySharedModule } from 'ngx-tethys/shared';
-import { ThySelectCustomComponent } from './custom-select/custom-select.component';
-import { ThySelectComponent } from './select.component';
+import { ThySelect } from './custom-select/custom-select.component';
+import { ThyNativeSelect } from './native-select/native-select.component';
 import { THY_SELECT_CONFIG_PROVIDER, THY_SELECT_SCROLL_STRATEGY_PROVIDER } from './select.config';
 
 @NgModule({
@@ -23,10 +23,10 @@ import { THY_SELECT_CONFIG_PROVIDER, THY_SELECT_SCROLL_STRATEGY_PROVIDER } from 
         ThyEmptyModule,
         ThySelectCommonModule,
         ThyOptionModule,
-        ThySelectComponent,
-        ThySelectCustomComponent
+        ThyNativeSelect,
+        ThySelect
     ],
-    exports: [ThySelectComponent, ThySelectCustomComponent, ThyOptionModule],
+    exports: [ThyNativeSelect, ThySelect, ThyOptionModule],
     providers: [THY_SELECT_SCROLL_STRATEGY_PROVIDER, THY_SELECT_CONFIG_PROVIDER]
 })
 export class ThySelectModule {}

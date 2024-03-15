@@ -4,12 +4,12 @@ import { ThySharedModule } from 'ngx-tethys/shared';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { ThyEmptyComponent } from './empty.component';
+import { ThyEmpty } from './empty.component';
 import { ThyEmptyConfig } from './empty.config';
 
 @NgModule({
-    imports: [CommonModule, ThySharedModule, ThyIconModule, ThyEmptyComponent],
-    exports: [ThyEmptyComponent],
+    imports: [CommonModule, ThySharedModule, ThyIconModule, ThyEmpty],
+    exports: [ThyEmpty],
     providers: [ThyEmptyConfig]
 })
 export class ThyEmptyModule {}

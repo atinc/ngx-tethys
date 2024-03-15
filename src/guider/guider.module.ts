@@ -6,19 +6,11 @@ import { ThySharedModule } from 'ngx-tethys/shared';
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThyPopoverModule } from 'ngx-tethys/popover';
 import { ThyGuiderTargetDirective } from './guider.directive';
-import { ThyGuiderHintComponent } from './guider-hint/guider-hint.component';
+import { ThyGuiderHint } from './guider-hint/guider-hint.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        ThySharedModule,
-        ThyIconModule,
-        ThyButtonModule,
-        ThyPopoverModule,
-        ThyGuiderHintComponent,
-        ThyGuiderTargetDirective
-    ],
-    exports: [ThyGuiderHintComponent, ThyGuiderTargetDirective],
+    imports: [CommonModule, ThySharedModule, ThyIconModule, ThyButtonModule, ThyPopoverModule, ThyGuiderHint, ThyGuiderTargetDirective],
+    exports: [ThyGuiderHint, ThyGuiderTargetDirective],
     providers: [ThyGuider]
 })
 export class ThyGuiderModule {}

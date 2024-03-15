@@ -15,7 +15,7 @@ import {
 import { UpdateHostClassService } from 'ngx-tethys/core';
 import { SafeAny } from 'ngx-tethys/types';
 import { Subject } from 'rxjs';
-import { DEFAULT_SIZE, ThyAvatarComponent } from '../avatar.component';
+import { DEFAULT_SIZE, ThyAvatar } from '../avatar.component';
 import { takeUntil, startWith } from 'rxjs/operators';
 
 export const THY_AVATAR_ITEM_SPACE = 4;
@@ -40,12 +40,12 @@ export const enum ThyAvatarListMode {
     },
     providers: [UpdateHostClassService],
     standalone: true,
-    imports: [NgFor, NgStyle, ThyAvatarComponent, NgIf, NgClass, NgTemplateOutlet]
+    imports: [NgFor, NgStyle, ThyAvatar, NgIf, NgClass, NgTemplateOutlet]
 })
-export class ThyAvatarListComponent implements OnChanges, OnDestroy, AfterContentInit {
+export class ThyAvatarList implements OnChanges, OnDestroy, AfterContentInit {
     @HostBinding('class.thy-avatar-list-overlap') overlapMode = false;
 
-    public avatarItems: ThyAvatarComponent[] = [];
+    public avatarItems: ThyAvatar[] = [];
 
     private ngUnsubscribe$ = new Subject<void>();
 
@@ -71,7 +71,7 @@ export class ThyAvatarListComponent implements OnChanges, OnDestroy, AfterConten
     /**
      * @private
      */
-    @ContentChildren(ThyAvatarComponent) avatarComponents: QueryList<ThyAvatarComponent>;
+    @ContentChildren(ThyAvatar) avatarComponents: QueryList<ThyAvatar>;
 
     constructor() {}
 

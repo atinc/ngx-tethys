@@ -19,7 +19,7 @@ import { InputBoolean } from 'ngx-tethys/core';
     standalone: true,
     imports: [NgIf, NgTemplateOutlet]
 })
-export class DialogFooterComponent implements OnInit {
+export class ThyDialogFooter implements OnInit {
     /**
      * 自定义弹出框底部的描述模板
      * @type TemplateRef

@@ -10,7 +10,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
-import { ThySkeletonCircleComponent, ThySkeletonRectangleComponent } from 'ngx-tethys/skeleton';
+import { ThySkeletonCircle, ThySkeletonRectangle } from 'ngx-tethys/skeleton';
 import { ThyTableSkeletonColumn } from './table.interface';
 import { ThyViewOutletDirective } from 'ngx-tethys/shared';
 import { ThyTableColumnSkeletonType } from './enums';
@@ -31,9 +31,9 @@ const COLUMN_COUNT = 5;
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [NgFor, NgClass, NgIf, NgTemplateOutlet, ThyViewOutletDirective, ThySkeletonRectangleComponent, ThySkeletonCircleComponent]
+    imports: [NgFor, NgClass, NgIf, NgTemplateOutlet, ThyViewOutletDirective, ThySkeletonRectangle, ThySkeletonCircle]
 })
-export class ThyTableSkeletonComponent implements AfterViewInit {
+export class ThyTableSkeleton implements AfterViewInit {
     @ViewChild('titleTemplate') titleTemplate: ElementRef<HTMLElement>;
 
     @ViewChild('memberTemplate') memberTemplate: ElementRef<HTMLElement>;

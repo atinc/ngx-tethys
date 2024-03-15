@@ -11,8 +11,8 @@ import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ThyDatePickerModule } from './date-picker.module';
-import { ThyPropertyOperationComponent, ThyPropertyOperationModule } from 'ngx-tethys/property-operation';
-import { CompatiblePresets, ThyDateRangeEntry, ThyShortcutPosition, ThyShortcutRange } from './standard-types';
+import { ThyPropertyOperation, ThyPropertyOperationModule } from 'ngx-tethys/property-operation';
+import { CompatiblePresets, ThyDateRangeEntry, ThyShortcutPosition } from './standard-types';
 
 registerLocaleData(zh);
 
@@ -137,22 +137,6 @@ describe('ThyRangePickerDirective', () => {
             expect((shortcutItems[shortcutItems.length - 1] as HTMLElement).innerText).toBe('回家那几天');
         }));
 
-        it('should support more thyShortcutRanges', fakeAsync(() => {
-            fixtureInstance.thyShowShortcut = true;
-            fixtureInstance.thyShortcutRanges = [
-                {
-                    title: '回家那几天',
-                    begin: new Date('2022-01-29').getTime(),
-                    end: new Date('2022-02-8').getTime()
-                }
-            ];
-            fixture.detectChanges();
-            dispatchClickEvent(getPickerTriggerWrapper());
-            fixture.detectChanges();
-            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
-            expect((shortcutItems[shortcutItems.length - 1] as HTMLElement).innerText).toBe('回家那几天');
-        }));
-
         it('should support week mode', fakeAsync(() => {
             fixtureInstance.mode = 'week';
             fixture.detectChanges();
@@ -206,7 +190,7 @@ describe('ThyRangePickerDirective', () => {
         }
 
         function getPickerTriggerWrapper(): HTMLInputElement {
-            return debugElement.query(By.directive(ThyPropertyOperationComponent)).nativeElement;
+            return debugElement.query(By.directive(ThyPropertyOperation)).nativeElement;
         }
 
         function dispatchClickEvent(selector: HTMLElement | HTMLInputElement): void {
@@ -227,7 +211,6 @@ describe('ThyRangePickerDirective', () => {
             [thyShowShortcut]="thyShowShortcut"
             [thyShortcutPosition]="thyShortcutPosition"
             [thyShortcutPresets]="thyShortcutPresets"
-            [thyShortcutRanges]="thyShortcutRanges"
             [thyMode]="mode"
             (thyOnCalendarChange)="thyOnCalendarChange($event)"
             (thyDateChange)="thyDateChange($event)"
@@ -240,7 +223,6 @@ class ThyTestRangePickerComponent {
     thyShowShortcut: boolean;
     thyShortcutPosition: ThyShortcutPosition = 'left';
     thyShortcutPresets: CompatiblePresets;
-    thyShortcutRanges: ThyShortcutRange[];
     mode: string;
     modelValueChange(): void {}
     thyOpenChange(): void {}

@@ -18,7 +18,7 @@ import { debounceTime, take, takeUntil } from 'rxjs/operators';
     hostDirectives: [ThyTooltipDirective],
     standalone: true
 })
-export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDestroy {
+export class ThyFlexibleText implements OnInit, AfterContentInit, OnDestroy {
     isOverflow = false;
 
     content: string | TemplateRef<HTMLElement>;
@@ -138,7 +138,7 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
                         this.applyOverflow();
                     });
 
-                ThyFlexibleTextComponent.createResizeObserver(this.elementRef.nativeElement)
+                ThyFlexibleText.createResizeObserver(this.elementRef.nativeElement)
                     .pipe(debounceTime(100), takeUntil(this.destroy$))
                     .subscribe(() => {
                         this.applyOverflow();

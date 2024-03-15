@@ -2,10 +2,10 @@ import { ComponentType } from '@angular/cdk/portal';
 import { Component, DebugElement, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyNavComponent } from 'ngx-tethys/nav';
+import { ThyNav } from 'ngx-tethys/nav';
 import { createFakeEvent, dispatchFakeEvent } from 'ngx-tethys/testing';
 import { SafeAny } from 'ngx-tethys/types';
-import { ThyTabsComponent, ThyTabsPosition, ThyTabsSize, ThyTabsType } from '../tabs.component';
+import { ThyTabs, ThyTabsPosition, ThyTabsSize, ThyTabsType } from '../tabs.component';
 import { ThyTabsModule } from '../tabs.module';
 import { ThyActiveTabInfo, ThyTabActiveEvent } from '../types';
 
@@ -166,7 +166,7 @@ class TestTabsDisabledComponent {
     `
 })
 class TestTabsAnimatedComponent {
-    @ViewChild('tabs', { static: true }) tabComponent: ElementRef<ThyTabsComponent>;
+    @ViewChild('tabs', { static: true }) tabComponent: ElementRef<ThyTabs>;
 }
 
 describe('tabs', () => {
@@ -174,7 +174,7 @@ describe('tabs', () => {
         let fixture: ComponentFixture<TestTabsBasicComponent>;
         let tabsDebugElement: DebugElement;
         let tabsElement: HTMLElement;
-        let tabsInstance: ThyTabsComponent;
+        let tabsInstance: ThyTabs;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
@@ -183,7 +183,7 @@ describe('tabs', () => {
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestTabsBasicComponent);
-            tabsDebugElement = getDebugElement(fixture, ThyTabsComponent);
+            tabsDebugElement = getDebugElement(fixture, ThyTabs);
             tabsElement = tabsDebugElement.nativeElement;
             tabsInstance = tabsDebugElement.componentInstance;
             fixture.detectChanges();
@@ -224,7 +224,7 @@ describe('tabs', () => {
                 fixture.detectChanges();
                 tick();
                 fixture.detectChanges();
-                const navElement = getDebugElement(fixture, ThyNavComponent).nativeElement;
+                const navElement = getDebugElement(fixture, ThyNav).nativeElement;
                 expect(navElement.classList.contains(`thy-nav-${type}`)).toBeTruthy();
             });
         }));
@@ -249,7 +249,7 @@ describe('tabs', () => {
                 fixture.detectChanges();
                 tick();
                 fixture.detectChanges();
-                const tabsElement = getDebugElement(fixture, ThyNavComponent).nativeElement;
+                const tabsElement = getDebugElement(fixture, ThyNav).nativeElement;
                 expect(tabsElement.classList.contains(`thy-nav-${size}`)).toBeTruthy();
             });
         }));
@@ -323,7 +323,7 @@ describe('tabs', () => {
         }));
 
         function getTabsClassList() {
-            return fixture.debugElement.query(By.directive(ThyTabsComponent)).nativeElement.classList;
+            return fixture.debugElement.query(By.directive(ThyTabs)).nativeElement.classList;
         }
     });
 
@@ -358,7 +358,7 @@ describe('tabs', () => {
         it('should set thyActiveTab successfully when thyActiveTab type is number', () => {
             fixture.debugElement.componentInstance.activeTab = 1;
             fixture.detectChanges();
-            const tabsInstance = getDebugElement(fixture, ThyTabsComponent).componentInstance;
+            const tabsInstance = getDebugElement(fixture, ThyTabs).componentInstance;
             expect(tabsInstance.activeTabIndex).toEqual(1);
         });
 
@@ -385,7 +385,7 @@ describe('tabs', () => {
         });
 
         it('should support add tab dynamically', fakeAsync(() => {
-            const tabsInstance = getDebugElement(fixture, ThyTabsComponent).componentInstance;
+            const tabsInstance = getDebugElement(fixture, ThyTabs).componentInstance;
             expect(tabsInstance.tabs.length).toBe(3);
 
             fixture.debugElement.componentInstance.addTab();
@@ -396,7 +396,7 @@ describe('tabs', () => {
         }));
 
         it('should set thyActiveTab successfully when add tab', fakeAsync(() => {
-            const tabsInstance = getDebugElement(fixture, ThyTabsComponent).componentInstance;
+            const tabsInstance = getDebugElement(fixture, ThyTabs).componentInstance;
             expect(tabsInstance.tabs.length).toBe(3);
 
             fixture.debugElement.componentInstance.addTab();
@@ -412,7 +412,7 @@ describe('tabs', () => {
         }));
 
         it('should set thyActiveTab successfully when add tab and thyAnimated', fakeAsync(() => {
-            const tabsInstance = getDebugElement(fixture, ThyTabsComponent).componentInstance;
+            const tabsInstance = getDebugElement(fixture, ThyTabs).componentInstance;
             expect(tabsInstance.tabs.length).toBe(3);
 
             fixture.debugElement.componentInstance.addTab();
@@ -444,7 +444,7 @@ describe('tabs', () => {
 
         it('should set thyDisabled successfully', fakeAsync(() => {
             const spy = jasmine.createSpy('spy on tab click');
-            const tabsInstance = getDebugElement(fixture, ThyTabsComponent).componentInstance;
+            const tabsInstance = getDebugElement(fixture, ThyTabs).componentInstance;
             tabsInstance.thyActiveTabChange.subscribe((event: ThyTabActiveEvent) => {
                 spy();
             });

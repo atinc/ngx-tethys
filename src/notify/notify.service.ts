@@ -3,7 +3,7 @@ import { Inject, Injectable, Injector } from '@angular/core';
 import { ThyGlobalNotifyConfig, ThyNotifyConfig, THY_NOTIFY_DEFAULT_CONFIG, THY_NOTIFY_DEFAULT_CONFIG_VALUE } from './notify.config';
 import { Overlay } from '@angular/cdk/overlay';
 import { ThyNotifyRef } from './notify-ref';
-import { ThyNotifyContainerComponent } from './notify-container.component';
+import { ThyNotifyContainer } from './notify-container.component';
 import { ThyNotifyQueue } from './notify-queue.service';
 import { ThyAbstractMessageService } from 'ngx-tethys/message';
 import { ComponentTypeOrTemplateRef } from 'ngx-tethys/core';
@@ -14,7 +14,7 @@ import { ComponentTypeOrTemplateRef } from 'ngx-tethys/core';
 @Injectable({
     providedIn: 'root'
 })
-export class ThyNotifyService extends ThyAbstractMessageService<ThyNotifyContainerComponent> {
+export class ThyNotifyService extends ThyAbstractMessageService<ThyNotifyContainer> {
     private _lastNotifyId = 0;
 
     private defaultConfig: ThyGlobalNotifyConfig;
@@ -36,7 +36,7 @@ export class ThyNotifyService extends ThyAbstractMessageService<ThyNotifyContain
      * 打开自定义配置的 Notify
      */
     public show(config: ThyNotifyConfig): ThyNotifyRef {
-        this.container = this.createContainer(ThyNotifyContainerComponent);
+        this.container = this.createContainer(ThyNotifyContainer);
 
         const notifyConfig = this.formatOptions(config);
         const notifyRef = new ThyNotifyRef(notifyConfig, this.overlayRef, this.notifyQueue);

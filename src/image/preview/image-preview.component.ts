@@ -22,11 +22,11 @@ import { ThyCopyEvent, ThyCopyDirective } from 'ngx-tethys/copy';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { DomSanitizer } from '@angular/platform-browser';
 import { fetchImageBlob } from '../utils';
-import { ThyDividerComponent } from 'ngx-tethys/divider';
-import { ThyIconComponent } from 'ngx-tethys/icon';
-import { ThyLoadingComponent } from 'ngx-tethys/loading';
+import { ThyDivider } from 'ngx-tethys/divider';
+import { ThyIcon } from 'ngx-tethys/icon';
+import { ThyLoading } from 'ngx-tethys/loading';
 import { CdkDrag } from '@angular/cdk/drag-drop';
-import { ThyActionComponent, ThyActionsComponent } from 'ngx-tethys/action';
+import { ThyAction, ThyActions } from 'ngx-tethys/action';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { NgIf, NgFor } from '@angular/common';
 
@@ -55,20 +55,9 @@ const VERTICAL_SPACE = 96 + 106; // top: 96px; bottom: 106px
         '[class.thy-image-preview-moving]': 'isDragging'
     },
     standalone: true,
-    imports: [
-        NgIf,
-        ThyTooltipDirective,
-        ThyActionComponent,
-        CdkDrag,
-        NgFor,
-        ThyLoadingComponent,
-        ThyIconComponent,
-        ThyActionsComponent,
-        ThyDividerComponent,
-        ThyCopyDirective
-    ]
+    imports: [NgIf, ThyTooltipDirective, ThyAction, CdkDrag, NgFor, ThyLoading, ThyIcon, ThyActions, ThyDivider, ThyCopyDirective]
 })
-export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implements OnInit, OnDestroy {
+export class ThyImagePreview extends mixinUnsubscribe(MixinBase) implements OnInit, OnDestroy {
     @Output() downloadClicked: EventEmitter<ThyImageInfo> = new EventEmitter();
     images: InternalImageInfo[] = [];
     previewIndex: number = 0;

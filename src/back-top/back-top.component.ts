@@ -21,7 +21,7 @@ import { Platform } from '@angular/cdk/platform';
 import { throttleTime, takeUntil, switchMap } from 'rxjs/operators';
 import { DOCUMENT, NgIf, NgTemplateOutlet } from '@angular/common';
 import { fadeMotion, InputNumber, ThyScrollService } from 'ngx-tethys/core';
-import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyIcon } from 'ngx-tethys/icon';
 
 /**
  * 回到顶部组件
@@ -34,9 +34,9 @@ import { ThyIconComponent } from 'ngx-tethys/icon';
     encapsulation: ViewEncapsulation.None,
     animations: [fadeMotion],
     standalone: true,
-    imports: [NgIf, ThyIconComponent, NgTemplateOutlet]
+    imports: [NgIf, ThyIcon, NgTemplateOutlet]
 })
-export class ThyBackTopComponent implements OnInit, OnDestroy, OnChanges {
+export class ThyBackTop implements OnInit, OnDestroy, OnChanges {
     @HostBinding('class.thy-back-top-container') classNames = true;
 
     /**

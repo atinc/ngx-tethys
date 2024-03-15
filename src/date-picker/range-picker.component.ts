@@ -1,12 +1,11 @@
-import { ThyShortcutPreset, ThyShortcutRange } from './standard-types';
 import { forwardRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
 import { NgIf } from '@angular/common';
-import { BasePickerComponent } from './base-picker.component';
-import { DatePopupComponent } from './lib/popups/date-popup.component';
-import { ThyPickerComponent } from './picker.component';
+import { BasePicker } from './base-picker.component';
+import { DatePopup } from './lib/popups/date-popup.component';
+import { ThyPicker } from './picker.component';
 import { helpers } from 'ngx-tethys/util';
 
 /**
@@ -23,28 +22,16 @@ import { helpers } from 'ngx-tethys/util';
         {
             provide: NG_VALUE_ACCESSOR,
             multi: true,
-            useExisting: forwardRef(() => ThyRangePickerComponent)
+            useExisting: forwardRef(() => ThyRangePicker)
         }
     ],
     standalone: true,
-    imports: [ThyPickerComponent, NgIf, DatePopupComponent]
+    imports: [ThyPicker, NgIf, DatePopup]
 })
-export class ThyRangePickerComponent extends BasePickerComponent implements OnInit {
+export class ThyRangePicker extends BasePicker implements OnInit {
     isRange = true;
 
     private hostRenderer = useHostRenderer();
-
-    /**
-     * 已废弃，请使用 thyShortcutPresets
-     * @deprecated
-     * @type ThyShortcutRange[]
-     */
-    @Input() set thyShortcutRanges(ranges: ThyShortcutRange[]) {
-        if (ranges && helpers.isArray(ranges)) {
-            const presets: ThyShortcutPreset[] = ranges.map(range => ({ title: range.title, value: [range.begin, range.end] }));
-            this.shortcutPresets = [...presets];
-        }
-    }
 
     constructor(cdr: ChangeDetectorRef, protected elementRef: ElementRef) {
         super(cdr, elementRef);

@@ -1,7 +1,7 @@
 import { Inject, Injectable, OnDestroy, Optional } from '@angular/core';
 import { ThyImagePreviewConfig, THY_IMAGE_DEFAULT_PREVIEW_OPTIONS } from './image.config';
 import { ThyImageInfo, ThyImagePreviewOptions } from './image.class';
-import { ThyImagePreviewComponent } from './preview/image-preview.component';
+import { ThyImagePreview } from './preview/image-preview.component';
 import { ThyDialog, ThyDialogSizes } from 'ngx-tethys/dialog';
 import { ThyImagePreviewRef } from './preview/image-preview-ref';
 import { Observable, Subject } from 'rxjs';
@@ -35,7 +35,7 @@ export class ThyImageService implements OnDestroy {
      */
     preview(images: ThyImageInfo[], options?: ThyImagePreviewOptions & { startIndex?: number }): ThyImagePreviewRef {
         const config = { ...this.defaultConfig, ...options };
-        const dialogRef = this.thyDialog.open(ThyImagePreviewComponent, {
+        const dialogRef = this.thyDialog.open(ThyImagePreview, {
             initialState: {
                 images,
                 previewIndex: options?.startIndex >= 0 && options?.startIndex < images.length ? options.startIndex : 0,

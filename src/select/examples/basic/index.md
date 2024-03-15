@@ -1,4 +1,4 @@
 ---
-title: thy-select
-order: 100
+title: Basic
+order: 10
 ---

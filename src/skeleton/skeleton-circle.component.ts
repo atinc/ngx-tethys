@@ -9,7 +9,7 @@ import {
     SimpleChanges,
     Inject
 } from '@angular/core';
-import { ThySkeletonComponent } from './skeleton.component';
+import { ThySkeleton } from './skeleton.component';
 import { helpers } from 'ngx-tethys/util';
 import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
 import { THY_SKELETON_CONFIG, ThySkeletonConfigModel } from './skeleton.config';
@@ -41,7 +41,7 @@ interface Style {
     standalone: true,
     imports: [NgStyle]
 })
-export class ThySkeletonCircleComponent implements OnInit, OnChanges {
+export class ThySkeletonCircle implements OnInit, OnChanges {
     /**
      * 动画速度
      * @default 1.5s
@@ -82,7 +82,7 @@ export class ThySkeletonCircleComponent implements OnInit, OnChanges {
         @Optional()
         @Inject(THY_SKELETON_CONFIG)
         private skeletonConfigModel: ThySkeletonConfigModel,
-        @Optional() private _parent: ThySkeletonComponent
+        @Optional() private _parent: ThySkeleton
     ) {}
 
     ngOnInit() {

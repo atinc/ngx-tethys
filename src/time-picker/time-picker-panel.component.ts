@@ -16,7 +16,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { isValid } from 'date-fns';
 import { InputBoolean, reqAnimFrame } from 'ngx-tethys/core';
 import { TinyDate } from 'ngx-tethys/util';
-import { ThyButtonComponent } from 'ngx-tethys/button';
+import { ThyButton } from 'ngx-tethys/button';
 import { NgIf, NgFor, DecimalPipe } from '@angular/common';
 
 /**
@@ -31,7 +31,7 @@ import { NgIf, NgFor, DecimalPipe } from '@angular/common';
         {
             provide: NG_VALUE_ACCESSOR,
             multi: true,
-            useExisting: forwardRef(() => ThyTimePanelComponent)
+            useExisting: forwardRef(() => ThyTimePanel)
         }
     ],
     host: {
@@ -41,9 +41,9 @@ import { NgIf, NgFor, DecimalPipe } from '@angular/common';
         '[class.thy-time-picker-panel-columns-3]': `showColumnCount === 3`
     },
     standalone: true,
-    imports: [NgIf, NgFor, ThyButtonComponent, DecimalPipe]
+    imports: [NgIf, NgFor, ThyButton, DecimalPipe]
 })
-export class ThyTimePanelComponent implements OnInit, OnDestroy, ControlValueAccessor {
+export class ThyTimePanel implements OnInit, OnDestroy, ControlValueAccessor {
     @ViewChild('hourListElement', { static: false }) hourListRef: ElementRef<HTMLElement>;
 
     @ViewChild('minuteListElement', { static: false }) minuteListRef: ElementRef<HTMLElement>;

@@ -3,7 +3,7 @@ import { ThyInputDirective } from './input.directive';
 import { mixinUnsubscribe, MixinBase } from 'ngx-tethys/core';
 import { takeUntil, switchMap, filter, tap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { ThyInputGroupComponent } from './input-group.component';
+import { ThyInputGroup } from './input-group.component';
 
 const _Base = mixinUnsubscribe(MixinBase);
 
@@ -21,7 +21,7 @@ const _Base = mixinUnsubscribe(MixinBase);
     },
     standalone: true
 })
-export class ThyInputCountComponent extends _Base implements OnInit {
+export class ThyInputCount extends _Base implements OnInit {
     private hasInput = false;
 
     /**
@@ -39,7 +39,7 @@ export class ThyInputCountComponent extends _Base implements OnInit {
 
     thyInput$ = new Subject<ThyInputDirective>();
 
-    constructor(private changeDetectorRef: ChangeDetectorRef, @Optional() private inputGroup: ThyInputGroupComponent) {
+    constructor(private changeDetectorRef: ChangeDetectorRef, @Optional() private inputGroup: ThyInputGroup) {
         super();
         this.setup();
     }

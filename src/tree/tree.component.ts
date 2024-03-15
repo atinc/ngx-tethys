@@ -73,12 +73,12 @@ const treeItemSizeMap = {
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => ThyTreeComponent),
+            useExisting: forwardRef(() => ThyTree),
             multi: true
         },
         {
             provide: THY_TREE_ABSTRACT_TOKEN,
-            useExisting: forwardRef(() => ThyTreeComponent)
+            useExisting: forwardRef(() => ThyTree)
         },
         ThyTreeService
     ],
@@ -95,7 +95,7 @@ const treeItemSizeMap = {
         ThyTreeNodeDraggablePipe
     ]
 })
-export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges, AfterViewInit, OnDestroy {
+export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterViewInit, OnDestroy {
     private _templateRef: TemplateRef<any>;
 
     private _emptyChildrenTemplateRef: TemplateRef<any>;

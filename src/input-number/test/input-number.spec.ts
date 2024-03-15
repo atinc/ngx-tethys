@@ -7,7 +7,7 @@ import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { ThyInputNumberComponent } from '../input-number.component';
+import { ThyInputNumber } from '../input-number.component';
 import { ThyInputNumberModule } from '../module';
 
 @Component({
@@ -46,9 +46,9 @@ import { ThyInputNumberModule } from '../module';
     `
 })
 class TestInputNumberComponent {
-    @ViewChild(ThyInputNumberComponent, { static: false }) inputNumberComponent: ThyInputNumberComponent;
+    @ViewChild(ThyInputNumber, { static: false }) inputNumberComponent: ThyInputNumber;
 
-    @ViewChild('second', { static: false }) secondInputNumberComponent: ThyInputNumberComponent;
+    @ViewChild('second', { static: false }) secondInputNumberComponent: ThyInputNumber;
 
     thySize = ``;
 
@@ -108,7 +108,7 @@ describe('input-number component', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(TestInputNumberComponent);
         inputNumberComponentInstance = fixture.debugElement.componentInstance;
-        inputNumberDebugElement = fixture.debugElement.query(By.directive(ThyInputNumberComponent));
+        inputNumberDebugElement = fixture.debugElement.query(By.directive(ThyInputNumber));
         inputElement = inputNumberDebugElement.nativeElement.querySelector('input');
     });
 
