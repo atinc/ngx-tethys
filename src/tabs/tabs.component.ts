@@ -137,6 +137,7 @@ export class ThyTabs extends _MixinBase implements OnInit, OnChanges, AfterConte
         this.tabs.changes.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(data => {
             this.thyAnimated && (this.transitionStarted = true);
             this.activeTabIndex = data.length - 1;
+            this.cd.markForCheck();
         });
     }
 
