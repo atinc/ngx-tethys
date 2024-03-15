@@ -8,24 +8,13 @@ All notable changes to this project will be documented in this file. See [standa
 ### Features
 
 * **date-pick:** update selected active date when click shortcut selection(#INFR-11706) ([#3043](https://github.com/atinc/ngx-tethys/issues/3043)) ([7efa4c5](https://github.com/atinc/ngx-tethys/commit/7efa4c55e4e4fa84eab1863ca93ed55cd80ac15b)), closes [#INFR-11706](https://github.com/atinc/ngx-tethys/issues/INFR-11706)
-
-
-
-## [16.2.4](https://github.com/atinc/ngx-tethys/compare/16.2.3...16.2.4) (2024-03-01)
-
-
-### Bug Fixes
-
-* **button:** fix button jitter upon hovering when thyShape is circle-dashed or circle-solid #INFR-11703 [@wumeimin](https://github.com/wumeimin) [@xinglu](https://github.com/xinglu) ([#3037](https://github.com/atinc/ngx-tethys/issues/3037)) ([f50dc06](https://github.com/atinc/ngx-tethys/commit/f50dc06050d4b7235fe562c449c393ea71bf4a0e)), closes [#INFR-11703](https://github.com/atinc/ngx-tethys/issues/INFR-11703)
-
-
-
-## [16.2.3](https://github.com/atinc/ngx-tethys/compare/17.0.0-next.1...16.2.3) (2024-02-29)
-
-
-### Bug Fixes
-
-* **tabs:** tabs change add markForCheck update(#INFR-11694) ([#3035](https://github.com/atinc/ngx-tethys/issues/3035)) ([8754f6f](https://github.com/atinc/ngx-tethys/commit/8754f6f9dfa38bb8b5f366be38e726e4cc4f9c17)), closes [#INFR-11694](https://github.com/atinc/ngx-tethys/issues/INFR-11694)
+* **dialog:** add Thy prefix to DialogHeader, DialogBody and DialogFooter and provide schematics #INFR-11891 ([#3052](https://github.com/atinc/ngx-tethys/issues/3052)) ([872afd3](https://github.com/atinc/ngx-tethys/commit/872afd356cc265f10b2b06bad92c9dee97443066)), closes [#INFR-11891](https://github.com/atinc/ngx-tethys/issues/INFR-11891)
+* **date-picker:** remove date-picker deprecated parameter #INFR-11790 [@wumeimin](https://github.com/wumeimin) [@xuhaifeng](https://github.com/xuhaifeng) (#INFR-11790) ([#3046](https://github.com/atinc/ngx-tethys/issues/3046)) ([58a69ac](https://github.com/atinc/ngx-tethys/commit/58a69acaf5982afbb9fc33dbac150f7dbe0d52a9)), closes [#INFR-11790](https://github.com/atinc/ngx-tethys/issues/INFR-11790) [#INFR-11790](https://github.com/atinc/ngx-tethys/issues/INFR-11790)
+* **schematics:** provide schematics for removing the deprecated interface, type, input attr, and output attr in picker module #INFR-11793 ([#3049](https://github.com/atinc/ngx-tethys/issues/3049)) ([f07ad2c](https://github.com/atinc/ngx-tethys/commit/f07ad2ca94fe6e3803a1b10a215b7d39fea0d711)), closes [#INFR-11793](https://github.com/atinc/ngx-tethys/issues/INFR-11793)
+* **schematics:** improve schematics for select and custom-select in template #INFR-11735 ([#3047](https://github.com/atinc/ngx-tethys/issues/3047)) ([acb4f95](https://github.com/atinc/ngx-tethys/commit/acb4f95b05e9fce85b03601f173ea74d7f935039)), closes [#INFR-11735](https://github.com/atinc/ngx-tethys/issues/INFR-11735)
+* **schematics:** provide schematics for renaming standalone components and select module in v17 #INFR-11732 ([#3044](https://github.com/atinc/ngx-tethys/issues/3044)) ([90b300e](https://github.com/atinc/ngx-tethys/commit/90b300e2889084a9e11d38183c23a1a7aea020fd)), closes [#INFR-11732](https://github.com/atinc/ngx-tethys/issues/INFR-11732)
+* update cdk version to v17 INFR-11427 ([#3039](https://github.com/atinc/ngx-tethys/issues/3039)) ([5c64820](https://github.com/atinc/ngx-tethys/commit/5c64820033038871ebccb5691fdfd72e966ccbd0))
+* remove cyia-code-util #INFR-11666 ([#3025](https://github.com/atinc/ngx-tethys/issues/3025)) ([b4f294a](https://github.com/atinc/ngx-tethys/commit/b4f294a21b7337e20b652db6e3fa343b8e0b5cad)), closes [#INFR-11666](https://github.com/atinc/ngx-tethys/issues/INFR-11666)
 
 
 
