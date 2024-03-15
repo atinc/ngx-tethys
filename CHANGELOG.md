@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [17.0.0](https://github.com/atinc/ngx-tethys/compare/17.0.0-next.8...17.0.0) (2024-03-15)
+
+
+### Features
+
+* **date-pick:** update selected active date when click shortcut selection(#INFR-11706) ([#3043](https://github.com/atinc/ngx-tethys/issues/3043)) ([7efa4c5](https://github.com/atinc/ngx-tethys/commit/7efa4c55e4e4fa84eab1863ca93ed55cd80ac15b)), closes [#INFR-11706](https://github.com/atinc/ngx-tethys/issues/INFR-11706)
+
+
+
+## [16.2.4](https://github.com/atinc/ngx-tethys/compare/16.2.3...16.2.4) (2024-03-01)
+
+
+### Bug Fixes
+
+* **button:** fix button jitter upon hovering when thyShape is circle-dashed or circle-solid #INFR-11703 [@wumeimin](https://github.com/wumeimin) [@xinglu](https://github.com/xinglu) ([#3037](https://github.com/atinc/ngx-tethys/issues/3037)) ([f50dc06](https://github.com/atinc/ngx-tethys/commit/f50dc06050d4b7235fe562c449c393ea71bf4a0e)), closes [#INFR-11703](https://github.com/atinc/ngx-tethys/issues/INFR-11703)
+
+
+
+## [16.2.3](https://github.com/atinc/ngx-tethys/compare/17.0.0-next.1...16.2.3) (2024-02-29)
+
+
+### Bug Fixes
+
+* **tabs:** tabs change add markForCheck update(#INFR-11694) ([#3035](https://github.com/atinc/ngx-tethys/issues/3035)) ([8754f6f](https://github.com/atinc/ngx-tethys/commit/8754f6f9dfa38bb8b5f366be38e726e4cc4f9c17)), closes [#INFR-11694](https://github.com/atinc/ngx-tethys/issues/INFR-11694)
+
+
+
 ## [16.2.4](https://github.com/atinc/ngx-tethys/compare/16.2.3...16.2.4) (2024-03-01)
 
 
