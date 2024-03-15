@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.2.5-0](https://github.com/atinc/ngx-tethys/compare/16.2.4...16.2.5-0) (2024-03-15)
+
+
+### Bug Fixes
+
+* **resize:** set position by css #INFR-11934 ([fb708ef](https://github.com/atinc/ngx-tethys/commit/fb708efc11f01d704098aba8919ae3b70a8656f2)), closes [#INFR-11934](https://github.com/atinc/ngx-tethys/issues/INFR-11934)
+
+
+### BREAKING CHANGES
+
+* **resize:** remove set relative positon in ngAfterViewInit
+
+
+
 ## [16.2.4](https://github.com/atinc/ngx-tethys/compare/16.2.3...16.2.4) (2024-03-01)
 
 
