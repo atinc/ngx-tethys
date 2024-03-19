@@ -148,6 +148,28 @@ describe('ThyDatePickerComponent', () => {
             expect(input.value.trim()).toBe('');
         }));
 
+        it('should selected cell value when show time picker shortcutPresets click', fakeAsync(() => {
+            const value = `2018-11-11 07:31`;
+            fixtureInstance.thyValue = new Date(value);
+            fixtureInstance.thyShowTime = true;
+            const shortcutTime = `2023-03-18 07:31`;
+            fixture.detectChanges();
+
+            openPickerByClickTrigger();
+            dispatchMouseEvent(getSetTimeButton(), 'click');
+            fixture.detectChanges();
+            tick(500);
+
+            const datePopupComponent = fixture.debugElement.query(By.directive(DatePopup)).componentInstance;
+            datePopupComponent.shortcutSetValue({ value: shortcutTime });
+
+            const input = getPickerTrigger();
+            fixture.detectChanges();
+            tick(500);
+            expect(input.value).toContain(value);
+            expect(getSelectedDayCell().textContent.trim()).toBe('18');
+        }));
+
         it('should not reset the selected time when shortcut select date', fakeAsync(() => {
             const selectedTime = `11:22`;
             fixtureInstance.thyValue = new Date(`2018-11-11 ${selectedTime}`);

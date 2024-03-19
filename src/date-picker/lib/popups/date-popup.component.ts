@@ -614,7 +614,9 @@ export class DatePopup implements OnChanges, OnInit {
             value: helpers.isArray(value) ? this.selectedValue : selectedPresetValue,
             triggerPreset: shortcutPresets
         });
-        this.updateActiveDate();
+        if (!helpers.isArray(value) && this.showTime && this.showTimePicker) {
+            this.updateActiveDate();
+        }
     }
 
     public trackByFn(index: number) {
