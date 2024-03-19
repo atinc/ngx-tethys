@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [17.0.1](https://github.com/atinc/ngx-tethys/compare/17.0.0...17.0.1) (2024-03-19)
+
+
+### Bug Fixes
+
+* **resize:** set position by css #INFR-11934 ([2ff62bd](https://github.com/atinc/ngx-tethys/commit/2ff62bdb06814bfb8770d906bb519547f9e3c2df)), closes [#INFR-11934](https://github.com/atinc/ngx-tethys/issues/INFR-11934)
+* **schematics:** update @tethys/icons to ^1.4.23 for DEPENDENCIES ([5c186a1](https://github.com/atinc/ngx-tethys/commit/5c186a131bb0833133c7280e0ec983629316d7b4))
+* update changelog for v17 #INFR-11929 ([dd87aac](https://github.com/atinc/ngx-tethys/commit/dd87aac2a2ec20b46d0a6453272bcd7f492ff341)), closes [#INFR-11929](https://github.com/atinc/ngx-tethys/issues/INFR-11929)
+
+
+### Features
+
+* **date-picker:** handle update selected active date when click shortcut selection #INFR-11706 [@wumeimin](https://github.com/wumeimin) (#INFR-11706) ([#3058](https://github.com/atinc/ngx-tethys/issues/3058)) ([75eec20](https://github.com/atinc/ngx-tethys/commit/75eec20c3fc6b019da2da769a410ab3bfe6fbcc6)), closes [#INFR-11706](https://github.com/atinc/ngx-tethys/issues/INFR-11706) [#INFR-11706](https://github.com/atinc/ngx-tethys/issues/INFR-11706) [#INFR-11706](https://github.com/atinc/ngx-tethys/issues/INFR-11706) [#INFR-11706](https://github.com/atinc/ngx-tethys/issues/INFR-11706)
+
+
+### BREAKING CHANGES
+
+* **resize:** remove set relative positon in ngAfterViewInit
+
+
+
 # [17.0.0](https://github.com/atinc/ngx-tethys/compare/17.0.0-next.8...17.0.0) (2024-03-15)
 
 
