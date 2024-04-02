@@ -19,7 +19,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable, Subscription, fromEvent } from 'rxjs';
-import { clamp, coerceBooleanProperty } from 'ngx-tethys/util';
+import { clamp } from 'ngx-tethys/util';
 import { tap, pluck, map, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -66,12 +66,11 @@ export class ThySlider
      */
     @HostBinding('class.slider-disabled')
     @Input({ transform: booleanAttribute })
+    override set thyDisabled(value: boolean) {
+        this.disabled = value;
+    }
     override get thyDisabled(): boolean {
         return this.disabled;
-    }
-
-    override set thyDisabled(value: boolean) {
-        this.disabled = coerceBooleanProperty(value);
     }
 
     disabled = false;

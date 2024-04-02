@@ -1,5 +1,4 @@
-import { Directive, HostBinding, Input } from '@angular/core';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { Directive, HostBinding, Input, booleanAttribute } from '@angular/core';
 import { ThyTranslate } from 'ngx-tethys/core';
 
 /**
@@ -29,9 +28,9 @@ export class ThyFormGroupLabelDirective {
         }
     }
 
-    @Input()
-    set thyLabelRequired(value: string) {
-        this.labelRequired = coerceBooleanProperty(value);
+    @Input({ transform: booleanAttribute })
+    set thyLabelRequired(value: boolean) {
+        this.labelRequired = value;
     }
 
     constructor(private thyTranslate: ThyTranslate) {}

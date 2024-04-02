@@ -1,5 +1,4 @@
 import { isTextColor } from 'ngx-tethys/core';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, booleanAttribute, numberAttribute } from '@angular/core';
 import { NgIf } from '@angular/common';
@@ -172,7 +171,7 @@ export class ThyBadge implements OnInit {
      */
     @Input({ transform: booleanAttribute })
     set thyKeepShow(value: boolean) {
-        this.keepShowValue = coerceBooleanProperty(value);
+        this.keepShowValue = value;
         if (this.initialized) {
             this.combineBadgeDisplayContent();
         }

@@ -1,5 +1,5 @@
 import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
-import { coerceBooleanProperty, TinyDate, warnDeprecation } from 'ngx-tethys/util';
+import { TinyDate, warnDeprecation } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 
 import {
@@ -173,11 +173,11 @@ export abstract class AbstractPickerComponent
      * @default false
      */
     @Input({ transform: booleanAttribute })
+    set thyDisabled(value: boolean) {
+        this.disabled = value;
+    }
     get thyDisabled(): boolean {
         return this.disabled;
-    }
-    set thyDisabled(value: boolean) {
-        this.disabled = coerceBooleanProperty(value);
     }
 
     disabled = false;

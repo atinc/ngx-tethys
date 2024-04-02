@@ -1,5 +1,5 @@
 import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
-import { coerceBooleanProperty, helpers } from 'ngx-tethys/util';
+import { helpers } from 'ngx-tethys/util';
 
 import { NgClass, NgFor } from '@angular/common';
 import {
@@ -78,16 +78,16 @@ export class ThyRate extends TabIndexDisabledControlValueAccessorMixin implement
      * 是否只读
      * @default false
      */
-    @Input()
+    @Input({ transform: booleanAttribute })
+    override set thyDisabled(value: boolean) {
+        this.disabled = value;
+    }
     override get thyDisabled(): boolean {
         return this.disabled;
     }
 
-    override set thyDisabled(value: boolean) {
-        this.disabled = coerceBooleanProperty(value);
-    }
-
     disabled = false;
+
     /**
      * 是否允许半选
      * @default false

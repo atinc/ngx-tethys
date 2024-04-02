@@ -1,5 +1,4 @@
 import { ThyTranslate } from 'ngx-tethys/core';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import {
     AfterViewInit,
@@ -171,9 +170,8 @@ export class ThyEmpty implements OnInit, AfterViewInit, OnChanges {
 
     private _calculatePosition() {
         const sizeOptions = sizeMap[this.thySize || 'md'];
-        const topAuto = coerceBooleanProperty(this.thyTopAuto);
         let marginTop = null;
-        if (topAuto) {
+        if (this.thyTopAuto) {
             // 选择参考父容器居中
             const containerElement = this.thyContainer ? this.thyContainer.nativeElement : this.elementRef.nativeElement.parentElement;
             // containerElement.height;

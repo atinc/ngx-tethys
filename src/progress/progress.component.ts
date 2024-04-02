@@ -1,4 +1,4 @@
-import { helpers, isNumber } from 'ngx-tethys/util';
+import { isNumber } from 'ngx-tethys/util';
 
 import {
     ChangeDetectionStrategy,
@@ -103,7 +103,7 @@ export class ThyProgress implements ThyParentProgress, OnInit, OnChanges {
      */
     @Input({ transform: numberAttribute })
     set thyMax(max: number) {
-        this.settedMax = helpers.coerceNumberValue(max);
+        this.settedMax = max;
         this.calculateMax();
     }
 

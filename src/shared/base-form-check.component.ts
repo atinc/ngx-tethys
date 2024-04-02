@@ -1,6 +1,5 @@
 import { ControlValueAccessor } from '@angular/forms';
 import { HostBinding, Input, ChangeDetectorRef, Directive, booleanAttribute } from '@angular/core';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { ThyTranslate, TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
 
 const noop = () => {};
@@ -37,7 +36,7 @@ export class ThyFormCheckBaseComponent extends TabIndexDisabledControlValueAcces
      */
     @Input({ transform: booleanAttribute })
     set thyInline(value: boolean) {
-        this._isFormCheckInline = coerceBooleanProperty(value);
+        this._isFormCheckInline = value;
     }
 
     /**
@@ -68,7 +67,7 @@ export class ThyFormCheckBaseComponent extends TabIndexDisabledControlValueAcces
      */
     @Input({ transform: booleanAttribute })
     override set thyDisabled(value: boolean) {
-        this.disabled = coerceBooleanProperty(value);
+        this.disabled = value;
         this.setDisabledState(this.disabled);
     }
 

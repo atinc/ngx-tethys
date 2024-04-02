@@ -10,7 +10,6 @@ import {
     booleanAttribute
 } from '@angular/core';
 import { Highlightable } from '@angular/cdk/a11y';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { IThyListOptionParentComponent, THY_LIST_OPTION_PARENT_COMPONENT } from '../option.token';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgIf } from '@angular/common';
@@ -50,7 +49,7 @@ export class ThyListOption implements Highlightable {
 
     @Input({ transform: booleanAttribute })
     set thyDisabled(value: boolean) {
-        this.disabled = coerceBooleanProperty(value);
+        this.disabled = value;
     }
 
     @HostBinding(`class.disabled`) disabled?: boolean;

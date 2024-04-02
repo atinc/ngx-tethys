@@ -1,6 +1,6 @@
 import { Constructor, InputCssPixel, MixinBase, mixinUnsubscribe, ThyUnsubscribe, UpdateHostClassService } from 'ngx-tethys/core';
 import { Dictionary, SafeAny } from 'ngx-tethys/types';
-import { coerceBooleanProperty, get, helpers, isString, keyBy, set } from 'ngx-tethys/util';
+import { get, helpers, isString, keyBy, set } from 'ngx-tethys/util';
 import { EMPTY, fromEvent, merge, Observable, of } from 'rxjs';
 import { delay, startWith, switchMap, takeUntil } from 'rxjs/operators';
 
@@ -379,7 +379,7 @@ export class ThyTable extends _MixinBase implements OnInit, OnChanges, AfterView
      */
     @Input({ transform: booleanAttribute })
     set thyDraggable(value: boolean) {
-        this.draggable = coerceBooleanProperty(value);
+        this.draggable = value;
         if ((typeof ngDevMode === 'undefined' || ngDevMode) && this.draggable && this.mode === 'tree') {
             throw new Error('Tree mode sorting is not supported');
         }

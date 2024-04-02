@@ -1,4 +1,3 @@
-import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { Component, ContentChild, Inject, Input, OnInit, TemplateRef, booleanAttribute } from '@angular/core';
 
@@ -32,7 +31,7 @@ export class ThyDialogFooter implements OnInit {
      */
     @Input({ transform: booleanAttribute })
     set thyDivided(value: boolean) {
-        this.divided = coerceBooleanProperty(value);
+        this.divided = value;
     }
 
     /**

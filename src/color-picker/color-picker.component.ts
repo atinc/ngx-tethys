@@ -21,7 +21,6 @@ import { ThyColorPickerPanel } from './color-picker-panel.component';
 import { DEFAULT_COLORS } from './constant';
 import { ThyColor } from './helpers/color.class';
 import { takeUntil } from 'rxjs/operators';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export class OverlayBase extends ThyOverlayDirectiveBase {
     constructor(protected zone: NgZone, protected elementRef: ElementRef<HTMLElement>, platform: Platform, focusMonitor: FocusMonitor) {
@@ -127,13 +126,12 @@ export class ThyColorPickerDirective extends _BaseMixin implements OnInit, OnDes
     /**
      * 是否属于禁用状态
      */
-    @Input()
+    @Input({ transform: booleanAttribute })
+    override set thyDisabled(value: boolean) {
+        this.disabled = value;
+    }
     override get thyDisabled(): boolean {
         return this.disabled;
-    }
-
-    override set thyDisabled(value: boolean) {
-        this.disabled = coerceBooleanProperty(value);
     }
 
     protected onChangeFn: (value: number | string) => void = () => {};

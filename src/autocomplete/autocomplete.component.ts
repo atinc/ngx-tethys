@@ -29,7 +29,6 @@ import {
     ThyStopPropagationDirective
 } from 'ngx-tethys/shared';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ThyEmpty } from 'ngx-tethys/empty';
 import { NgClass, NgIf } from '@angular/common';
 
@@ -111,15 +110,7 @@ export class ThyAutocomplete extends _MixinBase implements IThyOptionParentCompo
      * @type boolean
      * @default false
      */
-    @Input({ transform: booleanAttribute })
-    set thyAutoActiveFirstOption(value: boolean) {
-        this._autoActiveFirstOption = coerceBooleanProperty(value);
-    }
-
-    get thyAutoActiveFirstOption(): boolean {
-        return this._autoActiveFirstOption;
-    }
-    private _autoActiveFirstOption: boolean;
+    @Input({ transform: booleanAttribute }) thyAutoActiveFirstOption: boolean;
 
     /**
      * 被选中时调用，参数包含选中项的 value 值

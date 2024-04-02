@@ -7,7 +7,7 @@ import {
 import { ThyEmpty } from 'ngx-tethys/empty';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { SelectControlSize, SelectOptionBase, ThySelectControl } from 'ngx-tethys/shared';
-import { coerceBooleanProperty, elementMatchClosest, isEmpty } from 'ngx-tethys/util';
+import { elementMatchClosest, isEmpty } from 'ngx-tethys/util';
 import { BehaviorSubject, Observable, Subject, Subscription, timer } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, take, takeUntil } from 'rxjs/operators';
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange, ConnectionPositionPair } from '@angular/cdk/overlay';
@@ -213,14 +213,12 @@ export class ThyCascader
      * 是否只读
      * @default false
      */
-    @Input()
-    // eslint-disable-next-line prettier/prettier
+    @Input({ transform: booleanAttribute })
+    override set thyDisabled(value: boolean) {
+        this.disabled = value;
+    }
     override get thyDisabled(): boolean {
         return this.disabled;
-    }
-
-    override set thyDisabled(value: boolean) {
-        this.disabled = coerceBooleanProperty(value);
     }
 
     disabled = false;

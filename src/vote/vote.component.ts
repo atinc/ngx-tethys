@@ -1,4 +1,3 @@
-import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
 import { Component, ContentChild, HostBinding, Input, OnInit, TemplateRef, booleanAttribute } from '@angular/core';
@@ -34,8 +33,6 @@ export class ThyVote implements OnInit {
 
     _initialized = false;
 
-    _isRound = false;
-
     private hostRenderer = useHostRenderer();
 
     @HostBinding(`class.thy-vote`) class = true;
@@ -70,10 +67,7 @@ export class ThyVote implements OnInit {
      * 是否是偏圆型
      * @default false
      */
-    @Input({ transform: booleanAttribute })
-    set thyRound(value: boolean) {
-        this._isRound = coerceBooleanProperty(value);
-    }
+    @Input({ transform: booleanAttribute }) thyRound: boolean;
 
     /**
      * 布局: horizontal | vertical
@@ -105,7 +99,7 @@ export class ThyVote implements OnInit {
      */
     @Input({ transform: booleanAttribute })
     set thyHasVoted(value: boolean) {
-        this._hasVoted = coerceBooleanProperty(value);
+        this._hasVoted = value;
         if (this._initialized) {
             this._setClassesByType();
         }
@@ -141,7 +135,7 @@ export class ThyVote implements OnInit {
         if (!this._size) {
             this._size = 'default';
         }
-        if (this._isRound) {
+        if (this.thyRound) {
             classNames.push('thy-vote-round');
         }
         classNames.push(`thy-vote-${this._type}`);

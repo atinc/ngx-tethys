@@ -1,5 +1,4 @@
 import { Component, Input, HostBinding, ChangeDetectionStrategy, ChangeDetectorRef, booleanAttribute } from '@angular/core';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { NgIf } from '@angular/common';
 
 /**
@@ -26,8 +25,8 @@ export class ThyLoading {
      * @default false
      */
     @Input({ transform: booleanAttribute })
-    set thyDone(value: boolean | string) {
-        this.isDone = coerceBooleanProperty(value);
+    set thyDone(value: boolean) {
+        this.isDone = value;
         this.changeDetectorRef.markForCheck();
     }
 
@@ -44,8 +43,8 @@ export class ThyLoading {
      * 加载时是否启用嵌套遮罩模式，不传或传 false，没有遮罩层，加载完成出现内容
      */
     @Input({ transform: booleanAttribute })
-    set thyIsMask(value: boolean | string) {
-        this.isMask = coerceBooleanProperty(value);
+    set thyIsMask(value: boolean) {
+        this.isMask = value;
         this.changeDetectorRef.markForCheck();
     }
 

@@ -43,7 +43,7 @@ import { defer, merge, Observable, Subject, Subscription, timer } from 'rxjs';
 import { distinctUntilChanged, filter, map, startWith, switchMap, take, takeUntil } from 'rxjs/operators';
 
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
-import { coerceBooleanProperty, coerceElement } from '@angular/cdk/coercion';
+import { coerceElement } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair, Overlay, ScrollStrategy } from '@angular/cdk/overlay';
 import { isPlatformBrowser, NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
@@ -341,11 +341,11 @@ export class ThySelect
      * @default false
      */
     @Input({ transform: booleanAttribute })
+    set thyDisabled(value: boolean) {
+        this.disabled = value;
+    }
     get thyDisabled(): boolean {
         return this.disabled;
-    }
-    set thyDisabled(value: boolean) {
-        this.disabled = coerceBooleanProperty(value);
     }
 
     /**

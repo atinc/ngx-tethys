@@ -1,5 +1,4 @@
 import { Directive, HostBinding, Input, HostListener, ElementRef, OnInit, booleanAttribute } from '@angular/core';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { fromEvent } from 'rxjs';
 import { debounceTime, shareReplay } from 'rxjs/operators';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -40,7 +39,7 @@ export class ThyDropdownMenuItemDirective implements OnInit {
      */
     @Input({ transform: booleanAttribute })
     set thyDisabled(value: boolean) {
-        this.disabled = coerceBooleanProperty(value);
+        this.disabled = value;
     }
 
     @HostListener('click', ['$event'])

@@ -1,5 +1,4 @@
 import { Directive, ElementRef, Input, Optional, booleanAttribute } from '@angular/core';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ThyDragDirective } from './drag.directive';
 
 /**
@@ -20,7 +19,7 @@ export class ThyDragHandleDirective {
      */
     @Input({ alias: 'thyDisabled', transform: booleanAttribute })
     set disabled(value: boolean) {
-        this._disabled = coerceBooleanProperty(value);
+        this._disabled = value;
     }
     get disabled(): boolean {
         return this._disabled;

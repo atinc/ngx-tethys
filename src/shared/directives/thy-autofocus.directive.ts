@@ -1,7 +1,5 @@
 import { Directive, Input, ElementRef, NgZone, booleanAttribute } from '@angular/core';
 import { reqAnimFrame } from 'ngx-tethys/core';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
-
 /**
  * 自动聚焦指令
  * @name input[thyAutofocus],textarea[thyAutofocus]
@@ -18,9 +16,9 @@ export class ThyAutofocusDirective {
      * 是否自动聚焦
      * @default false
      */
-    @Input()
-    set thyAutofocus(value: boolean | string) {
-        if (coerceBooleanProperty(value) !== false) {
+    @Input({ transform: booleanAttribute })
+    set thyAutofocus(value: boolean) {
+        if (value) {
             // Note: this is being run outside of the Angular zone because `element.focus()` doesn't require
             // running change detection.
             this.ngZone.runOutsideAngular(() =>
@@ -44,7 +42,7 @@ export class ThyAutofocusDirective {
      */
     @Input({ transform: booleanAttribute })
     set thyAutoSelect(value: boolean) {
-        this._autoSelect = coerceBooleanProperty(value);
+        this._autoSelect = value;
     }
 
     constructor(private elementRef: ElementRef, private ngZone: NgZone) {}

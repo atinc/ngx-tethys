@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { ThyOverlayDirectiveBase, ThyOverlayTrigger, ThyPlacement } from 'ngx-tethys/core';
 import { SafeAny } from 'ngx-tethys/types';
-import { coerceBooleanProperty, isString } from 'ngx-tethys/util';
+import { isString } from 'ngx-tethys/util';
 import { ThyTooltipContent } from './interface';
 import { ThyTooltipRef } from './tooltip-ref';
 import { ThyTooltipService } from './tooltip.service';
@@ -100,7 +100,7 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
      */
     @Input({ alias: 'thyTooltipDisabled', transform: booleanAttribute })
     set thyTooltipDisabled(value: boolean) {
-        this.disabled = coerceBooleanProperty(value);
+        this.disabled = value;
         // If tooltip is disabled, hide immediately.
         if (this.disabled) {
             this.hide(0);

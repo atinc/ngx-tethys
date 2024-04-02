@@ -22,7 +22,6 @@ import { isMacPlatform } from '@tethys/cdk/is';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyResizableDirective, ThyResizeEvent, ThyResizeHandle } from 'ngx-tethys/resizable';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { Subscription } from 'rxjs';
 import { ThyLayoutDirective } from './layout.component';
 
@@ -87,18 +86,18 @@ export class ThySidebarDirective implements OnInit {
      * 是否和右侧 /左侧隔离，当为 true 时距右侧 /左侧会有 margin，同时边框会去掉
      * @default false
      */
-    @Input('thyIsolated')
-    set thyIsolated(value: string) {
-        this.sidebarIsolated = coerceBooleanProperty(value);
+    @Input({ transform: booleanAttribute })
+    set thyIsolated(value: boolean) {
+        this.sidebarIsolated = value;
     }
 
     /**
      * sidebar 是否有分割线。当`thyDirection`值为`left`时，控制右侧是否有分割线；当`thyDirection`值为`right`时，控制左侧是否有分割线。
      * @default true
      */
-    @Input('thyDivided')
-    set thyDivided(value: string) {
-        this.isDivided = coerceBooleanProperty(value);
+    @Input({ transform: booleanAttribute })
+    set thyDivided(value: boolean) {
+        this.isDivided = value;
     }
 
     /**
@@ -106,8 +105,8 @@ export class ThySidebarDirective implements OnInit {
      * @deprecated please use thyDivided
      * @default true
      */
-    @Input('thyHasBorderRight')
-    set thyHasBorderRight(value: string) {
+    @Input({ transform: booleanAttribute })
+    set thyHasBorderRight(value: boolean) {
         this.thyDivided = value;
     }
 
@@ -116,8 +115,8 @@ export class ThySidebarDirective implements OnInit {
      * @deprecated please use thyDivided
      * @default true
      */
-    @Input('thyHasBorderLeft')
-    set thyHasBorderLeft(value: string) {
+    @Input({ transform: booleanAttribute })
+    set thyHasBorderLeft(value: boolean) {
         this.thyDivided = value;
     }
 

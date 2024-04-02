@@ -1,5 +1,3 @@
-import { coerceBooleanProperty } from 'ngx-tethys/util';
-
 import { NgClass, NgIf } from '@angular/common';
 import {
     booleanAttribute,
@@ -111,14 +109,13 @@ export class ThySwitch extends TabIndexDisabledControlValueAccessorMixin impleme
     /**
      * 是否属于禁用状态
      */
-    @Input()
+    @Input({ transform: booleanAttribute })
+    override set thyDisabled(value: boolean) {
+        this.disabled = value;
+        this.setClassNames();
+    }
     override get thyDisabled(): boolean {
         return this.disabled;
-    }
-
-    override set thyDisabled(value: boolean) {
-        this.disabled = coerceBooleanProperty(value);
-        this.setClassNames();
     }
 
     /**

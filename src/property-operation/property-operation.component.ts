@@ -16,7 +16,7 @@ import {
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyTranslate } from 'ngx-tethys/core';
-import { htmlElementIsEmpty, coerceBooleanProperty } from 'ngx-tethys/util';
+import { htmlElementIsEmpty } from 'ngx-tethys/util';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -111,13 +111,13 @@ export class ThyPropertyOperation implements OnInit, AfterContentInit, OnDestroy
      */
     @Input({ transform: booleanAttribute })
     set thyShowClose(value: boolean) {
-        this.showClose = coerceBooleanProperty(value);
+        this.showClose = value;
     }
 
     // 支持有值时，label不显示
     @Input({ transform: booleanAttribute })
     set thyLabelHasValue(value: boolean) {
-        this.labelHideWhenHasValue = !coerceBooleanProperty(value);
+        this.labelHideWhenHasValue = !value;
     }
 
     /**
@@ -126,7 +126,7 @@ export class ThyPropertyOperation implements OnInit, AfterContentInit, OnDestroy
      */
     @Input({ transform: booleanAttribute })
     set thyLabelHideWhenHasValue(value: boolean) {
-        this.labelHideWhenHasValue = coerceBooleanProperty(value);
+        this.labelHideWhenHasValue = value;
     }
 
     /**

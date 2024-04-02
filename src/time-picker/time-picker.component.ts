@@ -16,7 +16,7 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { isValid } from 'date-fns';
 import { getFlexiblePositions, ThyPlacement } from 'ngx-tethys/core';
-import { TinyDate, coerceBooleanProperty } from 'ngx-tethys/util';
+import { TinyDate } from 'ngx-tethys/util';
 import { ThyTimePanel } from './time-picker-panel.component';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgTemplateOutlet, NgIf, NgClass } from '@angular/common';
@@ -135,7 +135,7 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
      * @default false
      */
     @Input({ transform: booleanAttribute }) set thyDisabled(value: boolean) {
-        this.disabled = coerceBooleanProperty(value);
+        this.disabled = value;
     }
 
     get thyDisabled(): boolean {

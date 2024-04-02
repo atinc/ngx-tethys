@@ -1,4 +1,3 @@
-import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -48,7 +47,7 @@ export class ThyFileSelect extends FileSelectBaseDirective implements OnDestroy 
      */
     @Input({ transform: booleanAttribute })
     set thyMultiple(value: boolean) {
-        this.multiple = coerceBooleanProperty(value);
+        this.multiple = value;
         if (this.multiple) {
             this.fileInput.nativeElement.setAttribute('multiple', '');
         } else {
@@ -58,7 +57,7 @@ export class ThyFileSelect extends FileSelectBaseDirective implements OnDestroy 
 
     @Input({ transform: booleanAttribute })
     set thyAcceptFolder(value: boolean) {
-        this.acceptFolder = coerceBooleanProperty(value);
+        this.acceptFolder = value;
         if (this.acceptFolder) {
             this.fileInput.nativeElement.setAttribute('webkitdirectory', '');
         } else {

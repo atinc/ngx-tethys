@@ -1,7 +1,6 @@
 import { Directive, ElementRef, OnInit, NgZone, OnDestroy, Output, EventEmitter, Input, booleanAttribute } from '@angular/core';
 import { Subject, Observable, Observer, fromEvent, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 
 const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveListenerOptions({ passive: true });
@@ -29,7 +28,7 @@ export class ThyScrollDirective implements OnInit, OnDestroy {
 
     @Input({ transform: booleanAttribute })
     set thyEnable(value: boolean) {
-        this._enable = coerceBooleanProperty(value);
+        this._enable = value;
         if (this._initialled) {
             if (this._enable && this._subscription === null) {
                 this._subscription = this._elementScrolled.subscribe(() => this.thyOnScrolled.emit(this.elementRef));

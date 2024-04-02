@@ -10,7 +10,7 @@ import {
     booleanAttribute
 } from '@angular/core';
 import { SafeHtml } from '@angular/platform-browser';
-import { coerceBooleanProperty, isString } from 'ngx-tethys/util';
+import { isString } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyAvatarService } from './avatar.service';
 import { AvatarShortNamePipe, AvatarBgColorPipe, AvatarSrcPipe } from './avatar.pipe';
@@ -120,7 +120,7 @@ export class ThyAvatar implements OnInit {
      */
     @Input({ transform: booleanAttribute })
     set thyShowRemove(value: boolean) {
-        this._showRemove = coerceBooleanProperty(value);
+        this._showRemove = value;
     }
 
     /**
@@ -129,7 +129,7 @@ export class ThyAvatar implements OnInit {
      */
     @Input({ transform: booleanAttribute })
     set thyRemovable(value: boolean) {
-        this._showRemove = coerceBooleanProperty(value);
+        this._showRemove = value;
     }
 
     /**
