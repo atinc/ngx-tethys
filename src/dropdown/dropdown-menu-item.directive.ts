@@ -156,7 +156,7 @@ export class ThyDropdownMenuItemActiveDirective {
      */
     @HostBinding('class.active')
     @Input({ transform: booleanAttribute })
-    thyDropdownMenuItemActive: boolean | string;
+    thyDropdownMenuItemActive: boolean;
 
     constructor() {}
 }

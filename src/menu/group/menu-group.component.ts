@@ -83,7 +83,7 @@ export class ThyMenuGroup implements OnInit {
      * 已废弃，请使用 thyCollapsed
      * @deprecated
      */
-    @Input({ alias: 'thyExpand', transform: booleanAttribute })
+    @Input({ transform: booleanAttribute })
     set thyExpand(value: boolean) {
         this.isCollapsed = !!!value;
     }
@@ -92,7 +92,7 @@ export class ThyMenuGroup implements OnInit {
      * 是否处于收起状态
      * @default false
      */
-    @Input({ alias: 'thyCollapsed', transform: booleanAttribute })
+    @Input({ transform: booleanAttribute })
     set thyCollapsed(value: boolean) {
         this.isCollapsed = value;
     }
@@ -105,7 +105,7 @@ export class ThyMenuGroup implements OnInit {
     /**
      * 是否显示 Icon
      */
-    @Input({ alias: 'thyShowIcon', transform: booleanAttribute })
+    @Input({ transform: booleanAttribute })
     set thyShowIcon(value: boolean) {
         this.showIcon = value;
     }

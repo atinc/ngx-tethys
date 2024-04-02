@@ -110,7 +110,7 @@ export class ThyColorPickerDirective extends _BaseMixin implements OnInit, OnDes
     /**
      * 显示延迟时间
      */
-    @Input({ alias: 'thyShowDelay', transform: numberAttribute })
+    @Input({ transform: numberAttribute })
     set thyShowDelay(value: number) {
         this.showDelay = value;
     }
@@ -118,7 +118,7 @@ export class ThyColorPickerDirective extends _BaseMixin implements OnInit, OnDes
     /**
      * 隐藏延迟时间
      */
-    @Input({ alias: 'thyHideDelay', transform: numberAttribute })
+    @Input({ transform: numberAttribute })
     set thyHideDelay(value: number) {
         this.hideDelay = value;
     }

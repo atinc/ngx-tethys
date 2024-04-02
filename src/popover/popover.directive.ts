@@ -64,7 +64,7 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
     /**
      * 显示延迟时间
      */
-    @Input({ alias: 'thyShowDelay', transform: numberAttribute })
+    @Input({ transform: numberAttribute })
     set thyShowDelay(value: number) {
         this.showDelay = value;
     }
@@ -72,7 +72,7 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
     /**
      * 隐藏延迟时间
      */
-    @Input({ alias: 'thyHideDelay', transform: numberAttribute })
+    @Input({ transform: numberAttribute })
     set thyHideDelay(value: number) {
         this.hideDelay = value;
     }

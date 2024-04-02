@@ -73,7 +73,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
      * 打开延迟毫秒
      * @default 100
      */
-    @Input({ alias: 'thyShowDelay', transform: numberAttribute })
+    @Input({ transform: numberAttribute })
     set thyShowDelay(value: number) {
         this.showDelay = value;
     }
@@ -82,7 +82,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
      * 关闭延迟毫秒
      * @default 100
      */
-    @Input({ alias: 'thyHideDelay', transform: numberAttribute })
+    @Input({ transform: numberAttribute })
     set thyHideDelay(value: number) {
         this.hideDelay = value;
     }
