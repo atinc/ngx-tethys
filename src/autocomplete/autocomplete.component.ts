@@ -15,10 +15,9 @@ import {
     Input,
     ElementRef
 } from '@angular/core';
-import { Constructor, InputBoolean, ThyUnsubscribe } from 'ngx-tethys/core';
-import { defer, merge, Observable, timer } from 'rxjs';
+import { InputBoolean } from 'ngx-tethys/core';
+import { defer, merge, Observable, Subject, timer } from 'rxjs';
 import { take, switchMap, takeUntil, startWith } from 'rxjs/operators';
-import { MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
     THY_OPTION_PARENT_COMPONENT,
@@ -41,8 +40,6 @@ export interface ThyAutocompleteActivatedEvent {
     option: ThyOption | null;
 }
 
-const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
-
 /**
  * 自动完成组件
  * @name thy-autocomplete
@@ -60,7 +57,9 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
     standalone: true,
     imports: [ThyStopPropagationDirective, NgClass, NgIf, ThyEmpty]
 })
-export class ThyAutocomplete extends _MixinBase implements IThyOptionParentComponent, OnInit, AfterContentInit, OnDestroy {
+export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, AfterContentInit, OnDestroy {
+    private ngUnsubscribe$ = new Subject<void>();
+
     dropDownClass: { [key: string]: boolean };
 
     isMultiple = false;
@@ -146,9 +145,7 @@ export class ThyAutocomplete extends _MixinBase implements IThyOptionParentCompo
      */
     @Output() readonly thyOptionActivated: EventEmitter<ThyAutocompleteActivatedEvent> = new EventEmitter<ThyAutocompleteActivatedEvent>();
 
-    constructor(private ngZone: NgZone, private changeDetectorRef: ChangeDetectorRef) {
-        super();
-    }
+    constructor(private ngZone: NgZone, private changeDetectorRef: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.setDropDownClass();
@@ -218,13 +215,6 @@ export class ThyAutocomplete extends _MixinBase implements IThyOptionParentCompo
             if (isUserInput) {
                 this.keyManager.setActiveItem(option);
             }
-
-            // if (this.isMultiple) {
-            //     this.sortValues();
-            //     if (isUserInput) {
-            //         this.focus();
-            //     }
-            // }
         }
 
         if (wasSelected !== this.selectionModel.isSelected(option)) {
@@ -247,6 +237,7 @@ export class ThyAutocomplete extends _MixinBase implements IThyOptionParentCompo
     }
 
     ngOnDestroy() {
-        super.ngOnDestroy();
+        this.ngUnsubscribe$.next();
+        this.ngUnsubscribe$.complete();
     }
 }

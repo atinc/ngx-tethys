@@ -1,11 +1,9 @@
-import { Directive, Input, ElementRef, OnDestroy, OnInit, SimpleChanges, OnChanges } from '@angular/core';
-import { InputBoolean, Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
+import { Directive, Input, ElementRef, OnInit, SimpleChanges, OnChanges, inject, DestroyRef } from '@angular/core';
+import { InputBoolean } from 'ngx-tethys/core';
 import { Subject, Observable } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DEFAULT_WATERMARK_CONFIG, DEFAULT_CANVAS_CONFIG } from './config';
 import { MutationObserverFactory } from '@angular/cdk/observers';
-
-const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
 export interface ThyCanvasConfigType {
     degree?: number;
@@ -23,7 +21,7 @@ export interface ThyCanvasConfigType {
     selector: '[thyWatermark]',
     standalone: true
 })
-export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestroy, OnChanges {
+export class ThyWatermarkDirective implements OnInit, OnChanges {
     /**
      * 是否禁用，默认为 false
      */
@@ -54,15 +52,15 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
 
     private wmDiv: HTMLElement;
 
-    constructor(private el: ElementRef) {
-        super();
-    }
+    private readonly destroyRef = inject(DestroyRef);
+
+    constructor(private el: ElementRef) {}
 
     ngOnInit() {
         if (!this.thyDisabled) {
-            this.createWatermark$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(() => {
+            this.createWatermark$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
                 this.observeAttributes()
-                    .pipe(takeUntil(this.ngUnsubscribe$))
+                    .pipe(takeUntilDestroyed(this.destroyRef))
                     .subscribe(() => {});
             });
             this.createWatermark();
@@ -183,7 +181,7 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
                     attributes: true
                 });
             }
-            stream.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(() => {
+            stream.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
                 if (this.wmDiv) {
                     this?.observer?.disconnect();
                     this.createWatermark(false);
@@ -194,9 +192,5 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
                 this.observer?.disconnect();
             };
         });
-    }
-
-    ngOnDestroy(): void {
-        super.ngOnDestroy();
     }
 }

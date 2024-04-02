@@ -1,7 +1,8 @@
-import { Constructor, InputBoolean, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
+import { InputBoolean } from 'ngx-tethys/core';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { merge, Observable, of } from 'rxjs';
-import { debounceTime, take, takeUntil, tap } from 'rxjs/operators';
+import { debounceTime, take, tap } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import {
     AfterContentChecked,
@@ -12,12 +13,13 @@ import {
     Component,
     ContentChild,
     ContentChildren,
+    DestroyRef,
     ElementRef,
     HostBinding,
+    inject,
     Input,
     NgZone,
     OnChanges,
-    OnDestroy,
     OnInit,
     QueryList,
     SimpleChanges,
@@ -32,8 +34,6 @@ import { BypassSecurityTrustHtmlPipe } from './nav.pipe';
 import { ThyDropdownMenuComponent, ThyDropdownMenuItemDirective, ThyDropdownMenuItemActiveDirective } from 'ngx-tethys/dropdown';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgClass, NgTemplateOutlet, NgIf, NgFor } from '@angular/common';
-
-const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
 export type ThyNavType = 'pulled' | 'tabs' | 'pills' | 'lite' | 'primary' | 'secondary' | 'thirdly' | 'secondary-divider';
 export type ThyNavSize = 'lg' | 'md' | 'sm';
@@ -86,7 +86,9 @@ const tabItemRight = 20;
         BypassSecurityTrustHtmlPipe
     ]
 })
-export class ThyNav extends _MixinBase implements OnInit, AfterViewInit, AfterContentInit, AfterContentChecked, OnChanges, OnDestroy {
+export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterContentChecked, OnChanges {
+    private readonly destroyRef = inject(DestroyRef);
+
     private type: ThyNavType = 'pulled';
     private size: ThyNavSize = 'md';
     public initialized = false;
@@ -241,9 +243,7 @@ export class ThyNav extends _MixinBase implements OnInit, AfterViewInit, AfterCo
         private ngZone: NgZone,
         private changeDetectorRef: ChangeDetectorRef,
         private popover: ThyPopover
-    ) {
-        super();
-    }
+    ) {}
 
     ngOnInit() {
         if (!this.thyResponsive) {
@@ -269,7 +269,7 @@ export class ThyNav extends _MixinBase implements OnInit, AfterViewInit, AfterCo
                 ...(this.routers || []).map(router => router?.isActiveChange)
             )
                 .pipe(
-                    takeUntil(this.ngUnsubscribe$),
+                    takeUntilDestroyed(this.destroyRef),
                     tap(() => {
                         if (this.thyResponsive) {
                             this.resetSizes();
@@ -450,10 +450,5 @@ export class ThyNav extends _MixinBase implements OnInit, AfterViewInit, AfterCo
         if (thyType?.currentValue !== thyType?.previousValue || thyVertical?.currentValue !== thyVertical?.previousValue) {
             this.alignInkBarToSelectedTab();
         }
-    }
-
-    ngOnDestroy() {
-        this.ngUnsubscribe$.next();
-        this.ngUnsubscribe$.complete();
     }
 }

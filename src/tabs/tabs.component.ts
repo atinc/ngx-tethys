@@ -4,6 +4,7 @@ import {
     ChangeDetectorRef,
     Component,
     ContentChildren,
+    DestroyRef,
     ElementRef,
     EventEmitter,
     Input,
@@ -12,12 +13,13 @@ import {
     Output,
     QueryList,
     SimpleChanges,
-    TemplateRef
+    TemplateRef,
+    inject
 } from '@angular/core';
-import { Constructor, InputBoolean, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
+import { InputBoolean } from 'ngx-tethys/core';
 import { isString } from 'ngx-tethys/util';
 import { fromEvent } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ThyTab } from './tab.component';
 import { ThyActiveTabInfo, ThyTabActiveEvent } from './types';
 import { ThyTabContent } from './tab-content.component';
@@ -29,8 +31,6 @@ export type ThyTabsSize = 'lg' | 'md' | 'sm';
 export type ThyTabsType = 'pulled' | 'tabs' | 'pills' | 'lite';
 
 export type ThyTabsPosition = 'top' | 'left';
-
-const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
 /**
  * 选项卡切换组件
@@ -49,8 +49,10 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
     standalone: true,
     imports: [ThyNav, NgFor, ThyNavItemDirective, NgIf, NgTemplateOutlet, ThyTabContent]
 })
-export class ThyTabs extends _MixinBase implements OnInit, OnChanges, AfterContentInit {
+export class ThyTabs implements OnInit, OnChanges, AfterContentInit {
     @ContentChildren(ThyTab, { descendants: true }) tabs = new QueryList<ThyTab>();
+
+    private readonly destroyRef = inject(DestroyRef);
 
     /**
      * 标签类型
@@ -110,14 +112,12 @@ export class ThyTabs extends _MixinBase implements OnInit, OnChanges, AfterConte
 
     transitionStarted: boolean = false;
 
-    constructor(private cd: ChangeDetectorRef, private el: ElementRef) {
-        super();
-    }
+    constructor(private cd: ChangeDetectorRef, private el: ElementRef) {}
 
     ngOnInit(): void {
         const tabsContent = this.el.nativeElement.querySelector('.thy-tabs-content');
         fromEvent(tabsContent, 'transitionend')
-            .pipe(takeUntil(this.ngUnsubscribe$))
+            .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe(() => {
                 this.transitionStarted = false;
                 this.cd.markForCheck();
@@ -134,7 +134,7 @@ export class ThyTabs extends _MixinBase implements OnInit, OnChanges, AfterConte
     }
 
     ngAfterContentInit() {
-        this.tabs.changes.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(data => {
+        this.tabs.changes.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(data => {
             this.thyAnimated && (this.transitionStarted = true);
             this.activeTabIndex = data.length - 1;
             this.cd.markForCheck();

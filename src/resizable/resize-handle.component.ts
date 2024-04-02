@@ -1,9 +1,20 @@
-import { OnInit, OnDestroy, Component, ChangeDetectionStrategy, Input, Output, NgZone, EventEmitter, ElementRef } from '@angular/core';
+import {
+    OnInit,
+    Component,
+    ChangeDetectionStrategy,
+    Input,
+    Output,
+    NgZone,
+    EventEmitter,
+    ElementRef,
+    inject,
+    DestroyRef
+} from '@angular/core';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { ThyResizeDirection } from './interface';
 import { ThyResizableService } from './resizable.service';
-import { takeUntil } from 'rxjs/operators';
-import { Constructor, ThyUnsubscribe, MixinBase, mixinUnsubscribe, InputBoolean } from 'ngx-tethys/core';
+import { InputBoolean } from 'ngx-tethys/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { fromEvent, merge } from 'rxjs';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { NgIf } from '@angular/common';
@@ -11,8 +22,6 @@ import { NgIf } from '@angular/common';
 export class ThyResizeHandleMouseDownEvent {
     constructor(public direction: ThyResizeDirection, public mouseEvent: MouseEvent | TouchEvent) {}
 }
-
-const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
 const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveListenerOptions({ passive: true });
 
@@ -43,7 +52,7 @@ const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveLis
     standalone: true,
     imports: [NgIf]
 })
-export class ThyResizeHandle extends _MixinBase implements OnInit, OnDestroy {
+export class ThyResizeHandle implements OnInit {
     /**
      * 调整方向
      * @type top | right | bottom | left | topRight | bottomRight | bottomLeft | topLeft
@@ -62,12 +71,12 @@ export class ThyResizeHandle extends _MixinBase implements OnInit, OnDestroy {
 
     private hostRenderer = useHostRenderer();
 
-    constructor(private ngZone: NgZone, private thyResizableService: ThyResizableService, private host: ElementRef<HTMLElement>) {
-        super();
-    }
+    private readonly destroyRef = inject(DestroyRef);
+
+    constructor(private ngZone: NgZone, private thyResizableService: ThyResizableService, private host: ElementRef<HTMLElement>) {}
 
     ngOnInit(): void {
-        this.thyResizableService.mouseEnteredOutsideAngular$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(entered => {
+        this.thyResizableService.mouseEnteredOutsideAngular$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(entered => {
             if (entered) {
                 this.hostRenderer.addClass('thy-resizable-handle-box-hover');
             } else {
@@ -82,15 +91,12 @@ export class ThyResizeHandle extends _MixinBase implements OnInit, OnDestroy {
                 fromEvent<MouseEvent>(this.host.nativeElement, 'mousedown', passiveEventListenerOptions),
                 fromEvent<TouchEvent>(this.host.nativeElement, 'touchstart', passiveEventListenerOptions)
             )
-                .pipe(takeUntil(this.ngUnsubscribe$))
+                .pipe(takeUntilDestroyed(this.destroyRef))
                 .subscribe((event: MouseEvent | TouchEvent) => {
                     this.thyResizableService.handleMouseDownOutsideAngular$.next(
                         new ThyResizeHandleMouseDownEvent(this.thyDirection, event)
                     );
                 });
         });
-    }
-    ngOnDestroy(): void {
-        super.ngOnDestroy();
     }
 }

@@ -8,18 +8,18 @@ import {
     Input,
     Output,
     EventEmitter,
-    ChangeDetectorRef
+    ChangeDetectorRef,
+    inject,
+    DestroyRef
 } from '@angular/core';
-import { Constructor, ThyUnsubscribe, MixinBase, mixinUnsubscribe, InputBoolean, InputNumber } from 'ngx-tethys/core';
+import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 import { ThyResizableService } from './resizable.service';
 import { Platform } from '@angular/cdk/platform';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ThyResizeHandleMouseDownEvent } from './resize-handle.component';
 import { ThyResizeEvent } from './interface';
 import { getEventWithPoint, ensureInBounds, setCompatibleStyle } from './utils';
 import { fromEvent } from 'rxjs';
-
-const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
 /**
  * 调整尺寸
@@ -35,7 +35,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
     },
     standalone: true
 })
-export class ThyResizableDirective extends _MixinBase implements AfterViewInit, OnDestroy {
+export class ThyResizableDirective implements AfterViewInit, OnDestroy {
     /**
      * 调整尺寸的边界
      * @default parent
@@ -114,6 +114,7 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
     private sizeCache: ThyResizeEvent | null = null;
     private ghostElement: HTMLDivElement | null = null;
     private currentHandleEvent: ThyResizeHandleMouseDownEvent | null = null;
+    private readonly destroyRef = inject(DestroyRef);
 
     constructor(
         private elementRef: ElementRef<HTMLElement>,
@@ -123,8 +124,7 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
         private thyResizableService: ThyResizableService,
         private changeDetectorRef: ChangeDetectorRef
     ) {
-        super();
-        this.thyResizableService.handleMouseDownOutsideAngular$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(event => {
+        this.thyResizableService.handleMouseDownOutsideAngular$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(event => {
             if (this.thyDisabled) {
                 return;
             }
@@ -141,7 +141,7 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
             this.nativeElementRect = this.nativeElement.getBoundingClientRect();
         });
 
-        this.thyResizableService.documentMouseUpOutsideAngular$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(event => {
+        this.thyResizableService.documentMouseUpOutsideAngular$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(event => {
             if (this.resizing) {
                 this.ngZone.run(() => {
                     this.resizing = false;
@@ -152,7 +152,7 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
             }
         });
 
-        this.thyResizableService.documentMouseMoveOutsideAngular$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(event => {
+        this.thyResizableService.documentMouseMoveOutsideAngular$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(event => {
             if (this.resizing) {
                 this.resize(event);
             }
@@ -166,13 +166,13 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
         this.nativeElement = this.elementRef.nativeElement;
         this.ngZone.runOutsideAngular(() => {
             fromEvent(this.nativeElement, 'mouseenter')
-                .pipe(takeUntil(this.ngUnsubscribe$))
+                .pipe(takeUntilDestroyed(this.destroyRef))
                 .subscribe(() => {
                     this.thyResizableService.mouseEnteredOutsideAngular$.next(true);
                 });
 
             fromEvent(this.nativeElement, 'mouseleave')
-                .pipe(takeUntil(this.ngUnsubscribe$))
+                .pipe(takeUntilDestroyed(this.destroyRef))
                 .subscribe(() => {
                     this.thyResizableService.mouseEnteredOutsideAngular$.next(false);
                 });
@@ -370,6 +370,5 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
     ngOnDestroy(): void {
         this.ghostElement = null;
         this.sizeCache = null;
-        super.ngOnDestroy();
     }
 }

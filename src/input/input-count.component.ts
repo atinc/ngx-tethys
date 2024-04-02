@@ -1,11 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef, Optional } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef, Optional, inject, DestroyRef } from '@angular/core';
 import { ThyInputDirective } from './input.directive';
-import { mixinUnsubscribe, MixinBase } from 'ngx-tethys/core';
-import { takeUntil, switchMap, filter, tap } from 'rxjs/operators';
+import { switchMap, filter, tap } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Subject } from 'rxjs';
 import { ThyInputGroup } from './input-group.component';
-
-const _Base = mixinUnsubscribe(MixinBase);
 
 /**
  * 输入框输入文字展示
@@ -21,7 +19,9 @@ const _Base = mixinUnsubscribe(MixinBase);
     },
     standalone: true
 })
-export class ThyInputCount extends _Base implements OnInit {
+export class ThyInputCount implements OnInit {
+    private readonly destroyRef = inject(DestroyRef);
+
     private hasInput = false;
 
     /**
@@ -40,7 +40,6 @@ export class ThyInputCount extends _Base implements OnInit {
     thyInput$ = new Subject<ThyInputDirective>();
 
     constructor(private changeDetectorRef: ChangeDetectorRef, @Optional() private inputGroup: ThyInputGroup) {
-        super();
         this.setup();
     }
 
@@ -54,7 +53,7 @@ export class ThyInputCount extends _Base implements OnInit {
                     this.maxLength = input.nativeElement.getAttribute('maxlength');
                     this.changeDetectorRef.markForCheck();
                 }),
-                takeUntil(this.ngUnsubscribe$),
+                takeUntilDestroyed(this.destroyRef),
                 switchMap(input => {
                     return input.ngControl.valueChanges;
                 }),
@@ -62,7 +61,7 @@ export class ThyInputCount extends _Base implements OnInit {
                     this.inputLength = value?.length || 0;
                     this.changeDetectorRef.markForCheck();
                 }),
-                takeUntil(this.ngUnsubscribe$)
+                takeUntilDestroyed(this.destroyRef)
             )
             .subscribe();
     }

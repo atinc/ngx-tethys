@@ -1,10 +1,7 @@
-import { Directive, AfterContentInit, ContentChildren, QueryList, OnDestroy } from '@angular/core';
+import { Directive, AfterContentInit, ContentChildren, QueryList } from '@angular/core';
 import { CdkDrag } from '@angular/cdk/drag-drop';
 import { merge, Subject } from 'rxjs';
-import { Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
 import { takeUntil, startWith } from 'rxjs/operators';
-
-const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
 /**
  * @private
@@ -13,17 +10,19 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
     selector: '[thyDragDrop]',
     standalone: true
 })
-export class ThyDragDropDirective extends _MixinBase implements AfterContentInit, OnDestroy {
+export class ThyDragDropDirective implements AfterContentInit {
     @ContentChildren(CdkDrag, { descendants: true }) draggables: QueryList<CdkDrag>;
 
-    constructor() {
-        super();
-    }
+    private ngUnsubscribe$ = new Subject();
+
+    constructor() {}
 
     ngAfterContentInit() {
         if (this.draggables) {
             this.draggables.changes.pipe(startWith(this.draggables)).subscribe(() => {
-                super.ngOnDestroy();
+                this.ngUnsubscribe$.next();
+                this.ngUnsubscribe$.complete();
+
                 this.ngUnsubscribe$ = new Subject();
                 merge(
                     ...this.draggables.toArray().map(dragRef => {
@@ -42,9 +41,5 @@ export class ThyDragDropDirective extends _MixinBase implements AfterContentInit
                     });
             });
         }
-    }
-
-    ngOnDestroy() {
-        super.ngOnDestroy();
     }
 }

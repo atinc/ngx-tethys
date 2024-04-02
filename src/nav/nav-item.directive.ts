@@ -1,23 +1,22 @@
-import { Constructor, InputBoolean, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
-import { takeUntil } from 'rxjs/operators';
+import { InputBoolean } from 'ngx-tethys/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import {
     AfterViewInit,
     ContentChildren,
+    DestroyRef,
     Directive,
     ElementRef,
     forwardRef,
+    inject,
     Input,
     NgZone,
-    OnDestroy,
     Optional,
     QueryList
 } from '@angular/core';
 import { RouterLinkActive } from '@angular/router';
 
 export type ThyNavLink = '' | 'active';
-
-const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
 /**
  * 导航项
@@ -33,7 +32,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
     },
     standalone: true
 })
-export class ThyNavItemDirective extends _MixinBase implements AfterViewInit, OnDestroy {
+export class ThyNavItemDirective implements AfterViewInit {
     /**
      * 是否激活状态
      * @default false
@@ -90,16 +89,16 @@ export class ThyNavItemDirective extends _MixinBase implements AfterViewInit, On
 
     private hostRenderer = useHostRenderer();
 
-    constructor(public elementRef: ElementRef, @Optional() private routerLinkActive: RouterLinkActive, private ngZone: NgZone) {
-        super();
-    }
+    private readonly destroyRef = inject(DestroyRef);
+
+    constructor(public elementRef: ElementRef, @Optional() private routerLinkActive: RouterLinkActive, private ngZone: NgZone) {}
 
     ngAfterViewInit() {
         this.setOffset();
 
         this.content = this.elementRef.nativeElement.outerHTML;
 
-        this.ngZone.onStable.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(() => {
+        this.ngZone.onStable.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
             this.isActive = this.linkIsActive();
         });
     }
@@ -130,10 +129,5 @@ export class ThyNavItemDirective extends _MixinBase implements AfterViewInit, On
         } else {
             this.hostRenderer.removeClass('thy-nav-item-hidden');
         }
-    }
-
-    ngOnDestroy() {
-        this.ngUnsubscribe$.next();
-        this.ngUnsubscribe$.complete();
     }
 }

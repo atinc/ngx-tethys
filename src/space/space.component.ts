@@ -1,6 +1,6 @@
-import { Constructor, InputBoolean, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
+import { InputBoolean } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import {
     AfterContentInit,
@@ -8,8 +8,10 @@ import {
     ChangeDetectorRef,
     Component,
     ContentChildren,
+    DestroyRef,
     Directive,
     HostBinding,
+    inject,
     Input,
     OnInit,
     QueryList,
@@ -38,8 +40,6 @@ export class ThySpaceItemDirective implements OnInit {
 
 const DEFAULT_SIZE: ThySpacingSize = 'md';
 
-const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
-
 /**
  * 间距组件
  * @name thy-space
@@ -55,7 +55,9 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
     standalone: true,
     imports: [NgFor, NgTemplateOutlet]
 })
-export class ThySpace extends _MixinBase implements OnInit, AfterContentInit {
+export class ThySpace implements OnInit, AfterContentInit {
+    private readonly destroyRef = inject(DestroyRef);
+
     public space: number = getNumericSize(DEFAULT_SIZE);
 
     private hostRenderer = useHostRenderer();
@@ -87,14 +89,12 @@ export class ThySpace extends _MixinBase implements OnInit, AfterContentInit {
 
     @ContentChildren(ThySpaceItemDirective, { read: TemplateRef }) items!: QueryList<TemplateRef<HTMLElement>>;
 
-    constructor(private cdr: ChangeDetectorRef) {
-        super();
-    }
+    constructor(private cdr: ChangeDetectorRef) {}
 
     ngOnInit(): void {}
 
     ngAfterContentInit(): void {
-        this.items.changes.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(() => {
+        this.items.changes.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
             this.cdr.markForCheck();
         });
     }

@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Input, Optional, OnDestroy, OnInit, Inject } from '@angular/core';
-import { MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
-import { takeUntil } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, Optional, OnInit, Inject, inject, DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ThyGridToken, THY_GRID_COMPONENT } from './grid.token';
 import { ThyGridResponsiveDescription, THY_GRID_ITEM_DEFAULT_SPAN } from './thy-grid.component';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -19,7 +18,7 @@ import { useHostRenderer } from '@tethys/cdk/dom';
     },
     standalone: true
 })
-export class ThyGridItem extends mixinUnsubscribe(MixinBase) implements OnInit, OnDestroy {
+export class ThyGridItem implements OnInit {
     /**
      * 栅格项的占位列数，为 0 时会隐藏该栅格项
      * @default 1
@@ -31,18 +30,18 @@ export class ThyGridItem extends mixinUnsubscribe(MixinBase) implements OnInit, 
      */
     @Input() thyOffset: number | ThyGridResponsiveDescription = 0;
 
+    private readonly destroyRef = inject(DestroyRef);
+
     private hostRenderer = useHostRenderer();
 
     public span: number = THY_GRID_ITEM_DEFAULT_SPAN;
 
     public offset: number = 0;
 
-    constructor(public elementRef: ElementRef, @Optional() @Inject(THY_GRID_COMPONENT) private grid: ThyGridToken) {
-        super();
-    }
+    constructor(public elementRef: ElementRef, @Optional() @Inject(THY_GRID_COMPONENT) private grid: ThyGridToken) {}
 
     ngOnInit(): void {
-        this.grid.gridItemPropValueChange$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(() => {
+        this.grid.gridItemPropValueChange$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
             this.setGridItemStyle();
         });
     }
@@ -58,9 +57,5 @@ export class ThyGridItem extends mixinUnsubscribe(MixinBase) implements OnInit, 
             'margin-left',
             this.offset ? `calc(((100% - ${(this.span - 1) * xGap}px) / ${this.span} + ${xGap}px) * ${this.offset})` : ''
         );
-    }
-
-    ngOnDestroy(): void {
-        super.ngOnDestroy();
     }
 }
