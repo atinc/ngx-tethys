@@ -7,9 +7,10 @@ import {
     ElementRef,
     Input,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    booleanAttribute
 } from '@angular/core';
-import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
+import { InputCssPixel } from 'ngx-tethys/core';
 import { ThySkeletonCircle, ThySkeletonRectangle } from 'ngx-tethys/skeleton';
 import { ThyTableSkeletonColumn } from './table.interface';
 import { ThyViewOutletDirective } from 'ngx-tethys/shared';
@@ -60,8 +61,7 @@ export class ThyTableSkeleton implements AfterViewInit {
      * 是否开启动画
      * @default true
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     thyAnimated: boolean = true;
 
     /**
@@ -93,7 +93,7 @@ export class ThyTableSkeleton implements AfterViewInit {
      * 是否展示骨架头
      * @default false
      */
-    @Input() @InputBoolean() thyHeadless = false;
+    @Input({ transform: booleanAttribute }) thyHeadless = false;
 
     /**
      * 骨架屏的风格

@@ -1,4 +1,5 @@
 import {
+    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -14,7 +15,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { isValid } from 'date-fns';
-import { InputBoolean, reqAnimFrame } from 'ngx-tethys/core';
+import { reqAnimFrame } from 'ngx-tethys/core';
 import { TinyDate } from 'ngx-tethys/util';
 import { ThyButton } from 'ngx-tethys/button';
 import { NgIf, NgFor, DecimalPipe } from '@angular/common';
@@ -92,13 +93,13 @@ export class ThyTimePanel implements OnInit, OnDestroy, ControlValueAccessor {
      * 展示选择此刻
      * @type boolean
      */
-    @Input() @InputBoolean() thyShowSelectNow = true;
+    @Input({ transform: booleanAttribute }) thyShowSelectNow = true;
 
     /**
      * 展示底部操作
      * @type boolean
      */
-    @Input() @InputBoolean() thyShowOperations = true;
+    @Input({ transform: booleanAttribute }) thyShowOperations = true;
 
     /**
      * 选择时间触发的事件

@@ -1,5 +1,5 @@
 import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
-import { InputBoolean, ThyTranslate } from 'ngx-tethys/core';
+import { ThyTranslate } from 'ngx-tethys/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
@@ -13,7 +13,8 @@ import {
     OnInit,
     Optional,
     TemplateRef,
-    ViewEncapsulation
+    ViewEncapsulation,
+    booleanAttribute
 } from '@angular/core';
 
 import { ThyFormDirective } from './form.directive';
@@ -132,8 +133,7 @@ export class ThyFormGroup implements OnInit {
      * 是否填充整行, 没有 Label 文本，只有输入框
      * @default false
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     set thyRowFill(value: boolean) {
         this._rowFill = coerceBooleanProperty(value);
     }

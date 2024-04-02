@@ -13,11 +13,12 @@ import {
     Optional,
     Output,
     TemplateRef,
-    inject
+    booleanAttribute,
+    inject,
+    numberAttribute
 } from '@angular/core';
 import { ThyHotkeyDispatcher } from '@tethys/cdk/hotkey';
 import { isMacPlatform } from '@tethys/cdk/is';
-import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyResizableDirective, ThyResizeEvent, ThyResizeHandle } from 'ngx-tethys/resizable';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
@@ -210,17 +211,17 @@ export class ThySidebar implements OnInit, OnDestroy {
      * 宽度是否可以拖拽
      * @default false
      */
-    @Input() @InputBoolean() thyDraggable: boolean = false;
+    @Input({ transform: booleanAttribute }) thyDraggable: boolean = false;
 
     /**
      * 拖拽的最大宽度
      */
-    @Input() @InputNumber() thyDragMaxWidth: number;
+    @Input({ transform: numberAttribute }) thyDragMaxWidth: number;
 
     /**
      * 拖拽的最小宽度
      */
-    @Input() @InputNumber() thyDragMinWidth: number;
+    @Input({ transform: numberAttribute }) thyDragMinWidth: number;
 
     /**
      * 展示收起的触发器自定义模板，默认显示展开收起的圆形图标，设置为 null 表示不展示触发元素，手动控制展开收起状态
@@ -245,7 +246,7 @@ export class ThySidebar implements OnInit, OnDestroy {
      * 开启收起/展开功能
      * @default false
      */
-    @Input() @InputBoolean() set thyCollapsible(collapsible: boolean) {
+    @Input({ transform: booleanAttribute }) set thyCollapsible(collapsible: boolean) {
         this.collapsible = collapsible;
         if (this.collapsible) {
             this.subscribeHotkeyEvent();
@@ -262,7 +263,7 @@ export class ThySidebar implements OnInit, OnDestroy {
      * 是否是收起
      * @default false
      */
-    @Input() @InputBoolean() set thyCollapsed(value: boolean) {
+    @Input({ transform: booleanAttribute }) set thyCollapsed(value: boolean) {
         this.isCollapsed = value;
     }
 
@@ -273,7 +274,7 @@ export class ThySidebar implements OnInit, OnDestroy {
     /**
      * 收起后的宽度
      */
-    @Input() @InputNumber() thyCollapsedWidth = SIDEBAR_COLLAPSED_WIDTH;
+    @Input({ transform: numberAttribute }) thyCollapsedWidth = SIDEBAR_COLLAPSED_WIDTH;
 
     /**
      * 默认宽度，双击后可恢复到此宽度，默认是 240px，传入 lg 大小时宽度是300px

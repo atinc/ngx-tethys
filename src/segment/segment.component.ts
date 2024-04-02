@@ -9,9 +9,11 @@ import {
     Input,
     Output,
     QueryList,
-    ViewEncapsulation
+    ViewEncapsulation,
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
-import { InputBoolean, InputNumber, ThumbAnimationProps } from 'ngx-tethys/core';
+import { ThumbAnimationProps } from 'ngx-tethys/core';
 import { thumbMotion } from 'ngx-tethys/core';
 import { ThySegmentItem } from './segment-item.component';
 import { IThySegmentComponent, THY_SEGMENTED_COMPONENT } from './segment.token';
@@ -72,16 +74,14 @@ export class ThySegment implements IThySegmentComponent, AfterContentInit {
     /**
      * 是否禁用分段控制器
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     @HostBinding(`class.disabled`)
     thyDisabled = false;
 
     /**
      * 选中选项的索引
      */
-    @Input()
-    @InputNumber()
+    @Input({ transform: numberAttribute })
     set thyActiveIndex(value: number) {
         if (value < 0 || value === this.activeIndex) {
             return;

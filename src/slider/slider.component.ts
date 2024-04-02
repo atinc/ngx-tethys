@@ -13,13 +13,15 @@ import {
     ElementRef,
     HostBinding,
     Output,
-    NgZone
+    NgZone,
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable, Subscription, fromEvent } from 'rxjs';
 import { clamp, coerceBooleanProperty } from 'ngx-tethys/util';
 import { tap, pluck, map, distinctUntilChanged, takeUntil } from 'rxjs/operators';
-import { InputBoolean, InputNumber, TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
+import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { NgStyle } from '@angular/common';
 
@@ -56,16 +58,14 @@ export class ThySlider
      * 是否切换为纵轴模式
      */
     @HostBinding('class.slider-vertical')
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     thyVertical = false;
 
     /**
      * 是否禁用
      */
     @HostBinding('class.slider-disabled')
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     override get thyDisabled(): boolean {
         return this.disabled;
     }
@@ -89,17 +89,17 @@ export class ThySlider
     /**
      * 最大值
      */
-    @Input() @InputNumber() thyMax = 100;
+    @Input({ transform: numberAttribute }) thyMax = 100;
 
     /**
      * 最小值
      */
-    @Input() @InputNumber() thyMin = 0;
+    @Input({ transform: numberAttribute }) thyMin = 0;
 
     /**
      * 步长，需要被 thyMax - thyMin 的差值整除。
      */
-    @Input() @InputNumber() thyStep = 1;
+    @Input({ transform: numberAttribute }) thyStep = 1;
 
     /**
      * 切换主题类型

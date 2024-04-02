@@ -11,7 +11,8 @@ import {
     SimpleChanges,
     TemplateRef,
     ViewChildren,
-    ViewEncapsulation
+    ViewEncapsulation,
+    numberAttribute
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
@@ -20,7 +21,6 @@ import { THY_PROGRESS_COMPONENT, ThyParentProgress, ThyProgressStrip } from './p
 import { ThyProgressCircle } from './progress-circle.component';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { NgIf, NgFor, NgClass, NgTemplateOutlet } from '@angular/common';
-import { InputNumber } from 'ngx-tethys/core';
 
 /**
  * 进度条组件
@@ -101,8 +101,7 @@ export class ThyProgress implements ThyParentProgress, OnInit, OnChanges {
     /**
      * 最大值，主要计算百分比进度的分母使用，当 thyValue 传入数组时，自动累加数组中的 value 之和为 max
      */
-    @Input()
-    @InputNumber()
+    @Input({ transform: numberAttribute })
     set thyMax(max: number) {
         this.settedMax = helpers.coerceNumberValue(max);
         this.calculateMax();
@@ -122,7 +121,7 @@ export class ThyProgress implements ThyParentProgress, OnInit, OnChanges {
     /**
      * 圆形进度条缺口角度，可取值 0 ~ 360
      */
-    @Input() @InputNumber() thyGapDegree?: number = undefined;
+    @Input({ transform: numberAttribute }) thyGapDegree?: number = undefined;
 
     /**
      * 圆形进度条缺口位置
@@ -133,7 +132,7 @@ export class ThyProgress implements ThyParentProgress, OnInit, OnChanges {
     /**
      * 	圆形进度条线的宽度
      */
-    @Input() @InputNumber() thyStrokeWidth: number;
+    @Input({ transform: numberAttribute }) thyStrokeWidth: number;
 
     size: string | number;
 

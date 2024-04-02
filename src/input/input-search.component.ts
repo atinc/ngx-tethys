@@ -1,7 +1,6 @@
 import {
     AbstractControlValueAccessor,
     Constructor,
-    InputBoolean,
     mixinDisabled,
     mixinInitialized,
     mixinTabIndex,
@@ -13,6 +12,7 @@ import {
 
 import { NgIf } from '@angular/common';
 import {
+    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -110,8 +110,7 @@ export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, 
      * 是否自动聚焦
      * @default false
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     set thySearchFocus(value: boolean) {
         this.autoFocus = value;
         this.focused = value;

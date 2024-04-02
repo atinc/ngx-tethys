@@ -1,5 +1,5 @@
-import { Directive, Input, ElementRef, OnDestroy, OnInit, SimpleChanges, OnChanges } from '@angular/core';
-import { InputBoolean, Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
+import { Directive, Input, ElementRef, OnDestroy, OnInit, SimpleChanges, OnChanges, booleanAttribute } from '@angular/core';
+import { Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { DEFAULT_WATERMARK_CONFIG, DEFAULT_CANVAS_CONFIG } from './config';
@@ -27,8 +27,7 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
     /**
      * 是否禁用，默认为 false
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     thyDisabled: boolean = false;
 
     content: string;

@@ -1,7 +1,6 @@
 import { NgClass, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit, ViewEncapsulation, booleanAttribute } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { InputBoolean } from 'ngx-tethys/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
@@ -80,8 +79,7 @@ export class ThyButtonIcon implements OnInit {
      * 亮色，颜色更浅，适合左侧导航顶部的按钮
      * @default false
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     set thyLight(value: boolean) {
         this._isLighted = coerceBooleanProperty(value);
     }
@@ -90,8 +88,7 @@ export class ThyButtonIcon implements OnInit {
      * 设置为选中状态
      * @default false
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     set thyActive(value: boolean) {
         this._isActive = coerceBooleanProperty(value);
     }

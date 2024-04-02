@@ -11,9 +11,9 @@ import {
     OnInit,
     Output,
     TemplateRef,
-    ViewChild
+    ViewChild,
+    booleanAttribute
 } from '@angular/core';
-import { InputBoolean } from 'ngx-tethys/core';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
@@ -83,8 +83,7 @@ export class ThyMenuGroup implements OnInit {
      * 已废弃，请使用 thyCollapsed
      * @deprecated
      */
-    @Input('thyExpand')
-    @InputBoolean()
+    @Input({ alias: 'thyExpand', transform: booleanAttribute })
     set thyExpand(value: boolean) {
         this.isCollapsed = !!!value;
     }
@@ -93,8 +92,7 @@ export class ThyMenuGroup implements OnInit {
      * 是否处于收起状态
      * @default false
      */
-    @Input('thyCollapsed')
-    @InputBoolean()
+    @Input({ alias: 'thyCollapsed', transform: booleanAttribute })
     set thyCollapsed(value: boolean) {
         this.isCollapsed = value;
     }
@@ -102,13 +100,12 @@ export class ThyMenuGroup implements OnInit {
     /**
      * 是否支持展开收起
      */
-    @Input() @InputBoolean() thyCollapsible: boolean = false;
+    @Input({ transform: booleanAttribute }) thyCollapsible: boolean = false;
 
     /**
      * 是否显示 Icon
      */
-    @Input('thyShowIcon')
-    @InputBoolean()
+    @Input({ alias: 'thyShowIcon', transform: booleanAttribute })
     set thyShowIcon(value: boolean) {
         this.showIcon = value;
     }
@@ -132,12 +129,12 @@ export class ThyMenuGroup implements OnInit {
     /**
      *是否显示操作
      */
-    @Input() @InputBoolean() thyShowAction = false;
+    @Input({ transform: booleanAttribute }) thyShowAction = false;
 
     /**
      * 操作阻止冒泡事件
      */
-    @Input() @InputBoolean() thyActionStopPropagation = true;
+    @Input({ transform: booleanAttribute }) thyActionStopPropagation = true;
 
     /**
      * Action 点击事件

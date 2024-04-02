@@ -1,7 +1,7 @@
-import { InputBoolean, InputNumber, isTextColor } from 'ngx-tethys/core';
+import { isTextColor } from 'ngx-tethys/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
-import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, booleanAttribute, numberAttribute } from '@angular/core';
 import { NgIf } from '@angular/common';
 
 export type ThyBadgeSize = 'md' | 'sm' | 'lg';
@@ -82,8 +82,7 @@ export class ThyBadge implements OnInit {
      * 徽标内容数字
      * @type number
      */
-    @Input()
-    @InputNumber()
+    @Input({ transform: numberAttribute })
     set thyCount(value: number) {
         this.value = value;
         this.valueHasBeenSet = true;
@@ -120,8 +119,7 @@ export class ThyBadge implements OnInit {
      * 徽标显示的最大值, 与 thyCount 一起使用,thyCount 超过了 thyMaxCount 设置的值时，徽标内容为 thyMaxCount+
      * @type number
      */
-    @Input()
-    @InputNumber()
+    @Input({ transform: numberAttribute })
     set thyMaxCount(value: number) {
         this.maxCount = value;
         if (this.initialized) {
@@ -148,8 +146,7 @@ export class ThyBadge implements OnInit {
      * 已废弃，徽标是一个实心点，已经被废弃
      * @deprecated
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     set thyIsDot(value: boolean) {
         this.isDot = value;
         if (this.initialized) {
@@ -161,8 +158,7 @@ export class ThyBadge implements OnInit {
      * 已废弃，徽标是一个空心点
      * @deprecated
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     set thyIsHollow(value: boolean) {
         this.isHollow = value;
         if (this.initialized) {
@@ -174,8 +170,7 @@ export class ThyBadge implements OnInit {
      * thyCount 为 0 时，强制显示数字 0，默认不显示
      * @default false
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     set thyKeepShow(value: boolean) {
         this.keepShowValue = coerceBooleanProperty(value);
         if (this.initialized) {

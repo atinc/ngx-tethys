@@ -1,7 +1,6 @@
-import { Component, Input, HostBinding, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, HostBinding, ChangeDetectionStrategy, ChangeDetectorRef, booleanAttribute } from '@angular/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { NgIf } from '@angular/common';
-import { InputBoolean } from 'ngx-tethys/core';
 
 /**
  * 加载组件，页面调用接口等待请求时，给用户的反馈
@@ -26,8 +25,7 @@ export class ThyLoading {
      * 数据是否加载完成
      * @default false
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     set thyDone(value: boolean | string) {
         this.isDone = coerceBooleanProperty(value);
         this.changeDetectorRef.markForCheck();
@@ -45,8 +43,7 @@ export class ThyLoading {
     /**
      * 加载时是否启用嵌套遮罩模式，不传或传 false，没有遮罩层，加载完成出现内容
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     set thyIsMask(value: boolean | string) {
         this.isMask = coerceBooleanProperty(value);
         this.changeDetectorRef.markForCheck();

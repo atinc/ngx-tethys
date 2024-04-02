@@ -11,16 +11,11 @@ import {
     OnInit,
     Output,
     TemplateRef,
-    ViewContainerRef
+    ViewContainerRef,
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
-import {
-    ComponentTypeOrTemplateRef,
-    InputBoolean,
-    InputNumber,
-    ThyOverlayDirectiveBase,
-    ThyOverlayTrigger,
-    ThyPlacement
-} from 'ngx-tethys/core';
+import { ComponentTypeOrTemplateRef, ThyOverlayDirectiveBase, ThyOverlayTrigger, ThyPlacement } from 'ngx-tethys/core';
 import { ThyPopover, ThyPopoverConfig, ThyPopoverRef } from 'ngx-tethys/popover';
 import { SafeAny } from 'ngx-tethys/types';
 import { coerceArray, helpers, isFunction, isTemplateRef } from 'ngx-tethys/util';
@@ -78,8 +73,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
      * 打开延迟毫秒
      * @default 100
      */
-    @Input('thyShowDelay')
-    @InputNumber()
+    @Input({ alias: 'thyShowDelay', transform: numberAttribute })
     set thyShowDelay(value: number) {
         this.showDelay = value;
     }
@@ -88,8 +82,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
      * 关闭延迟毫秒
      * @default 100
      */
-    @Input('thyHideDelay')
-    @InputNumber()
+    @Input({ alias: 'thyHideDelay', transform: numberAttribute })
     set thyHideDelay(value: number) {
         this.hideDelay = value;
     }
@@ -115,7 +108,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
      * 点击 dropdown-menu 内部是否关闭弹出框，会覆盖 thyPopoverOptions 中的 insideClosable
      * @default true
      */
-    @Input() @InputBoolean() thyMenuInsideClosable: boolean;
+    @Input({ transform: booleanAttribute }) thyMenuInsideClosable: boolean;
 
     /**
      * 弹出框 overlay panel 的类名

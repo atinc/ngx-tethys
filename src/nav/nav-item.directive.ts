@@ -1,8 +1,9 @@
-import { Constructor, InputBoolean, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
+import { Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
 import { takeUntil } from 'rxjs/operators';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import {
     AfterViewInit,
+    booleanAttribute,
     ContentChildren,
     Directive,
     ElementRef,
@@ -38,8 +39,7 @@ export class ThyNavItemDirective extends _MixinBase implements AfterViewInit, On
      * 是否激活状态
      * @default false
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     thyNavItemActive: boolean;
 
     /**
@@ -47,16 +47,14 @@ export class ThyNavItemDirective extends _MixinBase implements AfterViewInit, On
      * @deprecated please use thyNavItemActive
      * @default false
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     thyNavLinkActive: boolean;
 
     /**
      * 是否禁用
      * @default false
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     thyNavItemDisabled: boolean;
 
     /**

@@ -1,5 +1,4 @@
-import { ANIMATION_MODULE_TYPE, Directive, ElementRef, Inject, Input, NgZone, Optional } from '@angular/core';
-import { InputBoolean } from 'ngx-tethys/core';
+import { ANIMATION_MODULE_TYPE, Directive, ElementRef, Inject, Input, NgZone, Optional, booleanAttribute } from '@angular/core';
 import { take } from 'rxjs/operators';
 
 /**
@@ -14,9 +13,9 @@ import { take } from 'rxjs/operators';
     standalone: true
 })
 export class ThyNavInkBarDirective {
-    @Input() @InputBoolean() isVertical: boolean;
+    @Input({ transform: booleanAttribute }) isVertical: boolean;
 
-    @Input() @InputBoolean() showInkBar: boolean;
+    @Input({ transform: booleanAttribute }) showInkBar: boolean;
 
     get animated(): boolean {
         return this.animationMode !== 'NoopAnimations' && this.showInkBar;

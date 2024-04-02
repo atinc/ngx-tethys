@@ -1,7 +1,5 @@
 import {
     EXPANDED_DROPDOWN_POSITIONS,
-    InputBoolean,
-    InputNumber,
     ScrollToService,
     TabIndexDisabledControlValueAccessorMixin,
     ThyClickDispatcher
@@ -16,6 +14,7 @@ import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange, 
 import { NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
+    booleanAttribute,
     ChangeDetectorRef,
     Component,
     ElementRef,
@@ -25,6 +24,7 @@ import {
     Inject,
     Input,
     NgZone,
+    numberAttribute,
     OnChanges,
     OnDestroy,
     OnInit,
@@ -130,13 +130,13 @@ export class ThyCascader
      * 点击项时，表单是否动态展示数据项
      * @type boolean
      */
-    @Input() @InputBoolean() thyChangeOnSelect = false;
+    @Input({ transform: booleanAttribute }) thyChangeOnSelect = false;
 
     /**
      * 显示输入框
      * @type boolean
      */
-    @Input() @InputBoolean() thyShowInput = true;
+    @Input({ transform: booleanAttribute }) thyShowInput = true;
 
     /**
      * 用户自定义模板
@@ -239,8 +239,7 @@ export class ThyCascader
      * @type boolean
      * @default false
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     set thyMultiple(value: boolean) {
         this.isMultiple = value;
         this.thyCascaderService.setCascaderOptions({ isMultiple: value });
@@ -254,27 +253,26 @@ export class ThyCascader
      * 设置多选时最大显示的标签数量，0 表示不限制
      * @type number
      */
-    @Input() @InputNumber() thyMaxTagCount = 0;
+    @Input({ transform: numberAttribute }) thyMaxTagCount = 0;
 
     /**
      * 是否仅允许选择叶子项
      * @default true
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     thyIsOnlySelectLeaf = true;
 
     /**
      * 初始化时，是否展开面板
      * @default false
      */
-    @Input() @InputBoolean() thyAutoExpand: boolean;
+    @Input({ transform: booleanAttribute }) thyAutoExpand: boolean;
 
     /**
      * 是否支持搜索
      * @default false
      */
-    @Input() @InputBoolean() thyShowSearch: boolean = false;
+    @Input({ transform: booleanAttribute }) thyShowSearch: boolean = false;
 
     /**
      * 多选选中项的展示方式，默认为空，渲染文字模板，传入tag，渲染展示模板,
@@ -285,7 +283,7 @@ export class ThyCascader
     /**
      * 是否有幕布
      */
-    @Input() @InputBoolean() thyHasBackdrop = true;
+    @Input({ transform: booleanAttribute }) thyHasBackdrop = true;
 
     /**
      * 值发生变化时触发，返回选择项的值

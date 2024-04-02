@@ -1,7 +1,17 @@
-import { Directive, ElementRef, EventEmitter, HostListener, Inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+    Directive,
+    ElementRef,
+    EventEmitter,
+    HostListener,
+    Inject,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
+    booleanAttribute
+} from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { coerceElement } from '@angular/cdk/coercion';
-import { InputBoolean } from 'ngx-tethys/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 
@@ -47,7 +57,7 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
     /**
      * 是否展示通知
      */
-    @Input() @InputBoolean() thyShowNotify = true;
+    @Input({ transform: booleanAttribute }) thyShowNotify = true;
 
     constructor(
         @Inject(DOCUMENT) private document: any,

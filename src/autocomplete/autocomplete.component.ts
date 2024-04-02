@@ -13,9 +13,10 @@ import {
     AfterContentInit,
     ChangeDetectorRef,
     Input,
-    ElementRef
+    ElementRef,
+    booleanAttribute
 } from '@angular/core';
-import { Constructor, InputBoolean, ThyUnsubscribe } from 'ngx-tethys/core';
+import { Constructor, ThyUnsubscribe } from 'ngx-tethys/core';
 import { defer, merge, Observable, timer } from 'rxjs';
 import { take, switchMap, takeUntil, startWith } from 'rxjs/operators';
 import { MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
@@ -110,8 +111,7 @@ export class ThyAutocomplete extends _MixinBase implements IThyOptionParentCompo
      * @type boolean
      * @default false
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     set thyAutoActiveFirstOption(value: boolean) {
         this._autoActiveFirstOption = coerceBooleanProperty(value);
     }
