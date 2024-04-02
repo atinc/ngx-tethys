@@ -1,4 +1,4 @@
-import { Directive, AfterContentInit, ContentChildren, QueryList } from '@angular/core';
+import { Directive, AfterContentInit, ContentChildren, QueryList, OnDestroy } from '@angular/core';
 import { CdkDrag } from '@angular/cdk/drag-drop';
 import { merge, Subject } from 'rxjs';
 import { takeUntil, startWith } from 'rxjs/operators';
@@ -10,7 +10,7 @@ import { takeUntil, startWith } from 'rxjs/operators';
     selector: '[thyDragDrop]',
     standalone: true
 })
-export class ThyDragDropDirective implements AfterContentInit {
+export class ThyDragDropDirective implements AfterContentInit, OnDestroy {
     @ContentChildren(CdkDrag, { descendants: true }) draggables: QueryList<CdkDrag>;
 
     private ngUnsubscribe$ = new Subject();
@@ -41,5 +41,10 @@ export class ThyDragDropDirective implements AfterContentInit {
                     });
             });
         }
+    }
+
+    ngOnDestroy(): void {
+        this.ngUnsubscribe$.next();
+        this.ngUnsubscribe$.complete();
     }
 }
