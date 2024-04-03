@@ -1,5 +1,4 @@
-import { Component, Input, OnInit, HostBinding } from '@angular/core';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { Component, Input, OnInit, HostBinding, booleanAttribute } from '@angular/core';
 
 /**
  * @name thy-slide-body-section
@@ -19,9 +18,9 @@ export class ThySlideBodySection implements OnInit {
      * 是否有分割线
      * @default false
      */
-    @Input()
-    set thyDividerBorder(value: string | boolean) {
-        this.hasDivider = coerceBooleanProperty(value);
+    @Input({ transform: booleanAttribute })
+    set thyDividerBorder(value: boolean) {
+        this.hasDivider = value;
     }
 
     ngOnInit() {}

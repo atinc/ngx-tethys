@@ -1,4 +1,4 @@
-import { InputBoolean, InputNumber, TabIndexDisabledControlValueAccessorMixin, useHostFocusControl } from 'ngx-tethys/core';
+import { TabIndexDisabledControlValueAccessorMixin, useHostFocusControl } from 'ngx-tethys/core';
 import { ThyMaxDirective, ThyMinDirective } from 'ngx-tethys/form';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyInputDirective } from 'ngx-tethys/input';
@@ -7,12 +7,14 @@ import { DOWN_ARROW, ENTER, isFloat, isNumber, isUndefinedOrNull, UP_ARROW } fro
 
 import { FocusOrigin } from '@angular/cdk/a11y';
 import {
+    booleanAttribute,
     ChangeDetectorRef,
     Component,
     ElementRef,
     EventEmitter,
     forwardRef,
     Input,
+    numberAttribute,
     OnChanges,
     OnDestroy,
     OnInit,
@@ -75,7 +77,7 @@ export class ThyInputNumber
      * 是否自动聚焦
      * @default false
      */
-    @Input() @InputBoolean() thyAutoFocus: boolean;
+    @Input({ transform: booleanAttribute }) thyAutoFocus: boolean;
 
     /**
      * 输入框的placeholder
@@ -86,7 +88,7 @@ export class ThyInputNumber
      * 是否禁用
      * @default false
      */
-    @Input() @InputBoolean() thyDisabled: boolean;
+    @Input({ transform: booleanAttribute }) thyDisabled: boolean;
 
     /**
      * 最大值
@@ -123,13 +125,13 @@ export class ThyInputNumber
     /**
      * 每次改变步数，可以为小数
      */
-    @Input() @InputNumber() thyStep = 1;
+    @Input({ transform: numberAttribute }) thyStep = 1;
 
     /**
      * 改变步数时的延迟毫秒数，值越小变化的速度越快
      * @default 300
      */
-    @Input() @InputNumber() thyStepDelay = 300;
+    @Input({ transform: numberAttribute }) thyStepDelay = 300;
 
     /**
      * 输入框大小

@@ -1,5 +1,5 @@
-import { coerceNumberValue, isNumber } from 'ngx-tethys/util';
-import { Directive, ElementRef, EventEmitter, Inject, Input, NgZone } from '@angular/core';
+import { isNumber } from 'ngx-tethys/util';
+import { Directive, ElementRef, EventEmitter, Inject, Input, NgZone, numberAttribute } from '@angular/core';
 import { ThyFileSelectEvent, ThySizeExceedsHandler } from './types';
 import { THY_UPLOAD_DEFAULT_OPTIONS, ThyUploadConfig } from './upload.config';
 import { mimeTypeConvert } from './util';
@@ -13,8 +13,9 @@ export class FileSelectBaseDirective {
     sizeThreshold: number;
     sizeExceedsHandler: ThySizeExceedsHandler;
 
-    @Input() set thySizeThreshold(value: number) {
-        const sizeThreshold = coerceNumberValue(value);
+    @Input({ transform: numberAttribute })
+    set thySizeThreshold(value: number) {
+        const sizeThreshold = value;
         if (isNumber(sizeThreshold)) {
             this.sizeThreshold = sizeThreshold;
         }

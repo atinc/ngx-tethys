@@ -1,12 +1,21 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    EventEmitter,
+    HostBinding,
+    Input,
+    OnInit,
+    Output,
+    booleanAttribute
+} from '@angular/core';
 import { SafeHtml } from '@angular/platform-browser';
-import { coerceBooleanProperty, isString } from 'ngx-tethys/util';
+import { isString } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyAvatarService } from './avatar.service';
 import { AvatarShortNamePipe, AvatarBgColorPipe, AvatarSrcPipe } from './avatar.pipe';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgIf, NgClass, NgStyle } from '@angular/common';
-import { InputBoolean } from 'ngx-tethys/core';
 
 const sizeArray = [16, 22, 24, 28, 32, 36, 44, 48, 68, 110, 160];
 
@@ -70,7 +79,7 @@ export class ThyAvatar implements OnInit {
      * 是否展示人员名称
      * @default false
      */
-    @Input() @InputBoolean() thyShowName: boolean;
+    @Input({ transform: booleanAttribute }) thyShowName: boolean;
 
     /**
      * 头像路径地址, 默认为全路径，如果不是全路径，可以通过自定义服务 ThyAvatarService，重写 srcTransform 方法实现转换
@@ -109,20 +118,18 @@ export class ThyAvatar implements OnInit {
      * @deprecated
      * @default false
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     set thyShowRemove(value: boolean) {
-        this._showRemove = coerceBooleanProperty(value);
+        this._showRemove = value;
     }
 
     /**
      * 是否展示移除按钮
      * @default false
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     set thyRemovable(value: boolean) {
-        this._showRemove = coerceBooleanProperty(value);
+        this._showRemove = value;
     }
 
     /**
@@ -134,7 +141,7 @@ export class ThyAvatar implements OnInit {
      * 是否禁用
      * @default false
      */
-    @Input() @InputBoolean() thyDisabled: boolean;
+    @Input({ transform: booleanAttribute }) thyDisabled: boolean;
 
     /**
      * 图片加载策略

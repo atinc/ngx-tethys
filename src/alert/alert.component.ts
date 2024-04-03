@@ -1,9 +1,18 @@
-import { Component, Input, OnInit, ContentChild, TemplateRef, OnChanges, ChangeDetectionStrategy, SimpleChanges } from '@angular/core';
+import {
+    Component,
+    Input,
+    OnInit,
+    ContentChild,
+    TemplateRef,
+    OnChanges,
+    ChangeDetectionStrategy,
+    SimpleChanges,
+    booleanAttribute
+} from '@angular/core';
 import { isString } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
-import { InputBoolean } from 'ngx-tethys/core';
 
 const weakTypes = ['primary-weak', 'success-weak', 'warning-weak', 'danger-weak'];
 
@@ -119,7 +128,7 @@ export class ThyAlert implements OnInit, OnChanges {
      * 是否显示关闭警告框按钮，默认不显示
      * @default false
      */
-    @Input() @InputBoolean() thyCloseable: boolean;
+    @Input({ transform: booleanAttribute }) thyCloseable: boolean;
 
     /**
      * 警告框自定义操作

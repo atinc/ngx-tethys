@@ -1,8 +1,7 @@
-import { Component, HostBinding, Inject, InjectionToken, Input, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { Component, HostBinding, Inject, InjectionToken, Input, TemplateRef, ViewEncapsulation, numberAttribute } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyProgressType } from './interfaces';
 import { NgStyle } from '@angular/common';
-import { InputNumber } from 'ngx-tethys/core';
 
 export interface ThyParentProgress {
     max: number;
@@ -37,8 +36,7 @@ export class ThyProgressStrip {
         this.hostRenderer.updateClass(type ? [`progress-bar-${type}`] : []);
     }
 
-    @Input()
-    @InputNumber()
+    @Input({ transform: numberAttribute })
     set thyValue(value: number) {
         if (!value && value !== 0) {
             return;

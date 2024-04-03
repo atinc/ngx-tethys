@@ -10,10 +10,12 @@ import {
     HostBinding,
     Optional,
     Inject,
-    ChangeDetectorRef
+    ChangeDetectorRef,
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 import { OverlayRef, Overlay } from '@angular/cdk/overlay';
-import { InputBoolean, InputNumber, ThyPlacement } from 'ngx-tethys/core';
+import { ThyPlacement } from 'ngx-tethys/core';
 import { ThyAutocompleteService } from './overlay/autocomplete.service';
 import { ThyAutocompleteRef } from './overlay/autocomplete-ref';
 import { ThyAutocomplete } from './autocomplete.component';
@@ -83,13 +85,13 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
      * 弹出框默认 offset
      * @type number
      */
-    @Input() @InputNumber() thyOffset = 4;
+    @Input({ transform: numberAttribute }) thyOffset = 4;
 
     /**
      * 下拉菜单的宽度，不设置默认与输入框同宽
      * @type number
      */
-    @Input() @InputNumber() thyAutocompleteWidth: number;
+    @Input({ transform: numberAttribute }) thyAutocompleteWidth: number;
 
     /**
      * 下拉菜单的显示位置，'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'
@@ -101,7 +103,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
      * 是否允许聚焦时打开下拉菜单
      * @type boolean
      */
-    @Input() @InputBoolean() thyIsFocusOpen = true;
+    @Input({ transform: booleanAttribute }) thyIsFocusOpen = true;
 
     get activeOption(): ThyOption | null {
         if (this.autocompleteComponent && this.autocompleteComponent.keyManager) {

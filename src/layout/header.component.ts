@@ -1,8 +1,6 @@
 import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ContentChild, Directive, Input, OnInit, TemplateRef } from '@angular/core';
-import { InputBoolean } from 'ngx-tethys/core';
+import { ChangeDetectionStrategy, Component, ContentChild, Directive, Input, TemplateRef, booleanAttribute } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
  * 头部布局指令
@@ -32,26 +30,25 @@ export class ThyHeaderDirective {
      * 底部是否有阴影
      * @default false
      */
-    @Input() @InputBoolean() thyShadow = false;
+    @Input({ transform: booleanAttribute }) thyShadow = false;
 
     divided = false;
 
     /**
      * 底部是否有分割线
      */
-    @Input()
-    @InputBoolean()
-    set thyDivided(value: string | boolean) {
-        this.divided = value as boolean;
+    @Input({ transform: booleanAttribute })
+    set thyDivided(value: boolean) {
+        this.divided = value;
     }
 
     /**
      * 底部是否有分割线，已废弃，请使用 thyDivided
      * @deprecated please use thyDivided
      */
-    @Input('thyHasBorder')
-    set thyHasBorder(value: string) {
-        this.divided = coerceBooleanProperty(value);
+    @Input({ transform: booleanAttribute })
+    set thyHasBorder(value: boolean) {
+        this.divided = value;
     }
 }
 

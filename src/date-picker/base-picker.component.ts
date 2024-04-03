@@ -1,4 +1,4 @@
-import { InputBoolean, ThyClickDispatcher, ThyPlacement } from 'ngx-tethys/core';
+import { ThyClickDispatcher, ThyPlacement } from 'ngx-tethys/core';
 import { coerceBooleanProperty, elementMatchClosest, FunctionProp, TinyDate } from 'ngx-tethys/util';
 
 import {
@@ -6,7 +6,6 @@ import {
     Component,
     ElementRef,
     EventEmitter,
-    Inject,
     Input,
     NgZone,
     OnChanges,
@@ -15,6 +14,7 @@ import {
     PLATFORM_ID,
     TemplateRef,
     ViewChild,
+    booleanAttribute,
     inject
 } from '@angular/core';
 
@@ -66,7 +66,7 @@ export class BasePicker extends AbstractPickerComponent implements OnInit, OnCha
      * 是否有幕布
      * @default true
      */
-    @Input() @InputBoolean() thyHasBackdrop = true;
+    @Input({ transform: booleanAttribute }) thyHasBackdrop = true;
 
     /**
      * @type EventEmitter<ThyPanelMode | ThyPanelMode[]>
@@ -95,7 +95,7 @@ export class BasePicker extends AbstractPickerComponent implements OnInit, OnCha
      * 是否展示时间(时、分)
      * @default false
      */
-    @Input() @InputBoolean() thyMustShowTime = false;
+    @Input({ transform: booleanAttribute }) thyMustShowTime = false;
 
     /**
      * 弹出位置

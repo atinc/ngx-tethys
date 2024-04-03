@@ -18,10 +18,11 @@ import {
     OnChanges,
     SimpleChanges,
     NgZone,
-    OnDestroy
+    OnDestroy,
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
-import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 import { ThyCarouselItemDirective } from './carousel-item.directive';
 import {
     ThyCarouselEngine,
@@ -69,12 +70,12 @@ export class ThyCarousel implements OnInit, AfterViewInit, AfterContentInit, OnC
     /**
      * 是否自动切换，默认 false
      */
-    @Input() @InputBoolean() thyAutoPlay: boolean = false;
+    @Input({ transform: booleanAttribute }) thyAutoPlay: boolean = false;
 
     /**
      * 自动切换时间间隔(毫秒)
      */
-    @Input() @InputNumber() thyAutoPlayInterval: number = 3000;
+    @Input({ transform: numberAttribute }) thyAutoPlayInterval: number = 3000;
 
     /**
      * 切换动画样式
@@ -85,7 +86,7 @@ export class ThyCarousel implements OnInit, AfterViewInit, AfterContentInit, OnC
     /**
      * 是否显示切换指示器
      */
-    @Input() @InputBoolean() thyIndicators = true;
+    @Input({ transform: booleanAttribute }) thyIndicators = true;
 
     /**
      * 指示器 Item 的渲染模板
@@ -95,7 +96,7 @@ export class ThyCarousel implements OnInit, AfterViewInit, AfterContentInit, OnC
     /**
      * 是否显示左右切换
      */
-    @Input() @InputBoolean() thyControls = true;
+    @Input({ transform: booleanAttribute }) thyControls = true;
 
     /**
      * 上一个控制器渲染模板
@@ -110,7 +111,7 @@ export class ThyCarousel implements OnInit, AfterViewInit, AfterContentInit, OnC
     /**
      * 是否支持手势滑动
      */
-    @Input() @InputBoolean() thyTouchable = true;
+    @Input({ transform: booleanAttribute }) thyTouchable = true;
 
     /**
      * 指示点切换的触发条件

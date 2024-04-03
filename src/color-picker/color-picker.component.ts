@@ -1,23 +1,26 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
-import { Directive, ElementRef, EventEmitter, forwardRef, Input, NgZone, OnDestroy, OnInit, Output } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
-    InputBoolean,
-    InputNumber,
-    ThyOverlayDirectiveBase,
-    ThyPlacement,
-    ThyOverlayTrigger,
-    mixinTabIndex,
-    mixinDisabled
-} from 'ngx-tethys/core';
+    booleanAttribute,
+    Directive,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    Input,
+    NgZone,
+    numberAttribute,
+    OnDestroy,
+    OnInit,
+    Output
+} from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ThyOverlayDirectiveBase, ThyPlacement, ThyOverlayTrigger, mixinTabIndex, mixinDisabled } from 'ngx-tethys/core';
 import { ThyPopover, ThyPopoverRef } from 'ngx-tethys/popover';
 import { fromEvent, Subject } from 'rxjs';
 import { ThyColorPickerPanel } from './color-picker-panel.component';
 import { DEFAULT_COLORS } from './constant';
 import { ThyColor } from './helpers/color.class';
 import { takeUntil } from 'rxjs/operators';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export class OverlayBase extends ThyOverlayDirectiveBase {
     constructor(protected zone: NgZone, protected elementRef: ElementRef<HTMLElement>, platform: Platform, focusMonitor: FocusMonitor) {
@@ -56,12 +59,12 @@ export class ThyColorPickerDirective extends _BaseMixin implements OnInit, OnDes
      * 弹框偏移量
      * @type  number
      */
-    @Input() @InputNumber() thyOffset: number = 0;
+    @Input({ transform: numberAttribute }) thyOffset: number = 0;
 
     /**
      * 颜色选择面板是否有幕布
      */
-    @Input() @InputBoolean() thyHasBackdrop: boolean = true;
+    @Input({ transform: booleanAttribute }) thyHasBackdrop: boolean = true;
 
     /**
      * 设置颜色选择面板的默认颜色选项值
@@ -71,7 +74,7 @@ export class ThyColorPickerDirective extends _BaseMixin implements OnInit, OnDes
     /**
      * 是否显示'无填充色'选项
      */
-    @Input() @InputBoolean() thyTransparentColorSelectable: boolean = true;
+    @Input({ transform: booleanAttribute }) thyTransparentColorSelectable: boolean = true;
 
     /**
      * 预设的快捷选择颜色
@@ -107,8 +110,7 @@ export class ThyColorPickerDirective extends _BaseMixin implements OnInit, OnDes
     /**
      * 显示延迟时间
      */
-    @Input('thyShowDelay')
-    @InputNumber()
+    @Input({ transform: numberAttribute })
     set thyShowDelay(value: number) {
         this.showDelay = value;
     }
@@ -116,8 +118,7 @@ export class ThyColorPickerDirective extends _BaseMixin implements OnInit, OnDes
     /**
      * 隐藏延迟时间
      */
-    @Input('thyHideDelay')
-    @InputNumber()
+    @Input({ transform: numberAttribute })
     set thyHideDelay(value: number) {
         this.hideDelay = value;
     }
@@ -125,13 +126,12 @@ export class ThyColorPickerDirective extends _BaseMixin implements OnInit, OnDes
     /**
      * 是否属于禁用状态
      */
-    @Input()
+    @Input({ transform: booleanAttribute })
+    override set thyDisabled(value: boolean) {
+        this.disabled = value;
+    }
     override get thyDisabled(): boolean {
         return this.disabled;
-    }
-
-    override set thyDisabled(value: boolean) {
-        this.disabled = coerceBooleanProperty(value);
     }
 
     protected onChangeFn: (value: number | string) => void = () => {};

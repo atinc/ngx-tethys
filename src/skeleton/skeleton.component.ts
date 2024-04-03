@@ -1,5 +1,4 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
-import { InputBoolean } from 'ngx-tethys/core';
+import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input, booleanAttribute } from '@angular/core';
 
 /**
  * 骨架屏组件
@@ -18,8 +17,7 @@ export class ThySkeleton {
      * 是否开启动画
      * @default false
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     thyAnimated: boolean;
 
     /**

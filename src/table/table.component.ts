@@ -1,6 +1,6 @@
-import { InputBoolean, InputCssPixel, InputNumber, UpdateHostClassService } from 'ngx-tethys/core';
+import { InputCssPixel, UpdateHostClassService } from 'ngx-tethys/core';
 import { Dictionary, SafeAny } from 'ngx-tethys/types';
-import { coerceBooleanProperty, get, helpers, isString, keyBy, set } from 'ngx-tethys/util';
+import { get, helpers, isString, keyBy, set } from 'ngx-tethys/util';
 import { EMPTY, fromEvent, merge, Observable, of } from 'rxjs';
 import { delay, startWith, switchMap } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -11,6 +11,7 @@ import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { DOCUMENT, isPlatformServer, NgClass, NgFor, NgIf, NgTemplateOutlet, NgStyle } from '@angular/common';
 import {
     AfterViewInit,
+    booleanAttribute,
     ChangeDetectorRef,
     Component,
     ContentChild,
@@ -27,6 +28,7 @@ import {
     IterableDiffer,
     IterableDiffers,
     NgZone,
+    numberAttribute,
     OnChanges,
     OnDestroy,
     OnInit,
@@ -307,13 +309,13 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
      * 设置为 fixed 布局表格，设置 fixed 后，列宽将严格按照设置宽度展示，列宽将不会根据表格内容自动调整
      * @default false
      */
-    @Input() @InputBoolean() thyLayoutFixed: boolean;
+    @Input({ transform: booleanAttribute }) thyLayoutFixed: boolean;
 
     /**
      * 是否表头固定，若设置为 true， 需要同步设置 thyHeight
      * @default false
      */
-    @Input() @InputBoolean() thyHeaderFixed: boolean;
+    @Input({ transform: booleanAttribute }) thyHeaderFixed: boolean;
 
     /**
      * 表格的高度
@@ -352,8 +354,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
      * 设置加载状态
      * @default true
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     set thyLoadingDone(value: boolean) {
         this.loadingDone = value;
     }
@@ -379,10 +380,9 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
      * 是否开启行拖拽
      * @default false
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     set thyDraggable(value: boolean) {
-        this.draggable = coerceBooleanProperty(value);
+        this.draggable = value;
         if ((typeof ngDevMode === 'undefined' || ngDevMode) && this.draggable && this.mode === 'tree') {
             throw new Error('Tree mode sorting is not supported');
         }
@@ -392,8 +392,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
      * 设置当前页码
      * @default 1
      */
-    @Input()
-    @InputNumber()
+    @Input({ transform: numberAttribute })
     set thyPageIndex(value: number) {
         this.pagination.index = value;
     }
@@ -402,8 +401,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
      * 设置每页显示数量
      * @default 20
      */
-    @Input()
-    @InputNumber()
+    @Input({ transform: numberAttribute })
     set thyPageSize(value: number) {
         this.pagination.size = value;
     }
@@ -411,8 +409,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
     /**
      * 设置总页数
      */
-    @Input()
-    @InputNumber()
+    @Input({ transform: numberAttribute })
     set thyPageTotal(value: number) {
         this.pagination.total = value;
     }
@@ -421,8 +418,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
      * 选中当前行是否自动选中 Checkbox，不开启时只有点击 Checkbox 列时才会触发选中
      * @default false
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     set thyWholeRowSelect(value: boolean) {
         if (value) {
             this.className += ' table-hover';
@@ -434,14 +430,13 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
      * 是否显示表格头
      * @default false
      */
-    @Input() @InputBoolean() thyHeadless = false;
+    @Input({ transform: booleanAttribute }) thyHeadless = false;
 
     /**
      * 是否显示表格头，已废弃，请使用 thyHeadless
      * @deprecated please use thyHeadless
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     set thyShowHeader(value: boolean) {
         this.thyHeadless = !value;
     }
@@ -449,12 +444,12 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
     /**
      * 是否显示左侧 Total
      */
-    @Input('thyShowTotal') @InputBoolean() showTotal = false;
+    @Input({ alias: 'thyShowTotal', transform: booleanAttribute }) showTotal = false;
 
     /**
      * 是否显示调整每页显示条数下拉框
      */
-    @Input('thyShowSizeChanger') @InputBoolean() showSizeChanger = false;
+    @Input({ alias: 'thyShowSizeChanger', transform: booleanAttribute }) showSizeChanger = false;
 
     /**
      * 每页显示条数下拉框可选项
@@ -468,7 +463,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
     /**
      * thyMode 为 tree 时，设置 Tree 树状数据展示时的缩进
      */
-    @Input() @InputNumber() thyIndent = 20;
+    @Input({ transform: numberAttribute }) thyIndent = 20;
 
     /**
      * thyMode 为 tree 时，设置 Tree 树状数据对象中的子节点 Key
@@ -481,8 +476,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
      * @default false
      */
     @HostBinding('class.thy-table-hover-display-operation')
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     thyHoverDisplayOperation: boolean;
 
     @Input() thyDragDisabledPredicate: (item: SafeAny) => boolean = () => false;

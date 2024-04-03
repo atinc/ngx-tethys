@@ -1,5 +1,4 @@
-import { InputBoolean } from 'ngx-tethys/core';
-import { Component, HostBinding, ViewEncapsulation, OnInit, Optional, Input } from '@angular/core';
+import { Component, HostBinding, ViewEncapsulation, OnInit, Optional, Input, booleanAttribute } from '@angular/core';
 import { ThyFormDirective } from '../form.directive';
 import { ThyAlert } from 'ngx-tethys/alert';
 import { NgClass, NgFor } from '@angular/common';
@@ -18,7 +17,7 @@ import { NgClass, NgFor } from '@angular/common';
 export class ThyFormGroupError implements OnInit {
     public errors: string[];
 
-    @Input() @InputBoolean() thyShowFirst = true;
+    @Input({ transform: booleanAttribute }) thyShowFirst = true;
 
     /**
      * @type string[]

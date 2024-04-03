@@ -1,7 +1,6 @@
-import { Component, forwardRef, Input } from '@angular/core';
+import { booleanAttribute, Component, forwardRef, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { InputBoolean, ThyTranslate } from 'ngx-tethys/core';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { ThyTranslate } from 'ngx-tethys/core';
 import { ThyFormCheckBaseComponent } from 'ngx-tethys/shared';
 import { NgClass, NgIf } from '@angular/common';
 
@@ -36,10 +35,9 @@ export class ThyCheckbox extends ThyFormCheckBaseComponent {
      * @description.en-us Set the indeterminate state, responsible only for style control
      * @default false
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     set thyIndeterminate(value: boolean) {
-        this.isIndeterminate = coerceBooleanProperty(value);
+        this.isIndeterminate = value;
     }
 
     constructor(thyTranslate: ThyTranslate) {

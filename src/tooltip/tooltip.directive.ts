@@ -1,9 +1,19 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
-import { Directive, ElementRef, Input, NgZone, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
-import { InputBoolean, InputNumber, ThyOverlayDirectiveBase, ThyOverlayTrigger, ThyPlacement } from 'ngx-tethys/core';
+import {
+    Directive,
+    ElementRef,
+    Input,
+    NgZone,
+    OnDestroy,
+    OnInit,
+    ViewContainerRef,
+    booleanAttribute,
+    numberAttribute
+} from '@angular/core';
+import { ThyOverlayDirectiveBase, ThyOverlayTrigger, ThyPlacement } from 'ngx-tethys/core';
 import { SafeAny } from 'ngx-tethys/types';
-import { coerceBooleanProperty, isString } from 'ngx-tethys/util';
+import { isString } from 'ngx-tethys/util';
 import { ThyTooltipContent } from './interface';
 import { ThyTooltipRef } from './tooltip-ref';
 import { ThyTooltipService } from './tooltip.service';
@@ -63,12 +73,12 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
     /**
      * 显示提示内容延迟毫秒
      */
-    @Input('thyTooltipShowDelay') @InputNumber() showDelay: number;
+    @Input({ alias: 'thyTooltipShowDelay', transform: numberAttribute }) showDelay: number;
 
     /**
      * 隐藏提示内容延迟毫秒
      */
-    @Input('thyTooltipHideDelay') @InputNumber() hideDelay: number;
+    @Input({ alias: 'thyTooltipHideDelay', transform: numberAttribute }) hideDelay: number;
 
     _trigger: ThyOverlayTrigger = 'hover';
 
@@ -88,10 +98,9 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
      * 设置是否禁用提示
      * @default false
      */
-    @Input('thyTooltipDisabled')
-    @InputBoolean()
+    @Input({ alias: 'thyTooltipDisabled', transform: booleanAttribute })
     set thyTooltipDisabled(value: boolean) {
-        this.disabled = coerceBooleanProperty(value);
+        this.disabled = value;
         // If tooltip is disabled, hide immediately.
         if (this.disabled) {
             this.hide(0);
@@ -106,14 +115,13 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
     /**
      * 偏移量
      */
-    @Input('thyTooltipOffset') @InputNumber() tooltipOffset: number;
+    @Input({ alias: 'thyTooltipOffset', transform: numberAttribute }) tooltipOffset: number;
 
     /**
      * hover 触发方式下 鼠标移入Tooltip是否固定 Tooltip
      * @default false
      */
-    @Input('thyTooltipPin')
-    @InputBoolean()
+    @Input({ alias: 'thyTooltipPin', transform: booleanAttribute })
     set tooltipPin(value: boolean) {
         this.overlayPin = value;
     }

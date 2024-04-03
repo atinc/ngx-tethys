@@ -1,8 +1,8 @@
-import { InputBoolean } from 'ngx-tethys/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import {
     AfterViewInit,
+    booleanAttribute,
     ContentChildren,
     DestroyRef,
     Directive,
@@ -37,8 +37,7 @@ export class ThyNavItemDirective implements AfterViewInit {
      * 是否激活状态
      * @default false
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     thyNavItemActive: boolean;
 
     /**
@@ -46,16 +45,14 @@ export class ThyNavItemDirective implements AfterViewInit {
      * @deprecated please use thyNavItemActive
      * @default false
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     thyNavLinkActive: boolean;
 
     /**
      * 是否禁用
      * @default false
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     thyNavItemDisabled: boolean;
 
     /**

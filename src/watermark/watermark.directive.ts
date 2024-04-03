@@ -1,5 +1,4 @@
-import { Directive, Input, ElementRef, OnInit, SimpleChanges, OnChanges, inject, DestroyRef } from '@angular/core';
-import { InputBoolean } from 'ngx-tethys/core';
+import { Directive, Input, ElementRef, OnInit, SimpleChanges, OnChanges, inject, DestroyRef, booleanAttribute } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DEFAULT_WATERMARK_CONFIG, DEFAULT_CANVAS_CONFIG } from './config';
@@ -25,8 +24,7 @@ export class ThyWatermarkDirective implements OnInit, OnChanges {
     /**
      * 是否禁用，默认为 false
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     thyDisabled: boolean = false;
 
     content: string;

@@ -1,4 +1,3 @@
-import { InputBoolean } from 'ngx-tethys/core';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { merge, Observable, of } from 'rxjs';
 import { debounceTime, take, tap } from 'rxjs/operators';
@@ -8,6 +7,7 @@ import {
     AfterContentChecked,
     AfterContentInit,
     AfterViewInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -152,31 +152,27 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
      * @default false
      */
     @HostBinding('class.thy-nav--vertical')
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     thyVertical: boolean;
 
     /**
      * 是否是填充模式
      */
     @HostBinding('class.thy-nav--fill')
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     thyFill: boolean = false;
 
     /**
      * 是否响应式，自动计算宽度存放 thyNavItem，并添加更多弹框
      * @default false
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     thyResponsive: boolean;
 
     /**
      * 更多操作的菜单点击内部是否可关闭
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     thyInsideClosable = true;
 
     /**

@@ -1,7 +1,6 @@
-import { coerceBooleanProperty } from 'ngx-tethys/util';
-
 import { NgClass, NgIf } from '@angular/common';
 import {
+    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -14,7 +13,7 @@ import {
     ViewChild
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { InputBoolean, TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
+import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
 
 /**
  * 开关组件
@@ -110,20 +109,19 @@ export class ThySwitch extends TabIndexDisabledControlValueAccessorMixin impleme
     /**
      * 是否属于禁用状态
      */
-    @Input()
+    @Input({ transform: booleanAttribute })
+    override set thyDisabled(value: boolean) {
+        this.disabled = value;
+        this.setClassNames();
+    }
     override get thyDisabled(): boolean {
         return this.disabled;
-    }
-
-    override set thyDisabled(value: boolean) {
-        this.disabled = coerceBooleanProperty(value);
-        this.setClassNames();
     }
 
     /**
      * 是否加载中
      */
-    @Input() @InputBoolean() set thyLoading(value: boolean) {
+    @Input({ transform: booleanAttribute }) set thyLoading(value: boolean) {
         this.loading = value;
         if (this.initialized) {
             this.setClassNames();

@@ -12,13 +12,13 @@ import {
     SimpleChange,
     ChangeDetectorRef,
     ViewEncapsulation,
-    ChangeDetectionStrategy
+    ChangeDetectionStrategy,
+    booleanAttribute
 } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { ThyTimelineItem } from './timeline-item.component';
 import { ThyTimelineService } from './timeline.service';
 import { Subject } from 'rxjs';
-import { InputBoolean } from 'ngx-tethys/core';
 import { NgFor, NgTemplateOutlet } from '@angular/common';
 
 export type ThyTimeMode = 'left' | 'right' | 'center';
@@ -59,7 +59,7 @@ export class ThyTimeline implements OnInit, AfterContentInit, OnChanges, OnDestr
      * 节点排序是否倒序
      * @default false
      */
-    @Input() @InputBoolean() thyReverse: boolean;
+    @Input({ transform: booleanAttribute }) thyReverse: boolean;
 
     /**
      * 改变时间轴和内容的相对位置

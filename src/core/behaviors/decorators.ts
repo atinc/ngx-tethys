@@ -1,6 +1,9 @@
 import { SafeAny } from 'ngx-tethys/types';
 import { coerceBooleanProperty, coerceCssPixelValue, coerceNumberValue } from 'ngx-tethys/util';
 
+/**
+ * @deprecated Please use {transform: booleanAttribute} in Input instead
+ */
 export function InputBoolean(): PropertyDecorator {
     return makePropDecorator('InputBoolean', coerceBooleanProperty);
 }
@@ -9,58 +12,14 @@ export function InputCssPixel(): PropertyDecorator {
     return makePropDecorator('InputCssPixel', coerceCssPixelValue);
 }
 
+/**
+ * @deprecated Please use {transform: numberAttribute} in Input instead
+ */
 export function InputNumber(): PropertyDecorator {
     return makePropDecorator('InputNumber', (value: number) => {
         return coerceNumberValue(value, null);
     });
 }
-
-// const ELEMENT_REF_NAME = '__eRef';
-// function makeInjectElementRef(target: SafeAny) {
-//     if (target[ELEMENT_REF_NAME]) {
-//         return;
-//     }
-
-//     const originalFactory = target.constructor.ɵfac;
-//     target.constructor.ɵfac = function(t?: Type<any>) {
-//         target[ELEMENT_REF_NAME] = directiveInject(ElementRef);
-//         const instance = originalFactory(t);
-//         return instance;
-//     };
-// }
-
-// function getElementRef(target: SafeAny): ElementRef {
-//     if (target[ELEMENT_REF_NAME]) {
-//         return target[ELEMENT_REF_NAME];
-//     } else {
-//         throw new Error(`ElementRef is not exist, make sure in Ivy`);
-//     }
-// }
-
-// export function ClassBinding(format: string): PropertyDecorator {
-//     let lastClassName = '';
-//     return makePropDecorator(
-//         'ClassBinding',
-//         (value: string, target?: SafeAny) => {
-//             const newClassName = format.replace(`{{value}}`, value);
-//             const element: HTMLElement = getElementRef(target).nativeElement;
-//             if (element) {
-//                 if (lastClassName !== newClassName) {
-//                     lastClassName && element.classList.remove(lastClassName);
-//                     element.classList.add(newClassName);
-//                     lastClassName = newClassName;
-//                 }
-//             }
-//             return newClassName;
-//         },
-//         (target: SafeAny, propName: string) => {
-//             if (!target.constructor.ɵcmp) {
-//                 throw new Error(`ClassBinding is only support Ivy`);
-//             }
-//             makeInjectElementRef(target);
-//         }
-//     );
-// }
 
 function makePropDecorator<T, D>(
     name: string,

@@ -1,7 +1,5 @@
-import { Directive, ElementRef, Input, Optional } from '@angular/core';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { Directive, ElementRef, Input, Optional, booleanAttribute } from '@angular/core';
 import { ThyDragDirective } from './drag.directive';
-import { InputBoolean } from 'ngx-tethys/core';
 
 /**
  * 自定义可拖拽区域内容
@@ -19,10 +17,9 @@ export class ThyDragHandleDirective {
      * 是否禁用
      * @default false
      */
-    @Input('thyDisabled')
-    @InputBoolean()
+    @Input({ alias: 'thyDisabled', transform: booleanAttribute })
     set disabled(value: boolean) {
-        this._disabled = coerceBooleanProperty(value);
+        this._disabled = value;
     }
     get disabled(): boolean {
         return this._disabled;

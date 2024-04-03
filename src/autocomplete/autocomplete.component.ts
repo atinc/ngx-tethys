@@ -13,9 +13,9 @@ import {
     AfterContentInit,
     ChangeDetectorRef,
     Input,
-    ElementRef
+    ElementRef,
+    booleanAttribute
 } from '@angular/core';
-import { InputBoolean } from 'ngx-tethys/core';
 import { defer, merge, Observable, Subject, timer } from 'rxjs';
 import { take, switchMap, takeUntil, startWith } from 'rxjs/operators';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -27,7 +27,6 @@ import {
     ThyStopPropagationDirective
 } from 'ngx-tethys/shared';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ThyEmpty } from 'ngx-tethys/empty';
 import { NgClass, NgIf } from '@angular/common';
 
@@ -109,16 +108,7 @@ export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, After
      * @type boolean
      * @default false
      */
-    @Input()
-    @InputBoolean()
-    set thyAutoActiveFirstOption(value: boolean) {
-        this._autoActiveFirstOption = coerceBooleanProperty(value);
-    }
-
-    get thyAutoActiveFirstOption(): boolean {
-        return this._autoActiveFirstOption;
-    }
-    private _autoActiveFirstOption: boolean;
+    @Input({ transform: booleanAttribute }) thyAutoActiveFirstOption: boolean;
 
     /**
      * 被选中时调用，参数包含选中项的 value 值

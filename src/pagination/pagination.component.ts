@@ -9,7 +9,9 @@ import {
     HostBinding,
     Optional,
     Inject,
-    TemplateRef
+    TemplateRef,
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 import { ThyPaginationConfigModel } from './pagination.class';
 import { PaginationDefaultConfig, DEFAULT_RANGE_COUNT, THY_PAGINATION_CONFIG, ThyPaginationConfig } from './pagination.config';
@@ -21,7 +23,6 @@ import { ThyOption, ThyEnterDirective } from 'ngx-tethys/shared';
 import { FormsModule } from '@angular/forms';
 import { ThySelect } from 'ngx-tethys/select';
 import { NgIf, NgTemplateOutlet, NgFor } from '@angular/common';
-import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 
 /**
  * 分页组件，当数据量过多时，使用分页分解数据。
@@ -43,8 +44,7 @@ export class ThyPagination implements OnInit {
      * 设置当前页，支持双向绑定
      * @default 1
      */
-    @Input()
-    @InputNumber()
+    @Input({ transform: numberAttribute })
     set thyPageIndex(pageIndex: number) {
         this.pageIndex = pageIndex;
         if (this.initialized) {
@@ -56,8 +56,7 @@ export class ThyPagination implements OnInit {
      * 每页条目数量
      * @default 20
      */
-    @Input()
-    @InputNumber()
+    @Input({ transform: numberAttribute })
     set thyPageSize(pageSize: number) {
         this.pageSize = pageSize;
         this.selectPageSize = pageSize;
@@ -71,8 +70,7 @@ export class ThyPagination implements OnInit {
     /**
      * 总页数 与 totalPages 二选一传入
      */
-    @Input()
-    @InputNumber()
+    @Input({ transform: numberAttribute })
     set thyTotal(total: number) {
         this.total = total;
         if (this.initialized) {
@@ -100,14 +98,13 @@ export class ThyPagination implements OnInit {
     /**
      * 是否禁用
      */
-    @Input('thyDisabled') @InputBoolean() disabled = false;
+    @Input({ alias: 'thyDisabled', transform: booleanAttribute }) disabled = false;
 
     /**
      * 是否显示快速跳转
      * @default false
      */
-    @Input('thyShowQuickJumper')
-    @InputBoolean()
+    @Input({ alias: 'thyShowQuickJumper', transform: booleanAttribute })
     set showQuickJumper(value: boolean) {
         this.config.showQuickJumper = value;
     }
@@ -116,8 +113,7 @@ export class ThyPagination implements OnInit {
      * 设置是否显示总页数信息
      * @default true
      */
-    @Input('thyShowTotalPageCount')
-    @InputBoolean()
+    @Input({ alias: 'thyShowTotalPageCount', transform: booleanAttribute })
     set showTotalPageCount(value: boolean) {
         this.config.showTotalPageCount = value;
     }
@@ -137,8 +133,7 @@ export class ThyPagination implements OnInit {
      * 设置最大显示数量，超出最大显示数后会自动进行分割显示
      * @default 9
      */
-    @Input('thyMaxCount')
-    @InputNumber()
+    @Input({ alias: 'thyMaxCount', transform: numberAttribute })
     set maxCount(value: number) {
         this.config.maxCount = value;
     }
@@ -147,14 +142,13 @@ export class ThyPagination implements OnInit {
      * 设置边缘显示数量
      * @default 2
      */
-    @Input('thyMarginalCount') @InputNumber() marginalCount: number;
+    @Input({ alias: 'thyMarginalCount', transform: numberAttribute }) marginalCount: number;
 
     /**
      * 设置中间区域显示数量
      * @default 7
      */
-    @Input()
-    @InputNumber()
+    @Input({ transform: numberAttribute })
     set thyRangeCount(value: number) {
         if (Number.isInteger(value)) {
             this.config.rangeCount = value;
@@ -164,8 +158,7 @@ export class ThyPagination implements OnInit {
         }
     }
 
-    @Input('thyShowSizeChanger')
-    @InputBoolean()
+    @Input({ alias: 'thyShowSizeChanger', transform: booleanAttribute })
     set showSizeChanger(value: boolean) {
         this.config.showSizeChanger = value;
     }
@@ -182,7 +175,7 @@ export class ThyPagination implements OnInit {
      * 只有一页时是否隐藏分页器
      * @default false
      */
-    @Input('thyHideOnSinglePage') @InputBoolean() hideOnSinglePage: boolean;
+    @Input({ alias: 'thyHideOnSinglePage', transform: booleanAttribute }) hideOnSinglePage: boolean;
 
     /**
      * 页码改变的回调
