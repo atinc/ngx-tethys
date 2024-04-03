@@ -160,13 +160,13 @@ export class ThyTableColumnComponent implements OnInit {
      * 当前列是否是操作列，设置为 true 时会追加 thy-operation-links 样式类，文字居中
      * @default false
      */
-    @Input({ alias: 'thyOperational', transform: booleanAttribute }) operational: boolean | string;
+    @Input({ alias: 'thyOperational', transform: booleanAttribute }) operational: boolean;
 
     /**
      * 当前列是否是次要列，设置为 true 时会追加 thy-table-column-secondary 样式类，文字颜色为 $gray-600
      * @default false
      */
-    @Input({ alias: 'thySecondary', transform: booleanAttribute }) secondary: boolean | string;
+    @Input({ alias: 'thySecondary', transform: booleanAttribute }) secondary: boolean;
 
     /**
      * 列排序修改事件
