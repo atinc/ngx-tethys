@@ -7,11 +7,12 @@ import {
     Optional,
     OnChanges,
     SimpleChanges,
-    Inject
+    Inject,
+    booleanAttribute
 } from '@angular/core';
 import { ThySkeleton } from './skeleton.component';
 import { helpers } from 'ngx-tethys/util';
-import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
+import { InputCssPixel } from 'ngx-tethys/core';
 import { THY_SKELETON_CONFIG, ThySkeletonConfigModel } from './skeleton.config';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
 import { NgStyle } from '@angular/common';
@@ -72,8 +73,7 @@ export class ThySkeletonCircle implements OnInit, OnChanges {
      * 是否展示动画
      * @default true
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     thyAnimated: boolean;
 
     public afterStyles: Style = {};

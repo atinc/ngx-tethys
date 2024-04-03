@@ -1,13 +1,23 @@
-import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { Component, ElementRef, EventEmitter, Inject, Input, NgZone, OnDestroy, Output, ViewChild } from '@angular/core';
+import {
+    booleanAttribute,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Inject,
+    Input,
+    NgZone,
+    numberAttribute,
+    OnDestroy,
+    Output,
+    ViewChild
+} from '@angular/core';
 
 import { FileSelectBaseDirective } from './file-select-base';
 import { THY_UPLOAD_DEFAULT_OPTIONS, ThyUploadConfig } from './upload.config';
 import { mimeTypeConvert } from './util';
-import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 
 /**
  * 文件上传组件
@@ -35,10 +45,9 @@ export class ThyFileSelect extends FileSelectBaseDirective implements OnDestroy 
      * 文件是否多选
      * @default false
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     set thyMultiple(value: boolean) {
-        this.multiple = coerceBooleanProperty(value);
+        this.multiple = value;
         if (this.multiple) {
             this.fileInput.nativeElement.setAttribute('multiple', '');
         } else {
@@ -46,10 +55,9 @@ export class ThyFileSelect extends FileSelectBaseDirective implements OnDestroy 
         }
     }
 
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     set thyAcceptFolder(value: boolean) {
-        this.acceptFolder = coerceBooleanProperty(value);
+        this.acceptFolder = value;
         if (this.acceptFolder) {
             this.fileInput.nativeElement.setAttribute('webkitdirectory', '');
         } else {
@@ -69,8 +77,7 @@ export class ThyFileSelect extends FileSelectBaseDirective implements OnDestroy 
     /**
      * 文件上传大小限制，单位`kb`，`0`表示没有任何限制
      */
-    @Input()
-    @InputNumber()
+    @Input({ transform: numberAttribute })
     set thySizeThreshold(value: number) {
         this.sizeThreshold = value;
     }

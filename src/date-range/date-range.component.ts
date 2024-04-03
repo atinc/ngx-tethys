@@ -1,4 +1,4 @@
-import { Component, forwardRef, OnInit, Input, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
+import { Component, forwardRef, OnInit, Input, ChangeDetectorRef, Output, EventEmitter, booleanAttribute } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { DateRangeItemInfo } from './date-range.class';
 import { ThyPopover } from 'ngx-tethys/popover';
@@ -21,7 +21,6 @@ import { ThyDatePickerFormatPipe } from 'ngx-tethys/date-picker';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyAction } from 'ngx-tethys/action';
 import { NgIf, NgClass } from '@angular/common';
-import { InputBoolean } from 'ngx-tethys/core';
 
 const allDayTimestamp = 24 * 60 * 60;
 
@@ -57,13 +56,13 @@ export class ThyDateRange implements OnInit, ControlValueAccessor {
      * 隐藏下拉选择时间段
      * @default false
      */
-    @Input() @InputBoolean() thyHiddenMenu = false;
+    @Input({ transform: booleanAttribute }) thyHiddenMenu = false;
 
     /**
      * 禁用左右切换时间段
      * @default false
      */
-    @Input() @InputBoolean() thyDisabledSwitch = false;
+    @Input({ transform: booleanAttribute }) thyDisabledSwitch = false;
 
     /**
      * 自定义日期选择的展示文字

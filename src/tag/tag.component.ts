@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnChanges, Input, OnInit, ChangeDetectionStrategy, SimpleChanges } from '@angular/core';
-import { InputBoolean, isThemeColor, ThyThemeColor } from 'ngx-tethys/core';
+import { Component, ElementRef, OnChanges, Input, OnInit, ChangeDetectionStrategy, SimpleChanges, booleanAttribute } from '@angular/core';
+import { isThemeColor, ThyThemeColor } from 'ngx-tethys/core';
 import { hexToRgb } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
@@ -76,8 +76,7 @@ export class ThyTag implements OnInit, OnChanges {
      * 可 Hover 悬停的标签，设置为 true 时会有一个 Hover 效果
      * @default false
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     thyHoverable: boolean | string;
 
     constructor(private elementRef: ElementRef) {}

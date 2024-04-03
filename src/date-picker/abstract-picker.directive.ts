@@ -1,4 +1,4 @@
-import { InputBoolean, InputNumber, ThyPlacement } from 'ngx-tethys/core';
+import { ThyPlacement } from 'ngx-tethys/core';
 import { ThyPopover, ThyPopoverConfig } from 'ngx-tethys/popover';
 import { FunctionProp, warnDeprecation } from 'ngx-tethys/util';
 import { fromEvent, Observable, Subject } from 'rxjs';
@@ -17,7 +17,9 @@ import {
     OnInit,
     Output,
     SimpleChange,
-    TemplateRef
+    TemplateRef,
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 
 import { AbstractPickerComponent } from './abstract-picker.component';
@@ -59,7 +61,7 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
      * 是否展示时间(时、分)
      * @default false
      */
-    @Input() @InputBoolean() thyMustShowTime = false;
+    @Input({ transform: booleanAttribute }) thyMustShowTime = false;
 
     /**
      * 弹出位置
@@ -73,8 +75,7 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
      * 弹出 DatePicker 的偏移量
      * @default 4
      */
-    @Input()
-    @InputNumber()
+    @Input({ transform: numberAttribute })
     set thyOffset(value: number) {
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
             warnDeprecation(`thyOffset parameter will be deprecated, please use thyPopoverOptions instead.`);
@@ -88,8 +89,7 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
      * 是否有幕布
      * @default true
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     set thyHasBackdrop(value: boolean) {
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
             warnDeprecation(`thyHasBackdrop parameter will be deprecated, please use thyPopoverOptions instead.`);
@@ -105,7 +105,7 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
     /**
      * 是否阻止冒泡
      */
-    @Input() @InputBoolean() thyStopPropagation = true;
+    @Input({ transform: booleanAttribute }) thyStopPropagation = true;
 
     private destroy$ = new Subject<void>();
     private el: HTMLElement = this.elementRef.nativeElement;

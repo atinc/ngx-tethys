@@ -1,7 +1,18 @@
-import { OnInit, Directive, Output, EventEmitter, ContentChildren, QueryList, AfterContentInit, NgZone, Input } from '@angular/core';
+import {
+    OnInit,
+    Directive,
+    Output,
+    EventEmitter,
+    ContentChildren,
+    QueryList,
+    AfterContentInit,
+    NgZone,
+    Input,
+    booleanAttribute
+} from '@angular/core';
 import { ThyDragDirective } from './drag.directive';
 import { merge, Observable, defer } from 'rxjs';
-import { mixinUnsubscribe, MixinBase, Constructor, ThyUnsubscribe, InputBoolean } from 'ngx-tethys/core';
+import { mixinUnsubscribe, MixinBase, Constructor, ThyUnsubscribe } from 'ngx-tethys/core';
 import { takeUntil, startWith, take, switchMap } from 'rxjs/operators';
 import { ThyDragDropEvent, ThyDragStartEvent, ThyDragEndEvent, ThyDragOverEvent } from './drag-drop.class';
 import { THY_DROP_CONTAINER_DIRECTIVE, IThyDropContainerDirective } from './drop-container.class';
@@ -42,7 +53,7 @@ export class ThyDropContainerDirective<T = any> extends _MixinBase implements On
      * 是否禁用拖拽
      * @default false
      */
-    @Input('thyDropContainerDisabled') @InputBoolean() disabled: boolean;
+    @Input({ alias: 'thyDropContainerDisabled', transform: booleanAttribute }) disabled: boolean;
 
     /**
      * 拖拽之前的回调，函数返回 false 则阻止拖拽

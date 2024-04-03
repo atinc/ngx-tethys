@@ -8,9 +8,9 @@ import {
     SimpleChanges,
     Injector,
     OnDestroy,
-    AfterViewInit
+    AfterViewInit,
+    booleanAttribute
 } from '@angular/core';
-import { InputBoolean } from 'ngx-tethys/core';
 import { ThyImageGroup } from './image-group.component';
 import { ThyImageMeta } from './image.class';
 import { ThyImageService } from './image.service';
@@ -55,12 +55,12 @@ export class ThyImageDirective implements OnInit, OnChanges, AfterViewInit, OnDe
      * 是否禁止预览
      * @default false
      */
-    @Input() @InputBoolean() thyDisablePreview: boolean;
+    @Input({ transform: booleanAttribute }) thyDisablePreview: boolean;
 
     /**
      * 是否自动计算图片资源大小
      */
-    @Input() @InputBoolean() thyResolveSize = false;
+    @Input({ transform: booleanAttribute }) thyResolveSize = false;
 
     get previewable(): boolean {
         return !this.thyDisablePreview;

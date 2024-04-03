@@ -17,14 +17,15 @@ import {
     SimpleChanges,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 
 import { THY_TREE_ABSTRACT_TOKEN, ThyTreeAbstractComponent } from './tree-abstract';
 import { ThyTreeNode } from './tree-node.class';
 import { ThyTreeEmitEvent, ThyTreeNodeCheckState, ThyClickBehavior } from './tree.class';
 import { ThyTreeService } from './tree.service';
-import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 import { ThyLoading } from 'ngx-tethys/loading';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgIf, NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
@@ -52,22 +53,22 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
     /**
      * 设置 TreeNode 是否支持异步加载
      */
-    @Input() @InputBoolean() thyAsync = false;
+    @Input({ transform: booleanAttribute }) thyAsync = false;
 
     /**
      * 设置 TreeNode 是否支持多选节点
      */
-    @Input() @InputBoolean() thyMultiple = false;
+    @Input({ transform: booleanAttribute }) thyMultiple = false;
 
     /**
      * 设置 TreeNode 是否支持拖拽排序
      */
-    @Input() @InputBoolean() thyDraggable = false;
+    @Input({ transform: booleanAttribute }) thyDraggable = false;
 
     /**
      * 设置 TreeNode 是否支持 Checkbox 选择
      */
-    @Input() @InputBoolean() thyCheckable = false;
+    @Input({ transform: booleanAttribute }) thyCheckable = false;
 
     /**
      * 点击节点的行为，`default` 为选中当前节点，`selectCheckbox` 为选中节点的 Checkbox， `thyCheckable` 为 true 时生效。
@@ -79,7 +80,7 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
      * 设置节点名称是否支持超出截取
      * @default false
      */
-    @Input() @InputBoolean() thyTitleTruncate: boolean;
+    @Input({ transform: booleanAttribute }) thyTitleTruncate: boolean;
 
     /**
      * 设置 TreeNode 的渲染模板
@@ -126,12 +127,12 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
     /**
      * 开启虚拟滚动时，单行节点的高度，当`thySize`为`default`时，该参数才生效
      */
-    @Input() @InputNumber() thyItemSize = 44;
+    @Input({ transform: numberAttribute }) thyItemSize = 44;
 
     /**
      * 设置节点缩进距离，缩进距离 = thyIndent * node.level
      */
-    @Input() @InputNumber() thyIndent = 25;
+    @Input({ transform: numberAttribute }) thyIndent = 25;
 
     public get nodeIcon() {
         return this.node.origin.icon;

@@ -1,7 +1,6 @@
-import { InputNumber } from 'ngx-tethys/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit, numberAttribute } from '@angular/core';
 
 export type ThyPropertiesLayout = 'horizontal' | 'vertical';
 
@@ -41,7 +40,7 @@ export class ThyProperties implements OnInit {
      * 设置一行的可以 property-item 的数量
      * @type  number
      */
-    @Input() @InputNumber() thyColumn: number = 1;
+    @Input({ transform: numberAttribute }) thyColumn: number = 1;
 
     /**
      * 设置编辑状态触发方法
