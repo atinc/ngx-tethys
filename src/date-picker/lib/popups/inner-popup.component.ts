@@ -1,4 +1,5 @@
 import {
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
     EventEmitter,
@@ -10,7 +11,7 @@ import {
     TemplateRef
 } from '@angular/core';
 
-import { coerceBooleanProperty, FunctionProp, TinyDate } from 'ngx-tethys/util';
+import { FunctionProp, TinyDate } from 'ngx-tethys/util';
 import { DateHelperService } from '../../date-helper.service';
 import { RangePartType } from '../../inner-types';
 import { isAfterMoreThanLessOneYear, isAfterMoreThanOneDecade, isAfterMoreThanOneMonth, isAfterMoreThanOneYear } from '../../picker.util';
@@ -72,8 +73,9 @@ export class InnerPopup implements OnChanges {
 
     @Input() panelMode: ThyPanelMode;
 
-    @Input() set showDateRangeInput(value: boolean) {
-        this._showDateRangeInput = coerceBooleanProperty(value);
+    @Input({ transform: booleanAttribute })
+    set showDateRangeInput(value: boolean) {
+        this._showDateRangeInput = value;
     }
 
     get showDateRangeInput() {

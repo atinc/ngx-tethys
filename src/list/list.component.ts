@@ -1,5 +1,4 @@
-import { Component, Input, HostBinding } from '@angular/core';
-import { InputBoolean } from 'ngx-tethys/core';
+import { Component, Input, HostBinding, booleanAttribute } from '@angular/core';
 
 /**
  * 列表组件
@@ -16,8 +15,7 @@ export class ThyList {
      * 控制分割线的显示与隐藏
      * @default false
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     set thyDivided(value: boolean) {
         this._isDivided = value;
     }

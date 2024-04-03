@@ -1,9 +1,20 @@
-import { OnInit, OnDestroy, Component, ChangeDetectionStrategy, Input, Output, NgZone, EventEmitter, ElementRef } from '@angular/core';
+import {
+    OnInit,
+    OnDestroy,
+    Component,
+    ChangeDetectionStrategy,
+    Input,
+    Output,
+    NgZone,
+    EventEmitter,
+    ElementRef,
+    booleanAttribute
+} from '@angular/core';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { ThyResizeDirection } from './interface';
 import { ThyResizableService } from './resizable.service';
 import { takeUntil } from 'rxjs/operators';
-import { Constructor, ThyUnsubscribe, MixinBase, mixinUnsubscribe, InputBoolean } from 'ngx-tethys/core';
+import { Constructor, ThyUnsubscribe, MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
 import { fromEvent, merge } from 'rxjs';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { NgIf } from '@angular/common';
@@ -53,7 +64,7 @@ export class ThyResizeHandle extends _MixinBase implements OnInit, OnDestroy {
     /**
      * 是否展示拖拽线
      */
-    @Input() @InputBoolean() thyLine = false;
+    @Input({ transform: booleanAttribute }) thyLine = false;
 
     /**
      * MouseDown 回调事件

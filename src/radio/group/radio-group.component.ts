@@ -1,5 +1,6 @@
 import {
     AfterContentInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -12,11 +13,9 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { InputBoolean } from 'ngx-tethys/core';
 
 import { ThyRadioButton } from '../button/radio-button.component';
 import { ThyRadio } from '../radio.component';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 const buttonGroupSizeMap = {
     sm: ['btn-group-sm'],
@@ -59,8 +58,6 @@ export class ThyRadioGroup implements ControlValueAccessor, OnInit, OnChanges, A
 
     private _layout: string;
 
-    private _disabled = false;
-
     /**
      * 大小
      * @type sm | md | lg
@@ -86,11 +83,7 @@ export class ThyRadioGroup implements ControlValueAccessor, OnInit, OnChanges, A
      * 是否禁用单选组合框
      * @default false
      */
-    @Input()
-    @InputBoolean()
-    set thyDisabled(value: boolean) {
-        this._disabled = coerceBooleanProperty(value);
-    }
+    @Input({ transform: booleanAttribute }) thyDisabled: boolean;
 
     onChange: (_: string) => void = () => null;
     onTouched: () => void = () => null;
@@ -151,7 +144,7 @@ export class ThyRadioGroup implements ControlValueAccessor, OnInit, OnChanges, A
     }
 
     ngAfterContentInit(): void {
-        this.setDisabledState(this._disabled);
+        this.setDisabledState(this.thyDisabled);
     }
 
     private _setClasses() {

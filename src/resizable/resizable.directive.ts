@@ -8,9 +8,11 @@ import {
     Input,
     Output,
     EventEmitter,
-    ChangeDetectorRef
+    ChangeDetectorRef,
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
-import { Constructor, ThyUnsubscribe, MixinBase, mixinUnsubscribe, InputBoolean, InputNumber } from 'ngx-tethys/core';
+import { Constructor, ThyUnsubscribe, MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
 import { ThyResizableService } from './resizable.service';
 import { Platform } from '@angular/cdk/platform';
 import { takeUntil } from 'rxjs/operators';
@@ -46,52 +48,52 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
     /**
      * 最大高度(超过边界部分忽略)
      */
-    @Input() @InputNumber() thyMaxHeight?: number;
+    @Input({ transform: numberAttribute }) thyMaxHeight?: number;
 
     /**
      * 最大宽度(超过边界部分忽略)
      */
-    @Input() @InputNumber() thyMaxWidth?: number;
+    @Input({ transform: numberAttribute }) thyMaxWidth?: number;
 
     /**
      * 最小高度
      */
-    @Input() @InputNumber() thyMinHeight: number = 40;
+    @Input({ transform: numberAttribute }) thyMinHeight: number = 40;
 
     /**
      * 最小宽度
      */
-    @Input() @InputNumber() thyMinWidth: number = 40;
+    @Input({ transform: numberAttribute }) thyMinWidth: number = 40;
 
     /**
      * 栅格列数(-1 为不栅格)
      */
-    @Input() @InputNumber() thyGridColumnCount: number = -1;
+    @Input({ transform: numberAttribute }) thyGridColumnCount: number = -1;
 
     /**
      * 栅格最大列数
      */
-    @Input() @InputNumber() thyMaxColumn: number = -1;
+    @Input({ transform: numberAttribute }) thyMaxColumn: number = -1;
 
     /**
      * 栅格最小列数
      */
-    @Input() @InputNumber() thyMinColumn: number = -1;
+    @Input({ transform: numberAttribute }) thyMinColumn: number = -1;
 
     /**
      * 锁定宽高比
      */
-    @Input() @InputBoolean() thyLockAspectRatio: boolean = false;
+    @Input({ transform: booleanAttribute }) thyLockAspectRatio: boolean = false;
 
     /**
      * 是否预览模式
      */
-    @Input() @InputBoolean() thyPreview: boolean = false;
+    @Input({ transform: booleanAttribute }) thyPreview: boolean = false;
 
     /**
      * 是否禁用调整大小
      */
-    @Input() @InputBoolean() thyDisabled: boolean = false;
+    @Input({ transform: booleanAttribute }) thyDisabled: boolean = false;
 
     /**
      * 调整尺寸时的事件

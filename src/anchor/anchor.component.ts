@@ -15,14 +15,16 @@ import {
     Renderer2,
     SimpleChanges,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 import { Subject, fromEvent } from 'rxjs';
 import { takeUntil, throttleTime } from 'rxjs/operators';
 
 import { DOCUMENT, NgClass, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { ThyAffix } from 'ngx-tethys/affix';
-import { InputBoolean, InputNumber, ThyScrollService } from 'ngx-tethys/core';
+import { ThyScrollService } from 'ngx-tethys/core';
 import { getOffset } from 'ngx-tethys/util';
 import { ThyAnchorLink } from './anchor-link.component';
 
@@ -70,20 +72,18 @@ export class ThyAnchor implements OnDestroy, AfterViewInit, OnChanges {
     /**
      * 固定模式
      */
-    @Input() @InputBoolean() thyAffix = true;
+    @Input({ transform: booleanAttribute }) thyAffix = true;
 
     /**
      * 锚点区域边界，单位：px
      */
-    @Input()
-    @InputNumber()
+    @Input({ transform: numberAttribute })
     thyBounds = 5;
 
     /**
      * 缓冲的偏移量阈值
      */
-    @Input()
-    @InputNumber()
+    @Input({ transform: numberAttribute })
     thyOffsetTop?: number = undefined;
 
     /**

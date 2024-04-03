@@ -1,7 +1,5 @@
 import {
     getFlexiblePositions,
-    InputBoolean,
-    InputNumber,
     scaleMotion,
     scaleXMotion,
     scaleYMotion,
@@ -45,13 +43,14 @@ import { defer, merge, Observable, Subject, Subscription, timer } from 'rxjs';
 import { distinctUntilChanged, filter, map, startWith, switchMap, take, takeUntil } from 'rxjs/operators';
 
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
-import { coerceBooleanProperty, coerceElement } from '@angular/cdk/coercion';
+import { coerceElement } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair, Overlay, ScrollStrategy } from '@angular/cdk/overlay';
 import { isPlatformBrowser, NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -65,6 +64,7 @@ import {
     Inject,
     Input,
     NgZone,
+    numberAttribute,
     OnDestroy,
     OnInit,
     Optional,
@@ -257,7 +257,7 @@ export class ThySelect
      * 下拉列表是否显示搜索框
      * @default false
      */
-    @Input() @InputBoolean() thyShowSearch: boolean;
+    @Input({ transform: booleanAttribute }) thyShowSearch: boolean;
 
     /**
      * 选择框默认文字
@@ -268,17 +268,17 @@ export class ThySelect
      * 是否使用服务端搜索，当为 true 时，将不再在前端进行过滤
      * @default false
      */
-    @Input() @InputBoolean() thyServerSearch: boolean;
+    @Input({ transform: booleanAttribute }) thyServerSearch: boolean;
 
     /**
      * 异步加载 loading 状态，false 表示加载中，true 表示加载完成
      */
-    @Input() @InputBoolean() thyLoadState = true;
+    @Input({ transform: booleanAttribute }) thyLoadState = true;
 
     /**
      * 是否自动设置选项第一条为高亮状态
      */
-    @Input() @InputBoolean() thyAutoActiveFirstItem = true;
+    @Input({ transform: booleanAttribute }) thyAutoActiveFirstItem = true;
 
     /**
      * 下拉选择模式
@@ -328,26 +328,24 @@ export class ThySelect
     /**
      * 滚动加载是否可用，只能当这个参数可以，下面的thyOnScrollToBottom事件才会触发
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     thyEnableScrollLoad = false;
 
     /**
      * 单选( thyMode="" 或者不设置)时，选择框支持清除
      */
-    @Input() @InputBoolean() thyAllowClear = false;
+    @Input({ transform: booleanAttribute }) thyAllowClear = false;
 
     /**
      * 是否禁用
      * @default false
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
+    set thyDisabled(value: boolean) {
+        this.disabled = value;
+    }
     get thyDisabled(): boolean {
         return this.disabled;
-    }
-    set thyDisabled(value: boolean) {
-        this.disabled = coerceBooleanProperty(value);
     }
 
     /**
@@ -390,25 +388,24 @@ export class ThySelect
      * 初始化时，是否展开面板
      * @default false
      */
-    @Input() @InputBoolean() thyAutoExpand: boolean;
+    @Input({ transform: booleanAttribute }) thyAutoExpand: boolean;
 
     /**
      * 是否弹出透明遮罩，如果显示遮罩则会阻止滚动区域滚动
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     thyHasBackdrop = false;
 
     /**
      * 设置多选时最大显示的标签数量，0 表示不限制
      */
-    @Input() @InputNumber() thyMaxTagCount = 0;
+    @Input({ transform: numberAttribute }) thyMaxTagCount = 0;
 
     /**
      * 是否隐藏选择框边框
      * @default false
      */
-    @Input() @InputBoolean() thyBorderless = false;
+    @Input({ transform: booleanAttribute }) thyBorderless = false;
 
     isReactiveDriven = false;
 

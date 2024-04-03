@@ -1,8 +1,7 @@
 import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
-import { InputBoolean, ThyTranslate } from 'ngx-tethys/core';
+import { ThyTranslate } from 'ngx-tethys/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 import {
     ChangeDetectionStrategy,
@@ -13,7 +12,8 @@ import {
     OnInit,
     Optional,
     TemplateRef,
-    ViewEncapsulation
+    ViewEncapsulation,
+    booleanAttribute
 } from '@angular/core';
 
 import { ThyFormDirective } from './form.directive';
@@ -77,14 +77,14 @@ export class ThyFormGroup implements OnInit {
     /**
      * Label 是否显示必填项样式
      */
-    @Input()
-    set thyLabelRequired(value: string) {
-        this.labelRequired = coerceBooleanProperty(value);
+    @Input({ transform: booleanAttribute })
+    set thyLabelRequired(value: boolean) {
+        this.labelRequired = value;
     }
 
-    @Input()
-    set thyLabelPaddingTopClear(value: string) {
-        this.labelPaddingTopClear = coerceBooleanProperty(value);
+    @Input({ transform: booleanAttribute })
+    set thyLabelPaddingTopClear(value: boolean) {
+        this.labelPaddingTopClear = value;
     }
 
     /**
@@ -132,10 +132,9 @@ export class ThyFormGroup implements OnInit {
      * 是否填充整行, 没有 Label 文本，只有输入框
      * @default false
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     set thyRowFill(value: boolean) {
-        this._rowFill = coerceBooleanProperty(value);
+        this._rowFill = value;
     }
 
     /**
