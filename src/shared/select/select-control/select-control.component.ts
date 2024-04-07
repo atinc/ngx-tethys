@@ -1,4 +1,3 @@
-import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 import { ThyTagSize } from 'ngx-tethys/tag';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
 
@@ -12,7 +11,9 @@ import {
     Output,
     Renderer2,
     TemplateRef,
-    ViewChild
+    ViewChild,
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
@@ -61,8 +62,7 @@ export class ThySelectControl implements OnInit {
 
     private hostRenderer = useHostRenderer();
 
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     get thyPanelOpened(): boolean {
         return this.panelOpened;
     }
@@ -82,8 +82,7 @@ export class ThySelectControl implements OnInit {
         this.setSelectControlClass();
     }
 
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     get thyIsMultiple(): boolean {
         return this.isMultiple;
     }
@@ -93,8 +92,7 @@ export class ThySelectControl implements OnInit {
         this.setSelectControlClass();
     }
 
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     get thyShowSearch(): boolean {
         return this.showSearch;
     }
@@ -137,8 +135,7 @@ export class ThySelectControl implements OnInit {
         }
     }
 
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     get thyDisabled(): boolean {
         return this.disabled;
     }
@@ -151,8 +148,7 @@ export class ThySelectControl implements OnInit {
     @Input()
     customDisplayTemplate: TemplateRef<any>;
 
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     thyAllowClear = false;
 
     @Input()
@@ -176,9 +172,9 @@ export class ThySelectControl implements OnInit {
         }
     }
 
-    @Input() @InputNumber() thyMaxTagCount = 0;
+    @Input({ transform: numberAttribute }) thyMaxTagCount = 0;
 
-    @Input() @InputBoolean() thyBorderless = false;
+    @Input({ transform: booleanAttribute }) thyBorderless = false;
 
     @Input() thyPreset: string = '';
 

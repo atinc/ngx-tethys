@@ -11,11 +11,12 @@ import {
     TemplateRef,
     ViewChild,
     OnDestroy,
-    NgZone
+    NgZone,
+    booleanAttribute
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { InputBoolean, ThyTranslate } from 'ngx-tethys/core';
-import { htmlElementIsEmpty, coerceBooleanProperty } from 'ngx-tethys/util';
+import { ThyTranslate } from 'ngx-tethys/core';
+import { htmlElementIsEmpty } from 'ngx-tethys/util';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -108,27 +109,24 @@ export class ThyPropertyOperation implements OnInit, AfterContentInit, OnDestroy
      * 当有属性值时是否展示移除图标
      * @default false
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     set thyShowClose(value: boolean) {
-        this.showClose = coerceBooleanProperty(value);
+        this.showClose = value;
     }
 
     // 支持有值时，label不显示
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     set thyLabelHasValue(value: boolean) {
-        this.labelHideWhenHasValue = !coerceBooleanProperty(value);
+        this.labelHideWhenHasValue = !value;
     }
 
     /**
      * 有值时隐藏 label
      * @default false
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     set thyLabelHideWhenHasValue(value: boolean) {
-        this.labelHideWhenHasValue = coerceBooleanProperty(value);
+        this.labelHideWhenHasValue = value;
     }
 
     /**
@@ -147,8 +145,7 @@ export class ThyPropertyOperation implements OnInit, AfterContentInit, OnDestroy
      * @default false
      */
     @HostBinding('class.active')
-    @Input('thyActive')
-    @InputBoolean()
+    @Input({ alias: 'thyActive', transform: booleanAttribute })
     active: boolean;
 
     /**
@@ -156,8 +153,7 @@ export class ThyPropertyOperation implements OnInit, AfterContentInit, OnDestroy
      * @default false
      */
     @HostBinding('class.thy-property-operation-disabled')
-    @Input('thyDisabled')
-    @InputBoolean()
+    @Input({ alias: 'thyDisabled', transform: booleanAttribute })
     disabled: boolean;
 
     private destroy$ = new Subject<void>();

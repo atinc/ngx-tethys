@@ -1,7 +1,6 @@
 import {
     TabIndexDisabledControlValueAccessorMixin,
     getFlexiblePositions,
-    InputBoolean,
     ThyClickDispatcher,
     EXPANDED_DROPDOWN_POSITIONS
 } from 'ngx-tethys/core';
@@ -13,6 +12,7 @@ import { take, takeUntil } from 'rxjs/operators';
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair, ViewportRuler } from '@angular/cdk/overlay';
 import { isPlatformBrowser, NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
+    booleanAttribute,
     ChangeDetectorRef,
     Component,
     ContentChild,
@@ -164,7 +164,7 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
     /**
      * 开启虚拟滚动
      */
-    @Input() @InputBoolean() thyVirtualScroll: boolean = false;
+    @Input({ transform: booleanAttribute }) thyVirtualScroll: boolean = false;
 
     /**
      * 树节点的唯一标识
@@ -184,19 +184,19 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
      * 单选时，是否显示清除按钮，当为 true 时，显示清除按钮
      * @default false
      */
-    @Input() @InputBoolean() thyAllowClear: boolean;
+    @Input({ transform: booleanAttribute }) thyAllowClear: boolean;
 
     /**
      * 是否多选
      * @type boolean
      */
-    @Input() @InputBoolean() thyMultiple = false;
+    @Input({ transform: booleanAttribute }) thyMultiple = false;
 
     /**
      * 是否禁用树选择器，当为 true 禁用树选择器
      * @type boolean
      */
-    @Input() @InputBoolean() thyDisable = false;
+    @Input({ transform: booleanAttribute }) thyDisable = false;
 
     get thyDisabled(): boolean {
         return this.thyDisable;
@@ -240,19 +240,19 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
      * 是否异步加载节点的子节点(显示加载状态)，当为 true 时，异步获取
      * @type boolean
      */
-    @Input() @InputBoolean() thyAsyncNode = false;
+    @Input({ transform: booleanAttribute }) thyAsyncNode = false;
 
     /**
      * 是否展示全名
      * @type boolean
      */
-    @Input() @InputBoolean() thyShowWholeName = false;
+    @Input({ transform: booleanAttribute }) thyShowWholeName = false;
 
     /**
      * 是否展示搜索
      * @type boolean
      */
-    @Input() @InputBoolean() thyShowSearch = false;
+    @Input({ transform: booleanAttribute }) thyShowSearch = false;
 
     /**
      * 图标类型，支持 default | especial，已废弃

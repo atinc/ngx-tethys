@@ -1,9 +1,10 @@
-import { Constructor, InputBoolean, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
+import { Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { takeUntil } from 'rxjs/operators';
 
 import {
     AfterContentInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -72,8 +73,7 @@ export class ThySpace extends _MixinBase implements OnInit, AfterContentInit {
      * 间距垂直方向，默认是水平方向
      */
     @HostBinding(`class.thy-space-vertical`)
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     thyVertical: boolean = false;
 
     // @ClassBinding(`align-items-{{value}}`)

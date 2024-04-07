@@ -12,9 +12,10 @@ import {
     Output,
     QueryList,
     SimpleChanges,
-    TemplateRef
+    TemplateRef,
+    booleanAttribute
 } from '@angular/core';
-import { Constructor, InputBoolean, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
+import { Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
 import { isString } from 'ngx-tethys/util';
 import { fromEvent } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -92,12 +93,12 @@ export class ThyTabs extends _MixinBase implements OnInit, OnChanges, AfterConte
     /**
      * 是否使用动画切换 Tabs
      */
-    @Input() @InputBoolean() thyAnimated: boolean = false;
+    @Input({ transform: booleanAttribute }) thyAnimated: boolean = false;
 
     /**
      * 响应式，自动计算宽度存放 thyNavItem，并添加更多弹框
      */
-    @Input() @InputBoolean() thyResponsive: boolean = false;
+    @Input({ transform: booleanAttribute }) thyResponsive: boolean = false;
 
     /**
      * 激活的项发生改变时的回调

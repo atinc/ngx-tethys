@@ -1,4 +1,4 @@
-import { collapseMotion, InputBoolean } from 'ngx-tethys/core';
+import { collapseMotion } from 'ngx-tethys/core';
 
 import {
     ChangeDetectorRef,
@@ -10,7 +10,8 @@ import {
     OnDestroy,
     OnInit,
     Output,
-    TemplateRef
+    TemplateRef,
+    booleanAttribute
 } from '@angular/core';
 
 import { ThyCollapse } from './collapse.component';
@@ -56,13 +57,13 @@ export class ThyCollapseItem implements OnInit, OnDestroy {
     /**
      * 是否处于激活展开状态
      */
-    @Input() @InputBoolean() thyActive: boolean = false;
+    @Input({ transform: booleanAttribute }) thyActive: boolean = false;
 
     /**
      * 是否禁用当前面板
      * @default false
      */
-    @Input() @InputBoolean() thyDisabled: boolean;
+    @Input({ transform: booleanAttribute }) thyDisabled: boolean;
 
     /**
      * 自定义面板头

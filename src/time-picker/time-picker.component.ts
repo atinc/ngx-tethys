@@ -1,6 +1,7 @@
 import { CdkConnectedOverlay, CdkOverlayOrigin } from '@angular/cdk/overlay';
 import {
     AfterViewInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -14,8 +15,8 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { isValid } from 'date-fns';
-import { getFlexiblePositions, InputBoolean, ThyPlacement } from 'ngx-tethys/core';
-import { TinyDate, coerceBooleanProperty } from 'ngx-tethys/util';
+import { getFlexiblePositions, ThyPlacement } from 'ngx-tethys/core';
+import { TinyDate } from 'ngx-tethys/util';
 import { ThyTimePanel } from './time-picker-panel.component';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgTemplateOutlet, NgIf, NgClass } from '@angular/common';
@@ -42,7 +43,7 @@ export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
     host: {
         class: 'thy-time-picker',
         '[class.thy-time-picker-disabled]': `disabled`,
-        '[class.thy-time-picker-readonly]': `readonly`
+        '[class.thy-time-picker-readonly]': `thyReadonly`
     },
     standalone: true,
     imports: [
@@ -126,15 +127,15 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
      * @type boolean
      * @default false
      */
-    @Input() @InputBoolean() thyBackdrop: boolean;
+    @Input({ transform: booleanAttribute }) thyBackdrop: boolean;
 
     /**
      * 禁用
      * @type boolean
      * @default false
      */
-    @Input() @InputBoolean() set thyDisabled(value: boolean) {
-        this.disabled = coerceBooleanProperty(value);
+    @Input({ transform: booleanAttribute }) set thyDisabled(value: boolean) {
+        this.disabled = value;
     }
 
     get thyDisabled(): boolean {
@@ -146,21 +147,19 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
      * @type boolean
      * @default false
      */
-    @Input() @InputBoolean() set thyReadonly(value: boolean) {
-        this.readonly = value;
-    }
+    @Input({ transform: booleanAttribute }) thyReadonly: boolean;
 
     /**
      * 展示选择此刻
      * @type boolean
      */
-    @Input() @InputBoolean() thyShowSelectNow = true;
+    @Input({ transform: booleanAttribute }) thyShowSelectNow = true;
 
     /**
      * 可清空值
      * @type boolean
      */
-    @Input() @InputBoolean() thyAllowClear = true;
+    @Input({ transform: booleanAttribute }) thyAllowClear = true;
 
     /**
      * 打开/关闭弹窗事件
@@ -175,8 +174,6 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
     format: string = 'HH:mm:ss';
 
     disabled: boolean;
-
-    readonly: boolean;
 
     showText: string = '';
 
@@ -414,6 +411,6 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
     }
 
     private disabledUserOperation() {
-        return this.disabled || this.readonly;
+        return this.disabled || this.thyReadonly;
     }
 }

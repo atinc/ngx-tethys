@@ -1,4 +1,4 @@
-import { InputBoolean, InputNumber, ThyClickDispatcher } from 'ngx-tethys/core';
+import { ThyClickDispatcher } from 'ngx-tethys/core';
 import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
 import { combineLatest, fromEvent, Subject, Subscription, timer } from 'rxjs';
 import { delay, filter, take, takeUntil } from 'rxjs/operators';
@@ -6,6 +6,7 @@ import { delay, filter, take, takeUntil } from 'rxjs/operators';
 import { OverlayOutsideClickDispatcher, OverlayRef } from '@angular/cdk/overlay';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
 import {
+    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -15,6 +16,7 @@ import {
     HostBinding,
     Input,
     NgZone,
+    numberAttribute,
     OnChanges,
     OnDestroy,
     OnInit,
@@ -57,13 +59,13 @@ export class ThyPropertyItem implements OnInit, OnChanges, OnDestroy {
      * @type sting
      * @default false
      */
-    @Input() @InputBoolean() thyEditable: boolean;
+    @Input({ transform: booleanAttribute }) thyEditable: boolean;
 
     /**
      * 设置跨列的数量
      * @type number
      */
-    @Input() @InputNumber() thySpan: number = 1;
+    @Input({ transform: numberAttribute }) thySpan: number = 1;
 
     /**
      * 设置属性操作现实触发方式，默认 always 一直显示

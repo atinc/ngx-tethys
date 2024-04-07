@@ -1,8 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, booleanAttribute } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgTemplateOutlet } from '@angular/common';
 import { ThyStopPropagationDirective } from 'ngx-tethys/shared';
-import { InputBoolean } from 'ngx-tethys/core';
 
 /**
  * @private
@@ -29,7 +28,7 @@ import { InputBoolean } from 'ngx-tethys/core';
     imports: [ThyStopPropagationDirective, NgTemplateOutlet, ThyIcon]
 })
 export class ThyRateItem implements OnInit {
-    @Input() @InputBoolean() allowHalf = false;
+    @Input({ transform: booleanAttribute }) allowHalf = false;
 
     @Input() iconValue: string;
 

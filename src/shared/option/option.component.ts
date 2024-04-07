@@ -12,7 +12,8 @@ import {
     OnDestroy,
     Output,
     Inject,
-    Optional
+    Optional,
+    booleanAttribute
 } from '@angular/core';
 import { Highlightable } from '@angular/cdk/a11y';
 import { SelectOptionBase } from './select-option-base';
@@ -24,7 +25,6 @@ import {
     THY_OPTION_PARENT_COMPONENT
 } from './option.token';
 import { NgIf } from '@angular/common';
-import { InputBoolean } from 'ngx-tethys/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 
 export class ThyOptionSelectionChangeEvent {
@@ -65,8 +65,7 @@ export class ThyOption extends SelectOptionBase implements OnDestroy, Highlighta
 
     @ViewChild(TemplateRef, { static: true }) template: TemplateRef<any>;
 
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     @HostBinding(`class.disabled`)
     set thyDisabled(value: boolean) {
         this._disabled = value;

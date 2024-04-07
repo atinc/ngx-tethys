@@ -1,6 +1,6 @@
 import { ContentObserver } from '@angular/cdk/observers';
-import { AfterContentInit, Component, ElementRef, Input, NgZone, OnDestroy, OnInit, TemplateRef } from '@angular/core';
-import { InputNumber, ThyPlacement } from 'ngx-tethys/core';
+import { AfterContentInit, Component, ElementRef, Input, NgZone, OnDestroy, OnInit, TemplateRef, numberAttribute } from '@angular/core';
+import { ThyPlacement } from 'ngx-tethys/core';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -77,7 +77,7 @@ export class ThyFlexibleText implements OnInit, AfterContentInit, OnDestroy {
     /**
      * tooltip 偏移量
      */
-    @Input('thyTooltipOffset') @InputNumber() set thyOffset(value: number) {
+    @Input({ alias: 'thyTooltipOffset', transform: numberAttribute }) set thyOffset(value: number) {
         this.offset = value;
         if (this.tooltipDirective) {
             this.tooltipDirective.tooltipOffset = this.offset;

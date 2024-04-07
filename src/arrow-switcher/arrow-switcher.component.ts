@@ -7,7 +7,8 @@ import {
     ChangeDetectionStrategy,
     OnInit,
     ChangeDetectorRef,
-    forwardRef
+    forwardRef,
+    numberAttribute
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyButtonIcon } from 'ngx-tethys/button';
@@ -15,7 +16,6 @@ import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { ThyAction } from 'ngx-tethys/action';
 import { NgIf } from '@angular/common';
-import { InputNumber } from 'ngx-tethys/core';
 
 export type ThyArrowSwitcherTheme = 'default' | 'lite';
 export interface ThyArrowSwitcherEvent {
@@ -83,8 +83,7 @@ export class ThyArrowSwitcher implements OnInit, ControlValueAccessor {
     /**
      * 总条数
      */
-    @Input()
-    @InputNumber()
+    @Input({ transform: numberAttribute })
     set thyTotal(value: number) {
         if (value) {
             this.total = value;

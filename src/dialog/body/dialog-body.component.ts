@@ -1,6 +1,5 @@
-import { Component, Input, OnInit, HostBinding } from '@angular/core';
+import { Component, Input, OnInit, HostBinding, booleanAttribute } from '@angular/core';
 import { ThyDialog } from '../dialog.service';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 
 /**
@@ -26,9 +25,9 @@ export class ThyDialogBody implements OnInit {
      * 清除间距
      * @default false
      */
-    @Input()
-    set thyClearPadding(value: string) {
-        this.thyClearPaddingClassName = coerceBooleanProperty(value);
+    @Input({ transform: booleanAttribute })
+    set thyClearPadding(value: boolean) {
+        this.thyClearPaddingClassName = value;
     }
 
     constructor(private dialog: ThyDialog) {}

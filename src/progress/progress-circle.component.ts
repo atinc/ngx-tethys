@@ -1,6 +1,6 @@
 import { isString } from 'ngx-tethys/util';
 
-import { Component, Input, OnChanges, OnInit, SimpleChanges, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, TemplateRef, ViewEncapsulation, numberAttribute } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
 import {
@@ -13,7 +13,6 @@ import {
 } from './interfaces';
 import { NgClass, NgStyle, NgFor } from '@angular/common';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
-import { InputNumber } from 'ngx-tethys/core';
 
 /**
  * @private
@@ -47,17 +46,17 @@ export class ThyProgressCircle implements OnInit, OnChanges {
 
     @Input() thyValue: number | ThyProgressStackedValue[];
 
-    @Input() @InputNumber() thyMax: number;
+    @Input({ transform: numberAttribute }) thyMax: number;
 
     @Input() thyTips: string | TemplateRef<unknown>;
 
     @Input() thyShape: ThyProgressShapeType = 'strip';
 
-    @Input() @InputNumber() thyGapDegree?: number = undefined;
+    @Input({ transform: numberAttribute }) thyGapDegree?: number = undefined;
 
     @Input() thyGapPosition: ThyProgressGapPositionType = 'top';
 
-    @Input() @InputNumber() thyStrokeWidth: number;
+    @Input({ transform: numberAttribute }) thyStrokeWidth: number;
 
     public trailPathStyle: ThyProgressPathStyle | null = null;
 

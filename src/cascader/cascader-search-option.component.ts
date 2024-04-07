@@ -9,12 +9,12 @@ import {
     OnInit,
     Output,
     TemplateRef,
-    ViewEncapsulation
+    ViewEncapsulation,
+    booleanAttribute
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyBreadcrumb, ThyBreadcrumbItem } from 'ngx-tethys/breadcrumb';
 import { ThyCheckbox } from 'ngx-tethys/checkbox';
-import { InputBoolean } from 'ngx-tethys/core';
 import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyCascaderSearchOption } from './types';
@@ -36,18 +36,15 @@ export class ThyCascaderSearchOptionComponent implements OnInit {
     @Input() option: ThyCascaderSearchOption;
 
     @HostBinding('class.multiple')
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     multiple = false;
 
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     isOnlySelectLeaf = true;
     @HostBinding('class') className = 'thy-cascader-search-list-item px-4 d-flex align-items-center cursor-pointer';
 
     @HostBinding('class.active')
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     active: boolean = false;
 
     @Input()

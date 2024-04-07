@@ -1,5 +1,4 @@
-import { InputBoolean, ThyTranslate } from 'ngx-tethys/core';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { ThyTranslate } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import {
     AfterViewInit,
@@ -11,7 +10,8 @@ import {
     NgZone,
     OnInit,
     TemplateRef,
-    SimpleChanges
+    SimpleChanges,
+    booleanAttribute
 } from '@angular/core';
 
 import { ThyEmptyConfig } from './empty.config';
@@ -115,7 +115,7 @@ export class ThyEmpty implements OnInit, AfterViewInit, OnChanges {
      * 是否自动根据父容器计算高度，垂直居中
      * @default false
      */
-    @Input() @InputBoolean() thyTopAuto: boolean;
+    @Input({ transform: booleanAttribute }) thyTopAuto: boolean;
 
     /**
      * 自动计算高度垂直居中(即 thyTopAuto 为 true)时，支持传入自定义父容器
@@ -170,9 +170,8 @@ export class ThyEmpty implements OnInit, AfterViewInit, OnChanges {
 
     private _calculatePosition() {
         const sizeOptions = sizeMap[this.thySize || 'md'];
-        const topAuto = coerceBooleanProperty(this.thyTopAuto);
         let marginTop = null;
-        if (topAuto) {
+        if (this.thyTopAuto) {
             // 选择参考父容器居中
             const containerElement = this.thyContainer ? this.thyContainer.nativeElement : this.elementRef.nativeElement.parentElement;
             // containerElement.height;

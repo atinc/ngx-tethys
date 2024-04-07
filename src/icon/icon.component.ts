@@ -1,4 +1,3 @@
-import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 import { take } from 'rxjs/operators';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
@@ -12,7 +11,9 @@ import {
     OnInit,
     Renderer2,
     SimpleChanges,
-    ViewEncapsulation
+    ViewEncapsulation,
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 
 import { getWhetherPrintErrorWhenIconNotFound } from './config';
@@ -58,7 +59,7 @@ export class ThyIcon implements OnInit, OnChanges {
      * 图标的旋转角度
      * @default 0
      */
-    @Input('thyIconRotate') @InputNumber() iconRotate: number;
+    @Input({ alias: 'thyIconRotate', transform: numberAttribute }) iconRotate: number;
 
     @Input('thyIconSet') iconSet: string;
 
@@ -67,12 +68,10 @@ export class ThyIcon implements OnInit, OnChanges {
      * @default false
      */
     @HostBinding(`class.thy-icon-legging`)
-    @Input('thyIconLegging')
-    @InputBoolean()
+    @Input({ alias: 'thyIconLegging', transform: booleanAttribute })
     iconLegging: boolean;
 
-    @Input('thyIconLinearGradient')
-    @InputBoolean()
+    @Input({ alias: 'thyIconLinearGradient', transform: booleanAttribute })
     iconLinearGradient: boolean;
 
     private hostRenderer = useHostRenderer();

@@ -10,10 +10,10 @@ import {
     NgZone,
     OnDestroy,
     Optional,
-    Renderer2
+    Renderer2,
+    booleanAttribute
 } from '@angular/core';
 import { IThySegmentComponent, THY_SEGMENTED_COMPONENT } from './segment.token';
-import { InputBoolean } from 'ngx-tethys/core';
 import { assertIconOnly } from 'ngx-tethys/util';
 import { Subject, fromEvent } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -49,8 +49,7 @@ export class ThySegmentItem implements AfterViewInit, OnDestroy {
     /**
      * 是否禁用该选项
      */
-    @Input()
-    @InputBoolean()
+    @Input({ transform: booleanAttribute })
     @HostBinding(`class.disabled`)
     thyDisabled = false;
 

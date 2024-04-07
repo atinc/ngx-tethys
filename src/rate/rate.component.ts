@@ -1,8 +1,9 @@
-import { InputBoolean, InputNumber, TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
-import { coerceBooleanProperty, helpers } from 'ngx-tethys/util';
+import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
+import { helpers } from 'ngx-tethys/util';
 
 import { NgClass, NgFor } from '@angular/common';
 import {
+    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -10,6 +11,7 @@ import {
     forwardRef,
     HostBinding,
     Input,
+    numberAttribute,
     OnChanges,
     OnInit,
     Output,
@@ -70,32 +72,32 @@ export class ThyRate extends TabIndexDisabledControlValueAccessorMixin implement
     /**
      * 自定义评分的总数
      */
-    @Input() @InputNumber() thyCount = 5;
+    @Input({ transform: numberAttribute }) thyCount = 5;
 
     /**
      * 是否只读
      * @default false
      */
-    @Input()
+    @Input({ transform: booleanAttribute })
+    override set thyDisabled(value: boolean) {
+        this.disabled = value;
+    }
     override get thyDisabled(): boolean {
         return this.disabled;
     }
 
-    override set thyDisabled(value: boolean) {
-        this.disabled = coerceBooleanProperty(value);
-    }
-
     disabled = false;
+
     /**
      * 是否允许半选
      * @default false
      */
-    @Input() @InputBoolean() thyAllowHalf = false;
+    @Input({ transform: booleanAttribute }) thyAllowHalf = false;
 
     /**
      * 是否允许再次点击后清除
      */
-    @Input() @InputBoolean() thyAllowClear = true;
+    @Input({ transform: booleanAttribute }) thyAllowClear = true;
 
     /**
      * 自定义每项的提示信息
