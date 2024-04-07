@@ -106,7 +106,7 @@ describe('ThyWeekPickerComponent', () => {
             expect(getPickerTrigger().getAttribute('placeholder')).toBe(featureKey);
         });
 
-        fit('should has active class', fakeAsync(() => {
+        it('should has active class', fakeAsync(() => {
             fixtureInstance.thyValue = new Date('2024-04-06');
             fixture.detectChanges();
             dispatchMouseEvent(getPickerTriggerWrapper(), 'click');
