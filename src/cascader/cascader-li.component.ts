@@ -3,9 +3,19 @@ import { InputBoolean } from 'ngx-tethys/core';
 import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
 import { ThyRadio } from 'ngx-tethys/radio';
 import { ThyStopPropagationDirective } from 'ngx-tethys/shared';
-
-import { NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { SafeAny } from 'ngx-tethys/types';
+import { NgIf, NgTemplateOutlet } from '@angular/common';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    EventEmitter,
+    HostBinding,
+    Input,
+    OnInit,
+    Output,
+    TemplateRef,
+    ViewEncapsulation
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { ThyCascaderOption } from './types';
@@ -20,7 +30,7 @@ import { ThyCascaderOption } from './types';
     selector: '[thy-cascader-option]',
     templateUrl: './cascader-li.component.html',
     standalone: true,
-    imports: [NgIf, ThyFlexibleText, ThyCheckbox, ThyRadio, FormsModule, ThyStopPropagationDirective]
+    imports: [NgIf, ThyFlexibleText, ThyCheckbox, ThyRadio, FormsModule, ThyStopPropagationDirective, NgTemplateOutlet]
 })
 export class ThyCascaderOptionComponent implements OnInit {
     @Input() option: ThyCascaderOption;
@@ -32,6 +42,9 @@ export class ThyCascaderOptionComponent implements OnInit {
     @Input()
     @InputBoolean()
     isOnlySelectLeaf = true;
+
+    @Input()
+    optionRender: TemplateRef<SafeAny>;
 
     @HostBinding('class') class = 'd-flex';
 

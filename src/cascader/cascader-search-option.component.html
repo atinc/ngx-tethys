@@ -1,17 +1,15 @@
-<label
-  *ngIf="multiple"
-  class="mr-1"
-  thyCheckbox
-  [disabled]="option.thyRowValue[option.thyRowValue.length - 1].disabled"
-  [ngModel]="active"
-  (click)="clickCheckbox($event)"
-  (ngModelChange)="toggleOption($event)"
-  [thyLabelText]="''"></label>
+<label *ngIf="multiple" class="mr-1" thyCheckbox [disabled]="option.thyRowValue[option.thyRowValue.length - 1].disabled"
+  [ngModel]="active" (click)="clickCheckbox($event)" (ngModelChange)="toggleOption($event)" [thyLabelText]="''"></label>
 
 <thy-breadcrumb thySeparator="slash">
   <ng-container *ngFor="let label of option.labelList; index as i">
-    <thy-breadcrumb-item [ngClass]="{ 'text-muted': !(option.thyRowValue[i].isLeaf && isOnlySelectLeaf) }"
-      ><span class="option-label-item" thyFlexibleText [thyTooltipContent]="label">{{ label }}</span></thy-breadcrumb-item
-    >
+    <thy-breadcrumb-item [ngClass]="{ 'text-muted': !(option.thyRowValue[i].isLeaf && isOnlySelectLeaf) }">
+      <ng-container *ngIf="!optionRender; else optionTemplate">
+        <span class="option-label-item" thyFlexibleText [thyTooltipContent]="label">{{ label }}</span>
+      </ng-container>
+      <ng-template #optionTemplate>
+        <ng-template [ngTemplateOutlet]="optionRender" [ngTemplateOutletContext]="{ option, index: i }"></ng-template>
+      </ng-template>
+    </thy-breadcrumb-item>
   </ng-container>
 </thy-breadcrumb>

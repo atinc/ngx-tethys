@@ -45,6 +45,7 @@ const customerOptions = [
         value: 'beijng',
         label: 'beijng',
         code: 477400,
+        disableSelect: true,
         isLeaf: true
     },
     {
@@ -342,12 +343,18 @@ class CascaderLoadComponent {
 @Component({
     selector: 'thy-cascader-template',
     template: `
-        <thy-cascader [thyOptions]="thyCustomerOptions" [(ngModel)]="curVal" style="width:400px;" [thyLabelRender]="renderTpl">
+        <thy-cascader
+            [thyOptions]="thyCustomerOptions"
+            [thyShowSearch]="true"
+            [(ngModel)]="curVal"
+            style="width:400px;"
+            [thyLabelRender]="renderTpl"
+            [thyOptionRender]="optionTpl"
+            [thySearchOptionRender]="searchOptionTpl">
         </thy-cascader>
         <ng-template #renderTpl let-labels="labels" let-selectedOptions="selectedOptions">
             <ng-container>
                 {{ isDisplay(labels) }}
-
                 <ng-container *ngFor="let label of labels; let i = index; let isLast = last">
                     <span *ngIf="!isLast" class="display-name-no-last">{{ label }} / </span>
                     <span *ngIf="isLast" class="display-name-last">
@@ -360,6 +367,18 @@ class CascaderLoadComponent {
                     </span>
                 </ng-container>
             </ng-container>
+        </ng-template>
+
+        <ng-template #optionTpl let-option="option">
+            <thy-icon class="option-icon mr-2" thyIconName="view-tile"></thy-icon>
+            <span thyFlexibleText [thyTooltipContent]="option.label || ''"> {{ option.label || '' }}</span>
+        </ng-template>
+
+        <ng-template #searchOptionTpl let-option="option" let-index="index">
+            <thy-icon class="search-option-icon" thyIconName="view-tile"></thy-icon>
+            <span class="option-label-item" thyFlexibleText [thyTooltipContent]="option.labelList[index]">{{
+                option.labelList[index]
+            }}</span>
         </ng-template>
     `
 })
@@ -849,6 +868,17 @@ describe('thy-cascader', () => {
             expect(activatedOptionsText).toEqual(fixture.componentInstance.curVal);
         }));
 
+        it('Should hide checkbox and radio when the option is disableSelect', () => {
+            fixture.componentInstance.isMultiple = true;
+            fixture.componentInstance.isOnlySelectLeaf = true;
+            fixture.detectChanges();
+            const trigger = debugElement.query(By.css('input')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            const checkboxes = fixture.debugElement.query(By.css('.thy-cascader-menu')).queryAll(By.css('.thy-checkbox'));
+            expect(checkboxes.length).toEqual(customerOptions.length - 1);
+        });
+
         it('should not change EXPANDED_DROPDOWN_POSITIONS when cdkConnectedOverlayPositions is changed', () => {
             expect(EXPANDED_DROPDOWN_POSITIONS).not.toEqual((component.cascader as SafeAny).cascaderPosition);
         });
@@ -1030,6 +1060,8 @@ describe('thy-cascader', () => {
         let fixture: ComponentFixture<CascaderTemplateComponent>;
         let component: CascaderTemplateComponent;
         let debugElement: DebugElement;
+        let overlayContainer: OverlayContainer;
+        let overlayContainerElement: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(CascaderTemplateComponent);
@@ -1037,12 +1069,21 @@ describe('thy-cascader', () => {
             debugElement = fixture.debugElement;
         });
 
+        beforeEach(inject([OverlayContainer], (oc: OverlayContainer) => {
+            overlayContainer = oc;
+            overlayContainerElement = oc.getContainerElement();
+        }));
+
+        afterEach(() => {
+            overlayContainer.ngOnDestroy();
+        });
+
         it('should create', () => {
             expect(fixture).toBeTruthy();
             expect(component).toBeTruthy();
         });
 
-        it('should display', done => {
+        it('should display custom label', done => {
             fixture.detectChanges();
             component.isDisplayName$
                 .pipe(take(1))
@@ -1054,7 +1095,7 @@ describe('thy-cascader', () => {
                 });
         });
 
-        it('should display multi', done => {
+        it('should display custom label multi', done => {
             component.curVal = ['zhejiang', 'hangzhou', 'xihu'];
             fixture.detectChanges();
 
@@ -1067,6 +1108,28 @@ describe('thy-cascader', () => {
                     done();
                 });
         });
+
+        it('should display custom option', () => {
+            dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
+
+            fixture.detectChanges();
+            const customIcon = debugElement.query(By.css('.option-icon'));
+            expect(customIcon).toBeTruthy();
+        });
+
+        it('should display custom search option', fakeAsync(() => {
+            dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
+
+            fixture.detectChanges();
+            const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
+            typeInElement('xihu', input);
+            fixture.detectChanges();
+            tick(300);
+            fixture.detectChanges();
+
+            const customIcon = debugElement.query(By.css('.search-option-icon'));
+            expect(customIcon).toBeTruthy();
+        }));
     });
 
     describe('multiple mode', () => {

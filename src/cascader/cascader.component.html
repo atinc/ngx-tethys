@@ -63,6 +63,7 @@
             [active]="isActivatedOption(option, i)"
             [halfSelected]="isHalfSelectedOption(option, i)"
             [selected]="isSelectedOption(option, i)"
+            [optionRender]="thyOptionRender"
             (toggleSelectChange)="clickOption(option, i, $event)"
             (click)="clickOption(option, i, $event)"
             (mouseover)="mouseoverOption(option, i, $event)"></li>
@@ -71,7 +72,7 @@
     </ng-container>
     <ng-container *ngIf="isShowSearchPanel">
       <ng-container *ngIf="searchResultList.length; else emptyPlaceholder">
-        <ul class="thy-cascader-search-list py-3">
+        <ul class="thy-cascader-search-list py-3" [ngStyle]="thySearchListStyle">
           <li
             thy-cascader-search-option
             *ngFor="let item of searchResultList"
@@ -79,6 +80,7 @@
             [isOnlySelectLeaf]="thyIsOnlySelectLeaf"
             [option]="item"
             [active]="item.selected"
+            [optionRender]="thySearchOptionRender"
             (toggleSelectChange)="selectSearchResult($event)"></li>
         </ul>
       </ng-container>
