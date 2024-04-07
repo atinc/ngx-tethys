@@ -107,14 +107,14 @@ describe('ThyWeekPickerComponent', () => {
         });
 
         it('should has active class', fakeAsync(() => {
-            fixtureInstance.thyValue = new Date();
+            fixtureInstance.thyValue = new Date('2024-04-06');
             fixture.detectChanges();
             dispatchMouseEvent(getPickerTriggerWrapper(), 'click');
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
             flush();
-            const index = getWeekOfMonth(new Date());
+            const index = getWeekOfMonth(new Date('2024-04-06'));
             const allTrs = document.querySelectorAll('tr');
             expect(allTrs[index].classList[0]).toEqual('thy-calendar-current-week');
             expect(allTrs[index].classList[2]).toEqual('thy-calendar-active-week');
