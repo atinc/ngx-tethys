@@ -71,6 +71,7 @@ $cascader-menu-min-width: 122px;
         white-space: nowrap;
         transition: all 0.3s;
         color: variables.$gray-700;
+        align-items: center;
         &:hover {
             background: variables.$gray-100;
             color: variables.$body-color;

@@ -1,3 +1,4 @@
+import { SafeAny } from 'ngx-tethys/types';
 import {
     EXPANDED_DROPDOWN_POSITIONS,
     ScrollToService,
@@ -139,6 +140,12 @@ export class ThyCascader
     @Input({ transform: booleanAttribute }) thyShowInput = true;
 
     /**
+     * 用户自定义选项模板
+     * @type TemplateRef
+     */
+    @Input() thyOptionRender: TemplateRef<SafeAny>;
+
+    /**
      * 用户自定义模板
      * @type TemplateRef
      */
@@ -180,6 +187,11 @@ export class ThyCascader
      * 自定义浮层样式
      */
     @Input() thyMenuStyle: { [key: string]: string };
+
+    /**
+     * 自定义搜索样式
+     */
+    @Input() thySearchListStyle: { [key: string]: string };
 
     /**
      * 自定义浮层类名
@@ -767,6 +779,7 @@ export class ThyCascader
                 // local search
                 this.searchInLocal(searchText);
                 this.isShowSearchPanel = true;
+                this.cdr.markForCheck();
             });
     }
 
