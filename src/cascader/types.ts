@@ -9,7 +9,7 @@ export interface ThyCascaderOption {
     isLeaf?: boolean;
     parent?: ThyCascaderOption;
     children?: ThyCascaderOption[];
-    disableSelect?: Boolean;
+    readonly?: boolean;
     [key: string]: any;
 }
 

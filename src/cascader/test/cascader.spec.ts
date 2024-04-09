@@ -45,7 +45,7 @@ const customerOptions = [
         value: 'beijng',
         label: 'beijng',
         code: 477400,
-        disableSelect: true,
+        readonly: true,
         isLeaf: true
     },
     {
@@ -349,8 +349,7 @@ class CascaderLoadComponent {
             [(ngModel)]="curVal"
             style="width:400px;"
             [thyLabelRender]="renderTpl"
-            [thyOptionRender]="optionTpl"
-            [thySearchOptionRender]="searchOptionTpl">
+            [thyOptionRender]="optionTpl">
         </thy-cascader>
         <ng-template #renderTpl let-labels="labels" let-selectedOptions="selectedOptions">
             <ng-container>
@@ -371,14 +370,7 @@ class CascaderLoadComponent {
 
         <ng-template #optionTpl let-option="option">
             <thy-icon class="option-icon mr-2" thyIconName="view-tile"></thy-icon>
-            <span thyFlexibleText [thyTooltipContent]="option.label || ''"> {{ option.label || '' }}</span>
-        </ng-template>
-
-        <ng-template #searchOptionTpl let-option="option" let-index="index">
-            <thy-icon class="search-option-icon" thyIconName="view-tile"></thy-icon>
-            <span class="option-label-item" thyFlexibleText [thyTooltipContent]="option.labelList[index]">{{
-                option.labelList[index]
-            }}</span>
+            <span thyFlexibleText class="option-label-item" [thyTooltipContent]="option.label || ''"> {{ option.label || '' }}</span>
         </ng-template>
     `
 })
@@ -868,7 +860,7 @@ describe('thy-cascader', () => {
             expect(activatedOptionsText).toEqual(fixture.componentInstance.curVal);
         }));
 
-        it('Should hide checkbox and radio when the option is disableSelect', () => {
+        it('should hide checkbox and radio when the option is readonly', () => {
             fixture.componentInstance.isMultiple = true;
             fixture.componentInstance.isOnlySelectLeaf = true;
             fixture.detectChanges();
@@ -1127,7 +1119,7 @@ describe('thy-cascader', () => {
             tick(300);
             fixture.detectChanges();
 
-            const customIcon = debugElement.query(By.css('.search-option-icon'));
+            const customIcon = debugElement.query(By.css('.option-icon'));
             expect(customIcon).toBeTruthy();
         }));
     });

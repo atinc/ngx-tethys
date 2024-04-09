@@ -146,12 +146,6 @@ export class ThyCascader
     @Input() thyOptionRender: TemplateRef<SafeAny>;
 
     /**
-     * 用户自定义搜索选项模板
-     * @type TemplateRef
-     */
-    @Input() thySearchOptionRender: TemplateRef<SafeAny>;
-
-    /**
      * 用户自定义模板
      * @type TemplateRef
      */

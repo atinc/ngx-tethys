@@ -1,4 +1,4 @@
-<div thyStopPropagation *ngIf="!option.disableSelect">
+<div thyStopPropagation *ngIf="!option.readonly">
   <label *ngIf="multiple" class="mr-2" thyCheckbox [disabled]="option.disabled" [name]="option.value || option._id"
     [thyIndeterminate]="halfSelected" [(ngModel)]="selected" (ngModelChange)="toggleOption($event)"></label>
 

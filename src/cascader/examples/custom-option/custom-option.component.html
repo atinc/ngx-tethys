@@ -1,7 +1,7 @@
 <thy-cascader [thyOptions]="areaCode" (ngModelChange)="selectChanges($event)" [(ngModel)]="values"
   thyExpandTriggerAction="hover" [thyHasBackdrop]="false" [thyMultiple]="true" [thyShowSearch]="true"
-  [thyLabelRender]="renderTpl" [thyOptionRender]="optionTpl" [thySearchOptionRender]="searchOptionTpl"
-  thyMaxTagCount="3" style="width: 200px" thyTriggerAction="hover">
+  [thyLabelRender]="renderTpl" [thyOptionRender]="optionTpl" thyMaxTagCount="3" style="width: 200px"
+  thyTriggerAction="hover">
 </thy-cascader>
 
 
@@ -13,11 +13,6 @@
 
 <ng-template #optionTpl let-option="option">
   <thy-icon class="mr-2" thyIconName="view-tile"></thy-icon>
-  <span thyFlexibleText [thyTooltipContent]="option.label || ''"> {{ option.label || '' }}</span>
-</ng-template>
-
-<ng-template #searchOptionTpl let-option="option" let-index="index">
-  <thy-icon thyIconName="view-tile"></thy-icon>
-  <span class="option-label-item" thyFlexibleText [thyTooltipContent]="option.labelList[index]">{{
-    option.labelList[index] }}</span>
+  <span class="option-label-item" thyFlexibleText [thyTooltipContent]="option.label || ''"> {{ option.label || ''
+    }}</span>
 </ng-template>

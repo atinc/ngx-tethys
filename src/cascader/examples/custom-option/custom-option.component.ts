@@ -6,7 +6,7 @@ const customerOptions = [
         value: 'zhejiang',
         label: 'Zhejiang',
         code: 477200,
-        disableSelect: true,
+        readonly: true,
         children: [
             {
                 value: 'ningbo',
@@ -25,7 +25,7 @@ const customerOptions = [
     {
         value: 'jiangsu',
         label: 'Jiangsu',
-        disableSelect: true,
+        readonly: true,
         children: [
             {
                 value: 'zhonghuamen',
@@ -38,7 +38,7 @@ const customerOptions = [
     {
         value: 'neimeng',
         label: '内蒙古自治区',
-        disableSelect: true,
+        readonly: true,
         children: [
             {
                 value: 'naransebusitaiyinbulage',
@@ -51,7 +51,7 @@ const customerOptions = [
     {
         value: 'heilongjiang',
         label: '黑龙江',
-        disableSelect: true,
+        readonly: true,
         children: []
     }
 ];
