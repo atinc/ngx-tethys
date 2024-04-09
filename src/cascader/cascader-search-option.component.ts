@@ -1,4 +1,4 @@
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     Component,
@@ -8,6 +8,7 @@ import {
     Input,
     OnInit,
     Output,
+    TemplateRef,
     ViewEncapsulation,
     booleanAttribute
 } from '@angular/core';
@@ -17,6 +18,7 @@ import { ThyCheckbox } from 'ngx-tethys/checkbox';
 import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyCascaderSearchOption } from './types';
+import { SafeAny } from 'ngx-tethys/types';
 
 /**
  * @internal
@@ -28,7 +30,7 @@ import { ThyCascaderSearchOption } from './types';
     selector: '[thy-cascader-search-option]',
     templateUrl: './cascader-search-option.component.html',
     standalone: true,
-    imports: [NgIf, NgFor, ThyFlexibleText, ThyCheckbox, ThyBreadcrumb, ThyBreadcrumbItem, ThyIcon, FormsModule]
+    imports: [NgIf, NgFor, ThyFlexibleText, ThyCheckbox, ThyBreadcrumb, ThyBreadcrumbItem, ThyIcon, FormsModule, NgTemplateOutlet]
 })
 export class ThyCascaderSearchOptionComponent implements OnInit {
     @Input() option: ThyCascaderSearchOption;
@@ -44,6 +46,9 @@ export class ThyCascaderSearchOptionComponent implements OnInit {
     @HostBinding('class.active')
     @Input({ transform: booleanAttribute })
     active: boolean = false;
+
+    @Input()
+    optionRender: TemplateRef<SafeAny>;
 
     @HostListener('click', ['$event'])
     public toggleClick($event: Event) {

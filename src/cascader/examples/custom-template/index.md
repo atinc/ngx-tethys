@@ -1,4 +1,4 @@
 ---
-title: Custom-Template
+title: Custom Template
 order: 70
 ---
