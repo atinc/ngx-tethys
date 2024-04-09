@@ -9,6 +9,7 @@ export interface ThyCascaderOption {
     isLeaf?: boolean;
     parent?: ThyCascaderOption;
     children?: ThyCascaderOption[];
+    readonly?: boolean;
     [key: string]: any;
 }
 
