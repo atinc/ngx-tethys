@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [17.0.2](https://github.com/atinc/ngx-tethys/compare/17.0.1...17.0.2) (2024-04-09)
+
+
+### Features
+
+* **cascader:** cascader support custom option #INFR-12116 ([#3066](https://github.com/atinc/ngx-tethys/issues/3066)) ([bd5a246](https://github.com/atinc/ngx-tethys/commit/bd5a24668ef81ba994c750d939c130a3b31b277e)), closes [#INFR-12116](https://github.com/atinc/ngx-tethys/issues/INFR-12116) [#INFR-12116](https://github.com/atinc/ngx-tethys/issues/INFR-12116)
+
+
+
 ## [17.0.1](https://github.com/atinc/ngx-tethys/compare/17.0.0...17.0.1) (2024-03-19)
 
 
