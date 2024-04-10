@@ -1457,7 +1457,6 @@ describe('thy-cascader', () => {
             firstLevelItem[customOpts.length].query(By.css('label')).nativeElement.click();
             fixture.detectChanges();
             await fixture.whenStable();
-            console.log('=======', component.multipleVal);
             expect(component.multipleVal.length).toBe(1);
             const updateLabels = debugElement.queryAll(By.css('.choice-item'));
             expect(updateLabels.length).toBe(component.multipleVal.length);
