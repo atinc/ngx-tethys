@@ -8,16 +8,14 @@ import {
     AfterContentInit,
     NgZone,
     Input,
+    OnDestroy,
     booleanAttribute
 } from '@angular/core';
 import { ThyDragDirective } from './drag.directive';
-import { merge, Observable, defer } from 'rxjs';
-import { mixinUnsubscribe, MixinBase, Constructor, ThyUnsubscribe } from 'ngx-tethys/core';
+import { merge, Observable, defer, Subject } from 'rxjs';
 import { takeUntil, startWith, take, switchMap } from 'rxjs/operators';
 import { ThyDragDropEvent, ThyDragStartEvent, ThyDragEndEvent, ThyDragOverEvent } from './drag-drop.class';
 import { THY_DROP_CONTAINER_DIRECTIVE, IThyDropContainerDirective } from './drop-container.class';
-
-const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
 /**
  * @name thy-drop-container,[thyDropContainer]
@@ -33,7 +31,9 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
     ],
     standalone: true
 })
-export class ThyDropContainerDirective<T = any> extends _MixinBase implements OnInit, AfterContentInit, IThyDropContainerDirective {
+export class ThyDropContainerDirective<T = any> implements OnInit, AfterContentInit, IThyDropContainerDirective, OnDestroy {
+    private ngUnsubscribe$ = new Subject<void>();
+
     /**
      * 元数据
      * @type any[]
@@ -98,9 +98,7 @@ export class ThyDropContainerDirective<T = any> extends _MixinBase implements On
     })
     draggables: QueryList<ThyDragDirective>;
 
-    constructor(private ngZone: NgZone) {
-        super();
-    }
+    constructor(private ngZone: NgZone) {}
 
     ngOnInit() {}
 
@@ -135,5 +133,10 @@ export class ThyDropContainerDirective<T = any> extends _MixinBase implements On
                 switchMap(() => this.resetDraggableChanges.bind(this, fn))
             );
         }).pipe(takeUntil(merge(this.ngUnsubscribe$, this.draggables.changes))) as Observable<any>;
+    }
+
+    ngOnDestroy(): void {
+        this.ngUnsubscribe$.next();
+        this.ngUnsubscribe$.complete();
     }
 }

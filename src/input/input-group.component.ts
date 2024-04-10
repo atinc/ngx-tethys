@@ -10,13 +10,16 @@ import {
     OnInit,
     OnDestroy,
     ChangeDetectorRef,
-    NgZone
+    NgZone,
+    inject,
+    DestroyRef
 } from '@angular/core';
-import { MixinBase, ThyTranslate, mixinUnsubscribe, useHostFocusControl } from 'ngx-tethys/core';
+import { ThyTranslate, useHostFocusControl } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyInputDirective } from './input.directive';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
-import { takeUntil, throttleTime } from 'rxjs/operators';
+import { throttleTime } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Observable, of } from 'rxjs';
 import { FocusOrigin } from '@angular/cdk/a11y';
 
@@ -49,10 +52,12 @@ const inputGroupSizeMap = {
     standalone: true,
     imports: [NgIf, NgTemplateOutlet]
 })
-export class ThyInputGroup extends mixinUnsubscribe(MixinBase) implements OnInit, AfterContentChecked, OnDestroy {
+export class ThyInputGroup implements OnInit, AfterContentChecked, OnDestroy {
     private hostRenderer = useHostRenderer();
 
     private hostFocusControl = useHostFocusControl();
+
+    private readonly destroyRef = inject(DestroyRef);
 
     public appendText: string;
 
@@ -139,9 +144,7 @@ export class ThyInputGroup extends mixinUnsubscribe(MixinBase) implements OnInit
      */
     @ContentChild(ThyInputDirective) inputDirective: ThyInputDirective;
 
-    constructor(private thyTranslate: ThyTranslate, private ngZone: NgZone, private cdr: ChangeDetectorRef) {
-        super();
-    }
+    constructor(private thyTranslate: ThyTranslate, private ngZone: NgZone, private cdr: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.hostFocusControl.focusChanged = (origin: FocusOrigin) => {
@@ -165,7 +168,7 @@ export class ThyInputGroup extends mixinUnsubscribe(MixinBase) implements OnInit
     private determineHasScrollbar() {
         this.ngZone.runOutsideAngular(() => {
             this.resizeObserver(this.inputDirective.nativeElement)
-                .pipe(throttleTime(100), takeUntil(this.ngUnsubscribe$))
+                .pipe(throttleTime(100), takeUntilDestroyed(this.destroyRef))
                 .subscribe(() => {
                     const hasScrollbar = this.inputDirective.nativeElement.scrollHeight > this.inputDirective.nativeElement.clientHeight;
                     if (this.hasScrollbar !== hasScrollbar) {
@@ -193,7 +196,6 @@ export class ThyInputGroup extends mixinUnsubscribe(MixinBase) implements OnInit
     }
 
     ngOnDestroy() {
-        super.ngOnDestroy();
         this.hostFocusControl.destroy();
     }
 }

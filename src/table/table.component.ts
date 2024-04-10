@@ -1,8 +1,9 @@
-import { Constructor, InputCssPixel, MixinBase, mixinUnsubscribe, ThyUnsubscribe, UpdateHostClassService } from 'ngx-tethys/core';
+import { InputCssPixel, UpdateHostClassService } from 'ngx-tethys/core';
 import { Dictionary, SafeAny } from 'ngx-tethys/types';
 import { get, helpers, isString, keyBy, set } from 'ngx-tethys/util';
 import { EMPTY, fromEvent, merge, Observable, of } from 'rxjs';
-import { delay, startWith, switchMap, takeUntil } from 'rxjs/operators';
+import { delay, startWith, switchMap } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { CdkDrag, CdkDragDrop, CdkDragEnd, CdkDragStart, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ViewportRuler } from '@angular/cdk/overlay';
@@ -15,9 +16,11 @@ import {
     Component,
     ContentChild,
     ContentChildren,
+    DestroyRef,
     ElementRef,
     EventEmitter,
     HostBinding,
+    inject,
     Inject,
     Input,
     IterableChangeRecord,
@@ -107,8 +110,6 @@ const css = {
 
 const passiveEventListenerOptions = normalizePassiveListenerOptions({ passive: true });
 
-const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
-
 /**
  * 表格组件
  * @name thy-table
@@ -153,7 +154,9 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
         TableRowDragDisabledPipe
     ]
 })
-export class ThyTable extends _MixinBase implements OnInit, OnChanges, AfterViewInit, OnDestroy, IThyTableColumnParentComponent {
+export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IThyTableColumnParentComponent {
+    private readonly destroyRef = inject(DestroyRef);
+
     public customType = customType;
 
     public model: object[] = [];
@@ -569,7 +572,6 @@ export class ThyTable extends _MixinBase implements OnInit, OnChanges, AfterView
         private renderer: Renderer2,
         private cdr: ChangeDetectorRef
     ) {
-        super();
         this._bindTrackFn();
     }
 
@@ -1017,7 +1019,7 @@ export class ThyTable extends _MixinBase implements OnInit, OnChanges, AfterView
         this.initialized = true;
 
         merge(this.viewportRuler.change(200), of(null).pipe(delay(200)))
-            .pipe(takeUntil(this.ngUnsubscribe$))
+            .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe(() => {
                 this._refreshColumns();
                 this.updateScrollClass();
@@ -1025,7 +1027,7 @@ export class ThyTable extends _MixinBase implements OnInit, OnChanges, AfterView
             });
 
         this.ngZone.runOutsideAngular(() => {
-            this.scroll$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(() => {
+            this.scroll$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
                 this.updateScrollClass();
             });
         });
@@ -1081,7 +1083,7 @@ export class ThyTable extends _MixinBase implements OnInit, OnChanges, AfterView
                             )
                         )
                 ),
-                takeUntil(this.ngUnsubscribe$)
+                takeUntilDestroyed(this.destroyRef)
             )
             .subscribe(event => {
                 if (!this.draggable) {
@@ -1106,7 +1108,6 @@ export class ThyTable extends _MixinBase implements OnInit, OnChanges, AfterView
     }
 
     ngOnDestroy() {
-        super.ngOnDestroy();
         this._destroyInvalidAttribute();
     }
 }

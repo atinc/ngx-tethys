@@ -1,16 +1,13 @@
-import { Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
 import { getElementOffset } from 'ngx-tethys/util';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-import { ChangeDetectionStrategy, Component, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, Input, OnInit, inject } from '@angular/core';
 
 import { ThyDropdownMenuItemDirective } from './dropdown-menu-item.directive';
 
 export type ThyDropdownSubmenuDirection = 'left' | 'right' | 'auto';
 
 type InnerDropdownSubmenuDirection = ThyDropdownSubmenuDirection | 'leftBottom' | 'rightBottom';
-
-const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
 const SUBMENU_CLASS_PREFIX = 'dropdown-submenu';
 
@@ -28,7 +25,9 @@ const SUBMENU_CLASS_PREFIX = 'dropdown-submenu';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true
 })
-export class ThyDropdownSubmenu extends _MixinBase implements OnInit, OnDestroy {
+export class ThyDropdownSubmenu implements OnInit {
+    private readonly destroyRef = inject(DestroyRef);
+
     private direction: InnerDropdownSubmenuDirection = 'right';
 
     /**
@@ -40,16 +39,14 @@ export class ThyDropdownSubmenu extends _MixinBase implements OnInit, OnDestroy 
         this.direction = value;
     }
 
-    constructor(private dropdownMenuItem: ThyDropdownMenuItemDirective, private elementRef: ElementRef<HTMLElement>) {
-        super();
-    }
+    constructor(private dropdownMenuItem: ThyDropdownMenuItemDirective, private elementRef: ElementRef<HTMLElement>) {}
 
     ngOnInit(): void {
         let direction = this.direction || 'right';
         this.updateClassByDirection(direction);
         this.dropdownMenuItem
             .bindMouseenterEvent()
-            .pipe(takeUntil(this.ngUnsubscribe$))
+            .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe(() => {
                 if (this.direction === 'auto') {
                     const element = this.dropdownMenuItem.getElement();
@@ -84,9 +81,5 @@ export class ThyDropdownSubmenu extends _MixinBase implements OnInit, OnDestroy 
                 this.updateClassByDirection(direction);
             }
         }
-    }
-
-    ngOnDestroy() {
-        super.ngOnDestroy();
     }
 }

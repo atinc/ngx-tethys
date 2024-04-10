@@ -7,14 +7,14 @@ import {
     ElementRef,
     ViewChild,
     NgZone,
-    OnDestroy,
     Output,
-    EventEmitter
+    EventEmitter,
+    inject,
+    DestroyRef
 } from '@angular/core';
 import { InternalImageInfo, ThyImageInfo, ThyImagePreviewMode, ThyImagePreviewOperation, ThyImagePreviewOptions } from '../image.class';
-import { MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
 import { fromEvent, Observable } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ThyDialog } from 'ngx-tethys/dialog';
 import { getClientSize, getFitContentPosition, getOffset, humanizeBytes, isNumber, isUndefinedOrNull } from 'ngx-tethys/util';
 import { ThyFullscreen } from 'ngx-tethys/fullscreen';
@@ -57,8 +57,11 @@ const VERTICAL_SPACE = 96 + 106; // top: 96px; bottom: 106px
     standalone: true,
     imports: [NgIf, ThyTooltipDirective, ThyAction, CdkDrag, NgFor, ThyLoading, ThyIcon, ThyActions, ThyDivider, ThyCopyDirective]
 })
-export class ThyImagePreview extends mixinUnsubscribe(MixinBase) implements OnInit, OnDestroy {
+export class ThyImagePreview implements OnInit {
     @Output() downloadClicked: EventEmitter<ThyImageInfo> = new EventEmitter();
+
+    private readonly destroyRef = inject(DestroyRef);
+
     images: InternalImageInfo[] = [];
     previewIndex: number = 0;
     previewConfig: ThyImagePreviewOptions;
@@ -184,15 +187,13 @@ export class ThyImagePreview extends mixinUnsubscribe(MixinBase) implements OnIn
         private notifyService: ThyNotifyService,
         private host: ElementRef<HTMLElement>,
         private sanitizer: DomSanitizer
-    ) {
-        super();
-    }
+    ) {}
 
     ngOnInit(): void {
         this.initPreview();
         this.ngZone.runOutsideAngular(() => {
             fromEvent(this.host.nativeElement, 'click')
-                .pipe(takeUntil(this.ngUnsubscribe$))
+                .pipe(takeUntilDestroyed(this.destroyRef))
                 .subscribe(event => {
                     if (
                         (event.target === event.currentTarget ||
@@ -204,7 +205,7 @@ export class ThyImagePreview extends mixinUnsubscribe(MixinBase) implements OnIn
                 });
 
             fromEvent(this.imagePreviewWrapper.nativeElement, 'mousedown')
-                .pipe(takeUntil(this.ngUnsubscribe$))
+                .pipe(takeUntilDestroyed(this.destroyRef))
                 .subscribe(() => {
                     this.isDragging = !this.isInsideScreen && true;
                 });
@@ -325,7 +326,7 @@ export class ThyImagePreview extends mixinUnsubscribe(MixinBase) implements OnIn
         this.downloadClicked.emit(image);
         const src = image.origin?.src || image.src;
         fetchImageBlob(src)
-            .pipe(takeUntil(this.ngUnsubscribe$))
+            .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe(blob => {
                 const urlCreator = window.URL || window.webkitURL;
                 const objectURL = urlCreator.createObjectURL(blob);
@@ -446,9 +447,5 @@ export class ThyImagePreview extends mixinUnsubscribe(MixinBase) implements OnIn
 
     private updatePreviewImageWrapperTransform(): void {
         this.previewImageWrapperTransform = `translate3d(${this.position.x}px, ${this.position.y}px, 0)`;
-    }
-
-    ngOnDestroy(): void {
-        super.ngOnDestroy();
     }
 }

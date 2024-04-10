@@ -1,15 +1,16 @@
-import { Component, OnInit, TemplateRef, Renderer2, OnDestroy } from '@angular/core';
-import { mixinUnsubscribe, MixinBase } from 'ngx-tethys/core';
+import { Component, OnInit, TemplateRef, Renderer2, OnDestroy, inject, DestroyRef } from '@angular/core';
 import { ThyDialogConfig, ThyDialogSizes, ThyDialog } from 'ngx-tethys/dialog';
 import { keycodes } from 'ngx-tethys/util';
 import { ThyDialogBasicContentComponent } from './dialog-content.component';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'thy-dialog-basic-example',
     templateUrl: './basic.component.html'
 })
-export class ThyDialogBasicExampleComponent extends mixinUnsubscribe(MixinBase) implements OnInit, OnDestroy {
+export class ThyDialogBasicExampleComponent implements OnInit, OnDestroy {
+    private readonly destroyRef = inject(DestroyRef);
+
     hasShowDialog = false;
 
     public config: ThyDialogConfig = {
@@ -28,13 +29,13 @@ export class ThyDialogBasicExampleComponent extends mixinUnsubscribe(MixinBase) 
     unsubscribe: () => void;
 
     constructor(public thyDialog: ThyDialog, private renderer: Renderer2) {
-        super();
         thyDialog
             .afterOpened()
-            .pipe(takeUntil(this.ngUnsubscribe$))
+            .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe(dialog => {
                 console.log(dialog);
             });
+
         this.unsubscribe = renderer.listen(document, 'keydown', (event: KeyboardEvent) => {
             const isK = (event.ctrlKey || event.metaKey) && event.keyCode === keycodes.K;
             if (!this.hasShowDialog && isK) {
@@ -96,7 +97,6 @@ export class ThyDialogBasicExampleComponent extends mixinUnsubscribe(MixinBase) 
     }
 
     ngOnDestroy() {
-        super.ngOnDestroy();
         if (this.unsubscribe) {
             this.unsubscribe();
         }

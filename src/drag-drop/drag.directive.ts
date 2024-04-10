@@ -2,10 +2,7 @@ import { Directive, NgZone, ElementRef, HostBinding, Input, Inject, OnDestroy, O
 import { DragRef } from './drag-ref';
 import { DOCUMENT } from '@angular/common';
 import { ThyDragDropService } from './drag-drop.service';
-import { mixinUnsubscribe, MixinBase, Constructor, ThyUnsubscribe } from 'ngx-tethys/core';
 import { THY_DROP_CONTAINER_DIRECTIVE, IThyDropContainerDirective } from './drop-container.class';
-
-const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
 /**
  * 拖拽项
@@ -16,7 +13,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
     selector: 'thy-drag,[thyDrag]',
     standalone: true
 })
-export class ThyDragDirective<T = any> extends _MixinBase implements OnDestroy {
+export class ThyDragDirective<T = any> implements OnDestroy {
     /**
      * 元数据
      * @type any
@@ -59,12 +56,10 @@ export class ThyDragDirective<T = any> extends _MixinBase implements OnDestroy {
         service: ThyDragDropService<T>,
         renderer: Renderer2
     ) {
-        super();
         this.dragRef = new DragRef<T>(elementRef, this, container, service, document, ngZone, renderer);
     }
 
     ngOnDestroy() {
-        super.ngOnDestroy();
         this.dragRef.dispose();
     }
 }
