@@ -45,6 +45,7 @@ import { ThyCascaderSearchOptionComponent } from './cascader-search-option.compo
 import { ThyCascaderExpandTrigger, ThyCascaderOption, ThyCascaderSearchOption, ThyCascaderTriggerType } from './types';
 import { ThyCascaderService } from './cascader.service';
 import { scaleYMotion } from 'ngx-tethys/core';
+import { ThyDivider } from 'ngx-tethys/divider';
 
 /**
  * 级联选择菜单
@@ -79,7 +80,8 @@ import { scaleYMotion } from 'ngx-tethys/core';
         ThyCascaderOptionComponent,
         ThyCascaderSearchOptionComponent,
         ThyEmpty,
-        ThyIcon
+        ThyIcon,
+        ThyDivider
     ],
     animations: [scaleYMotion]
 })
@@ -120,6 +122,19 @@ export class ThyCascader
         if (this.thyCascaderService.defaultValue && columns.length) {
             this.thyCascaderService.initOptions(0);
         }
+    }
+
+    /**
+     * 自定义选项
+     * @type ThyCascaderOption[]
+     * @default []
+     */
+    @Input() set thyCustomOptions(options: ThyCascaderOption[] | null) {
+        this.thyCascaderService.customOptions = options || [];
+    }
+
+    get thyCustomOptions() {
+        return this.thyCascaderService.customOptions;
     }
 
     /**
@@ -662,7 +677,15 @@ export class ThyCascader
         this.setMenuVisible(false);
     }
 
+    public clickCustomOption(option: ThyCascaderOption, index: number, event: Event | boolean): void {
+        if (event === true) {
+            this.thyCascaderService.clearSelection();
+        }
+        this.thyCascaderService.clickOption(option, index, event, this.selectOption);
+    }
+
     public clickOption(option: ThyCascaderOption, index: number, event: Event | boolean): void {
+        this.thyCascaderService.removeCustomOption();
         this.thyCascaderService.clickOption(option, index, event, this.selectOption);
     }
 

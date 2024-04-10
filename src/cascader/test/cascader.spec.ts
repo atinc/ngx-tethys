@@ -275,6 +275,7 @@ const loadDataOption: { [key: string]: { children?: any[]; [key: string]: any }[
             [thyMultiple]="isMultiple"
             (thyExpandStatusChange)="thyExpandStatusChange($event)"
             [thyAutoExpand]="thyAutoExpand"
+            [thyCustomOptions]="customOptions"
             [thyHasBackdrop]="hasBackdrop">
         </thy-cascader>
     `
@@ -298,6 +299,7 @@ class CascaderBasicComponent {
     public isMultiple = false;
     public thyAutoExpand = true;
     public hasBackdrop: boolean;
+    public customOptions: SafeAny[];
 
     @ViewChild('cascader', { static: true }) cascaderRef: ThyCascader;
 
@@ -317,6 +319,15 @@ class CascaderBasicComponent {
             .subscribe(() => {
                 this.thyCustomerOptions = clone(customerOptions);
             });
+    }
+
+    public setCustomOptions() {
+        const customOptions: SafeAny[] = [
+            { label: '全部', value: 'all', children: [], isLeaf: true },
+            { label: '自定义选项2', value: 'custom_option_1', children: [], isLeaf: true }
+        ];
+        this.customOptions = customOptions;
+        return customOptions;
     }
 }
 @Component({
@@ -393,6 +404,8 @@ class CascaderTemplateComponent {
             [thyMultiple]="true"
             [thyShowSearch]="isShowSearch"
             [thyOptions]="multipleOptions"
+            [thyCustomOptions]="customOptions"
+            [thyIsOnlySelectLeaf]="isOnlySelectLeaf"
             [(ngModel)]="multipleVal"
             (ngModelChange)="selectChange($event)"
             [thyDisabled]="disabled"
@@ -413,10 +426,23 @@ class CascaderMultipleComponent {
 
     public disabled = false;
 
+    public customOptions: SafeAny[];
+
+    public isOnlySelectLeaf = true;
+
     constructor() {}
 
     selectChange(e: string[]) {
         this.selectSpy(e);
+    }
+
+    public setCustomOptions() {
+        const customOptions: SafeAny[] = [
+            { label: '全部', value: 'all', children: [], isLeaf: true },
+            { label: '自定义选项2', value: 'custom_option_1', children: [], isLeaf: true }
+        ];
+        this.customOptions = customOptions;
+        return customOptions;
     }
 }
 
@@ -1010,6 +1036,53 @@ describe('thy-cascader', () => {
             fixture.detectChanges();
             flush();
         }));
+
+        it('should show custom options', done => {
+            component.thyChangeOnSelect = true;
+            component.isOnlySelectLeaf = false;
+            const customOpts = component.setCustomOptions();
+            fixture.detectChanges();
+
+            dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
+            fixture.detectChanges();
+            const els = debugElement.queryAll(By.css(`.thy-cascader-menu-item`));
+            expect(els[0].nativeElement.innerText).toEqual(customOpts[0].label);
+            expect(els[1].nativeElement.innerText).toEqual(customOpts[1].label);
+
+            const dividerEl = debugElement.query(By.css(`.thy-divider-horizontal`));
+            expect(dividerEl).toBeTruthy();
+
+            component.changeValue$.pipe(take(1)).subscribe(value => {
+                expect(value.length).toBe(1);
+                expect(value[0]).toEqual(customOpts[0].value);
+                done();
+            });
+            debugElement.query(By.css('label')).nativeElement.click();
+            fixture.detectChanges();
+        });
+
+        it('should update selected after click custom option', done => {
+            const clickIdx = 1;
+            component.thyChangeOnSelect = true;
+            const customOpts = component.setCustomOptions();
+            fixture.detectChanges();
+
+            dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
+            fixture.detectChanges();
+            const els = debugElement.queryAll(By.css(`.thy-cascader-menu-item`));
+            expect(els[0].nativeElement.innerText).toEqual(customOpts[0].label);
+            expect(els[1].nativeElement.innerText).toEqual(customOpts[1].label);
+            const dividerEl = debugElement.query(By.css(`.thy-divider-horizontal`));
+            expect(dividerEl).toBeTruthy();
+
+            component.changeValue$.pipe(take(1)).subscribe(value => {
+                expect(value.length).toBe(1);
+                expect(value[0]).toEqual(customOpts[clickIdx].value);
+                done();
+            });
+            debugElement.queryAll(By.css('.thy-cascader-menu-item'))[clickIdx].nativeElement.click();
+            fixture.detectChanges();
+        });
     });
 
     describe('loadData', () => {
@@ -1354,6 +1427,99 @@ describe('thy-cascader', () => {
             fixture.detectChanges();
             expect(searchOptionCheckbox.classList).toContain('form-check-checked');
         }));
+
+        it('should show custom options in multi mode', async () => {
+            const clickIdx = 0;
+            component.isOnlySelectLeaf = false;
+            const customOpts = component.setCustomOptions();
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            dispatchFakeEvent(debugElement.query(By.css('.form-control')).nativeElement, 'click', true);
+            fixture.detectChanges();
+            const firstLevelItem = getOptionByLevel();
+            for (let i = 0; i < customOpts.length; i++) {
+                expect(firstLevelItem[i].nativeElement.innerText).toEqual(customOpts[i].label);
+            }
+            const dividerEl = debugElement.query(By.css(`.thy-divider-horizontal`));
+            expect(dividerEl).toBeTruthy();
+
+            firstLevelItem[clickIdx].query(By.css('label')).nativeElement.click();
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            expect(component.selectSpy).toHaveBeenCalled();
+            expect(component.multipleVal.length).toBe(1);
+            const labels = debugElement.queryAll(By.css('.choice-item'));
+            expect(labels.length).toBe(component.multipleVal.length);
+            expect(labels[0].nativeElement.innerText).toEqual(customOpts[clickIdx].label);
+
+            firstLevelItem[customOpts.length].query(By.css('label')).nativeElement.click();
+            fixture.detectChanges();
+            await fixture.whenStable();
+            console.log('=======', component.multipleVal);
+            expect(component.multipleVal.length).toBe(1);
+            const updateLabels = debugElement.queryAll(By.css('.choice-item'));
+            expect(updateLabels.length).toBe(component.multipleVal.length);
+            expect(updateLabels[0].nativeElement.innerText).not.toEqual(customOpts[clickIdx].label);
+            expect(updateLabels[0].nativeElement.innerText).toEqual(multipleOptions[0].label);
+        });
+
+        it('should show custom selected when init value is custom option', async () => {
+            const originSelected = 'all';
+            component.isOnlySelectLeaf = true;
+            const customOpts = component.setCustomOptions();
+            component.multipleVal = [[originSelected]];
+            fixture.detectChanges();
+            await fixture.whenStable();
+            const showLabels = debugElement.queryAll(By.css('.choice-item'));
+            expect(showLabels.length).toBe(component.multipleVal.length);
+            expect(showLabels[0].nativeElement.innerText).toEqual(customOpts.find(item => item.value === originSelected).label);
+        });
+
+        it('should clear other selected after click custom option', async () => {
+            const clickIdx = 1;
+            component.isOnlySelectLeaf = true;
+            const customOpts = component.setCustomOptions();
+            fixture.detectChanges();
+            await fixture.whenStable();
+            const showLabels = debugElement.queryAll(By.css('.choice-item'));
+            expect(showLabels.length).toBe(component.multipleVal.length);
+            expect(showLabels[0].nativeElement.innerText).toContain(multipleOptions[0].label);
+
+            fixture.detectChanges();
+            await fixture.whenStable();
+            dispatchFakeEvent(debugElement.query(By.css('.form-control')).nativeElement, 'click', true);
+            fixture.detectChanges();
+
+            const firstLevelItem = getOptionByLevel();
+            firstLevelItem[clickIdx].query(By.css('label')).nativeElement.click();
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            expect(component.selectSpy).toHaveBeenCalled();
+            expect(component.multipleVal.length).toBe(1);
+            const labels = debugElement.queryAll(By.css('.choice-item'));
+            expect(labels.length).toBe(component.multipleVal.length);
+            expect(labels[0].nativeElement.innerText).toEqual(customOpts[clickIdx].label);
+
+            dispatchFakeEvent(firstLevelItem[customOpts.length].nativeElement, 'click');
+            fixture.detectChanges();
+            const sectionLevelItem = getOptionByLevel(1)[0];
+            dispatchFakeEvent(sectionLevelItem.nativeElement, 'click');
+            fixture.detectChanges();
+            const thirdLevelItem = getOptionByLevel(2)[0];
+            thirdLevelItem.query(By.css('label')).nativeElement.click();
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            expect(component.selectSpy).toHaveBeenCalled();
+            expect(component.multipleVal.length).toBe(1);
+            const updatedLabels = debugElement.queryAll(By.css('.choice-item'));
+            expect(updatedLabels.length).toBe(component.multipleVal.length);
+            const expectText = `${multipleOptions[0].label} / ${multipleOptions[0].children[0].label} / ${multipleOptions[0].children[0].children[0].label}`;
+            expect(showLabels[0].nativeElement.innerText).toEqual(expectText);
+        });
 
         function getOptionByLevel(level: number = 0) {
             const levelUlList = debugElement.queryAll(By.css('.thy-cascader-menu'))[level];

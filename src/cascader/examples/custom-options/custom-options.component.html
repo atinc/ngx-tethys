@@ -1,0 +1,61 @@
+<form thyForm thyLayout="vertical">
+  <thy-form-group thyLabelText="级联单选 & 只能选择叶节点">
+    <thy-cascader
+      class="w-50"
+      name="singleModeLeafLevel"
+      [thyOptions]="areaCode"
+      [thyHasBackdrop]="false"
+      [thyCustomOptions]="customOptions0"
+      [(ngModel)]="values"
+      (ngModelChange)="selectChanges($event)">
+    </thy-cascader>
+  </thy-form-group>
+
+  <thy-form-group thyLabelText="级联单选 & 可选择任何节点">
+    <thy-cascader
+      class="w-50"
+      name="singleModeAnyLevel"
+      [thyOptions]="areaCode"
+      [thyCustomOptions]="customOptions1"
+      [(ngModel)]="singleValues"
+      (ngModelChange)="selectChanges($event)"
+      [thyShowSearch]="true"
+      [thyIsOnlySelectLeaf]="false">
+    </thy-cascader>
+  </thy-form-group>
+
+  <thy-form-group thyLabelText="级联多选 & 只能选择叶节点">
+    <thy-cascader
+      class="d-block w-50"
+      name="multiModeLeafLevel"
+      [thyOptions]="areaCode"
+      [(ngModel)]="multipleValues"
+      [thyCustomOptions]="customOptions2"
+      [thyMultiple]="true"
+      (ngModelChange)="selectChanges($event)"
+      [thyLabelRender]="renderTpl"
+      [thyShowSearch]="true">
+    </thy-cascader>
+  </thy-form-group>
+
+  <thy-form-group thyLabelText="级联多选 & 可选择任何节点">
+    <thy-cascader
+      class="d-block w-50"
+      name="multiModeAnyLevel"
+      [thyOptions]="areaCode"
+      [(ngModel)]="multipleValues2"
+      [thyCustomOptions]="customOptions3"
+      [thyMultiple]="true"
+      (ngModelChange)="selectChanges($event)"
+      [thyLabelRender]="renderTpl"
+      [thyIsOnlySelectLeaf]="false"
+      [thyShowSearch]="true">
+    </thy-cascader>
+  </thy-form-group>
+</form>
+
+<ng-template #renderTpl let-labels="labels" let-selectedOptions="selectedOptions">
+  <ng-container *ngFor="let label of labels; let i = index; let isLast = last">
+    <span *ngIf="isLast && label"> {{ label }}</span>
+  </ng-container>
+</ng-template>
