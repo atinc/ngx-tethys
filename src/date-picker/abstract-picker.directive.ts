@@ -1,10 +1,10 @@
 import { ThyPlacement } from 'ngx-tethys/core';
 import { ThyPopover, ThyPopoverConfig } from 'ngx-tethys/popover';
-import { coerceBooleanProperty, FunctionProp, warnDeprecation } from 'ngx-tethys/util';
+import { FunctionProp, warnDeprecation } from 'ngx-tethys/util';
 import { fromEvent, Observable, Subject } from 'rxjs';
 import { debounceTime, mapTo, takeUntil, tap } from 'rxjs/operators';
 
-import { coerceArray } from '@angular/cdk/coercion';
+import { coerceArray, coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
     AfterViewInit,
     ChangeDetectorRef,

@@ -1,7 +1,7 @@
 import { Component, OnInit, HostBinding, HostListener, Input, Optional, ChangeDetectorRef } from '@angular/core';
 import { ThyTranslate } from 'ngx-tethys/core';
 import { ThyRadioGroup } from './../group/radio-group.component';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ThyRadio } from '../radio.component';
 
 /**

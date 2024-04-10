@@ -226,6 +226,9 @@ export function isElementRef(value: any): value is ElementRef {
     return value instanceof ElementRef;
 }
 
+/**
+ * @deprecated Please use Angular cdk's coerceBooleanProperty instead
+ */
 export function coerceBooleanProperty(value: boolean | string | number): boolean {
     if (value === '' || (value && value !== 'false')) {
         return true;
@@ -236,12 +239,24 @@ export function coerceBooleanProperty(value: boolean | string | number): boolean
 
 export type FunctionProp<T> = (...args: any[]) => T;
 
+/**
+ * @deprecated Please use Angular cdk's coerceNumberProperty instead
+ */
 export function coerceNumberValue(value: number | string): number;
+/**
+ * @deprecated Please use Angular cdk's coerceNumberProperty instead
+ */
 export function coerceNumberValue<D>(value: number | string, fallback: D): number | D;
+/**
+ * @deprecated Please use Angular cdk's coerceNumberProperty instead
+ */
 export function coerceNumberValue(value: number | string, fallbackValue: number = 0): number {
     return _isNumberValue(value) ? Number(value) : fallbackValue;
 }
 
+/**
+ * @deprecated Please use Angular cdk's coerceCssPixelValue instead
+ */
 export function coerceCssPixelValue(value: number | string): string {
     value = _isNumberValue(value) ? Number(value) : value;
     return coerceCssPixel(value);

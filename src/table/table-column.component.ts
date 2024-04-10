@@ -1,4 +1,4 @@
-import { _isNumberValue } from '@angular/cdk/coercion';
+import { _isNumberValue, coerceCssPixelValue } from '@angular/cdk/coercion';
 import {
     Component,
     ContentChild,
@@ -14,7 +14,7 @@ import {
     ViewEncapsulation,
     booleanAttribute
 } from '@angular/core';
-import { coerceCssPixelValue, isArray, isObject } from 'ngx-tethys/util';
+import { isArray, isObject } from 'ngx-tethys/util';
 import { ThyTableSortDirection, ThyTableSortEvent } from './table.interface';
 
 export interface IThyTableColumnParentComponent {

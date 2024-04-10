@@ -3,7 +3,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyTranslate } from 'ngx-tethys/core';
 import { ThyFormCheckBaseComponent } from 'ngx-tethys/shared';
 import { ThyRadioGroup } from './group/radio-group.component';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { NgClass, NgIf } from '@angular/common';
 
 /**
