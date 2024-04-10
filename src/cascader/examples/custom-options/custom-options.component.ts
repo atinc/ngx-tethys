@@ -30,10 +30,7 @@ export class ThyCascaderCustomOptionsExampleComponent implements OnInit {
 
     public multipleValues2: any[] = [['11'], ['12', '1201', '120102'], ['12', '1201', '120103'], ['14', '1404', '140406']];
 
-    public customOptions0: SafeAny[] = clone(CustomOptions);
-    public customOptions1: SafeAny[] = clone(CustomOptions);
-    public customOptions2: SafeAny[] = clone(CustomOptions);
-    public customOptions3: SafeAny[] = clone(CustomOptions);
+    public customOptions: SafeAny[] = CustomOptions;
 
     constructor(private notifyService: ThyNotifyService) {}
 

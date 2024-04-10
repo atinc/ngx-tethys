@@ -130,7 +130,7 @@ export class ThyCascader
      * @default []
      */
     @Input() set thyCustomOptions(options: ThyCascaderOption[] | null) {
-        this.thyCascaderService.customOptions = options || [];
+        this.thyCascaderService.customOptions = (options || []).map(item => ({ ...item }));
     }
 
     get thyCustomOptions() {
