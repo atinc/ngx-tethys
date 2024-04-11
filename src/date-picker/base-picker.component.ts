@@ -1,5 +1,5 @@
 import { ThyClickDispatcher, ThyPlacement } from 'ngx-tethys/core';
-import { coerceBooleanProperty, elementMatchClosest, FunctionProp, TinyDate } from 'ngx-tethys/util';
+import { elementMatchClosest, FunctionProp, TinyDate } from 'ngx-tethys/util';
 
 import {
     ChangeDetectorRef,
@@ -25,6 +25,7 @@ import { ThyPicker } from './picker.component';
 import { hasTimeInStringDate, isValidStringDate, parseStringDate, transformDateValue } from './picker.util';
 import { isPlatformBrowser } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 /**
  * @private

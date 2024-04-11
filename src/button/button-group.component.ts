@@ -1,4 +1,4 @@
-import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { Component, HostBinding, Input, OnInit, ViewEncapsulation } from '@angular/core';
 

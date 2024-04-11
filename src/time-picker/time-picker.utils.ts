@@ -1,5 +1,5 @@
 import { Time, TimePickerComponentState } from './inner/inner-time-picker.class';
-import { coerceNumberValue } from 'ngx-tethys/util';
+import { coerceNumberProperty } from '@angular/cdk/coercion';
 
 const hoursPerDay = 24;
 const hoursPerDayHalf = 12;
@@ -35,7 +35,7 @@ export function isValidLimit(controls: TimePickerComponentState, newDate: Date):
 }
 
 export function parseHours(value: string | number, isPM = false): number {
-    const hour = coerceNumberValue(value);
+    const hour = coerceNumberProperty(value);
     if (isNaN(hour) || hour < 0 || hour > (isPM ? hoursPerDayHalf : hoursPerDay)) {
         return NaN;
     }
@@ -44,7 +44,7 @@ export function parseHours(value: string | number, isPM = false): number {
 }
 
 export function parseMinutes(value: string | number): number {
-    const minute = coerceNumberValue(value);
+    const minute = coerceNumberProperty(value);
     if (isNaN(minute) || minute < 0 || minute > minutesPerHour) {
         return NaN;
     }
@@ -53,7 +53,7 @@ export function parseMinutes(value: string | number): number {
 }
 
 export function parseSeconds(value: string | number): number {
-    const seconds = coerceNumberValue(value);
+    const seconds = coerceNumberProperty(value);
     if (isNaN(seconds) || seconds < 0 || seconds > secondsPerMinute) {
         return NaN;
     }
@@ -79,18 +79,18 @@ export function changeTime(value: Date, diff: Time): Date {
     let seconds = value.getSeconds();
 
     if (diff.hour) {
-        hour = (hour + coerceNumberValue(diff.hour)) % hoursPerDay;
+        hour = (hour + coerceNumberProperty(diff.hour)) % hoursPerDay;
         if (hour < 0) {
             hour += hoursPerDay;
         }
     }
 
     if (diff.minute) {
-        minutes = minutes + coerceNumberValue(diff.minute);
+        minutes = minutes + coerceNumberProperty(diff.minute);
     }
 
     if (diff.seconds) {
-        seconds = seconds + coerceNumberValue(diff.seconds);
+        seconds = seconds + coerceNumberProperty(diff.seconds);
     }
 
     return createDate(value, hour, minutes, seconds);
