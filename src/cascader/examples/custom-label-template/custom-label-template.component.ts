@@ -64,10 +64,10 @@ const customerOptions = [
 ];
 
 @Component({
-    selector: 'thy-cascader-custom-template-example',
-    templateUrl: './custom-template.component.html'
+    selector: 'thy-cascader-custom-label-template-example',
+    templateUrl: './custom-label-template.component.html'
 })
-export class ThyCascaderCustomTemplateExampleComponent implements OnInit {
+export class ThyCascaderCustomLabelTemplateExampleComponent implements OnInit {
     public values: any[] = [];
 
     public curVal: any = [['zhejiang', 'hangzhou', 'xihu']];

@@ -51,7 +51,25 @@
     [@scaleYMotion]="'enter'">
     <ng-container *ngIf="!isShowSearchPanel">
       <ng-container *ngIf="columns.length > 0; else emptyPlaceholder">
-        <ul #cascaderOptionContainers *ngFor="let options of columns; let i = index" [ngClass]="menuColumnCls">
+        <ul #cascaderOptionContainers *ngFor="let options of columns; let i = index; let isFirst = first" [ngClass]="menuColumnCls">
+          <ng-container *ngIf="thyCustomOptions && isFirst">
+            <li
+              #cascaderOptions
+              thy-cascader-option
+              *ngFor="let customOpt of thyCustomOptions; trackBy: trackByFn"
+              [option]="customOpt"
+              [multiple]="thyMultiple"
+              [isOnlySelectLeaf]="thyIsOnlySelectLeaf"
+              [labelProperty]="thyLabelProperty"
+              [active]="isActivatedOption(customOpt, 0)"
+              [halfSelected]="isHalfSelectedOption(customOpt, 0)"
+              [selected]="isSelectedOption(customOpt, 0)"
+              (toggleSelectChange)="clickCustomOption(customOpt, 0, $event)"
+              (click)="clickCustomOption(customOpt, 0, $event)"
+              (mouseover)="mouseoverOption(customOpt, 0, $event)"></li>
+            <thy-divider class="my-1 mx-4"></thy-divider>
+          </ng-container>
+
           <li
             #cascaderOptions
             thy-cascader-option

@@ -2,7 +2,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Injectable } from '@angular/core';
 import { Id } from '@tethys/cdk/immutable';
 import { SelectOptionBase } from 'ngx-tethys/shared';
-import { helpers, isArray, isEmpty, set } from 'ngx-tethys/util';
+import { helpers, isArray, isEmpty, isUndefinedOrNull, set } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
 import { ThyCascaderOption, ThyCascaderSearchOption } from './types';
@@ -16,6 +16,8 @@ export class ThyCascaderService {
     public selectionModel: SelectionModel<SelectOptionBase>;
 
     public columns: ThyCascaderOption[][] = [];
+
+    public customOptions: ThyCascaderOption[];
 
     public cascaderOptions: {
         labelProperty?: string;
@@ -213,7 +215,13 @@ export class ThyCascaderService {
     }
 
     private activateOnInit(index: number, value: any): void {
-        let option = this.findOption(value, index);
+        let option: ThyCascaderOption;
+        if (isArray(this.customOptions) && this.customOptions.length > 0) {
+            option = this.customOptions.find(item => item.value === value);
+        }
+        if (isUndefinedOrNull(option)) {
+            option = this.findOption(value, index);
+        }
         if (!option) {
             option =
                 typeof value === 'object'
@@ -611,6 +619,9 @@ export class ThyCascaderService {
     }
 
     private handleActivateInit(option: ThyCascaderOption): void {
+        if (isArray(this.customOptions) && this.customOptions.length > 0) {
+            this.customOptions.some(item => item.value == option.value) && set(option, 'selected', true);
+        }
         if (this.cascaderOptions.isOnlySelectLeaf && option.isLeaf) {
             set(option, 'selected', true);
         }
@@ -636,6 +647,29 @@ export class ThyCascaderService {
 
     private getOptionValue(option: ThyCascaderOption): any {
         return option[this.cascaderOptions.valueProperty || 'value'];
+    }
+
+    public removeCustomOption() {
+        if (!isArray(this.customOptions) || this.customOptions.length === 0) {
+            return;
+        }
+
+        let selectedCustomOptions = this.getSelectedCustomOptions();
+        selectedCustomOptions.forEach(item => {
+            this.removeSelectedItem(item);
+        });
+    }
+
+    private getSelectedCustomOptions() {
+        const selected = this.cascaderOptions.isMultiple ? this.selectionModel.selected : this.selectionModel.selected[0];
+        if (!isArray(selected)) {
+            return [];
+        }
+
+        return selected.filter(item => {
+            const selectedId = helpers.get(item, `thyRawValue.value.0.value`);
+            return this.customOptions.some(option => option.value === selectedId);
+        });
     }
 
     toArray<T>(value: T | T[]): T[] {

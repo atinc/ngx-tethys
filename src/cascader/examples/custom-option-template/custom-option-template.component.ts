@@ -57,10 +57,10 @@ const customerOptions = [
 ];
 
 @Component({
-    selector: 'thy-cascader-custom-option-example',
-    templateUrl: './custom-option.component.html'
+    selector: 'thy-cascader-custom-option-template-example',
+    templateUrl: './custom-option-template.component.html'
 })
-export class ThyCascaderCustomOptionExampleComponent implements OnInit {
+export class ThyCascaderCustomOptionTemplateExampleComponent implements OnInit {
     public areaCode: any[] = [];
 
     public values: any[] = [['zhejiang', 'hangzhou']];
