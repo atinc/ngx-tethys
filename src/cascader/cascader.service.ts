@@ -668,7 +668,7 @@ export class ThyCascaderService {
 
         return selected.filter(item => {
             const selectedId = helpers.get(item, `thyRawValue.value.0.value`);
-            return this.customOptions.some(co => co.value === selectedId);
+            return this.customOptions.some(option => option.value === selectedId);
         });
     }
 

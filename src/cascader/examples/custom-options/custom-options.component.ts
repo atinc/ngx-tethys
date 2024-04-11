@@ -8,7 +8,7 @@ import { ThyTagModule } from 'ngx-tethys/tag';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-const CustomOptions: SafeAny[] = [
+const customOptions: SafeAny[] = [
     { label: '全部', value: 'all', children: [], isLeaf: true },
     { label: '自定义选项2', value: 'custom_option_1', children: [], isLeaf: true }
 ];
@@ -24,13 +24,13 @@ export class ThyCascaderCustomOptionsExampleComponent implements OnInit {
 
     public values: SafeAny[] = ['all'];
 
-    public singleValues: any[] = ['12', '1201', '120102'];
+    public singleValues: SafeAny[] = ['12', '1201', '120102'];
 
-    public multipleValues: any[] = [['all']];
+    public multipleValues: SafeAny[] = [['all']];
 
-    public multipleValues2: any[] = [['11'], ['12', '1201', '120102'], ['12', '1201', '120103'], ['14', '1404', '140406']];
+    public multipleValues2: SafeAny[] = [['11'], ['12', '1201', '120102'], ['12', '1201', '120103'], ['14', '1404', '140406']];
 
-    public customOptions: SafeAny[] = CustomOptions;
+    public customOptions: SafeAny[] = customOptions;
 
     constructor(private notifyService: ThyNotifyService) {}
 
@@ -38,7 +38,7 @@ export class ThyCascaderCustomOptionsExampleComponent implements OnInit {
         this.areaCode = clone(options);
     }
 
-    public selectChanges(values: any): void {
+    public selectChanges(values: SafeAny): void {
         this.notifyService.info(`selected data is ${values}`);
     }
 }

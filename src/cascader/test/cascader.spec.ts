@@ -1045,9 +1045,9 @@ describe('thy-cascader', () => {
 
             dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
             fixture.detectChanges();
-            const els = debugElement.queryAll(By.css(`.thy-cascader-menu-item`));
-            expect(els[0].nativeElement.innerText).toEqual(customOpts[0].label);
-            expect(els[1].nativeElement.innerText).toEqual(customOpts[1].label);
+            const elements = debugElement.queryAll(By.css(`.thy-cascader-menu-item`));
+            expect(elements[0].nativeElement.innerText).toEqual(customOpts[0].label);
+            expect(elements[1].nativeElement.innerText).toEqual(customOpts[1].label);
 
             const dividerEl = debugElement.query(By.css(`.thy-divider-horizontal`));
             expect(dividerEl).toBeTruthy();
@@ -1069,9 +1069,9 @@ describe('thy-cascader', () => {
 
             dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
             fixture.detectChanges();
-            const els = debugElement.queryAll(By.css(`.thy-cascader-menu-item`));
-            expect(els[0].nativeElement.innerText).toEqual(customOpts[0].label);
-            expect(els[1].nativeElement.innerText).toEqual(customOpts[1].label);
+            const elements = debugElement.queryAll(By.css(`.thy-cascader-menu-item`));
+            expect(elements[0].nativeElement.innerText).toEqual(customOpts[0].label);
+            expect(elements[1].nativeElement.innerText).toEqual(customOpts[1].label);
             const dividerEl = debugElement.query(By.css(`.thy-divider-horizontal`));
             expect(dividerEl).toBeTruthy();
 
