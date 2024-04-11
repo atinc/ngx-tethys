@@ -654,13 +654,13 @@ export class ThyCascaderService {
             return;
         }
 
-        let selectedCustomOpts = this.getSelectedCustomOpts();
-        selectedCustomOpts.forEach(item => {
+        let selectedCustomOptions = this.getSelectedCustomOptions();
+        selectedCustomOptions.forEach(item => {
             this.removeSelectedItem(item);
         });
     }
 
-    private getSelectedCustomOpts() {
+    private getSelectedCustomOptions() {
         const selected = this.cascaderOptions.isMultiple ? this.selectionModel.selected : this.selectionModel.selected[0];
         if (!isArray(selected)) {
             return [];
