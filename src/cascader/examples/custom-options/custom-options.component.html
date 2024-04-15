@@ -28,9 +28,11 @@
     <thy-cascader
       class="d-block w-50"
       name="multiModeLeafLevel"
-      [thyOptions]="areaCode"
+      thyValueProperty="_id"
+      thyLabelProperty="text"
+      [thyOptions]="options"
       [(ngModel)]="multipleValues"
-      [thyCustomOptions]="customOptions"
+      [thyCustomOptions]="customOptions2"
       [thyMultiple]="true"
       (ngModelChange)="selectChanges($event)"
       [thyLabelRender]="renderTpl"
