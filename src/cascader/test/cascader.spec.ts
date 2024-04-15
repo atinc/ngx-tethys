@@ -250,6 +250,63 @@ const loadDataOption: { [key: string]: { children?: any[]; [key: string]: any }[
     ]
 };
 
+const customLabelPropertyOptions = [
+    {
+        _id: '65518b58c012b3be15145d4d',
+        text: '丁',
+        children: [],
+        isLeaf: true
+    },
+    {
+        _id: '65518b58c012b3be15145d4a',
+        text: '甲',
+        children: [
+            {
+                _id: '65518b58c012b3be15145d51',
+                text: '子',
+                children: [
+                    {
+                        _id: '6555d557dae9459d8466421a',
+                        text: '十一点',
+                        isLeaf: true
+                    }
+                ],
+                isLeaf: false
+            },
+            {
+                _id: '65518b58c012b3be15145d50',
+                text: '丑',
+                children: [
+                    {
+                        _id: '6555d557dae9459d8466421b',
+                        text: '一点',
+                        isLeaf: true
+                    }
+                ],
+                isLeaf: false
+            },
+            {
+                _id: '65518b58c012b3be15145d4f',
+                text: '寅',
+                children: [
+                    {
+                        _id: '6555d557dae9459d8466421c',
+                        text: '三点',
+                        isLeaf: true
+                    }
+                ],
+                isLeaf: false
+            },
+            {
+                _id: '65518b58c012b3be15145d4e',
+                text: '卯',
+                isLeaf: true
+            }
+        ],
+        isLeaf: false
+    }
+];
+
 @Component({
     selector: 'thy-cascader-basic',
     template: `
@@ -446,11 +503,55 @@ class CascaderMultipleComponent {
     }
 }
 
+@Component({
+    selector: 'thy-test-cascader-custom-label-property',
+    template: `
+        <thy-cascader
+            [thyMultiple]="true"
+            [thyOptions]="multipleOptions"
+            [thyCustomOptions]="customOptions"
+            [thyLabelProperty]="'text'"
+            [thyValueProperty]="'_id'"
+            [thyIsOnlySelectLeaf]="isOnlySelectLeaf"
+            [(ngModel)]="multipleVal"
+            (ngModelChange)="selectChange($event)"
+            [thyDisabled]="disabled"
+            style="width:400px;">
+        </thy-cascader>
+    `
+})
+class CascaderCustomLabelPropertyComponent {
+    public multipleOptions: any[] = customLabelPropertyOptions;
+
+    public multipleVal: string[][] = [['65518b58c012b3be15145d4d']];
+
+    public selectSpy = jasmine.createSpy('multiple select option');
+
+    public customOptions: SafeAny[] = [
+        { text: '白天', _id: 'day', children: [], isLeaf: true },
+        { text: '夜晚', _id: 'night', children: [], isLeaf: true }
+    ];
+
+    public isOnlySelectLeaf = true;
+
+    constructor() {}
+
+    selectChange(e: string[]) {
+        this.selectSpy(e);
+    }
+}
+
 describe('thy-cascader', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [FormsModule, CommonModule, OverlayModule, ThyCascaderModule, NoopAnimationsModule],
-            declarations: [CascaderTemplateComponent, CascaderBasicComponent, CascaderLoadComponent, CascaderMultipleComponent],
+            declarations: [
+                CascaderTemplateComponent,
+                CascaderBasicComponent,
+                CascaderLoadComponent,
+                CascaderMultipleComponent,
+                CascaderCustomLabelPropertyComponent
+            ],
             providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }]
         });
         TestBed.compileComponents();
@@ -1563,6 +1664,68 @@ describe('thy-cascader', () => {
                 }
                 return copyArea;
             });
+        }
+    });
+
+    describe('custom label property and custom value property', () => {
+        let fixture: ComponentFixture<CascaderCustomLabelPropertyComponent>;
+        let component: CascaderCustomLabelPropertyComponent;
+        let debugElement: DebugElement;
+        let overlayContainer: OverlayContainer;
+        let overlayContainerElement: HTMLElement;
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(CascaderCustomLabelPropertyComponent);
+            component = fixture.componentRef.instance;
+            debugElement = fixture.debugElement;
+        });
+
+        beforeEach(inject([OverlayContainer], (oc: OverlayContainer) => {
+            overlayContainer = oc;
+            overlayContainerElement = oc.getContainerElement();
+        }));
+
+        afterEach(() => {
+            overlayContainer.ngOnDestroy();
+        });
+
+        it('should show multiple selected label', async () => {
+            await fixture.whenStable();
+            const labels = debugElement.queryAll(By.css('.choice-item'));
+            const selectedValue = component.multipleVal;
+            expect(labels.length).toBe(selectedValue.length);
+        });
+
+        it('should show right text when set custom label property and value property', async () => {
+            const clickIdx = 0;
+            const labelProperty = 'text';
+            fixture.detectChanges();
+            await fixture.whenStable();
+            const showLabels = debugElement.queryAll(By.css('.choice-item'));
+            expect(showLabels.length).toBe(component.multipleVal.length);
+            expect(showLabels[0].nativeElement.innerText).toContain(customLabelPropertyOptions[0][labelProperty]);
+
+            fixture.detectChanges();
+            await fixture.whenStable();
+            dispatchFakeEvent(debugElement.query(By.css('.form-control')).nativeElement, 'click', true);
+            fixture.detectChanges();
+
+            const firstLevelItem = getOptionByLevel();
+            firstLevelItem[clickIdx].query(By.css('label')).nativeElement.click();
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            expect(component.selectSpy).toHaveBeenCalled();
+            expect(component.multipleVal.length).toBe(1);
+            const labels = debugElement.queryAll(By.css('.choice-item'));
+            expect(labels.length).toBe(component.multipleVal.length);
+            expect(labels[0].nativeElement.innerText).toEqual(component.customOptions[clickIdx][labelProperty]);
+        });
+
+        function getOptionByLevel(level: number = 0) {
+            const levelUlList = debugElement.queryAll(By.css('.thy-cascader-menu'))[level];
+            const levelLi = levelUlList.queryAll(By.css('li'));
+            return levelLi;
         }
     });
 });

@@ -2,7 +2,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Injectable } from '@angular/core';
 import { Id } from '@tethys/cdk/immutable';
 import { SelectOptionBase } from 'ngx-tethys/shared';
-import { helpers, isArray, isEmpty, isUndefinedOrNull, set } from 'ngx-tethys/util';
+import { helpers, isArray, isEmpty, isUndefinedOrNull, set, get } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
 import { ThyCascaderOption, ThyCascaderSearchOption } from './types';
@@ -217,7 +217,7 @@ export class ThyCascaderService {
     private activateOnInit(index: number, value: any): void {
         let option: ThyCascaderOption;
         if (isArray(this.customOptions) && this.customOptions.length > 0) {
-            option = this.customOptions.find(item => item.value === value);
+            option = this.customOptions.find(item => get(item, this.cascaderOptions.valueProperty) === value);
         }
         if (isUndefinedOrNull(option)) {
             option = this.findOption(value, index);
@@ -620,7 +620,8 @@ export class ThyCascaderService {
 
     private handleActivateInit(option: ThyCascaderOption): void {
         if (isArray(this.customOptions) && this.customOptions.length > 0) {
-            this.customOptions.some(item => item.value == option.value) && set(option, 'selected', true);
+            const valueKey = this.cascaderOptions.valueProperty;
+            this.customOptions.some(item => get(item, valueKey) == get(option, valueKey)) && set(option, 'selected', true);
         }
         if (this.cascaderOptions.isOnlySelectLeaf && option.isLeaf) {
             set(option, 'selected', true);
@@ -665,10 +666,10 @@ export class ThyCascaderService {
         if (!isArray(selected)) {
             return [];
         }
-
+        const valueKey = this.cascaderOptions.valueProperty;
         return selected.filter(item => {
-            const selectedId = helpers.get(item, `thyRawValue.value.0.value`);
-            return this.customOptions.some(option => option.value === selectedId);
+            const selectedId = get(item, `thyRawValue.value.0.${valueKey}`);
+            return this.customOptions.some(option => get(option, valueKey) === selectedId);
         });
     }
 
