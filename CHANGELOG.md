@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [17.0.3](https://github.com/atinc/ngx-tethys/compare/17.0.2...17.0.3) (2024-04-15)
+
+
+### Bug Fixes
+
+* **cascader:** custom lable property adn value property can work fine #INFR-12177 ([#3074](https://github.com/atinc/ngx-tethys/issues/3074)) ([6dfae8e](https://github.com/atinc/ngx-tethys/commit/6dfae8e7ae6c610e16cff3a16d1cb6f0060f7444)), closes [#INFR-12177](https://github.com/atinc/ngx-tethys/issues/INFR-12177)
+
+
+### Features
+
+* **cascader:** support custom options #INFR-12126 ([#3071](https://github.com/atinc/ngx-tethys/issues/3071)) ([e352fb0](https://github.com/atinc/ngx-tethys/commit/e352fb035d55502da4026ef4ef8fd5ed91b263d7)), closes [#INFR-12126](https://github.com/atinc/ngx-tethys/issues/INFR-12126)
+
+
+
 ## [17.0.2](https://github.com/atinc/ngx-tethys/compare/17.0.1...17.0.2) (2024-04-09)
 
 
