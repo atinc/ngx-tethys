@@ -83,7 +83,7 @@ export class ThyRadioGroup implements ControlValueAccessor, OnInit, OnChanges, A
      * 是否禁用单选组合框
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyDisabled: boolean;
+    @Input({ transform: booleanAttribute }) thyDisabled = false;
 
     onChange: (_: string) => void = () => null;
     onTouched: () => void = () => null;
