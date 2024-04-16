@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [17.0.4](https://github.com/atinc/ngx-tethys/compare/17.0.3...17.0.4) (2024-04-16)
+
+
+### Bug Fixes
+
+* **radio:** fix ExpressionChangedAfterItHasBeenCheckedError for thyDisabled  #INFR-12186 ([#3076](https://github.com/atinc/ngx-tethys/issues/3076)) ([823fc55](https://github.com/atinc/ngx-tethys/commit/823fc552a109e5c3a063d9619c7edab85ad85aba)), closes [#INFR-12186](https://github.com/atinc/ngx-tethys/issues/INFR-12186)
+
+
+
 ## [17.0.3](https://github.com/atinc/ngx-tethys/compare/17.0.2...17.0.3) (2024-04-15)
 
 
