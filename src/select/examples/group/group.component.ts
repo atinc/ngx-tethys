@@ -110,4 +110,10 @@ export class ThySelectGroupExampleComponent {
             ]
         }
     ];
+
+    selectedValue1 = this.productGroups[0].options[0].value;
+
+    selectedValue2 = this.labelGroups[0].options[0].value;
+
+    selectedValue3 = this.userGroups[0].options[0].uid;
 }
