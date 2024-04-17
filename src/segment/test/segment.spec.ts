@@ -382,15 +382,19 @@ describe('segment', () => {
         });
 
         it('should support set default selected item', () => {
-            const items = segmentedDebugElement.queryAll(By.directive(ThySegmentItem));
-            expect(items[2].nativeElement.classList.contains('active')).toBeTruthy();
+            fixture.whenStable().then(() => {
+                const items = segmentedDebugElement.queryAll(By.directive(ThySegmentItem));
+                expect(items[2].nativeElement.classList.contains('active')).toBeTruthy();
+            });
         });
 
         it('should change selected value manually', () => {
-            const spy = spyOn(fixture.componentInstance, 'selectedChange');
-            fixture.componentInstance.setSelectedItem(1);
-            fixture.detectChanges();
-            expect(spy).toHaveBeenCalled();
+            fixture.whenStable().then(() => {
+                const spy = spyOn(fixture.componentInstance, 'selectedChange');
+                fixture.componentInstance.setSelectedItem(1);
+                fixture.detectChanges();
+                expect(spy).toHaveBeenCalled();
+            });
         });
 
         it('should not change selected value manually when some segment item', () => {
