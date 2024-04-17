@@ -4,6 +4,7 @@ import {
     ChangeDetectorRef,
     Component,
     ContentChildren,
+    DestroyRef,
     EventEmitter,
     HostBinding,
     Input,
@@ -20,6 +21,7 @@ import { IThySegmentComponent, THY_SEGMENTED_COMPONENT } from './segment.token';
 import { ThySegmentEvent } from './types';
 import { AnimationEvent } from '@angular/animations';
 import { NgIf } from '@angular/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 export type ThySegmentSize = 'xs' | 'sm' | 'md' | 'default';
 
@@ -83,16 +85,23 @@ export class ThySegment implements IThySegmentComponent, AfterContentInit {
      */
     @Input({ transform: numberAttribute })
     set thyActiveIndex(value: number) {
+        this._thyActiveIndex = value;
         if (value < 0 || value === this.activeIndex) {
             return;
         }
-        const selectedItem = this.options?.get(this.activeIndex);
-        if (selectedItem) {
-            selectedItem.unselect();
-            this.changeSelectedItem(this.options.get(value));
-        } else {
-            this.activeIndex = value;
-        }
+        setTimeout(() => {
+            const selectedItem = this.options?.get(this.activeIndex);
+            if (selectedItem) {
+                selectedItem.unselect();
+                this.changeSelectedItem(this.options.get(value));
+            } else {
+                this.activeIndex = value;
+            }
+        });
+    }
+
+    get thyActiveIndex() {
+        return this._thyActiveIndex;
     }
 
     /**
@@ -102,17 +111,28 @@ export class ThySegment implements IThySegmentComponent, AfterContentInit {
 
     public selectedItem: ThySegmentItem;
 
+    private _thyActiveIndex: number;
+
     private activeIndex = 0;
 
     public animationState: null | { value: string; params: ThumbAnimationProps } = null;
 
     public transitionedTo: any = null;
 
-    constructor(private cdr: ChangeDetectorRef) {}
+    constructor(private cdr: ChangeDetectorRef, private destroyRef: DestroyRef) {}
 
     ngAfterContentInit(): void {
         this.selectedItem = this.options.get(this.activeIndex) || this.options.get(0);
         this.selectedItem?.select();
+
+        this.options.changes.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+            this.options.forEach(item => {
+                item.unselect();
+            });
+            this.selectedItem = this.options.get(this.thyActiveIndex) || this.options.get(0);
+            this.selectedItem?.select();
+            this.cdr.detectChanges();
+        });
     }
 
     public changeSelectedItem(item: ThySegmentItem, event?: Event): void {
