@@ -68,6 +68,7 @@ export class ThySlider
     @Input({ transform: booleanAttribute })
     override set thyDisabled(value: boolean) {
         this.disabled = value;
+        this.toggleDisabled();
     }
     override get thyDisabled(): boolean {
         return this.disabled;
