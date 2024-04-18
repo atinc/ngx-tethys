@@ -118,7 +118,7 @@ export class ThySegment implements IThySegmentComponent, AfterContentInit {
     constructor(private cdr: ChangeDetectorRef, private destroyRef: DestroyRef) {}
 
     ngAfterContentInit(): void {
-        this.selectedItem = this.options.get(this.activeIndex) || this.options.get(0);
+        this.selectedItem = this.options.get(this.newActiveIndex) || this.options.get(0);
         this.selectedItem?.select();
 
         this.options.changes.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
