@@ -85,7 +85,7 @@ export class ThySegment implements IThySegmentComponent, AfterContentInit {
      */
     @Input({ transform: numberAttribute })
     set thyActiveIndex(value: number) {
-        this._thyActiveIndex = value;
+        this.newActiveIndex = value;
         if (value < 0 || value === this.activeIndex) {
             return;
         }
@@ -100,10 +100,6 @@ export class ThySegment implements IThySegmentComponent, AfterContentInit {
         });
     }
 
-    get thyActiveIndex() {
-        return this._thyActiveIndex;
-    }
-
     /**
      * 选项被选中的回调事件
      */
@@ -111,7 +107,7 @@ export class ThySegment implements IThySegmentComponent, AfterContentInit {
 
     public selectedItem: ThySegmentItem;
 
-    private _thyActiveIndex: number;
+    private newActiveIndex: number;
 
     private activeIndex = 0;
 
@@ -129,7 +125,7 @@ export class ThySegment implements IThySegmentComponent, AfterContentInit {
             this.options.forEach(item => {
                 item.unselect();
             });
-            this.selectedItem = this.options.get(this.thyActiveIndex) || this.options.get(0);
+            this.selectedItem = this.options.get(this.newActiveIndex) || this.options.get(0);
             this.selectedItem?.select();
             this.cdr.detectChanges();
         });

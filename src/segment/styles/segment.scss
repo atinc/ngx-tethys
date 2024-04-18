@@ -33,7 +33,7 @@
         transition: color 0.3s ease-in-out;
 
         &-icon {
-            color: variables.$segment-icon-with-text-default-color;
+            color: variables.$segment-item-only-icon-default-color;
         }
 
         .icon-with-text {
@@ -54,7 +54,7 @@
                 @include segment-mixin.segment-item-active();
                 color: variables.$segment-active-color;
                 .#{variables.$thy-prefix}-segment-item-icon {
-                    color: variables.$segment-icon-with-text-active-color;
+                    color: variables.$segment-item-only-icon-active-color;
                 }
                 .icon-with-text {
                     color: variables.$segment-icon-with-text-active-color;
