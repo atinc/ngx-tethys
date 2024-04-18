@@ -410,6 +410,20 @@ describe('segment', () => {
             fixture.detectChanges();
             expect(spy).not.toHaveBeenCalled();
         });
+
+        it('should change active index when options is changed', fakeAsync(() => {
+            segmentedDebugElement.componentInstance.selectedIndex = 0;
+
+            const options = segmentedDebugElement.componentInstance.options;
+
+            options.reset(options.toArray().slice(1));
+            options.changes.next();
+
+            fixture.detectChanges();
+
+            const items = segmentedDebugElement.queryAll(By.directive(ThySegmentItem));
+            expect(items[0].nativeElement.classList.contains('active')).toBeTruthy();
+        }));
     });
 
     describe('custom template', () => {
