@@ -412,6 +412,11 @@ describe('segment', () => {
         });
 
         it('should change active index when options is changed', fakeAsync(() => {
+            const spy = spyOn(fixture.componentInstance, 'selectedChange');
+            segmentedDebugElement.componentInstance.activeIndex = 3;
+            fixture.detectChanges();
+            expect(spy).not.toHaveBeenCalled();
+
             segmentedDebugElement.componentInstance.selectedIndex = 0;
 
             const options = segmentedDebugElement.componentInstance.options;
