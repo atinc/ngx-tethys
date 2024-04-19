@@ -388,14 +388,15 @@ describe('segment', () => {
             });
         });
 
-        it('should change selected value manually', () => {
+        it('should change selected value manually', fakeAsync(() => {
+            const spy = spyOn(fixture.componentInstance, 'selectedChange');
+            fixture.componentInstance.setSelectedItem(1);
+            fixture.detectChanges();
+            tick(100);
             fixture.whenStable().then(() => {
-                const spy = spyOn(fixture.componentInstance, 'selectedChange');
-                fixture.componentInstance.setSelectedItem(1);
-                fixture.detectChanges();
                 expect(spy).toHaveBeenCalled();
             });
-        });
+        }));
 
         it('should not change selected value manually when some segment item', () => {
             const spy = spyOn(fixture.componentInstance, 'selectedChange');
