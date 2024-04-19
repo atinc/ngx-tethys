@@ -420,13 +420,9 @@ describe('segment', () => {
 
             segmentedDebugElement.componentInstance.newActiveIndex = 1;
             fixture.detectChanges();
-
             const options = segmentedDebugElement.componentInstance.options;
-
             options.changes.next();
-
             fixture.detectChanges();
-
             const items = segmentedDebugElement.queryAll(By.directive(ThySegmentItem));
             expect(items[1].nativeElement.classList.contains('active')).toBeTruthy();
         }));
