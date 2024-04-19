@@ -109,7 +109,7 @@ export class ThySegment implements IThySegmentComponent, AfterContentInit {
 
     private newActiveIndex: number;
 
-    private activeIndex = 0;
+    private activeIndex: number;
 
     public animationState: null | { value: string; params: ThumbAnimationProps } = null;
 
@@ -134,7 +134,7 @@ export class ThySegment implements IThySegmentComponent, AfterContentInit {
     public changeSelectedItem(item: ThySegmentItem, event?: Event): void {
         this.animationState = {
             value: 'from',
-            params: getThumbAnimationProps(this.options?.get(this.activeIndex)?.elementRef.nativeElement!)
+            params: getThumbAnimationProps(this.options?.get(this.activeIndex || 0)?.elementRef.nativeElement!)
         };
         this.selectedItem = null;
         this.cdr.detectChanges();
