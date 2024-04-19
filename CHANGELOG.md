@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [17.0.5](https://github.com/atinc/ngx-tethys/compare/17.0.4...17.0.5) (2024-04-19)
+
+
+### Bug Fixes
+
+* **slider:** 修复disabled切换后，只有样式改变了，功能没禁用 #INFR-12203 ([#3080](https://github.com/atinc/ngx-tethys/issues/3080)) ([d85d801](https://github.com/atinc/ngx-tethys/commit/d85d8014a63465ad8e1412ec99d043d63d457767)), closes [#INFR-12203](https://github.com/atinc/ngx-tethys/issues/INFR-12203)
+
+
+
 ## [17.0.4](https://github.com/atinc/ngx-tethys/compare/17.0.3...17.0.4) (2024-04-16)
 
 
