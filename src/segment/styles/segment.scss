@@ -32,6 +32,10 @@
         cursor: variables.$hand-cursor;
         transition: color 0.3s ease-in-out;
 
+        &-icon {
+            color: variables.$segment-item-only-icon-default-color;
+        }
+
         .icon-with-text {
             color: variables.$segment-icon-with-text-default-color;
             transition: color 0.3s ease-in-out;
@@ -40,6 +44,9 @@
         &:not(.disabled) {
             &:hover,
             &:focus {
+                .#{variables.$thy-prefix}-segment-item-icon {
+                    color: variables.$segment-item-only-icon-hover-color;
+                }
                 color: variables.$segment-hover-color;
                 .icon-with-text {
                     color: variables.$segment-icon-with-text-hover-color;
@@ -49,6 +56,9 @@
             &.active {
                 @include segment-mixin.segment-item-active();
                 color: variables.$segment-active-color;
+                .#{variables.$thy-prefix}-segment-item-icon {
+                    color: variables.$segment-item-only-icon-active-color;
+                }
                 .icon-with-text {
                     color: variables.$segment-icon-with-text-active-color;
                 }

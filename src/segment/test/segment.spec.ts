@@ -1,4 +1,4 @@
-import { Component, DebugElement, ViewChild } from '@angular/core';
+import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -382,16 +382,21 @@ describe('segment', () => {
         });
 
         it('should support set default selected item', () => {
-            const items = segmentedDebugElement.queryAll(By.directive(ThySegmentItem));
-            expect(items[2].nativeElement.classList.contains('active')).toBeTruthy();
+            fixture.whenStable().then(() => {
+                const items = segmentedDebugElement.queryAll(By.directive(ThySegmentItem));
+                expect(items[2].nativeElement.classList.contains('active')).toBeTruthy();
+            });
         });
 
-        it('should change selected value manually', () => {
+        it('should change selected value manually', fakeAsync(() => {
             const spy = spyOn(fixture.componentInstance, 'selectedChange');
             fixture.componentInstance.setSelectedItem(1);
             fixture.detectChanges();
-            expect(spy).toHaveBeenCalled();
-        });
+            tick(100);
+            fixture.whenStable().then(() => {
+                expect(spy).toHaveBeenCalled();
+            });
+        }));
 
         it('should not change selected value manually when some segment item', () => {
             const spy = spyOn(fixture.componentInstance, 'selectedChange');
@@ -406,6 +411,21 @@ describe('segment', () => {
             fixture.detectChanges();
             expect(spy).not.toHaveBeenCalled();
         });
+
+        it('should change active index when options is changed', fakeAsync(() => {
+            const spy = spyOn(fixture.componentInstance, 'selectedChange');
+            segmentedDebugElement.componentInstance.newActiveIndex = 3;
+            fixture.detectChanges();
+            expect(spy).not.toHaveBeenCalled();
+
+            segmentedDebugElement.componentInstance.newActiveIndex = 1;
+            fixture.detectChanges();
+            const options = segmentedDebugElement.componentInstance.options;
+            options.changes.next();
+            fixture.detectChanges();
+            const items = segmentedDebugElement.queryAll(By.directive(ThySegmentItem));
+            expect(items[1].nativeElement.classList.contains('active')).toBeTruthy();
+        }));
     });
 
     describe('custom template', () => {
