@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [17.0.6](https://github.com/atinc/ngx-tethys/compare/17.0.5...17.0.6) (2024-04-22)
+
+
+### Bug Fixes
+
+* **segment:** fix options bug and style #INFR-12166 ([#3079](https://github.com/atinc/ngx-tethys/issues/3079)) ([b7321ac](https://github.com/atinc/ngx-tethys/commit/b7321acd88807d169a11daa9131677a0f5d09d01)), closes [#INFR-12166](https://github.com/atinc/ngx-tethys/issues/INFR-12166)
+
+
+
 ## [17.0.5](https://github.com/atinc/ngx-tethys/compare/17.0.4...17.0.5) (2024-04-19)
 
 
