@@ -52,7 +52,7 @@
     <ng-container *ngIf="!isShowSearchPanel">
       <ng-container *ngIf="columns.length > 0; else emptyPlaceholder">
         <ul #cascaderOptionContainers *ngFor="let options of columns; let i = index; let isFirst = first" [ngClass]="menuColumnCls">
-          <ng-container *ngIf="thyCustomOptions && isFirst">
+          <ng-container *ngIf="thyCustomOptions && thyCustomOptions.length > 0 && isFirst">
             <li
               #cascaderOptions
               thy-cascader-option
