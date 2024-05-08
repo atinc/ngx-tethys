@@ -1621,6 +1621,16 @@ describe('thy-cascader', () => {
             expect(showLabels[0].nativeElement.innerText).toEqual(expectText);
         });
 
+        it('should not show divider when not set thyCustomOptions property', async () => {
+            fixture.detectChanges();
+            await fixture.whenStable();
+            dispatchFakeEvent(debugElement.query(By.css('.form-control')).nativeElement, 'click', true);
+            fixture.detectChanges();
+            const levelUlList = debugElement.queryAll(By.css('.thy-cascader-menu'))[0];
+            const divider = levelUlList.query(By.css('thy-divider'));
+            expect(divider).toBe(null);
+        });
+
         function getOptionByLevel(level: number = 0) {
             const levelUlList = debugElement.queryAll(By.css('.thy-cascader-menu'))[level];
             const levelLi = levelUlList.queryAll(By.css('li'));
@@ -1710,6 +1720,10 @@ describe('thy-cascader', () => {
             dispatchFakeEvent(debugElement.query(By.css('.form-control')).nativeElement, 'click', true);
             fixture.detectChanges();
 
+            const levelUlList = debugElement.queryAll(By.css('.thy-cascader-menu'))[0];
+            const divider = levelUlList.query(By.css('thy-divider'));
+            expect(divider).not.toBe(null);
+
             const firstLevelItem = getOptionByLevel();
             firstLevelItem[clickIdx].query(By.css('label')).nativeElement.click();
             fixture.detectChanges();
@@ -1720,6 +1734,17 @@ describe('thy-cascader', () => {
             const labels = debugElement.queryAll(By.css('.choice-item'));
             expect(labels.length).toBe(component.multipleVal.length);
             expect(labels[0].nativeElement.innerText).toEqual(component.customOptions[clickIdx][labelProperty]);
+        });
+
+        it('should not show divider when set thyCustomOptions property to undefined', async () => {
+            component.customOptions = undefined;
+            fixture.detectChanges();
+            await fixture.whenStable();
+            dispatchFakeEvent(debugElement.query(By.css('.form-control')).nativeElement, 'click', true);
+            fixture.detectChanges();
+            const levelUlList = debugElement.queryAll(By.css('.thy-cascader-menu'))[0];
+            const divider = levelUlList.query(By.css('thy-divider'));
+            expect(divider).toBe(null);
         });
 
         function getOptionByLevel(level: number = 0) {
