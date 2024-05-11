@@ -26,7 +26,7 @@ ng new my-app
 $ ng add ngx-tethys
 ```
 
-<img class="mb-2" src="https://cdn.pingcode.com/open-sources/ngx-tethys/images/ng-add.png" />
+<img class="mb-2" src="https://cdn-aliyun.pingcode.com/open-sources/ngx-tethys/images/ng-add.png" />
 
 开发者可以通过增加参数来完成个性化的初始化配置，例如样式或者图标引入等，详细可以参考 [脚手架](http://lib.worktile.live/ngx-tethys/docs/schematics) 部分。
 
