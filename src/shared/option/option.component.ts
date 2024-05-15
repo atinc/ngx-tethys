@@ -79,9 +79,11 @@ export class ThyOption extends SelectOptionBase implements OnDestroy, Highlighta
         return this.hidden || this._disabled;
     }
 
+    @Input() thyHidden: boolean;
+
     @HostBinding('class.hidden')
     get hidden(): boolean {
-        return this._hidden;
+        return this.thyHidden || this._hidden;
     }
 
     @HostBinding('attr.tabindex')

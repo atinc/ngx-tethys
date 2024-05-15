@@ -78,7 +78,8 @@
       [thyDisabled]="option.disabled"
       [thyLabelText]="option.label"
       [thyValue]="option.value"
-      [thyRawValue]="option"></thy-option>
+      [thyRawValue]="option"
+      [thyHidden]="option.hidden"></thy-option>
     <ng-template #optionGroup>
       <thy-option-group [thyGroupLabel]="option.groupLabel">
         <thy-option
@@ -86,7 +87,8 @@
           [thyDisabled]="sub.disabled"
           [thyLabelText]="sub.label"
           [thyValue]="sub.value"
-          [thyRawValue]="sub"></thy-option>
+          [thyRawValue]="sub"
+          [thyHidden]="sub.hidden"></thy-option>
       </thy-option-group>
     </ng-template>
   </ng-container>
