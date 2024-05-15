@@ -227,7 +227,7 @@ export function isElementRef(value: any): value is ElementRef {
 }
 
 /**
- * @deprecated Please use Angular cdk's coerceBooleanProperty instead
+ * fix angular cdk's coerceBooleanProperty will transform 0 to true
  */
 export function coerceBooleanProperty(value: boolean | string | number): boolean {
     if (value === '' || (value && value !== 'false')) {
