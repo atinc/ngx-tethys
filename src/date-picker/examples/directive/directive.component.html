@@ -119,7 +119,9 @@
   [thyValue]="flexibleDateRange | thyDatePickerFormat"
   thyIcon="calendar-check"
   thyRangePicker
+  thyTimeTampLength="13"
   [(ngModel)]="flexibleDateRange"
+  (ngModelChange)="onChange($event)"
   thyMode="flexible"
   [thyShowShortcut]="true"></thy-property-operation>
 <br />
@@ -131,6 +133,7 @@
   thyIcon="calendar-check"
   thyRangePicker
   [(ngModel)]="weekRange"
+  (ngModelChange)="onChange($event)"
   thyMode="week"
   [thyShowShortcut]="true"
   [thyShortcutPresets]="shortcutMonthPresets"></thy-property-operation>

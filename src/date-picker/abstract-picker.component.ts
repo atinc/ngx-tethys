@@ -1,5 +1,5 @@
 import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
-import { TinyDate, warnDeprecation } from 'ngx-tethys/util';
+import { TinyDate } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 
 import {
@@ -7,7 +7,9 @@ import {
     ChangeDetectorRef,
     Directive,
     EventEmitter,
+    inject,
     Input,
+    numberAttribute,
     OnChanges,
     OnDestroy,
     OnInit,
@@ -19,7 +21,7 @@ import { ControlValueAccessor } from '@angular/forms';
 
 import { CompatibleValue, RangeAdvancedValue } from './inner-types';
 import { ThyPicker } from './picker.component';
-import { makeValue, transformDateValue } from './picker.util';
+import { makeValue, setTimeTampLength, transformDateValue } from './picker.util';
 import {
     CompatibleDate,
     DateEntry,
@@ -31,6 +33,7 @@ import {
     ThyDateGranularity,
     ThyDateChangeEvent
 } from './standard-types';
+import { ThyDatePickerConfigService } from './date-picker.service';
 
 /**
  * @private
@@ -112,6 +115,12 @@ export abstract class AbstractPickerComponent
     @Input() thySize: 'lg' | 'md' | 'sm' | 'xs' | 'default' = 'default';
 
     /**
+     * 设置时间戳返回长度
+     * @default 10
+     */
+    @Input({ transform: numberAttribute }) thyTimeTampLength: number = 10;
+
+    /**
      * 展示的日期格式
      * @default yyyy-MM-dd
      */
@@ -179,6 +188,8 @@ export abstract class AbstractPickerComponent
     get thyDisabled(): boolean {
         return this.disabled;
     }
+
+    private datePickerConfigService = inject(ThyDatePickerConfigService);
 
     disabled = false;
 
@@ -300,19 +311,31 @@ export abstract class AbstractPickerComponent
                     };
                 }
             }
-            if (this.flexible) {
-                value.granularity = flexibleDateGranularity;
-            }
-            this.onChangeFn(value);
+            const [beginUnixTime, endUnixTime] = setTimeTampLength(
+                value,
+                this.isRange,
+                this.thyTimeTampLength,
+                this.datePickerConfigService?.config
+            ) as number[];
+            this.onChangeFn(
+                Object.assign(
+                    { begin: beginUnixTime || null, end: endUnixTime || null },
+                    this.flexible ? { granularity: flexibleDateGranularity } : {}
+                )
+            );
         } else {
             const value = { date: null, with_time: this.withTime ? 1 : 0 } as DateEntry;
             if (this.thyValue) {
                 value.date = (this.thyValue as TinyDate).getUnixTime();
             }
             if (this.onlyEmitDate) {
-                this.onChangeFn(value.date);
+                this.onChangeFn(
+                    setTimeTampLength(value.date, this.isRange, this.thyTimeTampLength, this.datePickerConfigService?.config) as number
+                );
             } else {
-                this.onChangeFn(value);
+                this.onChangeFn(
+                    setTimeTampLength(value, this.isRange, this.thyTimeTampLength, this.datePickerConfigService?.config) as number
+                );
             }
         }
     }

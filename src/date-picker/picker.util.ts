@@ -1,8 +1,10 @@
 import { CompatibleDate, DateEntry, ThyDateRangeEntry, ThyPanelMode, ThyDateGranularity, ThyShortcutValue } from './standard-types';
 
 import { fromUnixTime } from 'date-fns';
-import { helpers, TinyDate } from 'ngx-tethys/util';
+import { coerceArray, helpers, TinyDate } from 'ngx-tethys/util';
 import { CompatibleValue, RangeAdvancedValue } from './inner-types';
+import { ThyDatePickerConfig } from './date-picker.config';
+import { SafeAny } from 'ngx-tethys/types';
 
 export function transformDateValue(value: CompatibleDate | CompatibleValue | number | DateEntry | ThyDateRangeEntry | RangeAdvancedValue): {
     value: CompatibleDate;
@@ -225,4 +227,21 @@ function fixStringDate(dateStr: string) {
         replacedStr = `${new TinyDate(new Date()).getYear()}-${replacedStr}`;
     }
     return replacedStr;
+}
+
+export function setTimeTampLength(
+    date: CompatibleDate | number | Date | DateEntry | ThyDateRangeEntry | SafeAny,
+    isRange: boolean,
+    timeTampLength: number,
+    config: ThyDatePickerConfig
+): number | number[] {
+    const { value } = transformDateValue(date);
+    if (!value) {
+        return null;
+    }
+    if (timeTampLength === 13 || config?.defaultTimeTampLength === 13) {
+        return isRange ? coerceArray(value).map(val => new TinyDate(val).getTime()) : new TinyDate(value as Date).getTime();
+    } else {
+        return isRange ? coerceArray(value).map(val => new TinyDate(val).getUnixTime()) : new TinyDate(value as Date)?.getUnixTime();
+    }
 }
