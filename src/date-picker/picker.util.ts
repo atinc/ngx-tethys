@@ -239,7 +239,7 @@ export function setValueByTimestampPrecision(
     if (!value || (helpers.isArray(value) && !value?.length)) {
         return helpers.isArray(value) ? [null, null] : null;
     }
-    if (timestampPrecision === 'milliseconds' || config?.defaultTimestampPrecision === 'milliseconds') {
+    if (timestampPrecision === 'milliseconds' || config?.timestampPrecision === 'milliseconds') {
         return isRange ? coerceArray(value).map(val => new TinyDate(val).getTime()) : new TinyDate(value as Date).getTime();
     } else {
         return isRange ? coerceArray(value).map(val => new TinyDate(val).getUnixTime()) : new TinyDate(value as Date)?.getUnixTime();

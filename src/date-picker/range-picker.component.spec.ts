@@ -55,7 +55,7 @@ describe('ThyRangePickerComponent', () => {
                     useValue: {
                         showShortcut: true,
                         shortcutRangesPresets: shortcutRangesPresets,
-                        defaultTimestampPrecision: 'seconds'
+                        timestampPrecision: 'seconds'
                     }
                 }
             ]

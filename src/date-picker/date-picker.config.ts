@@ -9,14 +9,14 @@ export interface ThyDatePickerConfig {
     shortcutRangesPresets: CompatiblePresets;
     showShortcut: boolean;
     weekStartsOn: WeekDayIndex;
-    defaultTimestampPrecision: 'seconds' | 'milliseconds';
+    timestampPrecision: 'seconds' | 'milliseconds';
 }
 
 export const DEFAULT_DATE_PICKER_CONFIG: ThyDatePickerConfig = {
     shortcutPosition: 'left',
     showShortcut: false,
     weekStartsOn: 1,
-    defaultTimestampPrecision: 'seconds',
+    timestampPrecision: 'seconds',
     shortcutDatePresets: () => {
         return [
             {

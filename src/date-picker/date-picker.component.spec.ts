@@ -54,7 +54,7 @@ describe('ThyDatePickerComponent', () => {
                         showShortcut: true,
                         shortcutDatePresets: shortcutDatePresets,
                         weekStartsOn: weekStartsOn,
-                        defaultTimestampPrecision: 'seconds'
+                        timestampPrecision: 'seconds'
                     }
                 }
             ]
