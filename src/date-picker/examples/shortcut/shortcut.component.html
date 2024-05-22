@@ -31,7 +31,7 @@
   [(ngModel)]="date"
   [thyMinDate]="minDate"
   [thyShowShortcut]="true"
-  thyTimeTampLength="13"
+  thyTimeTampPrecision="milliseconds"
   (ngModelChange)="onChange($event)"
   (thyDateChange)="dateValueChange($event)"
 ></thy-date-picker>

@@ -21,7 +21,7 @@ import { ControlValueAccessor } from '@angular/forms';
 
 import { CompatibleValue, RangeAdvancedValue } from './inner-types';
 import { ThyPicker } from './picker.component';
-import { makeValue, setTimeTampLength, transformDateValue } from './picker.util';
+import { makeValue, setValueByTimeTampPrecision, transformDateValue } from './picker.util';
 import {
     CompatibleDate,
     DateEntry,
@@ -34,6 +34,7 @@ import {
     ThyDateChangeEvent
 } from './standard-types';
 import { ThyDatePickerConfigService } from './date-picker.service';
+import { SafeAny } from 'ngx-tethys/types';
 
 /**
  * @private
@@ -115,10 +116,10 @@ export abstract class AbstractPickerComponent
     @Input() thySize: 'lg' | 'md' | 'sm' | 'xs' | 'default' = 'default';
 
     /**
-     * 设置时间戳返回长度
-     * @default 10
+     * 设置时间戳精度
+     * @default seconds 10位
      */
-    @Input({ transform: numberAttribute }) thyTimeTampLength: number = 10;
+    @Input() thyTimeTampPrecision: 'seconds' | 'milliseconds' = 'seconds';
 
     /**
      * 展示的日期格式
@@ -311,17 +312,9 @@ export abstract class AbstractPickerComponent
                     };
                 }
             }
-            const [beginUnixTime, endUnixTime] = setTimeTampLength(
-                value,
-                this.isRange,
-                this.thyTimeTampLength,
-                this.datePickerConfigService?.config
-            ) as number[];
+            const [beginUnixTime, endUnixTime] = this.setValueByPrecision(value) as number[];
             this.onChangeFn(
-                Object.assign(
-                    { begin: beginUnixTime || null, end: endUnixTime || null },
-                    this.flexible ? { granularity: flexibleDateGranularity } : {}
-                )
+                Object.assign({ begin: beginUnixTime, end: endUnixTime }, this.flexible ? { granularity: flexibleDateGranularity } : {})
             );
         } else {
             const value = { date: null, with_time: this.withTime ? 1 : 0 } as DateEntry;
@@ -329,13 +322,9 @@ export abstract class AbstractPickerComponent
                 value.date = (this.thyValue as TinyDate).getUnixTime();
             }
             if (this.onlyEmitDate) {
-                this.onChangeFn(
-                    setTimeTampLength(value.date, this.isRange, this.thyTimeTampLength, this.datePickerConfigService?.config) as number
-                );
+                this.onChangeFn(this.setValueByPrecision(value.date) as number);
             } else {
-                this.onChangeFn(
-                    setTimeTampLength(value, this.isRange, this.thyTimeTampLength, this.datePickerConfigService?.config) as number
-                );
+                this.onChangeFn(Object.assign(value, { date: this.setValueByPrecision(value.date) as number }));
             }
         }
     }
@@ -394,5 +383,9 @@ export abstract class AbstractPickerComponent
 
     public setValue(value: CompatibleDate): void {
         this.thyValue = makeValue(value, this.isRange);
+    }
+
+    private setValueByPrecision(value: CompatibleDate | number | Date | DateEntry | ThyDateRangeEntry | SafeAny): number | number[] {
+        return setValueByTimeTampPrecision(value, this.isRange, this.thyTimeTampPrecision, this.datePickerConfigService?.config);
     }
 }
