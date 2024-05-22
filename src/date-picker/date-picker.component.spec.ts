@@ -54,7 +54,7 @@ describe('ThyDatePickerComponent', () => {
                         showShortcut: true,
                         shortcutDatePresets: shortcutDatePresets,
                         weekStartsOn: weekStartsOn,
-                        defaultTimeTampPrecision: 'seconds'
+                        defaultTimestampPrecision: 'seconds'
                     }
                 }
             ]
@@ -585,9 +585,9 @@ describe('ThyDatePickerComponent', () => {
             expect(result).toEqual(jasmine.objectContaining({ value: jasmine.anything() }));
         }));
 
-        it('should support thyTimeTampPrecision to milliseconds', fakeAsync(() => {
+        it('should support thyTimestampPrecision to milliseconds', fakeAsync(() => {
             const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
-            fixtureInstance.thyTimeTampPrecision = 'milliseconds';
+            fixtureInstance.thyTimestampPrecision = 'milliseconds';
             const datePresets = shortcutDatePresets();
             const triggerPreset = Object.assign(datePresets[0], { value: new TinyDate(datePresets[0].value).getTime(), disabled: false });
             fixture.detectChanges();
@@ -1355,7 +1355,7 @@ describe('ThyDatePickerComponent', () => {
                 (ngModelChange)="thyOnChange($event)"
                 [thyDateRender]="thyDateRender"
                 [thyMode]="thyMode"
-                [thyTimeTampPrecision]="thyTimeTampPrecision"
+                [thyTimestampPrecision]="thyTimestampPrecision"
                 [thyPlacement]="thyPlacement"
                 (thyOnPanelChange)="thyOnPanelChange($event)"
                 (thyOnCalendarChange)="thyOnCalendarChange($event)"
@@ -1402,7 +1402,7 @@ class ThyTestDatePickerComponent {
     thyShowTime: boolean | object = false;
     thyMode: string;
     thyPlacement: string = 'bottomLeft';
-    thyTimeTampPrecision = 'seconds';
+    thyTimestampPrecision = 'seconds';
     thyMinDate: Date | number;
     thyMaxDate: Date | number;
     thyOnChange(): void {}

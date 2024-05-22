@@ -229,17 +229,17 @@ function fixStringDate(dateStr: string) {
     return replacedStr;
 }
 
-export function setValueByTimeTampPrecision(
+export function setValueByTimestampPrecision(
     date: CompatibleDate | number | Date | DateEntry | ThyDateRangeEntry | SafeAny,
     isRange: boolean,
-    timeTampPrecision: 'seconds' | 'milliseconds',
+    timestampPrecision: 'seconds' | 'milliseconds',
     config: ThyDatePickerConfig
 ): number | number[] {
     const { value } = transformDateValue(date);
     if (!value || (helpers.isArray(value) && !value?.length)) {
         return helpers.isArray(value) ? [null, null] : null;
     }
-    if (timeTampPrecision === 'milliseconds' || config?.defaultTimeTampPrecision === 'milliseconds') {
+    if (timestampPrecision === 'milliseconds' || config?.defaultTimestampPrecision === 'milliseconds') {
         return isRange ? coerceArray(value).map(val => new TinyDate(val).getTime()) : new TinyDate(value as Date).getTime();
     } else {
         return isRange ? coerceArray(value).map(val => new TinyDate(val).getUnixTime()) : new TinyDate(value as Date)?.getUnixTime();

@@ -21,7 +21,7 @@ import { ControlValueAccessor } from '@angular/forms';
 
 import { CompatibleValue, RangeAdvancedValue } from './inner-types';
 import { ThyPicker } from './picker.component';
-import { makeValue, setValueByTimeTampPrecision, transformDateValue } from './picker.util';
+import { makeValue, setValueByTimestampPrecision, transformDateValue } from './picker.util';
 import {
     CompatibleDate,
     DateEntry,
@@ -119,7 +119,7 @@ export abstract class AbstractPickerComponent
      * 设置时间戳精度
      * @default seconds 10位
      */
-    @Input() thyTimeTampPrecision: 'seconds' | 'milliseconds' = 'seconds';
+    @Input() thyTimestampPrecision: 'seconds' | 'milliseconds' = 'seconds';
 
     /**
      * 展示的日期格式
@@ -386,6 +386,6 @@ export abstract class AbstractPickerComponent
     }
 
     private setValueByPrecision(value: CompatibleDate | number | Date | DateEntry | ThyDateRangeEntry | SafeAny): number | number[] {
-        return setValueByTimeTampPrecision(value, this.isRange, this.thyTimeTampPrecision, this.datePickerConfigService?.config);
+        return setValueByTimestampPrecision(value, this.isRange, this.thyTimestampPrecision, this.datePickerConfigService?.config);
     }
 }

@@ -55,7 +55,7 @@ describe('ThyRangePickerComponent', () => {
                     useValue: {
                         showShortcut: true,
                         shortcutRangesPresets: shortcutRangesPresets,
-                        defaultTimeTampPrecision: 'seconds'
+                        defaultTimestampPrecision: 'seconds'
                     }
                 }
             ]
@@ -399,7 +399,7 @@ describe('ThyRangePickerComponent', () => {
 
         it('should support thyDateChange', fakeAsync(() => {
             fixtureInstance.thyShowShortcut = true;
-            fixtureInstance.thyTimeTampPrecision = 'milliseconds';
+            fixtureInstance.thyTimestampPrecision = 'milliseconds';
             let rangePresets = shortcutRangesPresets();
             const triggerPreset = Object.assign(rangePresets[0], { disabled: false });
             const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
@@ -978,7 +978,7 @@ describe('ThyRangePickerComponent', () => {
                 (thyOpenChange)="thyOpenChange($event)"
                 [(ngModel)]="modelValue"
                 [thyMode]="thyMode"
-                [thyTimeTampPrecision]="thyTimeTampPrecision"
+                [thyTimestampPrecision]="thyTimestampPrecision"
                 [thyMinDate]="thyMinDate"
                 [thyMaxDate]="thyMaxDate"
                 (ngModelChange)="modelValueChange($event)"
@@ -1020,7 +1020,7 @@ class ThyTestRangePickerComponent {
     thyPanelClassName: string;
     thySize: string;
     thySuffixIcon: string;
-    thyTimeTampPrecision = 'seconds';
+    thyTimestampPrecision = 'seconds';
     modelValue: ThyDateRangeEntry;
     thyMode: ThyPanelMode;
     thyOpen: boolean;
