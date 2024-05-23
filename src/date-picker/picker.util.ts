@@ -3,7 +3,6 @@ import { CompatibleDate, DateEntry, ThyDateRangeEntry, ThyPanelMode, ThyDateGran
 import { fromUnixTime } from 'date-fns';
 import { coerceArray, helpers, TinyDate } from 'ngx-tethys/util';
 import { CompatibleValue, RangeAdvancedValue } from './inner-types';
-import { ThyDatePickerConfig } from './date-picker.config';
 import { SafeAny } from 'ngx-tethys/types';
 
 export function transformDateValue(value: CompatibleDate | CompatibleValue | number | DateEntry | ThyDateRangeEntry | RangeAdvancedValue): {
@@ -232,14 +231,13 @@ function fixStringDate(dateStr: string) {
 export function setValueByTimestampPrecision(
     date: CompatibleDate | number | Date | DateEntry | ThyDateRangeEntry | SafeAny,
     isRange: boolean,
-    timestampPrecision: 'seconds' | 'milliseconds',
-    config: ThyDatePickerConfig
+    timestampPrecision: 'seconds' | 'milliseconds'
 ): number | number[] {
     const { value } = transformDateValue(date);
     if (!value || (helpers.isArray(value) && !value?.length)) {
         return helpers.isArray(value) ? [null, null] : null;
     }
-    if (timestampPrecision === 'milliseconds' || config?.timestampPrecision === 'milliseconds') {
+    if (timestampPrecision === 'milliseconds') {
         return isRange ? coerceArray(value).map(val => new TinyDate(val).getTime()) : new TinyDate(value as Date).getTime();
     } else {
         return isRange ? coerceArray(value).map(val => new TinyDate(val).getUnixTime()) : new TinyDate(value as Date)?.getUnixTime();

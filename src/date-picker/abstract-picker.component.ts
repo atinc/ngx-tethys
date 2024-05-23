@@ -48,6 +48,8 @@ export abstract class AbstractPickerComponent
 
     _panelMode: ThyPanelMode = 'date';
 
+    private datePickerConfigService = inject(ThyDatePickerConfigService);
+
     /**
      * 模式
      * @type decade | year | month | date | week | flexible
@@ -119,7 +121,7 @@ export abstract class AbstractPickerComponent
      * 设置时间戳精度
      * @default seconds 10位
      */
-    @Input() thyTimestampPrecision: 'seconds' | 'milliseconds' = 'seconds';
+    @Input() thyTimestampPrecision: 'seconds' | 'milliseconds' = this.datePickerConfigService.config?.timestampPrecision || 'seconds';
 
     /**
      * 展示的日期格式
@@ -189,8 +191,6 @@ export abstract class AbstractPickerComponent
     get thyDisabled(): boolean {
         return this.disabled;
     }
-
-    private datePickerConfigService = inject(ThyDatePickerConfigService);
 
     disabled = false;
 
@@ -386,6 +386,6 @@ export abstract class AbstractPickerComponent
     }
 
     private setValueByPrecision(value: CompatibleDate | number | Date | DateEntry | ThyDateRangeEntry | SafeAny): number | number[] {
-        return setValueByTimestampPrecision(value, this.isRange, this.thyTimestampPrecision, this.datePickerConfigService?.config);
+        return setValueByTimestampPrecision(value, this.isRange, this.thyTimestampPrecision);
     }
 }

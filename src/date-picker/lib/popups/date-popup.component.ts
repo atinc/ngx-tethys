@@ -613,12 +613,7 @@ export class DatePopup implements OnChanges, OnInit {
             selectedPresetValue = this.getSelectedShortcutPreset(singleTinyDate) as TinyDate;
         }
         this.setValue(selectedPresetValue);
-        const shortcutPresetsValue = setValueByTimestampPrecision(
-            shortcutPresets?.value,
-            this.isRange,
-            this.timestampPrecision,
-            this.datePickerConfigService?.config
-        ) as number;
+        const shortcutPresetsValue = setValueByTimestampPrecision(shortcutPresets?.value, this.isRange, this.timestampPrecision) as number;
         this.dateValueChange.emit({
             value: helpers.isArray(value) ? this.selectedValue : selectedPresetValue,
             triggerPreset: Object.assign({}, shortcutPresets, { value: shortcutPresetsValue })
