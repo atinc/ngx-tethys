@@ -59,12 +59,15 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/site",
+            "outputPath": {
+              "base": "dist/site"
+            },
             "index": "site/src/index.html",
-            "main": "site/src/main.ts",
-            "polyfills": "site/src/polyfills.ts",
+            "polyfills": [
+              "site/src/polyfills.ts"
+            ],
             "tsConfig": "site/tsconfig.app.json",
             "stylePreprocessorOptions": {
               "includePaths": [
@@ -84,12 +87,11 @@
               "site/src/styles.scss"
             ],
             "scripts": [],
-            "vendorChunk": true,
             "extractLicenses": false,
-            "buildOptimizer": false,
             "sourceMap": true,
             "optimization": false,
-            "namedChunks": true
+            "namedChunks": true,
+            "browser": "site/src/main.ts"
           },
           "configurations": {
             "production": {
@@ -104,8 +106,6 @@
               "sourceMap": false,
               "namedChunks": false,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -122,9 +122,7 @@
             "development": {
               "sourceMap": true,
               "namedChunks": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": false
+              "extractLicenses": true
             }
           },
           "defaultConfiguration": "production"

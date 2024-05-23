@@ -2,8 +2,8 @@ import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/test
 import { generateRandomStr } from 'ngx-tethys/util';
 import { of } from 'rxjs';
 
-import { HttpClient } from '@angular/common/http';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By, DomSanitizer } from '@angular/platform-browser';
@@ -39,10 +39,10 @@ class ThyIconTestBasicComponent {
 describe('ThyIconComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyIconModule, HttpClientTestingModule],
-            declarations: [ThyIconTestBasicComponent],
-            providers: [bypassSanitizeProvider]
-        });
+    declarations: [ThyIconTestBasicComponent],
+    imports: [ThyIconModule],
+    providers: [bypassSanitizeProvider, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
         TestBed.compileComponents();
         injectDefaultSvgIconSet();
     });
@@ -171,10 +171,10 @@ describe('IconRegistry', () => {
     beforeEach(() => {
         httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
         TestBed.configureTestingModule({
-            imports: [ThyIconModule, HttpClientTestingModule],
-            declarations: [],
-            providers: [bypassSanitizeProvider, { provide: HttpClient, useValue: httpClientSpy }]
-        });
+    declarations: [],
+    imports: [ThyIconModule],
+    providers: [bypassSanitizeProvider, { provide: HttpClient, useValue: httpClientSpy }, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
         TestBed.compileComponents();
         iconRegistry = TestBed.inject(ThyIconRegistry);
         domSanitizer = TestBed.inject(DomSanitizer);

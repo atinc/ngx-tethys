@@ -6,9 +6,10 @@ import { CommonModule, registerLocaleData } from '@angular/common';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { By } from '@angular/platform-browser';
 import zh from '@angular/common/locales/zh';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ENTER, TinyDate } from 'ngx-tethys/util';
 import { dispatchKeyboardEvent } from 'ngx-tethys/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 class CdkOverlayOriginSpy {
     elementRef: ElementRef;
@@ -29,19 +30,21 @@ describe('ThyPickerComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [CommonModule, OverlayModule, ThyPicker, HttpClientTestingModule, ThyIcon],
-            declarations: [ThyTestPickerComponent],
-            providers: [
-                {
-                    provide: CdkOverlayOrigin,
-                    useValue: CdkOverlayOriginSpy
-                },
-                {
-                    provide: CdkConnectedOverlay,
-                    useValue: CdkConnectedOverlaySpy
-                }
-            ]
-        });
+    declarations: [ThyTestPickerComponent],
+    imports: [CommonModule, OverlayModule, ThyPicker, ThyIcon],
+    providers: [
+        {
+            provide: CdkOverlayOrigin,
+            useValue: CdkOverlayOriginSpy
+        },
+        {
+            provide: CdkConnectedOverlay,
+            useValue: CdkConnectedOverlaySpy
+        },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+});
 
         TestBed.compileComponents();
     }));
