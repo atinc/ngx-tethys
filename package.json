@@ -3,7 +3,7 @@
   "version": "17.0.6",
   "license": "MIT",
   "engines": {
-    "node": ">=18.10.0",
+    "node": ">=18.19.0",
     "npm": ">=7",
     "yarn": "Please use npm instead of yarn to install dependencies"
   },
