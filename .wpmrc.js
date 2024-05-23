@@ -1,5 +1,5 @@
 module.exports = {
-    allowBranch: ['master', 'v11.*', 'v12.*', 'v13.*', 'v14.*', 'v15.*', 'v16.*', 'v17.*', 'release-auto-*'],
+    allowBranch: ['master', 'v16.*', 'v17.*', 'v18.*', 'v19.*', 'v20.*', 'v21.*', 'release-auto-*'],
     bumpFiles: [
         'package.json',
         'package-lock.json',
@@ -24,6 +24,6 @@ module.exports = {
     tagPrefix: '',
     hooks: {
         prepublish: 'npm run build',
-        prereleaseBranch: "node ./scripts/pre-release.js {{version}}"
+        prereleaseBranch: 'node ./scripts/pre-release.js {{version}}'
     }
 };
