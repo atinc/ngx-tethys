@@ -4,6 +4,10 @@ import { CommonModule } from '@angular/common';
 import { ThyIcon } from './icon.component';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
-@NgModule({ declarations: [],
-    exports: [ThyIcon], imports: [ThyIcon, CommonModule, FormsModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
+@NgModule({
+    declarations: [],
+    exports: [ThyIcon],
+    imports: [ThyIcon, CommonModule, FormsModule],
+    providers: [provideHttpClient(withInterceptorsFromDi())]
+})
 export class ThyIconModule {}
