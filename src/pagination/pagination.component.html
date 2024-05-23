@@ -3,10 +3,10 @@
     <ng-container *ngIf="!isTemplateRef(showTotal); else totalTemplate">
       <ng-container *ngIf="total > 0">
         <div class="mr-3">
-          第<span class="number"> {{ range.from }}-{{ range.to }} </span>条
+          第<span class="number"> {{ range.from }}-{{ range.to }} </span>{{ config.suffixUnit }}
         </div>
         <div>
-          共<span class="number"> {{ total }} </span>条
+          共<span class="number"> {{ total }} </span>{{ config.suffixUnit }}
         </div>
       </ng-container>
     </ng-container>
@@ -21,7 +21,7 @@
           class="page-size-option"
           *ngFor="let option of config.pageSizeOptions"
           [thyValue]="option"
-          [thyLabelText]="option + ' 条/页'"></thy-option>
+          [thyLabelText]="option + ' ' + config.suffixUnit + '/页'"></thy-option>
       </thy-select>
     </div>
     <ul class="thy-pagination-pages">
