@@ -22,7 +22,7 @@ export const PaginationDefaultConfig: ThyPaginationConfigModel = {
     totalPagesFormat: '共{total}页',
     showSizeChanger: false,
     pageSizeOptions: [10, 20, 50, 100],
-    suffixUnit: '条'
+    unit: '条'
 };
 export interface ThyPaginationConfig {
     main?: ThyPaginationConfigModel;

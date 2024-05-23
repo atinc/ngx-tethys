@@ -181,10 +181,10 @@ export class ThyPagination implements OnInit {
      * 分页器单位
      * @default 条
      */
-    @Input('thySuffixUnit')
-    set suffixUnit(value: string) {
+    @Input('thyUnit')
+    set unit(value: string) {
         if (value) {
-            this.config.suffixUnit = value;
+            this.config.unit = value;
         }
     }
 

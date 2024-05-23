@@ -88,7 +88,7 @@ export interface ThyPaginationConfigModel {
     /**
      * 设置后缀单位
      */
-    suffixUnit?: string;
+    unit?: string;
 }
 
 export interface ThyPaginationChangedEvent {

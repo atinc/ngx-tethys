@@ -50,7 +50,7 @@ class PaginationBasicComponent {
             [thyShowQuickJumper]="canQuickJump"
             (thyPageIndexChange)="pageIndexChange($event)"
             [thyShowSizeChanger]="showSizeChanger"
-            [thySuffixUnit]="suffixUnit"
+            [thyUnit]="unit"
             [thySize]="size"
             [thyPageSizeOptions]="[10, 20, 50, 100]"
             (thyPageSizeChanged)="pageSizeChanged($event)"></thy-pagination>
@@ -69,7 +69,7 @@ class PaginationTestComponent {
 
     size = '';
 
-    suffixUnit = '';
+    unit = '';
 
     pageIndexChange = jasmine.createSpy('pageIndexChange callback');
 
@@ -185,7 +185,7 @@ describe('ThyPagination', () => {
             expect(inputElement.value).toEqual('');
         }));
 
-        it('should suffixUnit can works', fakeAsync(() => {
+        it('should unit can works', fakeAsync(() => {
             componentInstance.showSizeChanger = true;
             componentInstance.pagination.pageSize = 50;
             fixture.detectChanges();
@@ -196,7 +196,7 @@ describe('ThyPagination', () => {
             const el = document.querySelector('.thy-select-dropdown-options') as HTMLElement;
             expect(el.querySelectorAll('.thy-option-item')[0]?.querySelectorAll('.text-truncate')[0]?.innerHTML).toEqual('10 条/页');
 
-            componentInstance.suffixUnit = '组';
+            componentInstance.unit = '组';
             fixture.detectChanges();
             (paginationElement.querySelectorAll('.form-control-custom')[0] as HTMLElement).click();
             fixture.detectChanges();
