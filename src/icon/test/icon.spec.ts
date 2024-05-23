@@ -177,7 +177,7 @@ describe('IconRegistry', () => {
                 bypassSanitizeProvider,
                 provideHttpClient(withInterceptorsFromDi()),
                 provideHttpClientTesting(),
-                { provide: HttpClient, useValue: httpClientSpy },
+                { provide: HttpClient, useValue: httpClientSpy }
             ]
         });
         TestBed.compileComponents();

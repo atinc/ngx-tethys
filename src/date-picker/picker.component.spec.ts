@@ -30,21 +30,21 @@ describe('ThyPickerComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-    declarations: [ThyTestPickerComponent],
-    imports: [CommonModule, OverlayModule, ThyPicker, ThyIcon],
-    providers: [
-        {
-            provide: CdkOverlayOrigin,
-            useValue: CdkOverlayOriginSpy
-        },
-        {
-            provide: CdkConnectedOverlay,
-            useValue: CdkConnectedOverlaySpy
-        },
-        provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting()
-    ]
-});
+            declarations: [ThyTestPickerComponent],
+            imports: [CommonModule, OverlayModule, ThyPicker, ThyIcon],
+            providers: [
+                {
+                    provide: CdkOverlayOrigin,
+                    useValue: CdkOverlayOriginSpy
+                },
+                {
+                    provide: CdkConnectedOverlay,
+                    useValue: CdkConnectedOverlaySpy
+                },
+                provideHttpClient(withInterceptorsFromDi()),
+                provideHttpClientTesting()
+            ]
+        });
 
         TestBed.compileComponents();
     }));
