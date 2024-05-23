@@ -1,5 +1,5 @@
 import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ThyTimelineModule } from '../timeline.module';
 import { By } from '@angular/platform-browser';
 import { ThyTimeDirection, ThyTimeline } from '../timeline.component';
@@ -83,7 +83,7 @@ describe('timeline', () => {
         let debugElement: DebugElement;
         let items: HTMLDivElement[] = [];
 
-        beforeEach(async(() => {
+        beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
                 imports: [ThyTimelineModule],
                 declarations: [TestTimelineBasicComponent]
@@ -162,7 +162,7 @@ describe('timeline', () => {
     describe('custom position', () => {
         let fixture: ComponentFixture<TestTimelineCustomPositionComponent>;
 
-        beforeEach(async(() => {
+        beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
                 imports: [ThyTimelineModule],
                 declarations: [TestTimelineCustomPositionComponent]
@@ -183,12 +183,13 @@ describe('timeline', () => {
         let fixture: ComponentFixture<TestTimelineCustomDescriptionComponent>;
         let debugElement: DebugElement;
 
-        beforeEach(async(() => {
+        beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
                 imports: [ThyTimelineModule],
                 declarations: [TestTimelineCustomDescriptionComponent]
             }).compileComponents();
         }));
+
         beforeEach(() => {
             fixture = TestBed.createComponent(TestTimelineCustomDescriptionComponent);
             debugElement = fixture.debugElement.query(By.directive(ThyTimeline));
@@ -202,7 +203,7 @@ describe('timeline', () => {
     describe('custom direction', () => {
         let fixture: ComponentFixture<TestTimelineCustomHorizontalComponent>;
         let debugElement: DebugElement;
-        beforeEach(async(() => {
+        beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
                 imports: [ThyTimelineModule],
                 declarations: [TestTimelineCustomHorizontalComponent]
@@ -222,12 +223,13 @@ describe('timeline', () => {
     describe('custom timeline items', () => {
         let fixture: ComponentFixture<TestTimelineCustomItemsComponent>;
 
-        beforeEach(async(() => {
+        beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
                 imports: [ThyTimelineModule],
                 declarations: [TestTimelineCustomItemsComponent]
             }).compileComponents();
         }));
+
         beforeEach(() => {
             fixture = TestBed.createComponent(TestTimelineCustomItemsComponent);
             fixture.detectChanges();

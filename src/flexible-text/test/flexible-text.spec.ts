@@ -62,14 +62,13 @@ describe('FlexibleTextComponent', () => {
     let componentInstance: FlexibleTextTestComponent;
     let fixture: ComponentFixture<FlexibleTextTestComponent>;
 
-    let callbacks: Function[];
+    let callbacks: Function[] = [];
     const invokeCallbacks = (args?: any) => callbacks.forEach(callback => callback(args));
     const fakeResizeObserver = new Subject();
 
     beforeEach(waitForAsync(() => {
         callbacks = [];
-
-        TestBed.configureTestingModule({
+        return TestBed.configureTestingModule({
             imports: [ThyTooltipModule, ThyFlexibleTextModule],
             declarations: [FlexibleTextTestComponent],
             providers: [
@@ -77,6 +76,7 @@ describe('FlexibleTextComponent', () => {
                     provide: MutationObserverFactory,
                     useValue: {
                         create: function (callback: Function) {
+                            console.log(callback);
                             callbacks.push(callback);
 
                             return {
@@ -88,7 +88,9 @@ describe('FlexibleTextComponent', () => {
                 }
             ]
         }).compileComponents();
+    }));
 
+    beforeEach(fakeAsync(() => {
         // fake resize observer before create component
         const createResizeSpy = spyOn(ThyFlexibleText, 'createResizeObserver');
         createResizeSpy.and.returnValue(fakeResizeObserver);
@@ -111,7 +113,7 @@ describe('FlexibleTextComponent', () => {
         componentInstance.content = content;
         let custom = 'customer-multiple-line';
         componentInstance.customContainerClass = custom;
-        invokeCallbacks();
+        invokeCallbacks([{}]);
         fixture.detectChanges();
         tick(100);
         expect(component.isOverflow).toBe(true);
@@ -125,7 +127,7 @@ describe('FlexibleTextComponent', () => {
         车高速被堵沈祥福回应炮轰烟台回应广告牌美国奥罗周杰伦练琴辛酸史家长进游戏群控诉韩国一桑拿房起火伊斯兰堡会谈推迟游客夫妻美国被捕黄晓明否认拒演京东回应收集隐私救护
         车高速被堵沈祥福回应炮轰烟台回应广告牌美国奥罗`;
         componentInstance.content = content;
-        invokeCallbacks();
+        invokeCallbacks([{}]);
         fixture.detectChanges();
         tick(100);
         expect(component.isOverflow).toBe(true);
@@ -181,7 +183,7 @@ describe('FlexibleTextComponent', () => {
         const shortContent = `this is short content message`;
         componentInstance.content = shortContent;
         componentInstance.tooltipContent = shortContent;
-        invokeCallbacks();
+        invokeCallbacks([{}]);
         fixture.detectChanges();
         expect(component.isOverflow).toBe(false);
         const flexibleTextElement = fixture.debugElement.query(By.css('.flexible-text-section')).nativeElement;

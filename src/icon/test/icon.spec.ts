@@ -39,10 +39,10 @@ class ThyIconTestBasicComponent {
 describe('ThyIconComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-    declarations: [ThyIconTestBasicComponent],
-    imports: [ThyIconModule],
-    providers: [bypassSanitizeProvider, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
-});
+            declarations: [ThyIconTestBasicComponent],
+            imports: [ThyIconModule],
+            providers: [bypassSanitizeProvider, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+        });
         TestBed.compileComponents();
         injectDefaultSvgIconSet();
     });
@@ -171,10 +171,15 @@ describe('IconRegistry', () => {
     beforeEach(() => {
         httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
         TestBed.configureTestingModule({
-    declarations: [],
-    imports: [ThyIconModule],
-    providers: [bypassSanitizeProvider, { provide: HttpClient, useValue: httpClientSpy }, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
-});
+            declarations: [],
+            imports: [ThyIconModule],
+            providers: [
+                bypassSanitizeProvider,
+                provideHttpClient(withInterceptorsFromDi()),
+                provideHttpClientTesting(),
+                { provide: HttpClient, useValue: httpClientSpy },
+            ]
+        });
         TestBed.compileComponents();
         iconRegistry = TestBed.inject(ThyIconRegistry);
         domSanitizer = TestBed.inject(DomSanitizer);
