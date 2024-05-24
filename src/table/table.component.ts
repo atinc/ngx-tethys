@@ -772,8 +772,10 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
         }
     }
 
-    tdIndentComputed(level: number) {
+    tdIndentComputed(level: number, column: SafeAny) {
         return {
+            left: `${column.left}px`,
+            right: `${column.right}px`,
             position: 'relative',
             paddingLeft: `${(level + 1) * this.thyIndent - 5}px`
         };

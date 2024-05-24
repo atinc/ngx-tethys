@@ -9,9 +9,9 @@
     [class.table-fixed]="thyLayoutFixed"
     [class.table-draggable]="draggable"
     [class.table-group]="mode === 'group'"
-    [style.min-width]="thyMinWidth">
+    [ngStyle]="{ 'min-width': thyMinWidth }">
     <colgroup>
-      <col *ngFor="let column of columns" [width]="column.width" [style.minWidth]="hasFixed ? column.width : column.minWidth" />
+      <col *ngFor="let column of columns" [width]="column.width" [ngStyle]="{ minWidth: hasFixed ? column.width : column.minWidth }" />
     </colgroup>
 
     <thead *ngIf="!thyHeadless">
@@ -22,8 +22,7 @@
           [class.thy-table-column-sortable]="column.sortable"
           [class.thy-table-fixed-column-left]="column.fixed === fixedDirection.left"
           [class.thy-table-fixed-column-right]="column.fixed === fixedDirection.right"
-          [style.left.px]="column.left"
-          [style.right.px]="column.right"
+          [ngStyle]="{ left: column.left + 'px', right: column.right + 'px' }"
           (click)="onColumnHeaderClick($event, column)">
           <ng-container *ngIf="!column.headerTemplateRef">
             <span>{{ column.title }}</span>
@@ -154,9 +153,9 @@
           [class.thy-table-checkbox-column]="column.type === customType.checkbox"
           [class.thy-table-fixed-column-left]="column.fixed === fixedDirection.left"
           [class.thy-table-fixed-column-right]="column.fixed === fixedDirection.right"
-          [style.left.px]="column.left"
-          [style.right.px]="column.right"
-          [ngStyle]="mode === 'tree' && column.expand ? tdIndentComputed(level) : null">
+          [ngStyle]="
+            mode === 'tree' && column.expand ? tdIndentComputed(level, column) : { left: column.left + 'px', right: column.right + 'px' }
+          ">
           <ng-container *ngIf="j === 0 && draggable && !(row | tableRowDragDisabled : thyDragDisabledPredicate)">
             <thy-icon class="table-draggable-icon" thyIconName="drag"></thy-icon>
           </ng-container>
