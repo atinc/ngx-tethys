@@ -6,7 +6,7 @@ module.exports = {
     title: 'TETHYS',
     siteProjectName: 'site',
     repoUrl: 'https://github.com/atinc/ngx-tethys',
-    logoUrl: 'https://cdn-aliyun.pingcode.com/open-sources/ngx-tethys/logos/tethys.png?100',
+    logoUrl: './assets/images/logo.png',
     navs: [
         null,
         {
