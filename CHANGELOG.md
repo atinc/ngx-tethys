@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [18.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/17.0.6...18.0.0-next.0) (2024-05-24)
+
+
+### Bug Fixes
+
+* **cascader:** remove divider when set thyCustomOptions to undefined #INFR-12299 ([#3085](https://github.com/atinc/ngx-tethys/issues/3085)) ([80813dd](https://github.com/atinc/ngx-tethys/commit/80813dd425695e88f040983ac0b2e5428c3889af)), closes [#INFR-12299](https://github.com/atinc/ngx-tethys/issues/INFR-12299)
+
+
+### Features
+
+* upgrade ng to 18 #INFR-12428 ([5e89bdb](https://github.com/atinc/ngx-tethys/commit/5e89bdbac4a0e5e7af4fe3cb8d8057ba120a6b7f)), closes [#INFR-12428](https://github.com/atinc/ngx-tethys/issues/INFR-12428)
+* **util:** remove deprecated for coerceBooleanProperty #INFR-12378 ([#3088](https://github.com/atinc/ngx-tethys/issues/3088)) ([921945a](https://github.com/atinc/ngx-tethys/commit/921945a5cd461ea31829aef9fac42eb4e3bf233f)), closes [#INFR-12378](https://github.com/atinc/ngx-tethys/issues/INFR-12378)
+
+
+
 ## [17.0.6](https://github.com/atinc/ngx-tethys/compare/17.0.5...17.0.6) (2024-04-22)
 
 
