@@ -1,4 +1,4 @@
-<table [ngClass]="tableClassMap" [style.min-width]="thyMinWidth">
+<table [ngClass]="tableClassMap" [ngStyle]="{ 'min-width': thyMinWidth }">
   <colgroup>
     <col *ngFor="let column of columns; trackBy: trackByFn" [width]="column.width" />
   </colgroup>
