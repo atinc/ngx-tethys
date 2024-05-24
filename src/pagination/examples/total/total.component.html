@@ -1,37 +1,16 @@
 <h5>Default</h5>
-<thy-pagination
-  [thySize]="'sm'"
-  [(thyPageIndex)]="currentIndex"
-  [thyPageSize]="10"
-  [thyTotal]="203"
-  [thyShowTotal]="true"
-  [thyShowSizeChanger]="true"></thy-pagination>
+<thy-pagination [thySize]="'sm'" [(thyPageIndex)]="currentIndex" [thyPageSize]="10" [thyTotal]="203" [thyShowTotal]="true"></thy-pagination>
 <br />
 <br />
-
 <h5>Custom Template</h5>
 <thy-pagination
   [thySize]="'sm'"
   [(thyPageIndex)]="currentIndex"
   [thyPageSize]="10"
   [thyTotal]="203"
-  thyUnit="组"
-  [thyShowTotal]="totalTemplate"
-  [thyShowSizeChanger]="true"></thy-pagination>
+  [thyShowTotal]="totalTemplate"></thy-pagination>
 <ng-template #totalTemplate let-range="range" let-total>
   <div>
-    {{ range.from }}-{{ range.to }} of {{ total }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 共<span class="text-primary"> {{ total }} </span>组
+    {{ range.from }}-{{ range.to }} of {{ total }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 共<span class="text-primary"> {{ total }} </span>条
   </div>
 </ng-template>
-<br />
-<br />
-
-<h5>Custom Unit</h5>
-<thy-pagination
-  [thySize]="'sm'"
-  [thyPageIndex]="5"
-  [thyPageSize]="10"
-  [thyTotal]="203"
-  [thyShowSizeChanger]="true"
-  [thyShowTotal]="true"
-  thyUnit="个"></thy-pagination>
