@@ -10,7 +10,7 @@ order: 2
 ## 项目初始化
 在项目下运行命令 `ng add ngx-tethys` 跟随选项便可完成初始化配置，包括引入导入模块，引入样式文件，引入图标库等工作。
 
-<div class="mb-2"><img src="https://cdn-aliyun.pingcode.com/open-sources/ngx-tethys/images/ng-add.png" /></div>
+<div class="mb-2"><img src="./assets/images/ng-add.png" /></div>
 
 ## 生成组件 (WIP)
 
