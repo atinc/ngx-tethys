@@ -84,6 +84,11 @@ export interface ThyPaginationConfigModel {
     showSizeChanger?: boolean;
 
     pageSizeOptions?: number[];
+
+    /**
+     * 设置后缀单位
+     */
+    unit?: string;
 }
 
 export interface ThyPaginationChangedEvent {

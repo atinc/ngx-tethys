@@ -178,6 +178,17 @@ export class ThyPagination implements OnInit {
     @Input({ alias: 'thyHideOnSinglePage', transform: booleanAttribute }) hideOnSinglePage: boolean;
 
     /**
+     * 分页器单位
+     * @default 条
+     */
+    @Input('thyUnit')
+    set unit(value: string) {
+        if (value) {
+            this.config.unit = value;
+        }
+    }
+
+    /**
      * 页码改变的回调
      */
     @Output('thyPageIndexChange') pageIndexChange = new EventEmitter<number>();

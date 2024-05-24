@@ -8,8 +8,7 @@
   [(thyPageIndex)]="currentIndex"
   [thyPageSize]="10"
   [thyTotal]="203"
-  [thyShowTotal]="totalTemplate"
-></thy-pagination>
+  [thyShowTotal]="totalTemplate"></thy-pagination>
 <ng-template #totalTemplate let-range="range" let-total>
   <div>
     {{ range.from }}-{{ range.to }} of {{ total }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 共<span class="text-primary"> {{ total }} </span>条
