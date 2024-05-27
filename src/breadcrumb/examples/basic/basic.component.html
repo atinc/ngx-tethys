@@ -18,3 +18,16 @@
     <a href="javascript:;"><span> Application 1</span><thy-icon thyIconName="angle-down"></thy-icon></a>
   </thy-breadcrumb-item>
 </thy-breadcrumb>
+
+<thy-breadcrumb [thyItems]="items" thySeparator="slash">
+  <ng-template #item let-text>{{ text }}</ng-template>
+</thy-breadcrumb>
+
+<thy-breadcrumb [thyItems]="items" thySeparator="slash" [thyExpandable]="false">
+  <ng-template #item let-text>
+    <span (click)="select(text)">{{ text }}</span>
+    <ng-container *ngIf="text === currentName">
+      <thy-icon class="ml-2" thyIconName="angle-down"></thy-icon>
+    </ng-container>
+  </ng-template>
+</thy-breadcrumb>
