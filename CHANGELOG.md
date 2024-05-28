@@ -1,6 +1,23 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+
+## [17.0.7](https://github.com/atinc/ngx-tethys/compare/17.0.6...17.0.7) (2024-05-28)
+
+
+### Bug Fixes
+
+* **cascader:** remove divider when set thyCustomOptions to undefined #INFR-12299 ([#3085](https://github.com/atinc/ngx-tethys/issues/3085)) ([80813dd](https://github.com/atinc/ngx-tethys/commit/80813dd425695e88f040983ac0b2e5428c3889af)), closes [#INFR-12299](https://github.com/atinc/ngx-tethys/issues/INFR-12299)
+* **table:** change bind style with ngStyle #INFR-12443 ([d91d142](https://github.com/atinc/ngx-tethys/commit/d91d142dc65c289a98b9adfd04d948386a9a0507)), closes [#INFR-12443](https://github.com/atinc/ngx-tethys/issues/INFR-12443)
+
+
+### Features
+
+* **date-picker:** support set time tamp length default length to 10 #INFR-11707 [@wumeimin](https://github.com/wumeimin) [@xuhaifeng](https://github.com/xuhaifeng) (#INFR-11707) ([#3089](https://github.com/atinc/ngx-tethys/issues/3089)) ([44b05f7](https://github.com/atinc/ngx-tethys/commit/44b05f7b635af17a8502d09ffe62c99308a0ab64)), closes [#INFR-11707](https://github.com/atinc/ngx-tethys/issues/INFR-11707) [#INFR-11707](https://github.com/atinc/ngx-tethys/issues/INFR-11707) [#INFR-11707](https://github.com/atinc/ngx-tethys/issues/INFR-11707) [#INFR-11707](https://github.com/atinc/ngx-tethys/issues/INFR-11707) [#INFR-11707](https://github.com/atinc/ngx-tethys/issues/INFR-11707) [#INFR-11707](https://github.com/atinc/ngx-tethys/issues/INFR-11707) [#INFR-11707](https://github.com/atinc/ngx-tethys/issues/INFR-11707)
+* **pagination:** support pagination custom suffix unit(#INFR-12336) ([#3091](https://github.com/atinc/ngx-tethys/issues/3091)) ([88f4db0](https://github.com/atinc/ngx-tethys/commit/88f4db0d8caa2720c523a5e8c28cc240abdf2fbf)), closes [#INFR-12336](https://github.com/atinc/ngx-tethys/issues/INFR-12336)
+* **util:** remove deprecated for coerceBooleanProperty #INFR-12378 ([#3088](https://github.com/atinc/ngx-tethys/issues/3088)) ([921945a](https://github.com/atinc/ngx-tethys/commit/921945a5cd461ea31829aef9fac42eb4e3bf233f)), closes [#INFR-12378](https://github.com/atinc/ngx-tethys/issues/INFR-12378)
+
+
 
 ## [17.0.6](https://github.com/atinc/ngx-tethys/compare/17.0.5...17.0.6) (2024-04-22)
 
