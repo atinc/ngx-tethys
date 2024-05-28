@@ -60,6 +60,10 @@ export class ThyDatePickerDirectiveExampleComponent implements OnInit {
         this.selectedDateRange = date;
     }
 
+    onChange(date: Date[]) {
+        console.log('onChange', date);
+    }
+
     panelOpenChange(open: boolean) {
         if (!open) {
             this.selectedDateRange = [];

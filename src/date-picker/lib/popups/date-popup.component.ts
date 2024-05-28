@@ -7,6 +7,7 @@ import {
     Component,
     EventEmitter,
     Input,
+    numberAttribute,
     OnChanges,
     OnInit,
     Output,
@@ -20,7 +21,7 @@ import { ThyButtonIcon } from 'ngx-tethys/button';
 import { ThyNav, ThyNavItemDirective } from 'ngx-tethys/nav';
 import { ThyDatePickerConfigService } from '../../date-picker.service';
 import { CompatibleValue, DatePickerFlexibleTab, RangeAdvancedValue, RangePartType } from '../../inner-types';
-import { dateAddAmount, getShortcutValue, hasValue, makeValue, transformDateValue } from '../../picker.util';
+import { dateAddAmount, getShortcutValue, hasValue, makeValue, setValueByTimestampPrecision, transformDateValue } from '../../picker.util';
 import {
     CompatibleDate,
     CompatiblePresets,
@@ -95,6 +96,8 @@ export class DatePopup implements OnChanges, OnInit {
     @Input() flexible: boolean;
 
     @Input() flexibleDateGranularity: ThyDateGranularity;
+
+    @Input() timestampPrecision: 'seconds' | 'milliseconds';
 
     @Output() readonly panelModeChange = new EventEmitter<ThyPanelMode | ThyPanelMode[]>();
     @Output() readonly calendarChange = new EventEmitter<CompatibleValue>();
@@ -610,9 +613,10 @@ export class DatePopup implements OnChanges, OnInit {
             selectedPresetValue = this.getSelectedShortcutPreset(singleTinyDate) as TinyDate;
         }
         this.setValue(selectedPresetValue);
+        const shortcutPresetsValue = setValueByTimestampPrecision(shortcutPresets?.value, this.isRange, this.timestampPrecision) as number;
         this.dateValueChange.emit({
             value: helpers.isArray(value) ? this.selectedValue : selectedPresetValue,
-            triggerPreset: shortcutPresets
+            triggerPreset: Object.assign({}, shortcutPresets, { value: shortcutPresetsValue })
         });
         if (!helpers.isArray(value) && this.showTime && this.showTimePicker) {
             this.updateActiveDate();

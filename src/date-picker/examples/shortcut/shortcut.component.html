@@ -31,6 +31,7 @@
   [(ngModel)]="date"
   [thyMinDate]="minDate"
   [thyShowShortcut]="true"
+  thyTimestampPrecision="milliseconds"
   (ngModelChange)="onChange($event)"
   (thyDateChange)="dateValueChange($event)"
 ></thy-date-picker>
@@ -38,9 +39,9 @@
 <thy-date-picker
   class="d-block w-50 mb-3"
   [(ngModel)]="date"
-  [thyMaxDate]="maxDate"
   [thyShowShortcut]="true"
   (ngModelChange)="onChange($event)"
+  (thyDateChange)="dateValueChange($event)"
 ></thy-date-picker>
 
 <thy-date-picker
