@@ -1,35 +1,45 @@
-
 <div class="thy-breadcrumb-icon" *ngIf="svgIconName || iconClasses">
   <thy-icon *ngIf="svgIconName; else iconFont" [thyIconName]="svgIconName"></thy-icon>
   <ng-template #iconFont>
-      <i [ngClass]="iconClasses"></i>
+    <i [ngClass]="iconClasses"></i>
   </ng-template>
 </div>
 
 <ng-container *ngFor="let item of showItems">
-  <thy-breadcrumb-item>
-      <ng-container *ngIf="item?._id !== ellipsisItemId; else ellipsisTpl">
-          <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
-      </ng-container>
-      <ng-template #ellipsisTpl>
-          <a
-              thyAction
-              href="javascript:;"
-              thyActionIcon="more"
-              thyActiveClass="active"
-              [class.disabled]="thyExpandable"
-              class="ellipsis-action ml-n1 mr-n1"
-              [thyDropdown]="ellipsisPanel"></a>
-      </ng-template>
+  <thy-breadcrumb-item class="thy-breadcrumb-item-ellipsis">
+    <ng-container *ngIf="item?._id !== ellipsisItemId; else ellipsisTpl">
+      <ng-container *ngTemplateOutlet="itemContentTpl; context: { $implicit: item }"></ng-container>
+    </ng-container>
+    <ng-template #ellipsisTpl>
+      <a
+        thyAction
+        href="javascript:;"
+        thyActionIcon="more"
+        thyActiveClass="active"
+        [class.disabled]="!thyExpandable"
+        class="ellipsis-action ml-n1 mr-n1"
+        [thyDropdown]="ellipsisList"
+      ></a>
+    </ng-template>
   </thy-breadcrumb-item>
 </ng-container>
 
-<ng-template #ellipsisPanel>
+<ng-template #ellipsisList>
   <thy-dropdown-menu thyImmediateRender>
-      <a thyDropdownMenuItem *ngFor="let item of ellipsisItems" href="javascript:;">
-          <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-template>
-      </a>
+    <a thyDropdownMenuItem *ngFor="let item of ellipsisItems" href="javascript:;">
+      <ng-template *ngTemplateOutlet="itemContentTpl; context: { $implicit: item }"></ng-template>
+    </a>
   </thy-dropdown-menu>
+</ng-template>
+
+<ng-template #itemContentTpl let-item>
+  <ng-container *ngIf="itemTemplate; else defaultItemTpl">
+    <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-template>
+  </ng-container>
+  <ng-template #defaultItemTpl>
+    <thy-icon *ngIf="item?.icon" [thyIconName]="item.icon" class="mr-2"></thy-icon>
+    <span *ngIf="item?.name">{{ item.name }}</span>
+  </ng-template>
 </ng-template>
 
 <ng-content></ng-content>

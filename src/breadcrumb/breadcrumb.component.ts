@@ -8,8 +8,7 @@ import {
     OnChanges,
     SimpleChanges,
     OnInit,
-    ContentChildren,
-    QueryList
+    ChangeDetectorRef
 } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgIf, NgClass, NgTemplateOutlet, NgFor } from '@angular/common';
@@ -23,7 +22,6 @@ import {
 } from 'ngx-tethys/dropdown';
 import { ThyAction } from 'ngx-tethys/action';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
-import { startWith } from 'rxjs/operators';
 
 const THY_BREADCRUMB_ITEM_ELLIPSIS_ID = 'THY_BREADCRUMB_ITEM_ELLIPSIS_ID';
 
@@ -58,7 +56,8 @@ const ELLIPSIS_ITEM = { _id: 'THY_BREADCRUMB_ITEM_ELLIPSIS_ID' };
         ThyDropdownDirective,
         ThyDropdownMenuItemDirective,
         ThyDropdownMenuItemNameDirective,
-        ThyDropdownMenuComponent
+        ThyDropdownMenuComponent,
+        ThyIcon
     ]
 })
 export class ThyBreadcrumb implements OnInit, OnChanges {
@@ -85,7 +84,7 @@ export class ThyBreadcrumb implements OnInit, OnChanges {
     @Input({ alias: 'thyItems' }) items: SafeAny[];
 
     /**
-     * 最大显示数量，超出此数量后，面包屑会被省略（仅当传入 thyItems 时有效）
+     * 最大显示数量，超出此数量后，面包屑会被省略, 0 表示不省略（仅当传入 thyItems 时有效）
      */
     @Input({ transform: numberAttribute }) thyMaxCount = 4;
 
@@ -104,6 +103,8 @@ export class ThyBreadcrumb implements OnInit, OnChanges {
     public ellipsisItems: SafeAny[];
 
     public showItems: SafeAny[];
+
+    constructor(private cdr: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.getEllipsisItems();

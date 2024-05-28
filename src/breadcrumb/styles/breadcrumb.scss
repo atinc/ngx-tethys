@@ -39,7 +39,7 @@
             font-size: variables.$font-size-base;
         }
 
-        .thy-action.ellipsis-action {
+        &.thy-breadcrumb-item-ellipsis .ellipsis-action {
             opacity: unset;
             .thy-icon {
                 margin-left: 0;
