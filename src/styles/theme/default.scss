@@ -1,0 +1,74 @@
+$default-color-0: #fff; // white
+$default-color-70: #fdfdfd;
+$default-color-80: #fafafa;
+$default-color-100: #f5f5f5;
+$default-color-200: #eee;
+$default-color-210: #e9e9e9;
+$default-color-300: #ddd;
+$default-color-400: #cacaca;
+$default-color-500: #aaa;
+$default-color-600: #999;
+$default-color-700: #666;
+$default-color-800: #333;
+$default-color-900: #212529;
+$default-color-1000: #000; // black
+$default-color-primary: #6698ff;
+$default-color-success: #73d897;
+$default-color-info: #5dcfff;
+$default-color-warning: #ffcd5d;
+$default-color-danger: #ff7575;
+$default-color-pass: #2cccda;
+$default-color-dark: #48525c;
+
+$default-theme-colors: (
+    'gray-0': $default-color-0,
+    'gray-70': $default-color-70,
+    'gray-80': $default-color-80,
+    'gray-100': $default-color-100,
+    'gray-200': $default-color-200,
+    'gray-210': $default-color-210,
+    'gray-300': $default-color-300,
+    'gray-400': $default-color-400,
+    'gray-500': $default-color-500,
+    'gray-600': $default-color-600,
+    'gray-700': $default-color-700,
+    'gray-800': $default-color-800,
+    'gray-900': $default-color-900,
+    'gray-1000': $default-color-1000,
+    'primary': $default-color-primary,
+    'success': $default-color-success,
+    'info': $default-color-info,
+    'warning': $default-color-warning,
+    'danger': $default-color-danger,
+    'pass': $default-color-pass,
+    'dark': $default-color-dark
+);
+
+[theme='default'] {
+    @each $color, $value in $default-theme-colors {
+        --#{$color}: #{$value};
+    }
+}
+
+// --gray-0: #fff; // white
+// --gray-70: #fdfdfd;
+// --gray-80: #fafafa;
+// --gray-100: #f5f5f5;
+// --gray-200: #eee;
+// --gray-210: #e9e9e9;
+// --gray-300: #ddd;
+// --gray-400: #cacaca;
+// --gray-500: #aaa;
+// --gray-600: #999;
+// --gray-700: #666;
+// --gray-800: #333;
+// --gray-900: #212529;
+// --gray-1000: #000; // black
+
+// --primary: #6698ff;
+// --success: #73d897;
+// --info: #5dcfff;
+// --warning: #ffcd5d;
+// --danger: #ff7575;
+// --pass: #2cccda;
+// --dark: #48525c;
