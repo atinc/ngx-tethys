@@ -38,6 +38,14 @@
             color: variables.$breadcrumb-separator-color;
             font-size: variables.$font-size-base;
         }
+
+        &.thy-breadcrumb-item-ellipsis .ellipsis-action {
+            opacity: unset;
+            .thy-icon {
+                margin-left: 0;
+                margin-right: 0;
+            }
+        }
     }
 
     &.thy-breadcrumb-separator {

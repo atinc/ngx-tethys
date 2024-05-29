@@ -1,0 +1,12 @@
+<thy-breadcrumb class="mb-2" [thyItems]="items" thySeparator="slash"  [thyMaxCount]="0"></thy-breadcrumb>
+
+<thy-breadcrumb class="mb-2" [thyItems]="items" thySeparator="slash"></thy-breadcrumb>
+
+<thy-breadcrumb class="mb-2" [thyItems]="items" thySeparator="slash">
+  <ng-template #item let-value>
+    <span>自定义-{{ value.name }}</span>
+    <ng-container *ngIf="value.name === currentName">
+      <thy-icon class="ml-2" thyIconName="angle-down"></thy-icon>
+    </ng-container>
+  </ng-template>
+</thy-breadcrumb>
