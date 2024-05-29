@@ -25,7 +25,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 const THY_BREADCRUMB_ITEM_ELLIPSIS_ID = 'THY_BREADCRUMB_ITEM_ELLIPSIS_ID';
 
-const ELLIPSIS_ITEM = { _id: 'THY_BREADCRUMB_ITEM_ELLIPSIS_ID' };
+const ELLIPSIS_ITEM = { _id: THY_BREADCRUMB_ITEM_ELLIPSIS_ID };
 
 /**
  * 面包屑组件
@@ -89,7 +89,7 @@ export class ThyBreadcrumb implements OnInit, OnChanges {
     @Input({ transform: numberAttribute }) thyMaxCount = 4;
 
     /**
-     * 是否可点击弹出已被省略的面包屑项
+     * 是否可点击弹出已被省略的面包屑项（仅当传入 thyItems 时有效）
      */
     @Input({ transform: coerceBooleanProperty }) thyExpandable = true;
 
@@ -107,12 +107,12 @@ export class ThyBreadcrumb implements OnInit, OnChanges {
     constructor(private cdr: ChangeDetectorRef) {}
 
     ngOnInit() {
-        this.getEllipsisItems();
+        this.resetItems();
     }
 
     ngOnChanges(changes: SimpleChanges) {
         if ((changes.items && !changes.items.firstChange) || (changes.thyMaxCount && !changes.thyMaxCount.firstChange)) {
-            this.getEllipsisItems();
+            this.resetItems();
         }
     }
 
@@ -133,7 +133,7 @@ export class ThyBreadcrumb implements OnInit, OnChanges {
         }
     }
 
-    private getEllipsisItems() {
+    private resetItems() {
         if (!this.items?.length) {
             return;
         }

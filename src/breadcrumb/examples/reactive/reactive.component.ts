@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'thy-breadcrumb-items-example',
-    templateUrl: './items.component.html'
+    selector: 'thy-breadcrumb-reactive-example',
+    templateUrl: './reactive.component.html'
 })
-export class ThyBreadcrumbItemsExampleComponent {
+export class ThyBreadcrumbReactiveExampleComponent {
     items = [
         { name: '测试111', icon: 'test-case-type' },
         { name: '测试222', icon: 'test-case-type' },
