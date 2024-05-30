@@ -330,7 +330,7 @@ describe('ThyPickerDirective', () => {
                     backdropClass: 'thy-overlay-transparent-backdrop',
                     outsideClosable: true,
                     offset: 4,
-                    initialState: { ...getInitState(), defaultPickerValue: null, showShortcut: undefined },
+                    initialState: { ...getInitState(), defaultPickerValue: null, showShortcut: undefined, timestampPrecision: 'seconds' },
                     placement: 'bottom'
                 });
             }));
@@ -405,7 +405,8 @@ describe('ThyPickerDirective', () => {
             shortcutPresets: undefined,
             shortcutPosition: 'left',
             flexible: false,
-            flexibleDateGranularity: undefined
+            flexibleDateGranularity: undefined,
+            timestampPrecision: 'seconds'
         };
     }
 });
@@ -427,6 +428,7 @@ describe('ThyPickerDirective', () => {
             [thyHasBackdrop]="thyHasBackdrop"
             [thyPopoverOptions]="popoverOptions"
             [thyShowTime]="thyShowTime"
+            [thyTimestampPrecision]="timestampPrecision"
             [thyShowShortcut]="thyShowShortcut"
             (thyDateChange)="thyDateChange($event)"
             (ngModelChange)="thyOnChange($event)"
@@ -453,6 +455,7 @@ class ThyTestPickerComponent {
     thyShowShortcut: boolean;
     thyShortcutPosition: ThyShortcutPosition = 'left';
     thyShortcutPresets: CompatiblePresets;
+    timestampPrecision = 'seconds';
     thyOnChange(): void {}
     thyOnCalendarChange(): void {}
     thyOpenChange(): void {}

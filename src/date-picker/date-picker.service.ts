@@ -23,4 +23,8 @@ export class ThyDatePickerConfigService {
     get shortcutRangesPresets() {
         return this.config.shortcutRangesPresets;
     }
+
+    get timestampPrecision() {
+        return this.config.timestampPrecision;
+    }
 }
