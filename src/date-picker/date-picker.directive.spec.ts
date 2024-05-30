@@ -178,6 +178,20 @@ describe('ThyPickerDirective', () => {
                 fixture.detectChanges();
                 expect(thyDateChange).toHaveBeenCalled();
             }));
+
+            it('should support thyTimestampPrecision', fakeAsync(() => {
+                fixtureInstance.thyShowShortcut = true;
+                fixtureInstance.timestampPrecision = 'milliseconds';
+                const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+                fixture.detectChanges();
+                dispatchClickEvent(getPickerTriggerWrapper());
+                const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+                dispatchMouseEvent(shortcutItems[0], 'click');
+                fixture.detectChanges();
+                tick(500);
+                fixture.detectChanges();
+                expect(thyDateChange).toHaveBeenCalledTimes(1);
+            }));
         });
 
         describe('popover config testing', () => {

@@ -3,7 +3,8 @@ import { DEFAULT_DATE_PICKER_CONFIG } from './date-picker.config';
 
 describe('thyDatePickerConfigService Angular testing', () => {
     let thyDatePickerConfigService: ThyDatePickerConfigService = new ThyDatePickerConfigService(DEFAULT_DATE_PICKER_CONFIG);
-    const { showShortcut, shortcutPosition, shortcutDatePresets, shortcutRangesPresets, weekStartsOn } = DEFAULT_DATE_PICKER_CONFIG;
+    const { showShortcut, shortcutPosition, shortcutDatePresets, shortcutRangesPresets, weekStartsOn, timestampPrecision } =
+        DEFAULT_DATE_PICKER_CONFIG;
 
     it('get default shortcut', () => {
         expect(thyDatePickerConfigService.showShortcut).toBe(showShortcut);
@@ -23,5 +24,9 @@ describe('thyDatePickerConfigService Angular testing', () => {
 
     it('get default weekStartsOn', () => {
         expect(thyDatePickerConfigService.config.weekStartsOn).toBe(weekStartsOn);
+    });
+
+    it('get default timestampPrecision', () => {
+        expect(thyDatePickerConfigService.config.timestampPrecision).toBe(timestampPrecision);
     });
 });
