@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [17.0.8](https://github.com/atinc/ngx-tethys/compare/17.0.7...17.0.8) (2024-05-31)
+
+
+### Bug Fixes
+
+* **date-picker:** handle range directive add timestampPrecision (#INFR-11707) ([#3099](https://github.com/atinc/ngx-tethys/issues/3099)) ([38bd5dd](https://github.com/atinc/ngx-tethys/commit/38bd5dd8408acb22f4c49503c6854f42354e711f)), closes [#INFR-11707](https://github.com/atinc/ngx-tethys/issues/INFR-11707)
+
+
+### Features
+
+* **breadcrumb:** 面包屑导航支持传入items时省略展示 #INFR-12463 [@wangkai](https://github.com/wangkai) [@xuhaifeng](https://github.com/xuhaifeng) [@wumeimin](https://github.com/wumeimin) ([#3098](https://github.com/atinc/ngx-tethys/issues/3098)) ([c3da50f](https://github.com/atinc/ngx-tethys/commit/c3da50f2625fbc5cd4d7c25215758401176c132e)), closes [#INFR-12463](https://github.com/atinc/ngx-tethys/issues/INFR-12463)
+
+
+
 ## [17.0.7](https://github.com/atinc/ngx-tethys/compare/17.0.6...17.0.7) (2024-05-28)
 
 
