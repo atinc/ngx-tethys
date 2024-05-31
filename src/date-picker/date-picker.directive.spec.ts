@@ -9,7 +9,7 @@ import { ComponentFixture, fakeAsync, flush, inject, TestBed, TestBedStatic, tic
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { addDays, startOfDay } from 'date-fns';
+import { addDays, addWeeks, startOfDay, startOfWeek } from 'date-fns';
 
 import { ThyPopover } from '../popover/popover.service';
 import { ThyPropertyOperation, ThyPropertyOperationModule } from '../property-operation';
@@ -18,6 +18,7 @@ import { ThyDatePickerModule } from './date-picker.module';
 import { DatePopup } from './lib/popups/date-popup.component';
 import { ThyPopoverConfig, ThyPopoverModule } from '../popover';
 import { CompatiblePresets, ThyShortcutPosition } from './standard-types';
+import { TinyDate } from 'ngx-tethys/util';
 
 registerLocaleData(zh);
 
@@ -179,10 +180,13 @@ describe('ThyPickerDirective', () => {
                 expect(thyDateChange).toHaveBeenCalled();
             }));
 
-            it('should support thyTimestampPrecision', fakeAsync(() => {
+            it('should timestampPrecision default to seconds', fakeAsync(() => {
                 fixtureInstance.thyShowShortcut = true;
-                fixtureInstance.timestampPrecision = 'milliseconds';
+                const datePresets = shortcutDatePresets();
+                const dateValue = new TinyDate(datePresets[0].value).getUnixTime();
+                const triggerPreset = Object.assign(datePresets[0], { value: dateValue, disabled: false });
                 const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+                const now = new TinyDate(new Date());
                 fixture.detectChanges();
                 dispatchClickEvent(getPickerTriggerWrapper());
                 const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
@@ -191,6 +195,32 @@ describe('ThyPickerDirective', () => {
                 tick(500);
                 fixture.detectChanges();
                 expect(thyDateChange).toHaveBeenCalledTimes(1);
+                expect(thyDateChange).toHaveBeenCalledWith({
+                    value: now.startOfDay(),
+                    triggerPreset: triggerPreset
+                });
+            }));
+
+            it('should support thyTimestampPrecision set milliseconds', fakeAsync(() => {
+                fixtureInstance.thyShowShortcut = true;
+                fixtureInstance.timestampPrecision = 'milliseconds';
+                const datePresets = shortcutDatePresets();
+                const dateValue = new TinyDate(datePresets[0].value).getTime();
+                const triggerPreset = Object.assign(datePresets[0], { value: dateValue, disabled: false });
+                const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+                const now = new TinyDate(new Date());
+                fixture.detectChanges();
+                dispatchClickEvent(getPickerTriggerWrapper());
+                const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+                dispatchMouseEvent(shortcutItems[0], 'click');
+                fixture.detectChanges();
+                tick(500);
+                fixture.detectChanges();
+                expect(thyDateChange).toHaveBeenCalledTimes(1);
+                expect(thyDateChange).toHaveBeenCalledWith({
+                    value: now.startOfDay(),
+                    triggerPreset: triggerPreset
+                });
             }));
         });
 
@@ -297,6 +327,19 @@ describe('ThyPickerDirective', () => {
             tick(500);
             fixture.detectChanges();
         }
+
+        const shortcutDatePresets = () => {
+            return [
+                {
+                    title: '今天',
+                    value: startOfDay(new Date()).getTime()
+                },
+                {
+                    title: '下周',
+                    value: startOfWeek(addWeeks(new Date(), 1), { weekStartsOn: 1 }).getTime()
+                }
+            ];
+        };
     });
 
     describe('should get correct default thyPlacement and offset', () => {
@@ -420,7 +463,7 @@ describe('ThyPickerDirective', () => {
             shortcutPosition: 'left',
             flexible: false,
             flexibleDateGranularity: undefined,
-            timestampPrecision: 'seconds'
+            timestampPrecision: undefined
         };
     }
 });
@@ -469,7 +512,7 @@ class ThyTestPickerComponent {
     thyShowShortcut: boolean;
     thyShortcutPosition: ThyShortcutPosition = 'left';
     thyShortcutPresets: CompatiblePresets;
-    timestampPrecision = 'seconds';
+    timestampPrecision: 'seconds' | 'milliseconds';
     thyOnChange(): void {}
     thyOnCalendarChange(): void {}
     thyOpenChange(): void {}

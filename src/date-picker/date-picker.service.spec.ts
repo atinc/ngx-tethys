@@ -27,6 +27,6 @@ describe('thyDatePickerConfigService Angular testing', () => {
     });
 
     it('get default timestampPrecision', () => {
-        expect(thyDatePickerConfigService.config.timestampPrecision).toBe(timestampPrecision);
+        expect(thyDatePickerConfigService.timestampPrecision).toBe(timestampPrecision);
     });
 });
