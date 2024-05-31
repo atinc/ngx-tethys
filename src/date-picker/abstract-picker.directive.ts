@@ -166,7 +166,8 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
                         shortcutPresets: this.shortcutPresets,
                         shortcutPosition: this.shortcutPosition,
                         flexible: this.flexible,
-                        flexibleDateGranularity: this.flexibleDateGranularity
+                        flexibleDateGranularity: this.flexibleDateGranularity,
+                        timestampPrecision: this.thyTimestampPrecision
                     },
                     placement: this.thyPlacement
                 },
