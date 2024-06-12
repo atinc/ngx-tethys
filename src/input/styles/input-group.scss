@@ -51,6 +51,9 @@
         > .form-control {
             min-height: 34px;
 
+            // bottom 6px + group-suffix height 22px
+            padding-bottom: 28px;
+
             // The suffix of textarea uses absolute position, so the right side of textarea needs border-radius
             &:not(:last-child) {
                 @include border-radius.border-right-radius(bootstrap-variables.$input-border-radius);
