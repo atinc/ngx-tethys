@@ -148,18 +148,23 @@ export class ThyMentionDirective implements OnInit, OnDestroy {
             const fontSize = parseInt(getComputedStyle(this.elementRef.nativeElement).fontSize, 10);
             this.openedSuggestionsRef = this.thyPopover.open(
                 ThyMentionSuggestions,
-                Object.assign({}, POPOVER_DEFAULT_CONFIG, this.popoverConfig, {
-                    origin: this.elementRef,
-                    originPosition: {
-                        x: position.left,
-                        y: position.top,
-                        width: fontSize,
-                        height: fontSize
+                Object.assign(
+                    {},
+                    POPOVER_DEFAULT_CONFIG,
+                    {
+                        origin: this.elementRef,
+                        originPosition: {
+                            x: position.left,
+                            y: position.top,
+                            width: fontSize,
+                            height: fontSize
+                        },
+                        initialState: {
+                            mention: matched.mention
+                        }
                     },
-                    initialState: {
-                        mention: matched.mention
-                    }
-                })
+                    this.popoverConfig
+                )
             );
             this.openedSuggestionsRef.afterClosed().subscribe(() => {
                 this.openedSuggestionsRef = null;
