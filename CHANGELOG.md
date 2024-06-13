@@ -1,6 +1,16 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [17.0.9](https://github.com/atinc/ngx-tethys/compare/17.0.8...17.0.9) (2024-06-13)
+
+
+### Bug Fixes
+
+* **input:** #INFR-12590 thy-input-group-with-textarea-suffix add padding-bottom ([#3101](https://github.com/atinc/ngx-tethys/issues/3101)) ([af34452](https://github.com/atinc/ngx-tethys/commit/af34452ed1b32010f2aafa64b2f99a4b05b3cee0))
+* **nav:** #INFR-12632 fix prevActiveIndex not reset when links are changed ([#3102](https://github.com/atinc/ngx-tethys/issues/3102)) ([f981f65](https://github.com/atinc/ngx-tethys/commit/f981f65056c8b4b095a573c07e730d191c32067d))
+
+
 
 ## [17.0.8](https://github.com/atinc/ngx-tethys/compare/17.0.7...17.0.8) (2024-05-31)
 
