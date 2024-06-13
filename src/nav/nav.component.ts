@@ -111,6 +111,8 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
 
     private hostRenderer = useHostRenderer();
 
+    private innerLinks: QueryList<ThyNavItemDirective>;
+
     /**
      * 导航类型
      * @type pulled | tabs | pills | lite | primary | secondary | thirdly | secondary-divider
@@ -184,7 +186,14 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
     /**
      * @private
      */
-    @ContentChildren(ThyNavItemDirective, { descendants: true }) links: QueryList<ThyNavItemDirective>;
+    @ContentChildren(ThyNavItemDirective, { descendants: true })
+    set links(value) {
+        this.innerLinks = value;
+        this.prevActiveIndex = NaN;
+    }
+    get links(): QueryList<ThyNavItemDirective> {
+        return this.innerLinks;
+    }
 
     /**
      * @private
