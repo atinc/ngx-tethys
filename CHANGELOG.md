@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [17.0.10](https://github.com/atinc/ngx-tethys/compare/17.0.9...17.0.10) (2024-06-13)
+
+
+### Bug Fixes
+
+* **mention:** fix mention popover config originPosition not work #INFR-12631 ([60e18c0](https://github.com/atinc/ngx-tethys/commit/60e18c03789c09d66174a826ef0f0e482d79b1fe)), closes [#INFR-12631](https://github.com/atinc/ngx-tethys/issues/INFR-12631)
+
+
+
 ## [17.0.9](https://github.com/atinc/ngx-tethys/compare/17.0.8...17.0.9) (2024-06-13)
 
 
