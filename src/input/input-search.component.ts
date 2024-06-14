@@ -12,7 +12,6 @@ import {
 
 import { NgIf } from '@angular/common';
 import {
-    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -33,6 +32,7 @@ import { ThyAutofocusDirective } from 'ngx-tethys/shared';
 import { ThyInputDirective, ThyInputSize } from './input.directive';
 
 import { FocusOrigin } from '@angular/cdk/a11y';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export type ThyInputSearchTheme = 'default' | 'ellipse' | 'transparent' | '';
 export type ThyInputSearchIconPosition = 'before' | 'after';
@@ -110,7 +110,7 @@ export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, 
      * 是否自动聚焦
      * @default false
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thySearchFocus(value: boolean) {
         this.autoFocus = value;
         this.focused = value;

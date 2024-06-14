@@ -1,7 +1,6 @@
 import {
     Directive,
     ElementRef,
-    Injectable,
     NgZone,
     OnDestroy,
     Input,
@@ -11,7 +10,6 @@ import {
     Optional,
     Inject,
     ChangeDetectorRef,
-    booleanAttribute,
     numberAttribute
 } from '@angular/core';
 import { OverlayRef, Overlay } from '@angular/cdk/overlay';
@@ -22,8 +20,8 @@ import { ThyAutocomplete } from './autocomplete.component';
 import { ThyOption, ThyOptionSelectionChangeEvent } from 'ngx-tethys/shared';
 import { DOCUMENT } from '@angular/common';
 import { Subject, Observable, merge, fromEvent, of, Subscription } from 'rxjs';
-import { ESCAPE, UP_ARROW, ENTER, DOWN_ARROW, TAB } from 'ngx-tethys/util';
-import { filter, map, take, tap, delay, switchMap } from 'rxjs/operators';
+import { ESCAPE, UP_ARROW, ENTER, DOWN_ARROW, TAB, coerceBooleanProperty } from 'ngx-tethys/util';
+import { filter, map, take, delay, switchMap } from 'rxjs/operators';
 import { ScrollToService } from 'ngx-tethys/core';
 import { warnDeprecation } from 'ngx-tethys/util';
 
@@ -103,7 +101,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
      * 是否允许聚焦时打开下拉菜单
      * @type boolean
      */
-    @Input({ transform: booleanAttribute }) thyIsFocusOpen = true;
+    @Input({ transform: coerceBooleanProperty }) thyIsFocusOpen = true;
 
     get activeOption(): ThyOption | null {
         if (this.autocompleteComponent && this.autocompleteComponent.keyManager) {

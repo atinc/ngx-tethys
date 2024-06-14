@@ -1,19 +1,9 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
-import {
-    Directive,
-    ElementRef,
-    Input,
-    NgZone,
-    OnDestroy,
-    OnInit,
-    ViewContainerRef,
-    booleanAttribute,
-    numberAttribute
-} from '@angular/core';
+import { Directive, ElementRef, Input, NgZone, OnDestroy, OnInit, ViewContainerRef, numberAttribute } from '@angular/core';
 import { ThyOverlayDirectiveBase, ThyOverlayTrigger, ThyPlacement } from 'ngx-tethys/core';
 import { SafeAny } from 'ngx-tethys/types';
-import { isString } from 'ngx-tethys/util';
+import { coerceBooleanProperty, isString } from 'ngx-tethys/util';
 import { ThyTooltipContent } from './interface';
 import { ThyTooltipRef } from './tooltip-ref';
 import { ThyTooltipService } from './tooltip.service';
@@ -98,7 +88,7 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
      * 设置是否禁用提示
      * @default false
      */
-    @Input({ alias: 'thyTooltipDisabled', transform: booleanAttribute })
+    @Input({ alias: 'thyTooltipDisabled', transform: coerceBooleanProperty })
     set thyTooltipDisabled(value: boolean) {
         this.disabled = value;
         // If tooltip is disabled, hide immediately.
@@ -121,7 +111,7 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
      * hover 触发方式下 鼠标移入Tooltip是否固定 Tooltip
      * @default false
      */
-    @Input({ alias: 'thyTooltipPin', transform: booleanAttribute })
+    @Input({ alias: 'thyTooltipPin', transform: coerceBooleanProperty })
     set tooltipPin(value: boolean) {
         this.overlayPin = value;
     }

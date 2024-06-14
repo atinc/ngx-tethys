@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, TemplateRef, ContentChild, booleanAttribute } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, TemplateRef, ContentChild } from '@angular/core';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
  * 选项卡的选项组件
@@ -33,7 +34,7 @@ export class ThyTab implements OnInit {
      * 是否禁用选项
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyDisabled: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyDisabled: boolean;
 
     constructor() {}
 

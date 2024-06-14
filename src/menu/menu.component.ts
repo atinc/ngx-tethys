@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, booleanAttribute } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export type ThyMenuTheme = 'compact' | 'loose' | 'dark';
 
@@ -34,7 +35,7 @@ export class ThyMenu implements OnInit {
      * 是否收起
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyCollapsed: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyCollapsed: boolean;
 
     constructor() {}
 

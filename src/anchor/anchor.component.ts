@@ -16,7 +16,6 @@ import {
     SimpleChanges,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute,
     numberAttribute
 } from '@angular/core';
 import { Subject, fromEvent } from 'rxjs';
@@ -25,7 +24,7 @@ import { takeUntil, throttleTime } from 'rxjs/operators';
 import { DOCUMENT, NgClass, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { ThyAffix } from 'ngx-tethys/affix';
 import { ThyScrollService } from 'ngx-tethys/core';
-import { getOffset } from 'ngx-tethys/util';
+import { coerceBooleanProperty, getOffset } from 'ngx-tethys/util';
 import { ThyAnchorLink } from './anchor-link.component';
 
 interface Section {
@@ -72,7 +71,7 @@ export class ThyAnchor implements OnDestroy, AfterViewInit, OnChanges {
     /**
      * 固定模式
      */
-    @Input({ transform: booleanAttribute }) thyAffix = true;
+    @Input({ transform: coerceBooleanProperty }) thyAffix = true;
 
     /**
      * 锚点区域边界，单位：px

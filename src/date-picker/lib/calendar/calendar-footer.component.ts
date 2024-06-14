@@ -8,11 +8,10 @@ import {
     ViewContainerRef,
     OnInit,
     OnChanges,
-    SimpleChanges,
-    booleanAttribute
+    SimpleChanges
 } from '@angular/core';
 
-import { TinyDate } from 'ngx-tethys/util';
+import { TinyDate, coerceBooleanProperty } from 'ngx-tethys/util';
 import { ThyButton } from 'ngx-tethys/button';
 import { FormsModule } from '@angular/forms';
 import { ThyInnerTimePicker } from 'ngx-tethys/time-picker';
@@ -35,7 +34,7 @@ export class CalendarFooter implements OnInit, OnChanges {
     @Input() showTime = false;
     @Input() mustShowTime = false;
     @Input() value: TinyDate;
-    @Input({ transform: booleanAttribute }) disableTimeConfirm = false;
+    @Input({ transform: coerceBooleanProperty }) disableTimeConfirm = false;
     @Output() readonly selectTime = new EventEmitter<TinyDate>();
     @Output() readonly clickOk = new EventEmitter<void>();
     @Output() readonly clickRemove = new EventEmitter<void>();

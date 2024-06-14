@@ -14,10 +14,9 @@ import {
     QueryList,
     SimpleChanges,
     TemplateRef,
-    inject,
-    booleanAttribute
+    inject
 } from '@angular/core';
-import { isString } from 'ngx-tethys/util';
+import { coerceBooleanProperty, isString } from 'ngx-tethys/util';
 import { fromEvent } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ThyTab } from './tab.component';
@@ -94,12 +93,12 @@ export class ThyTabs implements OnInit, OnChanges, AfterContentInit {
     /**
      * 是否使用动画切换 Tabs
      */
-    @Input({ transform: booleanAttribute }) thyAnimated: boolean = false;
+    @Input({ transform: coerceBooleanProperty }) thyAnimated: boolean = false;
 
     /**
      * 响应式，自动计算宽度存放 thyNavItem，并添加更多弹框
      */
-    @Input({ transform: booleanAttribute }) thyResponsive: boolean = false;
+    @Input({ transform: coerceBooleanProperty }) thyResponsive: boolean = false;
 
     /**
      * 激活的项发生改变时的回调

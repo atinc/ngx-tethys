@@ -1,5 +1,6 @@
 import { NgIf, NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ContentChild, Directive, Input, TemplateRef, booleanAttribute } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, Directive, Input, TemplateRef } from '@angular/core';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
  * 侧边栏头部布局指令
@@ -19,7 +20,7 @@ export class ThySidebarHeaderDirective {
      * 是否有分割线
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyDivided: boolean | string;
+    @Input({ transform: coerceBooleanProperty }) thyDivided: boolean | string;
 }
 
 /**

@@ -11,7 +11,6 @@ import {
     ChangeDetectorRef,
     inject,
     DestroyRef,
-    booleanAttribute,
     numberAttribute
 } from '@angular/core';
 import { ThyResizableService } from './resizable.service';
@@ -21,6 +20,7 @@ import { ThyResizeHandleMouseDownEvent } from './resize-handle.component';
 import { ThyResizeEvent } from './interface';
 import { getEventWithPoint, ensureInBounds, setCompatibleStyle } from './utils';
 import { fromEvent } from 'rxjs';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
  * 调整尺寸
@@ -82,17 +82,17 @@ export class ThyResizableDirective implements AfterViewInit, OnDestroy {
     /**
      * 锁定宽高比
      */
-    @Input({ transform: booleanAttribute }) thyLockAspectRatio: boolean = false;
+    @Input({ transform: coerceBooleanProperty }) thyLockAspectRatio: boolean = false;
 
     /**
      * 是否预览模式
      */
-    @Input({ transform: booleanAttribute }) thyPreview: boolean = false;
+    @Input({ transform: coerceBooleanProperty }) thyPreview: boolean = false;
 
     /**
      * 是否禁用调整大小
      */
-    @Input({ transform: booleanAttribute }) thyDisabled: boolean = false;
+    @Input({ transform: coerceBooleanProperty }) thyDisabled: boolean = false;
 
     /**
      * 调整尺寸时的事件

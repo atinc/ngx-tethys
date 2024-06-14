@@ -1,5 +1,5 @@
 import { ThyTagSize } from 'ngx-tethys/tag';
-import { isUndefinedOrNull } from 'ngx-tethys/util';
+import { coerceBooleanProperty, isUndefinedOrNull } from 'ngx-tethys/util';
 
 import {
     ChangeDetectionStrategy,
@@ -12,7 +12,6 @@ import {
     Renderer2,
     TemplateRef,
     ViewChild,
-    booleanAttribute,
     numberAttribute
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -62,7 +61,7 @@ export class ThySelectControl implements OnInit {
 
     private hostRenderer = useHostRenderer();
 
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     get thyPanelOpened(): boolean {
         return this.panelOpened;
     }
@@ -82,7 +81,7 @@ export class ThySelectControl implements OnInit {
         this.setSelectControlClass();
     }
 
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     get thyIsMultiple(): boolean {
         return this.isMultiple;
     }
@@ -92,7 +91,7 @@ export class ThySelectControl implements OnInit {
         this.setSelectControlClass();
     }
 
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     get thyShowSearch(): boolean {
         return this.showSearch;
     }
@@ -135,7 +134,7 @@ export class ThySelectControl implements OnInit {
         }
     }
 
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     get thyDisabled(): boolean {
         return this.disabled;
     }
@@ -148,7 +147,7 @@ export class ThySelectControl implements OnInit {
     @Input()
     customDisplayTemplate: TemplateRef<any>;
 
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     thyAllowClear = false;
 
     @Input()
@@ -174,7 +173,7 @@ export class ThySelectControl implements OnInit {
 
     @Input({ transform: numberAttribute }) thyMaxTagCount = 0;
 
-    @Input({ transform: booleanAttribute }) thyBorderless = false;
+    @Input({ transform: coerceBooleanProperty }) thyBorderless = false;
 
     @Input() thyPreset: string = '';
 

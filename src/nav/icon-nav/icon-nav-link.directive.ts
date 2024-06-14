@@ -1,6 +1,7 @@
 import { NgIf } from '@angular/common';
-import { Component, HostBinding, Input, booleanAttribute } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
  * @private
@@ -24,7 +25,7 @@ export class ThyIconNavLink {
         this.icon = icon;
     }
 
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyIconNavLinkActive(active: boolean) {
         this.navLinkActive = active;
     }

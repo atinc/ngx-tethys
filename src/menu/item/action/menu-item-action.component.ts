@@ -1,6 +1,7 @@
 import { ComponentType } from '@angular/cdk/portal';
-import { Component, ElementRef, Input, OnDestroy, Renderer2, TemplateRef, booleanAttribute } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, Renderer2, TemplateRef } from '@angular/core';
 import { ThyPopover } from 'ngx-tethys/popover';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
  * 菜单项操作组件
@@ -34,7 +35,7 @@ export class ThyMenuItemAction implements OnDestroy {
     /**
      * 是否阻止事件冒泡
      */
-    @Input({ transform: booleanAttribute }) thyStopPropagation = true;
+    @Input({ transform: coerceBooleanProperty }) thyStopPropagation = true;
 
     private bindClickEvent() {
         if (this._boundEvent) {

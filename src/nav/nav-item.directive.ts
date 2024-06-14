@@ -2,7 +2,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import {
     AfterViewInit,
-    booleanAttribute,
     ContentChildren,
     DestroyRef,
     Directive,
@@ -15,6 +14,7 @@ import {
     QueryList
 } from '@angular/core';
 import { RouterLinkActive } from '@angular/router';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export type ThyNavLink = '' | 'active';
 
@@ -37,7 +37,7 @@ export class ThyNavItemDirective implements AfterViewInit {
      * 是否激活状态
      * @default false
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     thyNavItemActive: boolean;
 
     /**
@@ -45,14 +45,14 @@ export class ThyNavItemDirective implements AfterViewInit {
      * @deprecated please use thyNavItemActive
      * @default false
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     thyNavLinkActive: boolean;
 
     /**
      * 是否禁用
      * @default false
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     thyNavItemDisabled: boolean;
 
     /**

@@ -8,14 +8,14 @@ import {
     AfterContentInit,
     NgZone,
     Input,
-    OnDestroy,
-    booleanAttribute
+    OnDestroy
 } from '@angular/core';
 import { ThyDragDirective } from './drag.directive';
 import { merge, Observable, defer, Subject } from 'rxjs';
 import { takeUntil, startWith, take, switchMap } from 'rxjs/operators';
 import { ThyDragDropEvent, ThyDragStartEvent, ThyDragEndEvent, ThyDragOverEvent } from './drag-drop.class';
 import { THY_DROP_CONTAINER_DIRECTIVE, IThyDropContainerDirective } from './drop-container.class';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
  * @name thy-drop-container,[thyDropContainer]
@@ -53,7 +53,7 @@ export class ThyDropContainerDirective<T = any> implements OnInit, AfterContentI
      * 是否禁用拖拽
      * @default false
      */
-    @Input({ alias: 'thyDropContainerDisabled', transform: booleanAttribute }) disabled: boolean;
+    @Input({ alias: 'thyDropContainerDisabled', transform: coerceBooleanProperty }) disabled: boolean;
 
     /**
      * 拖拽之前的回调，函数返回 false 则阻止拖拽

@@ -3,7 +3,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import {
     AfterContentInit,
-    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -19,6 +18,7 @@ import {
 } from '@angular/core';
 import { ThySpacingSize, getNumericSize } from 'ngx-tethys/core';
 import { NgFor, NgTemplateOutlet } from '@angular/common';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
  * 间距组件项，使用结构性指令 *thySpaceItem 传入模板
@@ -74,7 +74,7 @@ export class ThySpace implements OnInit, AfterContentInit {
      * 间距垂直方向，默认是水平方向
      */
     @HostBinding(`class.thy-space-vertical`)
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     thyVertical: boolean = false;
 
     // @ClassBinding(`align-items-{{value}}`)

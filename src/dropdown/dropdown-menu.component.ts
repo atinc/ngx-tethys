@@ -7,11 +7,11 @@ import {
     Input,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation,
-    booleanAttribute
+    ViewEncapsulation
 } from '@angular/core';
 import { InputCssPixel } from 'ngx-tethys/core';
 import { SafeAny } from 'ngx-tethys/types';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export type ThyDropdownMenuDividerType = 'default' | 'crossing' | '';
 
@@ -71,7 +71,7 @@ export class ThyDropdownMenuComponent {
      * 是否直接渲染 dropdown-menu 中的元素
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyImmediateRender = false;
+    @Input({ transform: coerceBooleanProperty }) thyImmediateRender = false;
 
     constructor() {}
 }

@@ -12,11 +12,11 @@ import {
     OnInit,
     Optional,
     TemplateRef,
-    ViewEncapsulation,
-    booleanAttribute
+    ViewEncapsulation
 } from '@angular/core';
 
 import { ThyFormDirective } from './form.directive';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 const internalIconMap = {
     date: 'wtf wtf-schedule-o'
@@ -77,12 +77,12 @@ export class ThyFormGroup implements OnInit {
     /**
      * Label 是否显示必填项样式
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyLabelRequired(value: boolean) {
         this.labelRequired = value;
     }
 
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyLabelPaddingTopClear(value: boolean) {
         this.labelPaddingTopClear = value;
     }
@@ -132,7 +132,7 @@ export class ThyFormGroup implements OnInit {
      * 是否填充整行, 没有 Label 文本，只有输入框
      * @default false
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyRowFill(value: boolean) {
         this._rowFill = value;
     }

@@ -9,8 +9,7 @@ import {
     ViewContainerRef,
     HostBinding,
     ChangeDetectorRef,
-    numberAttribute,
-    booleanAttribute
+    numberAttribute
 } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 import { OverlayRef } from '@angular/cdk/overlay';
@@ -20,6 +19,7 @@ import { ThyPopover } from './popover.service';
 import { ComponentType } from '@angular/cdk/portal';
 import { ThyPopoverRef } from './popover-ref';
 import { ThyPopoverConfig } from './popover.config';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
  * 弹出悬浮层指令
@@ -80,13 +80,13 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
     /**
      * 自动适配内容变化重新计算位置
      */
-    @Input({ transform: booleanAttribute }) thyAutoAdaptive = false;
+    @Input({ transform: coerceBooleanProperty }) thyAutoAdaptive = false;
 
     /**
      * 是否禁用打开悬浮层
      * @default false
      */
-    @Input({ transform: booleanAttribute }) set thyDisabled(value: boolean) {
+    @Input({ transform: coerceBooleanProperty }) set thyDisabled(value: boolean) {
         this.disabled = value;
     }
 

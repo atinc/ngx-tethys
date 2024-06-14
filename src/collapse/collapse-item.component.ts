@@ -10,13 +10,12 @@ import {
     OnDestroy,
     OnInit,
     Output,
-    TemplateRef,
-    booleanAttribute
+    TemplateRef
 } from '@angular/core';
 
 import { ThyCollapse } from './collapse.component';
 import { SafeAny } from 'ngx-tethys/types';
-import { isString } from 'ngx-tethys/util';
+import { coerceBooleanProperty, isString } from 'ngx-tethys/util';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
 
@@ -57,13 +56,13 @@ export class ThyCollapseItem implements OnInit, OnDestroy {
     /**
      * 是否处于激活展开状态
      */
-    @Input({ transform: booleanAttribute }) thyActive: boolean = false;
+    @Input({ transform: coerceBooleanProperty }) thyActive: boolean = false;
 
     /**
      * 是否禁用当前面板
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyDisabled: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyDisabled: boolean;
 
     /**
      * 自定义面板头

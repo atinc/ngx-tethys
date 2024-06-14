@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation, booleanAttribute } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
 import { InputCssPixel } from 'ngx-tethys/core';
 
 import { NgFor } from '@angular/common';
 import { ThySkeletonCircle } from '../skeleton-circle.component';
 import { ThySkeletonRectangle } from '../skeleton-rectangle.component';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
  * 骨架屏无序列表组件
@@ -73,7 +74,7 @@ export class ThySkeletonBulletList {
      * 是否开启动画
      * @default true
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     thyAnimated: boolean;
 
     /**

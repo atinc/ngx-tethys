@@ -12,12 +12,11 @@ import {
     OnDestroy,
     Output,
     Inject,
-    Optional,
-    booleanAttribute
+    Optional
 } from '@angular/core';
 import { Highlightable } from '@angular/cdk/a11y';
 import { SelectOptionBase } from './select-option-base';
-import { ENTER, SPACE, hasModifierKey } from 'ngx-tethys/util';
+import { ENTER, SPACE, coerceBooleanProperty, hasModifierKey } from 'ngx-tethys/util';
 import {
     IThyOptionGroupComponent,
     IThyOptionParentComponent,
@@ -65,7 +64,7 @@ export class ThyOption extends SelectOptionBase implements OnDestroy, Highlighta
 
     @ViewChild(TemplateRef, { static: true }) template: TemplateRef<any>;
 
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     @HostBinding(`class.disabled`)
     set thyDisabled(value: boolean) {
         this._disabled = value;

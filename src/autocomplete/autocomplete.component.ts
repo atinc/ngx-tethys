@@ -13,8 +13,7 @@ import {
     AfterContentInit,
     ChangeDetectorRef,
     Input,
-    ElementRef,
-    booleanAttribute
+    ElementRef
 } from '@angular/core';
 import { defer, merge, Observable, Subject, timer } from 'rxjs';
 import { take, switchMap, takeUntil, startWith } from 'rxjs/operators';
@@ -29,6 +28,7 @@ import {
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { ThyEmpty } from 'ngx-tethys/empty';
 import { NgClass, NgIf } from '@angular/common';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /** Event object that is emitted when an autocomplete option is activated. */
 export interface ThyAutocompleteActivatedEvent {
@@ -108,7 +108,7 @@ export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, After
      * @type boolean
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyAutoActiveFirstOption: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyAutoActiveFirstOption: boolean;
 
     /**
      * 被选中时调用，参数包含选中项的 value 值

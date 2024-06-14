@@ -14,7 +14,6 @@ import {
     PLATFORM_ID,
     TemplateRef,
     ViewChild,
-    booleanAttribute,
     inject
 } from '@angular/core';
 
@@ -67,7 +66,7 @@ export class BasePicker extends AbstractPickerComponent implements OnInit, OnCha
      * 是否有幕布
      * @default true
      */
-    @Input({ transform: booleanAttribute }) thyHasBackdrop = true;
+    @Input({ transform: coerceBooleanProperty }) thyHasBackdrop = true;
 
     /**
      * @type EventEmitter<ThyPanelMode | ThyPanelMode[]>
@@ -96,7 +95,7 @@ export class BasePicker extends AbstractPickerComponent implements OnInit, OnCha
      * 是否展示时间(时、分)
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyMustShowTime = false;
+    @Input({ transform: coerceBooleanProperty }) thyMustShowTime = false;
 
     /**
      * 弹出位置

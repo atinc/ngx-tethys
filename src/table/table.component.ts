@@ -1,6 +1,6 @@
 import { InputCssPixel, UpdateHostClassService } from 'ngx-tethys/core';
 import { Dictionary, SafeAny } from 'ngx-tethys/types';
-import { get, helpers, isString, keyBy, set } from 'ngx-tethys/util';
+import { coerceBooleanProperty, get, helpers, isString, keyBy, set } from 'ngx-tethys/util';
 import { EMPTY, fromEvent, merge, Observable, of } from 'rxjs';
 import { delay, startWith, switchMap } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -11,7 +11,6 @@ import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { DOCUMENT, isPlatformServer, NgClass, NgFor, NgIf, NgTemplateOutlet, NgStyle } from '@angular/common';
 import {
     AfterViewInit,
-    booleanAttribute,
     ChangeDetectorRef,
     Component,
     ContentChild,
@@ -309,13 +308,13 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
      * 设置为 fixed 布局表格，设置 fixed 后，列宽将严格按照设置宽度展示，列宽将不会根据表格内容自动调整
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyLayoutFixed: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyLayoutFixed: boolean;
 
     /**
      * 是否表头固定，若设置为 true， 需要同步设置 thyHeight
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyHeaderFixed: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyHeaderFixed: boolean;
 
     /**
      * 表格的高度
@@ -354,7 +353,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
      * 设置加载状态
      * @default true
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyLoadingDone(value: boolean) {
         this.loadingDone = value;
     }
@@ -380,7 +379,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
      * 是否开启行拖拽
      * @default false
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyDraggable(value: boolean) {
         this.draggable = value;
         if ((typeof ngDevMode === 'undefined' || ngDevMode) && this.draggable && this.mode === 'tree') {
@@ -418,7 +417,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
      * 选中当前行是否自动选中 Checkbox，不开启时只有点击 Checkbox 列时才会触发选中
      * @default false
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyWholeRowSelect(value: boolean) {
         if (value) {
             this.className += ' table-hover';
@@ -430,13 +429,13 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
      * 是否显示表格头
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyHeadless = false;
+    @Input({ transform: coerceBooleanProperty }) thyHeadless = false;
 
     /**
      * 是否显示表格头，已废弃，请使用 thyHeadless
      * @deprecated please use thyHeadless
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyShowHeader(value: boolean) {
         this.thyHeadless = !value;
     }
@@ -444,12 +443,12 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
     /**
      * 是否显示左侧 Total
      */
-    @Input({ alias: 'thyShowTotal', transform: booleanAttribute }) showTotal = false;
+    @Input({ alias: 'thyShowTotal', transform: coerceBooleanProperty }) showTotal = false;
 
     /**
      * 是否显示调整每页显示条数下拉框
      */
-    @Input({ alias: 'thyShowSizeChanger', transform: booleanAttribute }) showSizeChanger = false;
+    @Input({ alias: 'thyShowSizeChanger', transform: coerceBooleanProperty }) showSizeChanger = false;
 
     /**
      * 每页显示条数下拉框可选项
@@ -476,7 +475,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
      * @default false
      */
     @HostBinding('class.thy-table-hover-display-operation')
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     thyHoverDisplayOperation: boolean;
 
     @Input() thyDragDisabledPredicate: (item: SafeAny) => boolean = () => false;
