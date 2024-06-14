@@ -11,7 +11,6 @@ import {
     Output,
     QueryList,
     ViewEncapsulation,
-    booleanAttribute,
     numberAttribute
 } from '@angular/core';
 import { ThumbAnimationProps } from 'ngx-tethys/core';
@@ -22,6 +21,7 @@ import { ThySegmentEvent } from './types';
 import { AnimationEvent } from '@angular/animations';
 import { NgIf } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export type ThySegmentSize = 'xs' | 'sm' | 'md' | 'default';
 
@@ -76,7 +76,7 @@ export class ThySegment implements IThySegmentComponent, AfterContentInit {
     /**
      * 是否禁用分段控制器
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     @HostBinding(`class.disabled`)
     thyDisabled = false;
 

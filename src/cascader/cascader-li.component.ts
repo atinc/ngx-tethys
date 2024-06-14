@@ -13,12 +13,12 @@ import {
     OnInit,
     Output,
     TemplateRef,
-    ViewEncapsulation,
-    booleanAttribute
+    ViewEncapsulation
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { ThyCascaderOption } from './types';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
  * @internal
@@ -35,10 +35,10 @@ import { ThyCascaderOption } from './types';
 export class ThyCascaderOptionComponent implements OnInit {
     @Input() option: ThyCascaderOption;
 
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     multiple = false;
 
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     isOnlySelectLeaf = true;
 
     @Input()
@@ -49,13 +49,13 @@ export class ThyCascaderOptionComponent implements OnInit {
     @HostBinding('class.thy-cascader-menu-item') item = true;
 
     @HostBinding('class.thy-cascader-menu-item-active')
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     active: boolean = false;
 
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     halfSelected = false;
 
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     selected: boolean = false;
 
     @HostBinding('class.thy-cascader-menu-item-disabled')

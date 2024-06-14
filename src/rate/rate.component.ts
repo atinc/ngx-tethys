@@ -1,9 +1,8 @@
 import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
-import { helpers } from 'ngx-tethys/util';
+import { coerceBooleanProperty, helpers } from 'ngx-tethys/util';
 
 import { NgClass, NgFor } from '@angular/common';
 import {
-    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -78,7 +77,7 @@ export class ThyRate extends TabIndexDisabledControlValueAccessorMixin implement
      * 是否只读
      * @default false
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     override set thyDisabled(value: boolean) {
         this.disabled = value;
     }
@@ -92,12 +91,12 @@ export class ThyRate extends TabIndexDisabledControlValueAccessorMixin implement
      * 是否允许半选
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyAllowHalf = false;
+    @Input({ transform: coerceBooleanProperty }) thyAllowHalf = false;
 
     /**
      * 是否允许再次点击后清除
      */
-    @Input({ transform: booleanAttribute }) thyAllowClear = true;
+    @Input({ transform: coerceBooleanProperty }) thyAllowClear = true;
 
     /**
      * 自定义每项的提示信息

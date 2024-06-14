@@ -1,10 +1,9 @@
 import { getFlexiblePositions, ThyPlacement } from 'ngx-tethys/core';
-import { TinyDate } from 'ngx-tethys/util';
+import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
 
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange } from '@angular/cdk/overlay';
 import {
     AfterViewInit,
-    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -63,7 +62,7 @@ export class ThyPicker implements OnChanges, AfterViewInit {
     @Input() placement: ThyPlacement = 'bottomLeft';
     @Input() flexible: boolean = false;
     @Input() mode: string;
-    @Input({ transform: booleanAttribute }) hasBackdrop: boolean;
+    @Input({ transform: coerceBooleanProperty }) hasBackdrop: boolean;
     @Output() blur = new EventEmitter<Event>();
     @Output() readonly valueChange = new EventEmitter<TinyDate | TinyDate[] | null>();
     @Output() readonly openChange = new EventEmitter<boolean>(); // Emitted when overlay's open state change

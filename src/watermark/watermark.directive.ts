@@ -1,8 +1,9 @@
-import { Directive, Input, ElementRef, OnInit, SimpleChanges, OnChanges, inject, DestroyRef, booleanAttribute } from '@angular/core';
+import { Directive, Input, ElementRef, OnInit, SimpleChanges, OnChanges, inject, DestroyRef } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DEFAULT_WATERMARK_CONFIG, DEFAULT_CANVAS_CONFIG } from './config';
 import { MutationObserverFactory } from '@angular/cdk/observers';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export interface ThyCanvasConfigType {
     degree?: number;
@@ -24,7 +25,7 @@ export class ThyWatermarkDirective implements OnInit, OnChanges {
     /**
      * 是否禁用，默认为 false
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     thyDisabled: boolean = false;
 
     content: string;

@@ -10,8 +10,7 @@ import {
     NgZone,
     OnInit,
     TemplateRef,
-    SimpleChanges,
-    booleanAttribute
+    SimpleChanges
 } from '@angular/core';
 
 import { ThyEmptyConfig } from './empty.config';
@@ -20,6 +19,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { SafeAny } from 'ngx-tethys/types';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgIf, NgClass, NgTemplateOutlet } from '@angular/common';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 const sizeClassMap = {
     lg: ['thy-empty-state', 'thy-empty-state--lg'],
@@ -115,7 +115,7 @@ export class ThyEmpty implements OnInit, AfterViewInit, OnChanges {
      * 是否自动根据父容器计算高度，垂直居中
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyTopAuto: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyTopAuto: boolean;
 
     /**
      * 自动计算高度垂直居中(即 thyTopAuto 为 true)时，支持传入自定义父容器

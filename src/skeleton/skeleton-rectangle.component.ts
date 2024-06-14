@@ -7,11 +7,10 @@ import {
     Optional,
     OnChanges,
     SimpleChanges,
-    Inject,
-    booleanAttribute
+    Inject
 } from '@angular/core';
 import { ThySkeleton } from './skeleton.component';
-import { helpers } from 'ngx-tethys/util';
+import { coerceBooleanProperty, helpers } from 'ngx-tethys/util';
 import { InputCssPixel } from 'ngx-tethys/core';
 import { THY_SKELETON_CONFIG, ThySkeletonConfigModel } from './skeleton.config';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
@@ -48,7 +47,7 @@ export class ThySkeletonRectangle implements OnInit, OnChanges {
      * 是否开启动画
      * @default false
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     thyAnimated: boolean;
 
     /**

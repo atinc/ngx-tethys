@@ -1,10 +1,9 @@
-import { helpers } from 'ngx-tethys/util';
+import { coerceBooleanProperty, helpers } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CdkVirtualScrollViewport, CdkFixedSizeVirtualScroll, CdkVirtualForOf } from '@angular/cdk/scrolling';
 import {
     AfterViewInit,
-    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -166,7 +165,7 @@ export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterVi
      * 设置是否支持多选节点
      */
     @HostBinding(`class.thy-multiple-selection-list`)
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     thyMultiple = false;
 
     /**
@@ -174,7 +173,7 @@ export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterVi
      * @default false
      */
     @HostBinding('class.thy-tree-draggable')
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyDraggable(value: boolean) {
         this._draggable = value;
     }
@@ -187,7 +186,7 @@ export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterVi
      * 设置 TreeNode 是否支持 Checkbox 选择
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyCheckable: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyCheckable: boolean;
 
     /**
      * 点击节点的行为，`default` 为选中当前节点，`selectCheckbox` 为选中节点的 Checkbox， `thyCheckable` 为 true 时生效。
@@ -206,7 +205,7 @@ export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterVi
     /**
      * 设置 TreeNode 是否支持异步加载
      */
-    @Input({ transform: booleanAttribute }) thyAsync = false;
+    @Input({ transform: coerceBooleanProperty }) thyAsync = false;
 
     private _thyType: ThyTreeType = 'default';
 
@@ -257,7 +256,7 @@ export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterVi
      * 设置是否开启虚拟滚动
      */
     @HostBinding('class.thy-virtual-scrolling-tree')
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     thyVirtualScroll = false;
 
     private _thyItemSize = 44;
@@ -282,7 +281,7 @@ export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterVi
      * 设置节点名称是否支持超出截取
      * @type boolean
      */
-    @Input({ transform: booleanAttribute }) thyTitleTruncate = true;
+    @Input({ transform: coerceBooleanProperty }) thyTitleTruncate = true;
 
     /**
      * 已选中的 node 节点集合

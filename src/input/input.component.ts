@@ -2,7 +2,6 @@ import { take } from 'rxjs/operators';
 
 import { NgIf, NgTemplateOutlet } from '@angular/common';
 import {
-    booleanAttribute,
     Component,
     ContentChild,
     ElementRef,
@@ -20,6 +19,7 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyAutofocusDirective } from 'ngx-tethys/shared';
 import { ThyInputDirective, ThyInputSize } from './input.directive';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -65,7 +65,7 @@ export class ThyInput implements ControlValueAccessor, OnInit {
     /**
      * 是否自动聚焦
      */
-    @Input({ transform: booleanAttribute }) thyAutofocus = false;
+    @Input({ transform: coerceBooleanProperty }) thyAutofocus = false;
 
     /**
      * 输入框类型
@@ -89,7 +89,7 @@ export class ThyInput implements ControlValueAccessor, OnInit {
     /**
      * 是否只读
      */
-    @Input({ transform: booleanAttribute }) readonly = false;
+    @Input({ transform: coerceBooleanProperty }) readonly = false;
 
     /**
      * focus 聚焦事件

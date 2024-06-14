@@ -1,16 +1,6 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    ElementRef,
-    EventEmitter,
-    HostBinding,
-    Input,
-    OnInit,
-    Output,
-    booleanAttribute
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
 import { SafeHtml } from '@angular/platform-browser';
-import { isString } from 'ngx-tethys/util';
+import { isString, coerceBooleanProperty } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyAvatarService } from './avatar.service';
 import { AvatarShortNamePipe, AvatarBgColorPipe, AvatarSrcPipe } from './avatar.pipe';
@@ -79,7 +69,7 @@ export class ThyAvatar implements OnInit {
      * 是否展示人员名称
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyShowName: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyShowName: boolean;
 
     /**
      * 头像路径地址, 默认为全路径，如果不是全路径，可以通过自定义服务 ThyAvatarService，重写 srcTransform 方法实现转换
@@ -118,7 +108,7 @@ export class ThyAvatar implements OnInit {
      * @deprecated
      * @default false
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyShowRemove(value: boolean) {
         this._showRemove = value;
     }
@@ -127,7 +117,7 @@ export class ThyAvatar implements OnInit {
      * 是否展示移除按钮
      * @default false
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyRemovable(value: boolean) {
         this._showRemove = value;
     }
@@ -141,7 +131,7 @@ export class ThyAvatar implements OnInit {
      * 是否禁用
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyDisabled: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyDisabled: boolean;
 
     /**
      * 图片加载策略

@@ -3,11 +3,10 @@ import { ThyMaxDirective, ThyMinDirective } from 'ngx-tethys/form';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { ThyAutofocusDirective } from 'ngx-tethys/shared';
-import { DOWN_ARROW, ENTER, isFloat, isNumber, isUndefinedOrNull, UP_ARROW } from 'ngx-tethys/util';
+import { coerceBooleanProperty, DOWN_ARROW, ENTER, isFloat, isNumber, isUndefinedOrNull, UP_ARROW } from 'ngx-tethys/util';
 
 import { FocusOrigin } from '@angular/cdk/a11y';
 import {
-    booleanAttribute,
     ChangeDetectorRef,
     Component,
     ElementRef,
@@ -77,7 +76,7 @@ export class ThyInputNumber
      * 是否自动聚焦
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyAutoFocus: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyAutoFocus: boolean;
 
     /**
      * 输入框的placeholder
@@ -88,7 +87,7 @@ export class ThyInputNumber
      * 是否禁用
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyDisabled: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyDisabled: boolean;
 
     /**
      * 最大值

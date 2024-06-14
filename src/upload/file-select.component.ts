@@ -1,23 +1,12 @@
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import {
-    booleanAttribute,
-    Component,
-    ElementRef,
-    EventEmitter,
-    Inject,
-    Input,
-    NgZone,
-    numberAttribute,
-    OnDestroy,
-    Output,
-    ViewChild
-} from '@angular/core';
+import { Component, ElementRef, EventEmitter, Inject, Input, NgZone, numberAttribute, OnDestroy, Output, ViewChild } from '@angular/core';
 
 import { FileSelectBaseDirective } from './file-select-base';
 import { THY_UPLOAD_DEFAULT_OPTIONS, ThyUploadConfig } from './upload.config';
 import { mimeTypeConvert } from './util';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
  * 文件上传组件
@@ -45,7 +34,7 @@ export class ThyFileSelect extends FileSelectBaseDirective implements OnDestroy 
      * 文件是否多选
      * @default false
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyMultiple(value: boolean) {
         this.multiple = value;
         if (this.multiple) {
@@ -55,7 +44,7 @@ export class ThyFileSelect extends FileSelectBaseDirective implements OnDestroy 
         }
     }
 
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyAcceptFolder(value: boolean) {
         this.acceptFolder = value;
         if (this.acceptFolder) {

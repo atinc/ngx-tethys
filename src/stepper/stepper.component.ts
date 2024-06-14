@@ -7,12 +7,12 @@ import {
     Input,
     Output,
     EventEmitter,
-    booleanAttribute,
     numberAttribute
 } from '@angular/core';
 import { ThyStep, IThyStepperComponent, THY_STEPPER_COMPONENT } from './step.component';
 import { ThyStepHeader } from './step-header.component';
 import { NgIf, NgFor, NgTemplateOutlet } from '@angular/common';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
  * 步骤条组件
@@ -49,7 +49,7 @@ export class ThyStepper implements IThyStepperComponent {
     /**
      * 步骤条导航是否展示，默认展示
      */
-    @Input({ transform: booleanAttribute }) thyShowStepHeader = true;
+    @Input({ transform: coerceBooleanProperty }) thyShowStepHeader = true;
 
     private _selectedIndex = 0;
 

@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges, booleanAttribute } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ThyResizeDirection } from './interface';
 import { ThyResizeHandle } from './resize-handle.component';
 import { NgFor } from '@angular/common';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export const DEFAULT_RESIZE_DIRECTION: ThyResizeDirection[] = [
     'bottomRight',
@@ -36,7 +37,7 @@ export class ThyResizeHandles implements OnChanges {
     /**
      * 是否展示拖拽线
      */
-    @Input({ transform: booleanAttribute }) thyLine = false;
+    @Input({ transform: coerceBooleanProperty }) thyLine = false;
 
     directions = new Set<ThyResizeDirection>(this.thyDirections);
 

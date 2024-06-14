@@ -12,12 +12,12 @@ import {
     Renderer2,
     SimpleChanges,
     ViewEncapsulation,
-    booleanAttribute,
     numberAttribute
 } from '@angular/core';
 
 import { getWhetherPrintErrorWhenIconNotFound } from './config';
 import { ThyIconRegistry } from './icon-registry';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 const iconSuffixMap = {
     fill: 'fill',
@@ -68,10 +68,10 @@ export class ThyIcon implements OnInit, OnChanges {
      * @default false
      */
     @HostBinding(`class.thy-icon-legging`)
-    @Input({ alias: 'thyIconLegging', transform: booleanAttribute })
+    @Input({ alias: 'thyIconLegging', transform: coerceBooleanProperty })
     iconLegging: boolean;
 
-    @Input({ alias: 'thyIconLinearGradient', transform: booleanAttribute })
+    @Input({ alias: 'thyIconLinearGradient', transform: coerceBooleanProperty })
     iconLinearGradient: boolean;
 
     private hostRenderer = useHostRenderer();

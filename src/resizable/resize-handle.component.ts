@@ -8,8 +8,7 @@ import {
     EventEmitter,
     ElementRef,
     inject,
-    DestroyRef,
-    booleanAttribute
+    DestroyRef
 } from '@angular/core';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { ThyResizeDirection } from './interface';
@@ -18,6 +17,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { fromEvent, merge } from 'rxjs';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { NgIf } from '@angular/common';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export class ThyResizeHandleMouseDownEvent {
     constructor(public direction: ThyResizeDirection, public mouseEvent: MouseEvent | TouchEvent) {}
@@ -62,7 +62,7 @@ export class ThyResizeHandle implements OnInit {
     /**
      * 是否展示拖拽线
      */
-    @Input({ transform: booleanAttribute }) thyLine = false;
+    @Input({ transform: coerceBooleanProperty }) thyLine = false;
 
     /**
      * MouseDown 回调事件

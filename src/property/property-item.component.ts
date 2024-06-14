@@ -6,7 +6,6 @@ import { delay, filter, take, takeUntil } from 'rxjs/operators';
 import { OverlayOutsideClickDispatcher, OverlayRef } from '@angular/cdk/overlay';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
 import {
-    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -27,6 +26,7 @@ import {
 } from '@angular/core';
 
 import { ThyProperties } from './properties.component';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export type ThyPropertyItemOperationTrigger = 'hover' | 'always';
 
@@ -59,7 +59,7 @@ export class ThyPropertyItem implements OnInit, OnChanges, OnDestroy {
      * @type sting
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyEditable: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyEditable: boolean;
 
     /**
      * 设置跨列的数量

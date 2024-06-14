@@ -1,15 +1,4 @@
-import {
-    Component,
-    Input,
-    Output,
-    EventEmitter,
-    ContentChild,
-    TemplateRef,
-    OnInit,
-    Optional,
-    ElementRef,
-    booleanAttribute
-} from '@angular/core';
+import { Component, Input, Output, EventEmitter, ContentChild, TemplateRef, OnInit, Optional, ElementRef } from '@angular/core';
 import { ThyDialog } from '../dialog.service';
 import { ThyDialogContainer } from '../dialog-container.component';
 import { ThyTranslate } from 'ngx-tethys/core';
@@ -17,6 +6,7 @@ import { ThyInternalDialogRef } from '../dialog-ref';
 import { ThyAction } from 'ngx-tethys/action';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
  * 模态框头部组件
@@ -59,7 +49,7 @@ export class ThyDialogHeader implements OnInit {
      * 是否显示分割线
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyDivided: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyDivided: boolean;
 
     /**
      * 标题的多语言 Key

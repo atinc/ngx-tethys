@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, booleanAttribute } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
 import { ThyCollapseItem } from './collapse-item.component';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export type ThyCollapseTheme = 'divided' | 'bordered' | 'ghost';
 
@@ -39,7 +40,7 @@ export class ThyCollapse implements OnInit {
      * 是否为手风琴模式，手风琴模式下，只能展开一个面板
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyAccordion: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyAccordion: boolean;
 
     /**
      * 展开收起图标的位置

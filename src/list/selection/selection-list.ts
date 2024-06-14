@@ -1,6 +1,6 @@
 import { ScrollToService } from 'ngx-tethys/core';
 import { IThyListOptionParentComponent, THY_LIST_OPTION_PARENT_COMPONENT, ThyListLayout, ThyListOption } from 'ngx-tethys/shared';
-import { dom, helpers, keycodes } from 'ngx-tethys/util';
+import { coerceBooleanProperty, dom, helpers, keycodes } from 'ngx-tethys/util';
 import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -8,7 +8,6 @@ import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
     AfterContentInit,
-    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -91,7 +90,7 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
      * 改变 grid item 的选择模式，使其支持多选
      * @default true
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyMultiple(value: boolean) {
         const previousValue = this.multiple;
         this.multiple = value;
@@ -142,7 +141,7 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
     /**
      * 是否自动激活第一项
      */
-    @Input({ transform: booleanAttribute }) set thyAutoActiveFirstItem(value: boolean) {
+    @Input({ transform: coerceBooleanProperty }) set thyAutoActiveFirstItem(value: boolean) {
         this.autoActiveFirstItem = value;
     }
 
@@ -159,7 +158,7 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
     /**
      * 是否按下空格切换聚焦选项
      */
-    @Input({ transform: booleanAttribute }) set thySpaceKeyEnabled(value: boolean) {
+    @Input({ transform: coerceBooleanProperty }) set thySpaceKeyEnabled(value: boolean) {
         this.spaceEnabled = value;
     }
 

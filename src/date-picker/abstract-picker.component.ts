@@ -1,15 +1,13 @@
 import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
-import { TinyDate } from 'ngx-tethys/util';
+import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 
 import {
-    booleanAttribute,
     ChangeDetectorRef,
     Directive,
     EventEmitter,
     inject,
     Input,
-    numberAttribute,
     OnChanges,
     OnDestroy,
     OnInit,
@@ -65,15 +63,15 @@ export abstract class AbstractPickerComponent
     /**
      * 是否显示清除按钮
      */
-    @Input({ transform: booleanAttribute }) thyAllowClear = true;
+    @Input({ transform: coerceBooleanProperty }) thyAllowClear = true;
 
     /**
      * 是否自动获取焦点
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyAutoFocus = false;
+    @Input({ transform: coerceBooleanProperty }) thyAutoFocus = false;
 
-    @Input({ transform: booleanAttribute }) thyOpen: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyOpen: boolean;
 
     @Input() thyDisabledDate: DisabledDateFn;
 
@@ -99,7 +97,7 @@ export abstract class AbstractPickerComponent
      * 是否只读
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyReadonly: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyReadonly: boolean;
 
     /**
      * 选择器 className
@@ -134,7 +132,7 @@ export abstract class AbstractPickerComponent
      * @description.zh-cn 是否取值开始日期的00:00以及截止日期的24:00
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyAutoStartAndEnd = false;
+    @Input({ transform: coerceBooleanProperty }) thyAutoStartAndEnd = false;
 
     /**
      * 面板默认日期
@@ -151,7 +149,7 @@ export abstract class AbstractPickerComponent
      * 是否展示快捷选项面板
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyShowShortcut: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyShowShortcut: boolean;
 
     /**
      * 快捷选项面板的显示位置
@@ -184,7 +182,7 @@ export abstract class AbstractPickerComponent
      * 是否禁用
      * @default false
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyDisabled(value: boolean) {
         this.disabled = value;
     }

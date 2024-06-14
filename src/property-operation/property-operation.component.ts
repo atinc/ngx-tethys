@@ -11,12 +11,11 @@ import {
     TemplateRef,
     ViewChild,
     OnDestroy,
-    NgZone,
-    booleanAttribute
+    NgZone
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyTranslate } from 'ngx-tethys/core';
-import { htmlElementIsEmpty } from 'ngx-tethys/util';
+import { coerceBooleanProperty, htmlElementIsEmpty } from 'ngx-tethys/util';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -109,13 +108,13 @@ export class ThyPropertyOperation implements OnInit, AfterContentInit, OnDestroy
      * 当有属性值时是否展示移除图标
      * @default false
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyShowClose(value: boolean) {
         this.showClose = value;
     }
 
     // 支持有值时，label不显示
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyLabelHasValue(value: boolean) {
         this.labelHideWhenHasValue = !value;
     }
@@ -124,7 +123,7 @@ export class ThyPropertyOperation implements OnInit, AfterContentInit, OnDestroy
      * 有值时隐藏 label
      * @default false
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyLabelHideWhenHasValue(value: boolean) {
         this.labelHideWhenHasValue = value;
     }
@@ -145,7 +144,7 @@ export class ThyPropertyOperation implements OnInit, AfterContentInit, OnDestroy
      * @default false
      */
     @HostBinding('class.active')
-    @Input({ alias: 'thyActive', transform: booleanAttribute })
+    @Input({ alias: 'thyActive', transform: coerceBooleanProperty })
     active: boolean;
 
     /**
@@ -153,7 +152,7 @@ export class ThyPropertyOperation implements OnInit, AfterContentInit, OnDestroy
      * @default false
      */
     @HostBinding('class.thy-property-operation-disabled')
-    @Input({ alias: 'thyDisabled', transform: booleanAttribute })
+    @Input({ alias: 'thyDisabled', transform: coerceBooleanProperty })
     disabled: boolean;
 
     private destroy$ = new Subject<void>();

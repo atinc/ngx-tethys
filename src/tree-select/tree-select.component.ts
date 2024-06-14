@@ -5,14 +5,13 @@ import {
     EXPANDED_DROPDOWN_POSITIONS
 } from 'ngx-tethys/core';
 import { ThyTreeNode } from 'ngx-tethys/tree';
-import { elementMatchClosest, isArray, isObject, produce, warnDeprecation } from 'ngx-tethys/util';
+import { coerceBooleanProperty, elementMatchClosest, isArray, isObject, produce, warnDeprecation } from 'ngx-tethys/util';
 import { Observable, of, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair, ViewportRuler } from '@angular/cdk/overlay';
 import { isPlatformBrowser, NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
-    booleanAttribute,
     ChangeDetectorRef,
     Component,
     ContentChild,
@@ -164,7 +163,7 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
     /**
      * 开启虚拟滚动
      */
-    @Input({ transform: booleanAttribute }) thyVirtualScroll: boolean = false;
+    @Input({ transform: coerceBooleanProperty }) thyVirtualScroll: boolean = false;
 
     /**
      * 树节点的唯一标识
@@ -184,19 +183,19 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
      * 单选时，是否显示清除按钮，当为 true 时，显示清除按钮
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyAllowClear: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyAllowClear: boolean;
 
     /**
      * 是否多选
      * @type boolean
      */
-    @Input({ transform: booleanAttribute }) thyMultiple = false;
+    @Input({ transform: coerceBooleanProperty }) thyMultiple = false;
 
     /**
      * 是否禁用树选择器，当为 true 禁用树选择器
      * @type boolean
      */
-    @Input({ transform: booleanAttribute }) thyDisable = false;
+    @Input({ transform: coerceBooleanProperty }) thyDisable = false;
 
     get thyDisabled(): boolean {
         return this.thyDisable;
@@ -240,19 +239,19 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
      * 是否异步加载节点的子节点(显示加载状态)，当为 true 时，异步获取
      * @type boolean
      */
-    @Input({ transform: booleanAttribute }) thyAsyncNode = false;
+    @Input({ transform: coerceBooleanProperty }) thyAsyncNode = false;
 
     /**
      * 是否展示全名
      * @type boolean
      */
-    @Input({ transform: booleanAttribute }) thyShowWholeName = false;
+    @Input({ transform: coerceBooleanProperty }) thyShowWholeName = false;
 
     /**
      * 是否展示搜索
      * @type boolean
      */
-    @Input({ transform: booleanAttribute }) thyShowSearch = false;
+    @Input({ transform: coerceBooleanProperty }) thyShowSearch = false;
 
     /**
      * 图标类型，支持 default | especial，已废弃
