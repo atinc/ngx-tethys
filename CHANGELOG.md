@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [17.0.11](https://github.com/atinc/ngx-tethys/compare/17.0.10...17.0.11) (2024-06-17)
+
+
+### Features
+
+* use the ngx-tethys/util's coerceBooleanProperty instead of booleanAttribute #INFR-12648 ([#3106](https://github.com/atinc/ngx-tethys/issues/3106)) ([368a728](https://github.com/atinc/ngx-tethys/commit/368a72878d5403d79c7bd4d369f1c2799408587d)), closes [#INFR-12648](https://github.com/atinc/ngx-tethys/issues/INFR-12648)
+
+
+
 ## [17.0.10](https://github.com/atinc/ngx-tethys/compare/17.0.9...17.0.10) (2024-06-13)
 
 
