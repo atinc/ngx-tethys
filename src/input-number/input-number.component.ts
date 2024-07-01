@@ -158,6 +158,11 @@ export class ThyInputNumber
      */
     @Output() thyFocus = new EventEmitter<Event>();
 
+    /**
+     * 上下箭头点击事件
+     */
+    @Output() thyStepChange = new EventEmitter<{ value: number; type: Type }>();
+
     private innerMax: number = Infinity;
 
     private innerMin: number = -Infinity;
@@ -285,6 +290,7 @@ export class ThyInputNumber
         val = this.getCurrentValidValue(val);
         this.updateValidValue(val);
         this.onChangeFn(this.validValue);
+        this.thyStepChange.emit({ value: this.validValue as number, type });
         this.displayValue = this.formatterValue(val);
         if (outOfRange) {
             return;
