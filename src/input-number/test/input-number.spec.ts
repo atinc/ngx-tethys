@@ -572,13 +572,6 @@ describe('input-number component', () => {
         expect(inputNumberComponentInstance.onSecondFocus).toHaveBeenCalledTimes(1);
         expect(inputNumberComponentInstance.onSecondBlur).not.toHaveBeenCalled();
         flush();
-
-        const upElement = inputNumberDebugElement.nativeElement.querySelector('.input-number-handler-up');
-        expect(upElement).toBeTruthy();
-        tick();
-        dispatchMouseEvent(upElement, 'mousedown');
-        expect(inputNumberComponentInstance.stepChange).toHaveBeenCalled();
-        flush();
     }));
 
     it('should Only floating point numbers can be entered work', fakeAsync(() => {
@@ -648,4 +641,20 @@ describe('input-number component', () => {
         expect(updateValidValueSpy).toHaveBeenCalledWith('456');
         expect(changeFnSpy).toHaveBeenCalledWith('456');
     });
+
+    it('should call step change callback when click arrow', fakeAsync(() => {
+        fixture.detectChanges();
+        const upElement = inputNumberDebugElement.nativeElement.querySelector('.input-number-handler-up');
+        expect(upElement).toBeTruthy();
+        tick();
+        dispatchMouseEvent(upElement, 'mousedown');
+        expect(inputNumberComponentInstance.stepChange).toHaveBeenCalled();
+        flush();
+        const downElement = inputNumberDebugElement.nativeElement.querySelector('.input-number-handler-down');
+        expect(downElement).toBeTruthy();
+        tick();
+        dispatchMouseEvent(downElement, 'mousedown');
+        expect(inputNumberComponentInstance.stepChange).toHaveBeenCalled();
+        flush();
+    }));
 });
