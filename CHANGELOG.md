@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [17.0.12](https://github.com/atinc/ngx-tethys/compare/17.0.11...17.0.12) (2024-07-02)
+
+
+### Bug Fixes
+
+* **style:** fix $dropdown-menu-padding-y  10px to 12px #INFR-12736 ([#3108](https://github.com/atinc/ngx-tethys/issues/3108)) ([b4f7649](https://github.com/atinc/ngx-tethys/commit/b4f7649024cfbd568a861675064f574d8262a9ce)), closes [#INFR-12736](https://github.com/atinc/ngx-tethys/issues/INFR-12736)
+
+
+### Features
+
+* **inputNumber:** add thyStepChange event emitter for click arrow #INFR-… ([#3109](https://github.com/atinc/ngx-tethys/issues/3109)) ([4d5c421](https://github.com/atinc/ngx-tethys/commit/4d5c4211b05b533896ea34532e12f133c08ffa8d))
+
+
+
 ## [17.0.11](https://github.com/atinc/ngx-tethys/compare/17.0.10...17.0.11) (2024-06-17)
 
 
