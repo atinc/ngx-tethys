@@ -295,7 +295,7 @@ export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterVi
     @Input() thyExpandedKeys: (string | number)[];
 
     /**
-     * 展开所有树节点
+     * 是否展开所有树节点
      */
     @Input({ transform: coerceBooleanProperty }) thyExpandAll: boolean = false;
 
