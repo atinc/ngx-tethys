@@ -110,11 +110,11 @@ fieldset:disabled a.btn {
     @include mixin.button-outline-variant(
         variables.$gray-700,
         variables.$gray-300,
-        variables.$primary,
-        null,
-        variables.$primary,
-        null,
-        variables.$primary
+        variables.$gray-700,
+        variables.$gray-100,
+        variables.$gray-300,
+        variables.$gray-100,
+        variables.$gray-300
     );
 }
 
