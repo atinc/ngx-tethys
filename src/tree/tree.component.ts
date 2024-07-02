@@ -380,7 +380,6 @@ export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterVi
 
     ngOnInit(): void {
         this._initThyNodes();
-        this._handleExpandedKeys();
         this._setTreeType();
         this._setTreeSize();
         this._instanceSelectionModel();
@@ -461,6 +460,7 @@ export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterVi
         this.thyTreeService.initializeTreeNodes(this.thyNodes);
         this.flattenTreeNodes = this.thyTreeService.flattenTreeNodes;
         this._selectTreeNodes(this._selectedKeys);
+        this._handleExpandedKeys();
     }
 
     private _handleExpandedKeys() {
