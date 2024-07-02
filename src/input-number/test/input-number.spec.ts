@@ -26,6 +26,7 @@ import { ThyInputNumberModule } from '../module';
             [thyStep]="thyStep"
             [thyDisabled]="thyDisabled"
             (ngModelChange)="change($event)"
+            (thyStepChange)="stepChange($event)"
             (thyFocus)="onFocus($event)"
             (thyBlur)="onBlur($event)"></thy-input-number>
         <thy-input-number
@@ -41,6 +42,7 @@ import { ThyInputNumberModule } from '../module';
             [thyStep]="thyStep"
             [thyDisabled]="thyDisabled"
             (ngModelChange)="change($event)"
+            (thyStepChange)="stepChange($event)"
             (thyFocus)="onSecondFocus($event)"
             (thyBlur)="onSecondBlur($event)"></thy-input-number>
     `
@@ -81,6 +83,8 @@ class TestInputNumberComponent {
     onSecondFocus = jasmine.createSpy('focus second callback');
 
     onSecondBlur = jasmine.createSpy('blur second callback');
+
+    stepChange = jasmine.createSpy('arrow click callback');
 }
 
 @NgModule({
@@ -567,6 +571,7 @@ describe('input-number component', () => {
         expect(inputNumberComponentInstance.onBlur).toHaveBeenCalledTimes(1);
         expect(inputNumberComponentInstance.onSecondFocus).toHaveBeenCalledTimes(1);
         expect(inputNumberComponentInstance.onSecondBlur).not.toHaveBeenCalled();
+        flush();
     }));
 
     it('should Only floating point numbers can be entered work', fakeAsync(() => {
@@ -636,4 +641,20 @@ describe('input-number component', () => {
         expect(updateValidValueSpy).toHaveBeenCalledWith('456');
         expect(changeFnSpy).toHaveBeenCalledWith('456');
     });
+
+    it('should call step change callback when click arrow', fakeAsync(() => {
+        fixture.detectChanges();
+        const upElement = inputNumberDebugElement.nativeElement.querySelector('.input-number-handler-up');
+        expect(upElement).toBeTruthy();
+        tick();
+        dispatchMouseEvent(upElement, 'mousedown');
+        expect(inputNumberComponentInstance.stepChange).toHaveBeenCalled();
+        flush();
+        const downElement = inputNumberDebugElement.nativeElement.querySelector('.input-number-handler-down');
+        expect(downElement).toBeTruthy();
+        tick();
+        dispatchMouseEvent(downElement, 'mousedown');
+        expect(inputNumberComponentInstance.stepChange).toHaveBeenCalled();
+        flush();
+    }));
 });
