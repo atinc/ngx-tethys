@@ -445,6 +445,21 @@ describe('ThyTreeComponent', () => {
             const indexElement: HTMLElement = treeElement.querySelectorAll('.thy-tree-node')[1].querySelector('.thy-tree-index');
             expect(indexElement.style.width).toEqual('10px');
         });
+
+        it('test should successful set thyExpandedKeys ', fakeAsync(() => {
+            component.expandedKeys = ['111111111111111111111111', '5d4e5b365fadf30311c3d889'];
+            fixture.detectChanges();
+            expect(treeComponent.flattenTreeNodes.find(item => item.key === '111111111111111111111111').isExpanded).toEqual(true);
+            expect(treeComponent.flattenTreeNodes.find(item => item.key === '5d4e5b365fadf30311c3d889').isExpanded).toEqual(true);
+        }));
+
+        it('test should successful set thyExpandAll ', fakeAsync(() => {
+            component.expandAll = true;
+            fixture.detectChanges();
+            treeComponent.flattenTreeNodes.forEach(item => {
+                expect(item.isExpanded).toEqual(true);
+            });
+        }));
     });
 
     describe('async tree', () => {
@@ -793,6 +808,8 @@ describe('ThyTreeComponent', () => {
             [thyMultiple]="options.multiple"
             [thyClickBehavior]="options.clickBehavior"
             [thySelectedKeys]="selectedKeys"
+            [thyExpandedKeys]="expandedKeys"
+            [thyExpandAll]="expandAll"
             [thyShowExpand]="true"
             [thyBeforeDragStart]="options.beforeDragStart"
             (thyOnDragDrop)="dragDrop($event)"
@@ -821,6 +838,10 @@ class TestBasicTreeComponent {
     treeType = 'especial';
 
     indent = 10;
+
+    expandedKeys: string[];
+
+    expandAll = false;
 
     options: any = {
         draggable: true,
