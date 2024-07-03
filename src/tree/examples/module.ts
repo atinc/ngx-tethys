@@ -10,6 +10,7 @@ import { ThyTreeDragDropExampleComponent } from './drag-drop/drag-drop.component
 import { ThyTreeTemplateExampleComponent } from './template/template.component';
 import { ThyTreeVirtualScrollExampleComponent } from './virtual-scroll/virtual-scroll.component';
 import { ThyTreeAsyncExampleComponent } from './async/async.component';
+import { ThyTreeExpandExampleComponent } from './expand/expand.component';
 
 const COMPONENTS = [
     ThyTreeBasicExampleComponent,
@@ -17,7 +18,8 @@ const COMPONENTS = [
     ThyTreeDragDropExampleComponent,
     ThyTreeCheckableExampleComponent,
     ThyTreeVirtualScrollExampleComponent,
-    ThyTreeAsyncExampleComponent
+    ThyTreeAsyncExampleComponent,
+    ThyTreeExpandExampleComponent
 ];
 
 @NgModule({
