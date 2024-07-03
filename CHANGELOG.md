@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [17.0.13](https://github.com/atinc/ngx-tethys/compare/17.0.12...17.0.13) (2024-07-03)
+
+
+### Features
+
+* **tree:** thy-tree support thyExpandedKeys and thyExpandAll #INFR-12795 ([#3110](https://github.com/atinc/ngx-tethys/issues/3110)) ([ce8aedf](https://github.com/atinc/ngx-tethys/commit/ce8aedfbe39430f8cddfc1a7c2c583e770b7800f)), closes [#INFR-12795](https://github.com/atinc/ngx-tethys/issues/INFR-12795)
+
+
+
 ## [17.0.12](https://github.com/atinc/ngx-tethys/compare/17.0.11...17.0.12) (2024-07-02)
 
 
