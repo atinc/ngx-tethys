@@ -11,4 +11,9 @@
             text-align: left;
         }
     }
+    .table.table-boxed,
+    .table.table-bordered {
+        border-collapse: collapse;
+        margin-top: -1px;
+    }
 }
