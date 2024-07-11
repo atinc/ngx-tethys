@@ -1,7 +1,8 @@
+import { ThyPopover, ThyPopoverConfig } from 'ngx-tethys/popover';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
+
 import { ComponentType } from '@angular/cdk/portal';
 import { Component, ElementRef, Input, OnDestroy, Renderer2, TemplateRef } from '@angular/core';
-import { ThyPopover } from 'ngx-tethys/popover';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
  * 菜单项操作组件
@@ -37,6 +38,12 @@ export class ThyMenuItemAction implements OnDestroy {
      */
     @Input({ transform: coerceBooleanProperty }) thyStopPropagation = true;
 
+    /**
+     * 弹出框的参数， 默认为`{ placement: "bottomLeft", insideClosable: true}`
+     * @default { placement: "bottomLeft", insideClosable: true }
+     */
+    @Input() thyPopoverOptions: ThyPopoverConfig;
+
     private bindClickEvent() {
         if (this._boundEvent) {
             return;
@@ -47,10 +54,23 @@ export class ThyMenuItemAction implements OnDestroy {
                 event.stopPropagation();
             }
             if (this._actionMenu) {
-                this.popover.open(this._actionMenu, {
-                    origin: event.currentTarget as HTMLElement,
-                    insideClosable: true,
-                    placement: 'bottom'
+                const activeClass = 'more-active';
+                const wrapDOM = (event.target as HTMLElement).closest('.thy-menu-item');
+                wrapDOM?.classList.add(activeClass);
+                const popoverRef = this.popover.open(
+                    this._actionMenu,
+                    Object.assign(
+                        {
+                            origin: event.currentTarget as HTMLElement,
+                            insideClosable: true,
+                            placement: 'bottomLeft',
+                            originActiveClass: 'active'
+                        },
+                        this.thyPopoverOptions
+                    )
+                );
+                popoverRef.afterClosed().subscribe(() => {
+                    wrapDOM?.classList.remove(activeClass);
                 });
             }
         });

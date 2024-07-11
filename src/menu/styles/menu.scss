@@ -16,6 +16,10 @@
             background: rgba(variables.$primary, 0.1);
         }
 
+        &.more-active .thy-menu-item-content {
+            background: variables.$gray-100;
+        }
+
         .thy-menu-item-content {
             margin: 0 -1000px;
             padding: 0 1000px;
@@ -174,6 +178,10 @@
             &.active {
                 display: inline-block !important;
                 margin-left: 4px;
+                .thy-action {
+                    background: rgba(variables.$primary, 0.1);
+                    color: variables.$primary;
+                }
             }
         }
     }
