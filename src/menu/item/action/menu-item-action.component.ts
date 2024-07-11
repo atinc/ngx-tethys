@@ -39,7 +39,7 @@ export class ThyMenuItemAction implements OnDestroy {
     @Input({ transform: coerceBooleanProperty }) thyStopPropagation = true;
 
     /**
-     * 弹出框的参数， 默认为`{ placement: "bottomLeft", insideClosable: true}`
+     * 弹出框的参数
      * @default { placement: "bottomLeft", insideClosable: true }
      */
     @Input() thyPopoverOptions: ThyPopoverConfig;
