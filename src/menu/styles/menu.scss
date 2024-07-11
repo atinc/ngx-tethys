@@ -12,12 +12,12 @@
         min-height: variables.$menu-height;
         align-items: center;
 
-        &.active .thy-menu-item-content {
-            background: rgba(variables.$primary, 0.1);
+        &.action-active .thy-menu-item-content {
+            background: variables.$gray-100;
         }
 
-        &.more-active .thy-menu-item-content {
-            background: variables.$gray-100;
+        &.active .thy-menu-item-content {
+            background: rgba(variables.$primary, 0.1);
         }
 
         .thy-menu-item-content {

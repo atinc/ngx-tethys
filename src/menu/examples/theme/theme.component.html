@@ -11,6 +11,9 @@
           <thy-icon thyIconName="view-tile"></thy-icon>
         </span>
         <span thyMenuItemName> 我的工作 </span>
+        <span thyMenuItemAction [thyActionMenu]="menuTpl">
+          <a thyAction thyActionIcon="more-vertical" thyTooltip="更多" thyStopPropagation href="javascript:;"></a>
+        </span>
       </a>
       <a thyMenuItem href="javascript:;">
         <span thyMenuItemIcon>

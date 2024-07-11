@@ -54,7 +54,7 @@ export class ThyMenuItemAction implements OnDestroy {
                 event.stopPropagation();
             }
             if (this._actionMenu) {
-                const activeClass = 'more-active';
+                const activeClass = 'action-active';
                 const wrapDOM = (event.target as HTMLElement).closest('.thy-menu-item');
                 wrapDOM?.classList.add(activeClass);
                 const popoverRef = this.popover.open(
@@ -69,7 +69,7 @@ export class ThyMenuItemAction implements OnDestroy {
                         this.thyPopoverOptions
                     )
                 );
-                popoverRef.afterClosed().subscribe(() => {
+                popoverRef?.afterClosed().subscribe(() => {
                     wrapDOM?.classList.remove(activeClass);
                 });
             }
