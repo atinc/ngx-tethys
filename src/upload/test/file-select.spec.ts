@@ -167,3 +167,66 @@ describe('ThyFileSelect', () => {
         expect(inputElement.click).toHaveBeenCalled();
     });
 });
+
+@Component({
+    selector: 'thy-file-select-static-input',
+    template: ` <thy-file-select thyMultiple="true" thyAcceptFolder="false" (thyOnFileSelect)="selectFiles($event)"> </thy-file-select> `
+})
+class FileSelectStaticInputComponent {
+    selectFiles(event: { files: File[] }) {}
+}
+
+@NgModule({
+    imports: [ThyUploadModule],
+    declarations: [FileSelectStaticInputComponent],
+    exports: [FileSelectStaticInputComponent]
+})
+export class FileUploaderTestStaticInputModule {}
+
+describe('ThyFileSelectStaticInput', () => {
+    let fixture: ComponentFixture<FileSelectStaticInputComponent>;
+    let testComponent: FileSelectStaticInputComponent;
+    let fileSelectDebugElement: DebugElement;
+    let inputElement: HTMLInputElement;
+    let dataTransfer: DataTransfer;
+
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            imports: [ThyUploadModule, FileUploaderTestStaticInputModule]
+        }).compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(FileSelectStaticInputComponent);
+        testComponent = fixture.debugElement.componentInstance;
+        fileSelectDebugElement = fixture.debugElement.query(By.directive(ThyFileSelect));
+        inputElement = fileSelectDebugElement.nativeElement.querySelector('input');
+        fixture.detectChanges();
+
+        const file = createFile();
+        dataTransfer = new DataTransfer();
+        dataTransfer.items.add(file);
+    });
+
+    it('should work when use static input of thyMultiple', () => {
+        const selectFilesSpy = spyOn(testComponent, 'selectFiles');
+        expect(selectFilesSpy).not.toHaveBeenCalled();
+
+        expect(inputElement.getAttribute('multiple')).toEqual('');
+
+        const fileChangeEvent = new Event('change');
+        dataTransfer.items.add(createFile());
+        inputElement.files = dataTransfer.files;
+        inputElement.dispatchEvent(fileChangeEvent);
+
+        expect(selectFilesSpy).toHaveBeenCalled();
+        expect(selectFilesSpy).toHaveBeenCalledWith({
+            files: [dataTransfer.files[0], dataTransfer.files[1]],
+            nativeEvent: fileChangeEvent
+        });
+    });
+
+    it('should work when use static input of thyAcceptFolder', () => {
+        expect(inputElement.getAttribute('webkitdirectory')).toEqual(null);
+    });
+});
