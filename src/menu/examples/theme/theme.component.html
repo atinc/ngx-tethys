@@ -11,6 +11,9 @@
           <thy-icon thyIconName="view-tile"></thy-icon>
         </span>
         <span thyMenuItemName> 我的工作 </span>
+        <span thyMenuItemAction [thyActionMenu]="menuTpl">
+          <a thyAction thyActionIcon="more-vertical" thyTooltip="更多" thyStopPropagation href="javascript:;"></a>
+        </span>
       </a>
       <a thyMenuItem href="javascript:;">
         <span thyMenuItemIcon>
@@ -23,7 +26,7 @@
             6
           </span>
         </span>
-        <span thyMenuItemAction (click)="openActionMenu($event, menuTpl)">
+        <span thyMenuItemAction [thyActionMenu]="menuTpl">
           <a thyAction thyActionIcon="more-vertical" thyTooltip="更多" thyStopPropagation href="javascript:;"></a>
         </span>
       </a>
@@ -34,7 +37,7 @@
             <thy-icon thyIconName="view-tile"></thy-icon>
           </span>
           <span thyMenuItemName> 我的工作 </span>
-          <span thyMenuItemAction>
+          <span thyMenuItemAction [thyActionMenu]="menuTpl">
             <a thyAction thyActionIcon="more-vertical" thyTooltip="更多" thyStopPropagation href="javascript:;"></a>
           </span>
         </a>
@@ -43,7 +46,7 @@
             <thy-icon thyIconName="view-tile"></thy-icon>
           </span>
           <span thyMenuItemName> 我的工作 </span>
-          <span thyMenuItemAction>
+          <span thyMenuItemAction [thyActionMenu]="menuTpl">
             <a thyAction thyActionIcon="more-vertical" thyTooltip="更多" thyStopPropagation href="javascript:;"></a>
           </span>
         </a>

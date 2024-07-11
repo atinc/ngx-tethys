@@ -12,6 +12,10 @@
         min-height: variables.$menu-height;
         align-items: center;
 
+        &.action-active .thy-menu-item-content {
+            background: variables.$gray-100;
+        }
+
         &.active .thy-menu-item-content {
             background: rgba(variables.$primary, 0.1);
         }
@@ -174,6 +178,10 @@
             &.active {
                 display: inline-block !important;
                 margin-left: 4px;
+                .thy-action {
+                    background: rgba(variables.$primary, 0.1);
+                    color: variables.$primary;
+                }
             }
         }
     }
