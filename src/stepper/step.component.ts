@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, TemplateRef, Inject, InjectionToken, Optional } from '@angular/core';
+import { Component, Inject, InjectionToken, Input, Optional, TemplateRef, ViewChild } from '@angular/core';
 
 export interface IThyStepperComponent {
     selected: ThyStep;
@@ -25,6 +25,12 @@ export class ThyStep {
      * 步骤条中每个步骤的label文本
      */
     @Input() thyLabel: string;
+
+    /**
+     * 步骤条中每个步骤完成的icon
+     * @default check-circle
+     */
+    @Input() thyIconName: string;
 
     constructor(@Optional() @Inject(THY_STEPPER_COMPONENT) public stepper: IThyStepperComponent) {}
 
