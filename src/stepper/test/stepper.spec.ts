@@ -13,7 +13,7 @@ import { ThyStepperModule } from '../stepper.module';
     selector: 'thy-demo-stepper',
     template: `
         <thy-stepper [thySelectedIndex]="selectedIndex" [thyShowStepHeader]="showStepHeader">
-            <thy-step label="第一步" [thyIconName]="icon">
+            <thy-step label="第一步" [thyIcon]="icon">
                 <div class="demo-stepper-body first-step">
                     <button thyButton="primary">下一步</button>
                     <p>This is first description.</p>
