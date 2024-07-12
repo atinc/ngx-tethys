@@ -15,14 +15,14 @@
 
 @mixin slider-pointer-size($size) {
     @if $size == variables.$slider-height-sm {
-        width: 15px;
-        height: 15px;
+        width: 8px;
+        height: 14px;
     } @else if $size == variables.$slider-height-md {
-        width: 18px;
+        width: 8px;
         height: 18px;
     } @else if $size == variables.$slider-height-lg {
-        width: 25px;
-        height: 25px;
+        width: 10px;
+        height: 26px;
     }
 }
 
@@ -64,7 +64,7 @@
                 height: 100%;
             }
             .thy-slider-pointer {
-                transform: translate(-50%, 50%);
+                transform: translate(-50%, 50%) rotate(90deg);
                 left: 50%;
                 bottom: 0;
                 top: unset;
@@ -102,10 +102,10 @@
             position: absolute;
             top: 50%;
             transform: translate(-50%, -50%);
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            border-width: 2px;
+            border-radius: 6px;
+            width: 8px;
+            height: 14px;
+            border-width: 1px;
             border-style: solid;
             background-color: variables.$white;
         }
@@ -123,7 +123,7 @@
                 bottom: 0;
             }
             .thy-slider-pointer {
-                transform: translate(-50%, 50%);
+                transform: translate(-50%, 50%) rotate(90deg);
                 left: 50%;
                 bottom: 0;
                 top: unset;
