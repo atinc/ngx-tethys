@@ -60,8 +60,9 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
         );
         const positions = getFlexiblePositions(config.placement, config.offset, 'thy-popover');
         positionStrategy.withPositions(positions);
-        const canPush = typeof config.canPush === 'boolean' ? config.canPush : true;
-        positionStrategy.withPush(canPush);
+        if (typeof config.canPush === 'boolean') {
+            positionStrategy.withPush(config.canPush);
+        }
         positionStrategy.withGrowAfterOpen(true);
         positionStrategy.withTransformOriginOn('.thy-popover-container');
         positionStrategy.positionChanges.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(change => {
