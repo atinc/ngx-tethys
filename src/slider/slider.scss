@@ -21,7 +21,7 @@
         width: 8px;
         height: 18px;
     } @else if $size == variables.$slider-height-lg {
-        width: 10px;
+        width: 12px;
         height: 26px;
     }
 }
@@ -79,14 +79,6 @@
     box-sizing: border-box;
     height: 15px;
     display: block;
-    &:not(.disabled) {
-        &:focus {
-            outline: 0;
-            .thy-slider-pointer {
-                border: 1px solid variables.$primary;
-            }
-        }
-    }
     .thy-slider-rail {
         position: relative;
         width: 100%;
@@ -139,7 +131,7 @@
                 background-color: variables.$gray-400;
             }
             .thy-slider-pointer {
-                border-color: variables.$gray-100;
+                border-color: variables.$gray-400;
             }
         }
     }
