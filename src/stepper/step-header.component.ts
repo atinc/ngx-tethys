@@ -17,7 +17,7 @@ import { Component, HostBinding, Input, numberAttribute } from '@angular/core';
 export class ThyStepHeader {
     @Input() label: string;
 
-    @Input() iconName: string;
+    @Input() icon: string;
 
     @Input({ transform: numberAttribute }) index: number;
 

@@ -30,7 +30,7 @@ export class ThyStep {
      * 步骤条中每个步骤完成的icon
      * @default check-circle
      */
-    @Input() thyIconName: string;
+    @Input() thyIcon: string;
 
     constructor(@Optional() @Inject(THY_STEPPER_COMPONENT) public stepper: IThyStepperComponent) {}
 
