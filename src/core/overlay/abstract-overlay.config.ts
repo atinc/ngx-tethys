@@ -136,6 +136,13 @@ export class ThyAbstractOverlayConfig<TData = unknown> {
      * 关闭弹窗前的回调函数，返回 false 可阻止关闭弹窗
      */
     canClose?: (result?: unknown) => boolean;
+
+    /**
+     * 设置当提供的位置均不适合时是否可以将覆盖层推到屏幕上
+     * @description.en-us Sets whether the overlay can be pushed on-screen if none of the provided positions fit
+     * @default true
+     */
+    canPush?: boolean;
 }
 
 export interface ThyAbstractOverlayOptions {
