@@ -78,7 +78,8 @@
                 "glob": "**/*",
                 "input": "./node_modules/@tethys/icons",
                 "output": "/assets/icons/"
-              }
+              },
+              "site/src/manifest.webmanifest"
             ],
             "styles": [
               "site/src/styles.scss"
@@ -89,7 +90,9 @@
             "buildOptimizer": false,
             "sourceMap": true,
             "optimization": false,
-            "namedChunks": true
+            "namedChunks": true,
+            "serviceWorker": true,
+            "ngswConfigPath": "site/ngsw-config.json"
           },
           "configurations": {
             "production": {

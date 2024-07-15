@@ -68,7 +68,7 @@ import { ThyVoteModule } from 'ngx-tethys/vote';
 import { ThyWatermarkModule } from 'ngx-tethys/watermark';
 
 import { Overlay } from '@angular/cdk/overlay';
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
@@ -77,6 +77,7 @@ import { DocgeniTemplateModule, RootComponent } from '@docgeni/template';
 import { ThyIconRegistry } from '../../../src/icon/icon-registry';
 import { EXAMPLE_MODULES } from './content/example-modules';
 import { DOCGENI_SITE_PROVIDERS } from './content/index';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 function thyPopoverDefaultConfigFactory(overlay: Overlay) {
     return {
@@ -164,7 +165,13 @@ const TETHYS_MODULES = [
         DocgeniTemplateModule,
         RouterModule.forRoot([]),
         ...TETHYS_MODULES,
-        ...EXAMPLE_MODULES
+        ...EXAMPLE_MODULES,
+        ServiceWorkerModule.register('ngsw-worker.js', {
+          enabled: !isDevMode(),
+          // Register the ServiceWorker as soon as the application is stable
+          // or after 30 seconds (whichever comes first).
+          registrationStrategy: 'registerWhenStable:30000'
+        })
     ],
     providers: [...DOCGENI_SITE_PROVIDERS],
     bootstrap: [RootComponent]
