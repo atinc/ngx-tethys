@@ -736,6 +736,17 @@ describe(`thyPopover`, () => {
                 });
 
                 expect(popoverRef.getOverlayRef().getConfig().scrollStrategy).toEqual(scrollStrategy);
+                expect((popoverRef.getOverlayRef().getConfig().positionStrategy as any)._canPush).toEqual(true);
+            });
+
+            it('should support set canPush to false', () => {
+                const popoverRef = popover.open(popoverConfigComponent.template, {
+                    origin: popoverConfigComponent.openBtn,
+                    ...config,
+                    scrollStrategy: popoverConfigComponent.overlay.scrollStrategies.reposition(),
+                    canPush: false
+                });
+                expect((popoverRef.getOverlayRef().getConfig().positionStrategy as any)._canPush).toEqual(false);
             });
 
             it('should use the provided defaults', () => {
