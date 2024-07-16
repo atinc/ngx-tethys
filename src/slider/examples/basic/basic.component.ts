@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
     selector: 'thy-slider-basic',
     template: `
-        <thy-slider [(ngModel)]="value"></thy-slider>
+        <thy-slider class="mb-2" [(ngModel)]="value"></thy-slider>
         <p>当前值为： {{ value }}</p>
     `
 })

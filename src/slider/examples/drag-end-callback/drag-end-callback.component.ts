@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
     selector: 'thy-slider-drag-end-callback-example',
     template: `
         <p>当前值为：{{ value }}</p>
-        <thy-slider (thyAfterChange)="value = $event.value"></thy-slider>
+        <thy-slider class="mt-2" (thyAfterChange)="value = $event.value"></thy-slider>
     `
 })
 export class ThySliderDragEndCallbackExampleComponent implements OnInit {
