@@ -142,7 +142,7 @@ export class ThyAbstractOverlayConfig<TData = unknown> {
      * @description.en-us Sets whether the overlay can be pushed on-screen if none of the provided positions fit
      * @default true
      */
-    canPush?: boolean;
+    canPush? = true;
 }
 
 export interface ThyAbstractOverlayOptions {
