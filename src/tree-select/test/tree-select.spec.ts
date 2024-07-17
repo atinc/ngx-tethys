@@ -7,14 +7,14 @@ import { ApplicationRef, Component, DebugElement, OnInit, Sanitizer, SecurityCon
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By, DomSanitizer } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ThyFormModule } from '../../form';
 import { ThyIcon, ThyIconRegistry } from '../../icon';
-import { bigTreeNodes, searchTreeSelectData } from '../examples/mock-data';
+import { bigTreeNodes, moreOptionTreeSelectData, searchTreeSelectData } from '../examples/mock-data';
 import { ThyTreeSelectModule } from '../module';
 import { ThyTreeSelectNode } from '../tree-select.class';
 import { filterTreeData, ThyTreeSelect } from '../tree-select.component';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 function treeNodesExpands(nodes: ThyTreeSelectNode[]) {
     const arr = [] as ThyTreeSelectNode[];
@@ -894,6 +894,15 @@ describe('ThyTreeSelect', () => {
         it('should create', () => {
             expect(component).toBeDefined();
         });
+
+        it('should call buildFlattenTreeNodes when thyTreeNodes changed', fakeAsync(() => {
+            const buildVirtualTreeNodesSpy = spyOn<any>(fixture.componentInstance.treeSelect, 'buildFlattenTreeNodes');
+            fixture.componentInstance.mockData = moreOptionTreeSelectData;
+            fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
+            expect(buildVirtualTreeNodesSpy).toHaveBeenCalled();
+        }));
 
         it('should load part of tree nodes', fakeAsync(() => {
             const trigger = fixture.debugElement.query(By.css('.thy-select-custom')).nativeElement.children[0];

@@ -1,15 +1,21 @@
 import {
-    TabIndexDisabledControlValueAccessorMixin,
+    EXPANDED_DROPDOWN_POSITIONS,
     getFlexiblePositions,
-    ThyClickDispatcher,
-    EXPANDED_DROPDOWN_POSITIONS
+    scaleYMotion,
+    TabIndexDisabledControlValueAccessorMixin,
+    ThyClickDispatcher
 } from 'ngx-tethys/core';
+import { ThyEmpty } from 'ngx-tethys/empty';
+import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
+import { ThyIcon } from 'ngx-tethys/icon';
+import { ThySelectControl, ThyStopPropagationDirective } from 'ngx-tethys/shared';
 import { ThyTreeNode } from 'ngx-tethys/tree';
 import { coerceBooleanProperty, elementMatchClosest, isArray, isObject, produce, warnDeprecation } from 'ngx-tethys/util';
 import { Observable, of, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair, ViewportRuler } from '@angular/cdk/overlay';
+import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { isPlatformBrowser, NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
     ChangeDetectorRef,
@@ -31,13 +37,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { ThyEmpty } from 'ngx-tethys/empty';
-import { ThyIcon } from 'ngx-tethys/icon';
-import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
-import { ThySelectControl, ThyStopPropagationDirective } from 'ngx-tethys/shared';
 import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';
-import { scaleYMotion } from 'ngx-tethys/core';
 
 type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -157,6 +157,10 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
         if (this.initialled) {
             this.flattenTreeNodes = this.flattenNodes(this.treeNodes, this.flattenTreeNodes, []);
             this.setSelectedNodes();
+
+            if (this.thyVirtualScroll) {
+                this.buildFlattenTreeNodes();
+            }
         }
     }
 
