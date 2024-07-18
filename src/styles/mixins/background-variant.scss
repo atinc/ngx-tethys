@@ -1,6 +1,6 @@
-@use "sass:color";
-@use "../mixins/hover";
-@use "../bootstrap/variables";
+@use 'sass:color';
+@use '../mixins/hover';
+@use '../bootstrap/variables';
 
 // stylelint-disable declaration-no-important
 
@@ -13,7 +13,7 @@
     a#{$parent},
     button#{$parent} {
         @include hover.hover-focus() {
-            background-color: color.adjust($color, $lightness: -10%) !important;
+            background-color: $color; // TODO: color.adjust($color, $lightness: -10%) !important;
         }
     }
     // @include deprecate("The `bg-variant` mixin", "v4.4.0", "v5", $ignore-warning);

@@ -5,7 +5,7 @@
     background-color: $bg-color;
     &.thy-tag-hover {
         &:hover {
-            background-color: color.adjust($bg-color, $lightness: -5%);
+            background-color: $bg-color; // TODO: color.adjust($bg-color, $lightness: -5%);
             cursor: variables.$hand-cursor;
         }
     }

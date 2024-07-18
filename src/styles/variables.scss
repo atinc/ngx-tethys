@@ -1,23 +1,60 @@
 @use 'sass:color';
 @use 'sass:map';
 
+// 改为从使用方引入link资源
+@use './theme/default.scss';
+@use './theme/dark.scss';
+
 $thy-prefix: 'thy';
 
-// gray color
-$white: #fff;
-$gray-70: #fdfdfd !default;
-$gray-80: #fafafa !default; // 选项鼠标移上去的背景色，主要用于表格 Hover 移上去的颜色 和表格的编号背景色,
-$gray-100: #f5f5f5 !default; // bordered 表格的背景色, 完成任务卡片颜色， Menu Item 移上去的背景色
-$gray-200: #eee !default; // 模块左侧导航鼠标移上去的阴影, 次分割线，部分控件描边, 消息评论图标使用
-$gray-210: #e9e9e9 !default; //整块区域的背景色为 #f3f3f3 后，某个卡片模块的背景色，用于文件详情
-$gray-300: #ddd !default; // 主分割线, 进度条背景色，三级图标色
-$gray-400: #cacaca !default; // 搜索框默认文字， 禁用图标颜色, 部分图标颜色,
-$gray-500: #aaa !default; // 添加参与人,负责人等操作图标的边框颜色,说明文字, 搜索框文字
-$gray-600: #999 !default; // 次要文字,如 Tab 切换文字
-$gray-700: #666 !default; // 主要文字
-$gray-800: #333 !default; // 标题和重点文字
-$gray-900: #212529 !default;
-$black: #000;
+// 新版变量
+$color-0: var(--color-0) !default;
+$color-10: var(--color-10) !default;
+$color-20: var(--color-20) !default;
+$color-30: var(--color-30) !default;
+$color-40: var(--color-40) !default;
+$color-50: var(--color-50) !default;
+$color-60: var(--color-60) !default;
+$color-70: var(--color-70) !default;
+$color-80: var(--color-80) !default;
+$color-90: var(--color-90) !default;
+$color-100: var(--color-100) !default;
+
+// 兼容旧版变量
+$white: var(--color-0) !default; // 暗：#2a2e34
+$gray-70: var(--color-10) !default; // 新增，暗：未定
+$gray-80: var(--color-20) !default; // 暗：#30353c
+$gray-100: var(--color-30) !default; // 暗：未定
+$gray-200: var(--color-40) !default; // 暗：#3c414a
+$gray-300: var(--color-50) !default; // 暗：#464c57
+$gray-400: var(--color-60) !default; // 暗：#505763
+$gray-500: var(--color-70) !default; // 暗：#5b6370
+$gray-600: var(--color-80) !default; //暗：#656f7d
+$gray-700: var(--color-90) !default; // 暗： #87909e
+$gray-800: var(--color-100) !default; // 暗：  #bcc4d1
+
+// $gray-70: #fdfdfd !default; // 废弃色，新版之后不用
+$gray-210: #e9e9e9 !default; // 废弃色，设计不在用
+$gray-900: #212529 !default; // 废弃色，设计不在用
+$black: #000; // 废弃色，设计不在用
+
+// 草稿，后续删除
+// $white: #fff; // 暗：#2a2e34                        --- $color-0
+// $gray-70: #fdfdfd !default; // 废弃色，新版之后不用
+// // $gray-70: #f7f7f7 !default; // 新增，暗：未定        --- $color-10
+// $gray-80: #fafafa !default; // 暗：#30353c          --- $color-20
+// $gray-100: #f5f5f5 !default; // 暗：未定             --- $color-30
+// $gray-200: #eee !default; // 暗：#3c414a            --- $color-40
+// // $gray-210: #e9e9e9 !default;  // 废弃色
+// $gray-300: #ddd !default; // 暗：#464c57            --- $color-50
+// $gray-400: #cacaca !default; // 暗：#505763         --- $color-60
+// $gray-500: #aaa !default; // 暗：#5b6370            --- $color-70
+// $gray-600: #999 !default; //暗：#656f7d             --- $color-80
+// $gray-700: #666 !default; // 暗： #87909e           --- $color-90
+// $gray-800: #333 !default; // 暗：  #bcc4d1          --- $color-100
+// $gray-900: #212529 !default; // 废弃色
+// $black: #000; // 废弃色
+
 //px to rem
 $rem-5px: 0.3125rem;
 $rem-10px: 0.625rem;
@@ -317,7 +354,7 @@ $layout-header-box-shadow: 0 4px 8px 0px #00000008 !default;
 $layout-content-background: $gray-80 !default;
 $layout-content-padding: 15px 20px 15px 20px !default;
 $layout-sidebar-width: 240px !default;
-$layout-sidebar-background-light: scale-color($gray-80, $lightness: +20%);
+$layout-sidebar-background-light: $gray-80; // TODO: scale-color($gray-80, $lightness: +20%);
 $layout-sidebar-background-dark: $gray-800 !default;
 $layout-sidebar-border-color: $gray-200 !default;
 $layout-sidebar-border-right: 1px solid $layout-sidebar-border-color !default;

@@ -1,0 +1,29 @@
+[theme='dark'] {
+    --color-0: #2a2e34;
+    --color-10: #30353c; // 未定
+    --color-20: #30353c;
+    --color-30: #464c57; // 未定
+    --color-40: #3c414a;
+    --color-50: #464c57;
+    --color-60: #505763;
+    --color-70: #5b6370;
+    --color-80: #656f7d;
+    --color-90: #87909e;
+    --color-100: #bcc4d1;
+
+    // 特殊场景，比如 按钮线条色 等，单独一个变量
+    --btn-border-color: --color-30;
+}
+
+// 被其它文件使用时，需要其它文件 @use 本文件 as xx;   xx.$color-10;，而不是直接引用 $color-10，实现繁琐
+// $color-0: #2a2e34;
+// $color-10: #30353c; // 未定
+// $color-20: #30353c;
+// $color-30: #464c57; // 未定
+// $color-40: #3c414a;
+// $color-50: #464c57;
+// $color-60: #505763;
+// $color-70: #5b6370;
+// $color-80: #656f7d;
+// $color-90: #87909e;
+// $color-100: #bcc4d1;

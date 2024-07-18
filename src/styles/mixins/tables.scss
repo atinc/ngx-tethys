@@ -1,7 +1,7 @@
-@use "sass:color";
-@use "../mixins/hover";
-@use "../variables";
-@use "shadow";
+@use 'sass:color';
+@use '../mixins/hover';
+@use '../variables';
+@use 'shadow';
 
 // Tables
 
@@ -19,7 +19,7 @@
     // Hover states for `.table-hover`
     // Note: this is not available for cells or rows within `thead` or `tfoot`.
     .table-hover {
-        $hover-background: color.adjust($background, $lightness: -5%);
+        $hover-background: $background; // TODO: color.adjust($background, $lightness: -5%);
 
         .table-#{$state} {
             @include hover.hover {

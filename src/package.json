@@ -12,6 +12,12 @@
     "./styles/variables": {
       "sass": "./styles/variables.scss"
     },
+    "./styles/dark": {
+      "sass": "./styles/theme/dark.scss"
+    },
+    "./styles/default": {
+      "sass": "./styles/theme/default.scss"
+    },
     "./styles/basic": {
       "sass": "./styles/basic.scss"
     },
