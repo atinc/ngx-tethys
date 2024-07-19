@@ -88,8 +88,6 @@ export class ThyCascader
     extends TabIndexDisabledControlValueAccessorMixin
     implements ControlValueAccessor, OnInit, OnChanges, OnDestroy, AfterContentInit
 {
-    @ViewChildren(ThyCascaderOptionComponent) cascaderItems!: QueryList<ThyCascaderOptionComponent>;
-
     /**
      * 选项的实际值的属性名
      */

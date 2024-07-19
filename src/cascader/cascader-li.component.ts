@@ -6,7 +6,6 @@ import { SafeAny } from 'ngx-tethys/types';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     EventEmitter,
     HostBinding,
@@ -73,15 +72,11 @@ export class ThyCascaderOptionComponent implements OnInit {
 
     @Output() toggleSelectChange: EventEmitter<boolean> = new EventEmitter();
 
-    constructor(private cdr: ChangeDetectorRef) {}
+    constructor() {}
 
     ngOnInit() {}
 
     public toggleOption(value: boolean) {
         this.toggleSelectChange.emit(value);
-    }
-
-    public markForCheck(): void {
-        this.cdr.markForCheck();
     }
 }
