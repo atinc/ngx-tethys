@@ -88,6 +88,8 @@ export class ThyCascader
     extends TabIndexDisabledControlValueAccessorMixin
     implements ControlValueAccessor, OnInit, OnChanges, OnDestroy, AfterContentInit
 {
+    @ViewChildren(ThyCascaderOptionComponent) cascaderItems!: QueryList<ThyCascaderOptionComponent>;
+
     /**
      * 选项的实际值的属性名
      */
@@ -686,6 +688,12 @@ export class ThyCascader
     public clickOption(option: ThyCascaderOption, index: number, event: Event | boolean): void {
         this.thyCascaderService.removeCustomOption();
         this.thyCascaderService.clickOption(option, index, event, this.selectOption);
+
+        if (this.cdkConnectedOverlay && this.cdkConnectedOverlay.overlayRef) {
+            this.cdr.detectChanges();
+            this.cdkConnectedOverlay.overlayRef.updatePosition();
+            this.cdr.markForCheck();
+        }
     }
 
     public mouseoverOption(option: ThyCascaderOption, index: number, event: Event): void {
