@@ -688,7 +688,10 @@ export class ThyCascader
         this.thyCascaderService.clickOption(option, index, event, this.selectOption);
 
         if (this.cdkConnectedOverlay && this.cdkConnectedOverlay.overlayRef) {
+            // Make sure to calculate and update the position after the submenu is opened
             this.cdr.detectChanges();
+
+            // Update the position to prevent the submenu from appearing off-screen
             this.cdkConnectedOverlay.overlayRef.updatePosition();
             this.cdr.markForCheck();
         }
