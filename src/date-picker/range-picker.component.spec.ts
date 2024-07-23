@@ -570,16 +570,16 @@ describe('ThyRangePickerComponent', () => {
             fixtureInstance.modelValue = { begin: new Date('2018-10-11'), end: new Date('2018-12-12') };
             fixture.detectChanges();
             openPickerByClickTrigger();
-            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-next-year-btn')).toBeFalsy();
-            expect(queryFromOverlay('.thy-calendar-range-right .thy-calendar-prev-year-btn')).toBeFalsy();
+            assertPreOrNextBtn('.thy-calendar-range-left .thy-calendar-next-year-btn', 'd-none');
+            assertPreOrNextBtn('.thy-calendar-range-right .thy-calendar-prev-year-btn', 'd-none');
             fixture.detectChanges();
             dispatchMouseEvent(queryFromOverlay('.thy-calendar-range-left  .thy-calendar-header .thy-calendar-next-month-btn'), 'click');
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
             fixture.detectChanges();
-            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-next-month-btn')).toBeFalsy();
-            expect(queryFromOverlay('.thy-calendar-range-right .thy-calendar-prev-month-btn')).toBeFalsy();
+            assertPreOrNextBtn('.thy-calendar-range-left .thy-calendar-next-year-btn', 'd-none');
+            assertPreOrNextBtn('.thy-calendar-range-right .thy-calendar-prev-year-btn', 'd-none');
             fixture.detectChanges();
             dispatchMouseEvent(queryFromOverlay('.thy-calendar-range-left .thy-calendar-prev-year-btn'), 'click');
             fixture.detectChanges();
@@ -676,14 +676,14 @@ describe('ThyRangePickerComponent', () => {
             fixture.detectChanges();
             expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-month-btn').textContent.indexOf('2018') > -1).toBeTruthy();
             expect(queryFromOverlay('.thy-calendar-range-right .thy-calendar-month-btn').textContent.indexOf('2019') > -1).toBeTruthy();
-            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-next-year-btn')).not.toBeTruthy();
-            expect(queryFromOverlay('.thy-calendar-range-right .thy-calendar-prev-year-btn')).not.toBeTruthy();
+            assertPreOrNextBtn('.thy-calendar-range-left .thy-calendar-next-year-btn', 'd-none');
+            assertPreOrNextBtn('.thy-calendar-range-right .thy-calendar-prev-year-btn', 'd-none');
             dispatchMouseEvent(queryFromOverlay('.thy-calendar-range-left .thy-calendar-prev-year-btn'), 'click');
             fixture.detectChanges();
             expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-month-btn').textContent.indexOf('2017') > -1).toBeTruthy();
             fixture.detectChanges();
-            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-next-year-btn')).toBeTruthy();
-            expect(queryFromOverlay('.thy-calendar-range-right .thy-calendar-prev-year-btn')).toBeTruthy();
+            assertPreOrNextBtn('.thy-calendar-range-left .thy-calendar-next-year-btn', 'd-block');
+            assertPreOrNextBtn('.thy-calendar-range-right .thy-calendar-prev-year-btn', 'd-block');
             fixture.detectChanges();
             tick(500);
             dispatchMouseEvent(queryFromOverlay('.thy-calendar-range-left .thy-calendar-next-year-btn'), 'click');
@@ -956,6 +956,12 @@ describe('ThyRangePickerComponent', () => {
         fixture.detectChanges();
         tick(500);
         fixture.detectChanges();
+    }
+
+    function assertPreOrNextBtn(selector: string, targetClassName: string) {
+        const btnElement = queryFromOverlay(selector);
+        expect(btnElement).toBeTruthy();
+        expect(btnElement.classList.contains(targetClassName)).toBeTruthy();
     }
 });
 
