@@ -73,7 +73,7 @@ export class ThyPropertyItem implements OnInit, OnChanges, OnDestroy {
      */
     @Input() thyOperationTrigger: ThyPropertyItemOperationTrigger = 'always';
 
-    @Input() thyOperationBehindLabel = false;
+    @Input({ transform: coerceBooleanProperty }) thyOperationBehindLabel = false;
 
     @Output() thyEditingChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
