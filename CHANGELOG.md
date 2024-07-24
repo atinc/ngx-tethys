@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [17.0.15](https://github.com/atinc/ngx-tethys/compare/17.0.14...17.0.15) (2024-07-24)
+
+
+### Bug Fixes
+
+* **date-picker:** the middle switch button is unavailable and clicking it will close the panel when the gap is 2  #INFR-12997 ([#3127](https://github.com/atinc/ngx-tethys/issues/3127)) ([bd240f8](https://github.com/atinc/ngx-tethys/commit/bd240f83c8ca836cb4e1af68607a43e637a73537)), closes [#INFR-12997](https://github.com/atinc/ngx-tethys/issues/INFR-12997)
+* **input-number:** handle value is null set to empty(#INFR-9745) ([e4b1188](https://github.com/atinc/ngx-tethys/commit/e4b118878f5d794163801916b202a0b260c27be2)), closes [#INFR-9745](https://github.com/atinc/ngx-tethys/issues/INFR-9745)
+
+
+### Features
+
+* **property:** property operation position support behind label or content. #INFR-11955 ([#3128](https://github.com/atinc/ngx-tethys/issues/3128)) ([e86ee19](https://github.com/atinc/ngx-tethys/commit/e86ee19f84a3372a366b09c464e828c29985f449)), closes [#INFR-11955](https://github.com/atinc/ngx-tethys/issues/INFR-11955)
+
+
+
 ## [17.0.14](https://github.com/atinc/ngx-tethys/compare/17.0.13...17.0.14) (2024-07-18)
 
 
