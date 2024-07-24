@@ -6,7 +6,7 @@
   <ng-container *ngIf="label">
     <span> <ng-template [ngTemplateOutlet]="label"></ng-template></span>
   </ng-container>
-  <div class="thy-property-item-operation" *ngIf="operation && isVertical && thyOperationBehindLabel">
+  <div class="thy-property-item-operation" *ngIf="operation && isVertical">
     <ng-template [ngTemplateOutlet]="operation"></ng-template>
   </div>
 </div>
@@ -23,7 +23,7 @@
       <ng-template *ngIf="editor" [ngTemplateOutlet]="editor"></ng-template>
     </div>
   </div>
-  <div class="thy-property-item-operation" *ngIf="operation && (!isVertical || (isVertical && !thyOperationBehindLabel))">
+  <div class="thy-property-item-operation" *ngIf="operation && !isVertical">
     <ng-template [ngTemplateOutlet]="operation"></ng-template>
   </div>
 </div>

@@ -29,29 +29,20 @@
 
 <thy-divider thyText="垂直布局"></thy-divider>
 
-<thy-properties thyLayout="vertical" [thyColumn]="2">
-  <thy-property-item thyLabelText="标题" thyEditable="true" [thyOperationTrigger]="operationTrigger" [thyOperationBehindLabel]="true">
-    我的操作菜单在标题后面
+<thy-properties thyLayout="vertical" thyColumn="2">
+  <thy-property-item thyLabelText="标题" thyEditable="true" [thyOperationTrigger]="operationTrigger">
+    这是一个标题
     <ng-template #operation>
       <a href="javascript:;" thyAction thyIcon="arrow-right-circle"></a>
     </ng-template>
     <ng-template #editor>
-      <input class="active" thyInput thySize="md" value="我的操作菜单在标题后面" />
+      <input class="active" thyInput thySize="md" value="这是一个标题" />
     </ng-template>
   </thy-property-item>
   <thy-property-item thyLabelText="概要" thyEditable="true" [thyOperationTrigger]="operationTrigger">
     我没有操作菜单
     <ng-template #editor>
       <input class="active" thyInput thySize="md" value="我没有操作菜单" />
-    </ng-template>
-  </thy-property-item>
-  <thy-property-item thyLabelText="副标题" thyEditable="true" [thyOperationTrigger]="operationTrigger" [thyOperationBehindLabel]="false">
-    我的操作菜单在内容后面
-    <ng-template #operation>
-      <a href="javascript:;" thyAction thyIcon="arrow-right-circle"></a>
-    </ng-template>
-    <ng-template #editor>
-      <input class="active" thyInput thySize="md" value="我的操作菜单在内容后面" />
     </ng-template>
   </thy-property-item>
   <thy-property-item thyLabelText="渠道" [thyOperationTrigger]="operationTrigger">
