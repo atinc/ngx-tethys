@@ -99,7 +99,7 @@ class ThyPropertiesTestColumnComponent {
     selector: 'thy-properties-test-operation',
     template: `
         <thy-properties [thyLayout]="layout">
-            <thy-property-item thyLabelText="Name" [thyOperationTrigger]="operationTrigger"
+            <thy-property-item thyLabelText="Name" [thyOperationTrigger]="operationTrigger" [thyOperationBehindLabel]="operationBehindLabel"
                 >Peter
                 <ng-template #operation>
                     <a href="javascript:;">Add</a>
@@ -111,6 +111,7 @@ class ThyPropertiesTestColumnComponent {
 class ThyPropertiesTestOperationComponent {
     layout: ThyPropertiesLayout = 'horizontal';
     operationTrigger: ThyPropertyItemOperationTrigger = 'always';
+    operationBehindLabel: boolean;
 }
 
 @NgModule({
@@ -353,6 +354,39 @@ describe(`thy-properties`, () => {
             const operation = content.children[1];
             expect(operation.classList.contains('thy-property-item-operation')).toBeTruthy();
             expect(operation.textContent).toBeTruthy('Add');
+        });
+
+        it('should create operation behind content', () => {
+            testComponent.layout = 'vertical';
+            fixture.detectChanges();
+            const propertyItemElement = fixture.debugElement.query(By.css('thy-property-item')).nativeElement;
+
+            const label = propertyItemElement.children[0];
+            expect(label).toBeTruthy();
+            expect(label.children.length).toEqual(1);
+
+            const content = propertyItemElement.children[1];
+            expect(content).toBeTruthy();
+            expect(content.children.length).toEqual(2);
+            const operation = content.children[1];
+            expect(operation.classList.contains('thy-property-item-operation')).toBeTruthy();
+        });
+
+        it('should create operation behind label', () => {
+            testComponent.layout = 'vertical';
+            testComponent.operationBehindLabel = true;
+            fixture.detectChanges();
+            const propertyItemElement = fixture.debugElement.query(By.css('thy-property-item')).nativeElement;
+
+            const label = propertyItemElement.children[0];
+            expect(label).toBeTruthy();
+            expect(label.children.length).toEqual(2);
+            const operationInLabel = label.children[1];
+            expect(operationInLabel.classList.contains('thy-property-item-operation')).toBeTruthy();
+
+            const content = propertyItemElement.children[1];
+            expect(content).toBeTruthy();
+            expect(content.children.length).toEqual(1);
         });
 
         it('should set operation trigger hover', () => {
