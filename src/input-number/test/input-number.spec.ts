@@ -657,4 +657,16 @@ describe('input-number component', () => {
         expect(inputNumberComponentInstance.stepChange).toHaveBeenCalled();
         flush();
     }));
+
+    it('should validValue be empty when value to null', fakeAsync(() => {
+        inputNumberComponentInstance.modelValue = null;
+        fixture.detectChanges();
+        const component = inputNumberComponentInstance.inputNumberComponent;
+        const getCurrentValidValueSpy = spyOn(component, 'getCurrentValidValue');
+        fixture.detectChanges();
+        tick();
+        fixture.detectChanges();
+        expect(getCurrentValidValueSpy).toHaveBeenCalled();
+        expect(component.validValue).toBe('');
+    }));
 });
