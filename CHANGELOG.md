@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [17.0.16](https://github.com/atinc/ngx-tethys/compare/17.0.15...17.0.16) (2024-07-25)
+
+
+### Bug Fixes
+
+* **cascader:** update position when sub menu appears off screen #INFR-12988 ([#3126](https://github.com/atinc/ngx-tethys/issues/3126)) ([a3d568b](https://github.com/atinc/ngx-tethys/commit/a3d568b9c006cf37dc89db3d80008247fba485ad)), closes [#INFR-12988](https://github.com/atinc/ngx-tethys/issues/INFR-12988)
+
+
+
 ## [17.0.15](https://github.com/atinc/ngx-tethys/compare/17.0.14...17.0.15) (2024-07-24)
 
 
