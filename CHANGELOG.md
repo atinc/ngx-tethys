@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [17.0.17](https://github.com/atinc/ngx-tethys/compare/17.0.16...17.0.17) (2024-07-26)
+
+
+### Features
+
+* **image:** image operation support ThyImagePreviewOperation #INFR-13015 ([f10e483](https://github.com/atinc/ngx-tethys/commit/f10e483ddfb1339f10a2d6719d78bfefd6dc158e)), closes [#INFR-13015](https://github.com/atinc/ngx-tethys/issues/INFR-13015)
+
+
+
 ## [17.0.16](https://github.com/atinc/ngx-tethys/compare/17.0.15...17.0.16) (2024-07-25)
 
 
