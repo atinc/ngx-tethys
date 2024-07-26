@@ -1,34 +1,34 @@
+import { CdkDrag } from '@angular/cdk/drag-drop';
+import { NgFor, NgIf } from '@angular/common';
 import {
     ChangeDetectionStrategy,
-    Component,
-    OnInit,
-    ViewEncapsulation,
     ChangeDetectorRef,
+    Component,
+    DestroyRef,
     ElementRef,
-    ViewChild,
-    NgZone,
-    Output,
     EventEmitter,
-    inject,
-    DestroyRef
+    NgZone,
+    OnInit,
+    Output,
+    ViewChild,
+    ViewEncapsulation,
+    inject
 } from '@angular/core';
-import { InternalImageInfo, ThyImageInfo, ThyImagePreviewMode, ThyImagePreviewOperation, ThyImagePreviewOptions } from '../image.class';
-import { fromEvent, Observable } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ThyDialog } from 'ngx-tethys/dialog';
-import { getClientSize, getFitContentPosition, getOffset, humanizeBytes, isNumber, isUndefinedOrNull } from 'ngx-tethys/util';
-import { ThyFullscreen } from 'ngx-tethys/fullscreen';
-import { ThyCopyEvent, ThyCopyDirective } from 'ngx-tethys/copy';
-import { ThyNotifyService } from 'ngx-tethys/notify';
 import { DomSanitizer } from '@angular/platform-browser';
-import { fetchImageBlob } from '../utils';
+import { ThyAction, ThyActions } from 'ngx-tethys/action';
+import { ThyCopyDirective, ThyCopyEvent } from 'ngx-tethys/copy';
+import { ThyDialog } from 'ngx-tethys/dialog';
 import { ThyDivider } from 'ngx-tethys/divider';
+import { ThyFullscreen } from 'ngx-tethys/fullscreen';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyLoading } from 'ngx-tethys/loading';
-import { CdkDrag } from '@angular/cdk/drag-drop';
-import { ThyAction, ThyActions } from 'ngx-tethys/action';
+import { ThyNotifyService } from 'ngx-tethys/notify';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
-import { NgIf, NgFor } from '@angular/common';
+import { getClientSize, getFitContentPosition, getOffset, helpers, humanizeBytes, isNumber, isUndefinedOrNull } from 'ngx-tethys/util';
+import { Observable, fromEvent } from 'rxjs';
+import { InternalImageInfo, ThyImageInfo, ThyImagePreviewMode, ThyImagePreviewOperation, ThyImagePreviewOptions } from '../image.class';
+import { fetchImageBlob } from '../utils';
 
 const initialPosition = {
     x: 0,
@@ -314,7 +314,14 @@ export class ThyImagePreview implements OnInit {
 
     initPreview() {
         if (Array.isArray(this.previewConfig?.operations) && this.previewConfig?.operations.length) {
-            this.previewOperations = this.defaultPreviewOperations.filter(item => this.previewConfig.operations.includes(item.type));
+            const defaultOperationsMap = helpers.keyBy(this.defaultPreviewOperations, 'type');
+            this.previewOperations = this.previewConfig?.operations.map(operation => {
+                if (helpers.isString(operation) && defaultOperationsMap[operation]) {
+                    return defaultOperationsMap[operation];
+                } else {
+                    return operation as ThyImagePreviewOperation;
+                }
+            });
         } else {
             this.previewOperations = this.defaultPreviewOperations;
         }
