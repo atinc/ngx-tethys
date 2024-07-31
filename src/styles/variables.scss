@@ -7,18 +7,18 @@
 
 $thy-prefix: 'thy';
 
-// 新版变量
-$color-0: var(--color-0) !default;
-$color-10: var(--color-10) !default;
-$color-20: var(--color-20) !default;
-$color-30: var(--color-30) !default;
-$color-40: var(--color-40) !default;
-$color-50: var(--color-50) !default;
-$color-60: var(--color-60) !default;
-$color-70: var(--color-70) !default;
-$color-80: var(--color-80) !default;
-$color-90: var(--color-90) !default;
-$color-100: var(--color-100) !default;
+// 新版变量                          // light --- dark
+$color-0: var(--color-0) !default; // #fff --- #2a2e34
+$color-10: var(--color-10) !default; // #f7f7f7 --- 未定
+$color-20: var(--color-20) !default; // #fafafa --- #30353c
+$color-30: var(--color-30) !default; // #f5f5f5 --- 未定
+$color-40: var(--color-40) !default; // #eee --- #3c414a
+$color-50: var(--color-50) !default; // #ddd --- #464c57
+$color-60: var(--color-60) !default; // #cacaca --- #505763
+$color-70: var(--color-70) !default; // #aaa --- #5b6370
+$color-80: var(--color-80) !default; // #999 --- #656f7d
+$color-90: var(--color-90) !default; // #666 --- #87909e
+$color-100: var(--color-100) !default; // #333 --- #bcc4d1
 
 // 兼容旧版变量
 $white: var(--color-0) !default; // 暗：#2a2e34
