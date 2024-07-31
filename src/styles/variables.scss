@@ -9,9 +9,9 @@ $thy-prefix: 'thy';
 
 // 新版变量                          // light --- dark
 $color-0: var(--color-0) !default; // #fff --- #2a2e34
-$color-10: var(--color-10) !default; // #f7f7f7 --- 未定
-$color-20: var(--color-20) !default; // #fafafa --- #30353c
-$color-30: var(--color-30) !default; // #f5f5f5 --- 未定
+$color-10: var(--color-10) !default; // #fafafa --- #30353c
+$color-20: var(--color-20) !default; // #f7f7f7 --- #32363d
+$color-30: var(--color-30) !default; // #f5f5f5 --- #393e46
 $color-40: var(--color-40) !default; // #eee --- #3c414a
 $color-50: var(--color-50) !default; // #ddd --- #464c57
 $color-60: var(--color-60) !default; // #cacaca --- #505763
@@ -20,20 +20,20 @@ $color-80: var(--color-80) !default; // #999 --- #656f7d
 $color-90: var(--color-90) !default; // #666 --- #87909e
 $color-100: var(--color-100) !default; // #333 --- #bcc4d1
 
-// 兼容旧版变量
-$white: var(--color-0) !default; // 暗：#2a2e34
-$gray-70: var(--color-10) !default; // 新增，暗：未定
-$gray-80: var(--color-20) !default; // 暗：#30353c
-$gray-100: var(--color-30) !default; // 暗：未定
-$gray-200: var(--color-40) !default; // 暗：#3c414a
-$gray-300: var(--color-50) !default; // 暗：#464c57
-$gray-400: var(--color-60) !default; // 暗：#505763
-$gray-500: var(--color-70) !default; // 暗：#5b6370
-$gray-600: var(--color-80) !default; //暗：#656f7d
-$gray-700: var(--color-90) !default; // 暗： #87909e
-$gray-800: var(--color-100) !default; // 暗：  #bcc4d1
+// 兼容旧版变量                      // light --- dark
+$white: var(--color-0) !default; // #fff --- #2a2e34
+$gray-70: var(--color-20) !default; // #f7f7f7 --- #32363d  (原 #fdfdfd 已废弃）
+$gray-80: var(--color-10) !default; // #fafafa --- #30353c
+$gray-100: var(--color-30) !default; // #f5f5f5 --- #393e46
+$gray-200: var(--color-40) !default; // #eee --- #3c414a
+$gray-300: var(--color-50) !default; // #ddd --- #464c57
+$gray-400: var(--color-60) !default; // #cacaca --- #505763
+$gray-500: var(--color-70) !default; // #aaa --- #5b6370
+$gray-600: var(--color-80) !default; // #999 --- #656f7d
+$gray-700: var(--color-90) !default; // #666 --- #87909e
+$gray-800: var(--color-100) !default; // #333 --- #bcc4d1
 
-// $gray-70: #fdfdfd !default; // 废弃色，新版之后不用
+// $gray-70: #fdfdfd !default; // 废弃色，新版之后不用，新增 #f7f7f7
 $gray-210: #e9e9e9 !default; // 废弃色，设计不在用
 $gray-900: #212529 !default; // 废弃色，设计不在用
 $black: #000; // 废弃色，设计不在用

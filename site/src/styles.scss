@@ -1,13 +1,10 @@
-@use "sass:meta";
-@use "../../src/styles/variables" with(
-    $primary: #6698ff
-);
+@use 'sass:meta';
+// Mark：site 网页颜色修改
+@use '../../src/styles/variables' with($primary: #6698ff);
 @use './styles/variables.scss' as variables2;
 // docgeni
 // $dg-primary: #4150b3;
-@use '@docgeni/template/styles/index.scss' with(
-    $dg-primary: #6698ff
-);
+@use '@docgeni/template/styles/index.scss' with($dg-primary: #6698ff);
 
 @import './assets/fonts/wtd/iconfont.css';
 @include meta.load-css('../../src/styles/index.scss');
