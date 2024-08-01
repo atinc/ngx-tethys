@@ -1,7 +1,7 @@
 import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 
 import { Component, DebugElement, NgModule, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
