@@ -3,11 +3,10 @@ import { ThyMaxDirective, ThyMinDirective } from 'ngx-tethys/form';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { ThyAutofocusDirective } from 'ngx-tethys/shared';
-import { DOWN_ARROW, ENTER, isFloat, isNumber, isUndefinedOrNull, UP_ARROW } from 'ngx-tethys/util';
+import { coerceBooleanProperty, DOWN_ARROW, ENTER, isFloat, isNumber, isUndefinedOrNull, UP_ARROW } from 'ngx-tethys/util';
 
 import { FocusOrigin } from '@angular/cdk/a11y';
 import {
-    booleanAttribute,
     ChangeDetectorRef,
     Component,
     ElementRef,
@@ -77,7 +76,7 @@ export class ThyInputNumber
      * 是否自动聚焦
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyAutoFocus: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyAutoFocus: boolean;
 
     /**
      * 输入框的placeholder
@@ -88,7 +87,7 @@ export class ThyInputNumber
      * 是否禁用
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyDisabled: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyDisabled: boolean;
 
     /**
      * 最大值
@@ -158,6 +157,11 @@ export class ThyInputNumber
      * 焦点激活事件
      */
     @Output() thyFocus = new EventEmitter<Event>();
+
+    /**
+     * 上下箭头点击事件
+     */
+    @Output() thyStepChange = new EventEmitter<{ value: number; type: Type }>();
 
     private innerMax: number = Infinity;
 
@@ -286,6 +290,7 @@ export class ThyInputNumber
         val = this.getCurrentValidValue(val);
         this.updateValidValue(val);
         this.onChangeFn(this.validValue);
+        this.thyStepChange.emit({ value: this.validValue as number, type });
         this.displayValue = this.formatterValue(val);
         if (outOfRange) {
             return;
@@ -369,7 +374,7 @@ export class ThyInputNumber
 
     getCurrentValidValue(value: string | number): number | string {
         let val = value;
-        if (value === '' || value === undefined) {
+        if (value === '' || isUndefinedOrNull(value)) {
             return '';
         }
         val = parseFloat(value as string);

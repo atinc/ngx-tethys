@@ -24,6 +24,7 @@ import {
 } from 'ngx-tethys/shared';
 import {
     A,
+    coerceBooleanProperty,
     DOWN_ARROW,
     elementMatchClosest,
     END,
@@ -50,7 +51,6 @@ import { isPlatformBrowser, NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angu
 import {
     AfterContentInit,
     AfterViewInit,
-    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -257,7 +257,7 @@ export class ThySelect
      * 下拉列表是否显示搜索框
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyShowSearch: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyShowSearch: boolean;
 
     /**
      * 选择框默认文字
@@ -268,17 +268,17 @@ export class ThySelect
      * 是否使用服务端搜索，当为 true 时，将不再在前端进行过滤
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyServerSearch: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyServerSearch: boolean;
 
     /**
      * 异步加载 loading 状态，false 表示加载中，true 表示加载完成
      */
-    @Input({ transform: booleanAttribute }) thyLoadState = true;
+    @Input({ transform: coerceBooleanProperty }) thyLoadState = true;
 
     /**
      * 是否自动设置选项第一条为高亮状态
      */
-    @Input({ transform: booleanAttribute }) thyAutoActiveFirstItem = true;
+    @Input({ transform: coerceBooleanProperty }) thyAutoActiveFirstItem = true;
 
     /**
      * 下拉选择模式
@@ -328,19 +328,19 @@ export class ThySelect
     /**
      * 滚动加载是否可用，只能当这个参数可以，下面的thyOnScrollToBottom事件才会触发
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     thyEnableScrollLoad = false;
 
     /**
      * 单选( thyMode="" 或者不设置)时，选择框支持清除
      */
-    @Input({ transform: booleanAttribute }) thyAllowClear = false;
+    @Input({ transform: coerceBooleanProperty }) thyAllowClear = false;
 
     /**
      * 是否禁用
      * @default false
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyDisabled(value: boolean) {
         this.disabled = value;
     }
@@ -388,12 +388,12 @@ export class ThySelect
      * 初始化时，是否展开面板
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyAutoExpand: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyAutoExpand: boolean;
 
     /**
      * 是否弹出透明遮罩，如果显示遮罩则会阻止滚动区域滚动
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     thyHasBackdrop = false;
 
     /**
@@ -405,7 +405,7 @@ export class ThySelect
      * 是否隐藏选择框边框
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyBorderless = false;
+    @Input({ transform: coerceBooleanProperty }) thyBorderless = false;
 
     isReactiveDriven = false;
 

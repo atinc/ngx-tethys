@@ -1,10 +1,9 @@
-import { helpers } from 'ngx-tethys/util';
+import { coerceBooleanProperty, helpers } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CdkVirtualScrollViewport, CdkFixedSizeVirtualScroll, CdkVirtualForOf } from '@angular/cdk/scrolling';
 import {
     AfterViewInit,
-    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -166,7 +165,7 @@ export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterVi
      * 设置是否支持多选节点
      */
     @HostBinding(`class.thy-multiple-selection-list`)
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     thyMultiple = false;
 
     /**
@@ -174,7 +173,7 @@ export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterVi
      * @default false
      */
     @HostBinding('class.thy-tree-draggable')
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyDraggable(value: boolean) {
         this._draggable = value;
     }
@@ -187,7 +186,7 @@ export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterVi
      * 设置 TreeNode 是否支持 Checkbox 选择
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyCheckable: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyCheckable: boolean;
 
     /**
      * 点击节点的行为，`default` 为选中当前节点，`selectCheckbox` 为选中节点的 Checkbox， `thyCheckable` 为 true 时生效。
@@ -206,7 +205,7 @@ export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterVi
     /**
      * 设置 TreeNode 是否支持异步加载
      */
-    @Input({ transform: booleanAttribute }) thyAsync = false;
+    @Input({ transform: coerceBooleanProperty }) thyAsync = false;
 
     private _thyType: ThyTreeType = 'default';
 
@@ -257,7 +256,7 @@ export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterVi
      * 设置是否开启虚拟滚动
      */
     @HostBinding('class.thy-virtual-scrolling-tree')
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     thyVirtualScroll = false;
 
     private _thyItemSize = 44;
@@ -282,13 +281,23 @@ export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterVi
      * 设置节点名称是否支持超出截取
      * @type boolean
      */
-    @Input({ transform: booleanAttribute }) thyTitleTruncate = true;
+    @Input({ transform: coerceBooleanProperty }) thyTitleTruncate = true;
 
     /**
      * 已选中的 node 节点集合
      * @default []
      */
     @Input() thySelectedKeys: string[];
+
+    /**
+     * 展开指定的树节点
+     */
+    @Input() thyExpandedKeys: (string | number)[];
+
+    /**
+     * 是否展开所有树节点
+     */
+    @Input({ transform: coerceBooleanProperty }) thyExpandAll: boolean = false;
 
     /**
      * 设置缩进距离，缩进距离 = thyIndent * node.level
@@ -422,6 +431,13 @@ export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterVi
             this._selectedKeys = changes.thySelectedKeys.currentValue;
             this._selectTreeNodes(changes.thySelectedKeys.currentValue);
         }
+
+        if (changes.thyExpandedKeys && !changes.thyExpandedKeys.isFirstChange()) {
+            this._handleExpandedKeys();
+        }
+        if (changes.thyExpandAll && !changes.thyExpandAll.isFirstChange()) {
+            this._handleExpandedKeys();
+        }
     }
 
     renderView = () => {};
@@ -444,7 +460,17 @@ export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterVi
         this.thyTreeService.initializeTreeNodes(this.thyNodes);
         this.flattenTreeNodes = this.thyTreeService.flattenTreeNodes;
         this._selectTreeNodes(this._selectedKeys);
-        this.thyTreeService.expandTreeNodes(this._expandedKeys);
+        this._handleExpandedKeys();
+    }
+
+    private _handleExpandedKeys() {
+        if (this.thyExpandedKeys?.length) {
+            this._expandedKeys = helpers.concatArray(
+                this.thyExpandedKeys.filter(key => !this._expandedKeys.includes(key)),
+                this._expandedKeys
+            );
+        }
+        this.thyTreeService.expandTreeNodes(this.thyExpandAll || this._expandedKeys);
     }
 
     private _setTreeType() {

@@ -21,7 +21,8 @@ export const PaginationDefaultConfig: ThyPaginationConfigModel = {
     nextIcon: 'angle-right',
     totalPagesFormat: '共{total}页',
     showSizeChanger: false,
-    pageSizeOptions: [10, 20, 50, 100]
+    pageSizeOptions: [10, 20, 50, 100],
+    unit: '条'
 };
 export interface ThyPaginationConfig {
     main?: ThyPaginationConfigModel;

@@ -1,9 +1,14 @@
 <div class="{{ prefixCls }}-header">
-  <div style="position: relative;">
-    <a *ngIf="showSuperPreBtn" class="{{ prefixCls }}-prev-year-btn" role="button" (click)="superPrevious()" title="上一年">
+  <div style="position: relative">
+    <a
+      class="{{ prefixCls }}-prev-year-btn"
+      [ngClass]="showSuperPreBtn ? 'd-block' : 'd-none'"
+      role="button"
+      (click)="superPrevious()"
+      title="上一年">
       <thy-icon thyIconName="angle-double-left"></thy-icon>
     </a>
-    <a *ngIf="showPreBtn" class="{{ prefixCls }}-prev-month-btn" role="button" (click)="previous()" title="上月">
+    <a class="{{ prefixCls }}-prev-month-btn" [ngClass]="showPreBtn ? 'd-block' : 'd-none'" role="button" (click)="previous()" title="上月">
       <thy-icon thyIconName="angle-left"></thy-icon>
     </a>
 
@@ -15,10 +20,15 @@
       </ng-container>
     </span>
 
-    <a *ngIf="showNextBtn" class="{{ prefixCls }}-next-month-btn" role="button" (click)="next()" title="下个月">
+    <a class="{{ prefixCls }}-next-month-btn" [ngClass]="showNextBtn ? 'd-block' : 'd-none'" role="button" (click)="next()" title="下个月">
       <thy-icon thyIconName="angle-right"></thy-icon>
     </a>
-    <a *ngIf="showSuperNextBtn" class="{{ prefixCls }}-next-year-btn" role="button" (click)="superNext()" title="下一年">
+    <a
+      class="{{ prefixCls }}-next-year-btn"
+      [ngClass]="showSuperNextBtn ? 'd-block' : 'd-none'"
+      role="button"
+      (click)="superNext()"
+      title="下一年">
       <thy-icon thyIconName="angle-double-right"></thy-icon>
     </a>
   </div>

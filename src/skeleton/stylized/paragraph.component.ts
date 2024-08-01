@@ -1,7 +1,8 @@
 import { NgFor } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation, booleanAttribute } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
 import { InputCssPixel } from 'ngx-tethys/core';
 import { ThySkeletonRectangle } from '../skeleton-rectangle.component';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
  * 骨架屏段落组件
@@ -71,7 +72,7 @@ export class ThySkeletonParagraph {
      * 是否开启动画
      * @default false
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     thyAnimated: boolean;
 
     /**

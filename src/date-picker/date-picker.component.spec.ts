@@ -53,7 +53,8 @@ describe('ThyDatePickerComponent', () => {
                     useValue: {
                         showShortcut: true,
                         shortcutDatePresets: shortcutDatePresets,
-                        weekStartsOn: weekStartsOn
+                        weekStartsOn: weekStartsOn,
+                        timestampPrecision: 'seconds'
                     }
                 }
             ]
@@ -553,7 +554,8 @@ describe('ThyDatePickerComponent', () => {
         it('should support thyDateChange', fakeAsync(() => {
             const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
             const datePresets = shortcutDatePresets();
-            const triggerPreset = Object.assign(datePresets[0], { disabled: false });
+            const dateValue = new TinyDate(datePresets[0].value).getUnixTime();
+            const triggerPreset = Object.assign(datePresets[0], { value: dateValue, disabled: false });
             fixture.detectChanges();
             openPickerByClickTrigger();
             const shortcutItems = getShortcutItems();
@@ -581,6 +583,26 @@ describe('ThyDatePickerComponent', () => {
             expect(thyDateChange).toHaveBeenCalled();
             const result = thyDateChange.calls.allArgs()[0][0];
             expect(result).toEqual(jasmine.objectContaining({ value: jasmine.anything() }));
+        }));
+
+        it('should support thyTimestampPrecision to milliseconds', fakeAsync(() => {
+            const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+            fixtureInstance.thyTimestampPrecision = 'milliseconds';
+            const datePresets = shortcutDatePresets();
+            const triggerPreset = Object.assign(datePresets[0], { value: new TinyDate(datePresets[0].value).getTime(), disabled: false });
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const shortcutItems = getShortcutItems();
+            const now = new TinyDate(new Date());
+            dispatchMouseEvent(shortcutItems[0], 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(thyDateChange).toHaveBeenCalledTimes(1);
+            expect(thyDateChange).toHaveBeenCalledWith({
+                value: now.startOfDay(),
+                triggerPreset: triggerPreset
+            });
         }));
     });
 
@@ -1333,6 +1355,7 @@ describe('ThyDatePickerComponent', () => {
                 (ngModelChange)="thyOnChange($event)"
                 [thyDateRender]="thyDateRender"
                 [thyMode]="thyMode"
+                [thyTimestampPrecision]="thyTimestampPrecision"
                 [thyPlacement]="thyPlacement"
                 (thyOnPanelChange)="thyOnPanelChange($event)"
                 (thyOnCalendarChange)="thyOnCalendarChange($event)"
@@ -1379,6 +1402,7 @@ class ThyTestDatePickerComponent {
     thyShowTime: boolean | object = false;
     thyMode: string;
     thyPlacement: string = 'bottomLeft';
+    thyTimestampPrecision = 'seconds';
     thyMinDate: Date | number;
     thyMaxDate: Date | number;
     thyOnChange(): void {}

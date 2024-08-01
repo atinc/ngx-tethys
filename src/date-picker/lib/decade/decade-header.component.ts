@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { DateHelperService } from '../../../date-picker/date-helper.service';
 import { CalendarHeader, PanelSelector } from '../calendar/calendar-header.component';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { NgIf, NgFor } from '@angular/common';
+import { NgIf, NgFor, NgClass } from '@angular/common';
 
 /**
  * @private
@@ -14,7 +14,7 @@ import { NgIf, NgFor } from '@angular/common';
     selector: 'decade-header',
     templateUrl: '../calendar/calendar-header.component.html',
     standalone: true,
-    imports: [NgIf, ThyIcon, NgFor]
+    imports: [NgIf, NgClass, ThyIcon, NgFor]
 })
 export class DecadeHeader extends CalendarHeader {
     constructor(public dateHelper: DateHelperService) {

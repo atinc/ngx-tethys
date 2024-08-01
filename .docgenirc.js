@@ -6,7 +6,7 @@ module.exports = {
     title: 'TETHYS',
     siteProjectName: 'site',
     repoUrl: 'https://github.com/atinc/ngx-tethys',
-    logoUrl: 'https://cdn-aliyun.pingcode.com/open-sources/ngx-tethys/logos/tethys.png?100',
+    logoUrl: './assets/images/logo.png',
     navs: [
         null,
         {
@@ -135,7 +135,7 @@ module.exports = {
             categories: []
         }
     ],
-    footer: "Copyright © 2020-present Powered by <a href='https://worktile.com' target='_blank' >Worktile</a>",
+    footer: "Copyright © 2020-present Powered by <a href='https://pingcode.com' target='_blank' >PingCode</a>",
     locales: [
         {
             key: 'zh-cn',

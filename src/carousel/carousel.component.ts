@@ -19,7 +19,6 @@ import {
     SimpleChanges,
     NgZone,
     OnDestroy,
-    booleanAttribute,
     numberAttribute
 } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
@@ -39,6 +38,7 @@ import { ThyCarouselService } from './carousel.service';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyDot } from 'ngx-tethys/dot';
 import { NgIf, NgTemplateOutlet, NgFor } from '@angular/common';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
  * 走马灯组件
@@ -70,7 +70,7 @@ export class ThyCarousel implements OnInit, AfterViewInit, AfterContentInit, OnC
     /**
      * 是否自动切换，默认 false
      */
-    @Input({ transform: booleanAttribute }) thyAutoPlay: boolean = false;
+    @Input({ transform: coerceBooleanProperty }) thyAutoPlay: boolean = false;
 
     /**
      * 自动切换时间间隔(毫秒)
@@ -86,7 +86,7 @@ export class ThyCarousel implements OnInit, AfterViewInit, AfterContentInit, OnC
     /**
      * 是否显示切换指示器
      */
-    @Input({ transform: booleanAttribute }) thyIndicators = true;
+    @Input({ transform: coerceBooleanProperty }) thyIndicators = true;
 
     /**
      * 指示器 Item 的渲染模板
@@ -96,7 +96,7 @@ export class ThyCarousel implements OnInit, AfterViewInit, AfterContentInit, OnC
     /**
      * 是否显示左右切换
      */
-    @Input({ transform: booleanAttribute }) thyControls = true;
+    @Input({ transform: coerceBooleanProperty }) thyControls = true;
 
     /**
      * 上一个控制器渲染模板
@@ -111,7 +111,7 @@ export class ThyCarousel implements OnInit, AfterViewInit, AfterContentInit, OnC
     /**
      * 是否支持手势滑动
      */
-    @Input({ transform: booleanAttribute }) thyTouchable = true;
+    @Input({ transform: coerceBooleanProperty }) thyTouchable = true;
 
     /**
      * 指示点切换的触发条件

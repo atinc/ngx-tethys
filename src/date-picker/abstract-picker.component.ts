@@ -1,12 +1,12 @@
 import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
-import { TinyDate, warnDeprecation } from 'ngx-tethys/util';
+import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 
 import {
-    booleanAttribute,
     ChangeDetectorRef,
     Directive,
     EventEmitter,
+    inject,
     Input,
     OnChanges,
     OnDestroy,
@@ -19,7 +19,7 @@ import { ControlValueAccessor } from '@angular/forms';
 
 import { CompatibleValue, RangeAdvancedValue } from './inner-types';
 import { ThyPicker } from './picker.component';
-import { makeValue, transformDateValue } from './picker.util';
+import { makeValue, setValueByTimestampPrecision, transformDateValue } from './picker.util';
 import {
     CompatibleDate,
     DateEntry,
@@ -31,6 +31,8 @@ import {
     ThyDateGranularity,
     ThyDateChangeEvent
 } from './standard-types';
+import { ThyDatePickerConfigService } from './date-picker.service';
+import { SafeAny } from 'ngx-tethys/types';
 
 /**
  * @private
@@ -43,6 +45,8 @@ export abstract class AbstractPickerComponent
     thyValue: CompatibleValue | null;
 
     _panelMode: ThyPanelMode = 'date';
+
+    private datePickerConfigService = inject(ThyDatePickerConfigService);
 
     /**
      * 模式
@@ -59,15 +63,15 @@ export abstract class AbstractPickerComponent
     /**
      * 是否显示清除按钮
      */
-    @Input({ transform: booleanAttribute }) thyAllowClear = true;
+    @Input({ transform: coerceBooleanProperty }) thyAllowClear = true;
 
     /**
      * 是否自动获取焦点
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyAutoFocus = false;
+    @Input({ transform: coerceBooleanProperty }) thyAutoFocus = false;
 
-    @Input({ transform: booleanAttribute }) thyOpen: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyOpen: boolean;
 
     @Input() thyDisabledDate: DisabledDateFn;
 
@@ -93,7 +97,7 @@ export abstract class AbstractPickerComponent
      * 是否只读
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyReadonly: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyReadonly: boolean;
 
     /**
      * 选择器 className
@@ -112,6 +116,12 @@ export abstract class AbstractPickerComponent
     @Input() thySize: 'lg' | 'md' | 'sm' | 'xs' | 'default' = 'default';
 
     /**
+     * 设置时间戳精度
+     * @default seconds 10位
+     */
+    @Input() thyTimestampPrecision: 'seconds' | 'milliseconds' = this.datePickerConfigService.config?.timestampPrecision || 'seconds';
+
+    /**
      * 展示的日期格式
      * @default yyyy-MM-dd
      */
@@ -122,7 +132,7 @@ export abstract class AbstractPickerComponent
      * @description.zh-cn 是否取值开始日期的00:00以及截止日期的24:00
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyAutoStartAndEnd = false;
+    @Input({ transform: coerceBooleanProperty }) thyAutoStartAndEnd = false;
 
     /**
      * 面板默认日期
@@ -139,7 +149,7 @@ export abstract class AbstractPickerComponent
      * 是否展示快捷选项面板
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyShowShortcut: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyShowShortcut: boolean;
 
     /**
      * 快捷选项面板的显示位置
@@ -172,7 +182,7 @@ export abstract class AbstractPickerComponent
      * 是否禁用
      * @default false
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyDisabled(value: boolean) {
         this.disabled = value;
     }
@@ -300,19 +310,19 @@ export abstract class AbstractPickerComponent
                     };
                 }
             }
-            if (this.flexible) {
-                value.granularity = flexibleDateGranularity;
-            }
-            this.onChangeFn(value);
+            const [beginUnixTime, endUnixTime] = this.setValueByPrecision(value) as number[];
+            this.onChangeFn(
+                Object.assign({ begin: beginUnixTime, end: endUnixTime }, this.flexible ? { granularity: flexibleDateGranularity } : {})
+            );
         } else {
             const value = { date: null, with_time: this.withTime ? 1 : 0 } as DateEntry;
             if (this.thyValue) {
                 value.date = (this.thyValue as TinyDate).getUnixTime();
             }
             if (this.onlyEmitDate) {
-                this.onChangeFn(value.date);
+                this.onChangeFn(this.setValueByPrecision(value.date) as number);
             } else {
-                this.onChangeFn(value);
+                this.onChangeFn(Object.assign(value, { date: this.setValueByPrecision(value.date) as number }));
             }
         }
     }
@@ -371,5 +381,9 @@ export abstract class AbstractPickerComponent
 
     public setValue(value: CompatibleDate): void {
         this.thyValue = makeValue(value, this.isRange);
+    }
+
+    private setValueByPrecision(value: CompatibleDate | number | Date | DateEntry | ThyDateRangeEntry | SafeAny): number | number[] {
+        return setValueByTimestampPrecision(value, this.isRange, this.thyTimestampPrecision);
     }
 }

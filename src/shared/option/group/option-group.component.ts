@@ -7,13 +7,13 @@ import {
     NgZone,
     OnDestroy,
     AfterContentInit,
-    ChangeDetectorRef,
-    booleanAttribute
+    ChangeDetectorRef
 } from '@angular/core';
 import { Observable, defer, Subject, merge } from 'rxjs';
 import { ThyOptionVisibleChangeEvent, ThyOption } from '../option.component';
 import { take, switchMap, startWith, takeUntil, debounceTime, map } from 'rxjs/operators';
 import { THY_OPTION_GROUP_COMPONENT } from '../option.token';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
  * @private
@@ -31,7 +31,7 @@ import { THY_OPTION_GROUP_COMPONENT } from '../option.token';
 })
 export class ThySelectOptionGroup implements OnDestroy, AfterContentInit {
     _hidden = false;
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     @HostBinding(`class.disabled`)
     thyDisabled: boolean;
 

@@ -15,6 +15,7 @@
     class="d-block w-50 mb-3"
     thyShowTime
     [thyFormat]="dateShowTime | thyDatePickerFormatString"
+    thyTimestampPrecision="milliseconds"
     thyPlaceHolder="选择时间"
     [(ngModel)]="flexibleDateTime"
     (ngModelChange)="onChange($event)"

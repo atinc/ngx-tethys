@@ -12,13 +12,12 @@ import {
     Output,
     TemplateRef,
     ViewContainerRef,
-    booleanAttribute,
     numberAttribute
 } from '@angular/core';
 import { ComponentTypeOrTemplateRef, ThyOverlayDirectiveBase, ThyOverlayTrigger, ThyPlacement } from 'ngx-tethys/core';
 import { ThyPopover, ThyPopoverConfig, ThyPopoverRef } from 'ngx-tethys/popover';
 import { SafeAny } from 'ngx-tethys/types';
-import { coerceArray, helpers, isFunction, isTemplateRef } from 'ngx-tethys/util';
+import { coerceArray, coerceBooleanProperty, helpers, isFunction, isTemplateRef } from 'ngx-tethys/util';
 import { ThyDropdownMenuComponent } from './dropdown-menu.component';
 
 export type ThyDropdownTrigger = 'click' | 'hover';
@@ -108,7 +107,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
      * 点击 dropdown-menu 内部是否关闭弹出框，会覆盖 thyPopoverOptions 中的 insideClosable
      * @default true
      */
-    @Input({ transform: booleanAttribute }) thyMenuInsideClosable: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyMenuInsideClosable: boolean;
 
     /**
      * 弹出框 overlay panel 的类名

@@ -1,8 +1,9 @@
 import { useHostRenderer } from '@tethys/cdk/dom';
 
-import { Component, ContentChild, HostBinding, Input, OnInit, TemplateRef, booleanAttribute } from '@angular/core';
+import { Component, ContentChild, HostBinding, Input, OnInit, TemplateRef } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export type ThyVoteSizes = 'default' | 'sm';
 
@@ -67,7 +68,7 @@ export class ThyVote implements OnInit {
      * 是否是偏圆型
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyRound: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyRound: boolean;
 
     /**
      * 布局: horizontal | vertical
@@ -97,7 +98,7 @@ export class ThyVote implements OnInit {
      * @type boolean
      * @default false
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyHasVoted(value: boolean) {
         this._hasVoted = value;
         if (this._initialized) {
@@ -109,7 +110,7 @@ export class ThyVote implements OnInit {
      * 是否禁用
      * @type boolean
      */
-    @Input({ transform: booleanAttribute }) thyDisabled = false;
+    @Input({ transform: coerceBooleanProperty }) thyDisabled = false;
 
     /**
      * 自定义Icon模板

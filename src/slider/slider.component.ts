@@ -14,12 +14,11 @@ import {
     HostBinding,
     Output,
     NgZone,
-    booleanAttribute,
     numberAttribute
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable, Subscription, fromEvent } from 'rxjs';
-import { clamp } from 'ngx-tethys/util';
+import { clamp, coerceBooleanProperty } from 'ngx-tethys/util';
 import { tap, pluck, map, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -58,14 +57,14 @@ export class ThySlider
      * 是否切换为纵轴模式
      */
     @HostBinding('class.slider-vertical')
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     thyVertical = false;
 
     /**
      * 是否禁用
      */
     @HostBinding('class.slider-disabled')
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     override set thyDisabled(value: boolean) {
         this.disabled = value;
         this.toggleDisabled();

@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit, booleanAttribute } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit } from '@angular/core';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
  * 卡片内容组件
@@ -22,7 +23,7 @@ export class ThyCardContent implements OnInit {
      * 内容区，滚动
      * @default false
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyScroll(value: boolean) {
         this.scrollClassName = value;
     }

@@ -2,7 +2,7 @@ import { SafeAny } from 'ngx-tethys/types';
 import { coerceBooleanProperty, coerceCssPixelValue, coerceNumberValue } from 'ngx-tethys/util';
 
 /**
- * @deprecated Please use {transform: booleanAttribute} in Input instead
+ * @deprecated Please use {transform: coerceBooleanProperty} in Input instead
  */
 export function InputBoolean(): PropertyDecorator {
     return makePropDecorator('InputBoolean', coerceBooleanProperty);

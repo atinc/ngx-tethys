@@ -1,4 +1,4 @@
-import { NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
+import { NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
     AfterViewInit,
     ChangeDetectionStrategy,
@@ -7,8 +7,7 @@ import {
     ElementRef,
     Input,
     ViewChild,
-    ViewEncapsulation,
-    booleanAttribute
+    ViewEncapsulation
 } from '@angular/core';
 import { InputCssPixel } from 'ngx-tethys/core';
 import { ThySkeletonCircle, ThySkeletonRectangle } from 'ngx-tethys/skeleton';
@@ -16,6 +15,7 @@ import { ThyTableSkeletonColumn } from './table.interface';
 import { ThyViewOutletDirective } from 'ngx-tethys/shared';
 import { ThyTableColumnSkeletonType } from './enums';
 import { ThyTableSize, ThyTableTheme } from './table.component';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 const COLUMN_COUNT = 5;
 
@@ -32,7 +32,7 @@ const COLUMN_COUNT = 5;
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [NgFor, NgClass, NgIf, NgTemplateOutlet, ThyViewOutletDirective, ThySkeletonRectangle, ThySkeletonCircle]
+    imports: [NgFor, NgClass, NgIf, NgStyle, NgTemplateOutlet, ThyViewOutletDirective, ThySkeletonRectangle, ThySkeletonCircle]
 })
 export class ThyTableSkeleton implements AfterViewInit {
     @ViewChild('titleTemplate') titleTemplate: ElementRef<HTMLElement>;
@@ -61,7 +61,7 @@ export class ThyTableSkeleton implements AfterViewInit {
      * 是否开启动画
      * @default true
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     thyAnimated: boolean = true;
 
     /**
@@ -93,7 +93,7 @@ export class ThyTableSkeleton implements AfterViewInit {
      * 是否展示骨架头
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyHeadless = false;
+    @Input({ transform: coerceBooleanProperty }) thyHeadless = false;
 
     /**
      * 骨架屏的风格

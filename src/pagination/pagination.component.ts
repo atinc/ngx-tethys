@@ -10,13 +10,12 @@ import {
     Optional,
     Inject,
     TemplateRef,
-    booleanAttribute,
     numberAttribute
 } from '@angular/core';
 import { ThyPaginationConfigModel } from './pagination.class';
 import { PaginationDefaultConfig, DEFAULT_RANGE_COUNT, THY_PAGINATION_CONFIG, ThyPaginationConfig } from './pagination.config';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { isTemplateRef } from 'ngx-tethys/util';
+import { coerceBooleanProperty, isTemplateRef } from 'ngx-tethys/util';
 import { PaginationTotalCountFormat } from './pagination.pipe';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyOption, ThyEnterDirective } from 'ngx-tethys/shared';
@@ -98,13 +97,13 @@ export class ThyPagination implements OnInit {
     /**
      * 是否禁用
      */
-    @Input({ alias: 'thyDisabled', transform: booleanAttribute }) disabled = false;
+    @Input({ alias: 'thyDisabled', transform: coerceBooleanProperty }) disabled = false;
 
     /**
      * 是否显示快速跳转
      * @default false
      */
-    @Input({ alias: 'thyShowQuickJumper', transform: booleanAttribute })
+    @Input({ alias: 'thyShowQuickJumper', transform: coerceBooleanProperty })
     set showQuickJumper(value: boolean) {
         this.config.showQuickJumper = value;
     }
@@ -113,7 +112,7 @@ export class ThyPagination implements OnInit {
      * 设置是否显示总页数信息
      * @default true
      */
-    @Input({ alias: 'thyShowTotalPageCount', transform: booleanAttribute })
+    @Input({ alias: 'thyShowTotalPageCount', transform: coerceBooleanProperty })
     set showTotalPageCount(value: boolean) {
         this.config.showTotalPageCount = value;
     }
@@ -158,7 +157,7 @@ export class ThyPagination implements OnInit {
         }
     }
 
-    @Input({ alias: 'thyShowSizeChanger', transform: booleanAttribute })
+    @Input({ alias: 'thyShowSizeChanger', transform: coerceBooleanProperty })
     set showSizeChanger(value: boolean) {
         this.config.showSizeChanger = value;
     }
@@ -175,7 +174,18 @@ export class ThyPagination implements OnInit {
      * 只有一页时是否隐藏分页器
      * @default false
      */
-    @Input({ alias: 'thyHideOnSinglePage', transform: booleanAttribute }) hideOnSinglePage: boolean;
+    @Input({ alias: 'thyHideOnSinglePage', transform: coerceBooleanProperty }) hideOnSinglePage: boolean;
+
+    /**
+     * 分页器单位
+     * @default 条
+     */
+    @Input('thyUnit')
+    set unit(value: string) {
+        if (value) {
+            this.config.unit = value;
+        }
+    }
 
     /**
      * 页码改变的回调

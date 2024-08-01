@@ -8,14 +8,13 @@ import {
 import { ThyEmpty } from 'ngx-tethys/empty';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { SelectControlSize, SelectOptionBase, ThySelectControl } from 'ngx-tethys/shared';
-import { elementMatchClosest, isEmpty } from 'ngx-tethys/util';
+import { coerceBooleanProperty, elementMatchClosest, isEmpty } from 'ngx-tethys/util';
 import { BehaviorSubject, Observable, Subject, Subscription, timer } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, take, takeUntil } from 'rxjs/operators';
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange, ConnectionPositionPair } from '@angular/cdk/overlay';
 import { NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
-    booleanAttribute,
     ChangeDetectorRef,
     Component,
     ElementRef,
@@ -146,13 +145,13 @@ export class ThyCascader
      * 点击项时，表单是否动态展示数据项
      * @type boolean
      */
-    @Input({ transform: booleanAttribute }) thyChangeOnSelect = false;
+    @Input({ transform: coerceBooleanProperty }) thyChangeOnSelect = false;
 
     /**
      * 显示输入框
      * @type boolean
      */
-    @Input({ transform: booleanAttribute }) thyShowInput = true;
+    @Input({ transform: coerceBooleanProperty }) thyShowInput = true;
 
     /**
      * 用户自定义选项模板
@@ -240,7 +239,7 @@ export class ThyCascader
      * 是否只读
      * @default false
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     override set thyDisabled(value: boolean) {
         this.disabled = value;
     }
@@ -264,7 +263,7 @@ export class ThyCascader
      * @type boolean
      * @default false
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyMultiple(value: boolean) {
         this.isMultiple = value;
         this.thyCascaderService.setCascaderOptions({ isMultiple: value });
@@ -284,20 +283,20 @@ export class ThyCascader
      * 是否仅允许选择叶子项
      * @default true
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     thyIsOnlySelectLeaf = true;
 
     /**
      * 初始化时，是否展开面板
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyAutoExpand: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyAutoExpand: boolean;
 
     /**
      * 是否支持搜索
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyShowSearch: boolean = false;
+    @Input({ transform: coerceBooleanProperty }) thyShowSearch: boolean = false;
 
     /**
      * 多选选中项的展示方式，默认为空，渲染文字模板，传入tag，渲染展示模板,
@@ -308,7 +307,7 @@ export class ThyCascader
     /**
      * 是否有幕布
      */
-    @Input({ transform: booleanAttribute }) thyHasBackdrop = true;
+    @Input({ transform: coerceBooleanProperty }) thyHasBackdrop = true;
 
     /**
      * 值发生变化时触发，返回选择项的值
@@ -687,6 +686,15 @@ export class ThyCascader
     public clickOption(option: ThyCascaderOption, index: number, event: Event | boolean): void {
         this.thyCascaderService.removeCustomOption();
         this.thyCascaderService.clickOption(option, index, event, this.selectOption);
+
+        if (this.cdkConnectedOverlay && this.cdkConnectedOverlay.overlayRef) {
+            // Make sure to calculate and update the position after the submenu is opened
+            this.cdr.detectChanges();
+
+            // Update the position to prevent the submenu from appearing off-screen
+            this.cdkConnectedOverlay.overlayRef.updatePosition();
+            this.cdr.markForCheck();
+        }
     }
 
     public mouseoverOption(option: ThyCascaderOption, index: number, event: Event): void {

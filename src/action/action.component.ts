@@ -9,13 +9,13 @@ import {
     Renderer2,
     SimpleChanges,
     ChangeDetectorRef,
-    OnDestroy,
-    booleanAttribute
+    OnDestroy
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgIf } from '@angular/common';
 import { Subscription, timer } from 'rxjs';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export type ThyActionType = 'primary' | 'success' | 'danger' | 'warning';
 
@@ -102,7 +102,7 @@ export class ThyAction implements OnInit, AfterViewInit, OnChanges, OnDestroy {
      * 操作的图标 Active 状态，设置为 true 时会在 Item 上添加 active class
      * @default false
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyActive(value: boolean) {
         this.active = value;
     }
@@ -111,7 +111,7 @@ export class ThyAction implements OnInit, AfterViewInit, OnChanges, OnDestroy {
      * 操作的图标 Active 状态，当 thyActive 和其他指令参数名有冲突时使用 thyActionActive
      * @default false
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyActionActive(value: boolean) {
         this.active = value;
     }
@@ -131,7 +131,7 @@ export class ThyAction implements OnInit, AfterViewInit, OnChanges, OnDestroy {
      * 是否处于禁用状态
      * @default false
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     thyDisabled: boolean;
 
     constructor(private elementRef: ElementRef<HTMLElement>, private renderer: Renderer2, private cdr: ChangeDetectorRef) {}

@@ -1,7 +1,8 @@
 import { isTextColor } from 'ngx-tethys/core';
 
-import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, booleanAttribute, numberAttribute } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, numberAttribute } from '@angular/core';
 import { NgIf } from '@angular/common';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export type ThyBadgeSize = 'md' | 'sm' | 'lg';
 
@@ -145,7 +146,7 @@ export class ThyBadge implements OnInit {
      * 已废弃，徽标是一个实心点，已经被废弃
      * @deprecated
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyIsDot(value: boolean) {
         this.isDot = value;
         if (this.initialized) {
@@ -157,7 +158,7 @@ export class ThyBadge implements OnInit {
      * 已废弃，徽标是一个空心点
      * @deprecated
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyIsHollow(value: boolean) {
         this.isHollow = value;
         if (this.initialized) {
@@ -169,7 +170,7 @@ export class ThyBadge implements OnInit {
      * thyCount 为 0 时，强制显示数字 0，默认不显示
      * @default false
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyKeepShow(value: boolean) {
         this.keepShowValue = value;
         if (this.initialized) {

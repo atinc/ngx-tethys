@@ -18,7 +18,6 @@ import {
     Output,
     SimpleChange,
     TemplateRef,
-    booleanAttribute,
     numberAttribute
 } from '@angular/core';
 
@@ -61,7 +60,7 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
      * 是否展示时间(时、分)
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyMustShowTime = false;
+    @Input({ transform: coerceBooleanProperty }) thyMustShowTime = false;
 
     /**
      * 弹出位置
@@ -89,7 +88,7 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
      * 是否有幕布
      * @default true
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyHasBackdrop(value: boolean) {
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
             warnDeprecation(`thyHasBackdrop parameter will be deprecated, please use thyPopoverOptions instead.`);
@@ -105,7 +104,7 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
     /**
      * 是否阻止冒泡
      */
-    @Input({ transform: booleanAttribute }) thyStopPropagation = true;
+    @Input({ transform: coerceBooleanProperty }) thyStopPropagation = true;
 
     private destroy$ = new Subject<void>();
     private el: HTMLElement = this.elementRef.nativeElement;
@@ -166,7 +165,8 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
                         shortcutPresets: this.shortcutPresets,
                         shortcutPosition: this.shortcutPosition,
                         flexible: this.flexible,
-                        flexibleDateGranularity: this.flexibleDateGranularity
+                        flexibleDateGranularity: this.flexibleDateGranularity,
+                        timestampPrecision: this.thyTimestampPrecision
                     },
                     placement: this.thyPlacement
                 },

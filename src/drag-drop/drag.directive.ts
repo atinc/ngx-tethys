@@ -1,8 +1,9 @@
-import { Directive, NgZone, ElementRef, HostBinding, Input, Inject, OnDestroy, Optional, Renderer2, booleanAttribute } from '@angular/core';
+import { Directive, NgZone, ElementRef, HostBinding, Input, Inject, OnDestroy, Optional, Renderer2 } from '@angular/core';
 import { DragRef } from './drag-ref';
 import { DOCUMENT } from '@angular/common';
 import { ThyDragDropService } from './drag-drop.service';
 import { THY_DROP_CONTAINER_DIRECTIVE, IThyDropContainerDirective } from './drop-container.class';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
  * 拖拽项
@@ -37,7 +38,7 @@ export class ThyDragDirective<T = any> implements OnDestroy {
      * 是否禁用拖拽
      * @default false
      */
-    @Input({ alias: 'thyDragDisabled', transform: booleanAttribute })
+    @Input({ alias: 'thyDragDisabled', transform: coerceBooleanProperty })
     set disabled(isDisabled: boolean) {
         this._disabled = isDisabled;
         this.isDraggable = !isDisabled;

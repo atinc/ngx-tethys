@@ -1,7 +1,6 @@
 import { CdkConnectedOverlay, CdkOverlayOrigin } from '@angular/cdk/overlay';
 import {
     AfterViewInit,
-    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -16,7 +15,7 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { isValid } from 'date-fns';
 import { getFlexiblePositions, ThyPlacement } from 'ngx-tethys/core';
-import { TinyDate } from 'ngx-tethys/util';
+import { TinyDate, coerceBooleanProperty } from 'ngx-tethys/util';
 import { ThyTimePanel } from './time-picker-panel.component';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgTemplateOutlet, NgIf, NgClass } from '@angular/common';
@@ -127,14 +126,14 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
      * @type boolean
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyBackdrop: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyBackdrop: boolean;
 
     /**
      * 禁用
      * @type boolean
      * @default false
      */
-    @Input({ transform: booleanAttribute }) set thyDisabled(value: boolean) {
+    @Input({ transform: coerceBooleanProperty }) set thyDisabled(value: boolean) {
         this.disabled = value;
     }
 
@@ -147,19 +146,19 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
      * @type boolean
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyReadonly: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyReadonly: boolean;
 
     /**
      * 展示选择此刻
      * @type boolean
      */
-    @Input({ transform: booleanAttribute }) thyShowSelectNow = true;
+    @Input({ transform: coerceBooleanProperty }) thyShowSelectNow = true;
 
     /**
      * 可清空值
      * @type boolean
      */
-    @Input({ transform: booleanAttribute }) thyAllowClear = true;
+    @Input({ transform: coerceBooleanProperty }) thyAllowClear = true;
 
     /**
      * 打开/关闭弹窗事件

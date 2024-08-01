@@ -69,6 +69,13 @@
         border: variables.$table-border-width solid variables.$table-border-color;
     }
 
+    &:has(+ .thy-table-skeleton) > thead {
+        // 有骨架屏去掉 thead 的 border-bottom，否则会和 table 的边框重叠加粗
+        tr th {
+            border-bottom: 0;
+        }
+    }
+
     @include tables.table-set-header(
         center,
         middle,
@@ -90,6 +97,19 @@
             td {
                 border-bottom: 0px;
             }
+        }
+    }
+
+    &:has(+ .thy-table-skeleton) {
+        // 有骨架屏 给table只设置上左边框的border-radius
+        border-radius: 0 !important;
+        border-top-left-radius: variables.$border-radius !important;
+    }
+
+    &:has(+ .thy-table-skeleton) > thead {
+        // 有骨架屏去掉 thead 的 border-bottom，否则会和 table 的边框重叠加粗
+        tr th {
+            border-bottom: 0;
         }
     }
 

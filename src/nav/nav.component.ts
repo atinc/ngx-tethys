@@ -7,7 +7,6 @@ import {
     AfterContentChecked,
     AfterContentInit,
     AfterViewInit,
-    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -34,6 +33,7 @@ import { BypassSecurityTrustHtmlPipe } from './nav.pipe';
 import { ThyDropdownMenuComponent, ThyDropdownMenuItemDirective, ThyDropdownMenuItemActiveDirective } from 'ngx-tethys/dropdown';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgClass, NgTemplateOutlet, NgIf, NgFor } from '@angular/common';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export type ThyNavType = 'pulled' | 'tabs' | 'pills' | 'lite' | 'primary' | 'secondary' | 'thirdly' | 'secondary-divider';
 export type ThyNavSize = 'lg' | 'md' | 'sm';
@@ -111,6 +111,8 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
 
     private hostRenderer = useHostRenderer();
 
+    private innerLinks: QueryList<ThyNavItemDirective>;
+
     /**
      * 导航类型
      * @type pulled | tabs | pills | lite | primary | secondary | thirdly | secondary-divider
@@ -152,27 +154,27 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
      * @default false
      */
     @HostBinding('class.thy-nav--vertical')
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     thyVertical: boolean;
 
     /**
      * 是否是填充模式
      */
     @HostBinding('class.thy-nav--fill')
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     thyFill: boolean = false;
 
     /**
      * 是否响应式，自动计算宽度存放 thyNavItem，并添加更多弹框
      * @default false
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     thyResponsive: boolean;
 
     /**
      * 更多操作的菜单点击内部是否可关闭
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     thyInsideClosable = true;
 
     /**
@@ -184,7 +186,14 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
     /**
      * @private
      */
-    @ContentChildren(ThyNavItemDirective, { descendants: true }) links: QueryList<ThyNavItemDirective>;
+    @ContentChildren(ThyNavItemDirective, { descendants: true })
+    set links(value) {
+        this.innerLinks = value;
+        this.prevActiveIndex = NaN;
+    }
+    get links(): QueryList<ThyNavItemDirective> {
+        return this.innerLinks;
+    }
 
     /**
      * @private

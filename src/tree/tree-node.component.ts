@@ -1,7 +1,6 @@
 import { Subject } from 'rxjs';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import {
-    ChangeDetectorRef,
     Component,
     ContentChild,
     ElementRef,
@@ -9,7 +8,6 @@ import {
     HostBinding,
     Inject,
     Input,
-    NgZone,
     OnChanges,
     OnDestroy,
     OnInit,
@@ -18,7 +16,6 @@ import {
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute,
     numberAttribute
 } from '@angular/core';
 
@@ -29,6 +26,7 @@ import { ThyTreeService } from './tree.service';
 import { ThyLoading } from 'ngx-tethys/loading';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgIf, NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveListenerOptions({ passive: true });
 
@@ -53,22 +51,22 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
     /**
      * 设置 TreeNode 是否支持异步加载
      */
-    @Input({ transform: booleanAttribute }) thyAsync = false;
+    @Input({ transform: coerceBooleanProperty }) thyAsync = false;
 
     /**
      * 设置 TreeNode 是否支持多选节点
      */
-    @Input({ transform: booleanAttribute }) thyMultiple = false;
+    @Input({ transform: coerceBooleanProperty }) thyMultiple = false;
 
     /**
      * 设置 TreeNode 是否支持拖拽排序
      */
-    @Input({ transform: booleanAttribute }) thyDraggable = false;
+    @Input({ transform: coerceBooleanProperty }) thyDraggable = false;
 
     /**
      * 设置 TreeNode 是否支持 Checkbox 选择
      */
-    @Input({ transform: booleanAttribute }) thyCheckable = false;
+    @Input({ transform: coerceBooleanProperty }) thyCheckable = false;
 
     /**
      * 点击节点的行为，`default` 为选中当前节点，`selectCheckbox` 为选中节点的 Checkbox， `thyCheckable` 为 true 时生效。
@@ -80,7 +78,7 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
      * 设置节点名称是否支持超出截取
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyTitleTruncate: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyTitleTruncate: boolean;
 
     /**
      * 设置 TreeNode 的渲染模板

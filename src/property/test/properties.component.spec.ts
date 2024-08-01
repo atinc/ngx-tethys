@@ -347,12 +347,17 @@ describe(`thy-properties`, () => {
             const propertyItemElement = propertyItemDebugElement.nativeElement as HTMLElement;
             expect(propertyItemElement.classList.contains(`thy-property-item-operational`)).toBeTruthy();
             expect(propertyItemElement.children.length).toEqual(2);
-            const content = propertyItemElement.children[1];
-            expect(content).toBeTruthy();
-            expect(content.children.length).toEqual(2);
-            const operation = content.children[1];
+
+            const label = propertyItemElement.children[0];
+            expect(label).toBeTruthy();
+            expect(label.children.length).toEqual(2);
+            const operation = label.children[1];
             expect(operation.classList.contains('thy-property-item-operation')).toBeTruthy();
             expect(operation.textContent).toBeTruthy('Add');
+
+            const content = propertyItemElement.children[1];
+            expect(content).toBeTruthy();
+            expect(content.children.length).toEqual(1);
         });
 
         it('should set operation trigger hover', () => {

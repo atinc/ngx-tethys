@@ -1,4 +1,5 @@
-import { Component, Input, ChangeDetectionStrategy, booleanAttribute } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
  * 卡片组件
@@ -24,21 +25,21 @@ export class ThyCard {
      * 左右是否有内边距，已废弃，如需配置间距使用 spacing 工具样式覆盖默认间距
      * @deprecated
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     thyHasLeftRightPadding: boolean | string = true;
 
     /**
      * 是否是分割模式，分割模式头部和内容区之间有一条分割线
      * @default false
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     thyDivided: boolean | string;
 
     /**
      * 是否有边框，边框颜色为#eee
      * @default false
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     thyBordered: boolean | string;
 
     /**

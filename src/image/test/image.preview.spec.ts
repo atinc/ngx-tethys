@@ -1,18 +1,18 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { XhrFactory } from '@angular/common';
 import { Component, DebugElement, OnInit, ɵglobal } from '@angular/core';
+import { ComponentFixture, TestBed, fakeAsync, flush, inject, waitForAsync } from '@angular/core/testing';
+import { DomSanitizer } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyDialogModule } from 'ngx-tethys/dialog';
-import { ThyImageModule } from '../module';
-import { ComponentFixture, inject, TestBed, waitForAsync, fakeAsync, flush } from '@angular/core/testing';
-import { ThyImageService } from '../image.service';
-import { InternalImageInfo, ThyImagePreviewOptions } from '../image.class';
-import { ThyImagePreviewRef } from '../preview/image-preview-ref';
-import { DomSanitizer } from '@angular/platform-browser';
-import { dispatchKeyboardEvent, dispatchMouseEvent, MockXhrFactory } from 'ngx-tethys/testing';
+import { MockXhrFactory, dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { keycodes } from 'ngx-tethys/util';
 import { timer } from 'rxjs';
+import { InternalImageInfo, ThyImagePreviewOptions } from '../image.class';
+import { ThyImageService } from '../image.service';
+import { ThyImageModule } from '../module';
+import { ThyImagePreviewRef } from '../preview/image-preview-ref';
 import { fetchImageBlob } from '../utils';
-import { XhrFactory } from '@angular/common';
 
 let imageOnload: () => void = null;
 
@@ -120,9 +120,22 @@ describe('image-preview', () => {
     });
 
     it('should show custom operations', () => {
+        const previewSpy = jasmine.createSpy('view original');
+
         basicTestComponent.previewConfig = {
             zoom: 1,
-            operations: ['zoom-out', 'zoom-in', 'rotate-right', 'download']
+            operations: [
+                'zoom-out',
+                'zoom-in',
+                'rotate-right',
+                'download',
+                {
+                    icon: 'preview',
+                    name: '查看原图',
+                    action: previewSpy,
+                    type: 'view-original'
+                }
+            ]
         };
         fixture.detectChanges();
         const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
@@ -131,7 +144,14 @@ describe('image-preview', () => {
         expect(overlayContainerElement).toBeTruthy();
         expect(overlayContainerElement.querySelector('.thy-image-preview-wrap')).toBeTruthy();
         expect(overlayContainerElement.querySelector('.thy-image-preview-operations')).toBeTruthy();
-        expect(overlayContainerElement.querySelectorAll('.thy-actions .thy-action').length).toBe(4);
+        expect(overlayContainerElement.querySelectorAll('.thy-actions .thy-action').length).toBe(5);
+        const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
+        const preview = operations[4] as HTMLElement;
+
+        expect(preview.getAttribute('ng-reflect-content')).toBe('查看原图');
+        preview.click();
+
+        expect(previewSpy).toHaveBeenCalledWith(basicTestComponent.images[0]);
     });
 
     it('should zoom out image when click zoom-out icon', () => {

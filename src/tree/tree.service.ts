@@ -144,10 +144,10 @@ export class ThyTreeService implements OnDestroy {
         }
     }
 
-    public expandTreeNodes(keyOrKeys: string | number | (string | number)[]) {
-        const keys = coerceArray(keyOrKeys);
+    public expandTreeNodes(keyOrKeys: string | number | (string | number)[] | true) {
+        const keys = keyOrKeys === true ? [] : coerceArray(keyOrKeys);
         const needExpandNodes = this.getParallelTreeNodes(this.treeNodes).filter(node => {
-            return keys.indexOf(node.key) > -1;
+            return keys.indexOf(node.key) > -1 || keyOrKeys === true;
         });
         needExpandNodes.forEach(node => {
             node.setExpanded(true);

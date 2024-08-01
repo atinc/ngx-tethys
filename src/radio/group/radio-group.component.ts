@@ -1,6 +1,5 @@
 import {
     AfterContentInit,
-    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -16,6 +15,7 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 
 import { ThyRadioButton } from '../button/radio-button.component';
 import { ThyRadio } from '../radio.component';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 const buttonGroupSizeMap = {
     sm: ['btn-group-sm'],
@@ -83,7 +83,7 @@ export class ThyRadioGroup implements ControlValueAccessor, OnInit, OnChanges, A
      * 是否禁用单选组合框
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyDisabled = false;
+    @Input({ transform: coerceBooleanProperty }) thyDisabled = false;
 
     onChange: (_: string) => void = () => null;
     onTouched: () => void = () => null;

@@ -2,7 +2,6 @@ import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import {
-    booleanAttribute,
     Component,
     ElementRef,
     EventEmitter,
@@ -10,14 +9,17 @@ import {
     Input,
     NgZone,
     numberAttribute,
+    OnChanges,
     OnDestroy,
     Output,
+    SimpleChanges,
     ViewChild
 } from '@angular/core';
 
 import { FileSelectBaseDirective } from './file-select-base';
 import { THY_UPLOAD_DEFAULT_OPTIONS, ThyUploadConfig } from './upload.config';
 import { mimeTypeConvert } from './util';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
  * 文件上传组件
@@ -29,11 +31,7 @@ import { mimeTypeConvert } from './util';
     templateUrl: './file-select.component.html',
     standalone: true
 })
-export class ThyFileSelect extends FileSelectBaseDirective implements OnDestroy {
-    private multiple: boolean;
-
-    private acceptFolder: boolean;
-
+export class ThyFileSelect extends FileSelectBaseDirective implements OnChanges, OnDestroy {
     /**
      * 文件选择事件
      */
@@ -45,25 +43,9 @@ export class ThyFileSelect extends FileSelectBaseDirective implements OnDestroy 
      * 文件是否多选
      * @default false
      */
-    @Input({ transform: booleanAttribute })
-    set thyMultiple(value: boolean) {
-        this.multiple = value;
-        if (this.multiple) {
-            this.fileInput.nativeElement.setAttribute('multiple', '');
-        } else {
-            this.fileInput.nativeElement.removeAttribute('multiple');
-        }
-    }
+    @Input({ transform: coerceBooleanProperty }) thyMultiple: boolean;
 
-    @Input({ transform: booleanAttribute })
-    set thyAcceptFolder(value: boolean) {
-        this.acceptFolder = value;
-        if (this.acceptFolder) {
-            this.fileInput.nativeElement.setAttribute('webkitdirectory', '');
-        } else {
-            this.fileInput.nativeElement.removeAttribute('webkitdirectory');
-        }
-    }
+    @Input({ transform: coerceBooleanProperty }) thyAcceptFolder: boolean;
 
     /**
      * 指定文件后缀类型（MIME_Map），例如".xls,xlsx"，"[".doc",".docx"]"
@@ -94,6 +76,24 @@ export class ThyFileSelect extends FileSelectBaseDirective implements OnDestroy 
                     this.fileInput.nativeElement.click();
                 })
         );
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.thyMultiple) {
+            if (changes.thyMultiple.currentValue) {
+                this.fileInput.nativeElement.setAttribute('multiple', '');
+            } else {
+                this.fileInput.nativeElement.removeAttribute('multiple');
+            }
+        }
+
+        if (changes.thyAcceptFolder) {
+            if (changes.thyAcceptFolder.currentValue) {
+                this.fileInput.nativeElement.setAttribute('webkitdirectory', '');
+            } else {
+                this.fileInput.nativeElement.removeAttribute('webkitdirectory');
+            }
+        }
     }
 
     selectFile($event: Event) {

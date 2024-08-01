@@ -5,6 +5,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { ThyDividerModule } from '../../divider';
 import { ThyIconModule } from '../../icon/icon.module';
 import { ThyPopover, ThyPopoverModule } from '../../popover';
 import { ThyMenuDivider } from '../divider/menu-divider.component';
@@ -15,7 +16,6 @@ import { ThyMenuItem } from '../item/menu-item.component';
 import { ThyMenuItemName } from '../item/name/menu-item-name.component';
 import { ThyMenu, ThyMenuTheme } from '../menu.component';
 import { ThyMenuModule } from '../menu.module';
-import { ThyDividerModule } from '../../divider';
 
 @Component({
     selector: 'thy-demo-menu',
@@ -356,5 +356,18 @@ describe('ThyMenu', () => {
             const popBox = document.querySelector('.actionTemplate');
             expect(popBox).not.toBeNull();
         });
+
+        it(`should thy-menu-item has action-active class and thy-menu-item-action has active class when click thyActionMenu`, fakeAsync(() => {
+            const thyMenuItem = fixture.debugElement.query(By.css('.thy-menu-item'));
+
+            expect(thyMenuItem.nativeElement.classList.contains('action-active')).toBeFalsy();
+            expect(action.nativeElement.classList.contains('active')).toBeFalsy();
+
+            action.nativeElement.click();
+            fixture.detectChanges();
+
+            expect(thyMenuItem.nativeElement.classList.contains('action-active')).toBeTruthy();
+            expect(action.nativeElement.classList.contains('active')).toBeTruthy();
+        }));
     });
 });

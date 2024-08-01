@@ -50,6 +50,7 @@ class PaginationBasicComponent {
             [thyShowQuickJumper]="canQuickJump"
             (thyPageIndexChange)="pageIndexChange($event)"
             [thyShowSizeChanger]="showSizeChanger"
+            [thyUnit]="unit"
             [thySize]="size"
             [thyPageSizeOptions]="[10, 20, 50, 100]"
             (thyPageSizeChanged)="pageSizeChanged($event)"></thy-pagination>
@@ -67,6 +68,8 @@ class PaginationTestComponent {
     showSizeChanger = false;
 
     size = '';
+
+    unit = '';
 
     pageIndexChange = jasmine.createSpy('pageIndexChange callback');
 
@@ -180,6 +183,25 @@ describe('ThyPagination', () => {
             fixture.detectChanges();
             expect(pagination.pageIndex).toEqual(3);
             expect(inputElement.value).toEqual('');
+        }));
+
+        it('should unit can works', fakeAsync(() => {
+            componentInstance.showSizeChanger = true;
+            componentInstance.pagination.pageSize = 50;
+            fixture.detectChanges();
+            expect(paginationElement.querySelectorAll('.thy-pagination-size').length).toEqual(1);
+
+            (paginationElement.querySelectorAll('.form-control-custom')[0] as HTMLElement).click();
+            fixture.detectChanges();
+            const el = document.querySelector('.thy-select-dropdown-options') as HTMLElement;
+            expect(el.querySelectorAll('.thy-option-item')[0]?.querySelectorAll('.text-truncate')[0]?.innerHTML).toEqual('10 条/页');
+
+            componentInstance.unit = '组';
+            fixture.detectChanges();
+            (paginationElement.querySelectorAll('.form-control-custom')[0] as HTMLElement).click();
+            fixture.detectChanges();
+            const option = document.querySelector('.thy-select-dropdown-options') as HTMLElement;
+            expect(option.querySelectorAll('.thy-option-item')[0]?.querySelectorAll('.text-truncate')[0]?.innerHTML).toEqual('10 组/页');
         }));
     });
 

@@ -1,16 +1,7 @@
-import {
-    Component,
-    Input,
-    TemplateRef,
-    ViewEncapsulation,
-    OnChanges,
-    SimpleChanges,
-    OnInit,
-    ChangeDetectionStrategy,
-    booleanAttribute
-} from '@angular/core';
+import { Component, Input, TemplateRef, ViewEncapsulation, OnChanges, SimpleChanges, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export type ThyDividerStyle = 'solid' | 'dashed';
 
@@ -60,7 +51,7 @@ export class ThyDivider implements OnChanges, OnInit {
      * 是否垂直方向
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyVertical: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyVertical: boolean;
 
     /**
      * 分割线的风格
@@ -95,7 +86,7 @@ export class ThyDivider implements OnChanges, OnInit {
      * 颜色加深，已经废弃，请使用 thyColor="light" 代替
      * @deprecated
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     thyDeeper = false;
 
     constructor() {}

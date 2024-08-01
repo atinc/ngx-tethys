@@ -11,10 +11,9 @@ import {
     Optional,
     Output,
     TemplateRef,
-    ViewEncapsulation,
-    booleanAttribute
+    ViewEncapsulation
 } from '@angular/core';
-import { isArray, isObject } from 'ngx-tethys/util';
+import { coerceBooleanProperty, isArray, isObject } from 'ngx-tethys/util';
 import { ThyTableSortDirection, ThyTableSortEvent } from './table.interface';
 
 export interface IThyTableColumnParentComponent {
@@ -94,7 +93,7 @@ export class ThyTableColumnComponent implements OnInit {
      * 设置自定义类型的禁用状态
      * @type boolean
      */
-    @Input({ alias: 'thyDisabled', transform: booleanAttribute }) disabled = false;
+    @Input({ alias: 'thyDisabled', transform: coerceBooleanProperty }) disabled = false;
 
     /**
      * thyType 为 checkbox 或者 radio 类型时选中的数据 ，支持单个对象，单个 Id，同时支持多个 Id，多个对象
@@ -124,7 +123,7 @@ export class ThyTableColumnComponent implements OnInit {
     /**
      * 设置 Tree 模式下折叠展开按钮展示列，不传默认第一列
      */
-    @Input({ alias: 'thyExpand', transform: booleanAttribute }) expand = false;
+    @Input({ alias: 'thyExpand', transform: coerceBooleanProperty }) expand = false;
 
     public sortable: boolean;
 
@@ -132,7 +131,7 @@ export class ThyTableColumnComponent implements OnInit {
      * 是否开启列排序功能（开启时 thyModelKey 为 必传）
      * @default false
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thySortable(value: boolean) {
         if (value) {
             if (this.model) {
@@ -160,13 +159,13 @@ export class ThyTableColumnComponent implements OnInit {
      * 当前列是否是操作列，设置为 true 时会追加 thy-operation-links 样式类，文字居中
      * @default false
      */
-    @Input({ alias: 'thyOperational', transform: booleanAttribute }) operational: boolean;
+    @Input({ alias: 'thyOperational', transform: coerceBooleanProperty }) operational: boolean;
 
     /**
      * 当前列是否是次要列，设置为 true 时会追加 thy-table-column-secondary 样式类，文字颜色为 $gray-600
      * @default false
      */
-    @Input({ alias: 'thySecondary', transform: booleanAttribute }) secondary: boolean;
+    @Input({ alias: 'thySecondary', transform: coerceBooleanProperty }) secondary: boolean;
 
     /**
      * 列排序修改事件

@@ -13,7 +13,6 @@ import {
     Optional,
     Output,
     TemplateRef,
-    booleanAttribute,
     inject,
     numberAttribute
 } from '@angular/core';
@@ -24,6 +23,7 @@ import { ThyResizableDirective, ThyResizeEvent, ThyResizeHandle } from 'ngx-teth
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { Subscription } from 'rxjs';
 import { ThyLayoutDirective } from './layout.component';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 const LG_WIDTH = 300;
 const SIDEBAR_DEFAULT_WIDTH = 240;
@@ -86,7 +86,7 @@ export class ThySidebarDirective implements OnInit {
      * 是否和右侧 /左侧隔离，当为 true 时距右侧 /左侧会有 margin，同时边框会去掉
      * @default false
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyIsolated(value: boolean) {
         this.sidebarIsolated = value;
     }
@@ -95,7 +95,7 @@ export class ThySidebarDirective implements OnInit {
      * sidebar 是否有分割线。当`thyDirection`值为`left`时，控制右侧是否有分割线；当`thyDirection`值为`right`时，控制左侧是否有分割线。
      * @default true
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyDivided(value: boolean) {
         this.isDivided = value;
     }
@@ -105,7 +105,7 @@ export class ThySidebarDirective implements OnInit {
      * @deprecated please use thyDivided
      * @default true
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyHasBorderRight(value: boolean) {
         this.thyDivided = value;
     }
@@ -115,7 +115,7 @@ export class ThySidebarDirective implements OnInit {
      * @deprecated please use thyDivided
      * @default true
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyHasBorderLeft(value: boolean) {
         this.thyDivided = value;
     }
@@ -210,7 +210,7 @@ export class ThySidebar implements OnInit, OnDestroy {
      * 宽度是否可以拖拽
      * @default false
      */
-    @Input({ transform: booleanAttribute }) thyDraggable: boolean = false;
+    @Input({ transform: coerceBooleanProperty }) thyDraggable: boolean = false;
 
     /**
      * 拖拽的最大宽度
@@ -245,7 +245,7 @@ export class ThySidebar implements OnInit, OnDestroy {
      * 开启收起/展开功能
      * @default false
      */
-    @Input({ transform: booleanAttribute }) set thyCollapsible(collapsible: boolean) {
+    @Input({ transform: coerceBooleanProperty }) set thyCollapsible(collapsible: boolean) {
         this.collapsible = collapsible;
         if (this.collapsible) {
             this.subscribeHotkeyEvent();
@@ -262,7 +262,7 @@ export class ThySidebar implements OnInit, OnDestroy {
      * 是否是收起
      * @default false
      */
-    @Input({ transform: booleanAttribute }) set thyCollapsed(value: boolean) {
+    @Input({ transform: coerceBooleanProperty }) set thyCollapsed(value: boolean) {
         this.isCollapsed = value;
     }
 

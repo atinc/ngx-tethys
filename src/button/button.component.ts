@@ -7,11 +7,10 @@ import {
     OnInit,
     Renderer2,
     ViewEncapsulation,
-    AfterViewInit,
-    booleanAttribute
+    AfterViewInit
 } from '@angular/core';
 
-import { assertIconOnly } from 'ngx-tethys/util';
+import { assertIconOnly, coerceBooleanProperty } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgIf, NgClass } from '@angular/common';
@@ -120,7 +119,7 @@ export class ThyButton implements OnInit, AfterViewInit {
      * 加载状态
      * @default false
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyLoading(value: boolean) {
         if (!this._loading && value) {
             this._loading = value;
@@ -187,7 +186,7 @@ export class ThyButton implements OnInit, AfterViewInit {
      * @default false
      */
     @HostBinding(`class.btn-block`)
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     thyBlock: boolean;
 
     private setBtnType(value: ThyButtonType) {

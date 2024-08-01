@@ -1,7 +1,8 @@
-import { Directive, HostBinding, Input, HostListener, ElementRef, OnInit, booleanAttribute } from '@angular/core';
+import { Directive, HostBinding, Input, HostListener, ElementRef, OnInit } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { debounceTime, shareReplay } from 'rxjs/operators';
 import { useHostRenderer } from '@tethys/cdk/dom';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export type ThyDropdownMenuItemType = 'default' | 'danger' | 'success' | '';
 
@@ -37,7 +38,7 @@ export class ThyDropdownMenuItemDirective implements OnInit {
      * 菜单项是否处于禁用状态
      * @default false
      */
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     set thyDisabled(value: boolean) {
         this.disabled = value;
     }
@@ -155,7 +156,7 @@ export class ThyDropdownMenuItemActiveDirective {
      * @default false
      */
     @HostBinding('class.active')
-    @Input({ transform: booleanAttribute })
+    @Input({ transform: coerceBooleanProperty })
     thyDropdownMenuItemActive: boolean;
 
     constructor() {}

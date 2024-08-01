@@ -1,7 +1,7 @@
-import { booleanAttribute, Component, forwardRef, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, forwardRef, HostBinding, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
-import { elementMatchClosest } from 'ngx-tethys/util';
+import { coerceBooleanProperty, elementMatchClosest } from 'ngx-tethys/util';
 
 import { NgIf } from '@angular/common';
 import { ElementRef, ViewChild } from '@angular/core';
@@ -56,7 +56,7 @@ export class ThyNativeSelect extends TabIndexDisabledControlValueAccessorMixin i
 
     @Input() name: string;
 
-    @Input({ transform: booleanAttribute }) thyAllowClear = false;
+    @Input({ transform: coerceBooleanProperty }) thyAllowClear = false;
 
     writeValue(obj: any): void {
         if (obj !== this._innerValue) {
