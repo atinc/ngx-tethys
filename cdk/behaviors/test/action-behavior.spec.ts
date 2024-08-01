@@ -1,8 +1,10 @@
-import { actionBehavior } from '../action-behavior';
 import { Subject } from 'rxjs';
-import { setDefaultErrorHandler } from '../error-handler';
-import { TestBed } from '@angular/core/testing';
+
 import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+
+import { actionBehavior } from '../action-behavior';
+import { setDefaultErrorHandler } from '../error-handler';
 
 describe('action-behavior', () => {
     beforeEach(() => {
@@ -29,9 +31,10 @@ describe('action-behavior', () => {
                 result = data;
             });
             expect(action.saving()).toEqual(true);
-            subject.next();
+            subject.next(100);
             expect(action.saving()).toEqual(false);
             expect(success).toBe(true);
+            expect(result).toBe(100);
         });
     });
 
@@ -170,6 +173,97 @@ describe('action-behavior', () => {
             subject.error(mockError);
             expect(action.saving()).toEqual(false);
             expect(handleError).toBe(mockError);
+        });
+    });
+
+    it('should subscribe the return result of execute successfully', () => {
+        run(() => {
+            const subject = new Subject<number>();
+            const action = actionBehavior(() => {
+                return subject.asObservable();
+            });
+            expect(action.saving()).toEqual(false);
+            let success = false;
+            let result: number;
+            const successSpy = jasmine.createSpy('success');
+            const errorSpy = jasmine.createSpy('error');
+            action
+                .execute(data => {
+                    success = true;
+                    result = data;
+                })
+                .subscribe({
+                    next: successSpy,
+                    error: errorSpy
+                });
+            expect(action.saving()).toEqual(true);
+            subject.next(100);
+            expect(action.saving()).toEqual(false);
+            expect(success).toBe(true);
+            expect(result).toBe(100);
+
+            expect(successSpy).toHaveBeenCalled();
+            expect(successSpy).toHaveBeenCalledWith(result);
+            expect(errorSpy).not.toHaveBeenCalled();
+        });
+    });
+
+    it('should subscribe the return result of execute error', () => {
+        run(() => {
+            const subject = new Subject<void>();
+            const action = actionBehavior(() => {
+                return subject.asObservable();
+            });
+            expect(action.saving()).toEqual(false);
+            let error: Error;
+            const successSpy = jasmine.createSpy('success');
+            const errorSpy = jasmine.createSpy('error');
+            action
+                .execute({
+                    error: _error => {
+                        error = _error;
+                    }
+                })
+                .subscribe({
+                    next: successSpy,
+                    error: errorSpy
+                });
+            expect(action.saving()).toEqual(true);
+            const mockError = new Error('mock error');
+            subject.error(mockError);
+            expect(action.saving()).toEqual(false);
+            expect(error).toBe(mockError);
+
+            expect(successSpy).not.toHaveBeenCalled();
+            expect(errorSpy).toHaveBeenCalled();
+            expect(errorSpy).toHaveBeenCalledWith(mockError);
+        });
+    });
+
+    it('should execute when direct throw error', () => {
+        run(() => {
+            const mockError = new Error('mock error');
+            const action = actionBehavior(() => {
+                throw mockError;
+            });
+            expect(action.saving()).toEqual(false);
+            let error: Error;
+            const successSpy = jasmine.createSpy('success');
+            const errorSpy = jasmine.createSpy('error');
+            action
+                .execute(undefined, _error => {
+                    error = _error;
+                })
+                .subscribe({
+                    error: errorSpy,
+                    next: successSpy
+                });
+            expect(action.saving()).toEqual(false);
+            expect(error).toBe(mockError);
+
+            expect(successSpy).not.toHaveBeenCalled();
+            expect(errorSpy).toHaveBeenCalled();
+            expect(errorSpy).toHaveBeenCalledWith(mockError);
         });
     });
 });

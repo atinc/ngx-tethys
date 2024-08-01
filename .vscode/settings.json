@@ -1,9 +1,7 @@
 {
-  "importSorter.generalConfiguration.sortOnBeforeSave": true,
   "importSorter.importStringConfiguration.quoteMark": "single",
   "importSorter.importStringConfiguration.maximumNumberOfImportExpressionsPerLine.type": "newLineEachExpressionAfterCountLimitExceptIfOnlyOne",
   "importSorter.importStringConfiguration.maximumNumberOfImportExpressionsPerLine.count": 140,
-  "importSorter.sortConfiguration.removeUnusedImports": true,
   "cSpell.userWords": [
     "Worktile",
     "datepicker",
