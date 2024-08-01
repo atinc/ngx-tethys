@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [18.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/17.0.17...18.0.0-next.1) (2024-08-01)
+
+
+### Features
+
+* **cdk:** return Observable for execute of ActionBehavior ([d9fde11](https://github.com/atinc/ngx-tethys/commit/d9fde111128706af69621d64256e236dce42fa60))
+
+
+
+# [18.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/17.0.6...18.0.0-next.0) (2024-05-24)
+
+
+### Features
+
+* upgrade ng to 18 #INFR-12428 ([5e89bdb](https://github.com/atinc/ngx-tethys/commit/5e89bdbac4a0e5e7af4fe3cb8d8057ba120a6b7f)), closes [#INFR-12428](https://github.com/atinc/ngx-tethys/issues/INFR-12428)
+
+
+
 # [18.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/17.0.6...18.0.0-next.0) (2024-05-24)
 
 
@@ -8063,4 +8081,3 @@ fix ts define file error.
 ## 0.0.13
 
 Layout add `thy-content-section` and `thy-content-main` components
-
