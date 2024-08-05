@@ -5,16 +5,7 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './basic.component.html'
 })
 export class ThyButtonBasicExampleComponent implements OnInit {
-    currentTheme = 'default';
-
     constructor() {}
 
-    ngOnInit(): void {
-        this.toggleTheme();
-    }
-
-    toggleTheme() {
-        this.currentTheme = this.currentTheme === 'default' ? 'dark' : 'default';
-        document.documentElement.setAttribute('theme', this.currentTheme);
-    }
+    ngOnInit(): void {}
 }

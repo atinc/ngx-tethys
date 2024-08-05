@@ -1,5 +1,4 @@
 @use 'sass:meta';
-// Mark：site 网页颜色修改
 @use '../../src/styles/variables' with($primary: #6698ff);
 @use './styles/variables.scss' as variables2;
 // docgeni

@@ -69,7 +69,7 @@
     }
 }
 
-// ------------------------------  Draft Start------------------------------
+// -----------  Draft Start------------
 .dg-theme-default .dg-navbar,
 .dg-search-container .search {
     background-color: var(--color-0);
@@ -160,11 +160,13 @@ html[theme='dark'] {
 .dg-footer a,
 .dg-menu .menu-item .subtitle,
 .dg-doc-content blockquote:not(.dg-example-viewer blockquote),
-.dg-pages-link .dg-page-link .dg-page-link-label {
+.dg-pages-link .dg-page-link .dg-page-link-label,
+.dg-home .dg-features .dg-feature-description,
+.dg-home .dg-hero .dg-hero-launch .dg-launch-description {
     color: var(--dg-text-color1);
 }
 
 .token.operator {
     background: none;
 }
-// ------------------------------  Draft End------------------------------
+// -----------  Draft End------------
