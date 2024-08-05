@@ -21,11 +21,11 @@ $cascader-menu-min-width: 122px;
     }
     &-menus {
         font-size: 14px;
-        background: #fff;
+        background: variables.$white;
         position: relative;
         z-index: 1050;
         border-radius: 4px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 2px 8px rgba(variables.$black, 0.15);
         white-space: nowrap;
         margin-top: 4px;
         margin-bottom: 4px;
@@ -105,7 +105,7 @@ $cascader-menu-min-width: 122px;
         }
         &-expand &-expand-icon,
         &-expand &-loading-icon {
-            color: #aaa;
+            color: variables.$gray-500;
             position: absolute;
             right: 10px;
         }
@@ -116,9 +116,6 @@ $cascader-menu-min-width: 122px;
         &-disabled &-expand-icon,
         &-disabled &-loading-icon {
             color: variables.$gray-400;
-        }
-        & &-keyword {
-            color: #e6f7ff;
         }
     }
 

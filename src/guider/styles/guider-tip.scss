@@ -1,4 +1,4 @@
-@use "../../styles/variables";
+@use '../../styles/variables';
 
 .thy-guider-tip-container {
     width: 310px;
@@ -71,7 +71,7 @@
                     box-sizing: border-box;
                     &.active {
                         border: 2px solid variables.$primary;
-                        background-color: #fff;
+                        background-color: variables.$white;
                         width: 7px;
                         height: 7px;
                         margin: 0 4px;
