@@ -27,7 +27,7 @@ export class ThyStep {
     @Input() thyLabel: string;
 
     /**
-     * 步骤条中每个步骤完成的icon
+     * 步骤条中每个步骤完成的图标
      * @default check-circle
      */
     @Input() thyIcon: string;
