@@ -39,7 +39,7 @@ class ThyDemoStepperComponent {
     @ViewChild('selectedStep', { static: true }) selectedStepperComponent: ThyStep;
     showStepHeader = true;
     selectedIndex = 0;
-    icon: any;
+    icon: string;
     next() {}
     previous() {}
 }
