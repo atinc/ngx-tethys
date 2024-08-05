@@ -137,6 +137,10 @@ html[theme='dark'] {
     --dg-code-bg: #3c414a;
     --dg-table-head-bg: #393e46;
     --dg-text-color1: #656f7d;
+
+    .dg-theme-default .dg-navbar {
+        box-shadow: 0 8px 24px -2px rgba(0, 0, 0, 0.1); // 透明度 0.05->0.1
+    }
 }
 
 .dg-example-viewer .dg-example-viewer-header {
