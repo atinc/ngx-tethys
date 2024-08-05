@@ -49,7 +49,7 @@ $cascader-menu-min-width: 122px;
         list-style: none;
         margin: 0;
         padding: 0;
-        border-right: 1px solid #e8e8e8;
+        border-right: 1px solid variables.$color-40;
         overflow: auto;
         -ms-overflow-style: -ms-autohiding-scrollbar; // https://github.com/ant-design/ant-design/issues/11857
         &:first-child {
