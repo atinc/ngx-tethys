@@ -68,3 +68,45 @@
         }
     }
 }
+
+// Draft
+.dg-theme-default {
+    .dg-navbar {
+        background-color: var(--color-0);
+    }
+}
+
+.dg-menu {
+    .menu-item {
+        .item-content {
+            color: var(--color-100);
+        }
+    }
+}
+.dg-doc-content h2:not(.dg-example-viewer h2) {
+    color: var(--color-100);
+}
+
+.dg-tab-links,
+.dg-search-container .search,
+.dg-example-viewer .dg-example-viewer-wrapper,
+.dg-example-viewer .dg-example-viewer-actions {
+    border-color: var(--color-40);
+}
+
+.dg-layout .dg-sidebar,
+.dg-toc .dg-link::before {
+    border-color: var(--color-50);
+}
+
+.dg-theme-default .dg-navbar .navbar-brand .title,
+.dg-theme-default .dg-navbar .nav a,
+.dg-doc-content h1:not(.dg-example-viewer h1) {
+    color: var(--color-100);
+}
+
+.dg-layout .dg-sidebar {
+    &::-webkit-scrollbar {
+        background-color: var(--color-0);
+    }
+}
