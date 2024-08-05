@@ -9,7 +9,9 @@ export class ThyButtonBasicExampleComponent implements OnInit {
 
     constructor() {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.toggleTheme();
+    }
 
     toggleTheme() {
         this.currentTheme = this.currentTheme === 'default' ? 'dark' : 'default';

@@ -69,7 +69,7 @@
     }
 }
 
-// Draft
+// ------------------------------  Draft Start------------------------------
 .dg-theme-default {
     .dg-navbar {
         background-color: var(--color-0);
@@ -87,11 +87,16 @@
     color: var(--color-100);
 }
 
+.dg-doc-meta,
 .dg-tab-links,
 .dg-search-container .search,
 .dg-example-viewer .dg-example-viewer-wrapper,
 .dg-example-viewer .dg-example-viewer-actions {
     border-color: var(--color-40);
+}
+.dg-footer {
+    border-color: var(--color-40);
+    // color  字体是 #888，组件库没有
 }
 
 .dg-layout .dg-sidebar,
@@ -105,8 +110,47 @@
     color: var(--color-100);
 }
 
-.dg-layout .dg-sidebar {
-    &::-webkit-scrollbar {
-        background-color: var(--color-0);
-    }
+.dg-doc-meta .dg-contribution-last-time {
+    color: var(--color-70);
 }
+
+code[class*='language-'],
+pre[class*='language-'] {
+    text-shadow: none;
+}
+
+// .dg-layout .dg-sidebar {
+//     &::-webkit-scrollbar {
+//     }
+
+//     ::-webkit-scrollbar-track {
+//         background: var(--color-0);
+//     }
+
+//     ::-webkit-scrollbar-thumb {
+//         background: var(--color-0);
+//     }
+// }
+
+// 组件库中没有的颜色
+html[theme='default'] {
+    --dg-viewer-bg: #f6f8fa;
+    --dg-code-bg: #f3f5f7;
+}
+html[theme='dark'] {
+    --dg-viewer-bg: #393e46;
+    --dg-code-bg: #3c414a;
+}
+.dg-example-viewer .dg-example-viewer-header {
+    border-color: var(--color-60);
+    background-color: var(--dg-viewer-bg);
+    color: var(--color-90);
+}
+.dg-doc-content pre:not(.dg-example-viewer pre) {
+    background-color: var(--dg-viewer-bg);
+}
+.dg-doc-content code:not(.dg-example-viewer code) {
+    background-color: var(--dg-code-bg);
+    color: var(--color-100);
+}
+// ------------------------------  Draft End------------------------------
