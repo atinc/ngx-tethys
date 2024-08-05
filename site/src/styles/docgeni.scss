@@ -103,6 +103,12 @@
 .dg-search-container .search {
     border: 1px solid var(--color-40);
 }
+.dg-example-viewer .dg-example-viewer-sources {
+    border-top: 1px solid var(--color-40);
+}
+.dg-tab-links {
+    border-bottom: 1px solid var(--color-40);
+}
 
 .dg-layout .dg-sidebar,
 .dg-toc .dg-link::before,
@@ -172,5 +178,12 @@ html[theme='dark'] {
 
 .token.operator {
     background: none;
+}
+
+.dg-source-code {
+    background: var(--dg-viewer-bg);
+}
+.bg-example {
+    background: #edf1f6; // TODO  找设计拿暗色
 }
 // -----------  Draft End------------

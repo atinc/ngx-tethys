@@ -84,6 +84,7 @@
             border: variables.$pagination-border-width solid variables.$pagination-border-color;
             @include border-radius.border-radius(variables.$border-radius);
             color: variables.$pagination-jumper-input-color;
+            background: variables.$white;
             width: calc(#{variables.$font-size-base} * 3);
             text-align: center;
             margin: 0 6px;
