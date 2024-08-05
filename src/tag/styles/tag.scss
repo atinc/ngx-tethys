@@ -53,7 +53,7 @@
     @each $color, $value in variables.$tag-colors {
         &-#{$color} {
             @include mixin.tag-bg-variant($value);
-            @include mixin.tag-color-variant(variables.$white, variables.$white);
+            @include mixin.tag-color-variant(variables.$always-white, variables.$always-white);
         }
         &-weak-fill-#{$color} {
             @include mixin.tag-bg-variant(rgba($value, 0.1));

@@ -9,6 +9,7 @@ $color-70: #aaa;
 $color-80: #999;
 $color-90: #666;
 $color-100: #333;
+$always-white: #fff;
 
 // 特殊场景，比如 按钮线条色 等，单独一个变量
 $btn-border-color: $color-40;
@@ -24,7 +25,8 @@ $default-theme-colors: (
     'color-70': $color-70,
     'color-80': $color-80,
     'color-90': $color-90,
-    'color-100': $color-100
+    'color-100': $color-100,
+    'always-white': $always-white
 );
 
 [theme='default'] {

@@ -1,5 +1,5 @@
-@use "../../styles/variables";
-@use "mixin";
+@use '../../styles/variables';
+@use 'mixin';
 
 .thy-stepper {
     @include mixin.stepper-size(
@@ -30,7 +30,7 @@
             &.thy-stepper-header-active {
                 color: variables.$primary;
                 .thy-step-number {
-                    color: variables.$white;
+                    color: variables.$always-white;
                     background-color: variables.$primary;
                 }
             }

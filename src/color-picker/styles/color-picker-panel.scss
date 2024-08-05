@@ -61,7 +61,7 @@
         align-items: center;
         justify-content: center;
         .check-icon {
-            color: variables.$white;
+            color: variables.$always-white;
             font-size: variables.$font-size-sm;
             display: none;
             &.checked {

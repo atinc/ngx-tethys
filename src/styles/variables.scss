@@ -19,6 +19,7 @@ $color-70: var(--color-70) !default; // #aaa --- #5b6370
 $color-80: var(--color-80) !default; // #999 --- #656f7d
 $color-90: var(--color-90) !default; // #666 --- #87909e
 $color-100: var(--color-100) !default; // #333 --- #bcc4d1
+$always-white: var(--always-white) !default; // #fff
 
 // 兼容旧版变量                      // light --- dark
 $white: var(--color-0) !default; // #fff --- #2a2e34

@@ -1,6 +1,6 @@
-@use "../../styles/bootstrap/mixins/border-radius";
-@use "../../styles/variables";
-@use "mixin";
+@use '../../styles/bootstrap/mixins/border-radius';
+@use '../../styles/variables';
+@use 'mixin';
 
 .thy-badge-container {
     position: relative;
@@ -55,7 +55,7 @@
 // #endregion
 // #region
 .thy-badge-danger {
-    @include mixin.set-badge-color(variables.$white, variables.$badge-danger-color);
+    @include mixin.set-badge-color(variables.$always-white, variables.$badge-danger-color);
     &.thy-badge-hollow {
         background-color: transparent;
     }
