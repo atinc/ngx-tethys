@@ -15,6 +15,7 @@ import { ThyPopoverAutoAdaptiveContentComponent } from './auto-adaptive/auto-ada
 import { ThyPopoverManualContentComponent } from './manual/popover-content.component';
 import { ThyPopoverPassDataContentComponent } from './pass-data/popover-content.component';
 import { ThyPopoverDisabledAnimationExampleComponent } from './disabled-animation/disabled-animation.component';
+import { ThyPopoverCanPushExampleComponent } from './can-push/can-push.component';
 
 export default {
     declarations: [
@@ -22,7 +23,8 @@ export default {
         ThyPopoverManualContentComponent,
         ThyPopoverAutoAdaptiveContentComponent,
         ThyPopoverPassDataContentComponent,
-        ThyPopoverDisabledAnimationExampleComponent
+        ThyPopoverDisabledAnimationExampleComponent,
+        ThyPopoverCanPushExampleComponent
     ],
     imports: [
         CommonModule,

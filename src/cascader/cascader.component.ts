@@ -686,6 +686,15 @@ export class ThyCascader
     public clickOption(option: ThyCascaderOption, index: number, event: Event | boolean): void {
         this.thyCascaderService.removeCustomOption();
         this.thyCascaderService.clickOption(option, index, event, this.selectOption);
+
+        if (this.cdkConnectedOverlay && this.cdkConnectedOverlay.overlayRef) {
+            // Make sure to calculate and update the position after the submenu is opened
+            this.cdr.detectChanges();
+
+            // Update the position to prevent the submenu from appearing off-screen
+            this.cdkConnectedOverlay.overlayRef.updatePosition();
+            this.cdr.markForCheck();
+        }
     }
 
     public mouseoverOption(option: ThyCascaderOption, index: number, event: Event): void {
