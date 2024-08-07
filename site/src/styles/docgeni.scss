@@ -135,12 +135,14 @@ pre[class*='language-'] {
 html[theme='default'] {
     --dg-viewer-bg: #f6f8fa;
     --dg-code-bg: #f3f5f7;
+    --dg-example-bg: #edf1f6;
     --dg-table-head-bg: #f3f3f3;
     --dg-text-color1: #888;
 }
 html[theme='dark'] {
     --dg-viewer-bg: #393e46;
     --dg-code-bg: #3c414a;
+    --dg-example-bg: #30353c;
     --dg-table-head-bg: #393e46;
     --dg-text-color1: #656f7d;
 
@@ -184,6 +186,6 @@ html[theme='dark'] {
     background: var(--dg-viewer-bg);
 }
 .bg-example {
-    background: #edf1f6; // TODO  找设计拿暗色
+    background: var(--dg-example-bg); // TODO  找设计拿暗色
 }
 // -----------  Draft End------------

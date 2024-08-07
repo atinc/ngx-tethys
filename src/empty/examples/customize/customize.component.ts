@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
                 margin-top: 18px;
             }
             .demo-empty {
-                background-color: white;
+                background-color: var(--color-0);
                 margin-bottom: 15px;
                 padding: 20px 0;
             }

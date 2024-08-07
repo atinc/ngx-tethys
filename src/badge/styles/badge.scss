@@ -62,25 +62,26 @@
 }
 
 .thy-badge-warning {
-    @include mixin.set-badge-color(variables.$white, variables.$warning);
+    @include mixin.set-badge-color(variables.$always-white, variables.$warning);
     &.thy-badge-hollow {
         background-color: transparent;
     }
 }
 
 .thy-badge-primary {
-    @include mixin.set-badge-color(variables.$white, variables.$primary);
+    @include mixin.set-badge-color(variables.$always-white, variables.$primary);
     &.thy-badge-hollow {
         background-color: transparent;
     }
 }
 
 .thy-badge-default {
+    // TODO  黑暗主题下的数字颜色确认
     @include mixin.set-badge-color(variables.$gray-600, variables.$gray-200);
 }
 
 .thy-badge-success {
-    @include mixin.set-badge-color(variables.$white, variables.$success);
+    @include mixin.set-badge-color(variables.$always-white, variables.$success);
     &.thy-badge-hollow {
         background-color: transparent;
     }

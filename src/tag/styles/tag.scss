@@ -18,7 +18,7 @@
     align-items: center;
     font-size: variables.$font-size-sm;
     border-radius: variables.$tag-border-radius;
-    color: variables.$white;
+    color: variables.$always-white;
     border: 1px solid transparent;
     padding: {
         left: map.get(variables.$tag-size-paddings, 'md');
