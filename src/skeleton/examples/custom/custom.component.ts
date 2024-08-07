@@ -7,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
 export class ThySkeletonExampleCustomComponent implements OnInit {
     // generalModel为circleSkeleton、rectangleSkeleton公共配置。
     generalModel = {
-        thyPrimaryColor: '#eeeeee',
-        thySecondaryColor: '#ffffff',
+        thyPrimaryColor: 'var(--color-40)',
+        thySecondaryColor: 'var(--color-0)',
         thyAnimatedInterval: 2,
         thyAnimated: true
     };
