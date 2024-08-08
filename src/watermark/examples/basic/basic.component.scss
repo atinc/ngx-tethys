@@ -1,8 +1,6 @@
-@use 'variables.scss' as variables2;
-
 .demo-col-section {
     height: 200px;
     width: 100%;
-    border: 1px solid variables2.$gray-200;
+    border: 1px solid var(--color-40);
     position: relative;
 }
