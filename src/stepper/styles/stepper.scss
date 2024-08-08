@@ -23,6 +23,12 @@
                 border-radius: 100%;
                 text-align: center;
                 background-color: variables.$gray-200;
+                transition: background-color 0.3s, border-color 0.3s;
+            }
+            .thy-step-icon {
+                display: none;
+                font-size: 24px;
+                transition: background-color 0.3s, border-color 0.3s;
             }
             .thy-step-label {
                 padding: variables.$stepper-label-padding;
@@ -32,6 +38,14 @@
                 .thy-step-number {
                     color: variables.$always-white;
                     background-color: variables.$primary;
+                }
+                &:not(.thy-stepper-header-selected):not(:last-child) {
+                    .thy-step-number {
+                        display: none;
+                    }
+                    .thy-step-icon {
+                        display: block;
+                    }
                 }
             }
             &.thy-stepper-header-selected {

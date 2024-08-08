@@ -135,7 +135,7 @@ module.exports = {
             categories: []
         }
     ],
-    footer: "Copyright © 2020-present Powered by <a href='https://worktile.com' target='_blank' >Worktile</a>",
+    footer: "Copyright © 2020-present Powered by <a href='https://pingcode.com' target='_blank' >PingCode</a>",
     locales: [
         {
             key: 'zh-cn',

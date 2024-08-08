@@ -3,10 +3,10 @@
     <thy-step-header
       [index]="i"
       [label]="step.thyLabel || step.label"
+      [icon]="step.thyIcon"
       [selected]="selectedIndex === i"
       [class.thy-stepper-header-active]="i <= selectedIndex"
-      [active]="i <= selectedIndex"
-    >
+      [active]="i <= selectedIndex">
     </thy-step-header>
     <div *ngIf="!isLast" class="thy-stepper-line" [class.thy-stepper-line-active]="i < selectedIndex"></div>
   </ng-container>

@@ -1,16 +1,19 @@
-import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ThyStepperModule } from '../stepper.module';
-import { NgModule, Component, ViewChild } from '@angular/core';
+import { ThyIconModule } from 'ngx-tethys/icon';
+
+import { Component, NgModule, ViewChild } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { ThyStep } from '../step.component';
 import { ThyStepper } from '../stepper.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ThyStepperModule } from '../stepper.module';
 
 @Component({
     selector: 'thy-demo-stepper',
     template: `
         <thy-stepper [thySelectedIndex]="selectedIndex" [thyShowStepHeader]="showStepHeader">
-            <thy-step label="第一步">
+            <thy-step label="第一步" [thyIcon]="icon">
                 <div class="demo-stepper-body first-step">
                     <button thyButton="primary">下一步</button>
                     <p>This is first description.</p>
@@ -36,12 +39,13 @@ class ThyDemoStepperComponent {
     @ViewChild('selectedStep', { static: true }) selectedStepperComponent: ThyStep;
     showStepHeader = true;
     selectedIndex = 0;
+    icon: string;
     next() {}
     previous() {}
 }
 
 @NgModule({
-    imports: [ThyStepperModule, BrowserAnimationsModule],
+    imports: [ThyStepperModule, BrowserAnimationsModule, ThyIconModule],
     declarations: [ThyDemoStepperComponent],
     exports: [ThyDemoStepperComponent]
 })
@@ -113,6 +117,16 @@ describe('ThyStepper', () => {
             stepper.thySelected = testComponent.selectedStepperComponent;
             fixture.detectChanges();
             expect(stepper.selected).toEqual(testComponent.selectedStepperComponent);
+        });
+
+        it('should step-header support iconName', () => {
+            const stepCompletedIcon = fixture.debugElement.query(By.css('.thy-stepper-header .thy-step-icon'));
+            expect(stepCompletedIcon.nativeElement.classList.contains('thy-icon-check-circle')).toBeTruthy();
+
+            fixture.componentInstance.icon = 'check-circle-fill';
+            fixture.detectChanges();
+
+            expect(stepCompletedIcon.nativeElement.classList.contains('thy-icon-check-circle-fill')).toBeTruthy();
         });
     });
 });

@@ -374,7 +374,7 @@ export class ThyInputNumber
 
     getCurrentValidValue(value: string | number): number | string {
         let val = value;
-        if (value === '' || value === undefined) {
+        if (value === '' || isUndefinedOrNull(value)) {
             return '';
         }
         val = parseFloat(value as string);

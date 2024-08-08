@@ -165,6 +165,8 @@
             .thy-property-item-operation {
                 visibility: hidden;
             }
+
+            .thy-property-item-label,
             .thy-property-item-wrapper {
                 @include property-item-operation-hover-visible();
             }
