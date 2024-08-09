@@ -25,6 +25,7 @@ $cascader-menu-min-width: 122px;
         position: relative;
         z-index: 1050;
         border-radius: 4px;
+        // TODO 级联菜单的阴影
         box-shadow: 0 2px 8px rgba(variables.$black, 0.15);
         white-space: nowrap;
         margin-top: 4px;

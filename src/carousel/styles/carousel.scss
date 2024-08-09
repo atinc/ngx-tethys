@@ -71,6 +71,7 @@
                 opacity: 0.5;
                 &:hover,
                 &.active {
+                    // TODO 亮肤时，白色；暗肤时，白色对应的黑暗色；激活的项始终白色
                     opacity: 1;
                 }
             }
@@ -88,6 +89,7 @@
         width: 32px;
         height: 32px;
         transition: 0.3s background;
+        // TODO  黑暗主题用 background: rgba(#32363d, 0.3);
         background: rgba(vars.$carousel-control-default-bg, 0.3);
         border-radius: 50%;
         thy-icon {
@@ -99,6 +101,7 @@
             font-size: 22px;
         }
         &:hover {
+            // TODO 黑色主题用这个 background: rgba(#32363d, 0.6);
             background: rgba(vars.$carousel-control-default-bg, 0.6);
         }
         &-pre {

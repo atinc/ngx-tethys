@@ -18,7 +18,7 @@
 }
 
 @mixin thy-alert-variant($color) {
-    color: rgba(variables.$black, 0.7);
+    color: variables.$gray-700;
     @include gradients.gradient-bg(rgba($color, 0.1));
     border-color: $color;
     @include thy-alert-inner($color);

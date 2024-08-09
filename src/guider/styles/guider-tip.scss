@@ -15,14 +15,15 @@
             display: block;
         }
         &-btn {
-            color: rgba(variables.$white, 0.8);
+            // TODO：rgba 不能直接接收 var 变量，暂时先用 #fff 代替，后续解决
+            color: rgba(#fff, 0.8);
             font-size: 12px;
             position: absolute;
             right: 20px;
             top: 14px;
             background-color: rgba(0, 0, 0, 0);
             &:hover {
-                color: rgba(variables.$white, 1);
+                color: rgba(#fff, 1);
                 text-decoration: none;
             }
         }

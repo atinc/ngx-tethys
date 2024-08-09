@@ -89,6 +89,7 @@ input[type='checkbox'] {
     }
 
     &:disabled {
+        // TODO Checkbox 禁用时的背景色
         background-color: rgba($color: variables.$black, $alpha: 0.03);
         cursor: variables.$disabled-cursor;
     }
