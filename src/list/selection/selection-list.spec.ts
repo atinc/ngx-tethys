@@ -1,6 +1,6 @@
 import { Component, DebugElement, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ThySelectionListChange } from './selection.interface';
-import { async, ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
 import { ThyListModule } from '../list.module';
 import { By } from '@angular/platform-browser';
 import { ThyListOption, ThyListLayout } from '../../shared/option';
@@ -21,7 +21,7 @@ describe('ThySelectionList without forms', () => {
         let listOptions: DebugElement[];
         let selectionList: DebugElement;
 
-        beforeEach(async(() => {
+        beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
                 imports: [FormsModule, ThyListModule],
                 declarations: [
@@ -34,7 +34,7 @@ describe('ThySelectionList without forms', () => {
             TestBed.compileComponents();
         }));
 
-        beforeEach(async(() => {
+        beforeEach(waitForAsync(() => {
             fixture = TestBed.createComponent(SelectionListWithListOptionsComponent);
             fixture.detectChanges();
             listOptions = fixture.debugElement.queryAll(By.directive(ThyListOption));

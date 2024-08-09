@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
 import { ThyFileDropDirective } from './file-drop.directive';
@@ -10,8 +10,8 @@ import { ThyUploadService } from './upload.service';
 // import { ThyDirectiveModule } from 'ngx-tethys/directive';
 
 @NgModule({
-    imports: [CommonModule, HttpClientModule, ThyFileSelect, ThyFileDropDirective],
-    providers: [ThyUploadService, THY_UPLOAD_DEFAULT_OPTIONS_PROVIDER],
-    exports: [ThyFileSelect, ThyFileDropDirective]
+    exports: [ThyFileSelect, ThyFileDropDirective],
+    imports: [CommonModule, ThyFileSelect, ThyFileDropDirective],
+    providers: [ThyUploadService, THY_UPLOAD_DEFAULT_OPTIONS_PROVIDER, provideHttpClient(withInterceptorsFromDi())]
 })
 export class ThyUploadModule {}

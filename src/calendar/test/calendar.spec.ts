@@ -3,7 +3,7 @@ import { TinyDate, getUnixTime } from 'ngx-tethys/util';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
 
 import { Component, DebugElement } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
@@ -117,7 +117,7 @@ describe('calendar', () => {
         let fixture: ComponentFixture<TestCalendarBasicComponent>;
         let debugElement: DebugElement;
 
-        beforeEach(async(() => {
+        beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
                 imports: [FormsModule, ThyCalendarModule],
                 declarations: [TestCalendarBasicComponent]
@@ -205,7 +205,7 @@ describe('calendar', () => {
         let fixture: ComponentFixture<TestCalendarDisabledDateComponent>;
         let debugElement: DebugElement;
 
-        beforeEach(async(() => {
+        beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
                 imports: [ThyCalendarModule],
                 declarations: [TestCalendarDisabledDateComponent]
@@ -235,7 +235,7 @@ describe('calendar-header', () => {
         let fixture: ComponentFixture<TestCalendarHeaderComponent>;
         let debugElement: DebugElement;
 
-        beforeEach(async(() => {
+        beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
                 imports: [ThyCalendarModule],
                 declarations: [TestCalendarHeaderComponent]

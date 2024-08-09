@@ -1,7 +1,7 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, DebugElement, ElementRef, NgModule, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed, async, fakeAsync, flush, flushMicrotasks, inject, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync, fakeAsync, flush, flushMicrotasks, inject, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyTooltipModule } from '../tooltip.module';
@@ -393,7 +393,7 @@ describe(`ThyTooltip`, () => {
             expect(getTooltipVisible()).toBe(false);
         }));
 
-        it('should not show if hide is called before delay finishes', async(() => {
+        it('should not show if hide is called before delay finishes', waitForAsync(() => {
             assertTooltipInstance(tooltipDirective, false);
 
             const tooltipDelay = 1000;
@@ -600,7 +600,7 @@ describe(`ThyTooltip`, () => {
             expect(getTooltipVisible()).toBe(false);
         }));
 
-        it('should not show if hide is called before delay finishes', async(() => {
+        it('should not show if hide is called before delay finishes', waitForAsync(() => {
             assertTooltipInstance(tooltipDirective, false);
         }));
     });
