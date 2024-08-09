@@ -92,7 +92,7 @@
 }
 
 .#{style.$calendar-prefix-cls}-year-panel-selected-cell .#{style.$calendar-prefix-cls}-year-panel-year {
-    color: variables.$text-color-inverse;
+    color: variables.$always-white;
     background: variables.$primary;
 
     &:hover {

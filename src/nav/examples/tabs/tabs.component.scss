@@ -1,5 +1,7 @@
+@use 'variables.scss' as variables2;
+
 :host {
     display: block;
-    background: #fff;
+    background: variables2.$white;
     padding-bottom: 12px;
 }

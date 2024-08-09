@@ -1,5 +1,7 @@
+@use 'variables.scss' as variables2;
+
 .demo-menu-container {
     max-width: 300px;
     padding-top: 12px;
-    border: 1px solid #eee;
+    border: 1px solid variables2.$gray-200;
 }

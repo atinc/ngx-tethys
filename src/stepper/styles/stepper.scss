@@ -36,7 +36,7 @@
             &.thy-stepper-header-active {
                 color: variables.$primary;
                 .thy-step-number {
-                    color: variables.$white;
+                    color: variables.$always-white;
                     background-color: variables.$primary;
                 }
                 &:not(.thy-stepper-header-selected):not(:last-child) {

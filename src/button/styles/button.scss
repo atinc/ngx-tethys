@@ -95,7 +95,7 @@ fieldset:disabled a.btn {
 //
 @each $color, $value in functions-variables.$theme-colors {
     .btn-#{$color} {
-        @include mixin.button-variant(variables.$white, variables.$white, $value, $value, $value, $value, $value, $value);
+        @include mixin.button-variant(variables.$always-white, variables.$always-white, $value, $value, $value, $value, $value, $value);
         @include mixin.button-hover-box-shadow($value);
     }
 }

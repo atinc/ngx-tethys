@@ -1,5 +1,7 @@
+@use 'variables.scss' as variables2;
+
 :host {
     .thy-nav {
-        background: #fff;
+        background: variables2.$white;
     }
 }

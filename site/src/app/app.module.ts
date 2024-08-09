@@ -173,5 +173,8 @@ export class AppModule {
     constructor(iconRegistry: ThyIconRegistry, sanitizer: DomSanitizer) {
         const iconSvgUrl = `assets/icons/defs/svg/sprite.defs.svg`;
         iconRegistry.addSvgIconSet(sanitizer.bypassSecurityTrustResourceUrl(iconSvgUrl));
+
+        // Draft
+        document.documentElement.setAttribute('theme', 'dark');
     }
 }

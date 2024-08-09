@@ -26,7 +26,7 @@
 }
 
 .#{style.$calendar-prefix-cls}-month-panel-selected-cell .#{style.$calendar-prefix-cls}-month-panel-month {
-    color: variables.$white;
+    color: variables.$always-white;
     background: variables.$primary;
 
     &:hover {

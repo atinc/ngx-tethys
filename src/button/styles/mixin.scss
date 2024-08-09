@@ -1,9 +1,9 @@
-@use "sass:color";
-@use "../../styles/bootstrap/mixins/gradients";
-@use "../../styles/mixins/hover";
-@use "../../styles/bootstrap/variables" as bootstrap-variables;
-@use "../../styles/mixins/shadow";
-@use "../../styles/variables";
+@use 'sass:color';
+@use '../../styles/bootstrap/mixins/gradients';
+@use '../../styles/mixins/hover';
+@use '../../styles/bootstrap/variables' as bootstrap-variables;
+@use '../../styles/mixins/shadow';
+@use '../../styles/variables';
 
 // Button variants
 //
@@ -15,9 +15,12 @@
     $background,
     $hover-background,
     $border,
-    $hover-border: color.adjust($border, $lightness: -10%),
-    $active-background: color.adjust($background, $lightness: -10%),
-    $active-border: color.adjust($border, $lightness: -12.5%)
+    $hover-border: $border,
+    // TODO: color.adjust($border, $lightness: -10%),
+    $active-background: $background,
+    // TODO: color.adjust($background, $lightness: -10%),
+    $active-border: $border,
+    // TODO: color.adjust($border, $lightness: -12.5%)
 ) {
     // color: color-yiq($background);
     color: $color;

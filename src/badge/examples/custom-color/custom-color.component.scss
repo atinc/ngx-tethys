@@ -1,3 +1,5 @@
+@use 'variables.scss' as variables2;
+
 thy-badge {
     margin-right: 40px;
 }
@@ -5,5 +7,5 @@ thy-badge {
     width: 42px;
     height: 42px;
     border-radius: 5px;
-    background: #eee;
+    background: variables2.$gray-200;
 }

@@ -1,6 +1,6 @@
-@use "sass:color";
-@use "../mixins/hover";
-@use "../bootstrap/variables";
+@use 'sass:color';
+@use '../mixins/hover';
+@use '../bootstrap/variables';
 
 @mixin text-emphasis-variant($parent, $color, $ignore-warning: false) {
     #{$parent} {
@@ -9,7 +9,7 @@
     @if variables.$emphasized-link-hover-darken-percentage != 0 {
         a#{$parent} {
             @include hover.hover-focus() {
-                color: color.adjust($color, $lightness: - (variables.$emphasized-link-hover-darken-percentage)) !important;
+                color: $color; // TODO: color.adjust($color, $lightness: - (variables.$emphasized-link-hover-darken-percentage)) !important;
             }
         }
     }

@@ -1,7 +1,9 @@
+@use 'variables.scss' as variables2;
+
 .bg-example {
     padding: 12px;
     .thy-nav {
-        background: #fff;
+        background: variables2.$white;
         margin-bottom: 12px;
 
         &.thy-nav-pills {

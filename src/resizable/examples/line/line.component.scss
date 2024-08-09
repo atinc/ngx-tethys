@@ -1,9 +1,11 @@
+@use 'variables.scss' as variables2;
+
 .container {
     display: flex;
     flex-direction: row;
     height: 200px;
     .left {
-        border-right: 1px solid #eee;
+        border-right: 1px solid variables2.$gray-200;
     }
 
     .right {

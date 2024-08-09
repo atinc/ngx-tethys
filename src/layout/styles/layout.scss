@@ -210,7 +210,7 @@
             cursor: variables.$hand-cursor;
             background-color: variables.$primary;
             .sidebar-collapse-icon {
-                color: variables.$white;
+                color: variables.$always-white;
             }
         }
         &.collapse-visible {

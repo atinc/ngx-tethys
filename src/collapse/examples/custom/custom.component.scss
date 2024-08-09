@@ -1,5 +1,7 @@
+@use 'variables.scss' as variables2;
+
 .custom-collapse-item {
-    background: #f7f7f7;
+    background: variables2.$gray-70;
     border-radius: 4px;
     margin-bottom: 28px;
 

@@ -1,11 +1,10 @@
 <div class="selection-list-wrapper" [style.marginBottom]="'10px'">
   <thy-selection-list
     [style.width]="'560px'"
-    [style.background]="'#fafafa'"
+    [style.background]="'var(--color-10)'"
     [(ngModel)]="selectionModel.selectedValues"
     [thyLayout]="'grid'"
-    thySize="sm"
-  >
+    thySize="sm">
     <thy-list-option *ngFor="let item of gridItems" [thyValue]="item?.id">
       <thy-icon thyIconName="app-agile-fill" class="thy-grid-option-icon"></thy-icon>
       <div class="thy-grid-option-name">{{ item.name }}</div>
@@ -16,10 +15,9 @@
 <div class="selection-list-wrapper" [style.marginBottom]="'10px'">
   <thy-selection-list
     [style.width]="'560px'"
-    [style.background]="'#fafafa'"
+    [style.background]="'var(--color-10)'"
     [(ngModel)]="selectionModel.selectedValues"
-    [thyLayout]="'grid'"
-  >
+    [thyLayout]="'grid'">
     <thy-list-option *ngFor="let item of gridItems" [thyValue]="item?.id">
       <thy-icon thyIconName="app-agile-fill" class="thy-grid-option-icon"></thy-icon>
       <div class="thy-grid-option-name">{{ item.name }}</div>

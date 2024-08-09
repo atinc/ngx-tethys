@@ -1,4 +1,4 @@
-@use "../../styles/variables";
+@use '../../styles/variables';
 
 .thy-saturation {
     width: 100%;
@@ -30,7 +30,7 @@
             top: 15%;
             left: 90%;
             margin: -7px 0 0 -7px;
-            border: 3px solid variables.$white;
+            border: 3px solid variables.$always-white;
             box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.5);
         }
     }

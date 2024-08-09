@@ -1,9 +1,11 @@
+@use 'variables.scss' as variables2;
+
 :host {
     // display: block;
     // background: #ddd;
     // padding: 16px 8px;
     .thy-nav {
-        background: #fff;
+        background: variables2.$white;
         &:not(:last-child) {
             margin-bottom: 20px;
         }

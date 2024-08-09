@@ -9,7 +9,7 @@
     }
     &.has-voted {
         background: $color;
-        color: variables.$white;
+        color: variables.$always-white;
     }
 }
 @mixin vote-color-variant-weak($color) {

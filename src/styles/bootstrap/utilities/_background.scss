@@ -1,6 +1,6 @@
-@use "../../mixins/background-variant";
-@use "../../variables";
-@use "../functions-variables";
+@use '../../mixins/background-variant';
+@use '../../variables';
+@use '../functions-variables';
 
 // stylelint-disable declaration-no-important
 
@@ -16,6 +16,9 @@
 
 .bg-white {
     background-color: variables.$white !important;
+}
+.bg-always-white {
+    background-color: variables.$always-white !important;
 }
 
 .bg-transparent {

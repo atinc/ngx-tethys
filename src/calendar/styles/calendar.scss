@@ -1,4 +1,4 @@
-@use "../../styles/variables";
+@use '../../styles/variables';
 
 $calendar-full-prefix-cls: 'thy-calendar-full';
 
@@ -64,12 +64,12 @@ $calendar-full-prefix-cls: 'thy-calendar-full';
             .#{$calendar-full-prefix-cls}-date-value-today-text {
                 width: 24px;
                 height: 24px;
-                background: #ff9f73;
+                background: #ff9f73; // 目前没有定义变量，仅这一个地方使用
                 display: inline-block;
                 text-align: center;
                 line-height: 24px;
                 border-radius: 50%;
-                color: variables.$white;
+                color: variables.$always-white;
             }
         }
 

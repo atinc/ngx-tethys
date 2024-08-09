@@ -43,7 +43,7 @@
                 }
                 &.active {
                     background: variables.$primary;
-                    color: variables.$white;
+                    color: variables.$always-white;
                     border-color: transparent;
                 }
                 &.active:hover {
