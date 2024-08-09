@@ -1,39 +1,21 @@
-$color-0: #fff;
-$color-10: #fafafa;
-$color-20: #f7f7f7;
-$color-30: #f5f5f5;
-$color-40: #eee;
-$color-50: #ddd;
-$color-60: #cacaca;
-$color-70: #aaa;
-$color-80: #999;
-$color-90: #666;
-$color-100: #333;
-
-$always-white: #fff;
-$always-white2: #f7f7f7;
-$avatar-disabled-icon: #f5f5f5;
-$tooltip-container-text: #fff;
-$tooltip-container-bg: #000000bf; // 由原 rgba(0, 0, 0, 0.75) 等价而来，后续找设计确认
-
 $default-theme-colors: (
-    'color-0': $color-0,
-    'color-10': $color-10,
-    'color-20': $color-20,
-    'color-30': $color-30,
-    'color-40': $color-40,
-    'color-50': $color-50,
-    'color-60': $color-60,
-    'color-70': $color-70,
-    'color-80': $color-80,
-    'color-90': $color-90,
-    'color-100': $color-100,
+    'color-0': #fff,
+    'color-10': #fafafa,
+    'color-20': #f7f7f7,
+    'color-30': #f5f5f5,
+    'color-40': #eee,
+    'color-50': #ddd,
+    'color-60': #cacaca,
+    'color-70': #aaa,
+    'color-80': #999,
+    'color-90': #666,
+    'color-100': #333,
 
-    'always-white': $always-white,
-    'always-white2': $always-white2,
-    'avatar-disabled-icon': $avatar-disabled-icon,
-    'tooltip-container-text': $tooltip-container-text,
-    'tooltip-container-bg': $tooltip-container-bg
+    'always-white': #fff,
+    'always-white2': #f7f7f7,
+    'avatar-disabled-icon': #f5f5f5,
+    'tooltip-container-text': #fff,
+    'tooltip-container-bg': #000000bf // TODO：由原 rgba(0, 0, 0, 0.75) 等价而来，后续找设计确认
 );
 
 [theme='default'] {
