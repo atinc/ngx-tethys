@@ -68,5 +68,7 @@ export const MIME_Map = {
     '.z': 'application/x-compress',
     '.zip': 'application/x-zip-compressed',
     '.ico': 'image/vnd.microsoft.icon',
+    '.md': 'text/markdown',
+    '.markdown': 'text/markdown',
     '': '*/*'
 };
