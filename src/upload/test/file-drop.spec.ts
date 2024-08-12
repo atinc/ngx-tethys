@@ -1,9 +1,8 @@
-import { createDragEvent } from 'ngx-tethys/testing';
-
 import { Component, DebugElement, NgModule } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
+import { createDragEvent } from 'ngx-tethys/testing';
+import { MIME_Map } from '../constant';
 import { ThyFileDropDirective } from '../file-drop.directive';
 import { ThyUploadModule } from '../module';
 import { ThySizeExceedsHandler } from '../types';
@@ -157,4 +156,49 @@ describe('thyFileDrop', () => {
         fixture.detectChanges();
         expect(selectFilesSpy).not.toHaveBeenCalled();
     });
+
+    it('should support md type files', () => {
+        const selectFilesSpy = spyOn(testComponent, 'selectFiles');
+        testComponent.acceptType = '.md';
+        fixture.detectChanges();
+
+        const fileDropElement: HTMLElement = fileDropDebugElement.nativeElement;
+        const dragenterEvent = createDragEvent('dragenter', dataTransfer, true, true);
+        fileDropElement.dispatchEvent(dragenterEvent);
+        fixture.detectChanges();
+
+        expect(selectFilesSpy).not.toHaveBeenCalled();
+        const dropEvent = createDragEvent('drop', dataTransfer, true, true);
+        fileDropElement.dispatchEvent(dropEvent);
+        fixture.detectChanges();
+        expect(selectFilesSpy).not.toHaveBeenCalled();
+
+        const mdFile = createCustomTypeFile('custom.md', MIME_Map['.md']);
+        const mdDataTransfer = new DataTransfer();
+        mdDataTransfer.items.add(mdFile);
+
+        const mdDragenterEvent = createDragEvent('dragenter', mdDataTransfer, true, true);
+        fileDropElement.dispatchEvent(mdDragenterEvent);
+        fixture.detectChanges();
+
+        expect(selectFilesSpy).not.toHaveBeenCalled();
+        const mdDropEvent = createDragEvent('drop', mdDataTransfer, true, true);
+        fileDropElement.dispatchEvent(mdDropEvent);
+        fixture.detectChanges();
+
+        expect(selectFilesSpy).toHaveBeenCalled();
+        expect(selectFilesSpy).toHaveBeenCalledWith({ files: [mdDataTransfer.files[0]], nativeEvent: mdDropEvent });
+    });
+
+    function createCustomTypeFile(fileName: string, fileType: string) {
+        const fileContent = 'Custom File Content';
+        const file = new File([fileContent], fileName);
+        Object.defineProperty(file, 'type', {
+            get: () => {
+                return fileType;
+            }
+        });
+
+        return file;
+    }
 });
