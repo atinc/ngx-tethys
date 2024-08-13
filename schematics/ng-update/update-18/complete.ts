@@ -12,15 +12,4 @@ export function onV18MigrationComplete(context: SchematicContext, targetVersion:
         );
         context.logger.info('');
     }
-
-    // context.logger.info(
-    //     'Tips: the four points have changes in data structure. If it is used, please modify manually according to the error prompts.'
-    // );
-    // context.logger.info('  • The input parameter `thyShortcutRanges` of RangePicker would be changed to `thyShortcutPresets`.');
-    // context.logger.info(
-    //     '  • The output parameter `thyShortcutValueChange` of DatePicker and RangePicker would be changed to `thyDateChange`.'
-    // );
-    // context.logger.info('  • The interface `ThyShortcutRange` would be changed to `ThyShortcutPreset`.');
-    // context.logger.info('  • The interface `ThyShortcutValueChange` would be changed to `ThyDateChangeEvent`.');
-    // context.logger.info('');
 }
