@@ -20,6 +20,10 @@ export class ThySelectSizeExampleComponent implements OnInit {
 
     selectSizes = [
         {
+            name: 'xs',
+            height: 24
+        },
+        {
             name: 'sm',
             height: 28
         },

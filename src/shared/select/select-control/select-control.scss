@@ -12,6 +12,14 @@
     );
     padding-right: 26px;
 
+    &.form-control-xs {
+        @include select.select-control-size(
+            variables.$tag-height-sm,
+            variables.$select-control-padding-y-xs,
+            variables.$select-control-height-xs
+        );
+    }
+
     &.form-control-sm {
         @include select.select-control-size(
             variables.$tag-height-sm,
@@ -19,6 +27,7 @@
             variables.$select-control-height-sm
         );
     }
+
     &.form-control-md {
         @include select.select-control-size(
             variables.$tag-height-md,
@@ -26,6 +35,7 @@
             variables.$select-control-height-md
         );
     }
+
     &.form-control-lg {
         @include select.select-control-size(
             variables.$tag-height-lg,
@@ -33,67 +43,81 @@
             variables.$select-control-height-lg
         );
     }
+
     .search-input-field {
         width: 100%;
         padding: 0;
         border: none;
         height: 100%;
+
         &.hidden {
             visibility: hidden;
         }
     }
+
     .select-control-rendered {
         position: relative;
         display: flex;
         align-items: center;
+
         .text-placeholder,
         .selected-value {
             position: absolute;
             user-select: none;
             width: 100%;
             align-items: center;
+
             .thy-tag {
                 vertical-align: top;
             }
         }
     }
+
     &.panel-is-opened {
         border-color: variables.$primary;
+
         .select-control-arrow {
             svg {
                 transform: rotate(180deg);
                 transition: transform 0.2s cubic-bezier(0.34, 0.69, 0.1, 1);
             }
         }
+
         &.select-control-show-search {
             .selected-value {
                 opacity: 0.4;
             }
         }
     }
+
     .select-control-arrow {
         @include mixin.select-arrow-variant();
+
         svg {
             transform: rotate(0deg);
             transition: transform 0.2s cubic-bezier(0.34, 0.69, 0.1, 1);
         }
     }
+
     .select-control-clear {
         display: none;
         right: 12px;
         z-index: 10;
         @include utilities.absolute-vertical-align-middle(false);
     }
+
     &:not(.disabled):hover {
         .select-control-clear {
             display: block;
         }
     }
 }
+
 .select-control-multiple {
     &.thy-select-show-search {
         cursor: text;
     }
+
     .select-control-search {
         position: static;
         float: left;
@@ -102,6 +126,7 @@
         padding: 0;
         height: inherit;
         line-height: inherit;
+
         .search-input-field {
             width: 1px;
             max-width: 100%;
@@ -110,6 +135,7 @@
 
     .custom-choice-item {
         position: relative;
+
         .thy-tag {
             max-width: 100%;
             padding-right: 28px;
@@ -119,10 +145,12 @@
             position: absolute;
             right: 12px;
             top: 0;
+
             .thy-icon-close {
                 color: variables.$white;
                 opacity: 0.7;
             }
+
             &:hover {
                 .thy-icon-close {
                     color: variables.$white;
@@ -131,21 +159,25 @@
             }
         }
     }
+
     .choice-item {
         float: left;
         max-width: 97%;
         color: variables.$gray-700;
         cursor: default;
+
         &.disabled {
             cursor: variables.$disabled-cursor;
             color: variables.$gray-600;
         }
+
         .thy-icon-close {
             cursor: variables.$hand-cursor;
             color: variables.$gray-500;
         }
     }
 }
+
 .select-control-borderless {
     border-color: transparent !important;
 }
