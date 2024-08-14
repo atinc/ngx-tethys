@@ -10,9 +10,30 @@ export class ThyCascaderSizeExampleComponent implements OnInit {
 
     public values: any[] = [];
 
-    public sizes = ['sm', 'md', 'default', 'lg'];
+    public sizes = [
+        {
+            name: 'xs',
+            height: 24
+        },
+        {
+            name: 'sm',
+            height: 28
+        },
+        {
+            name: 'md',
+            height: 32
+        },
+        {
+            name: 'default',
+            height: 36
+        },
+        {
+            name: 'lg',
+            height: 44
+        }
+    ];
 
-    public size: string = 'default';
+    public currentSize = this.sizes[3];
 
     constructor() {}
 

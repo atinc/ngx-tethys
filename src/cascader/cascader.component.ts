@@ -1,18 +1,5 @@
-import { SafeAny } from 'ngx-tethys/types';
-import {
-    EXPANDED_DROPDOWN_POSITIONS,
-    ScrollToService,
-    TabIndexDisabledControlValueAccessorMixin,
-    ThyClickDispatcher
-} from 'ngx-tethys/core';
-import { ThyEmpty } from 'ngx-tethys/empty';
-import { ThyIcon } from 'ngx-tethys/icon';
-import { SelectControlSize, SelectOptionBase, ThySelectControl } from 'ngx-tethys/shared';
-import { coerceBooleanProperty, elementMatchClosest, isEmpty } from 'ngx-tethys/util';
-import { BehaviorSubject, Observable, Subject, Subscription, timer } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, take, takeUntil } from 'rxjs/operators';
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange, ConnectionPositionPair } from '@angular/cdk/overlay';
-import { NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
     AfterContentInit,
     ChangeDetectorRef,
@@ -38,13 +25,26 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
+import {
+    EXPANDED_DROPDOWN_POSITIONS,
+    ScrollToService,
+    TabIndexDisabledControlValueAccessorMixin,
+    ThyClickDispatcher
+} from 'ngx-tethys/core';
+import { ThyEmpty } from 'ngx-tethys/empty';
+import { ThyIcon } from 'ngx-tethys/icon';
+import { SelectControlSize, SelectOptionBase, ThySelectControl } from 'ngx-tethys/shared';
+import { SafeAny } from 'ngx-tethys/types';
+import { coerceBooleanProperty, elementMatchClosest, isEmpty } from 'ngx-tethys/util';
+import { BehaviorSubject, Observable, Subject, Subscription, timer } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, take, takeUntil } from 'rxjs/operators';
 
-import { ThyCascaderOptionComponent } from './cascader-li.component';
-import { ThyCascaderSearchOptionComponent } from './cascader-search-option.component';
-import { ThyCascaderExpandTrigger, ThyCascaderOption, ThyCascaderSearchOption, ThyCascaderTriggerType } from './types';
-import { ThyCascaderService } from './cascader.service';
 import { scaleYMotion } from 'ngx-tethys/core';
 import { ThyDivider } from 'ngx-tethys/divider';
+import { ThyCascaderOptionComponent } from './cascader-li.component';
+import { ThyCascaderSearchOptionComponent } from './cascader-search-option.component';
+import { ThyCascaderService } from './cascader.service';
+import { ThyCascaderExpandTrigger, ThyCascaderOption, ThyCascaderSearchOption, ThyCascaderTriggerType } from './types';
 
 /**
  * 级联选择菜单
@@ -104,8 +104,8 @@ export class ThyCascader
     @Input() thyPlaceholder = '请选择';
 
     /**
-     * 控制大小（4种）
-     * @type 'sm' | 'md' | 'lg' | ''
+     * 控制大小（5种）
+     * @type 'xs' ｜ 'sm' | 'md' | 'lg' | ''
      */
     @Input() thySize: SelectControlSize = '';
 
