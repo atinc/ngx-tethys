@@ -1,6 +1,10 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+
+# [18.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/18.0.0-next.1...18.0.0-next.2) (2024-08-14)
+
+
 
 # [18.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/17.0.17...18.0.0-next.1) (2024-08-01)
 
