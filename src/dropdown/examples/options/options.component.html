@@ -1,4 +1,4 @@
-<form thyForm thyLayout="inline">
+<form thyForm>
   <thy-form-group thyLabelText="Placement">
     <thy-native-select [(ngModel)]="popoverOptions.placement" name="placement">
       <option value="top">top</option>
@@ -20,6 +20,9 @@
   </thy-form-group>
   <thy-form-group thyLabelText="MinWidth">
     <thy-input-number [(ngModel)]="popoverOptions.minWidth" name="min-width"></thy-input-number>
+  </thy-form-group>
+  <thy-form-group class="align-items-center" thyLabelText="OutsideClosable">
+    <thy-switch class="dropdown-switch" [(ngModel)]="popoverOptions.outsideClosable" name="outsideClosable"></thy-switch>
   </thy-form-group>
 </form>
 
