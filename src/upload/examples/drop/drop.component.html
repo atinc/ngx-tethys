@@ -7,11 +7,26 @@
     <div class="text-desc">Drag file to this area to upload.</div>
   </div>
   <div *ngFor="let queueFile of queueFiles">
-    <div style="margin: 5px 0;">
+    <div style="margin: 5px 0">
       {{ queueFile.fileName }} speed: {{ queueFile.progress.speedHuman }}, estimatedTime - {{ queueFile.progress.estimatedTimeHuman }}
     </div>
     <thy-progress class="progress" thyType="success" [thyValue]="queueFile.progress.percentage" [thyMax]="100"
       >{{ queueFile.progress.percentage }}%</thy-progress
     >
+  </div>
+</div>
+
+<h3 class="my-2">Only accept .png files. Drop other types will show a notification.</h3>
+<p>Skip the normal file upload logic</p>
+<div class="body files-reject-body">
+  <div
+    class="demo-file-drop"
+    thyFileDrop
+    thyFileDropClassName="drop-over2"
+    [thyAcceptType]="['.png']"
+    (thyOnDrop)="mdDrop($event)"
+    (thyFilesReject)="filesRejected($event)">
+    <div class="drop-text">Release to Upload</div>
+    <div class="text-desc">Only accept .png files. Drop other types will show a notification.</div>
   </div>
 </div>
