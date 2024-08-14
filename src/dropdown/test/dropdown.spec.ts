@@ -996,6 +996,7 @@ describe('dropdown options', () => {
                     placement: 'bottomLeft',
                     height: undefined,
                     insideClosable: true,
+                    outsideClosable: true,
                     hasBackdrop: false,
                     offset: 0,
                     originActiveClass: 'thy-dropdown-origin-active'
@@ -1070,6 +1071,18 @@ describe('dropdown options', () => {
             expect(calledConfig).toEqual(
                 jasmine.objectContaining({
                     insideClosable: false
+                })
+            );
+        });
+
+        it('should set outsideClosable', () => {
+            dropdown.thyPopoverOptions.outsideClosable = false;
+
+            expect(calledConfig).toBeUndefined();
+            dropdown.createOverlay();
+            expect(calledConfig).toEqual(
+                jasmine.objectContaining({
+                    outsideClosable: false
                 })
             );
         });
