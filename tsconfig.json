@@ -16,6 +16,7 @@
     "typeRoots": [
       "node_modules/@types",
       "@types/node",
+      "@types/sass",
       "./typings"
     ],
     "lib": [

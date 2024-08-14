@@ -105,6 +105,7 @@
     "@types/highlight.js": "^9.12.4",
     "@types/jasmine": "~2.8.6",
     "@types/node": "^12.11.1",
+    "@types/sass": "^1.45.0",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
     "@worktile/pkg-manager": "^0.1.0",
