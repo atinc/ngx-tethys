@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [17.0.19](https://github.com/atinc/ngx-tethys/compare/17.0.18...17.0.19) (2024-08-14)
+
+
+### Features
+
+* **dropdown:** thyPopoverOptions support outsideClosable params ([#3144](https://github.com/atinc/ngx-tethys/issues/3144)) ([3fa855b](https://github.com/atinc/ngx-tethys/commit/3fa855b0c6417a7768aa37a5fa5b9c4f866380e3))
+
+
+
 ## [17.0.18](https://github.com/atinc/ngx-tethys/compare/17.0.17...17.0.18) (2024-08-13)
 
 
