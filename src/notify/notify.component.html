@@ -1,4 +1,11 @@
-<ng-container *ngIf="!config.html">
+@if (config?.html) {
+  <a href="javascript:;" class="thy-notify-close" (click)="close()">
+    <thy-icon thyIconName="close"></thy-icon>
+  </a>
+  <div class="thy-notify-main">
+    <template [ngTemplateOutlet]="config?.html"></template>
+  </div>
+} @else {
   <a href="javascript:;" class="thy-notify-close" (click)="close()">
     <thy-icon thyIconName="close"></thy-icon>
   </a>
@@ -11,24 +18,20 @@
       *ngIf="config?.detail || config?.content"
       class="thy-notify-content"
       [ngClass]="{ 'thy-notify-content--extend': extendContentClass === true }"
-      (click)="extendContent()"
-    >
-      <ng-container *ngIf="config.content">
-        <ng-container *ngIf="!contentIsString; else contentText">
+      (click)="extendContent()">
+      @if (config.content) {
+        @if (contentIsString) {
+          {{ config.content }}
+        } @else {
           <ng-container *thyViewOutlet="config.content; context: config.contentInitialState"></ng-container>
-        </ng-container>
-        <ng-template #contentText>{{ config.content }}</ng-template>
-      </ng-container>
-      <a href="javascript:;" *ngIf="config?.detail" class="link-secondary" (click)="triggerDetail()">{{ (config?.detail)['link'] }}</a>
+        }
+      }
+      @if (config?.detail) {
+        <a href="javascript:;" class="link-secondary" (click)="triggerDetail()">{{ (config?.detail)['link'] }}</a>
+      }
     </div>
-    <div class="thy-notify-detail" *ngIf="isShowDetail">{{ (config?.detail)['content'] }}</div>
+    @if (isShowDetail) {
+      <div class="thy-notify-detail">{{ (config?.detail)['content'] }}</div>
+    }
   </div>
-</ng-container>
-<ng-container *ngIf="config?.html">
-  <a href="javascript:;" class="thy-notify-close" (click)="close()">
-    <thy-icon thyIconName="close"></thy-icon>
-  </a>
-  <div class="thy-notify-main">
-    <template [ngTemplateOutlet]="config?.html"></template>
-  </div>
-</ng-container>
+}
