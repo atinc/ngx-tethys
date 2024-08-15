@@ -31,7 +31,7 @@ export class ThyNotifyCustomContentExampleComponent implements OnInit {
             type: 'success',
             title: '成功 ',
             content: this.contentTemplate,
-            detail: '提示信息',
+            detail: '提示信息\n提示信息',
             contentInitialState: {
                 $implicit: '标题111',
                 content: '这是内容...'
