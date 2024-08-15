@@ -1072,8 +1072,8 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
                                             window.PointerEvent
                                                 ? 'pointerdown'
                                                 : 'ontouchstart' in row.nativeElement
-                                                ? 'touchstart'
-                                                : 'mousedown',
+                                                  ? 'touchstart'
+                                                  : 'mousedown',
                                             // Note: since Chrome 56 defaults document level `touchstart` listener to passive.
                                             // The element `touchstart` listener is not passive by default
                                             // We never call `preventDefault()` on it, so we're safe making it passive too.

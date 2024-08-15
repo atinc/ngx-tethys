@@ -171,8 +171,8 @@ export class ThyImagePreview implements OnInit {
             return this.previewConfig.zoom >= IMAGE_MAX_ZOOM
                 ? IMAGE_MAX_ZOOM
                 : this.previewConfig.zoom <= IMAGE_MIN_ZOOM
-                ? IMAGE_MIN_ZOOM
-                : this.previewConfig.zoom;
+                  ? IMAGE_MIN_ZOOM
+                  : this.previewConfig.zoom;
         }
     }
 

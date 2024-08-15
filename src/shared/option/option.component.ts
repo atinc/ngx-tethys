@@ -27,7 +27,10 @@ import { NgIf } from '@angular/common';
 import { ThyIcon } from 'ngx-tethys/icon';
 
 export class ThyOptionSelectionChangeEvent {
-    constructor(public option: ThyOption, public isUserInput = false) {}
+    constructor(
+        public option: ThyOption,
+        public isUserInput = false
+    ) {}
 }
 
 export class ThyOptionVisibleChangeEvent {

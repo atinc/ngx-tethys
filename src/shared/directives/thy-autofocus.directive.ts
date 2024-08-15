@@ -46,5 +46,8 @@ export class ThyAutofocusDirective {
         this._autoSelect = value;
     }
 
-    constructor(private elementRef: ElementRef, private ngZone: NgZone) {}
+    constructor(
+        private elementRef: ElementRef,
+        private ngZone: NgZone
+    ) {}
 }

@@ -26,7 +26,10 @@ export class ThyDragHandleDirective {
         return this._disabled;
     }
 
-    constructor(public element: ElementRef<HTMLElement>, @Optional() drag: ThyDragDirective) {
+    constructor(
+        public element: ElementRef<HTMLElement>,
+        @Optional() drag: ThyDragDirective
+    ) {
         if (drag) {
             drag.dragRef.withHandles(this);
         }

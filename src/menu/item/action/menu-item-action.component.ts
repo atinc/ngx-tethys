@@ -78,7 +78,11 @@ export class ThyMenuItemAction implements OnDestroy {
 
     private removeClickListenerFn: VoidFunction | null = null;
 
-    constructor(private popover: ThyPopover, private renderer: Renderer2, private elementRef: ElementRef) {}
+    constructor(
+        private popover: ThyPopover,
+        private renderer: Renderer2,
+        private elementRef: ElementRef
+    ) {}
 
     ngOnDestroy(): void {
         this.removeClickListenerFn?.();

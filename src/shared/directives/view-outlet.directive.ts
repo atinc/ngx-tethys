@@ -44,7 +44,10 @@ export class ThyViewOutletDirective implements OnChanges {
 
     private keyValueDiffer: KeyValueDiffer<SafeAny, SafeAny>;
 
-    constructor(private viewContainerRef: ViewContainerRef, private keyValueDiffers: KeyValueDiffers) {}
+    constructor(
+        private viewContainerRef: ViewContainerRef,
+        private keyValueDiffers: KeyValueDiffers
+    ) {}
 
     ngOnChanges(changes: SimpleChanges) {
         const { viewContainerRef: viewContainerRef } = this;

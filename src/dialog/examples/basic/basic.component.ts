@@ -28,7 +28,10 @@ export class ThyDialogBasicExampleComponent implements OnInit, OnDestroy {
 
     unsubscribe: () => void;
 
-    constructor(public thyDialog: ThyDialog, private renderer: Renderer2) {
+    constructor(
+        public thyDialog: ThyDialog,
+        private renderer: Renderer2
+    ) {
         thyDialog
             .afterOpened()
             .pipe(takeUntilDestroyed(this.destroyRef))

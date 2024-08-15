@@ -16,7 +16,10 @@ export class ThyCarouselService {
 
     documentDraggingOutside$ = new Subject<MouseEvent | Touch>();
 
-    constructor(private ngZone: NgZone, @Inject(DOCUMENT) document: any) {
+    constructor(
+        private ngZone: NgZone,
+        @Inject(DOCUMENT) document: any
+    ) {
         this.document = document;
     }
 

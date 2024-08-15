@@ -20,7 +20,10 @@ function easeInOutCubic(t: number, b: number, c: number, d: number): number {
 export class ThyScrollService {
     private document: Document;
 
-    constructor(@Inject(DOCUMENT) document: any, private ngZone: NgZone) {
+    constructor(
+        @Inject(DOCUMENT) document: any,
+        private ngZone: NgZone
+    ) {
         this.document = document;
     }
 

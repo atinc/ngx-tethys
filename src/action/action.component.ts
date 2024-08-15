@@ -134,7 +134,11 @@ export class ThyAction implements OnInit, AfterViewInit, OnChanges, OnDestroy {
     @Input({ transform: coerceBooleanProperty })
     thyDisabled: boolean;
 
-    constructor(private elementRef: ElementRef<HTMLElement>, private renderer: Renderer2, private cdr: ChangeDetectorRef) {}
+    constructor(
+        private elementRef: ElementRef<HTMLElement>,
+        private renderer: Renderer2,
+        private cdr: ChangeDetectorRef
+    ) {}
 
     ngOnInit(): void {
         this.updateClasses();

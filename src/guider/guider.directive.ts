@@ -19,7 +19,11 @@ export class ThyGuiderTargetDirective implements OnInit, OnDestroy, AfterViewIni
     @Input('thyGuiderTarget')
     target: string;
 
-    constructor(private guiderManager: ThyGuiderManager, private el: ElementRef, private ngZone: NgZone) {}
+    constructor(
+        private guiderManager: ThyGuiderManager,
+        private el: ElementRef,
+        private ngZone: NgZone
+    ) {}
 
     ngOnInit() {
         this.guiderManager.addStepTarget(this.target, this.el.nativeElement);

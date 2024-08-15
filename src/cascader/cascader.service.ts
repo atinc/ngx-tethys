@@ -597,7 +597,7 @@ export class ThyCascaderService {
         let selectedItems: any[];
         const selected = this.selectionModel.selected;
         selectedItems = selected.map(item => this.getSubmitValue(item.thyRawValue.value));
-        return this.cascaderOptions?.isMultiple ? selectedItems : selectedItems[0] ?? selectedItems;
+        return this.cascaderOptions?.isMultiple ? selectedItems : (selectedItems[0] ?? selectedItems);
     }
 
     private updatePrevSelectedOptions(option: ThyCascaderOption, isActivateInit: boolean, index?: number) {

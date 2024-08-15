@@ -240,7 +240,10 @@ export class ThyButton implements OnInit, AfterViewInit {
         this.hostRenderer.updateClass(classNames);
     }
 
-    constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
+    constructor(
+        private elementRef: ElementRef,
+        private renderer: Renderer2
+    ) {}
 
     ngOnInit() {
         this.updateClasses();

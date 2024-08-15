@@ -7,7 +7,10 @@ import { ThyFullscreenConfig, ThyFullscreenMode } from './fullscreen.config';
     providedIn: 'root'
 })
 export class ThyFullscreen {
-    constructor(@Inject(DOCUMENT) protected document: Document, private ngZone: NgZone) {}
+    constructor(
+        @Inject(DOCUMENT) protected document: Document,
+        private ngZone: NgZone
+    ) {}
 
     private fullscreenRefs: ThyFullscreenRef[] = [];
 

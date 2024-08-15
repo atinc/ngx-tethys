@@ -192,7 +192,10 @@ class TestDialogBasicContentComponent {
     template: 'Hello Test Dialog'
 })
 class TestDialogViewContainerComponent {
-    constructor(private dialog: TestDialogService, private viewContainerRef: ViewContainerRef) {}
+    constructor(
+        private dialog: TestDialogService,
+        private viewContainerRef: ViewContainerRef
+    ) {}
 
     open() {
         this.dialog.open(TestDialogBasicContentComponent, {

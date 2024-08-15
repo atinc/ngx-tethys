@@ -66,7 +66,10 @@ class ThyDemoColorPickerComponent {
 
     disabled = false;
 
-    constructor(public elementRef: ElementRef<HTMLElement>, private thyPopoverRef: ThyPopoverRef<ThyColorPickerPanel>) {}
+    constructor(
+        public elementRef: ElementRef<HTMLElement>,
+        private thyPopoverRef: ThyPopoverRef<ThyColorPickerPanel>
+    ) {}
 
     change(color: string) {}
 
@@ -94,7 +97,10 @@ class ThyDemoColorDefaultPanelComponent {
     defaultPanelColor = '#fafafa';
     defaultColor = '';
     transparentColorSelectable: boolean;
-    constructor(public elementRef: ElementRef<HTMLElement>, public thyPopover: ThyPopover) {}
+    constructor(
+        public elementRef: ElementRef<HTMLElement>,
+        public thyPopover: ThyPopover
+    ) {}
 
     defaultPanelColorChange = (color: string) => {
         this.defaultPanelColor = color;

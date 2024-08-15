@@ -33,7 +33,10 @@ export class ThyRangePicker extends BasePicker implements OnInit {
 
     private hostRenderer = useHostRenderer();
 
-    constructor(cdr: ChangeDetectorRef, protected elementRef: ElementRef) {
+    constructor(
+        cdr: ChangeDetectorRef,
+        protected elementRef: ElementRef
+    ) {
         super(cdr, elementRef);
         this.hostRenderer.addClass('thy-calendar-picker');
     }

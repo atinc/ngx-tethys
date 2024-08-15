@@ -123,7 +123,11 @@ export class ThyInnerTimePicker implements ControlValueAccessor, TimePickerCompo
 
     private timerPickerSubscription = new Subscription();
 
-    constructor(_config: TimePickerConfig, private _cd: ChangeDetectorRef, private _store: ThyTimePickerStore) {
+    constructor(
+        _config: TimePickerConfig,
+        private _cd: ChangeDetectorRef,
+        private _store: ThyTimePickerStore
+    ) {
         Object.assign(this, _config);
 
         this.timerPickerSubscription.add(

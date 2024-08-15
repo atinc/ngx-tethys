@@ -18,7 +18,10 @@ import { ThyIcon } from 'ngx-tethys/icon';
     imports: [ThyIcon]
 })
 export class ThyBreadcrumbItem implements AfterViewInit {
-    constructor(private renderer: Renderer2, private elementRef: ElementRef) {}
+    constructor(
+        private renderer: Renderer2,
+        private elementRef: ElementRef
+    ) {}
 
     ngAfterViewInit() {
         this.wrapSpanForText(this.elementRef.nativeElement.childNodes);

@@ -44,7 +44,10 @@ export class ThyDot {
     public shape: ThyShapeType = DEFAULT_SHAPE_NAME;
     public color: ThyColorType = DEFAULT_COLOR_NAME;
     private nativeElement: HTMLElement;
-    constructor(private el: ElementRef, private renderer: Renderer2) {
+    constructor(
+        private el: ElementRef,
+        private renderer: Renderer2
+    ) {
         this.nativeElement = this.el.nativeElement;
         this.updateColorStyle();
     }

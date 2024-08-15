@@ -50,7 +50,11 @@ export class ThyInputDirective implements OnInit {
         return this.elementRef.nativeElement;
     }
 
-    constructor(private elementRef: ElementRef, private render: Renderer2, @Optional() @Self() private control: NgControl) {}
+    constructor(
+        private elementRef: ElementRef,
+        private render: Renderer2,
+        @Optional() @Self() private control: NgControl
+    ) {}
 
     ngOnInit() {
         this.initialized = true;

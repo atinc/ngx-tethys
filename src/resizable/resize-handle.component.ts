@@ -20,7 +20,10 @@ import { NgIf } from '@angular/common';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export class ThyResizeHandleMouseDownEvent {
-    constructor(public direction: ThyResizeDirection, public mouseEvent: MouseEvent | TouchEvent) {}
+    constructor(
+        public direction: ThyResizeDirection,
+        public mouseEvent: MouseEvent | TouchEvent
+    ) {}
 }
 
 const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveListenerOptions({ passive: true });
@@ -73,7 +76,11 @@ export class ThyResizeHandle implements OnInit {
 
     private readonly destroyRef = inject(DestroyRef);
 
-    constructor(private ngZone: NgZone, private thyResizableService: ThyResizableService, private host: ElementRef<HTMLElement>) {}
+    constructor(
+        private ngZone: NgZone,
+        private thyResizableService: ThyResizableService,
+        private host: ElementRef<HTMLElement>
+    ) {}
 
     ngOnInit(): void {
         this.thyResizableService.mouseEnteredOutsideAngular$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(entered => {

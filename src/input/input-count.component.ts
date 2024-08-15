@@ -39,7 +39,10 @@ export class ThyInputCount implements OnInit {
 
     thyInput$ = new Subject<ThyInputDirective>();
 
-    constructor(private changeDetectorRef: ChangeDetectorRef, @Optional() private inputGroup: ThyInputGroup) {
+    constructor(
+        private changeDetectorRef: ChangeDetectorRef,
+        @Optional() private inputGroup: ThyInputGroup
+    ) {
         this.setup();
     }
 

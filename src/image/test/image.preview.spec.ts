@@ -21,7 +21,10 @@ let imageOnload: () => void = null;
     template: ` <button thyButton="primary" (click)="onClick()">Preview</button> `
 })
 class ImagePreviewTestComponent implements OnInit {
-    constructor(private thyImageService: ThyImageService, private sanitizer: DomSanitizer) {}
+    constructor(
+        private thyImageService: ThyImageService,
+        private sanitizer: DomSanitizer
+    ) {}
     images: InternalImageInfo[] = [
         {
             src: 'first.png',

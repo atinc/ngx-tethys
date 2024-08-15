@@ -376,7 +376,11 @@ export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterVi
 
     @ViewChildren(CdkDrag) cdkDrags: QueryList<CdkDrag<ThyTreeNode>>;
 
-    constructor(public thyTreeService: ThyTreeService, private cdr: ChangeDetectorRef, @Inject(DOCUMENT) private document: Document) {}
+    constructor(
+        public thyTreeService: ThyTreeService,
+        private cdr: ChangeDetectorRef,
+        @Inject(DOCUMENT) private document: Document
+    ) {}
 
     ngOnInit(): void {
         this._initThyNodes();

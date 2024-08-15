@@ -141,7 +141,10 @@ export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, 
      */
     @Output() thyClear: EventEmitter<Event> = new EventEmitter<Event>();
 
-    constructor(private cdr: ChangeDetectorRef, private elementRef: ElementRef) {
+    constructor(
+        private cdr: ChangeDetectorRef,
+        private elementRef: ElementRef
+    ) {
         super();
     }
 

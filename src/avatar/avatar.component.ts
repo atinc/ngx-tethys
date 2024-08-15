@@ -189,7 +189,10 @@ export class ThyAvatar implements OnInit {
 
     private hostRenderer = useHostRenderer();
 
-    constructor(private thyAvatarService: ThyAvatarService, public elementRef: ElementRef) {}
+    constructor(
+        private thyAvatarService: ThyAvatarService,
+        public elementRef: ElementRef
+    ) {}
 
     ngOnInit() {
         if (!this._size) {

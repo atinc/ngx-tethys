@@ -29,11 +29,14 @@ export const warn = (...args: any[]) => consoleCommonBehavior((...arg: any[]) =>
 export function createWarnDeprecation(prefix: string): (...args: any[]) => void {
     return (...args: any[]) => {
         const stack = new Error().stack;
-        return consoleCommonBehavior((...arg: any[]) => {
-            if (logWarnDeprecation) {
-                console.warn(prefix, 'deprecated:', ...arg, stack);
-            }
-        }, ...args);
+        return consoleCommonBehavior(
+            (...arg: any[]) => {
+                if (logWarnDeprecation) {
+                    console.warn(prefix, 'deprecated:', ...arg, stack);
+                }
+            },
+            ...args
+        );
     };
 }
 

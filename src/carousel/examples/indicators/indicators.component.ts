@@ -22,7 +22,9 @@ import { Component, OnInit } from '@angular/core';
                 height: 4px;
                 background: #fff;
                 opacity: 0.3;
-                transition: opacity 500ms linear, width 300ms linear;
+                transition:
+                    opacity 500ms linear,
+                    width 300ms linear;
                 border-radius: 2px;
             }
 

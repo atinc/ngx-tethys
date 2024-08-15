@@ -32,7 +32,10 @@ class AsyncBehaviorImpl<T, A extends (...args: any) => Observable<T>> implements
 
     takeUntilDestroyed = takeUntilDestroyed();
 
-    constructor(private action: A, private context: BehaviorContext<T>) {}
+    constructor(
+        private action: A,
+        private context: BehaviorContext<T>
+    ) {}
 
     execute(success?: SuccessFn<T>, error?: ErrorFn): void;
     execute(context: BehaviorContext<T>): void;

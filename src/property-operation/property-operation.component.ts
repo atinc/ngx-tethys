@@ -177,7 +177,11 @@ export class ThyPropertyOperation implements OnInit, AfterContentInit, OnDestroy
         }
     }
 
-    constructor(private thyTranslate: ThyTranslate, private elementRef: ElementRef<HTMLElement>, private ngZone: NgZone) {}
+    constructor(
+        private thyTranslate: ThyTranslate,
+        private elementRef: ElementRef<HTMLElement>,
+        private ngZone: NgZone
+    ) {}
 
     ngOnInit() {
         this.setHostClass(true);

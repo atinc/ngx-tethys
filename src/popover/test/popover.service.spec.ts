@@ -116,7 +116,11 @@ export class PopoverSimpleContentComponent {
     `
 })
 export class PopoverManualClosureContentComponent {
-    constructor(public popover: ThyPopover, public overlay: Overlay, public popoverInjector: Injector) {}
+    constructor(
+        public popover: ThyPopover,
+        public overlay: Overlay,
+        public popoverInjector: Injector
+    ) {}
 
     @ViewChild('btn1', { static: true })
     btn1: HTMLElement;
@@ -171,7 +175,10 @@ export class PopoverInsideClosableComponent {
     `
 })
 export class PopoverConfigComponent {
-    constructor(public popover: ThyPopover, public overlay: Overlay) {}
+    constructor(
+        public popover: ThyPopover,
+        public overlay: Overlay
+    ) {}
 
     public popoverRef: ThyPopoverRef<any>;
 

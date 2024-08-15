@@ -144,7 +144,11 @@ export class ThyInputGroup implements OnInit, AfterContentChecked, OnDestroy {
      */
     @ContentChild(ThyInputDirective) inputDirective: ThyInputDirective;
 
-    constructor(private thyTranslate: ThyTranslate, private ngZone: NgZone, private cdr: ChangeDetectorRef) {}
+    constructor(
+        private thyTranslate: ThyTranslate,
+        private ngZone: NgZone,
+        private cdr: ChangeDetectorRef
+    ) {}
 
     ngOnInit() {
         this.hostFocusControl.focusChanged = (origin: FocusOrigin) => {

@@ -39,7 +39,10 @@ export class ThyDropdownSubmenu implements OnInit {
         this.direction = value;
     }
 
-    constructor(private dropdownMenuItem: ThyDropdownMenuItemDirective, private elementRef: ElementRef<HTMLElement>) {}
+    constructor(
+        private dropdownMenuItem: ThyDropdownMenuItemDirective,
+        private elementRef: ElementRef<HTMLElement>
+    ) {}
 
     ngOnInit(): void {
         let direction = this.direction || 'right';

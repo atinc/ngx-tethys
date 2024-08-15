@@ -144,7 +144,10 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
 
     checkState = ThyTreeNodeCheckState;
 
-    constructor(@Inject(THY_TREE_ABSTRACT_TOKEN) public root: ThyTreeAbstractComponent, public thyTreeService: ThyTreeService) {}
+    constructor(
+        @Inject(THY_TREE_ABSTRACT_TOKEN) public root: ThyTreeAbstractComponent,
+        public thyTreeService: ThyTreeService
+    ) {}
 
     public clickNode(event: Event) {
         if (this.node.isDisabled) {

@@ -87,7 +87,10 @@ export class ThyTimeline implements OnInit, AfterContentInit, OnChanges, OnDestr
     @ContentChildren(ThyTimelineItem)
     listOfItems: QueryList<ThyTimelineItem>;
 
-    constructor(private cdr: ChangeDetectorRef, private timelineService: ThyTimelineService) {}
+    constructor(
+        private cdr: ChangeDetectorRef,
+        private timelineService: ThyTimelineService
+    ) {}
 
     ngOnChanges(changes: SimpleChanges): void {
         const { thyMode, thyReverse } = changes;

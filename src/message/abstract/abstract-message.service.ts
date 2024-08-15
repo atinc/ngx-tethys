@@ -14,7 +14,11 @@ export class ThyAbstractMessageService<TContainer extends ThyAbstractMessageCont
 
     private queue: ThyAbstractMessageQueue;
 
-    constructor(private overlay: Overlay, private injector: Injector, queue: ThyAbstractMessageQueue) {
+    constructor(
+        private overlay: Overlay,
+        private injector: Injector,
+        queue: ThyAbstractMessageQueue
+    ) {
         this.queue = queue;
     }
 

@@ -48,7 +48,10 @@ export class ThyPopoverHeader {
      */
     @Output() thyClosed: EventEmitter<Event> = new EventEmitter<Event>();
 
-    constructor(private translate: ThyTranslate, private thyPopover: ThyPopover) {}
+    constructor(
+        private translate: ThyTranslate,
+        private thyPopover: ThyPopover
+    ) {}
 
     /**
      * @internal

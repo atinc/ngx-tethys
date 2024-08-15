@@ -147,7 +147,10 @@ export class ThyTimePanel implements OnInit, OnDestroy, ControlValueAccessor {
 
     onTouchedFn: () => void = () => void 0;
 
-    constructor(private cdr: ChangeDetectorRef, private ngZone: NgZone) {}
+    constructor(
+        private cdr: ChangeDetectorRef,
+        private ngZone: NgZone
+    ) {}
 
     ngOnInit(): void {
         this.generateTimeRange();

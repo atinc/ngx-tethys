@@ -58,7 +58,10 @@ export class ThySelectOptionGroup implements OnDestroy, AfterContentInit {
         );
     }) as Observable<ThyOptionVisibleChangeEvent>;
 
-    constructor(private _ngZone: NgZone, private cdr: ChangeDetectorRef) {}
+    constructor(
+        private _ngZone: NgZone,
+        private cdr: ChangeDetectorRef
+    ) {}
 
     ngAfterContentInit() {
         this.options.changes.pipe(startWith(null), takeUntil(this._destroy$)).subscribe(() => {

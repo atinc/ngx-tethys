@@ -45,7 +45,11 @@ export class ThyIconRegistry {
         return this.internalIconMode;
     }
 
-    constructor(private sanitizer: DomSanitizer, private httpClient: HttpClient, @Inject(DOCUMENT) private document: any) {}
+    constructor(
+        private sanitizer: DomSanitizer,
+        private httpClient: HttpClient,
+        @Inject(DOCUMENT) private document: any
+    ) {}
 
     private getIconNameNotFoundError(iconName: string): Error {
         return Error(`Unable to find icon with the name "${iconName}"`);

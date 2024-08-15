@@ -88,7 +88,11 @@ export class ThyNavItemDirective implements AfterViewInit {
 
     private readonly destroyRef = inject(DestroyRef);
 
-    constructor(public elementRef: ElementRef, @Optional() private routerLinkActive: RouterLinkActive, private ngZone: NgZone) {}
+    constructor(
+        public elementRef: ElementRef,
+        @Optional() private routerLinkActive: RouterLinkActive,
+        private ngZone: NgZone
+    ) {}
 
     ngAfterViewInit() {
         this.setOffset();

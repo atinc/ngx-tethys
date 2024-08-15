@@ -26,7 +26,10 @@ export class ThyCarouselItemDirective {
         return this._active;
     }
 
-    constructor(elementRef: ElementRef, private renderer: Renderer2) {
+    constructor(
+        elementRef: ElementRef,
+        private renderer: Renderer2
+    ) {
         this.el = elementRef.nativeElement;
         this.renderer.addClass(elementRef.nativeElement, 'thy-carousel-item');
     }

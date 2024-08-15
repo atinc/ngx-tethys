@@ -130,7 +130,10 @@ export class DatePopup implements OnChanges, OnInit {
 
     disableTimeConfirm = false;
 
-    constructor(private cdr: ChangeDetectorRef, private datePickerConfigService: ThyDatePickerConfigService) {}
+    constructor(
+        private cdr: ChangeDetectorRef,
+        private datePickerConfigService: ThyDatePickerConfigService
+    ) {}
 
     setProperty<T extends keyof DatePopup>(key: T, value: this[T]): void {
         this[key] = value;

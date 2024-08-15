@@ -32,7 +32,10 @@ export class ThyDropdownActiveDirective implements OnInit, AfterContentInit {
      */
     @ContentChildren(ThyDropdownDirective, { descendants: true }) triggers!: QueryList<ThyDropdownDirective>;
 
-    constructor(private elementRef: ElementRef, @Optional() private trigger?: ThyDropdownDirective) {}
+    constructor(
+        private elementRef: ElementRef,
+        @Optional() private trigger?: ThyDropdownDirective
+    ) {}
 
     ngOnInit(): void {}
 

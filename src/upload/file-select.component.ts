@@ -66,7 +66,11 @@ export class ThyFileSelect extends FileSelectBaseDirective implements OnChanges,
 
     private destroy$ = new Subject<void>();
 
-    constructor(public elementRef: ElementRef, @Inject(THY_UPLOAD_DEFAULT_OPTIONS) public defaultConfig: ThyUploadConfig, ngZone: NgZone) {
+    constructor(
+        public elementRef: ElementRef,
+        @Inject(THY_UPLOAD_DEFAULT_OPTIONS) public defaultConfig: ThyUploadConfig,
+        ngZone: NgZone
+    ) {
         super(elementRef, defaultConfig);
 
         ngZone.runOutsideAngular(() =>

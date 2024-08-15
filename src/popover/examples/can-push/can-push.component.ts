@@ -9,7 +9,10 @@ import { Overlay } from '@angular/cdk/overlay';
 export class ThyPopoverCanPushExampleComponent implements OnInit {
     public config = {};
 
-    constructor(private thyPopover: ThyPopover, private overlay: Overlay) {}
+    constructor(
+        private thyPopover: ThyPopover,
+        private overlay: Overlay
+    ) {}
 
     ngOnInit(): void {
         this.config = {

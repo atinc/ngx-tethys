@@ -25,7 +25,11 @@ interface GlyphCategory {
 export class ThyIconAllExampleComponent implements OnInit {
     glyphs: GlyphCategory[];
 
-    constructor(iconRegistry: ThyIconRegistry, domSanitizer: DomSanitizer, private http: HttpClient) {}
+    constructor(
+        iconRegistry: ThyIconRegistry,
+        domSanitizer: DomSanitizer,
+        private http: HttpClient
+    ) {}
 
     ngOnInit() {
         this.http.get<GlyphCategory[]>(`assets/icons/glyphs.json`).subscribe(data => {

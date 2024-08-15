@@ -32,7 +32,10 @@ export class ThyWeekPicker extends BasePicker {
 
     private hostRenderer = useHostRenderer();
 
-    constructor(cdr: ChangeDetectorRef, protected elementRef: ElementRef) {
+    constructor(
+        cdr: ChangeDetectorRef,
+        protected elementRef: ElementRef
+    ) {
         super(cdr, elementRef);
         this.hostRenderer.addClass('thy-calendar-picker');
         this.thyMode = 'week';

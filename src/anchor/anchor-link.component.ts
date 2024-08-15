@@ -64,7 +64,11 @@ export class ThyAnchorLink implements OnInit, OnDestroy {
 
     @ViewChild('linkTitle', { static: true }) linkTitle!: ElementRef<HTMLAnchorElement>;
 
-    constructor(public elementRef: ElementRef, private anchorComponent: ThyAnchor, private platform: Platform) {
+    constructor(
+        public elementRef: ElementRef,
+        private anchorComponent: ThyAnchor,
+        private platform: Platform
+    ) {
         this.hostRenderer.addClass('thy-anchor-link');
         if (elementRef.nativeElement.tagName.toLowerCase() === 'thy-link') {
             console.warn(`'thy-link' and 'thyLink' are deprecated, please use 'thy-anchor-link' and 'thyAnchorLink' instead.`);

@@ -64,7 +64,10 @@ export class ThyPropertyEditableExampleComponent implements OnInit {
 
     @ViewChild('selectProfession', { read: ThySelect }) selectProfession: ThySelect;
 
-    constructor(public thyDialog: ThyDialog, private cdr: ChangeDetectorRef) {}
+    constructor(
+        public thyDialog: ThyDialog,
+        private cdr: ChangeDetectorRef
+    ) {}
 
     ngOnInit() {}
 
