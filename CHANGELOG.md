@@ -2,6 +2,39 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [18.0.0](https://github.com/atinc/ngx-tethys/compare/17.0.19...18.0.0) (2024-08-15)
+
+
+### Features
+
+* **cascader:** cascader and select support xs size  #TINFR-89 ([#3146](https://github.com/atinc/ngx-tethys/issues/3146)) ([38230bf](https://github.com/atinc/ngx-tethys/commit/38230bf256c23491e6a935d0a703b2a673134344)), closes [#TINFR-89](https://github.com/atinc/ngx-tethys/issues/TINFR-89)
+* **cascader:** cascader and select support xs size  #TINFR-89 ([#3146](https://github.com/atinc/ngx-tethys/issues/3146)) ([e0701c3](https://github.com/atinc/ngx-tethys/commit/e0701c37b8b7998dc5fbed18e8b12c3bc2ad2730)), closes [#TINFR-89](https://github.com/atinc/ngx-tethys/issues/TINFR-89)
+* **notify:** support newline for detail #TINFR-379 ([0315dec](https://github.com/atinc/ngx-tethys/commit/0315dec7085a7b49166c0b41b6c60e11d8b5330d)), closes [#TINFR-379](https://github.com/atinc/ngx-tethys/issues/TINFR-379)
+
+
+
+# [18.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/17.0.18...18.0.0-next.2) (2024-08-14)
+
+
+
+# [18.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/17.0.17...18.0.0-next.1) (2024-08-01)
+
+
+### Reverts
+
+* Revert "build: release 18.0.0-next.1" ([285851e](https://github.com/atinc/ngx-tethys/commit/285851e7120ab6c9dc3c6aeb63394cfc90a986db))
+
+
+
+# [18.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/17.0.6...18.0.0-next.0) (2024-05-24)
+
+
+### Features
+
+* upgrade ng to 18 #INFR-12428 ([5e89bdb](https://github.com/atinc/ngx-tethys/commit/5e89bdbac4a0e5e7af4fe3cb8d8057ba120a6b7f)), closes [#INFR-12428](https://github.com/atinc/ngx-tethys/issues/INFR-12428)
+
+
+
 # [18.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/18.0.0-next.1...18.0.0-next.2) (2024-08-14)
 
 
