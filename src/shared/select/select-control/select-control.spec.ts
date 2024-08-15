@@ -1,4 +1,4 @@
-import { TestBed, async, ComponentFixture, fakeAsync, flush, tick } from '@angular/core/testing';
+import { TestBed, ComponentFixture, fakeAsync, flush, tick, waitForAsync } from '@angular/core/testing';
 import { ThySelectCommonModule } from '../module';
 import { By } from '@angular/platform-browser';
 import { Component, ViewChild } from '@angular/core';
@@ -59,7 +59,7 @@ describe('ThySelectControl', () => {
     describe('core', () => {
         const testBaseOption: SelectOptionBase = { thyLabelText: '', thyRawValue: {}, thyValue: '' };
 
-        beforeEach(async(() => {
+        beforeEach(waitForAsync(() => {
             configureThySelectControlTestingModule([BasicSelectControlComponent]);
         }));
 
@@ -67,7 +67,7 @@ describe('ThySelectControl', () => {
             let fixture: ComponentFixture<BasicSelectControlComponent>;
             let selectElement: HTMLElement;
 
-            beforeEach(async(() => {
+            beforeEach(waitForAsync(() => {
                 fixture = TestBed.createComponent(BasicSelectControlComponent);
                 fixture.detectChanges();
                 selectElement = fixture.debugElement.query(By.css('.form-control')).nativeElement;
@@ -112,7 +112,7 @@ describe('ThySelectControl', () => {
             let fixture: ComponentFixture<BasicSelectControlComponent>;
             let selectElement: HTMLElement;
 
-            beforeEach(async(() => {
+            beforeEach(waitForAsync(() => {
                 fixture = TestBed.createComponent(BasicSelectControlComponent);
                 fixture.detectChanges();
                 selectElement = fixture.debugElement.query(By.css('.form-control')).nativeElement;
@@ -135,7 +135,7 @@ describe('ThySelectControl', () => {
             let fixture: ComponentFixture<BasicSelectControlComponent>;
             let selectElement: HTMLElement;
 
-            beforeEach(async(() => {
+            beforeEach(waitForAsync(() => {
                 fixture = TestBed.createComponent(BasicSelectControlComponent);
                 fixture.detectChanges();
                 selectElement = fixture.debugElement.query(By.css('.form-control')).nativeElement;
@@ -158,7 +158,7 @@ describe('ThySelectControl', () => {
             let fixture: ComponentFixture<BasicSelectControlComponent>;
             let selectElement: HTMLElement;
 
-            beforeEach(async(() => {
+            beforeEach(waitForAsync(() => {
                 fixture = TestBed.createComponent(BasicSelectControlComponent);
                 fixture.detectChanges();
                 selectElement = fixture.debugElement.query(By.css('.form-control')).nativeElement;

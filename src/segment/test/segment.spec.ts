@@ -1,5 +1,5 @@
 import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, flush, flushMicrotasks } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyAvatarModule } from 'ngx-tethys/avatar';
@@ -375,27 +375,28 @@ describe('segment', () => {
                 declarations: [TestSegmentActiveComponent],
                 imports: [ThySegmentModule, BrowserAnimationsModule]
             }).compileComponents();
+        });
 
+        beforeEach(fakeAsync(() => {
             fixture = TestBed.createComponent(TestSegmentActiveComponent);
             segmentedDebugElement = fixture.debugElement.query(By.directive(ThySegment));
             fixture.detectChanges();
-        });
+            tick();
+        }));
 
-        it('should support set default selected item', () => {
+        it('should support set default selected item', fakeAsync(() => {
             fixture.whenStable().then(() => {
                 const items = segmentedDebugElement.queryAll(By.directive(ThySegmentItem));
                 expect(items[2].nativeElement.classList.contains('active')).toBeTruthy();
             });
-        });
+        }));
 
         it('should change selected value manually', fakeAsync(() => {
             const spy = spyOn(fixture.componentInstance, 'selectedChange');
             fixture.componentInstance.setSelectedItem(1);
             fixture.detectChanges();
             tick(100);
-            fixture.whenStable().then(() => {
-                expect(spy).toHaveBeenCalled();
-            });
+            expect(spy).toHaveBeenCalled();
         }));
 
         it('should not change selected value manually when some segment item', () => {

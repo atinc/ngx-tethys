@@ -2,8 +2,8 @@ import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/test
 import { generateRandomStr } from 'ngx-tethys/util';
 import { of } from 'rxjs';
 
-import { HttpClient } from '@angular/common/http';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By, DomSanitizer } from '@angular/platform-browser';
@@ -39,9 +39,9 @@ class ThyIconTestBasicComponent {
 describe('ThyIconComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyIconModule, HttpClientTestingModule],
             declarations: [ThyIconTestBasicComponent],
-            providers: [bypassSanitizeProvider]
+            imports: [ThyIconModule],
+            providers: [bypassSanitizeProvider, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
         });
         TestBed.compileComponents();
         injectDefaultSvgIconSet();
@@ -171,9 +171,14 @@ describe('IconRegistry', () => {
     beforeEach(() => {
         httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
         TestBed.configureTestingModule({
-            imports: [ThyIconModule, HttpClientTestingModule],
             declarations: [],
-            providers: [bypassSanitizeProvider, { provide: HttpClient, useValue: httpClientSpy }]
+            imports: [ThyIconModule],
+            providers: [
+                bypassSanitizeProvider,
+                provideHttpClient(withInterceptorsFromDi()),
+                provideHttpClientTesting(),
+                { provide: HttpClient, useValue: httpClientSpy }
+            ]
         });
         TestBed.compileComponents();
         iconRegistry = TestBed.inject(ThyIconRegistry);

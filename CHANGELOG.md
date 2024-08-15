@@ -1,6 +1,55 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+
+# [18.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/18.0.0-next.1...18.0.0-next.2) (2024-08-14)
+
+
+
+
+# [18.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/17.0.17...18.0.0-next.1) (2024-08-01)
+
+
+### Features
+
+* **cdk:** return Observable for execute of ActionBehavior ([d9fde11](https://github.com/atinc/ngx-tethys/commit/d9fde111128706af69621d64256e236dce42fa60))
+
+
+### Reverts
+
+* Revert "build: release 18.0.0-next.1" ([285851e](https://github.com/atinc/ngx-tethys/commit/285851e7120ab6c9dc3c6aeb63394cfc90a986db))
+
+
+
+
+# [18.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/17.0.6...18.0.0-next.0) (2024-05-24)
+### Features
+
+* upgrade ng to 18 #INFR-12428 ([5e89bdb](https://github.com/atinc/ngx-tethys/commit/5e89bdbac4a0e5e7af4fe3cb8d8057ba120a6b7f)), closes [#INFR-12428](https://github.com/atinc/ngx-tethys/issues/INFR-12428)
+* **util:** remove deprecated for coerceBooleanProperty #INFR-12378 ([#3088](https://github.com/atinc/ngx-tethys/issues/3088)) ([921945a](https://github.com/atinc/ngx-tethys/commit/921945a5cd461ea31829aef9fac42eb4e3bf233f)), closes [#INFR-12378](https://github.com/atinc/ngx-tethys/issues/INFR-12378)
+
+
+### Bug Fixes
+
+* **cascader:** remove divider when set thyCustomOptions to undefined #INFR-12299 ([#3085](https://github.com/atinc/ngx-tethys/issues/3085)) ([80813dd](https://github.com/atinc/ngx-tethys/commit/80813dd425695e88f040983ac0b2e5428c3889af)), closes [#INFR-12299](https://github.com/atinc/ngx-tethys/issues/INFR-12299)
+
+
+
+
+## [17.0.18](https://github.com/atinc/ngx-tethys/compare/17.0.17...17.0.18) (2024-08-13)
+
+
+### Bug Fixes
+
+* **upload:** fileDrop support md type #FLW-17522 ([#3139](https://github.com/atinc/ngx-tethys/issues/3139)) ([6d8ed2c](https://github.com/atinc/ngx-tethys/commit/6d8ed2c63690ff38d1cfa80a9995bfa75f6916a6)), closes [#FLW-17522](https://github.com/atinc/ngx-tethys/issues/FLW-17522)
+* **upload:** support thyFilesSelect #TINFR-340 ([a8c93df](https://github.com/atinc/ngx-tethys/commit/a8c93df3410f14eed09127c405607fef84175a0f)), closes [#TINFR-340](https://github.com/atinc/ngx-tethys/issues/TINFR-340)
+
+### Features
+
+* **cdk:** return Observable for execute of ActionBehavior ([d9fde11](https://github.com/atinc/ngx-tethys/commit/d9fde111128706af69621d64256e236dce42fa60))
+* **stepper:** stepper support completed icon and customer icon #INFR-11818 ([c84bbdb](https://github.com/atinc/ngx-tethys/commit/c84bbdb7c85df4dfe337e1570eb5514aad121f33)), closes [#INFR-11818](https://github.com/atinc/ngx-tethys/issues/INFR-11818)
+
+
 
 ## [17.0.19](https://github.com/atinc/ngx-tethys/compare/17.0.18...17.0.19) (2024-08-14)
 

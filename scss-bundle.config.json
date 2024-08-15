@@ -1,9 +1,0 @@
-{
-  "bundlerOptions": {
-    "entryFile": "./src/styles/index.scss",
-    "rootDir": "./src",
-    "outFile": "./dist/tethys/styles/main.bundle.scss",
-    "ignoreImports": ["~@angular/.*"],
-    "logLevel": "trace"
-  }
-}
