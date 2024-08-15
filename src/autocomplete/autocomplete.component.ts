@@ -135,7 +135,10 @@ export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, After
      */
     @Output() readonly thyOptionActivated: EventEmitter<ThyAutocompleteActivatedEvent> = new EventEmitter<ThyAutocompleteActivatedEvent>();
 
-    constructor(private ngZone: NgZone, private changeDetectorRef: ChangeDetectorRef) {}
+    constructor(
+        private ngZone: NgZone,
+        private changeDetectorRef: ChangeDetectorRef
+    ) {}
 
     ngOnInit() {
         this.setDropDownClass();

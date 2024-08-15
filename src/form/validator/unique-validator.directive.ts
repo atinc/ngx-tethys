@@ -23,7 +23,10 @@ import { ThyFormDirective } from '../form.directive';
 export class ThyUniqueCheckValidator implements AsyncValidator {
     @Input() thyUniqueCheck: (value: any) => Observable<boolean>;
 
-    constructor(private elementRef: ElementRef, @Optional() private thyForm: ThyFormDirective) {}
+    constructor(
+        private elementRef: ElementRef,
+        @Optional() private thyForm: ThyFormDirective
+    ) {}
 
     validate(ctrl: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
         return this.thyUniqueCheck(ctrl.value).pipe(

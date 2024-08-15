@@ -164,7 +164,11 @@ export class ThySlider
 
     private onTouchedCallback = (v: any) => {};
 
-    constructor(private cdr: ChangeDetectorRef, private ngZone: NgZone, private ref: ElementRef) {
+    constructor(
+        private cdr: ChangeDetectorRef,
+        private ngZone: NgZone,
+        private ref: ElementRef
+    ) {
         super();
     }
 

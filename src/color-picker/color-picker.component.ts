@@ -12,7 +12,12 @@ import { takeUntil } from 'rxjs/operators';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export class OverlayBase extends ThyOverlayDirectiveBase {
-    constructor(protected zone: NgZone, protected elementRef: ElementRef<HTMLElement>, platform: Platform, focusMonitor: FocusMonitor) {
+    constructor(
+        protected zone: NgZone,
+        protected elementRef: ElementRef<HTMLElement>,
+        platform: Platform,
+        focusMonitor: FocusMonitor
+    ) {
         super(elementRef, platform, focusMonitor, zone, true);
     }
 

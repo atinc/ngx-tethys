@@ -76,7 +76,10 @@ export class ThyTimelineItem implements OnInit, OnChanges {
      */
     @ContentChild('description', { static: false }) description: TemplateRef<SafeAny>;
 
-    constructor(private cdr: ChangeDetectorRef, private timelineService: ThyTimelineService) {}
+    constructor(
+        private cdr: ChangeDetectorRef,
+        private timelineService: ThyTimelineService
+    ) {}
 
     detectChanges(): void {
         this.cdr.detectChanges();

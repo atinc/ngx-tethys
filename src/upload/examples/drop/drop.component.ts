@@ -11,7 +11,10 @@ const UPLOAD_URL = `http://www.mocky.io/v2/5cf52b1f2f0000c02c4f072f?mocky-delay=
 })
 export class ThyUploadDropExampleComponent {
     queueFiles: ThyUploadFile[] = [];
-    constructor(private thyUploadService: ThyUploadService, private notify: ThyNotifyService) {}
+    constructor(
+        private thyUploadService: ThyUploadService,
+        private notify: ThyNotifyService
+    ) {}
 
     onDrop(event: { files: File[] }) {
         for (let i = 0; i < event.files.length; i++) {

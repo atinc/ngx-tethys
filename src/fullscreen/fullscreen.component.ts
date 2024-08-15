@@ -42,7 +42,10 @@ export class ThyFullscreenComponent implements OnInit, OnDestroy {
     private ngUnsubscribe$ = new Subject<void>();
     private fullscreenLaunch$ = new Subject<ElementRef<HTMLButtonElement> | undefined>();
 
-    constructor(private elementRef: ElementRef, private service: ThyFullscreen) {}
+    constructor(
+        private elementRef: ElementRef,
+        private service: ThyFullscreen
+    ) {}
 
     ngOnInit(): void {
         this.fullscreenLaunch$

@@ -45,7 +45,11 @@ export class ThyShowDirective implements OnDestroy {
         }
     }
 
-    constructor(private elementRef: ElementRef<HTMLElement>, private renderer: Renderer2, private ngZone: NgZone) {}
+    constructor(
+        private elementRef: ElementRef<HTMLElement>,
+        private renderer: Renderer2,
+        private ngZone: NgZone
+    ) {}
 
     ngOnDestroy() {
         this.unListenDocument();

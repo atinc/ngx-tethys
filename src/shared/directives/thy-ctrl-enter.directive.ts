@@ -13,7 +13,11 @@ export class ThyCtrlEnterDirective implements OnInit, OnDestroy {
 
     private removeKeydownListenerFn: VoidFunction;
 
-    constructor(private ngZone: NgZone, private elementRef: ElementRef, private renderer: Renderer2) {}
+    constructor(
+        private ngZone: NgZone,
+        private elementRef: ElementRef,
+        private renderer: Renderer2
+    ) {}
 
     onKeydown = (event: KeyboardEvent) => {
         const keyCode = event.which || event.keyCode;

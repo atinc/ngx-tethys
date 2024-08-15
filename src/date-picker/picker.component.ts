@@ -130,7 +130,10 @@ export class ThyPicker implements OnChanges, AfterViewInit {
         return this.isRange || this.readonly || this.mode !== 'date';
     }
 
-    constructor(private changeDetector: ChangeDetectorRef, private dateHelper: DateHelperService) {}
+    constructor(
+        private changeDetector: ChangeDetectorRef,
+        private dateHelper: DateHelperService
+    ) {}
 
     ngOnChanges(changes: SimpleChanges): void {
         // open by user

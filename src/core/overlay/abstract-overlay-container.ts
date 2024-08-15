@@ -41,7 +41,10 @@ export abstract class ThyAbstractOverlayContainer<TData = unknown> {
     /** Before detach content*/
     beforeDetachPortal() {}
 
-    constructor(private options: ThyAbstractOverlayOptions, protected changeDetectorRef: ChangeDetectorRef) {}
+    constructor(
+        private options: ThyAbstractOverlayOptions,
+        protected changeDetectorRef: ChangeDetectorRef
+    ) {}
 
     /**
      * Attach a TemplatePortal as content to this overlay container.

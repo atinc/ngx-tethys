@@ -28,7 +28,10 @@ export class ThyResizableService implements OnDestroy {
     documentMouseMoveOutsideAngular$ = new Subject<MouseEvent | TouchEvent>();
     mouseEnteredOutsideAngular$ = new Subject<boolean>();
 
-    constructor(private ngZone: NgZone, @Inject(DOCUMENT) document: any) {
+    constructor(
+        private ngZone: NgZone,
+        @Inject(DOCUMENT) document: any
+    ) {
         this.document = document;
     }
 

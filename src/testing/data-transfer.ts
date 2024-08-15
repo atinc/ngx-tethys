@@ -9,7 +9,10 @@ function removeFromArray<T>(array: T[], item: T) {
 export class FakeDataTransferItem implements DataTransferItem {
     type: string;
 
-    constructor(private entry: FileSystemEntry, public kind: string) {}
+    constructor(
+        private entry: FileSystemEntry,
+        public kind: string
+    ) {}
 
     getAsFile(): File {
         return this.entry as unknown as File;

@@ -29,7 +29,10 @@ import { dispatchFakeEvent } from '../../testing';
     `
 })
 class ThyTestAvatarComponent {
-    constructor(private thyAvatarService: ThyAvatarService, private domSanitizer: DomSanitizer) {
+    constructor(
+        private thyAvatarService: ThyAvatarService,
+        private domSanitizer: DomSanitizer
+    ) {
         this.errorEmit$ = new Observable<Event>(subscriber => {
             this.errorSubscriber = subscriber;
         });

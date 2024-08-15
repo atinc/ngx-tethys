@@ -17,7 +17,10 @@ export class ThyFullscreenRef<TResult = unknown> {
 
     private readonly _afterExited = new Subject<TResult>();
 
-    constructor(@Inject(DOCUMENT) protected document: Document, private ngZone: NgZone) {}
+    constructor(
+        @Inject(DOCUMENT) protected document: Document,
+        private ngZone: NgZone
+    ) {}
 
     private onFullscreenChange() {
         const isFullScreen = this.isImmersiveFullscreen();

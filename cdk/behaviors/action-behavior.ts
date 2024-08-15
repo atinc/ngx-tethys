@@ -22,7 +22,10 @@ class ActionBehaviorImpl<R, A extends (...args: any) => Observable<R>> implement
 
     takeUntilDestroyed = takeUntilDestroyed();
 
-    constructor(private action: A, private context: BehaviorContext<R>) {}
+    constructor(
+        private action: A,
+        private context: BehaviorContext<R>
+    ) {}
 
     execute(success?: SuccessFn<R>, error?: ErrorFn): Observable<R>;
     execute(context: BehaviorContext<R>): Observable<R>;

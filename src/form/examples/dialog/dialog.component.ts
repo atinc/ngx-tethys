@@ -24,7 +24,10 @@ export class ThyFormDialogExampleComponent implements OnInit {
 
     saving = false;
 
-    constructor(public dialog: ThyDialog, private notifyService: ThyNotifyService) {}
+    constructor(
+        public dialog: ThyDialog,
+        private notifyService: ThyNotifyService
+    ) {}
 
     ngOnInit(): void {}
 

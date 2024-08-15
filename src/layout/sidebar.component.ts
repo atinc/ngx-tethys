@@ -312,7 +312,10 @@ export class ThySidebar implements OnInit, OnDestroy {
 
     private hotkeySubscription: Subscription;
 
-    constructor(public elementRef: ElementRef, private hotkeyDispatcher: ThyHotkeyDispatcher) {}
+    constructor(
+        public elementRef: ElementRef,
+        private hotkeyDispatcher: ThyHotkeyDispatcher
+    ) {}
 
     ngOnInit() {
         this.updateCollapseTip();

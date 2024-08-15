@@ -35,7 +35,11 @@ export class ThyMentionSuggestions<TItem = MentionDefaultDataItem> implements On
 
     @HostBinding('class.thy-mention-suggestions') suggestionsClass = true;
 
-    constructor(public elementRef: ElementRef<HTMLElement>, private ngZone: NgZone, private popoverRef: ThyPopoverRef<any>) {
+    constructor(
+        public elementRef: ElementRef<HTMLElement>,
+        private ngZone: NgZone,
+        private popoverRef: ThyPopoverRef<any>
+    ) {
         this.search$
             .pipe(
                 switchMap(query => {

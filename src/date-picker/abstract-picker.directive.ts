@@ -211,7 +211,11 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
         });
     }
 
-    constructor(public elementRef: ElementRef, public cdr: ChangeDetectorRef, private thyPopover: ThyPopover) {
+    constructor(
+        public elementRef: ElementRef,
+        public cdr: ChangeDetectorRef,
+        private thyPopover: ThyPopover
+    ) {
         super(cdr);
     }
 

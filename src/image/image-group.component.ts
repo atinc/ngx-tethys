@@ -13,7 +13,10 @@ import { ThyImageDirective } from './image.directive';
     standalone: true
 })
 export class ThyImageGroup {
-    constructor(public injector: Injector, public element: ElementRef) {}
+    constructor(
+        public injector: Injector,
+        public element: ElementRef
+    ) {}
 
     images: ThyImageDirective[] = [];
 

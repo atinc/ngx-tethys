@@ -38,7 +38,10 @@ export class ThyGridItem implements OnInit {
 
     public offset: number = 0;
 
-    constructor(public elementRef: ElementRef, @Optional() @Inject(THY_GRID_COMPONENT) private grid: ThyGridToken) {}
+    constructor(
+        public elementRef: ElementRef,
+        @Optional() @Inject(THY_GRID_COMPONENT) private grid: ThyGridToken
+    ) {}
 
     ngOnInit(): void {
         this.grid.gridItemPropValueChange$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {

@@ -139,7 +139,10 @@ export class ThyDateRange implements OnInit, ControlValueAccessor {
 
     public onModelTouched: Function = () => {};
 
-    constructor(private thyPopover: ThyPopover, private cdr: ChangeDetectorRef) {}
+    constructor(
+        private thyPopover: ThyPopover,
+        private cdr: ChangeDetectorRef
+    ) {}
 
     writeValue(value: any): void {
         if (value) {

@@ -98,7 +98,10 @@ export class ThyCollapseItem implements OnInit, OnDestroy {
      */
     @Output() thyActiveChange = new EventEmitter<{ active: boolean; event: Event }>();
 
-    constructor(private cdr: ChangeDetectorRef, @Host() private thyCollapseComponent: ThyCollapse) {}
+    constructor(
+        private cdr: ChangeDetectorRef,
+        @Host() private thyCollapseComponent: ThyCollapse
+    ) {}
 
     ngOnInit() {
         this.thyCollapseComponent.addPanel(this);

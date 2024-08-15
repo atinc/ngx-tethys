@@ -116,7 +116,10 @@ export class BasePicker extends AbstractPickerComponent implements OnInit, OnCha
 
     ngZone = inject(NgZone);
 
-    constructor(cdr: ChangeDetectorRef, protected element: ElementRef) {
+    constructor(
+        cdr: ChangeDetectorRef,
+        protected element: ElementRef
+    ) {
         super(cdr);
     }
 

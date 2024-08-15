@@ -7,7 +7,12 @@
  * Alpha = range from 0-1
  */
 export class ThyRgba {
-    constructor(public red: number, public green: number, public blue: number, public alpha: number) {}
+    constructor(
+        public red: number,
+        public green: number,
+        public blue: number,
+        public alpha: number
+    ) {}
 
     public toString(showAlphaChannel: boolean = true): string {
         return showAlphaChannel

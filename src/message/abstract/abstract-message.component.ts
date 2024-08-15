@@ -26,7 +26,10 @@ export class ThyAbstractMessageComponent<TConfig extends ThyMessageBaseConfig> i
         this.config = value;
     }
 
-    constructor(private _ngZone: NgZone, queue: ThyAbstractMessageQueue) {
+    constructor(
+        private _ngZone: NgZone,
+        queue: ThyAbstractMessageQueue
+    ) {
         this.queue = queue;
     }
 

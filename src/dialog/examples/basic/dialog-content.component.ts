@@ -18,7 +18,10 @@ export class ThyDialogBasicContentComponent implements OnInit {
 
     allowClear = true;
 
-    constructor(private thyDialogRef: ThyDialogRef<any>, public thyDialog: ThyDialog) {}
+    constructor(
+        private thyDialogRef: ThyDialogRef<any>,
+        public thyDialog: ThyDialog
+    ) {}
 
     ngOnInit() {
         console.log(`ngOnInit get data: ${this.data}`);

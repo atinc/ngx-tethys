@@ -76,7 +76,11 @@ export class ThyIcon implements OnInit, OnChanges {
 
     private hostRenderer = useHostRenderer();
 
-    constructor(private render: Renderer2, private elementRef: ElementRef, private iconRegistry: ThyIconRegistry) {}
+    constructor(
+        private render: Renderer2,
+        private elementRef: ElementRef,
+        private iconRegistry: ThyIconRegistry
+    ) {}
 
     ngOnInit() {
         this.updateClasses();

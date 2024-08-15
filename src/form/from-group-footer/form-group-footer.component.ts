@@ -35,7 +35,10 @@ export class ThyFormGroupFooter implements OnInit {
         return !!this.thyAlign ? this.thyAlign : this.defaultConfig.footerAlign;
     }
 
-    constructor(@Optional() private thyParentForm: ThyFormDirective, @Inject(THY_FORM_CONFIG) private defaultConfig: ThyFormConfig) {}
+    constructor(
+        @Optional() private thyParentForm: ThyFormDirective,
+        @Inject(THY_FORM_CONFIG) private defaultConfig: ThyFormConfig
+    ) {}
 
     ngOnInit() {
         if (this.thyParentForm) {

@@ -63,7 +63,10 @@ export class ThyScrollDirective implements OnInit, OnDestroy {
      */
     @Output() thyOnScrolled: EventEmitter<ElementRef> = new EventEmitter<ElementRef>();
 
-    constructor(private elementRef: ElementRef<any>, private ngZone: NgZone) {}
+    constructor(
+        private elementRef: ElementRef<any>,
+        private ngZone: NgZone
+    ) {}
 
     ngOnInit() {
         if (this._enable) {

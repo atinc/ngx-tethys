@@ -108,7 +108,11 @@ export class ThyGrid implements ThyGridToken, OnInit, OnChanges, AfterContentIni
 
     private takeUntilDestroyed = takeUntilDestroyed();
 
-    constructor(private elementRef: ElementRef, private viewportRuler: ViewportRuler, private ngZone: NgZone) {}
+    constructor(
+        private elementRef: ElementRef,
+        private viewportRuler: ViewportRuler,
+        private ngZone: NgZone
+    ) {}
 
     ngOnInit(): void {
         this.setGridStyle();

@@ -197,9 +197,12 @@ export abstract class ThyOverlayDirectiveBase {
         this.show();
 
         if (this.isAutoCloseOnMobileTouch) {
-            setTimeout(() => {
-                this.hide(0);
-            }, this.touchendHideDelay + (isNumber(this.showDelay) ? this.showDelay : 0));
+            setTimeout(
+                () => {
+                    this.hide(0);
+                },
+                this.touchendHideDelay + (isNumber(this.showDelay) ? this.showDelay : 0)
+            );
         }
     }
 

@@ -12,7 +12,11 @@ export class ThyContextMenuDirective implements OnInit, OnDestroy {
 
     private removeContextListenerFn: VoidFunction;
 
-    constructor(private ngZone: NgZone, private elementRef: ElementRef, private renderer: Renderer2) {}
+    constructor(
+        private ngZone: NgZone,
+        private elementRef: ElementRef,
+        private renderer: Renderer2
+    ) {}
 
     rightClick = (event: Event) => {
         event.preventDefault();

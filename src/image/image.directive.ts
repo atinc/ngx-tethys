@@ -68,7 +68,11 @@ export class ThyImageDirective implements OnInit, OnChanges, AfterViewInit, OnDe
 
     private parentGroup: ThyImageGroup;
 
-    constructor(private thyImageService: ThyImageService, private injector: Injector, private elementRef: ElementRef) {}
+    constructor(
+        private thyImageService: ThyImageService,
+        private injector: Injector,
+        private elementRef: ElementRef
+    ) {}
 
     ngOnInit(): void {
         this.getParentGroup();

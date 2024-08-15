@@ -190,7 +190,10 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
 
     onTouchedFn: () => void = () => void 0;
 
-    constructor(private cdr: ChangeDetectorRef, private elementRef: ElementRef) {}
+    constructor(
+        private cdr: ChangeDetectorRef,
+        private elementRef: ElementRef
+    ) {}
 
     ngOnInit() {}
 

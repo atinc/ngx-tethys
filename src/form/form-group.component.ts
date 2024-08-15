@@ -150,7 +150,10 @@ export class ThyFormGroup implements OnInit {
     @ContentChild('content')
     public contentTemplate: TemplateRef<any>;
 
-    constructor(@Optional() private thyParentForm: ThyFormDirective, private thyTranslate: ThyTranslate) {}
+    constructor(
+        @Optional() private thyParentForm: ThyFormDirective,
+        private thyTranslate: ThyTranslate
+    ) {}
 
     ngOnInit() {
         this.isHorizontal = this.thyParentForm ? this.thyParentForm.isHorizontal : true;

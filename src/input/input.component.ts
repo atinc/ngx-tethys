@@ -127,7 +127,10 @@ export class ThyInput implements ControlValueAccessor, OnInit {
 
     private onChangeCallback: (_: any) => void = noop;
 
-    constructor(private ngZone: NgZone, private elementRef: ElementRef) {}
+    constructor(
+        private ngZone: NgZone,
+        private elementRef: ElementRef
+    ) {}
 
     ngOnInit() {
         this.ngZone.onStable.pipe(take(1)).subscribe(() => {

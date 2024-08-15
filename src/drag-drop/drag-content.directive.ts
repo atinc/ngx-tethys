@@ -13,7 +13,10 @@ import { ThyDragDirective } from './drag.directive';
 export class ThyDragContentDirective {
     @HostBinding('class.thy-drag-content') contentClass = true;
 
-    constructor(public element: ElementRef<HTMLElement>, @Optional() drag: ThyDragDirective) {
+    constructor(
+        public element: ElementRef<HTMLElement>,
+        @Optional() drag: ThyDragDirective
+    ) {
         if (drag) {
             drag.dragRef.withContentElement(this.element);
         }

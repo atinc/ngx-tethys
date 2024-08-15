@@ -18,7 +18,10 @@ export class ThyStringOrTemplateOutletDirective implements OnChanges {
 
     @Input() thyStringOrTemplateOutlet: any | TemplateRef<any>;
 
-    constructor(private viewContainerRef: ViewContainerRef, private renderer: Renderer2) {}
+    constructor(
+        private viewContainerRef: ViewContainerRef,
+        private renderer: Renderer2
+    ) {}
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes['thyStringOrTemplateOutlet']) {

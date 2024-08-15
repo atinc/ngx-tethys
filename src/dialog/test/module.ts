@@ -41,7 +41,10 @@ export class DialogSimpleContentComponent {
     `
 })
 export class DialogFullContentComponent {
-    constructor(public dialogRef: ThyDialogRef<DialogFullContentComponent>, public dialogInjector: Injector) {}
+    constructor(
+        public dialogRef: ThyDialogRef<DialogFullContentComponent>,
+        public dialogInjector: Injector
+    ) {}
 
     ok() {
         this.close();

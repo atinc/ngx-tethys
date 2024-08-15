@@ -22,7 +22,10 @@ import { ThyDatePickerConfigService } from '../../date-picker.service';
 export class DateTable extends CalendarTable implements OnChanges {
     @Output() readonly dayHover = new EventEmitter<TinyDate>(); // Emitted when hover on a day by mouse enter
 
-    constructor(private dateHelper: DateHelperService, private datePickerConfigService: ThyDatePickerConfigService) {
+    constructor(
+        private dateHelper: DateHelperService,
+        private datePickerConfigService: ThyDatePickerConfigService
+    ) {
         super();
     }
 

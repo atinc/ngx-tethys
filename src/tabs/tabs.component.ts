@@ -111,7 +111,10 @@ export class ThyTabs implements OnInit, OnChanges, AfterContentInit {
 
     transitionStarted: boolean = false;
 
-    constructor(private cd: ChangeDetectorRef, private el: ElementRef) {}
+    constructor(
+        private cd: ChangeDetectorRef,
+        private el: ElementRef
+    ) {}
 
     ngOnInit(): void {
         const tabsContent = this.el.nativeElement.querySelector('.thy-tabs-content');

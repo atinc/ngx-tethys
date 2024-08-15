@@ -103,7 +103,10 @@ export class ThyFormCheckBaseComponent extends TabIndexDisabledControlValueAcces
         this.markForCheck();
     }
 
-    constructor(protected thyTranslate: ThyTranslate, protected changeDetectorRef?: ChangeDetectorRef) {
+    constructor(
+        protected thyTranslate: ThyTranslate,
+        protected changeDetectorRef?: ChangeDetectorRef
+    ) {
         super();
     }
 
