@@ -18,12 +18,12 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 
 import { NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ThyGridModule } from 'ngx-tethys/grid';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyTag } from 'ngx-tethys/tag';
 import { SelectOptionBase } from '../../option/select-option-base';
-import { ThyGridModule } from 'ngx-tethys/grid';
 
-export type SelectControlSize = 'sm' | 'md' | 'lg' | '';
+export type SelectControlSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
 /**
  * @private
@@ -162,7 +162,7 @@ export class ThySelectControl implements OnInit {
         this.size = value;
         this.setSelectControlClass();
 
-        if (value === 'sm') {
+        if (value === 'xs' || value === 'sm') {
             this.tagSize = 'sm';
         } else if (value === 'lg') {
             this.tagSize = 'lg';

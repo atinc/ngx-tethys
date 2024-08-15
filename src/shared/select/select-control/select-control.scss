@@ -12,6 +12,14 @@
     );
     padding-right: 26px;
 
+    &.form-control-xs {
+        @include select.select-control-size(
+            variables.$tag-height-sm,
+            variables.$select-control-padding-y-xs,
+            variables.$select-control-height-xs
+        );
+    }
+
     &.form-control-sm {
         @include select.select-control-size(
             variables.$tag-height-sm,
