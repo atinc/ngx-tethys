@@ -20,6 +20,10 @@ export class ThySelectSizeExampleComponent implements OnInit {
 
     selectSizes = [
         {
+            name: 'xs',
+            height: 24
+        },
+        {
             name: 'sm',
             height: 28
         },
@@ -37,7 +41,7 @@ export class ThySelectSizeExampleComponent implements OnInit {
         }
     ];
 
-    currentSize = this.selectSizes[2];
+    currentSize = this.selectSizes[3];
 
     ngOnInit() {}
 }
