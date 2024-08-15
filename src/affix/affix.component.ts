@@ -81,7 +81,7 @@ export class ThyAffix implements AfterViewInit, OnChanges, OnDestroy {
     private positionChangeSubscription: Subscription = Subscription.EMPTY;
     private offsetChanged$ = new ReplaySubject(1);
     private destroy$ = new Subject<void>();
-    private timeout?: NodeJS.Timeout;
+    private timeout?: any;
     private document: any;
 
     private get container(): Element | Window {

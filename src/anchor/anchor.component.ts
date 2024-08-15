@@ -119,7 +119,7 @@ export class ThyAnchor implements OnDestroy, AfterViewInit, OnChanges {
 
     private destroy$ = new Subject<void>();
 
-    private handleScrollTimeoutID: NodeJS.Timeout | number = -1;
+    private handleScrollTimeoutID: any = -1;
 
     constructor(
         @Inject(DOCUMENT) private document: any,
