@@ -10,10 +10,12 @@ export class ThyDropdownOptionsExampleComponent {
         placement?: ThyPlacement;
         height?: string | number;
         minWidth?: string | number;
+        outsideClosable?: boolean;
     } = {
         placement: 'bottom',
         height: 108,
-        minWidth: '200px'
+        minWidth: '200px',
+        outsideClosable: true
     };
 
     placement: ThyPlacement = 'bottomRight';

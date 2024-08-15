@@ -92,10 +92,10 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
     @Input() thyActiveClass: string = 'thy-dropdown-origin-active';
 
     /**
-     * 弹出框的参数，底层使用 Popover 组件, 默认为`{ placement: "bottomLeft", insideClosable: true, minWidth: "240px" }`
-     * @default { placement: "bottomLeft", insideClosable: true, minWidth: "240px" }
+     * 弹出框的参数，底层使用 Popover 组件, 默认为`{ placement: "bottomLeft", insideClosable: true, minWidth: "240px", outsideClosable: true }`
+     * @default { placement: "bottomLeft", insideClosable: true, minWidth: "240px", outsideClosable: true }
      */
-    @Input() thyPopoverOptions: Pick<ThyPopoverConfig, 'placement' | 'height' | 'insideClosable' | 'minWidth'>;
+    @Input() thyPopoverOptions: Pick<ThyPopoverConfig, 'placement' | 'height' | 'insideClosable' | 'minWidth' | 'outsideClosable'>;
 
     /**
      * 弹出框的显示位置，会覆盖 thyPopoverOptions 中的 placement，`top` | `topLeft` | `topRight` | `bottom` | `bottomLeft` | `bottomRight` | `left` | `leftTop` | `leftBottom` | `right` | `rightTop` | `rightBottom`
@@ -155,8 +155,8 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
             }
         }
 
-        const { placement, height, insideClosable, minWidth } = Object.assign(
-            { placement: 'bottomLeft', insideClosable: true },
+        const { placement, height, insideClosable, outsideClosable, minWidth } = Object.assign(
+            { placement: 'bottomLeft', insideClosable: true, outsideClosable: true },
             this.thyPopoverOptions
         );
         const config: ThyPopoverConfig = {
@@ -167,7 +167,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
             panelClass: this.thyPanelClass,
             placement: this.thyPlacement ? this.thyPlacement : placement,
             height,
-            outsideClosable: true,
+            outsideClosable,
             insideClosable: helpers.isUndefined(this.thyMenuInsideClosable) ? insideClosable : this.thyMenuInsideClosable,
             minWidth,
             originActiveClass: this.thyActiveClass

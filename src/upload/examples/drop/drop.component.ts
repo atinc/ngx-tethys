@@ -1,6 +1,7 @@
 import { ThyUploadFile, ThyUploadService, ThyUploadStatus } from 'ngx-tethys/upload';
 
 import { Component } from '@angular/core';
+import { ThyNotifyService } from 'ngx-tethys/notify';
 
 const UPLOAD_URL = `http://www.mocky.io/v2/5cf52b1f2f0000c02c4f072f?mocky-delay=2s`;
 @Component({
@@ -10,7 +11,7 @@ const UPLOAD_URL = `http://www.mocky.io/v2/5cf52b1f2f0000c02c4f072f?mocky-delay=
 })
 export class ThyUploadDropExampleComponent {
     queueFiles: ThyUploadFile[] = [];
-    constructor(private thyUploadService: ThyUploadService) {}
+    constructor(private thyUploadService: ThyUploadService, private notify: ThyNotifyService) {}
 
     onDrop(event: { files: File[] }) {
         for (let i = 0; i < event.files.length; i++) {
@@ -30,5 +31,11 @@ export class ThyUploadDropExampleComponent {
                     }
                 });
         }
+    }
+
+    public mdDrop(event: { files: File[] }) {}
+
+    public filesRejected(files: File[]) {
+        this.notify.warning('文件类型不符合', files.map(item => item.name).join(',') + '不符合类型');
     }
 }

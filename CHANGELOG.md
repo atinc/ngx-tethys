@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [17.0.19](https://github.com/atinc/ngx-tethys/compare/17.0.18...17.0.19) (2024-08-14)
+
+
+### Features
+
+* **dropdown:** thyPopoverOptions support outsideClosable params ([#3144](https://github.com/atinc/ngx-tethys/issues/3144)) ([3fa855b](https://github.com/atinc/ngx-tethys/commit/3fa855b0c6417a7768aa37a5fa5b9c4f866380e3))
+
+
+
+## [17.0.18](https://github.com/atinc/ngx-tethys/compare/17.0.17...17.0.18) (2024-08-13)
+
+
+### Bug Fixes
+
+* **upload:** fileDrop support md type #FLW-17522 ([#3139](https://github.com/atinc/ngx-tethys/issues/3139)) ([6d8ed2c](https://github.com/atinc/ngx-tethys/commit/6d8ed2c63690ff38d1cfa80a9995bfa75f6916a6)), closes [#FLW-17522](https://github.com/atinc/ngx-tethys/issues/FLW-17522)
+* **upload:** support thyFilesSelect #TINFR-340 ([a8c93df](https://github.com/atinc/ngx-tethys/commit/a8c93df3410f14eed09127c405607fef84175a0f)), closes [#TINFR-340](https://github.com/atinc/ngx-tethys/issues/TINFR-340)
+
+
+### Features
+
+* **cdk:** return Observable for execute of ActionBehavior ([d9fde11](https://github.com/atinc/ngx-tethys/commit/d9fde111128706af69621d64256e236dce42fa60))
+* **stepper:** stepper support completed icon and customer icon #INFR-11818 ([c84bbdb](https://github.com/atinc/ngx-tethys/commit/c84bbdb7c85df4dfe337e1570eb5514aad121f33)), closes [#INFR-11818](https://github.com/atinc/ngx-tethys/issues/INFR-11818)
+
+
+
 ## [17.0.17](https://github.com/atinc/ngx-tethys/compare/17.0.16...17.0.17) (2024-07-26)
 
 

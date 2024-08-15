@@ -38,6 +38,12 @@ export class ThyFileDropDirective extends FileSelectBaseDirective implements OnI
 
     @Output() thyOnDrop = new EventEmitter();
 
+    /**
+     * 当拖拽的文件中有不符合 thyAcceptType 中定义的类型时触发
+     * @description.en-us It is triggered when there are files in the dragged files that do not conform to the types defined in thyAcceptType.
+     */
+    @Output() thyFilesReject = new EventEmitter<File[]>();
+
     private ngUnsubscribe$ = new Subject<void>();
 
     constructor(
@@ -98,9 +104,15 @@ export class ThyFileDropDirective extends FileSelectBaseDirective implements OnI
                 .subscribe((event: DragEvent) => {
                     this.ngZone.run(() => {
                         if (this.checkRejectFolderAndHtmlElement(event)) {
-                            const files = this.filterFilesOrItems(event.dataTransfer ? Array.from(event.dataTransfer.files) : []);
+                            const originFiles = event.dataTransfer ? Array.from(event.dataTransfer.files) : [];
+                            const files = this.filterFilesOrItems(originFiles) as File[];
+
+                            if (files.length !== originFiles.length) {
+                                const differentFiles = originFiles.filter(item => !files.includes(item));
+                                this.thyFilesReject.emit(differentFiles);
+                            }
                             if (!isEmpty(files)) {
-                                this.selectFiles(event, Array.from(event.dataTransfer.files), this.thyOnDrop);
+                                this.selectFiles(event, files, this.thyOnDrop);
                             }
                         }
                         this.resetDragOver();
