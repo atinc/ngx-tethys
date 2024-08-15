@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { NgIf } from '@angular/common';
+
 
 /**
  * 文本组件
@@ -15,7 +15,7 @@ import { NgIf } from '@angular/common';
         class: 'thy-text'
     },
     standalone: true,
-    imports: [NgIf, ThyIcon]
+    imports: [ThyIcon]
 })
 export class ThyText implements OnInit {
     /**

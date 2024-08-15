@@ -1,13 +1,23 @@
 <div class="thy-list-item-meta-avatar">
-  <ng-container *ngIf="thyAvatar; else avatarTemplateRef">
+  @if (thyAvatar) {
     <thy-avatar [thySrc]="thyAvatar"></thy-avatar>
-  </ng-container>
+  } @else {
+    <ng-template [ngTemplateOutlet]="avatarTemplateRef"></ng-template>
+  }
 </div>
 <div class="thy-list-item-meta-content">
   <div class="thy-list-item-meta-title">
-    <ng-container *ngIf="thyTitle; else titleTemplateRef">{{ thyTitle }}</ng-container>
+    @if (thyTitle) {
+      {{ thyTitle }}
+    } @else {
+      <ng-template [ngTemplateOutlet]="titleTemplateRef"></ng-template>
+    }
   </div>
   <div class="thy-list-item-meta-description">
-    <ng-container *ngIf="thyDescription; else descriptionTemplateRef">{{ thyDescription }}</ng-container>
+    @if (thyDescription) {
+      {{ thyDescription }}
+    } @else {
+      <ng-template [ngTemplateOutlet]="descriptionTemplateRef"></ng-template>
+    }
   </div>
 </div>

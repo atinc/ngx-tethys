@@ -7,11 +7,11 @@ import { ThyLoadingModule } from '../loading.module';
 @Component({
     selector: `test-loading`,
     template: `
-        <ng-container *ngIf="loadingDone">
-            <div style="width: 500px; height:500px">Test loading</div>
-        </ng-container>
+        @if (loadingDone) {
+          <div style="width: 500px; height:500px">Test loading</div>
+        }
         <thy-loading [thyDone]="loadingDone" [thyIsMask]="isMask" [thyTip]="tip"></thy-loading>
-    `
+        `
 })
 export class TestLoadingComponent {
     loadingDone: boolean;

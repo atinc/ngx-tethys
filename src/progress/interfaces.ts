@@ -20,6 +20,8 @@ export interface ThyProgressPathStyle {
 export interface ThyProgressCirclePath {
     stroke: string | null;
     strokePathStyle: ThyProgressPathStyle;
+    className: string;
+    value: number;
 }
 
 export type ThyProgressGapPositionType = 'top' | 'bottom' | 'left' | 'right';

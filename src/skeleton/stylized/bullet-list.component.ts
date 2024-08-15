@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
 import { InputCssPixel } from 'ngx-tethys/core';
 
-import { NgFor } from '@angular/common';
+
 import { ThySkeletonCircle } from '../skeleton-circle.component';
 import { ThySkeletonRectangle } from '../skeleton-rectangle.component';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
@@ -14,36 +14,36 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 @Component({
     selector: 'thy-skeleton-bullet-list',
     template: `
-        <ng-container *ngFor="let item of rowCount; index as i">
-            <div class="d-flex vertical-gap">
-                <thy-skeleton-circle
-                    [thyAnimated]="thyAnimated"
-                    [thyAnimatedInterval]="thyAnimatedInterval"
-                    [thySize]="thySize"
-                    [thyPrimaryColor]="thyPrimaryColor"
-                    [thySecondaryColor]="thySecondaryColor">
-                </thy-skeleton-circle>
-                <div class="horizontal-gap"></div>
-                <div style="flex: 1">
-                    <thy-skeleton-rectangle
-                        [thyRowWidth]="thyRowWidth"
-                        [thyRowHeight]="thyRowHeight"
-                        [thyAnimated]="thyAnimated"
-                        [thyPrimaryColor]="thyPrimaryColor"
-                        [thySecondaryColor]="thySecondaryColor"
-                        [thyBorderRadius]="thyBorderRadius"
-                        [thyAnimatedInterval]="thyAnimatedInterval"></thy-skeleton-rectangle>
-                </div>
+        @for (item of rowCount; track item; let i = $index) {
+          <div class="d-flex vertical-gap">
+            <thy-skeleton-circle
+              [thyAnimated]="thyAnimated"
+              [thyAnimatedInterval]="thyAnimatedInterval"
+              [thySize]="thySize"
+              [thyPrimaryColor]="thyPrimaryColor"
+              [thySecondaryColor]="thySecondaryColor">
+            </thy-skeleton-circle>
+            <div class="horizontal-gap"></div>
+            <div style="flex: 1">
+              <thy-skeleton-rectangle
+                [thyRowWidth]="thyRowWidth"
+                [thyRowHeight]="thyRowHeight"
+                [thyAnimated]="thyAnimated"
+                [thyPrimaryColor]="thyPrimaryColor"
+                [thySecondaryColor]="thySecondaryColor"
+                [thyBorderRadius]="thyBorderRadius"
+              [thyAnimatedInterval]="thyAnimatedInterval"></thy-skeleton-rectangle>
             </div>
-        </ng-container>
-    `,
+          </div>
+        }
+        `,
     host: {
         '[class.thy-skeleton-bullet-list]': 'true'
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [NgFor, ThySkeletonCircle, ThySkeletonRectangle]
+    imports: [ThySkeletonCircle, ThySkeletonRectangle]
 })
 export class ThySkeletonBulletList {
     /**

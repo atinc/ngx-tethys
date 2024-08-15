@@ -1,12 +1,15 @@
 <div class="layout-header-title">
   <ng-template [ngTemplateOutlet]="titleTemplateRef"></ng-template>
-  <ng-container *ngIf="!titleTemplateRef">
-    <thy-icon *ngIf="svgIconName; else iconFont" class="prefix-icon" [thyIconName]="svgIconName"></thy-icon>
-    <ng-template #iconFont>
-      <i *ngIf="iconClass" class="prefix-icon" [ngClass]="iconClass"></i>
-    </ng-template>
+  @if (!titleTemplateRef) {
+    @if (svgIconName) {
+      <thy-icon class="prefix-icon" [thyIconName]="svgIconName"></thy-icon>
+    } @else {
+      @if (iconClass) {
+        <i class="prefix-icon" [ngClass]="iconClass"></i>
+      }
+    }
     <span class="title-name">{{ thyTitle }}</span>
-  </ng-container>
+  }
 </div>
 <div class="layout-header-content">
   <ng-template [ngTemplateOutlet]="contentTemplateRef"></ng-template>

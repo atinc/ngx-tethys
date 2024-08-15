@@ -18,7 +18,7 @@ import { getFlexiblePositions, ThyPlacement } from 'ngx-tethys/core';
 import { TinyDate, coerceBooleanProperty } from 'ngx-tethys/util';
 import { ThyTimePanel } from './time-picker-panel.component';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { NgTemplateOutlet, NgIf, NgClass } from '@angular/common';
+import { NgTemplateOutlet, NgClass } from '@angular/common';
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
 
@@ -46,16 +46,15 @@ export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
     },
     standalone: true,
     imports: [
-        CdkOverlayOrigin,
-        ThyInputDirective,
-        FormsModule,
-        NgTemplateOutlet,
-        NgIf,
-        ThyIcon,
-        NgClass,
-        CdkConnectedOverlay,
-        ThyTimePanel
-    ],
+    CdkOverlayOrigin,
+    ThyInputDirective,
+    FormsModule,
+    NgTemplateOutlet,
+    ThyIcon,
+    NgClass,
+    CdkConnectedOverlay,
+    ThyTimePanel
+],
     animations: [scaleXMotion, scaleYMotion, scaleMotion]
 })
 export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccessor {

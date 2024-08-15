@@ -1,4 +1,4 @@
-import { NgClass, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
     Component,
     Directive,
@@ -142,10 +142,10 @@ export class ThySidebarDirective implements OnInit {
     preserveWhitespaces: false,
     template: `
         <ng-content></ng-content>
-        <div
+        @if (thyDraggable) {
+          <div
             thyResizable
             class="sidebar-drag"
-            *ngIf="thyDraggable"
             thyBounds="window"
             [thyMaxWidth]="thyDragMaxWidth"
             [thyMinWidth]="dragMinWidth"
@@ -153,29 +153,34 @@ export class ThySidebarDirective implements OnInit {
             (thyResizeStart)="resizeStart()"
             (thyResizeEnd)="resizeEnd()"
             [style.display]="!isResizable ? 'contents' : null">
-            <thy-resize-handle
-                *ngIf="!thyCollapsed"
+            @if (!thyCollapsed) {
+              <thy-resize-handle
                 [thyDirection]="sidebarDirective.thyDirection === 'right' ? 'left' : 'right'"
                 class="sidebar-resize-handle"
                 thyLine="true"
                 (mouseenter)="toggleResizable($event, 'enter')"
                 (mouseleave)="toggleResizable($event, 'leave')"
                 (dblclick)="restoreToDefaultWidth()">
-            </thy-resize-handle>
-        </div>
-        <div *ngIf="thyCollapsible" class="sidebar-collapse-line"></div>
-        <div
-            *ngIf="thyCollapsible && thyTrigger !== null"
+              </thy-resize-handle>
+            }
+          </div>
+        }
+        @if (thyCollapsible) {
+          <div class="sidebar-collapse-line"></div>
+        }
+        @if (thyCollapsible && thyTrigger !== null) {
+          <div
             class="sidebar-collapse"
             [ngClass]="{ 'collapse-visible': collapseVisible, 'collapse-hidden': collapseHidden }"
             (click)="toggleCollapse($event)"
             [thyTooltip]="!thyTrigger && collapseTip">
             <ng-template [ngTemplateOutlet]="thyTrigger || defaultTrigger"></ng-template>
             <ng-template #defaultTrigger>
-                <thy-icon class="sidebar-collapse-icon" [thyIconName]="this.thyCollapsed ? 'indent' : 'outdent'"></thy-icon>
+              <thy-icon class="sidebar-collapse-icon" [thyIconName]="this.thyCollapsed ? 'indent' : 'outdent'"></thy-icon>
             </ng-template>
-        </div>
-    `,
+          </div>
+        }
+        `,
     hostDirectives: [
         {
             directive: ThySidebarDirective,
@@ -183,7 +188,7 @@ export class ThySidebarDirective implements OnInit {
         }
     ],
     standalone: true,
-    imports: [NgTemplateOutlet, NgIf, ThyResizeHandle, ThyResizableDirective, ThyIcon, ThyTooltipDirective, NgClass, NgStyle]
+    imports: [NgTemplateOutlet, ThyResizeHandle, ThyResizableDirective, ThyIcon, ThyTooltipDirective, NgClass, NgStyle]
 })
 export class ThySidebar implements OnInit, OnDestroy {
     sidebarDirective = inject(ThySidebarDirective);

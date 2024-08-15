@@ -3,7 +3,7 @@ import { SafeAny } from 'ngx-tethys/types';
 import { ChangeDetectionStrategy, Component, Input, TemplateRef } from '@angular/core';
 import { ThyAvatar } from 'ngx-tethys/avatar';
 import { ThyStringOrTemplateOutletDirective } from 'ngx-tethys/shared';
-import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 
 /**
  * 评论组件
@@ -17,7 +17,7 @@ import { NgIf, NgTemplateOutlet } from '@angular/common';
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [NgIf, NgTemplateOutlet, ThyStringOrTemplateOutletDirective, ThyAvatar]
+    imports: [NgTemplateOutlet, ThyStringOrTemplateOutletDirective, ThyAvatar]
 })
 export class ThyComment {
     /**

@@ -208,31 +208,41 @@ describe('thy-anchor', () => {
 @Component({
     template: `
         <div class="demo-card">
-            <thy-anchor #anchor [thyDirection]="thyDirection" [thyOffsetTop]="thyOffsetTop">
-                <thy-anchor-link thyHref="#will-not-found-id" thyTitle="Basic demo"></thy-anchor-link>
-                <thy-anchor-link thyHref="#components-anchor-demo-basic" thyTitle="Basic demo"></thy-anchor-link>
-                <thy-anchor-link thyHref="#components-anchor-demo-static" thyTitle="Static demo"></thy-anchor-link>
-                <thy-anchor-link thyHref="#API" thyTitle="API">
-                    <ng-container *ngIf="showChildren">
-                        <thy-anchor-link thyHref="#anchor-props" thyTitle="thy-anchor"></thy-anchor-link>
-                        <thy-anchor-link thyHref="#link-props" thyTitle="thy-anchor-link"></thy-anchor-link>
-                    </ng-container>
-                </thy-anchor-link>
-            </thy-anchor>
-            <div>
-                <h1 id="components-anchor-demo-basic">Basic demo</h1>
-                <p *ngFor="let item of demos">this is a demo</p>
-                <h1 id="components-anchor-demo-static">Static demo</h1>
-                <p *ngFor="let item of demos">this is a static demo</p>
-                <h1 id="API">API</h1>
-                <p *ngFor="let item of demos">this is a api</p>
-                <h1 id="anchor-props">API - thy-anchor</h1>
-                <p *ngFor="let item of demos">this is a api-anchor</p>
-                <h1 id="link-props">API - thy-anchor-link</h1>
-                <p *ngFor="let item of demos">this is a api-link</p>
-            </div>
+          <thy-anchor #anchor [thyDirection]="thyDirection" [thyOffsetTop]="thyOffsetTop">
+            <thy-anchor-link thyHref="#will-not-found-id" thyTitle="Basic demo"></thy-anchor-link>
+            <thy-anchor-link thyHref="#components-anchor-demo-basic" thyTitle="Basic demo"></thy-anchor-link>
+            <thy-anchor-link thyHref="#components-anchor-demo-static" thyTitle="Static demo"></thy-anchor-link>
+            <thy-anchor-link thyHref="#API" thyTitle="API">
+              @if (showChildren) {
+                <thy-anchor-link thyHref="#anchor-props" thyTitle="thy-anchor"></thy-anchor-link>
+                <thy-anchor-link thyHref="#link-props" thyTitle="thy-anchor-link"></thy-anchor-link>
+              }
+            </thy-anchor-link>
+          </thy-anchor>
+          <div>
+            <h1 id="components-anchor-demo-basic">Basic demo</h1>
+            @for (item of demos; track item) {
+              <p>this is a demo</p>
+            }
+            <h1 id="components-anchor-demo-static">Static demo</h1>
+            @for (item of demos; track item) {
+              <p>this is a static demo</p>
+            }
+            <h1 id="API">API</h1>
+            @for (item of demos; track item) {
+              <p>this is a api</p>
+            }
+            <h1 id="anchor-props">API - thy-anchor</h1>
+            @for (item of demos; track item) {
+              <p>this is a api-anchor</p>
+            }
+            <h1 id="link-props">API - thy-anchor-link</h1>
+            @for (item of demos; track item) {
+              <p>this is a api-link</p>
+            }
+          </div>
         </div>
-    `
+        `
 })
 class TestAnchorComponent implements OnInit {
     demos: number[] = [];
@@ -257,15 +267,17 @@ class TestAnchorComponent implements OnInit {
     template: `
         <h1 id="components-anchor-demo-basic" style="position: absolute;top: 1000px;">outside</h1>
         <div class="demo-card">
-            <thy-anchor #anchor [thyOffsetTop]="thyOffsetTop" thyContainer=".demo-card">
-                <thy-anchor-link thyHref="#components-anchor-demo-basic" thyTitle="Basic demo"></thy-anchor-link>
-            </thy-anchor>
-            <div>
-                <h1 id="components-anchor-demo-basic">Basic demo</h1>
-                <p *ngFor="let item of demos">this is a demo</p>
-            </div>
+          <thy-anchor #anchor [thyOffsetTop]="thyOffsetTop" thyContainer=".demo-card">
+            <thy-anchor-link thyHref="#components-anchor-demo-basic" thyTitle="Basic demo"></thy-anchor-link>
+          </thy-anchor>
+          <div>
+            <h1 id="components-anchor-demo-basic">Basic demo</h1>
+            @for (item of demos; track item) {
+              <p>this is a demo</p>
+            }
+          </div>
         </div>
-    `
+        `
 })
 class TestContainerAnchorComponent implements OnInit {
     demos: number[] = [];

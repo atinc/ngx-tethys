@@ -4,6 +4,10 @@
   style="width: 500px"
   [thyLoadState]="loadState"
   (thyOnExpandStatusChange)="expandChange($event)">
-  <thy-option *ngFor="let option of loadMoreData" [thyValue]="option._id" [thyLabelText]="option.thyLabelText"> </thy-option>
-  <div class="loading-more font-size-xs text-desc" *ngIf="loading">加载中...</div>
+  @for (option of loadMoreData; track option) {
+    <thy-option [thyValue]="option._id" [thyLabelText]="option.thyLabelText"> </thy-option>
+  }
+  @if (loading) {
+    <div class="loading-more font-size-xs text-desc">加载中...</div>
+  }
 </thy-select>

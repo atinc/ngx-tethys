@@ -1,7 +1,9 @@
 <thy-button-group thySize="sm" thyType="outline-default" class="mb-4">
-  <button thyButton *ngFor="let item of sizes" (click)="size = item" [ngClass]="{ active: size === item }">
-    {{ item.text }}
-  </button>
+  @for (item of sizes; track item) {
+    <button thyButton (click)="size = item" [ngClass]="{ active: size === item }">
+      {{ item.text }}
+    </button>
+  }
 </thy-button-group>
 
 <div class="bg-example">

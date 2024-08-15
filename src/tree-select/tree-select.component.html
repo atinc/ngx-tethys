@@ -17,12 +17,11 @@
   (thyOnRemove)="removeMultipleSelectedNode($event)"
   (thyOnSearch)="searchValue($event)">
   <ng-template #customDisplayTemplate let-node>
-    <ng-container *ngIf="thyTreeSelectTriggerDisplayRef; else noneTemplate">
+    @if (thyTreeSelectTriggerDisplayRef) {
       <ng-template [ngTemplateOutlet]="thyTreeSelectTriggerDisplayRef" [ngTemplateOutletContext]="{ $implicit: node }"></ng-template>
-    </ng-container>
-    <ng-template #noneTemplate>
+    } @else {
       {{ node[thyShowKey] }}
-    </ng-template>
+    }
   </ng-template>
 </div>
 

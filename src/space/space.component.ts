@@ -17,7 +17,7 @@ import {
     TemplateRef
 } from '@angular/core';
 import { ThySpacingSize, getNumericSize } from 'ngx-tethys/core';
-import { NgFor, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
@@ -53,7 +53,7 @@ const DEFAULT_SIZE: ThySpacingSize = 'md';
         class: 'thy-space'
     },
     standalone: true,
-    imports: [NgFor, NgTemplateOutlet]
+    imports: [NgTemplateOutlet]
 })
 export class ThySpace implements OnInit, AfterContentInit {
     private readonly destroyRef = inject(DestroyRef);

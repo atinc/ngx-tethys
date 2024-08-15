@@ -14,24 +14,22 @@
   </div>
   <div class="thy-notify-main">
     <div class="thy-notify-title">{{ config?.title }}</div>
-    <div
-      *ngIf="config?.detail || config?.content"
-      class="thy-notify-content"
-      [ngClass]="{ 'thy-notify-content--extend': extendContentClass === true }"
-      (click)="extendContent()">
-      @if (config.content) {
-        @if (contentIsString) {
-          {{ config.content }}
-        } @else {
-          <ng-container *thyViewOutlet="config.content; context: config.contentInitialState"></ng-container>
+    @if (config?.detail || config?.content) {
+      <div class="thy-notify-content" [ngClass]="{ 'thy-notify-content--extend': extendContentClass === true }" (click)="extendContent()">
+        @if (config.content) {
+          @if (contentIsString) {
+            {{ config.content }}
+          } @else {
+            <ng-container *thyViewOutlet="config.content; context: config.contentInitialState"></ng-container>
+          }
         }
+        @if (config?.detail) {
+          <a href="javascript:;" class="link-secondary" (click)="triggerDetail()">{{ (config?.detail)['link'] }}</a>
+        }
+      </div>
+      @if (isShowDetail) {
+        <div class="thy-notify-detail">{{ (config?.detail)['content'] }}</div>
       }
-      @if (config?.detail) {
-        <a href="javascript:;" class="link-secondary" (click)="triggerDetail()">{{ (config?.detail)['link'] }}</a>
-      }
-    </div>
-    @if (isShowDetail) {
-      <div class="thy-notify-detail">{{ (config?.detail)['content'] }}</div>
     }
   </div>
 }

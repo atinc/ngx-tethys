@@ -10,7 +10,7 @@ import {
     useHostFocusControl
 } from 'ngx-tethys/core';
 
-import { NgIf } from '@angular/common';
+
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -70,7 +70,7 @@ const _MixinBase: Constructor<ThyHasTabIndex> &
         '[attr.tabindex]': 'tabIndex'
     },
     standalone: true,
-    imports: [NgIf, ThyIcon, ThyInputDirective, ThyAutofocusDirective, FormsModule]
+    imports: [ThyIcon, ThyInputDirective, ThyAutofocusDirective, FormsModule]
 })
 export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, OnInit, OnDestroy {
     @ViewChild('input', { static: true }) inputElement: ElementRef<any>;

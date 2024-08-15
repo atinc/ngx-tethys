@@ -468,28 +468,29 @@ describe('ThyTestDateRangeComponent', () => {
 
 @Component({
     template: `
-        <ng-container [ngSwitch]="useSuite">
-            <!-- Suite 1 for test general Api -->
-            <thy-date-range
-                *ngSwitchCase="1"
-                name="generalProperties"
-                [thyHiddenMenu]="hiddenMenu"
-                [thyDisabledSwitch]="hiddenSwitchRangeIcon"
-                [thyCustomTextValue]="customValue"
-                [thyOptionalDateRanges]="dateRanges"
-                [thyDisabledDate]="thyDisabledDate"
-                [(ngModel)]="selectedDate"></thy-date-range>
-
-            <!-- Suite 2 -->
-            <thy-date-range
-                *ngSwitchCase="2"
-                name="setCustomDateRanges"
-                [thyOptionalDateRanges]="customDateRanges"
-                [ngModel]="selectedDate"
-                (ngModelChange)="dateChanged($event)"
-                (thyOnCalendarChange)="calendarChange($event)"></thy-date-range>
-        </ng-container>
-    `
+@switch (useSuite) {
+  <!-- Suite 1 for test general Api -->
+  @case (1) {
+    <thy-date-range
+      name="generalProperties"
+      [thyHiddenMenu]="hiddenMenu"
+      [thyDisabledSwitch]="hiddenSwitchRangeIcon"
+      [thyCustomTextValue]="customValue"
+      [thyOptionalDateRanges]="dateRanges"
+      [thyDisabledDate]="thyDisabledDate"
+    [(ngModel)]="selectedDate"></thy-date-range>
+  }
+  <!-- Suite 2 -->
+  @case (2) {
+    <thy-date-range
+      name="setCustomDateRanges"
+      [thyOptionalDateRanges]="customDateRanges"
+      [ngModel]="selectedDate"
+      (ngModelChange)="dateChanged($event)"
+    (thyOnCalendarChange)="calendarChange($event)"></thy-date-range>
+  }
+}
+`
 })
 class ThyTestDateRangeComponent {
     useSuite: 1 | 2 | 3;

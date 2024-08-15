@@ -32,7 +32,7 @@ import { ThyNavItemDirective } from './nav-item.directive';
 import { BypassSecurityTrustHtmlPipe } from './nav.pipe';
 import { ThyDropdownMenuComponent, ThyDropdownMenuItemDirective, ThyDropdownMenuItemActiveDirective } from 'ngx-tethys/dropdown';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { NgClass, NgTemplateOutlet, NgIf, NgFor } from '@angular/common';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export type ThyNavType = 'pulled' | 'tabs' | 'pills' | 'lite' | 'primary' | 'secondary' | 'thirdly' | 'secondary-divider';
@@ -73,18 +73,16 @@ const tabItemRight = 20;
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
     imports: [
-        NgClass,
-        NgTemplateOutlet,
-        NgIf,
-        ThyNavItemDirective,
-        ThyIcon,
-        ThyNavInkBarDirective,
-        ThyDropdownMenuComponent,
-        NgFor,
-        ThyDropdownMenuItemDirective,
-        ThyDropdownMenuItemActiveDirective,
-        BypassSecurityTrustHtmlPipe
-    ]
+    NgClass,
+    NgTemplateOutlet,
+    ThyNavItemDirective,
+    ThyIcon,
+    ThyNavInkBarDirective,
+    ThyDropdownMenuComponent,
+    ThyDropdownMenuItemDirective,
+    ThyDropdownMenuItemActiveDirective,
+    BypassSecurityTrustHtmlPipe
+]
 })
 export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterContentChecked, OnChanges {
     private readonly destroyRef = inject(DestroyRef);

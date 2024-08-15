@@ -8,12 +8,16 @@
     [thyRightMax]="8"
     (thyDraggableUpdate)="onDragUpdate($event)"
     (thyChange)="onTransferChange($event)"
-  >
+    >
   </thy-transfer>
 </div>
 <div class="my-2">
-  锁定：<span class="px-2" *ngFor="let item of lockItems">{{ item.title }}</span>
+  锁定：@for (item of lockItems; track item) {
+  <span class="px-2">{{ item.title }}</span>
+}
 </div>
 <div class="my-2">
-  未锁定：<span class="px-2" *ngFor="let item of unlockItems">{{ item.title }}</span>
+  未锁定：@for (item of unlockItems; track item) {
+  <span class="px-2">{{ item.title }}</span>
+}
 </div>

@@ -1,16 +1,20 @@
-<div *ngIf="thyShowStepHeader" class="thy-stepper-header-container">
-  <ng-container *ngFor="let step of steps; let i = index; let isLast = last">
-    <thy-step-header
-      [index]="i"
-      [label]="step.thyLabel || step.label"
-      [icon]="step.thyIcon"
-      [selected]="selectedIndex === i"
-      [class.thy-stepper-header-active]="i <= selectedIndex"
-      [active]="i <= selectedIndex">
-    </thy-step-header>
-    <div *ngIf="!isLast" class="thy-stepper-line" [class.thy-stepper-line-active]="i < selectedIndex"></div>
-  </ng-container>
-</div>
+@if (thyShowStepHeader) {
+  <div class="thy-stepper-header-container">
+    @for (step of steps; track step; let i = $index; let isLast = $last) {
+      <thy-step-header
+        [index]="i"
+        [label]="step.thyLabel || step.label"
+        [icon]="step.thyIcon"
+        [selected]="selectedIndex === i"
+        [class.thy-stepper-header-active]="i <= selectedIndex"
+        [active]="i <= selectedIndex">
+      </thy-step-header>
+      @if (!isLast) {
+        <div class="thy-stepper-line" [class.thy-stepper-line-active]="i < selectedIndex"></div>
+      }
+    }
+  </div>
+}
 
 <div class="thy-stepper-content-container">
   <ng-container [ngTemplateOutlet]="selected?.content"></ng-container>

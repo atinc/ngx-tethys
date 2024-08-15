@@ -16,15 +16,16 @@ import { ThyNavModule } from '../nav.module';
     selector: 'app-nav-ink-bar',
     template: `
         <thy-nav [thyType]="type" [thyVertical]="isVertical" [thyResponsive]="responsive">
+          @for (item of navLinks; track item; let i = $index) {
             <a
-                *ngFor="let item of navLinks; index as i"
-                thyNavItem
-                [thyNavItemActive]="activeName === item.name"
-                (click)="activeName = item.name"
-                >{{ item.name }}</a
-            >
-        </thy-nav>
-    `,
+              thyNavItem
+              [thyNavItemActive]="activeName === item.name"
+              (click)="activeName = item.name"
+              >{{ item.name }}</a
+              >
+            }
+          </thy-nav>
+        `,
     styles: [
         `
             .thy-nav--vertical .thy-nav-item {
@@ -86,13 +87,17 @@ const routes: Routes = [
     selector: 'app-nav-router-link-active-mode',
     template: `
         <div style="width: 400px;height: 50px;">
-            <thy-nav [thyType]="type" [thySize]="size">
-                <a thyNavItem *ngFor="let item of navLinks" [routerLink]="[item.name]" routerLinkActive="active"
-                    >{{ item.name }} <thy-badge *ngIf="item.count" [thyCount]="item.count"> </thy-badge>
-                </a>
-            </thy-nav>
+          <thy-nav [thyType]="type" [thySize]="size">
+            @for (item of navLinks; track item) {
+              <a thyNavItem [routerLink]="[item.name]" routerLinkActive="active"
+                >{{ item.name }} @if (item.count) {
+                <thy-badge [thyCount]="item.count"> </thy-badge>
+              }
+            </a>
+          }
+        </thy-nav>
         </div>
-    `
+        `
 })
 export class NavInkBarRouterLinkActiveModeComponent implements OnInit {
     type: ThyNavType = 'pulled';
@@ -114,13 +119,17 @@ export class NavInkBarRouterLinkActiveModeComponent implements OnInit {
     selector: 'app-nav-have-badge-mode',
     template: `
         <div style="width: 400px;">
-            <thy-nav [thyType]="type" [thySize]="size">
-                <a thyNavItem *ngFor="let item of navLinks" [thyNavItemActive]="item.name === activeName"
-                    >{{ item.name }} <thy-badge *ngIf="item.count" [thyCount]="item.count"> </thy-badge>
-                </a>
-            </thy-nav>
+          <thy-nav [thyType]="type" [thySize]="size">
+            @for (item of navLinks; track item) {
+              <a thyNavItem [thyNavItemActive]="item.name === activeName"
+                >{{ item.name }} @if (item.count) {
+                <thy-badge [thyCount]="item.count"> </thy-badge>
+              }
+            </a>
+          }
+        </thy-nav>
         </div>
-    `
+        `
 })
 export class NavInkBarHaveBadgeModeComponent implements OnInit {
     type: ThyNavType = 'pulled';

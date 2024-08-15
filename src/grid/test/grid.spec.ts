@@ -26,13 +26,15 @@ export class TestGridDefaultComponent {}
     selector: 'test-grid-basic',
     template: `
         <thy-grid [thyCols]="cols" [thyGap]="gap" [thyXGap]="xGap" [thyYGap]="yGap" [thyResponsive]="responsive">
-            <thy-grid-item [thySpan]="span" [thyOffset]="offset"> </thy-grid-item>
-            <div thyGridItem [thySpan]="span2" [thyOffset]="offset2"></div>
+          <thy-grid-item [thySpan]="span" [thyOffset]="offset"> </thy-grid-item>
+          <div thyGridItem [thySpan]="span2" [thyOffset]="offset2"></div>
+          <div thyGridItem></div>
+          <div thyGridItem></div>
+          @if (show) {
             <div thyGridItem></div>
-            <div thyGridItem></div>
-            <div *ngIf="show" thyGridItem></div>
+          }
         </thy-grid>
-    `
+        `
 })
 export class TestGridBasicComponent {
     cols: number | ThyGridResponsiveDescription;

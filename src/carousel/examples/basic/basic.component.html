@@ -1,7 +1,9 @@
 <div>
   <thy-carousel>
-    <div thyCarouselItem *ngFor="let slide of array">
-      {{ slide }}
-    </div>
+    @for (slide of array; track slide) {
+      <div thyCarouselItem>
+        {{ slide }}
+      </div>
+    }
   </thy-carousel>
 </div>

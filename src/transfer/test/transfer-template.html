@@ -1,32 +1,38 @@
 <thy-transfer #comp [thyData]="dataSource" [thyTitles]="titles" (thyChange)="change($event)">
   <ng-template #renderLeftTemplate let-items let-selectItem="onSelectItem" let-unselectItem="onUnselectItem">
     <thy-selection-list [thyMultiple]="true" class="thy-transfer-list-content" thyUniqueKey="_id">
-      <thy-list-item class="thy-transfer-list-content-item" *ngFor="let item of items" (click)="select(item, selectItem, unselectItem)">
-        <div class="d-flex flex-grow-1 align-items-center">
-          <div class="item-name">
-            <thy-icon thyIconName="scrum-fill"></thy-icon>
-            <span>
-              {{ item.title }}
-            </span>
+      @for (item of items; track item) {
+        <thy-list-item class="thy-transfer-list-content-item" (click)="select(item, selectItem, unselectItem)">
+          <div class="d-flex flex-grow-1 align-items-center">
+            <div class="item-name">
+              <thy-icon thyIconName="scrum-fill"></thy-icon>
+              <span>
+                {{ item.title }}
+              </span>
+            </div>
+            @if (item.direction === 'right') {
+              <thy-icon class="item-status" thyIconName="check"></thy-icon>
+            }
           </div>
-          <thy-icon *ngIf="item.direction === 'right'" class="item-status" thyIconName="check"></thy-icon>
-        </div>
-      </thy-list-item>
+        </thy-list-item>
+      }
     </thy-selection-list>
   </ng-template>
   <ng-template #renderRightTemplate let-items let-selectItem="onSelectItem" let-unselectItem="onUnselectItem">
     <thy-selection-list [thyMultiple]="true" class="thy-transfer-list-content" thyUniqueKey="_id">
-      <thy-list-item class="thy-transfer-list-content-item" *ngFor="let item of items" (click)="select(item, selectItem, unselectItem)">
-        <div class="d-flex flex-grow-1 align-items-center">
-          <div class="item-name">
-            <thy-icon thyIconName="scrum-fill"></thy-icon>
-            <span>
-              {{ item.title }}
-            </span>
+      @for (item of items; track item) {
+        <thy-list-item class="thy-transfer-list-content-item" (click)="select(item, selectItem, unselectItem)">
+          <div class="d-flex flex-grow-1 align-items-center">
+            <div class="item-name">
+              <thy-icon thyIconName="scrum-fill"></thy-icon>
+              <span>
+                {{ item.title }}
+              </span>
+            </div>
+            <thy-icon class="item-status" thyIconName="close"></thy-icon>
           </div>
-          <thy-icon class="item-status" thyIconName="close"></thy-icon>
-        </div>
-      </thy-list-item>
+        </thy-list-item>
+      }
     </thy-selection-list>
   </ng-template>
 </thy-transfer>

@@ -1,4 +1,4 @@
-import { NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
     AfterViewInit,
     ChangeDetectionStrategy,
@@ -32,7 +32,7 @@ const COLUMN_COUNT = 5;
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [NgFor, NgClass, NgIf, NgStyle, NgTemplateOutlet, ThyViewOutletDirective, ThySkeletonRectangle, ThySkeletonCircle]
+    imports: [NgClass, NgStyle, NgTemplateOutlet, ThyViewOutletDirective, ThySkeletonRectangle, ThySkeletonCircle]
 })
 export class ThyTableSkeleton implements AfterViewInit {
     @ViewChild('titleTemplate') titleTemplate: ElementRef<HTMLElement>;

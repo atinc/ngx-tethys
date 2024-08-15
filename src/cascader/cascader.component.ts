@@ -1,5 +1,5 @@
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange, ConnectionPositionPair } from '@angular/cdk/overlay';
-import { isPlatformBrowser, NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { isPlatformBrowser, NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
     AfterContentInit,
     ChangeDetectorRef,
@@ -68,20 +68,18 @@ import { ThyCascaderExpandTrigger, ThyCascaderOption, ThyCascaderSearchOption, T
     },
     standalone: true,
     imports: [
-        CdkOverlayOrigin,
-        NgIf,
-        ThySelectControl,
-        NgClass,
-        NgTemplateOutlet,
-        CdkConnectedOverlay,
-        NgStyle,
-        NgFor,
-        ThyCascaderOptionComponent,
-        ThyCascaderSearchOptionComponent,
-        ThyEmpty,
-        ThyIcon,
-        ThyDivider
-    ],
+    CdkOverlayOrigin,
+    ThySelectControl,
+    NgClass,
+    NgTemplateOutlet,
+    CdkConnectedOverlay,
+    NgStyle,
+    ThyCascaderOptionComponent,
+    ThyCascaderSearchOptionComponent,
+    ThyEmpty,
+    ThyIcon,
+    ThyDivider
+],
     animations: [scaleYMotion]
 })
 export class ThyCascader

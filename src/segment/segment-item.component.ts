@@ -18,7 +18,7 @@ import { Subject, fromEvent } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { SafeAny } from 'ngx-tethys/types';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 
 /**
  * 分段控制器的选项组件
@@ -32,7 +32,7 @@ import { NgClass, NgIf } from '@angular/common';
         class: 'thy-segment-item'
     },
     standalone: true,
-    imports: [NgClass, NgIf, ThyIcon]
+    imports: [NgClass, ThyIcon]
 })
 export class ThySegmentItem implements AfterViewInit, OnDestroy {
     /**

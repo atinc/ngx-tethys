@@ -1,4 +1,4 @@
-import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ContentChild, Directive, Input, TemplateRef } from '@angular/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
@@ -39,7 +39,7 @@ export class ThySidebarHeaderDirective {
         }
     ],
     standalone: true,
-    imports: [NgTemplateOutlet, NgIf]
+    imports: [NgTemplateOutlet]
 })
 export class ThySidebarHeader {
     /**

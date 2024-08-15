@@ -1,6 +1,6 @@
 import { Component, Input, HostBinding, ChangeDetectionStrategy, TemplateRef, ContentChild } from '@angular/core';
 import { ThyAvatar } from 'ngx-tethys/avatar';
-import { NgIf } from '@angular/common';
+
 
 /**
  * @name thy-list-item-meta,[thy-list-item-meta]
@@ -11,7 +11,7 @@ import { NgIf } from '@angular/common';
     templateUrl: './list-item-meta.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [NgIf, ThyAvatar]
+    imports: [ThyAvatar]
 })
 export class ThyListItemMeta {
     /**

@@ -21,7 +21,7 @@ import {
 import { Subject, fromEvent } from 'rxjs';
 import { takeUntil, throttleTime } from 'rxjs/operators';
 
-import { DOCUMENT, NgClass, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { DOCUMENT, NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { ThyAffix } from 'ngx-tethys/affix';
 import { ThyScrollService } from 'ngx-tethys/core';
 import { coerceBooleanProperty, getOffset } from 'ngx-tethys/util';
@@ -43,27 +43,41 @@ const sharpMatcherRegx = /#([^#]+)$/;
     exportAs: 'thyAnchor',
     preserveWhitespaces: false,
     template: `
-        <thy-affix *ngIf="thyAffix; else content" [thyOffsetTop]="thyOffsetTop" [thyContainer]="container">
+        @if (thyAffix) {
+          <thy-affix [thyOffsetTop]="thyOffsetTop" [thyContainer]="container">
             <ng-template [ngTemplateOutlet]="content"></ng-template>
-        </thy-affix>
-        <ng-template #content>
-            <div
-                class="thy-anchor-wrapper"
-                [ngClass]="{ 'thy-anchor-wrapper-horizontal': thyDirection === 'horizontal' }"
-                [ngStyle]="wrapperStyle">
-                <div class="thy-anchor">
-                    <div class="thy-anchor-ink">
-                        <div class="thy-anchor-ink-full" #ink></div>
-                    </div>
-                    <ng-content></ng-content>
-                </div>
+          </thy-affix>
+        } @else {
+          <div
+            class="thy-anchor-wrapper"
+            [ngClass]="{ 'thy-anchor-wrapper-horizontal': thyDirection === 'horizontal' }"
+            [ngStyle]="wrapperStyle">
+            <div class="thy-anchor">
+              <div class="thy-anchor-ink">
+                <div class="thy-anchor-ink-full" #ink></div>
+              </div>
+              <ng-content></ng-content>
             </div>
+          </div>
+        }
+        <ng-template #content>
+          <div
+            class="thy-anchor-wrapper"
+            [ngClass]="{ 'thy-anchor-wrapper-horizontal': thyDirection === 'horizontal' }"
+            [ngStyle]="wrapperStyle">
+            <div class="thy-anchor">
+              <div class="thy-anchor-ink">
+                <div class="thy-anchor-ink-full" #ink></div>
+              </div>
+              <ng-content></ng-content>
+            </div>
+          </div>
         </ng-template>
-    `,
+        `,
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [NgIf, ThyAffix, NgTemplateOutlet, NgStyle, NgClass]
+    imports: [ThyAffix, NgTemplateOutlet, NgStyle, NgClass]
 })
 export class ThyAnchor implements OnDestroy, AfterViewInit, OnChanges {
     @ViewChild('ink') private ink!: ElementRef;

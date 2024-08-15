@@ -5,8 +5,10 @@
 </thy-button-group>
 <div style="margin-top: 10px">
   <thy-carousel [thyEffect]="effect">
-    <div thyCarouselItem *ngFor="let slide of array" class="custom-carousel-item">
-      {{ slide }}
-    </div>
+    @for (slide of array; track slide) {
+      <div thyCarouselItem class="custom-carousel-item">
+        {{ slide }}
+      </div>
+    }
   </thy-carousel>
 </div>

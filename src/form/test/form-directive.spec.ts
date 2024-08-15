@@ -27,33 +27,34 @@ export class TestFormBasicDirectiveComponent {
 @Component({
     selector: 'app-test-form-full',
     template: `
-        <form
+        @if (loadingDone) {
+          <form
             thyForm
-            *ngIf="loadingDone"
             name="demoForm"
             [thyFormValidatorConfig]="validateConfig"
             [thyEnterKeyMode]="enterKeyMode"
             class="myForm"
             #demoForm="thyForm">
             <thy-form-group thyLabelRequired>
-                <input thyInput name="username" [(ngModel)]="model.name" required placeholder="please input description" />
+              <input thyInput name="username" [(ngModel)]="model.name" required placeholder="please input description" />
             </thy-form-group>
             <thy-form-group thyLabelRequired>
-                <textarea
-                    thyInput
-                    name="description"
-                    required
-                    [(ngModel)]="model.description"
-                    placeholder="please input description"></textarea>
+              <textarea
+                thyInput
+                name="description"
+                required
+                [(ngModel)]="model.description"
+              placeholder="please input description"></textarea>
             </thy-form-group>
             <thy-form-group thyLabelRequired>
-                <input thyInput name="age" type="number" [(ngModel)]="model.age" max="10" min="0" required placeholder="please input age" />
+              <input thyInput name="age" type="number" [(ngModel)]="model.age" max="10" min="0" required placeholder="please input age" />
             </thy-form-group>
             <thy-form-group-footer>
-                <button [thyButton]="'primary'" thyLoadingText="确定" thyFormSubmit (thyFormSubmit)="submit()">登录</button>
+              <button [thyButton]="'primary'" thyLoadingText="确定" thyFormSubmit (thyFormSubmit)="submit()">登录</button>
             </thy-form-group-footer>
-        </form>
-    `
+          </form>
+        }
+        `
 })
 export class TestFormFullComponent {
     model = {
@@ -80,8 +81,8 @@ export class TestFormFullComponent {
 @Component({
     selector: 'app-test-reactive',
     template: `
-        <form
-            *ngIf="loadingDone"
+        @if (loadingDone) {
+          <form
             thyForm
             name="demoForm"
             #demoForm="thyForm"
@@ -89,35 +90,35 @@ export class TestFormFullComponent {
             [thyFormValidatorConfig]="validateConfig"
             [formGroup]="formGroup">
             <thy-form-group thyLabelText="age" thyLayout="horizontal" thyLabelRequired>
-                <input thyInput type="number" name="age" formControlName="age" max="10" min="0" required placeholder="please input age" />
+              <input thyInput type="number" name="age" formControlName="age" max="10" min="0" required placeholder="please input age" />
             </thy-form-group>
-
             <thy-form-group thyLabelText="CustomerSelect">
-                <thy-select
-                    thyPlaceHolder="请选择"
-                    formControlName="customersSelect"
-                    name="customersSelect"
-                    [thyShowSearch]="true"
-                    [thyAllowClear]="true">
-                    <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
-                </thy-select>
+              <thy-select
+                thyPlaceHolder="请选择"
+                formControlName="customersSelect"
+                name="customersSelect"
+                [thyShowSearch]="true"
+                [thyAllowClear]="true">
+                @for (option of listOfOption; track option) {
+                  <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+                }
+              </thy-select>
             </thy-form-group>
-
             <thy-form-group thyLabelText="Textarea">
-                <textarea name="textarea" formControlName="textarea" class="form-control" rows="3"></textarea>
+              <textarea name="textarea" formControlName="textarea" class="form-control" rows="3"></textarea>
             </thy-form-group>
-
             <thy-form-group>
-                <ng-template #content>
-                    <textarea name="username" formControlName="username" class="form-control" rows="3"></textarea>
-                </ng-template>
+              <ng-template #content>
+                <textarea name="username" formControlName="username" class="form-control" rows="3"></textarea>
+              </ng-template>
             </thy-form-group>
             <thy-form-group-footer>
-                <button [thyButton]="'primary'" (thyFormSubmit)="submit()"></button>
-                <button [thyButton]="'link-secondary'">Cancel</button>
+              <button [thyButton]="'primary'" (thyFormSubmit)="submit()"></button>
+              <button [thyButton]="'link-secondary'">Cancel</button>
             </thy-form-group-footer>
-        </form>
-    `
+          </form>
+        }
+        `
 })
 export class TestFormReactiveComponent {
     formGroup = this.formBuilder.group({

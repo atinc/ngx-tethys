@@ -9,11 +9,11 @@ import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
     selector: 'thy-image-group-test',
     template: `
         <thy-image-group>
-            <ng-container *ngFor="let image of images">
-                <img thyImage [thySrc]="image.src" [thyImageMeta]="image.imageMeta" />
-            </ng-container>
+          @for (image of images; track image) {
+            <img thyImage [thySrc]="image.src" [thyImageMeta]="image.imageMeta" />
+          }
         </thy-image-group>
-    `
+        `
 })
 class ImageGroupTestComponent {
     images = [

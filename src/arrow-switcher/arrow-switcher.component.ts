@@ -15,7 +15,7 @@ import { ThyButtonIcon } from 'ngx-tethys/button';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { ThyAction } from 'ngx-tethys/action';
-import { NgIf } from '@angular/common';
+
 
 export type ThyArrowSwitcherTheme = 'default' | 'lite';
 export interface ThyArrowSwitcherEvent {
@@ -40,7 +40,7 @@ export interface ThyArrowSwitcherEvent {
         }
     ],
     standalone: true,
-    imports: [NgIf, ThyAction, ThyTooltipDirective, ThyIcon, ThyButtonIcon]
+    imports: [ThyAction, ThyTooltipDirective, ThyIcon, ThyButtonIcon]
 })
 export class ThyArrowSwitcher implements OnInit, ControlValueAccessor {
     @HostBinding('class.thy-arrow-switcher') _isArrowSwitcher = true;

@@ -1,7 +1,9 @@
 <p>配合 <code>cdkDrag</code> 还可以实现列表的拖拽排序。</p>
 <thy-list cdkDropList (cdkDropListDropped)="sort($event)">
-  <thy-list-item *ngFor="let item of ListItems" cdkDrag>
-    <thy-icon thyIconName="drag" class="drag-handle"></thy-icon>
-    {{ item }}
-  </thy-list-item>
+  @for (item of ListItems; track item) {
+    <thy-list-item cdkDrag>
+      <thy-icon thyIconName="drag" class="drag-handle"></thy-icon>
+      {{ item }}
+    </thy-list-item>
+  }
 </thy-list>

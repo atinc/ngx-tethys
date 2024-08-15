@@ -18,7 +18,7 @@ import { DisabledDateFn, ThyPanelMode } from '../../standard-types';
 import { DateHeader } from '../date/date-header.component';
 import { DateTable } from '../date/date-table.component';
 
-import { NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
+
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { DecadeHeader } from '../decade/decade-header.component';
 import { DecadeTable } from '../decade/decade-table.component';
@@ -39,21 +39,17 @@ import { QuarterTable } from '../quarter/quarter-table.component';
     templateUrl: 'inner-popup.component.html',
     standalone: true,
     imports: [
-        NgIf,
-        ThyInputDirective,
-        NgSwitch,
-        NgSwitchCase,
-        DecadeHeader,
-        DecadeTable,
-        YearHeader,
-        YearTable,
-        MonthHeader,
-        MonthTable,
-        QuarterTable,
-        NgSwitchDefault,
-        DateHeader,
-        DateTable
-    ]
+    ThyInputDirective,
+    DecadeHeader,
+    DecadeTable,
+    YearHeader,
+    YearTable,
+    MonthHeader,
+    MonthTable,
+    QuarterTable,
+    DateHeader,
+    DateTable
+]
 })
 export class InnerPopup implements OnChanges {
     @HostBinding('class.thy-calendar-picker-inner-popup') className = true;

@@ -2,7 +2,7 @@ import { Component, Input, HostBinding, ElementRef, ChangeDetectorRef, Inject, H
 import { Highlightable } from '@angular/cdk/a11y';
 import { IThyListOptionParentComponent, THY_LIST_OPTION_PARENT_COMPONENT } from '../option.token';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { NgIf } from '@angular/common';
+
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 let _uniqueIdCounter = 0;
@@ -17,7 +17,7 @@ export type ThyListLayout = 'list' | 'grid';
     selector: 'thy-list-option,[thy-list-option]',
     templateUrl: './list-option.component.html',
     standalone: true,
-    imports: [NgIf, ThyIcon]
+    imports: [ThyIcon]
 })
 export class ThyListOption implements Highlightable {
     @HostBinding(`class.thy-list-option`)

@@ -1,6 +1,8 @@
 <thy-list cdkDropList thyDragDrop (cdkDropListDropped)="drop($event)">
-  <thy-list-item cdkDrag *ngFor="let item of nodes">
-    <thy-icon thyIconName="drag" class="drag-handle"></thy-icon>
-    {{ item }}
-  </thy-list-item>
+  @for (item of nodes; track item) {
+    <thy-list-item cdkDrag>
+      <thy-icon thyIconName="drag" class="drag-handle"></thy-icon>
+      {{ item }}
+    </thy-list-item>
+  }
 </thy-list>

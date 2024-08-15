@@ -19,7 +19,7 @@ import { ThySegmentItem } from './segment-item.component';
 import { IThySegmentComponent, THY_SEGMENTED_COMPONENT } from './segment.token';
 import { ThySegmentEvent } from './types';
 import { AnimationEvent } from '@angular/animations';
-import { NgIf } from '@angular/common';
+
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
@@ -53,7 +53,7 @@ export type ThySegmentMode = 'block' | 'inline';
         '[class.thy-segment-block]': `thyMode === 'block'`
     },
     standalone: true,
-    imports: [NgIf]
+    imports: []
 })
 export class ThySegment implements IThySegmentComponent, AfterContentInit {
     /**

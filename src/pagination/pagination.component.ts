@@ -21,7 +21,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyOption, ThyEnterDirective } from 'ngx-tethys/shared';
 import { FormsModule } from '@angular/forms';
 import { ThySelect } from 'ngx-tethys/select';
-import { NgIf, NgTemplateOutlet, NgFor } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 
 /**
  * 分页组件，当数据量过多时，使用分页分解数据。
@@ -33,7 +33,7 @@ import { NgIf, NgTemplateOutlet, NgFor } from '@angular/common';
     templateUrl: './pagination.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [NgIf, NgTemplateOutlet, ThySelect, FormsModule, NgFor, ThyOption, ThyIcon, ThyEnterDirective, PaginationTotalCountFormat]
+    imports: [NgTemplateOutlet, ThySelect, FormsModule, ThyOption, ThyIcon, ThyEnterDirective, PaginationTotalCountFormat]
 })
 export class ThyPagination implements OnInit {
     isTemplateRef = isTemplateRef;

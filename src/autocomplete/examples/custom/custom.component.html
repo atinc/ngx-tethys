@@ -6,11 +6,13 @@
     [thyAutocompleteWidth]="500"
     [thyAutocomplete]="auto"
     (ngModelChange)="valueChange($event)"
-  />
+    />
   <thy-autocomplete #auto>
-    <thy-option *ngFor="let item of listOfOption" [thyLabelText]="item.label" [thyValue]="item.value" [thyShowOptionCustom]="true">
-      <thy-icon thyIconName="task"></thy-icon>
-      <span style="margin-left: 5px;"> {{ item.label }} </span>
-    </thy-option>
+    @for (item of listOfOption; track item) {
+      <thy-option [thyLabelText]="item.label" [thyValue]="item.value" [thyShowOptionCustom]="true">
+        <thy-icon thyIconName="task"></thy-icon>
+        <span style="margin-left: 5px;"> {{ item.label }} </span>
+      </thy-option>
+    }
   </thy-autocomplete>
 </div>

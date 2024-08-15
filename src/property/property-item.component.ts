@@ -4,7 +4,7 @@ import { combineLatest, fromEvent, Subject, Subscription, timer } from 'rxjs';
 import { delay, filter, take, takeUntil } from 'rxjs/operators';
 
 import { OverlayOutsideClickDispatcher, OverlayRef } from '@angular/cdk/overlay';
-import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -44,7 +44,7 @@ export type ThyPropertyItemOperationTrigger = 'hover' | 'always';
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [NgIf, ThyFlexibleText, NgTemplateOutlet]
+    imports: [ThyFlexibleText, NgTemplateOutlet]
 })
 export class ThyPropertyItem implements OnInit, OnChanges, OnDestroy {
     /**

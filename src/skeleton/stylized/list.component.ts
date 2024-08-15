@@ -1,4 +1,4 @@
-import { NgFor } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
 import { InputCssPixel } from 'ngx-tethys/core';
 import { ThySkeletonRectangle } from '../skeleton-rectangle.component';
@@ -12,25 +12,25 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 @Component({
     selector: 'thy-skeleton-list',
     template: `
-        <ng-container *ngFor="let k of rowCount; index as i">
-            <thy-skeleton-rectangle
-                class="vertical-gap"
-                [thyRowWidth]="thyRowWidth"
-                [thyRowHeight]="thyRowHeight"
-                [thyAnimated]="thyAnimated"
-                [thyPrimaryColor]="thyPrimaryColor"
-                [thySecondaryColor]="thySecondaryColor"
-                [thyBorderRadius]="thyBorderRadius"
-                [thyAnimatedInterval]="thyAnimatedInterval"></thy-skeleton-rectangle>
-        </ng-container>
-    `,
+        @for (k of rowCount; track k; let i = $index) {
+          <thy-skeleton-rectangle
+            class="vertical-gap"
+            [thyRowWidth]="thyRowWidth"
+            [thyRowHeight]="thyRowHeight"
+            [thyAnimated]="thyAnimated"
+            [thyPrimaryColor]="thyPrimaryColor"
+            [thySecondaryColor]="thySecondaryColor"
+            [thyBorderRadius]="thyBorderRadius"
+          [thyAnimatedInterval]="thyAnimatedInterval"></thy-skeleton-rectangle>
+        }
+        `,
     host: {
         '[class.thy-skeleton-list]': 'true'
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [NgFor, ThySkeletonRectangle]
+    imports: [ThySkeletonRectangle]
 })
 export class ThySkeletonList {
     /**

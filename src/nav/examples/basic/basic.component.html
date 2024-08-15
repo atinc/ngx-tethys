@@ -1,11 +1,12 @@
 <thy-nav thyType="pulled">
-  <a
-    href="javascript:;"
-    *ngFor="let item of navList"
-    thyNavItem
-    [thyNavItemActive]="item.index === activeIndex"
-    [thyNavItemDisabled]="item.disabled"
-    (click)="activeIndex = item.index"
-    >{{ item.name }}</a
-  >
-</thy-nav>
+  @for (item of navList; track item) {
+    <a
+      href="javascript:;"
+      thyNavItem
+      [thyNavItemActive]="item.index === activeIndex"
+      [thyNavItemDisabled]="item.disabled"
+      (click)="activeIndex = item.index"
+      >{{ item.name }}</a
+      >
+    }
+  </thy-nav>

@@ -6,51 +6,54 @@
   [class.expand]="node.children.length"
   [style.height]="thyItemSize + 'px'"
   (click)="clickNode($event)"
->
+  >
   <span class="thy-tree-index" [style.width.px]="node.level * thyIndent"></span>
   <span  class="thy-tree-drag-icon">
     <thy-icon thyIconName="drag"></thy-icon>
   </span>
   <span class="thy-tree-expand" (click)="expandNode($event)">
-    <ng-container *ngIf="isShowExpand(node)">
-      <ng-container *ngIf="(node.children && node.children.length > 0) || thyAsync || emptyChildrenTemplateRef">
-        <thy-icon
-          *ngIf="root.thyIcons?.expand && root.thyIcons?.collapse; else defaultIcon"
-          class="thy-tree-expand-icon"
-          [thyIconName]="node.isExpanded ? root.thyIcons.expand : root.thyIcons.collapse"
-        ></thy-icon>
-        <ng-template #defaultIcon>
+    @if (isShowExpand(node)) {
+      @if ((node.children && node.children.length > 0) || thyAsync || emptyChildrenTemplateRef) {
+        @if (root.thyIcons?.expand && root.thyIcons?.collapse) {
+          <thy-icon
+            class="thy-tree-expand-icon"
+            [thyIconName]="node.isExpanded ? root.thyIcons.expand : root.thyIcons.collapse"
+          ></thy-icon>
+        } @else {
           <thy-icon class="thy-tree-expand-icon" [class.collapse]="!node.isExpanded" thyIconName="caret-right-down"></thy-icon>
-        </ng-template>
-      </ng-container>
-    </ng-container>
+        }
+      }
+    }
   </span>
 
   <span class="thy-tree-node-content" (dblclick)="dbClickNode($event)">
-    <input
-      *ngIf="thyCheckable"
-      type="checkbox"
-      class="thy-tree-node-check"
-      [class.form-check-indeterminate]="node.isChecked === checkState.indeterminate"
-      [class.form-unchecked]="node.isChecked === checkState.unchecked"
-      [checked]="node.isChecked === checkState.checked"
-      [disabled]="node.isDisabled"
-      (click)="clickNodeCheck($event)"
-    />
-    <ng-container *ngIf="!templateRef">
-      <ng-container *ngIf="nodeIcon">
+    @if (thyCheckable) {
+      <input
+        type="checkbox"
+        class="thy-tree-node-check"
+        [class.form-check-indeterminate]="node.isChecked === checkState.indeterminate"
+        [class.form-unchecked]="node.isChecked === checkState.unchecked"
+        [checked]="node.isChecked === checkState.checked"
+        [disabled]="node.isDisabled"
+        (click)="clickNodeCheck($event)"
+        />
+    }
+    @if (!templateRef) {
+      @if (nodeIcon) {
         <span class="thy-tree-node-icon"> <i [ngClass]="nodeIcon" [ngStyle]="nodeIconStyle"></i></span>
-      </ng-container>
+      }
       <span [title]="node.title" class="thy-tree-node-title" [class.truncate]="thyTitleTruncate"> {{ node.title }}</span>
-    </ng-container>
-    <ng-container *ngIf="templateRef">
+    }
+    @if (templateRef) {
       <ng-template
         [ngTemplateOutlet]="templateRef"
         [ngTemplateOutletContext]="{ $implicit: node, node: node, origin: node?.origin }"
       ></ng-template>
-    </ng-container>
+    }
   </span>
 </div>
-<ng-container *ngIf="thyAsync">
-  <thy-loading *ngIf="node.isLoading" [thyDone]="!node.isLoading"></thy-loading>
-</ng-container>
+@if (thyAsync) {
+  @if (node.isLoading) {
+    <thy-loading [thyDone]="!node.isLoading"></thy-loading>
+  }
+}

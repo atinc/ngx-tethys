@@ -29,20 +29,22 @@ import { ThyAutocompleteModule } from '../module';
     selector: 'thy-basic-autocomplete',
     template: `
         <div>
-            <input
-                class="autocomplete-trigger"
-                thyInput
-                thyAutocompleteTrigger
-                [(ngModel)]="value"
-                [placeholder]="placeholder"
-                [thyAutocompleteComponent]="auto"
-                [thyAutocompleteWidth]="500"
-                (ngModelChange)="valueChange($event)" />
-            <thy-autocomplete #auto [thyEmptyText]="'没有搜索到任何数据'" (thyOpened)="opened()">
-                <thy-option *ngFor="let item of foods" [thyLabelText]="item.viewValue" [thyValue]="item.value"></thy-option>
-            </thy-autocomplete>
+          <input
+            class="autocomplete-trigger"
+            thyInput
+            thyAutocompleteTrigger
+            [(ngModel)]="value"
+            [placeholder]="placeholder"
+            [thyAutocompleteComponent]="auto"
+            [thyAutocompleteWidth]="500"
+            (ngModelChange)="valueChange($event)" />
+          <thy-autocomplete #auto [thyEmptyText]="'没有搜索到任何数据'" (thyOpened)="opened()">
+            @for (item of foods; track item) {
+              <thy-option [thyLabelText]="item.viewValue" [thyValue]="item.value"></thy-option>
+            }
+          </thy-autocomplete>
         </div>
-    `
+        `
 })
 class BasicSelectComponent {
     openedSpy = jasmine.createSpy('opened event spy callback');
@@ -72,16 +74,18 @@ class BasicSelectComponent {
     selector: 'thy-input-search-autocomplete',
     template: `
         <div>
-            <thy-input-search
-                [(ngModel)]="value"
-                [thyAutocomplete]="auto"
-                [thyIsFocusOpen]="isFocusOpen"
-                (ngModelChange)="valueChange($event)"></thy-input-search>
-            <thy-autocomplete #auto>
-                <thy-option *ngFor="let item of foods" [thyLabelText]="item.viewValue" [thyValue]="item.value"></thy-option>
-            </thy-autocomplete>
+          <thy-input-search
+            [(ngModel)]="value"
+            [thyAutocomplete]="auto"
+            [thyIsFocusOpen]="isFocusOpen"
+          (ngModelChange)="valueChange($event)"></thy-input-search>
+          <thy-autocomplete #auto>
+            @for (item of foods; track item) {
+              <thy-option [thyLabelText]="item.viewValue" [thyValue]="item.value"></thy-option>
+            }
+          </thy-autocomplete>
         </div>
-    `
+        `
 })
 class InputSearchSelectComponent {
     value = '';

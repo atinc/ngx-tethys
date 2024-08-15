@@ -1,15 +1,15 @@
 <div style="width: 666px;">
   <thy-segment thyMode="block">
-    <ng-container *ngFor="let item of items">
+    @for (item of items; track item) {
       <thy-segment-item [thyValue]="item.value">{{ item.text }}</thy-segment-item>
-    </ng-container>
+    }
   </thy-segment>
 </div>
 
 <div class="mt-4">
   <thy-segment thyMode="inline">
-    <ng-container *ngFor="let item of items">
+    @for (item of items; track item) {
       <thy-segment-item [thyValue]="item.value">{{ item.text }}</thy-segment-item>
-    </ng-container>
+    }
   </thy-segment>
 </div>

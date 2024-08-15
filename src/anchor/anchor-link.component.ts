@@ -14,7 +14,7 @@ import {
 import { useHostRenderer } from '@tethys/cdk/dom';
 
 import { ThyAnchor } from './anchor.component';
-import { NgIf } from '@angular/common';
+
 
 /**
  * 锚点链接组件，可供锚点跳转
@@ -26,14 +26,18 @@ import { NgIf } from '@angular/common';
     preserveWhitespaces: false,
     template: `
         <a #linkTitle (click)="goToClick($event)" href="{{ thyHref }}" class="thy-anchor-link-title" title="{{ title }}">
-            <span *ngIf="title; else titleTemplate || thyTemplate">{{ title }}</span>
+          @if (title) {
+            <span>{{ title }}</span>
+          } @else {
+            <ng-template [ngTemplateOutlet]="titleTemplate || thyTemplate"></ng-template>
+          }
         </a>
         <ng-content></ng-content>
-    `,
+        `,
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [NgIf]
+    imports: []
 })
 export class ThyAnchorLink implements OnInit, OnDestroy {
     title: string | null = '';

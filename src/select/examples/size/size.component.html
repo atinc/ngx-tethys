@@ -1,14 +1,20 @@
 <div class="demo-card">
   <thy-button-group thySize="md" thyType="outline-default">
-    <button thyButton *ngFor="let size of selectSizes" (click)="currentSize = size" [ngClass]="{ active: size === currentSize }">
-      {{ size.name }} - {{ size.height }}px
-    </button>
+    @for (size of selectSizes; track size) {
+      <button thyButton (click)="currentSize = size" [ngClass]="{ active: size === currentSize }">
+        {{ size.name }} - {{ size.height }}px
+      </button>
+    }
   </thy-button-group>
   <thy-select thyPlaceHolder="请选择" [thySize]="currentSize.name" ngModel="option1" [thyAllowClear]="true" [thyShowSearch]="true">
-    <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+    @for (option of listOfOption; track option) {
+      <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+    }
   </thy-select>
   <thy-select thyPlaceHolder="请选择" [thySize]="currentSize.name" thyMode="multiple" [(ngModel)]="listOfSelectedValue">
-    <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+    @for (option of listOfOption; track option) {
+      <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+    }
   </thy-select>
   <thy-select
     thyPlaceHolder="请选择"
@@ -16,6 +22,8 @@
     thyMode="multiple"
     [thyShowSearch]="true"
     [(ngModel)]="listOfSelectedValue">
-    <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+    @for (option of listOfOption; track option) {
+      <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+    }
   </thy-select>
 </div>

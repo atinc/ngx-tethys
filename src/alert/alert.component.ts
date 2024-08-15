@@ -2,7 +2,7 @@ import { Component, Input, OnInit, ContentChild, TemplateRef, OnChanges, ChangeD
 import { coerceBooleanProperty, isString } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 
 const weakTypes = ['primary-weak', 'success-weak', 'warning-weak', 'danger-weak'];
 
@@ -45,7 +45,7 @@ const typeIconsMap: Record<string, string> = {
         '[class.thy-alert-hidden]': 'hidden'
     },
     standalone: true,
-    imports: [NgIf, ThyIcon, NgTemplateOutlet]
+    imports: [ThyIcon, NgTemplateOutlet]
 })
 export class ThyAlert implements OnInit, OnChanges {
     private hidden = false;
