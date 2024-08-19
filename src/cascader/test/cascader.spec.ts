@@ -446,7 +446,7 @@ class CascaderTemplateComponent {
     public curVal: string | string[] = 'xihu';
 
     public thyCustomerOptions: any[] = clone(customerOptions);
-    isDisplayName$ = new Subject();
+    isDisplayName$ = new Subject<void>();
     constructor() {}
 
     isDisplay(labels: any[]) {
