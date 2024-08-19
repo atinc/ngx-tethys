@@ -610,6 +610,14 @@ describe('picker-panel', () => {
             expect(defaultColorPanel).toBeFalsy();
             expect(fixtureInstance.color).toEqual('#CCCCCC');
         }));
+        it('should show correct hex input', fakeAsync(() => {
+            fixtureInstance.color = '#1122334F';
+            tick(300);
+            fixture.detectChanges();
+            tick(300);
+            const input = fixtureInstance.elementRef.nativeElement.querySelector('.hex-column input') as HTMLInputElement;
+            expect(input.value).toEqual('112233');
+        }));
     });
 });
 
