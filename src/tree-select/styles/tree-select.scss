@@ -55,13 +55,16 @@
                 display: flex;
                 align-items: center;
                 @include text-truncate.text-truncate();
-                max-width:12rem;
             }
         }
 
         .thy-option-item {
             @include option.thy-option();
             @include thy-tree-select-option();
+        }
+
+        .cdk-virtual-scroll-content-wrapper {
+            width: 100%;
         }
     }
 

@@ -1,7 +1,7 @@
 <thy-tree-select [thyTreeNodes]="treeSelectNodes" thyPlaceholder="请选择值" [(ngModel)]="selectedValue">
   <ng-template #treeNodeTemplate let-node>
     <thy-icon class="prefix-icon" [thyIconName]="node.icon"></thy-icon>
-    {{ node.name }}
+    <span class="text-truncate">{{ node.name }}</span>
   </ng-template>
 </thy-tree-select>
 <p class="my-3">选择的值的 _id：{{ selectedValue | json }}</p>
