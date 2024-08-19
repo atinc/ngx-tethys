@@ -2291,7 +2291,7 @@ describe('ThyCustomSelect', () => {
 
     describe('config', () => {
         describe('has default config', () => {
-            const scrolledSubject = new Subject();
+            const scrolledSubject = new Subject<void>();
             beforeEach(waitForAsync(() =>
                 configureThyCustomSelectTestingModule(
                     [BasicSelectComponent],
