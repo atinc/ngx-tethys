@@ -355,7 +355,7 @@ export class ThyCarousel implements OnInit, AfterViewInit, AfterContentInit, OnC
 
     ngOnDestroy() {
         this.clearScheduledTransition();
-        this._trigger$.next();
+        this._trigger$.next(0);
         this._trigger$.complete();
         this._destroy$.next();
         this._destroy$.complete();
