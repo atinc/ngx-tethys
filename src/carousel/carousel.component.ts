@@ -143,7 +143,7 @@ export class ThyCarousel implements OnInit, AfterViewInit, AfterContentInit, OnC
 
     private engine: ThyCarouselEngine;
 
-    private _trigger$ = new Subject<number>();
+    private _trigger$ = new Subject<number | null>();
 
     private _destroy$ = new Subject<void>();
 
@@ -355,7 +355,7 @@ export class ThyCarousel implements OnInit, AfterViewInit, AfterContentInit, OnC
 
     ngOnDestroy() {
         this.clearScheduledTransition();
-        this._trigger$.next(0);
+        this._trigger$.next(null);
         this._trigger$.complete();
         this._destroy$.next();
         this._destroy$.complete();
