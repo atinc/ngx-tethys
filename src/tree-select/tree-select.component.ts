@@ -10,7 +10,7 @@ import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThySelectControl, ThyStopPropagationDirective } from 'ngx-tethys/shared';
 import { ThyTreeNode } from 'ngx-tethys/tree';
-import { coerceBooleanProperty, elementMatchClosest, isArray, isObject, produce, warnDeprecation } from 'ngx-tethys/util';
+import { coerceBooleanProperty, elementMatchClosest, helpers, isArray, isObject, produce, warnDeprecation } from 'ngx-tethys/util';
 import { Observable, of, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 
@@ -599,6 +599,7 @@ export class ThyTreeSelectNodes implements OnInit {
         // 父级设置了max-height:300 & padding:10 0; 故此处最多设置280，否则将出现滚动条
         this.thyVirtualHeight = treeSelectHeight > 300 ? '280px' : `${treeSelectHeight}px`;
         this.nodeList = value;
+        this.hasNoChildrenFlag = this.nodeList.every(item => !item.hasOwnProperty('children') || !item?.children?.length);
     }
 
     @Input() thyVirtualScroll: boolean = false;
@@ -620,6 +621,8 @@ export class ThyTreeSelectNodes implements OnInit {
     public defaultItemSize = DEFAULT_ITEM_SIZE;
 
     public thyVirtualHeight: string = null;
+
+    public hasNoChildrenFlag: boolean = false;
 
     constructor(public parent: ThyTreeSelect) {}
 
