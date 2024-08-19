@@ -38,7 +38,7 @@ import { ThyCarouselService } from './carousel.service';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyDot } from 'ngx-tethys/dot';
 import { NgIf, NgTemplateOutlet, NgFor } from '@angular/common';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { coerceBooleanProperty, isNumber } from 'ngx-tethys/util';
 
 /**
  * 走马灯组件
@@ -347,7 +347,7 @@ export class ThyCarousel implements OnInit, AfterViewInit, AfterContentInit, OnC
 
     ngAfterContentInit() {
         this._trigger$.pipe(takeUntil(this._destroy$), debounceTime(this.playTime)).subscribe(index => {
-            if (!isNaN(index)) {
+            if (isNumber(index)) {
                 this.moveTo(index);
             }
         });
