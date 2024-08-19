@@ -22,14 +22,14 @@
   <ng-container>
     <a class="thy-option-item" [ngClass]="{ active: treeNodeIsSelected(node) }"
       [class.disabled]="treeNodeIsDisable(node)" [ngStyle]="{ 'padding-left.px': 20 * node.level + parent.icons.gap }"
-      [ngClass]="{ 'pl-0': hasNoChildrenFlag }" (click)="selectTreeNode($event, node)" *ngIf="!treeNodeIsHidden(node)">
+      [ngClass]="{ 'pl-0': hasNoChildren }" (click)="selectTreeNode($event, node)" *ngIf="!treeNodeIsHidden(node)">
       <span class="thy-tree-select-option-icon"
         [class.invisible]="!(node.children?.length > 0 || (node[childCountKey] && node[childCountKey] > 0))"
         (click)="nodeExpandToggle($event, node)">
         <thy-icon class="node-expand-icon"
           [thyIconName]="treeNodeIsExpand(node) ? parent.icons.expand : parent.icons.collapse"></thy-icon>
       </span>
-      <span class="thy-tree-select-option-text" [ngClass]="{ 'ml-1': hasNoChildrenFlag }">
+      <span class="thy-tree-select-option-text" [ngClass]="{ 'ml-1': hasNoChildren }">
         <ng-template *ngIf="treeNodeTemplateRef; else defaultNodeText" [ngTemplateOutlet]="treeNodeTemplateRef"
           [ngTemplateOutletContext]="{ $implicit: node }"></ng-template>
         <ng-template #defaultNodeText>

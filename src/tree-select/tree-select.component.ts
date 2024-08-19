@@ -599,7 +599,8 @@ export class ThyTreeSelectNodes implements OnInit {
         // 父级设置了max-height:300 & padding:10 0; 故此处最多设置280，否则将出现滚动条
         this.thyVirtualHeight = treeSelectHeight > 300 ? '280px' : `${treeSelectHeight}px`;
         this.nodeList = value;
-        this.hasNoChildrenFlag = this.nodeList.every(item => !item.hasOwnProperty('children') || !item?.children?.length);
+        this.hasNoChildren =
+            this.nodeList.every(item => !item.hasOwnProperty('children') || !item?.children?.length) && !this.parent.thyAsyncNode;
     }
 
     @Input() thyVirtualScroll: boolean = false;
@@ -622,7 +623,7 @@ export class ThyTreeSelectNodes implements OnInit {
 
     public thyVirtualHeight: string = null;
 
-    public hasNoChildrenFlag: boolean = false;
+    public hasNoChildren: boolean = false;
 
     constructor(public parent: ThyTreeSelect) {}
 
