@@ -324,19 +324,18 @@ export class ThyPagination implements OnInit {
                 beforePages.push(this.makePage(i, i.toString(), i === pageIndex));
             }
 
-            if ((pageIndex - Math.ceil(rangeCount / 2) > this.firstIndex) && (marginalCount + 1 < start)) {
+            if (pageIndex - Math.ceil(rangeCount / 2) > this.firstIndex && marginalCount + 1 < start) {
                 beforePages.push(this.makePage(Math.ceil((marginalCount + start) / 2), '···', null));
             }
 
             // afterPages
-            if ((pageIndex + Math.ceil(rangeCount / 2) < pageCount) && (pageCount - marginalCount  > end)) {
+            if (pageIndex + Math.ceil(rangeCount / 2) < pageCount && pageCount - marginalCount > end) {
                 afterPages.push(this.makePage(Math.ceil((pageCount - marginalCount + 1 + end) / 2), '···', null));
             }
             for (let i = pageCount - marginalCount + 1; i <= pageCount; i++) {
                 afterPages.push(this.makePage(i, i.toString(), i === pageIndex));
             }
 
-            
             pages = [...beforePages, ...pages, ...afterPages];
         } else {
             for (let i = 1; i <= pageCount; i++) {
