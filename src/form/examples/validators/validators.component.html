@@ -16,11 +16,10 @@
       [thyUniqueCheck]="checkUsername"
       [(ngModel)]="model.username"
       required
-      placeholder="Please type username"
-    />
+      placeholder="Please type username" />
   </thy-form-group>
   <thy-form-group thyLabelText="Age" thyLabelRequired>
-    <input thyInput type="number" name="age" [(ngModel)]="model.age" max="100" min="10" required placeholder="Max is 100, min is 10" />
+    <thy-input-number name="age" [(ngModel)]="model.age" max="100" min="10" required placeholder="Max is 100, min is 10"></thy-input-number>
   </thy-form-group>
 
   <thy-form-group thyLabelText="Password" thyLabelRequired>
@@ -35,13 +34,10 @@
       [(ngModel)]="model.confirm_password"
       [confirm]="model.password"
       required
-      placeholder="Please type confirm password"
-    />
+      placeholder="Please type confirm password" />
   </thy-form-group>
 
   <thy-form-group-footer>
-    <button [thyButton]="'primary'" (thyFormSubmit)="save()">
-      Save
-    </button>
+    <button [thyButton]="'primary'" (thyFormSubmit)="save()">Save</button>
   </thy-form-group-footer>
 </form>
