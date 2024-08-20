@@ -13,6 +13,7 @@ import { ThyTooltipBasicExampleComponent } from './basic/basic.component';
 import { ThyTooltipPositionExampleComponent } from './position/position.component';
 import { ThyTooltipTemplateExampleComponent } from './template/template.component';
 import { ThyTooltipManualExampleComponent } from './manual/manual.component';
+import { ThyInputNumberModule } from 'ngx-tethys/input-number';
 
 const COMPONENTS = [
     ThyTooltipBasicExampleComponent,
@@ -32,7 +33,8 @@ const COMPONENTS = [
         ThyInputModule,
         ThyTooltipModule,
         ThyDropdownModule,
-        ThySpaceModule
+        ThySpaceModule,
+        ThyInputNumberModule
     ],
     exports: COMPONENTS,
     providers: []
