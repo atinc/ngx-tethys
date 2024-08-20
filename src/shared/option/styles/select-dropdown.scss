@@ -24,10 +24,12 @@ $optionsSize: 'sm', 'default', 'md', 'lg';
     }
 
     .thy-option-item-group {
+        flex-direction: column;
+
         &.thy-select-option-group-hidden {
             display: none;
         }
-        flex-direction: column;
+
         .group-name {
             width: 100%;
             height: 30px;

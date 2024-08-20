@@ -10,6 +10,7 @@
     line-height: 1;
     position: relative;
     border-radius: variables.$border-radius;
+    transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
 
     > span {
         color: variables.$gray-700;
@@ -61,7 +62,6 @@
         }
     }
 
-    transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
     @include action-mixin.action-variant(variables.$action-color, variables.$action-hover-color, variables.$action-hover-bg-color);
 }
 

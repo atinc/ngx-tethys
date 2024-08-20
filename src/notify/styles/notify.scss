@@ -54,11 +54,11 @@
             .thy-notify-content {
                 margin-top: 4px;
                 .link-secondary {
+                    font-size: variables.$font-size-base;
+                    color: variables.$primary;
                     &:hover {
                         text-decoration: underline;
                     }
-                    font-size: variables.$font-size-base;
-                    color: variables.$primary;
                 }
             }
             .thy-notify-content,

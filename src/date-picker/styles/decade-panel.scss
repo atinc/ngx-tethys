@@ -21,8 +21,8 @@
 }
 
 .#{style.$calendar-prefix-cls}-decade-panel-header {
-    @include mixin.calendarPanelHeader('thy-calendar-decade-panel');
     position: relative;
+    @include mixin.calendarPanelHeader('thy-calendar-decade-panel');
 }
 
 .#{style.$calendar-prefix-cls}-decade-panel-body {

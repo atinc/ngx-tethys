@@ -2,7 +2,10 @@
 @use '../../styles/variables.scss';
 
 @mixin tag-bg-variant($bg-color) {
-    background-color: $bg-color;
+    & {
+        background-color: $bg-color;
+    }
+
     &.thy-tag-hover {
         &:hover {
             background-color: color.adjust($bg-color, $lightness: -5%);
@@ -12,7 +15,10 @@
 }
 
 @mixin tag-color-variant($color, $hover-color) {
-    color: $color;
+    & {
+        color: $color;
+    }
+
     &.thy-tag-hover {
         thy-icon.thy-icon-close,
         &:hover {

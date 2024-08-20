@@ -15,7 +15,10 @@
 }
 
 @mixin set-close-link-size($size: variables.$font-size-base) {
-    font-size: $size !important;
+    & {
+        font-size: $size !important;
+    }
+
     i {
         font-size: $size;
     }

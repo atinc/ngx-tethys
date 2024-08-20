@@ -5,12 +5,12 @@
 
 .select-control {
     position: relative;
+    padding-right: 26px;
     @include select.select-control-size(
         variables.$tag-height-md,
         variables.$select-control-padding-y-default,
         variables.$select-control-height-default
     );
-    padding-right: 26px;
 
     &.form-control-xs {
         @include select.select-control-size(

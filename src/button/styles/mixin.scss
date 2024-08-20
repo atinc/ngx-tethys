@@ -109,16 +109,25 @@
 
 // Button sizes
 @mixin button-size($padding-y, $padding-x, $font-size, $line-height, $border-radius, $min-width) {
-    padding: $padding-y $padding-x;
-    font-size: $font-size;
-    line-height: $line-height; // Manually declare to provide an override to the browser default
+    & {
+        padding: $padding-y $padding-x;
+        font-size: $font-size;
+        line-height: $line-height; // Manually declare to provide an override to the browser default
+    }
+
     @if $min-width {
-        min-width: $min-width;
+        & {
+            min-width: $min-width;
+        }
     }
     @if bootstrap-variables.$enable-rounded {
-        border-radius: $border-radius;
+        & {
+            border-radius: $border-radius;
+        }
     } @else {
-        border-radius: 0;
+        & {
+            border-radius: 0;
+        }
     }
     &.btn-link {
         padding: $padding-y 10px;
@@ -133,11 +142,14 @@
 }
 
 @mixin button-disabled($color) {
-    color: variables.$btn-disabled-color;
-    background-color: variables.$btn-disabled-bg-color;
-    border-color: $color;
-    // border-color: $btn-disabled-border-color;
-    // border: none;
+    & {
+        color: variables.$btn-disabled-color;
+        background-color: variables.$btn-disabled-bg-color;
+        border-color: $color;
+        // border-color: $btn-disabled-border-color;
+        // border: none;
+    }
+
     @include shadow.box-shadow(none);
 }
 

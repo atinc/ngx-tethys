@@ -93,8 +93,8 @@
         @include mixin.set-badge-color(variables.$gray-600, variables.$gray-400);
     }
     &.thy-badge-hollow {
-        @include mixin.set-badge-color(variables.$gray-600, variables.$gray-400);
         background-color: transparent;
+        @include mixin.set-badge-color(variables.$gray-600, variables.$gray-400);
     }
 }
 
