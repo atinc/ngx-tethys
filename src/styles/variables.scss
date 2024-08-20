@@ -35,7 +35,7 @@ $rem-26px: 1.625rem;
 $body-color: $gray-800 !default;
 $primary: #6698ff !default;
 // deprecated
-$primary-active: color.adjust($primary, $lightness: -10%) !default;
+$primary-active: $primary; // TODO color.adjust($primary, $lightness: -10%) !default;
 $secondary: $gray-700 !default;
 $success: #73d897 !default; // 2dbcff
 $info: #5dcfff !default;
@@ -316,7 +316,7 @@ $layout-header-box-shadow: 0 4px 8px 0px #00000008 !default;
 $layout-content-background: $gray-80 !default;
 $layout-content-padding: 15px 20px 15px 20px !default;
 $layout-sidebar-width: 240px !default;
-$layout-sidebar-background-light: scale-color($gray-80, $lightness: +20%);
+$layout-sidebar-background-light: $gray-80; // TODO scale-color($gray-80, $lightness: +20%);
 $layout-sidebar-background-dark: $gray-800 !default;
 $layout-sidebar-border-color: $gray-200 !default;
 $layout-sidebar-border-right: 1px solid $layout-sidebar-border-color !default;

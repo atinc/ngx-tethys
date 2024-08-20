@@ -123,7 +123,7 @@
                 color: $color;
 
                 &::before {
-                    background-color: color.adjust($color, $lightness: 25%);
+                    background-color: $color; // TODO color.adjust($color, $lightness: 25%);
                 }
             }
 
@@ -134,7 +134,7 @@
 
             &:checked {
                 ~ .custom-control-label::before {
-                    @include gradients.gradient-bg(color.adjust($color, $lightness: 10%));
+                    @include gradients.gradient-bg($color); // TODO color.adjust($color, $lightness: 10%)
                 }
             }
 

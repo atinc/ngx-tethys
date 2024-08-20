@@ -4,10 +4,10 @@
 
 @mixin thy-alert-inner($color) {
     hr {
-        border-top-color: color.adjust($color, $lightness: -5%);
+        border-top-color: $color; // TODO color.adjust($color, $lightness: -5%);
     }
     .alert-link {
-        color: color.adjust($color, $lightness: -10%);
+        color: $color; // TODO color.adjust($color, $lightness: -10%);
     }
     .thy-alert-icon {
         color: $color;
