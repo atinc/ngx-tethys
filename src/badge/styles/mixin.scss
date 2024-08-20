@@ -1,6 +1,6 @@
-@use "sass:color";
-@use "../../styles/bootstrap/functions";
-@use "../../styles/mixins/hover";
+@use 'sass:color';
+@use '../../styles/bootstrap/functions';
+@use '../../styles/mixins/hover';
 
 @mixin set-badge-color($color, $badge-bg) {
     color: $color;
@@ -19,17 +19,4 @@
     line-height: $diameter;
     font-size: $font-size;
     padding: 0px $padding;
-}
-
-// bootstrap 4
-@mixin badge-variant($bg) {
-    color: functions.color-yiq($bg);
-    background-color: $bg;
-    &[href] {
-        @include hover.hover-focus {
-            color: functions.color-yiq($bg);
-            text-decoration: none;
-            background-color: color.adjust($bg, $lightness: -10%);
-        }
-    }
 }
