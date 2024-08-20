@@ -35,7 +35,7 @@ $rem-26px: 1.625rem;
 $body-color: $gray-800 !default;
 $primary: #6698ff !default;
 // deprecated
-$primary-active: color.adjust($primary, $lightness: -10%) !default;
+$primary-active: #3376ff !default;
 $secondary: $gray-700 !default;
 $success: #73d897 !default; // 2dbcff
 $info: #5dcfff !default;
