@@ -98,10 +98,10 @@
 
 .thy-property-operation-group {
     display: flex;
-    position: relative;
 
     .thy-property-operation {
         flex-grow: 1;
+        position: relative;
 
         &:not(:first-child) {
             padding-left: 35px;
