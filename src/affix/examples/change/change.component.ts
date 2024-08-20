@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
     selector: 'thy-affix-on-change-example',
     template: `
         <thy-affix [thyOffsetTop]="120" (thyChange)="onChange($event)">
-            <button thyButton>
+            <button thyButton thyType="primary">
                 <span>120px to affix top</span>
             </button>
         </thy-affix>

@@ -1,8 +1,6 @@
+@use 'variables.scss' as variables2;
+
 :host {
     display: block;
-    background: #fff;
-    // padding: 16px 8px;
-    // .thy-nav {
-    //     background: #fff;
-    // }
+    background: variables2.$white;
 }

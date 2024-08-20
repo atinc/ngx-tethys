@@ -3,7 +3,8 @@ import { ThyCanvasConfigType } from 'ngx-tethys/watermark';
 
 @Component({
     selector: 'thy-watermark-custom-example',
-    templateUrl: './custom.component.html'
+    templateUrl: './custom.component.html',
+    styleUrls: ['./custom.component.scss']
 })
 export class ThyWatermarkCanvasCustomExampleComponent implements OnInit {
     thyCanvasConfig: ThyCanvasConfigType = {
@@ -13,6 +14,7 @@ export class ThyWatermarkCanvasCustomExampleComponent implements OnInit {
         textLineHeight: 25, // 行高
         gutter: [5, 5] // 横纵间距
     };
+
     constructor(private el: ElementRef<HTMLElement>) {}
 
     ngOnInit() {}

@@ -1,3 +1,5 @@
+@use 'variables.scss' as variables2;
+
 :host ::ng-deep .thy-back-top {
     bottom: 100px;
 }
@@ -8,7 +10,7 @@
     line-height: 36px;
     border-radius: 4px;
     background-color: #1088e9;
-    color: #fff;
+    color: variables2.$white;
     text-align: center;
     font-size: 20px;
 }
