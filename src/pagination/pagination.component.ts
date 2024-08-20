@@ -304,7 +304,7 @@ export class ThyPagination implements OnInit {
             // mainPages
             let start = Math.ceil(Math.max(marginalCount + 1, pageIndex - (rangeCount - 1) / 2));
             let end = Math.ceil(Math.min(pageIndex + (rangeCount - 1) / 2, pageCount - marginalCount));
-            if (pageIndex - 1 <= marginalCount) {
+            if (pageIndex - 1 < marginalCount) {
                 end = rangeCount;
             }
             if (pageCount - pageIndex <= marginalCount) {
