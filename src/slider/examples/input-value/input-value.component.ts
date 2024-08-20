@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
         <div class="input-container mb-2">
             <thy-slider [(ngModel)]="value"></thy-slider>
         </div>
-        <input thyInput type="number" [(ngModel)]="value" placeholder="请输入" />
+        <thy-input-number [(ngModel)]="value" placeholder="请输入"></thy-input-number>
     `
 })
 export class ThySliderInputValueExampleComponent implements OnInit {

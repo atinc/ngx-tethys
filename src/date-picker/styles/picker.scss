@@ -120,6 +120,9 @@
     transition: opacity 0.3s;
     width: 100%;
     cursor: variables.$hand-cursor;
+    .panel-is-opened {
+        border-color: variables.$primary;
+    }
     .form-control {
         padding-right: variables.$input-padding-x + variables.$font-size-md;
     }
