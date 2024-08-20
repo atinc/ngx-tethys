@@ -1,12 +1,14 @@
+@use 'variables.scss' as variables2;
+
 .thy-layout .thy-layout-header {
     background: #7dbcea;
 }
 :host ::ng-deep .thy-layout-header .layout-header-title {
-    color: #fff;
+    color: variables2.$white;
 }
 .thy-layout-sidebar {
     background: #3ba0e9;
-    color: #fff;
+    color: variables2.$white;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -21,7 +23,7 @@
     flex-direction: column;
     background: rgba(16, 142, 233, 1);
     height: 350px;
-    color: #fff;
+    color: variables2.$white;
 }
 
 .thy-layout-content > div {
@@ -47,13 +49,13 @@
 .sidebar-resize-line {
     height: 100%;
     width: 5px;
-    border-right: 1px solid #e8e8e8;
+    border-right: 1px solid variables2.$gray-200;
 }
 
 .content-resize-line {
     width: 100%;
     height: 5px;
-    border-bottom: 1px solid #e8e8e8;
+    border-bottom: 1px solid  variables2.$gray-200;
 }
 
 .thy-layout-content {

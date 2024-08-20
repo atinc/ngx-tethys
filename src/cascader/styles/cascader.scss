@@ -21,7 +21,7 @@ $cascader-menu-min-width: 122px;
     }
     &-menus {
         font-size: 14px;
-        background: #fff;
+        background: variables.$white;
         position: relative;
         z-index: 1050;
         border-radius: 4px;
@@ -49,7 +49,7 @@ $cascader-menu-min-width: 122px;
         list-style: none;
         margin: 0;
         padding: 0;
-        border-right: 1px solid #e8e8e8;
+        border-right: 1px solid variables.$gray-200;
         overflow: auto;
         -ms-overflow-style: -ms-autohiding-scrollbar; // https://github.com/ant-design/ant-design/issues/11857
         &:first-child {
@@ -105,7 +105,7 @@ $cascader-menu-min-width: 122px;
         }
         &-expand &-expand-icon,
         &-expand &-loading-icon {
-            color: #aaa;
+            color: variables.$gray-500;
             position: absolute;
             right: 10px;
         }
@@ -116,9 +116,6 @@ $cascader-menu-min-width: 122px;
         &-disabled &-expand-icon,
         &-disabled &-loading-icon {
             color: variables.$gray-400;
-        }
-        & &-keyword {
-            color: #e6f7ff;
         }
     }
 
