@@ -110,16 +110,5 @@
         &:not(:last-child) {
             padding-right: 40px;
         }
-
-        // &:not(:last-child):after {
-        //   content: " ";
-        //   display: block;
-        //   position: absolute;
-        //   top: 4px;
-        //   right: 0;
-        //   height: 90%;
-        //   width: 1px;
-        //   background: #eee;
-        // }
     }
 }

@@ -68,16 +68,13 @@
 @mixin nav-item-size($padding, $margin-right, $font-size: variables.$nav-item-font-size) {
     & {
         font-size: $font-size;
+        margin-right: $margin-right;
     }
 
     @if $padding {
         & {
             padding: $padding;
         }
-    }
-
-    & {
-        margin-right: $margin-right;
     }
 
     &:last-child {
