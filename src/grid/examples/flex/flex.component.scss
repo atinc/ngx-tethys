@@ -1,3 +1,5 @@
+@use 'variables.scss' as variables2;
+
 :host {
     display: block;
     overflow: auto;
@@ -15,12 +17,12 @@
         text-align: center;
         height: 56px;
         line-height: 56px;
-        color: white;
+        color: variables2.$white;
     }
     .blue {
-        background: #6698ff;
+        background: variables2.$primary;
     }
     .light-blue {
-        background: rgba(#6698ff, 70%);
+        background: rgba(variables2.$primary, 70%);
     }
 }
