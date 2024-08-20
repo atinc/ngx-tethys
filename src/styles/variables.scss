@@ -48,8 +48,19 @@ $light: $gray-300 !default;
 $dark: #48525c !default;
 
 // font
-$font-family-sans-serif: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, PingFang SC, Helvetica Neue, Noto Sans, Noto Sans CJK SC,
-    Microsoft Yahei, Arial, Hiragino Sans GB, sans-serif !default;
+$font-family-sans-serif:
+    -apple-system,
+    BlinkMacSystemFont,
+    Segoe UI,
+    Roboto,
+    PingFang SC,
+    Helvetica Neue,
+    Noto Sans,
+    Noto Sans CJK SC,
+    Microsoft Yahei,
+    Arial,
+    Hiragino Sans GB,
+    sans-serif !default;
 $font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !default;
 $font-family-base: $font-family-sans-serif !default;
 $font-family-statistics-number: $font-family-base !default;
@@ -389,6 +400,7 @@ $badge-danger-color: #ff7461 !default;
 $tag-default-color: $gray-700 !default;
 $tag-default-border-color: $gray-200 !default;
 $tag-default-bg: $gray-100 !default;
+$tag-default-hover-bg: $gray-200 !default;
 $tag-colors: () !default;
 $tag-colors: map.merge(
     (
@@ -401,6 +413,31 @@ $tag-colors: map.merge(
     ),
     $tag-colors
 );
+
+$tag-bg-hover-colors: () !default;
+$tag-bg-hover-colors: map.merge(
+    (
+        'primary': #4d87ff,
+        'info': #44c7ff,
+        'success': #5fd288,
+        'warning': #ffc544,
+        'danger': #ff5c5c
+    ),
+    $tag-bg-hover-colors
+);
+
+$tag-weak-fill-bg-hover-colors: () !default;
+$tag-weak-fill-bg-hover-colors: map.merge(
+    (
+        'primary': #4d87ff1a,
+        'info': #44c7ff1a,
+        'success': #5fd2881a,
+        'warning': #ffc5441a,
+        'danger': #ff5c5c1a
+    ),
+    $tag-weak-fill-bg-hover-colors
+);
+
 $tag-height-sm: 20px !default;
 $tag-height-md: 24px !default;
 $tag-height-lg: 28px !default;
@@ -762,7 +799,9 @@ $slide-divider: $gray-200 !default;
 $slide-footer-padding: 15px 20px 0 !default;
 $slide-footer-height: 56px !default;
 $slide-border-color: $gray-200 !default;
-$slide-box-shadow: inset 0px 4px 8px 0px #00000008, -4px 0px 12px 4px #00000008 !default;
+$slide-box-shadow:
+    inset 0px 4px 8px 0px #00000008,
+    -4px 0px 12px 4px #00000008 !default;
 //slider
 $slider-height-sm: 6px !default;
 $slider-height-md: 10px !default;
