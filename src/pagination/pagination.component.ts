@@ -1,27 +1,27 @@
+import { NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 import {
-    Component,
-    OnInit,
     ChangeDetectionStrategy,
-    Input,
-    Output,
-    EventEmitter,
     ChangeDetectorRef,
+    Component,
+    EventEmitter,
     HostBinding,
-    Optional,
     Inject,
+    Input,
+    OnInit,
+    Optional,
+    Output,
     TemplateRef,
     numberAttribute
 } from '@angular/core';
-import { ThyPaginationConfigModel } from './pagination.class';
-import { PaginationDefaultConfig, DEFAULT_RANGE_COUNT, THY_PAGINATION_CONFIG, ThyPaginationConfig } from './pagination.config';
-import { useHostRenderer } from '@tethys/cdk/dom';
-import { coerceBooleanProperty, isTemplateRef } from 'ngx-tethys/util';
-import { PaginationTotalCountFormat } from './pagination.pipe';
-import { ThyIcon } from 'ngx-tethys/icon';
-import { ThyOption, ThyEnterDirective } from 'ngx-tethys/shared';
 import { FormsModule } from '@angular/forms';
+import { useHostRenderer } from '@tethys/cdk/dom';
+import { ThyIcon } from 'ngx-tethys/icon';
 import { ThySelect } from 'ngx-tethys/select';
-import { NgIf, NgTemplateOutlet, NgFor } from '@angular/common';
+import { ThyEnterDirective, ThyOption } from 'ngx-tethys/shared';
+import { coerceBooleanProperty, isTemplateRef } from 'ngx-tethys/util';
+import { ThyPaginationConfigModel } from './pagination.class';
+import { DEFAULT_RANGE_COUNT, PaginationDefaultConfig, THY_PAGINATION_CONFIG, ThyPaginationConfig } from './pagination.config';
+import { PaginationTotalCountFormat } from './pagination.pipe';
 
 /**
  * 分页组件，当数据量过多时，使用分页分解数据。
@@ -145,7 +145,7 @@ export class ThyPagination implements OnInit {
 
     /**
      * 设置中间区域显示数量
-     * @default 7
+     * @default 5
      */
     @Input({ transform: numberAttribute })
     set thyRangeCount(value: number) {
@@ -301,25 +301,9 @@ export class ThyPagination implements OnInit {
             const beforePages = [];
             const afterPages = [];
 
-            // beforePages
-            for (let i = 1; i <= marginalCount; i++) {
-                beforePages.push(this.makePage(i, i.toString(), i === pageIndex));
-            }
-            if (pageIndex - Math.ceil(rangeCount / 2) > this.firstIndex) {
-                beforePages.push(this.makePage(pageIndex - rangeCount, '···', null));
-            }
-
-            // afterPages
-            if (pageIndex + Math.ceil(rangeCount / 2) < pageCount) {
-                afterPages.push(this.makePage(pageIndex + rangeCount, '···', null));
-            }
-            for (let i = pageCount - marginalCount + 1; i <= pageCount; i++) {
-                afterPages.push(this.makePage(i, i.toString(), i === pageIndex));
-            }
-
             // mainPages
-            let start = Math.max(marginalCount + 1, pageIndex - (rangeCount - 1) / 2);
-            let end = Math.min(pageIndex + (rangeCount - 1) / 2, pageCount - marginalCount);
+            let start = Math.ceil(Math.max(marginalCount + 1, pageIndex - (rangeCount - 1) / 2));
+            let end = Math.ceil(Math.min(pageIndex + (rangeCount - 1) / 2, pageCount - marginalCount));
             if (pageIndex - 1 <= marginalCount) {
                 end = rangeCount;
             }
@@ -334,6 +318,25 @@ export class ThyPagination implements OnInit {
                     active: i === +pageIndex
                 });
             }
+
+            // beforePages
+            for (let i = 1; i <= marginalCount; i++) {
+                beforePages.push(this.makePage(i, i.toString(), i === pageIndex));
+            }
+
+            if ((pageIndex - Math.ceil(rangeCount / 2) > this.firstIndex) && (marginalCount + 1 < start)) {
+                beforePages.push(this.makePage(Math.ceil((marginalCount + start) / 2), '···', null));
+            }
+
+            // afterPages
+            if ((pageIndex + Math.ceil(rangeCount / 2) < pageCount) && (pageCount - marginalCount  > end)) {
+                afterPages.push(this.makePage(Math.ceil((pageCount - marginalCount + 1 + end) / 2), '···', null));
+            }
+            for (let i = pageCount - marginalCount + 1; i <= pageCount; i++) {
+                afterPages.push(this.makePage(i, i.toString(), i === pageIndex));
+            }
+
+            
             pages = [...beforePages, ...pages, ...afterPages];
         } else {
             for (let i = 1; i <= pageCount; i++) {
