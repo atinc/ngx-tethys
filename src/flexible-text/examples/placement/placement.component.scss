@@ -1,3 +1,5 @@
+@use 'variables.scss' as variables2;
+
 .flexible-content {
     margin-left: 60px;
     .flexible-top {
@@ -21,7 +23,7 @@
         width: 120px;
         height: 36px;
         line-height: 36px;
-        border: 1px solid #eee;
+        border: 1px solid variables2.$gray-200;
         border-radius: 4px;
     }
 }

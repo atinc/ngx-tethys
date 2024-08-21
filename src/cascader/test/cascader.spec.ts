@@ -446,7 +446,7 @@ class CascaderTemplateComponent {
     public curVal: string | string[] = 'xihu';
 
     public thyCustomerOptions: any[] = clone(customerOptions);
-    isDisplayName$ = new Subject();
+    isDisplayName$ = new Subject<void>();
     constructor() {}
 
     isDisplay(labels: any[]) {
@@ -799,7 +799,10 @@ describe('thy-cascader', () => {
         it('should active selectedOptions when isMultiple is true and isOnlySelectLeaf is false', fakeAsync(() => {
             component.isMultiple = true;
             component.isOnlySelectLeaf = false;
-            fixture.componentInstance.curVal = [['zhejiang', 'hangzhou']] as SafeAny;
+            fixture.componentInstance.curVal = [
+                ['tianjinshi', 'shixiaqu', 'hepingqu'],
+                ['zhejiang', 'hangzhou']
+            ] as SafeAny;
             fixture.detectChanges();
             const trigger = fixture.debugElement.query(By.css('input')).nativeElement;
             trigger.click();
@@ -809,7 +812,7 @@ describe('thy-cascader', () => {
             const activatedOptionsText: string[] = [];
             activatedOptions.forEach(item => activatedOptionsText.push(item.innerText.trim()));
 
-            expect(activatedOptionsText).toEqual(fixture.componentInstance.curVal[0]);
+            expect(activatedOptionsText).toEqual(fixture.componentInstance.curVal[fixture.componentInstance.curVal.length - 1]);
         }));
 
         it('should scroll to active item when menu open', fakeAsync(() => {

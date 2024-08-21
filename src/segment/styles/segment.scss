@@ -44,10 +44,10 @@
         &:not(.disabled) {
             &:hover,
             &:focus {
+                color: variables.$segment-hover-color;
                 .#{variables.$thy-prefix}-segment-item-icon {
                     color: variables.$segment-item-only-icon-hover-color;
                 }
-                color: variables.$segment-hover-color;
                 .icon-with-text {
                     color: variables.$segment-icon-with-text-hover-color;
                 }
