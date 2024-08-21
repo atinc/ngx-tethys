@@ -1,4 +1,5 @@
-import { debounceTime, MonoTypeOperatorFunction, SchedulerLike } from 'rxjs';
+import { MonoTypeOperatorFunction, SchedulerLike } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 /**
  * for issue: https://github.com/angular/angular/issues/44351
