@@ -6,7 +6,6 @@
 @mixin nav-item-variant($color, $hover-color, $border-bottom) {
     & {
         color: $color;
-
     }
 
     > i,
@@ -69,10 +68,8 @@
     & {
         font-size: $font-size;
         margin-right: $margin-right;
-    }
 
-    @if $padding {
-        & {
+        @if $padding {
             padding: $padding;
         }
     }

@@ -113,22 +113,17 @@
         padding: $padding-y $padding-x;
         font-size: $font-size;
         line-height: $line-height; // Manually declare to provide an override to the browser default
-    }
 
-    @if $min-width {
-        & {
+        @if $min-width {
             min-width: $min-width;
         }
-    }
-    @if bootstrap-variables.$enable-rounded {
-        & {
+        @if bootstrap-variables.$enable-rounded {
             border-radius: $border-radius;
-        }
-    } @else {
-        & {
+        } @else {
             border-radius: 0;
         }
     }
+
     &.btn-link {
         padding: $padding-y 10px;
     }

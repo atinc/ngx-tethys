@@ -17,15 +17,14 @@
             }
         }
 
-        @if ($size == xs or $size == sm or $size == md) {
-            & {
+        & {
+            @if ($size == xs or $size == sm or $size == md) {
                 font-size: variables.$font-size-sm;
-            }
-        } @else {
-            & {
+            } @else {
                 font-size: variables.$font-size-base;
             }
         }
+
     }
     &-#{$size} &-item-icon {
         @if ($size == xs) {

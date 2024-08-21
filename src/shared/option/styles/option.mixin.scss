@@ -110,14 +110,11 @@
 }
 
 @mixin thy-multiple-option($hover-active-bg-color: variables.$gray-100) {
-    @include thy-option-text-icon-default();
-    & {
-        padding: {
-            left: 20px;
-            right: 35px;
-        }
+    padding: {
+        left: 20px;
+        right: 35px;
     }
-
+    @include thy-option-text-icon-default();
 
     .checked-icon {
         visibility: hidden;
