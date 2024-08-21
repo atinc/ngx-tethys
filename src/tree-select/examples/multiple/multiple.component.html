@@ -1,7 +1,7 @@
 <thy-tree-select [thyTreeNodes]="treeSelectNodes" [thyMultiple]="isMultiple" [(ngModel)]="selectedValue">
   <ng-template #treeNodeTemplate let-node>
     <thy-icon class="prefix-icon" [thyIconName]="node.expand ? 'folder-open-fill' : 'folder-fill'"></thy-icon>
-    {{ node.name }}
+    <span class="text-truncate">{{ node.name }}</span>
   </ng-template>
 </thy-tree-select>
 

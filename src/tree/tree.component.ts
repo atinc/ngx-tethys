@@ -112,7 +112,7 @@ export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterVi
 
     private _onChange: (value: any) => void = (_: any) => {};
 
-    private destroy$ = new Subject();
+    private destroy$ = new Subject<void>();
 
     // 缓存 Element 和 DragRef 的关系，方便在 Item 拖动时查找
     private nodeDragsMap = new Map<HTMLElement, CdkDrag<ThyTreeNode>>();

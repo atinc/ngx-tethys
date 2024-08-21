@@ -130,7 +130,7 @@ const routes: Routes = [
 ];
 
 describe(`thy-nav`, () => {
-    const fakeResizeObserver = new Subject();
+    const fakeResizeObserver = new Subject<void>();
 
     beforeEach(() => {
         TestBed.configureTestingModule({

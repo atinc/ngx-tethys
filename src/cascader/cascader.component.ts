@@ -27,6 +27,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import {
     EXPANDED_DROPDOWN_POSITIONS,
+    DebounceTimeWrapper,
     ScrollToService,
     TabIndexDisabledControlValueAccessorMixin,
     ThyClickDispatcher
@@ -800,7 +801,7 @@ export class ThyCascader
         this.searchText$
             .pipe(
                 takeUntil(this.destroy$),
-                debounceTime(200),
+                DebounceTimeWrapper.debounceTime(200),
                 distinctUntilChanged(),
                 filter(text => text !== '')
             )
