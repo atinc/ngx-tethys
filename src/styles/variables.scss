@@ -1,4 +1,3 @@
-@use 'sass:color';
 @use 'sass:map';
 
 $thy-prefix: 'thy';
@@ -326,7 +325,7 @@ $layout-header-box-shadow: 0 4px 8px 0px #00000008 !default;
 $layout-content-background: $gray-80 !default;
 $layout-content-padding: 15px 20px 15px 20px !default;
 $layout-sidebar-width: 240px !default;
-$layout-sidebar-background-light: scale-color($gray-80, $lightness: +20%);
+$layout-sidebar-background-light: #fbfbfb !default;
 $layout-sidebar-background-dark: $gray-800 !default;
 $layout-sidebar-border-color: $gray-200 !default;
 $layout-sidebar-border-right: 1px solid $layout-sidebar-border-color !default;
