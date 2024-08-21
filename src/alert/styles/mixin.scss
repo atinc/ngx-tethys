@@ -1,14 +1,7 @@
-@use "sass:color";
-@use "../../styles/bootstrap/mixins/gradients";
-@use "../../styles/variables";
+@use '../../styles/bootstrap/mixins/gradients';
+@use '../../styles/variables';
 
 @mixin thy-alert-inner($color) {
-    hr {
-        border-top-color: color.adjust($color, $lightness: -5%);
-    }
-    .alert-link {
-        color: color.adjust($color, $lightness: -10%);
-    }
     .thy-alert-icon {
         color: $color;
     }
