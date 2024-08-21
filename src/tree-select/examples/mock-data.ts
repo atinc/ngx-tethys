@@ -89,7 +89,66 @@ export const basicTreeSelectData: ThyTreeSelectNode[] = [
                                                                                                 name: '用户故事用户故事用户故事用户故事用户故事用户故事用户故事用户故事',
                                                                                                 level: 11,
                                                                                                 icon: 'user-story-square-fill',
-                                                                                                children: []
+                                                                                                children: [
+                                                                                                    {
+                                                                                                        _id: 'user-story-0012',
+                                                                                                        name: '任务任务任务任务任务任任务任务任务任务任务任务任务任务',
+                                                                                                        level: 12,
+                                                                                                        icon: 'user-story-square-fill',
+                                                                                                        children: [
+                                                                                                            {
+                                                                                                                _id: 'user-story-0013',
+                                                                                                                name: '任务任务任务任务任务任务任务任务任务任任务任务任务任务任务任务任务任务任务任任务任务任务任务任务任务任务任务',
+                                                                                                                level: 13,
+                                                                                                                icon: 'user-story-square-fill',
+                                                                                                                children: [
+                                                                                                                    {
+                                                                                                                        _id: 'user-story-0014',
+                                                                                                                        name: '任务',
+                                                                                                                        level: 14,
+                                                                                                                        icon: 'user-story-square-fill',
+                                                                                                                        children: [
+                                                                                                                            {
+                                                                                                                                _id: 'user-story-0015',
+                                                                                                                                name: '任务任务任务任务任务任务',
+                                                                                                                                level: 15,
+                                                                                                                                icon: 'user-story-square-fill',
+                                                                                                                                children: [
+                                                                                                                                    {
+                                                                                                                                        _id: 'user-story-0016',
+                                                                                                                                        name: '缺陷缺陷缺陷缺陷',
+                                                                                                                                        level: 16,
+                                                                                                                                        icon: 'user-story-square-fill',
+                                                                                                                                        children:
+                                                                                                                                            [
+                                                                                                                                                {
+                                                                                                                                                    _id: 'user-story-0017',
+                                                                                                                                                    name: '缺陷缺陷缺陷缺陷缺陷缺陷缺陷缺陷缺陷缺陷缺陷缺陷',
+                                                                                                                                                    level: 17,
+                                                                                                                                                    icon: 'user-story-square-fill',
+                                                                                                                                                    children:
+                                                                                                                                                        [
+                                                                                                                                                            {
+                                                                                                                                                                _id: 'user-story-0018',
+                                                                                                                                                                name: '缺陷缺陷缺陷缺缺陷缺陷缺陷缺陷缺陷缺陷缺陷缺陷缺陷缺陷缺陷缺陷陷缺陷缺陷缺陷缺陷缺陷缺陷缺陷缺陷',
+                                                                                                                                                                level: 18,
+                                                                                                                                                                icon: 'user-story-square-fill',
+                                                                                                                                                                children:
+                                                                                                                                                                    []
+                                                                                                                                                            }
+                                                                                                                                                        ]
+                                                                                                                                                }
+                                                                                                                                            ]
+                                                                                                                                    }
+                                                                                                                                ]
+                                                                                                                            }
+                                                                                                                        ]
+                                                                                                                    }
+                                                                                                                ]
+                                                                                                            }
+                                                                                                        ]
+                                                                                                    }
+                                                                                                ]
                                                                                             }
                                                                                         ]
                                                                                     }
