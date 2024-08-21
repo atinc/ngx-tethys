@@ -179,7 +179,6 @@
         @include hover.hover {
             cursor: variables.$hand-cursor;
             background-color: variables.$table-hover-color;
-            // @include table-hover-box-shadow($table-hover-color);
         }
     }
 }

@@ -2,7 +2,9 @@
 @use '../../styles/variables.scss';
 
 @mixin action-variant($color, $hover-color, $hover-bg-color) {
-    color: $color;
+    & {
+        color: $color;
+    }
 
     @include hover.hover-active {
         &:not(.thy-action-has-feedback):not(.disabled) {
@@ -17,8 +19,11 @@
 }
 
 @mixin action-item-size($padding, $margin-right) {
-    padding: $padding;
-    margin-right: $margin-right;
+    & {
+        padding: $padding;
+        margin-right: $margin-right;
+    }
+
 
     &:last-child {
         margin-right: 0;
