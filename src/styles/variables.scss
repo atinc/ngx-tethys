@@ -176,6 +176,25 @@ $btn-icon-color: $gray-400 !default;
 $btn-icon-thick-dashed-color: $gray-300 !default;
 $btn-icon-thick-solid-color: $gray-400 !default;
 
+$btn-theme-hover-bg-colors: () !default;
+$btn-theme-hover-bg-colors: map.merge(
+    (
+        'lighter': gainsboro,
+        'bright': #e1e1e1,
+        'content': #e1e1e1,
+
+        'primary': #3376ff,
+        'secondary': #4d4d4d,
+        'success': #4bcd79,
+        'info': #2ac0ff,
+        'warning': #ffbd2a,
+        'danger': #ff4242,
+        'light': #c4c4c4,
+        'dark': #1a1a1a
+    ),
+    $btn-theme-hover-bg-colors
+);
+
 $btn-icon-circle-padding-lg: 11px;
 $btn-icon-circle-padding-base: 8px;
 $btn-icon-circle-padding-md: 7px;

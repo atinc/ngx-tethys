@@ -1,11 +1,12 @@
-@use "../../mixins/background-variant";
-@use "../../variables";
-@use "../functions-variables";
+@use 'sass:map';
+@use '../../mixins/background-variant';
+@use '../../variables';
+@use '../functions-variables';
 
 // stylelint-disable declaration-no-important
 
 @each $color, $value in functions-variables.$theme-colors {
-    @include background-variant.bg-variant('.bg-#{$color}', $value, true);
+    @include background-variant.bg-variant('.bg-#{$color}', $value, map.get(variables.$btn-theme-hover-bg-colors, $color), true);
 }
 
 @if variables.$enable-gradients {
