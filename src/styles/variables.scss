@@ -399,6 +399,7 @@ $badge-danger-color: #ff7461 !default;
 $tag-default-color: $gray-700 !default;
 $tag-default-border-color: $gray-200 !default;
 $tag-default-bg: $gray-100 !default;
+$tag-default-hover-bg: $gray-200 !default;
 $tag-colors: () !default;
 $tag-colors: map.merge(
     (
@@ -411,6 +412,31 @@ $tag-colors: map.merge(
     ),
     $tag-colors
 );
+
+$tag-bg-hover-colors: () !default;
+$tag-bg-hover-colors: map.merge(
+    (
+        'primary': #4d87ff,
+        'info': #44c7ff,
+        'success': #5fd288,
+        'warning': #ffc544,
+        'danger': #ff5c5c
+    ),
+    $tag-bg-hover-colors
+);
+
+$tag-weak-fill-bg-hover-colors: () !default;
+$tag-weak-fill-bg-hover-colors: map.merge(
+    (
+        'primary': #4d87ff1a,
+        'info': #44c7ff1a,
+        'success': #5fd2881a,
+        'warning': #ffc5441a,
+        'danger': #ff5c5c1a
+    ),
+    $tag-weak-fill-bg-hover-colors
+);
+
 $tag-height-sm: 20px !default;
 $tag-height-md: 24px !default;
 $tag-height-lg: 28px !default;
