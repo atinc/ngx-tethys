@@ -28,14 +28,14 @@
 // }
 
 // 新增比 light 更亮的2个背景色
-@include background-variant.bg-variant('.bg-lighter', variables.$gray-100);
-@include background-variant.bg-variant('.bg-bright', variables.$gray-80);
-@include background-variant.bg-variant('.bg-content', variables.$layout-content-background);
+@include background-variant.bg-variant('.bg-lighter', #f5f5f5);
+@include background-variant.bg-variant('.bg-bright', #fafafa);
+@include background-variant.bg-variant('.bg-content', #f5f5f5);
 
 // text-placeholder #cacaca
-@include utilities.text-emphasis-variant('.text-placeholder', variables.$gray-400);
-@include utilities.text-emphasis-variant('.text-body', variables.$gray-800);
-@include utilities.text-emphasis-variant('.text-desc', variables.$gray-500);
+@include utilities.text-emphasis-variant('.text-placeholder', #cacaca);
+@include utilities.text-emphasis-variant('.text-body', #333);
+@include utilities.text-emphasis-variant('.text-desc', #aaa);
 
 // 保证 wtf 图标和字体对齐
 .wtf {

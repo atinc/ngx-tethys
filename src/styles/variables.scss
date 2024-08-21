@@ -33,16 +33,15 @@ $rem-26px: 1.625rem;
 // color
 $body-color: $gray-800 !default;
 $primary: #6698ff !default;
-
-$secondary: $gray-700 !default;
-$success: #73d897 !default; // 2dbcff
+$secondary: #666 !default;
+$success: #73d897 !default;
 $info: #5dcfff !default;
 $warning: #ffcd5d !default;
 $danger: #ff7575 !default;
 $pass: #2cccda !default;
 $secondary-item-active: rgba($primary, 0.1) !default;
 $item-active-bg-color: rgba($primary, 0.1) !default;
-$light: $gray-300 !default;
+$light: #ddd !default;
 $dark: #48525c !default;
 
 // font
@@ -390,15 +389,14 @@ $badge-padding-x: 7px !default;
 $badge-border-radius: 14px !default;
 $badge-pill-padding-x: 0.6em !default;
 $badge-pill-border-radius: 10rem !default;
-$badge-bg: $gray-200 !default; //#eee
-$badge-color: $gray-600 !default; //#888
+$badge-bg: $gray-200 !default;
+$badge-color: $gray-600 !default;
 $badge-danger-color: #ff7461 !default;
 
 // tag
 $tag-default-color: $gray-700 !default;
 $tag-default-border-color: $gray-200 !default;
-$tag-default-bg: $gray-100 !default;
-$tag-default-hover-bg: $gray-200 !default;
+$tag-default-bg: #f5f5f5 !default;
 $tag-colors: () !default;
 $tag-colors: map.merge(
     (
@@ -410,30 +408,6 @@ $tag-colors: map.merge(
         'danger': $danger
     ),
     $tag-colors
-);
-
-$tag-bg-hover-colors: () !default;
-$tag-bg-hover-colors: map.merge(
-    (
-        'primary': #4d87ff,
-        'info': #44c7ff,
-        'success': #5fd288,
-        'warning': #ffc544,
-        'danger': #ff5c5c
-    ),
-    $tag-bg-hover-colors
-);
-
-$tag-weak-fill-bg-hover-colors: () !default;
-$tag-weak-fill-bg-hover-colors: map.merge(
-    (
-        'primary': #4d87ff1a,
-        'info': #44c7ff1a,
-        'success': #5fd2881a,
-        'warning': #ffc5441a,
-        'danger': #ff5c5c1a
-    ),
-    $tag-weak-fill-bg-hover-colors
 );
 
 $tag-height-sm: 20px !default;

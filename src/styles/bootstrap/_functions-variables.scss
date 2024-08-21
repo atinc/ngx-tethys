@@ -1,4 +1,4 @@
-@use "sass:map";
+@use 'sass:map';
 @use '../variables.scss';
 $yiq-text-dark: variables.$gray-900 !default;
 $yiq-text-light: variables.$white !default;
@@ -13,7 +13,7 @@ $yellow: #ffc107 !default;
 $green: #28a745 !default;
 $teal: #20c997 !default;
 $cyan: #17a2b8 !default;
-$dark: variables.$gray-800 !default;
+$dark: #333 !default;
 
 $colors: () !default;
 // // stylelint-disable-next-line scss/dollar-variable-default

@@ -1,6 +1,6 @@
-@use "sass:color";
-@use "../mixins/hover";
-@use "../bootstrap/variables";
+@use 'sass:color';
+@use '../mixins/hover';
+@use '../bootstrap/variables';
 
 // stylelint-disable declaration-no-important
 
@@ -16,7 +16,6 @@
             background-color: color.adjust($color, $lightness: -10%) !important;
         }
     }
-    // @include deprecate("The `bg-variant` mixin", "v4.4.0", "v5", $ignore-warning);
 }
 
 @mixin bg-gradient-variant($parent, $color) {

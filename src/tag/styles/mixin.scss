@@ -1,13 +1,14 @@
+@use 'sass:color';
 @use '../../styles/variables.scss';
 
-@mixin tag-bg-variant($bg-color, $bg-hover-color) {
+@mixin tag-bg-variant($bg-color) {
     & {
         background-color: $bg-color;
     }
 
     &.thy-tag-hover {
         &:hover {
-            background-color: $bg-hover-color;
+            background-color: color.adjust($bg-color, $lightness: -5%);
             cursor: variables.$hand-cursor;
         }
     }
