@@ -89,7 +89,7 @@ input[type='checkbox'] {
     }
 
     &:disabled {
-        background-color: rgba($color: #000000, $alpha: 0.03);
+        background-color: rgba($color: variables.$black, $alpha: 0.03);
         cursor: variables.$disabled-cursor;
     }
 }
@@ -188,11 +188,10 @@ input[type='radio'] {
     color: variables.$input-label-color;
     transition: color variables.$transition-duration-normal;
     user-select: none;
+    margin-bottom: 0;
     .form-check-inline & {
         margin-left: variables.$form-check-label-margin-l;
     }
-
-    margin-bottom: 0;
 }
 
 // checked style

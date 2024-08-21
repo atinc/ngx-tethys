@@ -1,8 +1,10 @@
+@use 'variables.scss' as variables2;
+
 .statistic-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 10px;
 }
 h4 {
-    color: #aaa;
+    color: variables2.$gray-500;
 }

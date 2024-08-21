@@ -12,6 +12,14 @@
 // Base styles
 //
 .btn {
+    display: inline-block;
+    font-weight: bootstrap-variables.$btn-font-weight;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: bootstrap-variables.$btn-border-width solid transparent;
+
     // 设置 icon 字体大小
     i,
     .wtf,
@@ -20,13 +28,6 @@
         line-height: 1rem;
     }
 
-    display: inline-block;
-    font-weight: bootstrap-variables.$btn-font-weight;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    user-select: none;
-    border: bootstrap-variables.$btn-border-width solid transparent;
     @include mixin.button-size(
         variables.$btn-padding-y,
         variables.$btn-padding-x,
