@@ -29,8 +29,6 @@
 }
 
 @mixin thy-option($hover-bg-color: variables.$gray-100, $color: variables.$body-color) {
-    @include thy-option-common-layout();
-    @include thy-option-text-icon-primary();
     min-height: 40px;
     color: $color;
     cursor: variables.$hand-cursor;
@@ -40,6 +38,8 @@
         left: 20px;
         right: 20px;
     }
+    @include thy-option-common-layout();
+    @include thy-option-text-icon-primary();
 
     // use in tree-select
     .prefix-icon {
@@ -110,11 +110,11 @@
 }
 
 @mixin thy-multiple-option($hover-active-bg-color: variables.$gray-100) {
-    @include thy-option-text-icon-default();
     padding: {
         left: 20px;
         right: 35px;
     }
+    @include thy-option-text-icon-default();
 
     .checked-icon {
         visibility: hidden;
@@ -177,8 +177,6 @@
 
 @mixin thy-grid-option {
     .thy-grid-option {
-        @include thy-option-common-layout();
-        @include thy-option-text-icon-default();
         flex-direction: column;
         vertical-align: middle;
         justify-content: center;
@@ -191,6 +189,8 @@
         border: solid 1px variables.$gray-200;
         cursor: variables.$hand-cursor;
         outline-style: none;
+        @include thy-option-common-layout();
+        @include thy-option-text-icon-default();
 
         .checked-icon {
             visibility: hidden;

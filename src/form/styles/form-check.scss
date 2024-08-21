@@ -188,11 +188,10 @@ input[type='radio'] {
     color: variables.$input-label-color;
     transition: color variables.$transition-duration-normal;
     user-select: none;
+    margin-bottom: 0;
     .form-check-inline & {
         margin-left: variables.$form-check-label-margin-l;
     }
-
-    margin-bottom: 0;
 }
 
 // checked style
