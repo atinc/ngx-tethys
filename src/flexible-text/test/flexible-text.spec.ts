@@ -64,7 +64,7 @@ describe('FlexibleTextComponent', () => {
 
     let callbacks: Function[] = [];
     const invokeCallbacks = (args?: any) => callbacks.forEach(callback => callback(args));
-    const fakeResizeObserver = new Subject();
+    const fakeResizeObserver = new Subject<void>();
 
     beforeEach(waitForAsync(() => {
         callbacks = [];

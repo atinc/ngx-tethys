@@ -48,7 +48,7 @@ export class ThyCascaderService {
 
     private prevSelectedOptions: Set<ThyCascaderOption> = new Set<ThyCascaderOption>();
 
-    public valueChange$ = new Subject();
+    public valueChange$ = new Subject<void>();
 
     public cascaderValueChange() {
         return this.valueChange$.pipe(
