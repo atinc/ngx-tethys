@@ -1,6 +1,6 @@
 @use '../../styles/variables.scss';
 
-@mixin tag-bg-variant($bg-color) {
+@mixin tag-bg-variant($bg-color, $bg-hover-color) {
     & {
         background-color: $bg-color;
     }
