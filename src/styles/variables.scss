@@ -34,8 +34,7 @@ $rem-26px: 1.625rem;
 // color
 $body-color: $gray-800 !default;
 $primary: #6698ff !default;
-// deprecated
-$primary-active: color.adjust($primary, $lightness: -10%) !default;
+
 $secondary: $gray-700 !default;
 $success: #73d897 !default; // 2dbcff
 $info: #5dcfff !default;
@@ -48,8 +47,19 @@ $light: $gray-300 !default;
 $dark: #48525c !default;
 
 // font
-$font-family-sans-serif: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, PingFang SC, Helvetica Neue, Noto Sans, Noto Sans CJK SC,
-    Microsoft Yahei, Arial, Hiragino Sans GB, sans-serif !default;
+$font-family-sans-serif:
+    -apple-system,
+    BlinkMacSystemFont,
+    Segoe UI,
+    Roboto,
+    PingFang SC,
+    Helvetica Neue,
+    Noto Sans,
+    Noto Sans CJK SC,
+    Microsoft Yahei,
+    Arial,
+    Hiragino Sans GB,
+    sans-serif !default;
 $font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !default;
 $font-family-base: $font-family-sans-serif !default;
 $font-family-statistics-number: $font-family-base !default;
@@ -762,7 +772,9 @@ $slide-divider: $gray-200 !default;
 $slide-footer-padding: 15px 20px 0 !default;
 $slide-footer-height: 56px !default;
 $slide-border-color: $gray-200 !default;
-$slide-box-shadow: inset 0px 4px 8px 0px #00000008, -4px 0px 12px 4px #00000008 !default;
+$slide-box-shadow:
+    inset 0px 4px 8px 0px #00000008,
+    -4px 0px 12px 4px #00000008 !default;
 //slider
 $slider-height-sm: 6px !default;
 $slider-height-md: 10px !default;
