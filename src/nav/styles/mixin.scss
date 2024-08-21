@@ -4,7 +4,10 @@
 @use "../../styles/variables";
 
 @mixin nav-item-variant($color, $hover-color, $border-bottom) {
-    color: $color;
+    & {
+        color: $color;
+    }
+
     > i,
     > .thy-icon {
         color: variables.$nav-item-icon-color;
@@ -38,9 +41,12 @@
 }
 
 @mixin nav-item-pills-variant($color, $hover-color, $background: variables.$gray-100, $border-radius: 18px) {
-    background: $background;
-    color: $color;
-    border-radius: $border-radius;
+    & {
+        background: $background;
+        color: $color;
+        border-radius: $border-radius;
+    }
+
 
     &.thy-nav-origin-active {
         text-decoration: none;
@@ -59,11 +65,15 @@
 }
 
 @mixin nav-item-size($padding, $margin-right, $font-size: variables.$nav-item-font-size) {
-    font-size: $font-size;
-    @if $padding {
-        padding: $padding;
+    & {
+        font-size: $font-size;
+        margin-right: $margin-right;
+
+        @if $padding {
+            padding: $padding;
+        }
     }
-    margin-right: $margin-right;
+
     &:last-child {
         margin-right: 0;
     }
@@ -109,7 +119,10 @@
 }
 
 @mixin nav-item-divider-variant($nav-item-hover-color, $divider-height, $nav-item-padding-right) {
-    position: relative;
+    & {
+        position: relative;
+    }
+
     &:after {
         display: block;
         position: absolute;
@@ -136,7 +149,10 @@
 }
 
 @mixin clear-nav-item-bottom {
-    border-bottom: none;
+    & {
+        border-bottom: none;
+    }
+
     &.active {
         border-bottom: none;
     }

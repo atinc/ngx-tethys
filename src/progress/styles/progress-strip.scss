@@ -39,8 +39,8 @@
     justify-content: center;
     color: bootstrap-variables.$progress-bar-color;
     text-align: center;
-    @include transition.transition(bootstrap-variables.$progress-bar-transition);
     position: relative;
+    @include transition.transition(bootstrap-variables.$progress-bar-transition);
     &[aria-valuenow='0'] {
         &:before {
             display: none;

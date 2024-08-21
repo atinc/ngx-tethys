@@ -101,6 +101,7 @@
 
     .thy-property-operation {
         flex-grow: 1;
+        position: relative;
 
         &:not(:first-child) {
             padding-left: 35px;
@@ -109,6 +110,5 @@
         &:not(:last-child) {
             padding-right: 40px;
         }
-        position: relative;
     }
 }

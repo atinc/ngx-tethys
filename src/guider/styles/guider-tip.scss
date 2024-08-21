@@ -34,15 +34,15 @@
         box-sizing: border-box;
         flex-direction: column;
         display: flex;
+        font-size: 14px;
+        color: variables.$gray-700;
+        letter-spacing: 0;
+        line-height: 26px;
         &-title {
             font-size: 16px;
             color: variables.$gray-800;
             margin-bottom: 12px;
         }
-        font-size: 14px;
-        color: variables.$gray-700;
-        letter-spacing: 0;
-        line-height: 26px;
         &-description {
             flex: 1;
             overflow-y: auto;

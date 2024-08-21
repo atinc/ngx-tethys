@@ -1,7 +1,9 @@
 @use "../variables.scss";
 
 @mixin box-shadow($value) {
-    box-shadow: $value;
+    & {
+        box-shadow: $value;
+    }
 }
 
 @mixin item-box-shadow($color: rgba(0, 0, 0, 0.08)) {

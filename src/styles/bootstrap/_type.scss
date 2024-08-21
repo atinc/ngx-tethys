@@ -53,30 +53,30 @@ h6,
 }
 
 .lead {
-    @include rfs.font-size(variables.$lead-font-size);
     font-weight: variables.$lead-font-weight;
+    @include rfs.font-size(variables.$lead-font-size);
 }
 
 // Type display classes
 .display-1 {
-    @include rfs.font-size(variables.$display1-size);
     font-weight: variables.$display1-weight;
     line-height: variables.$display-line-height;
+    @include rfs.font-size(variables.$display1-size);
 }
 .display-2 {
-    @include rfs.font-size(variables.$display2-size);
     font-weight: variables.$display2-weight;
     line-height: variables.$display-line-height;
+    @include rfs.font-size(variables.$display2-size);
 }
 .display-3 {
-    @include rfs.font-size(variables.$display3-size);
     font-weight: variables.$display3-weight;
     line-height: variables.$display-line-height;
+    @include rfs.font-size(variables.$display3-size);
 }
 .display-4 {
-    @include rfs.font-size(variables.$display4-size);
     font-weight: variables.$display4-weight;
     line-height: variables.$display-line-height;
+    @include rfs.font-size(variables.$display4-size);
 }
 
 //
@@ -96,8 +96,8 @@ hr {
 
 small,
 .small {
-    @include rfs.font-size(variables.$small-font-size);
     font-weight: variables.$font-weight-normal;
+    @include rfs.font-size(variables.$small-font-size);
 }
 
 mark,
@@ -132,8 +132,8 @@ mark,
 
 // Builds on `abbr`
 .initialism {
-    @include rfs.font-size(90%);
     text-transform: uppercase;
+    @include rfs.font-size(90%);
 }
 
 // Blockquotes
@@ -144,8 +144,8 @@ mark,
 
 .blockquote-footer {
     display: block;
-    @include rfs.font-size(variables.$blockquote-small-font-size);
     color: variables.$blockquote-small-color;
+    @include rfs.font-size(variables.$blockquote-small-font-size);
 
     &::before {
         content: '\2014\00A0'; // em dash, nbsp
