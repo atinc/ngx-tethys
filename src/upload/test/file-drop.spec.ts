@@ -210,6 +210,24 @@ describe('thyFileDrop', () => {
         expect(filesRejectSpy).toHaveBeenCalledWith([dataTransfer.files[0]]);
     });
 
+    it('should invoke thyFilesReject when file type is unknown("")', () => {
+        const filesRejectSpy = spyOn(testComponent, 'filesReject');
+        testComponent.acceptType = '.png';
+        fixture.detectChanges();
+
+        const fileDropElement: HTMLElement = fileDropDebugElement.nativeElement;
+
+         const mdFile = createCustomTypeFile('custom.md', MIME_Map['.md']);
+        const mdDataTransfer = new DataTransfer();
+        mdDataTransfer.items.add(mdFile);
+
+        const dropEvent = createDragEvent('drop', mdDataTransfer, true, true);
+        fileDropElement.dispatchEvent(dropEvent);
+        fixture.detectChanges();
+        expect(filesRejectSpy).toHaveBeenCalled();
+        expect(filesRejectSpy).toHaveBeenCalledWith([dataTransfer.files[0]]);
+    });
+
     function createCustomTypeFile(fileName: string, fileType: string) {
         const fileContent = 'Custom File Content';
         const file = new File([fileContent], fileName);
