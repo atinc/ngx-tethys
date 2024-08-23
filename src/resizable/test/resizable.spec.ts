@@ -5,15 +5,166 @@ import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ApplicationRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-import { ThyResizableBasicExampleComponent } from '../examples/basic/basic.component';
-import { ThyResizableCustomizeExampleComponent } from '../examples/customize/customize.component';
-import { ThyResizableGridExampleComponent } from '../examples/grid/grid.component';
-import { ThyResizableLockAspectRatioExampleComponent } from '../examples/lock-aspect-ratio/lock-aspect-ratio.component';
-import { ThyResizablePreviewExampleComponent } from '../examples/preview/preview.component';
-import { ThyResizableLineExampleComponent } from '../examples/line/line.component';
-import { DEFAULT_RESIZE_DIRECTION, ThyResizableDirective } from '../index';
+import { DEFAULT_RESIZE_DIRECTION, ThyResizableDirective, ThyResizeEvent } from '../index';
 import { ThyResizableModule } from '../module';
+
+@Component({
+    selector: 'thy-resizable-basic-test',
+    template: `<div
+        class="box"
+        thyResizable
+        [thyMaxWidth]="600"
+        [thyMinWidth]="80"
+        [thyMaxHeight]="200"
+        [thyMinHeight]="80"
+        [thyDisabled]="disabled"
+        [style.height.px]="height"
+        [style.width.px]="width"
+        (thyResize)="onResize($event)">
+        <thy-resize-handles></thy-resize-handles>
+        content
+    </div> `
+})
+export class ThyResizableBasicTestComponent {
+    width = 400;
+    height = 200;
+    disabled = false;
+    @ViewChild(ThyResizableDirective, { static: true }) directive: ThyResizableDirective;
+
+    onResize({ width, height }: ThyResizeEvent): void {
+        this.width = width!;
+        this.height = height!;
+    }
+}
+
+@Component({
+    selector: 'thy-resizable-customize-test',
+    template: `<div
+        class="box"
+        thyResizable
+        [thyMaxWidth]="600"
+        [thyMinWidth]="80"
+        [thyMaxHeight]="200"
+        [thyMinHeight]="80"
+        [style.height.px]="height"
+        [style.width.px]="width"
+        (thyResize)="onResize($event)">
+        <thy-resize-handle thyDirection="bottomRight">
+            <thy-icon class="bottom-right" thyIconName="caret-right-down"></thy-icon>
+        </thy-resize-handle>
+        <thy-resize-handle thyDirection="right">
+            <div class="right-wrap">
+                <thy-icon thyIconName="drag" class="right"></thy-icon>
+            </div>
+        </thy-resize-handle>
+        content
+    </div> `
+})
+export class ThyResizableCustomizeTestComponent {
+    width = 400;
+    height = 200;
+
+    onResize({ width, height }: ThyResizeEvent): void {
+        this.width = width!;
+        this.height = height!;
+    }
+}
+
+@Component({
+    selector: 'thy-resizable-grid-test',
+    template: `<div thyRow>
+        <div
+            thyCol
+            thyResizable
+            class="col"
+            (thyResize)="onResize($event)"
+            [thyMinColumn]="3"
+            [thyMaxColumn]="20"
+            [thyGridColumnCount]="24"
+            [thySpan]="col">
+            <thy-resize-handles [thyDirections]="['right']"></thy-resize-handles>
+            col-{{ col }}
+        </div>
+        <div class="col col-right" thyCol [thySpan]="24 - col">col-{{ 24 - col }}</div>
+    </div>`
+})
+export class ThyResizableGridTestComponent {
+    col = 8;
+
+    onResize({ col }: ThyResizeEvent): void {
+        this.col = col!;
+    }
+}
+
+@Component({
+    selector: 'thy-resizable-basic-test',
+    template: `<div
+        class="box"
+        thyResizable
+        thyPreview
+        [style.height.px]="height"
+        [style.width.px]="width"
+        (thyResizeEnd)="onResize($event)">
+        <thy-resize-handles></thy-resize-handles>
+        content
+    </div> `
+})
+export class ThyResizablePreviewTestComponent {
+    width = 400;
+    height = 200;
+
+    onResize({ width, height }: ThyResizeEvent): void {
+        this.width = width!;
+        this.height = height!;
+    }
+}
+
+@Component({
+    selector: 'thy-resizable-lock-aspect-ratio-test',
+    template: `<div
+        class="box"
+        thyResizable
+        [style.height.px]="height"
+        [style.width.px]="width"
+        thyLockAspectRatio="true"
+        (thyResize)="onResize($event)">
+        <thy-resize-handles></thy-resize-handles>
+        content
+    </div> `
+})
+export class ThyResizableLockAspectRatioTestComponent {
+    width = 400;
+    height = 200;
+
+    onResize({ width, height }: ThyResizeEvent): void {
+        this.width = width!;
+        this.height = height!;
+    }
+}
+
+@Component({
+    selector: 'thy-resizable-line-test',
+    template: `<div class="container">
+        <div thyResizable class="left" (thyResize)="onResize($event)" [style.width.px]="width">
+            Left
+            <thy-resize-handles (dblclick)="reset()" [thyDirections]="directions" thyLine="true"></thy-resize-handles>
+        </div>
+        <div class="right">Right</div>
+    </div> `
+})
+export class ThyResizableLineTestComponent {
+    width = 200;
+
+    directions = ['right'];
+
+    onResize(event: ThyResizeEvent): void {
+        this.width = event.width;
+    }
+
+    reset() {
+        this.width = 200;
+    }
+}
 
 @Component({
     template: `
@@ -78,25 +229,25 @@ describe('resizable', () => {
         TestBed.configureTestingModule({
             imports: [ThyResizableModule, ThyGridModule, ThyIconModule],
             declarations: [
-                ThyResizableBasicExampleComponent,
-                ThyResizableCustomizeExampleComponent,
-                ThyResizableLockAspectRatioExampleComponent,
-                ThyResizablePreviewExampleComponent,
-                ThyResizableGridExampleComponent,
+                ThyResizableBasicTestComponent,
+                ThyResizableCustomizeTestComponent,
+                ThyResizableLockAspectRatioTestComponent,
+                ThyResizablePreviewTestComponent,
+                ThyResizableGridTestComponent,
                 ThyTestResizableBoundsComponent,
-                ThyResizableLineExampleComponent
+                ThyResizableLineTestComponent
             ],
             providers: []
         }).compileComponents();
     }));
 
     describe('basic', () => {
-        let fixture: ComponentFixture<ThyResizableBasicExampleComponent>;
-        let testComponent: ThyResizableBasicExampleComponent;
+        let fixture: ComponentFixture<ThyResizableBasicTestComponent>;
+        let testComponent: ThyResizableBasicTestComponent;
         let resizableEle: HTMLElement;
 
         beforeEach(() => {
-            fixture = TestBed.createComponent(ThyResizableBasicExampleComponent);
+            fixture = TestBed.createComponent(ThyResizableBasicTestComponent);
             testComponent = fixture.debugElement.componentInstance;
             resizableEle = fixture.debugElement.query(By.directive(ThyResizableDirective)).nativeElement;
             fixture.detectChanges();
@@ -451,12 +602,12 @@ describe('resizable', () => {
     });
 
     describe('customize', () => {
-        let fixture: ComponentFixture<ThyResizableCustomizeExampleComponent>;
-        let testComponent: ThyResizableCustomizeExampleComponent;
+        let fixture: ComponentFixture<ThyResizableCustomizeTestComponent>;
+        let testComponent: ThyResizableCustomizeTestComponent;
         let resizableEle: HTMLElement;
 
         beforeEach(() => {
-            fixture = TestBed.createComponent(ThyResizableCustomizeExampleComponent);
+            fixture = TestBed.createComponent(ThyResizableCustomizeTestComponent);
             testComponent = fixture.debugElement.componentInstance;
             resizableEle = fixture.debugElement.query(By.directive(ThyResizableDirective)).nativeElement;
             fixture.detectChanges();
@@ -490,12 +641,12 @@ describe('resizable', () => {
     });
 
     describe('lock aspect ratio', () => {
-        let fixture: ComponentFixture<ThyResizableLockAspectRatioExampleComponent>;
+        let fixture: ComponentFixture<ThyResizableLockAspectRatioTestComponent>;
         let resizableEle: HTMLElement;
-        let testComponent: ThyResizableLockAspectRatioExampleComponent;
+        let testComponent: ThyResizableLockAspectRatioTestComponent;
 
         beforeEach(() => {
-            fixture = TestBed.createComponent(ThyResizableLockAspectRatioExampleComponent);
+            fixture = TestBed.createComponent(ThyResizableLockAspectRatioTestComponent);
             testComponent = fixture.debugElement.componentInstance;
             resizableEle = fixture.debugElement.query(By.directive(ThyResizableDirective)).nativeElement;
             fixture.detectChanges();
@@ -554,11 +705,11 @@ describe('resizable', () => {
     });
 
     describe('preview', () => {
-        let fixture: ComponentFixture<ThyResizablePreviewExampleComponent>;
+        let fixture: ComponentFixture<ThyResizablePreviewTestComponent>;
         let resizableEle: HTMLElement;
 
         beforeEach(() => {
-            fixture = TestBed.createComponent(ThyResizablePreviewExampleComponent);
+            fixture = TestBed.createComponent(ThyResizablePreviewTestComponent);
             resizableEle = fixture.debugElement.query(By.directive(ThyResizableDirective)).nativeElement;
             fixture.detectChanges();
         });
@@ -579,12 +730,12 @@ describe('resizable', () => {
     });
 
     describe('grid', () => {
-        let fixture: ComponentFixture<ThyResizableGridExampleComponent>;
+        let fixture: ComponentFixture<ThyResizableGridTestComponent>;
         let resizableEle: HTMLElement;
-        let testComponent: ThyResizableGridExampleComponent;
+        let testComponent: ThyResizableGridTestComponent;
 
         beforeEach(() => {
-            fixture = TestBed.createComponent(ThyResizableGridExampleComponent);
+            fixture = TestBed.createComponent(ThyResizableGridTestComponent);
             testComponent = fixture.debugElement.componentInstance;
             resizableEle = fixture.debugElement.query(By.directive(ThyResizableDirective)).nativeElement;
             fixture.detectChanges();
@@ -726,12 +877,12 @@ describe('resizable', () => {
     });
 
     describe('resize-handles', () => {
-        let fixture: ComponentFixture<ThyResizableLineExampleComponent>;
+        let fixture: ComponentFixture<ThyResizableLineTestComponent>;
         let resizableElement: HTMLElement;
         let testComponent: ThyTestResizableBoundsComponent;
 
         beforeEach(() => {
-            fixture = TestBed.createComponent(ThyResizableLineExampleComponent);
+            fixture = TestBed.createComponent(ThyResizableLineTestComponent);
             testComponent = fixture.debugElement.componentInstance;
             resizableElement = fixture.debugElement.query(By.directive(ThyResizableDirective)).nativeElement;
             fixture.detectChanges();
