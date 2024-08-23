@@ -97,7 +97,7 @@ export class ThyResizableGridTestComponent {
 }
 
 @Component({
-    selector: 'thy-resizable-basic-test',
+    selector: 'thy-resizable-preview-test',
     template: `<div
         class="box"
         thyResizable
