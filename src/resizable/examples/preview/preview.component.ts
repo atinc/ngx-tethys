@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ThyResizeEvent } from 'ngx-tethys/resizable';
 
 @Component({
-    selector: 'thy-resizable-basic-example',
+    selector: 'thy-resizable-preview-example',
     templateUrl: './preview.component.html',
     styleUrls: ['../style.scss']
 })
