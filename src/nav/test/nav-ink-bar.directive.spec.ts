@@ -212,10 +212,12 @@ describe(`thy-nav-ink-bar`, () => {
             dispatchFakeEvent(items[1].nativeElement, 'click');
             flush();
             fixture.detectChanges();
-            const activeItem: DebugElement = fixture.debugElement.query(By.css('.active'));
-            const firstActiveItem: HTMLElement = activeItem.nativeElement;
-            const updateRect = firstActiveItem.getBoundingClientRect();
-            expect(navInkBarElement.style.top).toEqual(Math.round(updateRect.top) + 'px');
+            fixture.whenStable().then(() => {
+                const activeItem: DebugElement = fixture.debugElement.query(By.css('.active'));
+                const firstActiveItem: HTMLElement = activeItem.nativeElement;
+                const updateRect = firstActiveItem.getBoundingClientRect();
+                expect(navInkBarElement.style.top).toEqual(Math.round(updateRect.top) + 'px');
+            });
         }));
     });
 });

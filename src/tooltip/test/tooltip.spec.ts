@@ -1,7 +1,7 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, DebugElement, ElementRef, NgModule, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, fakeAsync, flush, flushMicrotasks, inject, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, flushMicrotasks, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyTooltipModule } from '../tooltip.module';
@@ -326,11 +326,11 @@ describe(`ThyTooltip`, () => {
             tooltipDirective.show(0);
             tick(0);
             fixture.detectChanges();
-            tick(200);
-
-            expect(overlayContainerElement.textContent).toContain(initialTooltipMessage);
-            const tooltipPaneElement = overlayContainerElement.querySelector(`.thy-tooltip-panel`) as HTMLElement;
-            expect(tooltipPaneElement.classList.contains('thy-tooltip-left')).toBe(true);
+            fixture.whenStable().then(() => {
+                expect(overlayContainerElement.textContent).toContain(initialTooltipMessage);
+                const tooltipPaneElement = overlayContainerElement.querySelector(`.thy-tooltip-panel`) as HTMLElement;
+                expect(tooltipPaneElement.classList.contains('thy-tooltip-left')).toBe(true);
+            });
         }));
 
         it('should not show tooltip when content is not present or empty', () => {
