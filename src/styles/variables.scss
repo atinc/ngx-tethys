@@ -3,10 +3,9 @@
 $thy-prefix: 'thy';
 
 // colors
-$gray-10: var(--gray-10) !default; // 新增 gray-10，保留原来的 $white 区分
+$gray-10: var(--gray-10) !default; // 在默认皮肤下是白色，Dark 模式下非白色
 $gray-70: var(--gray-70) !default;
 $gray-80: var(--gray-80) !default;
-$gray-90: var(--gray-90) !default; // 新增 gray-90，仅 $layout-sidebar-background-light 使用
 $gray-100: var(--gray-100) !default;
 $gray-200: var(--gray-200) !default;
 $gray-300: var(--gray-300) !default;
@@ -356,7 +355,7 @@ $layout-header-box-shadow: 0 4px 8px 0px #00000008 !default;
 $layout-content-background: $gray-80 !default;
 $layout-content-padding: 15px 20px 15px 20px !default;
 $layout-sidebar-width: 240px !default;
-$layout-sidebar-background-light: $gray-90 !default;
+$layout-sidebar-background-light: #fbfbfb !default;
 $layout-sidebar-background-dark: $gray-800 !default;
 $layout-sidebar-border-color: $gray-200 !default;
 $layout-sidebar-border-right: 1px solid $layout-sidebar-border-color !default;
