@@ -217,7 +217,7 @@ describe('thyFileDrop', () => {
 
         const fileDropElement: HTMLElement = fileDropDebugElement.nativeElement;
 
-         const mdFile = createCustomTypeFile('custom.md', MIME_Map['.md']);
+        const mdFile = createCustomTypeFile('custom.md', MIME_Map['.md']);
         const mdDataTransfer = new DataTransfer();
         mdDataTransfer.items.add(mdFile);
 
