@@ -177,7 +177,6 @@ export class AppModule {
         // Draft 辅助调试换肤，后续Docgeni支持后移除
 
         // 设置黑暗主题
-        // 给根文档设置上属性 thy-theme ，值为 dark
         document.documentElement.setAttribute('thy-theme', 'dark');
 
         // 恢复默认主题
