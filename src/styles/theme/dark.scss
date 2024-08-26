@@ -1,0 +1,61 @@
+body[thy-theme='dark'] {
+    --gray-10: #2a2e34;
+    --gray-70: #32363d;
+    --gray-80: #30353c;
+    --gray-100: #393e46;
+    --gray-200: #3c414a;
+    --gray-300: #464c57;
+    --gray-400: #5b6370;
+    --gray-500: #666e7d;
+    --gray-600: #6f7a8a;
+    --gray-700: #87909e;
+    --gray-800: #bcc4d1;
+
+    --rgb-gray-10: 42, 46, 52;
+    --rgb-gray-70: 50, 54, 61;
+    --rgb-gray-80: 48, 53, 60;
+    --rgb-gray-100: 57, 62, 70;
+    --rgb-gray-200: 60, 65, 74;
+    --rgb-gray-300: 70, 76, 87;
+    --rgb-gray-400: 91, 99, 112;
+    --rgb-gray-500: 102, 110, 125;
+    --rgb-gray-600: 111, 122, 138;
+    --rgb-gray-700: 135, 144, 158;
+    --rgb-gray-800: 188, 196, 209;
+
+    // hover color of a.text
+    // 来源：color.adjust($text-xxx, $lightness: +15% )  黑暗主题，需要设计师确认
+    --text-placeholder-hover: #808998;
+    --text-body-hover: #e9ecf0;
+    --text-desc-hover: #8d95a2;
+    --text-muted-hover: #99a1ad;
+    --text-white-hover: #fff;
+    --text-primary-hover: #b3ccff;
+    --text-secondary-hover: #8c8c8c;
+    --text-success-hover: #afe9c3;
+    --text-info-hover: #aae6ff;
+    --text-warning-hover: #ffe5aa;
+    --text-danger-hover: #ffc2c2;
+    --text-light-hover: #687181;
+    --text-dark-hover: #e9ecf0;
+
+    // hover color of button.bg
+    // 源自：color.adjust($color, $lightness: -10%); 黑暗主题，需要设计师确认
+    --bg-lighter-hover: #22252a;
+    --bg-bright-hover: #191c20;
+    --bg-content-hover: #191c20;
+    --bg-primary-hover: #3376ff;
+    --bg-secondary-hover: #6c7686;
+    --bg-success-hover: #4bcd79;
+    --bg-info-hover: #2ac0ff;
+    --bg-warning-hover: #ffbd2a;
+    --bg-danger-hover: #ff4242;
+    --bg-light-hover: #2f333b;
+    --bg-dark-hover: #9ea9bc;
+
+    // 源自： color.adjust($bg-color, $lightness: -5%)    黑暗主题，需要设计师确认
+    --tag-default-bg-hover: #2e3238;
+
+    // 来源：设计师确认
+    --layout-sidebar-background-light: #30353c;
+}

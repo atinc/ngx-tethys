@@ -173,5 +173,11 @@ export class AppModule {
     constructor(iconRegistry: ThyIconRegistry, sanitizer: DomSanitizer) {
         const iconSvgUrl = `assets/icons/defs/svg/sprite.defs.svg`;
         iconRegistry.addSvgIconSet(sanitizer.bypassSecurityTrustResourceUrl(iconSvgUrl));
+
+        // Draft 辅助调试换肤，后续Docgeni支持后移除
+        // 设置黑暗主题
+        document.body.setAttribute('thy-theme', 'dark');
+        // 恢复默认主题
+        // document.body.removeAttribute('thy-theme');
     }
 }

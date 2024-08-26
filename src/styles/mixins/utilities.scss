@@ -1,19 +1,52 @@
-@use "sass:color";
-@use "../mixins/hover";
-@use "../bootstrap/variables";
+@use 'sass:map';
+@use '../mixins/hover';
+@use '../bootstrap/variables';
 
 @mixin text-emphasis-variant($parent, $color, $ignore-warning: false) {
+    // @debug $parent $color color.adjust($color, $lightness: + (variables.$emphasized-link-hover-darken-percentage));
+
+    // 默认主题（@debug打印）
+    // 选择器               原色      a标签时使用text-xxx时的hover色——color.adjust($text-xxx,$lightness: -15% )
+    // .text-placeholder   #cacaca   #a4a4a4
+    // .text-body          #333      #0d0d0d
+    // .text-desc          #aaa      #848484
+    // .text-primary       #6698ff   #1a65ff
+    // .text-secondary     #666      #404040
+    // .text-success       #73d897   #37c76b
+    // .text-info          #5dcfff   #11b8ff
+    // .text-warning       #ffcd5d   #ffb511
+    // .text-danger        #ff7575   #ff2929
+    // .text-light         #ddd      #b7b7b7
+    // .text-dark          #333      #0d0d0d
+    // .text-muted         #999      #737373  // 原本没有，补齐
+    // .text-white         #fff      #d9d9d9  // 原本没有，补齐
+
+    // 深色主题（@debug打印）
+    // 选择器                原色       a标签时使用text-xxx时的hover色——color.adjust($text-xxx, $lightness: +15% )
+    // .text-placeholder   #5b6370     #808998
+    // .text-body          #bcc4d1     #e9ecf0
+    // .text-desc          #666e7d     #8d95a2
+    // .text-muted         #6f7a8a     #99a1ad  // 原本没有，补齐
+    // .text-white         #fff        #fff     // 原本没有，补齐
+    // .text-primary       #6698ff     #b3ccff
+    // .text-secondary     #666        #8c8c8c
+    // .text-success       #73d897     #afe9c3
+    // .text-info          #5dcfff     #aae6ff
+    // .text-warning       #ffcd5d     #ffe5aa
+    // .text-danger        #ff7575     #ffc2c2
+    // .text-light         #464c57     #687181
+    // .text-dark          #bcc4d1     #e9ecf0
+
     #{$parent} {
-        color: $color !important;
+        color: map.get($color, 'value') !important;
     }
     @if variables.$emphasized-link-hover-darken-percentage != 0 {
         a#{$parent} {
             @include hover.hover-focus() {
-                color: color.adjust($color, $lightness: - (variables.$emphasized-link-hover-darken-percentage)) !important;
+                color: map.get($color, 'hover') !important;
             }
         }
     }
-    // @include deprecate("`text-emphasis-variant()`", "v4.4.0", "v5", $ignore-warning);
 }
 
 @mixin absolute-vertical-align-middle($clearLeft) {

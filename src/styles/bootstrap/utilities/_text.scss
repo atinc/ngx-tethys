@@ -1,17 +1,15 @@
-@use "sass:map";
-@use "../../mixins/utilities";
-@use "../../variables";
-@use "../functions-variables";
-@use "../mixins/breakpoints";
-@use "../mixins/text-hide";
-@use "../mixins/text-truncate";
-@use "../variables" as bootstrap-variables;
+@use 'sass:map';
+@use '../../mixins/utilities';
+@use '../../variables';
+@use '../functions-variables';
+@use '../mixins/breakpoints';
+@use '../mixins/text-hide';
+@use '../mixins/text-truncate';
+@use '../variables' as bootstrap-variables;
 
 // stylelint-disable declaration-no-important
 
-//
 // Text
-//
 
 .text-monospace {
     font-family: variables.$font-family-monospace !important;
@@ -84,27 +82,66 @@
 }
 
 // Contextual colors
-
-.text-white {
-    color: variables.$white !important;
-}
-
-@each $color, $value in functions-variables.$theme-colors {
-    @include utilities.text-emphasis-variant('.text-#{$color}', $value, true);
-}
-
-.text-body {
-    color: variables.$body-color !important;
-}
-.text-muted {
-    color: bootstrap-variables.$text-muted !important;
-}
-
-.text-black-50 {
-    color: rgba(variables.$black, 0.5) !important;
-}
-.text-white-50 {
-    color: rgba(variables.$white, 0.5) !important;
+$text-colors: () !default;
+$text-colors: map-merge(
+    (
+        '.text-placeholder': (
+            value: variables.$text-placeholder,
+            hover: variables.$text-placeholder-hover
+        ),
+        '.text-body': (
+            value: variables.$text-body,
+            hover: variables.$text-body-hover
+        ),
+        '.text-desc': (
+            value: variables.$text-desc,
+            hover: variables.$text-desc-hover
+        ),
+        '.text-muted': (
+            value: variables.$text-muted,
+            hover: variables.$text-muted-hover
+        ),
+        '.text-white': (
+            value: variables.$text-white,
+            hover: variables.$text-white-hover
+        ),
+        '.text-primary': (
+            value: variables.$text-primary,
+            hover: variables.$text-primary-hover
+        ),
+        '.text-secondary': (
+            value: variables.$text-secondary,
+            hover: variables.$text-secondary-hover
+        ),
+        '.text-success': (
+            value: variables.$text-success,
+            hover: variables.$text-success-hover
+        ),
+        '.text-info': (
+            value: variables.$text-info,
+            hover: variables.$text-info-hover
+        ),
+        '.text-warning': (
+            value: variables.$text-warning,
+            hover: variables.$text-warning-hover
+        ),
+        '.text-danger': (
+            value: variables.$text-danger,
+            hover: variables.$text-danger-hover
+        ),
+        '.text-light': (
+            value: variables.$text-light,
+            hover: variables.$text-light-hover
+        ),
+        '.text-dark': (
+            value: variables.$text-dark,
+            hover: variables.$text-dark-hover
+        )
+    ),
+    $text-colors
+);
+@each $color, $value in $text-colors {
+    @include utilities.text-emphasis-variant($color, $value, true);
 }
 
 // Misc

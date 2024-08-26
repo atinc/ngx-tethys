@@ -51,12 +51,19 @@
 
     /**** colors ****/
     @each $color, $value in variables.$tag-colors {
+        // @debug $color, $value, rgba($value, 0.1);
+        // primary        #6698ff      rgba(102, 152, 255, 0.1)
+        // info           #5dcfff      rgba(93, 207, 255, 0.1)
+        // success        #73d897      rgba(115, 216, 151, 0.1)
+        // warning        #ffcd5d      rgba(255, 205, 93, 0.1)
+        // danger         #ff7575      rgba(255, 117, 117, 0.1)
+
         &-#{$color} {
-            @include mixin.tag-bg-variant($value, map.get(variables.$tag-bg-hover-colors, $color));
+            @include mixin.tag-bg-variant($color, $value);
             @include mixin.tag-color-variant(variables.$white, variables.$white);
         }
         &-weak-fill-#{$color} {
-            @include mixin.tag-bg-variant(rgba($value, 0.1), map.get(variables.$tag-weak-fill-bg-hover-colors, $color));
+            @include mixin.tag-bg-variant($color, rgba($value, 0.1));
             @include mixin.tag-color-variant($value, $value);
         }
         &-outline-#{$color} {
@@ -66,12 +73,12 @@
 
     /**** label type ****/
     &-default {
-        @include mixin.tag-bg-variant(variables.$tag-default-bg, variables.$tag-default-hover-bg);
+        @include mixin.tag-bg-variant('default', variables.$tag-default-bg, variables.$tag-default-hover-bg);
         @include mixin.tag-color-variant(variables.$tag-default-color, variables.$tag-default-color);
     }
 
     &-weak-fill-default {
-        @include mixin.tag-bg-variant(variables.$tag-default-bg, variables.$tag-default-hover-bg);
+        @include mixin.tag-bg-variant('default', variables.$tag-default-bg, variables.$tag-default-hover-bg);
         @include mixin.tag-color-variant(variables.$tag-default-color, variables.$tag-default-color);
     }
 

@@ -1,11 +1,62 @@
-@use "../../mixins/background-variant";
-@use "../../variables";
-@use "../functions-variables";
+@use '../../mixins/background-variant';
+@use '../../variables';
+@use '../functions-variables';
 
 // stylelint-disable declaration-no-important
 
-@each $color, $value in functions-variables.$theme-colors {
-    @include background-variant.bg-variant('.bg-#{$color}', $value, true);
+$bg-colors: () !default;
+$bg-colors: map-merge(
+    (
+        '.bg-lighter': (
+            value: variables.$bg-lighter,
+            hover: variables.$bg-lighter-hover
+        ),
+        '.bg-bright': (
+            value: variables.$bg-bright,
+            hover: variables.$bg-bright-hover
+        ),
+        '.bg-content': (
+            value: variables.$bg-content,
+            hover: variables.$bg-content-hover
+        ),
+        '.bg-primary': (
+            value: variables.$bg-primary,
+            hover: variables.$bg-primary-hover
+        ),
+        '.bg-secondary': (
+            value: variables.$bg-secondary,
+            hover: variables.$bg-secondary-hover
+        ),
+        '.bg-success': (
+            value: variables.$bg-success,
+            hover: variables.$bg-success-hover
+        ),
+        '.bg-info': (
+            value: variables.$bg-info,
+            hover: variables.$bg-info-hover
+        ),
+        '.bg-warning': (
+            value: variables.$bg-warning,
+            hover: variables.$bg-warning-hover
+        ),
+        '.bg-danger': (
+            value: variables.$bg-danger,
+            hover: variables.$bg-danger-hover
+        ),
+        '.bg-light': (
+            value: variables.$bg-light,
+            hover: variables.$bg-light-hover
+        ),
+        '.bg-dark': (
+            value: variables.$bg-dark,
+            hover: variables.$bg-dark-hover
+        )
+    ),
+    $bg-colors
+);
+
+@each $color, $value in $bg-colors {
+    @include background-variant.bg-variant($color, $value, true);
 }
 
 @if variables.$enable-gradients {
@@ -16,6 +67,19 @@
 
 .bg-white {
     background-color: variables.$white !important;
+    // background-color:variables.$bg-default !important;
+}
+
+/**
+    html 中：
+    bg-white  改用 bg-default
+
+    scss 中：
+    background-color: variables.$white;   改用 background-color: variables.$bg-default;
+    background: variables.$white;         改用 background: variables.$bg-default;
+**/
+.bg-default {
+    background-color: variables.$bg-default !important;
 }
 
 .bg-transparent {

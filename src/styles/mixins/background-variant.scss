@@ -1,22 +1,50 @@
-@use "sass:color";
-@use "../mixins/hover";
-@use "../bootstrap/variables";
+@use 'sass:map';
+@use '../mixins/hover';
+@use '../bootstrap/variables';
 
 // stylelint-disable declaration-no-important
 
 // Contextual backgrounds
 
 @mixin bg-variant($parent, $color, $ignore-warning: false) {
+    // @debug $parent, $color, color.adjust($color, $lightness: -10%);
+
+    // 默认主题（@debug打印）
+    // 选择器             原色值          用于button时的hover色
+    // .bg-lighter       #f5f5f5        gainsboro
+    // .bg-bright        #fafafa        #e1e1e1
+    // .bg-content       #fafafa        #e1e1e1
+    // .bg-primary       #6698ff        #3376ff
+    // .bg-secondary     #666           #4d4d4d
+    // .bg-success       #73d897        #4bcd79
+    // .bg-info          #5dcfff        #2ac0ff
+    // .bg-warning       #ffcd5d        #ffbd2a
+    // .bg-danger        #ff7575        #ff4242
+    // .bg-light         #ddd           #c4c4c4
+    // .bg-dark          #333           #1a1a1a
+
+    // 黑暗主题（@debug打印）
+    //  .bg-lighter      #393e46         #22252a
+    //  .bg-bright       #30353c         #191c20
+    //  .bg-content      #30353c         #191c20
+    //  .bg-primary      #6698ff         #3376ff
+    //  .bg-secondary    #87909e         #6c7686
+    //  .bg-success      #73d897         #4bcd79
+    //  .bg-info         #5dcfff         #2ac0ff
+    //  .bg-warning      #ffcd5d         #ffbd2a
+    //  .bg-danger       #ff7575         #ff4242
+    //  .bg-light        #464c57         #2f333b
+    //  .bg-dark         #bcc4d1         #9ea9bc
+
     #{$parent} {
-        background-color: $color !important;
+        background-color: map.get($color, 'value') !important;
     }
     a#{$parent},
     button#{$parent} {
         @include hover.hover-focus() {
-            background-color: color.adjust($color, $lightness: -10%) !important;
+            background-color: map.get($color, 'hover') !important;
         }
     }
-    // @include deprecate("The `bg-variant` mixin", "v4.4.0", "v5", $ignore-warning);
 }
 
 @mixin bg-gradient-variant($parent, $color) {

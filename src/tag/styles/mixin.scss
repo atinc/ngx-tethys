@@ -1,13 +1,54 @@
+@use 'sass:color';
 @use '../../styles/variables.scss';
 
-@mixin tag-bg-variant($bg-color, $bg-hover-color) {
+@mixin tag-bg-variant($parent, $bg-color, $hover-bg-color: null) {
+    // @debug $parent, $bg-color, color.adjust($bg-color, $lightness: -5%);
+
+    // ------------- 默认主题（@debug 打印值）--------------
+    // 类型           色值        hover 色值（$lightness: -5%)
+    // primary       #6698ff     #4d87ff
+    // info          #5dcfff     #44c7ff
+    // success       #73d897     #5fd288
+    // warning       #ffcd5d     #ffc544
+    // danger        #ff7575     #ff5c5c
+    // default       #f5f5f5     #e8e8e8
+
+    // weak-fill
+    // primary        rgba(102, 152, 255, 0.1)      rgba(77, 135, 255, 0.1)
+    // info           rgba(93, 207, 255, 0.1)       rgba(68, 199, 255, 0.1)
+    // success        rgba(115, 216, 151, 0.1)      rgba(95, 210, 136, 0.1)
+    // warning        rgba(255, 205, 93, 0.1)       rgba(255, 197, 68, 0.1)
+    // danger         rgba(255, 117, 117, 0.1)      rgba(255, 92, 92, 0.1)
+    // default        #f5f5f5                       #e8e8e8
+
+    // ------------- 黑暗主题（@debug 打印值）--------------
+    // 类型          原色值       hover 色值（$lightness: -5%）
+    // primary      #6698ff      #4d87ff
+    // info         #5dcfff      #44c7ff
+    // success      #73d897      #5fd288
+    // warning      #ffcd5d      #ffc544
+    // danger       #ff7575      #ff5c5c
+    // default      #393e46      #2e3238
+
+    // weak-fill    rgba(原色值, 0.1)              hover 色值（$lightness: -5%）
+    // primary      rgba(102, 152, 255, 0.1)      rgba(77, 135, 255, 0.1)
+    // info         rgba(93, 207, 255, 0.1)       rgba(68, 199, 255, 0.1)
+    // success      rgba(115, 216, 151, 0.1)      rgba(95, 210, 136, 0.1)
+    // warning      rgba(255, 205, 93, 0.1)       rgba(255, 197, 68, 0.1)
+    // danger       rgba(255, 117, 117, 0.1)      rgba(255, 92, 92, 0.1)
+    // default      #393e46                       #2e3238
+
     & {
         background-color: $bg-color;
     }
 
     &.thy-tag-hover {
         &:hover {
-            background-color: $bg-hover-color;
+            @if $hover-bg-color != null {
+                background-color: $hover-bg-color;
+            } @else {
+                background-color: color.adjust($bg-color, $lightness: -5%);
+            }
             cursor: variables.$hand-cursor;
         }
     }
@@ -47,44 +88,4 @@
     .thy-icon {
         font-size: $icon-font-size;
     }
-    // @if $size == lg {
-    //     &-#{$size} {
-    //         height: $height;
-    //         padding: {
-    //             left: $padding-x;
-    //             right: $padding-x;
-    //         }
-    //         font-size: variables.$font-size-base;
-    //         .i,
-    //         .thy-icon {
-    //             font-size: variables.$font-size-md;
-    //         }
-    //     }
-    // } @else if $size == md {
-    //     &-#{$size} {
-    //         height: $height;
-    //         font-size: variables.$font-size-sm;
-    //         padding: {
-    //             left: $padding-x;
-    //             right: $padding-x;
-    //         }
-    //         .i,
-    //         .thy-icon {
-    //             font-size: variables.$font-size-base;
-    //         }
-    //     }
-    // } @else {
-    //     &-#{$size} {
-    //         height: $height;
-    //         font-size: variables.$font-size-sm;
-    //         padding: {
-    //             left: $padding-x;
-    //             right: $padding-x;
-    //         }
-    //         .i,
-    //         .thy-icon {
-    //             font-size: variables.$font-size-sm;
-    //         }
-    //     }
-    // }
 }

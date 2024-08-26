@@ -12,6 +12,27 @@
         color: variables.$white;
     }
 }
+
+// @debug $color, rgba($color, 0.1), rgba($color, 0.2);
+// 五彩色，直接传来了颜色值，rgba 没问题
+// success   #73d897   rgba(115, 216, 151, 0.1)     rgba(115, 216, 151, 0.2)
+// primary   #6698ff   rgba(102, 152, 255, 0.1)     rgba(102, 152, 255, 0.2)
+
+// 五彩色， 传var等量，rgba(var(--success), 0.1) 无法正常渲染
+// success   var(--success)    rgba(var(--success), 0.1)     rgba(var(--success), 0.2)
+
+// @mixin vote-color-variant($color) {
+//     background: rgba($color, 0.1);
+//     color: rgb($color);
+//     &:hover {
+//         background: rgba($color, 0.2);
+//         color: rgb($color);
+//     }
+//     &.has-voted {
+//         background: rgb($color);
+//         color: variables.$white;
+//     }
+// }
 @mixin vote-color-variant-weak($color) {
     background-color: variables.$gray-100;
     color: variables.$gray-600;
@@ -97,10 +118,12 @@
 
 .thy-vote-success {
     @include vote-color-variant(variables.$success);
+    // @include vote-color-variant(var(--rgb-success));
 }
 
 .thy-vote-primary {
     @include vote-color-variant(variables.$primary);
+    // @include vote-color-variant(var(--rgb-primary));
 }
 
 .thy-vote-success-weak {

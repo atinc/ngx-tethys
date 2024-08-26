@@ -1,4 +1,5 @@
 @use './basic.scss';
+@forward './theme/index.scss';
 @forward './modules/index.scss';
 @forward './bootstrap/root.scss';
 @forward './bootstrap/grid.scss';

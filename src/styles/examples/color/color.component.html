@@ -1,22 +1,44 @@
 <div thyRow [thyGutter]="30">
   <div thyCol [thySpan]="12">
-    文本颜色
-
+    <span class="d-block mb-2">文本颜色</span>
     <p class="text-body">.text-body 默认颜色</p>
-    <p class="text-secondary">.text-secondary 次级颜色 #666</p>
-    <p class="text-muted">.text-muted #999</p>
-    <p class="text-desc">.text-desc #aaa</p>
-    <p class="text-placeholder">.text-placeholder #cacaca</p>
-    <p class="text-light bg-dark">.text-light #ddd</p>
+    <p class="text-secondary">.text-secondary 次级颜色</p>
+    <p class="text-muted">.text-muted</p>
+    <p class="text-desc">.text-desc</p>
+    <p class="text-placeholder">.text-placeholder</p>
+    <p class="text-light bg-dark">.text-light</p>
     <p class="text-white bg-dark">.text-white</p>
+    <p class="text-dark">.text-dark</p>
     <p class="text-primary">.text-primary 主色</p>
-    <p class="text-info">.text-info #2dbcff</p>
+    <p class="text-info">.text-info</p>
     <p class="text-success">.text-success 成功</p>
     <p class="text-danger">.text-danger 失败</p>
     <p class="text-warning">.text-warning 警告</p>
   </div>
+
+  <div thyCol [thySpan]="12" class="a-items">
+    <span class="d-block mb-2">a标签文本颜色（hover）</span>
+    <a class="text-body" href="javascript:;">a.text-body 默认颜色</a>
+    <a class="text-secondary" href="javascript:;">a.text-secondary 次级颜色</a>
+    <!--  备注：text-muted 原本没有设置 a.text-muted 的 hover 色，补上-->
+    <a class="text-muted" href="javascript:;">a.text-muted</a>
+    <a class="text-desc" href="javascript:;">a.text-desc</a>
+    <a class="text-placeholder" href="javascript:;">a.text-placeholder</a>
+    <a class="text-light bg-dark" href="javascript:;">a.text-light</a>
+    <!--  备注：text-white 原本没有设置 a.text-white 的 hover 色，补上-->
+    <a class="text-white bg-dark" href="javascript:;">a.text-white</a>
+    <a class="text-dark" href="javascript:;">a.text-dark</a>
+    <a class="text-primary" href="javascript:;">a.text-primary 主色</a>
+    <a class="text-info" href="javascript:;">a.text-info</a>
+    <a class="text-success" href="javascript:;">a.text-success 成功</a>
+    <a class="text-danger" href="javascript:;">a.text-danger 失败</a>
+    <a class="text-warning" href="javascript:;">a.text-warning 警告</a>
+  </div>
+</div>
+<thy-divider></thy-divider>
+<div thyRow [thyGutter]="30">
   <div thyCol [thySpan]="12" class="bg-items">
-    背景色
+    <span class="d-block mb-2">背景色</span>
     <div class="bg-primary text-white">.bg-primary</div>
     <div class="bg-secondary text-white">.bg-secondary</div>
     <div class="bg-dark text-white">.bg-dark</div>
@@ -24,11 +46,27 @@
     <div class="bg-success text-white">.bg-success</div>
     <div class="bg-danger text-white">.bg-danger</div>
     <div class="bg-warning text-white">.bg-warning</div>
-    <div class="bg-light text-dark">.bg-light #ddd</div>
-    <div class="bg-lighter text-dark">.bg-lighter #f5f5f5</div>
-    <div class="bg-bright text-dark">.bg-bright #fafafa</div>
-    <div class="bg-content text-dark">.bg-content #fafafa 内容区域背景色</div>
+    <div class="bg-light text-dark">.bg-light</div>
+    <div class="bg-lighter text-dark">.bg-lighter</div>
+    <div class="bg-bright text-dark">.bg-bright</div>
+    <div class="bg-content text-dark">.bg-content 内容区域背景色</div>
     <div class="bg-white text-dark">.bg-white</div>
     <div class="bg-transparent text-dark">.bg-transparent</div>
+  </div>
+  <div thyCol [thySpan]="12" class="btn-bg-items">
+    <span class="d-block mb-2"> button背景色（hover）</span>
+    <button thyButton class="bg-primary text-white">.bg-primary</button>
+    <button thyButton class="bg-secondary text-white">.bg-secondary</button>
+    <button thyButton class="bg-dark text-white">.bg-dark</button>
+    <button thyButton class="bg-info text-white">.bg-info</button>
+    <button thyButton class="bg-success text-white">.bg-success</button>
+    <button thyButton class="bg-danger text-white">.bg-danger</button>
+    <button thyButton class="bg-warning text-white">.bg-warning</button>
+    <button thyButton class="bg-light text-dark">.bg-light</button>
+    <button thyButton class="bg-lighter text-dark">.bg-lighter</button>
+    <button thyButton class="bg-bright text-dark">.bg-bright</button>
+    <button thyButton class="bg-content text-dark">.bg-content</button>
+    <button thyButton class="bg-white text-dark">.bg-white</button>
+    <button thyButton class="bg-transparent text-dark">.bg-transparent</button>
   </div>
 </div>
