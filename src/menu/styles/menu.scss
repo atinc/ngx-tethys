@@ -17,7 +17,7 @@
         }
 
         &.active .thy-menu-item-content {
-            background: rgba(variables.$primary, 0.1);
+            background: rgba(var(--rgb-primary), 0.1);
         }
 
         .thy-menu-item-content {
