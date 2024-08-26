@@ -291,7 +291,7 @@
 
         .thy-table-fixed-column-left,
         .thy-table-fixed-column-right {
-            background-color: variables.$white;
+            background-color: variables.$bg-default;
             position: sticky !important;
             z-index: variables.$z-index-5;
         }
@@ -353,7 +353,7 @@
     &-fixed-header {
         thead {
             box-shadow: 0 0 0 1px variables.$gray-200;
-            background-color: variables.$white;
+            background-color: variables.$bg-default;
             position: sticky;
             left: 0;
             top: 0;
@@ -385,7 +385,7 @@
                 th:last-child::after {
                     width: 1px;
                     height: 2px;
-                    background: variables.$white;
+                    background: variables.$bg-default;
                     content: '';
                     display: block;
                     position: absolute;

@@ -53,7 +53,7 @@
         left: $handle-margin + px;
         width: $height - $handle-margin * 2;
         height: $height - $handle-margin * 2;
-        background: variables.$white;
+        background: variables.$bg-default;
         // border: 1px solid $border-color;
         border-radius: 1px;
         transition: left 0.15s ease-out;

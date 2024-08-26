@@ -20,7 +20,9 @@ $thy-collapse-prefix-cls: 'thy-collapse';
             align-items: center;
             position: relative;
             cursor: variables.$hand-cursor;
-            transition: all 0.3s, visibility 0s;
+            transition:
+                all 0.3s,
+                visibility 0s;
             .#{$thy-collapse-prefix-cls}-title {
                 flex: 1;
                 font-size: variables.$collapse-header-font-size;
@@ -43,7 +45,7 @@ $thy-collapse-prefix-cls: 'thy-collapse';
         }
         .#{$thy-collapse-prefix-cls}-content {
             border-top: 1px solid variables.$gray-200;
-            background-color: variables.$white;
+            background-color: variables.$bg-default;
             &-box {
                 padding: 0px variables.$collapse-spacing-x (variables.$collapse-spacing-y + 4) variables.$collapse-spacing-x;
             }

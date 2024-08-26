@@ -1,11 +1,29 @@
-@use "../../mixins/background-variant";
-@use "../../variables";
-@use "../functions-variables";
+@use '../../mixins/background-variant';
+@use '../../variables';
+@use '../functions-variables';
 
 // stylelint-disable declaration-no-important
 
-@each $color, $value in functions-variables.$theme-colors {
-    @include background-variant.bg-variant('.bg-#{$color}', $value, true);
+$bg-colors: () !default;
+$bg-colors: map-merge(
+    (
+        '.bg-lighter': variables.$bg-lighter,
+        '.bg-bright': variables.$bg-bright,
+        '.bg-content': variables.$bg-content,
+        '.bg-primary': variables.$bg-primary,
+        '.bg-secondary': variables.$bg-secondary,
+        '.bg-success': variables.$bg-success,
+        '.bg-info': variables.$bg-info,
+        '.bg-warning': variables.$bg-warning,
+        '.bg-danger': variables.$bg-danger,
+        '.bg-light': variables.$bg-light,
+        '.bg-dark': variables.$bg-dark
+    ),
+    $bg-colors
+);
+
+@each $color, $value in $bg-colors {
+    @include background-variant.bg-variant($color, $value, true);
 }
 
 @if variables.$enable-gradients {
@@ -16,6 +34,10 @@
 
 .bg-white {
     background-color: variables.$white !important;
+}
+
+.bg-default {
+    background-color: variables.$bg-default !important;
 }
 
 .bg-transparent {

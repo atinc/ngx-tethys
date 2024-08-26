@@ -306,7 +306,7 @@ table {
 caption {
     padding-top: variables.$table-cell-padding;
     padding-bottom: variables.$table-cell-padding;
-    color: bootstrap-variables.$text-muted;
+    color: variables.$text-muted;
     text-align: left;
     caption-side: bottom;
 }

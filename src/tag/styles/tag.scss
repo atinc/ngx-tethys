@@ -52,11 +52,11 @@
     /**** colors ****/
     @each $color, $value in variables.$tag-colors {
         &-#{$color} {
-            @include mixin.tag-bg-variant($value, map.get(variables.$tag-bg-hover-colors, $color));
+            @include mixin.tag-bg-variant($value);
             @include mixin.tag-color-variant(variables.$white, variables.$white);
         }
         &-weak-fill-#{$color} {
-            @include mixin.tag-bg-variant(rgba($value, 0.1), map.get(variables.$tag-weak-fill-bg-hover-colors, $color));
+            @include mixin.tag-bg-variant(rgba($value, 0.1));
             @include mixin.tag-color-variant($value, $value);
         }
         &-outline-#{$color} {

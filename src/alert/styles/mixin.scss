@@ -19,7 +19,7 @@
 
 @mixin thy-alert-bordered-variant($color) {
     color: variables.$gray-600;
-    background: variables.$white;
+    background: variables.$bg-default;
     border-color: variables.$gray-200 variables.$gray-200 variables.$gray-200 $color;
     border-left-width: 2px;
     @include thy-alert-inner($color);

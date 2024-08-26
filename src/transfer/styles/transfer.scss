@@ -1,4 +1,4 @@
-@use "../../styles/variables";
+@use '../../styles/variables';
 
 .thy-transfer {
     display: flex;
@@ -41,7 +41,7 @@
             .cdk-drop-list-empty {
                 margin: -12px 0;
                 padding: 12px 20px;
-                background: variables.$white;
+                background: variables.$bg-default;
             }
             .thy-transfer-list-content-item {
                 padding-right: 15px;

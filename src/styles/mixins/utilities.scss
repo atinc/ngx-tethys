@@ -1,19 +1,10 @@
-@use "sass:color";
-@use "../mixins/hover";
-@use "../bootstrap/variables";
+@use '../mixins/hover';
+@use '../bootstrap/variables';
 
 @mixin text-emphasis-variant($parent, $color, $ignore-warning: false) {
     #{$parent} {
         color: $color !important;
     }
-    @if variables.$emphasized-link-hover-darken-percentage != 0 {
-        a#{$parent} {
-            @include hover.hover-focus() {
-                color: color.adjust($color, $lightness: - (variables.$emphasized-link-hover-darken-percentage)) !important;
-            }
-        }
-    }
-    // @include deprecate("`text-emphasis-variant()`", "v4.4.0", "v5", $ignore-warning);
 }
 
 @mixin absolute-vertical-align-middle($clearLeft) {

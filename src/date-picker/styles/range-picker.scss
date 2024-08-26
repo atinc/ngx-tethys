@@ -213,7 +213,7 @@ $input-box-height: 34px;
             &-combobox {
                 display: inline-block;
                 height: 100%;
-                background-color: variables.$white;
+                background-color: variables.$bg-default;
                 border-top: style.$border-width-base style.$border-style-base style.$border-color-split;
             }
             &-select {

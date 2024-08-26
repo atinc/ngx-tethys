@@ -141,7 +141,7 @@ $sizes: map.merge(
 // //
 // // Settings for the `<body>` element.
 
-$body-bg: variables.$white !default;
+$body-bg: variables.$bg-default !default;
 // $body-color: $gray-900 !default;
 
 // // Links
@@ -286,8 +286,6 @@ $lead-font-weight: 300 !default;
 
 $small-font-size: 80% !default;
 
-$text-muted: variables.$gray-600 !default;
-
 $blockquote-small-color: variables.$gray-600 !default;
 $blockquote-small-font-size: $small-font-size !default;
 $blockquote-font-size: variables.$font-size-base * 1.25 !default;
@@ -407,7 +405,11 @@ $btn-block-spacing-y: 0.5rem !default;
 // $btn-border-radius-lg: $border-radius-lg !default;
 // $btn-border-radius-sm: $border-radius-sm !default;
 
-$btn-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !default;
+$btn-transition:
+    color 0.15s ease-in-out,
+    background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out !default;
 
 // // Forms
 
@@ -467,7 +469,9 @@ $input-height: functions.add($input-line-height * 1em, functions.add(variables.$
 //     functions.add(variables.$input-padding-y-lg * 2, $input-height-border, false)
 // ) !default;
 
-$input-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !default;
+$input-transition:
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out !default;
 
 // $form-text-margin-top: 0.25rem !default;
 

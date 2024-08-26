@@ -1,4 +1,4 @@
-@use "../../styles/variables";
+@use '../../styles/variables';
 
 $calendar-full-prefix-cls: 'thy-calendar-full';
 
@@ -25,7 +25,7 @@ $calendar-full-prefix-cls: 'thy-calendar-full';
             top: 0;
             left: 0;
             box-shadow: 0 0 20px 0 rgba(variables.$black, 0.12);
-            background: variables.$white;
+            background: variables.$bg-default;
             width: 100%;
             min-height: 100%;
             z-index: 2;

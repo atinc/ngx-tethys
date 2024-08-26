@@ -70,7 +70,7 @@
 
         &:not(.disabled) {
             .input-group-suffix {
-                background-color: variables.$white;
+                background-color: variables.$bg-default;
             }
         }
     }

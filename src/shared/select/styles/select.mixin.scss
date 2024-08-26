@@ -71,7 +71,7 @@ $avatarHeight: (
                 }
 
                 &:hover {
-                    background-color: variables.$white;
+                    background-color: variables.$bg-default;
                     span {
                         background-color: rgba(variables.$danger, 0.1);
                     }
@@ -91,7 +91,7 @@ $avatarHeight: (
 
 @mixin thy-select-dropdown {
     width: 100%;
-    background: variables.$white;
+    background: variables.$bg-default;
     border-radius: variables.$border-radius;
     @include shadow.section-box-shadow();
 }
