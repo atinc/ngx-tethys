@@ -286,7 +286,7 @@ class TestContainerAnchorComponent implements OnInit {
     template: `
         <div class="demo-card">
             <thy-anchor #anchor [thyOffsetTop]="thyOffsetTop">
-                <thy-link thyHref="#components-anchor-demo-basic" [thyTitle]="title"></thy-link>
+                <thy-anchor-link thyHref="#components-anchor-demo-basic" [thyTitle]="title"></thy-anchor-link>
             </thy-anchor>
             <div>
                 <h1 id="components-anchor-demo-basic">Basic demo</h1>
