@@ -46,25 +46,25 @@ export class NavInkBarComponent implements OnInit {
 }
 
 @Component({
-    selector: 'link1',
+    selector: 'test-link1',
     template: ``
 })
 export class Link1Component {}
 
 @Component({
-    selector: 'link2',
+    selector: 'test-link2',
     template: ``
 })
 export class Link2Component {}
 
 @Component({
-    selector: 'link3',
+    selector: 'test-link3',
     template: ``
 })
 export class Link3Component {}
 
 @Component({
-    selector: 'link-none',
+    selector: 'test-link-none',
     template: ``
 })
 export class LinkNoneComponent {}
