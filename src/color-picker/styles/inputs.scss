@@ -1,9 +1,16 @@
+@use '../../styles/variables';
 .thy-color-inputs {
     display: flex;
-
     .hex-column {
         width: 68px;
         text-align: center;
+        .hex-input-group {
+            .input-group-prefix {
+                color: variables.$gray-600;
+                margin-left: 5px;
+                font-size: variables.$font-size-sm;
+            }
+        }
     }
     .column {
         margin-left: 5px;

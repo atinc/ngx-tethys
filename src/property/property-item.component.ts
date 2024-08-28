@@ -107,9 +107,9 @@ export class ThyPropertyItem implements OnInit, OnChanges, OnDestroy {
 
     changes$ = new Subject<SimpleChanges>();
 
-    private destroy$ = new Subject();
+    private destroy$ = new Subject<void>();
 
-    private eventDestroy$ = new Subject();
+    private eventDestroy$ = new Subject<void>();
 
     private originOverlays: OverlayRef[] = [];
 

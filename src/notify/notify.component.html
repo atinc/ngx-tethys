@@ -20,7 +20,7 @@
           @if (contentIsString) {
             {{ config.content }}
           } @else {
-            <ng-container *thyViewOutlet="config.content; context: config.contentInitialState"></ng-container>
+            <ng-container *thyViewOutlet="config.content; context: config.contentInitialState || {}"></ng-container>
           }
         }
         @if (config?.detail) {

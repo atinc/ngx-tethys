@@ -17,7 +17,9 @@
 
     @if variables.$enable-transitions {
         @if list.nth($transition, 1) != null {
-            transition: $transition;
+            & {
+                transition: $transition;
+            }
         }
 
         @if variables.$enable-prefers-reduced-motion-media-query and list.nth($transition, 1) != null and list.nth($transition, 1) != none {

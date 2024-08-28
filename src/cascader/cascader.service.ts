@@ -48,7 +48,7 @@ export class ThyCascaderService {
 
     private prevSelectedOptions: Set<ThyCascaderOption> = new Set<ThyCascaderOption>();
 
-    public valueChange$ = new Subject();
+    public valueChange$ = new Subject<void>();
 
     public cascaderValueChange() {
         return this.valueChange$.pipe(
@@ -565,23 +565,13 @@ export class ThyCascaderService {
     }
 
     public isActivatedOption(option: ThyCascaderOption, index: number): boolean {
-        if (!this.cascaderOptions?.isMultiple || this.cascaderOptions.isOnlySelectLeaf) {
-            const activeOpt = this.activatedOptions[index];
-            return activeOpt === option;
-        } else if (option.isLeaf) {
-            return option.selected;
-        } else {
-            const selectedOpts = this.selectionModel.selected;
-            const appearIndex = selectedOpts.findIndex(item => {
-                const selectedItem = helpers.get(item, `thyRawValue.value.${index}`);
-                return helpers.shallowEqual(selectedItem, option);
-            });
-            return appearIndex >= 0;
-        }
+        const activeOpt = this.activatedOptions[index];
+        return activeOpt === option;
     }
 
     public isHalfSelectedOption(option: ThyCascaderOption, index: number): boolean {
         if (
+            this.cascaderOptions.isMultiple &&
             !option.selected &&
             this.cascaderOptions.isOnlySelectLeaf &&
             !option.isLeaf &&

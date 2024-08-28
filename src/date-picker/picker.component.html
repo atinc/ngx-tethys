@@ -8,6 +8,7 @@
       #pickerInput
       thyInput
       class="form-control-{{ size }} form-control {{ prefixCls }}-picker-input"
+      [ngClass]="{ 'panel-is-opened': realOpenState }"
       [thySize]="size"
       [tabindex]="-1"
       [class.thy-input-disabled]="disabled"
