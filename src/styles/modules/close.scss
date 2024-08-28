@@ -55,7 +55,7 @@ button.close {
     @include close.set-close-link-variant(variables.$gray-400, variables.$danger);
     @include close.set-close-link-size(variables.$font-size-base);
     .remove-link-icon {
-        background: variables.$white;
+        background: variables.$bg-default;
         border-radius: 50%;
     }
 }

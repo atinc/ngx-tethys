@@ -1,5 +1,5 @@
-@use "../styles/variables.scss";
-@use "../styles/mixins/shadow.scss";
+@use '../styles/variables.scss';
+@use '../styles/mixins/shadow.scss';
 
 $offset: 4px;
 .thy-popover-panel {
@@ -29,7 +29,7 @@ $offset: 4px;
 }
 
 .thy-popover-container {
-    background: variables.$white;
+    background: variables.$bg-default;
     width: 100%;
     border-radius: variables.$border-radius;
     @include shadow.section-box-shadow();

@@ -1,8 +1,8 @@
-@use "../../styles/bootstrap/mixins/border-radius";
-@use "../../styles/bootstrap/mixins/breakpoints";
-@use "../../styles/bootstrap/mixins/text-truncate";
-@use "../../styles/variables";
-@use "../../styles/modules/utils.scss";
+@use '../../styles/bootstrap/mixins/border-radius';
+@use '../../styles/bootstrap/mixins/breakpoints';
+@use '../../styles/bootstrap/mixins/text-truncate';
+@use '../../styles/variables';
+@use '../../styles/modules/utils.scss';
 
 .thy-dialog-content-sidebar-header {
     min-height: variables.$dialog-header-height;
@@ -26,7 +26,7 @@
     // isn't set, we have to inherit the min and max values explicitly.
     min-height: inherit;
     max-height: inherit;
-    background: variables.$white;
+    background: variables.$bg-default;
     box-shadow: variables.$dialog-box-shadow;
 
     .thy-layout {

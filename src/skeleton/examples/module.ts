@@ -28,8 +28,8 @@ const COMPONENTS = [
             provide: THY_SKELETON_CONFIG,
             useValue: {
                 thyAnimatedInterval: 1.5,
-                thyPrimaryColor: '#F7F7F7',
-                thySecondaryColor: '#aaaaaa',
+                thyPrimaryColor: 'var(--gray-70)',
+                thySecondaryColor: 'var(--gray-500)',
                 thyAnimated: true
             }
         }

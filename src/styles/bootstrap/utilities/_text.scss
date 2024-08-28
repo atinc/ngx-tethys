@@ -1,17 +1,15 @@
-@use "sass:map";
-@use "../../mixins/utilities";
-@use "../../variables";
-@use "../functions-variables";
-@use "../mixins/breakpoints";
-@use "../mixins/text-hide";
-@use "../mixins/text-truncate";
-@use "../variables" as bootstrap-variables;
+@use 'sass:map';
+@use '../../mixins/utilities';
+@use '../../variables';
+@use '../functions-variables';
+@use '../mixins/breakpoints';
+@use '../mixins/text-hide';
+@use '../mixins/text-truncate';
+@use '../variables' as bootstrap-variables;
 
 // stylelint-disable declaration-no-important
 
-//
 // Text
-//
 
 .text-monospace {
     font-family: variables.$font-family-monospace !important;
@@ -84,27 +82,27 @@
 }
 
 // Contextual colors
-
-.text-white {
-    color: variables.$white !important;
-}
-
-@each $color, $value in functions-variables.$theme-colors {
-    @include utilities.text-emphasis-variant('.text-#{$color}', $value, true);
-}
-
-.text-body {
-    color: variables.$body-color !important;
-}
-.text-muted {
-    color: bootstrap-variables.$text-muted !important;
-}
-
-.text-black-50 {
-    color: rgba(variables.$black, 0.5) !important;
-}
-.text-white-50 {
-    color: rgba(variables.$white, 0.5) !important;
+$text-colors: () !default;
+$text-colors: map-merge(
+    (
+        '.text-placeholder': variables.$text-placeholder,
+        '.text-body': variables.$text-body,
+        '.text-desc': variables.$text-desc,
+        '.text-muted': variables.$text-muted,
+        '.text-white': variables.$text-white,
+        '.text-primary': variables.$text-primary,
+        '.text-secondary': variables.$text-secondary,
+        '.text-success': variables.$text-success,
+        '.text-info': variables.$text-info,
+        '.text-warning': variables.$text-warning,
+        '.text-danger': variables.$text-danger,
+        '.text-light': variables.$text-light,
+        '.text-dark': variables.$text-dark
+    ),
+    $text-colors
+);
+@each $color, $value in $text-colors {
+    @include utilities.text-emphasis-variant($color, $value, true);
 }
 
 // Misc

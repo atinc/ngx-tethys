@@ -145,7 +145,6 @@ describe('form-validator-loader', () => {
     it(`should show error success when form-control is thy-input-group`, () => {
         const [group, inputGroup, element] = createInputGroupFromGroup();
         formValidatorLoader.showError(element, ['error message', 'error message2']);
-        console.log(element.parentElement, element, element.parentElement.tagName);
         assertFromGroupErrorMessage(group, inputGroup, 'error message');
     });
 

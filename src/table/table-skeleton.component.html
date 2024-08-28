@@ -12,7 +12,7 @@
             [thyBorderRadius]="thyBorderRadius"
             [thyAnimated]="thyAnimated"
             [thyAnimatedInterval]="thyAnimatedInterval"
-            [thyPrimaryColor]="thyTheme === 'bordered' || thyTheme === 'boxed' ? '#eee' : thyPrimaryColor"
+            [thyPrimaryColor]="thyTheme === 'bordered' || thyTheme === 'boxed' ? 'var(--gray-200, #eee)' : thyPrimaryColor"
             [thySecondaryColor]="thySecondaryColor"></thy-skeleton-rectangle>
         </th>
       </tr>
@@ -25,11 +25,11 @@
           <td>
             <ng-container
               *thyViewOutlet="
-              skeletonColumnsMap[column.type] || defaultTemplate
-              context:{
-                  trIndex: i,
-              }
-            ">
+                skeletonColumnsMap[column.type] || defaultTemplate;
+                context: {
+                  trIndex: i
+                }
+              ">
             </ng-container>
           </td>
         </ng-container>
@@ -51,10 +51,12 @@
       [thySecondaryColor]="thySecondaryColor"></thy-skeleton-rectangle>
 
     <ng-container
-      *thyViewOutlet="defaultTemplate;
-      context:{
-        rowWidth: trIndex % 3 === 0 ? '75%' : trIndex % 3 === 1 ? '100%' : trIndex % 3 === 2 ? '65%' : '',
-      }"></ng-container>
+      *thyViewOutlet="
+        defaultTemplate;
+        context: {
+          rowWidth: trIndex % 3 === 0 ? '75%' : trIndex % 3 === 1 ? '100%' : trIndex % 3 === 2 ? '65%' : ''
+        }
+      "></ng-container>
   </div>
 </ng-template>
 

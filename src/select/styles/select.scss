@@ -64,7 +64,7 @@ select.form-control-md {
         right: 12px;
         font-size: variables.$font-size-base;
         z-index: 11;
-        background: variables.$white;
+        background: variables.$bg-default;
         @include utilities.absolute-vertical-align-middle(false);
     }
 

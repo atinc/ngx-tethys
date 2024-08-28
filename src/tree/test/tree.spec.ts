@@ -516,11 +516,6 @@ describe('ThyTreeComponent', () => {
             expect(component).toBeDefined();
         });
 
-        it('should load part of tree nodes', fakeAsync(() => {
-            const nodeElements = treeElement.querySelectorAll(treeNodeSelector);
-            // expect(nodeElements.length).toEqual(12);
-        }));
-
         it('should scrolling tree nodes', fakeAsync(() => {
             fixture.detectChanges();
             const nodeElements = treeElement.querySelectorAll(treeNodeSelector);

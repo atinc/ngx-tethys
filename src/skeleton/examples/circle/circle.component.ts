@@ -14,8 +14,8 @@ import { Component, OnInit } from '@angular/core';
 export class ThySkeletonExampleCircleComponent implements OnInit {
     model = {
         thySize: 32,
-        thyPrimaryColor: '#F7F7F7',
-        thySecondaryColor: '#aaaaaa',
+        thyPrimaryColor: 'var(--gray-70)',
+        thySecondaryColor: 'var(--gray-500)',
         thyAnimatedInterval: 1.5,
         thyAnimated: true
     };

@@ -2,18 +2,33 @@
 
 $thy-prefix: 'thy';
 
-// gray color
-$white: #fff;
-$gray-70: #f7f7f7 !default;
-$gray-80: #fafafa !default; // 选项鼠标移上去的背景色，主要用于表格 Hover 移上去的颜色 和表格的编号背景色,
-$gray-100: #f5f5f5 !default; // bordered 表格的背景色, 完成任务卡片颜色， Menu Item 移上去的背景色
-$gray-200: #eee !default; // 模块左侧导航鼠标移上去的阴影, 次分割线，部分控件描边, 消息评论图标使用
-$gray-300: #ddd !default; // 主分割线, 进度条背景色，三级图标色
-$gray-400: #cacaca !default; // 搜索框默认文字， 禁用图标颜色, 部分图标颜色,
-$gray-500: #aaa !default; // 添加参与人,负责人等操作图标的边框颜色,说明文字, 搜索框文字
-$gray-600: #999 !default; // 次要文字,如 Tab 切换文字
-$gray-700: #666 !default; // 主要文字
-$gray-800: #333 !default; // 标题和重点文字
+// colors
+$gray-10: var(--gray-10) !default; // 在默认皮肤下是白色，Dark 模式下非白色
+$gray-70: var(--gray-70) !default;
+$gray-80: var(--gray-80) !default;
+$gray-100: var(--gray-100) !default;
+$gray-200: var(--gray-200) !default;
+$gray-300: var(--gray-300) !default;
+$gray-400: var(--gray-400) !default;
+$gray-500: var(--gray-500) !default;
+$gray-600: var(--gray-600) !default;
+$gray-700: var(--gray-700) !default;
+$gray-800: var(--gray-800) !default;
+
+$white: #fff !default;
+$primary: #6698ff !default;
+$success: #73d897 !default;
+$info: #5dcfff !default;
+$warning: #ffcd5d !default;
+$danger: #ff7575 !default;
+
+$body-color: $gray-800 !default;
+$secondary: $gray-700 !default;
+$secondary-item-active: rgba($primary, 0.1) !default;
+$item-active-bg-color: rgba($primary, 0.1) !default;
+$light: $gray-300 !default;
+$dark: #48525c !default;
+$pass: #2cccda !default;
 
 // deprecated
 $gray-210: #e9e9e9 !default; //整块区域的背景色为 #f3f3f3 后，某个卡片模块的背景色，用于文件详情
@@ -21,6 +36,35 @@ $gray-210: #e9e9e9 !default; //整块区域的背景色为 #f3f3f3 后，某个�
 $gray-900: #212529 !default;
 // deprecated
 $black: #000;
+
+/** text color  */
+$text-placeholder: $gray-400 !default;
+$text-body: $gray-800 !default;
+$text-desc: $gray-500 !default;
+$text-primary: $primary !default;
+$text-secondary: $gray-700 !default;
+$text-success: $success !default;
+$text-info: $info !default;
+$text-warning: $warning !default;
+$text-danger: $danger !default;
+$text-light: $light !default;
+$text-dark: $gray-800 !default;
+$text-muted: $gray-600 !default;
+$text-white: $white !default;
+
+/** bg color */
+$bg-default: $gray-10 !default;
+$bg-lighter: $gray-100 !default;
+$bg-bright: $gray-80 !default;
+$bg-content: $gray-80 !default;
+$bg-primary: $primary !default;
+$bg-secondary: $secondary !default;
+$bg-success: $success !default;
+$bg-info: $info !default;
+$bg-warning: $warning !default;
+$bg-danger: $danger !default;
+$bg-light: $light !default;
+$bg-dark: $gray-800 !default;
 
 //px to rem
 $rem-5px: 0.3125rem;
@@ -30,20 +74,6 @@ $rem-15px: 0.9375rem;
 $rem-18px: 1.125rem;
 $rem-20px: 1.25rem;
 $rem-26px: 1.625rem;
-// color
-$body-color: $gray-800 !default;
-$primary: #6698ff !default;
-
-$secondary: $gray-700 !default;
-$success: #73d897 !default; // 2dbcff
-$info: #5dcfff !default;
-$warning: #ffcd5d !default;
-$danger: #ff7575 !default;
-$pass: #2cccda !default;
-$secondary-item-active: rgba($primary, 0.1) !default;
-$item-active-bg-color: rgba($primary, 0.1) !default;
-$light: $gray-300 !default;
-$dark: #48525c !default;
 
 // font
 $font-family-sans-serif:
@@ -284,7 +314,7 @@ $dropdown-menu-width: 240px !default;
 $dropdown-menu-group-width: 280px !default;
 $dropdown-menu-padding-y: 12px;
 $dropdown-menu-max-height: 400px !default;
-$dropdown-menu-bg: $white !default;
+$dropdown-menu-bg: $bg-default !default;
 $dropdown-menu-item-padding-x: 20px !default;
 $dropdown-menu-item-padding-y: 9px !default;
 $dropdown-menu-item-color: $gray-800 !default;
@@ -311,7 +341,7 @@ $pop-box-top-margin: 3px !default;
 $zindex-pop-box: 1080 !default;
 
 // Layout
-$layout-header-background: $white !default;
+$layout-header-background: $bg-default !default;
 $layout-header-padding: 0 20px !default;
 $layout-header-height: 48px !default;
 $layout-header-height-sm: 44px !default;
@@ -336,7 +366,7 @@ $layout-sidebar-header-title-font-size: $font-size-title !default;
 $layout-sidebar-header-padding: $layout-header-padding !default;
 $layout-sidebar-footer-height: 48px !default;
 $layout-content-section-border-radius: 0px !default;
-$layout-content-section-background: $white !default;
+$layout-content-section-background: $bg-default !default;
 $layout-content-section-margin-bottom: 8px !default;
 // Tables
 $table-color: $gray-800;
@@ -403,37 +433,12 @@ $tag-colors: () !default;
 $tag-colors: map.merge(
     (
         'primary': $primary,
-        'secondary': $secondary,
         'info': $info,
         'success': $success,
         'warning': $warning,
         'danger': $danger
     ),
     $tag-colors
-);
-
-$tag-bg-hover-colors: () !default;
-$tag-bg-hover-colors: map.merge(
-    (
-        'primary': #4d87ff,
-        'info': #44c7ff,
-        'success': #5fd288,
-        'warning': #ffc544,
-        'danger': #ff5c5c
-    ),
-    $tag-bg-hover-colors
-);
-
-$tag-weak-fill-bg-hover-colors: () !default;
-$tag-weak-fill-bg-hover-colors: map.merge(
-    (
-        'primary': #4d87ff1a,
-        'info': #44c7ff1a,
-        'success': #5fd2881a,
-        'warning': #ffc5441a,
-        'danger': #ff5c5c1a
-    ),
-    $tag-weak-fill-bg-hover-colors
 );
 
 $tag-height-sm: 20px !default;
@@ -886,18 +891,18 @@ $pagination-padding-x: 0.375rem !default;
 $pagination-color: $gray-500 !default;
 $pagination-number-color: $gray-700 !default;
 $pagination-font-size: 12px !default;
-$pagination-bg: $white !default;
+$pagination-bg: $bg-default !default;
 $pagination-border-width: 1px !default;
 $pagination-border-color: $gray-200 !default;
 $pagination-focus-box-shadow: none !default;
 $pagination-hover-color: $link-hover-color !default;
-$pagination-hover-bg: $white !default;
+$pagination-hover-bg: $bg-default !default;
 $pagination-hover-border-color: $gray-200 !default;
 $pagination-active-color: $white !default;
 $pagination-active-bg: $primary !default;
 $pagination-active-border-color: $primary !default;
 $pagination-disabled-color: $gray-400 !default;
-$pagination-disabled-bg: $white !default;
+$pagination-disabled-bg: $bg-default !default;
 $pagination-disabled-border-color: $gray-200 !default;
 $pagination-total-pages-color: $gray-700;
 $pagination-jumper-margin: 0 10px !default;

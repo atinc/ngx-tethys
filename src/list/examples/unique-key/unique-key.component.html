@@ -1,11 +1,10 @@
 <thy-selection-list
   [style.width]="'560px'"
-  [style.background]="'#fafafa'"
+  [style.background]="'var(--gray-80)'"
   [(ngModel)]="selectionObjectModel"
   [thyMultiple]="false"
   thyLayout="grid"
-  [thyUniqueKey]="gridUniqueKey"
->
+  [thyUniqueKey]="gridUniqueKey">
   <thy-list-option *ngFor="let item of gridUniqueKeyItems" [thyValue]="item">
     <thy-icon thyIconName="app-agile-fill" class="thy-grid-option-icon"></thy-icon>
     <div class="thy-grid-option-name">{{ item.name }}</div>

@@ -23,8 +23,8 @@ export class ThySkeletonExampleBulletListComponent implements OnInit {
         thyRowHeight: '20px',
         thyBorderRadius: 4,
         thyRowCount: 3,
-        thyPrimaryColor: '#F7F7F7',
-        thySecondaryColor: '#aaaaaa',
+        thyPrimaryColor: 'var(--gray-70)',
+        thySecondaryColor: 'var(--gray-500)',
         thyAnimatedInterval: 1.5,
         thyAnimated: true
     };

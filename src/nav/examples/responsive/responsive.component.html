@@ -10,9 +10,7 @@
       ><span class="ml-1">{{ item.name }}</span></a
     >
 
-    <ng-template #more>
-      自定义
-    </ng-template>
+    <ng-template #more> 自定义 </ng-template>
   </thy-nav>
   <br />
 
@@ -23,8 +21,7 @@
       *ngFor="let item of navList"
       thyNavItem
       [thyNavItemActive]="activeIndex === item.index"
-      (click)="activeIndex = item.index"
-    >
+      (click)="activeIndex = item.index">
       <span class="ml-1">{{ item.name }}</span></a
     >
 
@@ -37,15 +34,14 @@
             thyDropdownMenuItem
             [thyDropdownMenuItemActive]="item.isActive"
             (click)="navItemClick(item)"
-            [innerHTML]="item.content"
-          ></span>
+            [innerHTML]="item.content"></span>
         </ng-container>
       </thy-dropdown-menu>
     </ng-template>
   </thy-nav>
   <br />
 
-  <div class="py-2 bg-white">
+  <div class="py-2 bg-default">
     <thy-nav thyType="pills" [thyResponsive]="true" class="responsive-nav">
       <a
         class="nav-tab"
@@ -57,9 +53,7 @@
         ><span class="ml-1">{{ item.name }}</span></a
       >
 
-      <ng-template #more>
-        自定义
-      </ng-template>
+      <ng-template #more> 自定义 </ng-template>
     </thy-nav>
   </div>
 </div>

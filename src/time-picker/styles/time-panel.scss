@@ -9,7 +9,7 @@ $column-border: 1px solid vars.$time-picker-panel-border-color;
     border: $column-border;
     border-radius: variables.$border-radius-lg;
     box-shadow: variables.$box-shadow;
-    background-color: variables.$white;
+    background-color: variables.$bg-default;
     flex-direction: column;
     &-columns-2 {
         width: vars.$time-picker-panel-column-2;

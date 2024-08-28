@@ -138,7 +138,7 @@
         &-edit {
             width: 100%;
             input {
-                background-color: variables.$white;
+                background-color: variables.$bg-default;
             }
         }
 
@@ -233,7 +233,7 @@
                     top: -5px;
                     width: 8px;
                     height: 8px;
-                    background-color: variables.$white;
+                    background-color: variables.$bg-default;
                     border: 2px solid variables.$primary;
                     border-radius: 50%;
                 }
@@ -253,7 +253,7 @@
                     bottom: -5px;
                     width: 8px;
                     height: 8px;
-                    background-color: variables.$white;
+                    background-color: variables.$bg-default;
                     border: 2px solid variables.$primary;
                     border-radius: 50%;
                 }

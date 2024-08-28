@@ -2,7 +2,7 @@
 
 :host {
     .thy-nav {
-        background: variables2.$white;
+        background: variables2.$bg-default;
         &:not(:last-child) {
             margin-bottom: 20px;
         }

@@ -79,7 +79,7 @@
                         }
 
                         &:before {
-                            background: variables.$white;
+                            background: variables.$bg-default;
                         }
 
                         &:not(.thy-property-item-content-editing):after {
