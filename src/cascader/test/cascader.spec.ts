@@ -18,6 +18,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { clone } from '../examples/cascader-address-options';
 import { ThyCascaderModule } from '../module';
 import { ThyCascaderExpandTrigger, ThyCascaderTriggerType } from '../types';
+import { ThyFlexibleTextModule } from 'ngx-tethys/flexible-text';
+import { ThyIconModule } from 'ngx-tethys/icon';
 
 registerLocaleData(zh);
 
@@ -544,7 +546,15 @@ class CascaderCustomLabelPropertyComponent {
 describe('thy-cascader', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            imports: [FormsModule, CommonModule, OverlayModule, ThyCascaderModule, NoopAnimationsModule],
+            imports: [
+                FormsModule,
+                CommonModule,
+                OverlayModule,
+                ThyCascaderModule,
+                ThyFlexibleTextModule,
+                ThyIconModule,
+                NoopAnimationsModule
+            ],
             declarations: [
                 CascaderTemplateComponent,
                 CascaderBasicComponent,
