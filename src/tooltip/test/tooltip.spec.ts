@@ -269,10 +269,6 @@ describe(`ThyTooltip`, () => {
             assertTooltipInstance(tooltipDirective, false);
         }));
 
-        it('should set css classes on the overlay panel element and tooltip element', fakeAsync(() => {
-            // TODO::
-        }));
-
         it('should show without show delay', fakeAsync(() => {
             assertTooltipInstance(tooltipDirective, false);
 
