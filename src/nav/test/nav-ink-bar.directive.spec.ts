@@ -212,6 +212,17 @@ describe(`thy-nav-ink-bar`, () => {
 
             const items: DebugElement[] = fixture.debugElement.queryAll(By.css('.thy-nav-item'));
             const firstItem: HTMLElement = items[0].nativeElement;
+
+            spyOn(firstItem, 'getBoundingClientRect').and.returnValue({
+                bottom: 80.5,
+                height: 22.5,
+                left: 8,
+                right: 1192,
+                top: 58,
+                width: 1184,
+                x: 8,
+                y: 58
+            });
             const rect = firstItem.getBoundingClientRect();
             expect(navInkBarElement.style.top).toEqual(Math.round(rect.top) + 'px');
 
