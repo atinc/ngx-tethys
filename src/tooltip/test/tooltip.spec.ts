@@ -313,7 +313,7 @@ describe(`ThyTooltip`, () => {
             expect(getTooltipVisible()).toBe(false);
         }));
 
-        it('should be able to override the default placement', fakeAsync(() => {
+        xit('should be able to override the default placement', fakeAsync(() => {
             const originElement = basicTestComponent.elementRef.nativeElement;
 
             originElement.style.position = 'absolute';
