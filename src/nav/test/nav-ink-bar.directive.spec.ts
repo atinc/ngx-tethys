@@ -202,13 +202,13 @@ describe(`thy-nav-ink-bar`, () => {
             expect(navInkBarElement.style.left).toEqual(rect.left + firstItem.offsetWidth + 'px');
         }));
 
-        it(`should move to right position when active other item in vertical mode`, async () => {
+        it(`should move to right position when active other item in vertical mode`, fakeAsync(() => {
             const type = 'tabs';
 
             fixture.debugElement.componentInstance.type = type;
             fixture.debugElement.componentInstance.isVertical = true;
+            flush();
             fixture.detectChanges();
-            await fixture.whenStable();
 
             const items: DebugElement[] = fixture.debugElement.queryAll(By.css('.thy-nav-item'));
             const firstItem: HTMLElement = items[0].nativeElement;
@@ -216,13 +216,13 @@ describe(`thy-nav-ink-bar`, () => {
             expect(navInkBarElement.style.top).toEqual(Math.round(rect.top) + 'px');
 
             dispatchFakeEvent(items[1].nativeElement, 'click');
+            flush();
             fixture.detectChanges();
-            await fixture.whenStable();
             const activeItem: DebugElement = fixture.debugElement.query(By.css('.active'));
             const firstActiveItem: HTMLElement = activeItem.nativeElement;
             const updateRect = firstActiveItem.getBoundingClientRect();
             expect(navInkBarElement.style.top).toEqual(Math.round(updateRect.top) + 'px');
-        });
+        }));
     });
 });
 
