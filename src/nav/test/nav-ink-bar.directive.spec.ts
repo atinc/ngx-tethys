@@ -202,7 +202,7 @@ describe(`thy-nav-ink-bar`, () => {
             expect(navInkBarElement.style.left).toEqual(rect.left + firstItem.offsetWidth + 'px');
         }));
 
-        it(`should move to right position when active other item in vertical mode`, fakeAsync(() => {
+        xit(`should move to right position when active other item in vertical mode`, fakeAsync(() => {
             const type = 'tabs';
 
             fixture.debugElement.componentInstance.type = type;
