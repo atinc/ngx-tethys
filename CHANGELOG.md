@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [18.0.2](https://github.com/atinc/ngx-tethys/compare/18.0.0...18.0.2) (2024-08-28)
+
+
+### Bug Fixes
+
+* **upload:** reject files that type is unknown #TINFR-442 ([#3178](https://github.com/atinc/ngx-tethys/issues/3178)) 
+
+
+### Features
+
+* **all:** support default and dark theme #TINFR-25 ([#3183](https://github.com/atinc/ngx-tethys/issues/3183))
+
+
+
 ## [18.0.1](https://github.com/atinc/ngx-tethys/compare/18.0.0...18.0.1) (2024-08-26)
 
 
