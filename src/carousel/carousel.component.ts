@@ -38,7 +38,7 @@ import { ThyCarouselService } from './carousel.service';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyDot } from 'ngx-tethys/dot';
 import { NgTemplateOutlet } from '@angular/common';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { coerceBooleanProperty, isNumber } from 'ngx-tethys/util';
 
 /**
  * 走马灯组件
@@ -143,7 +143,7 @@ export class ThyCarousel implements OnInit, AfterViewInit, AfterContentInit, OnC
 
     private engine: ThyCarouselEngine;
 
-    private _trigger$ = new Subject<number>();
+    private _trigger$ = new Subject<number | null>();
 
     private _destroy$ = new Subject<void>();
 
@@ -347,7 +347,7 @@ export class ThyCarousel implements OnInit, AfterViewInit, AfterContentInit, OnC
 
     ngAfterContentInit() {
         this._trigger$.pipe(takeUntil(this._destroy$), debounceTime(this.playTime)).subscribe(index => {
-            if (!isNaN(index)) {
+            if (isNumber(index)) {
                 this.moveTo(index);
             }
         });
@@ -355,7 +355,7 @@ export class ThyCarousel implements OnInit, AfterViewInit, AfterContentInit, OnC
 
     ngOnDestroy() {
         this.clearScheduledTransition();
-        this._trigger$.next();
+        this._trigger$.next(null);
         this._trigger$.complete();
         this._destroy$.next();
         this._destroy$.complete();

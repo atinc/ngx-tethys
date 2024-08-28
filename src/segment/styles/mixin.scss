@@ -17,11 +17,14 @@
             }
         }
 
-        @if ($size == xs or $size == sm or $size == md) {
-            font-size: variables.$font-size-sm;
-        } @else {
-            font-size: variables.$font-size-base;
+        & {
+            @if ($size == xs or $size == sm or $size == md) {
+                font-size: variables.$font-size-sm;
+            } @else {
+                font-size: variables.$font-size-base;
+            }
         }
+
     }
     &-#{$size} &-item-icon {
         @if ($size == xs) {
@@ -43,9 +46,9 @@
     &:hover,
     &:focus {
         color: variables.$segment-disabled-color;
+        cursor: variables.$disabled-cursor;
         .icon-with-text {
             color: variables.$segment-disabled-color;
         }
-        cursor: variables.$disabled-cursor;
     }
 }

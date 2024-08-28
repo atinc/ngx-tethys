@@ -8,9 +8,6 @@
     position: relative;
     padding-right: 20px;
 
-    // .thy-operation-icon {
-    //     display: inline-flex;
-    // }
     &.thy-property-operation-disabled {
         cursor: variables.$disabled-cursor;
         pointer-events: none;
@@ -104,6 +101,7 @@
 
     .thy-property-operation {
         flex-grow: 1;
+        position: relative;
 
         &:not(:first-child) {
             padding-left: 35px;
@@ -112,17 +110,5 @@
         &:not(:last-child) {
             padding-right: 40px;
         }
-        position: relative;
-
-        // &:not(:last-child):after {
-        //   content: " ";
-        //   display: block;
-        //   position: absolute;
-        //   top: 4px;
-        //   right: 0;
-        //   height: 90%;
-        //   width: 1px;
-        //   background: #eee;
-        // }
     }
 }

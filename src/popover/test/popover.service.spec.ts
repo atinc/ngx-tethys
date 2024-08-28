@@ -443,7 +443,7 @@ describe(`thyPopover`, () => {
 
         it('should update position when autoAdaptive is true', fakeAsync(() => {
             const contentObserver = TestBed.inject(ContentObserver);
-            const observeSubject = new Subject();
+            const observeSubject = new Subject<void>();
             let containerElementRef: ElementRef<HTMLElement> = null;
             spyOn(contentObserver, 'observe').and.callFake((_containerElementRef: ElementRef<HTMLElement>) => {
                 containerElementRef = _containerElementRef;

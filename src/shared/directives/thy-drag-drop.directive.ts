@@ -13,7 +13,7 @@ import { takeUntil, startWith } from 'rxjs/operators';
 export class ThyDragDropDirective implements AfterContentInit, OnDestroy {
     @ContentChildren(CdkDrag, { descendants: true }) draggables: QueryList<CdkDrag>;
 
-    private ngUnsubscribe$ = new Subject();
+    private ngUnsubscribe$ = new Subject<void>();
 
     constructor() {}
 

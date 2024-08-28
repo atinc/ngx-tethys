@@ -303,10 +303,10 @@ describe('thy-badge', () => {
 
         it('thyIsDot, should set dot badge success', () => {
             fixture.detectChanges();
-            expect(badgeElement.querySelector('.thy-badge-dot')).toBeFalsy;
+            expect(badgeElement.querySelector('.thy-badge-dot')).toBeFalsy();
             testComponent.isDot = true;
             fixture.detectChanges();
-            expect(badgeElement.querySelector('.thy-badge-dot')).toBeTruthy;
+            expect(badgeElement.querySelector('.thy-badge-dot')).toBeTruthy();
         });
     });
 

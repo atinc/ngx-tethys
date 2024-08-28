@@ -15,14 +15,14 @@
 }
 
 .thy-loading-indicator {
+    margin-bottom: 20px;
+    width: 100%;
+    text-align: center;
     h4 {
         padding-top: 20px;
         font-size: variables.$font-size-base;
         font-weight: normal;
     }
-    margin-bottom: 20px;
-    width: 100%;
-    text-align: center;
 }
 
 .thy-loading-ellipsis {

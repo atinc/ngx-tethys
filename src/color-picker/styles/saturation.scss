@@ -1,4 +1,4 @@
-@use "../../styles/variables";
+@use '../../styles/variables';
 
 .thy-saturation {
     width: 100%;
@@ -17,10 +17,10 @@
             left: 0;
         }
         .color-panel-white {
-            background: linear-gradient(to right, #fff, rgba(255, 255, 255, 0));
+            background: linear-gradient(to right, variables.$white, rgba(variables.$white, 0));
         }
         .color-panel-black {
-            background: linear-gradient(to top, #000, rgba(0, 0, 0, 0));
+            background: linear-gradient(to top, variables.$black, rgba(variables.$black, 0));
         }
         .color-panel-pointer {
             width: 14px;

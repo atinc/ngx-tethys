@@ -1,3 +1,5 @@
+@use 'variables.scss' as variables2;
+
 :host {
     &.space-align-container {
         display: flex;
@@ -6,14 +8,13 @@
         .space-align-example {
             border: 1px solid #348fe4;
             padding: 2px 4px;
-            // margin-right: 10px;
             margin: 8px 4px;
         }
     }
 
     .block {
         height: 50px;
-        background: #eee;
+        background: variables2.$gray-200;
         padding: 10px;
     }
 }

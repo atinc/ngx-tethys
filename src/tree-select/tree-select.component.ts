@@ -1,10 +1,4 @@
-import {
-    EXPANDED_DROPDOWN_POSITIONS,
-    getFlexiblePositions,
-    scaleYMotion,
-    TabIndexDisabledControlValueAccessorMixin,
-    ThyClickDispatcher
-} from 'ngx-tethys/core';
+import { EXPANDED_DROPDOWN_POSITIONS, scaleYMotion, TabIndexDisabledControlValueAccessorMixin, ThyClickDispatcher } from 'ngx-tethys/core';
 import { ThyEmpty } from 'ngx-tethys/empty';
 import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -14,7 +8,7 @@ import { coerceBooleanProperty, elementMatchClosest, isArray, isObject, produce,
 import { Observable, of, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 
-import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair, ViewportRuler } from '@angular/cdk/overlay';
+import { CdkConnectedOverlay, CdkOverlayOrigin, ViewportRuler } from '@angular/cdk/overlay';
 import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { isPlatformBrowser, NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
@@ -114,8 +108,6 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
     virtualTreeNodes: ThyTreeSelectNode[] = [];
 
     public cdkConnectOverlayWidth = 0;
-
-    public positions: ConnectionPositionPair[];
 
     public expandedDropdownPositions = EXPANDED_DROPDOWN_POSITIONS;
 
@@ -341,7 +333,6 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
     }
 
     ngOnInit() {
-        this.positions = getFlexiblePositions('bottom', 4);
         this.isMulti = this.thyMultiple;
         this.flattenTreeNodes = this.flattenNodes(this.treeNodes, this.flattenTreeNodes, []);
         this.setSelectedNodes();
@@ -596,6 +587,9 @@ export class ThyTreeSelectNodes implements OnInit {
         // 父级设置了max-height:300 & padding:10 0; 故此处最多设置280，否则将出现滚动条
         this.thyVirtualHeight = treeSelectHeight > 300 ? '280px' : `${treeSelectHeight}px`;
         this.nodeList = value;
+        this.hasNodeChildren = this.nodeList.every(
+            item => !item.hasOwnProperty('children') || (!item?.children?.length && !item?.childCount)
+        );
     }
 
     @Input() thyVirtualScroll: boolean = false;
@@ -617,6 +611,8 @@ export class ThyTreeSelectNodes implements OnInit {
     public defaultItemSize = DEFAULT_ITEM_SIZE;
 
     public thyVirtualHeight: string = null;
+
+    public hasNodeChildren: boolean = false;
 
     constructor(public parent: ThyTreeSelect) {}
 
