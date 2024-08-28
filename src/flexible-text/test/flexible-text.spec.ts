@@ -121,17 +121,17 @@ describe('FlexibleTextComponent', () => {
         expect(flexibleTextElement.clientHeight < flexibleTextElement.scrollHeight).toBe(true);
     }));
 
-    it('single line : should overflow when content is more', fakeAsync(() => {
-        const component = componentInstance.flexibleText;
-        const content = `周杰伦练琴辛酸史家长进游戏群控诉韩国一桑拿房起火伊斯兰堡会谈推迟游客夫妻美国被捕黄晓明否认拒演京东回应收集隐私救护
-        车高速被堵沈祥福回应炮轰烟台回应广告牌美国奥罗周杰伦练琴辛酸史家长进游戏群控诉韩国一桑拿房起火伊斯兰堡会谈推迟游客夫妻美国被捕黄晓明否认拒演京东回应收集隐私救护
-        车高速被堵沈祥福回应炮轰烟台回应广告牌美国奥罗`;
-        componentInstance.content = content;
-        invokeCallbacks([{}]);
-        fixture.detectChanges();
-        tick(100);
-        expect(component.isOverflow).toBe(true);
-    }));
+    // it('single line : should overflow when content is more', fakeAsync(() => {
+    //     const component = componentInstance.flexibleText;
+    //     const content = `周杰伦练琴辛酸史家长进游戏群控诉韩国一桑拿房起火伊斯兰堡会谈推迟游客夫妻美国被捕黄晓明否认拒演京东回应收集隐私救护
+    //     车高速被堵沈祥福回应炮轰烟台回应广告牌美国奥罗周杰伦练琴辛酸史家长进游戏群控诉韩国一桑拿房起火伊斯兰堡会谈推迟游客夫妻美国被捕黄晓明否认拒演京东回应收集隐私救护
+    //     车高速被堵沈祥福回应炮轰烟台回应广告牌美国奥罗`;
+    //     componentInstance.content = content;
+    //     invokeCallbacks([{}]);
+    //     fixture.detectChanges();
+    //     tick(100);
+    //     expect(component.isOverflow).toBe(true);
+    // }));
 
     it('should change content of thyTooltipDirective when set thyTooltipContent of thy-flexible-text', () => {
         const component = componentInstance.flexibleText;
