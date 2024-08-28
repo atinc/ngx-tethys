@@ -9,7 +9,7 @@ exports.config = {
     capabilities: {
         browserName: 'chrome',
         chromeOptions: {
-            args: ['--headless', '--no-sandbox']
+            args: ['--headless', '--no-sandbox', '--window-size=1280,720']
         }
     },
     directConnect: true,
@@ -18,7 +18,7 @@ exports.config = {
     jasmineNodeOpts: {
         showColors: true,
         defaultTimeoutInterval: 30000,
-        print: function() {}
+        print: function () {}
     },
     onPrepare() {
         require('ts-node').register({
