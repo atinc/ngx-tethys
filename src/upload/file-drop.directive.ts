@@ -1,4 +1,4 @@
-import { isEmpty } from 'ngx-tethys/util';
+import { isEmpty, isString } from 'ngx-tethys/util';
 import { fromEvent, Subject } from 'rxjs';
 import { filter, takeUntil, tap } from 'rxjs/operators';
 
@@ -151,7 +151,8 @@ export class ThyFileDropDirective extends FileSelectBaseDirective implements OnI
     private filterFilesOrItems(items: Array<DataTransferItem | File>): Array<DataTransferItem | File> {
         if (this.acceptType && this.acceptType != '*/*') {
             return items.filter(item => {
-                return this.acceptType.includes(item.type);
+                const isValidType = isString(item.type) && item.type.length > 0;
+                return isValidType && this.acceptType.includes(item.type);
             });
         } else {
             return Array.from(items);
