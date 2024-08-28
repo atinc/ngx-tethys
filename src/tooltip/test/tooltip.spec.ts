@@ -313,7 +313,7 @@ describe(`ThyTooltip`, () => {
             expect(getTooltipVisible()).toBe(false);
         }));
 
-        it('should be able to override the default placement', fakeAsync(() => {
+        it('should be able to override the default placement', async () => {
             const originElement = basicTestComponent.elementRef.nativeElement;
 
             originElement.style.position = 'absolute';
@@ -323,15 +323,15 @@ describe(`ThyTooltip`, () => {
             basicTestComponent.placement = 'left';
             fixture.detectChanges();
             expect(tooltipDirective.placement).toBe('left');
-            tooltipDirective.show(0);
-            tick(0);
+
+            await tooltipDirective.show(0);
             fixture.detectChanges();
-            tick(200);
+            await fixture.whenStable();
 
             expect(overlayContainerElement.textContent).toContain(initialTooltipMessage);
             const tooltipPaneElement = overlayContainerElement.querySelector(`.thy-tooltip-panel`) as HTMLElement;
             expect(tooltipPaneElement.classList.contains('thy-tooltip-left')).toBe(true);
-        }));
+        });
 
         it('should not show tooltip when content is not present or empty', () => {
             assertTooltipInstance(tooltipDirective, false);
