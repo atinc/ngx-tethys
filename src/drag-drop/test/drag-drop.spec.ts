@@ -261,45 +261,45 @@ describe('with handle', () => {
     selector: 'app-test-basic-drag-drop',
     template: `
         <ul
-          [thyDropContainer]="nodes"
-          [thyBeforeDragStart]="beforeDragStart"
-          [thyBeforeDragOver]="beforeDragOver"
-          [thyBeforeDragDrop]="beforeDragDrop"
-          (thyDragStarted)="onDragStart($event)"
-          (thyDragOvered)="onDragOver($event)"
-          (thyDragDropped)="onDragDrop($event)"
-          (thyDragEnded)="onDragEnd($event)"
-          [thyDropContainerDisabled]="disabled">
-          @for (item of nodes; track item; let i = $index) {
-            <li class="drag-item" [ngClass]="item.class" [thyDrag]="item" [thyDragDisabled]="i === nodes.length - 1">
-              <ng-template [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{ item: item, level: 0 }"></ng-template>
-            </li>
-          }
+            [thyDropContainer]="nodes"
+            [thyBeforeDragStart]="beforeDragStart"
+            [thyBeforeDragOver]="beforeDragOver"
+            [thyBeforeDragDrop]="beforeDragDrop"
+            (thyDragStarted)="onDragStart($event)"
+            (thyDragOvered)="onDragOver($event)"
+            (thyDragDropped)="onDragDrop($event)"
+            (thyDragEnded)="onDragEnd($event)"
+            [thyDropContainerDisabled]="disabled">
+            @for (item of nodes; track item; let i = $index) {
+                <li class="drag-item" [ngClass]="item.class" [thyDrag]="item" [thyDragDisabled]="i === nodes.length - 1">
+                    <ng-template [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{ item: item, level: 0 }"></ng-template>
+                </li>
+            }
         </ul>
         <div class="outside-element">outside element</div>
         <ng-template #itemTemplate let-item="item" let-level="level">
-          <div>{{ item.title }}</div>
-          @if (item.children) {
-            <ul
-              [thyDropContainer]="item.children"
-              [thyBeforeDragStart]="beforeDragStart"
-              [thyBeforeDragOver]="beforeDragOver"
-              [thyBeforeDragDrop]="beforeDragDrop"
-              (thyDragStarted)="onDragStart($event)"
-              (thyDragOvered)="onDragOver($event)"
-              (thyDragDropped)="onDragDrop($event)"
-              (thyDragEnded)="onDragEnd($event)">
-              @for (subItem of item.children; track subItem) {
-                <li class="children-item" [style.paddingLeft.px]="level * 10" [thyDrag]="item">
-                  <ng-template
-                    [ngTemplateOutlet]="itemTemplate"
-                  [ngTemplateOutletContext]="{ item: subItem, level: level + 1 }"></ng-template>
-                </li>
-              }
-            </ul>
-          }
+            <div>{{ item.title }}</div>
+            @if (item.children) {
+                <ul
+                    [thyDropContainer]="item.children"
+                    [thyBeforeDragStart]="beforeDragStart"
+                    [thyBeforeDragOver]="beforeDragOver"
+                    [thyBeforeDragDrop]="beforeDragDrop"
+                    (thyDragStarted)="onDragStart($event)"
+                    (thyDragOvered)="onDragOver($event)"
+                    (thyDragDropped)="onDragDrop($event)"
+                    (thyDragEnded)="onDragEnd($event)">
+                    @for (subItem of item.children; track subItem) {
+                        <li class="children-item" [style.paddingLeft.px]="level * 10" [thyDrag]="item">
+                            <ng-template
+                                [ngTemplateOutlet]="itemTemplate"
+                                [ngTemplateOutletContext]="{ item: subItem, level: level + 1 }"></ng-template>
+                        </li>
+                    }
+                </ul>
+            }
         </ng-template>
-        `
+    `
 })
 export class TestBasicDragDropComponent {
     public nodes = nodes;
@@ -358,14 +358,14 @@ export class TestBasicDragDropComponent {
     selector: 'app-test-with-handle-drag-drop',
     template: `
         <ul [thyDropContainer]="basicNodes">
-          @for (item of basicNodes; track item) {
-            <li [thyDrag]="item">
-              <span thyDragHandle [ngClass]="item.class" [thyDisabled]="item.handleDisabled" class="cursor-pointer">🖐️</span>
-              <span thyDragContent>{{ item.title }}</span>
-            </li>
-          }
+            @for (item of basicNodes; track item) {
+                <li [thyDrag]="item">
+                    <span thyDragHandle [ngClass]="item.class" [thyDisabled]="item.handleDisabled" class="cursor-pointer">🖐️</span>
+                    <span thyDragContent>{{ item.title }}</span>
+                </li>
+            }
         </ul>
-        `
+    `
 })
 export class TestWithHandleDragDropComponent {
     public basicNodes = [

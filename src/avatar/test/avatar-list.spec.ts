@@ -31,13 +31,13 @@ export class AvatarListBasicComponent implements OnInit {
 @Component({
     template: `
         <div [ngStyle]="{ width: '300px' }">
-          <thy-avatar-list [thyAvatarSize]="size" [thyMode]="mode">
-            @for (item of data; track item) {
-              <thy-avatar [thyName]="item.name"></thy-avatar>
-            }
-          </thy-avatar-list>
+            <thy-avatar-list [thyAvatarSize]="size" [thyMode]="mode">
+                @for (item of data; track item) {
+                    <thy-avatar [thyName]="item.name"></thy-avatar>
+                }
+            </thy-avatar-list>
         </div>
-        `,
+    `,
     styleUrls: ['../styles/avatar.scss']
 })
 export class AvatarListTestComponent implements OnInit {

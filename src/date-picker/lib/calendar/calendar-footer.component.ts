@@ -17,7 +17,6 @@ import { FormsModule } from '@angular/forms';
 import { ThyInnerTimePicker } from 'ngx-tethys/time-picker';
 import { ThyIcon } from 'ngx-tethys/icon';
 
-
 /**
  * @private
  */

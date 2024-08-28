@@ -34,17 +34,17 @@ export class ThyDropdownAbstractMenu {
     selector: 'thy-dropdown-menu',
     template: `
         @if (thyImmediateRender) {
-          <ng-content></ng-content>
+            <ng-content></ng-content>
         }
         <ng-template #dropdownMenu>
-          <div class="thy-dropdown-menu" [style.width]="thyWidth">
-            <ng-container *ngTemplateOutlet="content"></ng-container>
-          </div>
+            <div class="thy-dropdown-menu" [style.width]="thyWidth">
+                <ng-container *ngTemplateOutlet="content"></ng-container>
+            </div>
         </ng-template>
         <ng-template #content>
-          <ng-content></ng-content>
+            <ng-content></ng-content>
         </ng-template>
-        `,
+    `,
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {

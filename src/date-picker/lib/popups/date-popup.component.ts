@@ -48,16 +48,7 @@ import { InnerPopup } from './inner-popup.component';
     exportAs: 'datePopup',
     templateUrl: './date-popup.component.html',
     standalone: true,
-    imports: [
-    ThyNav,
-    ThyNavItemDirective,
-    ThyButtonIcon,
-    DateCarousel,
-    FormsModule,
-    NgTemplateOutlet,
-    InnerPopup,
-    CalendarFooter
-]
+    imports: [ThyNav, ThyNavItemDirective, ThyButtonIcon, DateCarousel, FormsModule, NgTemplateOutlet, InnerPopup, CalendarFooter]
 })
 export class DatePopup implements OnChanges, OnInit {
     @Input() isRange: boolean;

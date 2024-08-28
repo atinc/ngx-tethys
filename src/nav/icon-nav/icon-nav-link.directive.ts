@@ -1,4 +1,3 @@
-
 import { Component, HostBinding, Input } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { coerceBooleanProperty } from 'ngx-tethys/util';

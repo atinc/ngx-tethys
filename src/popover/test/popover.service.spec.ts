@@ -81,18 +81,18 @@ class WithChildViewContainerComponent {
     selector: 'thy-popover-simple-content-component',
     template: `
         <div class="simple-content-test">
-          Hello Popover <button>Close</button>
-          <ul>
-            @for (item of demos; track item) {
-              <li>
-                <a href="javascript:;">
-                  <span thyDropdownMenuItemName>图标{{ item }}</span>
-                </a>
-              </li>
-            }
-          </ul>
+            Hello Popover <button>Close</button>
+            <ul>
+                @for (item of demos; track item) {
+                    <li>
+                        <a href="javascript:;">
+                            <span thyDropdownMenuItemName>图标{{ item }}</span>
+                        </a>
+                    </li>
+                }
+            </ul>
         </div>
-        `
+    `
 })
 export class PopoverSimpleContentComponent {
     demos: number[];

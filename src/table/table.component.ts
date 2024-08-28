@@ -133,23 +133,23 @@ const passiveEventListenerOptions = normalizePassiveListenerOptions({ passive: t
     },
     standalone: true,
     imports: [
-    CdkScrollable,
-    NgClass,
-    NgTemplateOutlet,
-    ThyIcon,
-    ThyDragDropDirective,
-    CdkDropList,
-    CdkDrag,
-    ThyContextMenuDirective,
-    NgStyle,
-    FormsModule,
-    ThySwitch,
-    ThyEmpty,
-    ThyTableSkeleton,
-    ThyPagination,
-    TableIsValidModelValuePipe,
-    TableRowDragDisabledPipe
-]
+        CdkScrollable,
+        NgClass,
+        NgTemplateOutlet,
+        ThyIcon,
+        ThyDragDropDirective,
+        CdkDropList,
+        CdkDrag,
+        ThyContextMenuDirective,
+        NgStyle,
+        FormsModule,
+        ThySwitch,
+        ThyEmpty,
+        ThyTableSkeleton,
+        ThyPagination,
+        TableIsValidModelValuePipe,
+        TableRowDragDisabledPipe
+    ]
 })
 export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IThyTableColumnParentComponent {
     private readonly destroyRef = inject(DestroyRef);

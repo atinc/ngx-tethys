@@ -1,7 +1,6 @@
 import { Component, Input, HostBinding, ChangeDetectionStrategy, TemplateRef, ContentChild } from '@angular/core';
 import { ThyAvatar } from 'ngx-tethys/avatar';
 
-
 /**
  * @name thy-list-item-meta,[thy-list-item-meta]
  * @order 40

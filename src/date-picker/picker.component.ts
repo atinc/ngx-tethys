@@ -35,16 +35,7 @@ import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
     templateUrl: './picker.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [
-    CdkOverlayOrigin,
-    ThyInputDirective,
-    ThyEnterDirective,
-    AsyncPipe,
-    NgTemplateOutlet,
-    ThyIcon,
-    NgClass,
-    CdkConnectedOverlay
-],
+    imports: [CdkOverlayOrigin, ThyInputDirective, ThyEnterDirective, AsyncPipe, NgTemplateOutlet, ThyIcon, NgClass, CdkConnectedOverlay],
     animations: [scaleXMotion, scaleYMotion, scaleMotion]
 })
 export class ThyPicker implements OnChanges, AfterViewInit {

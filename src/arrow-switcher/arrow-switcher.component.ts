@@ -16,7 +16,6 @@ import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { ThyAction } from 'ngx-tethys/action';
 
-
 export type ThyArrowSwitcherTheme = 'default' | 'lite';
 export interface ThyArrowSwitcherEvent {
     index: number;

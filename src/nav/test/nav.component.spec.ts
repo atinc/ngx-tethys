@@ -57,27 +57,22 @@ export class NavBasicComponent implements OnInit {
     selector: 'app-nav-basic',
     template: `
         <thy-nav
-          [thyType]="type"
-          [thySize]="size"
-          [thyFill]="isFill"
-          [thyVertical]="isVertical"
-          [thyHorizontal]="horizontal"
-          [thyResponsive]="responsive"
-          [thyInsideClosable]="insideClosable"
-          class="custom-nav"
-          style="width: 100px;height: 50px;display:block">
-          @for (item of navLinks; track item; let i = $index) {
-            <a
-              class="test-link"
-              thyNavLink
-              [thyNavItemActive]="item.isActive"
-              [routerLink]="[item.name]"
-              routerLinkActive="active"
-              >{{ item.name }}</a
-              >
+            [thyType]="type"
+            [thySize]="size"
+            [thyFill]="isFill"
+            [thyVertical]="isVertical"
+            [thyHorizontal]="horizontal"
+            [thyResponsive]="responsive"
+            [thyInsideClosable]="insideClosable"
+            class="custom-nav"
+            style="width: 100px;height: 50px;display:block">
+            @for (item of navLinks; track item; let i = $index) {
+                <a class="test-link" thyNavLink [thyNavItemActive]="item.isActive" [routerLink]="[item.name]" routerLinkActive="active">{{
+                    item.name
+                }}</a>
             }
-          </thy-nav>
-        `,
+        </thy-nav>
+    `,
     styles: [
         `
             .thy-nav--vertical .thy-nav-item {

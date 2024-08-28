@@ -73,16 +73,16 @@ const tabItemRight = 20;
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
     imports: [
-    NgClass,
-    NgTemplateOutlet,
-    ThyNavItemDirective,
-    ThyIcon,
-    ThyNavInkBarDirective,
-    ThyDropdownMenuComponent,
-    ThyDropdownMenuItemDirective,
-    ThyDropdownMenuItemActiveDirective,
-    BypassSecurityTrustHtmlPipe
-]
+        NgClass,
+        NgTemplateOutlet,
+        ThyNavItemDirective,
+        ThyIcon,
+        ThyNavInkBarDirective,
+        ThyDropdownMenuComponent,
+        ThyDropdownMenuItemDirective,
+        ThyDropdownMenuItemActiveDirective,
+        BypassSecurityTrustHtmlPipe
+    ]
 })
 export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterContentChecked, OnChanges {
     private readonly destroyRef = inject(DestroyRef);

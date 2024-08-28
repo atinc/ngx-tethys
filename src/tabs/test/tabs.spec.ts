@@ -113,13 +113,13 @@ class TestTabsActiveComponent {
     selector: 'test-tabs-dynamic-add',
     template: `
         <button class="mb-2" thyButton="outline-default" (click)="addTab()">添加</button>
-        
+
         <thy-tabs [thyActiveTab]="activeTab" [thyAnimated]="thyAnimated">
-          @for (tab of tabs; track trackByFn(i, tab); let i = $index) {
-            <thy-tab [id]="tab.id" [thyTitle]="tab.title">Tab{{ i + 1 }} Content</thy-tab>
-          }
+            @for (tab of tabs; track trackByFn(i, tab); let i = $index) {
+                <thy-tab [id]="tab.id" [thyTitle]="tab.title">Tab{{ i + 1 }} Content</thy-tab>
+            }
         </thy-tabs>
-        `
+    `
 })
 class TestTabsDynamicAddComponent {
     tabs = [

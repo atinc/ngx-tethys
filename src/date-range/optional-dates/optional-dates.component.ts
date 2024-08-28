@@ -11,7 +11,6 @@ import {
     ThyDropdownMenuItemExtendIconDirective
 } from 'ngx-tethys/dropdown';
 
-
 /**
  * @private
  */
@@ -21,14 +20,14 @@ import {
     templateUrl: './optional-dates.component.html',
     standalone: true,
     imports: [
-    ThyDropdownMenuComponent,
-    ThyDropdownMenuItemDirective,
-    ThyDropdownMenuItemNameDirective,
-    ThyDropdownMenuItemExtendIconDirective,
-    ThyIcon,
-    ThyRangePickerDirective,
-    FormsModule
-]
+        ThyDropdownMenuComponent,
+        ThyDropdownMenuItemDirective,
+        ThyDropdownMenuItemNameDirective,
+        ThyDropdownMenuItemExtendIconDirective,
+        ThyIcon,
+        ThyRangePickerDirective,
+        FormsModule
+    ]
 })
 export class OptionalDateRanges implements OnInit {
     hiddenMenu = false;

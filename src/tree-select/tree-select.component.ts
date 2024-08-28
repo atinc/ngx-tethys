@@ -71,13 +71,13 @@ export function filterTreeData(treeNodes: ThyTreeSelectNode[], searchText: strin
     ],
     standalone: true,
     imports: [
-    CdkOverlayOrigin,
-    ThySelectControl,
-    NgTemplateOutlet,
-    CdkConnectedOverlay,
-    forwardRef(() => ThyTreeSelectNodes),
-    ThyStopPropagationDirective
-],
+        CdkOverlayOrigin,
+        ThySelectControl,
+        NgTemplateOutlet,
+        CdkConnectedOverlay,
+        forwardRef(() => ThyTreeSelectNodes),
+        ThyStopPropagationDirective
+    ],
     host: {
         '[attr.tabindex]': 'tabIndex',
         '(focus)': 'onFocus($event)',
@@ -563,16 +563,16 @@ const DEFAULT_ITEM_SIZE = 40;
     templateUrl: './tree-select-nodes.component.html',
     standalone: true,
     imports: [
-    NgTemplateOutlet,
-    CdkVirtualScrollViewport,
-    CdkFixedSizeVirtualScroll,
-    CdkVirtualForOf,
-    ThyEmpty,
-    NgClass,
-    NgStyle,
-    ThyIcon,
-    ThyFlexibleText
-],
+        NgTemplateOutlet,
+        CdkVirtualScrollViewport,
+        CdkFixedSizeVirtualScroll,
+        CdkVirtualForOf,
+        ThyEmpty,
+        NgClass,
+        NgStyle,
+        ThyIcon,
+        ThyFlexibleText
+    ],
     host: {
         '[attr.tabindex]': '-1'
     }

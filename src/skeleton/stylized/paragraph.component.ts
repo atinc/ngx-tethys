@@ -1,4 +1,3 @@
-
 import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
 import { InputCssPixel } from 'ngx-tethys/core';
 import { ThySkeletonRectangle } from '../skeleton-rectangle.component';
@@ -13,17 +12,17 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     selector: 'thy-skeleton-paragraph',
     template: `
         @for (k of rowCount; track k; let i = $index) {
-          <thy-skeleton-rectangle
-            class="vertical-gap"
-            [thyRowWidth]="i === 0 ? thyFirstWidth : i === rowCount.length - 1 ? thyLastWidth : thyRowWidth"
-            [thyRowHeight]="thyRowHeight"
-            [thyAnimated]="thyAnimated"
-            [thyPrimaryColor]="thyPrimaryColor"
-            [thySecondaryColor]="thySecondaryColor"
-            [thyBorderRadius]="thyBorderRadius"
-          [thyAnimatedInterval]="thyAnimatedInterval"></thy-skeleton-rectangle>
+            <thy-skeleton-rectangle
+                class="vertical-gap"
+                [thyRowWidth]="i === 0 ? thyFirstWidth : i === rowCount.length - 1 ? thyLastWidth : thyRowWidth"
+                [thyRowHeight]="thyRowHeight"
+                [thyAnimated]="thyAnimated"
+                [thyPrimaryColor]="thyPrimaryColor"
+                [thySecondaryColor]="thySecondaryColor"
+                [thyBorderRadius]="thyBorderRadius"
+                [thyAnimatedInterval]="thyAnimatedInterval"></thy-skeleton-rectangle>
         }
-        `,
+    `,
     host: {
         '[class.thy-skeleton-paragraph]': 'true'
     },

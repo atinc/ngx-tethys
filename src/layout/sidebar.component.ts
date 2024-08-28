@@ -143,44 +143,44 @@ export class ThySidebarDirective implements OnInit {
     template: `
         <ng-content></ng-content>
         @if (thyDraggable) {
-          <div
-            thyResizable
-            class="sidebar-drag"
-            thyBounds="window"
-            [thyMaxWidth]="thyDragMaxWidth"
-            [thyMinWidth]="dragMinWidth"
-            (thyResize)="resizeHandler($event)"
-            (thyResizeStart)="resizeStart()"
-            (thyResizeEnd)="resizeEnd()"
-            [style.display]="!isResizable ? 'contents' : null">
-            @if (!thyCollapsed) {
-              <thy-resize-handle
-                [thyDirection]="sidebarDirective.thyDirection === 'right' ? 'left' : 'right'"
-                class="sidebar-resize-handle"
-                thyLine="true"
-                (mouseenter)="toggleResizable($event, 'enter')"
-                (mouseleave)="toggleResizable($event, 'leave')"
-                (dblclick)="restoreToDefaultWidth()">
-              </thy-resize-handle>
-            }
-          </div>
+            <div
+                thyResizable
+                class="sidebar-drag"
+                thyBounds="window"
+                [thyMaxWidth]="thyDragMaxWidth"
+                [thyMinWidth]="dragMinWidth"
+                (thyResize)="resizeHandler($event)"
+                (thyResizeStart)="resizeStart()"
+                (thyResizeEnd)="resizeEnd()"
+                [style.display]="!isResizable ? 'contents' : null">
+                @if (!thyCollapsed) {
+                    <thy-resize-handle
+                        [thyDirection]="sidebarDirective.thyDirection === 'right' ? 'left' : 'right'"
+                        class="sidebar-resize-handle"
+                        thyLine="true"
+                        (mouseenter)="toggleResizable($event, 'enter')"
+                        (mouseleave)="toggleResizable($event, 'leave')"
+                        (dblclick)="restoreToDefaultWidth()">
+                    </thy-resize-handle>
+                }
+            </div>
         }
         @if (thyCollapsible) {
-          <div class="sidebar-collapse-line"></div>
+            <div class="sidebar-collapse-line"></div>
         }
         @if (thyCollapsible && thyTrigger !== null) {
-          <div
-            class="sidebar-collapse"
-            [ngClass]="{ 'collapse-visible': collapseVisible, 'collapse-hidden': collapseHidden }"
-            (click)="toggleCollapse($event)"
-            [thyTooltip]="!thyTrigger && collapseTip">
-            <ng-template [ngTemplateOutlet]="thyTrigger || defaultTrigger"></ng-template>
-            <ng-template #defaultTrigger>
-              <thy-icon class="sidebar-collapse-icon" [thyIconName]="this.thyCollapsed ? 'indent' : 'outdent'"></thy-icon>
-            </ng-template>
-          </div>
+            <div
+                class="sidebar-collapse"
+                [ngClass]="{ 'collapse-visible': collapseVisible, 'collapse-hidden': collapseHidden }"
+                (click)="toggleCollapse($event)"
+                [thyTooltip]="!thyTrigger && collapseTip">
+                <ng-template [ngTemplateOutlet]="thyTrigger || defaultTrigger"></ng-template>
+                <ng-template #defaultTrigger>
+                    <thy-icon class="sidebar-collapse-icon" [thyIconName]="this.thyCollapsed ? 'indent' : 'outdent'"></thy-icon>
+                </ng-template>
+            </div>
         }
-        `,
+    `,
     hostDirectives: [
         {
             directive: ThySidebarDirective,

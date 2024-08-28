@@ -19,15 +19,15 @@ export type ThyDividerColor = 'lighter' | 'light' | 'danger' | 'primary' | 'succ
     selector: 'thy-divider',
     template: `
         @if (templateContent) {
-          <div class="thy-divider-inner-template">
-            <ng-template *ngTemplateOutlet="templateContent"></ng-template>
-          </div>
+            <div class="thy-divider-inner-template">
+                <ng-template *ngTemplateOutlet="templateContent"></ng-template>
+            </div>
         }
-        
+
         @if (textContent) {
-          <span class="thy-divider-inner-text">{{ textContent }}</span>
+            <span class="thy-divider-inner-text">{{ textContent }}</span>
         }
-        `,
+    `,
     host: {
         '[class.thy-divider]': `true`,
         '[class.thy-divider-horizontal]': `!thyVertical`,

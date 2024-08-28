@@ -44,36 +44,36 @@ const sharpMatcherRegx = /#([^#]+)$/;
     preserveWhitespaces: false,
     template: `
         @if (thyAffix) {
-          <thy-affix [thyOffsetTop]="thyOffsetTop" [thyContainer]="container">
-            <ng-template [ngTemplateOutlet]="content"></ng-template>
-          </thy-affix>
+            <thy-affix [thyOffsetTop]="thyOffsetTop" [thyContainer]="container">
+                <ng-template [ngTemplateOutlet]="content"></ng-template>
+            </thy-affix>
         } @else {
-          <div
-            class="thy-anchor-wrapper"
-            [ngClass]="{ 'thy-anchor-wrapper-horizontal': thyDirection === 'horizontal' }"
-            [ngStyle]="wrapperStyle">
-            <div class="thy-anchor">
-              <div class="thy-anchor-ink">
-                <div class="thy-anchor-ink-full" #ink></div>
-              </div>
-              <ng-content></ng-content>
+            <div
+                class="thy-anchor-wrapper"
+                [ngClass]="{ 'thy-anchor-wrapper-horizontal': thyDirection === 'horizontal' }"
+                [ngStyle]="wrapperStyle">
+                <div class="thy-anchor">
+                    <div class="thy-anchor-ink">
+                        <div class="thy-anchor-ink-full" #ink></div>
+                    </div>
+                    <ng-content></ng-content>
+                </div>
             </div>
-          </div>
         }
         <ng-template #content>
-          <div
-            class="thy-anchor-wrapper"
-            [ngClass]="{ 'thy-anchor-wrapper-horizontal': thyDirection === 'horizontal' }"
-            [ngStyle]="wrapperStyle">
-            <div class="thy-anchor">
-              <div class="thy-anchor-ink">
-                <div class="thy-anchor-ink-full" #ink></div>
-              </div>
-              <ng-content></ng-content>
+            <div
+                class="thy-anchor-wrapper"
+                [ngClass]="{ 'thy-anchor-wrapper-horizontal': thyDirection === 'horizontal' }"
+                [ngStyle]="wrapperStyle">
+                <div class="thy-anchor">
+                    <div class="thy-anchor-ink">
+                        <div class="thy-anchor-ink-full" #ink></div>
+                    </div>
+                    <ng-content></ng-content>
+                </div>
             </div>
-          </div>
         </ng-template>
-        `,
+    `,
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,

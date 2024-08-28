@@ -2,7 +2,6 @@ import { ThyCascader } from 'ngx-tethys/cascader';
 import { ThyFormGroup } from 'ngx-tethys/form';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 
-
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 

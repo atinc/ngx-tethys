@@ -12,9 +12,9 @@ import { NgTemplateOutlet } from '@angular/common';
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
         @if (active) {
-          <ng-template [ngTemplateOutlet]="content"></ng-template>
+            <ng-template [ngTemplateOutlet]="content"></ng-template>
         }
-        `,
+    `,
     host: {
         class: 'thy-tab-content',
         '[attr.aria-hidden]': '!active',

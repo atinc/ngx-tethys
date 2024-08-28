@@ -8,15 +8,15 @@ import { mouseSwipe, windowResize } from './carousel-events';
     selector: 'thy-carousel-engine',
     template: `
         <div>
-          <thy-carousel [thyEffect]="effect">
-            @for (index of array; track index) {
-              <div thyCarouselItem class="custom-class">
-                <h3>{{ index }}</h3>
-              </div>
-            }
-          </thy-carousel>
+            <thy-carousel [thyEffect]="effect">
+                @for (index of array; track index) {
+                    <div thyCarouselItem class="custom-class">
+                        <h3>{{ index }}</h3>
+                    </div>
+                }
+            </thy-carousel>
         </div>
-        `
+    `
 })
 class ThyTestCarouselEngineComponent implements OnInit {
     @ViewChild(ThyCarousel, { static: false }) thyCarouselComponent!: ThyCarousel;

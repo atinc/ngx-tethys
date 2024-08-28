@@ -252,26 +252,26 @@ describe('ThySelectionList without forms', () => {
 @Component({
     template: `
         <thy-selection-list
-          id="selection-list-1"
-          [thySize]="size"
-          [thySpaceKeyEnabled]="spaceKeyEnabled"
-          [thyLayout]="layout"
-          (thySelectionChange)="onValueChange($event)"
-          [thyMultiple]="isMultipleSelectedMode"
-          [(ngModel)]="selectedValues"
-          [thyAutoActiveFirstItem]="autoActiveFirstItem"
-          [thyBeforeKeydown]="thyBeforeKeydown"
-          [thyUniqueKey]="uniqueKey">
-          @for (item of items; track item) {
-            <thy-list-option [id]="item.id" [thyValue]="item.value">
-              {{ item.text }}
-            </thy-list-option>
-          }
+            id="selection-list-1"
+            [thySize]="size"
+            [thySpaceKeyEnabled]="spaceKeyEnabled"
+            [thyLayout]="layout"
+            (thySelectionChange)="onValueChange($event)"
+            [thyMultiple]="isMultipleSelectedMode"
+            [(ngModel)]="selectedValues"
+            [thyAutoActiveFirstItem]="autoActiveFirstItem"
+            [thyBeforeKeydown]="thyBeforeKeydown"
+            [thyUniqueKey]="uniqueKey">
+            @for (item of items; track item) {
+                <thy-list-option [id]="item.id" [thyValue]="item.value">
+                    {{ item.text }}
+                </thy-list-option>
+            }
         </thy-selection-list>
         <button (click)="selectAll()">选择全部</button>
         <button (click)="deselectAll()">清除全部</button>
         <button (click)="determineClearActiveItem()">确认清除</button>
-        `
+    `
 })
 class SelectionListWithListOptionsComponent {
     @ViewChild(ThySelectionList, { static: true }) thySelectionListComponent: ThySelectionList;
@@ -365,18 +365,18 @@ class SelectionListWithListOptionsDefaultComponent {
 @Component({
     template: `
         <thy-selection-list
-          id="selection-list-2"
-          (thySelectionChange)="onValueChange($event)"
-          [thyMultiple]="false"
-          [(ngModel)]="selectedValue"
-          thyUniqueKey="id">
-          @for (option of options; track option) {
-            <thy-list-option [thyValue]="option">
-              {{ option.displayName }}
-            </thy-list-option>
-          }
+            id="selection-list-2"
+            (thySelectionChange)="onValueChange($event)"
+            [thyMultiple]="false"
+            [(ngModel)]="selectedValue"
+            thyUniqueKey="id">
+            @for (option of options; track option) {
+                <thy-list-option [thyValue]="option">
+                    {{ option.displayName }}
+                </thy-list-option>
+            }
         </thy-selection-list>
-        `
+    `
 })
 class SelectionListWithListOptionsByObjectTypeValueComponent {
     @ViewChild(ThySelectionList, { static: true }) thySelectionListComponent: ThySelectionList;

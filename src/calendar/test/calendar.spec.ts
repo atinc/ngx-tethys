@@ -14,43 +14,43 @@ import { ThyCalendarModule } from '../module';
 @Component({
     template: `
         <thy-calendar (thyDateRangeChange)="dateRangeChange($event)" (thySelectChange)="selectedChange($event)" [thyValue]="value">
-          <ul *thyDateCell="let date">
-            @switch (date.getDate()) {
-              @case (8) {
-                @for (item of listDataMap.eight; track item) {
-                  <li>
-                    {{ item.content }}
-                  </li>
+            <ul *thyDateCell="let date">
+                @switch (date.getDate()) {
+                    @case (8) {
+                        @for (item of listDataMap.eight; track item) {
+                            <li>
+                                {{ item.content }}
+                            </li>
+                        }
+                    }
+                    @case (10) {
+                        @for (item of listDataMap.ten; track item) {
+                            <li>
+                                {{ item.content }}
+                            </li>
+                        }
+                    }
+                    @case (11) {
+                        @for (item of listDataMap.eleven; track item) {
+                            <li>
+                                {{ item.content }}
+                            </li>
+                        }
+                    }
                 }
-              }
-              @case (10) {
-                @for (item of listDataMap.ten; track item) {
-                  <li>
-                    {{ item.content }}
-                  </li>
-                }
-              }
-              @case (11) {
-                @for (item of listDataMap.eleven; track item) {
-                  <li>
-                    {{ item.content }}
-                  </li>
-                }
-              }
-            }
-          </ul>
-        
-          <div *thyCalendarHeaderOperation>
-            <span class="app-sign"><span class="app-color-agile mr-2"></span>Agile</span>
-            <span class="app-sign"><span class="app-color-plan mr-2"></span>Plan</span>
-            <span class="app-sign"><span class="app-color-prod mr-2"></span>Prod</span>
-          </div>
+            </ul>
+
+            <div *thyCalendarHeaderOperation>
+                <span class="app-sign"><span class="app-color-agile mr-2"></span>Agile</span>
+                <span class="app-sign"><span class="app-color-plan mr-2"></span>Plan</span>
+                <span class="app-sign"><span class="app-color-prod mr-2"></span>Prod</span>
+            </div>
         </thy-calendar>
-        
+
         <thy-calendar [(ngModel)]="value1"> </thy-calendar>
-        
+
         <thy-calendar> </thy-calendar>
-        `
+    `
 })
 export class TestCalendarBasicComponent {
     value = new Date(2021, 2, 1);

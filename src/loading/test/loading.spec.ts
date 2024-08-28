@@ -8,10 +8,10 @@ import { ThyLoadingModule } from '../loading.module';
     selector: `test-loading`,
     template: `
         @if (loadingDone) {
-          <div style="width: 500px; height:500px">Test loading</div>
+            <div style="width: 500px; height:500px">Test loading</div>
         }
         <thy-loading [thyDone]="loadingDone" [thyIsMask]="isMask" [thyTip]="tip"></thy-loading>
-        `
+    `
 })
 export class TestLoadingComponent {
     loadingDone: boolean;

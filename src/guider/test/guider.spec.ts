@@ -154,12 +154,12 @@ class GuiderBasicComponent implements OnInit {
     selector: 'test-guider-directive',
     template: `
         @if (show) {
-          <span thyGuiderTarget="directive-tip-target" class="test-directive-span">back directive</span>
+            <span thyGuiderTarget="directive-tip-target" class="test-directive-span">back directive</span>
         }
         @if (delayShow) {
-          <span thyGuiderTarget="directive-tip-target-second" class="test-directive-span-second"> directive 2</span>
+            <span thyGuiderTarget="directive-tip-target-second" class="test-directive-span-second"> directive 2</span>
         }
-        `
+    `
 })
 class TestGuiderDirectiveComponent implements OnInit {
     public guiderRef: ThyGuiderRef;
@@ -185,13 +185,13 @@ class TestGuiderDirectiveComponent implements OnInit {
     selector: 'test-guider-multi-targets',
     template: `
         @if (show) {
-          <span class="target-0">Target-0</span>
+            <span class="target-0">Target-0</span>
         }
         <ng-container>
-          <span class="target-1"> Target-1</span>
+            <span class="target-1"> Target-1</span>
         </ng-container>
         <button class="trigger-guider-element" (click)="startGuider()">Open</button>
-        `
+    `
 })
 class TestGuiderMultiTargetsComponent implements OnInit {
     public guiderRef: ThyGuiderRef;

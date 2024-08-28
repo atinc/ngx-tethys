@@ -46,17 +46,17 @@ const ELLIPSIS_ITEM = { _id: THY_BREADCRUMB_ITEM_ELLIPSIS_ID };
     },
     standalone: true,
     imports: [
-    ThyIcon,
-    NgClass,
-    ThyBreadcrumbItem,
-    NgTemplateOutlet,
-    ThyAction,
-    ThyDropdownDirective,
-    ThyDropdownMenuItemDirective,
-    ThyDropdownMenuItemNameDirective,
-    ThyDropdownMenuComponent,
-    ThyIcon
-]
+        ThyIcon,
+        NgClass,
+        ThyBreadcrumbItem,
+        NgTemplateOutlet,
+        ThyAction,
+        ThyDropdownDirective,
+        ThyDropdownMenuItemDirective,
+        ThyDropdownMenuItemNameDirective,
+        ThyDropdownMenuComponent,
+        ThyIcon
+    ]
 })
 export class ThyBreadcrumb implements OnInit, OnChanges {
     iconClasses: string[];

@@ -10,7 +10,6 @@ import {
     useHostFocusControl
 } from 'ngx-tethys/core';
 
-
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,

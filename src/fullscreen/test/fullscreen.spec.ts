@@ -260,13 +260,13 @@ class ThyContainerFullscreenComponent {
 @Component({
     template: `
         <thy-fullscreen>
-          <div fullscreen-target [style.backgroundColor]="'#fff'">
-            @if (fullscreenLaunchShown) {
-              <button thyFullscreenLaunch class="fullscreen-button">全屏</button>
-            }
-          </div>
+            <div fullscreen-target [style.backgroundColor]="'#fff'">
+                @if (fullscreenLaunchShown) {
+                    <button thyFullscreenLaunch class="fullscreen-button">全屏</button>
+                }
+            </div>
         </thy-fullscreen>
-        `
+    `
 })
 class ThyContainerFullscreenDynamicLaunchComponent {
     fullscreenLaunchShown = false;

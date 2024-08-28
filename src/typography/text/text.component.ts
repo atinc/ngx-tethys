@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 
-
 /**
  * 文本组件
  * @name thy-text,[thyText]

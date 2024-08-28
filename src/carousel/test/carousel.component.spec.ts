@@ -12,22 +12,22 @@ import { mouseSwipe, touchSwipe, windowResize } from './carousel-events';
     selector: 'thy-carousel-basic-example',
     template: `
         <div>
-          <thy-carousel
-            [thyAutoPlay]="autoPlay"
-            [thyAutoPlayInterval]="autoPlayInterval"
-            [thyIndicators]="showIndicators"
-            [thyControls]="showControls"
-            [thyEffect]="effect"
-            [thyTrigger]="trigger"
-            [thyPause]="pause">
-            @for (index of array; track index) {
-              <div thyCarouselItem class="custom-class">
-                <h3>{{ index }}</h3>
-              </div>
-            }
-          </thy-carousel>
+            <thy-carousel
+                [thyAutoPlay]="autoPlay"
+                [thyAutoPlayInterval]="autoPlayInterval"
+                [thyIndicators]="showIndicators"
+                [thyControls]="showControls"
+                [thyEffect]="effect"
+                [thyTrigger]="trigger"
+                [thyPause]="pause">
+                @for (index of array; track index) {
+                    <div thyCarouselItem class="custom-class">
+                        <h3>{{ index }}</h3>
+                    </div>
+                }
+            </thy-carousel>
         </div>
-        `
+    `
 })
 class ThyTestCarouselBasicComponent implements OnInit {
     @ViewChild(ThyCarousel, { static: false }) thyCarouselComponent!: ThyCarousel;
@@ -60,15 +60,15 @@ class ThyTestCarouselBasicComponent implements OnInit {
     selector: 'thy-carousel-touch-example',
     template: `
         <div>
-          <thy-carousel [thyTouchable]="touchable">
-            @for (index of array; track index) {
-              <div thyCarouselItem class="custom-class">
-                <h3>{{ index }}</h3>
-              </div>
-            }
-          </thy-carousel>
+            <thy-carousel [thyTouchable]="touchable">
+                @for (index of array; track index) {
+                    <div thyCarouselItem class="custom-class">
+                        <h3>{{ index }}</h3>
+                    </div>
+                }
+            </thy-carousel>
         </div>
-        `
+    `
 })
 class ThyTestCarouselTouchableComponent implements OnInit {
     @ViewChild(ThyCarousel, { static: false }) thyCarouselComponent!: ThyCarousel;

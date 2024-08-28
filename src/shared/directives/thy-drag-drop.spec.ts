@@ -9,12 +9,12 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     selector: 'thy-drag-drop-test',
     template: `
         <div cdkDropList thyDragDrop class="list">
-          <div class="item1" cdkDrag>item1</div>
-          @if (showItem2) {
-            <div class="item2" cdkDrag>item2</div>
-          }
+            <div class="item1" cdkDrag>item1</div>
+            @if (showItem2) {
+                <div class="item2" cdkDrag>item2</div>
+            }
         </div>
-        `
+    `
 })
 class ThyDragDropTestComponent {
     showItem2 = false;
