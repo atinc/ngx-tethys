@@ -278,8 +278,9 @@ describe('image-preview', () => {
         button.click();
         fixture.detectChanges();
 
-        const spyObj = jasmine.createSpyObj('a', ['click']);
-        spyOn(document, 'createElement').and.returnValue(spyObj);
+        const anchorElement = document.createElement('a');
+        spyOn(document, 'createElement').and.returnValue(anchorElement);
+        const clickSpy = spyOn(anchorElement, 'click');
 
         spyOn(XMLHttpRequest.prototype, 'open').and.callThrough();
         spyOn(XMLHttpRequest.prototype, 'send').and.callThrough();
@@ -291,9 +292,9 @@ describe('image-preview', () => {
 
         fetchImageBlob(basicTestComponent.images[0].origin.src).subscribe(() => {
             expect(document.createElement).toHaveBeenCalledWith('a');
-            expect(spyObj.download).toBe('first.jpg');
-            expect(spyObj.href).toContain('blob:');
-            expect(spyObj.click).toHaveBeenCalledTimes(1);
+            expect(anchorElement.download).toBe('first.jpg');
+            expect(anchorElement.href).toContain('blob:');
+            expect(clickSpy).toHaveBeenCalledTimes(1);
             done();
         });
 
