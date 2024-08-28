@@ -38,7 +38,7 @@ module.exports = function (config) {
         customLaunchers: {
             ChromeHeadlessCI: {
                 base: 'ChromeHeadless',
-                flags: ['--no-sandbox', '--window-size=1920,1080']
+                flags: ['--no-sandbox']
             }
         },
         restartOnFileChange: true
