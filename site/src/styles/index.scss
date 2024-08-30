@@ -1,8 +1,15 @@
 @use './demo-button.scss';
 @use './demo-alert.scss';
 
+:root {
+    --dg-example-bg: #edf1f6;
+    &[theme='dark'] {
+        --dg-example-bg: #30353c;
+    }
+}
+
 .bg-example {
-    background: #edf1f6;
+    background: var(--dg-example-bg);
 }
 
 .bg-example-striped,
