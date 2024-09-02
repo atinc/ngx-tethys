@@ -127,8 +127,7 @@ export class ThyAnchor implements OnDestroy, AfterViewInit, OnChanges {
         private platform: Platform,
         private zone: NgZone,
         private renderer: Renderer2,
-        private scrollService: ThyScrollService,
-        private elementRef: ElementRef
+        private scrollService: ThyScrollService
     ) {}
 
     registerLink(link: ThyAnchorLink): void {
@@ -157,9 +156,7 @@ export class ThyAnchor implements OnDestroy, AfterViewInit, OnChanges {
     private warningPrompt() {
         if (this.thyDirection === 'horizontal') {
             const hasChildren = this.links.some(link =>
-                Array.from(link?.elementRef?.nativeElement?.childNodes)?.some((item: HTMLElement) =>
-                    item?.className.includes('thy-anchor-link')
-                )
+                Array.from(link?.elementRef?.nativeElement?.childNodes)?.some((item: HTMLElement) => item?.nodeName === 'THY-ANCHOR-LINK')
             );
             if (hasChildren) {
                 console.warn("Anchor link nesting is not supported when 'Anchor' direction is horizontal.");
