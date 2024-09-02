@@ -127,8 +127,7 @@ export class ThyAnchor implements OnDestroy, AfterViewInit, OnChanges {
         private platform: Platform,
         private zone: NgZone,
         private renderer: Renderer2,
-        private scrollService: ThyScrollService,
-        private elementRef: ElementRef
+        private scrollService: ThyScrollService
     ) {}
 
     registerLink(link: ThyAnchorLink): void {
