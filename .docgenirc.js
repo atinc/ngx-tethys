@@ -142,5 +142,6 @@ module.exports = {
             name: 'ZH'
         }
     ],
-    defaultLocale: 'zh-cn'
+    defaultLocale: 'zh-cn',
+    switchTheme: true
 };
