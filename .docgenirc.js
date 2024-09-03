@@ -143,5 +143,5 @@ module.exports = {
         }
     ],
     defaultLocale: 'zh-cn',
-    enableThemes: true
+    switchTheme: true
 };
