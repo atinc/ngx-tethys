@@ -29,7 +29,7 @@ $offset: 4px;
 }
 
 .thy-popover-container {
-    background: variables.$bg-default;
+    background: variables.$bg-dropdown-panel;
     width: 100%;
     border-radius: variables.$border-radius;
     @include shadow.section-box-shadow();

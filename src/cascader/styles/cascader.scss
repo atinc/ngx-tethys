@@ -21,7 +21,7 @@ $cascader-menu-min-width: 122px;
     }
     &-menus {
         font-size: 14px;
-        background: variables.$bg-default;
+        background: variables.$bg-dropdown-panel;
         position: relative;
         z-index: 1050;
         border-radius: 4px;
