@@ -22,8 +22,6 @@ $info: #5dcfff !default;
 $warning: #ffcd5d !default;
 $danger: #ff7575 !default;
 
-$bg-dropdown-panel: var(--bg-dropdown-panel) !default;
-
 $body-color: $gray-800 !default;
 $secondary: $gray-700 !default;
 $secondary-item-active: rgba($primary, 0.1) !default;
@@ -38,6 +36,24 @@ $gray-210: #e9e9e9 !default; //整块区域的背景色为 #f3f3f3 后，某个�
 $gray-900: #212529 !default;
 // deprecated
 $black: #000;
+
+/** background */
+$bg-panel: var(--bg-panel) !default;
+$bg-message: var(--bg-message) !default;
+$bg-back-top: var(--bg-back-top) !default;
+$bg-tooltip: var(--bg-tooltip) !default;
+// @deprecated
+$tooltip-bg: var(--bg-tooltip) !default;
+
+/** box-shadow */
+$box-shadow: 0 0 16px rgb(0 0 0 / 8%) !default; // select、popover、cascader、date-picker、comment-actions 等
+$box-shadow-dialog: 0 0 24px rgba(0, 0, 0, 0.25) !default;
+$box-shadow-tooltip: 0 2px 8px 0 rgba(0, 0, 0, 0.15) !default;
+$box-shadow-picker-pointer: 0px 0px 3px 0px rgba(0, 0, 0, 0.5) !default;
+$box-shadow-back-top: var(--box-shadow-back-top) !default;
+$box-shadow-back-top-hover: var(--box-shadow-back-top-hover) !default;
+$box-shadow-calendar: var(--box-shadow-calendar) !default;
+$box-shadow-none: none !default;
 
 /** text color  */
 $text-placeholder: $gray-400 !default;
@@ -126,9 +142,6 @@ $link-hover-color: $primary !default;
 $link-hover-decoration: underline !default;
 $link-icon-padding-x: 4px !default;
 $link-disabled-opacity: 50% !default;
-
-// box shadow
-$box-shadow: 0 0 16px rgb(0 0 0 / 8%) !default;
 
 // icon
 $icon-vertical-align: -0.16em !default;
@@ -280,8 +293,6 @@ $input-height-md: $input-btn-height-md !default;
 $input-height-lg: $input-btn-height-lg !default;
 // others
 $input-focus-border-color: $primary !default;
-$input-btn-focus-box-shadow: none !default;
-$input-box-shadow: none !default;
 $input-placeholder-color: $gray-400 !default;
 $input-color: $gray-800 !default;
 $input-focus-bg: transparent !default;
@@ -594,7 +605,6 @@ $dialog-header-padding-lg: 1.25rem !default;
 
 $dialog-header-border-width: 1px !default;
 $dialog-header-border-color: $gray-200 !default;
-$dialog-box-shadow: 0 0 24px rgba(0, 0, 0, 0.25) !default;
 $dialog-body-padding: 0.5rem 2rem 1rem 2rem !default;
 
 $dialog-footer-padding: 1rem 2rem !default;
@@ -648,7 +658,6 @@ $notify-margin-bottom: 10px !default;
 $notify-line-height: 1.5 !default;
 $notify-padding: 18px !default;
 $notify-border-radius-width: 4px !default;
-$notify-bg: $white !default;
 $notify-success: $success !default;
 $notify-info: $info !default;
 $notify-warning: $warning !default;
@@ -672,7 +681,6 @@ $message-z-index: 1100 !default;
 $message-spacing: 20px !default;
 $message-margin-bottom: 10px !default;
 $message-border-radius-width: 4px !default;
-$message-bg: $white !default;
 $message-border: 1px solid $gray-200 !default;
 $message-box-shadow: 0px 4px 10px 0px rgba($gray-800, 0.1) !default;
 $message-icon-font-size: $font-size-md !default;
@@ -917,18 +925,16 @@ $pagination-page-size-width-lg: 7.875rem;
 $tooltip-font-size: $font-size-base !default;
 $tooltip-max-width: 350px !default;
 $tooltip-color: $white !default;
-$tooltip-bg: rgba(0, 0, 0, 0.75) !default;
 $tooltip-border-radius: $border-radius !default;
 $tooltip-opacity: 0.9 !default;
 $tooltip-padding-y: 0.375rem !default;
 $tooltip-padding-x: 0.75rem !default;
 $tooltip-margin: 0 !default;
-$tooltip-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15) !default;
 $tooltip-content-min-height: 34px !default;
 
 $tooltip-arrow-width: 0.75rem !default;
 $tooltip-arrow-height: 0.375rem !default;
-$tooltip-arrow-color: $tooltip-bg !default;
+$tooltip-arrow-color: $bg-tooltip !default;
 
 // alert
 $alert-padding-y: 0.625rem !default;

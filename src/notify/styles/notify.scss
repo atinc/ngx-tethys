@@ -1,5 +1,5 @@
-@use "../../styles/variables";
-@use "mixin";
+@use '../../styles/variables';
+@use 'mixin';
 
 .thy-notify-container > div {
     position: fixed;
@@ -14,7 +14,7 @@
         position: relative;
         display: flex;
         border-radius: variables.$notify-border-radius-width;
-        background: variables.$notify-bg;
+        background: variables.$bg-message;
         box-shadow: variables.$notify-box-shadow;
 
         &-icon-container {

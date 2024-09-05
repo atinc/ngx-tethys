@@ -24,7 +24,7 @@ $calendar-full-prefix-cls: 'thy-calendar-full';
             position: absolute;
             top: 0;
             left: 0;
-            box-shadow: 0 0 20px 0 rgba(variables.$black, 0.12);
+            box-shadow: variables.$box-shadow-calendar;
             background: variables.$bg-default;
             width: 100%;
             min-height: 100%;
@@ -50,14 +50,6 @@ $calendar-full-prefix-cls: 'thy-calendar-full';
         .#{$calendar-full-prefix-cls}-cell {
             text-align: left;
             font-weight: 400;
-        }
-
-        .#{$calendar-full-prefix-cls}-selected-day {
-            // background: $gray-80;
-            // border-color: $primary;
-        }
-
-        .#{$calendar-full-prefix-cls}-date-value-text {
         }
 
         .#{$calendar-full-prefix-cls}-today {

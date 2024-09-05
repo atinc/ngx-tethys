@@ -1,6 +1,6 @@
-@use "../styles/bootstrap/mixins/border-radius";
-@use "../styles/bootstrap/mixins/reset-text";
-@use "../styles/variables";
+@use '../styles/bootstrap/mixins/border-radius';
+@use '../styles/bootstrap/mixins/reset-text';
+@use '../styles/variables';
 
 .thy-tooltip {
     // position: absolute;
@@ -145,8 +145,8 @@ $tooltip-un-center-arrow-offset: 16px;
     padding: variables.$tooltip-padding-y variables.$tooltip-padding-x;
     color: variables.$tooltip-color;
     text-align: left;
-    background-color: variables.$tooltip-bg;
-    box-shadow: variables.$tooltip-box-shadow; // $box-shadow;
+    background-color: variables.$bg-tooltip;
+    box-shadow: variables.$box-shadow-tooltip;
     min-height: variables.$tooltip-content-min-height;
 
     @include border-radius.border-radius(variables.$tooltip-border-radius);

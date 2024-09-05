@@ -6,7 +6,7 @@
     padding: variables.$dropdown-menu-padding-y 0;
     display: block;
     width: 100%;
-    background: variables.$bg-dropdown-panel;
+    background: variables.$bg-panel;
     border-radius: variables.$border-radius;
 
     .dropdown-menu-group {
@@ -96,7 +96,7 @@
             z-index: 1;
             padding: 8px 0;
             width: 100%;
-            background: variables.$bg-dropdown-panel;
+            background: variables.$bg-panel;
             border-radius: variables.$border-radius;
             @include shadow.section-box-shadow();
         }
