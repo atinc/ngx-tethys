@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [18.0.3](https://github.com/atinc/ngx-tethys/compare/18.0.2...18.0.3) (2024-09-05)
+
+
+### Bug Fixes
+
+* **anchor:** warnings should not be displayed when the thy anchor link is not nested under  horizontal layout #TINFR-480 ([#3185](https://github.com/atinc/ngx-tethys/issues/3185)) ([cef3de1](https://github.com/atinc/ngx-tethys/commit/cef3de19ba5fea70a96354ca62f586dc708b06d9)), closes [#TINFR-480](https://github.com/atinc/ngx-tethys/issues/TINFR-480) [#TINFR-480](https://github.com/atinc/ngx-tethys/issues/TINFR-480) [#TINFR-480](https://github.com/atinc/ngx-tethys/issues/TINFR-480)
+* **treeSelect:** #TINFR-403 fix ngClass error ([#3194](https://github.com/atinc/ngx-tethys/issues/3194)) ([6688095](https://github.com/atinc/ngx-tethys/commit/6688095dc6eb59e5545509d8b21bdaf2ffd5fbe3))
+
+
+
 ## [18.0.2](https://github.com/atinc/ngx-tethys/compare/18.0.0...18.0.2) (2024-08-28)
 
 
