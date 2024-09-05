@@ -20,15 +20,15 @@ $back-top-width: 36px;
         width: $back-top-width;
         height: $back-top-width;
         overflow: hidden;
-        background-color: variables.$bg-back-top;
+        background-color: variables.$bg-circle-btn;
         border-radius: 50%;
         transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-        box-shadow: variables.$box-shadow-back-top;
+        box-shadow: variables.$circle-btn-box-shadow;
         display: flex;
         align-items: center;
         justify-content: center;
         &:hover {
-            box-shadow: variables.$box-shadow-back-top-hover;
+            box-shadow: variables.$circle-btn-box-shadow-hover;
         }
     }
 }

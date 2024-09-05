@@ -40,19 +40,31 @@ $black: #000;
 /** background */
 $bg-panel: var(--bg-panel) !default;
 $bg-message: var(--bg-message) !default;
-$bg-back-top: var(--bg-back-top) !default;
+$bg-circle-btn: var(--bg-circle-btn) !default;
 $bg-tooltip: var(--bg-tooltip) !default;
+$bg-segment-active: var(--bg-segment-active) !default;
 // @deprecated
 $tooltip-bg: var(--bg-tooltip) !default;
 
 /** box-shadow */
-$box-shadow: 0 0 16px rgb(0 0 0 / 8%) !default; // select、popover、cascader、date-picker、comment-actions 等
-$box-shadow-dialog: 0 0 24px rgba(0, 0, 0, 0.25) !default;
-$box-shadow-tooltip: 0 2px 8px 0 rgba(0, 0, 0, 0.15) !default;
-$box-shadow-picker-pointer: 0px 0px 3px 0px rgba(0, 0, 0, 0.5) !default;
-$box-shadow-back-top: var(--box-shadow-back-top) !default;
-$box-shadow-back-top-hover: var(--box-shadow-back-top-hover) !default;
-$box-shadow-calendar: var(--box-shadow-calendar) !default;
+$box-shadow: 0 0 16px rgb(0 0 0 / 8%) !default;
+$dialog-box-shadow: 0 0 24px rgba(0, 0, 0, 0.25) !default;
+$tooltip-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15) !default;
+$picker-pointer-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.5) !default;
+$circle-btn-box-shadow: var(--box-shadow-circle-btn) !default;
+$circle-btn-box-shadow-hover: var(--box-shadow-circle-btn-hover) !default;
+$calendar-active-box-shadow: var(--box-shadow-calendar-active) !default;
+$layout-header-box-shadow: var(--box-shadow-layout-header) !default;
+$table-fixed-column-left-box-shadow: var(--box-shadow-table-fixed-column-left) !default;
+$table-fixed-column-right-box-shadow: var(--box-shadow-table-fixed-column-right) !default;
+$message-box-shadow: 0px 4px 10px 0px rgba($gray-800, 0.1) !default;
+$segment-active-box-shadow:
+    0 0 1px 0 rgba(0, 0, 0, 0.1),
+    0 1px 4px -1px rgba(0, 0, 0, 0.1) !default;
+$slide-box-shadow:
+    inset 0px 4px 8px 0px #00000008,
+    -4px 0px 12px 4px #00000008 !default;
+$btn-active-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) !default;
 $box-shadow-none: none !default;
 
 /** text color  */
@@ -362,8 +374,6 @@ $layout-header-height-xlg: 100px !default;
 $layout-header-prefix-icon-size: 20px !default;
 $layout-header-separator-color: $gray-500 !default;
 $layout-header-icon-link-opacity: 0.85;
-$layout-header-box-shadow: 0 4px 8px 0px #00000008 !default;
-
 $layout-content-background: $gray-80 !default;
 $layout-content-padding: 15px 20px 15px 20px !default;
 $layout-sidebar-width: 240px !default;
@@ -664,7 +674,6 @@ $notify-warning: $warning !default;
 $notify-danger: $danger !default;
 $notify-title-color: $gray-800 !default;
 $notify-icon-font-size: 18px !default;
-$notify-box-shadow: $box-shadow !default;
 $notify-content-color: $gray-500 !default;
 $notify-close-color: $gray-400 !default;
 $notify-close-hover-color: $gray-600 !default;
@@ -682,7 +691,6 @@ $message-spacing: 20px !default;
 $message-margin-bottom: 10px !default;
 $message-border-radius-width: 4px !default;
 $message-border: 1px solid $gray-200 !default;
-$message-box-shadow: 0px 4px 10px 0px rgba($gray-800, 0.1) !default;
 $message-icon-font-size: $font-size-md !default;
 $message-icon-margin: 8px !default;
 $message-close-color: $gray-400 !default;
@@ -811,9 +819,7 @@ $slide-divider: $gray-200 !default;
 $slide-footer-padding: 15px 20px 0 !default;
 $slide-footer-height: 56px !default;
 $slide-border-color: $gray-200 !default;
-$slide-box-shadow:
-    inset 0px 4px 8px 0px #00000008,
-    -4px 0px 12px 4px #00000008 !default;
+
 //slider
 $slider-height-sm: 6px !default;
 $slider-height-md: 10px !default;
@@ -903,7 +909,6 @@ $pagination-font-size: 12px !default;
 $pagination-bg: $bg-default !default;
 $pagination-border-width: 1px !default;
 $pagination-border-color: $gray-200 !default;
-$pagination-focus-box-shadow: none !default;
 $pagination-hover-color: $link-hover-color !default;
 $pagination-hover-bg: $bg-default !default;
 $pagination-hover-border-color: $gray-200 !default;
@@ -1032,8 +1037,6 @@ $divider-colors: map.merge(
 // segment
 $segment-container-padding: 2px !default;
 $segment-border-radius: 2px !default;
-$segment-bg: $gray-100 !default;
-$segment-item-active-bg: $white !default;
 $segment-height-default: 36px !default;
 $segment-height-md: 32px !default;
 $segment-height-sm: 28px !default;

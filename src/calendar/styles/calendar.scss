@@ -24,7 +24,7 @@ $calendar-full-prefix-cls: 'thy-calendar-full';
             position: absolute;
             top: 0;
             left: 0;
-            box-shadow: variables.$box-shadow-calendar;
+            box-shadow: variables.$calendar-active-box-shadow;
             background: variables.$bg-default;
             width: 100%;
             min-height: 100%;

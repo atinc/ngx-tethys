@@ -146,7 +146,7 @@ $tooltip-un-center-arrow-offset: 16px;
     color: variables.$tooltip-color;
     text-align: left;
     background-color: variables.$bg-tooltip;
-    box-shadow: variables.$box-shadow-tooltip;
+    box-shadow: variables.$tooltip-box-shadow;
     min-height: variables.$tooltip-content-min-height;
 
     @include border-radius.border-radius(variables.$tooltip-border-radius);

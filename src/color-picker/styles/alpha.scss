@@ -23,7 +23,7 @@
         transform: translateX(-4px);
         z-index: 2;
         border: 2px solid variables.$white;
-        box-shadow: variables.$box-shadow-picker-pointer;
+        box-shadow: variables.$picker-pointer-box-shadow;
     }
     .gradient-color {
         position: absolute;
