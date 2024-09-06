@@ -1,5 +1,5 @@
-@use "../../mixins/shadow";
-@use "../../variables";
+@use '../../mixins/shadow';
+@use '../../variables';
 
 // 使用 `cdk` 的 `drag-drop` 时的样式
 // 添加在每个cdkDrag组件上的样式
@@ -59,13 +59,13 @@
     // padding-left: 20px;
 
     &:hover {
-        box-shadow: none;
+        box-shadow: $box-shadow-none;
     }
 
     * {
         color: transparent !important;
         visibility: hidden;
-        box-shadow: none;
+        box-shadow: $box-shadow-none;
     }
 }
 

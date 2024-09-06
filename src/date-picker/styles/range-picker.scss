@@ -120,10 +120,10 @@ $input-box-height: 34px;
         padding-left: 0;
         line-height: bootstrap-variables.$input-height-sm;
         border: 0;
-        box-shadow: none;
+        box-shadow: $box-shadow-none;
 
         &:focus {
-            box-shadow: none;
+            box-shadow: $box-shadow-none;
         }
     }
 

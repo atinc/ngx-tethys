@@ -202,7 +202,7 @@ fieldset:disabled a.btn {
     &.focus {
         text-decoration: variables.$link-hover-decoration;
         border-color: transparent;
-        box-shadow: none;
+        box-shadow: $box-shadow-none;
     }
 
     &.disabled,
