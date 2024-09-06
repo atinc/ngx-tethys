@@ -7,7 +7,7 @@
         box-shadow: variables.$table-fixed-column-right-box-shadow;
 
         & + .thy-table-fixed-column-right {
-            box-shadow: $box-shadow-none;
+            box-shadow: variables.$box-shadow-none;
         }
     }
 }

@@ -59,13 +59,13 @@
     // padding-left: 20px;
 
     &:hover {
-        box-shadow: $box-shadow-none;
+        box-shadow: variables.$box-shadow-none;
     }
 
     * {
         color: transparent !important;
         visibility: hidden;
-        box-shadow: $box-shadow-none;
+        box-shadow: variables.$box-shadow-none;
     }
 }
 

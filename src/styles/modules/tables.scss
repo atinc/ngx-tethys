@@ -221,7 +221,7 @@
         &.table-draggable-ignore-item {
             @include hover.hover {
                 cursor: inherit;
-                box-shadow: $box-shadow-none;
+                box-shadow: variables.$box-shadow-none;
 
                 td {
                     .table-draggable-icon {
