@@ -11,12 +11,15 @@
     --gray-700: #87909e;
     --gray-800: #bcc4d1;
 
+    // TODO 命名提取优化
     --bg-panel: #30353c;
     --bg-message: #30353c;
-    --bg-tooltip: #464c57;
     --bg-circle-btn: #393e46;
     --bg-segment-active: #464c57;
+    --bg-tooltip: #464c57;
+    --bg-sidebar-light: #30353c;
 
+    // TODO 命名提取优化
     --box-shadow-circle-btn: 0 0 10px rgba(0, 0, 0, 0.25);
     --box-shadow-circle-btn-hover: 0 0 10px rgba(0, 0, 0, 0.45);
     --box-shadow-calendar-active: 0 0 20px 0 rgba(0, 0, 0, 0.3);
