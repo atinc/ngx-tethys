@@ -1,13 +1,14 @@
-import { coerceArray, concatArray, FunctionProp } from 'ngx-tethys/util';
+import { coerceArray, concatArray, FunctionProp, keyBy } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 
 import { ComponentType, Overlay, OverlayConfig, OverlayRef, ScrollStrategy } from '@angular/cdk/overlay';
 import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
-import { Injector, TemplateRef } from '@angular/core';
+import { Injector, TemplateRef, reflectComponentType } from '@angular/core';
 
 import { ThyAbstractOverlayContainer } from './abstract-overlay-container';
 import { ThyAbstractOverlayRef } from './abstract-overlay-ref';
 import { ThyAbstractOverlayConfig, ThyAbstractOverlayOptions } from './abstract-overlay.config';
+import { SafeAny } from 'ngx-tethys/types';
 
 export type ComponentTypeOrTemplateRef<T> = ComponentType<T> | TemplateRef<T>;
 
@@ -82,7 +83,16 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
                 new ComponentPortal(componentOrTemplateRef, config.viewContainerRef, injector)
             );
             if (config.initialState) {
-                Object.assign(contentRef.instance, config.initialState);
+                const metadata = reflectComponentType(componentOrTemplateRef);
+                const inputsByKey = keyBy(metadata.inputs as SafeAny, 'propName');
+                Object.keys(config.initialState).forEach(key => {
+                    const value = (config.initialState as SafeAny)[key];
+                    if (inputsByKey[key]) {
+                        contentRef.setInput(key, value);
+                    } else {
+                        (contentRef.instance as SafeAny)[key] = value;
+                    }
+                });
             }
             if (config.hostClass) {
                 const hostClass = coerceArray(config.hostClass);

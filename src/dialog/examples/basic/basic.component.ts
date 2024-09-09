@@ -22,7 +22,7 @@ export class ThyDialogBasicExampleComponent implements OnInit, OnDestroy {
     };
 
     public layoutConfig = {
-        align: 'left',
+        align: 'right',
         divider: true
     };
 

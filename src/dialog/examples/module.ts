@@ -13,6 +13,7 @@ import { ThyDialogBasicContentComponent } from './basic/dialog-content.component
 import { ThyDialogSidebarContentExampleComponent } from './sidebar/dialog-sidebar.component';
 import { ThyCheckboxModule } from 'ngx-tethys/checkbox';
 import { ThyActionModule } from 'ngx-tethys/action';
+import { ThyInputModule } from 'ngx-tethys/input';
 
 export default {
     declarations: [ThyDialogFooterLayoutExampleComponent, ThyDialogBasicContentComponent, ThyDialogSidebarContentExampleComponent],
@@ -25,6 +26,7 @@ export default {
         ThySelectModule,
         ThyButtonModule,
         ThyIconModule,
+        ThyInputModule,
         ThyMenuModule,
         ThyLayoutModule,
         ThyActionModule
