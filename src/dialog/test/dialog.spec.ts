@@ -23,6 +23,7 @@ import {
     WithTemplateRefComponent,
     WithViewContainerDirective
 } from './module';
+import { helpers } from '../../util';
 
 describe('ThyDialog', () => {
     let dialog: ThyDialog;
@@ -248,6 +249,17 @@ describe('ThyDialog', () => {
             const instance = dialog.open(WithInjectedDataDialogComponent, config).componentInstance;
             expect(instance.data.stringParam).toBe(config.initialState.data.stringParam);
             expect(instance.data.dateParam).toBe(config.initialState.data.dateParam);
+        });
+
+        it('should be able to pass in data with signal', () => {
+            const inputValue = helpers.generateRandomStr();
+            const config = {
+                initialState: {
+                    input1: inputValue
+                }
+            };
+            const instance = dialog.open(WithInjectedDataDialogComponent, config).componentInstance;
+            expect(instance.input1()).toBe(inputValue);
         });
 
         it('should default to null if no data is passed', () => {

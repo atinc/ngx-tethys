@@ -1,4 +1,4 @@
-import { Component, TemplateRef, OnInit, HostBinding, Input } from '@angular/core';
+import { Component, TemplateRef, OnInit, HostBinding, Input, input } from '@angular/core';
 import { ThyDialogRef, ThyDialog, ThyDialogFooterAlign } from 'ngx-tethys/dialog';
 
 @Component({
@@ -8,7 +8,7 @@ import { ThyDialogRef, ThyDialog, ThyDialogFooterAlign } from 'ngx-tethys/dialog
 export class ThyDialogBasicContentComponent implements OnInit {
     @HostBinding(`class.thy-dialog-content`) addFillColumn = true;
 
-    @Input() align: ThyDialogFooterAlign;
+    align = input<ThyDialogFooterAlign>();
 
     @Input() divider: ThyDialogFooterAlign;
 

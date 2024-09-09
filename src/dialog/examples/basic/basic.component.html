@@ -1,43 +1,34 @@
 <div class="btn-pair">
-  <button thyButton="primary" (click)="openTemplateDialog(templateDialog)">
-    Open with template
-  </button>
-  <button thyButton="primary" (click)="openComponentDialog()">
-    Open with component
-  </button>
+  <button thyButton="primary" (click)="openTemplateDialog(templateDialog)">Open with template</button>
+  <button thyButton="primary" (click)="openComponentDialog()">Open with component</button>
 </div>
 
 <ng-template #templateDialog>
-  <thy-dialog-header thyTitle="Dialog Title"></thy-dialog-header>
+  <thy-dialog-header thyTitle="Angular Introduction"></thy-dialog-header>
   <thy-dialog-body>
-    <p thyTooltip="This is dialog body">template dialog body</p>
-    <p>template dialog body</p>
-    <p>template dialog body</p>
-    <p>template dialog body</p>
-    <p>template dialog body</p>
-    <p>template dialog body</p>
-    <p>template dialog body</p>
-    <p>template dialog body</p>
-    <p>template dialog body</p>
-    <p>template dialog body</p>
-    <p>template dialog body</p>
-    <p>template dialog body</p>
-    <p>template dialog body</p>
-    <p>template dialog body</p>
-    <p>template dialog body</p>
-    <p>template dialog body</p>
-    <p>template dialog body</p>
-    <p>template dialog body</p>
+    <h3>What is Angular?</h3>
+    <p>
+      Angular is a web framework that empowers developers to build fast, reliable applications. Maintained by a dedicated team at Google,
+      Angular provides a broad suite of tools, APIs, and libraries to simplify and streamline your development workflow. Angular gives you a
+      solid platform on which to build fast, reliable applications that scale with both the size of your team and the size of your codebase.
+      Want to see some code? Jump over to our Essentials for a quick overview of what it's like to use Angular, or get started in the
+      Tutorial if you prefer following step-by-step instructions.
+    </p>
+
+    <h3>Description</h3>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis tincidunt tincidunt. Vestibulum vulputate maximus massa vel
+      tristique. Suspendisse potenti. Duis aliquet purus sed dictum dictum. Donec fringilla, purus at fermentum imperdiet, velit enim
+      malesuada turpis, quis luctus arcu arcu nec orci. Duis eu mattis felis. Quisque sollicitudin elementum nunc vel tincidunt. Vestibulum
+      egestas mi nec iaculis varius. Morbi in risus sed sapien ultricies feugiat. Quisque pulvinar mattis purus, in aliquet massa aliquet
+      et.
+    </p>
   </thy-dialog-body>
   <thy-dialog-footer [thyDivided]="layoutConfig.divider" [thyAlign]="layoutConfig.align">
     <button thyButton="primary" (click)="thyDialog.close()">确定</button>
-    <button thyButton="link-secondary" (click)="thyDialog.close()">
-      关闭
-    </button>
+    <button thyButton="link-secondary" (click)="thyDialog.close()">关闭</button>
     <ng-template #description>
-      <span class="text-desc"
-        >当前打开的是一个模板当前打开的是一个模板当前打开的是一个模板当前打开的是一个模板当前打开的是一个模板当前打开的是一个模板</span
-      >
+      <span class="text-desc">描述</span>
     </ng-template>
   </thy-dialog-footer>
 </ng-template>
