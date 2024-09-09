@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [18.0.4](https://github.com/atinc/ngx-tethys/compare/18.0.3...18.0.4) (2024-09-09)
+
+
+### Features
+
+* **dialog:** support signal inputs for initialState #TINFR-589 ([#3196](https://github.com/atinc/ngx-tethys/issues/3196)) ([e62a4a8](https://github.com/atinc/ngx-tethys/commit/e62a4a83065359aae0f9f13d76962c5f0eed0498)), closes [#TINFR-589](https://github.com/atinc/ngx-tethys/issues/TINFR-589)
+
+
+
 ## [18.0.3](https://github.com/atinc/ngx-tethys/compare/18.0.2...18.0.3) (2024-09-05)
 
 
