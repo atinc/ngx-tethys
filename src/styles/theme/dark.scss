@@ -11,7 +11,7 @@
     --gray-700: #87909e;
     --gray-800: #bcc4d1;
 
-    // TODO 命名提取优化
+    // TODO 命名提取优化 --bg-xxx
     --bg-panel: #30353c;
     --bg-message: #30353c;
     --bg-circle-btn: #393e46;
@@ -19,7 +19,7 @@
     --bg-tooltip: #464c57;
     --bg-sidebar-light: #30353c;
 
-    // TODO 命名提取优化
+    // TODO 命名提取优化  --box-shadow-xxx
     --box-shadow-circle-btn: 0 0 10px rgba(0, 0, 0, 0.25);
     --box-shadow-circle-btn-hover: 0 0 10px rgba(0, 0, 0, 0.45);
     --box-shadow-calendar-active: 0 0 20px 0 rgba(0, 0, 0, 0.3);
@@ -28,9 +28,11 @@
     --box-shadow-table-fixed-column-right: -6px 0 6px 0 rgba(0, 0, 0, 0.1);
 
     // menu-dark
-    --menu-theme-dark-color: #ddd;
-    --menu-theme-dark-hover-color: #ddd;
     --menu-theme-dark-bg-color: #48525c;
     --menu-theme-dark-hover-bg-color: #39414c;
-    --menu-theme-dark-divider-color: #666;
+    --menu-theme-dark-divider-color: #3c414a;
+    --menu-theme-dark-color: #bcc4d1;
+    --menu-theme-dark-hover-color: #ddd;
+    --menu-theme-dark-icon-color: #87909e;
+    --menu-theme-dark-icon-hover-color: #ddd;
 }

@@ -28,9 +28,11 @@
     --box-shadow-table-fixed-column-right: -6px 0 6px 0 rgba(0, 0, 0, 0.05);
 
     // menu-dark
-    --menu-theme-dark-color: #ddd;
-    --menu-theme-dark-hover-color: #ddd;
     --menu-theme-dark-bg-color: #48525c;
     --menu-theme-dark-hover-bg-color: #39414c;
     --menu-theme-dark-divider-color: #666;
+    --menu-theme-dark-text-color: #ddd;
+    --menu-theme-dark-text-hover-color: #ddd;
+    --menu-theme-dark-icon-color: #ddd;
+    --menu-theme-dark-icon-hover-color: #ddd;
 }
