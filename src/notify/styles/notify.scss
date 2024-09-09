@@ -14,7 +14,7 @@
         position: relative;
         display: flex;
         border-radius: variables.$notify-border-radius-width;
-        background: variables.$bg-message;
+        background: variables.$bg-panel;
         box-shadow: variables.$box-shadow;
 
         &-icon-container {

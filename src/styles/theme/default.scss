@@ -1,4 +1,5 @@
 :root {
+    // Palette
     --gray-10: #fff;
     --gray-70: #f7f7f7;
     --gray-80: #fafafa;
@@ -11,15 +12,13 @@
     --gray-700: #666;
     --gray-800: #333;
 
-    // TODO 命名提取优化
+    // Component
     --bg-panel: #fff;
-    --bg-message: #fff;
     --bg-circle-btn: #fff;
     --bg-segment-active: #fff;
-    --bg-tooltip: #000000bf;
     --bg-sidebar-light: #fbfbfb;
+    --bg-tooltip: #000000bf;
 
-    // TODO 命名提取优化
     --box-shadow-circle-btn: 0 0 10px rgba(0, 0, 0, 0.1);
     --box-shadow-circle-btn-hover: 0 0 10px rgba(0, 0, 0, 0.25);
     --box-shadow-calendar-active: 0 0 20px 0 rgba(0, 0, 0, 0.12);
@@ -27,7 +26,6 @@
     --box-shadow-table-fixed-column-left: 6px 0 6px 0 rgba(0, 0, 0, 0.05);
     --box-shadow-table-fixed-column-right: -6px 0 6px 0 rgba(0, 0, 0, 0.05);
 
-    // menu-dark
     --menu-theme-dark-bg-color: #48525c;
     --menu-theme-dark-hover-bg-color: #39414c;
     --menu-theme-dark-divider-color: #666;
