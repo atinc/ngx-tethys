@@ -10,6 +10,7 @@ import {
     Component,
     Injectable,
     Injector,
+    input,
     NgModule,
     OnDestroy,
     StaticProvider,
@@ -24,6 +25,7 @@ import { ThyAbstractOverlayContainer } from '../../overlay/abstract-overlay-cont
 import { ThyAbstractInternalOverlayRef, ThyAbstractOverlayRef } from '../../overlay/abstract-overlay-ref';
 import { ThyAbstractOverlayConfig, ThyAbstractOverlayOptions, ThyAbstractOverlayPosition } from '../../overlay/abstract-overlay.config';
 import { ComponentTypeOrTemplateRef, ThyAbstractOverlayService } from '../../overlay/abstract-overlay.service';
+import { helpers } from '../../../util';
 
 const overlayWrapperClass = '.cdk-global-overlay-wrapper';
 const dialogPaneClass = '.dialog-overlay-pane';
@@ -184,6 +186,10 @@ export class TestDialogModule {}
     template: 'Hello Test Dialog'
 })
 class TestDialogBasicContentComponent {
+    prop1: string;
+
+    input1 = input('input1');
+
     constructor(public testDialogRef: TestDialogRef<TestDialogBasicContentComponent>) {}
 }
 
@@ -248,6 +254,21 @@ describe('abstract-overlay', () => {
         expect(overlayContainerElement.querySelector(overlayWrapperClass)).toBeFalsy();
         expect(overlayContainerElement.querySelector(dialogPaneClass)).toBeFalsy();
     }));
+
+    it(`should open test dialog with initialState`, () => {
+        const prop1Value = helpers.generateRandomStr();
+        const input1Value = helpers.generateRandomStr();
+        const dialogRef = dialog.open(TestDialogBasicContentComponent, {
+            initialState: {
+                prop1: prop1Value,
+                input1: input1Value
+            }
+        });
+        expect(overlayContainerElement.textContent).toContain('Hello Test Dialog');
+        expect(dialogRef.componentInstance instanceof TestDialogBasicContentComponent).toBe(true);
+        expect(dialogRef.componentInstance.prop1).toBe(prop1Value);
+        expect(dialogRef.componentInstance.input1()).toBe(input1Value);
+    });
 
     describe('paneClass', () => {
         it('should get incorrect default pane classes', () => {
