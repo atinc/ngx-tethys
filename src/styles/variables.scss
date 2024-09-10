@@ -128,6 +128,17 @@ $bg-tooltip: var(--bg-tooltip) !default;
 // @deprecated
 $tooltip-bg: var(--bg-tooltip) !default;
 
+$image-preview-bg: var(--image-preview-bg) !default;
+$image-preview-text-color: var(--image-preview-text-color) !default;
+$image-preview-action-bg: var(--image-preview-action-bg) !default;
+$image-preview-action-icon-color: var(--image-preview-action-icon-color) !default;
+$image-preview-switch-bg: var(--image-preview-switch-bg) !default;
+$image-preview-switch-bg-hover: var(--image-preview-switch-bg-hover) !default;
+$image-preview-switch-icon: var(--image-preview-switch-icon) !default;
+$image-preview-switch-icon-hover: var(--image-preview-switch-icon-hover) !default;
+
+$checkbox-disabled-bg: var(--checkbox-disabled-bg) !default;
+
 /** component box-shadow */
 $box-shadow: 0 0 16px rgb(0 0 0 / 8%) !default;
 $dialog-box-shadow: 0 0 24px rgba(0, 0, 0, 0.25) !default;
