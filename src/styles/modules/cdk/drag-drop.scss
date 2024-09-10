@@ -55,8 +55,6 @@
 .cdk-drag-placeholder:not(.thy-tree-node) {
     color: transparent !important;
     background: variables.$gray-200 !important;
-    // margin-left: -20px;
-    // padding-left: 20px;
 
     &:hover {
         box-shadow: variables.$box-shadow-none;
