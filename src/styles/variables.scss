@@ -119,7 +119,10 @@ $transition-duration-normal: 200ms !default;
 
 /** component background */
 $bg-panel: var(--bg-panel) !default;
+$bg-cdk-drag-preview: var(--bg-cdk-drag-preview) !default;
 $bg-circle-btn: var(--bg-circle-btn) !default;
+$bg-carousel-control: var(--bg-carousel-control) !default;
+$bg-carousel-control-hover: var(--bg-carousel-control-hover) !default;
 $bg-segment-active: var(--bg-segment-active) !default;
 $bg-tooltip: var(--bg-tooltip) !default;
 // @deprecated
@@ -130,6 +133,7 @@ $box-shadow: 0 0 16px rgb(0 0 0 / 8%) !default;
 $dialog-box-shadow: 0 0 24px rgba(0, 0, 0, 0.25) !default;
 $tooltip-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15) !default;
 $picker-pointer-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.5) !default;
+$cdk-drag-preview-box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.08) !default;
 $circle-btn-box-shadow: var(--box-shadow-circle-btn) !default;
 $circle-btn-box-shadow-hover: var(--box-shadow-circle-btn-hover) !default;
 $calendar-active-box-shadow: var(--box-shadow-calendar-active) !default;
@@ -768,7 +772,7 @@ $progress-circle-height-lg: 160px !default;
 $progress-circle-height-sm: 80px !default;
 $progress-circle-height-xs: 44px !default;
 $progress-bg: $gray-200 !default;
-$progress-split-color: $white !default;
+$progress-split-color: $bg-default !default;
 $progress-circle-border-radius: 100px !default;
 $progress-circle-font-size: 1rem !default;
 $progress-circle-color: $gray-800 !default;
