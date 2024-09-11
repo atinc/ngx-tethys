@@ -35,7 +35,7 @@
 }
 
 @mixin segment-item-active() {
-    background-color: variables.$bg-segment-active;
+    background-color: variables.$segment-item-active-bg;
     border-radius: variables.$segment-border-radius;
     box-shadow: variables.$segment-active-box-shadow;
 }

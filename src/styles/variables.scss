@@ -65,6 +65,7 @@ $bg-warning: $warning !default;
 $bg-danger: $danger !default;
 $bg-light: $light !default;
 $bg-dark: $gray-800 !default;
+$bg-panel: var(--bg-panel) !default;
 
 //px to rem
 $rem-5px: 0.3125rem;
@@ -117,47 +118,6 @@ $enable-shadows: true !default;
 // transition-duration
 $transition-duration-normal: 200ms !default;
 
-/** component background */
-$bg-panel: var(--bg-panel) !default;
-$bg-cdk-drag-preview: var(--bg-cdk-drag-preview) !default;
-$bg-circle-btn: var(--bg-circle-btn) !default;
-$bg-carousel-control: var(--bg-carousel-control) !default;
-$bg-carousel-control-hover: var(--bg-carousel-control-hover) !default;
-$bg-segment-active: var(--bg-segment-active) !default;
-
-$image-preview-bg: var(--image-preview-bg) !default;
-$image-preview-text-color: var(--image-preview-text-color) !default;
-$image-preview-action-bg: var(--image-preview-action-bg) !default;
-$image-preview-action-icon-color: var(--image-preview-action-icon-color) !default;
-$image-preview-switch-bg: var(--image-preview-switch-bg) !default;
-$image-preview-switch-bg-hover: var(--image-preview-switch-bg-hover) !default;
-$image-preview-switch-icon: var(--image-preview-switch-icon) !default;
-$image-preview-switch-icon-hover: var(--image-preview-switch-icon-hover) !default;
-
-$checkbox-disabled-bg: var(--checkbox-disabled-bg) !default;
-$avatar-disabled-color: var(--avatar-disabled-color) !default;
-
-/** component box-shadow */
-$box-shadow: 0 0 16px rgb(0 0 0 / 8%) !default;
-$dialog-box-shadow: 0 0 24px rgba(0, 0, 0, 0.25) !default;
-$picker-pointer-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.5) !default;
-$cdk-drag-preview-box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.08) !default;
-$circle-btn-box-shadow: var(--box-shadow-circle-btn) !default;
-$circle-btn-box-shadow-hover: var(--box-shadow-circle-btn-hover) !default;
-$calendar-active-box-shadow: var(--box-shadow-calendar-active) !default;
-$layout-header-box-shadow: var(--box-shadow-layout-header) !default;
-$table-fixed-column-left-box-shadow: var(--box-shadow-table-fixed-column-left) !default;
-$table-fixed-column-right-box-shadow: var(--box-shadow-table-fixed-column-right) !default;
-$message-box-shadow: 0px 4px 10px 0px rgba($gray-800, 0.1) !default;
-$segment-active-box-shadow:
-    0 0 1px 0 rgba(0, 0, 0, 0.1),
-    0 1px 4px -1px rgba(0, 0, 0, 0.1) !default;
-$slide-box-shadow:
-    inset 0px 4px 8px 0px #00000008,
-    -4px 0px 12px 4px #00000008 !default;
-$btn-active-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) !default;
-$box-shadow-none: none !default;
-
 // link
 $link-color: $primary !default;
 $link-decoration: none !default;
@@ -165,6 +125,10 @@ $link-hover-color: $primary !default;
 $link-hover-decoration: underline !default;
 $link-icon-padding-x: 4px !default;
 $link-disabled-opacity: 50% !default;
+
+// box-shadow
+$box-shadow: 0 0 16px rgb(0 0 0 / 8%) !default;
+$box-shadow-none: none !default;
 
 // icon
 $icon-vertical-align: -0.16em !default;
@@ -214,6 +178,7 @@ $btn-border-radius-lg: 4px !default;
 $btn-border-radius-sm: 4px !default;
 $btn-border-radius-xs: 4px !default;
 $btn-box-shadow: null !default;
+$btn-active-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) !default;
 
 $btn-line-height: $input-btn-line-height;
 $btn-line-height-sm: $input-btn-line-height-sm;
@@ -344,6 +309,7 @@ $form-check-input-margin-l: 1rem !default;
 $form-check-inline-margin-r: 0.75rem !default;
 $form-check-inline-input-margin-r: 0 !default;
 $form-check-label-margin-l: 0.5rem !default;
+$checkbox-disabled-bg: var(--checkbox-disabled-bg) !default;
 
 // Dropdown
 $dropdown-menu-width: 240px !default;
@@ -385,6 +351,7 @@ $layout-header-height-xlg: 100px !default;
 $layout-header-prefix-icon-size: 20px !default;
 $layout-header-separator-color: $gray-500 !default;
 $layout-header-icon-link-opacity: 0.85;
+$layout-header-box-shadow: var(--box-shadow-layout-header) !default;
 $layout-content-background: $gray-80 !default;
 $layout-content-padding: 15px 20px 15px 20px !default;
 $layout-sidebar-width: 240px !default;
@@ -401,6 +368,12 @@ $layout-sidebar-footer-height: 48px !default;
 $layout-content-section-border-radius: 0px !default;
 $layout-content-section-background: $bg-default !default;
 $layout-content-section-margin-bottom: 8px !default;
+
+// layout、back-top
+$circle-btn-bg: var(--bg-circle-btn) !default;
+$circle-btn-box-shadow: var(--box-shadow-circle-btn) !default;
+$circle-btn-box-shadow-hover: var(--box-shadow-circle-btn-hover) !default;
+
 // Tables
 $table-color: $gray-800;
 $table-bg: transparent !default;
@@ -442,6 +415,8 @@ $table-default-sm-header-padding: 8px 16px !default;
 $table-default-header-height: inherit !default;
 $table-group-first-cell-padding-left: 43px !default;
 $table-operation-column-spacing: 32px !default;
+$table-fixed-column-left-box-shadow: var(--box-shadow-table-fixed-column-left) !default;
+$table-fixed-column-right-box-shadow: var(--box-shadow-table-fixed-column-right) !default;
 
 // grid
 $table-footer-padding: 0 20px !default;
@@ -521,6 +496,7 @@ $avatar-sizes: map.merge(
 // avatar-list
 $avatar-item-space: 4px !default;
 $overlap-avatar-item-space-percent: 0.25 !default;
+$avatar-disabled-color: var(--avatar-disabled-color) !default;
 
 // Navs
 $nav-item-disabled-color: $gray-400 !default;
@@ -626,6 +602,7 @@ $dialog-header-padding-lg: 1.25rem !default;
 
 $dialog-header-border-width: 1px !default;
 $dialog-header-border-color: $gray-200 !default;
+$dialog-box-shadow: 0 0 24px rgba(0, 0, 0, 0.25) !default;
 $dialog-body-padding: 0.5rem 2rem 1rem 2rem !default;
 
 $dialog-footer-padding: 1rem 2rem !default;
@@ -702,6 +679,7 @@ $message-spacing: 20px !default;
 $message-margin-bottom: 10px !default;
 $message-border-radius-width: 4px !default;
 $message-border: 1px solid $gray-200 !default;
+$message-box-shadow: 0px 4px 10px 0px rgba($gray-800, 0.1) !default;
 $message-icon-font-size: $font-size-md !default;
 $message-icon-margin: 8px !default;
 $message-close-color: $gray-400 !default;
@@ -830,7 +808,9 @@ $slide-divider: $gray-200 !default;
 $slide-footer-padding: 15px 20px 0 !default;
 $slide-footer-height: 56px !default;
 $slide-border-color: $gray-200 !default;
-
+$slide-box-shadow:
+    inset 0px 4px 8px 0px #00000008,
+    -4px 0px 12px 4px #00000008 !default;
 //slider
 $slider-height-sm: 6px !default;
 $slider-height-md: 10px !default;
@@ -1052,6 +1032,7 @@ $divider-colors: map.merge(
 // segment
 $segment-container-padding: 2px !default;
 $segment-border-radius: 2px !default;
+$segment-item-active-bg: var(--bg-segment-active) !default;
 $segment-height-default: 36px !default;
 $segment-height-md: 32px !default;
 $segment-height-sm: 28px !default;
@@ -1077,6 +1058,9 @@ $segment-icon-with-text-default-color: $gray-600 !default;
 $segment-icon-with-text-active-color: $gray-700 !default;
 $segment-icon-with-text-hover-color: $gray-700 !default;
 $segment-disabled-color: $gray-500 !default;
+$segment-active-box-shadow:
+    0 0 1px 0 rgba(0, 0, 0, 0.1),
+    0 1px 4px -1px rgba(0, 0, 0, 0.1) !default;
 
 // collapse
 $collapse-border-color: $gray-200 !default;
@@ -1147,6 +1131,30 @@ $skeleton-row-radius: 4px;
 $skeleton-row-width: 100%;
 $skeleton-primary-color: $gray-70;
 $skeleton-animated-interval: 1.5s;
+
+// image
+$image-preview-bg: var(--image-preview-bg) !default;
+$image-preview-text-color: var(--image-preview-text-color) !default;
+$image-preview-action-bg: var(--image-preview-action-bg) !default;
+$image-preview-action-icon-color: var(--image-preview-action-icon-color) !default;
+$image-preview-switch-bg: var(--image-preview-switch-bg) !default;
+$image-preview-switch-bg-hover: var(--image-preview-switch-bg-hover) !default;
+$image-preview-switch-icon: var(--image-preview-switch-icon) !default;
+$image-preview-switch-icon-hover: var(--image-preview-switch-icon-hover) !default;
+
+// carousel
+$carousel-control-bg: var(--bg-carousel-control) !default;
+$carousel-control-bg-hover: var(--bg-carousel-control-hover) !default;
+
+// color-picker
+$picker-pointer-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.5) !default;
+
+// calendar
+$calendar-active-box-shadow: var(--box-shadow-calendar-active) !default;
+
+// drag drop
+$cdk-drag-preview-bg: var(--bg-cdk-drag-preview) !default;
+$cdk-drag-preview-box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.08) !default;
 
 // Prevent style packing optimization
 $zero: 0;

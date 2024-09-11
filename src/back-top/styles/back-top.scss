@@ -20,7 +20,7 @@ $back-top-width: 36px;
         width: $back-top-width;
         height: $back-top-width;
         overflow: hidden;
-        background-color: variables.$bg-circle-btn;
+        background-color: variables.$circle-btn-bg;
         border-radius: 50%;
         transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
         box-shadow: variables.$circle-btn-box-shadow;

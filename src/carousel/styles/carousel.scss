@@ -88,7 +88,7 @@ $carousel-prefix-cls: 'thy-carousel';
         width: 32px;
         height: 32px;
         transition: 0.3s background;
-        background: variables.$bg-carousel-control;
+        background: variables.$carousel-control-bg;
         border-radius: 50%;
         thy-icon {
             position: absolute;
@@ -99,7 +99,7 @@ $carousel-prefix-cls: 'thy-carousel';
             font-size: 22px;
         }
         &:hover {
-            background: variables.$bg-carousel-control-hover;
+            background: variables.$carousel-control-bg-hover;
         }
         &-pre {
             left: 12px;
