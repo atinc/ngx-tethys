@@ -99,7 +99,7 @@ $carousel-prefix-cls: 'thy-carousel';
             font-size: 22px;
         }
         &:hover {
-            background: variables.$carousel-control-bg-hover;
+            background: variables.$carousel-control-hover-bg;
         }
         &-pre {
             left: 12px;
