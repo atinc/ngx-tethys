@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [18.0.5](https://github.com/atinc/ngx-tethys/compare/18.0.4...18.0.5) (2024-09-11)
+
+
+### Bug Fixes
+
+* **core:** set input use templateName #TINFR-589 ([#3198](https://github.com/atinc/ngx-tethys/issues/3198)) ([0a6b246](https://github.com/atinc/ngx-tethys/commit/0a6b24617a2cad2daeb6b83256b935457741fbda)), closes [#TINFR-589](https://github.com/atinc/ngx-tethys/issues/TINFR-589)
+
+
+
 ## [18.0.4](https://github.com/atinc/ngx-tethys/compare/18.0.3...18.0.4) (2024-09-09)
 
 
