@@ -91,7 +91,7 @@ $avatarHeight: (
 
 @mixin thy-select-dropdown {
     width: 100%;
-    background: variables.$bg-default;
+    background: variables.$bg-panel;
     border-radius: variables.$border-radius;
     @include shadow.section-box-shadow();
 }

@@ -120,7 +120,7 @@
 
     &:focus {
         outline: bootstrap-variables.$pagination-focus-outline;
-        box-shadow: variables.$pagination-focus-box-shadow;
+        box-shadow: variables.$box-shadow-none;
     }
 }
 

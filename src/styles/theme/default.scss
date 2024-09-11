@@ -1,4 +1,5 @@
 :root {
+    // palette
     --gray-10: #fff;
     --gray-70: #f7f7f7;
     --gray-80: #fafafa;
@@ -10,4 +11,46 @@
     --gray-600: #999;
     --gray-700: #666;
     --gray-800: #333;
+
+    // background
+    --bg-panel: #fff;
+    --bg-circle-btn: #fff;
+    --bg-segment-active: #fff;
+    --bg-sidebar-light: #fbfbfb;
+    --bg-tooltip: #000000bf;
+    --bg-cdk-drag-preview: #fff;
+    --bg-carousel-control: #f7f7f74d;
+    --bg-carousel-control-hover: #f7f7f799;
+    --bg-carousel-dot: #ffffff80;
+
+    // box shadow
+    --box-shadow-circle-btn: 0 0 10px rgba(0, 0, 0, 0.1);
+    --box-shadow-circle-btn-hover: 0 0 10px rgba(0, 0, 0, 0.25);
+    --box-shadow-calendar-active: 0 0 20px 0 rgba(0, 0, 0, 0.12);
+    --box-shadow-layout-header: 0 4px 8px 0px rgba(0 0 0 / 3%);
+    --box-shadow-table-fixed-column-left: 6px 0 6px 0 rgba(0, 0, 0, 0.05);
+    --box-shadow-table-fixed-column-right: -6px 0 6px 0 rgba(0, 0, 0, 0.05);
+
+    // menu dark
+    --menu-theme-dark-bg-color: #48525c;
+    --menu-theme-dark-hover-bg-color: #39414c;
+    --menu-theme-dark-divider-color: #666;
+    --menu-theme-dark-text-color: #ddd;
+    --menu-theme-dark-text-hover-color: #ddd;
+    --menu-theme-dark-icon-color: #ddd;
+    --menu-theme-dark-icon-hover-color: #ddd;
+
+    // image preview
+    --image-preview-bg: #333;
+    --image-preview-text-color: #fff;
+    --image-preview-action-bg: rgba(255, 255, 255, 0.2);
+    --image-preview-action-icon-color: #fff;
+    --image-preview-switch-bg: #666;
+    --image-preview-switch-bg-hover: #aaa;
+    --image-preview-switch-icon: #aaa;
+    --image-preview-switch-icon-hover: #666;
+
+    // disabled
+    --checkbox-disabled-bg: rgba(0, 0, 0, 0.03);
+    --avatar-disabled-color: #f5f5f5;
 }

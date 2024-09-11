@@ -34,12 +34,8 @@
         font-weight: 600;
         text-transform: uppercase;
         background-color: variables.$gray-400;
-        // border: 1px solid $border-color;
         border-radius: 2px;
         transition: opacity background 0.15s ease-out;
-    }
-    .thy-switch-input:checked ~ .thy-switch-label {
-        //background: $gray-lightest;
     }
     .thy-switch-input:checked ~ .thy-switch-label::before {
         opacity: 0;
@@ -54,19 +50,14 @@
         width: $height - $handle-margin * 2;
         height: $height - $handle-margin * 2;
         background: variables.$white;
-        // border: 1px solid $border-color;
         border-radius: 1px;
         transition: left 0.15s ease-out;
         border: 0;
-        // box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
     }
     .thy-switch-input:checked ~ .thy-switch-handle {
         left: $width - $height + $handle-margin;
     }
     @extend .thy-switch-pill;
-    // &.thy-switch-lg {
-    //     @include thy-switch-size($switch-lg-width, $switch-lg-height, 0);
-    // }
     &.thy-switch-sm {
         @include thy-switch-size(variables.$switch-sm-width, variables.$switch-sm-height, 2);
     }
@@ -78,9 +69,5 @@
 @mixin thy-switch-variant($color) {
     > .thy-switch-input:checked ~ .thy-switch-label {
         background: $color !important;
-        // border-color: darken($color, 10%);
-    }
-    > .thy-switch-input:checked ~ .thy-switch-handle {
-        // border-color: darken($color, 10%);
     }
 }

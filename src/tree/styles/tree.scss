@@ -114,7 +114,6 @@
             &:not(.disabled:not(.expand)) {
                 &.hover,
                 &:hover {
-                    // @include item-box-shadow();
                     background-color: variables.$gray-100;
                 }
 
@@ -277,7 +276,6 @@
 }
 
 .thy-tree-node.cdk-drag-preview {
-    opacity: 0.9;
     .thy-tree-node-wrapper.active {
         background: unset !important;
         color: unset !important;

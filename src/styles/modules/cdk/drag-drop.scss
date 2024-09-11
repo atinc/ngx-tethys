@@ -1,5 +1,5 @@
-@use "../../mixins/shadow";
-@use "../../variables";
+@use '../../mixins/shadow';
+@use '../../variables';
 
 // 使用 `cdk` 的 `drag-drop` 时的样式
 // 添加在每个cdkDrag组件上的样式
@@ -55,17 +55,15 @@
 .cdk-drag-placeholder:not(.thy-tree-node) {
     color: transparent !important;
     background: variables.$gray-200 !important;
-    // margin-left: -20px;
-    // padding-left: 20px;
 
     &:hover {
-        box-shadow: none;
+        box-shadow: variables.$box-shadow-none;
     }
 
     * {
         color: transparent !important;
         visibility: hidden;
-        box-shadow: none;
+        box-shadow: variables.$box-shadow-none;
     }
 }
 
@@ -73,8 +71,8 @@
 .thy-sortable-drag,
 .cdk-drag-preview {
     box-sizing: border-box;
-    background: variables.$white !important;
-    @include shadow.item-box-shadow();
+    background: variables.$cdk-drag-preview-bg !important;
+    box-shadow: variables.$cdk-drag-preview-box-shadow;
 }
 
 .cdk-drag-animating {

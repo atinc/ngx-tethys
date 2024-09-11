@@ -1,11 +1,11 @@
-@use "../../styles/bootstrap/mixins/border-radius";
-@use "../../styles/mixins/hover";
-@use "../../styles/bootstrap/functions-variables";
-@use "../../styles/bootstrap/variables" as bootstrap-variables;
-@use "../../styles/mixins/shadow";
-@use "../../styles/variables";
-@use "./button.scss";
-@use "mixin";
+@use '../../styles/bootstrap/mixins/border-radius';
+@use '../../styles/mixins/hover';
+@use '../../styles/bootstrap/functions-variables';
+@use '../../styles/bootstrap/variables' as bootstrap-variables;
+@use '../../styles/mixins/shadow';
+@use '../../styles/variables';
+@use './button.scss';
+@use 'mixin';
 // stylelint-disable selector-no-qualifying-type
 
 // Make the div behave like a button
@@ -162,7 +162,7 @@
 // The clickable button for toggling the menu
 // Set the same inset shadow as the :active state
 .btn-group.show .dropdown-toggle {
-    @include shadow.box-shadow(bootstrap-variables.$btn-active-box-shadow);
+    @include shadow.box-shadow(variables.$btn-active-box-shadow);
 
     // Show no shadow for `.btn-link` since it has no other button styles.
     &.btn-link {
