@@ -124,9 +124,6 @@ $bg-circle-btn: var(--bg-circle-btn) !default;
 $bg-carousel-control: var(--bg-carousel-control) !default;
 $bg-carousel-control-hover: var(--bg-carousel-control-hover) !default;
 $bg-segment-active: var(--bg-segment-active) !default;
-$bg-tooltip: var(--bg-tooltip) !default;
-// @deprecated
-$tooltip-bg: var(--bg-tooltip) !default;
 
 $image-preview-bg: var(--image-preview-bg) !default;
 $image-preview-text-color: var(--image-preview-text-color) !default;
@@ -143,7 +140,6 @@ $avatar-disabled-color: var(--avatar-disabled-color) !default;
 /** component box-shadow */
 $box-shadow: 0 0 16px rgb(0 0 0 / 8%) !default;
 $dialog-box-shadow: 0 0 24px rgba(0, 0, 0, 0.25) !default;
-$tooltip-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15) !default;
 $picker-pointer-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.5) !default;
 $cdk-drag-preview-box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.08) !default;
 $circle-btn-box-shadow: var(--box-shadow-circle-btn) !default;
@@ -947,16 +943,18 @@ $pagination-page-size-width-lg: 7.875rem;
 $tooltip-font-size: $font-size-base !default;
 $tooltip-max-width: 350px !default;
 $tooltip-color: $white !default;
+$tooltip-bg: var(--bg-tooltip) !default;
 $tooltip-border-radius: $border-radius !default;
 $tooltip-opacity: 0.9 !default;
 $tooltip-padding-y: 0.375rem !default;
 $tooltip-padding-x: 0.75rem !default;
 $tooltip-margin: 0 !default;
+$tooltip-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15) !default;
 $tooltip-content-min-height: 34px !default;
 
 $tooltip-arrow-width: 0.75rem !default;
 $tooltip-arrow-height: 0.375rem !default;
-$tooltip-arrow-color: $bg-tooltip !default;
+$tooltip-arrow-color: $tooltip-bg !default;
 
 // alert
 $alert-padding-y: 0.625rem !default;
