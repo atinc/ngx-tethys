@@ -84,11 +84,13 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
             );
             if (config.initialState) {
                 const metadata = reflectComponentType(componentOrTemplateRef);
-                const inputsByKey = keyBy(metadata.inputs as SafeAny, 'propName');
+                const inputsByTemplateName = keyBy(metadata.inputs as SafeAny, 'templateName');
+                const inputsByPropName = keyBy(metadata.inputs as SafeAny, 'propName');
                 Object.keys(config.initialState).forEach(key => {
                     const value = (config.initialState as SafeAny)[key];
-                    if (inputsByKey[key]) {
-                        contentRef.setInput(key, value);
+                    const input: { templateName?: string; propName?: string } = inputsByTemplateName[key] || inputsByPropName[key];
+                    if (input) {
+                        contentRef.setInput(input.templateName, value);
                     } else {
                         (contentRef.instance as SafeAny)[key] = value;
                     }

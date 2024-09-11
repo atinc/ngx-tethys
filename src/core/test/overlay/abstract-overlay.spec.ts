@@ -10,6 +10,7 @@ import {
     Component,
     Injectable,
     Injector,
+    Input,
     input,
     NgModule,
     OnDestroy,
@@ -190,6 +191,12 @@ class TestDialogBasicContentComponent {
 
     input1 = input('input1');
 
+    inputWithSetValue: string;
+
+    @Input('inputWithSetAlias') set inputWithSet(value: string) {
+        this.inputWithSetValue = value;
+    }
+
     constructor(public testDialogRef: TestDialogRef<TestDialogBasicContentComponent>) {}
 }
 
@@ -258,16 +265,31 @@ describe('abstract-overlay', () => {
     it(`should open test dialog with initialState`, () => {
         const prop1Value = helpers.generateRandomStr();
         const input1Value = helpers.generateRandomStr();
+        const inputValueWithSet = helpers.generateRandomStr();
         const dialogRef = dialog.open(TestDialogBasicContentComponent, {
             initialState: {
                 prop1: prop1Value,
-                input1: input1Value
+                input1: input1Value,
+                inputWithSet: inputValueWithSet
             }
         });
         expect(overlayContainerElement.textContent).toContain('Hello Test Dialog');
         expect(dialogRef.componentInstance instanceof TestDialogBasicContentComponent).toBe(true);
         expect(dialogRef.componentInstance.prop1).toBe(prop1Value);
         expect(dialogRef.componentInstance.input1()).toBe(input1Value);
+        expect(dialogRef.componentInstance.inputWithSetValue).toBe(inputValueWithSet);
+    });
+
+    it(`should open test dialog with initialState alias input`, () => {
+        const inputValue = helpers.generateRandomStr();
+        const dialogRef = dialog.open(TestDialogBasicContentComponent, {
+            initialState: {
+                inputWithSetAlias: inputValue
+            }
+        });
+        expect(overlayContainerElement.textContent).toContain('Hello Test Dialog');
+        expect(dialogRef.componentInstance instanceof TestDialogBasicContentComponent).toBe(true);
+        expect(dialogRef.componentInstance.inputWithSetValue).toBe(inputValue);
     });
 
     describe('paneClass', () => {
