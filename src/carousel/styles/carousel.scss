@@ -67,7 +67,7 @@ $carousel-prefix-cls: 'thy-carousel';
             }
             thy-dot {
                 transition: 0.3s opacity;
-                border-color: var(--bg-carousel-dot);
+                border-color: variables.$carousel-dot-bg;
 
                 &:hover,
                 &.active {
