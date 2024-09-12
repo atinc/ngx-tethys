@@ -71,7 +71,7 @@
 .thy-sortable-drag,
 .cdk-drag-preview {
     box-sizing: border-box;
-    background: variables.$cdk-drag-preview-bg !important;
+    background: variables.$bg-panel !important;
     box-shadow: variables.$cdk-drag-preview-box-shadow;
 }
 

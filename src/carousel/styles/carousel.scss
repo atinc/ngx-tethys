@@ -67,7 +67,7 @@ $carousel-prefix-cls: 'thy-carousel';
             }
             thy-dot {
                 transition: 0.3s opacity;
-                border-color: variables.$carousel-dot-bg;
+                border-color: variables.$carousel-dot-bg-color;
 
                 &:hover,
                 &.active {
@@ -88,7 +88,7 @@ $carousel-prefix-cls: 'thy-carousel';
         width: 32px;
         height: 32px;
         transition: 0.3s background;
-        background: variables.$carousel-control-bg;
+        background: variables.$carousel-control-bg-color;
         border-radius: 50%;
         thy-icon {
             position: absolute;
@@ -99,7 +99,7 @@ $carousel-prefix-cls: 'thy-carousel';
             font-size: 22px;
         }
         &:hover {
-            background: variables.$carousel-control-hover-bg;
+            background: variables.$carousel-control-hover-bg-color;
         }
         &-pre {
             left: 12px;

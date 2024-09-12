@@ -13,44 +13,57 @@
     --gray-800: #bcc4d1;
 
     // background
-    --bg-panel: #30353c;
-    --bg-circle-btn: #393e46;
-    --bg-segment-active: #464c57;
-    --bg-sidebar-light: #30353c;
-    --bg-tooltip: #464c57;
-    --bg-cdk-drag-preview: #30353c;
-    --bg-carousel-control: #32363d4d;
-    --bg-carousel-control-hover: #32363d99;
-    --bg-carousel-dot: #32363d4d;
+    --bg-color-default: #2a2e34;
+    --bg-color-panel: #30353c;
+    --bg-color-float: #393e46;
 
-    // box shadow
-    --box-shadow-circle-btn: 0 0 10px rgba(0, 0, 0, 0.25);
-    --box-shadow-circle-btn-hover: 0 0 10px rgba(0, 0, 0, 0.45);
-    --box-shadow-calendar-active: 0 0 20px 0 rgba(0, 0, 0, 0.3);
-    --box-shadow-layout-header: 0 2px 6px 0px rgba(0, 0, 0, 0.2);
-    --box-shadow-table-fixed-column-left: 6px 0 6px 0 rgba(0, 0, 0, 0.1);
-    --box-shadow-table-fixed-column-right: -6px 0 6px 0 rgba(0, 0, 0, 0.1);
-
-    // menu dark
-    --menu-theme-dark-bg-color: #48525c;
-    --menu-theme-dark-hover-bg-color: #39414c;
-    --menu-theme-dark-divider-color: #3c414a;
-    --menu-theme-dark-text-color: #bcc4d1;
-    --menu-theme-dark-text-hover-color: #ddd;
-    --menu-theme-dark-icon-color: #87909e;
-    --menu-theme-dark-icon-hover-color: #ddd;
+    // text
+    --text-color: #bcc4d1;
 
     // image preview
-    --image-preview-bg: #32363d;
+    --image-preview-bg-color: #32363d;
     --image-preview-text-color: #bcc4de;
-    --image-preview-action-bg: rgba(188, 196, 209, 0.1);
+    --image-preview-action-bg-color: rgba(188, 196, 209, 0.1);
     --image-preview-action-icon-color: #6f7a8a;
-    --image-preview-switch-bg: #464c57;
-    --image-preview-switch-bg-hover: #5b6370;
-    --image-preview-switch-icon: #6f7a8a;
-    --image-preview-switch-icon-hover: #87909e;
+    --image-preview-switch-bg-color: #464c57;
+    --image-preview-switch-hover-bg-color: #5b6370;
+    --image-preview-switch-icon-color: #6f7a8a;
+    --image-preview-switch-icon-hover-color: #87909e;
 
-    // disabled
-    --checkbox-disabled-bg: #393e46;
+    // menu dark
+    --menu-theme-dark-text-color: #bcc4d1;
+    --menu-theme-dark-icon-color: #87909e;
+    --menu-theme-dark-divider-color: #3c414a;
+
+    // carousel
+    --carousel-control-bg-color: #32363d4d;
+    --carousel-control-hover-bg-color: #32363d99;
+    --carousel-dot-bg-color: #32363d4d;
+
+    // layout
+    --layout-header-box-shadow: 0 2px 6px 0px rgba(0, 0, 0, 0.2);
+    --layout-sidebar-light-bg-color: #30353c;
+
+    // table
+    --table-fixed-column-left-box-shadow: 6px 0 6px 0 rgba(0, 0, 0, 0.1);
+    --table-fixed-column-right-box-shadow: -6px 0 6px 0 rgba(0, 0, 0, 0.1);
+
+    // segment
+    --segment-active-bg-color: #464c57;
+
+    // tooltip
+    --tooltip-bg-color: #464c57;
+
+    // calendar
+    --calendar-active-box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.3);
+
+    // checkbox
+    --checkbox-disabled-bg-color: #393e46;
+
+    // avatar
     --avatar-disabled-color: #87909e;
+
+    // float btn
+    --float-btn-box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    --float-btn-hover-box-shadow: 0 0 10px rgba(0, 0, 0, 0.45);
 }

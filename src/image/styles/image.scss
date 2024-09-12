@@ -54,7 +54,7 @@ $image-preview-prefix-cls: 'thy-image-preview';
             pointer-events: all;
             bottom: bootstrapVariables.$spacer * 1.25;
             border-radius: bootstrapVariables.$spacer * 0.5;
-            background: variables.$image-preview-bg;
+            background: variables.$image-preview-bg-color;
             left: 50%;
             transform: translateX(-50%);
             &-text {
@@ -74,7 +74,7 @@ $image-preview-prefix-cls: 'thy-image-preview';
             @include basic.action-variant(
                 variables.$image-preview-action-icon-color,
                 variables.$image-preview-action-icon-color,
-                variables.$image-preview-action-bg
+                variables.$image-preview-action-bg-color
             );
         }
 
@@ -87,7 +87,7 @@ $image-preview-prefix-cls: 'thy-image-preview';
 
         &-switch-left,
         &-switch-right {
-            color: variables.$image-preview-switch-icon;
+            color: variables.$image-preview-switch-icon-color;
             position: fixed;
             top: 50%;
             z-index: 1;
@@ -97,14 +97,14 @@ $image-preview-prefix-cls: 'thy-image-preview';
             width: bootstrapVariables.$spacer * 2.5;
             height: bootstrapVariables.$spacer * 2.5;
             margin-top: -22px;
-            background: variables.$image-preview-switch-bg;
+            background: variables.$image-preview-switch-bg-color;
             border-radius: 50%;
             cursor: variables.$hand-cursor;
             pointer-events: auto;
             transition: all 0.3s;
             &:hover {
-                color: variables.$image-preview-switch-icon-hover;
-                background: variables.$image-preview-switch-bg-hover;
+                color: variables.$image-preview-switch-icon-hover-color;
+                background: variables.$image-preview-switch-hover-bg-color;
             }
 
             &-disabled {
@@ -113,8 +113,8 @@ $image-preview-prefix-cls: 'thy-image-preview';
                     cursor: variables.$disabled-cursor;
                 }
                 &:hover {
-                    color: variables.$image-preview-switch-icon;
-                    background: variables.$image-preview-switch-bg;
+                    color: variables.$image-preview-switch-icon-color;
+                    background: variables.$image-preview-switch-bg-color;
                 }
             }
         }
@@ -139,7 +139,7 @@ $image-preview-prefix-cls: 'thy-image-preview';
         top: 0;
         width: 100%;
         z-index: 1;
-        background: variables.$image-preview-bg;
+        background: variables.$image-preview-bg-color;
         display: flex;
         justify-content: space-between;
         align-items: center;

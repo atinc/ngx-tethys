@@ -53,7 +53,7 @@ $text-muted: $gray-600 !default;
 $text-white: $white !default;
 
 /** bg color */
-$bg-default: $gray-10 !default;
+$bg-default: var(--bg-color-default) !default;
 $bg-lighter: $gray-100 !default;
 $bg-bright: $gray-80 !default;
 $bg-content: $gray-80 !default;
@@ -65,7 +65,8 @@ $bg-warning: $warning !default;
 $bg-danger: $danger !default;
 $bg-light: $light !default;
 $bg-dark: $gray-800 !default;
-$bg-panel: var(--bg-panel) !default;
+$bg-panel: var(--bg-color-panel) !default;
+$bg-float: var(--bg-color-float) !default;
 
 //px to rem
 $rem-5px: 0.3125rem;
@@ -99,7 +100,7 @@ $font-size-sm: 0.75rem !default; // 12px
 // 标题字体大小，header Title of card、Layout、Sidebar、Slid
 $font-size-title: 15px;
 
-$text-color: $gray-800 !default;
+$text-color: var(--text-color) !default;
 $text-color-inverse: $white !default;
 
 // line-height
@@ -309,7 +310,7 @@ $form-check-input-margin-l: 1rem !default;
 $form-check-inline-margin-r: 0.75rem !default;
 $form-check-inline-input-margin-r: 0 !default;
 $form-check-label-margin-l: 0.5rem !default;
-$checkbox-disabled-bg: var(--checkbox-disabled-bg) !default;
+$checkbox-disabled-bg-color: var(--checkbox-disabled-bg-color) !default;
 
 // Dropdown
 $dropdown-menu-width: 240px !default;
@@ -351,11 +352,11 @@ $layout-header-height-xlg: 100px !default;
 $layout-header-prefix-icon-size: 20px !default;
 $layout-header-separator-color: $gray-500 !default;
 $layout-header-icon-link-opacity: 0.85;
-$layout-header-box-shadow: var(--box-shadow-layout-header) !default;
+$layout-header-box-shadow: var(--layout-header-box-shadow) !default;
 $layout-content-background: $gray-80 !default;
 $layout-content-padding: 15px 20px 15px 20px !default;
 $layout-sidebar-width: 240px !default;
-$layout-sidebar-background-light: var(--bg-sidebar-light) !default;
+$layout-sidebar-background-light: var(--layout-sidebar-light-bg-color) !default;
 $layout-sidebar-background-dark: $gray-800 !default;
 $layout-sidebar-border-color: $gray-200 !default;
 $layout-sidebar-border-right: 1px solid $layout-sidebar-border-color !default;
@@ -369,10 +370,8 @@ $layout-content-section-border-radius: 0px !default;
 $layout-content-section-background: $bg-default !default;
 $layout-content-section-margin-bottom: 8px !default;
 
-// layout、back-top
-$circle-btn-bg: var(--bg-circle-btn) !default;
-$circle-btn-box-shadow: var(--box-shadow-circle-btn) !default;
-$circle-btn-box-shadow-hover: var(--box-shadow-circle-btn-hover) !default;
+$float-btn-box-shadow: var(--float-btn-box-shadow) !default;
+$float-btn-hover-box-shadow: var(--float-btn-hover-box-shadow) !default;
 
 // Tables
 $table-color: $gray-800;
@@ -415,8 +414,8 @@ $table-default-sm-header-padding: 8px 16px !default;
 $table-default-header-height: inherit !default;
 $table-group-first-cell-padding-left: 43px !default;
 $table-operation-column-spacing: 32px !default;
-$table-fixed-column-left-box-shadow: var(--box-shadow-table-fixed-column-left) !default;
-$table-fixed-column-right-box-shadow: var(--box-shadow-table-fixed-column-right) !default;
+$table-fixed-column-left-box-shadow: var(--table-fixed-column-left-box-shadow) !default;
+$table-fixed-column-right-box-shadow: var(--table-fixed-column-right-box-shadow) !default;
 
 // grid
 $table-footer-padding: 0 20px !default;
@@ -861,8 +860,8 @@ $menu-theme-dark-color: var(--menu-theme-dark-text-color) !default;
 $menu-theme-dark-icon-color: var(--menu-theme-dark-icon-color) !default;
 $menu-theme-dark-hover-color: var(--menu-theme-dark-hover-color) !default;
 $menu-theme-dark-hover-icon-color: var(--menu-theme-dark-hover-icon-color) !default;
-$menu-theme-dark-bg-color: var(--menu-theme-dark-bg-color) !default;
-$menu-theme-dark-hover-bg-color: var(--menu-theme-dark-hover-bg-color) !default;
+$menu-theme-dark-bg-color: #48525c !default;
+$menu-theme-dark-hover-bg-color: #39414c !default;
 $menu-theme-dark-divider-color: var(--menu-theme-dark-divider-color) !default;
 $menu-collapsed-width: 60px !default;
 $menu-collapsed-height: 60px !default;
@@ -923,7 +922,7 @@ $pagination-page-size-width-lg: 7.875rem;
 $tooltip-font-size: $font-size-base !default;
 $tooltip-max-width: 350px !default;
 $tooltip-color: $white !default;
-$tooltip-bg: var(--bg-tooltip) !default;
+$tooltip-bg: var(--tooltip-bg-color) !default;
 $tooltip-border-radius: $border-radius !default;
 $tooltip-opacity: 0.9 !default;
 $tooltip-padding-y: 0.375rem !default;
@@ -1032,7 +1031,7 @@ $divider-colors: map.merge(
 // segment
 $segment-container-padding: 2px !default;
 $segment-border-radius: 2px !default;
-$segment-item-active-bg: var(--bg-segment-active) !default;
+$segment-active-bg-color: var(--segment-active-bg-color) !default;
 $segment-height-default: 36px !default;
 $segment-height-md: 32px !default;
 $segment-height-sm: 28px !default;
@@ -1133,28 +1132,27 @@ $skeleton-primary-color: $gray-70;
 $skeleton-animated-interval: 1.5s;
 
 // image
-$image-preview-bg: var(--image-preview-bg) !default;
+$image-preview-bg-color: var(--image-preview-bg-color) !default;
 $image-preview-text-color: var(--image-preview-text-color) !default;
-$image-preview-action-bg: var(--image-preview-action-bg) !default;
+$image-preview-action-bg-color: var(--image-preview-action-bg-color) !default;
 $image-preview-action-icon-color: var(--image-preview-action-icon-color) !default;
-$image-preview-switch-bg: var(--image-preview-switch-bg) !default;
-$image-preview-switch-bg-hover: var(--image-preview-switch-bg-hover) !default;
-$image-preview-switch-icon: var(--image-preview-switch-icon) !default;
-$image-preview-switch-icon-hover: var(--image-preview-switch-icon-hover) !default;
+$image-preview-switch-bg-color: var(--image-preview-switch-bg-color) !default;
+$image-preview-switch-hover-bg-color: var(--image-preview-switch-hover-bg-color) !default;
+$image-preview-switch-icon-color: var(--image-preview-switch-icon-color) !default;
+$image-preview-switch-icon-hover-color: var(--image-preview-switch-icon-hover-color) !default;
 
 // carousel
-$carousel-dot-bg: var(--bg-carousel-dot) !default;
-$carousel-control-bg: var(--bg-carousel-control) !default;
-$carousel-control-hover-bg: var(--bg-carousel-control-hover) !default;
+$carousel-dot-bg-color: var(--carousel-dot-bg-color) !default;
+$carousel-control-bg-color: var(--carousel-control-bg-color) !default;
+$carousel-control-hover-bg-color: var(--carousel-control-hover-bg-color) !default;
 
 // color-picker
 $color-picker-pointer-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.5) !default;
 
 // calendar
-$calendar-active-box-shadow: var(--box-shadow-calendar-active) !default;
+$calendar-active-box-shadow: var(--calendar-active-box-shadow) !default;
 
 // drag drop
-$cdk-drag-preview-bg: var(--bg-cdk-drag-preview) !default;
 $cdk-drag-preview-box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.08) !default;
 
 // Prevent style packing optimization
