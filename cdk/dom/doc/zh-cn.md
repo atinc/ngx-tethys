@@ -75,4 +75,59 @@ export class ThyDomUseElementRendererTestComponent implements OnInit {
 }
 ```
 
+## thyStealthView
+获取 template 中的所有 Node， 指令实例中提供 getNodes 方法，返回 Node[]。
+
+## 导入
+
+```ts
+import { StealthViewBehavior, stealthViewBehavior, ThyStealthViewDirective } from "@tethys/cdk/dom";
+
+```
+
+```ts
+@Component({
+    selector: 'thy-stealth-view',
+    template:  `
+        <ng-template thyStealthView>
+            <span>directive test</span>
+            <button thyButton="primary" disabled="disabled">Primary</button>
+        </ng-template>
+    `
+})
+export class ThyStealthViewTestComponent implements OnInit {
+    @ViewChild(ThyStealthViewDirective) thyStealthView: ThyStealthViewDirective;
+
+    constructor() {}
+
+    ngOnInit(): void {
+        this.thyStealthView.getNodes();
+    }
+}
+```
+
+也可以直接通过 stealthViewBehavior(templateRefInput: Signal<TemplateRef<SafeAny>> | TemplateRef<SafeAny>) 方法获取 Node
+
+```ts
+@Component({
+    selector: 'thy-stealth-view',
+    template:  `
+        <ng-template #testStealth>
+            <span>function test</span>
+            <button thyButton="primary" disabled="disabled">Primary</button>
+        </ng-template>
+    `
+})
+export class ThyStealthViewTestComponent implements OnInit {
+    templateRef = viewChild('testStealth', { read: TemplateRef });
+
+    constructor() {}
+
+    ngOnInit(): void {
+         runInInjectionContext(this.injector, () => {
+            stealthViewBehavior(this.templateRef).getNodes();
+        });
+    }
+}
+```
 

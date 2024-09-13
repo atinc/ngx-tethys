@@ -1,8 +1,8 @@
 import { Component, OnInit, inject, ViewChild, ElementRef } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { useElementRenderer } from './element-renderer';
-import { HostRenderer, useHostRenderer } from './host-renderer';
+import { useElementRenderer } from '../element-renderer';
+import { HostRenderer, useHostRenderer } from '../host-renderer';
 
 @Component({
     selector: 'thy-dom-host-renderer-test',
@@ -12,7 +12,7 @@ import { HostRenderer, useHostRenderer } from './host-renderer';
 export class ThyDomHostRendererTestComponent implements OnInit {
     hostRenderer = inject(HostRenderer);
 
-    constructor() {}
+    constructor() { }
 
     ngOnInit(): void {
         this.hostRenderer.updateClass(['thy-button', 'thy-button-primary']);
@@ -27,7 +27,7 @@ export class ThyDomHostRendererTestComponent implements OnInit {
 export class ThyDomUseHostRendererTestComponent implements OnInit {
     hostRenderer = useHostRenderer();
 
-    constructor() {}
+    constructor() { }
 
     ngOnInit(): void {
         this.hostRenderer.updateClass(['thy-button', 'thy-button-primary']);
