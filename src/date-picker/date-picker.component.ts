@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, forw
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
-import { NgIf } from '@angular/common';
 import { BasePicker } from './base-picker.component';
 import { DatePopup } from './lib/popups/date-popup.component';
 import { ThyPicker } from './picker.component';
@@ -25,7 +24,7 @@ import { ThyPicker } from './picker.component';
         }
     ],
     standalone: true,
-    imports: [ThyPicker, NgIf, DatePopup],
+    imports: [ThyPicker, DatePopup],
     host: {
         '[attr.tabindex]': 'tabIndex'
     }
