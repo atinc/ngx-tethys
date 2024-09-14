@@ -370,7 +370,7 @@ class SelectionListWithListOptionsDefaultComponent {
             [thyMultiple]="false"
             [(ngModel)]="selectedValue"
             thyUniqueKey="id">
-            @for (option of options; track option) {
+            @for (option of options; track $index) {
                 <thy-list-option [thyValue]="option">
                     {{ option.displayName }}
                 </thy-list-option>

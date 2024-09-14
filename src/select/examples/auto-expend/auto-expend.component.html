@@ -2,7 +2,7 @@
   <button class="btn btn-primary" (click)="isShow = !isShow">Open</button>
   @if (isShow) {
     <thy-select [thyAutoExpand]="isAutoExpend" style="width: 500px; margin-top: 20px">
-      @for (option of listOfOption; track option) {
+      @for (option of listOfOption; track $index) {
         <thy-option [thyValue]="option.value" [thyLabelText]="option.text"></thy-option>
       }
     </thy-select>

@@ -1,11 +1,11 @@
 <div class="basic-container">
   <thy-select ngModel="option1">
-    @for (option of listOfOption; track option) {
+    @for (option of listOfOption; track $index) {
       <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
     }
   </thy-select>
   <thy-custom-select ngModel="option2" [thyAllowClear]="true" [thyPlaceHolder]="'请选择'">
-    @for (option of listOfOption; track option) {
+    @for (option of listOfOption; track $index) {
       <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
     }
   </thy-custom-select>
@@ -13,7 +13,7 @@
 
 <thy-input-group class="mt-4" #origin>
   <thy-select ngModel="option1" class="flex-grow-1 mr-0" [thyOrigin]="customizeOrigin">
-    @for (option of listOfOption; track option) {
+    @for (option of listOfOption; track $index) {
       <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
     }
   </thy-select>

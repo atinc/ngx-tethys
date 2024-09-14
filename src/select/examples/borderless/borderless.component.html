@@ -1,5 +1,5 @@
 <thy-select ngModel="option1" style="width: 200px" thyBorderless>
-  @for (option of listOfOption; track option) {
+  @for (option of listOfOption; track $index) {
     <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
   }
 </thy-select>

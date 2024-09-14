@@ -150,7 +150,7 @@ class NgModelSelectComponent {
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
             <thy-select thyPlaceHolder="Pokemon" [formControl]="control">
-                @for (group of pokemonTypes; track group) {
+                @for (group of pokemonTypes; track $index) {
                     <thy-option-group [thyGroupLabel]="group.name">
                         @for (pokemon of group.pokemon; track pokemon) {
                             <thy-option [thyValue]="pokemon.value" [thyLabelText]="pokemon.viewValue"></thy-option>
@@ -326,7 +326,7 @@ class SelectWithSearchUseSearchKeyComponent {
                 [thyShowSearch]="true"
                 [thyEmptySearchMessageText]="thyEmptySearchMessageText"
                 [formControl]="control">
-                @for (group of pokemonTypes; track group) {
+                @for (group of pokemonTypes; track $index) {
                     <thy-option-group [thyGroupLabel]="group.name">
                         @for (pokemon of group.pokemon; track pokemon) {
                             <thy-option [thyValue]="pokemon.value" [thyLabelText]="pokemon.viewValue"></thy-option>
@@ -518,7 +518,7 @@ class SelectWithThySortComparatorComponent {
     selector: 'thy-auto-expend-select',
     template: `
         <thy-select [thyAutoExpand]="isAutoExpend" style="width:500px;">
-            @for (option of listOfOption; track option) {
+            @for (option of listOfOption; track $index) {
                 <thy-option [thyValue]="option.value" [thyLabelText]="option.label"></thy-option>
             }
         </thy-select>
@@ -546,7 +546,7 @@ class SelectWithThyAutoExpendComponent implements OnInit {
     selector: 'thy-placement-select',
     template: `
         <thy-select [thyPlacement]="thyPlacement" style="width:500px;">
-            @for (option of listOfOption; track option) {
+            @for (option of listOfOption; track $index) {
                 <thy-option [thyValue]="option.value" [thyLabelText]="option.label"></thy-option>
             }
         </thy-select>
@@ -663,14 +663,14 @@ class SelectWithAsyncLoadComponent implements OnInit {
     template: `
         <div style="width:100px">
             <thy-select class="select1" [thyDropdownWidthMode]="dropdownWidthMode" [(ngModel)]="selectedValue">
-                @for (option of options; track option) {
+                @for (option of options; track $index) {
                     <thy-option [thyValue]="option.value" [thyLabelText]="option.viewValue"> </thy-option>
                 }
             </thy-select>
         </div>
         <div style="width:100px">
             <thy-select class="select2" [(ngModel)]="selectedValue">
-                @for (option of options; track option) {
+                @for (option of options; track $index) {
                     <thy-option [thyValue]="option.value" [thyLabelText]="option.viewValue"> </thy-option>
                 }
             </thy-select>

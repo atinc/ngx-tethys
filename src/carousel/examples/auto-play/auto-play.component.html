@@ -1,6 +1,6 @@
 <div>
   <thy-carousel [thyAutoPlay]="authPlay">
-    @for (slide of array; track slide) {
+    @for (slide of array; track $index) {
       <div thyCarouselItem class="custom-carousel-item">
         {{ slide }}
       </div>
