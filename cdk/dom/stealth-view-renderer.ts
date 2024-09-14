@@ -1,4 +1,4 @@
-import { ApplicationRef, DestroyRef, Directive, EmbeddedViewRef, inject, Injector, isSignal, Signal, TemplateRef } from "@angular/core";
+import { ApplicationRef, DestroyRef, Directive, EmbeddedViewRef, inject, Injector, isSignal, Signal, TemplateRef } from '@angular/core';
 
 export interface StealthViewRenderer {
     rootNodes: Node[];
@@ -24,5 +24,5 @@ export function useStealthViewRenderer(templateRefInput: Signal<TemplateRef<any>
         applicationRef.attachView(embeddedViewRef);
     }
     const rootNodes = embeddedViewRef.rootNodes;
-    return { rootNodes }
+    return { rootNodes };
 }

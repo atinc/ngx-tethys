@@ -12,7 +12,7 @@ import { HostRenderer, useHostRenderer } from '../host-renderer';
 export class ThyDomHostRendererTestComponent implements OnInit {
     hostRenderer = inject(HostRenderer);
 
-    constructor() { }
+    constructor() {}
 
     ngOnInit(): void {
         this.hostRenderer.updateClass(['thy-button', 'thy-button-primary']);
@@ -27,7 +27,7 @@ export class ThyDomHostRendererTestComponent implements OnInit {
 export class ThyDomUseHostRendererTestComponent implements OnInit {
     hostRenderer = useHostRenderer();
 
-    constructor() { }
+    constructor() {}
 
     ngOnInit(): void {
         this.hostRenderer.updateClass(['thy-button', 'thy-button-primary']);

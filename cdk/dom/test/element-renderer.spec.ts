@@ -13,7 +13,7 @@ export class ThyDomUseElementRendererTestComponent implements OnInit {
 
     containerRenderer = useElementRenderer();
 
-    constructor() { }
+    constructor() {}
 
     ngOnInit(): void {
         this.containerRenderer.setElement(this.container.nativeElement);
@@ -32,7 +32,7 @@ export class ThyDomElementRendererWithoutElementTestComponent implements OnInit 
 
     containerRenderer = useElementRenderer();
 
-    constructor() { }
+    constructor() {}
 
     ngOnInit(): void {
         this.containerRenderer.updateClass(['thy-button', 'thy-button-primary']);

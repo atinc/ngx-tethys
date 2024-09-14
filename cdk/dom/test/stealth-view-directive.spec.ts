@@ -15,7 +15,6 @@ import { useStealthViewRenderer } from '../stealth-view-renderer';
             <span>function test</span>
             <button thyButton="primary" disabled="disabled">Primary</button>
         </ng-template>
-        
     `,
     standalone: true,
     imports: [ThyStealthViewDirective]
@@ -30,7 +29,7 @@ class ThyStealthViewDirectiveTestComponent implements AfterViewInit {
 
     nodesByFunction: Node[];
 
-    constructor(private injector: Injector) { }
+    constructor(private injector: Injector) {}
 
     ngAfterViewInit() {
         this.nodesByDirective = this.thyStealthView.rootNodes;
@@ -39,7 +38,6 @@ class ThyStealthViewDirectiveTestComponent implements AfterViewInit {
             this.nodesByFunction = useStealthViewRenderer(this.templateRef).rootNodes;
         });
     }
-
 }
 
 describe('ThyStealthViewDirective', () => {
