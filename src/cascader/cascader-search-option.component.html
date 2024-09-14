@@ -1,17 +1,16 @@
-@if (multiple) {
-  <label class="mr-1" thyCheckbox [disabled]="option.thyRowValue[option.thyRowValue.length - 1].disabled"
+<label *ngIf="multiple" class="mr-1" thyCheckbox [disabled]="option.thyRowValue[option.thyRowValue.length - 1].disabled"
   [ngModel]="active" (click)="clickCheckbox($event)" (ngModelChange)="toggleOption($event)" [thyLabelText]="''"></label>
-}
 
 <thy-breadcrumb thySeparator="slash">
-  @for (label of option.labelList; track label; let i = $index) {
+  <ng-container *ngFor="let label of option.labelList; index as i">
     <thy-breadcrumb-item [ngClass]="{ 'text-muted': !(option.thyRowValue[i].isLeaf && isOnlySelectLeaf) }">
-      @if (!optionRender) {
+      <ng-container *ngIf="!optionRender; else optionTemplate">
         <span class="option-label-item" thyFlexibleText [thyTooltipContent]="label">{{ label }}</span>
-      } @else {
+      </ng-container>
+      <ng-template #optionTemplate>
         <ng-template [ngTemplateOutlet]="optionRender" [ngTemplateOutletContext]="{ option: option.thyRowValue[i] }">
         </ng-template>
-      }
+      </ng-template>
     </thy-breadcrumb-item>
-  }
+  </ng-container>
 </thy-breadcrumb>

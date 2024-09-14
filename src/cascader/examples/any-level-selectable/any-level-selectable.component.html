@@ -24,11 +24,9 @@
   </thy-cascader>
 
   <ng-template #renderTpl let-labels="labels" let-selectedOptions="selectedOptions">
-    @for (label of labels; track label; let i = $index; let isLast = $last) {
-      @if (isLast && label) {
-        <span> {{ label }}</span>
-      }
-    }
+    <ng-container *ngFor="let label of labels; let i = index; let isLast = last">
+      <span *ngIf="isLast && label"> {{ label }}</span>
+    </ng-container>
   </ng-template>
 </thy-form-group>
 <thy-form-group thyLabelText="级联多选支持tag">
@@ -47,11 +45,9 @@
 
   <ng-template #labelRender let-labels="labels" let-selectedOptions="selectedOptions">
     <thy-tag thyShape="pill" thyColor="info">
-      @for (label of labels; track label; let i = $index; let isLast = $last) {
-        @if (isLast && label) {
-          <span> {{ label }}</span>
-        }
-      }
+      <ng-container *ngFor="let label of labels; let i = index; let isLast = last">
+        <span *ngIf="isLast && label"> {{ label }}</span>
+      </ng-container>
     </thy-tag>
   </ng-template>
 </thy-form-group>

@@ -5,7 +5,7 @@ import { SafeAny } from 'ngx-tethys/types';
 import { ThyFormDirective, ThyFormGroup } from 'ngx-tethys/form';
 import { ThyCascader } from 'ngx-tethys/cascader/cascader.component';
 import { ThyTagModule } from 'ngx-tethys/tag';
-
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 const customOptions: SafeAny[] = [
@@ -17,7 +17,7 @@ const customOptions: SafeAny[] = [
     selector: 'thy-cascader-custom-options-example',
     templateUrl: './custom-options.component.html',
     standalone: true,
-    imports: [ThyFormDirective, ThyFormGroup, ThyCascader, ThyTagModule, FormsModule]
+    imports: [ThyFormDirective, ThyFormGroup, ThyCascader, ThyTagModule, CommonModule, FormsModule]
 })
 export class ThyCascaderCustomOptionsExampleComponent implements OnInit {
     public areaCode: SafeAny[] = [];

@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyCascader } from 'ngx-tethys/cascader';
@@ -9,7 +10,7 @@ import { ThyNotifyService } from 'ngx-tethys/notify';
     selector: 'thy-cascader-auto-expand-example',
     templateUrl: './auto-expand.component.html',
     standalone: true,
-    imports: [ThyFormGroup, ThyCascader, FormsModule]
+    imports: [ThyFormGroup, ThyCascader, CommonModule, FormsModule]
 })
 export class AutoExpandComponent implements OnInit {
     public areaCode = clone(options);

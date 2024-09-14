@@ -3,7 +3,7 @@ import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
 import { ThyRadio } from 'ngx-tethys/radio';
 import { ThyStopPropagationDirective } from 'ngx-tethys/shared';
 import { SafeAny } from 'ngx-tethys/types';
-import { NgTemplateOutlet } from '@angular/common';
+import { NgIf, NgTemplateOutlet } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     Component,
@@ -30,7 +30,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     selector: '[thy-cascader-option]',
     templateUrl: './cascader-li.component.html',
     standalone: true,
-    imports: [ThyFlexibleText, ThyCheckbox, ThyRadio, FormsModule, ThyStopPropagationDirective, NgTemplateOutlet]
+    imports: [NgIf, ThyFlexibleText, ThyCheckbox, ThyRadio, FormsModule, ThyStopPropagationDirective, NgTemplateOutlet]
 })
 export class ThyCascaderOptionComponent implements OnInit {
     @Input() option: ThyCascaderOption;

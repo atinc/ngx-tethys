@@ -1,25 +1,19 @@
-@if (!option.readonly) {
-  <div thyStopPropagation>
-    @if (multiple) {
-      <label class="mr-2" thyCheckbox [disabled]="option.disabled" [name]="option.value || option._id"
-      [thyIndeterminate]="halfSelected" [(ngModel)]="selected" (ngModelChange)="toggleOption($event)"></label>
-    }
-    @if (!multiple && !isOnlySelectLeaf) {
-      <label class="mr-2" thyRadio [disabled]="option.disabled"
-      [name]="option.value || option._id" [(ngModel)]="selected" (ngModelChange)="toggleOption($event)"></label>
-    }
-  </div>
-}
+<div thyStopPropagation *ngIf="!option.readonly">
+  <label *ngIf="multiple" class="mr-2" thyCheckbox [disabled]="option.disabled" [name]="option.value || option._id"
+    [thyIndeterminate]="halfSelected" [(ngModel)]="selected" (ngModelChange)="toggleOption($event)"></label>
+
+  <label *ngIf="!multiple && !isOnlySelectLeaf" class="mr-2" thyRadio [disabled]="option.disabled"
+    [name]="option.value || option._id" [(ngModel)]="selected" (ngModelChange)="toggleOption($event)"></label>
+</div>
 
 
-@if (!optionRender) {
+<ng-container *ngIf="!optionRender; else optionTemplate">
   <span thyFlexibleText [thyTooltipContent]="option[labelProperty] || ''"> {{ option[labelProperty] || '' }}</span>
-} @else {
+</ng-container>
+<ng-template #optionTemplate>
   <ng-template [ngTemplateOutlet]="optionRender" [ngTemplateOutletContext]="{ option }"></ng-template>
-}
+</ng-template>
 
-@if (!option.isLeaf || (option.children && option.children.length) || option.loading) {
-  <span
-    class="wtf wtf-angle-right thy-cascader-menu-item-expand-icon">
-  </span>
-}
+<span *ngIf="!option.isLeaf || (option.children && option.children.length) || option.loading"
+  class="wtf wtf-angle-right thy-cascader-menu-item-expand-icon">
+</span>

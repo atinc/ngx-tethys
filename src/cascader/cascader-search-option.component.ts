@@ -1,4 +1,4 @@
-import { NgClass, NgTemplateOutlet } from '@angular/common';
+import { NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     Component,
@@ -30,7 +30,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     selector: '[thy-cascader-search-option]',
     templateUrl: './cascader-search-option.component.html',
     standalone: true,
-    imports: [NgClass, ThyFlexibleText, ThyCheckbox, ThyBreadcrumb, ThyBreadcrumbItem, ThyIcon, FormsModule, NgTemplateOutlet]
+    imports: [NgClass, NgIf, NgFor, ThyFlexibleText, ThyCheckbox, ThyBreadcrumb, ThyBreadcrumbItem, ThyIcon, FormsModule, NgTemplateOutlet]
 })
 export class ThyCascaderSearchOptionComponent implements OnInit {
     @Input() option: ThyCascaderSearchOption;
