@@ -76,7 +76,7 @@ export class ThyDomUseElementRendererTestComponent implements OnInit {
 ```
 
 ## thyStealthView
-获取 template 中的所有 Node， 指令实例中提供 getNodes 方法，返回 Node[]。
+获取 template 中的所有 Node， 指令实例可获取 rootNodes: Node[]。
 
 ## 导入
 
