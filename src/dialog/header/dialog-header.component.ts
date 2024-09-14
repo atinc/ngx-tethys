@@ -5,7 +5,7 @@ import { ThyTranslate } from 'ngx-tethys/core';
 import { ThyInternalDialogRef } from '../dialog-ref';
 import { ThyAction } from 'ngx-tethys/action';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
@@ -24,7 +24,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
         '[class.thy-dialog-header-divided]': `thyDivided`
     },
     standalone: true,
-    imports: [NgIf, NgTemplateOutlet, ThyIcon, ThyAction]
+    imports: [NgTemplateOutlet, ThyIcon, ThyAction]
 })
 export class ThyDialogHeader implements OnInit {
     /**

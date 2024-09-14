@@ -1,7 +1,9 @@
 <thy-button-group thySize="sm" thyType="outline-default">
-  <button thyButton *ngFor="let item of colors" (click)="color = item" [ngClass]="{ active: color === item }">
-    {{ item }}
-  </button>
+  @for (item of colors; track item) {
+    <button thyButton (click)="color = item" [ngClass]="{ active: color === item }">
+      {{ item }}
+    </button>
+  }
 </thy-button-group>
 
 <thy-divider [thyColor]="color"></thy-divider>

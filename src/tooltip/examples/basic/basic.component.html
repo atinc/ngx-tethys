@@ -1,13 +1,17 @@
 <form thyForm thyLayout="inline">
   <thy-form-group thyLabelText="触发方式">
     <thy-select name="size" [(ngModel)]="tooltipConfig.trigger" (ngModelChange)="triggerChange()" name="trigger">
-      <thy-option *ngFor="let option of triggerOptions" [thyValue]="option" [thyLabelText]="option"></thy-option>
+      @for (option of triggerOptions; track option) {
+        <thy-option [thyValue]="option" [thyLabelText]="option"></thy-option>
+      }
     </thy-select>
   </thy-form-group>
 
   <thy-form-group thyLabelText="偏移量">
     <thy-select name="size" [(ngModel)]="tooltipConfig.offset" (ngModelChange)="triggerChange()" name="offset">
-      <thy-option *ngFor="let option of offsetOptions" [thyValue]="option" [thyLabelText]="option"></thy-option>
+      @for (option of offsetOptions; track option) {
+        <thy-option [thyValue]="option" [thyLabelText]="option"></thy-option>
+      }
     </thy-select>
   </thy-form-group>
 </form>
@@ -28,16 +32,18 @@
     <label thyCheckbox thyLabelText="tooltipPin" [(ngModel)]="tooltipConfig.tooltipPin" name="pin"></label>
   </thy-form-group>
 </form>
-<div class="mt-3" *ngIf="showTooltips">
-  <button
-    thyTooltip="Hello, welcome to PingCode"
-    [thyTooltipTrigger]="tooltipConfig.trigger"
-    [thyTooltipDisabled]="tooltipConfig.disabled"
-    [thyTooltipShowDelay]="tooltipConfig.showDelay"
-    [thyTooltipHideDelay]="tooltipConfig.hideDelay"
-    [thyTooltipPin]="tooltipConfig.tooltipPin"
-    thyButton="primary"
-    [thyTooltipOffset]="tooltipConfig.offset">
-    展示tooltip
-  </button>
-</div>
+@if (showTooltips) {
+  <div class="mt-3">
+    <button
+      thyTooltip="Hello, welcome to PingCode"
+      [thyTooltipTrigger]="tooltipConfig.trigger"
+      [thyTooltipDisabled]="tooltipConfig.disabled"
+      [thyTooltipShowDelay]="tooltipConfig.showDelay"
+      [thyTooltipHideDelay]="tooltipConfig.hideDelay"
+      [thyTooltipPin]="tooltipConfig.tooltipPin"
+      thyButton="primary"
+      [thyTooltipOffset]="tooltipConfig.offset">
+      展示tooltip
+    </button>
+  </div>
+}

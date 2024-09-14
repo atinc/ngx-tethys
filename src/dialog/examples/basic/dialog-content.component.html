@@ -21,19 +21,19 @@
   {{ data }}
 
   <br>
-  <button thyButton="primary" (click)="openSubDialog(subDialog)">Open Sub Dialog</button>
+    <button thyButton="primary" (click)="openSubDialog(subDialog)">Open Sub Dialog</button>
 
-  <!-- <div class="p-2">
+    <!-- <div class="p-2">
     <input thyInput thyAutofocus="true" placeholder="光标自动聚焦" />
   </div> -->
 
   <!-- <thy-select thySize="md" [thyShowSearch]="true" thyEmptyStateText="无匹配结果" [thyAllowClear]="allowClear" [thyHasBackdrop]="true">
-    <thy-option thyValue="" thyLabelText="空"></thy-option>
-    <thy-option thyValue="1" thyLabelText="选项1"> </thy-option>
-    <thy-option thyValue="2" thyLabelText="选项2"> </thy-option>
-    <thy-option thyValue="3" thyLabelText="选项3"> </thy-option>
-    <thy-option thyValue="4" thyLabelText="选项4"> </thy-option>
-  </thy-select> -->
+  <thy-option thyValue="" thyLabelText="空"></thy-option>
+  <thy-option thyValue="1" thyLabelText="选项1"> </thy-option>
+  <thy-option thyValue="2" thyLabelText="选项2"> </thy-option>
+  <thy-option thyValue="3" thyLabelText="选项3"> </thy-option>
+  <thy-option thyValue="4" thyLabelText="选项4"> </thy-option>
+</thy-select> -->
 </div>
 
 <ng-template #subDialog>
@@ -45,11 +45,13 @@
   </div>
   <div class="dialog-body">
     content <a href="javascript:;" (click)="toggleShowMore()">More</a>
-    <p *ngIf="showMore">
-      1<br />
-      2<br />
-      3<br />
-    </p>
+    @if (showMore) {
+      <p>
+        1<br />
+        2<br />
+        3<br />
+      </p>
+    }
   </div>
   <div class="dialog-footer">
     <button thyButton="primary" (click)="thyDialog.close()">确定</button>
