@@ -1,7 +1,9 @@
 <thy-button-group thySize="sm" thyType="outline-default">
-  <button thyButton *ngFor="let item of sizes" (click)="currentSize = item" [ngClass]="{ active: currentSize === item }">
-    {{ item.name }} - {{ item.height }}px
-  </button>
+  @for (item of sizes; track item) {
+    <button thyButton (click)="currentSize = item" [ngClass]="{ active: currentSize === item }">
+      {{ item.name }} - {{ item.height }}px
+    </button>
+  }
 </thy-button-group>
 
 <div class="mt-4">

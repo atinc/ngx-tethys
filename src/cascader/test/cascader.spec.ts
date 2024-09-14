@@ -312,32 +312,34 @@ const customLabelPropertyOptions = [
 @Component({
     selector: 'thy-cascader-basic',
     template: `
-        <button class="cancel-anchor" *ngIf="thyChangeOnSelect">取消锚点</button>
-
+        @if (thyChangeOnSelect) {
+          <button class="cancel-anchor">取消锚点</button>
+        }
+        
         <thy-cascader
-            #cascader
-            [thyOptions]="thyCustomerOptions"
-            (ngModelChange)="onChanges($event)"
-            [(ngModel)]="curVal"
-            style="width:400px;"
-            [thyPlaceholder]="placeholder"
-            [thyTriggerAction]="thyTriggerAction"
-            [thyExpandTriggerAction]="thyExpandTriggerAction"
-            [thyChangeOnSelect]="thyChangeOnSelect"
-            [thyMenuClassName]="thyMenuClassName"
-            [thyColumnClassName]="columnClassName"
-            [thyLoadData]="loadData"
-            [thyShowSearch]="isShowSearch"
-            [thyDisabled]="disabled"
-            [thyIsOnlySelectLeaf]="isOnlySelectLeaf"
-            [thyEmptyStateText]="emptyStateText"
-            [thyMultiple]="isMultiple"
-            (thyExpandStatusChange)="thyExpandStatusChange($event)"
-            [thyAutoExpand]="thyAutoExpand"
-            [thyCustomOptions]="customOptions"
-            [thyHasBackdrop]="hasBackdrop">
+          #cascader
+          [thyOptions]="thyCustomerOptions"
+          (ngModelChange)="onChanges($event)"
+          [(ngModel)]="curVal"
+          style="width:400px;"
+          [thyPlaceholder]="placeholder"
+          [thyTriggerAction]="thyTriggerAction"
+          [thyExpandTriggerAction]="thyExpandTriggerAction"
+          [thyChangeOnSelect]="thyChangeOnSelect"
+          [thyMenuClassName]="thyMenuClassName"
+          [thyColumnClassName]="columnClassName"
+          [thyLoadData]="loadData"
+          [thyShowSearch]="isShowSearch"
+          [thyDisabled]="disabled"
+          [thyIsOnlySelectLeaf]="isOnlySelectLeaf"
+          [thyEmptyStateText]="emptyStateText"
+          [thyMultiple]="isMultiple"
+          (thyExpandStatusChange)="thyExpandStatusChange($event)"
+          [thyAutoExpand]="thyAutoExpand"
+          [thyCustomOptions]="customOptions"
+          [thyHasBackdrop]="hasBackdrop">
         </thy-cascader>
-    `
+        `
 })
 class CascaderBasicComponent {
     @ViewChild(ThyCascader, { static: false }) cascader: ThyCascader;
@@ -414,35 +416,39 @@ class CascaderLoadComponent {
     selector: 'thy-cascader-template',
     template: `
         <thy-cascader
-            [thyOptions]="thyCustomerOptions"
-            [thyShowSearch]="true"
-            [(ngModel)]="curVal"
-            style="width:400px;"
-            [thyLabelRender]="renderTpl"
-            [thyOptionRender]="optionTpl">
+          [thyOptions]="thyCustomerOptions"
+          [thyShowSearch]="true"
+          [(ngModel)]="curVal"
+          style="width:400px;"
+          [thyLabelRender]="renderTpl"
+          [thyOptionRender]="optionTpl">
         </thy-cascader>
         <ng-template #renderTpl let-labels="labels" let-selectedOptions="selectedOptions">
-            <ng-container>
-                {{ isDisplay(labels) }}
-                <ng-container *ngFor="let label of labels; let i = index; let isLast = last">
-                    <span *ngIf="!isLast" class="display-name-no-last">{{ label }} / </span>
-                    <span *ngIf="isLast" class="display-name-last">
-                        {{ label }}
-                        (
-                        <a>
-                            {{ selectedOptions[i].code }}
-                        </a>
-                        )
-                    </span>
-                </ng-container>
-            </ng-container>
+          <ng-container>
+            {{ isDisplay(labels) }}
+            @for (label of labels; track label; let i = $index; let isLast = $last) {
+              @if (!isLast) {
+                <span class="display-name-no-last">{{ label }} / </span>
+              }
+              @if (isLast) {
+                <span class="display-name-last">
+                  {{ label }}
+                  (
+                  <a>
+                    {{ selectedOptions[i].code }}
+                  </a>
+                  )
+                </span>
+              }
+            }
+          </ng-container>
         </ng-template>
-
+        
         <ng-template #optionTpl let-option="option">
-            <thy-icon class="option-icon mr-2" thyIconName="view-tile"></thy-icon>
-            <span thyFlexibleText class="option-label-item" [thyTooltipContent]="option.label || ''"> {{ option.label || '' }}</span>
+          <thy-icon class="option-icon mr-2" thyIconName="view-tile"></thy-icon>
+          <span thyFlexibleText class="option-label-item" [thyTooltipContent]="option.label || ''"> {{ option.label || '' }}</span>
         </ng-template>
-    `
+        `
 })
 class CascaderTemplateComponent {
     public curVal: string | string[] = 'xihu';
