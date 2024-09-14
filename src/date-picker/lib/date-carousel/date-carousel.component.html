@@ -17,19 +17,28 @@
       <button thyButton="outline-default" thySize="sm" class="right-space" (click)="prevClick(type)">
         <thy-icon thyIconName="angle-left"></thy-icon>
       </button>
-      <div
-        class="selectable-button right-space"
-        *ngFor="let item of selectableData"
-        (click)="selectDate(type, item)"
-        (mouseenter)="onMouseenter($event, type, item)"
-        (mouseleave)="onMouseleave($event, type, item)"
-        [ngClass]="item.classMap"
-      >
-        <span class="year-tip" *ngIf="item | showYearTip: type">{{ item?.startValue?.getYear() }}</span>
-        <thy-icon thyIconName="close" *ngIf="item.isInRange && isSelected(item)"></thy-icon>
-        <thy-icon thyIconName="plus" *ngIf="item.isInRange && !isSelected(item)"></thy-icon>
-        <span *ngIf="!item.isInRange">{{ item?.content }}</span>
-      </div>
+      @for (item of selectableData; track item) {
+        <div
+          class="selectable-button right-space"
+          (click)="selectDate(type, item)"
+          (mouseenter)="onMouseenter($event, type, item)"
+          (mouseleave)="onMouseleave($event, type, item)"
+          [ngClass]="item.classMap"
+          >
+          @if (item | showYearTip: type) {
+            <span class="year-tip">{{ item?.startValue?.getYear() }}</span>
+          }
+          @if (item.isInRange && isSelected(item)) {
+            <thy-icon thyIconName="close"></thy-icon>
+          }
+          @if (item.isInRange && !isSelected(item)) {
+            <thy-icon thyIconName="plus"></thy-icon>
+          }
+          @if (!item.isInRange) {
+            <span>{{ item?.content }}</span>
+          }
+        </div>
+      }
       <button thyButton="outline-default" thySize="sm" (click)="nextClick(type)">
         <thy-icon thyIconName="angle-right"></thy-icon>
       </button>

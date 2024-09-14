@@ -3,7 +3,7 @@ import { isEmpty, isString, isTemplateRef } from 'ngx-tethys/util';
 import { Component, Input } from '@angular/core';
 
 import { DateCell } from './types';
-import { NgSwitch, NgSwitchCase, NgTemplateOutlet, NgSwitchDefault, NgIf } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 
 /**
  * @private
@@ -14,7 +14,7 @@ import { NgSwitch, NgSwitchCase, NgTemplateOutlet, NgSwitchDefault, NgIf } from 
     exportAs: 'dateTableCell',
     templateUrl: './date-table-cell.component.html',
     standalone: true,
-    imports: [NgSwitch, NgSwitchCase, NgTemplateOutlet, NgSwitchDefault, NgIf]
+    imports: [NgTemplateOutlet]
 })
 export class DateTableCell {
     isTemplateRef = isTemplateRef;
