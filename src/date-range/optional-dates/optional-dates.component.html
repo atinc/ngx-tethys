@@ -1,6 +1,6 @@
 @if (!hiddenMenu) {
   <thy-dropdown-menu thyImmediateRender class="thy-date-range-dropdown-menu-container">
-    @for (dateRange of optionalDateRanges; track dateRange) {
+    @for (dateRange of optionalDateRanges; track $index) {
       <a thyDropdownMenuItem href="javascript:;" (click)="_selectDateRange(dateRange)">
         <span thyDropdownMenuItemName>{{ dateRange?.text }}</span>
         @if (dateRange.key === selectedDate?.key) {
@@ -19,8 +19,7 @@
       [thyMaxDate]="maxDate"
       [thyDisabledDate]="disabledDate"
       (ngModelChange)="_selectedCustomDate($event)"
-      (thyOnCalendarChange)="calendarChange($event)"
-      >
+      (thyOnCalendarChange)="calendarChange($event)">
       <span thyDropdownMenuItemName>{{ customValue }}</span>
       @if (customKey === selectedDate?.key) {
         <span thyDropdownMenuItemExtendIcon>

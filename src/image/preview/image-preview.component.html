@@ -28,7 +28,7 @@
     [style.transform]="previewImageWrapperTransform"
     [cdkDragFreeDragPosition]="position"
     (cdkDragReleased)="dragReleased()">
-    @for (image of images; track image; let imageIndex = $index) {
+    @for (image of images; track $index; let imageIndex = $index) {
       @if (previewIndex === imageIndex && isLoadingDone) {
         <img #imgRef class="thy-image-preview-img" [src]="image.objectURL || image.src" [style.transform]="previewImageTransform" />
       }

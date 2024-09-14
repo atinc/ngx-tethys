@@ -90,7 +90,7 @@
         [thyRawValue]="option"></thy-option>
     } @else {
       <thy-option-group [thyGroupLabel]="option.groupLabel">
-        @for (sub of option.children; track sub) {
+        @for (sub of option.children; track $index) {
           <thy-option [thyDisabled]="sub.disabled" [thyLabelText]="sub.label" [thyValue]="sub.value" [thyRawValue]="sub"></thy-option>
         }
       </thy-option-group>

@@ -289,7 +289,7 @@ describe('with handle', () => {
                     (thyDragOvered)="onDragOver($event)"
                     (thyDragDropped)="onDragDrop($event)"
                     (thyDragEnded)="onDragEnd($event)">
-                    @for (subItem of item.children; track subItem) {
+                    @for (subItem of item.children; track $index) {
                         <li class="children-item" [style.paddingLeft.px]="level * 10" [thyDrag]="item">
                             <ng-template
                                 [ngTemplateOutlet]="itemTemplate"

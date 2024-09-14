@@ -50,7 +50,7 @@
           </a>
         </li>
       }
-      @for (page of pages; track page) {
+      @for (page of pages; track $index) {
         <li class="thy-page-item thy-page-number" [class.active]="page.active" [class.disabled]="disabled" (click)="selectPage(page.index)">
           <a class="thy-page-link" href="javascript:;">{{ page.text }}</a>
         </li>
