@@ -17,7 +17,7 @@ import { isValid } from 'date-fns';
 import { reqAnimFrame } from 'ngx-tethys/core';
 import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
 import { ThyButton } from 'ngx-tethys/button';
-import { NgIf, NgFor, DecimalPipe } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 
 /**
  * 时间选择面板组件
@@ -41,7 +41,7 @@ import { NgIf, NgFor, DecimalPipe } from '@angular/common';
         '[class.thy-time-picker-panel-columns-3]': `showColumnCount === 3`
     },
     standalone: true,
-    imports: [NgIf, NgFor, ThyButton, DecimalPipe]
+    imports: [ThyButton, DecimalPipe]
 })
 export class ThyTimePanel implements OnInit, OnDestroy, ControlValueAccessor {
     @ViewChild('hourListElement', { static: false }) hourListRef: ElementRef<HTMLElement>;
