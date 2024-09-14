@@ -34,7 +34,6 @@
         border-radius: 0;
     }
 
-    // @include box-shadow($input-box-shadow);
     @include transition.transition(bootstrap-variables.$input-transition);
 
     // Unstyle the caret on `<select>`s in IE10+.
@@ -244,9 +243,9 @@
 
     // Avoid using mixin so we can pass custom focus shadow properly
     @if variables.$enable-shadows {
-        box-shadow: variables.$input-box-shadow, bootstrap-variables.$input-focus-box-shadow;
+        box-shadow: variables.$box-shadow-none, variables.$box-shadow-none;
     } @else {
-        box-shadow: bootstrap-variables.$input-focus-box-shadow;
+        box-shadow: variables.$box-shadow-none;
     }
 }
 

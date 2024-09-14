@@ -20,7 +20,7 @@ $image-preview-prefix-cls: 'thy-image-preview';
     .#{$image-preview-prefix-cls} {
         pointer-events: none;
         height: 100%;
-        color: variables.$white;
+        color: variables.$image-preview-text-color;
         &-img-wrapper {
             position: absolute;
             top: 0;
@@ -54,7 +54,7 @@ $image-preview-prefix-cls: 'thy-image-preview';
             pointer-events: all;
             bottom: bootstrapVariables.$spacer * 1.25;
             border-radius: bootstrapVariables.$spacer * 0.5;
-            background: variables.$gray-800;
+            background: variables.$image-preview-bg-color;
             left: 50%;
             transform: translateX(-50%);
             &-text {
@@ -71,7 +71,11 @@ $image-preview-prefix-cls: 'thy-image-preview';
         .thy-action {
             pointer-events: all;
             cursor: variables.$hand-cursor;
-            @include basic.action-variant(variables.$white, variables.$white, rgba(variables.$white, 0.2));
+            @include basic.action-variant(
+                variables.$image-preview-action-icon-color,
+                variables.$image-preview-action-icon-color,
+                variables.$image-preview-action-bg-color
+            );
         }
 
         .#{$image-preview-prefix-cls}-exit-fullscreen {
@@ -83,7 +87,7 @@ $image-preview-prefix-cls: 'thy-image-preview';
 
         &-switch-left,
         &-switch-right {
-            color: variables.$gray-500;
+            color: variables.$image-preview-switch-icon-color;
             position: fixed;
             top: 50%;
             z-index: 1;
@@ -93,14 +97,14 @@ $image-preview-prefix-cls: 'thy-image-preview';
             width: bootstrapVariables.$spacer * 2.5;
             height: bootstrapVariables.$spacer * 2.5;
             margin-top: -22px;
-            background: variables.$gray-700;
+            background: variables.$image-preview-switch-bg-color;
             border-radius: 50%;
             cursor: variables.$hand-cursor;
             pointer-events: auto;
             transition: all 0.3s;
             &:hover {
-                color: variables.$gray-700;
-                background: variables.$gray-500;
+                color: variables.$image-preview-switch-icon-hover-color;
+                background: variables.$image-preview-switch-hover-bg-color;
             }
 
             &-disabled {
@@ -109,8 +113,8 @@ $image-preview-prefix-cls: 'thy-image-preview';
                     cursor: variables.$disabled-cursor;
                 }
                 &:hover {
-                    color: variables.$gray-500;
-                    background: variables.$gray-700;
+                    color: variables.$image-preview-switch-icon-color;
+                    background: variables.$image-preview-switch-bg-color;
                 }
             }
         }
@@ -135,7 +139,7 @@ $image-preview-prefix-cls: 'thy-image-preview';
         top: 0;
         width: 100%;
         z-index: 1;
-        background: variables.$gray-800;
+        background: variables.$image-preview-bg-color;
         display: flex;
         justify-content: space-between;
         align-items: center;

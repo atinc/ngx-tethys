@@ -89,7 +89,7 @@ input[type='checkbox'] {
     }
 
     &:disabled {
-        background-color: rgba($color: variables.$black, $alpha: 0.03);
+        background-color: variables.$checkbox-disabled-bg-color;
         cursor: variables.$disabled-cursor;
     }
 }
