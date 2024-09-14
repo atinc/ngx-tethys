@@ -1,6 +1,4 @@
 <thy-avatar thyName="张学友" class="mr-2" thyShowRemove="true" (thyOnRemove)="remove('张学友')"></thy-avatar>
 <thy-avatar thyName="Peter" class="mr-2" [thySrc]="avatarSrc" thyShowRemove="true" (thyOnRemove)="remove('Peter')"></thy-avatar>
 
-@if (message) {
-  <span class="d-block text-success mt-3">{{ message }}</span>
-}
+<span class="d-block text-success mt-3" *ngIf="message">{{ message }}</span>

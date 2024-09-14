@@ -32,9 +32,7 @@ export class AvatarListBasicComponent implements OnInit {
     template: `
         <div [ngStyle]="{ width: '300px' }">
             <thy-avatar-list [thyAvatarSize]="size" [thyMode]="mode">
-                @for (item of data; track item) {
-                    <thy-avatar [thyName]="item.name"></thy-avatar>
-                }
+                <thy-avatar *ngFor="let item of data" [thyName]="item.name"></thy-avatar>
             </thy-avatar-list>
         </div>
     `,

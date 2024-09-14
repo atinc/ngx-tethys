@@ -10,36 +10,22 @@ import { dispatchFakeEvent } from '../../testing';
 
 @Component({
     template: `
-        @switch (useSuite) {
+        <ng-container [ngSwitch]="useSuite">
             <!-- Suite 1 for test thyName -->
-            @case (1) {
-                <thy-avatar [thyShowName]="true" [thyName]="name"></thy-avatar>
-            }
+            <thy-avatar *ngSwitchCase="1" [thyShowName]="true" [thyName]="name"></thy-avatar>
             <!-- Suite 2 for test default size -->
-            @case (2) {
-                <thy-avatar [thyName]="name"></thy-avatar>
-            }
+            <thy-avatar *ngSwitchCase="2" [thyName]="name"></thy-avatar>
             <!-- Suite 3 for test thySize -->
-            @case (3) {
-                <thy-avatar [thyName]="name" [thySize]="size"></thy-avatar>
-            }
+            <thy-avatar *ngSwitchCase="3" [thyName]="name" [thySize]="size"></thy-avatar>
             <!-- Suite 4 for test thyDisabled and thyShowRemove -->
-            @case (4) {
-                <thy-avatar [thyName]="name" thyDisabled="true" thyShowRemove="true"></thy-avatar>
-            }
+            <thy-avatar *ngSwitchCase="4" [thyName]="name" thyDisabled="true" thyShowRemove="true"></thy-avatar>
             <!-- Suite 5 for test thySrc with thyError -->
-            @case (5) {
-                <thy-avatar [thyName]="name" [thySrc]="'./not_exist/abc.jpg'" (thyError)="thyError($event)"></thy-avatar>
-            }
+            <thy-avatar *ngSwitchCase="5" [thyName]="name" [thySrc]="'./not_exist/abc.jpg'" (thyError)="thyError($event)"></thy-avatar>
             <!-- Suite 6 for testing thyLoading and thyFetchPriority -->
-            @case (6) {
-                <thy-avatar thySrc="/abc.jpg" [thyLoading]="loading" [thyFetchPriority]="fetchPriority"></thy-avatar>
-            }
+            <thy-avatar *ngSwitchCase="6" thySrc="/abc.jpg" [thyLoading]="loading" [thyFetchPriority]="fetchPriority"></thy-avatar>
             <!-- Suite 7 for test thyDisabled and thyRemovable -->
-            @case (7) {
-                <thy-avatar [thyName]="name" thyRemovable="true" (thyRemove)="remove()"></thy-avatar>
-            }
-        }
+            <thy-avatar *ngSwitchCase="7" [thyName]="name" thyRemovable="true" (thyRemove)="remove()"></thy-avatar>
+        </ng-container>
     `
 })
 class ThyTestAvatarComponent {

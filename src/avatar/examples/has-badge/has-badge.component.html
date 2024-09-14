@@ -1,14 +1,10 @@
 <div>
-  @for (size of sizes; track size) {
-    <thy-badge [thyCount]="3" thyStatus="primary" class="mr-2">
-      <thy-avatar thyName="张学友" [thySize]="size"></thy-avatar>
-    </thy-badge>
-  }
+  <thy-badge *ngFor="let size of sizes" [thyCount]="3" thyStatus="primary" class="mr-2">
+    <thy-avatar thyName="张学友" [thySize]="size"></thy-avatar>
+  </thy-badge>
 </div>
 <div class="mt-2">
-  @for (size of sizes; track size) {
-    <thy-badge [thyCount]="3" thyStatus="primary" class="mr-2">
-      <thy-avatar [thySrc]="avatarSrc" [thySize]="size"></thy-avatar>
-    </thy-badge>
-  }
+  <thy-badge *ngFor="let size of sizes" [thyCount]="3" thyStatus="primary" class="mr-2">
+    <thy-avatar [thySrc]="avatarSrc" [thySize]="size"></thy-avatar>
+  </thy-badge>
 </div>

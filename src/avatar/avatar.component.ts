@@ -5,7 +5,7 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyAvatarService } from './avatar.service';
 import { AvatarShortNamePipe, AvatarBgColorPipe, AvatarSrcPipe } from './avatar.pipe';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { NgClass, NgStyle } from '@angular/common';
+import { NgIf, NgClass, NgStyle } from '@angular/common';
 
 const sizeArray = [16, 22, 24, 28, 32, 36, 44, 48, 68, 110, 160];
 
@@ -35,7 +35,7 @@ export type ThyAvatarFetchPriority = 'high' | 'low' | 'auto';
     templateUrl: './avatar.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [NgClass, NgStyle, ThyIcon, AvatarShortNamePipe, AvatarBgColorPipe, AvatarSrcPipe]
+    imports: [NgIf, NgClass, NgStyle, ThyIcon, AvatarShortNamePipe, AvatarBgColorPipe, AvatarSrcPipe]
 })
 export class ThyAvatar implements OnInit {
     _src: string;
