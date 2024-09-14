@@ -1,9 +1,9 @@
 <p><code>thyDragContent</code> 自定义可放置区域，本示例中，只可在文本部分进行放置</p>
 <thy-list [thyDropContainer]="nodes" (thyDragDropped)="onDragDrop($event)">
-  <ng-container *ngFor="let item of nodes">
+  @for (item of nodes; track item) {
     <thy-list-item [thyDrag]="item">
       <span class="cursor-pointer"><thy-icon thyIconName="drag"></thy-icon></span>
       <span thyDragContent>{{ item.title }}</span>
     </thy-list-item>
-  </ng-container>
+  }
 </thy-list>
