@@ -5,9 +5,8 @@
       [thyMultiple]="true"
       class="thy-transfer-list-content"
       thyUniqueKey="_id"
-      (thySelectionChange)="selectionChange($event)"
-      >
-      @for (item of transferData; track item) {
+      (thySelectionChange)="selectionChange($event)">
+      @for (item of transferData; track $index) {
         <thy-list-option class="thy-transfer-list-content-item" [thyValue]="item">
           <div class="d-flex flex-grow-1 align-items-center">
             <div class="item-name">
@@ -23,7 +22,7 @@
   </ng-template>
   <ng-template #renderRightTemplate let-items let-selectItem="onSelectItem" let-unselectItem="onUnselectItem">
     <thy-selection-list [thyMultiple]="true" class="thy-transfer-list-content" thyUniqueKey="_id">
-      @for (item of selectRight; track item) {
+      @for (item of selectRight; track $index) {
         <thy-list-item class="thy-transfer-list-content-item">
           <div class="d-flex flex-grow-1 align-items-center">
             <div class="item-name">
@@ -37,11 +36,9 @@
         </thy-list-item>
       }
     </thy-selection-list>
-    <div class="thy-transfer-list-group-name">
-      已添加项目
-    </div>
+    <div class="thy-transfer-list-group-name">已添加项目</div>
     <thy-selection-list [thyMultiple]="true" class="thy-transfer-list-content" thyUniqueKey="_id">
-      @for (item of addedProjectData; track item) {
+      @for (item of addedProjectData; track $index) {
         <thy-list-item class="thy-transfer-list-content-item">
           <div class="d-flex flex-grow-1 align-items-center">
             <div class="item-name">

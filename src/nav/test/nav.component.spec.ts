@@ -66,7 +66,7 @@ export class NavBasicComponent implements OnInit {
             [thyInsideClosable]="insideClosable"
             class="custom-nav"
             style="width: 100px;height: 50px;display:block">
-            @for (item of navLinks; track item; let i = $index) {
+            @for (item of navLinks; track $index; let i = $index) {
                 <a class="test-link" thyNavLink [thyNavItemActive]="item.isActive" [routerLink]="[item.name]" routerLinkActive="active">{{
                     item.name
                 }}</a>

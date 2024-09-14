@@ -43,7 +43,7 @@ export type ThyTimeDirection = 'horizontal' | 'vertical';
     providers: [ThyTimelineService],
     template: `
         <ng-container>
-            @for (item of timelineItems; track item) {
+            @for (item of timelineItems; track $index) {
                 <ng-template [ngTemplateOutlet]="item.template"></ng-template>
             }
             <ng-template>

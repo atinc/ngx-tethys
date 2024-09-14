@@ -199,7 +199,7 @@ class SingleSelectWithPreselectedArrayValuesComponent {
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
             <thy-select placeholder="Food" [(ngModel)]="selectedValues" name="food">
-                @for (item of values; track item) {
+                @for (item of values; track $index) {
                     <thy-option [thyValue]="item.value" [thyLabelText]="item.viewValue"></thy-option>
                 }
             </thy-select>

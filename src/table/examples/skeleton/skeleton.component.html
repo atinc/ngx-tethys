@@ -7,10 +7,8 @@
   </thy-radio-group>
 </div>
 <thy-button-group thySize="sm" thyType="outline-default" class="mb-2">
-  @for (item of sizes; track item) {
-    <button thyButton (click)="size = item.value" [ngClass]="{ active: item.value === size }">
-      {{ item.value }}({{ item.height }})
-    </button>
+  @for (item of sizes; track $index) {
+    <button thyButton (click)="size = item.value" [ngClass]="{ active: item.value === size }">{{ item.value }}({{ item.height }})</button>
   }
 </thy-button-group>
 <thy-table-skeleton [thyRowCount]="6" [thyTheme]="theme" [thySize]="size"> </thy-table-skeleton>

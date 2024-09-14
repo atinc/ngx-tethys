@@ -5,13 +5,12 @@
     [placeholder]="'自定义样式'"
     [thyAutocompleteWidth]="500"
     [thyAutocomplete]="auto"
-    (ngModelChange)="valueChange($event)"
-    />
+    (ngModelChange)="valueChange($event)" />
   <thy-autocomplete #auto>
-    @for (item of listOfOption; track item) {
+    @for (item of listOfOption; track $index) {
       <thy-option [thyLabelText]="item.label" [thyValue]="item.value" [thyShowOptionCustom]="true">
         <thy-icon thyIconName="task"></thy-icon>
-        <span style="margin-left: 5px;"> {{ item.label }} </span>
+        <span style="margin-left: 5px"> {{ item.label }} </span>
       </thy-option>
     }
   </thy-autocomplete>

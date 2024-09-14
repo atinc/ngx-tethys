@@ -1,5 +1,5 @@
 <thy-collapse>
-  @for (item of items; track item) {
+  @for (item of items; track $index) {
     <thy-collapse-item [thyTitle]="item.name" [thyActive]="true">{{ item.content }} </thy-collapse-item>
   }
 </thy-collapse>

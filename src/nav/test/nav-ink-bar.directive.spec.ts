@@ -16,7 +16,7 @@ import { ThyNavModule } from '../nav.module';
     selector: 'app-nav-ink-bar',
     template: `
         <thy-nav [thyType]="type" [thyVertical]="isVertical" [thyResponsive]="responsive">
-            @for (item of navLinks; track item; let i = $index) {
+            @for (item of navLinks; track $index; let i = $index) {
                 <a thyNavItem [thyNavItemActive]="activeName === item.name" (click)="activeName = item.name">{{ item.name }}</a>
             }
         </thy-nav>
@@ -89,7 +89,7 @@ const routes: Routes = [
     template: `
         <div style="width: 400px;height: 50px;">
             <thy-nav [thyType]="type" [thySize]="size">
-                @for (item of navLinks; track item) {
+                @for (item of navLinks; track $index) {
                     <a thyNavItem [routerLink]="[item.name]" routerLinkActive="active"
                         >{{ item.name }}
                         @if (item.count) {
@@ -122,7 +122,7 @@ export class NavInkBarRouterLinkActiveModeComponent implements OnInit {
     template: `
         <div style="width: 400px;">
             <thy-nav [thyType]="type" [thySize]="size">
-                @for (item of navLinks; track item) {
+                @for (item of navLinks; track $index) {
                     <a thyNavItem [thyNavItemActive]="item.name === activeName"
                         >{{ item.name }}
                         @if (item.count) {

@@ -5,9 +5,8 @@
     [thyMultiple]="true"
     [thyBeforeKeydown]="thyBeforeKeydown"
     [thyBindKeyEventContainer]="body"
-    (thySelectionChange)="selectionChange($event)"
-    >
-    @for (item of items; track item) {
+    (thySelectionChange)="selectionChange($event)">
+    @for (item of items; track $index) {
       <thy-list-option [thyValue]="item?.id">
         {{ item.name }}
       </thy-list-option>

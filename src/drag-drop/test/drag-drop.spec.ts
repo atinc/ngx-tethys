@@ -270,7 +270,7 @@ describe('with handle', () => {
             (thyDragDropped)="onDragDrop($event)"
             (thyDragEnded)="onDragEnd($event)"
             [thyDropContainerDisabled]="disabled">
-            @for (item of nodes; track item; let i = $index) {
+            @for (item of nodes; track $index; let i = $index) {
                 <li class="drag-item" [ngClass]="item.class" [thyDrag]="item" [thyDragDisabled]="i === nodes.length - 1">
                     <ng-template [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{ item: item, level: 0 }"></ng-template>
                 </li>
@@ -358,7 +358,7 @@ export class TestBasicDragDropComponent {
     selector: 'app-test-with-handle-drag-drop',
     template: `
         <ul [thyDropContainer]="basicNodes">
-            @for (item of basicNodes; track item) {
+            @for (item of basicNodes; track $index) {
                 <li [thyDrag]="item">
                     <span thyDragHandle [ngClass]="item.class" [thyDisabled]="item.handleDisabled" class="cursor-pointer">🖐️</span>
                     <span thyDragContent>{{ item.title }}</span>

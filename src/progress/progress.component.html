@@ -2,7 +2,7 @@
   @if (thyShape === 'strip') {
     <div class="thy-progress-strip-outer">
       @if (isStacked) {
-        @for (item of value; track item) {
+        @for (item of value; track $index) {
           <thy-progress-bar
             [thyType]="item.type"
             [ngClass]="{ 'cursor-pointer': item.tips || thyTips }"
@@ -22,8 +22,7 @@
             [thyTooltip]="thyTips"
             [thyTooltipTemplateContext]="value"
             [thyTooltipDisabled]="!thyTips"
-            [thyValue]="value"
-            >
+            [thyValue]="value">
           </thy-progress-bar>
         }
       }
@@ -44,15 +43,12 @@
       [thyMax]="max"
       [thyGapDegree]="thyGapDegree"
       [thyGapPosition]="thyGapPosition"
-      [thyStrokeWidth]="thyStrokeWidth"
-      >
+      [thyStrokeWidth]="thyStrokeWidth">
       <ng-template [ngTemplateOutlet]="contentTemplate"></ng-template
-      ></thy-progress-circle>
-    }
-  </ng-container>
+    ></thy-progress-circle>
+  }
+</ng-container>
 
-
-
-  <ng-template #contentTemplate>
-    <ng-content></ng-content>
-  </ng-template>
+<ng-template #contentTemplate>
+  <ng-content></ng-content>
+</ng-template>

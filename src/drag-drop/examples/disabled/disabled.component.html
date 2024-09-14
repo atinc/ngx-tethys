@@ -3,7 +3,7 @@
   <button *thySpaceItem (click)="disabled = false" thyButton="primary">启用拖拽</button>
 </thy-space>
 <thy-list [thyDropContainer]="nodes" [thyDropContainerDisabled]="disabled" (thyDragDropped)="onDragDrop($event)">
-  @for (item of nodes; track item) {
+  @for (item of nodes; track $index) {
     <thy-list-item [thyDrag]="item" [thyDragDisabled]="item.disabled">{{ item.title }}</thy-list-item>
   }
 </thy-list>

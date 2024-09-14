@@ -262,7 +262,7 @@ describe('ThySelectionList without forms', () => {
             [thyAutoActiveFirstItem]="autoActiveFirstItem"
             [thyBeforeKeydown]="thyBeforeKeydown"
             [thyUniqueKey]="uniqueKey">
-            @for (item of items; track item) {
+            @for (item of items; track $index) {
                 <thy-list-option [id]="item.id" [thyValue]="item.value">
                     {{ item.text }}
                 </thy-list-option>

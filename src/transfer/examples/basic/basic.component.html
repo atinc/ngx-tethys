@@ -7,17 +7,18 @@
     [thyRightLockMax]="maxLock"
     [thyRightMax]="8"
     (thyDraggableUpdate)="onDragUpdate($event)"
-    (thyChange)="onTransferChange($event)"
-    >
+    (thyChange)="onTransferChange($event)">
   </thy-transfer>
 </div>
 <div class="my-2">
-  锁定：@for (item of lockItems; track item) {
-  <span class="px-2">{{ item.title }}</span>
-}
+  锁定：
+  @for (item of lockItems; track $index) {
+    <span class="px-2">{{ item.title }}</span>
+  }
 </div>
 <div class="my-2">
-  未锁定：@for (item of unlockItems; track item) {
-  <span class="px-2">{{ item.title }}</span>
-}
+  未锁定：
+  @for (item of unlockItems; track $index) {
+    <span class="px-2">{{ item.title }}</span>
+  }
 </div>

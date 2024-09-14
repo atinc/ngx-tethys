@@ -228,23 +228,23 @@ describe('thy-anchor', () => {
             </thy-anchor>
             <div>
                 <h1 id="components-anchor-demo-basic">Basic demo</h1>
-                @for (item of demos; track item) {
+                @for (item of demos; track $index) {
                     <p>this is a demo</p>
                 }
                 <h1 id="components-anchor-demo-static">Static demo</h1>
-                @for (item of demos; track item) {
+                @for (item of demos; track $index) {
                     <p>this is a static demo</p>
                 }
                 <h1 id="API">API</h1>
-                @for (item of demos; track item) {
+                @for (item of demos; track $index) {
                     <p>this is a api</p>
                 }
                 <h1 id="anchor-props">API - thy-anchor</h1>
-                @for (item of demos; track item) {
+                @for (item of demos; track $index) {
                     <p>this is a api-anchor</p>
                 }
                 <h1 id="link-props">API - thy-anchor-link</h1>
-                @for (item of demos; track item) {
+                @for (item of demos; track $index) {
                     <p>this is a api-link</p>
                 }
             </div>
@@ -279,7 +279,7 @@ class TestAnchorComponent implements OnInit {
             </thy-anchor>
             <div>
                 <h1 id="components-anchor-demo-basic">Basic demo</h1>
-                @for (item of demos; track item) {
+                @for (item of demos; track $index) {
                     <p>this is a demo</p>
                 }
             </div>
