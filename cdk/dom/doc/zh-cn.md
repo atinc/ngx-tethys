@@ -81,7 +81,7 @@ export class ThyDomUseElementRendererTestComponent implements OnInit {
 ## 导入
 
 ```ts
-import { StealthViewBehavior, stealthViewBehavior, ThyStealthViewDirective } from "@tethys/cdk/dom";
+import { StealthViewRenderer, useStealthViewRenderer, ThyStealthViewDirective } from "@tethys/cdk/dom";
 
 ```
 
@@ -101,12 +101,12 @@ export class ThyStealthViewTestComponent implements OnInit {
     constructor() {}
 
     ngOnInit(): void {
-        this.thyStealthView.getNodes();
+        this.thyStealthView.rootNodes;
     }
 }
 ```
 
-也可以直接通过 stealthViewBehavior(templateRefInput: Signal<TemplateRef<SafeAny>> | TemplateRef<SafeAny>) 方法获取 Node
+也可以直接通过 useStealthViewRenderer(templateRefInput: Signal<TemplateRef<SafeAny>> | TemplateRef<SafeAny>) 方法获取 Node
 
 ```ts
 @Component({
@@ -125,7 +125,7 @@ export class ThyStealthViewTestComponent implements OnInit {
 
     ngOnInit(): void {
          runInInjectionContext(this.injector, () => {
-            stealthViewBehavior(this.templateRef).getNodes();
+            useStealthViewRenderer(this.templateRef).rootNodes;
         });
     }
 }
