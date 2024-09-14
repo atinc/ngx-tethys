@@ -19,7 +19,7 @@ import { NgTemplateOutlet } from '@angular/common';
 export class DateTableCell {
     isTemplateRef = isTemplateRef;
 
-    @Input() prefixCls: 'thy-calendar';
+    @Input() prefixCls: 'thy-calendar' | 'thy-calendar-full';
     @Input() cell: DateCell;
 
     isNonEmptyString = (v: any) => isEmpty(v) && isString(v);
