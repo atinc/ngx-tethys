@@ -1,7 +1,6 @@
 import { Component, OnInit, AfterViewInit, ChangeDetectionStrategy, Input, Renderer2, ElementRef, ViewChild } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 
-
 /**
  * 菜单项组件
  * @name thy-menu-item,[thy-menu-item],[thyMenuItem]
