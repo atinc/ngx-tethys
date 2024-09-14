@@ -1,6 +1,6 @@
 <p>配合 <code>cdkDrag</code> 还可以实现列表的拖拽排序。</p>
 <thy-list cdkDropList (cdkDropListDropped)="sort($event)">
-  @for (item of ListItems; track $index) {
+  @for (item of ListItems; track item) {
     <thy-list-item cdkDrag>
       <thy-icon thyIconName="drag" class="drag-handle"></thy-icon>
       {{ item }}

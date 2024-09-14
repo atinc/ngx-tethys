@@ -5,24 +5,30 @@
   </div>
 }
 @if (transparentColorSelectable) {
-  <div class="quick-color" [ngClass]="customDefaultColor ? 'mt-0 pt-0' : ''" (click)="selectColor('transparent')">
+  <div
+    class="quick-color"
+    [ngClass]="customDefaultColor ? 'mt-0 pt-0' : ''"
+    (click)="selectColor('transparent')"
+    >
     <div class="color-block"></div>
     <span class="ml-2 font-size-sm text-secondary">无填充色</span>
   </div>
 }
 <div class="main-content">
   <div class="default-color">
-    @for (item of defaultColors; track $index) {
+    @for (item of defaultColors; track item) {
       <ng-template [ngTemplateOutlet]="checkIconTpl" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
     }
   </div>
   <p class="font-size-sm text-secondary recent-text">最近使用自定义颜色</p>
   <div class="recent-color-container">
-    @for (item of recentColors; track $index) {
+    @for (item of recentColors; track item) {
       <ng-template [ngTemplateOutlet]="checkIconTpl" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
     }
     @if (recentColors.length === 0) {
-      <div class="font-size-sm px-1 text-muted">暂无</div>
+      <div class="font-size-sm px-1 text-muted">
+        暂无
+      </div>
     }
   </div>
 </div>
@@ -37,12 +43,12 @@
     class="color-item"
     [ngStyle]="{ background: colorItem }"
     [ngClass]="colorItem === '#FFFFFF' ? 'item-border' : ''"
-    (click)="selectColor(colorItem)">
+    (click)="selectColor(colorItem)"
+    >
     <thy-icon
       thyIconName="check-thick"
       class="check-icon"
-      [ngClass]="
-        color === colorItem ? (getIconColor(colorItem) === 'white' ? 'checked white-check' : 'checked black-check') : ''
-      "></thy-icon>
+      [ngClass]="color === colorItem ? (getIconColor(colorItem) === 'white' ? 'checked white-check' : 'checked black-check') : ''"
+    ></thy-icon>
   </div>
 </ng-template>

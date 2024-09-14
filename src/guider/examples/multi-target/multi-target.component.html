@@ -1,5 +1,5 @@
 <div class="d-flex mb-4" [style.width]="'300px'">
-  @for (item of [0, 1, 2]; track $index; let i = $index) {
+  @for (item of [0, 1, 2]; track item; let i = $index) {
     <div class="target-item align-items-center" [ngStyle]="{ display: 'flex', 'flex-direction': 'column', width: '100px', height: '50px' }">
       <thy-switch thySize="sm" [(ngModel)]="targetConfig['target' + item]" thyStopPropagation></thy-switch>
       @if (targetConfig['target' + item]) {

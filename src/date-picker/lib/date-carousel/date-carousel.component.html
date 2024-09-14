@@ -1,11 +1,14 @@
 <ng-container
-  *ngTemplateOutlet="carouselItem; context: { title: '年份', type: 'year', selectableData: selectableData.year }"></ng-container>
+  *ngTemplateOutlet="carouselItem; context: { title: '年份', type: 'year', selectableData: selectableData.year }"
+></ng-container>
 
 <ng-container
-  *ngTemplateOutlet="carouselItem; context: { title: '季度', type: 'quarter', selectableData: selectableData.quarter }"></ng-container>
+  *ngTemplateOutlet="carouselItem; context: { title: '季度', type: 'quarter', selectableData: selectableData.quarter }"
+></ng-container>
 
 <ng-container
-  *ngTemplateOutlet="carouselItem; context: { title: '月份', type: 'month', selectableData: selectableData.month }"></ng-container>
+  *ngTemplateOutlet="carouselItem; context: { title: '月份', type: 'month', selectableData: selectableData.month }"
+></ng-container>
 
 <ng-template #carouselItem let-title="title" let-selectableData="selectableData" let-type="type">
   <div class="carousel-item carousel-item-{{ type }}">
@@ -14,13 +17,14 @@
       <button thyButton="outline-default" thySize="sm" class="right-space" (click)="prevClick(type)">
         <thy-icon thyIconName="angle-left"></thy-icon>
       </button>
-      @for (item of selectableData; track $index) {
+      @for (item of selectableData; track item) {
         <div
           class="selectable-button right-space"
           (click)="selectDate(type, item)"
           (mouseenter)="onMouseenter($event, type, item)"
           (mouseleave)="onMouseleave($event, type, item)"
-          [ngClass]="item.classMap">
+          [ngClass]="item.classMap"
+          >
           @if (item | showYearTip: type) {
             <span class="year-tip">{{ item?.startValue?.getYear() }}</span>
           }

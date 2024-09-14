@@ -68,7 +68,7 @@ export class TestTimelineCustomHorizontalComponent {
 @Component({
     template: `
         <thy-timeline>
-            @for (item of timelineItems; track $index) {
+            @for (item of timelineItems; track item) {
                 <thy-timeline-item></thy-timeline-item>
             }
         </thy-timeline>

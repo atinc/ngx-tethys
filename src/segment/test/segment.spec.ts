@@ -125,7 +125,7 @@ class TestSegmentActiveComponent {
     selector: 'test-segment-custom-template',
     template: `
         <thy-segment>
-            @for (item of items; track $index) {
+            @for (item of items; track item) {
                 <thy-segment-item [thyValue]="item.value">
                     <div style="padding: 8px 0px 4px;">
                         <thy-avatar thySize="sm" [thyName]="item.avatar"></thy-avatar>

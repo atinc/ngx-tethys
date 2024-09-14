@@ -4,7 +4,8 @@
   [thyTooltipPlacement]="tooltipConfig.placement"
   [thyTooltipDisabled]="tooltipConfig.disabled"
   [thyTooltipOffset]="tooltipConfig.offset"
-  thyButton="primary">
+  thyButton="primary"
+  >
   Tooltip 内使用模板
 </button>
 <ng-template #hello>
@@ -19,14 +20,15 @@
   [thyTooltipPlacement]="tooltipConfig.placement"
   [thyTooltipDisabled]="tooltipConfig.disabled"
   [thyTooltipOffset]="tooltipConfig.offset"
-  thyButton="primary">
+  thyButton="primary"
+  >
   Tooltip 内带有数据的模板
 </button>
 <ng-template #world let-data>
   <div>
     <i class="wtf wtf-help-question-o"></i>
     My custom tooltip message with template data
-    @for (item of data.values; track $index) {
+    @for (item of data.values; track item) {
       <div>
         {{ item }}
       </div>

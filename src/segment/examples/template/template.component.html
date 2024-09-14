@@ -1,8 +1,8 @@
 <div style="width: 370px">
   <thy-segment>
-    @for (item of items; track $index) {
+    @for (item of items; track item) {
       <thy-segment-item [thyValue]="item.value">
-        <div style="padding: 8px 0px 4px">
+        <div style="padding: 8px 0px 4px;">
           <thy-avatar thySize="sm" [thyName]="item.avatar"></thy-avatar>
           <div>{{ item.labelText }}</div>
         </div>
@@ -10,7 +10,7 @@
     }
 
     <thy-segment-item thyValue="hexie">
-      <div style="padding: 8px 0px 4px">
+      <div style="padding: 8px 0px 4px;">
         <thy-avatar thySize="sm" [thyName]="'HeXie'"></thy-avatar>
         <div>⭐️和谐⭐️</div>
       </div>

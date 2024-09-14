@@ -1,5 +1,5 @@
 <thy-list [thyDropContainer]="nodes" (thyDragDropped)="onDragDrop($event)">
-  @for (item of nodes; track $index) {
+  @for (item of nodes; track item) {
     <thy-list-item [thyDrag]="item">{{ item.title }}</thy-list-item>
   }
 </thy-list>

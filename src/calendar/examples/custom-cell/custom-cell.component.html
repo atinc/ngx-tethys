@@ -2,21 +2,21 @@
   <ul *thyDateCell="let date">
     @switch (date.getDate()) {
       @case (8) {
-        @for (item of listDataMap.eight; track $index) {
+        @for (item of listDataMap.eight; track item) {
           <li>
             {{ item.content }}
           </li>
         }
       }
       @case (10) {
-        @for (item of listDataMap.ten; track $index) {
+        @for (item of listDataMap.ten; track item) {
           <li>
             {{ item.content }}
           </li>
         }
       }
       @case (11) {
-        @for (item of listDataMap.eleven; track $index) {
+        @for (item of listDataMap.eleven; track item) {
           <li>
             {{ item.content }}
           </li>

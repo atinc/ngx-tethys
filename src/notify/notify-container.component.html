@@ -1,20 +1,20 @@
 <div class="thy-notify-bottomRight" [style.bottom.px]="offset" [style.right.px]="offset">
-  @for (item of notifyQueue.bottomRightQueues$ | async; track $index) {
+  @for (item of notifyQueue.bottomRightQueues$ | async; track item) {
     <thy-notify [thyConfig]="item.config"></thy-notify>
   }
 </div>
 <div class="thy-notify-bottomLeft" [style.bottom.px]="offset" [style.left.px]="offset">
-  @for (item of notifyQueue.bottomLeftQueues$ | async; track $index) {
+  @for (item of notifyQueue.bottomLeftQueues$ | async; track item) {
     <thy-notify [thyConfig]="item.config"></thy-notify>
   }
 </div>
 <div class="thy-notify-topLeft" [style.top.px]="offset" [style.left.px]="offset">
-  @for (item of notifyQueue.topLeftQueues$ | async; track $index) {
+  @for (item of notifyQueue.topLeftQueues$ | async; track item) {
     <thy-notify [thyConfig]="item.config"></thy-notify>
   }
 </div>
 <div class="thy-notify-topRight" [style.top.px]="offset" [style.right.px]="offset">
-  @for (item of notifyQueue.topRightQueues$ | async; track $index) {
+  @for (item of notifyQueue.topRightQueues$ | async; track item) {
     <thy-notify [thyConfig]="item.config"></thy-notify>
   }
 </div>

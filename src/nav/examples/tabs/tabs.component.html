@@ -1,5 +1,5 @@
 <thy-nav thyType="tabs">
-  @for (item of navList; track $index) {
+  @for (item of navList; track item) {
     <a
       href="javascript:;"
       thyNavItem
@@ -7,6 +7,6 @@
       [thyNavItemDisabled]="item.disabled"
       (click)="activeIndex = item.index"
       >{{ item.name }}</a
-    >
-  }
-</thy-nav>
+      >
+    }
+  </thy-nav>

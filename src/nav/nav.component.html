@@ -9,7 +9,8 @@
       #moreOperationContainer
       thyNavLink
       [thyNavLinkActive]="moreActive"
-      (click)="openMore($event, navListPopover)">
+      (click)="openMore($event, navListPopover)"
+      >
       @if (moreOperation) {
         <ng-container [ngTemplateOutlet]="moreOperation"></ng-container>
       } @else {
@@ -23,16 +24,20 @@
 
 <ng-template #navListPopover>
   @if (morePopover) {
-    <ng-container [ngTemplateOutlet]="morePopover" [ngTemplateOutletContext]="{ $implicit: hiddenItems }"></ng-container>
+    <ng-container
+      [ngTemplateOutlet]="morePopover"
+      [ngTemplateOutletContext]="{ $implicit: hiddenItems }"
+    ></ng-container>
   } @else {
     <thy-dropdown-menu thyImmediateRender>
-      @for (item of hiddenItems; track $index) {
+      @for (item of hiddenItems; track item) {
         <span
           class="thy-nav-item-more"
           thyDropdownMenuItem
           [thyDropdownMenuItemActive]="item.isActive"
           (click)="navItemClick(item)"
-          [innerHTML]="item.elementRef.nativeElement.innerHTML | bypassSecurityTrustHtml"></span>
+          [innerHTML]="item.elementRef.nativeElement.innerHTML | bypassSecurityTrustHtml"
+        ></span>
       }
     </thy-dropdown-menu>
   }

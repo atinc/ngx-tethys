@@ -99,7 +99,7 @@
     @if (isShowSearchPanel) {
       @if (searchResultList.length) {
         <ul class="thy-cascader-search-list py-3" [ngStyle]="thySearchListStyle">
-          @for (item of searchResultList; track $index) {
+          @for (item of searchResultList; track item) {
             <li
               thy-cascader-search-option
               [multiple]="thyMultiple"

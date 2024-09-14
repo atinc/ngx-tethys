@@ -1,12 +1,12 @@
 <thy-button-group thySize="sm" thyType="outline-default">
-  @for (item of sizes; track $index) {
+  @for (item of sizes; track item) {
     <button thyButton (click)="size = item.value" [ngClass]="{ active: size === item.value }">
       {{ item.value }}（{{ item.height }}px）
     </button>
   }
 </thy-button-group>
 
-<div style="width: 270px" class="mt-4">
+<div style="width: 270px;" class="mt-4">
   <thy-segment [thySize]="size">
     <thy-segment-item thyValue="member">成员</thy-segment-item>
     <thy-segment-item thyValue="department">部门</thy-segment-item>
@@ -14,7 +14,7 @@
   </thy-segment>
 </div>
 
-<div style="width: 180px" class="mt-4">
+<div style="width:180px" class="mt-4">
   <thy-segment [thySize]="size">
     <thy-segment-item thyValue="1" thyIcon="list">列表</thy-segment-item>
     <thy-segment-item thyValue="2" thyIcon="paperclip">对齐</thy-segment-item>

@@ -11,11 +11,11 @@
   }"
   cd>
   <h1 id="basic">Basic</h1>
-  @for (item of demos; track $index) {
+  @for (item of demos; track item) {
     <p>this is a basic</p>
   }
   <h1 id="static">Static</h1>
-  @for (item of demos; track $index) {
+  @for (item of demos; track item) {
     <p>this is a static</p>
   }
 </div>

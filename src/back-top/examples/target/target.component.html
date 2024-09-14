@@ -1,7 +1,9 @@
 <p>Scroll down to see the bottom-right thy-back-top button</p>
 <div class="long-div" #divTarget>
-  @for (item of demos; track $index) {
-    <p>this is a demo</p>
+  @for (item of demos; track item) {
+    <p>
+      this is a demo
+    </p>
   }
   <thy-back-top (visibleChange)="visibleChange($event)" (thyClick)="click($event)" [thyContainer]="divTarget"></thy-back-top>
 </div>
