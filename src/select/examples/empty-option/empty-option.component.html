@@ -1,7 +1,7 @@
 <thy-select thyEmptyStateText="无任何选择项" thyPlaceHolder="无任何选择项" style="width: 500px"></thy-select>
 <br />
 <thy-select thyEmptySearchMessageText="搜索结果为空" thyPlaceHolder="搜索结果为空" [thyShowSearch]="true" style="width: 500px">
-  @for (option of listOfOption; track $index) {
+  @for (option of listOfOption; track option) {
     <thy-option [thyValue]="option.value" [thyLabelText]="option.text"></thy-option>
   }
 </thy-select>

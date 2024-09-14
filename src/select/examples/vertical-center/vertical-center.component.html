@@ -1,13 +1,13 @@
 <div class="demo-card">
   <thy-button-group thySize="md" thyType="outline-default">
-    @for (size of selectSizes; track $index) {
+    @for (size of selectSizes; track size) {
       <button thyButton (click)="currentSize = size" [ngClass]="{ active: size === currentSize }">
         {{ size.name }} - {{ size.height }}px
       </button>
     }
   </thy-button-group>
   <thy-select thyPlaceHolder="请选择" [thySize]="currentSize.name" ngModel="option1" [thyAllowClear]="true" [thyShowSearch]="true">
-    @for (option of listOfOption; track $index) {
+    @for (option of listOfOption; track option) {
       <thy-option [thyValue]="option.value" [thyRawValue]="option" [thyLabelText]="option.text" thyShowOptionCustom="true">
         <thy-dot thyColor="primary" thySize="md" class="mr-2"></thy-dot>
         <span class="text-truncate">{{ option?.text }}</span>
@@ -26,7 +26,7 @@
     </ng-template>
   </thy-select>
   <thy-select thyPlaceHolder="请选择" [thySize]="currentSize.name" ngModel="option1" [thyAllowClear]="true" [thyShowSearch]="true">
-    @for (option of listOfOption; track $index) {
+    @for (option of listOfOption; track option) {
       <thy-option [thyValue]="option.value" [thyRawValue]="option" [thyLabelText]="option.text" thyShowOptionCustom="true">
         <div thyFlex class="w-100 justify-content-between">
           <span class="text-truncate">{{ option?.text }}</span>
@@ -53,7 +53,7 @@
     </ng-template>
   </thy-select>
   <thy-select thyPlaceHolder="请选择" [thySize]="currentSize.name" ngModel="option1" [thyAllowClear]="true" [thyShowSearch]="true">
-    @for (option of listOfOption; track $index) {
+    @for (option of listOfOption; track option) {
       <thy-option [thyValue]="option.value" [thyRawValue]="option" [thyLabelText]="option.text" thyShowOptionCustom="true">
         <thy-avatar [thySrc]="avatarSrc" thyName="张学友" class="mr-2"></thy-avatar>
         <span class="text-truncate">{{ option?.text }}</span>
@@ -72,7 +72,7 @@
     </ng-template>
   </thy-select>
   <thy-select thyPlaceHolder="请选择" [thySize]="currentSize.name" ngModel="option1" [thyAllowClear]="true" [thyShowSearch]="true">
-    @for (option of listOfOption; track $index) {
+    @for (option of listOfOption; track option) {
       <thy-option [thyValue]="option.value" [thyRawValue]="option" [thyLabelText]="option.text" thyShowOptionCustom="true">
         <span thyText>
           <thy-icon thyIconName="bell" class="mr-2"></thy-icon>
@@ -93,7 +93,7 @@
     </ng-template>
   </thy-select>
   <thy-select thyPlaceHolder="请选择" [thySize]="currentSize.name" thyMode="multiple" [(ngModel)]="listOfSelectedValue">
-    @for (option of listOfOption; track $index) {
+    @for (option of listOfOption; track option) {
       <thy-option [thyValue]="option.value" [thyRawValue]="option" [thyLabelText]="option.text" thyShowOptionCustom="true">
         <thy-dot thyColor="primary" thySize="md" class="mr-2"></thy-dot>
         <span class="text-truncate">{{ option?.text }}</span>
@@ -112,7 +112,7 @@
     </ng-template>
   </thy-select>
   <thy-select thyPlaceHolder="请选择" [thySize]="currentSize.name" thyMode="multiple" [(ngModel)]="listOfSelectedValue">
-    @for (option of listOfOption; track $index) {
+    @for (option of listOfOption; track option) {
       <thy-option [thyValue]="option.value" [thyRawValue]="option" [thyLabelText]="option.text" thyShowOptionCustom="true">
         <span thyText>
           <thy-icon thyIconName="bell" class="mr-2"></thy-icon>

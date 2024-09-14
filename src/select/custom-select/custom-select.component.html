@@ -19,7 +19,7 @@
   (thyOnSearch)="onSearchFilter($event)"
   (thyOnBlur)="onBlur($event)"
   [thyMaxTagCount]="thyMaxTagCount"
-  [thyPreset]="thyPreset"></div>
+[thyPreset]="thyPreset"></div>
 
 <ng-template
   cdk-connected-overlay
@@ -81,17 +81,21 @@
 </ng-template>
 
 <thy-options-container #optionsContainer>
-  @for (option of optionGroups; track $index) {
+  @for (option of optionGroups; track option) {
     @if (!option.children) {
       <thy-option
         [thyDisabled]="option.disabled"
         [thyLabelText]="option.label"
         [thyValue]="option.value"
-        [thyRawValue]="option"></thy-option>
+      [thyRawValue]="option"></thy-option>
     } @else {
       <thy-option-group [thyGroupLabel]="option.groupLabel">
         @for (sub of option.children; track sub) {
-          <thy-option [thyDisabled]="sub.disabled" [thyLabelText]="sub.label" [thyValue]="sub.value" [thyRawValue]="sub"></thy-option>
+          <thy-option
+            [thyDisabled]="sub.disabled"
+            [thyLabelText]="sub.label"
+            [thyValue]="sub.value"
+          [thyRawValue]="sub"></thy-option>
         }
       </thy-option-group>
     }

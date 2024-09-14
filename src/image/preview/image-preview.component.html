@@ -18,7 +18,8 @@
       thyTooltip="退出预览"
       href="javascript:;"
       (click)="thyFullscreen.exit()"
-      thyTooltip="退出全屏"></a>
+      thyTooltip="退出全屏"
+    ></a>
   }
   <div
     class="thy-image-preview-img-wrapper"
@@ -27,10 +28,16 @@
     [class.thy-image-preview-inside]="isInsideScreen"
     [style.transform]="previewImageWrapperTransform"
     [cdkDragFreeDragPosition]="position"
-    (cdkDragReleased)="dragReleased()">
+    (cdkDragReleased)="dragReleased()"
+    >
     @for (image of images; track image; let imageIndex = $index) {
       @if (previewIndex === imageIndex && isLoadingDone) {
-        <img #imgRef class="thy-image-preview-img" [src]="image.objectURL || image.src" [style.transform]="previewImageTransform" />
+        <img
+          #imgRef
+          class="thy-image-preview-img"
+          [src]="image.objectURL || image.src"
+          [style.transform]="previewImageTransform"
+          />
       }
     }
     <thy-loading [thyDone]="isLoadingDone"></thy-loading>
@@ -42,7 +49,8 @@
       [thyTooltipDisabled]="previewIndex <= 0"
       thyTooltip="上一张"
       [class.thy-image-preview-switch-left-disabled]="previewIndex <= 0"
-      (click)="prev()">
+      (click)="prev()"
+      >
       <thy-icon thyIconName="angle-left-bold"></thy-icon>
     </div>
     <div
@@ -50,13 +58,14 @@
       thyTooltip="下一张"
       [thyTooltipDisabled]="previewIndex >= images.length - 1"
       [class.thy-image-preview-switch-right-disabled]="previewIndex >= images.length - 1"
-      (click)="next()">
+      (click)="next()"
+      >
       <thy-icon thyIconName="angle-right-bold"> </thy-icon>
     </div>
   }
   @if (!isFullScreen) {
     <thy-actions thySize="xs" class="thy-image-preview-operations py-3 px-4">
-      @for (option of previewOperations; track $index; let i = $index) {
+      @for (option of previewOperations; track option; let i = $index) {
         @if (!['original-scale', 'fit-screen', 'copyLink'].includes(option.type) || currentImageMode === option.type) {
           <a
             href="javascript:;"
@@ -64,7 +73,8 @@
             [thyActionIcon]="option.icon"
             [thyTooltip]="option.name"
             [thyTooltipOffset]="13"
-            (click)="option.action(previewImage)"></a>
+            (click)="option.action(previewImage)"
+          ></a>
         }
         @if (option?.type === 'zoom-out') {
           <span class="mr-2"> {{ (zoom * 100).toFixed(0) + '%' }} </span>
@@ -81,7 +91,8 @@
             [thyCopyTipsOffset]="13"
             (thyCopy)="copyLink($event)"
             [thyCopyContent]="previewImageOriginSrc"
-            [thyShowNotify]="false"></a>
+            [thyShowNotify]="false"
+          ></a>
         }
       }
       <thy-divider [thyVertical]="true"></thy-divider>

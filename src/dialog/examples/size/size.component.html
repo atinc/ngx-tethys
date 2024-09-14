@@ -1,5 +1,5 @@
 <div class="btn-pair">
-  @for (size of dialogSizes; track $index) {
+  @for (size of dialogSizes; track size) {
     <button thyButton="primary" (click)="openDialog(size.value)">{{ size.value }} - {{ size.width }}</button>
   }
 </div>

@@ -2,7 +2,7 @@
   <div>updateOn</div>
   <div class="col-sm-2 col-form-control">
     <thy-select [(ngModel)]="updateOn" (ngModelChange)="changeUpdateOn($event)">
-      @for (option of updateOnList; track $index) {
+      @for (option of updateOnList; track option) {
         <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
       }
     </thy-select>
@@ -10,7 +10,7 @@
   <div>validateOn</div>
   <div class="col-sm-2 col-form-control">
     <thy-select [(ngModel)]="validateOn" (ngModelChange)="changeUpdateOn($event)">
-      @for (option of updateOnList; track $index) {
+      @for (option of updateOnList; track option) {
         <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
       }
     </thy-select>
@@ -40,7 +40,7 @@
         name="customersSelect"
         [thyShowSearch]="true"
         [thyAllowClear]="true">
-        @for (option of listOfOption; track $index) {
+        @for (option of listOfOption; track option) {
           <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
         }
       </thy-select>
@@ -59,7 +59,7 @@
         name="customersMultiSelect"
         [thyShowSearch]="true"
         [thyAllowClear]="true">
-        @for (option of listOfOption; track $index) {
+        @for (option of listOfOption; track option) {
           <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
         }
       </thy-select>
@@ -85,13 +85,7 @@
       </thy-radio-group>
     </thy-form-group>
     <thy-form-group thyLabelText="Checkbox" thyLabelRequired thyLabelPaddingTopClear="true">
-      <label
-        [(ngModel)]="model.checkbox"
-        thyCheckbox
-        name="checkbox"
-        formControlName="checkbox"
-        thyLabelText="Option1"
-        thyValue="1"></label>
+      <label [(ngModel)]="model.checkbox" thyCheckbox name="checkbox" formControlName="checkbox" thyLabelText="Option1" thyValue="1"></label>
       <label thyCheckbox name="checkbox1" formControlName="checkbox1" thyLabelText="Option2" thyValue="2"></label>
       <label thyCheckbox name="checkbox2" formControlName="checkbox2" thyLabelText="Option3" thyValue="3"></label>
     </thy-form-group>
@@ -110,7 +104,7 @@
         [thyOffset]="10"
         name="color"
         formControlName="color"
-        [(ngModel)]="model.color"></div>
+      [(ngModel)]="model.color"></div>
     </thy-form-group>
     <thy-form-group thyLabelText="slider" thyLabelRequired class="d-flex align-items-center">
       <thy-slider [(ngModel)]="model.slider" name="slider" formControlName="slider"></thy-slider>

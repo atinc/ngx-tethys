@@ -115,7 +115,7 @@ export class TestFormFullComponent {
                         name="customersSelect"
                         [thyShowSearch]="true"
                         [thyAllowClear]="true">
-                        @for (option of listOfOption; track $index) {
+                        @for (option of listOfOption; track option) {
                             <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
                         }
                     </thy-select>

@@ -426,7 +426,7 @@ class CascaderLoadComponent {
         <ng-template #renderTpl let-labels="labels" let-selectedOptions="selectedOptions">
             <ng-container>
                 {{ isDisplay(labels) }}
-                @for (label of labels; track $index; let i = $index; let isLast = $last) {
+                @for (label of labels; track label; let i = $index; let isLast = $last) {
                     @if (!isLast) {
                         <span class="display-name-no-last">{{ label }} / </span>
                     }

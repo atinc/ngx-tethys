@@ -13,7 +13,7 @@
     </a>
 
     <span class="{{ prefixCls }}-my-select">
-      @for (selector of selectors; track $index) {
+      @for (selector of selectors; track selector) {
         <a class="{{ selector.className }}" role="button" (click)="selectorClick($event, selector)" title="{{ selector.title || null }}">
           {{ selector.label }}
         </a>

@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
     selector: 'thy-slider-type',
     template: `
         <thy-radio-group [(ngModel)]="typeValue" class="mb-2">
-            @for (type of types; track $index) {
+            @for (type of types; track type) {
                 <label thyRadioButton [thyLabelText]="type" [thyValue]="type"></label>
             }
         </thy-radio-group>

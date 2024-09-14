@@ -1,12 +1,13 @@
-<div class="mb-10" style="width: 200px">
-  @for (size of sizes; track $index) {
+<div class="mb-10" style="width: 200px;">
+  @for (size of sizes; track size) {
     <thy-input-number
       [(ngModel)]="value"
       thyPrecision="2"
       [thyMax]="max"
       [thyStep]="step"
       [thySize]="size"
-      (ngModelChange)="change($event)"></thy-input-number>
+      (ngModelChange)="change($event)"
+    ></thy-input-number>
     <br />
   }
 </div>

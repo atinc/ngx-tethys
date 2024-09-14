@@ -52,7 +52,7 @@
     [@scaleYMotion]="'enter'">
     @if (!isShowSearchPanel) {
       @if (columns.length > 0) {
-        @for (options of columns; track $index; let i = $index; let isFirst = $first) {
+        @for (options of columns; track options; let i = $index; let isFirst = $first) {
           <ul #cascaderOptionContainers [ngClass]="menuColumnCls">
             @if (thyCustomOptions && thyCustomOptions.length > 0 && isFirst) {
               @for (customOpt of thyCustomOptions; track trackByFn($index, customOpt)) {

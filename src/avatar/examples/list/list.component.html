@@ -1,6 +1,6 @@
 <div>
   <thy-avatar-list>
-    @for (name of names; track $index) {
+    @for (name of names; track name) {
       <thy-avatar
         [thyName]="name"
         [thyRemovable]="true"
@@ -16,7 +16,7 @@
 
 <div class="mt-4">
   <thy-avatar-list [thyMode]="'overlap'">
-    @for (name of names; track $index) {
+    @for (name of names; track name) {
       <thy-avatar [thyName]="name" [thySrc]="name === 'Chan' ? avatarSrc : ''"></thy-avatar>
     }
 

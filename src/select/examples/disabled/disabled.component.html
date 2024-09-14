@@ -1,29 +1,37 @@
 <div>
   <div class="mb-2">单选选择框禁用：</div>
   <thy-select ngModel="option1" [thyDisabled]="true">
-    @for (option of listOfOption; track $index) {
+    @for (option of listOfOption; track option) {
       <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
     }
   </thy-select>
 
   <div class="mb-2">多选选择框禁用：</div>
   <thy-select ngModel="option1" thyMode="multiple" [thyDisabled]="true" [(ngModel)]="listOfSelectedValue">
-    @for (option of listOfOption; track $index) {
+    @for (option of listOfOption; track option) {
       <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
     }
   </thy-select>
 
   <div class="mb-2">单选下拉选项禁用：</div>
   <thy-select ngModel="option1">
-    @for (option of listOfOption; track $index; let i = $index) {
-      <thy-option [thyDisabled]="i % 2 !== 0" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+    @for (option of listOfOption; track option; let i = $index) {
+      <thy-option
+        [thyDisabled]="i % 2 !== 0"
+        [thyValue]="option.value"
+        [thyLabelText]="option.text">
+      </thy-option>
     }
   </thy-select>
 
   <div class="mb-2">多选下拉选项禁用：</div>
   <thy-select ngModel="option1" thyMode="multiple" [(ngModel)]="listOfSelectedValue">
-    @for (option of listOfOption; track $index; let i = $index) {
-      <thy-option [thyDisabled]="i % 2 !== 0" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+    @for (option of listOfOption; track option; let i = $index) {
+      <thy-option
+        [thyDisabled]="i % 2 !== 0"
+        [thyValue]="option.value"
+        [thyLabelText]="option.text">
+      </thy-option>
     }
   </thy-select>
 </div>

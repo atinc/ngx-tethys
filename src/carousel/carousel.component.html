@@ -12,15 +12,17 @@
   }
   @if (thyIndicators) {
     <div class="thy-carousel-indicators">
-      @for (content of carouselItems; track $index; let i = $index) {
+      @for (content of carouselItems; track content; let i = $index) {
         <span
           class="thy-carousel-indicator"
           (mouseenter)="indicatorHandleTrigger(i)"
           (mouseleave)="indicatorHandleLeave()"
-          (click)="indicatorHandleClick(i)">
+          (click)="indicatorHandleClick(i)"
+          >
           <ng-template
             [ngTemplateOutlet]="thyIndicatorRender || defaultIndicatorRender"
-            [ngTemplateOutletContext]="{ $implicit: i === activeIndex }"></ng-template>
+            [ngTemplateOutletContext]="{ $implicit: i === activeIndex }"
+          ></ng-template>
         </span>
       }
     </div>
