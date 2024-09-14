@@ -20,7 +20,6 @@ import { useStealthViewRenderer } from '../stealth-view-renderer';
     imports: [ThyStealthViewDirective]
 })
 class ThyStealthViewDirectiveTestComponent implements AfterViewInit {
-
     @ViewChild(ThyStealthViewDirective) thyStealthView: ThyStealthViewDirective;
 
     templateRef = viewChild('testStealth', { read: TemplateRef });
