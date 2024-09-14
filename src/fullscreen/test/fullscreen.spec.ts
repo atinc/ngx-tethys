@@ -261,9 +261,7 @@ class ThyContainerFullscreenComponent {
     template: `
         <thy-fullscreen>
             <div fullscreen-target [style.backgroundColor]="'#fff'">
-                @if (fullscreenLaunchShown) {
-                    <button thyFullscreenLaunch class="fullscreen-button">全屏</button>
-                }
+                <button *ngIf="fullscreenLaunchShown" thyFullscreenLaunch class="fullscreen-button">全屏</button>
             </div>
         </thy-fullscreen>
     `

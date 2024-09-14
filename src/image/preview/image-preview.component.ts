@@ -1,5 +1,5 @@
 import { CdkDrag } from '@angular/cdk/drag-drop';
-
+import { NgFor, NgIf } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -55,7 +55,7 @@ const VERTICAL_SPACE = 96 + 106; // top: 96px; bottom: 106px
         '[class.thy-image-preview-moving]': 'isDragging'
     },
     standalone: true,
-    imports: [ThyTooltipDirective, ThyAction, CdkDrag, ThyLoading, ThyIcon, ThyActions, ThyDivider, ThyCopyDirective]
+    imports: [NgIf, ThyTooltipDirective, ThyAction, CdkDrag, NgFor, ThyLoading, ThyIcon, ThyActions, ThyDivider, ThyCopyDirective]
 })
 export class ThyImagePreview implements OnInit {
     @Output() downloadClicked: EventEmitter<ThyImageInfo> = new EventEmitter();

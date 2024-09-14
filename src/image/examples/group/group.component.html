@@ -1,13 +1,13 @@
 <div>标签方式使用：</div>
 <thy-image-group>
-  @for (image of images; track image) {
+  <ng-container *ngFor="let image of images">
     <img thyImage width="200px" height="200px" [thySrc]="image.src" [thyImageMeta]="image.imageMeta" [thyOriginSrc]="image.origin.src" />
-  }
+  </ng-container>
 </thy-image-group>
 
 <div>指令方式使用：</div>
 <div thyImageGroup>
-  @for (image of images; track image) {
+  <ng-container *ngFor="let image of images">
     <img thyImage width="200px" height="200px" [thySrc]="image.src" [thyImageMeta]="image.imageMeta" [thyOriginSrc]="image.origin.src" />
-  }
+  </ng-container>
 </div>
