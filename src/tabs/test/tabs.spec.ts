@@ -115,9 +115,9 @@ class TestTabsActiveComponent {
         <button class="mb-2" thyButton="outline-default" (click)="addTab()">添加</button>
 
         <thy-tabs [thyActiveTab]="activeTab" [thyAnimated]="thyAnimated">
-            @for (tab of tabs; track trackByFn(i, tab); let i = $index) {
+            <ng-container *ngFor="let tab of tabs; let i = index; trackBy: trackByFn">
                 <thy-tab [id]="tab.id" [thyTitle]="tab.title">Tab{{ i + 1 }} Content</thy-tab>
-            }
+            </ng-container>
         </thy-tabs>
     `
 })

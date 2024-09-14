@@ -1,9 +1,7 @@
 <thy-button-group thySize="sm" thyType="outline-default" class="mb-4">
-  @for (item of ['top', 'left']; track item) {
-    <button thyButton (click)="position = item" [ngClass]="{ active: position === item }">
-      {{ item }}
-    </button>
-  }
+  <button thyButton *ngFor="let item of ['top', 'left']" (click)="position = item" [ngClass]="{ active: position === item }">
+    {{ item }}
+  </button>
 </thy-button-group>
 
 <thy-tabs [thyPosition]="position">

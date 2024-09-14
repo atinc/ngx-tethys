@@ -7,13 +7,7 @@
 </thy-tabs>
 
 <ng-template #extraTemplate>
-  @if (activeTab === 'tab1') {
-    <button thyButton="outline-default" thySize="md">Tab1 Extra Action</button>
-  }
-  @if (activeTab === 'tab2') {
-    <button thyButton="outline-default" thySize="md">Tab2 Extra Action</button>
-  }
-  @if (activeTab === 'tab3') {
-    <button thyButton="outline-default" thySize="md">Tab3 Extra Action</button>
-  }
+  <button *ngIf="activeTab === 'tab1'" thyButton="outline-default" thySize="md">Tab1 Extra Action</button>
+  <button *ngIf="activeTab === 'tab2'" thyButton="outline-default" thySize="md">Tab2 Extra Action</button>
+  <button *ngIf="activeTab === 'tab3'" thyButton="outline-default" thySize="md">Tab3 Extra Action</button>
 </ng-template>
