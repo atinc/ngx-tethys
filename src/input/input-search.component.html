@@ -1,4 +1,6 @@
-<thy-icon class="input-prepend" *ngIf="iconPosition === 'before'" thyIconName="search"></thy-icon>
+@if (iconPosition === 'before') {
+  <thy-icon class="input-prepend" thyIconName="search"></thy-icon>
+}
 <input
   class="input-search-control"
   #input
@@ -12,17 +14,20 @@
   (focus)="!focused ? (focused = true) : null"
   [thySize]="thySize"
   tabindex="-1" />
-<ng-container *ngIf="iconPosition === 'after'">
+@if (iconPosition === 'after') {
   <div class="input-append input-append-divider">
-    <a class="close" *ngIf="searchText; else onlyIcon" href="javascript:;" (click)="clearSearchText($event)">
-      <thy-icon thyIconName="close"></thy-icon>
-    </a>
-    <ng-template #onlyIcon>
+    @if (searchText) {
+      <a class="close" href="javascript:;" (click)="clearSearchText($event)">
+        <thy-icon thyIconName="close"></thy-icon>
+      </a>
+    } @else {
       <thy-icon class="text-placeholder" thyIconName="search"></thy-icon>
-    </ng-template>
+    }
   </div>
-</ng-container>
+}
 
-<a *ngIf="searchText && iconPosition === 'before'" class="close input-append" href="javascript:;" (click)="clearSearchText($event)">
-  <thy-icon thyIconName="close"></thy-icon>
-</a>
+@if (searchText && iconPosition === 'before') {
+  <a class="close input-append" href="javascript:;" (click)="clearSearchText($event)">
+    <thy-icon thyIconName="close"></thy-icon>
+  </a>
+}
