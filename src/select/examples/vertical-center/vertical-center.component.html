@@ -1,127 +1,135 @@
 <div class="demo-card">
   <thy-button-group thySize="md" thyType="outline-default">
-    <button thyButton *ngFor="let size of selectSizes" (click)="currentSize = size" [ngClass]="{ active: size === currentSize }">
-      {{ size.name }} - {{ size.height }}px
-    </button>
+    @for (size of selectSizes; track size) {
+      <button thyButton (click)="currentSize = size" [ngClass]="{ active: size === currentSize }">
+        {{ size.name }} - {{ size.height }}px
+      </button>
+    }
   </thy-button-group>
   <thy-select thyPlaceHolder="请选择" [thySize]="currentSize.name" ngModel="option1" [thyAllowClear]="true" [thyShowSearch]="true">
-    <thy-option
-      *ngFor="let option of listOfOption"
-      [thyValue]="option.value"
-      [thyRawValue]="option"
-      [thyLabelText]="option.text"
-      thyShowOptionCustom="true">
-      <thy-dot thyColor="primary" thySize="md" class="mr-2"></thy-dot>
-      <span class="text-truncate">{{ option?.text }}</span>
-    </thy-option>
-    <ng-template #selectedDisplay let-value>
-      <span *ngIf="!value">!!!空</span>
-      <span *ngIf="value" thyText class="w-100">
+    @for (option of listOfOption; track option) {
+      <thy-option [thyValue]="option.value" [thyRawValue]="option" [thyLabelText]="option.text" thyShowOptionCustom="true">
         <thy-dot thyColor="primary" thySize="md" class="mr-2"></thy-dot>
-        <span class="text-truncate">{{ value?.text }}</span>
-      </span>
-    </ng-template>
-  </thy-select>
-  <thy-select thyPlaceHolder="请选择" [thySize]="currentSize.name" ngModel="option1" [thyAllowClear]="true" [thyShowSearch]="true">
-    <thy-option
-      *ngFor="let option of listOfOption"
-      [thyValue]="option.value"
-      [thyRawValue]="option"
-      [thyLabelText]="option.text"
-      thyShowOptionCustom="true">
-      <div thyFlex class="w-100 justify-content-between">
         <span class="text-truncate">{{ option?.text }}</span>
-        <thy-tag
-          [thySize]="currentSize.name === 'sm' ? 'sm' : 'md'"
-          thyTheme="fill"
-          thyShape="pill"
-          thyColor="primary"
-          class="ml-2 flex-shrink-0">
-          tag
-        </thy-tag>
-      </div>
-    </thy-option>
+      </thy-option>
+    }
     <ng-template #selectedDisplay let-value>
-      <span *ngIf="!value">!!!空</span>
-      <span *ngIf="value" thyText>
-        <span class="text-truncate">{{ value?.text }}</span>
-      </span>
+      @if (!value) {
+        <span>!!!空</span>
+      }
+      @if (value) {
+        <span thyText class="w-100">
+          <thy-dot thyColor="primary" thySize="md" class="mr-2"></thy-dot>
+          <span class="text-truncate">{{ value?.text }}</span>
+        </span>
+      }
     </ng-template>
   </thy-select>
   <thy-select thyPlaceHolder="请选择" [thySize]="currentSize.name" ngModel="option1" [thyAllowClear]="true" [thyShowSearch]="true">
-    <thy-option
-      *ngFor="let option of listOfOption"
-      [thyValue]="option.value"
-      [thyRawValue]="option"
-      [thyLabelText]="option.text"
-      thyShowOptionCustom="true">
-      <thy-avatar [thySrc]="avatarSrc" thyName="张学友" class="mr-2"></thy-avatar>
-      <span class="text-truncate">{{ option?.text }}</span>
-    </thy-option>
+    @for (option of listOfOption; track option) {
+      <thy-option [thyValue]="option.value" [thyRawValue]="option" [thyLabelText]="option.text" thyShowOptionCustom="true">
+        <div thyFlex class="w-100 justify-content-between">
+          <span class="text-truncate">{{ option?.text }}</span>
+          <thy-tag
+            [thySize]="currentSize.name === 'sm' ? 'sm' : 'md'"
+            thyTheme="fill"
+            thyShape="pill"
+            thyColor="primary"
+            class="ml-2 flex-shrink-0">
+            tag
+          </thy-tag>
+        </div>
+      </thy-option>
+    }
     <ng-template #selectedDisplay let-value>
-      <span *ngIf="!value">!!!空</span>
-      <span *ngIf="value" thyText class="w-100">
+      @if (!value) {
+        <span>!!!空</span>
+      }
+      @if (value) {
+        <span thyText>
+          <span class="text-truncate">{{ value?.text }}</span>
+        </span>
+      }
+    </ng-template>
+  </thy-select>
+  <thy-select thyPlaceHolder="请选择" [thySize]="currentSize.name" ngModel="option1" [thyAllowClear]="true" [thyShowSearch]="true">
+    @for (option of listOfOption; track option) {
+      <thy-option [thyValue]="option.value" [thyRawValue]="option" [thyLabelText]="option.text" thyShowOptionCustom="true">
         <thy-avatar [thySrc]="avatarSrc" thyName="张学友" class="mr-2"></thy-avatar>
-        <span class="text-truncate">{{ value?.text }}</span>
-      </span>
+        <span class="text-truncate">{{ option?.text }}</span>
+      </thy-option>
+    }
+    <ng-template #selectedDisplay let-value>
+      @if (!value) {
+        <span>!!!空</span>
+      }
+      @if (value) {
+        <span thyText class="w-100">
+          <thy-avatar [thySrc]="avatarSrc" thyName="张学友" class="mr-2"></thy-avatar>
+          <span class="text-truncate">{{ value?.text }}</span>
+        </span>
+      }
     </ng-template>
   </thy-select>
   <thy-select thyPlaceHolder="请选择" [thySize]="currentSize.name" ngModel="option1" [thyAllowClear]="true" [thyShowSearch]="true">
-    <thy-option
-      *ngFor="let option of listOfOption"
-      [thyValue]="option.value"
-      [thyRawValue]="option"
-      [thyLabelText]="option.text"
-      thyShowOptionCustom="true">
-      <span thyText>
-        <thy-icon thyIconName="bell" class="mr-2"></thy-icon>
-        <span class="text-truncate">{{ option?.text }}</span>
-      </span>
-    </thy-option>
+    @for (option of listOfOption; track option) {
+      <thy-option [thyValue]="option.value" [thyRawValue]="option" [thyLabelText]="option.text" thyShowOptionCustom="true">
+        <span thyText>
+          <thy-icon thyIconName="bell" class="mr-2"></thy-icon>
+          <span class="text-truncate">{{ option?.text }}</span>
+        </span>
+      </thy-option>
+    }
     <ng-template #selectedDisplay let-value>
-      <span *ngIf="!value">!!!空</span>
-      <span *ngIf="value" thyText class="w-100">
-        <thy-icon thyIconName="bell" class="mr-2"></thy-icon>
-        <span class="text-truncate">{{ value?.text }}</span>
-      </span>
+      @if (!value) {
+        <span>!!!空</span>
+      }
+      @if (value) {
+        <span thyText class="w-100">
+          <thy-icon thyIconName="bell" class="mr-2"></thy-icon>
+          <span class="text-truncate">{{ value?.text }}</span>
+        </span>
+      }
     </ng-template>
   </thy-select>
   <thy-select thyPlaceHolder="请选择" [thySize]="currentSize.name" thyMode="multiple" [(ngModel)]="listOfSelectedValue">
-    <thy-option
-      *ngFor="let option of listOfOption"
-      [thyValue]="option.value"
-      [thyRawValue]="option"
-      [thyLabelText]="option.text"
-      thyShowOptionCustom="true">
-      <thy-dot thyColor="primary" thySize="md" class="mr-2"></thy-dot>
-      <span class="text-truncate">{{ option?.text }}</span>
-    </thy-option>
-    <ng-template #selectedDisplay let-value>
-      <span *ngIf="!value">!!!空</span>
-      <span *ngIf="value" thyText class="w-100">
+    @for (option of listOfOption; track option) {
+      <thy-option [thyValue]="option.value" [thyRawValue]="option" [thyLabelText]="option.text" thyShowOptionCustom="true">
         <thy-dot thyColor="primary" thySize="md" class="mr-2"></thy-dot>
-        <span class="text-truncate">{{ value?.text }}</span>
-      </span>
+        <span class="text-truncate">{{ option?.text }}</span>
+      </thy-option>
+    }
+    <ng-template #selectedDisplay let-value>
+      @if (!value) {
+        <span>!!!空</span>
+      }
+      @if (value) {
+        <span thyText class="w-100">
+          <thy-dot thyColor="primary" thySize="md" class="mr-2"></thy-dot>
+          <span class="text-truncate">{{ value?.text }}</span>
+        </span>
+      }
     </ng-template>
   </thy-select>
   <thy-select thyPlaceHolder="请选择" [thySize]="currentSize.name" thyMode="multiple" [(ngModel)]="listOfSelectedValue">
-    <thy-option
-      *ngFor="let option of listOfOption"
-      [thyValue]="option.value"
-      [thyRawValue]="option"
-      [thyLabelText]="option.text"
-      thyShowOptionCustom="true">
-      <span thyText>
-        <thy-icon thyIconName="bell" class="mr-2"></thy-icon>
-        <span class="text-truncate">{{ option?.text }}</span>
-      </span>
-    </thy-option>
+    @for (option of listOfOption; track option) {
+      <thy-option [thyValue]="option.value" [thyRawValue]="option" [thyLabelText]="option.text" thyShowOptionCustom="true">
+        <span thyText>
+          <thy-icon thyIconName="bell" class="mr-2"></thy-icon>
+          <span class="text-truncate">{{ option?.text }}</span>
+        </span>
+      </thy-option>
+    }
     <ng-template #selectedDisplay let-value>
-      <span *ngIf="!value">!!!空</span>
-      <span *ngIf="value" thyText class="w-100">
-        <thy-icon thyIconName="bell" [style.fontSize]="'12px'" class="mr-2"></thy-icon>
-        <span class="text-truncate">{{ value?.text }}</span>
-      </span>
+      @if (!value) {
+        <span>!!!空</span>
+      }
+      @if (value) {
+        <span thyText class="w-100">
+          <thy-icon thyIconName="bell" [style.fontSize]="'12px'" class="mr-2"></thy-icon>
+          <span class="text-truncate">{{ value?.text }}</span>
+        </span>
+      }
     </ng-template>
   </thy-select>
 </div>

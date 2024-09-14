@@ -1,27 +1,39 @@
 <div style="display: flex; align-items: center">
   <thy-select [(ngModel)]="selectedValue1" thyPlaceHolder="选择内容" [thyShowSearch]="true" style="width: 240px; margin-right: 50px">
-    <thy-option-group *ngFor="let group of productGroups" [thyGroupLabel]="group.name">
-      <thy-option *ngFor="let option of group.options" [thyValue]="option.value" [thyLabelText]="option.text"></thy-option>
-    </thy-option-group>
+    @for (group of productGroups; track group) {
+      <thy-option-group [thyGroupLabel]="group.name">
+        @for (option of group.options; track option) {
+          <thy-option [thyValue]="option.value" [thyLabelText]="option.text"></thy-option>
+        }
+      </thy-option-group>
+    }
   </thy-select>
 
   <thy-select [(ngModel)]="selectedValue2" thyPlaceHolder="选择标签" style="width: 240px; margin-right: 50px">
-    <thy-option-group *ngFor="let group of labelGroups" [thyGroupLabel]="group.name">
-      <thy-option *ngFor="let option of group.options" [thyRawValue]="option" [thyValue]="option.value" [thyShowOptionCustom]="true">
-        <thy-dot class="mr-2" thyShape="square" [thyColor]="option.color" thySize="md"></thy-dot> <span>{{ option.text }}</span>
-      </thy-option>
-    </thy-option-group>
+    @for (group of labelGroups; track group) {
+      <thy-option-group [thyGroupLabel]="group.name">
+        @for (option of group.options; track option) {
+          <thy-option [thyRawValue]="option" [thyValue]="option.value" [thyShowOptionCustom]="true">
+            <thy-dot class="mr-2" thyShape="square" [thyColor]="option.color" thySize="md"></thy-dot> <span>{{ option.text }}</span>
+          </thy-option>
+        }
+      </thy-option-group>
+    }
     <ng-template #selectedDisplay let-value>
       <thy-dot class="mr-2" thyShape="square" [thyColor]="value.color" thySize="md"></thy-dot> <span>{{ value.text }}</span>
     </ng-template>
   </thy-select>
 
   <thy-select [(ngModel)]="selectedValue3" thyPlaceHolder="选择成员" style="width: 240px">
-    <thy-option-group *ngFor="let group of userGroups" [thyGroupLabel]="group.name">
-      <thy-option *ngFor="let option of group.options" [thyRawValue]="option" [thyValue]="option.uid" [thyShowOptionCustom]="true">
-        <thy-avatar [thyName]="option.name" [thyShowName]="true" thySize="xs"></thy-avatar>
-      </thy-option>
-    </thy-option-group>
+    @for (group of userGroups; track group) {
+      <thy-option-group [thyGroupLabel]="group.name">
+        @for (option of group.options; track option) {
+          <thy-option [thyRawValue]="option" [thyValue]="option.uid" [thyShowOptionCustom]="true">
+            <thy-avatar [thyName]="option.name" [thyShowName]="true" thySize="xs"></thy-avatar>
+          </thy-option>
+        }
+      </thy-option-group>
+    }
     <ng-template #selectedDisplay let-value>
       <thy-avatar [thyName]="value.name" [thyShowName]="true" thySize="xs"></thy-avatar>
     </ng-template>

@@ -1,5 +1,7 @@
 <thy-select ngModel="option1" thyMode="multiple" [thyShowSearch]="true" [(ngModel)]="listOfSelectedValue" style="width: 400px">
-  <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+  @for (option of listOfOption; track option) {
+    <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+  }
 </thy-select>
 
 <div class="mb-2 mt-2">设置显示最大数量</div>
@@ -10,5 +12,7 @@
   [thyShowSearch]="true"
   [(ngModel)]="listOfSelectedValue"
   style="width: 400px">
-  <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+  @for (option of listOfOption; track option) {
+    <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+  }
 </thy-select>
