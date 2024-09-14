@@ -84,14 +84,14 @@ const treeItemSizeMap = {
     ],
     standalone: true,
     imports: [
-    CdkDrag,
-    CdkDropList,
-    CdkVirtualScrollViewport,
-    CdkFixedSizeVirtualScroll,
-    CdkVirtualForOf,
-    ThyTreeNodeComponent,
-    ThyTreeNodeDraggablePipe
-]
+        CdkDrag,
+        CdkDropList,
+        CdkVirtualScrollViewport,
+        CdkFixedSizeVirtualScroll,
+        CdkVirtualForOf,
+        ThyTreeNodeComponent,
+        ThyTreeNodeDraggablePipe
+    ]
 })
 export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterViewInit, OnDestroy {
     private _templateRef: TemplateRef<any>;
