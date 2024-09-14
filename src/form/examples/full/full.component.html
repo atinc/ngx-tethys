@@ -10,7 +10,9 @@
   <thy-form-group thyLabelText="Select">
     <thy-native-select required [(ngModel)]="model.select" name="power">
       <option value="">---Select---</option>
-      <option *ngFor="let option of options" [value]="option._id">{{ option.value }}</option>
+      @for (option of options; track option) {
+        <option [value]="option._id">{{ option.value }}</option>
+      }
     </thy-native-select>
   </thy-form-group>
   <thy-form-group thyLabelText="Cascader">
@@ -100,9 +102,11 @@
       <label thyRadioButton thyLabelText="Option5" thyValue="5"></label>
     </thy-radio-group>
   </thy-form-group>
-  <thy-form-group *ngIf="submitSuccess">
-    <div class="text text-success">Submit success!</div>
-  </thy-form-group>
+  @if (submitSuccess) {
+    <thy-form-group>
+      <div class="text text-success">Submit success!</div>
+    </thy-form-group>
+  }
   <thy-form-group-footer>
     <button [thyButton]="'primary'" (thyFormSubmit)="save(demoForm)">Save</button>
     <button [thyButton]="'link-secondary'">Cancel</button>
