@@ -8,7 +8,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CdkDrag, CdkDragDrop, CdkDragEnd, CdkDragStart, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ViewportRuler } from '@angular/cdk/overlay';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
-import { DOCUMENT, isPlatformServer, NgClass, NgFor, NgIf, NgTemplateOutlet, NgStyle } from '@angular/common';
+import { DOCUMENT, isPlatformServer, NgClass, NgTemplateOutlet, NgStyle } from '@angular/common';
 import {
     AfterViewInit,
     ChangeDetectorRef,
@@ -135,8 +135,6 @@ const passiveEventListenerOptions = normalizePassiveListenerOptions({ passive: t
     imports: [
         CdkScrollable,
         NgClass,
-        NgFor,
-        NgIf,
         NgTemplateOutlet,
         ThyIcon,
         ThyDragDropDirective,

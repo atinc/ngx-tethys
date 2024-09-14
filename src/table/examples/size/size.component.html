@@ -1,7 +1,9 @@
 <thy-button-group thySize="sm" thyType="outline-default" class="mb-4">
-  <button thyButton *ngFor="let item of sizes" (click)="size = item.value" [ngClass]="{ active: item.value === size }">
-    {{ item.value }}({{ item.height }})
-  </button>
+  @for (item of sizes; track item) {
+    <button thyButton (click)="size = item.value" [ngClass]="{ active: item.value === size }">
+      {{ item.value }}({{ item.height }})
+    </button>
+  }
 </thy-button-group>
 
 <thy-table [thyModel]="data" thyRowKey="id" [thySize]="size">
