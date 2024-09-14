@@ -32,7 +32,6 @@ import {
 
 import { Subscription } from 'rxjs';
 
-
 import { ThyTimePickerStore } from './inner-time-picker.store';
 
 export const TIMEPICKER_CONTROL_VALUE_ACCESSOR: StaticProvider = {

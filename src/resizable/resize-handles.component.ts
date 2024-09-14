@@ -22,7 +22,11 @@ export const DEFAULT_RESIZE_DIRECTION: ThyResizeDirection[] = [
 @Component({
     selector: 'thy-resize-handles',
     exportAs: 'thyResizeHandles',
-    template: ` @for (dir of directions; track dir) {<thy-resize-handle [thyLine]="thyLine" [thyDirection]="dir"></thy-resize-handle>} `,
+    template: `
+        @for (dir of directions; track dir) {
+            <thy-resize-handle [thyLine]="thyLine" [thyDirection]="dir"></thy-resize-handle>
+        }
+    `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
     imports: [ThyResizeHandle]

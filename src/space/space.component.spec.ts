@@ -9,13 +9,13 @@ import { By } from '@angular/platform-browser';
     selector: 'test-space-basic',
     template: `
         <thy-space [thyAlign]="align" [thyVertical]="vertical">
-          <button *thySpaceItem thyButton="primary">Button1</button>
-          <button *thySpaceItem thyButton="info">Button2</button>
-          @if (dynamicShow) {
-            <button *thySpaceItem thyButton="info">Button3</button>
-          }
+            <button *thySpaceItem thyButton="primary">Button1</button>
+            <button *thySpaceItem thyButton="info">Button2</button>
+            @if (dynamicShow) {
+                <button *thySpaceItem thyButton="info">Button3</button>
+            }
         </thy-space>
-        `
+    `
 })
 class TestBasicComponent {
     dynamicShow = false;

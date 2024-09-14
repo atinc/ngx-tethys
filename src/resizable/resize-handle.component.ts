@@ -38,9 +38,9 @@ const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveLis
     template: `
         <ng-content></ng-content>
         @if (thyLine) {
-          <div class="thy-resizable-handle-line"></div>
+            <div class="thy-resizable-handle-line"></div>
         }
-        `,
+    `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-resizable-handle',
