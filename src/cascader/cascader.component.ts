@@ -69,18 +69,18 @@ import { ThyCascaderExpandTrigger, ThyCascaderOption, ThyCascaderSearchOption, T
     },
     standalone: true,
     imports: [
-    CdkOverlayOrigin,
-    ThySelectControl,
-    NgClass,
-    NgTemplateOutlet,
-    CdkConnectedOverlay,
-    NgStyle,
-    ThyCascaderOptionComponent,
-    ThyCascaderSearchOptionComponent,
-    ThyEmpty,
-    ThyIcon,
-    ThyDivider
-],
+        CdkOverlayOrigin,
+        ThySelectControl,
+        NgClass,
+        NgTemplateOutlet,
+        CdkConnectedOverlay,
+        NgStyle,
+        ThyCascaderOptionComponent,
+        ThyCascaderSearchOptionComponent,
+        ThyEmpty,
+        ThyIcon,
+        ThyDivider
+    ],
     animations: [scaleYMotion]
 })
 export class ThyCascader
