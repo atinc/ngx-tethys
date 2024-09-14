@@ -1,7 +1,11 @@
 <ng-content></ng-content>
-<span class="checked-icon" *ngIf="parentSelectionList.multiple && parentSelectionList.layout === 'list'">
-  <thy-icon thyIconName="check"></thy-icon>
-</span>
-<span *ngIf="parentSelectionList.layout === 'grid'" class="checked-icon">
-  <thy-icon thyIconName="check-circle-fill"></thy-icon>
-</span>
+@if (parentSelectionList.multiple && parentSelectionList.layout === 'list') {
+  <span class="checked-icon">
+    <thy-icon thyIconName="check"></thy-icon>
+  </span>
+}
+@if (parentSelectionList.layout === 'grid') {
+  <span class="checked-icon">
+    <thy-icon thyIconName="check-circle-fill"></thy-icon>
+  </span>
+}

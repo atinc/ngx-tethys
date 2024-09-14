@@ -1,7 +1,7 @@
 <ng-content></ng-content>
 
-<ng-template ngFor let-item let-last="last" let-index="index" [ngForOf]="items">
+@for (item of items; track item; let last = $last; let index = $index) {
   <div class="thy-space-item" [style.margin-right.px]="last ? null : space">
     <ng-container [ngTemplateOutlet]="item"></ng-container>
   </div>
-</ng-template>
+}

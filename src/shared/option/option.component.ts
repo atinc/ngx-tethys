@@ -23,7 +23,7 @@ import {
     THY_OPTION_GROUP_COMPONENT,
     THY_OPTION_PARENT_COMPONENT
 } from './option.token';
-import { NgIf } from '@angular/common';
+
 import { ThyIcon } from 'ngx-tethys/icon';
 
 export class ThyOptionSelectionChangeEvent {
@@ -46,7 +46,7 @@ export class ThyOptionVisibleChangeEvent {
     templateUrl: './option.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [NgIf, ThyIcon]
+    imports: [ThyIcon]
 })
 export class ThyOption extends SelectOptionBase implements OnDestroy, Highlightable {
     private _selected = false;
