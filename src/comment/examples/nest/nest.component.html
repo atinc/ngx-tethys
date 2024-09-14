@@ -8,7 +8,7 @@
       <a thyAction thyTheme="lite" thyIcon="smile-plus" href="javascript:;"></a>
     </div>
     @if (comment.children && comment.children.length) {
-      @for (child of comment.children; track $index) {
+      @for (child of comment.children; track child) {
         <ng-template [ngTemplateOutlet]="commentTemplateRef" [ngTemplateOutletContext]="{ comment: child }"></ng-template>
       }
     }

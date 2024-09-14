@@ -6,7 +6,7 @@
           <span class="{{ prefixCls }}-column-header-inner">周</span>
         </th>
       }
-      @for (cell of headRow; track $index) {
+      @for (cell of headRow; track cell) {
         <th role="columnheader" title="{{ cell.title }}" class="{{ prefixCls }}-column-header">
           @if (prefixCls === 'thy-calendar') {
             <span class="{{ prefixCls }}-column-header-inner">{{ cell.content }}</span>
@@ -33,7 +33,8 @@
             (click)="cell.isDisabled ? null : cell.onClick()"
             date-table-cell
             [prefixCls]="prefixCls"
-            [cell]="cell"></td>
+            [cell]="cell"
+          ></td>
         }
       </tr>
     }

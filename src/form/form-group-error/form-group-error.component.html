@@ -1,5 +1,5 @@
 <div [ngClass]="{ 'col-sm-10 offset-sm-2 col-form-control': isHorizontal }">
-  @for (error of thyErrors; track $index) {
+  @for (error of thyErrors; track error) {
     <thy-alert thyType="danger" [thyMessage]="error"></thy-alert>
   }
 </div>

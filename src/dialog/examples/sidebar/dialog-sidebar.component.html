@@ -3,8 +3,13 @@
     <thy-sidebar-header thyTitle="每日必备"></thy-sidebar-header>
     <thy-sidebar-content>
       <thy-menu thyTheme="loose" class="pt-0">
-        @for (config of configs; track $index) {
-          <a href="javascript:;" thyMenuItem [class.active]="currentConfig.type === config.type" (click)="configChange(config)">
+        @for (config of configs; track config) {
+          <a
+            href="javascript:;"
+            thyMenuItem
+            [class.active]="currentConfig.type === config.type"
+            (click)="configChange(config)"
+            >
             <span thyMenuItemName>{{ config.name }}</span>
           </a>
         }
