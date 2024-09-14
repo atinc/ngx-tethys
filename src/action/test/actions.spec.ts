@@ -9,13 +9,13 @@ import { ThyActions } from '../actions.component';
     selector: 'thy-test-actions-basic',
     template: `
         <thy-actions [thySize]="size">
-          <a thyAction thyIcon="inbox"></a>
-          <a thyAction thyIcon="search"></a>
-          @if (dynamicAdded) {
             <a thyAction thyIcon="inbox"></a>
-          }
+            <a thyAction thyIcon="search"></a>
+            @if (dynamicAdded) {
+                <a thyAction thyIcon="inbox"></a>
+            }
         </thy-actions>
-        `
+    `
 })
 class ThyActionsTestBasicComponent {
     size = 'md';
