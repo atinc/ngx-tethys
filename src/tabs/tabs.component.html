@@ -6,31 +6,32 @@
   [thyExtra]="thyExtra"
   [thyVertical]="thyPosition === 'left'"
   [thyResponsive]="thyResponsive"
->
-  <a
-    href="javascript:;"
-    thyNavItem
-    [id]="tab.id"
-    [thyNavItemDisabled]="tab.thyDisabled"
-    [thyNavItemActive]="(tab.id && activeTabId && tab.id === activeTabId) ?? i === activeTabIndex"
-    *ngFor="let tab of tabs; let i = index; trackBy: tabTrackBy"
-    (click)="activeTab(tab, i)"
   >
-    <ng-container *ngIf="tab.titleTemplateRef; else titleName">
-      <ng-template [ngTemplateOutlet]="tab.titleTemplateRef"></ng-template>
-    </ng-container>
-    <ng-template #titleName>
-      {{ tab.thyTitle }}
-    </ng-template>
-  </a>
+  @for (tab of tabs; track tabTrackBy(i, tab); let i = $index) {
+    <a
+      href="javascript:;"
+      thyNavItem
+      [id]="tab.id"
+      [thyNavItemDisabled]="tab.thyDisabled"
+      [thyNavItemActive]="(tab.id && activeTabId && tab.id === activeTabId) ?? i === activeTabIndex"
+      (click)="activeTab(tab, i)"
+      >
+      @if (tab.titleTemplateRef) {
+        <ng-template [ngTemplateOutlet]="tab.titleTemplateRef"></ng-template>
+      } @else {
+        {{ tab.thyTitle }}
+      }
+    </a>
+  }
 </thy-nav>
 <!-- tabs content -->
 <div class="thy-tabs-content" [class.thy-tabs-content-animated]="tabPaneAnimated" [style.margin-left]="getTabContentMarginLeft()">
-  <div
-    thyTabContent
-    *ngFor="let tab of tabs; let i = index; trackBy: tabTrackBy"
-    [active]="(tab.id && activeTabId && tab.id === activeTabId) ?? i === activeTabIndex"
-    [content]="tab.content"
-    [tabPaneAnimated]="tabPaneAnimated"
-  ></div>
+  @for (tab of tabs; track tabTrackBy(i, tab); let i = $index) {
+    <div
+      thyTabContent
+      [active]="(tab.id && activeTabId && tab.id === activeTabId) ?? i === activeTabIndex"
+      [content]="tab.content"
+      [tabPaneAnimated]="tabPaneAnimated"
+    ></div>
+  }
 </div>
