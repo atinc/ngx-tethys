@@ -262,9 +262,11 @@ describe('ThySelectionList without forms', () => {
             [thyAutoActiveFirstItem]="autoActiveFirstItem"
             [thyBeforeKeydown]="thyBeforeKeydown"
             [thyUniqueKey]="uniqueKey">
-            <thy-list-option *ngFor="let item of items" [id]="item.id" [thyValue]="item.value">
-                {{ item.text }}
-            </thy-list-option>
+            @for (item of items; track item) {
+                <thy-list-option [id]="item.id" [thyValue]="item.value">
+                    {{ item.text }}
+                </thy-list-option>
+            }
         </thy-selection-list>
         <button (click)="selectAll()">选择全部</button>
         <button (click)="deselectAll()">清除全部</button>
@@ -368,9 +370,11 @@ class SelectionListWithListOptionsDefaultComponent {
             [thyMultiple]="false"
             [(ngModel)]="selectedValue"
             thyUniqueKey="id">
-            <thy-list-option *ngFor="let option of options" [thyValue]="option">
-                {{ option.displayName }}
-            </thy-list-option>
+            @for (option of options; track option) {
+                <thy-list-option [thyValue]="option">
+                    {{ option.displayName }}
+                </thy-list-option>
+            }
         </thy-selection-list>
     `
 })

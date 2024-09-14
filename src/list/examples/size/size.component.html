@@ -5,11 +5,13 @@
     [(ngModel)]="selectionModel.selectedValues"
     [thyLayout]="'grid'"
     thySize="sm"
-  >
-    <thy-list-option *ngFor="let item of gridItems" [thyValue]="item?.id">
-      <thy-icon thyIconName="app-agile-fill" class="thy-grid-option-icon"></thy-icon>
-      <div class="thy-grid-option-name">{{ item.name }}</div>
-    </thy-list-option>
+    >
+    @for (item of gridItems; track item) {
+      <thy-list-option [thyValue]="item?.id">
+        <thy-icon thyIconName="app-agile-fill" class="thy-grid-option-icon"></thy-icon>
+        <div class="thy-grid-option-name">{{ item.name }}</div>
+      </thy-list-option>
+    }
   </thy-selection-list>
 </div>
 
@@ -19,10 +21,12 @@
     [style.background]="'#fafafa'"
     [(ngModel)]="selectionModel.selectedValues"
     [thyLayout]="'grid'"
-  >
-    <thy-list-option *ngFor="let item of gridItems" [thyValue]="item?.id">
-      <thy-icon thyIconName="app-agile-fill" class="thy-grid-option-icon"></thy-icon>
-      <div class="thy-grid-option-name">{{ item.name }}</div>
-    </thy-list-option>
+    >
+    @for (item of gridItems; track item) {
+      <thy-list-option [thyValue]="item?.id">
+        <thy-icon thyIconName="app-agile-fill" class="thy-grid-option-icon"></thy-icon>
+        <div class="thy-grid-option-name">{{ item.name }}</div>
+      </thy-list-option>
+    }
   </thy-selection-list>
 </div>

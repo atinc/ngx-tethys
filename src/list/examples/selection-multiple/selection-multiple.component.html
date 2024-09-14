@@ -5,10 +5,12 @@
     [thyBeforeKeydown]="thyBeforeKeydown"
     [thyBindKeyEventContainer]="body"
     (thySelectionChange)="selectionChange($event)"
-  >
-    <thy-list-option *ngFor="let item of items" [thyDisabled]="item.id === 3" [thyValue]="item?.id">
-      {{ item.name }}
-    </thy-list-option>
+    >
+    @for (item of items; track item) {
+      <thy-list-option [thyDisabled]="item.id === 3" [thyValue]="item?.id">
+        {{ item.name }}
+      </thy-list-option>
+    }
   </thy-selection-list>
 
   <h6 class="my-3">已选择的值：</h6>

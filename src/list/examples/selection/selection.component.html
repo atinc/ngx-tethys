@@ -1,7 +1,9 @@
 <thy-selection-list [(ngModel)]="selectionModel.selectedValues" [thyMultiple]="false" (thySelectionChange)="selectionChange($event)">
-  <thy-list-option *ngFor="let item of items" [thyValue]="item?.id">
-    {{ item.name }}
-  </thy-list-option>
+  @for (item of items; track item) {
+    <thy-list-option [thyValue]="item?.id">
+      {{ item.name }}
+    </thy-list-option>
+  }
 </thy-selection-list>
 
 <h6 class="my-3">已选择的值：</h6>
