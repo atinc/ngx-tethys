@@ -1,7 +1,9 @@
 <div>
   <thy-carousel [thyAutoPlay]="authPlay">
-    <div thyCarouselItem *ngFor="let slide of array" class="custom-carousel-item">
-      {{ slide }}
-    </div>
+    @for (slide of array; track slide) {
+      <div thyCarouselItem class="custom-carousel-item">
+        {{ slide }}
+      </div>
+    }
   </thy-carousel>
 </div>
