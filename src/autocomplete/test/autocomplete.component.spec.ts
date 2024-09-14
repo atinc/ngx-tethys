@@ -39,7 +39,9 @@ import { ThyAutocompleteModule } from '../module';
                 [thyAutocompleteWidth]="500"
                 (ngModelChange)="valueChange($event)" />
             <thy-autocomplete #auto [thyEmptyText]="'没有搜索到任何数据'" (thyOpened)="opened()">
-                <thy-option *ngFor="let item of foods" [thyLabelText]="item.viewValue" [thyValue]="item.value"></thy-option>
+                @for (item of foods; track item) {
+                    <thy-option [thyLabelText]="item.viewValue" [thyValue]="item.value"></thy-option>
+                }
             </thy-autocomplete>
         </div>
     `
@@ -78,7 +80,9 @@ class BasicSelectComponent {
                 [thyIsFocusOpen]="isFocusOpen"
                 (ngModelChange)="valueChange($event)"></thy-input-search>
             <thy-autocomplete #auto>
-                <thy-option *ngFor="let item of foods" [thyLabelText]="item.viewValue" [thyValue]="item.value"></thy-option>
+                @for (item of foods; track item) {
+                    <thy-option [thyLabelText]="item.viewValue" [thyValue]="item.value"></thy-option>
+                }
             </thy-autocomplete>
         </div>
     `

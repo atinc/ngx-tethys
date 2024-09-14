@@ -27,7 +27,7 @@ import {
 } from 'ngx-tethys/shared';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { ThyEmpty } from 'ngx-tethys/empty';
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /** Event object that is emitted when an autocomplete option is activated. */
@@ -54,7 +54,7 @@ export interface ThyAutocompleteActivatedEvent {
         }
     ],
     standalone: true,
-    imports: [ThyStopPropagationDirective, NgClass, NgIf, ThyEmpty]
+    imports: [ThyStopPropagationDirective, NgClass, ThyEmpty]
 })
 export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, AfterContentInit, OnDestroy {
     private ngUnsubscribe$ = new Subject<void>();
