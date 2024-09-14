@@ -1,35 +1,32 @@
-@if (customDefaultColor) {
+<ng-container *ngIf="customDefaultColor">
   <div class="quick-color" [ngClass]="transparentColorSelectable ? ' mb-0 pb-0' : ''" (click)="selectColor(defaultColor)">
     <ng-template [ngTemplateOutlet]="checkIconTpl" [ngTemplateOutletContext]="{ $implicit: defaultColor }"></ng-template>
     <span class="ml-2 font-size-sm text-secondary">默认颜色</span>
   </div>
-}
-@if (transparentColorSelectable) {
-  <div
-    class="quick-color"
-    [ngClass]="customDefaultColor ? 'mt-0 pt-0' : ''"
-    (click)="selectColor('transparent')"
-    >
-    <div class="color-block"></div>
-    <span class="ml-2 font-size-sm text-secondary">无填充色</span>
-  </div>
-}
+</ng-container>
+<div
+  *ngIf="transparentColorSelectable"
+  class="quick-color"
+  [ngClass]="customDefaultColor ? 'mt-0 pt-0' : ''"
+  (click)="selectColor('transparent')"
+>
+  <div class="color-block"></div>
+  <span class="ml-2 font-size-sm text-secondary">无填充色</span>
+</div>
 <div class="main-content">
   <div class="default-color">
-    @for (item of defaultColors; track item) {
+    <ng-container *ngFor="let item of defaultColors">
       <ng-template [ngTemplateOutlet]="checkIconTpl" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
-    }
+    </ng-container>
   </div>
   <p class="font-size-sm text-secondary recent-text">最近使用自定义颜色</p>
   <div class="recent-color-container">
-    @for (item of recentColors; track item) {
+    <ng-container *ngFor="let item of recentColors">
       <ng-template [ngTemplateOutlet]="checkIconTpl" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
-    }
-    @if (recentColors.length === 0) {
-      <div class="font-size-sm px-1 text-muted">
-        暂无
-      </div>
-    }
+    </ng-container>
+    <div class="font-size-sm px-1 text-muted" *ngIf="recentColors.length === 0">
+      暂无
+    </div>
   </div>
 </div>
 <div class="more-color" (click)="showMoreColor($event)">
@@ -44,7 +41,7 @@
     [ngStyle]="{ background: colorItem }"
     [ngClass]="colorItem === '#FFFFFF' ? 'item-border' : ''"
     (click)="selectColor(colorItem)"
-    >
+  >
     <thy-icon
       thyIconName="check-thick"
       class="check-icon"

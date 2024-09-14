@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, OnChanges, Output } f
 import { TinyDate } from 'ngx-tethys/util';
 import { CalendarTable } from '../calendar/calendar-table.component';
 import { DateCell, DateBodyRow, YearCell } from '../date/types';
-import { NgClass } from '@angular/common';
+import { NgFor, NgClass } from '@angular/common';
 
 /**
  * @private
@@ -13,7 +13,7 @@ import { NgClass } from '@angular/common';
     selector: 'year-table',
     templateUrl: 'year-table.component.html',
     standalone: true,
-    imports: [NgClass]
+    imports: [NgFor, NgClass]
 })
 export class YearTable extends CalendarTable implements OnChanges {
     MAX_ROW = 4;

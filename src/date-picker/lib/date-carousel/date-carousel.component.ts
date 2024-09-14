@@ -1,4 +1,4 @@
-import { NgClass, NgTemplateOutlet } from '@angular/common';
+import { NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyButton } from 'ngx-tethys/button';
@@ -25,7 +25,7 @@ import { ThyDateGranularity } from '../../standard-types';
         }
     ],
     standalone: true,
-    imports: [NgTemplateOutlet, ThyButton, ThyIcon, NgClass, DatePickerAdvancedShowYearTipPipe]
+    imports: [NgTemplateOutlet, ThyButton, ThyIcon, NgFor, NgClass, NgIf, DatePickerAdvancedShowYearTipPipe]
 })
 export class DateCarousel implements OnInit, ControlValueAccessor, OnDestroy {
     @HostBinding('class') className = 'thy-date-picker-advanced-carousel';

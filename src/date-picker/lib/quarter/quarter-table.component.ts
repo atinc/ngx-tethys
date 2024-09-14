@@ -3,7 +3,7 @@ import { TinyDate } from 'ngx-tethys/util';
 import { DateHelperService } from '../../date-helper.service';
 import { CalendarTable } from '../calendar/calendar-table.component';
 import { DateCell, DateBodyRow } from '../date/types';
-import { NgClass } from '@angular/common';
+import { NgFor, NgClass, NgSwitch, NgSwitchCase } from '@angular/common';
 
 /**
  * @private
@@ -15,7 +15,7 @@ import { NgClass } from '@angular/common';
     exportAs: 'quarterTable',
     templateUrl: 'quarter-table.component.html',
     standalone: true,
-    imports: [NgClass]
+    imports: [NgFor, NgClass]
 })
 export class QuarterTable extends CalendarTable implements OnChanges {
     MAX_ROW = 1;

@@ -27,12 +27,11 @@
 <!-- Right operator icons -->
 <ng-template #tplRightRest>
   <span class="{{ prefixCls }}-picker-clear">
-    @if (!disabled && !isEmptyValue(value) && allowClear && !readonly) {
-      <thy-icon
-        thyIconName="close-circle-bold-fill"
-        (click)="onClickClear($event)"
+    <thy-icon
+      thyIconName="close-circle-bold-fill"
+      *ngIf="!disabled && !isEmptyValue(value) && allowClear && !readonly"
+      (click)="onClickClear($event)"
       ngClass="remove-link remove-link-{{ size }}"></thy-icon>
-    }
   </span>
   <span class="{{ prefixCls }}-picker-icon">
     <thy-icon [thyIconName]="suffixIcon" ngClass="remove-link-{{ size ? size : 'default' }}"></thy-icon>

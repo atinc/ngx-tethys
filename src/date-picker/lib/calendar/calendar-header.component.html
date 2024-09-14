@@ -13,11 +13,11 @@
     </a>
 
     <span class="{{ prefixCls }}-my-select">
-      @for (selector of selectors; track selector) {
+      <ng-container *ngFor="let selector of selectors">
         <a class="{{ selector.className }}" role="button" (click)="selectorClick($event, selector)" title="{{ selector.title || null }}">
           {{ selector.label }}
         </a>
-      }
+      </ng-container>
     </span>
 
     <a class="{{ prefixCls }}-next-month-btn" [ngClass]="showNextBtn ? 'd-block' : 'd-none'" role="button" (click)="next()" title="下个月">

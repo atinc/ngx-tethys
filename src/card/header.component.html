@@ -1,14 +1,14 @@
 <div class="card-header-title">
   <ng-template [ngTemplateOutlet]="titleTemplateRef"></ng-template>
-  @if (!titleTemplateRef) {
+  <ng-container *ngIf="!titleTemplateRef">
     <span>{{ thyTitle }}</span>
-  }
+  </ng-container>
 </div>
 <div class="card-header-description">
   <ng-template [ngTemplateOutlet]="descriptionTemplateRef"></ng-template>
-  @if (!descriptionTemplateRef) {
+  <ng-container *ngIf="!descriptionTemplateRef">
     <span>{{ thyDescription }}</span>
-  }
+  </ng-container>
 </div>
 <div class="card-header-operation">
   <ng-template [ngTemplateOutlet]="operationTemplateRef"></ng-template>

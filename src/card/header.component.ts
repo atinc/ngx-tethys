@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, TemplateRef, ContentChild, ChangeDetectionStrategy } from '@angular/core';
-import { NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet, NgIf } from '@angular/common';
 
 /**
  * 卡片头部组件
@@ -18,7 +18,7 @@ import { NgTemplateOutlet } from '@angular/common';
         '[class.thy-card-header--md]': 'thySize === "md"'
     },
     standalone: true,
-    imports: [NgTemplateOutlet]
+    imports: [NgTemplateOutlet, NgIf]
 })
 export class ThyCardHeader implements OnInit {
     public iconClass: string;

@@ -17,7 +17,7 @@ import { ThyCollapse } from './collapse.component';
 import { SafeAny } from 'ngx-tethys/types';
 import { coerceBooleanProperty, isString } from 'ngx-tethys/util';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { NgTemplateOutlet } from '@angular/common';
+import { NgIf, NgTemplateOutlet } from '@angular/common';
 
 const DEFAULT_ARROW_ICON = 'angle-right';
 
@@ -39,7 +39,7 @@ const DEFAULT_ARROW_ICON = 'angle-right';
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [NgTemplateOutlet, ThyIcon]
+    imports: [NgIf, NgTemplateOutlet, ThyIcon]
 })
 export class ThyCollapseItem implements OnInit, OnDestroy {
     public showArrow: boolean = true;

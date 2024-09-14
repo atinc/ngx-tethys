@@ -15,7 +15,7 @@ import {
     TemplateRef
 } from '@angular/core';
 
-import { NgTemplateOutlet } from '@angular/common';
+import { NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThyButtonIcon } from 'ngx-tethys/button';
 import { ThyNav, ThyNavItemDirective } from 'ngx-tethys/nav';
@@ -48,7 +48,18 @@ import { InnerPopup } from './inner-popup.component';
     exportAs: 'datePopup',
     templateUrl: './date-popup.component.html',
     standalone: true,
-    imports: [ThyNav, ThyNavItemDirective, ThyButtonIcon, DateCarousel, FormsModule, NgTemplateOutlet, InnerPopup, CalendarFooter]
+    imports: [
+        NgIf,
+        NgFor,
+        ThyNav,
+        ThyNavItemDirective,
+        ThyButtonIcon,
+        DateCarousel,
+        FormsModule,
+        NgTemplateOutlet,
+        InnerPopup,
+        CalendarFooter
+    ]
 })
 export class DatePopup implements OnChanges, OnInit {
     @Input() isRange: boolean;

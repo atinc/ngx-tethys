@@ -1,22 +1,19 @@
 <table class="{{ prefixCls }}-month-panel-table" cellSpacing="0" role="grid">
   <tbody class="{{ prefixCls }}-month-panel-tbody">
-    @for (row of bodyRows; track trackByBodyRow($index, row)) {
-      <tr role="row">
-        @for (monthCell of row.dateCells; track trackByBodyColumn($index, monthCell)) {
-          <td
-            role="gridcell"
-            title="{{ monthCell.title }}"
-            (click)="monthCellClick($event, monthCell)"
-            [ngClass]="monthCell.classMap"
-            >
-            @switch (prefixCls) {
-              @case ('thy-calendar') {
-                <div class="{{ prefixCls }}-month-panel-month">{{ monthCell.content }}</div>
-              }
-            }
-          </td>
-        }
-      </tr>
-    }
+    <tr *ngFor="let row of bodyRows; trackBy: trackByBodyRow" role="row">
+      <td
+        *ngFor="let monthCell of row.dateCells; trackBy: trackByBodyColumn"
+        role="gridcell"
+        title="{{ monthCell.title }}"
+        (click)="monthCellClick($event, monthCell)"
+        [ngClass]="monthCell.classMap"
+      >
+        <ng-container [ngSwitch]="prefixCls">
+          <ng-container *ngSwitchCase="'thy-calendar'">
+            <div class="{{ prefixCls }}-month-panel-month">{{ monthCell.content }}</div>
+          </ng-container>
+        </ng-container>
+      </td>
+    </tr>
   </tbody>
 </table>

@@ -3,7 +3,7 @@ import { ThyPopover, ThyPopoverRef } from 'ngx-tethys/popover';
 import { ThyColorPickerCustomPanel } from './color-picker-custom-panel.component';
 import { ThyColor } from './helpers/color.class';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { NgClass, NgTemplateOutlet, NgStyle } from '@angular/common';
+import { NgIf, NgClass, NgTemplateOutlet, NgFor, NgStyle } from '@angular/common';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
@@ -17,7 +17,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
         '[class.pt-4]': '!transparentColorSelectable'
     },
     standalone: true,
-    imports: [NgClass, NgTemplateOutlet, ThyIcon, NgStyle]
+    imports: [NgIf, NgClass, NgTemplateOutlet, NgFor, ThyIcon, NgStyle]
 })
 export class ThyColorPickerPanel implements OnInit {
     @HostBinding('class.thy-color-picker-panel') className = true;
