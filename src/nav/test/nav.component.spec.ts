@@ -66,15 +66,11 @@ export class NavBasicComponent implements OnInit {
             [thyInsideClosable]="insideClosable"
             class="custom-nav"
             style="width: 100px;height: 50px;display:block">
-            <a
-                *ngFor="let item of navLinks; index as i"
-                class="test-link"
-                thyNavLink
-                [thyNavItemActive]="item.isActive"
-                [routerLink]="[item.name]"
-                routerLinkActive="active"
-                >{{ item.name }}</a
-            >
+            @for (item of navLinks; track item; let i = $index) {
+                <a class="test-link" thyNavLink [thyNavItemActive]="item.isActive" [routerLink]="[item.name]" routerLinkActive="active">{{
+                    item.name
+                }}</a>
+            }
         </thy-nav>
     `,
     styles: [
