@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [18.0.6](https://github.com/atinc/ngx-tethys/compare/18.0.5...18.0.6) (2024-09-14)
+
+
+### Features
+
+* **cdk:** add ThyStealthViewDirective for get nodes #TINFR-653 ([#3206](https://github.com/atinc/ngx-tethys/issues/3206)) ([333b144](https://github.com/atinc/ngx-tethys/commit/333b144b69f42251e37b579acadc44a404b68a42)), closes [#TINFR-653](https://github.com/atinc/ngx-tethys/issues/TINFR-653) [#TINFR-653](https://github.com/atinc/ngx-tethys/issues/TINFR-653)
+
+
+
 ## [18.0.5](https://github.com/atinc/ngx-tethys/compare/18.0.4...18.0.5) (2024-09-11)
 
 
