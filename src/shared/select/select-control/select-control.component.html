@@ -15,86 +15,87 @@
 </ng-template>
 
 <div class="select-control-rendered">
-  <div class="text-placeholder text-truncate" *ngIf="!isSelectedValue" [ngStyle]="placeholderStyle">
-    {{ thyPlaceholder }}
-  </div>
-  <ng-container *ngIf="isMultiple; else single">
+  @if (!isSelectedValue) {
+    <div class="text-placeholder text-truncate" [ngStyle]="placeholderStyle">
+      {{ thyPlaceholder }}
+    </div>
+  }
+  @if (isMultiple) {
     <div thyFlex thyWrap="wrap" thyGap="4" thyAlignItems="center" class="w-100">
-      <ng-container *ngIf="thyPreset === 'tag'; else default">
-        <div thyFlexItem class="custom-choice-item text-truncate" *ngFor="let item of maxSelectedTags; trackBy: trackValue">
-          <ng-template
-            [ngTemplateOutlet]="customDisplayTemplate"
-            [ngTemplateOutletContext]="{ $implicit: item.thyRawValue || item.thyValue || item }">
-          </ng-template>
-          <div *ngIf="!disabled" class="choice-remove-link ml-1" (click)="removeHandle(item, $event)">
-            <span>
-              <thy-icon thyIconName="close" class="font-size-sm"></thy-icon>
-            </span>
+      @if (thyPreset === 'tag') {
+        @for (item of maxSelectedTags; track trackValue($index, item)) {
+          <div thyFlexItem class="custom-choice-item text-truncate">
+            <ng-template
+              [ngTemplateOutlet]="customDisplayTemplate"
+              [ngTemplateOutletContext]="{ $implicit: item.thyRawValue || item.thyValue || item }">
+            </ng-template>
+            @if (!disabled) {
+              <div class="choice-remove-link ml-1" (click)="removeHandle(item, $event)">
+                <span>
+                  <thy-icon thyIconName="close" class="font-size-sm"></thy-icon>
+                </span>
+              </div>
+            }
           </div>
-        </div>
-      </ng-container>
-
-      <ng-template #default>
+        }
+      } @else {
+        @for (item of maxSelectedTags; track trackValue($index, item)) {
+          <div
+            thyFlexItem
+            thyTag
+            class="choice-item"
+            [ngClass]="{ disabled: disabled === true }"
+            [thySize]="tagSize"
+            >
+            <div class="text-truncate h-100">
+              @if (!customDisplayTemplate) {
+                {{ item.thyLabelText }}
+              } @else {
+              }
+            </div>
+            @if (!disabled) {
+              <div class="choice-remove-link ml-1" (click)="removeHandle(item, $event)">
+                <span>
+                  <thy-icon thyIconName="close" class="font-size-sm"></thy-icon>
+                </span>
+              </div>
+            }
+          </div>
+        }
+      }
+      @if (thyMaxTagCount && multipleSelectedValue.length > thyMaxTagCount) {
         <div
           thyFlexItem
+          class="choice-item max-tag-count-choice"
           thyTag
-          class="choice-item"
-          [ngClass]="{ disabled: disabled === true }"
           [thySize]="tagSize"
-          *ngFor="let item of maxSelectedTags; trackBy: trackValue">
-          <div class="text-truncate h-100">
-            <ng-template
-              #customDisplay
-              [ngTemplateOutlet]="customDisplayTemplate"
-              [ngTemplateOutletContext]="{ $implicit: item.thyRawValue || item.thyValue || item }"></ng-template>
-            <ng-container *ngIf="!customDisplayTemplate; else customDisplay">
-              {{ item.thyLabelText }}
-            </ng-container>
-          </div>
-          <div *ngIf="!disabled" class="choice-remove-link ml-1" (click)="removeHandle(item, $event)">
-            <span>
-              <thy-icon thyIconName="close" class="font-size-sm"></thy-icon>
-            </span>
-          </div>
+          [ngClass]="{ disabled: disabled === true }">
+          <div class="text-truncate">+{{ multipleSelectedValue.length - thyMaxTagCount + 1 }}...</div>
         </div>
-      </ng-template>
-
-      <div
-        thyFlexItem
-        class="choice-item max-tag-count-choice"
-        *ngIf="thyMaxTagCount && multipleSelectedValue.length > thyMaxTagCount"
-        thyTag
-        [thySize]="tagSize"
-        [ngClass]="{ disabled: disabled === true }">
-        <div class="text-truncate">+{{ multipleSelectedValue.length - thyMaxTagCount + 1 }}...</div>
-      </div>
+      }
       <div thyFlexItem class="select-control-search">
         <ng-template [ngTemplateOutlet]="inputTemplate"></ng-template>
       </div>
     </div>
-  </ng-container>
-  <ng-template #single>
-    <ng-container *ngIf="isSelectedValue">
+  } @else {
+    @if (isSelectedValue) {
       <div class="selected-value text-truncate" [ngStyle]="selectedValueStyle">
-        <ng-template
-          #customDisplay
-          [ngTemplateOutlet]="customDisplayTemplate"
-          [ngTemplateOutletContext]="{
-            $implicit: selectedValue.thyRawValue || selectedValue.thyValue || selectedValue
-          }"></ng-template>
-        <ng-container *ngIf="!customDisplayTemplate; else customDisplay">
+        @if (!customDisplayTemplate) {
           <span class="text-truncate">{{ selectedValue?.thyLabelText }}</span>
-        </ng-container>
+        } @else {
+        }
       </div>
-    </ng-container>
+    }
     <div class="select-control-search">
       <ng-template [ngTemplateOutlet]="inputTemplate"></ng-template>
     </div>
-  </ng-template>
+  }
 </div>
 <span class="select-control-arrow">
   <thy-icon thyIconName="angle-down" class="font-size-base"></thy-icon>
 </span>
-<span class="select-control-clear remove-link" *ngIf="showClearIcon" (click)="clearHandle($event)">
-  <thy-icon class="remove-link-icon font-size-base" thyIconName="close-circle-bold-fill"></thy-icon>
-</span>
+@if (showClearIcon) {
+  <span class="select-control-clear remove-link" (click)="clearHandle($event)">
+    <thy-icon class="remove-link-icon font-size-base" thyIconName="close-circle-bold-fill"></thy-icon>
+  </span>
+}
