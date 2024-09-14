@@ -41,7 +41,7 @@ import {
 } from './tree.class';
 import { ThyTreeService } from './tree.service';
 import { ThyTreeNodeComponent } from './tree-node.component';
-import { NgIf, NgFor, DOCUMENT } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 import { CdkDrag, CdkDragDrop, CdkDragEnd, CdkDragMove, CdkDragStart, CdkDropList } from '@angular/cdk/drag-drop';
 import { auditTime, filter, startWith, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
@@ -84,16 +84,14 @@ const treeItemSizeMap = {
     ],
     standalone: true,
     imports: [
-        NgIf,
-        CdkDrag,
-        CdkDropList,
-        CdkVirtualScrollViewport,
-        CdkFixedSizeVirtualScroll,
-        CdkVirtualForOf,
-        ThyTreeNodeComponent,
-        NgFor,
-        ThyTreeNodeDraggablePipe
-    ]
+    CdkDrag,
+    CdkDropList,
+    CdkVirtualScrollViewport,
+    CdkFixedSizeVirtualScroll,
+    CdkVirtualForOf,
+    ThyTreeNodeComponent,
+    ThyTreeNodeDraggablePipe
+]
 })
 export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterViewInit, OnDestroy {
     private _templateRef: TemplateRef<any>;

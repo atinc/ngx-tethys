@@ -791,38 +791,39 @@ describe('ThyTreeComponent', () => {
     selector: 'test-basic-tree',
     template: `
         <thy-tree
-            #tree
-            [thyNodes]="treeNodes"
-            [thySize]="'sm'"
-            [thyIndent]="indent"
-            [thyIcons]="options.treeIcons"
-            [thyType]="treeType"
-            [thyDraggable]="options.draggable"
-            [thyCheckable]="options.checkable"
-            [thyCheckStateResolve]="options.checkStateResolve"
-            [thyMultiple]="options.multiple"
-            [thyClickBehavior]="options.clickBehavior"
-            [thySelectedKeys]="selectedKeys"
-            [thyExpandedKeys]="expandedKeys"
-            [thyExpandAll]="expandAll"
-            [thyShowExpand]="true"
-            [thyBeforeDragStart]="options.beforeDragStart"
-            (thyOnDragDrop)="dragDrop($event)"
-            (thyOnClick)="onEvent()"
-            (thyDblClick)="onDbClickEvent()"
-            (thyOnCheckboxChange)="onEvent()"
-            (thyOnExpandChange)="onEvent()">
-            <ng-template #treeNodeTemplate let-node="node" let-data="origin">
-                <thy-icon
-                    *ngIf="data.type !== 'member'"
-                    class="thy-tree-node-icon"
-                    [thyIconName]="node?.isExpanded ? 'folder-open-fill' : 'folder-fill'"></thy-icon>
-                <div class="thy-tree-node-title text-truncate" thyFlexibleText [thyTooltipContent]="data?.title">
-                    {{ data?.name }} <span class="text-desc ml-1">( {{ data.member_count || 0 }}人 )</span>
-                </div>
-            </ng-template>
+          #tree
+          [thyNodes]="treeNodes"
+          [thySize]="'sm'"
+          [thyIndent]="indent"
+          [thyIcons]="options.treeIcons"
+          [thyType]="treeType"
+          [thyDraggable]="options.draggable"
+          [thyCheckable]="options.checkable"
+          [thyCheckStateResolve]="options.checkStateResolve"
+          [thyMultiple]="options.multiple"
+          [thyClickBehavior]="options.clickBehavior"
+          [thySelectedKeys]="selectedKeys"
+          [thyExpandedKeys]="expandedKeys"
+          [thyExpandAll]="expandAll"
+          [thyShowExpand]="true"
+          [thyBeforeDragStart]="options.beforeDragStart"
+          (thyOnDragDrop)="dragDrop($event)"
+          (thyOnClick)="onEvent()"
+          (thyDblClick)="onDbClickEvent()"
+          (thyOnCheckboxChange)="onEvent()"
+          (thyOnExpandChange)="onEvent()">
+          <ng-template #treeNodeTemplate let-node="node" let-data="origin">
+            @if (data.type !== 'member') {
+              <thy-icon
+                class="thy-tree-node-icon"
+              [thyIconName]="node?.isExpanded ? 'folder-open-fill' : 'folder-fill'"></thy-icon>
+            }
+            <div class="thy-tree-node-title text-truncate" thyFlexibleText [thyTooltipContent]="data?.title">
+              {{ data?.name }} <span class="text-desc ml-1">( {{ data.member_count || 0 }}人 )</span>
+            </div>
+          </ng-template>
         </thy-tree>
-    `
+        `
 })
 class TestBasicTreeComponent {
     @ViewChild('tree', { static: true }) tree: ThyTree;
@@ -1033,33 +1034,34 @@ export class TestDragDropTreeComponent {
     selector: 'test-has-checked-tree',
     template: `
         <thy-tree
-            #tree
-            [thyNodes]="hasCheckTreeNodes"
-            [thySize]="'sm'"
-            [thyIcons]="options.treeIcons"
-            [thyType]="treeType"
-            [thyDraggable]="options.draggable"
-            [thyCheckable]="options.checkable"
-            [thyCheckStateResolve]="options.checkStateResolve"
-            [thyMultiple]="options.multiple"
-            [thySelectedKeys]="['000000000000000000000000']"
-            [thyShowExpand]="true"
-            [thyBeforeDragStart]="options.beforeDragStart"
-            (thyOnDragDrop)="dragDrop($event)"
-            (thyOnClick)="onEvent()"
-            (thyOnCheckboxChange)="onEvent()"
-            (thyOnExpandChange)="onEvent()">
-            <ng-template #treeNodeTemplate let-node="node" let-data="origin">
-                <thy-icon
-                    *ngIf="data.type !== 'member'"
-                    class="thy-tree-node-icon"
-                    [thyIconName]="node?.isExpanded ? 'folder-open-fill' : 'folder-fill'"></thy-icon>
-                <div class="thy-tree-node-title text-truncate" thyFlexibleText [thyTooltipContent]="data?.title">
-                    {{ data?.name }} <span class="text-desc ml-1">( {{ data.member_count || 0 }}人 )</span>
-                </div>
-            </ng-template>
+          #tree
+          [thyNodes]="hasCheckTreeNodes"
+          [thySize]="'sm'"
+          [thyIcons]="options.treeIcons"
+          [thyType]="treeType"
+          [thyDraggable]="options.draggable"
+          [thyCheckable]="options.checkable"
+          [thyCheckStateResolve]="options.checkStateResolve"
+          [thyMultiple]="options.multiple"
+          [thySelectedKeys]="['000000000000000000000000']"
+          [thyShowExpand]="true"
+          [thyBeforeDragStart]="options.beforeDragStart"
+          (thyOnDragDrop)="dragDrop($event)"
+          (thyOnClick)="onEvent()"
+          (thyOnCheckboxChange)="onEvent()"
+          (thyOnExpandChange)="onEvent()">
+          <ng-template #treeNodeTemplate let-node="node" let-data="origin">
+            @if (data.type !== 'member') {
+              <thy-icon
+                class="thy-tree-node-icon"
+              [thyIconName]="node?.isExpanded ? 'folder-open-fill' : 'folder-fill'"></thy-icon>
+            }
+            <div class="thy-tree-node-title text-truncate" thyFlexibleText [thyTooltipContent]="data?.title">
+              {{ data?.name }} <span class="text-desc ml-1">( {{ data.member_count || 0 }}人 )</span>
+            </div>
+          </ng-template>
         </thy-tree>
-    `
+        `
 })
 class TestHasCheckedTreeComponent {
     @ViewChild('tree', { static: true }) tree: ThyTree;

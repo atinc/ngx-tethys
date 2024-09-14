@@ -6,47 +6,53 @@
       class="thy-transfer-list-content"
       thyUniqueKey="_id"
       (thySelectionChange)="selectionChange($event)"
-    >
-      <thy-list-option class="thy-transfer-list-content-item" *ngFor="let item of transferData" [thyValue]="item">
-        <div class="d-flex flex-grow-1 align-items-center">
-          <div class="item-name">
-            <thy-icon thyIconName="scrum-fill" [style.color]="item.color"></thy-icon>
-            <span>
-              {{ item.name }}
-            </span>
+      >
+      @for (item of transferData; track item) {
+        <thy-list-option class="thy-transfer-list-content-item" [thyValue]="item">
+          <div class="d-flex flex-grow-1 align-items-center">
+            <div class="item-name">
+              <thy-icon thyIconName="scrum-fill" [style.color]="item.color"></thy-icon>
+              <span>
+                {{ item.name }}
+              </span>
+            </div>
           </div>
-        </div>
-      </thy-list-option>
+        </thy-list-option>
+      }
     </thy-selection-list>
   </ng-template>
   <ng-template #renderRightTemplate let-items let-selectItem="onSelectItem" let-unselectItem="onUnselectItem">
     <thy-selection-list [thyMultiple]="true" class="thy-transfer-list-content" thyUniqueKey="_id">
-      <thy-list-item class="thy-transfer-list-content-item" *ngFor="let item of selectRight">
-        <div class="d-flex flex-grow-1 align-items-center">
-          <div class="item-name">
-            <thy-icon thyIconName="scrum-fill" [style.color]="item.color"></thy-icon>
-            <span>
-              {{ item.name }}
-            </span>
+      @for (item of selectRight; track item) {
+        <thy-list-item class="thy-transfer-list-content-item">
+          <div class="d-flex flex-grow-1 align-items-center">
+            <div class="item-name">
+              <thy-icon thyIconName="scrum-fill" [style.color]="item.color"></thy-icon>
+              <span>
+                {{ item.name }}
+              </span>
+            </div>
+            <thy-icon class="item-status" (click)="remove(item)" thyIconName="close"></thy-icon>
           </div>
-          <thy-icon class="item-status" (click)="remove(item)" thyIconName="close"></thy-icon>
-        </div>
-      </thy-list-item>
+        </thy-list-item>
+      }
     </thy-selection-list>
     <div class="thy-transfer-list-group-name">
       已添加项目
     </div>
     <thy-selection-list [thyMultiple]="true" class="thy-transfer-list-content" thyUniqueKey="_id">
-      <thy-list-item class="thy-transfer-list-content-item" *ngFor="let item of addedProjectData">
-        <div class="d-flex flex-grow-1 align-items-center">
-          <div class="item-name">
-            <thy-icon thyIconName="scrum-fill" [style.color]="item.color"></thy-icon>
-            <span>
-              {{ item.name }}
-            </span>
+      @for (item of addedProjectData; track item) {
+        <thy-list-item class="thy-transfer-list-content-item">
+          <div class="d-flex flex-grow-1 align-items-center">
+            <div class="item-name">
+              <thy-icon thyIconName="scrum-fill" [style.color]="item.color"></thy-icon>
+              <span>
+                {{ item.name }}
+              </span>
+            </div>
           </div>
-        </div>
-      </thy-list-item>
+        </thy-list-item>
+      }
     </thy-selection-list>
   </ng-template>
 </thy-transfer>

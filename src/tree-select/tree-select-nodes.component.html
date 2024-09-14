@@ -1,53 +1,62 @@
-<div class="thy-tree-select-options" *ngIf="nodeList?.length > 0; else emptyPlaceholder">
-  <div class="thy-tree-select-node">
-    <ng-container *ngIf="!thyVirtualScroll">
-      <ng-container
-        *ngFor="let node of nodeList"
-        [ngTemplateOutlet]="treeSelectNode"
-        [ngTemplateOutletContext]="{ $implicit: node }"></ng-container>
-    </ng-container>
-
-    <cdk-virtual-scroll-viewport #viewport *ngIf="thyVirtualScroll" [itemSize]="defaultItemSize" [style.height]="thyVirtualHeight">
-      <ng-container *cdkVirtualFor="let node of nodeList; trackBy: tabTrackBy">
-        <ng-template [ngTemplateOutlet]="treeSelectNode" [ngTemplateOutletContext]="{ $implicit: node }"></ng-template>
-      </ng-container>
-    </cdk-virtual-scroll-viewport>
+@if (nodeList?.length > 0) {
+  <div class="thy-tree-select-options">
+    <div class="thy-tree-select-node">
+      @if (!thyVirtualScroll) {
+        @for (node of nodeList; track node) {
+          <ng-container
+            [ngTemplateOutlet]="treeSelectNode"
+          [ngTemplateOutletContext]="{ $implicit: node }"></ng-container>
+        }
+      }
+      @if (thyVirtualScroll) {
+        <cdk-virtual-scroll-viewport #viewport [itemSize]="defaultItemSize" [style.height]="thyVirtualHeight">
+          <ng-container *cdkVirtualFor="let node of nodeList; trackBy: tabTrackBy">
+            <ng-template [ngTemplateOutlet]="treeSelectNode" [ngTemplateOutletContext]="{ $implicit: node }"></ng-template>
+          </ng-container>
+        </cdk-virtual-scroll-viewport>
+      }
+    </div>
   </div>
-</div>
-
-<ng-template #emptyPlaceholder>
+} @else {
   <thy-empty class="thy-select-empty-content" thySize="sm" [thyMessage]="parent.thyEmptyOptionsText"></thy-empty>
-</ng-template>
+}
+
 
 <ng-template #treeSelectNode let-node>
   <ng-container>
-    <a
-      class="thy-option-item"
-      [ngClass]="{ active: treeNodeIsSelected(node), 'pl-0': hasNodeChildren }"
-      [class.disabled]="treeNodeIsDisable(node)"
-      [ngStyle]="{ 'padding-left.px': 20 * node.level + parent.icons.gap }"
-      (click)="selectTreeNode($event, node)"
-      *ngIf="!treeNodeIsHidden(node)">
-      <span
-        class="thy-tree-select-option-icon"
-        [class.invisible]="!(node.children?.length > 0 || (node[childCountKey] && node[childCountKey] > 0))"
-        (click)="nodeExpandToggle($event, node)">
-        <thy-icon class="node-expand-icon" [thyIconName]="treeNodeIsExpand(node) ? parent.icons.expand : parent.icons.collapse"></thy-icon>
-      </span>
-      <span class="thy-tree-select-option-text" [ngClass]="{ 'ml-1': hasNodeChildren }">
-        <ng-template
-          *ngIf="treeNodeTemplateRef; else defaultNodeText"
-          [ngTemplateOutlet]="treeNodeTemplateRef"
-          [ngTemplateOutletContext]="{ $implicit: node }"></ng-template>
-        <ng-template #defaultNodeText>
-          <span thyFlexibleText [thyTooltipContent]="node[showKey]">{{ node[showKey] }}</span>
-        </ng-template>
-      </span>
-      <thy-icon class="checked-icon" *ngIf="isMultiple" thyIconName="check"></thy-icon>
-    </a>
-    <ng-container *ngIf="!thyVirtualScroll && treeNodeIsExpand(node) && node.children?.length > 0">
-      <ng-container [ngTemplateOutlet]="treeSelectNode" *ngFor="let node of node.children" [ngTemplateOutletContext]="{ $implicit: node }">
-      </ng-container>
-    </ng-container>
+    @if (!treeNodeIsHidden(node)) {
+      <a
+        class="thy-option-item"
+        [ngClass]="{ active: treeNodeIsSelected(node), 'pl-0': hasNodeChildren }"
+        [class.disabled]="treeNodeIsDisable(node)"
+        [ngStyle]="{ 'padding-left.px': 20 * node.level + parent.icons.gap }"
+        (click)="selectTreeNode($event, node)"
+        >
+        <span
+          class="thy-tree-select-option-icon"
+          [class.invisible]="!(node.children?.length > 0 || (node[childCountKey] && node[childCountKey] > 0))"
+          (click)="nodeExpandToggle($event, node)">
+          <thy-icon class="node-expand-icon" [thyIconName]="treeNodeIsExpand(node) ? parent.icons.expand : parent.icons.collapse"></thy-icon>
+        </span>
+        <span class="thy-tree-select-option-text" [ngClass]="{ 'ml-1': hasNodeChildren }">
+          @if (treeNodeTemplateRef) {
+            <ng-template
+              [ngTemplateOutlet]="treeNodeTemplateRef"
+            [ngTemplateOutletContext]="{ $implicit: node }"></ng-template>
+          } @else {
+            <span thyFlexibleText [thyTooltipContent]="node[showKey]">{{ node[showKey] }}</span>
+          }
+        </span>
+        @if (isMultiple) {
+          <thy-icon class="checked-icon" thyIconName="check"></thy-icon>
+        }
+      </a>
+    }
+    @if (!thyVirtualScroll && treeNodeIsExpand(node) && node.children?.length > 0) {
+      @for (node of node.children; track node) {
+        <ng-container [ngTemplateOutlet]="treeSelectNode" [ngTemplateOutletContext]="{ $implicit: node }">
+        </ng-container>
+      }
+    }
   </ng-container>
 </ng-template>
