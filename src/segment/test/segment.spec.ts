@@ -125,14 +125,14 @@ class TestSegmentActiveComponent {
     selector: 'test-segment-custom-template',
     template: `
         <thy-segment>
-            <ng-container *ngFor="let item of items">
+            @for (item of items; track item) {
                 <thy-segment-item [thyValue]="item.value">
                     <div style="padding: 8px 0px 4px;">
                         <thy-avatar thySize="sm" [thyName]="item.avatar"></thy-avatar>
                         <div class="text1">{{ item.labelText }}</div>
                     </div>
                 </thy-segment-item>
-            </ng-container>
+            }
             <thy-segment-item thyValue="hexie">
                 <div style="padding: 8px 0px 4px;">
                     <thy-avatar thySize="sm" [thyName]="'HeXie'"></thy-avatar>
