@@ -3,26 +3,28 @@
 </div>
 
 <ng-template #suggestionsTemplateRef let-data="data">
-  <thy-selection-list
-    *ngIf="data?.length > 0; else empty"
-    thyBindKeyEventContainer="body"
-    thyMultiple="false"
-    thyAutoActiveFirstItem="true"
-    thySpaceKeyEnabled="false"
-    [thyScrollContainer]="mention.openedSuggestionsRef?.componentInstance?.elementRef"
-    (thySelectionChange)="mention.openedSuggestionsRef?.componentInstance?.selectionChange($event)"
-  >
-    <div class="pl-4 pb-2 pt-2">自定义模板的标题</div>
-    <thy-list-option *ngFor="let item of data" [thyValue]="item">
-      <div class="text-truncate">
-        <thy-avatar thySize="sm" [thyName]="item.display_name" [thyShowName]="true"></thy-avatar>
-        <span class="text-desc ml-2">({{ item.name }})</span>
-      </div>
-    </thy-list-option>
-  </thy-selection-list>
-  <ng-template #empty>
+  @if (data?.length > 0) {
+    <thy-selection-list
+      thyBindKeyEventContainer="body"
+      thyMultiple="false"
+      thyAutoActiveFirstItem="true"
+      thySpaceKeyEnabled="false"
+      [thyScrollContainer]="mention.openedSuggestionsRef?.componentInstance?.elementRef"
+      (thySelectionChange)="mention.openedSuggestionsRef?.componentInstance?.selectionChange($event)"
+      >
+      <div class="pl-4 pb-2 pt-2">自定义模板的标题</div>
+      @for (item of data; track item) {
+        <thy-list-option [thyValue]="item">
+          <div class="text-truncate">
+            <thy-avatar thySize="sm" [thyName]="item.display_name" [thyShowName]="true"></thy-avatar>
+            <span class="text-desc ml-2">({{ item.name }})</span>
+          </div>
+        </thy-list-option>
+      }
+    </thy-selection-list>
+  } @else {
     <div class="text-desc p-3">
       {{ '无匹配数据，按空格完成输入' }}
     </div>
-  </ng-template>
+  }
 </ng-template>
