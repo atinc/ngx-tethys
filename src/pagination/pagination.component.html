@@ -20,20 +20,14 @@
       <div class="thy-pagination-size">
         <thy-select [(ngModel)]="selectPageSize" [thySize]="selectSize" [thyDisabled]="disabled" (ngModelChange)="onPageSizeChange($event)">
           @for (option of config.pageSizeOptions; track option) {
-            <thy-option
-              class="page-size-option"
-              [thyValue]="option"
-            [thyLabelText]="option + ' ' + config.unit + '/页'"></thy-option>
+            <thy-option class="page-size-option" [thyValue]="option" [thyLabelText]="option + ' ' + config.unit + '/页'"></thy-option>
           }
         </thy-select>
       </div>
     }
     <ul class="thy-pagination-pages">
       @if (config.boundaryLinks) {
-        <li
-          class="thy-page-item"
-          [class.disabled]="disabled || pageIndex === firstIndex"
-          (click)="selectPage(firstIndex)">
+        <li class="thy-page-item" [class.disabled]="disabled || pageIndex === firstIndex" (click)="selectPage(firstIndex)">
           <a class="thy-page-link thy-page-link-first" href="javascript:;">
             @if (config.firstText) {
               {{ config.firstText }}
@@ -45,10 +39,7 @@
         </li>
       }
       @if (config.directionLinks) {
-        <li
-          class="thy-page-item"
-          [class.disabled]="disabled || pageIndex === firstIndex"
-          (click)="selectPage(pageIndex - 1)">
+        <li class="thy-page-item" [class.disabled]="disabled || pageIndex === firstIndex" (click)="selectPage(pageIndex - 1)">
           <a class="thy-page-link page-link-pre" href="javascript:;">
             @if (config.previousText) {
               {{ config.previousText }}
@@ -59,21 +50,13 @@
           </a>
         </li>
       }
-      @for (page of pages; track page) {
-        <li
-          class="thy-page-item thy-page-number"
-          [class.active]="page.active"
-          [class.disabled]="disabled"
-          (click)="selectPage(page.index)"
-          >
+      @for (page of pages; track page.index) {
+        <li class="thy-page-item thy-page-number" [class.active]="page.active" [class.disabled]="disabled" (click)="selectPage(page.index)">
           <a class="thy-page-link" href="javascript:;">{{ page.text }}</a>
         </li>
       }
       @if (config.directionLinks) {
-        <li
-          class="thy-page-item page-item-next"
-          [class.disabled]="disabled || pageIndex === pageCount"
-          (click)="selectPage(pageIndex + 1)">
+        <li class="thy-page-item page-item-next" [class.disabled]="disabled || pageIndex === pageCount" (click)="selectPage(pageIndex + 1)">
           <a class="thy-page-link thy-page-link-next" href="javascript:;">
             @if (config.nextText) {
               {{ config.nextText }}
@@ -85,10 +68,7 @@
         </li>
       }
       @if (config.boundaryLinks) {
-        <li
-          class="thy-page-item"
-          [class.disabled]="disabled || pageIndex === pageCount"
-          (click)="selectPage(pageCount)">
+        <li class="thy-page-item" [class.disabled]="disabled || pageIndex === pageCount" (click)="selectPage(pageCount)">
           <a class="thy-page-link thy-page-link-last" href="javascript:;">
             @if (config.lastText) {
               {{ config.lastText }}
@@ -101,7 +81,7 @@
       }
     </ul>
     @if (config.showTotalPageCount && config.totalPagesFormat) {
-      <div class="thy-pagination-count" [innerHTML]="pageCount | paginationTotalPagesFormat : config.totalPagesFormat"></div>
+      <div class="thy-pagination-count" [innerHTML]="pageCount | paginationTotalPagesFormat: config.totalPagesFormat"></div>
     }
     @if (config.showQuickJumper) {
       <div class="thy-pagination-jumper">
