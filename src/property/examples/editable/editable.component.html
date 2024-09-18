@@ -36,7 +36,7 @@
       </ng-template>
     </thy-property-item>
     <thy-property-item (thyEditingChange)="changeEditing($event, { type: 'date' })" thyLabelText="出生日期" thyEditable="true" #item>
-      {{ user.birth_date * 1000 | date : 'yyyy-MM-dd HH:mm' }}
+      {{ user.birth_date * 1000 | date: 'yyyy-MM-dd HH:mm' }}
       <ng-template #editor>
         <thy-property-editable-date-inner [user]="user"></thy-property-editable-date-inner>
       </ng-template>
@@ -71,8 +71,12 @@
       </ng-template>
     </thy-property-item>
     <thy-property-item (thyEditingChange)="changeEditing($event, { type: 'multiSelect' })" thyLabelText="爱好" thyEditable="true" #hobby>
-      <span *ngIf="user.likes.length === 0">无</span>
-      <thy-tag *ngFor="let item of user.likes" class="mr-1" thyShape="pill" thyColor="success">{{ item }}</thy-tag>
+      @if (user.likes.length === 0) {
+        <span>无</span>
+      }
+      @for (item of user.likes; track item) {
+        <thy-tag class="mr-1" thyShape="pill" thyColor="success">{{ item }}</thy-tag>
+      }
       <ng-template #editor>
         <thy-select thyMode="multiple" thySize="md" [(ngModel)]="user.likes">
           <thy-option [thyValue]="'羽毛球'" [thyLabelText]="'羽毛球'"> </thy-option>
@@ -89,7 +93,9 @@
       thyLabelText="职业"
       thyEditable="true"
       #profession>
-      <span *ngIf="!user.profession">无</span>
+      @if (!user.profession) {
+        <span>无</span>
+      }
       <thy-tag thyShape="pill" thyColor="warning">{{ user.profession }}</thy-tag>
       <ng-template #editor>
         <thy-select
@@ -102,9 +108,11 @@
           <thy-option [thyValue]="'科学家'" [thyLabelText]="'科学家'"> </thy-option>
           <thy-option [thyValue]="'程序员'" [thyLabelText]="'程序员'"> </thy-option>
           <ng-template #selectedDisplay let-value>
-            <span class="text-truncate" *ngIf="value">
-              <thy-tag thyShape="pill" thyColor="warning">{{ value }}</thy-tag>
-            </span>
+            @if (value) {
+              <span class="text-truncate">
+                <thy-tag thyShape="pill" thyColor="warning">{{ value }}</thy-tag>
+              </span>
+            }
           </ng-template>
         </thy-select>
       </ng-template>
@@ -116,7 +124,7 @@
       </ng-template>
     </thy-property-item>
     <thy-property-item (thyEditingChange)="changeEditing($event, { type: 'time' })" thyLabelText="打卡时间" thyEditable="true">
-      {{ user.punch_time * 1000 | date : 'HH:mm' }}
+      {{ user.punch_time * 1000 | date: 'HH:mm' }}
       <ng-template #editor>
         <thy-time-picker [(ngModel)]="user.punch_time" thyFormat="HH:mm" thySize="md"></thy-time-picker>
       </ng-template>
@@ -128,8 +136,10 @@
       </ng-template>
     </thy-property-item>
 
-    <thy-property-item thyLabelText="打开弹窗编辑" thyEditable="false" *ngIf="showBtn">
-      <button thyButton="primary" thySize="md" (click)="openTemplateDialog(templateDialog)">Open Detail</button>
-    </thy-property-item>
+    @if (showBtn) {
+      <thy-property-item thyLabelText="打开弹窗编辑" thyEditable="false">
+        <button thyButton="primary" thySize="md" (click)="openTemplateDialog(templateDialog)">Open Detail</button>
+      </thy-property-item>
+    }
   </thy-properties>
 </ng-template>
