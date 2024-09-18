@@ -1,23 +1,26 @@
 <div class="thy-image-preview" [class.thy-image-preview-fullscreen]="isFullScreen">
-  <div class="thy-image-preview-header pl-10 pr-8" *ngIf="!isFullScreen">
-    <div class="thy-image-preview-header-info">
-      <p class="thy-image-name text-truncate" [thyTooltipDisabled]="previewImage?.name?.length < 32" [thyTooltip]="previewImage?.name">
-        {{ previewImage?.name }}
-      </p>
-      <span class="thy-image-size"> {{ previewImage?.size }}</span>
+  @if (!isFullScreen) {
+    <div class="thy-image-preview-header pl-10 pr-8">
+      <div class="thy-image-preview-header-info">
+        <p class="thy-image-name text-truncate" [thyTooltipDisabled]="previewImage?.name?.length < 32" [thyTooltip]="previewImage?.name">
+          {{ previewImage?.name }}
+        </p>
+        <span class="thy-image-size"> {{ previewImage?.size }}</span>
+      </div>
+      <a thyAction thyIcon="close" thyTooltip="退出预览" href="javascript:;" (click)="thyDialog.close()"></a>
     </div>
-    <a thyAction thyIcon="close" thyTooltip="退出预览" href="javascript:;" (click)="thyDialog.close()"></a>
-  </div>
-  <a
-    class="thy-image-preview-exit-fullscreen"
-    *ngIf="isFullScreen"
-    thyAction
-    thyIcon="close"
-    thyTooltip="退出预览"
-    href="javascript:;"
-    (click)="thyFullscreen.exit()"
-    thyTooltip="退出全屏"
-  ></a>
+  }
+  @if (isFullScreen) {
+    <a
+      class="thy-image-preview-exit-fullscreen"
+      thyAction
+      thyIcon="close"
+      thyTooltip="退出预览"
+      href="javascript:;"
+      (click)="thyFullscreen.exit()"
+      thyTooltip="退出全屏"
+    ></a>
+  }
   <div
     class="thy-image-preview-img-wrapper"
     #imagePreviewWrapper
@@ -26,27 +29,28 @@
     [style.transform]="previewImageWrapperTransform"
     [cdkDragFreeDragPosition]="position"
     (cdkDragReleased)="dragReleased()"
-  >
-    <ng-container *ngFor="let image of images; index as imageIndex">
-      <img
-        #imgRef
-        *ngIf="previewIndex === imageIndex && isLoadingDone"
-        class="thy-image-preview-img"
-        [src]="image.objectURL || image.src"
-        [style.transform]="previewImageTransform"
-      />
-    </ng-container>
+    >
+    @for (image of images; track image; let imageIndex = $index) {
+      @if (previewIndex === imageIndex && isLoadingDone) {
+        <img
+          #imgRef
+          class="thy-image-preview-img"
+          [src]="image.objectURL || image.src"
+          [style.transform]="previewImageTransform"
+          />
+      }
+    }
     <thy-loading [thyDone]="isLoadingDone"></thy-loading>
   </div>
 
-  <ng-container *ngIf="images.length > 1 && !isFullScreen">
+  @if (images.length > 1 && !isFullScreen) {
     <div
       class="thy-image-preview-switch-left"
       [thyTooltipDisabled]="previewIndex <= 0"
       thyTooltip="上一张"
       [class.thy-image-preview-switch-left-disabled]="previewIndex <= 0"
       (click)="prev()"
-    >
+      >
       <thy-icon thyIconName="angle-left-bold"></thy-icon>
     </div>
     <div
@@ -55,36 +59,44 @@
       [thyTooltipDisabled]="previewIndex >= images.length - 1"
       [class.thy-image-preview-switch-right-disabled]="previewIndex >= images.length - 1"
       (click)="next()"
-    >
+      >
       <thy-icon thyIconName="angle-right-bold"> </thy-icon>
     </div>
-  </ng-container>
-  <thy-actions thySize="xs" class="thy-image-preview-operations py-3 px-4" *ngIf="!isFullScreen">
-    <ng-container *ngFor="let option of previewOperations; let i = index">
-      <a
-        *ngIf="!['original-scale', 'fit-screen', 'copyLink'].includes(option.type) || currentImageMode === option.type"
-        href="javascript:;"
-        thyAction
-        [thyActionIcon]="option.icon"
-        [thyTooltip]="option.name"
-        [thyTooltipOffset]="13"
-        (click)="option.action(previewImage)"
-      ></a>
-      <span class="mr-2" *ngIf="option?.type === 'zoom-out'"> {{ (zoom * 100).toFixed(0) + '%' }} </span>
-      <thy-divider class="ml-2" [thyVertical]="true" *ngIf="option?.type === 'rotate-right'"></thy-divider>
-      <a
-        *ngIf="option.type === 'copyLink'"
-        href="javascript:;"
-        thyAction
-        [thyCopyTips]="option.name"
-        [thyActionIcon]="option.icon"
-        [thyCopyTipsOffset]="13"
-        (thyCopy)="copyLink($event)"
-        [thyCopyContent]="previewImageOriginSrc"
-        [thyShowNotify]="false"
-      ></a>
-    </ng-container>
-    <thy-divider [thyVertical]="true"></thy-divider>
-    <span class="thy-image-preview-operations-text"> {{ previewIndex + 1 }} / {{ images.length }} </span>
-  </thy-actions>
+  }
+  @if (!isFullScreen) {
+    <thy-actions thySize="xs" class="thy-image-preview-operations py-3 px-4">
+      @for (option of previewOperations; track option; let i = $index) {
+        @if (!['original-scale', 'fit-screen', 'copyLink'].includes(option.type) || currentImageMode === option.type) {
+          <a
+            href="javascript:;"
+            thyAction
+            [thyActionIcon]="option.icon"
+            [thyTooltip]="option.name"
+            [thyTooltipOffset]="13"
+            (click)="option.action(previewImage)"
+          ></a>
+        }
+        @if (option?.type === 'zoom-out') {
+          <span class="mr-2"> {{ (zoom * 100).toFixed(0) + '%' }} </span>
+        }
+        @if (option?.type === 'rotate-right') {
+          <thy-divider class="ml-2" [thyVertical]="true"></thy-divider>
+        }
+        @if (option.type === 'copyLink') {
+          <a
+            href="javascript:;"
+            thyAction
+            [thyCopyTips]="option.name"
+            [thyActionIcon]="option.icon"
+            [thyCopyTipsOffset]="13"
+            (thyCopy)="copyLink($event)"
+            [thyCopyContent]="previewImageOriginSrc"
+            [thyShowNotify]="false"
+          ></a>
+        }
+      }
+      <thy-divider [thyVertical]="true"></thy-divider>
+      <span class="thy-image-preview-operations-text"> {{ previewIndex + 1 }} / {{ images.length }} </span>
+    </thy-actions>
+  }
 </div>
