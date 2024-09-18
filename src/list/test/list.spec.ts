@@ -1,4 +1,4 @@
-import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
+import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyListModule } from '../list.module';
@@ -35,7 +35,8 @@ describe('list', () => {
             expect(listDebugElement.query(By.css('.thy-list-item-meta-description')) != null).toBe(true);
             expect(listDebugElement.query(By.css('.thy-list-item-meta-avatar')) != null).toBe(true);
         });
-        it('should has correct element when use template', () => {
+        fit('should has correct element when use template', () => {
+            console.log('listDebugElement.nativeElement:', listDebugElement.nativeElement);
             expect(listDebugElement.query(By.css('.item-title')) != null).toBe(true);
             expect(listDebugElement.query(By.css('.item-desc')) != null).toBe(true);
             expect(listDebugElement.query(By.css('.item-avatar')) != null).toBe(true);

@@ -1,6 +1,8 @@
 <p>可以使用 <code>thy-list-item-meta</code> 来使用一些预设列表样式。</p>
 <thy-list [thyDivided]="true">
-  <thy-list-item *ngFor="let item of listItems">
-    <thy-list-item-meta [thyTitle]="item.title" [thyAvatar]="item.avatar" [thyDescription]="item.description"> </thy-list-item-meta>
-  </thy-list-item>
+  @for (item of listItems; track $index) {
+    <thy-list-item>
+      <thy-list-item-meta [thyTitle]="item.title" [thyAvatar]="item.avatar" [thyDescription]="item.description"> </thy-list-item-meta>
+    </thy-list-item>
+  }
 </thy-list>
