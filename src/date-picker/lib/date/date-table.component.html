@@ -19,14 +19,14 @@
     </tr>
   </thead>
   <tbody class="{{ prefixCls }}-tbody">
-    @for (row of bodyRows; track trackByBodyRow($index, row)) {
+    @for (row of bodyRows; track $index) {
       <tr [ngClass]="row.classMap" role="row">
         @if (row.weekNum) {
           <td role="gridcell" class="{{ prefixCls }}-week-number-cell">
             {{ row.weekNum }}
           </td>
         }
-        @for (cell of row.dateCells; track trackByBodyColumn($index, cell)) {
+        @for (cell of row.dateCells; track $index) {
           <td
             role="gridcell"
             [ngClass]="cell.classMap"
