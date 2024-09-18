@@ -35,8 +35,7 @@ describe('list', () => {
             expect(listDebugElement.query(By.css('.thy-list-item-meta-description')) != null).toBe(true);
             expect(listDebugElement.query(By.css('.thy-list-item-meta-avatar')) != null).toBe(true);
         });
-        fit('should has correct element when use template', () => {
-            console.log('listDebugElement.nativeElement:', listDebugElement.nativeElement);
+        it('should has correct element when use template', () => {
             expect(listDebugElement.query(By.css('.item-title')) != null).toBe(true);
             expect(listDebugElement.query(By.css('.item-desc')) != null).toBe(true);
             expect(listDebugElement.query(By.css('.item-avatar')) != null).toBe(true);
