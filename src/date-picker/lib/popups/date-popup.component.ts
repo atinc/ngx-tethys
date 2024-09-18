@@ -614,8 +614,4 @@ export class DatePopup implements OnChanges, OnInit {
             this.updateActiveDate();
         }
     }
-
-    public trackByFn(index: number) {
-        return index;
-    }
 }

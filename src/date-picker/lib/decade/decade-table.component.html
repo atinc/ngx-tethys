@@ -1,14 +1,9 @@
 <table class="{{ prefixCls }}-decade-panel-table" cellSpacing="0" role="grid">
   <tbody class="{{ prefixCls }}-decade-panel-tbody">
-    @for (row of bodyRows; track trackByBodyRow($index, row)) {
+    @for (row of bodyRows; track $index) {
       <tr role="row">
-        @for (cell of row.dateCells; track trackByBodyColumn($index, cell)) {
-          <td
-            role="gridcell"
-            title="{{ cell.title }}"
-            (click)="cellClick($event, cell)"
-            [ngClass]="cell.classMap"
-            >
+        @for (cell of row.dateCells; track $index) {
+          <td role="gridcell" title="{{ cell.title }}" (click)="cellClick($event, cell)" [ngClass]="cell.classMap">
             <a class="{{ prefixCls }}-decade-panel-decade">{{ cell.content }}</a>
           </td>
         }
