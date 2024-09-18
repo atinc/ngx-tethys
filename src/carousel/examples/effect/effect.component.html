@@ -5,7 +5,7 @@
 </thy-button-group>
 <div style="margin-top: 10px">
   <thy-carousel [thyEffect]="effect">
-    @for (slide of array; track slide) {
+    @for (slide of array; track $index) {
       <div thyCarouselItem class="custom-carousel-item">
         {{ slide }}
       </div>

@@ -1,11 +1,19 @@
-<thy-cascader [thyOptions]="areaCode" (ngModelChange)="selectChanges($event)" [(ngModel)]="values"
-  thyExpandTriggerAction="hover" [thyHasBackdrop]="false" [thyMultiple]="true" [thyShowSearch]="true"
-  [thyLabelRender]="renderTpl" [thyOptionRender]="optionTpl" thyMaxTagCount="3" style="width: 200px">
+<thy-cascader
+  [thyOptions]="areaCode"
+  (ngModelChange)="selectChanges($event)"
+  [(ngModel)]="values"
+  thyExpandTriggerAction="hover"
+  [thyHasBackdrop]="false"
+  [thyMultiple]="true"
+  [thyShowSearch]="true"
+  [thyLabelRender]="renderTpl"
+  [thyOptionRender]="optionTpl"
+  thyMaxTagCount="3"
+  style="width: 200px">
 </thy-cascader>
 
-
 <ng-template #renderTpl let-labels="labels" let-selectedOptions="selectedOptions">
-  @for (label of labels; track label; let i = $index; let isLast = $last) {
+  @for (label of labels; track $index; let i = $index; let isLast = $last) {
     @if (isLast && label) {
       <span> {{ label }}</span>
     }
@@ -14,6 +22,5 @@
 
 <ng-template #optionTpl let-option="option">
   <thy-icon class="mr-2" thyIconName="view-tile"></thy-icon>
-  <span class="option-label-item" thyFlexibleText [thyTooltipContent]="option.label || ''"> {{ option.label || ''
-  }}</span>
+  <span class="option-label-item" thyFlexibleText [thyTooltipContent]="option.label || ''"> {{ option.label || '' }}</span>
 </ng-template>

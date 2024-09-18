@@ -17,21 +17,21 @@ import { ThyCalendarModule } from '../module';
             <ul *thyDateCell="let date">
                 @switch (date.getDate()) {
                     @case (8) {
-                        @for (item of listDataMap.eight; track item) {
+                        @for (item of listDataMap.eight; track $index) {
                             <li>
                                 {{ item.content }}
                             </li>
                         }
                     }
                     @case (10) {
-                        @for (item of listDataMap.ten; track item) {
+                        @for (item of listDataMap.ten; track $index) {
                             <li>
                                 {{ item.content }}
                             </li>
                         }
                     }
                     @case (11) {
-                        @for (item of listDataMap.eleven; track item) {
+                        @for (item of listDataMap.eleven; track $index) {
                             <li>
                                 {{ item.content }}
                             </li>

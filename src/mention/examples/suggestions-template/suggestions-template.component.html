@@ -10,10 +10,9 @@
       thyAutoActiveFirstItem="true"
       thySpaceKeyEnabled="false"
       [thyScrollContainer]="mention.openedSuggestionsRef?.componentInstance?.elementRef"
-      (thySelectionChange)="mention.openedSuggestionsRef?.componentInstance?.selectionChange($event)"
-      >
+      (thySelectionChange)="mention.openedSuggestionsRef?.componentInstance?.selectionChange($event)">
       <div class="pl-4 pb-2 pt-2">自定义模板的标题</div>
-      @for (item of data; track item) {
+      @for (item of data; track $index) {
         <thy-list-option [thyValue]="item">
           <div class="text-truncate">
             <thy-avatar thySize="sm" [thyName]="item.display_name" [thyShowName]="true"></thy-avatar>

@@ -4,7 +4,7 @@
   style="width: 500px"
   [thyLoadState]="loadState"
   (thyOnExpandStatusChange)="expandChange($event)">
-  @for (option of loadMoreData; track option) {
+  @for (option of loadMoreData; track option._id) {
     <thy-option [thyValue]="option._id" [thyLabelText]="option.thyLabelText"> </thy-option>
   }
   @if (loading) {

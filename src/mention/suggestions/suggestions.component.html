@@ -11,7 +11,7 @@
         thySpaceKeyEnabled="false"
         [thyScrollContainer]="elementRef"
         (thySelectionChange)="selectionChange($event)">
-        @for (item of data | slice: 0 : mention.limit; track item) {
+        @for (item of data | slice: 0 : mention.limit; track $index) {
           <thy-list-option [thyValue]="item">
             @if (mention?.displayTemplateRef) {
               <ng-template *ngTemplateOutlet="mention?.displayTemplateRef; context: { $implicit: item }"></ng-template>

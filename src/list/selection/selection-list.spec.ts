@@ -262,7 +262,7 @@ describe('ThySelectionList without forms', () => {
             [thyAutoActiveFirstItem]="autoActiveFirstItem"
             [thyBeforeKeydown]="thyBeforeKeydown"
             [thyUniqueKey]="uniqueKey">
-            @for (item of items; track item) {
+            @for (item of items; track item.id) {
                 <thy-list-option [id]="item.id" [thyValue]="item.value">
                     {{ item.text }}
                 </thy-list-option>
@@ -370,7 +370,7 @@ class SelectionListWithListOptionsDefaultComponent {
             [thyMultiple]="false"
             [(ngModel)]="selectedValue"
             thyUniqueKey="id">
-            @for (option of options; track option) {
+            @for (option of options; track option.id) {
                 <thy-list-option [thyValue]="option">
                     {{ option.displayName }}
                 </thy-list-option>

@@ -1,5 +1,5 @@
 <thy-button-group class="mb-3" thySize="md" thyType="outline-default">
-  @for (item of sizes; track item) {
+  @for (item of sizes; track $index) {
     <button thyButton (click)="size = item.name" [ngClass]="{ active: item.name === size }">
       {{ item.name + ' (' + item.height + 'px' + ')' }}
     </button>

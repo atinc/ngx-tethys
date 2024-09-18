@@ -2,7 +2,7 @@
   <thy-input-search [(ngModel)]="keyword" [placeholder]="'请输入'" [thyAutocomplete]="auto" (ngModelChange)="valueChange($event)">
   </thy-input-search>
   <thy-autocomplete #auto>
-    @for (item of listOfOption; track item) {
+    @for (item of listOfOption; track $index) {
       <thy-option [thyLabelText]="item.label" [thyValue]="item.value"></thy-option>
     }
   </thy-autocomplete>

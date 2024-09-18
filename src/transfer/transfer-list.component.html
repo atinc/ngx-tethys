@@ -1,67 +1,64 @@
 <div class="thy-transfer-list-header">
   <span class="thy-transfer-list-header-title"
-    >{{ title }} · {{ items?.length }}@if (max) {
-    <span> (上限{{ max }}个)</span>
-    }</span
-    >
-  </div>
-  @if (!contentRef) {
-    <div class="thy-transfer-list-body" cdkDropListGroup [cdkDropListGroupDisabled]="!draggable">
-      @if (canLock) {
-        <div class="thy-transfer-list-group-name">锁定 (上限{{ maxLock }}个)</div>
-        <thy-list
-          class="thy-transfer-list-content"
-          cdkDropList
-          thyDragDrop
-          id="lock"
-          [cdkDropListData]="lockItems"
-          (cdkDropListDropped)="drop($event)"
-          [cdkDropListEnterPredicate]="lockListEnterPredicate"
-          >
-          @if (lockItems.length === 0) {
-            <div class="cdk-drop-list-empty"></div>
-          }
-          @for (item of lockItems; track item) {
-            <thy-list-item
-              class="thy-transfer-list-content-item text-truncate"
-              cdkDrag
-              [cdkDragData]="item"
-              [ngClass]="{ active: item.checked }"
-              >
-              <ng-template [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
-            </thy-list-item>
-          }
-        </thy-list>
-        <div class="thy-transfer-list-group-name">未锁定</div>
-      }
+    >{{ title }} · {{ items?.length }}
+    @if (max) {
+      <span> (上限{{ max }}个)</span>
+    }
+  </span>
+</div>
+@if (!contentRef) {
+  <div class="thy-transfer-list-body" cdkDropListGroup [cdkDropListGroupDisabled]="!draggable">
+    @if (canLock) {
+      <div class="thy-transfer-list-group-name">锁定 (上限{{ maxLock }}个)</div>
       <thy-list
         class="thy-transfer-list-content"
         cdkDropList
         thyDragDrop
-        [cdkDropListDisabled]="!draggable"
-        id="unlock"
-        [cdkDropListData]="unlockItems"
+        id="lock"
+        [cdkDropListData]="lockItems"
         (cdkDropListDropped)="drop($event)"
-        [cdkDropListEnterPredicate]="unlockListEnterPredicate"
-        >
-        @if (unlockItems.length === 0) {
+        [cdkDropListEnterPredicate]="lockListEnterPredicate">
+        @if (lockItems.length === 0) {
           <div class="cdk-drop-list-empty"></div>
         }
-        @for (item of unlockItems; track item) {
+        @for (item of lockItems; track $index) {
           <thy-list-item
             class="thy-transfer-list-content-item text-truncate"
             cdkDrag
             [cdkDragData]="item"
-            [ngClass]="{ active: item.checked, disabled: disabled && item.direction === 'left' }"
-            >
+            [ngClass]="{ active: item.checked }">
             <ng-template [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
           </thy-list-item>
         }
       </thy-list>
-    </div>
-  } @else {
-    <div class="thy-transfer-list-body">
-      <ng-container
+      <div class="thy-transfer-list-group-name">未锁定</div>
+    }
+    <thy-list
+      class="thy-transfer-list-content"
+      cdkDropList
+      thyDragDrop
+      [cdkDropListDisabled]="!draggable"
+      id="unlock"
+      [cdkDropListData]="unlockItems"
+      (cdkDropListDropped)="drop($event)"
+      [cdkDropListEnterPredicate]="unlockListEnterPredicate">
+      @if (unlockItems.length === 0) {
+        <div class="cdk-drop-list-empty"></div>
+      }
+      @for (item of unlockItems; track $index) {
+        <thy-list-item
+          class="thy-transfer-list-content-item text-truncate"
+          cdkDrag
+          [cdkDragData]="item"
+          [ngClass]="{ active: item.checked, disabled: disabled && item.direction === 'left' }">
+          <ng-template [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
+        </thy-list-item>
+      }
+    </thy-list>
+  </div>
+} @else {
+  <div class="thy-transfer-list-body">
+    <ng-container
       *ngTemplateOutlet="
         contentRef;
         context: {
@@ -69,8 +66,6 @@
           onSelectItem: onSelectItem,
           onUnselectItem: onUnselectItem
         }
-      "
-    ></ng-container>
+      "></ng-container>
   </div>
 }
-

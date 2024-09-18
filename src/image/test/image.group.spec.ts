@@ -9,7 +9,7 @@ import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
     selector: 'thy-image-group-test',
     template: `
         <thy-image-group>
-            @for (image of images; track image) {
+            @for (image of images; track $index) {
                 <img thyImage [thySrc]="image.src" [thyImageMeta]="image.imageMeta" />
             }
         </thy-image-group>

@@ -46,7 +46,7 @@ interface FoodsInfo {
                 [thyMode]="mode"
                 [thyBorderless]="borderless"
                 [thyOrigin]="customizeOrigin">
-                @for (food of foods; track food) {
+                @for (food of foods; track food.value) {
                     <thy-option [thyValue]="food.value" [thyDisabled]="food.disabled" [thyLabelText]="food.viewValue"> </thy-option>
                 }
                 <ng-template #footer>
@@ -91,12 +91,12 @@ class BasicSelectComponent {
     selector: 'thy-multiple-select',
     template: `
         <thy-select class="foods" [thyMode]="'multiple'" [(ngModel)]="selectedFoods" #Foods thyPlaceHolder="Food">
-            @for (food of foods; track food) {
+            @for (food of foods; track food.value) {
                 <thy-option [thyValue]="food.value" [thyDisabled]="food.disabled" [thyLabelText]="food.viewValue"> </thy-option>
             }
         </thy-select>
         <thy-select class="vegetables" #Vegetables thyPlaceHolder="Vegetables">
-            @for (vegetable of vegetables; track vegetable) {
+            @for (vegetable of vegetables; track vegetable.value) {
                 <thy-option [thyValue]="vegetable.value" [thyLabelText]="vegetable.viewValue"> </thy-option>
             }
         </thy-select>
@@ -126,7 +126,7 @@ class MultipleSelectComponent {
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
             <thy-select thyPlaceHolder="Food" ngModel name="food" [thyDisabled]="isDisabled">
-                @for (food of foods; track food) {
+                @for (food of foods; track food.value) {
                     <thy-option [thyValue]="food.value" [thyLabelText]="food.viewValue"> </thy-option>
                 }
             </thy-select>
@@ -150,9 +150,9 @@ class NgModelSelectComponent {
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
             <thy-select thyPlaceHolder="Pokemon" [formControl]="control">
-                @for (group of pokemonTypes; track group) {
+                @for (group of pokemonTypes; track $index) {
                     <thy-option-group [thyGroupLabel]="group.name">
-                        @for (pokemon of group.pokemon; track pokemon) {
+                        @for (pokemon of group.pokemon; track pokemon.value) {
                             <thy-option [thyValue]="pokemon.value" [thyLabelText]="pokemon.viewValue"></thy-option>
                         }
                     </thy-option-group>
@@ -175,7 +175,7 @@ class SelectWithGroupsAndNgContainerComponent {
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
             <thy-select placeholder="Food" [(ngModel)]="selectedFoods" name="food">
-                @for (food of foods; track food) {
+                @for (food of foods; track food.value) {
                     <thy-option [thyValue]="food.value" [thyLabelText]="food.viewValue"></thy-option>
                 }
             </thy-select>
@@ -199,7 +199,7 @@ class SingleSelectWithPreselectedArrayValuesComponent {
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
             <thy-select placeholder="Food" [(ngModel)]="selectedValues" name="food">
-                @for (item of values; track item) {
+                @for (item of values; track item.value) {
                     <thy-option [thyValue]="item.value" [thyLabelText]="item.viewValue"></thy-option>
                 }
             </thy-select>
@@ -251,7 +251,7 @@ class SelectEarlyAccessSiblingComponent {}
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
             <thy-select thyPlaceHolder="Food" [thyShowSearch]="thyShowSearch">
-                @for (food of foods; track food) {
+                @for (food of foods; track food.value) {
                     <thy-option [thyValue]="food.value" [thyDisabled]="food.disabled" [thyLabelText]="food.viewValue"> </thy-option>
                 }
             </thy-select>
@@ -280,7 +280,7 @@ class SelectWithSearchComponent {
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
             <thy-select thyPlaceHolder="team-members" [thyShowSearch]="thyShowSearch">
-                @for (member of teamMembers; track member) {
+                @for (member of teamMembers; track member._id) {
                     <thy-option [thyValue]="member._id" [thyLabelText]="member.name" thySearchKey="{{ member.name }},{{ member.pin_yin }}">
                     </thy-option>
                 }
@@ -326,9 +326,9 @@ class SelectWithSearchUseSearchKeyComponent {
                 [thyShowSearch]="true"
                 [thyEmptySearchMessageText]="thyEmptySearchMessageText"
                 [formControl]="control">
-                @for (group of pokemonTypes; track group) {
+                @for (group of pokemonTypes; track $index) {
                     <thy-option-group [thyGroupLabel]="group.name">
-                        @for (pokemon of group.pokemon; track pokemon) {
+                        @for (pokemon of group.pokemon; track pokemon.value) {
                             <thy-option [thyValue]="pokemon.value" [thyLabelText]="pokemon.viewValue"></thy-option>
                         }
                     </thy-option-group>
@@ -370,7 +370,7 @@ class SelectWithSearchAndGroupComponent {
                 [thyShowSearch]="thyShowSearch"
                 [thyServerSearch]="true"
                 (thyOnSearch)="thyOnSearch()">
-                @for (food of foods; track food) {
+                @for (food of foods; track food.value) {
                     <thy-option [thyValue]="food.value" [thyDisabled]="food.disabled" [thyLabelText]="food.viewValue"> </thy-option>
                 }
             </thy-select>
@@ -409,7 +409,7 @@ class SelectWithSearchAndServerSearchComponent {
                 [thyDisabled]="disabled"
                 name="Food"
                 [required]="isRequired">
-                @for (food of foods; track food) {
+                @for (food of foods; track food.value) {
                     <thy-option [thyValue]="food.value" [thyDisabled]="food.disabled" [thyLabelText]="food.viewValue"> </thy-option>
                 }
             </thy-select>
@@ -441,7 +441,7 @@ class SelectEimtOptionsChangesComponent {
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
             <thy-select [formControl]="control" (thyOnExpandStatusChange)="thyOnExpandStatusChange($event)">
-                @for (food of foods; track food) {
+                @for (food of foods; track food.value) {
                     <thy-option [thyValue]="food.value" [thyDisabled]="food.disabled" [thyLabelText]="food.viewValue"> </thy-option>
                 }
             </thy-select>
@@ -459,7 +459,7 @@ class SelectWithExpandStatusComponent {
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
             <thy-select placeholder="Food" [(ngModel)]="selectedFoods" name="food" [thyMode]="selectMode">
-                @for (food of foods; track food) {
+                @for (food of foods; track food.value) {
                     <thy-option [thyValue]="food.value" [thyLabelText]="food.viewValue"></thy-option>
                 }
             </thy-select>
@@ -490,7 +490,7 @@ class SelectWithThyModeComponent {
                 name="food"
                 [thyMode]="selectMode"
                 [thySortComparator]="thySortComparator">
-                @for (food of foods; track food) {
+                @for (food of foods; track food.value) {
                     <thy-option [thyValue]="food.value" [thyLabelText]="food.viewValue"></thy-option>
                 }
             </thy-select>
@@ -518,7 +518,7 @@ class SelectWithThySortComparatorComponent {
     selector: 'thy-auto-expend-select',
     template: `
         <thy-select [thyAutoExpand]="isAutoExpend" style="width:500px;">
-            @for (option of listOfOption; track option) {
+            @for (option of listOfOption; track option.value) {
                 <thy-option [thyValue]="option.value" [thyLabelText]="option.label"></thy-option>
             }
         </thy-select>
@@ -546,7 +546,7 @@ class SelectWithThyAutoExpendComponent implements OnInit {
     selector: 'thy-placement-select',
     template: `
         <thy-select [thyPlacement]="thyPlacement" style="width:500px;">
-            @for (option of listOfOption; track option) {
+            @for (option of listOfOption; track option.value) {
                 <thy-option [thyValue]="option.value" [thyLabelText]="option.label"></thy-option>
             }
         </thy-select>
@@ -575,7 +575,7 @@ class SelectWithThyPlacementComponent implements OnInit {
                 [thyServerSearch]="serverSearch"
                 [thyEnableScrollLoad]="true"
                 (thyOnSearch)="thyOnSearch($event)">
-                @for (food of foods; track food) {
+                @for (food of foods; track food.value) {
                     <thy-option [thyValue]="food.value" [thyDisabled]="food.disabled" [thyLabelText]="food.viewValue"> </thy-option>
                 }
             </thy-select>
@@ -610,7 +610,7 @@ class SelectWithScrollAndSearchComponent {
     selector: 'thy-select-with-load-state',
     template: `
         <thy-select (thyOnExpandStatusChange)="expandChange($event)" [thyLoadState]="loadState" [thyShowSearch]="showSearch">
-            @for (food of foods; track food) {
+            @for (food of foods; track food.value) {
                 <thy-option [thyValue]="food.value" [thyDisabled]="food.disabled" [thyLabelText]="food.viewValue"> </thy-option>
             }
         </thy-select>
@@ -663,14 +663,14 @@ class SelectWithAsyncLoadComponent implements OnInit {
     template: `
         <div style="width:100px">
             <thy-select class="select1" [thyDropdownWidthMode]="dropdownWidthMode" [(ngModel)]="selectedValue">
-                @for (option of options; track option) {
+                @for (option of options; track option.value) {
                     <thy-option [thyValue]="option.value" [thyLabelText]="option.viewValue"> </thy-option>
                 }
             </thy-select>
         </div>
         <div style="width:100px">
             <thy-select class="select2" [(ngModel)]="selectedValue">
-                @for (option of options; track option) {
+                @for (option of options; track option.value) {
                     <thy-option [thyValue]="option.value" [thyLabelText]="option.viewValue"> </thy-option>
                 }
             </thy-select>

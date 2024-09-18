@@ -5,9 +5,8 @@
   [thyBeforeDragOver]="beforeDragOver"
   [thyBeforeDragDrop]="beforeDragDrop"
   (thyDragStarted)="onDragStart($event)"
-  (thyDragDropped)="onDragDrop($event)"
-  >
-  @for (item of nodes; track item) {
+  (thyDragDropped)="onDragDrop($event)">
+  @for (item of nodes; track item.key) {
     <li [thyDrag]="item">
       <ng-template [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{ item: item, level: 0 }"></ng-template>
     </li>
@@ -23,9 +22,8 @@
       [thyBeforeDragOver]="beforeDragOver"
       [thyBeforeDragDrop]="beforeDragDrop"
       (thyDragStarted)="onDragStart($event)"
-      (thyDragDropped)="onDragDrop($event)"
-      >
-      @for (subItem of item.children; track subItem) {
+      (thyDragDropped)="onDragDrop($event)">
+      @for (subItem of item.children; track subItem.key) {
         <li [style.paddingLeft.px]="level * 10" [thyDrag]="subItem">
           <ng-template [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{ item: subItem, level: level + 1 }"></ng-template>
         </li>

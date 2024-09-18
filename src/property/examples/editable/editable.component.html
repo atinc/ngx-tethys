@@ -74,7 +74,7 @@
       @if (user.likes.length === 0) {
         <span>无</span>
       }
-      @for (item of user.likes; track item) {
+      @for (item of user.likes; track $index) {
         <thy-tag class="mr-1" thyShape="pill" thyColor="success">{{ item }}</thy-tag>
       }
       <ng-template #editor>

@@ -1,7 +1,7 @@
 <form thyForm thyLayout="inline">
   <thy-form-group thyLabelText="触发方式">
     <thy-select name="size" [(ngModel)]="tooltipConfig.trigger" (ngModelChange)="triggerChange()" name="trigger">
-      @for (option of triggerOptions; track option) {
+      @for (option of triggerOptions; track $index) {
         <thy-option [thyValue]="option" [thyLabelText]="option"></thy-option>
       }
     </thy-select>
@@ -9,7 +9,7 @@
 
   <thy-form-group thyLabelText="偏移量">
     <thy-select name="size" [(ngModel)]="tooltipConfig.offset" (ngModelChange)="triggerChange()" name="offset">
-      @for (option of offsetOptions; track option) {
+      @for (option of offsetOptions; track $index) {
         <thy-option [thyValue]="option" [thyLabelText]="option"></thy-option>
       }
     </thy-select>

@@ -23,7 +23,7 @@ export const DEFAULT_RESIZE_DIRECTION: ThyResizeDirection[] = [
     selector: 'thy-resize-handles',
     exportAs: 'thyResizeHandles',
     template: `
-        @for (dir of directions; track dir) {
+        @for (dir of directions; track $index) {
             <thy-resize-handle [thyLine]="thyLine" [thyDirection]="dir"></thy-resize-handle>
         }
     `,

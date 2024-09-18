@@ -1,6 +1,6 @@
 @if (thyShowStepHeader) {
   <div class="thy-stepper-header-container">
-    @for (step of steps; track step; let i = $index; let isLast = $last) {
+    @for (step of steps; track $index; let i = $index; let isLast = $last) {
       <thy-step-header
         [index]="i"
         [label]="step.thyLabel || step.label"

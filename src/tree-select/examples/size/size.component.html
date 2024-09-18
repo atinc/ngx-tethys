@@ -1,6 +1,6 @@
 <thy-tree-select [thyTreeNodes]="treeSelectNodes" [thySize]="currentSize"> </thy-tree-select>
 <thy-button-group thySize="md" thyType="outline-default" class="my-3">
-  @for (size of btnSizes; track size) {
+  @for (size of btnSizes; track $index) {
     <button thyButton (click)="currentSize = size" [ngClass]="{ active: size === currentSize }">
       {{ size }}
     </button>

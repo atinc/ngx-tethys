@@ -1,6 +1,6 @@
-<div style="width: 666px;">
+<div style="width: 666px">
   <thy-segment thyMode="block">
-    @for (item of items; track item) {
+    @for (item of items; track item.value) {
       <thy-segment-item [thyValue]="item.value">{{ item.text }}</thy-segment-item>
     }
   </thy-segment>
@@ -8,7 +8,7 @@
 
 <div class="mt-4">
   <thy-segment thyMode="inline">
-    @for (item of items; track item) {
+    @for (item of items; track item.value) {
       <thy-segment-item [thyValue]="item.value">{{ item.text }}</thy-segment-item>
     }
   </thy-segment>

@@ -1,7 +1,7 @@
 <div class="mb-4">
   <span class="mr-2">From Layout:</span>
   <thy-button-group thySize="md" thyType="outline-default">
-    @for (layout of layouts; track layout) {
+    @for (layout of layouts; track layout.value) {
       <button thyButton (click)="updateLayout(layout)" [ngClass]="{ active: layout === currentLayout }">
         {{ layout.text }}
       </button>
@@ -18,9 +18,7 @@
       <input thyInput type="password" name="password" placeholder="Please type password" />
     </thy-form-group>
     <thy-form-group-footer>
-      <button [thyButton]="'primary'" thyLoadingText="Login" (thyFormSubmit)="login()">
-        Login
-      </button>
+      <button [thyButton]="'primary'" thyLoadingText="Login" (thyFormSubmit)="login()">Login</button>
       <button [thyButton]="'link-secondary'">Cancel</button>
     </thy-form-group-footer>
   </form>

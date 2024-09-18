@@ -4,9 +4,8 @@
   [(ngModel)]="selectionObjectModel"
   [thyMultiple]="false"
   thyLayout="grid"
-  [thyUniqueKey]="gridUniqueKey"
-  >
-  @for (item of gridUniqueKeyItems; track item) {
+  [thyUniqueKey]="gridUniqueKey">
+  @for (item of gridUniqueKeyItems; track item.id) {
     <thy-list-option [thyValue]="item">
       <thy-icon thyIconName="app-agile-fill" class="thy-grid-option-icon"></thy-icon>
       <div class="thy-grid-option-name">{{ item.name }}</div>

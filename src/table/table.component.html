@@ -91,7 +91,7 @@
         }
         <!-- list模式下没有直接使用item模板，是因为使用了模板影响了Angular的依赖树，导致CdkDragDrop排序失效，目前这样修改可以暂时解决线上不能排序的问题，Tree模式的排序暂时不支持 -->
         @if (mode === 'list') {
-          @for (row of model; let i = $index; track trackByFn(i, row)) {
+          @for (row of model; track $index; let i = $index) {
             <tr
               #rows
               class="thy-sortable-item"

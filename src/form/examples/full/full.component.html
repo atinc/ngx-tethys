@@ -10,7 +10,7 @@
   <thy-form-group thyLabelText="Select">
     <thy-native-select required [(ngModel)]="model.select" name="power">
       <option value="">---Select---</option>
-      @for (option of options; track option) {
+      @for (option of options; track option._id) {
         <option [value]="option._id">{{ option.value }}</option>
       }
     </thy-native-select>

@@ -8,7 +8,7 @@
   </div>
 }
 
-@for (item of showItems; track item) {
+@for (item of showItems; track $index) {
   <thy-breadcrumb-item class="thy-breadcrumb-item-ellipsis">
     @if (item?._id !== ellipsisItemId) {
       <ng-container *ngTemplateOutlet="itemContentTpl; context: { $implicit: item }"></ng-container>
@@ -20,15 +20,14 @@
         thyActiveClass="active"
         [class.disabled]="!thyExpandable"
         class="ellipsis-action ml-n1 mr-n1"
-        [thyDropdown]="ellipsisList"
-      ></a>
+        [thyDropdown]="ellipsisList"></a>
     }
   </thy-breadcrumb-item>
 }
 
 <ng-template #ellipsisList>
   <thy-dropdown-menu thyImmediateRender>
-    @for (item of ellipsisItems; track item) {
+    @for (item of ellipsisItems; track $index) {
       <a thyDropdownMenuItem href="javascript:;">
         <ng-template *ngTemplateOutlet="itemContentTpl; context: { $implicit: item }"></ng-template>
       </a>
