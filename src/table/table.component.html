@@ -1,7 +1,11 @@
 <div
   class="thy-table-body"
   cdkScrollable
-  [ngClass]="{ 'thy-table-fixed': hasFixed, 'thy-table-bordered-theme': theme === 'bordered' && hasFixed }">
+  [ngClass]="{
+    'thy-table-fixed': hasFixed,
+    'thy-table-bordered-theme': theme === 'bordered' && hasFixed,
+    'thy-table-body-empty': loadingDone && model?.length === 0 && groups?.length === 0
+  }">
   <table
     #table
     class="table"
