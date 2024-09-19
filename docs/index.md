@@ -4,7 +4,7 @@ order: 10
 hero:
   title: TETHYS
   description: 开箱即用的企业级 Angular 组件库
-  banner: ./assets/images/banner.png
+  banner: [./assets/images/banner.png, ./assets/images/dark-banner.png]
   actions:
     - text: 快速上手
       link: docs/getting-started
