@@ -174,15 +174,15 @@ describe('ThyTreeComponent', () => {
             fixture.detectChanges();
             treeComponent.addTreeNode(
                 {
-                    key: '000000000000000000001111',
-                    title: '新增部门1'
+                    key: '000000000000000000002222',
+                    title: '新增部门2'
                 },
                 null,
                 0
             );
             fixture.detectChanges();
             expect(treeComponent.getRootNodes().length).toEqual(4);
-            expect(treeComponent.getRootNodes()[0].title).toEqual('新增部门1');
+            expect(treeComponent.getRootNodes()[0].title).toEqual('新增部门2');
         });
 
         it(`test public function 'deleteTreeNode()`, () => {
