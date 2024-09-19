@@ -56,7 +56,7 @@
         (cdkDropListDropped)="onDragDropped($event)">
         <!-- group -->
         @if (mode === 'group') {
-          @for (group of groups; track $index) {
+          @for (group of groups; track group.id) {
             <tr
               class="thy-table-group"
               (click)="expandGroup(group)"
@@ -81,7 +81,7 @@
               </td>
             </tr>
             @if (group.children?.length && group.expand) {
-              @for (row of group.children; track trackByFn(i, row); let i = $index) {
+              @for (row of group.children; track $index; let i = $index) {
                 <ng-template
                   [ngTemplateOutlet]="trTemplate"
                   [ngTemplateOutletContext]="{
