@@ -17,19 +17,17 @@
         class="thy-carousel-indicator"
         (mouseenter)="indicatorHandleTrigger(i)"
         (mouseleave)="indicatorHandleLeave()"
-        (click)="indicatorHandleClick(i)"
-      >
+        (click)="indicatorHandleClick(i)">
         <ng-template
           [ngTemplateOutlet]="thyIndicatorRender || defaultIndicatorRender"
-          [ngTemplateOutletContext]="{ $implicit: i === activeIndex }"
-        ></ng-template>
+          [ngTemplateOutletContext]="{ $implicit: i === activeIndex }"></ng-template>
       </span>
     </div>
   </ng-container>
 </div>
 
 <ng-template #defaultIndicatorRender let-active>
-  <thy-dot thyColor="#fff" [class.active]="active"></thy-dot>
+  <thy-dot [class.active]="active"></thy-dot>
 </ng-template>
 
 <ng-template #defaultControlPrev>

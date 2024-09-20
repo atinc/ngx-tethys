@@ -2,7 +2,7 @@
   <img [src]="stepRef.step.data.image" [alt]="stepRef.step.data.title" />
   <a href="javascript:;" class="thy-guider-tip-top-btn" (click)="jump()">跳过</a>
 </div>
-<div class="thy-guider-tip-content bg-default">
+<div class="thy-guider-tip-content">
   <div class="thy-guider-tip-content-title">{{ stepRef.step.data.title }}</div>
   <div class="thy-guider-tip-content-description">
     <ng-container *ngIf="descriptionTemplateRef; else stringTemplateRef">

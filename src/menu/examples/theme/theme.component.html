@@ -85,27 +85,9 @@
           <span thyMenuItemName> wt-Testhub </span>
         </a>
         <ng-template #headerContent>
-          <span class="title">星表</span>
-          <thy-icon thyIconName="star-fill"></thy-icon>
+          <span>星表</span>
+          <thy-icon class="ml-2" thyIconName="star-fill"></thy-icon>
         </ng-template>
-      </thy-menu-group>
-    </thy-menu>
-  </div>
-  <div class="demo-menu-container">
-    <thy-menu [thyTheme]="theme">
-      <thy-menu-group>
-        <ng-template #headerContent>
-          <div class="content-title">
-            <thy-icon thyIconName="app-testhub-fill"></thy-icon> <span class="title testhub ml-2">Testhub</span>
-          </div>
-          <thy-icon thyIconName="repository" class="mr-2 thy-menu-group-operation"></thy-icon>
-        </ng-template>
-        <a thyMenuItem href="javascript:;" class="active">
-          <span thyMenuItemIcon>
-            <thy-icon thyIconName="view-tile"></thy-icon>
-          </span>
-          <span thyMenuItemName> 测试用例管理 </span>
-        </a>
       </thy-menu-group>
     </thy-menu>
   </div>
