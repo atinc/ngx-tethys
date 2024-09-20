@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [18.0.7](https://github.com/atinc/ngx-tethys/compare/18.0.6...18.0.7) (2024-09-20)
+
+
+### Bug Fixes
+
+* **table:** center empty state of the table ([1f35bf6](https://github.com/atinc/ngx-tethys/commit/1f35bf66a8f4b8c9142ac2bbfc18540e4a9255fc))
+
+
+
 ## [18.0.6](https://github.com/atinc/ngx-tethys/compare/18.0.5...18.0.6) (2024-09-14)
 
 
