@@ -1,5 +1,5 @@
-<thy-file-select class="mt-2 d-inline-block" (thyOnFileSelect)="selectFiles($event)">
-  <button thyButton="primary">Click to Upload</button>
+<thy-file-select class="mt-2 d-inline-block" (thyOnFileSelect)="selectFiles($event)" [thyAcceptType]="['.md', '.png']">
+  <button thyButton="primary">Markdown 文件测试。能够支持 png 以及 md 类型</button>
 </thy-file-select>
 
 <thy-file-select [thyMultiple]="true" class="mt-2 d-inline-block ml-3" (thyOnFileSelect)="selectFiles($event)">
@@ -7,7 +7,7 @@
 </thy-file-select>
 
 <div *ngFor="let queueFile of queueFiles">
-  <div style="margin: 5px 0;">
+  <div style="margin: 5px 0">
     {{ queueFile.fileName }} speed: {{ queueFile.progress.speedHuman }}, estimatedTime - {{ queueFile.progress.estimatedTimeHuman }}
   </div>
   <thy-progress class="progress" type="success" [thyValue]="queueFile.progress.percentage"></thy-progress>

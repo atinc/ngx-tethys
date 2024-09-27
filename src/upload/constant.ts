@@ -70,5 +70,7 @@ export const MIME_Map = {
     '.ico': 'image/vnd.microsoft.icon',
     '.md': 'text/markdown',
     '.markdown': 'text/markdown',
+    // '.md': 'text/markdown,text/x-markdown',
+    // '.markdown': 'text/markdown,text/x-markdown',
     '': '*/*'
 };

@@ -16,14 +16,14 @@
   </div>
 </div>
 
-<h3 class="my-2">Only accept .png files. Drop other types will show a notification.</h3>
+<h3 class="my-2">Only accept .md & .png files. Drop other types will show a notification.</h3>
 <p>Skip the normal file upload logic</p>
 <div class="body files-reject-body">
   <div
     class="demo-file-drop"
     thyFileDrop
     thyFileDropClassName="drop-over2"
-    [thyAcceptType]="['.png']"
+    [thyAcceptType]="['.png', '.md']"
     (thyOnDrop)="mdDrop($event)"
     (thyFilesReject)="filesRejected($event)">
     <div class="drop-text">Release to Upload</div>
