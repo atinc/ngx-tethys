@@ -1,14 +1,15 @@
 <div class="thy-alert-content">
-  <thy-icon *ngIf="thyIcon" class="thy-alert-icon" [thyIconName]="thyIcon"></thy-icon>
-  <span *ngIf="theme === 'naked'" class="thy-alert-tips">Tips： </span>
-  <ng-container *ngIf="messageTemplate">
-    <ng-template *ngTemplateOutlet="messageTemplate"></ng-template>
-  </ng-container>
-  <span *ngIf="messageText">{{ messageText }}</span>
-  <div class="thy-alert-operation" *ngIf="alertOperation">
-    <ng-container [ngTemplateOutlet]="alertOperation"></ng-container>
+  <thy-icon *ngIf="icon()" class="thy-alert-icon" [thyIconName]="icon()"></thy-icon>
+  <span *ngIf="thyTheme() === 'naked'" class="thy-alert-tips">Tips： </span>
+  @if (messageIsTemplate()) {
+    <ng-template *ngTemplateOutlet="thyMessage()"></ng-template>
+  } @else if (thyMessage()) {
+    <span>{{ thyMessage() }}</span>
+  }
+  <div class="thy-alert-operation" *ngIf="alertOperation()">
+    <ng-container [ngTemplateOutlet]="alertOperation()"></ng-container>
   </div>
 </div>
-<a href="javascript:;" class="thy-alert-close" *ngIf="thyCloseable" (click)="closeAlert()">
+<a href="javascript:;" class="thy-alert-close" *ngIf="thyCloseable()" (click)="closeAlert()">
   <thy-icon thyIconName="close"></thy-icon>
 </a>

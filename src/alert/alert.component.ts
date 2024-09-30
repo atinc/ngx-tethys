@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ContentChild, TemplateRef, OnChanges, ChangeDetectionStrategy, SimpleChanges } from '@angular/core';
+import { Component, TemplateRef, ChangeDetectionStrategy, input, contentChild, effect, computed } from '@angular/core';
 import { coerceBooleanProperty, isString } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -47,95 +47,66 @@ const typeIconsMap: Record<string, string> = {
     standalone: true,
     imports: [NgIf, ThyIcon, NgTemplateOutlet]
 })
-export class ThyAlert implements OnInit, OnChanges {
+export class ThyAlert {
     private hidden = false;
-
-    private showIcon = true;
-
-    private icon: string;
-
-    private type: ThyAlertType = 'info';
 
     private hostRenderer = useHostRenderer();
 
-    public theme: ThyAlertTheme = 'fill';
-
-    messageTemplate: TemplateRef<HTMLElement>;
-
-    messageText: string;
+    messageIsTemplate = computed(() => {
+        const value = this.thyMessage();
+        return value instanceof TemplateRef;
+    });
 
     /**
      * 指定警告提示的类型
      * @type success | warning | danger | info | primary | primary-weak | success-weak | warning-weak | danger-weak
      * @default info
      */
-    @Input() set thyType(value: ThyAlertType) {
-        this.type = value;
-    }
+    thyType = input<ThyAlertType>('info');
 
     /**
      * 指定警告提示的主题
      * @type fill | bordered | naked
      * @default fill
      */
-    @Input() set thyTheme(value: ThyAlertTheme) {
-        this.theme = value;
-    }
+    thyTheme = input<ThyAlertTheme>('fill');
 
     /**
      * 显示警告提示的内容
      */
-    @Input() set thyMessage(value: string | TemplateRef<HTMLElement>) {
-        if (value instanceof TemplateRef) {
-            this.messageTemplate = value;
-        } else {
-            this.messageText = value;
-        }
-    }
+    thyMessage = input<string | TemplateRef<HTMLElement>>();
 
     /**
      * 显示自定义图标，可传 true/false 控制是否显示图标，或者传字符串去指定图标名称
      */
-    @Input()
-    set thyIcon(value: boolean | string) {
-        if (value) {
-            this.showIcon = true;
-            this.icon = isString(value) ? value.toString() : null;
-        } else {
-            this.showIcon = false;
-        }
-    }
+    thyIcon = input<boolean | string>(false);
 
-    get thyIcon() {
-        if (this.showIcon) {
-            return this.icon || typeIconsMap[this.type];
+    icon = computed(() => {
+        const icon = this.thyIcon();
+        if (icon) {
+            return isString(icon) ? icon : typeIconsMap[this.thyType()];
         } else {
-            return null;
+            const showIcon = coerceBooleanProperty(icon);
+            return showIcon ? typeIconsMap[this.thyType()] : '';
         }
-    }
+    });
 
     /**
      * 是否显示关闭警告框按钮，默认不显示
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyCloseable: boolean;
+    thyCloseable = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 警告框自定义操作
      * @type TemplateRef
      */
-    @ContentChild('operation') alertOperation: TemplateRef<any>;
+    alertOperation = contentChild<TemplateRef<any>>('operation');
 
-    constructor() {}
-
-    ngOnInit() {
-        this.updateClass();
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        if ((changes.thyTheme && !changes.thyTheme.firstChange) || (changes.thyType && !changes.thyType.firstChange)) {
+    constructor() {
+        effect(() => {
             this.updateClass();
-        }
+        });
     }
 
     closeAlert() {
@@ -144,11 +115,11 @@ export class ThyAlert implements OnInit, OnChanges {
 
     private updateClass() {
         // 兼容 'primary-weak', 'success-weak', 'warning-weak', 'danger-weak' types
-        let theme = this.theme;
-        let type = this.type;
-        if (weakTypes.includes(this.type)) {
+        let theme = this.thyTheme();
+        let type = this.thyType();
+        if (weakTypes.includes(type)) {
             theme = 'bordered';
-            type = this.type.split('-')[0] as ThyAlertType;
+            type = type.split('-')[0] as ThyAlertType;
         }
         this.hostRenderer.updateClass([`thy-alert-${theme}`, `thy-alert-${theme}-${type}`]);
     }
