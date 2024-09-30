@@ -1,5 +1,5 @@
 <thy-dialog-header thyTitle="Angular Introduction" thySize="lg"> </thy-dialog-header>
-<div class="dialog-body">
+<thy-dialog-body>
   <h3>What is Angular?</h3>
   <p>
     Angular is a web framework that empowers developers to build fast, reliable applications. Maintained by a dedicated team at Google,
@@ -15,49 +15,17 @@
     tristique. Suspendisse potenti. Duis aliquet purus sed dictum dictum. Donec fringilla, purus at fermentum imperdiet, velit enim
     malesuada turpis, quis luctus arcu arcu nec orci. Duis eu mattis felis. Quisque sollicitudin elementum nunc vel tincidunt. Vestibulum
     egestas mi nec iaculis varius. Morbi in risus sed sapien ultricies feugiat. Quisque pulvinar mattis purus, in aliquet massa aliquet et.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis tincidunt tincidunt. Vestibulum vulputate maximus massa vel
+    tristique. Suspendisse potenti. Duis aliquet purus sed dictum dictum. Donec fringilla, purus at fermentum imperdiet, velit enim
+    malesuada turpis, quis luctus arcu arcu nec orci. Duis eu mattis felis. Quisque sollicitudin elementum nunc vel tincidunt. Vestibulum
+    egestas mi nec iaculis varius. Morbi in risus sed sapien ultricies feugiat. Quisque pulvinar mattis purus, in aliquet massa aliquet et.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis tincidunt tincidunt. Vestibulum vulputate maximus massa vel
+    tristique. Suspendisse potenti. Duis aliquet purus sed dictum dictum. Donec fringilla, purus at fermentum imperdiet, velit enim
+    malesuada turpis, quis luctus arcu arcu nec orci. Duis eu mattis felis. Quisque sollicitudin elementum nunc vel tincidunt. Vestibulum
+    egestas mi nec iaculis varius. Morbi in risus sed sapien ultricies feugiat. Quisque pulvinar mattis purus, in aliquet massa aliquet et.
   </p>
-
-  <h3>Data</h3>
-  {{ data }}
-
-  <br>
-  <button thyButton="primary" (click)="openSubDialog(subDialog)">Open Sub Dialog</button>
-
-  <!-- <div class="p-2">
-    <input thyInput thyAutofocus="true" placeholder="光标自动聚焦" />
-  </div> -->
-
-  <!-- <thy-select thySize="md" [thyShowSearch]="true" thyEmptyStateText="无匹配结果" [thyAllowClear]="allowClear" [thyHasBackdrop]="true">
-    <thy-option thyValue="" thyLabelText="空"></thy-option>
-    <thy-option thyValue="1" thyLabelText="选项1"> </thy-option>
-    <thy-option thyValue="2" thyLabelText="选项2"> </thy-option>
-    <thy-option thyValue="3" thyLabelText="选项3"> </thy-option>
-    <thy-option thyValue="4" thyLabelText="选项4"> </thy-option>
-  </thy-select> -->
-</div>
-
-<ng-template #subDialog>
-  <div class="dialog-header">
-    <h3 class="dialog-title">Sub Dialog Title</h3>
-    <button type="button" class="close" (click)="thyDialog.close()">
-      <i class="wtf wtf-times"></i>
-    </button>
-  </div>
-  <div class="dialog-body">
-    content <a href="javascript:;" (click)="toggleShowMore()">More</a>
-    <p *ngIf="showMore">
-      1<br />
-      2<br />
-      3<br />
-    </p>
-  </div>
-  <div class="dialog-footer">
-    <button thyButton="primary" (click)="thyDialog.close()">确定</button>
-    <button thyButton="link-secondary" (click)="thyDialog.closeAll()">关闭所有</button>
-  </div>
-</ng-template>
-
-<thy-dialog-footer [thyAlign]="align()" [thyDivided]="divider">
-  <button thyButton="primary" (click)="ok()">确定</button>
-  <button thyButton="link-secondary" (click)="close()">取消</button>
+</thy-dialog-body>
+<thy-dialog-footer>
+  <button thyButton="primary" (click)="thyDialog.close()">确定</button>
+  <button thyButton="link-secondary" (click)="thyDialog.close()">关闭</button>
 </thy-dialog-footer>

@@ -6,8 +6,6 @@ import { ThyDialogRef, ThyDialog, ThyDialogFooterAlign } from 'ngx-tethys/dialog
     templateUrl: './dialog-content.component.html'
 })
 export class ThyDialogBasicContentComponent implements OnInit {
-    @HostBinding(`class.thy-dialog-content`) addFillColumn = true;
-
     align = input<ThyDialogFooterAlign>();
 
     @Input() divider: ThyDialogFooterAlign;
@@ -25,10 +23,6 @@ export class ThyDialogBasicContentComponent implements OnInit {
 
     ngOnInit() {
         console.log(`ngOnInit get data: ${this.data}`);
-    }
-
-    openSubDialog(template: TemplateRef<any>) {
-        this.thyDialog.open(template);
     }
 
     ok() {
