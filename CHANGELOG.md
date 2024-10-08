@@ -1,6 +1,24 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [18.0.8](https://github.com/atinc/ngx-tethys/compare/18.0.7...18.0.8) (2024-09-26)
+
+
+### Features
+
+* **date-picker:** export picker util ([#3212](https://github.com/atinc/ngx-tethys/issues/3212)) ([804eb36](https://github.com/atinc/ngx-tethys/commit/804eb364c8ea7e3bb645d5dfd2dfdab50a031c9c))
+
+
+
+## [18.0.7](https://github.com/atinc/ngx-tethys/compare/18.0.6...18.0.7) (2024-09-20)
+
+
+### Bug Fixes
+
+* **table:** center empty state of the table ([1f35bf6](https://github.com/atinc/ngx-tethys/commit/1f35bf66a8f4b8c9142ac2bbfc18540e4a9255fc))
+
+
 
 ## [18.0.6](https://github.com/atinc/ngx-tethys/compare/18.0.5...18.0.6) (2024-09-14)
 
