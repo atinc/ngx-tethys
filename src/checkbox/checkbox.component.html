@@ -6,5 +6,7 @@
   type="checkbox"
   [attr.tabindex]="tabIndex"
   [disabled]="_disabled" />
-<span class="form-check-label" *ngIf="_labelText">{{ _labelText }}</span>
+@if (_labelText) {
+  <span class="form-check-label">{{ _labelText }}</span>
+}
 <ng-content></ng-content>

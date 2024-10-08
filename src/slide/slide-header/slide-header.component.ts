@@ -2,7 +2,7 @@ import { Component, ContentChild, TemplateRef, Input, OnInit, HostBinding } from
 import { ThySlideService } from '../slide.service';
 import { ThyAction } from 'ngx-tethys/action';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 
 /**
  * 滑动弹出框的头部组件
@@ -13,7 +13,7 @@ import { NgIf, NgTemplateOutlet } from '@angular/common';
     selector: 'thy-slide-header',
     templateUrl: './slide-header.component.html',
     standalone: true,
-    imports: [NgIf, NgTemplateOutlet, ThyIcon, ThyAction]
+    imports: [NgTemplateOutlet, ThyIcon, ThyAction]
 })
 export class ThySlideHeader implements OnInit {
     isIconFont = false;

@@ -1,3 +1,5 @@
 <thy-select ngModel="option1" [thyShowSearch]="true" style="width: 200px">
-  <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+  @for (option of listOfOption; track option.value) {
+    <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+  }
 </thy-select>

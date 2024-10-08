@@ -1,4 +1,4 @@
-import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ContentChild, Directive, Input, TemplateRef } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
@@ -70,7 +70,7 @@ export class ThyHeaderDirective {
         }
     ],
     standalone: true,
-    imports: [NgTemplateOutlet, NgIf, ThyIcon, NgClass, ThyHeaderDirective]
+    imports: [NgTemplateOutlet, ThyIcon, NgClass, ThyHeaderDirective]
 })
 export class ThyHeader {
     public iconClass: string;

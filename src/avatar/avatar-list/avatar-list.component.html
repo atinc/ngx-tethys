@@ -1,5 +1,7 @@
 <ng-content></ng-content>
 
-<div *ngIf="append" class="thy-avatar-append">
-  <ng-container [ngTemplateOutlet]="append"></ng-container>
-</div>
+@if (append) {
+  <div class="thy-avatar-append">
+    <ng-container [ngTemplateOutlet]="append"></ng-container>
+  </div>
+}

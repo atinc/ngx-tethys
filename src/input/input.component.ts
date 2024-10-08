@@ -1,6 +1,6 @@
 import { take } from 'rxjs/operators';
 
-import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import {
     Component,
     ContentChild,
@@ -47,7 +47,7 @@ const password = 'password';
         '[class.disabled]': 'disabled'
     },
     standalone: true,
-    imports: [NgIf, NgTemplateOutlet, ThyInputDirective, ThyAutofocusDirective, FormsModule, ThyIcon]
+    imports: [NgTemplateOutlet, ThyInputDirective, ThyAutofocusDirective, FormsModule, ThyIcon]
 })
 export class ThyInput implements ControlValueAccessor, OnInit {
     /**

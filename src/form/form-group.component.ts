@@ -1,4 +1,4 @@
-import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { ThyTranslate } from 'ngx-tethys/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
@@ -35,7 +35,7 @@ type TipsMode = 'default' | 'label';
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [NgIf, NgTemplateOutlet, ThyIcon, NgClass, ThyTooltipDirective]
+    imports: [NgTemplateOutlet, ThyIcon, NgClass, ThyTooltipDirective]
 })
 export class ThyFormGroup implements OnInit {
     labelText: string;

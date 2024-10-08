@@ -30,7 +30,9 @@ export class TestGridDefaultComponent {}
             <div thyGridItem [thySpan]="span2" [thyOffset]="offset2"></div>
             <div thyGridItem></div>
             <div thyGridItem></div>
-            <div *ngIf="show" thyGridItem></div>
+            @if (show) {
+                <div thyGridItem></div>
+            }
         </thy-grid>
     `
 })

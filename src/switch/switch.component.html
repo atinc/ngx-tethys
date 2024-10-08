@@ -8,7 +8,7 @@
     (change)="toggle($event)" />
   <span class="thy-switch-label" [attr.tabindex]="tabIndex"></span>
   <span class="thy-switch-handle">
-    <ng-container *ngIf="loading">
+    @if (loading) {
       <svg [attr.viewBox]="loadingCircle?.viewBox" [class.mb-1]="size === 'xs'">
         <circle
           class="thy-switch-loading"
@@ -21,6 +21,6 @@
           [attr.stroke-dasharray]="loadingCircle?.dasharray"
           fill="white" />
       </svg>
-    </ng-container>
+    }
   </span>
 </label>

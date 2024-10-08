@@ -85,7 +85,9 @@
     [thyTrigger]="trigger"
     (thyCollapsedChange)="collapsedChange($event)">
     Sidebar with collapsible
-    <a *ngIf="collapsed" href="javascript:;" (click)="toggleCollapsed()">Expand</a>
+    @if (collapsed) {
+      <a href="javascript:;" (click)="toggleCollapsed()">Expand</a>
+    }
   </thy-sidebar>
   <thy-content> Content </thy-content>
 </thy-layout>
@@ -101,7 +103,9 @@
     [thyDirection]="'right'"
     (thyCollapsedChange)="collapsedChange($event)">
     Sidebar position right
-    <a *ngIf="rightCollapsed" href="javascript:;" (click)="toggleRightCollapsed()">Expand</a>
+    @if (rightCollapsed) {
+      <a href="javascript:;" (click)="toggleRightCollapsed()">Expand</a>
+    }
   </thy-sidebar>
   <thy-content> Content </thy-content>
 </thy-layout>

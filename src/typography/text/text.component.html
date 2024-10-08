@@ -1,2 +1,4 @@
-<thy-icon *ngIf="thyIcon" [thyIconName]="thyIcon"></thy-icon>
+@if (thyIcon) {
+  <thy-icon [thyIconName]="thyIcon"></thy-icon>
+}
 <ng-content></ng-content>

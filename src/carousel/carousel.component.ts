@@ -37,7 +37,7 @@ import { debounceTime, takeUntil } from 'rxjs/operators';
 import { ThyCarouselService } from './carousel.service';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyDot } from 'ngx-tethys/dot';
-import { NgIf, NgTemplateOutlet, NgFor } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { coerceBooleanProperty, isNumber } from 'ngx-tethys/util';
 
 /**
@@ -54,7 +54,7 @@ import { coerceBooleanProperty, isNumber } from 'ngx-tethys/util';
         class: 'thy-carousel'
     },
     standalone: true,
-    imports: [NgIf, NgTemplateOutlet, NgFor, ThyDot, ThyIcon]
+    imports: [NgTemplateOutlet, ThyDot, ThyIcon]
 })
 export class ThyCarousel implements OnInit, AfterViewInit, AfterContentInit, OnChanges, OnDestroy {
     /**

@@ -2,7 +2,7 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 
 import { Component, ContentChild, HostBinding, Input, OnInit, TemplateRef } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export type ThyVoteSizes = 'default' | 'sm';
@@ -23,7 +23,7 @@ export type ThyVoteLayout = 'vertical' | 'horizontal';
         '[class.thy-vote-disabled]': `thyDisabled`
     },
     standalone: true,
-    imports: [NgIf, ThyIcon, NgTemplateOutlet]
+    imports: [ThyIcon, NgTemplateOutlet]
 })
 export class ThyVote implements OnInit {
     _size: ThyVoteSizes;

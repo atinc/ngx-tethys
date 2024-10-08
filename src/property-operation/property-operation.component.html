@@ -1,22 +1,27 @@
 <div class="thy-operation-icon">
   <ng-container *ngTemplateOutlet="operationIcon"></ng-container>
-  <button
-    *ngIf="icon"
-    [ngClass]="{ disabled: disabled }"
-    [thyButtonIcon]="icon"
-    [thyShape]="onlyHasTips ? 'circle-thick-dashed' : 'circle-thick-solid'"
-  ></button>
+  @if (icon) {
+    <button
+      [ngClass]="{ disabled: disabled }"
+      [thyButtonIcon]="icon"
+      [thyShape]="onlyHasTips ? 'circle-thick-dashed' : 'circle-thick-solid'"
+    ></button>
+  }
 </div>
 <div class="thy-operation-content" [ngClass]="{ 'only-has-tips': onlyHasTips }">
   <div #contentElement>
     <ng-content></ng-content>
   </div>
-  <ng-container *ngIf="value">
+  @if (value) {
     <span thyFlexibleText [thyTooltipContent]="value">{{ value }}</span>
-  </ng-container>
+  }
 
-  <div class="thy-tips" *ngIf="!value || (!labelHideWhenHasValue && value)">{{ labelText }}</div>
+  @if (!value || (!labelHideWhenHasValue && value)) {
+    <div class="thy-tips">{{ labelText }}</div>
+  }
 </div>
-<span *ngIf="showClose && !disabled" (click)="remove($event)" class="close-link close-link-danger">
-  <thy-icon thyIconName="close" class=" close-link-sm"></thy-icon>
-</span>
+@if (showClose && !disabled) {
+  <span (click)="remove($event)" class="close-link close-link-danger">
+    <thy-icon thyIconName="close" class=" close-link-sm"></thy-icon>
+  </span>
+}

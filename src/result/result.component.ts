@@ -1,5 +1,5 @@
 import { Component, ContentChild, HostBinding, Input, OnInit, TemplateRef } from '@angular/core';
-import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 
 type ThyResultStatus = 'success' | 'warning' | 'error';
 
@@ -11,7 +11,7 @@ type ThyResultStatus = 'success' | 'warning' | 'error';
     selector: 'thy-result',
     templateUrl: './result.component.html',
     standalone: true,
-    imports: [NgIf, NgTemplateOutlet]
+    imports: [NgTemplateOutlet]
 })
 export class ThyResult implements OnInit {
     /**

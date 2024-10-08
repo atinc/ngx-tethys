@@ -16,7 +16,7 @@ import {
     ViewChild
 } from '@angular/core';
 
-import { AsyncPipe, NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
+import { AsyncPipe, NgClass, NgTemplateOutlet } from '@angular/common';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { DateHelperService } from './date-helper.service';
@@ -35,17 +35,7 @@ import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
     templateUrl: './picker.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [
-        CdkOverlayOrigin,
-        ThyInputDirective,
-        ThyEnterDirective,
-        AsyncPipe,
-        NgTemplateOutlet,
-        NgIf,
-        ThyIcon,
-        NgClass,
-        CdkConnectedOverlay
-    ],
+    imports: [CdkOverlayOrigin, ThyInputDirective, ThyEnterDirective, AsyncPipe, NgTemplateOutlet, ThyIcon, NgClass, CdkConnectedOverlay],
     animations: [scaleXMotion, scaleYMotion, scaleMotion]
 })
 export class ThyPicker implements OnChanges, AfterViewInit {

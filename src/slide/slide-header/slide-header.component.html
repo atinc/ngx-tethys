@@ -1,17 +1,22 @@
-<ng-template *ngIf="headerTemplate; else default" [ngTemplateOutlet]="headerTemplate"></ng-template>
-<ng-template #default>
+@if (headerTemplate) {
+  <ng-template [ngTemplateOutlet]="headerTemplate"></ng-template>
+} @else {
   <h3 class="thy-slide-header-title">
-    <thy-icon *ngIf="!isIconFont && thyIcon; else iconFont" [thyIconName]="thyIcon"></thy-icon>
-    <ng-template #iconFont>
-      <i *ngIf="thyIcon" class="wft {{ thyIcon }}"></i>
-    </ng-template>
+    @if (!isIconFont && thyIcon) {
+      <thy-icon [thyIconName]="thyIcon"></thy-icon>
+    } @else {
+      @if (thyIcon) {
+        <i class="wft {{ thyIcon }}"></i>
+      }
+    }
     {{ thyTitle }}
   </h3>
-
   <div class="thy-slide-header-main">
     <ng-container>
-      <ng-template *ngIf="headerOperateTemplate" [ngTemplateOutlet]="headerOperateTemplate"> </ng-template>
+      @if (headerOperateTemplate) {
+        <ng-template [ngTemplateOutlet]="headerOperateTemplate"> </ng-template>
+      }
     </ng-container>
   </div>
   <a href="javascript:;" class="mr-n2" thyAction thyActionIcon="close" (click)="closeModal($event)"></a>
-</ng-template>
+}

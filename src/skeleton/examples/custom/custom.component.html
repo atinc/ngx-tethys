@@ -3,21 +3,21 @@
   [thyAnimatedInterval]="generalModel.thyAnimatedInterval"
   [thySecondaryColor]="generalModel.thySecondaryColor"
   [thyPrimaryColor]="generalModel.thyPrimaryColor"
->
+  >
   <div class="d-flex mb-2">
     <div>
       <thy-skeleton-circle [thySize]="circleModel.thySize"></thy-skeleton-circle>
     </div>
     <div class="d-flex flex-column w-100 ml-2">
-      <ng-container *ngFor="let k of [1, 2, 3]">
+      @for (k of [1, 2, 3]; track k) {
         <thy-skeleton-rectangle
           [thyRowWidth]="rectangleModel.thyRowWidth"
           [thyRowHeight]="rectangleModel.thyRowHeight"
           [thyBorderRadius]="rectangleModel.thyBorderRadius"
           class="mb-2"
-        >
+          >
         </thy-skeleton-rectangle>
-      </ng-container>
+      }
     </div>
   </div>
   <div class="d-flex flex-column">
@@ -26,7 +26,7 @@
       [thyRowWidth]="rectangleModel.thyRowWidth"
       [thyRowHeight]="rectangleModel.thyRowHeight"
       [thyBorderRadius]="rectangleModel.thyBorderRadius"
-    >
+      >
     </thy-skeleton-list>
   </div>
 </thy-skeleton>

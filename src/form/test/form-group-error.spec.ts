@@ -3,9 +3,7 @@ import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { ThyFormGroupFooter } from '../from-group-footer/form-group-footer.component';
 import { ThyFormDirective } from '../form.directive';
-import { THY_FORM_CONFIG } from '../form.class';
 import { ThyFormGroupError } from '../form-group-error/form-group-error.component';
 
 @Component({

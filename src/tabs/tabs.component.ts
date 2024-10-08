@@ -22,7 +22,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ThyTab } from './tab.component';
 import { ThyActiveTabInfo, ThyTabActiveEvent } from './types';
 import { ThyTabContent } from './tab-content.component';
-import { NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { ThyNav, ThyNavItemDirective } from 'ngx-tethys/nav';
 
 export type ThyTabsSize = 'lg' | 'md' | 'sm';
@@ -46,7 +46,7 @@ export type ThyTabsPosition = 'top' | 'left';
         '[style.overflow]': `transitionStarted ? "hidden" : null`
     },
     standalone: true,
-    imports: [ThyNav, NgFor, ThyNavItemDirective, NgIf, NgTemplateOutlet, ThyTabContent]
+    imports: [ThyNav, ThyNavItemDirective, NgTemplateOutlet, ThyTabContent]
 })
 export class ThyTabs implements OnInit, OnChanges, AfterContentInit {
     @ContentChildren(ThyTab, { descendants: true }) tabs = new QueryList<ThyTab>();
@@ -163,9 +163,5 @@ export class ThyTabs implements OnInit, OnChanges, AfterContentInit {
         this.activeTabIndex = index;
         const activeTab = tab.id ? tab.id : index;
         this.thyActiveTabChange.emit(activeTab);
-    }
-
-    tabTrackBy(index: number, item: ThyTab) {
-        return index;
     }
 }

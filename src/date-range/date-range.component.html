@@ -1,22 +1,26 @@
 <div class="thy-date-range-container">
-  <ng-container *ngIf="!thyDisabledSwitch">
+  @if (!thyDisabledSwitch) {
     <a thyAction thyIcon="angle-left" href="javascript:;" (click)="previous()"></a>
-  </ng-container>
+  }
   <span
     href="javascript:;"
     (click)="openOptionalDateRangesMenu($event)"
     class="thy-date-range-text"
     [ngClass]="{ 'thy-date-range-disabled': thyHiddenMenu }">
-    <ng-container *ngIf="selectedDate?.key === 'custom'">
+    @if (selectedDate?.key === 'custom') {
       {{ selectedDate?.begin | thyDatePickerFormat }} ~ {{ selectedDate?.end | thyDatePickerFormat }}
-    </ng-container>
-    <ng-container *ngIf="selectedDate?.key === 'exception'">
+    }
+    @if (selectedDate?.key === 'exception') {
       {{ selectedDate?.begin | thyDatePickerFormat : thyPickerFormat }}
-    </ng-container>
-    <ng-container *ngIf="selectedDate?.key !== 'custom' && selectedDate?.key !== 'exception'">{{ selectedDate?.text }}</ng-container>
-    <thy-icon *ngIf="!thyHiddenMenu" class="thy-date-range-text-caret-down ml-2" thyIconName="angle-down"></thy-icon>
+    }
+    @if (selectedDate?.key !== 'custom' && selectedDate?.key !== 'exception') {
+      {{ selectedDate?.text }}
+    }
+    @if (!thyHiddenMenu) {
+      <thy-icon class="thy-date-range-text-caret-down ml-2" thyIconName="angle-down"></thy-icon>
+    }
   </span>
-  <ng-container *ngIf="!thyDisabledSwitch">
+  @if (!thyDisabledSwitch) {
     <a thyAction thyIcon="angle-right" href="javascript:;" (click)="next()"></a>
-  </ng-container>
+  }
 </div>
