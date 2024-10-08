@@ -156,8 +156,4 @@ export class ThyProgressCircle implements OnInit, OnChanges {
             })
             .reverse();
     }
-
-    trackByFn(index: number) {
-        return index;
-    }
 }

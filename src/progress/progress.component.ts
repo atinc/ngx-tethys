@@ -155,8 +155,4 @@ export class ThyProgress implements ThyParentProgress, OnInit, OnChanges {
             bar.recalculatePercentage();
         });
     }
-
-    trackByFn(index: number) {
-        return index;
-    }
 }

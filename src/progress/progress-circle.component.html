@@ -12,7 +12,7 @@
       [attr.d]="pathString"
       [ngStyle]="trailPathStyle"
       [attr.stroke-width]="strokeWidth"></path>
-    @for (p of progressCirclePath; track trackByFn($index)) {
+    @for (p of progressCirclePath; track $index) {
       <path
         class="progress-circle-path"
         [ngClass]="p.className"

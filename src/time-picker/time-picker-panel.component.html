@@ -1,12 +1,11 @@
 <div class="{{ prefixCls }}-content">
   @if (showHourColumn) {
     <ul #hourListElement class="{{ prefixCls }}-time-column {{ prefixCls }}-hour-column">
-      @for (time of hourRange; track trackByFn(i, time); let i = $index) {
+      @for (time of hourRange; track $index; let i = $index) {
         <li
           class="{{ prefixCls }}-time-column-cell"
           [class.thy-time-picker-panel-time-column-cell-selected]="hour === time.value"
-          (click)="pickHours(time, i)"
-          >
+          (click)="pickHours(time, i)">
           <span class="{{ prefixCls }}-time-column-cell-inner">{{ time.value | number: '2.0-0' }}</span>
         </li>
       }
@@ -14,12 +13,11 @@
   }
   @if (showMinuteColumn) {
     <ul #minuteListElement class="{{ prefixCls }}-time-column {{ prefixCls }}-minute-column">
-      @for (time of minuteRange; track trackByFn(i, time); let i = $index) {
+      @for (time of minuteRange; track $index; let i = $index) {
         <li
           class="{{ prefixCls }}-time-column-cell"
           [class.thy-time-picker-panel-time-column-cell-selected]="minute === time.value"
-          (click)="pickMinutes(time, i)"
-          >
+          (click)="pickMinutes(time, i)">
           <span class="{{ prefixCls }}-time-column-cell-inner">{{ time.value | number: '2.0-0' }}</span>
         </li>
       }
@@ -27,12 +25,11 @@
   }
   @if (showSecondColumn) {
     <ul #secondListElement class="{{ prefixCls }}-time-column {{ prefixCls }}-second-column">
-      @for (time of secondRange; track trackByFn(i, time); let i = $index) {
+      @for (time of secondRange; track $index; let i = $index) {
         <li
           class="{{ prefixCls }}-time-column-cell"
           [class.thy-time-picker-panel-time-column-cell-selected]="second === time.value"
-          (click)="pickSeconds(time, i)"
-          >
+          (click)="pickSeconds(time, i)">
           <span class="{{ prefixCls }}-time-column-cell-inner">{{ time.value | number: '2.0-0' }}</span>
         </li>
       }

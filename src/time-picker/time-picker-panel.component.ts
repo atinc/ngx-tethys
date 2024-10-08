@@ -224,10 +224,6 @@ export class ThyTimePanel implements OnInit, OnDestroy, ControlValueAccessor {
         this.onTouchedFn = fn;
     }
 
-    trackByFn(index: number): number {
-        return index;
-    }
-
     private initialValue() {
         this.hour = 0;
         this.minute = 0;
