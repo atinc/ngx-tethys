@@ -2,7 +2,6 @@ import { forwardRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, Elem
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
-import { NgIf } from '@angular/common';
 import { BasePicker } from './base-picker.component';
 import { DatePopup } from './lib/popups/date-popup.component';
 import { ThyPicker } from './picker.component';
@@ -26,7 +25,7 @@ import { helpers } from 'ngx-tethys/util';
         }
     ],
     standalone: true,
-    imports: [ThyPicker, NgIf, DatePopup]
+    imports: [ThyPicker, DatePopup]
 })
 export class ThyRangePicker extends BasePicker implements OnInit {
     isRange = true;

@@ -48,17 +48,7 @@ const sharpMatcherRegx = /#([^#]+)$/;
                 <ng-template [ngTemplateOutlet]="content"></ng-template>
             </thy-affix>
         } @else {
-            <div
-                class="thy-anchor-wrapper"
-                [ngClass]="{ 'thy-anchor-wrapper-horizontal': thyDirection === 'horizontal' }"
-                [ngStyle]="wrapperStyle">
-                <div class="thy-anchor">
-                    <div class="thy-anchor-ink">
-                        <div class="thy-anchor-ink-full" #ink></div>
-                    </div>
-                    <ng-content></ng-content>
-                </div>
-            </div>
+            <ng-template [ngTemplateOutlet]="content"></ng-template>
         }
         <ng-template #content>
             <div

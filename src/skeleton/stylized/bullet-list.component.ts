@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
 import { InputCssPixel } from 'ngx-tethys/core';
 
-import { NgFor } from '@angular/common';
 import { ThySkeletonCircle } from '../skeleton-circle.component';
 import { ThySkeletonRectangle } from '../skeleton-rectangle.component';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
@@ -14,7 +13,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 @Component({
     selector: 'thy-skeleton-bullet-list',
     template: `
-        <ng-container *ngFor="let item of rowCount; index as i">
+        @for (item of rowCount; track $index; let i = $index) {
             <div class="d-flex vertical-gap">
                 <thy-skeleton-circle
                     [thyAnimated]="thyAnimated"
@@ -35,7 +34,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
                         [thyAnimatedInterval]="thyAnimatedInterval"></thy-skeleton-rectangle>
                 </div>
             </div>
-        </ng-container>
+        }
     `,
     host: {
         '[class.thy-skeleton-bullet-list]': 'true'
@@ -43,7 +42,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [NgFor, ThySkeletonCircle, ThySkeletonRectangle]
+    imports: [ThySkeletonCircle, ThySkeletonRectangle]
 })
 export class ThySkeletonBulletList {
     /**

@@ -164,8 +164,4 @@ export class ThyTabs implements OnInit, OnChanges, AfterContentInit {
         const activeTab = tab.id ? tab.id : index;
         this.thyActiveTabChange.emit(activeTab);
     }
-
-    tabTrackBy(index: number, item: ThyTab) {
-        return index;
-    }
 }

@@ -4,7 +4,6 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 
 import { BasePicker } from './base-picker.component';
 import { DatePopup } from './lib/popups/date-popup.component';
-import { NgIf } from '@angular/common';
 import { ThyPicker } from './picker.component';
 
 /**
@@ -25,7 +24,7 @@ import { ThyPicker } from './picker.component';
         }
     ],
     standalone: true,
-    imports: [ThyPicker, NgIf, DatePopup]
+    imports: [ThyPicker, DatePopup]
 })
 export class ThyWeekPicker extends BasePicker {
     showWeek = true;
