@@ -17,7 +17,7 @@ import {
 import { ThyTranslate, useHostFocusControl } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyInputDirective } from './input.directive';
-import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { throttleTime } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Observable, of } from 'rxjs';
@@ -50,7 +50,7 @@ const inputGroupSizeMap = {
         '[class.thy-input-group-with-scroll-bar]': 'isTextareaSuffix && hasScrollbar'
     },
     standalone: true,
-    imports: [NgIf, NgTemplateOutlet]
+    imports: [NgTemplateOutlet]
 })
 export class ThyInputGroup implements OnInit, AfterContentChecked, OnDestroy {
     private hostRenderer = useHostRenderer();

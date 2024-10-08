@@ -1,10 +1,12 @@
 <div class="d-flex mb-4" [style.width]="'300px'">
-  <ng-container *ngFor="let item of [0, 1, 2]; let i = index">
+  @for (item of [0, 1, 2]; track $index; let i = $index) {
     <div class="target-item align-items-center" [ngStyle]="{ display: 'flex', 'flex-direction': 'column', width: '100px', height: '50px' }">
       <thy-switch thySize="sm" [(ngModel)]="targetConfig['target' + item]" thyStopPropagation></thy-switch>
-      <span *ngIf="targetConfig['target' + item]" [ngClass]="'target-' + item">Target {{ item }}</span>
+      @if (targetConfig['target' + item]) {
+        <span [ngClass]="'target-' + item">Target {{ item }}</span>
+      }
     </div>
-  </ng-container>
+  }
 </div>
 
 <button thyButton="info" (click)="startTour()">开始</button>

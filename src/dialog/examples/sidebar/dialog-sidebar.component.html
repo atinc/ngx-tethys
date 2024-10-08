@@ -3,15 +3,11 @@
     <thy-sidebar-header thyTitle="每日必备"></thy-sidebar-header>
     <thy-sidebar-content>
       <thy-menu thyTheme="loose" class="pt-0">
-        <a
-          href="javascript:;"
-          thyMenuItem
-          *ngFor="let config of configs"
-          [class.active]="currentConfig.type === config.type"
-          (click)="configChange(config)"
-        >
-          <span thyMenuItemName>{{ config.name }}</span>
-        </a>
+        @for (config of configs; track config.type) {
+          <a href="javascript:;" thyMenuItem [class.active]="currentConfig.type === config.type" (click)="configChange(config)">
+            <span thyMenuItemName>{{ config.name }}</span>
+          </a>
+        }
       </thy-menu>
     </thy-sidebar-content>
   </thy-sidebar>

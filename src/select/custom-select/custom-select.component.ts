@@ -47,7 +47,7 @@ import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { coerceElement } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair, Overlay, ScrollStrategy } from '@angular/cdk/overlay';
-import { isPlatformBrowser, NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
+import { isPlatformBrowser, NgClass, NgTemplateOutlet } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewInit,
@@ -149,15 +149,13 @@ const noop = () => {};
         CdkConnectedOverlay,
         ThyStopPropagationDirective,
         NgClass,
-        NgIf,
         ThyScrollDirective,
         ThyLoading,
         ThyEmpty,
         ThyOptionsContainer,
         ThyOption,
         ThySelectOptionGroup,
-        NgTemplateOutlet,
-        NgFor
+        NgTemplateOutlet
     ],
     host: {
         '[attr.tabindex]': 'tabIndex',

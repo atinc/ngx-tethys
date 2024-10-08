@@ -2,141 +2,148 @@
   <div>updateOn</div>
   <div class="col-sm-2 col-form-control">
     <thy-select [(ngModel)]="updateOn" (ngModelChange)="changeUpdateOn($event)">
-      <thy-option *ngFor="let option of updateOnList" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+      @for (option of updateOnList; track option.value) {
+        <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+      }
     </thy-select>
   </div>
   <div>validateOn</div>
   <div class="col-sm-2 col-form-control">
     <thy-select [(ngModel)]="validateOn" (ngModelChange)="changeUpdateOn($event)">
-      <thy-option *ngFor="let option of updateOnList" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+      @for (option of updateOnList; track option.value) {
+        <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+      }
     </thy-select>
   </div>
 </div>
-<form *ngIf="loadingDone" thyForm name="demoForm" thyLayout="horizontal" [thyFormValidatorConfig]="validateConfig" [formGroup]="formGroup">
-  <thy-form-group thyLabelText="Input" thyLayout="horizontal" thyLabelRequired>
-    <thy-input name="input" formControlName="input" placeholder="请输入"></thy-input>
-  </thy-form-group>
-
-  <thy-form-group thyLabelText="TreeSelect" thyLabelRequired>
-    <thy-tree-select
-      formControlName="treeSelect"
-      name="treeSelect"
-      [thyTreeNodes]="basicTreeSelectData"
-      [thyShowSearch]="true"
-      [thyAllowClear]="true">
-    </thy-tree-select>
-  </thy-form-group>
-  <thy-form-group thyLabelText="Username" thyLayout="horizontal" thyLabelRequired>
-    <input thyInput name="username" formControlName="username" placeholder="请输入用户名" />
-  </thy-form-group>
-
-  <thy-form-group thyLabelText="CustomerSelect" thyLabelRequired>
-    <thy-select
-      thyPlaceHolder="请选择"
-      formControlName="customersSelect"
-      name="customersSelect"
-      [thyShowSearch]="true"
-      [thyAllowClear]="true">
-      <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
-    </thy-select>
-  </thy-form-group>
-
-  <thy-form-group thyLabelText="Search" thyLayout="horizontal" thyLabelRequired>
-    <thy-input-search name="search" formControlName="search" placeholder="请输入"></thy-input-search>
-  </thy-form-group>
-
-  <thy-form-group thyLabelText="Number" thyLayout="horizontal" thyLabelRequired>
-    <thy-input-number thyPlaceholder="请输入" name="number" formControlName="number" placeholder="search"></thy-input-number>
-  </thy-form-group>
-
-  <thy-form-group thyLabelText="customersMultiSelect" thyLabelRequired>
-    <thy-select
-      [thyMode]="'multiple'"
-      thyPlaceHolder="请选择"
-      formControlName="customersMultiSelect"
-      name="customersMultiSelect"
-      [thyShowSearch]="true"
-      [thyAllowClear]="true">
-      <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
-    </thy-select>
-  </thy-form-group>
-
-  <thy-form-group thyLabelText="treeSelectMulti" thyLabelRequired>
-    <thy-tree-select
-      formControlName="treeSelectMulti"
-      [thyMultiple]="true"
-      name="treeSelectMulti"
-      [thyTreeNodes]="basicTreeSelectData"
-      [thyShowSearch]="true"
-      [thyAllowClear]="true">
-    </thy-tree-select>
-  </thy-form-group>
-
-  <thy-form-group class="align-items-center" thyLabelText="Switch" thyLayout="horizontal" thyLabelRequired>
-    <thy-switch name="switch" [(ngModel)]="model.switch" formControlName="switch"></thy-switch>
-  </thy-form-group>
-  <thy-form-group thyLabelText="Radio" thyLabelRequired thyLabelPaddingTopClear="true">
-    <thy-radio-group name="radio" [(ngModel)]="model.radio" formControlName="radio" thyLayout="flex">
-      <label thyRadio thyLabelText="Option1" thyValue="1"></label>
-      <label thyRadio thyLabelText="Option2" thyValue="2"></label>
-      <label thyRadio thyLabelText="Option3" thyValue="3"></label>
-    </thy-radio-group>
-  </thy-form-group>
-
-  <thy-form-group thyLabelText="Checkbox" thyLabelRequired thyLabelPaddingTopClear="true">
-    <label [(ngModel)]="model.checkbox" thyCheckbox name="checkbox" formControlName="checkbox" thyLabelText="Option1" thyValue="1"></label>
-    <label thyCheckbox name="checkbox1" formControlName="checkbox1" thyLabelText="Option2" thyValue="2"></label>
-    <label thyCheckbox name="checkbox2" formControlName="checkbox2" thyLabelText="Option3" thyValue="3"></label>
-  </thy-form-group>
-
-  <thy-form-group thyLabelText="Radio Button" thyLabelRequired>
-    <thy-radio-group name="radioGroup" [(ngModel)]="model.radioButton" formControlName="radioGroup" thyLayout="flex">
-      <label thyRadioButton thyLabelText="Option1" thyValue="1"></label>
-      <label thyRadioButton thyLabelText="Option2" thyValue="2"></label>
-      <label thyRadioButton thyLabelText="Option3" thyValue="3"></label>
-    </thy-radio-group>
-  </thy-form-group>
-
-  <thy-form-group thyLabelText="color" thyLabelText="Color" thyLayout="horizontal" thyLabelRequired class="d-flex align-items-center">
-    <div
-      style="border: 1px solid #ccc; width: 30px; height: 30px; border-radius: 4px; vertical-align: center"
-      [ngStyle]="{ background: model.color }"
-      thyColorPicker
-      [thyOffset]="10"
-      name="color"
-      formControlName="color"
-      [(ngModel)]="model.color"></div>
-  </thy-form-group>
-  <thy-form-group thyLabelText="slider" thyLabelRequired class="d-flex align-items-center">
-    <thy-slider [(ngModel)]="model.slider" name="slider" formControlName="slider"></thy-slider>
-  </thy-form-group>
-  <thy-form-group class="align-items-center" thyLabelText="Rate" thyLayout="horizontal" thyLabelRequired>
-    <thy-rate name="rate" formControlName="rate"></thy-rate>
-  </thy-form-group>
-  <thy-form-group thyLabelText="Cascader" thyLabelRequired>
-    <thy-cascader name="province" [thyOptions]="provinceCities" formControlName="province" style="width: 200px"> </thy-cascader>
-  </thy-form-group>
-  <thy-form-group thyLabelText="Textarea" thyLabelRequired>
-    <textarea name="textarea" formControlName="textarea" class="form-control" rows="3" placeholder="请输入"></textarea>
-  </thy-form-group>
-  <thy-form-group>
-    <ng-template #content>
-      <label class="col-sm-2 col-form-label pr-0 form-label label-required">Date</label>
-      <div class="col-sm-4 col-form-control">
-        <thy-date-picker name="dateFull" formControlName="dateFull"></thy-date-picker>
-      </div>
-      <label class="col-sm-2 col-form-label form-label label-required">Date range</label>
-      <div class="col-sm-4 has-feedback col-form-control">
-        <thy-range-picker name="dateRange" formControlName="dateRange"></thy-range-picker>
-      </div>
-    </ng-template>
-  </thy-form-group>
-
-  <thy-form-group *ngIf="submitSuccess">
-    <div class="text text-success">Submit success!</div>
-  </thy-form-group>
-  <thy-form-group-footer>
-    <button [thyButton]="'primary'" (thyFormSubmit)="save()">Save</button>
-    <button [thyButton]="'link-secondary'">Cancel</button>
-  </thy-form-group-footer>
-</form>
+@if (loadingDone) {
+  <form thyForm name="demoForm" thyLayout="horizontal" [thyFormValidatorConfig]="validateConfig" [formGroup]="formGroup">
+    <thy-form-group thyLabelText="Input" thyLayout="horizontal" thyLabelRequired>
+      <thy-input name="input" formControlName="input" placeholder="请输入"></thy-input>
+    </thy-form-group>
+    <thy-form-group thyLabelText="TreeSelect" thyLabelRequired>
+      <thy-tree-select
+        formControlName="treeSelect"
+        name="treeSelect"
+        [thyTreeNodes]="basicTreeSelectData"
+        [thyShowSearch]="true"
+        [thyAllowClear]="true">
+      </thy-tree-select>
+    </thy-form-group>
+    <thy-form-group thyLabelText="Username" thyLayout="horizontal" thyLabelRequired>
+      <input thyInput name="username" formControlName="username" placeholder="请输入用户名" />
+    </thy-form-group>
+    <thy-form-group thyLabelText="CustomerSelect" thyLabelRequired>
+      <thy-select
+        thyPlaceHolder="请选择"
+        formControlName="customersSelect"
+        name="customersSelect"
+        [thyShowSearch]="true"
+        [thyAllowClear]="true">
+        @for (option of listOfOption; track option.value) {
+          <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+        }
+      </thy-select>
+    </thy-form-group>
+    <thy-form-group thyLabelText="Search" thyLayout="horizontal" thyLabelRequired>
+      <thy-input-search name="search" formControlName="search" placeholder="请输入"></thy-input-search>
+    </thy-form-group>
+    <thy-form-group thyLabelText="Number" thyLayout="horizontal" thyLabelRequired>
+      <thy-input-number thyPlaceholder="请输入" name="number" formControlName="number" placeholder="search"></thy-input-number>
+    </thy-form-group>
+    <thy-form-group thyLabelText="customersMultiSelect" thyLabelRequired>
+      <thy-select
+        [thyMode]="'multiple'"
+        thyPlaceHolder="请选择"
+        formControlName="customersMultiSelect"
+        name="customersMultiSelect"
+        [thyShowSearch]="true"
+        [thyAllowClear]="true">
+        @for (option of listOfOption; track option.value) {
+          <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+        }
+      </thy-select>
+    </thy-form-group>
+    <thy-form-group thyLabelText="treeSelectMulti" thyLabelRequired>
+      <thy-tree-select
+        formControlName="treeSelectMulti"
+        [thyMultiple]="true"
+        name="treeSelectMulti"
+        [thyTreeNodes]="basicTreeSelectData"
+        [thyShowSearch]="true"
+        [thyAllowClear]="true">
+      </thy-tree-select>
+    </thy-form-group>
+    <thy-form-group class="align-items-center" thyLabelText="Switch" thyLayout="horizontal" thyLabelRequired>
+      <thy-switch name="switch" [(ngModel)]="model.switch" formControlName="switch"></thy-switch>
+    </thy-form-group>
+    <thy-form-group thyLabelText="Radio" thyLabelRequired thyLabelPaddingTopClear="true">
+      <thy-radio-group name="radio" [(ngModel)]="model.radio" formControlName="radio" thyLayout="flex">
+        <label thyRadio thyLabelText="Option1" thyValue="1"></label>
+        <label thyRadio thyLabelText="Option2" thyValue="2"></label>
+        <label thyRadio thyLabelText="Option3" thyValue="3"></label>
+      </thy-radio-group>
+    </thy-form-group>
+    <thy-form-group thyLabelText="Checkbox" thyLabelRequired thyLabelPaddingTopClear="true">
+      <label
+        [(ngModel)]="model.checkbox"
+        thyCheckbox
+        name="checkbox"
+        formControlName="checkbox"
+        thyLabelText="Option1"
+        thyValue="1"></label>
+      <label thyCheckbox name="checkbox1" formControlName="checkbox1" thyLabelText="Option2" thyValue="2"></label>
+      <label thyCheckbox name="checkbox2" formControlName="checkbox2" thyLabelText="Option3" thyValue="3"></label>
+    </thy-form-group>
+    <thy-form-group thyLabelText="Radio Button" thyLabelRequired>
+      <thy-radio-group name="radioGroup" [(ngModel)]="model.radioButton" formControlName="radioGroup" thyLayout="flex">
+        <label thyRadioButton thyLabelText="Option1" thyValue="1"></label>
+        <label thyRadioButton thyLabelText="Option2" thyValue="2"></label>
+        <label thyRadioButton thyLabelText="Option3" thyValue="3"></label>
+      </thy-radio-group>
+    </thy-form-group>
+    <thy-form-group thyLabelText="color" thyLabelText="Color" thyLayout="horizontal" thyLabelRequired class="d-flex align-items-center">
+      <div
+        style="border: 1px solid #ccc; width: 30px; height: 30px; border-radius: 4px; vertical-align: center"
+        [ngStyle]="{ background: model.color }"
+        thyColorPicker
+        [thyOffset]="10"
+        name="color"
+        formControlName="color"
+        [(ngModel)]="model.color"></div>
+    </thy-form-group>
+    <thy-form-group thyLabelText="slider" thyLabelRequired class="d-flex align-items-center">
+      <thy-slider [(ngModel)]="model.slider" name="slider" formControlName="slider"></thy-slider>
+    </thy-form-group>
+    <thy-form-group class="align-items-center" thyLabelText="Rate" thyLayout="horizontal" thyLabelRequired>
+      <thy-rate name="rate" formControlName="rate"></thy-rate>
+    </thy-form-group>
+    <thy-form-group thyLabelText="Cascader" thyLabelRequired>
+      <thy-cascader name="province" [thyOptions]="provinceCities" formControlName="province" style="width: 200px"> </thy-cascader>
+    </thy-form-group>
+    <thy-form-group thyLabelText="Textarea" thyLabelRequired>
+      <textarea name="textarea" formControlName="textarea" class="form-control" rows="3" placeholder="请输入"></textarea>
+    </thy-form-group>
+    <thy-form-group>
+      <ng-template #content>
+        <label class="col-sm-2 col-form-label pr-0 form-label label-required">Date</label>
+        <div class="col-sm-4 col-form-control">
+          <thy-date-picker name="dateFull" formControlName="dateFull"></thy-date-picker>
+        </div>
+        <label class="col-sm-2 col-form-label form-label label-required">Date range</label>
+        <div class="col-sm-4 has-feedback col-form-control">
+          <thy-range-picker name="dateRange" formControlName="dateRange"></thy-range-picker>
+        </div>
+      </ng-template>
+    </thy-form-group>
+    @if (submitSuccess) {
+      <thy-form-group>
+        <div class="text text-success">Submit success!</div>
+      </thy-form-group>
+    }
+    <thy-form-group-footer>
+      <button [thyButton]="'primary'" (thyFormSubmit)="save()">Save</button>
+      <button [thyButton]="'link-secondary'">Cancel</button>
+    </thy-form-group-footer>
+  </form>
+}

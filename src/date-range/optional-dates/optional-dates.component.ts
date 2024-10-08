@@ -10,7 +10,6 @@ import {
     ThyDropdownMenuItemNameDirective,
     ThyDropdownMenuItemExtendIconDirective
 } from 'ngx-tethys/dropdown';
-import { NgIf, NgFor } from '@angular/common';
 
 /**
  * @private
@@ -21,9 +20,7 @@ import { NgIf, NgFor } from '@angular/common';
     templateUrl: './optional-dates.component.html',
     standalone: true,
     imports: [
-        NgIf,
         ThyDropdownMenuComponent,
-        NgFor,
         ThyDropdownMenuItemDirective,
         ThyDropdownMenuItemNameDirective,
         ThyDropdownMenuItemExtendIconDirective,

@@ -1,23 +1,35 @@
-<div class="input-group-prepend" *ngIf="prependText">
-  <span class="input-group-text">{{ prependText }}</span>
-</div>
-<div class="input-group-prepend" *ngIf="prependTemplate">
-  <ng-template *ngTemplateOutlet="prependTemplate"></ng-template>
-</div>
+@if (prependText) {
+  <div class="input-group-prepend">
+    <span class="input-group-text">{{ prependText }}</span>
+  </div>
+}
+@if (prependTemplate) {
+  <div class="input-group-prepend">
+    <ng-template *ngTemplateOutlet="prependTemplate"></ng-template>
+  </div>
+}
 
-<div class="input-group-prefix" *ngIf="prefixTemplate">
-  <ng-template *ngTemplateOutlet="prefixTemplate"></ng-template>
-</div>
+@if (prefixTemplate) {
+  <div class="input-group-prefix">
+    <ng-template *ngTemplateOutlet="prefixTemplate"></ng-template>
+  </div>
+}
 
 <ng-content></ng-content>
 
-<div class="input-group-append" *ngIf="appendText">
-  <span class="input-group-text">{{ appendText }}</span>
-</div>
-<div class="input-group-append" *ngIf="appendTemplate">
-  <ng-template *ngTemplateOutlet="appendTemplate"></ng-template>
-</div>
+@if (appendText) {
+  <div class="input-group-append">
+    <span class="input-group-text">{{ appendText }}</span>
+  </div>
+}
+@if (appendTemplate) {
+  <div class="input-group-append">
+    <ng-template *ngTemplateOutlet="appendTemplate"></ng-template>
+  </div>
+}
 
-<div class="input-group-suffix" *ngIf="suffixTemplate">
-  <ng-template *ngTemplateOutlet="suffixTemplate"></ng-template>
-</div>
+@if (suffixTemplate) {
+  <div class="input-group-suffix">
+    <ng-template *ngTemplateOutlet="suffixTemplate"></ng-template>
+  </div>
+}

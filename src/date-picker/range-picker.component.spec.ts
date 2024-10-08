@@ -979,50 +979,53 @@ describe('ThyRangePickerComponent', () => {
 
 @Component({
     template: `
-        <ng-container [ngSwitch]="useSuite">
+        @switch (useSuite) {
             <!-- Suite 1 -->
-            <thy-range-picker
-                *ngSwitchCase="1"
-                [thyAllowClear]="thyAllowClear"
-                [thyDisabled]="thyDisabled"
-                [thyDisabledDate]="thyDisabledDate"
-                [thyPlaceHolder]="thyPlaceHolder"
-                [thyPanelClassName]="thyPanelClassName"
-                [thySize]="thySize"
-                [thySuffixIcon]="thySuffixIcon"
-                [thyShowShortcut]="thyShowShortcut"
-                [thyShortcutPresets]="thyShortcutPresets"
-                [thyShortcutPosition]="thyShortcutPosition"
-                (thyOpenChange)="thyOpenChange($event)"
-                [(ngModel)]="modelValue"
-                [thyMode]="thyMode"
-                [thyTimestampPrecision]="thyTimestampPrecision"
-                [thyMinDate]="thyMinDate"
-                [thyMaxDate]="thyMaxDate"
-                (ngModelChange)="modelValueChange($event)"
-                (thyOnPanelChange)="thyOnPanelChange($event)"
-                (thyOnCalendarChange)="thyOnCalendarChange($event)"
-                (thyDateChange)="thyDateChange($event)"></thy-range-picker>
-            <ng-template #tplDateRender let-current>
-                <div [class.test-first-day]="current.getDate() === 1">{{ current.getDate() }}</div>
-            </ng-template>
-
+            @case (1) {
+                <thy-range-picker
+                    [thyAllowClear]="thyAllowClear"
+                    [thyDisabled]="thyDisabled"
+                    [thyDisabledDate]="thyDisabledDate"
+                    [thyPlaceHolder]="thyPlaceHolder"
+                    [thyPanelClassName]="thyPanelClassName"
+                    [thySize]="thySize"
+                    [thySuffixIcon]="thySuffixIcon"
+                    [thyShowShortcut]="thyShowShortcut"
+                    [thyShortcutPresets]="thyShortcutPresets"
+                    [thyShortcutPosition]="thyShortcutPosition"
+                    (thyOpenChange)="thyOpenChange($event)"
+                    [(ngModel)]="modelValue"
+                    [thyMode]="thyMode"
+                    [thyTimestampPrecision]="thyTimestampPrecision"
+                    [thyMinDate]="thyMinDate"
+                    [thyMaxDate]="thyMaxDate"
+                    (ngModelChange)="modelValueChange($event)"
+                    (thyOnPanelChange)="thyOnPanelChange($event)"
+                    (thyOnCalendarChange)="thyOnCalendarChange($event)"
+                    (thyDateChange)="thyDateChange($event)"></thy-range-picker>
+            }
             <!-- Suite 2 -->
             <!-- use another picker to avoid thyOpen's side-effects because thyOpen act as "true" if used -->
-            <thy-range-picker *ngSwitchCase="2" [thyOpen]="thyOpen"></thy-range-picker>
-
+            @case (2) {
+                <thy-range-picker [thyOpen]="thyOpen"></thy-range-picker>
+            }
             <!-- Suite 3 -->
-            <thy-range-picker *ngSwitchCase="3" thyOpen [(ngModel)]="modelValue"></thy-range-picker>
-
+            @case (3) {
+                <thy-range-picker thyOpen [(ngModel)]="modelValue"></thy-range-picker>
+            }
             <!-- Suite 4 flexible range picker -->
-            <thy-range-picker
-                #rangePicker
-                *ngSwitchCase="4"
-                [(ngModel)]="flexibleDateRange"
-                thyMode="flexible"
-                (thyDateChange)="thyDateChange($event)"
-                (ngModelChange)="modelValueChange($event)"></thy-range-picker>
-        </ng-container>
+            @case (4) {
+                <thy-range-picker
+                    #rangePicker
+                    [(ngModel)]="flexibleDateRange"
+                    thyMode="flexible"
+                    (thyDateChange)="thyDateChange($event)"
+                    (ngModelChange)="modelValueChange($event)"></thy-range-picker>
+            }
+        }
+        <ng-template #tplDateRender let-current>
+            <div [class.test-first-day]="current.getDate() === 1">{{ current.getDate() }}</div>
+        </ng-template>
     `
 })
 class ThyTestRangePickerComponent {

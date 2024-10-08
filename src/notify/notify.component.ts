@@ -6,7 +6,7 @@ import { ANIMATION_IN_DURATION, ANIMATION_OUT_DURATION, HIDE_STYLE, ThyAbstractM
 import { ThyNotifyQueue } from './notify-queue.service';
 import { ThyViewOutletDirective } from 'ngx-tethys/shared';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { NgIf, NgClass, NgTemplateOutlet } from '@angular/common';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 
 /**
  * @private
@@ -32,7 +32,7 @@ import { NgIf, NgClass, NgTemplateOutlet } from '@angular/common';
         ])
     ],
     standalone: true,
-    imports: [NgIf, ThyIcon, NgClass, ThyViewOutletDirective, NgTemplateOutlet]
+    imports: [ThyIcon, NgClass, ThyViewOutletDirective, NgTemplateOutlet]
 })
 export class ThyNotify extends ThyAbstractMessageComponent<ThyNotifyConfig> implements OnInit {
     @HostBinding('@flyInOut') animationState: string;

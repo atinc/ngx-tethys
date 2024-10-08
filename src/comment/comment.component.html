@@ -1,7 +1,13 @@
 <div class="thy-comment-inner">
-  <ng-container *ngIf="isTemplateRef(this.thyAvatar); else defaultAvatar">
+  @if (isTemplateRef(this.thyAvatar)) {
     <ng-template [ngTemplateOutlet]="thyAvatar"></ng-template>
-  </ng-container>
+  } @else {
+    @if (thyAuthor || thyAvatar) {
+      <div class="thy-comment-avatar">
+        <thy-avatar [thyName]="!isTemplateRef(thyAuthor) && thyAuthor" thySize="28" [thySrc]="thyAvatar || ''"></thy-avatar>
+      </div>
+    }
+  }
 
   <div class="thy-comment-body">
     <div class="thy-comment-body-author">
@@ -20,10 +26,3 @@
   <ng-content></ng-content>
 </div>
 
-<ng-template #defaultAvatar>
-  <ng-container *ngIf="thyAuthor || thyAvatar">
-    <div class="thy-comment-avatar">
-      <thy-avatar [thyName]="!isTemplateRef(thyAuthor) && thyAuthor" thySize="28" [thySrc]="thyAvatar || ''"></thy-avatar>
-    </div>
-  </ng-container>
-</ng-template>

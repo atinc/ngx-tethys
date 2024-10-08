@@ -7,27 +7,28 @@
   </thy-radio-group>
 </div>
 
-<thy-table
-  *ngIf="showTable"
-  [thyModel]="data"
-  thyRowKey="id"
-  (thyOnMultiSelectChange)="onMultiSelectChange($event)"
-  (thyOnRadioSelectChange)="onRadioSelectChange($event)"
-  (thyOnSwitchChange)="onSwitchChange($event)"
->
-  <thy-table-column thyTitle="#" thyModelKey="checked" [thyType]="columnType" [thySelections]="selections"> </thy-table-column>
-  <thy-table-column thyTitle="Name" thyModelKey="name"></thy-table-column>
-  <thy-table-column thyTitle="Age" thyModelKey="age"></thy-table-column>
-  <thy-table-column thyTitle="Job" thyModelKey="job"> </thy-table-column>
-  <thy-table-column thyTitle="Address" thyModelKey="address"></thy-table-column>
-  <thy-table-column thyTitle="" thyClassName="thy-operation-links">
-    <ng-template #cell let-row>
-      <a class="link-secondary" href="javascript:;">
-        <thy-icon thyIconName="user-add"></thy-icon>
-      </a>
-      <a class="link-danger-weak" href="javascript:;">
-        <thy-icon thyIconName="trash"></thy-icon>
-      </a>
-    </ng-template>
-  </thy-table-column>
-</thy-table>
+@if (showTable) {
+  <thy-table
+    [thyModel]="data"
+    thyRowKey="id"
+    (thyOnMultiSelectChange)="onMultiSelectChange($event)"
+    (thyOnRadioSelectChange)="onRadioSelectChange($event)"
+    (thyOnSwitchChange)="onSwitchChange($event)"
+    >
+    <thy-table-column thyTitle="#" thyModelKey="checked" [thyType]="columnType" [thySelections]="selections"> </thy-table-column>
+    <thy-table-column thyTitle="Name" thyModelKey="name"></thy-table-column>
+    <thy-table-column thyTitle="Age" thyModelKey="age"></thy-table-column>
+    <thy-table-column thyTitle="Job" thyModelKey="job"> </thy-table-column>
+    <thy-table-column thyTitle="Address" thyModelKey="address"></thy-table-column>
+    <thy-table-column thyTitle="" thyClassName="thy-operation-links">
+      <ng-template #cell let-row>
+        <a class="link-secondary" href="javascript:;">
+          <thy-icon thyIconName="user-add"></thy-icon>
+        </a>
+        <a class="link-danger-weak" href="javascript:;">
+          <thy-icon thyIconName="trash"></thy-icon>
+        </a>
+      </ng-template>
+    </thy-table-column>
+  </thy-table>
+}

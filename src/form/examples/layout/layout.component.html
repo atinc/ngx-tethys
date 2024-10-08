@@ -1,23 +1,25 @@
 <div class="mb-4">
   <span class="mr-2">From Layout:</span>
   <thy-button-group thySize="md" thyType="outline-default">
-    <button thyButton *ngFor="let layout of layouts" (click)="updateLayout(layout)" [ngClass]="{ active: layout === currentLayout }">
-      {{ layout.text }}
-    </button>
+    @for (layout of layouts; track layout.value) {
+      <button thyButton (click)="updateLayout(layout)" [ngClass]="{ active: layout === currentLayout }">
+        {{ layout.text }}
+      </button>
+    }
   </thy-button-group>
 </div>
 
-<form *ngIf="showForm" thyForm name="demoForm" #demoForm="ngForm" [thyLayout]="currentLayout?.value">
-  <thy-form-group thyLabelText="Username" thyLabelRequired>
-    <input thyInput name="username" placeholder="Please type username" />
-  </thy-form-group>
-  <thy-form-group thyLabelText="Password" thyLabelRequired>
-    <input thyInput type="password" name="password" placeholder="Please type password" />
-  </thy-form-group>
-  <thy-form-group-footer>
-    <button [thyButton]="'primary'" thyLoadingText="Login" (thyFormSubmit)="login()">
-      Login
-    </button>
-    <button [thyButton]="'link-secondary'">Cancel</button>
-  </thy-form-group-footer>
-</form>
+@if (showForm) {
+  <form thyForm name="demoForm" #demoForm="ngForm" [thyLayout]="currentLayout?.value">
+    <thy-form-group thyLabelText="Username" thyLabelRequired>
+      <input thyInput name="username" placeholder="Please type username" />
+    </thy-form-group>
+    <thy-form-group thyLabelText="Password" thyLabelRequired>
+      <input thyInput type="password" name="password" placeholder="Please type password" />
+    </thy-form-group>
+    <thy-form-group-footer>
+      <button [thyButton]="'primary'" thyLoadingText="Login" (thyFormSubmit)="login()">Login</button>
+      <button [thyButton]="'link-secondary'">Cancel</button>
+    </thy-form-group-footer>
+  </form>
+}

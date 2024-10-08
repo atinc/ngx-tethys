@@ -3,7 +3,7 @@ import { TinyDate } from 'ngx-tethys/util';
 import { DateHelperService } from '../../date-helper.service';
 import { CalendarTable } from '../calendar/calendar-table.component';
 import { DateCell, DateBodyRow } from '../date/types';
-import { NgFor, NgClass, NgSwitch, NgSwitchCase } from '@angular/common';
+import { NgClass } from '@angular/common';
 
 /**
  * @private
@@ -15,7 +15,7 @@ import { NgFor, NgClass, NgSwitch, NgSwitchCase } from '@angular/common';
     exportAs: 'monthTable',
     templateUrl: 'month-table.component.html',
     standalone: true,
-    imports: [NgFor, NgClass, NgSwitch, NgSwitchCase]
+    imports: [NgClass]
 })
 export class MonthTable extends CalendarTable implements OnChanges {
     MAX_ROW = 4;

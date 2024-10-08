@@ -1,10 +1,12 @@
 <thy-file-select [thyAcceptFolder]="acceptFolder" class="mt-2 d-inline-block" (thyOnFileSelect)="selectFiles($event)">
   <button thyButton="primary">Click to Upload Folder</button>
 </thy-file-select>
-<div *ngFor="let queueFile of queueFiles">
-  <div style="margin: 5px 0;">
-    {{ queueFile.fileName }} speed: {{ queueFile.progress.speedHuman }}, estimatedTime -
-    {{ queueFile.progress.estimatedTimeHuman }}
+@for (queueFile of queueFiles; track $index) {
+  <div>
+    <div style="margin: 5px 0">
+      {{ queueFile.fileName }} speed: {{ queueFile.progress.speedHuman }}, estimatedTime -
+      {{ queueFile.progress.estimatedTimeHuman }}
+    </div>
+    <thy-progress class="progress" type="success" [thyValue]="queueFile.progress.percentage"></thy-progress>
   </div>
-  <thy-progress class="progress" type="success" [thyValue]="queueFile.progress.percentage"></thy-progress>
-</div>
+}

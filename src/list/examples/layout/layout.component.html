@@ -4,12 +4,13 @@
     [style.background]="'#fafafa'"
     [(ngModel)]="selectionModel.selectedValues"
     [thyLayout]="'grid'"
-    (thySelectionChange)="selectionChange($event)"
-  >
-    <thy-list-option *ngFor="let item of gridItems" [thyValue]="item?.id">
-      <thy-icon thyIconName="app-agile-fill" class="thy-grid-option-icon"></thy-icon>
-      <div class="thy-grid-option-name">{{ item.name }}</div>
-    </thy-list-option>
+    (thySelectionChange)="selectionChange($event)">
+    @for (item of gridItems; track item?.id) {
+      <thy-list-option [thyValue]="item?.id">
+        <thy-icon thyIconName="app-agile-fill" class="thy-grid-option-icon"></thy-icon>
+        <div class="thy-grid-option-name">{{ item.name }}</div>
+      </thy-list-option>
+    }
   </thy-selection-list>
 
   <h6 class="my-3">已选择的值：</h6>

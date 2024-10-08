@@ -2,18 +2,18 @@
   <div
     class="{{ prefixCls }} {{ showWeek ? prefixCls + '-week-number' : '' }}
      {{ isRange ? prefixCls + '-range' : '' }} {{ prefixCls }}-picker-shortcut-{{ shortcutPosition === 'left' ? 'left' : 'bottom' }}">
-    <div class="{{ prefixCls }}-picker-shortcut" *ngIf="showShortcut">
-      <div
-        class="{{ prefixCls }}-picker-shortcut-item"
-        [class.disabled]="item.disabled"
-        *ngFor="let item of innerShortcutPresets; trackBy: trackByFn"
-        (click)="shortcutSetValue(item)">
-        {{ item.title }}
+    @if (showShortcut) {
+      <div class="{{ prefixCls }}-picker-shortcut">
+        @for (item of innerShortcutPresets; track $index) {
+          <div class="{{ prefixCls }}-picker-shortcut-item" [class.disabled]="item.disabled" (click)="shortcutSetValue(item)">
+            {{ item.title }}
+          </div>
+        }
       </div>
-    </div>
+    }
     <div class="{{ prefixCls }}-panel">
       <div class="{{ prefixCls }}-date-panel">
-        <ng-container *ngIf="flexible; else defaultPanel">
+        @if (flexible) {
           <div class="{{ prefixCls }}-date-panel-flexible">
             <div class="{{ prefixCls }}-date-panel-flexible-tab">
               <thy-nav thyType="pulled" thySize="sm">
@@ -39,17 +39,19 @@
               <ng-container *ngTemplateOutlet="tplInnerPopup"></ng-container>
             </div>
           </div>
-        </ng-container>
-
-        <ng-template #defaultPanel>
-          <ng-container *ngIf="isRange; else tplSinglePart">
+        } @else {
+          @if (isRange) {
             <ng-container *ngTemplateOutlet="tplRangePart; context: { partType: 'left' }"></ng-container>
             <ng-container *ngTemplateOutlet="tplRangePart; context: { partType: 'right' }"></ng-container>
-          </ng-container>
-          <ng-container *ngIf="!isRange">
+          } @else {
+            <div>
+              <ng-container *ngTemplateOutlet="tplInnerPopup"></ng-container>
+            </div>
+          }
+          @if (!isRange) {
             <ng-container *ngTemplateOutlet="tplFooter"></ng-container>
-          </ng-container>
-        </ng-template>
+          }
+        }
       </div>
     </div>
   </div>
@@ -91,11 +93,6 @@
 </ng-template>
 
 <!-- Single ONLY -->
-<ng-template #tplSinglePart>
-  <div>
-    <ng-container *ngTemplateOutlet="tplInnerPopup"></ng-container>
-  </div>
-</ng-template>
 
 <!-- Range ONLY -->
 <ng-template #tplRangePart let-partType="partType">

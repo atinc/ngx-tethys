@@ -4,17 +4,20 @@
   [highestKey]="text[currentTextType].highestKey"
   [highKey]="text[currentTextType].highKey"
   [averageKey]="text[currentTextType].averageKey"
-  [lowKey]="text[currentTextType].lowKey"
-></thy-strength>
+  [lowKey]="text[currentTextType].lowKey"></thy-strength>
 <h6>切换程度值：</h6>
 <thy-button-group thySize="md" thyType="outline-default" class="my-3">
-  <button thyButton *ngFor="let curStrength of strengths" (click)="strength = curStrength" [ngClass]="{ active: strength === curStrength }">
-    {{ curStrength }}
-  </button>
+  @for (curStrength of strengths; track $index) {
+    <button thyButton (click)="strength = curStrength" [ngClass]="{ active: strength === curStrength }">
+      {{ curStrength }}
+    </button>
+  }
 </thy-button-group>
 <h6>切换程度文本：</h6>
 <thy-button-group thySize="md" thyType="outline-default" class="my-3">
-  <button thyButton *ngFor="let text of toggleText" (click)="currentTextType = text" [ngClass]="{ active: currentTextType === text }">
-    {{ text }}
-  </button>
+  @for (text of toggleText; track $index) {
+    <button thyButton (click)="currentTextType = text" [ngClass]="{ active: currentTextType === text }">
+      {{ text }}
+    </button>
+  }
 </thy-button-group>

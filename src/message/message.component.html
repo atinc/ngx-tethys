@@ -1,13 +1,12 @@
-<ng-container *ngIf="iconName; else loadingIcon">
+@if (iconName) {
   <thy-icon class="thy-message-icon" [thyIconName]="iconName"></thy-icon>
-</ng-container>
+} @else {
+  <span class="thy-message-icon loading-icon"></span>
+}
 <div class="thy-message-main">
   <ng-container *thyStringOrTemplateOutlet="config.content"></ng-container>
 </div>
-<ng-container *ngIf="config.showClose">
+@if (config.showClose) {
   <thy-icon class="thy-message-close" thyIconName="close" (click)="close()"></thy-icon>
-</ng-container>
+}
 
-<ng-template #loadingIcon>
-  <span class="thy-message-icon loading-icon"></span>
-</ng-template>

@@ -1,6 +1,8 @@
-<div #prepend class="input-prepend" *ngIf="prependTemplate">
-  <ng-template *ngTemplateOutlet="prependTemplate"></ng-template>
-</div>
+@if (prependTemplate) {
+  <div #prepend class="input-prepend">
+    <ng-template *ngTemplateOutlet="prependTemplate"></ng-template>
+  </div>
+}
 <input
   #input
   thyInput
@@ -14,15 +16,21 @@
   (focus)="onInputFocus($event)"
   (blur)="onInputBlur($event)"
   [readonly]="readonly"
-/>
+  />
 <span class="input-label input-label-{{ thySize }}" [class.active]="showLabel">{{ thyLabelText }}</span>
-<div #append class="input-append" *ngIf="appendTemplate">
-  <ng-template *ngTemplateOutlet="appendTemplate"></ng-template>
-</div>
+@if (appendTemplate) {
+  <div #append class="input-append">
+    <ng-template *ngTemplateOutlet="appendTemplate"></ng-template>
+  </div>
+}
 
 <ng-template #eye>
   <a href="javascript:;" class="link-secondary input-password-icon" (click)="togglePasswordType()">
-    <thy-icon *ngIf="isPassword(type)" thyIconName="eye"></thy-icon>
-    <thy-icon *ngIf="!isPassword(type)" thyIconName="eye-invisible"></thy-icon>
+    @if (isPassword(type)) {
+      <thy-icon thyIconName="eye"></thy-icon>
+    }
+    @if (!isPassword(type)) {
+      <thy-icon thyIconName="eye-invisible"></thy-icon>
+    }
   </a>
 </ng-template>

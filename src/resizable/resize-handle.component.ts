@@ -16,7 +16,7 @@ import { ThyResizableService } from './resizable.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { fromEvent, merge } from 'rxjs';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { NgIf } from '@angular/common';
+
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export class ThyResizeHandleMouseDownEvent {
@@ -37,7 +37,9 @@ const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveLis
     exportAs: 'thyResizeHandle',
     template: `
         <ng-content></ng-content>
-        <div *ngIf="thyLine" class="thy-resizable-handle-line"></div>
+        @if (thyLine) {
+            <div class="thy-resizable-handle-line"></div>
+        }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
@@ -53,7 +55,7 @@ const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveLis
         '[class.thy-resizable-handle-box-hover]': 'entered'
     },
     standalone: true,
-    imports: [NgIf]
+    imports: []
 })
 export class ThyResizeHandle implements OnInit {
     /**

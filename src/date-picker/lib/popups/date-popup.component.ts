@@ -15,7 +15,7 @@ import {
     TemplateRef
 } from '@angular/core';
 
-import { NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThyButtonIcon } from 'ngx-tethys/button';
 import { ThyNav, ThyNavItemDirective } from 'ngx-tethys/nav';
@@ -48,18 +48,7 @@ import { InnerPopup } from './inner-popup.component';
     exportAs: 'datePopup',
     templateUrl: './date-popup.component.html',
     standalone: true,
-    imports: [
-        NgIf,
-        NgFor,
-        ThyNav,
-        ThyNavItemDirective,
-        ThyButtonIcon,
-        DateCarousel,
-        FormsModule,
-        NgTemplateOutlet,
-        InnerPopup,
-        CalendarFooter
-    ]
+    imports: [ThyNav, ThyNavItemDirective, ThyButtonIcon, DateCarousel, FormsModule, NgTemplateOutlet, InnerPopup, CalendarFooter]
 })
 export class DatePopup implements OnChanges, OnInit {
     @Input() isRange: boolean;
@@ -624,9 +613,5 @@ export class DatePopup implements OnChanges, OnInit {
         if (!helpers.isArray(value) && this.showTime && this.showTimePicker) {
             this.updateActiveDate();
         }
-    }
-
-    public trackByFn(index: number) {
-        return index;
     }
 }

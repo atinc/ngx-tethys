@@ -1,3 +1,5 @@
 <div class="btn-pair">
-  <button *ngFor="let size of dialogSizes" thyButton="primary" (click)="openDialog(size.value)">{{ size.value }} - {{ size.width }}</button>
+  @for (size of dialogSizes; track size.value) {
+    <button thyButton="primary" (click)="openDialog(size.value)">{{ size.value }} - {{ size.width }}</button>
+  }
 </div>

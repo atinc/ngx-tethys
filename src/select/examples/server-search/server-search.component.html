@@ -7,5 +7,7 @@
   [thyMode]="'multiple'"
   style="width: 500px"
   [(ngModel)]="selectedEnterprise">
-  <thy-option *ngFor="let item of searchResultList" [thyValue]="item._id" [thyLabelText]="item.display_name"></thy-option>
+  @for (item of searchResultList; track item._id) {
+    <thy-option [thyValue]="item._id" [thyLabelText]="item.display_name"></thy-option>
+  }
 </thy-select>

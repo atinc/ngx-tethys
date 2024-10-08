@@ -7,11 +7,11 @@
       <a thyAction thyTheme="lite" thyIcon="comment" href="javascript:;"></a>
       <a thyAction thyTheme="lite" thyIcon="smile-plus" href="javascript:;"></a>
     </div>
-    <ng-container *ngIf="comment.children && comment.children.length">
-      <ng-template ngFor let-child [ngForOf]="comment.children">
+    @if (comment.children && comment.children.length) {
+      @for (child of comment.children; track $index) {
         <ng-template [ngTemplateOutlet]="commentTemplateRef" [ngTemplateOutletContext]="{ comment: child }"></ng-template>
-      </ng-template>
-    </ng-container>
+      }
+    }
   </thy-comment>
 </ng-template>
 
