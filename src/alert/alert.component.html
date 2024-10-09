@@ -2,8 +2,6 @@
   @if (icon()) {
     <thy-icon class="thy-alert-icon" [thyIconName]="icon()"></thy-icon>
   }
-
-  icon: {{icon()}} - {{thyIcon()}}
   @if (thyTheme() === 'naked') {
     <span class="thy-alert-tips">Tips： </span>
   }
