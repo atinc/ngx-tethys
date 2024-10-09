@@ -1,29 +1,41 @@
 <table class="{{ prefixCls }}-table" cellSpacing="0" role="grid">
   <thead>
     <tr role="row">
-      <th *ngIf="showWeek" role="columnheader" title="周" class="{{ prefixCls }}-column-header {{ prefixCls }}-week-number-header">
-        <span class="{{ prefixCls }}-column-header-inner">周</span>
-      </th>
-      <th *ngFor="let cell of headRow" role="columnheader" title="{{ cell.title }}" class="{{ prefixCls }}-column-header">
-        <span *ngIf="prefixCls === 'thy-calendar'" class="{{ prefixCls }}-column-header-inner">{{ cell.content }}</span>
-        <span *ngIf="prefixCls === 'thy-calendar-full'" class="{{ prefixCls }}-column-header-inner">周{{ cell.content }}</span>
-      </th>
+      @if (showWeek) {
+        <th role="columnheader" title="周" class="{{ prefixCls }}-column-header {{ prefixCls }}-week-number-header">
+          <span class="{{ prefixCls }}-column-header-inner">周</span>
+        </th>
+      }
+      @for (cell of headRow; track $index) {
+        <th role="columnheader" title="{{ cell.title }}" class="{{ prefixCls }}-column-header">
+          @if (prefixCls === 'thy-calendar') {
+            <span class="{{ prefixCls }}-column-header-inner">{{ cell.content }}</span>
+          }
+          @if (prefixCls === 'thy-calendar-full') {
+            <span class="{{ prefixCls }}-column-header-inner">周{{ cell.content }}</span>
+          }
+        </th>
+      }
     </tr>
   </thead>
   <tbody class="{{ prefixCls }}-tbody">
-    <tr *ngFor="let row of bodyRows; trackBy: trackByBodyRow" [ngClass]="row.classMap" role="row">
-      <td *ngIf="row.weekNum" role="gridcell" class="{{ prefixCls }}-week-number-cell">
-        {{ row.weekNum }}
-      </td>
-      <td
-        *ngFor="let cell of row.dateCells; trackBy: trackByBodyColumn"
-        role="gridcell"
-        [ngClass]="cell.classMap"
-        (click)="cell.isDisabled ? null : cell.onClick()"
-        date-table-cell
-        [prefixCls]="prefixCls"
-        [cell]="cell"
-      ></td>
-    </tr>
+    @for (row of bodyRows; track $index) {
+      <tr [ngClass]="row.classMap" role="row">
+        @if (row.weekNum) {
+          <td role="gridcell" class="{{ prefixCls }}-week-number-cell">
+            {{ row.weekNum }}
+          </td>
+        }
+        @for (cell of row.dateCells; track $index) {
+          <td
+            role="gridcell"
+            [ngClass]="cell.classMap"
+            (click)="cell.isDisabled ? null : cell.onClick()"
+            date-table-cell
+            [prefixCls]="prefixCls"
+            [cell]="cell"></td>
+        }
+      </tr>
+    }
   </tbody>
 </table>

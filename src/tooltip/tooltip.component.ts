@@ -5,7 +5,7 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyTooltipVisibility } from './interface';
 import { thyTooltipAnimations } from './tooltip-animations';
 import { coerceArray } from 'ngx-tethys/util';
-import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 
 /**
  * @internal
@@ -22,7 +22,7 @@ import { NgIf, NgTemplateOutlet } from '@angular/common';
         '(@state.done)': 'animationDone($event)'
     },
     standalone: true,
-    imports: [NgIf, NgTemplateOutlet]
+    imports: [NgTemplateOutlet]
 })
 export class ThyTooltip implements OnInit {
     @HostBinding(`class.thy-tooltip`) addTooltipContainerClass = true;

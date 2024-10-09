@@ -16,7 +16,6 @@ import { ThyButton } from 'ngx-tethys/button';
 import { FormsModule } from '@angular/forms';
 import { ThyInnerTimePicker } from 'ngx-tethys/time-picker';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { NgIf } from '@angular/common';
 
 /**
  * @private
@@ -28,7 +27,7 @@ import { NgIf } from '@angular/common';
     exportAs: 'calendarFooter',
     templateUrl: 'calendar-footer.component.html',
     standalone: true,
-    imports: [NgIf, ThyIcon, ThyInnerTimePicker, FormsModule, ThyButton]
+    imports: [ThyIcon, ThyInnerTimePicker, FormsModule, ThyButton]
 })
 export class CalendarFooter implements OnInit, OnChanges {
     @Input() showTime = false;

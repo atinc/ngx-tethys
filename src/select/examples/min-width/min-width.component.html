@@ -1,22 +1,30 @@
 <div class="select-container">
   <thy-select ngModel="option1" thyDropdownWidthMode="match-select">
-    <thy-option *ngFor="let option of listOfOption; trackBy: trackByFn" [thyValue]="option.value" [thyLabelText]="option.text">
-    </thy-option>
+    @for (option of listOfOption; track trackByFn($index, option)) {
+      <thy-option [thyValue]="option.value" [thyLabelText]="option.text">
+      </thy-option>
+    }
   </thy-select>
 
   <thy-select ngModel="option2" thyDropdownWidthMode="min-width">
-    <thy-option *ngFor="let option of listOfOption; trackBy: trackByFn" [thyValue]="option.value" [thyLabelText]="option.text">
-    </thy-option>
+    @for (option of listOfOption; track trackByFn($index, option)) {
+      <thy-option [thyValue]="option.value" [thyLabelText]="option.text">
+      </thy-option>
+    }
   </thy-select>
 
   <thy-select ngModel="option3" [thyDropdownWidthMode]="{ minWidth: 300 }">
-    <thy-option *ngFor="let option of listOfOption; trackBy: trackByFn" [thyValue]="option.value" [thyLabelText]="option.text">
-    </thy-option>
+    @for (option of listOfOption; track trackByFn($index, option)) {
+      <thy-option [thyValue]="option.value" [thyLabelText]="option.text">
+      </thy-option>
+    }
   </thy-select>
 
   <!-- use THY_SELECT_CONFIG -->
   <thy-select ngModel="option1">
-    <thy-option *ngFor="let option of listOfOption; trackBy: trackByFn" [thyValue]="option.value" [thyLabelText]="option.text">
-    </thy-option>
+    @for (option of listOfOption; track trackByFn($index, option)) {
+      <thy-option [thyValue]="option.value" [thyLabelText]="option.text">
+      </thy-option>
+    }
   </thy-select>
 </div>

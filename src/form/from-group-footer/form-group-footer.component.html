@@ -3,7 +3,9 @@
     <ng-content></ng-content>
   </div>
 
-  <div class="form-footer-description" *ngIf="description">
-    <ng-container [ngTemplateOutlet]="description"></ng-container>
-  </div>
+  @if (description) {
+    <div class="form-footer-description">
+      <ng-container [ngTemplateOutlet]="description"></ng-container>
+    </div>
+  }
 </div>

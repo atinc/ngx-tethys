@@ -1,7 +1,7 @@
 import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
 import { coerceBooleanProperty, helpers } from 'ngx-tethys/util';
 
-import { NgClass, NgFor } from '@angular/common';
+import { NgClass } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -45,7 +45,7 @@ const noop = () => {};
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [NgFor, ThyStopPropagationDirective, ThyRateItem, NgClass, ThyTooltipDirective]
+    imports: [ThyStopPropagationDirective, ThyRateItem, NgClass, ThyTooltipDirective]
 })
 export class ThyRate extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor, OnInit, OnChanges {
     private _value = 0;

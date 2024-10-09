@@ -1,11 +1,15 @@
-<div *ngFor="let category of glyphs">
-  <ng-container *ngIf="category.icons && category.icons.length > 0">
-    <div class="category-name">{{ category.text }}</div>
-    <div class="icons">
-      <div class="icon-item" *ngFor="let icon of category.icons">
-        <thy-icon [thyIconName]="icon.name"></thy-icon>
-        <div class="name mt-2 text-secondary">{{ icon.name }}</div>
+@for (category of glyphs; track $index) {
+  <div>
+    @if (category.icons && category.icons.length > 0) {
+      <div class="category-name">{{ category.text }}</div>
+      <div class="icons">
+        @for (icon of category.icons; track $index) {
+          <div class="icon-item">
+            <thy-icon [thyIconName]="icon.name"></thy-icon>
+            <div class="name mt-2 text-secondary">{{ icon.name }}</div>
+          </div>
+        }
       </div>
-    </div>
-  </ng-container>
-</div>
+    }
+  </div>
+}

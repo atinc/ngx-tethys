@@ -2,7 +2,7 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 import { Component, ContentChild, Inject, Input, OnInit, TemplateRef } from '@angular/core';
 
 import { THY_DIALOG_LAYOUT_CONFIG, ThyDialogFooterAlign, ThyDialogLayoutConfig } from '../dialog.config';
-import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
@@ -16,7 +16,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     // changeDetection: ChangeDetectionStrategy.OnPush,
     exportAs: 'thyDialogFooter',
     standalone: true,
-    imports: [NgIf, NgTemplateOutlet]
+    imports: [NgTemplateOutlet]
 })
 export class ThyDialogFooter implements OnInit {
     /**

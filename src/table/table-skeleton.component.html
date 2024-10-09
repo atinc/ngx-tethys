@@ -1,40 +1,44 @@
 <table [ngClass]="tableClassMap" [ngStyle]="{ 'min-width': thyMinWidth }">
   <colgroup>
-    <col *ngFor="let column of columns; trackBy: trackByFn" [width]="column.width" />
+    @for (column of columns; track $index) {
+      <col [width]="column.width" />
+    }
   </colgroup>
-  <ng-container *ngIf="!thyHeadless">
+  @if (!thyHeadless) {
     <thead>
       <tr>
-        <th *ngFor="let column of columns; trackBy: trackByFn">
-          <thy-skeleton-rectangle
-            [thyRowWidth]="column?.type === columnType.checkbox ? checkboxWidth : titleWidth"
-            [thyRowHeight]="titleHeight"
-            [thyBorderRadius]="thyBorderRadius"
-            [thyAnimated]="thyAnimated"
-            [thyAnimatedInterval]="thyAnimatedInterval"
-            [thyPrimaryColor]="thyTheme === 'bordered' || thyTheme === 'boxed' ? '#eee' : thyPrimaryColor"
-            [thySecondaryColor]="thySecondaryColor"></thy-skeleton-rectangle>
-        </th>
+        @for (column of columns; track $index) {
+          <th>
+            <thy-skeleton-rectangle
+              [thyRowWidth]="column?.type === columnType.checkbox ? checkboxWidth : titleWidth"
+              [thyRowHeight]="titleHeight"
+              [thyBorderRadius]="thyBorderRadius"
+              [thyAnimated]="thyAnimated"
+              [thyAnimatedInterval]="thyAnimatedInterval"
+              [thyPrimaryColor]="thyTheme === 'bordered' || thyTheme === 'boxed' ? '#eee' : thyPrimaryColor"
+              [thySecondaryColor]="thySecondaryColor"></thy-skeleton-rectangle>
+          </th>
+        }
       </tr>
     </thead>
-  </ng-container>
+  }
   <tbody>
-    <ng-container *ngFor="let item of rowCount; let i = index">
+    @for (item of rowCount; track $index; let i = $index) {
       <tr>
-        <ng-container *ngFor="let column of columns; trackBy: trackByFn">
+        @for (column of columns; track $index) {
           <td>
             <ng-container
               *thyViewOutlet="
-              skeletonColumnsMap[column.type] || defaultTemplate
-              context:{
-                  trIndex: i,
-              }
-            ">
+                skeletonColumnsMap[column.type] || defaultTemplate;
+                context: {
+                  trIndex: i
+                }
+              ">
             </ng-container>
           </td>
-        </ng-container>
+        }
       </tr>
-    </ng-container>
+    }
   </tbody>
 </table>
 
@@ -51,10 +55,12 @@
       [thySecondaryColor]="thySecondaryColor"></thy-skeleton-rectangle>
 
     <ng-container
-      *thyViewOutlet="defaultTemplate;
-      context:{
-        rowWidth: trIndex % 3 === 0 ? '75%' : trIndex % 3 === 1 ? '100%' : trIndex % 3 === 2 ? '65%' : '',
-      }"></ng-container>
+      *thyViewOutlet="
+        defaultTemplate;
+        context: {
+          rowWidth: trIndex % 3 === 0 ? '75%' : trIndex % 3 === 1 ? '100%' : trIndex % 3 === 2 ? '65%' : ''
+        }
+      "></ng-container>
   </div>
 </ng-template>
 

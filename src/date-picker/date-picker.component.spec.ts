@@ -1335,47 +1335,52 @@ describe('ThyDatePickerComponent', () => {
 
 @Component({
     template: `
-        <ng-container [ngSwitch]="useSuite">
+        @switch (useSuite) {
             <!-- Suite 1 -->
-            <thy-date-picker
-                *ngSwitchCase="1"
-                [thyAllowClear]="thyAllowClear"
-                [thyAutoFocus]="thyAutoFocus"
-                [thyDisabled]="thyDisabled"
-                [thyDisabledDate]="thyDisabledDate"
-                [thyPlaceHolder]="thyPlaceHolder"
-                [thyPanelClassName]="thyPanelClassName"
-                [thyDefaultPickerValue]="thyDefaultPickerValue"
-                [thySize]="thySize"
-                [thyFormat]="thyFormat"
-                [thySuffixIcon]="thySuffixIcon"
-                [thyReadonly]="thyReadonly"
-                (thyOpenChange)="thyOpenChange($event)"
-                [ngModel]="thyValue"
-                (ngModelChange)="thyOnChange($event)"
-                [thyDateRender]="thyDateRender"
-                [thyMode]="thyMode"
-                [thyTimestampPrecision]="thyTimestampPrecision"
-                [thyPlacement]="thyPlacement"
-                (thyOnPanelChange)="thyOnPanelChange($event)"
-                (thyOnCalendarChange)="thyOnCalendarChange($event)"
-                (thyDateChange)="thyDateChange($event)"
-                [thyShowTime]="thyShowTime"
-                [thyMinDate]="thyMinDate"
-                [thyMaxDate]="thyMaxDate"
-                [thyHasBackdrop]="hasBackdrop"
-                (thyOnOk)="thyOnOk($event)"></thy-date-picker>
-            <ng-template #tplDateRender let-current>
-                <div [class.test-first-day]="current.getDate() === 1">{{ current.getDate() }}</div>
-            </ng-template>
+            @case (1) {
+                <thy-date-picker
+                    [thyAllowClear]="thyAllowClear"
+                    [thyAutoFocus]="thyAutoFocus"
+                    [thyDisabled]="thyDisabled"
+                    [thyDisabledDate]="thyDisabledDate"
+                    [thyPlaceHolder]="thyPlaceHolder"
+                    [thyPanelClassName]="thyPanelClassName"
+                    [thyDefaultPickerValue]="thyDefaultPickerValue"
+                    [thySize]="thySize"
+                    [thyFormat]="thyFormat"
+                    [thySuffixIcon]="thySuffixIcon"
+                    [thyReadonly]="thyReadonly"
+                    (thyOpenChange)="thyOpenChange($event)"
+                    [ngModel]="thyValue"
+                    (ngModelChange)="thyOnChange($event)"
+                    [thyDateRender]="thyDateRender"
+                    [thyMode]="thyMode"
+                    [thyTimestampPrecision]="thyTimestampPrecision"
+                    [thyPlacement]="thyPlacement"
+                    (thyOnPanelChange)="thyOnPanelChange($event)"
+                    (thyOnCalendarChange)="thyOnCalendarChange($event)"
+                    (thyDateChange)="thyDateChange($event)"
+                    [thyShowTime]="thyShowTime"
+                    [thyMinDate]="thyMinDate"
+                    [thyMaxDate]="thyMaxDate"
+                    [thyHasBackdrop]="hasBackdrop"
+                    (thyOnOk)="thyOnOk($event)"></thy-date-picker>
+            }
 
             <!-- Suite 2 -->
             <!-- use another picker to avoid thyOpen's side-effects because thyOpen act as "true" if used -->
-            <thy-date-picker *ngSwitchCase="2" [thyOpen]="thyOpen" (thyOpenChange)="thyOpenChange($event)"></thy-date-picker>
-
+            @case (2) {
+                <thy-date-picker [thyOpen]="thyOpen" (thyOpenChange)="thyOpenChange($event)"></thy-date-picker>
+            }
             <!-- Suite 3 -->
-            <thy-date-picker *ngSwitchCase="3" thyOpen [thyShowTime]="thyShowTime" [(ngModel)]="modelValue"></thy-date-picker>
-        </ng-container>
+            @case (3) {
+                <thy-date-picker thyOpen [thyShowTime]="thyShowTime" [(ngModel)]="modelValue"></thy-date-picker>
+            }
+        }
+
+        <ng-template #tplDateRender let-current>
+            <div [class.test-first-day]="current.getDate() === 1">{{ current.getDate() }}</div>
+        </ng-template>
     `
 })
 class ThyTestDatePickerComponent {

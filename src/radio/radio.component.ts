@@ -4,7 +4,7 @@ import { ThyTranslate } from 'ngx-tethys/core';
 import { ThyFormCheckBaseComponent } from 'ngx-tethys/shared';
 import { ThyRadioGroup } from './group/radio-group.component';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 
 /**
  * 单选框组件
@@ -27,7 +27,7 @@ import { NgClass, NgIf } from '@angular/common';
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [NgClass, NgIf]
+    imports: [NgClass]
 })
 export class ThyRadio extends ThyFormCheckBaseComponent implements OnInit {
     name: string;

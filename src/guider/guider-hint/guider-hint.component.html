@@ -5,29 +5,30 @@
 <div class="thy-guider-tip-content bg-white">
   <div class="thy-guider-tip-content-title">{{ stepRef.step.data.title }}</div>
   <div class="thy-guider-tip-content-description">
-    <ng-container *ngIf="descriptionTemplateRef; else stringTemplateRef">
+    @if (descriptionTemplateRef) {
       <ng-template [ngTemplateOutlet]="descriptionTemplateRef"></ng-template>
-    </ng-container>
-    <ng-template #stringTemplateRef>{{ descriptionString }}</ng-template>
+    } @else {
+      {{ descriptionString }}
+    }
   </div>
   <div class="thy-guider-tip-step">
     <div class="thy-guider-tip-step-pagination">
-      <span
-        class="pagination-item"
-        *ngFor="let step of guiderRef.steps; let i = index; trackBy: trackByFn"
-        [ngClass]="{ active: i === stepRef.stepIndex }"
-      ></span>
+      @for (step of guiderRef.steps; track trackByFn(i, step); let i = $index) {
+        <span
+          class="pagination-item"
+          [ngClass]="{ active: i === stepRef.stepIndex }"
+        ></span>
+      }
     </div>
     <div class="thy-guider-tip-step-btn">
-      <ng-container *ngIf="stepRef.stepIndex !== 0">
+      @if (stepRef.stepIndex !== 0) {
         <a href="javascript:;" (click)="prev()" class="thy-guider-tip-step-pre">上一步</a>
-      </ng-container>
-      <ng-container *ngIf="stepRef.stepIndex !== guiderRef.steps.length - 1; else finish">
+      }
+      @if (stepRef.stepIndex !== guiderRef.steps.length - 1) {
         <a href="javascript:;" (click)="next()" class="thy-guider-tip-step-next">下一步</a>
-      </ng-container>
-      <ng-template #finish>
+      } @else {
         <a href="javascript:;" (click)="end()" class="thy-guider-tip-step-next">完成</a>
-      </ng-template>
+      }
     </div>
   </div>
 </div>

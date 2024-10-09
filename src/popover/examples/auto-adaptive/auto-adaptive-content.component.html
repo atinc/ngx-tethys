@@ -1,9 +1,10 @@
 <thy-popover-header thyTitle="Title"> </thy-popover-header>
 <thy-popover-body>
-  <div *ngIf="!loadingDone; else delayContent">Loading...</div>
-  <ng-template #delayContent>
+  @if (!loadingDone) {
+    <div>Loading...</div>
+  } @else {
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert
     tamen, quo modo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te
     dicta? Refert tamen, quo modo.
-  </ng-template>
+  }
 </thy-popover-body>

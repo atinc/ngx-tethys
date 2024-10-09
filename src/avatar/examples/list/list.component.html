@@ -1,11 +1,12 @@
 <div>
   <thy-avatar-list>
-    <thy-avatar
-      *ngFor="let name of names"
-      [thyName]="name"
-      [thyRemovable]="true"
-      (thyRemove)="remove($event, name)"
-      [thySrc]="name === 'Chan' ? avatarSrc : ''"></thy-avatar>
+    @for (name of names; track $index) {
+      <thy-avatar
+        [thyName]="name"
+        [thyRemovable]="true"
+        (thyRemove)="remove($event, name)"
+        [thySrc]="name === 'Chan' ? avatarSrc : ''"></thy-avatar>
+    }
 
     <ng-template #append>
       <button thyButtonIcon="user-add-bold" thyShape="circle-thick-dashed"></button>
@@ -15,7 +16,9 @@
 
 <div class="mt-4">
   <thy-avatar-list [thyMode]="'overlap'">
-    <thy-avatar *ngFor="let name of names" [thyName]="name" [thySrc]="name === 'Chan' ? avatarSrc : ''"></thy-avatar>
+    @for (name of names; track $index) {
+      <thy-avatar [thyName]="name" [thySrc]="name === 'Chan' ? avatarSrc : ''"></thy-avatar>
+    }
 
     <ng-template #append>
       <button thyButtonIcon="user-add-bold" thyShape="circle-thick-dashed"></button>

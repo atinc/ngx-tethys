@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { ThyStep, IThyStepperComponent, THY_STEPPER_COMPONENT } from './step.component';
 import { ThyStepHeader } from './step-header.component';
-import { NgIf, NgFor, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
@@ -29,7 +29,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
         }
     ],
     standalone: true,
-    imports: [NgIf, NgFor, ThyStepHeader, NgTemplateOutlet]
+    imports: [ThyStepHeader, NgTemplateOutlet]
 })
 export class ThyStepper implements IThyStepperComponent {
     /**

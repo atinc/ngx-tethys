@@ -5,7 +5,7 @@ import { ThyMessageQueue } from './message-queue.service';
 import { ANIMATION_IN_DURATION, ANIMATION_OUT_DURATION, HIDE_STYLE, ThyAbstractMessageComponent } from './abstract';
 import { ThyStringOrTemplateOutletDirective } from 'ngx-tethys/shared';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { NgIf } from '@angular/common';
+
 import { coerceArray } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
@@ -30,7 +30,7 @@ import { useHostRenderer } from '@tethys/cdk/dom';
         ])
     ],
     standalone: true,
-    imports: [NgIf, ThyIcon, ThyStringOrTemplateOutletDirective]
+    imports: [ThyIcon, ThyStringOrTemplateOutletDirective]
 })
 export class ThyMessage extends ThyAbstractMessageComponent<ThyMessageConfig> {
     @HostBinding('@flyInOut') animationState = 'flyIn';

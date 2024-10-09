@@ -1,11 +1,14 @@
 <div class="thy-transfer-list-header">
   <span class="thy-transfer-list-header-title"
-    >{{ title }} · {{ items?.length }}<span *ngIf="max"> (上限{{ max }}个)</span></span
-  >
+    >{{ title }} · {{ items?.length }}
+    @if (max) {
+      <span> (上限{{ max }}个)</span>
+    }
+  </span>
 </div>
-<ng-container *ngIf="!contentRef; else renderContent">
+@if (!contentRef) {
   <div class="thy-transfer-list-body" cdkDropListGroup [cdkDropListGroupDisabled]="!draggable">
-    <ng-container *ngIf="canLock">
+    @if (canLock) {
       <div class="thy-transfer-list-group-name">锁定 (上限{{ maxLock }}个)</div>
       <thy-list
         class="thy-transfer-list-content"
@@ -14,22 +17,22 @@
         id="lock"
         [cdkDropListData]="lockItems"
         (cdkDropListDropped)="drop($event)"
-        [cdkDropListEnterPredicate]="lockListEnterPredicate"
-      >
-        <div class="cdk-drop-list-empty" *ngIf="lockItems.length === 0"></div>
-        <thy-list-item
-          class="thy-transfer-list-content-item text-truncate"
-          cdkDrag
-          [cdkDragData]="item"
-          *ngFor="let item of lockItems"
-          [ngClass]="{ active: item.checked }"
-        >
-          <ng-template [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
-        </thy-list-item>
+        [cdkDropListEnterPredicate]="lockListEnterPredicate">
+        @if (lockItems.length === 0) {
+          <div class="cdk-drop-list-empty"></div>
+        }
+        @for (item of lockItems; track $index) {
+          <thy-list-item
+            class="thy-transfer-list-content-item text-truncate"
+            cdkDrag
+            [cdkDragData]="item"
+            [ngClass]="{ active: item.checked }">
+            <ng-template [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
+          </thy-list-item>
+        }
       </thy-list>
-
       <div class="thy-transfer-list-group-name">未锁定</div>
-    </ng-container>
+    }
     <thy-list
       class="thy-transfer-list-content"
       cdkDropList
@@ -38,23 +41,22 @@
       id="unlock"
       [cdkDropListData]="unlockItems"
       (cdkDropListDropped)="drop($event)"
-      [cdkDropListEnterPredicate]="unlockListEnterPredicate"
-    >
-      <div class="cdk-drop-list-empty" *ngIf="unlockItems.length === 0"></div>
-      <thy-list-item
-        class="thy-transfer-list-content-item text-truncate"
-        cdkDrag
-        [cdkDragData]="item"
-        *ngFor="let item of unlockItems"
-        [ngClass]="{ active: item.checked, disabled: disabled && item.direction === 'left' }"
-      >
-        <ng-template [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
-      </thy-list-item>
+      [cdkDropListEnterPredicate]="unlockListEnterPredicate">
+      @if (unlockItems.length === 0) {
+        <div class="cdk-drop-list-empty"></div>
+      }
+      @for (item of unlockItems; track $index) {
+        <thy-list-item
+          class="thy-transfer-list-content-item text-truncate"
+          cdkDrag
+          [cdkDragData]="item"
+          [ngClass]="{ active: item.checked, disabled: disabled && item.direction === 'left' }">
+          <ng-template [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
+        </thy-list-item>
+      }
     </thy-list>
   </div>
-</ng-container>
-
-<ng-template #renderContent>
+} @else {
   <div class="thy-transfer-list-body">
     <ng-container
       *ngTemplateOutlet="
@@ -64,7 +66,6 @@
           onSelectItem: onSelectItem,
           onUnselectItem: onUnselectItem
         }
-      "
-    ></ng-container>
+      "></ng-container>
   </div>
-</ng-template>
+}

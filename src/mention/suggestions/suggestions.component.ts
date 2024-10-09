@@ -9,7 +9,7 @@ import { SeekQueryResult } from '../adapter/adapter';
 import { Mention, MentionDefaultDataItem, MentionSuggestionSelectEvent } from '../interfaces';
 import { ThyListOption } from 'ngx-tethys/shared';
 import { ThyLoading } from 'ngx-tethys/loading';
-import { NgIf, NgTemplateOutlet, NgFor, SlicePipe } from '@angular/common';
+import { NgTemplateOutlet, SlicePipe } from '@angular/common';
 
 /**
  * @private
@@ -18,7 +18,7 @@ import { NgIf, NgTemplateOutlet, NgFor, SlicePipe } from '@angular/common';
     selector: 'thy-mention-suggestions',
     templateUrl: './suggestions.component.html',
     standalone: true,
-    imports: [NgIf, NgTemplateOutlet, ThyLoading, ThySelectionList, NgFor, ThyListOption, SlicePipe]
+    imports: [NgTemplateOutlet, ThyLoading, ThySelectionList, ThyListOption, SlicePipe]
 })
 export class ThyMentionSuggestions<TItem = MentionDefaultDataItem> implements OnInit, OnDestroy {
     data: TItem[];

@@ -1,3 +1,5 @@
 <thy-list [thyDropContainer]="nodes" (thyDragDropped)="onDragDrop($event)">
-  <thy-list-item *ngFor="let item of nodes" [thyDrag]="item">{{ item.title }}</thy-list-item>
+  @for (item of nodes; track item.key) {
+    <thy-list-item [thyDrag]="item">{{ item.title }}</thy-list-item>
+  }
 </thy-list>

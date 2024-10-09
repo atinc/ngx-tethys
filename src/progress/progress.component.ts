@@ -20,7 +20,7 @@ import { ThyProgressGapPositionType, ThyProgressShapeType, ThyProgressStackedVal
 import { THY_PROGRESS_COMPONENT, ThyParentProgress, ThyProgressStrip } from './progress-strip.component';
 import { ThyProgressCircle } from './progress-circle.component';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
-import { NgIf, NgFor, NgClass, NgTemplateOutlet } from '@angular/common';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 
 /**
  * 进度条组件
@@ -43,7 +43,7 @@ import { NgIf, NgFor, NgClass, NgTemplateOutlet } from '@angular/common';
         '[class.thy-progress-circle]': `thyShape === 'circle'`
     },
     standalone: true,
-    imports: [NgIf, NgFor, ThyProgressStrip, NgClass, ThyTooltipDirective, NgTemplateOutlet, ThyProgressCircle]
+    imports: [ThyProgressStrip, NgClass, ThyTooltipDirective, NgTemplateOutlet, ThyProgressCircle]
 })
 export class ThyProgress implements ThyParentProgress, OnInit, OnChanges {
     value: number | ThyProgressStackedValue[];
@@ -154,9 +154,5 @@ export class ThyProgress implements ThyParentProgress, OnInit, OnChanges {
         this.bars.forEach(bar => {
             bar.recalculatePercentage();
         });
-    }
-
-    trackByFn(index: number) {
-        return index;
     }
 }

@@ -4,8 +4,12 @@
 </button>
 <thy-loading [thyDone]="todosFetcher.loadingDone()"></thy-loading>
 
-<thy-list *ngIf="todosFetcher.loadingDone()">
-  <thy-list-item *ngFor="let todo of todos">
-    {{ todo.title }}
-  </thy-list-item>
-</thy-list>
+@if (todosFetcher.loadingDone()) {
+  <thy-list>
+    @for (todo of todos; track todo.id) {
+      <thy-list-item>
+        {{ todo.title }}
+      </thy-list-item>
+    }
+  </thy-list>
+}

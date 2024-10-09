@@ -25,7 +25,7 @@ import { ThyTreeEmitEvent, ThyTreeNodeCheckState, ThyClickBehavior } from './tre
 import { ThyTreeService } from './tree.service';
 import { ThyLoading } from 'ngx-tethys/loading';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { NgIf, NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveListenerOptions({ passive: true });
@@ -40,7 +40,7 @@ const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveLis
     templateUrl: './tree-node.component.html',
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [NgIf, ThyIcon, NgClass, NgStyle, NgTemplateOutlet, ThyLoading]
+    imports: [ThyIcon, NgClass, NgStyle, NgTemplateOutlet, ThyLoading]
 })
 export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
     /**

@@ -18,7 +18,7 @@ import { PRESET_SVG } from './svgs';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SafeAny } from 'ngx-tethys/types';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { NgIf, NgClass, NgTemplateOutlet } from '@angular/common';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 const sizeClassMap = {
@@ -60,7 +60,7 @@ export type ThyEmptyImageFetchPriority = 'high' | 'low' | 'auto';
     selector: 'thy-empty',
     templateUrl: './empty.component.html',
     standalone: true,
-    imports: [NgIf, ThyIcon, NgClass, NgTemplateOutlet]
+    imports: [ThyIcon, NgClass, NgTemplateOutlet]
 })
 export class ThyEmpty implements OnInit, AfterViewInit, OnChanges {
     /**

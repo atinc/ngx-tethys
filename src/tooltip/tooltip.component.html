@@ -1,9 +1,8 @@
 <div class="thy-tooltip-arrow"></div>
 <div class="thy-tooltip-content">
-  <ng-container *ngIf="isTemplateRef; else text">
+  @if (isTemplateRef) {
     <ng-container *ngTemplateOutlet="content; context: { $implicit: data }"></ng-container>
-  </ng-container>
-  <ng-template #text>
+  } @else {
     {{ content }}
-  </ng-template>
+  }
 </div>

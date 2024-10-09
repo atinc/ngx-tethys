@@ -2,7 +2,7 @@ import { Component, TemplateRef, ChangeDetectionStrategy, input, contentChild, e
 import { coerceBooleanProperty, isString } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 
 const weakTypes = ['primary-weak', 'success-weak', 'warning-weak', 'danger-weak'];
 
@@ -45,7 +45,7 @@ const typeIconsMap: Record<string, string> = {
         '[class.thy-alert-hidden]': 'hidden'
     },
     standalone: true,
-    imports: [NgIf, ThyIcon, NgTemplateOutlet]
+    imports: [ThyIcon, NgTemplateOutlet]
 })
 export class ThyAlert {
     private hidden = false;
@@ -79,15 +79,14 @@ export class ThyAlert {
     /**
      * 显示自定义图标，可传 true/false 控制是否显示图标，或者传字符串去指定图标名称
      */
-    thyIcon = input<boolean | string>(false);
+    thyIcon = input<boolean | string>();
 
     icon = computed(() => {
         const icon = this.thyIcon();
         if (icon) {
             return isString(icon) ? icon : typeIconsMap[this.thyType()];
         } else {
-            const showIcon = coerceBooleanProperty(icon);
-            return showIcon ? typeIconsMap[this.thyType()] : '';
+            return icon === 'false' || icon === false ? '' : typeIconsMap[this.thyType()];
         }
     });
 
