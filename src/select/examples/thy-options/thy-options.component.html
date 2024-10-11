@@ -5,7 +5,9 @@
   style="width: 500px"
   thyPlaceHolder="滚动加载"
   [thyOptions]="loadMoreOptions">
-  <div class="loading-more font-size-xs text-desc" *ngIf="loading">加载中...</div>
+  @if (loading) {
+    <div class="loading-more font-size-xs text-desc">加载中...</div>
+  }
 </thy-select>
 <br />
 <thy-select

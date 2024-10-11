@@ -1,9 +1,12 @@
-<span class="title" *ngIf="thyTitle || titleTemplateRef">
-  <ng-template *ngIf="titleTemplateRef; else defaultTitle" [ngTemplateOutlet]="titleTemplateRef"></ng-template>
-  <ng-template #defaultTitle>
-    {{ thyTitle }}
-  </ng-template>
-</span>
+@if (thyTitle || titleTemplateRef) {
+  <span class="title">
+    @if (titleTemplateRef) {
+      <ng-template [ngTemplateOutlet]="titleTemplateRef"></ng-template>
+    } @else {
+      {{ thyTitle }}
+    }
+  </span>
+}
 <ng-content></ng-content>
 <div class="operation">
   <ng-template [ngTemplateOutlet]="operationTemplateRef"></ng-template>

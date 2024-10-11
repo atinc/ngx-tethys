@@ -10,7 +10,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     template: `
         <div cdkDropList thyDragDrop class="list">
             <div class="item1" cdkDrag>item1</div>
-            <div *ngIf="showItem2" class="item2" cdkDrag>item2</div>
+            @if (showItem2) {
+                <div class="item2" cdkDrag>item2</div>
+            }
         </div>
     `
 })

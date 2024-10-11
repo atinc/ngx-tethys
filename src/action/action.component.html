@@ -1,4 +1,10 @@
-<thy-icon *ngIf="icon && !feedback" [thyIconName]="icon"></thy-icon>
-<thy-icon *ngIf="feedbackOptions?.icon" [class]="feedbackOptions.class" [thyIconName]="feedbackOptions.icon"></thy-icon>
-<thy-icon class="hover-icon" *ngIf="thyHoverIcon" [thyIconName]="thyHoverIcon"></thy-icon>
+@if (icon && !feedback) {
+  <thy-icon [thyIconName]="icon"></thy-icon>
+}
+@if (feedbackOptions?.icon) {
+  <thy-icon [class]="feedbackOptions.class" [thyIconName]="feedbackOptions.icon"></thy-icon>
+}
+@if (thyHoverIcon) {
+  <thy-icon class="hover-icon" [thyIconName]="thyHoverIcon"></thy-icon>
+}
 <ng-content></ng-content>

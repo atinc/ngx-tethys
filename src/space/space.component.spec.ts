@@ -11,9 +11,9 @@ import { By } from '@angular/platform-browser';
         <thy-space [thyAlign]="align" [thyVertical]="vertical">
             <button *thySpaceItem thyButton="primary">Button1</button>
             <button *thySpaceItem thyButton="info">Button2</button>
-            <ng-container *ngIf="dynamicShow">
+            @if (dynamicShow) {
                 <button *thySpaceItem thyButton="info">Button3</button>
-            </ng-container>
+            }
         </thy-space>
     `
 })

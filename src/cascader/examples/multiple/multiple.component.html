@@ -4,12 +4,13 @@
   [thyMultiple]="true"
   (ngModelChange)="selectChanges($event)"
   [thyLabelRender]="renderTpl"
-  style="width: 200px;"
->
+  style="width: 200px">
 </thy-cascader>
 
 <ng-template #renderTpl let-labels="labels" let-selectedOptions="selectedOptions">
-  <ng-container *ngFor="let label of labels; let i = index; let isLast = last">
-    <span *ngIf="isLast && label"> {{ label }}</span>
-  </ng-container>
+  @for (label of labels; track $index; let i = $index; let isLast = $last) {
+    @if (isLast && label) {
+      <span> {{ label }}</span>
+    }
+  }
 </ng-template>

@@ -1,6 +1,97 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [18.0.8](https://github.com/atinc/ngx-tethys/compare/18.0.7...18.0.8) (2024-09-26)
+
+
+### Features
+
+* **date-picker:** export picker util ([#3212](https://github.com/atinc/ngx-tethys/issues/3212)) ([804eb36](https://github.com/atinc/ngx-tethys/commit/804eb364c8ea7e3bb645d5dfd2dfdab50a031c9c))
+
+
+
+## [18.0.7](https://github.com/atinc/ngx-tethys/compare/18.0.6...18.0.7) (2024-09-20)
+
+
+### Bug Fixes
+
+* **table:** center empty state of the table ([1f35bf6](https://github.com/atinc/ngx-tethys/commit/1f35bf66a8f4b8c9142ac2bbfc18540e4a9255fc))
+
+
+
+## [18.0.6](https://github.com/atinc/ngx-tethys/compare/18.0.5...18.0.6) (2024-09-14)
+
+
+### Features
+
+* **cdk:** add ThyStealthViewDirective for get nodes #TINFR-653 ([#3206](https://github.com/atinc/ngx-tethys/issues/3206)) ([333b144](https://github.com/atinc/ngx-tethys/commit/333b144b69f42251e37b579acadc44a404b68a42)), closes [#TINFR-653](https://github.com/atinc/ngx-tethys/issues/TINFR-653) [#TINFR-653](https://github.com/atinc/ngx-tethys/issues/TINFR-653)
+
+
+
+## [18.0.5](https://github.com/atinc/ngx-tethys/compare/18.0.4...18.0.5) (2024-09-11)
+
+
+### Bug Fixes
+
+* **core:** set input use templateName #TINFR-589 ([#3198](https://github.com/atinc/ngx-tethys/issues/3198)) ([0a6b246](https://github.com/atinc/ngx-tethys/commit/0a6b24617a2cad2daeb6b83256b935457741fbda)), closes [#TINFR-589](https://github.com/atinc/ngx-tethys/issues/TINFR-589)
+
+
+
+## [18.0.4](https://github.com/atinc/ngx-tethys/compare/18.0.3...18.0.4) (2024-09-09)
+
+
+### Features
+
+* **dialog:** support signal inputs for initialState #TINFR-589 ([#3196](https://github.com/atinc/ngx-tethys/issues/3196)) ([e62a4a8](https://github.com/atinc/ngx-tethys/commit/e62a4a83065359aae0f9f13d76962c5f0eed0498)), closes [#TINFR-589](https://github.com/atinc/ngx-tethys/issues/TINFR-589)
+
+
+
+## [18.0.3](https://github.com/atinc/ngx-tethys/compare/18.0.2...18.0.3) (2024-09-05)
+
+
+### Bug Fixes
+
+* **anchor:** warnings should not be displayed when the thy anchor link is not nested under  horizontal layout #TINFR-480 ([#3185](https://github.com/atinc/ngx-tethys/issues/3185)) ([cef3de1](https://github.com/atinc/ngx-tethys/commit/cef3de19ba5fea70a96354ca62f586dc708b06d9)), closes [#TINFR-480](https://github.com/atinc/ngx-tethys/issues/TINFR-480) [#TINFR-480](https://github.com/atinc/ngx-tethys/issues/TINFR-480) [#TINFR-480](https://github.com/atinc/ngx-tethys/issues/TINFR-480)
+* **treeSelect:** #TINFR-403 fix ngClass error ([#3194](https://github.com/atinc/ngx-tethys/issues/3194)) ([6688095](https://github.com/atinc/ngx-tethys/commit/6688095dc6eb59e5545509d8b21bdaf2ffd5fbe3))
+
+
+
+## [18.0.2](https://github.com/atinc/ngx-tethys/compare/18.0.0...18.0.2) (2024-08-28)
+
+
+### Bug Fixes
+
+* **upload:** reject files that type is unknown #TINFR-442 ([#3178](https://github.com/atinc/ngx-tethys/issues/3178)) 
+
+
+### Features
+
+* **all:** support default and dark theme #TINFR-25 ([#3183](https://github.com/atinc/ngx-tethys/issues/3183))
+
+
+
+## [18.0.1](https://github.com/atinc/ngx-tethys/compare/18.0.0...18.0.1) (2024-08-26)
+
+
+### Bug Fixes
+
+* **date-picker:** thy-date-picker 当可以设置具体时间时，点击选择日期弹窗后，input框active样式丢失 #TINFR-66 ([#3161](https://github.com/atinc/ngx-tethys/issues/3161)) ([4e617af](https://github.com/atinc/ngx-tethys/commit/4e617af482b880ac709f8f25bb355f0ba8783507)), closes [#TINFR-66](https://github.com/atinc/ngx-tethys/issues/TINFR-66)
+* fix ([622a06b](https://github.com/atinc/ngx-tethys/commit/622a06b153cdff344e624e3e1214d17cf342e12a))
+* fix ([a505790](https://github.com/atinc/ngx-tethys/commit/a505790496d6599431e9aebd236db7f325ca5057))
+* fix ([12f0270](https://github.com/atinc/ngx-tethys/commit/12f027096eda94115169ac161399e6c11cfd9a54))
+* **pagination:** fix thyRangeCount is even numbers show error #TINFR-29 ([3a12c49](https://github.com/atinc/ngx-tethys/commit/3a12c4907055b85994ada9fbd6ae10a4651e4525)), closes [#TINFR-29](https://github.com/atinc/ngx-tethys/issues/TINFR-29)
+* **treeSelect:** #TINFR-403 set margin-left to 20px when no grouping & between icon and text to 8px ([#3156](https://github.com/atinc/ngx-tethys/issues/3156)) ([b04964e](https://github.com/atinc/ngx-tethys/commit/b04964ebe1c4e3a78f7b1ea5f51261dfd8da1420)), closes [#TINFR-403](https://github.com/atinc/ngx-tethys/issues/TINFR-403) [#TINFR-403](https://github.com/atinc/ngx-tethys/issues/TINFR-403) [#TINFR-403](https://github.com/atinc/ngx-tethys/issues/TINFR-403)
+
+
+### Features
+
+* **cascader:** show active style only in activatedOptions #TINFR-18 ([#3159](https://github.com/atinc/ngx-tethys/issues/3159)) ([6467080](https://github.com/atinc/ngx-tethys/commit/64670806d938a4f9c79c727cd80a7922447db5ef)), closes [#TINFR-18](https://github.com/atinc/ngx-tethys/issues/TINFR-18)
+* **color-picker:** hex column does not show alpha value #TINFR-62 ([#3158](https://github.com/atinc/ngx-tethys/issues/3158)) ([8e23b73](https://github.com/atinc/ngx-tethys/commit/8e23b73b916d862c774b24a9d2db7b8c0c673f96)), closes [#TINFR-62](https://github.com/atinc/ngx-tethys/issues/TINFR-62)
+* **tree-select:** handle tree select overlay width show ellipsis when text exceed (#TINFR-27) ([#3157](https://github.com/atinc/ngx-tethys/issues/3157)) ([a08c660](https://github.com/atinc/ngx-tethys/commit/a08c660eda187ac8df3cd7722a8d7f638772f201)), closes [#TINFR-27](https://github.com/atinc/ngx-tethys/issues/TINFR-27)
+* **tree-select:** handle tree select style ([#3171](https://github.com/atinc/ngx-tethys/issues/3171)) ([3c8692b](https://github.com/atinc/ngx-tethys/commit/3c8692b09b657516e7a00a48c52b096773f552c2))
+
+
 
 ## [18.0.1](https://github.com/atinc/ngx-tethys/compare/18.0.0...18.0.1) (2024-08-26)
 

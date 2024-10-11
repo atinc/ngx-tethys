@@ -4,6 +4,7 @@ import {
     Component,
     Directive,
     Injector,
+    input,
     NgModule,
     OnInit,
     TemplateRef,
@@ -138,6 +139,9 @@ export class WithTemplateRefComponent {
 @Component({ template: '' })
 export class WithInjectedDataDialogComponent implements OnInit {
     data: any;
+
+    input1 = input();
+
     constructor() {}
 
     ngOnInit() {}

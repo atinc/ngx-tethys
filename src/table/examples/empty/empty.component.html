@@ -1,5 +1,5 @@
 <div thyRow [thyGutter]="30">
-  <div thyCol [thySpan]="12">
+  <div thyCol [thySpan]="12" class="d-flex">
     <thy-table [thyModel]="data" thyRowKey="id" [thyEmptyOptions]="emptyOptions">
       <thy-table-column thyTitle="Id" thyModelKey="id"></thy-table-column>
       <thy-table-column thyTitle="Name" thyModelKey="name"></thy-table-column>
@@ -17,7 +17,7 @@
       </thy-table-column>
     </thy-table>
   </div>
-  <div thyCol [thySpan]="12">
+  <div thyCol [thySpan]="12" class="d-flex">
     <thy-table [thyModel]="data" thyRowKey="id">
       <thy-table-column thyTitle="Id" thyModelKey="id"></thy-table-column>
       <thy-table-column thyTitle="Name" thyModelKey="name"></thy-table-column>

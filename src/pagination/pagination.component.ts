@@ -1,4 +1,4 @@
-import { NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -33,7 +33,7 @@ import { PaginationTotalCountFormat } from './pagination.pipe';
     templateUrl: './pagination.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [NgIf, NgTemplateOutlet, ThySelect, FormsModule, NgFor, ThyOption, ThyIcon, ThyEnterDirective, PaginationTotalCountFormat]
+    imports: [NgTemplateOutlet, ThySelect, FormsModule, ThyOption, ThyIcon, ThyEnterDirective, PaginationTotalCountFormat]
 })
 export class ThyPagination implements OnInit {
     isTemplateRef = isTemplateRef;

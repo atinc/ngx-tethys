@@ -1,41 +1,33 @@
 <div class="p-3">
   <thy-nav thyType="pulled" [thyResponsive]="true" class="responsive-nav">
-    <a
-      class="nav-tab"
-      href="javascript:;"
-      *ngFor="let item of navList"
-      thyNavItem
-      [thyNavItemActive]="activeIndex === item.index"
-      (click)="activeIndex = item.index"
-      ><span class="ml-1">{{ item.name }}</span></a
-    >
+    @for (item of navList; track $index) {
+      <a class="nav-tab" href="javascript:;" thyNavItem [thyNavItemActive]="activeIndex === item.index" (click)="activeIndex = item.index"
+        ><span class="ml-1">{{ item.name }}</span></a
+      >
+    }
 
     <ng-template #more> 自定义 </ng-template>
   </thy-nav>
   <br />
 
   <thy-nav thyType="tabs" [thyResponsive]="true" class="responsive-nav">
-    <a
-      class="nav-tab"
-      href="javascript:;"
-      *ngFor="let item of navList"
-      thyNavItem
-      [thyNavItemActive]="activeIndex === item.index"
-      (click)="activeIndex = item.index">
-      <span class="ml-1">{{ item.name }}</span></a
-    >
+    @for (item of navList; track $index) {
+      <a class="nav-tab" href="javascript:;" thyNavItem [thyNavItemActive]="activeIndex === item.index" (click)="activeIndex = item.index">
+        <span class="ml-1">{{ item.name }}</span></a
+      >
+    }
 
     <ng-template #morePopover let-context>
       <thy-dropdown-menu thyImmediateRender>
         <span thyDropdownMenuItem>自定义</span>
-        <ng-container *ngFor="let item of context">
+        @for (item of context; track $index) {
           <span
             class="thy-nav-item-more"
             thyDropdownMenuItem
             [thyDropdownMenuItemActive]="item.isActive"
             (click)="navItemClick(item)"
             [innerHTML]="item.content"></span>
-        </ng-container>
+        }
       </thy-dropdown-menu>
     </ng-template>
   </thy-nav>
@@ -43,15 +35,11 @@
 
   <div class="py-2 bg-default">
     <thy-nav thyType="pills" [thyResponsive]="true" class="responsive-nav">
-      <a
-        class="nav-tab"
-        href="javascript:;"
-        *ngFor="let item of navList"
-        thyNavItem
-        [thyNavItemActive]="activeIndex === item.index"
-        (click)="activeIndex = item.index"
-        ><span class="ml-1">{{ item.name }}</span></a
-      >
+      @for (item of navList; track $index) {
+        <a class="nav-tab" href="javascript:;" thyNavItem [thyNavItemActive]="activeIndex === item.index" (click)="activeIndex = item.index"
+          ><span class="ml-1">{{ item.name }}</span></a
+        >
+      }
 
       <ng-template #more> 自定义 </ng-template>
     </thy-nav>

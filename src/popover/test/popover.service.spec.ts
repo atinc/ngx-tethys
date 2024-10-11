@@ -83,22 +83,26 @@ class WithChildViewContainerComponent {
         <div class="simple-content-test">
             Hello Popover <button>Close</button>
             <ul>
-                <li *ngFor="let item of demos">
-                    <a href="javascript:;">
-                        <span thyDropdownMenuItemName>图标{{ item }}</span>
-                    </a>
-                </li>
+                @for (item of demos; track $index) {
+                    <li>
+                        <a href="javascript:;">
+                            <span thyDropdownMenuItemName>图标{{ item }}</span>
+                        </a>
+                    </li>
+                }
             </ul>
         </div>
     `
 })
 export class PopoverSimpleContentComponent {
     demos: number[];
+
     constructor(
         public popoverRef: ThyPopoverRef<PopoverSimpleContentComponent>,
         public popoverInjector: Injector,
         private cdr: ChangeDetectorRef
     ) {}
+
     updateContent() {
         this.demos = [1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8];
         this.cdr.detectChanges();

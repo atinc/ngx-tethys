@@ -1,35 +1,44 @@
-<ng-container *ngIf="contentTemplate || contentTemplateRef; else defaultTpl">
+@if (contentTemplate || contentTemplateRef) {
   <ng-container [ngTemplateOutlet]="contentTemplate || contentTemplateRef"></ng-container>
-  <ng-container *ngIf="feedbackSvgIconName; else iconFont">
+  @if (feedbackSvgIconName) {
     <thy-icon class="form-control-feedback" [thyIconName]="feedbackSvgIconName"></thy-icon>
-  </ng-container>
-</ng-container>
-<ng-template #defaultTpl>
-  <label
-    *ngIf="!(!isHorizontal && !labelText)"
-    class="form-label "
+  } @else {
+    @if (feedbackIcon) {
+      <span class="form-control-feedback {{ feedbackIcon }}"></span>
+    }
+  }
+} @else {
+  @if (!(!isHorizontal && !labelText)) {
+    <label
+      class="form-label "
     [ngClass]="{
       'col-sm-2 col-form-label': isHorizontal,
       'pt-0': labelPaddingTopClear
     }"
-  >
-    <span
+      >
+      <span
       [ngClass]="{
         'label-required': labelRequired
       }"
-      >{{ labelText }}</span
-    >
-    <thy-icon class="label-tips-icon" *ngIf="tipMode === 'label' && tips" thyIconName="question-circle" [thyTooltip]="tips"></thy-icon>
-  </label>
-  <div [ngClass]="{ 'col-sm-10 col-form-control': isHorizontal, 'position-relative': !isHorizontal }">
-    <ng-content></ng-content>
-    <ng-container *ngIf="feedbackSvgIconName; else iconFont">
-      <thy-icon class="form-control-feedback" [thyIconName]="feedbackSvgIconName"></thy-icon>
-    </ng-container>
-    <span *ngIf="tipMode === 'default' && tips" class="form-text text-desc">{{ tips }}</span>
-  </div>
-</ng-template>
+        >{{ labelText }}</span
+        >
+        @if (tipMode === 'label' && tips) {
+          <thy-icon class="label-tips-icon" thyIconName="question-circle" [thyTooltip]="tips"></thy-icon>
+        }
+      </label>
+    }
+    <div [ngClass]="{ 'col-sm-10 col-form-control': isHorizontal, 'position-relative': !isHorizontal }">
+      <ng-content></ng-content>
+      @if (feedbackSvgIconName) {
+        <thy-icon class="form-control-feedback" [thyIconName]="feedbackSvgIconName"></thy-icon>
+      } @else {
+        @if (feedbackIcon) {
+          <span class="form-control-feedback {{ feedbackIcon }}"></span>
+        }
+      }
+      @if (tipMode === 'default' && tips) {
+        <span class="form-text text-desc">{{ tips }}</span>
+      }
+    </div>
+  }
 
-<ng-template #iconFont>
-  <span *ngIf="feedbackIcon" class="form-control-feedback {{ feedbackIcon }}"></span>
-</ng-template>

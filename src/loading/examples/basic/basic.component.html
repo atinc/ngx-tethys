@@ -1,4 +1,4 @@
-<ng-container *ngIf="loadingDone">
+@if (loadingDone) {
   <table class="table table-bordered">
     <thead>
       <tr>
@@ -29,5 +29,5 @@
       </tr>
     </tbody>
   </table>
-</ng-container>
+}
 <thy-loading [thyDone]="loadingDone"></thy-loading>

@@ -1,9 +1,9 @@
 import { ThyFormDirective } from './../form.directive';
 import { ThyFormModule } from 'ngx-tethys/form';
 import { Component, ViewChild } from '@angular/core';
-import { TestBed, ComponentFixture, fakeAsync, tick, flush } from '@angular/core/testing';
-import { UntypedFormControl, Validators, FormsModule, NgModel } from '@angular/forms';
-import { confirmValidator, ThyMaxDirective, ThyMinDirective, ThyUniqueCheckValidator } from './../validator/index';
+import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
+import { UntypedFormControl, FormsModule, NgModel } from '@angular/forms';
+import { confirmValidator, ThyMaxDirective, ThyMinDirective } from './../validator/index';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 

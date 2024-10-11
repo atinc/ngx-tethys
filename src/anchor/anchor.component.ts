@@ -21,7 +21,7 @@ import {
 import { Subject, fromEvent } from 'rxjs';
 import { takeUntil, throttleTime } from 'rxjs/operators';
 
-import { DOCUMENT, NgClass, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { DOCUMENT, NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { ThyAffix } from 'ngx-tethys/affix';
 import { ThyScrollService } from 'ngx-tethys/core';
 import { coerceBooleanProperty, getOffset } from 'ngx-tethys/util';
@@ -43,9 +43,13 @@ const sharpMatcherRegx = /#([^#]+)$/;
     exportAs: 'thyAnchor',
     preserveWhitespaces: false,
     template: `
-        <thy-affix *ngIf="thyAffix; else content" [thyOffsetTop]="thyOffsetTop" [thyContainer]="container">
+        @if (thyAffix) {
+            <thy-affix [thyOffsetTop]="thyOffsetTop" [thyContainer]="container">
+                <ng-template [ngTemplateOutlet]="content"></ng-template>
+            </thy-affix>
+        } @else {
             <ng-template [ngTemplateOutlet]="content"></ng-template>
-        </thy-affix>
+        }
         <ng-template #content>
             <div
                 class="thy-anchor-wrapper"
@@ -63,7 +67,7 @@ const sharpMatcherRegx = /#([^#]+)$/;
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [NgIf, ThyAffix, NgTemplateOutlet, NgStyle, NgClass]
+    imports: [ThyAffix, NgTemplateOutlet, NgStyle, NgClass]
 })
 export class ThyAnchor implements OnDestroy, AfterViewInit, OnChanges {
     @ViewChild('ink') private ink!: ElementRef;
@@ -127,8 +131,7 @@ export class ThyAnchor implements OnDestroy, AfterViewInit, OnChanges {
         private platform: Platform,
         private zone: NgZone,
         private renderer: Renderer2,
-        private scrollService: ThyScrollService,
-        private elementRef: ElementRef
+        private scrollService: ThyScrollService
     ) {}
 
     registerLink(link: ThyAnchorLink): void {
@@ -157,9 +160,7 @@ export class ThyAnchor implements OnDestroy, AfterViewInit, OnChanges {
     private warningPrompt() {
         if (this.thyDirection === 'horizontal') {
             const hasChildren = this.links.some(link =>
-                Array.from(link?.elementRef?.nativeElement?.childNodes)?.some((item: HTMLElement) =>
-                    item?.className.includes('thy-anchor-link')
-                )
+                Array.from(link?.elementRef?.nativeElement?.childNodes)?.some((item: HTMLElement) => item?.nodeName === 'THY-ANCHOR-LINK')
             );
             if (hasChildren) {
                 console.warn("Anchor link nesting is not supported when 'Anchor' direction is horizontal.");

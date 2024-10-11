@@ -1,25 +1,47 @@
-<ng-container [ngTemplateOutlet]="title" *ngIf="(thyTitle || titleTemplate) && thyTitlePosition === 'top'"></ng-container>
+@if ((thyTitle || titleTemplate) && thyTitlePosition === 'top') {
+  <ng-container [ngTemplateOutlet]="title"></ng-container>
+}
 <div class="thy-statistic-content" [ngStyle]="thyValueStyle">
-  <span *ngIf="thyPrefix || prefixTemplate" class="thy-statistic-content-prefix">
-    <span *ngIf="thyPrefix">{{ thyPrefix }}</span>
-    <ng-container *ngIf="prefixTemplate" [ngTemplateOutlet]="prefixTemplate"></ng-container>
-  </span>
+  @if (thyPrefix || prefixTemplate) {
+    <span class="thy-statistic-content-prefix">
+      @if (thyPrefix) {
+        <span>{{ thyPrefix }}</span>
+      }
+      @if (prefixTemplate) {
+        <ng-container [ngTemplateOutlet]="prefixTemplate"></ng-container>
+      }
+    </span>
+  }
 
   <span class="thy-statistic-content-value">
-    <span *ngIf="!valueTemplate">{{ thyValue }}</span>
-    <ng-container *ngIf="valueTemplate" [ngTemplateOutlet]="valueTemplate"></ng-container>
+    @if (!valueTemplate) {
+      <span>{{ thyValue }}</span>
+    }
+    @if (valueTemplate) {
+      <ng-container [ngTemplateOutlet]="valueTemplate"></ng-container>
+    }
   </span>
 
-  <span *ngIf="thySuffix || suffixTemplate" class="thy-statistic-content-suffix">
-    <span *ngIf="thySuffix">{{ thySuffix }}</span>
-    <ng-container *ngIf="suffixTemplate" [ngTemplateOutlet]="suffixTemplate"></ng-container>
-  </span>
+  @if (thySuffix || suffixTemplate) {
+    <span class="thy-statistic-content-suffix">
+      @if (thySuffix) {
+        <span>{{ thySuffix }}</span>
+      }
+      @if (suffixTemplate) {
+        <ng-container [ngTemplateOutlet]="suffixTemplate"></ng-container>
+      }
+    </span>
+  }
 </div>
-<ng-container [ngTemplateOutlet]="title" *ngIf="(thyTitle || titleTemplate) && thyTitlePosition === 'bottom'"></ng-container>
+@if ((thyTitle || titleTemplate) && thyTitlePosition === 'bottom') {
+  <ng-container [ngTemplateOutlet]="title"></ng-container>
+}
 
 <ng-template #title>
   <div class="thy-statistic-title">
-    <span *ngIf="thyTitle">{{ thyTitle }}</span>
+    @if (thyTitle) {
+      <span>{{ thyTitle }}</span>
+    }
     <ng-container [ngTemplateOutlet]="titleTemplate"></ng-container>
   </div>
 </ng-template>

@@ -1,5 +1,5 @@
 import { ThyFormModule } from './../module';
-import { ThyFormLayout, ThyFormValidatorConfig } from '../form.class';
+import { ThyFormValidatorConfig } from '../form.class';
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, waitForAsync, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';

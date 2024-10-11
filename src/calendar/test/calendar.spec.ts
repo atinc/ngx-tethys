@@ -15,23 +15,29 @@ import { ThyCalendarModule } from '../module';
     template: `
         <thy-calendar (thyDateRangeChange)="dateRangeChange($event)" (thySelectChange)="selectedChange($event)" [thyValue]="value">
             <ul *thyDateCell="let date">
-                <ng-container [ngSwitch]="date.getDate()">
-                    <ng-container *ngSwitchCase="8">
-                        <li *ngFor="let item of listDataMap.eight">
-                            {{ item.content }}
-                        </li>
-                    </ng-container>
-                    <ng-container *ngSwitchCase="10">
-                        <li *ngFor="let item of listDataMap.ten">
-                            {{ item.content }}
-                        </li>
-                    </ng-container>
-                    <ng-container *ngSwitchCase="11">
-                        <li *ngFor="let item of listDataMap.eleven">
-                            {{ item.content }}
-                        </li>
-                    </ng-container>
-                </ng-container>
+                @switch (date.getDate()) {
+                    @case (8) {
+                        @for (item of listDataMap.eight; track $index) {
+                            <li>
+                                {{ item.content }}
+                            </li>
+                        }
+                    }
+                    @case (10) {
+                        @for (item of listDataMap.ten; track $index) {
+                            <li>
+                                {{ item.content }}
+                            </li>
+                        }
+                    }
+                    @case (11) {
+                        @for (item of listDataMap.eleven; track $index) {
+                            <li>
+                                {{ item.content }}
+                            </li>
+                        }
+                    }
+                }
             </ul>
 
             <div *thyCalendarHeaderOperation>

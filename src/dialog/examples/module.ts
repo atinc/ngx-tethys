@@ -26,6 +26,7 @@ export default {
         ThySelectModule,
         ThyButtonModule,
         ThyIconModule,
+        ThyInputModule,
         ThyMenuModule,
         ThyLayoutModule,
         ThyActionModule,

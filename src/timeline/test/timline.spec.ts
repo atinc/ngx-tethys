@@ -68,7 +68,9 @@ export class TestTimelineCustomHorizontalComponent {
 @Component({
     template: `
         <thy-timeline>
-            <thy-timeline-item *ngFor="let item of timelineItems"></thy-timeline-item>
+            @for (item of timelineItems; track $index) {
+                <thy-timeline-item></thy-timeline-item>
+            }
         </thy-timeline>
     `
 })

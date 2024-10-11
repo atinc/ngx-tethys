@@ -3,16 +3,20 @@ import { ThyAbstractMessageContainerComponent } from './abstract';
 import { ThyMessageQueue } from './message-queue.service';
 import { ThyGlobalMessageConfig, THY_MESSAGE_DEFAULT_CONFIG, THY_MESSAGE_DEFAULT_CONFIG_VALUE } from './message.config';
 import { ThyMessage } from './message.component';
-import { NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 
 /**
  * @internal
  */
 @Component({
     selector: 'thy-message-container',
-    template: ` <thy-message *ngFor="let message of messageQueue.queues$ | async" [thyConfig]="message.config"></thy-message> `,
+    template: `
+        @for (message of messageQueue.queues$ | async; track $index) {
+            <thy-message [thyConfig]="message.config"></thy-message>
+        }
+    `,
     standalone: true,
-    imports: [NgFor, ThyMessage, AsyncPipe]
+    imports: [ThyMessage, AsyncPipe]
 })
 export class ThyMessageContainer extends ThyAbstractMessageContainerComponent {
     @HostBinding('class') className = 'thy-message-container';

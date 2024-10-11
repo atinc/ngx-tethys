@@ -20,9 +20,11 @@ import { mouseSwipe, touchSwipe, windowResize } from './carousel-events';
                 [thyEffect]="effect"
                 [thyTrigger]="trigger"
                 [thyPause]="pause">
-                <div thyCarouselItem class="custom-class" *ngFor="let index of array">
-                    <h3>{{ index }}</h3>
-                </div>
+                @for (index of array; track index) {
+                    <div thyCarouselItem class="custom-class">
+                        <h3>{{ index }}</h3>
+                    </div>
+                }
             </thy-carousel>
         </div>
     `
@@ -59,9 +61,11 @@ class ThyTestCarouselBasicComponent implements OnInit {
     template: `
         <div>
             <thy-carousel [thyTouchable]="touchable">
-                <div thyCarouselItem class="custom-class" *ngFor="let index of array">
-                    <h3>{{ index }}</h3>
-                </div>
+                @for (index of array; track index) {
+                    <div thyCarouselItem class="custom-class">
+                        <h3>{{ index }}</h3>
+                    </div>
+                }
             </thy-carousel>
         </div>
     `

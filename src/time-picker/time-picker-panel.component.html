@@ -1,40 +1,47 @@
 <div class="{{ prefixCls }}-content">
-  <ul #hourListElement *ngIf="showHourColumn" class="{{ prefixCls }}-time-column {{ prefixCls }}-hour-column">
-    <ng-container *ngFor="let time of hourRange; let i = index; trackBy: trackByFn">
-      <li
-        class="{{ prefixCls }}-time-column-cell"
-        [class.thy-time-picker-panel-time-column-cell-selected]="hour === time.value"
-        (click)="pickHours(time, i)"
-      >
-        <span class="{{ prefixCls }}-time-column-cell-inner">{{ time.value | number: '2.0-0' }}</span>
-      </li>
-    </ng-container>
-  </ul>
-  <ul #minuteListElement *ngIf="showMinuteColumn" class="{{ prefixCls }}-time-column {{ prefixCls }}-minute-column">
-    <ng-container *ngFor="let time of minuteRange; let i = index; trackBy: trackByFn">
-      <li
-        class="{{ prefixCls }}-time-column-cell"
-        [class.thy-time-picker-panel-time-column-cell-selected]="minute === time.value"
-        (click)="pickMinutes(time, i)"
-      >
-        <span class="{{ prefixCls }}-time-column-cell-inner">{{ time.value | number: '2.0-0' }}</span>
-      </li>
-    </ng-container>
-  </ul>
-  <ul #secondListElement *ngIf="showSecondColumn" class="{{ prefixCls }}-time-column {{ prefixCls }}-second-column">
-    <ng-container *ngFor="let time of secondRange; let i = index; trackBy: trackByFn">
-      <li
-        class="{{ prefixCls }}-time-column-cell"
-        [class.thy-time-picker-panel-time-column-cell-selected]="second === time.value"
-        (click)="pickSeconds(time, i)"
-      >
-        <span class="{{ prefixCls }}-time-column-cell-inner">{{ time.value | number: '2.0-0' }}</span>
-      </li>
-    </ng-container>
-  </ul>
+  @if (showHourColumn) {
+    <ul #hourListElement class="{{ prefixCls }}-time-column {{ prefixCls }}-hour-column">
+      @for (time of hourRange; track $index; let i = $index) {
+        <li
+          class="{{ prefixCls }}-time-column-cell"
+          [class.thy-time-picker-panel-time-column-cell-selected]="hour === time.value"
+          (click)="pickHours(time, i)">
+          <span class="{{ prefixCls }}-time-column-cell-inner">{{ time.value | number: '2.0-0' }}</span>
+        </li>
+      }
+    </ul>
+  }
+  @if (showMinuteColumn) {
+    <ul #minuteListElement class="{{ prefixCls }}-time-column {{ prefixCls }}-minute-column">
+      @for (time of minuteRange; track $index; let i = $index) {
+        <li
+          class="{{ prefixCls }}-time-column-cell"
+          [class.thy-time-picker-panel-time-column-cell-selected]="minute === time.value"
+          (click)="pickMinutes(time, i)">
+          <span class="{{ prefixCls }}-time-column-cell-inner">{{ time.value | number: '2.0-0' }}</span>
+        </li>
+      }
+    </ul>
+  }
+  @if (showSecondColumn) {
+    <ul #secondListElement class="{{ prefixCls }}-time-column {{ prefixCls }}-second-column">
+      @for (time of secondRange; track $index; let i = $index) {
+        <li
+          class="{{ prefixCls }}-time-column-cell"
+          [class.thy-time-picker-panel-time-column-cell-selected]="second === time.value"
+          (click)="pickSeconds(time, i)">
+          <span class="{{ prefixCls }}-time-column-cell-inner">{{ time.value | number: '2.0-0' }}</span>
+        </li>
+      }
+    </ul>
+  }
 </div>
 
-<div *ngIf="thyShowOperations" class="{{ prefixCls }}-bottom-operation">
-  <a *ngIf="thyShowSelectNow" href="javascript:;" class="{{ prefixCls }}-time-now" (click)="selectNow()">此刻</a>
-  <button class="{{ prefixCls }}-time-confirm" thyButton="primary" thySize="xs" class="confirm" (click)="confirmPickTime()">确定</button>
-</div>
+@if (thyShowOperations) {
+  <div class="{{ prefixCls }}-bottom-operation">
+    @if (thyShowSelectNow) {
+      <a href="javascript:;" class="{{ prefixCls }}-time-now" (click)="selectNow()">此刻</a>
+    }
+    <button class="{{ prefixCls }}-time-confirm" thyButton="primary" thySize="xs" class="confirm" (click)="confirmPickTime()">确定</button>
+  </div>
+}

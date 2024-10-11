@@ -11,7 +11,7 @@ import {
     ChangeDetectorRef
 } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { NgIf, NgClass, NgTemplateOutlet, NgFor } from '@angular/common';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { ThyBreadcrumbItem } from './breadcrumb-item.component';
 import { SafeAny } from 'ngx-tethys/types';
 import {
@@ -46,8 +46,6 @@ const ELLIPSIS_ITEM = { _id: THY_BREADCRUMB_ITEM_ELLIPSIS_ID };
     },
     standalone: true,
     imports: [
-        NgIf,
-        NgFor,
         ThyIcon,
         NgClass,
         ThyBreadcrumbItem,

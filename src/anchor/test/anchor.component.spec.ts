@@ -16,6 +16,7 @@ describe('thy-anchor', () => {
         let component: ThyAnchor;
         let scrollService: ThyScrollService;
         const id = 'components-anchor-demo-basic';
+
         beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [ThyAnchorModule, NoopAnimationsModule],
@@ -72,13 +73,13 @@ describe('thy-anchor', () => {
             });
         });
     });
+
     describe('thyContainer', () => {
         let fixture: ComponentFixture<TestContainerAnchorComponent>;
         let debugElement: DebugElement;
-        let component: ThyAnchor;
-        let scrollService: ThyScrollService;
         const id = 'components-anchor-demo-basic';
         const containerClass = '.demo-card';
+
         beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [ThyAnchorModule, NoopAnimationsModule],
@@ -86,11 +87,10 @@ describe('thy-anchor', () => {
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestContainerAnchorComponent);
-            component = fixture.componentInstance.thyAnchorComponent;
             debugElement = fixture.debugElement;
-            scrollService = TestBed.get(ThyScrollService);
             fixture.detectChanges();
         });
+
         it('should active associated thy-anchor-link when scrolling to anchor', (done: () => void) => {
             const container: HTMLElement = debugElement.query(By.css(containerClass)).nativeElement;
             const targetAnchor: HTMLElement = container.querySelector(`#${id}`);
@@ -106,8 +106,6 @@ describe('thy-anchor', () => {
 
     describe('thyAnchorLink', () => {
         let fixture: ComponentFixture<TestThyAnchorLinkComponent>;
-        let debugElement: DebugElement;
-        let component: ThyAnchor;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
@@ -116,8 +114,6 @@ describe('thy-anchor', () => {
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestThyAnchorLinkComponent);
-            component = fixture.componentInstance.thyAnchorComponent;
-            debugElement = fixture.debugElement;
 
             fixture.detectChanges();
         });
@@ -154,13 +150,24 @@ describe('thy-anchor', () => {
             window.scrollTo(0, 0);
         });
 
-        it('should warn when nested levels are present', () => {
+        it('should warn when thyDirection is horizontal and thy-anchor-link is nested', () => {
             const warnSpy = spyOn(console, 'warn');
             fixture.componentInstance.thyDirection = 'horizontal';
+            fixture.componentInstance.showChildren = true;
             fixture.detectChanges();
 
             expect(warnSpy).toHaveBeenCalled();
             expect(warnSpy).toHaveBeenCalledWith("Anchor link nesting is not supported when 'Anchor' direction is horizontal.");
+        });
+
+        it('should not warn when thyDirection is horizontal and thy-anchor-link is nested', () => {
+            const warnSpy = spyOn(console, 'warn');
+            fixture.componentInstance.thyDirection = 'horizontal';
+            fixture.componentInstance.showChildren = false;
+            fixture.detectChanges();
+
+            expect(warnSpy).not.toHaveBeenCalled();
+            expect(warnSpy).not.toHaveBeenCalledWith("Anchor link nesting is not supported when 'Anchor' direction is horizontal.");
         });
 
         it('should add the correct class', () => {
@@ -213,23 +220,33 @@ describe('thy-anchor', () => {
                 <thy-anchor-link thyHref="#components-anchor-demo-basic" thyTitle="Basic demo"></thy-anchor-link>
                 <thy-anchor-link thyHref="#components-anchor-demo-static" thyTitle="Static demo"></thy-anchor-link>
                 <thy-anchor-link thyHref="#API" thyTitle="API">
-                    <ng-container *ngIf="showChildren">
+                    @if (showChildren) {
                         <thy-anchor-link thyHref="#anchor-props" thyTitle="thy-anchor"></thy-anchor-link>
                         <thy-anchor-link thyHref="#link-props" thyTitle="thy-anchor-link"></thy-anchor-link>
-                    </ng-container>
+                    }
                 </thy-anchor-link>
             </thy-anchor>
             <div>
                 <h1 id="components-anchor-demo-basic">Basic demo</h1>
-                <p *ngFor="let item of demos">this is a demo</p>
+                @for (item of demos; track $index) {
+                    <p>this is a demo</p>
+                }
                 <h1 id="components-anchor-demo-static">Static demo</h1>
-                <p *ngFor="let item of demos">this is a static demo</p>
+                @for (item of demos; track $index) {
+                    <p>this is a static demo</p>
+                }
                 <h1 id="API">API</h1>
-                <p *ngFor="let item of demos">this is a api</p>
+                @for (item of demos; track $index) {
+                    <p>this is a api</p>
+                }
                 <h1 id="anchor-props">API - thy-anchor</h1>
-                <p *ngFor="let item of demos">this is a api-anchor</p>
+                @for (item of demos; track $index) {
+                    <p>this is a api-anchor</p>
+                }
                 <h1 id="link-props">API - thy-anchor-link</h1>
-                <p *ngFor="let item of demos">this is a api-link</p>
+                @for (item of demos; track $index) {
+                    <p>this is a api-link</p>
+                }
             </div>
         </div>
     `
@@ -262,7 +279,9 @@ class TestAnchorComponent implements OnInit {
             </thy-anchor>
             <div>
                 <h1 id="components-anchor-demo-basic">Basic demo</h1>
-                <p *ngFor="let item of demos">this is a demo</p>
+                @for (item of demos; track $index) {
+                    <p>this is a demo</p>
+                }
             </div>
         </div>
     `

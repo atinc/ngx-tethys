@@ -119,6 +119,11 @@
         flex: 1;
         width: 100%;
         overflow-x: auto;
+
+        &-empty {
+            display: flex;
+            flex-direction: column;
+        }
     }
 
     .thy-table-empty {

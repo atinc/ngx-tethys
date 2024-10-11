@@ -1,3 +1,5 @@
 <thy-collapse>
-  <thy-collapse-item *ngFor="let item of items" [thyTitle]="item.name" [thyActive]="true">{{ item.content }} </thy-collapse-item>
+  @for (item of items; track $index) {
+    <thy-collapse-item [thyTitle]="item.name" [thyActive]="true">{{ item.content }} </thy-collapse-item>
+  }
 </thy-collapse>
