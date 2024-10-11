@@ -1,5 +1,5 @@
 <thy-table [thyModel]="listOfData">
-  <ng-container *ngFor="let col of listOfData">
+  @for (col of listOfData; track col.key) {
     <thy-table-column [thyTitle]="col.title" [thyModelKey]="col.title" [thyWidth]="col.width">
       <ng-template #header let-row>
         <div
@@ -9,14 +9,15 @@
           [thyMaxWidth]="256"
           [thyMinWidth]="60"
           (thyResizeEnd)="onResize($event, col.title)"
-          thyBounds="window"
-        >
+          thyBounds="window">
           {{ col.title }}
-          <thy-resize-handle thyDirection="right" *ngIf="col.width">
-            <div class="resize-trigger"></div>
-          </thy-resize-handle>
+          @if (col.width) {
+            <thy-resize-handle thyDirection="right">
+              <div class="resize-trigger"></div>
+            </thy-resize-handle>
+          }
         </div>
       </ng-template>
     </thy-table-column>
-  </ng-container>
+  }
 </thy-table>

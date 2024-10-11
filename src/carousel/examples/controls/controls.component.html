@@ -4,9 +4,11 @@
 </thy-button-group>
 <div style="margin-top: 10px">
   <thy-carousel [thyControlPrev]="controlPrev" [thyControlNext]="controlNext" [thyControls]="isShow">
-    <div thyCarouselItem *ngFor="let slide of array">
-      {{ slide }}
-    </div>
+    @for (slide of array; track $index) {
+      <div thyCarouselItem>
+        {{ slide }}
+      </div>
+    }
   </thy-carousel>
 </div>
 

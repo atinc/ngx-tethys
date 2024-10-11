@@ -109,6 +109,7 @@ describe('ThyPagination', () => {
         let paginationDebugElement: DebugElement;
         let paginationElement: HTMLElement;
         let pagination: { pageIndex: number; pageSize: number; total: number };
+
         beforeEach(() => {
             fixture = TestBed.createComponent(PaginationTestComponent);
             componentInstance = fixture.debugElement.componentInstance;
@@ -145,8 +146,8 @@ describe('ThyPagination', () => {
 
         it('should btn click three page jumper three', () => {
             pagination.pageIndex = 2;
-            const nodes = Array.from(paginationElement.querySelectorAll('.thy-page-item')) as HTMLElement[];
             fixture.detectChanges();
+            const nodes = Array.from(paginationElement.querySelectorAll('.thy-page-item.thy-page-number')) as HTMLElement[];
             expect(nodes[1].classList).toContain('active');
         });
 

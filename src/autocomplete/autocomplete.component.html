@@ -2,7 +2,9 @@
   <div thyStopPropagation [ngClass]="dropDownClass">
     <div #panel class="thy-select-dropdown-options">
       <ng-content></ng-content>
-      <thy-empty *ngIf="isEmptyOptions" [thyMessage]="thyEmptyText"></thy-empty>
+      @if (isEmptyOptions) {
+        <thy-empty [thyMessage]="thyEmptyText"></thy-empty>
+      }
     </div>
   </div>
 </ng-template>

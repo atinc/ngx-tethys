@@ -5,31 +5,29 @@
   [thyBeforeDragOver]="beforeDragOver"
   [thyBeforeDragDrop]="beforeDragDrop"
   (thyDragStarted)="onDragStart($event)"
-  (thyDragDropped)="onDragDrop($event)"
->
-  <ng-container *ngFor="let item of nodes">
+  (thyDragDropped)="onDragDrop($event)">
+  @for (item of nodes; track item.key) {
     <li [thyDrag]="item">
       <ng-template [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{ item: item, level: 0 }"></ng-template>
     </li>
-  </ng-container>
+  }
 </ul>
 
 <ng-template #itemTemplate let-item="item" let-level="level">
   <div>{{ item.title }} = {{ item.draggable }}</div>
-  <ng-container *ngIf="item.children">
+  @if (item.children) {
     <ul
       [thyDropContainer]="item.children"
       [thyBeforeDragStart]="beforeDragStart"
       [thyBeforeDragOver]="beforeDragOver"
       [thyBeforeDragDrop]="beforeDragDrop"
       (thyDragStarted)="onDragStart($event)"
-      (thyDragDropped)="onDragDrop($event)"
-    >
-      <ng-container *ngFor="let subItem of item.children">
+      (thyDragDropped)="onDragDrop($event)">
+      @for (subItem of item.children; track subItem.key) {
         <li [style.paddingLeft.px]="level * 10" [thyDrag]="subItem">
           <ng-template [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{ item: subItem, level: level + 1 }"></ng-template>
         </li>
-      </ng-container>
+      }
     </ul>
-  </ng-container>
+  }
 </ng-template>

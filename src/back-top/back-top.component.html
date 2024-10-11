@@ -1,8 +1,10 @@
-<div class="thy-back-top" #backTop @fadeMotion *ngIf="visible">
-  <ng-template #defaultContent>
-    <div class="thy-back-top-content">
-      <thy-icon class="back-top-icon text-muted font-size-lg" thyIconName="arrow-up"></thy-icon>
-    </div>
-  </ng-template>
-  <ng-template [ngTemplateOutlet]="thyTemplate || defaultContent"></ng-template>
-</div>
+@if (visible) {
+  <div class="thy-back-top" #backTop @fadeMotion>
+    <ng-template #defaultContent>
+      <div class="thy-back-top-content">
+        <thy-icon class="back-top-icon text-muted font-size-lg" thyIconName="arrow-up"></thy-icon>
+      </div>
+    </ng-template>
+    <ng-template [ngTemplateOutlet]="thyTemplate || defaultContent"></ng-template>
+  </div>
+}

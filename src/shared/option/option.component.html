@@ -1,8 +1,7 @@
-<ng-container *ngIf="thyShowOptionCustom; else defaultOption">
+@if (thyShowOptionCustom) {
   <ng-content></ng-content>
   <thy-icon class="checked-icon" thyIconName="check"></thy-icon>
-</ng-container>
-<ng-template #defaultOption>
+} @else {
   <span class="text-truncate">{{ thyLabelText }}</span>
   <thy-icon class="checked-icon" thyIconName="check"></thy-icon>
-</ng-template>
+}

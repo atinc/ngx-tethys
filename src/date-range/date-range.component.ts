@@ -20,7 +20,7 @@ import {
 import { ThyDatePickerFormatPipe } from 'ngx-tethys/date-picker';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyAction } from 'ngx-tethys/action';
-import { NgIf, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 const allDayTimestamp = 24 * 60 * 60;
@@ -41,7 +41,7 @@ const INPUT_CONTROL_VALUE_ACCESSOR: any = {
     templateUrl: './date-range.component.html',
     providers: [INPUT_CONTROL_VALUE_ACCESSOR],
     standalone: true,
-    imports: [NgIf, ThyAction, ThyIcon, NgClass, ThyDatePickerFormatPipe]
+    imports: [ThyAction, ThyIcon, NgClass, ThyDatePickerFormatPipe]
 })
 export class ThyDateRange implements OnInit, ControlValueAccessor {
     /**

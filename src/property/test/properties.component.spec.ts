@@ -26,7 +26,9 @@ import { ThyPropertyItem, ThyPropertyItemOperationTrigger } from '../property-it
                     <input class="age-input" />
                 </ng-template>
             </thy-property-item>
-            <thy-property-item *ngIf="showAddress" thyLabelText="地址">这里是一个地址</thy-property-item>
+            @if (showAddress) {
+                <thy-property-item thyLabelText="地址">这里是一个地址</thy-property-item>
+            }
             <thy-property-item #sexProperty thyLabelText="性别" thyEditable="true" #hobby>
                 <span>{{ user.sex || '无' }}</span>
                 <ng-template #editor>

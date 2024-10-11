@@ -1,31 +1,30 @@
-<ng-container *ngIf="mention.suggestionsTemplateRef; else default">
+@if (mention.suggestionsTemplateRef) {
   <ng-container [ngTemplateOutlet]="mention.suggestionsTemplateRef" [ngTemplateOutletContext]="{ data: data }"></ng-container>
-</ng-container>
-<ng-template #default>
+} @else {
   <thy-loading [thyDone]="loadingDone"></thy-loading>
-  <ng-container *ngIf="loadingDone">
-    <thy-selection-list
-      *ngIf="data?.length > 0; else empty"
-      thyBindKeyEventContainer="body"
-      thyMultiple="false"
-      thyAutoActiveFirstItem="true"
-      thySpaceKeyEnabled="false"
-      [thyScrollContainer]="elementRef"
-      (thySelectionChange)="selectionChange($event)"
-    >
-      <thy-list-option *ngFor="let item of data | slice: 0:mention.limit" [thyValue]="item">
-        <ng-container *ngIf="mention?.displayTemplateRef; else default">
-          <ng-template *ngTemplateOutlet="mention?.displayTemplateRef; context: { $implicit: item }"></ng-template>
-        </ng-container>
-        <ng-template #default>
-          {{ item['name'] || '' }}
-        </ng-template>
-      </thy-list-option>
-    </thy-selection-list>
-  </ng-container>
-  <ng-template #empty>
-    <div class="text-desc p-3">
-      {{ mention?.emptyText }}
-    </div>
-  </ng-template>
-</ng-template>
+  @if (loadingDone) {
+    @if (data?.length > 0) {
+      <thy-selection-list
+        thyBindKeyEventContainer="body"
+        thyMultiple="false"
+        thyAutoActiveFirstItem="true"
+        thySpaceKeyEnabled="false"
+        [thyScrollContainer]="elementRef"
+        (thySelectionChange)="selectionChange($event)">
+        @for (item of data | slice: 0 : mention.limit; track $index) {
+          <thy-list-option [thyValue]="item">
+            @if (mention?.displayTemplateRef) {
+              <ng-template *ngTemplateOutlet="mention?.displayTemplateRef; context: { $implicit: item }"></ng-template>
+            } @else {
+              {{ item['name'] || '' }}
+            }
+          </thy-list-option>
+        }
+      </thy-selection-list>
+    } @else {
+      <div class="text-desc p-3">
+        {{ mention?.emptyText }}
+      </div>
+    }
+  }
+}

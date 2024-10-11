@@ -9,9 +9,11 @@ import { mouseSwipe, windowResize } from './carousel-events';
     template: `
         <div>
             <thy-carousel [thyEffect]="effect">
-                <div thyCarouselItem class="custom-class" *ngFor="let index of array">
-                    <h3>{{ index }}</h3>
-                </div>
+                @for (index of array; track index) {
+                    <div thyCarouselItem class="custom-class">
+                        <h3>{{ index }}</h3>
+                    </div>
+                }
             </thy-carousel>
         </div>
     `

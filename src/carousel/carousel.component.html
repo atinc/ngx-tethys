@@ -2,28 +2,29 @@
   <div #carouselWrapper class="thy-carousel-wrapper" (mousedown)="onDrag($event)" (touchstart)="onDrag($event)">
     <ng-content></ng-content>
   </div>
-  <ng-container *ngIf="thyControls && carouselItems.length > 1">
+  @if (thyControls && carouselItems.length > 1) {
     <div class="thy-carousel-control-pre-wrapper" (click)="pre()">
       <ng-container *ngTemplateOutlet="thyControlPrev || defaultControlPrev"></ng-container>
     </div>
     <div class="thy-carousel-control-next-wrapper" (click)="next()">
       <ng-container *ngTemplateOutlet="thyControlNext || defaultControlNext"></ng-container>
     </div>
-  </ng-container>
-  <ng-container *ngIf="thyIndicators">
+  }
+  @if (thyIndicators) {
     <div class="thy-carousel-indicators">
-      <span
-        *ngFor="let content of carouselItems; let i = index"
-        class="thy-carousel-indicator"
-        (mouseenter)="indicatorHandleTrigger(i)"
-        (mouseleave)="indicatorHandleLeave()"
-        (click)="indicatorHandleClick(i)">
-        <ng-template
-          [ngTemplateOutlet]="thyIndicatorRender || defaultIndicatorRender"
-          [ngTemplateOutletContext]="{ $implicit: i === activeIndex }"></ng-template>
-      </span>
+      @for (content of carouselItems; track $index; let i = $index) {
+        <span
+          class="thy-carousel-indicator"
+          (mouseenter)="indicatorHandleTrigger(i)"
+          (mouseleave)="indicatorHandleLeave()"
+          (click)="indicatorHandleClick(i)">
+          <ng-template
+            [ngTemplateOutlet]="thyIndicatorRender || defaultIndicatorRender"
+            [ngTemplateOutletContext]="{ $implicit: i === activeIndex }"></ng-template>
+        </span>
+      }
     </div>
-  </ng-container>
+  }
 </div>
 
 <ng-template #defaultIndicatorRender let-active>

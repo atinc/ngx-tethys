@@ -3,7 +3,6 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
 import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
 import { coerceBooleanProperty, elementMatchClosest } from 'ngx-tethys/util';
 
-import { NgIf } from '@angular/common';
 import { ElementRef, ViewChild } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -29,7 +28,7 @@ const noop = () => {};
         }
     ],
     standalone: true,
-    imports: [ThyInputDirective, FormsModule, ThyIcon, NgIf],
+    imports: [ThyInputDirective, FormsModule, ThyIcon],
     host: {
         '[attr.tabindex]': 'tabIndex',
         '(focus)': 'onFocus($event)',

@@ -1,4 +1,4 @@
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -32,7 +32,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
         }
     ],
     standalone: true,
-    imports: [NgClass, NgIf],
+    imports: [NgClass],
     host: {
         class: 'thy-switch',
         '[class.thy-switch-xs]': 'size === "xs"',

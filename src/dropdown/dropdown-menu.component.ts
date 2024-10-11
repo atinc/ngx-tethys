@@ -1,4 +1,4 @@
-import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     Component,
@@ -33,7 +33,9 @@ export class ThyDropdownAbstractMenu {
 @Component({
     selector: 'thy-dropdown-menu',
     template: `
-        <ng-container *ngIf="thyImmediateRender; then content"> </ng-container>
+        @if (thyImmediateRender) {
+            <ng-container *ngTemplateOutlet="content"></ng-container>
+        }
         <ng-template #dropdownMenu>
             <div class="thy-dropdown-menu" [style.width]="thyWidth">
                 <ng-container *ngTemplateOutlet="content"></ng-container>
@@ -50,7 +52,7 @@ export class ThyDropdownAbstractMenu {
         '[style.width]': "thyImmediateRender ? thyWidth : ''"
     },
     standalone: true,
-    imports: [NgIf, NgTemplateOutlet]
+    imports: [NgTemplateOutlet]
 })
 export class ThyDropdownMenuComponent {
     get template() {

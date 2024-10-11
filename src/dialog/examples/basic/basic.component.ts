@@ -18,11 +18,11 @@ export class ThyDialogBasicExampleComponent implements OnInit, OnDestroy {
         hasBackdrop: true,
         backdropClosable: true,
         closeOnNavigation: true,
-        hostClass: ['test-dialog-content', 'another-test-dialog-content']
+        hostClass: ['thy-dialog-content', 'test-dialog-content', 'another-test-dialog-content']
     };
 
     public layoutConfig = {
-        align: 'left',
+        align: 'right',
         divider: true
     };
 
@@ -71,20 +71,6 @@ export class ThyDialogBasicExampleComponent implements OnInit, OnDestroy {
                         data: `This is Pass Data`,
                         align: this.layoutConfig.align,
                         divider: this.layoutConfig.divider
-                    },
-                    canClose: () => {
-                        this.thyDialog.confirm({
-                            title: '确认归档',
-                            content: '确认要归档选中的6项任务吗？',
-                            footerAlign: 'right',
-                            okType: 'primary',
-                            okText: '确认归档',
-                            cancelText: '取消归档',
-                            onOk: () => {
-                                dialogRef.close(null, true);
-                            }
-                        });
-                        return false;
                     }
                 },
                 this.config

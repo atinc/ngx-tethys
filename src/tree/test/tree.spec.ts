@@ -174,15 +174,15 @@ describe('ThyTreeComponent', () => {
             fixture.detectChanges();
             treeComponent.addTreeNode(
                 {
-                    key: '000000000000000000001111',
-                    title: '新增部门1'
+                    key: '000000000000000000002222',
+                    title: '新增部门2'
                 },
                 null,
                 0
             );
             fixture.detectChanges();
             expect(treeComponent.getRootNodes().length).toEqual(4);
-            expect(treeComponent.getRootNodes()[0].title).toEqual('新增部门1');
+            expect(treeComponent.getRootNodes()[0].title).toEqual('新增部门2');
         });
 
         it(`test public function 'deleteTreeNode()`, () => {
@@ -813,10 +813,9 @@ describe('ThyTreeComponent', () => {
             (thyOnCheckboxChange)="onEvent()"
             (thyOnExpandChange)="onEvent()">
             <ng-template #treeNodeTemplate let-node="node" let-data="origin">
-                <thy-icon
-                    *ngIf="data.type !== 'member'"
-                    class="thy-tree-node-icon"
-                    [thyIconName]="node?.isExpanded ? 'folder-open-fill' : 'folder-fill'"></thy-icon>
+                @if (data.type !== 'member') {
+                    <thy-icon class="thy-tree-node-icon" [thyIconName]="node?.isExpanded ? 'folder-open-fill' : 'folder-fill'"></thy-icon>
+                }
                 <div class="thy-tree-node-title text-truncate" thyFlexibleText [thyTooltipContent]="data?.title">
                     {{ data?.name }} <span class="text-desc ml-1">( {{ data.member_count || 0 }}人 )</span>
                 </div>
@@ -1050,10 +1049,9 @@ export class TestDragDropTreeComponent {
             (thyOnCheckboxChange)="onEvent()"
             (thyOnExpandChange)="onEvent()">
             <ng-template #treeNodeTemplate let-node="node" let-data="origin">
-                <thy-icon
-                    *ngIf="data.type !== 'member'"
-                    class="thy-tree-node-icon"
-                    [thyIconName]="node?.isExpanded ? 'folder-open-fill' : 'folder-fill'"></thy-icon>
+                @if (data.type !== 'member') {
+                    <thy-icon class="thy-tree-node-icon" [thyIconName]="node?.isExpanded ? 'folder-open-fill' : 'folder-fill'"></thy-icon>
+                }
                 <div class="thy-tree-node-title text-truncate" thyFlexibleText [thyTooltipContent]="data?.title">
                     {{ data?.name }} <span class="text-desc ml-1">( {{ data.member_count || 0 }}人 )</span>
                 </div>

@@ -3,7 +3,8 @@ import { ThyTableEmptyOptions } from 'ngx-tethys/table';
 
 @Component({
     selector: 'thy-table-empty-example',
-    templateUrl: './empty.component.html'
+    templateUrl: './empty.component.html',
+    styles: ':host > div { height: 400px }'
 })
 export class ThyTableEmptyExampleComponent implements OnInit {
     public data: [] = [];

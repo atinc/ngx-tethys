@@ -11,7 +11,9 @@ import { ThyActions } from '../actions.component';
         <thy-actions [thySize]="size">
             <a thyAction thyIcon="inbox"></a>
             <a thyAction thyIcon="search"></a>
-            <a thyAction *ngIf="dynamicAdded" thyIcon="inbox"></a>
+            @if (dynamicAdded) {
+                <a thyAction thyIcon="inbox"></a>
+            }
         </thy-actions>
     `
 })

@@ -1,7 +1,7 @@
 import { Component, HostBinding, ViewEncapsulation, OnInit, Optional, Input, Inject, ContentChild, TemplateRef } from '@angular/core';
 import { ThyFormDirective } from '../form.directive';
 import { ThyFormGroupFooterAlign, THY_FORM_CONFIG, ThyFormConfig } from '../form.class';
-import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 
 /**
  * 表单组底部组件
@@ -13,7 +13,7 @@ import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
     templateUrl: './form-group-footer.component.html',
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [NgClass, NgIf, NgTemplateOutlet]
+    imports: [NgClass, NgTemplateOutlet]
 })
 export class ThyFormGroupFooter implements OnInit {
     @HostBinding('class.form-group') _isFormGroup = true;

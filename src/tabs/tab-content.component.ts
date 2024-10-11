@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 
 /**
  * @private
@@ -11,9 +11,9 @@ import { NgIf, NgTemplateOutlet } from '@angular/common';
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
-        <ng-container *ngIf="active">
+        @if (active) {
             <ng-template [ngTemplateOutlet]="content"></ng-template>
-        </ng-container>
+        }
     `,
     host: {
         class: 'thy-tab-content',
@@ -25,7 +25,7 @@ import { NgIf, NgTemplateOutlet } from '@angular/common';
         '[style.display]': '!tabPaneAnimated ? active ? null : "none" : null'
     },
     standalone: true,
-    imports: [NgIf, NgTemplateOutlet]
+    imports: [NgTemplateOutlet]
 })
 export class ThyTabContent {
     @Input() content: TemplateRef<void> | null = null;
