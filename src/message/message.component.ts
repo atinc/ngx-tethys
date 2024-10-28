@@ -50,9 +50,7 @@ export class ThyMessage extends ThyAbstractMessageComponent<ThyMessageConfig> {
     }
 
     constructor() {
-        const ngZone = inject(NgZone);
         const messageQueue = inject(ThyMessageQueue);
-
-        super(ngZone, messageQueue);
+        super(messageQueue);
     }
 }

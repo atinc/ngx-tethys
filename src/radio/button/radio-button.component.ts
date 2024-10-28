@@ -32,14 +32,6 @@ export class ThyRadioButton extends ThyRadio implements OnInit {
         this.writeValue(coerceBooleanProperty(value));
     }
 
-    constructor() {
-        const thyTranslate = inject(ThyTranslate);
-        const thyRadioGroupComponent = inject(ThyRadioGroup, { optional: true })!;
-        const changeDetectorRef = inject(ChangeDetectorRef);
-
-        super(thyTranslate, thyRadioGroupComponent, changeDetectorRef);
-    }
-
     ngOnInit() {
         this._isFormCheck = false;
         if (this.thyRadioGroupComponent) {

@@ -11,9 +11,7 @@ export class ThyAbstractMessageContainerComponent {
 
     @HostBinding('style.top') offset: string;
 
-    constructor() {
-        const defaultConfig = inject(ThyGlobalMessageConfig);
-
+    constructor(defaultConfig: ThyGlobalMessageConfig) {
         this.offset = coerceCssPixelValue(defaultConfig.offset);
     }
 

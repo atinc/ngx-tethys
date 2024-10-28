@@ -93,10 +93,10 @@ export class ThySlideService extends ThyAbstractOverlayService<ThySlideConfig, T
     }
 
     constructor() {
+        const defaultConfig = inject(THY_SLIDE_DEFAULT_CONFIG, { optional: true })!;
         const slideDefaultConfig = Object.assign({}, slideDefaultConfigValue, defaultConfig);
         const overlay = inject(Overlay);
         const injector = inject(Injector);
-        const defaultConfig = inject(THY_SLIDE_DEFAULT_CONFIG, { optional: true })!;
 
         super(slideAbstractOverlayOptions, overlay, injector, slideDefaultConfig);
     }

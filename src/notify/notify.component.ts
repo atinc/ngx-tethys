@@ -63,10 +63,8 @@ export class ThyNotify extends ThyAbstractMessageComponent<ThyNotifyConfig> impl
     }
 
     constructor() {
-        const ngZone = inject(NgZone);
         const notifyQueue = inject(ThyNotifyQueue);
-
-        super(ngZone, notifyQueue);
+        super(notifyQueue);
     }
 
     ngOnInit() {

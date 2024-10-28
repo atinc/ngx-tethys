@@ -18,9 +18,7 @@ export class MiniStore<T = unknown> implements Observer<T>, OnDestroy {
 
     private _defaultStoreInstanceId: string;
 
-    constructor() {
-        const initialState = inject(any);
-
+    constructor(initialState: any) {
         this._defaultStoreInstanceId = this._getClassName();
         this.state$ = new BehaviorSubject<T>(initialState);
         this.initialStateCache = { ...initialState };

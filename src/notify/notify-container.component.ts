@@ -20,10 +20,9 @@ export class ThyNotifyContainer extends ThyAbstractMessageContainerComponent {
     @HostBinding('class') className = 'thy-notify-container';
 
     constructor() {
-        const elementRef = inject(ElementRef);
         const defaultConfig = inject(THY_NOTIFY_DEFAULT_CONFIG);
 
-        super(elementRef, {
+        super({
             ...THY_NOTIFY_DEFAULT_CONFIG_VALUE,
             ...defaultConfig
         });

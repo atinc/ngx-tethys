@@ -40,10 +40,4 @@ export class ThyCheckbox extends ThyFormCheckBaseComponent {
     set thyIndeterminate(value: boolean) {
         this.isIndeterminate = value;
     }
-
-    constructor() {
-        const thyTranslate = inject(ThyTranslate);
-
-        super(thyTranslate);
-    }
 }

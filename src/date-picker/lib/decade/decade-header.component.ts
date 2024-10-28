@@ -20,10 +20,7 @@ export class DecadeHeader extends CalendarHeader {
     dateHelper: DateHelperService;
 
     constructor() {
-        const dateHelper = inject(DateHelperService);
-
-        super(dateHelper);
-        this.dateHelper = dateHelper;
+        super();
 
     }
     get startYear(): number {

@@ -16,16 +16,6 @@ import { NgClass } from '@angular/common';
     imports: [NgClass, ThyIcon]
 })
 export class MonthHeader extends CalendarHeader {
-    dateHelper: DateHelperService;
-
-    constructor() {
-        const dateHelper = inject(DateHelperService);
-
-        super(dateHelper);
-        this.dateHelper = dateHelper;
-
-    }
-
     getSelectors(): PanelSelector[] {
         let yearFormat = 'yyyy年';
         return [

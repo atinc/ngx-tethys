@@ -201,14 +201,6 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
         });
     }
 
-    constructor() {
-        const cdr = inject(ChangeDetectorRef);
-
-        super(cdr);
-        this.cdr = cdr;
-
-    }
-
     ngAfterViewInit(): void {
         this.setDefaultTimePickerState();
         this.initActionSubscribe();

@@ -45,15 +45,6 @@ export class ThyRadio extends ThyFormCheckBaseComponent implements OnInit {
         this.changeDetectorRef.markForCheck();
     }
 
-    constructor() {
-        const thyTranslate = inject(ThyTranslate);
-        const changeDetectorRef = inject(ChangeDetectorRef);
-
-        super(thyTranslate, changeDetectorRef);
-        this.thyTranslate = thyTranslate;
-
-    }
-
     ngOnInit() {
         if (this.thyRadioGroupComponent) {
             this.thyRadioGroupComponent.addRadio(this);

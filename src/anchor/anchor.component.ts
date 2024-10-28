@@ -1,5 +1,23 @@
 import { Platform } from '@angular/cdk/platform';
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgZone, OnChanges, OnDestroy, Output, Renderer2, SimpleChanges, ViewChild, ViewEncapsulation, numberAttribute, inject } from '@angular/core';
+import {
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Input,
+    NgZone,
+    OnChanges,
+    OnDestroy,
+    Output,
+    Renderer2,
+    SimpleChanges,
+    ViewChild,
+    ViewEncapsulation,
+    numberAttribute,
+    inject
+} from '@angular/core';
 import { Subject, fromEvent } from 'rxjs';
 import { takeUntil, throttleTime } from 'rxjs/operators';
 
@@ -167,7 +185,7 @@ export class ThyAnchor implements OnDestroy, AfterViewInit, OnChanges {
         if (typeof document === 'undefined' || this.animating) {
             return;
         }
-        const container: HTMLElement = this.container instanceof HTMLElement ? this.container : this.document;
+        const container: HTMLElement = this.container instanceof HTMLElement ? this.container : (this.document as unknown as HTMLElement);
 
         const sections: Section[] = [];
         const scope = (this.thyOffsetTop || 0) + this.thyBounds;
@@ -233,7 +251,7 @@ export class ThyAnchor implements OnDestroy, AfterViewInit, OnChanges {
     }
 
     handleScrollTo(linkComponent: ThyAnchorLink): void {
-        const container: HTMLElement = this.container instanceof HTMLElement ? this.container : this.document;
+        const container: HTMLElement = this.container instanceof HTMLElement ? this.container : (this.document as unknown as HTMLElement);
         const linkElement: HTMLElement = container.querySelector(linkComponent.thyHref);
         if (!linkElement) {
             return;
@@ -259,7 +277,7 @@ export class ThyAnchor implements OnDestroy, AfterViewInit, OnChanges {
         }
         if (thyContainer && this.thyContainer) {
             const container = this.thyContainer;
-            this.container = typeof container === 'string' ? this.document.querySelector(container) : container;
+            this.container = typeof container === 'string' ? (this.document.querySelector(container) as HTMLElement) : container;
             this.registerScrollEvent();
         }
     }

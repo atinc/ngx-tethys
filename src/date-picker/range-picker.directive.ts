@@ -25,10 +25,6 @@ export class ThyRangePickerDirective extends PickerDirective implements OnInit {
     isRange = true;
 
     constructor() {
-        const elementRef = inject(ElementRef);
-        const cdr = inject(ChangeDetectorRef);
-        const thyPopover = inject(ThyPopover);
-
-        super(elementRef, cdr, thyPopover);
+        super();
     }
 }

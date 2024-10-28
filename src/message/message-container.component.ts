@@ -27,7 +27,7 @@ export class ThyMessageContainer extends ThyAbstractMessageContainerComponent {
         const elementRef = inject(ElementRef);
         const defaultConfig = inject(THY_MESSAGE_DEFAULT_CONFIG);
 
-        super(elementRef, {
+        super({
             ...THY_MESSAGE_DEFAULT_CONFIG_VALUE,
             ...defaultConfig
         });

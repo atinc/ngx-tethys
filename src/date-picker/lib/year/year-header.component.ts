@@ -26,14 +26,6 @@ export class YearHeader extends CalendarHeader {
         return this.startYear + 9;
     }
 
-    constructor() {
-        const dateHelper = inject(DateHelperService);
-
-        super(dateHelper);
-        this.dateHelper = dateHelper;
-
-    }
-
     superPrevious(): void {
         this.changeValue(this.value.addYears(-10));
     }

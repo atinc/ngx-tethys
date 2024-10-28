@@ -118,12 +118,6 @@ export class BasePicker extends AbstractPickerComponent implements OnInit, OnCha
 
     ngZone = inject(NgZone);
 
-    constructor() {
-        const cdr = inject(ChangeDetectorRef);
-
-        super(cdr);
-    }
-
     ngOnInit(): void {
         super.ngOnInit();
         this.setDefaultTimePickerState(this._panelMode);

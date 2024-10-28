@@ -37,11 +37,7 @@ export class ThyMonthPicker extends BasePicker {
     private hostRenderer = useHostRenderer();
 
     constructor() {
-        const cdr = inject(ChangeDetectorRef);
-        const element = inject(ElementRef);
-
-        super(cdr, element);
-        this.element = element;
+        super();
 
         this.hostRenderer.addClass('thy-calendar-picker');
         this.thyMode = 'month';

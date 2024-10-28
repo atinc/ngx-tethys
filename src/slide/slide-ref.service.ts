@@ -20,11 +20,7 @@ export class ThyInternalSlideRef<T = unknown, TResult = unknown>
     extends ThyAbstractInternalOverlayRef<T, ThySlideContainer, TResult>
     implements ThySlideRef<T>
 {
-    constructor() {
-        const overlayRef = inject(OverlayRef);
-        const containerInstance = inject(ThySlideContainer);
-        const config = inject(ThySlideConfig);
-
+    constructor(overlayRef: OverlayRef, containerInstance: ThySlideContainer, config: ThySlideConfig) {
         super(slideAbstractOverlayOptions, overlayRef, containerInstance, config);
     }
 

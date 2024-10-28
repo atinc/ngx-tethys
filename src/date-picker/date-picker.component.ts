@@ -35,10 +35,7 @@ export class ThyDatePicker extends BasePicker implements OnInit {
     private hostRenderer = useHostRenderer();
 
     constructor() {
-        const cdr = inject(ChangeDetectorRef);
-        const element = inject(ElementRef);
-
-        super(cdr, element);
+        super();
         this.hostRenderer.addClass('thy-calendar-picker');
     }
 }

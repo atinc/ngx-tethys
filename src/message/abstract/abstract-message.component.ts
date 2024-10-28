@@ -28,9 +28,7 @@ export class ThyAbstractMessageComponent<TConfig extends ThyMessageBaseConfig> i
         this.config = value;
     }
 
-    constructor() {
-        const queue = inject(ThyAbstractMessageQueue);
-
+    constructor(queue: ThyAbstractMessageQueue) {
         this.queue = queue;
     }
 

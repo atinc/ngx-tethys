@@ -23,12 +23,4 @@ import { ThyPopover } from 'ngx-tethys/popover';
 })
 export class ThyDatePickerDirective extends PickerDirective implements OnInit {
     isRange = false;
-
-    constructor() {
-        const elementRef = inject(ElementRef);
-        const cdr = inject(ChangeDetectorRef);
-        const thyPopover = inject(ThyPopover);
-
-        super(elementRef, cdr, thyPopover);
-    }
 }
