@@ -14,7 +14,6 @@ import { ThyStepper } from './stepper.component';
 export class ThyStepperNextDirective {
     private stepper = inject(ThyStepper);
 
-
     @HostListener('click', ['$event'])
     click($event: any) {
         this.stepper.next();
@@ -33,7 +32,6 @@ export class ThyStepperNextDirective {
 })
 export class ThyStepperPreviousDirective {
     private stepper = inject(ThyStepper);
-
 
     @HostListener('click', ['$event'])
     click($event: any) {

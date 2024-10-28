@@ -1,5 +1,19 @@
 import { CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Component, DoCheck, EventEmitter, HostBinding, Input, IterableChanges, IterableDiffer, IterableDiffers, OnInit, Output, TemplateRef, ViewEncapsulation, inject } from '@angular/core';
+import {
+    Component,
+    DoCheck,
+    EventEmitter,
+    HostBinding,
+    Input,
+    IterableChanges,
+    IterableDiffer,
+    IterableDiffers,
+    OnInit,
+    Output,
+    TemplateRef,
+    ViewEncapsulation,
+    inject
+} from '@angular/core';
 
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { ThyList, ThyListItem } from 'ngx-tethys/list';

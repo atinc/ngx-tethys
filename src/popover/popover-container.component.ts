@@ -5,7 +5,18 @@ import { filter, take, takeUntil } from 'rxjs/operators';
 import { AnimationEvent } from '@angular/animations';
 import { ContentObserver } from '@angular/cdk/observers';
 import { PortalModule } from '@angular/cdk/portal';
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, NgZone, OnDestroy, ViewChild, inject } from '@angular/core';
+import {
+    AfterViewInit,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    EventEmitter,
+    HostListener,
+    NgZone,
+    OnDestroy,
+    ViewChild,
+    inject
+} from '@angular/core';
 
 import { ThyPopoverConfig } from './popover.config';
 import { popoverAbstractOverlayOptions } from './popover.options';

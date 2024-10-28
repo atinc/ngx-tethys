@@ -150,7 +150,6 @@ export interface ThyUploadFilesOptions {
 export class ThyUploadService {
     private xhrFactory = inject(XhrFactory);
 
-
     private secondsToHuman(sec: number): string {
         return new Date(sec * 1000).toISOString().slice(11, 19);
     }

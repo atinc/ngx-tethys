@@ -2,7 +2,20 @@ import { getFlexiblePositions, ThyPlacement } from 'ngx-tethys/core';
 import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
 
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange } from '@angular/cdk/overlay';
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild, inject } from '@angular/core';
+import {
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Input,
+    OnChanges,
+    Output,
+    SimpleChanges,
+    ViewChild,
+    inject
+} from '@angular/core';
 
 import { AsyncPipe, NgClass, NgTemplateOutlet } from '@angular/common';
 import { ThyIcon } from 'ngx-tethys/icon';

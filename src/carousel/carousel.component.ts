@@ -1,4 +1,27 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, Renderer2, ViewChild, TemplateRef, ViewEncapsulation, AfterContentInit, OnChanges, SimpleChanges, NgZone, OnDestroy, numberAttribute, inject } from '@angular/core';
+import {
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output,
+    QueryList,
+    Renderer2,
+    ViewChild,
+    TemplateRef,
+    ViewEncapsulation,
+    AfterContentInit,
+    OnChanges,
+    SimpleChanges,
+    NgZone,
+    OnDestroy,
+    numberAttribute,
+    inject
+} from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 import { ThyCarouselItemDirective } from './carousel-item.directive';
 import {

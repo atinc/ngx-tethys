@@ -10,7 +10,6 @@ export class ThyTooltipService {
     private ngZone = inject(NgZone);
     private defaultTooltipConfig = inject(THY_TOOLTIP_DEFAULT_CONFIG_TOKEN);
 
-
     /**
      * 创建一个 Tooltip
      */

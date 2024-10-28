@@ -21,7 +21,6 @@ export class ThyBreadcrumbItem implements AfterViewInit {
     private renderer = inject(Renderer2);
     private elementRef = inject(ElementRef);
 
-
     ngAfterViewInit() {
         this.wrapSpanForText(this.elementRef.nativeElement.childNodes);
         const link: HTMLElement = this.elementRef.nativeElement.querySelector('a');

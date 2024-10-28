@@ -1,4 +1,18 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, NgZone, OnDestroy, OnInit, Output, ViewChild, inject } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    Input,
+    NgZone,
+    OnDestroy,
+    OnInit,
+    Output,
+    ViewChild,
+    inject
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { isValid } from 'date-fns';
 import { reqAnimFrame } from 'ngx-tethys/core';

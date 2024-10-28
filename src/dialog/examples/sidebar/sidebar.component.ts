@@ -9,7 +9,6 @@ import { ThyDialogSidebarContentExampleComponent } from './dialog-sidebar.compon
 export class ThyDialogSidebarExampleComponent {
     private thyDialog = inject(ThyDialog);
 
-
     openDialog() {
         this.thyDialog.open(ThyDialogSidebarContentExampleComponent, {
             size: ThyDialogSizes.maxLg

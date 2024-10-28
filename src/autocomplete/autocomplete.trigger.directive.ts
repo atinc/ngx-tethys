@@ -1,4 +1,16 @@
-import { Directive, ElementRef, NgZone, OnDestroy, Input, OnInit, ViewContainerRef, HostBinding, ChangeDetectorRef, numberAttribute, inject } from '@angular/core';
+import {
+    Directive,
+    ElementRef,
+    NgZone,
+    OnDestroy,
+    Input,
+    OnInit,
+    ViewContainerRef,
+    HostBinding,
+    ChangeDetectorRef,
+    numberAttribute,
+    inject
+} from '@angular/core';
 import { OverlayRef, Overlay } from '@angular/cdk/overlay';
 import { ThyPlacement } from 'ngx-tethys/core';
 import { ThyAutocompleteService } from './overlay/autocomplete.service';

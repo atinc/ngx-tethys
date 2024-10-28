@@ -1,4 +1,16 @@
-import { Directive, ElementRef, InjectFlags, Input, OnChanges, OnInit, SimpleChanges, Injector, OnDestroy, AfterViewInit, inject } from '@angular/core';
+import {
+    Directive,
+    ElementRef,
+    InjectFlags,
+    Input,
+    OnChanges,
+    OnInit,
+    SimpleChanges,
+    Injector,
+    OnDestroy,
+    AfterViewInit,
+    inject
+} from '@angular/core';
 import { ThyImageGroup } from './image-group.component';
 import { ThyImageMeta } from './image.class';
 import { ThyImageService } from './image.service';

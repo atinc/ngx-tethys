@@ -1,4 +1,16 @@
-import { Component, ElementRef, EventEmitter, HostBinding, Input, OnChanges, Output, Renderer2, SimpleChanges, ViewChild, inject } from '@angular/core';
+import {
+    Component,
+    ElementRef,
+    EventEmitter,
+    HostBinding,
+    Input,
+    OnChanges,
+    Output,
+    Renderer2,
+    SimpleChanges,
+    ViewChild,
+    inject
+} from '@angular/core';
 import { ThyCoordinatesDirective } from '../../coordinates.directive';
 import { ThyColor } from '../../helpers/color.class';
 

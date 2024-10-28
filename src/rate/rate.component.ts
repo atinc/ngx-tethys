@@ -2,7 +2,22 @@ import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
 import { coerceBooleanProperty, helpers } from 'ngx-tethys/util';
 
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, HostBinding, Input, numberAttribute, OnChanges, OnInit, Output, SimpleChanges, TemplateRef, inject } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    forwardRef,
+    HostBinding,
+    Input,
+    numberAttribute,
+    OnChanges,
+    OnInit,
+    Output,
+    SimpleChanges,
+    TemplateRef,
+    inject
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyStopPropagationDirective } from 'ngx-tethys/shared';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';

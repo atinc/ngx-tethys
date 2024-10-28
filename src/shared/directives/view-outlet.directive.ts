@@ -1,4 +1,18 @@
-import { ComponentRef, Directive, Input, ChangeDetectorRef, EmbeddedViewRef, OnChanges, SimpleChanges, Type, ViewContainerRef, TemplateRef, KeyValueDiffer, KeyValueDiffers, inject } from '@angular/core';
+import {
+    ComponentRef,
+    Directive,
+    Input,
+    ChangeDetectorRef,
+    EmbeddedViewRef,
+    OnChanges,
+    SimpleChanges,
+    Type,
+    ViewContainerRef,
+    TemplateRef,
+    KeyValueDiffer,
+    KeyValueDiffers,
+    inject
+} from '@angular/core';
 import { SafeAny } from 'ngx-tethys/types';
 
 function hasInput(componentRef: ComponentRef<unknown>, inputKey: string) {

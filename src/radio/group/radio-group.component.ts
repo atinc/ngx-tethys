@@ -1,4 +1,16 @@
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, HostBinding, Input, OnChanges, OnInit, SimpleChanges, inject } from '@angular/core';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    forwardRef,
+    HostBinding,
+    Input,
+    OnChanges,
+    OnInit,
+    SimpleChanges,
+    inject
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 

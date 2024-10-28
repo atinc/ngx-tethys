@@ -1,4 +1,18 @@
-import { Component, Input, TemplateRef, ViewChild, ChangeDetectionStrategy, HostBinding, HostListener, ElementRef, ChangeDetectorRef, EventEmitter, OnDestroy, Output, inject } from '@angular/core';
+import {
+    Component,
+    Input,
+    TemplateRef,
+    ViewChild,
+    ChangeDetectionStrategy,
+    HostBinding,
+    HostListener,
+    ElementRef,
+    ChangeDetectorRef,
+    EventEmitter,
+    OnDestroy,
+    Output,
+    inject
+} from '@angular/core';
 import { Highlightable } from '@angular/cdk/a11y';
 import { SelectOptionBase } from './select-option-base';
 import { ENTER, SPACE, coerceBooleanProperty, hasModifierKey } from 'ngx-tethys/util';

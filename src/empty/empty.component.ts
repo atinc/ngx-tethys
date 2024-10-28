@@ -1,6 +1,18 @@
 import { ThyTranslate } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { AfterViewInit, Component, ContentChild, ElementRef, OnChanges, Input, NgZone, OnInit, TemplateRef, SimpleChanges, inject } from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    ContentChild,
+    ElementRef,
+    OnChanges,
+    Input,
+    NgZone,
+    OnInit,
+    TemplateRef,
+    SimpleChanges,
+    inject
+} from '@angular/core';
 
 import { ThyEmptyConfig } from './empty.config';
 import { PRESET_SVG } from './svgs';

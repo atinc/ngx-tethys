@@ -30,7 +30,6 @@ export class ThyFileDropDirective extends FileSelectBaseDirective implements OnI
     elementRef: ElementRef;
     renderer = inject(Renderer2);
     ngZone = inject(NgZone);
-    defaultConfig: ThyUploadConfig;
 
     @HostBinding('class.drop-over')
     @HostBinding('class.thy-drop-over')
@@ -135,9 +134,9 @@ export class ThyFileDropDirective extends FileSelectBaseDirective implements OnI
 
     private getAsEntry(item: DataTransferItem): FileSystemEntry {
         let entry: FileSystemEntry;
-        if (item['getAsEntry']) {
+        if ((item as unknown as { getAsEntry: () => FileSystemEntry })['getAsEntry']) {
             // https://wiki.whatwg.org/wiki/DragAndDropEntries
-            entry = item['getAsEntry']();
+            entry = (item as unknown as { getAsEntry: () => FileSystemEntry })['getAsEntry']();
         } else if (item.webkitGetAsEntry) {
             entry = item.webkitGetAsEntry();
         }

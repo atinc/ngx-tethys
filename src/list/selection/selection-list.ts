@@ -6,7 +6,25 @@ import { startWith } from 'rxjs/operators';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, HostBinding, Input, NgZone, OnDestroy, OnInit, Output, QueryList, Renderer2, inject } from '@angular/core';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    HostBinding,
+    Input,
+    NgZone,
+    OnDestroy,
+    OnInit,
+    Output,
+    QueryList,
+    Renderer2,
+    inject
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { ThySelectionListChange } from './selection.interface';

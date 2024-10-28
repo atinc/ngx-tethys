@@ -9,7 +9,6 @@ import { ThyPopover } from 'ngx-tethys/popover';
 export class ThyMenuGroupExampleComponent implements OnInit {
     private popover = inject(ThyPopover);
 
-
     ngOnInit(): void {}
 
     openActionMenu(event: Event, template: TemplateRef<any>) {

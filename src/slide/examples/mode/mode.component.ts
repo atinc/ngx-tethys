@@ -11,7 +11,6 @@ import { ThySlideDemoContentComponent } from '../slide-content.component';
 export class ThySlideModeExampleComponent {
     private thySlideNewService = inject(ThySlideService);
 
-
     push() {
         this.thySlideNewService.open(ThySlideDemoContentComponent, {
             id: 'push',

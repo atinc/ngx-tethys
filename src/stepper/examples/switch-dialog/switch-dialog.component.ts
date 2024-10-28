@@ -9,7 +9,6 @@ import { ThyDialog } from 'ngx-tethys/dialog';
 export class ThyStepperSwitchDialogExampleComponent {
     private thyDialog = inject(ThyDialog);
 
-
     openTemplateDialog(template: TemplateRef<any>) {
         this.thyDialog.open(template, {
             panelClass: 'selectDialogCustomer'

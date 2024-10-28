@@ -1,4 +1,17 @@
-import { Component, Input, HostBinding, OnInit, OnChanges, ContentChild, TemplateRef, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy, SimpleChanges, inject } from '@angular/core';
+import {
+    Component,
+    Input,
+    HostBinding,
+    OnInit,
+    OnChanges,
+    ContentChild,
+    TemplateRef,
+    ViewChild,
+    ChangeDetectorRef,
+    ChangeDetectionStrategy,
+    SimpleChanges,
+    inject
+} from '@angular/core';
 import { SafeAny } from 'ngx-tethys/types';
 import { ThyTimeMode } from './timeline.component';
 import { ThyTimelineService } from './timeline.service';

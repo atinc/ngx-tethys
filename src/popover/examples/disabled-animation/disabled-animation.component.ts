@@ -8,7 +8,6 @@ import { Component, TemplateRef, inject } from '@angular/core';
 export class ThyPopoverDisabledAnimationExampleComponent {
     private thyPopover = inject(ThyPopover);
 
-
     openTemplate(event: Event, template: TemplateRef<HTMLElement>) {
         this.thyPopover.open(template, {
             origin: event.currentTarget as HTMLElement,

@@ -1,5 +1,17 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostBinding, Input, OnInit, Output, TemplateRef, numberAttribute, inject } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    HostBinding,
+    Input,
+    OnInit,
+    Output,
+    TemplateRef,
+    numberAttribute,
+    inject
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';

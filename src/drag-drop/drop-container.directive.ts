@@ -1,4 +1,16 @@
-import { OnInit, Directive, Output, EventEmitter, ContentChildren, QueryList, AfterContentInit, NgZone, Input, OnDestroy, inject } from '@angular/core';
+import {
+    OnInit,
+    Directive,
+    Output,
+    EventEmitter,
+    ContentChildren,
+    QueryList,
+    AfterContentInit,
+    NgZone,
+    Input,
+    OnDestroy,
+    inject
+} from '@angular/core';
 import { ThyDragDirective } from './drag.directive';
 import { merge, Observable, defer, Subject } from 'rxjs';
 import { takeUntil, startWith, take, switchMap } from 'rxjs/operators';

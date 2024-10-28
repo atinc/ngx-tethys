@@ -10,7 +10,6 @@ import { Component, inject } from '@angular/core';
 export class ThyCopyNotifyExampleComponent {
     private notifyService = inject(ThyNotifyService);
 
-
     copy(event: ThyCopyEvent) {
         if (event.isSuccess) {
             console.log('复制成功啦');

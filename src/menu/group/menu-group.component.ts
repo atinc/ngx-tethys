@@ -1,6 +1,19 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ComponentType } from '@angular/cdk/portal';
-import { ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output, TemplateRef, ViewChild, inject } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ContentChild,
+    ElementRef,
+    EventEmitter,
+    HostBinding,
+    Input,
+    OnInit,
+    Output,
+    TemplateRef,
+    ViewChild,
+    inject
+} from '@angular/core';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgClass, NgTemplateOutlet } from '@angular/common';

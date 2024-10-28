@@ -1,7 +1,23 @@
 import { DateRangeItemInfo } from 'ngx-tethys/date-range';
 import { TinyDate } from 'ngx-tethys/util';
 
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, forwardRef, HostBinding, Input, OnChanges, OnInit, Output, SimpleChanges, TemplateRef, ViewEncapsulation, inject } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChild,
+    EventEmitter,
+    forwardRef,
+    HostBinding,
+    Input,
+    OnChanges,
+    OnInit,
+    Output,
+    SimpleChanges,
+    TemplateRef,
+    ViewEncapsulation,
+    inject
+} from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { ThyCalendarHeaderOperationDirective as HeaderOperation, ThyDateCellDirective as DateCell } from './calendar-cells';

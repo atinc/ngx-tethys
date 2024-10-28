@@ -1,7 +1,20 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { ComponentType, OverlayRef } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { ChangeDetectorRef, Directive, ElementRef, EventEmitter, Input, NgZone, OnInit, Output, TemplateRef, ViewContainerRef, numberAttribute, inject } from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Directive,
+    ElementRef,
+    EventEmitter,
+    Input,
+    NgZone,
+    OnInit,
+    Output,
+    TemplateRef,
+    ViewContainerRef,
+    numberAttribute,
+    inject
+} from '@angular/core';
 import { ComponentTypeOrTemplateRef, ThyOverlayDirectiveBase, ThyOverlayTrigger, ThyPlacement } from 'ngx-tethys/core';
 import { ThyPopover, ThyPopoverConfig, ThyPopoverRef } from 'ngx-tethys/popover';
 import { SafeAny } from 'ngx-tethys/types';

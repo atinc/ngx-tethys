@@ -1,4 +1,22 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewEncapsulation, Input, TemplateRef, EventEmitter, Output, HostBinding, NgZone, ChangeDetectorRef, OnDestroy, OnChanges, ViewChild, ElementRef, numberAttribute, inject } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    ChangeDetectionStrategy,
+    ViewEncapsulation,
+    Input,
+    TemplateRef,
+    EventEmitter,
+    Output,
+    HostBinding,
+    NgZone,
+    ChangeDetectorRef,
+    OnDestroy,
+    OnChanges,
+    ViewChild,
+    ElementRef,
+    numberAttribute,
+    inject
+} from '@angular/core';
 import { Subject, fromEvent, BehaviorSubject, EMPTY, Observable } from 'rxjs';
 import { Platform } from '@angular/cdk/platform';
 import { throttleTime, takeUntil, switchMap } from 'rxjs/operators';

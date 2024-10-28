@@ -1,4 +1,17 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, AfterViewInit, OnChanges, ElementRef, Renderer2, SimpleChanges, ChangeDetectorRef, OnDestroy, inject } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    Input,
+    OnInit,
+    AfterViewInit,
+    OnChanges,
+    ElementRef,
+    Renderer2,
+    SimpleChanges,
+    ChangeDetectorRef,
+    OnDestroy,
+    inject
+} from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
 

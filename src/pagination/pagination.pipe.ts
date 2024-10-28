@@ -11,7 +11,6 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class PaginationTotalCountFormat implements PipeTransform {
     private sanitizer = inject(DomSanitizer);
 
-
     transform(count: number, format: string): any {
         if (count && format) {
             return this.sanitizer.bypassSecurityTrustHtml(format.replace(/\{(.+?)\}/g, `<span>${count}</span>`));

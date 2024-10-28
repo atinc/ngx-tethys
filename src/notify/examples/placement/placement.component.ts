@@ -8,7 +8,6 @@ import { Component, OnInit, inject } from '@angular/core';
 export class ThyNotifyPlacementExampleComponent implements OnInit {
     private notifyService = inject(ThyNotifyService);
 
-
     ngOnInit() {}
 
     showTopLeft() {

@@ -6,7 +6,22 @@ import { ThyAutofocusDirective } from 'ngx-tethys/shared';
 import { coerceBooleanProperty, DOWN_ARROW, ENTER, isFloat, isNumber, isUndefinedOrNull, UP_ARROW } from 'ngx-tethys/util';
 
 import { FocusOrigin } from '@angular/cdk/a11y';
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, numberAttribute, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild, inject } from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    Input,
+    numberAttribute,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    Output,
+    SimpleChanges,
+    ViewChild,
+    inject
+} from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';

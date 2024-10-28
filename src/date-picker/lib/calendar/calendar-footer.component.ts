@@ -1,4 +1,16 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ElementRef, ViewContainerRef, OnInit, OnChanges, SimpleChanges, inject } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    EventEmitter,
+    Input,
+    Output,
+    ElementRef,
+    ViewContainerRef,
+    OnInit,
+    OnChanges,
+    SimpleChanges,
+    inject
+} from '@angular/core';
 
 import { TinyDate, coerceBooleanProperty } from 'ngx-tethys/util';
 import { ThyButton } from 'ngx-tethys/button';

@@ -1,7 +1,20 @@
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { Component, ElementRef, EventEmitter, Input, NgZone, numberAttribute, OnChanges, OnDestroy, Output, SimpleChanges, ViewChild, inject } from '@angular/core';
+import {
+    Component,
+    ElementRef,
+    EventEmitter,
+    Input,
+    NgZone,
+    numberAttribute,
+    OnChanges,
+    OnDestroy,
+    Output,
+    SimpleChanges,
+    ViewChild,
+    inject
+} from '@angular/core';
 
 import { FileSelectBaseDirective } from './file-select-base';
 import { THY_UPLOAD_DEFAULT_OPTIONS, ThyUploadConfig } from './upload.config';

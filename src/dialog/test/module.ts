@@ -1,5 +1,17 @@
 import { Directionality } from '@angular/cdk/bidi';
-import { ChangeDetectionStrategy, Component, Directive, Injector, input, NgModule, OnInit, TemplateRef, ViewChild, ViewContainerRef, inject } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    Directive,
+    Injector,
+    input,
+    NgModule,
+    OnInit,
+    TemplateRef,
+    ViewChild,
+    ViewContainerRef,
+    inject
+} from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyDialog, ThyDialogModule, ThyDialogRef } from '../';
 
@@ -31,7 +43,6 @@ export class DialogSimpleContentComponent {
 export class DialogFullContentComponent {
     dialogRef = inject<ThyDialogRef<DialogFullContentComponent>>(ThyDialogRef);
     dialogInjector = inject(Injector);
-
 
     ok() {
         this.close();

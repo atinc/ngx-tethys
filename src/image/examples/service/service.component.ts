@@ -9,7 +9,6 @@ import { ThyImageService } from 'ngx-tethys/image/image.service';
 export class ThyImageServiceExampleComponent implements OnInit {
     private thyImageService = inject(ThyImageService);
 
-
     ngOnInit(): void {
         this.thyImageService.downloadClicked().subscribe(image => {
             console.log(image);

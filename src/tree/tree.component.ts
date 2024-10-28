@@ -2,7 +2,29 @@ import { coerceBooleanProperty, helpers } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CdkVirtualScrollViewport, CdkFixedSizeVirtualScroll, CdkVirtualForOf } from '@angular/cdk/scrolling';
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, forwardRef, HostBinding, Input, numberAttribute, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, ViewChildren, ViewEncapsulation, inject } from '@angular/core';
+import {
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChild,
+    EventEmitter,
+    forwardRef,
+    HostBinding,
+    Input,
+    numberAttribute,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    Output,
+    QueryList,
+    SimpleChanges,
+    TemplateRef,
+    ViewChild,
+    ViewChildren,
+    ViewEncapsulation,
+    inject
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { THY_TREE_ABSTRACT_TOKEN } from './tree-abstract';
 import { ThyTreeNode } from './tree-node.class';

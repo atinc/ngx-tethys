@@ -1,4 +1,15 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Input, OnChanges, Output, SimpleChanges, TemplateRef, inject } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    EventEmitter,
+    HostBinding,
+    Input,
+    OnChanges,
+    Output,
+    SimpleChanges,
+    TemplateRef,
+    inject
+} from '@angular/core';
 
 import { FunctionProp, TinyDate, coerceBooleanProperty } from 'ngx-tethys/util';
 import { DateHelperService } from '../../date-helper.service';

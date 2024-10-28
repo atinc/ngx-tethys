@@ -1,4 +1,16 @@
-import { Component, HostBinding, Input, Output, EventEmitter, ChangeDetectionStrategy, OnInit, ChangeDetectorRef, forwardRef, numberAttribute, inject } from '@angular/core';
+import {
+    Component,
+    HostBinding,
+    Input,
+    Output,
+    EventEmitter,
+    ChangeDetectionStrategy,
+    OnInit,
+    ChangeDetectorRef,
+    forwardRef,
+    numberAttribute,
+    inject
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyButtonIcon } from 'ngx-tethys/button';
 import { ThyIcon } from 'ngx-tethys/icon';

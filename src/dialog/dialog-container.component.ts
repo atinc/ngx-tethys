@@ -6,7 +6,19 @@ import { AnimationEvent } from '@angular/animations';
 import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
 import { PortalModule } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, NgZone, OnDestroy, Renderer2, ViewChild, inject } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    EventEmitter,
+    HostBinding,
+    NgZone,
+    OnDestroy,
+    Renderer2,
+    ViewChild,
+    inject
+} from '@angular/core';
 
 import { thyDialogAnimations } from './dialog-animations';
 import { ThyDialogConfig } from './dialog.config';

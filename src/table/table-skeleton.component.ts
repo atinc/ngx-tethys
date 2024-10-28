@@ -1,5 +1,15 @@
 import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, ViewChild, ViewEncapsulation, inject } from '@angular/core';
+import {
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    Input,
+    ViewChild,
+    ViewEncapsulation,
+    inject
+} from '@angular/core';
 import { InputCssPixel } from 'ngx-tethys/core';
 import { ThySkeletonCircle, ThySkeletonRectangle } from 'ngx-tethys/skeleton';
 import { ThyTableSkeletonColumn } from './table.interface';

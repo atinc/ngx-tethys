@@ -1,4 +1,20 @@
-import { Component, Input, HostBinding, ContentChildren, QueryList, AfterContentInit, OnChanges, OnDestroy, OnInit, SimpleChanges, SimpleChange, ChangeDetectorRef, ViewEncapsulation, ChangeDetectionStrategy, inject } from '@angular/core';
+import {
+    Component,
+    Input,
+    HostBinding,
+    ContentChildren,
+    QueryList,
+    AfterContentInit,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    SimpleChanges,
+    SimpleChange,
+    ChangeDetectorRef,
+    ViewEncapsulation,
+    ChangeDetectionStrategy,
+    inject
+} from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { ThyTimelineItem } from './timeline-item.component';
 import { ThyTimelineService } from './timeline.service';

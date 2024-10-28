@@ -1,6 +1,17 @@
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { AfterViewInit, ContentChildren, DestroyRef, Directive, ElementRef, forwardRef, inject, Input, NgZone, QueryList } from '@angular/core';
+import {
+    AfterViewInit,
+    ContentChildren,
+    DestroyRef,
+    Directive,
+    ElementRef,
+    forwardRef,
+    inject,
+    Input,
+    NgZone,
+    QueryList
+} from '@angular/core';
 import { RouterLinkActive } from '@angular/router';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 

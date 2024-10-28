@@ -1,4 +1,14 @@
-import { Directive, EmbeddedViewRef, Input, OnChanges, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef, inject } from '@angular/core';
+import {
+    Directive,
+    EmbeddedViewRef,
+    Input,
+    OnChanges,
+    Renderer2,
+    SimpleChanges,
+    TemplateRef,
+    ViewContainerRef,
+    inject
+} from '@angular/core';
 import { isTemplateRef } from 'ngx-tethys/util';
 
 /**

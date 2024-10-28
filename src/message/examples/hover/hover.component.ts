@@ -8,7 +8,6 @@ import { Component, OnInit, inject } from '@angular/core';
 export class ThyMessageHoverExampleComponent implements OnInit {
     private messageService = inject(ThyMessageService);
 
-
     ngOnInit() {}
 
     showHoverClose() {

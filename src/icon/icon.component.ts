@@ -1,7 +1,20 @@
 import { take } from 'rxjs/operators';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
-import { ChangeDetectionStrategy, Component, ElementRef, HostBinding, Input, OnChanges, OnInit, Renderer2, SimpleChanges, ViewEncapsulation, numberAttribute, inject } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    HostBinding,
+    Input,
+    OnChanges,
+    OnInit,
+    Renderer2,
+    SimpleChanges,
+    ViewEncapsulation,
+    numberAttribute,
+    inject
+} from '@angular/core';
 
 import { getWhetherPrintErrorWhenIconNotFound } from './config';
 import { ThyIconRegistry } from './icon-registry';

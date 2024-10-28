@@ -1,6 +1,17 @@
 import { collapseMotion } from 'ngx-tethys/core';
 
-import { ChangeDetectorRef, Component, EventEmitter, ChangeDetectionStrategy, Input, OnDestroy, OnInit, Output, TemplateRef, inject } from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    ChangeDetectionStrategy,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
+    TemplateRef,
+    inject
+} from '@angular/core';
 
 import { ThyCollapse } from './collapse.component';
 import { SafeAny } from 'ngx-tethys/types';

@@ -1,4 +1,15 @@
-import { ChangeDetectionStrategy, Component, ElementRef, HostBinding, Input, OnInit, Renderer2, ViewEncapsulation, AfterViewInit, inject } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    HostBinding,
+    Input,
+    OnInit,
+    Renderer2,
+    ViewEncapsulation,
+    AfterViewInit,
+    inject
+} from '@angular/core';
 
 import { assertIconOnly, coerceBooleanProperty } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';

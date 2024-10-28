@@ -1,5 +1,19 @@
 import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
-import { Component, Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output, TemplateRef, inject, numberAttribute } from '@angular/core';
+import {
+    Component,
+    Directive,
+    ElementRef,
+    EventEmitter,
+    HostBinding,
+    HostListener,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
+    TemplateRef,
+    inject,
+    numberAttribute
+} from '@angular/core';
 import { ThyHotkeyDispatcher } from '@tethys/cdk/hotkey';
 import { isMacPlatform } from '@tethys/cdk/is';
 import { ThyIcon } from 'ngx-tethys/icon';

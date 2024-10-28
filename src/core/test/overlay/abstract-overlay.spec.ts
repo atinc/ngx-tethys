@@ -5,7 +5,20 @@ import { AnimationEvent } from '@angular/animations';
 import { Overlay, OverlayConfig, OverlayContainer, OverlayModule, OverlayRef, ScrollStrategy } from '@angular/cdk/overlay';
 import { CdkPortalOutlet, ComponentPortal, PortalModule } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, Injectable, Injector, Input, input, NgModule, OnDestroy, StaticProvider, ViewChild, ViewContainerRef, inject as inject_1 } from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Component,
+    Injectable,
+    Injector,
+    Input,
+    input,
+    NgModule,
+    OnDestroy,
+    StaticProvider,
+    ViewChild,
+    ViewContainerRef,
+    inject as inject_1
+} from '@angular/core';
 import { TestBed, fakeAsync, flush, inject } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -200,7 +213,6 @@ class TestDialogBasicContentComponent {
 class TestDialogViewContainerComponent {
     private dialog = inject_1(TestDialogService);
     private viewContainerRef = inject_1(ViewContainerRef);
-
 
     open() {
         this.dialog.open(TestDialogBasicContentComponent, {

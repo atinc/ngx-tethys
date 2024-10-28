@@ -1,6 +1,23 @@
 import { Subject } from 'rxjs';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
-import { Component, ContentChild, ElementRef, EventEmitter, HostBinding, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef, ViewChild, ViewEncapsulation, numberAttribute, inject } from '@angular/core';
+import {
+    Component,
+    ContentChild,
+    ElementRef,
+    EventEmitter,
+    HostBinding,
+    Input,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    Output,
+    SimpleChanges,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation,
+    numberAttribute,
+    inject
+} from '@angular/core';
 
 import { THY_TREE_ABSTRACT_TOKEN, ThyTreeAbstractComponent } from './tree-abstract';
 import { ThyTreeNode } from './tree-node.class';

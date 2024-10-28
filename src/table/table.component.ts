@@ -9,7 +9,37 @@ import { CdkDrag, CdkDragDrop, CdkDragEnd, CdkDragStart, CdkDropList, moveItemIn
 import { ViewportRuler } from '@angular/cdk/overlay';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { DOCUMENT, isPlatformServer, NgClass, NgTemplateOutlet, NgStyle } from '@angular/common';
-import { AfterViewInit, ChangeDetectorRef, Component, ContentChild, ContentChildren, DestroyRef, ElementRef, EventEmitter, HostBinding, inject, Input, IterableChangeRecord, IterableChanges, IterableDiffer, IterableDiffers, NgZone, numberAttribute, OnChanges, OnDestroy, OnInit, Output, PLATFORM_ID, QueryList, Renderer2, SimpleChanges, TemplateRef, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
+import {
+    AfterViewInit,
+    ChangeDetectorRef,
+    Component,
+    ContentChild,
+    ContentChildren,
+    DestroyRef,
+    ElementRef,
+    EventEmitter,
+    HostBinding,
+    inject,
+    Input,
+    IterableChangeRecord,
+    IterableChanges,
+    IterableDiffer,
+    IterableDiffers,
+    NgZone,
+    numberAttribute,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    Output,
+    PLATFORM_ID,
+    QueryList,
+    Renderer2,
+    SimpleChanges,
+    TemplateRef,
+    ViewChild,
+    ViewChildren,
+    ViewEncapsulation
+} from '@angular/core';
 
 import { IThyTableColumnParentComponent, THY_TABLE_COLUMN_PARENT_COMPONENT, ThyTableColumnComponent } from './table-column.component';
 import {

@@ -1,5 +1,17 @@
 import { _isNumberValue, coerceCssPixelValue } from '@angular/cdk/coercion';
-import { Component, ContentChild, ElementRef, EventEmitter, InjectionToken, Input, OnInit, Output, TemplateRef, ViewEncapsulation, inject } from '@angular/core';
+import {
+    Component,
+    ContentChild,
+    ElementRef,
+    EventEmitter,
+    InjectionToken,
+    Input,
+    OnInit,
+    Output,
+    TemplateRef,
+    ViewEncapsulation,
+    inject
+} from '@angular/core';
 import { coerceBooleanProperty, isArray, isObject } from 'ngx-tethys/util';
 import { ThyTableSortDirection, ThyTableSortEvent } from './table.interface';
 

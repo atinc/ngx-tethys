@@ -1,4 +1,17 @@
-import { Directive, ElementRef, NgZone, OnDestroy, Input, TemplateRef, OnInit, ViewContainerRef, HostBinding, ChangeDetectorRef, numberAttribute, inject } from '@angular/core';
+import {
+    Directive,
+    ElementRef,
+    NgZone,
+    OnDestroy,
+    Input,
+    TemplateRef,
+    OnInit,
+    ViewContainerRef,
+    HostBinding,
+    ChangeDetectorRef,
+    numberAttribute,
+    inject
+} from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 import { OverlayRef } from '@angular/cdk/overlay';
 import { FocusMonitor } from '@angular/cdk/a11y';
@@ -93,7 +106,6 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
 
         super(elementRef, platform, focusMonitor, ngZone, true);
         this.elementRef = elementRef;
-
     }
 
     ngOnInit(): void {

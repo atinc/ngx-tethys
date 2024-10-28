@@ -10,7 +10,6 @@ export class ThyFullscreen {
     protected document = inject(DOCUMENT);
     private ngZone = inject(NgZone);
 
-
     private fullscreenRefs: ThyFullscreenRef[] = [];
 
     /**

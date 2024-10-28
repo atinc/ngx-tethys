@@ -8,7 +8,6 @@ import { ThyMessageService } from 'ngx-tethys/message';
 export class ThyMessageBasicExampleComponent implements OnInit {
     private messageService = inject(ThyMessageService);
 
-
     ngOnInit() {}
 
     showInfo() {

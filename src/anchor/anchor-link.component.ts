@@ -1,5 +1,17 @@
 import { Platform } from '@angular/cdk/platform';
-import { ChangeDetectionStrategy, Component, ContentChild, ElementRef, Input, OnDestroy, OnInit, TemplateRef, ViewChild, ViewEncapsulation, inject } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ContentChild,
+    ElementRef,
+    Input,
+    OnDestroy,
+    OnInit,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation,
+    inject
+} from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
 import { ThyAnchor } from './anchor.component';

@@ -5,7 +5,22 @@ import { fromEvent, Observable, Subject } from 'rxjs';
 import { debounceTime, mapTo, takeUntil, tap } from 'rxjs/operators';
 
 import { coerceArray, coerceBooleanProperty } from '@angular/cdk/coercion';
-import { AfterViewInit, ChangeDetectorRef, Directive, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChange, TemplateRef, numberAttribute, inject } from '@angular/core';
+import {
+    AfterViewInit,
+    ChangeDetectorRef,
+    Directive,
+    ElementRef,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    Output,
+    SimpleChange,
+    TemplateRef,
+    numberAttribute,
+    inject
+} from '@angular/core';
 
 import { AbstractPickerComponent } from './abstract-picker.component';
 import { DatePopup } from './lib/popups/date-popup.component';

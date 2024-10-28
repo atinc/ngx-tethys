@@ -3,7 +3,17 @@ import { ThyTranslate } from 'ngx-tethys/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 
-import { ChangeDetectionStrategy, Component, ContentChild, HostBinding, Input, OnInit, TemplateRef, ViewEncapsulation, inject } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ContentChild,
+    HostBinding,
+    Input,
+    OnInit,
+    TemplateRef,
+    ViewEncapsulation,
+    inject
+} from '@angular/core';
 
 import { ThyFormDirective } from './form.directive';
 import { coerceBooleanProperty } from 'ngx-tethys/util';

@@ -11,7 +11,24 @@ import { take, takeUntil } from 'rxjs/operators';
 import { CdkConnectedOverlay, CdkOverlayOrigin, ViewportRuler } from '@angular/cdk/overlay';
 import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { isPlatformBrowser, NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostBinding, Input, NgZone, OnDestroy, OnInit, Output, PLATFORM_ID, TemplateRef, ViewChild, inject } from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Component,
+    ContentChild,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    HostBinding,
+    Input,
+    NgZone,
+    OnDestroy,
+    OnInit,
+    Output,
+    PLATFORM_ID,
+    TemplateRef,
+    ViewChild,
+    inject
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';

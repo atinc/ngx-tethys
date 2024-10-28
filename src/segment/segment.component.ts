@@ -1,4 +1,19 @@
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, DestroyRef, EventEmitter, HostBinding, Input, Output, QueryList, ViewEncapsulation, numberAttribute, inject } from '@angular/core';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    DestroyRef,
+    EventEmitter,
+    HostBinding,
+    Input,
+    Output,
+    QueryList,
+    ViewEncapsulation,
+    numberAttribute,
+    inject
+} from '@angular/core';
 import { ThumbAnimationProps } from 'ngx-tethys/core';
 import { thumbMotion } from 'ngx-tethys/core';
 import { ThySegmentItem } from './segment-item.component';

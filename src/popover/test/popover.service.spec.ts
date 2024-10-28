@@ -2,7 +2,18 @@ import { ContentObserver } from '@angular/cdk/observers';
 import { CloseScrollStrategy, Overlay, OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
 import { Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
-import { ChangeDetectorRef, Component, Directive, ElementRef, Injector, NgModule, TemplateRef, ViewChild, ViewContainerRef, inject as inject_1 } from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Component,
+    Directive,
+    ElementRef,
+    Injector,
+    NgModule,
+    TemplateRef,
+    ViewChild,
+    ViewContainerRef,
+    inject as inject_1
+} from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -112,7 +123,6 @@ export class PopoverManualClosureContentComponent {
     overlay = inject_1(Overlay);
     popoverInjector = inject_1(Injector);
 
-
     @ViewChild('btn1', { static: true })
     btn1: HTMLElement;
 
@@ -168,7 +178,6 @@ export class PopoverInsideClosableComponent {
 export class PopoverConfigComponent {
     popover = inject_1(ThyPopover);
     overlay = inject_1(Overlay);
-
 
     public popoverRef: ThyPopoverRef<any>;
 

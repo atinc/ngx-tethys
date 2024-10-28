@@ -12,7 +12,6 @@ import { ThySlideDemoContentComponent } from '../slide-content.component';
 export class ThySlideDrawerContainerExampleComponent {
     private thySlideNewService = inject(ThySlideService);
 
-
     open() {
         this.thySlideNewService.open(ThySlideDemoContentComponent, {
             id: 'has-container',

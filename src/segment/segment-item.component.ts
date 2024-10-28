@@ -1,4 +1,16 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, NgZone, OnDestroy, Renderer2, inject } from '@angular/core';
+import {
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    HostBinding,
+    Input,
+    NgZone,
+    OnDestroy,
+    Renderer2,
+    inject
+} from '@angular/core';
 import { IThySegmentComponent, THY_SEGMENTED_COMPONENT } from './segment.token';
 import { assertIconOnly, coerceBooleanProperty } from 'ngx-tethys/util';
 import { Subject, fromEvent } from 'rxjs';

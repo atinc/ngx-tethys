@@ -1,4 +1,21 @@
-import { Component, TemplateRef, ViewChild, ChangeDetectionStrategy, ContentChildren, QueryList, OnInit, Output, EventEmitter, NgZone, OnDestroy, AfterContentInit, ChangeDetectorRef, Input, ElementRef, inject } from '@angular/core';
+import {
+    Component,
+    TemplateRef,
+    ViewChild,
+    ChangeDetectionStrategy,
+    ContentChildren,
+    QueryList,
+    OnInit,
+    Output,
+    EventEmitter,
+    NgZone,
+    OnDestroy,
+    AfterContentInit,
+    ChangeDetectorRef,
+    Input,
+    ElementRef,
+    inject
+} from '@angular/core';
 import { defer, merge, Observable, Subject, timer } from 'rxjs';
 import { take, switchMap, takeUntil, startWith } from 'rxjs/operators';
 import { SelectionModel } from '@angular/cdk/collections';

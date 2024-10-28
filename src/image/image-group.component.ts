@@ -16,7 +16,6 @@ export class ThyImageGroup {
     injector = inject(Injector);
     element = inject(ElementRef);
 
-
     images: ThyImageDirective[] = [];
 
     addImage(image: ThyImageDirective, index: number): void {

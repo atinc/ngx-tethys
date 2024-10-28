@@ -1,4 +1,19 @@
-import { AfterContentInit, Component, ContentChild, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output, TemplateRef, ViewChild, OnDestroy, NgZone, inject } from '@angular/core';
+import {
+    AfterContentInit,
+    Component,
+    ContentChild,
+    ElementRef,
+    EventEmitter,
+    HostBinding,
+    Input,
+    OnInit,
+    Output,
+    TemplateRef,
+    ViewChild,
+    OnDestroy,
+    NgZone,
+    inject
+} from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyTranslate } from 'ngx-tethys/core';
 import { coerceBooleanProperty, htmlElementIsEmpty } from 'ngx-tethys/util';

@@ -10,7 +10,21 @@ import {
     useHostFocusControl
 } from 'ngx-tethys/core';
 
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, OnDestroy, OnInit, Output, ViewChild, ViewEncapsulation, inject } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
+    ViewChild,
+    ViewEncapsulation,
+    inject
+} from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';

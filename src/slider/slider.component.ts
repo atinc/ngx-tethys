@@ -1,4 +1,22 @@
-import { Component, OnInit, OnChanges, OnDestroy, AfterViewInit, SimpleChanges, forwardRef, Input, EventEmitter, ChangeDetectorRef, ViewChild, ElementRef, HostBinding, Output, NgZone, numberAttribute, inject } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    OnChanges,
+    OnDestroy,
+    AfterViewInit,
+    SimpleChanges,
+    forwardRef,
+    Input,
+    EventEmitter,
+    ChangeDetectorRef,
+    ViewChild,
+    ElementRef,
+    HostBinding,
+    Output,
+    NgZone,
+    numberAttribute,
+    inject
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable, Subscription, fromEvent } from 'rxjs';
 import { clamp, coerceBooleanProperty } from 'ngx-tethys/util';

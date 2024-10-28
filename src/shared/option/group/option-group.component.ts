@@ -1,4 +1,15 @@
-import { Component, HostBinding, Input, ContentChildren, QueryList, NgZone, OnDestroy, AfterContentInit, ChangeDetectorRef, inject } from '@angular/core';
+import {
+    Component,
+    HostBinding,
+    Input,
+    ContentChildren,
+    QueryList,
+    NgZone,
+    OnDestroy,
+    AfterContentInit,
+    ChangeDetectorRef,
+    inject
+} from '@angular/core';
 import { Observable, defer, Subject, merge } from 'rxjs';
 import { ThyOptionVisibleChangeEvent, ThyOption } from '../option.component';
 import { take, switchMap, startWith, takeUntil, debounceTime, map } from 'rxjs/operators';

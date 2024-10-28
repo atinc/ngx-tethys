@@ -5,7 +5,26 @@ import { delay, filter, take, takeUntil } from 'rxjs/operators';
 
 import { OverlayOutsideClickDispatcher, OverlayRef } from '@angular/cdk/overlay';
 import { NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, HostBinding, Input, NgZone, numberAttribute, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef, ViewChild, inject } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChild,
+    ElementRef,
+    EventEmitter,
+    HostBinding,
+    Input,
+    NgZone,
+    numberAttribute,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    Output,
+    SimpleChanges,
+    TemplateRef,
+    ViewChild,
+    inject
+} from '@angular/core';
 
 import { ThyProperties } from './properties.component';
 import { coerceBooleanProperty } from 'ngx-tethys/util';

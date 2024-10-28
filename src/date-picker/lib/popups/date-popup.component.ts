@@ -1,7 +1,20 @@
 import { endOfDay, startOfDay } from 'date-fns';
 import { FunctionProp, TinyDate, TinyDateCompareGrain, helpers, isFunction, isUndefinedOrNull, sortRangeValue } from 'ngx-tethys/util';
 
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, numberAttribute, OnChanges, OnInit, Output, SimpleChanges, TemplateRef, inject } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    Input,
+    numberAttribute,
+    OnChanges,
+    OnInit,
+    Output,
+    SimpleChanges,
+    TemplateRef,
+    inject
+} from '@angular/core';
 
 import { NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';

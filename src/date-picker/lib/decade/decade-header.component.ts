@@ -21,7 +21,6 @@ export class DecadeHeader extends CalendarHeader {
 
     constructor() {
         super();
-
     }
     get startYear(): number {
         return parseInt(`${this.value.getYear() / 100}`, 10) * 100;

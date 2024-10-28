@@ -1,7 +1,21 @@
 import { take } from 'rxjs/operators';
 
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, ContentChild, ElementRef, EventEmitter, forwardRef, Input, NgZone, OnInit, Output, TemplateRef, ViewChild, ViewEncapsulation, inject } from '@angular/core';
+import {
+    Component,
+    ContentChild,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    Input,
+    NgZone,
+    OnInit,
+    Output,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation,
+    inject
+} from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyAutofocusDirective } from 'ngx-tethys/shared';

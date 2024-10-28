@@ -1,5 +1,16 @@
 import { ContentObserver } from '@angular/cdk/observers';
-import { AfterContentInit, Component, ElementRef, Input, NgZone, OnDestroy, OnInit, TemplateRef, numberAttribute, inject } from '@angular/core';
+import {
+    AfterContentInit,
+    Component,
+    ElementRef,
+    Input,
+    NgZone,
+    OnDestroy,
+    OnInit,
+    TemplateRef,
+    numberAttribute,
+    inject
+} from '@angular/core';
 import { ThyPlacement } from 'ngx-tethys/core';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
