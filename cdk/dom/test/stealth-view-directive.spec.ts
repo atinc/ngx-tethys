@@ -1,4 +1,14 @@
-import { AfterViewInit, Component, ElementRef, Injector, runInInjectionContext, TemplateRef, viewChild, ViewChild, inject } from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    ElementRef,
+    Injector,
+    runInInjectionContext,
+    TemplateRef,
+    viewChild,
+    ViewChild,
+    inject
+} from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { ThyStealthViewDirective } from '../stealth-view-directive';
 import { useStealthViewRenderer } from '../stealth-view-renderer';
