@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnChanges, Input, OnInit, ChangeDetectionStrategy, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, OnChanges, Input, OnInit, ChangeDetectionStrategy, SimpleChanges, inject } from '@angular/core';
 import { isThemeColor, ThyThemeColor } from 'ngx-tethys/core';
 import { coerceBooleanProperty, hexToRgb } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -30,6 +30,8 @@ export type ThyTagSize = 'sm' | 'md' | 'lg';
     standalone: true
 })
 export class ThyTag implements OnInit, OnChanges {
+    private elementRef = inject(ElementRef);
+
     private color: ThyTagColor = 'default';
 
     private hostRenderer = useHostRenderer();
@@ -78,8 +80,6 @@ export class ThyTag implements OnInit, OnChanges {
      */
     @Input({ transform: coerceBooleanProperty })
     thyHoverable: boolean | string;
-
-    constructor(private elementRef: ElementRef) {}
 
     ngOnInit(): void {
         this.setColor();

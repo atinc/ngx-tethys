@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostBinding, Input, OnInit, Optional, Renderer2, Self } from '@angular/core';
+import { Directive, ElementRef, HostBinding, Input, OnInit, Renderer2, inject } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
@@ -22,6 +22,10 @@ const inputGroupSizeMap = {
     standalone: true
 })
 export class ThyInputDirective implements OnInit {
+    private elementRef = inject(ElementRef);
+    private render = inject(Renderer2);
+    private control = inject(NgControl, { optional: true, self: true })!;
+
     @HostBinding('class.form-control') isFormControl = true;
 
     private initialized = false;
@@ -49,12 +53,6 @@ export class ThyInputDirective implements OnInit {
     get nativeElement(): HTMLInputElement {
         return this.elementRef.nativeElement;
     }
-
-    constructor(
-        private elementRef: ElementRef,
-        private render: Renderer2,
-        @Optional() @Self() private control: NgControl
-    ) {}
 
     ngOnInit() {
         this.initialized = true;

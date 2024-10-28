@@ -1,19 +1,4 @@
-import {
-    Component,
-    Input,
-    HostBinding,
-    ContentChildren,
-    QueryList,
-    AfterContentInit,
-    OnChanges,
-    OnDestroy,
-    OnInit,
-    SimpleChanges,
-    SimpleChange,
-    ChangeDetectorRef,
-    ViewEncapsulation,
-    ChangeDetectionStrategy
-} from '@angular/core';
+import { Component, Input, HostBinding, ContentChildren, QueryList, AfterContentInit, OnChanges, OnDestroy, OnInit, SimpleChanges, SimpleChange, ChangeDetectorRef, ViewEncapsulation, ChangeDetectionStrategy, inject } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { ThyTimelineItem } from './timeline-item.component';
 import { ThyTimelineService } from './timeline.service';
@@ -55,6 +40,9 @@ export type ThyTimeDirection = 'horizontal' | 'vertical';
     imports: [NgTemplateOutlet]
 })
 export class ThyTimeline implements OnInit, AfterContentInit, OnChanges, OnDestroy {
+    private cdr = inject(ChangeDetectorRef);
+    private timelineService = inject(ThyTimelineService);
+
     /**
      * 节点排序是否倒序
      * @default false
@@ -86,11 +74,6 @@ export class ThyTimeline implements OnInit, AfterContentInit, OnChanges, OnDestr
 
     @ContentChildren(ThyTimelineItem)
     listOfItems: QueryList<ThyTimelineItem>;
-
-    constructor(
-        private cdr: ChangeDetectorRef,
-        private timelineService: ThyTimelineService
-    ) {}
 
     ngOnChanges(changes: SimpleChanges): void {
         const { thyMode, thyReverse } = changes;

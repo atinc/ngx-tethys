@@ -3,7 +3,7 @@ import { from, Observable, Subscriber } from 'rxjs';
 import { map, mergeMap, tap } from 'rxjs/operators';
 
 import { XhrFactory } from '@angular/common';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 export enum ThyUploadStatus {
     pending = 'pending',
@@ -148,7 +148,8 @@ export interface ThyUploadFilesOptions {
  */
 @Injectable()
 export class ThyUploadService {
-    constructor(private xhrFactory: XhrFactory) {}
+    private xhrFactory = inject(XhrFactory);
+
 
     private secondsToHuman(sec: number): string {
         return new Date(sec * 1000).toISOString().slice(11, 19);

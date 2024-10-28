@@ -1,6 +1,6 @@
 import { ThyIconRegistry } from 'ngx-tethys/icon';
 
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -9,7 +9,10 @@ import { DomSanitizer } from '@angular/platform-browser';
     styleUrls: ['./namespace.component.scss']
 })
 export class ThyIconNamespaceExampleComponent {
-    constructor(iconRegistry: ThyIconRegistry, domSanitizer: DomSanitizer) {
+    constructor() {
+        const iconRegistry = inject(ThyIconRegistry);
+        const domSanitizer = inject(DomSanitizer);
+
         iconRegistry.addSvgIconInNamespace(
             'mat',
             'thumbs-up',

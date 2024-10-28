@@ -1,4 +1,4 @@
-import { Component, Input, HostBinding, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, HostBinding, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
@@ -15,6 +15,8 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     imports: []
 })
 export class ThyLoading {
+    private changeDetectorRef = inject(ChangeDetectorRef);
+
     public isDone: boolean;
 
     public tip: string;
@@ -50,6 +52,4 @@ export class ThyLoading {
     }
 
     @HostBinding('class.thy-loading') loadingClassName = true;
-
-    constructor(private changeDetectorRef: ChangeDetectorRef) {}
 }

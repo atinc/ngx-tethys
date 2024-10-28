@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ChangeDetectionStrategy, Input, Renderer2, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ChangeDetectionStrategy, Input, Renderer2, ElementRef, ViewChild, inject } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 
 /**
@@ -17,13 +17,13 @@ import { ThyIcon } from 'ngx-tethys/icon';
     imports: [ThyIcon]
 })
 export class ThyMenuItem implements OnInit, AfterViewInit {
+    private renderer = inject(Renderer2);
+
     @ViewChild('content', { read: ElementRef }) content: ElementRef<HTMLElement>;
     /**
      * 菜单项的图标
      */
     @Input() thyIcon: string;
-
-    constructor(private renderer: Renderer2) {}
 
     ngOnInit(): void {}
 

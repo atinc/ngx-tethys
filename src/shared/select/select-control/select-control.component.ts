@@ -1,19 +1,7 @@
 import { ThyTagSize } from 'ngx-tethys/tag';
 import { coerceBooleanProperty, isUndefinedOrNull } from 'ngx-tethys/util';
 
-import {
-    ChangeDetectionStrategy,
-    Component,
-    ElementRef,
-    EventEmitter,
-    Input,
-    OnInit,
-    Output,
-    Renderer2,
-    TemplateRef,
-    ViewChild,
-    numberAttribute
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2, TemplateRef, ViewChild, numberAttribute, inject } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
 import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
@@ -39,6 +27,8 @@ export type SelectControlSize = 'xs' | 'sm' | 'md' | 'lg' | '';
     }
 })
 export class ThySelectControl implements OnInit {
+    private renderer = inject(Renderer2);
+
     inputValue = '';
 
     isComposing = false;
@@ -245,8 +235,6 @@ export class ThySelectControl implements OnInit {
             (this.isMultiple && (<SelectOptionBase[]>this.thySelectedOptions).length > 0)
         );
     }
-
-    constructor(private renderer: Renderer2) {}
 
     ngOnInit() {
         this.setSelectControlClass();

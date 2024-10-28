@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { Directive, ElementRef, EventEmitter, Inject, Input, OnInit, Output, OnDestroy } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, Input, OnInit, Output, OnDestroy, inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { isFormElement, isString } from '@tethys/cdk/is';
 import { ThyHotkeyDispatcher } from './hotkey-dispatcher';
@@ -9,6 +9,10 @@ import { ThyHotkeyDispatcher } from './hotkey-dispatcher';
  */
 @Directive({ selector: '[thyHotkey]' })
 export class ThyHotkeyDirective implements OnInit, OnDestroy {
+    private document = inject(DOCUMENT);
+    private hotkeyDispatcher = inject(ThyHotkeyDispatcher);
+    private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+
     /**
      *  热键对应 Code，多个热键组合支持通过数组或逗号分割的形式传入
      */
@@ -25,12 +29,6 @@ export class ThyHotkeyDirective implements OnInit, OnDestroy {
     @Output() thyHotkeyListener: EventEmitter<KeyboardEvent> = new EventEmitter();
 
     private subscription: Subscription = null;
-
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        private hotkeyDispatcher: ThyHotkeyDispatcher,
-        private elementRef: ElementRef<HTMLElement>
-    ) {}
 
     ngOnInit(): void {
         const scope = isString(this.thyHotkeyScope) ? this.document.querySelector(this.thyHotkeyScope) : this.thyHotkeyScope;

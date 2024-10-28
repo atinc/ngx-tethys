@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable, NgZone } from '@angular/core';
+import { Injectable, NgZone, inject } from '@angular/core';
 import { ThyFullscreenRef } from './fullscreen-ref';
 import { ThyFullscreenConfig, ThyFullscreenMode } from './fullscreen.config';
 
@@ -7,10 +7,9 @@ import { ThyFullscreenConfig, ThyFullscreenMode } from './fullscreen.config';
     providedIn: 'root'
 })
 export class ThyFullscreen {
-    constructor(
-        @Inject(DOCUMENT) protected document: Document,
-        private ngZone: NgZone
-    ) {}
+    protected document = inject(DOCUMENT);
+    private ngZone = inject(NgZone);
+
 
     private fullscreenRefs: ThyFullscreenRef[] = [];
 

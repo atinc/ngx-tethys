@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostBinding, Inject } from '@angular/core';
+import { Component, ElementRef, HostBinding, inject } from '@angular/core';
 import { ThyAbstractMessageContainerComponent } from './abstract';
 import { ThyMessageQueue } from './message-queue.service';
 import { ThyGlobalMessageConfig, THY_MESSAGE_DEFAULT_CONFIG, THY_MESSAGE_DEFAULT_CONFIG_VALUE } from './message.config';
@@ -19,13 +19,14 @@ import { AsyncPipe } from '@angular/common';
     imports: [ThyMessage, AsyncPipe]
 })
 export class ThyMessageContainer extends ThyAbstractMessageContainerComponent {
+    messageQueue = inject(ThyMessageQueue);
+
     @HostBinding('class') className = 'thy-message-container';
 
-    constructor(
-        public messageQueue: ThyMessageQueue,
-        elementRef: ElementRef,
-        @Inject(THY_MESSAGE_DEFAULT_CONFIG) defaultConfig: ThyGlobalMessageConfig
-    ) {
+    constructor() {
+        const elementRef = inject(ElementRef);
+        const defaultConfig = inject(THY_MESSAGE_DEFAULT_CONFIG);
+
         super(elementRef, {
             ...THY_MESSAGE_DEFAULT_CONFIG_VALUE,
             ...defaultConfig

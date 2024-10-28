@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { DateHelperService } from '../../../date-picker/date-helper.service';
 import { CalendarHeader, PanelSelector } from '../calendar/calendar-header.component';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -16,8 +16,14 @@ import { NgClass } from '@angular/common';
     imports: [NgClass, ThyIcon]
 })
 export class DateHeader extends CalendarHeader {
-    constructor(public dateHelper: DateHelperService) {
+    dateHelper: DateHelperService;
+
+    constructor() {
+        const dateHelper = inject(DateHelperService);
+
         super(dateHelper);
+        this.dateHelper = dateHelper;
+
     }
 
     getSelectors(): PanelSelector[] {

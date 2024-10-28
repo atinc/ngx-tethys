@@ -1,16 +1,16 @@
 import { ThyMessageRef, ThyMessageService } from 'ngx-tethys/message';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 
 @Component({
     selector: 'thy-message-close-example',
     templateUrl: './close.component.html'
 })
 export class ThyMessageCloseExampleComponent implements OnInit {
+    private messageService = inject(ThyMessageService);
+
     openedMessageId: string;
 
     messageRef: ThyMessageRef;
-
-    constructor(private messageService: ThyMessageService) {}
 
     ngOnInit() {}
 

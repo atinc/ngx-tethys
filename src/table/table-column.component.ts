@@ -1,18 +1,5 @@
 import { _isNumberValue, coerceCssPixelValue } from '@angular/cdk/coercion';
-import {
-    Component,
-    ContentChild,
-    ElementRef,
-    EventEmitter,
-    Inject,
-    InjectionToken,
-    Input,
-    OnInit,
-    Optional,
-    Output,
-    TemplateRef,
-    ViewEncapsulation
-} from '@angular/core';
+import { Component, ContentChild, ElementRef, EventEmitter, InjectionToken, Input, OnInit, Output, TemplateRef, ViewEncapsulation, inject } from '@angular/core';
 import { coerceBooleanProperty, isArray, isObject } from 'ngx-tethys/util';
 import { ThyTableSortDirection, ThyTableSortEvent } from './table.interface';
 
@@ -40,6 +27,9 @@ export type FixedDirection = 'left' | 'right';
     standalone: true
 })
 export class ThyTableColumnComponent implements OnInit {
+    private el = inject(ElementRef);
+    parent = inject(THY_TABLE_COLUMN_PARENT_COMPONENT, { optional: true })!;
+
     /**
      * 设置数据属性 Key，读取数组中对象的当前 Key 值
      * @type string
@@ -194,13 +184,6 @@ export class ThyTableColumnComponent implements OnInit {
     private _selections: any;
 
     private _firstChange = true;
-
-    constructor(
-        private el: ElementRef,
-        @Optional()
-        @Inject(THY_TABLE_COLUMN_PARENT_COMPONENT)
-        public parent: IThyTableColumnParentComponent
-    ) {}
 
     ngOnInit() {
         this.key = this._generateKey();

@@ -1,4 +1,4 @@
-import { Directive, NgZone, ElementRef, HostBinding, Input, Inject, OnDestroy, Optional, Renderer2 } from '@angular/core';
+import { Directive, NgZone, ElementRef, HostBinding, Input, OnDestroy, Renderer2, inject } from '@angular/core';
 import { DragRef } from './drag-ref';
 import { DOCUMENT } from '@angular/common';
 import { ThyDragDropService } from './drag-drop.service';
@@ -15,6 +15,9 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     standalone: true
 })
 export class ThyDragDirective<T = any> implements OnDestroy {
+    container = inject(THY_DROP_CONTAINER_DIRECTIVE, { optional: true })!;
+    private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+
     /**
      * 元数据
      * @type any
@@ -49,14 +52,14 @@ export class ThyDragDirective<T = any> implements OnDestroy {
 
     public dragRef: DragRef<T>;
 
-    constructor(
-        @Inject(DOCUMENT) document: any,
-        @Optional() @Inject(THY_DROP_CONTAINER_DIRECTIVE) public container: IThyDropContainerDirective,
-        ngZone: NgZone,
-        private elementRef: ElementRef<HTMLElement>,
-        service: ThyDragDropService<T>,
-        renderer: Renderer2
-    ) {
+    constructor() {
+        const document = inject(DOCUMENT);
+        const container = this.container;
+        const ngZone = inject(NgZone);
+        const elementRef = this.elementRef;
+        const service = inject<ThyDragDropService<T>>(ThyDragDropService);
+        const renderer = inject(Renderer2);
+
         this.dragRef = new DragRef<T>(elementRef, this, container, service, document, ngZone, renderer);
     }
 

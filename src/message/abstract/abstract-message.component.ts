@@ -1,4 +1,4 @@
-import { Directive, HostListener, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { Directive, HostListener, Input, NgZone, OnDestroy, OnInit, inject } from '@angular/core';
 import { ThyMessageBaseConfig } from '../message.config';
 import { ThyAbstractMessageQueue } from './abstract-message-queue.service';
 
@@ -11,6 +11,8 @@ export const HIDE_STYLE = { transform: 'translateX(0)', opacity: 0, height: 0, p
  */
 @Directive()
 export class ThyAbstractMessageComponent<TConfig extends ThyMessageBaseConfig> implements OnInit, OnDestroy {
+    private _ngZone = inject(NgZone);
+
     animationState: string;
 
     config: TConfig;
@@ -26,10 +28,9 @@ export class ThyAbstractMessageComponent<TConfig extends ThyMessageBaseConfig> i
         this.config = value;
     }
 
-    constructor(
-        private _ngZone: NgZone,
-        queue: ThyAbstractMessageQueue
-    ) {
+    constructor() {
+        const queue = inject(ThyAbstractMessageQueue);
+
         this.queue = queue;
     }
 

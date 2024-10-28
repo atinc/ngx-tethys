@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, HostBinding, TemplateRef, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, HostBinding, TemplateRef, OnInit, inject } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { AnimationEvent } from '@angular/animations';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -25,6 +25,8 @@ import { NgTemplateOutlet } from '@angular/common';
     imports: [NgTemplateOutlet]
 })
 export class ThyTooltip implements OnInit {
+    private changeDetectorRef = inject(ChangeDetectorRef);
+
     @HostBinding(`class.thy-tooltip`) addTooltipContainerClass = true;
 
     _content: string | TemplateRef<HTMLElement>;
@@ -65,8 +67,6 @@ export class ThyTooltip implements OnInit {
 
         this.hostRenderer.updateClass(classes);
     }
-
-    constructor(private changeDetectorRef: ChangeDetectorRef) {}
 
     ngOnInit() {}
 

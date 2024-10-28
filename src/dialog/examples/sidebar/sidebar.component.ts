@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ThyDialog, ThyDialogSizes } from 'ngx-tethys/dialog';
 import { ThyDialogSidebarContentExampleComponent } from './dialog-sidebar.component';
 
@@ -7,7 +7,8 @@ import { ThyDialogSidebarContentExampleComponent } from './dialog-sidebar.compon
     templateUrl: './sidebar.component.html'
 })
 export class ThyDialogSidebarExampleComponent {
-    constructor(private thyDialog: ThyDialog) {}
+    private thyDialog = inject(ThyDialog);
+
 
     openDialog() {
         this.thyDialog.open(ThyDialogSidebarContentExampleComponent, {

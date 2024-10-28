@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input } from '@angular/core';
+import { Directive, ElementRef, Input, inject } from '@angular/core';
 import { isBgColor, isThemeColor, ThyBgColor, ThyThemeColor } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
@@ -12,6 +12,8 @@ import { useHostRenderer } from '@tethys/cdk/dom';
     standalone: true
 })
 export class ThyBackgroundColorDirective {
+    private elementRef = inject(ElementRef);
+
     private bgColor: ThyThemeColor | ThyBgColor | string = '';
 
     private hostRenderer = useHostRenderer();
@@ -25,8 +27,6 @@ export class ThyBackgroundColorDirective {
         this.bgColor = value;
         this.setBgColor();
     }
-
-    constructor(private elementRef: ElementRef) {}
 
     private setBgColor() {
         if (isThemeColor(this.bgColor) || isBgColor(this.bgColor)) {

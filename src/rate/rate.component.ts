@@ -2,21 +2,7 @@ import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
 import { coerceBooleanProperty, helpers } from 'ngx-tethys/util';
 
 import { NgClass } from '@angular/common';
-import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    EventEmitter,
-    forwardRef,
-    HostBinding,
-    Input,
-    numberAttribute,
-    OnChanges,
-    OnInit,
-    Output,
-    SimpleChanges,
-    TemplateRef
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, HostBinding, Input, numberAttribute, OnChanges, OnInit, Output, SimpleChanges, TemplateRef, inject } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyStopPropagationDirective } from 'ngx-tethys/shared';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
@@ -48,6 +34,8 @@ const noop = () => {};
     imports: [ThyStopPropagationDirective, ThyRateItem, NgClass, ThyTooltipDirective]
 })
 export class ThyRate extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor, OnInit, OnChanges {
+    private cdr = inject(ChangeDetectorRef);
+
     private _value = 0;
 
     private currentValue = 0;
@@ -126,7 +114,7 @@ export class ThyRate extends TabIndexDisabledControlValueAccessorMixin implement
 
     @HostBinding('class.thy-rate') className = true;
 
-    constructor(private cdr: ChangeDetectorRef) {
+    constructor() {
         super();
     }
 

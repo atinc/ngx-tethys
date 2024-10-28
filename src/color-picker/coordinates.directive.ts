@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, OnDestroy, OnInit, Output } from '@angular/core';
+import { Directive, ElementRef, HostListener, OnDestroy, OnInit, Output, inject } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
 
@@ -10,6 +10,8 @@ import { distinctUntilChanged } from 'rxjs/operators';
     standalone: true
 })
 export class ThyCoordinatesDirective implements OnInit, OnDestroy {
+    el = inject(ElementRef);
+
     @Output()
     coordinatesChange = new Subject<{
         x: number;
@@ -50,8 +52,6 @@ export class ThyCoordinatesDirective implements OnInit, OnDestroy {
     mouseup() {
         this.mouseListening = false;
     }
-
-    constructor(public el: ElementRef) {}
 
     ngOnInit() {
         this.sub = this.mousechange

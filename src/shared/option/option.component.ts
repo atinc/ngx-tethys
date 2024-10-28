@@ -1,19 +1,4 @@
-import {
-    Component,
-    Input,
-    TemplateRef,
-    ViewChild,
-    ChangeDetectionStrategy,
-    HostBinding,
-    HostListener,
-    ElementRef,
-    ChangeDetectorRef,
-    EventEmitter,
-    OnDestroy,
-    Output,
-    Inject,
-    Optional
-} from '@angular/core';
+import { Component, Input, TemplateRef, ViewChild, ChangeDetectionStrategy, HostBinding, HostListener, ElementRef, ChangeDetectorRef, EventEmitter, OnDestroy, Output, inject } from '@angular/core';
 import { Highlightable } from '@angular/cdk/a11y';
 import { SelectOptionBase } from './select-option-base';
 import { ENTER, SPACE, coerceBooleanProperty, hasModifierKey } from 'ngx-tethys/util';
@@ -49,6 +34,11 @@ export class ThyOptionVisibleChangeEvent {
     imports: [ThyIcon]
 })
 export class ThyOption extends SelectOptionBase implements OnDestroy, Highlightable {
+    element = inject<ElementRef<HTMLElement>>(ElementRef);
+    parent = inject(THY_OPTION_PARENT_COMPONENT, { optional: true })!;
+    group = inject(THY_OPTION_GROUP_COMPONENT, { optional: true })!;
+    private cdr = inject(ChangeDetectorRef);
+
     private _selected = false;
     private _hidden = false;
     private _disabled = false;
@@ -99,12 +89,7 @@ export class ThyOption extends SelectOptionBase implements OnDestroy, Highlighta
     @Output() readonly selectionChange: EventEmitter<ThyOptionSelectionChangeEvent> = new EventEmitter();
     @Output() readonly visibleChange: EventEmitter<ThyOptionVisibleChangeEvent> = new EventEmitter();
 
-    constructor(
-        public element: ElementRef<HTMLElement>,
-        @Optional() @Inject(THY_OPTION_PARENT_COMPONENT) public parent: IThyOptionParentComponent,
-        @Optional() @Inject(THY_OPTION_GROUP_COMPONENT) public group: IThyOptionGroupComponent,
-        private cdr: ChangeDetectorRef
-    ) {
+    constructor() {
         super();
     }
 

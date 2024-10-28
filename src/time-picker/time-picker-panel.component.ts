@@ -1,17 +1,4 @@
-import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    EventEmitter,
-    forwardRef,
-    Input,
-    NgZone,
-    OnDestroy,
-    OnInit,
-    Output,
-    ViewChild
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, NgZone, OnDestroy, OnInit, Output, ViewChild, inject } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { isValid } from 'date-fns';
 import { reqAnimFrame } from 'ngx-tethys/core';
@@ -44,6 +31,9 @@ import { DecimalPipe } from '@angular/common';
     imports: [ThyButton, DecimalPipe]
 })
 export class ThyTimePanel implements OnInit, OnDestroy, ControlValueAccessor {
+    private cdr = inject(ChangeDetectorRef);
+    private ngZone = inject(NgZone);
+
     @ViewChild('hourListElement', { static: false }) hourListRef: ElementRef<HTMLElement>;
 
     @ViewChild('minuteListElement', { static: false }) minuteListRef: ElementRef<HTMLElement>;
@@ -146,11 +136,6 @@ export class ThyTimePanel implements OnInit, OnDestroy, ControlValueAccessor {
     onValueChangeFn: (val: Date) => void = () => void 0;
 
     onTouchedFn: () => void = () => void 0;
-
-    constructor(
-        private cdr: ChangeDetectorRef,
-        private ngZone: NgZone
-    ) {}
 
     ngOnInit(): void {
         this.generateTimeRange();

@@ -1,26 +1,4 @@
-import {
-    AfterViewInit,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ContentChildren,
-    ElementRef,
-    EventEmitter,
-    Input,
-    OnInit,
-    Output,
-    QueryList,
-    Renderer2,
-    ViewChild,
-    TemplateRef,
-    ViewEncapsulation,
-    AfterContentInit,
-    OnChanges,
-    SimpleChanges,
-    NgZone,
-    OnDestroy,
-    numberAttribute
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, Renderer2, ViewChild, TemplateRef, ViewEncapsulation, AfterContentInit, OnChanges, SimpleChanges, NgZone, OnDestroy, numberAttribute, inject } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 import { ThyCarouselItemDirective } from './carousel-item.directive';
 import {
@@ -57,6 +35,12 @@ import { coerceBooleanProperty, isNumber } from 'ngx-tethys/util';
     imports: [NgTemplateOutlet, ThyDot, ThyIcon]
 })
 export class ThyCarousel implements OnInit, AfterViewInit, AfterContentInit, OnChanges, OnDestroy {
+    protected renderer = inject(Renderer2);
+    private cdr = inject(ChangeDetectorRef);
+    private ngZone = inject(NgZone);
+    private readonly carouselService = inject(ThyCarouselService);
+    private readonly platform = inject(Platform);
+
     /**
      * @private
      */
@@ -158,14 +142,6 @@ export class ThyCarousel implements OnInit, AfterViewInit, AfterContentInit, OnC
     playTime: number = 400;
 
     isPause: boolean = false;
-
-    constructor(
-        protected renderer: Renderer2,
-        private cdr: ChangeDetectorRef,
-        private ngZone: NgZone,
-        private readonly carouselService: ThyCarouselService,
-        private readonly platform: Platform
-    ) {}
 
     private moveTo(index: number): void {
         if (this.carouselItems && this.carouselItems.length && !this.isTransitioning) {

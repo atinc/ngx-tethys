@@ -1,20 +1,7 @@
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import {
-    Component,
-    ElementRef,
-    EventEmitter,
-    Inject,
-    Input,
-    NgZone,
-    numberAttribute,
-    OnChanges,
-    OnDestroy,
-    Output,
-    SimpleChanges,
-    ViewChild
-} from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, NgZone, numberAttribute, OnChanges, OnDestroy, Output, SimpleChanges, ViewChild, inject } from '@angular/core';
 
 import { FileSelectBaseDirective } from './file-select-base';
 import { THY_UPLOAD_DEFAULT_OPTIONS, ThyUploadConfig } from './upload.config';
@@ -32,6 +19,9 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     standalone: true
 })
 export class ThyFileSelect extends FileSelectBaseDirective implements OnChanges, OnDestroy {
+    elementRef: ElementRef;
+    defaultConfig: ThyUploadConfig;
+
     /**
      * 文件选择事件
      */
@@ -66,12 +56,15 @@ export class ThyFileSelect extends FileSelectBaseDirective implements OnChanges,
 
     private destroy$ = new Subject<void>();
 
-    constructor(
-        public elementRef: ElementRef,
-        @Inject(THY_UPLOAD_DEFAULT_OPTIONS) public defaultConfig: ThyUploadConfig,
-        ngZone: NgZone
-    ) {
+    constructor() {
+        const elementRef = inject(ElementRef);
+        const defaultConfig = inject(THY_UPLOAD_DEFAULT_OPTIONS);
+        const ngZone = inject(NgZone);
+
         super(elementRef, defaultConfig);
+        this.elementRef = elementRef;
+        this.defaultConfig = defaultConfig;
+
 
         ngZone.runOutsideAngular(() =>
             fromEvent(elementRef.nativeElement, 'click')

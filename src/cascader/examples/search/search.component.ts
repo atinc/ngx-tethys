@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { clone, options } from '../cascader-address-options';
 
@@ -7,6 +7,8 @@ import { clone, options } from '../cascader-address-options';
     templateUrl: './search.component.html'
 })
 export class ThyCascaderSearchExampleComponent implements OnInit {
+    private notifyService = inject(ThyNotifyService);
+
     public areaCode: any[] = [];
 
     public multiAreaCode: any[] = [];
@@ -18,8 +20,6 @@ export class ThyCascaderSearchExampleComponent implements OnInit {
         ['12', '1201', '120103'],
         ['14', '1404', '140406']
     ];
-
-    constructor(private notifyService: ThyNotifyService) {}
 
     ngOnInit() {
         this.areaCode = clone(options);

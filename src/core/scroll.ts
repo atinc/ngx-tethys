@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable, NgZone } from '@angular/core';
+import { Injectable, NgZone, inject } from '@angular/core';
 import { reqAnimFrame } from './request-animation';
 
 export type EasyingFn = (t: number, b: number, c: number, d: number) => number;
@@ -18,12 +18,13 @@ function easeInOutCubic(t: number, b: number, c: number, d: number): number {
     providedIn: 'root'
 })
 export class ThyScrollService {
+    private ngZone = inject(NgZone);
+
     private document: Document;
 
-    constructor(
-        @Inject(DOCUMENT) document: any,
-        private ngZone: NgZone
-    ) {
+    constructor() {
+        const document = inject(DOCUMENT);
+
         this.document = document;
     }
 

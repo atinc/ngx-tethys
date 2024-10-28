@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ThyGuiderConfig, ThyGuiderRef, ThyGuiderStep, ThyGuider } from 'ngx-tethys/guider';
 
 @Component({
@@ -6,11 +6,11 @@ import { ThyGuiderConfig, ThyGuiderRef, ThyGuiderStep, ThyGuider } from 'ngx-tet
     templateUrl: 'basic-tip.component.html'
 })
 export class ThyGuiderBasicTipExampleComponent implements OnInit {
+    private thyGuider = inject(ThyGuider);
+
     private option: ThyGuiderConfig;
 
     private guiderRef: ThyGuiderRef;
-
-    constructor(private thyGuider: ThyGuider) {}
 
     ngOnInit() {
         this.option = this.setDefaultGuiderOption();

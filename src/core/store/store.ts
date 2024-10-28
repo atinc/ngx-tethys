@@ -2,7 +2,7 @@ import { helpers } from 'ngx-tethys/util';
 import { BehaviorSubject, from, Observable, Observer, Subscription } from 'rxjs';
 import { distinctUntilChanged, map, shareReplay } from 'rxjs/operators';
 
-import { Directive, isDevMode, OnDestroy } from '@angular/core';
+import { Directive, isDevMode, OnDestroy, inject } from '@angular/core';
 
 import { MiniAction } from './action';
 import { MiniActionState } from './action-state';
@@ -18,7 +18,9 @@ export class MiniStore<T = unknown> implements Observer<T>, OnDestroy {
 
     private _defaultStoreInstanceId: string;
 
-    constructor(initialState: any) {
+    constructor() {
+        const initialState = inject(any);
+
         this._defaultStoreInstanceId = this._getClassName();
         this.state$ = new BehaviorSubject<T>(initialState);
         this.initialStateCache = { ...initialState };

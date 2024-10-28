@@ -1,4 +1,4 @@
-import { Component, HostBinding, ViewEncapsulation, OnInit, Optional, Input, Inject, ContentChild, TemplateRef } from '@angular/core';
+import { Component, HostBinding, ViewEncapsulation, OnInit, Input, ContentChild, TemplateRef, inject } from '@angular/core';
 import { ThyFormDirective } from '../form.directive';
 import { ThyFormGroupFooterAlign, THY_FORM_CONFIG, ThyFormConfig } from '../form.class';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
@@ -16,6 +16,9 @@ import { NgClass, NgTemplateOutlet } from '@angular/common';
     imports: [NgClass, NgTemplateOutlet]
 })
 export class ThyFormGroupFooter implements OnInit {
+    private thyParentForm = inject(ThyFormDirective, { optional: true })!;
+    private defaultConfig = inject(THY_FORM_CONFIG);
+
     @HostBinding('class.form-group') _isFormGroup = true;
 
     @HostBinding('class.row') isHorizontal = true;
@@ -34,11 +37,6 @@ export class ThyFormGroupFooter implements OnInit {
     private get align() {
         return !!this.thyAlign ? this.thyAlign : this.defaultConfig.footerAlign;
     }
-
-    constructor(
-        @Optional() private thyParentForm: ThyFormDirective,
-        @Inject(THY_FORM_CONFIG) private defaultConfig: ThyFormConfig
-    ) {}
 
     ngOnInit() {
         if (this.thyParentForm) {

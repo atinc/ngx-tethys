@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, HostBinding, OnDestroy, OnInit, TemplateRef, ViewChild, inject } from '@angular/core';
 import { ThyGuiderStepRef, ThyGuiderConfig, ThyGuiderRef, ThyGuiderStep, ThyGuider } from 'ngx-tethys/guider';
 
 @Component({
@@ -6,13 +6,13 @@ import { ThyGuiderStepRef, ThyGuiderConfig, ThyGuiderRef, ThyGuiderStep, ThyGuid
     templateUrl: 'custom-hint.component.html'
 })
 export class ThyGuiderCustomHintExampleComponent implements OnInit, OnDestroy {
+    private thyGuider = inject(ThyGuider);
+
     private option: ThyGuiderConfig;
 
     private guiderRef: ThyGuiderRef;
 
     @ViewChild('descTemplate', { static: true }) descTemplate: TemplateRef<any>;
-
-    constructor(private thyGuider: ThyGuider) {}
 
     ngOnInit() {
         this.option = this.setDefaultGuiderOption();

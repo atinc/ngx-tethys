@@ -3,7 +3,7 @@ import { catchError, finalize, map, share, tap } from 'rxjs/operators';
 
 import { DOCUMENT } from '@angular/common';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Inject, Injectable, SecurityContext } from '@angular/core';
+import { Injectable, SecurityContext, inject } from '@angular/core';
 import { DomSanitizer, SafeHtml, SafeResourceUrl } from '@angular/platform-browser';
 import { isString } from 'ngx-tethys/util';
 
@@ -35,6 +35,10 @@ export type SvgHtml = SafeHtml | string;
     providedIn: 'root'
 })
 export class ThyIconRegistry {
+    private sanitizer = inject(DomSanitizer);
+    private httpClient = inject(HttpClient);
+    private document = inject(DOCUMENT);
+
     private defaultFontSetClass = 'wt-icon';
     private internalIconMode: IconMode = 'svg';
     private svgIconConfigs = new Map<string, SvgIconConfig>();
@@ -44,12 +48,6 @@ export class ThyIconRegistry {
     public get iconMode() {
         return this.internalIconMode;
     }
-
-    constructor(
-        private sanitizer: DomSanitizer,
-        private httpClient: HttpClient,
-        @Inject(DOCUMENT) private document: any
-    ) {}
 
     private getIconNameNotFoundError(iconName: string): Error {
         return Error(`Unable to find icon with the name "${iconName}"`);

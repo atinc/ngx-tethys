@@ -5,25 +5,7 @@ import { delay, filter, take, takeUntil } from 'rxjs/operators';
 
 import { OverlayOutsideClickDispatcher, OverlayRef } from '@angular/cdk/overlay';
 import { NgTemplateOutlet } from '@angular/common';
-import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ContentChild,
-    ElementRef,
-    EventEmitter,
-    HostBinding,
-    Input,
-    NgZone,
-    numberAttribute,
-    OnChanges,
-    OnDestroy,
-    OnInit,
-    Output,
-    SimpleChanges,
-    TemplateRef,
-    ViewChild
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, HostBinding, Input, NgZone, numberAttribute, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef, ViewChild, inject } from '@angular/core';
 
 import { ThyProperties } from './properties.component';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
@@ -47,6 +29,12 @@ export type ThyPropertyItemOperationTrigger = 'hover' | 'always';
     imports: [ThyFlexibleText, NgTemplateOutlet]
 })
 export class ThyPropertyItem implements OnInit, OnChanges, OnDestroy {
+    private cdr = inject(ChangeDetectorRef);
+    private clickDispatcher = inject(ThyClickDispatcher);
+    private ngZone = inject(NgZone);
+    private overlayOutsideClickDispatcher = inject(OverlayOutsideClickDispatcher);
+    private parent = inject(ThyProperties);
+
     /**
      * 属性名称
      * @type sting
@@ -122,13 +110,7 @@ export class ThyPropertyItem implements OnInit, OnChanges, OnDestroy {
 
     isVertical = false;
 
-    constructor(
-        private cdr: ChangeDetectorRef,
-        private clickDispatcher: ThyClickDispatcher,
-        private ngZone: NgZone,
-        private overlayOutsideClickDispatcher: OverlayOutsideClickDispatcher,
-        private parent: ThyProperties
-    ) {
+    constructor() {
         this.originOverlays = [...this.overlayOutsideClickDispatcher._attachedOverlays] as OverlayRef[];
     }
 

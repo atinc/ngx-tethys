@@ -6,24 +6,7 @@ import { startWith } from 'rxjs/operators';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
-import {
-    AfterContentInit,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ContentChildren,
-    ElementRef,
-    EventEmitter,
-    forwardRef,
-    HostBinding,
-    Input,
-    NgZone,
-    OnDestroy,
-    OnInit,
-    Output,
-    QueryList,
-    Renderer2
-} from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, HostBinding, Input, NgZone, OnDestroy, OnInit, Output, QueryList, Renderer2, inject } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { ThySelectionListChange } from './selection.interface';
@@ -56,6 +39,11 @@ const listSizesMap = {
     standalone: true
 })
 export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IThyListOptionParentComponent, ControlValueAccessor {
+    private renderer = inject(Renderer2);
+    private elementRef = inject(ElementRef);
+    private ngZone = inject(NgZone);
+    private changeDetectorRef = inject(ChangeDetectorRef);
+
     private _keyManager: ActiveDescendantKeyManager<ThyListOption>;
 
     private _selectionChangesUnsubscribe$ = Subscription.EMPTY;
@@ -307,13 +295,6 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
             this.hostRenderer.addClass(listSizesMap[size]);
         }
     }
-
-    constructor(
-        private renderer: Renderer2,
-        private elementRef: ElementRef,
-        private ngZone: NgZone,
-        private changeDetectorRef: ChangeDetectorRef
-    ) {}
 
     ngOnInit() {
         const bindKeyEventElement = this._getElementBySelector(this.thyBindKeyEventContainer);

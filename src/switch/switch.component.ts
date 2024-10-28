@@ -1,16 +1,5 @@
 import { NgClass } from '@angular/common';
-import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    EventEmitter,
-    forwardRef,
-    Input,
-    OnInit,
-    Output,
-    ViewChild
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, OnInit, Output, ViewChild, inject } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
@@ -40,6 +29,8 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     }
 })
 export class ThySwitch extends TabIndexDisabledControlValueAccessorMixin implements OnInit, ControlValueAccessor {
+    cdr = inject(ChangeDetectorRef);
+
     public model: boolean;
 
     public type?: string = 'primary';
@@ -139,7 +130,7 @@ export class ThySwitch extends TabIndexDisabledControlValueAccessorMixin impleme
      */
     @Output() thyChange: EventEmitter<Event> = new EventEmitter<Event>();
 
-    constructor(public cdr: ChangeDetectorRef) {
+    constructor() {
         super();
     }
 

@@ -31,9 +31,9 @@ class ThyDialogPassDataContentComponent {
     imports: [ThyButton]
 })
 export class ThyDialogPassDataExampleComponent implements OnInit {
-    private config: ThyDialogConfig = {};
+    private thyDialog = inject(ThyDialog);
 
-    constructor(private thyDialog: ThyDialog) {}
+    private config: ThyDialogConfig = {};
 
     ngOnInit() {}
 

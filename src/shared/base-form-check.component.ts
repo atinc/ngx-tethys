@@ -1,5 +1,5 @@
 import { ControlValueAccessor } from '@angular/forms';
-import { HostBinding, Input, ChangeDetectorRef, Directive } from '@angular/core';
+import { HostBinding, Input, ChangeDetectorRef, Directive, inject } from '@angular/core';
 import { ThyTranslate, TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
@@ -10,6 +10,9 @@ const noop = () => {};
  */
 @Directive()
 export class ThyFormCheckBaseComponent extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor {
+    protected thyTranslate = inject(ThyTranslate);
+    protected changeDetectorRef? = inject(ChangeDetectorRef);
+
     // The internal data model
     _innerValue: boolean = null;
 
@@ -103,10 +106,7 @@ export class ThyFormCheckBaseComponent extends TabIndexDisabledControlValueAcces
         this.markForCheck();
     }
 
-    constructor(
-        protected thyTranslate: ThyTranslate,
-        protected changeDetectorRef?: ChangeDetectorRef
-    ) {
+    constructor() {
         super();
     }
 

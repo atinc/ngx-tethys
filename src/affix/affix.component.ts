@@ -11,7 +11,6 @@ import {
     Component,
     ElementRef,
     EventEmitter,
-    Inject,
     Input,
     NgZone,
     numberAttribute,
@@ -21,7 +20,8 @@ import {
     Renderer2,
     SimpleChanges,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    inject
 } from '@angular/core';
 
 import { AffixRespondEvents } from './respond-events';
@@ -47,6 +47,11 @@ const THY_AFFIX_DEFAULT_SCROLL_TIME = 20;
     standalone: true
 })
 export class ThyAffix implements AfterViewInit, OnChanges, OnDestroy {
+    private scrollService = inject(ThyScrollService);
+    private ngZone = inject(NgZone);
+    private platform = inject(Platform);
+    private renderer = inject(Renderer2);
+
     @ViewChild('fixedElement', { static: true }) private fixedElement!: ElementRef<HTMLDivElement>;
 
     /**
@@ -89,14 +94,10 @@ export class ThyAffix implements AfterViewInit, OnChanges, OnDestroy {
         return (typeof el === 'string' ? this.document.querySelector(el) : el) || window;
     }
 
-    constructor(
-        el: ElementRef,
-        @Inject(DOCUMENT) document: any,
-        private scrollService: ThyScrollService,
-        private ngZone: NgZone,
-        private platform: Platform,
-        private renderer: Renderer2
-    ) {
+    constructor() {
+        const el = inject(ElementRef);
+        const document = inject(DOCUMENT);
+
         // The wrapper would stay at the original position as a placeholder.
         this.placeholderNode = el.nativeElement;
         this.document = document;

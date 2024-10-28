@@ -1,18 +1,4 @@
-import {
-    AfterContentInit,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ContentChildren,
-    DestroyRef,
-    EventEmitter,
-    HostBinding,
-    Input,
-    Output,
-    QueryList,
-    ViewEncapsulation,
-    numberAttribute
-} from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, DestroyRef, EventEmitter, HostBinding, Input, Output, QueryList, ViewEncapsulation, numberAttribute, inject } from '@angular/core';
 import { ThumbAnimationProps } from 'ngx-tethys/core';
 import { thumbMotion } from 'ngx-tethys/core';
 import { ThySegmentItem } from './segment-item.component';
@@ -56,6 +42,9 @@ export type ThySegmentMode = 'block' | 'inline';
     imports: []
 })
 export class ThySegment implements IThySegmentComponent, AfterContentInit {
+    private cdr = inject(ChangeDetectorRef);
+    private destroyRef = inject(DestroyRef);
+
     /**
      * @internal
      */
@@ -114,11 +103,6 @@ export class ThySegment implements IThySegmentComponent, AfterContentInit {
     public animationState: null | { value: string; params: ThumbAnimationProps } = null;
 
     public transitionedTo: any = null;
-
-    constructor(
-        private cdr: ChangeDetectorRef,
-        private destroyRef: DestroyRef
-    ) {}
 
     ngAfterContentInit(): void {
         this.selectedItem = this.options.get(this.newActiveIndex) || this.options.get(0);

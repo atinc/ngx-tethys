@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnChanges, inject } from '@angular/core';
 import { TinyDate } from 'ngx-tethys/util';
 import { DateHelperService } from '../../date-helper.service';
 import { CalendarTable } from '../calendar/calendar-table.component';
@@ -18,11 +18,13 @@ import { NgClass } from '@angular/common';
     imports: [NgClass]
 })
 export class QuarterTable extends CalendarTable implements OnChanges {
+    private dateHelper = inject(DateHelperService);
+
     MAX_ROW = 1;
 
     MAX_COL = 4;
 
-    constructor(private dateHelper: DateHelperService) {
+    constructor() {
         super();
     }
 

@@ -1,6 +1,6 @@
 import { ThyIconRegistry } from 'ngx-tethys/icon';
 
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 const linearGradientSvg = `
@@ -25,7 +25,10 @@ xmlns:xlink="http://www.w3.org/1999/xlink" >
     styleUrls: ['./linear-gradient.component.scss']
 })
 export class ThyIconLinearGradientExampleComponent {
-    constructor(iconRegistry: ThyIconRegistry, domSanitizer: DomSanitizer) {
+    constructor() {
+        const iconRegistry = inject(ThyIconRegistry);
+        const domSanitizer = inject(DomSanitizer);
+
         iconRegistry.addSvgIconLiteral('my-linear-gradient', domSanitizer.bypassSecurityTrustHtml(linearGradientSvg));
     }
 }

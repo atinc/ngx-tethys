@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, forwardRef, inject } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
@@ -27,15 +27,19 @@ import { ThyPicker } from './picker.component';
     imports: [ThyPicker, DatePopup]
 })
 export class ThyWeekPicker extends BasePicker {
+    protected elementRef: ElementRef;
+
     showWeek = true;
 
     private hostRenderer = useHostRenderer();
 
-    constructor(
-        cdr: ChangeDetectorRef,
-        protected elementRef: ElementRef
-    ) {
+    constructor() {
+        const cdr = inject(ChangeDetectorRef);
+        const elementRef = inject(ElementRef);
+
         super(cdr, elementRef);
+        this.elementRef = elementRef;
+
         this.hostRenderer.addClass('thy-calendar-picker');
         this.thyMode = 'week';
     }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, inject } from '@angular/core';
 import { ThyCanvasConfigType } from 'ngx-tethys/watermark';
 
 @Component({
@@ -7,6 +7,8 @@ import { ThyCanvasConfigType } from 'ngx-tethys/watermark';
     styleUrls: ['./custom.component.scss']
 })
 export class ThyWatermarkCanvasCustomExampleComponent implements OnInit {
+    private el = inject<ElementRef<HTMLElement>>(ElementRef);
+
     thyCanvasConfig: ThyCanvasConfigType = {
         degree: 30, // 偏移角度
         fontSize: 13, // 字体大小
@@ -14,8 +16,6 @@ export class ThyWatermarkCanvasCustomExampleComponent implements OnInit {
         textLineHeight: 25, // 行高
         gutter: [5, 5] // 横纵间距
     };
-
-    constructor(private el: ElementRef<HTMLElement>) {}
 
     ngOnInit() {}
 }

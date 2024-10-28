@@ -1,16 +1,5 @@
 import { Platform } from '@angular/cdk/platform';
-import {
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    ElementRef,
-    Input,
-    OnDestroy,
-    OnInit,
-    TemplateRef,
-    ViewChild,
-    ViewEncapsulation
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, ElementRef, Input, OnDestroy, OnInit, TemplateRef, ViewChild, ViewEncapsulation, inject } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
 import { ThyAnchor } from './anchor.component';
@@ -40,6 +29,10 @@ import { NgTemplateOutlet } from '@angular/common';
     imports: [NgTemplateOutlet]
 })
 export class ThyAnchorLink implements OnInit, OnDestroy {
+    elementRef = inject(ElementRef);
+    private anchorComponent = inject(ThyAnchor);
+    private platform = inject(Platform);
+
     title: string | null = '';
 
     titleTemplate?: TemplateRef<any>;
@@ -68,11 +61,9 @@ export class ThyAnchorLink implements OnInit, OnDestroy {
 
     @ViewChild('linkTitle', { static: true }) linkTitle!: ElementRef<HTMLAnchorElement>;
 
-    constructor(
-        public elementRef: ElementRef,
-        private anchorComponent: ThyAnchor,
-        private platform: Platform
-    ) {
+    constructor() {
+        const elementRef = this.elementRef;
+
         this.hostRenderer.addClass('thy-anchor-link');
         if (elementRef.nativeElement.tagName.toLowerCase() === 'thy-link') {
             console.warn(`'thy-link' and 'thyLink' are deprecated, please use 'thy-anchor-link' and 'thyAnchorLink' instead.`);

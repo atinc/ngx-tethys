@@ -1,4 +1,4 @@
-import { Component, Input, HostBinding, NgZone } from '@angular/core';
+import { Component, Input, HostBinding, NgZone, inject } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { ThyMessageConfig } from './message.config';
 import { ThyMessageQueue } from './message-queue.service';
@@ -49,7 +49,10 @@ export class ThyMessage extends ThyAbstractMessageComponent<ThyMessageConfig> {
         }
     }
 
-    constructor(ngZone: NgZone, messageQueue: ThyMessageQueue) {
+    constructor() {
+        const ngZone = inject(NgZone);
+        const messageQueue = inject(ThyMessageQueue);
+
         super(ngZone, messageQueue);
     }
 }

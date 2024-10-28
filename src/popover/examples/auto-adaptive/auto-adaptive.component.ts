@@ -1,5 +1,5 @@
 import { ThyPopoverConfig } from 'ngx-tethys/popover';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { ThyPopoverAutoAdaptiveContentComponent } from './auto-adaptive-content.component';
 
@@ -8,6 +8,8 @@ import { ThyPopoverAutoAdaptiveContentComponent } from './auto-adaptive-content.
     templateUrl: './auto-adaptive.component.html'
 })
 export class ThyPopoverAutoAdaptiveExampleComponent implements OnInit {
+    private thyPopover = inject(ThyPopover);
+
     config: Partial<ThyPopoverConfig<unknown>> = {
         hasBackdrop: true,
         backdropClosable: true,
@@ -16,8 +18,6 @@ export class ThyPopoverAutoAdaptiveExampleComponent implements OnInit {
     };
 
     content = ThyPopoverAutoAdaptiveContentComponent;
-
-    constructor(private thyPopover: ThyPopover) {}
 
     ngOnInit(): void {}
 

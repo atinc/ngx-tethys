@@ -56,6 +56,8 @@ const DEFAULT_SIZE: ThySpacingSize = 'md';
     imports: [NgTemplateOutlet]
 })
 export class ThySpace implements OnInit, AfterContentInit {
+    private cdr = inject(ChangeDetectorRef);
+
     private readonly destroyRef = inject(DestroyRef);
 
     public space: number = getNumericSize(DEFAULT_SIZE);
@@ -87,8 +89,6 @@ export class ThySpace implements OnInit, AfterContentInit {
     }
 
     @ContentChildren(ThySpaceItemDirective, { read: TemplateRef }) items!: QueryList<TemplateRef<HTMLElement>>;
-
-    constructor(private cdr: ChangeDetectorRef) {}
 
     ngOnInit(): void {}
 

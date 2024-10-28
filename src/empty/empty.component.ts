@@ -1,17 +1,6 @@
 import { ThyTranslate } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import {
-    AfterViewInit,
-    Component,
-    ContentChild,
-    ElementRef,
-    OnChanges,
-    Input,
-    NgZone,
-    OnInit,
-    TemplateRef,
-    SimpleChanges
-} from '@angular/core';
+import { AfterViewInit, Component, ContentChild, ElementRef, OnChanges, Input, NgZone, OnInit, TemplateRef, SimpleChanges, inject } from '@angular/core';
 
 import { ThyEmptyConfig } from './empty.config';
 import { PRESET_SVG } from './svgs';
@@ -63,6 +52,12 @@ export type ThyEmptyImageFetchPriority = 'high' | 'low' | 'auto';
     imports: [ThyIcon, NgClass, NgTemplateOutlet]
 })
 export class ThyEmpty implements OnInit, AfterViewInit, OnChanges {
+    private thyTranslate = inject(ThyTranslate);
+    private thyEmptyConfig = inject(ThyEmptyConfig);
+    private elementRef = inject(ElementRef);
+    private ngZone = inject(NgZone);
+    private sanitizer = inject(DomSanitizer);
+
     /**
      * 显示文本提示信息。同时传入 thyMessage，thyTranslationKey，thyEntityName，thyEntityNameTranslateKey 时优先级最高
      */
@@ -196,14 +191,6 @@ export class ThyEmpty implements OnInit, AfterViewInit, OnChanges {
             this.hostRenderer.setStyle('marginTop', marginTop + 'px');
         }
     }
-
-    constructor(
-        private thyTranslate: ThyTranslate,
-        private thyEmptyConfig: ThyEmptyConfig,
-        private elementRef: ElementRef,
-        private ngZone: NgZone,
-        private sanitizer: DomSanitizer
-    ) {}
 
     ngOnInit() {
         this.updateClass();

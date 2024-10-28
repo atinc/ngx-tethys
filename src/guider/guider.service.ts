@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { helpers } from 'ngx-tethys/util';
 import { DOCUMENT } from '@angular/common';
 import { ThyGuiderRef } from './guider-ref';
-import { Inject, NgZone } from '@angular/core';
+import { NgZone, inject } from '@angular/core';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { ThyGuiderManager } from './guider-manager';
 import { Injectable, RendererFactory2 } from '@angular/core';
@@ -18,19 +18,17 @@ import { Overlay } from '@angular/cdk/overlay';
     providedIn: 'root'
 })
 export class ThyGuider {
+    private readonly rendererFactory = inject(RendererFactory2);
+    private popover = inject(ThyPopover);
+    private router = inject(Router);
+    private guiderManager = inject(ThyGuiderManager);
+    private ngZone = inject(NgZone);
+    private overlay = inject(Overlay);
+    private document = inject(DOCUMENT);
+
     private guiderRef: ThyGuiderRef;
 
     private guiderRefs: ThyGuiderRef[] = [];
-
-    constructor(
-        private readonly rendererFactory: RendererFactory2,
-        private popover: ThyPopover,
-        private router: Router,
-        private guiderManager: ThyGuiderManager,
-        private ngZone: NgZone,
-        private overlay: Overlay,
-        @Inject(DOCUMENT) private document: any
-    ) {}
 
     public create(config: ThyGuiderConfig): ThyGuiderRef {
         if (typeof ngDevMode === 'undefined' || ngDevMode) {

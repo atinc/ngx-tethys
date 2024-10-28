@@ -5,19 +5,7 @@ import { AnimationEvent } from '@angular/animations';
 import { Overlay, OverlayConfig, OverlayContainer, OverlayModule, OverlayRef, ScrollStrategy } from '@angular/cdk/overlay';
 import { CdkPortalOutlet, ComponentPortal, PortalModule } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
-import {
-    ChangeDetectorRef,
-    Component,
-    Injectable,
-    Injector,
-    Input,
-    input,
-    NgModule,
-    OnDestroy,
-    StaticProvider,
-    ViewChild,
-    ViewContainerRef
-} from '@angular/core';
+import { ChangeDetectorRef, Component, Injectable, Injector, Input, input, NgModule, OnDestroy, StaticProvider, ViewChild, ViewContainerRef, inject as inject_1 } from '@angular/core';
 import { TestBed, fakeAsync, flush, inject } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -73,7 +61,9 @@ export class TestDialogContainerComponent<TData = unknown> extends ThyAbstractOv
 
     beforeAttachPortal(): void {}
 
-    constructor(changeDetectorRef: ChangeDetectorRef) {
+    constructor() {
+        const changeDetectorRef = inject_1(ChangeDetectorRef);
+
         super(testDialogOptions, changeDetectorRef);
         this.animationOpeningDone = this.animationStateChanged.pipe(
             filter((event: AnimationEvent) => {
@@ -105,7 +95,10 @@ class InternalTestDialogRef<T = unknown, TResult = unknown, TData = unknown> ext
 
 @Injectable()
 export class TestDialogService extends ThyAbstractOverlayService<TestDialogConfig, TestDialogContainerComponent> {
-    constructor(overlay: Overlay, injector: Injector, clickPositioner: ThyClickPositioner) {
+    constructor() {
+        const overlay = inject_1(Overlay);
+        const injector = inject_1(Injector);
+
         super(testDialogOptions, overlay, injector, {});
     }
 
@@ -187,6 +180,8 @@ export class TestDialogModule {}
     template: 'Hello Test Dialog'
 })
 class TestDialogBasicContentComponent {
+    testDialogRef = inject_1<TestDialogRef<TestDialogBasicContentComponent>>(TestDialogRef);
+
     prop1: string;
 
     input1 = input('input1');
@@ -196,8 +191,6 @@ class TestDialogBasicContentComponent {
     @Input('inputWithSetAlias') set inputWithSet(value: string) {
         this.inputWithSetValue = value;
     }
-
-    constructor(public testDialogRef: TestDialogRef<TestDialogBasicContentComponent>) {}
 }
 
 @Component({
@@ -205,10 +198,9 @@ class TestDialogBasicContentComponent {
     template: 'Hello Test Dialog'
 })
 class TestDialogViewContainerComponent {
-    constructor(
-        private dialog: TestDialogService,
-        private viewContainerRef: ViewContainerRef
-    ) {}
+    private dialog = inject_1(TestDialogService);
+    private viewContainerRef = inject_1(ViewContainerRef);
+
 
     open() {
         this.dialog.open(TestDialogBasicContentComponent, {

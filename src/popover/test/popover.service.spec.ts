@@ -2,17 +2,7 @@ import { ContentObserver } from '@angular/cdk/observers';
 import { CloseScrollStrategy, Overlay, OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
 import { Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
-import {
-    ChangeDetectorRef,
-    Component,
-    Directive,
-    ElementRef,
-    Injector,
-    NgModule,
-    TemplateRef,
-    ViewChild,
-    ViewContainerRef
-} from '@angular/core';
+import { ChangeDetectorRef, Component, Directive, ElementRef, Injector, NgModule, TemplateRef, ViewChild, ViewContainerRef, inject as inject_1 } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -45,7 +35,7 @@ class PopoverBasicComponent {
 // eslint-disable-next-line @angular-eslint/directive-selector
 @Directive({ selector: 'thy-with-view-container-directive' })
 class WithViewContainerDirective {
-    constructor(public viewContainerRef: ViewContainerRef) {}
+    viewContainerRef = inject_1(ViewContainerRef);
 }
 
 @Component({
@@ -95,13 +85,11 @@ class WithChildViewContainerComponent {
     `
 })
 export class PopoverSimpleContentComponent {
-    demos: number[];
+    popoverRef = inject_1<ThyPopoverRef<PopoverSimpleContentComponent>>(ThyPopoverRef);
+    popoverInjector = inject_1(Injector);
+    private cdr = inject_1(ChangeDetectorRef);
 
-    constructor(
-        public popoverRef: ThyPopoverRef<PopoverSimpleContentComponent>,
-        public popoverInjector: Injector,
-        private cdr: ChangeDetectorRef
-    ) {}
+    demos: number[];
 
     updateContent() {
         this.demos = [1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8];
@@ -120,11 +108,10 @@ export class PopoverSimpleContentComponent {
     `
 })
 export class PopoverManualClosureContentComponent {
-    constructor(
-        public popover: ThyPopover,
-        public overlay: Overlay,
-        public popoverInjector: Injector
-    ) {}
+    popover = inject_1(ThyPopover);
+    overlay = inject_1(Overlay);
+    popoverInjector = inject_1(Injector);
+
 
     @ViewChild('btn1', { static: true })
     btn1: HTMLElement;
@@ -179,10 +166,9 @@ export class PopoverInsideClosableComponent {
     `
 })
 export class PopoverConfigComponent {
-    constructor(
-        public popover: ThyPopover,
-        public overlay: Overlay
-    ) {}
+    popover = inject_1(ThyPopover);
+    overlay = inject_1(Overlay);
+
 
     public popoverRef: ThyPopoverRef<any>;
 

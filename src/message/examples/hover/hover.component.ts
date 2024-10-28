@@ -1,12 +1,13 @@
 import { ThyMessageService } from 'ngx-tethys/message';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 
 @Component({
     selector: 'thy-message-hover-example',
     templateUrl: './hover.component.html'
 })
 export class ThyMessageHoverExampleComponent implements OnInit {
-    constructor(private messageService: ThyMessageService) {}
+    private messageService = inject(ThyMessageService);
+
 
     ngOnInit() {}
 

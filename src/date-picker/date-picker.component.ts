@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, forwardRef, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, forwardRef, OnInit, inject } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
@@ -34,7 +34,10 @@ export class ThyDatePicker extends BasePicker implements OnInit {
 
     private hostRenderer = useHostRenderer();
 
-    constructor(cdr: ChangeDetectorRef, element: ElementRef) {
+    constructor() {
+        const cdr = inject(ChangeDetectorRef);
+        const element = inject(ElementRef);
+
         super(cdr, element);
         this.hostRenderer.addClass('thy-calendar-picker');
     }

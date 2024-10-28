@@ -1,4 +1,4 @@
-import { Directive, EmbeddedViewRef, Input, OnChanges, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, EmbeddedViewRef, Input, OnChanges, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef, inject } from '@angular/core';
 import { isTemplateRef } from 'ngx-tethys/util';
 
 /**
@@ -10,6 +10,9 @@ import { isTemplateRef } from 'ngx-tethys/util';
     standalone: true
 })
 export class ThyStringOrTemplateOutletDirective implements OnChanges {
+    private viewContainerRef = inject(ViewContainerRef);
+    private renderer = inject(Renderer2);
+
     private viewRef: EmbeddedViewRef<any>;
 
     private textNode: Text;
@@ -17,11 +20,6 @@ export class ThyStringOrTemplateOutletDirective implements OnChanges {
     @Input() thyStringOrTemplateOutletContext: any;
 
     @Input() thyStringOrTemplateOutlet: any | TemplateRef<any>;
-
-    constructor(
-        private viewContainerRef: ViewContainerRef,
-        private renderer: Renderer2
-    ) {}
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes['thyStringOrTemplateOutlet']) {

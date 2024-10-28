@@ -1,15 +1,4 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    EventEmitter,
-    Input,
-    Output,
-    ElementRef,
-    ViewContainerRef,
-    OnInit,
-    OnChanges,
-    SimpleChanges
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ElementRef, ViewContainerRef, OnInit, OnChanges, SimpleChanges, inject } from '@angular/core';
 
 import { TinyDate, coerceBooleanProperty } from 'ngx-tethys/util';
 import { ThyButton } from 'ngx-tethys/button';
@@ -40,7 +29,6 @@ export class CalendarFooter implements OnInit, OnChanges {
     @Output() readonly showTimePickerChange = new EventEmitter<boolean>();
     isShowTime = false;
     isCanTime = false;
-    constructor(_elementRef: ElementRef, _viewContainerRef: ViewContainerRef) {}
 
     ngOnInit() {
         this._initTimeShowMode();

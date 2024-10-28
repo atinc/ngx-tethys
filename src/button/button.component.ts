@@ -1,14 +1,4 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    ElementRef,
-    HostBinding,
-    Input,
-    OnInit,
-    Renderer2,
-    ViewEncapsulation,
-    AfterViewInit
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, HostBinding, Input, OnInit, Renderer2, ViewEncapsulation, AfterViewInit, inject } from '@angular/core';
 
 import { assertIconOnly, coerceBooleanProperty } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -69,6 +59,9 @@ const iconOnlyClass = 'thy-btn-icon-only';
     imports: [ThyIcon, NgClass]
 })
 export class ThyButton implements OnInit, AfterViewInit {
+    private elementRef = inject(ElementRef);
+    private renderer = inject(Renderer2);
+
     private _initialized = false;
 
     private _originalText: string;
@@ -239,11 +232,6 @@ export class ThyButton implements OnInit, AfterViewInit {
         }
         this.hostRenderer.updateClass(classNames);
     }
-
-    constructor(
-        private elementRef: ElementRef,
-        private renderer: Renderer2
-    ) {}
 
     ngOnInit() {
         this.updateClasses();

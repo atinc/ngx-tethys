@@ -1,7 +1,7 @@
 import { ThyFormDirective, ThyFormGroupFooterAlign, ThyFormGroupFooter } from 'ngx-tethys/form';
 import { finalize } from 'rxjs/operators';
 
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
 
 import { NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -22,6 +22,10 @@ import { ThyDialogHeader } from '../header/dialog-header.component';
     imports: [ThyDialogHeader, ThyDialogBody, FormsModule, ThyFormDirective, ThyFormGroupFooter, NgClass, ThyButton]
 })
 export class ThyConfirm implements OnInit, OnDestroy {
+    private dialogRef = inject<ThyDialogRef<ThyConfirm>>(ThyDialogRef);
+    private changeDetectorRef = inject(ChangeDetectorRef);
+    private defaultConfig = inject(THY_CONFIRM_DEFAULT_OPTIONS);
+
     loading: boolean;
 
     @Input() options: ThyConfirmConfig;
@@ -40,11 +44,7 @@ export class ThyConfirm implements OnInit, OnDestroy {
 
     public footerAlign: ThyFormGroupFooterAlign;
 
-    constructor(
-        private dialogRef: ThyDialogRef<ThyConfirm>,
-        private changeDetectorRef: ChangeDetectorRef,
-        @Inject(THY_CONFIRM_DEFAULT_OPTIONS) private defaultConfig: ThyConfirmConfig
-    ) {
+    constructor() {
         this.defaultConfig = { ...(THY_CONFIRM_DEFAULT_OPTIONS_VALUE as ThyConfirmConfig), ...this.defaultConfig };
     }
 

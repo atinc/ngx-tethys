@@ -1,5 +1,5 @@
 import { coerceCssPixelValue } from '@angular/cdk/coercion';
-import { Directive, ElementRef, HostBinding } from '@angular/core';
+import { Directive, ElementRef, HostBinding, inject } from '@angular/core';
 import { ThyGlobalMessageConfig } from '../message.config';
 
 /**
@@ -7,12 +7,13 @@ import { ThyGlobalMessageConfig } from '../message.config';
  */
 @Directive()
 export class ThyAbstractMessageContainerComponent {
+    private elementRef = inject(ElementRef);
+
     @HostBinding('style.top') offset: string;
 
-    constructor(
-        private elementRef: ElementRef,
-        defaultConfig: ThyGlobalMessageConfig
-    ) {
+    constructor() {
+        const defaultConfig = inject(ThyGlobalMessageConfig);
+
         this.offset = coerceCssPixelValue(defaultConfig.offset);
     }
 

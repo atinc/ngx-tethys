@@ -1,15 +1,4 @@
-import {
-    Component,
-    ChangeDetectionStrategy,
-    Input,
-    ContentChild,
-    TemplateRef,
-    numberAttribute,
-    OnChanges,
-    SimpleChanges,
-    OnInit,
-    ChangeDetectorRef
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, ContentChild, TemplateRef, numberAttribute, OnChanges, SimpleChanges, OnInit, ChangeDetectorRef, inject } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { ThyBreadcrumbItem } from './breadcrumb-item.component';
@@ -59,6 +48,8 @@ const ELLIPSIS_ITEM = { _id: THY_BREADCRUMB_ITEM_ELLIPSIS_ID };
     ]
 })
 export class ThyBreadcrumb implements OnInit, OnChanges {
+    private cdr = inject(ChangeDetectorRef);
+
     iconClasses: string[];
     svgIconName: string;
 
@@ -101,8 +92,6 @@ export class ThyBreadcrumb implements OnInit, OnChanges {
     public ellipsisItems: SafeAny[];
 
     public showItems: SafeAny[];
-
-    constructor(private cdr: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.resetItems();

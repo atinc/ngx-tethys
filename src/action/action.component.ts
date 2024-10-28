@@ -1,16 +1,4 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    Input,
-    OnInit,
-    AfterViewInit,
-    OnChanges,
-    ElementRef,
-    Renderer2,
-    SimpleChanges,
-    ChangeDetectorRef,
-    OnDestroy
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, AfterViewInit, OnChanges, ElementRef, Renderer2, SimpleChanges, ChangeDetectorRef, OnDestroy, inject } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
 
@@ -58,6 +46,10 @@ const defaultFeedbackOptions: Record<ThyActionFeedback, ThyActionFeedbackOptions
     imports: [ThyIcon]
 })
 export class ThyAction implements OnInit, AfterViewInit, OnChanges, OnDestroy {
+    private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+    private renderer = inject(Renderer2);
+    private cdr = inject(ChangeDetectorRef);
+
     icon: string;
 
     feedback: ThyActionFeedback = null;
@@ -133,12 +125,6 @@ export class ThyAction implements OnInit, AfterViewInit, OnChanges, OnDestroy {
      */
     @Input({ transform: coerceBooleanProperty })
     thyDisabled: boolean;
-
-    constructor(
-        private elementRef: ElementRef<HTMLElement>,
-        private renderer: Renderer2,
-        private cdr: ChangeDetectorRef
-    ) {}
 
     ngOnInit(): void {
         this.updateClasses();

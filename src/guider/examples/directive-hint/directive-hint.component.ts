@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ThyGuiderStep, ThyGuider, ThyGuiderConfig, ThyGuiderRef } from 'ngx-tethys/guider';
 
 @Component({
@@ -6,13 +6,13 @@ import { ThyGuiderStep, ThyGuider, ThyGuiderConfig, ThyGuiderRef } from 'ngx-tet
     templateUrl: 'directive-hint.component.html'
 })
 export class ThyGuiderDirectiveHintExampleComponent implements OnInit {
+    private thyGuider = inject(ThyGuider);
+
     private option: ThyGuiderConfig;
 
     private guiderRef: ThyGuiderRef;
 
     public key = 'directive-tip-target';
-
-    constructor(private thyGuider: ThyGuider) {}
 
     ngOnInit() {
         this.option = this.setDefaultGuiderOption();

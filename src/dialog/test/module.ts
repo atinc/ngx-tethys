@@ -1,16 +1,5 @@
 import { Directionality } from '@angular/cdk/bidi';
-import {
-    ChangeDetectionStrategy,
-    Component,
-    Directive,
-    Injector,
-    input,
-    NgModule,
-    OnInit,
-    TemplateRef,
-    ViewChild,
-    ViewContainerRef
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Directive, Injector, input, NgModule, OnInit, TemplateRef, ViewChild, ViewContainerRef, inject } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyDialog, ThyDialogModule, ThyDialogRef } from '../';
 
@@ -20,11 +9,9 @@ import { ThyDialog, ThyDialogModule, ThyDialogRef } from '../';
     template: ` <div>Hello Dialog <button>Close</button></div> `
 })
 export class DialogSimpleContentComponent {
-    constructor(
-        public dialogRef: ThyDialogRef<DialogSimpleContentComponent>,
-        public dialogInjector: Injector,
-        public directionality: Directionality
-    ) {}
+    dialogRef = inject<ThyDialogRef<DialogSimpleContentComponent>>(ThyDialogRef);
+    dialogInjector = inject(Injector);
+    directionality = inject(Directionality);
 }
 
 // full dialog component
@@ -42,10 +29,9 @@ export class DialogSimpleContentComponent {
     `
 })
 export class DialogFullContentComponent {
-    constructor(
-        public dialogRef: ThyDialogRef<DialogFullContentComponent>,
-        public dialogInjector: Injector
-    ) {}
+    dialogRef = inject<ThyDialogRef<DialogFullContentComponent>>(ThyDialogRef);
+    dialogInjector = inject(Injector);
+
 
     ok() {
         this.close();
@@ -79,6 +65,8 @@ export class DialogFullContentComponent {
     ]
 })
 export class DialogRestoreComponent {
+    private thyDialog = inject(ThyDialog);
+
     restoreFocus = true;
 
     restoreFocusOptions: FocusOptions = {
@@ -86,8 +74,6 @@ export class DialogRestoreComponent {
     };
 
     dialogRef: ThyDialogRef<DialogFullContentComponent>;
-
-    constructor(private thyDialog: ThyDialog) {}
 
     open() {
         this.dialogRef = this.thyDialog.open(DialogFullContentComponent, {
@@ -100,7 +86,7 @@ export class DialogRestoreComponent {
 // eslint-disable-next-line @angular-eslint/directive-selector
 @Directive({ selector: 'thy-with-view-container-directive' })
 export class WithViewContainerDirective {
-    constructor(public viewContainerRef: ViewContainerRef) {}
+    viewContainerRef = inject(ViewContainerRef);
 }
 
 @Component({
@@ -152,7 +138,7 @@ export class WithInjectedDataDialogComponent implements OnInit {
     template: 'hello'
 })
 export class WithOnPushViewContainerComponent {
-    constructor(public viewContainerRef: ViewContainerRef) {}
+    viewContainerRef = inject(ViewContainerRef);
 }
 
 const TEST_DIRECTIVES = [

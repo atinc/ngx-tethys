@@ -1,4 +1,4 @@
-import { Directive, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
+import { Directive, EventEmitter, HostListener, OnInit, Output, inject } from '@angular/core';
 
 import { ThyFormDirective } from './form.directive';
 
@@ -12,12 +12,12 @@ import { ThyFormDirective } from './form.directive';
     standalone: true
 })
 export class ThyFormSubmitDirective implements OnInit {
+    private thyFormDirective = inject(ThyFormDirective);
+
     /**
      * Form 验证通过的提交函数
      */
     @Output() thyFormSubmit = new EventEmitter();
-
-    constructor(private thyFormDirective: ThyFormDirective) {}
 
     ngOnInit(): void {
         this.thyFormDirective.onSubmitSuccess = ($event: Event) => {

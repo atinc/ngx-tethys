@@ -1,6 +1,6 @@
 import { ThyTranslate } from 'ngx-tethys/core';
 
-import { Component, forwardRef, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, forwardRef, HostBinding, Input, OnInit, inject } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 enum ThyStrengthEnum {
@@ -47,6 +47,8 @@ const strengthMap = {
     standalone: true
 })
 export class ThyStrength implements OnInit, ControlValueAccessor {
+    translate = inject(ThyTranslate);
+
     @HostBinding('class.password-strength-container') styleClass = true;
 
     strengthTitle: string;
@@ -102,8 +104,6 @@ export class ThyStrength implements OnInit, ControlValueAccessor {
     private _onChange = Function.prototype;
 
     private _onTouched = Function.prototype;
-
-    constructor(public translate: ThyTranslate) {}
 
     ngOnInit() {}
 

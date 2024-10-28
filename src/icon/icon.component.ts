@@ -1,19 +1,7 @@
 import { take } from 'rxjs/operators';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
-import {
-    ChangeDetectionStrategy,
-    Component,
-    ElementRef,
-    HostBinding,
-    Input,
-    OnChanges,
-    OnInit,
-    Renderer2,
-    SimpleChanges,
-    ViewEncapsulation,
-    numberAttribute
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, HostBinding, Input, OnChanges, OnInit, Renderer2, SimpleChanges, ViewEncapsulation, numberAttribute, inject } from '@angular/core';
 
 import { getWhetherPrintErrorWhenIconNotFound } from './config';
 import { ThyIconRegistry } from './icon-registry';
@@ -40,6 +28,10 @@ const iconSuffixMap = {
     }
 })
 export class ThyIcon implements OnInit, OnChanges {
+    private render = inject(Renderer2);
+    private elementRef = inject(ElementRef);
+    private iconRegistry = inject(ThyIconRegistry);
+
     private initialized = false;
 
     /**
@@ -75,12 +67,6 @@ export class ThyIcon implements OnInit, OnChanges {
     iconLinearGradient: boolean;
 
     private hostRenderer = useHostRenderer();
-
-    constructor(
-        private render: Renderer2,
-        private elementRef: ElementRef,
-        private iconRegistry: ThyIconRegistry
-    ) {}
 
     ngOnInit() {
         this.updateClasses();

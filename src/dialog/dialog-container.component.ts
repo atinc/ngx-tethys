@@ -6,19 +6,7 @@ import { AnimationEvent } from '@angular/animations';
 import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
 import { PortalModule } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
-import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    EventEmitter,
-    HostBinding,
-    Inject,
-    NgZone,
-    OnDestroy,
-    Renderer2,
-    ViewChild
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, NgZone, OnDestroy, Renderer2, ViewChild, inject } from '@angular/core';
 
 import { thyDialogAnimations } from './dialog-animations';
 import { ThyDialogConfig } from './dialog.config';
@@ -51,6 +39,14 @@ import { dialogAbstractOverlayOptions } from './dialog.options';
     imports: [PortalModule, ThyPortalOutlet]
 })
 export class ThyDialogContainer extends ThyAbstractOverlayContainer implements OnDestroy {
+    private elementRef = inject(ElementRef);
+    private document = inject(DOCUMENT);
+    config = inject(ThyDialogConfig);
+    private clickPositioner = inject(ThyClickPositioner);
+    private focusTrapFactory = inject(FocusTrapFactory);
+    private ngZone = inject(NgZone);
+    private renderer = inject(Renderer2);
+
     animationOpeningDone: Observable<AnimationEvent>;
     animationClosingDone: Observable<AnimationEvent>;
 
@@ -153,16 +149,9 @@ export class ThyDialogContainer extends ThyAbstractOverlayContainer implements O
         });
     }
 
-    constructor(
-        private elementRef: ElementRef,
-        @Inject(DOCUMENT) private document: any,
-        public config: ThyDialogConfig,
-        changeDetectorRef: ChangeDetectorRef,
-        private clickPositioner: ThyClickPositioner,
-        private focusTrapFactory: FocusTrapFactory,
-        private ngZone: NgZone,
-        private renderer: Renderer2
-    ) {
+    constructor() {
+        const changeDetectorRef = inject(ChangeDetectorRef);
+
         super(dialogAbstractOverlayOptions, changeDetectorRef);
         this.animationOpeningDone = this.animationStateChanged.pipe(
             filter((event: AnimationEvent) => {

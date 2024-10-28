@@ -2,7 +2,7 @@ import { ThyDialog } from 'ngx-tethys/dialog';
 import { ThySelect } from 'ngx-tethys/select';
 import { ThyTreeSelectNode } from 'ngx-tethys/tree-select';
 
-import { ChangeDetectorRef, Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, TemplateRef, ViewChild, inject } from '@angular/core';
 
 @Component({
     selector: 'thy-property-editable-example',
@@ -11,6 +11,9 @@ import { ChangeDetectorRef, Component, ElementRef, OnInit, TemplateRef, ViewChil
     host: {}
 })
 export class ThyPropertyEditableExampleComponent implements OnInit {
+    thyDialog = inject(ThyDialog);
+    private cdr = inject(ChangeDetectorRef);
+
     user = {
         name: '张萌',
         phone: 18800010001,
@@ -63,11 +66,6 @@ export class ThyPropertyEditableExampleComponent implements OnInit {
     @ViewChild('selectSex', { read: ThySelect }) selectSex: ThySelect;
 
     @ViewChild('selectProfession', { read: ThySelect }) selectProfession: ThySelect;
-
-    constructor(
-        public thyDialog: ThyDialog,
-        private cdr: ChangeDetectorRef
-    ) {}
 
     ngOnInit() {}
 

@@ -1,4 +1,4 @@
-import { Inject, Injectable, NgZone } from '@angular/core';
+import { Injectable, NgZone, inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -11,15 +11,16 @@ import { ThyDistanceVector } from './typings';
     providedIn: 'root'
 })
 export class ThyCarouselService {
+    private ngZone = inject(NgZone);
+
     private listeners = new Map<string, (event: MouseEvent | TouchEvent) => void>();
     private document: Document;
 
     documentDraggingOutside$ = new Subject<MouseEvent | Touch>();
 
-    constructor(
-        private ngZone: NgZone,
-        @Inject(DOCUMENT) document: any
-    ) {
+    constructor() {
+        const document = inject(DOCUMENT);
+
         this.document = document;
     }
 

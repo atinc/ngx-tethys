@@ -1,18 +1,6 @@
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import {
-    AfterViewInit,
-    ContentChildren,
-    DestroyRef,
-    Directive,
-    ElementRef,
-    forwardRef,
-    inject,
-    Input,
-    NgZone,
-    Optional,
-    QueryList
-} from '@angular/core';
+import { AfterViewInit, ContentChildren, DestroyRef, Directive, ElementRef, forwardRef, inject, Input, NgZone, QueryList } from '@angular/core';
 import { RouterLinkActive } from '@angular/router';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
@@ -33,6 +21,10 @@ export type ThyNavLink = '' | 'active';
     standalone: true
 })
 export class ThyNavItemDirective implements AfterViewInit {
+    elementRef = inject(ElementRef);
+    private routerLinkActive = inject(RouterLinkActive, { optional: true })!;
+    private ngZone = inject(NgZone);
+
     /**
      * 是否激活状态
      * @default false
@@ -87,12 +79,6 @@ export class ThyNavItemDirective implements AfterViewInit {
     private hostRenderer = useHostRenderer();
 
     private readonly destroyRef = inject(DestroyRef);
-
-    constructor(
-        public elementRef: ElementRef,
-        @Optional() private routerLinkActive: RouterLinkActive,
-        private ngZone: NgZone
-    ) {}
 
     ngAfterViewInit() {
         this.setOffset();

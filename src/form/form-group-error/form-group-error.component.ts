@@ -1,4 +1,4 @@
-import { Component, HostBinding, ViewEncapsulation, OnInit, Optional, Input } from '@angular/core';
+import { Component, HostBinding, ViewEncapsulation, OnInit, Input, inject } from '@angular/core';
 import { ThyFormDirective } from '../form.directive';
 import { ThyAlert } from 'ngx-tethys/alert';
 import { NgClass } from '@angular/common';
@@ -16,6 +16,8 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     imports: [NgClass, ThyAlert]
 })
 export class ThyFormGroupError implements OnInit {
+    private thyParentForm = inject(ThyFormDirective, { optional: true })!;
+
     public errors: string[];
 
     @Input({ transform: coerceBooleanProperty }) thyShowFirst = true;
@@ -39,8 +41,6 @@ export class ThyFormGroupError implements OnInit {
     }
 
     @HostBinding('class.row') isHorizontal = true;
-
-    constructor(@Optional() private thyParentForm: ThyFormDirective) {}
 
     ngOnInit() {
         if (this.thyParentForm) {

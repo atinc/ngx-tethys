@@ -1,19 +1,7 @@
 import { endOfDay, startOfDay } from 'date-fns';
 import { FunctionProp, TinyDate, TinyDateCompareGrain, helpers, isFunction, isUndefinedOrNull, sortRangeValue } from 'ngx-tethys/util';
 
-import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    EventEmitter,
-    Input,
-    numberAttribute,
-    OnChanges,
-    OnInit,
-    Output,
-    SimpleChanges,
-    TemplateRef
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, numberAttribute, OnChanges, OnInit, Output, SimpleChanges, TemplateRef, inject } from '@angular/core';
 
 import { NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -51,6 +39,9 @@ import { InnerPopup } from './inner-popup.component';
     imports: [ThyNav, ThyNavItemDirective, ThyButtonIcon, DateCarousel, FormsModule, NgTemplateOutlet, InnerPopup, CalendarFooter]
 })
 export class DatePopup implements OnChanges, OnInit {
+    private cdr = inject(ChangeDetectorRef);
+    private datePickerConfigService = inject(ThyDatePickerConfigService);
+
     @Input() isRange: boolean;
     @Input() showWeek: boolean;
 
@@ -118,11 +109,6 @@ export class DatePopup implements OnChanges, OnInit {
     innerShortcutPresets: ThyShortcutPreset[];
 
     disableTimeConfirm = false;
-
-    constructor(
-        private cdr: ChangeDetectorRef,
-        private datePickerConfigService: ThyDatePickerConfigService
-    ) {}
 
     setProperty<T extends keyof DatePopup>(key: T, value: this[T]): void {
         this[key] = value;

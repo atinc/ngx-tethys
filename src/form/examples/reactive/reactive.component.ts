@@ -1,6 +1,6 @@
 import { ThyFormValidatorConfig, ThyValidateOn } from 'ngx-tethys/form';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 const provinceCities = [
@@ -69,6 +69,8 @@ const provinceCities = [
     templateUrl: './reactive.component.html'
 })
 export class ThyFormReactiveExampleComponent implements OnInit {
+    private formBuilder = inject(FormBuilder);
+
     submitSuccess = false;
 
     provinceCities = provinceCities;
@@ -192,7 +194,7 @@ export class ThyFormReactiveExampleComponent implements OnInit {
         return {};
     };
 
-    constructor(private formBuilder: FormBuilder) {
+    constructor() {
         this.initFormGroup();
         this.loadingDone = true;
     }

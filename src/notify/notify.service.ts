@@ -1,5 +1,5 @@
 import { isString } from 'ngx-tethys/util';
-import { Inject, Injectable, Injector } from '@angular/core';
+import { Injectable, Injector, inject } from '@angular/core';
 import { ThyGlobalNotifyConfig, ThyNotifyConfig, THY_NOTIFY_DEFAULT_CONFIG, THY_NOTIFY_DEFAULT_CONFIG_VALUE } from './notify.config';
 import { Overlay } from '@angular/cdk/overlay';
 import { ThyNotifyRef } from './notify-ref';
@@ -15,17 +15,22 @@ import { ComponentTypeOrTemplateRef } from 'ngx-tethys/core';
     providedIn: 'root'
 })
 export class ThyNotifyService extends ThyAbstractMessageService<ThyNotifyContainer> {
+    private notifyQueue: ThyNotifyQueue;
+    protected config = inject(THY_NOTIFY_DEFAULT_CONFIG);
+
     private _lastNotifyId = 0;
 
     private defaultConfig: ThyGlobalNotifyConfig;
 
-    constructor(
-        overlay: Overlay,
-        injector: Injector,
-        private notifyQueue: ThyNotifyQueue,
-        @Inject(THY_NOTIFY_DEFAULT_CONFIG) protected config: ThyGlobalNotifyConfig
-    ) {
+    constructor() {
+        const overlay = inject(Overlay);
+        const injector = inject(Injector);
+        const notifyQueue = inject(ThyNotifyQueue);
+
         super(overlay, injector, notifyQueue);
+        this.notifyQueue = notifyQueue;
+        const config = this.config;
+
         this.defaultConfig = {
             ...THY_NOTIFY_DEFAULT_CONFIG_VALUE,
             ...config

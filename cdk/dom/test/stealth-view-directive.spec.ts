@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Injector, runInInjectionContext, TemplateRef, viewChild, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Injector, runInInjectionContext, TemplateRef, viewChild, ViewChild, inject } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { ThyStealthViewDirective } from '../stealth-view-directive';
 import { useStealthViewRenderer } from '../stealth-view-renderer';
@@ -20,6 +20,8 @@ import { useStealthViewRenderer } from '../stealth-view-renderer';
     imports: [ThyStealthViewDirective]
 })
 class ThyStealthViewDirectiveTestComponent implements AfterViewInit {
+    private injector = inject(Injector);
+
     @ViewChild(ThyStealthViewDirective) thyStealthView: ThyStealthViewDirective;
 
     templateRef = viewChild('testStealth', { read: TemplateRef });
@@ -27,8 +29,6 @@ class ThyStealthViewDirectiveTestComponent implements AfterViewInit {
     nodesByDirective: Node[];
 
     nodesByFunction: Node[];
-
-    constructor(private injector: Injector) {}
 
     ngAfterViewInit() {
         this.nodesByDirective = this.thyStealthView.rootNodes;

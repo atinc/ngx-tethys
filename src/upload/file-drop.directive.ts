@@ -2,19 +2,7 @@ import { isEmpty, isString } from 'ngx-tethys/util';
 import { fromEvent, Subject } from 'rxjs';
 import { filter, takeUntil, tap } from 'rxjs/operators';
 
-import {
-    Directive,
-    ElementRef,
-    EventEmitter,
-    HostBinding,
-    Inject,
-    Input,
-    NgZone,
-    OnDestroy,
-    OnInit,
-    Output,
-    Renderer2
-} from '@angular/core';
+import { Directive, ElementRef, EventEmitter, HostBinding, Input, NgZone, OnDestroy, OnInit, Output, Renderer2, inject } from '@angular/core';
 
 import { FileSelectBaseDirective } from './file-select-base';
 import { THY_UPLOAD_DEFAULT_OPTIONS, ThyUploadConfig } from './upload.config';
@@ -27,6 +15,11 @@ import { THY_UPLOAD_DEFAULT_OPTIONS, ThyUploadConfig } from './upload.config';
     standalone: true
 })
 export class ThyFileDropDirective extends FileSelectBaseDirective implements OnInit, OnDestroy {
+    elementRef: ElementRef;
+    renderer = inject(Renderer2);
+    ngZone = inject(NgZone);
+    defaultConfig: ThyUploadConfig;
+
     @HostBinding('class.drop-over')
     @HostBinding('class.thy-drop-over')
     isDragOver = false;
@@ -46,13 +39,14 @@ export class ThyFileDropDirective extends FileSelectBaseDirective implements OnI
 
     private ngUnsubscribe$ = new Subject<void>();
 
-    constructor(
-        public elementRef: ElementRef,
-        public renderer: Renderer2,
-        public ngZone: NgZone,
-        @Inject(THY_UPLOAD_DEFAULT_OPTIONS) public defaultConfig: ThyUploadConfig
-    ) {
+    constructor() {
+        const elementRef = inject(ElementRef);
+        const defaultConfig = inject(THY_UPLOAD_DEFAULT_OPTIONS);
+
         super(elementRef, defaultConfig);
+        this.elementRef = elementRef;
+        this.defaultConfig = defaultConfig;
+
     }
 
     public ngOnInit(): void {

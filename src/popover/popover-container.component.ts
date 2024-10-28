@@ -5,17 +5,7 @@ import { filter, take, takeUntil } from 'rxjs/operators';
 import { AnimationEvent } from '@angular/animations';
 import { ContentObserver } from '@angular/cdk/observers';
 import { PortalModule } from '@angular/cdk/portal';
-import {
-    AfterViewInit,
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    EventEmitter,
-    HostListener,
-    NgZone,
-    OnDestroy,
-    ViewChild
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, NgZone, OnDestroy, ViewChild, inject } from '@angular/core';
 
 import { ThyPopoverConfig } from './popover.config';
 import { popoverAbstractOverlayOptions } from './popover.options';
@@ -53,6 +43,12 @@ import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
     imports: [PortalModule, ThyPortalOutlet]
 })
 export class ThyPopoverContainer<TData = unknown> extends ThyAbstractOverlayContainer<TData> implements AfterViewInit, OnDestroy {
+    private elementRef = inject(ElementRef);
+    config = inject<ThyPopoverConfig<TData>>(ThyPopoverConfig);
+    private thyClickDispatcher = inject(ThyClickDispatcher);
+    private contentObserver = inject(ContentObserver);
+    private ngZone = inject(NgZone);
+
     @ViewChild(ThyPortalOutlet, { static: true })
     portalOutlet: ThyPortalOutlet;
 
@@ -73,14 +69,9 @@ export class ThyPopoverContainer<TData = unknown> extends ThyAbstractOverlayCont
 
     beforeAttachPortal(): void {}
 
-    constructor(
-        private elementRef: ElementRef,
-        public config: ThyPopoverConfig<TData>,
-        changeDetectorRef: ChangeDetectorRef,
-        private thyClickDispatcher: ThyClickDispatcher,
-        private contentObserver: ContentObserver,
-        private ngZone: NgZone
-    ) {
+    constructor() {
+        const changeDetectorRef = inject(ChangeDetectorRef);
+
         super(popoverAbstractOverlayOptions, changeDetectorRef);
 
         this.animationOpeningDone = this.animationStateChanged.pipe(

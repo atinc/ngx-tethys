@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, HostBinding, Input, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { warnDeprecation } from 'ngx-tethys/util';
 
@@ -14,6 +14,8 @@ type IconNavTypes = 'primary' | 'secondary' | 'individual' | '';
     standalone: true
 })
 export class ThyIconNav implements OnInit {
+    private changeDetectorRef = inject(ChangeDetectorRef);
+
     private initialized = false;
 
     private hostRenderer = useHostRenderer();
@@ -35,7 +37,7 @@ export class ThyIconNav implements OnInit {
         this.hostRenderer.updateClass(this.type ? [`thy-icon-nav-${this.type}`] : []);
     }
 
-    constructor(private changeDetectorRef: ChangeDetectorRef) {
+    constructor() {
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
             warnDeprecation('thy-icon-nav has been deprecated, please use thyAction and thy-space components instead of it');
         }

@@ -3,7 +3,7 @@ import { ThyPopoverRef } from 'ngx-tethys/popover';
 import { Observable, of, Subject } from 'rxjs';
 import { catchError, debounceTime, switchMap, take } from 'rxjs/operators';
 
-import { Component, ElementRef, HostBinding, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, HostBinding, NgZone, OnDestroy, OnInit, inject } from '@angular/core';
 
 import { SeekQueryResult } from '../adapter/adapter';
 import { Mention, MentionDefaultDataItem, MentionSuggestionSelectEvent } from '../interfaces';
@@ -21,6 +21,10 @@ import { NgTemplateOutlet, SlicePipe } from '@angular/common';
     imports: [NgTemplateOutlet, ThyLoading, ThySelectionList, ThyListOption, SlicePipe]
 })
 export class ThyMentionSuggestions<TItem = MentionDefaultDataItem> implements OnInit, OnDestroy {
+    elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+    private ngZone = inject(NgZone);
+    private popoverRef = inject<ThyPopoverRef<any>>(ThyPopoverRef);
+
     data: TItem[];
 
     mention: Mention<TItem>;
@@ -35,11 +39,7 @@ export class ThyMentionSuggestions<TItem = MentionDefaultDataItem> implements On
 
     @HostBinding('class.thy-mention-suggestions') suggestionsClass = true;
 
-    constructor(
-        public elementRef: ElementRef<HTMLElement>,
-        private ngZone: NgZone,
-        private popoverRef: ThyPopoverRef<any>
-    ) {
+    constructor() {
         this.search$
             .pipe(
                 switchMap(query => {

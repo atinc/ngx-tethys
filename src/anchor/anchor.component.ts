@@ -1,23 +1,5 @@
 import { Platform } from '@angular/cdk/platform';
-import {
-    AfterViewInit,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    EventEmitter,
-    Inject,
-    Input,
-    NgZone,
-    OnChanges,
-    OnDestroy,
-    Output,
-    Renderer2,
-    SimpleChanges,
-    ViewChild,
-    ViewEncapsulation,
-    numberAttribute
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgZone, OnChanges, OnDestroy, Output, Renderer2, SimpleChanges, ViewChild, ViewEncapsulation, numberAttribute, inject } from '@angular/core';
 import { Subject, fromEvent } from 'rxjs';
 import { takeUntil, throttleTime } from 'rxjs/operators';
 
@@ -70,6 +52,13 @@ const sharpMatcherRegx = /#([^#]+)$/;
     imports: [ThyAffix, NgTemplateOutlet, NgStyle, NgClass]
 })
 export class ThyAnchor implements OnDestroy, AfterViewInit, OnChanges {
+    private document = inject(DOCUMENT);
+    private cdr = inject(ChangeDetectorRef);
+    private platform = inject(Platform);
+    private zone = inject(NgZone);
+    private renderer = inject(Renderer2);
+    private scrollService = inject(ThyScrollService);
+
     @ViewChild('ink') private ink!: ElementRef;
 
     /**
@@ -124,15 +113,6 @@ export class ThyAnchor implements OnDestroy, AfterViewInit, OnChanges {
     private destroy$ = new Subject<void>();
 
     private handleScrollTimeoutID: any = -1;
-
-    constructor(
-        @Inject(DOCUMENT) private document: any,
-        private cdr: ChangeDetectorRef,
-        private platform: Platform,
-        private zone: NgZone,
-        private renderer: Renderer2,
-        private scrollService: ThyScrollService
-    ) {}
 
     registerLink(link: ThyAnchorLink): void {
         this.links.push(link);

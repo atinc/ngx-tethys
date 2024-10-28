@@ -5,21 +5,7 @@ import { fromEvent, Observable, Subject } from 'rxjs';
 import { debounceTime, mapTo, takeUntil, tap } from 'rxjs/operators';
 
 import { coerceArray, coerceBooleanProperty } from '@angular/cdk/coercion';
-import {
-    AfterViewInit,
-    ChangeDetectorRef,
-    Directive,
-    ElementRef,
-    EventEmitter,
-    Input,
-    OnChanges,
-    OnDestroy,
-    OnInit,
-    Output,
-    SimpleChange,
-    TemplateRef,
-    numberAttribute
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Directive, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChange, TemplateRef, numberAttribute, inject } from '@angular/core';
 
 import { AbstractPickerComponent } from './abstract-picker.component';
 import { DatePopup } from './lib/popups/date-popup.component';
@@ -32,6 +18,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
  */
 @Directive()
 export abstract class PickerDirective extends AbstractPickerComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
+    elementRef = inject(ElementRef);
+    cdr: ChangeDetectorRef;
+    private thyPopover = inject(ThyPopover);
+
     showWeek = false;
 
     @Input() thyDateRender: FunctionProp<TemplateRef<Date> | string>;
@@ -211,12 +201,12 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
         });
     }
 
-    constructor(
-        public elementRef: ElementRef,
-        public cdr: ChangeDetectorRef,
-        private thyPopover: ThyPopover
-    ) {
+    constructor() {
+        const cdr = inject(ChangeDetectorRef);
+
         super(cdr);
+        this.cdr = cdr;
+
     }
 
     ngAfterViewInit(): void {

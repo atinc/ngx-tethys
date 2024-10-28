@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, HostBinding } from '@angular/core';
+import { Component, Input, OnInit, HostBinding, inject } from '@angular/core';
 import { ThyDialog } from '../dialog.service';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
@@ -17,6 +17,8 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     hostDirectives: [CdkScrollable]
 })
 export class ThyDialogBody implements OnInit {
+    private dialog = inject(ThyDialog);
+
     @HostBinding(`class.dialog-body`) _isDialogBody = true;
 
     @HostBinding(`class.dialog-body-clear-padding`)
@@ -30,8 +32,6 @@ export class ThyDialogBody implements OnInit {
     set thyClearPadding(value: boolean) {
         this.thyClearPaddingClassName = value;
     }
-
-    constructor(private dialog: ThyDialog) {}
 
     ngOnInit() {}
 }

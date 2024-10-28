@@ -1,6 +1,6 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { XhrFactory } from '@angular/common';
-import { Component, DebugElement, OnInit, ɵglobal } from '@angular/core';
+import { Component, DebugElement, OnInit, ɵglobal, inject as inject_1 } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush, inject, waitForAsync } from '@angular/core/testing';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,10 +21,9 @@ let imageOnload: () => void = null;
     template: ` <button thyButton="primary" (click)="onClick()">Preview</button> `
 })
 class ImagePreviewTestComponent implements OnInit {
-    constructor(
-        private thyImageService: ThyImageService,
-        private sanitizer: DomSanitizer
-    ) {}
+    private thyImageService = inject_1(ThyImageService);
+    private sanitizer = inject_1(DomSanitizer);
+
     images: InternalImageInfo[] = [
         {
             src: 'first.png',

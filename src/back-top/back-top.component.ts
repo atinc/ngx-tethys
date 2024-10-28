@@ -1,22 +1,4 @@
-import {
-    Component,
-    OnInit,
-    ChangeDetectionStrategy,
-    ViewEncapsulation,
-    Input,
-    TemplateRef,
-    EventEmitter,
-    Output,
-    HostBinding,
-    NgZone,
-    ChangeDetectorRef,
-    OnDestroy,
-    OnChanges,
-    Inject,
-    ViewChild,
-    ElementRef,
-    numberAttribute
-} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ViewEncapsulation, Input, TemplateRef, EventEmitter, Output, HostBinding, NgZone, ChangeDetectorRef, OnDestroy, OnChanges, ViewChild, ElementRef, numberAttribute, inject } from '@angular/core';
 import { Subject, fromEvent, BehaviorSubject, EMPTY, Observable } from 'rxjs';
 import { Platform } from '@angular/cdk/platform';
 import { throttleTime, takeUntil, switchMap } from 'rxjs/operators';
@@ -38,6 +20,12 @@ import { ThyIcon } from 'ngx-tethys/icon';
     imports: [ThyIcon, NgTemplateOutlet]
 })
 export class ThyBackTop implements OnInit, OnDestroy, OnChanges {
+    private doc = inject(DOCUMENT);
+    private thyScrollService = inject(ThyScrollService);
+    private platform = inject(Platform);
+    private cdr = inject(ChangeDetectorRef);
+    private zone = inject(NgZone);
+
     @HostBinding('class.thy-back-top-container') classNames = true;
 
     /**
@@ -89,13 +77,9 @@ export class ThyBackTop implements OnInit, OnDestroy, OnChanges {
 
     private target: HTMLElement | null = null;
 
-    constructor(
-        @Inject(DOCUMENT) private doc: any,
-        private thyScrollService: ThyScrollService,
-        private platform: Platform,
-        private cdr: ChangeDetectorRef,
-        private zone: NgZone
-    ) {
+    constructor() {
+        const zone = this.zone;
+
         this.backTop$
             .pipe(
                 switchMap(backTop =>

@@ -1,20 +1,7 @@
 import { take } from 'rxjs/operators';
 
 import { NgTemplateOutlet } from '@angular/common';
-import {
-    Component,
-    ContentChild,
-    ElementRef,
-    EventEmitter,
-    forwardRef,
-    Input,
-    NgZone,
-    OnInit,
-    Output,
-    TemplateRef,
-    ViewChild,
-    ViewEncapsulation
-} from '@angular/core';
+import { Component, ContentChild, ElementRef, EventEmitter, forwardRef, Input, NgZone, OnInit, Output, TemplateRef, ViewChild, ViewEncapsulation, inject } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyAutofocusDirective } from 'ngx-tethys/shared';
@@ -50,6 +37,9 @@ const password = 'password';
     imports: [NgTemplateOutlet, ThyInputDirective, ThyAutofocusDirective, FormsModule, ThyIcon]
 })
 export class ThyInput implements ControlValueAccessor, OnInit {
+    private ngZone = inject(NgZone);
+    private elementRef = inject(ElementRef);
+
     /**
      * Placeholder
      */
@@ -126,11 +116,6 @@ export class ThyInput implements ControlValueAccessor, OnInit {
     private onTouchedCallback: () => void = noop;
 
     private onChangeCallback: (_: any) => void = noop;
-
-    constructor(
-        private ngZone: NgZone,
-        private elementRef: ElementRef
-    ) {}
 
     ngOnInit() {
         this.ngZone.onStable.pipe(take(1)).subscribe(() => {

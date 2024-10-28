@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable, NgZone, OnDestroy } from '@angular/core';
+import { Injectable, NgZone, OnDestroy, inject } from '@angular/core';
 import { isTouchEvent } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 import { ThyResizeHandleMouseDownEvent } from './resize-handle.component';
@@ -9,6 +9,8 @@ import { ThyResizeHandleMouseDownEvent } from './resize-handle.component';
  */
 @Injectable()
 export class ThyResizableService implements OnDestroy {
+    private ngZone = inject(NgZone);
+
     private document: Document;
     private listeners = new Map<string, (event: MouseEvent | TouchEvent) => void>();
 
@@ -28,10 +30,9 @@ export class ThyResizableService implements OnDestroy {
     documentMouseMoveOutsideAngular$ = new Subject<MouseEvent | TouchEvent>();
     mouseEnteredOutsideAngular$ = new Subject<boolean>();
 
-    constructor(
-        private ngZone: NgZone,
-        @Inject(DOCUMENT) document: any
-    ) {
+    constructor() {
+        const document = inject(DOCUMENT);
+
         this.document = document;
     }
 

@@ -7,7 +7,7 @@
  */
 
 import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable, NgZone } from '@angular/core';
+import { Injectable, NgZone, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ThyEventDispatcher } from './event-dispatcher';
 
@@ -17,7 +17,10 @@ const DEFAULT_KEYDOWN_TIME = 100;
     providedIn: 'root'
 })
 export class ThyKeyboardDispatcher extends ThyEventDispatcher {
-    constructor(@Inject(DOCUMENT) document: any, ngZone: NgZone) {
+    constructor() {
+        const document = inject(DOCUMENT);
+        const ngZone = inject(NgZone);
+
         super(document, ngZone, 'keydown');
     }
 

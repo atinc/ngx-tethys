@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 
 const customerOptions = [
@@ -61,11 +61,11 @@ const customerOptions = [
     templateUrl: './custom-option-template.component.html'
 })
 export class ThyCascaderCustomOptionTemplateExampleComponent implements OnInit {
+    private notifyService = inject(ThyNotifyService);
+
     public areaCode: any[] = [];
 
     public values: any[] = [['zhejiang', 'hangzhou']];
-
-    constructor(private notifyService: ThyNotifyService) {}
 
     ngOnInit() {
         this.areaCode = customerOptions;

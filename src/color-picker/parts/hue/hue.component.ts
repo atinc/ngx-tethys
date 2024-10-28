@@ -1,16 +1,4 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    ElementRef,
-    EventEmitter,
-    HostBinding,
-    Input,
-    OnChanges,
-    Output,
-    Renderer2,
-    SimpleChanges,
-    ViewChild
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, Input, OnChanges, Output, Renderer2, SimpleChanges, ViewChild, inject } from '@angular/core';
 import { ThyCoordinatesDirective } from '../../coordinates.directive';
 import { ThyColor } from '../../helpers/color.class';
 
@@ -25,14 +13,14 @@ import { ThyColor } from '../../helpers/color.class';
     imports: [ThyCoordinatesDirective]
 })
 export class ThyHue implements OnChanges {
+    private readonly renderer = inject(Renderer2);
+
     @HostBinding('class.thy-hue') className = true;
 
     @Input() color: ThyColor;
 
     @Output()
     public colorChange = new EventEmitter<ThyColor>(false);
-
-    constructor(private readonly renderer: Renderer2) {}
 
     @ViewChild('pointer', { static: true })
     public pointer: ElementRef;

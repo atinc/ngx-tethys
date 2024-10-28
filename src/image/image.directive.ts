@@ -1,15 +1,4 @@
-import {
-    Directive,
-    ElementRef,
-    InjectFlags,
-    Input,
-    OnChanges,
-    OnInit,
-    SimpleChanges,
-    Injector,
-    OnDestroy,
-    AfterViewInit
-} from '@angular/core';
+import { Directive, ElementRef, InjectFlags, Input, OnChanges, OnInit, SimpleChanges, Injector, OnDestroy, AfterViewInit, inject } from '@angular/core';
 import { ThyImageGroup } from './image-group.component';
 import { ThyImageMeta } from './image.class';
 import { ThyImageService } from './image.service';
@@ -31,6 +20,10 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     standalone: true
 })
 export class ThyImageDirective implements OnInit, OnChanges, AfterViewInit, OnDestroy {
+    private thyImageService = inject(ThyImageService);
+    private injector = inject(Injector);
+    private elementRef = inject(ElementRef);
+
     /**
      * 图片地址
      */
@@ -67,12 +60,6 @@ export class ThyImageDirective implements OnInit, OnChanges, AfterViewInit, OnDe
     }
 
     private parentGroup: ThyImageGroup;
-
-    constructor(
-        private thyImageService: ThyImageService,
-        private injector: Injector,
-        private elementRef: ElementRef
-    ) {}
 
     ngOnInit(): void {
         this.getParentGroup();

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
 import { DateHelperService } from '../../../date-picker/date-helper.service';
 import { CalendarHeader, PanelSelector } from '../calendar/calendar-header.component';
@@ -17,8 +17,14 @@ import { NgClass } from '@angular/common';
     imports: [NgClass, ThyIcon]
 })
 export class DecadeHeader extends CalendarHeader {
-    constructor(public dateHelper: DateHelperService) {
+    dateHelper: DateHelperService;
+
+    constructor() {
+        const dateHelper = inject(DateHelperService);
+
         super(dateHelper);
+        this.dateHelper = dateHelper;
+
     }
     get startYear(): number {
         return parseInt(`${this.value.getYear() / 100}`, 10) * 100;

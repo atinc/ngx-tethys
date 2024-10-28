@@ -1,15 +1,4 @@
-import {
-    AfterContentInit,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    forwardRef,
-    HostBinding,
-    Input,
-    OnChanges,
-    OnInit,
-    SimpleChanges
-} from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, HostBinding, Input, OnChanges, OnInit, SimpleChanges, inject } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
@@ -47,6 +36,8 @@ const radioGroupLayoutMap = {
     standalone: true
 })
 export class ThyRadioGroup implements ControlValueAccessor, OnInit, OnChanges, AfterContentInit {
+    private changeDetectorRef = inject(ChangeDetectorRef);
+
     @HostBinding('class.thy-radio-group') thyRadioGroup = true;
 
     @HostBinding('class.btn-group') isButtonGroup = false;
@@ -87,8 +78,6 @@ export class ThyRadioGroup implements ControlValueAccessor, OnInit, OnChanges, A
 
     onChange: (_: string) => void = () => null;
     onTouched: () => void = () => null;
-
-    constructor(private changeDetectorRef: ChangeDetectorRef) {}
 
     addRadio(radio: ThyRadio | ThyRadioButton): void {
         this.radios.push(radio);

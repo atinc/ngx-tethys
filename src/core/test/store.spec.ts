@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { produce } from 'ngx-tethys/util';
 import { MiniStore, MiniActionState, MiniAction } from '../store';
 import { of } from 'rxjs';
@@ -26,12 +26,9 @@ class ZoomStore extends MiniStore<ZoomState> {
         return state.animals;
     };
 
-    constructor(
-        initialState: Partial<ZoomState> = {
-            animals: [],
-            foo: null
-        }
-    ) {
+    constructor() {
+        const initialState = inject<Partial<ZoomState>>(Partial);
+
         super(initialState);
     }
 

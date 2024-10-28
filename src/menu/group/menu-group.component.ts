@@ -1,18 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ComponentType } from '@angular/cdk/portal';
-import {
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    ElementRef,
-    EventEmitter,
-    HostBinding,
-    Input,
-    OnInit,
-    Output,
-    TemplateRef,
-    ViewChild
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output, TemplateRef, ViewChild, inject } from '@angular/core';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
@@ -55,6 +43,8 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     imports: [NgClass, NgTemplateOutlet, ThyIcon]
 })
 export class ThyMenuGroup implements OnInit {
+    private popover = inject(ThyPopover);
+
     public _actionMenu: ComponentType<any> | TemplateRef<any>;
 
     public rightIconClass = 'more';
@@ -150,8 +140,6 @@ export class ThyMenuGroup implements OnInit {
     set thyActionMenu(value: ComponentType<any> | TemplateRef<any>) {
         this._actionMenu = value;
     }
-
-    constructor(private popover: ThyPopover) {}
 
     ngOnInit(): void {}
 

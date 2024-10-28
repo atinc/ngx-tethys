@@ -10,20 +10,7 @@ import {
     useHostFocusControl
 } from 'ngx-tethys/core';
 
-import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    EventEmitter,
-    forwardRef,
-    Input,
-    OnDestroy,
-    OnInit,
-    Output,
-    ViewChild,
-    ViewEncapsulation
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, OnDestroy, OnInit, Output, ViewChild, ViewEncapsulation, inject } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -72,6 +59,9 @@ const _MixinBase: Constructor<ThyHasTabIndex> &
     imports: [ThyIcon, ThyInputDirective, ThyAutofocusDirective, FormsModule]
 })
 export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, OnInit, OnDestroy {
+    private cdr = inject(ChangeDetectorRef);
+    private elementRef = inject(ElementRef);
+
     @ViewChild('input', { static: true }) inputElement: ElementRef<any>;
 
     private hostRenderer = useHostRenderer();
@@ -140,10 +130,7 @@ export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, 
      */
     @Output() thyClear: EventEmitter<Event> = new EventEmitter<Event>();
 
-    constructor(
-        private cdr: ChangeDetectorRef,
-        private elementRef: ElementRef
-    ) {
+    constructor() {
         super();
     }
 

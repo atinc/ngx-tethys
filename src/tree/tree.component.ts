@@ -2,29 +2,7 @@ import { coerceBooleanProperty, helpers } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CdkVirtualScrollViewport, CdkFixedSizeVirtualScroll, CdkVirtualForOf } from '@angular/cdk/scrolling';
-import {
-    AfterViewInit,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ContentChild,
-    EventEmitter,
-    forwardRef,
-    HostBinding,
-    Inject,
-    Input,
-    numberAttribute,
-    OnChanges,
-    OnDestroy,
-    OnInit,
-    Output,
-    QueryList,
-    SimpleChanges,
-    TemplateRef,
-    ViewChild,
-    ViewChildren,
-    ViewEncapsulation
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, forwardRef, HostBinding, Input, numberAttribute, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, ViewChildren, ViewEncapsulation, inject } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { THY_TREE_ABSTRACT_TOKEN } from './tree-abstract';
 import { ThyTreeNode } from './tree-node.class';
@@ -94,6 +72,10 @@ const treeItemSizeMap = {
     ]
 })
 export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterViewInit, OnDestroy {
+    thyTreeService = inject(ThyTreeService);
+    private cdr = inject(ChangeDetectorRef);
+    private document = inject(DOCUMENT);
+
     private _templateRef: TemplateRef<any>;
 
     private _emptyChildrenTemplateRef: TemplateRef<any>;
@@ -373,12 +355,6 @@ export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterVi
     dragging: boolean;
 
     @ViewChildren(CdkDrag) cdkDrags: QueryList<CdkDrag<ThyTreeNode>>;
-
-    constructor(
-        public thyTreeService: ThyTreeService,
-        private cdr: ChangeDetectorRef,
-        @Inject(DOCUMENT) private document: Document
-    ) {}
 
     ngOnInit(): void {
         this._initThyNodes();

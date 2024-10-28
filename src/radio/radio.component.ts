@@ -1,4 +1,4 @@
-import { Component, forwardRef, OnInit, Input, Optional, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, forwardRef, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyTranslate } from 'ngx-tethys/core';
 import { ThyFormCheckBaseComponent } from 'ngx-tethys/shared';
@@ -30,6 +30,9 @@ import { NgClass } from '@angular/common';
     imports: [NgClass]
 })
 export class ThyRadio extends ThyFormCheckBaseComponent implements OnInit {
+    thyTranslate: ThyTranslate;
+    thyRadioGroupComponent = inject(ThyRadioGroup, { optional: true })!;
+
     name: string;
 
     /**
@@ -42,12 +45,13 @@ export class ThyRadio extends ThyFormCheckBaseComponent implements OnInit {
         this.changeDetectorRef.markForCheck();
     }
 
-    constructor(
-        public thyTranslate: ThyTranslate,
-        @Optional() public thyRadioGroupComponent: ThyRadioGroup,
-        changeDetectorRef: ChangeDetectorRef
-    ) {
+    constructor() {
+        const thyTranslate = inject(ThyTranslate);
+        const changeDetectorRef = inject(ChangeDetectorRef);
+
         super(thyTranslate, changeDetectorRef);
+        this.thyTranslate = thyTranslate;
+
     }
 
     ngOnInit() {

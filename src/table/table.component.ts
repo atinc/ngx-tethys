@@ -9,38 +9,7 @@ import { CdkDrag, CdkDragDrop, CdkDragEnd, CdkDragStart, CdkDropList, moveItemIn
 import { ViewportRuler } from '@angular/cdk/overlay';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { DOCUMENT, isPlatformServer, NgClass, NgTemplateOutlet, NgStyle } from '@angular/common';
-import {
-    AfterViewInit,
-    ChangeDetectorRef,
-    Component,
-    ContentChild,
-    ContentChildren,
-    DestroyRef,
-    ElementRef,
-    EventEmitter,
-    HostBinding,
-    inject,
-    Inject,
-    Input,
-    IterableChangeRecord,
-    IterableChanges,
-    IterableDiffer,
-    IterableDiffers,
-    NgZone,
-    numberAttribute,
-    OnChanges,
-    OnDestroy,
-    OnInit,
-    Output,
-    PLATFORM_ID,
-    QueryList,
-    Renderer2,
-    SimpleChanges,
-    TemplateRef,
-    ViewChild,
-    ViewChildren,
-    ViewEncapsulation
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ContentChild, ContentChildren, DestroyRef, ElementRef, EventEmitter, HostBinding, inject, Input, IterableChangeRecord, IterableChanges, IterableDiffer, IterableDiffers, NgZone, numberAttribute, OnChanges, OnDestroy, OnInit, Output, PLATFORM_ID, QueryList, Renderer2, SimpleChanges, TemplateRef, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
 
 import { IThyTableColumnParentComponent, THY_TABLE_COLUMN_PARENT_COMPONENT, ThyTableColumnComponent } from './table-column.component';
 import {
@@ -152,6 +121,16 @@ const passiveEventListenerOptions = normalizePassiveListenerOptions({ passive: t
     ]
 })
 export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IThyTableColumnParentComponent {
+    elementRef = inject(ElementRef);
+    private _differs = inject(IterableDiffers);
+    private viewportRuler = inject(ViewportRuler);
+    private updateHostClassService = inject(UpdateHostClassService);
+    private document = inject(DOCUMENT);
+    private platformId = inject(PLATFORM_ID);
+    private ngZone = inject(NgZone);
+    private renderer = inject(Renderer2);
+    private cdr = inject(ChangeDetectorRef);
+
     private readonly destroyRef = inject(DestroyRef);
 
     public customType = customType;
@@ -558,17 +537,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
 
     public skeletonColumns: ThyTableSkeletonColumn[] = [];
 
-    constructor(
-        public elementRef: ElementRef,
-        private _differs: IterableDiffers,
-        private viewportRuler: ViewportRuler,
-        private updateHostClassService: UpdateHostClassService,
-        @Inject(DOCUMENT) private document: SafeAny,
-        @Inject(PLATFORM_ID) private platformId: string,
-        private ngZone: NgZone,
-        private renderer: Renderer2,
-        private cdr: ChangeDetectorRef
-    ) {
+    constructor() {
         this._bindTrackFn();
     }
 

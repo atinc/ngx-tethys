@@ -2,19 +2,7 @@ import { getFlexiblePositions, ThyPlacement } from 'ngx-tethys/core';
 import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
 
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange } from '@angular/cdk/overlay';
-import {
-    AfterViewInit,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    EventEmitter,
-    Input,
-    OnChanges,
-    Output,
-    SimpleChanges,
-    ViewChild
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild, inject } from '@angular/core';
 
 import { AsyncPipe, NgClass, NgTemplateOutlet } from '@angular/common';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -39,6 +27,9 @@ import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
     animations: [scaleXMotion, scaleYMotion, scaleMotion]
 })
 export class ThyPicker implements OnChanges, AfterViewInit {
+    private changeDetector = inject(ChangeDetectorRef);
+    private dateHelper = inject(DateHelperService);
+
     @Input() isRange = false;
     @Input() open: boolean | undefined = undefined;
     @Input() disabled: boolean;
@@ -119,11 +110,6 @@ export class ThyPicker implements OnChanges, AfterViewInit {
     get readonlyState(): boolean {
         return this.isRange || this.readonly || this.mode !== 'date';
     }
-
-    constructor(
-        private changeDetector: ChangeDetectorRef,
-        private dateHelper: DateHelperService
-    ) {}
 
     ngOnChanges(changes: SimpleChanges): void {
         // open by user

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef, Optional, inject, DestroyRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef, inject, DestroyRef } from '@angular/core';
 import { ThyInputDirective } from './input.directive';
 import { switchMap, filter, tap } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -20,6 +20,9 @@ import { ThyInputGroup } from './input-group.component';
     standalone: true
 })
 export class ThyInputCount implements OnInit {
+    private changeDetectorRef = inject(ChangeDetectorRef);
+    private inputGroup = inject(ThyInputGroup, { optional: true })!;
+
     private readonly destroyRef = inject(DestroyRef);
 
     private hasInput = false;
@@ -39,10 +42,7 @@ export class ThyInputCount implements OnInit {
 
     thyInput$ = new Subject<ThyInputDirective>();
 
-    constructor(
-        private changeDetectorRef: ChangeDetectorRef,
-        @Optional() private inputGroup: ThyInputGroup
-    ) {
+    constructor() {
         this.setup();
     }
 
