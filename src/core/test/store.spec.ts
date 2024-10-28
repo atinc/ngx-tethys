@@ -26,9 +26,7 @@ class ZoomStore extends MiniStore<ZoomState> {
         return state.animals;
     };
 
-    constructor() {
-        const initialState = inject<Partial<ZoomState>>(Partial);
-
+    constructor(initialState: Partial<ZoomState>) {
         super(initialState);
     }
 

@@ -1,7 +1,7 @@
 import { Dictionary } from 'ngx-tethys/types';
 import { helpers } from 'ngx-tethys/util';
 
-import { Injectable, inject } from '@angular/core';
+import { Inject, Injectable, Optional, inject } from '@angular/core';
 import { ValidationErrors } from '@angular/forms';
 
 import { THY_VALIDATOR_CONFIG, ThyFormValidationMessages, ThyFormValidatorGlobalConfig } from './form.class';
@@ -42,12 +42,15 @@ export class ThyFormValidatorLoader {
         if (this.config.globalValidationMessages && this.config.globalValidationMessages[key]) {
             return this.config.globalValidationMessages[key];
         } else {
-            return globalValidationMessages[key];
+            return globalValidationMessages[key as keyof typeof globalValidationMessages];
         }
     }
-    constructor() {
-        const config = inject(THY_VALIDATOR_CONFIG, { optional: true })!;
 
+    constructor(
+        @Optional()
+        @Inject(THY_VALIDATOR_CONFIG)
+        config: ThyFormValidatorGlobalConfig
+    ) {
         this.config = Object.assign({}, defaultValidatorConfig, config);
     }
 
