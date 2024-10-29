@@ -1,4 +1,4 @@
-@use "../../styles/variables";
+@use '../../styles/variables';
 
 .thy-loading {
     width: 100%;
@@ -22,6 +22,8 @@
         padding-top: 20px;
         font-size: variables.$font-size-base;
         font-weight: normal;
+        margin-bottom: 8px;
+        margin-top: 8px;
     }
 }
 
