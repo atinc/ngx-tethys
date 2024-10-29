@@ -4,7 +4,7 @@ import { of } from 'rxjs';
 
 import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { Component, DebugElement, inject as inject_1 } from '@angular/core';
+import { Component, DebugElement, inject as coreInject } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By, DomSanitizer } from '@angular/platform-browser';
 
@@ -26,7 +26,7 @@ import { ThyIconModule } from '../icon.module';
     `
 })
 class ThyIconTestBasicComponent {
-    iconRegistry = inject_1(ThyIconRegistry);
+    iconRegistry = coreInject(ThyIconRegistry);
 
     iconName = 'check';
     iconType = '';

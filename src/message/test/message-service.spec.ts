@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild, inject as inject_1 } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, inject as coreInject } from '@angular/core';
 import { TestBed, ComponentFixture, fakeAsync, flush, inject, tick } from '@angular/core/testing';
 import { ThyMessageModule } from '../module';
 import { ThyMessageService } from '../message.service';
@@ -20,7 +20,7 @@ const DEFAULT_DURATION_TIME = 4500;
     `
 })
 export class ThyMessageTestComponent implements OnInit {
-    messageService = inject_1(ThyMessageService);
+    messageService = coreInject(ThyMessageService);
 
     @ViewChild('content') contentTemplate: TemplateRef<any>;
 

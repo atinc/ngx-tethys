@@ -62,8 +62,6 @@ const _BaseMixin = mixinTabIndex(mixinDisabled(OverlayBase));
 })
 export class ThyColorPickerDirective extends _BaseMixin implements OnInit, OnDestroy {
     private thyPopover = inject(ThyPopover);
-    protected zone: NgZone;
-    protected elementRef: ElementRef<HTMLElement>;
 
     /**
      * 弹框偏移量
@@ -167,8 +165,6 @@ export class ThyColorPickerDirective extends _BaseMixin implements OnInit, OnDes
         const focusMonitor = inject(FocusMonitor);
 
         super(zone, elementRef, platform, focusMonitor);
-        this.zone = zone;
-        this.elementRef = elementRef;
     }
 
     ngOnInit(): void {

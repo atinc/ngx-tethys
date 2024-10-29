@@ -1,6 +1,6 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component, DebugElement, ElementRef, NgModule, ViewChild, inject as inject_1 } from '@angular/core';
+import { Component, DebugElement, ElementRef, NgModule, ViewChild, inject as coreInject } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync, fakeAsync, flush, flushMicrotasks, inject, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -32,7 +32,7 @@ const tooltipTemplateContext = { text: 'hello world' };
     `
 })
 class ThyDemoTooltipBasicComponent {
-    elementRef = inject_1<ElementRef<HTMLElement>>(ElementRef);
+    elementRef = coreInject<ElementRef<HTMLElement>>(ElementRef);
 
     @ViewChild(ThyTooltipDirective, { static: true }) tooltip: ThyTooltipDirective;
 

@@ -12,7 +12,7 @@ import {
     TemplateRef,
     ViewChild,
     ViewContainerRef,
-    inject as inject_1
+    inject as coreInject
 } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -46,7 +46,7 @@ class PopoverBasicComponent {
 // eslint-disable-next-line @angular-eslint/directive-selector
 @Directive({ selector: 'thy-with-view-container-directive' })
 class WithViewContainerDirective {
-    viewContainerRef = inject_1(ViewContainerRef);
+    viewContainerRef = coreInject(ViewContainerRef);
 }
 
 @Component({
@@ -96,9 +96,9 @@ class WithChildViewContainerComponent {
     `
 })
 export class PopoverSimpleContentComponent {
-    popoverRef = inject_1<ThyPopoverRef<PopoverSimpleContentComponent>>(ThyPopoverRef);
-    popoverInjector = inject_1(Injector);
-    private cdr = inject_1(ChangeDetectorRef);
+    popoverRef = coreInject<ThyPopoverRef<PopoverSimpleContentComponent>>(ThyPopoverRef);
+    popoverInjector = coreInject(Injector);
+    private cdr = coreInject(ChangeDetectorRef);
 
     demos: number[];
 
@@ -119,9 +119,9 @@ export class PopoverSimpleContentComponent {
     `
 })
 export class PopoverManualClosureContentComponent {
-    popover = inject_1(ThyPopover);
-    overlay = inject_1(Overlay);
-    popoverInjector = inject_1(Injector);
+    popover = coreInject(ThyPopover);
+    overlay = coreInject(Overlay);
+    popoverInjector = coreInject(Injector);
 
     @ViewChild('btn1', { static: true })
     btn1: HTMLElement;
@@ -176,8 +176,8 @@ export class PopoverInsideClosableComponent {
     `
 })
 export class PopoverConfigComponent {
-    popover = inject_1(ThyPopover);
-    overlay = inject_1(Overlay);
+    popover = coreInject(ThyPopover);
+    overlay = coreInject(Overlay);
 
     public popoverRef: ThyPopoverRef<any>;
 

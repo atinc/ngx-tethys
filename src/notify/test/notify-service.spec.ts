@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild, inject as inject_1 } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, inject as coreInject } from '@angular/core';
 import { TestBed, ComponentFixture, fakeAsync, flush, inject, tick, discardPeriodicTasks } from '@angular/core/testing';
 import { ThyNotifyModule } from '../module';
 import { ThyNotifyService } from '../notify.service';
@@ -26,7 +26,7 @@ const DEFAULT_DURATION_TIME = 4500;
     `
 })
 export class ThyNotifyBasicComponent implements OnInit {
-    private notifyService = inject_1(ThyNotifyService);
+    private notifyService = coreInject(ThyNotifyService);
 
     @ViewChild('content') contentTemplate: TemplateRef<any>;
 

@@ -17,7 +17,7 @@ import {
     StaticProvider,
     ViewChild,
     ViewContainerRef,
-    inject as inject_1
+    inject as coreInject
 } from '@angular/core';
 import { TestBed, fakeAsync, flush, inject } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -75,7 +75,7 @@ export class TestDialogContainerComponent<TData = unknown> extends ThyAbstractOv
     beforeAttachPortal(): void {}
 
     constructor() {
-        const changeDetectorRef = inject_1(ChangeDetectorRef);
+        const changeDetectorRef = coreInject(ChangeDetectorRef);
 
         super(testDialogOptions, changeDetectorRef);
         this.animationOpeningDone = this.animationStateChanged.pipe(
@@ -109,8 +109,8 @@ class InternalTestDialogRef<T = unknown, TResult = unknown, TData = unknown> ext
 @Injectable()
 export class TestDialogService extends ThyAbstractOverlayService<TestDialogConfig, TestDialogContainerComponent> {
     constructor() {
-        const overlay = inject_1(Overlay);
-        const injector = inject_1(Injector);
+        const overlay = coreInject(Overlay);
+        const injector = coreInject(Injector);
 
         super(testDialogOptions, overlay, injector, {});
     }
@@ -193,7 +193,7 @@ export class TestDialogModule {}
     template: 'Hello Test Dialog'
 })
 class TestDialogBasicContentComponent {
-    testDialogRef = inject_1<TestDialogRef<TestDialogBasicContentComponent>>(TestDialogRef);
+    testDialogRef = coreInject<TestDialogRef<TestDialogBasicContentComponent>>(TestDialogRef);
 
     prop1: string;
 
@@ -211,8 +211,8 @@ class TestDialogBasicContentComponent {
     template: 'Hello Test Dialog'
 })
 class TestDialogViewContainerComponent {
-    private dialog = inject_1(TestDialogService);
-    private viewContainerRef = inject_1(ViewContainerRef);
+    private dialog = coreInject(TestDialogService);
+    private viewContainerRef = coreInject(ViewContainerRef);
 
     open() {
         this.dialog.open(TestDialogBasicContentComponent, {

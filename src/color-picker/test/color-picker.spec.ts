@@ -1,7 +1,7 @@
 import { OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { CommonModule } from '@angular/common';
-import { Component, DebugElement, ElementRef, ViewChild, inject as inject_1 } from '@angular/core';
+import { Component, DebugElement, ElementRef, ViewChild, inject as coreInject } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush, inject, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -48,8 +48,8 @@ import { ThyColorPickerModule } from '../module';
     ]
 })
 class ThyDemoColorPickerComponent {
-    elementRef = inject_1<ElementRef<HTMLElement>>(ElementRef);
-    private thyPopoverRef = inject_1<ThyPopoverRef<ThyColorPickerPanel>>(ThyPopoverRef);
+    elementRef = coreInject<ElementRef<HTMLElement>>(ElementRef);
+    private thyPopoverRef = coreInject<ThyPopoverRef<ThyColorPickerPanel>>(ThyPopoverRef);
 
     @ViewChild(ThyColorPickerDirective, { static: true }) colorPicker: ThyColorPickerDirective;
     @ViewChild(ThyColorPickerPanel) defaultPanel: ThyColorPickerPanel;
@@ -91,8 +91,8 @@ class ThyDemoColorPickerComponent {
     `
 })
 class ThyDemoColorDefaultPanelComponent {
-    elementRef = inject_1<ElementRef<HTMLElement>>(ElementRef);
-    thyPopover = inject_1(ThyPopover);
+    elementRef = coreInject<ElementRef<HTMLElement>>(ElementRef);
+    thyPopover = coreInject(ThyPopover);
 
     @ViewChild(ThyColorPickerPanel) defaultPanel: ThyColorPickerPanel;
     defaultPanelColor = '#fafafa';
@@ -108,7 +108,7 @@ class ThyDemoColorDefaultPanelComponent {
     template: ` <thy-color-picker-custom-panel [pickerColorChange]="pickerColorChange" [color]="color"></thy-color-picker-custom-panel> `
 })
 class ThyDemoPickerPanelComponent {
-    elementRef = inject_1<ElementRef<HTMLElement>>(ElementRef);
+    elementRef = coreInject<ElementRef<HTMLElement>>(ElementRef);
 
     @ViewChild(ThyColorPickerCustomPanel) pickerPanel: ThyColorPickerCustomPanel;
 
@@ -134,7 +134,7 @@ class ThyDemoPickerPanelComponent {
     ]
 })
 class ThyDemoCoordinatesDirectiveComponent {
-    elementRef = inject_1<ElementRef<HTMLElement>>(ElementRef);
+    elementRef = coreInject<ElementRef<HTMLElement>>(ElementRef);
 
     @ViewChild(ThyCoordinatesDirective) coordinates: ThyCoordinatesDirective;
 

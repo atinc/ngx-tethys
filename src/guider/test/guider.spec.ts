@@ -1,5 +1,5 @@
 import { OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
-import { Component, DebugElement, NgModule, OnInit, TemplateRef, ViewChild, inject as inject_1 } from '@angular/core';
+import { Component, DebugElement, NgModule, OnInit, TemplateRef, ViewChild, inject as coreInject } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -97,7 +97,7 @@ const directiveGuiderSteps: ThyGuiderStep[] = [
     `
 })
 class GuiderBasicComponent implements OnInit {
-    private thyGuider = inject_1(ThyGuider);
+    private thyGuider = coreInject(ThyGuider);
 
     public guiderRef: ThyGuiderRef;
 
@@ -162,7 +162,7 @@ class GuiderBasicComponent implements OnInit {
     `
 })
 class TestGuiderDirectiveComponent implements OnInit {
-    private thyGuider = inject_1(ThyGuider);
+    private thyGuider = coreInject(ThyGuider);
 
     public guiderRef: ThyGuiderRef;
 
@@ -194,7 +194,7 @@ class TestGuiderDirectiveComponent implements OnInit {
     `
 })
 class TestGuiderMultiTargetsComponent implements OnInit {
-    private thyGuider = inject_1(ThyGuider);
+    private thyGuider = coreInject(ThyGuider);
 
     public guiderRef: ThyGuiderRef;
 
