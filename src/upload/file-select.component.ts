@@ -69,7 +69,8 @@ export class ThyFileSelect extends FileSelectBaseDirective implements OnChanges,
 
     constructor(
         public elementRef: ElementRef,
-        @Inject(THY_UPLOAD_DEFAULT_OPTIONS) public defaultConfig: ThyUploadConfig
+        @Inject(THY_UPLOAD_DEFAULT_OPTIONS) public defaultConfig: ThyUploadConfig,
+        private ngZone: NgZone
     ) {
         super(elementRef, defaultConfig);
 

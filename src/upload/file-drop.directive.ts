@@ -28,9 +28,6 @@ import { THY_UPLOAD_DEFAULT_OPTIONS, ThyUploadConfig } from './upload.config';
     standalone: true
 })
 export class ThyFileDropDirective extends FileSelectBaseDirective implements OnInit, OnDestroy {
-    renderer = inject(Renderer2);
-    ngZone = inject(NgZone);
-
     @HostBinding('class.drop-over')
     @HostBinding('class.thy-drop-over')
     isDragOver = false;
@@ -52,6 +49,8 @@ export class ThyFileDropDirective extends FileSelectBaseDirective implements OnI
 
     constructor(
         public elementRef: ElementRef,
+        public renderer: Renderer2,
+        public ngZone: NgZone,
         @Inject(THY_UPLOAD_DEFAULT_OPTIONS) public defaultConfig: ThyUploadConfig
     ) {
         super(elementRef, defaultConfig);

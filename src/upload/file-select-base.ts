@@ -1,5 +1,5 @@
 import { isNumber } from 'ngx-tethys/util';
-import { Directive, ElementRef, EventEmitter, Input, NgZone, numberAttribute, inject, Inject } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, Input, NgZone, numberAttribute, inject, Inject, Renderer2 } from '@angular/core';
 import { ThyFileSelectEvent, ThySizeExceedsHandler } from './types';
 import { THY_UPLOAD_DEFAULT_OPTIONS, ThyUploadConfig } from './upload.config';
 import { mimeTypeConvert } from './util';
@@ -9,8 +9,6 @@ import { mimeTypeConvert } from './util';
  */
 @Directive()
 export class FileSelectBaseDirective {
-    ngZone? = inject(NgZone);
-
     acceptType: string;
     sizeThreshold: number;
     sizeExceedsHandler: ThySizeExceedsHandler;
