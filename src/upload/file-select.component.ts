@@ -13,7 +13,8 @@ import {
     Output,
     SimpleChanges,
     ViewChild,
-    inject
+    inject,
+    Inject
 } from '@angular/core';
 
 import { FileSelectBaseDirective } from './file-select-base';
@@ -32,9 +33,6 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     standalone: true
 })
 export class ThyFileSelect extends FileSelectBaseDirective implements OnChanges, OnDestroy {
-    elementRef: ElementRef;
-    defaultConfig: ThyUploadConfig;
-
     /**
      * 文件选择事件
      */
@@ -69,11 +67,13 @@ export class ThyFileSelect extends FileSelectBaseDirective implements OnChanges,
 
     private destroy$ = new Subject<void>();
 
-    constructor() {
-        super();
-        const ngZone = inject(NgZone);
+    constructor(
+        public elementRef: ElementRef,
+        @Inject(THY_UPLOAD_DEFAULT_OPTIONS) public defaultConfig: ThyUploadConfig
+    ) {
+        super(elementRef, defaultConfig);
 
-        ngZone.runOutsideAngular(() =>
+        this.ngZone.runOutsideAngular(() =>
             fromEvent(this.elementRef.nativeElement, 'click')
                 .pipe(takeUntil(this.destroy$))
                 .subscribe(() => {

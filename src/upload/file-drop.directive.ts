@@ -7,6 +7,7 @@ import {
     ElementRef,
     EventEmitter,
     HostBinding,
+    Inject,
     Input,
     NgZone,
     OnDestroy,
@@ -27,7 +28,6 @@ import { THY_UPLOAD_DEFAULT_OPTIONS, ThyUploadConfig } from './upload.config';
     standalone: true
 })
 export class ThyFileDropDirective extends FileSelectBaseDirective implements OnInit, OnDestroy {
-    elementRef: ElementRef;
     renderer = inject(Renderer2);
     ngZone = inject(NgZone);
 
@@ -49,6 +49,13 @@ export class ThyFileDropDirective extends FileSelectBaseDirective implements OnI
     @Output() thyFilesReject = new EventEmitter<File[]>();
 
     private ngUnsubscribe$ = new Subject<void>();
+
+    constructor(
+        public elementRef: ElementRef,
+        @Inject(THY_UPLOAD_DEFAULT_OPTIONS) public defaultConfig: ThyUploadConfig
+    ) {
+        super(elementRef, defaultConfig);
+    }
 
     public ngOnInit(): void {
         this.ngZone.runOutsideAngular(() => {
