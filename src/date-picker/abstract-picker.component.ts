@@ -42,6 +42,8 @@ export abstract class AbstractPickerComponent
     extends TabIndexDisabledControlValueAccessorMixin
     implements OnInit, OnChanges, OnDestroy, ControlValueAccessor
 {
+    cdr = inject(ChangeDetectorRef);
+
     thyValue: CompatibleValue | null;
 
     _panelMode: ThyPanelMode = 'date';
@@ -221,7 +223,7 @@ export abstract class AbstractPickerComponent
         this.thyValue = this.isRange ? [] : null;
     }
 
-    constructor(public cdr: ChangeDetectorRef) {
+    constructor() {
         super();
     }
 

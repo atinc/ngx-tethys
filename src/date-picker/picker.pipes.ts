@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform, inject } from '@angular/core';
 import { TinyDate } from 'ngx-tethys/util';
 import { DateHelperService } from './date-helper.service';
 import { AdvancedSelectableCell } from './inner-types';
@@ -13,7 +13,7 @@ import { CompatibleDate, DateEntry, ThyDateGranularity, ThyDateRangeEntry } from
     standalone: true
 })
 export class ThyDatePickerFormatPipe implements PipeTransform {
-    constructor(private dateHelper: DateHelperService) {}
+    private dateHelper = inject(DateHelperService);
 
     transform(originalValue: CompatibleDate | DateEntry | ThyDateRangeEntry, formatStr?: string): string {
         const { value, withTime, flexibleDateGranularity } = transformDateValue(originalValue);
@@ -73,7 +73,7 @@ export class ThyQuarterPickerFormatPipe implements PipeTransform {
     standalone: true
 })
 export class ThyDatePickerFormatStringPipe implements PipeTransform {
-    constructor(private dateHelper: DateHelperService) {}
+    private dateHelper = inject(DateHelperService);
 
     transform(originalValue: CompatibleDate | DateEntry | ThyDateRangeEntry): string {
         const { withTime } = transformDateValue(originalValue);

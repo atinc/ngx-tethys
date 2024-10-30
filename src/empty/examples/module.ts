@@ -5,7 +5,7 @@ import { ThyGridModule } from 'ngx-tethys/grid';
 import { Observable } from 'rxjs/internal/Observable';
 
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
@@ -57,7 +57,11 @@ const COMPONENTS = [
     ]
 })
 export class ThyEmptyExamplesModule {
-    constructor(private translate: TranslateService) {
+    private translate = inject(TranslateService);
+
+    constructor() {
+        const translate = this.translate;
+
         translate.use('zh-cn');
         translate.setTranslation('zh-cn', {
             common: {

@@ -1,6 +1,6 @@
 import { ThyUploadFile, ThyUploadService, ThyUploadStatus } from 'ngx-tethys/upload';
 
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 const UPLOAD_URL = `http://www.mocky.io/v2/5cf52b1f2f0000c02c4f072f?mocky-delay=2s`;
 // const UPLOAD_URL = `https://run.mocky.io/v3/33ec533f-3558-4689-bdbe-cc30364aa137`;
@@ -9,9 +9,9 @@ const UPLOAD_URL = `http://www.mocky.io/v2/5cf52b1f2f0000c02c4f072f?mocky-delay=
     templateUrl: './basic.component.html'
 })
 export class ThyUploadBasicExampleComponent {
-    queueFiles: ThyUploadFile[] = [];
+    private thyUploadService = inject(ThyUploadService);
 
-    constructor(private thyUploadService: ThyUploadService) {}
+    queueFiles: ThyUploadFile[] = [];
 
     selectFiles(event: { files: File[] }) {
         const uploadFiles = event.files.map(file => {

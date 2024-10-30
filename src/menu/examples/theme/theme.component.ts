@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, inject } from '@angular/core';
 import { ThyPopover } from 'ngx-tethys/popover';
 
 @Component({
@@ -7,9 +7,9 @@ import { ThyPopover } from 'ngx-tethys/popover';
     styleUrls: ['./theme.component.scss']
 })
 export class ThyMenuThemeExampleComponent implements OnInit {
-    theme: string = 'loose';
+    private popover = inject(ThyPopover);
 
-    constructor(private popover: ThyPopover) {}
+    theme: string = 'loose';
 
     coll: boolean;
 

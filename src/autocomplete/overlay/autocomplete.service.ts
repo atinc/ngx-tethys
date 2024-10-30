@@ -18,7 +18,7 @@ import { Platform } from '@angular/cdk/platform';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { DOCUMENT } from '@angular/common';
-import { ElementRef, Inject, Injectable, Injector, NgZone, OnDestroy, StaticProvider, TemplateRef } from '@angular/core';
+import { ElementRef, Injectable, Injector, NgZone, OnDestroy, StaticProvider, TemplateRef, inject } from '@angular/core';
 
 import { ThyAutocompleteContainer } from './autocomplete-container.component';
 import { ThyAutocompleteRef, ThyInternalAutocompleteRef } from './autocomplete-ref';
@@ -33,6 +33,13 @@ export class ThyAutocompleteService
     extends ThyAbstractOverlayService<ThyAutocompleteConfig, ThyAutocompleteContainer>
     implements OnDestroy
 {
+    private scrollDispatcher = inject(ScrollDispatcher);
+    private ngZone = inject(NgZone);
+    private _viewportRuler = inject(ViewportRuler);
+    private _document = inject(DOCUMENT);
+    private _platform = inject(Platform);
+    private _overlayContainer = inject(OverlayContainer);
+
     private readonly ngUnsubscribe$ = new Subject();
 
     private originInstancesMap = new Map<
@@ -134,17 +141,11 @@ export class ThyAutocompleteService
         }
     }
 
-    constructor(
-        overlay: Overlay,
-        injector: Injector,
-        @Inject(THY_AUTOCOMPLETE_DEFAULT_CONFIG) defaultConfig: ThyAutocompleteConfig,
-        private scrollDispatcher: ScrollDispatcher,
-        private ngZone: NgZone,
-        private _viewportRuler: ViewportRuler,
-        @Inject(DOCUMENT) private _document: any,
-        private _platform: Platform,
-        private _overlayContainer: OverlayContainer
-    ) {
+    constructor() {
+        const overlay = inject(Overlay);
+        const injector = inject(Injector);
+        const defaultConfig = inject(THY_AUTOCOMPLETE_DEFAULT_CONFIG);
+
         super(autocompleteAbstractOverlayOptions, overlay, injector, defaultConfig);
     }
 

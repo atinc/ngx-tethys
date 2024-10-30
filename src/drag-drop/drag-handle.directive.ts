@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, Optional } from '@angular/core';
+import { Directive, ElementRef, Input, inject } from '@angular/core';
 import { ThyDragDirective } from './drag.directive';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
@@ -12,6 +12,8 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     standalone: true
 })
 export class ThyDragHandleDirective {
+    element = inject<ElementRef<HTMLElement>>(ElementRef);
+
     private _disabled = false;
 
     /**
@@ -26,10 +28,9 @@ export class ThyDragHandleDirective {
         return this._disabled;
     }
 
-    constructor(
-        public element: ElementRef<HTMLElement>,
-        @Optional() drag: ThyDragDirective
-    ) {
+    constructor() {
+        const drag = inject(ThyDragDirective, { optional: true })!;
+
         if (drag) {
             drag.dragRef.withHandles(this);
         }

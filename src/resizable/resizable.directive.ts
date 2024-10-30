@@ -37,6 +37,13 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     standalone: true
 })
 export class ThyResizableDirective implements AfterViewInit, OnDestroy {
+    private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+    private renderer = inject(Renderer2);
+    private platform = inject(Platform);
+    private ngZone = inject(NgZone);
+    private thyResizableService = inject(ThyResizableService);
+    private changeDetectorRef = inject(ChangeDetectorRef);
+
     /**
      * 调整尺寸的边界
      * @default parent
@@ -117,14 +124,7 @@ export class ThyResizableDirective implements AfterViewInit, OnDestroy {
     private currentHandleEvent: ThyResizeHandleMouseDownEvent | null = null;
     private readonly destroyRef = inject(DestroyRef);
 
-    constructor(
-        private elementRef: ElementRef<HTMLElement>,
-        private renderer: Renderer2,
-        private platform: Platform,
-        private ngZone: NgZone,
-        private thyResizableService: ThyResizableService,
-        private changeDetectorRef: ChangeDetectorRef
-    ) {
+    constructor() {
         this.thyResizableService.handleMouseDownOutsideAngular$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(event => {
             if (this.thyDisabled) {
                 return;

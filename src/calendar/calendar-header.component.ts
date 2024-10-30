@@ -2,7 +2,7 @@ import { fromUnixTime, getMonth, getYear } from 'date-fns';
 import { DateRangeItemInfo, ThyDateRange } from 'ngx-tethys/date-range';
 import { endOfMonth, FunctionProp, getUnixTime, startOfMonth, TinyDate } from 'ngx-tethys/util';
 
-import { ChangeDetectorRef, Component, EventEmitter, HostBinding, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, HostBinding, Input, OnInit, Output, TemplateRef, inject } from '@angular/core';
 import { ThyButton } from 'ngx-tethys/button';
 import { NgTemplateOutlet, JsonPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -19,6 +19,8 @@ import { FormsModule } from '@angular/forms';
     imports: [ThyDateRange, FormsModule, ThyButton, NgTemplateOutlet, JsonPipe]
 })
 export class ThyCalendarHeader implements OnInit {
+    private cdr = inject(ChangeDetectorRef);
+
     @HostBinding('class.thy-calendar-full-header-container') className = true;
 
     /**
@@ -69,8 +71,6 @@ export class ThyCalendarHeader implements OnInit {
     private _currentDate: TinyDate;
 
     public isCurrent: boolean;
-
-    constructor(private cdr: ChangeDetectorRef) {}
 
     ngOnInit(): void {}
 

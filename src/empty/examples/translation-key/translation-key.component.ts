@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -18,8 +18,12 @@ import { TranslateService } from '@ngx-translate/core';
     ]
 })
 export class ThyEmptyTranslationKeyExampleComponent {
+    private translate = inject(TranslateService);
+
     translationValues = { translate: '示例' };
-    constructor(private translate: TranslateService) {
+    constructor() {
+        const translate = this.translate;
+
         translate.use('zh-cn');
         translate.setTranslation('zh-cn', {
             example: {

@@ -4,7 +4,7 @@ import { of } from 'rxjs';
 import { Directionality } from '@angular/cdk/bidi';
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal, ComponentType } from '@angular/cdk/portal';
-import { Inject, Injectable, Injector, OnDestroy, Optional, StaticProvider, TemplateRef } from '@angular/core';
+import { Injectable, Injector, OnDestroy, StaticProvider, TemplateRef, inject } from '@angular/core';
 
 import { ThyConfirmConfig } from './confirm.config';
 import { ThyConfirmAbstractComponent, THY_CONFIRM_COMPONENT_TOKEN } from './confirm/token';
@@ -19,6 +19,8 @@ import { dialogAbstractOverlayOptions } from './dialog.options';
  */
 @Injectable()
 export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDialogContainer> implements OnDestroy {
+    private confirmComponentType = inject<ComponentType<ThyConfirmAbstractComponent>>(THY_CONFIRM_COMPONENT_TOKEN);
+
     protected buildOverlayConfig(config: ThyDialogConfig<any>): OverlayConfig {
         const size = config.size || ThyDialogSizes.md;
         const overlayConfig = this.buildBaseOverlayConfig(config, [`dialog-${size}`]);
@@ -71,15 +73,12 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
         return Injector.create({ parent: userInjector || this.injector, providers: injectionTokens });
     }
 
-    constructor(
-        overlay: Overlay,
-        injector: Injector,
-        @Optional()
-        @Inject(THY_DIALOG_DEFAULT_OPTIONS)
-        defaultConfig: ThyDialogConfig,
-        clickPositioner: ThyClickPositioner,
-        @Inject(THY_CONFIRM_COMPONENT_TOKEN) private confirmComponentType: ComponentType<ThyConfirmAbstractComponent>
-    ) {
+    constructor() {
+        const overlay = inject(Overlay);
+        const injector = inject(Injector);
+        const defaultConfig = inject(THY_DIALOG_DEFAULT_OPTIONS, { optional: true })!;
+        const clickPositioner = inject(ThyClickPositioner);
+
         super(dialogAbstractOverlayOptions, overlay, injector, defaultConfig);
         clickPositioner.initialize();
     }

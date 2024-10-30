@@ -39,6 +39,8 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
     }
 })
 export class BasePicker extends AbstractPickerComponent implements OnInit, OnChanges {
+    protected element = inject(ElementRef);
+
     showWeek = false;
 
     panelMode: ThyPanelMode | ThyPanelMode[];
@@ -115,13 +117,6 @@ export class BasePicker extends AbstractPickerComponent implements OnInit, OnCha
     platformId = inject(PLATFORM_ID);
 
     ngZone = inject(NgZone);
-
-    constructor(
-        cdr: ChangeDetectorRef,
-        protected element: ElementRef
-    ) {
-        super(cdr);
-    }
 
     ngOnInit(): void {
         super.ngOnInit();

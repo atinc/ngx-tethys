@@ -1,6 +1,6 @@
 import { Mention, ThyMentionDirective } from 'ngx-tethys/mention';
 
-import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, TemplateRef, ViewChild, inject } from '@angular/core';
 
 const mockUsers = [
     'Jacob',
@@ -30,6 +30,8 @@ const mockUsers = [
     templateUrl: './suggestions-template.component.html'
 })
 export class ThyMentionSuggestionsTemplateExampleComponent implements OnInit {
+    elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+
     value = `This is suggestion-template mention! @`;
 
     @ViewChild(ThyMentionDirective, { static: true }) mention: ThyMentionDirective;
@@ -37,8 +39,6 @@ export class ThyMentionSuggestionsTemplateExampleComponent implements OnInit {
     @ViewChild('suggestionsTemplateRef', { static: true }) suggestionsTemplateRef: TemplateRef<{ data: [] }>;
 
     mentions: Mention<any>[];
-
-    constructor(public elementRef: ElementRef<HTMLElement>) {}
 
     ngOnInit() {
         this.mentions = [

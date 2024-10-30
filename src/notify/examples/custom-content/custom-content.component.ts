@@ -1,5 +1,5 @@
 import { ThyNotifyService } from 'ngx-tethys/notify';
-import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, TemplateRef, ViewChild, inject } from '@angular/core';
 import { ThyNotifyContentExampleComponent } from './content.component';
 
 @Component({
@@ -7,9 +7,9 @@ import { ThyNotifyContentExampleComponent } from './content.component';
     templateUrl: './custom-content.component.html'
 })
 export class ThyNotifyCustomContentExampleComponent implements OnInit {
-    @ViewChild('content', { static: true }) contentTemplate: TemplateRef<any>;
+    private notifyService = inject(ThyNotifyService);
 
-    constructor(private notifyService: ThyNotifyService) {}
+    @ViewChild('content', { static: true }) contentTemplate: TemplateRef<any>;
 
     ngOnInit() {}
 

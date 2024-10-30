@@ -1,11 +1,11 @@
-import { Component, ElementRef, HostBinding } from '@angular/core';
+import { Component, ElementRef, HostBinding, inject } from '@angular/core';
 
 @Component({
     selector: 'thy-empty-container-example',
     templateUrl: './container.component.html'
 })
 export class ThyEmptyContainerExampleComponent {
-    @HostBinding('style') overflow = { height: '300px', display: 'block', overflow: 'hidden' };
+    elementRef = inject(ElementRef);
 
-    constructor(public elementRef: ElementRef) {}
+    @HostBinding('style') overflow = { height: '300px', display: 'block', overflow: 'hidden' };
 }

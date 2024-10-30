@@ -1,6 +1,18 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
-import { Directive, ElementRef, EventEmitter, forwardRef, Input, NgZone, numberAttribute, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+    Directive,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    Input,
+    NgZone,
+    numberAttribute,
+    OnDestroy,
+    OnInit,
+    Output,
+    inject
+} from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyOverlayDirectiveBase, ThyPlacement, ThyOverlayTrigger, mixinTabIndex, mixinDisabled } from 'ngx-tethys/core';
 import { ThyPopover, ThyPopoverRef } from 'ngx-tethys/popover';
@@ -49,6 +61,8 @@ const _BaseMixin = mixinTabIndex(mixinDisabled(OverlayBase));
     standalone: true
 })
 export class ThyColorPickerDirective extends _BaseMixin implements OnInit, OnDestroy {
+    private thyPopover = inject(ThyPopover);
+
     /**
      * 弹框偏移量
      * @type  number
@@ -144,13 +158,12 @@ export class ThyColorPickerDirective extends _BaseMixin implements OnInit, OnDes
         return this.color;
     }
 
-    constructor(
-        private thyPopover: ThyPopover,
-        protected zone: NgZone,
-        protected elementRef: ElementRef<HTMLElement>,
-        platform: Platform,
-        focusMonitor: FocusMonitor
-    ) {
+    constructor() {
+        const zone = inject(NgZone);
+        const elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+        const platform = inject(Platform);
+        const focusMonitor = inject(FocusMonitor);
+
         super(zone, elementRef, platform, focusMonitor);
     }
 

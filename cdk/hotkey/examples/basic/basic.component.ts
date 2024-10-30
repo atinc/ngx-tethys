@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 
 @Component({
@@ -7,9 +7,9 @@ import { ThyNotifyService } from 'ngx-tethys/notify';
     styleUrls: ['./basic.component.scss']
 })
 export class ThyHotkeyBasicExampleComponent implements OnInit {
-    content: string = '这是一段文字';
+    private notify = inject(ThyNotifyService);
 
-    constructor(private notify: ThyNotifyService) {}
+    content: string = '这是一段文字';
 
     ngOnInit(): void {}
 

@@ -7,7 +7,8 @@ import {
     NgZone,
     OnDestroy,
     AfterContentInit,
-    ChangeDetectorRef
+    ChangeDetectorRef,
+    inject
 } from '@angular/core';
 import { Observable, defer, Subject, merge } from 'rxjs';
 import { ThyOptionVisibleChangeEvent, ThyOption } from '../option.component';
@@ -30,6 +31,9 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     standalone: true
 })
 export class ThySelectOptionGroup implements OnDestroy, AfterContentInit {
+    private _ngZone = inject(NgZone);
+    private cdr = inject(ChangeDetectorRef);
+
     _hidden = false;
     @Input({ transform: coerceBooleanProperty })
     @HostBinding(`class.disabled`)
@@ -57,11 +61,6 @@ export class ThySelectOptionGroup implements OnDestroy, AfterContentInit {
             switchMap(() => this.optionVisibleChanges)
         );
     }) as Observable<ThyOptionVisibleChangeEvent>;
-
-    constructor(
-        private _ngZone: NgZone,
-        private cdr: ChangeDetectorRef
-    ) {}
 
     ngAfterContentInit() {
         this.options.changes.pipe(startWith(null), takeUntil(this._destroy$)).subscribe(() => {

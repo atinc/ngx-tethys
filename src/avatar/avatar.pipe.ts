@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform, inject } from '@angular/core';
 import { ThyAvatarService } from './avatar.service';
 
 /**
@@ -75,7 +75,8 @@ export class AvatarBgColorPipe implements PipeTransform {
     standalone: true
 })
 export class AvatarSrcPipe implements PipeTransform {
-    constructor(private thyAvatarService: ThyAvatarService) {}
+    private thyAvatarService = inject(ThyAvatarService);
+
     transform(src: string, size: number) {
         return this.thyAvatarService.srcTransform
             ? this.thyAvatarService.srcTransform(src, size)

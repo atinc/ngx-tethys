@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, NgZone, OnDestroy } from '@angular/core';
+import { Directive, ElementRef, Input, NgZone, OnDestroy, inject } from '@angular/core';
 import { fromEvent, Observable, Subject } from 'rxjs';
 import { startWith, switchMap, takeUntil } from 'rxjs/operators';
 
@@ -34,7 +34,10 @@ export class ThyStopPropagationDirective implements OnDestroy {
     private _changes$ = new Subject<void>();
     private _destroy$ = new Subject<void>();
 
-    constructor(_host: ElementRef<HTMLElement>, _ngZone: NgZone) {
+    constructor() {
+        const _host = inject<ElementRef<HTMLElement>>(ElementRef);
+        const _ngZone = inject(NgZone);
+
         this._changes$
             .pipe(
                 // Note: we start the stream immediately since the `thyStopPropagation` setter may never be reached.

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { clone, options } from '../cascader-address-options';
 import { SafeAny } from 'ngx-tethys/types';
@@ -20,6 +20,8 @@ const customOptions: SafeAny[] = [
     imports: [ThyFormDirective, ThyFormGroup, ThyCascader, ThyTagModule, FormsModule]
 })
 export class ThyCascaderCustomOptionsExampleComponent implements OnInit {
+    private notifyService = inject(ThyNotifyService);
+
     public areaCode: SafeAny[] = [];
 
     public options: SafeAny[] = [];
@@ -38,7 +40,6 @@ export class ThyCascaderCustomOptionsExampleComponent implements OnInit {
         { text: '全部', _id: 'all', children: [], isLeaf: true },
         { text: '夜晚', _id: 'night', children: [], isLeaf: true }
     ];
-    constructor(private notifyService: ThyNotifyService) {}
 
     ngOnInit() {
         this.areaCode = clone(options);

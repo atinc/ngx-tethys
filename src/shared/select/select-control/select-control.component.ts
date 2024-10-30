@@ -12,7 +12,8 @@ import {
     Renderer2,
     TemplateRef,
     ViewChild,
-    numberAttribute
+    numberAttribute,
+    inject
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
@@ -39,6 +40,8 @@ export type SelectControlSize = 'xs' | 'sm' | 'md' | 'lg' | '';
     }
 })
 export class ThySelectControl implements OnInit {
+    private renderer = inject(Renderer2);
+
     inputValue = '';
 
     isComposing = false;
@@ -245,8 +248,6 @@ export class ThySelectControl implements OnInit {
             (this.isMultiple && (<SelectOptionBase[]>this.thySelectedOptions).length > 0)
         );
     }
-
-    constructor(private renderer: Renderer2) {}
 
     ngOnInit() {
         this.setSelectControlClass();

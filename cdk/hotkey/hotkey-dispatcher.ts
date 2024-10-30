@@ -1,6 +1,6 @@
 import { coerceElement } from '@angular/cdk/coercion';
 import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable, NgZone, ElementRef } from '@angular/core';
+import { Injectable, NgZone, ElementRef, inject } from '@angular/core';
 import { ThyEventDispatcher } from '@tethys/cdk/event';
 import { fromEvent, Observable, OperatorFunction, Subscriber } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -20,7 +20,10 @@ function runInZone<T>(zone: NgZone): OperatorFunction<T, T> {
 
 @Injectable({ providedIn: 'root' })
 export class ThyHotkeyDispatcher extends ThyEventDispatcher {
-    constructor(@Inject(DOCUMENT) document: any, ngZone: NgZone) {
+    constructor() {
+        const document = inject(DOCUMENT);
+        const ngZone = inject(NgZone);
+
         super(document, ngZone, 'keydown');
     }
 

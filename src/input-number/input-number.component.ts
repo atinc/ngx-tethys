@@ -19,7 +19,8 @@ import {
     OnInit,
     Output,
     SimpleChanges,
-    ViewChild
+    ViewChild,
+    inject
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -56,6 +57,8 @@ export class ThyInputNumber
     extends TabIndexDisabledControlValueAccessorMixin
     implements ControlValueAccessor, OnChanges, OnInit, OnDestroy
 {
+    private cdr = inject(ChangeDetectorRef);
+
     @ViewChild('input', { static: true }) inputElement: ElementRef<any>;
 
     private autoStepTimer: any;
@@ -169,7 +172,7 @@ export class ThyInputNumber
 
     private isFocused: boolean;
 
-    constructor(private cdr: ChangeDetectorRef) {
+    constructor() {
         super();
     }
 

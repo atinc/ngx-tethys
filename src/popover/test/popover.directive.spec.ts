@@ -1,7 +1,7 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { Component, DebugElement, ElementRef, NgModule, ViewChild } from '@angular/core';
+import { Component, DebugElement, ElementRef, NgModule, ViewChild, inject as coreInject } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush, inject, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -27,6 +27,8 @@ import { ThyPopoverDirective } from '../popover.directive';
     `
 })
 class ThyDemoVisiblePopoverComponent {
+    elementRef = coreInject<ElementRef<HTMLElement>>(ElementRef);
+
     @ViewChild(ThyPopoverDirective, { static: true }) popover: ThyPopoverDirective;
 
     placement: ThyPlacement = 'bottom';
@@ -36,8 +38,6 @@ class ThyDemoVisiblePopoverComponent {
     config = {
         panelClass: 'demo-popover'
     };
-
-    constructor(public elementRef: ElementRef<HTMLElement>) {}
 }
 
 @NgModule({
@@ -191,6 +191,8 @@ describe(`ThyTooltip`, () => {
     `
 })
 class TestPopoverDirectiveClickComponent {
+    elementRef = coreInject<ElementRef<HTMLElement>>(ElementRef);
+
     @ViewChild(ThyPopoverDirective, { static: true }) popover: ThyPopoverDirective;
 
     placement: ThyPlacement = 'bottom';
@@ -201,8 +203,6 @@ class TestPopoverDirectiveClickComponent {
         panelClass: 'demo-popover'
     };
     disabled = false;
-
-    constructor(public elementRef: ElementRef<HTMLElement>) {}
 }
 
 @NgModule({

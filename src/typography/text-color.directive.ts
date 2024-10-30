@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnInit } from '@angular/core';
+import { Directive, ElementRef, Input, OnInit, inject } from '@angular/core';
 import { isTextColor, isThemeColor, ThyTextColor, ThyThemeColor } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
@@ -12,6 +12,8 @@ import { useHostRenderer } from '@tethys/cdk/dom';
     standalone: true
 })
 export class ThyTextColorDirective implements OnInit {
+    private elementRef = inject(ElementRef);
+
     private color: ThyThemeColor | ThyTextColor | string = '';
 
     private hostRenderer = useHostRenderer();
@@ -25,8 +27,6 @@ export class ThyTextColorDirective implements OnInit {
         this.color = value;
         this.setColor();
     }
-
-    constructor(private elementRef: ElementRef) {}
 
     ngOnInit(): void {}
 

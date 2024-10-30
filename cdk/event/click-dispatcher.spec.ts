@@ -1,5 +1,5 @@
 import { inject, TestBed, fakeAsync, ComponentFixture, tick, flushMicrotasks, flush } from '@angular/core/testing';
-import { NgModule, Component, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { NgModule, Component, ViewChild, ElementRef, OnDestroy, inject as coreInject } from '@angular/core';
 import { dispatchFakeEvent } from '@tethys/cdk/testing';
 
 import { ThyClickDispatcher } from './click-dispatcher';
@@ -132,10 +132,14 @@ describe('ClickDispatcher', () => {
     template: ` <div></div> `
 })
 class ClickComponent implements OnDestroy {
+    clickDispatcher = coreInject(ThyClickDispatcher);
+
     clicked = 0;
     subscription: Subscription;
     clicked$: Observable<Event>;
-    constructor(public clickDispatcher: ThyClickDispatcher) {
+    constructor() {
+        const clickDispatcher = this.clickDispatcher;
+
         this.clicked$ = clickDispatcher.clicked(0);
         this.subscription = this.clicked$.subscribe(event => {
             this.clicked++;

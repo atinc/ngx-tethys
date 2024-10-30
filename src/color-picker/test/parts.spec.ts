@@ -2,7 +2,7 @@ import { ThyInputNumber } from 'ngx-tethys/input-number';
 import { dispatchEvent, dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -30,11 +30,11 @@ import { ThySaturation } from '../parts/saturation/saturation.component';
     ]
 })
 class ThyDemoAlphaComponent {
+    elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+
     @ViewChild(ThyAlpha) alphaComponent: ThyAlpha;
 
     color = new ThyColor('#fafafa');
-
-    constructor(public elementRef: ElementRef<HTMLElement>) {}
 
     colorChangeEvent = (color: ThyColor) => {
         this.color = color;
@@ -46,11 +46,11 @@ class ThyDemoAlphaComponent {
     template: ` <thy-hue [color]="color" (colorChange)="colorChangeEvent($event)"></thy-hue> `
 })
 class ThyDemoHueComponent {
+    elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+
     @ViewChild(ThyHue) hueComponent: ThyHue;
 
     color = new ThyColor('#fafafa');
-
-    constructor(public elementRef: ElementRef<HTMLElement>) {}
 
     colorChangeEvent = (color: ThyColor) => {
         this.color = color;
@@ -62,11 +62,11 @@ class ThyDemoHueComponent {
     template: ` <thy-saturation [color]="color" (colorChange)="colorChangeEvent($event)"></thy-saturation> `
 })
 class ThyDemoSaturationComponent {
+    elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+
     @ViewChild(ThySaturation) hueComponent: ThySaturation;
 
     color = new ThyColor('#fafafa');
-
-    constructor(public elementRef: ElementRef<HTMLElement>) {}
 
     colorChangeEvent = (color: ThyColor) => {
         this.color = color;
@@ -78,12 +78,12 @@ class ThyDemoSaturationComponent {
     template: ` <thy-color-inputs [color]="color" (colorChange)="colorChangeEvent($event)"></thy-color-inputs> `
 })
 class ThyDemoColorInputsComponent {
+    elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+
     @ViewChild(ThyColorInputs) colorInputsComponent: ThyColorInputs;
     @ViewChild(ThyInputNumber) inputNumber: ThyInputNumber;
 
     color = new ThyColor('#fafafa');
-
-    constructor(public elementRef: ElementRef<HTMLElement>) {}
 
     colorChangeEvent = (color: ThyColor) => {
         this.color = color;
@@ -95,11 +95,11 @@ class ThyDemoColorInputsComponent {
     template: ` <thy-indicator [color]="color" (colorChange)="colorChangeEvent($event)"></thy-indicator> `
 })
 class ThyDemoIndicatorComponent {
+    elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+
     @ViewChild(ThyIndicator) colorIndicatorComponent: ThyIndicator;
 
     color = new ThyColor('#ddd');
-
-    constructor(public elementRef: ElementRef<HTMLElement>) {}
 
     colorChangeEvent = (color: ThyColor) => {
         this.color = color;

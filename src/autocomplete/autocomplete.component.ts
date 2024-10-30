@@ -13,7 +13,8 @@ import {
     AfterContentInit,
     ChangeDetectorRef,
     Input,
-    ElementRef
+    ElementRef,
+    inject
 } from '@angular/core';
 import { defer, merge, Observable, Subject, timer } from 'rxjs';
 import { take, switchMap, takeUntil, startWith } from 'rxjs/operators';
@@ -57,6 +58,9 @@ export interface ThyAutocompleteActivatedEvent {
     imports: [ThyStopPropagationDirective, NgClass, ThyEmpty]
 })
 export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, AfterContentInit, OnDestroy {
+    private ngZone = inject(NgZone);
+    private changeDetectorRef = inject(ChangeDetectorRef);
+
     private ngUnsubscribe$ = new Subject<void>();
 
     dropDownClass: { [key: string]: boolean };
@@ -134,11 +138,6 @@ export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, After
      * @type EventEmitter<ThyAutocompleteActivatedEvent>
      */
     @Output() readonly thyOptionActivated: EventEmitter<ThyAutocompleteActivatedEvent> = new EventEmitter<ThyAutocompleteActivatedEvent>();
-
-    constructor(
-        private ngZone: NgZone,
-        private changeDetectorRef: ChangeDetectorRef
-    ) {}
 
     ngOnInit() {
         this.setDropDownClass();

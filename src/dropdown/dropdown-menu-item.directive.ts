@@ -1,4 +1,4 @@
-import { Directive, HostBinding, Input, HostListener, ElementRef, OnInit } from '@angular/core';
+import { Directive, HostBinding, Input, HostListener, ElementRef, OnInit, inject } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { debounceTime, shareReplay } from 'rxjs/operators';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -16,6 +16,8 @@ export type ThyDropdownMenuItemType = 'default' | 'danger' | 'success' | '';
     standalone: true
 })
 export class ThyDropdownMenuItemDirective implements OnInit {
+    private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+
     @HostBinding('class.dropdown-menu-item') className = true;
 
     @HostBinding('class.dropdown-menu-item--disabled') disabled = false;
@@ -52,8 +54,6 @@ export class ThyDropdownMenuItemDirective implements OnInit {
     }
 
     private hostRenderer = useHostRenderer();
-
-    constructor(private elementRef: ElementRef<HTMLElement>) {}
 
     ngOnInit() {}
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ThyGuider, ThyGuiderConfig, ThyGuiderRef, ThyGuiderStep } from 'ngx-tethys/guider';
 
 @Component({
@@ -6,6 +6,8 @@ import { ThyGuider, ThyGuiderConfig, ThyGuiderRef, ThyGuiderStep } from 'ngx-tet
     templateUrl: 'multi-target.component.html'
 })
 export class ThyGuiderMultiTargetExampleComponent implements OnInit {
+    private thyGuider = inject(ThyGuider);
+
     public targetConfig = {
         target0: true,
         target1: true,
@@ -15,8 +17,6 @@ export class ThyGuiderMultiTargetExampleComponent implements OnInit {
     private option: ThyGuiderConfig;
 
     private guiderRef: ThyGuiderRef;
-
-    constructor(private thyGuider: ThyGuider) {}
 
     ngOnInit() {
         this.option = this.setDefaultGuiderOption();

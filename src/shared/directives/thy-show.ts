@@ -1,4 +1,4 @@
-import { Directive, Renderer2, Input, ElementRef, Output, EventEmitter, OnDestroy, NgZone } from '@angular/core';
+import { Directive, Renderer2, Input, ElementRef, Output, EventEmitter, OnDestroy, NgZone, inject } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
@@ -10,6 +10,10 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     standalone: true
 })
 export class ThyShowDirective implements OnDestroy {
+    private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+    private renderer = inject(Renderer2);
+    private ngZone = inject(NgZone);
+
     @Output() thyShowChange = new EventEmitter();
 
     private hostRenderer = useHostRenderer();
@@ -44,12 +48,6 @@ export class ThyShowDirective implements OnDestroy {
             this.unListenDocument();
         }
     }
-
-    constructor(
-        private elementRef: ElementRef<HTMLElement>,
-        private renderer: Renderer2,
-        private ngZone: NgZone
-    ) {}
 
     ngOnDestroy() {
         this.unListenDocument();

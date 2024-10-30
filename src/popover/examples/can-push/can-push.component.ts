@@ -1,5 +1,5 @@
 import { ThyPopover } from 'ngx-tethys/popover';
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, inject } from '@angular/core';
 import { Overlay } from '@angular/cdk/overlay';
 
 @Component({
@@ -7,12 +7,10 @@ import { Overlay } from '@angular/cdk/overlay';
     templateUrl: './can-push.component.html'
 })
 export class ThyPopoverCanPushExampleComponent implements OnInit {
-    public config = {};
+    private thyPopover = inject(ThyPopover);
+    private overlay = inject(Overlay);
 
-    constructor(
-        private thyPopover: ThyPopover,
-        private overlay: Overlay
-    ) {}
+    public config = {};
 
     ngOnInit(): void {
         this.config = {

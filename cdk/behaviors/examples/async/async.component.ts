@@ -16,6 +16,8 @@ interface Todo {
     styleUrls: ['./async.component.scss']
 })
 export class ThyBehaviorsAsyncComponent implements OnInit {
+    private notifyService = inject(ThyNotifyService);
+
     http = inject(HttpClient);
 
     todosFetcher = asyncBehavior((name: string) => {
@@ -33,7 +35,7 @@ export class ThyBehaviorsAsyncComponent implements OnInit {
 
     todos: Todo[];
 
-    constructor(private notifyService: ThyNotifyService) {
+    constructor() {
         setDefaultErrorHandler(error => {
             this.notifyService.error(error.message);
         });

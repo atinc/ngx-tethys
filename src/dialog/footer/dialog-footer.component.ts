@@ -1,5 +1,5 @@
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { Component, ContentChild, Inject, Input, OnInit, TemplateRef } from '@angular/core';
+import { Component, ContentChild, Input, OnInit, TemplateRef, inject } from '@angular/core';
 
 import { THY_DIALOG_LAYOUT_CONFIG, ThyDialogFooterAlign, ThyDialogLayoutConfig } from '../dialog.config';
 import { NgTemplateOutlet } from '@angular/common';
@@ -19,6 +19,8 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     imports: [NgTemplateOutlet]
 })
 export class ThyDialogFooter implements OnInit {
+    private dialogLayoutConfig = inject(THY_DIALOG_LAYOUT_CONFIG);
+
     /**
      * 自定义弹出框底部的描述模板
      * @type TemplateRef
@@ -50,7 +52,7 @@ export class ThyDialogFooter implements OnInit {
         return !!this.thyAlign ? this.thyAlign : this.dialogLayoutConfig.footerAlign;
     }
 
-    constructor(@Inject(THY_DIALOG_LAYOUT_CONFIG) private dialogLayoutConfig: ThyDialogLayoutConfig) {
+    constructor() {
         this.divided = this.dialogLayoutConfig.footerDivided;
     }
 

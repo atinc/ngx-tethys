@@ -5,13 +5,12 @@ import {
     Component,
     EventEmitter,
     HostBinding,
-    Inject,
     Input,
     OnInit,
-    Optional,
     Output,
     TemplateRef,
-    numberAttribute
+    numberAttribute,
+    inject
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -36,6 +35,9 @@ import { PaginationTotalCountFormat } from './pagination.pipe';
     imports: [NgTemplateOutlet, ThySelect, FormsModule, ThyOption, ThyIcon, ThyEnterDirective, PaginationTotalCountFormat]
 })
 export class ThyPagination implements OnInit {
+    private paginationConfig = inject(THY_PAGINATION_CONFIG, { optional: true })!;
+    private cdr = inject(ChangeDetectorRef);
+
     isTemplateRef = isTemplateRef;
     public config: ThyPaginationConfigModel = Object.assign({}, PaginationDefaultConfig, this.paginationConfig.main);
 
@@ -234,13 +236,6 @@ export class ThyPagination implements OnInit {
     @HostBinding('class.thy-pagination-has-total')
     @Input('thyShowTotal')
     showTotal: boolean | TemplateRef<{ $implicit: number; range: { from: number; to: number } }> = false;
-
-    constructor(
-        @Optional()
-        @Inject(THY_PAGINATION_CONFIG)
-        private paginationConfig: ThyPaginationConfig,
-        private cdr: ChangeDetectorRef
-    ) {}
 
     ngOnInit() {
         this.setMarginalCount(this.config.rangeCount);

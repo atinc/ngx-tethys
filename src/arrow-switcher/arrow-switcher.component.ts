@@ -8,7 +8,8 @@ import {
     OnInit,
     ChangeDetectorRef,
     forwardRef,
-    numberAttribute
+    numberAttribute,
+    inject
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyButtonIcon } from 'ngx-tethys/button';
@@ -42,6 +43,8 @@ export interface ThyArrowSwitcherEvent {
     imports: [ThyAction, ThyTooltipDirective, ThyIcon, ThyButtonIcon]
 })
 export class ThyArrowSwitcher implements OnInit, ControlValueAccessor {
+    private cd = inject(ChangeDetectorRef);
+
     @HostBinding('class.thy-arrow-switcher') _isArrowSwitcher = true;
 
     @HostBinding('class.thy-arrow-switcher-small') _isSmallSize = false;
@@ -111,8 +114,6 @@ export class ThyArrowSwitcher implements OnInit, ControlValueAccessor {
     private onModelChange: (value: number) => void;
 
     private onModelTouched: () => void;
-
-    constructor(private cd: ChangeDetectorRef) {}
 
     ngOnInit() {}
 

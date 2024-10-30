@@ -1,4 +1,4 @@
-import { Inject, Injectable, OnDestroy, Optional } from '@angular/core';
+import { Injectable, OnDestroy, inject } from '@angular/core';
 import { ThyImagePreviewConfig, THY_IMAGE_DEFAULT_PREVIEW_OPTIONS } from './image.config';
 import { ThyImageInfo, ThyImagePreviewOptions } from './image.class';
 import { ThyImagePreview } from './preview/image-preview.component';
@@ -12,6 +12,8 @@ import { takeUntil } from 'rxjs/operators';
  */
 @Injectable()
 export class ThyImageService implements OnDestroy {
+    thyDialog = inject(ThyDialog);
+
     /**
      * 图片预览默认配置，外部可通过注入 THY_IMAGE_DEFAULT_PREVIEW_OPTIONS 进行配置
      */
@@ -21,12 +23,9 @@ export class ThyImageService implements OnDestroy {
 
     private ngUnsubscribe$ = new Subject<void>();
 
-    constructor(
-        public thyDialog: ThyDialog,
-        @Optional()
-        @Inject(THY_IMAGE_DEFAULT_PREVIEW_OPTIONS)
-        defaultConfig: ThyImagePreviewConfig
-    ) {
+    constructor() {
+        const defaultConfig = inject(THY_IMAGE_DEFAULT_PREVIEW_OPTIONS, { optional: true })!;
+
         this.defaultConfig = defaultConfig;
     }
 

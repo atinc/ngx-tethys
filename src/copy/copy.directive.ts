@@ -1,4 +1,4 @@
-import { Directive, ElementRef, EventEmitter, HostListener, Inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { coerceElement } from '@angular/cdk/coercion';
 import { ThyNotifyService } from 'ngx-tethys/notify';
@@ -19,6 +19,10 @@ export interface ThyCopyEvent {
     standalone: true
 })
 export class ThyCopyDirective implements OnInit, OnDestroy {
+    private document = inject(DOCUMENT);
+    tooltipDirective = inject(ThyTooltipDirective);
+    private notifyService = inject(ThyNotifyService);
+
     /**
      * 默认为点击标签，可传复制目标标签
      */
@@ -48,12 +52,6 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
      * 是否展示通知
      */
     @Input({ transform: coerceBooleanProperty }) thyShowNotify = true;
-
-    constructor(
-        @Inject(DOCUMENT) private document: any,
-        public tooltipDirective: ThyTooltipDirective,
-        private notifyService: ThyNotifyService
-    ) {}
 
     ngOnInit() {
         this.tooltipDirective.content = this.thyCopyTips ? this.thyCopyTips : '点击复制';

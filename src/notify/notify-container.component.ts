@@ -1,4 +1,4 @@
-import { Component, Inject, ElementRef, HostBinding } from '@angular/core';
+import { Component, ElementRef, HostBinding, inject } from '@angular/core';
 import { ThyAbstractMessageContainerComponent } from 'ngx-tethys/message';
 import { ThyNotifyQueue } from './notify-queue.service';
 import { ThyGlobalNotifyConfig, THY_NOTIFY_DEFAULT_CONFIG, THY_NOTIFY_DEFAULT_CONFIG_VALUE } from './notify.config';
@@ -15,14 +15,14 @@ import { AsyncPipe } from '@angular/common';
     imports: [ThyNotify, AsyncPipe]
 })
 export class ThyNotifyContainer extends ThyAbstractMessageContainerComponent {
+    notifyQueue = inject(ThyNotifyQueue);
+
     @HostBinding('class') className = 'thy-notify-container';
 
-    constructor(
-        public notifyQueue: ThyNotifyQueue,
-        elementRef: ElementRef,
-        @Inject(THY_NOTIFY_DEFAULT_CONFIG) defaultConfig: ThyGlobalNotifyConfig
-    ) {
-        super(elementRef, {
+    constructor() {
+        const defaultConfig = inject(THY_NOTIFY_DEFAULT_CONFIG);
+
+        super({
             ...THY_NOTIFY_DEFAULT_CONFIG_VALUE,
             ...defaultConfig
         });

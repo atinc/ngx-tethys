@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { clone, options } from '../cascader-address-options';
 @Component({
@@ -6,11 +6,11 @@ import { clone, options } from '../cascader-address-options';
     templateUrl: './move-unfold-trigger.component.html'
 })
 export class ThyCascaderMoveUnfoldTriggerExampleComponent implements OnInit {
+    private notifyService = inject(ThyNotifyService);
+
     public areaCode: any[] = [];
 
     public values: any[] = [];
-
-    constructor(private notifyService: ThyNotifyService) {}
 
     ngOnInit() {
         this.areaCode = clone(options);

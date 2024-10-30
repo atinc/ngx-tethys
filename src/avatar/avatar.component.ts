@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output, inject } from '@angular/core';
 import { SafeHtml } from '@angular/platform-browser';
 import { isString, coerceBooleanProperty } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -38,6 +38,9 @@ export type ThyAvatarFetchPriority = 'high' | 'low' | 'auto';
     imports: [NgClass, NgStyle, ThyIcon, AvatarShortNamePipe, AvatarBgColorPipe, AvatarSrcPipe]
 })
 export class ThyAvatar implements OnInit {
+    private thyAvatarService = inject(ThyAvatarService);
+    elementRef = inject(ElementRef);
+
     _src: string;
     _name: string;
     _size: number;
@@ -188,11 +191,6 @@ export class ThyAvatar implements OnInit {
     }
 
     private hostRenderer = useHostRenderer();
-
-    constructor(
-        private thyAvatarService: ThyAvatarService,
-        public elementRef: ElementRef
-    ) {}
 
     ngOnInit() {
         if (!this._size) {

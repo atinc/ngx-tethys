@@ -15,7 +15,8 @@ import {
     Output,
     SimpleChanges,
     TemplateRef,
-    ViewEncapsulation
+    ViewEncapsulation,
+    inject
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -42,6 +43,8 @@ type CalendarDateTemplate = TemplateRef<{ $implicit: Date }>;
     imports: [ThyCalendarHeader, DateTable, MonthTable]
 })
 export class ThyCalendar implements OnInit, OnChanges {
+    private cdr = inject(ChangeDetectorRef);
+
     @HostBinding('class.thy-calendar-container') className = true;
 
     @HostBinding('class.thy-calendar-full') className1 = true;
@@ -110,8 +113,6 @@ export class ThyCalendar implements OnInit, OnChanges {
     private onChangeFn: (date: Date) => void = () => {};
 
     private onTouchFn: () => void = () => {};
-
-    constructor(private cdr: ChangeDetectorRef) {}
 
     ngOnInit(): void {}
 

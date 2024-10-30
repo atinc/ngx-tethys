@@ -1,6 +1,6 @@
 import { finalize } from 'rxjs/operators';
 import { timer } from 'rxjs';
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, inject } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { ThyDialog } from 'ngx-tethys/dialog';
 
@@ -9,6 +9,9 @@ import { ThyDialog } from 'ngx-tethys/dialog';
     templateUrl: './dialog.component.html'
 })
 export class ThyFormDialogExampleComponent implements OnInit {
+    dialog = inject(ThyDialog);
+    private notifyService = inject(ThyNotifyService);
+
     model = {
         projectName: '',
         role: 1
@@ -23,11 +26,6 @@ export class ThyFormDialogExampleComponent implements OnInit {
     };
 
     saving = false;
-
-    constructor(
-        public dialog: ThyDialog,
-        private notifyService: ThyNotifyService
-    ) {}
 
     ngOnInit(): void {}
 

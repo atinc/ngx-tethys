@@ -6,7 +6,7 @@ import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing';
 import { keycodes } from 'ngx-tethys/util';
 
 import { CommonModule } from '@angular/common';
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, inject } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormBuilder, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -137,6 +137,8 @@ export class TestFormFullComponent {
     `
 })
 export class TestFormReactiveComponent {
+    private formBuilder = inject(FormBuilder);
+
     formGroup = this.formBuilder.group({
         age: [0],
         username: ['', [Validators.required]],
@@ -158,8 +160,6 @@ export class TestFormReactiveComponent {
             }
         }
     };
-
-    constructor(private formBuilder: FormBuilder) {}
 
     submit() {}
 }

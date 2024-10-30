@@ -1,4 +1,4 @@
-import { Injectable, Inject, NgZone } from '@angular/core';
+import { Injectable, NgZone, inject } from '@angular/core';
 import { ThyClickDispatcher } from './event-dispatchers/index';
 
 export interface ThyClickPosition {
@@ -10,11 +10,11 @@ export interface ThyClickPosition {
     providedIn: 'root'
 })
 export class ThyClickPositioner {
+    private clickDispatcher = inject(ThyClickDispatcher);
+
     private lastPosition: ThyClickPosition = null;
 
     private initialized = false;
-
-    constructor(private clickDispatcher: ThyClickDispatcher) {}
 
     get lastClickPosition(): ThyClickPosition | null {
         return this.lastPosition;

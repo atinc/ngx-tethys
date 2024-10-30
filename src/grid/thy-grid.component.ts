@@ -58,6 +58,10 @@ export const screenBreakpointsMap = {
 })
 // eslint-disable-next-line @angular-eslint/directive-class-suffix
 export class ThyGrid implements ThyGridToken, OnInit, OnChanges, AfterContentInit {
+    private elementRef = inject(ElementRef);
+    private viewportRuler = inject(ViewportRuler);
+    private ngZone = inject(NgZone);
+
     /**
      * @internal
      */
@@ -107,12 +111,6 @@ export class ThyGrid implements ThyGridToken, OnInit, OnChanges, AfterContentIni
     public gridItemPropValueChange$ = new Subject<void>();
 
     private takeUntilDestroyed = takeUntilDestroyed();
-
-    constructor(
-        private elementRef: ElementRef,
-        private viewportRuler: ViewportRuler,
-        private ngZone: NgZone
-    ) {}
 
     ngOnInit(): void {
         this.setGridStyle();

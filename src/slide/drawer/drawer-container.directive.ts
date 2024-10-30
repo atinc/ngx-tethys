@@ -1,4 +1,4 @@
-import { Directive, ElementRef } from '@angular/core';
+import { Directive, ElementRef, inject } from '@angular/core';
 
 /**
  * @name thyDrawerContainer
@@ -9,5 +9,5 @@ import { Directive, ElementRef } from '@angular/core';
     standalone: true
 })
 export class ThyDrawerContainerDirective {
-    constructor(public elementRef: ElementRef) {}
+    elementRef = inject(ElementRef);
 }

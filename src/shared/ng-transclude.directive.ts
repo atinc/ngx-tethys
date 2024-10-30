@@ -1,4 +1,4 @@
-import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, Input, TemplateRef, ViewContainerRef, inject } from '@angular/core';
 
 /**
  * @private
@@ -25,7 +25,9 @@ export class ThyTranscludeDirective {
         return this._ngTransclude;
     }
 
-    constructor(viewRef: ViewContainerRef) {
+    constructor() {
+        const viewRef = inject(ViewContainerRef);
+
         this.viewRef = viewRef;
     }
 }

@@ -1,5 +1,5 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { DomSanitizer, By } from '@angular/platform-browser';
 import { Observable, Subscriber } from 'rxjs';
 
@@ -43,10 +43,10 @@ import { dispatchFakeEvent } from '../../testing';
     `
 })
 class ThyTestAvatarComponent {
-    constructor(
-        private thyAvatarService: ThyAvatarService,
-        private domSanitizer: DomSanitizer
-    ) {
+    private thyAvatarService = inject(ThyAvatarService);
+    private domSanitizer = inject(DomSanitizer);
+
+    constructor() {
         this.errorEmit$ = new Observable<Event>(subscriber => {
             this.errorSubscriber = subscriber;
         });

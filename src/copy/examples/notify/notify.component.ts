@@ -1,14 +1,14 @@
 import { ThyCopyEvent } from 'ngx-tethys/copy';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 @Component({
     selector: 'thy-copy-notify-example',
     templateUrl: './notify.component.html'
 })
 export class ThyCopyNotifyExampleComponent {
-    constructor(private notifyService: ThyNotifyService) {}
+    private notifyService = inject(ThyNotifyService);
 
     copy(event: ThyCopyEvent) {
         if (event.isSuccess) {

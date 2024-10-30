@@ -5,7 +5,7 @@ import { filter } from 'rxjs/operators';
 import { AnimationEvent } from '@angular/animations';
 import { PortalModule } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, NgZone, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, NgZone, ViewChild, inject } from '@angular/core';
 
 import { thyAutocompleteAnimations } from './autocomplete-animations';
 import { ThyAutocompleteConfig } from './autocomplete.config';
@@ -30,6 +30,12 @@ import { autocompleteAbstractOverlayOptions } from './autocomplete.options';
     imports: [PortalModule, ThyPortalOutlet]
 })
 export class ThyAutocompleteContainer extends ThyAbstractOverlayContainer implements AfterViewInit {
+    private elementRef = inject(ElementRef);
+    private document = inject(DOCUMENT);
+    config = inject(ThyAutocompleteConfig);
+    private thyClickDispatcher = inject(ThyClickDispatcher);
+    private ngZone = inject(NgZone);
+
     @ViewChild(ThyPortalOutlet, { static: true })
     portalOutlet: ThyPortalOutlet;
 
@@ -44,14 +50,9 @@ export class ThyAutocompleteContainer extends ThyAbstractOverlayContainer implem
 
     beforeAttachPortal(): void {}
 
-    constructor(
-        private elementRef: ElementRef,
-        @Inject(DOCUMENT) private document: any,
-        public config: ThyAutocompleteConfig,
-        changeDetectorRef: ChangeDetectorRef,
-        private thyClickDispatcher: ThyClickDispatcher,
-        private ngZone: NgZone
-    ) {
+    constructor() {
+        const changeDetectorRef = inject(ChangeDetectorRef);
+
         super(autocompleteAbstractOverlayOptions, changeDetectorRef);
 
         this.animationOpeningDone = this.animationStateChanged.pipe(

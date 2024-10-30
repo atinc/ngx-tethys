@@ -8,7 +8,8 @@ import {
     ViewContainerRef,
     OnInit,
     OnChanges,
-    SimpleChanges
+    SimpleChanges,
+    inject
 } from '@angular/core';
 
 import { TinyDate, coerceBooleanProperty } from 'ngx-tethys/util';
@@ -40,7 +41,6 @@ export class CalendarFooter implements OnInit, OnChanges {
     @Output() readonly showTimePickerChange = new EventEmitter<boolean>();
     isShowTime = false;
     isCanTime = false;
-    constructor(_elementRef: ElementRef, _viewContainerRef: ViewContainerRef) {}
 
     ngOnInit() {
         this._initTimeShowMode();

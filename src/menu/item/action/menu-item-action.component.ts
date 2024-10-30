@@ -2,7 +2,7 @@ import { ThyPopover, ThyPopoverConfig } from 'ngx-tethys/popover';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 import { ComponentType } from '@angular/cdk/portal';
-import { Component, ElementRef, Input, OnDestroy, Renderer2, TemplateRef } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, Renderer2, TemplateRef, inject } from '@angular/core';
 
 /**
  * 菜单项操作组件
@@ -18,6 +18,10 @@ import { Component, ElementRef, Input, OnDestroy, Renderer2, TemplateRef } from 
     standalone: true
 })
 export class ThyMenuItemAction implements OnDestroy {
+    private popover = inject(ThyPopover);
+    private renderer = inject(Renderer2);
+    private elementRef = inject(ElementRef);
+
     _boundEvent = false;
 
     _actionMenu: ComponentType<any> | TemplateRef<any>;
@@ -77,12 +81,6 @@ export class ThyMenuItemAction implements OnDestroy {
     }
 
     private removeClickListenerFn: VoidFunction | null = null;
-
-    constructor(
-        private popover: ThyPopover,
-        private renderer: Renderer2,
-        private elementRef: ElementRef
-    ) {}
 
     ngOnDestroy(): void {
         this.removeClickListenerFn?.();

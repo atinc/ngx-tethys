@@ -9,7 +9,8 @@ import {
     OnDestroy,
     Output,
     SimpleChanges,
-    StaticProvider
+    StaticProvider,
+    inject
 } from '@angular/core';
 
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -52,6 +53,9 @@ export const TIMEPICKER_CONTROL_VALUE_ACCESSOR: StaticProvider = {
     imports: []
 })
 export class ThyInnerTimePicker implements ControlValueAccessor, TimePickerComponentState, TimePickerControls, OnChanges, OnDestroy {
+    private _cd = inject(ChangeDetectorRef);
+    private _store = inject(ThyTimePickerStore);
+
     /** hours change step */
     @Input() hourStep: number;
     /** hours change step */
@@ -122,11 +126,11 @@ export class ThyInnerTimePicker implements ControlValueAccessor, TimePickerCompo
 
     private timerPickerSubscription = new Subscription();
 
-    constructor(
-        _config: TimePickerConfig,
-        private _cd: ChangeDetectorRef,
-        private _store: ThyTimePickerStore
-    ) {
+    constructor() {
+        const _config = inject(TimePickerConfig);
+        const _cd = this._cd;
+        const _store = this._store;
+
         Object.assign(this, _config);
 
         this.timerPickerSubscription.add(

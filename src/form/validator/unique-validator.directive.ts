@@ -1,5 +1,5 @@
 import { AsyncValidator, AbstractControl, ValidationErrors, NG_ASYNC_VALIDATORS } from '@angular/forms';
-import { Directive, Input, Optional, ElementRef } from '@angular/core';
+import { Directive, Input, ElementRef, inject } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { ThyFormDirective } from '../form.directive';
@@ -21,12 +21,10 @@ import { ThyFormDirective } from '../form.directive';
     standalone: true
 })
 export class ThyUniqueCheckValidator implements AsyncValidator {
-    @Input() thyUniqueCheck: (value: any) => Observable<boolean>;
+    private elementRef = inject(ElementRef);
+    private thyForm = inject(ThyFormDirective, { optional: true })!;
 
-    constructor(
-        private elementRef: ElementRef,
-        @Optional() private thyForm: ThyFormDirective
-    ) {}
+    @Input() thyUniqueCheck: (value: any) => Observable<boolean>;
 
     validate(ctrl: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
         return this.thyUniqueCheck(ctrl.value).pipe(

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ContentChild, TemplateRef, OnInit, Optional, ElementRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ContentChild, TemplateRef, OnInit, ElementRef, inject } from '@angular/core';
 import { ThyDialog } from '../dialog.service';
 import { ThyDialogContainer } from '../dialog-container.component';
 import { ThyTranslate } from 'ngx-tethys/core';
@@ -27,6 +27,11 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     imports: [NgTemplateOutlet, ThyIcon, ThyAction]
 })
 export class ThyDialogHeader implements OnInit {
+    private elementRef = inject(ElementRef);
+    private dialog = inject(ThyDialog);
+    private translate = inject(ThyTranslate);
+    private dialogContainer = inject(ThyDialogContainer, { optional: true })!;
+
     /**
      * 自定义头部模板
      */
@@ -70,13 +75,6 @@ export class ThyDialogHeader implements OnInit {
      * 关闭事件
      */
     @Output() thyOnClose: EventEmitter<Event> = new EventEmitter<Event>();
-
-    constructor(
-        private elementRef: ElementRef,
-        private dialog: ThyDialog,
-        private translate: ThyTranslate,
-        @Optional() private dialogContainer: ThyDialogContainer
-    ) {}
 
     ngOnInit() {
         if (!this.dialogContainer) {
