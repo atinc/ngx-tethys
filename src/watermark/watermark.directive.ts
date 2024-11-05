@@ -1,15 +1,48 @@
-import { Directive, Input, ElementRef, OnInit, SimpleChanges, OnChanges, inject, DestroyRef } from '@angular/core';
+import {
+    Directive,
+    Input,
+    ElementRef,
+    OnInit,
+    SimpleChanges,
+    OnChanges,
+    inject,
+    DestroyRef,
+    Signal,
+    computed,
+    WritableSignal,
+    signal
+} from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DEFAULT_WATERMARK_CONFIG, DEFAULT_CANVAS_CONFIG } from './config';
 import { MutationObserverFactory } from '@angular/cdk/observers';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { ThyTheme } from 'ngx-tethys/core';
 
+/**
+ * @public
+ * 水印样式配置
+ */
 export interface ThyCanvasConfigType {
+    /**
+     * 偏移角度
+     */
     degree?: number;
-    color?: string;
+    /**
+     * 字体颜色。如果传的是数组，第一个为默认主题的字体颜色，第二个为黑暗主题的字体颜色
+     */
+    color?: string | string[];
+    /**
+     * 字体大小
+     */
     fontSize?: number | string;
+    /**
+     * 文本行高
+     */
     textLineHeight?: number;
+    /**
+     * 横纵间距
+     */
     gutter?: number[];
 }
 
@@ -39,13 +72,24 @@ export class ThyWatermarkDirective implements OnInit, OnChanges {
     }
 
     /**
-     * canvas样式配置
+     * 水印样式配置
      */
     @Input() thyCanvasConfig: ThyCanvasConfigType;
 
     private createWatermark$ = new Subject<string>();
 
     private observer: MutationObserver;
+
+    private themeObserver: MutationObserver;
+
+    private theme: WritableSignal<ThyTheme> = signal(ThyTheme.light);
+
+    private isDarkTheme: Signal<boolean> = computed(() => {
+        return (
+            (this.theme() === ThyTheme.system && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ||
+            this.theme() === ThyTheme.dark
+        );
+    });
 
     private canvas: HTMLCanvasElement;
 
@@ -61,7 +105,12 @@ export class ThyWatermarkDirective implements OnInit, OnChanges {
                 this.observeAttributes()
                     .pipe(takeUntilDestroyed(this.destroyRef))
                     .subscribe(() => {});
+                this.observeTheme()
+                    .pipe(takeUntilDestroyed(this.destroyRef))
+                    .subscribe(() => {});
             });
+
+            this.theme.set((document.documentElement.getAttribute('theme') as ThyTheme) || ThyTheme.light);
             this.createWatermark();
         }
     }
@@ -94,11 +143,31 @@ export class ThyWatermarkDirective implements OnInit, OnChanges {
         }
     }
 
+    getThemeColor(color: string | string[]) {
+        if (typeof color === 'string') {
+            return color;
+        }
+        if (Array.isArray(color)) {
+            if (color.length === 1) {
+                return color[0];
+            }
+
+            if (color.length > 1) {
+                if (this.isDarkTheme()) {
+                    return color[1];
+                } else {
+                    return color[0];
+                }
+            }
+        }
+    }
+
     createCanvas() {
         let { gutter, fontSize, color, degree, textLineHeight } = {
             ...DEFAULT_CANVAS_CONFIG,
             ...(this.thyCanvasConfig || {})
         };
+        color = this.getThemeColor(color);
 
         const [xGutter, yGutter] = gutter;
         const canvas = document.createElement('canvas');
@@ -189,6 +258,33 @@ export class ThyWatermarkDirective implements OnInit, OnChanges {
             observe.next(stream);
             return () => {
                 this.observer?.disconnect();
+            };
+        });
+    }
+
+    private observeTheme() {
+        this.themeObserver?.disconnect();
+        return new Observable(observe => {
+            const stream = new Subject<MutationRecord[]>();
+            this.themeObserver = new MutationObserverFactory().create(mutations => stream.next(mutations));
+            if (this.themeObserver) {
+                this.themeObserver.observe(document.documentElement, {
+                    attributes: true,
+                    attributeFilter: ['theme']
+                });
+            }
+            stream.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(mutations => {
+                for (const mutation of mutations) {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'theme') {
+                        const theme = (document.documentElement.getAttribute('theme') as ThyTheme) || ThyTheme.light;
+                        this.theme.set(theme);
+                        this.refreshWatermark();
+                    }
+                }
+            });
+            observe.next(stream);
+            return () => {
+                this.themeObserver?.disconnect();
             };
         });
     }
