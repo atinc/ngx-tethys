@@ -5,6 +5,7 @@ export * from './event-dispatchers/index';
 export * from './request-animation';
 export * from './scroll';
 export * from './animation';
+export * from './theme';
 export * from './overlay/index';
 export * from './update-host-class.service';
 export * from './translate';
