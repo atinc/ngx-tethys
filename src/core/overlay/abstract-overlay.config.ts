@@ -143,6 +143,11 @@ export class ThyAbstractOverlayConfig<TData = unknown> {
      * @default true
      */
     canPush? = true;
+
+    /**
+     * Projectable nodes of thy abstract overlay config, only for component
+     */
+    projectableNodes?: Node[][];
 }
 
 export interface ThyAbstractOverlayOptions {
