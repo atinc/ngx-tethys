@@ -146,6 +146,7 @@ export class ThyAbstractOverlayConfig<TData = unknown> {
 
     /**
      * Projectable nodes of thy abstract overlay config, only for component
+     * @type Node[][]
      */
     projectableNodes?: Node[][];
 }
