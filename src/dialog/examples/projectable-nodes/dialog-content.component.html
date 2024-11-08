@@ -1,0 +1,8 @@
+<thy-dialog-header thyTitle="Angular Introduction" thyDivided="true"> </thy-dialog-header>
+<thy-dialog-body>
+  <ng-content></ng-content>
+</thy-dialog-body>
+<thy-dialog-footer>
+  <button thyButton="primary" (click)="thyDialog.close()">确定</button>
+  <button thyButton="link-secondary" (click)="thyDialog.close()">关闭</button>
+</thy-dialog-footer>

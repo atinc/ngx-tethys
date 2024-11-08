@@ -18,11 +18,15 @@ export function useStealthViewRenderer(templateRefInput: Signal<TemplateRef<any>
         }
     });
 
-    if (!embeddedViewRef) {
-        const templateRef = isSignal(templateRefInput) ? templateRefInput() : templateRefInput;
-        embeddedViewRef = templateRef.createEmbeddedView({}, injector);
-        applicationRef.attachView(embeddedViewRef);
-    }
-    const rootNodes = embeddedViewRef.rootNodes;
-    return { rootNodes };
+    const result = {
+        get rootNodes() {
+            if (!embeddedViewRef) {
+                const templateRef = isSignal(templateRefInput) ? templateRefInput() : templateRefInput;
+                embeddedViewRef = templateRef.createEmbeddedView({}, injector);
+                applicationRef.attachView(embeddedViewRef);
+            }
+            return embeddedViewRef.rootNodes;
+        }
+    };
+    return result;
 }

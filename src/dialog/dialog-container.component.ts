@@ -153,7 +153,7 @@ export class ThyDialogContainer extends ThyAbstractOverlayContainer implements O
                 const transformOrigin = `${lastPosition.x - containerElement.offsetLeft}px ${
                     lastPosition.y - containerElement.offsetTop
                 }px 0px`;
-                containerElement.style['transform-origin'] = transformOrigin;
+                containerElement.style.transformOrigin = transformOrigin;
                 // 手动修改动画状态为从 void 到 enter, 开启动画
             }
             this.animationState = 'enter';
