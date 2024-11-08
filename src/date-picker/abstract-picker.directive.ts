@@ -18,7 +18,8 @@ import {
     Output,
     SimpleChange,
     TemplateRef,
-    numberAttribute
+    numberAttribute,
+    inject
 } from '@angular/core';
 
 import { AbstractPickerComponent } from './abstract-picker.component';
@@ -32,6 +33,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
  */
 @Directive()
 export abstract class PickerDirective extends AbstractPickerComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
+    elementRef = inject(ElementRef);
+    cdr: ChangeDetectorRef;
+    private thyPopover = inject(ThyPopover);
+
     showWeek = false;
 
     @Input() thyDateRender: FunctionProp<TemplateRef<Date> | string>;
@@ -209,14 +214,6 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
                 this.openOverlay();
             }
         });
-    }
-
-    constructor(
-        public elementRef: ElementRef,
-        public cdr: ChangeDetectorRef,
-        private thyPopover: ThyPopover
-    ) {
-        super(cdr);
     }
 
     ngAfterViewInit(): void {

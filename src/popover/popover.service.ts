@@ -19,7 +19,7 @@ import {
 import { Platform } from '@angular/cdk/platform';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
-import { ElementRef, Inject, Injectable, Injector, NgZone, OnDestroy, Optional, StaticProvider, TemplateRef } from '@angular/core';
+import { ElementRef, Injectable, Injector, NgZone, OnDestroy, StaticProvider, TemplateRef, inject } from '@angular/core';
 
 import { ThyPopoverContainer } from './popover-container.component';
 import { ThyInternalPopoverRef, ThyPopoverRef } from './popover-ref';
@@ -38,6 +38,12 @@ import { SafeAny } from 'ngx-tethys/types';
  */
 @Injectable()
 export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyPopoverContainer> implements OnDestroy {
+    private ngZone = inject(NgZone);
+    private _viewportRuler = inject(ViewportRuler);
+    private _document = inject(DOCUMENT, { optional: true })!;
+    private _platform = inject(Platform);
+    private _overlayContainer = inject(OverlayContainer);
+
     private readonly ngUnsubscribe$ = new Subject();
 
     private originInstancesMap = new Map<
@@ -146,20 +152,12 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
         }
     }
 
-    constructor(
-        overlay: Overlay,
-        injector: Injector,
-        @Optional()
-        @Inject(THY_POPOVER_DEFAULT_CONFIG)
-        defaultConfig: ThyPopoverConfig,
-        @Inject(THY_POPOVER_SCROLL_STRATEGY)
-        scrollStrategy: FunctionProp<ScrollStrategy>,
-        private ngZone: NgZone,
-        private _viewportRuler: ViewportRuler,
-        @Optional() @Inject(DOCUMENT) private _document: any,
-        private _platform: Platform,
-        private _overlayContainer: OverlayContainer
-    ) {
+    constructor() {
+        const overlay = inject(Overlay);
+        const injector = inject(Injector);
+        const defaultConfig = inject(THY_POPOVER_DEFAULT_CONFIG, { optional: true })!;
+        const scrollStrategy = inject<FunctionProp<ScrollStrategy>>(THY_POPOVER_SCROLL_STRATEGY);
+
         super(
             popoverAbstractOverlayOptions,
             overlay,

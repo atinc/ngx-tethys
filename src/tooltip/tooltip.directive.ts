@@ -1,6 +1,6 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
-import { Directive, ElementRef, Input, NgZone, OnDestroy, OnInit, ViewContainerRef, numberAttribute } from '@angular/core';
+import { Directive, ElementRef, Input, NgZone, OnDestroy, OnInit, ViewContainerRef, numberAttribute, inject } from '@angular/core';
 import { ThyOverlayDirectiveBase, ThyOverlayTrigger, ThyPlacement } from 'ngx-tethys/core';
 import { SafeAny } from 'ngx-tethys/types';
 import { coerceBooleanProperty, isString } from 'ngx-tethys/util';
@@ -17,6 +17,9 @@ import { ThyTooltipService } from './tooltip.service';
     standalone: true
 })
 export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnInit, OnDestroy {
+    private viewContainerRef = inject(ViewContainerRef);
+    private thyTooltipService = inject(ThyTooltipService);
+
     touchendHideDelay = 1500;
 
     protected isAutoCloseOnMobileTouch: boolean = true;
@@ -116,14 +119,12 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
         this.overlayPin = value;
     }
 
-    constructor(
-        elementRef: ElementRef<HTMLElement>,
-        ngZone: NgZone,
-        platform: Platform,
-        focusMonitor: FocusMonitor,
-        private viewContainerRef: ViewContainerRef,
-        private thyTooltipService: ThyTooltipService
-    ) {
+    constructor() {
+        const elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+        const ngZone = inject(NgZone);
+        const platform = inject(Platform);
+        const focusMonitor = inject(FocusMonitor);
+
         super(elementRef, platform, focusMonitor, ngZone);
     }
 

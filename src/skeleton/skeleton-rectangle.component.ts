@@ -1,14 +1,4 @@
-import {
-    Component,
-    ChangeDetectionStrategy,
-    ViewEncapsulation,
-    Input,
-    OnInit,
-    Optional,
-    OnChanges,
-    SimpleChanges,
-    Inject
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input, OnInit, OnChanges, SimpleChanges, inject } from '@angular/core';
 import { ThySkeleton } from './skeleton.component';
 import { coerceBooleanProperty, helpers } from 'ngx-tethys/util';
 import { InputCssPixel } from 'ngx-tethys/core';
@@ -43,6 +33,9 @@ interface Style {
     imports: [NgStyle]
 })
 export class ThySkeletonRectangle implements OnInit, OnChanges {
+    private skeletonConfigModel = inject(THY_SKELETON_CONFIG, { optional: true })!;
+    private _parent = inject(ThySkeleton, { optional: true })!;
+
     /**
      * 是否开启动画
      * @default false
@@ -93,13 +86,6 @@ export class ThySkeletonRectangle implements OnInit, OnChanges {
     @Input() thySecondaryColor: string;
 
     afterStyles: Style = {};
-
-    constructor(
-        @Optional()
-        @Inject(THY_SKELETON_CONFIG)
-        private skeletonConfigModel: ThySkeletonConfigModel,
-        @Optional() private _parent: ThySkeleton
-    ) {}
 
     ngOnInit() {
         const config = {

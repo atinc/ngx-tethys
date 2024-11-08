@@ -1,5 +1,5 @@
 import { ThyPopoverConfig } from 'ngx-tethys/popover';
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, inject } from '@angular/core';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { ThyPopoverManualContentComponent } from './popover-content.component';
 
@@ -9,6 +9,8 @@ import { ThyPopoverManualContentComponent } from './popover-content.component';
     styleUrls: ['./manual.component.scss']
 })
 export class ThyPopoverManualExampleComponent implements OnInit {
+    private thyPopover = inject(ThyPopover);
+
     config: Partial<ThyPopoverConfig<unknown>> = {
         hasBackdrop: true,
         backdropClosable: true,
@@ -17,8 +19,6 @@ export class ThyPopoverManualExampleComponent implements OnInit {
     };
 
     content = ThyPopoverManualContentComponent;
-
-    constructor(private thyPopover: ThyPopover) {}
 
     ngOnInit(): void {}
 

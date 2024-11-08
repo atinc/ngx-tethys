@@ -1,6 +1,6 @@
 import { ThyUploadFile, ThyUploadService, ThyUploadStatus } from 'ngx-tethys/upload';
 
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 
 const UPLOAD_URL = `http://www.mocky.io/v2/5cf52b1f2f0000c02c4f072f?mocky-delay=2s`;
@@ -10,11 +10,10 @@ const UPLOAD_URL = `http://www.mocky.io/v2/5cf52b1f2f0000c02c4f072f?mocky-delay=
     styleUrls: ['./drop.scss']
 })
 export class ThyUploadDropExampleComponent {
+    private thyUploadService = inject(ThyUploadService);
+    private notify = inject(ThyNotifyService);
+
     queueFiles: ThyUploadFile[] = [];
-    constructor(
-        private thyUploadService: ThyUploadService,
-        private notify: ThyNotifyService
-    ) {}
 
     onDrop(event: { files: File[] }) {
         for (let i = 0; i < event.files.length; i++) {

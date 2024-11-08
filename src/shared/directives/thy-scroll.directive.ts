@@ -1,4 +1,4 @@
-import { Directive, ElementRef, OnInit, NgZone, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
+import { Directive, ElementRef, OnInit, NgZone, OnDestroy, Output, EventEmitter, Input, inject } from '@angular/core';
 import { Subject, Observable, Observer, fromEvent, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
@@ -14,6 +14,9 @@ const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveLis
     standalone: true
 })
 export class ThyScrollDirective implements OnInit, OnDestroy {
+    private elementRef = inject<ElementRef<any>>(ElementRef);
+    private ngZone = inject(NgZone);
+
     private _destroyed = new Subject<void>();
     private _enable = true;
     private _initialled = false;
@@ -62,11 +65,6 @@ export class ThyScrollDirective implements OnInit, OnDestroy {
      * ```
      */
     @Output() thyOnScrolled: EventEmitter<ElementRef> = new EventEmitter<ElementRef>();
-
-    constructor(
-        private elementRef: ElementRef<any>,
-        private ngZone: NgZone
-    ) {}
 
     ngOnInit() {
         if (this._enable) {

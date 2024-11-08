@@ -49,6 +49,9 @@ export type ThyTabsPosition = 'top' | 'left';
     imports: [ThyNav, ThyNavItemDirective, NgTemplateOutlet, ThyTabContent]
 })
 export class ThyTabs implements OnInit, OnChanges, AfterContentInit {
+    private cd = inject(ChangeDetectorRef);
+    private el = inject(ElementRef);
+
     @ContentChildren(ThyTab, { descendants: true }) tabs = new QueryList<ThyTab>();
 
     private readonly destroyRef = inject(DestroyRef);
@@ -110,11 +113,6 @@ export class ThyTabs implements OnInit, OnChanges, AfterContentInit {
     activeTabId: string;
 
     transitionStarted: boolean = false;
-
-    constructor(
-        private cd: ChangeDetectorRef,
-        private el: ElementRef
-    ) {}
 
     ngOnInit(): void {
         const tabsContent = this.el.nativeElement.querySelector('.thy-tabs-content');

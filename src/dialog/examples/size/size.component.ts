@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ThyDialog, ThyDialogConfig, ThyDialogSizes } from 'ngx-tethys/dialog';
 import { ThyDialogBasicContentComponent } from '../basic/dialog-content.component';
 
@@ -7,9 +7,9 @@ import { ThyDialogBasicContentComponent } from '../basic/dialog-content.componen
     templateUrl: './size.component.html'
 })
 export class ThyDialogSizeExampleComponent implements OnInit {
-    private config: ThyDialogConfig = {};
+    private thyDialog = inject(ThyDialog);
 
-    constructor(private thyDialog: ThyDialog) {}
+    private config: ThyDialogConfig = {};
 
     dialogSizes = [
         {

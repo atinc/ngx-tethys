@@ -11,7 +11,6 @@ import {
     EventEmitter,
     forwardRef,
     HostBinding,
-    Inject,
     Input,
     numberAttribute,
     OnChanges,
@@ -23,7 +22,8 @@ import {
     TemplateRef,
     ViewChild,
     ViewChildren,
-    ViewEncapsulation
+    ViewEncapsulation,
+    inject
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { THY_TREE_ABSTRACT_TOKEN } from './tree-abstract';
@@ -94,6 +94,10 @@ const treeItemSizeMap = {
     ]
 })
 export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterViewInit, OnDestroy {
+    thyTreeService = inject(ThyTreeService);
+    private cdr = inject(ChangeDetectorRef);
+    private document = inject(DOCUMENT);
+
     private _templateRef: TemplateRef<any>;
 
     private _emptyChildrenTemplateRef: TemplateRef<any>;
@@ -373,12 +377,6 @@ export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterVi
     dragging: boolean;
 
     @ViewChildren(CdkDrag) cdkDrags: QueryList<CdkDrag<ThyTreeNode>>;
-
-    constructor(
-        public thyTreeService: ThyTreeService,
-        private cdr: ChangeDetectorRef,
-        @Inject(DOCUMENT) private document: Document
-    ) {}
 
     ngOnInit(): void {
         this._initThyNodes();

@@ -1,6 +1,28 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+
+# [18.1.0](https://github.com/atinc/ngx-tethys/compare/18.1.0-next.1...18.1.0) (2024-10-31)
+
+
+
+# [18.1.0-next.1](https://github.com/atinc/ngx-tethys/compare/18.1.0-next.0...18.1.0-next.1) (2024-10-30)
+
+
+### Bug Fixes
+
+* **thy-loading:** thy-loading align vertical #TINFR-872 ([#3223](https://github.com/atinc/ngx-tethys/issues/3223)) ([9a67f9e](https://github.com/atinc/ngx-tethys/commit/9a67f9e65b3bade146b0118256de87ebe68f9cb5)), closes [#TINFR-872](https://github.com/atinc/ngx-tethys/issues/TINFR-872)
+
+
+
+# [18.1.0-next.0](https://github.com/atinc/ngx-tethys/compare/18.0.8...18.1.0-next.0) (2024-10-22)
+
+
+### Reverts
+
+* Revert "feat(date-picker): export picker util (#3212)" (#3214) ([f6e6a55](https://github.com/atinc/ngx-tethys/commit/f6e6a5543274589293faba6871ce5f449d56a2ba)), closes [#3212](https://github.com/atinc/ngx-tethys/issues/3212) [#3214](https://github.com/atinc/ngx-tethys/issues/3214)
+
+
 
 ## [18.0.8](https://github.com/atinc/ngx-tethys/compare/18.0.7...18.0.8) (2024-09-26)
 

@@ -13,7 +13,8 @@ import {
     OnChanges,
     Output,
     SimpleChanges,
-    ViewChild
+    ViewChild,
+    inject
 } from '@angular/core';
 
 import { AsyncPipe, NgClass, NgTemplateOutlet } from '@angular/common';
@@ -39,6 +40,9 @@ import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
     animations: [scaleXMotion, scaleYMotion, scaleMotion]
 })
 export class ThyPicker implements OnChanges, AfterViewInit {
+    private changeDetector = inject(ChangeDetectorRef);
+    private dateHelper = inject(DateHelperService);
+
     @Input() isRange = false;
     @Input() open: boolean | undefined = undefined;
     @Input() disabled: boolean;
@@ -119,11 +123,6 @@ export class ThyPicker implements OnChanges, AfterViewInit {
     get readonlyState(): boolean {
         return this.isRange || this.readonly || this.mode !== 'date';
     }
-
-    constructor(
-        private changeDetector: ChangeDetectorRef,
-        private dateHelper: DateHelperService
-    ) {}
 
     ngOnChanges(changes: SimpleChanges): void {
         // open by user

@@ -1,6 +1,6 @@
 import { ThySlideService } from 'ngx-tethys/slide';
 
-import { Component, TemplateRef } from '@angular/core';
+import { Component, TemplateRef, inject } from '@angular/core';
 
 import { ThySlideDemoContentComponent } from '../slide-content.component';
 
@@ -9,7 +9,7 @@ import { ThySlideDemoContentComponent } from '../slide-content.component';
     templateUrl: './basic.component.html'
 })
 export class ThySlideBasicExampleComponent {
-    constructor(private thySlideNewService: ThySlideService) {}
+    private thySlideNewService = inject(ThySlideService);
 
     showSlideWithComponent() {
         this.thySlideNewService.open(ThySlideDemoContentComponent, {

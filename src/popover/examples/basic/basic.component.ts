@@ -1,5 +1,5 @@
 import { ThyPopover } from 'ngx-tethys/popover';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ThyPopoverBasicContentComponent } from './popover-content.component';
 
 @Component({
@@ -8,9 +8,9 @@ import { ThyPopoverBasicContentComponent } from './popover-content.component';
     styleUrls: ['./basic.component.scss']
 })
 export class ThyPopoverBasicExampleComponent implements OnInit {
-    content = ThyPopoverBasicContentComponent;
+    private thyPopover = inject(ThyPopover);
 
-    constructor(private thyPopover: ThyPopover) {}
+    content = ThyPopoverBasicContentComponent;
 
     ngOnInit(): void {}
 

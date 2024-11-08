@@ -11,7 +11,8 @@ import {
     OnInit,
     Output,
     TemplateRef,
-    ViewEncapsulation
+    ViewEncapsulation,
+    inject
 } from '@angular/core';
 
 import { NgClass, NgTemplateOutlet } from '@angular/common';
@@ -30,6 +31,8 @@ import { InnerTransferDragEvent, ThyTransferDragEvent, ThyTransferItem, ThyTrans
     imports: [CdkDropListGroup, ThyList, CdkDropList, ThyDragDropDirective, ThyListItem, CdkDrag, NgClass, NgTemplateOutlet]
 })
 export class ThyTransferList implements OnInit, DoCheck {
+    private differs = inject(IterableDiffers);
+
     public lockItems: ThyTransferItem[] = [];
 
     public unlockItems: ThyTransferItem[] = [];
@@ -65,8 +68,6 @@ export class ThyTransferList implements OnInit, DoCheck {
     @Output() unselectItem: EventEmitter<ThyTransferSelectEvent> = new EventEmitter<ThyTransferSelectEvent>();
 
     @HostBinding('class') hostClass = 'thy-transfer-list';
-
-    constructor(private differs: IterableDiffers) {}
 
     ngOnInit() {
         this._combineTransferData();

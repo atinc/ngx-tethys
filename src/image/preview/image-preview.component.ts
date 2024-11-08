@@ -58,6 +58,14 @@ const VERTICAL_SPACE = 96 + 106; // top: 96px; bottom: 106px
     imports: [ThyTooltipDirective, ThyAction, CdkDrag, ThyLoading, ThyIcon, ThyActions, ThyDivider, ThyCopyDirective]
 })
 export class ThyImagePreview implements OnInit {
+    thyDialog = inject(ThyDialog);
+    thyFullscreen = inject(ThyFullscreen);
+    private cdr = inject(ChangeDetectorRef);
+    private ngZone = inject(NgZone);
+    private notifyService = inject(ThyNotifyService);
+    private host = inject<ElementRef<HTMLElement>>(ElementRef);
+    private sanitizer = inject(DomSanitizer);
+
     @Output() downloadClicked: EventEmitter<ThyImageInfo> = new EventEmitter();
 
     private readonly destroyRef = inject(DestroyRef);
@@ -178,16 +186,6 @@ export class ThyImagePreview implements OnInit {
 
     @ViewChild('imgRef', { static: false }) imageRef!: ElementRef<HTMLImageElement>;
     @ViewChild('imagePreviewWrapper', { static: true }) imagePreviewWrapper!: ElementRef<HTMLElement>;
-
-    constructor(
-        public thyDialog: ThyDialog,
-        public thyFullscreen: ThyFullscreen,
-        private cdr: ChangeDetectorRef,
-        private ngZone: NgZone,
-        private notifyService: ThyNotifyService,
-        private host: ElementRef<HTMLElement>,
-        private sanitizer: DomSanitizer
-    ) {}
 
     ngOnInit(): void {
         this.initPreview();

@@ -1,4 +1,4 @@
-import { Component, Input, HostBinding, NgZone, OnInit } from '@angular/core';
+import { Component, Input, HostBinding, NgZone, OnInit, inject } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { helpers, isString } from 'ngx-tethys/util';
 import { ThyNotifyConfig, ThyNotifyDetail, ThyNotifyPlacement } from './notify.config';
@@ -62,8 +62,9 @@ export class ThyNotify extends ThyAbstractMessageComponent<ThyNotifyConfig> impl
         this.className = `thy-notify thy-notify-${type}`;
     }
 
-    constructor(ngZone: NgZone, notifyQueue: ThyNotifyQueue) {
-        super(ngZone, notifyQueue);
+    constructor() {
+        const notifyQueue = inject(ThyNotifyQueue);
+        super(notifyQueue);
     }
 
     ngOnInit() {

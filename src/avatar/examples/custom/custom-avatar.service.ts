@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ThyAvatarService } from 'ngx-tethys/avatar';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 
 @Injectable()
 export class CustomAvatarService extends ThyAvatarService {
-    constructor(private domSanitizer: DomSanitizer) {
+    private domSanitizer = inject(DomSanitizer);
+
+    constructor() {
         super();
     }
 

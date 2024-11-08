@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 
 @Component({
@@ -7,9 +7,9 @@ import { ThyNotifyService } from 'ngx-tethys/notify';
     styleUrls: ['./target.scss']
 })
 export class ThyBackTopTargetExampleComponent implements OnInit {
-    demos: number[] = [];
+    private notifyService = inject(ThyNotifyService);
 
-    constructor(private notifyService: ThyNotifyService) {}
+    demos: number[] = [];
 
     ngOnInit(): void {
         for (let index = 0; index < 30; index++) {

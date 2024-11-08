@@ -5,12 +5,11 @@ import {
     Component,
     ElementRef,
     HostBinding,
-    Inject,
     Input,
     NgZone,
     OnDestroy,
-    Optional,
-    Renderer2
+    Renderer2,
+    inject
 } from '@angular/core';
 import { IThySegmentComponent, THY_SEGMENTED_COMPONENT } from './segment.token';
 import { assertIconOnly, coerceBooleanProperty } from 'ngx-tethys/util';
@@ -35,6 +34,12 @@ import { NgClass } from '@angular/common';
     imports: [NgClass, ThyIcon]
 })
 export class ThySegmentItem implements AfterViewInit, OnDestroy {
+    elementRef = inject(ElementRef);
+    private ngZone = inject(NgZone);
+    private cdr = inject(ChangeDetectorRef);
+    private renderer = inject(Renderer2);
+    private parent = inject(THY_SEGMENTED_COMPONENT, { optional: true })!;
+
     /**
      * 选项的值
      */
@@ -58,13 +63,10 @@ export class ThySegmentItem implements AfterViewInit, OnDestroy {
 
     private destroy$ = new Subject<void>();
 
-    constructor(
-        public elementRef: ElementRef,
-        private ngZone: NgZone,
-        private cdr: ChangeDetectorRef,
-        private renderer: Renderer2,
-        @Optional() @Inject(THY_SEGMENTED_COMPONENT) private parent: IThySegmentComponent
-    ) {
+    constructor() {
+        const elementRef = this.elementRef;
+        const ngZone = this.ngZone;
+
         ngZone.runOutsideAngular(() =>
             fromEvent(elementRef.nativeElement, 'click')
                 .pipe(takeUntil(this.destroy$))

@@ -1,4 +1,4 @@
-import { Directive, HostListener } from '@angular/core';
+import { Directive, HostListener, inject } from '@angular/core';
 import { ThyStepper } from './stepper.component';
 
 /**
@@ -12,7 +12,7 @@ import { ThyStepper } from './stepper.component';
     standalone: true
 })
 export class ThyStepperNextDirective {
-    constructor(private stepper: ThyStepper) {}
+    private stepper = inject(ThyStepper);
 
     @HostListener('click', ['$event'])
     click($event: any) {
@@ -31,7 +31,7 @@ export class ThyStepperNextDirective {
     standalone: true
 })
 export class ThyStepperPreviousDirective {
-    constructor(private stepper: ThyStepper) {}
+    private stepper = inject(ThyStepper);
 
     @HostListener('click', ['$event'])
     click($event: any) {

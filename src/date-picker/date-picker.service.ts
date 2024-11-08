@@ -1,11 +1,13 @@
-import { Inject, Injectable, Optional } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { DEFAULT_DATE_PICKER_CONFIG, ThyDatePickerConfig, THY_DATE_PICKER_CONFIG } from './date-picker.config';
 
 @Injectable({ providedIn: 'root' })
 export class ThyDatePickerConfigService {
     config: ThyDatePickerConfig;
 
-    constructor(@Optional() @Inject(THY_DATE_PICKER_CONFIG) datePickerConfig: ThyDatePickerConfig) {
+    constructor() {
+        const datePickerConfig = inject(THY_DATE_PICKER_CONFIG, { optional: true })!;
+
         this.config = { ...DEFAULT_DATE_PICKER_CONFIG, ...datePickerConfig };
     }
 

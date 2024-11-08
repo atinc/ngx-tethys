@@ -1,4 +1,4 @@
-import { Component, Inject, InjectionToken, Input, Optional, TemplateRef, ViewChild } from '@angular/core';
+import { Component, InjectionToken, Input, TemplateRef, ViewChild, inject } from '@angular/core';
 
 export interface IThyStepperComponent {
     selected: ThyStep;
@@ -17,6 +17,8 @@ export const THY_STEPPER_COMPONENT = new InjectionToken<IThyStepperComponent>('T
     standalone: true
 })
 export class ThyStep {
+    stepper = inject(THY_STEPPER_COMPONENT, { optional: true })!;
+
     @ViewChild(TemplateRef, { static: true }) content: TemplateRef<any>;
 
     @Input() label: string;
@@ -31,8 +33,6 @@ export class ThyStep {
      * @default check-circle
      */
     @Input() thyIcon: string;
-
-    constructor(@Optional() @Inject(THY_STEPPER_COMPONENT) public stepper: IThyStepperComponent) {}
 
     select() {
         this.stepper.selected = this;

@@ -7,10 +7,9 @@ import {
     OnInit,
     ViewContainerRef,
     HostBinding,
-    Optional,
-    Inject,
     ChangeDetectorRef,
-    numberAttribute
+    numberAttribute,
+    inject
 } from '@angular/core';
 import { OverlayRef, Overlay } from '@angular/cdk/overlay';
 import { ThyPlacement } from 'ngx-tethys/core';
@@ -41,6 +40,14 @@ import { warnDeprecation } from 'ngx-tethys/util';
     standalone: true
 })
 export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
+    private elementRef = inject(ElementRef);
+    private ngZone = inject(NgZone);
+    private overlay = inject(Overlay);
+    private autocompleteService = inject(ThyAutocompleteService);
+    private viewContainerRef = inject(ViewContainerRef);
+    private document = inject(DOCUMENT, { optional: true })!;
+    private cdr = inject(ChangeDetectorRef);
+
     protected overlayRef: OverlayRef;
 
     private autocompleteRef: ThyAutocompleteRef<ThyAutocomplete>;
@@ -123,16 +130,6 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
             map(event => (event instanceof ThyOptionSelectionChangeEvent ? event : null))
         );
     }
-
-    constructor(
-        private elementRef: ElementRef,
-        private ngZone: NgZone,
-        private overlay: Overlay,
-        private autocompleteService: ThyAutocompleteService,
-        private viewContainerRef: ViewContainerRef,
-        @Optional() @Inject(DOCUMENT) private document: any,
-        private cdr: ChangeDetectorRef
-    ) {}
 
     ngOnInit(): void {}
 

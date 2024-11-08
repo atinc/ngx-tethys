@@ -15,7 +15,8 @@ import {
     OnInit,
     Output,
     SimpleChanges,
-    TemplateRef
+    TemplateRef,
+    inject
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyStopPropagationDirective } from 'ngx-tethys/shared';
@@ -48,6 +49,8 @@ const noop = () => {};
     imports: [ThyStopPropagationDirective, ThyRateItem, NgClass, ThyTooltipDirective]
 })
 export class ThyRate extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor, OnInit, OnChanges {
+    private cdr = inject(ChangeDetectorRef);
+
     private _value = 0;
 
     private currentValue = 0;
@@ -126,7 +129,7 @@ export class ThyRate extends TabIndexDisabledControlValueAccessorMixin implement
 
     @HostBinding('class.thy-rate') className = true;
 
-    constructor(private cdr: ChangeDetectorRef) {
+    constructor() {
         super();
     }
 

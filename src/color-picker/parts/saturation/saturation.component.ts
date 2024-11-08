@@ -8,7 +8,8 @@ import {
     Output,
     Renderer2,
     SimpleChanges,
-    ViewChild
+    ViewChild,
+    inject
 } from '@angular/core';
 import { ThyCoordinatesDirective } from '../../coordinates.directive';
 import { ThyColor } from '../../helpers/color.class';
@@ -23,6 +24,8 @@ import { ThyColor } from '../../helpers/color.class';
     imports: [ThyCoordinatesDirective]
 })
 export class ThySaturation implements OnChanges {
+    private readonly renderer = inject(Renderer2);
+
     @HostBinding('class.thy-saturation') className = true;
 
     @ViewChild('panel', { static: true })
@@ -43,8 +46,6 @@ export class ThySaturation implements OnChanges {
             this.changePointerPosition(this.color.saturation, this.color.value);
         }
     }
-
-    constructor(private readonly renderer: Renderer2) {}
 
     setBackground() {
         this.renderer.setStyle(this.panel.nativeElement, 'background', `hsl(${this.color.hue},100%,50%)`);

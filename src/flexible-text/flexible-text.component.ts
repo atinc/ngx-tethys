@@ -1,5 +1,16 @@
 import { ContentObserver } from '@angular/cdk/observers';
-import { AfterContentInit, Component, ElementRef, Input, NgZone, OnDestroy, OnInit, TemplateRef, numberAttribute } from '@angular/core';
+import {
+    AfterContentInit,
+    Component,
+    ElementRef,
+    Input,
+    NgZone,
+    OnDestroy,
+    OnInit,
+    TemplateRef,
+    numberAttribute,
+    inject
+} from '@angular/core';
 import { ThyPlacement } from 'ngx-tethys/core';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
@@ -19,6 +30,11 @@ import { debounceTime, take, takeUntil } from 'rxjs/operators';
     standalone: true
 })
 export class ThyFlexibleText implements OnInit, AfterContentInit, OnDestroy {
+    private elementRef = inject(ElementRef);
+    private contentObserver = inject(ContentObserver);
+    private ngZone = inject(NgZone);
+    tooltipDirective = inject(ThyTooltipDirective);
+
     isOverflow = false;
 
     content: string | TemplateRef<HTMLElement>;
@@ -87,13 +103,6 @@ export class ThyFlexibleText implements OnInit, AfterContentInit, OnDestroy {
     private destroy$ = new Subject<void>();
 
     private hostRenderer = useHostRenderer();
-
-    constructor(
-        private elementRef: ElementRef,
-        private contentObserver: ContentObserver,
-        private ngZone: NgZone,
-        public tooltipDirective: ThyTooltipDirective
-    ) {}
 
     static createResizeObserver(element: HTMLElement) {
         return new Observable(observer => {

@@ -1,6 +1,6 @@
 import { ThyUploadFile, ThyUploadService, ThyUploadStatus } from 'ngx-tethys/upload';
 
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 
 const UPLOAD_URL = `http://www.mocky.io/v2/5cf52b1f2f0000c02c4f072f?mocky-delay=2s`;
 @Component({
@@ -8,10 +8,11 @@ const UPLOAD_URL = `http://www.mocky.io/v2/5cf52b1f2f0000c02c4f072f?mocky-delay=
     templateUrl: './accept-folder.component.html'
 })
 export class ThyUploadAcceptFolderExampleComponent {
+    private thyUploadService = inject(ThyUploadService);
+
     @ViewChild('file1', { static: true }) file1: ElementRef<HTMLInputElement>;
     queueFiles: ThyUploadFile[] = [];
     acceptFolder = true;
-    constructor(private thyUploadService: ThyUploadService) {}
 
     selectFiles(event: { files: File[] }) {
         this.thyUploadService

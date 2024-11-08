@@ -1,14 +1,14 @@
 import { ThyMessageService } from 'ngx-tethys/message';
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, inject } from '@angular/core';
 
 @Component({
     selector: 'thy-message-custom-content-example',
     templateUrl: './custom-content.component.html'
 })
 export class ThyMessageCustomContentExampleComponent implements OnInit {
-    @ViewChild('content', { static: true }) contentTemplate: TemplateRef<any>;
+    private messageService = inject(ThyMessageService);
 
-    constructor(private messageService: ThyMessageService) {}
+    @ViewChild('content', { static: true }) contentTemplate: TemplateRef<any>;
 
     ngOnInit() {}
 

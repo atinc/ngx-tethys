@@ -1,4 +1,4 @@
-import { Directive, Output, EventEmitter, OnInit, NgZone, ElementRef, Renderer2, OnDestroy } from '@angular/core';
+import { Directive, Output, EventEmitter, OnInit, NgZone, ElementRef, Renderer2, OnDestroy, inject } from '@angular/core';
 import { keycodes } from 'ngx-tethys/util';
 
 /**
@@ -10,6 +10,10 @@ import { keycodes } from 'ngx-tethys/util';
     standalone: true
 })
 export class ThyEnterDirective implements OnInit, OnDestroy {
+    private ngZone = inject(NgZone);
+    private elementRef = inject(ElementRef);
+    private renderer = inject(Renderer2);
+
     @Output() thyEnter = new EventEmitter();
 
     onKeydown = (event: KeyboardEvent) => {
@@ -22,12 +26,6 @@ export class ThyEnterDirective implements OnInit, OnDestroy {
     };
 
     private removeKeydownListenerFn: VoidFunction;
-
-    constructor(
-        private ngZone: NgZone,
-        private elementRef: ElementRef,
-        private renderer: Renderer2
-    ) {}
 
     ngOnInit(): void {
         this.ngZone.runOutsideAngular(() => {

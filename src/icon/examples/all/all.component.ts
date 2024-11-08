@@ -1,7 +1,7 @@
 import { ThyIconRegistry } from 'ngx-tethys/icon';
 
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 interface GlyphIcon {
@@ -23,13 +23,9 @@ interface GlyphCategory {
     styleUrls: ['./all.component.scss']
 })
 export class ThyIconAllExampleComponent implements OnInit {
-    glyphs: GlyphCategory[];
+    private http = inject(HttpClient);
 
-    constructor(
-        iconRegistry: ThyIconRegistry,
-        domSanitizer: DomSanitizer,
-        private http: HttpClient
-    ) {}
+    glyphs: GlyphCategory[];
 
     ngOnInit() {
         this.http.get<GlyphCategory[]>(`assets/icons/glyphs.json`).subscribe(data => {

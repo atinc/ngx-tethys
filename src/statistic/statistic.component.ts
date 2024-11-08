@@ -1,4 +1,4 @@
-import { OnInit, Component, Input, HostBinding, ElementRef, TemplateRef, ContentChild } from '@angular/core';
+import { OnInit, Component, Input, HostBinding, ElementRef, TemplateRef, ContentChild, inject } from '@angular/core';
 import { hexToRgb } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { NgTemplateOutlet, NgStyle } from '@angular/common';
@@ -22,6 +22,8 @@ export type ThyStatisticTitlePosition = 'top' | 'bottom';
     imports: [NgTemplateOutlet, NgStyle]
 })
 export class ThyStatistic implements OnInit {
+    private elementRef = inject(ElementRef);
+
     _shape: ThyStatisticShape;
 
     _initialized = false;
@@ -170,8 +172,6 @@ export class ThyStatistic implements OnInit {
     @ContentChild('suffix', { static: true }) set suffix(value: TemplateRef<void>) {
         this.suffixTemplate = value;
     }
-
-    constructor(private elementRef: ElementRef) {}
 
     ngOnInit() {
         this._setClassesByType();

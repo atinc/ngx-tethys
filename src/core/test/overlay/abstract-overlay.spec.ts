@@ -16,7 +16,8 @@ import {
     OnDestroy,
     StaticProvider,
     ViewChild,
-    ViewContainerRef
+    ViewContainerRef,
+    inject as coreInject
 } from '@angular/core';
 import { TestBed, fakeAsync, flush, inject } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -73,7 +74,9 @@ export class TestDialogContainerComponent<TData = unknown> extends ThyAbstractOv
 
     beforeAttachPortal(): void {}
 
-    constructor(changeDetectorRef: ChangeDetectorRef) {
+    constructor() {
+        const changeDetectorRef = coreInject(ChangeDetectorRef);
+
         super(testDialogOptions, changeDetectorRef);
         this.animationOpeningDone = this.animationStateChanged.pipe(
             filter((event: AnimationEvent) => {
@@ -105,7 +108,10 @@ class InternalTestDialogRef<T = unknown, TResult = unknown, TData = unknown> ext
 
 @Injectable()
 export class TestDialogService extends ThyAbstractOverlayService<TestDialogConfig, TestDialogContainerComponent> {
-    constructor(overlay: Overlay, injector: Injector, clickPositioner: ThyClickPositioner) {
+    constructor() {
+        const overlay = coreInject(Overlay);
+        const injector = coreInject(Injector);
+
         super(testDialogOptions, overlay, injector, {});
     }
 
@@ -187,6 +193,8 @@ export class TestDialogModule {}
     template: 'Hello Test Dialog'
 })
 class TestDialogBasicContentComponent {
+    testDialogRef = coreInject<TestDialogRef<TestDialogBasicContentComponent>>(TestDialogRef);
+
     prop1: string;
 
     input1 = input('input1');
@@ -196,8 +204,6 @@ class TestDialogBasicContentComponent {
     @Input('inputWithSetAlias') set inputWithSet(value: string) {
         this.inputWithSetValue = value;
     }
-
-    constructor(public testDialogRef: TestDialogRef<TestDialogBasicContentComponent>) {}
 }
 
 @Component({
@@ -205,10 +211,8 @@ class TestDialogBasicContentComponent {
     template: 'Hello Test Dialog'
 })
 class TestDialogViewContainerComponent {
-    constructor(
-        private dialog: TestDialogService,
-        private viewContainerRef: ViewContainerRef
-    ) {}
+    private dialog = coreInject(TestDialogService);
+    private viewContainerRef = coreInject(ViewContainerRef);
 
     open() {
         this.dialog.open(TestDialogBasicContentComponent, {

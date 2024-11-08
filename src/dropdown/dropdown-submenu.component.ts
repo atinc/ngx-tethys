@@ -26,6 +26,9 @@ const SUBMENU_CLASS_PREFIX = 'dropdown-submenu';
     standalone: true
 })
 export class ThyDropdownSubmenu implements OnInit {
+    private dropdownMenuItem = inject(ThyDropdownMenuItemDirective);
+    private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+
     private readonly destroyRef = inject(DestroyRef);
 
     private direction: InnerDropdownSubmenuDirection = 'right';
@@ -38,11 +41,6 @@ export class ThyDropdownSubmenu implements OnInit {
     @Input() set thyDirection(value: ThyDropdownSubmenuDirection) {
         this.direction = value;
     }
-
-    constructor(
-        private dropdownMenuItem: ThyDropdownMenuItemDirective,
-        private elementRef: ElementRef<HTMLElement>
-    ) {}
 
     ngOnInit(): void {
         let direction = this.direction || 'right';

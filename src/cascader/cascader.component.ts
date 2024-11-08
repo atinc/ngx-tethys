@@ -8,7 +8,6 @@ import {
     EventEmitter,
     forwardRef,
     HostListener,
-    Inject,
     Input,
     NgZone,
     numberAttribute,
@@ -21,7 +20,8 @@ import {
     SimpleChanges,
     TemplateRef,
     ViewChild,
-    ViewChildren
+    ViewChildren,
+    inject
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -87,6 +87,13 @@ export class ThyCascader
     extends TabIndexDisabledControlValueAccessorMixin
     implements ControlValueAccessor, OnInit, OnChanges, OnDestroy, AfterContentInit
 {
+    private platformId = inject(PLATFORM_ID);
+    private cdr = inject(ChangeDetectorRef);
+    elementRef = inject(ElementRef);
+    private thyClickDispatcher = inject(ThyClickDispatcher);
+    private ngZone = inject(NgZone);
+    thyCascaderService = inject(ThyCascaderService);
+
     /**
      * 选项的实际值的属性名
      */
@@ -773,14 +780,7 @@ export class ThyCascader
         this.thyCascaderService.clearSelection();
     }
 
-    constructor(
-        @Inject(PLATFORM_ID) private platformId: string,
-        private cdr: ChangeDetectorRef,
-        public elementRef: ElementRef,
-        private thyClickDispatcher: ThyClickDispatcher,
-        private ngZone: NgZone,
-        public thyCascaderService: ThyCascaderService
-    ) {
+    constructor() {
         super();
     }
 

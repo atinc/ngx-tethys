@@ -1,4 +1,4 @@
-import { Component, HostBinding, Inject, InjectionToken, Input, TemplateRef, ViewEncapsulation, numberAttribute } from '@angular/core';
+import { Component, HostBinding, InjectionToken, Input, TemplateRef, ViewEncapsulation, numberAttribute, inject } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyProgressType } from './interfaces';
 import { NgStyle } from '@angular/common';
@@ -20,6 +20,8 @@ export const THY_PROGRESS_COMPONENT = new InjectionToken<ThyParentProgress>('THY
     imports: [NgStyle]
 })
 export class ThyProgressStrip {
+    private progress = inject(THY_PROGRESS_COMPONENT);
+
     private value: number;
 
     private hostRenderer = useHostRenderer();
@@ -48,8 +50,6 @@ export class ThyProgressStrip {
     @Input() set thyColor(color: string) {
         this.color = color || '';
     }
-
-    constructor(@Inject(THY_PROGRESS_COMPONENT) private progress: ThyParentProgress) {}
 
     recalculatePercentage(): void {
         this.percent = +((this.value / this.progress.max) * 100).toFixed(2);

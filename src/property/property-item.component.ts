@@ -22,7 +22,8 @@ import {
     Output,
     SimpleChanges,
     TemplateRef,
-    ViewChild
+    ViewChild,
+    inject
 } from '@angular/core';
 
 import { ThyProperties } from './properties.component';
@@ -47,6 +48,12 @@ export type ThyPropertyItemOperationTrigger = 'hover' | 'always';
     imports: [ThyFlexibleText, NgTemplateOutlet]
 })
 export class ThyPropertyItem implements OnInit, OnChanges, OnDestroy {
+    private cdr = inject(ChangeDetectorRef);
+    private clickDispatcher = inject(ThyClickDispatcher);
+    private ngZone = inject(NgZone);
+    private overlayOutsideClickDispatcher = inject(OverlayOutsideClickDispatcher);
+    private parent = inject(ThyProperties);
+
     /**
      * 属性名称
      * @type sting
@@ -122,13 +129,7 @@ export class ThyPropertyItem implements OnInit, OnChanges, OnDestroy {
 
     isVertical = false;
 
-    constructor(
-        private cdr: ChangeDetectorRef,
-        private clickDispatcher: ThyClickDispatcher,
-        private ngZone: NgZone,
-        private overlayOutsideClickDispatcher: OverlayOutsideClickDispatcher,
-        private parent: ThyProperties
-    ) {
+    constructor() {
         this.originOverlays = [...this.overlayOutsideClickDispatcher._attachedOverlays] as OverlayRef[];
     }
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ThyDialog } from 'ngx-tethys/dialog';
 
 @Component({
@@ -6,5 +6,5 @@ import { ThyDialog } from 'ngx-tethys/dialog';
     templateUrl: './dialog-content.component.html'
 })
 export class ThyDialogBasicContentComponent {
-    constructor(public thyDialog: ThyDialog) {}
+    thyDialog = inject(ThyDialog);
 }

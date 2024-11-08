@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, inject } from '@angular/core';
 import { ThyPopover } from 'ngx-tethys/popover';
 
 @Component({
@@ -7,7 +7,7 @@ import { ThyPopover } from 'ngx-tethys/popover';
     styleUrls: ['./group.component.scss']
 })
 export class ThyMenuGroupExampleComponent implements OnInit {
-    constructor(private popover: ThyPopover) {}
+    private popover = inject(ThyPopover);
 
     ngOnInit(): void {}
 

@@ -6,7 +6,6 @@ import {
     ElementRef,
     EventEmitter,
     HostBinding,
-    Inject,
     Input,
     OnChanges,
     OnDestroy,
@@ -16,7 +15,8 @@ import {
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    numberAttribute
+    numberAttribute,
+    inject
 } from '@angular/core';
 
 import { THY_TREE_ABSTRACT_TOKEN, ThyTreeAbstractComponent } from './tree-abstract';
@@ -43,6 +43,9 @@ const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveLis
     imports: [ThyIcon, NgClass, NgStyle, NgTemplateOutlet, ThyLoading]
 })
 export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
+    root = inject(THY_TREE_ABSTRACT_TOKEN);
+    thyTreeService = inject(ThyTreeService);
+
     /**
      * node 节点展现所需的数据
      */
@@ -143,11 +146,6 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
     private destroy$ = new Subject<void>();
 
     checkState = ThyTreeNodeCheckState;
-
-    constructor(
-        @Inject(THY_TREE_ABSTRACT_TOKEN) public root: ThyTreeAbstractComponent,
-        public thyTreeService: ThyTreeService
-    ) {}
 
     public clickNode(event: Event) {
         if (this.node.isDisabled) {

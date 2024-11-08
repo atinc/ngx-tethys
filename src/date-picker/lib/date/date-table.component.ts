@@ -1,5 +1,5 @@
 import { TinyDate, valueFunctionProp } from 'ngx-tethys/util';
-import { ChangeDetectionStrategy, Component, EventEmitter, OnChanges, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnChanges, Output, inject } from '@angular/core';
 import { DateHelperService } from '../../date-helper.service';
 import { DateCell, DateBodyRow } from './types';
 import { CalendarTable } from '../calendar/calendar-table.component';
@@ -20,12 +20,12 @@ import { ThyDatePickerConfigService } from '../../date-picker.service';
     imports: [NgClass, DateTableCell]
 })
 export class DateTable extends CalendarTable implements OnChanges {
+    private dateHelper = inject(DateHelperService);
+    private datePickerConfigService = inject(ThyDatePickerConfigService);
+
     @Output() readonly dayHover = new EventEmitter<TinyDate>(); // Emitted when hover on a day by mouse enter
 
-    constructor(
-        private dateHelper: DateHelperService,
-        private datePickerConfigService: ThyDatePickerConfigService
-    ) {
+    constructor() {
         super();
     }
 

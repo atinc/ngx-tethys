@@ -1,16 +1,16 @@
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { ThyFileSizeExceedsContext } from 'ngx-tethys/upload';
 
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 @Component({
     selector: 'app-upload-size-exceeds-handler-example',
     templateUrl: './size-exceeds-handler.component.html'
 })
 export class ThyUploadSizeExceedsHandlerExampleComponent {
-    sizeThreshold = 10;
+    private notifyService = inject(ThyNotifyService);
 
-    constructor(private notifyService: ThyNotifyService) {}
+    sizeThreshold = 10;
 
     selectFiles(event: { files: File[] }) {}
 

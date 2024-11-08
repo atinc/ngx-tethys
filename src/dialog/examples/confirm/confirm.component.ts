@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ThyConfirmConfig, ThyDialog } from 'ngx-tethys/dialog';
 import { of } from 'rxjs';
 import { map, delay } from 'rxjs/operators';
@@ -8,9 +8,9 @@ import { map, delay } from 'rxjs/operators';
     templateUrl: './confirm.component.html'
 })
 export class ThyDialogConfirmExampleComponent {
-    public okType: 'primary' | 'danger';
+    private thyDialog = inject(ThyDialog);
 
-    constructor(private thyDialog: ThyDialog) {}
+    public okType: 'primary' | 'danger';
 
     openPrimaryConfirm() {
         const confirmConfig: ThyConfirmConfig = {

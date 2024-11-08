@@ -53,6 +53,10 @@ const inputGroupSizeMap = {
     imports: [NgTemplateOutlet]
 })
 export class ThyInputGroup implements OnInit, AfterContentChecked, OnDestroy {
+    private thyTranslate = inject(ThyTranslate);
+    private ngZone = inject(NgZone);
+    private cdr = inject(ChangeDetectorRef);
+
     private hostRenderer = useHostRenderer();
 
     private hostFocusControl = useHostFocusControl();
@@ -143,12 +147,6 @@ export class ThyInputGroup implements OnInit, AfterContentChecked, OnDestroy {
      * @private
      */
     @ContentChild(ThyInputDirective) inputDirective: ThyInputDirective;
-
-    constructor(
-        private thyTranslate: ThyTranslate,
-        private ngZone: NgZone,
-        private cdr: ChangeDetectorRef
-    ) {}
 
     ngOnInit() {
         this.hostFocusControl.focusChanged = (origin: FocusOrigin) => {

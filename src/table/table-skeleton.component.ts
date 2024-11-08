@@ -7,7 +7,8 @@ import {
     ElementRef,
     Input,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    inject
 } from '@angular/core';
 import { InputCssPixel } from 'ngx-tethys/core';
 import { ThySkeletonCircle, ThySkeletonRectangle } from 'ngx-tethys/skeleton';
@@ -35,6 +36,8 @@ const COLUMN_COUNT = 5;
     imports: [NgClass, NgStyle, NgTemplateOutlet, ThyViewOutletDirective, ThySkeletonRectangle, ThySkeletonCircle]
 })
 export class ThyTableSkeleton implements AfterViewInit {
+    private cdr = inject(ChangeDetectorRef);
+
     @ViewChild('titleTemplate') titleTemplate: ElementRef<HTMLElement>;
 
     @ViewChild('memberTemplate') memberTemplate: ElementRef<HTMLElement>;
@@ -170,8 +173,6 @@ export class ThyTableSkeleton implements AfterViewInit {
     });
 
     public columns: ThyTableSkeletonColumn[] = [...this.defaultColumns];
-
-    constructor(private cdr: ChangeDetectorRef) {}
 
     ngAfterViewInit(): void {
         this.skeletonColumnsMap = {

@@ -13,7 +13,8 @@ import {
     OnDestroy,
     OnInit,
     Output,
-    Renderer2
+    Renderer2,
+    inject
 } from '@angular/core';
 
 import { FileSelectBaseDirective } from './file-select-base';
@@ -139,9 +140,9 @@ export class ThyFileDropDirective extends FileSelectBaseDirective implements OnI
 
     private getAsEntry(item: DataTransferItem): FileSystemEntry {
         let entry: FileSystemEntry;
-        if (item['getAsEntry']) {
+        if ((item as unknown as { getAsEntry: () => FileSystemEntry })['getAsEntry']) {
             // https://wiki.whatwg.org/wiki/DragAndDropEntries
-            entry = item['getAsEntry']();
+            entry = (item as unknown as { getAsEntry: () => FileSystemEntry })['getAsEntry']();
         } else if (item.webkitGetAsEntry) {
             entry = item.webkitGetAsEntry();
         }

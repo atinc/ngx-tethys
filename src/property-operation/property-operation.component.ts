@@ -11,7 +11,8 @@ import {
     TemplateRef,
     ViewChild,
     OnDestroy,
-    NgZone
+    NgZone,
+    inject
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyTranslate } from 'ngx-tethys/core';
@@ -37,6 +38,10 @@ type ThyPropertyOperationTypes = 'primary' | 'success' | 'warning' | 'danger';
     imports: [NgTemplateOutlet, NgClass, ThyButtonIcon, ThyFlexibleText, ThyIcon]
 })
 export class ThyPropertyOperation implements OnInit, AfterContentInit, OnDestroy {
+    private thyTranslate = inject(ThyTranslate);
+    private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+    private ngZone = inject(NgZone);
+
     private initialized = false;
 
     private hostRenderer = useHostRenderer();
@@ -176,12 +181,6 @@ export class ThyPropertyOperation implements OnInit, AfterContentInit, OnDestroy
             this.onlyHasTips = false;
         }
     }
-
-    constructor(
-        private thyTranslate: ThyTranslate,
-        private elementRef: ElementRef<HTMLElement>,
-        private ngZone: NgZone
-    ) {}
 
     ngOnInit() {
         this.setHostClass(true);

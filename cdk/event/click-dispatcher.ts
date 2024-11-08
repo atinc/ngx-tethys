@@ -1,4 +1,4 @@
-import { Injectable, Inject, NgZone, OnDestroy } from '@angular/core';
+import { Injectable, NgZone, OnDestroy, inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Observable } from 'rxjs';
 import { ThyEventDispatcher } from './event-dispatcher';
@@ -9,7 +9,10 @@ const DEFAULT_CLICKED_TIME = 100;
     providedIn: 'root'
 })
 export class ThyClickDispatcher extends ThyEventDispatcher {
-    constructor(@Inject(DOCUMENT) document: any, ngZone: NgZone) {
+    constructor() {
+        const document = inject(DOCUMENT);
+        const ngZone = inject(NgZone);
+
         super(document, ngZone, 'click');
     }
 

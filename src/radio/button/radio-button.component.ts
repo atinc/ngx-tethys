@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, HostListener, Input, Optional, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, HostBinding, HostListener, Input, ChangeDetectorRef, inject } from '@angular/core';
 import { ThyTranslate } from 'ngx-tethys/core';
 import { ThyRadioGroup } from './../group/radio-group.component';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -30,10 +30,6 @@ export class ThyRadioButton extends ThyRadio implements OnInit {
     set thyChecked(value: boolean) {
         this.isActive = !!value;
         this.writeValue(coerceBooleanProperty(value));
-    }
-
-    constructor(thyTranslate: ThyTranslate, @Optional() thyRadioGroupComponent: ThyRadioGroup, changeDetectorRef: ChangeDetectorRef) {
-        super(thyTranslate, thyRadioGroupComponent, changeDetectorRef);
     }
 
     ngOnInit() {

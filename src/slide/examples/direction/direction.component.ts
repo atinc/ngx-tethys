@@ -1,6 +1,6 @@
 import { ThySlideConfig, ThySlideFromTypes, ThySlideService } from 'ngx-tethys/slide';
 
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import { ThySlideDemoContentComponent } from '../slide-content.component';
 
@@ -9,9 +9,9 @@ import { ThySlideDemoContentComponent } from '../slide-content.component';
     templateUrl: './direction.component.html'
 })
 export class ThySlideDirectionExampleComponent {
-    position: ThySlideFromTypes = 'right';
+    private thySlideNewService = inject(ThySlideService);
 
-    constructor(private thySlideNewService: ThySlideService) {}
+    position: ThySlideFromTypes = 'right';
 
     showSlide() {
         const config: ThySlideConfig = {

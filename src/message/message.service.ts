@@ -1,5 +1,5 @@
 import { Overlay } from '@angular/cdk/overlay';
-import { Inject, Injectable, Injector, TemplateRef } from '@angular/core';
+import { Injectable, Injector, TemplateRef, inject } from '@angular/core';
 import { ThyMessageContainer } from './message-container.component';
 import { ThyMessageRef } from './message-ref';
 import { ThyMessageQueue } from './message-queue.service';
@@ -10,17 +10,21 @@ import { ThyAbstractMessageService } from './abstract';
     providedIn: 'root'
 })
 export class ThyMessageService extends ThyAbstractMessageService<ThyMessageContainer> {
+    private messageQueue: ThyMessageQueue;
+
     private _lastMessageId = 0;
 
     private defaultConfig: ThyGlobalMessageConfig;
 
-    constructor(
-        overlay: Overlay,
-        injector: Injector,
-        private messageQueue: ThyMessageQueue,
-        @Inject(THY_MESSAGE_DEFAULT_CONFIG) config: ThyGlobalMessageConfig
-    ) {
+    constructor() {
+        const overlay = inject(Overlay);
+        const injector = inject(Injector);
+        const messageQueue = inject(ThyMessageQueue);
+        const config = inject(THY_MESSAGE_DEFAULT_CONFIG);
+
         super(overlay, injector, messageQueue);
+        this.messageQueue = messageQueue;
+
         this.defaultConfig = {
             ...THY_MESSAGE_DEFAULT_CONFIG_VALUE,
             ...config

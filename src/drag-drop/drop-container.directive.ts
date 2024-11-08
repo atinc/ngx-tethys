@@ -8,7 +8,8 @@ import {
     AfterContentInit,
     NgZone,
     Input,
-    OnDestroy
+    OnDestroy,
+    inject
 } from '@angular/core';
 import { ThyDragDirective } from './drag.directive';
 import { merge, Observable, defer, Subject } from 'rxjs';
@@ -32,6 +33,8 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     standalone: true
 })
 export class ThyDropContainerDirective<T = any> implements OnInit, AfterContentInit, IThyDropContainerDirective, OnDestroy {
+    private ngZone = inject(NgZone);
+
     private ngUnsubscribe$ = new Subject<void>();
 
     /**
@@ -97,8 +100,6 @@ export class ThyDropContainerDirective<T = any> implements OnInit, AfterContentI
         descendants: false
     })
     draggables: QueryList<ThyDragDirective>;
-
-    constructor(private ngZone: NgZone) {}
 
     ngOnInit() {}
 

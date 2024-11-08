@@ -1,5 +1,5 @@
 import { ThyGuiderManager } from './guider-manager';
-import { AfterViewInit, Directive, ElementRef, Input, OnDestroy, OnInit, NgZone } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, Input, OnDestroy, OnInit, NgZone, inject } from '@angular/core';
 import { take } from 'rxjs/operators';
 
 /**
@@ -13,17 +13,15 @@ import { take } from 'rxjs/operators';
     standalone: true
 })
 export class ThyGuiderTargetDirective implements OnInit, OnDestroy, AfterViewInit {
+    private guiderManager = inject(ThyGuiderManager);
+    private el = inject(ElementRef);
+    private ngZone = inject(NgZone);
+
     /**
      * 标记当前元素对应的新手引导中 step 的 key
      */
     @Input('thyGuiderTarget')
     target: string;
-
-    constructor(
-        private guiderManager: ThyGuiderManager,
-        private el: ElementRef,
-        private ngZone: NgZone
-    ) {}
 
     ngOnInit() {
         this.guiderManager.addStepTarget(this.target, this.el.nativeElement);

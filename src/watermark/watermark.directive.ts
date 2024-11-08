@@ -22,6 +22,8 @@ export interface ThyCanvasConfigType {
     standalone: true
 })
 export class ThyWatermarkDirective implements OnInit, OnChanges {
+    private el = inject(ElementRef);
+
     /**
      * 是否禁用，默认为 false
      */
@@ -52,8 +54,6 @@ export class ThyWatermarkDirective implements OnInit, OnChanges {
     private wmDiv: HTMLElement;
 
     private readonly destroyRef = inject(DestroyRef);
-
-    constructor(private el: ElementRef) {}
 
     ngOnInit() {
         if (!this.thyDisabled) {

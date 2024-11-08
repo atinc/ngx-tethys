@@ -1,4 +1,4 @@
-import { ContentChildren, Directive, ElementRef, Input, QueryList, Optional, AfterContentInit, OnInit } from '@angular/core';
+import { ContentChildren, Directive, ElementRef, Input, QueryList, AfterContentInit, OnInit, inject } from '@angular/core';
 import { coerceArray } from 'ngx-tethys/util';
 import { mergeMap, startWith } from 'rxjs/operators';
 import { ThyDropdownDirective } from './dropdown.directive';
@@ -14,6 +14,9 @@ import { useHostRenderer } from '@tethys/cdk/dom';
     standalone: true
 })
 export class ThyDropdownActiveDirective implements OnInit, AfterContentInit {
+    private elementRef = inject(ElementRef);
+    private trigger = inject(ThyDropdownDirective, { optional: true });
+
     classes: string[];
 
     private hostRenderer = useHostRenderer();
@@ -31,11 +34,6 @@ export class ThyDropdownActiveDirective implements OnInit, AfterContentInit {
      * @private
      */
     @ContentChildren(ThyDropdownDirective, { descendants: true }) triggers!: QueryList<ThyDropdownDirective>;
-
-    constructor(
-        private elementRef: ElementRef,
-        @Optional() private trigger?: ThyDropdownDirective
-    ) {}
 
     ngOnInit(): void {}
 

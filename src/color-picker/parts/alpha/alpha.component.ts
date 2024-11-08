@@ -9,7 +9,8 @@ import {
     Output,
     Renderer2,
     SimpleChanges,
-    ViewChild
+    ViewChild,
+    inject
 } from '@angular/core';
 import { ThyCoordinatesDirective } from '../../coordinates.directive';
 import { ThyColor } from '../../helpers/color.class';
@@ -25,11 +26,11 @@ import { ThyColor } from '../../helpers/color.class';
     imports: [ThyCoordinatesDirective]
 })
 export class ThyAlpha implements OnChanges {
+    private readonly renderer = inject(Renderer2);
+
     @HostBinding('class.thy-alpha') className = true;
 
     @Input() color: ThyColor;
-
-    constructor(private readonly renderer: Renderer2) {}
 
     @ViewChild('pointer', { static: true })
     public pointer: ElementRef;

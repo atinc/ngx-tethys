@@ -11,7 +11,8 @@ import {
     NgModule,
     TemplateRef,
     ViewChild,
-    ViewContainerRef
+    ViewContainerRef,
+    inject as coreInject
 } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -45,7 +46,7 @@ class PopoverBasicComponent {
 // eslint-disable-next-line @angular-eslint/directive-selector
 @Directive({ selector: 'thy-with-view-container-directive' })
 class WithViewContainerDirective {
-    constructor(public viewContainerRef: ViewContainerRef) {}
+    viewContainerRef = coreInject(ViewContainerRef);
 }
 
 @Component({
@@ -95,13 +96,11 @@ class WithChildViewContainerComponent {
     `
 })
 export class PopoverSimpleContentComponent {
-    demos: number[];
+    popoverRef = coreInject<ThyPopoverRef<PopoverSimpleContentComponent>>(ThyPopoverRef);
+    popoverInjector = coreInject(Injector);
+    private cdr = coreInject(ChangeDetectorRef);
 
-    constructor(
-        public popoverRef: ThyPopoverRef<PopoverSimpleContentComponent>,
-        public popoverInjector: Injector,
-        private cdr: ChangeDetectorRef
-    ) {}
+    demos: number[];
 
     updateContent() {
         this.demos = [1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8];
@@ -120,11 +119,9 @@ export class PopoverSimpleContentComponent {
     `
 })
 export class PopoverManualClosureContentComponent {
-    constructor(
-        public popover: ThyPopover,
-        public overlay: Overlay,
-        public popoverInjector: Injector
-    ) {}
+    popover = coreInject(ThyPopover);
+    overlay = coreInject(Overlay);
+    popoverInjector = coreInject(Injector);
 
     @ViewChild('btn1', { static: true })
     btn1: HTMLElement;
@@ -179,10 +176,8 @@ export class PopoverInsideClosableComponent {
     `
 })
 export class PopoverConfigComponent {
-    constructor(
-        public popover: ThyPopover,
-        public overlay: Overlay
-    ) {}
+    popover = coreInject(ThyPopover);
+    overlay = coreInject(Overlay);
 
     public popoverRef: ThyPopoverRef<any>;
 

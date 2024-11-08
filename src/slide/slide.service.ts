@@ -6,7 +6,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { coerceElement } from '@angular/cdk/coercion';
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { Inject, Injectable, Injector, OnDestroy, Optional, StaticProvider } from '@angular/core';
+import { Injectable, Injector, OnDestroy, StaticProvider, inject } from '@angular/core';
 
 import { ThySlideContainer } from './slide-container.component';
 import { ThyInternalSlideRef, ThySlideRef } from './slide-ref.service';
@@ -92,14 +92,12 @@ export class ThySlideService extends ThyAbstractOverlayService<ThySlideConfig, T
         return openedOverlay;
     }
 
-    constructor(
-        overlay: Overlay,
-        injector: Injector,
-        @Optional()
-        @Inject(THY_SLIDE_DEFAULT_CONFIG)
-        defaultConfig: ThySlideConfig
-    ) {
+    constructor() {
+        const defaultConfig = inject(THY_SLIDE_DEFAULT_CONFIG, { optional: true })!;
         const slideDefaultConfig = Object.assign({}, slideDefaultConfigValue, defaultConfig);
+        const overlay = inject(Overlay);
+        const injector = inject(Injector);
+
         super(slideAbstractOverlayOptions, overlay, injector, slideDefaultConfig);
     }
 

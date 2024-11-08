@@ -10,7 +10,8 @@ import {
     Input,
     OnInit,
     Output,
-    ViewChild
+    ViewChild,
+    inject
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { isValid } from 'date-fns';
@@ -49,6 +50,9 @@ export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
     animations: [scaleXMotion, scaleYMotion, scaleMotion]
 })
 export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccessor {
+    private cdr = inject(ChangeDetectorRef);
+    private elementRef = inject(ElementRef);
+
     @ViewChild(CdkConnectedOverlay, { static: true }) cdkConnectedOverlay: CdkConnectedOverlay;
 
     @ViewChild('origin', { static: true }) origin: CdkOverlayOrigin;
@@ -179,11 +183,6 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
     onValueChangeFn: (val: number | Date) => void = () => void 0;
 
     onTouchedFn: () => void = () => void 0;
-
-    constructor(
-        private cdr: ChangeDetectorRef,
-        private elementRef: ElementRef
-    ) {}
 
     ngOnInit() {}
 

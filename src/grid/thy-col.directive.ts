@@ -1,4 +1,4 @@
-import { Directive, Input, OnChanges, Optional, Host, AfterViewInit, OnInit, SimpleChanges } from '@angular/core';
+import { Directive, Input, OnChanges, AfterViewInit, OnInit, SimpleChanges, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyRowDirective } from './thy-row.directive';
@@ -26,6 +26,8 @@ export type ThySpan = number | null | 'auto';
     standalone: true
 })
 export class ThyColDirective implements OnInit, OnChanges, AfterViewInit {
+    thyRowDirective = inject(ThyRowDirective, { optional: true, host: true })!;
+
     /**
      * 栅格项的占位列数，thySpan 如果传递了值，以 thySpan 为准
      */
@@ -44,8 +46,6 @@ export class ThyColDirective implements OnInit, OnChanges, AfterViewInit {
     private hostRenderer = useHostRenderer();
 
     private takeUntilDestroyed = takeUntilDestroyed();
-
-    constructor(@Optional() @Host() public thyRowDirective: ThyRowDirective) {}
 
     ngOnInit() {
         this.updateHostClass();

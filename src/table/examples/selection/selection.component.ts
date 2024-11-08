@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ThyMultiSelectEvent } from 'ngx-tethys/table';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { of } from 'rxjs';
@@ -9,6 +9,8 @@ import { delay } from 'rxjs/operators';
     templateUrl: './selection.component.html'
 })
 export class ThyTableSelectionExampleComponent implements OnInit {
+    private notifyService = inject(ThyNotifyService);
+
     data = [
         { id: 1, name: 'Peter', age: 25, job: 'Engineer', address: 'Beijing Dong Sheng Technology' },
         { id: 2, name: 'James', age: 26, job: 'Designer', address: 'Xian Economic Development Zone' },
@@ -20,8 +22,6 @@ export class ThyTableSelectionExampleComponent implements OnInit {
     selections: { id: number; name: string }[] = [];
 
     updating = false;
-
-    constructor(private notifyService: ThyNotifyService) {}
 
     ngOnInit(): void {
         this.selections = [this.data[0]];

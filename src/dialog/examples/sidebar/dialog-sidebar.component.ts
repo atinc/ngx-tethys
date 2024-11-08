@@ -1,4 +1,4 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component, HostBinding, inject } from '@angular/core';
 import { ThyDialogRef } from 'ngx-tethys/dialog';
 
 @Component({
@@ -6,6 +6,8 @@ import { ThyDialogRef } from 'ngx-tethys/dialog';
     templateUrl: './dialog-sidebar.component.html'
 })
 export class ThyDialogSidebarContentExampleComponent {
+    private thyDialogRef = inject<ThyDialogRef<any>>(ThyDialogRef);
+
     @HostBinding('class.thy-dialog-content') class = true;
 
     configs = [
@@ -37,8 +39,6 @@ export class ThyDialogSidebarContentExampleComponent {
     ];
 
     currentConfig = this.configs[0];
-
-    constructor(private thyDialogRef: ThyDialogRef<any>) {}
 
     close() {
         this.thyDialogRef.close();

@@ -58,6 +58,10 @@ const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveLis
     imports: []
 })
 export class ThyResizeHandle implements OnInit {
+    private ngZone = inject(NgZone);
+    private thyResizableService = inject(ThyResizableService);
+    private host = inject<ElementRef<HTMLElement>>(ElementRef);
+
     /**
      * 调整方向
      * @type top | right | bottom | left | topRight | bottomRight | bottomLeft | topLeft
@@ -77,12 +81,6 @@ export class ThyResizeHandle implements OnInit {
     private hostRenderer = useHostRenderer();
 
     private readonly destroyRef = inject(DestroyRef);
-
-    constructor(
-        private ngZone: NgZone,
-        private thyResizableService: ThyResizableService,
-        private host: ElementRef<HTMLElement>
-    ) {}
 
     ngOnInit(): void {
         this.thyResizableService.mouseEnteredOutsideAngular$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(entered => {
