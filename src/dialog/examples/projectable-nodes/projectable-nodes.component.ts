@@ -13,8 +13,6 @@ import { ThyStealthView } from '@tethys/cdk/dom';
 export class ThyDialogProjectableNodesExampleComponent {
     private thyDialog = inject(ThyDialog);
 
-    public okType: 'primary' | 'danger';
-
     open(content: Node[]) {
         this.thyDialog.open(ThyDialogBasicContentComponent, {
             projectableNodes: [content]
