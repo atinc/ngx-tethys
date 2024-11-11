@@ -6,6 +6,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
  * 自定义可拖拽区域内容
  * @name thy-drag-handle,[thyDragHandle]
  * @order 20
+ * @deprecated please use @angular/cdk/drag-drop
  */
 @Directive({
     selector: 'thy-drag-handle,[thyDragHandle]',

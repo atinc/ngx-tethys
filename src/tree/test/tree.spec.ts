@@ -5,7 +5,6 @@ import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angul
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { ThyDragDropModule } from '../../drag-drop';
 import { ThyDragDropEvent } from '../../drag-drop/drag-drop.class';
 import { ThyFlexibleTextModule } from '../../flexible-text/flexible-text.module';
 import { ThyIconModule } from '../../icon';
@@ -34,7 +33,7 @@ const treeNodeContentSelector = '.thy-tree-node-content';
 describe('ThyTreeComponent', () => {
     function configureThyTreeTestingModule(declarations: any[]) {
         TestBed.configureTestingModule({
-            imports: [ThyTreeModule, ThyIconModule, ThyFlexibleTextModule, ThyDragDropModule, FormsModule],
+            imports: [ThyTreeModule, ThyIconModule, ThyFlexibleTextModule, FormsModule],
             declarations,
             providers: [
                 {

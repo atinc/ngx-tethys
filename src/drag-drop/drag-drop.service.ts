@@ -5,6 +5,7 @@ import { ThyDropPosition } from './drag-drop.class';
 /**
  * 自定义可放置区域内容
  * @order 40
+ * @deprecated please use @angular/cdk/drag-drop
  */
 @Injectable({ providedIn: 'root' })
 export class ThyDragDropService<T = any> {
