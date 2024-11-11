@@ -9,6 +9,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
  * 拖拽项
  * @name thy-drag,[thyDrag]
  * @order 10
+ * @deprecated please use @angular/cdk/drag-drop
  */
 @Directive({
     selector: 'thy-drag,[thyDrag]',
