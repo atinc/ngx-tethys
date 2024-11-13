@@ -1,23 +1,10 @@
-import {
-    Directive,
-    Input,
-    ElementRef,
-    OnInit,
-    SimpleChanges,
-    OnChanges,
-    inject,
-    DestroyRef,
-    Signal,
-    computed,
-    WritableSignal,
-    signal
-} from '@angular/core';
+import { Directive, Input, ElementRef, OnInit, SimpleChanges, OnChanges, inject, DestroyRef } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DEFAULT_WATERMARK_CONFIG, DEFAULT_CANVAS_CONFIG } from './config';
 import { MutationObserverFactory } from '@angular/cdk/observers';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
-import { ThyTheme } from 'ngx-tethys/core';
+import { ThyTheme, ThyThemeStore } from 'ngx-tethys/core';
 
 /**
  * @public
@@ -82,20 +69,13 @@ export class ThyWatermarkDirective implements OnInit, OnChanges {
 
     private themeObserver: MutationObserver;
 
-    private theme: WritableSignal<ThyTheme> = signal(ThyTheme.light);
-
-    private isDarkTheme: Signal<boolean> = computed(() => {
-        return (
-            (this.theme() === ThyTheme.system && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ||
-            this.theme() === ThyTheme.dark
-        );
-    });
-
     private canvas: HTMLCanvasElement;
 
     private wmDiv: HTMLElement;
 
     private readonly destroyRef = inject(DestroyRef);
+
+    private thyThemeStore = inject(ThyThemeStore);
 
     constructor(private el: ElementRef) {}
 
@@ -110,7 +90,7 @@ export class ThyWatermarkDirective implements OnInit, OnChanges {
                     .subscribe(() => {});
             });
 
-            this.theme.set((document.documentElement.getAttribute('theme') as ThyTheme) || ThyTheme.light);
+            this.fetchTheme();
             this.createWatermark();
         }
     }
@@ -143,31 +123,12 @@ export class ThyWatermarkDirective implements OnInit, OnChanges {
         }
     }
 
-    getThemeColor(color: string | string[]) {
-        if (typeof color === 'string') {
-            return color;
-        }
-        if (Array.isArray(color)) {
-            if (color.length === 1) {
-                return color[0];
-            }
-
-            if (color.length > 1) {
-                if (this.isDarkTheme()) {
-                    return color[1];
-                } else {
-                    return color[0];
-                }
-            }
-        }
-    }
-
     createCanvas() {
         let { gutter, fontSize, color, degree, textLineHeight } = {
             ...DEFAULT_CANVAS_CONFIG,
             ...(this.thyCanvasConfig || {})
         };
-        color = this.getThemeColor(color);
+        color = this.thyThemeStore.normalizeColor(color);
 
         const [xGutter, yGutter] = gutter;
         const canvas = document.createElement('canvas');
@@ -276,8 +237,7 @@ export class ThyWatermarkDirective implements OnInit, OnChanges {
             stream.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(mutations => {
                 for (const mutation of mutations) {
                     if (mutation.type === 'attributes' && mutation.attributeName === 'theme') {
-                        const theme = (document.documentElement.getAttribute('theme') as ThyTheme) || ThyTheme.light;
-                        this.theme.set(theme);
+                        this.fetchTheme();
                         this.refreshWatermark();
                     }
                 }
@@ -287,5 +247,10 @@ export class ThyWatermarkDirective implements OnInit, OnChanges {
                 this.themeObserver?.disconnect();
             };
         });
+    }
+
+    private fetchTheme() {
+        const theme = (document.documentElement.getAttribute('theme') as ThyTheme) || ThyTheme.light;
+        this.thyThemeStore.setTheme(theme);
     }
 }
