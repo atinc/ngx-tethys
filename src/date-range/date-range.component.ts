@@ -74,7 +74,7 @@ export class ThyDateRange implements OnInit, ControlValueAccessor {
      * 自定义日期选择的展示文字
      * @default 自定义
      */
-    @Input() thyCustomTextValue = '';
+    @Input() thyCustomTextValue = this.i18n.translate('dateRange.custom');
 
     /**
      * 自定义日期选择中可选择的最小时间
@@ -279,7 +279,7 @@ export class ThyDateRange implements OnInit, ControlValueAccessor {
                 selectedDate: this.selectedDate,
                 minDate: this.thyMinDate,
                 maxDate: this.thyMaxDate,
-                customValue: this.thyCustomTextValue || this.i18n.translate('dateRange.custom'),
+                customValue: this.thyCustomTextValue,
                 customKey: this.thyCustomKey,
                 disabledDate: this.thyDisabledDate,
                 selectedDateRange: (dateRange: DateRangeItemInfo) => {

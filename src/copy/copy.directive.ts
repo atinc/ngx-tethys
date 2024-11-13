@@ -34,13 +34,13 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
      * 复制成功时的文案
      * @default 复制成功
      */
-    @Input() thyCopySuccessText = '';
+    @Input() thyCopySuccessText = this.i18n.translate('copy.success');
 
     /**
      * 提示文案
      * @default 点击复制
      */
-    @Input() thyCopyTips = '';
+    @Input() thyCopyTips = this.i18n.translate('copy.tips');
 
     /**
      * 偏移量
@@ -81,7 +81,7 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
             document.execCommand('copy', false, null);
             this.thyCopy.emit({ isSuccess: true, event });
             if (this.thyShowNotify) {
-                this.notifyService.success(this.thyCopySuccessText || this.i18n.translate('copy.success'));
+                this.notifyService.success(this.thyCopySuccessText);
             }
         } catch (err) {
             this.thyCopy.emit({ isSuccess: false, event });

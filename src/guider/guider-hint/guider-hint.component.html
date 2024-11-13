@@ -1,6 +1,6 @@
 <div class="thy-guider-tip-top">
   <img [src]="stepRef.step.data.image" [alt]="stepRef.step.data.title" />
-  <a href="javascript:;" class="thy-guider-tip-top-btn" (click)="jump()">{{ 'Guider.skip' | translate }}</a>
+  <a href="javascript:;" class="thy-guider-tip-top-btn" (click)="jump()">{{ 'guider.skip' | translate }}</a>
 </div>
 <div class="thy-guider-tip-content bg-white">
   <div class="thy-guider-tip-content-title">{{ stepRef.step.data.title }}</div>
@@ -19,12 +19,12 @@
     </div>
     <div class="thy-guider-tip-step-btn">
       @if (stepRef.stepIndex !== 0) {
-        <a href="javascript:;" (click)="prev()" class="thy-guider-tip-step-pre">{{ 'Guider.prev' | translate }}</a>
+        <a href="javascript:;" (click)="prev()" class="thy-guider-tip-step-pre">{{ 'guider.prev' | translate }}</a>
       }
       @if (stepRef.stepIndex !== guiderRef.steps.length - 1) {
-        <a href="javascript:;" (click)="next()" class="thy-guider-tip-step-next">{{ 'Guider.next' | translate }}</a>
+        <a href="javascript:;" (click)="next()" class="thy-guider-tip-step-next">{{ 'guider.next' | translate }}</a>
       } @else {
-        <a href="javascript:;" (click)="end()" class="thy-guider-tip-step-next">{{ 'Guider.finish' | translate }}</a>
+        <a href="javascript:;" (click)="end()" class="thy-guider-tip-step-next">{{ 'guider.finish' | translate }}</a>
       }
     </div>
   </div>

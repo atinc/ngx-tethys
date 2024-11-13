@@ -210,10 +210,10 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
      * @type string
      * @default 请选择节点
      */
-    @Input() thyPlaceholder = '';
+    @Input() thyPlaceholder = this.i18n.translate('treeSelect.placeholder');
 
     get placeholder() {
-        return this.thyPlaceholder || this.i18n.translate('treeSelect.placeholder');
+        return this.thyPlaceholder;
     }
 
     /**
@@ -225,8 +225,9 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
     /**
      * 改变空选项的情况下的提示文本
      * @type string
+     * @default 暂时没有数据可选
      */
-    @Input() thyEmptyOptionsText = '暂时没有数据可选';
+    @Input() thyEmptyOptionsText = this.i18n.translate('treeSelect.empty');
 
     /**
      * 设置是否隐藏节点(不可进行任何操作)，优先级高于 thyHiddenNodeFn
