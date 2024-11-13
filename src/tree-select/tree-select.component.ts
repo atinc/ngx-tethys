@@ -32,6 +32,7 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';
+import { ThyI18nService } from 'ngx-tethys/i18n';
 
 type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -92,6 +93,7 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
     private platformId = inject(PLATFORM_ID);
     private thyClickDispatcher = inject(ThyClickDispatcher);
     private viewportRuler = inject(ViewportRuler);
+    private i18n = inject(ThyI18nService);
 
     @HostBinding('class.thy-select-custom') treeSelectClass = true;
 
@@ -206,11 +208,12 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
     /**
      * 树选择框默认文字
      * @type string
+     * @default 请选择节点
      */
-    @Input() thyPlaceholder = '请选择节点';
+    @Input() thyPlaceholder = '';
 
     get placeholder() {
-        return this.thyPlaceholder;
+        return this.thyPlaceholder || this.i18n.translate('treeSelect.placeholder');
     }
 
     /**

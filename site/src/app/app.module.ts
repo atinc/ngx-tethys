@@ -66,17 +66,19 @@ import { ThyTreeSelectModule } from 'ngx-tethys/tree-select';
 import { ThyUploadModule } from 'ngx-tethys/upload';
 import { ThyVoteModule } from 'ngx-tethys/vote';
 import { ThyWatermarkModule } from 'ngx-tethys/watermark';
+import { ThyI18nModule, ThyI18nService } from 'ngx-tethys/i18n';
 
 import { Overlay } from '@angular/cdk/overlay';
-import { NgModule, inject } from '@angular/core';
+import { DestroyRef, NgModule, inject } from '@angular/core';
 import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { DocgeniTemplateModule, RootComponent } from '@docgeni/template';
 
 import { ThyIconRegistry } from '../../../src/icon/icon-registry';
 import { EXAMPLE_MODULES } from './content/example-modules';
 import { DOCGENI_SITE_PROVIDERS } from './content/index';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 function thyPopoverDefaultConfigFactory(overlay: Overlay) {
     return {
@@ -153,7 +155,8 @@ const TETHYS_MODULES = [
     ThyCollapseModule,
     ThyRateModule,
     ThyDotModule,
-    ThyWatermarkModule
+    ThyWatermarkModule,
+    ThyI18nModule
 ];
 
 @NgModule({
@@ -173,8 +176,18 @@ export class AppModule {
     constructor() {
         const iconRegistry = inject(ThyIconRegistry);
         const sanitizer = inject(DomSanitizer);
+        const router = inject(Router);
+        const destroyRef = inject(DestroyRef);
+        const i18n = inject(ThyI18nService);
 
         const iconSvgUrl = `assets/icons/defs/svg/sprite.defs.svg`;
         iconRegistry.addSvgIconSet(sanitizer.bypassSecurityTrustResourceUrl(iconSvgUrl));
+
+        router.events.pipe(takeUntilDestroyed(destroyRef)).subscribe(event => {
+            if (event instanceof NavigationEnd) {
+                let localeKey = router.url.split('/')[1]?.toLowerCase();
+                i18n.setLocale(localeKey);
+            }
+        });
     }
 }

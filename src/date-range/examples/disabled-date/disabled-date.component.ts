@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { differenceInDays, differenceInYears } from 'date-fns';
-import { addDays, endOfYear, getUnixTime, startOfYear } from 'ngx-tethys/util';
+import { differenceInDays } from 'date-fns';
 import { DateRangeItemInfo } from 'ngx-tethys/date-range';
 
 @Component({

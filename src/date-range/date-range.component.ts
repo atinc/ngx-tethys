@@ -22,6 +22,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyAction } from 'ngx-tethys/action';
 import { NgClass } from '@angular/common';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { ThyI18nService } from 'ngx-tethys/i18n';
 
 const allDayTimestamp = 24 * 60 * 60;
 
@@ -46,6 +47,7 @@ const INPUT_CONTROL_VALUE_ACCESSOR: any = {
 export class ThyDateRange implements OnInit, ControlValueAccessor {
     private thyPopover = inject(ThyPopover);
     private cdr = inject(ChangeDetectorRef);
+    private i18n = inject(ThyI18nService);
 
     /**
      * 自定义可选值列表项
@@ -70,8 +72,9 @@ export class ThyDateRange implements OnInit, ControlValueAccessor {
 
     /**
      * 自定义日期选择的展示文字
+     * @default 自定义
      */
-    @Input() thyCustomTextValue = '自定义';
+    @Input() thyCustomTextValue = '';
 
     /**
      * 自定义日期选择中可选择的最小时间
@@ -110,29 +113,7 @@ export class ThyDateRange implements OnInit, ControlValueAccessor {
 
     public selectedDate?: DateRangeItemInfo;
 
-    public optionalDateRanges: DateRangeItemInfo[] = [
-        {
-            key: 'week',
-            text: '本周',
-            begin: getUnixTime(startOfISOWeek(new Date())),
-            end: getUnixTime(endOfISOWeek(new Date())),
-            timestamp: {
-                interval: 7,
-                unit: 'day'
-            }
-        },
-        {
-            key: 'month',
-            text: '本月',
-            begin: getUnixTime(startOfMonth(new Date())),
-            end: getUnixTime(endOfMonth(new Date())),
-            timestamp: {
-                interval: 1,
-                unit: 'month'
-            }
-        }
-    ];
-
+    optionalDateRanges: DateRangeItemInfo[] = [];
     public selectedDateRange: {
         begin: number;
         end: number;
@@ -161,7 +142,34 @@ export class ThyDateRange implements OnInit, ControlValueAccessor {
         this.onModelTouched = fn;
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.initOptionalDateRanges();
+    }
+
+    private initOptionalDateRanges() {
+        this.optionalDateRanges = [
+            {
+                key: 'week',
+                text: this.i18n.translate('dateRange.thisWeek'),
+                begin: getUnixTime(startOfISOWeek(new Date())),
+                end: getUnixTime(endOfISOWeek(new Date())),
+                timestamp: {
+                    interval: 7,
+                    unit: 'day'
+                }
+            },
+            {
+                key: 'month',
+                text: this.i18n.translate('dateRange.thisMonth'),
+                begin: getUnixTime(startOfMonth(new Date())),
+                end: getUnixTime(endOfMonth(new Date())),
+                timestamp: {
+                    interval: 1,
+                    unit: 'month'
+                }
+            }
+        ];
+    }
 
     private _setSelectedDateRange() {
         this.selectedDateRange = {
@@ -271,7 +279,7 @@ export class ThyDateRange implements OnInit, ControlValueAccessor {
                 selectedDate: this.selectedDate,
                 minDate: this.thyMinDate,
                 maxDate: this.thyMaxDate,
-                customValue: this.thyCustomTextValue,
+                customValue: this.thyCustomTextValue || this.i18n.translate('dateRange.custom'),
                 customKey: this.thyCustomKey,
                 disabledDate: this.thyDisabledDate,
                 selectedDateRange: (dateRange: DateRangeItemInfo) => {

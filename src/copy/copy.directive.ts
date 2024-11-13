@@ -4,6 +4,7 @@ import { coerceElement } from '@angular/cdk/coercion';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { ThyI18nService } from 'ngx-tethys/i18n';
 
 export interface ThyCopyEvent {
     isSuccess: boolean;
@@ -22,6 +23,7 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
     private document = inject(DOCUMENT);
     tooltipDirective = inject(ThyTooltipDirective);
     private notifyService = inject(ThyNotifyService);
+    private i18n = inject(ThyI18nService);
 
     /**
      * 默认为点击标签，可传复制目标标签
@@ -30,13 +32,15 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
 
     /**
      * 复制成功时的文案
+     * @default 复制成功
      */
-    @Input() thyCopySuccessText = '复制成功';
+    @Input() thyCopySuccessText = '';
 
     /**
      * 提示文案
+     * @default 点击复制
      */
-    @Input() thyCopyTips = '点击复制';
+    @Input() thyCopyTips = '';
 
     /**
      * 偏移量
@@ -54,7 +58,7 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
     @Input({ transform: coerceBooleanProperty }) thyShowNotify = true;
 
     ngOnInit() {
-        this.tooltipDirective.content = this.thyCopyTips ? this.thyCopyTips : '点击复制';
+        this.tooltipDirective.content = this.thyCopyTips ? this.thyCopyTips : this.i18n.translate('copy.tips');
         this.tooltipDirective.tooltipOffset = this.thyCopyTipsOffset;
     }
 
@@ -77,12 +81,12 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
             document.execCommand('copy', false, null);
             this.thyCopy.emit({ isSuccess: true, event });
             if (this.thyShowNotify) {
-                this.notifyService.success(this.thyCopySuccessText);
+                this.notifyService.success(this.thyCopySuccessText || this.i18n.translate('copy.success'));
             }
         } catch (err) {
             this.thyCopy.emit({ isSuccess: false, event });
             if (this.thyShowNotify) {
-                this.notifyService.error('复制失败');
+                this.notifyService.error(this.i18n.translate('copy.error'));
             }
         } finally {
             textarea.remove();

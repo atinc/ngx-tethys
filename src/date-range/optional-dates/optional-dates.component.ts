@@ -10,6 +10,7 @@ import {
     ThyDropdownMenuItemNameDirective,
     ThyDropdownMenuItemExtendIconDirective
 } from 'ngx-tethys/dropdown';
+import { ThyI18nTranslate, ThyI18nService } from 'ngx-tethys/i18n';
 
 /**
  * @private
@@ -26,17 +27,17 @@ import {
         ThyDropdownMenuItemExtendIconDirective,
         ThyIcon,
         ThyRangePickerDirective,
-        FormsModule
+        FormsModule,
+        ThyI18nTranslate
     ]
 })
 export class OptionalDateRanges implements OnInit {
     private thyPopover = inject(ThyPopover);
+    private i18n = inject(ThyI18nService);
 
     hiddenMenu = false;
 
     optionalDateRanges: DateRangeItemInfo[];
-
-    customValue = '自定义';
 
     customKey: string;
 
@@ -65,7 +66,7 @@ export class OptionalDateRanges implements OnInit {
             begin: date.begin,
             end: date.end,
             key: this.customKey,
-            text: this.customValue
+            text: this.i18n.translate('dateRange.custom')
         };
         this.selectedDateRange(this.selectedDate);
     }

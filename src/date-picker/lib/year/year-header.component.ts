@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { DateHelperService } from '../../../date-picker/date-helper.service';
 import { CalendarHeader, PanelSelector } from '../calendar/calendar-header.component';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgClass } from '@angular/common';
+import { ThyI18nTranslate } from 'ngx-tethys/i18n';
 
 /**
  * @private
@@ -13,7 +14,7 @@ import { NgClass } from '@angular/common';
     selector: 'year-header',
     templateUrl: '../calendar/calendar-header.component.html',
     standalone: true,
-    imports: [NgClass, ThyIcon]
+    imports: [NgClass, ThyIcon, ThyI18nTranslate]
 })
 export class YearHeader extends CalendarHeader {
     dateHelper: DateHelperService;

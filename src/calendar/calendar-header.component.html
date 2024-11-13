@@ -5,9 +5,9 @@
     [thyHiddenMenu]="true"
     [thyCustomKey]="'exception'"
     [thyPickerFormat]="pickerFormat"
-  (ngModelChange)="onChangeRange($event)"></thy-date-range>
+    (ngModelChange)="onChangeRange($event)"></thy-date-range>
   @if (isCurrent) {
-    <button thyButton="outline-default-square" thySize="md" (click)="backToday()">今天</button>
+    <button thyButton="outline-default-square" thySize="md" (click)="backToday()">{{ 'calendar.today' | translate }}</button>
   }
 </div>
 <div class="thy-calendar-full-header-right">

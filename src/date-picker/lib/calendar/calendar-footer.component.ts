@@ -1,22 +1,11 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    EventEmitter,
-    Input,
-    Output,
-    ElementRef,
-    ViewContainerRef,
-    OnInit,
-    OnChanges,
-    SimpleChanges,
-    inject
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 
 import { TinyDate, coerceBooleanProperty } from 'ngx-tethys/util';
 import { ThyButton } from 'ngx-tethys/button';
 import { FormsModule } from '@angular/forms';
 import { ThyInnerTimePicker } from 'ngx-tethys/time-picker';
 import { ThyIcon } from 'ngx-tethys/icon';
+import { ThyI18nTranslate } from 'ngx-tethys/i18n';
 
 /**
  * @private
@@ -28,7 +17,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
     exportAs: 'calendarFooter',
     templateUrl: 'calendar-footer.component.html',
     standalone: true,
-    imports: [ThyIcon, ThyInnerTimePicker, FormsModule, ThyButton]
+    imports: [ThyIcon, ThyInnerTimePicker, FormsModule, ThyButton, ThyI18nTranslate]
 })
 export class CalendarFooter implements OnInit, OnChanges {
     @Input() showTime = false;

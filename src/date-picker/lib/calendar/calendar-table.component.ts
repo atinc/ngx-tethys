@@ -1,13 +1,15 @@
-import { Directive, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges, TemplateRef } from '@angular/core';
+import { Directive, EventEmitter, inject, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges, TemplateRef } from '@angular/core';
 import { SafeAny } from 'ngx-tethys/types';
 import { FunctionProp, isTemplateRef, TinyDate } from 'ngx-tethys/util';
 import { DateCell, DateBodyRow } from '../date/types';
+import { ThyI18nService } from 'ngx-tethys/i18n';
 
 /**
  * @private
  */
 @Directive()
 export abstract class CalendarTable implements OnInit, OnChanges {
+    protected i18n = inject(ThyI18nService);
     isTemplateRef = isTemplateRef;
     headRow: DateCell[] = [];
     bodyRows: DateBodyRow[] = [];

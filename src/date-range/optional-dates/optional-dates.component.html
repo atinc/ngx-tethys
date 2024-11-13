@@ -20,7 +20,7 @@
       [thyDisabledDate]="disabledDate"
       (ngModelChange)="_selectedCustomDate($event)"
       (thyOnCalendarChange)="calendarChange($event)">
-      <span thyDropdownMenuItemName>{{ customValue }}</span>
+      <span thyDropdownMenuItemName>{{ 'dateRange.custom' | translate }}</span>
       @if (customKey === selectedDate?.key) {
         <span thyDropdownMenuItemExtendIcon>
           <thy-icon class="text-primary" thyIconName="check"></thy-icon>

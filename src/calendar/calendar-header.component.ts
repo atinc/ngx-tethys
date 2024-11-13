@@ -6,6 +6,7 @@ import { ChangeDetectorRef, Component, EventEmitter, HostBinding, Input, OnInit,
 import { ThyButton } from 'ngx-tethys/button';
 import { NgTemplateOutlet, JsonPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ThyI18nTranslate } from 'ngx-tethys/i18n';
 
 /**
  * 日历头部操作栏组件
@@ -16,7 +17,7 @@ import { FormsModule } from '@angular/forms';
     selector: 'thy-calendar-header',
     templateUrl: './calendar-header.component.html',
     standalone: true,
-    imports: [ThyDateRange, FormsModule, ThyButton, NgTemplateOutlet, JsonPipe]
+    imports: [ThyDateRange, FormsModule, ThyButton, NgTemplateOutlet, JsonPipe, ThyI18nTranslate]
 })
 export class ThyCalendarHeader implements OnInit {
     private cdr = inject(ChangeDetectorRef);

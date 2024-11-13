@@ -18,6 +18,7 @@ import { Subject } from 'rxjs';
 import { AdvancedSelectableCell, RangeAdvancedValue } from '../../inner-types';
 import { DatePickerAdvancedShowYearTipPipe } from '../../picker.pipes';
 import { ThyDateGranularity } from '../../standard-types';
+import { ThyI18nTranslate } from 'ngx-tethys/i18n';
 
 /**
  * @private
@@ -35,7 +36,7 @@ import { ThyDateGranularity } from '../../standard-types';
         }
     ],
     standalone: true,
-    imports: [NgTemplateOutlet, ThyButton, ThyIcon, NgClass, DatePickerAdvancedShowYearTipPipe]
+    imports: [NgTemplateOutlet, ThyButton, ThyIcon, NgClass, DatePickerAdvancedShowYearTipPipe, ThyI18nTranslate]
 })
 export class DateCarousel implements OnInit, ControlValueAccessor, OnDestroy {
     private cdr = inject(ChangeDetectorRef);

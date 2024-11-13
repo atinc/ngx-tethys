@@ -49,7 +49,8 @@ export class MonthTable extends CalendarTable implements OnChanges {
             for (let colIndex = 0; colIndex < this.MAX_COL; colIndex++) {
                 const month = this.activeDate.setMonth(monthValue);
                 const isDisabled = this.disabledDate ? this.disabledDate(this.activeDate.setMonth(monthValue).nativeDate) : false;
-                const content = this.dateHelper.format(month.nativeDate, 'MMMM');
+                const monthFormat = this.i18n.getLocaleKey().toLowerCase().indexOf('zh') === 0 ? 'MMMM' : 'MMM';
+                const content = this.dateHelper.format(month.nativeDate, monthFormat);
                 const cell: DateCell = {
                     trackByIndex: colIndex,
                     value: month.nativeDate,

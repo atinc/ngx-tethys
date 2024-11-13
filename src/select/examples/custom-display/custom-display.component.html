@@ -1,5 +1,5 @@
 <div class="mb-2">单选</div>
-<thy-select [(ngModel)]="selectedTaskType" thyPlaceHolder="请选择" style="width: 500px">
+<thy-select [(ngModel)]="selectedTaskType" style="width: 500px">
   <thy-option thyValue="" thyRawValue="" thyLabelText="空"></thy-option>
   @for (option of optionData; track option._id) {
     <thy-option thyShowOptionCustom="true" [thyRawValue]="option" [thyValue]="option.name" [thyLabelText]="option.display_name">
@@ -21,7 +21,7 @@
   </ng-template>
 </thy-select>
 <div class="mt-2 mb-2">多选</div>
-<thy-select [(ngModel)]="selectedTaskTypes" thyMode="multiple" thyPlaceHolder="请选择" style="width: 500px">
+<thy-select [(ngModel)]="selectedTaskTypes" thyMode="multiple" style="width: 500px">
   <thy-option thyValue="" thyLabelText="空"></thy-option>
   @for (option of optionData; track option._id) {
     <thy-option thyShowOptionCustom="true" [thyRawValue]="option" [thyValue]="option.name" [thyLabelText]="option.display_name">
@@ -44,7 +44,7 @@
   </ng-template>
 </thy-select>
 <div class="mt-2 mb-2">多选 自定义选中的option样式</div>
-<thy-select [(ngModel)]="selectedTaskTypes" thyMode="multiple" thyPlaceHolder="请选择" style="width: 500px" thyPreset="tag">
+<thy-select [(ngModel)]="selectedTaskTypes" thyMode="multiple" style="width: 500px" thyPreset="tag">
   <thy-option thyValue="" thyLabelText="空"></thy-option>
   @for (option of optionData; track option._id) {
     <thy-option thyShowOptionCustom="true" [thyRawValue]="option" [thyValue]="option.name" [thyLabelText]="option.display_name">

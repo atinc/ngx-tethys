@@ -1,11 +1,20 @@
 <ng-container
-  *ngTemplateOutlet="carouselItem; context: { title: '年份', type: 'year', selectableData: selectableData.year }"></ng-container>
+  *ngTemplateOutlet="
+    carouselItem;
+    context: { title: 'datePicker.yearText' | translate, type: 'year', selectableData: selectableData.year }
+  "></ng-container>
 
 <ng-container
-  *ngTemplateOutlet="carouselItem; context: { title: '季度', type: 'quarter', selectableData: selectableData.quarter }"></ng-container>
+  *ngTemplateOutlet="
+    carouselItem;
+    context: { title: 'datePicker.quarterText' | translate, type: 'quarter', selectableData: selectableData.quarter }
+  "></ng-container>
 
 <ng-container
-  *ngTemplateOutlet="carouselItem; context: { title: '月份', type: 'month', selectableData: selectableData.month }"></ng-container>
+  *ngTemplateOutlet="
+    carouselItem;
+    context: { title: 'datePicker.monthText' | translate, type: 'month', selectableData: selectableData.month }
+  "></ng-container>
 
 <ng-template #carouselItem let-title="title" let-selectableData="selectableData" let-type="type">
   <div class="carousel-item carousel-item-{{ type }}">

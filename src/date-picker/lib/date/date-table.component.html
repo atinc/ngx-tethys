@@ -2,8 +2,11 @@
   <thead>
     <tr role="row">
       @if (showWeek) {
-        <th role="columnheader" title="周" class="{{ prefixCls }}-column-header {{ prefixCls }}-week-number-header">
-          <span class="{{ prefixCls }}-column-header-inner">周</span>
+        <th
+          role="columnheader"
+          title="{{ 'datePicker.week' | translate }}"
+          class="{{ prefixCls }}-column-header {{ prefixCls }}-week-number-header">
+          <span class="{{ prefixCls }}-column-header-inner">{{ 'datePicker.week' | translate }}</span>
         </th>
       }
       @for (cell of headRow; track $index) {
@@ -12,7 +15,7 @@
             <span class="{{ prefixCls }}-column-header-inner">{{ cell.content }}</span>
           }
           @if (prefixCls === 'thy-calendar-full') {
-            <span class="{{ prefixCls }}-column-header-inner">周{{ cell.content }}</span>
+            <span class="{{ prefixCls }}-column-header-inner">{{ 'datePicker.prefixWeek' | translate }}{{ cell.content }}</span>
           }
         </th>
       }

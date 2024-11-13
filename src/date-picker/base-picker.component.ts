@@ -2,7 +2,6 @@ import { ThyClickDispatcher, ThyPlacement } from 'ngx-tethys/core';
 import { elementMatchClosest, FunctionProp, TinyDate } from 'ngx-tethys/util';
 
 import {
-    ChangeDetectorRef,
     Component,
     ElementRef,
     EventEmitter,
@@ -186,7 +185,7 @@ export class BasePicker extends AbstractPickerComponent implements OnInit, OnCha
                 year: 'yyyy',
                 quarter: 'yyyy-qqq',
                 month: 'yyyy-MM',
-                week: 'yyyy-ww周',
+                week: this.i18n.translate('datePicker.weekFormat'),
                 date: this.thyShowTime ? 'yyyy-MM-dd HH:mm' : 'yyyy-MM-dd'
             };
             this.thyFormat = this.flexible ? inputFormats['date'] : inputFormats[value];

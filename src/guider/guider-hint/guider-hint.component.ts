@@ -4,6 +4,7 @@ import { helpers } from 'ngx-tethys/util';
 import { defaultGuiderPositionConfig, ThyGuiderStep } from '../guider.class';
 import { ThyGuiderStepRef } from '../guider-step-ref';
 import { NgTemplateOutlet, NgClass } from '@angular/common';
+import { ThyI18nTranslate } from 'ngx-tethys/i18n';
 
 /**
  * @private
@@ -12,7 +13,7 @@ import { NgTemplateOutlet, NgClass } from '@angular/common';
     selector: 'thy-guider-hint',
     templateUrl: 'guider-hint.component.html',
     standalone: true,
-    imports: [NgTemplateOutlet, NgClass]
+    imports: [NgTemplateOutlet, NgClass, ThyI18nTranslate]
 })
 export class ThyGuiderHint implements OnInit {
     @HostBinding('class.thy-guider-tip-container') guiderHint = true;
