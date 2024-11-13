@@ -6,7 +6,8 @@ import { ChangeDetectorRef, Component, EventEmitter, HostBinding, Input, OnInit,
 import { ThyButton } from 'ngx-tethys/button';
 import { NgTemplateOutlet, JsonPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ThyI18nTranslate } from 'ngx-tethys/i18n';
+import { ThyI18nService, ThyI18nTranslate } from 'ngx-tethys/i18n';
+import { DateHelperService } from 'ngx-tethys/date-picker';
 
 /**
  * 日历头部操作栏组件
@@ -21,6 +22,8 @@ import { ThyI18nTranslate } from 'ngx-tethys/i18n';
 })
 export class ThyCalendarHeader implements OnInit {
     private cdr = inject(ChangeDetectorRef);
+    private i18n = inject(ThyI18nService);
+    private dateHelper = inject(DateHelperService);
 
     @HostBinding('class.thy-calendar-full-header-container') className = true;
 
@@ -52,12 +55,12 @@ export class ThyCalendarHeader implements OnInit {
      */
     @Output() readonly dateRangeChange: EventEmitter<DateRangeItemInfo> = new EventEmitter();
 
-    public pickerFormat = 'yyyy年MM月';
+    public pickerFormat = this.i18n.translate('datePicker.monthFormatWithYear');
 
     public dateRanges: DateRangeItemInfo[] = [
         {
             key: 'month',
-            text: new TinyDate().format(this.pickerFormat),
+            text: this.dateHelper.format(new TinyDate().nativeDate, this.pickerFormat),
             begin: getUnixTime(startOfMonth(new Date())),
             end: getUnixTime(endOfMonth(new Date())),
             timestamp: {

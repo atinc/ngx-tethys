@@ -12,6 +12,7 @@ export interface ThyDatePickerConfig {
     timestampPrecision: 'seconds' | 'milliseconds';
 }
 
+// TODO i18n
 export const DEFAULT_DATE_PICKER_CONFIG: ThyDatePickerConfig = {
     shortcutPosition: 'left',
     showShortcut: false,

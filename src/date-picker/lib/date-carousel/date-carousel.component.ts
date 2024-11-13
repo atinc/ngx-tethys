@@ -270,6 +270,7 @@ export class DateCarousel implements OnInit, ControlValueAccessor, OnDestroy {
         currentDate = currentDate || this.activeDate || new TinyDate().startOfMonth();
         const cell: AdvancedSelectableCell = {
             type: 'month',
+            // TODO i18n
             content: `${currentDate.addMonths(preOrNextcount).getMonth() + 1}月`,
             startValue: currentDate.startOfMonth().addMonths(preOrNextcount),
             endValue: currentDate.endOfMonth().addMonths(preOrNextcount),

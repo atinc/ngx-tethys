@@ -61,6 +61,7 @@ export function getFlexibleAdvancedReadableValue(tinyDates: TinyDate[], flexible
     if (!tinyDates[0] || !tinyDates[1]) {
         return value;
     }
+    // TODO i18n
     switch (flexibleDateGranularity) {
         case 'year':
             if (tinyDates[0].isSameYear(tinyDates[1])) {

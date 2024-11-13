@@ -17,6 +17,7 @@ export default {
         monthText: 'Month',
         previousMonth: 'Previous month',
         nextMonth: 'Next month',
+        monthFormatWithYear: 'yyyy-MM',
         // 周
         week: 'Week',
         prefixWeek: '',

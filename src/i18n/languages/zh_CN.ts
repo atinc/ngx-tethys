@@ -16,6 +16,7 @@ export default {
         monthText: '月份',
         previousMonth: '上个月',
         nextMonth: '下个月',
+        monthFormatWithYear: 'yyyy年MM月',
         // 季度
         quarterText: '季度',
         // 周
