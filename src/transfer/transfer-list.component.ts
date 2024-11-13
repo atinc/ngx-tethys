@@ -19,6 +19,7 @@ import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { ThyList, ThyListItem } from 'ngx-tethys/list';
 import { ThyDragDropDirective } from 'ngx-tethys/shared';
 import { InnerTransferDragEvent, ThyTransferDragEvent, ThyTransferItem, ThyTransferSelectEvent } from './transfer.interface';
+import { ThyI18nTranslate } from 'ngx-tethys/i18n';
 
 /**
  * @private
@@ -28,7 +29,17 @@ import { InnerTransferDragEvent, ThyTransferDragEvent, ThyTransferItem, ThyTrans
     templateUrl: './transfer-list.component.html',
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [CdkDropListGroup, ThyList, CdkDropList, ThyDragDropDirective, ThyListItem, CdkDrag, NgClass, NgTemplateOutlet]
+    imports: [
+        CdkDropListGroup,
+        ThyList,
+        CdkDropList,
+        ThyDragDropDirective,
+        ThyListItem,
+        CdkDrag,
+        NgClass,
+        NgTemplateOutlet,
+        ThyI18nTranslate
+    ]
 })
 export class ThyTransferList implements OnInit, DoCheck {
     private differs = inject(IterableDiffers);

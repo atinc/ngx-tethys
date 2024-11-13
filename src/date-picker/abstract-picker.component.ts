@@ -33,6 +33,7 @@ import {
 } from './standard-types';
 import { ThyDatePickerConfigService } from './date-picker.service';
 import { SafeAny } from 'ngx-tethys/types';
+import { ThyI18nService } from 'ngx-tethys/i18n';
 
 /**
  * @private
@@ -43,6 +44,8 @@ export abstract class AbstractPickerComponent
     implements OnInit, OnChanges, OnDestroy, ControlValueAccessor
 {
     cdr = inject(ChangeDetectorRef);
+
+    i18n = inject(ThyI18nService);
 
     thyValue: CompatibleValue | null;
 
@@ -376,7 +379,9 @@ export abstract class AbstractPickerComponent
 
     private setDefaultPlaceHolder(): void {
         if (!this.isCustomPlaceHolder) {
-            this.thyPlaceHolder = this.isRange ? ['开始日期', '结束日期'] : '请选择日期';
+            this.thyPlaceHolder = this.isRange
+                ? [this.i18n.translate('datePicker.startDate'), this.i18n.translate('datePicker.endDate')]
+                : this.i18n.translate('datePicker.selectDate');
         }
         this.cdr.markForCheck();
     }

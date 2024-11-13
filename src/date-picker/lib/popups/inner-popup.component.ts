@@ -27,6 +27,7 @@ import { MonthTable } from '../month/month-table.component';
 import { YearHeader } from '../year/year-header.component';
 import { YearTable } from '../year/year-table.component';
 import { QuarterTable } from '../quarter/quarter-table.component';
+import { ThyI18nTranslate } from 'ngx-tethys/i18n';
 
 /**
  * @private
@@ -48,7 +49,8 @@ import { QuarterTable } from '../quarter/quarter-table.component';
         MonthTable,
         QuarterTable,
         DateHeader,
-        DateTable
+        DateTable,
+        ThyI18nTranslate
     ]
 })
 export class InnerPopup implements OnChanges {

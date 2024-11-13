@@ -7,7 +7,6 @@ import {
     Component,
     EventEmitter,
     Input,
-    numberAttribute,
     OnChanges,
     OnInit,
     Output,
@@ -38,6 +37,7 @@ import {
 import { CalendarFooter } from '../calendar/calendar-footer.component';
 import { DateCarousel } from '../date-carousel/date-carousel.component';
 import { InnerPopup } from './inner-popup.component';
+import { ThyI18nTranslate } from 'ngx-tethys/i18n';
 
 /**
  * @private
@@ -49,7 +49,17 @@ import { InnerPopup } from './inner-popup.component';
     exportAs: 'datePopup',
     templateUrl: './date-popup.component.html',
     standalone: true,
-    imports: [ThyNav, ThyNavItemDirective, ThyButtonIcon, DateCarousel, FormsModule, NgTemplateOutlet, InnerPopup, CalendarFooter]
+    imports: [
+        ThyNav,
+        ThyNavItemDirective,
+        ThyButtonIcon,
+        DateCarousel,
+        FormsModule,
+        NgTemplateOutlet,
+        InnerPopup,
+        CalendarFooter,
+        ThyI18nTranslate
+    ]
 })
 export class DatePopup implements OnChanges, OnInit {
     private cdr = inject(ChangeDetectorRef);

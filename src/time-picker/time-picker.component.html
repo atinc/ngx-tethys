@@ -16,14 +16,17 @@
       (keyup.enter)="onKeyupEnter()"
       (keyup.escape)="onKeyupEsc()"
       (ngModelChange)="onCustomizeInput($event)" />
-    <ng-container *ngTemplateOutlet="rightIcon"></ng-container>
+    <ng-container *ngTemplateOutlet="rightIcon"> </ng-container>
   </ng-container>
 </span>
 
 <ng-template #rightIcon>
   @if (!disabled && thyAllowClear && !thyReadonly && showText) {
     <span class="{{ prefixCls }}-clear">
-      <thy-icon thyIconName="close-circle-bold-fill" (click)="onClearTime($event)" ngClass="remove-link remove-link-{{ thySize }}"></thy-icon>
+      <thy-icon
+        thyIconName="close-circle-bold-fill"
+        (click)="onClearTime($event)"
+        ngClass="remove-link remove-link-{{ thySize }}"></thy-icon>
     </span>
   }
   <span class="{{ prefixCls }}-icon">
@@ -65,6 +68,6 @@
       [thyShowSelectNow]="thyShowSelectNow"
       (ngModelChange)="onPickTimeConfirm($event)"
       (thyPickChange)="onPickTime($event)"
-    (thyClosePanel)="closeOverlay()"></thy-time-picker-panel>
+      (thyClosePanel)="closeOverlay()"></thy-time-picker-panel>
   </div>
 </ng-template>

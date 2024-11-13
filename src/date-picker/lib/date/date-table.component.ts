@@ -6,6 +6,7 @@ import { CalendarTable } from '../calendar/calendar-table.component';
 import { DateTableCell } from './date-table-cell.component';
 import { NgClass } from '@angular/common';
 import { ThyDatePickerConfigService } from '../../date-picker.service';
+import { ThyI18nTranslate } from 'ngx-tethys/i18n';
 
 /**
  * @private
@@ -17,7 +18,7 @@ import { ThyDatePickerConfigService } from '../../date-picker.service';
     exportAs: 'dateTable',
     templateUrl: 'date-table.component.html',
     standalone: true,
-    imports: [NgClass, DateTableCell]
+    imports: [NgClass, DateTableCell, ThyI18nTranslate]
 })
 export class DateTable extends CalendarTable implements OnChanges {
     private dateHelper = inject(DateHelperService);
@@ -54,7 +55,10 @@ export class DateTable extends CalendarTable implements OnChanges {
 
     private getVeryShortWeekFormat(): string {
         if (this.dateHelper.relyOnDatePipe) {
-            return 'EEEEE'; // eg. 二
+            // EEEEE  eg.二
+            // EEEEEE  eg.Tu
+            // EEE  eg.Tue
+            return this.i18n.getLocaleKey().toLowerCase().indexOf('zh') === 0 ? 'EEEEE' : 'EEE';
         }
         return 'dd';
     }

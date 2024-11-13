@@ -22,6 +22,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
 import { NgTemplateOutlet, NgClass } from '@angular/common';
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
+import { ThyI18nService, ThyI18nTranslate } from 'ngx-tethys/i18n';
 
 export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
 
@@ -46,12 +47,23 @@ export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
         '[class.thy-time-picker-readonly]': `thyReadonly`
     },
     standalone: true,
-    imports: [CdkOverlayOrigin, ThyInputDirective, FormsModule, NgTemplateOutlet, ThyIcon, NgClass, CdkConnectedOverlay, ThyTimePanel],
+    imports: [
+        CdkOverlayOrigin,
+        ThyInputDirective,
+        FormsModule,
+        NgTemplateOutlet,
+        ThyIcon,
+        NgClass,
+        CdkConnectedOverlay,
+        ThyTimePanel,
+        ThyI18nTranslate
+    ],
     animations: [scaleXMotion, scaleYMotion, scaleMotion]
 })
 export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccessor {
     private cdr = inject(ChangeDetectorRef);
     private elementRef = inject(ElementRef);
+    private i18n = inject(ThyI18nService);
 
     @ViewChild(CdkConnectedOverlay, { static: true }) cdkConnectedOverlay: CdkConnectedOverlay;
 
@@ -70,8 +82,9 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
     /**
      * 输入框提示文字
      * @type string
+     * @default 选择时间
      */
-    @Input() thyPlaceholder: string = '选择时间';
+    @Input() thyPlaceholder: string = this.i18n.translate('timePicker.placeholder');
 
     /**
      * 弹出位置

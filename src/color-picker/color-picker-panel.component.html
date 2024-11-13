@@ -1,13 +1,13 @@
 @if (customDefaultColor) {
   <div class="quick-color" [ngClass]="transparentColorSelectable ? ' mb-0 pb-0' : ''" (click)="selectColor(defaultColor)">
     <ng-template [ngTemplateOutlet]="checkIconTpl" [ngTemplateOutletContext]="{ $implicit: defaultColor }"></ng-template>
-    <span class="ml-2 font-size-sm text-secondary">默认颜色</span>
+    <span class="ml-2 font-size-sm text-secondary">{{ 'colorPicker.defaultColor' | translate }}</span>
   </div>
 }
 @if (transparentColorSelectable) {
   <div class="quick-color" [ngClass]="customDefaultColor ? 'mt-0 pt-0' : ''" (click)="selectColor('transparent')">
     <div class="color-block"></div>
-    <span class="ml-2 font-size-sm text-secondary">无填充色</span>
+    <span class="ml-2 font-size-sm text-secondary">{{ 'colorPicker.noFillColor' | translate }}</span>
   </div>
 }
 <div class="main-content">
@@ -16,19 +16,19 @@
       <ng-template [ngTemplateOutlet]="checkIconTpl" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
     }
   </div>
-  <p class="font-size-sm text-secondary recent-text">最近使用自定义颜色</p>
+  <p class="font-size-sm text-secondary recent-text">{{ 'colorPicker.recentUsedColor' | translate }}</p>
   <div class="recent-color-container">
     @for (item of recentColors; track $index) {
       <ng-template [ngTemplateOutlet]="checkIconTpl" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
     }
     @if (recentColors.length === 0) {
-      <div class="font-size-sm px-1 text-muted">暂无</div>
+      <div class="font-size-sm px-1 text-muted">{{ 'colorPicker.none' | translate }}</div>
     }
   </div>
 </div>
 <div class="more-color" (click)="showMoreColor($event)">
   <thy-icon thyIconName="palette" class="mr-2"></thy-icon>
-  <span class="font-size-sm custom-text">自定义颜色</span>
+  <span class="font-size-sm custom-text">{{ 'colorPicker.customColor' | translate }}</span>
   <thy-icon thyDropdownMenuItemExtendIcon thyIconName="angle-right"></thy-icon>
 </div>
 

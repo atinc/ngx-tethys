@@ -5,10 +5,15 @@
       [ngClass]="showSuperPreBtn ? 'd-block' : 'd-none'"
       role="button"
       (click)="superPrevious()"
-      title="上一年">
+      title="{{ 'datePicker.previousYear' | translate }}">
       <thy-icon thyIconName="angle-double-left"></thy-icon>
     </a>
-    <a class="{{ prefixCls }}-prev-month-btn" [ngClass]="showPreBtn ? 'd-block' : 'd-none'" role="button" (click)="previous()" title="上月">
+    <a
+      class="{{ prefixCls }}-prev-month-btn"
+      [ngClass]="showPreBtn ? 'd-block' : 'd-none'"
+      role="button"
+      (click)="previous()"
+      title="{{ 'datePicker.previousMonth' | translate }}">
       <thy-icon thyIconName="angle-left"></thy-icon>
     </a>
 
@@ -20,7 +25,12 @@
       }
     </span>
 
-    <a class="{{ prefixCls }}-next-month-btn" [ngClass]="showNextBtn ? 'd-block' : 'd-none'" role="button" (click)="next()" title="下个月">
+    <a
+      class="{{ prefixCls }}-next-month-btn"
+      [ngClass]="showNextBtn ? 'd-block' : 'd-none'"
+      role="button"
+      (click)="next()"
+      title="{{ 'datePicker.nextMonth' | translate }}">
       <thy-icon thyIconName="angle-right"></thy-icon>
     </a>
     <a
@@ -28,7 +38,7 @@
       [ngClass]="showSuperNextBtn ? 'd-block' : 'd-none'"
       role="button"
       (click)="superNext()"
-      title="下一年">
+      title="{{ 'datePicker.nextYear' | translate }}">
       <thy-icon thyIconName="angle-double-right"></thy-icon>
     </a>
   </div>

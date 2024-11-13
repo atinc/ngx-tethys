@@ -2,7 +2,7 @@
   <div class="time-picker-section" (click)="$event.stopPropagation()">
     @if (isCanTime) {
       <a href="javascript:;" class="link-has-icon time-picker-set-btn" (click)="changeTimeShowMode('show')">
-        <thy-icon thyIconName="clock-circle"></thy-icon>设置时间
+        <thy-icon thyIconName="clock-circle"></thy-icon>{{ 'datePicker.setTime' | translate }}
       </a>
     }
     @if (isShowTime) {
@@ -10,20 +10,17 @@
         class="time-picker-wrap"
         [showMeridian]="false"
         [ngModel]="value?.nativeDate"
-      (ngModelChange)="onSelectTime($event)"></thy-inner-time-picker>
+        (ngModelChange)="onSelectTime($event)"></thy-inner-time-picker>
     }
     <div class="time-picker-btn-wrap">
       @if (!isCanTime) {
-        <button
-          [disabled]="disableTimeConfirm"
-          class="time-picker-ok-btn"
-          thyButton="primary"
-          thySize="sm"
-          (click)="onTimeOk()">
-          确定
+        <button [disabled]="disableTimeConfirm" class="time-picker-ok-btn" thyButton="primary" thySize="sm" (click)="onTimeOk()">
+          {{ 'datePicker.ok' | translate }}
         </button>
       }
-      <button class="time-picker-clear-btn" thyButton="link-secondary" thySize="sm" (click)="onClear()">清除</button>
+      <button class="time-picker-clear-btn" thyButton="link-secondary" thySize="sm" (click)="onClear()">
+        {{ 'datePicker.clear' | translate }}
+      </button>
     </div>
   </div>
 }
