@@ -115,28 +115,6 @@ All notable changes to this project will be documented in this file. See [commit
 
 
 
-## [18.0.1](https://github.com/atinc/ngx-tethys/compare/18.0.0...18.0.1) (2024-08-26)
-
-
-### Bug Fixes
-
-* **date-picker:** thy-date-picker 当可以设置具体时间时，点击选择日期弹窗后，input框active样式丢失 #TINFR-66 ([#3161](https://github.com/atinc/ngx-tethys/issues/3161)) ([4e617af](https://github.com/atinc/ngx-tethys/commit/4e617af482b880ac709f8f25bb355f0ba8783507)), closes [#TINFR-66](https://github.com/atinc/ngx-tethys/issues/TINFR-66)
-* fix ([622a06b](https://github.com/atinc/ngx-tethys/commit/622a06b153cdff344e624e3e1214d17cf342e12a))
-* fix ([a505790](https://github.com/atinc/ngx-tethys/commit/a505790496d6599431e9aebd236db7f325ca5057))
-* fix ([12f0270](https://github.com/atinc/ngx-tethys/commit/12f027096eda94115169ac161399e6c11cfd9a54))
-* **pagination:** fix thyRangeCount is even numbers show error #TINFR-29 ([3a12c49](https://github.com/atinc/ngx-tethys/commit/3a12c4907055b85994ada9fbd6ae10a4651e4525)), closes [#TINFR-29](https://github.com/atinc/ngx-tethys/issues/TINFR-29)
-* **treeSelect:** #TINFR-403 set margin-left to 20px when no grouping & between icon and text to 8px ([#3156](https://github.com/atinc/ngx-tethys/issues/3156)) ([b04964e](https://github.com/atinc/ngx-tethys/commit/b04964ebe1c4e3a78f7b1ea5f51261dfd8da1420)), closes [#TINFR-403](https://github.com/atinc/ngx-tethys/issues/TINFR-403) [#TINFR-403](https://github.com/atinc/ngx-tethys/issues/TINFR-403) [#TINFR-403](https://github.com/atinc/ngx-tethys/issues/TINFR-403)
-
-
-### Features
-
-* **cascader:** show active style only in activatedOptions #TINFR-18 ([#3159](https://github.com/atinc/ngx-tethys/issues/3159)) ([6467080](https://github.com/atinc/ngx-tethys/commit/64670806d938a4f9c79c727cd80a7922447db5ef)), closes [#TINFR-18](https://github.com/atinc/ngx-tethys/issues/TINFR-18)
-* **color-picker:** hex column does not show alpha value #TINFR-62 ([#3158](https://github.com/atinc/ngx-tethys/issues/3158)) ([8e23b73](https://github.com/atinc/ngx-tethys/commit/8e23b73b916d862c774b24a9d2db7b8c0c673f96)), closes [#TINFR-62](https://github.com/atinc/ngx-tethys/issues/TINFR-62)
-* **tree-select:** handle tree select overlay width show ellipsis when text exceed (#TINFR-27) ([#3157](https://github.com/atinc/ngx-tethys/issues/3157)) ([a08c660](https://github.com/atinc/ngx-tethys/commit/a08c660eda187ac8df3cd7722a8d7f638772f201)), closes [#TINFR-27](https://github.com/atinc/ngx-tethys/issues/TINFR-27)
-* **tree-select:** handle tree select style ([#3171](https://github.com/atinc/ngx-tethys/issues/3171)) ([3c8692b](https://github.com/atinc/ngx-tethys/commit/3c8692b09b657516e7a00a48c52b096773f552c2))
-
-
-
 # [18.0.0](https://github.com/atinc/ngx-tethys/compare/17.0.19...18.0.0) (2024-08-15)
 
 
