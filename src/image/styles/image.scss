@@ -175,7 +175,7 @@ $image-preview-prefix-cls: 'thy-image-preview';
 }
 
 .#{$image-preview-prefix-cls}-backdrop {
-    background: rgba(variables.$gray-800, 0.95);
+    background: variables.$image-preview-backdrop-bg-color;
 }
 
 .thy-image {
