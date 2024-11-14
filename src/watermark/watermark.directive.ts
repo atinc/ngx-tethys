@@ -4,7 +4,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DEFAULT_WATERMARK_CONFIG, DEFAULT_CANVAS_CONFIG } from './config';
 import { MutationObserverFactory } from '@angular/cdk/observers';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
-import { ThyTheme, ThyThemeStore } from 'ngx-tethys/core';
+import { ThyThemeStore } from 'ngx-tethys/core';
 
 /**
  * @public
@@ -90,7 +90,6 @@ export class ThyWatermarkDirective implements OnInit, OnChanges {
                     .subscribe(() => {});
             });
 
-            this.fetchTheme();
             this.createWatermark();
         }
     }
@@ -237,7 +236,6 @@ export class ThyWatermarkDirective implements OnInit, OnChanges {
             stream.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(mutations => {
                 for (const mutation of mutations) {
                     if (mutation.type === 'attributes' && mutation.attributeName === 'theme') {
-                        this.fetchTheme();
                         this.refreshWatermark();
                     }
                 }
@@ -247,10 +245,5 @@ export class ThyWatermarkDirective implements OnInit, OnChanges {
                 this.themeObserver?.disconnect();
             };
         });
-    }
-
-    private fetchTheme() {
-        const theme = (document.documentElement.getAttribute('theme') as ThyTheme) || ThyTheme.light;
-        this.thyThemeStore.setTheme(theme);
     }
 }
