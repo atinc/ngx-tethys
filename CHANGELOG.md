@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [18.2.0-next.0](https://github.com/atinc/ngx-tethys/compare/18.1.0...18.2.0-next.0) (2024-11-14)
+
+
+### Features
+
+* **core:** support projectableNodes for ThyAbstractOverlayConfig and rename ThyStealthViewDirective to ThyStealthView #TINFR-651 ([#3230](https://github.com/atinc/ngx-tethys/issues/3230)) ([f838b96](https://github.com/atinc/ngx-tethys/commit/f838b967ae2066790617f1ace6729d4ea4025369)), closes [#TINFR-651](https://github.com/atinc/ngx-tethys/issues/TINFR-651)
+* **drag-drop:** mark drag-drop as deprecated #TINFR-438 ([#3231](https://github.com/atinc/ngx-tethys/issues/3231)) ([7497858](https://github.com/atinc/ngx-tethys/commit/7497858e449a5d217c3117432db3648f27766e52)), closes [#TINFR-438](https://github.com/atinc/ngx-tethys/issues/TINFR-438)
+* support dark theme for all components #TINFR-950 ([#3238](https://github.com/atinc/ngx-tethys/issues/3238)) ([0f325bb](https://github.com/atinc/ngx-tethys/commit/0f325bb330ffc5586c5c99bdaf98011cb1ced61a)), closes [#TINFR-950](https://github.com/atinc/ngx-tethys/issues/TINFR-950)
+
+
+
 # [18.1.0](https://github.com/atinc/ngx-tethys/compare/18.1.0-next.1...18.1.0) (2024-10-31)
 
 
