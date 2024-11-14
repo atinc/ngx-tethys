@@ -21,6 +21,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 /**
  * @name thy-drop-container,[thyDropContainer]
  * @order 30
+ * @deprecated please use @angular/cdk/drag-drop
  */
 @Directive({
     selector: 'thy-drop-container,[thyDropContainer]',

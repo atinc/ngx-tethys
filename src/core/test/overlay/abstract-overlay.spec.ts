@@ -190,7 +190,7 @@ export class TestDialogModule {}
 
 @Component({
     selector: 'test-dialog-basic',
-    template: 'Hello Test Dialog'
+    template: `Hello Test Dialog<ng-content></ng-content> `
 })
 class TestDialogBasicContentComponent {
     testDialogRef = coreInject<TestDialogRef<TestDialogBasicContentComponent>>(TestDialogRef);
@@ -294,6 +294,17 @@ describe('abstract-overlay', () => {
         expect(overlayContainerElement.textContent).toContain('Hello Test Dialog');
         expect(dialogRef.componentInstance instanceof TestDialogBasicContentComponent).toBe(true);
         expect(dialogRef.componentInstance.inputWithSetValue).toBe(inputValue);
+    });
+
+    it(`should open test dialog with projectableNodes`, () => {
+        const divElement = document.createElement('div');
+        divElement.innerText = ' Content for projectableNodes';
+        const dialogRef = dialog.open(TestDialogBasicContentComponent, {
+            projectableNodes: [[divElement]]
+        });
+        expect(overlayContainerElement.textContent).toContain('Hello Test Dialog Content for projectableNodes');
+        expect(dialogRef.componentInstance instanceof TestDialogBasicContentComponent).toBe(true);
+        expect(dialogRef.componentInstance.testDialogRef).toBe(dialogRef);
     });
 
     describe('paneClass', () => {
