@@ -678,7 +678,7 @@ $message-spacing: 20px !default;
 $message-margin-bottom: 10px !default;
 $message-border-radius-width: 4px !default;
 $message-border: 1px solid $gray-200 !default;
-$message-box-shadow: 0px 4px 10px 0px rgba($gray-800, 0.1) !default;
+$message-box-shadow: $box-shadow !default;
 $message-icon-font-size: $font-size-md !default;
 $message-icon-margin: 8px !default;
 $message-close-color: $gray-400 !default;
