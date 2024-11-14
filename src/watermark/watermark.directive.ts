@@ -4,7 +4,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DEFAULT_WATERMARK_CONFIG, DEFAULT_CANVAS_CONFIG } from './config';
 import { MutationObserverFactory } from '@angular/cdk/observers';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
-import { ThyThemeStore } from 'ngx-tethys/core';
+import { observeTheme, ThyThemeStore } from 'ngx-tethys/core';
 
 /**
  * @public
@@ -85,7 +85,11 @@ export class ThyWatermarkDirective implements OnInit, OnChanges {
                 this.observeAttributes()
                     .pipe(takeUntilDestroyed(this.destroyRef))
                     .subscribe(() => {});
-                this.observeTheme()
+
+                const callBack = () => {
+                    this.refreshWatermark();
+                };
+                observeTheme(this.themeObserver, this.destroyRef, callBack)
                     .pipe(takeUntilDestroyed(this.destroyRef))
                     .subscribe(() => {});
             });
@@ -218,31 +222,6 @@ export class ThyWatermarkDirective implements OnInit, OnChanges {
             observe.next(stream);
             return () => {
                 this.observer?.disconnect();
-            };
-        });
-    }
-
-    private observeTheme() {
-        this.themeObserver?.disconnect();
-        return new Observable(observe => {
-            const stream = new Subject<MutationRecord[]>();
-            this.themeObserver = new MutationObserverFactory().create(mutations => stream.next(mutations));
-            if (this.themeObserver) {
-                this.themeObserver.observe(document.documentElement, {
-                    attributes: true,
-                    attributeFilter: ['theme']
-                });
-            }
-            stream.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(mutations => {
-                for (const mutation of mutations) {
-                    if (mutation.type === 'attributes' && mutation.attributeName === 'theme') {
-                        this.refreshWatermark();
-                    }
-                }
-            });
-            observe.next(stream);
-            return () => {
-                this.themeObserver?.disconnect();
             };
         });
     }
