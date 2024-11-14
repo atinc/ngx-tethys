@@ -12,7 +12,8 @@ import {
     Output,
     TemplateRef,
     ViewContainerRef,
-    numberAttribute
+    numberAttribute,
+    inject
 } from '@angular/core';
 import { ComponentTypeOrTemplateRef, ThyOverlayDirectiveBase, ThyOverlayTrigger, ThyPlacement } from 'ngx-tethys/core';
 import { ThyPopover, ThyPopoverConfig, ThyPopoverRef } from 'ngx-tethys/popover';
@@ -37,6 +38,9 @@ type ThyDropdownMenu = ThyDropdownMenuComponent | TemplateRef<SafeAny> | Compone
     standalone: true
 })
 export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnInit {
+    private viewContainerRef = inject(ViewContainerRef);
+    private popover = inject(ThyPopover);
+
     menu!: ThyDropdownMenu;
 
     private popoverRef: ThyPopoverRef<unknown>;
@@ -126,15 +130,13 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
      */
     @Output() thyActiveChange = new EventEmitter<boolean>();
 
-    constructor(
-        private viewContainerRef: ViewContainerRef,
-        private popover: ThyPopover,
-        elementRef: ElementRef,
-        platform: Platform,
-        focusMonitor: FocusMonitor,
-        ngZone: NgZone,
-        changeDetectorRef: ChangeDetectorRef
-    ) {
+    constructor() {
+        const elementRef = inject(ElementRef);
+        const platform = inject(Platform);
+        const focusMonitor = inject(FocusMonitor);
+        const ngZone = inject(NgZone);
+        const changeDetectorRef = inject(ChangeDetectorRef);
+
         super(elementRef, platform, focusMonitor, ngZone, true, changeDetectorRef);
     }
 

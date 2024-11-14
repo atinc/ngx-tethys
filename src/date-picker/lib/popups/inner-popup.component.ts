@@ -7,7 +7,8 @@ import {
     OnChanges,
     Output,
     SimpleChanges,
-    TemplateRef
+    TemplateRef,
+    inject
 } from '@angular/core';
 
 import { FunctionProp, TinyDate, coerceBooleanProperty } from 'ngx-tethys/util';
@@ -51,6 +52,8 @@ import { QuarterTable } from '../quarter/quarter-table.component';
     ]
 })
 export class InnerPopup implements OnChanges {
+    private dateHelper = inject(DateHelperService);
+
     @HostBinding('class.thy-calendar-picker-inner-popup') className = true;
     @HostBinding('class.thy-calendar-picker-inner-popup-with-range-input') _showDateRangeInput = false;
 
@@ -89,8 +92,6 @@ export class InnerPopup implements OnChanges {
     @Output() readonly dayHover = new EventEmitter<TinyDate>();
 
     prefixCls = 'thy-calendar';
-
-    constructor(private dateHelper: DateHelperService) {}
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.activeDate && !changes.activeDate.currentValue) {

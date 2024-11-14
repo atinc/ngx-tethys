@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ThyDialog, ThyDialogLayoutConfig } from 'ngx-tethys/dialog';
 import { ThyDialogFooterLayoutExampleComponent } from './dialog-layout.component';
 
@@ -7,12 +7,12 @@ import { ThyDialogFooterLayoutExampleComponent } from './dialog-layout.component
     templateUrl: './layout.component.html'
 })
 export class ThyDialogLayoutExampleComponent {
+    private thyDialog = inject(ThyDialog);
+
     public layoutConfig: ThyDialogLayoutConfig = {
         footerAlign: 'left',
         footerDivided: false
     };
-
-    constructor(private thyDialog: ThyDialog) {}
 
     openDialog(footerAlign: string) {
         this.thyDialog.open(ThyDialogFooterLayoutExampleComponent, {

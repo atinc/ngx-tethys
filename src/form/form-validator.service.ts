@@ -3,7 +3,7 @@ import { isUndefinedOrNull } from 'ngx-tethys/util';
 import { of, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, switchMap, takeUntil } from 'rxjs/operators';
 
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, inject } from '@angular/core';
 import { AbstractControl, FormControlName, FormGroupDirective, NgControl, NgForm, ValidationErrors } from '@angular/forms';
 
 import { ERROR_VALUE_REPLACE_REGEX, ThyFormValidatorLoader } from './form-validator-loader';
@@ -14,6 +14,8 @@ import { ThyFormValidatorConfig, ThyValidateOn, ThyValidateResult } from './form
  */
 @Injectable()
 export class ThyFormValidatorService implements OnDestroy {
+    private thyFormValidateLoader = inject(ThyFormValidatorLoader);
+
     private _ngForm: NgForm | FormGroupDirective;
 
     private _formElement: HTMLFormElement;
@@ -173,8 +175,6 @@ export class ThyFormValidatorService implements OnDestroy {
     private _getValidateOn(): ThyValidateOn {
         return (this._config && this._config.validateOn) || this.thyFormValidateLoader.validateOn;
     }
-
-    constructor(private thyFormValidateLoader: ThyFormValidatorLoader) {}
 
     initialize(ngForm: NgForm | FormGroupDirective, formElement: HTMLFormElement) {
         this._ngForm = ngForm;

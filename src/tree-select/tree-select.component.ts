@@ -19,7 +19,6 @@ import {
     EventEmitter,
     forwardRef,
     HostBinding,
-    Inject,
     Input,
     NgZone,
     OnDestroy,
@@ -27,7 +26,8 @@ import {
     Output,
     PLATFORM_ID,
     TemplateRef,
-    ViewChild
+    ViewChild,
+    inject
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -86,6 +86,13 @@ export function filterTreeData(treeNodes: ThyTreeSelectNode[], searchText: strin
     animations: [scaleYMotion]
 })
 export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin implements OnInit, OnDestroy, ControlValueAccessor {
+    elementRef = inject(ElementRef);
+    private ngZone = inject(NgZone);
+    private ref = inject(ChangeDetectorRef);
+    private platformId = inject(PLATFORM_ID);
+    private thyClickDispatcher = inject(ThyClickDispatcher);
+    private viewportRuler = inject(ViewportRuler);
+
     @HostBinding('class.thy-select-custom') treeSelectClass = true;
 
     @HostBinding('class.thy-select') isTreeSelect = true;
@@ -321,14 +328,7 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
         this.setSelectedNodes();
     }
 
-    constructor(
-        public elementRef: ElementRef,
-        private ngZone: NgZone,
-        private ref: ChangeDetectorRef,
-        @Inject(PLATFORM_ID) private platformId: string,
-        private thyClickDispatcher: ThyClickDispatcher,
-        private viewportRuler: ViewportRuler
-    ) {
+    constructor() {
         super();
     }
 
@@ -578,6 +578,8 @@ const DEFAULT_ITEM_SIZE = 40;
     }
 })
 export class ThyTreeSelectNodes implements OnInit {
+    parent = inject(ThyTreeSelect);
+
     @HostBinding('class') class: string;
 
     nodeList: ThyTreeSelectNode[] = [];
@@ -613,8 +615,6 @@ export class ThyTreeSelectNodes implements OnInit {
     public thyVirtualHeight: string = null;
 
     public hasNodeChildren: boolean = false;
-
-    constructor(public parent: ThyTreeSelect) {}
 
     ngOnInit() {
         this.class = this.isMultiple ? 'thy-tree-select-dropdown thy-tree-select-dropdown-multiple' : 'thy-tree-select-dropdown';

@@ -1,4 +1,4 @@
-import { Component, Input, HostBinding, ElementRef, ChangeDetectorRef, Inject, HostListener, Optional } from '@angular/core';
+import { Component, Input, HostBinding, ElementRef, ChangeDetectorRef, HostListener, inject } from '@angular/core';
 import { Highlightable } from '@angular/cdk/a11y';
 import { IThyListOptionParentComponent, THY_LIST_OPTION_PARENT_COMPONENT } from '../option.token';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -20,6 +20,10 @@ export type ThyListLayout = 'list' | 'grid';
     imports: [ThyIcon]
 })
 export class ThyListOption implements Highlightable {
+    element = inject<ElementRef<HTMLElement>>(ElementRef);
+    private changeDetector = inject(ChangeDetectorRef);
+    parentSelectionList = inject(THY_LIST_OPTION_PARENT_COMPONENT, { optional: true })!;
+
     @HostBinding(`class.thy-list-option`)
     get _isListOption() {
         return this.parentSelectionList.layout === 'list';
@@ -50,13 +54,6 @@ export class ThyListOption implements Highlightable {
     get selected() {
         return this.parentSelectionList.isSelected(this);
     }
-
-    constructor(
-        public element: ElementRef<HTMLElement>,
-        private changeDetector: ChangeDetectorRef,
-        /** @docs-private */
-        @Optional() @Inject(THY_LIST_OPTION_PARENT_COMPONENT) public parentSelectionList: IThyListOptionParentComponent
-    ) {}
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {

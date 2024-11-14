@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding, Input, inject } from '@angular/core';
 import { ThyDialogLayoutConfig, ThyDialogRef } from 'ngx-tethys/dialog';
 
 @Component({
@@ -6,11 +6,11 @@ import { ThyDialogLayoutConfig, ThyDialogRef } from 'ngx-tethys/dialog';
     templateUrl: './dialog-layout.component.html'
 })
 export class ThyDialogFooterLayoutExampleComponent {
+    private thyDialogRef = inject<ThyDialogRef<any>>(ThyDialogRef);
+
     @HostBinding(`class.thy-dialog-content`) addFillColumn = true;
 
     @Input() layoutConfig: ThyDialogLayoutConfig;
-
-    constructor(private thyDialogRef: ThyDialogRef<any>) {}
 
     ok() {
         this.thyDialogRef.close();

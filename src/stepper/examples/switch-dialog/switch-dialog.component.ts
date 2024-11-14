@@ -1,4 +1,4 @@
-import { Component, TemplateRef } from '@angular/core';
+import { Component, TemplateRef, inject } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ThyDialog } from 'ngx-tethys/dialog';
 
@@ -7,7 +7,7 @@ import { ThyDialog } from 'ngx-tethys/dialog';
     templateUrl: './switch-dialog.component.html'
 })
 export class ThyStepperSwitchDialogExampleComponent {
-    constructor(private thyDialog: ThyDialog) {}
+    private thyDialog = inject(ThyDialog);
 
     openTemplateDialog(template: TemplateRef<any>) {
         this.thyDialog.open(template, {

@@ -6,13 +6,13 @@ import {
     Directive,
     ElementRef,
     HostBinding,
-    Inject,
     Input,
     NgZone,
     OnDestroy,
     OnInit,
     QueryList,
-    Renderer2
+    Renderer2,
+    inject
 } from '@angular/core';
 import { ControlContainer, NgControl, NgForm } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -46,6 +46,13 @@ export enum ThyEnterKeyMode {
     standalone: true
 })
 export class ThyFormDirective implements OnInit, AfterViewInit, OnDestroy {
+    private ngForm = inject(ControlContainer);
+    private elementRef = inject(ElementRef);
+    private renderer = inject(Renderer2);
+    private ngZone = inject(NgZone);
+    validator = inject(ThyFormValidatorService);
+    private config = inject(THY_FORM_CONFIG);
+
     private layout: ThyFormLayout;
 
     private initialized = false;
@@ -101,14 +108,7 @@ export class ThyFormDirective implements OnInit, AfterViewInit, OnDestroy {
     })
     public controls: QueryList<NgControl>;
 
-    constructor(
-        private ngForm: ControlContainer,
-        private elementRef: ElementRef,
-        private renderer: Renderer2,
-        private ngZone: NgZone,
-        public validator: ThyFormValidatorService,
-        @Inject(THY_FORM_CONFIG) private config: ThyFormConfig
-    ) {
+    constructor() {
         this.layout = this.config.layout;
     }
 

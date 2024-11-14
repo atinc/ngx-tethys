@@ -22,7 +22,8 @@ import {
     OnInit,
     Output,
     QueryList,
-    Renderer2
+    Renderer2,
+    inject
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -56,6 +57,11 @@ const listSizesMap = {
     standalone: true
 })
 export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IThyListOptionParentComponent, ControlValueAccessor {
+    private renderer = inject(Renderer2);
+    private elementRef = inject(ElementRef);
+    private ngZone = inject(NgZone);
+    private changeDetectorRef = inject(ChangeDetectorRef);
+
     private _keyManager: ActiveDescendantKeyManager<ThyListOption>;
 
     private _selectionChangesUnsubscribe$ = Subscription.EMPTY;
@@ -307,13 +313,6 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
             this.hostRenderer.addClass(listSizesMap[size]);
         }
     }
-
-    constructor(
-        private renderer: Renderer2,
-        private elementRef: ElementRef,
-        private ngZone: NgZone,
-        private changeDetectorRef: ChangeDetectorRef
-    ) {}
 
     ngOnInit() {
         const bindKeyEventElement = this._getElementBySelector(this.thyBindKeyEventContainer);

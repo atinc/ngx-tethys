@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, Input, Output, TemplateRef, inject } from '@angular/core';
 import { ThyTranslate } from 'ngx-tethys/core';
 import { ThyPopover } from '../popover.service';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -21,6 +21,9 @@ import { NgTemplateOutlet } from '@angular/common';
     imports: [NgTemplateOutlet, ThyIcon]
 })
 export class ThyPopoverHeader {
+    private translate = inject(ThyTranslate);
+    private thyPopover = inject(ThyPopover);
+
     /**
      * 头部标题
      */
@@ -47,11 +50,6 @@ export class ThyPopoverHeader {
      * @internal
      */
     @Output() thyClosed: EventEmitter<Event> = new EventEmitter<Event>();
-
-    constructor(
-        private translate: ThyTranslate,
-        private thyPopover: ThyPopover
-    ) {}
 
     /**
      * @internal

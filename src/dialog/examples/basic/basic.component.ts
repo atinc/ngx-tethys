@@ -9,6 +9,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     templateUrl: './basic.component.html'
 })
 export class ThyDialogBasicExampleComponent implements OnInit, OnDestroy {
+    thyDialog = inject(ThyDialog);
+    private renderer = inject(Renderer2);
+
     private readonly destroyRef = inject(DestroyRef);
 
     hasShowDialog = false;
@@ -28,10 +31,10 @@ export class ThyDialogBasicExampleComponent implements OnInit, OnDestroy {
 
     unsubscribe: () => void;
 
-    constructor(
-        public thyDialog: ThyDialog,
-        private renderer: Renderer2
-    ) {
+    constructor() {
+        const thyDialog = this.thyDialog;
+        const renderer = this.renderer;
+
         thyDialog
             .afterOpened()
             .pipe(takeUntilDestroyed(this.destroyRef))

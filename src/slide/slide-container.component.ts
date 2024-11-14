@@ -7,7 +7,7 @@ import { AnimationEvent } from '@angular/animations';
 import { ViewportRuler } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
-import { ChangeDetectorRef, Component, ElementRef, Inject, NgZone, OnDestroy, Renderer2, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, NgZone, OnDestroy, Renderer2, ViewChild, inject } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
 import { thySlideAnimations } from './slide-animations';
@@ -38,6 +38,13 @@ import { slideAbstractOverlayOptions, ThySlideConfig, ThySlideFromTypes } from '
     imports: [PortalModule, ThyPortalOutlet]
 })
 export class ThySlideContainer extends ThyAbstractOverlayContainer implements OnDestroy {
+    private elementRef = inject(ElementRef);
+    private document = inject(DOCUMENT);
+    config = inject(ThySlideConfig);
+    private renderer = inject(Renderer2);
+    private viewportRuler = inject(ViewportRuler);
+    private readonly ngZone = inject(NgZone);
+
     @ViewChild(ThyPortalOutlet, { static: true })
     portalOutlet: ThyPortalOutlet;
 
@@ -94,15 +101,9 @@ export class ThySlideContainer extends ThyAbstractOverlayContainer implements On
         return `thy-slide-${this.config.mode}-drawer-container`;
     }
 
-    constructor(
-        private elementRef: ElementRef,
-        @Inject(DOCUMENT) private document: any,
-        public config: ThySlideConfig,
-        changeDetectorRef: ChangeDetectorRef,
-        private renderer: Renderer2,
-        private viewportRuler: ViewportRuler,
-        private readonly ngZone: NgZone
-    ) {
+    constructor() {
+        const changeDetectorRef = inject(ChangeDetectorRef);
+
         super(slideAbstractOverlayOptions, changeDetectorRef);
         this.animationOpeningDone = this.animationStateChanged.pipe(
             filter((event: AnimationEvent) => {

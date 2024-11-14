@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ThyAbstractMessageQueue } from 'ngx-tethys/message';
 import { map, shareReplay } from 'rxjs/operators';
 import { ThyNotifyRef } from './notify-ref';
@@ -31,7 +31,9 @@ export class ThyNotifyQueue extends ThyAbstractMessageQueue<ThyNotifyRef> {
         shareReplay()
     );
 
-    constructor(@Inject(THY_NOTIFY_DEFAULT_CONFIG) defaultConfig: ThyGlobalNotifyConfig) {
+    constructor() {
+        const defaultConfig = inject(THY_NOTIFY_DEFAULT_CONFIG);
+
         super({
             ...THY_NOTIFY_DEFAULT_CONFIG_VALUE,
             ...defaultConfig

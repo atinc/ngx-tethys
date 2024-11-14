@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { DateRangeItemInfo } from '../date-range.class';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { FormsModule } from '@angular/forms';
@@ -30,6 +30,8 @@ import {
     ]
 })
 export class OptionalDateRanges implements OnInit {
+    private thyPopover = inject(ThyPopover);
+
     hiddenMenu = false;
 
     optionalDateRanges: DateRangeItemInfo[];
@@ -49,8 +51,6 @@ export class OptionalDateRanges implements OnInit {
     calendarChange: (date: Date[]) => void;
 
     selectedDate: DateRangeItemInfo;
-
-    constructor(private thyPopover: ThyPopover) {}
 
     ngOnInit() {}
 

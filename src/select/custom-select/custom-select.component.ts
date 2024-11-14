@@ -61,19 +61,18 @@ import {
     forwardRef,
     HostBinding,
     HostListener,
-    Inject,
     Input,
     NgZone,
     numberAttribute,
     OnDestroy,
     OnInit,
-    Optional,
     Output,
     PLATFORM_ID,
     QueryList,
     TemplateRef,
     ViewChild,
-    ViewChildren
+    ViewChildren,
+    inject
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -168,6 +167,15 @@ export class ThySelect
     extends TabIndexDisabledControlValueAccessorMixin
     implements ControlValueAccessor, IThyOptionParentComponent, OnInit, AfterViewInit, AfterContentInit, OnDestroy
 {
+    private ngZone = inject(NgZone);
+    private elementRef = inject(ElementRef);
+    private changeDetectorRef = inject(ChangeDetectorRef);
+    private overlay = inject(Overlay);
+    private thyClickDispatcher = inject(ThyClickDispatcher);
+    private platformId = inject(PLATFORM_ID);
+    scrollStrategyFactory = inject<FunctionProp<ScrollStrategy>>(THY_SELECT_SCROLL_STRATEGY, { optional: true })!;
+    selectConfig = inject(THY_SELECT_CONFIG, { optional: true })!;
+
     disabled = false;
 
     size: SelectControlSize;
@@ -492,17 +500,10 @@ export class ThySelect
         return this.thyPlacement || this.config.placement;
     }
 
-    constructor(
-        private ngZone: NgZone,
-        private elementRef: ElementRef,
-        private changeDetectorRef: ChangeDetectorRef,
-        private overlay: Overlay,
-        private thyClickDispatcher: ThyClickDispatcher,
-        @Inject(PLATFORM_ID) private platformId: string,
-        @Optional() @Inject(THY_SELECT_SCROLL_STRATEGY) public scrollStrategyFactory: FunctionProp<ScrollStrategy>,
-        @Optional() @Inject(THY_SELECT_CONFIG) public selectConfig: ThySelectConfig
-    ) {
+    constructor() {
         super();
+        const selectConfig = this.selectConfig;
+
         this.config = { ...DEFAULT_SELECT_CONFIG, ...selectConfig };
         this.buildScrollStrategy();
     }

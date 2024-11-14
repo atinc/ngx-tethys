@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ThyAbstractMessageQueue } from './abstract';
 import { ThyMessageRef } from './message-ref';
 import { ThyGlobalMessageConfig, THY_MESSAGE_DEFAULT_CONFIG, THY_MESSAGE_DEFAULT_CONFIG_VALUE } from './message.config';
@@ -10,7 +10,9 @@ import { ThyGlobalMessageConfig, THY_MESSAGE_DEFAULT_CONFIG, THY_MESSAGE_DEFAULT
     providedIn: 'root'
 })
 export class ThyMessageQueue extends ThyAbstractMessageQueue<ThyMessageRef> {
-    constructor(@Inject(THY_MESSAGE_DEFAULT_CONFIG) defaultConfig: ThyGlobalMessageConfig) {
+    constructor() {
+        const defaultConfig = inject(THY_MESSAGE_DEFAULT_CONFIG);
+
         super({
             ...THY_MESSAGE_DEFAULT_CONFIG_VALUE,
             ...defaultConfig

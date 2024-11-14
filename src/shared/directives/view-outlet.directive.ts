@@ -10,7 +10,8 @@ import {
     ViewContainerRef,
     TemplateRef,
     KeyValueDiffer,
-    KeyValueDiffers
+    KeyValueDiffers,
+    inject
 } from '@angular/core';
 import { SafeAny } from 'ngx-tethys/types';
 
@@ -28,6 +29,9 @@ function hasInput(componentRef: ComponentRef<unknown>, inputKey: string) {
     standalone: true
 })
 export class ThyViewOutletDirective implements OnChanges {
+    private viewContainerRef = inject(ViewContainerRef);
+    private keyValueDiffers = inject(KeyValueDiffers);
+
     private componentRef: ComponentRef<SafeAny> | undefined;
 
     private embeddedViewRef: EmbeddedViewRef<SafeAny> | undefined;
@@ -43,11 +47,6 @@ export class ThyViewOutletDirective implements OnChanges {
     @Input() thyViewOutletContext?: SafeAny;
 
     private keyValueDiffer: KeyValueDiffer<SafeAny, SafeAny>;
-
-    constructor(
-        private viewContainerRef: ViewContainerRef,
-        private keyValueDiffers: KeyValueDiffers
-    ) {}
 
     ngOnChanges(changes: SimpleChanges) {
         const { viewContainerRef: viewContainerRef } = this;

@@ -10,7 +10,8 @@ import {
     OnDestroy,
     OnInit,
     Output,
-    ViewChild
+    ViewChild,
+    inject
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { isValid } from 'date-fns';
@@ -44,6 +45,9 @@ import { DecimalPipe } from '@angular/common';
     imports: [ThyButton, DecimalPipe]
 })
 export class ThyTimePanel implements OnInit, OnDestroy, ControlValueAccessor {
+    private cdr = inject(ChangeDetectorRef);
+    private ngZone = inject(NgZone);
+
     @ViewChild('hourListElement', { static: false }) hourListRef: ElementRef<HTMLElement>;
 
     @ViewChild('minuteListElement', { static: false }) minuteListRef: ElementRef<HTMLElement>;
@@ -146,11 +150,6 @@ export class ThyTimePanel implements OnInit, OnDestroy, ControlValueAccessor {
     onValueChangeFn: (val: Date) => void = () => void 0;
 
     onTouchedFn: () => void = () => void 0;
-
-    constructor(
-        private cdr: ChangeDetectorRef,
-        private ngZone: NgZone
-    ) {}
 
     ngOnInit(): void {
         this.generateTimeRange();

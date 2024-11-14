@@ -9,7 +9,8 @@ import {
     ViewChild,
     ChangeDetectorRef,
     ChangeDetectionStrategy,
-    SimpleChanges
+    SimpleChanges,
+    inject
 } from '@angular/core';
 import { SafeAny } from 'ngx-tethys/types';
 import { ThyTimeMode } from './timeline.component';
@@ -32,6 +33,9 @@ export type thyColor = 'primary' | 'success' | 'warning' | 'danger' | 'info';
     imports: [NgTemplateOutlet]
 })
 export class ThyTimelineItem implements OnInit, OnChanges {
+    private cdr = inject(ChangeDetectorRef);
+    private timelineService = inject(ThyTimelineService);
+
     @ViewChild('timelineItem', { static: false }) template: TemplateRef<void>;
 
     @HostBinding('class') className: string;
@@ -75,11 +79,6 @@ export class ThyTimelineItem implements OnInit, OnChanges {
      * @type TemplateRef
      */
     @ContentChild('description', { static: false }) description: TemplateRef<SafeAny>;
-
-    constructor(
-        private cdr: ChangeDetectorRef,
-        private timelineService: ThyTimelineService
-    ) {}
 
     detectChanges(): void {
         this.cdr.detectChanges();

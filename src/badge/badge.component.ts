@@ -1,6 +1,6 @@
 import { isTextColor } from 'ngx-tethys/core';
 
-import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, numberAttribute } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, numberAttribute, inject } from '@angular/core';
 
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
@@ -22,6 +22,8 @@ export type ThyBadgeSize = 'md' | 'sm' | 'lg';
     imports: []
 })
 export class ThyBadge implements OnInit {
+    private elementRef = inject(ElementRef);
+
     displayContent = '';
 
     badgeClassName = '';
@@ -61,7 +63,7 @@ export class ThyBadge implements OnInit {
 
     protected supClasses: string[] = [];
 
-    constructor(private elementRef: ElementRef) {
+    constructor() {
         this.nativeElement = this.elementRef.nativeElement;
     }
 

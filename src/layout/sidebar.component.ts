@@ -4,13 +4,11 @@ import {
     Directive,
     ElementRef,
     EventEmitter,
-    Host,
     HostBinding,
     HostListener,
     Input,
     OnDestroy,
     OnInit,
-    Optional,
     Output,
     TemplateRef,
     inject,
@@ -52,6 +50,8 @@ export type ThySidebarDirection = 'left' | 'right';
     standalone: true
 })
 export class ThySidebarDirective implements OnInit {
+    private thyLayoutDirective = inject(ThyLayoutDirective, { optional: true, host: true })!;
+
     sidebarIsolated = false;
 
     isDivided = true;
@@ -119,8 +119,6 @@ export class ThySidebarDirective implements OnInit {
     set thyHasBorderLeft(value: boolean) {
         this.thyDivided = value;
     }
-
-    constructor(@Optional() @Host() private thyLayoutDirective: ThyLayoutDirective) {}
 
     ngOnInit() {
         if (this.thyLayoutDirective) {
@@ -191,6 +189,9 @@ export class ThySidebarDirective implements OnInit {
     imports: [NgTemplateOutlet, ThyResizeHandle, ThyResizableDirective, ThyIcon, ThyTooltipDirective, NgClass, NgStyle]
 })
 export class ThySidebar implements OnInit, OnDestroy {
+    elementRef = inject(ElementRef);
+    private hotkeyDispatcher = inject(ThyHotkeyDispatcher);
+
     sidebarDirective = inject(ThySidebarDirective);
 
     @HostBinding('style.width.px') get sidebarWidth() {
@@ -316,11 +317,6 @@ export class ThySidebar implements OnInit, OnDestroy {
     }
 
     private hotkeySubscription: Subscription;
-
-    constructor(
-        public elementRef: ElementRef,
-        private hotkeyDispatcher: ThyHotkeyDispatcher
-    ) {}
 
     ngOnInit() {
         this.updateCollapseTip();

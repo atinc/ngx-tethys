@@ -1,5 +1,5 @@
 import { inject, TestBed, fakeAsync, ComponentFixture, tick, flushMicrotasks, flush } from '@angular/core/testing';
-import { NgModule, Component, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { NgModule, Component, ViewChild, ElementRef, OnDestroy, inject as coreInject } from '@angular/core';
 import { ThyClickPositioner } from '../click-positioner';
 import { Subscription, Observable } from 'rxjs';
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
@@ -61,10 +61,14 @@ describe('ClickDispatcher', () => {
     template: ` <div></div> `
 })
 class ClickPositionerComponent implements OnDestroy {
+    clickPositioner = coreInject(ThyClickPositioner);
+
     clicked = 0;
     subscription: Subscription;
     clicked$: Observable<Event>;
-    constructor(public clickPositioner: ThyClickPositioner) {
+    constructor() {
+        const clickPositioner = this.clickPositioner;
+
         clickPositioner.initialize();
     }
 

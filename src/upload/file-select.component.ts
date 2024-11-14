@@ -5,7 +5,6 @@ import {
     Component,
     ElementRef,
     EventEmitter,
-    Inject,
     Input,
     NgZone,
     numberAttribute,
@@ -13,7 +12,9 @@ import {
     OnDestroy,
     Output,
     SimpleChanges,
-    ViewChild
+    ViewChild,
+    inject,
+    Inject
 } from '@angular/core';
 
 import { FileSelectBaseDirective } from './file-select-base';
@@ -69,12 +70,12 @@ export class ThyFileSelect extends FileSelectBaseDirective implements OnChanges,
     constructor(
         public elementRef: ElementRef,
         @Inject(THY_UPLOAD_DEFAULT_OPTIONS) public defaultConfig: ThyUploadConfig,
-        ngZone: NgZone
+        private ngZone: NgZone
     ) {
         super(elementRef, defaultConfig);
 
-        ngZone.runOutsideAngular(() =>
-            fromEvent(elementRef.nativeElement, 'click')
+        this.ngZone.runOutsideAngular(() =>
+            fromEvent(this.elementRef.nativeElement, 'click')
                 .pipe(takeUntil(this.destroy$))
                 .subscribe(() => {
                     this.fileInput.nativeElement.click();

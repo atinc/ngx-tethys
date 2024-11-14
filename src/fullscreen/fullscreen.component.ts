@@ -1,4 +1,4 @@
-import { Component, ContentChild, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, ContentChild, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, inject } from '@angular/core';
 import { EMPTY, fromEvent, Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 
@@ -17,6 +17,9 @@ import { ThyFullscreenLaunchDirective } from './fullscreen-launch.directive';
     standalone: true
 })
 export class ThyFullscreenComponent implements OnInit, OnDestroy {
+    private elementRef = inject(ElementRef);
+    private service = inject(ThyFullscreen);
+
     /**
      * immersive 模式使用了浏览器提供的全屏，整个窗体都全屏，emulated 模式为仿真的，只会在 body 区域全屏
      * @type immersive | emulated
@@ -41,11 +44,6 @@ export class ThyFullscreenComponent implements OnInit, OnDestroy {
 
     private ngUnsubscribe$ = new Subject<void>();
     private fullscreenLaunch$ = new Subject<ElementRef<HTMLButtonElement> | undefined>();
-
-    constructor(
-        private elementRef: ElementRef,
-        private service: ThyFullscreen
-    ) {}
 
     ngOnInit(): void {
         this.fullscreenLaunch$

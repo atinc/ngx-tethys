@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { clone, options } from '../cascader-address-options';
 
@@ -7,11 +7,11 @@ import { clone, options } from '../cascader-address-options';
     templateUrl: './basic.component.html'
 })
 export class ThyCascaderBasicExampleComponent implements OnInit {
+    private notifyService = inject(ThyNotifyService);
+
     public areaCode: any[] = [];
 
     public values: any[] = ['12', '1201', '120102'];
-
-    constructor(private notifyService: ThyNotifyService) {}
 
     ngOnInit() {
         this.areaCode = clone(options);

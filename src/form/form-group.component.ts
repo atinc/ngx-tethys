@@ -10,9 +10,9 @@ import {
     HostBinding,
     Input,
     OnInit,
-    Optional,
     TemplateRef,
-    ViewEncapsulation
+    ViewEncapsulation,
+    inject
 } from '@angular/core';
 
 import { ThyFormDirective } from './form.directive';
@@ -38,6 +38,9 @@ type TipsMode = 'default' | 'label';
     imports: [NgTemplateOutlet, ThyIcon, NgClass, ThyTooltipDirective]
 })
 export class ThyFormGroup implements OnInit {
+    private thyParentForm = inject(ThyFormDirective, { optional: true })!;
+    private thyTranslate = inject(ThyTranslate);
+
     labelText: string;
     labelRequired = false;
     labelPaddingTopClear = false;
@@ -149,11 +152,6 @@ export class ThyFormGroup implements OnInit {
      */
     @ContentChild('content')
     public contentTemplate: TemplateRef<any>;
-
-    constructor(
-        @Optional() private thyParentForm: ThyFormDirective,
-        private thyTranslate: ThyTranslate
-    ) {}
 
     ngOnInit() {
         this.isHorizontal = this.thyParentForm ? this.thyParentForm.isHorizontal : true;

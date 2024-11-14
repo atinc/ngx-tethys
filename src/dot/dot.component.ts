@@ -1,6 +1,6 @@
 import { isThemeColor, ThyThemeColor } from 'ngx-tethys/core';
 
-import { ChangeDetectionStrategy, Component, ElementRef, Input, Renderer2, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, Renderer2, ViewEncapsulation, inject } from '@angular/core';
 
 export type ThyColorType = ThyThemeColor | string;
 export type ThySizeType = 'xs' | 'sm' | 'md' | 'lg' | 'xlg';
@@ -39,15 +39,15 @@ export const DEFAULT_SHAPE_NAME = 'circle';
     standalone: true
 })
 export class ThyDot {
+    private el = inject(ElementRef);
+    private renderer = inject(Renderer2);
+
     public size: ThySizeType = DEFAULT_SIZE_NAME;
     public theme: ThyThemeType = DEFAULT_THEME_NAME;
     public shape: ThyShapeType = DEFAULT_SHAPE_NAME;
     public color: ThyColorType = DEFAULT_COLOR_NAME;
     private nativeElement: HTMLElement;
-    constructor(
-        private el: ElementRef,
-        private renderer: Renderer2
-    ) {
+    constructor() {
         this.nativeElement = this.el.nativeElement;
         this.updateColorStyle();
     }

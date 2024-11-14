@@ -5,7 +5,7 @@ import { SafeAny } from 'ngx-tethys/types';
 import { Overlay, OverlayModule, OverlayOutsideClickDispatcher } from '@angular/cdk/overlay';
 import { DomPortal } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, NgModule, ViewChild } from '@angular/core';
+import { Component, ElementRef, NgModule, ViewChild, inject } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -42,6 +42,10 @@ import { ThyPropertyItem, ThyPropertyItemOperationTrigger } from '../property-it
     `
 })
 class ThyPropertiesTestBasicComponent {
+    elementRef = inject(ElementRef);
+    overlay = inject(Overlay);
+    overlayOutsideClickDispatcher = inject(OverlayOutsideClickDispatcher);
+
     @ViewChild('properties') propertiesComponent: ThyProperties;
 
     @ViewChild('ageProperty') agePropertyItemComponent: ThyPropertyItem;
@@ -63,12 +67,6 @@ class ThyPropertiesTestBasicComponent {
     showAddress = false;
 
     editingChangeSpy = jasmine.createSpy('editing change');
-
-    constructor(
-        public elementRef: ElementRef,
-        public overlay: Overlay,
-        public overlayOutsideClickDispatcher: OverlayOutsideClickDispatcher
-    ) {}
 
     editingChange(event: boolean) {
         this.editingChangeSpy(event);

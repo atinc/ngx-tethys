@@ -9,7 +9,8 @@ import {
     ViewContainerRef,
     HostBinding,
     ChangeDetectorRef,
-    numberAttribute
+    numberAttribute,
+    inject
 } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 import { OverlayRef } from '@angular/cdk/overlay';
@@ -31,6 +32,11 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     standalone: true
 })
 export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnInit, OnDestroy {
+    elementRef: ElementRef;
+    private popover = inject(ThyPopover);
+    private viewContainerRef = inject(ViewContainerRef);
+    private cdr = inject(ChangeDetectorRef);
+
     @HostBinding(`class.thy-popover-opened`) popoverOpened = false;
 
     /**
@@ -92,16 +98,14 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
 
     private popoverRef: ThyPopoverRef<any>;
 
-    constructor(
-        public elementRef: ElementRef,
-        platform: Platform,
-        focusMonitor: FocusMonitor,
-        ngZone: NgZone,
-        private popover: ThyPopover,
-        private viewContainerRef: ViewContainerRef,
-        private cdr: ChangeDetectorRef
-    ) {
+    constructor() {
+        const elementRef = inject(ElementRef);
+        const platform = inject(Platform);
+        const focusMonitor = inject(FocusMonitor);
+        const ngZone = inject(NgZone);
+
         super(elementRef, platform, focusMonitor, ngZone, true);
+        this.elementRef = elementRef;
     }
 
     ngOnInit(): void {

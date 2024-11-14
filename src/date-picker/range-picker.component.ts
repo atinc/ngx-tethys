@@ -1,4 +1,4 @@
-import { forwardRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, Input } from '@angular/core';
+import { forwardRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, Input, inject } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
@@ -28,15 +28,15 @@ import { helpers } from 'ngx-tethys/util';
     imports: [ThyPicker, DatePopup]
 })
 export class ThyRangePicker extends BasePicker implements OnInit {
+    protected elementRef: ElementRef;
+
     isRange = true;
 
     private hostRenderer = useHostRenderer();
 
-    constructor(
-        cdr: ChangeDetectorRef,
-        protected elementRef: ElementRef
-    ) {
-        super(cdr, elementRef);
+    constructor() {
+        super();
+
         this.hostRenderer.addClass('thy-calendar-picker');
     }
 }

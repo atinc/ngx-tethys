@@ -1,4 +1,4 @@
-import { Component, forwardRef, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, forwardRef, HostBinding, Input, OnInit, inject } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
 import { coerceBooleanProperty, elementMatchClosest } from 'ngx-tethys/util';
@@ -36,6 +36,8 @@ const noop = () => {};
     }
 })
 export class ThyNativeSelect extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor, OnInit {
+    private elementRef = inject(ElementRef);
+
     @ViewChild('select', { static: true }) selectElement: ElementRef<any>;
 
     // The internal data model
@@ -67,7 +69,7 @@ export class ThyNativeSelect extends TabIndexDisabledControlValueAccessorMixin i
         this._disabled = isDisabled;
     }
 
-    constructor(private elementRef: ElementRef) {
+    constructor() {
         super();
     }
 

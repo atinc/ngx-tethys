@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit, ViewContainerRef, inject } from '@angular/core';
 import { ThyPopover, ThyPopoverRef } from 'ngx-tethys/popover';
 import { ThyColorPickerCustomPanel } from './color-picker-custom-panel.component';
 import { ThyColor } from './helpers/color.class';
@@ -20,6 +20,10 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     imports: [NgClass, NgTemplateOutlet, ThyIcon, NgStyle]
 })
 export class ThyColorPickerPanel implements OnInit {
+    private thyPopover = inject(ThyPopover);
+    private viewContainerRef = inject(ViewContainerRef);
+    private thyPopoverRef = inject<ThyPopoverRef<ThyColorPickerPanel>>(ThyPopoverRef);
+
     @HostBinding('class.thy-color-picker-panel') className = true;
 
     @Input() color: string;
@@ -45,12 +49,6 @@ export class ThyColorPickerPanel implements OnInit {
     newColor: string;
 
     customPanelPopoverRef: ThyPopoverRef<ThyColorPickerCustomPanel>;
-
-    constructor(
-        private thyPopover: ThyPopover,
-        private viewContainerRef: ViewContainerRef,
-        private thyPopoverRef: ThyPopoverRef<ThyColorPickerPanel>
-    ) {}
 
     ngOnInit(): void {
         const colors = localStorage.getItem('recentColors');

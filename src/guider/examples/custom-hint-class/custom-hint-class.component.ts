@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ThyGuider, ThyGuiderConfig, ThyGuiderRef, ThyGuiderStep } from 'ngx-tethys/guider';
 
 @Component({
@@ -6,6 +6,8 @@ import { ThyGuider, ThyGuiderConfig, ThyGuiderRef, ThyGuiderStep } from 'ngx-tet
     template: ` <button class="custom-hint-class-target" thyButton="info" (click)="startTour()">开始</button> `
 })
 export class ThyGuiderCustomHintClassExampleComponent implements OnInit {
+    private thyGuider = inject(ThyGuider);
+
     private option: ThyGuiderConfig = {
         steps: [
             {
@@ -24,8 +26,6 @@ export class ThyGuiderCustomHintClassExampleComponent implements OnInit {
     };
 
     private guiderRef: ThyGuiderRef;
-
-    constructor(private thyGuider: ThyGuider) {}
 
     ngOnInit() {
         this.guiderRef = this.thyGuider.create(this.option);

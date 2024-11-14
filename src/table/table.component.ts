@@ -20,7 +20,6 @@ import {
     EventEmitter,
     HostBinding,
     inject,
-    Inject,
     Input,
     IterableChangeRecord,
     IterableChanges,
@@ -152,6 +151,16 @@ const passiveEventListenerOptions = normalizePassiveListenerOptions({ passive: t
     ]
 })
 export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IThyTableColumnParentComponent {
+    elementRef = inject(ElementRef);
+    private _differs = inject(IterableDiffers);
+    private viewportRuler = inject(ViewportRuler);
+    private updateHostClassService = inject(UpdateHostClassService);
+    private document = inject(DOCUMENT);
+    private platformId = inject(PLATFORM_ID);
+    private ngZone = inject(NgZone);
+    private renderer = inject(Renderer2);
+    private cdr = inject(ChangeDetectorRef);
+
     private readonly destroyRef = inject(DestroyRef);
 
     public customType = customType;
@@ -558,17 +567,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
 
     public skeletonColumns: ThyTableSkeletonColumn[] = [];
 
-    constructor(
-        public elementRef: ElementRef,
-        private _differs: IterableDiffers,
-        private viewportRuler: ViewportRuler,
-        private updateHostClassService: UpdateHostClassService,
-        @Inject(DOCUMENT) private document: SafeAny,
-        @Inject(PLATFORM_ID) private platformId: string,
-        private ngZone: NgZone,
-        private renderer: Renderer2,
-        private cdr: ChangeDetectorRef
-    ) {
+    constructor() {
         this._bindTrackFn();
     }
 

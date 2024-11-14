@@ -1,7 +1,7 @@
 import { OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { CommonModule } from '@angular/common';
-import { Component, DebugElement, ElementRef, ViewChild } from '@angular/core';
+import { Component, DebugElement, ElementRef, ViewChild, inject as coreInject } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush, inject, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -48,6 +48,9 @@ import { ThyColorPickerModule } from '../module';
     ]
 })
 class ThyDemoColorPickerComponent {
+    elementRef = coreInject<ElementRef<HTMLElement>>(ElementRef);
+    private thyPopoverRef = coreInject<ThyPopoverRef<ThyColorPickerPanel>>(ThyPopoverRef);
+
     @ViewChild(ThyColorPickerDirective, { static: true }) colorPicker: ThyColorPickerDirective;
     @ViewChild(ThyColorPickerPanel) defaultPanel: ThyColorPickerPanel;
     color = '#ddd';
@@ -65,11 +68,6 @@ class ThyDemoColorPickerComponent {
     presetColors: string[];
 
     disabled = false;
-
-    constructor(
-        public elementRef: ElementRef<HTMLElement>,
-        private thyPopoverRef: ThyPopoverRef<ThyColorPickerPanel>
-    ) {}
 
     change(color: string) {}
 
@@ -93,14 +91,13 @@ class ThyDemoColorPickerComponent {
     `
 })
 class ThyDemoColorDefaultPanelComponent {
+    elementRef = coreInject<ElementRef<HTMLElement>>(ElementRef);
+    thyPopover = coreInject(ThyPopover);
+
     @ViewChild(ThyColorPickerPanel) defaultPanel: ThyColorPickerPanel;
     defaultPanelColor = '#fafafa';
     defaultColor = '';
     transparentColorSelectable: boolean;
-    constructor(
-        public elementRef: ElementRef<HTMLElement>,
-        public thyPopover: ThyPopover
-    ) {}
 
     defaultPanelColorChange = (color: string) => {
         this.defaultPanelColor = color;
@@ -111,10 +108,11 @@ class ThyDemoColorDefaultPanelComponent {
     template: ` <thy-color-picker-custom-panel [pickerColorChange]="pickerColorChange" [color]="color"></thy-color-picker-custom-panel> `
 })
 class ThyDemoPickerPanelComponent {
+    elementRef = coreInject<ElementRef<HTMLElement>>(ElementRef);
+
     @ViewChild(ThyColorPickerCustomPanel) pickerPanel: ThyColorPickerCustomPanel;
 
     color = '#fafafa';
-    constructor(public elementRef: ElementRef<HTMLElement>) {}
 
     pickerColorChange = (color: string) => {
         this.color = color;
@@ -136,6 +134,8 @@ class ThyDemoPickerPanelComponent {
     ]
 })
 class ThyDemoCoordinatesDirectiveComponent {
+    elementRef = coreInject<ElementRef<HTMLElement>>(ElementRef);
+
     @ViewChild(ThyCoordinatesDirective) coordinates: ThyCoordinatesDirective;
 
     e: {
@@ -147,7 +147,6 @@ class ThyDemoCoordinatesDirectiveComponent {
         containerWidth: number;
         $event: Event;
     };
-    constructor(public elementRef: ElementRef<HTMLElement>) {}
 
     handleChange = (event: {
         x: number;

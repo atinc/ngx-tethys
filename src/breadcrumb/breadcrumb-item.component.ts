@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, AfterViewInit, ElementRef, Renderer2 } from '@angular/core';
+import { Component, ChangeDetectionStrategy, AfterViewInit, ElementRef, Renderer2, inject } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 
 /**
@@ -18,10 +18,8 @@ import { ThyIcon } from 'ngx-tethys/icon';
     imports: [ThyIcon]
 })
 export class ThyBreadcrumbItem implements AfterViewInit {
-    constructor(
-        private renderer: Renderer2,
-        private elementRef: ElementRef
-    ) {}
+    private renderer = inject(Renderer2);
+    private elementRef = inject(ElementRef);
 
     ngAfterViewInit() {
         this.wrapSpanForText(this.elementRef.nativeElement.childNodes);

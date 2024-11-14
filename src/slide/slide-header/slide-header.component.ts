@@ -1,4 +1,4 @@
-import { Component, ContentChild, TemplateRef, Input, OnInit, HostBinding } from '@angular/core';
+import { Component, ContentChild, TemplateRef, Input, OnInit, HostBinding, inject } from '@angular/core';
 import { ThySlideService } from '../slide.service';
 import { ThyAction } from 'ngx-tethys/action';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -16,6 +16,8 @@ import { NgTemplateOutlet } from '@angular/common';
     imports: [NgTemplateOutlet, ThyIcon, ThyAction]
 })
 export class ThySlideHeader implements OnInit {
+    private thySlideService = inject(ThySlideService);
+
     isIconFont = false;
 
     private _iconName = '';
@@ -54,8 +56,6 @@ export class ThySlideHeader implements OnInit {
      * @type TemplateRef
      */
     @ContentChild('thyHeaderOperate') headerOperateTemplate: TemplateRef<any>;
-
-    constructor(private thySlideService: ThySlideService) {}
 
     ngOnInit() {}
 

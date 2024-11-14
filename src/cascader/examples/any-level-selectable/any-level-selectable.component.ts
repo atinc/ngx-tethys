@@ -2,7 +2,7 @@ import { ThyCascader } from 'ngx-tethys/cascader';
 import { ThyFormGroup } from 'ngx-tethys/form';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { clone, options } from '../cascader-address-options';
@@ -15,6 +15,8 @@ import { ThyTagModule } from 'ngx-tethys/tag';
     imports: [ThyFormGroup, ThyCascader, ThyTagModule, FormsModule]
 })
 export class ThyCascaderAnyLevelSelectableExampleComponent implements OnInit {
+    private notifyService = inject(ThyNotifyService);
+
     public areaCode = clone(options);
 
     public singleValues: any[] = ['12', '1201', '120102'];
@@ -24,8 +26,6 @@ export class ThyCascaderAnyLevelSelectableExampleComponent implements OnInit {
         ['12', '1201', '120103'],
         ['14', '1404', '140406']
     ];
-
-    constructor(private notifyService: ThyNotifyService) {}
 
     ngOnInit() {}
 

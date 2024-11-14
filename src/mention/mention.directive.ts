@@ -2,7 +2,7 @@ import { ThyPopover, ThyPopoverConfig, ThyPopoverRef } from 'ngx-tethys/popover'
 import { EMPTY, fromEvent, Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 
-import { Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Optional, Output, Self } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, inject } from '@angular/core';
 import { NgControl } from '@angular/forms';
 
 import { createMentionAdapter, MatchedMention, MentionAdapter, MentionInputorElement } from './adapter';
@@ -37,6 +37,10 @@ const DEFAULT_MENTION_CONFIG: Partial<Mention> = {
     standalone: true
 })
 export class ThyMentionDirective implements OnInit, OnDestroy {
+    private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+    private thyPopover = inject(ThyPopover);
+    private ngControl = inject(NgControl, { optional: true, self: true })!;
+
     private adapter: MentionAdapter = null;
 
     public openedSuggestionsRef: ThyPopoverRef<ThyMentionSuggestions>;
@@ -80,11 +84,9 @@ export class ThyMentionDirective implements OnInit, OnDestroy {
 
     private openedSuggestionsRef$ = new Subject<ThyPopoverRef<ThyMentionSuggestions> | null>();
 
-    constructor(
-        private elementRef: ElementRef<HTMLElement>,
-        private thyPopover: ThyPopover,
-        @Optional() @Self() private ngControl: NgControl
-    ) {
+    constructor() {
+        const elementRef = this.elementRef;
+
         this.adapter = createMentionAdapter(elementRef.nativeElement as MentionInputorElement);
     }
 

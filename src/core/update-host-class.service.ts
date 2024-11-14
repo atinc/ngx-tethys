@@ -1,13 +1,13 @@
-import { Injectable, Renderer2, ElementRef } from '@angular/core';
+import { Injectable, Renderer2, ElementRef, inject } from '@angular/core';
 import { Dictionary } from 'ngx-tethys/types';
 
 @Injectable()
 export class UpdateHostClassService {
+    private renderer = inject(Renderer2);
+
     private _classNames: string[] = [];
 
     private _hostElement: HTMLElement;
-
-    constructor(private renderer: Renderer2) {}
 
     initializeElement(element: HTMLElement | ElementRef<HTMLElement>) {
         if (element instanceof ElementRef) {

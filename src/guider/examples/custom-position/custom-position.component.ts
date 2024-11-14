@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ThyPlacement } from 'ngx-tethys/core';
 import { ThyGuider, ThyGuiderConfig, ThyGuiderRef } from 'ngx-tethys/guider';
 
@@ -7,6 +7,8 @@ import { ThyGuider, ThyGuiderConfig, ThyGuiderRef } from 'ngx-tethys/guider';
     templateUrl: 'custom-position.component.html'
 })
 export class ThyGuiderCustomPositionExampleComponent implements OnInit {
+    private thyGuider = inject(ThyGuider);
+
     private option: ThyGuiderConfig;
 
     private guiderRef: ThyGuiderRef;
@@ -18,8 +20,6 @@ export class ThyGuiderCustomPositionExampleComponent implements OnInit {
     public pointYOffset = 0;
 
     public hintOffset = 0;
-
-    constructor(private thyGuider: ThyGuider) {}
 
     ngOnInit() {}
 

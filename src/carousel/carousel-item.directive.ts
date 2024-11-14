@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, Renderer2, inject } from '@angular/core';
 
 /**
  * @private
@@ -9,6 +9,8 @@ import { Directive, ElementRef, Renderer2 } from '@angular/core';
     standalone: true
 })
 export class ThyCarouselItemDirective {
+    private renderer = inject(Renderer2);
+
     private _active = false;
 
     readonly el: HTMLElement;
@@ -26,10 +28,9 @@ export class ThyCarouselItemDirective {
         return this._active;
     }
 
-    constructor(
-        elementRef: ElementRef,
-        private renderer: Renderer2
-    ) {
+    constructor() {
+        const elementRef = inject(ElementRef);
+
         this.el = elementRef.nativeElement;
         this.renderer.addClass(elementRef.nativeElement, 'thy-carousel-item');
     }

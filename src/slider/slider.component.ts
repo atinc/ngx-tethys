@@ -14,7 +14,8 @@ import {
     HostBinding,
     Output,
     NgZone,
-    numberAttribute
+    numberAttribute,
+    inject
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable, Subscription, fromEvent } from 'rxjs';
@@ -53,6 +54,10 @@ export class ThySlider
     extends TabIndexDisabledControlValueAccessorMixin
     implements OnInit, AfterViewInit, OnDestroy, OnChanges, ControlValueAccessor
 {
+    private cdr = inject(ChangeDetectorRef);
+    private ngZone = inject(NgZone);
+    private ref = inject(ElementRef);
+
     /**
      * 是否切换为纵轴模式
      */
@@ -164,11 +169,7 @@ export class ThySlider
 
     private onTouchedCallback = (v: any) => {};
 
-    constructor(
-        private cdr: ChangeDetectorRef,
-        private ngZone: NgZone,
-        private ref: ElementRef
-    ) {
+    constructor() {
         super();
     }
 

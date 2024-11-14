@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostBinding, Optional } from '@angular/core';
+import { Directive, ElementRef, HostBinding, inject } from '@angular/core';
 import { ThyDragDirective } from './drag.directive';
 
 /**
@@ -11,12 +11,13 @@ import { ThyDragDirective } from './drag.directive';
     standalone: true
 })
 export class ThyDragContentDirective {
+    element = inject<ElementRef<HTMLElement>>(ElementRef);
+
     @HostBinding('class.thy-drag-content') contentClass = true;
 
-    constructor(
-        public element: ElementRef<HTMLElement>,
-        @Optional() drag: ThyDragDirective
-    ) {
+    constructor() {
+        const drag = inject(ThyDragDirective, { optional: true })!;
+
         if (drag) {
             drag.dragRef.withContentElement(this.element);
         }

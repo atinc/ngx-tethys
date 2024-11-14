@@ -85,6 +85,11 @@ const tabItemRight = 20;
     ]
 })
 export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterContentChecked, OnChanges {
+    private elementRef = inject(ElementRef);
+    private ngZone = inject(NgZone);
+    private changeDetectorRef = inject(ChangeDetectorRef);
+    private popover = inject(ThyPopover);
+
     private readonly destroyRef = inject(DestroyRef);
 
     private type: ThyNavType = 'pulled';
@@ -240,13 +245,6 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
     private curActiveIndex: number;
 
     private prevActiveIndex: number = NaN;
-
-    constructor(
-        private elementRef: ElementRef,
-        private ngZone: NgZone,
-        private changeDetectorRef: ChangeDetectorRef,
-        private popover: ThyPopover
-    ) {}
 
     ngOnInit() {
         if (!this.thyResponsive) {

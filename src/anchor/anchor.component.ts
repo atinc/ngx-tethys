@@ -6,7 +6,6 @@ import {
     Component,
     ElementRef,
     EventEmitter,
-    Inject,
     Input,
     NgZone,
     OnChanges,
@@ -16,7 +15,8 @@ import {
     SimpleChanges,
     ViewChild,
     ViewEncapsulation,
-    numberAttribute
+    numberAttribute,
+    inject
 } from '@angular/core';
 import { Subject, fromEvent } from 'rxjs';
 import { takeUntil, throttleTime } from 'rxjs/operators';
@@ -70,6 +70,13 @@ const sharpMatcherRegx = /#([^#]+)$/;
     imports: [ThyAffix, NgTemplateOutlet, NgStyle, NgClass]
 })
 export class ThyAnchor implements OnDestroy, AfterViewInit, OnChanges {
+    private document = inject(DOCUMENT);
+    private cdr = inject(ChangeDetectorRef);
+    private platform = inject(Platform);
+    private zone = inject(NgZone);
+    private renderer = inject(Renderer2);
+    private scrollService = inject(ThyScrollService);
+
     @ViewChild('ink') private ink!: ElementRef;
 
     /**
@@ -125,15 +132,6 @@ export class ThyAnchor implements OnDestroy, AfterViewInit, OnChanges {
 
     private handleScrollTimeoutID: any = -1;
 
-    constructor(
-        @Inject(DOCUMENT) private document: any,
-        private cdr: ChangeDetectorRef,
-        private platform: Platform,
-        private zone: NgZone,
-        private renderer: Renderer2,
-        private scrollService: ThyScrollService
-    ) {}
-
     registerLink(link: ThyAnchorLink): void {
         this.links.push(link);
     }
@@ -187,7 +185,7 @@ export class ThyAnchor implements OnDestroy, AfterViewInit, OnChanges {
         if (typeof document === 'undefined' || this.animating) {
             return;
         }
-        const container: HTMLElement = this.container instanceof HTMLElement ? this.container : this.document;
+        const container: HTMLElement = this.container instanceof HTMLElement ? this.container : (this.document as unknown as HTMLElement);
 
         const sections: Section[] = [];
         const scope = (this.thyOffsetTop || 0) + this.thyBounds;
@@ -253,7 +251,7 @@ export class ThyAnchor implements OnDestroy, AfterViewInit, OnChanges {
     }
 
     handleScrollTo(linkComponent: ThyAnchorLink): void {
-        const container: HTMLElement = this.container instanceof HTMLElement ? this.container : this.document;
+        const container: HTMLElement = this.container instanceof HTMLElement ? this.container : (this.document as unknown as HTMLElement);
         const linkElement: HTMLElement = container.querySelector(linkComponent.thyHref);
         if (!linkElement) {
             return;
@@ -279,7 +277,7 @@ export class ThyAnchor implements OnDestroy, AfterViewInit, OnChanges {
         }
         if (thyContainer && this.thyContainer) {
             const container = this.thyContainer;
-            this.container = typeof container === 'string' ? this.document.querySelector(container) : container;
+            this.container = typeof container === 'string' ? (this.document.querySelector(container) as HTMLElement) : container;
             this.registerScrollEvent();
         }
     }

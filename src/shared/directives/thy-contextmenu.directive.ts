@@ -1,4 +1,4 @@
-import { Directive, Output, ElementRef, EventEmitter, OnInit, NgZone, Renderer2, HostListener, OnDestroy } from '@angular/core';
+import { Directive, Output, ElementRef, EventEmitter, OnInit, NgZone, Renderer2, HostListener, OnDestroy, inject } from '@angular/core';
 
 /**
  * @name thyContextMenu
@@ -8,15 +8,13 @@ import { Directive, Output, ElementRef, EventEmitter, OnInit, NgZone, Renderer2,
     standalone: true
 })
 export class ThyContextMenuDirective implements OnInit, OnDestroy {
+    private ngZone = inject(NgZone);
+    private elementRef = inject(ElementRef);
+    private renderer = inject(Renderer2);
+
     @Output() thyContextMenu = new EventEmitter();
 
     private removeContextListenerFn: VoidFunction;
-
-    constructor(
-        private ngZone: NgZone,
-        private elementRef: ElementRef,
-        private renderer: Renderer2
-    ) {}
 
     rightClick = (event: Event) => {
         event.preventDefault();

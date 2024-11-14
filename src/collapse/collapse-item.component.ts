@@ -4,13 +4,13 @@ import {
     ChangeDetectorRef,
     Component,
     EventEmitter,
-    Host,
     ChangeDetectionStrategy,
     Input,
     OnDestroy,
     OnInit,
     Output,
-    TemplateRef
+    TemplateRef,
+    inject
 } from '@angular/core';
 
 import { ThyCollapse } from './collapse.component';
@@ -42,6 +42,9 @@ const DEFAULT_ARROW_ICON = 'angle-right';
     imports: [NgTemplateOutlet, ThyIcon]
 })
 export class ThyCollapseItem implements OnInit, OnDestroy {
+    private cdr = inject(ChangeDetectorRef);
+    private thyCollapseComponent = inject(ThyCollapse, { host: true });
+
     public showArrow: boolean = true;
 
     public arrowIconTemplate: TemplateRef<SafeAny>;
@@ -97,11 +100,6 @@ export class ThyCollapseItem implements OnInit, OnDestroy {
      * 展开收起事件
      */
     @Output() thyActiveChange = new EventEmitter<{ active: boolean; event: Event }>();
-
-    constructor(
-        private cdr: ChangeDetectorRef,
-        @Host() private thyCollapseComponent: ThyCollapse
-    ) {}
 
     ngOnInit() {
         this.thyCollapseComponent.addPanel(this);
