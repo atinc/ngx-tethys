@@ -1,4 +1,4 @@
-@use "../../styles/variables";
+@use '../../styles/variables';
 
 .thy-result {
     display: block;
@@ -18,5 +18,29 @@
         & > *:not(:last-child) {
             margin-right: 8px;
         }
+    }
+}
+
+.thy-result-svg-success,
+.thy-result-svg-error,
+.thy-result-svg-warning {
+    display: inline-block;
+}
+.thy-result-svg-success-dark,
+.thy-result-svg-error-dark,
+.thy-result-svg-warning-dark {
+    display: none;
+}
+
+:root[theme='dark'] {
+    .thy-result-svg-success,
+    .thy-result-svg-error,
+    .thy-result-svg-warning {
+        display: none;
+    }
+    .thy-result-svg-success-dark,
+    .thy-result-svg-error-dark,
+    .thy-result-svg-warning-dark {
+        display: inline-block;
     }
 }
