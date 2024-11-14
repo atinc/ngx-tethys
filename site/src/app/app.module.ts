@@ -78,7 +78,9 @@ import { ThyIconRegistry } from '../../../src/icon/icon-registry';
 import { EXAMPLE_MODULES } from './content/example-modules';
 import { DOCGENI_SITE_PROVIDERS } from './content/index';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { observeTheme, ThyTheme, ThyThemeStore } from 'ngx-tethys/core';
+import { ThyTheme, ThyThemeStore } from 'ngx-tethys/core';
+import { Observable, Subject } from 'rxjs';
+import { MutationObserverFactory } from '@angular/cdk/observers';
 
 function thyPopoverDefaultConfigFactory(overlay: Overlay) {
     return {
@@ -183,12 +185,34 @@ export class AppModule {
         const iconSvgUrl = `assets/icons/defs/svg/sprite.defs.svg`;
         iconRegistry.addSvgIconSet(sanitizer.bypassSecurityTrustResourceUrl(iconSvgUrl));
 
-        const themeChangedAction = () => {
-            const theme = (document.documentElement.getAttribute('theme') as ThyTheme) || ThyTheme.light;
-            this.thyThemeStore.setTheme(theme);
-        };
-        observeTheme(this.themeObserver, this.destroyRef, themeChangedAction)
+        this.observeTheme()
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe(() => {});
+    }
+
+    private observeTheme() {
+        this.themeObserver?.disconnect();
+        return new Observable(observe => {
+            const stream = new Subject<MutationRecord[]>();
+            this.themeObserver = new MutationObserverFactory().create(mutations => stream.next(mutations));
+            if (this.themeObserver) {
+                this.themeObserver.observe(document.documentElement, {
+                    attributes: true,
+                    attributeFilter: ['theme']
+                });
+            }
+            stream.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(mutations => {
+                for (const mutation of mutations) {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'theme') {
+                        const theme = (document.documentElement.getAttribute('theme') as ThyTheme) || ThyTheme.light;
+                        this.thyThemeStore.setTheme(theme);
+                    }
+                }
+            });
+            observe.next(stream);
+            return () => {
+                this.themeObserver?.disconnect();
+            };
+        });
     }
 }

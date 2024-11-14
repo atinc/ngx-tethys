@@ -1,10 +1,10 @@
-import { Directive, Input, ElementRef, OnInit, SimpleChanges, OnChanges, inject, DestroyRef } from '@angular/core';
+import { Directive, Input, ElementRef, OnInit, SimpleChanges, OnChanges, inject, DestroyRef, effect } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DEFAULT_WATERMARK_CONFIG, DEFAULT_CANVAS_CONFIG } from './config';
 import { MutationObserverFactory } from '@angular/cdk/observers';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
-import { observeTheme, ThyThemeStore } from 'ngx-tethys/core';
+import { ThyThemeStore } from 'ngx-tethys/core';
 
 /**
  * @public
@@ -69,8 +69,6 @@ export class ThyWatermarkDirective implements OnInit, OnChanges {
 
     private observer: MutationObserver;
 
-    private themeObserver: MutationObserver;
-
     private canvas: HTMLCanvasElement;
 
     private wmDiv: HTMLElement;
@@ -79,17 +77,18 @@ export class ThyWatermarkDirective implements OnInit, OnChanges {
 
     private thyThemeStore = inject(ThyThemeStore);
 
+    constructor() {
+        effect(() => {
+            if (!this.thyDisabled && this.thyThemeStore.theme()) {
+                this.refreshWatermark();
+            }
+        });
+    }
+
     ngOnInit() {
         if (!this.thyDisabled) {
             this.createWatermark$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
                 this.observeAttributes()
-                    .pipe(takeUntilDestroyed(this.destroyRef))
-                    .subscribe(() => {});
-
-                const themeChangedAction = () => {
-                    this.refreshWatermark();
-                };
-                observeTheme(this.themeObserver, this.destroyRef, themeChangedAction)
                     .pipe(takeUntilDestroyed(this.destroyRef))
                     .subscribe(() => {});
             });
