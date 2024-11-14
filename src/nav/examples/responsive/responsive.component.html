@@ -33,7 +33,7 @@
   </thy-nav>
   <br />
 
-  <div class="py-2 bg-white">
+  <div class="py-2 bg-default">
     <thy-nav thyType="pills" [thyResponsive]="true" class="responsive-nav">
       @for (item of navList; track $index) {
         <a class="nav-tab" href="javascript:;" thyNavItem [thyNavItemActive]="activeIndex === item.index" (click)="activeIndex = item.index"

@@ -1,7 +1,7 @@
 <div class="selection-list-wrapper" [style.marginBottom]="'10px'">
   <thy-selection-list
     [style.width]="'560px'"
-    [style.background]="'#fafafa'"
+    [style.background]="'var(--gray-80)'"
     [(ngModel)]="selectionModel.selectedValues"
     [thyLayout]="'grid'"
     thySize="sm">
@@ -17,7 +17,7 @@
 <div class="selection-list-wrapper" [style.marginBottom]="'10px'">
   <thy-selection-list
     [style.width]="'560px'"
-    [style.background]="'#fafafa'"
+    [style.background]="'var(--gray-80)'"
     [(ngModel)]="selectionModel.selectedValues"
     [thyLayout]="'grid'">
     @for (item of gridItems; track item.id) {

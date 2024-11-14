@@ -1,11 +1,11 @@
 @use '../../styles/variables';
-@use './variables' as vars;
 
-#{vars.$carousel-prefix-cls} {
+$carousel-prefix-cls: 'thy-carousel';
+
+#{$carousel-prefix-cls} {
     margin-left: auto;
     margin-right: auto;
     position: relative;
-    //overflow: hidden;
     padding: 0;
     z-index: 1;
     .thy-carousel-initialized {
@@ -62,16 +62,16 @@
             cursor: variables.$hand-cursor;
             &:hover {
                 thy-dot {
-                    opacity: 1;
+                    border-color: variables.$white;
                 }
             }
             thy-dot {
                 transition: 0.3s opacity;
-                color: variables.$white;
-                opacity: 0.5;
+                border-color: variables.$carousel-dot-bg-color;
+
                 &:hover,
                 &.active {
-                    opacity: 1;
+                    border-color: variables.$white;
                 }
             }
         }
@@ -82,13 +82,13 @@
         transform: translateY(-50%);
         z-index: 200;
         cursor: variables.$hand-cursor;
-        color: variables.$gray-70;
+        color: variables.$white;
         user-select: none;
         overflow: hidden;
         width: 32px;
         height: 32px;
         transition: 0.3s background;
-        background: rgba(vars.$carousel-control-default-bg, 0.3);
+        background: variables.$carousel-control-bg-color;
         border-radius: 50%;
         thy-icon {
             position: absolute;
@@ -99,7 +99,7 @@
             font-size: 22px;
         }
         &:hover {
-            background: rgba(vars.$carousel-control-default-bg, 0.6);
+            background: variables.$carousel-control-hover-bg-color;
         }
         &-pre {
             left: 12px;

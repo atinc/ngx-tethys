@@ -1,4 +1,4 @@
-@use "../../styles/variables";
+@use '../../styles/variables';
 
 .thy-timeline-item {
     position: relative;
@@ -16,7 +16,7 @@
         position: absolute;
         width: 7px;
         height: 7px;
-        background-color: variables.$white;
+        background-color: variables.$bg-default;
         border: 1px solid transparent;
         border-radius: 50%;
     }

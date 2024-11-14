@@ -35,6 +35,7 @@
         flex-direction: column;
         display: flex;
         font-size: 14px;
+        background-color: variables.$bg-panel;
         color: variables.$gray-700;
         letter-spacing: 0;
         line-height: 26px;
@@ -71,7 +72,7 @@
                     box-sizing: border-box;
                     &.active {
                         border: 2px solid variables.$primary;
-                        background-color: variables.$white;
+                        background-color: variables.$bg-default;
                         width: 7px;
                         height: 7px;
                         margin: 0 4px;

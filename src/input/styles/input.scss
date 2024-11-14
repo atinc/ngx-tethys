@@ -36,7 +36,7 @@
         position: absolute;
         top: 1px;
         left: variables.$input-padding-x-fixed;
-        background: variables.$white;
+        background: variables.$bg-default;
         padding: 0 5px;
         font-size: variables.$font-size-sm;
         transition: all 0.3s ease-out 0.1s;
@@ -180,7 +180,7 @@
         position: absolute;
         top: 1px;
         left: 10px;
-        background: variables.$white;
+        background: variables.$bg-default;
         padding: 0 5px;
         font-size: variables.$font-size-sm;
         transition: all 0.3s ease-out 0.1s;

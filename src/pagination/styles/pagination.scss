@@ -84,7 +84,7 @@
             border: variables.$pagination-border-width solid variables.$pagination-border-color;
             @include border-radius.border-radius(variables.$border-radius);
             color: variables.$pagination-jumper-input-color;
-            background: variables.$white;
+            background: variables.$bg-default;
             width: calc(#{variables.$font-size-base} * 3);
             text-align: center;
             margin: 0 6px;
@@ -120,7 +120,7 @@
 
     &:focus {
         outline: bootstrap-variables.$pagination-focus-outline;
-        box-shadow: variables.$pagination-focus-box-shadow;
+        box-shadow: variables.$box-shadow-none;
     }
 }
 

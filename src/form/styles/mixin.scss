@@ -23,9 +23,9 @@
         outline: 0;
         // Avoid using mixin so we can pass custom focus shadow properly
         @if variables.$enable-shadows {
-            box-shadow: variables.$input-box-shadow, bootstrap-variables.$input-focus-box-shadow;
+            box-shadow: variables.$box-shadow-none, variables.$box-shadow-none;
         } @else {
-            box-shadow: bootstrap-variables.$input-focus-box-shadow;
+            box-shadow: variables.$box-shadow-none;
         }
     }
     &:not([disabled]):not(.disabled):not(.is-invalid) {
@@ -48,7 +48,6 @@
         display: none;
         width: 100%;
         margin-top: bootstrap-variables.$form-feedback-margin-top;
-        // font-size: $form-feedback-font-size;
         color: $color;
     }
 
@@ -140,7 +139,9 @@
 
             &:focus {
                 ~ .custom-control-label::before {
-                    box-shadow: 0 0 0 1px bootstrap-variables.$body-bg, 0 0 0 bootstrap-variables.$input-focus-width rgba($color, 0.25);
+                    box-shadow:
+                        0 0 0 1px bootstrap-variables.$body-bg,
+                        0 0 0 bootstrap-variables.$input-focus-width rgba($color, 0.25);
                 }
             }
         }
@@ -181,7 +182,7 @@
 }
 
 @mixin set-select-arrow() {
-    content: '\e6b8'; //"\f078";
+    content: '\e6b8';
     font: normal normal normal 14px/1 wtf;
     position: absolute;
     right: 12px;

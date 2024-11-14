@@ -2,7 +2,7 @@
 
 .thy-tabs {
     display: block;
-    background: variables.$white;
+    background: variables.$bg-default;
     // overflow: hidden;
     &-content {
         padding: variables.$tabs-content-space 0px;

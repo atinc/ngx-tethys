@@ -1,15 +1,14 @@
 <thy-flexible-text
   [thyTooltipContent]="textLong"
-  style="width:500px;background-color: #ccc;"
-  [thyContainerClass]="'customer-multiple-line'"
->
+  style="width: 500px; background-color: var(--gray-100)"
+  [thyContainerClass]="'customer-multiple-line'">
   {{ textLong }}
 </thy-flexible-text>
 <br />
 <span
   thyFlexibleText
   [thyTooltipContent]="textShort"
-  style="width:500px;background-color: #ccc;"
+  style="width: 500px; background-color: var(--gray-100)"
   [thyContainerClass]="'customer-multiple-line'"
   >{{ textShort }}</span
 >

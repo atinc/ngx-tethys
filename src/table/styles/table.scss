@@ -4,17 +4,17 @@
 
 @mixin thy-table-scroll-left {
     .thy-table-fixed-column-right {
-        box-shadow: -6px 0 6px 0 rgba(0, 0, 0, 0.05);
+        box-shadow: variables.$table-fixed-column-right-box-shadow;
 
         & + .thy-table-fixed-column-right {
-            box-shadow: none;
+            box-shadow: variables.$box-shadow-none;
         }
     }
 }
 
 @mixin thy-table-scroll-right {
     .thy-table-fixed-column-left {
-        box-shadow: 6px 0 6px 0 rgba(0, 0, 0, 0.05);
+        box-shadow: variables.$table-fixed-column-left-box-shadow;
     }
 }
 
@@ -231,8 +231,6 @@
 
     .thy-table-footer {
         margin-top: variables.$table-footer-margin-top;
-        // display: flex;
-        // justify-content: flex-end;
 
         &.thy-table-footer-has-padding {
             padding: variables.$table-footer-padding;
@@ -269,16 +267,6 @@
         }
     }
 
-    // &.thy-table-bordered {
-    //     border-radius: variables.$table-boxed-border-radius;
-    //     border: variables.$table-border-width solid variables.$gray-200;
-    //     overflow: hidden;
-    //     table {
-    //         border-collapse: collapse;
-    //         border-style: hidden;
-    //     }
-    // }
-
     &-fixed {
         flex: auto;
         width: 100%;
@@ -296,7 +284,7 @@
 
         .thy-table-fixed-column-left,
         .thy-table-fixed-column-right {
-            background-color: variables.$white;
+            background-color: variables.$bg-default;
             position: sticky !important;
             z-index: variables.$z-index-5;
         }
@@ -357,8 +345,8 @@
 
     &-fixed-header {
         thead {
-            box-shadow: 0 0 0 1px variables.$gray-200;
-            background-color: variables.$white;
+            border: 1px solid variables.$gray-200;
+            background-color: variables.$bg-default;
             position: sticky;
             left: 0;
             top: 0;
@@ -390,7 +378,7 @@
                 th:last-child::after {
                     width: 1px;
                     height: 2px;
-                    background: variables.$white;
+                    background: variables.$bg-default;
                     content: '';
                     display: block;
                     position: absolute;

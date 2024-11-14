@@ -1,7 +1,5 @@
 <section class="mb-3">
-  <button thyButton="primary-square" (thyCopy)="copy($event)" thyCopyContent="复制的文本">
-    复制
-  </button>
+  <button thyButton="primary-square" (thyCopy)="copy($event)" thyCopyContent="复制的文本">复制</button>
 </section>
 <hr />
 <section class="mb-3">
@@ -14,14 +12,15 @@
 
 <section class="mb-3">
   <h5>复制input输入的文字</h5>
-  <input #target2 [(ngModel)]="inputText" style="margin-right: 15px; width: 300px" />
-  <button
-    thyButton="primary-square"
-    (thyCopy)="copy($event)"
-    [thyCopyContent]="target2"
-    [thyCopySuccessText]="inputText + '复制成功'"
-    thySize="md"
-  >
-    复制
-  </button>
+  <div class="d-flex align-items-center">
+    <input #target2 thyInput thySize="md" [(ngModel)]="inputText" style="margin-right: 15px; width: 300px" />
+    <button
+      thyButton="primary-square"
+      (thyCopy)="copy($event)"
+      [thyCopyContent]="target2"
+      [thyCopySuccessText]="inputText + '复制成功'"
+      thySize="md">
+      复制
+    </button>
+  </div>
 </section>

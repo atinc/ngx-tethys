@@ -9,12 +9,12 @@
     bottom: 0;
     left: 0;
     z-index: style.$zindex-picker-panel;
-    background: variables.$white;
+    background: variables.$bg-default;
     border-radius: variables.$border-radius-lg;
     outline: none;
     display: flex;
     flex-direction: column;
-    background: variables.$white;
+    background: variables.$bg-default;
 }
 
 .#{style.$calendar-prefix-cls}-year-panel-hidden {

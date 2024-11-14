@@ -1,15 +1,35 @@
-import { Directive, Input, ElementRef, OnInit, SimpleChanges, OnChanges, inject, DestroyRef } from '@angular/core';
+import { Directive, Input, ElementRef, OnInit, SimpleChanges, OnChanges, inject, DestroyRef, effect } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DEFAULT_WATERMARK_CONFIG, DEFAULT_CANVAS_CONFIG } from './config';
 import { MutationObserverFactory } from '@angular/cdk/observers';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { ThyThemeStore } from 'ngx-tethys/core';
 
+/**
+ * @public
+ * 水印样式配置
+ */
 export interface ThyCanvasConfigType {
+    /**
+     * 偏移角度
+     */
     degree?: number;
-    color?: string;
+    /**
+     * 字体颜色。如果传的是数组，第一个为默认主题的字体颜色，第二个为黑暗主题的字体颜色
+     */
+    color?: string | string[];
+    /**
+     * 字体大小
+     */
     fontSize?: number | string;
+    /**
+     * 文本行高
+     */
     textLineHeight?: number;
+    /**
+     * 横纵间距
+     */
     gutter?: number[];
 }
 
@@ -41,7 +61,7 @@ export class ThyWatermarkDirective implements OnInit, OnChanges {
     }
 
     /**
-     * canvas样式配置
+     * 水印样式配置
      */
     @Input() thyCanvasConfig: ThyCanvasConfigType;
 
@@ -55,6 +75,16 @@ export class ThyWatermarkDirective implements OnInit, OnChanges {
 
     private readonly destroyRef = inject(DestroyRef);
 
+    private thyThemeStore = inject(ThyThemeStore);
+
+    constructor() {
+        effect(() => {
+            if (!this.thyDisabled && this.thyThemeStore.theme()) {
+                this.refreshWatermark();
+            }
+        });
+    }
+
     ngOnInit() {
         if (!this.thyDisabled) {
             this.createWatermark$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
@@ -62,6 +92,7 @@ export class ThyWatermarkDirective implements OnInit, OnChanges {
                     .pipe(takeUntilDestroyed(this.destroyRef))
                     .subscribe(() => {});
             });
+
             this.createWatermark();
         }
     }
@@ -99,6 +130,7 @@ export class ThyWatermarkDirective implements OnInit, OnChanges {
             ...DEFAULT_CANVAS_CONFIG,
             ...(this.thyCanvasConfig || {})
         };
+        color = this.thyThemeStore.normalizeColor(color);
 
         const [xGutter, yGutter] = gutter;
         const canvas = document.createElement('canvas');

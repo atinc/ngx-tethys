@@ -1,0 +1,70 @@
+:root[theme='dark'] {
+    // palette
+    --gray-10: #2a2e34;
+    --gray-70: #32363d;
+    --gray-80: #30353c;
+    --gray-100: #393e46;
+    --gray-200: #3c414a;
+    --gray-300: #464c57;
+    --gray-400: #5b6370;
+    --gray-500: #666e7d;
+    --gray-600: #6f7a8a;
+    --gray-700: #87909e;
+    --gray-800: #bcc4d1;
+
+    // background
+    --bg-color-default: #2a2e34;
+    --bg-color-panel: #30353c;
+    --bg-color-float: #393e46;
+
+    // text
+    --text-color: #bcc4d1;
+
+    // image preview
+    --image-preview-bg-color: #32363d;
+    --image-preview-backdrop-bg-color: #3c414a;
+    --image-preview-text-color: #bcc4de;
+    --image-preview-action-bg-color: rgba(188, 196, 209, 0.1);
+    --image-preview-action-icon-color: #6f7a8a;
+    --image-preview-switch-bg-color: #464c57;
+    --image-preview-switch-hover-bg-color: #5b6370;
+    --image-preview-switch-icon-color: #6f7a8a;
+    --image-preview-switch-icon-hover-color: #87909e;
+
+    // menu dark
+    --menu-theme-dark-text-color: #bcc4d1;
+    --menu-theme-dark-icon-color: #87909e;
+    --menu-theme-dark-divider-color: #3c414a;
+
+    // carousel
+    --carousel-control-bg-color: #32363d4d;
+    --carousel-control-hover-bg-color: #32363d99;
+    --carousel-dot-bg-color: #32363d4d;
+
+    // layout
+    --layout-header-box-shadow: 0 2px 6px 0px rgba(0, 0, 0, 0.2);
+    --layout-sidebar-light-bg-color: #30353c;
+
+    // table
+    --table-fixed-column-left-box-shadow: 6px 0 6px 0 rgba(0, 0, 0, 0.1);
+    --table-fixed-column-right-box-shadow: -6px 0 6px 0 rgba(0, 0, 0, 0.1);
+
+    // segment
+    --segment-active-bg-color: #464c57;
+
+    // tooltip
+    --tooltip-bg-color: #464c57;
+
+    // calendar
+    --calendar-active-box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.3);
+
+    // checkbox
+    --checkbox-disabled-bg-color: #393e46;
+
+    // avatar
+    --avatar-disabled-color: #87909e;
+
+    // float btn
+    --float-btn-box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    --float-btn-hover-box-shadow: 0 0 10px rgba(0, 0, 0, 0.45);
+}

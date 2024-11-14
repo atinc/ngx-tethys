@@ -2,7 +2,7 @@
   <img [src]="stepRef.step.data.image" [alt]="stepRef.step.data.title" />
   <a href="javascript:;" class="thy-guider-tip-top-btn" (click)="jump()">跳过</a>
 </div>
-<div class="thy-guider-tip-content bg-white">
+<div class="thy-guider-tip-content">
   <div class="thy-guider-tip-content-title">{{ stepRef.step.data.title }}</div>
   <div class="thy-guider-tip-content-description">
     @if (descriptionTemplateRef) {
@@ -14,10 +14,7 @@
   <div class="thy-guider-tip-step">
     <div class="thy-guider-tip-step-pagination">
       @for (step of guiderRef.steps; track trackByFn(i, step); let i = $index) {
-        <span
-          class="pagination-item"
-          [ngClass]="{ active: i === stepRef.stepIndex }"
-        ></span>
+        <span class="pagination-item" [ngClass]="{ active: i === stepRef.stepIndex }"></span>
       }
     </div>
     <div class="thy-guider-tip-step-btn">

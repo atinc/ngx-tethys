@@ -1,7 +1,7 @@
 <div class="selection-list-wrapper" #body>
   <thy-selection-list
     [style.width]="'560px'"
-    [style.background]="'#fafafa'"
+    [style.background]="'var(--gray-80)'"
     [(ngModel)]="selectionModel.selectedValues"
     [thyLayout]="'grid'"
     (thySelectionChange)="selectionChange($event)">

@@ -29,6 +29,7 @@ export default {
         ThyInputModule,
         ThyMenuModule,
         ThyLayoutModule,
-        ThyActionModule
+        ThyActionModule,
+        ThyInputModule
     ]
 };

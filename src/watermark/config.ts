@@ -13,7 +13,7 @@ export const DEFAULT_WATERMARK_CONFIG = {
 
 export const DEFAULT_CANVAS_CONFIG = {
     degree: 15,
-    color: 'rgba(51, 51, 51, 0.12)',
+    color: ['rgba(51, 51, 51, 0.12)', 'rgb(60, 65, 74)'],
     fontSize: 12,
     textLineHeight: 20,
     gutter: [250, 200]

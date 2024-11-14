@@ -4,7 +4,9 @@
     display: flex;
     flex-direction: row;
     thy-slide-layout {
-        margin-right: 20px;
-        background: variables2.$white;
+        background: variables2.$bg-default;
+        &:first-child {
+            margin-right: 20px;
+        }
     }
 }

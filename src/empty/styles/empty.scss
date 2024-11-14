@@ -1,5 +1,5 @@
-@use "../../styles/variables";
-@use "mixin";
+@use '../../styles/variables';
+@use 'mixin';
 
 .thy-empty-state {
     display: block;
@@ -46,5 +46,25 @@
             variables.$empty-svg-width-sm,
             variables.$empty-svg-height-sm
         );
+    }
+}
+
+.thy-empty-svg-default,
+.thy-empty-svg-light-default {
+    display: inline-block;
+}
+.thy-empty-svg-dark,
+.thy-empty-svg-light-dark {
+    display: none;
+}
+
+:root[theme='dark'] {
+    .thy-empty-svg-default,
+    .thy-empty-svg-light-default {
+        display: none;
+    }
+    .thy-empty-svg-dark,
+    .thy-empty-svg-light-dark {
+        display: inline-block;
     }
 }

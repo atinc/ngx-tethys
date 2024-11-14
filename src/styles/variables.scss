@@ -2,18 +2,33 @@
 
 $thy-prefix: 'thy';
 
-// gray color
-$white: #fff;
-$gray-70: #f7f7f7 !default;
-$gray-80: #fafafa !default; // 选项鼠标移上去的背景色，主要用于表格 Hover 移上去的颜色 和表格的编号背景色,
-$gray-100: #f5f5f5 !default; // bordered 表格的背景色, 完成任务卡片颜色， Menu Item 移上去的背景色
-$gray-200: #eee !default; // 模块左侧导航鼠标移上去的阴影, 次分割线，部分控件描边, 消息评论图标使用
-$gray-300: #ddd !default; // 主分割线, 进度条背景色，三级图标色
-$gray-400: #cacaca !default; // 搜索框默认文字， 禁用图标颜色, 部分图标颜色,
-$gray-500: #aaa !default; // 添加参与人,负责人等操作图标的边框颜色,说明文字, 搜索框文字
-$gray-600: #999 !default; // 次要文字,如 Tab 切换文字
-$gray-700: #666 !default; // 主要文字
-$gray-800: #333 !default; // 标题和重点文字
+// colors
+$gray-10: var(--gray-10) !default; // 在默认皮肤下是白色，Dark 模式下非白色
+$gray-70: var(--gray-70) !default;
+$gray-80: var(--gray-80) !default;
+$gray-100: var(--gray-100) !default;
+$gray-200: var(--gray-200) !default;
+$gray-300: var(--gray-300) !default;
+$gray-400: var(--gray-400) !default;
+$gray-500: var(--gray-500) !default;
+$gray-600: var(--gray-600) !default;
+$gray-700: var(--gray-700) !default;
+$gray-800: var(--gray-800) !default;
+
+$white: #fff !default;
+$primary: #6698ff !default;
+$success: #73d897 !default;
+$info: #5dcfff !default;
+$warning: #ffcd5d !default;
+$danger: #ff7575 !default;
+
+$body-color: $gray-800 !default;
+$secondary: $gray-700 !default;
+$secondary-item-active: rgba($primary, 0.1) !default;
+$item-active-bg-color: rgba($primary, 0.1) !default;
+$light: $gray-300 !default;
+$dark: #48525c !default;
+$pass: #2cccda !default;
 
 // deprecated
 $gray-210: #e9e9e9 !default; //整块区域的背景色为 #f3f3f3 后，某个卡片模块的背景色，用于文件详情
@@ -21,6 +36,37 @@ $gray-210: #e9e9e9 !default; //整块区域的背景色为 #f3f3f3 后，某个�
 $gray-900: #212529 !default;
 // deprecated
 $black: #000;
+
+/** text color  */
+$text-placeholder: $gray-400 !default;
+$text-body: $gray-800 !default;
+$text-desc: $gray-500 !default;
+$text-primary: $primary !default;
+$text-secondary: $gray-700 !default;
+$text-success: $success !default;
+$text-info: $info !default;
+$text-warning: $warning !default;
+$text-danger: $danger !default;
+$text-light: $light !default;
+$text-dark: $gray-800 !default;
+$text-muted: $gray-600 !default;
+$text-white: $white !default;
+
+/** bg color */
+$bg-default: var(--bg-color-default) !default;
+$bg-lighter: $gray-100 !default;
+$bg-bright: $gray-80 !default;
+$bg-content: $gray-80 !default;
+$bg-primary: $primary !default;
+$bg-secondary: $secondary !default;
+$bg-success: $success !default;
+$bg-info: $info !default;
+$bg-warning: $warning !default;
+$bg-danger: $danger !default;
+$bg-light: $light !default;
+$bg-dark: $gray-800 !default;
+$bg-panel: var(--bg-color-panel) !default;
+$bg-float: var(--bg-color-float) !default;
 
 //px to rem
 $rem-5px: 0.3125rem;
@@ -30,20 +76,6 @@ $rem-15px: 0.9375rem;
 $rem-18px: 1.125rem;
 $rem-20px: 1.25rem;
 $rem-26px: 1.625rem;
-// color
-$body-color: $gray-800 !default;
-$primary: #6698ff !default;
-
-$secondary: $gray-700 !default;
-$success: #73d897 !default; // 2dbcff
-$info: #5dcfff !default;
-$warning: #ffcd5d !default;
-$danger: #ff7575 !default;
-$pass: #2cccda !default;
-$secondary-item-active: rgba($primary, 0.1) !default;
-$item-active-bg-color: rgba($primary, 0.1) !default;
-$light: $gray-300 !default;
-$dark: #48525c !default;
 
 // font
 $font-family-sans-serif:
@@ -68,7 +100,7 @@ $font-size-sm: 0.75rem !default; // 12px
 // 标题字体大小，header Title of card、Layout、Sidebar、Slid
 $font-size-title: 15px;
 
-$text-color: $gray-800 !default;
+$text-color: var(--text-color) !default;
 $text-color-inverse: $white !default;
 
 // line-height
@@ -97,6 +129,7 @@ $link-disabled-opacity: 50% !default;
 
 // box shadow
 $box-shadow: 0 0 16px rgb(0 0 0 / 8%) !default;
+$box-shadow-none: none !default;
 
 // icon
 $icon-vertical-align: -0.16em !default;
@@ -146,6 +179,7 @@ $btn-border-radius-lg: 4px !default;
 $btn-border-radius-sm: 4px !default;
 $btn-border-radius-xs: 4px !default;
 $btn-box-shadow: null !default;
+$btn-active-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) !default;
 
 $btn-line-height: $input-btn-line-height;
 $btn-line-height-sm: $input-btn-line-height-sm;
@@ -248,8 +282,6 @@ $input-height-md: $input-btn-height-md !default;
 $input-height-lg: $input-btn-height-lg !default;
 // others
 $input-focus-border-color: $primary !default;
-$input-btn-focus-box-shadow: none !default;
-$input-box-shadow: none !default;
 $input-placeholder-color: $gray-400 !default;
 $input-color: $gray-800 !default;
 $input-focus-bg: transparent !default;
@@ -278,13 +310,13 @@ $form-check-input-margin-l: 1rem !default;
 $form-check-inline-margin-r: 0.75rem !default;
 $form-check-inline-input-margin-r: 0 !default;
 $form-check-label-margin-l: 0.5rem !default;
+$checkbox-disabled-bg-color: var(--checkbox-disabled-bg-color) !default;
 
 // Dropdown
 $dropdown-menu-width: 240px !default;
 $dropdown-menu-group-width: 280px !default;
 $dropdown-menu-padding-y: 12px;
 $dropdown-menu-max-height: 400px !default;
-$dropdown-menu-bg: $white !default;
 $dropdown-menu-item-padding-x: 20px !default;
 $dropdown-menu-item-padding-y: 9px !default;
 $dropdown-menu-item-color: $gray-800 !default;
@@ -311,7 +343,7 @@ $pop-box-top-margin: 3px !default;
 $zindex-pop-box: 1080 !default;
 
 // Layout
-$layout-header-background: $white !default;
+$layout-header-background: $bg-default !default;
 $layout-header-padding: 0 20px !default;
 $layout-header-height: 48px !default;
 $layout-header-height-sm: 44px !default;
@@ -320,12 +352,11 @@ $layout-header-height-xlg: 100px !default;
 $layout-header-prefix-icon-size: 20px !default;
 $layout-header-separator-color: $gray-500 !default;
 $layout-header-icon-link-opacity: 0.85;
-$layout-header-box-shadow: 0 4px 8px 0px #00000008 !default;
-
+$layout-header-box-shadow: var(--layout-header-box-shadow) !default;
 $layout-content-background: $gray-80 !default;
 $layout-content-padding: 15px 20px 15px 20px !default;
 $layout-sidebar-width: 240px !default;
-$layout-sidebar-background-light: #fbfbfb !default;
+$layout-sidebar-background-light: var(--layout-sidebar-light-bg-color) !default;
 $layout-sidebar-background-dark: $gray-800 !default;
 $layout-sidebar-border-color: $gray-200 !default;
 $layout-sidebar-border-right: 1px solid $layout-sidebar-border-color !default;
@@ -336,8 +367,12 @@ $layout-sidebar-header-title-font-size: $font-size-title !default;
 $layout-sidebar-header-padding: $layout-header-padding !default;
 $layout-sidebar-footer-height: 48px !default;
 $layout-content-section-border-radius: 0px !default;
-$layout-content-section-background: $white !default;
+$layout-content-section-background: $bg-default !default;
 $layout-content-section-margin-bottom: 8px !default;
+
+$float-btn-box-shadow: var(--float-btn-box-shadow) !default;
+$float-btn-hover-box-shadow: var(--float-btn-hover-box-shadow) !default;
+
 // Tables
 $table-color: $gray-800;
 $table-bg: transparent !default;
@@ -379,6 +414,8 @@ $table-default-sm-header-padding: 8px 16px !default;
 $table-default-header-height: inherit !default;
 $table-group-first-cell-padding-left: 43px !default;
 $table-operation-column-spacing: 32px !default;
+$table-fixed-column-left-box-shadow: var(--table-fixed-column-left-box-shadow) !default;
+$table-fixed-column-right-box-shadow: var(--table-fixed-column-right-box-shadow) !default;
 
 // grid
 $table-footer-padding: 0 20px !default;
@@ -403,37 +440,12 @@ $tag-colors: () !default;
 $tag-colors: map.merge(
     (
         'primary': $primary,
-        'secondary': $secondary,
         'info': $info,
         'success': $success,
         'warning': $warning,
         'danger': $danger
     ),
     $tag-colors
-);
-
-$tag-bg-hover-colors: () !default;
-$tag-bg-hover-colors: map.merge(
-    (
-        'primary': #4d87ff,
-        'info': #44c7ff,
-        'success': #5fd288,
-        'warning': #ffc544,
-        'danger': #ff5c5c
-    ),
-    $tag-bg-hover-colors
-);
-
-$tag-weak-fill-bg-hover-colors: () !default;
-$tag-weak-fill-bg-hover-colors: map.merge(
-    (
-        'primary': #4d87ff1a,
-        'info': #44c7ff1a,
-        'success': #5fd2881a,
-        'warning': #ffc5441a,
-        'danger': #ff5c5c1a
-    ),
-    $tag-weak-fill-bg-hover-colors
 );
 
 $tag-height-sm: 20px !default;
@@ -483,6 +495,7 @@ $avatar-sizes: map.merge(
 // avatar-list
 $avatar-item-space: 4px !default;
 $overlap-avatar-item-space-percent: 0.25 !default;
+$avatar-disabled-color: var(--avatar-disabled-color) !default;
 
 // Navs
 $nav-item-disabled-color: $gray-400 !default;
@@ -642,14 +655,12 @@ $notify-margin-bottom: 10px !default;
 $notify-line-height: 1.5 !default;
 $notify-padding: 18px !default;
 $notify-border-radius-width: 4px !default;
-$notify-bg: $white !default;
 $notify-success: $success !default;
 $notify-info: $info !default;
 $notify-warning: $warning !default;
 $notify-danger: $danger !default;
 $notify-title-color: $gray-800 !default;
 $notify-icon-font-size: 18px !default;
-$notify-box-shadow: $box-shadow !default;
 $notify-content-color: $gray-500 !default;
 $notify-close-color: $gray-400 !default;
 $notify-close-hover-color: $gray-600 !default;
@@ -666,9 +677,8 @@ $message-z-index: 1100 !default;
 $message-spacing: 20px !default;
 $message-margin-bottom: 10px !default;
 $message-border-radius-width: 4px !default;
-$message-bg: $white !default;
 $message-border: 1px solid $gray-200 !default;
-$message-box-shadow: 0px 4px 10px 0px rgba($gray-800, 0.1) !default;
+$message-box-shadow: $box-shadow !default;
 $message-icon-font-size: $font-size-md !default;
 $message-icon-margin: 8px !default;
 $message-close-color: $gray-400 !default;
@@ -747,7 +757,7 @@ $progress-circle-height-lg: 160px !default;
 $progress-circle-height-sm: 80px !default;
 $progress-circle-height-xs: 44px !default;
 $progress-bg: $gray-200 !default;
-$progress-split-color: $white !default;
+$progress-split-color: $bg-default !default;
 $progress-circle-border-radius: 100px !default;
 $progress-circle-font-size: 1rem !default;
 $progress-circle-color: $gray-800 !default;
@@ -846,11 +856,13 @@ $menu-group-margin-left: 15px !default;
 $menu-divider-margin: 10px 20px !default;
 $menu-loose-item-padding: 0 12px 0 20px !default;
 $menu-loose-item-border-radius: 4px !default;
-$menu-theme-dark-color: $gray-300 !default; // #ddd
-$menu-theme-dark-hover-color: $gray-300 !default;
-$menu-theme-dark-bg-color: $dark !default;
+$menu-theme-dark-color: var(--menu-theme-dark-text-color) !default;
+$menu-theme-dark-icon-color: var(--menu-theme-dark-icon-color) !default;
+$menu-theme-dark-hover-color: var(--menu-theme-dark-hover-color) !default;
+$menu-theme-dark-hover-icon-color: var(--menu-theme-dark-hover-icon-color) !default;
+$menu-theme-dark-bg-color: #48525c !default;
 $menu-theme-dark-hover-bg-color: #39414c !default;
-$menu-theme-dark-divider-color: $gray-700 !default; //#666
+$menu-theme-dark-divider-color: var(--menu-theme-dark-divider-color) !default;
 $menu-collapsed-width: 60px !default;
 $menu-collapsed-height: 60px !default;
 $menu-collapsed-icon-size: 20px !default;
@@ -886,18 +898,17 @@ $pagination-padding-x: 0.375rem !default;
 $pagination-color: $gray-500 !default;
 $pagination-number-color: $gray-700 !default;
 $pagination-font-size: 12px !default;
-$pagination-bg: $white !default;
+$pagination-bg: $bg-default !default;
 $pagination-border-width: 1px !default;
 $pagination-border-color: $gray-200 !default;
-$pagination-focus-box-shadow: none !default;
 $pagination-hover-color: $link-hover-color !default;
-$pagination-hover-bg: $white !default;
+$pagination-hover-bg: $bg-default !default;
 $pagination-hover-border-color: $gray-200 !default;
 $pagination-active-color: $white !default;
 $pagination-active-bg: $primary !default;
 $pagination-active-border-color: $primary !default;
 $pagination-disabled-color: $gray-400 !default;
-$pagination-disabled-bg: $white !default;
+$pagination-disabled-bg: $bg-default !default;
 $pagination-disabled-border-color: $gray-200 !default;
 $pagination-total-pages-color: $gray-700;
 $pagination-jumper-margin: 0 10px !default;
@@ -911,7 +922,7 @@ $pagination-page-size-width-lg: 7.875rem;
 $tooltip-font-size: $font-size-base !default;
 $tooltip-max-width: 350px !default;
 $tooltip-color: $white !default;
-$tooltip-bg: rgba(0, 0, 0, 0.75) !default;
+$tooltip-bg: var(--tooltip-bg-color) !default;
 $tooltip-border-radius: $border-radius !default;
 $tooltip-opacity: 0.9 !default;
 $tooltip-padding-y: 0.375rem !default;
@@ -1020,8 +1031,7 @@ $divider-colors: map.merge(
 // segment
 $segment-container-padding: 2px !default;
 $segment-border-radius: 2px !default;
-$segment-bg: $gray-100 !default;
-$segment-item-active-bg: $white !default;
+$segment-active-bg-color: var(--segment-active-bg-color) !default;
 $segment-height-default: 36px !default;
 $segment-height-md: 32px !default;
 $segment-height-sm: 28px !default;
@@ -1047,6 +1057,9 @@ $segment-icon-with-text-default-color: $gray-600 !default;
 $segment-icon-with-text-active-color: $gray-700 !default;
 $segment-icon-with-text-hover-color: $gray-700 !default;
 $segment-disabled-color: $gray-500 !default;
+$segment-active-box-shadow:
+    0 0 1px 0 rgba(0, 0, 0, 0.1),
+    0 1px 4px -1px rgba(0, 0, 0, 0.1) !default;
 
 // collapse
 $collapse-border-color: $gray-200 !default;
@@ -1117,6 +1130,31 @@ $skeleton-row-radius: 4px;
 $skeleton-row-width: 100%;
 $skeleton-primary-color: $gray-70;
 $skeleton-animated-interval: 1.5s;
+
+// image
+$image-preview-bg-color: var(--image-preview-bg-color) !default;
+$image-preview-backdrop-bg-color: var(--image-preview-backdrop-bg-color) !default;
+$image-preview-text-color: var(--image-preview-text-color) !default;
+$image-preview-action-bg-color: var(--image-preview-action-bg-color) !default;
+$image-preview-action-icon-color: var(--image-preview-action-icon-color) !default;
+$image-preview-switch-bg-color: var(--image-preview-switch-bg-color) !default;
+$image-preview-switch-hover-bg-color: var(--image-preview-switch-hover-bg-color) !default;
+$image-preview-switch-icon-color: var(--image-preview-switch-icon-color) !default;
+$image-preview-switch-icon-hover-color: var(--image-preview-switch-icon-hover-color) !default;
+
+// carousel
+$carousel-dot-bg-color: var(--carousel-dot-bg-color) !default;
+$carousel-control-bg-color: var(--carousel-control-bg-color) !default;
+$carousel-control-hover-bg-color: var(--carousel-control-hover-bg-color) !default;
+
+// color-picker
+$color-picker-pointer-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.5) !default;
+
+// calendar
+$calendar-active-box-shadow: var(--calendar-active-box-shadow) !default;
+
+// drag drop
+$cdk-drag-preview-box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.08) !default;
 
 // Prevent style packing optimization
 $zero: 0;

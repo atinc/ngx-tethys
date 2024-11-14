@@ -8,7 +8,7 @@
         }
         .thy-slider-pointer {
             border-color: $color;
-            background-color: variables.$white;
+            background-color: variables.$bg-default;
         }
     }
 }
@@ -99,7 +99,7 @@
             height: 14px;
             border-width: 1px;
             border-style: solid;
-            background-color: variables.$white;
+            background-color: variables.$bg-default;
         }
     }
 

@@ -2,24 +2,12 @@
 @use './demo-alert.scss';
 
 .bg-example {
-    background: #edf1f6;
+    background: var(--dg-gray-100);
 }
 
 .bg-example-striped,
 .demo-layout-backdrop {
     padding: 12px;
     background-size: 25px 25px;
-    background-color: #ccc;
-    background-image: -webkit-gradient(
-        linear,
-        0 100%,
-        100% 0,
-        color-stop(0.25, rgba(255, 255, 255, 0.2)),
-        color-stop(0.25, transparent),
-        color-stop(0.5, transparent),
-        color-stop(0.5, rgba(255, 255, 255, 0.2)),
-        color-stop(0.75, rgba(255, 255, 255, 0.2)),
-        color-stop(0.75, transparent),
-        to(transparent)
-    );
+    background-color: var(--dg-gray-100);
 }

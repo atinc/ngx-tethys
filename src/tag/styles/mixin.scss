@@ -1,13 +1,18 @@
+@use 'sass:color';
 @use '../../styles/variables.scss';
 
-@mixin tag-bg-variant($bg-color, $bg-hover-color) {
+@mixin tag-bg-variant($bg-color, $hover-bg-color: null) {
     & {
         background-color: $bg-color;
     }
 
     &.thy-tag-hover {
         &:hover {
-            background-color: $bg-hover-color;
+            @if $hover-bg-color != null {
+                background-color: $hover-bg-color;
+            } @else {
+                background-color: color.adjust($bg-color, $lightness: -5%);
+            }
             cursor: variables.$hand-cursor;
         }
     }
@@ -47,44 +52,4 @@
     .thy-icon {
         font-size: $icon-font-size;
     }
-    // @if $size == lg {
-    //     &-#{$size} {
-    //         height: $height;
-    //         padding: {
-    //             left: $padding-x;
-    //             right: $padding-x;
-    //         }
-    //         font-size: variables.$font-size-base;
-    //         .i,
-    //         .thy-icon {
-    //             font-size: variables.$font-size-md;
-    //         }
-    //     }
-    // } @else if $size == md {
-    //     &-#{$size} {
-    //         height: $height;
-    //         font-size: variables.$font-size-sm;
-    //         padding: {
-    //             left: $padding-x;
-    //             right: $padding-x;
-    //         }
-    //         .i,
-    //         .thy-icon {
-    //             font-size: variables.$font-size-base;
-    //         }
-    //     }
-    // } @else {
-    //     &-#{$size} {
-    //         height: $height;
-    //         font-size: variables.$font-size-sm;
-    //         padding: {
-    //             left: $padding-x;
-    //             right: $padding-x;
-    //         }
-    //         .i,
-    //         .thy-icon {
-    //             font-size: variables.$font-size-sm;
-    //         }
-    //     }
-    // }
 }

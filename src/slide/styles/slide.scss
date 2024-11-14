@@ -1,5 +1,5 @@
-@use "../../styles/variables";
-@use "sass:map";
+@use '../../styles/variables';
+@use 'sass:map';
 
 $directions: (('left', 'right'), ('right', 'left'), ('top', 'bottom'), ('bottom', 'top'));
 
@@ -67,6 +67,7 @@ $directions: (('left', 'right'), ('right', 'left'), ('top', 'bottom'), ('bottom'
     flex: auto;
     flex-direction: column;
     height: 100%;
+    background: variables.$bg-default;
 
     .thy-slide-header {
         display: flex;

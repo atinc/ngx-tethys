@@ -114,7 +114,6 @@
             &:not(.disabled:not(.expand)) {
                 &.hover,
                 &:hover {
-                    // @include item-box-shadow();
                     background-color: variables.$gray-100;
                 }
 
@@ -138,7 +137,7 @@
         &-edit {
             width: 100%;
             input {
-                background-color: variables.$white;
+                background-color: variables.$bg-default;
             }
         }
 
@@ -233,7 +232,7 @@
                     top: -5px;
                     width: 8px;
                     height: 8px;
-                    background-color: variables.$white;
+                    background-color: variables.$bg-default;
                     border: 2px solid variables.$primary;
                     border-radius: 50%;
                 }
@@ -253,7 +252,7 @@
                     bottom: -5px;
                     width: 8px;
                     height: 8px;
-                    background-color: variables.$white;
+                    background-color: variables.$bg-default;
                     border: 2px solid variables.$primary;
                     border-radius: 50%;
                 }
@@ -277,7 +276,6 @@
 }
 
 .thy-tree-node.cdk-drag-preview {
-    opacity: 0.9;
     .thy-tree-node-wrapper.active {
         background: unset !important;
         color: unset !important;
