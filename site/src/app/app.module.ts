@@ -183,10 +183,11 @@ export class AppModule {
         const iconSvgUrl = `assets/icons/defs/svg/sprite.defs.svg`;
         iconRegistry.addSvgIconSet(sanitizer.bypassSecurityTrustResourceUrl(iconSvgUrl));
 
-        observeTheme(this.themeObserver, this.destroyRef, () => {
+        const themeChangedAction = () => {
             const theme = (document.documentElement.getAttribute('theme') as ThyTheme) || ThyTheme.light;
             this.thyThemeStore.setTheme(theme);
-        })
+        };
+        observeTheme(this.themeObserver, this.destroyRef, themeChangedAction)
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe(() => {});
     }

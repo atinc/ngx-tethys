@@ -86,10 +86,10 @@ export class ThyWatermarkDirective implements OnInit, OnChanges {
                     .pipe(takeUntilDestroyed(this.destroyRef))
                     .subscribe(() => {});
 
-                const callBack = () => {
+                const themeChangedAction = () => {
                     this.refreshWatermark();
                 };
-                observeTheme(this.themeObserver, this.destroyRef, callBack)
+                observeTheme(this.themeObserver, this.destroyRef, themeChangedAction)
                     .pipe(takeUntilDestroyed(this.destroyRef))
                     .subscribe(() => {});
             });
