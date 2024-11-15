@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, Signal, signal } from '@angular/core';
 import { ThyTheme } from './theme';
 
 @Injectable({
@@ -6,6 +6,14 @@ import { ThyTheme } from './theme';
 })
 export class ThyThemeStore {
     readonly theme = signal<ThyTheme>(ThyTheme.light);
+
+    readonly isDark: Signal<boolean> = computed(() => {
+        const theme = this.theme();
+        return (
+            theme === ThyTheme.dark ||
+            (theme === ThyTheme.system && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        );
+    });
 
     constructor() {}
 
@@ -30,13 +38,5 @@ export class ThyThemeStore {
                 }
             }
         }
-    }
-
-    isDark() {
-        const theme = this.theme();
-        return (
-            theme === ThyTheme.dark ||
-            (theme === ThyTheme.system && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
-        );
     }
 }
