@@ -41,6 +41,10 @@ export default {
         success: 'Copied',
         error: 'Failed'
     },
+    treeSelect: {
+        placeholder: 'Please select',
+        empty: 'No data available'
+    },
     cascader: {
         placeholder: 'Please select',
         empty: 'No data available'

@@ -1,4 +1,13 @@
-export type ThyModuleType = 'datePicker' | 'timePicker' | 'calendar' | 'transfer' | 'colorPicker' | 'guider' | 'copy' | 'cascader';
+export type ThyModuleType =
+    | 'datePicker'
+    | 'timePicker'
+    | 'calendar'
+    | 'transfer'
+    | 'colorPicker'
+    | 'guider'
+    | 'copy'
+    | 'treeSelect'
+    | 'cascader';
 
 export type ThyModuleLocaleType<K extends ThyModuleType> = ThyI18nLocale[K];
 
@@ -11,6 +20,7 @@ export interface ThyI18nLocale {
     colorPicker: ThyColorPickerLocale;
     guider: ThyGuiderLocale;
     copy: ThyCopyLocale;
+    treeSelect: ThyTreeSelectLocale;
     cascader: ThyCascaderLocale;
 }
 
@@ -60,6 +70,11 @@ export interface ThyCopyLocale {
     tips: string;
     success: string;
     error: string;
+}
+
+export interface ThyTreeSelectLocale {
+    placeholder: string;
+    empty: string;
 }
 
 export interface ThyCascaderLocale {
