@@ -41,5 +41,9 @@ export default {
         tips: '点击复制',
         success: '复制成功',
         error: '复制失败'
+    },
+    treeSelect: {
+        placeholder: '请选择节点',
+        empty: '暂时没有数据可选'
     }
 };
