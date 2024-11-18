@@ -17,7 +17,7 @@ import { NgClass } from '@angular/common';
 })
 export class MonthHeader extends CalendarHeader {
     getSelectors(): PanelSelector[] {
-        let yearFormat = this.locale.datePicker.yearFormat;
+        let yearFormat = this.locale.yearFormat;
         return [
             {
                 className: `${this.prefixCls}-month-btn`,

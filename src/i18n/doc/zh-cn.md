@@ -35,21 +35,36 @@ export class AppComponent {
 ## 获取当前语言包
 使用 `useLocale` 函数获取当前语言包。
 ```ts
-import { useLocale } from 'ngx-tethys/i18n';
+import { useLocale, ThyI18nLocale } from 'ngx-tethys/i18n';
 
 @Component({
     selector: 'thy-use-locale-example',
     template: `
-        <div>{{ locale.calendar.today }}</div>
-        <div>{{ date | thyDatePickerFormat: locale.datePicker.dateFormat }}</div>
+        <div>当前语言包：{{ locale.id }}</div>
     `
 })
-export class ThyI18nBasicExampleComponent {
-    date = new Date();
-    locale = useLocale();
+export class ThyI18nUseLocaleExampleComponent {
+    locale: ThyI18nLocale = useLocale()();
 }
 ```
 
+
+## 获取指定组件的语言包
+使用 `injectLocale` 函数获取当前语言包。
+```ts
+import { injectLocale, ThyCalendarLocale } from 'ngx-tethys/i18n';
+
+@Component({
+    selector: 'thy-inject-locale-example',
+    template: `
+        <div>{{ date | thyDatePickerFormat: locale.dateFormat }}</div>
+    `
+})
+export class ThyI18nInjectLocaleExampleComponent {
+    date = new Date();
+    locale: ThyCalendarLocale = injectLocale('datePicker')();
+}
+```
 
 
 ## 全局配置

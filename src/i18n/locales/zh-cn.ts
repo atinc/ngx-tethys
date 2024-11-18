@@ -8,11 +8,11 @@ export default {
         weekFormat: 'EEEEE', // Used in date picker table （六）
         fullWeekFormat: 'EE', // Used in calendar (周六)
         weekThFormat: 'yyyy-ww周', // Used in week picker
-        yearMonthFormat: 'yyyy年MM月', // Used in calendar
         dateFormat: 'yyyy年MM月dd日'
     },
     calendar: {
-        today: '今天'
+        today: '今天',
+        yearMonthFormat: 'yyyy年MM月'
     },
     transfer: {
         maxLimit: '(上限{max}个)',

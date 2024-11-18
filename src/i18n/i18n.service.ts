@@ -16,10 +16,7 @@ export class ThyI18nService {
 
     private defaultLocaleId: string = normalizeLocale(inject(THY_I18N_LOCALE_ID, { optional: true })) || 'zh-cn';
 
-    /**
-     * 当前语言包
-     */
-    locale: ThyI18nLocale = this.locales[this.defaultLocaleId];
+    private locale: ThyI18nLocale = this.locales[this.defaultLocaleId];
 
     /**
      * 设置语言
@@ -28,5 +25,12 @@ export class ThyI18nService {
     setLocale(id: string) {
         const localeId = normalizeLocale(id);
         this.locale = this.locales[localeId] || this.locales[this.defaultLocaleId];
+    }
+
+    /**
+     * 获取当前语言
+     */
+    getLocale() {
+        return this.locale;
     }
 }

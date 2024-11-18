@@ -2,14 +2,14 @@
   <span class="thy-transfer-list-header-title"
     >{{ title }} · {{ items?.length }}
     @if (max) {
-      <span>{{ locale.transfer.maxLimit.replace('{max}', max) }}</span>
+      <span>{{ locale.maxLimit.replace('{max}', max) }}</span>
     }
   </span>
 </div>
 @if (!contentRef) {
   <div class="thy-transfer-list-body" cdkDropListGroup [cdkDropListGroupDisabled]="!draggable">
     @if (canLock) {
-      <div class="thy-transfer-list-group-name">{{ locale.transfer.maxLockLimit.replace('{maxLock}', maxLock) }}</div>
+      <div class="thy-transfer-list-group-name">{{ locale.maxLockLimit.replace('{maxLock}', maxLock) }}</div>
       <thy-list
         class="thy-transfer-list-content"
         cdkDropList
@@ -31,7 +31,7 @@
           </thy-list-item>
         }
       </thy-list>
-      <div class="thy-transfer-list-group-name">{{ locale.transfer.unlocked }}</div>
+      <div class="thy-transfer-list-group-name">{{ locale.unlocked }}</div>
     }
     <thy-list
       class="thy-transfer-list-content"

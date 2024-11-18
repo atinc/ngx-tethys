@@ -2,14 +2,14 @@ import { Directive, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 import { SafeAny } from 'ngx-tethys/types';
 import { FunctionProp, isTemplateRef, TinyDate } from 'ngx-tethys/util';
 import { DateCell, DateBodyRow } from '../date/types';
-import { useLocale } from 'ngx-tethys/i18n';
+import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
 
 /**
  * @private
  */
 @Directive()
 export abstract class CalendarTable implements OnInit, OnChanges {
-    locale = useLocale();
+    locale: ThyDatePickerLocale = injectLocale('datePicker')();
     isTemplateRef = isTemplateRef;
     headRow: DateCell[] = [];
     bodyRows: DateBodyRow[] = [];

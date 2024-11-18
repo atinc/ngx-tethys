@@ -33,7 +33,7 @@ import {
 } from './standard-types';
 import { ThyDatePickerConfigService } from './date-picker.service';
 import { SafeAny } from 'ngx-tethys/types';
-import { useLocale } from 'ngx-tethys/i18n';
+import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
 
 /**
  * @private
@@ -45,7 +45,7 @@ export abstract class AbstractPickerComponent
 {
     cdr = inject(ChangeDetectorRef);
 
-    locale = useLocale();
+    locale: ThyDatePickerLocale = injectLocale('datePicker')();
 
     thyValue: CompatibleValue | null;
 

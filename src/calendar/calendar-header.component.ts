@@ -6,7 +6,7 @@ import { ChangeDetectorRef, Component, EventEmitter, HostBinding, Input, OnInit,
 import { ThyButton } from 'ngx-tethys/button';
 import { NgTemplateOutlet, JsonPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { useLocale } from 'ngx-tethys/i18n';
+import { injectLocale, ThyCalendarLocale } from 'ngx-tethys/i18n';
 import { DateHelperService } from 'ngx-tethys/date-picker';
 
 /**
@@ -23,7 +23,7 @@ import { DateHelperService } from 'ngx-tethys/date-picker';
 export class ThyCalendarHeader implements OnInit {
     private cdr = inject(ChangeDetectorRef);
     private dateHelper = inject(DateHelperService);
-    private locale = useLocale();
+    private locale: ThyCalendarLocale = injectLocale('calendar')();
 
     @HostBinding('class.thy-calendar-full-header-container') className = true;
 
@@ -55,7 +55,7 @@ export class ThyCalendarHeader implements OnInit {
      */
     @Output() readonly dateRangeChange: EventEmitter<DateRangeItemInfo> = new EventEmitter();
 
-    public pickerFormat = this.locale.datePicker.yearMonthFormat;
+    public pickerFormat = this.locale.yearMonthFormat;
 
     public dateRanges: DateRangeItemInfo[] = [
         {

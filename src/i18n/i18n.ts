@@ -1,3 +1,5 @@
+export type ThyComponentKeyType = 'datePicker' | 'calendar' | 'transfer' | 'guider';
+
 export interface ThyI18nLocale {
     id: string;
     datePicker: ThyDatePickerLocale;
@@ -13,12 +15,12 @@ export interface ThyDatePickerLocale {
     weekFormat: string;
     fullWeekFormat: string;
     weekThFormat: string;
-    yearMonthFormat: string;
     dateFormat: string;
 }
 
 export interface ThyCalendarLocale {
     today: string;
+    yearMonthFormat: string;
 }
 
 export interface ThyTransferLocale {
