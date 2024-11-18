@@ -82,12 +82,12 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ThyTheme, ThyThemeStore } from 'ngx-tethys/core';
 import { Observable, Subject } from 'rxjs';
 import { MutationObserverFactory } from '@angular/cdk/observers';
-import { registerLocaleData } from '@angular/common';
-import zh from '@angular/common/locales/zh';
-import en from '@angular/common/locales/en';
 
-registerLocaleData(zh);
-registerLocaleData(en);
+function thyPopoverDefaultConfigFactory(overlay: Overlay) {
+    return {
+        scrollStrategy: overlay.scrollStrategies.close()
+    };
+}
 
 const TETHYS_MODULES = [
     ThyLayoutModule,
