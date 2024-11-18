@@ -1,6 +1,6 @@
 <div class="thy-guider-tip-top">
   <img [src]="stepRef.step.data.image" [alt]="stepRef.step.data.title" />
-  <a href="javascript:;" class="thy-guider-tip-top-btn" (click)="jump()">跳过</a>
+  <a href="javascript:;" class="thy-guider-tip-top-btn" (click)="jump()">{{ locale().skip }}</a>
 </div>
 <div class="thy-guider-tip-content">
   <div class="thy-guider-tip-content-title">{{ stepRef.step.data.title }}</div>
@@ -19,12 +19,12 @@
     </div>
     <div class="thy-guider-tip-step-btn">
       @if (stepRef.stepIndex !== 0) {
-        <a href="javascript:;" (click)="prev()" class="thy-guider-tip-step-pre">上一步</a>
+        <a href="javascript:;" (click)="prev()" class="thy-guider-tip-step-pre">{{ locale().prev }}</a>
       }
       @if (stepRef.stepIndex !== guiderRef.steps.length - 1) {
-        <a href="javascript:;" (click)="next()" class="thy-guider-tip-step-next">下一步</a>
+        <a href="javascript:;" (click)="next()" class="thy-guider-tip-step-next">{{ locale().next }}</a>
       } @else {
-        <a href="javascript:;" (click)="end()" class="thy-guider-tip-step-next">完成</a>
+        <a href="javascript:;" (click)="end()" class="thy-guider-tip-step-next">{{ locale().finish }}</a>
       }
     </div>
   </div>
