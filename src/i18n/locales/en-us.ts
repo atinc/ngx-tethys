@@ -18,6 +18,13 @@ export default {
         maxLockLimit: 'Lock (Max limit: {maxLock})',
         unlocked: 'Unlocked'
     },
+    colorPicker: {
+        defaultColor: 'Default color',
+        noFillColor: 'No fill color',
+        recentUsedColor: 'Recently used custom color',
+        customColor: 'Custom color',
+        none: 'None'
+    },
     guider: {
         skip: 'Skip',
         prev: 'Previous step',
