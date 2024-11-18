@@ -4,7 +4,7 @@
       <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
     }
   </thy-select>
-  <thy-custom-select ngModel="option2" [thyAllowClear]="true" [thyPlaceHolder]="'请选择'">
+  <thy-custom-select ngModel="option2" [thyAllowClear]="true" [thyPlaceHolder]="locale().placeholder">
     @for (option of listOfOption; track option.value) {
       <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
     }
