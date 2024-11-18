@@ -23,6 +23,11 @@ export default {
         prev: 'Previous step',
         next: 'Next step',
         finish: 'Finish'
+    },
+    copy: {
+        tips: 'Click to copy',
+        success: 'Copied',
+        error: 'Failed'
     }
 };
 
