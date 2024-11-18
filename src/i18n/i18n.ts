@@ -4,6 +4,7 @@ export type ThyModuleType =
     | 'calendar'
     | 'transfer'
     | 'colorPicker'
+    | 'strength'
     | 'guider'
     | 'copy'
     | 'select'
