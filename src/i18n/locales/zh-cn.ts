@@ -42,6 +42,10 @@ export default {
         success: '复制成功',
         error: '复制失败'
     },
+    select: {
+        placeholder: '请选择节点',
+        empty: '暂时没有数据可选'
+    },
     treeSelect: {
         placeholder: '请选择节点',
         empty: '暂时没有数据可选'

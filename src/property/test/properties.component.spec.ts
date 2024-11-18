@@ -149,7 +149,9 @@ describe(`thy-properties`, () => {
                 basicComponent.user.age.toString()
             );
             expect(items[2].query(By.css('.thy-property-item-label')).nativeElement.innerText).toEqual('性别');
-            expect(items[2].query(By.css('.thy-property-item-content')).nativeElement.innerText).toEqual(basicComponent.user.sex);
+            expect(items[2].query(By.css('.thy-property-item-content .thy-property-item-content-text')).nativeElement.innerText).toEqual(
+                basicComponent.user.sex
+            );
         });
 
         it('should change layout success', () => {
