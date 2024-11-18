@@ -4,6 +4,7 @@ export type ThyModuleType =
     | 'calendar'
     | 'transfer'
     | 'colorPicker'
+    | 'strength'
     | 'guider'
     | 'copy'
     | 'select'
@@ -19,6 +20,7 @@ export interface ThyI18nLocale {
     calendar: ThyCalendarLocale;
     transfer: ThyTransferLocale;
     colorPicker: ThyColorPickerLocale;
+    strength: ThyStrengthLocale;
     guider: ThyGuiderLocale;
     copy: ThyCopyLocale;
     select: ThySelectLocale;
@@ -59,6 +61,13 @@ export interface ThyColorPickerLocale {
     recentUsedColor: string;
     customColor: string;
     none: string;
+}
+
+export interface ThyStrengthLocale {
+    highest: string;
+    high: string;
+    medium: string;
+    low: string;
 }
 
 export interface ThyGuiderLocale {

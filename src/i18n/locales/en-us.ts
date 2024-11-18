@@ -30,6 +30,12 @@ export default {
         customColor: 'Custom color',
         none: 'None'
     },
+    strength: {
+        highest: 'Highest',
+        high: 'High',
+        medium: 'Medium',
+        low: 'Low'
+    },
     guider: {
         skip: 'Skip',
         prev: 'Previous step',

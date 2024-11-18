@@ -31,6 +31,12 @@ export default {
         customColor: '自定义颜色',
         none: '暂无'
     },
+    strength: {
+        highest: '最高',
+        high: '高',
+        medium: '中',
+        low: '低'
+    },
     guider: {
         skip: '跳过',
         prev: '上一步',
