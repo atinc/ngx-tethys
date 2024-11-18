@@ -59,5 +59,15 @@ export default {
     cascader: {
         placeholder: '请选择',
         empty: '暂无可选项'
+    },
+    pagination: {
+        page: '页',
+        order: '第',
+        total: '共',
+        totalCount: '共{total}页',
+        jumpTo: '跳至',
+        firstPage: '第一页',
+        lastPage: '最后一页',
+        defaultUnit: '条'
     }
 };

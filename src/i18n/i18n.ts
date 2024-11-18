@@ -9,7 +9,8 @@ export type ThyModuleType =
     | 'copy'
     | 'select'
     | 'treeSelect'
-    | 'cascader';
+    | 'cascader'
+    | 'pagination';
 
 export type ThyModuleLocaleType<K extends ThyModuleType> = ThyI18nLocale[K];
 
@@ -26,6 +27,7 @@ export interface ThyI18nLocale {
     select: ThySelectLocale;
     treeSelect: ThyTreeSelectLocale;
     cascader: ThyCascaderLocale;
+    pagination: ThyPaginationLocale;
 }
 
 export interface ThyDatePickerLocale {
@@ -96,4 +98,14 @@ export interface ThyTreeSelectLocale {
 export interface ThyCascaderLocale {
     placeholder: string;
     empty: string;
+}
+
+export interface ThyPaginationLocale {
+    page: string;
+    total: string;
+    totalCount: string;
+    jumpTo: string;
+    firstPage: string;
+    lastPage: string;
+    defaultUnit: string;
 }
