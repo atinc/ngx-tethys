@@ -1,8 +1,9 @@
-import { Directive, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, inject } from '@angular/core';
+import { Directive, EventEmitter, Input, OnChanges, OnInit, Output, Signal, SimpleChanges, inject } from '@angular/core';
 
 import { ThyPanelMode } from '../../standard-types';
 import { TinyDate } from 'ngx-tethys/util';
 import { DateHelperService } from '../../date-helper.service';
+import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
 
 export interface PanelSelector {
     className: string;
@@ -17,6 +18,7 @@ export interface PanelSelector {
 @Directive()
 export abstract class CalendarHeader implements OnInit, OnChanges {
     dateHelper = inject(DateHelperService);
+    locale: Signal<ThyDatePickerLocale> = injectLocale('datePicker');
 
     @Input() showSuperPreBtn: boolean = true;
     @Input() showSuperNextBtn: boolean = true;

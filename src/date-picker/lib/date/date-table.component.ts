@@ -54,7 +54,7 @@ export class DateTable extends CalendarTable implements OnChanges {
 
     private getVeryShortWeekFormat(): string {
         if (this.dateHelper.relyOnDatePipe) {
-            return 'EEEEE'; // eg. 二
+            return this.prefixCls === 'thy-calendar-full' ? this.locale().fullWeekFormat : this.locale().weekFormat;
         }
         return 'dd';
     }

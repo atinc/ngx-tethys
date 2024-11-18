@@ -8,7 +8,8 @@ import {
     Input,
     OnDestroy,
     OnInit,
-    inject
+    inject,
+    Signal
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyButton } from 'ngx-tethys/button';
@@ -18,6 +19,8 @@ import { Subject } from 'rxjs';
 import { AdvancedSelectableCell, RangeAdvancedValue } from '../../inner-types';
 import { DatePickerAdvancedShowYearTipPipe } from '../../picker.pipes';
 import { ThyDateGranularity } from '../../standard-types';
+import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
+import { DateHelperService } from '../../date-helper.service';
 
 /**
  * @private
@@ -39,6 +42,8 @@ import { ThyDateGranularity } from '../../standard-types';
 })
 export class DateCarousel implements OnInit, ControlValueAccessor, OnDestroy {
     private cdr = inject(ChangeDetectorRef);
+    private dateHelper = inject(DateHelperService);
+    private locale: Signal<ThyDatePickerLocale> = injectLocale('datePicker');
 
     @HostBinding('class') className = 'thy-date-picker-advanced-carousel';
 
@@ -267,9 +272,10 @@ export class DateCarousel implements OnInit, ControlValueAccessor, OnDestroy {
 
     getSelectableMonth(currentDate: TinyDate, preOrNextcount: number = 0): AdvancedSelectableCell {
         currentDate = currentDate || this.activeDate || new TinyDate().startOfMonth();
+        // Selectable months for advanced range selector
         const cell: AdvancedSelectableCell = {
             type: 'month',
-            content: `${currentDate.addMonths(preOrNextcount).getMonth() + 1}月`,
+            content: this.dateHelper.format(currentDate.addMonths(preOrNextcount).nativeDate, this.locale().monthFormat),
             startValue: currentDate.startOfMonth().addMonths(preOrNextcount),
             endValue: currentDate.endOfMonth().addMonths(preOrNextcount),
             classMap: {}
