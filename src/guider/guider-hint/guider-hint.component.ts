@@ -1,9 +1,10 @@
-import { HostBinding, Component, OnInit, TemplateRef } from '@angular/core';
+import { HostBinding, Component, OnInit, TemplateRef, Signal } from '@angular/core';
 import { ThyGuiderRef } from '../guider-ref';
 import { helpers } from 'ngx-tethys/util';
 import { defaultGuiderPositionConfig, ThyGuiderStep } from '../guider.class';
 import { ThyGuiderStepRef } from '../guider-step-ref';
 import { NgTemplateOutlet, NgClass } from '@angular/common';
+import { injectLocale, ThyGuiderLocale } from 'ngx-tethys/i18n';
 
 /**
  * @private
@@ -16,6 +17,8 @@ import { NgTemplateOutlet, NgClass } from '@angular/common';
 })
 export class ThyGuiderHint implements OnInit {
     @HostBinding('class.thy-guider-tip-container') guiderHint = true;
+
+    locale: Signal<ThyGuiderLocale> = injectLocale('guider');
 
     public guiderRef: ThyGuiderRef;
 

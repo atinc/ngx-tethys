@@ -36,5 +36,10 @@ export default {
         prev: '上一步',
         next: '下一步',
         finish: '完成'
+    },
+    copy: {
+        tips: '点击复制',
+        success: '复制成功',
+        error: '复制失败'
     }
 };
