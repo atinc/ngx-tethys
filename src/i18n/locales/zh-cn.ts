@@ -10,6 +10,11 @@ export default {
         weekThFormat: 'yyyy-ww周', // Used in week picker
         dateFormat: 'yyyy年MM月dd日'
     },
+    timePicker: {
+        placeholder: '选择时间',
+        now: '此刻',
+        ok: '确定'
+    },
     calendar: {
         today: '今天',
         yearMonthFormat: 'yyyy年MM月'
