@@ -21,7 +21,8 @@ import {
     TemplateRef,
     ViewChild,
     ViewChildren,
-    inject
+    inject,
+    Signal
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -46,6 +47,7 @@ import { ThyCascaderOptionComponent } from './cascader-li.component';
 import { ThyCascaderSearchOptionComponent } from './cascader-search-option.component';
 import { ThyCascaderService } from './cascader.service';
 import { ThyCascaderExpandTrigger, ThyCascaderOption, ThyCascaderSearchOption, ThyCascaderTriggerType } from './types';
+import { injectLocale, ThyCascaderLocale } from 'ngx-tethys/i18n';
 
 /**
  * 级联选择菜单
@@ -93,6 +95,7 @@ export class ThyCascader
     private thyClickDispatcher = inject(ThyClickDispatcher);
     private ngZone = inject(NgZone);
     thyCascaderService = inject(ThyCascaderService);
+    private locale: Signal<ThyCascaderLocale> = injectLocale('cascader');
 
     /**
      * 选项的实际值的属性名
@@ -107,7 +110,7 @@ export class ThyCascader
     /**
      * 描述输入字段预期值的简短的提示信息
      */
-    @Input() thyPlaceholder = '请选择';
+    @Input() thyPlaceholder = this.locale().placeholder;
 
     /**
      * 控制大小（5种）
@@ -373,7 +376,7 @@ export class ThyCascader
 
     public triggerRect: DOMRect;
 
-    public emptyStateText = '暂无可选项';
+    public emptyStateText = this.locale().empty;
 
     private prefixCls = 'thy-cascader';
 

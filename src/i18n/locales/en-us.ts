@@ -44,6 +44,10 @@ export default {
     treeSelect: {
         placeholder: 'Please select',
         empty: 'No data available'
+    },
+    cascader: {
+        placeholder: 'Please select',
+        empty: 'No data available'
     }
 };
 
