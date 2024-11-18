@@ -40,10 +40,8 @@
 @if (thyShowOperations) {
   <div class="{{ prefixCls }}-bottom-operation">
     @if (thyShowSelectNow) {
-      <a href="javascript:;" class="{{ prefixCls }}-time-now" (click)="selectNow()">{{ locale().now }}</a>
+      <a href="javascript:;" class="{{ prefixCls }}-time-now" (click)="selectNow()">此刻</a>
     }
-    <button class="{{ prefixCls }}-time-confirm" thyButton="primary" thySize="xs" class="confirm" (click)="confirmPickTime()">
-      {{ locale().ok }}
-    </button>
+    <button class="{{ prefixCls }}-time-confirm" thyButton="primary" thySize="xs" class="confirm" (click)="confirmPickTime()">确定</button>
   </div>
 }

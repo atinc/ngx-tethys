@@ -11,8 +11,7 @@ import {
     OnInit,
     Output,
     ViewChild,
-    inject,
-    Signal
+    inject
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { isValid } from 'date-fns';
@@ -20,7 +19,6 @@ import { reqAnimFrame } from 'ngx-tethys/core';
 import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
 import { ThyButton } from 'ngx-tethys/button';
 import { DecimalPipe } from '@angular/common';
-import { injectLocale, ThyTimePickerLocale } from 'ngx-tethys/i18n';
 
 /**
  * 时间选择面板组件
@@ -49,7 +47,6 @@ import { injectLocale, ThyTimePickerLocale } from 'ngx-tethys/i18n';
 export class ThyTimePanel implements OnInit, OnDestroy, ControlValueAccessor {
     private cdr = inject(ChangeDetectorRef);
     private ngZone = inject(NgZone);
-    locale: Signal<ThyTimePickerLocale> = injectLocale('timePicker');
 
     @ViewChild('hourListElement', { static: false }) hourListRef: ElementRef<HTMLElement>;
 
