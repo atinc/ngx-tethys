@@ -1,10 +1,11 @@
-export type ThyModuleType = 'datePicker' | 'calendar' | 'transfer' | 'colorPicker' | 'guider';
+export type ThyModuleType = 'datePicker' | 'timePicker' | 'calendar' | 'transfer' | 'colorPicker' | 'guider';
 
 export type ThyModuleLocaleType<K extends ThyModuleType> = ThyI18nLocale[K];
 
 export interface ThyI18nLocale {
     id: string;
     datePicker: ThyDatePickerLocale;
+    timePicker: ThyTimePickerLocale;
     calendar: ThyCalendarLocale;
     transfer: ThyTransferLocale;
     colorPicker: ThyColorPickerLocale;
@@ -19,6 +20,12 @@ export interface ThyDatePickerLocale {
     fullWeekFormat: string;
     weekThFormat: string;
     dateFormat: string;
+}
+
+export interface ThyTimePickerLocale {
+    placeholder: string;
+    now: string;
+    ok: string;
 }
 
 export interface ThyCalendarLocale {

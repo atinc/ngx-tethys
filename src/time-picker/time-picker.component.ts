@@ -11,7 +11,8 @@ import {
     OnInit,
     Output,
     ViewChild,
-    inject
+    inject,
+    Signal
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { isValid } from 'date-fns';
@@ -22,6 +23,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
 import { NgTemplateOutlet, NgClass } from '@angular/common';
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
+import { injectLocale, ThyTimePickerLocale } from 'ngx-tethys/i18n';
 
 export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
 
@@ -52,6 +54,7 @@ export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
 export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccessor {
     private cdr = inject(ChangeDetectorRef);
     private elementRef = inject(ElementRef);
+    private locale: Signal<ThyTimePickerLocale> = injectLocale('timePicker');
 
     @ViewChild(CdkConnectedOverlay, { static: true }) cdkConnectedOverlay: CdkConnectedOverlay;
 
@@ -69,9 +72,9 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
 
     /**
      * 输入框提示文字
-     * @type string
+     * @default 选择时间
      */
-    @Input() thyPlaceholder: string = '选择时间';
+    @Input() thyPlaceholder: string = this.locale().placeholder;
 
     /**
      * 弹出位置
