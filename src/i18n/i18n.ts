@@ -1,5 +1,7 @@
 export type ThyModuleType = 'datePicker' | 'calendar' | 'transfer' | 'guider';
 
+export type ThyModuleLocaleType<K extends ThyModuleType> = ThyI18nLocale[K];
+
 export interface ThyI18nLocale {
     id: string;
     datePicker: ThyDatePickerLocale;
