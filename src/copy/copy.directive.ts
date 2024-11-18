@@ -1,10 +1,10 @@
-import { Directive, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, inject } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, Signal, inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { coerceElement } from '@angular/cdk/coercion';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
-import { injectLocale } from 'ngx-tethys/i18n';
+import { injectLocale, ThyCopyLocale } from 'ngx-tethys/i18n';
 
 export interface ThyCopyEvent {
     isSuccess: boolean;
@@ -23,7 +23,7 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
     private document = inject(DOCUMENT);
     tooltipDirective = inject(ThyTooltipDirective);
     private notifyService = inject(ThyNotifyService);
-    private locale = injectLocale('copy');
+    private locale: Signal<ThyCopyLocale> = injectLocale('copy');
 
     /**
      * 默认为点击标签，可传复制目标标签
