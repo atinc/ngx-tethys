@@ -26,7 +26,7 @@ export class PaginationTotalCountFormat implements PipeTransform {
     standalone: true
 })
 export class PaginationPerPageFormat implements PipeTransform {
-    transform(unit: string, locale: ThyI18nLocale): any {
+    transform(unit: string, locale: ThyI18nLocale): string {
         if (locale.id.includes('zh')) {
             // 5 条/页
             return ' ' + unit + '/' + locale.pagination.page;
