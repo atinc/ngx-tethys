@@ -1,5 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, Signal, ViewChild } from '@angular/core';
 import { listOfOption } from '../mock-data';
+import { injectLocale, ThySelectLocale } from 'ngx-tethys/i18n';
 
 @Component({
     selector: 'thy-select-basic-example',
@@ -22,6 +23,7 @@ import { listOfOption } from '../mock-data';
 })
 export class ThySelectBasicExampleComponent implements OnInit {
     listOfOption = listOfOption;
+    locale: Signal<ThySelectLocale> = injectLocale('select');
 
     @ViewChild('origin', { read: ElementRef, static: true }) customizeOrigin: ElementRef;
 

@@ -72,7 +72,8 @@ import {
     TemplateRef,
     ViewChild,
     ViewChildren,
-    inject
+    inject,
+    Signal
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -83,6 +84,7 @@ import {
     ThyDropdownWidthMode,
     ThySelectConfig
 } from '../select.config';
+import { injectLocale, ThySelectLocale } from 'ngx-tethys/i18n';
 
 export type SelectMode = 'multiple' | '';
 
@@ -173,6 +175,7 @@ export class ThySelect
     private overlay = inject(Overlay);
     private thyClickDispatcher = inject(ThyClickDispatcher);
     private platformId = inject(PLATFORM_ID);
+    private locale: Signal<ThySelectLocale> = injectLocale('select');
     scrollStrategyFactory = inject<FunctionProp<ScrollStrategy>>(THY_SELECT_SCROLL_STRATEGY, { optional: true })!;
     selectConfig = inject(THY_SELECT_CONFIG, { optional: true })!;
 
@@ -182,9 +185,9 @@ export class ThySelect
 
     mode: SelectMode = '';
 
-    emptyStateText = '暂无可选项';
+    emptyStateText = this.locale().empty;
 
-    emptySearchMessageText = '暂无可选项';
+    emptySearchMessageText = this.locale().empty;
 
     scrollTop = 0;
 
@@ -268,7 +271,7 @@ export class ThySelect
     /**
      * 选择框默认文字
      */
-    @Input() thyPlaceHolder: string;
+    @Input() thyPlaceHolder = this.locale().placeholder;
 
     /**
      * 是否使用服务端搜索，当为 true 时，将不再在前端进行过滤

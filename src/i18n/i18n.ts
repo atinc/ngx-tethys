@@ -6,6 +6,7 @@ export type ThyModuleType =
     | 'colorPicker'
     | 'guider'
     | 'copy'
+    | 'select'
     | 'treeSelect'
     | 'cascader';
 
@@ -21,6 +22,7 @@ export interface ThyI18nLocale {
     strength: ThyStrengthLocale;
     guider: ThyGuiderLocale;
     copy: ThyCopyLocale;
+    select: ThySelectLocale;
     treeSelect: ThyTreeSelectLocale;
     cascader: ThyCascaderLocale;
 }
@@ -78,6 +80,11 @@ export interface ThyCopyLocale {
     tips: string;
     success: string;
     error: string;
+}
+
+export interface ThySelectLocale {
+    placeholder: string;
+    empty: string;
 }
 
 export interface ThyTreeSelectLocale {
