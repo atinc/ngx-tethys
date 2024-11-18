@@ -139,7 +139,11 @@ module.exports = {
     locales: [
         {
             key: 'zh-cn',
-            name: 'ZH'
+            name: '中文'
+        },
+        {
+            key: 'en-us',
+            name: 'English'
         }
     ],
     defaultLocale: 'zh-cn',

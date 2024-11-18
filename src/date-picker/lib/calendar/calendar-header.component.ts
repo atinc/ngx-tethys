@@ -3,6 +3,7 @@ import { Directive, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 import { ThyPanelMode } from '../../standard-types';
 import { TinyDate } from 'ngx-tethys/util';
 import { DateHelperService } from '../../date-helper.service';
+import { useLocale } from 'ngx-tethys/i18n';
 
 export interface PanelSelector {
     className: string;
@@ -17,6 +18,7 @@ export interface PanelSelector {
 @Directive()
 export abstract class CalendarHeader implements OnInit, OnChanges {
     dateHelper = inject(DateHelperService);
+    locale = useLocale();
 
     @Input() showSuperPreBtn: boolean = true;
     @Input() showSuperNextBtn: boolean = true;

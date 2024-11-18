@@ -18,6 +18,8 @@ import { Subject } from 'rxjs';
 import { AdvancedSelectableCell, RangeAdvancedValue } from '../../inner-types';
 import { DatePickerAdvancedShowYearTipPipe } from '../../picker.pipes';
 import { ThyDateGranularity } from '../../standard-types';
+import { useLocale } from 'ngx-tethys/i18n';
+import { DateHelperService } from '../../date-helper.service';
 
 /**
  * @private
@@ -39,6 +41,8 @@ import { ThyDateGranularity } from '../../standard-types';
 })
 export class DateCarousel implements OnInit, ControlValueAccessor, OnDestroy {
     private cdr = inject(ChangeDetectorRef);
+    private dateHelper = inject(DateHelperService);
+    private locade = useLocale();
 
     @HostBinding('class') className = 'thy-date-picker-advanced-carousel';
 
@@ -267,9 +271,10 @@ export class DateCarousel implements OnInit, ControlValueAccessor, OnDestroy {
 
     getSelectableMonth(currentDate: TinyDate, preOrNextcount: number = 0): AdvancedSelectableCell {
         currentDate = currentDate || this.activeDate || new TinyDate().startOfMonth();
+        // Selectable months for advanced range selector
         const cell: AdvancedSelectableCell = {
             type: 'month',
-            content: `${currentDate.addMonths(preOrNextcount).getMonth() + 1}月`,
+            content: this.dateHelper.format(currentDate.addMonths(preOrNextcount).nativeDate, this.locade.datePicker.monthFormat),
             startValue: currentDate.startOfMonth().addMonths(preOrNextcount),
             endValue: currentDate.endOfMonth().addMonths(preOrNextcount),
             classMap: {}

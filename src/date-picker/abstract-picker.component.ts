@@ -33,6 +33,7 @@ import {
 } from './standard-types';
 import { ThyDatePickerConfigService } from './date-picker.service';
 import { SafeAny } from 'ngx-tethys/types';
+import { useLocale } from 'ngx-tethys/i18n';
 
 /**
  * @private
@@ -43,6 +44,8 @@ export abstract class AbstractPickerComponent
     implements OnInit, OnChanges, OnDestroy, ControlValueAccessor
 {
     cdr = inject(ChangeDetectorRef);
+
+    locale = useLocale();
 
     thyValue: CompatibleValue | null;
 

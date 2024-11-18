@@ -19,6 +19,7 @@ import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { ThyList, ThyListItem } from 'ngx-tethys/list';
 import { ThyDragDropDirective } from 'ngx-tethys/shared';
 import { InnerTransferDragEvent, ThyTransferDragEvent, ThyTransferItem, ThyTransferSelectEvent } from './transfer.interface';
+import { useLocale } from 'ngx-tethys/i18n';
 
 /**
  * @private
@@ -42,6 +43,8 @@ export class ThyTransferList implements OnInit, DoCheck {
     private _lockDiff: IterableDiffer<ThyTransferItem>;
 
     private _unlockDiff: IterableDiffer<ThyTransferItem>;
+
+    locale = useLocale();
 
     @Input() title: string;
 
