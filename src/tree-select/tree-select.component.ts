@@ -27,11 +27,13 @@ import {
     PLATFORM_ID,
     TemplateRef,
     ViewChild,
-    inject
+    inject,
+    Signal
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';
+import { injectLocale, ThyTreeSelectLocale } from 'ngx-tethys/i18n';
 
 type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -128,6 +130,8 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
 
     private destroy$ = new Subject<void>();
 
+    private locale: Signal<ThyTreeSelectLocale> = injectLocale('treeSelect');
+
     public valueIsObject = false;
 
     originTreeNodes: ThyTreeSelectNode[];
@@ -207,7 +211,7 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
      * 树选择框默认文字
      * @type string
      */
-    @Input() thyPlaceholder = '请选择节点';
+    @Input() thyPlaceholder = this.locale().placeholder;
 
     get placeholder() {
         return this.thyPlaceholder;
@@ -223,7 +227,7 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
      * 改变空选项的情况下的提示文本
      * @type string
      */
-    @Input() thyEmptyOptionsText = '暂时没有数据可选';
+    @Input() thyEmptyOptionsText = this.locale().empty;
 
     /**
      * 设置是否隐藏节点(不可进行任何操作)，优先级高于 thyHiddenNodeFn
