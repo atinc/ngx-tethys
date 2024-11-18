@@ -46,6 +46,10 @@ export default {
         tips: 'Click to copy',
         success: 'Copied',
         error: 'Failed'
+    },
+    cascader: {
+        placeholder: 'Please select',
+        empty: 'No data available'
     }
 };
 

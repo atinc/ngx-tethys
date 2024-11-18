@@ -47,5 +47,9 @@ export default {
         tips: '点击复制',
         success: '复制成功',
         error: '复制失败'
+    },
+    cascader: {
+        placeholder: '请选择',
+        empty: '暂无可选项'
     }
 };
