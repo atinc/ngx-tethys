@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit, ViewContainerRef, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit, Signal, ViewContainerRef, inject } from '@angular/core';
 import { ThyPopover, ThyPopoverRef } from 'ngx-tethys/popover';
 import { ThyColorPickerCustomPanel } from './color-picker-custom-panel.component';
 import { ThyColor } from './helpers/color.class';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgClass, NgTemplateOutlet, NgStyle } from '@angular/common';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { injectLocale, ThyColorPickerLocale } from 'ngx-tethys/i18n';
 
 /**
  * @internal
@@ -23,6 +24,7 @@ export class ThyColorPickerPanel implements OnInit {
     private thyPopover = inject(ThyPopover);
     private viewContainerRef = inject(ViewContainerRef);
     private thyPopoverRef = inject<ThyPopoverRef<ThyColorPickerPanel>>(ThyPopoverRef);
+    locale: Signal<ThyColorPickerLocale> = injectLocale('colorPicker');
 
     @HostBinding('class.thy-color-picker-panel') className = true;
 

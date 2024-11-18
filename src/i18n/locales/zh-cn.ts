@@ -24,6 +24,13 @@ export default {
         maxLockLimit: '锁定 (上限{maxLock}个)',
         unlocked: '未锁定'
     },
+    colorPicker: {
+        defaultColor: '默认颜色',
+        noFillColor: '无填充色',
+        recentUsedColor: '最近使用自定义颜色',
+        customColor: '自定义颜色',
+        none: '暂无'
+    },
     guider: {
         skip: '跳过',
         prev: '上一步',

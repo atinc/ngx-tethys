@@ -1,4 +1,4 @@
-export type ThyModuleType = 'datePicker' | 'timePicker' | 'calendar' | 'transfer' | 'guider' | 'copy';
+export type ThyModuleType = 'datePicker' | 'timePicker' | 'calendar' | 'transfer' | 'colorPicker' | 'guider' | 'copy';
 
 export type ThyModuleLocaleType<K extends ThyModuleType> = ThyI18nLocale[K];
 
@@ -8,6 +8,7 @@ export interface ThyI18nLocale {
     timePicker: ThyTimePickerLocale;
     calendar: ThyCalendarLocale;
     transfer: ThyTransferLocale;
+    colorPicker: ThyColorPickerLocale;
     guider: ThyGuiderLocale;
     copy: ThyCopyLocale;
 }
@@ -37,6 +38,14 @@ export interface ThyTransferLocale {
     maxLimit: string;
     maxLockLimit: string;
     unlocked: string;
+}
+
+export interface ThyColorPickerLocale {
+    defaultColor: string;
+    noFillColor: string;
+    recentUsedColor: string;
+    customColor: string;
+    none: string;
 }
 
 export interface ThyGuiderLocale {
