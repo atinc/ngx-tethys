@@ -1,4 +1,4 @@
-export type ThyComponentKeyType = 'datePicker' | 'calendar' | 'transfer' | 'guider';
+export type ThyModuleType = 'datePicker' | 'calendar' | 'transfer' | 'guider';
 
 export interface ThyI18nLocale {
     id: string;
