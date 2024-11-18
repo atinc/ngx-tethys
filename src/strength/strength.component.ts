@@ -1,7 +1,8 @@
 import { ThyTranslate } from 'ngx-tethys/core';
 
-import { Component, forwardRef, HostBinding, Input, OnInit, inject } from '@angular/core';
+import { Component, forwardRef, HostBinding, Input, OnInit, inject, Signal } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { injectLocale, ThyStrengthLocale } from 'ngx-tethys/i18n';
 
 enum ThyStrengthEnum {
     highest = 4,
@@ -9,25 +10,6 @@ enum ThyStrengthEnum {
     average = 2,
     low = 1
 }
-
-const strengthMap = {
-    [ThyStrengthEnum.highest]: {
-        level: 'highest',
-        text: '最高'
-    },
-    [ThyStrengthEnum.high]: {
-        level: 'high',
-        text: '高'
-    },
-    [ThyStrengthEnum.average]: {
-        level: 'average',
-        text: '中'
-    },
-    [ThyStrengthEnum.low]: {
-        level: 'low',
-        text: '低'
-    }
-};
 
 /**
  * 程度展示组件
@@ -55,7 +37,26 @@ export class ThyStrength implements OnInit, ControlValueAccessor {
 
     strength: ThyStrengthEnum;
 
-    strengthMap = JSON.parse(JSON.stringify(strengthMap));
+    locale: Signal<ThyStrengthLocale> = injectLocale('strength');
+
+    strengthMap = {
+        [ThyStrengthEnum.highest]: {
+            level: 'highest',
+            text: this.locale().highest
+        },
+        [ThyStrengthEnum.high]: {
+            level: 'high',
+            text: this.locale().high
+        },
+        [ThyStrengthEnum.average]: {
+            level: 'average',
+            text: this.locale().medium
+        },
+        [ThyStrengthEnum.low]: {
+            level: 'low',
+            text: this.locale().low
+        }
+    };
 
     /**
      * 组件标题，描述程度所指类型
