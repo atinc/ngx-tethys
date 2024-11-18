@@ -1,5 +1,5 @@
 import { computed, inject, Signal } from '@angular/core';
-import { ThyComponentKeyType, ThyI18nLocale, ThyI18nService } from '.';
+import { ThyComponentKeyType, ThyI18nLocale, ThyI18nService } from './index';
 import { SafeAny } from 'ngx-tethys/types';
 
 export function useLocale(): Signal<ThyI18nLocale> {

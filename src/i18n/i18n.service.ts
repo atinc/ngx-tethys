@@ -1,5 +1,5 @@
 import { inject, Injectable, signal, Signal, WritableSignal } from '@angular/core';
-import { THY_I18N_EN_US, THY_I18N_LOCALE_ID, THY_I18N_ZH_CN, ThyI18nLocale, zhCnLocale, enUsLocale } from '.';
+import { THY_I18N_EN_US, THY_I18N_LOCALE_ID, THY_I18N_ZH_CN, ThyI18nLocale, zhCnLocale, enUsLocale } from './index';
 
 function normalizeLocale(localeId: string): string {
     return localeId?.toLowerCase().replace(/_/g, '-');
