@@ -10,6 +10,7 @@ import {
     IterableDiffers,
     OnInit,
     Output,
+    Signal,
     TemplateRef,
     ViewEncapsulation,
     inject
@@ -19,6 +20,7 @@ import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { ThyList, ThyListItem } from 'ngx-tethys/list';
 import { ThyDragDropDirective } from 'ngx-tethys/shared';
 import { InnerTransferDragEvent, ThyTransferDragEvent, ThyTransferItem, ThyTransferSelectEvent } from './transfer.interface';
+import { injectLocale, ThyTransferLocale } from 'ngx-tethys/i18n';
 
 /**
  * @private
@@ -42,6 +44,8 @@ export class ThyTransferList implements OnInit, DoCheck {
     private _lockDiff: IterableDiffer<ThyTransferItem>;
 
     private _unlockDiff: IterableDiffer<ThyTransferItem>;
+
+    locale: Signal<ThyTransferLocale> = injectLocale('transfer');
 
     @Input() title: string;
 

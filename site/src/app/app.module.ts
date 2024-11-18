@@ -66,12 +66,13 @@ import { ThyTreeSelectModule } from 'ngx-tethys/tree-select';
 import { ThyUploadModule } from 'ngx-tethys/upload';
 import { ThyVoteModule } from 'ngx-tethys/vote';
 import { ThyWatermarkModule } from 'ngx-tethys/watermark';
+import { ThyI18nService } from 'ngx-tethys/i18n';
 
 import { Overlay } from '@angular/cdk/overlay';
 import { DestroyRef, NgModule, inject } from '@angular/core';
 import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { DocgeniTemplateModule, RootComponent } from '@docgeni/template';
 
 import { ThyIconRegistry } from '../../../src/icon/icon-registry';
@@ -181,6 +182,9 @@ export class AppModule {
     constructor() {
         const iconRegistry = inject(ThyIconRegistry);
         const sanitizer = inject(DomSanitizer);
+        const router = inject(Router);
+        const destroyRef = inject(DestroyRef);
+        const i18n = inject(ThyI18nService);
 
         const iconSvgUrl = `assets/icons/defs/svg/sprite.defs.svg`;
         iconRegistry.addSvgIconSet(sanitizer.bypassSecurityTrustResourceUrl(iconSvgUrl));
@@ -188,6 +192,13 @@ export class AppModule {
         this.observeTheme()
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe(() => {});
+
+        router.events.pipe(takeUntilDestroyed(destroyRef)).subscribe(event => {
+            if (event instanceof NavigationEnd) {
+                let localeId = router.url.split('/')[1];
+                i18n.setLocale(localeId);
+            }
+        });
     }
 
     private observeTheme() {

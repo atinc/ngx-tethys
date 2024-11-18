@@ -12,6 +12,7 @@ import {
     OnDestroy,
     OnInit,
     Output,
+    Signal,
     SimpleChanges,
     ViewChild
 } from '@angular/core';
@@ -33,6 +34,7 @@ import {
 } from './standard-types';
 import { ThyDatePickerConfigService } from './date-picker.service';
 import { SafeAny } from 'ngx-tethys/types';
+import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
 
 /**
  * @private
@@ -43,6 +45,8 @@ export abstract class AbstractPickerComponent
     implements OnInit, OnChanges, OnDestroy, ControlValueAccessor
 {
     cdr = inject(ChangeDetectorRef);
+
+    locale: Signal<ThyDatePickerLocale> = injectLocale('datePicker');
 
     thyValue: CompatibleValue | null;
 
