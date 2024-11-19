@@ -11,7 +11,8 @@ export type ThyModuleType =
     | 'select'
     | 'treeSelect'
     | 'cascader'
-    | 'pagination';
+    | 'pagination'
+    | 'form';
 
 export type ThyModuleLocaleType<K extends ThyModuleType> = ThyI18nLocale[K];
 
@@ -30,6 +31,7 @@ export interface ThyI18nLocale {
     treeSelect: ThyTreeSelectLocale;
     cascader: ThyCascaderLocale;
     pagination: ThyPaginationLocale;
+    form: ThyFormLocale;
 }
 
 export interface ThyDatePickerLocale {
@@ -116,4 +118,18 @@ export interface ThyPaginationLocale {
     firstPage: string;
     lastPage: string;
     defaultUnit: string;
+}
+
+export interface ThyFormLocale {
+    required: string;
+    maxlength: string;
+    minlength: string;
+    uniqueCheck: string;
+    email: string;
+    confirm: string;
+    pattern: string;
+    number: string;
+    url: string;
+    max: string;
+    min: string;
 }
