@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Signal } from '@angular/core';
+import { ThyI18nLocale, useLocale } from 'ngx-tethys/i18n';
 
 @Component({
     selector: 'thy-empty-customize-example',
@@ -20,6 +21,13 @@ import { Component } from '@angular/core';
     ]
 })
 export class ThyEmptyCustomizeExampleComponent {
+    locale: Signal<ThyI18nLocale> = useLocale();
+    isZhCn = this.locale().id.includes('zh');
+
+    backToHome = this.isZhCn ? '返回主页' : 'Back to Home';
+
+    description = this.isZhCn ? '确实还没有数据啦' : 'There is indeed no data yet';
+
     constructor() {}
 
     goHome() {}

@@ -89,14 +89,14 @@ describe('EmptyComponent', () => {
         expect(empty.nativeElement).toBeTruthy();
     });
 
-    it('should should translationKey', () => {
+    it('should support translationKey', () => {
         componentInstance.thyMessage = '';
         fixture.detectChanges();
         const empty = fixture.debugElement.query(By.directive(ThyEmpty));
         expect(empty.nativeElement.querySelector('.thy-empty-text').textContent).toContain('暂无活动');
     });
 
-    it('should should entity name', () => {
+    it('should support entity name', () => {
         componentInstance.thyMessage = '';
         componentInstance.thyTranslationKey = '';
         fixture.detectChanges();
@@ -104,7 +104,7 @@ describe('EmptyComponent', () => {
         expect(empty.nativeElement.querySelector('.thy-empty-text').textContent).toContain('common.tips.NO_RESULT_TARGET');
     });
 
-    it('should should entity name translateKey', () => {
+    it('should support entity name translateKey', () => {
         componentInstance.thyMessage = '';
         componentInstance.thyTranslationKey = '';
         componentInstance.thyEntityName = '';
@@ -113,36 +113,36 @@ describe('EmptyComponent', () => {
         expect(empty.nativeElement.querySelector('.thy-empty-text').textContent).toContain('common.tips.NO_RESULT_TARGET');
     });
 
-    it('should should no result translateKey', () => {
+    it('should support default text', () => {
         componentInstance.thyMessage = '';
         componentInstance.thyTranslationKey = '';
         componentInstance.thyEntityName = '';
         componentInstance.thyEntityNameTranslateKey = '';
         fixture.detectChanges();
         const empty = fixture.debugElement.query(By.directive(ThyEmpty));
-        expect(empty.nativeElement.querySelector('.thy-empty-text').textContent).toContain('common.tips.NO_RESULT');
+        expect(empty.nativeElement.querySelector('.thy-empty-text').textContent).toContain('暂无数据');
     });
 
-    it('should should contain outer class', () => {
+    it('should contain outer class', () => {
         fixture.detectChanges();
         const empty = fixture.debugElement.query(By.directive(ThyEmpty));
         expect(empty.nativeElement.classList).toContain('empty-test-example');
     });
 
-    it('should should create a lg empty', () => {
+    it('should create a lg empty', () => {
         fixture.detectChanges();
         const empty = fixture.debugElement.query(By.directive(ThyEmpty));
         expect(empty.nativeElement.classList).toContain('thy-empty-state--lg');
     });
 
-    it('should should create a sm empty', () => {
+    it('should create a sm empty', () => {
         componentInstance.thySize = 'sm';
         fixture.detectChanges();
         const empty = fixture.debugElement.query(By.directive(ThyEmpty));
         expect(empty.nativeElement.classList).toContain('thy-empty-state--sm');
     });
 
-    it('should should create a md empty', () => {
+    it('should create a md empty', () => {
         componentInstance.thySize = '';
         fixture.detectChanges();
         const empty = fixture.debugElement.query(By.directive(ThyEmpty));
@@ -151,7 +151,7 @@ describe('EmptyComponent', () => {
         expect(empty.nativeElement.classList).not.toContain('thy-empty-state--lg');
     });
 
-    it('should should create correct size empty', () => {
+    it('should create correct size empty', () => {
         componentInstance.thySize = 'lg';
         fixture.detectChanges();
         const empty = fixture.debugElement.query(By.directive(ThyEmpty));
@@ -174,5 +174,31 @@ describe('EmptyComponent', () => {
         fixture.detectChanges();
         expect(image.nativeElement.getAttribute('loading')).toEqual('lazy');
         expect(image.nativeElement.getAttribute('fetchpriority')).toEqual('low');
+    });
+});
+
+@Component({
+    selector: 'thy-empty-text-test',
+    template: ` <thy-empty [thyText]="thyText" class="empty-test-example"> </thy-empty> `
+})
+class EmptyTextTestComponent {
+    thyText = '没有数据';
+}
+describe('EmptyTextComponent', () => {
+    let fixture: ComponentFixture<EmptyTextTestComponent>;
+
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            imports: [BrowserAnimationsModule, ThyEmptyModule],
+            declarations: [EmptyTextTestComponent]
+        }).compileComponents();
+
+        fixture = TestBed.createComponent(EmptyTextTestComponent);
+        fixture.detectChanges();
+    }));
+
+    it('should support set thyText', () => {
+        const empty = fixture.debugElement.query(By.directive(ThyEmpty));
+        expect(empty.nativeElement.querySelector('.thy-empty-text').textContent).toContain('没有数据');
     });
 });
