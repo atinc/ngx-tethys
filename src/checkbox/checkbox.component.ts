@@ -1,6 +1,5 @@
-import { Component, forwardRef, Input, inject } from '@angular/core';
+import { Component, forwardRef, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ThyTranslate } from 'ngx-tethys/core';
 import { ThyFormCheckBaseComponent } from 'ngx-tethys/shared';
 import { NgClass } from '@angular/common';
 import { coerceBooleanProperty } from 'ngx-tethys/util';

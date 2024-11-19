@@ -1,8 +1,7 @@
-import { forwardRef, ChangeDetectorRef, ElementRef, OnInit, Directive, inject } from '@angular/core';
+import { forwardRef, OnInit, Directive } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { PickerDirective } from './abstract-picker.directive';
-import { ThyPopover } from 'ngx-tethys/popover';
 
 /**
  * 日期选择指令
