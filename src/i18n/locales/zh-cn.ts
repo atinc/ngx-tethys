@@ -24,6 +24,9 @@ export default {
         today: '今天',
         yearMonthFormat: 'yyyy年MM月'
     },
+    autocomplete: {
+        empty: '没有任何数据'
+    },
     transfer: {
         maxLimit: '(上限{max}个)',
         maxLockLimit: '锁定 (上限{maxLock}个)',

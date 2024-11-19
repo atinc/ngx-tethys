@@ -3,6 +3,7 @@ export type ThyModuleType =
     | 'dateRange'
     | 'timePicker'
     | 'calendar'
+    | 'autocomplete'
     | 'transfer'
     | 'colorPicker'
     | 'strength'
@@ -22,6 +23,7 @@ export interface ThyI18nLocale {
     dateRange: ThyDateRangeLocale;
     timePicker: ThyTimePickerLocale;
     calendar: ThyCalendarLocale;
+    autocomplete: ThyAutoCompleteLocale;
     transfer: ThyTransferLocale;
     colorPicker: ThyColorPickerLocale;
     strength: ThyStrengthLocale;
@@ -59,6 +61,10 @@ export interface ThyTimePickerLocale {
 export interface ThyCalendarLocale {
     today: string;
     yearMonthFormat: string;
+}
+
+export interface ThyAutoCompleteLocale {
+    empty: string;
 }
 
 export interface ThyTransferLocale {
