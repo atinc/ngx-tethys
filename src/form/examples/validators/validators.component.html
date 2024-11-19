@@ -1,11 +1,10 @@
-<div class="form-group form-inline">
-  <label for="validateOn">validateOn</label>
-  <select name="validateOn" class="form-control ml-2" required [(ngModel)]="validateOn" id="validateOn" (change)="changeValidateOn()">
-    <option value="change">change</option>
-    <option value="blur">blur</option>
-    <option value="submit">submit</option>
-  </select>
-</div>
+<thy-form-group thyLabelText="validateOn">
+  <thy-select name="validateOn" [(ngModel)]="validateOn" (ngModelChange)="changeValidateOn()">
+    <thy-option thyValue="change" thyLabelText="change"></thy-option>
+    <thy-option thyValue="blur" thyLabelText="blur"></thy-option>
+    <thy-option thyValue="submit" thyLabelText="submit"></thy-option>
+  </thy-select>
+</thy-form-group>
 
 @if (loadingDone) {
   <form thyForm name="demoForm" #demoForm="thyForm" #demoNgForm="ngForm" [thyFormValidatorConfig]="validateConfig">
@@ -20,7 +19,13 @@
         placeholder="Please type username" />
     </thy-form-group>
     <thy-form-group thyLabelText="Age" thyLabelRequired>
-      <thy-input-number name="age" [(ngModel)]="model.age" max="100" min="10" required placeholder="Max is 100, min is 10"></thy-input-number>
+      <thy-input-number
+        name="age"
+        [(ngModel)]="model.age"
+        max="100"
+        min="10"
+        required
+        placeholder="Max is 100, min is 10"></thy-input-number>
     </thy-form-group>
     <thy-form-group thyLabelText="Password" thyLabelRequired>
       <input thyInput type="password" name="password" [(ngModel)]="model.password" required placeholder="Please type password" />

@@ -132,11 +132,12 @@ export class ThyFormReactiveExampleComponent implements OnInit {
     validateConfig: ThyFormValidatorConfig = {
         validationMessages: {
             username: {
-                required: '请输入用户名',
-                pattern: '用户名格式不正确，以字母，数字，下划线组成，首字母不能为数字，必须是2-20个字符'
+                required: 'Please enter the username',
+                pattern:
+                    'It must be composed of letters, numbers, and underscores. The first letter cannot be a number. It must be 2-20 characters.'
             },
             dateRange: {
-                error: '该选项不能为空'
+                error: 'This option is required'
             }
         },
         validateOn: this.validateOn
