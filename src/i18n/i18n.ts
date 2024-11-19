@@ -1,5 +1,6 @@
 export type ThyModuleType =
     | 'datePicker'
+    | 'dateRange'
     | 'timePicker'
     | 'calendar'
     | 'transfer'
@@ -17,6 +18,7 @@ export type ThyModuleLocaleType<K extends ThyModuleType> = ThyI18nLocale[K];
 export interface ThyI18nLocale {
     id: string;
     datePicker: ThyDatePickerLocale;
+    dateRange: ThyDateRangeLocale;
     timePicker: ThyTimePickerLocale;
     calendar: ThyCalendarLocale;
     transfer: ThyTransferLocale;
@@ -38,6 +40,12 @@ export interface ThyDatePickerLocale {
     fullWeekFormat: string;
     weekThFormat: string;
     dateFormat: string;
+}
+
+export interface ThyDateRangeLocale {
+    custom: string;
+    currentWeek: string;
+    currentMonth: string;
 }
 
 export interface ThyTimePickerLocale {

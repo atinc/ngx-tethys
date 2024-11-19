@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, Signal, inject } from '@angular/core';
 import { DateRangeItemInfo } from '../date-range.class';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { FormsModule } from '@angular/forms';
@@ -10,6 +10,7 @@ import {
     ThyDropdownMenuItemNameDirective,
     ThyDropdownMenuItemExtendIconDirective
 } from 'ngx-tethys/dropdown';
+import { injectLocale, ThyDateRangeLocale } from 'ngx-tethys/i18n';
 
 /**
  * @private
@@ -31,12 +32,13 @@ import {
 })
 export class OptionalDateRanges implements OnInit {
     private thyPopover = inject(ThyPopover);
+    private locale: Signal<ThyDateRangeLocale> = injectLocale('dateRange');
 
     hiddenMenu = false;
 
     optionalDateRanges: DateRangeItemInfo[];
 
-    customValue = '自定义';
+    customValue = this.locale().custom;
 
     customKey: string;
 
