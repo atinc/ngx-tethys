@@ -19,7 +19,7 @@
 @if (loadingDone) {
   <form thyForm name="demoForm" thyLayout="horizontal" [thyFormValidatorConfig]="validateConfig" [formGroup]="formGroup">
     <thy-form-group thyLabelText="Input" thyLayout="horizontal" thyLabelRequired>
-      <thy-input name="input" formControlName="input" placeholder="请输入"></thy-input>
+      <thy-input name="input" formControlName="input" placeholder="Please enter"></thy-input>
     </thy-form-group>
     <thy-form-group thyLabelText="TreeSelect" thyLabelRequired>
       <thy-tree-select
@@ -31,7 +31,7 @@
       </thy-tree-select>
     </thy-form-group>
     <thy-form-group thyLabelText="Username" thyLayout="horizontal" thyLabelRequired>
-      <input thyInput name="username" formControlName="username" placeholder="请输入用户名" />
+      <input thyInput name="username" formControlName="username" placeholder="Enter username" />
     </thy-form-group>
     <thy-form-group thyLabelText="CustomerSelect" thyLabelRequired>
       <thy-select
@@ -46,10 +46,10 @@
       </thy-select>
     </thy-form-group>
     <thy-form-group thyLabelText="Search" thyLayout="horizontal" thyLabelRequired>
-      <thy-input-search name="search" formControlName="search" placeholder="请输入"></thy-input-search>
+      <thy-input-search name="search" formControlName="search" placeholder="Please enter"></thy-input-search>
     </thy-form-group>
     <thy-form-group thyLabelText="Number" thyLayout="horizontal" thyLabelRequired>
-      <thy-input-number thyPlaceholder="请输入" name="number" formControlName="number" placeholder="search"></thy-input-number>
+      <thy-input-number thyPlaceholder="Please enter" name="number" formControlName="number" placeholder="search"></thy-input-number>
     </thy-form-group>
     <thy-form-group thyLabelText="customersMultiSelect" thyLabelRequired>
       <thy-select
@@ -122,7 +122,7 @@
       <thy-cascader name="province" [thyOptions]="provinceCities" formControlName="province" style="width: 200px"> </thy-cascader>
     </thy-form-group>
     <thy-form-group thyLabelText="Textarea" thyLabelRequired>
-      <textarea name="textarea" formControlName="textarea" class="form-control" rows="3" placeholder="请输入"></textarea>
+      <textarea name="textarea" formControlName="textarea" class="form-control" rows="3" placeholder="Please enter"></textarea>
     </thy-form-group>
     <thy-form-group>
       <ng-template #content>
