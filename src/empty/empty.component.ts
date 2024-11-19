@@ -80,32 +80,32 @@ export class ThyEmpty implements OnInit, AfterViewInit, OnChanges {
     @Input() thyText = this.locale().text;
 
     /**
-     * 显示文本提示信息。同时传入 thyMessage，thyTranslationKey，thyEntityName，thyEntityNameTranslateKey 时优先级最高
+     * 已废弃，请使用 thyText。显示文本提示信息。同时传入 thyMessage，thyTranslationKey，thyEntityName，thyEntityNameTranslateKey 时优先级最高
      * @deprecated Please use thyText
      */
     @Input() thyMessage: string;
 
     /**
-     * 显示文本提示信息多语言 Key。同时传入 thyTranslationKey，thyEntityName，thyEntityNameTranslateKey 时优先级最高
-     * @deprecated 已废弃
+     * 已废弃。显示文本提示信息多语言 Key。同时传入 thyTranslationKey，thyEntityName，thyEntityNameTranslateKey 时优先级最高
+     * @deprecated
      */
     @Input() thyTranslationKey: string;
 
     /**
-     * 显示文本提示信息多语言 Key 的 Values。传入 thyTranslationKey 后，传入这个才会生效
-     * @deprecated 已废弃
+     * 已废弃。显示文本提示信息多语言 Key 的 Values。传入 thyTranslationKey 后，传入这个才会生效
+     * @deprecated
      */
     @Input() thyTranslationValues: any;
 
     /**
-     * 显示默认提示信息，替换默认提示信息的目标对象，比如：没有 {thyEntityName}。同时传入 thyEntityName，thyEntityNameTranslateKey 时优先级较高
-     * @deprecated 已废弃
+     * 已废弃。显示默认提示信息，替换默认提示信息的目标对象，比如：没有 {thyEntityName}。同时传入 thyEntityName，thyEntityNameTranslateKey 时优先级较高
+     * @deprecated
      */
     @Input() thyEntityName: string;
 
     /**
-     * thyEntityName 的多语言 Key。thyMessage，thyTranslationKey，thyEntityName 均未传入时才会生效
-     * @deprecated 已废弃
+     * 已废弃。thyEntityName 的多语言 Key。thyMessage，thyTranslationKey，thyEntityName 均未传入时才会生效
+     * @deprecated
      */
     @Input() thyEntityNameTranslateKey: string;
 
