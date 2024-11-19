@@ -23,6 +23,9 @@ export default {
         today: 'Today',
         yearMonthFormat: 'yyyy-MM' // eg. 2025-09
     },
+    autocomplete: {
+        empty: 'No data'
+    },
     transfer: {
         maxLimit: '(Max limit: {max})',
         maxLockLimit: 'Lock (Max limit: {maxLock})',
