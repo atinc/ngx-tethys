@@ -38,6 +38,29 @@ export interface ThyDatePickerLocale {
     fullWeekFormat: string;
     weekThFormat: string;
     dateFormat: string;
+
+    yearText: string;
+    quarterText: string;
+    monthText: string;
+    week: string;
+    prefixWeek: string;
+
+    previousYear: string;
+    nextYear: string;
+    previousMonth: string;
+    nextMonth: string;
+
+    advance: string;
+    custom: string;
+
+    startDate: string;
+    endDate: string;
+
+    setTime: string;
+    placeholder: string;
+
+    ok: string;
+    clear: string;
 }
 
 export interface ThyTimePickerLocale {

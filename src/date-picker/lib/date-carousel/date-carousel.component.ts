@@ -43,7 +43,7 @@ import { DateHelperService } from '../../date-helper.service';
 export class DateCarousel implements OnInit, ControlValueAccessor, OnDestroy {
     private cdr = inject(ChangeDetectorRef);
     private dateHelper = inject(DateHelperService);
-    private locale: Signal<ThyDatePickerLocale> = injectLocale('datePicker');
+    locale: Signal<ThyDatePickerLocale> = injectLocale('datePicker');
 
     @HostBinding('class') className = 'thy-date-picker-advanced-carousel';
 

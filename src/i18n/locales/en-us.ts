@@ -7,7 +7,30 @@ export default {
         weekFormat: 'EEE', // eg. Tue
         fullWeekFormat: 'EEE', // eg. Tue
         weekThFormat: 'yyyy-ww', //  eg. 2025-01st、2025-02nd、2025-03rd、2025-27th
-        dateFormat: 'yyyy-MM-dd' // eg. 2025-09-02
+        dateFormat: 'yyyy-MM-dd', // eg. 2025-09-02
+
+        yearText: 'Year',
+        quarterText: 'Quarter',
+        monthText: 'Month',
+        week: 'Week',
+        prefixWeek: '',
+
+        previousYear: 'Previous year',
+        nextYear: 'Next year',
+        previousMonth: 'Previous month',
+        nextMonth: 'Next month',
+
+        advance: 'Advance',
+        custom: 'Custom',
+
+        startDate: 'Start date',
+        endDate: 'End date',
+
+        setTime: 'Set time',
+        placeholder: 'Select date',
+
+        ok: 'Ok',
+        clear: 'Clear'
     },
     timePicker: {
         placeholder: 'Select time',
