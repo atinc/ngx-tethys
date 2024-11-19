@@ -4,10 +4,10 @@
       @if (!isTemplateRef(showTotal)) {
         @if (total > 0) {
           <div class="mr-3">
-            第<span class="number"> {{ range.from }}-{{ range.to }} </span>{{ config.unit }}
+            {{ locale().order }}<span class="number"> {{ range.from }}-{{ range.to }} </span>{{ config.unit }}
           </div>
           <div>
-            共<span class="number"> {{ total }} </span>{{ config.unit }}
+            {{ locale().total }}<span class="number"> {{ total }} </span>{{ config.unit }}
           </div>
         }
       } @else {
@@ -20,7 +20,10 @@
       <div class="thy-pagination-size">
         <thy-select [(ngModel)]="selectPageSize" [thySize]="selectSize" [thyDisabled]="disabled" (ngModelChange)="onPageSizeChange($event)">
           @for (option of config.pageSizeOptions; track option) {
-            <thy-option class="page-size-option" [thyValue]="option" [thyLabelText]="option + ' ' + config.unit + '/页'"></thy-option>
+            <thy-option
+              class="page-size-option"
+              [thyValue]="option"
+              [thyLabelText]="option + (config.unit | paginationPerPageFormat: allLocale())"></thy-option>
           }
         </thy-select>
       </div>
@@ -86,9 +89,9 @@
     @if (config.showQuickJumper) {
       <div class="thy-pagination-jumper">
         <div class="thy-pagination-jumper-input">
-          跳至
+          {{ locale().jumpTo }}
           <input type="text" [disabled]="disabled" #jumperInput (thyEnter)="jumpPage(jumperInput)" (blur)="jumpPage(jumperInput)" />
-          页
+          {{ locale().page }}
         </div>
       </div>
     }

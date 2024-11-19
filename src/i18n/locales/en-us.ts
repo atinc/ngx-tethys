@@ -58,6 +58,16 @@ export default {
     cascader: {
         placeholder: 'Please select',
         empty: 'No data available'
+    },
+    pagination: {
+        page: 'page',
+        order: 'No.',
+        total: 'Total: ',
+        totalCount: 'Total: {total}',
+        jumpTo: 'Go to',
+        firstPage: 'First page',
+        lastPage: 'Last page',
+        defaultUnit: ''
     }
 };
 

@@ -10,7 +10,8 @@ import {
     Output,
     TemplateRef,
     numberAttribute,
-    inject
+    inject,
+    Signal
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -19,8 +20,9 @@ import { ThySelect } from 'ngx-tethys/select';
 import { ThyEnterDirective, ThyOption } from 'ngx-tethys/shared';
 import { coerceBooleanProperty, isTemplateRef } from 'ngx-tethys/util';
 import { ThyPaginationConfigModel } from './pagination.class';
-import { DEFAULT_RANGE_COUNT, PaginationDefaultConfig, THY_PAGINATION_CONFIG, ThyPaginationConfig } from './pagination.config';
-import { PaginationTotalCountFormat } from './pagination.pipe';
+import { DEFAULT_RANGE_COUNT, PaginationDefaultConfig, THY_PAGINATION_CONFIG } from './pagination.config';
+import { PaginationPerPageFormat, PaginationTotalCountFormat } from './pagination.pipe';
+import { injectLocale, ThyI18nLocale, ThyPaginationLocale, useLocale } from 'ngx-tethys/i18n';
 
 /**
  * 分页组件，当数据量过多时，使用分页分解数据。
@@ -32,14 +34,35 @@ import { PaginationTotalCountFormat } from './pagination.pipe';
     templateUrl: './pagination.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [NgTemplateOutlet, ThySelect, FormsModule, ThyOption, ThyIcon, ThyEnterDirective, PaginationTotalCountFormat]
+    imports: [
+        NgTemplateOutlet,
+        ThySelect,
+        FormsModule,
+        ThyOption,
+        ThyIcon,
+        ThyEnterDirective,
+        PaginationTotalCountFormat,
+        PaginationPerPageFormat
+    ]
 })
 export class ThyPagination implements OnInit {
     private paginationConfig = inject(THY_PAGINATION_CONFIG, { optional: true })!;
     private cdr = inject(ChangeDetectorRef);
+    allLocale: Signal<ThyI18nLocale> = useLocale();
+    locale: Signal<ThyPaginationLocale> = injectLocale('pagination');
 
     isTemplateRef = isTemplateRef;
-    public config: ThyPaginationConfigModel = Object.assign({}, PaginationDefaultConfig, this.paginationConfig.main);
+    public config: ThyPaginationConfigModel = Object.assign(
+        {},
+        PaginationDefaultConfig,
+        {
+            firstText: this.locale().firstPage,
+            lastText: this.locale().lastPage,
+            totalPagesFormat: this.locale().totalCount,
+            unit: this.locale().defaultUnit
+        },
+        this.paginationConfig.main
+    );
 
     /**
      * 设置当前页，支持双向绑定
