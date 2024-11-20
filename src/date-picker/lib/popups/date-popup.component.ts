@@ -12,7 +12,8 @@ import {
     Output,
     SimpleChanges,
     TemplateRef,
-    inject
+    inject,
+    Signal
 } from '@angular/core';
 
 import { NgTemplateOutlet } from '@angular/common';
@@ -37,6 +38,7 @@ import {
 import { CalendarFooter } from '../calendar/calendar-footer.component';
 import { DateCarousel } from '../date-carousel/date-carousel.component';
 import { InnerPopup } from './inner-popup.component';
+import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
 
 /**
  * @private
@@ -53,6 +55,7 @@ import { InnerPopup } from './inner-popup.component';
 export class DatePopup implements OnChanges, OnInit {
     private cdr = inject(ChangeDetectorRef);
     private datePickerConfigService = inject(ThyDatePickerConfigService);
+    locale: Signal<ThyDatePickerLocale> = injectLocale('datePicker');
 
     @Input() isRange: boolean;
     @Input() showWeek: boolean;

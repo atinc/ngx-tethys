@@ -6,6 +6,7 @@ import {
     Input,
     OnChanges,
     Output,
+    Signal,
     SimpleChanges,
     TemplateRef,
     inject
@@ -27,6 +28,7 @@ import { MonthTable } from '../month/month-table.component';
 import { YearHeader } from '../year/year-header.component';
 import { YearTable } from '../year/year-table.component';
 import { QuarterTable } from '../quarter/quarter-table.component';
+import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
 
 /**
  * @private
@@ -53,6 +55,7 @@ import { QuarterTable } from '../quarter/quarter-table.component';
 })
 export class InnerPopup implements OnChanges {
     private dateHelper = inject(DateHelperService);
+    locale: Signal<ThyDatePickerLocale> = injectLocale('datePicker');
 
     @HostBinding('class.thy-calendar-picker-inner-popup') className = true;
     @HostBinding('class.thy-calendar-picker-inner-popup-with-range-input') _showDateRangeInput = false;

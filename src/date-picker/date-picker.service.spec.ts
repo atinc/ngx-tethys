@@ -1,44 +1,53 @@
 import { ThyDatePickerConfigService } from './date-picker.service';
-import { DEFAULT_DATE_PICKER_CONFIG, THY_DATE_PICKER_CONFIG } from './date-picker.config';
-import { TestBed } from '@angular/core/testing';
+import { THY_DATE_PICKER_CONFIG, useDatePickerDefaultConfig } from './date-picker.config';
+import { fakeAsync, TestBed } from '@angular/core/testing';
+import { ThyI18nService } from 'ngx-tethys/i18n';
+import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
+import { ThyShortcutPreset } from './standard-types';
 
 describe('thyDatePickerConfigService Angular testing', () => {
     let thyDatePickerConfigService: ThyDatePickerConfigService;
-    const { showShortcut, shortcutPosition, shortcutDatePresets, shortcutRangesPresets, weekStartsOn, timestampPrecision } =
-        DEFAULT_DATE_PICKER_CONFIG;
-    beforeEach(() => {
+
+    function run(fn: Function): void {
+        runInInjectionContext(TestBed.inject(EnvironmentInjector), () => {
+            fn();
+        });
+    }
+
+    beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             providers: [
                 {
                     provide: THY_DATE_PICKER_CONFIG,
-                    useValue: DEFAULT_DATE_PICKER_CONFIG
-                }
+                    useFactory: useDatePickerDefaultConfig,
+                    deps: [ThyI18nService]
+                },
+                ThyDatePickerConfigService
             ]
         });
+
         thyDatePickerConfigService = TestBed.inject(ThyDatePickerConfigService);
-    });
+    }));
 
-    it('get default shortcut', () => {
-        expect(thyDatePickerConfigService.showShortcut).toBe(showShortcut);
-    });
+    it('get default config', () => {
+        run(() => {
+            const defaultOptions = useDatePickerDefaultConfig();
 
-    it('get default shortcut position', () => {
-        expect(thyDatePickerConfigService.shortcutPosition).toBe(shortcutPosition);
-    });
+            expect(thyDatePickerConfigService.showShortcut).toBe(defaultOptions.showShortcut);
 
-    it('get default shortcut date presets', () => {
-        expect(thyDatePickerConfigService.shortcutDatePresets).toBe(shortcutDatePresets);
-    });
+            expect(thyDatePickerConfigService.shortcutPosition).toBe(defaultOptions.shortcutPosition);
 
-    it('get default shortcut ranges presets', () => {
-        expect(thyDatePickerConfigService.shortcutRangesPresets).toBe(shortcutRangesPresets);
-    });
+            expect((thyDatePickerConfigService.shortcutDatePresets as () => ThyShortcutPreset[])()).toEqual(
+                (defaultOptions.shortcutDatePresets as () => ThyShortcutPreset[])()
+            );
 
-    it('get default weekStartsOn', () => {
-        expect(thyDatePickerConfigService.config.weekStartsOn).toBe(weekStartsOn);
-    });
+            expect((thyDatePickerConfigService.shortcutRangesPresets as () => ThyShortcutPreset[])()).toEqual(
+                (defaultOptions.shortcutRangesPresets as () => ThyShortcutPreset[])()
+            );
 
-    it('get default timestampPrecision', () => {
-        expect(thyDatePickerConfigService.timestampPrecision).toBe(timestampPrecision);
+            expect(thyDatePickerConfigService.config.weekStartsOn).toBe(defaultOptions.weekStartsOn);
+
+            expect(thyDatePickerConfigService.timestampPrecision).toBe(defaultOptions.timestampPrecision);
+        });
     });
 });

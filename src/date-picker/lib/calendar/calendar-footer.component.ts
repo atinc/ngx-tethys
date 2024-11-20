@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit, OnChanges, SimpleChanges, Signal } from '@angular/core';
 
 import { TinyDate, coerceBooleanProperty } from 'ngx-tethys/util';
 import { ThyButton } from 'ngx-tethys/button';
 import { FormsModule } from '@angular/forms';
 import { ThyInnerTimePicker } from 'ngx-tethys/time-picker';
 import { ThyIcon } from 'ngx-tethys/icon';
+import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
 
 /**
  * @private
@@ -29,6 +30,7 @@ export class CalendarFooter implements OnInit, OnChanges {
     @Output() readonly showTimePickerChange = new EventEmitter<boolean>();
     isShowTime = false;
     isCanTime = false;
+    locale: Signal<ThyDatePickerLocale> = injectLocale('datePicker');
 
     ngOnInit() {
         this._initTimeShowMode();

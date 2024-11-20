@@ -858,7 +858,7 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             flush();
             fixture.detectChanges();
-            expect(getPickerTrigger().placeholder).toEqual('请选择日期');
+            expect(getPickerTrigger().placeholder).toEqual('选择日期');
             fixtureInstance.thyMode = 'month';
             fixture.detectChanges();
             flush();

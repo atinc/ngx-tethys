@@ -8,7 +8,38 @@ export default {
         weekFormat: 'EEEEE', // Used in date picker table （六）
         fullWeekFormat: 'EE', // Used in calendar (周六)
         weekThFormat: 'yyyy-ww周', // Used in week picker
-        dateFormat: 'yyyy年MM月dd日'
+        dateFormat: 'yyyy年MM月dd日',
+
+        yearText: '年份',
+        quarterText: '季度',
+        monthText: '月份',
+        week: '周',
+        prefixWeek: '周',
+
+        previousYear: '上一年',
+        nextYear: '下一年',
+        previousMonth: '上个月',
+        nextMonth: '下个月',
+
+        today: '今天',
+        tomorrow: '明天',
+        nextWeek: '下周',
+        lastSevenDays: '最近 7 天',
+        lastThirtyDays: '最近 30 天',
+        currentMonth: '本月',
+        currentWeek: '本周',
+
+        advance: '高级选项',
+        custom: '自定义',
+
+        startDate: '开始日期',
+        endDate: '结束日期',
+
+        setTime: '设置时间',
+        placeholder: '选择日期',
+
+        ok: '确定',
+        clear: '清除'
     },
     dateRange: {
         custom: '自定义',
