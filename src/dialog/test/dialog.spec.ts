@@ -4,26 +4,27 @@ import { SpyLocation } from '@angular/common/testing';
 import { ViewContainerRef } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, flushMicrotasks, inject, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { bypassSanitizeProvider, dispatchKeyboardEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
+import { bypassSanitizeProvider, dispatchKeyboardEvent, dispatchMouseEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { helpers } from '../../util';
 import { A, ESCAPE } from '../../util/keycodes';
 import { ThyDialogContainer } from '../dialog-container.component';
 import { ThyDialogRef } from '../dialog-ref';
 import { ThyDialogSizes } from '../dialog.config';
-import { ThyDialog, ThyDialogModule, THY_CONFIRM_DEFAULT_OPTIONS } from '../index';
+import { THY_CONFIRM_DEFAULT_OPTIONS, ThyDialog, ThyDialogModule } from '../index';
 import {
     DialogFullContentComponent,
     DialogRestoreComponent,
     DialogSimpleContentComponent,
     DialogTestModule,
+    DialogToTopComponent,
     WithChildViewContainerComponent,
     WithInjectedDataDialogComponent,
     WithOnPushViewContainerComponent,
     WithTemplateRefComponent,
     WithViewContainerDirective
 } from './module';
-import { helpers } from '../../util';
 
 describe('ThyDialog', () => {
     let dialog: ThyDialog;
@@ -1419,6 +1420,33 @@ describe('ThyDialog', () => {
                 expect(_scrollElement.scrollTop).toEqual(_previouslyScrollTop);
                 expect(_scrollElement.scrollTop).toBe(0);
             });
+        }));
+    });
+
+    describe('toTop option', () => {
+        function setup() {
+            const fixture = TestBed.createComponent(DialogToTopComponent);
+            const component = fixture.componentInstance;
+            const button = fixture.debugElement.query(By.css('button'));
+            return { fixture, component, button };
+        }
+
+        it('should dialog to top', fakeAsync(() => {
+            const { fixture, component, button } = setup();
+            button.nativeElement.click();
+            fixture.detectChanges();
+            const containers = overlayContainerElement.querySelectorAll(`thy-dialog-container`);
+            expect(containers.length).toBe(2);
+
+            const toTopBtn = document.querySelector('.btn-to-top');
+            expect(toTopBtn).toBeTruthy();
+            dispatchMouseEvent(toTopBtn, 'click');
+            dialog.toTop('first');
+            fixture.detectChanges();
+            flush();
+
+            const dialogs = document.querySelectorAll('thy-dialog-container');
+            expect(dialogs[1].id).toBe('first');
         }));
     });
 });

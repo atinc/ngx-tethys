@@ -1,6 +1,5 @@
-import { ESCAPE, helpers } from 'ngx-tethys/util';
-import { Observable, of, Subject } from 'rxjs';
-import { filter, finalize, take } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { finalize, take } from 'rxjs/operators';
 
 import { GlobalPositionStrategy, OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
 
@@ -17,7 +16,6 @@ export abstract class ThyAbstractOverlayRef<
     backdropClosable: boolean;
     disableClose: boolean;
     containerInstance: TContainer;
-
     /**
      * 获取 OverlayRef
      */
@@ -150,16 +148,6 @@ export abstract class ThyAbstractInternalOverlayRef<
                 this._afterClosed.next(this._result);
                 this._afterClosed.complete();
                 this.componentInstance = null;
-            });
-
-        // ESC close
-        overlayRef
-            .keydownEvents()
-            .pipe(filter(event => event.keyCode === ESCAPE))
-            .subscribe(() => {
-                if ((this.disableClose !== undefined && !this.disableClose) || this.backdropClosable) {
-                    this.close();
-                }
             });
     }
 

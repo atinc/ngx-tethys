@@ -1,19 +1,19 @@
-import { coerceArray, concatArray, FunctionProp, keyBy } from 'ngx-tethys/util';
-import { Subject } from 'rxjs';
+import { coerceArray, concatArray, ESCAPE, FunctionProp, keyBy } from 'ngx-tethys/util';
+import { filter, Subject } from 'rxjs';
 
 import { ComponentType, Overlay, OverlayConfig, OverlayRef, ScrollStrategy } from '@angular/cdk/overlay';
 import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
-import { Injector, TemplateRef, reflectComponentType } from '@angular/core';
+import { Injector, reflectComponentType, TemplateRef } from '@angular/core';
 
+import { SafeAny } from 'ngx-tethys/types';
 import { ThyAbstractOverlayContainer } from './abstract-overlay-container';
 import { ThyAbstractOverlayRef } from './abstract-overlay-ref';
 import { ThyAbstractOverlayConfig, ThyAbstractOverlayOptions } from './abstract-overlay.config';
-import { SafeAny } from 'ngx-tethys/types';
 
 export type ComponentTypeOrTemplateRef<T> = ComponentType<T> | TemplateRef<T>;
 
 export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverlayConfig, TContainer extends ThyAbstractOverlayContainer> {
-    private openedOverlays: ThyAbstractOverlayRef<unknown, TContainer>[] = [];
+    public openedOverlays: ThyAbstractOverlayRef<unknown, TContainer>[] = [];
 
     private readonly _afterAllClosed = new Subject<void>();
 
@@ -169,6 +169,18 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
         });
         this._afterOpened.next(abstractOverlayRef);
 
+        // ESC close
+        abstractOverlayRef
+            .keydownEvents()
+            .pipe(filter(event => event.keyCode === ESCAPE))
+            .subscribe(() => {
+                if (
+                    (abstractOverlayRef.disableClose !== undefined && !abstractOverlayRef.disableClose) ||
+                    abstractOverlayRef.backdropClosable
+                ) {
+                    this.close();
+                }
+            });
         return abstractOverlayRef;
     }
 

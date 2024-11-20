@@ -7,7 +7,7 @@ import { ComponentPortal, ComponentType } from '@angular/cdk/portal';
 import { Injectable, Injector, OnDestroy, StaticProvider, TemplateRef, inject } from '@angular/core';
 
 import { ThyConfirmConfig } from './confirm.config';
-import { ThyConfirmAbstractComponent, THY_CONFIRM_COMPONENT_TOKEN } from './confirm/token';
+import { THY_CONFIRM_COMPONENT_TOKEN, ThyConfirmAbstractComponent } from './confirm/token';
 import { ThyDialogContainer } from './dialog-container.component';
 import { ThyDialogRef, ThyInternalDialogRef } from './dialog-ref';
 import { THY_DIALOG_DEFAULT_OPTIONS, ThyDialogConfig, ThyDialogSizes } from './dialog.config';
@@ -139,6 +139,25 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
             return this.getDialogById(parent.id);
         }
         return null;
+    }
+
+    /**
+     * Update overlay to top
+     * @param id
+     */
+    toTop(id: string): void {
+        if (!!id) {
+            const overlay = this.getOpenedDialogs().find(item => item?.id === id);
+            const parentNode = document.querySelector('.cdk-overlay-container');
+            parentNode.appendChild(overlay.getOverlayRef()?.backdropElement);
+            parentNode.appendChild(overlay.getOverlayRef()?.hostElement);
+            this.updateOpenedOverlays(id);
+        }
+    }
+
+    updateOpenedOverlays(id: string) {
+        const overlay = this.openedOverlays.find(item => item.id === id);
+        this.openedOverlays = [...this.openedOverlays.filter(item => item.id !== id), overlay];
     }
 
     ngOnDestroy() {

@@ -3,14 +3,15 @@ import {
     ChangeDetectionStrategy,
     Component,
     Directive,
+    inject,
+    Injectable,
     Injector,
     input,
     NgModule,
     OnInit,
     TemplateRef,
     ViewChild,
-    ViewContainerRef,
-    inject
+    ViewContainerRef
 } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyDialog, ThyDialogModule, ThyDialogRef } from '../';
@@ -152,6 +153,83 @@ export class WithOnPushViewContainerComponent {
     viewContainerRef = inject(ViewContainerRef);
 }
 
+//  multi dialog component
+@Injectable()
+export class dialogService {
+    private thyDialog = inject(ThyDialog);
+    private openedDialogs: ThyDialogRef<any>[] = [];
+    open(template?: any, id?: string, viewContainerRef?: ViewContainerRef) {
+        const hasOpenedDialogRef = this.openedDialogs.find(dialog => dialog.id === id);
+        if (hasOpenedDialogRef) {
+            this.thyDialog.toTop(id);
+            return;
+        }
+        const dialogRef = this.thyDialog.open(template, {
+            id: id,
+            viewContainerRef: viewContainerRef,
+            initialState: {}
+        });
+        this.openedDialogs.push(dialogRef);
+        dialogRef.afterClosed().subscribe(() => {
+            this.openedDialogs = this.openedDialogs.filter(item => item !== dialogRef);
+        });
+    }
+}
+@Component({
+    selector: `thy-dialog-popup-first-component`,
+    template: `
+        <thy-dialog-header thyTitle="Dialog with first"></thy-dialog-header>
+        <thy-dialog-body> 第一个弹框 </thy-dialog-body>
+        <thy-dialog-footer>
+            <button thyButton="primary" (click)="dialogRef.close()">确定</button>
+        </thy-dialog-footer>
+    `
+})
+class PopupFirstComponent {
+    dialogRef = inject(ThyDialogRef);
+}
+@Component({
+    selector: `thy-dialog-popup-second-component`,
+    template: `
+        <thy-dialog-header thyTitle="Dialog with second"></thy-dialog-header>
+        <thy-dialog-body>
+            <div class="btn-pair mt-2">
+                <div>第二个弹框</div>
+            </div>
+        </thy-dialog-body>
+        <thy-dialog-footer>
+            <button class="btn-to-top" thyButton="primary" (click)="toTop()">弹窗一置顶</button>
+            <button thyButton="primary" (click)="dialogRef.close()">确定</button>
+        </thy-dialog-footer>
+    `,
+    providers: [dialogService]
+})
+class PopupSecondComponent {
+    dialogRef = inject(ThyDialogRef);
+    private dialogService = inject(dialogService);
+    toTop() {
+        this.dialogService.open(PopupFirstComponent, 'first');
+    }
+}
+@Component({
+    selector: 'thy-dialog-to-top-component',
+    template: `
+        <div class="btn-pair">
+            <button thyButton="primary" (click)="open()">Open Dialog</button>
+        </div>
+    `,
+    providers: [dialogService]
+})
+export class DialogToTopComponent implements OnInit {
+    private dialogService = inject(dialogService);
+    constructor(public viewContainerRef: ViewContainerRef) {}
+    ngOnInit() {}
+    open() {
+        this.dialogService.open(PopupFirstComponent, 'first', this.viewContainerRef);
+        this.dialogService.open(PopupSecondComponent, 'second', this.viewContainerRef);
+    }
+}
+
 const TEST_DIRECTIVES = [
     DialogSimpleContentComponent,
     DialogFullContentComponent,
@@ -159,7 +237,8 @@ const TEST_DIRECTIVES = [
     WithTemplateRefComponent,
     WithChildViewContainerComponent,
     WithInjectedDataDialogComponent,
-    WithOnPushViewContainerComponent
+    WithOnPushViewContainerComponent,
+    DialogToTopComponent
 ];
 @NgModule({
     imports: [ThyDialogModule, NoopAnimationsModule],
