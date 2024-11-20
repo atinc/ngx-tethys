@@ -48,6 +48,37 @@ export interface ThyDatePickerLocale {
     fullWeekFormat: string;
     weekThFormat: string;
     dateFormat: string;
+
+    yearText: string;
+    quarterText: string;
+    monthText: string;
+    week: string;
+    prefixWeek: string;
+
+    previousYear: string;
+    nextYear: string;
+    previousMonth: string;
+    nextMonth: string;
+
+    today: string;
+    tomorrow: string;
+    nextWeek: string;
+    lastSevenDays: string;
+    lastThirtyDays: string;
+    currentMonth: string;
+    currentWeek: string;
+
+    advance: string;
+    custom: string;
+
+    startDate: string;
+    endDate: string;
+
+    setTime: string;
+    placeholder: string;
+
+    ok: string;
+    clear: string;
 }
 
 export interface ThyDateRangeLocale {

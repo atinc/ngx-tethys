@@ -1,7 +1,8 @@
-import { InjectionToken } from '@angular/core';
+import { InjectionToken, Signal } from '@angular/core';
 import { addDays, addWeeks, startOfDay, startOfWeek, subDays } from 'date-fns';
 import { TinyDate, WeekDayIndex } from 'ngx-tethys/util';
 import { CompatiblePresets, ThyShortcutPosition } from './standard-types';
+import { injectLocale, ThyDatePickerLocale, ThyI18nService } from 'ngx-tethys/i18n';
 
 export interface ThyDatePickerConfig {
     shortcutPosition: ThyShortcutPosition;
@@ -12,6 +13,9 @@ export interface ThyDatePickerConfig {
     timestampPrecision: 'seconds' | 'milliseconds';
 }
 
+/**
+ * @deprecated
+ */
 export const DEFAULT_DATE_PICKER_CONFIG: ThyDatePickerConfig = {
     shortcutPosition: 'left',
     showShortcut: false,
@@ -57,7 +61,58 @@ export const DEFAULT_DATE_PICKER_CONFIG: ThyDatePickerConfig = {
 
 export const THY_DATE_PICKER_CONFIG = new InjectionToken<ThyDatePickerConfig>('thy-date-picker-config');
 
+export function useDatePickerDefaultConfig(): ThyDatePickerConfig {
+    const locale: Signal<ThyDatePickerLocale> = injectLocale('datePicker');
+
+    return {
+        shortcutPosition: 'left',
+        showShortcut: false,
+        weekStartsOn: 1,
+        timestampPrecision: 'seconds',
+        shortcutDatePresets: () => {
+            return [
+                {
+                    title: locale().today,
+                    value: startOfDay(new Date()).getTime()
+                },
+                {
+                    title: locale().tomorrow,
+                    value: startOfDay(addDays(new Date(), 1)).getTime()
+                },
+                {
+                    title: locale().nextWeek,
+                    value: startOfWeek(addWeeks(new Date(), 1), { weekStartsOn: 1 }).getTime()
+                }
+            ];
+        },
+        shortcutRangesPresets: () => {
+            return [
+                {
+                    title: locale().lastSevenDays,
+                    value: [new TinyDate(subDays(new Date(), 6)).getTime(), new TinyDate().endOfDay().getTime()]
+                },
+                {
+                    title: locale().lastThirtyDays,
+                    value: [new TinyDate(subDays(new Date(), 29)).getTime(), new TinyDate().endOfDay().getTime()]
+                },
+                {
+                    title: locale().currentWeek,
+                    value: [
+                        new TinyDate().startOfWeek({ weekStartsOn: 1 }).getTime(),
+                        new TinyDate().endOfWeek({ weekStartsOn: 1 }).getTime()
+                    ]
+                },
+                {
+                    title: locale().currentMonth,
+                    value: [new TinyDate().startOfMonth().getTime(), new TinyDate().endOfMonth().getTime()]
+                }
+            ];
+        }
+    };
+}
+
 export const THY_DATE_PICKER_CONFIG_PROVIDER = {
     provide: THY_DATE_PICKER_CONFIG,
-    useValue: DEFAULT_DATE_PICKER_CONFIG
+    useFactory: useDatePickerDefaultConfig,
+    deps: [ThyI18nService]
 };
