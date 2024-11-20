@@ -83,6 +83,7 @@ export class ThyInputGroup implements OnInit, AfterContentChecked, OnDestroy {
 
     /**
      * 输入框上添加的后置文本多语言 Key
+     * @deprecated
      */
     @Input()
     set thyAppendTextTranslateKey(value: string) {
@@ -101,6 +102,7 @@ export class ThyInputGroup implements OnInit, AfterContentChecked, OnDestroy {
 
     /**
      * 输入框上添加的前置文本多语言 Key
+     * @deprecated
      */
     @Input()
     set thyPrependTextTranslateKey(value: string) {

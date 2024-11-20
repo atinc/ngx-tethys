@@ -95,6 +95,7 @@ export class ThyPropertyOperation implements OnInit, AfterContentInit, OnDestroy
 
     /**
      * 属性的 Label Translate Key
+     * @deprecated
      */
     @Input()
     set thyLabelTextTranslateKey(value: string) {

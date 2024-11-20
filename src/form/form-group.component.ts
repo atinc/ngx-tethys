@@ -67,6 +67,7 @@ export class ThyFormGroup implements OnInit {
 
     /**
      * Label 文本多语言 Key
+     * @deprecated
      */
     @Input()
     set thyLabelTextTranslateKey(value: string) {

@@ -58,6 +58,7 @@ export class ThyDialogHeader implements OnInit {
 
     /**
      * 标题的多语言 Key
+     * @deprecated
      */
     @Input()
     set thyTitleTranslationKey(key: string) {

@@ -31,6 +31,7 @@ export class ThyPopoverHeader {
 
     /**
      * 标题的多语言 Key
+     * @deprecated
      */
     @Input()
     set thyTitleTranslationKey(key: string) {

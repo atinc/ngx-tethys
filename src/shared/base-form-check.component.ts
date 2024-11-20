@@ -53,6 +53,7 @@ export class ThyFormCheckBaseComponent extends TabIndexDisabledControlValueAcces
 
     /**
      * Label 文本多语言 key
+     * @deprecated
      */
     @Input()
     set thyLabelTextTranslateKey(value: string) {

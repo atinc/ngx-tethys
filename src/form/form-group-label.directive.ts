@@ -24,6 +24,9 @@ export class ThyFormGroupLabelDirective {
         this.labelText = value;
     }
 
+    /**
+     * @deprecated
+     */
     @Input()
     set thyLabelTranslateKey(translateKey: string) {
         if (translateKey) {
