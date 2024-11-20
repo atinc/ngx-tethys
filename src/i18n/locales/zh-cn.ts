@@ -90,5 +90,8 @@ export default {
         url: '输入URL格式不正确',
         max: '该选项输入值不能大于{max}',
         min: '该选项输入值不能小于{min}'
+    },
+    empty: {
+        text: '暂无数据'
     }
 };
