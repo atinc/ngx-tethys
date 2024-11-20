@@ -55,6 +55,11 @@ export default {
         success: 'Copied',
         error: 'Failed'
     },
+    dialog: {
+        title: 'Confirm Delete',
+        ok: 'ok',
+        cancel: 'cancel'
+    },
     select: {
         placeholder: 'Please select',
         empty: 'No data available'
