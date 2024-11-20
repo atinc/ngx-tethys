@@ -91,7 +91,7 @@ export default {
         min: 'Input cannot be less than {min}'
     },
     empty: {
-        text: 'No data'
+        noDataText: 'No data'
     }
 };
 

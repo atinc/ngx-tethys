@@ -92,6 +92,6 @@ export default {
         min: '该选项输入值不能小于{min}'
     },
     empty: {
-        text: '暂无数据'
+        noDataText: '暂无数据'
     }
 };

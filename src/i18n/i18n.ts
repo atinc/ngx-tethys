@@ -143,5 +143,5 @@ export interface ThyFormLocale {
 }
 
 export interface ThyEmptyLocale {
-    text: string;
+    noDataText: string;
 }

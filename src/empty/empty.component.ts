@@ -181,7 +181,7 @@ export class ThyEmpty implements OnInit, AfterViewInit, OnChanges {
         } else if (this.thyTranslate.instant(this.thyEmptyConfig.noResultTranslateKey) !== 'common.tips.NO_RESULT') {
             return this.thyTranslate.instant(this.thyEmptyConfig.noResultTranslateKey);
         } else {
-            return this.locale().text;
+            return this.locale().noDataText;
         }
     }
 
