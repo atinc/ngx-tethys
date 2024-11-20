@@ -14,7 +14,8 @@ import {
     ChangeDetectorRef,
     Input,
     ElementRef,
-    inject
+    inject,
+    Signal
 } from '@angular/core';
 import { defer, merge, Observable, Subject, timer } from 'rxjs';
 import { take, switchMap, takeUntil, startWith } from 'rxjs/operators';
@@ -30,6 +31,7 @@ import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { ThyEmpty } from 'ngx-tethys/empty';
 import { NgClass } from '@angular/common';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { injectLocale, ThyAutoCompleteLocale } from 'ngx-tethys/i18n';
 
 /** Event object that is emitted when an autocomplete option is activated. */
 export interface ThyAutocompleteActivatedEvent {
@@ -62,6 +64,8 @@ export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, After
     private changeDetectorRef = inject(ChangeDetectorRef);
 
     private ngUnsubscribe$ = new Subject<void>();
+
+    private locale: Signal<ThyAutoCompleteLocale> = injectLocale('autocomplete');
 
     dropDownClass: { [key: string]: boolean };
 
@@ -102,10 +106,9 @@ export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, After
 
     /**
      * 空选项时的文本
-     * @type string
+     * @default 没有任何数据
      */
-    @Input()
-    thyEmptyText = '没有任何数据';
+    @Input() thyEmptyText = this.locale().empty;
 
     /**
      * 是否默认高亮第一个选项

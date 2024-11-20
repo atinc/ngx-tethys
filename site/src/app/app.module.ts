@@ -30,7 +30,6 @@ import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyInputNumberModule } from 'ngx-tethys/input-number';
 import { ThyLayoutModule } from 'ngx-tethys/layout';
-// import { ThyKeySelectModule } from 'ngx-tethys/key-select';
 import { ThyDotModule } from 'ngx-tethys/dot';
 import { ThyListModule } from 'ngx-tethys/list';
 import { ThyLoadingModule } from 'ngx-tethys/loading';
@@ -82,12 +81,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ThyTheme, ThyThemeStore } from 'ngx-tethys/core';
 import { Observable, Subject } from 'rxjs';
 import { MutationObserverFactory } from '@angular/cdk/observers';
-
-function thyPopoverDefaultConfigFactory(overlay: Overlay) {
-    return {
-        scrollStrategy: overlay.scrollStrategies.close()
-    };
-}
 
 const TETHYS_MODULES = [
     ThyLayoutModule,

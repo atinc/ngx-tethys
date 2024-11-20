@@ -1,6 +1,5 @@
-import { Component, forwardRef, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
+import { Component, forwardRef, OnInit, Input, ChangeDetectionStrategy, inject } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ThyTranslate } from 'ngx-tethys/core';
 import { ThyFormCheckBaseComponent } from 'ngx-tethys/shared';
 import { ThyRadioGroup } from './group/radio-group.component';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -30,7 +29,6 @@ import { NgClass } from '@angular/common';
     imports: [NgClass]
 })
 export class ThyRadio extends ThyFormCheckBaseComponent implements OnInit {
-    thyTranslate: ThyTranslate;
     thyRadioGroupComponent = inject(ThyRadioGroup, { optional: true })!;
 
     name: string;

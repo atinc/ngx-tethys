@@ -32,6 +32,11 @@ export default {
         ok: 'Ok',
         clear: 'Clear'
     },
+    dateRange: {
+        custom: 'Custom',
+        currentWeek: 'This week',
+        currentMonth: 'This month'
+    },
     timePicker: {
         placeholder: 'Select time',
         now: 'Now',
@@ -40,6 +45,9 @@ export default {
     calendar: {
         today: 'Today',
         yearMonthFormat: 'yyyy-MM' // eg. 2025-09
+    },
+    autocomplete: {
+        empty: 'No data'
     },
     transfer: {
         maxLimit: '(Max limit: {max})',
@@ -91,6 +99,22 @@ export default {
         firstPage: 'First page',
         lastPage: 'Last page',
         defaultUnit: ''
+    },
+    form: {
+        required: 'This option is required',
+        maxlength: 'Input cannot exceed {maxlength} characters',
+        minlength: 'Input must be at least {minlength} characters',
+        uniqueCheck: 'Value already exists, please try again',
+        email: 'Invalid email format',
+        confirm: 'Inputs do not match',
+        pattern: 'Invalid input format',
+        number: 'A number is required',
+        url: 'Invalid URL format',
+        max: 'Input cannot be greater than {max}',
+        min: 'Input cannot be less than {min}'
+    },
+    empty: {
+        noDataText: 'No data'
     }
 };
 

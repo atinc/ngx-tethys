@@ -7,7 +7,6 @@ import {
     Component,
     EventEmitter,
     Input,
-    numberAttribute,
     OnChanges,
     OnInit,
     Output,

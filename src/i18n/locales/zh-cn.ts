@@ -33,6 +33,11 @@ export default {
         ok: '确定',
         clear: '清除'
     },
+    dateRange: {
+        custom: '自定义',
+        currentWeek: '本周',
+        currentMonth: '本月'
+    },
     timePicker: {
         placeholder: '选择时间',
         now: '此刻',
@@ -41,6 +46,9 @@ export default {
     calendar: {
         today: '今天',
         yearMonthFormat: 'yyyy年MM月'
+    },
+    autocomplete: {
+        empty: '没有任何数据'
     },
     transfer: {
         maxLimit: '(上限{max}个)',
@@ -92,5 +100,21 @@ export default {
         firstPage: '第一页',
         lastPage: '最后一页',
         defaultUnit: '条'
+    },
+    form: {
+        required: '该选项不能为空',
+        maxlength: '该选项输入值长度不能大于{maxlength}',
+        minlength: '该选项输入值长度不能小于{minlength}',
+        uniqueCheck: '输入值已经存在，请重新输入',
+        email: '输入邮件的格式不正确',
+        confirm: '两次输入不一致',
+        pattern: '该选项输入格式不正确',
+        number: '必须输入数字',
+        url: '输入URL格式不正确',
+        max: '该选项输入值不能大于{max}',
+        min: '该选项输入值不能小于{min}'
+    },
+    empty: {
+        noDataText: '暂无数据'
     }
 };

@@ -1,7 +1,9 @@
 export type ThyModuleType =
     | 'datePicker'
+    | 'dateRange'
     | 'timePicker'
     | 'calendar'
+    | 'autocomplete'
     | 'transfer'
     | 'colorPicker'
     | 'strength'
@@ -10,15 +12,19 @@ export type ThyModuleType =
     | 'select'
     | 'treeSelect'
     | 'cascader'
-    | 'pagination';
+    | 'pagination'
+    | 'form'
+    | 'empty';
 
 export type ThyModuleLocaleType<K extends ThyModuleType> = ThyI18nLocale[K];
 
 export interface ThyI18nLocale {
     id: string;
     datePicker: ThyDatePickerLocale;
+    dateRange: ThyDateRangeLocale;
     timePicker: ThyTimePickerLocale;
     calendar: ThyCalendarLocale;
+    autocomplete: ThyAutoCompleteLocale;
     transfer: ThyTransferLocale;
     colorPicker: ThyColorPickerLocale;
     strength: ThyStrengthLocale;
@@ -28,6 +34,8 @@ export interface ThyI18nLocale {
     treeSelect: ThyTreeSelectLocale;
     cascader: ThyCascaderLocale;
     pagination: ThyPaginationLocale;
+    form: ThyFormLocale;
+    empty: ThyEmptyLocale;
 }
 
 export interface ThyDatePickerLocale {
@@ -63,6 +71,12 @@ export interface ThyDatePickerLocale {
     clear: string;
 }
 
+export interface ThyDateRangeLocale {
+    custom: string;
+    currentWeek: string;
+    currentMonth: string;
+}
+
 export interface ThyTimePickerLocale {
     placeholder: string;
     now: string;
@@ -72,6 +86,10 @@ export interface ThyTimePickerLocale {
 export interface ThyCalendarLocale {
     today: string;
     yearMonthFormat: string;
+}
+
+export interface ThyAutoCompleteLocale {
+    empty: string;
 }
 
 export interface ThyTransferLocale {
@@ -131,4 +149,22 @@ export interface ThyPaginationLocale {
     firstPage: string;
     lastPage: string;
     defaultUnit: string;
+}
+
+export interface ThyFormLocale {
+    required: string;
+    maxlength: string;
+    minlength: string;
+    uniqueCheck: string;
+    email: string;
+    confirm: string;
+    pattern: string;
+    number: string;
+    url: string;
+    max: string;
+    min: string;
+}
+
+export interface ThyEmptyLocale {
+    noDataText: string;
 }

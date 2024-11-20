@@ -2,11 +2,6 @@
   <thy-form-group thyLabelText="Username" thyLayout="horizontal" thyLabelRequired thyTips="This is tips for username">
     <input thyInput name="username" [(ngModel)]="model.name" required placeholder="Please type username" />
   </thy-form-group>
-  <thy-form-group thyRowFill>
-    <ng-template #content>
-      <input thyInput name="displayName" [(ngModel)]="model.display_name" placeholder="Please type display name" />
-    </ng-template>
-  </thy-form-group>
   <thy-form-group thyLabelText="Select">
     <thy-native-select required [(ngModel)]="model.select" name="power">
       <option value="">---Select---</option>
@@ -101,6 +96,11 @@
       <label thyRadioButton thyLabelText="Option4" thyValue="4"></label>
       <label thyRadioButton thyLabelText="Option5" thyValue="5"></label>
     </thy-radio-group>
+  </thy-form-group>
+  <thy-form-group thyRowFill>
+    <ng-template #content>
+      <input thyInput name="displayName" [(ngModel)]="model.display_name" placeholder="Please enter display name" />
+    </ng-template>
   </thy-form-group>
   @if (submitSuccess) {
     <thy-form-group>

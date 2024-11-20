@@ -1,10 +1,11 @@
 import { Dictionary } from 'ngx-tethys/types';
 import { helpers } from 'ngx-tethys/util';
 
-import { Inject, Injectable, Optional, inject } from '@angular/core';
+import { Inject, Injectable, Optional, Signal } from '@angular/core';
 import { ValidationErrors } from '@angular/forms';
 
 import { THY_VALIDATOR_CONFIG, ThyFormValidationMessages, ThyFormValidatorGlobalConfig } from './form.class';
+import { injectLocale, ThyFormLocale } from 'ngx-tethys/i18n';
 
 export const ERROR_VALUE_REPLACE_REGEX = /\{(.+?)\}/g;
 
@@ -17,32 +18,33 @@ const defaultValidatorConfig: ThyFormValidatorGlobalConfig = {
     validationMessages: {}
 };
 
-const globalValidationMessages = {
-    required: '该选项不能为空',
-    maxlength: '该选项输入值长度不能大于{maxlength}',
-    minlength: '该选项输入值长度不能小于{minlength}',
-    thyUniqueCheck: '输入值已经存在，请重新输入',
-    email: '输入邮件的格式不正确',
-    confirm: '两次输入不一致',
-    pattern: '该选项输入格式不正确',
-    number: '必须输入数字',
-    url: '输入URL格式不正确',
-    max: '该选项输入值不能大于{max}',
-    min: '该选项输入值不能小于{min}'
-};
-
 /**
  * @private
  */
 @Injectable()
 export class ThyFormValidatorLoader {
     private config: ThyFormValidatorGlobalConfig;
+    private locale: Signal<ThyFormLocale> = injectLocale('form');
+
+    private globalValidationMessages = {
+        required: this.locale().required,
+        maxlength: this.locale().maxlength,
+        minlength: this.locale().minlength,
+        thyUniqueCheck: this.locale().uniqueCheck,
+        email: this.locale().email,
+        confirm: this.locale().confirm,
+        pattern: this.locale().pattern,
+        number: this.locale().number,
+        url: this.locale().url,
+        max: this.locale().max,
+        min: this.locale().min
+    };
 
     private getDefaultValidationMessage(key: string) {
         if (this.config.globalValidationMessages && this.config.globalValidationMessages[key]) {
             return this.config.globalValidationMessages[key];
         } else {
-            return globalValidationMessages[key as keyof typeof globalValidationMessages];
+            return this.globalValidationMessages[key as keyof typeof this.globalValidationMessages];
         }
     }
 

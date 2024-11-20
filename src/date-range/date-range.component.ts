@@ -1,4 +1,4 @@
-import { Component, forwardRef, OnInit, Input, ChangeDetectorRef, Output, EventEmitter, inject } from '@angular/core';
+import { Component, forwardRef, OnInit, Input, ChangeDetectorRef, Output, EventEmitter, inject, Signal } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { DateRangeItemInfo } from './date-range.class';
 import { ThyPopover } from 'ngx-tethys/popover';
@@ -22,6 +22,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyAction } from 'ngx-tethys/action';
 import { NgClass } from '@angular/common';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { injectLocale, ThyDateRangeLocale } from 'ngx-tethys/i18n';
 
 const allDayTimestamp = 24 * 60 * 60;
 
@@ -46,6 +47,7 @@ const INPUT_CONTROL_VALUE_ACCESSOR: any = {
 export class ThyDateRange implements OnInit, ControlValueAccessor {
     private thyPopover = inject(ThyPopover);
     private cdr = inject(ChangeDetectorRef);
+    private locale: Signal<ThyDateRangeLocale> = injectLocale('dateRange');
 
     /**
      * 自定义可选值列表项
@@ -70,8 +72,9 @@ export class ThyDateRange implements OnInit, ControlValueAccessor {
 
     /**
      * 自定义日期选择的展示文字
+     * @default 自定义
      */
-    @Input() thyCustomTextValue = '自定义';
+    @Input() thyCustomTextValue = this.locale().custom;
 
     /**
      * 自定义日期选择中可选择的最小时间
@@ -113,7 +116,7 @@ export class ThyDateRange implements OnInit, ControlValueAccessor {
     public optionalDateRanges: DateRangeItemInfo[] = [
         {
             key: 'week',
-            text: '本周',
+            text: this.locale().currentWeek,
             begin: getUnixTime(startOfISOWeek(new Date())),
             end: getUnixTime(endOfISOWeek(new Date())),
             timestamp: {
@@ -123,7 +126,7 @@ export class ThyDateRange implements OnInit, ControlValueAccessor {
         },
         {
             key: 'month',
-            text: '本月',
+            text: this.locale().currentMonth,
             begin: getUnixTime(startOfMonth(new Date())),
             end: getUnixTime(endOfMonth(new Date())),
             timestamp: {
