@@ -198,6 +198,13 @@ export abstract class ThyAbstractInternalOverlayRef<
     }
 
     /**
+     * Gets an observable that is notified when the dialog has started closing.
+     */
+    beforeClosed(): Observable<TResult | undefined> {
+        return this._beforeClosed.asObservable();
+    }
+
+    /**
      * Gets an observable that emits when the overlay's backdrop has been clicked.
      */
     backdropClick(): Observable<MouseEvent> {
@@ -209,10 +216,6 @@ export abstract class ThyAbstractInternalOverlayRef<
      */
     keydownEvents(): Observable<KeyboardEvent> {
         return this.overlayRef.keydownEvents();
-    }
-
-    beforeClosed(): Observable<TResult | undefined> {
-        return this._beforeClosed.asObservable();
     }
 
     /**
