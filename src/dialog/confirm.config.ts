@@ -68,17 +68,19 @@ export const THY_CONFIRM_DEFAULT_OPTIONS_VALUE = {
     footerAlign: 'left'
 };
 
+export function useConfirmDefaultOptions() {
+    const locale = injectLocale('dialog');
+    return {
+        title: locale().title,
+        okText: locale().ok,
+        okType: 'danger',
+        cancelText: locale().cancel,
+        footerAlign: 'left'
+    };
+}
+
 export const THY_CONFIRM_DEFAULT_OPTIONS_PROVIDER = {
     provide: THY_CONFIRM_DEFAULT_OPTIONS,
-    useFactory: () => {
-        const locale = injectLocale('dialog');
-        return {
-            title: locale().title,
-            okText: locale().ok,
-            okType: 'danger',
-            cancelText: locale().cancel,
-            footerAlign: 'left'
-        };
-    },
+    useFactory: useConfirmDefaultOptions,
     deps: [ThyI18nService]
 };

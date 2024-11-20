@@ -1,16 +1,15 @@
 import { ThyFormDirective, ThyFormGroupFooterAlign, ThyFormGroupFooter } from 'ngx-tethys/form';
 import { finalize } from 'rxjs/operators';
 
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, Signal, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
 
 import { NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThyButton } from 'ngx-tethys/button';
 import { ThyDialogBody } from '../body/dialog-body.component';
-import { ThyConfirmConfig, THY_CONFIRM_DEFAULT_OPTIONS } from '../confirm.config';
+import { ThyConfirmConfig, THY_CONFIRM_DEFAULT_OPTIONS, useConfirmDefaultOptions } from '../confirm.config';
 import { ThyDialogRef } from '../dialog-ref';
 import { ThyDialogHeader } from '../header/dialog-header.component';
-import { injectLocale, ThyDialogLocale } from 'ngx-tethys/i18n';
 
 /**
  * @private
@@ -26,7 +25,6 @@ export class ThyConfirm implements OnInit, OnDestroy {
     private dialogRef = inject<ThyDialogRef<ThyConfirm>>(ThyDialogRef);
     private changeDetectorRef = inject(ChangeDetectorRef);
     private defaultConfig = inject(THY_CONFIRM_DEFAULT_OPTIONS);
-    private locale: Signal<ThyDialogLocale> = injectLocale('dialog');
 
     loading: boolean;
 
@@ -46,16 +44,8 @@ export class ThyConfirm implements OnInit, OnDestroy {
 
     public footerAlign: ThyFormGroupFooterAlign;
 
-    private defaultOptions = {
-        title: this.locale().title,
-        okText: this.locale().ok,
-        okType: 'danger',
-        cancelText: this.locale().cancel,
-        footerAlign: 'left'
-    };
-
     constructor() {
-        this.defaultConfig = { ...(this.defaultOptions as ThyConfirmConfig), ...this.defaultConfig };
+        this.defaultConfig = { ...(useConfirmDefaultOptions() as ThyConfirmConfig), ...this.defaultConfig };
     }
 
     ngOnInit() {
