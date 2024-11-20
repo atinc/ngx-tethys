@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { DEFAULT_DATE_PICKER_CONFIG, ThyDatePickerConfig, THY_DATE_PICKER_CONFIG } from './date-picker.config';
+import { ThyDatePickerConfig, THY_DATE_PICKER_CONFIG, useDatePickerDefaultConfig } from './date-picker.config';
 
 @Injectable({ providedIn: 'root' })
 export class ThyDatePickerConfigService {
@@ -8,7 +8,7 @@ export class ThyDatePickerConfigService {
     constructor() {
         const datePickerConfig = inject(THY_DATE_PICKER_CONFIG, { optional: true })!;
 
-        this.config = { ...DEFAULT_DATE_PICKER_CONFIG, ...datePickerConfig };
+        this.config = { ...useDatePickerDefaultConfig(), ...datePickerConfig };
     }
 
     get shortcutDatePresets() {

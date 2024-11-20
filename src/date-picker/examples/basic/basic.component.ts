@@ -1,6 +1,6 @@
 import { DateEntry, ThyDateRangeEntry } from 'ngx-tethys/date-picker';
 import { Component, OnInit } from '@angular/core';
-import { addWeeks, endOfDay, startOfDay, startOfWeek, subWeeks } from 'date-fns';
+import { endOfDay, startOfDay, subWeeks } from 'date-fns';
 
 @Component({
     selector: 'thy-date-picker-basic-example',
@@ -39,19 +39,6 @@ export class ThyDatePickerBasicExampleComponent implements OnInit {
             {
                 title: '最近12周',
                 value: [subWeeks(startOfDay(new Date()), 11).getTime(), endOfDay(new Date()).getTime()]
-            }
-        ];
-    };
-
-    shortcutDatePresets = () => {
-        return [
-            {
-                title: '今天',
-                value: startOfDay(new Date()).getTime()
-            },
-            {
-                title: '下周',
-                value: startOfWeek(addWeeks(new Date(), 1), { weekStartsOn: 1 }).getTime()
             }
         ];
     };

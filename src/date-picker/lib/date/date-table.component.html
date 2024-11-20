@@ -2,8 +2,8 @@
   <thead>
     <tr role="row">
       @if (showWeek) {
-        <th role="columnheader" title="周" class="{{ prefixCls }}-column-header {{ prefixCls }}-week-number-header">
-          <span class="{{ prefixCls }}-column-header-inner">周</span>
+        <th role="columnheader" [title]="locale().week" class="{{ prefixCls }}-column-header {{ prefixCls }}-week-number-header">
+          <span class="{{ prefixCls }}-column-header-inner">{{ locale().prefixWeek }}</span>
         </th>
       }
       @for (cell of headRow; track $index) {

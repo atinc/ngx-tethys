@@ -17,12 +17,12 @@
           <div class="{{ prefixCls }}-date-panel-flexible">
             <div class="{{ prefixCls }}-date-panel-flexible-tab">
               <thy-nav thyType="pulled" thySize="sm">
-                <a href="javascript:;" thyNavLink [thyNavLinkActive]="flexibleActiveTab === 'advanced'" (click)="selectTab('advanced')"
-                  >高级选项</a
-                >
-                <a href="javascript:;" thyNavLink [thyNavLinkActive]="flexibleActiveTab === 'custom'" (click)="selectTab('custom')"
-                  >自定义</a
-                >
+                <a href="javascript:;" thyNavLink [thyNavLinkActive]="flexibleActiveTab === 'advanced'" (click)="selectTab('advanced')">{{
+                  locale().advance
+                }}</a>
+                <a href="javascript:;" thyNavLink [thyNavLinkActive]="flexibleActiveTab === 'custom'" (click)="selectTab('custom')">{{
+                  locale().custom
+                }}</a>
               </thy-nav>
               <button thyButtonIcon="sweep" thySize="sm" class="clear-date-button" (click)="clearFlexibleValue()"></button>
             </div>
