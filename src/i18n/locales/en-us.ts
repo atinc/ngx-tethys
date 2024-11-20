@@ -56,9 +56,9 @@ export default {
         error: 'Failed'
     },
     dialog: {
-        title: 'Confirm Delete',
-        ok: 'ok',
-        cancel: 'cancel'
+        title: 'Confirm',
+        ok: 'Ok',
+        cancel: 'Cancel'
     },
     select: {
         placeholder: 'Please select',

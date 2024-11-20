@@ -1,5 +1,6 @@
 import { InjectionToken } from '@angular/core';
 import { ThyFormGroupFooterAlign } from 'ngx-tethys/form';
+import { injectLocale, ThyI18nService } from 'ngx-tethys/i18n';
 import { Observable } from 'rxjs';
 
 /**
@@ -56,6 +57,9 @@ export interface ThyConfirmConfig {
 
 export const THY_CONFIRM_DEFAULT_OPTIONS = new InjectionToken<ThyConfirmConfig>('thy-confirm-default-options');
 
+/**
+ * @deprecated
+ */
 export const THY_CONFIRM_DEFAULT_OPTIONS_VALUE = {
     title: '确认删除',
     okText: '确定',
@@ -66,5 +70,15 @@ export const THY_CONFIRM_DEFAULT_OPTIONS_VALUE = {
 
 export const THY_CONFIRM_DEFAULT_OPTIONS_PROVIDER = {
     provide: THY_CONFIRM_DEFAULT_OPTIONS,
-    useValue: THY_CONFIRM_DEFAULT_OPTIONS_VALUE
+    useFactory: () => {
+        const locale = injectLocale('dialog');
+        return {
+            title: locale().title,
+            okText: locale().ok,
+            okType: 'danger',
+            cancelText: locale().cancel,
+            footerAlign: 'left'
+        };
+    },
+    deps: [ThyI18nService]
 };

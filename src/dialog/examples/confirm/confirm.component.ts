@@ -12,6 +12,10 @@ export class ThyDialogConfirmExampleComponent {
 
     public okType: 'primary' | 'danger';
 
+    openDefaultConfirm() {
+        this.thyDialog.confirm({ content: 'Are you sure to delete it?' });
+    }
+
     openPrimaryConfirm() {
         const confirmConfig: ThyConfirmConfig = {
             title: '确认归档',
