@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [18.1.1](https://github.com/atinc/ngx-tethys/compare/18.1.0...18.1.1) (2024-11-20)
+
+
+### Bug Fixes
+
+* 页面的 tooltip 有时候会导致点击有 property-item 的 弹出层时，property-item 错误的退出编辑状态 #INFR-1023 ([#3261](https://github.com/atinc/ngx-tethys/issues/3261)) ([dbf511e](https://github.com/atinc/ngx-tethys/commit/dbf511e9ed2d2d2cab62c454ce2c0d5de51068fe)), closes [#INFR-1023](https://github.com/atinc/ngx-tethys/issues/INFR-1023)
+
+
+### Features
+
+* **core:** support projectableNodes for ThyAbstractOverlayConfig and rename ThyStealthViewDirective to ThyStealthView #TINFR-651 ([#3230](https://github.com/atinc/ngx-tethys/issues/3230)) ([f838b96](https://github.com/atinc/ngx-tethys/commit/f838b967ae2066790617f1ace6729d4ea4025369)), closes [#TINFR-651](https://github.com/atinc/ngx-tethys/issues/TINFR-651)
+* **drag-drop:** mark drag-drop as deprecated #TINFR-438 ([#3231](https://github.com/atinc/ngx-tethys/issues/3231)) ([7497858](https://github.com/atinc/ngx-tethys/commit/7497858e449a5d217c3117432db3648f27766e52)), closes [#TINFR-438](https://github.com/atinc/ngx-tethys/issues/TINFR-438)
+
+
+
 # [18.2.0-next.0](https://github.com/atinc/ngx-tethys/compare/18.1.0...18.2.0-next.0) (2024-11-14)
 
 
