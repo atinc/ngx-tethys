@@ -52,7 +52,7 @@
 
 // 拖入 cdkDropList 时要显示的元素，不是真正的元素。
 .thy-sortable-ghost,
-.cdk-drag-placeholder:not(.thy-tree-node) {
+.cdk-drag-placeholder:not(.thy-tree-node):not(.thy-customize-drag-placeholder) {
     color: transparent !important;
     background: variables.$gray-200 !important;
 
