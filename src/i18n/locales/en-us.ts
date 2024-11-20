@@ -20,6 +20,14 @@ export default {
         previousMonth: 'Previous month',
         nextMonth: 'Next month',
 
+        today: 'Today',
+        tomorrow: 'Tomorrow',
+        nextWeek: 'Next week',
+        lastSevenDays: 'Last 7 days',
+        lastThirtyDays: 'Last 30 days',
+        currentMonth: 'This month',
+        currentWeek: 'This week',
+
         advance: 'Advance',
         custom: 'Custom',
 

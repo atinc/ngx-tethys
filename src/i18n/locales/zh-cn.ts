@@ -21,6 +21,14 @@ export default {
         previousMonth: '上个月',
         nextMonth: '下个月',
 
+        today: '今天',
+        tomorrow: '明天',
+        nextWeek: '下周',
+        lastSevenDays: '最近 7 天',
+        lastThirtyDays: '最近 30 天',
+        currentMonth: '本月',
+        currentWeek: '本周',
+
         advance: '高级选项',
         custom: '自定义',
 

@@ -58,6 +58,14 @@ export interface ThyDatePickerLocale {
     previousMonth: string;
     nextMonth: string;
 
+    today: string;
+    tomorrow: string;
+    nextWeek: string;
+    lastSevenDays: string;
+    lastThirtyDays: string;
+    currentMonth: string;
+    currentWeek: string;
+
     advance: string;
     custom: string;
 
