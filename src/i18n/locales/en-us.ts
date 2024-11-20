@@ -89,6 +89,9 @@ export default {
         url: 'Invalid URL format',
         max: 'Input cannot be greater than {max}',
         min: 'Input cannot be less than {min}'
+    },
+    empty: {
+        noDataText: 'No data'
     }
 };
 
