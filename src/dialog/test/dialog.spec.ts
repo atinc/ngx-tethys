@@ -1441,7 +1441,7 @@ describe('ThyDialog', () => {
             const toTopBtn = document.querySelector('.btn-to-top');
             expect(toTopBtn).toBeTruthy();
             dispatchMouseEvent(toTopBtn, 'click');
-            dialog.toTop('first');
+            fixture.componentInstance['dialogService'].open(fixture.componentInstance.popupFirst, 'first');
             fixture.detectChanges();
             flush();
 

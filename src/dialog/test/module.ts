@@ -161,7 +161,7 @@ export class dialogService {
     open(template?: any, id?: string, viewContainerRef?: ViewContainerRef) {
         const hasOpenedDialogRef = this.openedDialogs.find(dialog => dialog.id === id);
         if (hasOpenedDialogRef) {
-            this.thyDialog.toTop(id);
+            hasOpenedDialogRef.toTop();
             return;
         }
         const dialogRef = this.thyDialog.open(template, {
@@ -221,6 +221,8 @@ class PopupSecondComponent {
     providers: [dialogService]
 })
 export class DialogToTopComponent implements OnInit {
+    @ViewChild(PopupFirstComponent, { static: true }) popupFirst: PopupFirstComponent;
+    @ViewChild(PopupSecondComponent, { static: true }) popupSecond: PopupSecondComponent;
     private dialogService = inject(dialogService);
     constructor(public viewContainerRef: ViewContainerRef) {}
     ngOnInit() {}

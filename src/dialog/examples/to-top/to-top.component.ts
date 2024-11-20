@@ -11,7 +11,7 @@ export class dialogService {
     open(template?: any, id?: string, viewContainerRef?: ViewContainerRef) {
         const hasOpenedDialogRef = this.openedDialogs.find(dialog => dialog.id === id);
         if (hasOpenedDialogRef) {
-            this.thyDialog.toTop(id);
+            hasOpenedDialogRef.toTop();
             return;
         }
         const dialogRef = this.thyDialog.open(template, {

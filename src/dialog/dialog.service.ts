@@ -141,25 +141,6 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
         return null;
     }
 
-    /**
-     * Update overlay to top
-     * @param id
-     */
-    toTop(id: string): void {
-        if (!!id) {
-            const overlay = this.getOpenedDialogs().find(item => item?.id === id);
-            const parentNode = document.querySelector('.cdk-overlay-container');
-            parentNode.appendChild(overlay.getOverlayRef()?.backdropElement);
-            parentNode.appendChild(overlay.getOverlayRef()?.hostElement);
-            this.updateOpenedOverlays(id);
-        }
-    }
-
-    updateOpenedOverlays(id: string) {
-        const overlay = this.openedOverlays.find(item => item.id === id);
-        this.openedOverlays = [...this.openedOverlays.filter(item => item.id !== id), overlay];
-    }
-
     ngOnDestroy() {
         this.dispose();
     }

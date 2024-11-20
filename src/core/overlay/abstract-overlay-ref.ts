@@ -55,6 +55,16 @@ export abstract class ThyAbstractOverlayRef<
      * @param position
      */
     abstract updatePosition(position?: ThyAbstractOverlayPosition): this;
+
+    /**
+     * 模态框置顶
+     */
+    abstract toTop(): void;
+
+    /**
+     * 模态框置顶回调
+     */
+    abstract toTopStream(): Observable<string>;
 }
 
 // Counter for unique overlay ids.
@@ -91,6 +101,9 @@ export abstract class ThyAbstractInternalOverlayRef<
 
     /** Subject for notifying the user that the dialog has started closing. */
     private readonly _beforeClosed = new Subject<TResult | undefined>();
+
+    /**  Subject for notifying the overlay to top */
+    private readonly _toTopStream = new Subject<string>();
 
     /** Result to be passed to afterClosed. */
     private _result: TResult | undefined;
@@ -164,6 +177,7 @@ export abstract class ThyAbstractInternalOverlayRef<
                 this._beforeClosed.complete();
             }
 
+            this._toTopStream.complete();
             this.overlayRef.detachBackdrop();
             this.containerInstance.startExitAnimation();
         }
@@ -184,13 +198,6 @@ export abstract class ThyAbstractInternalOverlayRef<
     }
 
     /**
-     * Gets an observable that is notified when the dialog has started closing.
-     */
-    beforeClosed(): Observable<TResult | undefined> {
-        return this._beforeClosed.asObservable();
-    }
-
-    /**
      * Gets an observable that emits when the overlay's backdrop has been clicked.
      */
     backdropClick(): Observable<MouseEvent> {
@@ -202,6 +209,17 @@ export abstract class ThyAbstractInternalOverlayRef<
      */
     keydownEvents(): Observable<KeyboardEvent> {
         return this.overlayRef.keydownEvents();
+    }
+
+    beforeClosed(): Observable<TResult | undefined> {
+        return this._beforeClosed.asObservable();
+    }
+
+    /**
+     *  Subject for notifying the overlay to top.
+     */
+    toTopStream(): Observable<string> {
+        return this._toTopStream?.asObservable();
     }
 
     /** Get overlay ref */
@@ -235,5 +253,15 @@ export abstract class ThyAbstractInternalOverlayRef<
         this.overlayRef.updatePosition();
 
         return this;
+    }
+
+    /**
+     * Update overlay to top
+     */
+    toTop(): void {
+        const parentNode = document.querySelector('.cdk-overlay-container');
+        parentNode.appendChild(this.overlayRef?.backdropElement);
+        parentNode.appendChild(this.overlayRef?.hostElement);
+        this._toTopStream.next(this.id);
     }
 }
