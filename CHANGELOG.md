@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [18.2.0-next.1](https://github.com/atinc/ngx-tethys/compare/18.2.0-next.0...18.2.0-next.1) (2024-11-21)
+
+
+### Features
+
+* **autocomplete:** support i18n #TINFR-1020 ([#3259](https://github.com/atinc/ngx-tethys/issues/3259)) ([30c7927](https://github.com/atinc/ngx-tethys/commit/30c7927865eebff3d89a33e2fedf8df7a83a2b51)), closes [#TINFR-1020](https://github.com/atinc/ngx-tethys/issues/TINFR-1020)
+* **calendar:** support i18n #TINFR-962 ([#3244](https://github.com/atinc/ngx-tethys/issues/3244)) ([4cac6df](https://github.com/atinc/ngx-tethys/commit/4cac6df016b12dc57ed3bed5f3c9090060ffa007)), closes [#TINFR-962](https://github.com/atinc/ngx-tethys/issues/TINFR-962)
+* **cascader:** support i18n #TINFR-967 ([#3248](https://github.com/atinc/ngx-tethys/issues/3248)) ([fc5fa48](https://github.com/atinc/ngx-tethys/commit/fc5fa485d9e4cefd495f89779baf52afdcde733f)), closes [#TINFR-967](https://github.com/atinc/ngx-tethys/issues/TINFR-967)
+* **colorPicker:** support i18n #TINFR-965 ([#3246](https://github.com/atinc/ngx-tethys/issues/3246)) ([3b23810](https://github.com/atinc/ngx-tethys/commit/3b238103a23e26000ee20a2e0ad021df34d542a2)), closes [#TINFR-965](https://github.com/atinc/ngx-tethys/issues/TINFR-965)
+* **copy:** support i18n #TINFR-961 ([#3243](https://github.com/atinc/ngx-tethys/issues/3243)) ([f648460](https://github.com/atinc/ngx-tethys/commit/f6484600a99151b862b118b4b15e6d0818277364)), closes [#TINFR-961](https://github.com/atinc/ngx-tethys/issues/TINFR-961)
+* **date-picker:** support i18n #TINFR-917 ([#3254](https://github.com/atinc/ngx-tethys/issues/3254)) ([5928b79](https://github.com/atinc/ngx-tethys/commit/5928b790adc5e38cdb6d2037eb59cfd0c9b85804)), closes [#TINFR-917](https://github.com/atinc/ngx-tethys/issues/TINFR-917)
+* **date-range:** support i18n #TINFR-968 ([#3256](https://github.com/atinc/ngx-tethys/issues/3256)) ([f6bd62e](https://github.com/atinc/ngx-tethys/commit/f6bd62e465c28cba57205ba5a773b6df6f7c579c)), closes [#TINFR-968](https://github.com/atinc/ngx-tethys/issues/TINFR-968)
+* **dialog:** support i18n #TINFR-973 ([#3266](https://github.com/atinc/ngx-tethys/issues/3266)) ([194f20b](https://github.com/atinc/ngx-tethys/commit/194f20b4ccd1f936767f0ee1ba497fd13a403769)), closes [#TINFR-973](https://github.com/atinc/ngx-tethys/issues/TINFR-973)
+* **empty:** support i18n #TINFR-972 ([#3262](https://github.com/atinc/ngx-tethys/issues/3262)) ([310a686](https://github.com/atinc/ngx-tethys/commit/310a686ed83192b70660a4127bf20b08e7890349)), closes [#TINFR-972](https://github.com/atinc/ngx-tethys/issues/TINFR-972)
+* **form:** support i18n #TINFR-970 ([#3255](https://github.com/atinc/ngx-tethys/issues/3255)) ([29c82b1](https://github.com/atinc/ngx-tethys/commit/29c82b18656da38c8bca23d3d37a0e2f2c860e1e)), closes [#TINFR-970](https://github.com/atinc/ngx-tethys/issues/TINFR-970)
+* **guider:** support i18n #TINFR-960 ([#3245](https://github.com/atinc/ngx-tethys/issues/3245)) ([c6ad04b](https://github.com/atinc/ngx-tethys/commit/c6ad04b529449cba359108bf84ed40a017fdb6c4)), closes [#TINFR-960](https://github.com/atinc/ngx-tethys/issues/TINFR-960)
+* **i18n:** i18n design and review #TINFR-916  ([#3242](https://github.com/atinc/ngx-tethys/issues/3242)) ([f829685](https://github.com/atinc/ngx-tethys/commit/f829685f61a850eb19fdd0be2f868a0e896779cb)), closes [#TINFR-916](https://github.com/atinc/ngx-tethys/issues/TINFR-916)
+* **pagination:** support i18n #TINFR-969 ([#3252](https://github.com/atinc/ngx-tethys/issues/3252)) ([60518c4](https://github.com/atinc/ngx-tethys/commit/60518c43a365601c5987edbc89c7dc980d9c65a5)), closes [#TINFR-969](https://github.com/atinc/ngx-tethys/issues/TINFR-969)
+* **select:** support i18n #TINFR-963 ([#3250](https://github.com/atinc/ngx-tethys/issues/3250)) ([794c6ac](https://github.com/atinc/ngx-tethys/commit/794c6ac23e2bd84aaf0d729837b46e3e68774aa9)), closes [#TINFR-963](https://github.com/atinc/ngx-tethys/issues/TINFR-963)
+* **strength:** support i18n #TINFR-971 ([#3251](https://github.com/atinc/ngx-tethys/issues/3251)) ([5260729](https://github.com/atinc/ngx-tethys/commit/5260729a0721d4fb965c576c404a9dc7695c4aa7)), closes [#TINFR-971](https://github.com/atinc/ngx-tethys/issues/TINFR-971)
+* **time-picker:** support i18n #TINFR-1001 ([#3247](https://github.com/atinc/ngx-tethys/issues/3247)) ([5c05293](https://github.com/atinc/ngx-tethys/commit/5c05293706fcfc5f7af5433171f8601c9373f816)), closes [#TINFR-1001](https://github.com/atinc/ngx-tethys/issues/TINFR-1001)
+* **tree-select:** support i18n #TINFR-964 ([#3249](https://github.com/atinc/ngx-tethys/issues/3249)) ([8728887](https://github.com/atinc/ngx-tethys/commit/8728887bf238dc1c12ae3c1f5b216bd4818206f1)), closes [#TINFR-964](https://github.com/atinc/ngx-tethys/issues/TINFR-964)
+
+
+
 ## [18.1.1](https://github.com/atinc/ngx-tethys/compare/18.1.0...18.1.1) (2024-11-20)
 
 
