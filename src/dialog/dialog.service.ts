@@ -10,7 +10,7 @@ import { isString } from 'ngx-tethys/util';
 import { ThyConfirmConfig } from './confirm.config';
 import { THY_CONFIRM_COMPONENT_TOKEN, ThyConfirmAbstractComponent } from './confirm/token';
 import { ThyDialogContainer } from './dialog-container.component';
-import { ThyDialogRef, ThyInternalDialogRef } from './dialog-ref';
+import { ThyAbstractDialog, ThyDialogRef, ThyInternalDialogRef } from './dialog-ref';
 import { THY_DIALOG_DEFAULT_OPTIONS, ThyDialogConfig, ThyDialogSizes } from './dialog.config';
 import { dialogAbstractOverlayOptions } from './dialog.options';
 
@@ -25,6 +25,10 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
     private overlayKeyboardDispatcher = inject(OverlayKeyboardDispatcher);
 
     private overlayContainer = inject(OverlayContainer);
+
+    private abstractDialog: ThyAbstractDialog = {
+        toTop: (id: string) => this.toTop(id)
+    };
 
     protected buildOverlayConfig(config: ThyDialogConfig<any>): OverlayConfig {
         const size = config.size || ThyDialogSizes.md;
@@ -51,7 +55,7 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
         containerInstance: ThyDialogContainer,
         config: ThyDialogConfig<any>
     ): ThyAbstractOverlayRef<T, ThyDialogContainer, TResult> {
-        return new ThyInternalDialogRef(overlayRef, containerInstance, config, this);
+        return new ThyInternalDialogRef(overlayRef, containerInstance, config, this.abstractDialog);
     }
 
     protected createInjector<T>(config: ThyDialogConfig, dialogRef: ThyDialogRef<T>, dialogContainer: ThyDialogContainer): Injector {
@@ -149,21 +153,21 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
     /**
      * Update dialog to top
      */
-    toTop(idOrOverlayRef: string | ThyAbstractOverlayRef<unknown, ThyDialogContainer>) {
-        let abstractOverlayRef: ThyAbstractOverlayRef<unknown, ThyDialogContainer>;
+    toTop(idOrOverlayRef: string | ThyDialogRef<unknown, ThyDialogContainer>) {
+        let dialogRef: ThyAbstractOverlayRef<unknown, ThyDialogContainer>;
         if (isString(idOrOverlayRef)) {
-            abstractOverlayRef = this.openedOverlays.find(item => item.id === idOrOverlayRef);
+            dialogRef = this.openedOverlays.find(item => item.id === idOrOverlayRef);
         } else {
-            abstractOverlayRef = idOrOverlayRef;
+            dialogRef = idOrOverlayRef;
         }
-        if (abstractOverlayRef) {
-            const overlayRef = abstractOverlayRef.getOverlayRef();
+        if (dialogRef) {
+            const overlayRef = dialogRef.getOverlayRef();
             const containerElement = this.overlayContainer.getContainerElement();
             containerElement.appendChild(overlayRef.backdropElement);
             containerElement.appendChild(overlayRef.hostElement);
             this.overlayKeyboardDispatcher.remove(overlayRef);
             this.overlayKeyboardDispatcher.add(overlayRef);
-            this.openedOverlays = [...(this.openedOverlays || []).filter(item => item.id !== abstractOverlayRef?.id), abstractOverlayRef];
+            this.openedOverlays = [...(this.openedOverlays || []).filter(item => item.id !== dialogRef?.id), dialogRef];
         }
     }
 

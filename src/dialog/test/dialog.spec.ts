@@ -1431,30 +1431,20 @@ describe('ThyDialog', () => {
             return { fixture, component, button };
         }
 
-        it('should dialog to top with dialogRef', fakeAsync(() => {
+        it('should dialog to top', fakeAsync(() => {
             const { fixture, component, button } = setup();
             button.nativeElement.click();
             fixture.detectChanges();
             const containers = overlayContainerElement.querySelectorAll(`thy-dialog-container`);
             expect(containers.length).toBe(2);
-            fixture.componentInstance.dialogService.openWithDialogRef(fixture.componentInstance.popupFirst, 'first');
-            fixture.detectChanges();
-            flush();
             const dialogs = document.querySelectorAll('thy-dialog-container');
-            expect(dialogs[1].id).toBe('first');
-        }));
+            expect(dialogs[1].id).toBe('second');
 
-        it('should dialog to top with ThyDialog', fakeAsync(() => {
-            const { fixture, component, button } = setup();
-            button.nativeElement.click();
-            fixture.detectChanges();
-            const containers = overlayContainerElement.querySelectorAll(`thy-dialog-container`);
-            expect(containers.length).toBe(2);
-            fixture.componentInstance.dialogService.openWithThyDialog(fixture.componentInstance.popupFirst, 'first');
+            fixture.componentInstance.thyDialog.toTop('first');
             fixture.detectChanges();
             flush();
-            const dialogs = document.querySelectorAll('thy-dialog-container');
-            expect(dialogs[1].id).toBe('first');
+            const changeDialogs = document.querySelectorAll('thy-dialog-container');
+            expect(changeDialogs[1].id).toBe('first');
         }));
     });
 });

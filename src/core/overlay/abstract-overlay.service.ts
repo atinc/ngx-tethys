@@ -13,7 +13,7 @@ import { ThyAbstractOverlayConfig, ThyAbstractOverlayOptions } from './abstract-
 export type ComponentTypeOrTemplateRef<T> = ComponentType<T> | TemplateRef<T>;
 
 export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverlayConfig, TContainer extends ThyAbstractOverlayContainer> {
-    public openedOverlays: ThyAbstractOverlayRef<unknown, TContainer>[] = [];
+    protected openedOverlays: ThyAbstractOverlayRef<unknown, TContainer>[] = [];
 
     private readonly _afterAllClosed = new Subject<void>();
 

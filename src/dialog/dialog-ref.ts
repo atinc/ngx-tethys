@@ -4,20 +4,28 @@ import { ThyAbstractInternalOverlayRef, ThyAbstractOverlayPosition, ThyAbstractO
 import { ThyDialogContainer } from './dialog-container.component';
 import { ThyDialogConfig } from './dialog.config';
 import { dialogAbstractOverlayOptions } from './dialog.options';
-import { ThyDialog } from './dialog.service';
 
 /**
  * @publicApi
  * @order 30
  */
+export interface ThyAbstractDialog {
+    toTop(id: string): void;
+}
+
 export abstract class ThyDialogRef<T, TResult = unknown> extends ThyAbstractOverlayRef<T, ThyDialogContainer, TResult> {}
 
 export class ThyInternalDialogRef<T, TResult = unknown> extends ThyAbstractInternalOverlayRef<T, ThyDialogContainer, TResult> {
-    private thyDialog: ThyDialog;
+    abstractDialog: ThyAbstractDialog;
 
-    constructor(overlayRef: OverlayRef, containerInstance: ThyDialogContainer, config: ThyDialogConfig<T>, service: ThyDialog) {
+    constructor(
+        overlayRef: OverlayRef,
+        containerInstance: ThyDialogContainer,
+        config: ThyDialogConfig<T>,
+        abstractDialog: ThyAbstractDialog
+    ) {
         super(dialogAbstractOverlayOptions, overlayRef, containerInstance, config);
-        this.thyDialog = service;
+        this.abstractDialog = abstractDialog;
     }
 
     /**
@@ -44,6 +52,6 @@ export class ThyInternalDialogRef<T, TResult = unknown> extends ThyAbstractInter
      * Update dialog to top
      */
     toTop() {
-        this.thyDialog.toTop(this.id);
+        this.abstractDialog.toTop(this.id);
     }
 }

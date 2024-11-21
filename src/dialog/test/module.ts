@@ -4,7 +4,6 @@ import {
     Component,
     Directive,
     inject,
-    Injectable,
     Injector,
     input,
     NgModule,
@@ -14,6 +13,7 @@ import {
     ViewContainerRef
 } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { SafeAny } from 'ngx-tethys/types';
 import { ThyDialog, ThyDialogModule, ThyDialogRef } from '../';
 
 // simple dialog component
@@ -154,40 +154,6 @@ export class WithOnPushViewContainerComponent {
 }
 
 //  multi dialog component
-@Injectable()
-export class DialogService {
-    private thyDialog = inject(ThyDialog);
-    private openedDialogs: ThyDialogRef<any>[] = [];
-    open(template?: any, id?: string, viewContainerRef?: ViewContainerRef) {
-        const dialogRef = this.thyDialog.open(template, {
-            id: id,
-            viewContainerRef: viewContainerRef,
-            initialState: {}
-        });
-        this.openedDialogs.push(dialogRef);
-        dialogRef.afterClosed().subscribe(() => {
-            this.openedDialogs = this.openedDialogs.filter(item => item !== dialogRef);
-        });
-    }
-
-    openWithDialogRef(template?: any, id?: string, viewContainerRef?: ViewContainerRef) {
-        const hasOpenedDialogRef = this.openedDialogs.find(dialog => dialog.id === id);
-        if (hasOpenedDialogRef) {
-            hasOpenedDialogRef.toTop();
-            return;
-        }
-        this.open(template, id, viewContainerRef);
-    }
-
-    openWithThyDialog(template?: any, id?: string, viewContainerRef?: ViewContainerRef) {
-        const hasOpenedDialogRef = this.openedDialogs.find(dialog => dialog.id === id);
-        if (hasOpenedDialogRef) {
-            this.thyDialog.toTop(hasOpenedDialogRef);
-            return;
-        }
-        this.open(template, id, viewContainerRef);
-    }
-}
 @Component({
     selector: `thy-dialog-popup-first-component`,
     template: `
@@ -211,24 +177,16 @@ class PopupFirstComponent {
             </div>
         </thy-dialog-body>
         <thy-dialog-footer>
-            <button thyButton="primary" (click)="toTopWithDialogRef()">弹窗一置顶 DialogRef 操作</button>
-            <button thyButton="primary" (click)="toTopWithThyDialog()">弹窗一置顶 ThyDialog 操作</button>
+            <button thyButton="primary" (click)="toTop()">弹窗一置顶</button>
             <button thyButton="primary" (click)="dialogRef.close()">确定</button>
         </thy-dialog-footer>
-    `,
-    providers: [DialogService]
+    `
 })
 class PopupSecondComponent {
     dialogRef = inject(ThyDialogRef);
-    private dialogService = inject(DialogService);
+    thyDialog = inject(ThyDialog);
     toTop() {
-        this.dialogService.open(PopupFirstComponent, 'first');
-    }
-    toTopWithDialogRef() {
-        this.dialogService.openWithDialogRef(PopupFirstComponent, 'first');
-    }
-    toTopWithThyDialog() {
-        this.dialogService.openWithThyDialog(PopupFirstComponent, 'first');
+        this.thyDialog.toTop('first');
     }
 }
 
@@ -238,18 +196,34 @@ class PopupSecondComponent {
         <div class="btn-pair">
             <button thyButton="primary" (click)="open()">Open Dialog</button>
         </div>
-    `,
-    providers: [DialogService]
+    `
 })
 export class DialogToTopComponent implements OnInit {
     @ViewChild(PopupFirstComponent, { static: true }) popupFirst: PopupFirstComponent;
+
     @ViewChild(PopupSecondComponent, { static: true }) popupSecond: PopupSecondComponent;
-    public dialogService = inject(DialogService);
+
+    public thyDialog = inject(ThyDialog);
+
+    private openedDialogs: SafeAny[] = [];
+
     constructor(public viewContainerRef: ViewContainerRef) {}
     ngOnInit() {}
     open() {
-        this.dialogService.open(PopupFirstComponent, 'first', this.viewContainerRef);
-        this.dialogService.open(PopupSecondComponent, 'second', this.viewContainerRef);
+        this.openDialog(PopupFirstComponent, 'first', this.viewContainerRef);
+        this.openDialog(PopupSecondComponent, 'second', this.viewContainerRef);
+    }
+
+    openDialog(template?: any, id?: string, viewContainerRef?: ViewContainerRef) {
+        const dialogRef = this.thyDialog.open(template, {
+            id: id,
+            viewContainerRef: viewContainerRef,
+            initialState: {}
+        });
+        this.openedDialogs.push(dialogRef);
+        dialogRef.afterClosed().subscribe(() => {
+            this.openedDialogs = this.openedDialogs.filter(item => item !== dialogRef);
+        });
     }
 }
 
