@@ -69,14 +69,22 @@
 </thy-form-group>
 
 <thy-form-group thyLabelText="对话框">
-  <button thyButton="danger" thySize="sm" (click)="openConfirm()">{{ locale?.confirm }}</button>
+  <button class="mt-1" thyButton="danger" thySize="sm" (click)="openConfirm()">{{ locale?.confirm }}</button>
 </thy-form-group>
 
 <thy-form-group thyLabelText="颜色选择器">
-  <div class="box" [ngStyle]="{ background: color }" thyColorPicker [thyOffset]="10" [(ngModel)]="color"></div>
+  <div
+    class="cursor-pointer mt-1"
+    style="width: 30px; height: 30px"
+    [ngStyle]="{ background: color }"
+    thyColorPicker
+    [thyOffset]="10"
+    [(ngModel)]="color"></div>
 </thy-form-group>
 
-<thy-form-group thyLabelText="程度展示"> <thy-strength [(ngModel)]="strength"></thy-strength> </thy-form-group>
+<thy-form-group thyLabelText="程度展示">
+  <thy-strength style="display: block; height: 30px" [(ngModel)]="strength"></thy-strength>
+</thy-form-group>
 
 <thy-form-group thyLabelText="复制">
   <div thyCopy style="height: 36px; line-height: 36px; width: fit-content">{{ locale?.copy }}</div>
@@ -87,7 +95,7 @@
 </thy-form-group>
 
 <thy-form-group thyLabelText="导航">
-  <thy-nav thyType="tabs" [thyResponsive]="true">
+  <thy-nav style="margin-top: -4px" thyType="tabs" [thyResponsive]="true">
     @for (item of navItems; track $index) {
       <a href="javascript:;" thyNavItem [thyNavItemActive]="activeIndex === item.index" (click)="activeIndex = item.index">
         <span class="ml-1">{{ item.name }}</span></a
@@ -116,6 +124,7 @@
 
 <thy-form-group thyLabelText="穿梭框">
   <thy-transfer
+    style="margin-top: -4px"
     [thyData]="transferItems"
     [thyTitles]="[locale?.datasource, locale?.selected]"
     [thyRightDraggable]="true"

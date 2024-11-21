@@ -10,17 +10,7 @@ import { ThyNavItemDirective } from 'ngx-tethys/nav';
 
 @Component({
     selector: 'thy-i18n-basic-example',
-    templateUrl: `basic.component.html`,
-    styles: [
-        `
-            .box {
-                width: 30px;
-                height: 30px;
-                margin-top: 12px;
-                cursor: pointer;
-            }
-        `
-    ]
+    templateUrl: `basic.component.html`
 })
 export class ThyI18nBasicExampleComponent implements OnInit {
     private globalLocale: Signal<ThyI18nLocale> = useLocale();
