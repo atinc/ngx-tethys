@@ -68,7 +68,7 @@ export const THY_CONFIRM_DEFAULT_OPTIONS_VALUE = {
     footerAlign: 'left'
 };
 
-export function useConfirmDefaultOptions() {
+function useConfirmDefaultOptions() {
     const locale = injectLocale('dialog');
     return {
         title: locale().title,
