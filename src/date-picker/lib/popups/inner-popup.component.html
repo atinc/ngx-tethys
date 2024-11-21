@@ -1,8 +1,8 @@
 @if (showDateRangeInput) {
   <div class="{{ prefixCls }}-picker-inner-popup-range-input">
-    <input thyInput thySize="sm" [value]="getReadableValue(selectedValue[0])" placeholder="开始日期" />
+    <input thyInput thySize="sm" [value]="getReadableValue(selectedValue[0])" [placeholder]="locale().startDate" />
     <span class="split"></span>
-    <input thyInput thySize="sm" [value]="getReadableValue(selectedValue[1])" placeholder="结束日期" />
+    <input thyInput thySize="sm" [value]="getReadableValue(selectedValue[1])" [placeholder]="locale().endDate" />
   </div>
 }
 @switch (panelMode) {
@@ -96,7 +96,7 @@
       [showPreBtn]="enablePrevNext('prev', 'date')"
       [showNextBtn]="enablePrevNext('next', 'date')"
       (panelModeChange)="panelModeChange.emit($event)"
-    (valueChange)="headerChange.emit($event)"></date-header>
+      (valueChange)="headerChange.emit($event)"></date-header>
     <div class="{{ prefixCls }}-body">
       <date-table
         [showWeek]="showWeek"
@@ -108,7 +108,7 @@
         [cellRender]="dateRender"
         [selectedValue]="selectedValue"
         [hoverValue]="hoverValue"
-      (dayHover)="dayHover.emit($event)"></date-table>
+        (dayHover)="dayHover.emit($event)"></date-table>
     </div>
   }
 }

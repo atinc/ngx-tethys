@@ -3,16 +3,19 @@ export type ThyModuleType =
     | 'dateRange'
     | 'timePicker'
     | 'calendar'
+    | 'autocomplete'
     | 'transfer'
     | 'colorPicker'
     | 'strength'
     | 'guider'
     | 'copy'
+    | 'dialog'
     | 'select'
     | 'treeSelect'
     | 'cascader'
     | 'pagination'
-    | 'form';
+    | 'form'
+    | 'empty';
 
 export type ThyModuleLocaleType<K extends ThyModuleType> = ThyI18nLocale[K];
 
@@ -22,16 +25,19 @@ export interface ThyI18nLocale {
     dateRange: ThyDateRangeLocale;
     timePicker: ThyTimePickerLocale;
     calendar: ThyCalendarLocale;
+    autocomplete: ThyAutoCompleteLocale;
     transfer: ThyTransferLocale;
     colorPicker: ThyColorPickerLocale;
     strength: ThyStrengthLocale;
     guider: ThyGuiderLocale;
     copy: ThyCopyLocale;
+    dialog: ThyDialogLocale;
     select: ThySelectLocale;
     treeSelect: ThyTreeSelectLocale;
     cascader: ThyCascaderLocale;
     pagination: ThyPaginationLocale;
     form: ThyFormLocale;
+    empty: ThyEmptyLocale;
 }
 
 export interface ThyDatePickerLocale {
@@ -42,6 +48,37 @@ export interface ThyDatePickerLocale {
     fullWeekFormat: string;
     weekThFormat: string;
     dateFormat: string;
+
+    yearText: string;
+    quarterText: string;
+    monthText: string;
+    week: string;
+    prefixWeek: string;
+
+    previousYear: string;
+    nextYear: string;
+    previousMonth: string;
+    nextMonth: string;
+
+    today: string;
+    tomorrow: string;
+    nextWeek: string;
+    lastSevenDays: string;
+    lastThirtyDays: string;
+    currentMonth: string;
+    currentWeek: string;
+
+    advance: string;
+    custom: string;
+
+    startDate: string;
+    endDate: string;
+
+    setTime: string;
+    placeholder: string;
+
+    ok: string;
+    clear: string;
 }
 
 export interface ThyDateRangeLocale {
@@ -59,6 +96,10 @@ export interface ThyTimePickerLocale {
 export interface ThyCalendarLocale {
     today: string;
     yearMonthFormat: string;
+}
+
+export interface ThyAutoCompleteLocale {
+    empty: string;
 }
 
 export interface ThyTransferLocale {
@@ -93,6 +134,12 @@ export interface ThyCopyLocale {
     tips: string;
     success: string;
     error: string;
+}
+
+export interface ThyDialogLocale {
+    title: string;
+    ok: string;
+    cancel: string;
 }
 
 export interface ThySelectLocale {
@@ -132,4 +179,8 @@ export interface ThyFormLocale {
     url: string;
     max: string;
     min: string;
+}
+
+export interface ThyEmptyLocale {
+    noDataText: string;
 }

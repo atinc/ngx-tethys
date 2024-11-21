@@ -7,7 +7,38 @@ export default {
         weekFormat: 'EEE', // eg. Tue
         fullWeekFormat: 'EEE', // eg. Tue
         weekThFormat: 'yyyy-ww', //  eg. 2025-01st、2025-02nd、2025-03rd、2025-27th
-        dateFormat: 'yyyy-MM-dd' // eg. 2025-09-02
+        dateFormat: 'yyyy-MM-dd', // eg. 2025-09-02
+
+        yearText: 'Year',
+        quarterText: 'Quarter',
+        monthText: 'Month',
+        week: 'Week',
+        prefixWeek: '',
+
+        previousYear: 'Previous year',
+        nextYear: 'Next year',
+        previousMonth: 'Previous month',
+        nextMonth: 'Next month',
+
+        today: 'Today',
+        tomorrow: 'Tomorrow',
+        nextWeek: 'Next week',
+        lastSevenDays: 'Last 7 days',
+        lastThirtyDays: 'Last 30 days',
+        currentMonth: 'This month',
+        currentWeek: 'This week',
+
+        advance: 'Advance',
+        custom: 'Custom',
+
+        startDate: 'Start date',
+        endDate: 'End date',
+
+        setTime: 'Set time',
+        placeholder: 'Select date',
+
+        ok: 'Ok',
+        clear: 'Clear'
     },
     dateRange: {
         custom: 'Custom',
@@ -22,6 +53,9 @@ export default {
     calendar: {
         today: 'Today',
         yearMonthFormat: 'yyyy-MM' // eg. 2025-09
+    },
+    autocomplete: {
+        empty: 'No data'
     },
     transfer: {
         maxLimit: '(Max limit: {max})',
@@ -51,6 +85,11 @@ export default {
         tips: 'Click to copy',
         success: 'Copied',
         error: 'Failed'
+    },
+    dialog: {
+        title: 'Confirm',
+        ok: 'Ok',
+        cancel: 'Cancel'
     },
     select: {
         placeholder: 'Please select',
@@ -86,6 +125,9 @@ export default {
         url: 'Invalid URL format',
         max: 'Input cannot be greater than {max}',
         min: 'Input cannot be less than {min}'
+    },
+    empty: {
+        noDataText: 'No data'
     }
 };
 

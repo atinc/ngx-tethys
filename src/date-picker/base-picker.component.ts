@@ -2,7 +2,6 @@ import { ThyClickDispatcher, ThyPlacement } from 'ngx-tethys/core';
 import { elementMatchClosest, FunctionProp, TinyDate } from 'ngx-tethys/util';
 
 import {
-    ChangeDetectorRef,
     Component,
     ElementRef,
     EventEmitter,

@@ -38,23 +38,7 @@ export class ThyDialogConfirmExampleComponent {
 
     openDangerConfirm() {
         this.thyDialog.confirm({
-            title: '确认删除',
-            content: '确认要删除这条任务<code>21111</code>吗？</script>',
-            footerAlign: 'right',
-            okType: 'danger',
-            okText: '确认删除',
-            cancelText: '取消删除',
-            onCancel: () => {
-                console.log('取消删除');
-            },
-            onOk: () => {
-                return of([1]).pipe(
-                    delay(2000),
-                    map(() => {
-                        return false;
-                    })
-                );
-            }
+            content: '确认要删除这条任务<code>21111</code>吗？</script>'
         });
     }
 }

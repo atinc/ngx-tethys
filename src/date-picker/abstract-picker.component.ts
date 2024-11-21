@@ -380,7 +380,7 @@ export abstract class AbstractPickerComponent
 
     private setDefaultPlaceHolder(): void {
         if (!this.isCustomPlaceHolder) {
-            this.thyPlaceHolder = this.isRange ? ['开始日期', '结束日期'] : '请选择日期';
+            this.thyPlaceHolder = this.isRange ? [this.locale().startDate, this.locale().endDate] : this.locale().placeholder;
         }
         this.cdr.markForCheck();
     }

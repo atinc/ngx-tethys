@@ -11,7 +11,8 @@ import {
     OnInit,
     TemplateRef,
     SimpleChanges,
-    inject
+    inject,
+    Signal
 } from '@angular/core';
 
 import { ThyEmptyConfig } from './empty.config';
@@ -21,6 +22,7 @@ import { SafeAny } from 'ngx-tethys/types';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { injectLocale, ThyEmptyLocale } from 'ngx-tethys/i18n';
 
 const sizeClassMap = {
     lg: ['thy-empty-state', 'thy-empty-state--lg'],
@@ -69,29 +71,35 @@ export class ThyEmpty implements OnInit, AfterViewInit, OnChanges {
     private elementRef = inject(ElementRef);
     private ngZone = inject(NgZone);
     private sanitizer = inject(DomSanitizer);
+    private locale: Signal<ThyEmptyLocale> = injectLocale('empty');
 
     /**
      * 显示文本提示信息。同时传入 thyMessage，thyTranslationKey，thyEntityName，thyEntityNameTranslateKey 时优先级最高
+     * @default 暂无数据
      */
     @Input() thyMessage: string;
 
     /**
-     * 显示文本提示信息多语言 Key。同时传入 thyTranslationKey，thyEntityName，thyEntityNameTranslateKey 时优先级最高
+     * 已废弃。显示文本提示信息多语言 Key。同时传入 thyTranslationKey，thyEntityName，thyEntityNameTranslateKey 时优先级最高
+     * @deprecated
      */
     @Input() thyTranslationKey: string;
 
     /**
-     * 显示文本提示信息多语言 Key 的 Values。传入 thyTranslationKey 后，传入这个才会生效
+     * 已废弃。显示文本提示信息多语言 Key 的 Values。传入 thyTranslationKey 后，传入这个才会生效
+     * @deprecated
      */
     @Input() thyTranslationValues: any;
 
     /**
-     * 显示默认提示信息，替换默认提示信息的目标对象，比如：没有 {thyEntityName}。同时传入 thyEntityName，thyEntityNameTranslateKey 时优先级较高
+     * 已废弃。显示默认提示信息，替换默认提示信息的目标对象，比如：没有 {thyEntityName}。同时传入 thyEntityName，thyEntityNameTranslateKey 时优先级较高
+     * @deprecated
      */
     @Input() thyEntityName: string;
 
     /**
-     * thyEntityName 的多语言 Key。thyMessage，thyTranslationKey，thyEntityName 均未传入时才会生效
+     * 已废弃。thyEntityName 的多语言 Key。thyMessage，thyTranslationKey，thyEntityName 均未传入时才会生效
+     * @deprecated
      */
     @Input() thyEntityNameTranslateKey: string;
 
@@ -170,8 +178,10 @@ export class ThyEmpty implements OnInit, AfterViewInit, OnChanges {
             return this.thyTranslate.instant(this.thyEmptyConfig.noResultWithTargetTranslateKey, {
                 target: this.thyTranslate.instant(this.thyEntityNameTranslateKey)
             });
-        } else {
+        } else if (this.thyTranslate.instant(this.thyEmptyConfig.noResultTranslateKey) !== 'common.tips.NO_RESULT') {
             return this.thyTranslate.instant(this.thyEmptyConfig.noResultTranslateKey);
+        } else {
+            return this.locale().noDataText;
         }
     }
 
