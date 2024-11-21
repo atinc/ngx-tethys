@@ -67,7 +67,6 @@ import { ThyVoteModule } from 'ngx-tethys/vote';
 import { ThyWatermarkModule } from 'ngx-tethys/watermark';
 import { ThyI18nService } from 'ngx-tethys/i18n';
 
-import { Overlay } from '@angular/cdk/overlay';
 import { DestroyRef, NgModule, inject } from '@angular/core';
 import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -81,6 +80,21 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ThyTheme, ThyThemeStore } from 'ngx-tethys/core';
 import { Observable, Subject } from 'rxjs';
 import { MutationObserverFactory } from '@angular/cdk/observers';
+
+import localeZh from '@angular/common/locales/zh';
+import localeZhHans from '@angular/common/locales/zh-Hans';
+import localezhHant from '@angular/common/locales/zh-Hant';
+import localeEn from '@angular/common/locales/en';
+import localeJa from '@angular/common/locales/ja';
+import localeDe from '@angular/common/locales/de';
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(localeZh, 'zh');
+registerLocaleData(localeZhHans, 'zh-Hans');
+registerLocaleData(localezhHant, 'zh-Hant');
+registerLocaleData(localeEn, 'en');
+registerLocaleData(localeJa, 'ja');
+registerLocaleData(localeDe, 'de');
 
 const TETHYS_MODULES = [
     ThyLayoutModule,

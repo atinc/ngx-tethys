@@ -21,7 +21,7 @@ export class ThyI18nBasicExampleComponent implements OnInit {
 
     private guiderOptions: ThyGuiderConfig;
 
-    private customLocale = {
+    private localeMap = {
         [ThyLocaleType.zhHans]: {
             monthPlaceholder: '选择月份',
             inputPlaceholder: '输入密码',
@@ -110,7 +110,7 @@ export class ThyI18nBasicExampleComponent implements OnInit {
 
     flexibleDateRange: ThyDateRangeEntry;
 
-    locale: any = this.customLocale[ThyLocaleType.zhHans];
+    locale: any = this.localeMap[ThyLocaleType.zhHans];
 
     transferItems: ThyTransferItem[] = [];
 
@@ -126,7 +126,7 @@ export class ThyI18nBasicExampleComponent implements OnInit {
 
     ngOnInit() {
         const localeId = this.globalLocale().id as ThyLocaleType;
-        this.locale = this.customLocale[localeId];
+        this.locale = this.localeMap[localeId];
 
         this.navItems = this.buildNavItems();
         this.transferItems = this.buildTransferItems();
