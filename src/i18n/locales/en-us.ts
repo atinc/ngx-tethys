@@ -86,6 +86,11 @@ export default {
         success: 'Copied',
         error: 'Failed'
     },
+    dialog: {
+        title: 'Confirm',
+        ok: 'Ok',
+        cancel: 'Cancel'
+    },
     select: {
         placeholder: 'Please select',
         empty: 'No data available'
