@@ -6,6 +6,7 @@ import { ThyGuider, ThyGuiderConfig, ThyGuiderRef, ThyGuiderStep } from 'ngx-tet
 import { ThyI18nLocale } from 'ngx-tethys/i18n/i18n';
 import { ThyLocaleType, useLocale } from 'ngx-tethys/i18n';
 import { ThyTransferItem, TransferDirection } from 'ngx-tethys/transfer';
+import { ThyNavItemDirective } from 'ngx-tethys/nav';
 
 @Component({
     selector: 'thy-i18n-basic-example',
@@ -22,7 +23,6 @@ import { ThyTransferItem, TransferDirection } from 'ngx-tethys/transfer';
     ]
 })
 export class ThyI18nBasicExampleComponent implements OnInit {
-    // TODO calendar 示例展示异常
     private globalLocale: Signal<ThyI18nLocale> = useLocale();
 
     private thyDialog = inject(ThyDialog);
@@ -45,7 +45,8 @@ export class ThyI18nBasicExampleComponent implements OnInit {
             selected: '已选中',
             confirm: '确认',
             confirmContent: '确认要删除这项任务吗？',
-            item: '第{index}条数据'
+            tranferItem: '第{index}条数据',
+            navItem: '导航 {index}'
         },
         [ThyLocaleType.zhHant]: {
             monthPlaceholder: '選擇月份',
@@ -60,7 +61,8 @@ export class ThyI18nBasicExampleComponent implements OnInit {
             selected: '已選中',
             confirm: '確認',
             confirmContent: '確認要刪除這項任務嗎？',
-            item: '第{index}條數據'
+            tranferItem: '第{index}條數據',
+            navItem: '導航 {index}'
         },
         [ThyLocaleType.enUs]: {
             monthPlaceholder: 'Select month',
@@ -75,7 +77,8 @@ export class ThyI18nBasicExampleComponent implements OnInit {
             selected: 'Selected',
             confirm: 'Confirm',
             confirmContent: 'Are you sure you want to delete this task?',
-            item: 'Item {index}'
+            tranferItem: 'Item {index}',
+            navItem: 'Navigation {index}'
         },
         [ThyLocaleType.jaJp]: {
             monthPlaceholder: '月を選択',
@@ -90,7 +93,8 @@ export class ThyI18nBasicExampleComponent implements OnInit {
             selected: '選択済み',
             confirm: '確認',
             confirmContent: 'このタスクを削除してもよろしいですか？',
-            item: '項目{index}'
+            tranferItem: '項目{index}',
+            navItem: 'ナビゲーション {index}'
         },
         [ThyLocaleType.deDe]: {
             monthPlaceholder: 'Monat auswählen',
@@ -105,7 +109,8 @@ export class ThyI18nBasicExampleComponent implements OnInit {
             selected: 'Ausgewählt',
             confirm: 'Bestätigen',
             confirmContent: 'Sind Sie sicher, dass Sie diese Aufgabe löschen möchten?',
-            item: 'Artikel {index}'
+            tranferItem: 'Artikel {index}',
+            navItem: 'Navigation {index}'
         }
     };
 
@@ -117,7 +122,11 @@ export class ThyI18nBasicExampleComponent implements OnInit {
 
     locale: any = this.customLocale[ThyLocaleType.zhHans];
 
-    transferData: ThyTransferItem[] = [];
+    transferItems: ThyTransferItem[] = [];
+
+    navItems: { name: string; index: number }[] = [];
+
+    activeIndex = 12;
 
     color = '#ffcd5d';
 
@@ -128,12 +137,14 @@ export class ThyI18nBasicExampleComponent implements OnInit {
     ngOnInit() {
         const localeId = this.globalLocale().id as ThyLocaleType;
         this.locale = this.customLocale[localeId];
-        this.transferData = this.buildTransferData();
+
+        this.navItems = this.buildNavItems();
+        this.transferItems = this.buildTransferItems();
         this.guiderOptions = this.getGuiderOptions();
         this.guiderRef = this.guider.create(this.guiderOptions);
     }
 
-    private buildTransferData() {
+    private buildTransferItems() {
         const data = [
             {
                 id: 1,
@@ -161,7 +172,16 @@ export class ThyI18nBasicExampleComponent implements OnInit {
         return data.map((item, index) => {
             return {
                 ...item,
-                title: this.locale?.item.replace('{index}', String(index + 1))
+                title: this.locale?.tranferItem.replace('{index}', String(index + 1))
+            };
+        });
+    }
+
+    private buildNavItems() {
+        return Array.from({ length: 13 }, (_, index) => {
+            return {
+                name: this.locale?.navItem.replace('{index}', String(index + 1)),
+                index: index + 1
             };
         });
     }
@@ -202,6 +222,10 @@ export class ThyI18nBasicExampleComponent implements OnInit {
         this.thyDialog.confirm({
             content: this.locale.confirmContent
         });
+    }
+
+    navItemClick(item: ThyNavItemDirective) {
+        item.elementRef.nativeElement.click();
     }
 
     startGuider() {

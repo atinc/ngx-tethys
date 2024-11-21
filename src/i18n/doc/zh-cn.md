@@ -84,6 +84,7 @@ import { THY_I18N_LOCALE_ID, THY_I18N_ZH_HANS, THY_I18N_EN_US,  zhHansLocale, en
             useValue: {
                 ...zhHansLocale,
                 calendar: {
+                    ...zhHansLocale.calendar
                     today: '今日'
                 }
             }
@@ -94,7 +95,7 @@ import { THY_I18N_LOCALE_ID, THY_I18N_ZH_HANS, THY_I18N_EN_US,  zhHansLocale, en
                 ...enUsLocale,
                 guider: {
                     ...enUsLocale.guider,
-                    next: 'Next'
+                    next: 'next'
                 }
             }
         }

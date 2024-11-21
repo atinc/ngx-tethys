@@ -86,6 +86,28 @@
   <thy-pagination [thyPageIndex]="2" [thyPageSize]="10" [thyTotal]="50" [thyShowSizeChanger]="true" [thyShowTotal]="true"></thy-pagination>
 </thy-form-group>
 
+<thy-form-group thyLabelText="导航">
+  <thy-nav thyType="tabs" [thyResponsive]="true">
+    @for (item of navItems; track $index) {
+      <a href="javascript:;" thyNavItem [thyNavItemActive]="activeIndex === item.index" (click)="activeIndex = item.index">
+        <span class="ml-1">{{ item.name }}</span></a
+      >
+    }
+    <ng-template #morePopover let-context>
+      <thy-dropdown-menu thyImmediateRender>
+        @for (item of context; track $index) {
+          <span
+            class="thy-nav-item-more"
+            thyDropdownMenuItem
+            [thyDropdownMenuItemActive]="item.isActive"
+            (click)="navItemClick(item)"
+            [innerHTML]="item.content"></span>
+        }
+      </thy-dropdown-menu>
+    </ng-template>
+  </thy-nav>
+</thy-form-group>
+
 <thy-form-group thyLabelText="空页面">
   <div class="w-50" style="border: 1px solid var(--gray-200); border-radius: 4px; padding: 16px">
     <thy-empty></thy-empty>
@@ -94,7 +116,7 @@
 
 <thy-form-group thyLabelText="穿梭框">
   <thy-transfer
-    [thyData]="transferData"
+    [thyData]="transferItems"
     [thyTitles]="[locale?.datasource, locale?.selected]"
     [thyRightDraggable]="true"
     [thyRightCanLock]="true"

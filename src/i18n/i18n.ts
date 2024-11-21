@@ -9,6 +9,7 @@ export type ThyModuleType =
     | 'strength'
     | 'guider'
     | 'copy'
+    | 'nav'
     | 'dialog'
     | 'select'
     | 'treeSelect'
@@ -39,6 +40,7 @@ export interface ThyI18nLocale {
     strength: ThyStrengthLocale;
     guider: ThyGuiderLocale;
     copy: ThyCopyLocale;
+    nav: ThyNavLocale;
     dialog: ThyDialogLocale;
     select: ThySelectLocale;
     treeSelect: ThyTreeSelectLocale;
@@ -142,6 +144,10 @@ export interface ThyCopyLocale {
     tips: string;
     success: string;
     error: string;
+}
+
+export interface ThyNavLocale {
+    more: string;
 }
 
 export interface ThyDialogLocale {

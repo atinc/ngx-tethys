@@ -88,6 +88,9 @@ export default {
         success: 'Kopieren erfolgreich',
         error: 'Kopieren fehlgeschlagen'
     },
+    nav: {
+        more: 'Mehr'
+    },
     dialog: {
         title: 'Löschbestätigung',
         ok: 'Bestätigen',

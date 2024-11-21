@@ -88,6 +88,9 @@ export default {
         success: 'コピー成功',
         error: 'コピー失敗'
     },
+    nav: {
+        more: 'もっと見る'
+    },
     dialog: {
         title: '削除の確認',
         ok: '確認',

@@ -72,6 +72,7 @@ describe('I18n', () => {
                         useValue: {
                             ...zhHansLocale,
                             calendar: {
+                                ...zhHansLocale.calendar,
                                 today: '今日'
                             }
                         }
@@ -123,6 +124,7 @@ describe('I18n', () => {
 
                 testComponent.i18n.setLocale('zh-hans');
                 expect(testComponent.calendarLocale().today).toBe('今日');
+                expect(testComponent.calendarLocale().yearMonthFormat).toBe('yyyy年MM月');
             });
         });
 

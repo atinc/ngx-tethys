@@ -88,6 +88,9 @@ export default {
         success: '复制成功',
         error: '复制失败'
     },
+    nav: {
+        more: '更多'
+    },
     dialog: {
         title: '确认删除',
         ok: '确定',

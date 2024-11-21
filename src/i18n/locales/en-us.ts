@@ -88,6 +88,9 @@ export default {
         success: 'Copied',
         error: 'Failed'
     },
+    nav: {
+        more: 'More'
+    },
     dialog: {
         title: 'Confirm',
         ok: 'Ok',

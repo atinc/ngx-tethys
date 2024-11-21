@@ -24,6 +24,8 @@ import { ThyDialogModule } from 'ngx-tethys/dialog';
 import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyGuiderModule } from 'ngx-tethys/guider';
 import { ThyGridModule } from 'ngx-tethys/grid';
+import { ThyNavModule } from 'ngx-tethys/nav';
+import { ThyDropdownModule } from 'ngx-tethys/dropdown';
 
 @NgModule({
     exports: [ThyI18nBasicExampleComponent],
@@ -52,7 +54,9 @@ import { ThyGridModule } from 'ngx-tethys/grid';
         ThyDialogModule,
         ThyInputModule,
         ThyGuiderModule,
-        ThyGridModule
+        ThyGridModule,
+        ThyNavModule,
+        ThyDropdownModule
     ],
     providers: [
         {
@@ -64,6 +68,7 @@ import { ThyGridModule } from 'ngx-tethys/grid';
             useValue: {
                 ...zhHansLocale,
                 calendar: {
+                    ...zhHansLocale.calendar,
                     today: '今日'
                 }
             }
