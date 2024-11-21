@@ -19,8 +19,16 @@ export type ThyModuleType =
 
 export type ThyModuleLocaleType<K extends ThyModuleType> = ThyI18nLocale[K];
 
+export enum ThyLocaleType {
+    zhHans = 'zh-hans',
+    zhHant = 'zh-hant',
+    enUs = 'en-us',
+    jaJp = 'ja-jp',
+    deDe = 'de-de'
+}
+
 export interface ThyI18nLocale {
-    id: string;
+    id: ThyLocaleType;
     datePicker: ThyDatePickerLocale;
     dateRange: ThyDateRangeLocale;
     timePicker: ThyTimePickerLocale;

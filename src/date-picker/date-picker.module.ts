@@ -1,7 +1,12 @@
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { NgModule } from '@angular/core';
+import localeZh from '@angular/common/locales/zh';
 import localeZhHans from '@angular/common/locales/zh-Hans';
+import localezhHant from '@angular/common/locales/zh-Hant';
+import localeEn from '@angular/common/locales/en';
+import localeJa from '@angular/common/locales/ja';
+import localeDe from '@angular/common/locales/de';
 
 import { LibPackerModule } from './lib/lib-packer.module';
 
@@ -22,7 +27,12 @@ import { ThyPopoverModule } from 'ngx-tethys/popover';
 import { ThyDatePickerConfigService } from './date-picker.service';
 import { ThyQuarterPicker } from './quarter-picker.component';
 
+registerLocaleData(localeZh, 'zh');
 registerLocaleData(localeZhHans, 'zh-Hans');
+registerLocaleData(localezhHant, 'zh-Hant');
+registerLocaleData(localeEn, 'en');
+registerLocaleData(localeJa, 'ja');
+registerLocaleData(localeDe, 'de');
 
 @NgModule({
     imports: [

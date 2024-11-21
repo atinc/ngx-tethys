@@ -5,13 +5,13 @@ import {
     injectLocale,
     THY_I18N_EN_US,
     THY_I18N_LOCALE_ID,
-    THY_I18N_ZH_CN,
+    THY_I18N_ZH_HANS,
     ThyCalendarLocale,
     ThyGuiderLocale,
     ThyI18nLocale,
     ThyI18nService,
     useLocale,
-    zhCnLocale
+    zhHansLocale
 } from 'ngx-tethys/i18n';
 
 @Component({
@@ -68,9 +68,9 @@ describe('I18n', () => {
                         useValue: 'en-us'
                     },
                     {
-                        provide: THY_I18N_ZH_CN,
+                        provide: THY_I18N_ZH_HANS,
                         useValue: {
-                            ...zhCnLocale,
+                            ...zhHansLocale,
                             calendar: {
                                 today: '今日'
                             }
@@ -82,7 +82,7 @@ describe('I18n', () => {
                             ...enUsLocale,
                             guider: {
                                 ...enUsLocale.guider,
-                                next: 'Next'
+                                next: 'next'
                             }
                         }
                     }
@@ -109,12 +109,19 @@ describe('I18n', () => {
             });
         });
 
-        it('should support global rewrite zh-CN locale', () => {
+        it('should use zh-hans when set zh-cn', () => {
             run(() => {
-                const zhCn = inject(THY_I18N_ZH_CN);
-                expect(zhCn.calendar.today).toBe('今日');
+                testComponent.i18n.setLocale('zh-ch');
+                expect(testComponent.calendarLocale().today).toBe('今日');
+            });
+        });
 
-                testComponent.i18n.setLocale('zh-cn');
+        it('should support global rewrite zh-Hans locale', () => {
+            run(() => {
+                const zhHans = inject(THY_I18N_ZH_HANS);
+                expect(zhHans.calendar.today).toBe('今日');
+
+                testComponent.i18n.setLocale('zh-hans');
                 expect(testComponent.calendarLocale().today).toBe('今日');
             });
         });
@@ -122,10 +129,10 @@ describe('I18n', () => {
         it('should support global rewrite en-US locale', () => {
             run(() => {
                 const enUs = inject(THY_I18N_EN_US);
-                expect(enUs.guider.next).toBe('Next');
+                expect(enUs.guider.next).toBe('next');
 
                 testComponent.i18n.setLocale('en-us');
-                expect(testComponent.guiderLocale().next).toBe('Next');
+                expect(testComponent.guiderLocale().next).toBe('next');
             });
         });
     });

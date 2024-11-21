@@ -1,5 +1,7 @@
+import { ThyLocaleType } from '../i18n';
+
 export default {
-    id: 'en-us',
+    id: ThyLocaleType.enUs,
     datePicker: {
         yearFormat: 'yyyy', // eg. 2025
         monthFormat: 'MMM', // eg. Sep
@@ -77,8 +79,8 @@ export default {
     },
     guider: {
         skip: 'Skip',
-        prev: 'Previous step',
-        next: 'Next step',
+        prev: 'Previous',
+        next: 'Next',
         finish: 'Finish'
     },
     copy: {
