@@ -241,7 +241,7 @@ describe(`ThyTooltip`, () => {
             tick(200);
             expect(getTooltipVisible()).toBe(true);
             expect(overlayContainerElement.textContent).toEqual('');
-
+            expect(tooltipDirective['tooltipRef']['overlayRef']['_scrollStrategy']['_scrollSubscription']).toBeTruthy();
             fixture.detectChanges();
 
             // wait till animation has finished
