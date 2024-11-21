@@ -174,7 +174,7 @@ export class ThyPropertyItem implements OnInit, OnChanges, OnDestroy {
     }
 
     private hasOverlay() {
-        return this.overlayOutsideClickDispatcher._attachedOverlays.length > this.originOverlays.length;
+        return !!this.overlayOutsideClickDispatcher._attachedOverlays.filter(overlay => !this.originOverlays.includes(overlay)).length;
     }
 
     private subscribeClick() {
@@ -194,7 +194,9 @@ export class ThyPropertyItem implements OnInit, OnChanges, OnDestroy {
     }
 
     private subscribeOverlayDetach() {
-        const openedOverlays = this.overlayOutsideClickDispatcher._attachedOverlays.slice(this.originOverlays.length);
+        const openedOverlays = this.overlayOutsideClickDispatcher._attachedOverlays.filter(
+            overlay => !this.originOverlays.includes(overlay)
+        );
         const overlaysDetachments$ = openedOverlays.map(overlay => overlay.detachments());
         if (overlaysDetachments$.length) {
             combineLatest(overlaysDetachments$)
