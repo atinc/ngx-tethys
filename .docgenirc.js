@@ -139,11 +139,23 @@ module.exports = {
     locales: [
         {
             key: 'zh-cn',
-            name: '中文'
+            name: '简体中文'
+        },
+        {
+            key: 'zh-hant',
+            name: '繁體中文'
         },
         {
             key: 'en-us',
             name: 'English'
+        },
+        {
+            key: 'ja-jp',
+            name: '日本語'
+        },
+        {
+            key: 'de-de',
+            name: 'Deutsch'
         }
     ],
     defaultLocale: 'zh-cn',

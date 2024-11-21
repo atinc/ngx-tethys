@@ -1,29 +1,51 @@
 import { inject, Injectable, signal, Signal, WritableSignal } from '@angular/core';
-import { THY_I18N_EN_US, THY_I18N_LOCALE_ID, THY_I18N_ZH_CN, ThyI18nLocale, zhCnLocale, enUsLocale } from './index';
+import {
+    THY_I18N_LOCALE_ID,
+    THY_I18N_ZH_HANS,
+    THY_I18N_ZH_HANT,
+    THY_I18N_EN_US,
+    THY_I18N_JA_JP,
+    THY_I18N_DE_DE,
+    ThyI18nLocale,
+    ThyLocaleType,
+    zhHansLocale,
+    zhHantLocale,
+    enUsLocale,
+    jaJpLocale,
+    deDeLocale
+} from './index';
 
-function normalizeLocale(localeId: string): string {
-    return localeId?.toLowerCase().replace(/_/g, '-');
+function normalizeLocale(localeId: string): ThyLocaleType {
+    return localeId?.toLowerCase().replace(/_/g, '-') as ThyLocaleType;
 }
 
 @Injectable({
     providedIn: 'root'
 })
 export class ThyI18nService {
-    private locales: { [id: string]: ThyI18nLocale } = {
-        'zh-cn': inject(THY_I18N_ZH_CN, { optional: true }) || zhCnLocale,
-        'en-us': inject(THY_I18N_EN_US, { optional: true }) || enUsLocale
+    private locales: { [key in ThyLocaleType]: ThyI18nLocale } = {
+        [ThyLocaleType.zhHans]: inject(THY_I18N_ZH_HANS, { optional: true }) || zhHansLocale,
+        [ThyLocaleType.zhHant]: inject(THY_I18N_ZH_HANT, { optional: true }) || zhHantLocale,
+        [ThyLocaleType.enUs]: inject(THY_I18N_EN_US, { optional: true }) || enUsLocale,
+        [ThyLocaleType.jaJp]: inject(THY_I18N_JA_JP, { optional: true }) || jaJpLocale,
+        [ThyLocaleType.deDe]: inject(THY_I18N_DE_DE, { optional: true }) || deDeLocale
     };
 
-    private defaultLocaleId: string = normalizeLocale(inject(THY_I18N_LOCALE_ID, { optional: true })) || 'zh-cn';
+    private defaultLocaleId: ThyLocaleType = normalizeLocale(inject(THY_I18N_LOCALE_ID, { optional: true })) || ThyLocaleType.zhHans;
 
     private locale: WritableSignal<ThyI18nLocale> = signal(this.locales[this.defaultLocaleId]);
 
     /**
-     * 设置语言，支持传入 zh-cn(或zh-CN)、 en-us(或en-US)
+     * 设置语言
      * @param id
      */
     setLocale(id: string) {
-        const localeId = normalizeLocale(id);
+        let localeId: ThyLocaleType = normalizeLocale(id);
+
+        if (localeId.includes('zh') && localeId !== ThyLocaleType.zhHans && localeId !== ThyLocaleType.zhHant) {
+            localeId = ThyLocaleType.zhHans;
+        }
+
         this.locale.set(this.locales[localeId] || this.locales[this.defaultLocaleId]);
     }
 

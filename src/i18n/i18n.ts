@@ -9,6 +9,7 @@ export type ThyModuleType =
     | 'strength'
     | 'guider'
     | 'copy'
+    | 'nav'
     | 'dialog'
     | 'select'
     | 'treeSelect'
@@ -19,8 +20,16 @@ export type ThyModuleType =
 
 export type ThyModuleLocaleType<K extends ThyModuleType> = ThyI18nLocale[K];
 
+export enum ThyLocaleType {
+    zhHans = 'zh-hans',
+    zhHant = 'zh-hant',
+    enUs = 'en-us',
+    jaJp = 'ja-jp',
+    deDe = 'de-de'
+}
+
 export interface ThyI18nLocale {
-    id: string;
+    id: ThyLocaleType;
     datePicker: ThyDatePickerLocale;
     dateRange: ThyDateRangeLocale;
     timePicker: ThyTimePickerLocale;
@@ -31,6 +40,7 @@ export interface ThyI18nLocale {
     strength: ThyStrengthLocale;
     guider: ThyGuiderLocale;
     copy: ThyCopyLocale;
+    nav: ThyNavLocale;
     dialog: ThyDialogLocale;
     select: ThySelectLocale;
     treeSelect: ThyTreeSelectLocale;
@@ -134,6 +144,10 @@ export interface ThyCopyLocale {
     tips: string;
     success: string;
     error: string;
+}
+
+export interface ThyNavLocale {
+    more: string;
 }
 
 export interface ThyDialogLocale {

@@ -8,7 +8,7 @@ subtitle: 国际化
 
 ## 何时使用
 当需要使用国际化文案时。<br/>
-目前支持 `zh-CN` 和 `en-US` 两种语言。
+目前支持 简体中文`zh-cn | zh-hans`、繁體中文`zh-hant`、English`en-us`、日本語`ja-jp`、Deutsch`de-de`。
 
 
 
@@ -24,7 +24,6 @@ import { ThyI18nService } from 'ngx-tethys/i18n';
 export class AppComponent {
     i18n = inject(ThyI18nService);
 
-    // zh-cn or en-us
     switchLocale(localeId: string) {
         this.i18n.setLocale(localeId);
     }
@@ -68,23 +67,24 @@ export class ThyI18nInjectLocaleExampleComponent {
 
 
 ## 全局配置
-全局的默认语言包可以通过在应用根模块中为`THY_I18N_LOCALE_ID`令牌提供`zh-cn`或`en-us`来设置。
-另外，支持通过为`THY_I18N_ZH_CN`、`THY_I18N_EN_US`令牌注入值来重写相应的语言包。
+全局的默认语言包可以通过在应用根模块中为`THY_I18N_LOCALE_ID`令牌提供`zh-hans`、`zh-hant`、`en-us`、`ja-jp`或`de-de`来设置。
+另外，支持通过为`THY_I18N_ZH_HANS`、`THY_I18N_ZH_HANT`、`THY_I18N_EN_US`、`THY_I18N_JA_JP`、`THY_I18N_DE_DE`令牌注入值来重写相应的语言包。
 ```ts
-import { THY_I18N_LOCALE_ID, THY_I18N_EN_US, THY_I18N_ZH_CN, enUsLocale, zhCnLocale } from 'ngx-tethys/i18n';
+import { THY_I18N_LOCALE_ID, THY_I18N_ZH_HANS, THY_I18N_EN_US,  zhHansLocale, enUsLocale,  ThyLocaleType } from 'ngx-tethys/i18n';
 
 @NgModule({
     imports: [CommonModule],
     providers: [
         {
             provide: THY_I18N_LOCALE_ID,
-            useValue: 'en-us'
+            useValue: ThyLocaleType.enUs
         },
         {
-            provide: THY_I18N_ZH_CN,
+            provide: THY_I18N_ZH_HANS,
             useValue: {
-                ...zhCnLocale,
+                ...zhHansLocale,
                 calendar: {
+                    ...zhHansLocale.calendar
                     today: '今日'
                 }
             }
@@ -95,7 +95,7 @@ import { THY_I18N_LOCALE_ID, THY_I18N_EN_US, THY_I18N_ZH_CN, enUsLocale, zhCnLoc
                 ...enUsLocale,
                 guider: {
                     ...enUsLocale.guider,
-                    next: 'Next'
+                    next: 'next'
                 }
             }
         }

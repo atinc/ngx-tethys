@@ -1,6 +1,7 @@
+import { ThyLocaleType } from '../i18n';
+
 export default {
-    // The locale parameter of Angular formatDate function does not support zh-cn, zh_CN
-    id: 'zh-Hans',
+    id: ThyLocaleType.zhHans,
     datePicker: {
         yearFormat: 'yyyy年', // Used in header of month picker
         monthFormat: 'MMM', // Used in header of date picker, advanced range picker （2月）
@@ -86,6 +87,9 @@ export default {
         tips: '点击复制',
         success: '复制成功',
         error: '复制失败'
+    },
+    nav: {
+        more: '更多'
     },
     dialog: {
         title: '确认删除',

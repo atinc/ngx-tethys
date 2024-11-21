@@ -13,7 +13,7 @@
       @if (moreOperation) {
         <ng-container [ngTemplateOutlet]="moreOperation"></ng-container>
       } @else {
-        更多
+        {{ locale().more }}
         <thy-icon thyIconName="angle-down" class="thy-nav-more-icon"></thy-icon>
       }
     </a>

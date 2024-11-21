@@ -1,0 +1,139 @@
+<thy-form-group thyLabelText="月份选择器">
+  <thy-month-picker class="d-block w-50 mb-3" [thyAllowClear]="true" [thyPlaceHolder]="locale?.monthPlaceholder"> </thy-month-picker>
+</thy-form-group>
+
+<thy-form-group thyLabelText="周选择器">
+  <thy-date-picker class="d-block w-50" [thyMode]="'week'" [thyAllowClear]="true"></thy-date-picker>
+</thy-form-group>
+
+<thy-form-group thyLabelText="日期选择器">
+  <thy-date-picker class="d-block w-50" thyShowTime [thyShowShortcut]="true" [thyAllowClear]="true"></thy-date-picker>
+</thy-form-group>
+
+<thy-form-group thyLabelText="时间选择器">
+  <thy-time-picker class="d-block w-50" [thyAllowClear]="true"></thy-time-picker>
+</thy-form-group>
+
+<thy-form-group thyLabelText="高级范围选择器">
+  <thy-range-picker
+    class="d-block w-50"
+    [(ngModel)]="flexibleDateRange"
+    thyMode="flexible"
+    [thyShowShortcut]="true"
+    [thyAllowClear]="true"></thy-range-picker>
+</thy-form-group>
+
+<thy-form-group thyLabelText="时间范围选择器">
+  <thy-date-range class="d-block w-50" [(ngModel)]="date"></thy-date-range>
+</thy-form-group>
+
+<thy-form-group thyLabelText="下拉选择">
+  <thy-custom-select class="d-block w-50"></thy-custom-select>
+</thy-form-group>
+
+<thy-form-group thyLabelText="树选择">
+  <thy-tree-select class="d-block w-50" [thyTreeNodes]="[]"></thy-tree-select>
+</thy-form-group>
+
+<thy-form-group thyLabelText="级联选择">
+  <thy-cascader class="d-block w-50"></thy-cascader>
+</thy-form-group>
+
+<form thyForm name="demoForm" #demoForm="thyForm" class="mb-3">
+  <thy-form-group thyLabelText="表单" thyLabelRequired>
+    <input
+      class="d-block w-50"
+      thyInput
+      type="password"
+      name="password"
+      [(ngModel)]="password"
+      required
+      [placeholder]="locale?.inputPlaceholder" />
+  </thy-form-group>
+  <thy-form-group-footer>
+    <button [thyButton]="'primary'" thySize="sm" (thyFormSubmit)="login()">{{ locale?.check }}</button>
+  </thy-form-group-footer>
+</form>
+
+<thy-form-group thyLabelText="新手引导">
+  <button thyButton="info" thySize="sm" (click)="startGuider()">{{ locale?.start }}</button>
+  <div class="my-2">
+    <span thyGuiderTarget="step-first" class="d-inline-block ml-5">{{ locale?.firstStep }}</span>
+  </div>
+  <div class="my-2">
+    <span class="my-2" thyGuiderTarget="step-second" class="d-inline-block ml-5"> {{ locale?.secondStep }}</span>
+  </div>
+  <div class="mt-2">
+    <span thyGuiderTarget="step-end" class="d-inline-block ml-5">{{ locale?.lastStep }}</span>
+  </div>
+</thy-form-group>
+
+<thy-form-group thyLabelText="对话框">
+  <button class="mt-1" thyButton="danger" thySize="sm" (click)="openConfirm()">{{ locale?.confirm }}</button>
+</thy-form-group>
+
+<thy-form-group thyLabelText="颜色选择器">
+  <div
+    class="cursor-pointer mt-1"
+    style="width: 30px; height: 30px"
+    [ngStyle]="{ background: color }"
+    thyColorPicker
+    [thyOffset]="10"
+    [(ngModel)]="color"></div>
+</thy-form-group>
+
+<thy-form-group thyLabelText="程度展示">
+  <thy-strength style="display: block; height: 30px" [(ngModel)]="strength"></thy-strength>
+</thy-form-group>
+
+<thy-form-group thyLabelText="复制">
+  <div thyCopy style="height: 36px; line-height: 36px; width: fit-content">{{ locale?.copy }}</div>
+</thy-form-group>
+
+<thy-form-group thyLabelText="分页器">
+  <thy-pagination [thyPageIndex]="2" [thyPageSize]="10" [thyTotal]="50" [thyShowSizeChanger]="true" [thyShowTotal]="true"></thy-pagination>
+</thy-form-group>
+
+<thy-form-group thyLabelText="导航">
+  <thy-nav style="margin-top: -4px" thyType="tabs" [thyResponsive]="true">
+    @for (item of navItems; track $index) {
+      <a href="javascript:;" thyNavItem [thyNavItemActive]="activeIndex === item.index" (click)="activeIndex = item.index">
+        <span class="ml-1">{{ item.name }}</span></a
+      >
+    }
+    <ng-template #morePopover let-context>
+      <thy-dropdown-menu thyImmediateRender>
+        @for (item of context; track $index) {
+          <span
+            class="thy-nav-item-more"
+            thyDropdownMenuItem
+            [thyDropdownMenuItemActive]="item.isActive"
+            (click)="navItemClick(item)"
+            [innerHTML]="item.content"></span>
+        }
+      </thy-dropdown-menu>
+    </ng-template>
+  </thy-nav>
+</thy-form-group>
+
+<thy-form-group thyLabelText="空页面">
+  <div class="w-50" style="border: 1px solid var(--gray-200); border-radius: 4px; padding: 16px">
+    <thy-empty></thy-empty>
+  </div>
+</thy-form-group>
+
+<thy-form-group thyLabelText="穿梭框">
+  <thy-transfer
+    style="margin-top: -4px"
+    [thyData]="transferItems"
+    [thyTitles]="[locale?.datasource, locale?.selected]"
+    [thyRightDraggable]="true"
+    [thyRightCanLock]="true"
+    [thyRightLockMax]="1"
+    [thyRightMax]="3">
+  </thy-transfer>
+</thy-form-group>
+
+<thy-form-group thyLabelText="日历">
+  <thy-calendar class="p-0"></thy-calendar>
+</thy-form-group>
