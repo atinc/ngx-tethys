@@ -205,7 +205,7 @@ export class DialogToTopComponent implements OnInit {
 
     public thyDialog = inject(ThyDialog);
 
-    private openedDialogs: SafeAny[] = [];
+    public openedDialogs: SafeAny[] = [];
 
     constructor(public viewContainerRef: ViewContainerRef) {}
     ngOnInit() {}

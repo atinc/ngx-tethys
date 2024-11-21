@@ -1446,5 +1446,37 @@ describe('ThyDialog', () => {
             const changeDialogs = document.querySelectorAll('thy-dialog-container');
             expect(changeDialogs[1].id).toBe('first');
         }));
+
+        it('should toTop option with ThyDialog', fakeAsync(() => {
+            const { fixture, component, button } = setup();
+            button.nativeElement.click();
+            fixture.detectChanges();
+            const containers = overlayContainerElement.querySelectorAll(`thy-dialog-container`);
+            expect(containers.length).toBe(2);
+            const dialogs = document.querySelectorAll('thy-dialog-container');
+            expect(dialogs[1].id).toBe('second');
+
+            fixture.componentInstance.thyDialog.toTop(fixture.componentInstance.openedDialogs[0]);
+            fixture.detectChanges();
+            flush();
+            const changeDialogs = document.querySelectorAll('thy-dialog-container');
+            expect(changeDialogs[1].id).toBe('first');
+        }));
+
+        it('should toTop option with ThyDialogRef', fakeAsync(() => {
+            const { fixture, component, button } = setup();
+            button.nativeElement.click();
+            fixture.detectChanges();
+            const containers = overlayContainerElement.querySelectorAll(`thy-dialog-container`);
+            expect(containers.length).toBe(2);
+            const dialogs = document.querySelectorAll('thy-dialog-container');
+            expect(dialogs[1].id).toBe('second');
+
+            fixture.componentInstance.openedDialogs[0].toTop();
+            fixture.detectChanges();
+            flush();
+            const changeDialogs = document.querySelectorAll('thy-dialog-container');
+            expect(changeDialogs[1].id).toBe('first');
+        }));
     });
 });
