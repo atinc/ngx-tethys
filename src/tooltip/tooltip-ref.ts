@@ -126,6 +126,7 @@ export class ThyTooltipRef {
     }
 
     hide(delay: number = 0): void {
+        this.overlayRef?.detach();
         if (this.tooltipInstance) {
             this.tooltipInstance.hide(!isUndefinedOrNull(delay) ? delay : this.config.hideDelay);
         }
