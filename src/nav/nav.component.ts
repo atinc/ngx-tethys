@@ -21,6 +21,7 @@ import {
     OnChanges,
     OnInit,
     QueryList,
+    Signal,
     SimpleChanges,
     TemplateRef,
     ViewChild
@@ -34,6 +35,7 @@ import { ThyDropdownMenuComponent, ThyDropdownMenuItemDirective, ThyDropdownMenu
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { injectLocale, ThyNavLocale } from 'ngx-tethys/i18n';
 
 export type ThyNavType = 'pulled' | 'tabs' | 'pills' | 'lite' | 'primary' | 'secondary' | 'thirdly' | 'secondary-divider';
 export type ThyNavSize = 'lg' | 'md' | 'sm';
@@ -115,6 +117,8 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
     private hostRenderer = useHostRenderer();
 
     private innerLinks: QueryList<ThyNavItemDirective>;
+
+    locale: Signal<ThyNavLocale> = injectLocale('nav');
 
     /**
      * 导航类型
