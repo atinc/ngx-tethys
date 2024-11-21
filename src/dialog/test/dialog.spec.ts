@@ -4,7 +4,7 @@ import { SpyLocation } from '@angular/common/testing';
 import { ViewContainerRef } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, flushMicrotasks, inject, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { bypassSanitizeProvider, dispatchKeyboardEvent, dispatchMouseEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
+import { bypassSanitizeProvider, dispatchKeyboardEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { helpers } from '../../util';
@@ -1431,20 +1431,28 @@ describe('ThyDialog', () => {
             return { fixture, component, button };
         }
 
-        it('should dialog to top', fakeAsync(() => {
+        it('should dialog to top with dialogRef', fakeAsync(() => {
             const { fixture, component, button } = setup();
             button.nativeElement.click();
             fixture.detectChanges();
             const containers = overlayContainerElement.querySelectorAll(`thy-dialog-container`);
             expect(containers.length).toBe(2);
-
-            const toTopBtn = document.querySelector('.btn-to-top');
-            expect(toTopBtn).toBeTruthy();
-            dispatchMouseEvent(toTopBtn, 'click');
-            fixture.componentInstance['dialogService'].open(fixture.componentInstance.popupFirst, 'first');
+            fixture.componentInstance.dialogService.openWithDialogRef(fixture.componentInstance.popupFirst, 'first');
             fixture.detectChanges();
             flush();
+            const dialogs = document.querySelectorAll('thy-dialog-container');
+            expect(dialogs[1].id).toBe('first');
+        }));
 
+        it('should dialog to top with ThyDialog', fakeAsync(() => {
+            const { fixture, component, button } = setup();
+            button.nativeElement.click();
+            fixture.detectChanges();
+            const containers = overlayContainerElement.querySelectorAll(`thy-dialog-container`);
+            expect(containers.length).toBe(2);
+            fixture.componentInstance.dialogService.openWithThyDialog(fixture.componentInstance.popupFirst, 'first');
+            fixture.detectChanges();
+            flush();
             const dialogs = document.querySelectorAll('thy-dialog-container');
             expect(dialogs[1].id).toBe('first');
         }));

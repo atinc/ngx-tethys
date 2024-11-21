@@ -155,15 +155,10 @@ export class WithOnPushViewContainerComponent {
 
 //  multi dialog component
 @Injectable()
-export class dialogService {
+export class DialogService {
     private thyDialog = inject(ThyDialog);
     private openedDialogs: ThyDialogRef<any>[] = [];
     open(template?: any, id?: string, viewContainerRef?: ViewContainerRef) {
-        const hasOpenedDialogRef = this.openedDialogs.find(dialog => dialog.id === id);
-        if (hasOpenedDialogRef) {
-            hasOpenedDialogRef.toTop();
-            return;
-        }
         const dialogRef = this.thyDialog.open(template, {
             id: id,
             viewContainerRef: viewContainerRef,
@@ -173,6 +168,24 @@ export class dialogService {
         dialogRef.afterClosed().subscribe(() => {
             this.openedDialogs = this.openedDialogs.filter(item => item !== dialogRef);
         });
+    }
+
+    openWithDialogRef(template?: any, id?: string, viewContainerRef?: ViewContainerRef) {
+        const hasOpenedDialogRef = this.openedDialogs.find(dialog => dialog.id === id);
+        if (hasOpenedDialogRef) {
+            hasOpenedDialogRef.toTop();
+            return;
+        }
+        this.open(template, id, viewContainerRef);
+    }
+
+    openWithThyDialog(template?: any, id?: string, viewContainerRef?: ViewContainerRef) {
+        const hasOpenedDialogRef = this.openedDialogs.find(dialog => dialog.id === id);
+        if (hasOpenedDialogRef) {
+            this.thyDialog.toTop(hasOpenedDialogRef);
+            return;
+        }
+        this.open(template, id, viewContainerRef);
     }
 }
 @Component({
@@ -198,19 +211,27 @@ class PopupFirstComponent {
             </div>
         </thy-dialog-body>
         <thy-dialog-footer>
-            <button class="btn-to-top" thyButton="primary" (click)="toTop()">弹窗一置顶</button>
+            <button thyButton="primary" (click)="toTopWithDialogRef()">弹窗一置顶 DialogRef 操作</button>
+            <button thyButton="primary" (click)="toTopWithThyDialog()">弹窗一置顶 ThyDialog 操作</button>
             <button thyButton="primary" (click)="dialogRef.close()">确定</button>
         </thy-dialog-footer>
     `,
-    providers: [dialogService]
+    providers: [DialogService]
 })
 class PopupSecondComponent {
     dialogRef = inject(ThyDialogRef);
-    private dialogService = inject(dialogService);
+    private dialogService = inject(DialogService);
     toTop() {
         this.dialogService.open(PopupFirstComponent, 'first');
     }
+    toTopWithDialogRef() {
+        this.dialogService.openWithDialogRef(PopupFirstComponent, 'first');
+    }
+    toTopWithThyDialog() {
+        this.dialogService.openWithThyDialog(PopupFirstComponent, 'first');
+    }
 }
+
 @Component({
     selector: 'thy-dialog-to-top-component',
     template: `
@@ -218,12 +239,12 @@ class PopupSecondComponent {
             <button thyButton="primary" (click)="open()">Open Dialog</button>
         </div>
     `,
-    providers: [dialogService]
+    providers: [DialogService]
 })
 export class DialogToTopComponent implements OnInit {
     @ViewChild(PopupFirstComponent, { static: true }) popupFirst: PopupFirstComponent;
     @ViewChild(PopupSecondComponent, { static: true }) popupSecond: PopupSecondComponent;
-    private dialogService = inject(dialogService);
+    public dialogService = inject(DialogService);
     constructor(public viewContainerRef: ViewContainerRef) {}
     ngOnInit() {}
     open() {

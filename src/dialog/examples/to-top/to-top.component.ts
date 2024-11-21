@@ -3,17 +3,12 @@ import { ThyButton } from 'ngx-tethys/button';
 import { ThyDialog, ThyDialogBody, ThyDialogFooter, ThyDialogHeader, ThyDialogRef } from 'ngx-tethys/dialog';
 
 @Injectable()
-export class dialogService {
+export class DialogService {
     private thyDialog = inject(ThyDialog);
 
     private openedDialogs: ThyDialogRef<any>[] = [];
 
     open(template?: any, id?: string, viewContainerRef?: ViewContainerRef) {
-        const hasOpenedDialogRef = this.openedDialogs.find(dialog => dialog.id === id);
-        if (hasOpenedDialogRef) {
-            hasOpenedDialogRef.toTop();
-            return;
-        }
         const dialogRef = this.thyDialog.open(template, {
             id: id,
             viewContainerRef: viewContainerRef,
@@ -23,6 +18,24 @@ export class dialogService {
         dialogRef.afterClosed().subscribe(() => {
             this.openedDialogs = this.openedDialogs.filter(item => item !== dialogRef);
         });
+    }
+
+    openWithDialogRef(template?: any, id?: string, viewContainerRef?: ViewContainerRef) {
+        const hasOpenedDialogRef = this.openedDialogs.find(dialog => dialog.id === id);
+        if (hasOpenedDialogRef) {
+            hasOpenedDialogRef.toTop();
+            return;
+        }
+        this.open(template, id, viewContainerRef);
+    }
+
+    openWithThyDialog(template?: any, id?: string, viewContainerRef?: ViewContainerRef) {
+        const hasOpenedDialogRef = this.openedDialogs.find(dialog => dialog.id === id);
+        if (hasOpenedDialogRef) {
+            this.thyDialog.toTop(hasOpenedDialogRef);
+            return;
+        }
+        this.open(template, id, viewContainerRef);
     }
 }
 
@@ -52,7 +65,8 @@ class ThyDialogPopupFirstComponent {
             </div>
         </thy-dialog-body>
         <thy-dialog-footer>
-            <button thyButton="primary" (click)="toTop()">弹窗一置顶</button>
+            <button thyButton="primary" (click)="toTopWithDialogRef()">弹窗一置顶 DialogRef 操作</button>
+            <button thyButton="primary" (click)="toTopWithThyDialog()">弹窗一置顶 ThyDialog 操作</button>
             <button thyButton="primary" (click)="dialogRef.close()">确定</button>
         </thy-dialog-footer>
     `,
@@ -62,10 +76,18 @@ class ThyDialogPopupFirstComponent {
 class ThyDialogPopupSecondComponent {
     dialogRef = inject(ThyDialogRef);
 
-    private dialogService = inject(dialogService);
+    private dialogService = inject(DialogService);
 
     toTop() {
         this.dialogService.open(ThyDialogPopupFirstComponent, 'first');
+    }
+
+    toTopWithDialogRef() {
+        this.dialogService.openWithDialogRef(ThyDialogPopupFirstComponent, 'first');
+    }
+
+    toTopWithThyDialog() {
+        this.dialogService.openWithThyDialog(ThyDialogPopupFirstComponent, 'first');
     }
 }
 
@@ -73,11 +95,11 @@ class ThyDialogPopupSecondComponent {
     selector: 'thy-dialog-to-top-example',
     templateUrl: './to-top.component.html',
     standalone: true,
-    providers: [dialogService],
+    providers: [DialogService],
     imports: [ThyButton]
 })
 export class ThyDialogToTopExampleComponent implements OnInit {
-    private dialogService = inject(dialogService);
+    private dialogService = inject(DialogService);
 
     constructor(public viewContainerRef: ViewContainerRef) {}
 

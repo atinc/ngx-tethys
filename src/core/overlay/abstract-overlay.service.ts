@@ -1,5 +1,5 @@
-import { coerceArray, concatArray, ESCAPE, FunctionProp, keyBy } from 'ngx-tethys/util';
-import { filter, Subject } from 'rxjs';
+import { coerceArray, concatArray, FunctionProp, keyBy } from 'ngx-tethys/util';
+import { Subject } from 'rxjs';
 
 import { ComponentType, Overlay, OverlayConfig, OverlayRef, ScrollStrategy } from '@angular/cdk/overlay';
 import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
@@ -13,7 +13,7 @@ import { ThyAbstractOverlayConfig, ThyAbstractOverlayOptions } from './abstract-
 export type ComponentTypeOrTemplateRef<T> = ComponentType<T> | TemplateRef<T>;
 
 export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverlayConfig, TContainer extends ThyAbstractOverlayContainer> {
-    private openedOverlays: ThyAbstractOverlayRef<unknown, TContainer>[] = [];
+    public openedOverlays: ThyAbstractOverlayRef<unknown, TContainer>[] = [];
 
     private readonly _afterAllClosed = new Subject<void>();
 
@@ -168,7 +168,6 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
             this.removeOpenedOverlay(abstractOverlayRef);
         });
         this._afterOpened.next(abstractOverlayRef);
-        this.stream(abstractOverlayRef);
         return abstractOverlayRef;
     }
 
@@ -212,29 +211,6 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
             // 触发订阅后会自动从 openedOverlays 中移除
             this.openedOverlays[i].close();
         }
-    }
-
-    stream(abstractOverlayRef: ThyAbstractOverlayRef) {
-        // ESC close
-        abstractOverlayRef
-            .keydownEvents()
-            .pipe(filter(event => event.keyCode === ESCAPE))
-            .subscribe(() => {
-                if (
-                    (abstractOverlayRef.disableClose !== undefined && !abstractOverlayRef.disableClose) ||
-                    abstractOverlayRef.backdropClosable
-                ) {
-                    this.close();
-                }
-            });
-
-        abstractOverlayRef
-            .toTopStream()
-            .pipe(filter(id => !!id))
-            .subscribe(val => {
-                const overlay = this.openedOverlays.find(item => item.id === val);
-                this.openedOverlays = [...(this.openedOverlays || []).filter(item => item.id !== val), overlay];
-            });
     }
 
     dispose(): void {

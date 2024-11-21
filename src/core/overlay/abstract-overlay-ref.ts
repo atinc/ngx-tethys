@@ -1,8 +1,9 @@
 import { Observable, Subject } from 'rxjs';
-import { finalize, take } from 'rxjs/operators';
+import { filter, finalize, take } from 'rxjs/operators';
 
 import { GlobalPositionStrategy, OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
 
+import { ESCAPE } from 'ngx-tethys/util';
 import { ThyAbstractOverlayContainer } from './abstract-overlay-container';
 import { ThyAbstractOverlayConfig, ThyAbstractOverlayOptions, ThyAbstractOverlayPosition } from './abstract-overlay.config';
 
@@ -59,12 +60,7 @@ export abstract class ThyAbstractOverlayRef<
     /**
      * 模态框置顶
      */
-    abstract toTop(): void;
-
-    /**
-     * 模态框置顶回调
-     */
-    abstract toTopStream(): Observable<string>;
+    public toTop?(): void;
 }
 
 // Counter for unique overlay ids.
@@ -101,9 +97,6 @@ export abstract class ThyAbstractInternalOverlayRef<
 
     /** Subject for notifying the user that the dialog has started closing. */
     private readonly _beforeClosed = new Subject<TResult | undefined>();
-
-    /**  Subject for notifying the overlay to top */
-    private readonly _toTopStream = new Subject<string>();
 
     /** Result to be passed to afterClosed. */
     private _result: TResult | undefined;
@@ -162,6 +155,16 @@ export abstract class ThyAbstractInternalOverlayRef<
                 this._afterClosed.complete();
                 this.componentInstance = null;
             });
+
+        // ESC close
+        overlayRef
+            .keydownEvents()
+            .pipe(filter(event => event.keyCode === ESCAPE))
+            .subscribe(() => {
+                if ((this.disableClose !== undefined && !this.disableClose) || this.backdropClosable) {
+                    this.close();
+                }
+            });
     }
 
     /**
@@ -177,7 +180,6 @@ export abstract class ThyAbstractInternalOverlayRef<
                 this._beforeClosed.complete();
             }
 
-            this._toTopStream.complete();
             this.overlayRef.detachBackdrop();
             this.containerInstance.startExitAnimation();
         }
@@ -218,13 +220,6 @@ export abstract class ThyAbstractInternalOverlayRef<
         return this.overlayRef.keydownEvents();
     }
 
-    /**
-     *  Subject for notifying the overlay to top.
-     */
-    toTopStream(): Observable<string> {
-        return this._toTopStream?.asObservable();
-    }
-
     /** Get overlay ref */
     getOverlayRef() {
         return this.overlayRef;
@@ -256,15 +251,5 @@ export abstract class ThyAbstractInternalOverlayRef<
         this.overlayRef.updatePosition();
 
         return this;
-    }
-
-    /**
-     * Update overlay to top
-     */
-    toTop(): void {
-        const parentNode = document.querySelector('.cdk-overlay-container');
-        parentNode.appendChild(this.overlayRef?.backdropElement);
-        parentNode.appendChild(this.overlayRef?.hostElement);
-        this._toTopStream.next(this.id);
     }
 }
