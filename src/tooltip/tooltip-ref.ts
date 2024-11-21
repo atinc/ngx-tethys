@@ -126,6 +126,9 @@ export class ThyTooltipRef {
     }
 
     hide(delay: number = 0): void {
+        if (this.overlayRef && this.overlayRef['_scrollStrategy']) {
+            this.overlayRef['_scrollStrategy'].disable();
+        }
         if (this.tooltipInstance) {
             this.tooltipInstance.hide(!isUndefinedOrNull(delay) ? delay : this.config.hideDelay);
         }

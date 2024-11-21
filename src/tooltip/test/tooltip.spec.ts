@@ -241,7 +241,7 @@ describe(`ThyTooltip`, () => {
             tick(200);
             expect(getTooltipVisible()).toBe(true);
             expect(overlayContainerElement.textContent).toEqual('');
-
+            expect(tooltipDirective['tooltipRef']['overlayRef']['_scrollStrategy']['_scrollSubscription']).toBeTruthy();
             fixture.detectChanges();
 
             // wait till animation has finished
@@ -251,9 +251,7 @@ describe(`ThyTooltip`, () => {
             const tooltipElement = overlayContainerElement.querySelector(`.${TOOLTIP_CLASS}`) as HTMLElement;
             expect(tooltipElement instanceof HTMLElement).toBe(true);
             expect(tooltipElement.style.transform).toBe('scale(1)');
-
             expect(overlayContainerElement.textContent).toContain(initialTooltipMessage);
-
             const tooltipHideDelay = 100; // default hide delay is 100
             // fake mouseleave event
             dispatchMouseEvent(buttonElement, 'mouseleave');
@@ -262,6 +260,7 @@ describe(`ThyTooltip`, () => {
             tick(tooltipHideDelay);
             fixture.detectChanges();
             expect(getTooltipVisible()).toBe(false);
+            expect(tooltipDirective['tooltipRef']['overlayRef']['_scrollStrategy']['_scrollSubscription']).toBe(null);
             assertTooltipInstance(tooltipDirective, true);
 
             // On animation complete, should expect that the tooltip has been detached.
