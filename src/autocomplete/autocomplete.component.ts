@@ -68,7 +68,7 @@ export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, After
 
     private locale: Signal<ThyAutoCompleteLocale> = injectLocale('autocomplete');
 
-    panelEmptyIcon = injectPanelEmptyIcon();
+    emptyIcon: Signal<string> = injectPanelEmptyIcon();
 
     dropDownClass: { [key: string]: boolean };
 

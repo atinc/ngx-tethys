@@ -97,7 +97,7 @@ export class ThyCascader
     private ngZone = inject(NgZone);
     thyCascaderService = inject(ThyCascaderService);
     private locale: Signal<ThyCascaderLocale> = injectLocale('cascader');
-    panelEmptyIcon = injectPanelEmptyIcon();
+    emptyIcon: Signal<string> = injectPanelEmptyIcon();
 
     /**
      * 选项的实际值的属性名

@@ -589,7 +589,7 @@ const DEFAULT_ITEM_SIZE = 40;
 })
 export class ThyTreeSelectNodes implements OnInit {
     parent = inject(ThyTreeSelect);
-    panelEmptyIcon = injectPanelEmptyIcon();
+    emptyIcon: Signal<string> = injectPanelEmptyIcon();
 
     @HostBinding('class') class: string;
 
