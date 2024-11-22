@@ -25,6 +25,7 @@ export class ThyI18nBasicExampleComponent implements OnInit {
         [ThyLocaleType.zhHans]: {
             monthPlaceholder: '选择月份',
             inputPlaceholder: '输入密码',
+            autocompletePlaceholder: '请输入',
             check: '点击检验',
             start: '开始',
             firstStep: '第一步',
@@ -41,6 +42,7 @@ export class ThyI18nBasicExampleComponent implements OnInit {
         [ThyLocaleType.zhHant]: {
             monthPlaceholder: '選擇月份',
             inputPlaceholder: '輸入密碼',
+            autocompletePlaceholder: '請輸入',
             check: '點擊檢驗',
             start: '開始',
             firstStep: '第一步',
@@ -57,6 +59,7 @@ export class ThyI18nBasicExampleComponent implements OnInit {
         [ThyLocaleType.enUs]: {
             monthPlaceholder: 'Select month',
             inputPlaceholder: 'Enter password',
+            autocompletePlaceholder: 'Please enter',
             check: 'Click to verify',
             start: 'Start',
             firstStep: 'First step',
@@ -73,6 +76,7 @@ export class ThyI18nBasicExampleComponent implements OnInit {
         [ThyLocaleType.jaJp]: {
             monthPlaceholder: '月を選択',
             inputPlaceholder: 'パスワードを入力',
+            autocompletePlaceholder: '入力してください',
             check: '検証するにはクリック',
             start: '開始',
             firstStep: '第一ステップ',
@@ -89,6 +93,7 @@ export class ThyI18nBasicExampleComponent implements OnInit {
         [ThyLocaleType.deDe]: {
             monthPlaceholder: 'Monat auswählen',
             inputPlaceholder: 'Passwort eingeben',
+            autocompletePlaceholder: 'Bitte eingeben',
             check: 'Klicken Sie zur Überprüfung',
             start: 'Start',
             firstStep: 'Erster Schritt',
@@ -116,6 +121,8 @@ export class ThyI18nBasicExampleComponent implements OnInit {
 
     navItems: { name: string; index: number }[] = [];
 
+    autocompleteItems: Array<{ label: string; value: string }> = [];
+
     activeIndex = 12;
 
     color = '#ffcd5d';
@@ -123,6 +130,8 @@ export class ThyI18nBasicExampleComponent implements OnInit {
     strength = 2;
 
     password = '';
+
+    value = '';
 
     ngOnInit() {
         const localeId = this.globalLocale().id as ThyLocaleType;

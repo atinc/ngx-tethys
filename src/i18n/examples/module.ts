@@ -56,7 +56,8 @@ import { ThyDropdownModule } from 'ngx-tethys/dropdown';
         ThyGuiderModule,
         ThyGridModule,
         ThyNavModule,
-        ThyDropdownModule
+        ThyDropdownModule,
+        ThyAutocompleteModule
     ],
     providers: [
         {

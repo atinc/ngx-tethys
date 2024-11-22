@@ -39,6 +39,17 @@
   <thy-cascader class="d-block w-50"></thy-cascader>
 </thy-form-group>
 
+<thy-form-group thyLabelText="自动完成">
+  <div class="w-50">
+    <input thyInput [(ngModel)]="value" [placeholder]="locale?.autocompletePlaceholder" [thyAutocomplete]="auto" />
+    <thy-autocomplete #auto>
+      @for (item of autocompleteItems; track $index) {
+        <thy-option [thyLabelText]="item.label" [thyValue]="item.value"></thy-option>
+      }
+    </thy-autocomplete>
+  </div>
+</thy-form-group>
+
 <form thyForm name="demoForm" #demoForm="thyForm" class="mb-3">
   <thy-form-group thyLabelText="表单" thyLabelRequired>
     <input
