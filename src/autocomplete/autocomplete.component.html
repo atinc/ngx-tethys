@@ -3,7 +3,7 @@
     <div #panel class="thy-select-dropdown-options">
       <ng-content></ng-content>
       @if (isEmptyOptions) {
-        <thy-empty [thyMessage]="thyEmptyText"></thy-empty>
+        <thy-empty [thyMessage]="thyEmptyText" [thyIconName]="emptyIcon()"></thy-empty>
       }
     </div>
   </div>

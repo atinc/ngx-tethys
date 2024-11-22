@@ -1,5 +1,6 @@
 import {
     getFlexiblePositions,
+    injectPanelEmptyIcon,
     scaleMotion,
     scaleXMotion,
     scaleYMotion,
@@ -178,6 +179,7 @@ export class ThySelect
     private locale: Signal<ThySelectLocale> = injectLocale('select');
     scrollStrategyFactory = inject<FunctionProp<ScrollStrategy>>(THY_SELECT_SCROLL_STRATEGY, { optional: true })!;
     selectConfig = inject(THY_SELECT_CONFIG, { optional: true })!;
+    emptyIcon: Signal<string> = injectPanelEmptyIcon();
 
     disabled = false;
 
