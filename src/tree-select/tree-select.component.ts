@@ -1,9 +1,9 @@
 import {
     EXPANDED_DROPDOWN_POSITIONS,
+    injectPanelEmptyIcon,
     scaleYMotion,
     TabIndexDisabledControlValueAccessorMixin,
-    ThyClickDispatcher,
-    ThyThemeStore
+    ThyClickDispatcher
 } from 'ngx-tethys/core';
 import { ThyEmpty } from 'ngx-tethys/empty';
 import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
@@ -589,7 +589,7 @@ const DEFAULT_ITEM_SIZE = 40;
 })
 export class ThyTreeSelectNodes implements OnInit {
     parent = inject(ThyTreeSelect);
-    thyThemeStore = inject(ThyThemeStore);
+    panelEmptyIcon = injectPanelEmptyIcon();
 
     @HostBinding('class') class: string;
 

@@ -32,7 +32,7 @@ import {
     ScrollToService,
     TabIndexDisabledControlValueAccessorMixin,
     ThyClickDispatcher,
-    ThyThemeStore
+    injectPanelEmptyIcon
 } from 'ngx-tethys/core';
 import { ThyEmpty } from 'ngx-tethys/empty';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -97,7 +97,7 @@ export class ThyCascader
     private ngZone = inject(NgZone);
     thyCascaderService = inject(ThyCascaderService);
     private locale: Signal<ThyCascaderLocale> = injectLocale('cascader');
-    thyThemeStore = inject(ThyThemeStore);
+    panelEmptyIcon = injectPanelEmptyIcon();
 
     /**
      * 选项的实际值的属性名

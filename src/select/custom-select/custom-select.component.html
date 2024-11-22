@@ -57,10 +57,7 @@
           <thy-loading [thyDone]="thyLoadState" thySize="sm"></thy-loading>
           <div class="thy-select-empty-content">
             @if (thyLoadState) {
-              <thy-empty
-                [thyMessage]="emptySearchMessageText"
-                thySize="sm"
-                [thyIconName]="thyThemeStore.isDark() ? 'preset-light' : ''"></thy-empty>
+              <thy-empty [thyMessage]="emptySearchMessageText" thySize="sm" [thyIconName]="panelEmptyIcon"></thy-empty>
             }
           </div>
         }
@@ -69,7 +66,7 @@
       <thy-loading [thyDone]="thyLoadState" thySize="sm"></thy-loading>
       <div class="thy-select-empty-content">
         @if (thyLoadState) {
-          <thy-empty [thyMessage]="emptyStateText" thySize="sm" [thyIconName]="thyThemeStore.isDark() ? 'preset-light' : ''"></thy-empty>
+          <thy-empty [thyMessage]="emptyStateText" thySize="sm" [thyIconName]="panelEmptyIcon"></thy-empty>
         }
       </div>
     }
