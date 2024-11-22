@@ -10,7 +10,7 @@ import { isString } from 'ngx-tethys/util';
 import { ThyConfirmConfig } from './confirm.config';
 import { THY_CONFIRM_COMPONENT_TOKEN, ThyConfirmAbstractComponent } from './confirm/token';
 import { ThyDialogContainer } from './dialog-container.component';
-import { ThyAbstractDialog, ThyDialogRef, ThyInternalDialogRef } from './dialog-ref';
+import { ThyDialogRef, ThyInternalDialogRef } from './dialog-ref';
 import { THY_DIALOG_DEFAULT_OPTIONS, ThyDialogConfig, ThyDialogSizes } from './dialog.config';
 import { dialogAbstractOverlayOptions } from './dialog.options';
 
@@ -25,10 +25,6 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
     private overlayKeyboardDispatcher = inject(OverlayKeyboardDispatcher);
 
     private overlayContainer = inject(OverlayContainer);
-
-    private abstractDialog: ThyAbstractDialog = {
-        toTop: (id: string) => this.toTop(id)
-    };
 
     protected buildOverlayConfig(config: ThyDialogConfig<any>): OverlayConfig {
         const size = config.size || ThyDialogSizes.md;
@@ -55,7 +51,7 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
         containerInstance: ThyDialogContainer,
         config: ThyDialogConfig<any>
     ): ThyAbstractOverlayRef<T, ThyDialogContainer, TResult> {
-        return new ThyInternalDialogRef(overlayRef, containerInstance, config, this.abstractDialog);
+        return new ThyInternalDialogRef(overlayRef, containerInstance, config, this);
     }
 
     protected createInjector<T>(config: ThyDialogConfig, dialogRef: ThyDialogRef<T>, dialogContainer: ThyDialogContainer): Injector {

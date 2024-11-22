@@ -16,16 +16,11 @@ export interface ThyAbstractDialog {
 export abstract class ThyDialogRef<T, TResult = unknown> extends ThyAbstractOverlayRef<T, ThyDialogContainer, TResult> {}
 
 export class ThyInternalDialogRef<T, TResult = unknown> extends ThyAbstractInternalOverlayRef<T, ThyDialogContainer, TResult> {
-    abstractDialog: ThyAbstractDialog;
+    thyDialog: ThyAbstractDialog;
 
-    constructor(
-        overlayRef: OverlayRef,
-        containerInstance: ThyDialogContainer,
-        config: ThyDialogConfig<T>,
-        abstractDialog: ThyAbstractDialog
-    ) {
+    constructor(overlayRef: OverlayRef, containerInstance: ThyDialogContainer, config: ThyDialogConfig<T>, service: ThyAbstractDialog) {
         super(dialogAbstractOverlayOptions, overlayRef, containerInstance, config);
-        this.abstractDialog = abstractDialog;
+        this.thyDialog = service;
     }
 
     /**
@@ -52,6 +47,6 @@ export class ThyInternalDialogRef<T, TResult = unknown> extends ThyAbstractInter
      * Update dialog to top
      */
     toTop() {
-        this.abstractDialog.toTop(this.id);
+        this.thyDialog.toTop(this.id);
     }
 }
