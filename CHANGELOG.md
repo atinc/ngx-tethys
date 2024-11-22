@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [18.2.0-next.2](https://github.com/atinc/ngx-tethys/compare/18.2.0-next.1...18.2.0-next.2) (2024-11-22)
+
+
+### Bug Fixes
+
+* **tooltip:** detach overlayRey when tooltip hidded #TINFR-1036 ([#3270](https://github.com/atinc/ngx-tethys/issues/3270)) ([21e7416](https://github.com/atinc/ngx-tethys/commit/21e741648122b841d01787317a9a46269136b28f)), closes [#TINFR-1036](https://github.com/atinc/ngx-tethys/issues/TINFR-1036)
+
+
+### Features
+
+* **dialog:** support overlay toTop with dialogRef(#TINFR-602) ([#3264](https://github.com/atinc/ngx-tethys/issues/3264)) ([61431dc](https://github.com/atinc/ngx-tethys/commit/61431dce044b5f3ac117bcfdad66591ebc3a0e85)), closes [#TINFR-602](https://github.com/atinc/ngx-tethys/issues/TINFR-602) [#TINFR-602](https://github.com/atinc/ngx-tethys/issues/TINFR-602)
+* **i18n:** support 简体中文, 繁體中文, English, 日本語, Deutsch #TINFR-1022 ([#3271](https://github.com/atinc/ngx-tethys/issues/3271)) ([1b58374](https://github.com/atinc/ngx-tethys/commit/1b58374af531d3a2d0994ec267985e52e3789a42)), closes [#TINFR-1022](https://github.com/atinc/ngx-tethys/issues/TINFR-1022) [#TINFR-1022](https://github.com/atinc/ngx-tethys/issues/TINFR-1022) [#TINFR-1042](https://github.com/atinc/ngx-tethys/issues/TINFR-1042)
+* panel empty icon use 'preset-light' in dark theme #TINFR-975 ([#3272](https://github.com/atinc/ngx-tethys/issues/3272)) ([5d836b0](https://github.com/atinc/ngx-tethys/commit/5d836b0ec963ca003a26cd8fdd6c08146279e2a5)), closes [#TINFR-975](https://github.com/atinc/ngx-tethys/issues/TINFR-975)
+
+
+
 # [18.2.0-next.1](https://github.com/atinc/ngx-tethys/compare/18.2.0-next.0...18.2.0-next.1) (2024-11-21)
 
 
