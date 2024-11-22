@@ -92,7 +92,11 @@
         }
       } @else {
         <div class="thy-cascader-empty-container" [ngStyle]="{ 'width.px': triggerRect?.width }">
-          <thy-empty class="thy-select-empty-content" thySize="sm" [thyMessage]="emptyStateText"></thy-empty>
+          <thy-empty
+            class="thy-select-empty-content"
+            thySize="sm"
+            [thyMessage]="emptyStateText"
+            [thyIconName]="thyThemeStore.isDark() ? 'preset-light' : ''"></thy-empty>
         </div>
       }
     }
@@ -112,7 +116,11 @@
         </ul>
       } @else {
         <div class="thy-cascader-empty-container" [ngStyle]="{ 'width.px': triggerRect?.width }">
-          <thy-empty class="thy-select-empty-content" thySize="sm" [thyMessage]="emptyStateText"></thy-empty>
+          <thy-empty
+            class="thy-select-empty-content"
+            thySize="sm"
+            [thyMessage]="emptyStateText"
+            [thyIconName]="thyThemeStore.isDark() ? 'preset-light' : ''"></thy-empty>
         </div>
       }
     }

@@ -16,7 +16,11 @@
     </div>
   </div>
 } @else {
-  <thy-empty class="thy-select-empty-content" thySize="sm" [thyMessage]="parent.thyEmptyOptionsText"></thy-empty>
+  <thy-empty
+    class="thy-select-empty-content"
+    thySize="sm"
+    [thyMessage]="parent.thyEmptyOptionsText"
+    [thyIconName]="thyThemeStore.isDark() ? 'preset-light' : ''"></thy-empty>
 }
 
 <ng-template #treeSelectNode let-node>

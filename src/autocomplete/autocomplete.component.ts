@@ -32,6 +32,7 @@ import { ThyEmpty } from 'ngx-tethys/empty';
 import { NgClass } from '@angular/common';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { injectLocale, ThyAutoCompleteLocale } from 'ngx-tethys/i18n';
+import { ThyThemeStore } from 'ngx-tethys/core';
 
 /** Event object that is emitted when an autocomplete option is activated. */
 export interface ThyAutocompleteActivatedEvent {
@@ -66,6 +67,8 @@ export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, After
     private ngUnsubscribe$ = new Subject<void>();
 
     private locale: Signal<ThyAutoCompleteLocale> = injectLocale('autocomplete');
+
+    thyThemeStore = inject(ThyThemeStore);
 
     dropDownClass: { [key: string]: boolean };
 

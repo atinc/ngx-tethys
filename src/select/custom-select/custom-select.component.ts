@@ -6,7 +6,8 @@ import {
     ScrollToService,
     TabIndexDisabledControlValueAccessorMixin,
     ThyClickDispatcher,
-    ThyPlacement
+    ThyPlacement,
+    ThyThemeStore
 } from 'ngx-tethys/core';
 import { ThyEmpty } from 'ngx-tethys/empty';
 import { ThyLoading } from 'ngx-tethys/loading';
@@ -178,6 +179,7 @@ export class ThySelect
     private locale: Signal<ThySelectLocale> = injectLocale('select');
     scrollStrategyFactory = inject<FunctionProp<ScrollStrategy>>(THY_SELECT_SCROLL_STRATEGY, { optional: true })!;
     selectConfig = inject(THY_SELECT_CONFIG, { optional: true })!;
+    thyThemeStore = inject(ThyThemeStore);
 
     disabled = false;
 

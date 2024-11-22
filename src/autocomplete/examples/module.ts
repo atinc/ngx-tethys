@@ -10,13 +10,15 @@ import { ThyAutocompleteCustomExampleComponent } from './custom/custom.component
 import { ThyAutocompleteAutofocusExampleComponent } from './autofocus/autofocus.component';
 import { ThyAutocompleteActiveExampleComponent } from './active/active.component';
 import { ThyAutocompleteInputSearchExampleComponent } from './input-search/input-search.component';
+import { ThyAutocompleteEmptyExampleComponent } from './empty/empty.component';
 
 const COMPONENTS = [
     ThyAutocompleteBasicExampleComponent,
     ThyAutocompleteCustomExampleComponent,
     ThyAutocompleteActiveExampleComponent,
     ThyAutocompleteAutofocusExampleComponent,
-    ThyAutocompleteInputSearchExampleComponent
+    ThyAutocompleteInputSearchExampleComponent,
+    ThyAutocompleteEmptyExampleComponent
 ];
 
 @NgModule({
