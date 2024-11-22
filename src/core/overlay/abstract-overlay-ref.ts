@@ -1,9 +1,9 @@
-import { ESCAPE, helpers } from 'ngx-tethys/util';
-import { Observable, of, Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { filter, finalize, take } from 'rxjs/operators';
 
 import { GlobalPositionStrategy, OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
 
+import { ESCAPE } from 'ngx-tethys/util';
 import { ThyAbstractOverlayContainer } from './abstract-overlay-container';
 import { ThyAbstractOverlayConfig, ThyAbstractOverlayOptions, ThyAbstractOverlayPosition } from './abstract-overlay.config';
 
@@ -17,7 +17,6 @@ export abstract class ThyAbstractOverlayRef<
     backdropClosable: boolean;
     disableClose: boolean;
     containerInstance: TContainer;
-
     /**
      * 获取 OverlayRef
      */
@@ -57,6 +56,11 @@ export abstract class ThyAbstractOverlayRef<
      * @param position
      */
     abstract updatePosition(position?: ThyAbstractOverlayPosition): this;
+
+    /**
+     * 模态框置顶
+     */
+    public toTop?(): void;
 }
 
 // Counter for unique overlay ids.
