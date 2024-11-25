@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [18.2.0](https://github.com/atinc/ngx-tethys/compare/18.2.0-next.2...18.2.0) (2024-11-25)
+
+
+
 # [18.2.0-next.2](https://github.com/atinc/ngx-tethys/compare/18.2.0-next.1...18.2.0-next.2) (2024-11-22)
 
 
