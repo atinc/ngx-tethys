@@ -22,7 +22,7 @@ import { coerceBooleanProperty, isTemplateRef } from 'ngx-tethys/util';
 import { ThyPaginationConfigModel } from './pagination.class';
 import { DEFAULT_RANGE_COUNT, PaginationDefaultConfig, THY_PAGINATION_CONFIG } from './pagination.config';
 import { PaginationPerPageFormat, PaginationTotalCountFormat } from './pagination.pipe';
-import { injectLocale, ThyI18nLocale, ThyPaginationLocale, useLocale } from 'ngx-tethys/i18n';
+import { injectLocale, ThyI18nLocale, ThyPaginationLocale } from 'ngx-tethys/i18n';
 
 /**
  * 分页组件，当数据量过多时，使用分页分解数据。
@@ -48,7 +48,7 @@ import { injectLocale, ThyI18nLocale, ThyPaginationLocale, useLocale } from 'ngx
 export class ThyPagination implements OnInit {
     private paginationConfig = inject(THY_PAGINATION_CONFIG, { optional: true })!;
     private cdr = inject(ChangeDetectorRef);
-    allLocale: Signal<ThyI18nLocale> = useLocale();
+    allLocale: Signal<ThyI18nLocale> = injectLocale(undefined);
     locale: Signal<ThyPaginationLocale> = injectLocale('pagination');
 
     isTemplateRef = isTemplateRef;

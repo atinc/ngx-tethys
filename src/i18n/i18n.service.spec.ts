@@ -10,7 +10,6 @@ import {
     ThyGuiderLocale,
     ThyI18nLocale,
     ThyI18nService,
-    useLocale,
     zhHansLocale
 } from 'ngx-tethys/i18n';
 
@@ -20,7 +19,7 @@ import {
 export class ThyI18nTestComponent {
     i18n = inject(ThyI18nService);
 
-    locale: Signal<ThyI18nLocale> = useLocale();
+    locale: Signal<ThyI18nLocale> = injectLocale(undefined);
 
     calendarLocale: Signal<ThyCalendarLocale> = injectLocale('calendar');
 

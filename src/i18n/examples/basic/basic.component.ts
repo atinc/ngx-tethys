@@ -4,7 +4,7 @@ import { DateRangeItemInfo } from 'ngx-tethys/date-range';
 import { ThyDialog } from 'ngx-tethys/dialog';
 import { ThyGuider, ThyGuiderConfig, ThyGuiderRef, ThyGuiderStep } from 'ngx-tethys/guider';
 import { ThyI18nLocale } from 'ngx-tethys/i18n/i18n';
-import { ThyLocaleType, useLocale } from 'ngx-tethys/i18n';
+import { injectLocale, ThyLocaleType } from 'ngx-tethys/i18n';
 import { ThyTransferItem, TransferDirection } from 'ngx-tethys/transfer';
 import { ThyNavItemDirective } from 'ngx-tethys/nav';
 
@@ -13,7 +13,7 @@ import { ThyNavItemDirective } from 'ngx-tethys/nav';
     templateUrl: `basic.component.html`
 })
 export class ThyI18nBasicExampleComponent implements OnInit {
-    private globalLocale: Signal<ThyI18nLocale> = useLocale();
+    private globalLocale: Signal<ThyI18nLocale> = injectLocale(undefined);
 
     private thyDialog = inject(ThyDialog);
 

@@ -1,5 +1,5 @@
 import { Injectable, Signal } from '@angular/core';
-import { ThyI18nLocale, useLocale } from 'ngx-tethys/i18n';
+import { ThyI18nLocale, injectLocale } from 'ngx-tethys/i18n';
 import { formatDate } from '@angular/common';
 
 export function DATE_HELPER_SERVICE_FACTORY(): DateHelperService {
@@ -14,7 +14,7 @@ export function DATE_HELPER_SERVICE_FACTORY(): DateHelperService {
     useFactory: DATE_HELPER_SERVICE_FACTORY
 })
 export abstract class DateHelperService {
-    locale: Signal<ThyI18nLocale> = useLocale();
+    locale: Signal<ThyI18nLocale> = injectLocale(undefined);
     relyOnDatePipe: boolean = this instanceof DateHelperByDatePipe;
     abstract getISOWeek(date: Date): number;
     abstract format(date: Date, formatStr: string): string;
