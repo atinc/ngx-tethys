@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'thy-styles-theme-example',
-    templateUrl: './theme.component.html',
+    selector: 'thy-theme-color-example',
+    templateUrl: './color.component.html',
     styles: [
         `
             .show-color,
@@ -24,7 +24,7 @@ import { Component } from '@angular/core';
         `
     ]
 })
-export class ThyStylesThemeExampleComponent {
+export class ThyThemeColorExampleComponent {
     colorVariables = [
         '$gray-10',
         '$gray-70',
