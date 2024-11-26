@@ -14,7 +14,7 @@ export function DATE_HELPER_SERVICE_FACTORY(): DateHelperService {
     useFactory: DATE_HELPER_SERVICE_FACTORY
 })
 export abstract class DateHelperService {
-    locale: Signal<ThyI18nLocale> = injectLocale(undefined);
+    locale: Signal<ThyI18nLocale> = injectLocale();
     relyOnDatePipe: boolean = this instanceof DateHelperByDatePipe;
     abstract getISOWeek(date: Date): number;
     abstract format(date: Date, formatStr: string): string;

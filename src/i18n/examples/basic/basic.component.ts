@@ -13,7 +13,7 @@ import { ThyNavItemDirective } from 'ngx-tethys/nav';
     templateUrl: `basic.component.html`
 })
 export class ThyI18nBasicExampleComponent implements OnInit {
-    private globalLocale: Signal<ThyI18nLocale> = injectLocale(undefined);
+    private globalLocale: Signal<ThyI18nLocale> = injectLocale();
 
     private thyDialog = inject(ThyDialog);
 

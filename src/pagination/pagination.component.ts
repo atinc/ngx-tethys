@@ -48,7 +48,7 @@ import { injectLocale, ThyI18nLocale, ThyPaginationLocale } from 'ngx-tethys/i18
 export class ThyPagination implements OnInit {
     private paginationConfig = inject(THY_PAGINATION_CONFIG, { optional: true })!;
     private cdr = inject(ChangeDetectorRef);
-    allLocale: Signal<ThyI18nLocale> = injectLocale(undefined);
+    allLocale: Signal<ThyI18nLocale> = injectLocale();
     locale: Signal<ThyPaginationLocale> = injectLocale('pagination');
 
     isTemplateRef = isTemplateRef;

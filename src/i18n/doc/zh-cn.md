@@ -43,7 +43,7 @@ import { useLocale, ThyI18nLocale } from 'ngx-tethys/i18n';
     `
 })
 export class ThyI18nUseLocaleExampleComponent {
-     locale: Signal<ThyI18nLocale> = injectLocale(undefined);
+     locale: Signal<ThyI18nLocale> = injectLocale();
 }
 ```
 

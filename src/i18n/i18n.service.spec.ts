@@ -19,7 +19,7 @@ import {
 export class ThyI18nTestComponent {
     i18n = inject(ThyI18nService);
 
-    locale: Signal<ThyI18nLocale> = injectLocale(undefined);
+    locale: Signal<ThyI18nLocale> = injectLocale();
 
     calendarLocale: Signal<ThyCalendarLocale> = injectLocale('calendar');
 
