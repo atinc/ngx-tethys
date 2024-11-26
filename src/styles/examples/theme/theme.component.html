@@ -1,0 +1,28 @@
+<div thyRow [thyGutter]="30">
+  <div thyCol [thySpan]="6">
+    <span class="d-block mb-2">颜色变量</span>
+    @for (variable of colorVariables; track $index) {
+      <div class="color-variable">{{ variable }}</div>
+    }
+  </div>
+
+  <div thyCol [thySpan]="6">
+    <span class="d-block mb-2">亮色主题</span>
+    @for (variable of colorVariables; track $index) {
+      <div class="show-color">
+        <div class="color-block" [style.backgroundColor]="defaultThemeColorsMap[variable]"></div>
+        <span>{{ defaultThemeColorsMap[variable] }}</span>
+      </div>
+    }
+  </div>
+
+  <div thyCol [thySpan]="6">
+    <span class="d-block mb-2">暗黑主题</span>
+    @for (variable of colorVariables; track $index) {
+      <div class="show-color">
+        <div class="color-block" [style.backgroundColor]="darkThemeColorsMap[variable]"></div>
+        <span>{{ darkThemeColorsMap[variable] }}</span>
+      </div>
+    }
+  </div>
+</div>
