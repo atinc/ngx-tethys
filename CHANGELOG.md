@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [18.2.1](https://github.com/atinc/ngx-tethys/compare/18.2.0-next.2...18.2.1) (2024-11-26)
+
+
+### Bug Fixes
+
+* **menu:** fix $menu-theme-dark-hover-color #TINFR-1061 ([1428a85](https://github.com/atinc/ngx-tethys/commit/1428a85fbac4b85a80a075b2114ca20ba3d05562)), closes [#TINFR-1061](https://github.com/atinc/ngx-tethys/issues/TINFR-1061)
+
+
+
 # [18.2.0](https://github.com/atinc/ngx-tethys/compare/18.2.0-next.2...18.2.0) (2024-11-25)
 
 
