@@ -13,9 +13,7 @@ subtitle: 样式
 
 <example name="thy-styles-font-size-example" />
 
-## 主题
 
-<example name="thy-styles-theme-example"/>
 
 ## 颜色
 
