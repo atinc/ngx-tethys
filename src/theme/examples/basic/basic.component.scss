@@ -1,0 +1,13 @@
+@use 'variables.scss' as variables2;
+
+.color-block {
+    height: 30px;
+    line-height: 30px;
+    padding: 0 20px;
+    width: 200px;
+}
+.default-use {
+    height: 30px;
+    width: 200px;
+    background-color: variables2.$gray-100; // or var(--gray-100)
+}

@@ -1,6 +1,6 @@
 <div thyRow [thyGutter]="30">
   <div thyCol [thySpan]="10">
-    <span class="d-block mb-2">颜色</span>
+    <span class="d-block mb-2">颜色变量</span>
     @for (variable of colorVariables; track $index) {
       <div class="d-flex align-items-center">
         <div class="color-variable" [style.width.px]="100">{{ variable }}</div>
