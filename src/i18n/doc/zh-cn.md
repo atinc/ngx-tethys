@@ -32,7 +32,7 @@ export class AppComponent {
 ```
 
 ## 获取当前语言包
-使用 `useLocale` 函数获取当前语言包。
+使用 `injectLocale` 函数获取当前语言包。
 ```ts
 import { useLocale, ThyI18nLocale } from 'ngx-tethys/i18n';
 
@@ -43,7 +43,7 @@ import { useLocale, ThyI18nLocale } from 'ngx-tethys/i18n';
     `
 })
 export class ThyI18nUseLocaleExampleComponent {
-    locale: Signal<ThyI18nLocale> = useLocale();
+     locale: Signal<ThyI18nLocale> = injectLocale();
 }
 ```
 
