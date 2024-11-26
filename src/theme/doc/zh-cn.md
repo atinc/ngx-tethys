@@ -14,7 +14,7 @@ subtitle: 主题
 <example name="thy-theme-color-example"/>
 
 ## 基本使用
-NGX-TETHYS 使用 CSS 变量来构建主题。支持在 .html、.ts、.scss 等文件中通过`var(--gray-*)`的方式使用主题颜色。
+NGX-TETHYS 使用 CSS 变量来构建主题。支持在 .scss 文件中直接使用 $gray-* 变量，支持在 .html、.ts、.scss 等文件中通过`var(--gray-*)`获取主题颜色。
 <example name="thy-theme-basic-example"/>
 
 ## 动态切换主题
