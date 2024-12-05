@@ -7,10 +7,12 @@ subtitle: 主题
 <alert>Theme 主题</alert>
 当需要使用主题时。
 
+## 原理
+使用 [CSS 变量](https://developer.mozilla.org/zh-CN/docs/Web/CSS/--*) 来实现多主题，目前支持`亮色主题`和`暗黑主题`两套主题。
 
 
 ## 变量设计
-目前支持`亮色主题`和`暗黑主题`两套主题颜色。
+ngx-tethys 内部 Sass 变量和 CSS 变量共存，并且内置了亮色和暗黑两套色板。
 <example name="thy-theme-color-example"/>
 
 ## 基本使用
