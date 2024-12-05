@@ -1,7 +1,7 @@
 ---
 title: 主题样式
 path: 'theme'
-order: 3
+order: 40
 ---
 
 通过`ng add ngx-tethys`的方式引入组件库后会自动在`angular.json`中引入样式:
