@@ -1,7 +1,7 @@
 ---
 title: 脚手架
 path: 'schematics'
-order: 2
+order: 20
 ---
 
 使用脚手架可以更加方便的初始化项目，生成模板代码，节省开发时间。
