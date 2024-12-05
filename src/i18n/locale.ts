@@ -1,16 +1,18 @@
 import { computed, inject, Signal } from '@angular/core';
-import { ThyModuleType, ThyI18nLocale, ThyI18nService, ThyModuleLocaleType } from './index';
+import { ThyModuleType, ThyI18nService, ThyModuleLocaleType, ThyI18nLocale } from './index';
 
-export function useLocale(): Signal<ThyI18nLocale> {
-    const i18n = inject(ThyI18nService);
-    return i18n.getLocale();
-}
+export function injectLocale(): Signal<ThyI18nLocale>;
 
-export function injectLocale<K extends ThyModuleType>(key: K): Signal<ThyModuleLocaleType<K>> {
+export function injectLocale<K extends ThyModuleType>(key: K): Signal<ThyModuleLocaleType<K>>;
+
+export function injectLocale<K extends ThyModuleType>(key?: K): Signal<ThyI18nLocale | ThyModuleLocaleType<K>> {
     const i18n = inject(ThyI18nService);
     const allLocale = i18n.getLocale();
 
     return computed(() => {
-        return allLocale()?.[key] || {};
-    }) as Signal<ThyModuleLocaleType<K>>;
+        if (key) {
+            return allLocale()[key] ?? allLocale();
+        }
+        return allLocale();
+    });
 }

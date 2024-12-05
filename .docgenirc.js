@@ -25,7 +25,7 @@ module.exports = {
             lib: 'tethys-cdk',
             locales: {
                 'en-us': {
-                    title: 'Components'
+                    title: 'CDK'
                 }
             }
         },

@@ -46,7 +46,7 @@ export class ThyI18nService {
             localeId = ThyLocaleType.zhHans;
         }
 
-        this.locale.set(this.locales[localeId] || this.locales[this.defaultLocaleId]);
+        this.locale.set(this.locales[localeId] || this.locales[this.defaultLocaleId] || ({} as ThyI18nLocale));
     }
 
     /**
