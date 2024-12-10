@@ -3,7 +3,8 @@ import { ThySelectionListChange } from 'ngx-tethys/list';
 
 @Component({
     selector: 'app-list-layout-example',
-    templateUrl: './layout.component.html'
+    templateUrl: './layout.component.html',
+    standalone: false
 })
 export class ThyListLayoutExampleComponent implements OnInit {
     public gridItems = [

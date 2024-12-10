@@ -175,7 +175,8 @@ describe('thy-statistic', () => {
             [thySuffix]="thySuffix"
             [thyValueStyle]="thyValueStyle"
             [thyTitlePosition]="thyTitlePosition"></thy-statistic>
-    `
+    `,
+    standalone: false
 })
 class ThyDemoStatisticBasicComponent {
     thyValue = 10;
@@ -197,7 +198,8 @@ class ThyDemoStatisticBasicComponent {
             <ng-template #suffix>后缀</ng-template>
             <ng-template #title>标题</ng-template>
         </thy-statistic>
-    `
+    `,
+    standalone: false
 })
 class ThyDemoStatisticTemplateComponent {
     thyValue = 80;
@@ -212,7 +214,8 @@ class ThyDemoStatisticTemplateComponent {
         <ng-template #prefix>前缀</ng-template>
         <ng-template #suffix>后缀</ng-template>
         <ng-template #title>标题</ng-template>
-    `
+    `,
+    standalone: false
 })
 class ThyDemoStatisticTemplateOutsideComponent {}
 

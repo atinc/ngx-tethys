@@ -17,7 +17,8 @@ const DEFAULT_DURATION_TIME = 4500;
         <button class="warning-btn" (click)="openMessage('warning')">warning</button>
         <button class="error-btn" (click)="openMessage('error')">error</button>
         <button class="loading-btn" (click)="openMessage('loading')">loading</button>
-    `
+    `,
+    standalone: false
 })
 export class ThyMessageTestComponent implements OnInit {
     messageService = coreInject(ThyMessageService);

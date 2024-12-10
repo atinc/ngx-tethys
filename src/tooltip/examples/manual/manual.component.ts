@@ -4,7 +4,8 @@ import { ThyTooltipRef } from 'ngx-tethys/tooltip';
 
 @Component({
     selector: 'thy-tooltip-manual-example',
-    templateUrl: './manual.component.html'
+    templateUrl: './manual.component.html',
+    standalone: false
 })
 export class ThyTooltipManualExampleComponent implements OnInit, OnDestroy {
     private tooltipService = inject(ThyTooltipService);

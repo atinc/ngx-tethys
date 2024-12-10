@@ -15,7 +15,6 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     templateUrl: './dialog-footer.component.html',
     // changeDetection: ChangeDetectionStrategy.OnPush,
     exportAs: 'thyDialogFooter',
-    standalone: true,
     imports: [NgTemplateOutlet]
 })
 export class ThyDialogFooter implements OnInit {

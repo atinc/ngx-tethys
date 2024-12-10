@@ -20,7 +20,8 @@ import { ThyCarouselEffect } from 'ngx-tethys/carousel';
                 color: #6698ff;
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class ThyCarouselEffectExampleComponent implements OnInit {
     constructor() {}

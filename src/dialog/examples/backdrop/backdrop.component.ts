@@ -5,7 +5,8 @@ import { ThyDialogBasicContentComponent } from '../basic/dialog-content.componen
 @Component({
     selector: 'thy-dialog-backdrop-example',
     templateUrl: './backdrop.component.html',
-    styleUrls: ['./backdrop.component.scss']
+    styleUrls: ['./backdrop.component.scss'],
+    standalone: false
 })
 export class ThyDialogBackdropExampleComponent {
     private thyDialog = inject(ThyDialog);

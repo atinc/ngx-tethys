@@ -47,7 +47,6 @@ import { dialogAbstractOverlayOptions } from './dialog.options';
         '(@dialogContainer.start)': 'onAnimationStart($event)',
         '(@dialogContainer.done)': 'onAnimationDone($event)'
     },
-    standalone: true,
     imports: [PortalModule, ThyPortalOutlet]
 })
 export class ThyDialogContainer extends ThyAbstractOverlayContainer implements OnDestroy {

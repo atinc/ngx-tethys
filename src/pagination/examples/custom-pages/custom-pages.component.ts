@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'thy-pagination-custom-pages-example',
-    templateUrl: './custom-pages.component.html'
+    templateUrl: './custom-pages.component.html',
+    standalone: false
 })
 export class ThyPaginationCustomPagesExampleComponent {
     currentIndex = 1;

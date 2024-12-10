@@ -45,7 +45,6 @@ export type ThyTabsPosition = 'top' | 'left';
         '[class.thy-tabs-left]': `thyPosition === 'left'`,
         '[style.overflow]': `transitionStarted ? "hidden" : null`
     },
-    standalone: true,
     imports: [ThyNav, ThyNavItemDirective, NgTemplateOutlet, ThyTabContent]
 })
 export class ThyTabs implements OnInit, OnChanges, AfterContentInit {

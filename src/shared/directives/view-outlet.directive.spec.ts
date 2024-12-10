@@ -9,7 +9,8 @@ import { ThySharedModule } from '../shared.module';
         <ng-container *thyViewOutlet="counter; context: { count: count }"></ng-container>
 
         <ng-template #counter let-count="count">Count: {{ count }}</ng-template>
-    `
+    `,
+    standalone: false
 })
 class ThyViewOutletTemplateTestComponent {
     count = 1;
@@ -17,7 +18,8 @@ class ThyViewOutletTemplateTestComponent {
 
 @Component({
     selector: 'thy-shared-view-outlet-content',
-    template: `Count: {{ count }}`
+    template: `Count: {{ count }}`,
+    standalone: false
 })
 class ThyViewOutletContentTestComponent {
     count = 1;
@@ -25,7 +27,8 @@ class ThyViewOutletContentTestComponent {
 
 @Component({
     selector: 'thy-shared-view-outlet-component-test',
-    template: `<ng-container *thyViewOutlet="contentComponent; context: context"></ng-container>`
+    template: `<ng-container *thyViewOutlet="contentComponent; context: context"></ng-container>`,
+    standalone: false
 })
 class ThyViewOutletComponentTestComponent {
     contentComponent = ThyViewOutletContentTestComponent;
@@ -35,7 +38,8 @@ class ThyViewOutletComponentTestComponent {
 let contentMultiTestChanges: SimpleChanges;
 @Component({
     selector: 'thy-shared-view-outlet-content-multi',
-    template: `Count: {{ count }}, Name: {{ innerName }}, Called: {{ nameSetInvokeCount }}, Input Name: {{ inputName }}`
+    template: `Count: {{ count }}, Name: {{ innerName }}, Called: {{ nameSetInvokeCount }}, Input Name: {{ inputName }}`,
+    standalone: false
 })
 class ThyViewOutletContentMultiTestComponent implements OnChanges {
     @Input() count = 1;
@@ -58,7 +62,8 @@ class ThyViewOutletContentMultiTestComponent implements OnChanges {
 
 @Component({
     selector: 'thy-shared-view-outlet-component-multi-test',
-    template: `<ng-container *thyViewOutlet="contentComponent; context: { count: count, name: name, inputName: inputName }"></ng-container>`
+    template: `<ng-container *thyViewOutlet="contentComponent; context: { count: count, name: name, inputName: inputName }"></ng-container>`,
+    standalone: false
 })
 class ThyViewOutletComponentMultiTestComponent {
     contentComponent = ThyViewOutletContentMultiTestComponent;

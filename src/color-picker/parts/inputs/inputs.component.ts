@@ -11,7 +11,6 @@ import { ThyColor } from '../../helpers/color.class';
 @Component({
     selector: 'thy-color-inputs',
     templateUrl: './inputs.component.html',
-    standalone: true,
     imports: [ThyInputDirective, FormsModule, ThyEnterDirective, ThyInputNumber, ThyInputGroup]
 })
 export class ThyColorInputs {

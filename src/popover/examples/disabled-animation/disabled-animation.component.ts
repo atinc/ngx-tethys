@@ -3,7 +3,8 @@ import { Component, TemplateRef, inject } from '@angular/core';
 
 @Component({
     selector: 'thy-popover-disabled-animation-example',
-    templateUrl: './disabled-animation.component.html'
+    templateUrl: './disabled-animation.component.html',
+    standalone: false
 })
 export class ThyPopoverDisabledAnimationExampleComponent {
     private thyPopover = inject(ThyPopover);

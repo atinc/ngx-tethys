@@ -25,7 +25,8 @@ import { ThyDropdownAbstractMenu, ThyDropdownMenuComponent } from '../dropdown-m
                 <span>Menu Item2</span>
             </a>
         </thy-dropdown-menu>
-    `
+    `,
+    standalone: false
 })
 class DropdownBasicTestComponent {
     trigger: ThyOverlayTrigger = 'click';
@@ -293,7 +294,8 @@ describe('for touch usage', () => {
                 <span>Menu Item2</span>
             </a>
         </thy-dropdown-menu>
-    `
+    `,
+    standalone: false
 })
 class DropdownMenuInputTestComponent {
     @ViewChild('invalidDiv', { static: true }) invalidDiv: HTMLElement;
@@ -386,7 +388,8 @@ describe('invalid dropdown', () => {
                 <span thyDropdownMenuItemName>New</span>
             </a>
         </thy-dropdown-menu>
-    `
+    `,
+    standalone: false
 })
 class DropdownMenuTestComponent {
     @ViewChild('dropdownMenu', { static: true }) dropdownMenu: ThyDropdownMenuComponent;
@@ -570,7 +573,8 @@ describe('dropdown menu', () => {
                 </thy-dropdown-submenu>
             </a>
         </thy-dropdown-menu>
-    `
+    `,
+    standalone: false
 })
 class DropdownSubmenuTestComponent {
     @ViewChild('dropdownMenu', { static: true }) dropdownMenu: ThyDropdownMenuComponent;
@@ -834,13 +838,15 @@ describe('dropdown submenu', () => {
         <a thyDropdownMenuItem href="javascript:;">
             <span>Custom Menu Item2</span>
         </a>
-    `
+    `,
+    standalone: false
 })
 class DropdownCustomMenuComponent extends ThyDropdownAbstractMenu {}
 
 @Component({
     selector: 'thy-dropdown-component-test',
-    template: ` <button [thyDropdown]="menu" thyButton="primary">Dropdown</button> `
+    template: ` <button [thyDropdown]="menu" thyButton="primary">Dropdown</button> `,
+    standalone: false
 })
 class DropdownComponentTestComponent {
     menu = DropdownCustomMenuComponent;
@@ -911,7 +917,8 @@ describe('dropdown-component', () => {
                 <span>Menu Item2</span>
             </a>
         </thy-dropdown-menu>
-    `
+    `,
+    standalone: false
 })
 class DropdownOptionsTestComponent {
     trigger: ThyOverlayTrigger = 'click';
@@ -1123,7 +1130,8 @@ describe('dropdown options', () => {
                 <span>Menu Item2</span>
             </a>
         </thy-dropdown-menu>
-    `
+    `,
+    standalone: false
 })
 class DropdownImmediateRenderTestComponent {
     trigger: ThyOverlayTrigger = 'click';

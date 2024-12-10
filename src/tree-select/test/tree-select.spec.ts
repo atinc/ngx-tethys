@@ -49,7 +49,8 @@ function treeNodesExpands(nodes: ThyTreeSelectNode[]) {
                 [thyDisableNodeKey]="disableKey"
                 (thyExpandStatusChange)="expandChange($event)"></thy-tree-select>
         </div>
-    `
+    `,
+    standalone: false
 })
 class BasicTreeSelectComponent {
     @ViewChild(ThyTreeSelect, { static: false }) treeComponent: ThyTreeSelect;
@@ -187,7 +188,8 @@ class BasicTreeSelectComponent {
                 [thyPlaceholder]="thyPlaceholder"
                 thyShowKey="title"></thy-tree-select>
         </div>
-    `
+    `,
+    standalone: false
 })
 class PlaceHolderTreeSelectComponent {
     nodes: ThyTreeSelectNode[] = [
@@ -284,7 +286,8 @@ class PlaceHolderTreeSelectComponent {
                 (ngModelChange)="treeSelectChange()"
                 [thyMultiple]="multiple"></thy-tree-select>
         </div>
-    `
+    `,
+    standalone: false
 })
 class NgModelTreeSelectComponent {
     nodes: ThyTreeSelectNode[] = [
@@ -382,7 +385,8 @@ class NgModelTreeSelectComponent {
                 [(ngModel)]="selectedValue"
                 [thyShowSearch]="treeShowSearch"></thy-tree-select>
         </div>
-    `
+    `,
+    standalone: false
 })
 class SearchTreeSelectComponent {
     nodes = searchTreeSelectData;
@@ -399,7 +403,8 @@ class SearchTreeSelectComponent {
     selector: 'test-virtual-scrolling-tree-select',
     template: `
         <thy-tree-select #treeSelect [thyTreeNodes]="mockData" [(ngModel)]="selectedValue" [thyVirtualScroll]="true"> </thy-tree-select>
-    `
+    `,
+    standalone: false
 })
 export class VirtualScrollingTreeSelectComponent implements OnInit {
     @ViewChild('treeSelect', { static: true }) treeSelect: ThyTreeSelect;

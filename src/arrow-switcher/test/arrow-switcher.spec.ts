@@ -125,7 +125,8 @@ describe('ThyArrowSwitcher', () => {
             (thyNext)="nextClick()"
             [thyPreviousTooltip]="previousTooltip"
             [thyNextTooltip]="nextTooltip"></thy-arrow-switcher>
-    `
+    `,
+    standalone: false
 })
 class ThyDemoArrowSwitcherComponent {
     index = 0;

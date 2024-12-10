@@ -5,7 +5,8 @@ import { ThyPopoverBasicContentComponent } from '../basic/popover-content.compon
 @Component({
     selector: 'thy-popover-menu-example',
     templateUrl: './menu.component.html',
-    styleUrls: ['./menu.component.scss']
+    styleUrls: ['./menu.component.scss'],
+    standalone: false
 })
 export class ThyPopoverMenuExampleComponent implements OnInit {
     constructor() {}

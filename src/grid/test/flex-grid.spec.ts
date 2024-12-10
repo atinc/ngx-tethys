@@ -16,8 +16,7 @@ import { By } from '@angular/platform-browser';
             </div>
         </div>
     `,
-    imports: [ThyGridModule],
-    standalone: true
+    imports: [ThyGridModule]
 })
 class FlexGridTestComponent implements OnInit {
     gutter: number;

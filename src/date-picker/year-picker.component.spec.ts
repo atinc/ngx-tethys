@@ -261,7 +261,8 @@ describe('ThyYearPickerComponent', () => {
             (thyDateChange)="thyDateChange($event)"
             [thyPlaceHolder]="thyPlaceHolder">
         </thy-year-picker>
-    `
+    `,
+    standalone: false
 })
 class TestYearPickerComponent {
     thyAllowClear: boolean;

@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'thy-segment-mode-example',
-    templateUrl: './mode.component.html'
+    templateUrl: './mode.component.html',
+    standalone: false
 })
 export class ThySegmentModeExampleComponent {
     items = [

@@ -271,7 +271,8 @@ describe('ThySelectionList without forms', () => {
         <button (click)="selectAll()">选择全部</button>
         <button (click)="deselectAll()">清除全部</button>
         <button (click)="determineClearActiveItem()">确认清除</button>
-    `
+    `,
+    standalone: false
 })
 class SelectionListWithListOptionsComponent {
     @ViewChild(ThySelectionList, { static: true }) thySelectionListComponent: ThySelectionList;
@@ -354,7 +355,8 @@ class SelectionListWithListOptionsComponent {
             <thy-list-option thyValue="sent-mail"> Sent Mail </thy-list-option>
             <thy-list-option thyValue="drafts"> Drafts </thy-list-option>
         </thy-selection-list>
-    `
+    `,
+    standalone: false
 })
 class SelectionListWithListOptionsDefaultComponent {
     autoActiveFirstItem = false;
@@ -376,7 +378,8 @@ class SelectionListWithListOptionsDefaultComponent {
                 </thy-list-option>
             }
         </thy-selection-list>
-    `
+    `,
+    standalone: false
 })
 class SelectionListWithListOptionsByObjectTypeValueComponent {
     @ViewChild(ThySelectionList, { static: true }) thySelectionListComponent: ThySelectionList;

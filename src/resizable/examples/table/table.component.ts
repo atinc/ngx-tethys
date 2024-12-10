@@ -4,7 +4,8 @@ import { ThyResizeEvent } from 'ngx-tethys/resizable';
 @Component({
     selector: 'thy-resizable-table-example',
     templateUrl: './table.component.html',
-    styleUrls: ['./table.style.scss']
+    styleUrls: ['./table.style.scss'],
+    standalone: false
 })
 export class ThyResizableTableExampleComponent {
     className = 'thy-resizable';

@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
         <thy-slider class="mb-2" [ngModel]="value" thySize="sm"></thy-slider>
         <thy-slider class="mb-2" [ngModel]="value" thySize="md" [thyType]="'warning'"></thy-slider>
         <thy-slider [ngModel]="value" thySize="lg"></thy-slider>
-    `
+    `,
+    standalone: false
 })
 export class ThySliderSizeExampleComponent implements OnInit {
     value = 40;

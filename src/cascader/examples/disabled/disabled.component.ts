@@ -52,7 +52,8 @@ const customerOptions = [
 ];
 @Component({
     selector: 'thy-cascader-disabled-example',
-    templateUrl: './disabled.component.html'
+    templateUrl: './disabled.component.html',
+    standalone: false
 })
 export class ThyCascaderDisabledExampleComponent implements OnInit {
     private notifyService = inject(ThyNotifyService);

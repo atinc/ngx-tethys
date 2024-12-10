@@ -9,11 +9,10 @@
     $dg-primary: #6698ff
 );
 
-@import './assets/fonts/wtd/iconfont.css';
+@use './assets/fonts/wtd/iconfont.css';
+@use './styles/docgeni.scss';
 @include meta.load-css('../../src/styles/index.scss');
 @include meta.load-css('./styles/index.scss');
-
-@import './styles/docgeni.scss';
 
 html,
 body {

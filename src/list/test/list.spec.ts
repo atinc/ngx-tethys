@@ -61,7 +61,8 @@ describe('list', () => {
                 </thy-list-item-meta>
             </thy-list-item>
         </thy-list>
-    `
+    `,
+    standalone: false
 })
 class TestListComponent {
     divided = false;

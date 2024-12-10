@@ -7,7 +7,8 @@ import { HostRenderer, useHostRenderer } from '../host-renderer';
 @Component({
     selector: 'thy-dom-host-renderer-test',
     template: 'Content',
-    providers: [HostRenderer]
+    providers: [HostRenderer],
+    standalone: false
 })
 export class ThyDomHostRendererTestComponent implements OnInit {
     hostRenderer = inject(HostRenderer);
@@ -22,7 +23,8 @@ export class ThyDomHostRendererTestComponent implements OnInit {
 
 @Component({
     selector: 'thy-dom-use-host-renderer-test',
-    template: 'Content'
+    template: 'Content',
+    standalone: false
 })
 export class ThyDomUseHostRendererTestComponent implements OnInit {
     hostRenderer = useHostRenderer();

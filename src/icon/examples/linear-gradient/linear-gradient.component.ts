@@ -22,7 +22,8 @@ xmlns:xlink="http://www.w3.org/1999/xlink" >
 @Component({
     selector: 'thy-icon-linear-gradient-example',
     templateUrl: './linear-gradient.component.html',
-    styleUrls: ['./linear-gradient.component.scss']
+    styleUrls: ['./linear-gradient.component.scss'],
+    standalone: false
 })
 export class ThyIconLinearGradientExampleComponent {
     constructor() {

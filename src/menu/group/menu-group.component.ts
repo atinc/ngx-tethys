@@ -29,30 +29,20 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     templateUrl: './menu-group.component.html',
     animations: [
         trigger('detailsContentAnimation', [
-            state(
-                'void',
-                style({
-                    height: '*'
-                })
-            ),
-            state(
-                '1',
-                style({
-                    height: 0,
-                    overflow: 'hidden'
-                })
-            ),
-            state(
-                '0',
-                style({
-                    height: '*'
-                })
-            ),
+            state('void', style({
+                height: '*'
+            })),
+            state('1', style({
+                height: 0,
+                overflow: 'hidden'
+            })),
+            state('0', style({
+                height: '*'
+            })),
             transition('* => *', animate('0ms ease-out'))
         ])
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
     imports: [NgClass, NgTemplateOutlet, ThyIcon]
 })
 export class ThyMenuGroup implements OnInit {

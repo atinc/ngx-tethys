@@ -4,7 +4,8 @@ import { ThyNotifyService } from 'ngx-tethys/notify';
 @Component({
     selector: 'thy-back-top-target-example',
     templateUrl: './target.component.html',
-    styleUrls: ['./target.scss']
+    styleUrls: ['./target.scss'],
+    standalone: false
 })
 export class ThyBackTopTargetExampleComponent implements OnInit {
     private notifyService = inject(ThyNotifyService);

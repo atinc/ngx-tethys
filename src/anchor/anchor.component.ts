@@ -66,7 +66,6 @@ const sharpMatcherRegx = /#([^#]+)$/;
     `,
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
     imports: [ThyAffix, NgTemplateOutlet, NgStyle, NgClass]
 })
 export class ThyAnchor implements OnDestroy, AfterViewInit, OnChanges {

@@ -6,7 +6,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'thy-dialog-basic-example',
-    templateUrl: './basic.component.html'
+    templateUrl: './basic.component.html',
+    standalone: false
 })
 export class ThyDialogBasicExampleComponent implements OnInit, OnDestroy {
     thyDialog = inject(ThyDialog);

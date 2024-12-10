@@ -216,7 +216,8 @@ describe('ThyRangePickerDirective', () => {
             (thyDateChange)="thyDateChange($event)"
             (ngModelChange)="modelValueChange($event)"
             (thyOpenChange)="thyOpenChange($event)"></thy-property-operation>
-    `
+    `,
+    standalone: false
 })
 class ThyTestRangePickerComponent {
     modelValue: ThyDateRangeEntry;

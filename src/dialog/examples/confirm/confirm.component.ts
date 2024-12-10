@@ -5,7 +5,8 @@ import { map, delay } from 'rxjs/operators';
 
 @Component({
     selector: 'thy-dialog-confirm-example',
-    templateUrl: './confirm.component.html'
+    templateUrl: './confirm.component.html',
+    standalone: false
 })
 export class ThyDialogConfirmExampleComponent {
     private thyDialog = inject(ThyDialog);

@@ -45,7 +45,8 @@ import { ThyFlexibleTextModule } from '../flexible-text.module';
                 text-overflow: ellipsis;
             }
         `
-    ]
+    ],
+    standalone: false
 })
 class FlexibleTextTestComponent {
     @ViewChild('FlexibleText', { static: true }) flexibleText: ThyFlexibleText;

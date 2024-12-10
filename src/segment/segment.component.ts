@@ -53,7 +53,6 @@ export type ThySegmentMode = 'block' | 'inline';
         '[class.thy-segment-default]': `!thySize || thySize === 'default'`,
         '[class.thy-segment-block]': `thyMode === 'block'`
     },
-    standalone: true,
     imports: []
 })
 export class ThySegment implements IThySegmentComponent, AfterContentInit {

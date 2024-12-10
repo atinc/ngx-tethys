@@ -30,7 +30,8 @@ import { ThyFormGroupLabelDirective } from '../form-group-label.directive';
                 <button [thyButton]="'primary'" thyLoadingText="确定" (thyFormSubmit)="submit()">登录</button>
             </thy-form-group-footer>
         </form>
-    `
+    `,
+    standalone: false
 })
 export class TestFormWithGroupComponent {
     model = {
@@ -188,7 +189,8 @@ describe('form-group basic', () => {
                 <button [thyButton]="'primary'" thyLoadingText="确定" (thyFormSubmit)="submit()">登录</button>
             </thy-form-group-footer>
         </form>
-    `
+    `,
+    standalone: false
 })
 export class TestFormGroupVerticalComponent {
     model = {
@@ -245,7 +247,8 @@ describe('form-group in vertical', () => {
                 <input thyInput name="username" placeholder="Please type username" />
             </thy-form-group>
         </form>
-    `
+    `,
+    standalone: false
 })
 export class TestFormGroupTranslateKeyComponent {
     model = {
@@ -319,7 +322,8 @@ describe('form-group for TranslateKey', () => {
                 [thyLabelTranslateKey]="translateKey"
                 [thyLabelRequired]="labelRequired"></label>
         </form>
-    `
+    `,
+    standalone: false
 })
 export class TestFormGroupLabelBasicComponent {
     labelRequired = false;

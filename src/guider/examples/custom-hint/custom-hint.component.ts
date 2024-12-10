@@ -3,7 +3,8 @@ import { ThyGuiderStepRef, ThyGuiderConfig, ThyGuiderRef, ThyGuiderStep, ThyGuid
 
 @Component({
     selector: 'thy-guider-custom-hint-example',
-    templateUrl: 'custom-hint.component.html'
+    templateUrl: 'custom-hint.component.html',
+    standalone: false
 })
 export class ThyGuiderCustomHintExampleComponent implements OnInit, OnDestroy {
     private thyGuider = inject(ThyGuider);
@@ -58,7 +59,8 @@ export class ThyGuiderCustomHintExampleComponent implements OnInit, OnDestroy {
             <ng-template [ngTemplateOutlet]="stepRef.step.data.descTemplate"></ng-template>
         </p>
     `,
-    styles: ['p {font-size: 24px}']
+    styles: ['p {font-size: 24px}'],
+    standalone: false
 })
 export class CustomTipComponent implements OnInit {
     @HostBinding('class.tip-blue') className = true;

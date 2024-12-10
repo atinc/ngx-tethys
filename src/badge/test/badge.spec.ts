@@ -10,7 +10,8 @@ import { By } from '@angular/platform-browser';
         <thy-badge [thyCount]="count" [thyKeepShow]="isValueKeepShow" [thyType]="type" [thyMaxCount]="maxCount" [thySize]="size">
             <div>WORKTILE</div>
         </thy-badge>
-    `
+    `,
+    standalone: false
 })
 class BadgeBasicComponent implements OnInit {
     isValueKeepShow = false;
@@ -34,7 +35,8 @@ class BadgeBasicComponent implements OnInit {
         <thy-badge [thyContext]="context">
             <div>WORKTILE</div>
         </thy-badge>
-    `
+    `,
+    standalone: false
 })
 class BadgeBasicContextComponent implements OnInit {
     constructor() {}
@@ -50,7 +52,8 @@ class BadgeBasicContextComponent implements OnInit {
         <thy-badge [thyContent]="content">
             <div>WORKTILE</div>
         </thy-badge>
-    `
+    `,
+    standalone: false
 })
 class BadgeContentTestComponent implements OnInit {
     constructor() {}
@@ -66,7 +69,8 @@ class BadgeContentTestComponent implements OnInit {
         <thy-badge [thyIsHollow]="isHollow">
             <div>WORKTILE</div>
         </thy-badge>
-    `
+    `,
+    standalone: false
 })
 class BadgeBasicHollowComponent implements OnInit {
     constructor() {}
@@ -78,7 +82,8 @@ class BadgeBasicHollowComponent implements OnInit {
 
 @Component({
     selector: 'thy-badge-dot',
-    template: ` <thy-badge [thyIsDot]="isDot"></thy-badge> `
+    template: ` <thy-badge [thyIsDot]="isDot"></thy-badge> `,
+    standalone: false
 })
 class BadgeBasicDotComponent implements OnInit {
     constructor() {}
@@ -90,7 +95,8 @@ class BadgeBasicDotComponent implements OnInit {
 
 @Component({
     selector: 'thy-badge-custom-color',
-    template: ` <span thyBadge [thyCount]="5" [thyTextColor]="textColor" [thyBackgroundColor]="backgroundColor"></span> `
+    template: ` <span thyBadge [thyCount]="5" [thyTextColor]="textColor" [thyBackgroundColor]="backgroundColor"></span> `,
+    standalone: false
 })
 class BadgeBasicCustomColorComponent implements OnInit {
     textColor = '#00ff00';

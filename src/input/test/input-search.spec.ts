@@ -23,7 +23,8 @@ import { ThyInputModule } from '../module';
             (thyClear)="onClear()"
             [thySize]="thySize"
             [thyIconPosition]="iconPosition"></thy-input-search>
-    `
+    `,
+    standalone: false
 })
 class TestInputSearchBasicComponent {
     @ViewChild(ThyInputSearch, { static: false }) inputSearchComponent: ThyInputSearch;

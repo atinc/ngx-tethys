@@ -249,7 +249,8 @@ describe('thy-anchor', () => {
                 }
             </div>
         </div>
-    `
+    `,
+    standalone: false
 })
 class TestAnchorComponent implements OnInit {
     demos: number[] = [];
@@ -284,7 +285,8 @@ class TestAnchorComponent implements OnInit {
                 }
             </div>
         </div>
-    `
+    `,
+    standalone: false
 })
 class TestContainerAnchorComponent implements OnInit {
     demos: number[] = [];
@@ -319,7 +321,8 @@ class TestContainerAnchorComponent implements OnInit {
                 <span>Basic Demo Title</span>
             </ng-template>
         </div>
-    `
+    `,
+    standalone: false
 })
 class TestThyAnchorLinkComponent implements OnInit {
     @ViewChild(ThyAnchor, { static: true })

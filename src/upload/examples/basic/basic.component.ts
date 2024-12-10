@@ -6,7 +6,8 @@ const UPLOAD_URL = `http://www.mocky.io/v2/5cf52b1f2f0000c02c4f072f?mocky-delay=
 // const UPLOAD_URL = `https://run.mocky.io/v3/33ec533f-3558-4689-bdbe-cc30364aa137`;
 @Component({
     selector: 'app-upload-basic-example',
-    templateUrl: './basic.component.html'
+    templateUrl: './basic.component.html',
+    standalone: false
 })
 export class ThyUploadBasicExampleComponent {
     private thyUploadService = inject(ThyUploadService);

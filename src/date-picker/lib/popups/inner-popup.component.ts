@@ -39,7 +39,6 @@ import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
     selector: 'inner-popup',
     exportAs: 'innerPopup',
     templateUrl: 'inner-popup.component.html',
-    standalone: true,
     imports: [
         ThyInputDirective,
         DecadeHeader,

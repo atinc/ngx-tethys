@@ -13,7 +13,8 @@ import { Component, OnInit } from '@angular/core';
                 </thy-anchor-link>
             </thy-anchor>
         </div>
-    `
+    `,
+    standalone: false
 })
 export class ThyAnchorStaticExampleComponent implements OnInit {
     constructor() {}

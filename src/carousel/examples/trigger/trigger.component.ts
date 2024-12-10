@@ -17,7 +17,8 @@ import { ThyCarouselTrigger } from 'ngx-tethys/carousel';
                 background: #6698ff;
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class ThyCarouselTriggerExampleComponent implements OnInit {
     constructor() {}

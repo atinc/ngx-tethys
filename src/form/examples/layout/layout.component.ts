@@ -8,7 +8,8 @@ interface LayoutInfo {
 
 @Component({
     selector: 'thy-form-layout-example',
-    templateUrl: './layout.component.html'
+    templateUrl: './layout.component.html',
+    standalone: false
 })
 export class ThyFormLayoutExampleComponent implements OnInit {
     layouts: LayoutInfo[] = [

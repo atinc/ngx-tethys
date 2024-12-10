@@ -5,7 +5,8 @@ import { Component, OnInit } from '@angular/core';
 @Component({
     selector: 'thy-nav-responsive-example',
     templateUrl: './responsive.component.html',
-    styleUrls: ['./responsive.component.scss']
+    styleUrls: ['./responsive.component.scss'],
+    standalone: false
 })
 export class ThyNavResponsiveExampleComponent implements OnInit {
     activeIndex = 13;

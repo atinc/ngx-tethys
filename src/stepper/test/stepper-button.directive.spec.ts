@@ -8,7 +8,8 @@ import { ThyStepper } from '../stepper.component';
     template: `
         <button thyButton thyStepperNext>上一步</button>
         <button thyButton thyStepperPrevious>下一步</button>
-    `
+    `,
+    standalone: false
 })
 class ThyStepperButtonDirectiveComponent {}
 

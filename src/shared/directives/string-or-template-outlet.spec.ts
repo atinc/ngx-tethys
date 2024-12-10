@@ -10,7 +10,8 @@ import { ThyStringOrTemplateOutletDirective } from './string-or-template-outlet.
         <ng-template #stringTpl let-data>The data is {{ data }}</ng-template>
         <ng-template #emptyTpl>Empty Template</ng-template>
         <ng-template #dataTimeTpl let-data let-time="time">The data is {{ data }}, The time is {{ time }}</ng-template>
-    `
+    `,
+    standalone: false
 })
 class ThyStringOrTemplateOutletTestComponent {
     @ViewChild('stringTpl') stringTpl!: TemplateRef<any>;

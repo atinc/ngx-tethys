@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-list-unique-key-example',
-    templateUrl: './unique-key.component.html'
+    templateUrl: './unique-key.component.html',
+    standalone: false
 })
 export class ThyListUniqueKeyExampleComponent implements OnInit {
     public gridUniqueKeyItems = [

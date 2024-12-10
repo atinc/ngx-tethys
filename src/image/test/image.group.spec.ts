@@ -13,7 +13,8 @@ import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
                 <img thyImage [thySrc]="image.src" [thyImageMeta]="image.imageMeta" />
             }
         </thy-image-group>
-    `
+    `,
+    standalone: false
 })
 class ImageGroupTestComponent {
     images = [

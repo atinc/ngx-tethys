@@ -15,7 +15,8 @@ import { ThyActions } from '../actions.component';
                 <a thyAction thyIcon="inbox"></a>
             }
         </thy-actions>
-    `
+    `,
+    standalone: false
 })
 class ThyActionsTestBasicComponent {
     size = 'md';

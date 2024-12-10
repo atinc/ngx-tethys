@@ -55,7 +55,6 @@ const defaultFeedbackOptions: Record<ThyActionFeedback, ThyActionFeedbackOptions
         '[class.thy-action-has-feedback]': '!!feedback',
         '[class.disabled]': 'thyDisabled'
     },
-    standalone: true,
     imports: [ThyIcon]
 })
 export class ThyAction implements OnInit, AfterViewInit, OnChanges, OnDestroy {

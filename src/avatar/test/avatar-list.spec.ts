@@ -22,7 +22,8 @@ const userNameList = [{ name: 'Abigail' }, { name: 'Belle' }, { name: 'Camilla' 
             </thy-avatar-list>
         </div>
     `,
-    styleUrls: ['../styles/avatar.scss']
+    styleUrls: ['../styles/avatar.scss'],
+    standalone: false
 })
 export class AvatarListBasicComponent implements OnInit {
     ngOnInit(): void {}
@@ -38,7 +39,8 @@ export class AvatarListBasicComponent implements OnInit {
             </thy-avatar-list>
         </div>
     `,
-    styleUrls: ['../styles/avatar.scss']
+    styleUrls: ['../styles/avatar.scss'],
+    standalone: false
 })
 export class AvatarListTestComponent implements OnInit {
     public size: number | string;
@@ -56,7 +58,8 @@ export class AvatarListTestComponent implements OnInit {
 
 @Component({
     template: ` <thy-avatar-list> </thy-avatar-list> `,
-    styleUrls: ['../styles/avatar.scss']
+    styleUrls: ['../styles/avatar.scss'],
+    standalone: false
 })
 export class AvatarListEmptyComponent implements OnInit {
     ngOnInit(): void {}

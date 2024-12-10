@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-collapse-dynamic-example',
-    templateUrl: './dynamic.component.html'
+    templateUrl: './dynamic.component.html',
+    standalone: false
 })
 export class ThyCollapseDynamicExampleComponent implements OnInit {
     items = [

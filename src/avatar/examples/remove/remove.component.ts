@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'thy-avatar-remove-example',
-    templateUrl: './remove.component.html'
+    templateUrl: './remove.component.html',
+    standalone: false
 })
 export class ThyAvatarRemoveExampleComponent {
     avatarSrc = 'assets/images/one-avatar.jpg';

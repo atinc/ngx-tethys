@@ -18,7 +18,6 @@ export type ThyBadgeSize = 'md' | 'sm' | 'lg';
         class: 'thy-badge-container',
         '[class.thy-badge-wrapper]': 'isWrapper'
     },
-    standalone: true,
     imports: []
 })
 export class ThyBadge implements OnInit {

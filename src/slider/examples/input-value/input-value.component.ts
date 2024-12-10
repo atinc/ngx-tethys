@@ -7,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
             <thy-slider [(ngModel)]="value"></thy-slider>
         </div>
         <thy-input-number [(ngModel)]="value" placeholder="请输入"></thy-input-number>
-    `
+    `,
+    standalone: false
 })
 export class ThySliderInputValueExampleComponent implements OnInit {
     public value: number;

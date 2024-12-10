@@ -3,7 +3,8 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 @Component({
     selector: 'thy-layout-sidebar-example',
     templateUrl: './sidebar.component.html',
-    styleUrls: ['./sidebar.component.scss']
+    styleUrls: ['./sidebar.component.scss'],
+    standalone: false
 })
 export class ThyLayoutSidebarExampleComponent implements OnInit {
     isolated = false;

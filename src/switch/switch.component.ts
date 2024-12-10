@@ -32,7 +32,6 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
             multi: true
         }
     ],
-    standalone: true,
     imports: [NgClass],
     host: {
         class: 'thy-switch',

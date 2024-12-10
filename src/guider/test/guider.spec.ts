@@ -94,7 +94,8 @@ const directiveGuiderSteps: ThyGuiderStep[] = [
         <span class="basic-hint-target">target element</span>
         <button class="trigger-guider-element" (click)="startGuider()">Open</button>
         <button class="close-basic-hint-target" (click)="closeGuider()">Close by Service</button>
-    `
+    `,
+    standalone: false
 })
 class GuiderBasicComponent implements OnInit {
     private thyGuider = coreInject(ThyGuider);
@@ -159,7 +160,8 @@ class GuiderBasicComponent implements OnInit {
         @if (delayShow) {
             <span thyGuiderTarget="directive-tip-target-second" class="test-directive-span-second"> directive 2</span>
         }
-    `
+    `,
+    standalone: false
 })
 class TestGuiderDirectiveComponent implements OnInit {
     private thyGuider = coreInject(ThyGuider);
@@ -191,7 +193,8 @@ class TestGuiderDirectiveComponent implements OnInit {
             <span class="target-1"> Target-1</span>
         </ng-container>
         <button class="trigger-guider-element" (click)="startGuider()">Open</button>
-    `
+    `,
+    standalone: false
 })
 class TestGuiderMultiTargetsComponent implements OnInit {
     private thyGuider = coreInject(ThyGuider);

@@ -5,7 +5,8 @@ import { Component, inject } from '@angular/core';
 
 @Component({
     selector: 'app-upload-size-exceeds-handler-example',
-    templateUrl: './size-exceeds-handler.component.html'
+    templateUrl: './size-exceeds-handler.component.html',
+    standalone: false
 })
 export class ThyUploadSizeExceedsHandlerExampleComponent {
     private notifyService = inject(ThyNotifyService);

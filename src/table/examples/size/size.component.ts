@@ -3,7 +3,8 @@ import { ThyTableSize } from 'ngx-tethys/table';
 
 @Component({
     selector: 'thy-table-size-example',
-    templateUrl: './size.component.html'
+    templateUrl: './size.component.html',
+    standalone: false
 })
 export class ThyTableSizeExampleComponent implements OnInit {
     data = [

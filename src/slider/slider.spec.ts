@@ -30,7 +30,8 @@ import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
                 height: 200px;
             }
         `
-    ]
+    ],
+    standalone: false
 })
 class ThyTestSliderComponent {
     value: number;

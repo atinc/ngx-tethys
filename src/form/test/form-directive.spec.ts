@@ -18,7 +18,8 @@ import { ThyFormModule } from '../module';
 
 @Component({
     selector: 'app-test-basic-form',
-    template: ` <form thyForm [thyLayout]="thyLayout"></form> `
+    template: ` <form thyForm [thyLayout]="thyLayout"></form> `,
+    standalone: false
 })
 export class TestFormBasicDirectiveComponent {
     thyLayout = '';
@@ -62,7 +63,8 @@ export class TestFormBasicDirectiveComponent {
                 </thy-form-group-footer>
             </form>
         }
-    `
+    `,
+    standalone: false
 })
 export class TestFormFullComponent {
     model = {
@@ -134,7 +136,8 @@ export class TestFormFullComponent {
                 </thy-form-group-footer>
             </form>
         }
-    `
+    `,
+    standalone: false
 })
 export class TestFormReactiveComponent {
     private formBuilder = inject(FormBuilder);
@@ -754,7 +757,8 @@ describe('reactive form validate', () => {
                 <button [thyButton]="'primary'" thyLoadingText="确定">登录</button>
             </thy-form-group-footer>
         </form>
-    `
+    `,
+    standalone: false
 })
 export class TestNoFormSubmitComponent {}
 

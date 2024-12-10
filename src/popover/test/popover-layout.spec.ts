@@ -8,7 +8,8 @@ import { ThyPopoverModule } from '../module';
 
 @Component({
     selector: 'thy-popover-header-basic',
-    template: '<thy-popover-header thyTitle="I am popover header" (thyClosed)="close()"></thy-popover-header>'
+    template: '<thy-popover-header thyTitle="I am popover header" (thyClosed)="close()"></thy-popover-header>',
+    standalone: false
 })
 class PopoverHeaderBasicComponent {
     close() {}
@@ -16,7 +17,8 @@ class PopoverHeaderBasicComponent {
 
 @Component({
     selector: 'thy-popover-header-translation',
-    template: '<thy-popover-header thyTitleTranslationKey="Translation Key Title"></thy-popover-header>'
+    template: '<thy-popover-header thyTitleTranslationKey="Translation Key Title"></thy-popover-header>',
+    standalone: false
 })
 class PopoverHeaderTranslationComponent {}
 
@@ -31,7 +33,8 @@ class PopoverHeaderTranslationComponent {}
                 </button>
             </ng-template>
         </thy-popover-header>
-    `
+    `,
+    standalone: false
 })
 class PopoverHeaderTemplateBasicComponent {
     close() {}
@@ -39,7 +42,8 @@ class PopoverHeaderTemplateBasicComponent {
 
 @Component({
     selector: 'thy-popover-body-basic',
-    template: '<thy-popover-body></thy-popover-body>'
+    template: '<thy-popover-body></thy-popover-body>',
+    standalone: false
 })
 class PopoverBodyBasicComponent {}
 

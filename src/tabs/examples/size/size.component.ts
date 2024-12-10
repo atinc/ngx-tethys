@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 @Component({
     selector: 'thy-tabs-size-example',
     templateUrl: './size.component.html',
-    styleUrls: ['./size.component.scss']
+    styleUrls: ['./size.component.scss'],
+    standalone: false
 })
 export class ThyTabsSizeExampleComponent implements OnInit {
     sizes = [

@@ -52,7 +52,6 @@ const DEFAULT_SIZE: ThySpacingSize = 'md';
     host: {
         class: 'thy-space'
     },
-    standalone: true,
     imports: [NgTemplateOutlet]
 })
 export class ThySpace implements OnInit, AfterContentInit {

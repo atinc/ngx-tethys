@@ -27,7 +27,8 @@ import { ThySaturation } from '../parts/saturation/saturation.component';
                 display: block;
             }
         `
-    ]
+    ],
+    standalone: false
 })
 class ThyDemoAlphaComponent {
     elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
@@ -43,7 +44,8 @@ class ThyDemoAlphaComponent {
 
 @Component({
     selector: 'thy-demo-hue',
-    template: ` <thy-hue [color]="color" (colorChange)="colorChangeEvent($event)"></thy-hue> `
+    template: ` <thy-hue [color]="color" (colorChange)="colorChangeEvent($event)"></thy-hue> `,
+    standalone: false
 })
 class ThyDemoHueComponent {
     elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
@@ -59,7 +61,8 @@ class ThyDemoHueComponent {
 
 @Component({
     selector: 'thy-demo-saturation',
-    template: ` <thy-saturation [color]="color" (colorChange)="colorChangeEvent($event)"></thy-saturation> `
+    template: ` <thy-saturation [color]="color" (colorChange)="colorChangeEvent($event)"></thy-saturation> `,
+    standalone: false
 })
 class ThyDemoSaturationComponent {
     elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
@@ -75,7 +78,8 @@ class ThyDemoSaturationComponent {
 
 @Component({
     selector: 'thy-demo-inputs',
-    template: ` <thy-color-inputs [color]="color" (colorChange)="colorChangeEvent($event)"></thy-color-inputs> `
+    template: ` <thy-color-inputs [color]="color" (colorChange)="colorChangeEvent($event)"></thy-color-inputs> `,
+    standalone: false
 })
 class ThyDemoColorInputsComponent {
     elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
@@ -92,7 +96,8 @@ class ThyDemoColorInputsComponent {
 
 @Component({
     selector: 'thy-demo-indicator',
-    template: ` <thy-indicator [color]="color" (colorChange)="colorChangeEvent($event)"></thy-indicator> `
+    template: ` <thy-indicator [color]="color" (colorChange)="colorChangeEvent($event)"></thy-indicator> `,
+    standalone: false
 })
 class ThyDemoIndicatorComponent {
     elementRef = inject<ElementRef<HTMLElement>>(ElementRef);

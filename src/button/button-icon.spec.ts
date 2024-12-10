@@ -8,7 +8,8 @@ import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/test
 
 @Component({
     selector: 'app-basic-button-icon',
-    template: ` <button [thyButtonIcon]="icon" [thyColor]="color"></button> `
+    template: ` <button [thyButtonIcon]="icon" [thyColor]="color"></button> `,
+    standalone: false
 })
 class BasicButtonIconComponent {
     icon = 'inbox';

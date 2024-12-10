@@ -4,7 +4,8 @@ import { Overlay } from '@angular/cdk/overlay';
 
 @Component({
     selector: 'thy-popover-can-push-example',
-    templateUrl: './can-push.component.html'
+    templateUrl: './can-push.component.html',
+    standalone: false
 })
 export class ThyPopoverCanPushExampleComponent implements OnInit {
     private thyPopover = inject(ThyPopover);

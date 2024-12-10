@@ -23,7 +23,8 @@ import { ThyDividerStyle, ThyDividerTextDirection } from '../divider.component';
                 </thy-select>
             </ng-template>
         </ng-container>
-    `
+    `,
+    standalone: false
 })
 class ThyTestDividerComponent {
     isVertical = false;

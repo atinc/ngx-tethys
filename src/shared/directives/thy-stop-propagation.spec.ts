@@ -10,7 +10,8 @@ import { ThySharedModule } from '../shared.module';
         <div class="parent-container" (click)="parentClick()">
             <div class="child-container" thyStopPropagation></div>
         </div>
-    `
+    `,
+    standalone: false
 })
 class ThyStopPropagationDirectiveTrueViewComponent {
     parentClick = jasmine.createSpy('thyStopPropagation callback');
@@ -21,7 +22,8 @@ class ThyStopPropagationDirectiveTrueViewComponent {
         <div class="parent-container" (click)="parentClick()">
             <div class="child-container" [thyStopPropagation]></div>
         </div>
-    `
+    `,
+    standalone: false
 })
 class ThyStopPropagationDirectiveTrueComponent {
     parentClick = jasmine.createSpy('thyStopPropagation callback');
@@ -32,7 +34,8 @@ class ThyStopPropagationDirectiveTrueComponent {
         <div class="parent-container" (click)="parentClick()">
             <div class="child-container" [thyStopPropagation]="true"></div>
         </div>
-    `
+    `,
+    standalone: false
 })
 class ThyStopPropagationDirectiveBooleanTrueComponent {
     parentClick = jasmine.createSpy('thyStopPropagation callback');
@@ -43,7 +46,8 @@ class ThyStopPropagationDirectiveBooleanTrueComponent {
         <div class="parent-container" (click)="parentClick()">
             <div class="child-container" [thyStopPropagation]="'true'"></div>
         </div>
-    `
+    `,
+    standalone: false
 })
 class ThyStopPropagationDirectiveStringTrueComponent {
     parentClick = jasmine.createSpy('thyStopPropagation callback');
@@ -54,7 +58,8 @@ class ThyStopPropagationDirectiveStringTrueComponent {
         <div class="parent-container" (click)="parentClick()">
             <div class="child-container" [thyStopPropagation]="false"></div>
         </div>
-    `
+    `,
+    standalone: false
 })
 class ThyStopPropagationDirectiveFalseComponent {
     parentClick = jasmine.createSpy('thyStopPropagation callback');
@@ -65,7 +70,8 @@ class ThyStopPropagationDirectiveFalseComponent {
         <div class="parent-container" (click)="parentClick()">
             <div class="child-container" thyStopPropagation="false"></div>
         </div>
-    `
+    `,
+    standalone: false
 })
 class ThyStopPropagationDirectiveFalseViewComponent {
     parentClick = jasmine.createSpy('thyStopPropagation callback');
@@ -76,7 +82,8 @@ class ThyStopPropagationDirectiveFalseViewComponent {
         <div class="parent-container" (click)="parentClick()">
             <div class="child-container" [thyStopPropagation]="'hover'"></div>
         </div>
-    `
+    `,
+    standalone: false
 })
 class ThyStopPropagationDirectiveEventComponent {
     parentClick = jasmine.createSpy('thyStopPropagation callback');
@@ -87,7 +94,8 @@ class ThyStopPropagationDirectiveEventComponent {
         <div class="parent-container" (click)="parentClick()" (mouseover)="parentMouseOver()">
             <div class="child-container" [thyStopPropagation]="'mouseover'"></div>
         </div>
-    `
+    `,
+    standalone: false
 })
 class ThyStopPropagationDirectiveValueIsEventNameComponent {
     parentClick = jasmine.createSpy('thyStopPropagation click callback');
@@ -99,7 +107,8 @@ class ThyStopPropagationDirectiveValueIsEventNameComponent {
         <div class="parent-container" (click)="parentClick()">
             <div class="child-container" [thyStopPropagation]="isStopPropagation"></div>
         </div>
-    `
+    `,
+    standalone: false
 })
 class ThyStopPropagationDirectiveValueIsUndefinedComponent {
     isStopPropagation: string | boolean;
@@ -111,7 +120,8 @@ class ThyStopPropagationDirectiveValueIsUndefinedComponent {
         <div class="parent-container" (click)="parentClick()" (mouseover)="parentMouseover()">
             <div class="child-container" [thyStopPropagation]="stopPropagation"></div>
         </div>
-    `
+    `,
+    standalone: false
 })
 class ThyStopPropagationDirectiveWithDynamicBindingComponent {
     stopPropagation: string | boolean;

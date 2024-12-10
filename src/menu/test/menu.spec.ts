@@ -60,7 +60,8 @@ import { ThyMenuModule } from '../menu.module';
             <thy-divider></thy-divider>
         </thy-menu>
         <ng-template #action><div id="actionTemplate" class="actionTemplate">aa</div></ng-template>
-    `
+    `,
+    standalone: false
 })
 class ThyDemoMenuComponent {
     @ViewChild(ThyMenuDivider, { static: true }) divider: ThyMenuDivider;
@@ -93,7 +94,8 @@ class ThyDemoMenuComponent {
                 <span thyMenuItemName>Trash</span>
             </a>
         </thy-menu>
-    `
+    `,
+    standalone: false
 })
 class ThyMenuTestBasicComponent {
     theme: ThyMenuTheme = undefined;

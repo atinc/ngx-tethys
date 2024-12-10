@@ -20,7 +20,6 @@ import { ThyColor } from '../../helpers/color.class';
 @Component({
     selector: 'thy-saturation',
     templateUrl: './saturation.component.html',
-    standalone: true,
     imports: [ThyCoordinatesDirective]
 })
 export class ThySaturation implements OnChanges {

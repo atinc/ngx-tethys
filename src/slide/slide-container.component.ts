@@ -34,7 +34,6 @@ import { slideAbstractOverlayOptions, ThySlideConfig, ThySlideFromTypes } from '
         '[style.height.px]': 'slideContainerStyles.height',
         '[style.max-height.px]': 'slideContainerStyles.height'
     },
-    standalone: true,
     imports: [PortalModule, ThyPortalOutlet]
 })
 export class ThySlideContainer extends ThyAbstractOverlayContainer implements OnDestroy {

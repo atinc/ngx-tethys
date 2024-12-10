@@ -14,7 +14,8 @@ import { ThySkeletonModule } from '../module';
                 <thy-skeleton-rectangle class="mb-2"> </thy-skeleton-rectangle>
             </div>
         </thy-skeleton>
-    `
+    `,
+    standalone: false
 })
 class thySkeletonTestComponent {
     circleSize: string = null;
