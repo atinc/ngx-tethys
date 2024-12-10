@@ -4,7 +4,8 @@ import { clone, options } from '../cascader-address-options';
 
 @Component({
     selector: 'thy-cascader-select-changed-example',
-    templateUrl: './select-changed.component.html'
+    templateUrl: './select-changed.component.html',
+    standalone: false
 })
 export class ThyCascaderSelectChangedExampleComponent implements OnInit {
     private notifyService = inject(ThyNotifyService);

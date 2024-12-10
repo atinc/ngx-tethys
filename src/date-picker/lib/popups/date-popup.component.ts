@@ -49,7 +49,6 @@ import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
     selector: 'date-popup',
     exportAs: 'datePopup',
     templateUrl: './date-popup.component.html',
-    standalone: true,
     imports: [ThyNav, ThyNavItemDirective, ThyButtonIcon, DateCarousel, FormsModule, NgTemplateOutlet, InnerPopup, CalendarFooter]
 })
 export class DatePopup implements OnChanges, OnInit {

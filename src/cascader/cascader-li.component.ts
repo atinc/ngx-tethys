@@ -29,7 +29,6 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: '[thy-cascader-option]',
     templateUrl: './cascader-li.component.html',
-    standalone: true,
     imports: [ThyFlexibleText, ThyCheckbox, ThyRadio, FormsModule, ThyStopPropagationDirective, NgTemplateOutlet]
 })
 export class ThyCascaderOptionComponent implements OnInit {

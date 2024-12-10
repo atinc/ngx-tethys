@@ -42,7 +42,6 @@ import { NgClass, NgTemplateOutlet } from '@angular/common';
         '[class.thy-progress-strip]': `thyShape === 'strip'`,
         '[class.thy-progress-circle]': `thyShape === 'circle'`
     },
-    standalone: true,
     imports: [ThyProgressStrip, NgClass, ThyTooltipDirective, NgTemplateOutlet, ThyProgressCircle]
 })
 export class ThyProgress implements ThyParentProgress, OnInit, OnChanges {

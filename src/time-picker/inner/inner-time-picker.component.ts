@@ -49,7 +49,6 @@ export const TIMEPICKER_CONTROL_VALUE_ACCESSOR: StaticProvider = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [TIMEPICKER_CONTROL_VALUE_ACCESSOR, ThyTimePickerStore],
     templateUrl: './inner-time-picker.component.html',
-    standalone: true,
     imports: []
 })
 export class ThyInnerTimePicker implements ControlValueAccessor, TimePickerComponentState, TimePickerControls, OnChanges, OnDestroy {

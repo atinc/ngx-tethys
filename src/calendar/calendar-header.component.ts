@@ -17,7 +17,6 @@ import { DateHelperService } from 'ngx-tethys/date-picker';
 @Component({
     selector: 'thy-calendar-header',
     templateUrl: './calendar-header.component.html',
-    standalone: true,
     imports: [ThyDateRange, FormsModule, ThyButton, NgTemplateOutlet, JsonPipe]
 })
 export class ThyCalendarHeader implements OnInit {

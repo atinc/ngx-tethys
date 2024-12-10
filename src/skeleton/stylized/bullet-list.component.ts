@@ -41,7 +41,6 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
     imports: [ThySkeletonCircle, ThySkeletonRectangle]
 })
 export class ThySkeletonBulletList {

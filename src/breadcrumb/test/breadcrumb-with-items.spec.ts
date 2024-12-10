@@ -11,7 +11,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
         <thy-breadcrumb [thyItems]="breadcrumbs" [thyMaxCount]="maxCount" [thyExpandable]="expandable">
             <ng-template #item let-value>{{ value }}</ng-template>
         </thy-breadcrumb>
-    `
+    `,
+    standalone: false
 })
 class ThyDemoBreadcrumbWithItemsComponent {
     breadcrumbs = ['一级', '二级', '三级', '四级', '五级', '六级'];

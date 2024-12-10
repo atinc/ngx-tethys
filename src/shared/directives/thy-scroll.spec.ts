@@ -81,7 +81,8 @@ describe('thy-scroll', () => {
                 height: 100px;
             }
         `
-    ]
+    ],
+    standalone: false
 })
 class ThyScrollViewportComponent implements OnInit {
     @ViewChild(ThyScrollDirective, { read: false }) thyScrollDirective: ThyScrollDirective;

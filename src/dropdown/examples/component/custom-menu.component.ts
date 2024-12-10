@@ -10,6 +10,7 @@ import { ThyDropdownAbstractMenu } from 'ngx-tethys/dropdown';
         <a thyDropdownMenuItem href="javascript:;">
             <span>Menu Item2</span>
         </a>
-    `
+    `,
+    standalone: false
 })
 export class CustomMenuComponent extends ThyDropdownAbstractMenu {}

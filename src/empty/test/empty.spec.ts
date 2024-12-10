@@ -49,7 +49,8 @@ import { ThyEmptyModule } from '../empty.module';
                 margin-top: 18px;
             }
         `
-    ]
+    ],
+    standalone: false
 })
 class EmptyTestComponent {
     @ViewChild('ThyEmptyComponent', { static: true }) thyEmptyComponent: ThyEmpty;

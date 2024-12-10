@@ -27,7 +27,6 @@ import { useStealthViewRenderer } from '../stealth-view-renderer';
             <button thyButton="primary" disabled="disabled">Primary</button>
         </ng-template>
     `,
-    standalone: true,
     imports: [ThyStealthView]
 })
 class ThyStealthViewDirectiveTestComponent {

@@ -54,7 +54,6 @@ const VERTICAL_SPACE = 96 + 106; // top: 96px; bottom: 106px
         class: 'thy-image-preview-wrap',
         '[class.thy-image-preview-moving]': 'isDragging'
     },
-    standalone: true,
     imports: [ThyTooltipDirective, ThyAction, CdkDrag, ThyLoading, ThyIcon, ThyActions, ThyDivider, ThyCopyDirective]
 })
 export class ThyImagePreview implements OnInit {

@@ -3,7 +3,8 @@ import { ThyTree, ThyTreeEmitEvent, ThyTreeNodeData } from 'ngx-tethys/tree';
 
 @Component({
     selector: 'thy-tree-async-example',
-    templateUrl: './async.component.html'
+    templateUrl: './async.component.html',
+    standalone: false
 })
 export class ThyTreeAsyncExampleComponent {
     @ViewChild('tree') treeComponent: ThyTree;

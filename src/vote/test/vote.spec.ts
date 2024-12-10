@@ -88,7 +88,8 @@ describe('ThyVote', () => {
             [thySize]="size"
             [thyRound]="isRound"
             [thyDisabled]="isDisabled"></div>
-    `
+    `,
+    standalone: false
 })
 class ThyDemoVoteBasicComponent {
     vote_count = '10';

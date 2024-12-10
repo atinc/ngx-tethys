@@ -70,7 +70,6 @@ import { injectLocale, ThyCascaderLocale } from 'ngx-tethys/i18n';
         '(focus)': 'onFocus($event)',
         '(blur)': 'onBlur($event)'
     },
-    standalone: true,
     imports: [
         CdkOverlayOrigin,
         ThySelectControl,
@@ -81,7 +80,6 @@ import { injectLocale, ThyCascaderLocale } from 'ngx-tethys/i18n';
         ThyCascaderOptionComponent,
         ThyCascaderSearchOptionComponent,
         ThyEmpty,
-        ThyIcon,
         ThyDivider
     ],
     animations: [scaleYMotion]

@@ -8,7 +8,8 @@ import { Component } from '@angular/core';
                 <span>120px to affix top</span>
             </button>
         </thy-affix>
-    `
+    `,
+    standalone: false
 })
 export class ThyAffixChangeExampleComponent {
     onChange(status: boolean): void {

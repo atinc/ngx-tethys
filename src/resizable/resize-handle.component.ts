@@ -54,7 +54,6 @@ const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveLis
         '[class.thy-resizable-handle-topLeft]': `thyDirection === 'topLeft'`,
         '[class.thy-resizable-handle-box-hover]': 'entered'
     },
-    standalone: true,
     imports: []
 })
 export class ThyResizeHandle implements OnInit {

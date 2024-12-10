@@ -43,13 +43,14 @@ describe('validator', () => {
 
         describe('directive', () => {
             @Component({
-                selector: 'test-max',
-                template: `
+    selector: 'test-max',
+    template: `
                     <form name="demoForm">
                         <input type="number" max="10" name="age" #age="ngModel" [(ngModel)]="value" />
                     </form>
-                `
-            })
+                `,
+    standalone: false
+})
             class TestMaxComponent {
                 @ViewChild('age') ngModel: NgModel;
 
@@ -106,13 +107,14 @@ describe('validator', () => {
 
         describe('directive', () => {
             @Component({
-                selector: 'test-min',
-                template: `
+    selector: 'test-min',
+    template: `
                     <form name="demoForm">
                         <input type="number" min="10" name="age" #age="ngModel" [(ngModel)]="value" />
                     </form>
-                `
-            })
+                `,
+    standalone: false
+})
             class TestMinComponent {
                 @ViewChild('age') ngModel: NgModel;
 
@@ -150,13 +152,14 @@ describe('validator', () => {
 
     describe(`thyUniqueCheck`, () => {
         @Component({
-            selector: 'test-unique-check',
-            template: `
+    selector: 'test-unique-check',
+    template: `
                 <form #thyForm="thyForm" thyForm name="demoForm">
                     <input name="username" #username="ngModel" [(ngModel)]="value" [thyUniqueCheck]="checkFn" />
                 </form>
-            `
-        })
+            `,
+    standalone: false
+})
         class TestUniqueCheckComponent {
             @ViewChild('username') ngModel: NgModel;
 

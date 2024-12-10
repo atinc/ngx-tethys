@@ -16,7 +16,6 @@ import { ThyDatePickerConfigService } from '../../date-picker.service';
     selector: 'date-table',
     exportAs: 'dateTable',
     templateUrl: 'date-table.component.html',
-    standalone: true,
     imports: [NgClass, DateTableCell]
 })
 export class DateTable extends CalendarTable implements OnChanges {

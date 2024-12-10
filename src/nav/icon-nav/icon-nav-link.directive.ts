@@ -9,7 +9,6 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: '[thyIconNavLink]',
     template: '<ng-content></ng-content>@if (icon) {<thy-icon [thyIconName]="icon"></thy-icon>}',
-    standalone: true,
     imports: [ThyIcon]
 })
 export class ThyIconNavLink {

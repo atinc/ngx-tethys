@@ -11,7 +11,8 @@ import { listOfOption } from '../mock-data';
                 margin-top: 15px;
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class ThySelectVerticalCenterExampleComponent implements OnInit {
     listOfOption: { value: string; text: string }[];

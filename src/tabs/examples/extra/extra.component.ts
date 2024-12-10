@@ -3,7 +3,8 @@ import { ThyActiveTabInfo, ThyTabActiveEvent } from 'ngx-tethys/tabs';
 
 @Component({
     selector: 'thy-tabs-extra-example',
-    templateUrl: './extra.component.html'
+    templateUrl: './extra.component.html',
+    standalone: false
 })
 export class ThyTabsExtraExampleComponent implements OnInit {
     constructor() {}

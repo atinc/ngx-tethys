@@ -16,7 +16,8 @@ import { By } from '@angular/platform-browser';
         <a id="with-text-disabled" thyAction thyIcon="inbox" thyHoverIcon="search" [thyDisabled]="true"></a>
         <a #feedbackAction1 id="with-feedback" thyAction thyIcon="inbox"></a>
         <a #feedbackAction2 id="with-feedback-disabled" thyAction thyIcon="inbox" [thyDisabled]="true"></a>
-    `
+    `,
+    standalone: false
 })
 class ThyActionTestBasicComponent {}
 

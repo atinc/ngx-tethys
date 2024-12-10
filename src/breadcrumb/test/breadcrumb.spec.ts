@@ -21,7 +21,8 @@ import { ThyIconModule } from './../../icon/icon.module';
                 <a href="javascript:;">基础 <thy-icon thyIconName="angle-down"></thy-icon></a>
             </thy-breadcrumb-item>
         </thy-breadcrumb>
-    `
+    `,
+    standalone: false
 })
 class ThyDemoBreadcrumbBasicComponent {
     thyIconName = `folder-fill`;

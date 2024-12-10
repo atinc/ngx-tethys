@@ -69,7 +69,6 @@ const _MixinBase: Constructor<ThyHasTabIndex> &
         '[class.form-control-active]': 'focused',
         '[attr.tabindex]': 'tabIndex'
     },
-    standalone: true,
     imports: [ThyIcon, ThyInputDirective, ThyAutofocusDirective, FormsModule]
 })
 export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, OnInit, OnDestroy {

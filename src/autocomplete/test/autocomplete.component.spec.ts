@@ -44,7 +44,8 @@ import { ThyAutocompleteModule } from '../module';
                 }
             </thy-autocomplete>
         </div>
-    `
+    `,
+    standalone: false
 })
 class BasicSelectComponent {
     openedSpy = jasmine.createSpy('opened event spy callback');
@@ -85,7 +86,8 @@ class BasicSelectComponent {
                 }
             </thy-autocomplete>
         </div>
-    `
+    `,
+    standalone: false
 })
 class InputSearchSelectComponent {
     value = '';

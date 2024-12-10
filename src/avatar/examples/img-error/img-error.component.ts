@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'thy-avatar-img-error-example',
-    templateUrl: './img-error.component.html'
+    templateUrl: './img-error.component.html',
+    standalone: false
 })
 export class ThyAvatarImgErrorExampleComponent {
     avatarSrc = './not_exist/abc.jpg';

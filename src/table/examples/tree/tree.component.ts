@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-table-tree-example',
-    templateUrl: './tree.component.html'
+    templateUrl: './tree.component.html',
+    standalone: false
 })
 export class ThyTableTreeExampleComponent implements OnInit {
     data = [

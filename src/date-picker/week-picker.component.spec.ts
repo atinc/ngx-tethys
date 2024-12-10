@@ -161,7 +161,8 @@ describe('ThyWeekPickerComponent', () => {
             [thyDisabled]="thyDisabled"
             [thyPlaceHolder]="thyPlaceHolder"
             (thyDateChange)="thyDateChange($event)"></thy-week-picker>
-    `
+    `,
+    standalone: false
 })
 class TestWeekPickerComponent {
     thyAllowClear: boolean;

@@ -14,7 +14,8 @@ import { ThyInputModule } from '../module';
                 <thy-input-count></thy-input-count>
             </ng-template>
         </thy-input-group>
-    `
+    `,
+    standalone: false
 })
 class TestInputCountBasicComponent {
     name: '';
@@ -35,7 +36,8 @@ class TestInputCountBasicComponent {
                 <thy-input-count [thyInput]="input"></thy-input-count>
             </ng-template>
         </thy-input-group>
-    `
+    `,
+    standalone: false
 })
 class TestInputCountSpecifyInputBasicComponent {
     name: '';

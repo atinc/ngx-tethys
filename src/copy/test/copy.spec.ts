@@ -86,7 +86,8 @@ describe('thy-copy', () => {
             [thyShowNotify]="showNotify">
             点击
         </p>
-    `
+    `,
+    standalone: false
 })
 class ThyCopyTestComponent implements OnInit {
     copyTooltip: string;

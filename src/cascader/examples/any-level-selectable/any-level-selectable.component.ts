@@ -11,7 +11,6 @@ import { ThyTagModule } from 'ngx-tethys/tag';
 @Component({
     selector: 'thy-cascader-any-level-selectable-example',
     templateUrl: './any-level-selectable.component.html',
-    standalone: true,
     imports: [ThyFormGroup, ThyCascader, ThyTagModule, FormsModule]
 })
 export class ThyCascaderAnyLevelSelectableExampleComponent implements OnInit {

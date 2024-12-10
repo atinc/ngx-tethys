@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'thy-vote-disabled-example',
-    templateUrl: './disabled.component.html'
+    templateUrl: './disabled.component.html',
+    standalone: false
 })
 export class ThyVoteDisabledExampleComponent {
     constructor() {}

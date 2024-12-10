@@ -28,7 +28,6 @@ export const DEFAULT_RESIZE_DIRECTION: ThyResizeDirection[] = [
         }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
     imports: [ThyResizeHandle]
 })
 export class ThyResizeHandles implements OnChanges {

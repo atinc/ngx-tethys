@@ -41,7 +41,6 @@ const INPUT_CONTROL_VALUE_ACCESSOR: any = {
     selector: 'thy-date-range',
     templateUrl: './date-range.component.html',
     providers: [INPUT_CONTROL_VALUE_ACCESSOR],
-    standalone: true,
     imports: [ThyAction, ThyIcon, NgClass, ThyDatePickerFormatPipe]
 })
 export class ThyDateRange implements OnInit, ControlValueAccessor {

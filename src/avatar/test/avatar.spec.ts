@@ -40,7 +40,8 @@ import { dispatchFakeEvent } from '../../testing';
                 <thy-avatar [thyName]="name" thyRemovable="true" (thyRemove)="remove()"></thy-avatar>
             }
         }
-    `
+    `,
+    standalone: false
 })
 class ThyTestAvatarComponent {
     private thyAvatarService = inject(ThyAvatarService);

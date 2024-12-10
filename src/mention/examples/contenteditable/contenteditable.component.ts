@@ -34,7 +34,8 @@ const mockUsers = [
                 padding: 4px 0 4px 8px;
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class ThyMentionContenteditableExampleComponent implements OnInit {
     mentions: Mention[] = [

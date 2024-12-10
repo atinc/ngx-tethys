@@ -15,7 +15,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
             <thy-collapse-panel thyTitle="这是一个头部标题2">内容区域2</thy-collapse-panel>
             <thy-collapse-panel thyTitle="这是一个头部标题3">内容区域3</thy-collapse-panel>
         </thy-collapse>
-    `
+    `,
+    standalone: false
 })
 export class TestCollapseBasicComponent {
     accordion = false;
@@ -48,7 +49,8 @@ export class TestCollapseBasicComponent {
         <ng-template #extraTemplate>
             <thy-icon class="extra-template" thyIconName="settings" (click)="$event.stopPropagation()"></thy-icon>
         </ng-template>
-    `
+    `,
+    standalone: false
 })
 export class TestCollapsePanelBasicComponent {
     title = '默认标题';

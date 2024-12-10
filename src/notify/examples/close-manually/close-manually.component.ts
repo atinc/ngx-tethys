@@ -3,7 +3,8 @@ import { Component, OnInit, inject } from '@angular/core';
 
 @Component({
     selector: 'thy-notify-close-manually-example',
-    templateUrl: './close-manually.component.html'
+    templateUrl: './close-manually.component.html',
+    standalone: false
 })
 export class ThyNotifyCloseExampleComponent implements OnInit {
     private notifyService = inject(ThyNotifyService);

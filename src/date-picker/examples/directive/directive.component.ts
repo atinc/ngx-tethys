@@ -5,7 +5,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-date-picker-directive-example',
-    templateUrl: './directive.component.html'
+    templateUrl: './directive.component.html',
+    standalone: false
 })
 export class ThyDatePickerDirectiveExampleComponent implements OnInit {
     date = { date: new Date(), with_time: 0 } as DateEntry;

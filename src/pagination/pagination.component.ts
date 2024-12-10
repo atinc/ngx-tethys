@@ -33,7 +33,6 @@ import { injectLocale, ThyI18nLocale, ThyPaginationLocale } from 'ngx-tethys/i18
     selector: 'thy-pagination',
     templateUrl: './pagination.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
     imports: [
         NgTemplateOutlet,
         ThySelect,

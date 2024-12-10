@@ -12,7 +12,6 @@ import { NgClass } from '@angular/common';
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'year-header',
     templateUrl: '../calendar/calendar-header.component.html',
-    standalone: true,
     imports: [NgClass, ThyIcon]
 })
 export class YearHeader extends CalendarHeader {

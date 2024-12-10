@@ -73,7 +73,6 @@ const tabItemRight = 20;
         class: 'thy-nav'
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
     imports: [
         NgClass,
         NgTemplateOutlet,

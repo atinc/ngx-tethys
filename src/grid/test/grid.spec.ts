@@ -18,7 +18,8 @@ import { dispatchFakeEvent } from 'ngx-tethys/testing';
             <thy-grid-item> Content 1 </thy-grid-item>
             <div thyGridItem>Content 2</div>
         </thy-grid>
-    `
+    `,
+    standalone: false
 })
 export class TestGridDefaultComponent {}
 
@@ -34,7 +35,8 @@ export class TestGridDefaultComponent {}
                 <div thyGridItem></div>
             }
         </thy-grid>
-    `
+    `,
+    standalone: false
 })
 export class TestGridBasicComponent {
     cols: number | ThyGridResponsiveDescription;

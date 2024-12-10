@@ -4,7 +4,8 @@ import { ThyDialogBasicContentComponent } from '../basic/dialog-content.componen
 
 @Component({
     selector: 'thy-dialog-size-example',
-    templateUrl: './size.component.html'
+    templateUrl: './size.component.html',
+    standalone: false
 })
 export class ThyDialogSizeExampleComponent implements OnInit {
     private thyDialog = inject(ThyDialog);

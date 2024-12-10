@@ -5,7 +5,8 @@ import { addWeeks, startOfDay, startOfWeek } from 'date-fns';
 
 @Component({
     selector: 'thy-range-picker-shortcut-example',
-    templateUrl: './shortcut.component.html'
+    templateUrl: './shortcut.component.html',
+    standalone: false
 })
 export class ThyDatePickerShortcutExampleComponent implements OnInit {
     dateRange = { begin: new Date('2023-05-30'), end: new Date('2023-06-02') };

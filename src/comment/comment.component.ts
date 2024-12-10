@@ -16,7 +16,6 @@ import { NgTemplateOutlet } from '@angular/common';
         class: 'thy-comment'
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
     imports: [NgTemplateOutlet, ThyStringOrTemplateOutletDirective, ThyAvatar]
 })
 export class ThyComment {

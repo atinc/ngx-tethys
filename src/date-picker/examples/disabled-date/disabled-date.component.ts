@@ -5,7 +5,8 @@ import { TinyDate } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-date-picker-disabled-date-example',
-    templateUrl: './disabled-date.component.html'
+    templateUrl: './disabled-date.component.html',
+    standalone: false
 })
 export class ThyDatePickerDisabledDateExampleComponent implements OnInit {
     date: Date;

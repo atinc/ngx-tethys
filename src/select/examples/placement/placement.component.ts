@@ -27,7 +27,8 @@ import { ThyPlacement } from 'ngx-tethys/core';
                 placement: 'bottomLeft'
             }
         }
-    ]
+    ],
+    standalone: false
 })
 export class ThySelectPlacementExampleComponent implements OnInit {
     _placements: ThyPlacement[] = [

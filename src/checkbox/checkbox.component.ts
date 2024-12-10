@@ -24,7 +24,6 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
         class: 'thy-checkbox',
         '[class.disabled]': '_disabled'
     },
-    standalone: true,
     imports: [NgClass]
 })
 export class ThyCheckbox extends ThyFormCheckBaseComponent {

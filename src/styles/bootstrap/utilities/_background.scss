@@ -1,3 +1,4 @@
+@use "sass:map";
 @use '../../mixins/background-variant';
 @use '../../variables';
 @use '../functions-variables';
@@ -5,7 +6,7 @@
 // stylelint-disable declaration-no-important
 
 $bg-colors: () !default;
-$bg-colors: map-merge(
+$bg-colors: map.merge(
     (
         '.bg-lighter': variables.$bg-lighter,
         '.bg-bright': variables.$bg-bright,

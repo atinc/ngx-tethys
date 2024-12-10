@@ -28,7 +28,8 @@ import { ThyTableModule } from '../table.module';
                 </ng-template>
             </thy-table-column>
         </thy-table>
-    `
+    `,
+    standalone: false
 })
 class ThyDemoTableTreeComponent {
     showExpand = false;

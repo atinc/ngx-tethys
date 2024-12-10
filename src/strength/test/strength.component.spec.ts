@@ -10,7 +10,8 @@ import { ThyStrengthModule } from '../strength.module';
 
 @Component({
     selector: 'thy-strength-basic-test',
-    template: ` <thy-strength [(ngModel)]="value"></thy-strength> `
+    template: ` <thy-strength [(ngModel)]="value"></thy-strength> `,
+    standalone: false
 })
 class StrengthBasicTestComponent {
     public value = 1;
@@ -63,7 +64,8 @@ describe('Strength basic component', () => {
             [highKey]="text[currentTextType].highKey"
             [averageKey]="text[currentTextType].averageKey"
             [lowKey]="text[currentTextType].lowKey"></thy-strength>
-    `
+    `,
+    standalone: false
 })
 class StrengthTestComponent {
     public strength = 2;

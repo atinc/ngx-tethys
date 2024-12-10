@@ -12,7 +12,6 @@ import { NgClass, NgTemplateOutlet } from '@angular/common';
     selector: 'thy-form-group-footer',
     templateUrl: './form-group-footer.component.html',
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
     imports: [NgClass, NgTemplateOutlet]
 })
 export class ThyFormGroupFooter implements OnInit {
