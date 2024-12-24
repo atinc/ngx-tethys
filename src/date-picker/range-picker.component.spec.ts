@@ -14,6 +14,7 @@ import { CompatiblePresets, ThyDateRangeEntry, ThyPanelMode, ThyShortcutPosition
 import { TinyDate } from 'ngx-tethys/util';
 import { THY_DATE_PICKER_CONFIG } from './date-picker.config';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { DatePopup } from './lib/popups/date-popup.component';
 
 registerLocaleData(zh);
 
@@ -737,6 +738,9 @@ describe('ThyRangePickerComponent', () => {
             tick(500);
             fixture.detectChanges();
             expect(queryFromOverlay('.thy-calendar-date-panel .thy-calendar-date-panel-advanced').hasAttribute('hidden'));
+
+            const datePopup = fixture.debugElement.query(By.directive(DatePopup));
+            expect(datePopup.componentInstance.advancedSelectedValue.begin).toBeUndefined();
         }));
 
         it('should show flexible custom panel', fakeAsync(() => {
