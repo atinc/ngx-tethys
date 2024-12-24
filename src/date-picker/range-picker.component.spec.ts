@@ -738,9 +738,6 @@ describe('ThyRangePickerComponent', () => {
             tick(500);
             fixture.detectChanges();
             expect(queryFromOverlay('.thy-calendar-date-panel .thy-calendar-date-panel-advanced').hasAttribute('hidden'));
-
-            const datePopup = fixture.debugElement.query(By.directive(DatePopup));
-            expect(datePopup.componentInstance.advancedSelectedValue.begin).toBeUndefined();
         }));
 
         it('should show flexible custom panel', fakeAsync(() => {
@@ -749,6 +746,9 @@ describe('ThyRangePickerComponent', () => {
             openPickerByClickTrigger();
             fixture.detectChanges();
             expect(queryFromOverlay('.thy-calendar-date-panel .thy-calendar-date-panel-advanced').hasAttribute('hidden'));
+
+            const datePopup = fixture.debugElement.query(By.directive(DatePopup));
+            expect(datePopup.componentInstance.advancedSelectedValue.begin).toBeUndefined();
         }));
 
         it('should select advanced year', fakeAsync(() => {
