@@ -1,4 +1,15 @@
-import { endOfDay, endOfISOWeek, endOfQuarter, endOfYear, startOfDay, startOfISOWeek, startOfQuarter, startOfYear } from 'date-fns';
+import {
+    endOfDay,
+    endOfISOWeek,
+    endOfMonth,
+    endOfQuarter,
+    endOfYear,
+    startOfDay,
+    startOfISOWeek,
+    startOfMonth,
+    startOfQuarter,
+    startOfYear
+} from 'date-fns';
 import { FunctionProp, TinyDate, TinyDateCompareGrain, helpers, isFunction, isUndefinedOrNull, sortRangeValue } from 'ngx-tethys/util';
 
 import {
@@ -408,6 +419,8 @@ export class DatePopup implements OnChanges, OnInit {
             return [new TinyDate(startOfYear(value[0].nativeDate)), new TinyDate(endOfYear(value[1].nativeDate))];
         } else if (panelMode === 'quarter') {
             return [new TinyDate(startOfQuarter(value[0].nativeDate)), new TinyDate(endOfQuarter(value[1].nativeDate))];
+        } else if (panelMode === 'month') {
+            return [new TinyDate(startOfMonth(value[0].nativeDate)), new TinyDate(endOfMonth(value[1].nativeDate))];
         } else if (panelMode === 'week') {
             return [new TinyDate(startOfISOWeek(value[0].nativeDate)), new TinyDate(endOfISOWeek(value[1].nativeDate))];
         } else {
