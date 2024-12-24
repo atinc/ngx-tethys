@@ -931,6 +931,55 @@ describe('ThyRangePickerComponent', () => {
             openPickerByClickTrigger();
             expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).toContain('thy-calendar-decade');
         }));
+
+        it('should thyDateChange trigger twice by year mode', fakeAsync(() => {
+            const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+            fixture.detectChanges();
+            fixtureInstance.thyMode = 'year';
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            fixture.detectChanges();
+            const left = getFirstSelectedCellByMode('left', 'year');
+            dispatchMouseEvent(left, 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            const right = getFirstSelectedCellByMode('right', 'year');
+            dispatchMouseEvent(right, 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(thyDateChange).toHaveBeenCalled();
+            const result = (thyDateChange.calls.allArgs()[0] as any[])[0];
+            expect(thyDateChange).toHaveBeenCalledWith({
+                value: [result.value[0].startOfYear(), result.value[1].endOfYear()]
+            });
+        }));
+
+        it('should thyDateChange trigger twice by quarter mode', fakeAsync(() => {
+            const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+            fixture.detectChanges();
+            fixtureInstance.thyMode = 'quarter';
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            fixture.detectChanges();
+            const left = getFirstSelectedCellByMode('left', 'quarter');
+            dispatchMouseEvent(left, 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            const right = getFirstSelectedCellByMode('right', 'quarter');
+            dispatchMouseEvent(right, 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(thyDateChange).toHaveBeenCalled();
+            const result = (thyDateChange.calls.allArgs()[0] as any[])[0];
+
+            expect(thyDateChange).toHaveBeenCalledWith({
+                value: [result.value[0].startOfQuarter(), result.value[1].endOfQuarter()]
+            });
+        }));
     });
 
     function getPickerTrigger(): HTMLInputElement {
@@ -955,6 +1004,12 @@ describe('ThyRangePickerComponent', () => {
 
     function getFirstCell(partial: 'left' | 'right'): HTMLElement {
         return queryFromOverlay(`.thy-calendar-range-${partial} tbody.thy-calendar-tbody td.thy-calendar-cell`) as HTMLElement;
+    }
+
+    function getFirstSelectedCellByMode(partial: 'left' | 'right', mode: ThyPanelMode): HTMLElement {
+        return queryFromOverlay(
+            `.thy-calendar-range-${partial} tbody.thy-calendar-${mode}-panel-tbody td.thy-calendar-${mode}-panel-cell`
+        ) as HTMLElement;
     }
 
     function getFirstSelectedQuarterCell(): HTMLElement {
