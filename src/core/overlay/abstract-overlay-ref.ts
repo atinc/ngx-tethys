@@ -18,6 +18,11 @@ export abstract class ThyAbstractOverlayRef<
     disableClose: boolean;
     containerInstance: TContainer;
     /**
+     * 模态框打开是否完成，如果为 true 则代表打开动画执行完成
+     */
+    openingDone = false;
+
+    /**
      * 获取 OverlayRef
      */
     abstract getOverlayRef(): OverlayRef;
@@ -119,6 +124,7 @@ export abstract class ThyAbstractInternalOverlayRef<
         // Emit when opening animation completes
         containerInstance.animationOpeningDone.pipe(take(1)).subscribe(() => {
             this._afterOpened.next();
+            this.openingDone = true;
             if (this.options.disposeWhenClose) {
                 this._afterOpened.complete();
             }
