@@ -1,8 +1,7 @@
 import { InjectionToken, Signal } from '@angular/core';
-import { addDays, addWeeks, startOfDay, startOfWeek, subDays } from 'date-fns';
-import { TinyDate, WeekDayIndex } from 'ngx-tethys/util';
-import { CompatiblePresets, ThyShortcutPosition } from './standard-types';
 import { injectLocale, ThyDatePickerLocale, ThyI18nService } from 'ngx-tethys/i18n';
+import { addDays, addWeeks, startOfDay, startOfWeek, subDays, TinyDate, WeekDayIndex } from 'ngx-tethys/util';
+import { CompatiblePresets, ThyShortcutPosition } from './standard-types';
 
 export interface ThyDatePickerConfig {
     shortcutPosition: ThyShortcutPosition;

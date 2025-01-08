@@ -1,13 +1,12 @@
-import { fromUnixTime, getMonth, getYear } from 'date-fns';
 import { DateRangeItemInfo, ThyDateRange } from 'ngx-tethys/date-range';
-import { endOfMonth, FunctionProp, getUnixTime, startOfMonth, TinyDate } from 'ngx-tethys/util';
+import { endOfMonth, FunctionProp, getMonth, getUnixTime, getYear, startOfMonth, TinyDate } from 'ngx-tethys/util';
 
-import { ChangeDetectorRef, Component, EventEmitter, HostBinding, Input, OnInit, Output, Signal, TemplateRef, inject } from '@angular/core';
-import { ThyButton } from 'ngx-tethys/button';
-import { NgTemplateOutlet, JsonPipe } from '@angular/common';
+import { JsonPipe, NgTemplateOutlet } from '@angular/common';
+import { ChangeDetectorRef, Component, EventEmitter, HostBinding, inject, Input, OnInit, Output, Signal, TemplateRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { injectLocale, ThyCalendarLocale } from 'ngx-tethys/i18n';
+import { ThyButton } from 'ngx-tethys/button';
 import { DateHelperService } from 'ngx-tethys/date-picker';
+import { injectLocale, ThyCalendarLocale } from 'ngx-tethys/i18n';
 
 /**
  * 日历头部操作栏组件
@@ -61,8 +60,8 @@ export class ThyCalendarHeader implements OnInit {
         {
             key: 'month',
             text: this.dateHelper.format(new TinyDate().nativeDate, this.pickerFormat),
-            begin: getUnixTime(startOfMonth(new Date())),
-            end: getUnixTime(endOfMonth(new Date())),
+            begin: getUnixTime(startOfMonth(new TinyDate()?.nativeDate)),
+            end: getUnixTime(endOfMonth(new TinyDate()?.nativeDate)),
             timestamp: {
                 interval: 1,
                 unit: 'month'
@@ -79,12 +78,12 @@ export class ThyCalendarHeader implements OnInit {
     ngOnInit(): void {}
 
     onChangeMonth(month: DateRangeItemInfo) {
-        const currentMonth = fromUnixTime(month.begin).getMonth();
+        const currentMonth = new TinyDate().fromUnixTime(month.begin).getMonth();
         this.monthChange.emit(currentMonth);
     }
 
     onChangeYear(year: DateRangeItemInfo) {
-        const currentYear = fromUnixTime(year.begin).getFullYear();
+        const currentYear = new TinyDate().fromUnixTime(year.begin).getFullYear();
         this.yearChange.emit(currentYear);
     }
 
@@ -121,6 +120,8 @@ export class ThyCalendarHeader implements OnInit {
     }
 
     isCurrentDate(currentDate: TinyDate) {
-        this.isCurrent = currentDate.getMonth() !== getMonth(new Date()) || currentDate.getYear() !== getYear(new Date());
+        this.isCurrent =
+            currentDate.getMonth() !== getMonth(new TinyDate()?.nativeDate) ||
+            currentDate.getYear() !== getYear(new TinyDate()?.nativeDate);
     }
 }

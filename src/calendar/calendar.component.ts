@@ -9,19 +9,19 @@ import {
     EventEmitter,
     forwardRef,
     HostBinding,
+    inject,
     Input,
     OnChanges,
     OnInit,
     Output,
     SimpleChanges,
     TemplateRef,
-    ViewEncapsulation,
-    inject
+    ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { ThyCalendarHeaderOperationDirective as HeaderOperation, ThyDateCellDirective as DateCell } from './calendar-cells';
 import { DateTable, MonthTable } from 'ngx-tethys/date-picker';
+import { ThyDateCellDirective as DateCell, ThyCalendarHeaderOperationDirective as HeaderOperation } from './calendar-cells';
 
 import { ThyCalendarHeader } from './calendar-header.component';
 

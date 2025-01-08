@@ -3,7 +3,7 @@
   "compilerOptions": {
     "outDir": "../dist/tethys",
     "baseUrl": "./",
-    "target": "ES2015",
+    "target": "ES2020",
     "module": "ESNext",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
@@ -19,7 +19,7 @@
     "allowSyntheticDefaultImports": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "lib": ["dom", "ES2018"],
+    "lib": ["dom", "ES2020"],
     "types": ["jasmine", "node", "../typings/ng-dev-mode/index.d.ts"],
     "paths": {
       "ngx-tethys/*": ["./*"],

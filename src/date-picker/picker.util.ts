@@ -1,9 +1,7 @@
-import { CompatibleDate, DateEntry, ThyDateRangeEntry, ThyPanelMode, ThyDateGranularity, ThyShortcutValue } from './standard-types';
-
-import { fromUnixTime } from 'date-fns';
-import { coerceArray, helpers, TinyDate } from 'ngx-tethys/util';
-import { CompatibleValue, RangeAdvancedValue } from './inner-types';
 import { SafeAny } from 'ngx-tethys/types';
+import { coerceArray, fromUnixTime, helpers, TinyDate } from 'ngx-tethys/util';
+import { CompatibleValue, RangeAdvancedValue } from './inner-types';
+import { CompatibleDate, DateEntry, ThyDateGranularity, ThyDateRangeEntry, ThyPanelMode, ThyShortcutValue } from './standard-types';
 
 export function transformDateValue(value: CompatibleDate | CompatibleValue | number | DateEntry | ThyDateRangeEntry | RangeAdvancedValue): {
     value: CompatibleDate;
@@ -94,7 +92,7 @@ export function convertDate(date: Date | number): Date {
         if (date.toString().length < 13) {
             return fromUnixTime(date);
         } else {
-            return new Date(date);
+            return new TinyDate(date)?.nativeDate;
         }
     } else {
         return date;
@@ -223,7 +221,7 @@ function fixStringDate(dateStr: string) {
     let replacedStr = dateStr.replace(/[^0-9\s.,:]/g, '-').replace('- ', ' ');
     const hasYear = /\d{4}/.test(replacedStr);
     if (!hasYear || replacedStr.length < 'yyyy.M.d'.length) {
-        replacedStr = `${new TinyDate(new Date()).getYear()}-${replacedStr}`;
+        replacedStr = `${new TinyDate().getYear()}-${replacedStr}`;
     }
     return replacedStr;
 }

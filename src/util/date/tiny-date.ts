@@ -1,54 +1,60 @@
+import { TZDate } from '@date-fns/tz';
+import { FirstWeekContainsDate, Locale } from 'date-fns';
+import { SafeAny } from 'ngx-tethys/types';
 import {
+    addDays,
+    addHours,
+    addMinutes,
+    addMonths,
+    addQuarters,
+    addSeconds,
+    addWeeks,
+    addYears,
     differenceInCalendarDays,
     differenceInCalendarMonths,
-    differenceInCalendarYears,
     differenceInCalendarQuarters,
-    differenceInWeeks,
+    differenceInCalendarYears,
+    differenceInDays,
     differenceInHours,
     differenceInMinutes,
     differenceInSeconds,
+    differenceInWeeks,
+    endOfDay,
+    endOfISOWeek,
+    endOfMonth,
+    endOfQuarter,
+    endOfWeek,
+    endOfYear,
+    format,
+    fromUnixTime,
+    getDaysInMonth,
+    getQuarter,
+    getUnixTime,
+    getWeek,
     isSameDay,
     isSameHour,
     isSameMinute,
     isSameMonth,
+    isSameQuarter,
     isSameSecond,
     isSameYear,
-    isSameQuarter,
     isToday,
     isTomorrow,
     isValid,
-    setYear,
-    startOfMonth,
-    startOfWeek,
-    addMonths,
-    addYears,
+    isWeekend,
     setDay,
     setMonth,
     setQuarter,
-    getUnixTime,
+    setYear,
     startOfDay,
-    endOfDay,
-    fromUnixTime,
-    isWeekend,
-    getWeek,
-    getDaysInMonth,
-    addSeconds,
-    addMinutes,
-    addHours,
-    addWeeks,
-    addQuarters,
+    startOfISOWeek,
+    startOfMonth,
     startOfQuarter,
+    startOfWeek,
     startOfYear,
-    endOfWeek,
-    endOfMonth,
-    endOfQuarter,
-    endOfYear,
-    format,
-    getQuarter,
-    addDays
+    subWeeks
 } from './functions';
-
-import { Locale } from 'date-fns';
+import { getGlobalTimezone } from './time-zone';
 
 export type TinyDateCompareGrain = 'decade' | 'year' | 'quarter' | 'month' | 'week' | 'day' | 'hour' | 'minute' | 'second';
 
@@ -67,12 +73,15 @@ export function sortRangeValue(rangeValue: TinyDate[]): TinyDate[] {
 export class TinyDate implements Record<string, any> {
     nativeDate: Date;
 
-    constructor(date?: Date | string | number) {
+    protected timezone: string;
+
+    constructor(date?: Date | string | number, timezone?: string) {
+        this.timezone = timezone || getGlobalTimezone();
         if (date) {
             if (date instanceof Date) {
                 this.nativeDate = date;
             } else if (typeof date === 'string' || typeof date === 'number') {
-                this.nativeDate = new Date(date);
+                this.nativeDate = new TZDate(date as SafeAny, this.timezone);
             } else if (typeof ngDevMode === 'undefined' || ngDevMode) {
                 throw new Error(
                     `The input date type is not supported expect Date | string | number | { date: number; with_time: 0 | 1}, actual ${JSON.stringify(
@@ -81,12 +90,12 @@ export class TinyDate implements Record<string, any> {
                 );
             }
         } else {
-            this.nativeDate = new Date();
+            this.nativeDate = new TZDate(new Date(), this.timezone);
         }
     }
 
-    static fromUnixTime(unixTime: number): TinyDate {
-        return new TinyDate(fromUnixTime(unixTime));
+    fromUnixTime(unixTime: number): TinyDate {
+        return new TinyDate(fromUnixTime(unixTime), this.timezone);
     }
 
     // get
@@ -108,6 +117,10 @@ export class TinyDate implements Record<string, any> {
 
     getMonth(): number {
         return this.nativeDate.getMonth();
+    }
+
+    getFullYear(): number {
+        return this.nativeDate.getFullYear();
     }
 
     getWeek(options: { locale?: Locale; weekStartsOn?: WeekDayIndex } = { weekStartsOn: 1 }): number {
@@ -146,61 +159,61 @@ export class TinyDate implements Record<string, any> {
     setDate(amount: number): TinyDate {
         const date = new Date(this.nativeDate);
         date.setDate(amount);
-        return new TinyDate(date);
+        return new TinyDate(date, this.timezone);
     }
 
     setHms(hour: number, minute: number, second: number): TinyDate {
         const date = new Date(this.nativeDate);
         date.setHours(hour, minute, second);
-        return new TinyDate(date);
+        return new TinyDate(date, this.timezone);
     }
 
     setYear(year: number): TinyDate {
-        return new TinyDate(setYear(this.nativeDate, year));
+        return new TinyDate(setYear(this.nativeDate, year), this.timezone);
     }
 
     setMonth(month: number): TinyDate {
-        return new TinyDate(setMonth(this.nativeDate, month));
+        return new TinyDate(setMonth(this.nativeDate, month), this.timezone);
     }
 
     setQuarter(quarter: number) {
-        return new TinyDate(setQuarter(this.nativeDate, quarter));
+        return new TinyDate(setQuarter(this.nativeDate, quarter), this.timezone);
     }
 
     setDay(day: number, options?: { weekStartsOn: WeekDayIndex }): TinyDate {
-        return new TinyDate(setDay(this.nativeDate, day, options));
+        return new TinyDate(setDay(this.nativeDate, day, options), this.timezone);
     }
 
     // add
     addYears(amount: number): TinyDate {
-        return new TinyDate(addYears(this.nativeDate, amount));
+        return new TinyDate(addYears(this.nativeDate, amount), this.timezone);
     }
 
     addQuarters(amount: number): TinyDate {
-        return new TinyDate(addQuarters(this.nativeDate, amount));
+        return new TinyDate(addQuarters(this.nativeDate, amount), this.timezone);
     }
 
     addMonths(amount: number): TinyDate {
-        return new TinyDate(addMonths(this.nativeDate, amount));
+        return new TinyDate(addMonths(this.nativeDate, amount), this.timezone);
     }
 
     addWeeks(amount: number): TinyDate {
-        return new TinyDate(addWeeks(this.nativeDate, amount));
+        return new TinyDate(addWeeks(this.nativeDate, amount), this.timezone);
     }
 
     addDays(amount: number): TinyDate {
-        return new TinyDate(addDays(this.nativeDate, amount));
+        return new TinyDate(addDays(this.nativeDate, amount), this.timezone);
     }
     addHours(amount: number): TinyDate {
-        return new TinyDate(addHours(this.nativeDate, amount));
+        return new TinyDate(addHours(this.nativeDate, amount), this.timezone);
     }
 
     addSeconds(amount: number): TinyDate {
-        return new TinyDate(addSeconds(this.nativeDate, amount));
+        return new TinyDate(addSeconds(this.nativeDate, amount), this.timezone);
     }
 
     addMinutes(amount: number): TinyDate {
-        return new TinyDate(addMinutes(this.nativeDate, amount));
+        return new TinyDate(addMinutes(this.nativeDate, amount), this.timezone);
     }
 
     // isSame
@@ -351,43 +364,43 @@ export class TinyDate implements Record<string, any> {
 
     // startOf and endOf
     startOfYear(): TinyDate {
-        return new TinyDate(startOfYear(this.nativeDate));
+        return new TinyDate(startOfYear(this.nativeDate), this.timezone);
     }
 
     startOfQuarter(): TinyDate {
-        return new TinyDate(startOfQuarter(this.nativeDate));
+        return new TinyDate(startOfQuarter(this.nativeDate), this.timezone);
     }
 
     startOfMonth(): TinyDate {
-        return new TinyDate(startOfMonth(this.nativeDate));
+        return new TinyDate(startOfMonth(this.nativeDate), this.timezone);
     }
 
     startOfWeek(options?: { locale?: Locale; weekStartsOn?: WeekDayIndex }): TinyDate {
-        return new TinyDate(startOfWeek(this.nativeDate, options));
+        return new TinyDate(startOfWeek(this.nativeDate, options), this.timezone);
     }
 
     startOfDay(): TinyDate {
-        return new TinyDate(startOfDay(this.nativeDate));
+        return new TinyDate(startOfDay(this.nativeDate), this.timezone);
     }
 
     endOfYear(): TinyDate {
-        return new TinyDate(endOfYear(this.nativeDate));
+        return new TinyDate(endOfYear(this.nativeDate), this.timezone);
     }
 
     endOfQuarter(): TinyDate {
-        return new TinyDate(endOfQuarter(this.nativeDate));
+        return new TinyDate(endOfQuarter(this.nativeDate), this.timezone);
     }
 
     endOfMonth(): TinyDate {
-        return new TinyDate(endOfMonth(this.nativeDate));
+        return new TinyDate(endOfMonth(this.nativeDate), this.timezone);
     }
 
     endOfWeek(options?: { locale?: Locale; weekStartsOn?: WeekDayIndex }): TinyDate {
-        return new TinyDate(endOfWeek(this.nativeDate, options));
+        return new TinyDate(endOfWeek(this.nativeDate, options), this.timezone);
     }
 
     endOfDay(): TinyDate {
-        return new TinyDate(endOfDay(this.nativeDate));
+        return new TinyDate(endOfDay(this.nativeDate), this.timezone);
     }
 
     // other
@@ -396,7 +409,7 @@ export class TinyDate implements Record<string, any> {
         options?: {
             locale?: Locale;
             weekStartsOn?: WeekDayIndex;
-            firstWeekContainsDate?: number;
+            firstWeekContainsDate?: FirstWeekContainsDate;
             useAdditionalWeekYearTokens?: boolean;
             useAdditionalDayOfYearTokens?: boolean;
         }
@@ -405,11 +418,11 @@ export class TinyDate implements Record<string, any> {
     }
 
     calendarStart(options?: { weekStartsOn: WeekDayIndex | undefined }): TinyDate {
-        return new TinyDate(startOfWeek(startOfMonth(this.nativeDate), options));
+        return new TinyDate(startOfWeek(startOfMonth(this.nativeDate), options), this.timezone);
     }
 
     clone(): TinyDate {
-        return new TinyDate(new Date(this.nativeDate));
+        return new TinyDate(new Date(this.nativeDate), this.timezone);
     }
 
     getUnixTime(): number {
@@ -455,5 +468,21 @@ export class TinyDate implements Record<string, any> {
 
     private toNativeDate(date: any): Date {
         return date instanceof TinyDate ? date.nativeDate : date;
+    }
+
+    startOfISOWeek() {
+        return new TinyDate(startOfISOWeek(this.nativeDate), this.timezone);
+    }
+
+    endOfISOWeek() {
+        return new TinyDate(endOfISOWeek(this.nativeDate), this.timezone);
+    }
+
+    differenceInDays(date: Date) {
+        return new TinyDate(differenceInDays(this.nativeDate, date), this.timezone);
+    }
+
+    subWeeks(amount: number) {
+        return new TinyDate(subWeeks(this.nativeDate, amount), this.timezone);
     }
 }

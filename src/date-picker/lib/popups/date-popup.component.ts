@@ -4,32 +4,39 @@ import {
     endOfMonth,
     endOfQuarter,
     endOfYear,
+    FunctionProp,
+    helpers,
+    isFunction,
+    isUndefinedOrNull,
+    sortRangeValue,
     startOfDay,
     startOfISOWeek,
     startOfMonth,
     startOfQuarter,
-    startOfYear
-} from 'date-fns';
-import { FunctionProp, TinyDate, TinyDateCompareGrain, helpers, isFunction, isUndefinedOrNull, sortRangeValue } from 'ngx-tethys/util';
+    startOfYear,
+    TinyDate,
+    TinyDateCompareGrain
+} from 'ngx-tethys/util';
 
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     EventEmitter,
+    inject,
     Input,
     OnChanges,
     OnInit,
     Output,
+    Signal,
     SimpleChanges,
-    TemplateRef,
-    inject,
-    Signal
+    TemplateRef
 } from '@angular/core';
 
 import { NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThyButtonIcon } from 'ngx-tethys/button';
+import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
 import { ThyNav, ThyNavItemDirective } from 'ngx-tethys/nav';
 import { ThyDatePickerConfigService } from '../../date-picker.service';
 import { CompatibleValue, DatePickerFlexibleTab, RangeAdvancedValue, RangePartType } from '../../inner-types';
@@ -49,7 +56,6 @@ import {
 import { CalendarFooter } from '../calendar/calendar-footer.component';
 import { DateCarousel } from '../date-carousel/date-carousel.component';
 import { InnerPopup } from './inner-popup.component';
-import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
 
 /**
  * @private

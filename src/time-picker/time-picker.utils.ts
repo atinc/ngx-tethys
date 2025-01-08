@@ -1,5 +1,6 @@
-import { Time, TimePickerComponentState } from './inner/inner-time-picker.class';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
+import { TinyDate } from 'ngx-tethys/util';
+import { Time, TimePickerComponentState } from './inner/inner-time-picker.class';
 
 const hoursPerDay = 24;
 const hoursPerDayHalf = 12;
@@ -16,7 +17,7 @@ export function isValidDate(value?: string | Date): boolean {
     }
 
     if (typeof value === 'string') {
-        return isValidDate(new Date(value));
+        return isValidDate(new TinyDate(value)?.nativeDate);
     }
 
     return true;
@@ -63,15 +64,17 @@ export function parseSeconds(value: string | number): number {
 
 export function parseTime(value: string | Date): Date {
     if (typeof value === 'string') {
-        return new Date(value);
+        return new TinyDate(value)?.nativeDate;
+    } else if (value instanceof TinyDate) {
+        return value?.nativeDate;
+    } else {
+        return value;
     }
-
-    return value;
 }
 
 export function changeTime(value: Date, diff: Time): Date {
     if (!value) {
-        return changeTime(createDate(new Date(), 0, 0, 0), diff);
+        return changeTime(createDate(new TinyDate()?.nativeDate, 0, 0, 0), diff);
     }
 
     let hour = value.getHours();
@@ -107,7 +110,7 @@ export function setTime(value: Date, opts: Time): Date {
 
     if (!value) {
         if (!isNaN(hour) && !isNaN(minute)) {
-            return createDate(new Date(), hour, minute, seconds);
+            return createDate(new TinyDate()?.nativeDate, hour, minute, seconds);
         }
 
         return value;
@@ -121,7 +124,8 @@ export function setTime(value: Date, opts: Time): Date {
 }
 
 export function createDate(value: Date, hours: number, minutes: number, seconds: number): Date {
-    return new Date(value.getFullYear(), value.getMonth(), value.getDate(), hours, minutes, seconds, value.getMilliseconds());
+    return new TinyDate(new Date(value.getFullYear(), value.getMonth(), value.getDate(), hours, minutes, seconds, value.getMilliseconds()))
+        .nativeDate;
 }
 
 export function padNumber(value: number): string {
@@ -146,7 +150,7 @@ export function isSecondInputValid(seconds: string): boolean {
 }
 
 export function isInputLimitValid(diff: Time, max: Date, min: Date): boolean {
-    const newDate = setTime(new Date(), diff);
+    const newDate = setTime(new TinyDate()?.nativeDate, diff);
 
     if (max && newDate > max) {
         return false;

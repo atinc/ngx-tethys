@@ -9,23 +9,23 @@ import {
     Component,
     ElementRef,
     EventEmitter,
+    inject,
     Input,
     OnChanges,
     Output,
     SimpleChanges,
-    ViewChild,
-    inject
+    ViewChild
 } from '@angular/core';
 
 import { AsyncPipe, NgClass, NgTemplateOutlet } from '@angular/common';
+import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyInputDirective } from 'ngx-tethys/input';
+import { ThyEnterDirective } from 'ngx-tethys/shared';
 import { DateHelperService } from './date-helper.service';
 import { CompatibleValue, RangePartType } from './inner-types';
 import { getFlexibleAdvancedReadableValue } from './picker.util';
 import { ThyDateGranularity } from './standard-types';
-import { ThyEnterDirective } from 'ngx-tethys/shared';
-import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
 
 /**
  * @private
@@ -164,7 +164,7 @@ export class ThyPicker implements OnChanges, AfterViewInit {
         if (this.readonlyState) {
             return;
         }
-        this.valueChange.emit(this.pickerInput.nativeElement.value || this.getReadableValue(new TinyDate(new Date())));
+        this.valueChange.emit(this.pickerInput.nativeElement.value || this.getReadableValue(new TinyDate()));
         this.entering = false;
     }
 
