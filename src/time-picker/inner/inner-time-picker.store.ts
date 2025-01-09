@@ -39,7 +39,9 @@ export class ThyTimePickerStore extends MiniStore<TimePickerState> {
 
     @MiniAction()
     writeValue(value: Date) {
-        this.setState({ value: value });
+        if (value?.getTime() !== this.snapshot.value?.getTime()) {
+            this.setState({ value: value });
+        }
     }
 
     @MiniAction()

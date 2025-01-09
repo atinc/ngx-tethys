@@ -78,9 +78,7 @@ export class TinyDate implements Record<string, any> {
     constructor(date?: Date | string | number, timezone?: string) {
         this.timezone = timezone || getGlobalTimezone();
         if (date) {
-            if (date instanceof Date) {
-                this.nativeDate = date;
-            } else if (typeof date === 'string' || typeof date === 'number') {
+            if (date instanceof Date || typeof date === 'string' || typeof date === 'number') {
                 this.nativeDate = new TZDate(date as SafeAny, this.timezone);
             } else if (typeof ngDevMode === 'undefined' || ngDevMode) {
                 throw new Error(
@@ -480,6 +478,10 @@ export class TinyDate implements Record<string, any> {
 
     differenceInDays(date: Date) {
         return new TinyDate(differenceInDays(this.nativeDate, date), this.timezone);
+    }
+
+    differenceInHours(date: Date) {
+        return new TinyDate(differenceInHours(this.nativeDate, date), this.timezone);
     }
 
     subWeeks(amount: number) {

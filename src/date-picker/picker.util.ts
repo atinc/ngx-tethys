@@ -94,6 +94,8 @@ export function convertDate(date: Date | number): Date {
         } else {
             return new TinyDate(date)?.nativeDate;
         }
+    } else if (date instanceof TinyDate) {
+        return date?.nativeDate;
     } else {
         return date;
     }

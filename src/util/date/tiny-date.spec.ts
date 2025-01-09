@@ -1,4 +1,5 @@
 import { endOfDay, endOfMonth, endOfQuarter, endOfYear, startOfDay, startOfMonth, startOfWeek, startOfYear } from 'date-fns';
+import { clearGlobalTimezone, setGlobalTimezone } from './time-zone';
 import { sortRangeValue, TinyDate } from './tiny-date';
 
 describe('tiny-date', () => {
@@ -72,7 +73,7 @@ describe('tiny-date', () => {
 
     it('support static fromUnixTime', () => {
         const unixTime = date.getUnixTime();
-        expect(TinyDate.fromUnixTime(unixTime).getUnixTime()).toBe(date.getUnixTime());
+        expect(new TinyDate().fromUnixTime(unixTime).getUnixTime()).toBe(date.getUnixTime());
     });
 
     it('should throw error while putting invalid date input', () => {
@@ -201,6 +202,18 @@ describe('tiny-date', () => {
 
     it('should 29 days in 2020 Q1', () => {
         expect(date.getDaysInQuarter()).toEqual(91);
+    });
+
+    it('support timezone', () => {
+        const defaultDate = new TinyDate(new Date());
+        expect(defaultDate?.nativeDate).toEqual(new Date());
+        expect(defaultDate['timezone']).toBe('Asia/Shanghai');
+
+        setGlobalTimezone('America/Los_Angeles');
+        const date = new TinyDate(new Date());
+        expect(date['timezone']).toBe('America/Los_Angeles');
+        expect(defaultDate.getHours()).not.toBe(date.getHours());
+        clearGlobalTimezone();
     });
 
     describe('#sortRangeValue', () => {
