@@ -109,7 +109,7 @@
         &.active {
             &:not(.thy-nav-more-container) {
                 border: 1px solid variables.$border-color;
-                border-bottom-color: variables.$white;
+                border-bottom-color: variables.$bg-default;
                 border-bottom-width: 2px;
                 border-radius: 8px 8px 0 0;
                 &::before {
