@@ -193,6 +193,9 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
      */
     @Input() thyExtra: TemplateRef<unknown>;
 
+    /**
+     * 右侧额外区域是否紧挨着最后一个选项
+     */
     thyIsExtraAppend = input<boolean>(false);
 
     /**
