@@ -451,6 +451,10 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
     }
 
     openMore(event: Event, template: TemplateRef<any>) {
+        if (this.isOpenMore) {
+            return;
+        }
+
         this.isOpenMore = true;
         const popoverRef = this.popover.open(template, {
             origin: event.currentTarget as HTMLElement,
@@ -461,6 +465,7 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
             panelClass: 'thy-nav-list-popover',
             originActiveClass: 'thy-nav-origin-active'
         });
+
         popoverRef.afterClosed().subscribe(() => {
             this.isOpenMore = false;
         });
