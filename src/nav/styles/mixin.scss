@@ -1,7 +1,7 @@
-@use "sass:color";
-@use "../../styles/mixins/hover" as mixins-hover;
-@use "../../styles/mixins/hover";
-@use "../../styles/variables";
+@use 'sass:color';
+@use '../../styles/mixins/hover' as mixins-hover;
+@use '../../styles/mixins/hover';
+@use '../../styles/variables';
 
 @mixin nav-item-variant($color, $hover-color, $border-bottom) {
     & {
@@ -47,7 +47,6 @@
         border-radius: $border-radius;
     }
 
-
     &.thy-nav-origin-active {
         text-decoration: none;
         background: rgba($hover-color, 0.1);
@@ -79,35 +78,50 @@
     }
 }
 
-@mixin set-nav-size($nav-item-right-offset: 0px) {
+@mixin set-nav-size($nav-item-right-offset: 0px, $nav-type: '') {
+    $nav-card-item-padding: variables.$nav-card-item-padding-y variables.$nav-card-item-padding-x;
+    $nav-card-item-right: variables.$nav-card-item-right;
+
     .thy-nav-item {
         height: variables.$nav-height;
-        @include nav-item-size(
-            variables.$nav-item-padding-y variables.$nav-item-padding-x,
-            variables.$nav-item-right - $nav-item-right-offset,
-            variables.$nav-item-font-size
-        );
+        @if ($nav-type == 'card') {
+            @include nav-item-size($nav-card-item-padding, $nav-card-item-right, variables.$nav-item-font-size);
+        } @else {
+            @include nav-item-size(
+                variables.$nav-item-padding-y variables.$nav-item-padding-x,
+                variables.$nav-item-right - $nav-item-right-offset,
+                variables.$nav-item-font-size
+            );
+        }
     }
 
     &.thy-nav-lg {
         .thy-nav-item {
             height: variables.$nav-height-lg;
-            @include nav-item-size(
-                variables.$nav-item-padding-y-lg variables.$nav-item-padding-x-lg,
-                variables.$nav-item-right-lg - $nav-item-right-offset,
-                variables.$nav-item-font-size-lg
-            );
+            @if ($nav-type == 'card') {
+                @include nav-item-size($nav-card-item-padding, $nav-card-item-right, variables.$nav-item-font-size-lg);
+            } @else {
+                @include nav-item-size(
+                    variables.$nav-item-padding-y-lg variables.$nav-item-padding-x-lg,
+                    variables.$nav-item-right-lg - $nav-item-right-offset,
+                    variables.$nav-item-font-size-lg
+                );
+            }
         }
     }
 
     &.thy-nav-sm {
         .thy-nav-item {
             height: variables.$nav-height-sm;
-            @include nav-item-size(
-                variables.$nav-item-padding-y-sm variables.$nav-item-padding-x-sm,
-                variables.$nav-item-right-sm - $nav-item-right-offset,
-                variables.$nav-item-font-size-sm
-            );
+            @if ($nav-type == 'card') {
+                @include nav-item-size($nav-card-item-padding, $nav-card-item-right, variables.$nav-item-font-size-sm);
+            } @else {
+                @include nav-item-size(
+                    variables.$nav-item-padding-y-sm variables.$nav-item-padding-x-sm,
+                    variables.$nav-item-right-sm - $nav-item-right-offset,
+                    variables.$nav-item-font-size-sm
+                );
+            }
         }
     }
 }

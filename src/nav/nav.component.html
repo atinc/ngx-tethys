@@ -6,6 +6,8 @@
       class="thy-nav-more-container"
       [class.d-none]="!showMore"
       [class.invisible]="!initialized"
+      [class.has-right-divider]="(thyExtra || extra) && thyIsExtraAppend()"
+      [class.is-more-open]="isOpenMore"
       #moreOperationContainer
       thyNavLink
       [thyNavLinkActive]="moreActive"
@@ -17,6 +19,9 @@
         <thy-icon thyIconName="angle-down" class="thy-nav-more-icon"></thy-icon>
       }
     </a>
+  }
+  @if (thyIsExtraAppend()) {
+    <ng-container [ngTemplateOutlet]="extraTemplate"></ng-container>
   }
   <thy-nav-ink-bar [showInkBar]="showInkBar" [isVertical]="thyVertical"></thy-nav-ink-bar>
 </div>
@@ -42,8 +47,14 @@
   <ng-content></ng-content>
 </ng-template>
 
-@if (thyExtra || extra) {
-  <div class="thy-nav-extra">
-    <ng-container [ngTemplateOutlet]="thyExtra || extra"></ng-container>
-  </div>
+@if (!thyIsExtraAppend()) {
+  <ng-container [ngTemplateOutlet]="extraTemplate"></ng-container>
 }
+
+<ng-template #extraTemplate>
+  @if (thyExtra || extra) {
+    <div class="thy-nav-extra" [class.thy-nav-card-extra]="type === 'card'">
+      <ng-container [ngTemplateOutlet]="thyExtra || extra"></ng-container>
+    </div>
+  }
+</ng-template>

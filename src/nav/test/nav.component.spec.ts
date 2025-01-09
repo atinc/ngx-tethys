@@ -27,7 +27,8 @@ const NAV_LINK_CLASS = `thy-nav-item`;
             [thyVertical]="isVertical"
             [thyHorizontal]="horizontal"
             class="custom-nav"
-            [thyExtra]="extra">
+            [thyExtra]="extra"
+            [thyIsExtraAppend]="isExtraAppend">
             <a thyNavLink thyNavLinkActive="true">Link1</a>
             <a thyNavLink><thy-icon thyIconName="filter"></thy-icon>Link2</a>
             <a thyNavLink thyNavItemDisabled="true" id="disabled">Link3</a>
@@ -45,6 +46,8 @@ export class NavBasicComponent implements OnInit {
     isFill = false;
 
     isVertical = false;
+
+    isExtraAppend = false;
 
     horizontal: ThyNavHorizontal;
 
@@ -177,6 +180,19 @@ describe(`thy-nav`, () => {
             const extraElement = navElement.querySelector('.thy-nav-extra');
             expect(extraElement).toBeTruthy();
             expect(extraElement.textContent).toContain('Extra');
+
+            const navListElement = navElement.querySelector('.thy-nav-list');
+            const extraElement2 = navListElement.querySelector('.thy-nav-extra');
+            expect(extraElement2).toBeFalsy();
+        });
+
+        it(`should set thyIsExtraAppend`, () => {
+            fixture.componentInstance.isExtraAppend = true;
+            fixture.detectChanges();
+            const navListElement = navElement.querySelector('.thy-nav-list');
+            const extraElement = navListElement.querySelector('.thy-nav-extra');
+            expect(extraElement).toBeTruthy();
+            expect(extraElement.textContent).toContain('Extra');
         });
 
         it(`should set disabled class when thyNavItemDisabled is true`, () => {
@@ -188,7 +204,7 @@ describe(`thy-nav`, () => {
         });
 
         it(`should get correct class when input type`, () => {
-            ['pulled', 'pills', 'tabs', 'lite', 'primary', 'secondary', 'thirdly', 'secondary-divider'].forEach(type => {
+            ['pulled', 'pills', 'tabs', 'card', 'lite', 'primary', 'secondary', 'thirdly', 'secondary-divider'].forEach(type => {
                 fixture.debugElement.componentInstance.type = type;
                 fixture.detectChanges();
                 expect(navElement.classList.contains(NAV_CLASS)).toEqual(true);

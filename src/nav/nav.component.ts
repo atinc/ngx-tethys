@@ -16,6 +16,7 @@ import {
     ElementRef,
     HostBinding,
     inject,
+    input,
     Input,
     NgZone,
     OnChanges,
@@ -37,7 +38,7 @@ import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { injectLocale, ThyNavLocale } from 'ngx-tethys/i18n';
 
-export type ThyNavType = 'pulled' | 'tabs' | 'pills' | 'lite' | 'primary' | 'secondary' | 'thirdly' | 'secondary-divider';
+export type ThyNavType = 'pulled' | 'tabs' | 'pills' | 'lite' | 'card' | 'primary' | 'secondary' | 'thirdly' | 'secondary-divider';
 export type ThyNavSize = 'lg' | 'md' | 'sm';
 export type ThyNavHorizontal = '' | 'start' | 'center' | 'end';
 
@@ -46,6 +47,7 @@ const navTypeClassesMap = {
     tabs: ['thy-nav-tabs'],
     pills: ['thy-nav-pills'],
     lite: ['thy-nav-lite'],
+    card: ['thy-nav-card'],
     //如下类型已经废弃
     primary: ['thy-nav-primary'],
     secondary: ['thy-nav-secondary'],
@@ -94,7 +96,8 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
 
     private readonly destroyRef = inject(DestroyRef);
 
-    private type: ThyNavType = 'pulled';
+    public type: ThyNavType = 'pulled';
+    public isOpenMore = false;
     private size: ThyNavSize = 'md';
     public initialized = false;
 
@@ -189,6 +192,8 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
      * @type TemplateRef
      */
     @Input() thyExtra: TemplateRef<unknown>;
+
+    thyIsExtraAppend = input<boolean>(false);
 
     /**
      * @private
@@ -286,6 +291,14 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
                 .subscribe(() => {
                     this.alignInkBarToSelectedTab();
                 });
+
+            if (this.type === 'card') {
+                merge(...this.links.map(item => this.createResizeObserver(item.elementRef.nativeElement)))
+                    .pipe(takeUntilDestroyed(this.destroyRef))
+                    .subscribe(() => {
+                        this.setNavItemDivider();
+                    });
+            }
         });
     }
 
@@ -313,6 +326,25 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
             height: this.defaultMoreOperation?.nativeElement?.offsetHeight,
             width: this.defaultMoreOperation?.nativeElement?.offsetWidth
         };
+    }
+
+    private setNavItemDivider() {
+        const tabs = this.links.toArray();
+        const activeIndex = tabs.findIndex(item => item.linkIsActive());
+        const rightDividerClass = 'has-right-divider';
+
+        for (let i = 0; i < tabs.length; i++) {
+            const isOrdinaryItem = i !== activeIndex && i !== activeIndex - 1 && i !== tabs.length - 1;
+            const isMorePreviewItem = this.moreActive && i === activeIndex - 1;
+            const isExtraPreviewItem =
+                i === tabs.length - 1 && i !== activeIndex && (this.thyExtra || this.extra) && this.thyIsExtraAppend();
+
+            if (isOrdinaryItem || isMorePreviewItem || isExtraPreviewItem) {
+                tabs[i].addClass(rightDividerClass);
+            } else {
+                tabs[i].removeClass(rightDividerClass);
+            }
+        }
     }
 
     createResizeObserver(element: HTMLElement) {
@@ -416,7 +448,8 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
     }
 
     openMore(event: Event, template: TemplateRef<any>) {
-        this.popover.open(template, {
+        this.isOpenMore = true;
+        const popoverRef = this.popover.open(template, {
             origin: event.currentTarget as HTMLElement,
             hasBackdrop: true,
             backdropClosable: true,
@@ -424,6 +457,9 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
             placement: 'bottom',
             panelClass: 'thy-nav-list-popover',
             originActiveClass: 'thy-nav-origin-active'
+        });
+        popoverRef.afterClosed().subscribe(() => {
+            this.isOpenMore = false;
         });
     }
 

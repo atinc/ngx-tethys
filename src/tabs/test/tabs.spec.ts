@@ -219,7 +219,7 @@ describe('tabs', () => {
         });
 
         it('should set thyType successfully', fakeAsync(() => {
-            ['pulled', 'tabs', 'pills', 'lite'].forEach(type => {
+            ['pulled', 'tabs', 'pills', 'lite', 'card'].forEach(type => {
                 fixture.debugElement.componentInstance.type = type;
                 fixture.detectChanges();
                 tick();
