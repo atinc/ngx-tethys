@@ -2,6 +2,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import {
     AfterViewInit,
+    computed,
     ContentChildren,
     DestroyRef,
     Directive,
@@ -27,7 +28,7 @@ export type ThyNavLink = '' | 'active';
     selector: '[thyNavLink],[thyNavItem]',
     host: {
         class: 'thy-nav-item',
-        '[class.active]': 'thyNavItemActive || thyNavLinkActive',
+        '[class.active]': 'thyNavItemActive() || thyNavLinkActive',
         '[class.disabled]': 'thyNavItemDisabled'
     },
     standalone: true
@@ -37,14 +38,16 @@ export class ThyNavItemDirective implements AfterViewInit {
     private routerLinkActive = inject(RouterLinkActive, { optional: true })!;
     private ngZone = inject(NgZone);
 
+    /**
+     * 唯一标识
+     */
     id = input<string>();
 
     /**
      * 是否激活状态
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty })
-    thyNavItemActive: boolean;
+    thyNavItemActive = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 已经废弃，请使用 thyNavItemActive
@@ -71,8 +74,6 @@ export class ThyNavItemDirective implements AfterViewInit {
      * @private
      */
     @ContentChildren(RouterLinkActive, { descendants: true }) routers: QueryList<RouterLinkActive>;
-
-    // @HostBinding('attr.href') navLinkHref = 'javascript:;';
 
     public offset: {
         width: number;
@@ -113,16 +114,16 @@ export class ThyNavItemDirective implements AfterViewInit {
         };
     }
 
-    linkIsActive() {
+    linkIsActive = computed(() => {
         return (
-            this.thyNavItemActive ||
+            this.thyNavItemActive() ||
             this.thyNavLinkActive ||
             (this.routerLinkActive && this.routerLinkActive.isActive) ||
             this.routers.some(router => router.isActive) ||
-            this.links.some(item => item.thyNavItemActive) ||
+            this.links.some(item => item.thyNavItemActive()) ||
             this.links.some(item => item.thyNavLinkActive)
         );
-    }
+    });
 
     setNavLinkHidden(value: boolean) {
         if (value) {

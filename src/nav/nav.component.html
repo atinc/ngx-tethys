@@ -6,7 +6,6 @@
       class="thy-nav-more-container"
       [class.d-none]="!showMore"
       [class.invisible]="!initialized"
-      [class.has-right-divider]="(thyExtra || extra) && thyIsExtraAppend()"
       [class.is-more-open]="isOpenMore"
       #moreOperationContainer
       thyNavLink
@@ -53,7 +52,10 @@
 
 <ng-template #extraTemplate>
   @if (thyExtra || extra) {
-    <div class="thy-nav-extra" [class.thy-nav-card-extra]="type === 'card'">
+    <div
+      class="thy-nav-extra"
+      [class.thy-nav-card-extra]="type === 'card'"
+      [class.thy-nav-card-extra-with-divider]="type === 'card' && thyIsExtraAppend() && !lastNavItemActive()">
       <ng-container [ngTemplateOutlet]="thyExtra || extra"></ng-container>
     </div>
   }

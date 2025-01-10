@@ -10,9 +10,11 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     DestroyRef,
+    effect,
     ElementRef,
     HostBinding,
     inject,
@@ -114,6 +116,16 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
     public moreActive: boolean;
 
     public showMore = true;
+
+    activeIndex = computed(() => {
+        const tabs = this.links.toArray();
+        return tabs.findIndex(item => item.linkIsActive());
+    });
+
+    lastNavItemActive = computed(() => {
+        const tabs = this.links.toArray();
+        return tabs.findIndex(item => item.linkIsActive()) === tabs.length - 1;
+    });
 
     private moreBtnOffset: { height: number; width: number } = { height: 0, width: 0 };
 
@@ -258,6 +270,14 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
 
     private prevActiveIndex: number = NaN;
 
+    constructor() {
+        effect(() => {
+            if (this.type === 'card') {
+                this.setNavItemDivider();
+            }
+        });
+    }
+
     ngOnInit() {
         if (!this.thyResponsive) {
             this.initialized = true;
@@ -294,15 +314,19 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
                 .subscribe(() => {
                     this.alignInkBarToSelectedTab();
                 });
-
-            if (this.type === 'card') {
-                merge(...this.links.map(item => this.createResizeObserver(item.elementRef.nativeElement)))
-                    .pipe(takeUntilDestroyed(this.destroyRef))
-                    .subscribe(() => {
-                        this.setNavItemDivider();
-                    });
-            }
         });
+    }
+
+    private setNavItemDivider() {
+        const tabs = this.links.toArray();
+
+        for (let i = 0; i < tabs.length; i++) {
+            if (i !== this.activeIndex() && i !== this.activeIndex() - 1 && i !== tabs.length - 1) {
+                tabs[i].addClass('has-right-divider');
+            } else {
+                tabs[i].removeClass('has-right-divider');
+            }
+        }
     }
 
     ngAfterContentInit(): void {
@@ -329,25 +353,6 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
             height: this.defaultMoreOperation?.nativeElement?.offsetHeight,
             width: this.defaultMoreOperation?.nativeElement?.offsetWidth
         };
-    }
-
-    private setNavItemDivider() {
-        const tabs = this.links.toArray();
-        const activeIndex = tabs.findIndex(item => item.linkIsActive());
-        const rightDividerClass = 'has-right-divider';
-
-        for (let i = 0; i < tabs.length; i++) {
-            const isOrdinaryItem = i !== activeIndex && i !== activeIndex - 1 && i !== tabs.length - 1;
-            const isMorePreviewItem = this.moreActive && i === activeIndex - 1;
-            const isExtraPreviewItem =
-                i === tabs.length - 1 && i !== activeIndex && (this.thyExtra || this.extra) && this.thyIsExtraAppend();
-
-            if (isOrdinaryItem || isMorePreviewItem || isExtraPreviewItem) {
-                tabs[i].addClass(rightDividerClass);
-            } else {
-                tabs[i].removeClass(rightDividerClass);
-            }
-        }
     }
 
     createResizeObserver(element: HTMLElement) {

@@ -32,6 +32,20 @@
     }
     .thy-nav-card-extra {
         margin-left: 12px;
+        &-with-divider {
+            position: relative;
+            &::before {
+                content: '';
+                position: absolute;
+                right: calc(100% + 12px);
+                top: 50%;
+                transform: translateY(-50%);
+                display: inline-block;
+                height: 1rem;
+                vertical-align: middle;
+                border-left: 1px solid variables.$gray-300;
+            }
+        }
     }
     .thy-nav-more-icon {
         margin-left: 8px;
