@@ -1,4 +1,4 @@
-import { ThyPopover } from 'ngx-tethys/popover';
+import { ThyPopover, ThyPopoverConfig } from 'ngx-tethys/popover';
 import { merge, Observable, of } from 'rxjs';
 import { debounceTime, take, tap } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -197,9 +197,24 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
 
     /**
      * 更多操作的菜单点击内部是否可关闭
+     * @deprecated please use thyPopoverOptions
      */
     @Input({ transform: coerceBooleanProperty })
     thyInsideClosable = true;
+
+    /**
+     * 更多菜单弹出框的参数，底层使用 Popover 组件
+     * @type ThyPopoverConfig
+     */
+    thyPopoverOptions = input<ThyPopoverConfig>({
+        origin: null,
+        hasBackdrop: true,
+        backdropClosable: true,
+        insideClosable: true,
+        placement: 'bottom',
+        panelClass: 'thy-nav-list-popover',
+        originActiveClass: 'thy-nav-origin-active'
+    });
 
     /**
      * 右侧额外区域模板
@@ -465,20 +480,14 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
         if (this.isOpenMore) {
             return;
         }
-
         this.isOpenMore = true;
         const popoverRef = this.popover.open(template, {
-            origin: event.currentTarget as HTMLElement,
-            hasBackdrop: true,
-            backdropClosable: true,
-            insideClosable: this.thyInsideClosable,
-            placement: 'bottom',
-            panelClass: 'thy-nav-list-popover',
-            originActiveClass: 'thy-nav-origin-active'
+            ...this.thyPopoverOptions(),
+            origin: this.thyPopoverOptions().origin || (event.currentTarget as HTMLElement)
         });
-
         popoverRef.afterClosed().subscribe(() => {
             this.isOpenMore = false;
+            this.changeDetectorRef.markForCheck();
         });
     }
 
