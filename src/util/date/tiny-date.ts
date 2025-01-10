@@ -92,6 +92,19 @@ export class TinyDate implements Record<string, any> {
         }
     }
 
+    createTimeDate(hours: number, minutes: number, seconds: number): Date {
+        return new TZDate(
+            this.nativeDate.getFullYear(),
+            this.nativeDate.getMonth(),
+            this.nativeDate.getDate(),
+            hours,
+            minutes,
+            seconds,
+            this.nativeDate.getMilliseconds(),
+            this.timezone
+        );
+    }
+
     fromUnixTime(unixTime: number): TinyDate {
         return new TinyDate(fromUnixTime(unixTime), this.timezone);
     }
