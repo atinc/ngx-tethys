@@ -19,8 +19,13 @@
       }
     </a>
   }
-  @if (thyIsExtraAppend()) {
-    <ng-container [ngTemplateOutlet]="extraTemplate"></ng-container>
+  @if (extraTemplateRef() && thyIsExtraAppend()) {
+    <div
+      class="thy-nav-extra"
+      [class.thy-nav-card-extra]="type === 'card'"
+      [class.thy-nav-card-extra-with-divider]="type === 'card' && !lastNavItemActive()">
+      <ng-container [ngTemplateOutlet]="extraTemplateRef()"></ng-container>
+    </div>
   }
   <thy-nav-ink-bar [showInkBar]="showInkBar" [isVertical]="thyVertical"></thy-nav-ink-bar>
 </div>
@@ -46,17 +51,8 @@
   <ng-content></ng-content>
 </ng-template>
 
-@if (!thyIsExtraAppend()) {
-  <ng-container [ngTemplateOutlet]="extraTemplate"></ng-container>
+@if (extraTemplateRef() && !thyIsExtraAppend()) {
+  <div class="thy-nav-extra">
+    <ng-container [ngTemplateOutlet]="extraTemplateRef()"></ng-container>
+  </div>
 }
-
-<ng-template #extraTemplate>
-  @if (thyExtra || extra) {
-    <div
-      class="thy-nav-extra"
-      [class.thy-nav-card-extra]="type === 'card'"
-      [class.thy-nav-card-extra-with-divider]="type === 'card' && thyIsExtraAppend() && !lastNavItemActive()">
-      <ng-container [ngTemplateOutlet]="thyExtra || extra"></ng-container>
-    </div>
-  }
-</ng-template>

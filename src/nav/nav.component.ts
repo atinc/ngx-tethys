@@ -11,6 +11,7 @@ import {
     ChangeDetectorRef,
     Component,
     computed,
+    contentChild,
     ContentChild,
     ContentChildren,
     DestroyRef,
@@ -203,7 +204,7 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
      * 右侧额外区域模板
      * @type TemplateRef
      */
-    @Input() thyExtra: TemplateRef<unknown>;
+    thyExtra = input<TemplateRef<unknown>>(null);
 
     /**
      * 右侧额外区域是否紧挨着最后一个选项
@@ -244,11 +245,15 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
      * @name extra
      * @type TemplateRef
      */
-    @ContentChild('extra') extra: TemplateRef<unknown>;
+    extra = contentChild<TemplateRef<unknown>>('extra');
 
     @ViewChild('moreOperationContainer') defaultMoreOperation: ElementRef<HTMLAnchorElement>;
 
     @ViewChild(ThyNavInkBarDirective, { static: true }) inkBar!: ThyNavInkBarDirective;
+
+    extraTemplateRef = computed(() => {
+        return this.extra() || this.thyExtra();
+    });
 
     get showInkBar(): boolean {
         const showTypes: ThyNavType[] = ['pulled', 'tabs'];
