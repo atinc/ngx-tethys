@@ -23,7 +23,7 @@
     <div
       class="thy-nav-extra"
       [class.thy-nav-card-extra]="type === 'card'"
-      [class.thy-nav-card-extra-with-divider]="type === 'card' && !lastNavItemActive()">
+      [class.thy-nav-card-extra-with-divider]="type === 'card' && !isLastNavItemActive()">
       <ng-container [ngTemplateOutlet]="extraTemplateRef()"></ng-container>
     </div>
   }

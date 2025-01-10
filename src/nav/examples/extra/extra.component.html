@@ -1,14 +1,13 @@
-<thy-nav>
-  <a href="javascript:;" thyNavItem>Item 1</a>
-  <a href="javascript:;" thyNavItem thyNavItemActive="true">Item 2</a>
-  <a href="javascript:;" thyNavItem>Item 3</a>
-  <a href="javascript:;" thyNavItem>Item 4</a>
+<thy-nav class="mb-4">
+  @for (item of items; track $index) {
+    <a href="javascript:;" thyNavItem [thyNavItemActive]="item.index === activeIndex" (click)="activeIndex = item.index">{{ item.name }}</a>
+  }
   <ng-template #extra>
     <a href="javascript:;" thyAction thyIcon="plus" class="mr-2"></a>
   </ng-template>
 </thy-nav>
 
-<thy-nav thyType="card" [thyResponsive]="true" [thyIsExtraAppend]="true" class="mt-4">
+<thy-nav thyType="card" [thyIsExtraAppend]="true">
   @for (item of items; track $index) {
     <a href="javascript:;" thyNavItem [thyNavItemActive]="item.index === activeIndex" (click)="activeIndex = item.index">{{ item.name }}</a>
   }

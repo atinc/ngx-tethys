@@ -10,7 +10,7 @@ export class ThyNavExtraExampleComponent implements OnInit {
     public items: { index: number; name: string; disabled?: boolean }[] = [];
 
     ngOnInit(): void {
-        for (let i = 0; i < 15; i++) {
+        for (let i = 0; i < 5; i++) {
             this.items.push({ index: i, name: `Item ${i + 1}` });
         }
     }

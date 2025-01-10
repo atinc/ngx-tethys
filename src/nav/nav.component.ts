@@ -123,9 +123,10 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
         return tabs.findIndex(item => item.linkIsActive());
     });
 
-    lastNavItemActive = computed(() => {
+    isLastNavItemActive = computed(() => {
         const tabs = this.links.toArray();
-        return tabs.findIndex(item => item.linkIsActive()) === tabs.length - 1;
+        const lastNavItemIndex = tabs.length - 1;
+        return this.activeIndex() === lastNavItemIndex;
     });
 
     private moreBtnOffset: { height: number; width: number } = { height: 0, width: 0 };
