@@ -323,18 +323,6 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
         });
     }
 
-    private setNavItemDivider() {
-        const tabs = this.links.toArray();
-
-        for (let i = 0; i < tabs.length; i++) {
-            if (i !== this.activeIndex() && i !== this.activeIndex() - 1 && i !== tabs.length - 1) {
-                tabs[i].addClass('has-right-divider');
-            } else {
-                tabs[i].removeClass('has-right-divider');
-            }
-        }
-    }
-
     ngAfterContentInit(): void {
         if (this.thyResponsive) {
             this.ngZone.onStable.pipe(take(1)).subscribe(() => {
@@ -351,6 +339,18 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
             this.inkBar.hide();
         } else if (this.curActiveIndex !== this.prevActiveIndex) {
             this.alignInkBarToSelectedTab();
+        }
+    }
+
+    private setNavItemDivider() {
+        const tabs = this.links.toArray();
+
+        for (let i = 0; i < tabs.length; i++) {
+            if (i !== this.activeIndex() && i !== this.activeIndex() - 1 && i !== tabs.length - 1) {
+                tabs[i].addClass('has-right-divider');
+            } else {
+                tabs[i].removeClass('has-right-divider');
+            }
         }
     }
 
