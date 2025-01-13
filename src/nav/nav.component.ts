@@ -37,6 +37,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { injectLocale, ThyNavLocale } from 'ngx-tethys/i18n';
+import { ThyPlacement } from 'ngx-tethys/core';
 
 export type ThyNavType = 'pulled' | 'tabs' | 'pills' | 'lite' | 'card' | 'primary' | 'secondary' | 'thirdly' | 'secondary-divider';
 export type ThyNavSize = 'lg' | 'md' | 'sm';
@@ -191,15 +192,7 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
      * 更多菜单弹出框的参数，底层使用 Popover 组件
      * @type ThyPopoverConfig
      */
-    thyPopoverOptions = input<ThyPopoverConfig>({
-        origin: null,
-        hasBackdrop: true,
-        backdropClosable: true,
-        insideClosable: true,
-        placement: 'bottom',
-        panelClass: 'thy-nav-list-popover',
-        originActiveClass: 'thy-nav-origin-active'
-    });
+    thyPopoverOptions = input<ThyPopoverConfig<unknown>>(null);
 
     /**
      * 右侧额外区域模板
@@ -454,10 +447,21 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
     }
 
     openMoreMenu(event: Event, template: TemplateRef<any>) {
-        this.popover.open(template, {
-            ...this.thyPopoverOptions(),
-            origin: this.thyPopoverOptions().origin || (event.currentTarget as HTMLElement)
-        });
+        this.popover.open(
+            template,
+            Object.assign(
+                {
+                    origin: event.currentTarget as HTMLElement,
+                    hasBackdrop: true,
+                    backdropClosable: true,
+                    insideClosable: true,
+                    placement: 'bottom' as ThyPlacement,
+                    panelClass: 'thy-nav-list-popover',
+                    originActiveClass: 'thy-nav-origin-active'
+                },
+                this.thyPopoverOptions() ? this.thyPopoverOptions() : {}
+            )
+        );
     }
 
     navItemClick(item: ThyNavItemDirective) {
