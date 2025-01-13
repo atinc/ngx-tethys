@@ -1,6 +1,6 @@
 <div class="thy-nav-list" [ngClass]="horizontal ? 'justify-content-' + horizontal : ''" #navList>
   <ng-container [ngTemplateOutlet]="content"></ng-container>
-  @if (thyResponsive) {
+  @if (thyResponsive()) {
     <a
       href="javascript:;"
       class="thy-nav-more-container"
@@ -18,7 +18,7 @@
       }
     </a>
   }
-  <thy-nav-ink-bar [showInkBar]="showInkBar" [isVertical]="thyVertical"></thy-nav-ink-bar>
+  <thy-nav-ink-bar [showInkBar]="showInkBar" [isVertical]="thyVertical()"></thy-nav-ink-bar>
 </div>
 
 <ng-template #navListPopover>
@@ -42,8 +42,8 @@
   <ng-content></ng-content>
 </ng-template>
 
-@if (thyExtra || extra) {
+@if (thyExtra() || extra) {
   <div class="thy-nav-extra">
-    <ng-container [ngTemplateOutlet]="thyExtra || extra"></ng-container>
+    <ng-container [ngTemplateOutlet]="thyExtra() || extra"></ng-container>
   </div>
 }

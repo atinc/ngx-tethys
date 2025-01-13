@@ -236,7 +236,7 @@ describe(`thy-nav`, () => {
         });
 
         it('should get correct default value for thyInsideClosable', () => {
-            expect(navDebugElement.componentInstance.thyInsideClosable).toBe(true);
+            expect(navDebugElement.componentInstance.thyInsideClosable()).toBe(true);
         });
     });
 
@@ -381,7 +381,7 @@ describe(`thy-nav`, () => {
             fixture.debugElement.componentInstance.insideClosable = false;
             fixture.detectChanges();
             const navDebugElement = fixture.debugElement.query(By.directive(ThyNav));
-            expect(navDebugElement.componentInstance.thyInsideClosable).toBe(false);
+            expect(navDebugElement.componentInstance.thyInsideClosable()).toBe(false);
         }));
 
         it('should call item event when click navLink in more popover', fakeAsync(() => {

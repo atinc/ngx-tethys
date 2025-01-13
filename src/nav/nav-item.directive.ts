@@ -1,16 +1,16 @@
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import {
-    AfterViewInit,
-    ContentChildren,
-    DestroyRef,
-    Directive,
-    ElementRef,
-    forwardRef,
-    inject,
-    Input,
-    NgZone,
-    QueryList
+  AfterViewInit,
+  ContentChildren,
+  DestroyRef,
+  Directive,
+  ElementRef,
+  forwardRef,
+  inject,
+  NgZone,
+  QueryList,
+  input
 } from '@angular/core';
 import { RouterLinkActive } from '@angular/router';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
@@ -26,8 +26,8 @@ export type ThyNavLink = '' | 'active';
     selector: '[thyNavLink],[thyNavItem]',
     host: {
         class: 'thy-nav-item',
-        '[class.active]': 'thyNavItemActive || thyNavLinkActive',
-        '[class.disabled]': 'thyNavItemDisabled'
+        '[class.active]': 'thyNavItemActive() || thyNavLinkActive()',
+        '[class.disabled]': 'thyNavItemDisabled()'
     },
     standalone: true
 })
@@ -40,23 +40,20 @@ export class ThyNavItemDirective implements AfterViewInit {
      * 是否激活状态
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty })
-    thyNavItemActive: boolean;
+    readonly thyNavItemActive = input<boolean, boolean | string | number>(undefined, { transform: coerceBooleanProperty });
 
     /**
      * 已经废弃，请使用 thyNavItemActive
      * @deprecated please use thyNavItemActive
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty })
-    thyNavLinkActive: boolean;
+    readonly thyNavLinkActive = input<boolean, boolean | string | number>(undefined, { transform: coerceBooleanProperty });
 
     /**
      * 是否禁用
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty })
-    thyNavItemDisabled: boolean;
+    readonly thyNavItemDisabled = input<boolean, boolean | string | number>(undefined, { transform: coerceBooleanProperty });
 
     /**
      * @private
@@ -112,12 +109,12 @@ export class ThyNavItemDirective implements AfterViewInit {
 
     linkIsActive() {
         return (
-            this.thyNavItemActive ||
-            this.thyNavLinkActive ||
+            this.thyNavItemActive() ||
+            this.thyNavLinkActive() ||
             (this.routerLinkActive && this.routerLinkActive.isActive) ||
             this.routers.some(router => router.isActive) ||
-            this.links.some(item => item.thyNavItemActive) ||
-            this.links.some(item => item.thyNavLinkActive)
+            this.links.some(item => item.thyNavItemActive()) ||
+            this.links.some(item => item.thyNavLinkActive())
         );
     }
 

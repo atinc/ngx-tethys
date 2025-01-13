@@ -14,7 +14,6 @@ import {
     ContentChildren,
     DestroyRef,
     ElementRef,
-    HostBinding,
     inject,
     Input,
     NgZone,
@@ -24,7 +23,8 @@ import {
     Signal,
     SimpleChanges,
     TemplateRef,
-    ViewChild
+    ViewChild,
+    input
 } from '@angular/core';
 
 import { RouterLinkActive } from '@angular/router';
@@ -70,7 +70,9 @@ const tabItemRight = 20;
     selector: 'thy-nav',
     templateUrl: './nav.component.html',
     host: {
-        class: 'thy-nav'
+        '[class.thy-nav]': 'true',
+        '[class.thy-nav--vertical]': 'thyVertical()',
+        '[class.thy-nav--fill]': 'thyFill()'
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
@@ -160,35 +162,29 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
      * 是否垂直排列
      * @default false
      */
-    @HostBinding('class.thy-nav--vertical')
-    @Input({ transform: coerceBooleanProperty })
-    thyVertical: boolean;
+    readonly thyVertical = input<boolean, boolean | string | number>(undefined, { transform: coerceBooleanProperty });
 
     /**
      * 是否是填充模式
      */
-    @HostBinding('class.thy-nav--fill')
-    @Input({ transform: coerceBooleanProperty })
-    thyFill: boolean = false;
+    readonly thyFill = input<boolean, boolean | string | number>(false, { transform: coerceBooleanProperty });
 
     /**
      * 是否响应式，自动计算宽度存放 thyNavItem，并添加更多弹框
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty })
-    thyResponsive: boolean;
+    readonly thyResponsive = input<boolean, boolean | string | number>(undefined, { transform: coerceBooleanProperty });
 
     /**
      * 更多操作的菜单点击内部是否可关闭
      */
-    @Input({ transform: coerceBooleanProperty })
-    thyInsideClosable = true;
+    readonly thyInsideClosable = input(true, { transform: coerceBooleanProperty });
 
     /**
      * 右侧额外区域模板
      * @type TemplateRef
      */
-    @Input() thyExtra: TemplateRef<unknown>;
+    readonly thyExtra = input<TemplateRef<unknown>>(undefined);
 
     /**
      * @private
@@ -251,7 +247,7 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
     private prevActiveIndex: number = NaN;
 
     ngOnInit() {
-        if (!this.thyResponsive) {
+        if (!this.thyResponsive()) {
             this.initialized = true;
         }
 
@@ -259,7 +255,7 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
     }
 
     ngAfterViewInit() {
-        if (this.thyResponsive) {
+        if (this.thyResponsive()) {
             this.setMoreBtnOffset();
             this.ngZone.onStable.pipe(take(1)).subscribe(() => {
                 this.links.toArray().forEach(link => link.setOffset());
@@ -276,7 +272,7 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
                 .pipe(
                     takeUntilDestroyed(this.destroyRef),
                     tap(() => {
-                        if (this.thyResponsive) {
+                        if (this.thyResponsive()) {
                             this.resetSizes();
                             this.setHiddenItems();
                             this.calculateMoreIsActive();
@@ -290,7 +286,7 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
     }
 
     ngAfterContentInit(): void {
-        if (this.thyResponsive) {
+        if (this.thyResponsive()) {
             this.ngZone.onStable.pipe(take(1)).subscribe(() => {
                 this.resetSizes();
             });
@@ -345,7 +341,7 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
             return;
         }
 
-        const endIndex = this.thyVertical ? this.getShowItemsEndIndexWhenVertical(tabs) : this.getShowItemsEndIndexWhenHorizontal(tabs);
+        const endIndex = this.thyVertical() ? this.getShowItemsEndIndexWhenVertical(tabs) : this.getShowItemsEndIndexWhenHorizontal(tabs);
 
         const showItems = tabs.slice(0, endIndex + 1);
         (showItems || []).forEach(item => {
@@ -420,7 +416,7 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
             origin: event.currentTarget as HTMLElement,
             hasBackdrop: true,
             backdropClosable: true,
-            insideClosable: this.thyInsideClosable,
+            insideClosable: this.thyInsideClosable(),
             placement: 'bottom',
             panelClass: 'thy-nav-list-popover',
             originActiveClass: 'thy-nav-origin-active'
