@@ -1,4 +1,4 @@
-import { ThyPopover } from 'ngx-tethys/popover';
+import { ThyPopover, ThyPopoverConfig } from 'ngx-tethys/popover';
 import { merge, Observable, of } from 'rxjs';
 import { debounceTime, take, tap } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -16,6 +16,7 @@ import {
     ElementRef,
     HostBinding,
     inject,
+    input,
     Input,
     NgZone,
     OnChanges,
@@ -37,7 +38,7 @@ import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { injectLocale, ThyNavLocale } from 'ngx-tethys/i18n';
 
-export type ThyNavType = 'pulled' | 'tabs' | 'pills' | 'lite' | 'primary' | 'secondary' | 'thirdly' | 'secondary-divider';
+export type ThyNavType = 'pulled' | 'tabs' | 'pills' | 'lite' | 'card' | 'primary' | 'secondary' | 'thirdly' | 'secondary-divider';
 export type ThyNavSize = 'lg' | 'md' | 'sm';
 export type ThyNavHorizontal = '' | 'start' | 'center' | 'end';
 
@@ -46,6 +47,7 @@ const navTypeClassesMap = {
     tabs: ['thy-nav-tabs'],
     pills: ['thy-nav-pills'],
     lite: ['thy-nav-lite'],
+    card: ['thy-nav-card'],
     //如下类型已经废弃
     primary: ['thy-nav-primary'],
     secondary: ['thy-nav-secondary'],
@@ -94,7 +96,8 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
 
     private readonly destroyRef = inject(DestroyRef);
 
-    private type: ThyNavType = 'pulled';
+    public type: ThyNavType = 'pulled';
+    public isMoreOpened = false;
     private size: ThyNavSize = 'md';
     public initialized = false;
 
@@ -180,9 +183,24 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
 
     /**
      * 更多操作的菜单点击内部是否可关闭
+     * @deprecated please use thyPopoverOptions
      */
     @Input({ transform: coerceBooleanProperty })
     thyInsideClosable = true;
+
+    /**
+     * 更多菜单弹出框的参数，底层使用 Popover 组件
+     * @type ThyPopoverConfig
+     */
+    thyPopoverOptions = input<ThyPopoverConfig>({
+        origin: null,
+        hasBackdrop: true,
+        backdropClosable: true,
+        insideClosable: true,
+        placement: 'bottom',
+        panelClass: 'thy-nav-list-popover',
+        originActiveClass: 'thy-nav-origin-active'
+    });
 
     /**
      * 右侧额外区域模板
@@ -286,6 +304,14 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
                 .subscribe(() => {
                     this.alignInkBarToSelectedTab();
                 });
+
+            if (this.type === 'card') {
+                merge(...this.links.map(item => this.createResizeObserver(item.elementRef.nativeElement)))
+                    .pipe(takeUntilDestroyed(this.destroyRef))
+                    .subscribe(() => {
+                        this.setNavItemDivider();
+                    });
+            }
         });
     }
 
@@ -313,6 +339,19 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
             height: this.defaultMoreOperation?.nativeElement?.offsetHeight,
             width: this.defaultMoreOperation?.nativeElement?.offsetWidth
         };
+    }
+
+    private setNavItemDivider() {
+        const tabs = this.links.toArray();
+        const activeIndex = tabs.findIndex(item => item.linkIsActive());
+
+        for (let i = 0; i < tabs.length; i++) {
+            if (i !== activeIndex && i !== activeIndex - 1 && i !== tabs.length - 1) {
+                tabs[i].addClass('has-right-divider');
+            } else {
+                tabs[i].removeClass('has-right-divider');
+            }
+        }
     }
 
     createResizeObserver(element: HTMLElement) {
@@ -415,15 +454,18 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
         };
     }
 
-    openMore(event: Event, template: TemplateRef<any>) {
-        this.popover.open(template, {
-            origin: event.currentTarget as HTMLElement,
-            hasBackdrop: true,
-            backdropClosable: true,
-            insideClosable: this.thyInsideClosable,
-            placement: 'bottom',
-            panelClass: 'thy-nav-list-popover',
-            originActiveClass: 'thy-nav-origin-active'
+    openMoreMenu(event: Event, template: TemplateRef<any>) {
+        if (this.isMoreOpened) {
+            return;
+        }
+        this.isMoreOpened = true;
+        const popoverRef = this.popover.open(template, {
+            ...this.thyPopoverOptions(),
+            origin: this.thyPopoverOptions().origin || (event.currentTarget as HTMLElement)
+        });
+        popoverRef.afterClosed().subscribe(() => {
+            this.isMoreOpened = false;
+            this.changeDetectorRef.markForCheck();
         });
     }
 

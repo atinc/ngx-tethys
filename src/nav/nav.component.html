@@ -6,10 +6,11 @@
       class="thy-nav-more-container"
       [class.d-none]="!showMore"
       [class.invisible]="!initialized"
+      [class.is-more-opened]="isMoreOpened"
       #moreOperationContainer
       thyNavLink
       [thyNavLinkActive]="moreActive"
-      (click)="openMore($event, navListPopover)">
+      (click)="openMoreMenu($event, navListPopover)">
       @if (moreOperation) {
         <ng-container [ngTemplateOutlet]="moreOperation"></ng-container>
       } @else {
@@ -17,6 +18,11 @@
         <thy-icon thyIconName="angle-down" class="thy-nav-more-icon"></thy-icon>
       }
     </a>
+  }
+  @if (thyExtra || extra) {
+    <div class="thy-nav-extra">
+      <ng-container [ngTemplateOutlet]="thyExtra || extra"></ng-container>
+    </div>
   }
   <thy-nav-ink-bar [showInkBar]="showInkBar" [isVertical]="thyVertical"></thy-nav-ink-bar>
 </div>
@@ -41,9 +47,3 @@
 <ng-template #content>
   <ng-content></ng-content>
 </ng-template>
-
-@if (thyExtra || extra) {
-  <div class="thy-nav-extra">
-    <ng-container [ngTemplateOutlet]="thyExtra || extra"></ng-container>
-  </div>
-}

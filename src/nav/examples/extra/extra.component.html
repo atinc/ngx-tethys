@@ -1,13 +1,8 @@
-<thy-card>
-  <thy-card-content>
-    <thy-nav thyType="tabs">
-      <a href="javascript:;" thyNavItem thyNavItemActive="true">Item 1</a>
-      <a href="javascript:;" thyNavItem>Item 2</a>
-      <a href="javascript:;" thyNavItem>Item 3</a>
-      <a href="javascript:;" thyNavItem>选项 4</a>
-      <ng-template #extra>
-        <a href="javascript:;" thyAction thyIcon="sort" class="mr-2"></a>
-      </ng-template>
-    </thy-nav>
-  </thy-card-content>
-</thy-card>
+<thy-nav>
+  @for (item of items; track $index) {
+    <a href="javascript:;" thyNavItem [thyNavItemActive]="item.index === activeIndex" (click)="activeIndex = item.index">{{ item.name }}</a>
+  }
+  <ng-template #extra>
+    <a href="javascript:;" thyAction thyIcon="plus" class="mr-2"></a>
+  </ng-template>
+</thy-nav>
