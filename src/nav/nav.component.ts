@@ -97,7 +97,6 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
     private readonly destroyRef = inject(DestroyRef);
 
     public type: ThyNavType = 'pulled';
-    public isMoreOpened = false;
     private size: ThyNavSize = 'md';
     public initialized = false;
 
@@ -306,7 +305,7 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
                 });
 
             if (this.type === 'card') {
-                merge(...this.links.map(item => this.createResizeObserver(item.elementRef.nativeElement)))
+                merge(this.links.changes, ...this.links.map(item => this.createResizeObserver(item.elementRef.nativeElement)))
                     .pipe(takeUntilDestroyed(this.destroyRef))
                     .subscribe(() => {
                         this.setNavItemDivider();
@@ -346,7 +345,7 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
         const activeIndex = tabs.findIndex(item => item.linkIsActive());
 
         for (let i = 0; i < tabs.length; i++) {
-            if (i !== activeIndex && i !== activeIndex - 1 && i !== tabs.length - 1) {
+            if ((i !== activeIndex && i !== activeIndex - 1 && i !== tabs.length - 1) || (i === activeIndex - 1 && this.moreActive)) {
                 tabs[i].addClass('has-right-divider');
             } else {
                 tabs[i].removeClass('has-right-divider');
@@ -455,17 +454,9 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
     }
 
     openMoreMenu(event: Event, template: TemplateRef<any>) {
-        if (this.isMoreOpened) {
-            return;
-        }
-        this.isMoreOpened = true;
-        const popoverRef = this.popover.open(template, {
+        this.popover.open(template, {
             ...this.thyPopoverOptions(),
             origin: this.thyPopoverOptions().origin || (event.currentTarget as HTMLElement)
-        });
-        popoverRef.afterClosed().subscribe(() => {
-            this.isMoreOpened = false;
-            this.changeDetectorRef.markForCheck();
         });
     }
 

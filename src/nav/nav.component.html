@@ -6,10 +6,9 @@
       class="thy-nav-more-container"
       [class.d-none]="!showMore"
       [class.invisible]="!initialized"
-      [class.is-more-opened]="isMoreOpened"
       #moreOperationContainer
       thyNavLink
-      [thyNavLinkActive]="moreActive"
+      [thyNavItemActive]="moreActive"
       (click)="openMoreMenu($event, navListPopover)">
       @if (moreOperation) {
         <ng-container [ngTemplateOutlet]="moreOperation"></ng-container>
