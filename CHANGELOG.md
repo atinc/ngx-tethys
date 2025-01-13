@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [18.2.3](https://github.com/atinc/ngx-tethys/compare/18.2.2...18.2.3) (2025-01-13)
+
+
+### Features
+
+* **nav:** support card type ([#3289](https://github.com/atinc/ngx-tethys/issues/3289)) ([f68974b](https://github.com/atinc/ngx-tethys/commit/f68974bfb0cbfffccb4b639a26ce45dfba221218))
+
+
+
 ## [18.2.2](https://github.com/atinc/ngx-tethys/compare/18.2.1...18.2.2) (2024-12-26)
 
 
