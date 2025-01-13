@@ -8,6 +8,7 @@ import {
     ElementRef,
     forwardRef,
     inject,
+    input,
     Input,
     NgZone,
     QueryList
@@ -35,6 +36,11 @@ export class ThyNavItemDirective implements AfterViewInit {
     elementRef = inject(ElementRef);
     private routerLinkActive = inject(RouterLinkActive, { optional: true })!;
     private ngZone = inject(NgZone);
+
+    /**
+     * 唯一标识
+     */
+    id = input<string>();
 
     /**
      * 是否激活状态
@@ -127,5 +133,13 @@ export class ThyNavItemDirective implements AfterViewInit {
         } else {
             this.hostRenderer.removeClass('thy-nav-item-hidden');
         }
+    }
+
+    addClass(className: string) {
+        this.hostRenderer.addClass(className);
+    }
+
+    removeClass(className: string) {
+        this.hostRenderer.removeClass(className);
     }
 }

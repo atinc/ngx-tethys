@@ -6,7 +6,13 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./extra.component.scss']
 })
 export class ThyNavExtraExampleComponent implements OnInit {
-    constructor() {}
+    activeIndex = 1;
 
-    ngOnInit(): void {}
+    items: { index: number; name: string }[] = [];
+
+    ngOnInit(): void {
+        for (let i = 0; i < 5; i++) {
+            this.items.push({ index: i, name: `Item ${i + 1}` });
+        }
+    }
 }

@@ -13,7 +13,7 @@ export class ThyNavTabsExampleComponent implements OnInit {
         { index: 1, name: 'Item 2', disabled: false },
         { index: 2, name: 'Item 3', disabled: false },
         { index: 3, name: 'Item 4', disabled: true },
-        { index: 4, name: '选项 5', disabled: false }
+        { index: 4, name: 'Item 5', disabled: false }
     ];
 
     constructor() {}
