@@ -1,4 +1,4 @@
-<div class="thy-nav-list" [ngClass]="horizontal ? 'justify-content-' + horizontal : ''" #navList>
+<div class="thy-nav-list" [ngClass]="horizontal() ? 'justify-content-' + horizontal() : ''" #navList>
   <ng-container [ngTemplateOutlet]="content"></ng-container>
   @if (thyResponsive()) {
     <a

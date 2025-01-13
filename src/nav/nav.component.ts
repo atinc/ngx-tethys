@@ -24,7 +24,8 @@ import {
     SimpleChanges,
     TemplateRef,
     ViewChild,
-    input
+    input,
+    computed
 } from '@angular/core';
 
 import { RouterLinkActive } from '@angular/router';
@@ -100,7 +101,6 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
     private size: ThyNavSize = 'md';
     public initialized = false;
 
-    public horizontal: ThyNavHorizontal;
     public wrapperOffset: { height: number; width: number; left: number; top: number } = {
         height: 0,
         width: 0,
@@ -151,29 +151,27 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
     /**
      * 水平排列
      * @type '' | 'start' | 'center' | 'end'
-     * @default false
      */
-    @Input()
-    set thyHorizontal(horizontal: ThyNavHorizontal) {
-        this.horizontal = (horizontal as string) === 'right' ? 'end' : horizontal;
-    }
+    readonly thyHorizontal = input<ThyNavHorizontal>('');
+
+    horizontal = computed(() => {
+        return String(this.thyHorizontal()) === 'right' ? 'end' : this.thyHorizontal();
+    });
 
     /**
      * 是否垂直排列
-     * @default false
      */
-    readonly thyVertical = input<boolean, boolean | string | number>(undefined, { transform: coerceBooleanProperty });
+    readonly thyVertical = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 是否是填充模式
      */
-    readonly thyFill = input<boolean, boolean | string | number>(false, { transform: coerceBooleanProperty });
+    readonly thyFill = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 是否响应式，自动计算宽度存放 thyNavItem，并添加更多弹框
-     * @default false
      */
-    readonly thyResponsive = input<boolean, boolean | string | number>(undefined, { transform: coerceBooleanProperty });
+    readonly thyResponsive = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 更多操作的菜单点击内部是否可关闭
