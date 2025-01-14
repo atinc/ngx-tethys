@@ -1,9 +1,9 @@
-@use "sass:meta";
-@use "sass:list";
-@use "sass:map";
-@use "../../styles/variables";
-@use "../../tag/styles/mixin" as tag;
-@use "mixin";
+@use 'sass:meta';
+@use 'sass:list';
+@use 'sass:map';
+@use '../../styles/variables';
+@use '../../tag/styles/mixin' as tag;
+@use 'mixin';
 
 .thy-nav {
     display: flex;
@@ -29,6 +29,21 @@
     .thy-nav-extra {
         display: inline-flex;
         align-items: center;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .thy-nav-more-icon {
+        margin-left: 8px;
+    }
+
+    .thy-nav-origin-active {
+        .thy-nav-more-icon {
+            svg {
+                transform: rotate(180deg);
+                transition: transform 0.2s cubic-bezier(0.34, 0.69, 0.1, 1);
+            }
+        }
     }
 
     &-ink-bar {
@@ -37,7 +52,9 @@
         pointer-events: none;
 
         &-animated {
-            transition: left 0.3s, top 0.3s;
+            transition:
+                left 0.3s,
+                top 0.3s;
         }
     }
 }
@@ -66,17 +83,62 @@
     @include mixin.set-nav-size(12px);
 }
 
+.thy-nav-card {
+    @include mixin.nav-border-bottom();
+    @include mixin.set-nav-size(0, 'card');
+
+    .thy-nav-item {
+        display: flex;
+        align-items: center;
+        padding: 12px 20px;
+        margin-right: 0;
+        border: 1px solid transparent;
+
+        &.has-right-divider {
+            position: relative;
+            &::after {
+                content: '';
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                display: inline-block;
+                height: 1rem;
+                vertical-align: middle;
+                border-left: 1px solid variables.$gray-300;
+            }
+        }
+
+        &.active {
+            &:not(.thy-nav-more-container) {
+                border: 1px solid variables.$border-color;
+                border-bottom-color: variables.$bg-default;
+                border-bottom-width: 2px;
+                border-radius: 8px 8px 0 0;
+                &::before {
+                    left: -8px;
+                    border-bottom-right-radius: 8px;
+                    border-width: 0 1px 1px 0;
+                    box-shadow: 1px 2px 0 variables.$white;
+                }
+                &::after {
+                    right: -8px;
+                    border-bottom-left-radius: 8px;
+                    border-width: 0 0 1px 1px;
+                    box-shadow: -1px 2px 0 variables.$white;
+                }
+            }
+        }
+
+        @include mixin.nav-item-variant(variables.$nav-item-color, variables.$nav-item-hover-color, null);
+    }
+}
+
 .thy-nav-pills {
     .thy-nav-item {
-        // height: variables.$nav-height - 28px;
         display: inline-flex;
         align-items: center;
         border-bottom-width: 0px;
-        // padding: {
-        //     left: 12px;
-        //     right: 12px;
-        // }
-        // @include tag.tag-size('md')
         @include mixin.nav-item-size(null, variables.$nav-item-right, variables.$font-size-sm);
         @include mixin.nav-item-pills-variant(variables.$tag-default-color, variables.$nav-item-hover-color);
     }
