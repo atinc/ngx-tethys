@@ -24,15 +24,15 @@ export const DEFAULT_DATE_PICKER_CONFIG: ThyDatePickerConfig = {
         return [
             {
                 title: '今天',
-                value: startOfDay(new Date()).getTime()
+                value: startOfDay(new TinyDate().getTime()).getTime()
             },
             {
                 title: '明天',
-                value: startOfDay(addDays(new Date(), 1)).getTime()
+                value: startOfDay(addDays(new TinyDate().getTime(), 1)).getTime()
             },
             {
                 title: '下周',
-                value: startOfWeek(addWeeks(new Date(), 1), { weekStartsOn: 1 }).getTime()
+                value: startOfWeek(addWeeks(new TinyDate().getTime(), 1), { weekStartsOn: 1 }).getTime()
             }
         ];
     },
@@ -72,15 +72,15 @@ export function useDatePickerDefaultConfig(): ThyDatePickerConfig {
             return [
                 {
                     title: locale().today,
-                    value: startOfDay(new Date()).getTime()
+                    value: startOfDay(new TinyDate().getTime()).getTime()
                 },
                 {
                     title: locale().tomorrow,
-                    value: startOfDay(addDays(new Date(), 1)).getTime()
+                    value: startOfDay(addDays(new TinyDate().getTime(), 1)).getTime()
                 },
                 {
                     title: locale().nextWeek,
-                    value: startOfWeek(addWeeks(new Date(), 1), { weekStartsOn: 1 }).getTime()
+                    value: startOfWeek(addWeeks(new TinyDate().getTime(), 1), { weekStartsOn: 1 }).getTime()
                 }
             ];
         },

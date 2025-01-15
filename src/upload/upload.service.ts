@@ -1,9 +1,9 @@
-import { coerceArray, humanizeBytes } from 'ngx-tethys/util';
+import { coerceArray, humanizeBytes, TinyDate } from 'ngx-tethys/util';
 import { from, Observable, Subscriber } from 'rxjs';
 import { map, mergeMap, tap } from 'rxjs/operators';
 
 import { XhrFactory } from '@angular/common';
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
 export enum ThyUploadStatus {
     pending = 'pending',
@@ -151,7 +151,7 @@ export class ThyUploadService {
     private xhrFactory = inject(XhrFactory);
 
     private secondsToHuman(sec: number): string {
-        return new Date(sec * 1000).toISOString().slice(11, 19);
+        return new TinyDate(new Date(sec * 1000)).nativeDate.toISOString().slice(11, 19);
     }
 
     private normalizeUploadFiles(uploadFiles: ThyUploadFile | ThyUploadFile[]) {
@@ -168,7 +168,7 @@ export class ThyUploadService {
 
     private uploadByXhr(observer: Subscriber<ThyUploadResponse>, uploadFile: ThyUploadFile) {
         const xhr = this.xhrFactory.build();
-        const time: number = new Date().getTime();
+        const time: number = new TinyDate().getTime();
         let speed = 0;
         let estimatedTime: number | null = null;
 
@@ -184,9 +184,9 @@ export class ThyUploadService {
                 if (percentage === 100) {
                     percentage = 99;
                 }
-                const diff = new Date().getTime() - time;
+                const diff = new TinyDate().getTime() - time;
                 speed = Math.round((event.loaded / diff) * 1000);
-                const progressStartTime = (uploadFile.progress && uploadFile.progress.startTime) || new Date().getTime();
+                const progressStartTime = (uploadFile.progress && uploadFile.progress.startTime) || new TinyDate().getTime();
                 estimatedTime = Math.ceil((event.total - event.loaded) / speed);
 
                 uploadFile.progress.status = ThyUploadStatus.uploading;
@@ -205,7 +205,7 @@ export class ThyUploadService {
 
         const onReadyStateChange = () => {
             if (xhr.readyState === XMLHttpRequest.DONE) {
-                const speedTime = (new Date().getTime() - uploadFile.progress.startTime) * 1000;
+                const speedTime = (new TinyDate().getTime() - uploadFile.progress.startTime) * 1000;
                 const speedAverage = Math.round(uploadFile.nativeFile.size / speedTime);
 
                 uploadFile.progress.status = ThyUploadStatus.done;
