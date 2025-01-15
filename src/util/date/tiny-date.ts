@@ -75,8 +75,11 @@ export class TinyDate implements Record<string, any> {
 
     protected timezone: string;
 
+    private static defaultTimezone: string;
+
     constructor(date?: Date | string | number, timezone?: string) {
         this.timezone = timezone || getGlobalTimezone();
+        TinyDate.defaultTimezone = this.timezone;
         if (date) {
             if (date instanceof Date || typeof date === 'string' || typeof date === 'number') {
                 this.nativeDate = new TZDate(date as SafeAny, this.timezone);
@@ -105,8 +108,8 @@ export class TinyDate implements Record<string, any> {
         );
     }
 
-    fromUnixTime(unixTime: number): TinyDate {
-        return new TinyDate(fromUnixTime(unixTime), this.timezone);
+    static fromUnixTime(unixTime: number): TinyDate {
+        return new TinyDate(fromUnixTime(unixTime), TinyDate.defaultTimezone);
     }
 
     // get

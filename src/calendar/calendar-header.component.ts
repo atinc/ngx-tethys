@@ -78,12 +78,12 @@ export class ThyCalendarHeader implements OnInit {
     ngOnInit(): void {}
 
     onChangeMonth(month: DateRangeItemInfo) {
-        const currentMonth = new TinyDate().fromUnixTime(month.begin).getMonth();
+        const currentMonth = TinyDate.fromUnixTime(month.begin).getMonth();
         this.monthChange.emit(currentMonth);
     }
 
     onChangeYear(year: DateRangeItemInfo) {
-        const currentYear = new TinyDate().fromUnixTime(year.begin).getFullYear();
+        const currentYear = TinyDate.fromUnixTime(year.begin).getFullYear();
         this.yearChange.emit(currentYear);
     }
 

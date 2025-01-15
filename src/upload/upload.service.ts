@@ -151,7 +151,7 @@ export class ThyUploadService {
     private xhrFactory = inject(XhrFactory);
 
     private secondsToHuman(sec: number): string {
-        return new TinyDate(new Date(sec * 1000)).nativeDate.toISOString().slice(11, 19);
+        return new TinyDate(sec * 1000).nativeDate.toISOString().slice(11, 19);
     }
 
     private normalizeUploadFiles(uploadFiles: ThyUploadFile | ThyUploadFile[]) {

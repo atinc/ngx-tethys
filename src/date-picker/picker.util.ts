@@ -1,5 +1,5 @@
 import { SafeAny } from 'ngx-tethys/types';
-import { coerceArray, fromUnixTime, helpers, TinyDate } from 'ngx-tethys/util';
+import { coerceArray, helpers, TinyDate } from 'ngx-tethys/util';
 import { CompatibleValue, RangeAdvancedValue } from './inner-types';
 import { CompatibleDate, DateEntry, ThyDateGranularity, ThyDateRangeEntry, ThyPanelMode, ThyShortcutValue } from './standard-types';
 
@@ -87,10 +87,10 @@ export function getFlexibleAdvancedReadableValue(tinyDates: TinyDate[], flexible
     return value;
 }
 
-export function convertDate(date: Date | number): Date {
+export function convertDate(date: Date | number | TinyDate): Date {
     if (typeof date === 'number') {
         if (date.toString().length < 13) {
-            return fromUnixTime(date);
+            return TinyDate.fromUnixTime(date)?.nativeDate;
         } else {
             return new TinyDate(date)?.nativeDate;
         }

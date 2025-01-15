@@ -73,7 +73,7 @@ describe('tiny-date', () => {
 
     it('support static fromUnixTime', () => {
         const unixTime = date.getUnixTime();
-        expect(new TinyDate().fromUnixTime(unixTime).getUnixTime()).toBe(date.getUnixTime());
+        expect(TinyDate.fromUnixTime(unixTime).getUnixTime()).toBe(date.getUnixTime());
     });
 
     it('should throw error while putting invalid date input', () => {

@@ -53,7 +53,7 @@ export class CalendarFooter implements OnInit, OnChanges {
         if (this.disableTimeConfirm) {
             return;
         }
-        this.selectTime.emit(new TinyDate(this.value?.nativeDate));
+        this.selectTime.emit(this.value);
         this.clickOk.emit();
     }
 
