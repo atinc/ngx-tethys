@@ -489,12 +489,12 @@ export class TinyDate implements Record<string, any> {
         return new TinyDate(endOfISOWeek(this.nativeDate), this.timezone);
     }
 
-    differenceInDays(date: Date) {
-        return new TinyDate(differenceInDays(this.nativeDate, date), this.timezone);
+    differenceInDays(date: Date): number {
+        return differenceInDays(this.nativeDate, date);
     }
 
-    differenceInHours(date: Date) {
-        return new TinyDate(differenceInHours(this.nativeDate, date), this.timezone);
+    differenceInHours(date: Date): number {
+        return differenceInHours(this.nativeDate, date);
     }
 
     subWeeks(amount: number) {
