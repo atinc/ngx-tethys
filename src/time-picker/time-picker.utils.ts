@@ -124,7 +124,7 @@ export function setTime(value: Date, opts: Time): Date {
 }
 
 export function createDate(value: Date, hours: number, minutes: number, seconds: number): Date {
-    return new TinyDate(value).createTimeDate(hours, minutes, seconds);
+    return TinyDate.createTimeDate(value, hours, minutes, seconds);
 }
 
 export function padNumber(value: number): string {

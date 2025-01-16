@@ -1,6 +1,5 @@
 import { TZDate } from '@date-fns/tz';
 import { FirstWeekContainsDate, Locale } from 'date-fns';
-import { SafeAny } from 'ngx-tethys/types';
 import {
     addDays,
     addHours,
@@ -82,7 +81,7 @@ export class TinyDate implements Record<string, any> {
         TinyDate.defaultTimezone = this.timezone;
         if (date) {
             if (date instanceof Date || typeof date === 'string' || typeof date === 'number') {
-                this.nativeDate = new TZDate(date as SafeAny, this.timezone);
+                this.nativeDate = new TZDate(new Date(date).getTime(), this.timezone);
             } else if (typeof ngDevMode === 'undefined' || ngDevMode) {
                 throw new Error(
                     `The input date type is not supported expect Date | string | number | { date: number; with_time: 0 | 1}, actual ${JSON.stringify(
@@ -91,20 +90,20 @@ export class TinyDate implements Record<string, any> {
                 );
             }
         } else {
-            this.nativeDate = new TZDate(new Date(), this.timezone);
+            this.nativeDate = new TZDate(new Date().getTime(), this.timezone);
         }
     }
 
-    createTimeDate(hours: number, minutes: number, seconds: number): Date {
+    static createTimeDate(value: Date, hours?: number, minutes?: number, seconds?: number): Date {
         return new TZDate(
-            this.nativeDate.getFullYear(),
-            this.nativeDate.getMonth(),
-            this.nativeDate.getDate(),
-            hours,
-            minutes,
-            seconds,
-            this.nativeDate.getMilliseconds(),
-            this.timezone
+            value.getFullYear(),
+            value.getMonth(),
+            value.getDate(),
+            hours || value.getHours(),
+            minutes || value.getMinutes(),
+            seconds || value.getSeconds(),
+            value.getMilliseconds(),
+            TinyDate.defaultTimezone
         );
     }
 
