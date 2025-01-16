@@ -1,4 +1,15 @@
-import { endOfDay, startOfDay } from 'date-fns';
+import {
+    endOfDay,
+    endOfISOWeek,
+    endOfMonth,
+    endOfQuarter,
+    endOfYear,
+    startOfDay,
+    startOfISOWeek,
+    startOfMonth,
+    startOfQuarter,
+    startOfYear
+} from 'date-fns';
 import { FunctionProp, TinyDate, TinyDateCompareGrain, helpers, isFunction, isUndefinedOrNull, sortRangeValue } from 'ngx-tethys/util';
 
 import {
@@ -381,10 +392,7 @@ export class DatePopup implements OnChanges, OnInit {
                 this.clearHoverValue(); // Clean up
                 this.setRangeValue('right', value);
                 this.selectedValue = sortRangeValue(this.selectedValue); // Sort
-                this.selectedValue = [
-                    new TinyDate(startOfDay(this.selectedValue[0].nativeDate)),
-                    new TinyDate(endOfDay(this.selectedValue[1].nativeDate))
-                ];
+                this.selectedValue = this.getSelectedRangeValueByMode(this.selectedValue);
                 this.activeDate = this.normalizeRangeValue(
                     this.selectedValue,
                     this.getPanelMode(this.endPanelMode, partType) as ThyPanelMode
@@ -401,6 +409,21 @@ export class DatePopup implements OnChanges, OnInit {
             this.dateValueChange.emit({
                 value: updatedValue
             });
+        }
+    }
+
+    private getSelectedRangeValueByMode(value: TinyDate[]): TinyDate[] {
+        const panelMode = this.getPanelMode(this.endPanelMode);
+        if (panelMode === 'year') {
+            return [new TinyDate(startOfYear(value[0].nativeDate)), new TinyDate(endOfYear(value[1].nativeDate))];
+        } else if (panelMode === 'quarter') {
+            return [new TinyDate(startOfQuarter(value[0].nativeDate)), new TinyDate(endOfQuarter(value[1].nativeDate))];
+        } else if (panelMode === 'month') {
+            return [new TinyDate(startOfMonth(value[0].nativeDate)), new TinyDate(endOfMonth(value[1].nativeDate))];
+        } else if (panelMode === 'week') {
+            return [new TinyDate(startOfISOWeek(value[0].nativeDate)), new TinyDate(endOfISOWeek(value[1].nativeDate))];
+        } else {
+            return [new TinyDate(startOfDay(value[0].nativeDate)), new TinyDate(endOfDay(value[1].nativeDate))];
         }
     }
 

@@ -191,7 +191,7 @@ describe(`thy-nav`, () => {
         });
 
         it(`should get correct class when input type`, () => {
-            ['pulled', 'pills', 'tabs', 'lite', 'primary', 'secondary', 'thirdly', 'secondary-divider'].forEach(type => {
+            ['pulled', 'pills', 'tabs', 'card', 'lite', 'primary', 'secondary', 'thirdly', 'secondary-divider'].forEach(type => {
                 fixture.debugElement.componentInstance.type = type;
                 fixture.detectChanges();
                 expect(navElement.classList.contains(NAV_CLASS)).toEqual(true);

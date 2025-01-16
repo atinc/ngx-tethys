@@ -21,6 +21,7 @@ $success: #73d897 !default;
 $info: #5dcfff !default;
 $warning: #ffcd5d !default;
 $danger: #ff7575 !default;
+$black: #000 !default;
 
 $body-color: $gray-800 !default;
 $secondary: $gray-700 !default;
@@ -34,8 +35,6 @@ $pass: #2cccda !default;
 $gray-210: #e9e9e9 !default; //整块区域的背景色为 #f3f3f3 后，某个卡片模块的背景色，用于文件详情
 // deprecated
 $gray-900: #212529 !default;
-// deprecated
-$black: #000;
 
 /** text color  */
 $text-placeholder: $gray-400 !default;
@@ -529,6 +528,10 @@ $nav-item-padding-y-sm: 0.625rem !default; // 高度 44px
 $nav-item-padding-x-sm: 0.5rem !default;
 $nav-item-right-sm: 20px !default;
 $nav-item-font-size-sm: 14px !default;
+// nav card item size
+$nav-card-item-padding-y: 0px !default;
+$nav-card-item-padding-x: 20px !default;
+$nav-card-item-right: 0px !default;
 
 $nav-item-primary-padding-y: 0.9512rem !default; // 高度 56px, 文字 15px
 $nav-item-primary-padding-x: 1rem !default;

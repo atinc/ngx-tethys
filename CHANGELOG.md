@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [18.2.3](https://github.com/atinc/ngx-tethys/compare/18.2.2...18.2.3) (2025-01-13)
+
+
+### Features
+
+* **nav:** support card type ([#3289](https://github.com/atinc/ngx-tethys/issues/3289)) ([f68974b](https://github.com/atinc/ngx-tethys/commit/f68974bfb0cbfffccb4b639a26ce45dfba221218))
+
+
+
+## [18.2.2](https://github.com/atinc/ngx-tethys/compare/18.2.1...18.2.2) (2024-12-26)
+
+
+### Bug Fixes
+
+* **datePicker:** #TINFR-1217  fix start time and end time when select… ([#3284](https://github.com/atinc/ngx-tethys/issues/3284)) ([746995d](https://github.com/atinc/ngx-tethys/commit/746995db7711d349fa072cfa10e666e188960489))
+
+
+### Features
+
+* **i18n:** remove useLocale #TINFR-1063 ([#3278](https://github.com/atinc/ngx-tethys/issues/3278)) ([3be8725](https://github.com/atinc/ngx-tethys/commit/3be87259b172892063675e13cf50fb179ff56fbc)), closes [#TINFR-1063](https://github.com/atinc/ngx-tethys/issues/TINFR-1063)
+
+
+
 ## [18.2.1](https://github.com/atinc/ngx-tethys/compare/18.2.0-next.2...18.2.1) (2024-11-26)
 
 

@@ -1,0 +1,5 @@
+<thy-segment class="w-50" [thyActiveIndex]="activeIndex" (thySelectChange)="switchTheme($event)">
+  @for (theme of themes; track $index) {
+    <thy-segment-item [thyValue]="themesMap[theme].key">{{ themesMap[theme].name }}</thy-segment-item>
+  }
+</thy-segment>
