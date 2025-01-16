@@ -62,7 +62,8 @@ class ThyViewOutletContentMultiTestComponent implements OnChanges {
 
 @Component({
     selector: 'thy-shared-view-outlet-component-multi-test',
-    template: `<ng-container *thyViewOutlet="contentComponent; context: { count: count, name: name, inputName: inputName }"></ng-container>`,
+    template: `<ng-container
+        *thyViewOutlet="contentComponent; context: { count: count, name: name, inputName: inputName }"></ng-container>`,
     standalone: false
 })
 class ThyViewOutletComponentMultiTestComponent {

@@ -41,7 +41,8 @@ import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
         '[@scaleYMotion]': '(config.placement === "top" || config.placement === "bottom") ? animationState : "void"',
         '(@scaleYMotion.start)': 'onAnimationStart($event)',
         '(@scaleYMotion.done)': 'onAnimationDone($event)',
-        '[@scaleMotion]': '(config.placement !== "left" && config.placement !== "right" && config.placement !== "top" && config.placement !== "bottom") ? animationState : "void"',
+        '[@scaleMotion]':
+            '(config.placement !== "left" && config.placement !== "right" && config.placement !== "top" && config.placement !== "bottom") ? animationState : "void"',
         '(@scaleMotion.start)': 'onAnimationStart($event)',
         '(@scaleMotion.done)': 'onAnimationDone($event)'
     },

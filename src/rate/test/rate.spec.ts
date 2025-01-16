@@ -11,7 +11,9 @@ import { ThyRateTemplateExampleComponent } from '../examples/template/template.c
 // 基础
 @Component({
     selector: 'thy-rate-basic-test',
-    template: ` <thy-rate [(ngModel)]="value" (ngModelChange)="modelChange($event)" (thyItemHoverChange)="hoverChange($event)"></thy-rate> `,
+    template: `
+        <thy-rate [(ngModel)]="value" (ngModelChange)="modelChange($event)" (thyItemHoverChange)="hoverChange($event)"></thy-rate>
+    `,
     standalone: false
 })
 class RateBasicTestComponent {

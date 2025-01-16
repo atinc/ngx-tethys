@@ -46,6 +46,7 @@ class PopoverBasicComponent {
 
 // eslint-disable-next-line @angular-eslint/directive-selector
 @Directive({
+    // eslint-disable-next-line @angular-eslint/directive-selector
     selector: 'thy-with-view-container-directive',
     standalone: false
 })

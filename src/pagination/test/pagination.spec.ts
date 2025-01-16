@@ -80,15 +80,15 @@ class PaginationTestComponent {
 
 describe('ThyPagination', () => {
     @Component({
-    template: `
+        template: `
             <thy-pagination
                 [(thyPageIndex)]="currentIndex"
                 [thyCustomPages]="pages"
                 [thyShowQuickJumper]="false"
                 (thyPageIndexChange)="pageIndexChange($event)"></thy-pagination>
         `,
-    standalone: false
-})
+        standalone: false
+    })
     class PaginationCustomPagesComponent {
         currentIndex = 1;
 
