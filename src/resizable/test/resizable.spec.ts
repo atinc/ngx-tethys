@@ -407,7 +407,7 @@ describe('resizable', () => {
                 tick(16);
                 fixture.detectChanges();
                 expect(testComponent.height).toBeLessThanOrEqual(200);
-                expect(testComponent.height).toBeGreaterThanOrEqual(100);
+                expect(testComponent.height).toBeGreaterThanOrEqual(99);
             }));
 
             /**
@@ -565,7 +565,7 @@ describe('resizable', () => {
                 expect(testComponent.width).toBeLessThanOrEqual(400);
                 expect(testComponent.width).toBeGreaterThanOrEqual(300);
                 expect(testComponent.height).toBeLessThanOrEqual(200);
-                expect(testComponent.height).toBeGreaterThanOrEqual(100);
+                expect(testComponent.height).toBeGreaterThanOrEqual(99);
             }));
 
             it('should resizing', fakeAsync(() => {

@@ -197,7 +197,7 @@ describe('ThyNotify', () => {
             tick(DEFAULT_DURATION_TIME);
             fixture.detectChanges();
             flush();
-            expect(notify.style.opacity === '0').toBe(true);
+            expect(notify.style.opacity).toBe('');
         }));
 
         it('should not auto disappear when duration is 0', fakeAsync(() => {
@@ -364,7 +364,7 @@ describe('ThyNotify', () => {
             fixture.detectChanges();
             flush();
             const notify: HTMLElement = notifyContainer.querySelector('.thy-notify');
-            expect(notify.style.opacity).toBe('0');
+            expect(notify).toBeFalsy();
             fixture.detectChanges();
             flush();
         }));

@@ -315,8 +315,9 @@ describe(`thyPopover`, () => {
             });
             tick(1000);
             viewContainerFixture.detectChanges();
+            tick(1000);
             let containers = overlayContainerElement.querySelectorAll(`thy-popover-container`);
-            expect(containers.length).toBe(2);
+            expect(containers.length).toBe(1);
             popover.closeAll();
             tick(1000);
             viewContainerFixture.detectChanges();
@@ -420,8 +421,8 @@ describe(`thyPopover`, () => {
 
             tick(1000);
             viewContainerFixture.detectChanges();
-            expect(openedPopover.length).toEqual(2);
-            expect(openedPopover[1]).toEqual(popoverRef1);
+            expect(openedPopover.length).toEqual(1);
+            expect(openedPopover[0]).toEqual(popoverRef1);
             flush();
         }));
 

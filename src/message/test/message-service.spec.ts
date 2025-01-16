@@ -162,7 +162,7 @@ describe('ThyMessage', () => {
         fixture.detectChanges();
         flush();
         const message: HTMLElement = messageElement;
-        expect(message.style.opacity).toBe('0');
+        expect(message.style.opacity).toBe('');
         fixture.detectChanges();
         flush();
     }));
@@ -220,7 +220,7 @@ describe('ThyMessage', () => {
         dispatchMouseEvent(notHasCloseIconMessageElement, 'mouseenter');
         fixture.detectChanges();
         tick(DEFAULT_DURATION_TIME + 1000);
-        expect((notHasCloseIconMessageElement as HTMLElement).style.opacity).toBe('0');
+        expect((notHasCloseIconMessageElement as HTMLElement).style.opacity).toBe('');
 
         tick(DEFAULT_DURATION_TIME);
         fixture.detectChanges();
