@@ -1,5 +1,5 @@
 import { TZDate } from '@date-fns/tz';
-import { FirstWeekContainsDate, Locale } from 'date-fns';
+import { FirstWeekContainsDate, Locale, setHours, setMinutes, setSeconds } from 'date-fns';
 import {
     addDays,
     addHours,
@@ -51,6 +51,7 @@ import {
     startOfQuarter,
     startOfWeek,
     startOfYear,
+    subDays,
     subWeeks
 } from './functions';
 import { getGlobalTimezone } from './time-zone';
@@ -80,7 +81,9 @@ export class TinyDate implements Record<string, any> {
         this.timezone = timezone || getGlobalTimezone();
         TinyDate.defaultTimezone = this.timezone;
         if (date) {
-            if (date instanceof Date || typeof date === 'string' || typeof date === 'number') {
+            if (date instanceof Date) {
+                this.nativeDate = TinyDate.utcToZonedTime(date);
+            } else if (typeof date === 'string' || typeof date === 'number') {
                 this.nativeDate = new TZDate(new Date(date).getTime(), this.timezone);
             } else if (typeof ngDevMode === 'undefined' || ngDevMode) {
                 throw new Error(
@@ -94,17 +97,15 @@ export class TinyDate implements Record<string, any> {
         }
     }
 
-    static createTimeDate(value: Date, hours?: number, minutes?: number, seconds?: number): Date {
-        return new TZDate(
-            value.getFullYear(),
-            value.getMonth(),
-            value.getDate(),
-            hours || value.getHours(),
-            minutes || value.getMinutes(),
-            seconds || value.getSeconds(),
-            value.getMilliseconds(),
-            TinyDate.defaultTimezone
-        );
+    static utcToZonedTime(value: Date): Date {
+        return TZDate.tz(TinyDate.defaultTimezone, value);
+    }
+
+    static createDateInTimeZone(year: number, month: number, day: number, hours: number, minutes: number, seconds: number): Date {
+        const date = TinyDate.isUtcTime
+            ? new Date(year, month, day, hours, minutes, seconds)
+            : new Date(Date.UTC(year, month, day, hours, minutes, seconds));
+        return TinyDate.isUtcTime ? date : date.setMinutes(date.getMinutes() - date.getTimezoneOffset()) && date;
     }
 
     static fromUnixTime(unixTime: number): TinyDate {
@@ -195,6 +196,18 @@ export class TinyDate implements Record<string, any> {
 
     setDay(day: number, options?: { weekStartsOn: WeekDayIndex }): TinyDate {
         return new TinyDate(setDay(this.nativeDate, day, options), this.timezone);
+    }
+
+    setHours(hours: number) {
+        return new TinyDate(setHours(this.nativeDate, hours), this.timezone);
+    }
+
+    setMinutes(minutes: number) {
+        return new TinyDate(setMinutes(this.nativeDate, minutes), this.timezone);
+    }
+
+    setSeconds(seconds: number) {
+        return new TinyDate(setSeconds(this.nativeDate, seconds), this.timezone);
     }
 
     // add
@@ -501,5 +514,13 @@ export class TinyDate implements Record<string, any> {
 
     subWeeks(amount: number) {
         return new TinyDate(subWeeks(this.nativeDate, amount), this.timezone);
+    }
+
+    subDays(amount: number): TinyDate {
+        return new TinyDate(subDays(this.nativeDate, amount), this.timezone);
+    }
+
+    static isUtcTime() {
+        return TinyDate.defaultTimezone === 'Asia/Shanghai';
     }
 }

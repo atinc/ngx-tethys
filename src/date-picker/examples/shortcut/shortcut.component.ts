@@ -9,7 +9,7 @@ import { addWeeks, startOfDay, startOfWeek, TinyDate } from 'ngx-tethys/util';
 })
 export class ThyDatePickerShortcutExampleComponent implements OnInit {
     dateRange = { begin: new TinyDate('2023-05-30')?.nativeDate, end: new TinyDate('2023-06-02')?.nativeDate };
-    date = { date: new TinyDate()?.nativeDate, with_time: 0 };
+    date = { date: new TinyDate().getTime(), with_time: 0 };
     minDate = new TinyDate('2023-05-30')?.nativeDate;
     maxDate = new TinyDate('2023-06-03')?.nativeDate;
     customShortcut: ThyShortcutPreset[];
@@ -26,11 +26,11 @@ export class ThyDatePickerShortcutExampleComponent implements OnInit {
         this.shortcutDatePresets = [
             {
                 title: '今天',
-                value: startOfDay(new TinyDate()?.nativeDate).getTime()
+                value: startOfDay(new TinyDate().getTime()).getTime()
             },
             {
                 title: '下周',
-                value: startOfWeek(addWeeks(new TinyDate()?.nativeDate, 1), { weekStartsOn: 1 }).getTime()
+                value: startOfWeek(addWeeks(new TinyDate().getTime(), 1), { weekStartsOn: 1 }).getTime()
             }
         ];
     }

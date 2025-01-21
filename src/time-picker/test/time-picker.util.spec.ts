@@ -1,4 +1,4 @@
-import { TinyDate } from 'ngx-tethys/util';
+import { startOfDay, TinyDate } from 'ngx-tethys/util';
 import { Time, TimePickerComponentState } from '../inner/inner-time-picker.class';
 import { isValidLimit, setTime } from '../time-picker.utils';
 
@@ -25,7 +25,7 @@ describe('ThyTimePickerUtil', () => {
         describe('setTime', () => {
             it('return value', () => {
                 const opts = {} as Time;
-                expect(setTime(null, opts).toString()).toEqual(new TinyDate(new Date()).createTimeDate(null, null, null).toString());
+                expect(setTime(null, opts).toString()).toEqual(new TinyDate(startOfDay(new Date())).nativeDate.toString());
             });
 
             it('return date with 2013-11-05 11:05:02', () => {

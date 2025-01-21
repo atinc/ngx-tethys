@@ -40,11 +40,11 @@ export const DEFAULT_DATE_PICKER_CONFIG: ThyDatePickerConfig = {
         return [
             {
                 title: '最近 7 天',
-                value: [new TinyDate(subDays(new Date(), 6)).getTime(), new TinyDate().endOfDay().getTime()]
+                value: [new TinyDate(subDays(new TinyDate().getTime(), 6)).getTime(), new TinyDate().endOfDay().getTime()]
             },
             {
                 title: '最近 30 天',
-                value: [new TinyDate(subDays(new Date(), 29)).getTime(), new TinyDate().endOfDay().getTime()]
+                value: [new TinyDate(subDays(new TinyDate().getTime(), 29)).getTime(), new TinyDate().endOfDay().getTime()]
             },
             {
                 title: '本周',
@@ -88,11 +88,11 @@ export function useDatePickerDefaultConfig(): ThyDatePickerConfig {
             return [
                 {
                     title: locale().lastSevenDays,
-                    value: [new TinyDate(subDays(new Date(), 6)).getTime(), new TinyDate().endOfDay().getTime()]
+                    value: [new TinyDate().subDays(6).getTime(), new TinyDate().endOfDay().getTime()]
                 },
                 {
                     title: locale().lastThirtyDays,
-                    value: [new TinyDate(subDays(new Date(), 29)).getTime(), new TinyDate().endOfDay().getTime()]
+                    value: [new TinyDate().subDays(29).getTime(), new TinyDate().endOfDay().getTime()]
                 },
                 {
                     title: locale().currentWeek,

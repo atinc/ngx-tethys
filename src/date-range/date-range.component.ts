@@ -118,8 +118,8 @@ export class ThyDateRange implements OnInit, ControlValueAccessor {
         {
             key: 'week',
             text: this.locale().currentWeek,
-            begin: getUnixTime(startOfISOWeek(new TinyDate()?.nativeDate)),
-            end: getUnixTime(endOfISOWeek(new TinyDate()?.nativeDate)),
+            begin: getUnixTime(startOfISOWeek(new TinyDate().getTime())),
+            end: getUnixTime(endOfISOWeek(new TinyDate().getTime())),
             timestamp: {
                 interval: 7,
                 unit: 'day'
@@ -128,8 +128,8 @@ export class ThyDateRange implements OnInit, ControlValueAccessor {
         {
             key: 'month',
             text: this.locale().currentMonth,
-            begin: getUnixTime(startOfMonth(new TinyDate()?.nativeDate)),
-            end: getUnixTime(endOfMonth(new TinyDate()?.nativeDate)),
+            begin: getUnixTime(startOfMonth(new TinyDate().getTime())),
+            end: getUnixTime(endOfMonth(new TinyDate().getTime())),
             timestamp: {
                 interval: 1,
                 unit: 'month'

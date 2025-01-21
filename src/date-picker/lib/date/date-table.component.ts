@@ -1,6 +1,6 @@
 import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, OnChanges, Output, inject } from '@angular/core';
-import { TinyDate, valueFunctionProp } from 'ngx-tethys/util';
+import { TinyDate, getDate, getMonth, getYear, valueFunctionProp } from 'ngx-tethys/util';
 import { DateHelperService } from '../../date-helper.service';
 import { ThyDatePickerConfigService } from '../../date-picker.service';
 import { CalendarTable } from '../calendar/calendar-table.component';
@@ -31,9 +31,18 @@ export class DateTable extends CalendarTable implements OnChanges {
 
     private chooseDate(value: TinyDate): void {
         // Only change date not change time
-        // create select date with timezone
-        const date = new TinyDate(TinyDate.createTimeDate(value.nativeDate));
-        const newValue = this.activeDate.setYear(date.getYear()).setMonth(date.getMonth()).setDate(date.getDate());
+        const dateArr = value.nativeDate.toISOString().split('T')[0].split('-');
+        // 创建根据时区的固定日期，点击和展示一致
+        const [year, month, day] = dateArr;
+        const date = TinyDate.createDateInTimeZone(
+            Number(year),
+            Number(month) - 1,
+            Number(day),
+            this.activeDate?.getHours(),
+            this.activeDate?.getMinutes(),
+            this.activeDate?.getSeconds()
+        );
+        const newValue = this.activeDate.setYear(getYear(date)).setMonth(getMonth(date)).setDate(getDate(date));
         this.valueChange.emit(newValue);
     }
 

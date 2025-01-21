@@ -41,6 +41,7 @@ export const getDay = dateFns.getDay;
 export const getWeek = dateFns.getWeek;
 export const getMonth = dateFns.getMonth;
 export const getYear = dateFns.getYear;
+export const getDate = dateFns.getDate;
 export const getDaysInMonth = dateFns.getDaysInMonth;
 export const addSeconds = dateFns.addSeconds;
 export const addMinutes = dateFns.addMinutes;

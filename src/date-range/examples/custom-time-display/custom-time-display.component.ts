@@ -19,8 +19,8 @@ export class ThyDateRangeCustomTimeDisplayExampleComponent implements OnInit {
         {
             key: 'month',
             text: this.locale().currentMonth,
-            begin: getUnixTime(startOfMonth(new TinyDate()?.nativeDate)),
-            end: getUnixTime(endOfMonth(new TinyDate()?.nativeDate)),
+            begin: getUnixTime(startOfMonth(new TinyDate().getTime())),
+            end: getUnixTime(endOfMonth(new TinyDate().getTime())),
             timestamp: {
                 interval: 1,
                 unit: 'month'

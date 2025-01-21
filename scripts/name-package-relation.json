@@ -832,6 +832,7 @@
   "getMonth": "util",
   "getYear": "util",
   "getTime": "util",
+  "getDate": "util",
   "differenceInMonths": "util",
   "isAfter": "util",
   "differenceInYears": "util",

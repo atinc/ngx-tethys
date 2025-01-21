@@ -60,8 +60,8 @@ export class ThyCalendarHeader implements OnInit {
         {
             key: 'month',
             text: this.dateHelper.format(new TinyDate().nativeDate, this.pickerFormat),
-            begin: getUnixTime(startOfMonth(new TinyDate()?.nativeDate)),
-            end: getUnixTime(endOfMonth(new TinyDate()?.nativeDate)),
+            begin: getUnixTime(startOfMonth(new TinyDate().getTime())),
+            end: getUnixTime(endOfMonth(new TinyDate().getTime())),
             timestamp: {
                 interval: 1,
                 unit: 'month'
@@ -121,7 +121,6 @@ export class ThyCalendarHeader implements OnInit {
 
     isCurrentDate(currentDate: TinyDate) {
         this.isCurrent =
-            currentDate.getMonth() !== getMonth(new TinyDate()?.nativeDate) ||
-            currentDate.getYear() !== getYear(new TinyDate()?.nativeDate);
+            currentDate.getMonth() !== getMonth(new TinyDate().getTime()) || currentDate.getYear() !== getYear(new TinyDate().getTime());
     }
 }

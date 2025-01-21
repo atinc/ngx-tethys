@@ -7,7 +7,7 @@ import { TinyDate } from 'ngx-tethys/util';
 })
 export class ThyDatePickerFormatExampleComponent implements OnInit {
     monthFormat = 'yyyy/MM';
-    date = new TinyDate()?.nativeDate;
+    date = new TinyDate().getTime();
 
     formatTypes = ['yyyy/MM/dd', 'yyyy-MM-dd'];
 

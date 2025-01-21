@@ -24,8 +24,8 @@ export class ThyDateRangeOptionalDateRangesExampleComponent implements OnInit {
         {
             key: 'season',
             text: '本季度',
-            begin: getUnixTime(startOfQuarter(new TinyDate()?.nativeDate)),
-            end: getUnixTime(endOfQuarter(new TinyDate()?.nativeDate)),
+            begin: getUnixTime(startOfQuarter(new TinyDate().getTime())),
+            end: getUnixTime(endOfQuarter(new TinyDate().getTime())),
             timestamp: {
                 interval: 3,
                 unit: 'month'
@@ -35,8 +35,8 @@ export class ThyDateRangeOptionalDateRangesExampleComponent implements OnInit {
         {
             key: 'lastTwoMonths',
             text: '最近两个月',
-            begin: getUnixTime(addDays(addMonths(new TinyDate()?.nativeDate, -2), +1)),
-            end: getUnixTime(new TinyDate()?.nativeDate),
+            begin: getUnixTime(addDays(addMonths(new TinyDate().getTime(), -2), +1)),
+            end: getUnixTime(new TinyDate().getTime()),
             timestamp: {
                 interval: 2,
                 unit: 'month'
@@ -46,8 +46,8 @@ export class ThyDateRangeOptionalDateRangesExampleComponent implements OnInit {
         {
             key: 'lastThreeMonths',
             text: '最近三个月',
-            begin: getUnixTime(startOfMonth(setMonth(new TinyDate()?.nativeDate, getMonth(new TinyDate()?.nativeDate) - 2))),
-            end: getUnixTime(endOfMonth(new TinyDate()?.nativeDate)),
+            begin: getUnixTime(startOfMonth(setMonth(new TinyDate().getTime(), getMonth(new TinyDate().getTime()) - 2))),
+            end: getUnixTime(endOfMonth(new TinyDate().getTime())),
             timestamp: {
                 interval: 3,
                 unit: 'month'

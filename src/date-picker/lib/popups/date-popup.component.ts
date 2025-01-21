@@ -618,20 +618,22 @@ export class DatePopup implements OnChanges, OnInit {
 
         let selectedPresetValue: CompatibleValue;
         if (helpers.isArray(value)) {
-            const begin: number | Date = getShortcutValue(value[0]);
-            const end: number | Date = getShortcutValue(value[1]);
+            const begin: number | Date = this.createInZonedTime(new TinyDate(getShortcutValue(value[0])), 0, 0, 0);
+            const end: number | Date = this.createInZonedTime(new TinyDate(getShortcutValue(value[1])));
 
             if (begin && end) {
-                this.selectedValue = this.getSelectedShortcutPreset([
-                    new TinyDate(startOfDay(begin)),
-                    new TinyDate(endOfDay(end))
-                ]) as TinyDate[];
-
+                this.selectedValue = this.getSelectedShortcutPreset([new TinyDate(begin), new TinyDate(end)]) as TinyDate[];
                 selectedPresetValue = this.cloneRangeDate(this.selectedValue);
             }
         } else {
-            const singleDate: number | Date = getShortcutValue(value);
-            const singleTinyDate: TinyDate = this.updateHourMinute(new TinyDate(singleDate));
+            const originDate = this.value as TinyDate;
+            const zonedTime = this.createInZonedTime(
+                new TinyDate(getShortcutValue(value)),
+                originDate?.getHours() ?? 0,
+                originDate?.getMinutes() ?? 0,
+                originDate?.getSeconds() ?? 0
+            );
+            const singleTinyDate: TinyDate = this.updateHourMinute(new TinyDate(zonedTime));
             selectedPresetValue = this.getSelectedShortcutPreset(singleTinyDate) as TinyDate;
         }
         this.setValue(selectedPresetValue);
@@ -643,5 +645,16 @@ export class DatePopup implements OnChanges, OnInit {
         if (!helpers.isArray(value) && this.showTime && this.showTimePicker) {
             this.updateActiveDate();
         }
+    }
+
+    private createInZonedTime(date: TinyDate, hours?: number, minutes?: number, seconds?: number): Date {
+        return TinyDate.createDateInTimeZone(
+            date.getYear(),
+            date.getMonth(),
+            date.getDate(),
+            hours ?? date.getHours(),
+            minutes ?? date.getMinutes(),
+            seconds ?? date.getSeconds()
+        );
     }
 }

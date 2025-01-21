@@ -68,7 +68,7 @@ export function parseTime(value: string | Date): Date {
     } else if (value instanceof TinyDate) {
         return value?.nativeDate;
     } else {
-        return value;
+        return new TinyDate(value)?.nativeDate;
     }
 }
 
@@ -124,7 +124,7 @@ export function setTime(value: Date, opts: Time): Date {
 }
 
 export function createDate(value: Date, hours: number, minutes: number, seconds: number): Date {
-    return TinyDate.createTimeDate(value, hours, minutes, seconds);
+    return new TinyDate(value).setHours(hours).setMinutes(minutes).setSeconds(seconds).nativeDate;
 }
 
 export function padNumber(value: number): string {

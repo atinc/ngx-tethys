@@ -7,7 +7,7 @@ import { differenceInDays, endOfDay, startOfDay, subWeeks, TinyDate } from 'ngx-
     templateUrl: './directive.component.html'
 })
 export class ThyDatePickerDirectiveExampleComponent implements OnInit {
-    date = { date: new TinyDate()?.nativeDate, with_time: 0 } as DateEntry;
+    date = { date: new TinyDate().getTime(), with_time: 0 } as DateEntry;
 
     time = {
         date: 1234567890,
@@ -31,11 +31,11 @@ export class ThyDatePickerDirectiveExampleComponent implements OnInit {
         return [
             {
                 title: '最近6周',
-                value: [subWeeks(startOfDay(new TinyDate()?.nativeDate), 5).getTime(), endOfDay(new TinyDate()?.nativeDate).getTime()]
+                value: [subWeeks(startOfDay(new TinyDate().getTime()), 5).getTime(), endOfDay(new TinyDate().getTime()).getTime()]
             },
             {
                 title: '最近12周',
-                value: [subWeeks(startOfDay(new TinyDate()?.nativeDate), 11).getTime(), endOfDay(new TinyDate()?.nativeDate).getTime()]
+                value: [subWeeks(startOfDay(new TinyDate().getTime()), 11).getTime(), endOfDay(new TinyDate().getTime()).getTime()]
             }
         ];
     };
