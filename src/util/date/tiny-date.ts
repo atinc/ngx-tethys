@@ -1,4 +1,4 @@
-import { TZDate } from '@date-fns/tz';
+import { TZDate, tzOffset } from '@date-fns/tz';
 import { FirstWeekContainsDate, Locale, setHours, setMinutes, setSeconds } from 'date-fns';
 import {
     addDays,
@@ -105,7 +105,8 @@ export class TinyDate implements Record<string, any> {
         const date = TinyDate.isUtcTime
             ? new Date(year, month, day, hours, minutes, seconds)
             : new Date(Date.UTC(year, month, day, hours, minutes, seconds));
-        return TinyDate.isUtcTime ? date : date.setMinutes(date.getMinutes() - date.getTimezoneOffset()) && date;
+        const timezoneOffset = tzOffset(TinyDate.defaultTimezone, date);
+        return TinyDate.isUtcTime ? date : date.setMinutes(date.getMinutes() - timezoneOffset) && date;
     }
 
     static fromUnixTime(unixTime: number): TinyDate {

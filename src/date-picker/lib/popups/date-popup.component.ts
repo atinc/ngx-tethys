@@ -618,8 +618,8 @@ export class DatePopup implements OnChanges, OnInit {
 
         let selectedPresetValue: CompatibleValue;
         if (helpers.isArray(value)) {
-            const begin: number | Date = this.createInZonedTime(new TinyDate(getShortcutValue(value[0])), 0, 0, 0);
-            const end: number | Date = this.createInZonedTime(new TinyDate(getShortcutValue(value[1])));
+            const begin: number | Date = getShortcutValue(value[0]);
+            const end: number | Date = getShortcutValue(value[1]);
 
             if (begin && end) {
                 this.selectedValue = this.getSelectedShortcutPreset([new TinyDate(begin), new TinyDate(end)]) as TinyDate[];
@@ -648,13 +648,6 @@ export class DatePopup implements OnChanges, OnInit {
     }
 
     private createInZonedTime(date: TinyDate, hours?: number, minutes?: number, seconds?: number): Date {
-        return TinyDate.createDateInTimeZone(
-            date.getYear(),
-            date.getMonth(),
-            date.getDate(),
-            hours ?? date.getHours(),
-            minutes ?? date.getMinutes(),
-            seconds ?? date.getSeconds()
-        );
+        return TinyDate.createDateInTimeZone(date.getYear(), date.getMonth(), date.getDate(), hours, minutes, seconds);
     }
 }
