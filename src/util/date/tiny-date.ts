@@ -188,7 +188,7 @@ export class TinyDate implements Record<string, any> {
         return new TinyDate(setMonth(this.nativeDate, month), this.timezone);
     }
 
-    setQuarter(quarter: number) {
+    setQuarter(quarter: number): TinyDate {
         return new TinyDate(setQuarter(this.nativeDate, quarter), this.timezone);
     }
 
@@ -196,15 +196,15 @@ export class TinyDate implements Record<string, any> {
         return new TinyDate(setDay(this.nativeDate, day, options), this.timezone);
     }
 
-    setHours(hours: number) {
+    setHours(hours: number): TinyDate {
         return new TinyDate(setHours(this.nativeDate, hours), this.timezone);
     }
 
-    setMinutes(minutes: number) {
+    setMinutes(minutes: number): TinyDate {
         return new TinyDate(setMinutes(this.nativeDate, minutes), this.timezone);
     }
 
-    setSeconds(seconds: number) {
+    setSeconds(seconds: number): TinyDate {
         return new TinyDate(setSeconds(this.nativeDate, seconds), this.timezone);
     }
 
@@ -370,7 +370,7 @@ export class TinyDate implements Record<string, any> {
     }
 
     // is
-    isWeekend() {
+    isWeekend(): boolean {
         return isWeekend(this.nativeDate);
     }
 
@@ -494,11 +494,11 @@ export class TinyDate implements Record<string, any> {
         return date instanceof TinyDate ? date.nativeDate : date;
     }
 
-    startOfISOWeek() {
+    startOfISOWeek(): TinyDate {
         return new TinyDate(startOfISOWeek(this.nativeDate), this.timezone);
     }
 
-    endOfISOWeek() {
+    endOfISOWeek(): TinyDate {
         return new TinyDate(endOfISOWeek(this.nativeDate), this.timezone);
     }
 
@@ -510,7 +510,7 @@ export class TinyDate implements Record<string, any> {
         return differenceInHours(this.nativeDate, date);
     }
 
-    subWeeks(amount: number) {
+    subWeeks(amount: number): TinyDate {
         return new TinyDate(subWeeks(this.nativeDate, amount), this.timezone);
     }
 
