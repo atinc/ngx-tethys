@@ -622,7 +622,10 @@ export class DatePopup implements OnChanges, OnInit {
             const end: number | Date = getShortcutValue(value[1]);
 
             if (begin && end) {
-                this.selectedValue = this.getSelectedShortcutPreset([new TinyDate(begin), new TinyDate(end)]) as TinyDate[];
+                this.selectedValue = this.getSelectedShortcutPreset([
+                    new TinyDate(begin).startOfDay(),
+                    new TinyDate(end).endOfDay()
+                ]) as TinyDate[];
                 selectedPresetValue = this.cloneRangeDate(this.selectedValue);
             }
         } else {

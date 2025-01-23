@@ -10,8 +10,9 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { ThyDatePickerModule } from './date-picker.module';
 import { ThyPropertyOperation, ThyPropertyOperationModule } from 'ngx-tethys/property-operation';
+import { TinyDate } from 'ngx-tethys/util';
+import { ThyDatePickerModule } from './date-picker.module';
 import { CompatiblePresets, ThyDateRangeEntry, ThyShortcutPosition } from './standard-types';
 
 registerLocaleData(zh);
@@ -127,7 +128,7 @@ describe('ThyRangePickerDirective', () => {
             fixtureInstance.thyShortcutPresets = [
                 {
                     title: '回家那几天',
-                    value: [new Date('2022-01-29').getTime(), new Date('2022-02-8').getTime()]
+                    value: [new TinyDate('2022-01-29').getTime(), new TinyDate('2022-02-8').getTime()]
                 }
             ];
             fixture.detectChanges();

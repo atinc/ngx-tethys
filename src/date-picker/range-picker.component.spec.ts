@@ -9,12 +9,12 @@ import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/cor
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { ThyDatePickerModule } from './date-picker.module';
-import { CompatiblePresets, ThyDateRangeEntry, ThyPanelMode, ThyShortcutPosition } from './standard-types';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TinyDate } from 'ngx-tethys/util';
 import { THY_DATE_PICKER_CONFIG } from './date-picker.config';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ThyDatePickerModule } from './date-picker.module';
 import { DatePopup } from './lib/popups/date-popup.component';
+import { CompatiblePresets, ThyDateRangeEntry, ThyPanelMode, ThyShortcutPosition } from './standard-types';
 
 registerLocaleData(zh);
 
@@ -40,11 +40,11 @@ describe('ThyRangePickerComponent', () => {
         return [
             {
                 title: '最近 7 天',
-                value: [new TinyDate(subDays(new Date(), 6)).getTime(), new TinyDate().endOfDay().getTime()]
+                value: [new TinyDate(subDays(new TinyDate().getTime(), 6)).getTime(), new TinyDate().endOfDay().getTime()]
             },
             {
                 title: '最近 30 天',
-                value: [new TinyDate(subDays(new Date(), 29)).getTime(), new TinyDate().endOfDay().getTime()]
+                value: [new TinyDate(subDays(new TinyDate().getTime(), 29)).getTime(), new TinyDate().endOfDay().getTime()]
             },
             {
                 title: '本周',
@@ -113,40 +113,40 @@ describe('ThyRangePickerComponent', () => {
         }));
 
         it('should be [] when startDate > thyMaxDate || endDate < thyMinDate', fakeAsync(() => {
-            const minDate: Date = startOfDay(addDays(new Date(), 10));
-            const maxDate: Date = endOfDay(addDays(new Date(), 30));
+            const minDate: Date = startOfDay(addDays(new TinyDate().getTime(), 10));
+            const maxDate: Date = endOfDay(addDays(new TinyDate().getTime(), 30));
             const expectValue = '';
 
             assertAccordingToMinAndMaxDate(minDate, maxDate, expectValue);
         }));
 
         it('should be [thyMinDate, thyMaxDate] when startDate < thyMinDate && endDate > thyMaxDate', fakeAsync(() => {
-            const minDate: Date = startOfDay(addDays(new Date(), -3));
-            const maxDate: Date = endOfDay(addDays(new Date(), -1));
+            const minDate: Date = startOfDay(addDays(new TinyDate().getTime(), -3));
+            const maxDate: Date = endOfDay(addDays(new TinyDate().getTime(), -1));
             const expectValue = `${format(minDate.getTime(), 'yyyy-MM-dd')} ~ ${format(maxDate.getTime(), 'yyyy-MM-dd')}`;
 
             assertAccordingToMinAndMaxDate(minDate, maxDate, expectValue);
         }));
 
         it('should be [thyMinDate, endDate] when startDate < thyMinDate', fakeAsync(() => {
-            const minDate: Date = startOfDay(addDays(new Date(), -3));
-            const maxDate: Date = endOfDay(addDays(new Date(), 30));
+            const minDate: Date = startOfDay(addDays(new TinyDate().getTime(), -3));
+            const maxDate: Date = endOfDay(addDays(new TinyDate().getTime(), 30));
             const expectValue = `${format(minDate.getTime(), 'yyyy-MM-dd')} ~ ${format(endDate, 'yyyy-MM-dd')}`;
 
             assertAccordingToMinAndMaxDate(minDate, maxDate, expectValue);
         }));
 
         it('should be [startDate, thyMaxDate] when endDate > thyMaxDate', fakeAsync(() => {
-            const minDate: Date = startOfDay(addDays(new Date(), -10));
-            const maxDate: Date = endOfDay(addDays(new Date(), -1));
+            const minDate: Date = startOfDay(addDays(new TinyDate().getTime(), -10));
+            const maxDate: Date = endOfDay(addDays(new TinyDate().getTime(), -1));
             const expectValue = `${format(startDate, 'yyyy-MM-dd')} ~ ${format(maxDate.getTime(), 'yyyy-MM-dd')}`;
 
             assertAccordingToMinAndMaxDate(minDate, maxDate, expectValue);
         }));
 
         it('should be [startDate, endDate] when startDate >= thyMinDate && endDate <= thyMaxDate', fakeAsync(() => {
-            const minDate: Date = startOfDay(addDays(new Date(), -30));
-            const maxDate: Date = endOfDay(addDays(new Date(), 30));
+            const minDate: Date = startOfDay(addDays(new TinyDate().getTime(), -30));
+            const maxDate: Date = endOfDay(addDays(new TinyDate().getTime(), 30));
             const expectValue = `${format(startDate, 'yyyy-MM-dd')} ~ ${format(endDate, 'yyyy-MM-dd')}`;
 
             assertAccordingToMinAndMaxDate(minDate, maxDate, expectValue);
@@ -177,7 +177,7 @@ describe('ThyRangePickerComponent', () => {
         });
 
         it('should disable shortcut item whose min preset is greater than thyMaxDate', fakeAsync(() => {
-            fixtureInstance.thyMaxDate = endOfDay(addDays(new Date(), -7));
+            fixtureInstance.thyMaxDate = endOfDay(addDays(new TinyDate().getTime(), -7));
             fixture.detectChanges();
 
             openPickerByClickTrigger();
@@ -240,7 +240,7 @@ describe('ThyRangePickerComponent', () => {
 
         it('should support thyAllowClear and work properly', fakeAsync(() => {
             const clearBtnSelector = By.css('thy-picker .thy-calendar-picker-clear .thy-icon');
-            const initial = (fixtureInstance.modelValue = { begin: new Date(), end: new Date() });
+            const initial = (fixtureInstance.modelValue = { begin: new TinyDate().getTime(), end: new TinyDate().getTime() });
             fixtureInstance.thyAllowClear = false;
             fixture.detectChanges();
             expect(debugElement.query(clearBtnSelector)).toBeNull();
@@ -263,7 +263,7 @@ describe('ThyRangePickerComponent', () => {
         it('should support thyDisabled', fakeAsync(() => {
             // Make sure picker clear button shown up
             fixtureInstance.thyAllowClear = true;
-            fixtureInstance.modelValue = { begin: new Date(), end: new Date() };
+            fixtureInstance.modelValue = { begin: new TinyDate().getTime(), end: new TinyDate().getTime() };
 
             fixtureInstance.thyDisabled = true;
             fixture.detectChanges();
@@ -300,10 +300,10 @@ describe('ThyRangePickerComponent', () => {
 
         it('should support thyDisabledDate', fakeAsync(() => {
             fixture.detectChanges();
-            const compareDate = new Date('2018-11-15 00:00:00');
+            const compareDate = new TinyDate('2018-11-15 00:00:00').getTime();
             fixtureInstance.modelValue = {
-                begin: new Date('2018-11-11 12:12:12'),
-                end: new Date('2018-12-12 12:12:12')
+                begin: new TinyDate('2018-11-11 12:12:12').getTime(),
+                end: new TinyDate('2018-12-12 12:12:12').getTime()
             };
             fixtureInstance.thyDisabledDate = (current: Date) => isSameDay(current, compareDate);
             fixture.detectChanges();
@@ -363,7 +363,7 @@ describe('ThyRangePickerComponent', () => {
         }));
 
         it('should support thyValue', fakeAsync(() => {
-            fixtureInstance.modelValue = { begin: new Date('2018-11-11'), end: new Date('2018-12-11') };
+            fixtureInstance.modelValue = { begin: new TinyDate('2018-11-11').getTime(), end: new TinyDate('2018-12-11').getTime() };
             fixture.detectChanges();
             openPickerByClickTrigger();
             expect(getFirstSelectedDayCell().textContent.trim()).toBe('11');
@@ -389,7 +389,7 @@ describe('ThyRangePickerComponent', () => {
             fixtureInstance.thyShortcutPresets = [
                 {
                     title: '回家那几天',
-                    value: [new Date('2022-01-29').getTime(), new Date('2022-02-8').getTime()]
+                    value: [new TinyDate('2022-01-29').getTime(), new TinyDate('2022-02-8').getTime()]
                 }
             ];
             const thyOnChange = spyOn(fixtureInstance, 'modelValueChange');
@@ -525,7 +525,7 @@ describe('ThyRangePickerComponent', () => {
         }));
 
         it('should support thyOnChange', fakeAsync(() => {
-            fixtureInstance.modelValue = { begin: new Date('2018-11-11'), end: new Date('2018-11-11') };
+            fixtureInstance.modelValue = { begin: new TinyDate('2018-11-11').getTime(), end: new TinyDate('2018-11-11').getTime() };
             const thyOnChange = spyOn(fixtureInstance, 'modelValueChange');
             fixture.detectChanges();
             openPickerByClickTrigger();
@@ -553,7 +553,7 @@ describe('ThyRangePickerComponent', () => {
         beforeEach(() => (fixtureInstance.useSuite = 1));
 
         it('should support date panel changes', fakeAsync(() => {
-            fixtureInstance.modelValue = { begin: new Date('2018-6-11'), end: new Date('2020-12-12') };
+            fixtureInstance.modelValue = { begin: new TinyDate('2018-6-11').getTime(), end: new TinyDate('2020-12-12').getTime() };
             fixture.detectChanges();
             openPickerByClickTrigger();
             // Click previous year button
@@ -579,7 +579,7 @@ describe('ThyRangePickerComponent', () => {
         }));
 
         it('should show current thy-calendar-next-month-btn and thy-calendar-next-year-btn', fakeAsync(() => {
-            fixtureInstance.modelValue = { begin: new Date('2018-10-11'), end: new Date('2018-12-12') };
+            fixtureInstance.modelValue = { begin: new TinyDate('2018-10-11').getTime(), end: new TinyDate('2018-12-12').getTime() };
             fixture.detectChanges();
             openPickerByClickTrigger();
 
@@ -609,7 +609,7 @@ describe('ThyRangePickerComponent', () => {
         beforeEach(() => (fixtureInstance.useSuite = 1));
 
         it('should not change value when click ESC', fakeAsync(() => {
-            fixtureInstance.modelValue = { begin: new Date('2018-09-11'), end: new Date('2020-09-12') };
+            fixtureInstance.modelValue = { begin: new TinyDate('2018-09-11').getTime(), end: new TinyDate('2020-09-12').getTime() };
             fixture.detectChanges();
             tick();
             fixture.detectChanges();
@@ -626,7 +626,7 @@ describe('ThyRangePickerComponent', () => {
         beforeEach(() => (fixtureInstance.useSuite = 3));
 
         it('should specified date provide by "modelValue" be choose', fakeAsync(() => {
-            fixtureInstance.modelValue = { begin: new Date('2018-11-11'), end: new Date('2018-12-12') };
+            fixtureInstance.modelValue = { begin: new TinyDate('2018-11-11').getTime(), end: new TinyDate('2018-12-12').getTime() };
             fixture.detectChanges();
             tick(500); // Wait writeValue() tobe done
             fixture.detectChanges();
@@ -655,7 +655,7 @@ describe('ThyRangePickerComponent', () => {
         });
 
         it('should range date provide by "modelValue" be choose', fakeAsync(() => {
-            fixtureInstance.modelValue = { begin: new Date('2022-08'), end: new Date('2023-12') };
+            fixtureInstance.modelValue = { begin: new TinyDate('2022-08').getTime(), end: new TinyDate('2023-12').getTime() };
             fixture.detectChanges();
             tick();
             fixture.detectChanges();
@@ -671,7 +671,7 @@ describe('ThyRangePickerComponent', () => {
         });
 
         it('should show month panel', fakeAsync(() => {
-            fixtureInstance.modelValue = { begin: new Date('2018-09-11'), end: new Date('2020-10-12') };
+            fixtureInstance.modelValue = { begin: new TinyDate('2018-09-11').getTime(), end: new TinyDate('2020-10-12').getTime() };
             fixture.detectChanges();
             openPickerByClickTrigger();
             expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-month')).toBeTruthy();
@@ -681,7 +681,7 @@ describe('ThyRangePickerComponent', () => {
         }));
 
         it('should support previous and next year', fakeAsync(() => {
-            fixtureInstance.modelValue = { begin: new Date('2018-09-11'), end: new Date('2018-10-12') };
+            fixtureInstance.modelValue = { begin: new TinyDate('2018-09-11').getTime(), end: new TinyDate('2018-10-12').getTime() };
             fixture.detectChanges();
             openPickerByClickTrigger();
             fixture.detectChanges();
@@ -705,7 +705,7 @@ describe('ThyRangePickerComponent', () => {
         }));
 
         it('should support panel changes', fakeAsync(() => {
-            fixtureInstance.modelValue = { begin: new Date('2018-09-11'), end: new Date('2018-10-12') };
+            fixtureInstance.modelValue = { begin: new TinyDate('2018-09-11').getTime(), end: new TinyDate('2018-10-12').getTime() };
             fixture.detectChanges();
             openPickerByClickTrigger();
             fixture.detectChanges();
@@ -741,7 +741,7 @@ describe('ThyRangePickerComponent', () => {
         }));
 
         it('should show flexible custom panel', fakeAsync(() => {
-            fixtureInstance.flexibleDateRange = { begin: new Date('2018-09-11'), end: new Date('2018-10-12') };
+            fixtureInstance.flexibleDateRange = { begin: new TinyDate('2018-09-11').getTime(), end: new TinyDate('2018-10-12').getTime() };
             fixture.detectChanges();
             openPickerByClickTrigger();
             fixture.detectChanges();
@@ -760,14 +760,14 @@ describe('ThyRangePickerComponent', () => {
             const yearBtns = Array.from(selectableButtons).slice(0, 3);
             dispatchMouseEvent(yearBtns[0], 'click');
             fixture.detectChanges();
-            expect(fromUnixTime(fixtureInstance.flexibleDateRange.begin as number).getFullYear()).toBe(new Date().getFullYear());
+            expect(fromUnixTime(fixtureInstance.flexibleDateRange.begin as number).getFullYear()).toBe(new TinyDate().getFullYear());
             expect(fixtureInstance.flexibleDateRange.granularity).toBe('year');
             expect(thyOnChange).toHaveBeenCalledWith({
                 begin: new TinyDate().startOfYear().getUnixTime(),
                 end: new TinyDate().endOfYear().getUnixTime(),
                 granularity: 'year'
             });
-            expect(getRangePickerInput().value).toBe(new Date().getFullYear() + '年');
+            expect(getRangePickerInput().value).toBe(new TinyDate().getFullYear() + '年');
         }));
 
         it('should select advanced quarter', fakeAsync(() => {
@@ -800,7 +800,7 @@ describe('ThyRangePickerComponent', () => {
             const monthBtns = Array.from(selectableButtons).slice(7);
             dispatchMouseEvent(monthBtns[0], 'click');
             fixture.detectChanges();
-            expect(fromUnixTime(fixtureInstance.flexibleDateRange.begin as number).getMonth()).toBe(new Date().getMonth());
+            expect(fromUnixTime(fixtureInstance.flexibleDateRange.begin as number).getMonth()).toBe(new TinyDate().getMonth());
             expect(fixtureInstance.flexibleDateRange.granularity).toBe('month');
             expect(thyOnChange).toHaveBeenCalledWith({
                 begin: new TinyDate().startOfMonth().getUnixTime(),
@@ -835,7 +835,11 @@ describe('ThyRangePickerComponent', () => {
         }));
 
         it('should clear worked', fakeAsync(() => {
-            fixtureInstance.flexibleDateRange = { begin: new Date('2018-09-11'), end: new Date('2018-10-12'), granularity: 'month' };
+            fixtureInstance.flexibleDateRange = {
+                begin: new TinyDate('2018-09-11').getTime(),
+                end: new TinyDate('2018-10-12').getTime(),
+                granularity: 'month'
+            };
             fixture.detectChanges();
             openPickerByClickTrigger();
             const clearBtn = overlayContainerElement.querySelector('.thy-calendar-date-panel-flexible-tab button');
@@ -850,7 +854,7 @@ describe('ThyRangePickerComponent', () => {
             tick(500);
             fixture.detectChanges();
 
-            fixtureInstance.flexibleDateRange = { begin: new Date('2018-09-11'), end: new Date('2018-10-12') };
+            fixtureInstance.flexibleDateRange = { begin: new TinyDate('2018-09-11').getTime(), end: new TinyDate('2018-10-12').getTime() };
             fixture.detectChanges();
             openPickerByClickTrigger();
             fixture.detectChanges();
