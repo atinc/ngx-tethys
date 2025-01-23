@@ -627,7 +627,7 @@ export class DatePopup implements OnChanges, OnInit {
             }
         } else {
             const originDate = this.value as TinyDate;
-            const zonedTime = this.createInZonedTime(
+            const zonedTime = this.createInZoneTime(
                 new TinyDate(getShortcutValue(value)),
                 originDate?.getHours() ?? 0,
                 originDate?.getMinutes() ?? 0,
@@ -647,7 +647,7 @@ export class DatePopup implements OnChanges, OnInit {
         }
     }
 
-    private createInZonedTime(date: TinyDate, hours?: number, minutes?: number, seconds?: number): Date {
+    private createInZoneTime(date: TinyDate, hours?: number, minutes?: number, seconds?: number): Date {
         return TinyDate.createDateInTimeZone(date.getYear(), date.getMonth(), date.getDate(), hours, minutes, seconds);
     }
 }
