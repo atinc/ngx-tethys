@@ -102,11 +102,8 @@ export class TinyDate implements Record<string, any> {
     }
 
     static createDateInTimeZone(year: number, month: number, day: number, hours: number, minutes: number, seconds: number): Date {
-        const date = TinyDate.isUtcTime
-            ? new Date(year, month, day, hours, minutes, seconds)
-            : new Date(Date.UTC(year, month, day, hours, minutes, seconds));
-        const timezoneOffset = tzOffset(TinyDate.defaultTimezone, date);
-        return TinyDate.isUtcTime ? date : date.setMinutes(date.getMinutes() - timezoneOffset) && date;
+        const date = new Date(Date.UTC(year, month, day, hours, minutes, seconds));
+        return date.setMinutes(date.getMinutes() - tzOffset(TinyDate.defaultTimezone, date)) && date;
     }
 
     static fromUnixTime(unixTime: number): TinyDate {
@@ -519,9 +516,5 @@ export class TinyDate implements Record<string, any> {
 
     subDays(amount: number): TinyDate {
         return new TinyDate(subDays(this.nativeDate, amount), this.timezone);
-    }
-
-    static isUtcTime() {
-        return TinyDate.defaultTimezone === 'Asia/Shanghai';
     }
 }
