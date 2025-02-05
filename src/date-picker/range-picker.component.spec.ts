@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { TinyDate } from 'ngx-tethys/util';
+import { setDefaultTimeZone, TinyDate } from 'ngx-tethys/util';
 import { THY_DATE_PICKER_CONFIG } from './date-picker.config';
 import { ThyDatePickerModule } from './date-picker.module';
 import { DatePopup } from './lib/popups/date-popup.component';
@@ -80,6 +80,7 @@ describe('ThyRangePickerComponent', () => {
         fixture = TestBed.createComponent(ThyTestRangePickerComponent);
         fixtureInstance = fixture.componentInstance;
         debugElement = fixture.debugElement;
+        setDefaultTimeZone('Asia/Shanghai');
     });
 
     beforeEach(inject([OverlayContainer], (oc: OverlayContainer) => {

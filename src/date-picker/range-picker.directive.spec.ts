@@ -11,7 +11,7 @@ import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ThyPropertyOperation, ThyPropertyOperationModule } from 'ngx-tethys/property-operation';
-import { TinyDate } from 'ngx-tethys/util';
+import { setDefaultTimeZone, TinyDate } from 'ngx-tethys/util';
 import { ThyDatePickerModule } from './date-picker.module';
 import { CompatiblePresets, ThyDateRangeEntry, ThyShortcutPosition } from './standard-types';
 
@@ -38,6 +38,7 @@ describe('ThyRangePickerDirective', () => {
         fixture = TestBed.createComponent(ThyTestRangePickerComponent);
         fixtureInstance = fixture.componentInstance;
         debugElement = fixture.debugElement;
+        setDefaultTimeZone('Asia/Shanghai');
     });
 
     beforeEach(inject([OverlayContainer], (oc: OverlayContainer) => {

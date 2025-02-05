@@ -1,13 +1,13 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, DebugElement, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, flush, inject, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { dispatchMouseEvent } from 'ngx-tethys/testing';
-import { ThyDatePickerModule } from './date-picker.module';
-import { TinyDate } from '../util';
-import { ThyQuarterPicker } from './quarter-picker.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { dispatchMouseEvent } from 'ngx-tethys/testing';
+import { setDefaultTimeZone, TinyDate } from '../util';
+import { ThyDatePickerModule } from './date-picker.module';
+import { ThyQuarterPicker } from './quarter-picker.component';
 
 describe('ThyQuarterPickerComponent', () => {
     let fixture: ComponentFixture<TestQuarterPickerComponent>;
@@ -30,6 +30,7 @@ describe('ThyQuarterPickerComponent', () => {
         fixture = TestBed.createComponent(TestQuarterPickerComponent);
         fixtureInstance = fixture.componentInstance;
         debugElement = fixture.debugElement;
+        setDefaultTimeZone('Asia/Shanghai');
     });
 
     beforeEach(inject([OverlayContainer], (oc: OverlayContainer) => {
