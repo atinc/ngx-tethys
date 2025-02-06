@@ -6,20 +6,20 @@ import { auditTime, map, takeUntil } from 'rxjs/operators';
 import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
 import {
-    AfterViewInit,
-    ChangeDetectionStrategy,
-    Component,
-    ElementRef,
-    NgZone,
-    numberAttribute,
-    OnDestroy,
-    Renderer2,
-    ViewChild,
-    ViewEncapsulation,
-    inject,
-    input,
-    effect,
-    output
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  NgZone,
+  numberAttribute,
+  OnDestroy,
+  Renderer2,
+  ViewEncapsulation,
+  inject,
+  input,
+  effect,
+  output,
+  viewChild
 } from '@angular/core';
 
 import { AffixRespondEvents } from './respond-events';
@@ -50,7 +50,7 @@ export class ThyAffix implements AfterViewInit, OnDestroy {
     private platform = inject(Platform);
     private renderer = inject(Renderer2);
 
-    @ViewChild('fixedElement', { static: true }) private fixedElement!: ElementRef<HTMLDivElement>;
+    readonly fixedElement = viewChild.required<ElementRef<HTMLDivElement>>('fixedElement');
 
     /**
      * 设置 thy-affix 需要监听其滚动事件的元素，值为一个返回对应 DOM 元素的函数
@@ -167,7 +167,7 @@ export class ThyAffix implements AfterViewInit, OnDestroy {
         }
 
         const fixed = !!affixStyle;
-        const wrapElement = this.fixedElement.nativeElement;
+        const wrapElement = this.fixedElement().nativeElement;
         this.renderer.setStyle(wrapElement, 'cssText', dom.getStyleAsText(affixStyle));
         this.affixStyle = affixStyle;
         if (fixed) {
@@ -198,7 +198,7 @@ export class ThyAffix implements AfterViewInit, OnDestroy {
         this.placeholderStyle = undefined;
         const styleObj = {
             width: this.placeholderNode.offsetWidth,
-            height: this.fixedElement.nativeElement.offsetHeight
+            height: this.fixedElement().nativeElement.offsetHeight
         };
         this.setAffixStyle(e, {
             ...this.affixStyle,
@@ -216,7 +216,7 @@ export class ThyAffix implements AfterViewInit, OnDestroy {
         let offsetTop = this.thyOffsetTop();
         const scrollTop = this.scrollService.getScroll(containerNode, true);
         const elementOffset = this.getOffset(this.placeholderNode, containerNode);
-        const fixedNode = this.fixedElement.nativeElement;
+        const fixedNode = this.fixedElement().nativeElement;
         const elemSize = {
             width: fixedNode.offsetWidth,
             height: fixedNode.offsetHeight
