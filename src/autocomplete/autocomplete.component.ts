@@ -5,8 +5,6 @@ import {
     ContentChildren,
     QueryList,
     OnInit,
-    Output,
-    EventEmitter,
     NgZone,
     OnDestroy,
     AfterContentInit,
@@ -114,13 +112,12 @@ export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, After
     /**
      * 是否默认高亮第一个选项
      */
-    thyAutoActiveFirstOption = input<boolean, unknown>(false, { transform: coerceBooleanProperty });
+    readonly thyAutoActiveFirstOption = input<boolean, unknown>(false, { transform: coerceBooleanProperty });
 
     /**
      * 被选中时调用，参数包含选中项的 value 值
-     * * @type EventEmitter<ThyOptionSelectionChangeEvent>
      */
-    @Output() thyOptionSelected: EventEmitter<ThyOptionSelectionChangeEvent> = new EventEmitter<ThyOptionSelectionChangeEvent>();
+    readonly thyOptionSelected = output<ThyOptionSelectionChangeEvent>();
 
     /**
      * 只读，展开下拉菜单的回调

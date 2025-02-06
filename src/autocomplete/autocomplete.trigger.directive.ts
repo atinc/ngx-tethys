@@ -24,6 +24,7 @@ import { Subject, Observable, merge, fromEvent, of, Subscription } from 'rxjs';
 import { ESCAPE, UP_ARROW, ENTER, DOWN_ARROW, TAB, coerceBooleanProperty } from 'ngx-tethys/util';
 import { filter, map, take, delay, switchMap } from 'rxjs/operators';
 import { ScrollToService } from 'ngx-tethys/core';
+import { outputToObservable } from '@angular/core/rxjs-interop';
 
 /**
  * 自动完成触发指令
@@ -93,9 +94,8 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
 
     /**
      * 是否允许聚焦时打开下拉菜单
-     * @type boolean
      */
-    readonly thyIsFocusOpen = input(true, { transform: coerceBooleanProperty });
+    readonly thyIsFocusOpen = input<boolean, unknown>(true, { transform: coerceBooleanProperty });
 
     activeOption: Signal<ThyOption | null> = computed(() => {
         if (this.autocompleteComponent() && this.autocompleteComponent().keyManager) {
@@ -106,7 +106,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
 
     get panelClosingActions(): Observable<ThyOptionSelectionChangeEvent | null> {
         return merge(
-            this.autocompleteComponent().thyOptionSelected,
+            outputToObservable(this.autocompleteComponent().thyOptionSelected),
             this.autocompleteComponent().keyManager.tabOut.pipe(filter(() => this.panelOpened)),
             this.closeKeyEventStream,
             this.getOutsideClickStream(),
