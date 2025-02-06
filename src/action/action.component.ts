@@ -1,16 +1,16 @@
 import {
     ChangeDetectionStrategy,
     Component,
-    Input,
-    OnInit,
     AfterViewInit,
-    OnChanges,
     ElementRef,
     Renderer2,
-    SimpleChanges,
     ChangeDetectorRef,
     OnDestroy,
-    inject
+    inject,
+    input,
+    computed,
+    effect,
+    Signal
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -40,6 +40,7 @@ const defaultFeedbackOptions: Record<ThyActionFeedback, ThyActionFeedbackOptions
         duration: 3000
     }
 };
+
 /**
  * 立即操作组件
  * @name thy-action,[thyAction]
@@ -50,27 +51,21 @@ const defaultFeedbackOptions: Record<ThyActionFeedback, ThyActionFeedbackOptions
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-action',
-        '[class.active]': 'active',
-        '[class.thy-action-hover-icon]': 'thyHoverIcon',
+        '[class.active]': 'active()',
+        '[class.thy-action-hover-icon]': 'thyHoverIcon()',
         '[class.thy-action-has-feedback]': '!!feedback',
-        '[class.disabled]': 'thyDisabled'
+        '[class.disabled]': 'thyDisabled()'
     },
     imports: [ThyIcon]
 })
-export class ThyAction implements OnInit, AfterViewInit, OnChanges, OnDestroy {
+export class ThyAction implements AfterViewInit, OnDestroy {
     private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
     private renderer = inject(Renderer2);
     private cdr = inject(ChangeDetectorRef);
 
-    icon: string;
-
     feedback: ThyActionFeedback = null;
 
     feedbackOptions: ThyActionFeedbackOptions;
-
-    active = false;
-
-    private type: string = 'primary';
 
     private hostRenderer = useHostRenderer();
 
@@ -79,77 +74,59 @@ export class ThyAction implements OnInit, AfterViewInit, OnChanges, OnDestroy {
     /**
      * 操作图标的类型
      * @type primary | success | danger | warning
-     * @default primary
      */
-    @Input()
-    set thyType(value: ThyActionType) {
-        this.setActionType(value || 'primary');
-    }
+    thyType = input<ThyActionType>('primary');
 
     /**
      * 操作图标，支持传参同时也支持在投影中写 thy-icon 组件
      */
-    @Input()
-    set thyIcon(icon: string) {
-        this.icon = icon;
-    }
+    thyIcon = input<string>();
 
     /**
      * 操作图标，当 thyIcon 和其他指令参数名有冲突时使用 thyActionIcon
      */
-    @Input()
-    set thyActionIcon(icon: string) {
-        this.icon = icon;
-    }
+    thyActionIcon = input<string>();
+
+    icon: Signal<string> = computed(() => this.thyActionIcon() || this.thyIcon());
 
     /**
      * 操作的图标 Active 状态，设置为 true 时会在 Item 上添加 active class
-     * @default false
      */
-    @Input({ transform: coerceBooleanProperty })
-    set thyActive(value: boolean) {
-        this.active = value;
-    }
+    thyActive = input<boolean, boolean | string | number>(false, { transform: coerceBooleanProperty });
+
+    active: Signal<boolean> = computed(() => this.thyActionActive() || this.thyActive() || false);
 
     /**
      * 操作的图标 Active 状态，当 thyActive 和其他指令参数名有冲突时使用 thyActionActive
-     * @default false
      */
-    @Input({ transform: coerceBooleanProperty })
-    set thyActionActive(value: boolean) {
-        this.active = value;
-    }
+    thyActionActive = input<boolean, boolean | string | number>(false, { transform: coerceBooleanProperty });
 
     /**
      * 操作图标的主题
      * @type fill(背景色填充) | lite(简单文本颜色变化)
      */
-    @Input() thyTheme: 'fill' | 'lite' = 'fill';
+    thyTheme = input<'fill' | 'lite'>('fill');
 
     /**
      * Hover 展示的图标
      */
-    @Input() thyHoverIcon: string;
+    thyHoverIcon = input<string>(null);
 
     /**
      * 是否处于禁用状态
-     * @default false
      */
-    @Input({ transform: coerceBooleanProperty })
-    thyDisabled: boolean;
+    thyDisabled = input<boolean, boolean | string | number>(false, { transform: coerceBooleanProperty });
 
-    ngOnInit(): void {
-        this.updateClasses();
+    constructor() {
+        effect(() => {
+            if (this.thyType() || this.thyTheme()) {
+                this.updateClasses();
+            }
+        });
     }
 
     ngAfterViewInit() {
         this.wrapSpanForText(this.elementRef.nativeElement.childNodes);
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        if ((changes.thyType && !changes.thyType.firstChange) || (changes.thyTheme && !changes.thyTheme.firstChange)) {
-            this.updateClasses();
-        }
     }
 
     setMarginRight(marginRight: string) {
@@ -171,7 +148,7 @@ export class ThyAction implements OnInit, AfterViewInit, OnChanges, OnDestroy {
     }
 
     private setFeedback(feedback: ThyActionFeedback, options: ThyActionFeedbackOptions) {
-        if (this.thyDisabled) {
+        if (this.thyDisabled()) {
             return;
         }
         options = Object.assign({}, defaultFeedbackOptions[feedback], options);
@@ -202,14 +179,10 @@ export class ThyAction implements OnInit, AfterViewInit, OnChanges, OnDestroy {
         });
     }
 
-    private setActionType(value: ThyActionType) {
-        this.type = value;
-    }
-
     private updateClasses() {
         let classNames: string[] = [];
-        classNames.push(`action-${this.type}`);
-        if (this.thyTheme === 'lite') {
+        classNames.push(`action-${this.thyType()}`);
+        if (this.thyTheme() === 'lite') {
             classNames.push('thy-action-lite');
         }
         this.hostRenderer.updateClass(classNames);
