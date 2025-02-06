@@ -1,4 +1,4 @@
-import { Component, DebugElement, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, DebugElement, OnInit, TemplateRef, viewChild } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -24,7 +24,7 @@ describe('thy-anchor', () => {
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestAnchorComponent);
-            component = fixture.componentInstance.thyAnchorComponent;
+            component = fixture.componentInstance.thyAnchorComponent();
             debugElement = fixture.debugElement;
             scrollService = TestBed.get(ThyScrollService);
             fixture.detectChanges();
@@ -54,7 +54,7 @@ describe('thy-anchor', () => {
         it('should scroll to associated anchor when click thy-anchor-link', fakeAsync(() => {
             const staticLink: HTMLElement = debugElement.query(By.css(`[href="#${id}"]`)).nativeElement;
             const targetAnchor: HTMLElement = debugElement.query(By.css(`[id="${id}"]`)).nativeElement;
-            const top = Math.floor(getOffset(targetAnchor, window).top - component.thyOffsetTop);
+            const top = Math.floor(getOffset(targetAnchor, window).top - component.thyOffsetTop());
             dispatchFakeEvent(staticLink, 'click');
             fixture.detectChanges();
             tick(2000);
@@ -141,7 +141,7 @@ describe('thy-anchor', () => {
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestAnchorComponent);
-            component = fixture.componentInstance.thyAnchorComponent;
+            component = fixture.componentInstance.thyAnchorComponent();
             debugElement = fixture.debugElement;
             scrollService = TestBed.get(ThyScrollService);
         });
@@ -187,7 +187,7 @@ describe('thy-anchor', () => {
 
             const staticLink: HTMLElement = debugElement.query(By.css(`[href="#${id}"]`)).nativeElement;
             const targetAnchor: HTMLElement = debugElement.query(By.css(`[id="${id}"]`)).nativeElement;
-            const top = Math.floor(getOffset(targetAnchor, window).top - component.thyOffsetTop);
+            const top = Math.floor(getOffset(targetAnchor, window).top - component.thyOffsetTop());
             dispatchFakeEvent(staticLink, 'click');
             fixture.detectChanges();
             tick(2000);
@@ -255,8 +255,7 @@ describe('thy-anchor', () => {
 class TestAnchorComponent implements OnInit {
     demos: number[] = [];
 
-    @ViewChild(ThyAnchor, { static: true })
-    thyAnchorComponent: ThyAnchor;
+    readonly thyAnchorComponent = viewChild(ThyAnchor);
 
     thyOffsetTop = 60;
 
@@ -291,8 +290,7 @@ class TestAnchorComponent implements OnInit {
 class TestContainerAnchorComponent implements OnInit {
     demos: number[] = [];
 
-    @ViewChild(ThyAnchor, { static: true })
-    thyAnchorComponent: ThyAnchor;
+    readonly thyAnchorComponent = viewChild(ThyAnchor);
 
     thyOffsetTop = 60;
 
@@ -325,17 +323,15 @@ class TestContainerAnchorComponent implements OnInit {
     standalone: false
 })
 class TestThyAnchorLinkComponent implements OnInit {
-    @ViewChild(ThyAnchor, { static: true })
-    thyAnchorComponent: ThyAnchor;
+    readonly thyAnchorComponent = viewChild(ThyAnchor);
 
-    @ViewChild('titleTemplate', { static: true })
-    titleTemplate: TemplateRef<void>;
+    readonly titleTemplate = viewChild<TemplateRef<void>>('titleTemplate');
 
     thyOffsetTop = 60;
 
     title: string | TemplateRef<void>;
 
     ngOnInit(): void {
-        this.title = this.titleTemplate;
+        this.title = this.titleTemplate();
     }
 }

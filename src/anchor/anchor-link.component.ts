@@ -2,15 +2,16 @@ import { Platform } from '@angular/cdk/platform';
 import {
     ChangeDetectionStrategy,
     Component,
-    ContentChild,
     ElementRef,
-    Input,
     OnDestroy,
     OnInit,
     TemplateRef,
-    ViewChild,
     ViewEncapsulation,
-    inject
+    effect,
+    inject,
+    input,
+    contentChild,
+    viewChild
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
@@ -26,11 +27,11 @@ import { NgTemplateOutlet } from '@angular/common';
     exportAs: 'thyLink,thyAnchorLink',
     preserveWhitespaces: false,
     template: `
-        <a #linkTitle (click)="goToClick($event)" href="{{ thyHref }}" class="thy-anchor-link-title" title="{{ title }}">
+        <a #linkTitle (click)="goToClick($event)" href="{{ thyHref() }}" class="thy-anchor-link-title" title="{{ title }}">
             @if (title) {
                 <span>{{ title }}</span>
             } @else {
-                <ng-template [ngTemplateOutlet]="titleTemplate || thyTemplate"></ng-template>
+                <ng-template [ngTemplateOutlet]="titleTemplate || thyTemplate()"></ng-template>
             }
         </a>
         <ng-content></ng-content>
@@ -53,24 +54,16 @@ export class ThyAnchorLink implements OnInit, OnDestroy {
     /**
      * 锚点链接
      */
-    @Input() thyHref = '#';
+    readonly thyHref = input('#');
 
     /**
      * 文字内容
      */
-    @Input()
-    set thyTitle(value: string | TemplateRef<void>) {
-        if (value instanceof TemplateRef) {
-            this.title = null;
-            this.titleTemplate = value;
-        } else {
-            this.title = value;
-        }
-    }
+    readonly thyTitle = input<string | TemplateRef<void>>('');
 
-    @ContentChild('thyTemplate') thyTemplate!: TemplateRef<void>;
+    readonly thyTemplate = contentChild.required<TemplateRef<void>>('thyTemplate');
 
-    @ViewChild('linkTitle', { static: true }) linkTitle!: ElementRef<HTMLAnchorElement>;
+    readonly linkTitle = viewChild.required<ElementRef<HTMLAnchorElement>>('linkTitle');
 
     constructor() {
         const elementRef = this.elementRef;
@@ -79,6 +72,16 @@ export class ThyAnchorLink implements OnInit, OnDestroy {
         if (elementRef.nativeElement.tagName.toLowerCase() === 'thy-link') {
             console.warn(`'thy-link' and 'thyLink' are deprecated, please use 'thy-anchor-link' and 'thyAnchorLink' instead.`);
         }
+
+        effect(() => {
+            const title = this.thyTitle();
+            if (title instanceof TemplateRef) {
+                this.title = null;
+                this.titleTemplate = title;
+            } else {
+                this.title = title;
+            }
+        });
     }
 
     ngOnInit(): void {
@@ -86,7 +89,7 @@ export class ThyAnchorLink implements OnInit, OnDestroy {
     }
 
     getLinkTitleElement(): HTMLAnchorElement {
-        return this.linkTitle.nativeElement;
+        return this.linkTitle().nativeElement;
     }
 
     setActive(): void {

@@ -5,18 +5,16 @@ import {
     ChangeDetectorRef,
     Component,
     ElementRef,
-    EventEmitter,
-    Input,
     NgZone,
-    OnChanges,
     OnDestroy,
-    Output,
     Renderer2,
-    SimpleChanges,
-    ViewChild,
     ViewEncapsulation,
     numberAttribute,
-    inject
+    inject,
+    input,
+    viewChild,
+    output,
+    effect
 } from '@angular/core';
 import { Subject, fromEvent } from 'rxjs';
 import { takeUntil, throttleTime } from 'rxjs/operators';
@@ -43,8 +41,8 @@ const sharpMatcherRegx = /#([^#]+)$/;
     exportAs: 'thyAnchor',
     preserveWhitespaces: false,
     template: `
-        @if (thyAffix) {
-            <thy-affix [thyOffsetTop]="thyOffsetTop" [thyContainer]="container">
+        @if (thyAffix()) {
+            <thy-affix [thyOffsetTop]="thyOffsetTop()" [thyContainer]="container">
                 <ng-template [ngTemplateOutlet]="content"></ng-template>
             </thy-affix>
         } @else {
@@ -53,7 +51,7 @@ const sharpMatcherRegx = /#([^#]+)$/;
         <ng-template #content>
             <div
                 class="thy-anchor-wrapper"
-                [ngClass]="{ 'thy-anchor-wrapper-horizontal': thyDirection === 'horizontal' }"
+                [ngClass]="{ 'thy-anchor-wrapper-horizontal': thyDirection() === 'horizontal' }"
                 [ngStyle]="wrapperStyle">
                 <div class="thy-anchor">
                     <div class="thy-anchor-ink">
@@ -68,7 +66,7 @@ const sharpMatcherRegx = /#([^#]+)$/;
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [ThyAffix, NgTemplateOutlet, NgStyle, NgClass]
 })
-export class ThyAnchor implements OnDestroy, AfterViewInit, OnChanges {
+export class ThyAnchor implements OnDestroy, AfterViewInit {
     private document = inject(DOCUMENT);
     private cdr = inject(ChangeDetectorRef);
     private platform = inject(Platform);
@@ -76,46 +74,43 @@ export class ThyAnchor implements OnDestroy, AfterViewInit, OnChanges {
     private renderer = inject(Renderer2);
     private scrollService = inject(ThyScrollService);
 
-    @ViewChild('ink') private ink!: ElementRef;
+    readonly ink = viewChild.required<ElementRef>('ink');
 
     /**
      * 固定模式
      */
-    @Input({ transform: coerceBooleanProperty }) thyAffix = true;
+    readonly thyAffix = input(true, { transform: coerceBooleanProperty });
 
     /**
      * 锚点区域边界，单位：px
      */
-    @Input({ transform: numberAttribute })
-    thyBounds = 5;
+    readonly thyBounds = input(5, { transform: numberAttribute });
 
     /**
      * 缓冲的偏移量阈值
      */
-    @Input({ transform: numberAttribute })
-    thyOffsetTop?: number = undefined;
+    readonly thyOffsetTop = input<number, unknown>(undefined, { transform: numberAttribute });
 
     /**
      * 指定滚动的容器
-     * @type string | HTMLElement
      */
-    @Input() thyContainer?: string | HTMLElement;
+    readonly thyContainer = input<string | HTMLElement>(undefined);
 
     /**
      * 设置导航方向
      * @type 'vertical' | 'horizontal'
      */
-    @Input() thyDirection: 'vertical' | 'horizontal' = 'vertical';
+    readonly thyDirection = input<'vertical' | 'horizontal'>('vertical');
 
     /**
      * 点击项触发
      */
-    @Output() readonly thyClick = new EventEmitter<ThyAnchorLink>();
+    readonly thyClick = output<ThyAnchorLink>();
 
     /**
      * 滚动到某锚点时触发
      */
-    @Output() readonly thyScroll = new EventEmitter<ThyAnchorLink>();
+    readonly thyScroll = output<ThyAnchorLink>();
 
     visible = false;
 
@@ -143,6 +138,21 @@ export class ThyAnchor implements OnDestroy, AfterViewInit, OnChanges {
         return this.container || window;
     }
 
+    constructor() {
+        effect(() => {
+            if (this.thyOffsetTop()) {
+                this.wrapperStyle = {
+                    'max-height': `calc(100vh - ${this.thyOffsetTop()}px)`
+                };
+            }
+            if (this.thyContainer()) {
+                const container = this.thyContainer();
+                this.container = typeof container === 'string' ? (this.document.querySelector(container) as HTMLElement) : container;
+                this.registerScrollEvent();
+            }
+        });
+    }
+
     ngAfterViewInit(): void {
         this.warningPrompt();
         this.registerScrollEvent();
@@ -155,7 +165,7 @@ export class ThyAnchor implements OnDestroy, AfterViewInit, OnChanges {
     }
 
     private warningPrompt() {
-        if (this.thyDirection === 'horizontal') {
+        if (this.thyDirection() === 'horizontal') {
             const hasChildren = this.links.some(link =>
                 Array.from(link?.elementRef?.nativeElement?.childNodes)?.some((item: HTMLElement) => item?.nodeName === 'THY-ANCHOR-LINK')
             );
@@ -187,9 +197,9 @@ export class ThyAnchor implements OnDestroy, AfterViewInit, OnChanges {
         const container: HTMLElement = this.container instanceof HTMLElement ? this.container : (this.document as unknown as HTMLElement);
 
         const sections: Section[] = [];
-        const scope = (this.thyOffsetTop || 0) + this.thyBounds;
+        const scope = (this.thyOffsetTop() || 0) + this.thyBounds();
         this.links.forEach(linkComponent => {
-            const sharpLinkMatch = sharpMatcherRegx.exec(linkComponent.thyHref.toString());
+            const sharpLinkMatch = sharpMatcherRegx.exec(linkComponent.thyHref().toString());
             if (!sharpLinkMatch) {
                 return;
             }
@@ -226,12 +236,13 @@ export class ThyAnchor implements OnDestroy, AfterViewInit, OnChanges {
         this.clearActive();
         linkComponent.setActive();
         const linkNode = linkComponent.getLinkTitleElement();
-        const horizontalAnchor = this.thyDirection === 'horizontal';
+        const horizontalAnchor = this.thyDirection() === 'horizontal';
 
-        this.ink.nativeElement.style.top = horizontalAnchor ? '' : `${linkNode.offsetTop}px`;
-        this.ink.nativeElement.style.height = horizontalAnchor ? '' : `${linkNode.clientHeight}px`;
-        this.ink.nativeElement.style.left = horizontalAnchor ? `${linkNode.offsetLeft}px` : '';
-        this.ink.nativeElement.style.width = horizontalAnchor ? `${linkNode.clientWidth}px` : '';
+        const ink = this.ink();
+        ink.nativeElement.style.top = horizontalAnchor ? '' : `${linkNode.offsetTop}px`;
+        ink.nativeElement.style.height = horizontalAnchor ? '' : `${linkNode.clientHeight}px`;
+        ink.nativeElement.style.left = horizontalAnchor ? `${linkNode.offsetLeft}px` : '';
+        ink.nativeElement.style.width = horizontalAnchor ? `${linkNode.clientWidth}px` : '';
         this.visible = true;
         this.setVisible();
         this.thyScroll.emit(linkComponent);
@@ -240,18 +251,19 @@ export class ThyAnchor implements OnDestroy, AfterViewInit, OnChanges {
     private setVisible(): void {
         const visible = this.visible;
         const visibleClassname = 'visible';
-        if (this.ink) {
+        const ink = this.ink();
+        if (ink) {
             if (visible) {
-                this.renderer.addClass(this.ink.nativeElement, visibleClassname);
+                this.renderer.addClass(ink.nativeElement, visibleClassname);
             } else {
-                this.renderer.removeClass(this.ink.nativeElement, visibleClassname);
+                this.renderer.removeClass(ink.nativeElement, visibleClassname);
             }
         }
     }
 
     handleScrollTo(linkComponent: ThyAnchorLink): void {
         const container: HTMLElement = this.container instanceof HTMLElement ? this.container : (this.document as unknown as HTMLElement);
-        const linkElement: HTMLElement = container.querySelector(linkComponent.thyHref);
+        const linkElement: HTMLElement = container.querySelector(linkComponent.thyHref());
         if (!linkElement) {
             return;
         }
@@ -259,25 +271,11 @@ export class ThyAnchor implements OnDestroy, AfterViewInit, OnChanges {
         this.animating = true;
         const containerScrollTop = this.scrollService.getScroll(this.getContainer());
         const elementOffsetTop = getOffset(linkElement, this.getContainer()).top;
-        const targetScrollTop = containerScrollTop + elementOffsetTop - (this.thyOffsetTop || 0);
+        const targetScrollTop = containerScrollTop + elementOffsetTop - (this.thyOffsetTop() || 0);
         this.scrollService.scrollTo(this.getContainer(), targetScrollTop, undefined, () => {
             this.animating = false;
         });
         this.handleActive(linkComponent);
         this.thyClick.emit(linkComponent);
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        const { thyOffsetTop, thyContainer } = changes;
-        if (thyOffsetTop) {
-            this.wrapperStyle = {
-                'max-height': `calc(100vh - ${this.thyOffsetTop}px)`
-            };
-        }
-        if (thyContainer && this.thyContainer) {
-            const container = this.thyContainer;
-            this.container = typeof container === 'string' ? (this.document.querySelector(container) as HTMLElement) : container;
-            this.registerScrollEvent();
-        }
     }
 }
