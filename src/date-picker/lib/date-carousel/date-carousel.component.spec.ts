@@ -6,7 +6,6 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { LibPackerModule } from 'ngx-tethys/date-picker';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
-import { setDefaultTimeZone } from 'ngx-tethys/util';
 import { RangeAdvancedValue } from '../../inner-types';
 import { TinyDate } from './../../../util/date/tiny-date';
 import { DateCarousel } from './date-carousel.component';
@@ -34,7 +33,6 @@ describe('TestDateCarouselComponent', () => {
         fixtureInstance = fixture.componentInstance;
         debugElement = fixture.debugElement;
         nativeElement = fixture.debugElement.query(By.directive(DateCarousel)).nativeElement;
-        setDefaultTimeZone('Asia/Shanghai');
     });
 
     describe('date-carousel testing', () => {

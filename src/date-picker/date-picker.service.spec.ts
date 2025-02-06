@@ -1,7 +1,6 @@
 import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
 import { fakeAsync, TestBed } from '@angular/core/testing';
 import { ThyI18nService } from 'ngx-tethys/i18n';
-import { setDefaultTimeZone } from 'ngx-tethys/util';
 import { THY_DATE_PICKER_CONFIG, useDatePickerDefaultConfig } from './date-picker.config';
 import { ThyDatePickerConfigService } from './date-picker.service';
 
@@ -27,7 +26,6 @@ describe('thyDatePickerConfigService Angular testing', () => {
         });
 
         thyDatePickerConfigService = TestBed.inject(ThyDatePickerConfigService);
-        setDefaultTimeZone('Asia/Shanghai');
     }));
 
     it('get default config', () => {

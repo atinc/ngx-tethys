@@ -8,7 +8,7 @@ import { ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testi
 import { By } from '@angular/platform-browser';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { dispatchKeyboardEvent } from 'ngx-tethys/testing';
-import { ENTER, setDefaultTimeZone, TinyDate } from 'ngx-tethys/util';
+import { ENTER, TinyDate } from 'ngx-tethys/util';
 import { ThyPicker } from './picker.component';
 
 class CdkOverlayOriginSpy {
@@ -53,7 +53,6 @@ describe('ThyPickerComponent', () => {
         fixture = TestBed.createComponent(ThyTestPickerComponent);
         fixtureInstance = fixture.componentInstance;
         debugElement = fixture.debugElement;
-        setDefaultTimeZone('Asia/Shanghai');
     });
 
     it('should allow input', fakeAsync(() => {

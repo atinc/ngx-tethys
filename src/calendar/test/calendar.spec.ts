@@ -1,6 +1,6 @@
 import { endOfMonth, startOfMonth } from 'date-fns';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
-import { getUnixTime, setDefaultTimeZone, TinyDate } from 'ngx-tethys/util';
+import { getUnixTime, TinyDate } from 'ngx-tethys/util';
 
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
@@ -136,7 +136,6 @@ describe('calendar', () => {
             fixture.detectChanges();
             debugElement = fixture.debugElement.query(By.directive(ThyCalendar));
             fixture.detectChanges();
-            setDefaultTimeZone('Asia/Shanghai');
         });
 
         it('should create calendar component', () => {

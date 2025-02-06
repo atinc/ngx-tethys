@@ -11,7 +11,7 @@ import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { addDays, addWeeks, startOfDay, startOfWeek } from 'date-fns';
 
-import { setDefaultTimeZone, TinyDate } from 'ngx-tethys/util';
+import { TinyDate } from 'ngx-tethys/util';
 import { ThyPopoverConfig, ThyPopoverModule } from '../popover';
 import { ThyPopover } from '../popover/popover.service';
 import { ThyPropertyOperation, ThyPropertyOperationModule } from '../property-operation';
@@ -44,7 +44,6 @@ describe('ThyPickerDirective', () => {
             fixture = TestBed.createComponent(ThyTestPickerComponent);
             fixtureInstance = fixture.componentInstance;
             debugElement = fixture.debugElement;
-            setDefaultTimeZone('Asia/Shanghai');
         });
 
         beforeEach(inject([OverlayContainer, ThyPopover], (oc: OverlayContainer, _popover: ThyPopover) => {

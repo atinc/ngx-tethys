@@ -6,11 +6,11 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 import { formatDate, registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, flush, inject, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { setDefaultTimeZone, TinyDate } from 'ngx-tethys/util';
+import { TinyDate } from 'ngx-tethys/util';
 import { take } from 'rxjs/operators';
 import { ThyDatePicker } from './date-picker.component';
 import { THY_DATE_PICKER_CONFIG } from './date-picker.config';
@@ -67,7 +67,6 @@ describe('ThyDatePickerComponent', () => {
         fixture = TestBed.createComponent(ThyTestDatePickerComponent);
         fixtureInstance = fixture.componentInstance;
         debugElement = fixture.debugElement;
-        setDefaultTimeZone('Asia/Shanghai');
     });
 
     beforeEach(inject([OverlayContainer], (oc: OverlayContainer) => {

@@ -11,7 +11,6 @@ import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ThyPropertyOperation, ThyPropertyOperationModule } from 'ngx-tethys/property-operation';
-import { setDefaultTimeZone, TinyDate } from 'ngx-tethys/util';
 import { ThyDatePickerModule } from './date-picker.module';
 import { CompatiblePresets, ThyDateRangeEntry, ThyShortcutPosition } from './standard-types';
 
@@ -38,7 +37,6 @@ describe('ThyRangePickerDirective', () => {
         fixture = TestBed.createComponent(ThyTestRangePickerComponent);
         fixtureInstance = fixture.componentInstance;
         debugElement = fixture.debugElement;
-        setDefaultTimeZone('Asia/Shanghai');
     });
 
     beforeEach(inject([OverlayContainer], (oc: OverlayContainer) => {
@@ -129,7 +127,7 @@ describe('ThyRangePickerDirective', () => {
             fixtureInstance.thyShortcutPresets = [
                 {
                     title: '回家那几天',
-                    value: [new TinyDate('2022-01-29').getTime(), new TinyDate('2022-02-8').getTime()]
+                    value: [new Date('2022-01-29').getTime(), new Date('2022-02-8').getTime()]
                 }
             ];
             fixture.detectChanges();

@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
-import { setDefaultTimeZone, TinyDate } from '../util';
+import { TinyDate } from '../util';
 import { ThyDatePickerModule } from './date-picker.module';
 import { ThyQuarterPicker } from './quarter-picker.component';
 
@@ -30,7 +30,6 @@ describe('ThyQuarterPickerComponent', () => {
         fixture = TestBed.createComponent(TestQuarterPickerComponent);
         fixtureInstance = fixture.componentInstance;
         debugElement = fixture.debugElement;
-        setDefaultTimeZone('Asia/Shanghai');
     });
 
     beforeEach(inject([OverlayContainer], (oc: OverlayContainer) => {
