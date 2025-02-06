@@ -1,4 +1,4 @@
-import { Component, DebugElement, TemplateRef, ViewChild, QueryList } from '@angular/core';
+import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ComponentFixture, TestBed, fakeAsync, tick, flush, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
