@@ -1,6 +1,6 @@
 import { fakeAsync, ComponentFixture, TestBed, flush } from '@angular/core/testing';
 import { ThyArrowSwitcherModule } from '../module';
-import { NgModule, Component, DebugElement, ViewChild } from '@angular/core';
+import { NgModule, Component, DebugElement, viewChild } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ThyArrowSwitcher } from '../arrow-switcher.component';
 import { CommonModule } from '@angular/common';
@@ -54,7 +54,7 @@ describe('ThyArrowSwitcher', () => {
     it('should show correct total', () => {
         testComponent.totalCount = 20;
         fixture.detectChanges();
-        expect(arrowSwitcherComponent.componentInstance.total).toEqual(20);
+        expect(arrowSwitcherComponent.componentInstance.thyTotal()).toEqual(20);
     });
 
     it('should show correct index', fakeAsync(() => {
@@ -77,7 +77,7 @@ describe('ThyArrowSwitcher', () => {
         fixture.detectChanges();
         flush();
         fixture.detectChanges();
-        testComponent.switcherComponent.getDisabled();
+        testComponent.switcherComponent().getDisabled();
         expect(arrowSwitcherComponent.componentInstance.previousDisabled).toBeTruthy();
         expect(arrowSwitcherComponent.componentInstance.nextDisabled).toBeTruthy();
     }));
@@ -137,7 +137,7 @@ class ThyDemoArrowSwitcherComponent {
     previousTooltip: string;
     nextTooltip: string;
 
-    @ViewChild('switcher', { static: true }) switcherComponent: ThyArrowSwitcher;
+    readonly switcherComponent = viewChild<ThyArrowSwitcher>('switcher');
 
     previousClick() {}
 
