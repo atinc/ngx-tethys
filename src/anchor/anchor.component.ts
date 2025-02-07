@@ -98,7 +98,6 @@ export class ThyAnchor implements OnDestroy, AfterViewInit {
 
     /**
      * 设置导航方向
-     * @type 'vertical' | 'horizontal'
      */
     readonly thyDirection = input<'vertical' | 'horizontal'>('vertical');
 
@@ -145,6 +144,9 @@ export class ThyAnchor implements OnDestroy, AfterViewInit {
                     'max-height': `calc(100vh - ${this.thyOffsetTop()}px)`
                 };
             }
+        });
+
+        effect(() => {
             if (this.thyContainer()) {
                 const container = this.thyContainer();
                 this.container = typeof container === 'string' ? (this.document.querySelector(container) as HTMLElement) : container;
