@@ -60,14 +60,12 @@ describe('thy-actions', () => {
         expect(element.classList.contains('thy-actions'));
         const actions: NodeListOf<HTMLElement> = element.querySelectorAll('.thy-action');
         expect(actions.length).toEqual(2);
-        actionsDebugElement.componentInstance.ngAfterContentInit();
         tick();
         assertActionsExpected(actions, '16px', 'expect default margin-right is 16px');
     }));
 
     it('should set actions size', () => {
         const element: HTMLElement = actionsDebugElement.nativeElement;
-        actionsDebugElement.componentInstance.ngAfterContentInit();
         const sizes = [
             {
                 value: 'zero',
@@ -109,7 +107,6 @@ describe('thy-actions', () => {
     it('should dynamic add action', () => {
         const element: HTMLElement = actionsDebugElement.nativeElement;
         expect(element.querySelectorAll('.thy-action').length).toEqual(2);
-        actionsDebugElement.componentInstance.ngAfterContentInit();
         fixture.componentInstance.dynamicAdded = true;
         fixture.detectChanges();
         const actions: NodeListOf<HTMLElement> = element.querySelectorAll('.thy-action');

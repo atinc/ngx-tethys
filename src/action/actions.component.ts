@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ContentChildren, QueryList, AfterContentInit, input, afterRenderEffect } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, contentChildren, effect } from '@angular/core';
 import { ThySpacingSize, getNumericSize } from 'ngx-tethys/core';
 import { ThyAction } from './action.component';
 
@@ -15,31 +15,22 @@ import { ThyAction } from './action.component';
     },
     standalone: true
 })
-export class ThyActions implements AfterContentInit {
-    @ContentChildren(ThyAction) actions: QueryList<ThyAction>;
-
+export class ThyActions {
     /**
      * 大小，支持 `zero` | `xxs` | `xs` | `sm` | `md` | `lg` | `xlg` 和自定义数字大小
-     * @type string | number
      */
-    thySize = input<ThySpacingSize>('md');
+    readonly thySize = input<ThySpacingSize>('md');
+
+    readonly actions = contentChildren<ThyAction>(ThyAction);
 
     constructor() {
-        afterRenderEffect(() => {
-            if (this.thySize() && this.actions) {
-                this.setActionsSize(this.actions.toArray());
-            }
+        effect(() => {
+            this.setActionsSize();
         });
     }
 
-    ngAfterContentInit(): void {
-        this.actions.changes.subscribe((actions: ThyAction[]) => {
-            this.setActionsSize(actions);
-        });
-        this.setActionsSize(this.actions.toArray());
-    }
-
-    private setActionsSize(actions: ThyAction[]) {
+    private setActionsSize() {
+        const actions: ThyAction[] = Array.from(this.actions());
         actions.forEach((action: ThyAction, index) => {
             // can't set marginRight value for last item
             if (index !== actions.length - 1) {

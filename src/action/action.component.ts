@@ -75,53 +75,55 @@ export class ThyAction implements AfterViewInit, OnDestroy {
      * 操作图标的类型
      * @type primary | success | danger | warning
      */
-    thyType = input<ThyActionType>('primary');
+    readonly thyType = input<ThyActionType>('primary');
 
     /**
      * 操作图标，支持传参同时也支持在投影中写 thy-icon 组件
      */
-    thyIcon = input<string>();
+    readonly thyIcon = input<string>();
 
     /**
      * 操作图标，当 thyIcon 和其他指令参数名有冲突时使用 thyActionIcon
      */
-    thyActionIcon = input<string>();
+    readonly thyActionIcon = input<string>();
 
-    icon: Signal<string> = computed(() => this.thyActionIcon() || this.thyIcon());
+    icon: Signal<string> = computed(() => {
+        return this.thyActionIcon() || this.thyIcon();
+    });
 
     /**
      * 操作的图标 Active 状态，设置为 true 时会在 Item 上添加 active class
      */
-    thyActive = input<boolean, boolean | string | number>(false, { transform: coerceBooleanProperty });
-
-    active: Signal<boolean> = computed(() => this.thyActionActive() || this.thyActive() || false);
+    readonly thyActive = input<boolean, unknown>(false, { transform: coerceBooleanProperty });
 
     /**
      * 操作的图标 Active 状态，当 thyActive 和其他指令参数名有冲突时使用 thyActionActive
      */
-    thyActionActive = input<boolean, boolean | string | number>(false, { transform: coerceBooleanProperty });
+    readonly thyActionActive = input<boolean, unknown>(false, { transform: coerceBooleanProperty });
+
+    active: Signal<boolean> = computed(() => {
+        return this.thyActionActive() || this.thyActive();
+    });
 
     /**
      * 操作图标的主题
      * @type fill(背景色填充) | lite(简单文本颜色变化)
      */
-    thyTheme = input<'fill' | 'lite'>('fill');
+    readonly thyTheme = input<'fill' | 'lite'>('fill');
 
     /**
      * Hover 展示的图标
      */
-    thyHoverIcon = input<string>(null);
+    readonly thyHoverIcon = input<string>();
 
     /**
      * 是否处于禁用状态
      */
-    thyDisabled = input<boolean, boolean | string | number>(false, { transform: coerceBooleanProperty });
+    readonly thyDisabled = input<boolean, unknown>(false, { transform: coerceBooleanProperty });
 
     constructor() {
         effect(() => {
-            if (this.thyType() || this.thyTheme()) {
-                this.updateClasses();
-            }
+            this.updateClasses();
         });
     }
 
