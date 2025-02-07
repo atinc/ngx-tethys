@@ -46,7 +46,7 @@ export interface ThyArrowSwitcherEvent {
     ],
     imports: [ThyAction, ThyTooltipDirective, ThyIcon, ThyButtonIcon]
 })
-export class ThyArrowSwitcher implements OnInit, ControlValueAccessor {
+export class ThyArrowSwitcher implements ControlValueAccessor {
     private cd = inject(ChangeDetectorRef);
 
     /**
@@ -78,12 +78,12 @@ export class ThyArrowSwitcher implements OnInit, ControlValueAccessor {
     /**
      * 总条数
      */
-    thyTotal = input<number, unknown>(undefined, { transform: numberAttribute });
+    readonly thyTotal = input<number, unknown>(undefined, { transform: numberAttribute });
 
     /**
      * 尺寸大小，默认尺寸为大号，取值为`sm`时展示小号
      */
-    thySize = input<string>();
+    readonly thySize = input<string>();
 
     isSmallSize: Signal<boolean> = computed(() => {
         return this.thySize() === 'sm';
@@ -108,8 +108,6 @@ export class ThyArrowSwitcher implements OnInit, ControlValueAccessor {
             }
         });
     }
-
-    ngOnInit() {}
 
     writeValue(value: number): void {
         if (value >= 0) {
