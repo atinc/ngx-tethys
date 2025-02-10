@@ -109,10 +109,10 @@ export class ThyNavItemDirective implements AfterViewInit {
 
     setOffset() {
         this.offset = {
-            width: this.elementRef.nativeElement.offsetWidth,
-            height: this.elementRef.nativeElement.offsetHeight,
-            left: this.elementRef.nativeElement.offsetLeft,
-            top: this.elementRef.nativeElement.offsetTop
+            width: this.elementRef.nativeElement.offsetWidth || this.offset.width,
+            height: this.elementRef.nativeElement.offsetHeight || this.offset.height,
+            left: this.elementRef.nativeElement.offsetLeft || this.offset.left,
+            top: this.elementRef.nativeElement.offsetTop || this.offset.top
         };
     }
 
