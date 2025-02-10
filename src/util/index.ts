@@ -15,5 +15,3 @@ export * from './references';
 export * from './keycodes';
 export * from './logger/index';
 export { dom, helpers, keycodes, references };
-
-export * from './date/time-zone';

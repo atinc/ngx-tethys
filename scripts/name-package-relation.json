@@ -925,8 +925,6 @@
   "ThemeInterface": "util",
   "ThemeKeysConstant": "util",
   "ThemesConstant": "util",
-  "setDefaultTimeZone": "util",
-  "getDefaultTimeZone": "util",
   "ThyVoteSizes": "vote",
   "ThyVoteType": "vote",
   "ThyVoteLayout": "vote",

@@ -1,5 +1,4 @@
 import { endOfDay, endOfMonth, endOfQuarter, endOfYear, startOfDay, startOfMonth, startOfWeek, startOfYear } from 'date-fns';
-import { setDefaultTimeZone } from './time-zone';
 import { sortRangeValue, TinyDate } from './tiny-date';
 
 describe('tiny-date', () => {
@@ -205,14 +204,16 @@ describe('tiny-date', () => {
     });
 
     it('support timezone', () => {
-        const defaultDate = new TinyDate(new Date());
-        expect(defaultDate?.nativeDate).toEqual(new Date());
-        expect(defaultDate['timeZone']).toBe('Asia/Shanghai');
+        const defaultDate = new TinyDate(1739174063000);
+        expect(defaultDate?.nativeDate).toEqual(new Date(1739174063000));
+        expect(defaultDate.getHours()).toBe(15);
+        expect(TinyDate.getDefaultTimeZone()).toBe('Asia/Shanghai');
 
-        setDefaultTimeZone('America/Los_Angeles');
-        const date = new TinyDate(new Date());
-        expect(date['timeZone']).toBe('America/Los_Angeles');
+        TinyDate.setDefaultTimeZone('America/Los_Angeles');
+        const date = new TinyDate(1739174063000);
+        expect(TinyDate.getDefaultTimeZone()).toBe('America/Los_Angeles');
         expect(defaultDate.getHours()).not.toBe(date.getHours());
+        expect(date.getHours()).toBe(23);
     });
 
     describe('#sortRangeValue', () => {
