@@ -84,7 +84,7 @@ describe('ThyFileSelect', () => {
         expect(inputElement.getAttribute('multiple')).toEqual(null);
     });
 
-    xit('should upload file success', () => {
+    it('should upload file success', () => {
         const selectFilesSpy = spyOn(testComponent, 'selectFiles');
         expect(selectFilesSpy).not.toHaveBeenCalled();
 
@@ -99,7 +99,7 @@ describe('ThyFileSelect', () => {
         });
     });
 
-    xit('should upload multiple files success', () => {
+    it('should upload multiple files success', () => {
         const selectFilesSpy = spyOn(testComponent, 'selectFiles');
         expect(selectFilesSpy).not.toHaveBeenCalled();
 
@@ -208,7 +208,7 @@ describe('ThyFileSelectStaticInput', () => {
         dataTransfer.items.add(file);
     });
 
-    xit('should work when use static input of thyMultiple', () => {
+    it('should work when use static input of thyMultiple', () => {
         const selectFilesSpy = spyOn(testComponent, 'selectFiles');
         expect(selectFilesSpy).not.toHaveBeenCalled();
 
