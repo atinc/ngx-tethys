@@ -266,6 +266,8 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
         }
 
         this.updateClasses();
+
+        console.log('test ci without change');
     }
 
     ngAfterViewInit() {
