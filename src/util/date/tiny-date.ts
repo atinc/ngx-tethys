@@ -97,11 +97,11 @@ export class TinyDate implements Record<string, any> {
         }
     }
 
-    static utcToZonedTime(value: Date): Date {
-        return TZDate.tz(TinyDate.defaultTimeZone, value);
+    static utcToZonedTime(value: Date | number): Date {
+        return TZDate.tz(TinyDate.defaultTimeZone, value as any);
     }
 
-    static createDateInTimeZone(year: number, month: number, day: number, hours: number, minutes: number, seconds: number): Date {
+    static createDateInUTC(year: number, month: number, day: number, hours: number, minutes: number, seconds: number): Date {
         const date = new Date(Date.UTC(year, month, day, hours, minutes, seconds));
         return date.setMinutes(date.getMinutes() - tzOffset(TinyDate.defaultTimeZone, date)) && date;
     }

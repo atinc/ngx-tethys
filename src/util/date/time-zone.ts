@@ -1,4 +1,4 @@
-const DEFAULT_TIMEZONE = 'Asia/Shanghai';
+export const DEFAULT_TIMEZONE = 'Asia/Shanghai';
 
 let timeZone: string = DEFAULT_TIMEZONE;
 

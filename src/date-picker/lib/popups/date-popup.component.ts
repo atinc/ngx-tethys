@@ -1,19 +1,11 @@
 import {
     endOfDay,
-    endOfISOWeek,
-    endOfMonth,
-    endOfQuarter,
-    endOfYear,
     FunctionProp,
     helpers,
     isFunction,
     isUndefinedOrNull,
     sortRangeValue,
     startOfDay,
-    startOfISOWeek,
-    startOfMonth,
-    startOfQuarter,
-    startOfYear,
     TinyDate,
     TinyDateCompareGrain
 } from 'ngx-tethys/util';
@@ -391,8 +383,7 @@ export class DatePopup implements OnChanges, OnInit {
 
             if ((!left && !right) || (left && right)) {
                 // If totally full or empty, clean up && re-assign left first
-                this.hoverValue = this.selectedValue = [value];
-                this.selectedValue = [new TinyDate(startOfDay(this.selectedValue[0].nativeDate))];
+                this.hoverValue = this.selectedValue = [value.startOfDay()];
                 this.calendarChange.emit([this.selectedValue[0].clone()]);
             } else if (left && !right) {
                 // If one of them is empty, assign the other one and sort, then set the final values
@@ -422,15 +413,15 @@ export class DatePopup implements OnChanges, OnInit {
     private getSelectedRangeValueByMode(value: TinyDate[]): TinyDate[] {
         const panelMode = this.getPanelMode(this.endPanelMode);
         if (panelMode === 'year') {
-            return [new TinyDate(startOfYear(value[0].nativeDate)), new TinyDate(endOfYear(value[1].nativeDate))];
+            return [value[0].startOfYear(), value[1].endOfYear()];
         } else if (panelMode === 'quarter') {
-            return [new TinyDate(startOfQuarter(value[0].nativeDate)), new TinyDate(endOfQuarter(value[1].nativeDate))];
+            return [value[0].startOfQuarter(), value[1].endOfQuarter()];
         } else if (panelMode === 'month') {
-            return [new TinyDate(startOfMonth(value[0].nativeDate)), new TinyDate(endOfMonth(value[1].nativeDate))];
+            return [value[0].startOfMonth(), value[1].endOfMonth()];
         } else if (panelMode === 'week') {
-            return [new TinyDate(startOfISOWeek(value[0].nativeDate)), new TinyDate(endOfISOWeek(value[1].nativeDate))];
+            return [value[0].startOfISOWeek(), value[1].endOfISOWeek()];
         } else {
-            return [new TinyDate(startOfDay(value[0].nativeDate)), new TinyDate(endOfDay(value[1].nativeDate))];
+            return [value[0].startOfDay(), value[1].endOfDay()];
         }
     }
 
@@ -651,6 +642,6 @@ export class DatePopup implements OnChanges, OnInit {
     }
 
     private createInZoneTime(date: TinyDate, hours?: number, minutes?: number, seconds?: number): Date {
-        return TinyDate.createDateInTimeZone(date.getYear(), date.getMonth(), date.getDate(), hours, minutes, seconds);
+        return TinyDate.createDateInUTC(date.getYear(), date.getMonth(), date.getDate(), hours, minutes, seconds);
     }
 }

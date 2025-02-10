@@ -78,7 +78,7 @@ export class ThyCalendarHeader implements OnInit {
     ngOnInit(): void {}
 
     onChangeMonth(month: DateRangeItemInfo) {
-        const currentMonth = TinyDate.fromUnixTime(month.begin).getMonth();
+        const currentMonth = TinyDate.fromUnixTime(month.end).getMonth();
         this.monthChange.emit(currentMonth);
     }
 
@@ -109,8 +109,8 @@ export class ThyCalendarHeader implements OnInit {
                 ...this.dateRanges[0],
                 key: 'exception',
                 text: this._currentDate.format(this.pickerFormat),
-                begin: getUnixTime(startOfMonth(this._currentDate.nativeDate)),
-                end: getUnixTime(endOfMonth(this._currentDate.nativeDate))
+                begin: getUnixTime(startOfMonth(this._currentDate.getTime())),
+                end: getUnixTime(endOfMonth(this._currentDate.getTime()))
             };
             this.date = dateRange;
         } else {
