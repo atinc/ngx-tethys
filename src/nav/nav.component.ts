@@ -182,6 +182,11 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
     thyResponsive: boolean;
 
     /**
+     * 支持暂停自适应计算
+     */
+    thyPauseReCalculate = input<boolean>(false);
+
+    /**
      * 更多操作的菜单点击内部是否可关闭
      * @deprecated please use thyPopoverOptions
      */
@@ -293,6 +298,10 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
                     .pipe(
                         takeUntilDestroyed(this.destroyRef),
                         tap(() => {
+                            if (this.thyPauseReCalculate()) {
+                                return;
+                            }
+
                             if (this.thyResponsive) {
                                 this.resetSizes();
                                 this.setHiddenItems();
