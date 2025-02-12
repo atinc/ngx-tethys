@@ -642,6 +642,6 @@ export class DatePopup implements OnChanges, OnInit {
     }
 
     private createInZoneTime(date: TinyDate, hours?: number, minutes?: number, seconds?: number): Date {
-        return TinyDate.createDateInUTC(date.getYear(), date.getMonth(), date.getDate(), hours, minutes, seconds);
+        return TinyDate.createDateInTimeZone(date.getYear(), date.getMonth(), date.getDate(), hours, minutes, seconds);
     }
 }

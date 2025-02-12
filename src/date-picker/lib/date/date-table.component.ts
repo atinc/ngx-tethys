@@ -34,7 +34,7 @@ export class DateTable extends CalendarTable implements OnChanges {
         const dateArr = value.nativeDate.toISOString().split('T')[0].split('-');
         // 创建根据时区的固定日期，点击和展示一致
         const [year, month, day] = dateArr;
-        const date = TinyDate.createDateInUTC(
+        const date = TinyDate.createDateInTimeZone(
             Number(year),
             Number(month) - 1,
             Number(day),
