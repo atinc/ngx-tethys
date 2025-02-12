@@ -20,6 +20,7 @@ import { ThyCascaderModule } from '../module';
 import { ThyCascaderExpandTrigger, ThyCascaderTriggerType } from '../types';
 import { ThyFlexibleTextModule } from 'ngx-tethys/flexible-text';
 import { ThyIconModule } from 'ngx-tethys/icon';
+import { provideHttpClient } from '@angular/common/http';
 
 registerLocaleData(zh);
 
@@ -568,7 +569,7 @@ describe('thy-cascader', () => {
                 CascaderMultipleComponent,
                 CascaderCustomLabelPropertyComponent
             ],
-            providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }]
+            providers: [provideHttpClient(), { provide: ComponentFixtureAutoDetect, useValue: true }]
         });
         TestBed.compileComponents();
     }));

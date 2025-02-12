@@ -4,12 +4,13 @@ import { NgModule, Component, ViewChild, TemplateRef, DebugElement } from '@angu
 import { By } from '@angular/platform-browser';
 import { ThyAlert } from '../alert.component';
 import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('ThyAlert', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyAlertModule, AlertTestModule],
-            providers: [bypassSanitizeProvider]
+            providers: [bypassSanitizeProvider, provideHttpClient()]
         });
         TestBed.compileComponents();
         injectDefaultSvgIconSet();

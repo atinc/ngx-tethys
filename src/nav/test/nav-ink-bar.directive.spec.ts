@@ -11,6 +11,7 @@ import { ThyIconModule } from '../../icon';
 import { ThyNavInkBarDirective } from '../nav-ink-bar.directive';
 import { ThyNavSize, ThyNavType } from '../nav.component';
 import { ThyNavModule } from '../nav.module';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'app-nav-ink-bar',
@@ -157,7 +158,7 @@ describe(`thy-nav-ink-bar`, () => {
         TestBed.configureTestingModule({
             declarations: [NavInkBarComponent],
             imports: [ThyNavModule, ThyIconModule, NoopAnimationsModule],
-            providers: []
+            providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
         injectDefaultSvgIconSet();
@@ -238,7 +239,7 @@ describe(`thy-nav-ink-bar-router-link-active-mode`, () => {
         TestBed.configureTestingModule({
             declarations: [NavInkBarRouterLinkActiveModeComponent, Link1Component, Link2Component, Link3Component, LinkNoneComponent],
             imports: [ThyBadgeModule, ThyNavModule, NoopAnimationsModule, RouterTestingModule.withRoutes(routes)],
-            providers: []
+            providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
         injectDefaultSvgIconSet();
@@ -306,7 +307,7 @@ describe(`thy-nav-ink-bar-have-badge-mode`, () => {
         TestBed.configureTestingModule({
             declarations: [NavInkBarHaveBadgeModeComponent],
             imports: [ThyBadgeModule, ThyNavModule, NoopAnimationsModule],
-            providers: []
+            providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
         injectDefaultSvgIconSet();

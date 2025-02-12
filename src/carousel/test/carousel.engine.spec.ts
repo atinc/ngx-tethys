@@ -3,6 +3,7 @@ import { ThyCarousel, ThyCarouselEffect, ThyCarouselItemDirective, ThyCarouselMo
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { mouseSwipe, windowResize } from './carousel-events';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-carousel-engine',
@@ -37,7 +38,8 @@ describe(`carousel`, () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyCarouselModule],
-            declarations: [ThyTestCarouselEngineComponent]
+            declarations: [ThyTestCarouselEngineComponent],
+            providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
     }));

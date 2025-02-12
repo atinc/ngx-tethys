@@ -5,6 +5,7 @@ import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { ThyFormDirective } from '../form.directive';
 import { ThyFormGroupError } from '../form-group-error/form-group-error.component';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-test-form-group-error-basic',
@@ -32,6 +33,7 @@ describe('form-group-error', () => {
                 declarations: [TestFormGroupErrorBasicComponent],
                 imports: [ThyFormModule, FormsModule],
                 providers: [
+                    provideHttpClient(),
                     {
                         provide: ThyFormDirective,
                         useValue: {
@@ -87,6 +89,7 @@ describe('form-group-error', () => {
                 declarations: [TestFormGroupErrorBasicComponent],
                 imports: [ThyFormModule, FormsModule],
                 providers: [
+                    provideHttpClient(),
                     {
                         provide: ThyFormDirective,
                         useValue: {

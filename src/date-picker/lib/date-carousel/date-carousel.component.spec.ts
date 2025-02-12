@@ -1,5 +1,6 @@
 import { TinyDate } from './../../../util/date/tiny-date';
 import { registerLocaleData } from '@angular/common';
+import { provideHttpClient } from '@angular/common/http';
 import zh from '@angular/common/locales/zh';
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
@@ -21,7 +22,7 @@ describe('TestDateCarouselComponent', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [FormsModule, LibPackerModule],
-            providers: [],
+            providers: [ provideHttpClient() ],
             declarations: [TestDateCarouselComponent]
         });
 

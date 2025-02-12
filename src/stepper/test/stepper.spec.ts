@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyStep } from '../step.component';
 import { ThyStepper } from '../stepper.component';
 import { ThyStepperModule } from '../stepper.module';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-demo-stepper',
@@ -47,7 +48,8 @@ class ThyDemoStepperComponent {
 @NgModule({
     imports: [ThyStepperModule, BrowserAnimationsModule, ThyIconModule],
     declarations: [ThyDemoStepperComponent],
-    exports: [ThyDemoStepperComponent]
+    exports: [ThyDemoStepperComponent],
+    providers: [provideHttpClient()]
 })
 export class ThyStepperTestModule {}
 

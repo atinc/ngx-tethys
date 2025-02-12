@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ThyTimePanel } from '../time-picker-panel.component';
 import { ThyTimePickerModule } from '../time-picker.module';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('ThyTimePanelComponent', () => {
     let fixture: ComponentFixture<ThyTestTimePanelComponent>;
@@ -13,7 +14,8 @@ describe('ThyTimePanelComponent', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [FormsModule, ThyTimePickerModule],
-            declarations: [ThyTestTimePanelComponent]
+            declarations: [ThyTestTimePanelComponent],
+            providers: [provideHttpClient()]
         });
 
         TestBed.compileComponents();

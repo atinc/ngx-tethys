@@ -12,6 +12,7 @@ import { ThyPopoverConfig } from 'ngx-tethys/popover';
 import { dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing';
 import { ThyDropdownMenuItemType } from '../dropdown-menu-item.directive';
 import { ThyDropdownAbstractMenu, ThyDropdownMenuComponent } from '../dropdown-menu.component';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-dropdown-test',
@@ -409,7 +410,8 @@ describe('dropdown menu', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyDropdownModule, ThyButtonModule, NoopAnimationsModule, ThyIconModule],
-            declarations: [DropdownMenuTestComponent]
+            declarations: [DropdownMenuTestComponent],
+            providers: [provideHttpClient()]
         }).compileComponents();
         fixture = TestBed.createComponent(DropdownMenuTestComponent);
         fixture.detectChanges();
@@ -585,7 +587,8 @@ describe('dropdown submenu', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyDropdownModule, ThyButtonModule, NoopAnimationsModule, ThyIconModule],
-            declarations: [DropdownSubmenuTestComponent]
+            declarations: [DropdownSubmenuTestComponent],
+            providers: [provideHttpClient()]
         }).compileComponents();
         fixture = TestBed.createComponent(DropdownSubmenuTestComponent);
         fixture.detectChanges();

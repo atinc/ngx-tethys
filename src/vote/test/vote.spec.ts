@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 
 import { ThyVote } from '../vote.component';
 import { ThyVoteModule } from '../vote.module';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('ThyVote', () => {
     let fixture: ComponentFixture<ThyDemoVoteBasicComponent>;
@@ -14,6 +15,7 @@ describe('ThyVote', () => {
         TestBed.configureTestingModule({
             imports: [ThyVoteModule, VoteTestModule],
             providers: [
+                provideHttpClient()
                 // { provide: Location, useClass: SpyLocation }
             ]
         });
