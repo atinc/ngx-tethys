@@ -22,7 +22,7 @@ describe('TestDateCarouselComponent', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [FormsModule, LibPackerModule],
-            providers: [ provideHttpClient() ],
+            providers: [provideHttpClient()],
             declarations: [TestDateCarouselComponent]
         });
 
