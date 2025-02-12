@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core
 import { ThyActionModule } from '../action.module';
 import { injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 import { By } from '@angular/platform-browser';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-test-action-basic',
@@ -28,7 +29,7 @@ describe('thy-action', () => {
         TestBed.configureTestingModule({
             imports: [ThyActionModule],
             declarations: [ThyActionTestBasicComponent],
-            providers: []
+            providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
     });
