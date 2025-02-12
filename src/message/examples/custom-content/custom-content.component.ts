@@ -3,7 +3,8 @@ import { Component, OnInit, TemplateRef, ViewChild, inject } from '@angular/core
 
 @Component({
     selector: 'thy-message-custom-content-example',
-    templateUrl: './custom-content.component.html'
+    templateUrl: './custom-content.component.html',
+    standalone: false
 })
 export class ThyMessageCustomContentExampleComponent implements OnInit {
     private messageService = inject(ThyMessageService);

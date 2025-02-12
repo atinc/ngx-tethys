@@ -10,7 +10,6 @@ import { ThyAvatar } from 'ngx-tethys/avatar';
     selector: 'thy-list-item-meta,[thy-list-item-meta]',
     templateUrl: './list-item-meta.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
     imports: [ThyAvatar, NgTemplateOutlet]
 })
 export class ThyListItemMeta {

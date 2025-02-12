@@ -6,7 +6,8 @@ import { groupOptions } from '../mock-data';
 
 @Component({
     selector: 'thy-options-example',
-    templateUrl: './thy-options.component.html'
+    templateUrl: './thy-options.component.html',
+    standalone: false
 })
 export class ThyOptionsExampleComponent implements OnInit {
     loadMoreOptions: ThySelectOptionModel[] = [];

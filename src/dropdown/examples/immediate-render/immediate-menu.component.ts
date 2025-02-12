@@ -11,6 +11,7 @@ import { Component } from '@angular/core';
                 <span>Immediate Menu Item2</span>
             </a>
         </thy-dropdown-menu>
-    `
+    `,
+    standalone: false
 })
 export class ImmediateMenuComponent {}

@@ -4,7 +4,8 @@ import { clone, options } from '../cascader-address-options';
 
 @Component({
     selector: 'thy-cascader-search-example',
-    templateUrl: './search.component.html'
+    templateUrl: './search.component.html',
+    standalone: false
 })
 export class ThyCascaderSearchExampleComponent implements OnInit {
     private notifyService = inject(ThyNotifyService);

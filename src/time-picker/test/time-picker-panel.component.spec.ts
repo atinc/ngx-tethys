@@ -239,7 +239,8 @@ describe('ThyTimePanelComponent', () => {
             (thyPickChange)="onPickTime($event)"
             (ngModelChange)="onValueChange($event)"
             (thyClosePanel)="closePanel()"></thy-time-picker-panel>
-    `
+    `,
+    standalone: false
 })
 class ThyTestTimePanelComponent {
     @ViewChild('panel') timePanelRef: ThyTimePanel;

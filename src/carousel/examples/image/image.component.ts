@@ -13,7 +13,8 @@ import { Component, OnInit } from '@angular/core';
                 align-items: center;
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class ThyCarouselImageExampleComponent implements OnInit {
     constructor() {}

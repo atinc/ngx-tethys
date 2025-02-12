@@ -16,7 +16,6 @@ const customOptions: SafeAny[] = [
 @Component({
     selector: 'thy-cascader-custom-options-example',
     templateUrl: './custom-options.component.html',
-    standalone: true,
     imports: [ThyFormDirective, ThyFormGroup, ThyCascader, ThyTagModule, FormsModule]
 })
 export class ThyCascaderCustomOptionsExampleComponent implements OnInit {

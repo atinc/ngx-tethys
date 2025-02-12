@@ -45,7 +45,6 @@ const noop = () => {};
         class: 'thy-rate'
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
     imports: [ThyStopPropagationDirective, ThyRateItem, NgClass, ThyTooltipDirective]
 })
 export class ThyRate extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor, OnInit, OnChanges {

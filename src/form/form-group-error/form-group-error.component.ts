@@ -12,7 +12,6 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     selector: 'thy-form-group-error',
     templateUrl: './form-group-error.component.html',
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
     imports: [NgClass, ThyAlert]
 })
 export class ThyFormGroupError implements OnInit {

@@ -16,7 +16,8 @@ import { provideHttpClient } from '@angular/common/http';
         <thy-tag id="size" [thySize]="size">Tag 5</thy-tag>
         <thy-tag id="custom" thyColor="#56abfb">Tag 6</thy-tag>
         <thy-tag id="hoverable" [thyHoverable]="hoverable">Tag 7</thy-tag>
-    `
+    `,
+    standalone: false
 })
 export class ThyTagBasicTestComponent implements OnInit {
     size: string = 'md';

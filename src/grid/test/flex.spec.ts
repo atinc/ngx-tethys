@@ -24,8 +24,7 @@ import { By } from '@angular/platform-browser';
             <thy-flex-item thyGrow="1" id="flex-component-item-1"><div class="blue">Item 1</div></thy-flex-item>
         </thy-flex>
     `,
-    imports: [ThyGridModule],
-    standalone: true
+    imports: [ThyGridModule]
 })
 class FlexTestComponent implements OnInit {
     direction: ThyFlexDirection;

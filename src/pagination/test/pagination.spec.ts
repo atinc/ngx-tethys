@@ -19,7 +19,8 @@ import { provideHttpClient } from '@angular/common/http';
             (thyPageChanged)="onPageChange($event)"
             (thyPageIndexChange)="onPageIndexChange($event)"></thy-pagination>
         <ng-template #total let-total>共{{ total }}条</ng-template>
-    `
+    `,
+    standalone: false
 })
 class PaginationBasicComponent {
     pagination = {
@@ -55,7 +56,8 @@ class PaginationBasicComponent {
             [thySize]="size"
             [thyPageSizeOptions]="[10, 20, 50, 100]"
             (thyPageSizeChanged)="pageSizeChanged($event)"></thy-pagination>
-    `
+    `,
+    standalone: false
 })
 class PaginationTestComponent {
     pagination = {
@@ -85,7 +87,8 @@ describe('ThyPagination', () => {
                 [thyCustomPages]="pages"
                 [thyShowQuickJumper]="false"
                 (thyPageIndexChange)="pageIndexChange($event)"></thy-pagination>
-        `
+        `,
+        standalone: false
     })
     class PaginationCustomPagesComponent {
         currentIndex = 1;

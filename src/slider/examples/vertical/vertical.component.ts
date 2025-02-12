@@ -13,7 +13,8 @@ import { Component, OnInit } from '@angular/core';
                 height: 200px;
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class ThySliderVerticalExampleComponent implements OnInit {
     constructor() {}

@@ -10,7 +10,6 @@ type ThyResultStatus = 'success' | 'warning' | 'error';
 @Component({
     selector: 'thy-result',
     templateUrl: './result.component.html',
-    standalone: true,
     imports: [NgTemplateOutlet]
 })
 export class ThyResult implements OnInit {

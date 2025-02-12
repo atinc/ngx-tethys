@@ -22,7 +22,6 @@ import { ThyColor } from '../../helpers/color.class';
     selector: 'thy-alpha',
     templateUrl: './alpha.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
     imports: [ThyCoordinatesDirective]
 })
 export class ThyAlpha implements OnChanges {

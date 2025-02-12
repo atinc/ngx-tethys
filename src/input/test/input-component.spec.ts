@@ -31,7 +31,8 @@ import { provideHttpClient } from '@angular/common/http';
             <ng-template #append>后置模板</ng-template>
         </thy-input>
         <thy-input class="password" [(ngModel)]="passwordValue" thyType="password"> </thy-input>
-    `
+    `,
+    standalone: false
 })
 class TestBedComponent {
     thySize = ``;

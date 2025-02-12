@@ -13,7 +13,8 @@ import { provideHttpClient } from '@angular/common/http';
             <thy-tag id="default">Default Tag</thy-tag>
             <thy-tag id="tag1">Tag1</thy-tag>
         </thy-tags>
-    `
+    `,
+    standalone: false
 })
 export class ThyTagsBasicTestComponent implements OnInit {
     constructor() {}

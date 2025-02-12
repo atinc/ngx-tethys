@@ -50,7 +50,8 @@ import { provideHttpClient } from '@angular/common/http';
                 margin-top: 18px;
             }
         `
-    ]
+    ],
+    standalone: false
 })
 class EmptyTestComponent {
     @ViewChild('ThyEmptyComponent', { static: true }) thyEmptyComponent: ThyEmpty;

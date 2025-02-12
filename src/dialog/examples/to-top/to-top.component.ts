@@ -12,7 +12,6 @@ import { SafeAny } from 'ngx-tethys/types';
             <button thyButton="primary" (click)="dialogRef.close()">确定</button>
         </thy-dialog-footer>
     `,
-    standalone: true,
     imports: [ThyDialogHeader, ThyDialogBody, ThyDialogFooter, ThyButton]
 })
 class ThyDialogPopupFirstComponent {
@@ -33,7 +32,6 @@ class ThyDialogPopupFirstComponent {
             <button thyButton="primary" (click)="dialogRef.close()">确定</button>
         </thy-dialog-footer>
     `,
-    standalone: true,
     imports: [ThyDialogHeader, ThyDialogBody, ThyDialogFooter, ThyButton]
 })
 class ThyDialogPopupSecondComponent {
@@ -49,7 +47,6 @@ class ThyDialogPopupSecondComponent {
 @Component({
     selector: 'thy-dialog-to-top-example',
     templateUrl: './to-top.component.html',
-    standalone: true,
     imports: [ThyButton]
 })
 export class ThyDialogToTopExampleComponent implements OnInit {

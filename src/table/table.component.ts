@@ -130,7 +130,6 @@ const passiveEventListenerOptions = normalizePassiveListenerOptions({ passive: t
         '[class.thy-table-boxed]': `theme === 'boxed'`,
         '[class.thy-table-fixed-header]': 'thyHeaderFixed'
     },
-    standalone: true,
     imports: [
         CdkScrollable,
         NgClass,

@@ -17,7 +17,8 @@ import { createKeyboardEvent } from '@tethys/cdk/testing';
             thyButton="primary"
             thySize="sm"
             (click)="save()"></button>
-    `
+    `,
+    standalone: false
 })
 class ThyHotkeyDirectiveTestComponent {
     @ViewChild('input') input: ElementRef<HTMLInputElement>;

@@ -3,7 +3,8 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 @Component({
     selector: 'thy-autocomplete-active-example',
     templateUrl: './active.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ThyAutocompleteActiveExampleComponent implements OnInit {
     value = '';

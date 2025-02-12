@@ -69,8 +69,7 @@ export class ThyHeaderDirective {
             inputs: ['thySize', 'thyShadow', 'thyHasBorder', 'thyDivided']
         }
     ],
-    standalone: true,
-    imports: [NgTemplateOutlet, ThyIcon, NgClass, ThyHeaderDirective]
+    imports: [NgTemplateOutlet, ThyIcon, NgClass]
 })
 export class ThyHeader {
     public iconClass: string;

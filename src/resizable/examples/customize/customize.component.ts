@@ -4,7 +4,8 @@ import { ThyResizeEvent } from 'ngx-tethys/resizable';
 @Component({
     selector: 'thy-resizable-customize-example',
     templateUrl: './customize.component.html',
-    styleUrls: ['../style.scss']
+    styleUrls: ['../style.scss'],
+    standalone: false
 })
 export class ThyResizableCustomizeExampleComponent {
     width = 400;

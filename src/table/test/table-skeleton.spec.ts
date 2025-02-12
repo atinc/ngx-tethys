@@ -45,7 +45,8 @@ const defaultColumns = [
         [thyColumns]="columns"
         [thyHeadless]="headless"
         [thyMinWidth]="minWidth">
-    </thy-table-skeleton>`
+    </thy-table-skeleton>`,
+    standalone: false
 })
 class TestTableSkeletonBasicComponent {
     rowCount: number;

@@ -66,7 +66,8 @@ interface DragDropNode {
 @Component({
     selector: 'thy-drag-drop-tree-drag-example',
     templateUrl: './tree-drag.component.html',
-    styleUrls: ['./tree-drag.component.scss']
+    styleUrls: ['./tree-drag.component.scss'],
+    standalone: false
 })
 export class ThyDragDropTreeDragExampleComponent implements OnInit {
     nodes = nodes;

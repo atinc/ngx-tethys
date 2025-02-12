@@ -5,7 +5,6 @@ import { ThyButton } from 'ngx-tethys/button';
 @Component({
     selector: 'thy-dialog-basic-content',
     templateUrl: './dialog-content.component.html',
-    standalone: true,
     imports: [ThyDialogHeader, ThyDialogBody, ThyDialogFooter, ThyButton]
 })
 export class ThyDialogBasicContentComponent {

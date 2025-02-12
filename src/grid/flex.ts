@@ -105,7 +105,6 @@ export class ThyFlex implements OnInit, OnChanges {
 @Component({
     selector: 'thy-flex',
     template: `<ng-content></ng-content>`,
-    standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     hostDirectives: [
         {
@@ -113,7 +112,7 @@ export class ThyFlex implements OnInit, OnChanges {
             inputs: ['thyDirection', 'thyWrap', 'thyJustifyContent', 'thyAlignItems', 'thyGap']
         }
     ],
-    imports: [ThyFlex]
+    imports: []
 })
 export class ThyFlexComponent {}
 
@@ -197,9 +196,8 @@ export class ThyFlexItem implements OnInit, OnChanges {
 @Component({
     selector: 'thy-flex-item',
     template: `<ng-content></ng-content>`,
-    standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [ThyFlexItem],
+    imports: [],
     hostDirectives: [
         {
             directive: ThyFlexItem,

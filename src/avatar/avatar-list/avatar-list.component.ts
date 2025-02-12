@@ -39,8 +39,7 @@ export const enum ThyAvatarListMode {
         class: 'thy-avatar-list'
     },
     providers: [UpdateHostClassService],
-    standalone: true,
-    imports: [NgStyle, ThyAvatar, NgClass, NgTemplateOutlet]
+    imports: [NgTemplateOutlet]
 })
 export class ThyAvatarList implements OnChanges, OnDestroy, AfterContentInit {
     @HostBinding('class.thy-avatar-list-overlap') overlapMode = false;

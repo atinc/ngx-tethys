@@ -5,7 +5,8 @@ import { ThyTreeDragDropEvent } from 'ngx-tethys/tree';
 
 @Component({
     selector: 'thy-tree-virtual-scroll-example',
-    templateUrl: './virtual-scroll.component.html'
+    templateUrl: './virtual-scroll.component.html',
+    standalone: false
 })
 export class ThyTreeVirtualScrollExampleComponent {
     bigTreeNodes = bigTreeNodes;

@@ -47,7 +47,6 @@ export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
         '[class.thy-time-picker-disabled]': `disabled`,
         '[class.thy-time-picker-readonly]': `thyReadonly`
     },
-    standalone: true,
     imports: [CdkOverlayOrigin, ThyInputDirective, FormsModule, NgTemplateOutlet, ThyIcon, NgClass, CdkConnectedOverlay, ThyTimePanel],
     animations: [scaleXMotion, scaleYMotion, scaleMotion]
 })

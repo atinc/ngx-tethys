@@ -49,7 +49,6 @@ const inputGroupSizeMap = {
         '[class.thy-input-group-with-textarea-suffix]': 'isTextareaSuffix',
         '[class.thy-input-group-with-scroll-bar]': 'isTextareaSuffix && hasScrollbar'
     },
-    standalone: true,
     imports: [NgTemplateOutlet]
 })
 export class ThyInputGroup implements OnInit, AfterContentChecked, OnDestroy {

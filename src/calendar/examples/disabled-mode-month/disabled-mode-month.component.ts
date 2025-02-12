@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-calendar-disabled-mode-month-example',
-    templateUrl: './disabled-mode-month.component.html'
+    templateUrl: './disabled-mode-month.component.html',
+    standalone: false
 })
 export class ThyCalendarDisabledMonthExampleComponent implements OnInit {
     date = new Date();

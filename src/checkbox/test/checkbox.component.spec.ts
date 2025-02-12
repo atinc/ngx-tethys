@@ -18,7 +18,8 @@ import { ThyCheckboxModule } from '../module';
         <label thyCheckbox thyLabelText="多选选项1" [(ngModel)]="model.checked1"></label>
         <label thyCheckbox [thyLabelText]="labelText" [(ngModel)]="model.checked2"></label>
         <label thyCheckbox thyLabelText="多选选项3" [thyDisabled]="isDisabled" [(ngModel)]="model.checked3"></label>
-    `
+    `,
+    standalone: false
 })
 class CheckboxTestComponent {
     labelText = '';

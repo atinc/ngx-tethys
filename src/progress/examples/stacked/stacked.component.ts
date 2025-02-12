@@ -3,7 +3,8 @@ import { ThyProgressStackedValue } from 'ngx-tethys/progress';
 
 @Component({
     selector: 'thy-progress-stacked-example',
-    templateUrl: './stacked.component.html'
+    templateUrl: './stacked.component.html',
+    standalone: false
 })
 export class ThyProgressStackedExampleComponent {
     max = 90;

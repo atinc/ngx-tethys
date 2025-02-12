@@ -22,7 +22,6 @@ export type ThyVoteLayout = 'vertical' | 'horizontal';
     host: {
         '[class.thy-vote-disabled]': `thyDisabled`
     },
-    standalone: true,
     imports: [ThyIcon, NgTemplateOutlet]
 })
 export class ThyVote implements OnInit {

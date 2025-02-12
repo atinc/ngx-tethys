@@ -31,7 +31,6 @@ import { NgClass, NgTemplateOutlet } from '@angular/common';
             state('componentHide', style(HIDE_STYLE))
         ])
     ],
-    standalone: true,
     imports: [ThyIcon, NgClass, ThyViewOutletDirective, NgTemplateOutlet]
 })
 export class ThyNotify extends ThyAbstractMessageComponent<ThyNotifyConfig> implements OnInit {

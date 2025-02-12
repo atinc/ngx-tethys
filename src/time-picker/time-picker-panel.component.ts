@@ -43,7 +43,6 @@ import { injectLocale, ThyTimePickerLocale } from 'ngx-tethys/i18n';
         '[class.thy-time-picker-panel-columns-2]': `showColumnCount === 2`,
         '[class.thy-time-picker-panel-columns-3]': `showColumnCount === 3`
     },
-    standalone: true,
     imports: [ThyButton, DecimalPipe]
 })
 export class ThyTimePanel implements OnInit, OnDestroy, ControlValueAccessor {

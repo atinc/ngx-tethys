@@ -3,7 +3,8 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 @Component({
     selector: 'thy-autocomplete-input-search-example',
     templateUrl: './input-search.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ThyAutocompleteInputSearchExampleComponent implements OnInit {
     keyword = '';

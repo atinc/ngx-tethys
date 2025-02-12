@@ -17,7 +17,8 @@ import { ThyActiveTabInfo, ThyTabActiveEvent } from '../types';
             <thy-tab id="tab2" thyTitle="Tab2">Tab2 Content</thy-tab>
             <thy-tab id="tab3" thyTitle="Tab3">Tab3 Content</thy-tab>
         </thy-tabs>
-    `
+    `,
+    standalone: false
 })
 class TestTabsBasicComponent {
     activeTabChange(event: ThyTabActiveEvent) {}
@@ -31,7 +32,8 @@ class TestTabsBasicComponent {
             <thy-tab thyTitle="Tab2">Tab2 Content</thy-tab>
             <thy-tab thyTitle="Tab3">Tab3 Content</thy-tab>
         </thy-tabs>
-    `
+    `,
+    standalone: false
 })
 class TestTabsTypeComponent {
     type: ThyTabsType;
@@ -45,7 +47,8 @@ class TestTabsTypeComponent {
             <thy-tab thyTitle="Tab2">Tab2 Content</thy-tab>
             <thy-tab thyTitle="Tab3">Tab3 Content</thy-tab>
         </thy-tabs>
-    `
+    `,
+    standalone: false
 })
 class TestTabsSizeComponent {
     size: ThyTabsSize;
@@ -60,7 +63,8 @@ class TestTabsSizeComponent {
             <thy-tab> <ng-template #title>烤乳鸽🐦</ng-template>Tab3 Content</thy-tab>
             <thy-tab> <ng-template #title>烤乳猪🐷</ng-template>Tab4 Content</thy-tab>
         </thy-tabs>
-    `
+    `,
+    standalone: false
 })
 class TestTabsCustomTitleComponent {}
 
@@ -76,7 +80,8 @@ class TestTabsCustomTitleComponent {}
         <ng-template #extraTemplate>
             <button thyButton="outline-default" thySize="md">Extra Action</button>
         </ng-template>
-    `
+    `,
+    standalone: false
 })
 class TestTabsExtraComponent {}
 
@@ -88,7 +93,8 @@ class TestTabsExtraComponent {}
             <thy-tab thyTitle="Tab2">Tab2 Content</thy-tab>
             <thy-tab thyTitle="Tab3">Tab3 Content</thy-tab>
         </thy-tabs>
-    `
+    `,
+    standalone: false
 })
 class TestTabsPositionComponent {
     position: ThyTabsPosition;
@@ -102,7 +108,8 @@ class TestTabsPositionComponent {
             <thy-tab id="tab2" thyTitle="Tab2">Tab2 Content</thy-tab>
             <thy-tab id="tab3" thyTitle="Tab3">Tab3 Content</thy-tab>
         </thy-tabs>
-    `
+    `,
+    standalone: false
 })
 class TestTabsActiveComponent {
     activeTab: ThyActiveTabInfo = 'tab2';
@@ -119,7 +126,8 @@ class TestTabsActiveComponent {
                 <thy-tab [id]="tab.id" [thyTitle]="tab.title">Tab{{ i + 1 }} Content</thy-tab>
             }
         </thy-tabs>
-    `
+    `,
+    standalone: false
 })
 class TestTabsDynamicAddComponent {
     tabs = [
@@ -149,7 +157,8 @@ class TestTabsDynamicAddComponent {
             <thy-tab thyTitle="Tab2" thyDisabled="true">Tab2 Content</thy-tab>
             <thy-tab thyTitle="Tab3">Tab3 Content</thy-tab>
         </thy-tabs>
-    `
+    `,
+    standalone: false
 })
 class TestTabsDisabledComponent {
     activeTabChange(event: ThyTabActiveEvent) {}
@@ -163,7 +172,8 @@ class TestTabsDisabledComponent {
             <thy-tab thyTitle="Tab2">Tab2 Content</thy-tab>
             <thy-tab thyTitle="Tab3">Tab3 Content</thy-tab>
         </thy-tabs>
-    `
+    `,
+    standalone: false
 })
 class TestTabsAnimatedComponent {
     @ViewChild('tabs', { static: true }) tabComponent: ElementRef<ThyTabs>;

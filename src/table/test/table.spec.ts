@@ -75,7 +75,8 @@ import { provideHttpClient } from '@angular/common/http';
             </thy-table-column>
         </thy-table>
         <ng-template #total let-total>共{{ total }}条</ng-template>
-    `
+    `,
+    standalone: false
 })
 class ThyDemoDefaultTableComponent {
     @ViewChild('table') table: ThyTable;
@@ -708,7 +709,8 @@ describe('ThyTable: basic', () => {
                 }
             }
         `
-    ]
+    ],
+    standalone: false
 })
 class ThyDemoGroupTableComponent {
     @ViewChild('table') innerTable: ThyTable;
@@ -1018,7 +1020,8 @@ describe('ThyTable: group', () => {
             </ng-template>
         </thy-table>
         <ng-template #total let-total>共{{ total }}条</ng-template>
-    `
+    `,
+    standalone: false
 })
 class ThyDemoEmptyTableComponent {
     model = [];
@@ -1104,7 +1107,8 @@ describe('ThyTable: empty', () => {
             <thy-table-column thyTitle="Address" thyModelKey="address" [thyWidth]="500"></thy-table-column>
             <thy-table-column thyTitle="Job" thyModelKey="job" [thyWidth]="'300px'" [thyFixed]="fixedRight"></thy-table-column>
         </thy-table>
-    `
+    `,
+    standalone: false
 })
 class ThyDemoFixedTableComponent {
     fixedLeft = 'left';
@@ -1167,7 +1171,8 @@ describe('ThyTable: fixed', () => {
             <thy-table-column thyTitle="Job" thyModelKey="job"> </thy-table-column>
             <thy-table-column thyTitle="Address" thyModelKey="address"></thy-table-column>
         </thy-table>
-    `
+    `,
+    standalone: false
 })
 class ThyDemoSortTableComponent {
     data = [

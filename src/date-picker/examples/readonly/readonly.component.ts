@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-date-picker-readonly-example',
-    templateUrl: './readonly.component.html'
+    templateUrl: './readonly.component.html',
+    standalone: false
 })
 export class ThyDatePickerReadonlyExampleComponent implements OnInit {
     date = new Date();

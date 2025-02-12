@@ -340,7 +340,8 @@ const customLabelPropertyOptions = [
             [thyCustomOptions]="customOptions"
             [thyHasBackdrop]="hasBackdrop">
         </thy-cascader>
-    `
+    `,
+    standalone: false
 })
 class CascaderBasicComponent {
     @ViewChild(ThyCascader, { static: false }) cascader: ThyCascader;
@@ -394,7 +395,8 @@ class CascaderBasicComponent {
 }
 @Component({
     selector: 'thy-cascader-load',
-    template: ` <thy-cascader [thyLoadData]="thyLoadData" [(ngModel)]="curVal" style="width:400px;"> </thy-cascader> `
+    template: ` <thy-cascader [thyLoadData]="thyLoadData" [(ngModel)]="curVal" style="width:400px;"> </thy-cascader> `,
+    standalone: false
 })
 class CascaderLoadComponent {
     success = true;
@@ -449,7 +451,8 @@ class CascaderLoadComponent {
             <thy-icon class="option-icon mr-2" thyIconName="view-tile"></thy-icon>
             <span thyFlexibleText class="option-label-item" [thyTooltipContent]="option.label || ''"> {{ option.label || '' }}</span>
         </ng-template>
-    `
+    `,
+    standalone: false
 })
 class CascaderTemplateComponent {
     public curVal: string | string[] = 'xihu';
@@ -477,7 +480,8 @@ class CascaderTemplateComponent {
             [thyDisabled]="disabled"
             style="width:400px;">
         </thy-cascader>
-    `
+    `,
+    standalone: false
 })
 class CascaderMultipleComponent {
     public multipleOptions: any[] = multipleOptions;
@@ -527,7 +531,8 @@ class CascaderMultipleComponent {
             [thyDisabled]="disabled"
             style="width:400px;">
         </thy-cascader>
-    `
+    `,
+    standalone: false
 })
 class CascaderCustomLabelPropertyComponent {
     public multipleOptions: any[] = customLabelPropertyOptions;

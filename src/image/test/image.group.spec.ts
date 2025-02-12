@@ -14,7 +14,8 @@ import { provideHttpClient } from '@angular/common/http';
                 <img thyImage [thySrc]="image.src" [thyImageMeta]="image.imageMeta" />
             }
         </thy-image-group>
-    `
+    `,
+    standalone: false
 })
 class ImageGroupTestComponent {
     images = [

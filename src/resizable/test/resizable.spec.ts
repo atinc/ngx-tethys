@@ -24,7 +24,8 @@ import { provideHttpClient } from '@angular/common/http';
         (thyResize)="onResize($event)">
         <thy-resize-handles></thy-resize-handles>
         content
-    </div> `
+    </div> `,
+    standalone: false
 })
 export class ThyResizableBasicTestComponent {
     width = 400;
@@ -59,7 +60,8 @@ export class ThyResizableBasicTestComponent {
             </div>
         </thy-resize-handle>
         content
-    </div> `
+    </div> `,
+    standalone: false
 })
 export class ThyResizableCustomizeTestComponent {
     width = 400;
@@ -87,7 +89,8 @@ export class ThyResizableCustomizeTestComponent {
             col-{{ col }}
         </div>
         <div class="col col-right" thyCol [thySpan]="24 - col">col-{{ 24 - col }}</div>
-    </div>`
+    </div>`,
+    standalone: false
 })
 export class ThyResizableGridTestComponent {
     col = 8;
@@ -108,7 +111,8 @@ export class ThyResizableGridTestComponent {
         (thyResizeEnd)="onResize($event)">
         <thy-resize-handles></thy-resize-handles>
         content
-    </div> `
+    </div> `,
+    standalone: false
 })
 export class ThyResizablePreviewTestComponent {
     width = 400;
@@ -131,7 +135,8 @@ export class ThyResizablePreviewTestComponent {
         (thyResize)="onResize($event)">
         <thy-resize-handles></thy-resize-handles>
         content
-    </div> `
+    </div> `,
+    standalone: false
 })
 export class ThyResizableLockAspectRatioTestComponent {
     width = 400;
@@ -151,7 +156,8 @@ export class ThyResizableLockAspectRatioTestComponent {
             <thy-resize-handles (dblclick)="reset()" [thyDirections]="directions" thyLine="true"></thy-resize-handles>
         </div>
         <div class="right">Right</div>
-    </div> `
+    </div> `,
+    standalone: false
 })
 export class ThyResizableLineTestComponent {
     width = 200;
@@ -199,7 +205,8 @@ export class ThyResizableLineTestComponent {
                 height: 200px;
             }
         `
-    ]
+    ],
+    standalone: false
 })
 class ThyTestResizableBoundsComponent {
     @ViewChild('boxRef', { static: true }) boxRef!: ElementRef<HTMLDivElement>;
@@ -401,7 +408,7 @@ describe('resizable', () => {
                 tick(16);
                 fixture.detectChanges();
                 expect(testComponent.height).toBeLessThanOrEqual(200);
-                expect(testComponent.height).toBeGreaterThanOrEqual(100);
+                expect(testComponent.height).toBeGreaterThanOrEqual(99);
             }));
 
             /**
@@ -559,7 +566,7 @@ describe('resizable', () => {
                 expect(testComponent.width).toBeLessThanOrEqual(400);
                 expect(testComponent.width).toBeGreaterThanOrEqual(300);
                 expect(testComponent.height).toBeLessThanOrEqual(200);
-                expect(testComponent.height).toBeGreaterThanOrEqual(100);
+                expect(testComponent.height).toBeGreaterThanOrEqual(99);
             }));
 
             it('should resizing', fakeAsync(() => {

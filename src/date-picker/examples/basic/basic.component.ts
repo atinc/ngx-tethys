@@ -4,7 +4,8 @@ import { endOfDay, startOfDay, subWeeks } from 'date-fns';
 
 @Component({
     selector: 'thy-date-picker-basic-example',
-    templateUrl: './basic.component.html'
+    templateUrl: './basic.component.html',
+    standalone: false
 })
 export class ThyDatePickerBasicExampleComponent implements OnInit {
     dateShowTime = {

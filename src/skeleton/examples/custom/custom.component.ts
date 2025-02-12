@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-skeleton-custom-example',
-    templateUrl: './custom.component.html'
+    templateUrl: './custom.component.html',
+    standalone: false
 })
 export class ThySkeletonExampleCustomComponent implements OnInit {
     // generalModel为circleSkeleton、rectangleSkeleton公共配置。

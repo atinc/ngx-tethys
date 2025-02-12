@@ -52,7 +52,6 @@ export type ThyTimeDirection = 'horizontal' | 'vertical';
             </ng-template>
         </ng-container>
     `,
-    standalone: true,
     imports: [NgTemplateOutlet]
 })
 export class ThyTimeline implements OnInit, AfterContentInit, OnChanges, OnDestroy {

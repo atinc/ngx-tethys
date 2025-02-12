@@ -4,7 +4,8 @@ import { ThyResizeEvent } from 'ngx-tethys/resizable';
 @Component({
     selector: 'thy-resizable-line-example',
     templateUrl: './line.component.html',
-    styleUrls: ['./line.component.scss']
+    styleUrls: ['./line.component.scss'],
+    standalone: false
 })
 export class ThyResizableLineExampleComponent {
     width = 200;

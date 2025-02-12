@@ -4,7 +4,8 @@ import { ThyNotifyService } from 'ngx-tethys/notify';
 @Component({
     selector: 'thy-hotkey-basic-example',
     templateUrl: './basic.component.html',
-    styleUrls: ['./basic.component.scss']
+    styleUrls: ['./basic.component.scss'],
+    standalone: false
 })
 export class ThyHotkeyBasicExampleComponent implements OnInit {
     private notify = inject(ThyNotifyService);

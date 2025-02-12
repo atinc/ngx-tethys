@@ -6,7 +6,8 @@ import { ThySlideDemoContentComponent } from '../slide-content.component';
 
 @Component({
     selector: 'thy-slide-mode-example',
-    templateUrl: './mode.component.html'
+    templateUrl: './mode.component.html',
+    standalone: false
 })
 export class ThySlideModeExampleComponent {
     private thySlideNewService = inject(ThySlideService);

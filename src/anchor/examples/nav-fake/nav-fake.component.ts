@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-anchor-nav-fake-example',
-    templateUrl: './nav-fake.component.html'
+    templateUrl: './nav-fake.component.html',
+    standalone: false
 })
 export class ThyAnchorNavFakeExampleComponent implements OnInit {
     demos: number[] = [];

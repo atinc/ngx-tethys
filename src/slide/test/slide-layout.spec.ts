@@ -769,7 +769,8 @@ describe('ThySlide', () => {
                 <button thyButton="primary-square" (click)="save($event)" class="btn-block">确定</button>
             </thy-slide-footer>
         </thy-slide-layout>
-    `
+    `,
+    standalone: false
 })
 class SlideLayoutTestComponent {
     public data: number;
@@ -791,7 +792,8 @@ class SlideLayoutTestComponent {
                 <div class="custom-slide-title">头部</div>
             </ng-template>
         </thy-slide-header>
-    `
+    `,
+    standalone: false
 })
 class SlideHeaderTestComponent {}
 

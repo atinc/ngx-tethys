@@ -20,7 +20,8 @@ import { provideHttpClient } from '@angular/common/http';
         <thy-input-group class="group2" thyPrependTextTranslateKey="donut" thyAppendTextTranslateKey="donut2">
             <input thyInput />
         </thy-input-group>
-    `
+    `,
+    standalone: false
 })
 class TestInputGroupBasicComponent {
     value = '';
@@ -40,7 +41,8 @@ class TestInputGroupBasicComponent {
             <input thyInput [disabled]="disabled" placeholder="Please type" />
             <ng-template #suffix>Suffix Content</ng-template>
         </thy-input-group>
-    `
+    `,
+    standalone: false
 })
 class TestInputGroupPrefixAndSuffixComponent {
     value = '';
@@ -65,7 +67,8 @@ class TestInputGroupPrefixAndSuffixComponent {
                 <thy-input-count></thy-input-count>
             </ng-template>
         </thy-input-group>
-    `
+    `,
+    standalone: false
 })
 class TestInputGroupTextareaSuffixComponent {
     textareaValue = '';

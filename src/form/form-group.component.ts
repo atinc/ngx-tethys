@@ -34,7 +34,6 @@ type TipsMode = 'default' | 'label';
     templateUrl: './form-group.component.html',
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
     imports: [NgTemplateOutlet, ThyIcon, NgClass, ThyTooltipDirective]
 })
 export class ThyFormGroup implements OnInit {

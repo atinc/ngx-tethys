@@ -77,7 +77,6 @@ export function filterTreeData(treeNodes: ThyTreeSelectNode[], searchText: strin
             multi: true
         }
     ],
-    standalone: true,
     imports: [
         CdkOverlayOrigin,
         ThySelectControl,
@@ -571,7 +570,6 @@ const DEFAULT_ITEM_SIZE = 40;
 @Component({
     selector: 'thy-tree-select-nodes',
     templateUrl: './tree-select-nodes.component.html',
-    standalone: true,
     imports: [
         NgTemplateOutlet,
         CdkVirtualScrollViewport,

@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'thy-comment-nest-example',
-    templateUrl: './nest.component.html'
+    templateUrl: './nest.component.html',
+    standalone: false
 })
 export class ThyCommentNestExampleComponent {
     constructor() {}

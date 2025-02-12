@@ -3,7 +3,8 @@ import { ThyTableSortDirection, ThyTableSortEvent } from 'ngx-tethys/table';
 
 @Component({
     selector: 'thy-table-sortable-example',
-    templateUrl: './sortable.component.html'
+    templateUrl: './sortable.component.html',
+    standalone: false
 })
 export class ThyTableSortableExampleComponent implements OnInit {
     data = [

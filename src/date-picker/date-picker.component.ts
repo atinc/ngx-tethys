@@ -23,7 +23,6 @@ import { ThyPicker } from './picker.component';
             useExisting: forwardRef(() => ThyDatePicker)
         }
     ],
-    standalone: true,
     imports: [ThyPicker, DatePopup],
     host: {
         '[attr.tabindex]': 'tabIndex'

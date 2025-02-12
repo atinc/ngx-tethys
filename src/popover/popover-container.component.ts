@@ -34,23 +34,18 @@ import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
         tabindex: '-1',
         '[attr.role]': `'popover'`,
         '[attr.id]': 'id',
-
         '[@.disabled]': '!!config.animationDisabled',
-
         '[@scaleXMotion]': '(config.placement === "left" || config.placement === "right") ? animationState : "void"',
         '(@scaleXMotion.start)': 'onAnimationStart($event)',
         '(@scaleXMotion.done)': 'onAnimationDone($event)',
-
         '[@scaleYMotion]': '(config.placement === "top" || config.placement === "bottom") ? animationState : "void"',
         '(@scaleYMotion.start)': 'onAnimationStart($event)',
         '(@scaleYMotion.done)': 'onAnimationDone($event)',
-
         '[@scaleMotion]':
             '(config.placement !== "left" && config.placement !== "right" && config.placement !== "top" && config.placement !== "bottom") ? animationState : "void"',
         '(@scaleMotion.start)': 'onAnimationStart($event)',
         '(@scaleMotion.done)': 'onAnimationDone($event)'
     },
-    standalone: true,
     imports: [PortalModule, ThyPortalOutlet]
 })
 export class ThyPopoverContainer<TData = unknown> extends ThyAbstractOverlayContainer<TData> implements AfterViewInit, OnDestroy {

@@ -3,7 +3,8 @@ import { ThyTableColumnSkeletonType, ThyTableSize, ThyTableSkeletonColumn, ThyTa
 
 @Component({
     selector: 'thy-table-skeleton-example',
-    templateUrl: './skeleton.component.html'
+    templateUrl: './skeleton.component.html',
+    standalone: false
 })
 export class ThyTableSkeletonExampleComponent {
     data = [

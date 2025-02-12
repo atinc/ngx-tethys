@@ -10,7 +10,8 @@ import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-image-directive-test',
-    template: ` <img thyImage [thySrc]="src" [thyImageMeta]="imageMeta" [thyDisablePreview]="disablePreview" /> `
+    template: ` <img thyImage [thySrc]="src" [thyImageMeta]="imageMeta" [thyDisablePreview]="disablePreview" /> `,
+    standalone: false
 })
 class ImageDirectiveTestComponent {
     src = '';

@@ -134,7 +134,8 @@ describe('ThyPickerComponent', () => {
             [readonly]="thyReadonly"
             (inputChange)="onInputChange($event)">
         </thy-picker>
-    `
+    `,
+    standalone: false
 })
 class ThyTestPickerComponent {
     @ViewChild('thyPicker', { static: true }) thyPicker: ThyPicker;

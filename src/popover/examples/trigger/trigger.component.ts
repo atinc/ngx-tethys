@@ -5,7 +5,8 @@ import { ThyPopoverBasicContentComponent } from '../basic/popover-content.compon
 @Component({
     selector: 'thy-popover-trigger-example',
     templateUrl: './trigger.component.html',
-    styleUrls: ['./trigger.component.scss']
+    styleUrls: ['./trigger.component.scss'],
+    standalone: false
 })
 export class ThyPopoverTriggerExampleComponent implements OnInit {
     constructor() {}

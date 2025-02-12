@@ -41,7 +41,8 @@ import { provideHttpClient } from '@angular/common/http';
                 <thy-avatar [thyName]="name" thyRemovable="true" (thyRemove)="remove()"></thy-avatar>
             }
         }
-    `
+    `,
+    standalone: false
 })
 class ThyTestAvatarComponent {
     private thyAvatarService = inject(ThyAvatarService);

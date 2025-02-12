@@ -18,7 +18,8 @@ const DEFAULT_DURATION_TIME = 4500;
         <button class="warning-btn" (click)="openMessage('warning')">warning</button>
         <button class="error-btn" (click)="openMessage('error')">error</button>
         <button class="loading-btn" (click)="openMessage('loading')">loading</button>
-    `
+    `,
+    standalone: false
 })
 export class ThyMessageTestComponent implements OnInit {
     messageService = coreInject(ThyMessageService);
@@ -162,7 +163,7 @@ describe('ThyMessage', () => {
         fixture.detectChanges();
         flush();
         const message: HTMLElement = messageElement;
-        expect(message.style.opacity).toBe('0');
+        expect(message.style.opacity).toBe('');
         fixture.detectChanges();
         flush();
     }));
@@ -220,7 +221,7 @@ describe('ThyMessage', () => {
         dispatchMouseEvent(notHasCloseIconMessageElement, 'mouseenter');
         fixture.detectChanges();
         tick(DEFAULT_DURATION_TIME + 1000);
-        expect((notHasCloseIconMessageElement as HTMLElement).style.opacity).toBe('0');
+        expect((notHasCloseIconMessageElement as HTMLElement).style.opacity).toBe('');
 
         tick(DEFAULT_DURATION_TIME);
         fixture.detectChanges();

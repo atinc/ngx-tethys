@@ -36,7 +36,8 @@ const NAV_LINK_CLASS = `thy-nav-item`;
         <ng-template #extra>
             <a href="javascript:;">Extra</a>
         </ng-template>
-    `
+    `,
+    standalone: false
 })
 export class NavBasicComponent implements OnInit {
     type: ThyNavType;
@@ -80,7 +81,8 @@ export class NavBasicComponent implements OnInit {
                 display: block;
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class NavResponsiveComponent implements OnInit {
     type: ThyNavType;
@@ -112,7 +114,8 @@ export class NavResponsiveComponent implements OnInit {
 
 @Component({
     selector: 'app-nav-basic',
-    template: ``
+    template: ``,
+    standalone: false
 })
 export class NavRouteComponent {}
 

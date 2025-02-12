@@ -44,7 +44,6 @@ export class ThyOptionVisibleChangeEvent {
     selector: 'thy-option',
     templateUrl: './option.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
     imports: [ThyIcon]
 })
 export class ThyOption extends SelectOptionBase implements OnDestroy, Highlightable {

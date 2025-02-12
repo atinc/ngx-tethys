@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'thy-segment-template-example',
-    templateUrl: './template.component.html'
+    templateUrl: './template.component.html',
+    standalone: false
 })
 export class ThySegmentTemplateExampleComponent {
     items = [

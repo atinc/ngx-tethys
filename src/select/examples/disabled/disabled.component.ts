@@ -11,7 +11,8 @@ import { listOfOption } from '../mock-data';
                 margin-bottom: 12px;
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class ThySelectDisabledExampleComponent implements OnInit {
     listOfOption = listOfOption;

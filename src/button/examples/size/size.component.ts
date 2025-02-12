@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-button-size-example',
-    templateUrl: './size.component.html'
+    templateUrl: './size.component.html',
+    standalone: false
 })
 export class ThyButtonSizeExampleComponent implements OnInit {
     sizes = [

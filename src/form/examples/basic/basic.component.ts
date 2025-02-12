@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-form-basic-example',
-    templateUrl: './basic.component.html'
+    templateUrl: './basic.component.html',
+    standalone: false
 })
 export class ThyFormBasicExampleComponent implements OnInit {
     model = {

@@ -4,7 +4,8 @@ import { DateRangeItemInfo } from 'ngx-tethys/date-range';
 
 @Component({
     selector: 'app-date-range-optional-date-ranges',
-    templateUrl: './optional-date-ranges.component.html'
+    templateUrl: './optional-date-ranges.component.html',
+    standalone: false
 })
 export class ThyDateRangeOptionalDateRangesExampleComponent implements OnInit {
     public date: DateRangeItemInfo;

@@ -11,7 +11,8 @@ import { DEFAULT_COLORS } from 'ngx-tethys/color-picker';
                 height: 30px;
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class ThyPresetColorsExampleComponent implements OnInit {
     color = '#6698FF';

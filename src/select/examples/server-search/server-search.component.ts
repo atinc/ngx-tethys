@@ -3,7 +3,8 @@ import { timer } from 'rxjs';
 
 @Component({
     selector: 'thy-select-server-search-example',
-    templateUrl: './server-search.component.html'
+    templateUrl: './server-search.component.html',
+    standalone: false
 })
 export class ThySelectServerSearchExampleComponent implements OnInit {
     searchResultList: Array<{ _id: string; display_name: string }> = [];

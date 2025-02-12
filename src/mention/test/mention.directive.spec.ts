@@ -20,7 +20,8 @@ import { ThyMentionModule } from '../mention.module';
         <div class="demo-card">
             <textarea [(ngModel)]="value" thyInput [thyMention]="mentions" [thyPopoverConfig]="popoverConfig"></textarea>
         </div>
-    `
+    `,
+    standalone: false
 })
 class ThyTestMentionBasicComponent implements OnInit {
     value = `@t`;
@@ -62,7 +63,8 @@ class ThyTestMentionBasicComponent implements OnInit {
                 </thy-selection-list>
             </ng-template>
         </div>
-    `
+    `,
+    standalone: false
 })
 class ThyTestMentionSuggestionsTemplateComponent implements OnInit {
     value = `@`;
@@ -101,7 +103,8 @@ class ThyTestMentionSuggestionsTemplateComponent implements OnInit {
                 [thyMention]="mentions"
                 [(ngModel)]="value" />
         </div>
-    `
+    `,
+    standalone: false
 })
 class ThyTestInputMentionComponent implements OnInit {
     value = ``;
@@ -126,7 +129,8 @@ class ThyTestInputMentionComponent implements OnInit {
         <div class="demo-card">
             <p class="example-text" #exampleText contenteditable="true" [thyMention]="mentions">&#64;t</p>
         </div>
-    `
+    `,
+    standalone: false
 })
 class ThyTestContenteditableMentionComponent implements OnInit {
     mentions: Mention[] = [

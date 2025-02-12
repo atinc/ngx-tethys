@@ -13,7 +13,8 @@ import { ThySwitchModule } from '../switch.module';
             [thyDisabled]="isDisabled"
             [(ngModel)]="isChecked"
             [thyLoading]="isLoading"></thy-switch>
-        <thy-switch disabled [(ngModel)]="isChecked"></thy-switch>`
+        <thy-switch disabled [(ngModel)]="isChecked"></thy-switch>`,
+    standalone: false
 })
 class SwitchTestComponent {
     size = ``;

@@ -185,8 +185,7 @@ export class ThySidebarDirective implements OnInit {
             inputs: ['thyTheme', 'thyDirection', 'thyWidth', 'thyIsolated', 'thyDivided', 'thyHasBorderLeft', 'thyHasBorderRight']
         }
     ],
-    standalone: true,
-    imports: [NgTemplateOutlet, ThyResizeHandle, ThyResizableDirective, ThyIcon, ThyTooltipDirective, NgClass, NgStyle]
+    imports: [NgTemplateOutlet, ThyResizeHandle, ThyResizableDirective, ThyIcon, ThyTooltipDirective, NgClass]
 })
 export class ThySidebar implements OnInit, OnDestroy {
     elementRef = inject(ElementRef);

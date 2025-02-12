@@ -273,7 +273,8 @@ describe('ThyMonthPickerComponent', () => {
             [thyDisabledDate]="thyDisabledDate"
             [thyPlaceHolder]="thyPlaceHolder">
         </thy-month-picker>
-    `
+    `,
+    standalone: false
 })
 class TestMonthPickerComponent {
     thyAllowClear: boolean;

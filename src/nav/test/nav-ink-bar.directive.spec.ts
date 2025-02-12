@@ -28,7 +28,8 @@ import { provideHttpClient } from '@angular/common/http';
                 display: block;
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class NavInkBarComponent implements OnInit {
     activeName: string = 'Item1';
@@ -44,25 +45,29 @@ export class NavInkBarComponent implements OnInit {
 
 @Component({
     selector: 'test-link1',
-    template: ``
+    template: ``,
+    standalone: false
 })
 export class Link1Component {}
 
 @Component({
     selector: 'test-link2',
-    template: ``
+    template: ``,
+    standalone: false
 })
 export class Link2Component {}
 
 @Component({
     selector: 'test-link3',
-    template: ``
+    template: ``,
+    standalone: false
 })
 export class Link3Component {}
 
 @Component({
     selector: 'test-link-none',
-    template: ``
+    template: ``,
+    standalone: false
 })
 export class LinkNoneComponent {}
 
@@ -100,7 +105,8 @@ const routes: Routes = [
                 }
             </thy-nav>
         </div>
-    `
+    `,
+    standalone: false
 })
 export class NavInkBarRouterLinkActiveModeComponent implements OnInit {
     type: ThyNavType = 'pulled';
@@ -133,7 +139,8 @@ export class NavInkBarRouterLinkActiveModeComponent implements OnInit {
                 }
             </thy-nav>
         </div>
-    `
+    `,
+    standalone: false
 })
 export class NavInkBarHaveBadgeModeComponent implements OnInit {
     type: ThyNavType = 'pulled';

@@ -37,7 +37,6 @@ import { NgTemplateOutlet } from '@angular/common';
     `,
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
     imports: [NgTemplateOutlet]
 })
 export class ThyAnchorLink implements OnInit, OnDestroy {

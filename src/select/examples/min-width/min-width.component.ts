@@ -26,7 +26,8 @@ import { THY_SELECT_CONFIG } from 'ngx-tethys/select';
                 dropdownWidthMode: 'min-width'
             }
         }
-    ]
+    ],
+    standalone: false
 })
 export class ThySelectMinWidthExampleComponent {
     listOfOption = listOfOption;
