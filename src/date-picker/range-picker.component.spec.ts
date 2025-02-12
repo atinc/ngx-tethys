@@ -822,8 +822,8 @@ describe('ThyRangePickerComponent', () => {
             const cells = overlayContainerElement.querySelectorAll(
                 `.thy-calendar-date-panel-flexible tbody.thy-calendar-tbody td.thy-calendar-cell`
             );
-            const left = cells[0];
-            const right = cells[1];
+            const left = cells[10];
+            const right = cells[11];
             const leftText = left.textContent.trim();
             const rightText = right.textContent.trim();
             dispatchMouseEvent(left, 'click');

@@ -207,11 +207,11 @@ describe('tiny-date', () => {
         const defaultDate = new TinyDate(1739174063000);
         expect(defaultDate?.nativeDate).toEqual(new Date(1739174063000));
         expect(defaultDate.getHours()).toBe(15);
-        expect(TinyDate.getDefaultTimeZone()).toBe('Asia/Shanghai');
+        expect(defaultDate['useTimeZone']).toBe('Asia/Shanghai');
 
         TinyDate.setDefaultTimeZone('America/Los_Angeles');
         const date = new TinyDate(1739174063000);
-        expect(TinyDate.getDefaultTimeZone()).toBe('America/Los_Angeles');
+        expect(date['useTimeZone']).toBe('America/Los_Angeles');
         expect(defaultDate.getHours()).not.toBe(date.getHours());
         expect(date.getHours()).toBe(23);
     });
