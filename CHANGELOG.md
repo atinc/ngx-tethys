@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [18.2.4](https://github.com/atinc/ngx-tethys/compare/18.2.3...18.2.4) (2025-02-10)
+
+
+### Bug Fixes
+
+* **nav:** support thyPauseReCalculate and fix need to monitor the resize changes of the newly added nav item #TINFR-1497 ([#3293](https://github.com/atinc/ngx-tethys/issues/3293)) ([24b82ca](https://github.com/atinc/ngx-tethys/commit/24b82cacf93ffe85d3555dbe40cb0aa82b13959a)), closes [#TINFR-1497](https://github.com/atinc/ngx-tethys/issues/TINFR-1497)
+
+
+
 ## [18.2.3](https://github.com/atinc/ngx-tethys/compare/18.2.2...18.2.3) (2025-01-13)
 
 
