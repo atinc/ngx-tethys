@@ -36,7 +36,7 @@ export type SvgHtml = SafeHtml | string;
 })
 export class ThyIconRegistry {
     private sanitizer = inject(DomSanitizer);
-    private httpClient = inject(HttpClient);
+    private httpClient = inject(HttpClient, { optional: false });
     private document = inject(DOCUMENT);
 
     private defaultFontSetClass = 'wt-icon';

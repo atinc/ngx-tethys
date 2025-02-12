@@ -4,6 +4,7 @@ import { ThySliderModule } from './slider.module';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { Component, DebugElement, ViewEncapsulation } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     template: `
@@ -56,7 +57,7 @@ describe('ThyTestSliderComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [FormsModule, ThySliderModule],
-            providers: [],
+            providers: [provideHttpClient()],
             declarations: [ThyTestSliderComponent]
         });
 

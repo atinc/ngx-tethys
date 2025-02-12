@@ -7,6 +7,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { By } from '@angular/platform-browser';
 import { DEFAULT_RESIZE_DIRECTION, ThyResizableDirective, ThyResizeEvent } from '../index';
 import { ThyResizableModule } from '../module';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-resizable-basic-test',
@@ -237,7 +238,7 @@ describe('resizable', () => {
                 ThyTestResizableBoundsComponent,
                 ThyResizableLineTestComponent
             ],
-            providers: []
+            providers: [provideHttpClient()]
         }).compileComponents();
     }));
 

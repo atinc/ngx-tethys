@@ -13,6 +13,7 @@ import { ThyIconModule } from '../../icon';
 import { ThyNavItemDirective } from '../nav-item.directive';
 import { ThyNav, ThyNavHorizontal, ThyNavSize, ThyNavType } from '../nav.component';
 import { ThyNavModule } from '../nav.module';
+import { provideHttpClient } from '@angular/common/http';
 
 const NAV_CLASS = `thy-nav`;
 const NAV_LINK_CLASS = `thy-nav-item`;
@@ -132,7 +133,7 @@ describe(`thy-nav`, () => {
         TestBed.configureTestingModule({
             declarations: [NavBasicComponent, NavResponsiveComponent, NavRouteComponent],
             imports: [ThyNavModule, ThyIconModule, NoopAnimationsModule, RouterTestingModule.withRoutes(routes)],
-            providers: [bypassSanitizeProvider]
+            providers: [bypassSanitizeProvider, provideHttpClient()]
         });
         TestBed.compileComponents();
         injectDefaultSvgIconSet();

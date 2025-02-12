@@ -6,6 +6,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyBackTop } from '../back-top.component';
 import { ThyBackTopModule } from '../back-top.module';
 import { ThyScrollService } from '../../core';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('Component:thy-back-top', () => {
     let scrollService: MockThyScrollService;
@@ -36,6 +37,7 @@ describe('Component:thy-back-top', () => {
             declarations: [TestBackTopComponent, TestBackTopTemplateComponent],
             providers: [
                 MockThyScrollService,
+                provideHttpClient(),
                 {
                     provide: ThyScrollService,
                     useExisting: MockThyScrollService

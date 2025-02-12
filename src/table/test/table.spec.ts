@@ -9,6 +9,7 @@ import { ThyTable } from '../table.component';
 import { ThyPage, ThyTableDraggableEvent, ThyTableSortDirection } from '../table.interface';
 import { ThyTableModule } from '../table.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-demo-default-table',
@@ -216,7 +217,7 @@ describe('ThyTable: basic', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyTableModule, TableTestModule, NoopAnimationsModule],
-            providers: []
+            providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
     }));
@@ -809,7 +810,8 @@ describe('ThyTable: group', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyTableModule, TableTestModule, NoopAnimationsModule],
-            declarations: [ThyDemoGroupTableComponent]
+            declarations: [ThyDemoGroupTableComponent],
+            providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
     }));
@@ -1066,7 +1068,8 @@ describe('ThyTable: empty', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyTableModule, NoopAnimationsModule],
-            declarations: [ThyDemoEmptyTableComponent]
+            declarations: [ThyDemoEmptyTableComponent],
+            providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
     }));
@@ -1116,7 +1119,8 @@ describe('ThyTable: fixed', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyTableModule, NoopAnimationsModule],
-            declarations: [ThyDemoFixedTableComponent]
+            declarations: [ThyDemoFixedTableComponent],
+            providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
     }));
@@ -1185,7 +1189,8 @@ describe('ThyTable: sort', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyTableModule, NoopAnimationsModule],
-            declarations: [ThyDemoSortTableComponent]
+            declarations: [ThyDemoSortTableComponent],
+            providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
     }));

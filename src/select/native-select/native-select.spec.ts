@@ -7,6 +7,7 @@ import { By } from '@angular/platform-browser';
 
 import { dispatchFakeEvent } from '../../testing';
 import { ThySelectModule } from '../module';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'app-basic-select-demo',
@@ -39,6 +40,7 @@ describe(`select`, () => {
             imports: [ThySelectModule, FormsModule],
             declarations: [BasicNativeSelectComponent],
             providers: [
+                provideHttpClient(),
                 {
                     provide: Sanitizer,
                     useValue: {

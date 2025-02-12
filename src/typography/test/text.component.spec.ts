@@ -5,6 +5,7 @@ import { isBgColor, isThemeColor, ThyBgColor, ThyTextColor, ThyThemeColor } from
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyTypographyModule } from '../module';
 import { ThyBackgroundColorDirective } from 'ngx-tethys/typography';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-text-basic-test',
@@ -34,7 +35,8 @@ describe('thy-text', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [ThyTextBasicTestComponent, ThyTextBackgroundTestComponent],
-            imports: [ThyTypographyModule, ThyIconModule]
+            imports: [ThyTypographyModule, ThyIconModule],
+            providers: [provideHttpClient()]
         }).compileComponents();
     }));
 

@@ -16,6 +16,7 @@ import { ThyMenuItem } from '../item/menu-item.component';
 import { ThyMenuItemName } from '../item/name/menu-item-name.component';
 import { ThyMenu, ThyMenuTheme } from '../menu.component';
 import { ThyMenuModule } from '../menu.module';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-demo-menu',
@@ -108,7 +109,7 @@ describe('ThyMenu', () => {
         TestBed.configureTestingModule({
             declarations: [ThyDemoMenuComponent, ThyMenuTestBasicComponent],
             imports: [ThyMenuModule, BrowserAnimationsModule, ThyDividerModule, ThyPopoverModule, ThyIconModule],
-            providers: [bypassSanitizeProvider, ThyPopover]
+            providers: [bypassSanitizeProvider, ThyPopover, provideHttpClient()]
         }).compileComponents();
         injectDefaultSvgIconSet();
     });

@@ -15,6 +15,7 @@ import { bigTreeNodes, moreOptionTreeSelectData, searchTreeSelectData } from '..
 import { ThyTreeSelectModule } from '../module';
 import { ThyTreeSelectNode } from '../tree-select.class';
 import { filterTreeData, ThyTreeSelect } from '../tree-select.component';
+import { provideHttpClient } from '@angular/common/http';
 
 function treeNodesExpands(nodes: ThyTreeSelectNode[]) {
     const arr = [] as ThyTreeSelectNode[];
@@ -420,6 +421,7 @@ describe('ThyTreeSelect', () => {
             imports: [ThyFormModule, ThyTreeSelectModule, ReactiveFormsModule, FormsModule, NoopAnimationsModule],
             declarations: declarations,
             providers: [
+                provideHttpClient(),
                 {
                     provide: Sanitizer,
                     useValue: {

@@ -13,6 +13,7 @@ import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform
 import { ThyDatePickerModule } from './date-picker.module';
 import { ThyPropertyOperation, ThyPropertyOperationModule } from 'ngx-tethys/property-operation';
 import { CompatiblePresets, ThyDateRangeEntry, ThyShortcutPosition } from './standard-types';
+import { provideHttpClient } from '@angular/common/http';
 
 registerLocaleData(zh);
 
@@ -26,7 +27,7 @@ describe('ThyRangePickerDirective', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [FormsModule, ThyDatePickerModule, ThyPropertyOperationModule, BrowserAnimationsModule, NoopAnimationsModule],
-            providers: [],
+            providers: [provideHttpClient()],
             declarations: [ThyTestRangePickerComponent]
         });
 

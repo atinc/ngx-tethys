@@ -23,6 +23,7 @@ import { SelectMode, THY_SELECT_PANEL_MIN_WIDTH, ThySelect, ThySelectOptionModel
 import { ThySelectModule } from '../module';
 import { THY_SELECT_CONFIG, THY_SELECT_SCROLL_STRATEGY, ThyDropdownWidthMode } from '../select.config';
 import { SelectControlSize, ThyOption, ThyOptionModule } from 'ngx-tethys/shared';
+import { provideHttpClient } from '@angular/common/http';
 
 interface FoodsInfo {
     value: string | string[];
@@ -715,7 +716,7 @@ describe('ThyCustomSelect', () => {
         TestBed.configureTestingModule({
             imports: [ThyFormModule, ThyOptionModule, ThySelectModule, ReactiveFormsModule, FormsModule, NoopAnimationsModule],
             declarations: declarations,
-            providers: [bypassSanitizeProvider, ...providers]
+            providers: [bypassSanitizeProvider, ...providers, provideHttpClient()]
         }).compileComponents();
 
         inject([OverlayContainer, Platform], (oc: OverlayContainer, p: Platform) => {

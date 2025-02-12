@@ -25,6 +25,7 @@ import {
     WithTemplateRefComponent,
     WithViewContainerDirective
 } from './module';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('ThyDialog', () => {
     let dialog: ThyDialog;
@@ -41,6 +42,7 @@ describe('ThyDialog', () => {
             imports: [ThyDialogModule, DialogTestModule],
             providers: [
                 bypassSanitizeProvider,
+                provideHttpClient(),
                 { provide: Location, useClass: SpyLocation },
                 {
                     provide: THY_CONFIRM_DEFAULT_OPTIONS,

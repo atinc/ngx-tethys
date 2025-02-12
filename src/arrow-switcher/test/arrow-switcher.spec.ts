@@ -6,6 +6,7 @@ import { ThyArrowSwitcher } from '../arrow-switcher.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('ThyArrowSwitcher', () => {
     let fixture: ComponentFixture<ThyDemoArrowSwitcherComponent>;
@@ -16,7 +17,7 @@ describe('ThyArrowSwitcher', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyArrowSwitcherModule, ArrowSwitcherTestModule],
-            providers: []
+            providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
     }));
