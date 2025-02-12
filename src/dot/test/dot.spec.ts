@@ -27,10 +27,7 @@ describe('ThyDot', () => {
     const themes = ['outline', 'fill'];
 
     beforeEach(fakeAsync(() => {
-        TestBed.configureTestingModule({
-            imports: [ThyDotModule, DotTestModule],
-            providers: []
-        });
+        TestBed.configureTestingModule({ imports: [ThyDotModule, DotTestModule], providers: [] });
 
         TestBed.compileComponents();
     }));
@@ -104,9 +101,5 @@ class ThyDemoDotComponent {
     }
 }
 
-@NgModule({
-    imports: [ThyDotModule],
-    declarations: [ThyDemoDotComponent],
-    exports: [ThyDemoDotComponent]
-})
+@NgModule({ imports: [ThyDotModule], declarations: [ThyDemoDotComponent], exports: [ThyDemoDotComponent] })
 export class DotTestModule {}
