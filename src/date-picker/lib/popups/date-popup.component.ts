@@ -383,7 +383,8 @@ export class DatePopup implements OnChanges, OnInit {
 
             if ((!left && !right) || (left && right)) {
                 // If totally full or empty, clean up && re-assign left first
-                this.hoverValue = this.selectedValue = [value.startOfDay()];
+                this.hoverValue = this.selectedValue = [value];
+                this.selectedValue = [this.selectedValue[0].startOfDay()];
                 this.calendarChange.emit([this.selectedValue[0].clone()]);
             } else if (left && !right) {
                 // If one of them is empty, assign the other one and sort, then set the final values

@@ -72,15 +72,15 @@ export function useDatePickerDefaultConfig(): ThyDatePickerConfig {
             return [
                 {
                     title: locale().today,
-                    value: startOfDay(new TinyDate().getTime()).getTime()
+                    value: startOfDay(new TinyDate().nativeDate).getTime()
                 },
                 {
                     title: locale().tomorrow,
-                    value: startOfDay(addDays(new TinyDate().getTime(), 1)).getTime()
+                    value: startOfDay(addDays(new TinyDate().nativeDate, 1)).getTime()
                 },
                 {
                     title: locale().nextWeek,
-                    value: startOfWeek(addWeeks(new TinyDate().getTime(), 1), { weekStartsOn: 1 }).getTime()
+                    value: startOfWeek(addWeeks(new TinyDate().nativeDate, 1), { weekStartsOn: 1 }).getTime()
                 }
             ];
         },
