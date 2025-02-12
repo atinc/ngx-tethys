@@ -6,6 +6,7 @@ import { By } from '@angular/platform-browser';
 import { ENTER } from 'ngx-tethys/util';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-test-pagination-basic',
@@ -101,7 +102,7 @@ describe('ThyPagination', () => {
         TestBed.configureTestingModule({
             imports: [ThyPaginationModule, NoopAnimationsModule],
             declarations: [PaginationTestComponent, PaginationBasicComponent, PaginationCustomPagesComponent],
-            providers: []
+            providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
     });

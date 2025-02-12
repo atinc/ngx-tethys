@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyEmpty, ThyEmptyImageFetchPriority, ThyEmptyImageLoading } from '../empty.component';
 import { ThyEmptyConfig } from '../empty.config';
 import { ThyEmptyModule } from '../empty.module';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-demo-empty',
@@ -76,7 +77,7 @@ describe('EmptyComponent', () => {
         TestBed.configureTestingModule({
             imports: [BrowserAnimationsModule, ThyEmptyModule],
             declarations: [EmptyTestComponent],
-            providers: [ThyEmptyConfig]
+            providers: [ThyEmptyConfig, provideHttpClient()]
         }).compileComponents();
         fixture = TestBed.createComponent(EmptyTestComponent);
         componentInstance = fixture.componentInstance;

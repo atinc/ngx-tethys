@@ -5,6 +5,7 @@ import { ThyBreadcrumbItem } from '../breadcrumb-item.component';
 import { By } from '@angular/platform-browser';
 import { ThyBreadcrumb } from '../breadcrumb.component';
 import { ThyIconModule } from './../../icon/icon.module';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-demo-breadcrumb-basic',
@@ -46,6 +47,7 @@ describe('ThyBreadcrumb', () => {
         TestBed.configureTestingModule({
             imports: [ThyBreadcrumbModule, BreadcrumbTestModule, ThyIconModule],
             providers: [
+                provideHttpClient()
                 // { provide: Location, useClass: SpyLocation }
             ]
         });

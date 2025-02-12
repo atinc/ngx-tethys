@@ -9,6 +9,7 @@ import { By } from '@angular/platform-browser';
 import { ThyFormGroup } from '../form-group.component';
 import { ThyTranslate } from 'ngx-tethys/core';
 import { ThyFormGroupLabelDirective } from '../form-group-label.directive';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-test-form-group-basic',
@@ -71,7 +72,7 @@ describe('form-group basic', () => {
         TestBed.configureTestingModule({
             declarations: [TestFormWithGroupComponent],
             imports: [ThyFormModule, FormsModule, ThyButtonModule],
-            providers: [bypassSanitizeProvider]
+            providers: [bypassSanitizeProvider, provideHttpClient()]
         }).compileComponents();
     }));
 
@@ -212,7 +213,7 @@ describe('form-group in vertical', () => {
         TestBed.configureTestingModule({
             declarations: [TestFormGroupVerticalComponent],
             imports: [ThyFormModule, FormsModule, ThyButtonModule],
-            providers: [bypassSanitizeProvider]
+            providers: [bypassSanitizeProvider, provideHttpClient()]
         }).compileComponents();
 
         injectDefaultSvgIconSet();
@@ -275,6 +276,7 @@ describe('form-group for TranslateKey', () => {
             declarations: [TestFormGroupTranslateKeyComponent],
             imports: [ThyFormModule, FormsModule, ThyButtonModule],
             providers: [
+                provideHttpClient(),
                 {
                     provide: ThyTranslate,
                     useValue: {
@@ -346,6 +348,7 @@ describe('form-group for TranslateKey', () => {
             declarations: [TestFormGroupLabelBasicComponent],
             imports: [ThyFormModule, FormsModule, ThyButtonModule],
             providers: [
+                provideHttpClient(),
                 {
                     provide: ThyTranslate,
                     useValue: {

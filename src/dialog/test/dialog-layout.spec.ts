@@ -5,6 +5,7 @@ import { By } from '@angular/platform-browser';
 import { ThyDialogHeader } from '../header/dialog-header.component';
 import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 import { THY_DIALOG_LAYOUT_CONFIG } from '../dialog.config';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-test-dialog-header-basic',
@@ -52,7 +53,7 @@ describe('dialog-layout', () => {
             TestBed.configureTestingModule({
                 imports: [ThyDialogModule],
                 declarations: [DialogHeaderBasicComponent],
-                providers: [bypassSanitizeProvider]
+                providers: [bypassSanitizeProvider, provideHttpClient()]
             });
             TestBed.compileComponents();
 
@@ -102,7 +103,7 @@ describe('dialog-layout', () => {
             TestBed.configureTestingModule({
                 imports: [ThyDialogModule],
                 declarations: [DialogHeaderTitleTranslationComponent],
-                providers: [bypassSanitizeProvider]
+                providers: [bypassSanitizeProvider, provideHttpClient()]
             });
             TestBed.compileComponents();
 
@@ -136,7 +137,7 @@ describe('dialog-layout', () => {
                 TestBed.configureTestingModule({
                     imports: [ThyDialogModule],
                     declarations: [DialogFooterBasicComponent],
-                    providers: [bypassSanitizeProvider]
+                    providers: [bypassSanitizeProvider, provideHttpClient()]
                 });
                 TestBed.compileComponents();
 
@@ -231,6 +232,7 @@ describe('dialog-layout', () => {
                     declarations: [DialogFooterBasicComponent],
                     providers: [
                         bypassSanitizeProvider,
+                        provideHttpClient(),
                         {
                             provide: THY_DIALOG_LAYOUT_CONFIG,
                             useValue: {

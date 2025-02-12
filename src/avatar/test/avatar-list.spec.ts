@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { ThyAvatarList, ThyAvatarListMode } from '../avatar-list/avatar-list.component';
 import { ThyAvatar } from '../avatar.component';
 import { ThyAvatarModule } from '../avatar.module';
+import { provideHttpClient } from '@angular/common/http';
 
 const userNameList = [{ name: 'Abigail' }, { name: 'Belle' }, { name: 'Camilla' }, { name: 'Abigail' }, { name: 'Belle' }];
 
@@ -72,7 +73,8 @@ describe('thy-avatar-list', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyAvatarModule],
-            declarations: [AvatarListBasicComponent, AvatarListTestComponent, AvatarListEmptyComponent]
+            declarations: [AvatarListBasicComponent, AvatarListTestComponent, AvatarListEmptyComponent],
+            providers: [provideHttpClient()]
         }).compileComponents();
     });
 

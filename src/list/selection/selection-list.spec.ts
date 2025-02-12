@@ -8,6 +8,7 @@ import { ThySelectionList } from './selection-list';
 import { FormsModule } from '@angular/forms';
 import { dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { DOWN_ARROW, UP_ARROW, SPACE } from 'ngx-tethys/util';
+import { provideHttpClient } from '@angular/common/http';
 
 export function createFakeEvent(type: string, canBubble = false, cancelable = true) {
     const event = document.createEvent('Event');
@@ -28,7 +29,8 @@ describe('ThySelectionList without forms', () => {
                     SelectionListWithListOptionsComponent,
                     SelectionListWithListOptionsDefaultComponent,
                     SelectionListWithListOptionsByObjectTypeValueComponent
-                ]
+                ],
+                providers: [provideHttpClient()]
             });
 
             TestBed.compileComponents();

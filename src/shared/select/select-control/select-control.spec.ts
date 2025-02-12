@@ -7,6 +7,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ThyIconModule } from '../../../icon/icon.module';
 import { ThySelectControl, SelectControlSize } from './select-control.component';
 import { SelectOptionBase } from '../../option';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-basic-select-control',
@@ -54,7 +55,8 @@ describe('ThySelectControl', () => {
     function configureThySelectControlTestingModule(declarations: any[]) {
         TestBed.configureTestingModule({
             imports: [ThyFormModule, ReactiveFormsModule, FormsModule, ThyIconModule, ThySelectCommonModule],
-            declarations: declarations
+            declarations: declarations,
+            providers: [provideHttpClient()]
         }).compileComponents();
     }
     describe('core', () => {

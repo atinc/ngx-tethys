@@ -24,6 +24,7 @@ import { ThyOption } from '../../shared/option/option.component';
 import { ThyAutocomplete } from '../autocomplete.component';
 import { ThyAutocompleteTriggerDirective } from '../autocomplete.trigger.directive';
 import { ThyAutocompleteModule } from '../module';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-basic-autocomplete',
@@ -122,7 +123,7 @@ describe('ThyAutocomplete', () => {
                 ThyOptionModule
             ],
             declarations: declarations,
-            providers: [bypassSanitizeProvider]
+            providers: [bypassSanitizeProvider, provideHttpClient()]
         }).compileComponents();
 
         inject([OverlayContainer, Platform], (oc: OverlayContainer, p: Platform) => {

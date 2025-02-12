@@ -8,6 +8,7 @@ import { By } from '@angular/platform-browser';
 import { ThyInputSearch, ThyInputSearchIconPosition } from '../input-search.component';
 import { ThyInputDirective } from '../input.directive';
 import { ThyInputModule } from '../module';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-input-search-basic-test',
@@ -58,7 +59,7 @@ describe('input search', () => {
         TestBed.configureTestingModule({
             imports: [ThyInputModule, FormsModule],
             declarations: [TestInputSearchBasicComponent],
-            providers: []
+            providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
     });

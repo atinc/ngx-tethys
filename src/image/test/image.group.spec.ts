@@ -4,6 +4,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyDialogModule } from 'ngx-tethys/dialog';
 import { ThyImageModule } from '../module';
 import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-image-group-test',
@@ -45,7 +46,8 @@ describe('image-group', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyImageModule, ThyDialogModule, NoopAnimationsModule],
-            declarations: [ImageGroupTestComponent]
+            declarations: [ImageGroupTestComponent],
+            providers: [provideHttpClient()]
         }).compileComponents();
         fixture = TestBed.createComponent(ImageGroupTestComponent);
         basicTestComponent = fixture.debugElement.componentInstance;

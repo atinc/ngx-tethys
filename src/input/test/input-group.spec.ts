@@ -6,6 +6,7 @@ import { ThyInputModule } from './../module';
 import { ThyTranslate } from '../../core';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
 import { FormsModule } from '@angular/forms';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-test-input-group-basic',
@@ -100,6 +101,7 @@ describe('input group', () => {
             TestBed.configureTestingModule({
                 imports: [InputGroupTestModule],
                 providers: [
+                    provideHttpClient(),
                     {
                         provide: ThyTranslate,
                         useClass: ThyTranslateSimulate
@@ -175,7 +177,8 @@ describe('input group', () => {
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                imports: [InputGroupTestModule]
+                imports: [InputGroupTestModule],
+                providers: [provideHttpClient()]
             });
 
             TestBed.compileComponents();
@@ -243,7 +246,8 @@ describe('input group', () => {
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                imports: [InputGroupTestModule]
+                imports: [InputGroupTestModule],
+                providers: [provideHttpClient()]
             });
             TestBed.compileComponents();
         }));

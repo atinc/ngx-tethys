@@ -19,6 +19,7 @@ import { DatePopup } from './lib/popups/date-popup.component';
 import { ThyPopoverConfig, ThyPopoverModule } from '../popover';
 import { CompatiblePresets, ThyShortcutPosition } from './standard-types';
 import { TinyDate } from 'ngx-tethys/util';
+import { provideHttpClient } from '@angular/common/http';
 
 registerLocaleData(zh);
 
@@ -34,7 +35,8 @@ describe('ThyPickerDirective', () => {
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
                 imports: [FormsModule, ThyDatePickerModule, ThyPropertyOperationModule, BrowserAnimationsModule],
-                declarations: [ThyTestPickerComponent]
+                declarations: [ThyTestPickerComponent],
+                providers: [provideHttpClient()]
             });
 
             TestBed.compileComponents();
@@ -353,7 +355,8 @@ describe('ThyPickerDirective', () => {
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
                 imports: [FormsModule, ThyDatePickerModule, ThyPropertyOperationModule, BrowserAnimationsModule, ThyPopoverModule],
-                declarations: [ThyTestPickerPlacementComponent]
+                declarations: [ThyTestPickerPlacementComponent],
+                providers: [provideHttpClient()]
             }).compileComponents();
         }));
 
@@ -560,7 +563,8 @@ describe('should get correct default thyStopPropagation', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyDatePickerModule, ThyPropertyOperationModule, BrowserAnimationsModule],
-            declarations: [ThyTestPickerStopPropagationComponent]
+            declarations: [ThyTestPickerStopPropagationComponent],
+            providers: [provideHttpClient()]
         }).compileComponents();
     }));
 

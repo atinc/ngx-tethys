@@ -8,6 +8,7 @@ import { ThyDatePickerModule } from './date-picker.module';
 import { TinyDate } from '../util';
 import { ThyQuarterPicker } from './quarter-picker.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('ThyQuarterPickerComponent', () => {
     let fixture: ComponentFixture<TestQuarterPickerComponent>;
@@ -19,7 +20,7 @@ describe('ThyQuarterPickerComponent', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyDatePickerModule, FormsModule, NoopAnimationsModule],
-            providers: [],
+            providers: [provideHttpClient()],
             declarations: [TestQuarterPickerComponent]
         });
 

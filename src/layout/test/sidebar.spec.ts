@@ -10,6 +10,7 @@ import { ThySidebarContent, ThySidebarContentDirective } from '../sidebar-conten
 import { ThySidebarFooter, ThySidebarFooterDirective } from '../sidebar-footer.component';
 import { ThySidebarHeader, ThySidebarHeaderDirective } from '../sidebar-header.component';
 import { ThySidebar, ThySidebarDirection, ThySidebarDirective, ThySidebarTheme } from '../sidebar.component';
+import { provideHttpClient } from '@angular/common/http';
 
 const SIDEBAR_ISOLATED_CLASS = 'thy-layout-sidebar-isolated';
 @Component({
@@ -129,7 +130,7 @@ describe(`sidebar`, () => {
         TestBed.configureTestingModule({
             declarations: [ThyDemoLayoutSidebarBasicComponent, ThyDemoLayoutCustomSidebarComponent, ThyDemoLayoutSidebarDirectiveComponent],
             imports: [ThyLayoutModule],
-            providers: [bypassSanitizeProvider]
+            providers: [bypassSanitizeProvider, provideHttpClient()]
         });
         TestBed.compileComponents();
         injectDefaultSvgIconSet();

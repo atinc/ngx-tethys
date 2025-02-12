@@ -23,6 +23,7 @@ import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { addDays, addYears, endOfDay, endOfYear, startOfDay, startOfWeek, startOfYear } from '../util';
 import { DateRangeItemInfo } from './date-range.class';
 import { ThyDateRangeModule } from './module';
+import { provideHttpClient } from '@angular/common/http';
 
 registerLocaleData(zh);
 
@@ -38,7 +39,7 @@ describe('ThyTestDateRangeComponent', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [FormsModule, ThyDateRangeModule, NoopAnimationsModule],
-            providers: [],
+            providers: [provideHttpClient()],
             declarations: [ThyTestDateRangeComponent]
         });
 

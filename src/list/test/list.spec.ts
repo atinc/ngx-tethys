@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyListModule } from '../list.module';
 import { ThyList } from '../list.component';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('list', () => {
     let fixture: ComponentFixture<TestListComponent>;
@@ -11,7 +12,8 @@ describe('list', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyListModule],
-            declarations: [TestListComponent]
+            declarations: [TestListComponent],
+            providers: [provideHttpClient()]
         }).compileComponents();
         fixture = TestBed.createComponent(TestListComponent);
         listDebugElement = fixture.debugElement.query(By.directive(ThyList));

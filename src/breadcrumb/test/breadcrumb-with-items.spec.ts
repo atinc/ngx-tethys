@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { ThyBreadcrumbItem } from '../breadcrumb-item.component';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-demo-breadcrumb-basic',
@@ -28,7 +29,8 @@ describe('ThyBreadcrumb With Items', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyBreadcrumbModule, NoopAnimationsModule],
-            declarations: [ThyDemoBreadcrumbWithItemsComponent]
+            declarations: [ThyDemoBreadcrumbWithItemsComponent],
+            providers: [provideHttpClient()]
         });
 
         TestBed.compileComponents();

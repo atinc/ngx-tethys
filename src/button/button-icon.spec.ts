@@ -5,6 +5,7 @@ import { ThyIcon } from '../icon';
 import { By } from '@angular/platform-browser';
 import { ThyButtonIcon } from './button-icon.component';
 import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'app-basic-button-icon',
@@ -21,7 +22,7 @@ describe(`button-icon`, () => {
         TestBed.configureTestingModule({
             imports: [ThyButtonModule],
             declarations: [BasicButtonIconComponent],
-            providers: [bypassSanitizeProvider]
+            providers: [bypassSanitizeProvider, provideHttpClient()]
         }).compileComponents();
 
         injectDefaultSvgIconSet();

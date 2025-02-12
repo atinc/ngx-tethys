@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ThyInputCount } from '../input-count.component';
 import { ThyInputModule } from '../module';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'test-input-count-basic',
@@ -50,7 +51,8 @@ describe('input count', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [TestInputCountBasicComponent, TestInputCountSpecifyInputBasicComponent],
-            imports: [ThyInputModule, FormsModule]
+            imports: [ThyInputModule, FormsModule],
+            providers: [provideHttpClient()]
         });
     });
 

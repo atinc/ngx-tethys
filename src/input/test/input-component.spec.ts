@@ -7,6 +7,7 @@ import { By } from '@angular/platform-browser';
 import { ThyInput } from '../input.component';
 import { ThyInputDirective } from '../input.directive';
 import { ThyInputModule } from '../module';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'test-bed',
@@ -66,7 +67,7 @@ describe('input component', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [InputComponentTestModule],
-            providers: []
+            providers: [provideHttpClient()]
         });
 
         TestBed.compileComponents();

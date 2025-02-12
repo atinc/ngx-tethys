@@ -13,6 +13,7 @@ import { ThyImageService } from '../image.service';
 import { ThyImageModule } from '../module';
 import { ThyImagePreviewRef } from '../preview/image-preview-ref';
 import { fetchImageBlob } from '../utils';
+import { provideHttpClient } from '@angular/common/http';
 
 let imageOnload: () => void = null;
 
@@ -74,6 +75,7 @@ describe('image-preview', () => {
             imports: [ThyImageModule, ThyDialogModule, NoopAnimationsModule],
             declarations: [ImagePreviewTestComponent],
             providers: [
+                provideHttpClient(),
                 {
                     provide: XhrFactory,
                     useValue: mockXhrFactory

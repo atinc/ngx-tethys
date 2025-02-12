@@ -7,6 +7,7 @@ import { ThyCarousel, ThyCarouselPause } from 'ngx-tethys/carousel';
 import { ThyCarouselItemDirective } from 'ngx-tethys/carousel';
 import { ThyCarouselEffect, ThyCarouselTrigger } from '../typings';
 import { mouseSwipe, touchSwipe, windowResize } from './carousel-events';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-carousel-basic-example',
@@ -90,7 +91,8 @@ describe('carousel', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyCarouselModule],
-            declarations: [ThyTestCarouselBasicComponent, ThyTestCarouselTouchableComponent]
+            declarations: [ThyTestCarouselBasicComponent, ThyTestCarouselTouchableComponent],
+            providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
     }));

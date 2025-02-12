@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { ThyTags } from '../tags.component';
 import { ThyTagModule } from '../tag.module';
 import { ThyIconModule } from 'ngx-tethys/icon';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-tags-basic-test',
@@ -26,7 +27,8 @@ describe('thy-tags', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [ThyTagsBasicTestComponent],
-            imports: [ThyTagModule, ThyIconModule]
+            imports: [ThyTagModule, ThyIconModule],
+            providers: [provideHttpClient()]
         }).compileComponents();
     }));
 

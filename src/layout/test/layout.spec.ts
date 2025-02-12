@@ -8,6 +8,7 @@ import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/test
 import { ThyContent, ThyContentDirective } from '../content.component';
 import { ThyContentSection, ThyContentSectionDirective } from '../content-section.component';
 import { ThyContentMain, ThyContentMainDirective } from '../content-main.component';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-demo-layout-basic',
@@ -70,7 +71,7 @@ describe(`layout`, () => {
         TestBed.configureTestingModule({
             declarations: [ThyDemoLayoutBasicComponent, ThyDemoLayoutCustomHeaderComponent, ThyDemoLayoutDirectiveBasicComponent],
             imports: [ThyLayoutModule],
-            providers: [bypassSanitizeProvider]
+            providers: [bypassSanitizeProvider, provideHttpClient()]
         });
         TestBed.compileComponents();
         injectDefaultSvgIconSet();

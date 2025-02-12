@@ -14,6 +14,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyPropertyModule } from '../module';
 import { ThyProperties, ThyPropertiesLayout } from '../properties.component';
 import { ThyPropertyItem, ThyPropertyItemOperationTrigger } from '../property-item.component';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-properties-test-basic',
@@ -131,7 +132,7 @@ describe(`thy-properties`, () => {
         beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
                 imports: [ThyPropertyModule, NoopAnimationsModule, CommonModule, PropertiesTestModule],
-                providers: []
+                providers: [provideHttpClient()]
             });
             TestBed.compileComponents();
         }));
@@ -283,7 +284,7 @@ describe(`thy-properties`, () => {
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
                 imports: [ThyPropertyModule, NoopAnimationsModule, PropertiesTestModule],
-                providers: []
+                providers: [provideHttpClient()]
             });
             TestBed.compileComponents();
         }));
@@ -320,7 +321,7 @@ describe(`thy-properties`, () => {
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
                 imports: [ThyPropertyModule, NoopAnimationsModule],
-                providers: [],
+                providers: [provideHttpClient()],
                 declarations: [ThyPropertiesTestOperationComponent]
             });
             TestBed.compileComponents();

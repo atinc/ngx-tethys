@@ -9,6 +9,7 @@ import { By } from '@angular/platform-browser';
 
 import { ThyInputNumber } from '../input-number.component';
 import { ThyInputNumberModule } from '../module';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-input-number-test',
@@ -91,6 +92,7 @@ class TestInputNumberComponent {
 @NgModule({
     imports: [CommonModule, FormsModule, ThyInputNumberModule],
     declarations: [TestInputNumberComponent],
+    providers: [provideHttpClient()],
     exports: []
 })
 export class InputComponentTestModule {}

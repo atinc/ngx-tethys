@@ -7,6 +7,7 @@ import { ThyNotifyConfig, THY_NOTIFY_DEFAULT_CONFIG } from '../notify.config';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyNotifyContentExampleComponent } from '../examples/custom-content/content.component';
+import { provideHttpClient } from '@angular/common/http';
 
 //#region test component
 const DEFAULT_DURATION_TIME = 4500;
@@ -56,7 +57,7 @@ describe('ThyNotify', () => {
         TestBed.configureTestingModule({
             imports: [ThyNotifyModule, NoopAnimationsModule],
             declarations: [ThyNotifyBasicComponent],
-            providers: []
+            providers: [provideHttpClient()]
         });
         inject([OverlayContainer], (oc: OverlayContainer) => {
             overlayContainer = oc;

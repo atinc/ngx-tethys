@@ -4,6 +4,7 @@ import { ThyActionModule } from '../action.module';
 import { injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 import { By } from '@angular/platform-browser';
 import { ThyActions } from '../actions.component';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-test-actions-basic',
@@ -31,7 +32,7 @@ describe('thy-actions', () => {
         TestBed.configureTestingModule({
             imports: [ThyActionModule],
             declarations: [ThyActionsTestBasicComponent],
-            providers: []
+            providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
     });

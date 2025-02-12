@@ -6,6 +6,7 @@ import { ThyAvatarModule } from 'ngx-tethys/avatar';
 import { ThySegment, ThySegmentEvent, ThySegmentItem, ThySegmentModule, ThySegmentSize } from 'ngx-tethys/segment';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
 import { ThySegmentMode } from '../segment.component';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'test-segment-basic',
@@ -169,7 +170,8 @@ describe('segment', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestSegmentBasicComponent],
-                imports: [ThySegmentModule, BrowserAnimationsModule]
+                imports: [ThySegmentModule, BrowserAnimationsModule],
+                providers: [provideHttpClient()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestSegmentBasicComponent);
@@ -212,7 +214,8 @@ describe('segment', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestSegmentOnlyTextComponent],
-                imports: [ThySegmentModule, BrowserAnimationsModule]
+                imports: [ThySegmentModule, BrowserAnimationsModule],
+                providers: [provideHttpClient()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestSegmentOnlyTextComponent);
@@ -235,7 +238,8 @@ describe('segment', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestSegmentOnlyIconComponent],
-                imports: [ThySegmentModule, BrowserAnimationsModule]
+                imports: [ThySegmentModule, BrowserAnimationsModule],
+                providers: [provideHttpClient()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestSegmentOnlyIconComponent);
@@ -258,7 +262,8 @@ describe('segment', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestSegmentIconAndTextComponent],
-                imports: [ThySegmentModule, BrowserAnimationsModule]
+                imports: [ThySegmentModule, BrowserAnimationsModule],
+                providers: [provideHttpClient()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestSegmentIconAndTextComponent);
@@ -283,7 +288,8 @@ describe('segment', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestSegmentSizeComponent],
-                imports: [ThySegmentModule]
+                imports: [ThySegmentModule],
+                providers: [provideHttpClient()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestSegmentSizeComponent);
@@ -312,7 +318,8 @@ describe('segment', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestSegmentDisabledComponent],
-                imports: [ThySegmentModule]
+                imports: [ThySegmentModule],
+                providers: [provideHttpClient()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestSegmentDisabledComponent);
@@ -352,7 +359,8 @@ describe('segment', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestSegmentModeComponent],
-                imports: [ThySegmentModule]
+                imports: [ThySegmentModule],
+                providers: [provideHttpClient()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestSegmentModeComponent);
@@ -382,7 +390,8 @@ describe('segment', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestSegmentActiveComponent],
-                imports: [ThySegmentModule, BrowserAnimationsModule]
+                imports: [ThySegmentModule, BrowserAnimationsModule],
+                providers: [provideHttpClient()]
             }).compileComponents();
         });
 
@@ -445,7 +454,8 @@ describe('segment', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestSegmentCustomTemplateComponent],
-                imports: [ThySegmentModule, ThyAvatarModule]
+                imports: [ThySegmentModule, ThyAvatarModule],
+                providers: [provideHttpClient()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestSegmentCustomTemplateComponent);

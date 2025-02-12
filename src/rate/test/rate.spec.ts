@@ -7,6 +7,7 @@ import { ThyRate } from '../rate.component';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
 import { ThyRateTemplateExampleComponent } from '../examples/template/template.component';
+import { provideHttpClient } from '@angular/common/http';
 
 // 基础
 @Component({
@@ -31,7 +32,7 @@ describe('Rate basic component', () => {
         TestBed.configureTestingModule({
             imports: [ThyRateModule, FormsModule],
             declarations: [RateBasicTestComponent],
-            providers: []
+            providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
     });
@@ -129,7 +130,7 @@ describe('Rate count component', () => {
         TestBed.configureTestingModule({
             imports: [ThyRateModule, FormsModule],
             declarations: [RateCountTestComponent],
-            providers: []
+            providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
     });
@@ -177,7 +178,7 @@ describe('Rate half component', () => {
         TestBed.configureTestingModule({
             imports: [ThyRateModule, FormsModule],
             declarations: [RateHalfTestComponent],
-            providers: []
+            providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
     });
@@ -249,7 +250,7 @@ describe('Rate clear component', () => {
         TestBed.configureTestingModule({
             imports: [ThyRateModule, FormsModule],
             declarations: [RateClearTestComponent],
-            providers: []
+            providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
     });
@@ -320,7 +321,7 @@ describe('Rate disabled component', () => {
         TestBed.configureTestingModule({
             imports: [ThyRateModule, FormsModule],
             declarations: [RateDisabledTestComponent],
-            providers: []
+            providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
     });
@@ -388,7 +389,7 @@ describe('Rate tooltip component', () => {
         TestBed.configureTestingModule({
             imports: [ThyRateModule, FormsModule],
             declarations: [RateTooltipTestComponent],
-            providers: []
+            providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
     });
@@ -458,7 +459,7 @@ describe('Rate template component', () => {
         TestBed.configureTestingModule({
             imports: [ThyRateModule, FormsModule],
             declarations: [RateTemplateTestComponent, ThyRateTemplateExampleComponent],
-            providers: []
+            providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
     });

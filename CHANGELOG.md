@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [18.2.5](https://github.com/atinc/ngx-tethys/compare/18.2.4...18.2.5) (2025-02-12)
+
+
+### Bug Fixes
+
+* **nav:** the activated item requires rounded corner son the lower left and right corners #TINFR-1509 ([#3297](https://github.com/atinc/ngx-tethys/issues/3297)) ([21d1321](https://github.com/atinc/ngx-tethys/commit/21d132188aa0bce9ec5cedf51633b2622852b0a6)), closes [#TINFR-1509](https://github.com/atinc/ngx-tethys/issues/TINFR-1509)
+
+
+
+## [18.2.4](https://github.com/atinc/ngx-tethys/compare/18.2.3...18.2.4) (2025-02-10)
+
+
+### Bug Fixes
+
+* **nav:** support thyPauseReCalculate and fix need to monitor the resize changes of the newly added nav item #TINFR-1497 ([#3293](https://github.com/atinc/ngx-tethys/issues/3293)) ([24b82ca](https://github.com/atinc/ngx-tethys/commit/24b82cacf93ffe85d3555dbe40cb0aa82b13959a)), closes [#TINFR-1497](https://github.com/atinc/ngx-tethys/issues/TINFR-1497)
+
+
+
 ## [18.2.3](https://github.com/atinc/ngx-tethys/compare/18.2.2...18.2.3) (2025-01-13)
 
 

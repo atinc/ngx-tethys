@@ -16,6 +16,7 @@ import {
     InnerTransferDragEvent
 } from '../transfer.interface';
 import { ThyTransferModule } from '../transfer.module';
+import { provideHttpClient } from '@angular/common/http';
 
 const COUNT = 9;
 const RIGHTCOUNT = 5;
@@ -207,7 +208,8 @@ describe('transfer', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, ThyTransferModule, ThyListModule, ThyIconModule, ThySelectModule],
-            declarations: [TestTransferComponent, TestTransferCustomRenderComponent, TestTransferCustomRenderContentComponent]
+            declarations: [TestTransferComponent, TestTransferCustomRenderComponent, TestTransferCustomRenderContentComponent],
+            providers: [provideHttpClient()]
         }).compileComponents();
     });
 

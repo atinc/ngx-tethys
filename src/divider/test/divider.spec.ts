@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
 
 import { ThyDividerModule } from '../divider.module';
 import { ThyDividerStyle, ThyDividerTextDirection } from '../divider.component';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     template: `
@@ -51,7 +52,8 @@ describe('ThyDividerComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyDividerModule, FormsModule, ThySelectModule],
-            declarations: [ThyTestDividerComponent]
+            declarations: [ThyTestDividerComponent],
+            providers: [provideHttpClient()]
         });
         TestBed.compileComponents().then(r => r);
     });

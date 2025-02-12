@@ -15,6 +15,7 @@ import { ThyColorPickerDirective } from '../color-picker.component';
 import { ThyCoordinatesDirective } from '../coordinates.directive';
 import { ThyColor } from '../helpers/color.class';
 import { ThyColorPickerModule } from '../module';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-demo-color-picker-basic',
@@ -187,7 +188,7 @@ describe(`color-picker`, () => {
                 ThyColorPickerPanel,
                 NoopAnimationsModule
             ],
-            providers: [ThyPopover, ThyPopoverRef],
+            providers: [ThyPopover, ThyPopoverRef, provideHttpClient()],
             declarations: [ThyDemoColorPickerComponent]
         });
         TestBed.compileComponents();
@@ -453,6 +454,7 @@ describe('color-default-panel', () => {
             ],
             providers: [
                 ThyPopover,
+                provideHttpClient(),
                 {
                     provide: ThyPopoverRef,
                     useValue: {
@@ -584,7 +586,7 @@ describe('picker-panel', () => {
                 ThyColorPickerCustomPanel,
                 NoopAnimationsModule
             ],
-            providers: [ThyPopover, ThyPopoverRef],
+            providers: [ThyPopover, ThyPopoverRef, provideHttpClient()],
             declarations: [ThyDemoPickerPanelComponent]
         });
         TestBed.compileComponents();
@@ -643,7 +645,7 @@ describe('coordinates-directive', () => {
                 ThyCoordinatesDirective,
                 NoopAnimationsModule
             ],
-            providers: [ThyPopover, ThyPopoverRef],
+            providers: [ThyPopover, ThyPopoverRef, provideHttpClient()],
             declarations: [ThyDemoCoordinatesDirectiveComponent]
         });
         TestBed.compileComponents();
@@ -690,7 +692,7 @@ describe(`for touch usage`, () => {
                 NoopAnimationsModule,
                 ThyColorPickerPanel
             ],
-            providers: [ThyPopover, ThyPopoverRef, { provide: Platform, useFactory: () => platform }],
+            providers: [ThyPopover, ThyPopoverRef, { provide: Platform, useFactory: () => platform }, provideHttpClient()],
             declarations: [ThyDemoColorPickerComponent]
         });
         TestBed.compileComponents();

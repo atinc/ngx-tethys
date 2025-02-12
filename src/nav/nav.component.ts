@@ -1,6 +1,6 @@
 import { ThyPopover, ThyPopoverConfig } from 'ngx-tethys/popover';
 import { merge, Observable, of } from 'rxjs';
-import { debounceTime, take, tap } from 'rxjs/operators';
+import { startWith, take, tap } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import {
@@ -181,6 +181,11 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
     thyResponsive: boolean;
 
     /**
+     * 支持暂停自适应计算
+     */
+    thyPauseReCalculate = input<boolean>(false);
+
+    /**
      * 更多操作的菜单点击内部是否可关闭
      * @deprecated please use thyPopoverOptions
      */
@@ -259,6 +264,8 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
 
     private prevActiveIndex: number = NaN;
 
+    private navSubscription: { unsubscribe: () => void } | null = null;
+
     ngOnInit() {
         if (!this.thyResponsive) {
             this.initialized = true;
@@ -275,34 +282,40 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
                 this.setHiddenItems();
             });
         }
-        this.ngZone.runOutsideAngular(() => {
-            merge(
-                this.links.changes,
-                this.createResizeObserver(this.elementRef.nativeElement).pipe(debounceTime(100)),
-                ...this.links.map(item => this.createResizeObserver(item.elementRef.nativeElement).pipe(debounceTime(100))),
-                ...(this.routers || []).map(router => router?.isActiveChange)
-            )
-                .pipe(
-                    takeUntilDestroyed(this.destroyRef),
-                    tap(() => {
-                        if (this.thyResponsive) {
-                            this.resetSizes();
-                            this.setHiddenItems();
-                            this.calculateMoreIsActive();
-                        }
-                    })
-                )
-                .subscribe(() => {
-                    this.alignInkBarToSelectedTab();
-                });
 
-            if (this.type === 'card') {
-                merge(this.links.changes, ...this.links.map(item => this.createResizeObserver(item.elementRef.nativeElement)))
-                    .pipe(takeUntilDestroyed(this.destroyRef))
+        this.ngZone.runOutsideAngular(() => {
+            this.links.changes.pipe(startWith(this.links), takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+                if (this.navSubscription) {
+                    this.navSubscription.unsubscribe();
+                }
+
+                this.navSubscription = merge(
+                    this.createResizeObserver(this.elementRef.nativeElement),
+                    ...this.links.map(item => this.createResizeObserver(item.elementRef.nativeElement).pipe(tap(() => item.setOffset()))),
+                    ...(this.routers || []).map(router => router?.isActiveChange)
+                )
+                    .pipe(
+                        takeUntilDestroyed(this.destroyRef),
+                        tap(() => {
+                            if (this.thyPauseReCalculate()) {
+                                return;
+                            }
+
+                            if (this.thyResponsive) {
+                                this.resetSizes();
+                                this.setHiddenItems();
+                                this.calculateMoreIsActive();
+                            }
+
+                            if (this.type === 'card') {
+                                this.setNavItemDivider();
+                            }
+                        })
+                    )
                     .subscribe(() => {
-                        this.setNavItemDivider();
+                        this.alignInkBarToSelectedTab();
                     });
-            }
+            });
         });
     }
 
@@ -490,6 +503,12 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
 
         if (thyType?.currentValue !== thyType?.previousValue || thyVertical?.currentValue !== thyVertical?.previousValue) {
             this.alignInkBarToSelectedTab();
+        }
+    }
+
+    ngOnDestroy() {
+        if (this.navSubscription) {
+            this.navSubscription.unsubscribe();
         }
     }
 }

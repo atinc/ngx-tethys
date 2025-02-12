@@ -10,6 +10,7 @@ import { By } from '@angular/platform-browser';
 import { ThyCalendarHeader } from '../calendar-header.component';
 import { ThyCalendar } from '../calendar.component';
 import { ThyCalendarModule } from '../module';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     template: `
@@ -129,7 +130,8 @@ describe('calendar', () => {
         beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
                 imports: [FormsModule, ThyCalendarModule],
-                declarations: [TestCalendarBasicComponent]
+                declarations: [TestCalendarBasicComponent],
+                providers: [provideHttpClient()]
             }).compileComponents();
         }));
 
@@ -217,7 +219,8 @@ describe('calendar', () => {
         beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
                 imports: [ThyCalendarModule],
-                declarations: [TestCalendarDisabledDateComponent]
+                declarations: [TestCalendarDisabledDateComponent],
+                providers: [provideHttpClient()]
             }).compileComponents();
         }));
 
@@ -247,7 +250,8 @@ describe('calendar-header', () => {
         beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
                 imports: [ThyCalendarModule],
-                declarations: [TestCalendarHeaderComponent]
+                declarations: [TestCalendarHeaderComponent],
+                providers: [provideHttpClient()]
             }).compileComponents();
         }));
 

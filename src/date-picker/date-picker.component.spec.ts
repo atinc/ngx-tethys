@@ -18,6 +18,7 @@ import { DatePopup } from './lib/popups/date-popup.component';
 import { TinyDate } from 'ngx-tethys/util';
 import { take } from 'rxjs/operators';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideHttpClient } from '@angular/common/http';
 
 registerLocaleData(zh);
 
@@ -48,6 +49,7 @@ describe('ThyDatePickerComponent', () => {
             imports: [FormsModule, ThyDatePickerModule, NoopAnimationsModule],
             declarations: [ThyTestDatePickerComponent],
             providers: [
+                provideHttpClient(),
                 {
                     provide: THY_DATE_PICKER_CONFIG,
                     useValue: {

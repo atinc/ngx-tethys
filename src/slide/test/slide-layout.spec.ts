@@ -10,6 +10,7 @@ import { ThySlideFooter } from '../slide-footer/slide-footer.component';
 import { ThySlideHeader } from '../slide-header/slide-header.component';
 import { ThySlideLayout } from '../slide-layout/slide-layout.component';
 import { SafeAny } from '../../types';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('ThySlide', () => {
     describe('ThySlideService', () => {
@@ -23,7 +24,7 @@ describe('ThySlide', () => {
             TestBed.configureTestingModule({
                 imports: [ThySlideModule, ThySlideTestModule],
                 declarations: [],
-                providers: []
+                providers: [provideHttpClient()]
             });
             TestBed.compileComponents();
         }));
@@ -602,7 +603,7 @@ describe('ThySlide', () => {
             TestBed.configureTestingModule({
                 imports: [ThySlideModule],
                 declarations: [SlideLayoutTestComponent],
-                providers: [{ provide: ThySlideService, useValue: ThySlideService }]
+                providers: [provideHttpClient(), { provide: ThySlideService, useValue: ThySlideService }]
             });
 
             TestBed.compileComponents();
@@ -679,7 +680,7 @@ describe('ThySlide', () => {
             TestBed.configureTestingModule({
                 imports: [ThySlideModule],
                 declarations: [SlideHeaderTestComponent],
-                providers: [{ provide: ThySlideService, useValue: ThySlideService }]
+                providers: [provideHttpClient(), { provide: ThySlideService, useValue: ThySlideService }]
             });
 
             TestBed.compileComponents();
@@ -713,6 +714,7 @@ describe('ThySlide', () => {
                 imports: [ThySlideModule, ThySlideTestModule],
                 declarations: [],
                 providers: [
+                    provideHttpClient(),
                     {
                         provide: THY_SLIDE_DEFAULT_CONFIG,
                         useValue: newDefaultConfig

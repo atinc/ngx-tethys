@@ -7,6 +7,7 @@ import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     template: `
@@ -73,7 +74,8 @@ describe('collapse', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [ThyCollapseModule, ThyIconModule, CommonModule, NoopAnimationsModule],
-                declarations: [TestCollapseBasicComponent]
+                declarations: [TestCollapseBasicComponent],
+                providers: [provideHttpClient()]
             }).compileComponents();
         });
 
@@ -197,7 +199,8 @@ describe('collapse-panel', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [ThyCollapseModule, ThyIconModule, CommonModule, NoopAnimationsModule],
-                declarations: [TestCollapsePanelBasicComponent]
+                declarations: [TestCollapsePanelBasicComponent],
+                providers: [provideHttpClient()]
             }).compileComponents();
         });
 

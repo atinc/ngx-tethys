@@ -5,6 +5,7 @@ import { By } from '@angular/platform-browser';
 import { ThyPropertyOperation } from '../property-operation.component';
 import { ThyButtonIcon } from '../../button';
 import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing';
+import { provideHttpClient } from '@angular/common/http';
 
 //#region test component
 
@@ -61,7 +62,7 @@ describe('ThyPropertyOperation', () => {
         TestBed.configureTestingModule({
             imports: [ThyPropertyOperationModule],
             declarations: [PropertyOperationBasicComponent],
-            providers: [bypassSanitizeProvider]
+            providers: [bypassSanitizeProvider, provideHttpClient()]
         }).compileComponents();
 
         injectDefaultSvgIconSet();
