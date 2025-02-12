@@ -90,6 +90,7 @@
     .thy-nav-item {
         display: flex;
         align-items: center;
+        position: relative;
         padding: 12px 20px;
         margin-right: 0;
         border: 1px solid transparent;
@@ -115,17 +116,32 @@
                 border-bottom-color: variables.$bg-default;
                 border-bottom-width: 2px;
                 border-radius: 8px 8px 0 0;
+
+                &:first-child {
+                    margin-left: 20px;
+                }
+
+                &::before,
+                &::after {
+                    border: 1px solid variables.$border-color;
+                    position: absolute;
+                    bottom: -2px;
+                    width: 8px;
+                    height: 8px;
+                    content: '';
+                }
+
                 &::before {
                     left: -8px;
                     border-bottom-right-radius: 8px;
                     border-width: 0 1px 1px 0;
-                    box-shadow: 1px 2px 0 variables.$white;
+                    box-shadow: 1px 2px 0 variables.$bg-default;
                 }
                 &::after {
                     right: -8px;
                     border-bottom-left-radius: 8px;
                     border-width: 0 0 1px 1px;
-                    box-shadow: -1px 2px 0 variables.$white;
+                    box-shadow: -1px 2px 0 variables.$bg-default;
                 }
             }
         }
