@@ -1,3 +1,4 @@
+import { DecimalPipe } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -5,22 +6,20 @@ import {
     ElementRef,
     EventEmitter,
     forwardRef,
+    inject,
     Input,
     NgZone,
     OnDestroy,
     OnInit,
     Output,
-    ViewChild,
-    inject,
-    Signal
+    Signal,
+    ViewChild
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { isValid } from 'date-fns';
-import { reqAnimFrame } from 'ngx-tethys/core';
-import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
 import { ThyButton } from 'ngx-tethys/button';
-import { DecimalPipe } from '@angular/common';
+import { reqAnimFrame } from 'ngx-tethys/core';
 import { injectLocale, ThyTimePickerLocale } from 'ngx-tethys/i18n';
+import { coerceBooleanProperty, isValid, TinyDate } from 'ngx-tethys/util';
 
 /**
  * 时间选择面板组件
@@ -190,14 +189,14 @@ export class ThyTimePanel implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     selectNow() {
-        this.value = new Date();
+        this.value = new TinyDate()?.nativeDate;
         this.setHMSProperty();
         this.thyPickChange.emit(this.value);
         this.thyClosePanel.emit();
     }
 
     confirmPickTime() {
-        this.onValueChangeFn(this.value || new Date());
+        this.onValueChangeFn(this.value || new TinyDate()?.nativeDate);
         this.thyClosePanel.emit();
     }
 
@@ -208,7 +207,7 @@ export class ThyTimePanel implements OnInit, OnDestroy, ControlValueAccessor {
 
     writeValue(value: Date | number): void {
         if (value && isValid(value)) {
-            this.value = new Date(value);
+            this.value = new TinyDate(value)?.nativeDate;
             this.setHMSProperty();
         } else {
             this.initialValue();

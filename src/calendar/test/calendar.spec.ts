@@ -1,9 +1,9 @@
-import { endOfMonth, getMonth, getYear, startOfMonth } from 'date-fns';
-import { TinyDate, getUnixTime } from 'ngx-tethys/util';
+import { endOfMonth, startOfMonth } from 'date-fns';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
+import { getUnixTime, TinyDate } from 'ngx-tethys/util';
 
 import { Component, DebugElement } from '@angular/core';
-import { waitForAsync, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 

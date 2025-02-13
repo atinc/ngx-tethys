@@ -1,11 +1,11 @@
-import { TinyDate, valueFunctionProp } from 'ngx-tethys/util';
+import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, OnChanges, Output, inject } from '@angular/core';
+import { TinyDate, valueFunctionProp } from 'ngx-tethys/util';
 import { DateHelperService } from '../../date-helper.service';
-import { DateCell, DateBodyRow } from './types';
+import { ThyDatePickerConfigService } from '../../date-picker.service';
 import { CalendarTable } from '../calendar/calendar-table.component';
 import { DateTableCell } from './date-table-cell.component';
-import { NgClass } from '@angular/common';
-import { ThyDatePickerConfigService } from '../../date-picker.service';
+import { DateBodyRow, DateCell } from './types';
 
 /**
  * @private
@@ -31,8 +31,18 @@ export class DateTable extends CalendarTable implements OnChanges {
 
     private chooseDate(value: TinyDate): void {
         // Only change date not change time
-        const newValue = this.activeDate.setYear(value.getYear()).setMonth(value.getMonth()).setDate(value.getDate());
-        this.valueChange.emit(newValue);
+        const date = new TinyDate(
+            TinyDate.createDateInTimeZone(
+                value.getFullYear(),
+                value.getMonth(),
+                value.getDate(),
+                this.activeDate?.getHours(),
+                this.activeDate?.getMinutes(),
+                this.activeDate?.getSeconds()
+            )
+        );
+        this.activeDate = date.clone();
+        this.valueChange.emit(date);
     }
 
     makeHeadRow(): DateCell[] {

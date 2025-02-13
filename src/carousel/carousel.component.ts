@@ -1,4 +1,7 @@
+import { Platform } from '@angular/cdk/platform';
+import { NgTemplateOutlet } from '@angular/common';
 import {
+    AfterContentInit,
     AfterViewInit,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -6,40 +9,37 @@ import {
     ContentChildren,
     ElementRef,
     EventEmitter,
+    inject,
     Input,
+    NgZone,
+    numberAttribute,
+    OnChanges,
+    OnDestroy,
     OnInit,
     Output,
     QueryList,
     Renderer2,
-    ViewChild,
-    TemplateRef,
-    ViewEncapsulation,
-    AfterContentInit,
-    OnChanges,
     SimpleChanges,
-    NgZone,
-    OnDestroy,
-    numberAttribute,
-    inject
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
 } from '@angular/core';
-import { Platform } from '@angular/cdk/platform';
-import { ThyCarouselItemDirective } from './carousel-item.directive';
-import {
-    ThyCarouselEngine,
-    ThyDistanceVector,
-    ThyCarouselSwitchData,
-    ThyCarouselEffect,
-    ThyCarouselTrigger,
-    ThyCarouselPause
-} from './typings';
-import { ThyCarouselSlideEngine, ThyCarouselNoopEngine, ThyCarouselFadeEngine } from './engine';
+import { ThyDot } from 'ngx-tethys/dot';
+import { ThyIcon } from 'ngx-tethys/icon';
+import { coerceBooleanProperty, isNumber, TinyDate } from 'ngx-tethys/util';
 import { fromEvent, Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
+import { ThyCarouselItemDirective } from './carousel-item.directive';
 import { ThyCarouselService } from './carousel.service';
-import { ThyIcon } from 'ngx-tethys/icon';
-import { ThyDot } from 'ngx-tethys/dot';
-import { NgTemplateOutlet } from '@angular/common';
-import { coerceBooleanProperty, isNumber } from 'ngx-tethys/util';
+import { ThyCarouselFadeEngine, ThyCarouselNoopEngine, ThyCarouselSlideEngine } from './engine';
+import {
+    ThyCarouselEffect,
+    ThyCarouselEngine,
+    ThyCarouselPause,
+    ThyCarouselSwitchData,
+    ThyCarouselTrigger,
+    ThyDistanceVector
+} from './typings';
 
 /**
  * 走马灯组件
@@ -235,7 +235,7 @@ export class ThyCarousel implements OnInit, AfterViewInit, AfterContentInit, OnC
 
     onDrag(event: TouchEvent | MouseEvent): void {
         if (!this.isDragging && !this.isTransitioning && this.thyTouchable) {
-            const mouseDownTime = new Date().getTime();
+            const mouseDownTime = new TinyDate().getTime();
             let mouseUpTime: number;
             this.clearScheduledTransition();
             this.wrapperDomRect = this.wrapperEl.getBoundingClientRect();
@@ -249,7 +249,7 @@ export class ThyCarousel implements OnInit, AfterViewInit, AfterContentInit, OnC
                 () => {},
                 () => {
                     if (this.isDragging) {
-                        mouseUpTime = new Date().getTime();
+                        mouseUpTime = new TinyDate().getTime();
                         const holdDownTime = mouseUpTime - mouseDownTime;
                         // Fast enough to switch to the next frame
                         // or

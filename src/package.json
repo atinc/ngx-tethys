@@ -26,7 +26,8 @@
     "@angular/core": "^18.0.0",
     "@angular/cdk": "^18.0.0",
     "@tethys/cdk": "^18.0.0-next.1",
-    "date-fns": "^2.6.0",
+    "date-fns": "4.1.0",
+    "@date-fns/tz": "1.2.0",
     "@tethys/icons": "^1.4.23",
     "rxjs": "^6.5.4 || ^7.0.0"
   },

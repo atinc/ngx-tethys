@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TinyDate } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-time-picker-basic-example',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class ThyTimePickerBasicExampleComponent implements OnInit {
     fullTime: Date;
 
-    time: Date = new Date();
+    time: Date = new TinyDate()?.nativeDate;
 
     constructor() {}
 

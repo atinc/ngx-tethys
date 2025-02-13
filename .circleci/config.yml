@@ -1,18 +1,20 @@
 version: 2.1
 orbs:
-    browser-tools: circleci/browser-tools@1.4.3
+  browser-tools: circleci/browser-tools@1.4.3
 jobs:
   build:
     working_directory: ~/ngx-tethys
     docker:
       - image: cimg/node:20.12.2-browsers
+    environment:
+      TZ: 'Asia/Shanghai'
     steps:
       - browser-tools/install-chrome
       - checkout
       - run: |
-            node --version
-            google-chrome --version
-            which google-chrome
+          node --version
+          google-chrome --version
+          which google-chrome
       - restore_cache:
           key: ngx-tethys-{{ .Branch }}-{{ checksum "package-lock.json" }}
       - run: npm ci

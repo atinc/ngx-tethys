@@ -9,13 +9,13 @@ import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/cor
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { ThyDatePickerModule } from './date-picker.module';
-import { CompatiblePresets, ThyDateRangeEntry, ThyPanelMode, ThyShortcutPosition } from './standard-types';
+import { provideHttpClient } from '@angular/common/http';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TinyDate } from 'ngx-tethys/util';
 import { THY_DATE_PICKER_CONFIG } from './date-picker.config';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ThyDatePickerModule } from './date-picker.module';
 import { DatePopup } from './lib/popups/date-popup.component';
-import { provideHttpClient } from '@angular/common/http';
+import { CompatiblePresets, ThyDateRangeEntry, ThyPanelMode, ThyShortcutPosition } from './standard-types';
 
 registerLocaleData(zh);
 
@@ -824,8 +824,8 @@ describe('ThyRangePickerComponent', () => {
             const cells = overlayContainerElement.querySelectorAll(
                 `.thy-calendar-date-panel-flexible tbody.thy-calendar-tbody td.thy-calendar-cell`
             );
-            const left = cells[0];
-            const right = cells[1];
+            const left = cells[10];
+            const right = cells[11];
             const leftText = left.textContent.trim();
             const rightText = right.textContent.trim();
             dispatchMouseEvent(left, 'click');

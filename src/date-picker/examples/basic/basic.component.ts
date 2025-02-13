@@ -1,6 +1,6 @@
-import { DateEntry, ThyDateRangeEntry } from 'ngx-tethys/date-picker';
 import { Component, OnInit } from '@angular/core';
-import { endOfDay, startOfDay, subWeeks } from 'date-fns';
+import { DateEntry, ThyDateRangeEntry } from 'ngx-tethys/date-picker';
+import { endOfDay, startOfDay, subWeeks, TinyDate } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-date-picker-basic-example',
@@ -12,19 +12,19 @@ export class ThyDatePickerBasicExampleComponent implements OnInit {
         with_time: 1
     } as DateEntry;
 
-    date = { date: new Date(), with_time: 0 };
+    date = { date: new TinyDate().getTime(), with_time: 0 };
 
-    dateTime = 1234567890;
-    flexibleDateTime = 1234567890;
-    week = { date: new Date(), with_time: 0 };
+    dateTime = new Date();
+    flexibleDateTime = new Date();
+    week = { date: new TinyDate().getTime(), with_time: 0 };
 
-    dateRange = { begin: new Date('2023-10'), end: new Date('2023-12') };
+    dateRange = { begin: new TinyDate('2023-10')?.nativeDate, end: new TinyDate('2023-12')?.nativeDate };
 
-    weekRange = { begin: new Date('2021-10-03'), end: new Date('2021-12-12') };
+    weekRange = { begin: new TinyDate('2021-10-03')?.nativeDate, end: new TinyDate('2021-12-12')?.nativeDate };
 
-    yearRange = { begin: new Date('2021'), end: new Date('2028') };
+    yearRange = { begin: new TinyDate('2021')?.nativeDate, end: new TinyDate('2028')?.nativeDate };
 
-    quarterRange = { begin: new Date('2023-6'), end: new Date('2023-12') };
+    quarterRange = { begin: new TinyDate('2023-6')?.nativeDate, end: new TinyDate('2023-12')?.nativeDate };
 
     flexibleDateRange: ThyDateRangeEntry;
 
@@ -34,11 +34,11 @@ export class ThyDatePickerBasicExampleComponent implements OnInit {
         return [
             {
                 title: '最近6周',
-                value: [subWeeks(startOfDay(new Date()), 5).getTime(), endOfDay(new Date()).getTime()]
+                value: [subWeeks(startOfDay(new TinyDate().getTime()), 5).getTime(), endOfDay(new TinyDate().getTime()).getTime()]
             },
             {
                 title: '最近12周',
-                value: [subWeeks(startOfDay(new Date()), 11).getTime(), endOfDay(new Date()).getTime()]
+                value: [subWeeks(startOfDay(new TinyDate().getTime()), 11).getTime(), endOfDay(new TinyDate().getTime()).getTime()]
             }
         ];
     };

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TinyDate } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-time-picker-format-example',
@@ -9,7 +10,7 @@ export class ThyTimePickerFormatExampleComponent implements OnInit {
 
     format: string = 'HH:mm:ss';
 
-    date: Date = new Date();
+    date: Date = new TinyDate()?.nativeDate;
 
     constructor() {}
 

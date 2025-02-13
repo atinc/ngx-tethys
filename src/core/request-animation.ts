@@ -1,9 +1,11 @@
+import { TinyDate } from 'ngx-tethys/util';
+
 const availablePrefixes = ['moz', 'ms', 'webkit'];
 
 function requestAnimationFramePolyfill(): typeof requestAnimationFrame {
     let lastTime = 0;
     return function (callback: FrameRequestCallback): number {
-        const currTime = new Date().getTime();
+        const currTime = new TinyDate().getTime();
         const timeToCall = Math.max(0, 16 - (currTime - lastTime));
         const id = setTimeout(() => {
             callback(currTime + timeToCall);

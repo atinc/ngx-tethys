@@ -1,28 +1,29 @@
-import { Component, forwardRef, OnInit, Input, ChangeDetectorRef, Output, EventEmitter, inject, Signal } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { DateRangeItemInfo } from './date-range.class';
+import { ChangeDetectorRef, Component, EventEmitter, forwardRef, inject, Input, OnInit, Output, Signal } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyPopover } from 'ngx-tethys/popover';
+import { DateRangeItemInfo } from './date-range.class';
 import { OptionalDateRanges } from './optional-dates/optional-dates.component';
 
+import { NgClass } from '@angular/common';
+import { ThyAction } from 'ngx-tethys/action';
+import { ThyDatePickerFormatPipe } from 'ngx-tethys/date-picker';
+import { injectLocale, ThyDateRangeLocale } from 'ngx-tethys/i18n';
+import { ThyIcon } from 'ngx-tethys/icon';
 import {
-    getUnixTime,
-    startOfISOWeek,
-    endOfISOWeek,
-    endOfMonth,
-    startOfMonth,
     addDays,
     addMonths,
     addYears,
-    isSameDay,
+    coerceBooleanProperty,
     endOfDay,
-    startOfDay
-} from 'date-fns';
-import { ThyDatePickerFormatPipe } from 'ngx-tethys/date-picker';
-import { ThyIcon } from 'ngx-tethys/icon';
-import { ThyAction } from 'ngx-tethys/action';
-import { NgClass } from '@angular/common';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
-import { injectLocale, ThyDateRangeLocale } from 'ngx-tethys/i18n';
+    endOfISOWeek,
+    endOfMonth,
+    getUnixTime,
+    isSameDay,
+    startOfDay,
+    startOfISOWeek,
+    startOfMonth,
+    TinyDate
+} from 'ngx-tethys/util';
 
 const allDayTimestamp = 24 * 60 * 60;
 
@@ -117,8 +118,8 @@ export class ThyDateRange implements OnInit, ControlValueAccessor {
         {
             key: 'week',
             text: this.locale().currentWeek,
-            begin: getUnixTime(startOfISOWeek(new Date())),
-            end: getUnixTime(endOfISOWeek(new Date())),
+            begin: getUnixTime(startOfISOWeek(new TinyDate().getTime())),
+            end: getUnixTime(endOfISOWeek(new TinyDate().getTime())),
             timestamp: {
                 interval: 7,
                 unit: 'day'
@@ -127,8 +128,8 @@ export class ThyDateRange implements OnInit, ControlValueAccessor {
         {
             key: 'month',
             text: this.locale().currentMonth,
-            begin: getUnixTime(startOfMonth(new Date())),
-            end: getUnixTime(endOfMonth(new Date())),
+            begin: getUnixTime(startOfMonth(new TinyDate().getTime())),
+            end: getUnixTime(endOfMonth(new TinyDate().getTime())),
             timestamp: {
                 interval: 1,
                 unit: 'month'
@@ -175,8 +176,8 @@ export class ThyDateRange implements OnInit, ControlValueAccessor {
 
     private _calculateNewTime(type: string) {
         if (this.selectedDate.timestamp) {
-            const beginDate = new Date(this.selectedDate.begin * 1000);
-            const endDate = new Date(this.selectedDate.end * 1000);
+            const beginDate = new TinyDate(this.selectedDate.begin * 1000)?.nativeDate;
+            const endDate = new TinyDate(this.selectedDate.end * 1000)?.nativeDate;
             const interval = this.selectedDate.timestamp.interval;
 
             if (this.selectedDate.timestamp.unit === 'day') {

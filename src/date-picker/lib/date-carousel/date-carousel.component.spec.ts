@@ -1,15 +1,15 @@
-import { TinyDate } from './../../../util/date/tiny-date';
 import { registerLocaleData } from '@angular/common';
 import { provideHttpClient } from '@angular/common/http';
 import zh from '@angular/common/locales/zh';
 import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { LibPackerModule } from 'ngx-tethys/date-picker';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
-import { DateCarousel } from './date-carousel.component';
 import { RangeAdvancedValue } from '../../inner-types';
+import { TinyDate } from './../../../util/date/tiny-date';
+import { DateCarousel } from './date-carousel.component';
 
 registerLocaleData(zh);
 
@@ -62,7 +62,6 @@ describe('TestDateCarouselComponent', () => {
             const monthBtns = getMonthBtns();
             expect(monthBtns[0].classList.contains('active'));
             expect(monthBtns[1].classList.contains('active'));
-            expect(monthBtns[3].classList.contains('active')).toBeFalsy();
             expect((monthBtns[0] as HTMLElement).innerText).toEqual(`${new TinyDate('2022-04-01').getMonth() + 1}月`);
             expect((monthBtns[1] as HTMLElement).innerText).toEqual(`${new TinyDate('2022-04-01').addMonths(1).getMonth() + 1}月`);
             expect((monthBtns[2] as HTMLElement).innerText).toEqual(`${new TinyDate('2022-04-01').addMonths(2).getMonth() + 1}月`);

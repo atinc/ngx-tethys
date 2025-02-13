@@ -1,7 +1,7 @@
 import { Component, OnInit, Signal } from '@angular/core';
-import { endOfMonth, getUnixTime, startOfMonth } from 'ngx-tethys/util';
 import { DateRangeItemInfo } from 'ngx-tethys/date-range';
 import { injectLocale, ThyDateRangeLocale } from 'ngx-tethys/i18n';
+import { endOfMonth, getUnixTime, startOfMonth, TinyDate } from 'ngx-tethys/util';
 
 @Component({
     selector: 'app-date-range-custom-time-display-example',
@@ -19,8 +19,8 @@ export class ThyDateRangeCustomTimeDisplayExampleComponent implements OnInit {
         {
             key: 'month',
             text: this.locale().currentMonth,
-            begin: getUnixTime(startOfMonth(new Date())),
-            end: getUnixTime(endOfMonth(new Date())),
+            begin: getUnixTime(startOfMonth(new TinyDate().getTime())),
+            end: getUnixTime(endOfMonth(new TinyDate().getTime())),
             timestamp: {
                 interval: 1,
                 unit: 'month'

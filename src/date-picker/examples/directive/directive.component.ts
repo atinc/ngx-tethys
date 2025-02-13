@@ -1,14 +1,13 @@
-import { differenceInDays, endOfDay, startOfDay, subWeeks } from 'date-fns';
-import { DateEntry, ThyDateRangeEntry } from 'ngx-tethys/date-picker';
-
 import { Component, OnInit } from '@angular/core';
+import { DateEntry, ThyDateRangeEntry } from 'ngx-tethys/date-picker';
+import { differenceInDays, endOfDay, startOfDay, subWeeks, TinyDate } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-date-picker-directive-example',
     templateUrl: './directive.component.html'
 })
 export class ThyDatePickerDirectiveExampleComponent implements OnInit {
-    date = { date: new Date(), with_time: 0 } as DateEntry;
+    date = { date: new TinyDate().getTime(), with_time: 0 } as DateEntry;
 
     time = {
         date: 1234567890,
@@ -24,7 +23,7 @@ export class ThyDatePickerDirectiveExampleComponent implements OnInit {
 
     dateRangeDisabled: { begin: number; end: number };
 
-    weekRange = { begin: new Date('2021-10-03'), end: new Date('2021-12-12') };
+    weekRange = { begin: new TinyDate('2021-10-03')?.nativeDate, end: new TinyDate('2021-12-12')?.nativeDate };
 
     selectedDateRange: Date[] = [];
 
@@ -32,11 +31,11 @@ export class ThyDatePickerDirectiveExampleComponent implements OnInit {
         return [
             {
                 title: '最近6周',
-                value: [subWeeks(startOfDay(new Date()), 5).getTime(), endOfDay(new Date()).getTime()]
+                value: [subWeeks(startOfDay(new TinyDate().getTime()), 5).getTime(), endOfDay(new TinyDate().getTime()).getTime()]
             },
             {
                 title: '最近12周',
-                value: [subWeeks(startOfDay(new Date()), 11).getTime(), endOfDay(new Date()).getTime()]
+                value: [subWeeks(startOfDay(new TinyDate().getTime()), 11).getTime(), endOfDay(new TinyDate().getTime()).getTime()]
             }
         ];
     };

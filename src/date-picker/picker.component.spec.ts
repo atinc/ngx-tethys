@@ -1,15 +1,15 @@
-import { Component, DebugElement, ElementRef, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testing';
-import { ThyPicker } from './picker.component';
 import { CdkConnectedOverlay, CdkOverlayOrigin, OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule, registerLocaleData } from '@angular/common';
-import { ThyIcon } from 'ngx-tethys/icon';
-import { By } from '@angular/platform-browser';
-import zh from '@angular/common/locales/zh';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { ENTER, TinyDate } from 'ngx-tethys/util';
-import { dispatchKeyboardEvent } from 'ngx-tethys/testing';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import zh from '@angular/common/locales/zh';
+import { Component, DebugElement, ElementRef, ViewChild } from '@angular/core';
+import { ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { ThyIcon } from 'ngx-tethys/icon';
+import { dispatchKeyboardEvent } from 'ngx-tethys/testing';
+import { ENTER, TinyDate } from 'ngx-tethys/util';
+import { ThyPicker } from './picker.component';
 
 class CdkOverlayOriginSpy {
     elementRef: ElementRef;

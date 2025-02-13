@@ -1,6 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { getUnixTime, startOfQuarter, endOfQuarter, startOfMonth, setMonth, getMonth, endOfMonth, addDays, addMonths } from 'date-fns';
 import { DateRangeItemInfo } from 'ngx-tethys/date-range';
+import {
+    addDays,
+    addMonths,
+    endOfMonth,
+    endOfQuarter,
+    getMonth,
+    getUnixTime,
+    setMonth,
+    startOfMonth,
+    startOfQuarter,
+    TinyDate
+} from 'ngx-tethys/util';
 
 @Component({
     selector: 'app-date-range-optional-date-ranges',
@@ -13,8 +24,8 @@ export class ThyDateRangeOptionalDateRangesExampleComponent implements OnInit {
         {
             key: 'season',
             text: '本季度',
-            begin: getUnixTime(startOfQuarter(new Date())),
-            end: getUnixTime(endOfQuarter(new Date())),
+            begin: getUnixTime(startOfQuarter(new TinyDate().getTime())),
+            end: getUnixTime(endOfQuarter(new TinyDate().getTime())),
             timestamp: {
                 interval: 3,
                 unit: 'month'
@@ -24,8 +35,8 @@ export class ThyDateRangeOptionalDateRangesExampleComponent implements OnInit {
         {
             key: 'lastTwoMonths',
             text: '最近两个月',
-            begin: getUnixTime(addDays(addMonths(new Date(), -2), +1)),
-            end: getUnixTime(new Date()),
+            begin: getUnixTime(addDays(addMonths(new TinyDate().getTime(), -2), +1)),
+            end: getUnixTime(new TinyDate().getTime()),
             timestamp: {
                 interval: 2,
                 unit: 'month'
@@ -35,8 +46,8 @@ export class ThyDateRangeOptionalDateRangesExampleComponent implements OnInit {
         {
             key: 'lastThreeMonths',
             text: '最近三个月',
-            begin: getUnixTime(startOfMonth(setMonth(new Date(), getMonth(new Date()) - 2))),
-            end: getUnixTime(endOfMonth(new Date())),
+            begin: getUnixTime(startOfMonth(setMonth(new TinyDate().getTime(), getMonth(new TinyDate().getTime()) - 2))),
+            end: getUnixTime(endOfMonth(new TinyDate().getTime())),
             timestamp: {
                 interval: 3,
                 unit: 'month'
