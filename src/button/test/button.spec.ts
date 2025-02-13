@@ -8,6 +8,7 @@ import { ThyButtonGroup } from '../button-group.component';
 import { ThyButtonIcon } from '../button-icon.component';
 import { ThyButton } from '../button.component';
 import { ThyButtonModule } from '../button.module';
+import { provideHttpClient } from '@angular/common/http';
 
 function assertButtonIcon(iconElement: Element, icon: string) {
     expect(iconElement).toBeTruthy();
@@ -43,7 +44,7 @@ describe('ThyButton', () => {
             TestBed.configureTestingModule({
                 declarations: [ThyTestButtonBasicComponent],
                 imports: [ThyButtonModule],
-                providers: [bypassSanitizeProvider]
+                providers: [bypassSanitizeProvider, provideHttpClient()]
             });
 
             TestBed.compileComponents();
@@ -213,7 +214,7 @@ describe('ThyIconButton', () => {
         TestBed.configureTestingModule({
             declarations: [ThyTestButtonIconBasicComponent],
             imports: [ThyButtonModule],
-            providers: [bypassSanitizeProvider]
+            providers: [bypassSanitizeProvider, provideHttpClient()]
         });
 
         TestBed.compileComponents();
@@ -339,7 +340,7 @@ describe('ThyButtonGroup', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyButtonModule, ButtonGroupTestModule],
-            providers: [bypassSanitizeProvider]
+            providers: [bypassSanitizeProvider, provideHttpClient()]
         });
 
         TestBed.compileComponents();

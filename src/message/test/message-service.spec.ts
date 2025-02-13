@@ -6,6 +6,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyMessageConfig, ThyMessageType } from '../message.config';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
+import { provideHttpClient } from '@angular/common/http';
 
 const DEFAULT_DURATION_TIME = 4500;
 
@@ -50,7 +51,7 @@ describe('ThyMessage', () => {
         TestBed.configureTestingModule({
             imports: [ThyMessageModule, NoopAnimationsModule],
             declarations: [ThyMessageTestComponent],
-            providers: []
+            providers: [provideHttpClient()]
         });
         inject([OverlayContainer], (oc: OverlayContainer) => {
             overlayContainer = oc;

@@ -9,6 +9,7 @@ import { dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing';
 import { ThyPlacement } from '../../core/overlay/interface';
 import { ThyPopoverModule } from '../module';
 import { ThyPopoverDirective } from '../popover.directive';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-demo-popover-basic',
@@ -56,7 +57,7 @@ describe(`ThyTooltip`, () => {
         platform = { IOS: false, isBrowser: true, ANDROID: false };
         TestBed.configureTestingModule({
             imports: [TooltipTestModule, NoopAnimationsModule],
-            providers: [{ provide: Platform, useFactory: () => platform }]
+            providers: [provideHttpClient(), { provide: Platform, useFactory: () => platform }]
         });
 
         TestBed.compileComponents();
@@ -229,7 +230,7 @@ describe(`ThyPopoverDirective`, () => {
         platform = { IOS: false, isBrowser: true, ANDROID: false };
         TestBed.configureTestingModule({
             imports: [PopoverTestModule, NoopAnimationsModule],
-            providers: [{ provide: Platform, useFactory: () => platform }]
+            providers: [provideHttpClient(), { provide: Platform, useFactory: () => platform }]
         });
 
         TestBed.compileComponents();

@@ -5,6 +5,7 @@ import { ThyIconModule } from 'ngx-tethys/icon';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyPopoverBody, ThyPopoverHeader } from '../index';
 import { ThyPopoverModule } from '../module';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-popover-header-basic',
@@ -48,7 +49,8 @@ describe('popover-layout', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [ThyPopoverModule],
-                declarations: [PopoverHeaderBasicComponent]
+                declarations: [PopoverHeaderBasicComponent],
+                providers: [provideHttpClient()]
             });
             TestBed.compileComponents();
         });
@@ -115,7 +117,8 @@ describe('popover-layout', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [ThyPopoverModule],
-                declarations: [PopoverHeaderTranslationComponent]
+                declarations: [PopoverHeaderTranslationComponent],
+                providers: [provideHttpClient()]
             }).compileComponents();
         });
 
@@ -142,7 +145,8 @@ describe('popover-layout', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [ThyPopoverModule],
-                declarations: [PopoverBodyBasicComponent]
+                declarations: [PopoverBodyBasicComponent],
+                providers: [provideHttpClient()]
             });
             TestBed.compileComponents();
         });
@@ -174,7 +178,8 @@ describe('popover-layout', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [ThyPopoverModule, ThyIconModule],
-                declarations: [PopoverHeaderTemplateBasicComponent]
+                declarations: [PopoverHeaderTemplateBasicComponent],
+                providers: [provideHttpClient()]
             });
             TestBed.compileComponents();
         });

@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ThyTimelineModule } from '../timeline.module';
 import { By } from '@angular/platform-browser';
 import { ThyTimeDirection, ThyTimeline } from '../timeline.component';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     template: `
@@ -88,7 +89,8 @@ describe('timeline', () => {
         beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
                 imports: [ThyTimelineModule],
-                declarations: [TestTimelineBasicComponent]
+                declarations: [TestTimelineBasicComponent],
+                providers: [provideHttpClient()]
             }).compileComponents();
         }));
 

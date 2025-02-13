@@ -7,6 +7,7 @@ import { ThyAvatarModule } from '../avatar.module';
 import { ThyAvatarService } from '../avatar.service';
 import { ThyAvatarFetchPriority, ThyAvatarLoading } from '../avatar.component';
 import { dispatchFakeEvent } from '../../testing';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     template: `
@@ -91,7 +92,8 @@ describe('ThyAvatarComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyAvatarModule],
-            declarations: [ThyTestAvatarComponent]
+            declarations: [ThyTestAvatarComponent],
+            providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
     });

@@ -6,6 +6,7 @@ import { ThyIconNavLink } from './icon-nav-link.directive';
 import { ThyIconModule } from '../../icon';
 import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing';
 import { By } from '@angular/platform-browser';
+import { provideHttpClient } from '@angular/common/http';
 
 const ICON_NAV_CLASS = `thy-icon-nav`;
 const ICON_NAV_LINK_CLASS = `thy-icon-nav-link`;
@@ -32,7 +33,7 @@ describe(`icon-nav`, () => {
         TestBed.configureTestingModule({
             declarations: [IconNavBasicComponent],
             imports: [ThyNavModule, ThyIconModule],
-            providers: [bypassSanitizeProvider]
+            providers: [bypassSanitizeProvider, provideHttpClient()]
         });
         TestBed.compileComponents();
         injectDefaultSvgIconSet();

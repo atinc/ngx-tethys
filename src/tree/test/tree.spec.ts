@@ -23,6 +23,7 @@ import { ThyTreeNodeComponent } from '../tree-node.component';
 import { CDK_DRAG_CONFIG, DragDropConfig } from '@angular/cdk/drag-drop';
 import { DOCUMENT } from '@angular/common';
 import { scrollToViewport, scrollToViewportOffset } from './utils';
+import { provideHttpClient } from '@angular/common/http';
 
 const expandSelector = '.thy-tree-expand';
 const expandIconSelector = '.thy-tree-expand-icon';
@@ -42,7 +43,8 @@ describe('ThyTreeComponent', () => {
                         dragStartThreshold: 0,
                         pointerDirectionChangeThreshold: 5
                     } as DragDropConfig
-                }
+                },
+                provideHttpClient()
             ]
         }).compileComponents();
     }

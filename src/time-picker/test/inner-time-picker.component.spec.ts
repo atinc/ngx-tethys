@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ThyInnerTimePicker } from '../inner/inner-time-picker.component';
 import { ThyTimePickerModule } from '../time-picker.module';
+import { provideHttpClient } from '@angular/common/http';
 
 registerLocaleData(zh);
 
@@ -21,7 +22,8 @@ describe('ThyInnerTimePickerComponent', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [FormsModule, ThyTimePickerModule],
-            declarations: [ThyTestInnerTimePickerBaseComponent]
+            declarations: [ThyTestInnerTimePickerBaseComponent],
+            providers: [provideHttpClient()]
         });
 
         TestBed.compileComponents();

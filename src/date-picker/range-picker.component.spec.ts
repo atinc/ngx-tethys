@@ -9,6 +9,7 @@ import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/cor
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
+import { provideHttpClient } from '@angular/common/http';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TinyDate } from 'ngx-tethys/util';
 import { THY_DATE_PICKER_CONFIG } from './date-picker.config';
@@ -62,6 +63,7 @@ describe('ThyRangePickerComponent', () => {
             imports: [FormsModule, ThyDatePickerModule, NoopAnimationsModule],
             declarations: [ThyTestRangePickerComponent],
             providers: [
+                provideHttpClient(),
                 {
                     provide: THY_DATE_PICKER_CONFIG,
                     useValue: {

@@ -15,6 +15,7 @@ import { ThyFormSubmitDirective } from '../form-submit.directive';
 import { THY_FORM_CONFIG, ThyFormValidatorConfig } from '../form.class';
 import { ThyEnterKeyMode, ThyFormDirective } from '../form.directive';
 import { ThyFormModule } from '../module';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'app-test-basic-form',
@@ -174,7 +175,7 @@ describe('form basic directive', () => {
         TestBed.configureTestingModule({
             declarations: [TestFormBasicDirectiveComponent],
             imports: [ThyFormModule, FormsModule, ThyLayoutModule],
-            providers: []
+            providers: [provideHttpClient()]
         });
 
         TestBed.compileComponents();
@@ -217,6 +218,7 @@ describe('form directive global config', () => {
             imports: [ThyFormModule, FormsModule, ThyLayoutModule],
             declarations: [TestFormBasicDirectiveComponent],
             providers: [
+                provideHttpClient(),
                 {
                     provide: THY_FORM_CONFIG,
                     useValue: {
@@ -298,7 +300,7 @@ describe('form validate', () => {
         TestBed.configureTestingModule({
             declarations: [TestFormFullComponent],
             imports: [CommonModule, FormsModule, ThyFormModule, ThyLayoutModule, ThyButtonModule, ThyInputModule],
-            providers: []
+            providers: [provideHttpClient()]
         });
 
         TestBed.compileComponents();
@@ -598,7 +600,7 @@ describe('reactive form validate', () => {
                 ThyInputModule,
                 ThySelectModule
             ],
-            providers: []
+            providers: [provideHttpClient()]
         });
 
         TestBed.compileComponents();
@@ -769,7 +771,7 @@ describe(`enter keydown`, () => {
         TestBed.configureTestingModule({
             declarations: [TestNoFormSubmitComponent],
             imports: [CommonModule, FormsModule, ThyFormModule, ThyLayoutModule, ThyButtonModule, ThyInputModule],
-            providers: []
+            providers: [provideHttpClient()]
         });
 
         TestBed.compileComponents();

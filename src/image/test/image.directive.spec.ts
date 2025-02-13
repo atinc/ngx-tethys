@@ -6,6 +6,7 @@ import { ThyDialogModule } from 'ngx-tethys/dialog';
 import { ThyImageModule } from '../module';
 import { ThyImageDirective } from './../image.directive';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-image-directive-test',
@@ -27,7 +28,8 @@ describe('image-directive', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyImageModule, ThyDialogModule, NoopAnimationsModule],
-            declarations: [ImageDirectiveTestComponent]
+            declarations: [ImageDirectiveTestComponent],
+            providers: [provideHttpClient()]
         }).compileComponents();
         fixture = TestBed.createComponent(ImageDirectiveTestComponent);
         basicTestComponent = fixture.debugElement.componentInstance;

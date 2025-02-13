@@ -11,6 +11,7 @@ import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { addDays, addWeeks, startOfDay, startOfWeek } from 'date-fns';
 
+import { provideHttpClient } from '@angular/common/http';
 import { TinyDate } from 'ngx-tethys/util';
 import { ThyPopoverConfig, ThyPopoverModule } from '../popover';
 import { ThyPopover } from '../popover/popover.service';
@@ -34,7 +35,8 @@ describe('ThyPickerDirective', () => {
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
                 imports: [FormsModule, ThyDatePickerModule, ThyPropertyOperationModule, BrowserAnimationsModule],
-                declarations: [ThyTestPickerComponent]
+                declarations: [ThyTestPickerComponent],
+                providers: [provideHttpClient()]
             });
 
             TestBed.compileComponents();
@@ -353,7 +355,8 @@ describe('ThyPickerDirective', () => {
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
                 imports: [FormsModule, ThyDatePickerModule, ThyPropertyOperationModule, BrowserAnimationsModule, ThyPopoverModule],
-                declarations: [ThyTestPickerPlacementComponent]
+                declarations: [ThyTestPickerPlacementComponent],
+                providers: [provideHttpClient()]
             }).compileComponents();
         }));
 
@@ -557,7 +560,8 @@ describe('should get correct default thyStopPropagation', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyDatePickerModule, ThyPropertyOperationModule, BrowserAnimationsModule],
-            declarations: [ThyTestPickerStopPropagationComponent]
+            declarations: [ThyTestPickerStopPropagationComponent],
+            providers: [provideHttpClient()]
         }).compileComponents();
     }));
 

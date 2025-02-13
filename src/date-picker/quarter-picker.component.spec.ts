@@ -1,4 +1,5 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { provideHttpClient } from '@angular/common/http';
 import { Component, DebugElement, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
@@ -19,7 +20,7 @@ describe('ThyQuarterPickerComponent', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyDatePickerModule, FormsModule, NoopAnimationsModule],
-            providers: [],
+            providers: [provideHttpClient()],
             declarations: [TestQuarterPickerComponent]
         });
 

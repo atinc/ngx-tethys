@@ -6,6 +6,7 @@ import { By } from '@angular/platform-browser';
 
 import { ThyTable } from '../table.component';
 import { ThyTableModule } from '../table.module';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-demo-table-tree',
@@ -128,7 +129,7 @@ describe('ThyTable: tree', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyTableModule, TableTreeTestModule],
-            providers: []
+            providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
     }));

@@ -14,6 +14,7 @@ import { ThyHue } from '../parts/hue/hue.component';
 import { ThyIndicator } from '../parts/indicator/indicator.component';
 import { ThyColorInputs } from '../parts/inputs/inputs.component';
 import { ThySaturation } from '../parts/saturation/saturation.component';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-demo-alpha',
@@ -113,7 +114,7 @@ describe('thy-alpha', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [CommonModule, FormsModule, ThyColorPickerModule, BrowserAnimationsModule, ThyAlpha],
-            providers: [],
+            providers: [provideHttpClient()],
             declarations: [ThyDemoAlphaComponent]
         });
         TestBed.compileComponents();
@@ -170,7 +171,7 @@ describe('thy-hue', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [CommonModule, FormsModule, ThyColorPickerModule, BrowserAnimationsModule, ThyHue],
-            providers: [],
+            providers: [provideHttpClient()],
             declarations: [ThyDemoHueComponent]
         });
         TestBed.compileComponents();
@@ -228,7 +229,7 @@ describe('thy-saturation', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [CommonModule, FormsModule, ThyColorPickerModule, BrowserAnimationsModule, ThySaturation],
-            providers: [],
+            providers: [provideHttpClient()],
             declarations: [ThyDemoSaturationComponent]
         });
         TestBed.compileComponents();
@@ -291,7 +292,7 @@ describe('thy-color-inputs', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [CommonModule, FormsModule, ThyColorPickerModule, BrowserAnimationsModule, ThyColorInputs],
-            providers: [],
+            providers: [provideHttpClient()],
             declarations: [ThyDemoColorInputsComponent]
         });
         TestBed.compileComponents();
@@ -346,7 +347,7 @@ describe('thy-indicator', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [CommonModule, FormsModule, ThyColorPickerModule, BrowserAnimationsModule, ThyIndicator],
-            providers: [],
+            providers: [provideHttpClient()],
             declarations: [ThyDemoIndicatorComponent]
         });
         TestBed.compileComponents();

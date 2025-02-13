@@ -8,6 +8,7 @@ import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyDatePickerModule } from './date-picker.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideHttpClient } from '@angular/common/http';
 
 registerLocaleData(zh);
 
@@ -21,7 +22,7 @@ describe('ThyWeekPickerComponent', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyDatePickerModule, FormsModule, NoopAnimationsModule],
-            providers: [],
+            providers: [provideHttpClient()],
             declarations: [TestWeekPickerComponent]
         });
 

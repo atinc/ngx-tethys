@@ -4,6 +4,7 @@ import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent } from 'ng
 import { ENTER, ESCAPE } from '@angular/cdk/keycodes';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { formatDate, registerLocaleData } from '@angular/common';
+import { provideHttpClient } from '@angular/common/http';
 import zh from '@angular/common/locales/zh';
 import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush, inject, tick } from '@angular/core/testing';
@@ -48,6 +49,7 @@ describe('ThyDatePickerComponent', () => {
             imports: [FormsModule, ThyDatePickerModule, NoopAnimationsModule],
             declarations: [ThyTestDatePickerComponent],
             providers: [
+                provideHttpClient(),
                 {
                     provide: THY_DATE_PICKER_CONFIG,
                     useValue: {
