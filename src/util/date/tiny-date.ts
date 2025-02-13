@@ -83,7 +83,7 @@ export class TinyDate implements Record<string, any> {
         this.useTimeZone = zone || TinyDate.defaultTimeZone;
         if (date) {
             if (date instanceof Date) {
-                this.nativeDate = TinyDate.utcToZonedTime(date);
+                this.nativeDate = TinyDate.utcToZonedTime(date, this.useTimeZone);
             } else if (typeof date === 'string' || typeof date === 'number') {
                 this.nativeDate = new TZDate(date as SafeAny, this.useTimeZone);
             } else if (typeof ngDevMode === 'undefined' || ngDevMode) {
