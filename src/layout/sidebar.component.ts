@@ -10,6 +10,7 @@ import {
     OnDestroy,
     OnInit,
     Output,
+    Signal,
     TemplateRef,
     inject,
     numberAttribute
@@ -22,6 +23,7 @@ import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { Subscription } from 'rxjs';
 import { ThyLayoutDirective } from './layout.component';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { injectLocale, ThyLayoutLocale } from 'ngx-tethys/i18n';
 
 const LG_WIDTH = 300;
 const SIDEBAR_DEFAULT_WIDTH = 240;
@@ -189,6 +191,8 @@ export class ThySidebarDirective implements OnInit {
     imports: [NgTemplateOutlet, ThyResizeHandle, ThyResizableDirective, ThyIcon, ThyTooltipDirective, NgClass, NgStyle]
 })
 export class ThySidebar implements OnInit, OnDestroy {
+    private locale: Signal<ThyLayoutLocale> = injectLocale('layout');
+
     elementRef = inject(ElementRef);
     private hotkeyDispatcher = inject(ThyHotkeyDispatcher);
 
@@ -329,7 +333,7 @@ export class ThySidebar implements OnInit, OnDestroy {
     }
 
     private updateCollapseTip() {
-        this.collapseTip = this.thyCollapsed ? '展开' : '收起';
+        this.collapseTip = this.thyCollapsed ? this.locale().expand : this.locale().collapse;
         this.collapseTip = this.collapseTip + (isMacPlatform() ? `（⌘ + /)` : `（Ctrl + /)`);
     }
 
