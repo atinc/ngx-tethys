@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [18.2.7](https://github.com/atinc/ngx-tethys/compare/18.2.6...18.2.7) (2025-03-11)
+
+
+### Features
+
+* **layout:** layout support i18n #TINFR-1616 ([#3301](https://github.com/atinc/ngx-tethys/issues/3301)) ([263c10c](https://github.com/atinc/ngx-tethys/commit/263c10c57b3a792eda7cde325723f43e1773b2d9)), closes [#TINFR-1616](https://github.com/atinc/ngx-tethys/issues/TINFR-1616)
+
+
+
 ## [18.2.6](https://github.com/atinc/ngx-tethys/compare/18.2.5...18.2.6) (2025-02-14)
 
 
