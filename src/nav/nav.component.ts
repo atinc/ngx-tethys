@@ -3,6 +3,7 @@ import { merge, Observable, of } from 'rxjs';
 import { startWith, take, tap } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { useHostRenderer } from '@tethys/cdk/dom';
+import { OnDestroy } from '@angular/core';
 import {
     AfterContentChecked,
     AfterContentInit,
@@ -88,7 +89,7 @@ const tabItemRight = 20;
         BypassSecurityTrustHtmlPipe
     ]
 })
-export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterContentChecked, OnChanges {
+export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterContentChecked, OnChanges, OnDestroy {
     private elementRef = inject(ElementRef);
     private ngZone = inject(NgZone);
     private changeDetectorRef = inject(ChangeDetectorRef);
