@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [18.2.7](https://github.com/atinc/ngx-tethys/compare/18.2.6...18.2.7) (2025-03-11)
+
+
+### Features
+
+* **layout:** layout support i18n #TINFR-1616 ([#3301](https://github.com/atinc/ngx-tethys/issues/3301)) ([263c10c](https://github.com/atinc/ngx-tethys/commit/263c10c57b3a792eda7cde325723f43e1773b2d9)), closes [#TINFR-1616](https://github.com/atinc/ngx-tethys/issues/TINFR-1616)
+
+
+
+## [18.2.6](https://github.com/atinc/ngx-tethys/compare/18.2.5...18.2.6) (2025-02-14)
+
+
+### Bug Fixes
+
+* **icon:** remove provideHttpClient of ThyIconModule and ThyUploadModule #TINFR-1514 ([#3299](https://github.com/atinc/ngx-tethys/issues/3299)) ([439a3aa](https://github.com/atinc/ngx-tethys/commit/439a3aaae3454368fb6b9d7d844a5b2155b3d594)), closes [#TINFR-1514](https://github.com/atinc/ngx-tethys/issues/TINFR-1514)
+
+
+### Features
+
+* **uitl:** support timezone #TINFR-1362 ([#3287](https://github.com/atinc/ngx-tethys/issues/3287)) ([7a242e0](https://github.com/atinc/ngx-tethys/commit/7a242e0c5b058b937c3deb7e1aa166f3f2688345)), closes [#TINFR-1362](https://github.com/atinc/ngx-tethys/issues/TINFR-1362)
+
+
+
 ## [18.2.5](https://github.com/atinc/ngx-tethys/compare/18.2.4...18.2.5) (2025-02-12)
 
 

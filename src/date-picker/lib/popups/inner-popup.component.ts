@@ -20,15 +20,15 @@ import { DisabledDateFn, ThyPanelMode } from '../../standard-types';
 import { DateHeader } from '../date/date-header.component';
 import { DateTable } from '../date/date-table.component';
 
+import { ThyDatePickerLocale, injectLocale } from 'ngx-tethys/i18n';
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { DecadeHeader } from '../decade/decade-header.component';
 import { DecadeTable } from '../decade/decade-table.component';
 import { MonthHeader } from '../month/month-header.component';
 import { MonthTable } from '../month/month-table.component';
+import { QuarterTable } from '../quarter/quarter-table.component';
 import { YearHeader } from '../year/year-header.component';
 import { YearTable } from '../year/year-table.component';
-import { QuarterTable } from '../quarter/quarter-table.component';
-import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
 
 /**
  * @private
@@ -108,7 +108,7 @@ export class InnerPopup implements OnChanges {
         return value ? this.dateHelper.format(value.nativeDate, 'yyyy-MM-dd') : '';
     }
 
-    onSelectDate(date: TinyDate | Date): void {
+    onSelectDate(date: TinyDate): void {
         const value = date instanceof TinyDate ? date : new TinyDate(date);
 
         this.selectDate.emit(value);

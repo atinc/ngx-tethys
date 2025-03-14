@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TinyDate } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-date-picker-readonly-example',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
     standalone: false
 })
 export class ThyDatePickerReadonlyExampleComponent implements OnInit {
-    date = new Date();
+    date = new TinyDate()?.nativeDate;
     dateRange = {
         begin: 1434567890,
         end: 1534567890

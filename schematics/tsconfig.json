@@ -2,7 +2,7 @@
   "compilerOptions": {
     "outDir": "../dist/tethys/schematics",
     "rootDir": "./",
-    "target": "ES2015",
+    "target": "ES2020",
     "module": "commonjs",
     "declaration": true,
     "strict": false,

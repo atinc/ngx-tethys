@@ -1,35 +1,34 @@
 import {
     endOfDay,
-    endOfISOWeek,
-    endOfMonth,
-    endOfQuarter,
-    endOfYear,
+    FunctionProp,
+    helpers,
+    isFunction,
+    isUndefinedOrNull,
+    sortRangeValue,
     startOfDay,
-    startOfISOWeek,
-    startOfMonth,
-    startOfQuarter,
-    startOfYear
-} from 'date-fns';
-import { FunctionProp, TinyDate, TinyDateCompareGrain, helpers, isFunction, isUndefinedOrNull, sortRangeValue } from 'ngx-tethys/util';
+    TinyDate,
+    TinyDateCompareGrain
+} from 'ngx-tethys/util';
 
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     EventEmitter,
+    inject,
     Input,
     OnChanges,
     OnInit,
     Output,
+    Signal,
     SimpleChanges,
-    TemplateRef,
-    inject,
-    Signal
+    TemplateRef
 } from '@angular/core';
 
 import { NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThyButtonIcon } from 'ngx-tethys/button';
+import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
 import { ThyNav, ThyNavItemDirective } from 'ngx-tethys/nav';
 import { ThyDatePickerConfigService } from '../../date-picker.service';
 import { CompatibleValue, DatePickerFlexibleTab, RangeAdvancedValue, RangePartType } from '../../inner-types';
@@ -49,7 +48,6 @@ import {
 import { CalendarFooter } from '../calendar/calendar-footer.component';
 import { DateCarousel } from '../date-carousel/date-carousel.component';
 import { InnerPopup } from './inner-popup.component';
-import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
 
 /**
  * @private
@@ -385,7 +383,7 @@ export class DatePopup implements OnChanges, OnInit {
             if ((!left && !right) || (left && right)) {
                 // If totally full or empty, clean up && re-assign left first
                 this.hoverValue = this.selectedValue = [value];
-                this.selectedValue = [new TinyDate(startOfDay(this.selectedValue[0].nativeDate))];
+                this.selectedValue = [this.selectedValue[0].startOfDay()];
                 this.calendarChange.emit([this.selectedValue[0].clone()]);
             } else if (left && !right) {
                 // If one of them is empty, assign the other one and sort, then set the final values
@@ -415,15 +413,15 @@ export class DatePopup implements OnChanges, OnInit {
     private getSelectedRangeValueByMode(value: TinyDate[]): TinyDate[] {
         const panelMode = this.getPanelMode(this.endPanelMode);
         if (panelMode === 'year') {
-            return [new TinyDate(startOfYear(value[0].nativeDate)), new TinyDate(endOfYear(value[1].nativeDate))];
+            return [value[0].startOfYear(), value[1].endOfYear()];
         } else if (panelMode === 'quarter') {
-            return [new TinyDate(startOfQuarter(value[0].nativeDate)), new TinyDate(endOfQuarter(value[1].nativeDate))];
+            return [value[0].startOfQuarter(), value[1].endOfQuarter()];
         } else if (panelMode === 'month') {
-            return [new TinyDate(startOfMonth(value[0].nativeDate)), new TinyDate(endOfMonth(value[1].nativeDate))];
+            return [value[0].startOfMonth(), value[1].endOfMonth()];
         } else if (panelMode === 'week') {
-            return [new TinyDate(startOfISOWeek(value[0].nativeDate)), new TinyDate(endOfISOWeek(value[1].nativeDate))];
+            return [value[0].startOfISOWeek(), value[1].endOfISOWeek()];
         } else {
-            return [new TinyDate(startOfDay(value[0].nativeDate)), new TinyDate(endOfDay(value[1].nativeDate))];
+            return [value[0].startOfDay(), value[1].endOfDay()];
         }
     }
 
@@ -616,15 +614,20 @@ export class DatePopup implements OnChanges, OnInit {
 
             if (begin && end) {
                 this.selectedValue = this.getSelectedShortcutPreset([
-                    new TinyDate(startOfDay(begin)),
-                    new TinyDate(endOfDay(end))
+                    new TinyDate(begin).startOfDay(),
+                    new TinyDate(end).endOfDay()
                 ]) as TinyDate[];
-
                 selectedPresetValue = this.cloneRangeDate(this.selectedValue);
             }
         } else {
-            const singleDate: number | Date = getShortcutValue(value);
-            const singleTinyDate: TinyDate = this.updateHourMinute(new TinyDate(singleDate));
+            const originDate = this.value as TinyDate;
+            const zonedTime = this.createInZoneTime(
+                new TinyDate(getShortcutValue(value)),
+                originDate?.getHours() ?? 0,
+                originDate?.getMinutes() ?? 0,
+                originDate?.getSeconds() ?? 0
+            );
+            const singleTinyDate: TinyDate = this.updateHourMinute(new TinyDate(zonedTime));
             selectedPresetValue = this.getSelectedShortcutPreset(singleTinyDate) as TinyDate;
         }
         this.setValue(selectedPresetValue);
@@ -636,5 +639,9 @@ export class DatePopup implements OnChanges, OnInit {
         if (!helpers.isArray(value) && this.showTime && this.showTimePicker) {
             this.updateActiveDate();
         }
+    }
+
+    private createInZoneTime(date: TinyDate, hours?: number, minutes?: number, seconds?: number): Date {
+        return TinyDate.createDateInTimeZone(date.getYear(), date.getMonth(), date.getDate(), hours, minutes, seconds);
     }
 }

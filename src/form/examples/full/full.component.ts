@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyFormValidatorConfig, ThyFormDirective } from 'ngx-tethys/form';
+import { TinyDate } from 'ngx-tethys/util';
 
 const provinceCities = [
     {
@@ -94,7 +94,7 @@ export class ThyFormFullExampleComponent implements OnInit {
         }
     ];
 
-    date = { date: new Date(), with_time: 0 };
+    date = { date: new TinyDate()?.nativeDate, with_time: 0 };
 
     dateNull: number = null;
 

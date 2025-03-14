@@ -2,6 +2,7 @@ import { ThyFormValidatorConfig, ThyValidateOn } from 'ngx-tethys/form';
 
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TinyDate } from 'ngx-tethys/util';
 
 const provinceCities = [
     {
@@ -103,7 +104,7 @@ export class ThyFormReactiveExampleComponent implements OnInit {
         }
     ];
 
-    date = { date: new Date(), with_time: 0 };
+    date = { date: new TinyDate().nativeDate, with_time: 0 };
 
     dateNull: number = null;
 

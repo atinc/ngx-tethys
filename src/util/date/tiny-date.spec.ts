@@ -203,6 +203,19 @@ describe('tiny-date', () => {
         expect(date.getDaysInQuarter()).toEqual(91);
     });
 
+    it('support timezone', () => {
+        const defaultDate = new TinyDate(1739174063000);
+        expect(defaultDate?.nativeDate).toEqual(new Date(1739174063000));
+        expect(defaultDate.getHours()).toBe(15);
+        expect(defaultDate['useTimeZone']).toBe('Asia/Shanghai');
+
+        TinyDate.setDefaultTimeZone('America/Los_Angeles');
+        const date = new TinyDate(1739174063000);
+        expect(date['useTimeZone']).toBe('America/Los_Angeles');
+        expect(defaultDate.getHours()).not.toBe(date.getHours());
+        expect(date.getHours()).toBe(23);
+    });
+
     describe('#sortRangeValue', () => {
         it('should sort success', () => {
             const date1 = new TinyDate('2020-1-1');

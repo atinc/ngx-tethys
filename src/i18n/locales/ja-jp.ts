@@ -2,6 +2,10 @@ import { ThyLocaleType } from '../i18n';
 
 export default {
     id: ThyLocaleType.jaJp,
+    layout: {
+        expand: '展開',
+        collapse: '折りたたみ'
+    },
     datePicker: {
         yearFormat: 'yyyy年',
         monthFormat: 'MMM',

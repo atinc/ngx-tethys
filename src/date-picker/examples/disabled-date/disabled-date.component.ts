@@ -1,7 +1,5 @@
-import { addDays, differenceInDays, endOfDay, startOfDay } from 'date-fns';
-
 import { Component, OnInit } from '@angular/core';
-import { TinyDate } from 'ngx-tethys/util';
+import { addDays, differenceInDays, endOfDay, startOfDay, TinyDate } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-date-picker-disabled-date-example',
@@ -15,13 +13,13 @@ export class ThyDatePickerDisabledDateExampleComponent implements OnInit {
 
     due: Date;
 
-    limitDate = new Date();
+    limitDate = new TinyDate()?.nativeDate;
 
-    defaultPickerValue = [new Date('2020-01-12'), new Date('2020-02-20')];
+    defaultPickerValue = [new TinyDate('2020-01-12')?.nativeDate, new TinyDate('2020-02-20')?.nativeDate];
 
-    minDate = new Date('2020-01-11');
+    minDate = new TinyDate('2020-01-11')?.nativeDate;
 
-    maxDate = new Date('2020-02-22');
+    maxDate = new TinyDate('2020-02-22')?.nativeDate;
 
     selectedDateRange: Date[] = [];
 
@@ -31,9 +29,9 @@ export class ThyDatePickerDisabledDateExampleComponent implements OnInit {
 
     minDateRange = startOfDay(addDays(new TinyDate().endOfWeek({ weekStartsOn: 1 }).getTime(), 3));
 
-    maxDateRange = endOfDay(addDays(new Date(), -7));
+    maxDateRange = endOfDay(addDays(new TinyDate()?.nativeDate, -7));
 
-    quarterDate = { date: new Date('2023-02-22'), with_time: 0 };
+    quarterDate = { date: new TinyDate('2023-02-22')?.nativeDate, with_time: 0 };
 
     constructor() {}
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TinyDate } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-date-picker-format-example',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ThyDatePickerFormatExampleComponent implements OnInit {
     monthFormat = 'yyyy/MM';
-    date = new Date();
+    date = new TinyDate().getTime();
 
     formatTypes = ['yyyy/MM/dd', 'yyyy-MM-dd'];
 

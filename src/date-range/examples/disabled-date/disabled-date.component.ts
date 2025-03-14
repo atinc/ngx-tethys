@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { differenceInDays } from 'date-fns';
 import { DateRangeItemInfo } from 'ngx-tethys/date-range';
+import { differenceInDays } from 'ngx-tethys/util';
 
 @Component({
     selector: 'app-date-range-disabled-date-example',

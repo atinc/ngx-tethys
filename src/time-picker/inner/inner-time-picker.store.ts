@@ -1,8 +1,9 @@
-import { MiniStore, MiniAction } from 'ngx-tethys/core';
-import { TimeChangeEvent, TimePickerComponentState, Time, TimePickerControls } from './inner-time-picker.class';
-import { canChangeHours, canChangeMinutes, canChangeSeconds, canChangeValue, timePickerControls } from '../time-picker-controls.util';
-import { changeTime, setTime, isValidLimit } from '../time-picker.utils';
 import { Injectable } from '@angular/core';
+import { MiniAction, MiniStore } from 'ngx-tethys/core';
+import { TinyDate } from 'ngx-tethys/util';
+import { canChangeHours, canChangeMinutes, canChangeSeconds, canChangeValue, timePickerControls } from '../time-picker-controls.util';
+import { changeTime, isValidLimit, setTime } from '../time-picker.utils';
+import { Time, TimeChangeEvent, TimePickerComponentState, TimePickerControls } from './inner-time-picker.class';
 import { TimePickerConfig } from './inner-time-picker.config';
 
 export interface TimePickerState {
@@ -38,7 +39,9 @@ export class ThyTimePickerStore extends MiniStore<TimePickerState> {
 
     @MiniAction()
     writeValue(value: Date) {
-        this.setState({ value: value });
+        if (value?.getTime() !== this.snapshot.value?.getTime()) {
+            this.setState({ value: value });
+        }
     }
 
     @MiniAction()
@@ -114,7 +117,7 @@ export class ThyTimePickerStore extends MiniStore<TimePickerState> {
 
         if (state.config.showMeridian !== _newState.config.showMeridian) {
             if (state.value) {
-                _newState.value = new Date(state.value);
+                _newState.value = new TinyDate(state.value)?.nativeDate;
             }
         }
 

@@ -14,7 +14,5 @@ export class ThyRateBasicExampleComponent implements OnInit {
 
     ngOnInit() {}
 
-    hoverChange(value: number) {
-        console.log('===value===', value);
-    }
+    hoverChange(value: number) {}
 }

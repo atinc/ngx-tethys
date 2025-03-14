@@ -1,5 +1,6 @@
 export type ThyModuleType =
     | 'datePicker'
+    | 'layout'
     | 'dateRange'
     | 'timePicker'
     | 'calendar'
@@ -30,6 +31,7 @@ export enum ThyLocaleType {
 
 export interface ThyI18nLocale {
     id: ThyLocaleType;
+    layout: ThyLayoutLocale;
     datePicker: ThyDatePickerLocale;
     dateRange: ThyDateRangeLocale;
     timePicker: ThyTimePickerLocale;
@@ -48,6 +50,11 @@ export interface ThyI18nLocale {
     pagination: ThyPaginationLocale;
     form: ThyFormLocale;
     empty: ThyEmptyLocale;
+}
+
+export interface ThyLayoutLocale {
+    collapse: string;
+    expand: string;
 }
 
 export interface ThyDatePickerLocale {

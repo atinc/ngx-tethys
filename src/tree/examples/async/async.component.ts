@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ThyTree, ThyTreeEmitEvent, ThyTreeNodeData } from 'ngx-tethys/tree';
+import { TinyDate } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-tree-async-example',
@@ -39,8 +40,8 @@ export class ThyTreeAsyncExampleComponent {
             setTimeout(
                 () =>
                     resolve([
-                        { title: 'Child Node', key: `${new Date().getTime()}-0` },
-                        { title: 'Child Node', key: `${new Date().getTime()}-1` }
+                        { title: 'Child Node', key: `${new TinyDate().getTime()}-0` },
+                        { title: 'Child Node', key: `${new TinyDate().getTime()}-1` }
                     ]),
                 500
             );

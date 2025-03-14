@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { getUnixTime, startOfYear, endOfYear } from 'date-fns';
 import { DateRangeItemInfo } from 'ngx-tethys/date-range';
+import { endOfYear, getUnixTime, startOfYear, TinyDate } from 'ngx-tethys/util';
 
 @Component({
     selector: 'app-date-range-min-and-max-date',
@@ -10,9 +10,9 @@ import { DateRangeItemInfo } from 'ngx-tethys/date-range';
 export class ThyDateRangeMinAndMaxDateExampleComponent implements OnInit {
     public date: DateRangeItemInfo;
 
-    minDate = getUnixTime(startOfYear(new Date()));
+    minDate = getUnixTime(startOfYear(new TinyDate()?.nativeDate));
 
-    maxDate = getUnixTime(endOfYear(new Date()));
+    maxDate = getUnixTime(endOfYear(new TinyDate()?.nativeDate));
 
     constructor() {}
 

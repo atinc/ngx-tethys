@@ -2,6 +2,10 @@ import { ThyLocaleType } from '../i18n';
 
 export default {
     id: ThyLocaleType.deDe,
+    layout: {
+        expand: 'Aufklappen',
+        collapse: 'Zuklappen'
+    },
     datePicker: {
         yearFormat: 'yyyy',
         monthFormat: 'MMM',

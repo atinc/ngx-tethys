@@ -11,15 +11,15 @@ import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { addDays, addWeeks, startOfDay, startOfWeek } from 'date-fns';
 
+import { provideHttpClient } from '@angular/common/http';
+import { TinyDate } from 'ngx-tethys/util';
+import { ThyPopoverConfig, ThyPopoverModule } from '../popover';
 import { ThyPopover } from '../popover/popover.service';
 import { ThyPropertyOperation, ThyPropertyOperationModule } from '../property-operation';
 import { ThyDatePickerDirective } from './date-picker.directive';
 import { ThyDatePickerModule } from './date-picker.module';
 import { DatePopup } from './lib/popups/date-popup.component';
-import { ThyPopoverConfig, ThyPopoverModule } from '../popover';
 import { CompatiblePresets, ThyShortcutPosition } from './standard-types';
-import { TinyDate } from 'ngx-tethys/util';
-import { provideHttpClient } from '@angular/common/http';
 
 registerLocaleData(zh);
 

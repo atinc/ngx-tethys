@@ -1,4 +1,5 @@
 import { CdkConnectedOverlay, CdkOverlayOrigin } from '@angular/cdk/overlay';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import {
     AfterViewInit,
     ChangeDetectionStrategy,
@@ -7,23 +8,20 @@ import {
     ElementRef,
     EventEmitter,
     forwardRef,
+    inject,
     Input,
     OnInit,
     Output,
-    ViewChild,
-    inject,
-    Signal
+    Signal,
+    ViewChild
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
-import { isValid } from 'date-fns';
-import { getFlexiblePositions, ThyPlacement } from 'ngx-tethys/core';
-import { TinyDate, coerceBooleanProperty } from 'ngx-tethys/util';
-import { ThyTimePanel } from './time-picker-panel.component';
-import { ThyIcon } from 'ngx-tethys/icon';
-import { NgTemplateOutlet, NgClass } from '@angular/common';
-import { ThyInputDirective } from 'ngx-tethys/input';
-import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { getFlexiblePositions, scaleMotion, scaleXMotion, scaleYMotion, ThyPlacement } from 'ngx-tethys/core';
 import { injectLocale, ThyTimePickerLocale } from 'ngx-tethys/i18n';
+import { ThyIcon } from 'ngx-tethys/icon';
+import { ThyInputDirective } from 'ngx-tethys/input';
+import { coerceBooleanProperty, isValid, TinyDate } from 'ngx-tethys/util';
+import { ThyTimePanel } from './time-picker-panel.component';
 
 export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
 
@@ -210,13 +208,13 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
     }
 
     onPickTime(value: Date) {
-        this.originValue = new Date(value);
+        this.originValue = new TinyDate(value)?.nativeDate;
         this.setValue(value);
         this.emitValue();
     }
 
     onPickTimeConfirm(value: Date) {
-        this.originValue = new Date(value);
+        this.originValue = new TinyDate(value)?.nativeDate;
         this.confirmValue(value);
     }
 
@@ -313,7 +311,7 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
 
     writeValue(value: Date | number): void {
         if (value && isValid(value)) {
-            this.originValue = new Date(value);
+            this.originValue = new TinyDate(value)?.nativeDate;
             this.setValue(new TinyDate(value).nativeDate);
         } else {
             this.value = new TinyDate().setHms(0, 0, 0).nativeDate;
@@ -335,7 +333,7 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
 
     private setValue(value: Date, formatText: boolean = true) {
         if (value && isValid(value)) {
-            this.value = new Date(value);
+            this.value = new TinyDate(value)?.nativeDate;
             if (formatText) {
                 this.showText = new TinyDate(this.value).format(this.format);
             }
@@ -372,7 +370,7 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
                 const minute = formatter[1] || 0;
                 const second = formatter[2] || 0;
                 this.setValue(new TinyDate().setHms(+hour, +minute, +second).nativeDate, false);
-                this.originValue = new Date(this.value);
+                this.originValue = new TinyDate(this.value)?.nativeDate;
                 this.emitValue();
             }
         } else {
@@ -381,7 +379,7 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
                 this.setValue(null);
                 this.emitValue();
             } else {
-                this.value = new Date(this.originValue);
+                this.value = new TinyDate(this.originValue)?.nativeDate;
                 this.showText = ``;
                 this.cdr.markForCheck();
             }

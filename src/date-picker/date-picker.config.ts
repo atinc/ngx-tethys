@@ -1,8 +1,7 @@
 import { InjectionToken, Signal } from '@angular/core';
-import { addDays, addWeeks, startOfDay, startOfWeek, subDays } from 'date-fns';
-import { TinyDate, WeekDayIndex } from 'ngx-tethys/util';
-import { CompatiblePresets, ThyShortcutPosition } from './standard-types';
 import { injectLocale, ThyDatePickerLocale, ThyI18nService } from 'ngx-tethys/i18n';
+import { addDays, addWeeks, startOfDay, startOfWeek, subDays, TinyDate, WeekDayIndex } from 'ngx-tethys/util';
+import { CompatiblePresets, ThyShortcutPosition } from './standard-types';
 
 export interface ThyDatePickerConfig {
     shortcutPosition: ThyShortcutPosition;
@@ -25,15 +24,15 @@ export const DEFAULT_DATE_PICKER_CONFIG: ThyDatePickerConfig = {
         return [
             {
                 title: '今天',
-                value: startOfDay(new Date()).getTime()
+                value: startOfDay(new TinyDate().getTime()).getTime()
             },
             {
                 title: '明天',
-                value: startOfDay(addDays(new Date(), 1)).getTime()
+                value: startOfDay(addDays(new TinyDate().getTime(), 1)).getTime()
             },
             {
                 title: '下周',
-                value: startOfWeek(addWeeks(new Date(), 1), { weekStartsOn: 1 }).getTime()
+                value: startOfWeek(addWeeks(new TinyDate().getTime(), 1), { weekStartsOn: 1 }).getTime()
             }
         ];
     },
@@ -41,11 +40,11 @@ export const DEFAULT_DATE_PICKER_CONFIG: ThyDatePickerConfig = {
         return [
             {
                 title: '最近 7 天',
-                value: [new TinyDate(subDays(new Date(), 6)).getTime(), new TinyDate().endOfDay().getTime()]
+                value: [new TinyDate(subDays(new TinyDate().getTime(), 6)).getTime(), new TinyDate().endOfDay().getTime()]
             },
             {
                 title: '最近 30 天',
-                value: [new TinyDate(subDays(new Date(), 29)).getTime(), new TinyDate().endOfDay().getTime()]
+                value: [new TinyDate(subDays(new TinyDate().getTime(), 29)).getTime(), new TinyDate().endOfDay().getTime()]
             },
             {
                 title: '本周',
@@ -73,15 +72,15 @@ export function useDatePickerDefaultConfig(): ThyDatePickerConfig {
             return [
                 {
                     title: locale().today,
-                    value: startOfDay(new Date()).getTime()
+                    value: startOfDay(new TinyDate().nativeDate).getTime()
                 },
                 {
                     title: locale().tomorrow,
-                    value: startOfDay(addDays(new Date(), 1)).getTime()
+                    value: startOfDay(addDays(new TinyDate().nativeDate, 1)).getTime()
                 },
                 {
                     title: locale().nextWeek,
-                    value: startOfWeek(addWeeks(new Date(), 1), { weekStartsOn: 1 }).getTime()
+                    value: startOfWeek(addWeeks(new TinyDate().nativeDate, 1), { weekStartsOn: 1 }).getTime()
                 }
             ];
         },
@@ -89,11 +88,11 @@ export function useDatePickerDefaultConfig(): ThyDatePickerConfig {
             return [
                 {
                     title: locale().lastSevenDays,
-                    value: [new TinyDate(subDays(new Date(), 6)).getTime(), new TinyDate().endOfDay().getTime()]
+                    value: [new TinyDate().subDays(6).getTime(), new TinyDate().endOfDay().getTime()]
                 },
                 {
                     title: locale().lastThirtyDays,
-                    value: [new TinyDate(subDays(new Date(), 29)).getTime(), new TinyDate().endOfDay().getTime()]
+                    value: [new TinyDate().subDays(29).getTime(), new TinyDate().endOfDay().getTime()]
                 },
                 {
                     title: locale().currentWeek,

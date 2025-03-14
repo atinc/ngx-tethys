@@ -2,6 +2,10 @@ import { ThyLocaleType } from '../i18n';
 
 export default {
     id: ThyLocaleType.zhHans,
+    layout: {
+        expand: '展开',
+        collapse: '收起'
+    },
     datePicker: {
         yearFormat: 'yyyy年', // Used in header of month picker
         monthFormat: 'MMM', // Used in header of date picker, advanced range picker （2月）

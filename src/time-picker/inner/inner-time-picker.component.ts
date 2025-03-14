@@ -4,13 +4,13 @@ import {
     Component,
     EventEmitter,
     forwardRef,
+    inject,
     Input,
     OnChanges,
     OnDestroy,
     Output,
     SimpleChanges,
-    StaticProvider,
-    inject
+    StaticProvider
 } from '@angular/core';
 
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
