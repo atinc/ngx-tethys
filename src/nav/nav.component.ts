@@ -3,7 +3,6 @@ import { merge, Observable, of } from 'rxjs';
 import { startWith, take, tap } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { OnDestroy } from '@angular/core';
 import {
     AfterContentChecked,
     AfterContentInit,
@@ -21,6 +20,7 @@ import {
     Input,
     NgZone,
     OnChanges,
+    OnDestroy,
     OnInit,
     QueryList,
     Signal,
