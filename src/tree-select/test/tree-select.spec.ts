@@ -1,5 +1,5 @@
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
-import { animationFrameScheduler, of } from 'rxjs';
+import { of } from 'rxjs';
 
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
@@ -932,7 +932,6 @@ describe('ThyTreeSelect', () => {
 
             const wrap = document.querySelector('.cdk-virtual-scroll-content-wrapper');
             dispatchFakeEvent(wrap, 'scroll');
-            animationFrameScheduler.flush();
 
             tick(100);
             fixture.detectChanges();
