@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef, ViewChild, inject as coreInject } from '@angular/core';
-import { TestBed, ComponentFixture, fakeAsync, flush, inject, tick, discardPeriodicTasks } from '@angular/core/testing';
+import { TestBed, ComponentFixture, fakeAsync, flush, inject, tick } from '@angular/core/testing';
 import { ThyNotifyModule } from '../module';
 import { ThyNotifyService } from '../notify.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -426,7 +426,8 @@ describe('ThyNotify with provider', () => {
                         placement: 'bottomLeft',
                         duration: DEFAULT_DURATION_TIME
                     }
-                }
+                },
+                provideHttpClient()
             ]
         });
         inject([OverlayContainer], (oc: OverlayContainer) => {

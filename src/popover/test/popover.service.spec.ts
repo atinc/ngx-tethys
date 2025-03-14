@@ -44,10 +44,8 @@ class PopoverBasicComponent {
     @ViewChild('trigger') trigger: TemplateRef<any>;
 }
 
-// eslint-disable-next-line @angular-eslint/directive-selector
 @Directive({
-    // eslint-disable-next-line @angular-eslint/directive-selector
-    selector: 'thy-with-view-container-directive',
+    selector: '[thyWithViewContainer]',
     standalone: false
 })
 class WithViewContainerDirective {
@@ -57,7 +55,7 @@ class WithViewContainerDirective {
 @Component({
     selector: 'thy-with-child-view-container-component',
     template: `
-        <thy-with-view-container-directive></thy-with-view-container-directive>
+        <div thyWithViewContainer></div>
         <button #openPopoverOrigin>Open Popover</button>
         <button #openTemplate>open template</button>
         <ng-template #template>

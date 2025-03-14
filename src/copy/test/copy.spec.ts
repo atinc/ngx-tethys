@@ -7,6 +7,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyNotifyModule, ThyNotifyService } from '../../notify';
 import { ThyTooltipModule } from '../../tooltip/tooltip.module';
 import { ThyCopyDirective } from '../copy.directive';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('thy-copy', () => {
     let fixture: ComponentFixture<ThyCopyTestComponent>;
@@ -16,7 +17,7 @@ describe('thy-copy', () => {
         TestBed.configureTestingModule({
             imports: [ThyTooltipModule, ThyNotifyModule, NoopAnimationsModule, ThyCopyDirective],
             declarations: [ThyCopyTestComponent],
-            providers: [ThyNotifyService]
+            providers: [ThyNotifyService, provideHttpClient()]
         }).compileComponents();
     }));
 
