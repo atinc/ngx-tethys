@@ -15,6 +15,8 @@ import {
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SafeAny } from 'ngx-tethys/types';
 import { ThyDialog, ThyDialogModule, ThyDialogRef } from '../';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 // simple dialog component
 @Component({
@@ -98,10 +100,8 @@ export class DialogRestoreComponent {
     }
 }
 
-// eslint-disable-next-line @angular-eslint/directive-selector
 @Directive({
-    // eslint-disable-next-line @angular-eslint/directive-selector
-    selector: 'thy-with-view-container-directive',
+    selector: '[thyWithViewContainer]',
     standalone: false
 })
 export class WithViewContainerDirective {
@@ -110,7 +110,7 @@ export class WithViewContainerDirective {
 
 @Component({
     selector: 'thy-with-child-view-component',
-    template: ` <thy-with-view-container-directive></thy-with-view-container-directive> `,
+    template: ` <div thyWithViewContainer></div> `,
     standalone: false
 })
 export class WithChildViewContainerComponent {
@@ -255,6 +255,7 @@ const TEST_DIRECTIVES = [
 ];
 @NgModule({
     imports: [ThyDialogModule, NoopAnimationsModule],
+    providers: [provideHttpClient(), provideHttpClientTesting()],
     exports: TEST_DIRECTIVES,
     declarations: TEST_DIRECTIVES
 })
