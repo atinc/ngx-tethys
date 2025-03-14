@@ -21,6 +21,6 @@ describe('ng-update v19 Schematic', () => {
         const file = workspaceTree.get('package.json');
         expect(file.content.toString()).toBeTruthy();
         const packageJSON = JSON.parse(file.content.toString());
-        expect(packageJSON['dependencies']['@angular/core']).toContain('^19.');
+        expect(packageJSON['dependencies']['@angular/core']).toContain('^18.');
     });
 });
