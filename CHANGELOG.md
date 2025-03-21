@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [19.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/19.0.0-next.1...19.0.0-next.2) (2025-03-21)
+
+
+### Bug Fixes
+
+* **util:** export keycodes ([#3311](https://github.com/atinc/ngx-tethys/issues/3311)) ([bb7e99c](https://github.com/atinc/ngx-tethys/commit/bb7e99c3f2226d7e314c4b09beae9d5bfaed1f51))
+
+
+
 # [19.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/19.0.0-next.0...19.0.0-next.1) (2025-03-18)
 
 
