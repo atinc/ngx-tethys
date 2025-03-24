@@ -69,7 +69,7 @@ export function getFlexibleAdvancedReadableValue(tinyDates: TinyDate[], flexible
             break;
         case 'quarter':
             if (tinyDates[0].isSameQuarter(tinyDates[1])) {
-                value = tinyDates[0].format('yyyy-qqq');
+                value = `${tinyDates[0].format('yyyy-qqq')}`;
             } else {
                 value = `${tinyDates[0].format('yyyy-qqq')}${separator}${tinyDates[1].format('yyyy-qqq')}`;
             }

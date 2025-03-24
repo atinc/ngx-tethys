@@ -83,6 +83,8 @@ export const eachMonthOfInterval = dateFns.eachMonthOfInterval;
 export const eachYearOfInterval = dateFns.eachYearOfInterval;
 export const eachHourOfInterval = dateFns.eachHourOfInterval;
 export const setDefaultOptions = dateFns.setDefaultOptions;
+export const formatDistance = dateFns.formatDistance;
+
 export const getDateFnsLocale = (locale: string) => {
     switch (locale) {
         case 'zh-hant':

@@ -109,8 +109,16 @@ export class TinyDate implements Record<string, any> {
         return setDefaultOptions({ locale: TinyDate.defaultLocale });
     }
 
+    static getDefaultLocale() {
+        return TinyDate.defaultLocale;
+    }
+
     static setDefaultTimeZone(zone: string) {
         TinyDate.defaultTimeZone = zone ?? DEFAULT_TIMEZONE;
+    }
+
+    static getDefaultTimeZone() {
+        return TinyDate.defaultTimeZone;
     }
 
     static utcToZonedTime(value: Date | number, timeZone?: string): Date {
