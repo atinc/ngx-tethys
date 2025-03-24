@@ -81,6 +81,8 @@ export class TinyDate implements Record<string, any> {
 
     private useTimeZone: string;
 
+    private static locale: string;
+
     protected static defaultLocale: Locale = getDateFnsLocale(ThyLocaleType.zhHans);
 
     protected static defaultTimeZone: string = DEFAULT_TIMEZONE;
@@ -105,19 +107,20 @@ export class TinyDate implements Record<string, any> {
     }
 
     static setDefaultLocale(locale: string) {
+        TinyDate.locale = locale;
         TinyDate.defaultLocale = getDateFnsLocale(locale);
         return setDefaultOptions({ locale: TinyDate.defaultLocale });
     }
 
-    static getDefaultLocale() {
-        return TinyDate.defaultLocale;
+    static getDefaultLocale(): { locale: string; dateFnsLocale: Locale } {
+        return { locale: TinyDate.locale, dateFnsLocale: TinyDate.defaultLocale };
     }
 
     static setDefaultTimeZone(zone: string) {
         TinyDate.defaultTimeZone = zone ?? DEFAULT_TIMEZONE;
     }
 
-    static getDefaultTimeZone() {
+    static getDefaultTimeZone(): string {
         return TinyDate.defaultTimeZone;
     }
 

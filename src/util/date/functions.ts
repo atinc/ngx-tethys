@@ -87,6 +87,8 @@ export const formatDistance = dateFns.formatDistance;
 
 export const getDateFnsLocale = (locale: string) => {
     switch (locale) {
+        case 'zh-cn':
+            return dateFnsLocales[`zhCN`];
         case 'zh-hant':
             return dateFnsLocales[`zhTW`];
         case 'en-us':
