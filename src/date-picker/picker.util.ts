@@ -54,7 +54,7 @@ export function transformDateValue(value: CompatibleDate | CompatibleValue | num
     return { value: value as CompatibleDate, withTime, flexibleDateGranularity };
 }
 
-export function getFlexibleAdvancedReadableValue(tinyDates: TinyDate[], flexibleDateGranularity: ThyDateGranularity) {
+export function getFlexibleAdvancedReadableValue(tinyDates: TinyDate[], flexibleDateGranularity: ThyDateGranularity, separator: string) {
     let value = '';
     if (!tinyDates[0] || !tinyDates[1]) {
         return value;
@@ -62,25 +62,23 @@ export function getFlexibleAdvancedReadableValue(tinyDates: TinyDate[], flexible
     switch (flexibleDateGranularity) {
         case 'year':
             if (tinyDates[0].isSameYear(tinyDates[1])) {
-                value = `${tinyDates[0].getYear()}年`;
+                value = `${tinyDates[0].format('yyyy')}`;
             } else {
-                value = `${tinyDates[0].getYear()}年 ～ ${tinyDates[1].getYear()}年`;
+                value = `${tinyDates[0].format('yyyy')}${separator}${tinyDates[1].format('yyyy')}`;
             }
             break;
         case 'quarter':
             if (tinyDates[0].isSameQuarter(tinyDates[1])) {
-                value = `${tinyDates[0].getYear()}年 Q${tinyDates[0].getQuarter()}`;
+                value = tinyDates[0].format('yyyy-qqq');
             } else {
-                value = `${tinyDates[0].getYear()}年 Q${tinyDates[0].getQuarter()} ~ ${tinyDates[1].getYear()}年 Q${tinyDates[1].getQuarter()}`;
+                value = `${tinyDates[0].format('yyyy-qqq')}${separator}${tinyDates[1].format('yyyy-qqq')}`;
             }
             break;
         case 'month':
             if (tinyDates[0].isSameMonth(tinyDates[1])) {
-                value = `${tinyDates[0].getYear()}年 ${tinyDates[0].getMonth() + 1}月`;
+                value = `${tinyDates[0].format('yyyy-MM')}`;
             } else {
-                value = `${tinyDates[0].getYear()}年 ${tinyDates[0].getMonth() + 1}月 ~ ${tinyDates[1].getYear()}年 ${
-                    tinyDates[1].getMonth() + 1
-                }月`;
+                value = `${tinyDates[0].format('yyyy-MM')}${separator}${tinyDates[1].format('yyyy-MM')}`;
             }
             break;
     }

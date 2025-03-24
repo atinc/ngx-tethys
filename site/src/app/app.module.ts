@@ -18,6 +18,7 @@ import { ThyDatePickerModule } from 'ngx-tethys/date-picker';
 import { ThyDateRangeModule } from 'ngx-tethys/date-range';
 import { ThyDialogModule } from 'ngx-tethys/dialog';
 import { ThyDividerModule } from 'ngx-tethys/divider';
+import { ThyDotModule } from 'ngx-tethys/dot';
 import { ThyDragDropModule } from 'ngx-tethys/drag-drop';
 import { ThyDropdownModule } from 'ngx-tethys/dropdown';
 import { ThyEmptyModule } from 'ngx-tethys/empty';
@@ -26,11 +27,11 @@ import { ThyFormModule } from 'ngx-tethys/form';
 import { ThyFullscreenModule } from 'ngx-tethys/fullscreen';
 import { ThyGridModule } from 'ngx-tethys/grid';
 import { ThyGuiderModule } from 'ngx-tethys/guider';
+import { ThyI18nService } from 'ngx-tethys/i18n';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyInputNumberModule } from 'ngx-tethys/input-number';
 import { ThyLayoutModule } from 'ngx-tethys/layout';
-import { ThyDotModule } from 'ngx-tethys/dot';
 import { ThyListModule } from 'ngx-tethys/list';
 import { ThyLoadingModule } from 'ngx-tethys/loading';
 import { ThyMentionModule } from 'ngx-tethys/mention';
@@ -65,7 +66,6 @@ import { ThyTreeSelectModule } from 'ngx-tethys/tree-select';
 import { ThyUploadModule } from 'ngx-tethys/upload';
 import { ThyVoteModule } from 'ngx-tethys/vote';
 import { ThyWatermarkModule } from 'ngx-tethys/watermark';
-import { ThyI18nService } from 'ngx-tethys/i18n';
 
 import { DestroyRef, NgModule, inject } from '@angular/core';
 import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
@@ -73,21 +73,22 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { DocgeniTemplateModule, RootComponent } from '@docgeni/template';
 
-import { ThyIconRegistry } from '../../../src/icon/icon-registry';
-import { EXAMPLE_MODULES } from './content/example-modules';
-import { DOCGENI_SITE_PROVIDERS } from './content/index';
+import { MutationObserverFactory } from '@angular/cdk/observers';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ThyTheme, ThyThemeStore } from 'ngx-tethys/core';
 import { Observable, Subject } from 'rxjs';
-import { MutationObserverFactory } from '@angular/cdk/observers';
+import { ThyIconRegistry } from '../../../src/icon/icon-registry';
+import { EXAMPLE_MODULES } from './content/example-modules';
+import { DOCGENI_SITE_PROVIDERS } from './content/index';
 
+import { registerLocaleData } from '@angular/common';
+import localeDe from '@angular/common/locales/de';
+import localeEn from '@angular/common/locales/en';
+import localeJa from '@angular/common/locales/ja';
 import localeZh from '@angular/common/locales/zh';
 import localeZhHans from '@angular/common/locales/zh-Hans';
 import localezhHant from '@angular/common/locales/zh-Hant';
-import localeEn from '@angular/common/locales/en';
-import localeJa from '@angular/common/locales/ja';
-import localeDe from '@angular/common/locales/de';
-import { registerLocaleData } from '@angular/common';
+import { TinyDate } from 'ngx-tethys/util';
 
 registerLocaleData(localeZh, 'zh');
 registerLocaleData(localeZhHans, 'zh-Hans');
@@ -204,6 +205,7 @@ export class AppModule {
             if (event instanceof NavigationEnd) {
                 let localeId = router.url.split('/')[1];
                 i18n.setLocale(localeId);
+                TinyDate.setDefaultLocale(localeId);
             }
         });
     }

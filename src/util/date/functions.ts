@@ -1,4 +1,5 @@
 import * as dateFns from 'date-fns';
+import * as dateFnsLocales from 'date-fns/locale';
 
 export const differenceInCalendarDays = dateFns.differenceInCalendarDays;
 export const differenceInCalendarMonths = dateFns.differenceInCalendarMonths;
@@ -82,3 +83,17 @@ export const eachMonthOfInterval = dateFns.eachMonthOfInterval;
 export const eachYearOfInterval = dateFns.eachYearOfInterval;
 export const eachHourOfInterval = dateFns.eachHourOfInterval;
 export const setDefaultOptions = dateFns.setDefaultOptions;
+export const getDateFnsLocale = (locale: string) => {
+    switch (locale) {
+        case 'zh-hant':
+            return dateFnsLocales[`zhTW`];
+        case 'en-us':
+            return dateFnsLocales[`enUS`];
+        case 'ja-jp':
+            return dateFnsLocales[`ja`];
+        case 'de-de':
+            return dateFnsLocales[`de`];
+        default:
+            return dateFnsLocales[`zhCN`];
+    }
+};

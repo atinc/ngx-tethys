@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { ThyDatePickerConfig, THY_DATE_PICKER_CONFIG, useDatePickerDefaultConfig } from './date-picker.config';
+import { THY_DATE_PICKER_CONFIG, ThyDatePickerConfig, useDatePickerDefaultConfig } from './date-picker.config';
 
 @Injectable({ providedIn: 'root' })
 export class ThyDatePickerConfigService {
@@ -28,5 +28,9 @@ export class ThyDatePickerConfigService {
 
     get timestampPrecision() {
         return this.config.timestampPrecision;
+    }
+
+    get separator() {
+        return this.config.separator.trim();
     }
 }

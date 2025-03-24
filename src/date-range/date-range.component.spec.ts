@@ -1,5 +1,6 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { registerLocaleData } from '@angular/common';
+import { provideHttpClient } from '@angular/common/http';
 import zh from '@angular/common/locales/zh';
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, inject, tick } from '@angular/core/testing';
@@ -23,7 +24,6 @@ import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { addDays, addYears, endOfDay, endOfYear, startOfDay, startOfWeek, startOfYear } from '../util';
 import { DateRangeItemInfo } from './date-range.class';
 import { ThyDateRangeModule } from './module';
-import { provideHttpClient } from '@angular/common/http';
 
 registerLocaleData(zh);
 
@@ -478,6 +478,7 @@ describe('ThyTestDateRangeComponent', () => {
                     [thyDisabledSwitch]="hiddenSwitchRangeIcon"
                     [thyCustomTextValue]="customValue"
                     [thyOptionalDateRanges]="dateRanges"
+                    [thySeparator]="separator"
                     [thyDisabledDate]="thyDisabledDate"
                     [(ngModel)]="selectedDate"></thy-date-range>
             }
@@ -487,6 +488,7 @@ describe('ThyTestDateRangeComponent', () => {
                     name="setCustomDateRanges"
                     [thyOptionalDateRanges]="customDateRanges"
                     [ngModel]="selectedDate"
+                    [thySeparator]="separator"
                     (ngModelChange)="dateChanged($event)"
                     (thyOnCalendarChange)="calendarChange($event)"></thy-date-range>
             }
@@ -574,6 +576,8 @@ class ThyTestDateRangeComponent {
     hiddenSwitchRangeIcon = false;
 
     customValue = '';
+
+    separator = '~';
 
     thyDisabledDate: (d: Date) => boolean;
 

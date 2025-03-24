@@ -57,6 +57,7 @@ export class ThyPicker implements OnChanges, AfterViewInit {
     @Input() flexible: boolean = false;
     @Input() mode: string;
     @Input({ transform: coerceBooleanProperty }) hasBackdrop: boolean;
+    @Input() separator: string;
     @Output() blur = new EventEmitter<Event>();
     @Output() readonly valueChange = new EventEmitter<TinyDate | TinyDate[] | null>();
     @Output() readonly openChange = new EventEmitter<boolean>(); // Emitted when overlay's open state change
@@ -254,11 +255,11 @@ export class ThyPicker implements OnChanges, AfterViewInit {
         let value: TinyDate;
         if (this.isRange) {
             if (this.flexible && this.innerflexibleDateGranularity !== 'day') {
-                return getFlexibleAdvancedReadableValue(tinyDate as TinyDate[], this.innerflexibleDateGranularity);
+                return getFlexibleAdvancedReadableValue(tinyDate as TinyDate[], this.innerflexibleDateGranularity, this.separator);
             } else {
                 const start = tinyDate[0] ? this.formatDate(tinyDate[0]) : '';
                 const end = tinyDate[1] ? this.formatDate(tinyDate[1]) : '';
-                return start && end ? `${start} ~ ${end}` : null;
+                return start && end ? `${start}${this.separator}${end}` : null;
             }
         } else {
             value = tinyDate as TinyDate;
@@ -278,7 +279,7 @@ export class ThyPicker implements OnChanges, AfterViewInit {
 
     getPlaceholder(): string {
         return this.isRange && this.placeholder && Array.isArray(this.placeholder)
-            ? (this.placeholder as string[]).join(' ~ ')
+            ? (this.placeholder as string[]).join(this.separator)
             : (this.placeholder as string);
     }
 

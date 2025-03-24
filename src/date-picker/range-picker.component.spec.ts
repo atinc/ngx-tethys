@@ -68,6 +68,7 @@ describe('ThyRangePickerComponent', () => {
                     provide: THY_DATE_PICKER_CONFIG,
                     useValue: {
                         showShortcut: true,
+                        separator: '~',
                         shortcutRangesPresets: shortcutRangesPresets,
                         timestampPrecision: 'seconds'
                     }
@@ -79,6 +80,7 @@ describe('ThyRangePickerComponent', () => {
     }));
 
     beforeEach(() => {
+        TinyDate.setDefaultLocale('en-us');
         fixture = TestBed.createComponent(ThyTestRangePickerComponent);
         fixtureInstance = fixture.componentInstance;
         debugElement = fixture.debugElement;
@@ -125,7 +127,7 @@ describe('ThyRangePickerComponent', () => {
         it('should be [thyMinDate, thyMaxDate] when startDate < thyMinDate && endDate > thyMaxDate', fakeAsync(() => {
             const minDate: Date = startOfDay(addDays(new Date(), -3));
             const maxDate: Date = endOfDay(addDays(new Date(), -1));
-            const expectValue = `${format(minDate.getTime(), 'yyyy-MM-dd')} ~ ${format(maxDate.getTime(), 'yyyy-MM-dd')}`;
+            const expectValue = `${format(minDate.getTime(), 'yyyy-MM-dd')}${fixture.componentInstance.thySeparator}${format(maxDate.getTime(), 'yyyy-MM-dd')}`;
 
             assertAccordingToMinAndMaxDate(minDate, maxDate, expectValue);
         }));
@@ -133,7 +135,8 @@ describe('ThyRangePickerComponent', () => {
         it('should be [thyMinDate, endDate] when startDate < thyMinDate', fakeAsync(() => {
             const minDate: Date = startOfDay(addDays(new Date(), -3));
             const maxDate: Date = endOfDay(addDays(new Date(), 30));
-            const expectValue = `${format(minDate.getTime(), 'yyyy-MM-dd')} ~ ${format(endDate, 'yyyy-MM-dd')}`;
+            fixtureInstance.thyShortcutPresets;
+            const expectValue = `${format(minDate.getTime(), 'yyyy-MM-dd')}${fixture.componentInstance.thySeparator}${format(endDate, 'yyyy-MM-dd')}`;
 
             assertAccordingToMinAndMaxDate(minDate, maxDate, expectValue);
         }));
@@ -141,7 +144,7 @@ describe('ThyRangePickerComponent', () => {
         it('should be [startDate, thyMaxDate] when endDate > thyMaxDate', fakeAsync(() => {
             const minDate: Date = startOfDay(addDays(new Date(), -10));
             const maxDate: Date = endOfDay(addDays(new Date(), -1));
-            const expectValue = `${format(startDate, 'yyyy-MM-dd')} ~ ${format(maxDate.getTime(), 'yyyy-MM-dd')}`;
+            const expectValue = `${format(startDate, 'yyyy-MM-dd')}${fixture.componentInstance.thySeparator}${format(maxDate.getTime(), 'yyyy-MM-dd')}`;
 
             assertAccordingToMinAndMaxDate(minDate, maxDate, expectValue);
         }));
@@ -149,7 +152,7 @@ describe('ThyRangePickerComponent', () => {
         it('should be [startDate, endDate] when startDate >= thyMinDate && endDate <= thyMaxDate', fakeAsync(() => {
             const minDate: Date = startOfDay(addDays(new Date(), -30));
             const maxDate: Date = endOfDay(addDays(new Date(), 30));
-            const expectValue = `${format(startDate, 'yyyy-MM-dd')} ~ ${format(endDate, 'yyyy-MM-dd')}`;
+            const expectValue = `${format(startDate, 'yyyy-MM-dd')}${fixture.componentInstance.thySeparator}${format(endDate, 'yyyy-MM-dd')}`;
 
             assertAccordingToMinAndMaxDate(minDate, maxDate, expectValue);
         }));
@@ -322,7 +325,7 @@ describe('ThyRangePickerComponent', () => {
             const featureKey = 'RIGHT_PLACEHOLDER';
             fixtureInstance.thyPlaceHolder = ['Start', featureKey];
             fixture.detectChanges();
-            expect(getPickerTrigger().getAttribute('placeholder')).toBe('Start ~ RIGHT_PLACEHOLDER');
+            expect(getPickerTrigger().getAttribute('placeholder')).toBe(`Start${fixture.componentInstance.thySeparator}RIGHT_PLACEHOLDER`);
         });
 
         it('should support thyPlaceHolder as string', () => {
@@ -620,7 +623,7 @@ describe('ThyRangePickerComponent', () => {
             dispatchMouseEvent(queryFromOverlay('.cdk-overlay-backdrop'), 'click');
             fixture.detectChanges();
             tick(500);
-            expect(getRangePickerInput().value).toBe('2018-09-11 ~ 2020-09-12');
+            expect(getRangePickerInput().value).toBe(`2018-09-11${fixture.componentInstance.thySeparator}2020-09-12`);
         }));
     }); // /specified date picker testing
 
@@ -769,7 +772,7 @@ describe('ThyRangePickerComponent', () => {
                 end: new TinyDate().endOfYear().getUnixTime(),
                 granularity: 'year'
             });
-            expect(getRangePickerInput().value).toBe(new Date().getFullYear() + '年');
+            expect(getRangePickerInput().value).toBe(new TinyDate().format('yyyy'));
         }));
 
         it('should select advanced quarter', fakeAsync(() => {
@@ -790,7 +793,7 @@ describe('ThyRangePickerComponent', () => {
                 end: new TinyDate().endOfQuarter().getUnixTime(),
                 granularity: 'quarter'
             });
-            expect(getRangePickerInput().value).toBe(`${new TinyDate().getYear()}年 Q${new TinyDate().getQuarter()}`);
+            expect(getRangePickerInput().value).toBe(`${new TinyDate().format('yyyy-qqq')}`);
         }));
 
         it('should select advanced month', fakeAsync(() => {
@@ -809,7 +812,7 @@ describe('ThyRangePickerComponent', () => {
                 end: new TinyDate().endOfMonth().getUnixTime(),
                 granularity: 'month'
             });
-            expect(getRangePickerInput().value).toBe(`${new TinyDate().getYear()}年 ${new TinyDate().getMonth() + 1}月`);
+            expect(getRangePickerInput().value).toBe(`2025-03`);
         }));
 
         it('should select custom date', fakeAsync(() => {
@@ -1052,6 +1055,7 @@ describe('ThyRangePickerComponent', () => {
                     [thySize]="thySize"
                     [thySuffixIcon]="thySuffixIcon"
                     [thyShowShortcut]="thyShowShortcut"
+                    [thySeparator]="thySeparator"
                     [thyShortcutPresets]="thyShortcutPresets"
                     [thyShortcutPosition]="thyShortcutPosition"
                     (thyOpenChange)="thyOpenChange($event)"
@@ -1068,11 +1072,11 @@ describe('ThyRangePickerComponent', () => {
             <!-- Suite 2 -->
             <!-- use another picker to avoid thyOpen's side-effects because thyOpen act as "true" if used -->
             @case (2) {
-                <thy-range-picker [thyOpen]="thyOpen"></thy-range-picker>
+                <thy-range-picker [thyOpen]="thyOpen" [thySeparator]="thySeparator"></thy-range-picker>
             }
             <!-- Suite 3 -->
             @case (3) {
-                <thy-range-picker thyOpen [(ngModel)]="modelValue"></thy-range-picker>
+                <thy-range-picker thyOpen [(ngModel)]="modelValue" [thySeparator]="thySeparator"></thy-range-picker>
             }
             <!-- Suite 4 flexible range picker -->
             @case (4) {
@@ -1080,6 +1084,7 @@ describe('ThyRangePickerComponent', () => {
                     #rangePicker
                     [(ngModel)]="flexibleDateRange"
                     thyMode="flexible"
+                    [thySeparator]="thySeparator"
                     (thyDateChange)="thyDateChange($event)"
                     (ngModelChange)="modelValueChange($event)"></thy-range-picker>
             }
@@ -1110,6 +1115,7 @@ class ThyTestRangePickerComponent {
     thyShortcutPosition: ThyShortcutPosition = 'left';
     thyShortcutPresets: CompatiblePresets;
     flexibleDateRange: ThyDateRangeEntry;
+    thySeparator = ' ~ ';
     thyOpenChange(): void {}
     modelValueChange(): void {}
     thyOnPanelChange(): void {}

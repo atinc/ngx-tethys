@@ -8,6 +8,7 @@
   [open]="thyOpen"
   [disabled]="thyDisabled"
   [format]="thyFormat"
+  [separator]="separator()"
   [mode]="thyMode"
   [allowClear]="thyAllowClear"
   [className]="thyOriginClassName"
@@ -48,6 +49,6 @@
       [timestampPrecision]="thyTimestampPrecision"
       (dateValueChange)="onDateValueChange($event)"
       [className]="thyPanelClassName"
-    (resultOk)="onResultOk()"></date-popup>
+      (resultOk)="onResultOk()"></date-popup>
   }
 </thy-picker>

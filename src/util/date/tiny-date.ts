@@ -1,6 +1,8 @@
 import { TZDate } from '@date-fns/tz';
 import { FirstWeekContainsDate, Locale, setHours, setMinutes, setSeconds } from 'date-fns';
+import { ThyLocaleType } from 'ngx-tethys/i18n';
 import { SafeAny } from 'ngx-tethys/types';
+import { isString } from '../helpers';
 import {
     addDays,
     addHours,
@@ -27,6 +29,7 @@ import {
     endOfYear,
     format,
     fromUnixTime,
+    getDateFnsLocale,
     getDaysInMonth,
     getQuarter,
     getUnixTime,
@@ -43,6 +46,7 @@ import {
     isValid,
     isWeekend,
     setDay,
+    setDefaultOptions,
     setMonth,
     setQuarter,
     setYear,
@@ -77,6 +81,8 @@ export class TinyDate implements Record<string, any> {
 
     private useTimeZone: string;
 
+    protected static defaultLocale: Locale = getDateFnsLocale(ThyLocaleType.zhHans);
+
     protected static defaultTimeZone: string = DEFAULT_TIMEZONE;
 
     constructor(date?: Date | string | number, zone?: string) {
@@ -96,6 +102,11 @@ export class TinyDate implements Record<string, any> {
         } else {
             this.nativeDate = new TZDate(Date.now(), this.useTimeZone);
         }
+    }
+
+    static setDefaultLocale(locale: string) {
+        TinyDate.defaultLocale = getDateFnsLocale(locale);
+        return setDefaultOptions({ locale: TinyDate.defaultLocale });
     }
 
     static setDefaultTimeZone(zone: string) {
@@ -443,14 +454,15 @@ export class TinyDate implements Record<string, any> {
     format(
         mat: string,
         options?: {
-            locale?: Locale;
+            locale?: Locale | string;
             weekStartsOn?: WeekDayIndex;
             firstWeekContainsDate?: FirstWeekContainsDate;
             useAdditionalWeekYearTokens?: boolean;
             useAdditionalDayOfYearTokens?: boolean;
         }
     ) {
-        return format(this.nativeDate, mat, options);
+        const locale = options?.locale && isString(options?.locale) ? getDateFnsLocale(options.locale) : (options?.locale as Locale);
+        return format(this.nativeDate, mat, { ...options, locale: locale });
     }
 
     calendarStart(options?: { weekStartsOn: WeekDayIndex | undefined }): TinyDate {

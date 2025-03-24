@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Signal } from '@angular/core';
 import { DateEntry, ThyDateRangeEntry } from 'ngx-tethys/date-picker';
+import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
 import { differenceInDays, endOfDay, startOfDay, subWeeks, TinyDate } from 'ngx-tethys/util';
 
 @Component({
@@ -26,6 +27,10 @@ export class ThyDatePickerDirectiveExampleComponent implements OnInit {
     weekRange = { begin: new TinyDate('2021-10-03')?.nativeDate, end: new TinyDate('2021-12-12')?.nativeDate };
 
     selectedDateRange: Date[] = [];
+
+    locale: Signal<ThyDatePickerLocale> = injectLocale('datePicker');
+
+    weekThFormat = this.locale().weekThFormat;
 
     shortcutMonthPresets = () => {
         return [

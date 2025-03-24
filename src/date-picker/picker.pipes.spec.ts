@@ -1,11 +1,22 @@
+import { TestBed } from '@angular/core/testing';
+import { ThyDatePickerConfigService } from './date-picker.service';
 import { ThyQuarterPickerFormatPipe } from './picker.pipes';
 
 describe('thyQuarterPickerFormat', () => {
-    const quarterPickerFormatPipe: ThyQuarterPickerFormatPipe = new ThyQuarterPickerFormatPipe();
+    let datePickerConfigService: ThyDatePickerConfigService;
+    let quarterPickerFormatPipe: ThyQuarterPickerFormatPipe;
 
-    it(`should return '2023年Q4'`, () => {
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            providers: [ThyDatePickerConfigService]
+        });
+        datePickerConfigService = TestBed.inject(ThyDatePickerConfigService);
+        quarterPickerFormatPipe = new ThyQuarterPickerFormatPipe(datePickerConfigService);
+    });
+
+    it(`should return '2023-Q4'`, () => {
         const date = new Date('2023-12-31');
-        expect(quarterPickerFormatPipe.transform(date, 'yyyy年qqq')).toBe('2023年Q4');
+        expect(quarterPickerFormatPipe.transform(date)).toBe('2023-Q4');
     });
 
     it(`should return '2023-Q2 ~ 2023-Q4'`, () => {
