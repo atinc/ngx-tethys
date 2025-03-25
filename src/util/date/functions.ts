@@ -1,5 +1,6 @@
 import * as dateFns from 'date-fns';
 import * as dateFnsLocales from 'date-fns/locale';
+import { ThyLocaleType } from 'ngx-tethys/i18n';
 
 export const differenceInCalendarDays = dateFns.differenceInCalendarDays;
 export const differenceInCalendarMonths = dateFns.differenceInCalendarMonths;
@@ -87,15 +88,15 @@ export const formatDistance = dateFns.formatDistance;
 
 export const getDateFnsLocale = (locale: string) => {
     switch (locale) {
-        case 'zh-cn':
+        case ThyLocaleType.zhHans:
             return dateFnsLocales[`zhCN`];
-        case 'zh-hant':
+        case ThyLocaleType.zhHant:
             return dateFnsLocales[`zhTW`];
-        case 'en-us':
+        case ThyLocaleType.enUs:
             return dateFnsLocales[`enUS`];
-        case 'ja-jp':
+        case ThyLocaleType.jaJp:
             return dateFnsLocales[`ja`];
-        case 'de-de':
+        case ThyLocaleType.deDe:
             return dateFnsLocales[`de`];
         default:
             return dateFnsLocales[`zhCN`];

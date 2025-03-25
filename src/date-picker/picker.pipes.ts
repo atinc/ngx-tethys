@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform, inject } from '@angular/core';
+import { ThyI18nService } from 'ngx-tethys/i18n';
 import { TinyDate } from 'ngx-tethys/util';
 import { DateHelperService } from './date-helper.service';
 import { ThyDatePickerConfigService } from './date-picker.service';
@@ -16,6 +17,7 @@ import { CompatibleDate, DateEntry, ThyDateGranularity, ThyDateRangeEntry } from
 export class ThyDatePickerFormatPipe implements PipeTransform {
     private dateHelper = inject(DateHelperService);
     private datePickerConfigService = inject(ThyDatePickerConfigService);
+    private i18n = inject(ThyI18nService);
 
     transform(originalValue: CompatibleDate | DateEntry | ThyDateRangeEntry, formatStr?: string, separator?: string): string {
         const { value, withTime, flexibleDateGranularity } = transformDateValue(originalValue);
@@ -29,7 +31,7 @@ export class ThyDatePickerFormatPipe implements PipeTransform {
         } else {
             if (flexibleDateGranularity && flexibleDateGranularity !== 'day') {
                 const tinyDates = [new TinyDate(value[0]), new TinyDate(value[1])];
-                return getFlexibleAdvancedReadableValue(tinyDates, flexibleDateGranularity, currentSeparator);
+                return getFlexibleAdvancedReadableValue(tinyDates, flexibleDateGranularity, currentSeparator, this.i18n.getLocale());
             } else {
                 return value.map(date => this.dateHelper.format(date, formatStr)).join(currentSeparator);
             }

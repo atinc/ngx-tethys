@@ -1,3 +1,5 @@
+import { Signal } from '@angular/core';
+import { ThyI18nLocale, ThyLocaleType } from 'ngx-tethys/i18n';
 import { SafeAny } from 'ngx-tethys/types';
 import { coerceArray, helpers, TinyDate } from 'ngx-tethys/util';
 import { CompatibleValue, RangeAdvancedValue } from './inner-types';
@@ -54,31 +56,39 @@ export function transformDateValue(value: CompatibleDate | CompatibleValue | num
     return { value: value as CompatibleDate, withTime, flexibleDateGranularity };
 }
 
-export function getFlexibleAdvancedReadableValue(tinyDates: TinyDate[], flexibleDateGranularity: ThyDateGranularity, separator: string) {
+export function getFlexibleAdvancedReadableValue(
+    tinyDates: TinyDate[],
+    flexibleDateGranularity: ThyDateGranularity,
+    separator: string,
+    locale: Signal<ThyI18nLocale>
+) {
     let value = '';
     if (!tinyDates[0] || !tinyDates[1]) {
         return value;
     }
     switch (flexibleDateGranularity) {
         case 'year':
+            const yearFormatStr = locale()?.id === ThyLocaleType.zhHans ? `yyyy年` : `yyyy`;
             if (tinyDates[0].isSameYear(tinyDates[1])) {
-                value = `${tinyDates[0].format('yyyy')}`;
+                value = `${tinyDates[0].format(yearFormatStr)}`;
             } else {
-                value = `${tinyDates[0].format('yyyy')}${separator}${tinyDates[1].format('yyyy')}`;
+                value = `${tinyDates[0].format(yearFormatStr)}${separator}${tinyDates[1].format(yearFormatStr)}`;
             }
             break;
         case 'quarter':
+            const quarterFormatStr = locale()?.id === ThyLocaleType.zhHans ? `yyyy年 qqq` : `yyyy-qqq`;
             if (tinyDates[0].isSameQuarter(tinyDates[1])) {
-                value = `${tinyDates[0].format('yyyy-qqq')}`;
+                value = `${tinyDates[0].format(quarterFormatStr)}`;
             } else {
-                value = `${tinyDates[0].format('yyyy-qqq')}${separator}${tinyDates[1].format('yyyy-qqq')}`;
+                value = `${tinyDates[0].format(quarterFormatStr)}${separator}${tinyDates[1].format(quarterFormatStr)}`;
             }
             break;
         case 'month':
+            const monthFormatStr = locale()?.id === ThyLocaleType.zhHans ? `yyyy年 MM月` : `yyyy-MM`;
             if (tinyDates[0].isSameMonth(tinyDates[1])) {
-                value = `${tinyDates[0].format('yyyy-MM')}`;
+                value = `${tinyDates[0].format(monthFormatStr)}`;
             } else {
-                value = `${tinyDates[0].format('yyyy-MM')}${separator}${tinyDates[1].format('yyyy-MM')}`;
+                value = `${tinyDates[0].format(monthFormatStr)}${separator}${tinyDates[1].format(monthFormatStr)}`;
             }
             break;
     }
