@@ -23,7 +23,7 @@ export class ThyDatePickerFormatPipe implements PipeTransform {
         if (!formatStr) {
             formatStr = withTime ? 'yyyy-MM-dd HH:mm' : 'yyyy-MM-dd';
         }
-        const currentSeparator = ` ${(separator ?? this.datePickerConfigService.separator).trim()} `;
+        const currentSeparator = ` ${(separator ?? this.datePickerConfigService.separator)?.trim()} `;
         if (!Array.isArray(value)) {
             return this.dateHelper.format(value, formatStr);
         } else {
@@ -54,6 +54,7 @@ export class ThyQuarterPickerFormatPipe implements PipeTransform {
         if (!value) {
             return;
         }
+
         if (!Array.isArray(value)) {
             const _value = new TinyDate(value);
             return _value.format(formatStr);
@@ -63,7 +64,7 @@ export class ThyQuarterPickerFormatPipe implements PipeTransform {
                     const _date = new TinyDate(date);
                     return _date.format(formatStr);
                 })
-                .join(` ${(separator ?? this.datePickerConfigService.separator).trim()} `);
+                .join(` ${(separator ?? this.datePickerConfigService.separator)?.trim()} `);
         }
     }
 }
