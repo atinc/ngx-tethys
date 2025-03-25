@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [18.2.8](https://github.com/atinc/ngx-tethys/compare/18.2.7...18.2.8) (2025-03-25)
+
+
+### Features
+
+* **date-picker:** support date-fns i18n and support thySeparator ([#3313](https://github.com/atinc/ngx-tethys/issues/3313)) ([ce81827](https://github.com/atinc/ngx-tethys/commit/ce818272681bb8f6ce9a240bed4e80d2bfee0054))
+
+
+
 ## [18.2.7](https://github.com/atinc/ngx-tethys/compare/18.2.6...18.2.7) (2025-03-11)
 
 
