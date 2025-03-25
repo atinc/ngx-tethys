@@ -850,6 +850,8 @@
   "eachMonthOfInterval": "util",
   "eachHourOfInterval": "util",
   "setDefaultOptions": "util",
+  "formatDistance": "util",
+  "getDateFnsLocale": "util",
   "TinyDateCompareGrain": "util",
   "WeekDayIndex": "util",
   "TinyDateType": "util",

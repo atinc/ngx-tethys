@@ -17,21 +17,21 @@ export class ThyDatePickerFormatPipe implements PipeTransform {
     private dateHelper = inject(DateHelperService);
     private datePickerConfigService = inject(ThyDatePickerConfigService);
 
-    transform(originalValue: CompatibleDate | DateEntry | ThyDateRangeEntry, formatStr?: string): string {
+    transform(originalValue: CompatibleDate | DateEntry | ThyDateRangeEntry, formatStr?: string, separator?: string): string {
         const { value, withTime, flexibleDateGranularity } = transformDateValue(originalValue);
 
         if (!formatStr) {
             formatStr = withTime ? 'yyyy-MM-dd HH:mm' : 'yyyy-MM-dd';
         }
-        const separator = ` ${this.datePickerConfigService.separator} `;
+        const currentSeparator = ` ${(separator ?? this.datePickerConfigService.separator).trim()} `;
         if (!Array.isArray(value)) {
             return this.dateHelper.format(value, formatStr);
         } else {
             if (flexibleDateGranularity && flexibleDateGranularity !== 'day') {
                 const tinyDates = [new TinyDate(value[0]), new TinyDate(value[1])];
-                return getFlexibleAdvancedReadableValue(tinyDates, flexibleDateGranularity, separator);
+                return getFlexibleAdvancedReadableValue(tinyDates, flexibleDateGranularity, currentSeparator);
             } else {
-                return value.map(date => this.dateHelper.format(date, formatStr)).join(separator);
+                return value.map(date => this.dateHelper.format(date, formatStr)).join(currentSeparator);
             }
         }
     }
@@ -44,7 +44,7 @@ export class ThyDatePickerFormatPipe implements PipeTransform {
 export class ThyQuarterPickerFormatPipe implements PipeTransform {
     constructor(private datePickerConfigService: ThyDatePickerConfigService) {}
 
-    transform(originalValue: CompatibleDate | DateEntry | ThyDateRangeEntry, formatStr?: string): string {
+    transform(originalValue: CompatibleDate | DateEntry | ThyDateRangeEntry, formatStr?: string, separator?: string): string {
         const { value, withTime } = transformDateValue(originalValue);
 
         if (!formatStr) {
@@ -63,7 +63,7 @@ export class ThyQuarterPickerFormatPipe implements PipeTransform {
                     const _date = new TinyDate(date);
                     return _date.format(formatStr);
                 })
-                .join(` ${this.datePickerConfigService.separator} `);
+                .join(` ${(separator ?? this.datePickerConfigService.separator).trim()} `);
         }
     }
 }
