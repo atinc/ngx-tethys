@@ -1,5 +1,6 @@
 import { TZDate } from '@date-fns/tz';
 import { FirstWeekContainsDate, Locale, setHours, setMinutes, setSeconds } from 'date-fns';
+import { ThyLocaleType } from 'ngx-tethys/i18n';
 import { SafeAny } from 'ngx-tethys/types';
 import {
     addDays,
@@ -27,6 +28,7 @@ import {
     endOfYear,
     format,
     fromUnixTime,
+    getDateFnsLocale,
     getDaysInMonth,
     getQuarter,
     getUnixTime,
@@ -43,6 +45,7 @@ import {
     isValid,
     isWeekend,
     setDay,
+    setDefaultOptions,
     setMonth,
     setQuarter,
     setYear,
@@ -77,6 +80,10 @@ export class TinyDate implements Record<string, any> {
 
     private useTimeZone: string;
 
+    private static locale: string;
+
+    protected static dateFnsLocale: Locale = getDateFnsLocale(ThyLocaleType.zhHans);
+
     protected static defaultTimeZone: string = DEFAULT_TIMEZONE;
 
     constructor(date?: Date | string | number, zone?: string) {
@@ -98,8 +105,22 @@ export class TinyDate implements Record<string, any> {
         }
     }
 
+    static setDefaultLocale(locale: string) {
+        TinyDate.locale = locale;
+        TinyDate.dateFnsLocale = getDateFnsLocale(locale);
+        return setDefaultOptions({ locale: TinyDate.dateFnsLocale });
+    }
+
+    static getDefaultLocale(): { locale: string; dateFnsLocale: Locale } {
+        return { locale: TinyDate.locale, dateFnsLocale: TinyDate.dateFnsLocale };
+    }
+
     static setDefaultTimeZone(zone: string) {
         TinyDate.defaultTimeZone = zone ?? DEFAULT_TIMEZONE;
+    }
+
+    static getDefaultTimeZone(): string {
+        return TinyDate.defaultTimeZone;
     }
 
     static utcToZonedTime(value: Date | number, timeZone?: string): Date {

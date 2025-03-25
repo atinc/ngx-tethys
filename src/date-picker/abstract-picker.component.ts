@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 
 import {
     ChangeDetectorRef,
+    computed,
     Directive,
     EventEmitter,
     inject,
@@ -18,23 +19,23 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 
+import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
+import { SafeAny } from 'ngx-tethys/types';
+import { ThyDatePickerConfigService } from './date-picker.service';
 import { CompatibleValue, RangeAdvancedValue } from './inner-types';
 import { ThyPicker } from './picker.component';
 import { makeValue, setValueByTimestampPrecision, transformDateValue } from './picker.util';
 import {
     CompatibleDate,
+    CompatiblePresets,
     DateEntry,
     DisabledDateFn,
+    ThyDateChangeEvent,
+    ThyDateGranularity,
     ThyDateRangeEntry,
     ThyPanelMode,
-    ThyShortcutPosition,
-    CompatiblePresets,
-    ThyDateGranularity,
-    ThyDateChangeEvent
+    ThyShortcutPosition
 } from './standard-types';
-import { ThyDatePickerConfigService } from './date-picker.service';
-import { SafeAny } from 'ngx-tethys/types';
-import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
 
 /**
  * @private
@@ -132,6 +133,15 @@ export abstract class AbstractPickerComponent
      * @default yyyy-MM-dd
      */
     @Input() thyFormat: string;
+
+    /**
+     * 区间分隔符，不传值默认为 "~"
+     */
+    @Input() thySeparator: string = this.datePickerConfigService.config?.separator;
+
+    separator: Signal<string> = computed(() => {
+        return ` ${this.thySeparator?.trim()} `;
+    });
 
     /**
      * @description.en-us only for range picker, Whether to automatically take the beginning and ending unixTime of the day

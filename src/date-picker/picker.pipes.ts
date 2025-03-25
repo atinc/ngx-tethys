@@ -1,6 +1,7 @@
 import { Pipe, PipeTransform, inject } from '@angular/core';
 import { TinyDate } from 'ngx-tethys/util';
 import { DateHelperService } from './date-helper.service';
+import { ThyDatePickerConfigService } from './date-picker.service';
 import { AdvancedSelectableCell } from './inner-types';
 import { getFlexibleAdvancedReadableValue, transformDateValue } from './picker.util';
 import { CompatibleDate, DateEntry, ThyDateGranularity, ThyDateRangeEntry } from './standard-types';
@@ -14,22 +15,23 @@ import { CompatibleDate, DateEntry, ThyDateGranularity, ThyDateRangeEntry } from
 })
 export class ThyDatePickerFormatPipe implements PipeTransform {
     private dateHelper = inject(DateHelperService);
+    private datePickerConfigService = inject(ThyDatePickerConfigService);
 
-    transform(originalValue: CompatibleDate | DateEntry | ThyDateRangeEntry, formatStr?: string): string {
+    transform(originalValue: CompatibleDate | DateEntry | ThyDateRangeEntry, formatStr?: string, separator?: string): string {
         const { value, withTime, flexibleDateGranularity } = transformDateValue(originalValue);
 
         if (!formatStr) {
             formatStr = withTime ? 'yyyy-MM-dd HH:mm' : 'yyyy-MM-dd';
         }
-
+        const currentSeparator = ` ${(separator ?? this.datePickerConfigService.separator)?.trim()} `;
         if (!Array.isArray(value)) {
             return this.dateHelper.format(value, formatStr);
         } else {
             if (flexibleDateGranularity && flexibleDateGranularity !== 'day') {
                 const tinyDates = [new TinyDate(value[0]), new TinyDate(value[1])];
-                return getFlexibleAdvancedReadableValue(tinyDates, flexibleDateGranularity);
+                return getFlexibleAdvancedReadableValue(tinyDates, flexibleDateGranularity, currentSeparator);
             } else {
-                return value.map(date => this.dateHelper.format(date, formatStr)).join(' ~ ');
+                return value.map(date => this.dateHelper.format(date, formatStr)).join(currentSeparator);
             }
         }
     }
@@ -40,7 +42,9 @@ export class ThyDatePickerFormatPipe implements PipeTransform {
     standalone: true
 })
 export class ThyQuarterPickerFormatPipe implements PipeTransform {
-    transform(originalValue: CompatibleDate | DateEntry | ThyDateRangeEntry, formatStr?: string): string {
+    constructor(private datePickerConfigService: ThyDatePickerConfigService) {}
+
+    transform(originalValue: CompatibleDate | DateEntry | ThyDateRangeEntry, formatStr?: string, separator?: string): string {
         const { value, withTime } = transformDateValue(originalValue);
 
         if (!formatStr) {
@@ -60,7 +64,7 @@ export class ThyQuarterPickerFormatPipe implements PipeTransform {
                     const _date = new TinyDate(date);
                     return _date.format(formatStr);
                 })
-                .join(' ~ ');
+                .join(` ${(separator ?? this.datePickerConfigService.separator)?.trim()} `);
         }
     }
 }
