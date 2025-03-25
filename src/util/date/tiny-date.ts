@@ -2,7 +2,6 @@ import { TZDate } from '@date-fns/tz';
 import { FirstWeekContainsDate, Locale, setHours, setMinutes, setSeconds } from 'date-fns';
 import { ThyLocaleType } from 'ngx-tethys/i18n';
 import { SafeAny } from 'ngx-tethys/types';
-import { isString } from '../helpers';
 import {
     addDays,
     addHours,
@@ -465,15 +464,14 @@ export class TinyDate implements Record<string, any> {
     format(
         mat: string,
         options?: {
-            locale?: Locale | string;
+            locale?: Locale;
             weekStartsOn?: WeekDayIndex;
             firstWeekContainsDate?: FirstWeekContainsDate;
             useAdditionalWeekYearTokens?: boolean;
             useAdditionalDayOfYearTokens?: boolean;
         }
     ) {
-        const locale = options?.locale && isString(options?.locale) ? getDateFnsLocale(options.locale) : (options?.locale as Locale);
-        return format(this.nativeDate, mat, { ...options, locale: locale });
+        return format(this.nativeDate, mat, options);
     }
 
     calendarStart(options?: { weekStartsOn: WeekDayIndex | undefined }): TinyDate {
