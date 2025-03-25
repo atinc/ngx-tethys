@@ -772,7 +772,7 @@ describe('ThyRangePickerComponent', () => {
                 end: new TinyDate().endOfYear().getUnixTime(),
                 granularity: 'year'
             });
-            expect(getRangePickerInput().value).toBe(new TinyDate().format('yyyy'));
+            expect(getRangePickerInput().value).toBe(new TinyDate().format('yyyy年'));
         }));
 
         it('should select advanced quarter', fakeAsync(() => {
@@ -793,7 +793,7 @@ describe('ThyRangePickerComponent', () => {
                 end: new TinyDate().endOfQuarter().getUnixTime(),
                 granularity: 'quarter'
             });
-            expect(getRangePickerInput().value).toBe(`${new TinyDate().format('yyyy-qqq')}`);
+            expect(getRangePickerInput().value).toBe(`${new TinyDate().format('yyyy年 qqq')}`);
         }));
 
         it('should select advanced month', fakeAsync(() => {
@@ -812,7 +812,7 @@ describe('ThyRangePickerComponent', () => {
                 end: new TinyDate().endOfMonth().getUnixTime(),
                 granularity: 'month'
             });
-            expect(getRangePickerInput().value).toBe(`2025-03`);
+            expect(getRangePickerInput().value).toBe(`${new TinyDate().format('yyyy年 MM月')}`);
         }));
 
         it('should select custom date', fakeAsync(() => {

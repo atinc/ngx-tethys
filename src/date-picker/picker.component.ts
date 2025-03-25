@@ -19,6 +19,7 @@ import {
 
 import { AsyncPipe, NgClass, NgTemplateOutlet } from '@angular/common';
 import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
+import { ThyI18nService } from 'ngx-tethys/i18n';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { ThyEnterDirective } from 'ngx-tethys/shared';
@@ -42,6 +43,7 @@ import { ThyDateGranularity } from './standard-types';
 export class ThyPicker implements OnChanges, AfterViewInit {
     private changeDetector = inject(ChangeDetectorRef);
     private dateHelper = inject(DateHelperService);
+    private i18n = inject(ThyI18nService);
 
     @Input() isRange = false;
     @Input() open: boolean | undefined = undefined;
@@ -255,7 +257,12 @@ export class ThyPicker implements OnChanges, AfterViewInit {
         let value: TinyDate;
         if (this.isRange) {
             if (this.flexible && this.innerflexibleDateGranularity !== 'day') {
-                return getFlexibleAdvancedReadableValue(tinyDate as TinyDate[], this.innerflexibleDateGranularity, this.separator);
+                return getFlexibleAdvancedReadableValue(
+                    tinyDate as TinyDate[],
+                    this.innerflexibleDateGranularity,
+                    this.separator,
+                    this.i18n.getLocale()
+                );
             } else {
                 const start = tinyDate[0] ? this.formatDate(tinyDate[0]) : '';
                 const end = tinyDate[1] ? this.formatDate(tinyDate[1]) : '';
