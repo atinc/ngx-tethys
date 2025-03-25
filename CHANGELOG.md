@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [18.2.9](https://github.com/atinc/ngx-tethys/compare/18.2.8...18.2.9) (2025-03-25)
+
+
+### Features
+
+* **date-picker:** handle zh-cn format show ([#3315](https://github.com/atinc/ngx-tethys/issues/3315)) ([95afd8f](https://github.com/atinc/ngx-tethys/commit/95afd8f03c588f2a3e9584170418be217d801706))
+
+
+
 ## [18.2.8](https://github.com/atinc/ngx-tethys/compare/18.2.7...18.2.8) (2025-03-25)
 
 
