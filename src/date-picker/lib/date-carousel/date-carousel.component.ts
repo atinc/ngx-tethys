@@ -5,22 +5,22 @@ import {
     Component,
     forwardRef,
     HostBinding,
+    inject,
     Input,
     OnDestroy,
     OnInit,
-    inject,
     Signal
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyButton } from 'ngx-tethys/button';
+import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { TinyDate } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
+import { DateHelperService } from '../../date-helper.service';
 import { AdvancedSelectableCell, RangeAdvancedValue } from '../../inner-types';
 import { DatePickerAdvancedShowYearTipPipe } from '../../picker.pipes';
 import { ThyDateGranularity } from '../../standard-types';
-import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
-import { DateHelperService } from '../../date-helper.service';
 
 /**
  * @private
@@ -262,7 +262,7 @@ export class DateCarousel implements OnInit, ControlValueAccessor, OnDestroy {
         currentDate = currentDate || this.activeDate || new TinyDate().startOfQuarter();
         return {
             type: 'quarter',
-            content: `Q${currentDate.addQuarters(preOrNextcount).getQuarter()}`,
+            content: `${currentDate.addQuarters(preOrNextcount).format('qqq')}`,
             startValue: currentDate.startOfQuarter().addQuarters(preOrNextcount),
             endValue: currentDate.endOfQuarter().addQuarters(preOrNextcount),
             classMap: {}

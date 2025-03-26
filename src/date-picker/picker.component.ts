@@ -19,6 +19,7 @@ import {
 
 import { AsyncPipe, NgClass, NgTemplateOutlet } from '@angular/common';
 import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
+import { ThyI18nService } from 'ngx-tethys/i18n';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { ThyEnterDirective } from 'ngx-tethys/shared';
@@ -41,6 +42,7 @@ import { ThyDateGranularity } from './standard-types';
 export class ThyPicker implements OnChanges, AfterViewInit {
     private changeDetector = inject(ChangeDetectorRef);
     private dateHelper = inject(DateHelperService);
+    private i18n = inject(ThyI18nService);
 
     @Input() isRange = false;
     @Input() open: boolean | undefined = undefined;
@@ -56,6 +58,7 @@ export class ThyPicker implements OnChanges, AfterViewInit {
     @Input() flexible: boolean = false;
     @Input() mode: string;
     @Input({ transform: coerceBooleanProperty }) hasBackdrop: boolean;
+    @Input() separator: string;
     @Output() blur = new EventEmitter<Event>();
     @Output() readonly valueChange = new EventEmitter<TinyDate | TinyDate[] | null>();
     @Output() readonly openChange = new EventEmitter<boolean>(); // Emitted when overlay's open state change
@@ -253,11 +256,16 @@ export class ThyPicker implements OnChanges, AfterViewInit {
         let value: TinyDate;
         if (this.isRange) {
             if (this.flexible && this.innerflexibleDateGranularity !== 'day') {
-                return getFlexibleAdvancedReadableValue(tinyDate as TinyDate[], this.innerflexibleDateGranularity);
+                return getFlexibleAdvancedReadableValue(
+                    tinyDate as TinyDate[],
+                    this.innerflexibleDateGranularity,
+                    this.separator,
+                    this.i18n.getLocale()
+                );
             } else {
                 const start = tinyDate[0] ? this.formatDate(tinyDate[0]) : '';
                 const end = tinyDate[1] ? this.formatDate(tinyDate[1]) : '';
-                return start && end ? `${start} ~ ${end}` : null;
+                return start && end ? `${start}${this.separator}${end}` : null;
             }
         } else {
             value = tinyDate as TinyDate;
@@ -277,7 +285,7 @@ export class ThyPicker implements OnChanges, AfterViewInit {
 
     getPlaceholder(): string {
         return this.isRange && this.placeholder && Array.isArray(this.placeholder)
-            ? (this.placeholder as string[]).join(' ~ ')
+            ? (this.placeholder as string[]).join(this.separator)
             : (this.placeholder as string);
     }
 

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, forwardRef, inject, Input, OnInit, Output, Signal } from '@angular/core';
+import { ChangeDetectorRef, Component, computed, EventEmitter, forwardRef, inject, Input, OnInit, Output, Signal } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { DateRangeItemInfo } from './date-range.class';
@@ -6,7 +6,7 @@ import { OptionalDateRanges } from './optional-dates/optional-dates.component';
 
 import { NgClass } from '@angular/common';
 import { ThyAction } from 'ngx-tethys/action';
-import { ThyDatePickerFormatPipe } from 'ngx-tethys/date-picker';
+import { ThyDatePickerConfigService, ThyDatePickerFormatPipe } from 'ngx-tethys/date-picker';
 import { injectLocale, ThyDateRangeLocale } from 'ngx-tethys/i18n';
 import { ThyIcon } from 'ngx-tethys/icon';
 import {
@@ -48,6 +48,7 @@ export class ThyDateRange implements OnInit, ControlValueAccessor {
     private thyPopover = inject(ThyPopover);
     private cdr = inject(ChangeDetectorRef);
     private locale: Signal<ThyDateRangeLocale> = injectLocale('dateRange');
+    private datePickerConfigService = inject(ThyDatePickerConfigService);
 
     /**
      * 自定义可选值列表项
@@ -104,6 +105,15 @@ export class ThyDateRange implements OnInit, ControlValueAccessor {
      * 自定义日期禁用日期
      */
     @Input() thyDisabledDate: (d: Date) => boolean;
+
+    /**
+     * 区间分隔符，不传值默认为 "~"
+     */
+    @Input() thySeparator: string = this.datePickerConfigService.config?.separator;
+
+    separator: Signal<string> = computed(() => {
+        return ` ${this.thySeparator?.trim()} `;
+    });
 
     /**
      * 自定义日期选择日期回调

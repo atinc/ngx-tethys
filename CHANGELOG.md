@@ -25,6 +25,24 @@ All notable changes to this project will be documented in this file. See [commit
 
 
 
+## [18.2.9](https://github.com/atinc/ngx-tethys/compare/18.2.8...18.2.9) (2025-03-25)
+
+
+### Features
+
+* **date-picker:** handle zh-cn format show ([#3315](https://github.com/atinc/ngx-tethys/issues/3315)) ([95afd8f](https://github.com/atinc/ngx-tethys/commit/95afd8f03c588f2a3e9584170418be217d801706))
+
+
+
+## [18.2.8](https://github.com/atinc/ngx-tethys/compare/18.2.7...18.2.8) (2025-03-25)
+
+
+### Features
+
+* **date-picker:** support date-fns i18n and support thySeparator ([#3313](https://github.com/atinc/ngx-tethys/issues/3313)) ([ce81827](https://github.com/atinc/ngx-tethys/commit/ce818272681bb8f6ce9a240bed4e80d2bfee0054))
+
+
+
 ## [18.2.7](https://github.com/atinc/ngx-tethys/compare/18.2.6...18.2.7) (2025-03-11)
 
 
