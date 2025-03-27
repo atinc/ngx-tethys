@@ -3,7 +3,8 @@ import { TinyDate } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-date-picker-separator-example',
-    templateUrl: './separator.component.html'
+    templateUrl: './separator.component.html',
+    standalone: false
 })
 export class ThyDatePickerSeparatorExampleComponent implements OnInit {
     date = { date: new TinyDate().getTime(), with_time: 0 };
