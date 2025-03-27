@@ -16,7 +16,6 @@ export const THY_PROGRESS_COMPONENT = new InjectionToken<ThyParentProgress>('THY
     selector: 'thy-progress-bar',
     templateUrl: './progress-strip.component.html',
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
     imports: [NgStyle]
 })
 export class ThyProgressStrip {

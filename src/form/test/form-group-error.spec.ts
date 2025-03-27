@@ -9,7 +9,8 @@ import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-test-form-group-error-basic',
-    template: ` <thy-form-group-error [thyErrors]="errors" [thyShowFirst]="showFirst"> </thy-form-group-error> `
+    template: ` <thy-form-group-error [thyErrors]="errors" [thyShowFirst]="showFirst"> </thy-form-group-error> `,
+    standalone: false
 })
 export class TestFormGroupErrorBasicComponent {
     align = '';

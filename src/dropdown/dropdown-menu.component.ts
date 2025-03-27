@@ -51,7 +51,6 @@ export class ThyDropdownAbstractMenu {
         '[class.thy-dropdown-menu]': 'thyImmediateRender',
         '[style.width]': "thyImmediateRender ? thyWidth : ''"
     },
-    standalone: true,
     imports: [NgTemplateOutlet]
 })
 export class ThyDropdownMenuComponent {

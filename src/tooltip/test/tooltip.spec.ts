@@ -29,7 +29,8 @@ const tooltipTemplateContext = { text: 'hello world' };
         </button>
 
         <button #tooltipHost>Tooltip Host</button>
-    `
+    `,
+    standalone: false
 })
 class ThyDemoTooltipBasicComponent {
     elementRef = coreInject<ElementRef<HTMLElement>>(ElementRef);
@@ -63,7 +64,8 @@ class ThyDemoTooltipBasicComponent {
             Tooltip with Template
         </button>
         <ng-template #world let-data>{{ data.text }}</ng-template>
-    `
+    `,
+    standalone: false
 })
 class ThyDemoTooltipTemplateComponent {
     @ViewChild(ThyTooltipDirective, { static: true }) tooltip: ThyTooltipDirective;

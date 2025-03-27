@@ -37,7 +37,6 @@ import { ThyDateGranularity } from '../../standard-types';
             useExisting: forwardRef(() => DateCarousel)
         }
     ],
-    standalone: true,
     imports: [NgTemplateOutlet, ThyButton, ThyIcon, NgClass, DatePickerAdvancedShowYearTipPipe]
 })
 export class DateCarousel implements OnInit, ControlValueAccessor, OnDestroy {

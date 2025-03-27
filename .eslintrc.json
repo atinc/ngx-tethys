@@ -27,6 +27,7 @@
         "@angular-eslint/no-output-native": "off",
         "@angular-eslint/no-output-rename": "off",
         "@angular-eslint/component-class-suffix": "off",
+        "@angular-eslint/prefer-standalone": "off",
         "@angular-eslint/component-selector": [
           "error",
           {

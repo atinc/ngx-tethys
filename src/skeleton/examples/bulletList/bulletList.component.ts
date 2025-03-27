@@ -14,7 +14,8 @@ import { Component, OnInit } from '@angular/core';
             [thyAnimatedInterval]="model.thyAnimatedInterval"
             [thyAnimated]="model.thyAnimated">
         </thy-skeleton-bullet-list>
-    `
+    `,
+    standalone: false
 })
 export class ThySkeletonExampleBulletListComponent implements OnInit {
     model = {

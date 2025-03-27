@@ -8,7 +8,7 @@ import {
     viewChild,
     ViewChild,
     inject,
-    effect
+    afterRenderEffect
 } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { ThyStealthView } from '../stealth-view-directive';
@@ -27,13 +27,12 @@ import { useStealthViewRenderer } from '../stealth-view-renderer';
             <button thyButton="primary" disabled="disabled">Primary</button>
         </ng-template>
     `,
-    standalone: true,
     imports: [ThyStealthView]
 })
 class ThyStealthViewDirectiveTestComponent {
     private injector = inject(Injector);
 
-    @ViewChild(ThyStealthView) thyStealthView: ThyStealthView;
+    @ViewChild(ThyStealthView, { static: true }) thyStealthView: ThyStealthView;
 
     templateRef = viewChild('testStealth', { read: TemplateRef });
 
@@ -42,8 +41,9 @@ class ThyStealthViewDirectiveTestComponent {
     nodesByFunction: Node[];
 
     stealthViewRenderer = useStealthViewRenderer(this.templateRef);
+
     constructor() {
-        effect(() => {
+        afterRenderEffect(() => {
             this.nodesByDirective = this.thyStealthView.rootNodes;
             this.nodesByFunction = this.stealthViewRenderer.rootNodes;
         });

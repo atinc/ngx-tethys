@@ -4,7 +4,8 @@ import { ThyGuider, ThyGuiderConfig, ThyGuiderRef } from 'ngx-tethys/guider';
 
 @Component({
     selector: 'thy-guider-custom-position-example',
-    templateUrl: 'custom-position.component.html'
+    templateUrl: 'custom-position.component.html',
+    standalone: false
 })
 export class ThyGuiderCustomPositionExampleComponent implements OnInit {
     private thyGuider = inject(ThyGuider);

@@ -39,7 +39,6 @@ import { YearTable } from '../year/year-table.component';
     selector: 'inner-popup',
     exportAs: 'innerPopup',
     templateUrl: 'inner-popup.component.html',
-    standalone: true,
     imports: [
         ThyInputDirective,
         DecadeHeader,

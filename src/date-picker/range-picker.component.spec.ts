@@ -1092,7 +1092,8 @@ describe('ThyRangePickerComponent', () => {
         <ng-template #tplDateRender let-current>
             <div [class.test-first-day]="current.getDate() === 1">{{ current.getDate() }}</div>
         </ng-template>
-    `
+    `,
+    standalone: false
 })
 class ThyTestRangePickerComponent {
     useSuite: 1 | 2 | 3 | 4;

@@ -58,7 +58,6 @@ import { InnerPopup } from './inner-popup.component';
     selector: 'date-popup',
     exportAs: 'datePopup',
     templateUrl: './date-popup.component.html',
-    standalone: true,
     imports: [ThyNav, ThyNavItemDirective, ThyButtonIcon, DateCarousel, FormsModule, NgTemplateOutlet, InnerPopup, CalendarFooter]
 })
 export class DatePopup implements OnChanges, OnInit {

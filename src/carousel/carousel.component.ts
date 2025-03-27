@@ -54,7 +54,6 @@ import {
     host: {
         class: 'thy-carousel'
     },
-    standalone: true,
     imports: [NgTemplateOutlet, ThyDot, ThyIcon]
 })
 export class ThyCarousel implements OnInit, AfterViewInit, AfterContentInit, OnChanges, OnDestroy {

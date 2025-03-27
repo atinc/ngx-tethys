@@ -3,7 +3,8 @@ import { TinyDate } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-time-picker-format-example',
-    templateUrl: './format.component.html'
+    templateUrl: './format.component.html',
+    standalone: false
 })
 export class ThyTimePickerFormatExampleComponent implements OnInit {
     formats: string[] = ['HH:mm:ss', 'HH:mm', 'mm:ss'];

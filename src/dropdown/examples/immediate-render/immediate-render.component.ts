@@ -4,7 +4,8 @@ import { ImmediateMenuComponent } from './immediate-menu.component';
 @Component({
     selector: 'thy-dropdown-immediate-render-example',
     templateUrl: './immediate-render.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ThyDropdownImmediateRenderExampleComponent {
     immediateRender = false;

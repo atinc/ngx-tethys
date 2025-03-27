@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-button-group-example',
-    templateUrl: './group.component.html'
+    templateUrl: './group.component.html',
+    standalone: false
 })
 export class ThyButtonGroupExampleComponent implements OnInit {
     sizes = [

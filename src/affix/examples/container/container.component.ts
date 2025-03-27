@@ -25,6 +25,7 @@ import { Component } from '@angular/core';
                 height: 300px;
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class ThyAffixContainerExampleComponent {}

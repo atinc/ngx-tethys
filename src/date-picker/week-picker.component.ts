@@ -23,7 +23,6 @@ import { ThyPicker } from './picker.component';
             useExisting: forwardRef(() => ThyWeekPicker)
         }
     ],
-    standalone: true,
     imports: [ThyPicker, DatePopup]
 })
 export class ThyWeekPicker extends BasePicker {

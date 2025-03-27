@@ -2,6 +2,56 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [19.0.0-next.3](https://github.com/atinc/ngx-tethys/compare/18.2.9...19.0.0-next.3) (2025-03-26)
+
+
+
+# [19.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/19.0.0-next.1...19.0.0-next.2) (2025-03-21)
+
+
+### Bug Fixes
+
+* **util:** export keycodes ([#3311](https://github.com/atinc/ngx-tethys/issues/3311)) ([bb7e99c](https://github.com/atinc/ngx-tethys/commit/bb7e99c3f2226d7e314c4b09beae9d5bfaed1f51))
+
+
+
+# [19.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/19.0.0-next.0...19.0.0-next.1) (2025-03-18)
+
+
+
+# [19.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/18.2.7...19.0.0-next.0) (2025-03-17)
+
+
+### Features
+
+* upgrade ng to 19 ([5ec421d](https://github.com/atinc/ngx-tethys/commit/5ec421dc6a2972983114d8c5092b6249b4dddc86))
+* upgrade ng to 19.2.x #TINFR-1676 ([675f754](https://github.com/atinc/ngx-tethys/commit/675f7547f389e9f8e5f605be3905f3de9c199844)), closes [#TINFR-1676](https://github.com/atinc/ngx-tethys/issues/TINFR-1676)
+
+
+
+# [19.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/19.0.0-next.1...19.0.0-next.2) (2025-03-21)
+
+
+### Bug Fixes
+
+* **util:** export keycodes ([#3311](https://github.com/atinc/ngx-tethys/issues/3311)) ([bb7e99c](https://github.com/atinc/ngx-tethys/commit/bb7e99c3f2226d7e314c4b09beae9d5bfaed1f51))
+
+
+
+# [19.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/19.0.0-next.0...19.0.0-next.1) (2025-03-18)
+
+
+
+# [19.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/18.2.7...19.0.0-next.0) (2025-03-17)
+
+
+### Features
+
+* upgrade ng to 19 ([5ec421d](https://github.com/atinc/ngx-tethys/commit/5ec421dc6a2972983114d8c5092b6249b4dddc86))
+* upgrade ng to 19.2.x #TINFR-1676 ([675f754](https://github.com/atinc/ngx-tethys/commit/675f7547f389e9f8e5f605be3905f3de9c199844)), closes [#TINFR-1676](https://github.com/atinc/ngx-tethys/issues/TINFR-1676)
+
+
+
 ## [18.2.9](https://github.com/atinc/ngx-tethys/compare/18.2.8...18.2.9) (2025-03-25)
 
 

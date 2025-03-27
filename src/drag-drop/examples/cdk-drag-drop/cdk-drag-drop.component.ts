@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-drag-drop-cdk-drag-drop',
-    templateUrl: './cdk-drag-drop.component.html'
+    templateUrl: './cdk-drag-drop.component.html',
+    standalone: false
 })
 export class ThyDragDropCdkDragDropExampleComponent implements OnInit {
     nodes = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];

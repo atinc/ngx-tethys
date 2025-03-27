@@ -20,6 +20,7 @@ import {
     Input,
     NgZone,
     OnChanges,
+    OnDestroy,
     OnInit,
     QueryList,
     Signal,
@@ -76,7 +77,6 @@ const tabItemRight = 20;
         class: 'thy-nav'
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
     imports: [
         NgClass,
         NgTemplateOutlet,
@@ -89,7 +89,7 @@ const tabItemRight = 20;
         BypassSecurityTrustHtmlPipe
     ]
 })
-export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterContentChecked, OnChanges {
+export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterContentChecked, OnChanges, OnDestroy {
     private elementRef = inject(ElementRef);
     private ngZone = inject(NgZone);
     private changeDetectorRef = inject(ChangeDetectorRef);

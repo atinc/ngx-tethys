@@ -22,7 +22,8 @@ import { provideHttpClient } from '@angular/common/http';
             <option value="option1">选项1</option>
             <option value="option2">选项2</option>
         </thy-native-select>
-    `
+    `,
+    standalone: false
 })
 class BasicNativeSelectComponent {
     @ViewChild(ThyNativeSelect, { static: false }) selectComponent: ThyNativeSelect;

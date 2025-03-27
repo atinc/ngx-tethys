@@ -24,7 +24,6 @@ import { helpers } from 'ngx-tethys/util';
             useExisting: forwardRef(() => ThyRangePicker)
         }
     ],
-    standalone: true,
     imports: [ThyPicker, DatePopup]
 })
 export class ThyRangePicker extends BasePicker implements OnInit {

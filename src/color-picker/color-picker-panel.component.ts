@@ -17,7 +17,6 @@ import { injectLocale, ThyColorPickerLocale } from 'ngx-tethys/i18n';
     host: {
         '[class.pt-4]': '!transparentColorSelectable'
     },
-    standalone: true,
     imports: [NgClass, NgTemplateOutlet, ThyIcon, NgStyle]
 })
 export class ThyColorPickerPanel implements OnInit {

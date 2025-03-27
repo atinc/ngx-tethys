@@ -11,7 +11,6 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     selector: 'thy-loading',
     templateUrl: './loading.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
     imports: []
 })
 export class ThyLoading {

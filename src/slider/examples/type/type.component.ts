@@ -12,7 +12,8 @@ import { Component, OnInit } from '@angular/core';
 
         <input class="mt-4 mb-2" thyInput [(ngModel)]="customColor" />
         <thy-slider [thyColor]="customColor" [(ngModel)]="value"></thy-slider>
-    `
+    `,
+    standalone: false
 })
 export class ThySliderTypeExampleComponent implements OnInit {
     public typeValue = 'primary';

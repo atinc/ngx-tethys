@@ -12,7 +12,6 @@ import { NgTemplateOutlet } from '@angular/common';
 @Component({
     selector: 'thy-slide-header',
     templateUrl: './slide-header.component.html',
-    standalone: true,
     imports: [NgTemplateOutlet, ThyIcon, ThyAction]
 })
 export class ThySlideHeader implements OnInit {

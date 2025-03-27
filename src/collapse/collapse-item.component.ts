@@ -38,7 +38,6 @@ const DEFAULT_ARROW_ICON = 'angle-right';
         '[class.thy-collapse-item-disabled]': 'thyDisabled'
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
     imports: [NgTemplateOutlet, ThyIcon]
 })
 export class ThyCollapseItem implements OnInit, OnDestroy {

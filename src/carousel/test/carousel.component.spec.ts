@@ -28,7 +28,8 @@ import { provideHttpClient } from '@angular/common/http';
                 }
             </thy-carousel>
         </div>
-    `
+    `,
+    standalone: false
 })
 class ThyTestCarouselBasicComponent implements OnInit {
     @ViewChild(ThyCarousel, { static: false }) thyCarouselComponent!: ThyCarousel;
@@ -69,7 +70,8 @@ class ThyTestCarouselBasicComponent implements OnInit {
                 }
             </thy-carousel>
         </div>
-    `
+    `,
+    standalone: false
 })
 class ThyTestCarouselTouchableComponent implements OnInit {
     @ViewChild(ThyCarousel, { static: false }) thyCarouselComponent!: ThyCarousel;

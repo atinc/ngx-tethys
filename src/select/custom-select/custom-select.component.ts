@@ -144,7 +144,6 @@ const noop = () => {};
         }
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
     imports: [
         CdkOverlayOrigin,
         ThySelectControl,
@@ -1072,7 +1071,7 @@ export class ThySelect
         this.ngZone.runOutsideAngular(() => {
             this.resizeSubscription = new Observable<number>(observer => {
                 const resize = new ResizeObserver((entries: ResizeObserverEntry[]) => {
-                    observer.next();
+                    observer.next(null);
                 });
                 resize.observe(this.trigger.nativeElement);
             })

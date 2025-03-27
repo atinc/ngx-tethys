@@ -3,7 +3,8 @@ import { ThyArrowSwitcherEvent } from 'ngx-tethys/arrow-switcher';
 
 @Component({
     selector: 'thy-arrow-switcher-lite-example',
-    templateUrl: './lite.component.html'
+    templateUrl: './lite.component.html',
+    standalone: false
 })
 export class ThyArrowSwitcherLiteExampleComponent implements OnInit {
     index = 0;

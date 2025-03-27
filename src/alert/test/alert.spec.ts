@@ -186,7 +186,8 @@ describe('ThyAlert', () => {
         <ng-template #messageTemplateRef>
             <div class="message">hello world</div>
         </ng-template>
-    `
+    `,
+    standalone: false
 })
 class ThyDemoAlertComponent {
     theme = 'fill';

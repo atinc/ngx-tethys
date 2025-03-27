@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-rate-tooltip-example',
-    templateUrl: './tooltip.component.html'
+    templateUrl: './tooltip.component.html',
+    standalone: false
 })
 export class ThyRateTooltipExampleComponent implements OnInit {
     value = 4;

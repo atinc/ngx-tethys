@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-anchor-horizontal-example',
-    templateUrl: './horizontal.component.html'
+    templateUrl: './horizontal.component.html',
+    standalone: false
 })
 export class ThyAnchorHorizontalExampleComponent implements OnInit {
     direction = 'horizontal';

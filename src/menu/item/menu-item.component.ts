@@ -13,7 +13,6 @@ import { ThyIcon } from 'ngx-tethys/icon';
     host: {
         class: 'thy-menu-item'
     },
-    standalone: true,
     imports: [ThyIcon]
 })
 export class ThyMenuItem implements OnInit, AfterViewInit {

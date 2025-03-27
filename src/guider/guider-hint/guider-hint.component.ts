@@ -12,7 +12,6 @@ import { injectLocale, ThyGuiderLocale } from 'ngx-tethys/i18n';
 @Component({
     selector: 'thy-guider-hint',
     templateUrl: 'guider-hint.component.html',
-    standalone: true,
     imports: [NgTemplateOutlet, NgClass]
 })
 export class ThyGuiderHint implements OnInit {

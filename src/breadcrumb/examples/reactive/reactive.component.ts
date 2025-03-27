@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'thy-breadcrumb-reactive-example',
-    templateUrl: './reactive.component.html'
+    templateUrl: './reactive.component.html',
+    standalone: false
 })
 export class ThyBreadcrumbReactiveExampleComponent {
     items = [

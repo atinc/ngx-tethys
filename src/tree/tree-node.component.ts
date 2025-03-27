@@ -39,7 +39,6 @@ const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveLis
     selector: 'thy-tree-node',
     templateUrl: './tree-node.component.html',
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
     imports: [ThyIcon, NgClass, NgStyle, NgTemplateOutlet, ThyLoading]
 })
 export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {

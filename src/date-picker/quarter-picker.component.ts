@@ -24,7 +24,6 @@ import { ThyPanelMode } from './standard-types';
             useExisting: forwardRef(() => ThyQuarterPicker)
         }
     ],
-    standalone: true,
     imports: [ThyPicker, DatePopup]
 })
 export class ThyQuarterPicker extends BasePicker {

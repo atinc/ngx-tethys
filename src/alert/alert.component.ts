@@ -44,7 +44,6 @@ const typeIconsMap: Record<string, string> = {
         class: 'thy-alert',
         '[class.thy-alert-hidden]': 'hidden'
     },
-    standalone: true,
     imports: [ThyIcon, NgTemplateOutlet]
 })
 export class ThyAlert {

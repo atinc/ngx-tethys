@@ -52,7 +52,6 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
         ])
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
     imports: [NgClass, NgTemplateOutlet, ThyIcon]
 })
 export class ThyMenuGroup implements OnInit {

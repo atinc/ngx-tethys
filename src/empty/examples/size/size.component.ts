@@ -14,7 +14,8 @@ import { Component } from '@angular/core';
                 margin-bottom: 0;
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class ThyEmptySizeExampleComponent {
     constructor() {}

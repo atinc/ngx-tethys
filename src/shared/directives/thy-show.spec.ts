@@ -4,7 +4,8 @@ import { ThyShowDirective } from './thy-show';
 
 @Component({
     selector: 'thy-show-test',
-    template: ` <div class="thy-show-test" [thyShow]="isShow">测试 ThyShow 指令</div> `
+    template: ` <div class="thy-show-test" [thyShow]="isShow">测试 ThyShow 指令</div> `,
+    standalone: false
 })
 class ThyShowTestComponent {
     isShow = false;

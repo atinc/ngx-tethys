@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-tooltip-position-example',
-    templateUrl: './position.component.html'
+    templateUrl: './position.component.html',
+    standalone: false
 })
 export class ThyTooltipPositionExampleComponent {
     tooltipConfig = {

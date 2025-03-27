@@ -39,7 +39,6 @@ export interface ThyArrowSwitcherEvent {
             multi: true
         }
     ],
-    standalone: true,
     imports: [ThyAction, ThyTooltipDirective, ThyIcon, ThyButtonIcon]
 })
 export class ThyArrowSwitcher implements OnInit, ControlValueAccessor {

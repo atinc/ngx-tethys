@@ -15,11 +15,14 @@ import {
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SafeAny } from 'ngx-tethys/types';
 import { ThyDialog, ThyDialogModule, ThyDialogRef } from '../';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 // simple dialog component
 @Component({
     selector: 'thy-dialog-content-component',
-    template: ` <div>Hello Dialog <button>Close</button></div> `
+    template: ` <div>Hello Dialog <button>Close</button></div> `,
+    standalone: false
 })
 export class DialogSimpleContentComponent {
     dialogRef = inject<ThyDialogRef<DialogSimpleContentComponent>>(ThyDialogRef);
@@ -39,7 +42,8 @@ export class DialogSimpleContentComponent {
             <button thyButton="primary" (click)="ok()">确定</button>
             <button thyButton="link-secondary" (click)="close()">取消</button>
         </thy-dialog-footer>
-    `
+    `,
+    standalone: false
 })
 export class DialogFullContentComponent {
     dialogRef = inject<ThyDialogRef<DialogFullContentComponent>>(ThyDialogRef);
@@ -74,7 +78,8 @@ export class DialogFullContentComponent {
                 height: 500px;
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class DialogRestoreComponent {
     private thyDialog = inject(ThyDialog);
@@ -95,15 +100,18 @@ export class DialogRestoreComponent {
     }
 }
 
-// eslint-disable-next-line @angular-eslint/directive-selector
-@Directive({ selector: 'thy-with-view-container-directive' })
+@Directive({
+    selector: '[thyWithViewContainer]',
+    standalone: false
+})
 export class WithViewContainerDirective {
     viewContainerRef = inject(ViewContainerRef);
 }
 
 @Component({
     selector: 'thy-with-child-view-component',
-    template: ` <thy-with-view-container-directive></thy-with-view-container-directive> `
+    template: ` <div thyWithViewContainer></div> `,
+    standalone: false
 })
 export class WithChildViewContainerComponent {
     @ViewChild(WithViewContainerDirective, { static: true })
@@ -120,7 +128,8 @@ export class WithChildViewContainerComponent {
         <ng-template let-initialState let-dialogRef="dialogRef">
             Cheese {{ localValue }} {{ initialState?.value }}{{ setDialogRef(dialogRef) }}</ng-template
         >
-    `
+    `,
+    standalone: false
 })
 export class WithTemplateRefComponent {
     localValue: string;
@@ -134,7 +143,10 @@ export class WithTemplateRefComponent {
     }
 }
 
-@Component({ template: '' })
+@Component({
+    template: '',
+    standalone: false
+})
 export class WithInjectedDataDialogComponent implements OnInit {
     data: any;
 
@@ -147,7 +159,8 @@ export class WithInjectedDataDialogComponent implements OnInit {
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
-    template: 'hello'
+    template: 'hello',
+    standalone: false
 })
 export class WithOnPushViewContainerComponent {
     viewContainerRef = inject(ViewContainerRef);
@@ -162,7 +175,8 @@ export class WithOnPushViewContainerComponent {
         <thy-dialog-footer>
             <button thyButton="primary" (click)="dialogRef.close()">确定</button>
         </thy-dialog-footer>
-    `
+    `,
+    standalone: false
 })
 class PopupFirstComponent {
     dialogRef = inject(ThyDialogRef);
@@ -180,7 +194,8 @@ class PopupFirstComponent {
             <button thyButton="primary" (click)="toTop()">弹窗一置顶</button>
             <button thyButton="primary" (click)="dialogRef.close()">确定</button>
         </thy-dialog-footer>
-    `
+    `,
+    standalone: false
 })
 class PopupSecondComponent {
     dialogRef = inject(ThyDialogRef);
@@ -196,7 +211,8 @@ class PopupSecondComponent {
         <div class="btn-pair">
             <button thyButton="primary" (click)="open()">Open Dialog</button>
         </div>
-    `
+    `,
+    standalone: false
 })
 export class DialogToTopComponent implements OnInit {
     @ViewChild(PopupFirstComponent, { static: true }) popupFirst: PopupFirstComponent;
@@ -239,6 +255,7 @@ const TEST_DIRECTIVES = [
 ];
 @NgModule({
     imports: [ThyDialogModule, NoopAnimationsModule],
+    providers: [provideHttpClient(), provideHttpClientTesting()],
     exports: TEST_DIRECTIVES,
     declarations: TEST_DIRECTIVES
 })

@@ -4,7 +4,8 @@ import { endOfYear, getUnixTime, startOfYear, TinyDate } from 'ngx-tethys/util';
 
 @Component({
     selector: 'app-date-range-min-and-max-date',
-    templateUrl: './min-and-max-date.component.html'
+    templateUrl: './min-and-max-date.component.html',
+    standalone: false
 })
 export class ThyDateRangeMinAndMaxDateExampleComponent implements OnInit {
     public date: DateRangeItemInfo;
