@@ -13,7 +13,6 @@ import { NgClass } from '@angular/common';
     selector: 'decade-table',
     exportAs: 'decadeTable',
     templateUrl: 'decade-table.component.html',
-    standalone: true,
     imports: [NgClass]
 })
 export class DecadeTable extends CalendarTable implements OnChanges {

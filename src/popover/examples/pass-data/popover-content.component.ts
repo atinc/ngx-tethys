@@ -7,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
         <thy-popover-body>
             {{ content }}
         </thy-popover-body>
-    `
+    `,
+    standalone: false
 })
 export class ThyPopoverPassDataContentComponent implements OnInit {
     title: string;

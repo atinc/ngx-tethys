@@ -24,7 +24,8 @@ import { provideHttpClient } from '@angular/common/http';
             (thyOnRemove)="thyOnRemove()"
             (thyClick)="thyOnclick()">
         </thy-property-operation>
-    `
+    `,
+    standalone: false
 })
 class PropertyOperationBasicComponent {
     @ViewChild(ThyPropertyOperation, { static: true }) component: ThyPropertyOperation;

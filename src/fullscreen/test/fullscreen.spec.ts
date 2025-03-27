@@ -121,7 +121,8 @@ describe('ThyFullscreen', () => {
                 <button fullscreen-launch class="fullscreen-button">全屏</button>
             </div>
         </thy-fullscreen>
-    `
+    `,
+    standalone: false
 })
 class ThyDemoFullscreenComponent {
     mode = 'immersive';
@@ -248,7 +249,8 @@ describe('`thy-fulscreen` with dynamic launch button', () => {
                 </div>
             </div>
         </thy-fullscreen>
-    `
+    `,
+    standalone: false
 })
 class ThyContainerFullscreenComponent {
     mode = 'immersive';
@@ -266,7 +268,8 @@ class ThyContainerFullscreenComponent {
                 }
             </div>
         </thy-fullscreen>
-    `
+    `,
+    standalone: false
 })
 class ThyContainerFullscreenDynamicLaunchComponent {
     fullscreenLaunchShown = false;

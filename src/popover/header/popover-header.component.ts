@@ -17,7 +17,6 @@ import { NgTemplateOutlet } from '@angular/common';
     host: {
         class: 'thy-popover-header'
     },
-    standalone: true,
     imports: [NgTemplateOutlet, ThyIcon]
 })
 export class ThyPopoverHeader {

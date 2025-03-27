@@ -4,7 +4,8 @@ import { tap } from 'rxjs/operators';
 
 @Component({
     selector: 'thy-select-scroll-load-example',
-    templateUrl: './scroll-load.component.html'
+    templateUrl: './scroll-load.component.html',
+    standalone: false
 })
 export class ThySelectScrollLoadExampleComponent implements OnInit {
     loadMoreData: Array<{ thyLabelText: string; _id: string }> = [];

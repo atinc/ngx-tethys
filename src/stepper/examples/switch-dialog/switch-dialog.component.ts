@@ -4,7 +4,8 @@ import { ThyDialog } from 'ngx-tethys/dialog';
 
 @Component({
     selector: 'thy-stepper-switch-dialog-example',
-    templateUrl: './switch-dialog.component.html'
+    templateUrl: './switch-dialog.component.html',
+    standalone: false
 })
 export class ThyStepperSwitchDialogExampleComponent {
     private thyDialog = inject(ThyDialog);

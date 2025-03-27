@@ -5,7 +5,8 @@ import { delay } from 'rxjs/operators';
 
 @Component({
     selector: 'app-tree-select-async-fetch-example',
-    templateUrl: './async-fetch.component.html'
+    templateUrl: './async-fetch.component.html',
+    standalone: false
 })
 export class ThyTreeSelectAsyncFetchExampleComponent implements OnInit {
     public asyncNodes: ThyTreeSelectNode[] = [

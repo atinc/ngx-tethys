@@ -5,7 +5,8 @@ import { delay, finalize } from 'rxjs/operators';
 
 @Component({
     selector: 'thy-table-pagination-example',
-    templateUrl: './pagination.component.html'
+    templateUrl: './pagination.component.html',
+    standalone: false
 })
 export class ThyTablePaginationExampleComponent implements OnInit {
     data: { id: number; name: string; age: number; job: string; address: string }[] = [];

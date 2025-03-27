@@ -11,7 +11,8 @@ import { listOfOption } from '../mock-data';
                 margin-top: 15px;
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class ThySelectSizeExampleComponent implements OnInit {
     listOfOption = listOfOption;

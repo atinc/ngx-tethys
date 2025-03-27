@@ -41,7 +41,6 @@ export type ThyDividerColor = 'lighter' | 'light' | 'danger' | 'primary' | 'succ
         '[class.thy-divider-deeper]': `!!thyDeeper`
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
     imports: [NgTemplateOutlet]
 })
 export class ThyDivider implements OnChanges, OnInit {

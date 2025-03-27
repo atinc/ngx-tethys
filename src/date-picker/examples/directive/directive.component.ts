@@ -5,7 +5,8 @@ import { differenceInDays, endOfDay, startOfDay, subWeeks, TinyDate } from 'ngx-
 
 @Component({
     selector: 'thy-date-picker-directive-example',
-    templateUrl: './directive.component.html'
+    templateUrl: './directive.component.html',
+    standalone: false
 })
 export class ThyDatePickerDirectiveExampleComponent implements OnInit {
     date = { date: new TinyDate().getTime(), with_time: 0 } as DateEntry;

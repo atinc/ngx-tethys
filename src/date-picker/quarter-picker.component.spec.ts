@@ -290,7 +290,8 @@ describe('ThyQuarterPickerComponent', () => {
             (thyDateChange)="thyDateChange($event)"
             [thyPlaceHolder]="thyPlaceHolder">
         </thy-quarter-picker>
-    `
+    `,
+    standalone: false
 })
 class TestQuarterPickerComponent {
     @ViewChild('thyQuarterPicker', { static: true }) thyQuarterPicker: ThyQuarterPicker;

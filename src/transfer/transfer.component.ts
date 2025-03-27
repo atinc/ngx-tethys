@@ -23,7 +23,6 @@ import { ThyTransferList } from './transfer-list.component';
     selector: 'thy-transfer',
     templateUrl: './transfer.component.html',
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
     imports: [ThyTransferList, ThyIcon, NgClass, NgTemplateOutlet, ThyFlexibleText]
 })
 export class ThyTransfer implements OnInit {

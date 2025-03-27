@@ -11,7 +11,6 @@ import { Component, HostBinding, Input, numberAttribute } from '@angular/core';
 @Component({
     selector: 'thy-step-header',
     templateUrl: './step-header.component.html',
-    standalone: true,
     imports: [ThyIcon]
 })
 export class ThyStepHeader {

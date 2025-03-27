@@ -28,7 +28,6 @@ interface Style {
     template: ` <div class="thy-skeleton-after" [ngStyle]="afterStyles"></div> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
     imports: [NgStyle]
 })
 export class ThySkeletonCircle implements OnInit, OnChanges {

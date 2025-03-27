@@ -18,7 +18,8 @@ import { ThySkeletonModule } from '../module';
                 [thySecondaryColor]="model.thySecondaryColor">
             </thy-skeleton-circle>
         </thy-skeleton>
-    `
+    `,
+    standalone: false
 })
 class ThySkeletonCircleTestComponent {
     model = {

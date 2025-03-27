@@ -14,7 +14,6 @@ import { ThyIcon } from 'ngx-tethys/icon';
     host: {
         class: 'thy-breadcrumb-item'
     },
-    standalone: true,
     imports: [ThyIcon]
 })
 export class ThyBreadcrumbItem implements AfterViewInit {

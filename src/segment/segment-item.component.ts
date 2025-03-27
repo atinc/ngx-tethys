@@ -30,7 +30,6 @@ import { NgClass } from '@angular/common';
     host: {
         class: 'thy-segment-item'
     },
-    standalone: true,
     imports: [NgClass, ThyIcon]
 })
 export class ThySegmentItem implements AfterViewInit, OnDestroy {

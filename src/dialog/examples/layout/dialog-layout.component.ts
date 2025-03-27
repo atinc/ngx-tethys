@@ -3,7 +3,8 @@ import { ThyDialogLayoutConfig, ThyDialogRef } from 'ngx-tethys/dialog';
 
 @Component({
     selector: 'thy-dialog-footer-layout-example',
-    templateUrl: './dialog-layout.component.html'
+    templateUrl: './dialog-layout.component.html',
+    standalone: false
 })
 export class ThyDialogFooterLayoutExampleComponent {
     private thyDialogRef = inject<ThyDialogRef<any>>(ThyDialogRef);

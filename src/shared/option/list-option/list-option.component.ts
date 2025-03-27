@@ -16,7 +16,6 @@ export type ThyListLayout = 'list' | 'grid';
 @Component({
     selector: 'thy-list-option,[thy-list-option]',
     templateUrl: './list-option.component.html',
-    standalone: true,
     imports: [ThyIcon]
 })
 export class ThyListOption implements Highlightable {

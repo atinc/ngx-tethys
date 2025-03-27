@@ -23,7 +23,8 @@ import { provideHttpClient } from '@angular/common/http';
             [thyPanelOpened]="thyPanelOpened"
             [thyBorderless]="borderless"
             [thyMaxTagCount]="thyMaxTagCount"></thy-select-control>
-    `
+    `,
+    standalone: false
 })
 class BasicSelectControlComponent {
     placeholder = '选择你的值';

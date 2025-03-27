@@ -14,7 +14,6 @@ import { NgClass } from '@angular/common';
     selector: 'month-table',
     exportAs: 'monthTable',
     templateUrl: 'month-table.component.html',
-    standalone: true,
     imports: [NgClass]
 })
 export class MonthTable extends CalendarTable implements OnChanges {

@@ -29,8 +29,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: '[thy-cascader-search-option]',
     templateUrl: './cascader-search-option.component.html',
-    standalone: true,
-    imports: [NgClass, ThyFlexibleText, ThyCheckbox, ThyBreadcrumb, ThyBreadcrumbItem, ThyIcon, FormsModule, NgTemplateOutlet]
+    imports: [NgClass, ThyFlexibleText, ThyCheckbox, ThyBreadcrumb, ThyBreadcrumbItem, FormsModule, NgTemplateOutlet]
 })
 export class ThyCascaderSearchOptionComponent implements OnInit {
     @Input() option: ThyCascaderSearchOption;

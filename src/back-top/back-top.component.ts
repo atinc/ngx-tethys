@@ -34,7 +34,6 @@ import { ThyIcon } from 'ngx-tethys/icon';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     animations: [fadeMotion],
-    standalone: true,
     imports: [ThyIcon, NgTemplateOutlet]
 })
 export class ThyBackTop implements OnInit, OnDestroy, OnChanges {

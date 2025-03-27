@@ -17,7 +17,6 @@ import { NgTemplateOutlet } from '@angular/common';
         '[class.thy-card-header--lg]': 'thySize === "lg"',
         '[class.thy-card-header--md]': 'thySize === "md"'
     },
-    standalone: true,
     imports: [NgTemplateOutlet]
 })
 export class ThyCardHeader implements OnInit {

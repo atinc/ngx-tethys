@@ -27,7 +27,8 @@ const mockUsers = [
 
 @Component({
     selector: 'thy-mention-suggestion-template-example',
-    templateUrl: './suggestions-template.component.html'
+    templateUrl: './suggestions-template.component.html',
+    standalone: false
 })
 export class ThyMentionSuggestionsTemplateExampleComponent implements OnInit {
     elementRef = inject<ElementRef<HTMLElement>>(ElementRef);

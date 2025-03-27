@@ -4,7 +4,8 @@ import { ThyResizeEvent } from 'ngx-tethys/resizable';
 @Component({
     selector: 'thy-resizable-layout-example',
     templateUrl: './layout.component.html',
-    styleUrls: ['./layout.style.scss']
+    styleUrls: ['./layout.style.scss'],
+    standalone: false
 })
 export class ThyResizableLayoutExampleComponent {
     sidebarWidth = 120;

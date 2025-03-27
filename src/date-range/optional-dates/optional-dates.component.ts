@@ -19,7 +19,6 @@ import { injectLocale, ThyDateRangeLocale } from 'ngx-tethys/i18n';
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'date-range-optional',
     templateUrl: './optional-dates.component.html',
-    standalone: true,
     imports: [
         ThyDropdownMenuComponent,
         ThyDropdownMenuItemDirective,

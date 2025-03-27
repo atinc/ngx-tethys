@@ -3,7 +3,8 @@ import { ThyArrowSwitcherEvent } from 'ngx-tethys/arrow-switcher';
 
 @Component({
     selector: 'thy-arrow-switcher-size-example',
-    templateUrl: './size.component.html'
+    templateUrl: './size.component.html',
+    standalone: false
 })
 export class ThyArrowSwitcherSizeExampleComponent implements OnInit {
     index = 0;

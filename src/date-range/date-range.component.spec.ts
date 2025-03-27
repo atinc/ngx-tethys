@@ -493,7 +493,8 @@ describe('ThyTestDateRangeComponent', () => {
                     (thyOnCalendarChange)="calendarChange($event)"></thy-date-range>
             }
         }
-    `
+    `,
+    standalone: false
 })
 class ThyTestDateRangeComponent {
     useSuite: 1 | 2 | 3;

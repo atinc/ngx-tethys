@@ -3,7 +3,8 @@ import { ThySegmentEvent } from 'ngx-tethys/segment';
 
 @Component({
     selector: 'thy-segment-basic-example',
-    templateUrl: './basic.component.html'
+    templateUrl: './basic.component.html',
+    standalone: false
 })
 export class ThySegmentBasicExampleComponent {
     selectedIndex: number = 2;

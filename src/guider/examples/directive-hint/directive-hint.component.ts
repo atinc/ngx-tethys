@@ -3,7 +3,8 @@ import { ThyGuiderStep, ThyGuider, ThyGuiderConfig, ThyGuiderRef } from 'ngx-tet
 
 @Component({
     selector: 'thy-guider-directive-hint-example',
-    templateUrl: 'directive-hint.component.html'
+    templateUrl: 'directive-hint.component.html',
+    standalone: false
 })
 export class ThyGuiderDirectiveHintExampleComponent implements OnInit {
     private thyGuider = inject(ThyGuider);

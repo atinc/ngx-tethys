@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'thy-tabs-dynamic-example',
-    templateUrl: './dynamic.component.html'
+    templateUrl: './dynamic.component.html',
+    standalone: false
 })
 export class ThyTabsDynamicExampleComponent {
     public tabs = [

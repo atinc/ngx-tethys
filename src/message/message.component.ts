@@ -29,7 +29,6 @@ import { useHostRenderer } from '@tethys/cdk/dom';
             state('componentHide', style(HIDE_STYLE))
         ])
     ],
-    standalone: true,
     imports: [ThyIcon, ThyStringOrTemplateOutletDirective]
 })
 export class ThyMessage extends ThyAbstractMessageComponent<ThyMessageConfig> {

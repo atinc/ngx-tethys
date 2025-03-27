@@ -10,7 +10,8 @@ import { CustomAvatarService } from './custom-avatar.service';
             provide: ThyAvatarService,
             useClass: CustomAvatarService
         }
-    ]
+    ],
+    standalone: false
 })
 export class ThyAvatarCustomExampleComponent {
     sizes = ['xs', 'sm', 'md', 'lg'];

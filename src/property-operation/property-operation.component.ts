@@ -34,7 +34,6 @@ type ThyPropertyOperationTypes = 'primary' | 'success' | 'warning' | 'danger';
 @Component({
     selector: 'thy-property-operation',
     templateUrl: './property-operation.component.html',
-    standalone: true,
     imports: [NgTemplateOutlet, NgClass, ThyButtonIcon, ThyFlexibleText, ThyIcon]
 })
 export class ThyPropertyOperation implements OnInit, AfterContentInit, OnDestroy {

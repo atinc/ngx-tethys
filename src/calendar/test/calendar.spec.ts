@@ -51,7 +51,8 @@ import { provideHttpClient } from '@angular/common/http';
         <thy-calendar [(ngModel)]="value1"> </thy-calendar>
 
         <thy-calendar> </thy-calendar>
-    `
+    `,
+    standalone: false
 })
 export class TestCalendarBasicComponent {
     value = new Date(2021, 2, 1);
@@ -84,7 +85,8 @@ export class TestCalendarBasicComponent {
 }
 
 @Component({
-    template: ` <thy-calendar [thyDisabledDate]="thyDisabledDate"> </thy-calendar> `
+    template: ` <thy-calendar [thyDisabledDate]="thyDisabledDate"> </thy-calendar> `,
+    standalone: false
 })
 export class TestCalendarDisabledDateComponent {
     thyDisabledDate(date: Date) {
@@ -108,7 +110,8 @@ export class TestCalendarDisabledDateComponent {
                 <span class="app-sign">Prod</span>
             </ng-template>
         </thy-calendar-header>
-    `
+    `,
+    standalone: false
 })
 export class TestCalendarHeaderComponent {
     currentDate = new TinyDate(new Date(2020, 0, 3));

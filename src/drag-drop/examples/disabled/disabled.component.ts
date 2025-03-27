@@ -37,7 +37,8 @@ type DragDropNode = (typeof nodes)[0];
 
 @Component({
     selector: 'thy-drag-drop-disabled-example',
-    templateUrl: './disabled.component.html'
+    templateUrl: './disabled.component.html',
+    standalone: false
 })
 export class ThyDragDropDisabledExampleComponent implements OnInit {
     nodes = nodes;

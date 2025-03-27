@@ -12,7 +12,8 @@ import { Component } from '@angular/core';
                 cursor: pointer;
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class ThyPlacementExampleComponent {
     color = '#6698FF';

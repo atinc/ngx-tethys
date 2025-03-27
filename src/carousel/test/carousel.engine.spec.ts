@@ -17,7 +17,8 @@ import { provideHttpClient } from '@angular/common/http';
                 }
             </thy-carousel>
         </div>
-    `
+    `,
+    standalone: false
 })
 class ThyTestCarouselEngineComponent implements OnInit {
     @ViewChild(ThyCarousel, { static: false }) thyCarouselComponent!: ThyCarousel;

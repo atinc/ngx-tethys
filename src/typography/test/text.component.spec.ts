@@ -13,7 +13,8 @@ import { provideHttpClient } from '@angular/common/http';
         <span id="themeColor" [thyTextColor]="color">{{ color }}</span>
         <thy-text id="customColor" thyTextColor="#c9584e">This is a text</thy-text>
         <span id="icon" thyText thyIcon="version">This is a Text</span>
-    `
+    `,
+    standalone: false
 })
 export class ThyTextBasicTestComponent {
     color: ThyThemeColor | ThyTextColor | string = '';
@@ -23,7 +24,8 @@ export class ThyTextBasicTestComponent {
 
 @Component({
     selector: 'thy-text-background-test',
-    template: ` <span id="themeWithCustomBg" [thyBgColor]="bgColor" thyTextColor="white">This is a text</span> `
+    template: ` <span id="themeWithCustomBg" [thyBgColor]="bgColor" thyTextColor="white">This is a text</span> `,
+    standalone: false
 })
 export class ThyTextBackgroundTestComponent {
     bgColor: ThyThemeColor | ThyBgColor | string = 'primary';

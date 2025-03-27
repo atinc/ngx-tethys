@@ -56,7 +56,8 @@ interface FoodsInfo {
             </thy-select>
         </form>
         <div id="custom-select-origin" #origin style="width: 200px;height: 20px"></div>
-    `
+    `,
+    standalone: false
 })
 class BasicSelectComponent {
     foods: FoodsInfo[] = [
@@ -101,7 +102,8 @@ class BasicSelectComponent {
                 <thy-option [thyValue]="vegetable.value" [thyLabelText]="vegetable.viewValue"> </thy-option>
             }
         </thy-select>
-    `
+    `,
+    standalone: false
 })
 class MultipleSelectComponent {
     foods: FoodsInfo[] = [
@@ -132,7 +134,8 @@ class MultipleSelectComponent {
                 }
             </thy-select>
         </form>
-    `
+    `,
+    standalone: false
 })
 class NgModelSelectComponent {
     foods: FoodsInfo[] = [
@@ -160,7 +163,8 @@ class NgModelSelectComponent {
                 }
             </thy-select>
         </form>
-    `
+    `,
+    standalone: false
 })
 class SelectWithGroupsAndNgContainerComponent {
     control = new UntypedFormControl();
@@ -181,7 +185,8 @@ class SelectWithGroupsAndNgContainerComponent {
                 }
             </thy-select>
         </form>
-    `
+    `,
+    standalone: false
 })
 class SingleSelectWithPreselectedArrayValuesComponent {
     foods = [
@@ -205,7 +210,8 @@ class SingleSelectWithPreselectedArrayValuesComponent {
                 }
             </thy-select>
         </form>
-    `
+    `,
+    standalone: false
 })
 class SingleSelectNgModelComponent {
     values = [
@@ -228,7 +234,8 @@ class SingleSelectNgModelComponent {
                 <thy-option thyValue="value" thyLabelText="There are no other options"></thy-option>
             </thy-select>
         </form>
-    `
+    `,
+    standalone: false
 })
 class BasicSelectInitiallyHiddenComponent {
     isVisible = false;
@@ -243,7 +250,8 @@ class BasicSelectInitiallyHiddenComponent {
                 <div></div>
             }
         </form>
-    `
+    `,
+    standalone: false
 })
 class SelectEarlyAccessSiblingComponent {}
 
@@ -257,7 +265,8 @@ class SelectEarlyAccessSiblingComponent {}
                 }
             </thy-select>
         </form>
-    `
+    `,
+    standalone: false
 })
 class SelectWithSearchComponent {
     foods: FoodsInfo[] = [
@@ -287,7 +296,8 @@ class SelectWithSearchComponent {
                 }
             </thy-select>
         </form>
-    `
+    `,
+    standalone: false
 })
 class SelectWithSearchUseSearchKeyComponent {
     teamMembers: { _id: string; name: string; pin_yin: string }[] = [
@@ -336,7 +346,8 @@ class SelectWithSearchUseSearchKeyComponent {
                 }
             </thy-select>
         </form>
-    `
+    `,
+    standalone: false
 })
 class SelectWithSearchAndGroupComponent {
     control = new UntypedFormControl();
@@ -376,7 +387,8 @@ class SelectWithSearchAndGroupComponent {
                 }
             </thy-select>
         </form>
-    `
+    `,
+    standalone: false
 })
 class SelectWithSearchAndServerSearchComponent {
     foods: FoodsInfo[] = [
@@ -415,7 +427,8 @@ class SelectWithSearchAndServerSearchComponent {
                 }
             </thy-select>
         </form>
-    `
+    `,
+    standalone: false
 })
 class SelectEimtOptionsChangesComponent {
     foods: FoodsInfo[] = [
@@ -447,7 +460,8 @@ class SelectEimtOptionsChangesComponent {
                 }
             </thy-select>
         </form>
-    `
+    `,
+    standalone: false
 })
 class SelectWithExpandStatusComponent {
     foods: FoodsInfo[] = [{ value: 'pizza-1', viewValue: 'Pizza' }];
@@ -465,7 +479,8 @@ class SelectWithExpandStatusComponent {
                 }
             </thy-select>
         </form>
-    `
+    `,
+    standalone: false
 })
 class SelectWithThyModeComponent {
     foods: FoodsInfo[] = [
@@ -496,7 +511,8 @@ class SelectWithThyModeComponent {
                 }
             </thy-select>
         </form>
-    `
+    `,
+    standalone: false
 })
 class SelectWithThySortComparatorComponent {
     foods: FoodsInfo[] = [
@@ -523,7 +539,8 @@ class SelectWithThySortComparatorComponent {
                 <thy-option [thyValue]="option.value" [thyLabelText]="option.label"></thy-option>
             }
         </thy-select>
-    `
+    `,
+    standalone: false
 })
 class SelectWithThyAutoExpendComponent implements OnInit {
     listOfOption: Array<{ label: string; value: string }> = [];
@@ -551,7 +568,8 @@ class SelectWithThyAutoExpendComponent implements OnInit {
                 <thy-option [thyValue]="option.value" [thyLabelText]="option.label"></thy-option>
             }
         </thy-select>
-    `
+    `,
+    standalone: false
 })
 class SelectWithThyPlacementComponent implements OnInit {
     listOfOption: Array<{ label: string; value: string }> = [];
@@ -581,7 +599,8 @@ class SelectWithThyPlacementComponent implements OnInit {
                 }
             </thy-select>
         </form>
-    `
+    `,
+    standalone: false
 })
 class SelectWithScrollAndSearchComponent {
     foods: FoodsInfo[] = [
@@ -615,7 +634,8 @@ class SelectWithScrollAndSearchComponent {
                 <thy-option [thyValue]="food.value" [thyDisabled]="food.disabled" [thyLabelText]="food.viewValue"> </thy-option>
             }
         </thy-select>
-    `
+    `,
+    standalone: false
 })
 class SelectWithAsyncLoadComponent implements OnInit {
     @ViewChild(ThySelect) customSelect: ThySelect;
@@ -676,7 +696,8 @@ class SelectWithAsyncLoadComponent implements OnInit {
                 }
             </thy-select>
         </div>
-    `
+    `,
+    standalone: false
 })
 class SelectDropdownWidthComponent {
     dropdownWidthMode: ThyDropdownWidthMode;
@@ -696,7 +717,8 @@ class SelectDropdownWidthComponent {
         <div style="width:100px">
             <thy-select [thyOptions]="options" class="select1" [(ngModel)]="selectedValue"> </thy-select>
         </div>
-    `
+    `,
+    standalone: false
 })
 class SelectWidthThyOptionsComponent {
     options: ThySelectOptionModel[] = [

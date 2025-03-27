@@ -27,7 +27,6 @@ const noop = () => {};
             multi: true
         }
     ],
-    standalone: true,
     imports: [ThyInputDirective, FormsModule, ThyIcon],
     host: {
         '[attr.tabindex]': 'tabIndex',

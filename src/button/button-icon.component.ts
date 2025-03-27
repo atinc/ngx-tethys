@@ -35,7 +35,6 @@ const themeClassesMap: any = {
     templateUrl: './button-icon.component.html',
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
     imports: [ThyIcon, NgClass]
 })
 export class ThyButtonIcon implements OnInit {

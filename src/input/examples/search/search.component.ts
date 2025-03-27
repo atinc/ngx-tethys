@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-input-search-example',
-    templateUrl: './search.component.html'
+    templateUrl: './search.component.html',
+    standalone: false
 })
 export class ThyInputSearchExampleComponent implements OnInit {
     public searchText = '';

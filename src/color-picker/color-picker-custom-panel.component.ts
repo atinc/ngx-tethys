@@ -13,7 +13,6 @@ import { ThySaturation } from './parts/saturation/saturation.component';
     selector: 'thy-color-picker-custom-panel',
     templateUrl: './color-picker-custom-panel.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
     imports: [ThySaturation, ThyHue, ThyAlpha, ThyIndicator, ThyColorInputs]
 })
 export class ThyColorPickerCustomPanel implements OnInit {

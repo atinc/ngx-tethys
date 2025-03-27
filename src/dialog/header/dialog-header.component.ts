@@ -23,7 +23,6 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
         '[class.thy-dialog-header-lg]': `thySize === 'lg'`,
         '[class.thy-dialog-header-divided]': `thyDivided`
     },
-    standalone: true,
     imports: [NgTemplateOutlet, ThyIcon, ThyAction]
 })
 export class ThyDialogHeader implements OnInit {

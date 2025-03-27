@@ -6,7 +6,8 @@ import { ThySlideDemoContentComponent } from '../slide-content.component';
 
 @Component({
     selector: 'thy-slide-basic-example',
-    templateUrl: './basic.component.html'
+    templateUrl: './basic.component.html',
+    standalone: false
 })
 export class ThySlideBasicExampleComponent {
     private thySlideNewService = inject(ThySlideService);

@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'thy-vote-icon-example',
-    templateUrl: './icon.component.html'
+    templateUrl: './icon.component.html',
+    standalone: false
 })
 export class ThyVoteIconExampleComponent {
     constructor() {}

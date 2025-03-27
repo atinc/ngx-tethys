@@ -31,7 +31,8 @@ import { provideHttpClient } from '@angular/common/http';
                 height: 200px;
             }
         `
-    ]
+    ],
+    standalone: false
 })
 class ThyTestSliderComponent {
     value: number;
