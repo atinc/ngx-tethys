@@ -6,7 +6,8 @@ import { ThySlideDemoContentComponent } from '../slide-content.component';
 
 @Component({
     selector: 'thy-slide-direction-example',
-    templateUrl: './direction.component.html'
+    templateUrl: './direction.component.html',
+    standalone: false
 })
 export class ThySlideDirectionExampleComponent {
     private thySlideNewService = inject(ThySlideService);

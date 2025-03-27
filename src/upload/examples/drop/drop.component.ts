@@ -7,7 +7,8 @@ const UPLOAD_URL = `http://www.mocky.io/v2/5cf52b1f2f0000c02c4f072f?mocky-delay=
 @Component({
     selector: 'app-upload-drop-example',
     templateUrl: './drop.component.html',
-    styleUrls: ['./drop.scss']
+    styleUrls: ['./drop.scss'],
+    standalone: false
 })
 export class ThyUploadDropExampleComponent {
     private thyUploadService = inject(ThyUploadService);

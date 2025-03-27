@@ -4,7 +4,8 @@ import { ThyNotifyContentExampleComponent } from './content.component';
 
 @Component({
     selector: 'thy-notify-custom-content-example',
-    templateUrl: './custom-content.component.html'
+    templateUrl: './custom-content.component.html',
+    standalone: false
 })
 export class ThyNotifyCustomContentExampleComponent implements OnInit {
     private notifyService = inject(ThyNotifyService);

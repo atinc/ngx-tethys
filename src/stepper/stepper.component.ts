@@ -28,7 +28,6 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
             useExisting: ThyStepper
         }
     ],
-    standalone: true,
     imports: [ThyStepHeader, NgTemplateOutlet]
 })
 export class ThyStepper implements IThyStepperComponent {

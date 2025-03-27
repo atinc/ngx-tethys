@@ -240,7 +240,8 @@ describe('Component:thy-back-top', () => {
     template: `
         <thy-back-top [thyContainer]="container"></thy-back-top>
         <div id="fakeTarget"></div>
-    `
+    `,
+    standalone: false
 })
 class TestBackTopComponent {
     @ViewChild(ThyBackTop, { static: true })
@@ -261,7 +262,8 @@ class TestBackTopComponent {
                 <div class="this-is-my-template"></div>
             </ng-template>
         </thy-back-top>
-    `
+    `,
+    standalone: false
 })
 class TestBackTopTemplateComponent {
     @ViewChild(ThyBackTop)

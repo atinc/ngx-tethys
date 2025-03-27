@@ -3,7 +3,8 @@ import { TinyDate } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-date-picker-suffix-icon-example',
-    templateUrl: './suffix-icon.component.html'
+    templateUrl: './suffix-icon.component.html',
+    standalone: false
 })
 export class ThyDatePickerSuffixIconExampleComponent implements OnInit {
     date = { date: new TinyDate().getTime(), with_time: 0 };

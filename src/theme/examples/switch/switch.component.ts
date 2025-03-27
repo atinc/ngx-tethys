@@ -6,7 +6,8 @@ const THEME_CACHE_KEY = 'docgeni-theme';
 
 @Component({
     selector: 'thy-theme-switch-example',
-    templateUrl: './switch.component.html'
+    templateUrl: './switch.component.html',
+    standalone: false
 })
 export class ThyThemeSwitchExampleComponent implements OnInit {
     activeIndex: number = 0;

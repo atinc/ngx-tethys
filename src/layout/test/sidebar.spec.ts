@@ -44,7 +44,8 @@ const SIDEBAR_ISOLATED_CLASS = 'thy-layout-sidebar-isolated';
             </ng-template>
             <thy-content> Yeah, I am content </thy-content>
         </thy-layout>
-    `
+    `,
+    standalone: false
 })
 class ThyDemoLayoutSidebarBasicComponent {
     width: string | number = '';
@@ -88,7 +89,8 @@ class ThyDemoLayoutSidebarBasicComponent {
             </thy-sidebar>
             <thy-content>Yeah, I am content</thy-content>
         </thy-layout>
-    `
+    `,
+    standalone: false
 })
 class ThyDemoLayoutCustomSidebarComponent {
     sidebarDirection = 'right';
@@ -111,7 +113,8 @@ class ThyDemoLayoutCustomSidebarComponent {
             </div>
             <div thyContent>Yeah, I am content</div>
         </div>
-    `
+    `,
+    standalone: false
 })
 class ThyDemoLayoutSidebarDirectiveComponent {
     direction = 'right';

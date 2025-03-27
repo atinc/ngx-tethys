@@ -3,7 +3,8 @@ import { DateRangeItemInfo } from 'ngx-tethys/date-range';
 
 @Component({
     selector: 'app-date-range-basic-example',
-    templateUrl: './basic.component.html'
+    templateUrl: './basic.component.html',
+    standalone: false
 })
 export class ThyDateRangeBasicExampleComponent implements OnInit {
     public date: DateRangeItemInfo;

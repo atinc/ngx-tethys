@@ -29,7 +29,6 @@ export type thyColor = 'primary' | 'success' | 'warning' | 'danger' | 'info';
     selector: 'thy-timeline-item',
     templateUrl: './timeline-item.component.html',
     exportAs: 'ThyTimelineItem',
-    standalone: true,
     imports: [NgTemplateOutlet]
 })
 export class ThyTimelineItem implements OnInit, OnChanges {

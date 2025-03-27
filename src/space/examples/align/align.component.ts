@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./align.component.scss'],
     host: {
         class: 'space-align-container'
-    }
+    },
+    standalone: false
 })
 export class ThySpaceAlignExampleComponent implements OnInit {
     sizes = ['sm', 'md', 'lg', 40];

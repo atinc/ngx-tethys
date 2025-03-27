@@ -32,8 +32,7 @@ const COLUMN_COUNT = 5;
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
-    imports: [NgClass, NgStyle, NgTemplateOutlet, ThyViewOutletDirective, ThySkeletonRectangle, ThySkeletonCircle]
+    imports: [NgClass, NgStyle, ThyViewOutletDirective, ThySkeletonRectangle, ThySkeletonCircle]
 })
 export class ThyTableSkeleton implements AfterViewInit {
     private cdr = inject(ChangeDetectorRef);

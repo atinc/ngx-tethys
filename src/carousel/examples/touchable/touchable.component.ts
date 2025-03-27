@@ -16,7 +16,8 @@ import { Component, OnInit } from '@angular/core';
                 background: #6698ff;
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class ThyCarouselTouchableExampleComponent implements OnInit {
     constructor() {}

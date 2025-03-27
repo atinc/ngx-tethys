@@ -13,7 +13,6 @@ import { ThyDialogHeader, ThyDialogBody, ThyDialogFooter } from 'ngx-tethys/dial
             <button thyButton="primary" (click)="dialogRef.close()">确定</button>
         </thy-dialog-footer>
     `,
-    standalone: true,
     imports: [ThyDialogHeader, ThyDialogBody, ThyDialogFooter, ThyButton]
 })
 class ThyDialogPassDataContentComponent {
@@ -27,7 +26,6 @@ class ThyDialogPassDataContentComponent {
 @Component({
     selector: 'thy-dialog-pass-data-example',
     templateUrl: './pass-data.component.html',
-    standalone: true,
     imports: [ThyButton]
 })
 export class ThyDialogPassDataExampleComponent implements OnInit {

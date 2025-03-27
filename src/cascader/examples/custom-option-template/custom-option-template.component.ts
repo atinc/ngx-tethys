@@ -58,7 +58,8 @@ const customerOptions = [
 
 @Component({
     selector: 'thy-cascader-custom-option-template-example',
-    templateUrl: './custom-option-template.component.html'
+    templateUrl: './custom-option-template.component.html',
+    standalone: false
 })
 export class ThyCascaderCustomOptionTemplateExampleComponent implements OnInit {
     private notifyService = inject(ThyNotifyService);

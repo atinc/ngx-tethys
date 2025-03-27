@@ -33,7 +33,6 @@ export type SelectControlSize = 'xs' | 'sm' | 'md' | 'lg' | '';
     selector: 'thy-select-control,[thySelectControl]',
     templateUrl: './select-control.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
     imports: [FormsModule, NgClass, NgStyle, ThyTag, NgTemplateOutlet, ThyIcon, ThyGridModule],
     host: {
         '[class.select-control-borderless]': 'thyBorderless'

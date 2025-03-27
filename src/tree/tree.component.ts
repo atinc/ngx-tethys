@@ -82,7 +82,6 @@ const treeItemSizeMap = {
         },
         ThyTreeService
     ],
-    standalone: true,
     imports: [
         CdkDrag,
         CdkDropList,

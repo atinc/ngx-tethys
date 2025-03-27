@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'thy-input-number-precision-example',
-    templateUrl: './precision.component.html'
+    templateUrl: './precision.component.html',
+    standalone: false
 })
 export class ThyInputNumberPrecisionExampleComponent {
     value: number = 1.1;

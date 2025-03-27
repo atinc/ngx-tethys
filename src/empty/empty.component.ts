@@ -62,7 +62,6 @@ export type ThyEmptyImageFetchPriority = 'high' | 'low' | 'auto';
 @Component({
     selector: 'thy-empty',
     templateUrl: './empty.component.html',
-    standalone: true,
     imports: [ThyIcon, NgClass, NgTemplateOutlet]
 })
 export class ThyEmpty implements OnInit, AfterViewInit, OnChanges {

@@ -25,7 +25,8 @@ import { provideHttpClient } from '@angular/common/http';
             Use Template
         </button>
         <ng-template #template> 恩，这是一个 Template </ng-template>
-    `
+    `,
+    standalone: false
 })
 class ThyDemoVisiblePopoverComponent {
     elementRef = coreInject<ElementRef<HTMLElement>>(ElementRef);
@@ -189,7 +190,8 @@ describe(`ThyTooltip`, () => {
             Use Template
         </button>
         <ng-template #template> 恩，这是一个 Template </ng-template>
-    `
+    `,
+    standalone: false
 })
 class TestPopoverDirectiveClickComponent {
     elementRef = coreInject<ElementRef<HTMLElement>>(ElementRef);

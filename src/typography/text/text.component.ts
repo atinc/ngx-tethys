@@ -13,7 +13,6 @@ import { ThyIcon } from 'ngx-tethys/icon';
     host: {
         class: 'thy-text'
     },
-    standalone: true,
     imports: [ThyIcon]
 })
 export class ThyText implements OnInit {

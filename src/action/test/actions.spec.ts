@@ -16,7 +16,8 @@ import { provideHttpClient } from '@angular/common/http';
                 <a thyAction thyIcon="inbox"></a>
             }
         </thy-actions>
-    `
+    `,
+    standalone: false
 })
 class ThyActionsTestBasicComponent {
     size = 'md';

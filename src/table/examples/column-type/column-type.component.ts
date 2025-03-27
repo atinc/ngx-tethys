@@ -6,7 +6,8 @@ import { delay } from 'rxjs/operators';
 
 @Component({
     selector: 'thy-table-column-type-example',
-    templateUrl: './column-type.component.html'
+    templateUrl: './column-type.component.html',
+    standalone: false
 })
 export class ThyTableColumnTypeExampleComponent implements OnInit {
     private notifyService = inject(ThyNotifyService);

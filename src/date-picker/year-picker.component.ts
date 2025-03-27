@@ -24,7 +24,6 @@ import { ThyPanelMode } from './standard-types';
             useExisting: forwardRef(() => ThyYearPicker)
         }
     ],
-    standalone: true,
     imports: [ThyPicker, DatePopup]
 })
 export class ThyYearPicker extends BasePicker {

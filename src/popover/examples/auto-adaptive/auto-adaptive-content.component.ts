@@ -3,7 +3,8 @@ import { timer } from 'rxjs';
 
 @Component({
     selector: 'thy-popover-auto-adaptive-content',
-    templateUrl: './auto-adaptive-content.component.html'
+    templateUrl: './auto-adaptive-content.component.html',
+    standalone: false
 })
 export class ThyPopoverAutoAdaptiveContentComponent implements OnInit {
     loadingDone = false;

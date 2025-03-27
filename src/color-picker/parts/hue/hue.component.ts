@@ -22,7 +22,6 @@ import { ThyColor } from '../../helpers/color.class';
     selector: 'thy-hue',
     templateUrl: './hue.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
     imports: [ThyCoordinatesDirective]
 })
 export class ThyHue implements OnChanges {

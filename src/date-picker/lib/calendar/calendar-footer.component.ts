@@ -16,7 +16,6 @@ import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
     selector: 'calendar-footer',
     exportAs: 'calendarFooter',
     templateUrl: 'calendar-footer.component.html',
-    standalone: true,
     imports: [ThyIcon, ThyInnerTimePicker, FormsModule, ThyButton]
 })
 export class CalendarFooter implements OnInit, OnChanges {

@@ -25,7 +25,6 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
             <thy-icon [thyIconName]="iconValue"></thy-icon>
         </ng-template>
     `,
-    standalone: true,
     imports: [ThyStopPropagationDirective, NgTemplateOutlet, ThyIcon]
 })
 export class ThyRateItem implements OnInit {

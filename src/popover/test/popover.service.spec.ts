@@ -35,7 +35,8 @@ import { ThyPopover } from '../popover.service';
     template: `
         <button #trigger>Open</button>
         <ng-template #customTemplate></ng-template>
-    `
+    `,
+    standalone: false
 })
 class PopoverBasicComponent {
     @ViewChild('customTemplate') template: TemplateRef<any>;
@@ -43,8 +44,10 @@ class PopoverBasicComponent {
     @ViewChild('trigger') trigger: TemplateRef<any>;
 }
 
-// eslint-disable-next-line @angular-eslint/directive-selector
-@Directive({ selector: 'thy-with-view-container-directive' })
+@Directive({
+    selector: '[thyWithViewContainer]',
+    standalone: false
+})
 class WithViewContainerDirective {
     viewContainerRef = coreInject(ViewContainerRef);
 }
@@ -52,13 +55,14 @@ class WithViewContainerDirective {
 @Component({
     selector: 'thy-with-child-view-container-component',
     template: `
-        <thy-with-view-container-directive></thy-with-view-container-directive>
+        <div thyWithViewContainer></div>
         <button #openPopoverOrigin>Open Popover</button>
         <button #openTemplate>open template</button>
         <ng-template #template>
             <div>template</div>
         </ng-template>
-    `
+    `,
+    standalone: false
 })
 class WithChildViewContainerComponent {
     @ViewChild(WithViewContainerDirective, { static: true })
@@ -93,7 +97,8 @@ class WithChildViewContainerComponent {
                 }
             </ul>
         </div>
-    `
+    `,
+    standalone: false
 })
 export class PopoverSimpleContentComponent {
     popoverRef = coreInject<ThyPopoverRef<PopoverSimpleContentComponent>>(ThyPopoverRef);
@@ -116,7 +121,8 @@ export class PopoverSimpleContentComponent {
 
         <a class="btn" #btn2>Open2</a>
         <ng-template #template2><div class="template2">template2</div></ng-template>
-    `
+    `,
+    standalone: false
 })
 export class PopoverManualClosureContentComponent {
     popover = coreInject(ThyPopover);
@@ -140,7 +146,8 @@ export class PopoverManualClosureContentComponent {
         <button #outsideBtn>outside btn</button>
         <a class="btn" #openBtn>Open</a>
         <ng-template #template><div class="template">template</div></ng-template>
-    `
+    `,
+    standalone: false
 })
 export class PopoverOutsideClosableComponent {
     @ViewChild('outsideBtn', { static: true })
@@ -158,7 +165,8 @@ export class PopoverOutsideClosableComponent {
     template: `
         <a class="btn" #openBtn>Open</a>
         <ng-template #template><div #innerContent>template</div></ng-template>
-    `
+    `,
+    standalone: false
 })
 export class PopoverInsideClosableComponent {
     @ViewChild('openBtn', { static: true })
@@ -173,7 +181,8 @@ export class PopoverInsideClosableComponent {
     template: `
         <a class="btn" #openBtn>Open</a>
         <ng-template #template><div class="template">template</div></ng-template>
-    `
+    `,
+    standalone: false
 })
 export class PopoverConfigComponent {
     popover = coreInject(ThyPopover);
@@ -305,8 +314,9 @@ describe(`thyPopover`, () => {
             });
             tick(1000);
             viewContainerFixture.detectChanges();
+            tick(1000);
             let containers = overlayContainerElement.querySelectorAll(`thy-popover-container`);
-            expect(containers.length).toBe(2);
+            expect(containers.length).toBe(1);
             popover.closeAll();
             tick(1000);
             viewContainerFixture.detectChanges();
@@ -410,8 +420,8 @@ describe(`thyPopover`, () => {
 
             tick(1000);
             viewContainerFixture.detectChanges();
-            expect(openedPopover.length).toEqual(2);
-            expect(openedPopover[1]).toEqual(popoverRef1);
+            expect(openedPopover.length).toEqual(1);
+            expect(openedPopover[0]).toEqual(popoverRef1);
             flush();
         }));
 

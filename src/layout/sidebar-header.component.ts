@@ -38,7 +38,6 @@ export class ThySidebarHeaderDirective {
             inputs: ['thyDivided']
         }
     ],
-    standalone: true,
     imports: [NgTemplateOutlet]
 })
 export class ThySidebarHeader {

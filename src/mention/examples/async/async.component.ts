@@ -29,7 +29,8 @@ const mockUsers = [
 
 @Component({
     selector: 'thy-mention-async-example',
-    templateUrl: './async.component.html'
+    templateUrl: './async.component.html',
+    standalone: false
 })
 export class ThyMentionAsyncExampleComponent implements OnInit {
     value = `This is remote mention!`;

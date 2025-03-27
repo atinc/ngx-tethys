@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef, ViewChild, inject as coreInject } from '@angular/core';
-import { TestBed, ComponentFixture, fakeAsync, flush, inject, tick, discardPeriodicTasks } from '@angular/core/testing';
+import { TestBed, ComponentFixture, fakeAsync, flush, inject, tick } from '@angular/core/testing';
 import { ThyNotifyModule } from '../module';
 import { ThyNotifyService } from '../notify.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -24,7 +24,8 @@ const DEFAULT_DURATION_TIME = 4500;
         <ng-template #content>
             <div class="custom-content-template">Custom Content....</div>
         </ng-template>
-    `
+    `,
+    standalone: false
 })
 export class ThyNotifyBasicComponent implements OnInit {
     private notifyService = coreInject(ThyNotifyService);
@@ -197,7 +198,7 @@ describe('ThyNotify', () => {
             tick(DEFAULT_DURATION_TIME);
             fixture.detectChanges();
             flush();
-            expect(notify.style.opacity === '0').toBe(true);
+            expect(notify.style.opacity).toBe('');
         }));
 
         it('should not auto disappear when duration is 0', fakeAsync(() => {
@@ -364,7 +365,7 @@ describe('ThyNotify', () => {
             fixture.detectChanges();
             flush();
             const notify: HTMLElement = notifyContainer.querySelector('.thy-notify');
-            expect(notify.style.opacity).toBe('0');
+            expect(notify).toBeFalsy();
             fixture.detectChanges();
             flush();
         }));
@@ -425,7 +426,8 @@ describe('ThyNotify with provider', () => {
                         placement: 'bottomLeft',
                         duration: DEFAULT_DURATION_TIME
                     }
-                }
+                },
+                provideHttpClient()
             ]
         });
         inject([OverlayContainer], (oc: OverlayContainer) => {

@@ -6,7 +6,8 @@ import { HostRenderer, useHostRenderer } from '../host-renderer';
 
 @Component({
     selector: 'thy-dom-use-element-renderer-test',
-    template: '<div #container></div>'
+    template: '<div #container></div>',
+    standalone: false
 })
 export class ThyDomUseElementRendererTestComponent implements OnInit {
     @ViewChild('container', { read: ElementRef, static: true }) container: ElementRef;
@@ -25,7 +26,8 @@ export class ThyDomUseElementRendererTestComponent implements OnInit {
 
 @Component({
     selector: 'thy-dom-use-element-renderer-without-element-test',
-    template: '<div #container></div>'
+    template: '<div #container></div>',
+    standalone: false
 })
 export class ThyDomElementRendererWithoutElementTestComponent implements OnInit {
     @ViewChild('container', { read: ElementRef, static: true }) container: ElementRef;
