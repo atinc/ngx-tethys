@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [19.0.0](https://github.com/atinc/ngx-tethys/compare/19.0.0-next.3...19.0.0) (2025-03-27)
+
+
+### Bug Fixes
+
+* **date-picker:** fix vercel error ([#3320](https://github.com/atinc/ngx-tethys/issues/3320)) ([daa5a0e](https://github.com/atinc/ngx-tethys/commit/daa5a0e7473c8794c894a4ee0797624c4f3427e2))
+
+
+
 # [19.0.0-next.3](https://github.com/atinc/ngx-tethys/compare/18.2.9...19.0.0-next.3) (2025-03-26)
 
 
