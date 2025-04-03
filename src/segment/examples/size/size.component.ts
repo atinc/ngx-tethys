@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'thy-segment-size-example',
-    templateUrl: './size.component.html',
-    standalone: false
+    templateUrl: './size.component.html'
 })
 export class ThySegmentSizeExampleComponent {
     sizes = [

@@ -8,8 +8,7 @@ import { ThyDragDirective } from './drag.directive';
  * @deprecated please use @angular/cdk/drag-drop
  */
 @Directive({
-    selector: 'thy-drag-content,[thyDragContent]',
-    standalone: true
+    selector: 'thy-drag-content,[thyDragContent]'
 })
 export class ThyDragContentDirective {
     element = inject<ElementRef<HTMLElement>>(ElementRef);

@@ -3,8 +3,7 @@ import { ThyPlacement } from 'ngx-tethys/core';
 
 @Component({
     selector: 'thy-dropdown-options-example',
-    templateUrl: './options.component.html',
-    standalone: false
+    templateUrl: './options.component.html'
 })
 export class ThyDropdownOptionsExampleComponent {
     popoverOptions: {

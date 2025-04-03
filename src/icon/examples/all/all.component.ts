@@ -20,8 +20,7 @@ interface GlyphCategory {
 @Component({
     selector: 'thy-icon-all-example',
     templateUrl: './all.component.html',
-    styleUrls: ['./all.component.scss'],
-    standalone: false
+    styleUrls: ['./all.component.scss']
 })
 export class ThyIconAllExampleComponent implements OnInit {
     private http = inject(HttpClient);

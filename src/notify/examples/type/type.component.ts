@@ -3,8 +3,7 @@ import { Component, OnInit, inject } from '@angular/core';
 
 @Component({
     selector: 'thy-notify-type-example',
-    templateUrl: './type.component.html',
-    standalone: false
+    templateUrl: './type.component.html'
 })
 export class ThyNotifyTypeExampleComponent implements OnInit {
     private notifyService = inject(ThyNotifyService);

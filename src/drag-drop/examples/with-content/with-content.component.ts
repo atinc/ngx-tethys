@@ -4,8 +4,7 @@ import { ThyDragDropEvent } from 'ngx-tethys/drag-drop';
 
 @Component({
     selector: 'thy-drag-drop-with-content-example',
-    templateUrl: './with-content.component.html',
-    standalone: false
+    templateUrl: './with-content.component.html'
 })
 export class ThyDragDropWithContentExampleComponent implements OnInit {
     nodes = [

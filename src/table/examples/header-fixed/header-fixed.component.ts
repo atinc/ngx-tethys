@@ -3,8 +3,7 @@ import { ThyTableTheme } from 'ngx-tethys/table';
 
 @Component({
     selector: 'thy-table-header-fixed-example',
-    templateUrl: './header-fixed.component.html',
-    standalone: false
+    templateUrl: './header-fixed.component.html'
 })
 export class ThyTableHeaderFixedExampleComponent implements OnInit {
     data = [

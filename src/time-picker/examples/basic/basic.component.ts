@@ -3,8 +3,7 @@ import { TinyDate } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-time-picker-basic-example',
-    templateUrl: './basic.component.html',
-    standalone: false
+    templateUrl: './basic.component.html'
 })
 export class ThyTimePickerBasicExampleComponent implements OnInit {
     fullTime: Date;

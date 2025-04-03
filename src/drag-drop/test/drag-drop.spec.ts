@@ -299,8 +299,7 @@ describe('with handle', () => {
                 </ul>
             }
         </ng-template>
-    `,
-    standalone: false
+    `
 })
 export class TestBasicDragDropComponent {
     public nodes = nodes;
@@ -366,8 +365,7 @@ export class TestBasicDragDropComponent {
                 </li>
             }
         </ul>
-    `,
-    standalone: false
+    `
 })
 export class TestWithHandleDragDropComponent {
     public basicNodes = [

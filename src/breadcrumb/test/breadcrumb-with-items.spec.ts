@@ -5,15 +5,17 @@ import { ThyBreadcrumbItem } from '../breadcrumb-item.component';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
+import { ThyBreadcrumb } from '../breadcrumb.component';
+import { ThyIcon } from 'ngx-tethys/icon';
 
 @Component({
     selector: 'thy-demo-breadcrumb-basic',
+    imports: [ThyBreadcrumb, ThyBreadcrumbItem, ThyIcon],
     template: `
         <thy-breadcrumb [thyItems]="breadcrumbs" [thyMaxCount]="maxCount" [thyExpandable]="expandable">
             <ng-template #item let-value>{{ value }}</ng-template>
         </thy-breadcrumb>
-    `,
-    standalone: false
+    `
 })
 class ThyDemoBreadcrumbWithItemsComponent {
     breadcrumbs = ['一级', '二级', '三级', '四级', '五级', '六级'];
@@ -28,7 +30,7 @@ describe('ThyBreadcrumb With Items', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyBreadcrumbModule, NoopAnimationsModule],
+            imports: [NoopAnimationsModule],
             declarations: [ThyDemoBreadcrumbWithItemsComponent],
             providers: [provideHttpClient()]
         });

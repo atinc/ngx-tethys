@@ -31,8 +31,7 @@ const mockMessages = [
 
 @Component({
     selector: 'thy-mention-custom-example',
-    templateUrl: './custom.component.html',
-    standalone: false
+    templateUrl: './custom.component.html'
 })
 export class ThyMentionCustomExampleComponent implements OnInit {
     value = `Custom insert transform and search, using # to relate task, quick reply using /`;

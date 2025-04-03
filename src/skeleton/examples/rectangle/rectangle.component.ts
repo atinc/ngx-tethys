@@ -11,8 +11,7 @@ import { Component, OnInit } from '@angular/core';
             [thyBorderRadius]="model.thyBorderRadius"
             [thyAnimated]="model.thyAnimated">
         </thy-skeleton-rectangle>
-    `,
-    standalone: false
+    `
 })
 export class ThySkeletonExampleRectangleComponent implements OnInit {
     model = {

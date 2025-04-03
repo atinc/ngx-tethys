@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-flexible-text-basic',
-    templateUrl: './basic.component.html',
-    standalone: false
+    templateUrl: './basic.component.html'
 })
 export class ThyFlexibleTextBasicExampleComponent implements OnInit {
     public text = `New platforms are providing creators with a chance

@@ -17,8 +17,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
         '[class.thy-card--clear-left-right-padding]': '!thyHasLeftRightPadding',
         '[class.thy-card-sm]': 'thySize === "sm"',
         '[class.thy-card-lg]': 'thySize === "lg"'
-    },
-    standalone: true
+    }
 })
 export class ThyCard {
     /**

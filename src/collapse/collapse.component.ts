@@ -27,8 +27,7 @@ export type ThyCollapsedIconPosition = 'left' | 'right';
         '[class.thy-collapse-icon-position-right]': `thyArrowIconPosition === 'right'`,
         '[class.thy-collapse-icon-position-left]': `thyArrowIconPosition === 'left'`
     },
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyCollapse implements OnInit {
     /**

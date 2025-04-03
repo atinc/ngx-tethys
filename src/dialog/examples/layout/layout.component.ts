@@ -4,8 +4,7 @@ import { ThyDialogFooterLayoutExampleComponent } from './dialog-layout.component
 
 @Component({
     selector: 'thy-dialog-layout-example',
-    templateUrl: './layout.component.html',
-    standalone: false
+    templateUrl: './layout.component.html'
 })
 export class ThyDialogLayoutExampleComponent {
     private thyDialog = inject(ThyDialog);

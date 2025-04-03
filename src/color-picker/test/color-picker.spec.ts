@@ -46,8 +46,7 @@ import { provideHttpClient } from '@angular/common/http';
                 cursor: pointer;
             }
         `
-    ],
-    standalone: false
+    ]
 })
 class ThyDemoColorPickerComponent {
     elementRef = coreInject<ElementRef<HTMLElement>>(ElementRef);
@@ -90,8 +89,7 @@ class ThyDemoColorPickerComponent {
             [color]="defaultPanelColor"
             [defaultColor]="defaultColor"
             [transparentColorSelectable]="transparentColorSelectable"></thy-color-picker-panel>
-    `,
-    standalone: false
+    `
 })
 class ThyDemoColorDefaultPanelComponent {
     elementRef = coreInject<ElementRef<HTMLElement>>(ElementRef);
@@ -108,8 +106,7 @@ class ThyDemoColorDefaultPanelComponent {
 }
 @Component({
     selector: 'thy-demo-picker-panel',
-    template: ` <thy-color-picker-custom-panel [pickerColorChange]="pickerColorChange" [color]="color"></thy-color-picker-custom-panel> `,
-    standalone: false
+    template: ` <thy-color-picker-custom-panel [pickerColorChange]="pickerColorChange" [color]="color"></thy-color-picker-custom-panel> `
 })
 class ThyDemoPickerPanelComponent {
     elementRef = coreInject<ElementRef<HTMLElement>>(ElementRef);
@@ -135,8 +132,7 @@ class ThyDemoPickerPanelComponent {
                 cursor: pointer;
             }
         `
-    ],
-    standalone: false
+    ]
 })
 class ThyDemoCoordinatesDirectiveComponent {
     elementRef = coreInject<ElementRef<HTMLElement>>(ElementRef);

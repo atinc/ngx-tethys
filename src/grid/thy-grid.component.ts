@@ -53,8 +53,7 @@ export const screenBreakpointsMap = {
     ],
     host: {
         class: 'thy-grid'
-    },
-    standalone: true
+    }
 })
 // eslint-disable-next-line @angular-eslint/directive-class-suffix
 export class ThyGrid implements ThyGridToken, OnInit, OnChanges, AfterContentInit {

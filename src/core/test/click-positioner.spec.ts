@@ -58,8 +58,7 @@ describe('ClickDispatcher', () => {
 
 /** Simple component that contains a large div and can be scrolled. */
 @Component({
-    template: ` <div></div> `,
-    standalone: false
+    template: ` <div></div> `
 })
 class ClickPositionerComponent implements OnDestroy {
     clickPositioner = coreInject(ThyClickPositioner);

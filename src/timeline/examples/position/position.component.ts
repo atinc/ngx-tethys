@@ -3,8 +3,7 @@ import { ThyTimeMode } from 'ngx-tethys/timeline';
 
 @Component({
     selector: 'thy-timeline-position-example',
-    templateUrl: './position.component.html',
-    standalone: false
+    templateUrl: './position.component.html'
 })
 export class ThyTimelinePositionExampleComponent {
     public mode: ThyTimeMode = 'left';

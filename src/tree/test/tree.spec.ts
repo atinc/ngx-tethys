@@ -822,8 +822,7 @@ describe('ThyTreeComponent', () => {
                 </div>
             </ng-template>
         </thy-tree>
-    `,
-    standalone: false
+    `
 })
 class TestBasicTreeComponent {
     @ViewChild('tree', { static: true }) tree: ThyTree;
@@ -886,8 +885,7 @@ class TestBasicTreeComponent {
                 </ng-template>
             </thy-tree>
         </div>
-    `,
-    standalone: false
+    `
 })
 export class TestMultipleTreeComponent {
     mockData = JSON.parse(JSON.stringify(treeNodes));
@@ -907,8 +905,7 @@ export class TestMultipleTreeComponent {
             [thyShowExpand]="showExpand"
             (thyOnExpandChange)="onExpandChange($event)">
         </thy-tree>
-    `,
-    standalone: false
+    `
 })
 export class TestAsyncTreeComponent {
     mockData = treeNodes;
@@ -952,8 +949,7 @@ export class TestAsyncTreeComponent {
                 (thyOnDragDrop)="onDragDrop($event)">
             </thy-tree>
         </div>
-    `,
-    standalone: false
+    `
 })
 export class TestVirtualScrollingTreeComponent implements OnInit {
     mockData = bigTreeNodes;
@@ -985,8 +981,7 @@ export class TestVirtualScrollingTreeComponent implements OnInit {
             [thyBeforeDragDrop]="beforeDragDrop"
             (thyOnDragDrop)="onDragDrop($event)">
         </thy-tree>
-    `,
-    standalone: false
+    `
 })
 export class TestDragDropTreeComponent {
     treeNodes = [
@@ -1063,8 +1058,7 @@ export class TestDragDropTreeComponent {
                 </div>
             </ng-template>
         </thy-tree>
-    `,
-    standalone: false
+    `
 })
 class TestHasCheckedTreeComponent {
     @ViewChild('tree', { static: true }) tree: ThyTree;

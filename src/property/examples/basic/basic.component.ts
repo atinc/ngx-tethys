@@ -4,8 +4,7 @@ import { Component, OnInit } from '@angular/core';
     selector: 'thy-property-basic-example',
     templateUrl: './basic.component.html',
     styleUrls: ['./basic.component.scss'],
-    host: {},
-    standalone: false
+    host: {}
 })
 export class ThyPropertyBasicExampleComponent implements OnInit {
     constructor() {}

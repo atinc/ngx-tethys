@@ -4,8 +4,7 @@ import { ThyResizeEvent } from 'ngx-tethys/resizable';
 @Component({
     selector: 'thy-resizable-grid-example',
     templateUrl: './grid.component.html',
-    styleUrls: ['../style.scss'],
-    standalone: false
+    styleUrls: ['../style.scss']
 })
 export class ThyResizableGridExampleComponent {
     col = 8;

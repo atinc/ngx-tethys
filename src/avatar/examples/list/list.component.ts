@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { ThyAvatar, ThyAvatarList } from 'ngx-tethys/avatar';
 
 @Component({
     selector: 'thy-avatar-list-example',
     templateUrl: './list.component.html',
-    standalone: false
+    imports: [ThyAvatar, ThyAvatarList]
 })
 export class ThyAvatarListExampleComponent {
     avatarSrc = 'assets/images/one-avatar.jpg';

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ThyAlert } from '../../alert.component';
 
 @Component({
     selector: 'thy-alert-icon-example',
     templateUrl: './icon.component.html',
-    standalone: false
+    imports: [ThyAlert]
 })
 export class ThyAlertIconExampleComponent implements OnInit {
     ngOnInit() {}

@@ -1,6 +1,6 @@
 import { fakeAsync, ComponentFixture, TestBed, flush } from '@angular/core/testing';
 import { ThyArrowSwitcherModule } from '../module';
-import { NgModule, Component, DebugElement, ViewChild } from '@angular/core';
+import { Component, DebugElement, ViewChild } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ThyArrowSwitcher } from '../arrow-switcher.component';
 import { CommonModule } from '@angular/common';
@@ -16,7 +16,7 @@ describe('ThyArrowSwitcher', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyArrowSwitcherModule, ArrowSwitcherTestModule],
+            imports: [ThyArrowSwitcherModule, FormsModule, CommonModule, ThyDemoArrowSwitcherComponent],
             providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
@@ -127,7 +127,7 @@ describe('ThyArrowSwitcher', () => {
             [thyPreviousTooltip]="previousTooltip"
             [thyNextTooltip]="nextTooltip"></thy-arrow-switcher>
     `,
-    standalone: false
+    imports: [ThyArrowSwitcher, FormsModule]
 })
 class ThyDemoArrowSwitcherComponent {
     index = 0;
@@ -144,10 +144,3 @@ class ThyDemoArrowSwitcherComponent {
 
     nextClick() {}
 }
-
-@NgModule({
-    imports: [ThyArrowSwitcherModule, FormsModule, CommonModule],
-    declarations: [ThyDemoArrowSwitcherComponent],
-    exports: [ThyDemoArrowSwitcherComponent]
-})
-export class ArrowSwitcherTestModule {}

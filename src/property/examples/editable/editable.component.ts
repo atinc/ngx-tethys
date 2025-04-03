@@ -8,8 +8,7 @@ import { ChangeDetectorRef, Component, ElementRef, OnInit, TemplateRef, ViewChil
     selector: 'thy-property-editable-example',
     templateUrl: './editable.component.html',
     styleUrls: ['./editable.component.scss'],
-    host: {},
-    standalone: false
+    host: {}
 })
 export class ThyPropertyEditableExampleComponent implements OnInit {
     thyDialog = inject(ThyDialog);

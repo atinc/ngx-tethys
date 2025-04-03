@@ -4,7 +4,6 @@ import { Component } from '@angular/core';
     selector: 'thy-grid-flex-example',
     templateUrl: './flex.component.html',
     styleUrls: ['./flex.component.scss'],
-    hostDirectives: [],
-    standalone: false
+    hostDirectives: []
 })
 export class ThyGridFlexExampleComponent {}

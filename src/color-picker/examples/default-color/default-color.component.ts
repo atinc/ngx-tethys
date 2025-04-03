@@ -10,8 +10,7 @@ import { Component } from '@angular/core';
                 height: 30px;
             }
         `
-    ],
-    standalone: false
+    ]
 })
 export class ThyDefaultColorExampleComponent {
     color = '#6698FF';

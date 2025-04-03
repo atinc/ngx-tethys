@@ -3,8 +3,7 @@ import { treeNodes } from '../mocks';
 
 @Component({
     selector: 'thy-tree-template-example',
-    templateUrl: './template.component.html',
-    standalone: false
+    templateUrl: './template.component.html'
 })
 export class ThyTreeTemplateExampleComponent {
     treeNodes = treeNodes;

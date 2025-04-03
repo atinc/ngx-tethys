@@ -10,8 +10,7 @@ import { Component, OnInit } from '@angular/core';
                 margin-bottom: 8px;
             }
         `
-    ],
-    standalone: false
+    ]
 })
 export class ThyStylesColorExampleComponent implements OnInit {
     constructor() {}

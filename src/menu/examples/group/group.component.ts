@@ -4,8 +4,7 @@ import { ThyPopover } from 'ngx-tethys/popover';
 @Component({
     selector: 'thy-menu-group-example',
     templateUrl: './group.component.html',
-    styleUrls: ['./group.component.scss'],
-    standalone: false
+    styleUrls: ['./group.component.scss']
 })
 export class ThyMenuGroupExampleComponent implements OnInit {
     private popover = inject(ThyPopover);

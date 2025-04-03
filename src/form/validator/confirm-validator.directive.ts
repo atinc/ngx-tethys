@@ -16,8 +16,7 @@ export function confirmValidator(value: string): ValidatorFn {
 @Directive({
     // eslint-disable-next-line @angular-eslint/directive-selector
     selector: '[confirm]',
-    providers: [{ provide: NG_VALIDATORS, useExisting: ThyConfirmValidatorDirective, multi: true }],
-    standalone: true
+    providers: [{ provide: NG_VALIDATORS, useExisting: ThyConfirmValidatorDirective, multi: true }]
 })
 export class ThyConfirmValidatorDirective implements Validator {
     /**

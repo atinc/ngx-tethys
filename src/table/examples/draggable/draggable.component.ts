@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-table-draggable-example',
-    templateUrl: './draggable.component.html',
-    standalone: false
+    templateUrl: './draggable.component.html'
 })
 export class ThyTableDraggableExampleComponent implements OnInit {
     data = [

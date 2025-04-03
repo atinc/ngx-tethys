@@ -3,8 +3,7 @@ import { DateRangeItemInfo } from 'ngx-tethys/date-range';
 
 @Component({
     selector: 'app-date-range-disabled-switch-icon-example',
-    templateUrl: './disabled-switch-icon.component.html',
-    standalone: false
+    templateUrl: './disabled-switch-icon.component.html'
 })
 export class ThyDateRangeDisabledSwitchIconExampleComponent implements OnInit {
     public date: DateRangeItemInfo;

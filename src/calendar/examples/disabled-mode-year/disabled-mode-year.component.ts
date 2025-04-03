@@ -3,8 +3,7 @@ import { TinyDate } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-calendar-disabled-mode-year-example',
-    templateUrl: './disabled-mode-year.component.html',
-    standalone: false
+    templateUrl: './disabled-mode-year.component.html'
 })
 export class ThyCalendarDisabledYearExampleComponent implements OnInit {
     date = new TinyDate()?.nativeDate;

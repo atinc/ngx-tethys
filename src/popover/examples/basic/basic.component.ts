@@ -5,8 +5,7 @@ import { ThyPopoverBasicContentComponent } from './popover-content.component';
 @Component({
     selector: 'thy-popover-basic-example',
     templateUrl: './basic.component.html',
-    styleUrls: ['./basic.component.scss'],
-    standalone: false
+    styleUrls: ['./basic.component.scss']
 })
 export class ThyPopoverBasicExampleComponent implements OnInit {
     private thyPopover = inject(ThyPopover);

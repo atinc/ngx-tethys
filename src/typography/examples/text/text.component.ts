@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-typography-text-example',
-    templateUrl: './text.component.html',
-    standalone: false
+    templateUrl: './text.component.html'
 })
 export class ThyTypographyTextExampleComponent implements OnInit {
     constructor() {}

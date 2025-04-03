@@ -19,8 +19,7 @@ import { injectLocale, ThySelectLocale } from 'ngx-tethys/i18n';
                 margin-right: 20px;
             }
         `
-    ],
-    standalone: false
+    ]
 })
 export class ThySelectBasicExampleComponent implements OnInit {
     listOfOption = listOfOption;

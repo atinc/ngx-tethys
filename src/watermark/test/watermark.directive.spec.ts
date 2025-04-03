@@ -14,8 +14,7 @@ import { ThyWatermarkModule } from '../watermark.module';
             style="position: relative;"
             [thyWatermark]="watermarkContent"
             [thyDisabled]="isDisabled"></div>
-    `,
-    standalone: false
+    `
 })
 class ThyTestWatermarkBasicComponent implements OnInit {
     isDisabled = false;

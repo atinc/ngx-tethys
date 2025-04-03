@@ -14,8 +14,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
                 <div class="item2" cdkDrag>item2</div>
             }
         </div>
-    `,
-    standalone: false
+    `
 })
 class ThyDragDropTestComponent {
     showItem2 = false;

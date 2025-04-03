@@ -91,8 +91,7 @@ export class ThyDropdownMenuComponent {
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'dropdown-menu-group'
-    },
-    standalone: true
+    }
 })
 export class ThyDropdownMenuGroup {
     title: string;
@@ -118,8 +117,7 @@ export class ThyDropdownMenuGroup {
     host: {
         class: 'dropdown-menu-divider'
     },
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyDropdownMenuDivider {
     constructor() {}

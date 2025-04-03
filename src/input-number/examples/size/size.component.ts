@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-input-number-size-example',
-    templateUrl: './size.component.html',
-    standalone: false
+    templateUrl: './size.component.html'
 })
 export class ThyInputNumberSizeExampleComponent implements OnInit {
     value: number;

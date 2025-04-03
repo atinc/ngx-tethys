@@ -13,8 +13,7 @@ import { ThyCardHeader } from '../header.component';
             <thy-card-header thyTitle="This is basic test"></thy-card-header>
             <thy-card-content>This is content</thy-card-content>
         </thy-card>
-    `,
-    standalone: false
+    `
 })
 class CardBasicComponent implements OnInit {
     size: 'md' | 'sm' | 'lg' = 'md';
@@ -31,8 +30,7 @@ class CardBasicComponent implements OnInit {
             <thy-card-header thyTitle="This is basic test"></thy-card-header>
             <thy-card-content>This is content</thy-card-content>
         </thy-card>
-    `,
-    standalone: false
+    `
 })
 class CardClearPaddingComponent implements OnInit {
     constructor() {}
@@ -47,8 +45,7 @@ class CardClearPaddingComponent implements OnInit {
             <thy-card-header thyTitle="This is basic test"></thy-card-header>
             <thy-card-content>This is content</thy-card-content>
         </thy-card>
-    `,
-    standalone: false
+    `
 })
 class CardDividedComponent implements OnInit {
     constructor() {}
@@ -63,8 +60,7 @@ class CardDividedComponent implements OnInit {
             <thy-card-header thyTitle="This is basic test"></thy-card-header>
             <thy-card-content>This is content</thy-card-content>
         </thy-card>
-    `,
-    standalone: false
+    `
 })
 class CardBorderedComponent implements OnInit {
     constructor() {}
@@ -79,8 +75,7 @@ class CardBorderedComponent implements OnInit {
             <thy-card-header thyTitle="This is card header test" [thySize]="size"></thy-card-header>
             <thy-card-content [thySize]="size">This is content</thy-card-content>
         </thy-card>
-    `,
-    standalone: false
+    `
 })
 class CardHeaderSizeComponent {
     size: string;
@@ -93,8 +88,7 @@ class CardHeaderSizeComponent {
             <thy-card-header thyTitle="This is card content test"></thy-card-header>
             <thy-card-content [thySize]="size" [thyScroll]="isScroll">This is content</thy-card-content>
         </thy-card>
-    `,
-    standalone: false
+    `
 })
 class CardContentSizeAndScrollComponent {
     size: string;

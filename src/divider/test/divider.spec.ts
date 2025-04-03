@@ -24,8 +24,7 @@ import { provideHttpClient } from '@angular/common/http';
                 </thy-select>
             </ng-template>
         </ng-container>
-    `,
-    standalone: false
+    `
 })
 class ThyTestDividerComponent {
     isVertical = false;

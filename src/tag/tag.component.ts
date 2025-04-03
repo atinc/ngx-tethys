@@ -26,8 +26,7 @@ export type ThyTagSize = 'sm' | 'md' | 'lg';
         '[class.thy-tag-sm]': 'thySize === "sm"',
         '[class.thy-tag-xs]': 'thySize === "xs"',
         '[class.thy-tag-lg]': 'thySize === "lg"'
-    },
-    standalone: true
+    }
 })
 export class ThyTag implements OnInit, OnChanges {
     private elementRef = inject(ElementRef);

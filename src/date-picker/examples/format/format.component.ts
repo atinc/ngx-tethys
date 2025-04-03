@@ -3,8 +3,7 @@ import { TinyDate } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-date-picker-format-example',
-    templateUrl: './format.component.html',
-    standalone: false
+    templateUrl: './format.component.html'
 })
 export class ThyDatePickerFormatExampleComponent implements OnInit {
     monthFormat = 'yyyy/MM';

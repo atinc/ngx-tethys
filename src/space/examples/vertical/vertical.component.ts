@@ -4,8 +4,7 @@ import { Component, OnInit } from '@angular/core';
     selector: 'thy-space-vertical-example',
     templateUrl: './vertical.component.html',
     styleUrls: ['./vertical.component.scss'],
-    host: {},
-    standalone: false
+    host: {}
 })
 export class ThySpaceVerticalExampleComponent implements OnInit {
     sizes = ['sm', 'md', 'lg', 40];

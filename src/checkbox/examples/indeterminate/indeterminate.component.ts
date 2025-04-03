@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-checkbox-indeterminate-example',
-    templateUrl: './indeterminate.component.html',
-    standalone: false
+    templateUrl: './indeterminate.component.html'
 })
 export class ThyCheckboxIndeterminateExampleComponent implements OnInit {
     model = {

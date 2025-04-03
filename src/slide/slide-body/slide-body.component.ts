@@ -6,8 +6,7 @@ import { Component, HostBinding } from '@angular/core';
  */
 @Component({
     selector: 'thy-slide-body',
-    template: ` <ng-content></ng-content> `,
-    standalone: true
+    template: ` <ng-content></ng-content> `
 })
 export class ThySlideBody {
     @HostBinding('class.thy-slide-body') slideLayoutBody = true;

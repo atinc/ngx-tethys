@@ -22,8 +22,7 @@ import { createFile } from './utils';
             [thySizeExceedsHandler]="sizeExceedsHandler"
             (thyOnFileSelect)="selectFiles($event)">
         </thy-file-select>
-    `,
-    standalone: false
+    `
 })
 class FileSelectBasicComponent {
     multiple: boolean;
@@ -171,8 +170,7 @@ describe('ThyFileSelect', () => {
 
 @Component({
     selector: 'thy-file-select-static-input',
-    template: ` <thy-file-select thyMultiple="true" thyAcceptFolder="false" (thyOnFileSelect)="selectFiles($event)"> </thy-file-select> `,
-    standalone: false
+    template: ` <thy-file-select thyMultiple="true" thyAcceptFolder="false" (thyOnFileSelect)="selectFiles($event)"> </thy-file-select> `
 })
 class FileSelectStaticInputComponent {
     selectFiles(event: { files: File[] }) {}

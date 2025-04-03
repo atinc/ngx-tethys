@@ -26,7 +26,6 @@ export type ThyFlexShrink = '1' | '0' | 0 | 1;
  */
 @Directive({
     selector: '[thyFlex]',
-    standalone: true,
     host: {
         class: 'thy-flex d-flex'
     }
@@ -123,7 +122,6 @@ export class ThyFlexComponent {}
  */
 @Directive({
     selector: '[thyFlexItem]',
-    standalone: true,
     host: {
         class: 'thy-flex-item'
     }

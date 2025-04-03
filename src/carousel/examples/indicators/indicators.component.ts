@@ -37,8 +37,7 @@ import { Component, OnInit } from '@angular/core';
                 opacity: 1;
             }
         `
-    ],
-    standalone: false
+    ]
 })
 export class ThyCarouselIndicatorExampleComponent implements OnInit {
     constructor() {}

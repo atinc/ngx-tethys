@@ -3,8 +3,7 @@ import { listOfOption } from '../mock-data';
 
 @Component({
     selector: 'thy-select-empty-option-example',
-    templateUrl: './empty-option.component.html',
-    standalone: false
+    templateUrl: './empty-option.component.html'
 })
 export class ThySelectEmptyOptionExampleComponent implements OnInit {
     listOfOption = listOfOption;

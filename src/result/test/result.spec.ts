@@ -72,8 +72,7 @@ describe('ThyResult', () => {
                 <div class="custom-icon"></div>
             </ng-template>
         </thy-result>
-    `,
-    standalone: false
+    `
 })
 class ThyResultDemoComponent {}
 

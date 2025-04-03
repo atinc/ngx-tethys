@@ -5,8 +5,7 @@ import { DomSanitizer } from '@angular/platform-browser';
  * @private
  */
 @Pipe({
-    name: 'bypassSecurityTrustHtml',
-    standalone: true
+    name: 'bypassSecurityTrustHtml'
 })
 export class BypassSecurityTrustHtmlPipe implements PipeTransform {
     private sanitizer = inject(DomSanitizer);

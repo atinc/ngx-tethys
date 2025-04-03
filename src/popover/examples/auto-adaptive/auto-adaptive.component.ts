@@ -5,8 +5,7 @@ import { ThyPopoverAutoAdaptiveContentComponent } from './auto-adaptive-content.
 
 @Component({
     selector: 'thy-popover-auto-adaptive-example',
-    templateUrl: './auto-adaptive.component.html',
-    standalone: false
+    templateUrl: './auto-adaptive.component.html'
 })
 export class ThyPopoverAutoAdaptiveExampleComponent implements OnInit {
     private thyPopover = inject(ThyPopover);

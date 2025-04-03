@@ -3,7 +3,7 @@ import { Component, inject } from '@angular/core';
 import { DomSanitizer, By } from '@angular/platform-browser';
 import { Observable, Subscriber } from 'rxjs';
 
-import { ThyAvatarModule } from '../avatar.module';
+import { ThyAvatar } from '../avatar.component';
 import { ThyAvatarService } from '../avatar.service';
 import { ThyAvatarFetchPriority, ThyAvatarLoading } from '../avatar.component';
 import { dispatchFakeEvent } from '../../testing';
@@ -42,7 +42,7 @@ import { provideHttpClient } from '@angular/common/http';
             }
         }
     `,
-    standalone: false
+    imports: [ThyAvatar]
 })
 class ThyTestAvatarComponent {
     private thyAvatarService = inject(ThyAvatarService);
@@ -92,7 +92,7 @@ describe('ThyAvatarComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyAvatarModule],
+            imports: [ThyAvatar],
             declarations: [ThyTestAvatarComponent],
             providers: [provideHttpClient()]
         });

@@ -4,8 +4,7 @@ import { ThyPropertyItemOperationTrigger } from 'ngx-tethys/property';
 @Component({
     selector: 'thy-property-operation-example',
     templateUrl: './operation.component.html',
-    styleUrls: ['./operation.component.scss'],
-    standalone: false
+    styleUrls: ['./operation.component.scss']
 })
 export class ThyPropertyOperation implements OnInit {
     operationTrigger: ThyPropertyItemOperationTrigger = 'always';

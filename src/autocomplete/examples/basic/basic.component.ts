@@ -1,10 +1,14 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ThyInputDirective } from 'ngx-tethys/input';
+import { ThyAutocomplete } from '../../autocomplete.component';
+import { ThyOption } from 'ngx-tethys/shared';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'thy-autocomplete-basic-example',
     templateUrl: './basic.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    imports: [ThyInputDirective, ThyAutocomplete, ThyOption, FormsModule]
 })
 export class ThyAutocompleteBasicExampleComponent implements OnInit {
     value = '';

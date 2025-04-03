@@ -3,8 +3,7 @@ import { taskTypes } from '../mock-data';
 
 @Component({
     selector: 'thy-select-custom-display-example',
-    templateUrl: './custom-display.component.html',
-    standalone: false
+    templateUrl: './custom-display.component.html'
 })
 export class ThySelectCustomDisplayExampleComponent implements OnInit {
     optionData = taskTypes;

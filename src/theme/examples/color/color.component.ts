@@ -23,8 +23,7 @@ import { cssVariables } from './css-variables';
                 }
             }
         `
-    ],
-    standalone: false
+    ]
 })
 export class ThyThemeColorExampleComponent {
     colorVariables = Object.keys(cssVariables.defaultThemeColorsMap);

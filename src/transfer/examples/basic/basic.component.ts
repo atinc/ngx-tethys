@@ -3,8 +3,7 @@ import { TransferDirection, ThyTransferItem, ThyTransferDragEvent } from 'ngx-te
 
 @Component({
     selector: 'thy-transfer-basic-example',
-    templateUrl: './basic.component.html',
-    standalone: false
+    templateUrl: './basic.component.html'
 })
 export class ThyTransferBasicExampleComponent implements OnInit {
     public lockItems: ThyTransferItem[] = [];

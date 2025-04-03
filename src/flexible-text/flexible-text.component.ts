@@ -26,8 +26,7 @@ import { debounceTime, take, takeUntil } from 'rxjs/operators';
     selector: 'thy-flexible-text,[thyFlexibleText]',
     exportAs: 'thyFlexibleText',
     templateUrl: './flexible-text.component.html',
-    hostDirectives: [ThyTooltipDirective],
-    standalone: true
+    hostDirectives: [ThyTooltipDirective]
 })
 export class ThyFlexibleText implements OnInit, AfterContentInit, OnDestroy {
     private elementRef = inject(ElementRef);

@@ -5,8 +5,7 @@ import { Component, inject } from '@angular/core';
 
 @Component({
     selector: 'thy-copy-notify-example',
-    templateUrl: './notify.component.html',
-    standalone: false
+    templateUrl: './notify.component.html'
 })
 export class ThyCopyNotifyExampleComponent {
     private notifyService = inject(ThyNotifyService);

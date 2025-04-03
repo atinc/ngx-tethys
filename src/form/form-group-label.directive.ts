@@ -7,8 +7,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
  * @order 45
  */
 @Directive({
-    selector: '[thyFormGroupLabel]',
-    standalone: true
+    selector: '[thyFormGroupLabel]'
 })
 export class ThyFormGroupLabelDirective {
     private thyTranslate = inject(ThyTranslate);

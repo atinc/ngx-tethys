@@ -16,8 +16,7 @@ import { provideHttpClient } from '@angular/common/http';
             <thy-segment-item thyValue="department">部门</thy-segment-item>
             <thy-segment-item thyValue="group">用户组</thy-segment-item>
         </thy-segment>
-    `,
-    standalone: false
+    `
 })
 class TestSegmentBasicComponent {
     selectedChange(event: ThySegmentEvent): void {}
@@ -30,8 +29,7 @@ class TestSegmentBasicComponent {
             <thy-segment-item thyValue="1">列表</thy-segment-item>
             <thy-segment-item thyValue="2">对齐</thy-segment-item>
         </thy-segment>
-    `,
-    standalone: false
+    `
 })
 class TestSegmentOnlyTextComponent {}
 
@@ -42,8 +40,7 @@ class TestSegmentOnlyTextComponent {}
             <thy-segment-item thyValue="1" thyIcon="list"> </thy-segment-item>
             <thy-segment-item thyValue="2" thyIcon="paperclip"></thy-segment-item>
         </thy-segment>
-    `,
-    standalone: false
+    `
 })
 class TestSegmentOnlyIconComponent {}
 
@@ -54,8 +51,7 @@ class TestSegmentOnlyIconComponent {}
             <thy-segment-item thyValue="1" thyIcon="list">列表</thy-segment-item>
             <thy-segment-item thyValue="2" thyIcon="paperclip">对齐</thy-segment-item>
         </thy-segment>
-    `,
-    standalone: false
+    `
 })
 class TestSegmentIconAndTextComponent {}
 
@@ -67,8 +63,7 @@ class TestSegmentIconAndTextComponent {}
             <thy-segment-item thyValue="department">部门</thy-segment-item>
             <thy-segment-item thyValue="group">用户组</thy-segment-item>
         </thy-segment>
-    `,
-    standalone: false
+    `
 })
 class TestSegmentSizeComponent {
     size: ThySegmentSize | string = 'default';
@@ -82,8 +77,7 @@ class TestSegmentSizeComponent {
             <thy-segment-item thyValue="department">部门</thy-segment-item>
             <thy-segment-item thyValue="group" [thyDisabled]="disableItem">用户组</thy-segment-item>
         </thy-segment>
-    `,
-    standalone: false
+    `
 })
 class TestSegmentDisabledComponent {
     disabledAll: boolean;
@@ -100,8 +94,7 @@ class TestSegmentDisabledComponent {
             <thy-segment-item thyValue="member">成员</thy-segment-item>
             <thy-segment-item thyValue="department">部门</thy-segment-item>
         </thy-segment>
-    `,
-    standalone: false
+    `
 })
 class TestSegmentModeComponent {
     mode: ThySegmentMode = 'block';
@@ -115,8 +108,7 @@ class TestSegmentModeComponent {
             <thy-segment-item thyValue="department">部门</thy-segment-item>
             <thy-segment-item thyValue="group">用户组</thy-segment-item>
         </thy-segment>
-    `,
-    standalone: false
+    `
 })
 class TestSegmentActiveComponent {
     selectedIndex: number = 2;
@@ -149,8 +141,7 @@ class TestSegmentActiveComponent {
                 </div>
             </thy-segment-item>
         </thy-segment>
-    `,
-    standalone: false
+    `
 })
 class TestSegmentCustomTemplateComponent {
     items = [

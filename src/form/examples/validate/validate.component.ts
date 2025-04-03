@@ -3,8 +3,7 @@ import { ThyFormValidatorConfig, ThyFormDirective } from 'ngx-tethys/form';
 
 @Component({
     selector: 'thy-form-validate-example',
-    templateUrl: './validate.component.html',
-    standalone: false
+    templateUrl: './validate.component.html'
 })
 export class ThyFormValidateExampleComponent implements OnInit {
     model = {

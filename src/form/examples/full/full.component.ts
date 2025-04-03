@@ -64,8 +64,7 @@ const provinceCities = [
 
 @Component({
     selector: 'thy-form-full-example',
-    templateUrl: './full.component.html',
-    standalone: false
+    templateUrl: './full.component.html'
 })
 export class ThyFormFullExampleComponent implements OnInit {
     submitSuccess = false;

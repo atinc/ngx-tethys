@@ -4,8 +4,7 @@ import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 @Component({
     selector: 'thy-form-validators-example',
-    templateUrl: './validators.component.html',
-    standalone: false
+    templateUrl: './validators.component.html'
 })
 export class ThyFormValidatorsExampleComponent implements OnInit {
     submitSuccess = false;

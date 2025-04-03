@@ -3,8 +3,7 @@ import { ThyTabActiveEvent } from 'ngx-tethys/tabs';
 
 @Component({
     selector: 'thy-tabs-disabled-example',
-    templateUrl: './disabled.component.html',
-    standalone: false
+    templateUrl: './disabled.component.html'
 })
 export class ThyTabsDisabledExampleComponent implements OnInit {
     constructor() {}

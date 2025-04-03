@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyAvatarList, ThyAvatarListMode } from '../avatar-list/avatar-list.component';
 import { ThyAvatar } from '../avatar.component';
-import { ThyAvatarModule } from '../avatar.module';
 import { provideHttpClient } from '@angular/common/http';
+import { NgStyle } from '@angular/common';
 
 const userNameList = [{ name: 'Abigail' }, { name: 'Belle' }, { name: 'Camilla' }, { name: 'Abigail' }, { name: 'Belle' }];
 
@@ -24,7 +24,7 @@ const userNameList = [{ name: 'Abigail' }, { name: 'Belle' }, { name: 'Camilla' 
         </div>
     `,
     styleUrls: ['../styles/avatar.scss'],
-    standalone: false
+    imports: [ThyAvatarList, ThyAvatar, NgStyle]
 })
 export class AvatarListBasicComponent implements OnInit {
     ngOnInit(): void {}
@@ -41,7 +41,7 @@ export class AvatarListBasicComponent implements OnInit {
         </div>
     `,
     styleUrls: ['../styles/avatar.scss'],
-    standalone: false
+    imports: [ThyAvatarList, ThyAvatar, NgStyle]
 })
 export class AvatarListTestComponent implements OnInit {
     public size: number | string;
@@ -60,7 +60,7 @@ export class AvatarListTestComponent implements OnInit {
 @Component({
     template: ` <thy-avatar-list> </thy-avatar-list> `,
     styleUrls: ['../styles/avatar.scss'],
-    standalone: false
+    imports: [ThyAvatarList]
 })
 export class AvatarListEmptyComponent implements OnInit {
     ngOnInit(): void {}
@@ -72,7 +72,6 @@ describe('thy-avatar-list', () => {
     let avatarListElement: HTMLElement;
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyAvatarModule],
             declarations: [AvatarListBasicComponent, AvatarListTestComponent, AvatarListEmptyComponent],
             providers: [provideHttpClient()]
         }).compileComponents();

@@ -3,8 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
     selector: 'thy-flexible-text-multiple',
     templateUrl: './multiple-line.component.html',
-    styleUrls: ['./multiple-line.component.scss'],
-    standalone: false
+    styleUrls: ['./multiple-line.component.scss']
 })
 export class ThyFlexibleTextMultipleLineExampleComponent implements OnInit {
     public textLong = `New platforms are providing creators with a chance

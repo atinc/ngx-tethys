@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-table-min-width-example',
-    templateUrl: './min-width.component.html',
-    standalone: false
+    templateUrl: './min-width.component.html'
 })
 export class ThyTableMinWidthExampleComponent implements OnInit {
     data = [

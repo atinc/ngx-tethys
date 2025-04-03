@@ -3,8 +3,7 @@ import { searchTreeSelectData } from '../mock-data';
 
 @Component({
     selector: 'app-tree-select-search-example',
-    templateUrl: './search.component.html',
-    standalone: false
+    templateUrl: './search.component.html'
 })
 export class ThyTreeSelectSearchExampleComponent implements OnInit {
     public treeSelectNodes = searchTreeSelectData;

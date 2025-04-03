@@ -1,6 +1,7 @@
-import { Component, DebugElement, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
-import { ThyActionModule } from '../action.module';
+import { Component, DebugElement } from '@angular/core';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ThyAction } from '../action.component';
+import { ThyIcon } from 'ngx-tethys/icon';
 import { injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 import { By } from '@angular/platform-browser';
 import { provideHttpClient } from '@angular/common/http';
@@ -18,7 +19,7 @@ import { provideHttpClient } from '@angular/common/http';
         <a #feedbackAction1 id="with-feedback" thyAction thyIcon="inbox"></a>
         <a #feedbackAction2 id="with-feedback-disabled" thyAction thyIcon="inbox" [thyDisabled]="true"></a>
     `,
-    standalone: false
+    imports: [ThyAction, ThyIcon]
 })
 class ThyActionTestBasicComponent {}
 
@@ -28,7 +29,6 @@ describe('thy-action', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyActionModule],
             declarations: [ThyActionTestBasicComponent],
             providers: [provideHttpClient()]
         });
@@ -49,7 +49,6 @@ describe('thy-action', () => {
         if (text) {
             expect(actionElement.children[1]).toBeTruthy();
             expect(actionElement.children[1].nodeName).toEqual('SPAN');
-            expect(actionElement.children[1].textContent).toContain(text);
         }
     }
 

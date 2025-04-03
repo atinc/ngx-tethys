@@ -9,8 +9,7 @@ import { ThyImageDirective } from './image.directive';
     selector: 'thy-image-group, [thyImageGroup]',
     template: '<ng-content></ng-content>',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
-    standalone: true
+    encapsulation: ViewEncapsulation.None
 })
 export class ThyImageGroup {
     injector = inject(Injector);

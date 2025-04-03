@@ -3,8 +3,7 @@ import { moreOptionTreeSelectData } from '../mock-data';
 
 @Component({
     selector: 'app-tree-select-more-node-example',
-    templateUrl: './more-node.component.html',
-    standalone: false
+    templateUrl: './more-node.component.html'
 })
 export class ThyTreeSelectMoreNodeExampleComponent implements OnInit {
     public treeSelectNodes = moreOptionTreeSelectData;

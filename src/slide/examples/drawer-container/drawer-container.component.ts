@@ -7,8 +7,7 @@ import { ThySlideDemoContentComponent } from '../slide-content.component';
 @Component({
     selector: 'thy-slide-drawer-container-example',
     templateUrl: './drawer-container.component.html',
-    styleUrls: ['./drawer-container.component.scss'],
-    standalone: false
+    styleUrls: ['./drawer-container.component.scss']
 })
 export class ThySlideDrawerContainerExampleComponent {
     private thySlideNewService = inject(ThySlideService);

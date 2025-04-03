@@ -3,8 +3,7 @@ import { basicTreeSelectData } from '../mock-data';
 
 @Component({
     selector: 'app-tree-select-basic-example',
-    templateUrl: './basic.component.html',
-    standalone: false
+    templateUrl: './basic.component.html'
 })
 export class ThyTreeSelectBasicExampleComponent implements OnInit {
     public treeSelectNodes = basicTreeSelectData;

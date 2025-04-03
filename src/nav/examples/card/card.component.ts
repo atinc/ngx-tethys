@@ -3,8 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
     selector: 'thy-nav-card-example',
     templateUrl: './card.component.html',
-    styleUrls: ['./card.component.scss'],
-    standalone: false
+    styleUrls: ['./card.component.scss']
 })
 export class ThyNavCardExampleComponent implements OnInit {
     public activeIndex = 1;

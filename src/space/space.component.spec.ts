@@ -15,8 +15,7 @@ import { By } from '@angular/platform-browser';
                 <button *thySpaceItem thyButton="info">Button3</button>
             }
         </thy-space>
-    `,
-    standalone: false
+    `
 })
 class TestBasicComponent {
     dynamicShow = false;
@@ -31,8 +30,7 @@ class TestBasicComponent {
             <button *thySpaceItem thyButton="primary">Button1</button>
             <button *thySpaceItem thyButton="info">Button2</button>
         </thy-space>
-    `,
-    standalone: false
+    `
 })
 class TestSizeComponent {
     size: string | number = 'md';

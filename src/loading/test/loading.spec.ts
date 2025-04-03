@@ -11,8 +11,7 @@ import { ThyLoadingModule } from '../loading.module';
             <div style="width: 500px; height:500px">Test loading</div>
         }
         <thy-loading [thyDone]="loadingDone" [thyIsMask]="isMask" [thyTip]="tip"></thy-loading>
-    `,
-    standalone: false
+    `
 })
 export class TestLoadingComponent {
     loadingDone: boolean;

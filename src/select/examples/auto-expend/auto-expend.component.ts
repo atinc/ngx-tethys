@@ -3,8 +3,7 @@ import { listOfOption } from '../mock-data';
 
 @Component({
     selector: 'thy-select-auto-expend-example',
-    templateUrl: './auto-expend.component.html',
-    standalone: false
+    templateUrl: './auto-expend.component.html'
 })
 export class ThySelectAutoExpendExampleComponent implements OnInit {
     listOfOption = listOfOption;

@@ -3,8 +3,7 @@ import { ThyTableTheme } from 'ngx-tethys/table';
 
 @Component({
     selector: 'thy-table-theme-example',
-    templateUrl: './theme.component.html',
-    standalone: false
+    templateUrl: './theme.component.html'
 })
 export class ThyTableThemeExampleComponent implements OnInit {
     data = [

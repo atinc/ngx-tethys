@@ -4,8 +4,7 @@ import { ThyDialogSidebarContentExampleComponent } from './dialog-sidebar.compon
 
 @Component({
     selector: 'thy-dialog-sidebar-example',
-    templateUrl: './sidebar.component.html',
-    standalone: false
+    templateUrl: './sidebar.component.html'
 })
 export class ThyDialogSidebarExampleComponent {
     private thyDialog = inject(ThyDialog);

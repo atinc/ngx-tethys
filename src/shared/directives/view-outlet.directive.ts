@@ -25,8 +25,7 @@ function hasInput(componentRef: ComponentRef<unknown>, inputKey: string) {
  * @order 10
  */
 @Directive({
-    selector: '[thyViewOutlet]',
-    standalone: true
+    selector: '[thyViewOutlet]'
 })
 export class ThyViewOutletDirective implements OnChanges {
     private viewContainerRef = inject(ViewContainerRef);

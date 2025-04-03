@@ -2,9 +2,8 @@ import { NgModule } from '@angular/core';
 import { ThyHotkeyDirective } from './hotkey.directive';
 
 @NgModule({
-    imports: [],
+    imports: [ThyHotkeyDirective],
     exports: [ThyHotkeyDirective],
-    declarations: [ThyHotkeyDirective],
     providers: []
 })
 export class ThyHotkeyModule {}

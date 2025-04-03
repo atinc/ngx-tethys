@@ -18,8 +18,7 @@ const ICON_NAV_LINK_CLASS = `thy-icon-nav-link`;
             <a thyIconNavLink thyIconNavLinkActive="true" thyIconNavLinkIcon="inbox"></a>
             <a thyIconNavLink><thy-icon thyIconName="filter"></thy-icon></a>
         </thy-icon-nav>
-    `,
-    standalone: false
+    `
 })
 export class IconNavBasicComponent implements OnInit {
     type = '';

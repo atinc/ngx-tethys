@@ -8,7 +8,6 @@ import { ThyNotifyService } from 'ngx-tethys/notify';
     selector: 'thy-behaviors-action',
     templateUrl: './action.component.html',
     styleUrls: ['./action.component.scss'],
-    standalone: false
 })
 export class ThyBehaviorsActionComponent implements OnInit {
     addBehavior = actionBehavior((obj: { name: string }) => {

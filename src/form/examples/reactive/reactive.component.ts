@@ -67,8 +67,7 @@ const provinceCities = [
 
 @Component({
     selector: 'thy-form-reactive-example',
-    templateUrl: './reactive.component.html',
-    standalone: false
+    templateUrl: './reactive.component.html'
 })
 export class ThyFormReactiveExampleComponent implements OnInit {
     private formBuilder = inject(FormBuilder);

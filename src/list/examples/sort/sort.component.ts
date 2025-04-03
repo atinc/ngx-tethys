@@ -3,8 +3,7 @@ import { moveItemInArray, CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
     selector: 'app-list-sort',
-    templateUrl: './sort.component.html',
-    standalone: false
+    templateUrl: './sort.component.html'
 })
 export class ThyListSortExampleComponent implements OnInit {
     public ListItems: string[] = ['Sort Item 1', 'Sort Item 2', 'Sort Item 3'];

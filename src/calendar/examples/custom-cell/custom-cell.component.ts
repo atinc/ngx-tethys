@@ -3,8 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
     selector: 'thy-calendar-advance-example',
     templateUrl: './custom-cell.component.html',
-    styleUrls: ['./custom-cell.component.scss'],
-    standalone: false
+    styleUrls: ['./custom-cell.component.scss']
 })
 export class ThyCalendarCustomCellExampleComponent implements OnInit {
     // date = new Date(2012, 11, 21);

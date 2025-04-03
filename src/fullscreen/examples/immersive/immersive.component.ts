@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'thy-fullscreen-immersive-example',
-    templateUrl: './immersive.component.html',
-    standalone: false
+    templateUrl: './immersive.component.html'
 })
 export class ThyFullscreenImmersiveExampleComponent {
     btnContent = '全屏';

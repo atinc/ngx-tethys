@@ -48,8 +48,7 @@ describe('DecadeTableComponent', () => {
         <ng-container>
             <decade-table [value]="modelValue"></decade-table>
         </ng-container>
-    `,
-    standalone: false
+    `
 })
 class ThyTestDecadeTableComponent {
     modelValue: Date;

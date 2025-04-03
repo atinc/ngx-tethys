@@ -14,8 +14,7 @@ import {
 } from 'ngx-tethys/i18n';
 
 @Component({
-    template: 'thy-i18n-test',
-    standalone: false
+    template: 'thy-i18n-test'
 })
 export class ThyI18nTestComponent {
     i18n = inject(ThyI18nService);

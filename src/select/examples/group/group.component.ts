@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'thy-select-group-example',
-    templateUrl: './group.component.html',
-    standalone: false
+    templateUrl: './group.component.html'
 })
 export class ThySelectGroupExampleComponent {
     productGroups = [

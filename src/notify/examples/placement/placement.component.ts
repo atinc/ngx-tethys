@@ -3,8 +3,7 @@ import { Component, OnInit, inject } from '@angular/core';
 
 @Component({
     selector: 'thy-notify-placement-example',
-    templateUrl: './placement.component.html',
-    standalone: false
+    templateUrl: './placement.component.html'
 })
 export class ThyNotifyPlacementExampleComponent implements OnInit {
     private notifyService = inject(ThyNotifyService);

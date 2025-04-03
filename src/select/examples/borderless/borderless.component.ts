@@ -3,8 +3,7 @@ import { listOfOption } from '../mock-data';
 
 @Component({
     selector: 'thy-select-borderless-example',
-    templateUrl: './borderless.component.html',
-    standalone: false
+    templateUrl: './borderless.component.html'
 })
 export class ThySelectBorderlessExampleComponent implements OnInit {
     listOfOption = listOfOption;

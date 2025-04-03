@@ -1,4 +1,4 @@
-import { ThyInputSearch } from 'ngx-tethys/input';
+import { ThyInputSearch, ThyInputDirective } from 'ngx-tethys/input';
 import {
     bypassSanitizeProvider,
     dispatchFakeEvent,
@@ -46,7 +46,7 @@ import { provideHttpClient } from '@angular/common/http';
             </thy-autocomplete>
         </div>
     `,
-    standalone: false
+    imports: [ThyInputDirective, ThyAutocomplete, ThyOption, FormsModule]
 })
 class BasicSelectComponent {
     openedSpy = jasmine.createSpy('opened event spy callback');
@@ -87,8 +87,7 @@ class BasicSelectComponent {
                 }
             </thy-autocomplete>
         </div>
-    `,
-    standalone: false
+    `
 })
 class InputSearchSelectComponent {
     value = '';

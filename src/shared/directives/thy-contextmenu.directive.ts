@@ -4,8 +4,7 @@ import { Directive, Output, ElementRef, EventEmitter, OnInit, NgZone, Renderer2,
  * @name thyContextMenu
  */
 @Directive({
-    selector: '[thyContextMenu]',
-    standalone: true
+    selector: '[thyContextMenu]'
 })
 export class ThyContextMenuDirective implements OnInit, OnDestroy {
     private ngZone = inject(NgZone);

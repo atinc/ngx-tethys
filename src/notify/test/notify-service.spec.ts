@@ -24,8 +24,7 @@ const DEFAULT_DURATION_TIME = 4500;
         <ng-template #content>
             <div class="custom-content-template">Custom Content....</div>
         </ng-template>
-    `,
-    standalone: false
+    `
 })
 export class ThyNotifyBasicComponent implements OnInit {
     private notifyService = coreInject(ThyNotifyService);

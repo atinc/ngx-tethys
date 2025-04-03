@@ -13,8 +13,7 @@ import { Component, OnInit } from '@angular/core';
             [thyAnimated]="model.thyAnimated"
             [thyRowCount]="model.thyRowCount">
         </thy-skeleton-list>
-    `,
-    standalone: false
+    `
 })
 export class ThySkeletonExampleListComponent implements OnInit {
     model = {

@@ -20,8 +20,7 @@ import { createFile } from './utils';
             thyFileDrop
             (thyOnDrop)="selectFiles($event)"
             (thyFilesReject)="filesReject($event)"></div>
-    `,
-    standalone: false
+    `
 })
 class FileDropBasicComponent {
     customDragOverClass: string;

@@ -494,8 +494,7 @@ describe('ThyPickerDirective', () => {
             (ngModelChange)="thyOnChange($event)"
             [thyShortcutPosition]="thyShortcutPosition"
             [thyShortcutPresets]="thyShortcutPresets"></thy-property-operation>
-    `,
-    standalone: false
+    `
 })
 class ThyTestPickerComponent {
     @ViewChild(ThyDatePickerDirective, { read: false }) thyDatePickerDirective: ThyDatePickerDirective;
@@ -533,8 +532,7 @@ class ThyTestPickerComponent {
             [thyShowTime]="thyShowTime"
             thyDatePicker
             [(ngModel)]="thyValue"></thy-property-operation>
-    `,
-    standalone: false
+    `
 })
 class ThyTestPickerPlacementComponent {
     thyValue: Date | null;
@@ -547,8 +545,7 @@ class ThyTestPickerPlacementComponent {
             <thy-property-operation thyLabelText="开始时间" thyDatePicker [thyStopPropagation]="thyStopPropagation">
             </thy-property-operation>
         </div>
-    `,
-    standalone: false
+    `
 })
 class ThyTestPickerStopPropagationComponent {
     thyStopPropagation = true;

@@ -16,8 +16,7 @@ import { provideHttpClient } from '@angular/common/http';
             </thy-timeline-item>
             <thy-timeline-item [thyColor]="color">333</thy-timeline-item>
         </thy-timeline>
-    `,
-    standalone: false
+    `
 })
 export class TestTimelineBasicComponent {
     mode = 'left';
@@ -31,8 +30,7 @@ export class TestTimelineBasicComponent {
             <thy-timeline-item thyPosition="right">111</thy-timeline-item>
             <thy-timeline-item thyPosition="left">222</thy-timeline-item>
         </thy-timeline>
-    `,
-    standalone: false
+    `
 })
 export class TestTimelineCustomPositionComponent {
     mode = 'left';
@@ -47,8 +45,7 @@ export class TestTimelineCustomPositionComponent {
                 <ng-template #description> 另一侧的描述 </ng-template>
             </thy-timeline-item>
         </thy-timeline>
-    `,
-    standalone: false
+    `
 })
 export class TestTimelineCustomDescriptionComponent {
     mode = 'left';
@@ -63,8 +60,7 @@ export class TestTimelineCustomDescriptionComponent {
                 <ng-template #description> 另一侧的描述 </ng-template>
             </thy-timeline-item>
         </thy-timeline>
-    `,
-    standalone: false
+    `
 })
 export class TestTimelineCustomHorizontalComponent {
     direction: ThyTimeDirection = 'horizontal';
@@ -77,8 +73,7 @@ export class TestTimelineCustomHorizontalComponent {
                 <thy-timeline-item></thy-timeline-item>
             }
         </thy-timeline>
-    `,
-    standalone: false
+    `
 })
 export class TestTimelineCustomItemsComponent {
     timelineItems = ['节点1', '节点2', '节点3', '节点4'];

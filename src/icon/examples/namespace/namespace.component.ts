@@ -6,8 +6,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 @Component({
     selector: 'thy-icon-namespace-example',
     templateUrl: './namespace.component.html',
-    styleUrls: ['./namespace.component.scss'],
-    standalone: false
+    styleUrls: ['./namespace.component.scss']
 })
 export class ThyIconNamespaceExampleComponent {
     constructor() {

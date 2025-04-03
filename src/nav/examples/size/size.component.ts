@@ -3,8 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
     selector: 'thy-nav-size-example',
     templateUrl: './size.component.html',
-    styleUrls: ['./size.component.scss'],
-    standalone: false
+    styleUrls: ['./size.component.scss']
 })
 export class ThyNavSizeExampleComponent implements OnInit {
     sizes = [

@@ -60,8 +60,7 @@ class TestDialogConfig<TData = any> extends ThyAbstractOverlayConfig<TData> {
         // '[@dialogContainer]': 'animationState',
         // '(@dialogContainer.start)': 'onAnimationStart($event)',
         // '(@dialogContainer.done)': 'onAnimationDone($event)'
-    },
-    standalone: false
+    }
 })
 export class TestDialogContainerComponent<TData = unknown> extends ThyAbstractOverlayContainer<TData> implements OnDestroy {
     config: ThyAbstractOverlayConfig<TData>;
@@ -191,8 +190,7 @@ export class TestDialogModule {}
 
 @Component({
     selector: 'test-dialog-basic',
-    template: `Hello Test Dialog<ng-content></ng-content> `,
-    standalone: false
+    template: `Hello Test Dialog<ng-content></ng-content> `
 })
 class TestDialogBasicContentComponent {
     testDialogRef = coreInject<TestDialogRef<TestDialogBasicContentComponent>>(TestDialogRef);
@@ -210,8 +208,7 @@ class TestDialogBasicContentComponent {
 
 @Component({
     selector: 'test-dialog-view-container',
-    template: 'Hello Test Dialog',
-    standalone: false
+    template: 'Hello Test Dialog'
 })
 class TestDialogViewContainerComponent {
     private dialog = coreInject(TestDialogService);

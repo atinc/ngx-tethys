@@ -6,8 +6,7 @@ import { ThyDialog } from 'ngx-tethys/dialog';
 
 @Component({
     selector: 'thy-form-dialog-example',
-    templateUrl: './dialog.component.html',
-    standalone: false
+    templateUrl: './dialog.component.html'
 })
 export class ThyFormDialogExampleComponent implements OnInit {
     dialog = inject(ThyDialog);

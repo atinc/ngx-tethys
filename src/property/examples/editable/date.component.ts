@@ -9,8 +9,7 @@ import { Component, Input, OnInit } from '@angular/core';
             thyPlaceHolder="选择时间"
             [(ngModel)]="user.birth_date"
             thySize="md"></thy-date-picker>
-    `,
-    standalone: false
+    `
 })
 export class ThyPropertyEditableDateInnerComponent implements OnInit {
     @Input() user: { birth_date: number };

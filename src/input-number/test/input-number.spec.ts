@@ -46,8 +46,7 @@ import { provideHttpClient } from '@angular/common/http';
             (thyStepChange)="stepChange($event)"
             (thyFocus)="onSecondFocus($event)"
             (thyBlur)="onSecondBlur($event)"></thy-input-number>
-    `,
-    standalone: false
+    `
 })
 class TestInputNumberComponent {
     @ViewChild(ThyInputNumber, { static: false }) inputNumberComponent: ThyInputNumber;

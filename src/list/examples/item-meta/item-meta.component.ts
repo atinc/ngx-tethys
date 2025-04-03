@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-list-item-meat-example',
-    templateUrl: './item-meta.component.html',
-    standalone: false
+    templateUrl: './item-meta.component.html'
 })
 export class ThyListItemMetaExampleComponent implements OnInit {
     public listItems = [

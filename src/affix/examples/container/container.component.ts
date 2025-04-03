@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ThyAffix } from 'ngx-tethys/affix';
+import { ThyButton } from 'ngx-tethys/button';
 
 @Component({
     selector: 'thy-demo-affix-container-example',
@@ -26,6 +28,6 @@ import { Component } from '@angular/core';
             }
         `
     ],
-    standalone: false
+    imports: [ThyAffix, ThyButton]
 })
 export class ThyAffixContainerExampleComponent {}

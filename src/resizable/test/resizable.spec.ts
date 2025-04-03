@@ -24,8 +24,7 @@ import { provideHttpClient } from '@angular/common/http';
         (thyResize)="onResize($event)">
         <thy-resize-handles></thy-resize-handles>
         content
-    </div> `,
-    standalone: false
+    </div> `
 })
 export class ThyResizableBasicTestComponent {
     width = 400;
@@ -60,8 +59,7 @@ export class ThyResizableBasicTestComponent {
             </div>
         </thy-resize-handle>
         content
-    </div> `,
-    standalone: false
+    </div> `
 })
 export class ThyResizableCustomizeTestComponent {
     width = 400;
@@ -89,8 +87,7 @@ export class ThyResizableCustomizeTestComponent {
             col-{{ col }}
         </div>
         <div class="col col-right" thyCol [thySpan]="24 - col">col-{{ 24 - col }}</div>
-    </div>`,
-    standalone: false
+    </div>`
 })
 export class ThyResizableGridTestComponent {
     col = 8;
@@ -111,8 +108,7 @@ export class ThyResizableGridTestComponent {
         (thyResizeEnd)="onResize($event)">
         <thy-resize-handles></thy-resize-handles>
         content
-    </div> `,
-    standalone: false
+    </div> `
 })
 export class ThyResizablePreviewTestComponent {
     width = 400;
@@ -135,8 +131,7 @@ export class ThyResizablePreviewTestComponent {
         (thyResize)="onResize($event)">
         <thy-resize-handles></thy-resize-handles>
         content
-    </div> `,
-    standalone: false
+    </div> `
 })
 export class ThyResizableLockAspectRatioTestComponent {
     width = 400;
@@ -156,8 +151,7 @@ export class ThyResizableLockAspectRatioTestComponent {
             <thy-resize-handles (dblclick)="reset()" [thyDirections]="directions" thyLine="true"></thy-resize-handles>
         </div>
         <div class="right">Right</div>
-    </div> `,
-    standalone: false
+    </div> `
 })
 export class ThyResizableLineTestComponent {
     width = 200;
@@ -205,8 +199,7 @@ export class ThyResizableLineTestComponent {
                 height: 200px;
             }
         `
-    ],
-    standalone: false
+    ]
 })
 class ThyTestResizableBoundsComponent {
     @ViewChild('boxRef', { static: true }) boxRef!: ElementRef<HTMLDivElement>;

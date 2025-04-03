@@ -40,8 +40,7 @@ const circleMap = new Map([
         <button (click)="changeTemplate(demo)">Basic Usage</button>
         <thy-progress [thyValue]="value" [thyTips]="tips" [thyType]="type" [thySize]="size"> 20% </thy-progress>
         <ng-template #demo>{{ message }}</ng-template>
-    `,
-    standalone: false
+    `
 })
 class ThyDemoProgressBasicComponent {
     value = 20;
@@ -68,8 +67,7 @@ class ThyDemoProgressBasicComponent {
             [thyStrokeWidth]="strokeWidth">
             20%
         </thy-progress>
-    `,
-    standalone: false
+    `
 })
 class ThyDemoProgressCircleComponent {
     value = 20;
@@ -97,8 +95,7 @@ class ThyDemoProgressCircleComponent {
 }
 @Component({
     selector: 'thy-demo-progress-stacked',
-    template: ` <thy-progress [thyValue]="value" [thySize]="size"> </thy-progress> `,
-    standalone: false
+    template: ` <thy-progress [thyValue]="value" [thySize]="size"> </thy-progress> `
 })
 class ThyDemoProgressStackedComponent {
     value: ThyProgressStackedValue[] = [
@@ -121,8 +118,7 @@ class ThyDemoProgressStackedComponent {
 
 @Component({
     selector: 'thy-demo-progress-stacked-max',
-    template: ` <thy-progress [thyMax]="max" [thyValue]="value" [thySize]="size"> </thy-progress> `,
-    standalone: false
+    template: ` <thy-progress [thyMax]="max" [thyValue]="value" [thySize]="size"> </thy-progress> `
 })
 class ThyDemoProgressStackedMaxComponent {
     value: ThyProgressStackedValue[] = [
@@ -149,8 +145,7 @@ class ThyDemoProgressStackedMaxComponent {
     template: `
         <thy-progress [thyValue]="value" [thyTips]="customProgressTooTip"></thy-progress>
         <ng-template #customProgressTooTip let-item>type: {{ item.type }}-value: {{ item.value }}</ng-template>
-    `,
-    standalone: false
+    `
 })
 class ThyDemoProgressTooltipTemplateComponent {
     value: ThyProgressStackedValue[] = [

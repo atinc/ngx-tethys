@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'thy-image-group-example',
-    templateUrl: './group.component.html',
-    standalone: false
+    templateUrl: './group.component.html'
 })
 export class ThyImageGroupExampleComponent {
     images = [

@@ -4,8 +4,7 @@ import { tap } from 'rxjs/operators';
 
 @Component({
     selector: 'thy-select-async-load-data-example',
-    templateUrl: './load-async.component.html',
-    standalone: false
+    templateUrl: './load-async.component.html'
 })
 export class ThySelectAsyncLoadDataExampleComponent implements OnInit {
     loadMoreData: Array<{ thyLabelText: string; _id: string }> = [];

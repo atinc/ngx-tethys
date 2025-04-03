@@ -36,8 +36,7 @@ type DragDropNode = (typeof nodes)[0];
 
 @Component({
     selector: 'thy-drag-drop-basic-example',
-    templateUrl: './basic.component.html',
-    standalone: false
+    templateUrl: './basic.component.html'
 })
 export class ThyDragDropBasicExampleComponent implements OnInit {
     nodes = nodes;

@@ -1,9 +1,15 @@
+import { NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { ThyButton } from 'ngx-tethys/button';
+import { ThyButtonGroup } from 'ngx-tethys/button';
+import { ThyIcon } from 'ngx-tethys/icon';
+import { ThySpace } from 'ngx-tethys/space';
+import { ThySpaceItemDirective } from 'ngx-tethys/space';
 
 @Component({
     selector: 'thy-button-size-example',
     templateUrl: './size.component.html',
-    standalone: false
+    imports: [ThyButton, ThyButtonGroup, ThyIcon, ThySpace, ThySpaceItemDirective, NgClass]
 })
 export class ThyButtonSizeExampleComponent implements OnInit {
     sizes = [

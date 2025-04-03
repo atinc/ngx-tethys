@@ -6,7 +6,6 @@ import { fromEvent, Subscription } from 'rxjs';
     selector: 'thy-hotkey-query-example',
     templateUrl: './query.component.html',
     styleUrls: ['./query.component.scss'],
-    standalone: false
 })
 export class ThyHotkeyQueryExampleComponent {
     hotkeyCode = '';

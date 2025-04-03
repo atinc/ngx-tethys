@@ -4,8 +4,7 @@ import { ThyTreeSelectNode } from '../tree-select.class';
 
 @Component({
     selector: 'app-tree-select-hidden-example',
-    templateUrl: './hidden.component.html',
-    standalone: false
+    templateUrl: './hidden.component.html'
 })
 export class ThyTreeSelectHiddenExampleComponent implements OnInit {
     public treeSelectNodes = hiddenOptionTreeSelectData;

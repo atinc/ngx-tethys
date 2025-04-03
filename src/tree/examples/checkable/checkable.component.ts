@@ -4,8 +4,7 @@ import { treeNodes } from '../mocks';
 
 @Component({
     selector: 'thy-tree-checkable-example',
-    templateUrl: './checkable.component.html',
-    standalone: false
+    templateUrl: './checkable.component.html'
 })
 export class ThyTreeCheckableExampleComponent {
     treeNodes = treeNodes;

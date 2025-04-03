@@ -4,8 +4,7 @@ import { Component, OnInit } from '@angular/core';
     selector: 'thy-space-size-example',
     templateUrl: './size.component.html',
     styleUrls: ['./size.component.scss'],
-    host: {},
-    standalone: false
+    host: {}
 })
 export class ThySpaceSizeExampleComponent implements OnInit {
     sizes = ['zero', 'xxs', 'xs', 'sm', 'md', 'lg', 'xlg', 40];

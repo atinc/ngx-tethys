@@ -4,8 +4,7 @@ import { Component, OnInit } from '@angular/core';
     selector: 'thy-space-basic-example',
     templateUrl: './basic.component.html',
     styleUrls: ['./basic.component.scss'],
-    host: {},
-    standalone: false
+    host: {}
 })
 export class ThySpaceBasicExampleComponent implements OnInit {
     constructor() {}

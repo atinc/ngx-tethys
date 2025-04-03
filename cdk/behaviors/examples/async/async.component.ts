@@ -14,7 +14,6 @@ interface Todo {
     selector: 'thy-behaviors-async',
     templateUrl: './async.component.html',
     styleUrls: ['./async.component.scss'],
-    standalone: false
 })
 export class ThyBehaviorsAsyncComponent implements OnInit {
     private notifyService = inject(ThyNotifyService);

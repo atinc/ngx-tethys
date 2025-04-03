@@ -4,8 +4,7 @@ import { of } from 'rxjs';
 
 @Component({
     selector: 'thy-form-columns-example',
-    templateUrl: './columns.component.html',
-    standalone: false
+    templateUrl: './columns.component.html'
 })
 export class ThyFormColumnsExampleComponent implements OnInit {
     submitSuccess = false;

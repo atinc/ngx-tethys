@@ -3,8 +3,7 @@ import { ThySelectionListChange } from 'ngx-tethys/list';
 
 @Component({
     selector: 'app-list-selection-example',
-    templateUrl: './selection.component.html',
-    standalone: false
+    templateUrl: './selection.component.html'
 })
 export class ThyListSelectionExampleComponent implements OnInit {
     public items = [

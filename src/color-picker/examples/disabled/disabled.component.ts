@@ -11,8 +11,7 @@ import { Component } from '@angular/core';
                 margin-top: 12px;
             }
         `
-    ],
-    standalone: false
+    ]
 })
 export class ThyColorPickerDisableExampleComponent {
     color = '#6698FF';

@@ -9,8 +9,7 @@ import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-test-dialog-header-basic',
-    template: ` <thy-dialog-header [thyDivided]="divided" [thySize]="size" thyTitle="I am dialog header"></thy-dialog-header> `,
-    standalone: false
+    template: ` <thy-dialog-header [thyDivided]="divided" [thySize]="size" thyTitle="I am dialog header"></thy-dialog-header> `
 })
 class DialogHeaderBasicComponent {
     size: 'lg' | 'md';
@@ -29,8 +28,7 @@ class DialogHeaderBasicComponent {
         </thy-dialog-footer>
         <thy-dialog-footer class="showBorder" [thyDivided]="showBorderTop"> </thy-dialog-footer>
         <thy-dialog-footer class="noConfig"></thy-dialog-footer>
-    `,
-    standalone: false
+    `
 })
 class DialogFooterBasicComponent {
     showBorderTop: boolean;
@@ -42,8 +40,7 @@ class DialogFooterBasicComponent {
 
 @Component({
     selector: 'thy-test-dialog-header-basic',
-    template: ` <thy-dialog-header thyTitleTranslationKey="Translation Key Title"></thy-dialog-header> `,
-    standalone: false
+    template: ` <thy-dialog-header thyTitleTranslationKey="Translation Key Title"></thy-dialog-header> `
 })
 class DialogHeaderTitleTranslationComponent {}
 

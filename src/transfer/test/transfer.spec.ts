@@ -147,8 +147,7 @@ function buildDataList() {
             (thyChange)="change($event)">
         </thy-transfer>
     `,
-    encapsulation: ViewEncapsulation.None,
-    standalone: false
+    encapsulation: ViewEncapsulation.None
 })
 class TestTransferComponent {
     @ViewChild('comp', { static: true }) comp: ThyTransfer;
@@ -169,8 +168,7 @@ class TestTransferComponent {
                 <div class="custom">{{ item.title }}</div>
             </ng-template>
         </thy-transfer>
-    `,
-    standalone: false
+    `
 })
 class TestTransferCustomRenderComponent {
     @ViewChild('comp', { static: true }) comp: ThyTransfer;
@@ -179,8 +177,7 @@ class TestTransferCustomRenderComponent {
 
 @Component({
     templateUrl: './transfer-template.html',
-    encapsulation: ViewEncapsulation.None,
-    standalone: false
+    encapsulation: ViewEncapsulation.None
 })
 class TestTransferCustomRenderContentComponent {
     @ViewChild('comp', { static: true }) comp: ThyTransfer;

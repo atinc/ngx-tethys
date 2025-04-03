@@ -4,8 +4,7 @@ import { clone, options } from '../cascader-address-options';
 
 @Component({
     selector: 'thy-cascader-multiple-example',
-    templateUrl: './multiple.component.html',
-    standalone: false
+    templateUrl: './multiple.component.html'
 })
 export class ThyCascaderMultipleExampleComponent implements OnInit {
     private notifyService = inject(ThyNotifyService);

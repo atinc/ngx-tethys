@@ -65,8 +65,7 @@ const customerOptions = [
 
 @Component({
     selector: 'thy-cascader-custom-label-template-example',
-    templateUrl: './custom-label-template.component.html',
-    standalone: false
+    templateUrl: './custom-label-template.component.html'
 })
 export class ThyCascaderCustomLabelTemplateExampleComponent implements OnInit {
     public values: any[] = [];

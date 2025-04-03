@@ -23,7 +23,7 @@ function assertButtonIcon(iconElement: Element, icon: string) {
         <thy-button id="btn-with-icon" [thyIcon]="icon" [thyType]="type">Icon Button</thy-button>
         <thy-button id="btn-only-icon" [thyIcon]="icon" [thyType]="type"></thy-button>
     `,
-    standalone: false
+    imports: [ThyButton, ThyButtonIcon]
 })
 class ThyTestButtonBasicComponent {
     type = `primary`;
@@ -44,7 +44,6 @@ describe('ThyButton', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [ThyTestButtonBasicComponent],
-                imports: [ThyButtonModule],
                 providers: [bypassSanitizeProvider, provideHttpClient()]
             });
 
@@ -193,8 +192,7 @@ describe('ThyButton', () => {
             [thyTheme]="theme"
             [thySize]="size"></button>
         <thy-button-icon id="button-icon-component" thyIcon="inbox"></thy-button-icon>
-    `,
-    standalone: false
+    `
 })
 class ThyTestButtonIconBasicComponent {
     icon = 'inbox';
@@ -319,8 +317,7 @@ describe('ThyIconButton', () => {
             <button thyButton>Middle</button>
             <button thyButton>Right</button>
         </thy-button-group>
-    `,
-    standalone: false
+    `
 })
 class ThyDemoButtonGroupComponent {
     size = ``;

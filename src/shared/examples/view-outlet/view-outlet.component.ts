@@ -4,8 +4,7 @@ import { Component, OnInit, OnChanges, ChangeDetectionStrategy, Input, SimpleCha
     selector: 'thy-shared-view-outlet-example',
     templateUrl: './view-outlet.component.html',
     styleUrls: ['./view-outlet.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThySharedViewOutletExampleComponent implements OnInit {
     counterComponent = ThyViewOutletCounterComponent;
@@ -25,8 +24,7 @@ export class ThySharedViewOutletExampleComponent implements OnInit {
             ><span class="ml-4">From: {{ from }}</span>
         </p>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyViewOutletCounterComponent implements OnInit, OnChanges {
     @Input() count: number;

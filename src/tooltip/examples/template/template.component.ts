@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-tooltip-template-example',
-    templateUrl: './template.component.html',
-    standalone: false
+    templateUrl: './template.component.html'
 })
 export class ThyTooltipTemplateExampleComponent {
     tooltipConfig = {

@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-table-fixed-example',
-    templateUrl: './fixed.component.html',
-    standalone: false
+    templateUrl: './fixed.component.html'
 })
 export class ThyTableFixedExampleComponent implements OnInit {
     data = [

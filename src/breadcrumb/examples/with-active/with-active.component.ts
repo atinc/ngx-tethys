@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
+import { ThyBreadcrumb } from 'ngx-tethys/breadcrumb';
+import { ThyBreadcrumbItem } from 'ngx-tethys/breadcrumb';
+import { ThyIcon } from 'ngx-tethys/icon';
 
 @Component({
     selector: 'thy-breadcrumb-active-active-example',
     templateUrl: './with-active.component.html',
     styleUrls: ['./with-active.component.scss'],
-    standalone: false
+    imports: [ThyBreadcrumb, ThyBreadcrumbItem, ThyIcon]
 })
 export class ThyBreadcrumbActiveExampleComponent {}

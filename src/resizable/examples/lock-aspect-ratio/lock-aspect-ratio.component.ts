@@ -4,8 +4,7 @@ import { ThyResizeEvent } from 'ngx-tethys/resizable';
 @Component({
     selector: 'thy-resizable-lock-aspect-ratio-example',
     templateUrl: './lock-aspect-ratio.component.html',
-    styleUrls: ['../style.scss'],
-    standalone: false
+    styleUrls: ['../style.scss']
 })
 export class ThyResizableLockAspectRatioExampleComponent {
     width = 400;

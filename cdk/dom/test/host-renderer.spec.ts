@@ -8,7 +8,6 @@ import { HostRenderer, useHostRenderer } from '../host-renderer';
     selector: 'thy-dom-host-renderer-test',
     template: 'Content',
     providers: [HostRenderer],
-    standalone: false
 })
 export class ThyDomHostRendererTestComponent implements OnInit {
     hostRenderer = inject(HostRenderer);
@@ -23,8 +22,7 @@ export class ThyDomHostRendererTestComponent implements OnInit {
 
 @Component({
     selector: 'thy-dom-use-host-renderer-test',
-    template: 'Content',
-    standalone: false
+    template: 'Content'
 })
 export class ThyDomUseHostRendererTestComponent implements OnInit {
     hostRenderer = useHostRenderer();
@@ -43,8 +41,8 @@ describe('host-renderer', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [ThyDomUseHostRendererTestComponent]
-        });
+    imports: [ThyDomUseHostRendererTestComponent]
+});
 
         fixture = TestBed.createComponent(ThyDomUseHostRendererTestComponent);
         fixture.detectChanges();

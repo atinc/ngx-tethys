@@ -3,8 +3,7 @@ import { listOfOption } from '../mock-data';
 
 @Component({
     selector: 'thy-select-multiple-example',
-    templateUrl: './multiple.component.html',
-    standalone: false
+    templateUrl: './multiple.component.html'
 })
 export class ThySelectMultipleExampleComponent implements OnInit {
     listOfOption = listOfOption;

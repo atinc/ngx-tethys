@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-slider-change-limit-value',
-    template: ` <thy-slider [thyMax]="max" [thyMin]="min" [thyStep]="step"></thy-slider> `,
-    standalone: false
+    template: ` <thy-slider [thyMax]="max" [thyMin]="min" [thyStep]="step"></thy-slider> `
 })
 export class ThySliderChangeLimitValueExampleComponent implements OnInit {
     public max = 200;

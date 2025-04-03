@@ -3,8 +3,7 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, TemplateRef, ViewChi
 @Component({
     selector: 'thy-rate-template-example',
     templateUrl: './template.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyRateTemplateExampleComponent implements AfterViewInit {
     @ViewChild('icon1') icon1: TemplateRef<any>;

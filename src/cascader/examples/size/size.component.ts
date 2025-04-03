@@ -3,8 +3,7 @@ import { clone, options } from '../cascader-address-options';
 
 @Component({
     selector: 'thy-cascader-size-example',
-    templateUrl: './size.component.html',
-    standalone: false
+    templateUrl: './size.component.html'
 })
 export class ThyCascaderSizeExampleComponent implements OnInit {
     public areaCode: any[] = [];

@@ -3,8 +3,7 @@ import { ThyDialogRef } from 'ngx-tethys/dialog';
 
 @Component({
     selector: 'thy-dialog-sidebar-content-example',
-    templateUrl: './dialog-sidebar.component.html',
-    standalone: false
+    templateUrl: './dialog-sidebar.component.html'
 })
 export class ThyDialogSidebarContentExampleComponent {
     private thyDialogRef = inject<ThyDialogRef<any>>(ThyDialogRef);

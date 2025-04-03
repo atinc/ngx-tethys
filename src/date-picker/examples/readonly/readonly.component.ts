@@ -3,8 +3,7 @@ import { TinyDate } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-date-picker-readonly-example',
-    templateUrl: './readonly.component.html',
-    standalone: false
+    templateUrl: './readonly.component.html'
 })
 export class ThyDatePickerReadonlyExampleComponent implements OnInit {
     date = new TinyDate()?.nativeDate;

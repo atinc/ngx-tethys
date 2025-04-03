@@ -18,8 +18,7 @@ import { ThyDropdownModule } from '../module';
                 <span>Menu Item1</span>
             </a>
         </thy-dropdown-menu>
-    `,
-    standalone: false
+    `
 })
 class DropdownActiveBasicTestComponent {
     activeClass: string | string[] = 'active';

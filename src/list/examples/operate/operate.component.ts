@@ -5,8 +5,7 @@ import { ThySelectionList } from 'ngx-tethys/list';
 
 @Component({
     selector: 'app-list-operate-example',
-    templateUrl: './operate.component.html',
-    standalone: false
+    templateUrl: './operate.component.html'
 })
 export class ThyListOperateExampleComponent implements OnInit {
     @ViewChild(ThySelectionList, { static: true }) thySelectionListComponent: ThySelectionList;

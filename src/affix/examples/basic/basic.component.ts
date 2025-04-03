@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ThyAffix } from 'ngx-tethys/affix';
 
 @Component({
     selector: 'thy-affix-basic-example',
     templateUrl: './basic.component.html',
-    standalone: false
+    imports: [ThyAffix]
 })
 export class ThyAffixBasicExampleComponent implements OnInit {
     constructor() {}

@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-input-number-max-min-example',
-    templateUrl: './max-min.component.html',
-    standalone: false
+    templateUrl: './max-min.component.html'
 })
 export class ThyInputNumberMaxMinExampleComponent implements OnInit {
     minValue = 0;

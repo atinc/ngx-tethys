@@ -6,8 +6,7 @@ import { HostRenderer, useHostRenderer } from '../host-renderer';
 
 @Component({
     selector: 'thy-dom-use-element-renderer-test',
-    template: '<div #container></div>',
-    standalone: false
+    template: '<div #container></div>'
 })
 export class ThyDomUseElementRendererTestComponent implements OnInit {
     @ViewChild('container', { read: ElementRef, static: true }) container: ElementRef;
@@ -26,8 +25,7 @@ export class ThyDomUseElementRendererTestComponent implements OnInit {
 
 @Component({
     selector: 'thy-dom-use-element-renderer-without-element-test',
-    template: '<div #container></div>',
-    standalone: false
+    template: '<div #container></div>'
 })
 export class ThyDomElementRendererWithoutElementTestComponent implements OnInit {
     @ViewChild('container', { read: ElementRef, static: true }) container: ElementRef;
@@ -47,8 +45,8 @@ describe('element-renderer', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [ThyDomUseElementRendererTestComponent, ThyDomElementRendererWithoutElementTestComponent]
-        });
+    imports: [ThyDomUseElementRendererTestComponent, ThyDomElementRendererWithoutElementTestComponent]
+});
 
         fixture = TestBed.createComponent(ThyDomUseElementRendererTestComponent);
         fixture.detectChanges();

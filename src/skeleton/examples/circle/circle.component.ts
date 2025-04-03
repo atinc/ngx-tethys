@@ -9,8 +9,7 @@ import { Component, OnInit } from '@angular/core';
             [thyPrimaryColor]="model.thyPrimaryColor"
             [thySecondaryColor]="model.thySecondaryColor">
         </thy-skeleton-circle>
-    `,
-    standalone: false
+    `
 })
 export class ThySkeletonExampleCircleComponent implements OnInit {
     model = {

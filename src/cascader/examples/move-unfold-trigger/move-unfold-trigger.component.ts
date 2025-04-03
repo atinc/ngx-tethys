@@ -3,8 +3,7 @@ import { ThyNotifyService } from 'ngx-tethys/notify';
 import { clone, options } from '../cascader-address-options';
 @Component({
     selector: 'thy-cascader-move-unfold-trigger-example',
-    templateUrl: './move-unfold-trigger.component.html',
-    standalone: false
+    templateUrl: './move-unfold-trigger.component.html'
 })
 export class ThyCascaderMoveUnfoldTriggerExampleComponent implements OnInit {
     private notifyService = inject(ThyNotifyService);

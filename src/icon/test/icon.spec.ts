@@ -23,8 +23,7 @@ import { ThyIconModule } from '../icon.module';
             [thyIconLegging]="legging"
             [thyTwotoneColor]="twotoneColor"
             [thyIconSet]="iconSet"></thy-icon>
-    `,
-    standalone: false
+    `
 })
 class ThyIconTestBasicComponent {
     iconRegistry = coreInject(ThyIconRegistry);

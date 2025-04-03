@@ -4,8 +4,7 @@ import { ThyCanvasConfigType } from 'ngx-tethys/watermark';
 @Component({
     selector: 'thy-watermark-custom-example',
     templateUrl: './custom.component.html',
-    styleUrls: ['./custom.component.scss'],
-    standalone: false
+    styleUrls: ['./custom.component.scss']
 })
 export class ThyWatermarkCanvasCustomExampleComponent implements OnInit {
     private el = inject<ElementRef<HTMLElement>>(ElementRef);

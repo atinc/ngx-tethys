@@ -3,8 +3,7 @@ import { ThyGuiderConfig, ThyGuiderRef, ThyGuiderStep, ThyGuider } from 'ngx-tet
 
 @Component({
     selector: 'thy-guider-basic-tip-example',
-    templateUrl: 'basic-tip.component.html',
-    standalone: false
+    templateUrl: 'basic-tip.component.html'
 })
 export class ThyGuiderBasicTipExampleComponent implements OnInit {
     private thyGuider = inject(ThyGuider);

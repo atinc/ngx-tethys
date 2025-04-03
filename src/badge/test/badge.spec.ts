@@ -1,6 +1,5 @@
 import { Component, OnInit, DebugElement } from '@angular/core';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { ThyBadgeModule } from '../badge.module';
 import { ThyBadge } from '../badge.component';
 import { By } from '@angular/platform-browser';
 
@@ -11,7 +10,7 @@ import { By } from '@angular/platform-browser';
             <div>WORKTILE</div>
         </thy-badge>
     `,
-    standalone: false
+    imports: [ThyBadge]
 })
 class BadgeBasicComponent implements OnInit {
     isValueKeepShow = false;
@@ -36,7 +35,7 @@ class BadgeBasicComponent implements OnInit {
             <div>WORKTILE</div>
         </thy-badge>
     `,
-    standalone: false
+    imports: [ThyBadge]
 })
 class BadgeBasicContextComponent implements OnInit {
     constructor() {}
@@ -53,7 +52,7 @@ class BadgeBasicContextComponent implements OnInit {
             <div>WORKTILE</div>
         </thy-badge>
     `,
-    standalone: false
+    imports: [ThyBadge]
 })
 class BadgeContentTestComponent implements OnInit {
     constructor() {}
@@ -70,7 +69,7 @@ class BadgeContentTestComponent implements OnInit {
             <div>WORKTILE</div>
         </thy-badge>
     `,
-    standalone: false
+    imports: [ThyBadge]
 })
 class BadgeBasicHollowComponent implements OnInit {
     constructor() {}
@@ -83,7 +82,7 @@ class BadgeBasicHollowComponent implements OnInit {
 @Component({
     selector: 'thy-badge-dot',
     template: ` <thy-badge [thyIsDot]="isDot"></thy-badge> `,
-    standalone: false
+    imports: [ThyBadge]
 })
 class BadgeBasicDotComponent implements OnInit {
     constructor() {}
@@ -96,7 +95,7 @@ class BadgeBasicDotComponent implements OnInit {
 @Component({
     selector: 'thy-badge-custom-color',
     template: ` <span thyBadge [thyCount]="5" [thyTextColor]="textColor" [thyBackgroundColor]="backgroundColor"></span> `,
-    standalone: false
+    imports: [ThyBadge]
 })
 class BadgeBasicCustomColorComponent implements OnInit {
     textColor = '#00ff00';
@@ -114,7 +113,6 @@ describe('thy-badge', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyBadgeModule],
             declarations: [
                 BadgeBasicComponent,
                 BadgeContentTestComponent,
@@ -123,8 +121,7 @@ describe('thy-badge', () => {
                 BadgeBasicDotComponent,
                 BadgeBasicCustomColorComponent
             ]
-        });
-        TestBed.compileComponents();
+        }).compileComponents();
     });
 
     describe('basic', () => {

@@ -24,8 +24,7 @@ import { provideHttpClient } from '@angular/common/http';
             (thyClear)="onClear()"
             [thySize]="thySize"
             [thyIconPosition]="iconPosition"></thy-input-search>
-    `,
-    standalone: false
+    `
 })
 class TestInputSearchBasicComponent {
     @ViewChild(ThyInputSearch, { static: false }) inputSearchComponent: ThyInputSearch;

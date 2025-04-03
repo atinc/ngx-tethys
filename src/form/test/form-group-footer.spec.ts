@@ -13,8 +13,7 @@ import { THY_FORM_CONFIG } from '../form.class';
         <thy-form-group-footer [thyAlign]="align">
             <button></button>
         </thy-form-group-footer>
-    `,
-    standalone: false
+    `
 })
 export class FormGroupFooterComponent {
     align = '';

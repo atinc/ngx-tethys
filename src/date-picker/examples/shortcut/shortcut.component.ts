@@ -5,8 +5,7 @@ import { addWeeks, startOfDay, startOfWeek, TinyDate } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-range-picker-shortcut-example',
-    templateUrl: './shortcut.component.html',
-    standalone: false
+    templateUrl: './shortcut.component.html'
 })
 export class ThyDatePickerShortcutExampleComponent implements OnInit {
     dateRange = { begin: new TinyDate('2023-05-30')?.nativeDate, end: new TinyDate('2023-06-02')?.nativeDate };

@@ -4,8 +4,7 @@ import { ThyImageService } from 'ngx-tethys/image/image.service';
 
 @Component({
     selector: 'thy-image-service-example',
-    templateUrl: './service.component.html',
-    standalone: false
+    templateUrl: './service.component.html'
 })
 export class ThyImageServiceExampleComponent implements OnInit {
     private thyImageService = inject(ThyImageService);

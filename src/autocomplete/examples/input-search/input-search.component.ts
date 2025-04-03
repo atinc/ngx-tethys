@@ -1,10 +1,14 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ThyAutocomplete } from '../../autocomplete.component';
+import { ThyOption } from 'ngx-tethys/shared';
+import { FormsModule } from '@angular/forms';
+import { ThyInputSearch } from 'ngx-tethys/input';
 
 @Component({
     selector: 'thy-autocomplete-input-search-example',
     templateUrl: './input-search.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    imports: [ThyAutocomplete, ThyInputSearch, ThyOption, FormsModule]
 })
 export class ThyAutocompleteInputSearchExampleComponent implements OnInit {
     keyword = '';

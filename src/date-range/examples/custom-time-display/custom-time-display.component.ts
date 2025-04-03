@@ -5,8 +5,7 @@ import { endOfMonth, getUnixTime, startOfMonth, TinyDate } from 'ngx-tethys/util
 
 @Component({
     selector: 'app-date-range-custom-time-display-example',
-    templateUrl: './custom-time-display.component.html',
-    standalone: false
+    templateUrl: './custom-time-display.component.html'
 })
 export class ThyDateRangeCustomTimeDisplayExampleComponent implements OnInit {
     private locale: Signal<ThyDateRangeLocale> = injectLocale('dateRange');

@@ -3,8 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
     selector: 'thy-nav-vertical-example',
     templateUrl: './vertical.component.html',
-    styleUrls: ['./vertical.component.scss'],
-    standalone: false
+    styleUrls: ['./vertical.component.scss']
 })
 export class ThyNavVerticalExampleComponent implements OnInit {
     public activeIndex = 0;

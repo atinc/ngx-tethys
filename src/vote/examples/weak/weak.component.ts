@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'thy-vote-weak-example',
-    templateUrl: './weak.component.html',
-    standalone: false
+    templateUrl: './weak.component.html'
 })
 export class ThyVoteWeakExampleComponent {
     constructor() {}

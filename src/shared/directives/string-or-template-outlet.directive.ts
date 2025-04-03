@@ -16,8 +16,7 @@ import { isTemplateRef } from 'ngx-tethys/util';
  */
 @Directive({
     selector: '[thyStringOrTemplateOutlet]',
-    exportAs: 'thyStringOrTemplateOutlet',
-    standalone: true
+    exportAs: 'thyStringOrTemplateOutlet'
 })
 export class ThyStringOrTemplateOutletDirective implements OnChanges {
     private viewContainerRef = inject(ViewContainerRef);

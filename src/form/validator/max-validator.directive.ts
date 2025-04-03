@@ -14,8 +14,7 @@ import { Validator, AbstractControl, NG_VALIDATORS, Validators, ValidatorFn } fr
             useExisting: forwardRef(() => ThyMaxDirective),
             multi: true
         }
-    ],
-    standalone: true
+    ]
 })
 export class ThyMaxDirective implements Validator {
     private _validator: ValidatorFn;

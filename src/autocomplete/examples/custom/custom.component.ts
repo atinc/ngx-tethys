@@ -1,10 +1,15 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ThyInputDirective } from 'ngx-tethys/input';
+import { ThyAutocomplete } from '../../autocomplete.component';
+import { ThyOption } from 'ngx-tethys/shared';
+import { ThyIcon } from 'ngx-tethys/icon';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'thy-autocomplete-custom-example',
     templateUrl: './custom.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    imports: [ThyInputDirective, ThyAutocomplete, ThyOption, ThyIcon, FormsModule]
 })
 export class ThyAutocompleteCustomExampleComponent implements OnInit {
     thySize = '';

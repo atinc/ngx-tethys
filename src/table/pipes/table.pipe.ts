@@ -4,8 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
  * @private
  */
 @Pipe({
-    name: 'isValidModelValue',
-    standalone: true
+    name: 'isValidModelValue'
 })
 export class TableIsValidModelValuePipe implements PipeTransform {
     transform(value: any): boolean {

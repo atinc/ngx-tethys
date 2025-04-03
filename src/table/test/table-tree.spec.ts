@@ -29,8 +29,7 @@ import { provideHttpClient } from '@angular/common/http';
                 </ng-template>
             </thy-table-column>
         </thy-table>
-    `,
-    standalone: false
+    `
 })
 class ThyDemoTableTreeComponent {
     showExpand = false;

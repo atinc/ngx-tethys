@@ -8,8 +8,7 @@ import { ThyCtrlEnterDirective } from './thy-ctrl-enter.directive';
 
 @Component({
     selector: 'thy-autofocus-test',
-    template: ` <input #enter (thyCtrlEnter)="ok($event)" /> `,
-    standalone: false
+    template: ` <input #enter (thyCtrlEnter)="ok($event)" /> `
 })
 class ThyCtrlEnterTestComponent {
     @ViewChild('enter') input: ElementRef;

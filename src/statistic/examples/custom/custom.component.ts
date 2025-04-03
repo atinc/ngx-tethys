@@ -3,8 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
     selector: 'thy-custom-example',
     templateUrl: './custom.component.html',
-    styleUrls: ['./custom.component.scss'],
-    standalone: false
+    styleUrls: ['./custom.component.scss']
 })
 export class ThyStatisticCustomExampleComponent implements OnInit {
     constructor() {}

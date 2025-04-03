@@ -3,8 +3,7 @@ import { ThyStackedValue } from 'ngx-tethys/progress';
 
 @Component({
     selector: 'thy-progress-text-example',
-    templateUrl: './text.component.html',
-    standalone: false
+    templateUrl: './text.component.html'
 })
 export class ThyProgressTextExampleComponent {
     value = 40;

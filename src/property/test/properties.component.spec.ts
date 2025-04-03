@@ -40,8 +40,7 @@ import { provideHttpClient } from '@angular/common/http';
                 </ng-template>
             </thy-property-item>
         </thy-properties>
-    `,
-    standalone: false
+    `
 })
 class ThyPropertiesTestBasicComponent {
     elementRef = inject(ElementRef);
@@ -87,8 +86,7 @@ class ThyPropertiesTestBasicComponent {
                 >北京市朝阳区十八里店小区26号10001</thy-property-item
             >
         </thy-properties>
-    `,
-    standalone: false
+    `
 })
 class ThyPropertiesTestColumnComponent {
     @ViewChild('properties') propertiesComponent: ThyProperties;
@@ -109,8 +107,7 @@ class ThyPropertiesTestColumnComponent {
                 </ng-template>
             </thy-property-item>
         </thy-properties>
-    `,
-    standalone: false
+    `
 })
 class ThyPropertiesTestOperationComponent {
     layout: ThyPropertiesLayout = 'horizontal';

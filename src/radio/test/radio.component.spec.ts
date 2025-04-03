@@ -8,8 +8,7 @@ import { ThyRadioGroup } from '../group/radio-group.component';
 
 @Component({
     selector: 'thy-radio-test',
-    template: ` <label thyRadio [thyLabelText]="labelText" [thyDisabled]="isDisabled"></label> `,
-    standalone: false
+    template: ` <label thyRadio [thyLabelText]="labelText" [thyDisabled]="isDisabled"></label> `
 })
 class RadioTestComponent {
     labelText = '单选选项';
@@ -74,8 +73,7 @@ describe('radio component', () => {
             <label thyRadio thyLabelText="选项三" [thyValue]="3" [thyInline]="inlineStatus"></label>
         </thy-radio-group>
         <p class="mt-2">选中的选项值： {{ checkedValue }}</p>
-    `,
-    standalone: false
+    `
 })
 class RadioGroupTestComponent {
     @ViewChild('radioGroup', { static: true }) radioGroup: ThyRadioGroup;

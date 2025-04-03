@@ -34,8 +34,7 @@ import { provideHttpClient } from '@angular/common/http';
                 </div>
             </thy-step>
         </thy-stepper>
-    `,
-    standalone: false
+    `
 })
 class ThyDemoStepperComponent {
     @ViewChild('selectedStep', { static: true }) selectedStepperComponent: ThyStep;

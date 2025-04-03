@@ -27,8 +27,7 @@ const mockUsers = [
 
 @Component({
     selector: 'thy-mention-basic-example',
-    templateUrl: './basic.component.html',
-    standalone: false
+    templateUrl: './basic.component.html'
 })
 export class ThyMentionBasicExampleComponent implements OnInit {
     value = ``;

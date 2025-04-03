@@ -6,8 +6,7 @@ import { delay } from 'rxjs/operators';
 
 @Component({
     selector: 'thy-table-selection-example',
-    templateUrl: './selection.component.html',
-    standalone: false
+    templateUrl: './selection.component.html'
 })
 export class ThyTableSelectionExampleComponent implements OnInit {
     private notifyService = inject(ThyNotifyService);

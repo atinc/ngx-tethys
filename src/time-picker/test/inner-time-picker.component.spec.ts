@@ -477,8 +477,7 @@ describe('ThyInnerTimePickerComponent', () => {
             [max]="max"
             [ngModel]="startDate"
             (ngModelChange)="onDateChange($event)"></thy-inner-time-picker>
-    `,
-    standalone: false
+    `
 })
 class ThyTestInnerTimePickerBaseComponent {
     public containerClass = CONTAINER_CLASS;

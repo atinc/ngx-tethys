@@ -33,8 +33,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
         class: 'thy-resizable',
         '[class.thy-resizable-resizing]': 'resizing',
         '[class.thy-resizable-disabled]': 'thyDisabled'
-    },
-    standalone: true
+    }
 })
 export class ThyResizableDirective implements AfterViewInit, OnDestroy {
     private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);

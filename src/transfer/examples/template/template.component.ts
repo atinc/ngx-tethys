@@ -10,8 +10,7 @@ interface ThyTransferTemplateItem {
 }
 @Component({
     selector: 'thy-transfer-template-example',
-    templateUrl: './template.component.html',
-    standalone: false
+    templateUrl: './template.component.html'
 })
 export class ThyTransferTemplateExampleComponent implements OnInit {
     public selectedLeft: ThyTransferTemplateItem[] = [];

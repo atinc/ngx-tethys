@@ -21,8 +21,7 @@ import { provideHttpClient } from '@angular/common/http';
                 <thy-content-main>Content main</thy-content-main>
             </thy-content>
         </thy-layout>
-    `,
-    standalone: false
+    `
 })
 class ThyDemoLayoutBasicComponent {
     isDivided = false;
@@ -42,8 +41,7 @@ class ThyDemoLayoutBasicComponent {
             </thy-header>
             <thy-content> 恩，我是 content </thy-content>
         </thy-layout>
-    `,
-    standalone: false
+    `
 })
 class ThyDemoLayoutCustomHeaderComponent {}
 
@@ -57,8 +55,7 @@ class ThyDemoLayoutCustomHeaderComponent {}
                 <div thyContentMain>Content main</div>
             </div>
         </div>
-    `,
-    standalone: false
+    `
 })
 class ThyDemoLayoutDirectiveBasicComponent {
     isDivided = false;

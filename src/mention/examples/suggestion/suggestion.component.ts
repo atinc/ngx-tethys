@@ -27,8 +27,7 @@ const mockUsers = [
 
 @Component({
     selector: 'thy-mention-suggestion-example',
-    templateUrl: './suggestion.component.html',
-    standalone: false
+    templateUrl: './suggestion.component.html'
 })
 export class ThyMentionSuggestionExampleComponent implements OnInit {
     value = `This is text! please type @`;

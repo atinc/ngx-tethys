@@ -24,12 +24,6 @@
     "uploaders",
     "deletable"
   ],
-  "cSpell.words": [
-    "Borderless",
-    "draggables",
-    "inputor",
-    "Newable",
-    "Positioner",
-    "twotone"
-  ]
+  "cSpell.words": ["Borderless", "draggables", "inputor", "Newable", "Positioner", "twotone"],
+  "angular.enable-strict-mode-prompt": false
 }

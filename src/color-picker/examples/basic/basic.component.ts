@@ -12,8 +12,7 @@ import { Component } from '@angular/core';
                 cursor: pointer;
             }
         `
-    ],
-    standalone: false
+    ]
 })
 export class ThyBasicExampleComponent {
     color = '#6698FF';

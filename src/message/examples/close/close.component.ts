@@ -3,8 +3,7 @@ import { Component, OnInit, inject } from '@angular/core';
 
 @Component({
     selector: 'thy-message-close-example',
-    templateUrl: './close.component.html',
-    standalone: false
+    templateUrl: './close.component.html'
 })
 export class ThyMessageCloseExampleComponent implements OnInit {
     private messageService = inject(ThyMessageService);

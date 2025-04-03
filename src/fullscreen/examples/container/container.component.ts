@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'thy-fullscreen-container-example',
-    templateUrl: './container.component.html',
-    standalone: false
+    templateUrl: './container.component.html'
 })
 export class ThyFullscreenContainerExampleComponent {
     btnContent = '全屏';

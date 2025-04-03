@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-input-number-step-example',
-    templateUrl: './step.component.html',
-    standalone: false
+    templateUrl: './step.component.html'
 })
 export class ThyInputNumberStepExampleComponent implements OnInit {
     valueOfStep1 = 1;

@@ -13,19 +13,13 @@
     "experimentalDecorators": true,
     "skipLibCheck": false,
     "target": "ES2022",
-    "typeRoots": [
-      "node_modules/@types",
-      "@types/node",
-      "./typings"
-    ],
-    "lib": [
-      "es2020",
-      "dom"
-    ],
+    "typeRoots": ["node_modules/@types", "@types/node", "./typings"],
+    "lib": ["es2020", "dom"],
     "resolveJsonModule": true,
     "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
+    "strictStandalone": true,
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,

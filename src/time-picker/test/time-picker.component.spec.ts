@@ -440,8 +440,7 @@ describe('ThyTimePickerComponent', () => {
             [thyShowSelectNow]="showSelectNow"
             (ngModelChange)="onValueChange($event)"
             (thyOpenChange)="onOpenChange($event)"></thy-time-picker>
-    `,
-    standalone: false
+    `
 })
 class ThyTestTimePickerBaseComponent {
     @ViewChild('timePicker', { static: false }) timePickerRef: ThyTimePicker;

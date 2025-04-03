@@ -15,8 +15,7 @@ import { Component, OnInit } from '@angular/core';
             [thyAnimatedInterval]="model.thyAnimatedInterval"
             [thyAnimated]="model.thyAnimated">
         </thy-skeleton-paragraph>
-    `,
-    standalone: false
+    `
 })
 export class ThySkeletonExampleParagraphComponent implements OnInit {
     model = {

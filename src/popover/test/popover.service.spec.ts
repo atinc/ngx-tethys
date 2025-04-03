@@ -35,8 +35,7 @@ import { ThyPopover } from '../popover.service';
     template: `
         <button #trigger>Open</button>
         <ng-template #customTemplate></ng-template>
-    `,
-    standalone: false
+    `
 })
 class PopoverBasicComponent {
     @ViewChild('customTemplate') template: TemplateRef<any>;
@@ -45,8 +44,7 @@ class PopoverBasicComponent {
 }
 
 @Directive({
-    selector: '[thyWithViewContainer]',
-    standalone: false
+    selector: '[thyWithViewContainer]'
 })
 class WithViewContainerDirective {
     viewContainerRef = coreInject(ViewContainerRef);
@@ -61,8 +59,7 @@ class WithViewContainerDirective {
         <ng-template #template>
             <div>template</div>
         </ng-template>
-    `,
-    standalone: false
+    `
 })
 class WithChildViewContainerComponent {
     @ViewChild(WithViewContainerDirective, { static: true })
@@ -97,8 +94,7 @@ class WithChildViewContainerComponent {
                 }
             </ul>
         </div>
-    `,
-    standalone: false
+    `
 })
 export class PopoverSimpleContentComponent {
     popoverRef = coreInject<ThyPopoverRef<PopoverSimpleContentComponent>>(ThyPopoverRef);
@@ -121,8 +117,7 @@ export class PopoverSimpleContentComponent {
 
         <a class="btn" #btn2>Open2</a>
         <ng-template #template2><div class="template2">template2</div></ng-template>
-    `,
-    standalone: false
+    `
 })
 export class PopoverManualClosureContentComponent {
     popover = coreInject(ThyPopover);
@@ -146,8 +141,7 @@ export class PopoverManualClosureContentComponent {
         <button #outsideBtn>outside btn</button>
         <a class="btn" #openBtn>Open</a>
         <ng-template #template><div class="template">template</div></ng-template>
-    `,
-    standalone: false
+    `
 })
 export class PopoverOutsideClosableComponent {
     @ViewChild('outsideBtn', { static: true })
@@ -165,8 +159,7 @@ export class PopoverOutsideClosableComponent {
     template: `
         <a class="btn" #openBtn>Open</a>
         <ng-template #template><div #innerContent>template</div></ng-template>
-    `,
-    standalone: false
+    `
 })
 export class PopoverInsideClosableComponent {
     @ViewChild('openBtn', { static: true })
@@ -181,8 +174,7 @@ export class PopoverInsideClosableComponent {
     template: `
         <a class="btn" #openBtn>Open</a>
         <ng-template #template><div class="template">template</div></ng-template>
-    `,
-    standalone: false
+    `
 })
 export class PopoverConfigComponent {
     popover = coreInject(ThyPopover);

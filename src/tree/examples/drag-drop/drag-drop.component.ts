@@ -3,8 +3,7 @@ import { ThyTreeBeforeDragDropContext, ThyTreeBeforeDragStartContext, ThyTreeDra
 
 @Component({
     selector: 'thy-tree-drag-drop-example',
-    templateUrl: './drag-drop.component.html',
-    standalone: false
+    templateUrl: './drag-drop.component.html'
 })
 export class ThyTreeDragDropExampleComponent implements OnInit {
     treeNodes = [

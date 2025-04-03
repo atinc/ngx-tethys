@@ -19,8 +19,7 @@ let imageOnload: () => void = null;
 
 @Component({
     selector: 'thy-image-preview-test',
-    template: ` <button thyButton="primary" (click)="onClick()">Preview</button> `,
-    standalone: false
+    template: ` <button thyButton="primary" (click)="onClick()">Preview</button> `
 })
 class ImagePreviewTestComponent implements OnInit {
     private thyImageService = coreInject(ThyImageService);

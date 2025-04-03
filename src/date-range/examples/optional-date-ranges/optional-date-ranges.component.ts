@@ -15,8 +15,7 @@ import {
 
 @Component({
     selector: 'app-date-range-optional-date-ranges',
-    templateUrl: './optional-date-ranges.component.html',
-    standalone: false
+    templateUrl: './optional-date-ranges.component.html'
 })
 export class ThyDateRangeOptionalDateRangesExampleComponent implements OnInit {
     public date: DateRangeItemInfo;

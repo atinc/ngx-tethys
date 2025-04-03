@@ -3,8 +3,7 @@ import { injectLocale, ThyStrengthLocale } from 'ngx-tethys/i18n';
 
 @Component({
     selector: 'app-strength-custom-example',
-    templateUrl: './custom.component.html',
-    standalone: false
+    templateUrl: './custom.component.html'
 })
 export class ThyStrengthCustomExampleComponent implements OnInit {
     locale: Signal<ThyStrengthLocale> = injectLocale('strength');

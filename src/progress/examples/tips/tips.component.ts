@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-progress-tips',
-    templateUrl: './tips.component.html',
-    standalone: false
+    templateUrl: './tips.component.html'
 })
 export class ThyProgressTipsExampleComponent implements OnInit {
     stacked = [

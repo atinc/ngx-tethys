@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { ThyTable, ThyTableColumnComponent } from 'ngx-tethys/table';
+import { ThyAvatar } from 'ngx-tethys/avatar';
+import { ThyIcon } from 'ngx-tethys/icon';
+import { ThyAction } from 'ngx-tethys/action';
 
 @Component({
     selector: 'thy-table-basic-example',
     templateUrl: './basic.component.html',
-    standalone: false
+    imports: [ThyTable, ThyTableColumnComponent, ThyAvatar, ThyIcon, ThyAction]
 })
 export class ThyTableBasicExampleComponent implements OnInit {
     data = [

@@ -9,8 +9,7 @@ import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'app-basic-button-icon',
-    template: ` <button [thyButtonIcon]="icon" [thyColor]="color"></button> `,
-    standalone: false
+    template: ` <button [thyButtonIcon]="icon" [thyColor]="color"></button> `
 })
 class BasicButtonIconComponent {
     icon = 'inbox';

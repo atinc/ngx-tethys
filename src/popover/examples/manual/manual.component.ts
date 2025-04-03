@@ -6,8 +6,7 @@ import { ThyPopoverManualContentComponent } from './popover-content.component';
 @Component({
     selector: 'thy-popover-manual-example',
     templateUrl: './manual.component.html',
-    styleUrls: ['./manual.component.scss'],
-    standalone: false
+    styleUrls: ['./manual.component.scss']
 })
 export class ThyPopoverManualExampleComponent implements OnInit {
     private thyPopover = inject(ThyPopover);

@@ -3,8 +3,7 @@ import { Component, OnInit, inject } from '@angular/core';
 
 @Component({
     selector: 'thy-message-hover-example',
-    templateUrl: './hover.component.html',
-    standalone: false
+    templateUrl: './hover.component.html'
 })
 export class ThyMessageHoverExampleComponent implements OnInit {
     private messageService = inject(ThyMessageService);

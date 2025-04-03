@@ -3,8 +3,7 @@ import { addDays, differenceInDays, endOfDay, startOfDay, TinyDate } from 'ngx-t
 
 @Component({
     selector: 'thy-date-picker-disabled-date-example',
-    templateUrl: './disabled-date.component.html',
-    standalone: false
+    templateUrl: './disabled-date.component.html'
 })
 export class ThyDatePickerDisabledDateExampleComponent implements OnInit {
     date: Date;
