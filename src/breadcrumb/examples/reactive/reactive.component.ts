@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { ThyBreadcrumb, ThyBreadcrumbItem } from 'ngx-tethys/breadcrumb';
+import { ThyBreadcrumb } from 'ngx-tethys/breadcrumb';
 import { ThyIcon } from 'ngx-tethys/icon';
 
 @Component({
     selector: 'thy-breadcrumb-reactive-example',
     templateUrl: './reactive.component.html',
-    imports: [ThyBreadcrumb, ThyBreadcrumbItem, ThyIcon]
+    imports: [ThyBreadcrumb, ThyIcon]
 })
 export class ThyBreadcrumbReactiveExampleComponent {
     items = [

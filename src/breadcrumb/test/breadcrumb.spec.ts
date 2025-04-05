@@ -1,6 +1,6 @@
 import { fakeAsync, TestBed, ComponentFixture } from '@angular/core/testing';
 import { ThyBreadcrumbModule } from '../module';
-import { NgModule, Component, DebugElement } from '@angular/core';
+import { Component, DebugElement } from '@angular/core';
 import { ThyBreadcrumbItem } from '../breadcrumb-item.component';
 import { By } from '@angular/platform-browser';
 import { ThyBreadcrumb } from '../breadcrumb.component';
@@ -31,12 +31,6 @@ class ThyDemoBreadcrumbBasicComponent {
     thySeparator = ``;
 }
 
-@NgModule({
-    imports: [ThyBreadcrumbModule, ThyIconModule, ThyDemoBreadcrumbBasicComponent],
-    exports: [ThyDemoBreadcrumbBasicComponent]
-})
-export class BreadcrumbTestModule {}
-
 describe('ThyBreadcrumb', () => {
     let fixture: ComponentFixture<ThyDemoBreadcrumbBasicComponent>;
     let basicTestComponent: ThyDemoBreadcrumbBasicComponent;
@@ -45,7 +39,7 @@ describe('ThyBreadcrumb', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyBreadcrumbModule, BreadcrumbTestModule, ThyIconModule],
+            imports: [ThyBreadcrumbModule, ThyIconModule, ThyDemoBreadcrumbBasicComponent],
             providers: [
                 provideHttpClient()
                 // { provide: Location, useClass: SpyLocation }
