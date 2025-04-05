@@ -17,7 +17,7 @@ import { provideHttpClient } from '@angular/common/http';
             }
         </thy-actions>
     `,
-    standalone: false
+    imports: [ThyActionModule]
 })
 class ThyActionsTestBasicComponent {
     size = 'md';
@@ -30,8 +30,7 @@ describe('thy-actions', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyActionModule],
-            declarations: [ThyActionsTestBasicComponent],
+            imports: [ThyActionModule, ThyActionsTestBasicComponent],
             providers: [provideHttpClient()]
         });
         TestBed.compileComponents();

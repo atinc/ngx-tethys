@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DateRangeItemInfo } from 'ngx-tethys/date-range';
+import { DateRangeItemInfo, ThyDateRange } from 'ngx-tethys/date-range';
 import {
     addDays,
     addMonths,
@@ -12,11 +12,12 @@ import {
     startOfQuarter,
     TinyDate
 } from 'ngx-tethys/util';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-date-range-optional-date-ranges',
     templateUrl: './optional-date-ranges.component.html',
-    standalone: false
+    imports: [ThyDateRange, FormsModule]
 })
 export class ThyDateRangeOptionalDateRangesExampleComponent implements OnInit {
     public date: DateRangeItemInfo;

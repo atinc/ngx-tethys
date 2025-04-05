@@ -24,7 +24,7 @@ import { ThyIconModule } from '../icon.module';
             [thyTwotoneColor]="twotoneColor"
             [thyIconSet]="iconSet"></thy-icon>
     `,
-    standalone: false
+    imports: [ThyIconModule]
 })
 class ThyIconTestBasicComponent {
     iconRegistry = coreInject(ThyIconRegistry);
@@ -41,8 +41,7 @@ class ThyIconTestBasicComponent {
 describe('ThyIconComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [ThyIconTestBasicComponent],
-            imports: [ThyIconModule],
+            imports: [ThyIconModule, ThyIconTestBasicComponent],
             providers: [bypassSanitizeProvider, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
         });
         TestBed.compileComponents();

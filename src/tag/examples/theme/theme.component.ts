@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { ThyTag } from 'ngx-tethys/tag';
+import { ThyButtonGroup } from 'ngx-tethys/button';
+import { NgClass } from '@angular/common';
 
 @Component({
     selector: 'thy-tag-theme-example',
     templateUrl: './theme.component.html',
     styleUrls: ['./theme.component.scss'],
-    standalone: false
+    imports: [ThyTag, ThyButtonGroup, NgClass]
 })
 export class ThyTagThemeExampleComponent implements OnInit {
     themes = ['fill', 'outline', 'weak-fill'];

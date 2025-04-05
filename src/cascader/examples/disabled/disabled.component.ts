@@ -1,6 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
+import { ThyCascader } from 'ngx-tethys/cascader';
 import { clone, options } from '../cascader-address-options';
+import { FormsModule } from '@angular/forms';
 
 const customerOptions = [
     {
@@ -53,7 +55,7 @@ const customerOptions = [
 @Component({
     selector: 'thy-cascader-disabled-example',
     templateUrl: './disabled.component.html',
-    standalone: false
+    imports: [ThyCascader, FormsModule]
 })
 export class ThyCascaderDisabledExampleComponent implements OnInit {
     private notifyService = inject(ThyNotifyService);

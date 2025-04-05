@@ -5,7 +5,7 @@ import { ThyShowDirective } from './thy-show';
 @Component({
     selector: 'thy-show-test',
     template: ` <div class="thy-show-test" [thyShow]="isShow">测试 ThyShow 指令</div> `,
-    standalone: false
+    imports: [ThyShowDirective]
 })
 class ThyShowTestComponent {
     isShow = false;
@@ -17,8 +17,7 @@ describe('ThyShowDirective', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyShowDirective],
-            declarations: [ThyShowTestComponent]
+            imports: [ThyShowDirective, ThyShowTestComponent]
         });
     });
 

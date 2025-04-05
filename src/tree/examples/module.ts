@@ -23,9 +23,8 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-    imports: [CommonModule, ThyTreeModule, ThyIconModule],
+    imports: [CommonModule, ThyTreeModule, ThyIconModule, ...COMPONENTS],
     exports: [...COMPONENTS],
-    declarations: [...COMPONENTS],
     providers: []
 })
 export class ThyTreeExamplesModule {}

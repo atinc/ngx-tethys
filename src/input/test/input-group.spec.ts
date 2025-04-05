@@ -7,6 +7,8 @@ import { ThyTranslate } from '../../core';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
 import { FormsModule } from '@angular/forms';
 import { provideHttpClient } from '@angular/common/http';
+import { ThyInputDirective } from '../input.directive';
+import { ThyInputCount } from '../input-count.component';
 
 @Component({
     selector: 'thy-test-input-group-basic',
@@ -21,7 +23,7 @@ import { provideHttpClient } from '@angular/common/http';
             <input thyInput />
         </thy-input-group>
     `,
-    standalone: false
+    imports: [ThyInputGroup, ThyInputDirective]
 })
 class TestInputGroupBasicComponent {
     value = '';
@@ -42,7 +44,7 @@ class TestInputGroupBasicComponent {
             <ng-template #suffix>Suffix Content</ng-template>
         </thy-input-group>
     `,
-    standalone: false
+    imports: [ThyInputGroup, ThyInputDirective]
 })
 class TestInputGroupPrefixAndSuffixComponent {
     value = '';
@@ -68,15 +70,20 @@ class TestInputGroupPrefixAndSuffixComponent {
             </ng-template>
         </thy-input-group>
     `,
-    standalone: false
+    imports: [ThyInputGroup, ThyInputDirective, FormsModule, ThyInputCount]
 })
 class TestInputGroupTextareaSuffixComponent {
     textareaValue = '';
 }
 
 @NgModule({
-    imports: [ThyInputModule, FormsModule],
-    declarations: [TestInputGroupBasicComponent, TestInputGroupPrefixAndSuffixComponent, TestInputGroupTextareaSuffixComponent],
+    imports: [
+        ThyInputModule,
+        FormsModule,
+        TestInputGroupBasicComponent,
+        TestInputGroupPrefixAndSuffixComponent,
+        TestInputGroupTextareaSuffixComponent
+    ],
     exports: []
 })
 export class InputGroupTestModule {}

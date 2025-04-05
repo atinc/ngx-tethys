@@ -1,9 +1,8 @@
 import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 
-import { Component, DebugElement, NgModule, ViewChild } from '@angular/core';
+import { Component, DebugElement, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ThyDividerModule } from '../../divider';
 import { ThyIconModule } from '../../icon/icon.module';
@@ -17,6 +16,7 @@ import { ThyMenuItemName } from '../item/name/menu-item-name.component';
 import { ThyMenu, ThyMenuTheme } from '../menu.component';
 import { ThyMenuModule } from '../menu.module';
 import { provideHttpClient } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 @Component({
     selector: 'thy-demo-menu',
@@ -62,7 +62,7 @@ import { provideHttpClient } from '@angular/common/http';
         </thy-menu>
         <ng-template #action><div id="actionTemplate" class="actionTemplate">aa</div></ng-template>
     `,
-    standalone: false
+    imports: [ThyMenuModule, ThyDividerModule, ThyPopoverModule, ThyIconModule]
 })
 class ThyDemoMenuComponent {
     @ViewChild(ThyMenuDivider, { static: true }) divider: ThyMenuDivider;
@@ -96,7 +96,7 @@ class ThyDemoMenuComponent {
             </a>
         </thy-menu>
     `,
-    standalone: false
+    imports: [ThyMenuModule, ThyDividerModule, ThyPopoverModule, ThyIconModule]
 })
 class ThyMenuTestBasicComponent {
     theme: ThyMenuTheme = undefined;
@@ -109,9 +109,8 @@ describe('ThyMenu', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [ThyDemoMenuComponent, ThyMenuTestBasicComponent],
-            imports: [ThyMenuModule, BrowserAnimationsModule, ThyDividerModule, ThyPopoverModule, ThyIconModule],
-            providers: [bypassSanitizeProvider, ThyPopover, provideHttpClient()]
+            imports: [ThyMenuModule, ThyDividerModule, ThyPopoverModule, ThyIconModule, ThyDemoMenuComponent, ThyMenuTestBasicComponent],
+            providers: [bypassSanitizeProvider, ThyPopover, provideHttpClient(), provideAnimations()]
         }).compileComponents();
         injectDefaultSvgIconSet();
     });

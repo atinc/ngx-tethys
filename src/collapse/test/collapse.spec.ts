@@ -17,7 +17,7 @@ import { provideHttpClient } from '@angular/common/http';
             <thy-collapse-panel thyTitle="这是一个头部标题3">内容区域3</thy-collapse-panel>
         </thy-collapse>
     `,
-    standalone: false
+    imports: [ThyCollapseModule, ThyIconModule, CommonModule]
 })
 export class TestCollapseBasicComponent {
     accordion = false;
@@ -51,7 +51,7 @@ export class TestCollapseBasicComponent {
             <thy-icon class="extra-template" thyIconName="settings" (click)="$event.stopPropagation()"></thy-icon>
         </ng-template>
     `,
-    standalone: false
+    imports: [ThyCollapseModule, ThyIconModule, CommonModule]
 })
 export class TestCollapsePanelBasicComponent {
     title = '默认标题';
@@ -73,8 +73,7 @@ describe('collapse', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [ThyCollapseModule, ThyIconModule, CommonModule, NoopAnimationsModule],
-                declarations: [TestCollapseBasicComponent],
+                imports: [ThyCollapseModule, ThyIconModule, CommonModule, NoopAnimationsModule, TestCollapseBasicComponent],
                 providers: [provideHttpClient()]
             }).compileComponents();
         });
@@ -198,8 +197,7 @@ describe('collapse-panel', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [ThyCollapseModule, ThyIconModule, CommonModule, NoopAnimationsModule],
-                declarations: [TestCollapsePanelBasicComponent],
+                imports: [ThyCollapseModule, ThyIconModule, CommonModule, NoopAnimationsModule, TestCollapsePanelBasicComponent],
                 providers: [provideHttpClient()]
             }).compileComponents();
         });

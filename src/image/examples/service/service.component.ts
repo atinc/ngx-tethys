@@ -1,11 +1,12 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ThyImagePreviewOperationType } from 'ngx-tethys/image';
 import { ThyImageService } from 'ngx-tethys/image/image.service';
+import { ThyButton } from 'ngx-tethys/button';
 
 @Component({
     selector: 'thy-image-service-example',
     templateUrl: './service.component.html',
-    standalone: false
+    imports: [ThyButton]
 })
 export class ThyImageServiceExampleComponent implements OnInit {
     private thyImageService = inject(ThyImageService);

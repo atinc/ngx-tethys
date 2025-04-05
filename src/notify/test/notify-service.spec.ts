@@ -25,7 +25,7 @@ const DEFAULT_DURATION_TIME = 4500;
             <div class="custom-content-template">Custom Content....</div>
         </ng-template>
     `,
-    standalone: false
+    imports: [ThyNotifyModule]
 })
 export class ThyNotifyBasicComponent implements OnInit {
     private notifyService = coreInject(ThyNotifyService);
@@ -55,8 +55,7 @@ describe('ThyNotify', () => {
     let overlayContainerElement: HTMLElement;
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyNotifyModule, NoopAnimationsModule],
-            declarations: [ThyNotifyBasicComponent],
+            imports: [ThyNotifyModule, NoopAnimationsModule, ThyNotifyBasicComponent],
             providers: [provideHttpClient()]
         });
         inject([OverlayContainer], (oc: OverlayContainer) => {
@@ -417,8 +416,7 @@ describe('ThyNotify with provider', () => {
     let overlayContainerElement: HTMLElement;
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyNotifyModule, NoopAnimationsModule],
-            declarations: [ThyNotifyBasicComponent],
+            imports: [ThyNotifyModule, NoopAnimationsModule, ThyNotifyBasicComponent],
             providers: [
                 {
                     provide: THY_NOTIFY_DEFAULT_CONFIG,

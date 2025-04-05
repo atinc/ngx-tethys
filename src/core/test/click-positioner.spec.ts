@@ -57,10 +57,7 @@ describe('ClickDispatcher', () => {
 });
 
 /** Simple component that contains a large div and can be scrolled. */
-@Component({
-    template: ` <div></div> `,
-    standalone: false
-})
+@Component({ template: ` <div></div> ` })
 class ClickPositionerComponent implements OnDestroy {
     clickPositioner = coreInject(ThyClickPositioner);
 
@@ -83,9 +80,8 @@ class ClickPositionerComponent implements OnDestroy {
 
 const TEST_COMPONENTS = [ClickPositionerComponent];
 @NgModule({
-    imports: [],
+    imports: [...TEST_COMPONENTS],
     providers: [ClickPositionerComponent],
-    exports: TEST_COMPONENTS,
-    declarations: TEST_COMPONENTS
+    exports: TEST_COMPONENTS
 })
 class ClickPositionerTestModule {}

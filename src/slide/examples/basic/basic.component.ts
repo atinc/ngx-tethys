@@ -1,13 +1,12 @@
-import { ThySlideService } from 'ngx-tethys/slide';
-
+import { ThySlideBody, ThySlideHeader, ThySlideLayout, ThySlideService } from 'ngx-tethys/slide';
 import { Component, TemplateRef, inject } from '@angular/core';
-
+import { ThyButton } from 'ngx-tethys/button';
 import { ThySlideDemoContentComponent } from '../slide-content.component';
 
 @Component({
     selector: 'thy-slide-basic-example',
     templateUrl: './basic.component.html',
-    standalone: false
+    imports: [ThyButton, ThySlideLayout, ThySlideHeader, ThySlideBody]
 })
 export class ThySlideBasicExampleComponent {
     private thySlideNewService = inject(ThySlideService);

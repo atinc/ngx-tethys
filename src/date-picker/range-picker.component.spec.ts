@@ -60,8 +60,7 @@ describe('ThyRangePickerComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [FormsModule, ThyDatePickerModule, NoopAnimationsModule],
-            declarations: [ThyTestRangePickerComponent],
+            imports: [FormsModule, ThyDatePickerModule, NoopAnimationsModule, ThyTestRangePickerComponent],
             providers: [
                 provideHttpClient(),
                 {
@@ -1093,7 +1092,7 @@ describe('ThyRangePickerComponent', () => {
             <div [class.test-first-day]="current.getDate() === 1">{{ current.getDate() }}</div>
         </ng-template>
     `,
-    standalone: false
+    imports: [FormsModule, ThyDatePickerModule]
 })
 class ThyTestRangePickerComponent {
     useSuite: 1 | 2 | 3 | 4;

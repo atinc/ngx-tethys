@@ -21,9 +21,8 @@ describe('ThyWeekPickerComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyDatePickerModule, FormsModule, NoopAnimationsModule],
-            providers: [provideHttpClient()],
-            declarations: [TestWeekPickerComponent]
+            imports: [ThyDatePickerModule, FormsModule, NoopAnimationsModule, TestWeekPickerComponent],
+            providers: [provideHttpClient()]
         });
 
         TestBed.compileComponents();
@@ -163,7 +162,7 @@ describe('ThyWeekPickerComponent', () => {
             [thyPlaceHolder]="thyPlaceHolder"
             (thyDateChange)="thyDateChange($event)"></thy-week-picker>
     `,
-    standalone: false
+    imports: [ThyDatePickerModule, FormsModule]
 })
 class TestWeekPickerComponent {
     thyAllowClear: boolean;

@@ -22,7 +22,6 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-    declarations: [...COMPONENTS],
     imports: [
         ThyUploadModule,
         ThyProgressModule,
@@ -31,7 +30,8 @@ const COMPONENTS = [
         ThyInputModule,
         ThyCheckboxModule,
         CommonModule,
-        FormsModule
+        FormsModule,
+        ...COMPONENTS
     ],
     exports: [...COMPONENTS]
 })

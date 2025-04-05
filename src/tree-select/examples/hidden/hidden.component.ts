@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { hiddenOptionTreeSelectData } from '../mock-data';
 import { ThyTreeSelectNode } from '../tree-select.class';
+import { ThyTreeSelect } from 'ngx-tethys/tree-select';
 
 @Component({
     selector: 'app-tree-select-hidden-example',
     templateUrl: './hidden.component.html',
-    standalone: false
+    imports: [ThyTreeSelect]
 })
 export class ThyTreeSelectHiddenExampleComponent implements OnInit {
     public treeSelectNodes = hiddenOptionTreeSelectData;

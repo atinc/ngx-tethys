@@ -19,7 +19,7 @@ import { ThyDropdownModule } from '../module';
             </a>
         </thy-dropdown-menu>
     `,
-    standalone: false
+    imports: [ThyDropdownModule, ThyButtonModule]
 })
 class DropdownActiveBasicTestComponent {
     activeClass: string | string[] = 'active';
@@ -33,8 +33,7 @@ describe('dropdown-active', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyDropdownModule, ThyButtonModule, NoopAnimationsModule],
-            declarations: [DropdownActiveBasicTestComponent]
+            imports: [ThyDropdownModule, ThyButtonModule, NoopAnimationsModule, DropdownActiveBasicTestComponent]
         }).compileComponents();
         fixture = TestBed.createComponent(DropdownActiveBasicTestComponent);
         fixture.detectChanges();

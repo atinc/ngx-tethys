@@ -5,6 +5,7 @@ import { By } from '@angular/platform-browser';
 import { ThyAlert } from '../alert.component';
 import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 import { provideHttpClient } from '@angular/common/http';
+import { ThyAlertActionItemDirective } from '../alert.directive';
 
 describe('ThyAlert', () => {
     beforeEach(fakeAsync(() => {
@@ -187,7 +188,7 @@ describe('ThyAlert', () => {
             <div class="message">hello world</div>
         </ng-template>
     `,
-    standalone: false
+    imports: [ThyAlert, ThyAlertActionItemDirective]
 })
 class ThyDemoAlertComponent {
     theme = 'fill';
@@ -199,8 +200,7 @@ class ThyDemoAlertComponent {
 }
 
 @NgModule({
-    imports: [ThyAlertModule],
-    declarations: [ThyDemoAlertComponent],
+    imports: [ThyAlertModule, ThyDemoAlertComponent],
     exports: [ThyDemoAlertComponent]
 })
 export class AlertTestModule {}

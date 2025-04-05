@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { ThySelect } from 'ngx-tethys/select';
+import { ThyOption } from 'ngx-tethys/shared';
 import { timer } from 'rxjs';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'thy-select-server-search-example',
     templateUrl: './server-search.component.html',
-    standalone: false
+    imports: [ThySelect, ThyOption, FormsModule]
 })
 export class ThySelectServerSearchExampleComponent implements OnInit {
     searchResultList: Array<{ _id: string; display_name: string }> = [];

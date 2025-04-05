@@ -9,7 +9,7 @@ import { ThyRadioGroup } from '../group/radio-group.component';
 @Component({
     selector: 'thy-radio-test',
     template: ` <label thyRadio [thyLabelText]="labelText" [thyDisabled]="isDisabled"></label> `,
-    standalone: false
+    imports: [ThyRadioModule, FormsModule]
 })
 class RadioTestComponent {
     labelText = '单选选项';
@@ -25,8 +25,7 @@ describe('radio component', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyRadioModule, FormsModule],
-            declarations: [RadioTestComponent],
+            imports: [ThyRadioModule, FormsModule, RadioTestComponent],
             providers: []
         });
         TestBed.compileComponents();
@@ -75,7 +74,7 @@ describe('radio component', () => {
         </thy-radio-group>
         <p class="mt-2">选中的选项值： {{ checkedValue }}</p>
     `,
-    standalone: false
+    imports: [ThyRadioModule, FormsModule]
 })
 class RadioGroupTestComponent {
     @ViewChild('radioGroup', { static: true }) radioGroup: ThyRadioGroup;
@@ -93,8 +92,7 @@ describe('thy-radio-group component', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyRadioModule, FormsModule],
-            declarations: [RadioGroupTestComponent],
+            imports: [ThyRadioModule, FormsModule, RadioGroupTestComponent],
             providers: []
         }).compileComponents();
     });

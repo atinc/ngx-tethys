@@ -1,11 +1,12 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 import { ThyTooltipService } from 'ngx-tethys/tooltip';
 import { ThyTooltipRef } from 'ngx-tethys/tooltip';
+import { ThyButton } from 'ngx-tethys/button';
 
 @Component({
     selector: 'thy-tooltip-manual-example',
     templateUrl: './manual.component.html',
-    standalone: false
+    imports: [ThyButton]
 })
 export class ThyTooltipManualExampleComponent implements OnInit, OnDestroy {
     private tooltipService = inject(ThyTooltipService);

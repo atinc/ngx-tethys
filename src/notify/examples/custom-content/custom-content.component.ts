@@ -1,11 +1,12 @@
 import { ThyNotifyService } from 'ngx-tethys/notify';
-import { Component, ElementRef, OnInit, TemplateRef, ViewChild, inject } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, inject } from '@angular/core';
 import { ThyNotifyContentExampleComponent } from './content.component';
-
+import { ThyButton } from 'ngx-tethys/button';
+import { ThySpace } from 'ngx-tethys/space';
 @Component({
     selector: 'thy-notify-custom-content-example',
     templateUrl: './custom-content.component.html',
-    standalone: false
+    imports: [ThyButton, ThySpace]
 })
 export class ThyNotifyCustomContentExampleComponent implements OnInit {
     private notifyService = inject(ThyNotifyService);

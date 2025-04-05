@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyTableTheme } from 'ngx-tethys/table';
+import { FormsModule } from '@angular/forms';
+import { ThyIcon } from 'ngx-tethys/icon';
+import { ThyRadioGroup } from 'ngx-tethys/radio';
+import { ThyTable, ThyTableColumnComponent, ThyTableTheme } from 'ngx-tethys/table';
 
 @Component({
     selector: 'thy-table-theme-example',
     templateUrl: './theme.component.html',
-    standalone: false
+    imports: [ThyTable, ThyTableColumnComponent, ThyIcon, ThyRadioGroup, FormsModule]
 })
 export class ThyTableThemeExampleComponent implements OnInit {
     data = [

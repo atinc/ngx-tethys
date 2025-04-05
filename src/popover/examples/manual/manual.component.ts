@@ -1,13 +1,14 @@
-import { ThyPopoverConfig } from 'ngx-tethys/popover';
+import { ThyPopoverBody, ThyPopoverConfig, ThyPopoverHeader } from 'ngx-tethys/popover';
 import { Component, OnInit, TemplateRef, inject } from '@angular/core';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { ThyPopoverManualContentComponent } from './popover-content.component';
+import { ThyButton } from 'ngx-tethys/button';
 
 @Component({
     selector: 'thy-popover-manual-example',
     templateUrl: './manual.component.html',
     styleUrls: ['./manual.component.scss'],
-    standalone: false
+    imports: [ThyButton, ThyPopoverHeader, ThyPopoverBody]
 })
 export class ThyPopoverManualExampleComponent implements OnInit {
     private thyPopover = inject(ThyPopover);

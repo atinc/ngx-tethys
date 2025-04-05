@@ -6,7 +6,7 @@ import { ThyAutofocusDirective } from './thy-autofocus.directive';
 @Component({
     selector: 'thy-autofocus-test',
     template: ` <input [thyAutofocus]="autofocus" [thyAutoSelect]="autoSelect" #autofocusInput /> `,
-    standalone: false
+    imports: [ThyAutofocusDirective]
 })
 class ThyAutofocusTestComponent {
     @ViewChild('autofocusInput') input: ElementRef;
@@ -23,8 +23,7 @@ describe('ThyAutofocusDirective', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyAutofocusDirective],
-            declarations: [ThyAutofocusTestComponent]
+            imports: [ThyAutofocusDirective, ThyAutofocusTestComponent]
         });
     });
 

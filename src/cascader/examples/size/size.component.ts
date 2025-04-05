@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { clone, options } from '../cascader-address-options';
+import { ThyCascader } from 'ngx-tethys/cascader';
+import { FormsModule } from '@angular/forms';
+import { ThyButtonGroup } from 'ngx-tethys/button';
+import { NgClass } from '@angular/common';
 
 @Component({
     selector: 'thy-cascader-size-example',
     templateUrl: './size.component.html',
-    standalone: false
+    imports: [ThyCascader, FormsModule, ThyButtonGroup, NgClass]
 })
 export class ThyCascaderSizeExampleComponent implements OnInit {
     public areaCode: any[] = [];

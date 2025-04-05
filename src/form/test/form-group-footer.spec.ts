@@ -14,7 +14,7 @@ import { THY_FORM_CONFIG } from '../form.class';
             <button></button>
         </thy-form-group-footer>
     `,
-    standalone: false
+    imports: [ThyFormGroupFooter]
 })
 export class FormGroupFooterComponent {
     align = '';
@@ -31,7 +31,6 @@ describe('form-group-footer', () => {
     describe('without global config', () => {
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                declarations: [FormGroupFooterComponent],
                 imports: [ThyFormModule, FormsModule],
                 providers: [
                     {
@@ -90,7 +89,6 @@ describe('form-group-footer', () => {
     describe('has global config', () => {
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                declarations: [FormGroupFooterComponent],
                 imports: [ThyFormModule, FormsModule],
                 providers: [
                     {

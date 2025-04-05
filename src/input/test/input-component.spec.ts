@@ -32,7 +32,7 @@ import { provideHttpClient } from '@angular/common/http';
         </thy-input>
         <thy-input class="password" [(ngModel)]="passwordValue" thyType="password"> </thy-input>
     `,
-    standalone: false
+    imports: [ThyInput, FormsModule]
 })
 class TestBedComponent {
     thySize = ``;
@@ -52,8 +52,7 @@ class TestBedComponent {
 }
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ThyInputModule],
-    declarations: [TestBedComponent],
+    imports: [CommonModule, FormsModule, ThyInputModule, TestBedComponent],
     exports: []
 })
 export class InputComponentTestModule {}

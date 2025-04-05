@@ -1,32 +1,22 @@
-<button thyButton="primary" [thyPopover]="content">
-  Open Component
-</button>
+<button thyButton="primary" [thyPopover]="content">Open Component</button>
 
-<button thyButton="primary" [thyPopover]="template">
-  Open Template
-</button>
+<button thyButton="primary" [thyPopover]="template">Open Template</button>
 
-<button thyButton="primary" [thyPopover]="headerTemplate">
-  Open headerTemplate
-</button>
+<button thyButton="primary" [thyPopover]="headerTemplate">Open headerTemplate</button>
 
 <ng-template #template>
   <thy-popover-header thyTitle="Title"></thy-popover-header>
-  <thy-popover-body>
-    Hi, I'm a template popover!
-  </thy-popover-body>
+  <thy-popover-body> Hi, I'm a template popover! </thy-popover-body>
 </ng-template>
 
 <ng-template #headerTemplate>
   <thy-popover-header>
     <ng-template #popoverHeader>
       <div class="header-template" [ngStyle]="{ flex: 1 }">我是自定义头部模板</div>
-      <button type="button" class="close" (click)="close($event)">
+      <button type="button" class="close" (click)="close()">
         <thy-icon thyIconName="close"></thy-icon>
       </button>
     </ng-template>
   </thy-popover-header>
-  <thy-popover-body>
-    Hi, I'm a header template popover!
-  </thy-popover-body>
+  <thy-popover-body> Hi, I'm a header template popover! </thy-popover-body>
 </ng-template>

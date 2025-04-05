@@ -9,7 +9,7 @@ import { ThyStepper } from '../stepper.component';
         <button thyButton thyStepperNext>上一步</button>
         <button thyButton thyStepperPrevious>下一步</button>
     `,
-    standalone: false
+    imports: [ThyStepperNextDirective, ThyStepperPreviousDirective]
 })
 class ThyStepperButtonDirectiveComponent {}
 
@@ -23,8 +23,7 @@ describe('ThyStepperNext', () => {
     let thyStepperComponent: MockThyStepperComponent;
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyStepperNextDirective, ThyStepperPreviousDirective],
-            declarations: [ThyStepperButtonDirectiveComponent],
+            imports: [ThyStepperNextDirective, ThyStepperPreviousDirective, ThyStepperButtonDirectiveComponent],
             providers: [
                 {
                     provide: ThyStepper,

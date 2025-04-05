@@ -1,12 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
-
 import { bigTreeNodes } from '../mocks';
-import { ThyTreeDragDropEvent } from 'ngx-tethys/tree';
+import { ThyTree, ThyTreeDragDropEvent } from 'ngx-tethys/tree';
 
 @Component({
     selector: 'thy-tree-virtual-scroll-example',
     templateUrl: './virtual-scroll.component.html',
-    standalone: false
+    imports: [ThyTree]
 })
 export class ThyTreeVirtualScrollExampleComponent {
     bigTreeNodes = bigTreeNodes;

@@ -15,6 +15,8 @@ import { ThyPropertyModule } from '../module';
 import { ThyProperties, ThyPropertiesLayout } from '../properties.component';
 import { ThyPropertyItem, ThyPropertyItemOperationTrigger } from '../property-item.component';
 import { provideHttpClient } from '@angular/common/http';
+import { ThySelect } from '../../select/custom-select/custom-select.component';
+import { ThyOption } from '../../shared/option/option.component';
 
 @Component({
     selector: 'thy-properties-test-basic',
@@ -41,7 +43,7 @@ import { provideHttpClient } from '@angular/common/http';
             </thy-property-item>
         </thy-properties>
     `,
-    standalone: false
+    imports: [ThyProperties, ThyPropertyItem, ThySelect, FormsModule, ThyOption]
 })
 class ThyPropertiesTestBasicComponent {
     elementRef = inject(ElementRef);
@@ -88,7 +90,7 @@ class ThyPropertiesTestBasicComponent {
             >
         </thy-properties>
     `,
-    standalone: false
+    imports: [ThyProperties, ThyPropertyItem]
 })
 class ThyPropertiesTestColumnComponent {
     @ViewChild('properties') propertiesComponent: ThyProperties;
@@ -110,7 +112,7 @@ class ThyPropertiesTestColumnComponent {
             </thy-property-item>
         </thy-properties>
     `,
-    standalone: false
+    imports: [ThyProperties, ThyPropertyItem]
 })
 class ThyPropertiesTestOperationComponent {
     layout: ThyPropertiesLayout = 'horizontal';
@@ -118,8 +120,16 @@ class ThyPropertiesTestOperationComponent {
 }
 
 @NgModule({
-    imports: [ThyPropertyModule, CommonModule, FormsModule, ThySelectModule, OverlayModule],
-    declarations: [ThyPropertiesTestBasicComponent, ThyPropertiesTestColumnComponent, ThyPropertiesTestOperationComponent],
+    imports: [
+        ThyPropertyModule,
+        CommonModule,
+        FormsModule,
+        ThySelectModule,
+        OverlayModule,
+        ThyPropertiesTestBasicComponent,
+        ThyPropertiesTestColumnComponent,
+        ThyPropertiesTestOperationComponent
+    ],
     exports: []
 })
 export class PropertiesTestModule {}
@@ -320,9 +330,8 @@ describe(`thy-properties`, () => {
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                imports: [ThyPropertyModule, NoopAnimationsModule],
-                providers: [provideHttpClient()],
-                declarations: [ThyPropertiesTestOperationComponent]
+                imports: [ThyPropertyModule, NoopAnimationsModule, ThyPropertiesTestOperationComponent],
+                providers: [provideHttpClient()]
             });
             TestBed.compileComponents();
         }));

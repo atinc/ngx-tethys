@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { ThyAvatar } from 'ngx-tethys/avatar';
 
 @Component({
     selector: 'thy-avatar-img-error-example',
     templateUrl: './img-error.component.html',
-    standalone: false
+    imports: [ThyAvatar]
 })
 export class ThyAvatarImgErrorExampleComponent {
     avatarSrc = './not_exist/abc.jpg';

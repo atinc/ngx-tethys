@@ -1,10 +1,13 @@
 import { Component, HostBinding, OnDestroy, OnInit, TemplateRef, ViewChild, inject } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
+import { ThyButton } from 'ngx-tethys/button';
 import { ThyGuiderStepRef, ThyGuiderConfig, ThyGuiderRef, ThyGuiderStep, ThyGuider } from 'ngx-tethys/guider';
+import { ThyIcon } from 'ngx-tethys/icon';
 
 @Component({
     selector: 'thy-guider-custom-hint-example',
     templateUrl: 'custom-hint.component.html',
-    standalone: false
+    imports: [ThyButton, ThyIcon]
 })
 export class ThyGuiderCustomHintExampleComponent implements OnInit, OnDestroy {
     private thyGuider = inject(ThyGuider);
@@ -60,7 +63,7 @@ export class ThyGuiderCustomHintExampleComponent implements OnInit, OnDestroy {
         </p>
     `,
     styles: ['p {font-size: 24px}'],
-    standalone: false
+    imports: [NgTemplateOutlet]
 })
 export class CustomTipComponent implements OnInit {
     @HostBinding('class.tip-blue') className = true;

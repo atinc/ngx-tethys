@@ -18,8 +18,7 @@ describe('ThyTimePickerComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [FormsModule, ThyTimePickerModule, NoopAnimationsModule],
-            declarations: [ThyTestTimePickerBaseComponent],
+            imports: [FormsModule, ThyTimePickerModule, NoopAnimationsModule, ThyTestTimePickerBaseComponent],
             providers: [provideHttpClient()]
         });
 
@@ -441,7 +440,7 @@ describe('ThyTimePickerComponent', () => {
             (ngModelChange)="onValueChange($event)"
             (thyOpenChange)="onOpenChange($event)"></thy-time-picker>
     `,
-    standalone: false
+    imports: [FormsModule, ThyTimePickerModule]
 })
 class ThyTestTimePickerBaseComponent {
     @ViewChild('timePicker', { static: false }) timePickerRef: ThyTimePicker;

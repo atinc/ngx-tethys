@@ -1,13 +1,14 @@
 import { Component, OnInit, TemplateRef, Renderer2, OnDestroy, inject, DestroyRef } from '@angular/core';
-import { ThyDialogConfig, ThyDialogSizes, ThyDialog } from 'ngx-tethys/dialog';
+import { ThyDialogConfig, ThyDialogSizes, ThyDialog, ThyDialogHeader, ThyDialogBody, ThyDialogFooter } from 'ngx-tethys/dialog';
 import { keycodes } from 'ngx-tethys/util';
 import { ThyDialogBasicContentComponent } from './dialog-content.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ThyButton } from 'ngx-tethys/button';
 
 @Component({
     selector: 'thy-dialog-basic-example',
     templateUrl: './basic.component.html',
-    standalone: false
+    imports: [ThyButton, ThyDialogHeader, ThyDialogBody, ThyDialogFooter]
 })
 export class ThyDialogBasicExampleComponent implements OnInit, OnDestroy {
     thyDialog = inject(ThyDialog);

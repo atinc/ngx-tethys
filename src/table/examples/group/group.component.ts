@@ -1,12 +1,13 @@
-import { ThyTableDraggableEvent, ThyTableRowEvent } from 'ngx-tethys/table';
+import { ThyTable, ThyTableColumnComponent, ThyTableDraggableEvent, ThyTableRowEvent } from 'ngx-tethys/table';
 import { SafeAny } from 'ngx-tethys/types';
-
 import { Component, OnInit } from '@angular/core';
+import { ThySwitch } from 'ngx-tethys/switch';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'thy-table-group-example',
     templateUrl: './group.component.html',
-    standalone: false
+    imports: [ThyTable, ThyTableColumnComponent, ThySwitch, FormsModule]
 })
 export class ThyTableGroupExampleComponent implements OnInit {
     isDraggable: boolean;

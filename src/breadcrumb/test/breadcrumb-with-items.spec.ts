@@ -13,7 +13,7 @@ import { provideHttpClient } from '@angular/common/http';
             <ng-template #item let-value>{{ value }}</ng-template>
         </thy-breadcrumb>
     `,
-    standalone: false
+    imports: [ThyBreadcrumbModule]
 })
 class ThyDemoBreadcrumbWithItemsComponent {
     breadcrumbs = ['一级', '二级', '三级', '四级', '五级', '六级'];
@@ -28,8 +28,7 @@ describe('ThyBreadcrumb With Items', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyBreadcrumbModule, NoopAnimationsModule],
-            declarations: [ThyDemoBreadcrumbWithItemsComponent],
+            imports: [ThyBreadcrumbModule, NoopAnimationsModule, ThyDemoBreadcrumbWithItemsComponent],
             providers: [provideHttpClient()]
         });
 

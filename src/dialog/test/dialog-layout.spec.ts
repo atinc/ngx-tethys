@@ -6,11 +6,12 @@ import { ThyDialogHeader } from '../header/dialog-header.component';
 import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 import { THY_DIALOG_LAYOUT_CONFIG } from '../dialog.config';
 import { provideHttpClient } from '@angular/common/http';
+import { ThyDialogFooter } from '../footer/dialog-footer.component';
 
 @Component({
     selector: 'thy-test-dialog-header-basic',
     template: ` <thy-dialog-header [thyDivided]="divided" [thySize]="size" thyTitle="I am dialog header"></thy-dialog-header> `,
-    standalone: false
+    imports: [ThyDialogModule]
 })
 class DialogHeaderBasicComponent {
     size: 'lg' | 'md';
@@ -30,7 +31,7 @@ class DialogHeaderBasicComponent {
         <thy-dialog-footer class="showBorder" [thyDivided]="showBorderTop"> </thy-dialog-footer>
         <thy-dialog-footer class="noConfig"></thy-dialog-footer>
     `,
-    standalone: false
+    imports: [ThyDialogFooter]
 })
 class DialogFooterBasicComponent {
     showBorderTop: boolean;
@@ -43,7 +44,7 @@ class DialogFooterBasicComponent {
 @Component({
     selector: 'thy-test-dialog-header-basic',
     template: ` <thy-dialog-header thyTitleTranslationKey="Translation Key Title"></thy-dialog-header> `,
-    standalone: false
+    imports: [ThyDialogModule]
 })
 class DialogHeaderTitleTranslationComponent {}
 
@@ -51,8 +52,7 @@ describe('dialog-layout', () => {
     describe('dialog-header', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [ThyDialogModule],
-                declarations: [DialogHeaderBasicComponent],
+                imports: [ThyDialogModule, DialogHeaderBasicComponent],
                 providers: [bypassSanitizeProvider, provideHttpClient()]
             });
             TestBed.compileComponents();
@@ -101,8 +101,7 @@ describe('dialog-layout', () => {
     describe('dialog-header-title-translation', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [ThyDialogModule],
-                declarations: [DialogHeaderTitleTranslationComponent],
+                imports: [ThyDialogModule, DialogHeaderTitleTranslationComponent],
                 providers: [bypassSanitizeProvider, provideHttpClient()]
             });
             TestBed.compileComponents();
@@ -135,8 +134,7 @@ describe('dialog-layout', () => {
         describe('without global dialog layout config', () => {
             beforeEach(() => {
                 TestBed.configureTestingModule({
-                    imports: [ThyDialogModule],
-                    declarations: [DialogFooterBasicComponent],
+                    imports: [ThyDialogModule, DialogFooterBasicComponent],
                     providers: [bypassSanitizeProvider, provideHttpClient()]
                 });
                 TestBed.compileComponents();
@@ -228,8 +226,7 @@ describe('dialog-layout', () => {
         describe('with global dialog layout config', () => {
             beforeEach(() => {
                 TestBed.configureTestingModule({
-                    imports: [ThyDialogModule],
-                    declarations: [DialogFooterBasicComponent],
+                    imports: [ThyDialogModule, DialogFooterBasicComponent],
                     providers: [
                         bypassSanitizeProvider,
                         provideHttpClient(),

@@ -15,6 +15,7 @@ import {
     ThyThemeType
 } from '../';
 import { ThyDotModule } from '../dot.module';
+import { ThyDot as ThyDot_1 } from '../dot.component';
 
 describe('ThyDot', () => {
     let fixture: ComponentFixture<ThyDemoDotComponent>;
@@ -92,7 +93,7 @@ describe('ThyDot', () => {
 @Component({
     selector: 'thy-demo-dot-basic',
     template: ` <span thy-dot [thyColor]="thyColor" [thySize]="thySize" [thyTheme]="thyTheme" [thyShape]="thyShape"></span> `,
-    standalone: false
+    imports: [ThyDot_1]
 })
 class ThyDemoDotComponent {
     thyColor: ThyColorType;
@@ -105,8 +106,7 @@ class ThyDemoDotComponent {
 }
 
 @NgModule({
-    imports: [ThyDotModule],
-    declarations: [ThyDemoDotComponent],
+    imports: [ThyDotModule, ThyDemoDotComponent],
     exports: [ThyDemoDotComponent]
 })
 export class DotTestModule {}

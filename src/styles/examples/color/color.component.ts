@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ThyColDirective, ThyRowDirective } from 'ngx-tethys/grid';
 
 @Component({
     selector: 'thy-styles-color-example',
@@ -11,7 +12,7 @@ import { Component, OnInit } from '@angular/core';
             }
         `
     ],
-    standalone: false
+    imports: [ThyRowDirective, ThyColDirective]
 })
 export class ThyStylesColorExampleComponent implements OnInit {
     constructor() {}

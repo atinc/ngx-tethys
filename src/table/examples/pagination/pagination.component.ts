@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyTableRowEvent, ThyPageChangedEvent, ThyTableColumnSkeletonType } from 'ngx-tethys/table';
+import { ThyTableRowEvent, ThyPageChangedEvent, ThyTableColumnSkeletonType, ThyTable, ThyTableColumnComponent } from 'ngx-tethys/table';
 import { of } from 'rxjs';
 import { delay, finalize } from 'rxjs/operators';
+import { ThyIcon } from 'ngx-tethys/icon';
 
 @Component({
     selector: 'thy-table-pagination-example',
     templateUrl: './pagination.component.html',
-    standalone: false
+    imports: [ThyTable, ThyTableColumnComponent, ThyIcon]
 })
 export class ThyTablePaginationExampleComponent implements OnInit {
     data: { id: number; name: string; age: number; job: string; address: string }[] = [];

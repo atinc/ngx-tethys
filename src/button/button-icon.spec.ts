@@ -10,7 +10,7 @@ import { provideHttpClient } from '@angular/common/http';
 @Component({
     selector: 'app-basic-button-icon',
     template: ` <button [thyButtonIcon]="icon" [thyColor]="color"></button> `,
-    standalone: false
+    imports: [ThyButtonModule]
 })
 class BasicButtonIconComponent {
     icon = 'inbox';
@@ -20,8 +20,7 @@ class BasicButtonIconComponent {
 describe(`button-icon`, () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyButtonModule],
-            declarations: [BasicButtonIconComponent],
+            imports: [ThyButtonModule, BasicButtonIconComponent],
             providers: [bypassSanitizeProvider, provideHttpClient()]
         }).compileComponents();
 

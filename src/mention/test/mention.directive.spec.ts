@@ -13,6 +13,9 @@ import { MentionInputorElement } from '../adapter';
 import { Mention } from '../interfaces';
 import { ThyMentionDirective } from '../mention.directive';
 import { ThyMentionModule } from '../mention.module';
+import { ThySelectionList } from '../../list/selection/selection-list';
+import { ThySelectOptionGroup } from '../../shared/option/group/option-group.component';
+import { ThyListOption } from '../../shared/option/list-option/list-option.component';
 
 @Component({
     selector: 'thy-test-mention-basic',
@@ -21,7 +24,7 @@ import { ThyMentionModule } from '../mention.module';
             <textarea [(ngModel)]="value" thyInput [thyMention]="mentions" [thyPopoverConfig]="popoverConfig"></textarea>
         </div>
     `,
-    standalone: false
+    imports: [FormsModule, ThyMentionDirective]
 })
 class ThyTestMentionBasicComponent implements OnInit {
     value = `@t`;
@@ -64,7 +67,7 @@ class ThyTestMentionBasicComponent implements OnInit {
             </ng-template>
         </div>
     `,
-    standalone: false
+    imports: [FormsModule, ThyMentionDirective, ThySelectionList, ThySelectOptionGroup, ThyListOption]
 })
 class ThyTestMentionSuggestionsTemplateComponent implements OnInit {
     value = `@`;
@@ -104,7 +107,7 @@ class ThyTestMentionSuggestionsTemplateComponent implements OnInit {
                 [(ngModel)]="value" />
         </div>
     `,
-    standalone: false
+    imports: [FormsModule, ThyMentionDirective]
 })
 class ThyTestInputMentionComponent implements OnInit {
     value = ``;
@@ -130,7 +133,7 @@ class ThyTestInputMentionComponent implements OnInit {
             <p class="example-text" #exampleText contenteditable="true" [thyMention]="mentions">&#64;t</p>
         </div>
     `,
-    standalone: false
+    imports: [ThyMentionDirective]
 })
 class ThyTestContenteditableMentionComponent implements OnInit {
     mentions: Mention[] = [
@@ -150,8 +153,10 @@ class ThyTestContenteditableMentionComponent implements OnInit {
 }
 
 @NgModule({
-    imports: [FormsModule, ThyMentionModule, ThyListModule],
-    declarations: [
+    imports: [
+        FormsModule,
+        ThyMentionModule,
+        ThyListModule,
         ThyTestMentionBasicComponent,
         ThyTestMentionSuggestionsTemplateComponent,
         ThyTestInputMentionComponent,

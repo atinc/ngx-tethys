@@ -25,7 +25,7 @@ import { provideHttpClient } from '@angular/common/http';
             [thySize]="thySize"
             [thyIconPosition]="iconPosition"></thy-input-search>
     `,
-    standalone: false
+    imports: [ThyInputSearch, FormsModule]
 })
 class TestInputSearchBasicComponent {
     @ViewChild(ThyInputSearch, { static: false }) inputSearchComponent: ThyInputSearch;
@@ -42,8 +42,7 @@ class TestInputSearchBasicComponent {
 }
 
 @NgModule({
-    imports: [ThyInputModule, FormsModule],
-    declarations: [TestInputSearchBasicComponent],
+    imports: [ThyInputModule, FormsModule, TestInputSearchBasicComponent],
     exports: []
 })
 export class InputSearchTestModule {}
@@ -57,8 +56,7 @@ describe('input search', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyInputModule, FormsModule],
-            declarations: [TestInputSearchBasicComponent],
+            imports: [ThyInputModule, FormsModule, TestInputSearchBasicComponent],
             providers: [provideHttpClient()]
         });
         TestBed.compileComponents();

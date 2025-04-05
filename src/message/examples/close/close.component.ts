@@ -1,10 +1,11 @@
 import { ThyMessageRef, ThyMessageService } from 'ngx-tethys/message';
 import { Component, OnInit, inject } from '@angular/core';
+import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
 
 @Component({
     selector: 'thy-message-close-example',
     templateUrl: './close.component.html',
-    standalone: false
+    imports: [ThySpace, ThySpaceItemDirective]
 })
 export class ThyMessageCloseExampleComponent implements OnInit {
     private messageService = inject(ThyMessageService);

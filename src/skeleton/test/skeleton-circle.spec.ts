@@ -19,7 +19,7 @@ import { ThySkeletonModule } from '../module';
             </thy-skeleton-circle>
         </thy-skeleton>
     `,
-    standalone: false
+    imports: [ThySkeletonModule]
 })
 class ThySkeletonCircleTestComponent {
     model = {
@@ -39,8 +39,7 @@ describe('skeleton circle', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThySkeletonModule],
-            declarations: [ThySkeletonCircleTestComponent],
+            imports: [ThySkeletonModule, ThySkeletonCircleTestComponent],
             providers: []
         });
         TestBed.compileComponents();

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DEFAULT_COLORS } from 'ngx-tethys/color-picker';
+import { DEFAULT_COLORS, ThyColorPickerDirective } from 'ngx-tethys/color-picker';
+import { NgStyle } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'thy-preset-colors-example',
@@ -12,7 +14,7 @@ import { DEFAULT_COLORS } from 'ngx-tethys/color-picker';
             }
         `
     ],
-    standalone: false
+    imports: [ThyColorPickerDirective, NgStyle, FormsModule]
 })
 export class ThyPresetColorsExampleComponent implements OnInit {
     color = '#6698FF';

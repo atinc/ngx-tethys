@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { THY_SELECT_CONFIG } from 'ngx-tethys/select';
+import { THY_SELECT_CONFIG, ThySelect } from 'ngx-tethys/select';
 import { ThyPlacement } from 'ngx-tethys/core';
+import { ThyOption } from 'ngx-tethys/shared';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'thy-select-placement-example',
@@ -28,7 +30,7 @@ import { ThyPlacement } from 'ngx-tethys/core';
             }
         }
     ],
-    standalone: false
+    imports: [ThySelect, ThyOption, FormsModule]
 })
 export class ThySelectPlacementExampleComponent implements OnInit {
     _placements: ThyPlacement[] = [

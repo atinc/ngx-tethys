@@ -17,7 +17,7 @@ import { ThySkeletonModule } from '../module';
             </thy-skeleton-rectangle>
         </thy-skeleton>
     `,
-    standalone: false
+    imports: [ThySkeletonModule]
 })
 class ThySkeletonRectangleTestComponent {
     model = {
@@ -38,8 +38,7 @@ describe('skeleton rectangle', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThySkeletonModule],
-            declarations: [ThySkeletonRectangleTestComponent],
+            imports: [ThySkeletonModule, ThySkeletonRectangleTestComponent],
             providers: []
         });
         TestBed.compileComponents();

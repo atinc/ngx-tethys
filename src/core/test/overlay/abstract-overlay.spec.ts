@@ -61,7 +61,7 @@ class TestDialogConfig<TData = any> extends ThyAbstractOverlayConfig<TData> {
         // '(@dialogContainer.start)': 'onAnimationStart($event)',
         // '(@dialogContainer.done)': 'onAnimationDone($event)'
     },
-    standalone: false
+    imports: [CdkPortalOutlet]
 })
 export class TestDialogContainerComponent<TData = unknown> extends ThyAbstractOverlayContainer<TData> implements OnDestroy {
     config: ThyAbstractOverlayConfig<TData>;
@@ -182,8 +182,7 @@ export class TestDialogService extends ThyAbstractOverlayService<TestDialogConfi
 }
 
 @NgModule({
-    declarations: [TestDialogContainerComponent],
-    imports: [CommonModule, OverlayModule, PortalModule],
+    imports: [CommonModule, OverlayModule, PortalModule, TestDialogContainerComponent],
     exports: [],
     providers: []
 })
@@ -192,7 +191,7 @@ export class TestDialogModule {}
 @Component({
     selector: 'test-dialog-basic',
     template: `Hello Test Dialog<ng-content></ng-content> `,
-    standalone: false
+    imports: [TestDialogModule]
 })
 class TestDialogBasicContentComponent {
     testDialogRef = coreInject<TestDialogRef<TestDialogBasicContentComponent>>(TestDialogRef);
@@ -211,7 +210,7 @@ class TestDialogBasicContentComponent {
 @Component({
     selector: 'test-dialog-view-container',
     template: 'Hello Test Dialog',
-    standalone: false
+    imports: [TestDialogModule]
 })
 class TestDialogViewContainerComponent {
     private dialog = coreInject(TestDialogService);
@@ -231,8 +230,7 @@ describe('abstract-overlay', () => {
 
     beforeEach(async () => {
         TestBed.configureTestingModule({
-            imports: [TestDialogModule, NoopAnimationsModule],
-            declarations: [TestDialogBasicContentComponent, TestDialogViewContainerComponent],
+            imports: [TestDialogModule, NoopAnimationsModule, TestDialogBasicContentComponent, TestDialogViewContainerComponent],
             providers: [TestDialogService]
         });
 

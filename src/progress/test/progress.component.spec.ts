@@ -41,7 +41,7 @@ const circleMap = new Map([
         <thy-progress [thyValue]="value" [thyTips]="tips" [thyType]="type" [thySize]="size"> 20% </thy-progress>
         <ng-template #demo>{{ message }}</ng-template>
     `,
-    standalone: false
+    imports: [ThyProgress]
 })
 class ThyDemoProgressBasicComponent {
     value = 20;
@@ -69,7 +69,7 @@ class ThyDemoProgressBasicComponent {
             20%
         </thy-progress>
     `,
-    standalone: false
+    imports: [ThyProgress]
 })
 class ThyDemoProgressCircleComponent {
     value = 20;
@@ -98,7 +98,7 @@ class ThyDemoProgressCircleComponent {
 @Component({
     selector: 'thy-demo-progress-stacked',
     template: ` <thy-progress [thyValue]="value" [thySize]="size"> </thy-progress> `,
-    standalone: false
+    imports: [ThyProgress]
 })
 class ThyDemoProgressStackedComponent {
     value: ThyProgressStackedValue[] = [
@@ -122,7 +122,7 @@ class ThyDemoProgressStackedComponent {
 @Component({
     selector: 'thy-demo-progress-stacked-max',
     template: ` <thy-progress [thyMax]="max" [thyValue]="value" [thySize]="size"> </thy-progress> `,
-    standalone: false
+    imports: [ThyProgress]
 })
 class ThyDemoProgressStackedMaxComponent {
     value: ThyProgressStackedValue[] = [
@@ -150,7 +150,7 @@ class ThyDemoProgressStackedMaxComponent {
         <thy-progress [thyValue]="value" [thyTips]="customProgressTooTip"></thy-progress>
         <ng-template #customProgressTooTip let-item>type: {{ item.type }}-value: {{ item.value }}</ng-template>
     `,
-    standalone: false
+    imports: [ThyProgress]
 })
 class ThyDemoProgressTooltipTemplateComponent {
     value: ThyProgressStackedValue[] = [
@@ -176,8 +176,8 @@ function assertTooltipInstance(tooltip: ThyTooltipDirective, shouldExist: boolea
 }
 
 @NgModule({
-    imports: [ThyProgressModule],
-    declarations: [
+    imports: [
+        ThyProgressModule,
         ThyDemoProgressBasicComponent,
         ThyDemoProgressCircleComponent,
         ThyDemoProgressStackedComponent,

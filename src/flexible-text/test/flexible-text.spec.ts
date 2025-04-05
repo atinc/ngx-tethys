@@ -46,7 +46,7 @@ import { ThyFlexibleTextModule } from '../flexible-text.module';
             }
         `
     ],
-    standalone: false
+    imports: [ThyTooltipModule, ThyFlexibleTextModule]
 })
 class FlexibleTextTestComponent {
     @ViewChild('FlexibleText', { static: true }) flexibleText: ThyFlexibleText;
@@ -70,8 +70,7 @@ describe('FlexibleTextComponent', () => {
     beforeEach(waitForAsync(() => {
         callbacks = [];
         return TestBed.configureTestingModule({
-            imports: [ThyTooltipModule, ThyFlexibleTextModule],
-            declarations: [FlexibleTextTestComponent],
+            imports: [ThyTooltipModule, ThyFlexibleTextModule, FlexibleTextTestComponent],
             providers: [
                 {
                     provide: MutationObserverFactory,
@@ -79,7 +78,6 @@ describe('FlexibleTextComponent', () => {
                         create: function (callback: Function) {
                             console.log(callback);
                             callbacks.push(callback);
-
                             return {
                                 observe: () => {},
                                 disconnect: () => {}

@@ -21,7 +21,7 @@ import { createFile } from './utils';
             (thyOnDrop)="selectFiles($event)"
             (thyFilesReject)="filesReject($event)"></div>
     `,
-    standalone: false
+    imports: [ThyFileDropDirective]
 })
 class FileDropBasicComponent {
     customDragOverClass: string;
@@ -45,8 +45,7 @@ class FileDropBasicComponent {
 }
 
 @NgModule({
-    imports: [ThyUploadModule],
-    declarations: [FileDropBasicComponent],
+    imports: [ThyUploadModule, FileDropBasicComponent],
     exports: [FileDropBasicComponent]
 })
 export class FileUploaderTestModule {}

@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
+import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
 
 @Component({
     selector: 'thy-flexible-text-multiple',
     templateUrl: './multiple-line.component.html',
     styleUrls: ['./multiple-line.component.scss'],
-    standalone: false
+    imports: [ThyTooltipDirective, ThyFlexibleText]
 })
 export class ThyFlexibleTextMultipleLineExampleComponent implements OnInit {
     public textLong = `New platforms are providing creators with a chance

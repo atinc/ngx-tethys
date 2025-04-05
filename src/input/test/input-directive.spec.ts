@@ -3,19 +3,19 @@ import { ThyInputDirective } from './../input.directive';
 import { Component, DebugElement, NgModule } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ThyInputDirective as ThyInputDirective_1 } from '../input.directive';
 
 @Component({
     selector: 'test-bed-input-directive',
     template: ` <input name="username" thyInput [thySize]="thySize" /> `,
-    standalone: false
+    imports: [ThyInputDirective_1]
 })
 class TestBedInputDirectiveComponent {
     thySize = ``;
 }
 
 @NgModule({
-    imports: [ThyInputModule],
-    declarations: [TestBedInputDirectiveComponent],
+    imports: [ThyInputModule, TestBedInputDirectiveComponent],
     exports: []
 })
 export class InputDirectiveTestModule {}

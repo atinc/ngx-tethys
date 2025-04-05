@@ -30,8 +30,7 @@ describe('ThyPickerComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [ThyTestPickerComponent],
-            imports: [CommonModule, OverlayModule, ThyPicker, ThyIcon],
+            imports: [CommonModule, OverlayModule, ThyPicker, ThyIcon, ThyTestPickerComponent],
             providers: [
                 {
                     provide: CdkOverlayOrigin,
@@ -135,7 +134,7 @@ describe('ThyPickerComponent', () => {
             (inputChange)="onInputChange($event)">
         </thy-picker>
     `,
-    standalone: false
+    imports: [CommonModule, OverlayModule, ThyPicker, ThyIcon]
 })
 class ThyTestPickerComponent {
     @ViewChild('thyPicker', { static: true }) thyPicker: ThyPicker;

@@ -1,10 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyTreeBeforeDragDropContext, ThyTreeBeforeDragStartContext, ThyTreeDragDropEvent, ThyTreeDropPosition } from 'ngx-tethys/tree';
+import { ThyIcon } from 'ngx-tethys/icon';
+import {
+    ThyTree,
+    ThyTreeBeforeDragDropContext,
+    ThyTreeBeforeDragStartContext,
+    ThyTreeDragDropEvent,
+    ThyTreeDropPosition
+} from 'ngx-tethys/tree';
 
 @Component({
     selector: 'thy-tree-drag-drop-example',
     templateUrl: './drag-drop.component.html',
-    standalone: false
+    imports: [ThyTree, ThyIcon]
 })
 export class ThyTreeDragDropExampleComponent implements OnInit {
     treeNodes = [

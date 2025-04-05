@@ -20,7 +20,7 @@ let imageOnload: () => void = null;
 @Component({
     selector: 'thy-image-preview-test',
     template: ` <button thyButton="primary" (click)="onClick()">Preview</button> `,
-    standalone: false
+    imports: [ThyImageModule, ThyDialogModule]
 })
 class ImagePreviewTestComponent implements OnInit {
     private thyImageService = coreInject(ThyImageService);
@@ -72,8 +72,7 @@ describe('image-preview', () => {
     beforeEach(() => {
         mockXhrFactory = new MockXhrFactory();
         TestBed.configureTestingModule({
-            imports: [ThyImageModule, ThyDialogModule, NoopAnimationsModule],
-            declarations: [ImagePreviewTestComponent],
+            imports: [ThyImageModule, ThyDialogModule, NoopAnimationsModule, ImagePreviewTestComponent],
             providers: [
                 provideHttpClient(),
                 {

@@ -17,8 +17,7 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-    declarations: COMPONENTS,
-    imports: [CommonModule, FormsModule, ThyVoteModule],
+    imports: [CommonModule, FormsModule, ThyVoteModule, ...COMPONENTS],
     exports: COMPONENTS,
     providers: []
 })

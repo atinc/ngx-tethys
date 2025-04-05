@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { ThyResizeEvent } from 'ngx-tethys/resizable';
+import { ThyResizableDirective, ThyResizeEvent, ThyResizeHandles } from 'ngx-tethys/resizable';
 
 @Component({
     selector: 'thy-resizable-preview-example',
     templateUrl: './preview.component.html',
     styleUrls: ['../style.scss'],
-    standalone: false
+    imports: [ThyResizableDirective, ThyResizeHandles]
 })
 export class ThyResizablePreviewExampleComponent {
     width = 400;

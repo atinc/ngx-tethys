@@ -22,7 +22,7 @@ import { provideHttpClient } from '@angular/common/http';
             </thy-content>
         </thy-layout>
     `,
-    standalone: false
+    imports: [ThyLayoutModule]
 })
 class ThyDemoLayoutBasicComponent {
     isDivided = false;
@@ -43,7 +43,7 @@ class ThyDemoLayoutBasicComponent {
             <thy-content> 恩，我是 content </thy-content>
         </thy-layout>
     `,
-    standalone: false
+    imports: [ThyLayoutModule]
 })
 class ThyDemoLayoutCustomHeaderComponent {}
 
@@ -58,7 +58,7 @@ class ThyDemoLayoutCustomHeaderComponent {}
             </div>
         </div>
     `,
-    standalone: false
+    imports: [ThyLayoutModule]
 })
 class ThyDemoLayoutDirectiveBasicComponent {
     isDivided = false;
@@ -69,8 +69,12 @@ class ThyDemoLayoutDirectiveBasicComponent {
 describe(`layout`, () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [ThyDemoLayoutBasicComponent, ThyDemoLayoutCustomHeaderComponent, ThyDemoLayoutDirectiveBasicComponent],
-            imports: [ThyLayoutModule],
+            imports: [
+                ThyLayoutModule,
+                ThyDemoLayoutBasicComponent,
+                ThyDemoLayoutCustomHeaderComponent,
+                ThyDemoLayoutDirectiveBasicComponent
+            ],
             providers: [bypassSanitizeProvider, provideHttpClient()]
         });
         TestBed.compileComponents();

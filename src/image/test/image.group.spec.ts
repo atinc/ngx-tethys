@@ -15,7 +15,7 @@ import { provideHttpClient } from '@angular/common/http';
             }
         </thy-image-group>
     `,
-    standalone: false
+    imports: [ThyImageModule, ThyDialogModule]
 })
 class ImageGroupTestComponent {
     images = [
@@ -45,8 +45,7 @@ describe('image-group', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyImageModule, ThyDialogModule, NoopAnimationsModule],
-            declarations: [ImageGroupTestComponent],
+            imports: [ThyImageModule, ThyDialogModule, NoopAnimationsModule, ImageGroupTestComponent],
             providers: [provideHttpClient()]
         }).compileComponents();
         fixture = TestBed.createComponent(ImageGroupTestComponent);

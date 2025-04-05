@@ -127,7 +127,7 @@ describe('ThyArrowSwitcher', () => {
             [thyPreviousTooltip]="previousTooltip"
             [thyNextTooltip]="nextTooltip"></thy-arrow-switcher>
     `,
-    standalone: false
+    imports: [ThyArrowSwitcher, FormsModule]
 })
 class ThyDemoArrowSwitcherComponent {
     index = 0;
@@ -146,8 +146,7 @@ class ThyDemoArrowSwitcherComponent {
 }
 
 @NgModule({
-    imports: [ThyArrowSwitcherModule, FormsModule, CommonModule],
-    declarations: [ThyDemoArrowSwitcherComponent],
+    imports: [ThyArrowSwitcherModule, FormsModule, CommonModule, ThyDemoArrowSwitcherComponent],
     exports: [ThyDemoArrowSwitcherComponent]
 })
 export class ArrowSwitcherTestModule {}

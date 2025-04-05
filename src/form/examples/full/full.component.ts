@@ -1,5 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { TinyDate } from 'ngx-tethys/util';
+import { FormsModule } from '@angular/forms';
+import { ThyFormSubmitDirective } from 'ngx-tethys/form';
+import { ThyFormGroupFooter } from 'ngx-tethys/form';
+import { ThyRadioGroup } from 'ngx-tethys/radio';
+import { ThyInputGroup } from 'ngx-tethys/input';
+import { ThyRadioButton } from 'ngx-tethys/radio';
+import { ThyFormDirective } from 'ngx-tethys/form';
+import { ThyCascader } from 'ngx-tethys/cascader';
+import { ThyFormGroup } from 'ngx-tethys/form';
+import { ThyRangePicker } from 'ngx-tethys/date-picker';
+import { ThyCheckbox } from 'ngx-tethys/checkbox';
+import { ThyInputDirective } from 'ngx-tethys/input';
+import { ThyNativeSelect } from 'ngx-tethys/select';
+import { DatePickerRequiredValidator } from 'ngx-tethys/date-picker';
+import { ThyIcon } from 'ngx-tethys/icon';
+import { ThyDatePicker } from 'ngx-tethys/date-picker';
+import { ThyRadio } from 'ngx-tethys/radio';
+import { ThyButton } from 'ngx-tethys/button';
 
 const provinceCities = [
     {
@@ -65,7 +83,26 @@ const provinceCities = [
 @Component({
     selector: 'thy-form-full-example',
     templateUrl: './full.component.html',
-    standalone: false
+    imports: [
+        FormsModule,
+        ThyFormDirective,
+        ThyFormGroup,
+        ThyInputDirective,
+        ThyNativeSelect,
+        ThyCascader,
+        ThyInputGroup,
+        ThyIcon,
+        ThyDatePicker,
+        DatePickerRequiredValidator,
+        ThyRangePicker,
+        ThyCheckbox,
+        ThyRadio,
+        ThyRadioGroup,
+        ThyRadioButton,
+        ThyFormGroupFooter,
+        ThyButton,
+        ThyFormSubmitDirective
+    ]
 })
 export class ThyFormFullExampleComponent implements OnInit {
     submitSuccess = false;

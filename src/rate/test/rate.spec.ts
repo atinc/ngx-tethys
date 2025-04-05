@@ -15,7 +15,7 @@ import { provideHttpClient } from '@angular/common/http';
     template: `
         <thy-rate [(ngModel)]="value" (ngModelChange)="modelChange($event)" (thyItemHoverChange)="hoverChange($event)"></thy-rate>
     `,
-    standalone: false
+    imports: [ThyRateModule, FormsModule]
 })
 class RateBasicTestComponent {
     value = 0;
@@ -30,8 +30,7 @@ describe('Rate basic component', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyRateModule, FormsModule],
-            declarations: [RateBasicTestComponent],
+            imports: [ThyRateModule, FormsModule, RateBasicTestComponent],
             providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
@@ -114,7 +113,7 @@ describe('Rate basic component', () => {
 @Component({
     selector: 'thy-rate-count-test',
     template: ` <thy-rate [(ngModel)]="value" [thyCount]="count"></thy-rate> `,
-    standalone: false
+    imports: [ThyRateModule, FormsModule]
 })
 class RateCountTestComponent {
     value = 1;
@@ -128,8 +127,7 @@ describe('Rate count component', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyRateModule, FormsModule],
-            declarations: [RateCountTestComponent],
+            imports: [ThyRateModule, FormsModule, RateCountTestComponent],
             providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
@@ -161,7 +159,7 @@ describe('Rate count component', () => {
 @Component({
     selector: 'thy-rate-half-test',
     template: ` <thy-rate [(ngModel)]="value" [thyAllowHalf]="allowHalf" (thyItemHoverChange)="hoverChange($event)"></thy-rate> `,
-    standalone: false
+    imports: [ThyRateModule, FormsModule]
 })
 class RateHalfTestComponent {
     value = 1;
@@ -176,8 +174,7 @@ describe('Rate half component', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyRateModule, FormsModule],
-            declarations: [RateHalfTestComponent],
+            imports: [ThyRateModule, FormsModule, RateHalfTestComponent],
             providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
@@ -233,7 +230,7 @@ describe('Rate half component', () => {
 @Component({
     selector: 'thy-rate-clear-test',
     template: ` <thy-rate [(ngModel)]="value" [thyAllowClear]="allowClear" (ngModelChange)="modelChange($event)"></thy-rate> `,
-    standalone: false
+    imports: [ThyRateModule, FormsModule]
 })
 class RateClearTestComponent {
     value = 2;
@@ -248,8 +245,7 @@ describe('Rate clear component', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyRateModule, FormsModule],
-            declarations: [RateClearTestComponent],
+            imports: [ThyRateModule, FormsModule, RateClearTestComponent],
             providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
@@ -303,7 +299,7 @@ describe('Rate clear component', () => {
             (ngModelChange)="modelChange($event)"
             (thyItemHoverChange)="hoverChange($event)"></thy-rate>
     `,
-    standalone: false
+    imports: [ThyRateModule, FormsModule]
 })
 class RateDisabledTestComponent {
     value = 1;
@@ -319,8 +315,7 @@ describe('Rate disabled component', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyRateModule, FormsModule],
-            declarations: [RateDisabledTestComponent],
+            imports: [ThyRateModule, FormsModule, RateDisabledTestComponent],
             providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
@@ -371,7 +366,7 @@ describe('Rate disabled component', () => {
 @Component({
     selector: 'thy-rate-tooltip-test',
     template: ` <thy-rate [(ngModel)]="value" [thyTooltips]="tooltips" (ngModelChange)="modelChange($event)"></thy-rate> `,
-    standalone: false
+    imports: [ThyRateModule, FormsModule]
 })
 class RateTooltipTestComponent {
     @ViewChild(ThyTooltipDirective, { static: true }) tooltip: ThyTooltipDirective;
@@ -387,8 +382,7 @@ describe('Rate tooltip component', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyRateModule, FormsModule],
-            declarations: [RateTooltipTestComponent],
+            imports: [ThyRateModule, FormsModule, RateTooltipTestComponent],
             providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
@@ -429,7 +423,7 @@ describe('Rate tooltip component', () => {
         <ng-template #icon4>欲</ng-template>
         <ng-template #icon5>赞</ng-template>
     `,
-    standalone: false
+    imports: [ThyRateModule, FormsModule]
 })
 class RateTemplateTestComponent {
     value = 1;
@@ -457,8 +451,7 @@ describe('Rate template component', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyRateModule, FormsModule],
-            declarations: [RateTemplateTestComponent, ThyRateTemplateExampleComponent],
+            imports: [ThyRateModule, FormsModule, RateTemplateTestComponent, ThyRateTemplateExampleComponent],
             providers: [provideHttpClient()]
         });
         TestBed.compileComponents();

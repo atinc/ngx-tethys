@@ -1,9 +1,16 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ThyButton } from 'ngx-tethys/button';
+import { ThyFormGroup, ThyFormDirective } from 'ngx-tethys/form';
+import { ThyInputNumber } from 'ngx-tethys/input-number';
+import { ThyOption } from 'ngx-tethys/shared';
+import { ThySelect } from 'ngx-tethys/select';
+import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 
 @Component({
     selector: 'thy-tooltip-basic-example',
     templateUrl: './basic.component.html',
-    standalone: false
+    imports: [FormsModule, ThyFormDirective, ThyFormGroup, ThySelect, ThyOption, ThyInputNumber, ThyTooltipDirective, ThyButton]
 })
 export class ThyTooltipBasicExampleComponent {
     showTooltips = true;

@@ -32,7 +32,7 @@ import { provideHttpClient } from '@angular/common/http';
             </thy-form-group-footer>
         </form>
     `,
-    standalone: false
+    imports: [ThyFormModule, FormsModule, ThyButtonModule]
 })
 export class TestFormWithGroupComponent {
     model = {
@@ -70,8 +70,7 @@ describe('form-group basic', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [TestFormWithGroupComponent],
-            imports: [ThyFormModule, FormsModule, ThyButtonModule],
+            imports: [ThyFormModule, FormsModule, ThyButtonModule, TestFormWithGroupComponent],
             providers: [bypassSanitizeProvider, provideHttpClient()]
         }).compileComponents();
     }));
@@ -191,7 +190,7 @@ describe('form-group basic', () => {
             </thy-form-group-footer>
         </form>
     `,
-    standalone: false
+    imports: [ThyFormModule, FormsModule, ThyButtonModule]
 })
 export class TestFormGroupVerticalComponent {
     model = {
@@ -211,8 +210,7 @@ describe('form-group in vertical', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [TestFormGroupVerticalComponent],
-            imports: [ThyFormModule, FormsModule, ThyButtonModule],
+            imports: [ThyFormModule, FormsModule, ThyButtonModule, TestFormGroupVerticalComponent],
             providers: [bypassSanitizeProvider, provideHttpClient()]
         }).compileComponents();
 
@@ -249,7 +247,7 @@ describe('form-group in vertical', () => {
             </thy-form-group>
         </form>
     `,
-    standalone: false
+    imports: [ThyFormModule, FormsModule, ThyButtonModule]
 })
 export class TestFormGroupTranslateKeyComponent {
     model = {
@@ -273,8 +271,7 @@ describe('form-group for TranslateKey', () => {
     };
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [TestFormGroupTranslateKeyComponent],
-            imports: [ThyFormModule, FormsModule, ThyButtonModule],
+            imports: [ThyFormModule, FormsModule, ThyButtonModule, TestFormGroupTranslateKeyComponent],
             providers: [
                 provideHttpClient(),
                 {
@@ -325,7 +322,7 @@ describe('form-group for TranslateKey', () => {
                 [thyLabelRequired]="labelRequired"></label>
         </form>
     `,
-    standalone: false
+    imports: [ThyFormModule, FormsModule, ThyButtonModule]
 })
 export class TestFormGroupLabelBasicComponent {
     labelRequired = false;
@@ -345,8 +342,7 @@ describe('form-group for TranslateKey', () => {
     };
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [TestFormGroupLabelBasicComponent],
-            imports: [ThyFormModule, FormsModule, ThyButtonModule],
+            imports: [ThyFormModule, FormsModule, ThyButtonModule, TestFormGroupLabelBasicComponent],
             providers: [
                 provideHttpClient(),
                 {

@@ -15,7 +15,7 @@ import { ThySkeletonModule } from '../module';
             </div>
         </thy-skeleton>
     `,
-    standalone: false
+    imports: [ThySkeletonModule]
 })
 class thySkeletonTestComponent {
     circleSize: string = null;
@@ -31,8 +31,7 @@ describe('skeleton ', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThySkeletonModule],
-            declarations: [thySkeletonTestComponent],
+            imports: [ThySkeletonModule, thySkeletonTestComponent],
             providers: []
         });
         TestBed.compileComponents();

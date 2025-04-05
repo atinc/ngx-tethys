@@ -38,9 +38,8 @@ describe('ThyTestDateRangeComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [FormsModule, ThyDateRangeModule, NoopAnimationsModule],
-            providers: [provideHttpClient()],
-            declarations: [ThyTestDateRangeComponent]
+            imports: [FormsModule, ThyDateRangeModule, NoopAnimationsModule, ThyTestDateRangeComponent],
+            providers: [provideHttpClient()]
         });
 
         TestBed.compileComponents();
@@ -494,7 +493,7 @@ describe('ThyTestDateRangeComponent', () => {
             }
         }
     `,
-    standalone: false
+    imports: [FormsModule, ThyDateRangeModule]
 })
 class ThyTestDateRangeComponent {
     useSuite: 1 | 2 | 3;

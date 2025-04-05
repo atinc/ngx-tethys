@@ -17,7 +17,7 @@ import { provideHttpClient } from '@angular/common/http';
         <thy-tag id="custom" thyColor="#56abfb">Tag 6</thy-tag>
         <thy-tag id="hoverable" [thyHoverable]="hoverable">Tag 7</thy-tag>
     `,
-    standalone: false
+    imports: [ThyTagModule, ThyIconModule]
 })
 export class ThyTagBasicTestComponent implements OnInit {
     size: string = 'md';
@@ -35,8 +35,7 @@ describe('thy-tag', () => {
     let fixture: ComponentFixture<ThyTagBasicTestComponent>;
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [ThyTagBasicTestComponent],
-            imports: [ThyTagModule, ThyIconModule],
+            imports: [ThyTagModule, ThyIconModule, ThyTagBasicTestComponent],
             providers: [provideHttpClient()]
         }).compileComponents();
     }));

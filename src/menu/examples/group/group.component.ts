@@ -1,11 +1,16 @@
 import { Component, OnInit, TemplateRef, inject } from '@angular/core';
 import { ThyPopover } from 'ngx-tethys/popover';
+import { ThyMenu } from 'ngx-tethys/menu';
+import { ThyColDirective, ThyRowDirective } from 'ngx-tethys/grid';
+import { ThyDivider } from 'ngx-tethys/divider';
+import { ThyMenuGroup, ThyMenuItem } from 'ngx-tethys/menu';
+import { ThyMenuItemAction } from 'ngx-tethys/menu';
 
 @Component({
     selector: 'thy-menu-group-example',
     templateUrl: './group.component.html',
     styleUrls: ['./group.component.scss'],
-    standalone: false
+    imports: [ThyMenu, ThyColDirective, ThyRowDirective, ThyDivider, ThyMenuGroup, ThyMenuItem, ThyMenuItemAction]
 })
 export class ThyMenuGroupExampleComponent implements OnInit {
     private popover = inject(ThyPopover);

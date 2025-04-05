@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ThySelectionListChange } from 'ngx-tethys/list';
+import { ThySelectionList, ThySelectionListChange } from 'ngx-tethys/list';
+import { ThyListOption } from 'ngx-tethys/shared';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-list-selection-multiple-example',
     templateUrl: './selection-multiple.component.html',
-    standalone: false
+    imports: [ThySelectionList, ThyListOption, FormsModule]
 })
 export class ThyListSelectionMultipleExampleComponent implements OnInit {
     public items = [

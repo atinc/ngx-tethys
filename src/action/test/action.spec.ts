@@ -18,7 +18,7 @@ import { provideHttpClient } from '@angular/common/http';
         <a #feedbackAction1 id="with-feedback" thyAction thyIcon="inbox"></a>
         <a #feedbackAction2 id="with-feedback-disabled" thyAction thyIcon="inbox" [thyDisabled]="true"></a>
     `,
-    standalone: false
+    imports: [ThyActionModule]
 })
 class ThyActionTestBasicComponent {}
 
@@ -28,8 +28,7 @@ describe('thy-action', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyActionModule],
-            declarations: [ThyActionTestBasicComponent],
+            imports: [ThyActionModule, ThyActionTestBasicComponent],
             providers: [provideHttpClient()]
         });
         TestBed.compileComponents();

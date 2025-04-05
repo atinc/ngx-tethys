@@ -42,7 +42,7 @@ import { provideHttpClient } from '@angular/common/http';
             }
         }
     `,
-    standalone: false
+    imports: [ThyAvatarModule]
 })
 class ThyTestAvatarComponent {
     private thyAvatarService = inject(ThyAvatarService);
@@ -92,8 +92,7 @@ describe('ThyAvatarComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyAvatarModule],
-            declarations: [ThyTestAvatarComponent],
+            imports: [ThyAvatarModule, ThyTestAvatarComponent],
             providers: [provideHttpClient()]
         });
         TestBed.compileComponents();

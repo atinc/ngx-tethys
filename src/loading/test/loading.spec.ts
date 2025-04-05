@@ -12,7 +12,7 @@ import { ThyLoadingModule } from '../loading.module';
         }
         <thy-loading [thyDone]="loadingDone" [thyIsMask]="isMask" [thyTip]="tip"></thy-loading>
     `,
-    standalone: false
+    imports: [ThyLoadingModule]
 })
 export class TestLoadingComponent {
     loadingDone: boolean;
@@ -28,8 +28,7 @@ describe('test loading', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyLoadingModule],
-            declarations: [TestLoadingComponent]
+            imports: [ThyLoadingModule, TestLoadingComponent]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestLoadingComponent);

@@ -1,10 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ThyMessageService } from 'ngx-tethys/message';
+import { ThyMessage, ThyMessageService } from 'ngx-tethys/message';
 
 @Component({
     selector: 'thy-message-basic-example',
     templateUrl: './basic.component.html',
-    standalone: false
+    imports: []
 })
 export class ThyMessageBasicExampleComponent implements OnInit {
     private messageService = inject(ThyMessageService);

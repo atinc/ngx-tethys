@@ -15,7 +15,6 @@ import { Component, DebugElement, QueryList, ViewChild, ViewChildren } from '@an
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ThyFormModule } from '../../form';
 import { ThyInputModule } from '../../input/module';
@@ -25,6 +24,7 @@ import { ThyAutocomplete } from '../autocomplete.component';
 import { ThyAutocompleteTriggerDirective } from '../autocomplete.trigger.directive';
 import { ThyAutocompleteModule } from '../module';
 import { provideHttpClient } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 @Component({
     selector: 'thy-basic-autocomplete',
@@ -119,11 +119,10 @@ describe('ThyAutocomplete', () => {
                 ThyInputModule,
                 ThyAutocompleteModule,
                 ReactiveFormsModule,
-                BrowserAnimationsModule,
                 ThyOptionModule
             ],
             declarations: declarations,
-            providers: [bypassSanitizeProvider, provideHttpClient()]
+            providers: [bypassSanitizeProvider, provideHttpClient(), provideAnimations()]
         }).compileComponents();
 
         inject([OverlayContainer, Platform], (oc: OverlayContainer, p: Platform) => {

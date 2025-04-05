@@ -10,7 +10,7 @@ import { provideHttpClient } from '@angular/common/http';
 @Component({
     selector: 'thy-test-form-group-error-basic',
     template: ` <thy-form-group-error [thyErrors]="errors" [thyShowFirst]="showFirst"> </thy-form-group-error> `,
-    standalone: false
+    imports: [ThyFormModule, FormsModule]
 })
 export class TestFormGroupErrorBasicComponent {
     align = '';
@@ -31,8 +31,7 @@ describe('form-group-error', () => {
     describe('isHorizontal', () => {
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                declarations: [TestFormGroupErrorBasicComponent],
-                imports: [ThyFormModule, FormsModule],
+                imports: [ThyFormModule, FormsModule, TestFormGroupErrorBasicComponent],
                 providers: [
                     provideHttpClient(),
                     {
@@ -87,8 +86,7 @@ describe('form-group-error', () => {
     describe('vertical', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
-                declarations: [TestFormGroupErrorBasicComponent],
-                imports: [ThyFormModule, FormsModule],
+                imports: [ThyFormModule, FormsModule, TestFormGroupErrorBasicComponent],
                 providers: [
                     provideHttpClient(),
                     {

@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ThySpace } from 'ngx-tethys/space';
+import { ThySwitch } from 'ngx-tethys/switch';
 
 @Component({
     selector: 'thy-switch-size-example',
     templateUrl: './size.component.html',
-    standalone: false
+    imports: [ThySwitch, FormsModule, ThySpace]
 })
-export class ThySwitchSizeExampleComponent implements OnInit {
+export class ThySwitchSizeExampleComponent {
     isChecked: Boolean = true;
 
     constructor() {}

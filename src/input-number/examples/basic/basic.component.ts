@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ThyInputNumber } from 'ngx-tethys/input-number';
 
 @Component({
     selector: 'thy-input-number-basic-example',
     templateUrl: './basic.component.html',
-    standalone: false
+    imports: [ThyInputNumber]
 })
 export class ThyInputNumberBasicExampleComponent implements OnInit {
     value: string | number = 0;

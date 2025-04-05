@@ -20,7 +20,7 @@ import { provideHttpClient } from '@angular/common/http';
             (thyPageIndexChange)="onPageIndexChange($event)"></thy-pagination>
         <ng-template #total let-total>共{{ total }}条</ng-template>
     `,
-    standalone: false
+    imports: [ThyPaginationModule]
 })
 class PaginationBasicComponent {
     pagination = {
@@ -57,7 +57,7 @@ class PaginationBasicComponent {
             [thyPageSizeOptions]="[10, 20, 50, 100]"
             (thyPageSizeChanged)="pageSizeChanged($event)"></thy-pagination>
     `,
-    standalone: false
+    imports: [ThyPaginationModule]
 })
 class PaginationTestComponent {
     pagination = {
@@ -88,7 +88,7 @@ describe('ThyPagination', () => {
                 [thyShowQuickJumper]="false"
                 (thyPageIndexChange)="pageIndexChange($event)"></thy-pagination>
         `,
-        standalone: false
+        imports: [ThyPaginationModule]
     })
     class PaginationCustomPagesComponent {
         currentIndex = 1;
@@ -100,8 +100,13 @@ describe('ThyPagination', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyPaginationModule, NoopAnimationsModule],
-            declarations: [PaginationTestComponent, PaginationBasicComponent, PaginationCustomPagesComponent],
+            imports: [
+                ThyPaginationModule,
+                NoopAnimationsModule,
+                PaginationTestComponent,
+                PaginationBasicComponent,
+                PaginationCustomPagesComponent
+            ],
             providers: [provideHttpClient()]
         });
         TestBed.compileComponents();

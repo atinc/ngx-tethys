@@ -601,8 +601,7 @@ describe('ThySlide', () => {
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                imports: [ThySlideModule],
-                declarations: [SlideLayoutTestComponent],
+                imports: [ThySlideModule, SlideLayoutTestComponent],
                 providers: [provideHttpClient(), { provide: ThySlideService, useValue: ThySlideService }]
             });
 
@@ -678,8 +677,7 @@ describe('ThySlide', () => {
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                imports: [ThySlideModule],
-                declarations: [SlideHeaderTestComponent],
+                imports: [ThySlideModule, SlideHeaderTestComponent],
                 providers: [provideHttpClient(), { provide: ThySlideService, useValue: ThySlideService }]
             });
 
@@ -770,7 +768,7 @@ describe('ThySlide', () => {
             </thy-slide-footer>
         </thy-slide-layout>
     `,
-    standalone: false
+    imports: [ThySlideLayout, ThySlideHeader, ThySlideBody, ThySlideBodySection, ThySlideFooter]
 })
 class SlideLayoutTestComponent {
     public data: number;
@@ -793,13 +791,12 @@ class SlideLayoutTestComponent {
             </ng-template>
         </thy-slide-header>
     `,
-    standalone: false
+    imports: [ThySlideHeader]
 })
 class SlideHeaderTestComponent {}
 
 @NgModule({
-    imports: [ThySlideModule, NoopAnimationsModule],
-    exports: [SlideLayoutTestComponent, SlideHeaderTestComponent],
-    declarations: [SlideLayoutTestComponent, SlideHeaderTestComponent]
+    imports: [ThySlideModule, NoopAnimationsModule, SlideLayoutTestComponent, SlideHeaderTestComponent],
+    exports: [SlideLayoutTestComponent, SlideHeaderTestComponent]
 })
 export class ThySlideTestModule {}

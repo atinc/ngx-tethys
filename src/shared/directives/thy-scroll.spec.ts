@@ -10,8 +10,7 @@ describe('thy-scroll', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThySharedModule],
-            declarations: [ThyScrollViewportComponent]
+            imports: [ThySharedModule, ThyScrollViewportComponent]
         }).compileComponents();
     }));
 
@@ -82,7 +81,7 @@ describe('thy-scroll', () => {
             }
         `
     ],
-    standalone: false
+    imports: [ThySharedModule]
 })
 class ThyScrollViewportComponent implements OnInit {
     @ViewChild(ThyScrollDirective, { read: false }) thyScrollDirective: ThyScrollDirective;

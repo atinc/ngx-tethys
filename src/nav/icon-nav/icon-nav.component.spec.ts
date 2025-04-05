@@ -19,7 +19,7 @@ const ICON_NAV_LINK_CLASS = `thy-icon-nav-link`;
             <a thyIconNavLink><thy-icon thyIconName="filter"></thy-icon></a>
         </thy-icon-nav>
     `,
-    standalone: false
+    imports: [ThyNavModule, ThyIconModule]
 })
 export class IconNavBasicComponent implements OnInit {
     type = '';
@@ -32,8 +32,7 @@ export class IconNavBasicComponent implements OnInit {
 describe(`icon-nav`, () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [IconNavBasicComponent],
-            imports: [ThyNavModule, ThyIconModule],
+            imports: [ThyNavModule, ThyIconModule, IconNavBasicComponent],
             providers: [bypassSanitizeProvider, provideHttpClient()]
         });
         TestBed.compileComponents();

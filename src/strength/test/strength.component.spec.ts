@@ -11,7 +11,7 @@ import { ThyStrengthModule } from '../strength.module';
 @Component({
     selector: 'thy-strength-basic-test',
     template: ` <thy-strength [(ngModel)]="value"></thy-strength> `,
-    standalone: false
+    imports: [ThyStrengthModule, FormsModule, ThyButtonModule]
 })
 class StrengthBasicTestComponent {
     public value = 1;
@@ -25,8 +25,7 @@ describe('Strength basic component', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyStrengthModule, FormsModule, ThyButtonModule],
-            declarations: [StrengthBasicTestComponent],
+            imports: [ThyStrengthModule, FormsModule, ThyButtonModule, StrengthBasicTestComponent],
             providers: []
         });
         TestBed.compileComponents();
@@ -65,7 +64,7 @@ describe('Strength basic component', () => {
             [averageKey]="text[currentTextType].averageKey"
             [lowKey]="text[currentTextType].lowKey"></thy-strength>
     `,
-    standalone: false
+    imports: [ThyStrengthModule, FormsModule, ThyButtonModule]
 })
 class StrengthTestComponent {
     public strength = 2;
@@ -96,8 +95,7 @@ describe('Strength component', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyStrengthModule, FormsModule, ThyButtonModule],
-            declarations: [StrengthTestComponent],
+            imports: [ThyStrengthModule, FormsModule, ThyButtonModule, StrengthTestComponent],
             providers: []
         });
         TestBed.compileComponents();

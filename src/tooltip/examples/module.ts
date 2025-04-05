@@ -23,7 +23,6 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-    declarations: COMPONENTS,
     imports: [
         CommonModule,
         FormsModule,
@@ -34,7 +33,8 @@ const COMPONENTS = [
         ThyTooltipModule,
         ThyDropdownModule,
         ThySpaceModule,
-        ThyInputNumberModule
+        ThyInputNumberModule,
+        ...COMPONENTS
     ],
     exports: COMPONENTS,
     providers: []

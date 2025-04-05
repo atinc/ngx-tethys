@@ -11,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
     host: {
         class: 'thy-notify-content-example'
     },
-    standalone: false
+    imports: []
 })
 export class ThyNotifyContentExampleComponent implements OnInit {
     title: string = '默认标题';

@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { disabledOptionTreeSelectData } from '../mock-data';
 import { ThyTreeSelectNode } from '../tree-select.class';
+import { ThyTreeSelect } from 'ngx-tethys/tree-select';
 
 @Component({
     selector: 'app-tree-select-disabled-example',
     templateUrl: './disabled.component.html',
-    standalone: false
+    imports: [ThyTreeSelect]
 })
 export class ThyTreeSelectDisabledExampleComponent implements OnInit {
     public treeSelectNodes = disabledOptionTreeSelectData;

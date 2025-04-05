@@ -23,7 +23,7 @@ import { provideHttpClient } from '@angular/common/http';
             <option value="option2">选项2</option>
         </thy-native-select>
     `,
-    standalone: false
+    imports: [ThySelectModule, FormsModule]
 })
 class BasicNativeSelectComponent {
     @ViewChild(ThyNativeSelect, { static: false }) selectComponent: ThyNativeSelect;
@@ -38,8 +38,7 @@ class BasicNativeSelectComponent {
 describe(`select`, () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThySelectModule, FormsModule],
-            declarations: [BasicNativeSelectComponent],
+            imports: [ThySelectModule, FormsModule, BasicNativeSelectComponent],
             providers: [
                 provideHttpClient(),
                 {

@@ -22,9 +22,8 @@ describe('ThyMonthPickerComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyDatePickerModule, FormsModule, NoopAnimationsModule],
-            providers: [provideHttpClient()],
-            declarations: [TestMonthPickerComponent]
+            imports: [ThyDatePickerModule, FormsModule, NoopAnimationsModule, TestMonthPickerComponent],
+            providers: [provideHttpClient()]
         });
 
         TestBed.compileComponents();
@@ -274,7 +273,7 @@ describe('ThyMonthPickerComponent', () => {
             [thyPlaceHolder]="thyPlaceHolder">
         </thy-month-picker>
     `,
-    standalone: false
+    imports: [ThyDatePickerModule, FormsModule]
 })
 class TestMonthPickerComponent {
     thyAllowClear: boolean;

@@ -2,11 +2,11 @@ import { bypassSanitizeProvider, dispatchFakeEvent, injectDefaultSvgIconSet } fr
 import { Subject } from 'rxjs';
 
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component, DebugElement, ElementRef, inject, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, DebugElement, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Router, Routes } from '@angular/router';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { Router, RouterModule, Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { ThyIconModule } from '../../icon';
@@ -37,7 +37,7 @@ const NAV_LINK_CLASS = `thy-nav-item`;
             <a href="javascript:;">Extra</a>
         </ng-template>
     `,
-    standalone: false
+    imports: [ThyNavModule, ThyIconModule]
 })
 export class NavBasicComponent implements OnInit {
     type: ThyNavType;
@@ -82,7 +82,7 @@ export class NavBasicComponent implements OnInit {
             }
         `
     ],
-    standalone: false
+    imports: [ThyNavModule, ThyIconModule, RouterModule]
 })
 export class NavResponsiveComponent implements OnInit {
     type: ThyNavType;
@@ -114,8 +114,7 @@ export class NavResponsiveComponent implements OnInit {
 
 @Component({
     selector: 'app-nav-basic',
-    template: ``,
-    standalone: false
+    template: ``
 })
 export class NavRouteComponent {}
 
@@ -134,9 +133,8 @@ describe(`thy-nav`, () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [NavBasicComponent, NavResponsiveComponent, NavRouteComponent],
-            imports: [ThyNavModule, ThyIconModule, NoopAnimationsModule, RouterTestingModule.withRoutes(routes)],
-            providers: [bypassSanitizeProvider, provideHttpClient()]
+            imports: [RouterTestingModule.withRoutes(routes)],
+            providers: [bypassSanitizeProvider, provideHttpClient(), provideAnimations()]
         });
         TestBed.compileComponents();
         injectDefaultSvgIconSet();

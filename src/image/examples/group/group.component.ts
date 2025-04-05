@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { ThyImageDirective, ThyImageGroup } from 'ngx-tethys/image';
 
 @Component({
     selector: 'thy-image-group-example',
     templateUrl: './group.component.html',
-    standalone: false
+    imports: [ThyImageDirective, ThyImageGroup]
 })
 export class ThyImageGroupExampleComponent {
     images = [

@@ -32,7 +32,7 @@ import { provideHttpClient } from '@angular/common/http';
             }
         `
     ],
-    standalone: false
+    imports: [FormsModule, ThySliderModule]
 })
 class ThyTestSliderComponent {
     value: number;
@@ -57,9 +57,8 @@ describe('ThyTestSliderComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [FormsModule, ThySliderModule],
-            providers: [provideHttpClient()],
-            declarations: [ThyTestSliderComponent]
+            imports: [FormsModule, ThySliderModule, ThyTestSliderComponent],
+            providers: [provideHttpClient()]
         });
 
         TestBed.compileComponents();

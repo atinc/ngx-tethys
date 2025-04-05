@@ -1,12 +1,19 @@
-import { ThyNavItemDirective } from 'ngx-tethys/nav';
-
+import { ThyNav, ThyNavItemDirective } from 'ngx-tethys/nav';
 import { Component, OnInit } from '@angular/core';
+import { ThyDropdownMenuComponent, ThyDropdownMenuItemDirective, ThyDropdownMenuItemActiveDirective } from 'ngx-tethys/dropdown';
 
 @Component({
     selector: 'thy-nav-responsive-example',
     templateUrl: './responsive.component.html',
     styleUrls: ['./responsive.component.scss'],
-    standalone: false
+    imports: [
+        ThyNav,
+        ThyNavItemDirective,
+        ThyDropdownMenuItemActiveDirective,
+        ThyDropdownMenuComponent,
+        ThyDropdownMenuItemDirective,
+        ThyDropdownMenuItemDirective
+    ]
 })
 export class ThyNavResponsiveExampleComponent implements OnInit {
     activeIndex = 13;

@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
+import { NgStyle } from '@angular/common';
+import { ThyAnchor } from 'ngx-tethys/anchor';
+import { ThyAnchorLink } from 'ngx-tethys/anchor';
+
 @Component({
     selector: 'thy-anchor-horizontal-example',
     templateUrl: './horizontal.component.html',
-    standalone: false
+    imports: [ThyAnchor, ThyAnchorLink, NgStyle]
 })
 export class ThyAnchorHorizontalExampleComponent implements OnInit {
     direction = 'horizontal';

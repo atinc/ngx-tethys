@@ -11,7 +11,7 @@ import { ThyStringOrTemplateOutletDirective } from './string-or-template-outlet.
         <ng-template #emptyTpl>Empty Template</ng-template>
         <ng-template #dataTimeTpl let-data let-time="time">The data is {{ data }}, The time is {{ time }}</ng-template>
     `,
-    standalone: false
+    imports: [ThyStringOrTemplateOutletDirective]
 })
 class ThyStringOrTemplateOutletTestComponent {
     @ViewChild('stringTpl') stringTpl!: TemplateRef<any>;
@@ -29,8 +29,7 @@ describe('string or template outlet directive', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyStringOrTemplateOutletDirective],
-            declarations: [ThyStringOrTemplateOutletTestComponent]
+            imports: [ThyStringOrTemplateOutletDirective, ThyStringOrTemplateOutletTestComponent]
         }).compileComponents();
 
         fixture = TestBed.createComponent(ThyStringOrTemplateOutletTestComponent);

@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { ThyButton } from 'ngx-tethys/button';
+import { ThyIcon } from 'ngx-tethys/icon';
+import { ThySpace } from 'ngx-tethys/space';
 
 @Component({
     selector: 'thy-button-icon-example',
     templateUrl: './icon.component.html',
-    standalone: false
+    imports: [ThyButton, ThyIcon, ThySpace]
 })
 export class ThyButtonIconExampleComponent implements OnInit {
     constructor() {}

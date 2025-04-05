@@ -176,7 +176,7 @@ describe('thy-statistic', () => {
             [thyValueStyle]="thyValueStyle"
             [thyTitlePosition]="thyTitlePosition"></thy-statistic>
     `,
-    standalone: false
+    imports: [ThyStatistic]
 })
 class ThyDemoStatisticBasicComponent {
     thyValue = 10;
@@ -199,7 +199,7 @@ class ThyDemoStatisticBasicComponent {
             <ng-template #title>标题</ng-template>
         </thy-statistic>
     `,
-    standalone: false
+    imports: [ThyStatistic]
 })
 class ThyDemoStatisticTemplateComponent {
     thyValue = 80;
@@ -215,13 +215,17 @@ class ThyDemoStatisticTemplateComponent {
         <ng-template #suffix>后缀</ng-template>
         <ng-template #title>标题</ng-template>
     `,
-    standalone: false
+    imports: [ThyStatistic]
 })
 class ThyDemoStatisticTemplateOutsideComponent {}
 
 @NgModule({
-    imports: [ThyStatisticModule],
-    declarations: [ThyDemoStatisticBasicComponent, ThyDemoStatisticTemplateComponent, ThyDemoStatisticTemplateOutsideComponent],
+    imports: [
+        ThyStatisticModule,
+        ThyDemoStatisticBasicComponent,
+        ThyDemoStatisticTemplateComponent,
+        ThyDemoStatisticTemplateOutsideComponent
+    ],
     exports: [ThyDemoStatisticBasicComponent, ThyDemoStatisticTemplateComponent, ThyDemoStatisticTemplateOutsideComponent]
 })
 export class StatisticTestModule {}

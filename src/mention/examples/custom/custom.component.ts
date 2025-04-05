@@ -1,6 +1,7 @@
-import { Mention, MentionSuggestionSelectEvent } from 'ngx-tethys/mention';
+import { Mention, MentionSuggestionSelectEvent, ThyMentionDirective } from 'ngx-tethys/mention';
 
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 const mockTasks = [
     {
@@ -32,7 +33,7 @@ const mockMessages = [
 @Component({
     selector: 'thy-mention-custom-example',
     templateUrl: './custom.component.html',
-    standalone: false
+    imports: [ThyMentionDirective, FormsModule]
 })
 export class ThyMentionCustomExampleComponent implements OnInit {
     value = `Custom insert transform and search, using # to relate task, quick reply using /`;

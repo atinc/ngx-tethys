@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { ThyTable, ThyTableColumnComponent } from 'ngx-tethys/table';
+import { ThyIcon } from 'ngx-tethys/icon';
 
 @Component({
     selector: 'thy-table-tree-example',
     templateUrl: './tree.component.html',
-    standalone: false
+    imports: [ThyTable, ThyTableColumnComponent, ThyIcon]
 })
 export class ThyTableTreeExampleComponent implements OnInit {
     data = [

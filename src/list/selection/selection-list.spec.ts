@@ -24,8 +24,9 @@ describe('ThySelectionList without forms', () => {
 
         beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
-                imports: [FormsModule, ThyListModule],
-                declarations: [
+                imports: [
+                    FormsModule,
+                    ThyListModule,
                     SelectionListWithListOptionsComponent,
                     SelectionListWithListOptionsDefaultComponent,
                     SelectionListWithListOptionsByObjectTypeValueComponent
@@ -274,7 +275,7 @@ describe('ThySelectionList without forms', () => {
         <button (click)="deselectAll()">清除全部</button>
         <button (click)="determineClearActiveItem()">确认清除</button>
     `,
-    standalone: false
+    imports: [FormsModule, ThyListModule]
 })
 class SelectionListWithListOptionsComponent {
     @ViewChild(ThySelectionList, { static: true }) thySelectionListComponent: ThySelectionList;
@@ -358,7 +359,7 @@ class SelectionListWithListOptionsComponent {
             <thy-list-option thyValue="drafts"> Drafts </thy-list-option>
         </thy-selection-list>
     `,
-    standalone: false
+    imports: [FormsModule, ThyListModule]
 })
 class SelectionListWithListOptionsDefaultComponent {
     autoActiveFirstItem = false;
@@ -381,7 +382,7 @@ class SelectionListWithListOptionsDefaultComponent {
             }
         </thy-selection-list>
     `,
-    standalone: false
+    imports: [FormsModule, ThyListModule]
 })
 class SelectionListWithListOptionsByObjectTypeValueComponent {
     @ViewChild(ThySelectionList, { static: true }) thySelectionListComponent: ThySelectionList;

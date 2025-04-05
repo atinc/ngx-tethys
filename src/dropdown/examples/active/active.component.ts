@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { ThyDropdownDirective } from 'ngx-tethys/dropdown';
 
 @Component({
     selector: 'thy-dropdown-active-example',
     templateUrl: './active.component.html',
-    standalone: false
+    imports: [ThyDropdownDirective]
 })
 export class ThyDropdownActiveExampleComponent {}

@@ -18,7 +18,7 @@ import { createKeyboardEvent } from '@tethys/cdk/testing';
             thySize="sm"
             (click)="save()"></button>
     `,
-    standalone: false
+    imports: [ThyHotkeyModule]
 })
 class ThyHotkeyDirectiveTestComponent {
     @ViewChild('input') input: ElementRef<HTMLInputElement>;
@@ -35,7 +35,7 @@ describe('ThyHotkeyDirective', () => {
     let component: ThyHotkeyDirectiveTestComponent;
 
     beforeEach(() => {
-        TestBed.configureTestingModule({ imports: [ThyHotkeyModule], declarations: [ThyHotkeyDirectiveTestComponent] });
+        TestBed.configureTestingModule({ imports: [ThyHotkeyModule, ThyHotkeyDirectiveTestComponent] });
         TestBed.compileComponents();
     });
 

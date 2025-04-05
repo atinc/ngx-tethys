@@ -19,9 +19,8 @@ describe('ThyQuarterPickerComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyDatePickerModule, FormsModule, NoopAnimationsModule],
-            providers: [provideHttpClient()],
-            declarations: [TestQuarterPickerComponent]
+            imports: [ThyDatePickerModule, FormsModule, NoopAnimationsModule, TestQuarterPickerComponent],
+            providers: [provideHttpClient()]
         });
 
         TestBed.compileComponents();
@@ -291,7 +290,7 @@ describe('ThyQuarterPickerComponent', () => {
             [thyPlaceHolder]="thyPlaceHolder">
         </thy-quarter-picker>
     `,
-    standalone: false
+    imports: [ThyDatePickerModule, FormsModule]
 })
 class TestQuarterPickerComponent {
     @ViewChild('thyQuarterPicker', { static: true }) thyQuarterPicker: ThyQuarterPicker;

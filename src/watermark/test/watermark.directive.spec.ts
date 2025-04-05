@@ -15,7 +15,7 @@ import { ThyWatermarkModule } from '../watermark.module';
             [thyWatermark]="watermarkContent"
             [thyDisabled]="isDisabled"></div>
     `,
-    standalone: false
+    imports: [ThyWatermarkDirective]
 })
 class ThyTestWatermarkBasicComponent implements OnInit {
     isDisabled = false;
@@ -28,8 +28,7 @@ class ThyTestWatermarkBasicComponent implements OnInit {
 }
 
 @NgModule({
-    imports: [ThyWatermarkModule],
-    declarations: [ThyTestWatermarkBasicComponent],
+    imports: [ThyWatermarkModule, ThyTestWatermarkBasicComponent],
     exports: []
 })
 export class WatermarkTestModule {}

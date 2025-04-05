@@ -16,7 +16,7 @@ import { By } from '@angular/platform-browser';
             }
         </thy-space>
     `,
-    standalone: false
+    imports: [ThyButtonModule, ThySpaceModule]
 })
 class TestBasicComponent {
     dynamicShow = false;
@@ -32,7 +32,7 @@ class TestBasicComponent {
             <button *thySpaceItem thyButton="info">Button2</button>
         </thy-space>
     `,
-    standalone: false
+    imports: [ThyButtonModule, ThySpaceModule]
 })
 class TestSizeComponent {
     size: string | number = 'md';
@@ -54,8 +54,7 @@ describe('space', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                declarations: [TestBasicComponent],
-                imports: [ThyButtonModule, ThySpaceModule]
+                imports: [ThyButtonModule, ThySpaceModule, TestBasicComponent]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicComponent);
@@ -112,8 +111,7 @@ describe('space', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                declarations: [TestSizeComponent],
-                imports: [ThyButtonModule, ThySpaceModule]
+                imports: [ThyButtonModule, ThySpaceModule, TestSizeComponent]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestSizeComponent);

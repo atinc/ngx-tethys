@@ -73,13 +73,12 @@ describe('ThyResult', () => {
             </ng-template>
         </thy-result>
     `,
-    standalone: false
+    imports: [ThyResult]
 })
 class ThyResultDemoComponent {}
 
 @NgModule({
-    imports: [CommonModule, ThyResultModule],
-    declarations: [ThyResultDemoComponent],
+    imports: [CommonModule, ThyResultModule, ThyResultDemoComponent],
     exports: [ThyResultDemoComponent]
 })
 export class ThyResultTestModule {}

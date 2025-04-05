@@ -7,6 +7,7 @@ import { By } from '@angular/platform-browser';
 import { ThyTable } from '../table.component';
 import { ThyTableModule } from '../table.module';
 import { provideHttpClient } from '@angular/common/http';
+import { ThyTableColumnComponent } from '../table-column.component';
 
 @Component({
     selector: 'thy-demo-table-tree',
@@ -30,7 +31,7 @@ import { provideHttpClient } from '@angular/common/http';
             </thy-table-column>
         </thy-table>
     `,
-    standalone: false
+    imports: [ThyTable, ThyTableColumnComponent]
 })
 class ThyDemoTableTreeComponent {
     showExpand = false;
@@ -115,8 +116,7 @@ class ThyDemoTableTreeComponent {
 }
 
 @NgModule({
-    imports: [ThyTableModule],
-    declarations: [ThyDemoTableTreeComponent],
+    imports: [ThyTableModule, ThyDemoTableTreeComponent],
     exports: [ThyDemoTableTreeComponent]
 })
 export class TableTreeTestModule {}

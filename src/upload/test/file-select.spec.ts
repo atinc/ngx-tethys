@@ -23,7 +23,7 @@ import { createFile } from './utils';
             (thyOnFileSelect)="selectFiles($event)">
         </thy-file-select>
     `,
-    standalone: false
+    imports: [ThyFileSelect]
 })
 class FileSelectBasicComponent {
     multiple: boolean;
@@ -43,8 +43,7 @@ class FileSelectBasicComponent {
 }
 
 @NgModule({
-    imports: [ThyUploadModule],
-    declarations: [FileSelectBasicComponent],
+    imports: [ThyUploadModule, FileSelectBasicComponent],
     exports: [FileSelectBasicComponent]
 })
 export class FileUploaderTestModule {}
@@ -172,15 +171,14 @@ describe('ThyFileSelect', () => {
 @Component({
     selector: 'thy-file-select-static-input',
     template: ` <thy-file-select thyMultiple="true" thyAcceptFolder="false" (thyOnFileSelect)="selectFiles($event)"> </thy-file-select> `,
-    standalone: false
+    imports: [ThyFileSelect]
 })
 class FileSelectStaticInputComponent {
     selectFiles(event: { files: File[] }) {}
 }
 
 @NgModule({
-    imports: [ThyUploadModule],
-    declarations: [FileSelectStaticInputComponent],
+    imports: [ThyUploadModule, FileSelectStaticInputComponent],
     exports: [FileSelectStaticInputComponent]
 })
 export class FileUploaderTestStaticInputModule {}

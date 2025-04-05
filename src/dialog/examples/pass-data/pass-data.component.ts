@@ -1,6 +1,5 @@
 import { Component, inject, input, OnInit } from '@angular/core';
-import { ThyDialog, ThyDialogConfig, ThyDialogRef, ThyDialogSizes } from 'ngx-tethys/dialog';
-import { ThyDialogBasicContentComponent } from '../basic/dialog-content.component';
+import { ThyDialog, ThyDialogConfig, ThyDialogRef } from 'ngx-tethys/dialog';
 import { ThyButton } from 'ngx-tethys/button';
 import { ThyDialogHeader, ThyDialogBody, ThyDialogFooter } from 'ngx-tethys/dialog';
 

@@ -45,7 +45,7 @@ const SIDEBAR_ISOLATED_CLASS = 'thy-layout-sidebar-isolated';
             <thy-content> Yeah, I am content </thy-content>
         </thy-layout>
     `,
-    standalone: false
+    imports: [ThyLayoutModule]
 })
 class ThyDemoLayoutSidebarBasicComponent {
     width: string | number = '';
@@ -90,7 +90,7 @@ class ThyDemoLayoutSidebarBasicComponent {
             <thy-content>Yeah, I am content</thy-content>
         </thy-layout>
     `,
-    standalone: false
+    imports: [ThyLayoutModule]
 })
 class ThyDemoLayoutCustomSidebarComponent {
     sidebarDirection = 'right';
@@ -114,7 +114,7 @@ class ThyDemoLayoutCustomSidebarComponent {
             <div thyContent>Yeah, I am content</div>
         </div>
     `,
-    standalone: false
+    imports: [ThyLayoutModule]
 })
 class ThyDemoLayoutSidebarDirectiveComponent {
     direction = 'right';
@@ -128,8 +128,12 @@ class ThyDemoLayoutSidebarDirectiveComponent {
 describe(`sidebar`, () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [ThyDemoLayoutSidebarBasicComponent, ThyDemoLayoutCustomSidebarComponent, ThyDemoLayoutSidebarDirectiveComponent],
-            imports: [ThyLayoutModule],
+            imports: [
+                ThyLayoutModule,
+                ThyDemoLayoutSidebarBasicComponent,
+                ThyDemoLayoutCustomSidebarComponent,
+                ThyDemoLayoutSidebarDirectiveComponent
+            ],
             providers: [bypassSanitizeProvider, provideHttpClient()]
         });
         TestBed.compileComponents();

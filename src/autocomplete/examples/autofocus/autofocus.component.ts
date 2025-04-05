@@ -1,10 +1,16 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ThyOption } from 'ngx-tethys/shared';
+import { ThyAutocomplete } from 'ngx-tethys/autocomplete';
+import { FormsModule } from '@angular/forms';
+import { ThyAutocompleteTriggerDirective } from 'ngx-tethys/autocomplete';
+import { ThyInputDirective } from 'ngx-tethys/input';
+import { ThyAutofocusDirective } from 'ngx-tethys/shared';
 
 @Component({
     selector: 'thy-autocomplete-autofocus-example',
     templateUrl: './autofocus.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    imports: [ThyInputDirective, FormsModule, ThyAutofocusDirective, ThyAutocompleteTriggerDirective, ThyAutocomplete, ThyOption]
 })
 export class ThyAutocompleteAutofocusExampleComponent implements OnInit {
     value = '';

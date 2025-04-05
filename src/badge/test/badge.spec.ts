@@ -11,7 +11,7 @@ import { By } from '@angular/platform-browser';
             <div>WORKTILE</div>
         </thy-badge>
     `,
-    standalone: false
+    imports: [ThyBadgeModule]
 })
 class BadgeBasicComponent implements OnInit {
     isValueKeepShow = false;
@@ -36,7 +36,7 @@ class BadgeBasicComponent implements OnInit {
             <div>WORKTILE</div>
         </thy-badge>
     `,
-    standalone: false
+    imports: [ThyBadgeModule]
 })
 class BadgeBasicContextComponent implements OnInit {
     constructor() {}
@@ -53,7 +53,7 @@ class BadgeBasicContextComponent implements OnInit {
             <div>WORKTILE</div>
         </thy-badge>
     `,
-    standalone: false
+    imports: [ThyBadgeModule]
 })
 class BadgeContentTestComponent implements OnInit {
     constructor() {}
@@ -70,7 +70,7 @@ class BadgeContentTestComponent implements OnInit {
             <div>WORKTILE</div>
         </thy-badge>
     `,
-    standalone: false
+    imports: [ThyBadgeModule]
 })
 class BadgeBasicHollowComponent implements OnInit {
     constructor() {}
@@ -83,7 +83,7 @@ class BadgeBasicHollowComponent implements OnInit {
 @Component({
     selector: 'thy-badge-dot',
     template: ` <thy-badge [thyIsDot]="isDot"></thy-badge> `,
-    standalone: false
+    imports: [ThyBadgeModule]
 })
 class BadgeBasicDotComponent implements OnInit {
     constructor() {}
@@ -96,7 +96,7 @@ class BadgeBasicDotComponent implements OnInit {
 @Component({
     selector: 'thy-badge-custom-color',
     template: ` <span thyBadge [thyCount]="5" [thyTextColor]="textColor" [thyBackgroundColor]="backgroundColor"></span> `,
-    standalone: false
+    imports: [ThyBadgeModule]
 })
 class BadgeBasicCustomColorComponent implements OnInit {
     textColor = '#00ff00';
@@ -114,8 +114,8 @@ describe('thy-badge', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyBadgeModule],
-            declarations: [
+            imports: [
+                ThyBadgeModule,
                 BadgeBasicComponent,
                 BadgeContentTestComponent,
                 BadgeBasicContextComponent,

@@ -20,7 +20,7 @@ import { provideHttpClient } from '@angular/common/http';
 @Component({
     selector: 'app-test-basic-form',
     template: ` <form thyForm [thyLayout]="thyLayout"></form> `,
-    standalone: false
+    imports: [ThyFormDirective, ThyLayoutModule, FormsModule]
 })
 export class TestFormBasicDirectiveComponent {
     thyLayout = '';
@@ -65,7 +65,7 @@ export class TestFormBasicDirectiveComponent {
             </form>
         }
     `,
-    standalone: false
+    imports: [CommonModule, FormsModule, ThyFormModule, ThyLayoutModule, ThyButtonModule, ThyInputModule]
 })
 export class TestFormFullComponent {
     model = {
@@ -138,7 +138,16 @@ export class TestFormFullComponent {
             </form>
         }
     `,
-    standalone: false
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ThyFormModule,
+        ThyLayoutModule,
+        ThyButtonModule,
+        ThyInputModule,
+        ThySelectModule
+    ]
 })
 export class TestFormReactiveComponent {
     private formBuilder = inject(FormBuilder);
@@ -176,7 +185,6 @@ describe('form basic directive', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [TestFormBasicDirectiveComponent],
             imports: [ThyFormModule, FormsModule, ThyLayoutModule],
             providers: [provideHttpClient()]
         });
@@ -219,7 +227,6 @@ describe('form directive global config', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyFormModule, FormsModule, ThyLayoutModule],
-            declarations: [TestFormBasicDirectiveComponent],
             providers: [
                 provideHttpClient(),
                 {
@@ -301,7 +308,6 @@ describe('form validate', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [TestFormFullComponent],
             imports: [CommonModule, FormsModule, ThyFormModule, ThyLayoutModule, ThyButtonModule, ThyInputModule],
             providers: [provideHttpClient()]
         });
@@ -592,7 +598,6 @@ describe('reactive form validate', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [TestFormReactiveComponent],
             imports: [
                 CommonModule,
                 FormsModule,
@@ -760,7 +765,7 @@ describe('reactive form validate', () => {
             </thy-form-group-footer>
         </form>
     `,
-    standalone: false
+    imports: [CommonModule, FormsModule, ThyFormModule, ThyLayoutModule, ThyButtonModule, ThyInputModule]
 })
 export class TestNoFormSubmitComponent {}
 
@@ -771,9 +776,9 @@ describe(`enter keydown`, () => {
     let formDirective: ThyFormDirective;
     let formElement: HTMLElement;
     let formSubmitDebugElement: DebugElement;
+
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [TestNoFormSubmitComponent],
             imports: [CommonModule, FormsModule, ThyFormModule, ThyLayoutModule, ThyButtonModule, ThyInputModule],
             providers: [provideHttpClient()]
         });

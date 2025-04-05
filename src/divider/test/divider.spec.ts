@@ -25,7 +25,7 @@ import { provideHttpClient } from '@angular/common/http';
             </ng-template>
         </ng-container>
     `,
-    standalone: false
+    imports: [ThyDividerModule, FormsModule, ThySelectModule]
 })
 class ThyTestDividerComponent {
     isVertical = false;
@@ -51,8 +51,7 @@ describe('ThyDividerComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyDividerModule, FormsModule, ThySelectModule],
-            declarations: [ThyTestDividerComponent],
+            imports: [ThyDividerModule, FormsModule, ThySelectModule, ThyTestDividerComponent],
             providers: [provideHttpClient()]
         });
         TestBed.compileComponents().then(r => r);

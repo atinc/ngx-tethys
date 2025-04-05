@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { ThyFullscreenComponent, ThyFullscreenLaunchDirective } from 'ngx-tethys/fullscreen';
 
 @Component({
     selector: 'thy-fullscreen-immersive-example',
     templateUrl: './immersive.component.html',
-    standalone: false
+    imports: [ThyFullscreenLaunchDirective, ThyFullscreenComponent]
 })
 export class ThyFullscreenImmersiveExampleComponent {
     btnContent = '全屏';

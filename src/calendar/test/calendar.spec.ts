@@ -14,7 +14,7 @@ import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     template: `
-        <thy-calendar (thyDateRangeChange)="dateRangeChange($event)" (thySelectChange)="selectedChange($event)" [thyValue]="value">
+        <thy-calendar (thyDateRangeChange)="dateRangeChange()" (thySelectChange)="selectedChange()" [thyValue]="value">
             <ul *thyDateCell="let date">
                 @switch (date.getDate()) {
                     @case (8) {
@@ -52,7 +52,7 @@ import { provideHttpClient } from '@angular/common/http';
 
         <thy-calendar> </thy-calendar>
     `,
-    standalone: false
+    imports: [FormsModule, ThyCalendarModule]
 })
 export class TestCalendarBasicComponent {
     value = new Date(2021, 2, 1);
@@ -86,7 +86,7 @@ export class TestCalendarBasicComponent {
 
 @Component({
     template: ` <thy-calendar [thyDisabledDate]="thyDisabledDate"> </thy-calendar> `,
-    standalone: false
+    imports: [ThyCalendarModule]
 })
 export class TestCalendarDisabledDateComponent {
     thyDisabledDate(date: Date) {
@@ -100,9 +100,9 @@ export class TestCalendarDisabledDateComponent {
     template: `
         <thy-calendar-header
             [operationRender]="operationRender"
-            (monthChange)="onMonthSelect($event)"
-            (yearChange)="onYearSelect($event)"
-            (dateRangeChange)="onDateRangeSelect($event)"
+            (monthChange)="onMonthSelect()"
+            (yearChange)="onYearSelect()"
+            (dateRangeChange)="onDateRangeSelect()"
             [currentDate]="currentDate">
             <ng-template #operationRender>
                 <span class="app-sign">Agile</span>
@@ -111,7 +111,7 @@ export class TestCalendarDisabledDateComponent {
             </ng-template>
         </thy-calendar-header>
     `,
-    standalone: false
+    imports: [ThyCalendarModule]
 })
 export class TestCalendarHeaderComponent {
     currentDate = new TinyDate(new Date(2020, 0, 3));
@@ -129,8 +129,7 @@ describe('calendar', () => {
 
         beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
-                imports: [FormsModule, ThyCalendarModule],
-                declarations: [TestCalendarBasicComponent],
+                imports: [FormsModule, ThyCalendarModule, TestCalendarBasicComponent],
                 providers: [provideHttpClient()]
             }).compileComponents();
         }));
@@ -218,8 +217,7 @@ describe('calendar', () => {
 
         beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
-                imports: [ThyCalendarModule],
-                declarations: [TestCalendarDisabledDateComponent],
+                imports: [ThyCalendarModule, TestCalendarDisabledDateComponent],
                 providers: [provideHttpClient()]
             }).compileComponents();
         }));
@@ -249,8 +247,7 @@ describe('calendar-header', () => {
 
         beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
-                imports: [ThyCalendarModule],
-                declarations: [TestCalendarHeaderComponent],
+                imports: [ThyCalendarModule, TestCalendarHeaderComponent],
                 providers: [provideHttpClient()]
             }).compileComponents();
         }));

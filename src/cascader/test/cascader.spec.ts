@@ -341,7 +341,7 @@ const customLabelPropertyOptions = [
             [thyHasBackdrop]="hasBackdrop">
         </thy-cascader>
     `,
-    standalone: false
+    imports: [FormsModule, CommonModule, OverlayModule, ThyCascaderModule, ThyFlexibleTextModule, ThyIconModule]
 })
 class CascaderBasicComponent {
     @ViewChild(ThyCascader, { static: false }) cascader: ThyCascader;
@@ -396,7 +396,7 @@ class CascaderBasicComponent {
 @Component({
     selector: 'thy-cascader-load',
     template: ` <thy-cascader [thyLoadData]="thyLoadData" [(ngModel)]="curVal" style="width:400px;"> </thy-cascader> `,
-    standalone: false
+    imports: [FormsModule, CommonModule, OverlayModule, ThyCascaderModule, ThyFlexibleTextModule, ThyIconModule]
 })
 class CascaderLoadComponent {
     success = true;
@@ -452,7 +452,7 @@ class CascaderLoadComponent {
             <span thyFlexibleText class="option-label-item" [thyTooltipContent]="option.label || ''"> {{ option.label || '' }}</span>
         </ng-template>
     `,
-    standalone: false
+    imports: [FormsModule, CommonModule, OverlayModule, ThyCascaderModule, ThyFlexibleTextModule, ThyIconModule]
 })
 class CascaderTemplateComponent {
     public curVal: string | string[] = 'xihu';
@@ -481,7 +481,7 @@ class CascaderTemplateComponent {
             style="width:400px;">
         </thy-cascader>
     `,
-    standalone: false
+    imports: [FormsModule, CommonModule, OverlayModule, ThyCascaderModule, ThyFlexibleTextModule, ThyIconModule]
 })
 class CascaderMultipleComponent {
     public multipleOptions: any[] = multipleOptions;
@@ -532,7 +532,7 @@ class CascaderMultipleComponent {
             style="width:400px;">
         </thy-cascader>
     `,
-    standalone: false
+    imports: [FormsModule, CommonModule, OverlayModule, ThyCascaderModule, ThyFlexibleTextModule, ThyIconModule]
 })
 class CascaderCustomLabelPropertyComponent {
     public multipleOptions: any[] = customLabelPropertyOptions;
@@ -565,9 +565,7 @@ describe('thy-cascader', () => {
                 ThyCascaderModule,
                 ThyFlexibleTextModule,
                 ThyIconModule,
-                NoopAnimationsModule
-            ],
-            declarations: [
+                NoopAnimationsModule,
                 CascaderTemplateComponent,
                 CascaderBasicComponent,
                 CascaderLoadComponent,

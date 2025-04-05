@@ -11,8 +11,7 @@ describe('list', () => {
     let listElement: HTMLElement;
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyListModule],
-            declarations: [TestListComponent],
+            imports: [ThyListModule, TestListComponent],
             providers: [provideHttpClient()]
         }).compileComponents();
         fixture = TestBed.createComponent(TestListComponent);
@@ -64,7 +63,7 @@ describe('list', () => {
             </thy-list-item>
         </thy-list>
     `,
-    standalone: false
+    imports: [ThyListModule]
 })
 class TestListComponent {
     divided = false;

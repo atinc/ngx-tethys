@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ThyAvatarService } from 'ngx-tethys/avatar';
+import { ThyAvatar, ThyAvatarService } from 'ngx-tethys/avatar';
 import { CustomAvatarService } from './custom-avatar.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { CustomAvatarService } from './custom-avatar.service';
             useClass: CustomAvatarService
         }
     ],
-    standalone: false
+    imports: [ThyAvatar]
 })
 export class ThyAvatarCustomExampleComponent {
     sizes = ['xs', 'sm', 'md', 'lg'];

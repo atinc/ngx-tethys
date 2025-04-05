@@ -148,7 +148,7 @@ function buildDataList() {
         </thy-transfer>
     `,
     encapsulation: ViewEncapsulation.None,
-    standalone: false
+    imports: [ThyTransferModule, ThyListModule, ThyIconModule, ThySelectModule]
 })
 class TestTransferComponent {
     @ViewChild('comp', { static: true }) comp: ThyTransfer;
@@ -170,7 +170,7 @@ class TestTransferComponent {
             </ng-template>
         </thy-transfer>
     `,
-    standalone: false
+    imports: [ThyTransferModule, ThyListModule, ThyIconModule, ThySelectModule]
 })
 class TestTransferCustomRenderComponent {
     @ViewChild('comp', { static: true }) comp: ThyTransfer;
@@ -180,7 +180,7 @@ class TestTransferCustomRenderComponent {
 @Component({
     templateUrl: './transfer-template.html',
     encapsulation: ViewEncapsulation.None,
-    standalone: false
+    imports: [ThyTransferModule, ThyListModule, ThyIconModule, ThySelectModule]
 })
 class TestTransferCustomRenderContentComponent {
     @ViewChild('comp', { static: true }) comp: ThyTransfer;
@@ -207,8 +207,16 @@ describe('transfer', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, ThyTransferModule, ThyListModule, ThyIconModule, ThySelectModule],
-            declarations: [TestTransferComponent, TestTransferCustomRenderComponent, TestTransferCustomRenderContentComponent],
+            imports: [
+                NoopAnimationsModule,
+                ThyTransferModule,
+                ThyListModule,
+                ThyIconModule,
+                ThySelectModule,
+                TestTransferComponent,
+                TestTransferCustomRenderComponent,
+                TestTransferCustomRenderContentComponent
+            ],
             providers: [provideHttpClient()]
         }).compileComponents();
     });

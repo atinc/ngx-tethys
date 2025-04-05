@@ -6,6 +6,7 @@ import { ThyPropertyOperation } from '../property-operation.component';
 import { ThyButtonIcon } from '../../button';
 import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing';
 import { provideHttpClient } from '@angular/common/http';
+import { NgClass } from '@angular/common';
 
 //#region test component
 
@@ -25,7 +26,7 @@ import { provideHttpClient } from '@angular/common/http';
             (thyClick)="thyOnclick()">
         </thy-property-operation>
     `,
-    standalone: false
+    imports: [ThyPropertyOperationModule, NgClass]
 })
 class PropertyOperationBasicComponent {
     @ViewChild(ThyPropertyOperation, { static: true }) component: ThyPropertyOperation;
@@ -60,8 +61,7 @@ class PropertyOperationBasicComponent {
 describe('ThyPropertyOperation', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyPropertyOperationModule],
-            declarations: [PropertyOperationBasicComponent],
+            imports: [ThyPropertyOperationModule, PropertyOperationBasicComponent],
             providers: [bypassSanitizeProvider, provideHttpClient()]
         }).compileComponents();
 

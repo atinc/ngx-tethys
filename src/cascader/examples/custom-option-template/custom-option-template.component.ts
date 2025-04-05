@@ -1,5 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
+import { ThyCascader } from 'ngx-tethys/cascader';
+import { FormsModule } from '@angular/forms';
+import { ThyIcon } from 'ngx-tethys/icon';
+import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
 
 const customerOptions = [
     {
@@ -59,7 +63,7 @@ const customerOptions = [
 @Component({
     selector: 'thy-cascader-custom-option-template-example',
     templateUrl: './custom-option-template.component.html',
-    standalone: false
+    imports: [ThyCascader, FormsModule, ThyIcon, ThyFlexibleText]
 })
 export class ThyCascaderCustomOptionTemplateExampleComponent implements OnInit {
     private notifyService = inject(ThyNotifyService);

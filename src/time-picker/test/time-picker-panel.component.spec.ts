@@ -13,8 +13,7 @@ describe('ThyTimePanelComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [FormsModule, ThyTimePickerModule],
-            declarations: [ThyTestTimePanelComponent],
+            imports: [FormsModule, ThyTimePickerModule, ThyTestTimePanelComponent],
             providers: [provideHttpClient()]
         });
 
@@ -240,7 +239,7 @@ describe('ThyTimePanelComponent', () => {
             (ngModelChange)="onValueChange($event)"
             (thyClosePanel)="closePanel()"></thy-time-picker-panel>
     `,
-    standalone: false
+    imports: [FormsModule, ThyTimePickerModule]
 })
 class ThyTestTimePanelComponent {
     @ViewChild('panel') timePanelRef: ThyTimePanel;

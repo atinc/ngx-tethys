@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ThyCarouselItemDirective } from 'ngx-tethys/carousel';
+import { ThyCarousel } from 'ngx-tethys/carousel';
+import { ThyButtonGroup } from 'ngx-tethys/button';
 
 @Component({
     selector: 'thy-carousel-basic-example',
@@ -17,7 +20,7 @@ import { Component, OnInit } from '@angular/core';
             }
         `
     ],
-    standalone: false
+    imports: [ThyCarousel, ThyCarouselItemDirective, ThyButtonGroup]
 })
 export class ThyCarouselTouchableExampleComponent implements OnInit {
     constructor() {}

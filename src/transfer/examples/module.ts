@@ -10,8 +10,7 @@ import { ThyTransferTemplateExampleComponent } from './template/template.compone
 const COMPONENTS = [ThyTransferBasicExampleComponent, ThyTransferTemplateExampleComponent];
 
 @NgModule({
-    declarations: [...COMPONENTS],
-    imports: [CommonModule, FormsModule, ThyTransferModule, ThyListModule, ThyIconModule],
+    imports: [CommonModule, FormsModule, ThyTransferModule, ThyListModule, ThyIconModule, ...COMPONENTS],
     exports: [...COMPONENTS]
 })
 export class ThyTransferExamplesModule {}

@@ -6,6 +6,7 @@ import { By } from '@angular/platform-browser';
 import { ThyBreadcrumb } from '../breadcrumb.component';
 import { ThyIconModule } from './../../icon/icon.module';
 import { provideHttpClient } from '@angular/common/http';
+import { ThyIcon } from '../../icon/icon.component';
 
 @Component({
     selector: 'thy-demo-breadcrumb-basic',
@@ -23,7 +24,7 @@ import { provideHttpClient } from '@angular/common/http';
             </thy-breadcrumb-item>
         </thy-breadcrumb>
     `,
-    standalone: false
+    imports: [ThyBreadcrumb, ThyBreadcrumbItem, ThyIcon]
 })
 class ThyDemoBreadcrumbBasicComponent {
     thyIconName = `folder-fill`;
@@ -31,8 +32,7 @@ class ThyDemoBreadcrumbBasicComponent {
 }
 
 @NgModule({
-    imports: [ThyBreadcrumbModule, ThyIconModule],
-    declarations: [ThyDemoBreadcrumbBasicComponent],
+    imports: [ThyBreadcrumbModule, ThyIconModule, ThyDemoBreadcrumbBasicComponent],
     exports: [ThyDemoBreadcrumbBasicComponent]
 })
 export class BreadcrumbTestModule {}

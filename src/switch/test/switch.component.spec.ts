@@ -14,7 +14,7 @@ import { ThySwitchModule } from '../switch.module';
             [(ngModel)]="isChecked"
             [thyLoading]="isLoading"></thy-switch>
         <thy-switch disabled [(ngModel)]="isChecked"></thy-switch>`,
-    standalone: false
+    imports: [ThySwitchModule, FormsModule]
 })
 class SwitchTestComponent {
     size = ``;
@@ -33,8 +33,7 @@ describe('switch component', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThySwitchModule, FormsModule],
-            declarations: [SwitchTestComponent],
+            imports: [ThySwitchModule, FormsModule, SwitchTestComponent],
             providers: []
         });
         TestBed.compileComponents();

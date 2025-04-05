@@ -91,7 +91,7 @@ describe('ThyVote', () => {
             [thyRound]="isRound"
             [thyDisabled]="isDisabled"></div>
     `,
-    standalone: false
+    imports: [ThyVote]
 })
 class ThyDemoVoteBasicComponent {
     vote_count = '10';
@@ -104,8 +104,7 @@ class ThyDemoVoteBasicComponent {
 }
 
 @NgModule({
-    imports: [ThyVoteModule],
-    declarations: [ThyDemoVoteBasicComponent],
+    imports: [ThyVoteModule, ThyDemoVoteBasicComponent],
     exports: [ThyDemoVoteBasicComponent]
 })
 export class VoteTestModule {}

@@ -21,9 +21,8 @@ describe('TestDateCarouselComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [FormsModule, LibPackerModule],
-            providers: [provideHttpClient()],
-            declarations: [TestDateCarouselComponent]
+            imports: [FormsModule, LibPackerModule, TestDateCarouselComponent],
+            providers: [provideHttpClient()]
         });
 
         TestBed.compileComponents();
@@ -289,7 +288,7 @@ describe('TestDateCarouselComponent', () => {
             (ngModelChange)="modelValueChange($event)"
             [(ngModel)]="advancedSelectedValue"></date-carousel>
     `,
-    standalone: false
+    imports: [FormsModule, LibPackerModule]
 })
 class TestDateCarouselComponent {
     advancedSelectedValue: RangeAdvancedValue = {

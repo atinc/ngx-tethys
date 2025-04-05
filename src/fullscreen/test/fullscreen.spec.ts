@@ -7,6 +7,7 @@ import { By } from '@angular/platform-browser';
 import { ThyFullscreenComponent } from '../fullscreen.component';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing';
 import { ESCAPE, SHIFT, SPACE } from '../../util/keycodes';
+import { ThyFullscreenLaunchDirective } from '../fullscreen-launch.directive';
 
 export class FakeFullscreenService extends ThyFullscreen {
     launchImmersiveFullscreen() {
@@ -122,7 +123,7 @@ describe('ThyFullscreen', () => {
             </div>
         </thy-fullscreen>
     `,
-    standalone: false
+    imports: [ThyFullscreenComponent, ThyFullscreenLaunchDirective]
 })
 class ThyDemoFullscreenComponent {
     mode = 'immersive';
@@ -132,8 +133,7 @@ class ThyDemoFullscreenComponent {
 }
 
 @NgModule({
-    imports: [ThyFullscreenModule],
-    declarations: [ThyDemoFullscreenComponent],
+    imports: [ThyFullscreenModule, ThyDemoFullscreenComponent],
     exports: [ThyDemoFullscreenComponent]
 })
 export class FullscreenTestModule {}
@@ -145,8 +145,7 @@ describe('Container ThyFullscreen', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyFullscreenModule],
-            declarations: [ThyContainerFullscreenComponent],
+            imports: [ThyFullscreenModule, ThyContainerFullscreenComponent],
             providers: [
                 {
                     provider: ThyFullscreen,
@@ -213,8 +212,7 @@ describe('`thy-fulscreen` with dynamic launch button', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            imports: [CommonModule, ThyFullscreenModule],
-            declarations: [ThyContainerFullscreenDynamicLaunchComponent]
+            imports: [CommonModule, ThyFullscreenModule, ThyContainerFullscreenDynamicLaunchComponent]
         }).compileComponents();
     }));
 
@@ -250,7 +248,7 @@ describe('`thy-fulscreen` with dynamic launch button', () => {
             </div>
         </thy-fullscreen>
     `,
-    standalone: false
+    imports: [ThyFullscreenModule]
 })
 class ThyContainerFullscreenComponent {
     mode = 'immersive';
@@ -269,7 +267,7 @@ class ThyContainerFullscreenComponent {
             </div>
         </thy-fullscreen>
     `,
-    standalone: false
+    imports: [CommonModule, ThyFullscreenModule]
 })
 class ThyContainerFullscreenDynamicLaunchComponent {
     fullscreenLaunchShown = false;

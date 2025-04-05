@@ -1,10 +1,11 @@
+import { NgStyle } from '@angular/common';
 import { Component } from '@angular/core';
-import { ThySegmentEvent } from 'ngx-tethys/segment';
+import { ThySegment, ThySegmentEvent, ThySegmentItem } from 'ngx-tethys/segment';
 
 @Component({
     selector: 'thy-segment-basic-example',
     templateUrl: './basic.component.html',
-    standalone: false
+    imports: [ThySegment, ThySegmentItem, NgStyle]
 })
 export class ThySegmentBasicExampleComponent {
     selectedIndex: number = 2;

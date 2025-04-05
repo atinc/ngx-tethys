@@ -21,9 +21,8 @@ describe('ThyYearPickerComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyDatePickerModule, FormsModule, NoopAnimationsModule],
-            providers: [provideHttpClient()],
-            declarations: [TestYearPickerComponent]
+            imports: [ThyDatePickerModule, FormsModule, NoopAnimationsModule, TestYearPickerComponent],
+            providers: [provideHttpClient()]
         });
 
         TestBed.compileComponents();
@@ -263,7 +262,7 @@ describe('ThyYearPickerComponent', () => {
             [thyPlaceHolder]="thyPlaceHolder">
         </thy-year-picker>
     `,
-    standalone: false
+    imports: [ThyDatePickerModule, FormsModule]
 })
 class TestYearPickerComponent {
     thyAllowClear: boolean;

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { ThyCopyEvent } from 'ngx-tethys/copy';
+import { ThyCopyDirective, ThyCopyEvent } from 'ngx-tethys/copy';
+
 @Component({
     selector: 'thy-copy-basic-example',
     templateUrl: './basic.component.html',
-    standalone: false
+    imports: [ThyCopyDirective]
 })
 export class ThyCopyBasicExampleComponent {
     constructor() {}

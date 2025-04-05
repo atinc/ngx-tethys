@@ -12,8 +12,7 @@ describe('DecadeTableComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [FormsModule, LibPackerModule],
-            declarations: [ThyTestDecadeTableComponent]
+            imports: [FormsModule, LibPackerModule, ThyTestDecadeTableComponent]
         });
         TestBed.compileComponents();
     }));
@@ -49,7 +48,7 @@ describe('DecadeTableComponent', () => {
             <decade-table [value]="modelValue"></decade-table>
         </ng-container>
     `,
-    standalone: false
+    imports: [FormsModule, LibPackerModule]
 })
 class ThyTestDecadeTableComponent {
     modelValue: Date;

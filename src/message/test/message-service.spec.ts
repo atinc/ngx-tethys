@@ -19,7 +19,7 @@ const DEFAULT_DURATION_TIME = 4500;
         <button class="error-btn" (click)="openMessage('error')">error</button>
         <button class="loading-btn" (click)="openMessage('loading')">loading</button>
     `,
-    standalone: false
+    imports: [ThyMessageModule]
 })
 export class ThyMessageTestComponent implements OnInit {
     messageService = coreInject(ThyMessageService);
@@ -50,8 +50,7 @@ describe('ThyMessage', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyMessageModule, NoopAnimationsModule],
-            declarations: [ThyMessageTestComponent],
+            imports: [ThyMessageModule, NoopAnimationsModule, ThyMessageTestComponent],
             providers: [provideHttpClient()]
         });
         inject([OverlayContainer], (oc: OverlayContainer) => {

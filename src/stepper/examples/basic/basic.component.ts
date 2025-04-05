@@ -1,10 +1,11 @@
-import { Component, TemplateRef } from '@angular/core';
+import { Component } from '@angular/core';
+import { ThyStep, ThyStepper } from 'ngx-tethys/stepper';
 
 @Component({
     selector: 'thy-stepper-basic-example',
     templateUrl: './basic.component.html',
     styleUrls: ['./basic.component.scss'],
-    standalone: false
+    imports: [ThyStepper, ThyStep]
 })
 export class ThyStepperBasicExampleComponent {
     constructor() {}

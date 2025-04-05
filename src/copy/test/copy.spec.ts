@@ -15,8 +15,7 @@ describe('thy-copy', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyTooltipModule, ThyNotifyModule, NoopAnimationsModule, ThyCopyDirective],
-            declarations: [ThyCopyTestComponent],
+            imports: [ThyTooltipModule, ThyNotifyModule, NoopAnimationsModule, ThyCopyDirective, ThyCopyTestComponent],
             providers: [ThyNotifyService, provideHttpClient()]
         }).compileComponents();
     }));
@@ -88,7 +87,7 @@ describe('thy-copy', () => {
             点击
         </p>
     `,
-    standalone: false
+    imports: [ThyTooltipModule, ThyNotifyModule, ThyCopyDirective]
 })
 class ThyCopyTestComponent implements OnInit {
     copyTooltip: string;

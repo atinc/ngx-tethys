@@ -1,12 +1,14 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ThyDialog, ThyDialogConfig } from 'ngx-tethys/dialog';
 import { ThyDialogBasicContentComponent } from '../basic/dialog-content.component';
+import { ThyCheckbox } from 'ngx-tethys/checkbox';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'thy-dialog-backdrop-example',
     templateUrl: './backdrop.component.html',
     styleUrls: ['./backdrop.component.scss'],
-    standalone: false
+    imports: [ThyCheckbox, FormsModule]
 })
 export class ThyDialogBackdropExampleComponent {
     private thyDialog = inject(ThyDialog);

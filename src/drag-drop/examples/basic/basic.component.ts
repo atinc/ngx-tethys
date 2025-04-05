@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
-import { ThyDropPosition } from 'ngx-tethys/drag-drop';
+import { ThyDragDirective, ThyDropContainerDirective, ThyDropPosition } from 'ngx-tethys/drag-drop';
+import { ThyListItem } from 'ngx-tethys/list';
+import { ThyList } from 'ngx-tethys/list';
 
 const nodes = [
     {
@@ -37,7 +39,7 @@ type DragDropNode = (typeof nodes)[0];
 @Component({
     selector: 'thy-drag-drop-basic-example',
     templateUrl: './basic.component.html',
-    standalone: false
+    imports: [ThyList, ThyDropContainerDirective, ThyListItem, ThyDragDirective]
 })
 export class ThyDragDropBasicExampleComponent implements OnInit {
     nodes = nodes;

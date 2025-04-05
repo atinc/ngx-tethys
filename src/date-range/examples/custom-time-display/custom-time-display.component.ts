@@ -1,12 +1,13 @@
 import { Component, OnInit, Signal } from '@angular/core';
-import { DateRangeItemInfo } from 'ngx-tethys/date-range';
+import { DateRangeItemInfo, ThyDateRange } from 'ngx-tethys/date-range';
 import { injectLocale, ThyDateRangeLocale } from 'ngx-tethys/i18n';
 import { endOfMonth, getUnixTime, startOfMonth, TinyDate } from 'ngx-tethys/util';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-date-range-custom-time-display-example',
     templateUrl: './custom-time-display.component.html',
-    standalone: false
+    imports: [ThyDateRange, FormsModule]
 })
 export class ThyDateRangeCustomTimeDisplayExampleComponent implements OnInit {
     private locale: Signal<ThyDateRangeLocale> = injectLocale('dateRange');

@@ -19,8 +19,7 @@ describe('thy-anchor', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [ThyAnchorModule, NoopAnimationsModule],
-                declarations: [TestAnchorComponent]
+                imports: [ThyAnchorModule, NoopAnimationsModule, TestAnchorComponent]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestAnchorComponent);
@@ -82,8 +81,7 @@ describe('thy-anchor', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [ThyAnchorModule, NoopAnimationsModule],
-                declarations: [TestContainerAnchorComponent]
+                imports: [ThyAnchorModule, NoopAnimationsModule, TestContainerAnchorComponent]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestContainerAnchorComponent);
@@ -109,8 +107,7 @@ describe('thy-anchor', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [ThyAnchorModule, NoopAnimationsModule],
-                declarations: [TestThyAnchorLinkComponent]
+                imports: [ThyAnchorModule, NoopAnimationsModule, TestThyAnchorLinkComponent]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestThyAnchorLinkComponent);
@@ -136,8 +133,7 @@ describe('thy-anchor', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [ThyAnchorModule, NoopAnimationsModule],
-                declarations: [TestAnchorComponent]
+                imports: [ThyAnchorModule, NoopAnimationsModule, TestAnchorComponent]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestAnchorComponent);
@@ -250,7 +246,7 @@ describe('thy-anchor', () => {
             </div>
         </div>
     `,
-    standalone: false
+    imports: [ThyAnchorModule]
 })
 class TestAnchorComponent implements OnInit {
     demos: number[] = [];
@@ -286,7 +282,7 @@ class TestAnchorComponent implements OnInit {
             </div>
         </div>
     `,
-    standalone: false
+    imports: [ThyAnchorModule]
 })
 class TestContainerAnchorComponent implements OnInit {
     demos: number[] = [];
@@ -322,7 +318,7 @@ class TestContainerAnchorComponent implements OnInit {
             </ng-template>
         </div>
     `,
-    standalone: false
+    imports: [ThyAnchorModule]
 })
 class TestThyAnchorLinkComponent implements OnInit {
     @ViewChild(ThyAnchor, { static: true })

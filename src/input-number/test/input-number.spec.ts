@@ -47,7 +47,7 @@ import { provideHttpClient } from '@angular/common/http';
             (thyFocus)="onSecondFocus($event)"
             (thyBlur)="onSecondBlur($event)"></thy-input-number>
     `,
-    standalone: false
+    imports: [ThyInputNumber, FormsModule]
 })
 class TestInputNumberComponent {
     @ViewChild(ThyInputNumber, { static: false }) inputNumberComponent: ThyInputNumber;
@@ -90,8 +90,7 @@ class TestInputNumberComponent {
 }
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ThyInputNumberModule],
-    declarations: [TestInputNumberComponent],
+    imports: [CommonModule, FormsModule, ThyInputNumberModule, TestInputNumberComponent],
     providers: [provideHttpClient()],
     exports: []
 })

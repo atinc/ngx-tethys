@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { basicTreeSelectData } from '../mock-data';
-
+import { ThyTreeSelect } from 'ngx-tethys/tree-select';
 @Component({
     selector: 'app-tree-select-size-example',
     templateUrl: './size.component.html',
-    standalone: false
+    imports: [ThyTreeSelect]
 })
 export class ThyTreeSelectSizeExampleComponent implements OnInit {
     public treeSelectNodes = basicTreeSelectData;

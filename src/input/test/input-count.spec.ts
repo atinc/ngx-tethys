@@ -16,7 +16,7 @@ import { provideHttpClient } from '@angular/common/http';
             </ng-template>
         </thy-input-group>
     `,
-    standalone: false
+    imports: [ThyInputModule, FormsModule]
 })
 class TestInputCountBasicComponent {
     name: '';
@@ -38,7 +38,7 @@ class TestInputCountBasicComponent {
             </ng-template>
         </thy-input-group>
     `,
-    standalone: false
+    imports: [ThyInputModule, FormsModule]
 })
 class TestInputCountSpecifyInputBasicComponent {
     name: '';
@@ -50,8 +50,7 @@ describe('input count', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [TestInputCountBasicComponent, TestInputCountSpecifyInputBasicComponent],
-            imports: [ThyInputModule, FormsModule],
+            imports: [ThyInputModule, FormsModule, TestInputCountBasicComponent, TestInputCountSpecifyInputBasicComponent],
             providers: [provideHttpClient()]
         });
     });

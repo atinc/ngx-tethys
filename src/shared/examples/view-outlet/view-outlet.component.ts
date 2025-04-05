@@ -1,11 +1,12 @@
 import { Component, OnInit, OnChanges, ChangeDetectionStrategy, Input, SimpleChanges } from '@angular/core';
+import { ThyTag } from 'ngx-tethys/tag';
 
 @Component({
     selector: 'thy-shared-view-outlet-example',
     templateUrl: './view-outlet.component.html',
     styleUrls: ['./view-outlet.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    imports: [ThyTag]
 })
 export class ThySharedViewOutletExampleComponent implements OnInit {
     counterComponent = ThyViewOutletCounterComponent;
@@ -26,7 +27,7 @@ export class ThySharedViewOutletExampleComponent implements OnInit {
         </p>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    imports: [ThyTag]
 })
 export class ThyViewOutletCounterComponent implements OnInit, OnChanges {
     @Input() count: number;

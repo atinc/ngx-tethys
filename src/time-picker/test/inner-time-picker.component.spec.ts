@@ -21,8 +21,7 @@ describe('ThyInnerTimePickerComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [FormsModule, ThyTimePickerModule],
-            declarations: [ThyTestInnerTimePickerBaseComponent],
+            imports: [FormsModule, ThyTimePickerModule, ThyTestInnerTimePickerBaseComponent],
             providers: [provideHttpClient()]
         });
 
@@ -478,7 +477,7 @@ describe('ThyInnerTimePickerComponent', () => {
             [ngModel]="startDate"
             (ngModelChange)="onDateChange($event)"></thy-inner-time-picker>
     `,
-    standalone: false
+    imports: [FormsModule, ThyTimePickerModule]
 })
 class ThyTestInnerTimePickerBaseComponent {
     public containerClass = CONTAINER_CLASS;

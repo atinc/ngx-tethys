@@ -1,4 +1,9 @@
 import { Component } from '@angular/core';
+import { NgStyle } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ThySpace } from 'ngx-tethys/space';
+import { ThySpaceItemDirective } from 'ngx-tethys/space';
+import { ThyColorPickerDirective } from 'ngx-tethys/color-picker';
 
 @Component({
     selector: 'thy-placement-example',
@@ -13,7 +18,7 @@ import { Component } from '@angular/core';
             }
         `
     ],
-    standalone: false
+    imports: [ThySpace, ThySpaceItemDirective, ThyColorPickerDirective, NgStyle, FormsModule]
 })
 export class ThyPlacementExampleComponent {
     color = '#6698FF';

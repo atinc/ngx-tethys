@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ThySlider } from 'ngx-tethys/slider';
+import { ThyInputNumber } from 'ngx-tethys/input-number';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'thy-slider-input-value-example',
@@ -8,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
         </div>
         <thy-input-number [(ngModel)]="value" placeholder="请输入"></thy-input-number>
     `,
-    standalone: false
+    imports: [ThySlider, ThyInputNumber, FormsModule]
 })
 export class ThySliderInputValueExampleComponent implements OnInit {
     public value: number;

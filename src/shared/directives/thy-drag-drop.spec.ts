@@ -15,7 +15,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
             }
         </div>
     `,
-    standalone: false
+    imports: [ThySharedModule, DragDropModule]
 })
 class ThyDragDropTestComponent {
     showItem2 = false;
@@ -27,8 +27,7 @@ describe('thy-drag-drop', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThySharedModule, DragDropModule],
-            declarations: [ThyDragDropTestComponent]
+            imports: [ThySharedModule, DragDropModule, ThyDragDropTestComponent]
         }).compileComponents();
     }));
 

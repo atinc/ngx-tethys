@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ThyAnchorLink } from 'ngx-tethys/anchor';
+import { ThyAnchor } from 'ngx-tethys/anchor';
 
 @Component({
     selector: 'thy-anchor-static-example',
@@ -14,7 +16,7 @@ import { Component, OnInit } from '@angular/core';
             </thy-anchor>
         </div>
     `,
-    standalone: false
+    imports: [ThyAnchor, ThyAnchorLink]
 })
 export class ThyAnchorStaticExampleComponent implements OnInit {
     constructor() {}

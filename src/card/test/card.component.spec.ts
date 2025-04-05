@@ -14,7 +14,7 @@ import { ThyCardHeader } from '../header.component';
             <thy-card-content>This is content</thy-card-content>
         </thy-card>
     `,
-    standalone: false
+    imports: [ThyCardModule]
 })
 class CardBasicComponent implements OnInit {
     size: 'md' | 'sm' | 'lg' = 'md';
@@ -32,7 +32,7 @@ class CardBasicComponent implements OnInit {
             <thy-card-content>This is content</thy-card-content>
         </thy-card>
     `,
-    standalone: false
+    imports: [ThyCardModule]
 })
 class CardClearPaddingComponent implements OnInit {
     constructor() {}
@@ -48,7 +48,7 @@ class CardClearPaddingComponent implements OnInit {
             <thy-card-content>This is content</thy-card-content>
         </thy-card>
     `,
-    standalone: false
+    imports: [ThyCardModule]
 })
 class CardDividedComponent implements OnInit {
     constructor() {}
@@ -64,7 +64,7 @@ class CardDividedComponent implements OnInit {
             <thy-card-content>This is content</thy-card-content>
         </thy-card>
     `,
-    standalone: false
+    imports: [ThyCardModule]
 })
 class CardBorderedComponent implements OnInit {
     constructor() {}
@@ -80,7 +80,7 @@ class CardBorderedComponent implements OnInit {
             <thy-card-content [thySize]="size">This is content</thy-card-content>
         </thy-card>
     `,
-    standalone: false
+    imports: [ThyCardModule]
 })
 class CardHeaderSizeComponent {
     size: string;
@@ -94,7 +94,7 @@ class CardHeaderSizeComponent {
             <thy-card-content [thySize]="size" [thyScroll]="isScroll">This is content</thy-card-content>
         </thy-card>
     `,
-    standalone: false
+    imports: [ThyCardModule]
 })
 class CardContentSizeAndScrollComponent {
     size: string;
@@ -104,8 +104,8 @@ class CardContentSizeAndScrollComponent {
 describe('thy-card', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyCardModule],
-            declarations: [
+            imports: [
+                ThyCardModule,
                 CardBasicComponent,
                 CardDividedComponent,
                 CardBorderedComponent,

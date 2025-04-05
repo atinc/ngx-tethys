@@ -49,7 +49,7 @@ describe('validator', () => {
                         <input type="number" max="10" name="age" #age="ngModel" [(ngModel)]="value" />
                     </form>
                 `,
-                standalone: false
+                imports: [ThyFormModule, FormsModule]
             })
             class TestMaxComponent {
                 @ViewChild('age') ngModel: NgModel;
@@ -61,8 +61,7 @@ describe('validator', () => {
 
             beforeEach(() => {
                 TestBed.configureTestingModule({
-                    declarations: [TestMaxComponent],
-                    imports: [ThyFormModule, FormsModule]
+                    imports: [ThyFormModule, FormsModule, TestMaxComponent]
                 }).compileComponents();
 
                 fixture = TestBed.createComponent(TestMaxComponent);
@@ -113,7 +112,7 @@ describe('validator', () => {
                         <input type="number" min="10" name="age" #age="ngModel" [(ngModel)]="value" />
                     </form>
                 `,
-                standalone: false
+                imports: [ThyFormModule, FormsModule]
             })
             class TestMinComponent {
                 @ViewChild('age') ngModel: NgModel;
@@ -125,8 +124,7 @@ describe('validator', () => {
 
             beforeEach(() => {
                 TestBed.configureTestingModule({
-                    declarations: [TestMinComponent],
-                    imports: [ThyFormModule, FormsModule]
+                    imports: [ThyFormModule, FormsModule, TestMinComponent]
                 }).compileComponents();
 
                 fixture = TestBed.createComponent(TestMinComponent);
@@ -158,7 +156,7 @@ describe('validator', () => {
                     <input name="username" #username="ngModel" [(ngModel)]="value" [thyUniqueCheck]="checkFn" />
                 </form>
             `,
-            standalone: false
+            imports: [ThyFormModule, FormsModule]
         })
         class TestUniqueCheckComponent {
             @ViewChild('username') ngModel: NgModel;
@@ -186,8 +184,7 @@ describe('validator', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                declarations: [TestUniqueCheckComponent],
-                imports: [ThyFormModule, FormsModule]
+                imports: [ThyFormModule, FormsModule, TestUniqueCheckComponent]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestUniqueCheckComponent);

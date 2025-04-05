@@ -19,7 +19,7 @@ import { ThyCheckboxModule } from '../module';
         <label thyCheckbox [thyLabelText]="labelText" [(ngModel)]="model.checked2"></label>
         <label thyCheckbox thyLabelText="多选选项3" [thyDisabled]="isDisabled" [(ngModel)]="model.checked3"></label>
     `,
-    standalone: false
+    imports: [ThyCheckboxModule, FormsModule]
 })
 class CheckboxTestComponent {
     labelText = '';
@@ -45,8 +45,7 @@ describe('checkbox component', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyCheckboxModule, FormsModule],
-            declarations: [CheckboxTestComponent],
+            imports: [ThyCheckboxModule, FormsModule, CheckboxTestComponent],
             providers: []
         });
         TestBed.compileComponents();

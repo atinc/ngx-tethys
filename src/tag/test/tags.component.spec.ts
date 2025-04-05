@@ -14,7 +14,7 @@ import { provideHttpClient } from '@angular/common/http';
             <thy-tag id="tag1">Tag1</thy-tag>
         </thy-tags>
     `,
-    standalone: false
+    imports: [ThyTagModule, ThyIconModule]
 })
 export class ThyTagsBasicTestComponent implements OnInit {
     constructor() {}
@@ -26,8 +26,7 @@ describe('thy-tags', () => {
     let fixture: ComponentFixture<ThyTagsBasicTestComponent>;
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [ThyTagsBasicTestComponent],
-            imports: [ThyTagModule, ThyIconModule],
+            imports: [ThyTagModule, ThyIconModule, ThyTagsBasicTestComponent],
             providers: [provideHttpClient()]
         }).compileComponents();
     }));

@@ -46,8 +46,7 @@ describe('ThyDatePickerComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [FormsModule, ThyDatePickerModule, NoopAnimationsModule],
-            declarations: [ThyTestDatePickerComponent],
+            imports: [FormsModule, ThyDatePickerModule, NoopAnimationsModule, ThyTestDatePickerComponent],
             providers: [
                 provideHttpClient(),
                 {
@@ -1384,7 +1383,7 @@ describe('ThyDatePickerComponent', () => {
             <div [class.test-first-day]="current.getDate() === 1">{{ current.getDate() }}</div>
         </ng-template>
     `,
-    standalone: false
+    imports: [FormsModule, ThyDatePickerModule]
 })
 class ThyTestDatePickerComponent {
     useSuite: 1 | 2 | 3;

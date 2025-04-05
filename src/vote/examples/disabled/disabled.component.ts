@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { ThyVote } from 'ngx-tethys/vote';
 
 @Component({
     selector: 'thy-vote-disabled-example',
     templateUrl: './disabled.component.html',
-    standalone: false
+    imports: [ThyVote]
 })
 export class ThyVoteDisabledExampleComponent {
     constructor() {}

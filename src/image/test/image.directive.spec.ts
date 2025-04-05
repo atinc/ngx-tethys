@@ -11,7 +11,7 @@ import { provideHttpClient } from '@angular/common/http';
 @Component({
     selector: 'thy-image-directive-test',
     template: ` <img thyImage [thySrc]="src" [thyImageMeta]="imageMeta" [thyDisablePreview]="disablePreview" /> `,
-    standalone: false
+    imports: [ThyImageModule, ThyDialogModule]
 })
 class ImageDirectiveTestComponent {
     src = '';
@@ -28,8 +28,7 @@ describe('image-directive', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyImageModule, ThyDialogModule, NoopAnimationsModule],
-            declarations: [ImageDirectiveTestComponent],
+            imports: [ThyImageModule, ThyDialogModule, NoopAnimationsModule, ImageDirectiveTestComponent],
             providers: [provideHttpClient()]
         }).compileComponents();
         fixture = TestBed.createComponent(ImageDirectiveTestComponent);
