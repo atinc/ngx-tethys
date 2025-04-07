@@ -7,8 +7,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
  */
 @Component({
     selector: 'thy-slide-body-section',
-    template: '<ng-content></ng-content>',
-    standalone: true
+    template: '<ng-content></ng-content>'
 })
 export class ThySlideBodySection implements OnInit {
     @HostBinding('class.thy-slide-body-section') thySlideBodyItem = true;

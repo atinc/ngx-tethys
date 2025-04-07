@@ -30,7 +30,6 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
  */
 @Component({
     template: ``,
-    standalone: true,
     host: {
         '[attr.tabindex]': `tabIndex`,
         '(focus)': 'onFocus($event)',

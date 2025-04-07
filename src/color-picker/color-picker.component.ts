@@ -57,8 +57,7 @@ const _BaseMixin = mixinTabIndex(mixinDisabled(OverlayBase));
             multi: true,
             useExisting: forwardRef(() => ThyColorPickerDirective)
         }
-    ],
-    standalone: true
+    ]
 })
 export class ThyColorPickerDirective extends _BaseMixin implements OnInit, OnDestroy {
     private thyPopover = inject(ThyPopover);

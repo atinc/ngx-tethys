@@ -42,8 +42,7 @@ export enum ThyEnterKeyMode {
     exportAs: 'thyForm',
     host: {
         class: 'thy-form'
-    },
-    standalone: true
+    }
 })
 export class ThyFormDirective implements OnInit, AfterViewInit, OnDestroy {
     private ngForm = inject(ControlContainer);

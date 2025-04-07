@@ -12,8 +12,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     host: {
         class: 'sidebar-header',
         '[class.sidebar-header-divided]': 'thyDivided'
-    },
-    standalone: true
+    }
 })
 export class ThySidebarHeaderDirective {
     /**

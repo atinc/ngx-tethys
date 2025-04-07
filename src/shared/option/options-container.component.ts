@@ -7,8 +7,7 @@ import { ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild } fr
             <ng-content></ng-content>
         </ng-template>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyOptionsContainer implements OnInit {
     @ViewChild('options') optionsTemplate: TemplateRef<any>;

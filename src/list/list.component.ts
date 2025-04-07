@@ -8,8 +8,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
  */
 @Component({
     selector: 'thy-list',
-    template: '<ng-content></ng-content>',
-    standalone: true
+    template: '<ng-content></ng-content>'
 })
 export class ThyList {
     /**

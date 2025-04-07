@@ -9,7 +9,6 @@ import { ThyRadio } from '../radio.component';
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: '[thy-radio-button],[thyRadioButton]',
     templateUrl: './radio-button.component.html',
-    standalone: true,
     host: {
         '[attr.tabindex]': `tabIndex`
     }

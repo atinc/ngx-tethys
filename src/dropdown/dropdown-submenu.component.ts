@@ -22,8 +22,7 @@ const SUBMENU_CLASS_PREFIX = 'dropdown-submenu';
     host: {
         class: 'dropdown-submenu'
     },
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyDropdownSubmenu implements OnInit {
     private dropdownMenuItem = inject(ThyDropdownMenuItemDirective);

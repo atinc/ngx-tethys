@@ -5,7 +5,6 @@ import { Directive } from '@angular/core';
  * @name thyFullscreenLaunch,[fullscreen-launch]
  */
 @Directive({
-    selector: '[thyFullscreenLaunch], [fullscreen-launch]',
-    standalone: true
+    selector: '[thyFullscreenLaunch], [fullscreen-launch]'
 })
 export class ThyFullscreenLaunchDirective {}

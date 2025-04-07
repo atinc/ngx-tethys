@@ -25,8 +25,7 @@ enum ThyStrengthEnum {
             useExisting: forwardRef(() => ThyStrength),
             multi: true
         }
-    ],
-    standalone: true
+    ]
 })
 export class ThyStrength implements OnInit, ControlValueAccessor {
     translate = inject(ThyTranslate);
