@@ -3,11 +3,11 @@ import { FormsModule } from '@angular/forms';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThySelectionList } from 'ngx-tethys/list';
 import { ThyListOption } from 'ngx-tethys/shared';
-
+import { CommonModule } from '@angular/common';
 @Component({
     selector: 'app-list-unique-key-example',
     templateUrl: './unique-key.component.html',
-    imports: [FormsModule, ThySelectionList, ThyListOption, ThyIcon]
+    imports: [FormsModule, ThySelectionList, ThyListOption, ThyIcon, CommonModule]
 })
 export class ThyListUniqueKeyExampleComponent implements OnInit {
     public gridUniqueKeyItems = [

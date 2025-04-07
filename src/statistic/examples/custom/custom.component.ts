@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ThyStatistic } from 'ngx-tethys/statistic';
+import { CommonModule } from '@angular/common';
+
 @Component({
     selector: 'thy-custom-example',
     templateUrl: './custom.component.html',
     styleUrls: ['./custom.component.scss'],
-    imports: [ThyStatistic]
+    imports: [ThyStatistic, CommonModule]
 })
 export class ThyStatisticCustomExampleComponent implements OnInit {
     constructor() {}

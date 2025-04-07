@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ThyInputNumber } from 'ngx-tethys/input-number';
 import { FormsModule } from '@angular/forms';
+
 @Component({
     selector: 'thy-input-number-max-min-example',
     templateUrl: './max-min.component.html',
