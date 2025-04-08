@@ -16,14 +16,14 @@ import { Component, ElementRef, OnInit, QueryList, TemplateRef, ViewChild, ViewC
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyFormModule } from '../../form';
 import { DOWN_ARROW, END, ENTER, ESCAPE, HOME } from '../../util/keycodes';
 import { SelectMode, THY_SELECT_PANEL_MIN_WIDTH, ThySelect, ThySelectOptionModel } from './custom-select.component';
 import { ThySelectModule } from '../module';
 import { THY_SELECT_CONFIG, THY_SELECT_SCROLL_STRATEGY, ThyDropdownWidthMode } from '../select.config';
-import { SelectControlSize, ThyOption, ThyOptionModule } from 'ngx-tethys/shared';
+import { SelectControlSize, ThyOption, ThyOptionModule, ThySelectOptionGroup } from 'ngx-tethys/shared';
 import { provideHttpClient } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 interface FoodsInfo {
     value: string | string[];
@@ -57,7 +57,7 @@ interface FoodsInfo {
         </form>
         <div id="custom-select-origin" #origin style="width: 200px;height: 20px"></div>
     `,
-    standalone: false
+    imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class BasicSelectComponent {
     foods: FoodsInfo[] = [
@@ -103,7 +103,7 @@ class BasicSelectComponent {
             }
         </thy-select>
     `,
-    standalone: false
+    imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class MultipleSelectComponent {
     foods: FoodsInfo[] = [
@@ -135,7 +135,7 @@ class MultipleSelectComponent {
             </thy-select>
         </form>
     `,
-    standalone: false
+    imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class NgModelSelectComponent {
     foods: FoodsInfo[] = [
@@ -164,7 +164,7 @@ class NgModelSelectComponent {
             </thy-select>
         </form>
     `,
-    standalone: false
+    imports: [ThySelect, ThyOption, ThySelectOptionGroup, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithGroupsAndNgContainerComponent {
     control = new UntypedFormControl();
@@ -186,7 +186,7 @@ class SelectWithGroupsAndNgContainerComponent {
             </thy-select>
         </form>
     `,
-    standalone: false
+    imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SingleSelectWithPreselectedArrayValuesComponent {
     foods = [
@@ -211,7 +211,7 @@ class SingleSelectWithPreselectedArrayValuesComponent {
             </thy-select>
         </form>
     `,
-    standalone: false
+    imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SingleSelectNgModelComponent {
     values = [
@@ -235,7 +235,7 @@ class SingleSelectNgModelComponent {
             </thy-select>
         </form>
     `,
-    standalone: false
+    imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class BasicSelectInitiallyHiddenComponent {
     isVisible = false;
@@ -251,7 +251,7 @@ class BasicSelectInitiallyHiddenComponent {
             }
         </form>
     `,
-    standalone: false
+    imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectEarlyAccessSiblingComponent {}
 
@@ -266,7 +266,7 @@ class SelectEarlyAccessSiblingComponent {}
             </thy-select>
         </form>
     `,
-    standalone: false
+    imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithSearchComponent {
     foods: FoodsInfo[] = [
@@ -297,7 +297,7 @@ class SelectWithSearchComponent {
             </thy-select>
         </form>
     `,
-    standalone: false
+    imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithSearchUseSearchKeyComponent {
     teamMembers: { _id: string; name: string; pin_yin: string }[] = [
@@ -347,7 +347,7 @@ class SelectWithSearchUseSearchKeyComponent {
             </thy-select>
         </form>
     `,
-    standalone: false
+    imports: [ThySelect, ThyOption, ThySelectOptionGroup, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithSearchAndGroupComponent {
     control = new UntypedFormControl();
@@ -388,7 +388,7 @@ class SelectWithSearchAndGroupComponent {
             </thy-select>
         </form>
     `,
-    standalone: false
+    imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithSearchAndServerSearchComponent {
     foods: FoodsInfo[] = [
@@ -428,7 +428,7 @@ class SelectWithSearchAndServerSearchComponent {
             </thy-select>
         </form>
     `,
-    standalone: false
+    imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectEimtOptionsChangesComponent {
     foods: FoodsInfo[] = [
@@ -461,7 +461,7 @@ class SelectEimtOptionsChangesComponent {
             </thy-select>
         </form>
     `,
-    standalone: false
+    imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithExpandStatusComponent {
     foods: FoodsInfo[] = [{ value: 'pizza-1', viewValue: 'Pizza' }];
@@ -480,7 +480,7 @@ class SelectWithExpandStatusComponent {
             </thy-select>
         </form>
     `,
-    standalone: false
+    imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithThyModeComponent {
     foods: FoodsInfo[] = [
@@ -512,7 +512,7 @@ class SelectWithThyModeComponent {
             </thy-select>
         </form>
     `,
-    standalone: false
+    imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithThySortComparatorComponent {
     foods: FoodsInfo[] = [
@@ -540,7 +540,7 @@ class SelectWithThySortComparatorComponent {
             }
         </thy-select>
     `,
-    standalone: false
+    imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithThyAutoExpendComponent implements OnInit {
     listOfOption: Array<{ label: string; value: string }> = [];
@@ -569,7 +569,7 @@ class SelectWithThyAutoExpendComponent implements OnInit {
             }
         </thy-select>
     `,
-    standalone: false
+    imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithThyPlacementComponent implements OnInit {
     listOfOption: Array<{ label: string; value: string }> = [];
@@ -600,7 +600,7 @@ class SelectWithThyPlacementComponent implements OnInit {
             </thy-select>
         </form>
     `,
-    standalone: false
+    imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithScrollAndSearchComponent {
     foods: FoodsInfo[] = [
@@ -635,7 +635,7 @@ class SelectWithScrollAndSearchComponent {
             }
         </thy-select>
     `,
-    standalone: false
+    imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithAsyncLoadComponent implements OnInit {
     @ViewChild(ThySelect) customSelect: ThySelect;
@@ -697,7 +697,7 @@ class SelectWithAsyncLoadComponent implements OnInit {
             </thy-select>
         </div>
     `,
-    standalone: false
+    imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectDropdownWidthComponent {
     dropdownWidthMode: ThyDropdownWidthMode;
@@ -718,7 +718,7 @@ class SelectDropdownWidthComponent {
             <thy-select [thyOptions]="options" class="select1" [(ngModel)]="selectedValue"> </thy-select>
         </div>
     `,
-    standalone: false
+    imports: [ThySelect, ThyOption, ThySelectOptionGroup, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWidthThyOptionsComponent {
     options: ThySelectOptionModel[] = [
@@ -736,9 +736,8 @@ describe('ThyCustomSelect', () => {
 
     function configureThyCustomSelectTestingModule(declarations: any[], providers: any[] = []) {
         TestBed.configureTestingModule({
-            imports: [ThyFormModule, ThyOptionModule, ThySelectModule, ReactiveFormsModule, FormsModule, NoopAnimationsModule],
-            declarations: declarations,
-            providers: [bypassSanitizeProvider, ...providers, provideHttpClient()]
+            imports: [ThyFormModule, ThyOptionModule, ThySelectModule, ReactiveFormsModule, FormsModule],
+            providers: [bypassSanitizeProvider, ...providers, provideHttpClient(), provideAnimations()]
         }).compileComponents();
 
         inject([OverlayContainer, Platform], (oc: OverlayContainer, p: Platform) => {
@@ -757,7 +756,7 @@ describe('ThyCustomSelect', () => {
     describe('core', () => {
         beforeEach(() => {
             configureThyCustomSelectTestingModule([
-                BasicSelectComponent,
+                // BasicSelectComponent,
                 SelectWithGroupsAndNgContainerComponent,
                 SelectWithExpandStatusComponent,
                 MultipleSelectComponent,
@@ -2118,7 +2117,9 @@ describe('ThyCustomSelect', () => {
 
     describe('shortcuts', () => {
         beforeEach(waitForAsync(() => {
-            configureThyCustomSelectTestingModule([BasicSelectComponent]);
+            configureThyCustomSelectTestingModule([
+                // BasicSelectComponent
+            ]);
         }));
 
         it('should set first option active when open panel', fakeAsync(() => {
@@ -2324,7 +2325,9 @@ describe('ThyCustomSelect', () => {
             const scrolledSubject = new Subject<void>();
             beforeEach(waitForAsync(() =>
                 configureThyCustomSelectTestingModule(
-                    [BasicSelectComponent],
+                    [
+                        // BasicSelectComponent
+                    ],
                     [
                         {
                             provide: ScrollDispatcher,
@@ -2370,7 +2373,9 @@ describe('ThyCustomSelect', () => {
             const scrolledSubject = new Subject<void>();
             beforeEach(waitForAsync(() =>
                 configureThyCustomSelectTestingModule(
-                    [BasicSelectComponent],
+                    [
+                        // BasicSelectComponent
+                    ],
                     [
                         {
                             provide: ScrollDispatcher,
@@ -2407,7 +2412,9 @@ describe('ThyCustomSelect', () => {
 
     describe('active', () => {
         beforeEach(waitForAsync(() => {
-            configureThyCustomSelectTestingModule([BasicSelectComponent]);
+            configureThyCustomSelectTestingModule([
+                // BasicSelectComponent
+            ]);
         }));
         it('should default active first option when open panel', fakeAsync(() => {
             const fixture = TestBed.createComponent(BasicSelectComponent);

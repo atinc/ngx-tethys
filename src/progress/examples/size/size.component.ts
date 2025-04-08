@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { ThyProgress } from 'ngx-tethys/progress';
-import { ThySpace } from 'ngx-tethys/space';
+import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
 
 @Component({
     selector: 'thy-progress-size-example',
     templateUrl: './size.component.html',
-    imports: [ThyProgress, ThySpace]
+    imports: [ThyProgress, ThySpace, ThySpaceItemDirective]
 })
 export class ThyProgressSizeExampleComponent {
     value = 40;

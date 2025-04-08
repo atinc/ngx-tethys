@@ -1,12 +1,12 @@
 import { ThyNotifyRef, ThyNotifyService } from 'ngx-tethys/notify';
 import { Component, OnInit, inject } from '@angular/core';
 import { ThyButton } from 'ngx-tethys/button';
-import { ThySpace } from 'ngx-tethys/space';
+import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
 
 @Component({
     selector: 'thy-notify-close-manually-example',
     templateUrl: './close-manually.component.html',
-    imports: [ThyButton, ThySpace]
+    imports: [ThyButton, ThySpace, ThySpaceItemDirective]
 })
 export class ThyNotifyCloseExampleComponent implements OnInit {
     private notifyService = inject(ThyNotifyService);

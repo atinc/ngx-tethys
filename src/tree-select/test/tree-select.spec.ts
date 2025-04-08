@@ -387,7 +387,7 @@ class NgModelTreeSelectComponent {
                 [thyShowSearch]="treeShowSearch"></thy-tree-select>
         </div>
     `,
-    imports: [ThyTreeSelect]
+    imports: [ThyTreeSelect, FormsModule]
 })
 class SearchTreeSelectComponent {
     nodes = searchTreeSelectData;

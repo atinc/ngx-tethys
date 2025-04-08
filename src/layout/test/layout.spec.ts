@@ -30,7 +30,7 @@ import {
             </thy-content>
         </thy-layout>
     `,
-    imports: [ThyLayout, ThyHeader, ThyContent, ThyContentSection, ThyContentMain, ThyIcon]
+    imports: [ThyLayout, ThyLayoutDirective, ThyHeaderDirective, ThyHeader, ThyContent, ThyContentSection, ThyContentMain, ThyIcon]
 })
 class ThyDemoLayoutBasicComponent {
     isDivided = false;
@@ -51,7 +51,7 @@ class ThyDemoLayoutBasicComponent {
             <thy-content> 恩，我是 content </thy-content>
         </thy-layout>
     `,
-    imports: [ThyLayout, ThyHeader, ThyContent, ThyContentSection, ThyContentMain, ThyIcon]
+    imports: [ThyLayout, ThyHeader, ThyLayoutDirective, ThyHeaderDirective, ThyContent, ThyContentSection, ThyContentMain, ThyIcon]
 })
 class ThyDemoLayoutCustomHeaderComponent {}
 
@@ -66,7 +66,7 @@ class ThyDemoLayoutCustomHeaderComponent {}
             </div>
         </div>
     `,
-    imports: [ThyLayout, ThyHeader, ThyContent, ThyContentSection, ThyContentMain, ThyIcon]
+    imports: [ThyLayout, ThyHeader, ThyLayoutDirective, ThyHeaderDirective, ThyContent, ThyContentSection, ThyContentMain, ThyIcon]
 })
 class ThyDemoLayoutDirectiveBasicComponent {
     isDivided = false;
