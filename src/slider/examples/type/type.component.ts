@@ -3,6 +3,7 @@ import { ThyRadioGroup } from 'ngx-tethys/radio';
 import { FormsModule } from '@angular/forms';
 import { ThyRadioButton } from 'ngx-tethys/radio';
 import { ThySlider } from 'ngx-tethys/slider';
+import { ThyInputDirective } from 'ngx-tethys/input';
 
 @Component({
     selector: 'thy-slider-type',
@@ -17,7 +18,7 @@ import { ThySlider } from 'ngx-tethys/slider';
         <input class="mt-4 mb-2" thyInput [(ngModel)]="customColor" />
         <thy-slider [thyColor]="customColor" [(ngModel)]="value"></thy-slider>
     `,
-    imports: [ThySlider, ThyRadioGroup, ThyRadioButton, FormsModule]
+    imports: [ThySlider, ThyRadioGroup, ThyRadioButton, FormsModule, ThyInputDirective]
 })
 export class ThySliderTypeExampleComponent implements OnInit {
     public typeValue = 'primary';

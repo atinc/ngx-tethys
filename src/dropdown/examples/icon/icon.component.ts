@@ -4,6 +4,7 @@ import {
     ThyDropdownMenuComponent,
     ThyDropdownMenuItemDescDirective,
     ThyDropdownMenuItemDirective,
+    ThyDropdownMenuItemExtendIconDirective,
     ThyDropdownMenuItemMetaDirective,
     ThyDropdownMenuItemNameDirective
 } from 'ngx-tethys/dropdown';
@@ -23,7 +24,8 @@ import { ThyButton } from 'ngx-tethys/button';
         ThyDropdownMenuItemDirective,
         ThyDropdownMenuItemNameDirective,
         ThyDropdownMenuItemMetaDirective,
-        ThyDropdownMenuItemDescDirective
+        ThyDropdownMenuItemDescDirective,
+        ThyDropdownMenuItemExtendIconDirective
     ]
 })
 export class ThyDropdownIconExampleComponent {}

@@ -5,7 +5,7 @@ import { delay, tap } from 'rxjs/operators';
 
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
+import { ThyInputDirective } from 'ngx-tethys/input';
 const mockUsers = [
     'Jacob',
     'Isabella',
@@ -32,7 +32,7 @@ const mockUsers = [
 @Component({
     selector: 'thy-mention-async-example',
     templateUrl: './async.component.html',
-    imports: [ThyMentionDirective, ThyAvatar, FormsModule]
+    imports: [ThyMentionDirective, ThyAvatar, FormsModule, ThyInputDirective]
 })
 export class ThyMentionAsyncExampleComponent implements OnInit {
     value = `This is remote mention!`;

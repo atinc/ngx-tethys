@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { ThyTabs, ThyTab } from 'ngx-tethys/tabs';
-
+import { ThyButton } from 'ngx-tethys/button';
 @Component({
     selector: 'thy-tabs-dynamic-example',
     templateUrl: './dynamic.component.html',
-    imports: [ThyTabs, ThyTab]
+    imports: [ThyTabs, ThyTab, ThyButton]
 })
 export class ThyTabsDynamicExampleComponent {
     public tabs = [

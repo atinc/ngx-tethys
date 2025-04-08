@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyCarousel } from 'ngx-tethys/carousel';
+import { ThyCarousel, ThyCarouselItemDirective } from 'ngx-tethys/carousel';
+
 @Component({
     selector: 'thy-carousel-basic-example',
     templateUrl: './auto-play.component.html',
@@ -17,7 +18,7 @@ import { ThyCarousel } from 'ngx-tethys/carousel';
             }
         `
     ],
-    imports: [ThyCarousel]
+    imports: [ThyCarousel, ThyCarouselItemDirective]
 })
 export class ThyCarouselAutoPlayExampleComponent implements OnInit {
     constructor() {}

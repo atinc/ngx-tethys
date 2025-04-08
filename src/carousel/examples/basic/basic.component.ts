@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ThyCarousel, ThyCarouselItemDirective } from 'ngx-tethys/carousel';
+
 @Component({
     selector: 'thy-carousel-basic-example',
     templateUrl: './basic.component.html',

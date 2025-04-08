@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ThyTag } from 'ngx-tethys/tag';
-import { ThyButtonGroup } from 'ngx-tethys/button';
+import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
 import { NgClass } from '@angular/common';
 import { ThyIcon } from 'ngx-tethys/icon';
 
@@ -8,7 +8,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
     selector: 'thy-tag-size-example',
     templateUrl: './size.component.html',
     styleUrls: ['./size.component.scss'],
-    imports: [ThyTag, ThyButtonGroup, NgClass, ThyIcon]
+    imports: [ThyTag, ThyButtonGroup, NgClass, ThyIcon, ThyButton]
 })
 export class ThyTagSizeExampleComponent implements OnInit {
     sizes = [

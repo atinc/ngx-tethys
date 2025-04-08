@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ThyInput } from 'ngx-tethys/input';
+import { ThyInput, ThyInputDirective } from 'ngx-tethys/input';
 import { ThyRowDirective, ThyColDirective } from 'ngx-tethys/grid';
 
 @Component({
     selector: 'thy-input-size-example',
     templateUrl: './size.component.html',
-    imports: [ThyInput, ThyRowDirective, ThyColDirective, FormsModule]
+    imports: [ThyInput, ThyInputDirective, ThyRowDirective, ThyColDirective, FormsModule]
 })
 export class ThyInputSizeExampleComponent implements OnInit {
     public value: any;

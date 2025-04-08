@@ -4,7 +4,7 @@ import { ThyTreeSelect, ThyTreeSelectNode } from 'ngx-tethys/tree-select';
 import { ChangeDetectorRef, Component, ElementRef, OnInit, TemplateRef, ViewChild, inject } from '@angular/core';
 import { ThyProperties } from 'ngx-tethys/property';
 import { ThyPropertyItem } from 'ngx-tethys/property';
-import { NgClass, NgTemplateOutlet } from '@angular/common';
+import { NgClass, NgTemplateOutlet, CommonModule } from '@angular/common';
 import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
 import { FormsModule } from '@angular/forms';
 import { ThyPropertyEditableDateInnerComponent } from './date.component';
@@ -12,6 +12,8 @@ import { ThyOption } from 'ngx-tethys/shared';
 import { ThyTag } from 'ngx-tethys/tag';
 import { ThyCascader } from 'ngx-tethys/cascader';
 import { ThyInputNumber } from 'ngx-tethys/input-number';
+import { ThyInputDirective } from 'ngx-tethys/input';
+
 @Component({
     selector: 'thy-property-editable-example',
     templateUrl: './editable.component.html',
@@ -32,7 +34,9 @@ import { ThyInputNumber } from 'ngx-tethys/input-number';
         ThyOption,
         ThyTag,
         ThyCascader,
-        ThyInputNumber
+        ThyInputNumber,
+        ThyInputDirective,
+        CommonModule
     ]
 })
 export class ThyPropertyEditableExampleComponent implements OnInit {

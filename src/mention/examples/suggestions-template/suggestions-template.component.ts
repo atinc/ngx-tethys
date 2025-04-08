@@ -4,6 +4,7 @@ import { ThyAvatar } from 'ngx-tethys/avatar';
 import { Component, ElementRef, OnInit, TemplateRef, ViewChild, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyListOption } from 'ngx-tethys/shared';
+import { ThyInputDirective } from 'ngx-tethys/input';
 
 const mockUsers = [
     'Jacob',
@@ -31,7 +32,7 @@ const mockUsers = [
 @Component({
     selector: 'thy-mention-suggestion-template-example',
     templateUrl: './suggestions-template.component.html',
-    imports: [ThyMentionDirective, FormsModule, ThySelectionList, ThyListOption, ThyAvatar]
+    imports: [ThyMentionDirective, FormsModule, ThySelectionList, ThyListOption, ThyAvatar, ThyInputDirective]
 })
 export class ThyMentionSuggestionsTemplateExampleComponent implements OnInit {
     elementRef = inject<ElementRef<HTMLElement>>(ElementRef);

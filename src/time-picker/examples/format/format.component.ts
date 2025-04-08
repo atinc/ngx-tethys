@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ThyTimePicker } from 'ngx-tethys/time-picker';
 import { TinyDate } from 'ngx-tethys/util';
 import { FormsModule } from '@angular/forms';
-import { ThyButtonGroup } from 'ngx-tethys/button';
+import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
 import { NgClass } from '@angular/common';
 
 @Component({
     selector: 'thy-time-picker-format-example',
     templateUrl: './format.component.html',
-    imports: [ThyTimePicker, FormsModule, ThyButtonGroup, NgClass]
+    imports: [ThyTimePicker, FormsModule, ThyButtonGroup, NgClass, ThyButton]
 })
 export class ThyTimePickerFormatExampleComponent implements OnInit {
     formats: string[] = ['HH:mm:ss', 'HH:mm', 'mm:ss'];

@@ -3,7 +3,7 @@ import { listOfOption } from '../mock-data';
 import { ThySelect } from 'ngx-tethys/select';
 import { ThyOption } from 'ngx-tethys/shared';
 import { FormsModule } from '@angular/forms';
-import { ThyButtonGroup } from 'ngx-tethys/button';
+import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
 import { NgClass } from '@angular/common';
 
 @Component({
@@ -17,7 +17,7 @@ import { NgClass } from '@angular/common';
             }
         `
     ],
-    imports: [ThySelect, ThyOption, FormsModule, ThyButtonGroup, NgClass]
+    imports: [ThySelect, ThyOption, FormsModule, ThyButtonGroup, NgClass, ThyButton]
 })
 export class ThySelectSizeExampleComponent implements OnInit {
     listOfOption = listOfOption;
