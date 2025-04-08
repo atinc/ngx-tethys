@@ -1,12 +1,12 @@
 import { NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
+import { ThyButton, ThyButtonGroup, ThyButtonIcon } from 'ngx-tethys/button';
 import { ThyIcon } from 'ngx-tethys/icon';
 
 @Component({
     selector: 'thy-button-group-example',
     templateUrl: './group.component.html',
-    imports: [ThyButton, ThyButtonGroup, NgClass, ThyIcon]
+    imports: [ThyButton, ThyButtonGroup, ThyButtonIcon, NgClass, ThyIcon]
 })
 export class ThyButtonGroupExampleComponent implements OnInit {
     sizes = [
