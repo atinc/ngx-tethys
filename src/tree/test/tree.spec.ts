@@ -5,10 +5,9 @@ import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angul
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { ThyDragDropEvent } from '../../drag-drop/drag-drop.class';
-import { ThyFlexibleTextModule } from '../../flexible-text/flexible-text.module';
-import { ThyIconModule } from '../../icon';
-import { ThyTreeNode } from '../tree-node.class';
+import { ThyDragDropEvent } from 'ngx-tethys/drag-drop';
+import { ThyIcon } from 'ngx-tethys/icon';
+import { ThyTreeNode, ThyTreeNodeComponent } from 'ngx-tethys/tree';
 import {
     ThyTreeBeforeDragDropContext,
     ThyTreeBeforeDragStartContext,
@@ -17,13 +16,12 @@ import {
     ThyTreeEmitEvent
 } from '../tree.class';
 import { ThyTree } from '../tree.component';
-import { ThyTreeModule } from '../tree.module';
 import { bigTreeNodes, treeNodes, hasCheckTreeNodes } from './mock';
-import { ThyTreeNodeComponent } from '../tree-node.component';
 import { CDK_DRAG_CONFIG, DragDropConfig } from '@angular/cdk/drag-drop';
 import { DOCUMENT } from '@angular/common';
 import { scrollToViewport, scrollToViewportOffset } from './utils';
 import { provideHttpClient } from '@angular/common/http';
+import { ThyFlexibleText, ThyFlexibleTextModule } from 'ngx-tethys/flexible-text';
 
 const expandSelector = '.thy-tree-expand';
 const expandIconSelector = '.thy-tree-expand-icon';
@@ -34,8 +32,7 @@ const treeNodeContentSelector = '.thy-tree-node-content';
 describe('ThyTreeComponent', () => {
     function configureThyTreeTestingModule(declarations: any[]) {
         TestBed.configureTestingModule({
-            imports: [ThyTreeModule, ThyIconModule, ThyFlexibleTextModule, FormsModule],
-            declarations,
+            imports: [ThyFlexibleTextModule],
             providers: [
                 {
                     provide: CDK_DRAG_CONFIG,
@@ -823,7 +820,7 @@ describe('ThyTreeComponent', () => {
             </ng-template>
         </thy-tree>
     `,
-    standalone: false
+    imports: [ThyTree, ThyFlexibleText, ThyIcon]
 })
 class TestBasicTreeComponent {
     @ViewChild('tree', { static: true }) tree: ThyTree;
@@ -887,9 +884,9 @@ class TestBasicTreeComponent {
             </thy-tree>
         </div>
     `,
-    standalone: false
+    imports: [ThyTree, ThyIcon, ThyFlexibleText, FormsModule]
 })
-export class TestMultipleTreeComponent {
+class TestMultipleTreeComponent {
     mockData = JSON.parse(JSON.stringify(treeNodes));
 
     @ViewChild('tree', { static: true }) tree: ThyTree;
@@ -908,9 +905,9 @@ export class TestMultipleTreeComponent {
             (thyOnExpandChange)="onExpandChange($event)">
         </thy-tree>
     `,
-    standalone: false
+    imports: [ThyTree, FormsModule]
 })
-export class TestAsyncTreeComponent {
+class TestAsyncTreeComponent {
     mockData = treeNodes;
 
     treeNodes = this.mockData.map(item => {
@@ -953,9 +950,9 @@ export class TestAsyncTreeComponent {
             </thy-tree>
         </div>
     `,
-    standalone: false
+    imports: [ThyTree, FormsModule]
 })
-export class TestVirtualScrollingTreeComponent implements OnInit {
+class TestVirtualScrollingTreeComponent implements OnInit {
     mockData = bigTreeNodes;
 
     @ViewChild('tree', { static: true }) treeComponent: ThyTree;
@@ -986,9 +983,9 @@ export class TestVirtualScrollingTreeComponent implements OnInit {
             (thyOnDragDrop)="onDragDrop($event)">
         </thy-tree>
     `,
-    standalone: false
+    imports: [ThyTree, FormsModule]
 })
-export class TestDragDropTreeComponent {
+class TestDragDropTreeComponent {
     treeNodes = [
         {
             key: '001',
@@ -1064,7 +1061,7 @@ export class TestDragDropTreeComponent {
             </ng-template>
         </thy-tree>
     `,
-    standalone: false
+    imports: [ThyTree, ThyIcon, ThyFlexibleText, FormsModule]
 })
 class TestHasCheckedTreeComponent {
     @ViewChild('tree', { static: true }) tree: ThyTree;
