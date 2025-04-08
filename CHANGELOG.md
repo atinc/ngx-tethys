@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [18.2.10](https://github.com/atinc/ngx-tethys/compare/18.2.9...18.2.10) (2025-04-08)
+
+### Features
+* **i18n:** adjust en-us translation TINFR-1802 (#3326)
+
+
+
 ## [18.2.9](https://github.com/atinc/ngx-tethys/compare/18.2.8...18.2.9) (2025-03-25)
 
 
