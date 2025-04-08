@@ -61,7 +61,7 @@ export default {
         yearMonthFormat: 'yyyy-MM' // eg. 2025-09
     },
     autocomplete: {
-        empty: 'No data'
+        empty: 'No data available'
     },
     transfer: {
         maxLimit: '(Max limit: {max})',
@@ -89,8 +89,8 @@ export default {
     },
     copy: {
         tips: 'Click to copy',
-        success: 'Copied',
-        error: 'Failed'
+        success: 'Copy succeeded',
+        error: 'Copy failed'
     },
     nav: {
         more: 'More'
@@ -101,15 +101,15 @@ export default {
         cancel: 'Cancel'
     },
     select: {
-        placeholder: 'Please select',
+        placeholder: 'Select',
         empty: 'No data available'
     },
     treeSelect: {
-        placeholder: 'Please select',
+        placeholder: 'Select',
         empty: 'No data available'
     },
     cascader: {
-        placeholder: 'Please select',
+        placeholder: 'Select',
         empty: 'No data available'
     },
     pagination: {
@@ -136,7 +136,7 @@ export default {
         min: 'Input cannot be less than {min}'
     },
     empty: {
-        noDataText: 'No data'
+        noDataText: 'No data available'
     }
 };
 
