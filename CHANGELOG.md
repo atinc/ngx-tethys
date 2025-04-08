@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [19.0.2](https://github.com/atinc/ngx-tethys/compare/19.0.1...19.0.2) (2025-04-08)
+
+### Features
+* **i18n:**  adjust en-us translation TINFR-1802 (#3327)
+
+
+
 ## [19.0.1](https://github.com/atinc/ngx-tethys/compare/19.0.0...19.0.1) (2025-03-27)
 build: change angular version to ^19.0.0 in peerDependencies
 
@@ -63,6 +70,12 @@ build: change angular version to ^19.0.0 in peerDependencies
 
 * upgrade ng to 19 ([5ec421d](https://github.com/atinc/ngx-tethys/commit/5ec421dc6a2972983114d8c5092b6249b4dddc86))
 * upgrade ng to 19.2.x #TINFR-1676 ([675f754](https://github.com/atinc/ngx-tethys/commit/675f7547f389e9f8e5f605be3905f3de9c199844)), closes [#TINFR-1676](https://github.com/atinc/ngx-tethys/issues/TINFR-1676)
+
+
+## [18.2.10](https://github.com/atinc/ngx-tethys/compare/18.2.9...18.2.10) (2025-04-08)
+
+### Features
+* **i18n:** adjust en-us translation TINFR-1802 (#3326)
 
 
 
