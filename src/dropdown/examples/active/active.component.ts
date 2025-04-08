@@ -1,11 +1,25 @@
 import { Component } from '@angular/core';
-import { ThyDropdownDirective, ThyDropdownMenuComponent } from 'ngx-tethys/dropdown';
+import {
+    ThyDropdownActiveDirective,
+    ThyDropdownDirective,
+    ThyDropdownMenuComponent,
+    ThyDropdownMenuItemDirective
+} from 'ngx-tethys/dropdown';
 import { ThyListItem } from 'ngx-tethys/list';
 import { ThyList } from 'ngx-tethys/list';
+import { ThyAction } from 'ngx-tethys/action';
 
 @Component({
     selector: 'thy-dropdown-active-example',
     templateUrl: './active.component.html',
-    imports: [ThyDropdownDirective, ThyList, ThyListItem, ThyDropdownMenuComponent]
+    imports: [
+        ThyDropdownDirective,
+        ThyList,
+        ThyListItem,
+        ThyAction,
+        ThyDropdownMenuComponent,
+        ThyDropdownMenuItemDirective,
+        ThyDropdownActiveDirective
+    ]
 })
 export class ThyDropdownActiveExampleComponent {}

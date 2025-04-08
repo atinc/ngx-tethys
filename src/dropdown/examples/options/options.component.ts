@@ -5,9 +5,12 @@ import { ThyDropdownMenuComponent, ThyDropdownMenuItemDirective, ThyDropdownDire
 import { ThyFormGroup } from 'ngx-tethys/form';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyInputNumber } from 'ngx-tethys/input-number';
-import { ThyNativeSelect } from 'ngx-tethys/select';
+import { ThySelect } from 'ngx-tethys/select';
 import { ThySwitch } from 'ngx-tethys/switch';
 import { ThyDivider } from 'ngx-tethys/divider';
+import { ThyButton } from 'ngx-tethys/button';
+import { ThyInputDirective } from 'ngx-tethys/input';
+import { ThyOption } from 'ngx-tethys/shared';
 
 @Component({
     selector: 'thy-dropdown-options-example',
@@ -17,14 +20,17 @@ import { ThyDivider } from 'ngx-tethys/divider';
         FormsModule,
         ThyDropdownMenuItemDirective,
         ThyFormGroup,
-        ThyNativeSelect,
+        ThySelect,
+        ThyOption,
         ThyInputNumber,
         ThySwitch,
         ThyIcon,
+        ThyButton,
         ThyDropdownDirective,
         ThyDropdownMenuComponent,
         ThyDropdownMenuItemDirective,
-        ThyDivider
+        ThyDivider,
+        ThyInputDirective
     ]
 })
 export class ThyDropdownOptionsExampleComponent {
