@@ -1,4 +1,7 @@
 import { endOfDay, endOfMonth, endOfQuarter, endOfYear, startOfDay, startOfMonth, startOfWeek, startOfYear } from 'date-fns';
+import * as dateFnsLocales from 'date-fns/locale';
+import { ThyLocaleType } from 'ngx-tethys/i18n';
+import { getDateFnsLocale } from './functions';
 import { sortRangeValue, TinyDate } from './tiny-date';
 
 describe('tiny-date', () => {
@@ -227,5 +230,9 @@ describe('tiny-date', () => {
         it('should sort by one date', () => {
             expect(sortRangeValue(date as unknown as TinyDate[])).toEqual(date as unknown as TinyDate[]);
         });
+    });
+
+    it('should get date-fns locale', () => {
+        expect(getDateFnsLocale(ThyLocaleType.enUs)).toEqual(dateFnsLocales[`enUS`]);
     });
 });
