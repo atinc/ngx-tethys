@@ -12,17 +12,14 @@ import {
     ViewChild,
     ViewContainerRef
 } from '@angular/core';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { SafeAny } from 'ngx-tethys/types';
-import { ThyDialog, ThyDialogModule, ThyDialogRef } from '../';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { ThyDialogHeader } from '../header/dialog-header.component';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { ThyDialogBody } from '../body/dialog-body.component';
-import { ThyDialogFooter } from '../footer/dialog-footer.component';
-
+import { ThyDialog, ThyDialogModule, ThyDialogRef } from 'ngx-tethys/dialog';
+import { ThyButtonModule } from 'ngx-tethys/button';
 // simple dialog component
+
 @Component({
     selector: 'thy-dialog-content-component',
     template: ` <div>Hello Dialog <button>Close</button></div> `
@@ -46,7 +43,7 @@ export class DialogSimpleContentComponent {
             <button thyButton="link-secondary" (click)="close()">取消</button>
         </thy-dialog-footer>
     `,
-    imports: [ThyDialogHeader, CdkScrollable, ThyDialogBody, ThyDialogFooter]
+    imports: [ThyDialogModule, ThyButtonModule]
 })
 export class DialogFullContentComponent {
     dialogRef = inject<ThyDialogRef<DialogFullContentComponent>>(ThyDialogRef);
@@ -82,7 +79,7 @@ export class DialogFullContentComponent {
             }
         `
     ],
-    standalone: false
+    imports: [ThyDialogModule, ThyButtonModule]
 })
 export class DialogRestoreComponent {
     private thyDialog = inject(ThyDialog);
@@ -128,7 +125,8 @@ export class WithChildViewContainerComponent {
         <ng-template let-initialState let-dialogRef="dialogRef">
             Cheese {{ localValue }} {{ initialState?.value }}{{ setDialogRef(dialogRef) }}</ng-template
         >
-    `
+    `,
+    imports: [ThyDialogModule]
 })
 export class WithTemplateRefComponent {
     localValue: string;
@@ -171,7 +169,7 @@ export class WithOnPushViewContainerComponent {
             <button thyButton="primary" (click)="dialogRef.close()">确定</button>
         </thy-dialog-footer>
     `,
-    standalone: false
+    imports: [ThyDialogModule, ThyButtonModule]
 })
 class PopupFirstComponent {
     dialogRef = inject(ThyDialogRef);
@@ -190,7 +188,7 @@ class PopupFirstComponent {
             <button thyButton="primary" (click)="dialogRef.close()">确定</button>
         </thy-dialog-footer>
     `,
-    standalone: false
+    imports: [ThyDialogModule, ThyButtonModule]
 })
 class PopupSecondComponent {
     dialogRef = inject(ThyDialogRef);
@@ -206,7 +204,8 @@ class PopupSecondComponent {
         <div class="btn-pair">
             <button thyButton="primary" (click)="open()">Open Dialog</button>
         </div>
-    `
+    `,
+    imports: [ThyDialogModule, ThyButtonModule]
 })
 export class DialogToTopComponent implements OnInit {
     @ViewChild(PopupFirstComponent, { static: true }) popupFirst: PopupFirstComponent;
@@ -218,7 +217,9 @@ export class DialogToTopComponent implements OnInit {
     public openedDialogs: SafeAny[] = [];
 
     constructor(public viewContainerRef: ViewContainerRef) {}
+
     ngOnInit() {}
+
     open() {
         this.openDialog(PopupFirstComponent, 'first', this.viewContainerRef);
         this.openDialog(PopupSecondComponent, 'second', this.viewContainerRef);
@@ -248,8 +249,7 @@ const TEST_DIRECTIVES = [
     DialogToTopComponent
 ];
 @NgModule({
-    imports: [ThyDialogModule, NoopAnimationsModule, ...TEST_DIRECTIVES],
-    providers: [provideHttpClient(), provideHttpClientTesting()],
-    exports: TEST_DIRECTIVES
+    imports: [NoopAnimationsModule, ...TEST_DIRECTIVES],
+    providers: [provideHttpClient()]
 })
 export class DialogTestModule {}

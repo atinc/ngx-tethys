@@ -30,7 +30,7 @@ import {
             </thy-content>
         </thy-layout>
     `,
-    imports: [ThyLayout, ThyLayoutDirective, ThyHeaderDirective, ThyHeader, ThyContent, ThyContentSection, ThyContentMain, ThyIcon]
+    imports: [ThyLayout, ThyHeader, ThyContent, ThyContentSection, ThyContentMain, ThyIcon]
 })
 class ThyDemoLayoutBasicComponent {
     isDivided = false;
@@ -66,7 +66,7 @@ class ThyDemoLayoutCustomHeaderComponent {}
             </div>
         </div>
     `,
-    imports: [ThyLayout, ThyHeader, ThyLayoutDirective, ThyHeaderDirective, ThyContent, ThyContentSection, ThyContentMain, ThyIcon]
+    imports: [ThyLayoutDirective, ThyHeaderDirective, ThyContentDirective, ThyContentSectionDirective, ThyContentMainDirective]
 })
 class ThyDemoLayoutDirectiveBasicComponent {
     isDivided = false;
@@ -77,12 +77,6 @@ class ThyDemoLayoutDirectiveBasicComponent {
 describe(`layout`, () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [
-                ThyLayoutModule,
-                ThyDemoLayoutBasicComponent,
-                ThyDemoLayoutCustomHeaderComponent,
-                ThyDemoLayoutDirectiveBasicComponent
-            ],
             providers: [bypassSanitizeProvider, provideHttpClient()]
         });
         TestBed.compileComponents();

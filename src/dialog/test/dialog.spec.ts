@@ -4,7 +4,7 @@ import { SpyLocation } from '@angular/common/testing';
 import { ViewContainerRef } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, flushMicrotasks, inject, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { bypassSanitizeProvider, dispatchKeyboardEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
+import { dispatchKeyboardEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { helpers } from '../../util';
@@ -12,7 +12,7 @@ import { A, ESCAPE } from '../../util/keycodes';
 import { ThyDialogContainer } from '../dialog-container.component';
 import { ThyDialogRef } from '../dialog-ref';
 import { ThyDialogSizes } from '../dialog.config';
-import { THY_CONFIRM_DEFAULT_OPTIONS, ThyDialog, ThyDialogModule } from '../index';
+import { THY_CONFIRM_DEFAULT_OPTIONS, ThyDialog } from '../index';
 import {
     DialogFullContentComponent,
     DialogRestoreComponent,
@@ -25,13 +25,11 @@ import {
     WithTemplateRefComponent,
     WithViewContainerDirective
 } from './module';
-import { provideHttpClient } from '@angular/common/http';
 
 describe('ThyDialog', () => {
     let dialog: ThyDialog;
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
-    // let scrolledSubject = new Subject();
 
     let testViewContainerRef: ViewContainerRef;
     let viewContainerFixture: ComponentFixture<WithChildViewContainerComponent>;
@@ -39,10 +37,8 @@ describe('ThyDialog', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyDialogModule, DialogTestModule],
+            imports: [DialogTestModule],
             providers: [
-                bypassSanitizeProvider,
-                provideHttpClient(),
                 { provide: Location, useClass: SpyLocation },
                 {
                     provide: THY_CONFIRM_DEFAULT_OPTIONS,
@@ -50,12 +46,6 @@ describe('ThyDialog', () => {
                         title: '全局定义标题'
                     }
                 }
-                // {
-                //     provide: ScrollDispatcher,
-                //     useFactory: () => ({
-                //         scrolled: () => scrolledSubject.asObservable()
-                //     })
-                // }
             ]
         });
         injectDefaultSvgIconSet();
@@ -120,6 +110,7 @@ describe('ThyDialog', () => {
 
         viewContainerFixture.detectChanges();
         viewContainerFixture.whenStable().then(() => {
+            //
             expect(getDialogContainerElement()).toBeNull();
             expect(spy).toHaveBeenCalled();
             done();

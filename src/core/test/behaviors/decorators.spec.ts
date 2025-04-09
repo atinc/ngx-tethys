@@ -3,8 +3,7 @@ import { InputNumber } from 'ngx-tethys/core';
 
 @Component({
     selector: 'thy-test-decorators-component',
-    template: `<p>{{ value }}</p>`,
-    standalone: false
+    template: `<p>{{ value }}</p>`
 })
 class TestComponent {
     @Input() @InputNumber() value: any;
