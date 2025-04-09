@@ -87,7 +87,7 @@ export const setDefaultOptions = dateFns.setDefaultOptions;
 export const formatDistance = dateFns.formatDistance;
 
 export const getDateFnsLocale = (locale: string) => {
-    switch (locale.toLowerCase()) {
+    switch (locale) {
         case ThyLocaleType.zhHans:
             return dateFnsLocales[`zhCN`];
         case ThyLocaleType.zhHant:

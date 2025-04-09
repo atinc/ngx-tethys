@@ -82,7 +82,7 @@ export class TinyDate implements Record<string, any> {
 
     private static locale: string = TinyDate.getBrowserLocale();
 
-    protected static dateFnsLocale: Locale = getDateFnsLocale(TinyDate.locale);
+    protected static dateFnsLocale: Locale;
 
     protected static defaultTimeZone: string = DEFAULT_TIMEZONE;
 
@@ -116,10 +116,11 @@ export class TinyDate implements Record<string, any> {
     }
 
     static getBrowserLocale(): string {
-        if (typeof window !== 'undefined' && window?.navigator) {
-            return window.navigator.language || ThyLocaleType.zhHans;
-        }
-        return ThyLocaleType.zhHans;
+        const defaultLocale =
+            typeof window !== 'undefined' && window?.navigator ? window.navigator.language.toLowerCase() : ThyLocaleType.zhHans;
+        TinyDate.dateFnsLocale = getDateFnsLocale(defaultLocale);
+        setDefaultOptions({ locale: TinyDate.dateFnsLocale });
+        return defaultLocale;
     }
 
     static setDefaultTimeZone(zone: string) {
