@@ -1,6 +1,6 @@
 import { TZDate } from '@date-fns/tz';
 import { FirstWeekContainsDate, Locale, setHours, setMinutes, setSeconds } from 'date-fns';
-import { ThyLocaleType } from 'ngx-tethys/i18n';
+import { isIncludeLocale, ThyLocaleType } from 'ngx-tethys/i18n';
 import { SafeAny } from 'ngx-tethys/types';
 import {
     addDays,
@@ -80,13 +80,14 @@ export class TinyDate implements Record<string, any> {
 
     private useTimeZone: string;
 
-    private static locale: string = ThyLocaleType.zhHans;
+    private static locale: string = TinyDate.getDefaultLocaleId();
 
     protected static dateFnsLocale: Locale = getDateFnsLocale(TinyDate.locale);
 
     protected static defaultTimeZone: string = DEFAULT_TIMEZONE;
 
     constructor(date?: Date | string | number, zone?: string) {
+        setDefaultOptions({ locale: TinyDate.dateFnsLocale });
         this.useTimeZone = zone || TinyDate.defaultTimeZone;
         if (date) {
             if (date instanceof Date) {
@@ -103,6 +104,14 @@ export class TinyDate implements Record<string, any> {
         } else {
             this.nativeDate = new TZDate(Date.now(), this.useTimeZone);
         }
+    }
+
+    static getDefaultLocaleId(): ThyLocaleType {
+        let defaultLocaleId = ThyLocaleType.zhHans;
+        if (typeof window !== 'undefined' && window?.navigator?.language) {
+            defaultLocaleId = window.navigator?.language?.toLowerCase() as ThyLocaleType;
+        }
+        return isIncludeLocale(defaultLocaleId) ? defaultLocaleId : ThyLocaleType.zhHans;
     }
 
     static setDefaultLocale(locale: string) {

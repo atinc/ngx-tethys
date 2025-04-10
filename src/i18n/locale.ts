@@ -1,5 +1,5 @@
 import { computed, inject, Signal } from '@angular/core';
-import { ThyModuleType, ThyI18nService, ThyModuleLocaleType, ThyI18nLocale } from './index';
+import { ThyI18nLocale, ThyI18nService, ThyLocaleType, ThyModuleLocaleType, ThyModuleType } from './index';
 
 export function injectLocale(): Signal<ThyI18nLocale>;
 
@@ -15,4 +15,17 @@ export function injectLocale<K extends ThyModuleType>(key?: K): Signal<ThyI18nLo
         }
         return allLocale();
     });
+}
+
+/**
+ * 当前语言是否包含在支持的语言列表中
+ * @param locale
+ * return boolean
+ */
+export function isIncludeLocale(locale: string) {
+    const allLocales = [ThyLocaleType.zhHans, ThyLocaleType.zhHant, ThyLocaleType.enUs, ThyLocaleType.jaJp, ThyLocaleType.deDe];
+    if (!allLocales.includes(locale.toLowerCase() as ThyLocaleType)) {
+        return false;
+    }
+    return true;
 }
