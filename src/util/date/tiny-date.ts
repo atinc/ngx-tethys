@@ -117,7 +117,7 @@ export class TinyDate implements Record<string, any> {
 
     static getBrowserLocale(): string {
         const defaultLocale =
-            typeof window !== 'undefined' && window?.navigator ? window.navigator.language.toLowerCase() : ThyLocaleType.zhHans;
+            typeof window !== 'undefined' && window?.navigator ? window.navigator?.language?.toLowerCase() : ThyLocaleType.zhHans;
         TinyDate.dateFnsLocale = getDateFnsLocale(defaultLocale);
         setDefaultOptions({ locale: TinyDate.dateFnsLocale });
         return defaultLocale;
