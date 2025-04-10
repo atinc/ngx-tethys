@@ -23,6 +23,7 @@ import { ThyColor } from './helpers/color.class';
 import { takeUntil } from 'rxjs/operators';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { OverlayRef } from '@angular/cdk/overlay';
+
 export class OverlayBase extends ThyOverlayDirectiveBase {
     constructor(
         protected zone: NgZone,
