@@ -206,6 +206,11 @@ export abstract class AbstractPickerComponent
         return this.disabled;
     }
 
+    /**
+     * 时区
+     */
+    @Input() thyTimeZone: string;
+
     disabled = false;
 
     shortcutPosition: ThyShortcutPosition = 'left';
@@ -274,34 +279,19 @@ export abstract class AbstractPickerComponent
         let value: { begin: number; end: number };
         switch (this.thyMode) {
             case 'date':
-                value = {
-                    begin: begin.startOfDay().getUnixTime(),
-                    end: end.endOfDay().getUnixTime()
-                };
+                value = { begin: begin.startOfDay().getUnixTime(), end: end.endOfDay().getUnixTime() };
                 break;
             case 'week':
-                value = {
-                    begin: begin.startOfWeek().getUnixTime(),
-                    end: end.endOfWeek().getUnixTime()
-                };
+                value = { begin: begin.startOfWeek().getUnixTime(), end: end.endOfWeek().getUnixTime() };
                 break;
             case 'month':
-                value = {
-                    begin: begin.startOfMonth().getUnixTime(),
-                    end: end.endOfMonth().getUnixTime()
-                };
+                value = { begin: begin.startOfMonth().getUnixTime(), end: end.endOfMonth().getUnixTime() };
                 break;
             case 'year':
-                value = {
-                    begin: begin.startOfYear().getUnixTime(),
-                    end: end.endOfYear().getUnixTime()
-                };
+                value = { begin: begin.startOfYear().getUnixTime(), end: end.endOfYear().getUnixTime() };
                 break;
             default:
-                value = {
-                    begin: begin.startOfDay().getUnixTime(),
-                    end: end.endOfDay().getUnixTime()
-                };
+                value = { begin: begin.startOfDay().getUnixTime(), end: end.endOfDay().getUnixTime() };
                 break;
         }
         return value;
@@ -320,10 +310,7 @@ export abstract class AbstractPickerComponent
                 if (this.thyAutoStartAndEnd) {
                     value = this.getAutoStartAndEndValue(begin, end);
                 } else {
-                    value = {
-                        begin: begin.getUnixTime(),
-                        end: end.getUnixTime()
-                    };
+                    value = { begin: begin.getUnixTime(), end: end.getUnixTime() };
                 }
             }
             const [beginUnixTime, endUnixTime] = this.setValueByPrecision(value) as number[];
@@ -396,10 +383,11 @@ export abstract class AbstractPickerComponent
     }
 
     public setValue(value: CompatibleDate): void {
-        this.thyValue = makeValue(value, this.isRange);
+        this.thyValue = makeValue(value, this.isRange, this.thyTimeZone);
+        console.log('setValue-----abstract-picker', this.thyValue);
     }
 
     private setValueByPrecision(value: CompatibleDate | number | Date | DateEntry | ThyDateRangeEntry | SafeAny): number | number[] {
-        return setValueByTimestampPrecision(value, this.isRange, this.thyTimestampPrecision);
+        return setValueByTimestampPrecision(value, this.isRange, this.thyTimestampPrecision, this.thyTimeZone);
     }
 }

@@ -22,6 +22,7 @@ export class CalendarFooter implements OnInit, OnChanges {
     @Input() showTime = false;
     @Input() mustShowTime = false;
     @Input() value: TinyDate;
+    @Input() tz: string;
     @Input({ transform: coerceBooleanProperty }) disableTimeConfirm = false;
     @Output() readonly selectTime = new EventEmitter<TinyDate>();
     @Output() readonly clickOk = new EventEmitter<void>();

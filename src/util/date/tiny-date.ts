@@ -90,9 +90,14 @@ export class TinyDate implements Record<string, any> {
         this.useTimeZone = zone || TinyDate.defaultTimeZone;
         if (date) {
             if (date instanceof Date) {
+                console.log('TinyDate--date', date.getTime());
                 this.nativeDate = TinyDate.utcToZonedTime(date, this.useTimeZone);
+                console.log('this.nativeDate', this.nativeDate.getTime());
             } else if (typeof date === 'string' || typeof date === 'number') {
                 this.nativeDate = new TZDate(date as SafeAny, this.useTimeZone);
+                console.log('TinyDate--this.useTimeZone', this.useTimeZone);
+                console.log('TinyDate-------------date', date);
+                console.log('TinyDate(date as SafeAny, this.useTimeZone)', this.nativeDate.getTime());
             } else if (typeof ngDevMode === 'undefined' || ngDevMode) {
                 throw new Error(
                     `The input date type is not supported expect Date | string | number | { date: number; with_time: 0 | 1}, actual ${JSON.stringify(
@@ -102,6 +107,7 @@ export class TinyDate implements Record<string, any> {
             }
         } else {
             this.nativeDate = new TZDate(Date.now(), this.useTimeZone);
+            console.log('else', this.nativeDate.getTime());
         }
     }
 

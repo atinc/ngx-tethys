@@ -9,6 +9,7 @@
       <thy-inner-time-picker
         class="time-picker-wrap"
         [showMeridian]="false"
+        [tz]="tz"
         [ngModel]="value"
         (ngModelChange)="onSelectTime($event)"></thy-inner-time-picker>
     }

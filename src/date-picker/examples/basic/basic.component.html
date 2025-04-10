@@ -1,4 +1,4 @@
-<thy-form-group thyLabelText="时间选择器">
+<!-- <thy-form-group thyLabelText="时间选择器">
   <thy-date-picker
     class="d-block w-50 mb-3"
     thyShowTime
@@ -8,12 +8,13 @@
     (ngModelChange)="onChange($event)"
     [thyAllowClear]="isAllowClear"
     [thyHasBackdrop]="false"></thy-date-picker>
-</thy-form-group>
+</thy-form-group> -->
 
 <thy-form-group thyLabelText="高级时间选择器">
   <thy-date-picker
     class="d-block w-50 mb-3"
     thyShowTime
+    [thyTimeZone]="tz"
     [thyFormat]="dateShowTime | thyDatePickerFormatString"
     thyTimestampPrecision="milliseconds"
     thyPlaceHolder="选择时间"
@@ -24,7 +25,7 @@
     [thyHasBackdrop]="false"></thy-date-picker>
 </thy-form-group>
 
-<thy-form-group thyLabelText="周选择器">
+<!-- <thy-form-group thyLabelText="周选择器">
   <thy-date-picker
     class="d-block w-50 mb-3"
     thyPlaceHolder="选择周"
@@ -117,4 +118,4 @@
     [thyShowShortcut]="true"
     (ngModelChange)="onChange($event)"
     [thyAllowClear]="isAllowClear"></thy-range-picker>
-</thy-form-group>
+</thy-form-group> -->

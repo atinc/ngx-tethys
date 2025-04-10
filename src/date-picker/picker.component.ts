@@ -17,7 +17,7 @@ import {
     ViewChild
 } from '@angular/core';
 
-import { AsyncPipe, NgClass, NgTemplateOutlet } from '@angular/common';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
 import { ThyI18nService } from 'ngx-tethys/i18n';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -59,6 +59,7 @@ export class ThyPicker implements OnChanges, AfterViewInit {
     @Input() mode: string;
     @Input({ transform: coerceBooleanProperty }) hasBackdrop: boolean;
     @Input() separator: string;
+    @Input() tz: string;
     @Output() blur = new EventEmitter<Event>();
     @Output() readonly valueChange = new EventEmitter<TinyDate | TinyDate[] | null>();
     @Output() readonly openChange = new EventEmitter<boolean>(); // Emitted when overlay's open state change
@@ -159,6 +160,7 @@ export class ThyPicker implements OnChanges, AfterViewInit {
     onInput(event: InputEvent) {
         this.entering = true;
         const inputValue = (event.target as HTMLElement)['value'];
+        console.log('onInput: inputValue', inputValue);
         this.inputChange.emit(inputValue);
     }
 
@@ -166,7 +168,7 @@ export class ThyPicker implements OnChanges, AfterViewInit {
         if (this.readonlyState) {
             return;
         }
-        this.valueChange.emit(this.pickerInput.nativeElement.value || this.getReadableValue(new TinyDate()));
+        this.valueChange.emit(this.pickerInput.nativeElement.value || this.getReadableValue(new TinyDate(undefined, this.tz)));
         this.entering = false;
     }
 
@@ -279,7 +281,10 @@ export class ThyPicker implements OnChanges, AfterViewInit {
         if (this.innerFormat && (this.innerFormat.includes('q') || this.innerFormat.includes('Q'))) {
             return value.format(this.innerFormat);
         } else {
-            return this.dateHelper.format(value.nativeDate, this.innerFormat);
+            console.log('formatDate--this.tz', this.tz);
+            console.log('value?.nativeDate', value?.nativeDate);
+            console.log('value.format(this.innerFormat)', value.format(this.innerFormat));
+            return this.dateHelper.format(value?.nativeDate, this.innerFormat);
         }
     }
 

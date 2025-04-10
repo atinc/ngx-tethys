@@ -16,6 +16,7 @@
   [placeholder]="thyPlaceHolder"
   [readonly]="thyReadonly"
   [size]="thySize"
+  [tz]="thyTimeZone"
   [suffixIcon]="thySuffixIcon"
   [placement]="thyPlacement"
   [hasBackdrop]="thyHasBackdrop"
@@ -49,6 +50,8 @@
       [timestampPrecision]="thyTimestampPrecision"
       (dateValueChange)="onDateValueChange($event)"
       [className]="thyPanelClassName"
-      (resultOk)="onResultOk()"></date-popup>
+      (resultOk)="onResultOk()"
+      [tz]="thyTimeZone"
+      ></date-popup>
   }
 </thy-picker>
