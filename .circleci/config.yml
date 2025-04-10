@@ -11,17 +11,10 @@ jobs:
       LC_ALL: 'zh_CN.UTF-8'
       TZ: 'Asia/Shanghai'
     steps:
-      - checkout
-      - run:
-          name: Install Chinese language pack
-          command: |
-            sudo apt-get update
-            sudo apt-get install -y language-pack-zh-hans
-            sudo locale-gen zh_CN.UTF-8
-    steps:
       - browser-tools/install-chrome
       - checkout
       - run: |
+          sudo locale-gen zh_CN.UTF-8
           node --version
           google-chrome --version
           which google-chrome
