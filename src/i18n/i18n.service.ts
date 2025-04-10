@@ -16,7 +16,7 @@ import {
     zhHantLocale
 } from './index';
 
-function normalizeLocale(localeId: string): ThyLocaleType {
+export function normalizeLocale(localeId: string): ThyLocaleType {
     return localeId?.toLowerCase().replace(/_/g, '-') as ThyLocaleType;
 }
 
