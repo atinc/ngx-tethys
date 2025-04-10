@@ -10,10 +10,12 @@ jobs:
       TZ: 'Asia/Shanghai'
       LANG: 'zh_CN.UTF-8'
       LC_ALL: 'zh_CN.UTF-8'
+      LANGUAGE: 'zh_CN:zh'
     steps:
       - browser-tools/install-chrome
       - checkout
       - run: |
+          locale-gen zh_CN.UTF-8
           node --version
           google-chrome --version
           which google-chrome
