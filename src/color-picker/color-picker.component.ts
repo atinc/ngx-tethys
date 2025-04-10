@@ -22,6 +22,7 @@ import { DEFAULT_COLORS } from './constant';
 import { ThyColor } from './helpers/color.class';
 import { takeUntil } from 'rxjs/operators';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { OverlayRef } from '@angular/cdk/overlay';
 
 export class OverlayBase extends ThyOverlayDirectiveBase {
     constructor(
@@ -192,7 +193,7 @@ export class ThyColorPickerDirective extends _BaseMixin implements OnInit, OnDes
         }
     }
 
-    togglePanel() {
+    togglePanel(): OverlayRef {
         this.closePanel = false;
         this.popoverRef = this.thyPopover.open(ThyColorPickerPanel, {
             origin: this.elementRef.nativeElement as HTMLElement,
