@@ -7,15 +7,21 @@ jobs:
     docker:
       - image: cimg/node:20.12.2-browsers
     environment:
-      TZ: 'Asia/Shanghai'
       LANG: 'zh_CN.UTF-8'
       LC_ALL: 'zh_CN.UTF-8'
-      LANGUAGE: 'zh_CN:zh'
+      TZ: 'Asia/Shanghai'
+    steps:
+      - checkout
+      - run:
+          name: Install Chinese language pack
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y language-pack-zh-hans
+            sudo locale-gen zh_CN.UTF-8
     steps:
       - browser-tools/install-chrome
       - checkout
       - run: |
-          locale-gen zh_CN.UTF-8
           node --version
           google-chrome --version
           which google-chrome
