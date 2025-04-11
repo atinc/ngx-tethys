@@ -5,6 +5,7 @@ import {
     Component,
     ElementRef,
     EventEmitter,
+    inject,
     Input,
     NgZone,
     OnChanges,
@@ -12,18 +13,17 @@ import {
     Output,
     PLATFORM_ID,
     TemplateRef,
-    ViewChild,
-    inject
+    ViewChild
 } from '@angular/core';
 
-import { AbstractPickerComponent } from './abstract-picker.component';
-import { CompatibleValue, RangeAdvancedValue } from './inner-types';
-import { CompatibleDate, ThyPanelMode } from './standard-types';
-import { ThyPicker } from './picker.component';
-import { hasTimeInStringDate, isValidStringDate, parseStringDate, transformDateValue } from './picker.util';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { isPlatformBrowser } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { AbstractPickerComponent } from './abstract-picker.component';
+import { CompatibleValue, RangeAdvancedValue } from './inner-types';
+import { ThyPicker } from './picker.component';
+import { hasTimeInStringDate, isValidStringDate, parseStringDate, transformDateValue } from './picker.util';
+import { CompatibleDate, ThyPanelMode } from './standard-types';
 
 /**
  * @private
@@ -159,14 +159,18 @@ export class BasePicker extends AbstractPickerComponent implements OnInit, OnCha
             return;
         }
         let value = formatDate as string;
-        const valueValid = isValidStringDate(value);
-        const valueLimitValid = valueValid ? this.isValidDateLimit(parseStringDate(value)) : false;
+        const valueValid = isValidStringDate(value, this.thyTimeZone);
+        const valueLimitValid = valueValid ? this.isValidDateLimit(parseStringDate(value, this.thyTimeZone)) : false;
         if (valueValid && valueLimitValid) {
             this.innerPreviousDate = value;
         } else {
             value = this.innerPreviousDate;
         }
-        const tinyDate = value ? (this.thyShowTime ? parseStringDate(value) : parseStringDate(value).startOfDay()) : null;
+        const tinyDate = value
+            ? this.thyShowTime
+                ? parseStringDate(value, this.thyTimeZone)
+                : parseStringDate(value, this.thyTimeZone).startOfDay()
+            : null;
         this.restoreTimePickerState(tinyDate);
         super.onValueChange(tinyDate);
     }
@@ -249,11 +253,11 @@ export class BasePicker extends AbstractPickerComponent implements OnInit, OnCha
     }
 
     onInputDate(value: string) {
-        if (value && isValidStringDate(value)) {
+        if (value && isValidStringDate(value, this.thyTimeZone)) {
             if (this.thyShowTime) {
-                this.withTime = hasTimeInStringDate(value);
+                this.withTime = hasTimeInStringDate(value, this.thyTimeZone);
             }
-            this.thyValue = parseStringDate(value);
+            this.thyValue = parseStringDate(value, this.thyTimeZone);
         }
     }
 
@@ -262,8 +266,8 @@ export class BasePicker extends AbstractPickerComponent implements OnInit, OnCha
         if (this.thyDisabledDate !== undefined) {
             disable = this.thyDisabledDate(date.nativeDate);
         }
-        const minDate = this.thyMinDate ? new TinyDate(transformDateValue(this.thyMinDate).value as Date) : null;
-        const maxDate = this.thyMaxDate ? new TinyDate(transformDateValue(this.thyMaxDate).value as Date) : null;
+        const minDate = this.thyMinDate ? new TinyDate(transformDateValue(this.thyMinDate).value as Date, this.thyTimeZone) : null;
+        const maxDate = this.thyMaxDate ? new TinyDate(transformDateValue(this.thyMaxDate).value as Date, this.thyTimeZone) : null;
         return (
             (!minDate || date.startOfDay().nativeDate >= minDate.startOfDay().nativeDate) &&
             (!maxDate || date.startOfDay().nativeDate <= maxDate.startOfDay().nativeDate) &&
