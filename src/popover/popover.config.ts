@@ -103,7 +103,7 @@ export const THY_POPOVER_DEFAULT_CONFIG_PROVIDER = {
 
 export const THY_POPOVER_SCROLL_STRATEGY = new InjectionToken<() => ScrollStrategy>('thy-popover-scroll-strategy');
 
-export const THY_POPOVER_SCROLL_STRATEGY_FACTORY = (overlay: Overlay) => {
+export const THY_POPOVER_SCROLL_STRATEGY_FACTORY: (overlay: Overlay) => () => ScrollStrategy = (overlay: Overlay) => {
     return () => overlay.scrollStrategies.block();
 };
 
