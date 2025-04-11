@@ -72,9 +72,9 @@ export function parseTime(value: string | Date, timeZone?: string): Date {
     }
 }
 
-export function changeTime(value: Date, diff: Time): Date {
+export function changeTime(value: Date, diff: Time, timeZone?: string): Date {
     if (!value) {
-        return changeTime(createDate(new TinyDate()?.nativeDate, 0, 0, 0), diff);
+        return changeTime(createDate(new TinyDate(undefined, timeZone)?.nativeDate, 0, 0, 0), diff, timeZone);
     }
 
     let hour = value.getHours();
@@ -96,7 +96,7 @@ export function changeTime(value: Date, diff: Time): Date {
         seconds = seconds + coerceNumberProperty(diff.seconds);
     }
 
-    return createDate(value, hour, minutes, seconds);
+    return createDate(value, hour, minutes, seconds, timeZone);
 }
 
 export function setTime(value: Date, opts: Time, timeZone?: string): Date {

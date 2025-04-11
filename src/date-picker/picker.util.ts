@@ -235,7 +235,6 @@ function fixStringDate(dateStr: string, timeZone?: string) {
     if (!hasYear || replacedStr.length < 'yyyy.M.d'.length) {
         replacedStr = `${new TinyDate(undefined, timeZone).getYear()}-${replacedStr}`;
     }
-    console.log('replacedStr', replacedStr);
     return replacedStr;
 }
 

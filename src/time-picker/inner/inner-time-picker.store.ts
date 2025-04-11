@@ -45,13 +45,13 @@ export class ThyTimePickerStore extends MiniStore<TimePickerState> {
     }
 
     @MiniAction()
-    changeHours(event: TimeChangeEvent) {
+    changeHours(event: TimeChangeEvent, timeZone?: string) {
         const state = this.snapshot;
         if (!canChangeValue(state.config, event) || !canChangeHours(event, state.controls)) {
             return state;
         }
 
-        const _newTime = changeTime(state.value, { hour: event.step });
+        const _newTime = changeTime(state.value, { hour: event.step }, timeZone);
 
         if ((state.config.max || state.config.min) && !isValidLimit(state.config, _newTime)) {
             return state;
@@ -61,13 +61,13 @@ export class ThyTimePickerStore extends MiniStore<TimePickerState> {
     }
 
     @MiniAction()
-    changeMinutes(event: TimeChangeEvent) {
+    changeMinutes(event: TimeChangeEvent, timeZone?: string) {
         const state = this.snapshot;
         if (!canChangeValue(state.config, event) || !canChangeMinutes(event, state.controls)) {
             return state;
         }
 
-        const _newTime = changeTime(state.value, { minute: event.step });
+        const _newTime = changeTime(state.value, { minute: event.step }, timeZone);
 
         if ((state.config.max || state.config.min) && !isValidLimit(state.config, _newTime)) {
             return state;
@@ -77,15 +77,19 @@ export class ThyTimePickerStore extends MiniStore<TimePickerState> {
     }
 
     @MiniAction()
-    changeSeconds(event: TimeChangeEvent) {
+    changeSeconds(event: TimeChangeEvent, timeZone?: string) {
         const state = this.snapshot;
         if (!canChangeValue(state.config, event) || !canChangeSeconds(event, state.controls)) {
             return state;
         }
 
-        const _newTime = changeTime(state.value, {
-            seconds: event.step
-        });
+        const _newTime = changeTime(
+            state.value,
+            {
+                seconds: event.step
+            },
+            timeZone
+        );
 
         if ((state.config.max || state.config.min) && !isValidLimit(state.config, _newTime)) {
             return state;

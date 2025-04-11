@@ -180,17 +180,17 @@ export class ThyInnerTimePicker implements ControlValueAccessor, TimePickerCompo
 
     changeHours(step: number, source: TimeChangeSource = ''): void {
         this.resetValidation();
-        this._store.changeHours({ step, source });
+        this._store.changeHours({ step, source }, this.timeZone);
     }
 
     changeMinutes(step: number, source: TimeChangeSource = ''): void {
         this.resetValidation();
-        this._store.changeMinutes({ step, source });
+        this._store.changeMinutes({ step, source }, this.timeZone);
     }
 
     changeSeconds(step: number, source: TimeChangeSource = ''): void {
         this.resetValidation();
-        this._store.changeSeconds({ step, source });
+        this._store.changeSeconds({ step, source }, this.timeZone);
     }
 
     updateHours(hours: string): void {
