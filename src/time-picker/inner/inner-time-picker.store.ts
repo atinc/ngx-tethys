@@ -95,18 +95,18 @@ export class ThyTimePickerStore extends MiniStore<TimePickerState> {
     }
 
     @MiniAction()
-    setTime(value: Time) {
+    setTime(value: Time, timeZone?: string) {
         const state = this.snapshot;
         if (!canChangeValue(state.config)) {
             return state;
         }
 
-        const _newTime = setTime(state.value, value);
+        const _newTime = setTime(state.value, value, timeZone);
         this.setState({ value: _newTime });
     }
 
     @MiniAction()
-    updateControls(value: TimePickerComponentState) {
+    updateControls(value: TimePickerComponentState, timeZone?: string) {
         const state = this.snapshot;
         const _newControlsState = timePickerControls(state.value, value);
         const _newState: TimePickerState = {
@@ -117,7 +117,7 @@ export class ThyTimePickerStore extends MiniStore<TimePickerState> {
 
         if (state.config.showMeridian !== _newState.config.showMeridian) {
             if (state.value) {
-                _newState.value = new TinyDate(state.value)?.nativeDate;
+                _newState.value = new TinyDate(state.value, timeZone)?.nativeDate;
             }
         }
 

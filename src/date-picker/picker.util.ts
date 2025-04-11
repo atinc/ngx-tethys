@@ -117,11 +117,11 @@ export function hasValue(value: CompatibleValue): boolean {
     }
 }
 
-export function makeValue(value: CompatibleDate | null, isRange: boolean = false): CompatibleValue {
+export function makeValue(value: CompatibleDate | null, isRange: boolean = false, timeZone?: string): CompatibleValue {
     if (isRange) {
-        return Array.isArray(value) ? (value as Date[]).map(val => new TinyDate(val)) : [];
+        return Array.isArray(value) ? (value as Date[]).map(val => new TinyDate(val, timeZone)) : [];
     } else {
-        return value ? new TinyDate(value as Date) : null;
+        return value ? new TinyDate(value as Date, timeZone) : null;
     }
 }
 
@@ -212,42 +212,50 @@ export function getShortcutValue(value: ThyShortcutValue): number | Date {
     return helpers.isFunction(value) ? value() : value;
 }
 
-export function isValidStringDate(dateStr: string): boolean {
-    const parseDate = parseStringDate(dateStr).nativeDate.getTime();
+export function isValidStringDate(dateStr: string, timeZone?: string): boolean {
+    const parseDate = parseStringDate(dateStr, timeZone).nativeDate.getTime();
     return !(parseDate < 0 || isNaN(parseDate));
 }
 
-export function parseStringDate(dateStr: string): TinyDate {
-    return hasTimeInStringDate(dateStr) ? new TinyDate(fixStringDate(dateStr)) : new TinyDate(fixStringDate(dateStr)).startOfDay();
+export function parseStringDate(dateStr: string, timeZone?: string): TinyDate {
+    return hasTimeInStringDate(dateStr, timeZone)
+        ? new TinyDate(fixStringDate(dateStr, timeZone), timeZone)
+        : new TinyDate(fixStringDate(dateStr, timeZone), timeZone).startOfDay();
 }
 
-export function hasTimeInStringDate(dateStr: string): boolean {
-    const formatDate = fixStringDate(dateStr);
+export function hasTimeInStringDate(dateStr: string, timeZone?: string): boolean {
+    const formatDate = fixStringDate(dateStr, timeZone);
     const timeRegex = /(\d{1,2}:\d{1,2}(:\d{1,2})?)|(^\d{1,2}时\d{1,2}分(\d{1,2}秒)?)$/;
     return timeRegex.test(formatDate);
 }
 
-function fixStringDate(dateStr: string) {
+function fixStringDate(dateStr: string, timeZone?: string) {
     let replacedStr = dateStr.replace(/[^0-9\s.,:]/g, '-').replace('- ', ' ');
     const hasYear = /\d{4}/.test(replacedStr);
     if (!hasYear || replacedStr.length < 'yyyy.M.d'.length) {
-        replacedStr = `${new TinyDate().getYear()}-${replacedStr}`;
+        replacedStr = `${new TinyDate(undefined, timeZone).getYear()}-${replacedStr}`;
     }
+    console.log('replacedStr', replacedStr);
     return replacedStr;
 }
 
 export function setValueByTimestampPrecision(
     date: CompatibleDate | number | Date | DateEntry | ThyDateRangeEntry | SafeAny,
     isRange: boolean,
-    timestampPrecision: 'seconds' | 'milliseconds'
+    timestampPrecision: 'seconds' | 'milliseconds',
+    timeZone?: string
 ): number | number[] {
     const { value } = transformDateValue(date);
     if (!value || (helpers.isArray(value) && !value?.length)) {
         return helpers.isArray(value) ? [null, null] : null;
     }
     if (timestampPrecision === 'milliseconds') {
-        return isRange ? coerceArray(value).map(val => new TinyDate(val).getTime()) : new TinyDate(value as Date).getTime();
+        return isRange
+            ? coerceArray(value).map(val => new TinyDate(val, timeZone).getTime())
+            : new TinyDate(value as Date, timeZone).getTime();
     } else {
-        return isRange ? coerceArray(value).map(val => new TinyDate(val).getUnixTime()) : new TinyDate(value as Date)?.getUnixTime();
+        return isRange
+            ? coerceArray(value).map(val => new TinyDate(val, timeZone).getUnixTime())
+            : new TinyDate(value as Date, timeZone)?.getUnixTime();
     }
 }

@@ -37,8 +37,10 @@ export class DateTable extends CalendarTable implements OnChanges {
                 value.getDate(),
                 this.activeDate?.getHours(),
                 this.activeDate?.getMinutes(),
-                this.activeDate?.getSeconds()
-            )
+                this.activeDate?.getSeconds(),
+                this.timeZone
+            ),
+            this.timeZone
         );
         this.activeDate = date.clone();
         this.valueChange.emit(date);

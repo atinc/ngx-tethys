@@ -1,7 +1,9 @@
 import { TZDate } from '@date-fns/tz';
 import { FirstWeekContainsDate, Locale, setHours, setMinutes, setSeconds } from 'date-fns';
+import { fromZonedTime } from 'date-fns-tz';
 import { ThyLocaleType } from 'ngx-tethys/i18n';
 import { SafeAny } from 'ngx-tethys/types';
+import { isString } from '../helpers';
 import {
     addDays,
     addHours,
@@ -91,6 +93,9 @@ export class TinyDate implements Record<string, any> {
         if (date) {
             if (date instanceof Date) {
                 this.nativeDate = TinyDate.utcToZonedTime(date, this.useTimeZone);
+            } else if (typeof date === 'string' && isString(zone)) {
+                const utcDate = fromZonedTime(date, this.useTimeZone);
+                this.nativeDate = new TZDate(utcDate, this.useTimeZone);
             } else if (typeof date === 'string' || typeof date === 'number') {
                 this.nativeDate = new TZDate(date as SafeAny, this.useTimeZone);
             } else if (typeof ngDevMode === 'undefined' || ngDevMode) {
