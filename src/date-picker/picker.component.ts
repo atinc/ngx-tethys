@@ -136,7 +136,7 @@ export class ThyPicker implements OnChanges, AfterViewInit {
                 this.closeDatePopup();
             }
         }
-        if (changes.timeZone) {
+        if (changes.timeZone && changes.timeZone.currentValue) {
             this.formatDate(this.innerValue as TinyDate);
         }
     }
@@ -283,7 +283,7 @@ export class ThyPicker implements OnChanges, AfterViewInit {
         if (this.innerFormat && (this.innerFormat.includes('q') || this.innerFormat.includes('Q'))) {
             return value.format(this.innerFormat);
         } else {
-            return this.dateHelper.format(value.nativeDate, this.innerFormat);
+            return this.dateHelper.format(value?.nativeDate, this.innerFormat);
         }
     }
 

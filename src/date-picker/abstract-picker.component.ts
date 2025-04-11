@@ -265,7 +265,7 @@ export abstract class AbstractPickerComponent
         if (changes.thyPlaceHolder && changes.thyPlaceHolder.firstChange && typeof this.thyPlaceHolder !== 'undefined') {
             this.isCustomPlaceHolder = true;
         }
-        if (changes.thyTimeZone) {
+        if (changes.thyTimeZone && changes.thyTimeZone.currentValue) {
             this.setValue(this.innerValue);
         }
     }
