@@ -20,7 +20,7 @@ import { DOWN_ARROW, END, ENTER, ESCAPE, HOME } from 'ngx-tethys/util';
 import { ThySelect, THY_SELECT_CONFIG, THY_SELECT_SCROLL_STRATEGY, ThyDropdownWidthMode, ThySelectModule } from 'ngx-tethys/select';
 import { SelectControlSize, ThyOption, ThyOptionModule, ThySelectOptionGroup } from 'ngx-tethys/shared';
 import { provideHttpClient } from '@angular/common/http';
-import { provideAnimations } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SelectMode, THY_SELECT_PANEL_MIN_WIDTH, ThySelectOptionModel } from './custom-select.component';
 
 interface FoodsInfo {
@@ -732,10 +732,10 @@ describe('ThyCustomSelect', () => {
     let overlayContainerElement: HTMLElement;
     let platform: Platform;
 
-    function configureThyCustomSelectTestingModule(declarations: any[], providers: any[] = []) {
+    function configureThyCustomSelectTestingModule(providers: any[] = []) {
         TestBed.configureTestingModule({
-            imports: [ThyFormModule, ThyOptionModule, ThySelectModule, ReactiveFormsModule, FormsModule],
-            providers: [bypassSanitizeProvider, ...providers, provideHttpClient(), provideAnimations()]
+            imports: [ThyFormModule, ThyOptionModule, ThySelectModule, ReactiveFormsModule, FormsModule, NoopAnimationsModule],
+            providers: [bypassSanitizeProvider, ...providers, provideHttpClient()]
         }).compileComponents();
 
         inject([OverlayContainer, Platform], (oc: OverlayContainer, p: Platform) => {
@@ -753,14 +753,7 @@ describe('ThyCustomSelect', () => {
 
     describe('core', () => {
         beforeEach(() => {
-            configureThyCustomSelectTestingModule([
-                // BasicSelectComponent,
-                SelectWithGroupsAndNgContainerComponent,
-                SelectWithExpandStatusComponent,
-                MultipleSelectComponent,
-                SelectWithThyAutoExpendComponent,
-                SelectWithScrollAndSearchComponent
-            ]);
+            configureThyCustomSelectTestingModule();
         });
 
         describe('basic class', () => {
@@ -1416,7 +1409,7 @@ describe('ThyCustomSelect', () => {
         let containerSelector: string;
 
         it('should support thyDropdownWidthMode to set cdkConnectedOverlayMinWidth', fakeAsync(() => {
-            configureThyCustomSelectTestingModule([SelectDropdownWidthComponent]);
+            configureThyCustomSelectTestingModule();
 
             let fixture: ComponentFixture<SelectDropdownWidthComponent> = TestBed.createComponent(SelectDropdownWidthComponent);
             fixture.detectChanges();
@@ -1428,17 +1421,14 @@ describe('ThyCustomSelect', () => {
         }));
 
         it('should support global setting dropdownWidthMode in THY_SELECT_CONFIG', () => {
-            configureThyCustomSelectTestingModule(
-                [SelectDropdownWidthComponent],
-                [
-                    {
-                        provide: THY_SELECT_CONFIG,
-                        useValue: {
-                            dropdownWidthMode: 'min-width'
-                        }
+            configureThyCustomSelectTestingModule([
+                {
+                    provide: THY_SELECT_CONFIG,
+                    useValue: {
+                        dropdownWidthMode: 'min-width'
                     }
-                ]
-            );
+                }
+            ]);
 
             let fixture: ComponentFixture<SelectDropdownWidthComponent> = TestBed.createComponent(SelectDropdownWidthComponent);
             fixture.detectChanges();
@@ -1470,7 +1460,7 @@ describe('ThyCustomSelect', () => {
     });
 
     describe('with ngModel', () => {
-        beforeEach(waitForAsync(() => configureThyCustomSelectTestingModule([NgModelSelectComponent])));
+        beforeEach(waitForAsync(() => configureThyCustomSelectTestingModule()));
 
         it('should disabled itselft when control is disabled usig the property', fakeAsync(() => {
             const fixture = TestBed.createComponent(NgModelSelectComponent);
@@ -1506,7 +1496,7 @@ describe('ThyCustomSelect', () => {
     });
 
     describe('with preselected array values', () => {
-        beforeEach(waitForAsync(() => configureThyCustomSelectTestingModule([SingleSelectWithPreselectedArrayValuesComponent])));
+        beforeEach(waitForAsync(() => configureThyCustomSelectTestingModule()));
 
         it('should be able to preselect an array value in single-selection mode', fakeAsync(() => {
             const fixture = TestBed.createComponent(SingleSelectWithPreselectedArrayValuesComponent);
@@ -1522,7 +1512,7 @@ describe('ThyCustomSelect', () => {
     });
 
     describe('single choice when ngModel value change', () => {
-        beforeEach(waitForAsync(() => configureThyCustomSelectTestingModule([SingleSelectNgModelComponent])));
+        beforeEach(waitForAsync(() => configureThyCustomSelectTestingModule()));
 
         it('should clear selection model for single choice when ngModel value change ', fakeAsync(() => {
             const fixture = TestBed.createComponent(SingleSelectNgModelComponent);
@@ -1538,7 +1528,7 @@ describe('ThyCustomSelect', () => {
     });
 
     describe('when initially hidden', () => {
-        beforeEach(waitForAsync(() => configureThyCustomSelectTestingModule([BasicSelectInitiallyHiddenComponent])));
+        beforeEach(waitForAsync(() => configureThyCustomSelectTestingModule()));
 
         it('should set the width of the overlay if the element was hidden initially', fakeAsync(() => {
             const fixture = TestBed.createComponent(BasicSelectInitiallyHiddenComponent);
@@ -1559,7 +1549,7 @@ describe('ThyCustomSelect', () => {
     });
 
     describe(`when the select's value is accessed on initialization`, () => {
-        beforeEach(waitForAsync(() => configureThyCustomSelectTestingModule([SelectEarlyAccessSiblingComponent])));
+        beforeEach(waitForAsync(() => configureThyCustomSelectTestingModule()));
 
         it('should not throw when trying to access the selected value on init', fakeAsync(() => {
             expect(() => {
@@ -1570,12 +1560,7 @@ describe('ThyCustomSelect', () => {
 
     describe('search logic', () => {
         beforeEach(waitForAsync(() => {
-            configureThyCustomSelectTestingModule([
-                SelectWithSearchComponent,
-                SelectWithSearchAndGroupComponent,
-                SelectWithSearchUseSearchKeyComponent,
-                SelectWithSearchAndServerSearchComponent
-            ]);
+            configureThyCustomSelectTestingModule();
         }));
         it('should show thy-input-search when set thyShowSearch', fakeAsync(() => {
             const fixture = TestBed.createComponent(SelectWithSearchComponent);
@@ -1734,7 +1719,7 @@ describe('ThyCustomSelect', () => {
 
     describe('remove and clear logic', () => {
         beforeEach(waitForAsync(() => {
-            configureThyCustomSelectTestingModule([SelectEimtOptionsChangesComponent]);
+            configureThyCustomSelectTestingModule();
         }));
 
         it('should not show remove icon when disabled is true', fakeAsync(() => {
@@ -1854,7 +1839,7 @@ describe('ThyCustomSelect', () => {
 
     describe('options change logic', () => {
         beforeEach(waitForAsync(() => {
-            configureThyCustomSelectTestingModule([SelectEimtOptionsChangesComponent]);
+            configureThyCustomSelectTestingModule();
         }));
 
         it('should remove the thy-option when sourcedata change', fakeAsync(() => {
@@ -1890,7 +1875,7 @@ describe('ThyCustomSelect', () => {
 
     describe('thyMode logic', () => {
         beforeEach(waitForAsync(() => {
-            configureThyCustomSelectTestingModule([SelectWithThyModeComponent]);
+            configureThyCustomSelectTestingModule();
         }));
         it('should not close the panel when an item is clicked and thyMode is multiple', fakeAsync(() => {
             const fixture = TestBed.createComponent(SelectWithThyModeComponent);
@@ -2065,7 +2050,7 @@ describe('ThyCustomSelect', () => {
 
     describe('thySortComparator', () => {
         beforeEach(waitForAsync(() => {
-            configureThyCustomSelectTestingModule([SelectWithThySortComparatorComponent]);
+            configureThyCustomSelectTestingModule();
         }));
         it('should get list order by selected order', fakeAsync(() => {
             const fixture = TestBed.createComponent(SelectWithThySortComparatorComponent);
@@ -2115,9 +2100,7 @@ describe('ThyCustomSelect', () => {
 
     describe('shortcuts', () => {
         beforeEach(waitForAsync(() => {
-            configureThyCustomSelectTestingModule([
-                // BasicSelectComponent
-            ]);
+            configureThyCustomSelectTestingModule();
         }));
 
         it('should set first option active when open panel', fakeAsync(() => {
@@ -2235,7 +2218,7 @@ describe('ThyCustomSelect', () => {
         let fixture: ComponentFixture<SelectWithThyAutoExpendComponent>;
 
         beforeEach(waitForAsync(() => {
-            configureThyCustomSelectTestingModule([SelectWithThyAutoExpendComponent]);
+            configureThyCustomSelectTestingModule();
         }));
 
         beforeEach(fakeAsync(() => {
@@ -2251,7 +2234,7 @@ describe('ThyCustomSelect', () => {
 
     describe('placement', () => {
         it('should support thyPlacement', fakeAsync(() => {
-            configureThyCustomSelectTestingModule([SelectWithThyPlacementComponent]);
+            configureThyCustomSelectTestingModule();
 
             const fixture: ComponentFixture<SelectWithThyPlacementComponent> = TestBed.createComponent(SelectWithThyPlacementComponent);
             fixture.detectChanges();
@@ -2279,17 +2262,14 @@ describe('ThyCustomSelect', () => {
         it('should support global setting placement in THY_SELECT_CONFIG', fakeAsync(() => {
             const globalPlacement = 'bottomLeft';
 
-            configureThyCustomSelectTestingModule(
-                [SelectWithThyPlacementComponent],
-                [
-                    {
-                        provide: THY_SELECT_CONFIG,
-                        useValue: {
-                            placement: globalPlacement
-                        }
+            configureThyCustomSelectTestingModule([
+                {
+                    provide: THY_SELECT_CONFIG,
+                    useValue: {
+                        placement: globalPlacement
                     }
-                ]
-            );
+                }
+            ]);
 
             const fixture: ComponentFixture<SelectWithThyPlacementComponent> = TestBed.createComponent(SelectWithThyPlacementComponent);
             fixture.detectChanges();
@@ -2322,26 +2302,21 @@ describe('ThyCustomSelect', () => {
         describe('has default config', () => {
             const scrolledSubject = new Subject<void>();
             beforeEach(waitForAsync(() =>
-                configureThyCustomSelectTestingModule(
-                    [
-                        // BasicSelectComponent
-                    ],
-                    [
-                        {
-                            provide: ScrollDispatcher,
-                            useFactory: () => ({
-                                scrolled: () => scrolledSubject
-                            })
-                        },
-                        {
-                            provide: THY_SELECT_SCROLL_STRATEGY,
-                            deps: [Overlay],
-                            useFactory: (overlay: Overlay) => {
-                                return () => overlay.scrollStrategies.close();
-                            }
+                configureThyCustomSelectTestingModule([
+                    {
+                        provide: ScrollDispatcher,
+                        useFactory: () => ({
+                            scrolled: () => scrolledSubject
+                        })
+                    },
+                    {
+                        provide: THY_SELECT_SCROLL_STRATEGY,
+                        deps: [Overlay],
+                        useFactory: (overlay: Overlay) => {
+                            return () => overlay.scrollStrategies.close();
                         }
-                    ]
-                )));
+                    }
+                ])));
 
             let fixture: ComponentFixture<BasicSelectComponent>;
             let selectElement: HTMLElement;
@@ -2370,19 +2345,14 @@ describe('ThyCustomSelect', () => {
         describe('not set default config', () => {
             const scrolledSubject = new Subject<void>();
             beforeEach(waitForAsync(() =>
-                configureThyCustomSelectTestingModule(
-                    [
-                        // BasicSelectComponent
-                    ],
-                    [
-                        {
-                            provide: ScrollDispatcher,
-                            useFactory: () => ({
-                                scrolled: () => scrolledSubject
-                            })
-                        }
-                    ]
-                )));
+                configureThyCustomSelectTestingModule([
+                    {
+                        provide: ScrollDispatcher,
+                        useFactory: () => ({
+                            scrolled: () => scrolledSubject
+                        })
+                    }
+                ])));
 
             let fixture: ComponentFixture<BasicSelectComponent>;
             let selectElement: HTMLElement;
@@ -2410,9 +2380,7 @@ describe('ThyCustomSelect', () => {
 
     describe('active', () => {
         beforeEach(waitForAsync(() => {
-            configureThyCustomSelectTestingModule([
-                // BasicSelectComponent
-            ]);
+            configureThyCustomSelectTestingModule();
         }));
         it('should default active first option when open panel', fakeAsync(() => {
             const fixture = TestBed.createComponent(BasicSelectComponent);
@@ -2562,7 +2530,7 @@ describe('ThyCustomSelect', () => {
 
     describe('use thyOptions', () => {
         beforeEach(() => {
-            configureThyCustomSelectTestingModule([SelectWidthThyOptionsComponent]);
+            configureThyCustomSelectTestingModule();
         });
 
         it('should has correct thyOption component', fakeAsync(() => {
