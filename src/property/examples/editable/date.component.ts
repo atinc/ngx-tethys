@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ThyDatePicker } from 'ngx-tethys/date-picker';
 
 @Component({
     selector: 'thy-property-editable-date-inner',
@@ -10,7 +12,7 @@ import { Component, Input, OnInit } from '@angular/core';
             [(ngModel)]="user.birth_date"
             thySize="md"></thy-date-picker>
     `,
-    standalone: false
+    imports: [ThyDatePicker, FormsModule]
 })
 export class ThyPropertyEditableDateInnerComponent implements OnInit {
     @Input() user: { birth_date: number };

@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyFormLayout } from 'ngx-tethys/form';
+import { ThyButtonGroup, ThyButton } from 'ngx-tethys/button';
+import { FormsModule } from '@angular/forms';
+import { ThyFormDirective, ThyFormGroupFooter, ThyFormLayout, ThyFormSubmitDirective, ThyFormGroup } from 'ngx-tethys/form';
+import { NgClass } from '@angular/common';
+import { ThyInputDirective } from 'ngx-tethys/input';
 
 interface LayoutInfo {
     value: ThyFormLayout;
@@ -9,7 +13,17 @@ interface LayoutInfo {
 @Component({
     selector: 'thy-form-layout-example',
     templateUrl: './layout.component.html',
-    standalone: false
+    imports: [
+        ThyButtonGroup,
+        ThyButton,
+        NgClass,
+        FormsModule,
+        ThyFormDirective,
+        ThyFormGroup,
+        ThyInputDirective,
+        ThyFormGroupFooter,
+        ThyFormSubmitDirective
+    ]
 })
 export class ThyFormLayoutExampleComponent implements OnInit {
     layouts: LayoutInfo[] = [

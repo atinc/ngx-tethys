@@ -1,10 +1,14 @@
+import { NgStyle, NgClass } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ThyButton } from 'ngx-tethys/button';
 import { ThyGuider, ThyGuiderConfig, ThyGuiderRef, ThyGuiderStep } from 'ngx-tethys/guider';
+import { ThySwitch } from 'ngx-tethys/switch';
 
 @Component({
     selector: 'thy-guider-multi-target-example',
     templateUrl: 'multi-target.component.html',
-    standalone: false
+    imports: [ThyButton, ThySwitch, NgClass, NgStyle, FormsModule]
 })
 export class ThyGuiderMultiTargetExampleComponent implements OnInit {
     private thyGuider = inject(ThyGuider);

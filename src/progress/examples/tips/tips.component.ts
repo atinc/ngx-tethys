@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ThyProgress } from 'ngx-tethys/progress';
 
 @Component({
     selector: 'thy-progress-tips',
     templateUrl: './tips.component.html',
-    standalone: false
+    imports: [ThyProgress]
 })
 export class ThyProgressTipsExampleComponent implements OnInit {
     stacked = [

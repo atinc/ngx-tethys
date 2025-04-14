@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyTableSortDirection, ThyTableSortEvent } from 'ngx-tethys/table';
+import { ThyTable, ThyTableColumnComponent, ThyTableSortDirection, ThyTableSortEvent } from 'ngx-tethys/table';
 
 @Component({
     selector: 'thy-table-sortable-example',
     templateUrl: './sortable.component.html',
-    standalone: false
+    imports: [ThyTable, ThyTableColumnComponent]
 })
 export class ThyTableSortableExampleComponent implements OnInit {
     data = [

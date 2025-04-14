@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { ThyStackedValue } from 'ngx-tethys/progress';
+import { ThyStackedValue, ThyProgress } from 'ngx-tethys/progress';
 
 @Component({
     selector: 'thy-progress-text-example',
     templateUrl: './text.component.html',
-    standalone: false
+    imports: [ThyProgress]
 })
 export class ThyProgressTextExampleComponent {
     value = 40;

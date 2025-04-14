@@ -1,13 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ThyTheme, ThyThemeStore } from 'ngx-tethys/core';
-import { ThySegmentEvent } from 'ngx-tethys/segment';
+import { ThySegment, ThySegmentEvent, ThySegmentItem } from 'ngx-tethys/segment';
 
 const THEME_CACHE_KEY = 'docgeni-theme';
 
 @Component({
     selector: 'thy-theme-switch-example',
     templateUrl: './switch.component.html',
-    standalone: false
+    imports: [ThySegment, ThySegmentItem]
 })
 export class ThyThemeSwitchExampleComponent implements OnInit {
     activeIndex: number = 0;

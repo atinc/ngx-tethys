@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { ThyResizeEvent } from 'ngx-tethys/resizable';
+import { ThyResizableDirective, ThyResizeEvent, ThyResizeHandle } from 'ngx-tethys/resizable';
+import { ThyHeader, ThySidebar, ThyContent, ThyLayout } from 'ngx-tethys/layout';
 
 @Component({
     selector: 'thy-resizable-layout-example',
     templateUrl: './layout.component.html',
     styleUrls: ['./layout.style.scss'],
-    standalone: false
+    imports: [ThyResizableDirective, ThyResizeHandle, ThyLayout, ThyHeader, ThySidebar, ThyContent]
 })
 export class ThyResizableLayoutExampleComponent {
     sidebarWidth = 120;

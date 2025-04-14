@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ThySkeletonBulletList } from 'ngx-tethys/skeleton';
 
 @Component({
     selector: 'thy-skeleton-example-bullet-list',
@@ -15,7 +16,7 @@ import { Component, OnInit } from '@angular/core';
             [thyAnimated]="model.thyAnimated">
         </thy-skeleton-bullet-list>
     `,
-    standalone: false
+    imports: [ThySkeletonBulletList]
 })
 export class ThySkeletonExampleBulletListComponent implements OnInit {
     model = {

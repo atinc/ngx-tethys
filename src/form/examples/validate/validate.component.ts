@@ -1,10 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyFormValidatorConfig, ThyFormDirective } from 'ngx-tethys/form';
+import {
+    ThyFormValidatorConfig,
+    ThyFormGroup,
+    ThyFormGroupError,
+    ThyFormGroupFooter,
+    ThyFormSubmitDirective,
+    ThyFormDirective
+} from 'ngx-tethys/form';
+import { FormsModule } from '@angular/forms';
+import { ThyInputDirective } from 'ngx-tethys/input';
+import { ThyButton } from 'ngx-tethys/button';
 
 @Component({
     selector: 'thy-form-validate-example',
     templateUrl: './validate.component.html',
-    standalone: false
+    imports: [
+        FormsModule,
+        ThyFormDirective,
+        ThyFormGroup,
+        ThyInputDirective,
+        ThyFormGroupError,
+        ThyFormGroupFooter,
+        ThyButton,
+        ThyFormSubmitDirective
+    ]
 })
 export class ThyFormValidateExampleComponent implements OnInit {
     model = {

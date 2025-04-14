@@ -2,11 +2,14 @@ import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/
 import { ThyListOption } from 'ngx-tethys/shared';
 import { ThySelectionListChange } from 'ngx-tethys/list';
 import { ThySelectionList } from 'ngx-tethys/list';
+import { ThyButton } from 'ngx-tethys/button';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-list-operate-example',
     templateUrl: './operate.component.html',
-    standalone: false
+    imports: [ThySelectionList, ThyListOption, ThyButton, FormsModule, CommonModule]
 })
 export class ThyListOperateExampleComponent implements OnInit {
     @ViewChild(ThySelectionList, { static: true }) thySelectionListComponent: ThySelectionList;

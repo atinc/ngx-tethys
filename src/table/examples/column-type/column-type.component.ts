@@ -1,13 +1,14 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ThyMultiSelectEvent, ThyRadioSelectEvent, ThySwitchEvent } from 'ngx-tethys/table';
+import { ThyTable, ThyTableColumnComponent, ThyMultiSelectEvent, ThyRadioSelectEvent, ThySwitchEvent } from 'ngx-tethys/table';
 import { ThyNotifyService } from 'ngx-tethys/notify';
-import { of } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { ThyIcon } from 'ngx-tethys/icon';
+import { ThyRadioGroup } from 'ngx-tethys/radio';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'thy-table-column-type-example',
     templateUrl: './column-type.component.html',
-    standalone: false
+    imports: [ThyTable, ThyTableColumnComponent, ThyIcon, ThyRadioGroup, FormsModule]
 })
 export class ThyTableColumnTypeExampleComponent implements OnInit {
     private notifyService = inject(ThyNotifyService);

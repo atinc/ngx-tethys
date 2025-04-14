@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { timer } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { ThySelect } from 'ngx-tethys/select';
+import { ThyOption } from 'ngx-tethys/shared';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'thy-select-async-load-data-example',
     templateUrl: './load-async.component.html',
-    standalone: false
+    imports: [ThySelect, ThyOption, FormsModule]
 })
 export class ThySelectAsyncLoadDataExampleComponent implements OnInit {
     loadMoreData: Array<{ thyLabelText: string; _id: string }> = [];

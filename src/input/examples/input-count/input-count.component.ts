@@ -1,10 +1,24 @@
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ThyFormGroup, ThyFormDirective, ThyFormGroupFooter } from 'ngx-tethys/form';
+import { ThyInputCount, ThyInputDirective, ThyInputGroup } from 'ngx-tethys/input';
+import { ThyButton } from 'ngx-tethys/button';
 
 @Component({
     selector: 'thy-input-count-example',
     templateUrl: './input-count.component.html',
     styleUrls: ['./input-count.component.scss'],
-    standalone: false
+    imports: [
+        ThyFormGroup,
+        ThyFormGroupFooter,
+        ThyInputDirective,
+        ThyButton,
+        ThyFormGroup,
+        ThyFormDirective,
+        ThyInputGroup,
+        ThyInputCount,
+        FormsModule
+    ]
 })
 export class ThyInputCountExampleComponent implements OnInit {
     constructor() {}

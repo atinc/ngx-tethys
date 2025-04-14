@@ -1,11 +1,13 @@
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
-import { ThyDragDropEvent } from 'ngx-tethys/drag-drop';
+import { ThyDragDirective, ThyDragDropEvent, ThyDragHandleDirective, ThyDropContainerDirective } from 'ngx-tethys/drag-drop';
+import { ThyIcon } from 'ngx-tethys/icon';
+import { ThyListItem, ThyList } from 'ngx-tethys/list';
 
 @Component({
     selector: 'thy-drag-drop-with-handle-example',
     templateUrl: './with-handle.component.html',
-    standalone: false
+    imports: [ThyList, ThyDropContainerDirective, ThyListItem, ThyDragDirective, ThyDragHandleDirective, ThyIcon]
 })
 export class ThyDragDropWithHandleExampleComponent implements OnInit {
     nodes = [

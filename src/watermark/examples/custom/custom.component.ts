@@ -1,11 +1,11 @@
 import { Component, OnInit, ElementRef, inject } from '@angular/core';
-import { ThyCanvasConfigType } from 'ngx-tethys/watermark';
+import { ThyCanvasConfigType, ThyWatermarkDirective } from 'ngx-tethys/watermark';
 
 @Component({
     selector: 'thy-watermark-custom-example',
     templateUrl: './custom.component.html',
     styleUrls: ['./custom.component.scss'],
-    standalone: false
+    imports: [ThyWatermarkDirective]
 })
 export class ThyWatermarkCanvasCustomExampleComponent implements OnInit {
     private el = inject<ElementRef<HTMLElement>>(ElementRef);

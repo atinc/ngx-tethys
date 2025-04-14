@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { ThyRangePicker, ThyMonthPicker, ThyQuarterPicker, ThyYearPicker, ThyDatePicker } from 'ngx-tethys/date-picker';
+import { FormsModule } from '@angular/forms';
 import { addDays, differenceInDays, endOfDay, startOfDay, TinyDate } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-date-picker-disabled-date-example',
     templateUrl: './disabled-date.component.html',
-    standalone: false
+    imports: [ThyDatePicker, FormsModule, ThyMonthPicker, ThyYearPicker, ThyQuarterPicker, ThyRangePicker]
 })
 export class ThyDatePickerDisabledDateExampleComponent implements OnInit {
     date: Date;

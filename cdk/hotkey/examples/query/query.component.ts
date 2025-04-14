@@ -1,12 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { hotkey } from '@tethys/cdk/hotkey';
-import { fromEvent, Subscription } from 'rxjs';
+import { ThyAlert } from 'ngx-tethys/alert';
+import { ThyCopyDirective } from 'ngx-tethys/copy';
 
 @Component({
     selector: 'thy-hotkey-query-example',
     templateUrl: './query.component.html',
     styleUrls: ['./query.component.scss'],
-    standalone: false
+    imports: [ThyAlert, ThyCopyDirective]
 })
 export class ThyHotkeyQueryExampleComponent {
     hotkeyCode = '';

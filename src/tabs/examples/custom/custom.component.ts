@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ThyTabs, ThyTab } from 'ngx-tethys/tabs';
 
 @Component({
     selector: 'thy-tabs-custom-example',
     templateUrl: './custom.component.html',
-    standalone: false
+    imports: [ThyTabs, ThyTab]
 })
 export class ThyTabsCustomExampleComponent implements OnInit {
     constructor() {}

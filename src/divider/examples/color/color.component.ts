@@ -1,11 +1,13 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { ThyDividerColor } from 'ngx-tethys/divider';
+import { ThyDivider, ThyDividerColor } from 'ngx-tethys/divider';
+import { ThyButtonGroup, ThyButton } from 'ngx-tethys/button';
+import { NgClass } from '@angular/common';
 
 @Component({
     encapsulation: ViewEncapsulation.None,
     selector: 'thy-divider-color-example',
     templateUrl: './color.component.html',
-    standalone: false
+    imports: [ThyDivider, ThyButtonGroup, ThyButton, NgClass]
 })
 export class ThyDividerColorExampleComponent {
     color: ThyDividerColor = 'default';

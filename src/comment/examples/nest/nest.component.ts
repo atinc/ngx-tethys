@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
+import { ThyComment, ThyCommentActionsDirective, ThyCommentContentDirective } from 'ngx-tethys/comment';
+import { ThyAction } from 'ngx-tethys/action';
 
 @Component({
     selector: 'thy-comment-nest-example',
     templateUrl: './nest.component.html',
-    standalone: false
+    imports: [ThyComment, ThyCommentContentDirective, ThyCommentActionsDirective, ThyAction, NgTemplateOutlet]
 })
 export class ThyCommentNestExampleComponent {
     constructor() {}

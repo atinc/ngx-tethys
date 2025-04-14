@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyTableTheme } from 'ngx-tethys/table';
+import { ThyTable, ThyTableColumnComponent, ThyTableTheme } from 'ngx-tethys/table';
+import { ThyIcon } from 'ngx-tethys/icon';
+import { ThyAvatar } from 'ngx-tethys/avatar';
+import { ThyRadioGroup } from 'ngx-tethys/radio';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'thy-table-header-fixed-example',
     templateUrl: './header-fixed.component.html',
-    standalone: false
+    imports: [ThyTable, ThyTableColumnComponent, ThyIcon, ThyAvatar, ThyRadioGroup, FormsModule]
 })
 export class ThyTableHeaderFixedExampleComponent implements OnInit {
     data = [

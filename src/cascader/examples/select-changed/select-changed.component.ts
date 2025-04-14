@@ -1,11 +1,13 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { clone, options } from '../cascader-address-options';
+import { ThyCascader } from 'ngx-tethys/cascader';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'thy-cascader-select-changed-example',
     templateUrl: './select-changed.component.html',
-    standalone: false
+    imports: [ThyCascader, FormsModule]
 })
 export class ThyCascaderSelectChangedExampleComponent implements OnInit {
     private notifyService = inject(ThyNotifyService);

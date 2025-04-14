@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
-import { ThyTableColumnSkeletonType, ThyTableSize, ThyTableSkeletonColumn, ThyTableTheme } from 'ngx-tethys/table';
+import { ThyTableColumnSkeletonType, ThyTableSize, ThyTableSkeleton, ThyTableSkeletonColumn, ThyTableTheme } from 'ngx-tethys/table';
+import { ThyRadioGroup } from 'ngx-tethys/radio';
+import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
+import { FormsModule } from '@angular/forms';
+import { NgClass } from '@angular/common';
 
 @Component({
     selector: 'thy-table-skeleton-example',
     templateUrl: './skeleton.component.html',
-    standalone: false
+    imports: [ThyRadioGroup, ThyButtonGroup, FormsModule, ThyTableSkeleton, NgClass, ThyButton]
 })
 export class ThyTableSkeletonExampleComponent {
     data = [

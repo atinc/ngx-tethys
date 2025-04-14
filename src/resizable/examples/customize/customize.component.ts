@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { ThyResizeEvent } from 'ngx-tethys/resizable';
+import { ThyResizableDirective, ThyResizeEvent, ThyResizeHandle } from 'ngx-tethys/resizable';
+import { ThyIcon } from 'ngx-tethys/icon';
 
 @Component({
     selector: 'thy-resizable-customize-example',
     templateUrl: './customize.component.html',
     styleUrls: ['../style.scss'],
-    standalone: false
+    imports: [ThyResizableDirective, ThyResizeHandle, ThyIcon]
 })
 export class ThyResizableCustomizeExampleComponent {
     width = 400;

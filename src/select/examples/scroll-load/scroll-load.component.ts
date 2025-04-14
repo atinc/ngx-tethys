@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { ThySelect } from 'ngx-tethys/select';
+import { ThyOption } from 'ngx-tethys/shared';
 import { timer } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'thy-select-scroll-load-example',
     templateUrl: './scroll-load.component.html',
-    standalone: false
+    imports: [ThySelect, ThyOption, FormsModule]
 })
 export class ThySelectScrollLoadExampleComponent implements OnInit {
     loadMoreData: Array<{ thyLabelText: string; _id: string }> = [];

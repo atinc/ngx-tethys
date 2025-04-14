@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
+import { ThyButton } from 'ngx-tethys/button';
 
 @Component({
     selector: 'thy-space-align-example',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
     host: {
         class: 'space-align-container'
     },
-    standalone: false
+    imports: [ThySpace, ThySpaceItemDirective, ThyButton]
 })
 export class ThySpaceAlignExampleComponent implements OnInit {
     sizes = ['sm', 'md', 'lg', 40];

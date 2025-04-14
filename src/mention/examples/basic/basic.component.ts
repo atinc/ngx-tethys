@@ -1,6 +1,7 @@
 import { Mention, MentionSuggestionSelectEvent, ThyMentionDirective } from 'ngx-tethys/mention';
-
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { ThyInputDirective } from 'ngx-tethys/input';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 const mockUsers = [
     'Jacob',
@@ -28,7 +29,7 @@ const mockUsers = [
 @Component({
     selector: 'thy-mention-basic-example',
     templateUrl: './basic.component.html',
-    standalone: false
+    imports: [ThyMentionDirective, FormsModule, ThyInputDirective]
 })
 export class ThyMentionBasicExampleComponent implements OnInit {
     value = ``;

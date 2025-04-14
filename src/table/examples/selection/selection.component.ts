@@ -1,13 +1,15 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ThyMultiSelectEvent } from 'ngx-tethys/table';
+import { ThyMultiSelectEvent, ThyTable, ThyTableColumnComponent } from 'ngx-tethys/table';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
+import { ThyIcon } from 'ngx-tethys/icon';
+import { ThyButton } from 'ngx-tethys/button';
 
 @Component({
     selector: 'thy-table-selection-example',
     templateUrl: './selection.component.html',
-    standalone: false
+    imports: [ThyTable, ThyTableColumnComponent, ThyIcon, ThyButton]
 })
 export class ThyTableSelectionExampleComponent implements OnInit {
     private notifyService = inject(ThyNotifyService);

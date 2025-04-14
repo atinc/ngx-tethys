@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { TinyDate } from 'ngx-tethys/util';
+import { FormsModule } from '@angular/forms';
+import { ThyDatePicker, ThyRangePicker } from 'ngx-tethys/date-picker';
 
 @Component({
     selector: 'thy-date-picker-suffix-icon-example',
     templateUrl: './suffix-icon.component.html',
-    standalone: false
+    imports: [ThyDatePicker, FormsModule, ThyRangePicker]
 })
 export class ThyDatePickerSuffixIconExampleComponent implements OnInit {
     date = { date: new TinyDate().getTime(), with_time: 0 };

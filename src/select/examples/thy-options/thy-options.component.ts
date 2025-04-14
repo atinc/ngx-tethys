@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ThySelectOptionModel } from 'ngx-tethys/select/custom-select/custom-select.component';
+import { ThySelect, ThySelectOptionModel } from 'ngx-tethys/select/custom-select/custom-select.component';
 import { timer } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { groupOptions } from '../mock-data';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'thy-options-example',
     templateUrl: './thy-options.component.html',
-    standalone: false
+    imports: [ThySelect, FormsModule]
 })
 export class ThyOptionsExampleComponent implements OnInit {
     loadMoreOptions: ThySelectOptionModel[] = [];

@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyTableSize } from 'ngx-tethys/table';
+import { FormsModule } from '@angular/forms';
+import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
+import { ThyTable, ThyTableColumnComponent, ThyTableSize } from 'ngx-tethys/table';
+import { ThyIcon } from 'ngx-tethys/icon';
+import { NgClass } from '@angular/common';
 
 @Component({
     selector: 'thy-table-size-example',
     templateUrl: './size.component.html',
-    standalone: false
+    imports: [ThyTable, ThyTableColumnComponent, ThyButtonGroup, FormsModule, ThyButton, ThyIcon, NgClass]
 })
 export class ThyTableSizeExampleComponent implements OnInit {
     data = [

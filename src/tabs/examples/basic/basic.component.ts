@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyTabActiveEvent } from 'ngx-tethys/tabs';
+import { ThyTabActiveEvent, ThyTabs, ThyTab } from 'ngx-tethys/tabs';
 
 @Component({
     selector: 'thy-tabs-basic-example',
     templateUrl: './basic.component.html',
-    standalone: false
+    imports: [ThyTabs, ThyTab]
 })
 export class ThyTabsBasicExampleComponent implements OnInit {
     constructor() {}

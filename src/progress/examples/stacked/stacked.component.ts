@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { ThyProgressStackedValue } from 'ngx-tethys/progress';
+import { ThyProgress, ThyProgressStackedValue } from 'ngx-tethys/progress';
+import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
 
 @Component({
     selector: 'thy-progress-stacked-example',
     templateUrl: './stacked.component.html',
-    standalone: false
+    imports: [ThyProgress, ThySpace, ThySpaceItemDirective]
 })
 export class ThyProgressStackedExampleComponent {
     max = 90;

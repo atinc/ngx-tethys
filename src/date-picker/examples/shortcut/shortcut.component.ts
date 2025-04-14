@@ -1,12 +1,30 @@
-import { ThyDateChangeEvent, ThyDateRangeEntry, ThyShortcutPreset } from 'ngx-tethys/date-picker';
-
+import {
+    ThyDateChangeEvent,
+    ThyDatePicker,
+    ThyDatePickerDirective,
+    ThyDatePickerFormatPipe,
+    ThyDateRangeEntry,
+    ThyRangePicker,
+    ThyRangePickerDirective,
+    ThyShortcutPreset
+} from 'ngx-tethys/date-picker';
 import { Component, OnInit } from '@angular/core';
 import { addWeeks, startOfDay, startOfWeek, TinyDate } from 'ngx-tethys/util';
+import { FormsModule } from '@angular/forms';
+import { ThyPropertyOperation } from 'ngx-tethys/property-operation';
 
 @Component({
     selector: 'thy-range-picker-shortcut-example',
     templateUrl: './shortcut.component.html',
-    standalone: false
+    imports: [
+        ThyRangePicker,
+        FormsModule,
+        ThyDatePicker,
+        ThyPropertyOperation,
+        ThyRangePickerDirective,
+        ThyDatePickerDirective,
+        ThyDatePickerFormatPipe
+    ]
 })
 export class ThyDatePickerShortcutExampleComponent implements OnInit {
     dateRange = { begin: new TinyDate('2023-05-30')?.nativeDate, end: new TinyDate('2023-06-02')?.nativeDate };

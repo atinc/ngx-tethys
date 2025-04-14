@@ -1,8 +1,6 @@
 import { Component, inject, input, OnInit } from '@angular/core';
-import { ThyDialog, ThyDialogConfig, ThyDialogRef, ThyDialogSizes } from 'ngx-tethys/dialog';
-import { ThyDialogBasicContentComponent } from '../basic/dialog-content.component';
 import { ThyButton } from 'ngx-tethys/button';
-import { ThyDialogHeader, ThyDialogBody, ThyDialogFooter } from 'ngx-tethys/dialog';
+import { ThyDialogHeader, ThyDialogBody, ThyDialogFooter, ThyDialog, ThyDialogConfig, ThyDialogRef } from 'ngx-tethys/dialog';
 
 @Component({
     selector: `thy-dialog-pass-data-content-example`,
