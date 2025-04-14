@@ -11,10 +11,11 @@ import { ThyCalendarHeader } from '../calendar-header.component';
 import { ThyCalendar } from '../calendar.component';
 import { ThyCalendarModule } from '../module';
 import { provideHttpClient } from '@angular/common/http';
+import { DateRangeItemInfo } from 'ngx-tethys/date-range';
 
 @Component({
     template: `
-        <thy-calendar (thyDateRangeChange)="dateRangeChange()" (thySelectChange)="selectedChange()" [thyValue]="value">
+        <thy-calendar (thyDateRangeChange)="dateRangeChange($event)" (thySelectChange)="selectedChange($event)" [thyValue]="value">
             <ul *thyDateCell="let date">
                 @switch (date.getDate()) {
                     @case (8) {
@@ -59,9 +60,9 @@ export class TestCalendarBasicComponent {
 
     value1 = new Date(2020, 1, 3);
 
-    dateRangeChange() {}
+    dateRangeChange(event: DateRangeItemInfo) {}
 
-    selectedChange() {}
+    selectedChange(event: Date) {}
 
     listDataMap = {
         eight: [
@@ -100,9 +101,9 @@ export class TestCalendarDisabledDateComponent {
     template: `
         <thy-calendar-header
             [operationRender]="operationRender"
-            (monthChange)="onMonthSelect()"
-            (yearChange)="onYearSelect()"
-            (dateRangeChange)="onDateRangeSelect()"
+            (monthChange)="onMonthSelect($event)"
+            (yearChange)="onYearSelect($event)"
+            (dateRangeChange)="onDateRangeSelect($event)"
             [currentDate]="currentDate">
             <ng-template #operationRender>
                 <span class="app-sign">Agile</span>
@@ -116,9 +117,9 @@ export class TestCalendarDisabledDateComponent {
 export class TestCalendarHeaderComponent {
     currentDate = new TinyDate(new Date(2020, 0, 3));
 
-    onMonthSelect() {}
-    onYearSelect() {}
-    onDateRangeSelect() {}
+    onMonthSelect(event: number) {}
+    onYearSelect(event: number) {}
+    onDateRangeSelect(event: DateRangeItemInfo) {}
 }
 
 describe('calendar', () => {
