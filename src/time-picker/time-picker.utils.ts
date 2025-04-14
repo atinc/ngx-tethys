@@ -62,19 +62,19 @@ export function parseSeconds(value: string | number): number {
     return seconds;
 }
 
-export function parseTime(value: string | Date): Date {
+export function parseTime(value: string | Date, timeZone?: string): Date {
     if (typeof value === 'string') {
-        return new TinyDate(value)?.nativeDate;
+        return new TinyDate(value, timeZone)?.nativeDate;
     } else if (value instanceof TinyDate) {
         return value?.nativeDate;
     } else {
-        return new TinyDate(value)?.nativeDate;
+        return new TinyDate(value, timeZone)?.nativeDate;
     }
 }
 
-export function changeTime(value: Date, diff: Time): Date {
+export function changeTime(value: Date, diff: Time, timeZone?: string): Date {
     if (!value) {
-        return changeTime(createDate(new TinyDate()?.nativeDate, 0, 0, 0), diff);
+        return changeTime(createDate(new TinyDate(undefined, timeZone)?.nativeDate, 0, 0, 0), diff, timeZone);
     }
 
     let hour = value.getHours();
@@ -96,10 +96,10 @@ export function changeTime(value: Date, diff: Time): Date {
         seconds = seconds + coerceNumberProperty(diff.seconds);
     }
 
-    return createDate(value, hour, minutes, seconds);
+    return createDate(value, hour, minutes, seconds, timeZone);
 }
 
-export function setTime(value: Date, opts: Time): Date {
+export function setTime(value: Date, opts: Time, timeZone?: string): Date {
     let hour = parseHours(opts.hour);
     const minute = parseMinutes(opts.minute);
     const seconds = parseSeconds(opts.seconds) || 0;
@@ -110,7 +110,7 @@ export function setTime(value: Date, opts: Time): Date {
 
     if (!value) {
         if (!isNaN(hour) && !isNaN(minute)) {
-            return createDate(new TinyDate()?.nativeDate, hour, minute, seconds);
+            return createDate(new TinyDate(undefined, timeZone)?.nativeDate, hour, minute, seconds, timeZone);
         }
 
         return value;
@@ -120,11 +120,11 @@ export function setTime(value: Date, opts: Time): Date {
         return value;
     }
 
-    return createDate(value, hour, minute, seconds);
+    return createDate(value, hour, minute, seconds, timeZone);
 }
 
-export function createDate(value: Date, hours: number, minutes: number, seconds: number): Date {
-    return new TinyDate(value).setHours(hours).setMinutes(minutes).setSeconds(seconds).nativeDate;
+export function createDate(value: Date, hours: number, minutes: number, seconds: number, timeZone?: string): Date {
+    return new TinyDate(value, timeZone).setHours(hours).setMinutes(minutes).setSeconds(seconds).nativeDate;
 }
 
 export function padNumber(value: number): string {
@@ -148,8 +148,8 @@ export function isSecondInputValid(seconds: string): boolean {
     return !isNaN(parseSeconds(seconds));
 }
 
-export function isInputLimitValid(diff: Time, max: Date, min: Date): boolean {
-    const newDate = setTime(new TinyDate()?.nativeDate, diff);
+export function isInputLimitValid(diff: Time, max: Date, min: Date, timeZone?: string): boolean {
+    const newDate = setTime(new TinyDate(undefined, timeZone)?.nativeDate, diff, timeZone);
 
     if (max && newDate > max) {
         return false;

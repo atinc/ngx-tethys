@@ -12,6 +12,8 @@ export class ThyDatePickerBasicExampleComponent implements OnInit {
         with_time: 1
     } as DateEntry;
 
+    tz = 'Asia/Seoul';
+
     date = { date: new TinyDate().getTime(), with_time: 0 };
 
     dateTime = new Date();

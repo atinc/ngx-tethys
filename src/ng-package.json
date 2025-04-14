@@ -5,5 +5,5 @@
     "entryFile": "public-api.ts"
   },
   "assets": ["./**/*.scss"],
-  "allowedNonPeerDependencies": ["tslib", "angular", "date-fns", "@date-fns/tz", "@tethys/icons"]
+  "allowedNonPeerDependencies": ["tslib", "angular", "date-fns", "@date-fns/tz", "date-fns-tz", "@tethys/icons"]
 }

@@ -334,3 +334,19 @@ export function isFloat(value: string): boolean {
 
     return /^[-+]?([0-9]+([.][0-9]*)?|[.][0-9]+)([Ee][-+]?[0-9]+)?$/.test(value);
 }
+
+export function hasTimeInStringDate(dateString: string): boolean {
+    const standardFormat = /\d{4}[-/]\d{1,2}[-/]\d{1,2}\s+\d{1,2}:\d{1,2}/;
+    const chineseFormat = /\d{4}年\d{1,2}月\d{1,2}日?\s+\d{1,2}[时:]\d{1,2}[分]?/;
+    const reverseEnglishFormat = /\d{1,2}\s+[A-Za-z]{3,}\s+\d{4}\s+\d{1,2}:\d{1,2}/;
+    const englishFormat = /[A-Za-z]{3,}\s+\d{1,2},?\s+\d{4}\s+\d{1,2}:\d{1,2}/;
+    const isoFormat = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/;
+
+    return (
+        standardFormat.test(dateString) ||
+        chineseFormat.test(dateString) ||
+        reverseEnglishFormat.test(dateString) ||
+        englishFormat.test(dateString) ||
+        isoFormat.test(dateString)
+    );
+}
