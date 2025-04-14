@@ -72,6 +72,7 @@ export class InnerPopup implements OnChanges {
     @Input() hoverValue: TinyDate[]; // Range ONLY
 
     @Input() panelMode: ThyPanelMode;
+    @Input() timeZone: string;
 
     @Input({ transform: coerceBooleanProperty })
     set showDateRangeInput(value: boolean) {
@@ -98,7 +99,7 @@ export class InnerPopup implements OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.activeDate && !changes.activeDate.currentValue) {
-            this.activeDate = new TinyDate();
+            this.activeDate = new TinyDate(undefined, this.timeZone);
         }
         if (changes.panelMode && changes.panelMode.currentValue === 'time') {
             this.panelMode = 'date';
@@ -110,7 +111,7 @@ export class InnerPopup implements OnChanges {
     }
 
     onSelectDate(date: TinyDate): void {
-        const value = date instanceof TinyDate ? date : new TinyDate(date);
+        const value = date instanceof TinyDate ? date : new TinyDate(date, this.timeZone);
 
         this.selectDate.emit(value);
     }
