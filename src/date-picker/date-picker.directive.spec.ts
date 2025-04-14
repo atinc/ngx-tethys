@@ -35,7 +35,6 @@ describe('ThyPickerDirective', () => {
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
                 imports: [FormsModule, ThyDatePickerModule, ThyPropertyOperationModule, BrowserAnimationsModule],
-                declarations: [ThyTestPickerComponent],
                 providers: [provideHttpClient()]
             });
 
@@ -355,7 +354,6 @@ describe('ThyPickerDirective', () => {
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
                 imports: [FormsModule, ThyDatePickerModule, ThyPropertyOperationModule, BrowserAnimationsModule, ThyPopoverModule],
-                declarations: [ThyTestPickerPlacementComponent],
                 providers: [provideHttpClient()]
             }).compileComponents();
         }));
@@ -495,7 +493,7 @@ describe('ThyPickerDirective', () => {
             [thyShortcutPosition]="thyShortcutPosition"
             [thyShortcutPresets]="thyShortcutPresets"></thy-property-operation>
     `,
-    standalone: false
+    imports: [ThyPropertyOperationModule, ThyDatePickerModule, FormsModule]
 })
 class ThyTestPickerComponent {
     @ViewChild(ThyDatePickerDirective, { read: false }) thyDatePickerDirective: ThyDatePickerDirective;
@@ -534,7 +532,7 @@ class ThyTestPickerComponent {
             thyDatePicker
             [(ngModel)]="thyValue"></thy-property-operation>
     `,
-    standalone: false
+    imports: [ThyPropertyOperationModule, ThyDatePickerModule, FormsModule]
 })
 class ThyTestPickerPlacementComponent {
     thyValue: Date | null;
@@ -548,7 +546,7 @@ class ThyTestPickerPlacementComponent {
             </thy-property-operation>
         </div>
     `,
-    standalone: false
+    imports: [ThyPropertyOperationModule, ThyDatePickerModule]
 })
 class ThyTestPickerStopPropagationComponent {
     thyStopPropagation = true;
@@ -563,7 +561,6 @@ describe('should get correct default thyStopPropagation', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyDatePickerModule, ThyPropertyOperationModule, BrowserAnimationsModule],
-            declarations: [ThyTestPickerStopPropagationComponent],
             providers: [provideHttpClient()]
         }).compileComponents();
     }));
