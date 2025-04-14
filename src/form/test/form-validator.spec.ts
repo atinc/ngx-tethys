@@ -1,9 +1,7 @@
-import { ThyFormValidatorLoader } from './../form-validator-loader';
+import { ThyFormValidatorLoader, ThyFormValidatorGlobalConfig, THY_VALIDATOR_CONFIG, ThyFormModule } from 'ngx-tethys/form';
 import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { ThyButtonModule } from '../../button';
-import { ThyFormValidatorGlobalConfig, THY_VALIDATOR_CONFIG } from '../form.class';
-import { ThyFormModule } from '../module';
+import { ThyButtonModule } from 'ngx-tethys/button';
 import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
 
 describe('module', () => {

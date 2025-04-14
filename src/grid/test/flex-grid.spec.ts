@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ThyGridModule } from '../module';
-import { ThyFlexAlignItems, ThyFlexDirection, ThyFlexGrow, ThyFlexJustifyContent, ThyFlexShrink, ThyFlexWrap } from '../flex';
+import { ThyGridModule } from 'ngx-tethys/grid';
 import { By } from '@angular/platform-browser';
 
 @Component({

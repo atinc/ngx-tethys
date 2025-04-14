@@ -1,12 +1,9 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { ThyDialogModule } from '../dialog.module';
 import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { ThyDialogHeader } from '../header/dialog-header.component';
 import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
-import { THY_DIALOG_LAYOUT_CONFIG } from '../dialog.config';
+import { THY_DIALOG_LAYOUT_CONFIG, ThyDialogFooter, ThyDialogHeader, ThyDialogModule } from 'ngx-tethys/dialog';
 import { provideHttpClient } from '@angular/common/http';
-import { ThyDialogFooter } from '../footer/dialog-footer.component';
 
 @Component({
     selector: 'thy-test-dialog-header-basic',

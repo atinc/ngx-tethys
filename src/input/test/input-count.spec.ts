@@ -2,8 +2,7 @@ import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ThyInputCount } from '../input-count.component';
-import { ThyInputModule } from '../module';
+import { ThyInputCount, ThyInputModule } from 'ngx-tethys/input';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({

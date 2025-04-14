@@ -1,12 +1,8 @@
-import { CommonModule } from '@angular/common';
-import { Component, DebugElement, NgModule } from '@angular/core';
+import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-
-import { ThyInput } from '../input.component';
-import { ThyInputDirective } from '../input.directive';
-import { ThyInputModule } from '../module';
+import { ThyInput, ThyInputDirective } from 'ngx-tethys/input';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({
@@ -37,7 +33,7 @@ import { provideHttpClient } from '@angular/common/http';
 class TestBedComponent {
     thySize = ``;
     thyType = 'text';
-    readonly;
+    readonly = false;
     passwordValue = '12345';
     checkFocus = false;
     checkBlur = false;
@@ -51,12 +47,6 @@ class TestBedComponent {
     }
 }
 
-@NgModule({
-    imports: [CommonModule, FormsModule, ThyInputModule, TestBedComponent],
-    exports: []
-})
-export class InputComponentTestModule {}
-
 describe('input component', () => {
     let fixture: ComponentFixture<TestBedComponent>;
     let basicTestComponent: TestBedComponent;
@@ -65,7 +55,6 @@ describe('input component', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [InputComponentTestModule],
             providers: [provideHttpClient()]
         });
 

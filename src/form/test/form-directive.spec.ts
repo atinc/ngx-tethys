@@ -4,17 +4,19 @@ import { ThyLayoutModule } from 'ngx-tethys/layout';
 import { ThySelectModule } from 'ngx-tethys/select';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing';
 import { keycodes } from 'ngx-tethys/util';
-
 import { CommonModule } from '@angular/common';
 import { Component, DebugElement, inject } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormBuilder, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-
-import { ThyFormSubmitDirective } from '../form-submit.directive';
-import { THY_FORM_CONFIG, ThyFormValidatorConfig } from '../form.class';
-import { ThyEnterKeyMode, ThyFormDirective } from '../form.directive';
-import { ThyFormModule } from '../module';
+import {
+    THY_FORM_CONFIG,
+    ThyFormValidatorConfig,
+    ThyFormModule,
+    ThyEnterKeyMode,
+    ThyFormDirective,
+    ThyFormSubmitDirective
+} from 'ngx-tethys/form';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({

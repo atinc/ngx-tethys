@@ -3,8 +3,7 @@ import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyDialogModule } from 'ngx-tethys/dialog';
-import { ThyImageModule } from '../module';
-import { ThyImageDirective } from './../image.directive';
+import { ThyImageModule, ThyImageDirective } from 'ngx-tethys/image';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 

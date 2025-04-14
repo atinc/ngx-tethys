@@ -7,12 +7,8 @@ import { By } from '@angular/platform-browser';
 import { dispatchKeyboardEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { helpers } from '../../util';
-import { A, ESCAPE } from '../../util/keycodes';
-import { ThyDialogContainer } from '../dialog-container.component';
-import { ThyDialogRef } from '../dialog-ref';
-import { ThyDialogSizes } from '../dialog.config';
-import { THY_CONFIRM_DEFAULT_OPTIONS, ThyDialog } from '../index';
+import { helpers, A, ESCAPE } from 'ngx-tethys/util';
+import { ThyDialogContainer, ThyDialogRef, ThyDialogSizes, THY_CONFIRM_DEFAULT_OPTIONS, ThyDialog } from 'ngx-tethys/dialog';
 import {
     DialogFullContentComponent,
     DialogRestoreComponent,

@@ -1,10 +1,8 @@
-import { ThyFormModule } from './../module';
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { ThyFormDirective } from '../form.directive';
-import { ThyFormGroupError } from '../form-group-error/form-group-error.component';
+import { ThyFormDirective, ThyFormGroupError, ThyFormModule } from 'ngx-tethys/form';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({

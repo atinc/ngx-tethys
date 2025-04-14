@@ -8,13 +8,13 @@ import {
     ThyDragEndEvent,
     ThyDragOverEvent,
     ThyDragStartEvent,
-    ThyDropContainerDirective
+    ThyDropContainerDirective,
+    ThyDragHandleDirective,
+    ThyDragDirective
 } from 'ngx-tethys/drag-drop';
 import { ThySharedModule } from 'ngx-tethys/shared';
 import { createDragEvent, dispatchFakeEvent } from 'ngx-tethys/testing';
 import { helpers } from 'ngx-tethys/util';
-import { ThyDragHandleDirective } from '../drag-handle.directive';
-import { ThyDragDirective } from '../drag.directive';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 
 interface DragNodeInfo {

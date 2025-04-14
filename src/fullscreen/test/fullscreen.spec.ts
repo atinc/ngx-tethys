@@ -1,13 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { ThyFullscreen } from './../fullscreen.service';
+import { ThyFullscreen, ThyFullscreenModule } from 'ngx-tethys/fullscreen';
 import { fakeAsync, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ThyFullscreenModule } from '../fullscreen.module';
-import { NgModule, Component, DebugElement, ApplicationRef } from '@angular/core';
+import { Component, DebugElement, ApplicationRef } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { ThyFullscreenComponent } from '../fullscreen.component';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing';
-import { ESCAPE, SHIFT, SPACE } from '../../util/keycodes';
-import { ThyFullscreenLaunchDirective } from '../fullscreen-launch.directive';
+import { ESCAPE, SHIFT, SPACE } from 'ngx-tethys/util';
+import { ThyFullscreenComponent, ThyFullscreenLaunchDirective } from 'ngx-tethys/fullscreen';
 
 export class FakeFullscreenService extends ThyFullscreen {
     launchImmersiveFullscreen() {
@@ -26,7 +24,7 @@ describe('ThyFullscreen', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyFullscreenModule, FullscreenTestModule],
+            imports: [ThyFullscreenModule],
             providers: [
                 {
                     provider: ThyFullscreen,
@@ -131,12 +129,6 @@ class ThyDemoFullscreenComponent {
     constructor() {}
     changeFullscreen(event: boolean) {}
 }
-
-@NgModule({
-    imports: [ThyFullscreenModule, ThyDemoFullscreenComponent],
-    exports: [ThyDemoFullscreenComponent]
-})
-export class FullscreenTestModule {}
 
 describe('Container ThyFullscreen', () => {
     let fixture: ComponentFixture<ThyContainerFullscreenComponent>;

@@ -10,8 +10,7 @@ import { ThyDropdownDirective, ThyDropdownModule } from 'ngx-tethys/dropdown';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyPopoverConfig } from 'ngx-tethys/popover';
 import { dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing';
-import { ThyDropdownMenuItemType } from '../dropdown-menu-item.directive';
-import { ThyDropdownAbstractMenu, ThyDropdownMenuComponent } from '../dropdown-menu.component';
+import { ThyDropdownMenuItemType, ThyDropdownAbstractMenu, ThyDropdownMenuComponent } from 'ngx-tethys/dropdown';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({

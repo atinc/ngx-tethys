@@ -2,9 +2,7 @@ import { FormsModule } from '@angular/forms';
 import { ThySelectModule } from 'ngx-tethys/select';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { Component } from '@angular/core';
-
-import { ThyDividerModule } from '../divider.module';
-import { ThyDividerStyle, ThyDividerTextDirection } from '../divider.component';
+import { ThyDividerModule, ThyDividerStyle, ThyDividerTextDirection } from 'ngx-tethys/divider';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({

@@ -1,14 +1,11 @@
-import { ThyFormModule } from './../module';
-import { ThyFormValidatorConfig } from '../form.class';
+import { ThyFormModule, ThyFormValidatorConfig, ThyFormGroup, ThyFormGroupLabelDirective } from 'ngx-tethys/form';
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, waitForAsync, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 import { By } from '@angular/platform-browser';
-import { ThyFormGroup } from '../form-group.component';
 import { ThyTranslate } from 'ngx-tethys/core';
-import { ThyFormGroupLabelDirective } from '../form-group-label.directive';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({

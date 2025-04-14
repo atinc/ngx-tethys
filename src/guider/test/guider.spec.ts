@@ -6,12 +6,16 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
-import { ThyGuiderManager } from '../guider-manager';
-import { ThyGuiderRef } from '../guider-ref';
-import { defaultGuiderPositionConfig, ThyGuiderConfig, ThyGuiderStep } from '../guider.class';
-import { ThyGuiderModule } from '../guider.module';
-import { ThyGuider } from '../guider.service';
-import { ThyGuiderTargetDirective } from '../guider.directive';
+import {
+    ThyGuiderManager,
+    ThyGuiderRef,
+    ThyGuiderConfig,
+    ThyGuiderStep,
+    ThyGuiderModule,
+    ThyGuider,
+    defaultGuiderPositionConfig,
+    ThyGuiderTargetDirective
+} from 'ngx-tethys/guider';
 
 const guiderSteps: ThyGuiderStep[] = [
     {

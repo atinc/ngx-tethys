@@ -3,9 +3,8 @@ import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
-import { ThyTooltipModule } from '../../tooltip';
-import { ThyFlexibleText } from '../flexible-text.component';
-import { ThyFlexibleTextModule } from '../flexible-text.module';
+import { ThyTooltipModule } from 'ngx-tethys/tooltip';
+import { ThyFlexibleText, ThyFlexibleTextModule } from 'ngx-tethys/flexible-text';
 
 @Component({
     selector: 'thy-demo-flexible-text',

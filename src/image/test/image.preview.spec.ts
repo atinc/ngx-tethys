@@ -8,10 +8,7 @@ import { ThyDialogModule } from 'ngx-tethys/dialog';
 import { MockXhrFactory, dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { keycodes } from 'ngx-tethys/util';
 import { timer } from 'rxjs';
-import { InternalImageInfo, ThyImagePreviewOptions } from '../image.class';
-import { ThyImageService } from '../image.service';
-import { ThyImageModule } from '../module';
-import { ThyImagePreviewRef } from '../preview/image-preview-ref';
+import { InternalImageInfo, ThyImagePreviewOptions, ThyImageService, ThyImageModule, ThyImagePreviewRef } from 'ngx-tethys/image';
 import { fetchImageBlob } from '../utils';
 import { provideHttpClient } from '@angular/common/http';
 

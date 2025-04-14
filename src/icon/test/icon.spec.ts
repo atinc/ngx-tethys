@@ -1,17 +1,18 @@
 import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 import { generateRandomStr } from 'ngx-tethys/util';
 import { of } from 'rxjs';
-
 import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { Component, DebugElement, inject as coreInject } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By, DomSanitizer } from '@angular/platform-browser';
-
-import { getWhetherPrintErrorWhenIconNotFound, setPrintErrorWhenIconNotFound } from '../config';
-import { ThyIconRegistry } from '../icon-registry';
-import { ThyIcon } from '../icon.component';
-import { ThyIconModule } from '../icon.module';
+import {
+    ThyIconRegistry,
+    ThyIconModule,
+    ThyIcon,
+    setPrintErrorWhenIconNotFound,
+    getWhetherPrintErrorWhenIconNotFound
+} from 'ngx-tethys/icon';
 
 @Component({
     template: `
