@@ -14,7 +14,7 @@ import { coerceBooleanProperty, elementMatchClosest, isArray, isObject, produce,
 import { Observable, of, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 
-import { CdkConnectedOverlay, CdkOverlayOrigin, ViewportRuler } from '@angular/cdk/overlay';
+import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair, ViewportRuler } from '@angular/cdk/overlay';
 import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { isPlatformBrowser, NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
@@ -123,7 +123,7 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
 
     public cdkConnectOverlayWidth = 0;
 
-    public expandedDropdownPositions = EXPANDED_DROPDOWN_POSITIONS;
+    public expandedDropdownPositions: ConnectionPositionPair[] = EXPANDED_DROPDOWN_POSITIONS;
 
     public icons: { expand: string; collapse: string; gap?: number } = {
         expand: 'angle-down',

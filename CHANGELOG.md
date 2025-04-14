@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [19.0.4](https://github.com/atinc/ngx-tethys/compare/19.0.3...19.0.4) (2025-04-14)
+
+
+### Bug Fixes
+
+* **overlay:** define the ConnectionPositionPair type to resolve error ([#3336](https://github.com/atinc/ngx-tethys/issues/3336)) ([9d62b7e](https://github.com/atinc/ngx-tethys/commit/9d62b7eb686fb773cfed684b64a10be5c216005f))
+* **util:** handle i18n and tinyDate set default locale ([#3331](https://github.com/atinc/ngx-tethys/issues/3331)) ([6bc3c58](https://github.com/atinc/ngx-tethys/commit/6bc3c583fe2793fd880507087f87e9597b0ce803))
+
+
+
 ## [19.0.3](https://github.com/atinc/ngx-tethys/compare/19.0.2...19.0.3) (2025-04-10)
 
 

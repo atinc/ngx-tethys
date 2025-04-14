@@ -1,7 +1,8 @@
 import { TZDate } from '@date-fns/tz';
 import { FirstWeekContainsDate, Locale, setHours, setMinutes, setSeconds } from 'date-fns';
+import { fromZonedTime } from 'date-fns-tz';
 import { getDefaultLocaleId } from 'ngx-tethys/i18n';
-import { SafeAny } from 'ngx-tethys/types';
+import { hasTimeInStringDate } from '../helpers';
 import {
     addDays,
     addHours,
@@ -92,8 +93,18 @@ export class TinyDate implements Record<string, any> {
         if (date) {
             if (date instanceof Date) {
                 this.nativeDate = TinyDate.utcToZonedTime(date, this.useTimeZone);
-            } else if (typeof date === 'string' || typeof date === 'number') {
-                this.nativeDate = new TZDate(date as SafeAny, this.useTimeZone);
+            } else if (typeof date === 'string') {
+                if (hasTimeInStringDate(date)) {
+                    // 如果字符串中包含时间，则需要将时间转换为UTC时间再传递给TZDate
+                    const originTime = new Date(date);
+                    const zoneTime = TZDate.tz(this.useTimeZone, originTime);
+                    const utcDate = fromZonedTime(zoneTime, this.useTimeZone).toISOString();
+                    this.nativeDate = new TZDate(utcDate, this.useTimeZone);
+                } else {
+                    this.nativeDate = new TZDate(date, this.useTimeZone);
+                }
+            } else if (typeof date === 'number') {
+                this.nativeDate = new TZDate(date, this.useTimeZone);
             } else if (typeof ngDevMode === 'undefined' || ngDevMode) {
                 throw new Error(
                     `The input date type is not supported expect Date | string | number | { date: number; with_time: 0 | 1}, actual ${JSON.stringify(

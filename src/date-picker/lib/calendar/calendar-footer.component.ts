@@ -22,6 +22,7 @@ export class CalendarFooter implements OnInit, OnChanges {
     @Input() showTime = false;
     @Input() mustShowTime = false;
     @Input() value: TinyDate;
+    @Input() timeZone: string;
     @Input({ transform: coerceBooleanProperty }) disableTimeConfirm = false;
     @Output() readonly selectTime = new EventEmitter<TinyDate>();
     @Output() readonly clickOk = new EventEmitter<void>();
@@ -34,7 +35,7 @@ export class CalendarFooter implements OnInit, OnChanges {
     ngOnInit() {
         this._initTimeShowMode();
         if (!this.value) {
-            this.value = new TinyDate();
+            this.value = new TinyDate(undefined, this.timeZone);
         }
     }
 
@@ -45,7 +46,7 @@ export class CalendarFooter implements OnInit, OnChanges {
     }
 
     onSelectTime(date: Date): void {
-        this.selectTime.emit(new TinyDate(date));
+        this.selectTime.emit(new TinyDate(date, this.timeZone));
     }
 
     onTimeOk() {
