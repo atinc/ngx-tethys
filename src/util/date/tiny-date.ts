@@ -1,7 +1,7 @@
 import { TZDate } from '@date-fns/tz';
 import { FirstWeekContainsDate, Locale, setHours, setMinutes, setSeconds } from 'date-fns';
 import { fromZonedTime } from 'date-fns-tz';
-import { ThyLocaleType } from 'ngx-tethys/i18n';
+import { getDefaultLocaleId } from 'ngx-tethys/i18n';
 import { hasTimeInStringDate } from '../helpers';
 import {
     addDays,
@@ -81,13 +81,14 @@ export class TinyDate implements Record<string, any> {
 
     private useTimeZone: string;
 
-    private static locale: string;
+    private static locale: string = getDefaultLocaleId();
 
-    protected static dateFnsLocale: Locale = getDateFnsLocale(ThyLocaleType.zhHans);
+    protected static dateFnsLocale: Locale = getDateFnsLocale(TinyDate.locale);
 
     protected static defaultTimeZone: string = DEFAULT_TIMEZONE;
 
     constructor(date?: Date | string | number, zone?: string) {
+        setDefaultOptions({ locale: TinyDate.dateFnsLocale });
         this.useTimeZone = zone || TinyDate.defaultTimeZone;
         if (date) {
             if (date instanceof Date) {

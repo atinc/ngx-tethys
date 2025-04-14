@@ -1,5 +1,5 @@
 import { computed, inject, Signal } from '@angular/core';
-import { ThyModuleType, ThyI18nService, ThyModuleLocaleType, ThyI18nLocale } from './index';
+import { ThyI18nLocale, ThyI18nService, ThyLocaleType, ThyModuleLocaleType, ThyModuleType } from './index';
 
 export function injectLocale(): Signal<ThyI18nLocale>;
 
@@ -15,4 +15,21 @@ export function injectLocale<K extends ThyModuleType>(key?: K): Signal<ThyI18nLo
         }
         return allLocale();
     });
+}
+
+export function normalizeLocale(localeId: string): ThyLocaleType {
+    return localeId?.toLowerCase().replace(/_/g, '-') as ThyLocaleType;
+}
+
+/**
+ * 支持语言列表中获取默认语言
+ * return ThyLocaleType
+ */
+export function getDefaultLocaleId(): ThyLocaleType {
+    let defaultLocaleId = ThyLocaleType.zhHans;
+    const allLocales = [ThyLocaleType.zhHans, ThyLocaleType.zhHant, ThyLocaleType.enUs, ThyLocaleType.jaJp, ThyLocaleType.deDe];
+    if (typeof window !== 'undefined' && window?.navigator?.language) {
+        defaultLocaleId = window.navigator?.language?.toLowerCase() as ThyLocaleType;
+    }
+    return allLocales.includes(normalizeLocale(defaultLocaleId) as ThyLocaleType) ? defaultLocaleId : ThyLocaleType.zhHans;
 }
