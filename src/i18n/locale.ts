@@ -18,14 +18,14 @@ export function injectLocale<K extends ThyModuleType>(key?: K): Signal<ThyI18nLo
 }
 
 /**
- * 当前语言是否包含在支持的语言列表中
- * @param locale
- * return boolean
+ * 支持语言列表中获取默认语言
+ * return ThyLocaleType
  */
-export function isIncludeLocale(locale: string) {
+export function getDefaultLocaleId(): ThyLocaleType {
+    let defaultLocaleId = ThyLocaleType.zhHans;
     const allLocales = [ThyLocaleType.zhHans, ThyLocaleType.zhHant, ThyLocaleType.enUs, ThyLocaleType.jaJp, ThyLocaleType.deDe];
-    if (!allLocales.includes(normalizeLocale(locale) as ThyLocaleType)) {
-        return false;
+    if (typeof window !== 'undefined' && window?.navigator?.language) {
+        defaultLocaleId = window.navigator?.language?.toLowerCase() as ThyLocaleType;
     }
-    return true;
+    return allLocales.includes(normalizeLocale(defaultLocaleId) as ThyLocaleType) ? defaultLocaleId : ThyLocaleType.zhHans;
 }

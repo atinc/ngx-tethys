@@ -1,6 +1,6 @@
 import { TZDate } from '@date-fns/tz';
 import { FirstWeekContainsDate, Locale, setHours, setMinutes, setSeconds } from 'date-fns';
-import { isIncludeLocale, ThyLocaleType } from 'ngx-tethys/i18n';
+import { getDefaultLocaleId } from 'ngx-tethys/i18n';
 import { SafeAny } from 'ngx-tethys/types';
 import {
     addDays,
@@ -80,7 +80,7 @@ export class TinyDate implements Record<string, any> {
 
     private useTimeZone: string;
 
-    private static locale: string = TinyDate.getDefaultLocaleId();
+    private static locale: string = getDefaultLocaleId();
 
     protected static dateFnsLocale: Locale = getDateFnsLocale(TinyDate.locale);
 
@@ -104,14 +104,6 @@ export class TinyDate implements Record<string, any> {
         } else {
             this.nativeDate = new TZDate(Date.now(), this.useTimeZone);
         }
-    }
-
-    static getDefaultLocaleId(): ThyLocaleType {
-        let defaultLocaleId = ThyLocaleType.zhHans;
-        if (typeof window !== 'undefined' && window?.navigator?.language) {
-            defaultLocaleId = window.navigator?.language?.toLowerCase() as ThyLocaleType;
-        }
-        return isIncludeLocale(defaultLocaleId) ? defaultLocaleId : ThyLocaleType.zhHans;
     }
 
     static setDefaultLocale(locale: string) {

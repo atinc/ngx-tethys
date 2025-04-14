@@ -2,7 +2,7 @@ import { inject, Injectable, signal, Signal, WritableSignal } from '@angular/cor
 import {
     deDeLocale,
     enUsLocale,
-    isIncludeLocale,
+    getDefaultLocaleId,
     jaJpLocale,
     THY_I18N_DE_DE,
     THY_I18N_EN_US,
@@ -32,7 +32,7 @@ export class ThyI18nService {
         [ThyLocaleType.deDe]: inject(THY_I18N_DE_DE, { optional: true }) || deDeLocale
     };
 
-    private defaultLocaleId: ThyLocaleType = normalizeLocale(inject(THY_I18N_LOCALE_ID, { optional: true })) || this.getDefaultLocaleId();
+    private defaultLocaleId: ThyLocaleType = normalizeLocale(inject(THY_I18N_LOCALE_ID, { optional: true })) || getDefaultLocaleId();
 
     private locale: WritableSignal<ThyI18nLocale> = signal(this.locales[this.defaultLocaleId]);
 
@@ -55,13 +55,5 @@ export class ThyI18nService {
      */
     getLocale(): Signal<ThyI18nLocale> {
         return this.locale;
-    }
-
-    getDefaultLocaleId(): ThyLocaleType {
-        let defaultLocaleId = ThyLocaleType.zhHans;
-        if (typeof window !== 'undefined' && window?.navigator?.language) {
-            defaultLocaleId = window.navigator?.language?.toLowerCase() as ThyLocaleType;
-        }
-        return isIncludeLocale(defaultLocaleId) ? defaultLocaleId : ThyLocaleType.zhHans;
     }
 }
