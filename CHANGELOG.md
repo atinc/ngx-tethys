@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [19.0.3](https://github.com/atinc/ngx-tethys/compare/19.0.2...19.0.3) (2025-04-10)
+
+
+### Bug Fixes
+
+* specify the Overlay type returned by the function TINFR-1816 ([#3333](https://github.com/atinc/ngx-tethys/issues/3333)) ([ce1626f](https://github.com/atinc/ngx-tethys/commit/ce1626fdefb0e8b46ac64528e3b9da56219b04f3))
+
+
+
 ## [19.0.2](https://github.com/atinc/ngx-tethys/compare/19.0.1...19.0.2) (2025-04-08)
 
 ### Features
