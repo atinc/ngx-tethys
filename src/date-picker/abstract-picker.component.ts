@@ -206,6 +206,11 @@ export abstract class AbstractPickerComponent
         return this.disabled;
     }
 
+    /**
+     * 时区，不传使用默认时区
+     */
+    @Input() thyTimeZone: string;
+
     disabled = false;
 
     shortcutPosition: ThyShortcutPosition = 'left';
@@ -224,6 +229,7 @@ export abstract class AbstractPickerComponent
     protected isCustomPlaceHolder = false;
     private onlyEmitDate = false;
     protected originWithTime: boolean;
+    protected innerValue: CompatibleDate;
 
     get realOpenState(): boolean {
         return this.picker.realOpenState;
@@ -259,6 +265,9 @@ export abstract class AbstractPickerComponent
         if (changes.thyPlaceHolder && changes.thyPlaceHolder.firstChange && typeof this.thyPlaceHolder !== 'undefined') {
             this.isCustomPlaceHolder = true;
         }
+        if (changes.thyTimeZone && changes.thyTimeZone.currentValue) {
+            this.setValue(this.innerValue);
+        }
     }
 
     ngOnDestroy(): void {
@@ -274,34 +283,19 @@ export abstract class AbstractPickerComponent
         let value: { begin: number; end: number };
         switch (this.thyMode) {
             case 'date':
-                value = {
-                    begin: begin.startOfDay().getUnixTime(),
-                    end: end.endOfDay().getUnixTime()
-                };
+                value = { begin: begin.startOfDay().getUnixTime(), end: end.endOfDay().getUnixTime() };
                 break;
             case 'week':
-                value = {
-                    begin: begin.startOfWeek().getUnixTime(),
-                    end: end.endOfWeek().getUnixTime()
-                };
+                value = { begin: begin.startOfWeek().getUnixTime(), end: end.endOfWeek().getUnixTime() };
                 break;
             case 'month':
-                value = {
-                    begin: begin.startOfMonth().getUnixTime(),
-                    end: end.endOfMonth().getUnixTime()
-                };
+                value = { begin: begin.startOfMonth().getUnixTime(), end: end.endOfMonth().getUnixTime() };
                 break;
             case 'year':
-                value = {
-                    begin: begin.startOfYear().getUnixTime(),
-                    end: end.endOfYear().getUnixTime()
-                };
+                value = { begin: begin.startOfYear().getUnixTime(), end: end.endOfYear().getUnixTime() };
                 break;
             default:
-                value = {
-                    begin: begin.startOfDay().getUnixTime(),
-                    end: end.endOfDay().getUnixTime()
-                };
+                value = { begin: begin.startOfDay().getUnixTime(), end: end.endOfDay().getUnixTime() };
                 break;
         }
         return value;
@@ -320,10 +314,7 @@ export abstract class AbstractPickerComponent
                 if (this.thyAutoStartAndEnd) {
                     value = this.getAutoStartAndEndValue(begin, end);
                 } else {
-                    value = {
-                        begin: begin.getUnixTime(),
-                        end: end.getUnixTime()
-                    };
+                    value = { begin: begin.getUnixTime(), end: end.getUnixTime() };
                 }
             }
             const [beginUnixTime, endUnixTime] = this.setValueByPrecision(value) as number[];
@@ -365,6 +356,7 @@ export abstract class AbstractPickerComponent
     writeValue(originalValue: CompatibleDate | ThyDateRangeEntry): void {
         const { value, withTime, flexibleDateGranularity } = transformDateValue(originalValue);
         this.flexibleDateGranularity = flexibleDateGranularity;
+        this.innerValue = value;
         if (this.flexible && value && (value as Date[]).length) {
             if (!this.flexibleDateGranularity) {
                 this.flexibleDateGranularity = 'day';
@@ -396,10 +388,10 @@ export abstract class AbstractPickerComponent
     }
 
     public setValue(value: CompatibleDate): void {
-        this.thyValue = makeValue(value, this.isRange);
+        this.thyValue = makeValue(value, this.isRange, this.thyTimeZone);
     }
 
     private setValueByPrecision(value: CompatibleDate | number | Date | DateEntry | ThyDateRangeEntry | SafeAny): number | number[] {
-        return setValueByTimestampPrecision(value, this.isRange, this.thyTimestampPrecision);
+        return setValueByTimestampPrecision(value, this.isRange, this.thyTimestampPrecision, this.thyTimeZone);
     }
 }
