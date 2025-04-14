@@ -4,6 +4,7 @@ import {
     enUsLocale,
     getDefaultLocaleId,
     jaJpLocale,
+    normalizeLocale,
     THY_I18N_DE_DE,
     THY_I18N_EN_US,
     THY_I18N_JA_JP,
@@ -15,10 +16,6 @@ import {
     zhHansLocale,
     zhHantLocale
 } from './index';
-
-export function normalizeLocale(localeId: string): ThyLocaleType {
-    return localeId?.toLowerCase().replace(/_/g, '-') as ThyLocaleType;
-}
 
 @Injectable({
     providedIn: 'root'

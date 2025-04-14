@@ -1,5 +1,5 @@
 import { computed, inject, Signal } from '@angular/core';
-import { normalizeLocale, ThyI18nLocale, ThyI18nService, ThyLocaleType, ThyModuleLocaleType, ThyModuleType } from './index';
+import { ThyI18nLocale, ThyI18nService, ThyLocaleType, ThyModuleLocaleType, ThyModuleType } from './index';
 
 export function injectLocale(): Signal<ThyI18nLocale>;
 
@@ -15,6 +15,10 @@ export function injectLocale<K extends ThyModuleType>(key?: K): Signal<ThyI18nLo
         }
         return allLocale();
     });
+}
+
+export function normalizeLocale(localeId: string): ThyLocaleType {
+    return localeId?.toLowerCase().replace(/_/g, '-') as ThyLocaleType;
 }
 
 /**
