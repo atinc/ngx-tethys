@@ -94,10 +94,15 @@ export class TinyDate implements Record<string, any> {
             if (date instanceof Date) {
                 this.nativeDate = TinyDate.utcToZonedTime(date, this.useTimeZone);
             } else if (typeof date === 'string') {
-                const hasTime = hasTimeInStringDate(date);
-                this.nativeDate = hasTime
-                    ? new TZDate(fromZonedTime(date, this.useTimeZone), this.useTimeZone)
-                    : new TZDate(date, this.useTimeZone);
+                if (hasTimeInStringDate(date)) {
+                    // 如果字符串中包含时间，则需要将时间转换为UTC时间再传递给TZDate
+                    const originTime = new Date(date);
+                    const zoneTime = TZDate.tz(this.useTimeZone, originTime);
+                    const utcDate = fromZonedTime(zoneTime, this.useTimeZone).toISOString();
+                    this.nativeDate = new TZDate(utcDate, this.useTimeZone);
+                } else {
+                    this.nativeDate = new TZDate(date, this.useTimeZone);
+                }
             } else if (typeof date === 'number') {
                 this.nativeDate = new TZDate(date, this.useTimeZone);
             } else if (typeof ngDevMode === 'undefined' || ngDevMode) {
