@@ -1,13 +1,9 @@
 import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 
-import { Component, DebugElement, NgModule } from '@angular/core';
+import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-import { ThyButtonGroup } from '../button-group.component';
-import { ThyButtonIcon } from '../button-icon.component';
-import { ThyButton } from '../button.component';
-import { ThyButtonModule } from '../button.module';
+import { ThyButtonGroup, ThyButtonIcon, ThyButton, ThyButtonModule } from 'ngx-tethys/button';
 import { provideHttpClient } from '@angular/common/http';
 
 function assertButtonIcon(iconElement: Element, icon: string) {

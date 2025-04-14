@@ -1,7 +1,6 @@
 import { Component, Injector, TemplateRef, viewChild, ViewChild, inject, afterRenderEffect } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
-import { ThyStealthView } from '../stealth-view-directive';
-import { useStealthViewRenderer } from '../stealth-view-renderer';
+import { ThyStealthView, useStealthViewRenderer } from '@tethys/cdk/dom';
 
 @Component({
     selector: 'thy-stealth-view-test',

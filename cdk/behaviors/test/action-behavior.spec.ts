@@ -1,10 +1,7 @@
 import { Subject } from 'rxjs';
-
 import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-
-import { actionBehavior } from '../action-behavior';
-import { setDefaultErrorHandler } from '../error-handler';
+import { actionBehavior, setDefaultErrorHandler } from '@tethys/cdk/behaviors';
 
 describe('action-behavior', () => {
     beforeEach(() => {

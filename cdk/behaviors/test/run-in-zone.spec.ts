@@ -1,4 +1,4 @@
-import { runInZone } from '../run-in-zone';
+import { runInZone } from '@tethys/cdk/behaviors';
 import { Subject } from 'rxjs';
 import { NgZone } from '@angular/core';
 

@@ -1,12 +1,10 @@
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
-
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
-import { ThyNotifyModule, ThyNotifyService } from '../../notify';
-import { ThyTooltipModule } from '../../tooltip/tooltip.module';
-import { ThyCopyDirective } from '../copy.directive';
+import { ThyNotifyModule, ThyNotifyService } from 'ngx-tethys/notify';
+import { ThyTooltipModule } from 'ngx-tethys/tooltip';
+import { ThyCopyDirective } from 'ngx-tethys/copy';
 import { provideHttpClient } from '@angular/common/http';
 
 describe('thy-copy', () => {

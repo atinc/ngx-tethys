@@ -1,9 +1,8 @@
-import { Component, DebugElement, ViewChild } from '@angular/core';
+import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { ThyActionModule } from '../action.module';
+import { ThyActionModule, ThyActions } from 'ngx-tethys/action';
 import { injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 import { By } from '@angular/platform-browser';
-import { ThyActions } from '../actions.component';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({

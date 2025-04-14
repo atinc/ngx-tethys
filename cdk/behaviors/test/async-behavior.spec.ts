@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { asyncBehavior } from '../async-behavior';
+import { asyncBehavior } from '@tethys/cdk/behaviors';
 import { Subject } from 'rxjs';
 import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
 

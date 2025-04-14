@@ -1,18 +1,10 @@
 import { ThyInputNumber } from 'ngx-tethys/input-number';
 import { dispatchEvent, dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
-
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-
-import { ThyColor } from '../helpers/color.class';
-import { ThyColorPickerModule } from '../module';
-import { ThyAlpha } from '../parts/alpha/alpha.component';
-import { ThyHue } from '../parts/hue/hue.component';
-import { ThyIndicator } from '../parts/indicator/indicator.component';
-import { ThyColorInputs } from '../parts/inputs/inputs.component';
-import { ThySaturation } from '../parts/saturation/saturation.component';
+import { ThyColor, ThyColorPickerModule, ThyAlpha, ThyHue, ThyIndicator, ThyColorInputs, ThySaturation } from 'ngx-tethys/color-picker';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 

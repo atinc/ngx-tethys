@@ -11,7 +11,7 @@ import {
     isObject,
     isString,
     isTemplateRef
-} from './index';
+} from '@tethys/cdk';
 
 const falsey = [, null, undefined, false, 0, NaN, ''];
 const empties = [[], {}].concat(falsey.slice(1));

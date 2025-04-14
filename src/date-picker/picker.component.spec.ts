@@ -9,7 +9,7 @@ import { By } from '@angular/platform-browser';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { dispatchKeyboardEvent } from 'ngx-tethys/testing';
 import { ENTER, TinyDate } from 'ngx-tethys/util';
-import { ThyPicker } from './picker.component';
+import { ThyPicker } from 'ngx-tethys/date-picker';
 
 class CdkOverlayOriginSpy {
     elementRef: ElementRef;

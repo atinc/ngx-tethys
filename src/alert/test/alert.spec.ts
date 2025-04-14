@@ -1,16 +1,14 @@
 import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ThyAlertModule } from '../alert.module';
-import { NgModule, Component, ViewChild, TemplateRef, DebugElement } from '@angular/core';
+import { ThyAlert, ThyAlertModule, ThyAlertActionItemDirective } from 'ngx-tethys/alert';
+import { Component, ViewChild, TemplateRef, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { ThyAlert } from '../alert.component';
 import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 import { provideHttpClient } from '@angular/common/http';
-import { ThyAlertActionItemDirective } from '../alert.directive';
 
 describe('ThyAlert', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyAlertModule, AlertTestModule],
+            imports: [ThyAlertModule],
             providers: [bypassSanitizeProvider, provideHttpClient()]
         });
         TestBed.compileComponents();
@@ -198,9 +196,3 @@ class ThyDemoAlertComponent {
     close = false;
     @ViewChild('messageTemplateRef', { static: true }) messageRef: TemplateRef<HTMLElement>;
 }
-
-@NgModule({
-    imports: [ThyAlertModule, ThyDemoAlertComponent],
-    exports: [ThyDemoAlertComponent]
-})
-export class AlertTestModule {}

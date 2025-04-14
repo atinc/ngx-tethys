@@ -1,4 +1,3 @@
-import { ThyCascader } from 'ngx-tethys/cascader';
 import { EXPANDED_DROPDOWN_POSITIONS } from 'ngx-tethys/core';
 import { dispatchFakeEvent, typeInElement } from 'ngx-tethys/testing';
 import { SafeAny } from 'ngx-tethys/types';
@@ -13,16 +12,17 @@ import { Component, DebugElement, ViewChild } from '@angular/core';
 import { ComponentFixture, ComponentFixtureAutoDetect, TestBed, fakeAsync, flush, inject, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { clone } from '../examples/cascader-address-options';
-import { ThyCascaderModule } from '../module';
-import { ThyCascaderExpandTrigger, ThyCascaderTriggerType } from '../types';
+import { ThyCascaderModule, ThyCascaderExpandTrigger, ThyCascaderTriggerType, ThyCascader } from 'ngx-tethys/cascader';
 import { ThyFlexibleTextModule } from 'ngx-tethys/flexible-text';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { provideHttpClient } from '@angular/common/http';
 
 registerLocaleData(zh);
+
+function clone(obj: any) {
+    return JSON.parse(JSON.stringify(obj));
+}
 
 const customerOptions = [
     {

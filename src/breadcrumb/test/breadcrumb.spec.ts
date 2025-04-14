@@ -1,12 +1,9 @@
 import { fakeAsync, TestBed, ComponentFixture } from '@angular/core/testing';
-import { ThyBreadcrumbModule } from '../module';
+import { ThyBreadcrumbModule, ThyBreadcrumbItem, ThyBreadcrumb } from 'ngx-tethys/breadcrumb';
 import { Component, DebugElement } from '@angular/core';
-import { ThyBreadcrumbItem } from '../breadcrumb-item.component';
 import { By } from '@angular/platform-browser';
-import { ThyBreadcrumb } from '../breadcrumb.component';
-import { ThyIconModule } from './../../icon/icon.module';
+import { ThyIcon, ThyIconModule } from 'ngx-tethys/icon';
 import { provideHttpClient } from '@angular/common/http';
-import { ThyIcon } from '../../icon/icon.component';
 
 @Component({
     selector: 'thy-demo-breadcrumb-basic',

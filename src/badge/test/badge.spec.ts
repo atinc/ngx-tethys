@@ -1,7 +1,6 @@
 import { Component, OnInit, DebugElement } from '@angular/core';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { ThyBadgeModule } from '../badge.module';
-import { ThyBadge } from '../badge.component';
+import { ThyBadgeModule, ThyBadge } from 'ngx-tethys/badge';
 import { By } from '@angular/platform-browser';
 
 @Component({

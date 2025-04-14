@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { useElementRenderer } from '../element-renderer';
+import { useElementRenderer } from '@tethys/cdk/dom';
 
 @Component({
     selector: 'thy-dom-use-element-renderer-test',

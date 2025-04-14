@@ -9,12 +9,14 @@ import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform
 import { ThyDialogModule } from 'ngx-tethys/dialog';
 import { ThyPopover, ThyPopoverModule, ThyPopoverRef } from 'ngx-tethys/popover';
 import { dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing';
-import { ThyColorPickerCustomPanel } from '../color-picker-custom-panel.component';
-import { ThyColorPickerPanel } from '../color-picker-panel.component';
-import { ThyColorPickerDirective } from '../color-picker.component';
+import {
+    ThyColorPickerCustomPanel,
+    ThyColorPickerPanel,
+    ThyColorPickerDirective,
+    ThyColorPickerModule,
+    ThyColor
+} from 'ngx-tethys/color-picker';
 import { ThyCoordinatesDirective } from '../coordinates.directive';
-import { ThyColor } from '../helpers/color.class';
-import { ThyColorPickerModule } from '../module';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({

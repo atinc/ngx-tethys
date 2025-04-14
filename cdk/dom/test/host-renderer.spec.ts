@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HostRenderer, useHostRenderer } from '../host-renderer';
+import { HostRenderer, useHostRenderer } from '@tethys/cdk/dom';
 
 @Component({
     selector: 'thy-dom-host-renderer-test',

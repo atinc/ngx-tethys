@@ -3,10 +3,10 @@ import {
     buildConnectedPositionPair,
     getFallbackPlacements,
     getFlexiblePositions,
-    getPlacementByPosition
-} from './utils';
-import { POSITION_MAP } from './overlay-position-map';
-import { ThyPlacement } from './interface';
+    getPlacementByPosition,
+    POSITION_MAP,
+    ThyPlacement
+} from 'ngx-tethys/core';
 
 describe(`overlay`, () => {
     const allPlacements: ThyPlacement[] = [

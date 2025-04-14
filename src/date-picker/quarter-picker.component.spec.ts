@@ -7,9 +7,8 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyLocaleType } from 'ngx-tethys/i18n';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
-import { TinyDate } from '../util';
-import { ThyDatePickerModule } from './date-picker.module';
-import { ThyQuarterPicker } from './quarter-picker.component';
+import { TinyDate } from 'ngx-tethys/util';
+import { ThyDatePickerModule, ThyQuarterPicker } from 'ngx-tethys/date-picker';
 
 describe('ThyQuarterPickerComponent', () => {
     let fixture: ComponentFixture<TestQuarterPickerComponent>;

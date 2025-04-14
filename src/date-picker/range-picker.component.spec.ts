@@ -8,14 +8,18 @@ import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-
 import { provideHttpClient } from '@angular/common/http';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TinyDate } from 'ngx-tethys/util';
-import { THY_DATE_PICKER_CONFIG } from './date-picker.config';
-import { ThyDatePickerModule } from './date-picker.module';
-import { DatePopup } from './lib/popups/date-popup.component';
-import { CompatiblePresets, ThyDateRangeEntry, ThyPanelMode, ThyShortcutPosition } from './standard-types';
+import {
+    THY_DATE_PICKER_CONFIG,
+    ThyDatePickerModule,
+    DatePopup,
+    CompatiblePresets,
+    ThyDateRangeEntry,
+    ThyPanelMode,
+    ThyShortcutPosition
+} from 'ngx-tethys/date-picker';
 
 registerLocaleData(zh);
 

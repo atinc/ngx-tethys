@@ -3,11 +3,9 @@ import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testin
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
-import { ThyScrollService } from '../../core/scroll';
-import { getOffset } from '../../util/dom';
-import { ThyAnchorLink } from '../anchor-link.component';
-import { ThyAnchor } from '../anchor.component';
-import { ThyAnchorModule } from '../anchor.module';
+import { ThyScrollService } from 'ngx-tethys/core';
+import { getOffset } from 'ngx-tethys/util';
+import { ThyAnchorModule, ThyAnchor, ThyAnchorLink } from 'ngx-tethys/anchor';
 
 describe('thy-anchor', () => {
     describe('default', () => {

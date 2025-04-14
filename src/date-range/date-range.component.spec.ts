@@ -21,9 +21,8 @@ import {
     startOfQuarter
 } from 'date-fns';
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
-import { addDays, addYears, endOfDay, endOfYear, startOfDay, startOfWeek, startOfYear } from '../util';
-import { DateRangeItemInfo } from './date-range.class';
-import { ThyDateRangeModule } from './module';
+import { addDays, addYears, endOfDay, endOfYear, startOfDay, startOfWeek, startOfYear } from 'ngx-tethys/util';
+import { DateRangeItemInfo, ThyDateRangeModule } from 'ngx-tethys/date-range';
 
 registerLocaleData(zh);
 

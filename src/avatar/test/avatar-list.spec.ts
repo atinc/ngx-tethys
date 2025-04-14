@@ -1,11 +1,10 @@
 import { Component, DebugElement, OnInit } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyAvatarList, ThyAvatarListMode } from '../avatar-list/avatar-list.component';
-import { ThyAvatar } from '../avatar.component';
-import { ThyAvatarModule } from '../avatar.module';
+import { ThyAvatarList, ThyAvatarListMode, ThyAvatar, ThyAvatarModule } from 'ngx-tethys/avatar';
 import { provideHttpClient } from '@angular/common/http';
 import { NgStyle } from '@angular/common';
+
 const userNameList = [{ name: 'Abigail' }, { name: 'Belle' }, { name: 'Camilla' }, { name: 'Abigail' }, { name: 'Belle' }];
 
 @Component({

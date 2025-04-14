@@ -1,10 +1,7 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { ThyCardModule } from '../card.module';
 import { Component, OnInit, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { ThyCard } from '../card.component';
-import { ThyCardContent } from '../content.component';
-import { ThyCardHeader } from '../header.component';
+import { ThyCardModule, ThyCard, ThyCardContent, ThyCardHeader } from 'ngx-tethys/card';
 
 @Component({
     selector: 'thy-card-test-basic',

@@ -2,8 +2,7 @@ import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { DecadeTable } from './lib/decade/decade-table.component';
-import { LibPackerModule } from './lib/lib-packer.module';
+import { DecadeTable, LibPackerModule } from 'ngx-tethys/date-picker';
 
 describe('DecadeTableComponent', () => {
     let fixture: ComponentFixture<ThyTestDecadeTableComponent>;

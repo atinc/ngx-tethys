@@ -1,6 +1,6 @@
 import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
 import { createKeyboardEvent } from '@tethys/cdk/testing';
-import { ThyHotkeyDispatcher } from '../hotkey-dispatcher';
+import { ThyHotkeyDispatcher } from '@tethys/cdk';
 
 const controlEnterCode = 'Control+Enter';
 const metaEnterCode = 'Meta+Enter';

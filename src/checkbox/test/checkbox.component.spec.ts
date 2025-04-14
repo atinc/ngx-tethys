@@ -2,9 +2,7 @@ import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-
-import { ThyCheckbox } from '../checkbox.component';
-import { ThyCheckboxModule } from '../module';
+import { ThyCheckboxModule, ThyCheckbox } from 'ngx-tethys/checkbox';
 
 @Component({
     selector: 'thy-radio-test',

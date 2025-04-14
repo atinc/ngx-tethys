@@ -1,5 +1,5 @@
 import { createKeyboardEvent } from '@tethys/cdk/testing';
-import { hotkey, isHotkey } from '../hotkey';
+import { hotkey, isHotkey } from '@tethys/cdk';
 
 describe('hotkey', () => {
     describe('#hotkey', () => {

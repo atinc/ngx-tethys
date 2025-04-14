@@ -1,15 +1,11 @@
 import { endOfMonth, startOfMonth } from 'date-fns';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
 import { getUnixTime, TinyDate } from 'ngx-tethys/util';
-
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-
-import { ThyCalendarHeader } from '../calendar-header.component';
-import { ThyCalendar } from '../calendar.component';
-import { ThyCalendarModule } from '../module';
+import { ThyCalendarHeader, ThyCalendar, ThyCalendarModule } from 'ngx-tethys/calendar';
 import { provideHttpClient } from '@angular/common/http';
 import { DateRangeItemInfo } from 'ngx-tethys/date-range';
 

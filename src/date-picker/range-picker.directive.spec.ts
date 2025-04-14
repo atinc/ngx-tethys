@@ -9,10 +9,8 @@ import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/cor
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
-
 import { ThyPropertyOperation, ThyPropertyOperationModule } from 'ngx-tethys/property-operation';
-import { ThyDatePickerModule } from './date-picker.module';
-import { CompatiblePresets, ThyDateRangeEntry, ThyShortcutPosition } from './standard-types';
+import { CompatiblePresets, ThyDatePickerModule, ThyDateRangeEntry, ThyShortcutPosition } from 'ngx-tethys/date-picker';
 import { provideHttpClient } from '@angular/common/http';
 
 registerLocaleData(zh);

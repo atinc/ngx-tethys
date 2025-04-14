@@ -1,6 +1,5 @@
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
-
 import { AnimationEvent } from '@angular/animations';
 import { Overlay, OverlayConfig, OverlayContainer, OverlayModule, OverlayRef, ScrollStrategy } from '@angular/cdk/overlay';
 import { CdkPortalOutlet, ComponentPortal, PortalModule } from '@angular/cdk/portal';
@@ -21,13 +20,17 @@ import {
 } from '@angular/core';
 import { TestBed, fakeAsync, flush, inject } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
-import { ThyClickPositioner } from '../../click-positioner';
-import { ThyAbstractOverlayContainer } from '../../overlay/abstract-overlay-container';
-import { ThyAbstractInternalOverlayRef, ThyAbstractOverlayRef } from '../../overlay/abstract-overlay-ref';
-import { ThyAbstractOverlayConfig, ThyAbstractOverlayOptions, ThyAbstractOverlayPosition } from '../../overlay/abstract-overlay.config';
-import { ComponentTypeOrTemplateRef, ThyAbstractOverlayService } from '../../overlay/abstract-overlay.service';
-import { helpers } from '../../../util';
+import {
+    ThyAbstractOverlayContainer,
+    ThyAbstractInternalOverlayRef,
+    ThyAbstractOverlayRef,
+    ThyAbstractOverlayConfig,
+    ThyAbstractOverlayOptions,
+    ThyAbstractOverlayPosition,
+    ComponentTypeOrTemplateRef,
+    ThyAbstractOverlayService
+} from 'ngx-tethys/core';
+import { helpers } from 'ngx-tethys/util';
 
 const overlayWrapperClass = '.cdk-global-overlay-wrapper';
 const dialogPaneClass = '.dialog-overlay-pane';
