@@ -27,8 +27,7 @@ describe('ThyRangePickerDirective', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [FormsModule, ThyDatePickerModule, ThyPropertyOperationModule, BrowserAnimationsModule, NoopAnimationsModule],
-            providers: [provideHttpClient()],
-            declarations: [ThyTestRangePickerComponent]
+            providers: [provideHttpClient()]
         });
 
         TestBed.compileComponents();
@@ -218,7 +217,7 @@ describe('ThyRangePickerDirective', () => {
             (ngModelChange)="modelValueChange($event)"
             (thyOpenChange)="thyOpenChange($event)"></thy-property-operation>
     `,
-    standalone: false
+    imports: [ThyPropertyOperationModule, ThyDatePickerModule, FormsModule]
 })
 class ThyTestRangePickerComponent {
     modelValue: ThyDateRangeEntry;
