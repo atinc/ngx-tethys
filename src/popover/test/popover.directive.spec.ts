@@ -1,14 +1,13 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { Component, DebugElement, ElementRef, NgModule, ViewChild, inject as coreInject } from '@angular/core';
+import { Component, DebugElement, ElementRef, ViewChild, inject as coreInject } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush, inject, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing';
-import { ThyPlacement } from '../../core/overlay/interface';
-import { ThyPopoverModule } from '../module';
-import { ThyPopoverDirective } from '../popover.directive';
+import { ThyPlacement } from 'ngx-tethys/core';
+import { ThyPopoverModule, ThyPopoverDirective } from 'ngx-tethys/popover';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({
@@ -42,12 +41,6 @@ class ThyDemoVisiblePopoverComponent {
     };
 }
 
-@NgModule({
-    imports: [ThyPopoverModule, ThyDemoVisiblePopoverComponent],
-    exports: []
-})
-export class TooltipTestModule {}
-
 describe(`ThyTooltip`, () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
@@ -56,7 +49,7 @@ describe(`ThyTooltip`, () => {
     beforeEach(fakeAsync(() => {
         platform = { IOS: false, isBrowser: true, ANDROID: false };
         TestBed.configureTestingModule({
-            imports: [TooltipTestModule, NoopAnimationsModule],
+            imports: [ThyPopoverModule, NoopAnimationsModule],
             providers: [provideHttpClient(), { provide: Platform, useFactory: () => platform }]
         });
 
@@ -207,12 +200,6 @@ class TestPopoverDirectiveClickComponent {
     disabled = false;
 }
 
-@NgModule({
-    imports: [ThyPopoverModule, TestPopoverDirectiveClickComponent],
-    exports: []
-})
-export class PopoverTestModule {}
-
 describe(`ThyPopoverDirective`, () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
@@ -229,7 +216,7 @@ describe(`ThyPopoverDirective`, () => {
     beforeEach(fakeAsync(() => {
         platform = { IOS: false, isBrowser: true, ANDROID: false };
         TestBed.configureTestingModule({
-            imports: [PopoverTestModule, NoopAnimationsModule],
+            imports: [ThyPopoverModule, NoopAnimationsModule],
             providers: [provideHttpClient(), { provide: Platform, useFactory: () => platform }]
         });
 

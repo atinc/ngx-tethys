@@ -2,8 +2,7 @@ import { ApplicationRef, Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { dispatchEvent, dispatchFakeEvent } from 'ngx-tethys/testing';
-
-import { ThySharedModule } from '../shared.module';
+import { ThySharedModule } from 'ngx-tethys/shared';
 
 @Component({
     template: `

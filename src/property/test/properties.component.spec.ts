@@ -1,22 +1,23 @@
-import { ThySelectModule } from 'ngx-tethys/select';
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { SafeAny } from 'ngx-tethys/types';
-
-import { Overlay, OverlayModule, OverlayOutsideClickDispatcher } from '@angular/cdk/overlay';
+import { Overlay, OverlayOutsideClickDispatcher } from '@angular/cdk/overlay';
 import { DomPortal } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, NgModule, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
-import { ThyPropertyModule } from '../module';
-import { ThyProperties, ThyPropertiesLayout } from '../properties.component';
-import { ThyPropertyItem, ThyPropertyItemOperationTrigger } from '../property-item.component';
+import {
+    ThyPropertyModule,
+    ThyProperties,
+    ThyPropertiesLayout,
+    ThyPropertyItem,
+    ThyPropertyItemOperationTrigger
+} from 'ngx-tethys/property';
 import { provideHttpClient } from '@angular/common/http';
-import { ThySelect } from '../../select/custom-select/custom-select.component';
-import { ThyOption } from '../../shared/option/option.component';
+import { ThySelect } from 'ngx-tethys/select';
+import { ThyOption } from 'ngx-tethys/shared';
 
 @Component({
     selector: 'thy-properties-test-basic',
@@ -119,21 +120,6 @@ class ThyPropertiesTestOperationComponent {
     operationTrigger: ThyPropertyItemOperationTrigger = 'always';
 }
 
-@NgModule({
-    imports: [
-        ThyPropertyModule,
-        CommonModule,
-        FormsModule,
-        ThySelectModule,
-        OverlayModule,
-        ThyPropertiesTestBasicComponent,
-        ThyPropertiesTestColumnComponent,
-        ThyPropertiesTestOperationComponent
-    ],
-    exports: []
-})
-export class PropertiesTestModule {}
-
 describe(`thy-properties`, () => {
     describe(`basic`, () => {
         let fixture: ComponentFixture<ThyPropertiesTestBasicComponent>;
@@ -141,7 +127,7 @@ describe(`thy-properties`, () => {
 
         beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
-                imports: [ThyPropertyModule, NoopAnimationsModule, CommonModule, PropertiesTestModule],
+                imports: [ThyPropertyModule, NoopAnimationsModule, CommonModule],
                 providers: [provideHttpClient()]
             });
             TestBed.compileComponents();
@@ -293,7 +279,7 @@ describe(`thy-properties`, () => {
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                imports: [ThyPropertyModule, NoopAnimationsModule, PropertiesTestModule],
+                imports: [ThyPropertyModule, NoopAnimationsModule],
                 providers: [provideHttpClient()]
             });
             TestBed.compileComponents();

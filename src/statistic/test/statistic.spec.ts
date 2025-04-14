@@ -1,19 +1,20 @@
-import { fakeAsync, TestBed, ComponentFixture } from '@angular/core/testing';
-import { ThyStatisticModule } from '../statistic.module';
-import { NgModule, Component } from '@angular/core';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { ThyStatistic } from '../statistic.component';
+import { ThyStatistic, ThyStatisticShape, ThyStatisticTitlePosition, ThyStatisticModule } from 'ngx-tethys/statistic';
+
 describe('thy-statistic', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [StatisticTestModule]
+            imports: [ThyStatisticModule]
         });
         TestBed.compileComponents();
     });
+
     describe('thy-statistic-basic', () => {
         let fixture: ComponentFixture<ThyDemoStatisticBasicComponent>;
         let basicTestComponent: ThyDemoStatisticBasicComponent;
-        let statisticComponent;
+        let statisticComponent: DebugElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyDemoStatisticBasicComponent);
@@ -93,7 +94,7 @@ describe('thy-statistic', () => {
     describe('thy-statistic-template', () => {
         let fixture: ComponentFixture<ThyDemoStatisticTemplateComponent>;
         let templateTestComponent: ThyDemoStatisticTemplateComponent;
-        let statisticComponent;
+        let statisticComponent: DebugElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyDemoStatisticTemplateComponent);
@@ -183,10 +184,10 @@ class ThyDemoStatisticBasicComponent {
     thyTitle = '价值';
     thyPrefix = '$';
     thyColor = 'primary';
-    thyShape = undefined;
-    thySuffix = undefined;
-    thyValueStyle = undefined;
-    thyTitlePosition = 'bottom';
+    thyShape: ThyStatisticShape = undefined;
+    thySuffix: string = undefined;
+    thyValueStyle: { [key: string]: string } = undefined;
+    thyTitlePosition: ThyStatisticTitlePosition = 'bottom';
 }
 
 @Component({
@@ -218,14 +219,3 @@ class ThyDemoStatisticTemplateComponent {
     imports: [ThyStatistic]
 })
 class ThyDemoStatisticTemplateOutsideComponent {}
-
-@NgModule({
-    imports: [
-        ThyStatisticModule,
-        ThyDemoStatisticBasicComponent,
-        ThyDemoStatisticTemplateComponent,
-        ThyDemoStatisticTemplateOutsideComponent
-    ],
-    exports: [ThyDemoStatisticBasicComponent, ThyDemoStatisticTemplateComponent, ThyDemoStatisticTemplateOutsideComponent]
-})
-export class StatisticTestModule {}

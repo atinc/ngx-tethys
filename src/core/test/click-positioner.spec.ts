@@ -1,6 +1,6 @@
-import { inject, TestBed, fakeAsync, ComponentFixture, tick, flushMicrotasks, flush } from '@angular/core/testing';
-import { NgModule, Component, ViewChild, ElementRef, OnDestroy, inject as coreInject } from '@angular/core';
-import { ThyClickPositioner } from '../click-positioner';
+import { inject, TestBed, fakeAsync, ComponentFixture, flush } from '@angular/core/testing';
+import { NgModule, Component, OnDestroy, inject as coreInject } from '@angular/core';
+import { ThyClickPositioner } from 'ngx-tethys/core';
 import { Subscription, Observable } from 'rxjs';
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 

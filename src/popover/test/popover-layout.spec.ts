@@ -3,8 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
-import { ThyPopoverBody, ThyPopoverHeader } from '../index';
-import { ThyPopoverModule } from '../module';
+import { ThyPopoverBody, ThyPopoverHeader, ThyPopoverModule } from 'ngx-tethys/popover';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({

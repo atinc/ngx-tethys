@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { TestBed, waitForAsync, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyTagColor, ThyTagShape } from '../tag.component';
-import { ThyTagModule } from '../tag.module';
+import { ThyTagColor, ThyTagShape, ThyTagModule } from 'ngx-tethys/tag';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { provideHttpClient } from '@angular/common/http';
+
 @Component({
     selector: 'thy-tag-basic-test',
     template: `

@@ -2,8 +2,14 @@ import { Component, DebugElement, OnInit, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
-import { ThyCarousel, ThyCarouselPause, ThyCarouselModule, ThyCarouselEffect, ThyCarouselTrigger } from 'ngx-tethys/carousel';
-import { ThyCarouselItemDirective } from 'ngx-tethys/carousel';
+import {
+    ThyCarousel,
+    ThyCarouselPause,
+    ThyCarouselModule,
+    ThyCarouselEffect,
+    ThyCarouselTrigger,
+    ThyCarouselItemDirective
+} from 'ngx-tethys/carousel';
 import { mouseSwipe, touchSwipe, windowResize } from './carousel-events';
 import { provideHttpClient } from '@angular/common/http';
 

@@ -1,12 +1,10 @@
-import { Component, DebugElement, NgModule } from '@angular/core';
+import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { createDragEvent } from 'ngx-tethys/testing';
-import { MIME_Map } from '../constant';
-import { ThyFileDropDirective } from '../file-drop.directive';
-import { ThyUploadModule } from '../module';
-import { ThySizeExceedsHandler } from '../types';
+import { ThyFileDropDirective, ThyUploadModule, ThySizeExceedsHandler } from 'ngx-tethys/upload';
 import { createFile } from './utils';
+import { MIME_Map } from '../constant';
 
 @Component({
     selector: 'test-file-drop-demo',
@@ -44,12 +42,6 @@ class FileDropBasicComponent {
     };
 }
 
-@NgModule({
-    imports: [ThyUploadModule, FileDropBasicComponent],
-    exports: [FileDropBasicComponent]
-})
-export class FileUploaderTestModule {}
-
 describe('thyFileDrop', () => {
     let fixture: ComponentFixture<FileDropBasicComponent>;
     let testComponent: FileDropBasicComponent;
@@ -58,7 +50,7 @@ describe('thyFileDrop', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyUploadModule, FileUploaderTestModule],
+            imports: [ThyUploadModule],
             providers: []
         });
         TestBed.compileComponents();

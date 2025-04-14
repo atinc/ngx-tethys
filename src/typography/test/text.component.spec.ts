@@ -3,8 +3,7 @@ import { TestBed, waitForAsync, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { isBgColor, isThemeColor, ThyBgColor, ThyTextColor, ThyThemeColor } from 'ngx-tethys/core';
 import { ThyIconModule } from 'ngx-tethys/icon';
-import { ThyTypographyModule } from '../module';
-import { ThyBackgroundColorDirective } from 'ngx-tethys/typography';
+import { ThyBackgroundColorDirective, ThyTypographyModule } from 'ngx-tethys/typography';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({

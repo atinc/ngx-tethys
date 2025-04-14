@@ -1,16 +1,19 @@
 import { ThySwitch } from 'ngx-tethys/switch';
 import { createFakeEvent, dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
-
-import { ApplicationRef, Component, DebugElement, NgModule, TemplateRef, ViewChild } from '@angular/core';
+import { ApplicationRef, Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-import { ThyTable } from '../table.component';
-import { ThyPage, ThyTableDraggableEvent, ThyTableSortDirection } from '../table.interface';
-import { ThyTableModule } from '../table.module';
+import {
+    ThyPage,
+    ThyTableDraggableEvent,
+    ThyTableSortDirection,
+    ThyTable,
+    ThyTableModule,
+    ThyTableColumnComponent
+} from 'ngx-tethys/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
-import { ThyTableColumnComponent } from '../table-column.component';
+import { SafeAny } from 'ngx-tethys/types';
 
 @Component({
     selector: 'thy-demo-default-table',
@@ -202,12 +205,6 @@ class ThyDemoDefaultTableComponent {
     }
 }
 
-@NgModule({
-    imports: [ThyTableModule, ThyDemoDefaultTableComponent],
-    exports: [ThyDemoDefaultTableComponent]
-})
-export class TableTestModule {}
-
 describe('ThyTable: basic', () => {
     let fixture: ComponentFixture<ThyDemoDefaultTableComponent>;
     let testComponent: ThyDemoDefaultTableComponent;
@@ -217,7 +214,7 @@ describe('ThyTable: basic', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyTableModule, TableTestModule, NoopAnimationsModule],
+            imports: [ThyTableModule, NoopAnimationsModule],
             providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
@@ -710,7 +707,7 @@ describe('ThyTable: basic', () => {
             }
         `
     ],
-    imports: [ThyTableModule, TableTestModule]
+    imports: [ThyTableModule]
 })
 class ThyDemoGroupTableComponent {
     @ViewChild('table') innerTable: ThyTable;
@@ -807,11 +804,10 @@ describe('ThyTable: group', () => {
     let tableComponent: DebugElement;
     let table: HTMLElement;
     let rows: any;
-    let dragDropEvent;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyTableModule, TableTestModule, NoopAnimationsModule, ThyDemoGroupTableComponent],
+            imports: [ThyTableModule, NoopAnimationsModule, ThyDemoGroupTableComponent],
             providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
@@ -1023,7 +1019,7 @@ describe('ThyTable: group', () => {
     imports: [ThyTableModule]
 })
 class ThyDemoEmptyTableComponent {
-    model = [];
+    model: object[] = [];
 
     pagination = {
         index: 1,
@@ -1035,7 +1031,7 @@ class ThyDemoEmptyTableComponent {
     isRowSelect = false;
     tableClassName = 'class-name';
     tableRowClassName = 'row-class-name';
-    selections = [];
+    selections: SafeAny[] = [];
     theme = 'default';
     isLoadingDone = true;
     loadingText = 'loading now';

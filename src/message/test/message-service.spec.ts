@@ -1,9 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild, inject as coreInject } from '@angular/core';
 import { TestBed, ComponentFixture, fakeAsync, flush, inject, tick } from '@angular/core/testing';
-import { ThyMessageModule } from '../module';
-import { ThyMessageService } from '../message.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ThyMessageConfig, ThyMessageType } from '../message.config';
+import { ThyMessageConfig, ThyMessageService, ThyMessageModule } from 'ngx-tethys/message';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { provideHttpClient } from '@angular/common/http';

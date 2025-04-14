@@ -1,9 +1,7 @@
-import { Component, DebugElement, NgModule, OnInit, TemplateRef, ViewChild } from '@angular/core';
-
+import { Component, DebugElement, OnInit, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyWatermarkDirective } from '../watermark.directive';
-import { ThyWatermarkModule } from '../watermark.module';
+import { ThyWatermarkDirective, ThyWatermarkModule } from 'ngx-tethys/watermark';
 
 @Component({
     selector: 'thy-test-watermark-basic',
@@ -27,12 +25,6 @@ class ThyTestWatermarkBasicComponent implements OnInit {
     ngOnInit(): void {}
 }
 
-@NgModule({
-    imports: [ThyWatermarkModule, ThyTestWatermarkBasicComponent],
-    exports: []
-})
-export class WatermarkTestModule {}
-
 describe('WatermarkDirective', () => {
     let fixture: ComponentFixture<ThyTestWatermarkBasicComponent>;
     let divDebugElement: DebugElement;
@@ -41,7 +33,7 @@ describe('WatermarkDirective', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [WatermarkTestModule],
+            imports: [ThyWatermarkModule],
             providers: []
         }).compileComponents();
 

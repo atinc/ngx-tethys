@@ -1,8 +1,7 @@
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyListModule } from '../list.module';
-import { ThyList } from '../list.component';
+import { ThyListModule, ThyList } from 'ngx-tethys/list';
 import { provideHttpClient } from '@angular/common/http';
 
 describe('list', () => {

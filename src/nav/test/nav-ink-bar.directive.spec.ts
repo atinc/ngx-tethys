@@ -6,12 +6,11 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { Router, RouterLinkActive, RouterModule, Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { dispatchFakeEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
-import { ThyBadgeModule } from '../../badge';
-import { ThyIconModule } from '../../icon';
-import { ThyNavInkBarDirective } from '../nav-ink-bar.directive';
-import { ThyNavSize, ThyNavType } from '../nav.component';
-import { ThyNavModule } from '../nav.module';
+import { ThyBadgeModule } from 'ngx-tethys/badge';
+import { ThyIconModule } from 'ngx-tethys/icon';
+import { ThyNavSize, ThyNavType, ThyNavModule } from 'ngx-tethys/nav';
 import { provideHttpClient } from '@angular/common/http';
+import { ThyNavInkBarDirective } from '../nav-ink-bar.directive';
 
 @Component({
     selector: 'app-nav-ink-bar',

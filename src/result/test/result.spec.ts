@@ -1,19 +1,16 @@
-import { CommonModule } from '@angular/common';
-import { Component, NgModule } from '@angular/core';
+import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-import { ThyResult } from '../result.component';
-import { ThyResultModule } from '../result.module';
+import { ThyResult, ThyResultModule } from 'ngx-tethys/result';
 
 describe('ThyResult', () => {
     let fixture: ComponentFixture<ThyResultDemoComponent>;
     let testComponent: ThyResultDemoComponent;
-    let thyResultComponent;
+    let thyResultComponent: DebugElement;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyResultModule, ThyResultTestModule],
+            imports: [ThyResultModule],
             providers: []
         });
         TestBed.compileComponents();
@@ -76,9 +73,3 @@ describe('ThyResult', () => {
     imports: [ThyResult]
 })
 class ThyResultDemoComponent {}
-
-@NgModule({
-    imports: [CommonModule, ThyResultModule, ThyResultDemoComponent],
-    exports: [ThyResultDemoComponent]
-})
-export class ThyResultTestModule {}

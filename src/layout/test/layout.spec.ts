@@ -1,6 +1,5 @@
 import { Component, DebugElement } from '@angular/core';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { ThyLayoutModule } from '../layout.module';
 import { By } from '@angular/platform-browser';
 import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing';
 import { provideHttpClient } from '@angular/common/http';

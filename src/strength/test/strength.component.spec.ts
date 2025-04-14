@@ -1,12 +1,9 @@
 import { ThyButtonModule } from 'ngx-tethys/button';
-
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-
-import { ThyStrength } from '../strength.component';
-import { ThyStrengthModule } from '../strength.module';
+import { ThyStrength, ThyStrengthModule } from 'ngx-tethys/strength';
 
 @Component({
     selector: 'thy-strength-basic-test',

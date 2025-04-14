@@ -1,12 +1,10 @@
 import { ThyGridModule } from 'ngx-tethys/grid';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
-
 import { ApplicationRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DEFAULT_RESIZE_DIRECTION, ThyResizableDirective, ThyResizeEvent } from '../index';
-import { ThyResizableModule } from '../module';
+import { ThyResizableModule, DEFAULT_RESIZE_DIRECTION, ThyResizableDirective, ThyResizeEvent } from 'ngx-tethys/resizable';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({

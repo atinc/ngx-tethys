@@ -1,6 +1,6 @@
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ThySliderModule } from './slider.module';
+import { ThySliderModule } from 'ngx-tethys/slider';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { Component, DebugElement, ViewEncapsulation } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';

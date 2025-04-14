@@ -3,7 +3,6 @@ import { dispatchFakeEvent, typeInElement } from 'ngx-tethys/testing';
 import { SafeAny } from 'ngx-tethys/types';
 import { Subject, of } from 'rxjs';
 import { delay, take } from 'rxjs/operators';
-
 import { OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { CommonModule, registerLocaleData } from '@angular/common';

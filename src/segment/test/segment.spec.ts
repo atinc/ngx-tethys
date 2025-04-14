@@ -2,9 +2,8 @@ import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyAvatarModule } from 'ngx-tethys/avatar';
-import { ThySegment, ThySegmentEvent, ThySegmentItem, ThySegmentModule, ThySegmentSize } from 'ngx-tethys/segment';
+import { ThySegment, ThySegmentEvent, ThySegmentItem, ThySegmentModule, ThySegmentSize, ThySegmentMode } from 'ngx-tethys/segment';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
-import { ThySegmentMode } from '../segment.component';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 

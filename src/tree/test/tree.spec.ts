@@ -1,21 +1,20 @@
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
-
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-
 import { ThyDragDropEvent } from 'ngx-tethys/drag-drop';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { ThyTreeNode, ThyTreeNodeComponent } from 'ngx-tethys/tree';
 import {
+    ThyTree,
+    ThyTreeNode,
+    ThyTreeNodeComponent,
     ThyTreeBeforeDragDropContext,
     ThyTreeBeforeDragStartContext,
     ThyTreeDragDropEvent,
     ThyTreeDropPosition,
     ThyTreeEmitEvent
-} from '../tree.class';
-import { ThyTree } from '../tree.component';
+} from 'ngx-tethys/tree';
 import { bigTreeNodes, treeNodes, hasCheckTreeNodes } from './mock';
 import { CDK_DRAG_CONFIG, DragDropConfig } from '@angular/cdk/drag-drop';
 import { DOCUMENT } from '@angular/common';

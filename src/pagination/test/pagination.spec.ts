@@ -1,7 +1,6 @@
 import { TestBed, ComponentFixture, tick, fakeAsync } from '@angular/core/testing';
 import { Component, ViewChild, TemplateRef, DebugElement } from '@angular/core';
-import { ThyPaginationModule } from '../pagination.module';
-import { ThyPagination } from '../pagination.component';
+import { ThyPaginationModule, ThyPagination } from 'ngx-tethys/pagination';
 import { By } from '@angular/platform-browser';
 import { ENTER } from 'ngx-tethys/util';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing';

@@ -1,21 +1,19 @@
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyListModule } from 'ngx-tethys/list';
 import { ThySelectModule } from 'ngx-tethys/select';
-
 import { Component, DebugElement, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
-import { ThyTransfer } from '../transfer.component';
 import {
+    ThyTransfer,
     ThyTransferChangeEvent,
     ThyTransferDragEvent,
     ThyTransferItem,
     TransferDirection,
-    InnerTransferDragEvent
-} from '../transfer.interface';
-import { ThyTransferModule } from '../transfer.module';
+    InnerTransferDragEvent,
+    ThyTransferModule
+} from 'ngx-tethys/transfer';
 import { provideHttpClient } from '@angular/common/http';
 
 const COUNT = 9;

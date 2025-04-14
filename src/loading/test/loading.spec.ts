@@ -1,8 +1,7 @@
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyLoading } from '..';
-import { ThyLoadingModule } from '../loading.module';
+import { ThyLoading, ThyLoadingModule } from 'ngx-tethys/loading';
 
 @Component({
     selector: `test-loading`,

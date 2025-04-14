@@ -1,8 +1,7 @@
 import { TestBed, ComponentFixture, fakeAsync, flush, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Component, ViewChild } from '@angular/core';
-import { ThySelectControl, SelectControlSize } from './select-control.component';
-import { SelectOptionBase } from '../../option';
+import { ThySelectControl, SelectControlSize, SelectOptionBase } from 'ngx-tethys/shared';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({
@@ -29,11 +28,11 @@ class BasicSelectControlComponent {
 
     thyShowSearch = false;
 
-    selectedOptions = null;
+    selectedOptions: SelectOptionBase | SelectOptionBase[] = null;
 
     thyAllowClear = true;
 
-    thySize = null;
+    thySize: SelectControlSize = null;
 
     thyIsMultiple = false;
 

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, waitForAsync, TestBed, fakeAsync } from '@angular/core/testing';
-import { ThySharedModule } from '../shared.module';
 import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ThySharedModule } from 'ngx-tethys/shared';
 
 @Component({
     selector: 'thy-drag-drop-test',

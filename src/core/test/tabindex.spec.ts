@@ -1,4 +1,4 @@
-import { mixinTabIndex, TabIndexMixinBase } from '../behaviors';
+import { mixinTabIndex, TabIndexMixinBase } from 'ngx-tethys/core';
 
 describe('mixinTabIndex', () => {
     it('should augment an existing class with a tabIndex property', () => {

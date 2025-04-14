@@ -9,21 +9,19 @@ import {
 } from 'ngx-tethys/testing';
 import { fromEvent, Subject, timer } from 'rxjs';
 import { tap } from 'rxjs/operators';
-
 import { Overlay, OverlayContainer, ScrollDispatcher } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { Component, ElementRef, OnInit, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ThyFormModule } from '../../form';
-import { DOWN_ARROW, END, ENTER, ESCAPE, HOME } from '../../util/keycodes';
-import { SelectMode, THY_SELECT_PANEL_MIN_WIDTH, ThySelect, ThySelectOptionModel } from './custom-select.component';
-import { ThySelectModule } from '../module';
-import { THY_SELECT_CONFIG, THY_SELECT_SCROLL_STRATEGY, ThyDropdownWidthMode } from '../select.config';
+import { ThyFormModule } from 'ngx-tethys/form';
+import { DOWN_ARROW, END, ENTER, ESCAPE, HOME } from 'ngx-tethys/util';
+import { ThySelect, THY_SELECT_CONFIG, THY_SELECT_SCROLL_STRATEGY, ThyDropdownWidthMode, ThySelectModule } from 'ngx-tethys/select';
 import { SelectControlSize, ThyOption, ThyOptionModule, ThySelectOptionGroup } from 'ngx-tethys/shared';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { SelectMode, THY_SELECT_PANEL_MIN_WIDTH, ThySelectOptionModel } from './custom-select.component';
 
 interface FoodsInfo {
     value: string | string[];

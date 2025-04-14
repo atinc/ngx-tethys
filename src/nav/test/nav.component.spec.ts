@@ -1,6 +1,5 @@
 import { bypassSanitizeProvider, dispatchFakeEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 import { Subject } from 'rxjs';
-
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, DebugElement, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
@@ -8,11 +7,8 @@ import { By } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { Router, RouterModule, Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-
-import { ThyIconModule } from '../../icon';
-import { ThyNavItemDirective } from '../nav-item.directive';
-import { ThyNav, ThyNavHorizontal, ThyNavSize, ThyNavType } from '../nav.component';
-import { ThyNavModule } from '../nav.module';
+import { ThyIconModule } from 'ngx-tethys/icon';
+import { ThyNavItemDirective, ThyNav, ThyNavHorizontal, ThyNavSize, ThyNavType, ThyNavModule } from 'ngx-tethys/nav';
 import { provideHttpClient } from '@angular/common/http';
 
 const NAV_CLASS = `thy-nav`;

@@ -1,13 +1,9 @@
 import { createFakeEvent } from 'ngx-tethys/testing';
 import { Observable } from 'rxjs';
-
 import { ApplicationRef, Component, DebugElement, NgModule } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-import { ThyFileSelect } from '../file-select.component';
-import { ThyUploadModule } from '../module';
-import { ThyUploadResponse } from '../upload.service';
+import { ThyFileSelect, ThyUploadModule, ThyUploadResponse } from 'ngx-tethys/upload';
 import { createFile } from './utils';
 
 @Component({

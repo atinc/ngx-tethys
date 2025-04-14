@@ -1,7 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ThySharedModule } from '../shared.module';
+import { ThySharedModule } from 'ngx-tethys/shared';
 
 @Component({
     selector: 'thy-shared-view-outlet-template-test',

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { ThyShowDirective } from './thy-show';
+import { ThyShowDirective } from 'ngx-tethys/shared';
 
 @Component({
     selector: 'thy-show-test',

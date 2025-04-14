@@ -4,12 +4,22 @@ import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent } from '@tethys/cdk/testing';
 import { ThyResizableDirective, ThyResizeEvent } from 'ngx-tethys/resizable';
 import { bypassSanitizeProvider, createKeyboardEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
-import { ThyLayout, ThyLayoutDirective } from '../layout.component';
-import { ThyLayoutModule } from '../layout.module';
-import { ThySidebarContent, ThySidebarContentDirective } from '../sidebar-content.component';
-import { ThySidebarFooter, ThySidebarFooterDirective } from '../sidebar-footer.component';
-import { ThySidebarHeader, ThySidebarHeaderDirective } from '../sidebar-header.component';
-import { ThySidebar, ThySidebarDirection, ThySidebarDirective, ThySidebarTheme } from '../sidebar.component';
+import {
+    ThyLayout,
+    ThyLayoutDirective,
+    ThyLayoutModule,
+    ThySidebarContent,
+    ThySidebarContentDirective,
+    ThySidebarFooter,
+    ThySidebarFooterDirective,
+    ThySidebarHeader,
+    ThySidebarHeaderDirective,
+    ThySidebar,
+    ThySidebarDirection,
+    ThySidebarDirective,
+    ThySidebarTheme
+} from 'ngx-tethys/layout';
+
 import { provideHttpClient } from '@angular/common/http';
 
 const SIDEBAR_ISOLATED_CLASS = 'thy-layout-sidebar-isolated';

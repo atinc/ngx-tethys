@@ -1,12 +1,8 @@
 import { ThyIconModule } from 'ngx-tethys/icon';
-
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-import { ThyStep } from '../step.component';
-import { ThyStepper } from '../stepper.component';
-import { ThyStepperModule } from '../stepper.module';
+import { ThyStep, ThyStepper, ThyStepperModule } from 'ngx-tethys/stepper';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 

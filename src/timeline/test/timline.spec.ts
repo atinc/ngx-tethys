@@ -1,8 +1,7 @@
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ThyTimelineModule } from '../timeline.module';
 import { By } from '@angular/platform-browser';
-import { ThyTimeDirection, ThyTimeline } from '../timeline.component';
+import { ThyTimeDirection, ThyTimeline, ThyTimelineModule } from 'ngx-tethys/timeline';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({

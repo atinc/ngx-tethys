@@ -16,19 +16,17 @@ import {
 } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
 import { Subject } from 'rxjs';
-
-import { isArray, isUndefinedOrNull } from '../../util';
-import { ThyPopoverModule } from '../module';
-import { ThyPopoverRef } from '../popover-ref';
+import { isArray, isUndefinedOrNull } from 'ngx-tethys/util';
 import {
+    ThyPopoverModule,
+    ThyPopoverRef,
     THY_POPOVER_DEFAULT_CONFIG,
     THY_POPOVER_DEFAULT_CONFIG_VALUE,
     THY_POPOVER_SCROLL_STRATEGY,
-    ThyPopoverConfig
-} from '../popover.config';
-import { ThyPopover } from '../popover.service';
+    ThyPopoverConfig,
+    ThyPopover
+} from 'ngx-tethys/popover';
 
 @Component({
     selector: 'thy-popover-basic',

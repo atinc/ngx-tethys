@@ -1,14 +1,11 @@
-import { Component, DebugElement, NgModule } from '@angular/core';
+import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyInputGroup } from '../input-group.component';
-import { ThyInputModule } from './../module';
-import { ThyTranslate } from '../../core';
+import { ThyInputGroup, ThyInputDirective, ThyInputCount } from 'ngx-tethys/input';
+import { ThyTranslate } from 'ngx-tethys/core';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
 import { FormsModule } from '@angular/forms';
 import { provideHttpClient } from '@angular/common/http';
-import { ThyInputDirective } from '../input.directive';
-import { ThyInputCount } from '../input-count.component';
 
 @Component({
     selector: 'thy-test-input-group-basic',
@@ -76,18 +73,6 @@ class TestInputGroupTextareaSuffixComponent {
     textareaValue = '';
 }
 
-@NgModule({
-    imports: [
-        ThyInputModule,
-        FormsModule,
-        TestInputGroupBasicComponent,
-        TestInputGroupPrefixAndSuffixComponent,
-        TestInputGroupTextareaSuffixComponent
-    ],
-    exports: []
-})
-export class InputGroupTestModule {}
-
 class ThyTranslateSimulate {
     instant(value: string) {
         if (value === 'donut') {
@@ -106,7 +91,7 @@ describe('input group', () => {
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                imports: [InputGroupTestModule],
+                // imports: [ThyInputModule, FormsModule],
                 providers: [
                     provideHttpClient(),
                     {
@@ -184,7 +169,7 @@ describe('input group', () => {
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                imports: [InputGroupTestModule],
+                // imports: [InputGroupTestModule],
                 providers: [provideHttpClient()]
             });
 
@@ -253,7 +238,7 @@ describe('input group', () => {
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                imports: [InputGroupTestModule],
+                // imports: [InputGroupTestModule],
                 providers: [provideHttpClient()]
             });
             TestBed.compileComponents();

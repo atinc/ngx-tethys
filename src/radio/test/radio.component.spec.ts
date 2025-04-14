@@ -2,9 +2,7 @@ import { Component, DebugElement, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyRadioModule } from '../module';
-import { ThyRadio } from '../radio.component';
-import { ThyRadioGroup } from '../group/radio-group.component';
+import { ThyRadioModule, ThyRadio, ThyRadioGroup } from 'ngx-tethys/radio';
 
 @Component({
     selector: 'thy-radio-test',

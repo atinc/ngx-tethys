@@ -1,9 +1,8 @@
 import { Component, OnInit, TemplateRef, ViewChild, inject as coreInject } from '@angular/core';
 import { TestBed, ComponentFixture, fakeAsync, flush, inject, tick } from '@angular/core/testing';
-import { ThyNotifyModule } from '../module';
-import { ThyNotifyService } from '../notify.service';
+import { ThyNotifyModule, ThyNotifyService } from 'ngx-tethys/notify';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ThyNotifyConfig, THY_NOTIFY_DEFAULT_CONFIG } from '../notify.config';
+import { ThyNotifyConfig, THY_NOTIFY_DEFAULT_CONFIG } from 'ngx-tethys/notify';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyNotifyContentExampleComponent } from '../examples/custom-content/content.component';

@@ -1,12 +1,10 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { Component, OnInit } from '@angular/core';
-import { ThyNavModule } from '../nav.module';
-import { ThyIconNav } from './icon-nav.component';
-import { ThyIconNavLink } from './icon-nav-link.directive';
-import { ThyIconModule } from '../../icon';
+import { ThyIconNav, ThyIconNavLink, ThyNavModule } from 'ngx-tethys/nav';
 import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing';
 import { By } from '@angular/platform-browser';
 import { provideHttpClient } from '@angular/common/http';
+import { ThyIconModule } from 'ngx-tethys/icon';
 
 const ICON_NAV_CLASS = `thy-icon-nav`;
 const ICON_NAV_LINK_CLASS = `thy-icon-nav-link`;

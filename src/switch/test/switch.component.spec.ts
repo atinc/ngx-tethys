@@ -2,8 +2,7 @@ import { Component, DebugElement } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThySwitch } from '../switch.component';
-import { ThySwitchModule } from '../switch.module';
+import { ThySwitch, ThySwitchModule } from 'ngx-tethys/switch';
 
 @Component({
     selector: 'thy-switch-test',

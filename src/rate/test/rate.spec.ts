@@ -1,15 +1,13 @@
-import { Component, DebugElement, TemplateRef, ViewChild, QueryList } from '@angular/core';
+import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ComponentFixture, TestBed, fakeAsync, tick, flush, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyRateModule } from '../module';
-import { ThyRate } from '../rate.component';
+import { ThyRateModule, ThyRate } from 'ngx-tethys/rate';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
 import { ThyRateTemplateExampleComponent } from '../examples/template/template.component';
 import { provideHttpClient } from '@angular/common/http';
 
-// 基础
 @Component({
     selector: 'thy-rate-basic-test',
     template: `

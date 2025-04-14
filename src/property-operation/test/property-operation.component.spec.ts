@@ -1,14 +1,11 @@
 import { ApplicationRef, Component, DebugElement, ViewChild } from '@angular/core';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { ThyPropertyOperationModule } from '../module';
+import { ThyPropertyOperationModule, ThyPropertyOperation } from 'ngx-tethys/property-operation';
 import { By } from '@angular/platform-browser';
-import { ThyPropertyOperation } from '../property-operation.component';
-import { ThyButtonIcon } from '../../button';
+import { ThyButtonIcon } from 'ngx-tethys/button';
 import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { NgClass } from '@angular/common';
-
-//#region test component
 
 @Component({
     template: `
@@ -55,8 +52,6 @@ class PropertyOperationBasicComponent {
         this.thyValue = 'hello world!';
     }
 }
-
-//#endregion
 
 describe('ThyPropertyOperation', () => {
     beforeEach(() => {

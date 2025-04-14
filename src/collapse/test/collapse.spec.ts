@@ -1,7 +1,6 @@
 import { ThyCollapse, ThyCollapseItem, ThyCollapseModule } from 'ngx-tethys/collapse';
 import { ThyIcon, ThyIconModule } from 'ngx-tethys/icon';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
-
 import { CommonModule } from '@angular/common';
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';

@@ -1,20 +1,21 @@
 import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
-
 import { Component, DebugElement, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-import { ThyDividerModule } from '../../divider';
-import { ThyIconModule } from '../../icon/icon.module';
-import { ThyPopover, ThyPopoverModule } from '../../popover';
-import { ThyMenuDivider } from '../divider/menu-divider.component';
-import { ThyMenuGroup } from '../group/menu-group.component';
-import { ThyMenuItemAction } from '../item/action/menu-item-action.component';
-import { ThyMenuItemIcon } from '../item/icon/menu-item-icon.component';
-import { ThyMenuItem } from '../item/menu-item.component';
-import { ThyMenuItemName } from '../item/name/menu-item-name.component';
-import { ThyMenu, ThyMenuTheme } from '../menu.component';
-import { ThyMenuModule } from '../menu.module';
+import { ThyDividerModule } from 'ngx-tethys/divider';
+import { ThyIconModule } from 'ngx-tethys/icon';
+import { ThyPopover, ThyPopoverModule } from 'ngx-tethys/popover';
+import {
+    ThyMenuGroup,
+    ThyMenuItemIcon,
+    ThyMenuItemAction,
+    ThyMenuItemName,
+    ThyMenu,
+    ThyMenuTheme,
+    ThyMenuModule,
+    ThyMenuDivider,
+    ThyMenuItem
+} from 'ngx-tethys/menu';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
