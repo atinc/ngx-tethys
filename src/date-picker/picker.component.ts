@@ -1,7 +1,7 @@
 import { getFlexiblePositions, ThyPlacement } from 'ngx-tethys/core';
 import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
 
-import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange } from '@angular/cdk/overlay';
+import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange, ConnectionPositionPair } from '@angular/cdk/overlay';
 import {
     AfterViewInit,
     ChangeDetectionStrategy,
@@ -116,7 +116,7 @@ export class ThyPicker implements OnChanges, AfterViewInit {
 
     overlayOpen = false; // Available when "open"=undefined
 
-    overlayPositions = getFlexiblePositions(this.placement, 4);
+    overlayPositions: ConnectionPositionPair[] = getFlexiblePositions(this.placement, 4);
 
     get realOpenState(): boolean {
         // The value that really decide the open state of overlay
