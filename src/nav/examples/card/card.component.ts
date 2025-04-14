@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { ThyNav, ThyNavItemDirective } from 'ngx-tethys/nav';
 
 @Component({
     selector: 'thy-nav-card-example',
     templateUrl: './card.component.html',
     styleUrls: ['./card.component.scss'],
-    standalone: false
+    imports: [ThyNav, ThyNavItemDirective]
 })
 export class ThyNavCardExampleComponent implements OnInit {
     public activeIndex = 1;

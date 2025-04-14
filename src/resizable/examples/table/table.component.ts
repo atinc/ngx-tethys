@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { ThyResizeEvent } from 'ngx-tethys/resizable';
+import { ThyResizableDirective, ThyResizeEvent, ThyResizeHandle } from 'ngx-tethys/resizable';
+import { ThyTable, ThyTableColumnComponent } from 'ngx-tethys/table';
 
 @Component({
     selector: 'thy-resizable-table-example',
     templateUrl: './table.component.html',
     styleUrls: ['./table.style.scss'],
-    standalone: false
+    imports: [ThyResizableDirective, ThyTable, ThyTableColumnComponent, ThyResizeHandle]
 })
 export class ThyResizableTableExampleComponent {
     className = 'thy-resizable';

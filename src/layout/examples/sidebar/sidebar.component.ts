@@ -1,10 +1,25 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { ThyContent, ThyLayout, ThySidebarHeader, ThySidebarContent, ThySidebarFooter, ThySidebar } from 'ngx-tethys/layout';
+import { ThyIcon } from 'ngx-tethys/icon';
+import { ThyAction } from 'ngx-tethys/action';
+import { ThyNav, ThyNavItemDirective } from 'ngx-tethys/nav';
 
 @Component({
     selector: 'thy-layout-sidebar-example',
     templateUrl: './sidebar.component.html',
     styleUrls: ['./sidebar.component.scss'],
-    standalone: false
+    imports: [
+        ThyLayout,
+        ThyContent,
+        ThyNav,
+        ThyNavItemDirective,
+        ThySidebar,
+        ThySidebarHeader,
+        ThySidebarContent,
+        ThySidebarFooter,
+        ThyIcon,
+        ThyAction
+    ]
 })
 export class ThyLayoutSidebarExampleComponent implements OnInit {
     isolated = false;

@@ -1,5 +1,4 @@
-import { ThyIconRegistry } from 'ngx-tethys/icon';
-
+import { ThyIcon, ThyIconRegistry } from 'ngx-tethys/icon';
 import { Component, inject } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -23,7 +22,7 @@ xmlns:xlink="http://www.w3.org/1999/xlink" >
     selector: 'thy-icon-linear-gradient-example',
     templateUrl: './linear-gradient.component.html',
     styleUrls: ['./linear-gradient.component.scss'],
-    standalone: false
+    imports: [ThyIcon]
 })
 export class ThyIconLinearGradientExampleComponent {
     constructor() {

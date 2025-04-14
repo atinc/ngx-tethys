@@ -1,8 +1,29 @@
-import { ThyFormValidatorConfig, ThyValidateOn } from 'ngx-tethys/form';
-
+import {
+    ThyFormDirective,
+    ThyFormGroup,
+    ThyFormGroupFooter,
+    ThyFormSubmitDirective,
+    ThyFormValidatorConfig,
+    ThyValidateOn
+} from 'ngx-tethys/form';
 import { Component, OnInit, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TinyDate } from 'ngx-tethys/util';
+import { ThyDatePicker, ThyRangePicker } from 'ngx-tethys/date-picker';
+import { ThyColorPickerDirective } from 'ngx-tethys/color-picker';
+import { ThyInput, ThyInputSearch, ThyInputDirective } from 'ngx-tethys/input';
+import { ThyInputNumber } from 'ngx-tethys/input-number';
+import { NgStyle } from '@angular/common';
+import { ThyRate } from 'ngx-tethys/rate';
+import { ThyTreeSelect } from 'ngx-tethys/tree-select';
+import { ThyRadioButton, ThyRadioGroup, ThyRadio } from 'ngx-tethys/radio';
+import { ThyCheckbox } from 'ngx-tethys/checkbox';
+import { ThySwitch } from 'ngx-tethys/switch';
+import { ThySlider } from 'ngx-tethys/slider';
+import { ThyCascader } from 'ngx-tethys/cascader';
+import { ThyOption } from 'ngx-tethys/shared';
+import { ThySelect } from 'ngx-tethys/select';
+import { ThyButton } from 'ngx-tethys/button';
 
 const provinceCities = [
     {
@@ -68,7 +89,34 @@ const provinceCities = [
 @Component({
     selector: 'thy-form-reactive-example',
     templateUrl: './reactive.component.html',
-    standalone: false
+    imports: [
+        ThySelect,
+        FormsModule,
+        ThyOption,
+        ThyFormDirective,
+        ReactiveFormsModule,
+        ThyFormGroup,
+        ThyInput,
+        ThyTreeSelect,
+        ThyInputDirective,
+        ThyInputSearch,
+        ThyInputNumber,
+        ThySwitch,
+        ThyRadioGroup,
+        ThyRadio,
+        ThyCheckbox,
+        ThyRadioButton,
+        ThyColorPickerDirective,
+        NgStyle,
+        ThySlider,
+        ThyRate,
+        ThyCascader,
+        ThyDatePicker,
+        ThyRangePicker,
+        ThyFormGroupFooter,
+        ThyButton,
+        ThyFormSubmitDirective
+    ]
 })
 export class ThyFormReactiveExampleComponent implements OnInit {
     private formBuilder = inject(FormBuilder);

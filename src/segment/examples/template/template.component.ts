@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import { ThyAvatar } from 'ngx-tethys/avatar';
+import { ThySegment, ThySegmentItem } from 'ngx-tethys/segment';
 
 @Component({
     selector: 'thy-segment-template-example',
     templateUrl: './template.component.html',
-    standalone: false
+    imports: [ThySegment, ThySegmentItem, ThyAvatar]
 })
 export class ThySegmentTemplateExampleComponent {
     items = [

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ThySelectionListChange } from 'ngx-tethys/list';
-import { TransferDirection } from 'ngx-tethys/transfer';
+import { FormsModule } from '@angular/forms';
+import { ThyIcon } from 'ngx-tethys/icon';
+import { ThyListItem, ThySelectionList, ThySelectionListChange } from 'ngx-tethys/list';
+import { ThyListOption } from 'ngx-tethys/shared';
+import { ThyTransfer, TransferDirection } from 'ngx-tethys/transfer';
 
 interface ThyTransferTemplateItem {
     _id: string;
@@ -11,7 +14,7 @@ interface ThyTransferTemplateItem {
 @Component({
     selector: 'thy-transfer-template-example',
     templateUrl: './template.component.html',
-    standalone: false
+    imports: [ThyTransfer, ThySelectionList, FormsModule, ThyListOption, ThyIcon, ThyListItem]
 })
 export class ThyTransferTemplateExampleComponent implements OnInit {
     public selectedLeft: ThyTransferTemplateItem[] = [];

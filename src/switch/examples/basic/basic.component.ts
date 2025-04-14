@@ -1,16 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ThySwitch } from 'ngx-tethys/switch';
 
 @Component({
     selector: 'thy-switch-basic-example',
     templateUrl: './basic.component.html',
-    standalone: false
+    imports: [ThySwitch, FormsModule]
 })
-export class ThySwitchBasicExampleComponent implements OnInit {
+export class ThySwitchBasicExampleComponent {
     isChecked: Boolean = true;
-
-    constructor() {}
-
-    ngOnInit() {}
 
     switchChange() {}
 }

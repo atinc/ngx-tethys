@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ThyEmpty } from 'ngx-tethys/empty';
+import { ThyButton } from 'ngx-tethys/button';
 
 @Component({
     selector: 'thy-empty-customize-example',
@@ -18,7 +20,7 @@ import { Component } from '@angular/core';
             }
         `
     ],
-    standalone: false
+    imports: [ThyEmpty, ThyButton]
 })
 export class ThyEmptyCustomizeExampleComponent {
     constructor() {}

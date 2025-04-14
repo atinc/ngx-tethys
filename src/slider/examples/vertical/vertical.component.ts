@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ThySlider } from 'ngx-tethys/slider';
 
 @Component({
     selector: 'thy-slider-vertical-example',
@@ -14,7 +15,7 @@ import { Component, OnInit } from '@angular/core';
             }
         `
     ],
-    standalone: false
+    imports: [ThySlider]
 })
 export class ThySliderVerticalExampleComponent implements OnInit {
     constructor() {}

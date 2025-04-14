@@ -1,14 +1,14 @@
-import { ThyUploadFile, ThyUploadService, ThyUploadStatus } from 'ngx-tethys/upload';
-
+import { ThyFileDropDirective, ThyUploadFile, ThyUploadService, ThyUploadStatus } from 'ngx-tethys/upload';
 import { Component, inject } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
+import { ThyProgress } from 'ngx-tethys/progress';
 
 const UPLOAD_URL = `http://www.mocky.io/v2/5cf52b1f2f0000c02c4f072f?mocky-delay=2s`;
 @Component({
     selector: 'app-upload-drop-example',
     templateUrl: './drop.component.html',
     styleUrls: ['./drop.scss'],
-    standalone: false
+    imports: [ThyFileDropDirective, ThyProgress]
 })
 export class ThyUploadDropExampleComponent {
     private thyUploadService = inject(ThyUploadService);

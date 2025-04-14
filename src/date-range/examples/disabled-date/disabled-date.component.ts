@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { DateRangeItemInfo } from 'ngx-tethys/date-range';
+import { DateRangeItemInfo, ThyDateRange } from 'ngx-tethys/date-range';
 import { differenceInDays } from 'ngx-tethys/util';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-date-range-disabled-date-example',
     templateUrl: './disabled-date.component.html',
-    standalone: false
+    imports: [ThyDateRange, FormsModule]
 })
 export class ThyDateRangeDisabledDateExampleComponent implements OnInit {
     public date: DateRangeItemInfo;

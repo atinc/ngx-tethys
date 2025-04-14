@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ThyCascader } from 'ngx-tethys/cascader';
+import { FormsModule } from '@angular/forms';
 
 const customerOptions = [
     {
@@ -66,7 +68,7 @@ const customerOptions = [
 @Component({
     selector: 'thy-cascader-custom-label-template-example',
     templateUrl: './custom-label-template.component.html',
-    standalone: false
+    imports: [ThyCascader, FormsModule]
 })
 export class ThyCascaderCustomLabelTemplateExampleComponent implements OnInit {
     public values: any[] = [];

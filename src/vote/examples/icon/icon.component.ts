@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { ThyVote } from 'ngx-tethys/vote';
 
 @Component({
     selector: 'thy-vote-icon-example',
     templateUrl: './icon.component.html',
-    standalone: false
+    imports: [ThyVote]
 })
 export class ThyVoteIconExampleComponent {
     constructor() {}

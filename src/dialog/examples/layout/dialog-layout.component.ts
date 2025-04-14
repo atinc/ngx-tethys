@@ -1,10 +1,10 @@
 import { Component, HostBinding, Input, inject } from '@angular/core';
-import { ThyDialogLayoutConfig, ThyDialogRef } from 'ngx-tethys/dialog';
+import { ThyDialogFooter, ThyDialogLayoutConfig, ThyDialogRef, ThyDialogHeader, ThyDialogBody } from 'ngx-tethys/dialog';
 
 @Component({
     selector: 'thy-dialog-footer-layout-example',
     templateUrl: './dialog-layout.component.html',
-    standalone: false
+    imports: [ThyDialogHeader, ThyDialogBody, ThyDialogFooter]
 })
 export class ThyDialogFooterLayoutExampleComponent {
     private thyDialogRef = inject<ThyDialogRef<any>>(ThyDialogRef);

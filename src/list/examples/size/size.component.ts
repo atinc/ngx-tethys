@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ThySelectionListChange } from 'ngx-tethys/list';
+import { FormsModule } from '@angular/forms';
+import { ThyIcon } from 'ngx-tethys/icon';
+import { ThySelectionList, ThySelectionListChange } from 'ngx-tethys/list';
+import { ThyListOption } from 'ngx-tethys/shared';
 
 @Component({
     selector: 'app-list-size-example',
     templateUrl: './size.component.html',
-    standalone: false
+    imports: [ThySelectionList, ThyListOption, FormsModule, ThyIcon]
 })
 export class ThyListSizeExampleComponent implements OnInit {
     public gridItems = [

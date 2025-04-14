@@ -1,20 +1,20 @@
 <form thyForm thyLayout="vertical" #demoForm="thyForm" #demoVerticalForm="ngForm">
   <div thyRow [thyGutter]="30">
     <thy-form-group thyCol [thySpan]="12" thyLabelText="Placement">
-      <thy-native-select name="size" [(ngModel)]="hintPlacement" (ngModelChange)="updatePlacement($event)" name="placement">
-        <option value="top">top</option>
-        <option value="topLeft">topLeft</option>
-        <option value="topRight">topRight</option>
-        <option value="bottom">bottom</option>
-        <option value="bottomLeft">bottomLeft</option>
-        <option value="bottomRight">bottomRight</option>
-        <option value="left">left</option>
-        <option value="leftTop">leftTop</option>
-        <option value="leftBottom">leftBottom</option>
-        <option value="right">right</option>
-        <option value="rightTop">rightTop</option>
-        <option value="rightBottom">rightBottom</option>
-      </thy-native-select>
+      <thy-select name="size" [(ngModel)]="hintPlacement" (ngModelChange)="updatePlacement($event)" name="placement">
+        <thy-option thyValue="top" thyLabelText="top"></thy-option>
+        <thy-option thyValue="topLeft" thyLabelText="topLeft"></thy-option>
+        <thy-option thyValue="topRight" thyLabelText="topRight"></thy-option>
+        <thy-option thyValue="bottom" thyLabelText="bottom"></thy-option>
+        <thy-option thyValue="bottomLeft" thyLabelText="bottomLeft"></thy-option>
+        <thy-option thyValue="bottomRight" thyLabelText="bottomRight"></thy-option>
+        <thy-option thyValue="left" thyLabelText="left"></thy-option>
+        <thy-option thyValue="leftTop" thyLabelText="leftTop"></thy-option>
+        <thy-option thyValue="leftBottom" thyLabelText="leftBottom"></thy-option>
+        <thy-option thyValue="right" thyLabelText="right"></thy-option>
+        <thy-option thyValue="rightTop" thyLabelText="rightTop"></thy-option>
+        <thy-option thyValue="rightBottom" thyLabelText="rightBottom"></thy-option>
+      </thy-select>
     </thy-form-group>
 
     <thy-form-group thyCol [thySpan]="12" thyLabelText="hintOffset">

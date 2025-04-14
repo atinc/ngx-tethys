@@ -1,11 +1,18 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ThyPlacement } from 'ngx-tethys/core';
 import { ThyGuider, ThyGuiderConfig, ThyGuiderRef } from 'ngx-tethys/guider';
+import { ThyButton } from 'ngx-tethys/button';
+import { ThyFormGroup, ThyFormDirective } from 'ngx-tethys/form';
+import { ThySelect } from 'ngx-tethys/select';
+import { ThySlider } from 'ngx-tethys/slider';
+import { FormsModule } from '@angular/forms';
+import { ThyColDirective, ThyRowDirective } from 'ngx-tethys/grid';
+import { ThyOption } from 'ngx-tethys/shared';
 
 @Component({
     selector: 'thy-guider-custom-position-example',
     templateUrl: 'custom-position.component.html',
-    standalone: false
+    imports: [ThyButton, ThyFormGroup, ThyFormDirective, ThySelect, ThyOption, ThySlider, FormsModule, ThyColDirective, ThyRowDirective]
 })
 export class ThyGuiderCustomPositionExampleComponent implements OnInit {
     private thyGuider = inject(ThyGuider);

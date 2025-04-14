@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import { ThyButton } from 'ngx-tethys/button';
+import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 
 @Component({
     selector: 'app-tooltip-template-example',
     templateUrl: './template.component.html',
-    standalone: false
+    imports: [ThyButton, ThyTooltipDirective]
 })
 export class ThyTooltipTemplateExampleComponent {
     tooltipConfig = {

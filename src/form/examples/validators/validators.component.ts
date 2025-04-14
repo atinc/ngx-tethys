@@ -1,11 +1,44 @@
-import { ThyFormDirective, ThyFormValidatorConfig, ThyValidateOn } from 'ngx-tethys/form';
+import {
+    ThyConfirmValidatorDirective,
+    ThyFormGroup,
+    ThyFormValidatorConfig,
+    ThyMaxDirective,
+    ThyMinDirective,
+    ThyUniqueCheckValidator,
+    ThyValidateOn,
+    ThyFormGroupFooter,
+    ThyFormDirective,
+    ThyFormSubmitDirective
+} from 'ngx-tethys/form';
 import { Component, OnInit } from '@angular/core';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { FormsModule } from '@angular/forms';
+import { ThyInputNumber } from 'ngx-tethys/input-number';
+import { ThyInputDirective } from 'ngx-tethys/input';
+import { ThySelect } from 'ngx-tethys/select';
+import { ThyOption } from 'ngx-tethys/shared';
+import { ThyButton } from 'ngx-tethys/button';
+
 @Component({
     selector: 'thy-form-validators-example',
     templateUrl: './validators.component.html',
-    standalone: false
+    imports: [
+        ThyFormGroup,
+        ThySelect,
+        FormsModule,
+        ThyOption,
+        ThyFormDirective,
+        ThyInputDirective,
+        ThyUniqueCheckValidator,
+        ThyInputNumber,
+        ThyMaxDirective,
+        ThyMinDirective,
+        ThyConfirmValidatorDirective,
+        ThyFormGroupFooter,
+        ThyButton,
+        ThyFormSubmitDirective
+    ]
 })
 export class ThyFormValidatorsExampleComponent implements OnInit {
     submitSuccess = false;

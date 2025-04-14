@@ -1,6 +1,6 @@
 import { Mention, MentionSuggestionSelectEvent, ThyMentionDirective } from 'ngx-tethys/mention';
-
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 const mockUsers = [
     'Jacob',
@@ -35,7 +35,7 @@ const mockUsers = [
             }
         `
     ],
-    standalone: false
+    imports: [ThyMentionDirective, FormsModule]
 })
 export class ThyMentionContenteditableExampleComponent implements OnInit {
     mentions: Mention[] = [

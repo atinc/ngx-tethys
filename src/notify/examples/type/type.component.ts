@@ -1,10 +1,12 @@
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { Component, OnInit, inject } from '@angular/core';
+import { ThyButton } from 'ngx-tethys/button';
+import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
 
 @Component({
     selector: 'thy-notify-type-example',
     templateUrl: './type.component.html',
-    standalone: false
+    imports: [ThyButton, ThySpace, ThySpaceItemDirective]
 })
 export class ThyNotifyTypeExampleComponent implements OnInit {
     private notifyService = inject(ThyNotifyService);

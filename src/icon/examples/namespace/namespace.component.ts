@@ -1,5 +1,4 @@
-import { ThyIconRegistry } from 'ngx-tethys/icon';
-
+import { ThyIcon, ThyIconRegistry } from 'ngx-tethys/icon';
 import { Component, inject } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -7,7 +6,7 @@ import { DomSanitizer } from '@angular/platform-browser';
     selector: 'thy-icon-namespace-example',
     templateUrl: './namespace.component.html',
     styleUrls: ['./namespace.component.scss'],
-    standalone: false
+    imports: [ThyIcon]
 })
 export class ThyIconNamespaceExampleComponent {
     constructor() {

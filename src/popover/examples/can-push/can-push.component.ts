@@ -1,11 +1,12 @@
-import { ThyPopover } from 'ngx-tethys/popover';
+import { ThyPopover, ThyPopoverDirective, ThyPopoverHeader, ThyPopoverBody } from 'ngx-tethys/popover';
 import { Component, OnInit, TemplateRef, inject } from '@angular/core';
 import { Overlay } from '@angular/cdk/overlay';
+import { ThyButton } from 'ngx-tethys/button';
 
 @Component({
     selector: 'thy-popover-can-push-example',
     templateUrl: './can-push.component.html',
-    standalone: false
+    imports: [ThyButton, ThyPopoverDirective, ThyPopoverHeader, ThyPopoverBody]
 })
 export class ThyPopoverCanPushExampleComponent implements OnInit {
     private thyPopover = inject(ThyPopover);

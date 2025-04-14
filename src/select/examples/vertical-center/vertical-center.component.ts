@@ -1,5 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { listOfOption } from '../mock-data';
+import { ThySelect } from 'ngx-tethys/select';
+import { ThyOption } from 'ngx-tethys/shared';
+import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
+import { FormsModule } from '@angular/forms';
+import { ThyDot } from 'ngx-tethys/dot';
+import { NgClass } from '@angular/common';
+import { ThyTag } from 'ngx-tethys/tag';
+import { ThyAvatar } from 'ngx-tethys/avatar';
+import { ThyIcon } from 'ngx-tethys/icon';
 
 @Component({
     selector: 'thy-select-vertical-center-example',
@@ -12,7 +21,7 @@ import { listOfOption } from '../mock-data';
             }
         `
     ],
-    standalone: false
+    imports: [ThySelect, ThyOption, ThyButtonGroup, FormsModule, ThyDot, NgClass, ThyTag, ThyAvatar, ThyIcon, ThyButton]
 })
 export class ThySelectVerticalCenterExampleComponent implements OnInit {
     listOfOption: { value: string; text: string }[];

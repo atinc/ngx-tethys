@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyArrowSwitcherEvent } from 'ngx-tethys/arrow-switcher';
+import { ThyArrowSwitcher, ThyArrowSwitcherEvent } from 'ngx-tethys/arrow-switcher';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'thy-arrow-switcher-disabled-example',
     templateUrl: './disabled.component.html',
-    standalone: false
+    imports: [ThyArrowSwitcher, FormsModule]
 })
 export class ThyArrowSwitcherDisabledExampleComponent implements OnInit {
     index = 4;

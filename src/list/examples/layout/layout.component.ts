@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ThySelectionListChange } from 'ngx-tethys/list';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ThyIcon } from 'ngx-tethys/icon';
+import { ThySelectionList, ThySelectionListChange } from 'ngx-tethys/list';
+import { ThyListOption } from 'ngx-tethys/shared';
 
 @Component({
     selector: 'app-list-layout-example',
     templateUrl: './layout.component.html',
-    standalone: false
+    imports: [ThySelectionList, ThyIcon, ThyListOption, FormsModule, CommonModule]
 })
 export class ThyListLayoutExampleComponent implements OnInit {
     public gridItems = [

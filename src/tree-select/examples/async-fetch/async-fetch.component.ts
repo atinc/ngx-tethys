@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ThyTreeSelectNode } from '../tree-select.class';
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
+import { ThyTreeSelect } from 'ngx-tethys/tree-select';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-tree-select-async-fetch-example',
     templateUrl: './async-fetch.component.html',
-    standalone: false
+    imports: [ThyTreeSelect, FormsModule]
 })
 export class ThyTreeSelectAsyncFetchExampleComponent implements OnInit {
     public asyncNodes: ThyTreeSelectNode[] = [

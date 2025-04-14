@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { TinyDate } from 'ngx-tethys/util';
+import { FormsModule } from '@angular/forms';
+import { ThyRangePicker } from 'ngx-tethys/date-picker';
 
 @Component({
     selector: 'thy-date-picker-separator-example',
     templateUrl: './separator.component.html',
-    standalone: false
+    imports: [ThyRangePicker, FormsModule]
 })
 export class ThyDatePickerSeparatorExampleComponent implements OnInit {
     date = { date: new TinyDate().getTime(), with_time: 0 };
