@@ -1,4 +1,6 @@
 import { TestBed } from '@angular/core/testing';
+import { ThyLocaleType } from 'ngx-tethys/i18n';
+import { TinyDate } from 'ngx-tethys/util';
 import { ThyDatePickerConfigService } from './date-picker.service';
 import { ThyQuarterPickerFormatPipe } from './picker.pipes';
 
@@ -10,6 +12,7 @@ describe('thyQuarterPickerFormat', () => {
         TestBed.configureTestingModule({
             providers: [ThyDatePickerConfigService]
         });
+        TinyDate.setDefaultLocale(ThyLocaleType.enUs);
         datePickerConfigService = TestBed.inject(ThyDatePickerConfigService);
         quarterPickerFormatPipe = new ThyQuarterPickerFormatPipe(datePickerConfigService);
     });
