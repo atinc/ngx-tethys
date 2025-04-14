@@ -26,7 +26,7 @@ import {
 const falsey = [, null, undefined, false, 0, NaN, ''];
 const empties = [[], {}].concat(falsey.slice(1));
 
-fdescribe('#helper', () => {
+describe('#helper', () => {
     describe('#clamp', () => {
         it(`should be 0 when clamp -1`, () => {
             expect(clamp(-1)).toBe(0);
