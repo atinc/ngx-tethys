@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, inject, DestroyRef } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ThyGridToken, THY_GRID_COMPONENT } from './grid.token';
-import { ThyGridResponsiveDescription, THY_GRID_ITEM_DEFAULT_SPAN } from './thy-grid.component';
+import { THY_GRID_COMPONENT } from './grid.token';
+import { ThyGridResponsiveDescription, THY_GRID_ITEM_DEFAULT_SPAN } from './grid.type';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
 /**

@@ -1,5 +1,6 @@
 import { computed, inject, Signal } from '@angular/core';
-import { ThyModuleType, ThyI18nService, ThyModuleLocaleType, ThyI18nLocale } from './index';
+import { ThyModuleLocaleType, ThyModuleType, ThyI18nLocale } from './i18n';
+import { ThyI18nService } from './i18n.service';
 
 export function injectLocale(): Signal<ThyI18nLocale>;
 

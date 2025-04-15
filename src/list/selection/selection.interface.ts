@@ -1,8 +1,7 @@
-import { ThySelectionList } from './selection-list';
-import { ThyListOption } from 'ngx-tethys/shared';
+import { ThyListOption, IThyListOptionParentComponent } from 'ngx-tethys/shared';
 
 export interface ThySelectionListChange<TValue = any> {
-    source: ThySelectionList;
+    source: IThyListOptionParentComponent;
     option: ThyListOption;
     value: TValue;
     event: Event;

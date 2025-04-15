@@ -13,3 +13,4 @@ export * from './directives/string-or-template-outlet.directive';
 export * from './directives/view-outlet.directive';
 export * from './select/index';
 export * from './option/index';
+export * from './shared.type';

@@ -1,6 +1,5 @@
 import { InjectionToken } from '@angular/core';
-import { ThyTreeNode } from './tree-node.class';
-import { ThyTreeBeforeDragDropContext, ThyTreeBeforeDragStartContext, ThyTreeDragDropEvent, ThyTreeIcons } from './tree.class';
+import { ThyTreeBeforeDragDropContext, ThyTreeBeforeDragStartContext, ThyTreeDragDropEvent, ThyTreeIcons, ThyTreeNode } from './tree.class';
 
 export interface ThyTreeAbstractComponent {
     thyMultiple: boolean;

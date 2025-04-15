@@ -26,6 +26,7 @@ import { ThyAffix } from 'ngx-tethys/affix';
 import { ThyScrollService } from 'ngx-tethys/core';
 import { coerceBooleanProperty, getOffset } from 'ngx-tethys/util';
 import { ThyAnchorLink } from './anchor-link.component';
+import { IThyAnchorComponent, THY_ANCHOR_COMPONENT } from './anchor.token';
 
 interface Section {
     linkComponent: ThyAnchorLink;
@@ -67,9 +68,15 @@ const sharpMatcherRegx = /#([^#]+)$/;
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [ThyAffix, NgTemplateOutlet, NgStyle, NgClass]
+    imports: [ThyAffix, NgTemplateOutlet, NgStyle, NgClass],
+    providers: [
+        {
+            provide: THY_ANCHOR_COMPONENT,
+            useExisting: ThyAnchor
+        }
+    ]
 })
-export class ThyAnchor implements OnDestroy, AfterViewInit, OnChanges {
+export class ThyAnchor implements IThyAnchorComponent, OnDestroy, AfterViewInit, OnChanges {
     private document = inject(DOCUMENT);
     private cdr = inject(ChangeDetectorRef);
     private platform = inject(Platform);

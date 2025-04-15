@@ -5,6 +5,7 @@ import { By } from '@angular/platform-browser';
 import { ThyRadioModule } from '../module';
 import { ThyRadio } from '../radio.component';
 import { ThyRadioGroup } from '../group/radio-group.component';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-radio-test',
@@ -93,7 +94,7 @@ describe('thy-radio-group component', () => {
         TestBed.configureTestingModule({
             imports: [ThyRadioModule, FormsModule],
             declarations: [RadioGroupTestComponent],
-            providers: []
+            providers: [provideHttpClient()]
         }).compileComponents();
     });
     beforeEach(() => {
