@@ -1,10 +1,7 @@
 import { Subject } from 'rxjs';
-
 import { XhrFactory } from '@angular/common';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
-
-import { ThyUploadModule } from '../module';
-import { ThyUploadFile, ThyUploadResponse, ThyUploadService, ThyUploadStatus } from '../upload.service';
+import { ThyUploadModule, ThyUploadFile, ThyUploadResponse, ThyUploadService, ThyUploadStatus } from 'ngx-tethys/upload';
 import { createFile } from './utils';
 import { MockXhrFactory } from 'ngx-tethys/testing';
 

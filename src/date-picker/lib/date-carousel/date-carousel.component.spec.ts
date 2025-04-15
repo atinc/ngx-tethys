@@ -5,11 +5,10 @@ import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { LibPackerModule } from 'ngx-tethys/date-picker';
+import { LibPackerModule, DateCarousel } from 'ngx-tethys/date-picker';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { RangeAdvancedValue } from '../../inner-types';
-import { TinyDate } from './../../../util/date/tiny-date';
-import { DateCarousel } from './date-carousel.component';
+import { TinyDate } from 'ngx-tethys/util';
 
 registerLocaleData(zh);
 
@@ -21,9 +20,7 @@ describe('TestDateCarouselComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [FormsModule, LibPackerModule],
-            providers: [provideHttpClient()],
-            declarations: [TestDateCarouselComponent]
+            providers: [provideHttpClient()]
         });
 
         TestBed.compileComponents();
@@ -289,7 +286,7 @@ describe('TestDateCarouselComponent', () => {
             (ngModelChange)="modelValueChange($event)"
             [(ngModel)]="advancedSelectedValue"></date-carousel>
     `,
-    standalone: false
+    imports: [FormsModule, LibPackerModule]
 })
 class TestDateCarouselComponent {
     advancedSelectedValue: RangeAdvancedValue = {

@@ -8,13 +8,14 @@ import {
     ThyDragEndEvent,
     ThyDragOverEvent,
     ThyDragStartEvent,
-    ThyDropContainerDirective
+    ThyDropContainerDirective,
+    ThyDragHandleDirective,
+    ThyDragDirective
 } from 'ngx-tethys/drag-drop';
 import { ThySharedModule } from 'ngx-tethys/shared';
 import { createDragEvent, dispatchFakeEvent } from 'ngx-tethys/testing';
 import { helpers } from 'ngx-tethys/util';
-import { ThyDragHandleDirective } from '../drag-handle.directive';
-import { ThyDragDirective } from '../drag.directive';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 
 interface DragNodeInfo {
     key: string;
@@ -65,11 +66,8 @@ describe('drag-drop basic directive', () => {
     let dropContainerElement: HTMLElement;
 
     beforeEach(fakeAsync(() => {
-        TestBed.configureTestingModule({
-            imports: [ThySharedModule, ThyDragDropModule, ThyDropContainerDirective, ThyDragDirective],
-            declarations: [TestBasicDragDropComponent],
-            providers: []
-        }).compileComponents();
+        TestBed.configureTestingModule({});
+        TestBed.compileComponents();
     }));
 
     beforeEach(() => {
@@ -223,11 +221,8 @@ describe('with handle', () => {
     let testComponent: TestWithHandleDragDropComponent;
 
     beforeEach(fakeAsync(() => {
-        TestBed.configureTestingModule({
-            imports: [ThySharedModule, ThyDragDropModule, ThyDropContainerDirective, ThyDragDirective, ThyDragHandleDirective],
-            declarations: [TestWithHandleDragDropComponent],
-            providers: []
-        }).compileComponents();
+        TestBed.configureTestingModule({});
+        TestBed.compileComponents();
     }));
 
     beforeEach(() => {
@@ -300,7 +295,7 @@ describe('with handle', () => {
             }
         </ng-template>
     `,
-    standalone: false
+    imports: [ThySharedModule, ThyDragDropModule, ThyDropContainerDirective, ThyDragDirective, NgClass, NgTemplateOutlet]
 })
 export class TestBasicDragDropComponent {
     public nodes = nodes;
@@ -367,7 +362,7 @@ export class TestBasicDragDropComponent {
             }
         </ul>
     `,
-    standalone: false
+    imports: [ThySharedModule, ThyDragDropModule, ThyDropContainerDirective, ThyDragDirective, ThyDragHandleDirective, NgClass]
 })
 export class TestWithHandleDragDropComponent {
     public basicNodes = [

@@ -1,9 +1,8 @@
-import { fakeAsync, TestBed, ComponentFixture, tick, flush, discardPeriodicTasks } from '@angular/core/testing';
-import { ThyBreadcrumbModule } from '../module';
+import { fakeAsync, TestBed, ComponentFixture, tick, discardPeriodicTasks } from '@angular/core/testing';
+import { ThyBreadcrumbModule, ThyBreadcrumbItem } from 'ngx-tethys/breadcrumb';
 import { Component } from '@angular/core';
-import { ThyBreadcrumbItem } from '../breadcrumb-item.component';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({
@@ -13,7 +12,7 @@ import { provideHttpClient } from '@angular/common/http';
             <ng-template #item let-value>{{ value }}</ng-template>
         </thy-breadcrumb>
     `,
-    standalone: false
+    imports: [ThyBreadcrumbModule]
 })
 class ThyDemoBreadcrumbWithItemsComponent {
     breadcrumbs = ['一级', '二级', '三级', '四级', '五级', '六级'];
@@ -28,9 +27,7 @@ describe('ThyBreadcrumb With Items', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyBreadcrumbModule, NoopAnimationsModule],
-            declarations: [ThyDemoBreadcrumbWithItemsComponent],
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(), provideAnimations()]
         });
 
         TestBed.compileComponents();

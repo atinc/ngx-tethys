@@ -1,9 +1,7 @@
-import { ThyFormDirective } from './../form.directive';
-import { ThyFormModule } from 'ngx-tethys/form';
+import { ThyFormModule, ThyFormDirective, ThyMaxDirective, ThyMinDirective, confirmValidator } from 'ngx-tethys/form';
 import { Component, ViewChild } from '@angular/core';
 import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { UntypedFormControl, FormsModule, NgModel } from '@angular/forms';
-import { confirmValidator, ThyMaxDirective, ThyMinDirective } from './../validator/index';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -49,7 +47,7 @@ describe('validator', () => {
                         <input type="number" max="10" name="age" #age="ngModel" [(ngModel)]="value" />
                     </form>
                 `,
-                standalone: false
+                imports: [ThyFormModule, FormsModule]
             })
             class TestMaxComponent {
                 @ViewChild('age') ngModel: NgModel;
@@ -60,10 +58,8 @@ describe('validator', () => {
             let fixture: ComponentFixture<TestMaxComponent>;
 
             beforeEach(() => {
-                TestBed.configureTestingModule({
-                    declarations: [TestMaxComponent],
-                    imports: [ThyFormModule, FormsModule]
-                }).compileComponents();
+                TestBed.configureTestingModule({});
+                TestBed.compileComponents();
 
                 fixture = TestBed.createComponent(TestMaxComponent);
             });
@@ -113,7 +109,7 @@ describe('validator', () => {
                         <input type="number" min="10" name="age" #age="ngModel" [(ngModel)]="value" />
                     </form>
                 `,
-                standalone: false
+                imports: [ThyFormModule, FormsModule]
             })
             class TestMinComponent {
                 @ViewChild('age') ngModel: NgModel;
@@ -124,10 +120,8 @@ describe('validator', () => {
             let fixture: ComponentFixture<TestMinComponent>;
 
             beforeEach(() => {
-                TestBed.configureTestingModule({
-                    declarations: [TestMinComponent],
-                    imports: [ThyFormModule, FormsModule]
-                }).compileComponents();
+                TestBed.configureTestingModule({});
+                TestBed.compileComponents();
 
                 fixture = TestBed.createComponent(TestMinComponent);
             });
@@ -158,7 +152,7 @@ describe('validator', () => {
                     <input name="username" #username="ngModel" [(ngModel)]="value" [thyUniqueCheck]="checkFn" />
                 </form>
             `,
-            standalone: false
+            imports: [ThyFormModule, FormsModule]
         })
         class TestUniqueCheckComponent {
             @ViewChild('username') ngModel: NgModel;
@@ -185,10 +179,8 @@ describe('validator', () => {
         let fixture: ComponentFixture<TestUniqueCheckComponent>;
 
         beforeEach(() => {
-            TestBed.configureTestingModule({
-                declarations: [TestUniqueCheckComponent],
-                imports: [ThyFormModule, FormsModule]
-            }).compileComponents();
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
 
             fixture = TestBed.createComponent(TestUniqueCheckComponent);
         });

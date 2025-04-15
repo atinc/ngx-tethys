@@ -1,21 +1,19 @@
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyListModule } from 'ngx-tethys/list';
 import { ThySelectModule } from 'ngx-tethys/select';
-
 import { Component, DebugElement, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
-import { ThyTransfer } from '../transfer.component';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import {
+    ThyTransfer,
     ThyTransferChangeEvent,
     ThyTransferDragEvent,
     ThyTransferItem,
     TransferDirection,
-    InnerTransferDragEvent
-} from '../transfer.interface';
-import { ThyTransferModule } from '../transfer.module';
+    InnerTransferDragEvent,
+    ThyTransferModule
+} from 'ngx-tethys/transfer';
 import { provideHttpClient } from '@angular/common/http';
 
 const COUNT = 9;
@@ -148,7 +146,7 @@ function buildDataList() {
         </thy-transfer>
     `,
     encapsulation: ViewEncapsulation.None,
-    standalone: false
+    imports: [ThyTransferModule, ThyListModule, ThyIconModule, ThySelectModule]
 })
 class TestTransferComponent {
     @ViewChild('comp', { static: true }) comp: ThyTransfer;
@@ -170,7 +168,7 @@ class TestTransferComponent {
             </ng-template>
         </thy-transfer>
     `,
-    standalone: false
+    imports: [ThyTransferModule, ThyListModule, ThyIconModule, ThySelectModule]
 })
 class TestTransferCustomRenderComponent {
     @ViewChild('comp', { static: true }) comp: ThyTransfer;
@@ -180,7 +178,7 @@ class TestTransferCustomRenderComponent {
 @Component({
     templateUrl: './transfer-template.html',
     encapsulation: ViewEncapsulation.None,
-    standalone: false
+    imports: [ThyTransferModule, ThyListModule, ThyIconModule, ThySelectModule]
 })
 class TestTransferCustomRenderContentComponent {
     @ViewChild('comp', { static: true }) comp: ThyTransfer;
@@ -207,9 +205,8 @@ describe('transfer', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, ThyTransferModule, ThyListModule, ThyIconModule, ThySelectModule],
-            declarations: [TestTransferComponent, TestTransferCustomRenderComponent, TestTransferCustomRenderContentComponent],
-            providers: [provideHttpClient()]
+            imports: [ThyTransferModule],
+            providers: [provideHttpClient(), provideNoopAnimations()]
         }).compileComponents();
     });
 

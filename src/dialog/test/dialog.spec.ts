@@ -4,45 +4,47 @@ import { SpyLocation } from '@angular/common/testing';
 import { ViewContainerRef } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, flushMicrotasks, inject, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { bypassSanitizeProvider, dispatchKeyboardEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
+import { dispatchKeyboardEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { helpers } from '../../util';
-import { A, ESCAPE } from '../../util/keycodes';
-import { ThyDialogContainer } from '../dialog-container.component';
-import { ThyDialogRef } from '../dialog-ref';
-import { ThyDialogSizes } from '../dialog.config';
-import { THY_CONFIRM_DEFAULT_OPTIONS, ThyDialog, ThyDialogModule } from '../index';
+import { helpers, A, ESCAPE } from 'ngx-tethys/util';
 import {
-    DialogFullContentComponent,
-    DialogRestoreComponent,
-    DialogSimpleContentComponent,
-    DialogTestModule,
-    DialogToTopComponent,
-    WithChildViewContainerComponent,
-    WithInjectedDataDialogComponent,
-    WithOnPushViewContainerComponent,
-    WithTemplateRefComponent,
-    WithViewContainerDirective
-} from './module';
+    ThyDialogContainer,
+    ThyDialogRef,
+    ThyDialogSizes,
+    THY_CONFIRM_DEFAULT_OPTIONS,
+    ThyDialog,
+    ThyDialogModule
+} from 'ngx-tethys/dialog';
+import {
+    DialogFullContentTestComponent,
+    DialogRestoreTestComponent,
+    DialogSimpleContentTestComponent,
+    DialogToTopTestComponent,
+    WithChildViewContainerTestComponent,
+    WithInjectedDataDialogTestComponent,
+    WithOnPushViewContainerTestComponent,
+    WithTemplateRefTestComponent,
+    WithViewContainerTestDirective
+} from './dialog-test-components';
 import { provideHttpClient } from '@angular/common/http';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 
 describe('ThyDialog', () => {
     let dialog: ThyDialog;
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
-    // let scrolledSubject = new Subject();
 
     let testViewContainerRef: ViewContainerRef;
-    let viewContainerFixture: ComponentFixture<WithChildViewContainerComponent>;
+    let viewContainerFixture: ComponentFixture<WithChildViewContainerTestComponent>;
     let mockLocation: SpyLocation;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyDialogModule, DialogTestModule],
+            imports: [ThyDialogModule],
             providers: [
-                bypassSanitizeProvider,
                 provideHttpClient(),
+                provideNoopAnimations(),
                 { provide: Location, useClass: SpyLocation },
                 {
                     provide: THY_CONFIRM_DEFAULT_OPTIONS,
@@ -50,12 +52,6 @@ describe('ThyDialog', () => {
                         title: '全局定义标题'
                     }
                 }
-                // {
-                //     provide: ScrollDispatcher,
-                //     useFactory: () => ({
-                //         scrolled: () => scrolledSubject.asObservable()
-                //     })
-                // }
             ]
         });
         injectDefaultSvgIconSet();
@@ -77,7 +73,7 @@ describe('ThyDialog', () => {
     });
 
     beforeEach(() => {
-        viewContainerFixture = TestBed.createComponent(WithChildViewContainerComponent);
+        viewContainerFixture = TestBed.createComponent(WithChildViewContainerTestComponent);
         viewContainerFixture.detectChanges();
         testViewContainerRef = viewContainerFixture.componentInstance.childViewContainer;
     });
@@ -94,11 +90,11 @@ describe('ThyDialog', () => {
         return overlayContainerElement.querySelector('.cdk-overlay-backdrop');
     }
 
-    function assertDialogSimpleContentComponent(dialogRef: ThyDialogRef<DialogSimpleContentComponent>) {
+    function assertDialogSimpleContentComponent(dialogRef: ThyDialogRef<DialogSimpleContentTestComponent>) {
         viewContainerFixture.detectChanges();
 
         expect(overlayContainerElement.textContent).toContain('Hello Dialog');
-        expect(dialogRef.componentInstance instanceof DialogSimpleContentComponent).toBe(true);
+        expect(dialogRef.componentInstance instanceof DialogSimpleContentTestComponent).toBe(true);
         expect(dialogRef.componentInstance.dialogRef).toBe(dialogRef);
 
         viewContainerFixture.detectChanges();
@@ -120,6 +116,7 @@ describe('ThyDialog', () => {
 
         viewContainerFixture.detectChanges();
         viewContainerFixture.whenStable().then(() => {
+            //
             expect(getDialogContainerElement()).toBeNull();
             expect(spy).toHaveBeenCalled();
             done();
@@ -157,26 +154,26 @@ describe('ThyDialog', () => {
     }
 
     it('should find the closest dialog', () => {
-        dialog.open(DialogSimpleContentComponent);
+        dialog.open(DialogSimpleContentTestComponent);
         viewContainerFixture.detectChanges();
         const element = getDialogContainerElement() as HTMLElement;
         expect(dialog.getClosestDialog(element.querySelector('thy-dialog-content-component'))).toBeTruthy();
     });
 
     it('should open a dialog with a component', () => {
-        const dialogRef = dialog.open(DialogSimpleContentComponent);
+        const dialogRef = dialog.open(DialogSimpleContentTestComponent);
         assertDialogSimpleContentComponent(dialogRef);
     });
 
     it('should open a dialog with a component and viewContainerRef', () => {
-        const dialogRef = dialog.open(DialogSimpleContentComponent, {
+        const dialogRef = dialog.open(DialogSimpleContentTestComponent, {
             viewContainerRef: testViewContainerRef
         });
         assertDialogSimpleContentComponent(dialogRef);
     });
 
     it('should open a dialog with a template', () => {
-        const templateRefFixture = TestBed.createComponent(WithTemplateRefComponent);
+        const templateRefFixture = TestBed.createComponent(WithTemplateRefTestComponent);
         templateRefFixture.componentInstance.localValue = 'Bees';
         templateRefFixture.detectChanges();
 
@@ -198,7 +195,7 @@ describe('ThyDialog', () => {
     });
 
     it('should emit when dialog opening animation is complete', fakeAsync(() => {
-        const dialogRef = dialog.open(DialogSimpleContentComponent, {
+        const dialogRef = dialog.open(DialogSimpleContentTestComponent, {
             viewContainerRef: testViewContainerRef
         });
         const spy = jasmine.createSpy('afterOpened spy');
@@ -216,7 +213,7 @@ describe('ThyDialog', () => {
     }));
 
     it('should use injector from viewContainerRef for DialogInjector', () => {
-        const dialogRef = dialog.open(DialogSimpleContentComponent, {
+        const dialogRef = dialog.open(DialogSimpleContentTestComponent, {
             viewContainerRef: testViewContainerRef
         });
 
@@ -225,13 +222,13 @@ describe('ThyDialog', () => {
         const dialogInjector = dialogRef.componentInstance.dialogInjector;
 
         expect(dialogRef.componentInstance.dialogRef).toBe(dialogRef);
-        expect(dialogInjector.get<WithViewContainerDirective>(WithViewContainerDirective)).toBeTruthy(
+        expect(dialogInjector.get<WithViewContainerTestDirective>(WithViewContainerTestDirective)).toBeTruthy(
             'Expected the dialog component to be created with the injector from the viewContainerRef.'
         );
     });
 
     it('should apply the configured role to the dialog element', () => {
-        dialog.open(DialogSimpleContentComponent, { role: 'alertdialog' });
+        dialog.open(DialogSimpleContentTestComponent, { role: 'alertdialog' });
 
         viewContainerFixture.detectChanges();
 
@@ -249,7 +246,7 @@ describe('ThyDialog', () => {
                     }
                 }
             };
-            const instance = dialog.open(WithInjectedDataDialogComponent, config).componentInstance;
+            const instance = dialog.open(WithInjectedDataDialogTestComponent, config).componentInstance;
             expect(instance.data.stringParam).toBe(config.initialState.data.stringParam);
             expect(instance.data.dateParam).toBe(config.initialState.data.dateParam);
         });
@@ -261,20 +258,20 @@ describe('ThyDialog', () => {
                     input1: inputValue
                 }
             };
-            const instance = dialog.open(WithInjectedDataDialogComponent, config).componentInstance;
+            const instance = dialog.open(WithInjectedDataDialogTestComponent, config).componentInstance;
             expect(instance.input1()).toBe(inputValue);
         });
 
         it('should default to null if no data is passed', () => {
             expect(() => {
-                const dialogRef = dialog.open(WithInjectedDataDialogComponent);
+                const dialogRef = dialog.open(WithInjectedDataDialogTestComponent);
                 expect(dialogRef.componentInstance.data).toBeUndefined();
             }).not.toThrow();
         });
     });
 
     it('should close a dialog and get back a result', fakeAsync(() => {
-        const dialogRef = dialog.open(DialogSimpleContentComponent, {
+        const dialogRef = dialog.open(DialogSimpleContentTestComponent, {
             viewContainerRef: testViewContainerRef
         });
         const afterClosedCallback = jasmine.createSpy('afterClosed callback');
@@ -290,7 +287,7 @@ describe('ThyDialog', () => {
     }));
 
     it('should close a dialog and get back a result before it is closed', fakeAsync(() => {
-        const dialogRef = dialog.open(DialogSimpleContentComponent, {
+        const dialogRef = dialog.open(DialogSimpleContentTestComponent, {
             viewContainerRef: testViewContainerRef
         });
 
@@ -312,7 +309,7 @@ describe('ThyDialog', () => {
     }));
 
     it('should close a dialog via the escape key', fakeAsync(() => {
-        dialog.open(DialogSimpleContentComponent, {
+        dialog.open(DialogSimpleContentTestComponent, {
             viewContainerRef: testViewContainerRef
         });
 
@@ -324,11 +321,11 @@ describe('ThyDialog', () => {
     }));
 
     it('should close from a ViewContainerRef with OnPush change detection', fakeAsync(() => {
-        const onPushFixture = TestBed.createComponent(WithOnPushViewContainerComponent);
+        const onPushFixture = TestBed.createComponent(WithOnPushViewContainerTestComponent);
 
         onPushFixture.detectChanges();
 
-        const dialogRef = dialog.open(DialogSimpleContentComponent, {
+        const dialogRef = dialog.open(DialogSimpleContentTestComponent, {
             viewContainerRef: onPushFixture.componentInstance.viewContainerRef
         });
 
@@ -347,7 +344,7 @@ describe('ThyDialog', () => {
     }));
 
     it('should close when clicking on the overlay backdrop', fakeAsync(() => {
-        dialog.open(DialogSimpleContentComponent, {
+        dialog.open(DialogSimpleContentTestComponent, {
             viewContainerRef: testViewContainerRef
         });
 
@@ -363,7 +360,7 @@ describe('ThyDialog', () => {
     }));
 
     it('should emit the backdropClick stream when clicking on the overlay backdrop', fakeAsync(() => {
-        const dialogRef = dialog.open(DialogSimpleContentComponent, {
+        const dialogRef = dialog.open(DialogSimpleContentTestComponent, {
             viewContainerRef: testViewContainerRef
         });
 
@@ -386,7 +383,7 @@ describe('ThyDialog', () => {
     }));
 
     it('should emit the keyboardEvent stream when key events target the overlay', fakeAsync(() => {
-        const dialogRef = dialog.open(DialogSimpleContentComponent, {
+        const dialogRef = dialog.open(DialogSimpleContentTestComponent, {
             viewContainerRef: testViewContainerRef
         });
         tick(1);
@@ -407,7 +404,7 @@ describe('ThyDialog', () => {
     it('should notify the observers if a dialog has been opened', () => {
         dialog.afterOpened().subscribe(ref => {
             expect(
-                dialog.open(DialogSimpleContentComponent, {
+                dialog.open(DialogSimpleContentTestComponent, {
                     viewContainerRef: testViewContainerRef
                 })
             ).toBe(ref);
@@ -415,8 +412,8 @@ describe('ThyDialog', () => {
     });
 
     it('should notify the observers if all open dialogs have finished closing', fakeAsync(() => {
-        const ref1 = dialog.open(DialogSimpleContentComponent, { viewContainerRef: testViewContainerRef });
-        const ref2 = dialog.open(DialogFullContentComponent, { viewContainerRef: testViewContainerRef });
+        const ref1 = dialog.open(DialogSimpleContentTestComponent, { viewContainerRef: testViewContainerRef });
+        const ref2 = dialog.open(DialogFullContentTestComponent, { viewContainerRef: testViewContainerRef });
         const spy = jasmine.createSpy('afterAllClosed spy');
 
         dialog.afterAllClosed().subscribe(spy);
@@ -434,7 +431,7 @@ describe('ThyDialog', () => {
     }));
 
     it('should has a element class with dialog-body-clear-padding if thyClearPadding', () => {
-        dialog.open(DialogFullContentComponent, { viewContainerRef: testViewContainerRef });
+        dialog.open(DialogFullContentTestComponent, { viewContainerRef: testViewContainerRef });
         viewContainerFixture.detectChanges();
         expect(overlayContainerElement.querySelector('.dialog-body-clear-padding') as HTMLDivElement).toBeTruthy();
     });
@@ -449,7 +446,7 @@ describe('ThyDialog', () => {
 
     describe(`width, height,min-width,min-height,max-width,max-height`, () => {
         it('should override the width of the overlay pane', () => {
-            dialog.open(DialogSimpleContentComponent, {
+            dialog.open(DialogSimpleContentTestComponent, {
                 width: '500px'
             });
 
@@ -460,7 +457,7 @@ describe('ThyDialog', () => {
         });
 
         it('should override the height of the overlay pane', () => {
-            dialog.open(DialogSimpleContentComponent, {
+            dialog.open(DialogSimpleContentTestComponent, {
                 height: '100px'
             });
 
@@ -472,7 +469,7 @@ describe('ThyDialog', () => {
         });
 
         it('should override the min-width of the overlay pane', () => {
-            dialog.open(DialogSimpleContentComponent, {
+            dialog.open(DialogSimpleContentTestComponent, {
                 minWidth: '500px'
             });
 
@@ -484,7 +481,7 @@ describe('ThyDialog', () => {
         });
 
         it('should override the max-width of the overlay pane', () => {
-            dialog.open(DialogSimpleContentComponent, {
+            dialog.open(DialogSimpleContentTestComponent, {
                 maxWidth: '100px'
             });
 
@@ -496,7 +493,7 @@ describe('ThyDialog', () => {
         });
 
         it('should override the min-height of the overlay pane', () => {
-            dialog.open(DialogSimpleContentComponent, {
+            dialog.open(DialogSimpleContentTestComponent, {
                 minHeight: '300px'
             });
 
@@ -508,7 +505,7 @@ describe('ThyDialog', () => {
         });
 
         it('should override the max-height of the overlay pane', () => {
-            dialog.open(DialogSimpleContentComponent, {
+            dialog.open(DialogSimpleContentTestComponent, {
                 maxHeight: '100px'
             });
 
@@ -522,7 +519,7 @@ describe('ThyDialog', () => {
 
     describe(`position`, () => {
         it('should override the top offset of the overlay pane', () => {
-            dialog.open(DialogSimpleContentComponent, {
+            dialog.open(DialogSimpleContentTestComponent, {
                 position: {
                     top: '100px'
                 }
@@ -535,7 +532,7 @@ describe('ThyDialog', () => {
         });
 
         it('should override the bottom offset of the overlay pane', () => {
-            dialog.open(DialogSimpleContentComponent, {
+            dialog.open(DialogSimpleContentTestComponent, {
                 position: {
                     bottom: '200px'
                 }
@@ -549,7 +546,7 @@ describe('ThyDialog', () => {
         });
 
         it('should override the left offset of the overlay pane', () => {
-            dialog.open(DialogSimpleContentComponent, {
+            dialog.open(DialogSimpleContentTestComponent, {
                 position: {
                     left: '250px'
                 }
@@ -563,7 +560,7 @@ describe('ThyDialog', () => {
         });
 
         it('should override the right offset of the overlay pane', () => {
-            dialog.open(DialogSimpleContentComponent, {
+            dialog.open(DialogSimpleContentTestComponent, {
                 position: {
                     right: '125px'
                 }
@@ -577,7 +574,7 @@ describe('ThyDialog', () => {
         });
 
         it('should allow for the position to be updated', () => {
-            const dialogRef = dialog.open(DialogSimpleContentComponent, {
+            const dialogRef = dialog.open(DialogSimpleContentTestComponent, {
                 position: {
                     left: '250px'
                 }
@@ -597,7 +594,7 @@ describe('ThyDialog', () => {
 
     // describe('dimensions', () => {
     //     it('should allow for the dimensions to be updated', () => {
-    //         let dialogRef = dialog.open(DialogSimpleContentComponent, { width: '100px' });
+    //         let dialogRef = dialog.open(DialogSimpleContentTestComponent, { width: '100px' });
 
     //         viewContainerFixture.detectChanges();
 
@@ -611,7 +608,7 @@ describe('ThyDialog', () => {
     //     });
 
     //     it('should reset the overlay dimensions to their initial size', () => {
-    //         let dialogRef = dialog.open(DialogSimpleContentComponent);
+    //         let dialogRef = dialog.open(DialogSimpleContentTestComponent);
 
     //         viewContainerFixture.detectChanges();
 
@@ -634,7 +631,7 @@ describe('ThyDialog', () => {
 
     describe('direction', () => {
         it('should allow setting the layout direction', () => {
-            dialog.open(DialogSimpleContentComponent, { direction: 'rtl' });
+            dialog.open(DialogSimpleContentTestComponent, { direction: 'rtl' });
 
             viewContainerFixture.detectChanges();
 
@@ -644,7 +641,7 @@ describe('ThyDialog', () => {
         });
 
         it('should inject the correct layout direction in the component instance', () => {
-            const dialogRef = dialog.open(DialogSimpleContentComponent, { direction: 'rtl' });
+            const dialogRef = dialog.open(DialogSimpleContentTestComponent, { direction: 'rtl' });
 
             viewContainerFixture.detectChanges();
 
@@ -652,7 +649,7 @@ describe('ThyDialog', () => {
         });
 
         it('should fall back to injecting the global direction if none is passed by the config', () => {
-            const dialogRef = dialog.open(DialogSimpleContentComponent, {});
+            const dialogRef = dialog.open(DialogSimpleContentTestComponent, {});
 
             viewContainerFixture.detectChanges();
 
@@ -662,9 +659,9 @@ describe('ThyDialog', () => {
 
     describe('close', () => {
         it('should close all of the dialogs', fakeAsync(() => {
-            dialog.open(DialogSimpleContentComponent);
-            dialog.open(DialogSimpleContentComponent);
-            dialog.open(DialogSimpleContentComponent);
+            dialog.open(DialogSimpleContentTestComponent);
+            dialog.open(DialogSimpleContentTestComponent);
+            dialog.open(DialogSimpleContentTestComponent);
 
             expect(getDialogContainerElements().length).toBe(3);
 
@@ -676,8 +673,8 @@ describe('ThyDialog', () => {
         }));
 
         it('should close all dialogs when the user goes forwards/backwards in history', fakeAsync(() => {
-            dialog.open(DialogSimpleContentComponent);
-            dialog.open(DialogSimpleContentComponent);
+            dialog.open(DialogSimpleContentTestComponent);
+            dialog.open(DialogSimpleContentTestComponent);
 
             expect(getDialogContainerElements().length).toBe(2);
 
@@ -689,8 +686,8 @@ describe('ThyDialog', () => {
         }));
 
         it('should close all open dialogs when the location hash changes', fakeAsync(() => {
-            dialog.open(DialogSimpleContentComponent);
-            dialog.open(DialogSimpleContentComponent);
+            dialog.open(DialogSimpleContentTestComponent);
+            dialog.open(DialogSimpleContentTestComponent);
 
             expect(getDialogContainerElements().length).toBe(2);
 
@@ -702,9 +699,9 @@ describe('ThyDialog', () => {
         }));
 
         it('should close all of the dialogs when the injectable is destroyed', fakeAsync(() => {
-            dialog.open(DialogSimpleContentComponent);
-            dialog.open(DialogSimpleContentComponent);
-            dialog.open(DialogSimpleContentComponent);
+            dialog.open(DialogSimpleContentTestComponent);
+            dialog.open(DialogSimpleContentTestComponent);
+            dialog.open(DialogSimpleContentTestComponent);
 
             expect(getDialogContainerElements().length).toBe(3);
 
@@ -733,8 +730,8 @@ describe('ThyDialog', () => {
         }));
 
         it('should allow the consumer to disable closing a dialog on navigation', fakeAsync(() => {
-            dialog.open(DialogSimpleContentComponent);
-            dialog.open(DialogSimpleContentComponent, { closeOnNavigation: false });
+            dialog.open(DialogSimpleContentTestComponent);
+            dialog.open(DialogSimpleContentTestComponent, { closeOnNavigation: false });
 
             expect(getDialogContainerElements().length).toBe(2);
 
@@ -746,7 +743,7 @@ describe('ThyDialog', () => {
         }));
 
         it('should have the componentInstance available in the afterClosed callback', fakeAsync(() => {
-            const dialogRef = dialog.open(DialogSimpleContentComponent);
+            const dialogRef = dialog.open(DialogSimpleContentTestComponent);
             const spy = jasmine.createSpy('afterClosed spy');
 
             flushMicrotasks();
@@ -769,7 +766,7 @@ describe('ThyDialog', () => {
         }));
 
         it('should close dialog when canClose return true', fakeAsync(() => {
-            dialog.open(DialogSimpleContentComponent, {
+            dialog.open(DialogSimpleContentTestComponent, {
                 canClose: () => true
             });
             expect(getDialogContainerElements().length).toBe(1);
@@ -780,7 +777,7 @@ describe('ThyDialog', () => {
         }));
 
         it('should not close when canClose return false', fakeAsync(() => {
-            dialog.open(DialogSimpleContentComponent, {
+            dialog.open(DialogSimpleContentTestComponent, {
                 canClose: () => false
             });
             expect(getDialogContainerElements().length).toBe(1);
@@ -791,7 +788,7 @@ describe('ThyDialog', () => {
         }));
 
         it('should force close worked', fakeAsync(() => {
-            dialog.open(DialogSimpleContentComponent, {
+            dialog.open(DialogSimpleContentTestComponent, {
                 canClose: () => false
             });
             expect(getDialogContainerElements().length).toBe(1);
@@ -803,7 +800,7 @@ describe('ThyDialog', () => {
     });
 
     it('should set the proper animation states', () => {
-        const dialogRef = dialog.open(DialogSimpleContentComponent, { viewContainerRef: testViewContainerRef });
+        const dialogRef = dialog.open(DialogSimpleContentTestComponent, { viewContainerRef: testViewContainerRef });
         const dialogContainer: ThyDialogContainer = viewContainerFixture.debugElement.query(
             By.directive(ThyDialogContainer)
         ).componentInstance;
@@ -816,7 +813,7 @@ describe('ThyDialog', () => {
     });
 
     it('should has "pointer-event: none" at dialog-container when animation phaseName equal start and toState equal exit', fakeAsync(() => {
-        const dialogRef = dialog.open(DialogSimpleContentComponent, { viewContainerRef: testViewContainerRef });
+        const dialogRef = dialog.open(DialogSimpleContentTestComponent, { viewContainerRef: testViewContainerRef });
         const dialogContainer = viewContainerFixture.debugElement.query(By.directive(ThyDialogContainer)).componentInstance;
 
         expect((getDialogContainerElement() as HTMLElement).style.pointerEvents).toEqual('');
@@ -839,7 +836,7 @@ describe('ThyDialog', () => {
     }));
 
     it('should not keep a reference to the component after the dialog is closed', fakeAsync(() => {
-        const dialogRef = dialog.open(DialogSimpleContentComponent);
+        const dialogRef = dialog.open(DialogSimpleContentTestComponent);
 
         expect(dialogRef.componentInstance).toBeTruthy();
 
@@ -852,8 +849,8 @@ describe('ThyDialog', () => {
 
     describe('unique id', () => {
         it('should assign a unique id to each dialog', () => {
-            const one = dialog.open(DialogSimpleContentComponent);
-            const two = dialog.open(DialogSimpleContentComponent);
+            const one = dialog.open(DialogSimpleContentTestComponent);
+            const two = dialog.open(DialogSimpleContentTestComponent);
 
             expect(one.id).toBeTruthy();
             expect(two.id).toBeTruthy();
@@ -861,27 +858,27 @@ describe('ThyDialog', () => {
         });
 
         it('should allow for the id to be overwritten', () => {
-            const dialogRef = dialog.open(DialogSimpleContentComponent, { id: 'pizza' });
+            const dialogRef = dialog.open(DialogSimpleContentTestComponent, { id: 'pizza' });
             expect(dialogRef.id).toBe('pizza');
         });
 
         it('should throw when trying to open a dialog with the same id as another dialog', () => {
-            dialog.open(DialogSimpleContentComponent, { id: 'pizza' });
-            expect(() => dialog.open(DialogSimpleContentComponent, { id: 'pizza' })).toThrowError(/must be unique/g);
+            dialog.open(DialogSimpleContentTestComponent, { id: 'pizza' });
+            expect(() => dialog.open(DialogSimpleContentTestComponent, { id: 'pizza' })).toThrowError(/must be unique/g);
         });
 
         it('should be able to find a dialog by id', () => {
-            const dialogRef = dialog.open(DialogSimpleContentComponent, { id: 'pizza' });
+            const dialogRef = dialog.open(DialogSimpleContentTestComponent, { id: 'pizza' });
             expect(dialog.getDialogById('pizza')).toBe(dialogRef);
         });
 
         it('should get correct openedDialogs', () => {
-            const dialogRef = dialog.open(DialogSimpleContentComponent, { id: 'pizza' });
+            const dialogRef = dialog.open(DialogSimpleContentTestComponent, { id: 'pizza' });
             const openedDialog = dialog.getOpenedDialogs();
             expect(openedDialog.length).toEqual(1);
             expect(openedDialog[0]).toEqual(dialogRef);
 
-            const dialogRef1 = dialog.open(DialogSimpleContentComponent, { id: 'hamburg' });
+            const dialogRef1 = dialog.open(DialogSimpleContentTestComponent, { id: 'hamburg' });
             expect(openedDialog.length).toEqual(2);
             expect(openedDialog[1]).toEqual(dialogRef1);
         });
@@ -891,7 +888,7 @@ describe('ThyDialog', () => {
     //     it('should toggle `aria-hidden` on the overlay container siblings', fakeAsync(() => {
     //         const sibling = document.createElement('div');
     //         overlayContainerElement.parentNode.appendChild(sibling);
-    //         const dialogRef = dialog.open(DialogSimpleContentComponent, { viewContainerRef: testViewContainerRef });
+    //         const dialogRef = dialog.open(DialogSimpleContentTestComponent, { viewContainerRef: testViewContainerRef });
     //         viewContainerFixture.detectChanges();
     //         flush();
     //         expect(sibling.getAttribute('aria-hidden')).toBe('true', 'Expected sibling to be hidden');
@@ -909,7 +906,7 @@ describe('ThyDialog', () => {
     //         const sibling = document.createElement('div');
     //         sibling.setAttribute('aria-hidden', 'true');
     //         overlayContainerElement.parentNode.appendChild(sibling);
-    //         const dialogRef = dialog.open(DialogSimpleContentComponent, { viewContainerRef: testViewContainerRef });
+    //         const dialogRef = dialog.open(DialogSimpleContentTestComponent, { viewContainerRef: testViewContainerRef });
     //         viewContainerFixture.detectChanges();
     //         flush();
     //         expect(sibling.getAttribute('aria-hidden')).toBe('true', 'Expected sibling to be hidden.');
@@ -923,7 +920,7 @@ describe('ThyDialog', () => {
     //         const sibling = document.createElement('div');
     //         sibling.setAttribute('aria-live', 'polite');
     //         overlayContainerElement.parentNode.appendChild(sibling);
-    //         dialog.open(DialogSimpleContentComponent, { viewContainerRef: testViewContainerRef });
+    //         dialog.open(DialogSimpleContentTestComponent, { viewContainerRef: testViewContainerRef });
     //         viewContainerFixture.detectChanges();
     //         flush();
     //         expect(sibling.hasAttribute('aria-hidden')).toBe(false, 'Expected live element not to be hidden.');
@@ -933,7 +930,7 @@ describe('ThyDialog', () => {
 
     describe('hasBackdrop option', () => {
         it('should have a backdrop', () => {
-            dialog.open(DialogSimpleContentComponent, {
+            dialog.open(DialogSimpleContentTestComponent, {
                 hasBackdrop: true,
                 viewContainerRef: testViewContainerRef
             });
@@ -944,7 +941,7 @@ describe('ThyDialog', () => {
         });
 
         it('should not have a backdrop', () => {
-            dialog.open(DialogSimpleContentComponent, {
+            dialog.open(DialogSimpleContentTestComponent, {
                 hasBackdrop: false,
                 viewContainerRef: testViewContainerRef
             });
@@ -957,7 +954,7 @@ describe('ThyDialog', () => {
 
     describe('backdropClosable option', () => {
         it('should prevent closing via clicks on the backdrop', fakeAsync(() => {
-            dialog.open(DialogSimpleContentComponent, {
+            dialog.open(DialogSimpleContentTestComponent, {
                 backdropClosable: false,
                 viewContainerRef: testViewContainerRef
             });
@@ -973,7 +970,7 @@ describe('ThyDialog', () => {
         }));
 
         it('should prevent closing via the escape key', fakeAsync(() => {
-            dialog.open(DialogSimpleContentComponent, {
+            dialog.open(DialogSimpleContentTestComponent, {
                 backdropClosable: false,
                 viewContainerRef: testViewContainerRef
             });
@@ -987,7 +984,7 @@ describe('ThyDialog', () => {
         }));
 
         it('should allow for the backdropClosable option to be updated while open', fakeAsync(() => {
-            const dialogRef = dialog.open(DialogSimpleContentComponent, {
+            const dialogRef = dialog.open(DialogSimpleContentTestComponent, {
                 backdropClosable: false,
                 viewContainerRef: testViewContainerRef
             });
@@ -1012,7 +1009,7 @@ describe('ThyDialog', () => {
 
     describe('panelClass option', () => {
         it('should have custom panel class', () => {
-            dialog.open(DialogSimpleContentComponent, {
+            dialog.open(DialogSimpleContentTestComponent, {
                 panelClass: 'custom-panel-class',
                 viewContainerRef: testViewContainerRef
             });
@@ -1023,7 +1020,7 @@ describe('ThyDialog', () => {
         });
 
         it('should work with custom panel class use array ', () => {
-            dialog.open(DialogSimpleContentComponent, {
+            dialog.open(DialogSimpleContentTestComponent, {
                 panelClass: ['custom-panel-class', 'custom-panel-class-other'],
                 viewContainerRef: testViewContainerRef
             });
@@ -1037,7 +1034,7 @@ describe('ThyDialog', () => {
 
     describe('backdropClass option', () => {
         it('should have default backdrop class', () => {
-            dialog.open(DialogSimpleContentComponent, {
+            dialog.open(DialogSimpleContentTestComponent, {
                 backdropClass: '',
                 viewContainerRef: testViewContainerRef
             });
@@ -1048,7 +1045,7 @@ describe('ThyDialog', () => {
         });
 
         it('should have custom backdrop class', () => {
-            dialog.open(DialogSimpleContentComponent, {
+            dialog.open(DialogSimpleContentTestComponent, {
                 backdropClass: 'custom-backdrop-class',
                 viewContainerRef: testViewContainerRef
             });
@@ -1061,13 +1058,13 @@ describe('ThyDialog', () => {
 
     describe('size option', () => {
         it('should have default panel class dialog-md', () => {
-            dialog.open(DialogSimpleContentComponent, {});
+            dialog.open(DialogSimpleContentTestComponent, {});
             viewContainerFixture.detectChanges();
             expect(overlayContainerElement.querySelector('.dialog-md')).toBeTruthy();
         });
 
         it('should have panel class dialog-sm', () => {
-            dialog.open(DialogSimpleContentComponent, {
+            dialog.open(DialogSimpleContentTestComponent, {
                 size: ThyDialogSizes.sm
             });
             viewContainerFixture.detectChanges();
@@ -1075,7 +1072,7 @@ describe('ThyDialog', () => {
         });
 
         it('should have panel class dialog-lg', () => {
-            dialog.open(DialogSimpleContentComponent, {
+            dialog.open(DialogSimpleContentTestComponent, {
                 size: ThyDialogSizes.lg
             });
             viewContainerFixture.detectChanges();
@@ -1083,7 +1080,7 @@ describe('ThyDialog', () => {
         });
 
         it('should have panel class dialog-max-lg', () => {
-            dialog.open(DialogSimpleContentComponent, {
+            dialog.open(DialogSimpleContentTestComponent, {
                 size: ThyDialogSizes.maxLg
             });
             viewContainerFixture.detectChanges();
@@ -1091,7 +1088,7 @@ describe('ThyDialog', () => {
         });
 
         it('should have panel class dialog-super-lg', () => {
-            dialog.open(DialogSimpleContentComponent, {
+            dialog.open(DialogSimpleContentTestComponent, {
                 size: ThyDialogSizes.superLg
             });
             viewContainerFixture.detectChanges();
@@ -1105,7 +1102,7 @@ describe('ThyDialog', () => {
         afterEach(() => document.body.removeChild(overlayContainerElement));
 
         it('should focus the first tabbable element of the dialog on open', (done: DoneFn) => {
-            dialog.open(DialogSimpleContentComponent);
+            dialog.open(DialogSimpleContentTestComponent);
 
             viewContainerFixture.detectChanges();
             viewContainerFixture.whenStable().then(() => {
@@ -1133,7 +1130,7 @@ describe('ThyDialog', () => {
         });
 
         it('should focus the thy-dialog-container element when autoFocus as false', (done: DoneFn) => {
-            dialog.open(DialogSimpleContentComponent, { autoFocus: false });
+            dialog.open(DialogSimpleContentTestComponent, { autoFocus: false });
             viewContainerFixture.detectChanges();
             viewContainerFixture.whenStable().then(() => {
                 expect(document.activeElement!.tagName).toBe('THY-DIALOG-CONTAINER');
@@ -1275,7 +1272,7 @@ describe('ThyDialog', () => {
 
     describe(`dialog should work with header close button`, () => {
         it('should close the dialog when click dialog header close button', (done: DoneFn) => {
-            const dialogRef = dialog.open(DialogFullContentComponent, { viewContainerRef: testViewContainerRef });
+            const dialogRef = dialog.open(DialogFullContentTestComponent);
             const spy = jasmine.createSpy('Dialog afterClosed spy');
             dialogRef.afterClosed().subscribe(spy);
             assertHeaderButtonClick(spy, done);
@@ -1299,7 +1296,7 @@ describe('ThyDialog', () => {
     });
 
     // it('should add and remove panel classes while open', () => {
-    //     let dialogRef = dialog.open(DialogSimpleContentComponent, {
+    //     let dialogRef = dialog.open(DialogSimpleContentTestComponent, {
     //         backdropClosable:true,
     //         viewContainerRef: testViewContainerRef
     //     });
@@ -1316,13 +1313,13 @@ describe('ThyDialog', () => {
 
     describe(`restoreFocus and restoreFocusOptions`, () => {
         function setup() {
-            const scrollFixture = TestBed.createComponent(DialogRestoreComponent);
+            const scrollFixture = TestBed.createComponent(DialogRestoreTestComponent);
             const scrollComponent = scrollFixture.componentInstance;
             const button = scrollFixture.debugElement.query(By.css('button'));
             return { scrollFixture, scrollComponent, button };
         }
 
-        function close(scrollComponent: DialogRestoreComponent) {
+        function close(scrollComponent: DialogRestoreTestComponent) {
             const headerButton = scrollComponent.dialogRef
                 .getOverlayRef()
                 .overlayElement.querySelector(`.dialog-header .thy-icon-close`) as HTMLElement;
@@ -1427,7 +1424,7 @@ describe('ThyDialog', () => {
 
     describe('toTop option', () => {
         function setup() {
-            const fixture = TestBed.createComponent(DialogToTopComponent);
+            const fixture = TestBed.createComponent(DialogToTopTestComponent);
             const component = fixture.componentInstance;
             const button = fixture.debugElement.query(By.css('button'));
             return { fixture, component, button };

@@ -7,24 +7,18 @@ import {
     typeInElement
 } from 'ngx-tethys/testing';
 import { keycodes } from 'ngx-tethys/util';
-
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { CommonModule } from '@angular/common';
 import { Component, DebugElement, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { ThyFormModule } from '../../form';
-import { ThyInputModule } from '../../input/module';
-import { ThyOptionModule, ThySharedModule } from '../../shared';
-import { ThyOption } from '../../shared/option/option.component';
-import { ThyAutocomplete } from '../autocomplete.component';
-import { ThyAutocompleteTriggerDirective } from '../autocomplete.trigger.directive';
-import { ThyAutocompleteModule } from '../module';
+import { ThyInputModule } from 'ngx-tethys/input';
+import { ThyOptionModule, ThyOption } from 'ngx-tethys/shared';
+import { ThyAutocomplete, ThyAutocompleteTriggerDirective, ThyAutocompleteModule } from 'ngx-tethys/autocomplete';
 import { provideHttpClient } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 @Component({
     selector: 'thy-basic-autocomplete',
@@ -46,7 +40,7 @@ import { provideHttpClient } from '@angular/common/http';
             </thy-autocomplete>
         </div>
     `,
-    standalone: false
+    imports: [FormsModule, ThyOptionModule, ThyInputModule, CommonModule, ThyAutocompleteModule]
 })
 class BasicSelectComponent {
     openedSpy = jasmine.createSpy('opened event spy callback');
@@ -88,7 +82,7 @@ class BasicSelectComponent {
             </thy-autocomplete>
         </div>
     `,
-    standalone: false
+    imports: [FormsModule, ThyInputModule, ThyOptionModule, ThyAutocompleteModule]
 })
 class InputSearchSelectComponent {
     value = '';
@@ -111,19 +105,7 @@ describe('ThyAutocomplete', () => {
 
     function configureThyCustomSelectTestingModule(declarations: any[]) {
         TestBed.configureTestingModule({
-            imports: [
-                CommonModule,
-                FormsModule,
-                ThyFormModule,
-                ThySharedModule,
-                ThyInputModule,
-                ThyAutocompleteModule,
-                ReactiveFormsModule,
-                BrowserAnimationsModule,
-                ThyOptionModule
-            ],
-            declarations: declarations,
-            providers: [bypassSanitizeProvider, provideHttpClient()]
+            providers: [bypassSanitizeProvider, provideHttpClient(), provideAnimations()]
         }).compileComponents();
 
         inject([OverlayContainer, Platform], (oc: OverlayContainer, p: Platform) => {

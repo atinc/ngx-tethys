@@ -19,7 +19,7 @@ import { dispatchFakeEvent } from 'ngx-tethys/testing';
             <div thyGridItem>Content 2</div>
         </thy-grid>
     `,
-    standalone: false
+    imports: [ThyGridModule]
 })
 export class TestGridDefaultComponent {}
 
@@ -36,7 +36,7 @@ export class TestGridDefaultComponent {}
             }
         </thy-grid>
     `,
-    standalone: false
+    imports: [ThyGridModule]
 })
 export class TestGridBasicComponent {
     cols: number | ThyGridResponsiveDescription;
@@ -68,10 +68,8 @@ describe('grid', () => {
         let gridInstance: ThyGrid;
 
         beforeEach(() => {
-            TestBed.configureTestingModule({
-                declarations: [TestGridDefaultComponent],
-                imports: [ThyGridModule]
-            }).compileComponents();
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
 
             fixture = TestBed.createComponent(TestGridDefaultComponent);
             gridDebugElement = fixture.debugElement.query(By.directive(ThyGridComponent));
@@ -127,10 +125,8 @@ describe('grid', () => {
         let testComponent: TestGridBasicComponent;
 
         beforeEach(() => {
-            TestBed.configureTestingModule({
-                declarations: [TestGridBasicComponent],
-                imports: [ThyGridModule]
-            }).compileComponents();
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
 
             fixture = TestBed.createComponent(TestGridBasicComponent);
             testComponent = fixture.debugElement.componentInstance;

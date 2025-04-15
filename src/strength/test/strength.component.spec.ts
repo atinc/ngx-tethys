@@ -1,17 +1,14 @@
 import { ThyButtonModule } from 'ngx-tethys/button';
-
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-
-import { ThyStrength } from '../strength.component';
-import { ThyStrengthModule } from '../strength.module';
+import { ThyStrength, ThyStrengthModule } from 'ngx-tethys/strength';
 
 @Component({
     selector: 'thy-strength-basic-test',
     template: ` <thy-strength [(ngModel)]="value"></thy-strength> `,
-    standalone: false
+    imports: [ThyStrengthModule, FormsModule, ThyButtonModule]
 })
 class StrengthBasicTestComponent {
     public value = 1;
@@ -24,11 +21,7 @@ describe('Strength basic component', () => {
     let strengthBasicElement: HTMLElement;
 
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [ThyStrengthModule, FormsModule, ThyButtonModule],
-            declarations: [StrengthBasicTestComponent],
-            providers: []
-        });
+        TestBed.configureTestingModule({});
         TestBed.compileComponents();
     });
 
@@ -65,7 +58,7 @@ describe('Strength basic component', () => {
             [averageKey]="text[currentTextType].averageKey"
             [lowKey]="text[currentTextType].lowKey"></thy-strength>
     `,
-    standalone: false
+    imports: [ThyStrengthModule, FormsModule, ThyButtonModule]
 })
 class StrengthTestComponent {
     public strength = 2;
@@ -95,11 +88,7 @@ describe('Strength component', () => {
     let strengthElement: HTMLElement;
 
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [ThyStrengthModule, FormsModule, ThyButtonModule],
-            declarations: [StrengthTestComponent],
-            providers: []
-        });
+        TestBed.configureTestingModule({});
         TestBed.compileComponents();
     });
 

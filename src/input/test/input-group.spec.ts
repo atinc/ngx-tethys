@@ -1,9 +1,8 @@
-import { Component, DebugElement, NgModule } from '@angular/core';
+import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyInputGroup } from '../input-group.component';
-import { ThyInputModule } from './../module';
-import { ThyTranslate } from '../../core';
+import { ThyInputGroup, ThyInputDirective, ThyInputCount } from 'ngx-tethys/input';
+import { ThyTranslate } from 'ngx-tethys/core';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
 import { FormsModule } from '@angular/forms';
 import { provideHttpClient } from '@angular/common/http';
@@ -21,7 +20,7 @@ import { provideHttpClient } from '@angular/common/http';
             <input thyInput />
         </thy-input-group>
     `,
-    standalone: false
+    imports: [ThyInputGroup, ThyInputDirective]
 })
 class TestInputGroupBasicComponent {
     value = '';
@@ -42,7 +41,7 @@ class TestInputGroupBasicComponent {
             <ng-template #suffix>Suffix Content</ng-template>
         </thy-input-group>
     `,
-    standalone: false
+    imports: [ThyInputGroup, ThyInputDirective]
 })
 class TestInputGroupPrefixAndSuffixComponent {
     value = '';
@@ -68,18 +67,11 @@ class TestInputGroupPrefixAndSuffixComponent {
             </ng-template>
         </thy-input-group>
     `,
-    standalone: false
+    imports: [ThyInputGroup, ThyInputDirective, FormsModule, ThyInputCount]
 })
 class TestInputGroupTextareaSuffixComponent {
     textareaValue = '';
 }
-
-@NgModule({
-    imports: [ThyInputModule, FormsModule],
-    declarations: [TestInputGroupBasicComponent, TestInputGroupPrefixAndSuffixComponent, TestInputGroupTextareaSuffixComponent],
-    exports: []
-})
-export class InputGroupTestModule {}
 
 class ThyTranslateSimulate {
     instant(value: string) {
@@ -99,7 +91,6 @@ describe('input group', () => {
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                imports: [InputGroupTestModule],
                 providers: [
                     provideHttpClient(),
                     {
@@ -177,7 +168,6 @@ describe('input group', () => {
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                imports: [InputGroupTestModule],
                 providers: [provideHttpClient()]
             });
 
@@ -246,7 +236,6 @@ describe('input group', () => {
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                imports: [InputGroupTestModule],
                 providers: [provideHttpClient()]
             });
             TestBed.compileComponents();

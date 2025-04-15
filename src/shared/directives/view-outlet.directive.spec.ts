@@ -1,7 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ThySharedModule } from '../shared.module';
+import { ThySharedModule } from 'ngx-tethys/shared';
 
 @Component({
     selector: 'thy-shared-view-outlet-template-test',
@@ -10,7 +9,7 @@ import { ThySharedModule } from '../shared.module';
 
         <ng-template #counter let-count="count">Count: {{ count }}</ng-template>
     `,
-    standalone: false
+    imports: [ThySharedModule]
 })
 class ThyViewOutletTemplateTestComponent {
     count = 1;
@@ -19,7 +18,7 @@ class ThyViewOutletTemplateTestComponent {
 @Component({
     selector: 'thy-shared-view-outlet-content',
     template: `Count: {{ count }}`,
-    standalone: false
+    imports: [ThySharedModule]
 })
 class ThyViewOutletContentTestComponent {
     count = 1;
@@ -28,7 +27,7 @@ class ThyViewOutletContentTestComponent {
 @Component({
     selector: 'thy-shared-view-outlet-component-test',
     template: `<ng-container *thyViewOutlet="contentComponent; context: context"></ng-container>`,
-    standalone: false
+    imports: [ThySharedModule]
 })
 class ThyViewOutletComponentTestComponent {
     contentComponent = ThyViewOutletContentTestComponent;
@@ -39,7 +38,7 @@ let contentMultiTestChanges: SimpleChanges;
 @Component({
     selector: 'thy-shared-view-outlet-content-multi',
     template: `Count: {{ count }}, Name: {{ innerName }}, Called: {{ nameSetInvokeCount }}, Input Name: {{ inputName }}`,
-    standalone: false
+    imports: [ThySharedModule]
 })
 class ThyViewOutletContentMultiTestComponent implements OnChanges {
     @Input() count = 1;
@@ -64,7 +63,7 @@ class ThyViewOutletContentMultiTestComponent implements OnChanges {
     selector: 'thy-shared-view-outlet-component-multi-test',
     template: `<ng-container
         *thyViewOutlet="contentComponent; context: { count: count, name: name, inputName: inputName }"></ng-container>`,
-    standalone: false
+    imports: [ThySharedModule]
 })
 class ThyViewOutletComponentMultiTestComponent {
     contentComponent = ThyViewOutletContentMultiTestComponent;
@@ -79,10 +78,8 @@ describe('thy-view-outlet', () => {
         let fixtureInstance: ThyViewOutletTemplateTestComponent;
 
         beforeEach(() => {
-            TestBed.configureTestingModule({
-                imports: [ThySharedModule],
-                declarations: [ThyViewOutletTemplateTestComponent]
-            }).compileComponents();
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
         });
 
         beforeEach(() => {
@@ -109,10 +106,8 @@ describe('thy-view-outlet', () => {
         let fixtureInstance: ThyViewOutletComponentTestComponent;
 
         beforeEach(() => {
-            TestBed.configureTestingModule({
-                imports: [ThySharedModule],
-                declarations: [ThyViewOutletComponentTestComponent, ThyViewOutletContentTestComponent]
-            }).compileComponents();
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
         });
 
         beforeEach(() => {
@@ -146,10 +141,8 @@ describe('thy-view-outlet', () => {
         let fixtureInstance: ThyViewOutletComponentMultiTestComponent;
 
         beforeEach(() => {
-            TestBed.configureTestingModule({
-                imports: [ThySharedModule],
-                declarations: [ThyViewOutletComponentMultiTestComponent, ThyViewOutletContentMultiTestComponent]
-            }).compileComponents();
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
         });
 
         beforeEach(() => {

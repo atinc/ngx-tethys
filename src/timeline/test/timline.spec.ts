@@ -1,8 +1,7 @@
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ThyTimelineModule } from '../timeline.module';
 import { By } from '@angular/platform-browser';
-import { ThyTimeDirection, ThyTimeline } from '../timeline.component';
+import { ThyTimeDirection, ThyTimeline, ThyTimelineModule } from 'ngx-tethys/timeline';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({
@@ -17,7 +16,7 @@ import { provideHttpClient } from '@angular/common/http';
             <thy-timeline-item [thyColor]="color">333</thy-timeline-item>
         </thy-timeline>
     `,
-    standalone: false
+    imports: [ThyTimelineModule]
 })
 export class TestTimelineBasicComponent {
     mode = 'left';
@@ -32,7 +31,7 @@ export class TestTimelineBasicComponent {
             <thy-timeline-item thyPosition="left">222</thy-timeline-item>
         </thy-timeline>
     `,
-    standalone: false
+    imports: [ThyTimelineModule]
 })
 export class TestTimelineCustomPositionComponent {
     mode = 'left';
@@ -48,7 +47,7 @@ export class TestTimelineCustomPositionComponent {
             </thy-timeline-item>
         </thy-timeline>
     `,
-    standalone: false
+    imports: [ThyTimelineModule]
 })
 export class TestTimelineCustomDescriptionComponent {
     mode = 'left';
@@ -64,7 +63,7 @@ export class TestTimelineCustomDescriptionComponent {
             </thy-timeline-item>
         </thy-timeline>
     `,
-    standalone: false
+    imports: [ThyTimelineModule]
 })
 export class TestTimelineCustomHorizontalComponent {
     direction: ThyTimeDirection = 'horizontal';
@@ -78,7 +77,7 @@ export class TestTimelineCustomHorizontalComponent {
             }
         </thy-timeline>
     `,
-    standalone: false
+    imports: [ThyTimelineModule]
 })
 export class TestTimelineCustomItemsComponent {
     timelineItems = ['节点1', '节点2', '节点3', '节点4'];
@@ -93,8 +92,6 @@ describe('timeline', () => {
 
         beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
-                imports: [ThyTimelineModule],
-                declarations: [TestTimelineBasicComponent],
                 providers: [provideHttpClient()]
             }).compileComponents();
         }));
@@ -168,15 +165,15 @@ describe('timeline', () => {
             expect(items[2].classList).toContain('thy-timeline-item-left');
         });
     });
+
     describe('custom position', () => {
         let fixture: ComponentFixture<TestTimelineCustomPositionComponent>;
 
         beforeEach(waitForAsync(() => {
-            TestBed.configureTestingModule({
-                imports: [ThyTimelineModule],
-                declarations: [TestTimelineCustomPositionComponent]
-            }).compileComponents();
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
         }));
+
         beforeEach(() => {
             fixture = TestBed.createComponent(TestTimelineCustomPositionComponent);
             fixture.detectChanges();
@@ -188,15 +185,14 @@ describe('timeline', () => {
             expect(items[1].classList).toContain('thy-timeline-item-left');
         });
     });
+
     describe('custom description', () => {
         let fixture: ComponentFixture<TestTimelineCustomDescriptionComponent>;
         let debugElement: DebugElement;
 
         beforeEach(waitForAsync(() => {
-            TestBed.configureTestingModule({
-                imports: [ThyTimelineModule],
-                declarations: [TestTimelineCustomDescriptionComponent]
-            }).compileComponents();
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
         }));
 
         beforeEach(() => {
@@ -209,14 +205,14 @@ describe('timeline', () => {
             expect(debugElement.nativeElement.classList).toContain('thy-timeline-template');
         });
     });
+
     describe('custom direction', () => {
         let fixture: ComponentFixture<TestTimelineCustomHorizontalComponent>;
         let debugElement: DebugElement;
+
         beforeEach(waitForAsync(() => {
-            TestBed.configureTestingModule({
-                imports: [ThyTimelineModule],
-                declarations: [TestTimelineCustomHorizontalComponent]
-            }).compileComponents();
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
         }));
 
         beforeEach(() => {
@@ -229,14 +225,13 @@ describe('timeline', () => {
             expect(debugElement.nativeElement.classList).toContain('thy-timeline-horizontal');
         });
     });
+
     describe('custom timeline items', () => {
         let fixture: ComponentFixture<TestTimelineCustomItemsComponent>;
 
         beforeEach(waitForAsync(() => {
-            TestBed.configureTestingModule({
-                imports: [ThyTimelineModule],
-                declarations: [TestTimelineCustomItemsComponent]
-            }).compileComponents();
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
         }));
 
         beforeEach(() => {

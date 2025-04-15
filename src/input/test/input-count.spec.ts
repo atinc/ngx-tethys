@@ -2,8 +2,7 @@ import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ThyInputCount } from '../input-count.component';
-import { ThyInputModule } from '../module';
+import { ThyInputCount, ThyInputModule } from 'ngx-tethys/input';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({
@@ -16,7 +15,7 @@ import { provideHttpClient } from '@angular/common/http';
             </ng-template>
         </thy-input-group>
     `,
-    standalone: false
+    imports: [ThyInputModule, FormsModule]
 })
 class TestInputCountBasicComponent {
     name: '';
@@ -38,7 +37,7 @@ class TestInputCountBasicComponent {
             </ng-template>
         </thy-input-group>
     `,
-    standalone: false
+    imports: [ThyInputModule, FormsModule]
 })
 class TestInputCountSpecifyInputBasicComponent {
     name: '';
@@ -50,8 +49,6 @@ describe('input count', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [TestInputCountBasicComponent, TestInputCountSpecifyInputBasicComponent],
-            imports: [ThyInputModule, FormsModule],
             providers: [provideHttpClient()]
         });
     });

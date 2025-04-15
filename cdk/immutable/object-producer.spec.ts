@@ -1,4 +1,4 @@
-import { produce } from './immutable';
+import { produce } from '@tethys/cdk';
 
 type Address = {
     postCode: string;

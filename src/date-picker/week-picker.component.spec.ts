@@ -6,8 +6,8 @@ import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angu
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
-import { ThyDatePickerModule } from './date-picker.module';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ThyDatePickerModule } from 'ngx-tethys/date-picker';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
 
 registerLocaleData(zh);
@@ -21,9 +21,7 @@ describe('ThyWeekPickerComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyDatePickerModule, FormsModule, NoopAnimationsModule],
-            providers: [provideHttpClient()],
-            declarations: [TestWeekPickerComponent]
+            providers: [provideHttpClient(), provideNoopAnimations()]
         });
 
         TestBed.compileComponents();
@@ -163,7 +161,7 @@ describe('ThyWeekPickerComponent', () => {
             [thyPlaceHolder]="thyPlaceHolder"
             (thyDateChange)="thyDateChange($event)"></thy-week-picker>
     `,
-    standalone: false
+    imports: [ThyDatePickerModule, FormsModule]
 })
 class TestWeekPickerComponent {
     thyAllowClear: boolean;

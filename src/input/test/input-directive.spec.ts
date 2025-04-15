@@ -1,24 +1,16 @@
-import { ThyInputModule } from './../module';
-import { ThyInputDirective } from './../input.directive';
-import { Component, DebugElement, NgModule } from '@angular/core';
+import { ThyInputDirective } from 'ngx-tethys/input';
+import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 @Component({
     selector: 'test-bed-input-directive',
     template: ` <input name="username" thyInput [thySize]="thySize" /> `,
-    standalone: false
+    imports: [ThyInputDirective]
 })
 class TestBedInputDirectiveComponent {
     thySize = ``;
 }
-
-@NgModule({
-    imports: [ThyInputModule],
-    declarations: [TestBedInputDirectiveComponent],
-    exports: []
-})
-export class InputDirectiveTestModule {}
 
 describe('input directive', () => {
     let fixture: ComponentFixture<TestBedInputDirectiveComponent>;
@@ -26,11 +18,7 @@ describe('input directive', () => {
     let debugElement: DebugElement;
 
     beforeEach(fakeAsync(() => {
-        TestBed.configureTestingModule({
-            imports: [InputDirectiveTestModule],
-            providers: []
-        });
-
+        TestBed.configureTestingModule({});
         TestBed.compileComponents();
     }));
 

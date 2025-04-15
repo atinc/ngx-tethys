@@ -2,14 +2,12 @@ import { Component, DebugElement, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyRadioModule } from '../module';
-import { ThyRadio } from '../radio.component';
-import { ThyRadioGroup } from '../group/radio-group.component';
+import { ThyRadioModule, ThyRadio, ThyRadioGroup } from 'ngx-tethys/radio';
 
 @Component({
     selector: 'thy-radio-test',
     template: ` <label thyRadio [thyLabelText]="labelText" [thyDisabled]="isDisabled"></label> `,
-    standalone: false
+    imports: [ThyRadioModule, FormsModule]
 })
 class RadioTestComponent {
     labelText = '单选选项';
@@ -24,11 +22,7 @@ describe('radio component', () => {
     let labelNode: any;
 
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [ThyRadioModule, FormsModule],
-            declarations: [RadioTestComponent],
-            providers: []
-        });
+        TestBed.configureTestingModule({});
         TestBed.compileComponents();
     });
 
@@ -75,7 +69,7 @@ describe('radio component', () => {
         </thy-radio-group>
         <p class="mt-2">选中的选项值： {{ checkedValue }}</p>
     `,
-    standalone: false
+    imports: [ThyRadioModule, FormsModule]
 })
 class RadioGroupTestComponent {
     @ViewChild('radioGroup', { static: true }) radioGroup: ThyRadioGroup;
@@ -92,12 +86,9 @@ describe('thy-radio-group component', () => {
     let labelComponent: DebugElement;
 
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [ThyRadioModule, FormsModule],
-            declarations: [RadioGroupTestComponent],
-            providers: []
-        }).compileComponents();
+        TestBed.configureTestingModule({}).compileComponents();
     });
+
     beforeEach(() => {
         groupFixture = TestBed.createComponent(RadioGroupTestComponent);
         groupComponent = groupFixture.componentInstance;

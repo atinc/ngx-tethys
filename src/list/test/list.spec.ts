@@ -1,18 +1,16 @@
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyListModule } from '../list.module';
-import { ThyList } from '../list.component';
+import { ThyListModule, ThyList } from 'ngx-tethys/list';
 import { provideHttpClient } from '@angular/common/http';
 
 describe('list', () => {
     let fixture: ComponentFixture<TestListComponent>;
     let listDebugElement: DebugElement;
     let listElement: HTMLElement;
+
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyListModule],
-            declarations: [TestListComponent],
             providers: [provideHttpClient()]
         }).compileComponents();
         fixture = TestBed.createComponent(TestListComponent);
@@ -64,7 +62,7 @@ describe('list', () => {
             </thy-list-item>
         </thy-list>
     `,
-    standalone: false
+    imports: [ThyListModule]
 })
 class TestListComponent {
     divided = false;

@@ -2,9 +2,7 @@ import { FormsModule } from '@angular/forms';
 import { ThySelectModule } from 'ngx-tethys/select';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { Component } from '@angular/core';
-
-import { ThyDividerModule } from '../divider.module';
-import { ThyDividerStyle, ThyDividerTextDirection } from '../divider.component';
+import { ThyDividerModule, ThyDividerStyle, ThyDividerTextDirection } from 'ngx-tethys/divider';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({
@@ -25,7 +23,7 @@ import { provideHttpClient } from '@angular/common/http';
             </ng-template>
         </ng-container>
     `,
-    standalone: false
+    imports: [ThyDividerModule, FormsModule, ThySelectModule]
 })
 class ThyTestDividerComponent {
     isVertical = false;
@@ -51,8 +49,6 @@ describe('ThyDividerComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyDividerModule, FormsModule, ThySelectModule],
-            declarations: [ThyTestDividerComponent],
             providers: [provideHttpClient()]
         });
         TestBed.compileComponents().then(r => r);

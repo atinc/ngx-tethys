@@ -1,6 +1,6 @@
 import { startOfDay, TinyDate } from 'ngx-tethys/util';
+import { isValidLimit, setTime } from 'ngx-tethys/time-picker';
 import { Time, TimePickerComponentState } from '../inner/inner-time-picker.class';
-import { isValidLimit, setTime } from '../time-picker.utils';
 
 describe('ThyTimePickerUtil', () => {
     describe('utils function test', () => {

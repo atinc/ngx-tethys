@@ -1,8 +1,7 @@
 import { DOCUMENT, PlatformLocation } from '@angular/common';
 import { ApplicationRef, Injector, ɵglobal } from '@angular/core';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
-
-import { ThyScrollService } from './scroll';
+import { ThyScrollService } from 'ngx-tethys/core';
 
 describe('ThyScrollService', () => {
     const TOP = 10;

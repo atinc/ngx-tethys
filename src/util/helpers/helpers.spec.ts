@@ -10,7 +10,6 @@ import {
     htmlElementIsEmpty,
     indexKeyBy,
     isBoolean,
-    isDate,
     isElementRef,
     isEmpty,
     isFloat,
@@ -20,8 +19,9 @@ import {
     isString,
     isTemplateRef,
     keyBy,
-    shallowEqual
-} from './helpers';
+    shallowEqual,
+    isDate
+} from 'ngx-tethys/util';
 
 const falsey = [, null, undefined, false, 0, NaN, ''];
 const empties = [[], {}].concat(falsey.slice(1));

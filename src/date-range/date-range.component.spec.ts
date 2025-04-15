@@ -6,7 +6,7 @@ import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, inject, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import {
     addMonths,
     differenceInDays,
@@ -21,9 +21,8 @@ import {
     startOfQuarter
 } from 'date-fns';
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
-import { addDays, addYears, endOfDay, endOfYear, startOfDay, startOfWeek, startOfYear } from '../util';
-import { DateRangeItemInfo } from './date-range.class';
-import { ThyDateRangeModule } from './module';
+import { addDays, addYears, endOfDay, endOfYear, startOfDay, startOfWeek, startOfYear } from 'ngx-tethys/util';
+import { DateRangeItemInfo, ThyDateRangeModule } from 'ngx-tethys/date-range';
 
 registerLocaleData(zh);
 
@@ -38,9 +37,7 @@ describe('ThyTestDateRangeComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [FormsModule, ThyDateRangeModule, NoopAnimationsModule],
-            providers: [provideHttpClient()],
-            declarations: [ThyTestDateRangeComponent]
+            providers: [provideHttpClient(), provideNoopAnimations()]
         });
 
         TestBed.compileComponents();
@@ -494,7 +491,7 @@ describe('ThyTestDateRangeComponent', () => {
             }
         }
     `,
-    standalone: false
+    imports: [FormsModule, ThyDateRangeModule]
 })
 class ThyTestDateRangeComponent {
     useSuite: 1 | 2 | 3;

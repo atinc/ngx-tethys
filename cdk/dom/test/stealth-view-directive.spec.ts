@@ -1,18 +1,6 @@
-import {
-    AfterViewInit,
-    Component,
-    ElementRef,
-    Injector,
-    runInInjectionContext,
-    TemplateRef,
-    viewChild,
-    ViewChild,
-    inject,
-    afterRenderEffect
-} from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { ThyStealthView } from '../stealth-view-directive';
-import { useStealthViewRenderer } from '../stealth-view-renderer';
+import { Component, Injector, TemplateRef, viewChild, ViewChild, inject, afterRenderEffect } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { ThyStealthView, useStealthViewRenderer } from '@tethys/cdk/dom';
 
 @Component({
     selector: 'thy-stealth-view-test',
@@ -55,7 +43,7 @@ describe('ThyStealthViewDirective', () => {
     let component: ThyStealthViewDirectiveTestComponent;
 
     beforeEach(() => {
-        TestBed.configureTestingModule({ imports: [], declarations: [] });
+        TestBed.configureTestingModule({});
         TestBed.compileComponents();
     });
 

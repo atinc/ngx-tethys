@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, waitForAsync, TestBed, fakeAsync } from '@angular/core/testing';
-import { ThySharedModule } from '../shared.module';
 import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ThySharedModule } from 'ngx-tethys/shared';
 
 @Component({
     selector: 'thy-drag-drop-test',
@@ -15,7 +15,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
             }
         </div>
     `,
-    standalone: false
+    imports: [ThySharedModule, DragDropModule]
 })
 class ThyDragDropTestComponent {
     showItem2 = false;
@@ -26,10 +26,8 @@ describe('thy-drag-drop', () => {
     let testComponent: ThyDragDropTestComponent;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
-            imports: [ThySharedModule, DragDropModule],
-            declarations: [ThyDragDropTestComponent]
-        }).compileComponents();
+        TestBed.configureTestingModule({});
+        TestBed.compileComponents();
     }));
 
     beforeEach(() => {

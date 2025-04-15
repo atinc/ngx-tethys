@@ -1,10 +1,8 @@
 import { fakeAsync, TestBed, ComponentFixture } from '@angular/core/testing';
-import { ThyBreadcrumbModule } from '../module';
-import { NgModule, Component, DebugElement } from '@angular/core';
-import { ThyBreadcrumbItem } from '../breadcrumb-item.component';
+import { ThyBreadcrumbItem, ThyBreadcrumb } from 'ngx-tethys/breadcrumb';
+import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { ThyBreadcrumb } from '../breadcrumb.component';
-import { ThyIconModule } from './../../icon/icon.module';
+import { ThyIcon } from 'ngx-tethys/icon';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({
@@ -23,19 +21,12 @@ import { provideHttpClient } from '@angular/common/http';
             </thy-breadcrumb-item>
         </thy-breadcrumb>
     `,
-    standalone: false
+    imports: [ThyBreadcrumb, ThyBreadcrumbItem, ThyIcon]
 })
 class ThyDemoBreadcrumbBasicComponent {
     thyIconName = `folder-fill`;
     thySeparator = ``;
 }
-
-@NgModule({
-    imports: [ThyBreadcrumbModule, ThyIconModule],
-    declarations: [ThyDemoBreadcrumbBasicComponent],
-    exports: [ThyDemoBreadcrumbBasicComponent]
-})
-export class BreadcrumbTestModule {}
 
 describe('ThyBreadcrumb', () => {
     let fixture: ComponentFixture<ThyDemoBreadcrumbBasicComponent>;
@@ -45,11 +36,7 @@ describe('ThyBreadcrumb', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyBreadcrumbModule, BreadcrumbTestModule, ThyIconModule],
-            providers: [
-                provideHttpClient()
-                // { provide: Location, useClass: SpyLocation }
-            ]
+            providers: [provideHttpClient()]
         });
 
         TestBed.compileComponents();

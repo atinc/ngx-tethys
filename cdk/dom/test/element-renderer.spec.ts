@@ -1,13 +1,11 @@
-import { Component, OnInit, inject, ViewChild, ElementRef, DebugElement } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { useElementRenderer } from '../element-renderer';
-import { HostRenderer, useHostRenderer } from '../host-renderer';
+import { useElementRenderer } from '@tethys/cdk/dom';
 
 @Component({
     selector: 'thy-dom-use-element-renderer-test',
-    template: '<div #container></div>',
-    standalone: false
+    template: '<div #container></div>'
 })
 export class ThyDomUseElementRendererTestComponent implements OnInit {
     @ViewChild('container', { read: ElementRef, static: true }) container: ElementRef;
@@ -26,8 +24,7 @@ export class ThyDomUseElementRendererTestComponent implements OnInit {
 
 @Component({
     selector: 'thy-dom-use-element-renderer-without-element-test',
-    template: '<div #container></div>',
-    standalone: false
+    template: '<div #container></div>'
 })
 export class ThyDomElementRendererWithoutElementTestComponent implements OnInit {
     @ViewChild('container', { read: ElementRef, static: true }) container: ElementRef;
@@ -46,9 +43,7 @@ describe('element-renderer', () => {
     let debugElement: DebugElement;
 
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            declarations: [ThyDomUseElementRendererTestComponent, ThyDomElementRendererWithoutElementTestComponent]
-        });
+        TestBed.configureTestingModule({});
 
         fixture = TestBed.createComponent(ThyDomUseElementRendererTestComponent);
         fixture.detectChanges();

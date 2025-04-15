@@ -18,7 +18,7 @@ import { provideHttpClient } from '@angular/common/http';
             </thy-carousel>
         </div>
     `,
-    standalone: false
+    imports: [ThyCarouselModule]
 })
 class ThyTestCarouselEngineComponent implements OnInit {
     @ViewChild(ThyCarousel, { static: false }) thyCarouselComponent!: ThyCarousel;
@@ -38,8 +38,6 @@ class ThyTestCarouselEngineComponent implements OnInit {
 describe(`carousel`, () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyCarouselModule],
-            declarations: [ThyTestCarouselEngineComponent],
             providers: [provideHttpClient()]
         });
         TestBed.compileComponents();

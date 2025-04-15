@@ -1,9 +1,7 @@
-import { Component, DebugElement, NgModule, OnInit, TemplateRef, ViewChild } from '@angular/core';
-
+import { Component, DebugElement, OnInit, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyWatermarkDirective } from '../watermark.directive';
-import { ThyWatermarkModule } from '../watermark.module';
+import { ThyWatermarkDirective } from 'ngx-tethys/watermark';
 
 @Component({
     selector: 'thy-test-watermark-basic',
@@ -15,7 +13,7 @@ import { ThyWatermarkModule } from '../watermark.module';
             [thyWatermark]="watermarkContent"
             [thyDisabled]="isDisabled"></div>
     `,
-    standalone: false
+    imports: [ThyWatermarkDirective]
 })
 class ThyTestWatermarkBasicComponent implements OnInit {
     isDisabled = false;
@@ -27,13 +25,6 @@ class ThyTestWatermarkBasicComponent implements OnInit {
     ngOnInit(): void {}
 }
 
-@NgModule({
-    imports: [ThyWatermarkModule],
-    declarations: [ThyTestWatermarkBasicComponent],
-    exports: []
-})
-export class WatermarkTestModule {}
-
 describe('WatermarkDirective', () => {
     let fixture: ComponentFixture<ThyTestWatermarkBasicComponent>;
     let divDebugElement: DebugElement;
@@ -41,10 +32,7 @@ describe('WatermarkDirective', () => {
     let testComponent: any;
 
     beforeEach(fakeAsync(() => {
-        TestBed.configureTestingModule({
-            imports: [WatermarkTestModule],
-            providers: []
-        }).compileComponents();
+        TestBed.configureTestingModule({}).compileComponents();
 
         fixture = TestBed.createComponent(ThyTestWatermarkBasicComponent);
 

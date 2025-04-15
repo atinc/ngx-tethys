@@ -1,17 +1,16 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { ThyDialogModule } from 'ngx-tethys/dialog';
-import { ThyImageModule } from '../module';
-import { ThyImageDirective } from './../image.directive';
+import { ThyImageModule, ThyImageDirective } from 'ngx-tethys/image';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-image-directive-test',
     template: ` <img thyImage [thySrc]="src" [thyImageMeta]="imageMeta" [thyDisablePreview]="disablePreview" /> `,
-    standalone: false
+    imports: [ThyImageModule, ThyDialogModule]
 })
 class ImageDirectiveTestComponent {
     src = '';
@@ -28,9 +27,8 @@ describe('image-directive', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyImageModule, ThyDialogModule, NoopAnimationsModule],
-            declarations: [ImageDirectiveTestComponent],
-            providers: [provideHttpClient()]
+            imports: [ThyImageModule],
+            providers: [provideHttpClient(), provideNoopAnimations()]
         }).compileComponents();
         fixture = TestBed.createComponent(ImageDirectiveTestComponent);
         basicTestComponent = fixture.debugElement.componentInstance;

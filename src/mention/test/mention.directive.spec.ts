@@ -1,18 +1,16 @@
 import { ThyPopover } from 'ngx-tethys/popover';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing';
 import { ENTER } from 'ngx-tethys/util';
-
-import { Component, DebugElement, ElementRef, NgModule, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, DebugElement, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
-import { ThyListModule } from '../../list';
+import { ThySelectionList } from 'ngx-tethys/list';
+import { Mention, ThyMentionDirective, ThyMentionModule } from 'ngx-tethys/mention';
+import { ThySelectOptionGroup, ThyListOption } from 'ngx-tethys/shared';
 import { MentionInputorElement } from '../adapter';
-import { Mention } from '../interfaces';
-import { ThyMentionDirective } from '../mention.directive';
-import { ThyMentionModule } from '../mention.module';
+import { provideAnimations, provideNoopAnimations } from '@angular/platform-browser/animations';
+import { ThyInputDirective } from 'ngx-tethys/input';
 
 @Component({
     selector: 'thy-test-mention-basic',
@@ -21,7 +19,7 @@ import { ThyMentionModule } from '../mention.module';
             <textarea [(ngModel)]="value" thyInput [thyMention]="mentions" [thyPopoverConfig]="popoverConfig"></textarea>
         </div>
     `,
-    standalone: false
+    imports: [FormsModule, ThyMentionDirective, ThyInputDirective]
 })
 class ThyTestMentionBasicComponent implements OnInit {
     value = `@t`;
@@ -64,7 +62,7 @@ class ThyTestMentionBasicComponent implements OnInit {
             </ng-template>
         </div>
     `,
-    standalone: false
+    imports: [FormsModule, ThyMentionDirective, ThySelectionList, ThySelectOptionGroup, ThyListOption, ThyInputDirective]
 })
 class ThyTestMentionSuggestionsTemplateComponent implements OnInit {
     value = `@`;
@@ -104,7 +102,7 @@ class ThyTestMentionSuggestionsTemplateComponent implements OnInit {
                 [(ngModel)]="value" />
         </div>
     `,
-    standalone: false
+    imports: [FormsModule, ThyMentionDirective, ThyInputDirective]
 })
 class ThyTestInputMentionComponent implements OnInit {
     value = ``;
@@ -130,7 +128,7 @@ class ThyTestInputMentionComponent implements OnInit {
             <p class="example-text" #exampleText contenteditable="true" [thyMention]="mentions">&#64;t</p>
         </div>
     `,
-    standalone: false
+    imports: [ThyMentionDirective, ThyInputDirective]
 })
 class ThyTestContenteditableMentionComponent implements OnInit {
     mentions: Mention[] = [
@@ -149,18 +147,6 @@ class ThyTestContenteditableMentionComponent implements OnInit {
     ngOnInit(): void {}
 }
 
-@NgModule({
-    imports: [FormsModule, ThyMentionModule, ThyListModule],
-    declarations: [
-        ThyTestMentionBasicComponent,
-        ThyTestMentionSuggestionsTemplateComponent,
-        ThyTestInputMentionComponent,
-        ThyTestContenteditableMentionComponent
-    ],
-    exports: []
-})
-export class MentionTestModule {}
-
 describe('MentionDirective', () => {
     let fixture: ComponentFixture<ThyTestMentionBasicComponent>;
     let mentionDirective: ThyMentionDirective;
@@ -170,8 +156,8 @@ describe('MentionDirective', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [MentionTestModule, NoopAnimationsModule],
-            providers: []
+            imports: [ThyMentionModule],
+            providers: [provideAnimations()]
         });
         TestBed.compileComponents();
         fixture = TestBed.createComponent(ThyTestMentionBasicComponent);
@@ -230,8 +216,8 @@ describe('MentionSuggestionsTemplateDirective', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [MentionTestModule, NoopAnimationsModule],
-            providers: []
+            imports: [ThyMentionModule],
+            providers: [provideAnimations()]
         });
         TestBed.compileComponents();
         fixture = TestBed.createComponent(ThyTestMentionSuggestionsTemplateComponent);
@@ -274,8 +260,8 @@ describe('TestMentionInput', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [MentionTestModule, NoopAnimationsModule],
-            providers: []
+            imports: [ThyMentionModule],
+            providers: [provideNoopAnimations()]
         });
         TestBed.compileComponents();
         fixture = TestBed.createComponent(ThyTestInputMentionComponent);
@@ -314,8 +300,8 @@ describe('TestContenteditableMention', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [MentionTestModule, NoopAnimationsModule],
-            providers: []
+            imports: [ThyMentionModule],
+            providers: [provideAnimations()]
         });
         TestBed.compileComponents();
         fixture = TestBed.createComponent(ThyTestContenteditableMentionComponent);

@@ -1,15 +1,12 @@
-import { inject, TestBed, fakeAsync, ComponentFixture, tick, flushMicrotasks, flush } from '@angular/core/testing';
-import { NgModule, Component, ViewChild, ElementRef, OnDestroy, inject as coreInject } from '@angular/core';
-import { ThyClickPositioner } from '../click-positioner';
+import { inject, TestBed, fakeAsync, ComponentFixture, flush } from '@angular/core/testing';
+import { NgModule, Component, OnDestroy, inject as coreInject } from '@angular/core';
+import { ThyClickPositioner } from 'ngx-tethys/core';
 import { Subscription, Observable } from 'rxjs';
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 
 describe('ClickDispatcher', () => {
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [ClickPositionerTestModule]
-        });
-
+        TestBed.configureTestingModule({});
         TestBed.compileComponents();
     });
 
@@ -57,10 +54,7 @@ describe('ClickDispatcher', () => {
 });
 
 /** Simple component that contains a large div and can be scrolled. */
-@Component({
-    template: ` <div></div> `,
-    standalone: false
-})
+@Component({ template: ` <div></div> ` })
 class ClickPositionerComponent implements OnDestroy {
     clickPositioner = coreInject(ThyClickPositioner);
 
@@ -83,9 +77,8 @@ class ClickPositionerComponent implements OnDestroy {
 
 const TEST_COMPONENTS = [ClickPositionerComponent];
 @NgModule({
-    imports: [],
+    imports: [...TEST_COMPONENTS],
     providers: [ClickPositionerComponent],
-    exports: TEST_COMPONENTS,
-    declarations: TEST_COMPONENTS
+    exports: TEST_COMPONENTS
 })
 class ClickPositionerTestModule {}

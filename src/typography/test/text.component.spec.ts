@@ -3,8 +3,7 @@ import { TestBed, waitForAsync, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { isBgColor, isThemeColor, ThyBgColor, ThyTextColor, ThyThemeColor } from 'ngx-tethys/core';
 import { ThyIconModule } from 'ngx-tethys/icon';
-import { ThyTypographyModule } from '../module';
-import { ThyBackgroundColorDirective } from 'ngx-tethys/typography';
+import { ThyBackgroundColorDirective, ThyTypographyModule } from 'ngx-tethys/typography';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({
@@ -14,7 +13,7 @@ import { provideHttpClient } from '@angular/common/http';
         <thy-text id="customColor" thyTextColor="#c9584e">This is a text</thy-text>
         <span id="icon" thyText thyIcon="version">This is a Text</span>
     `,
-    standalone: false
+    imports: [ThyTypographyModule, ThyIconModule]
 })
 export class ThyTextBasicTestComponent {
     color: ThyThemeColor | ThyTextColor | string = '';
@@ -25,7 +24,7 @@ export class ThyTextBasicTestComponent {
 @Component({
     selector: 'thy-text-background-test',
     template: ` <span id="themeWithCustomBg" [thyBgColor]="bgColor" thyTextColor="white">This is a text</span> `,
-    standalone: false
+    imports: [ThyTypographyModule, ThyIconModule]
 })
 export class ThyTextBackgroundTestComponent {
     bgColor: ThyThemeColor | ThyBgColor | string = 'primary';
@@ -36,8 +35,6 @@ export class ThyTextBackgroundTestComponent {
 describe('thy-text', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [ThyTextBasicTestComponent, ThyTextBackgroundTestComponent],
-            imports: [ThyTypographyModule, ThyIconModule],
             providers: [provideHttpClient()]
         }).compileComponents();
     }));

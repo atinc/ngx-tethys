@@ -1,11 +1,9 @@
-import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyButtonModule } from 'ngx-tethys/button';
-import { ThyDropdownDirective } from '../dropdown.directive';
-import { ThyDropdownModule } from '../module';
+import { ThyDropdownDirective, ThyDropdownModule } from 'ngx-tethys/dropdown';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 
 @Component({
     selector: 'thy-dropdown-active-test',
@@ -19,7 +17,7 @@ import { ThyDropdownModule } from '../module';
             </a>
         </thy-dropdown-menu>
     `,
-    standalone: false
+    imports: [ThyDropdownModule, ThyButtonModule]
 })
 class DropdownActiveBasicTestComponent {
     activeClass: string | string[] = 'active';
@@ -32,10 +30,8 @@ describe('dropdown-active', () => {
     let dropdown: ThyDropdownDirective;
 
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [ThyDropdownModule, ThyButtonModule, NoopAnimationsModule],
-            declarations: [DropdownActiveBasicTestComponent]
-        }).compileComponents();
+        TestBed.configureTestingModule({ providers: [provideNoopAnimations()] });
+        TestBed.compileComponents();
         fixture = TestBed.createComponent(DropdownActiveBasicTestComponent);
         fixture.detectChanges();
     });
