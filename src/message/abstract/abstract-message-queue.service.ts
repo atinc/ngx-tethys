@@ -1,16 +1,18 @@
 import { BehaviorSubject } from 'rxjs';
 import { ThyGlobalMessageConfig } from '../message.config';
-import { ThyAbstractMessageRef } from './abstract-message-ref';
+import { IThyAbstractMessageQueue, ThyAbstractMessageRef } from './abstract-message-ref';
 
 /**
  * @internal
  */
-export class ThyAbstractMessageQueue<TReferences extends ThyAbstractMessageRef = ThyAbstractMessageRef> {
+export class ThyAbstractMessageQueue<TReferences extends ThyAbstractMessageRef = ThyAbstractMessageRef>
+    implements IThyAbstractMessageQueue
+{
     queues$ = new BehaviorSubject<TReferences[]>([]);
 
     protected defaultConfig: ThyGlobalMessageConfig;
 
-    get queues() {
+    get queues(): TReferences[] {
         return this.queues$.getValue();
     }
 

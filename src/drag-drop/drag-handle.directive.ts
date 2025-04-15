@@ -1,6 +1,7 @@
 import { Directive, ElementRef, Input, inject } from '@angular/core';
 import { ThyDragDirective } from './drag.directive';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { IThyDragHandleDirective } from './drag-drop.token';
 
 /**
  * 自定义可拖拽区域内容
@@ -11,7 +12,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 @Directive({
     selector: 'thy-drag-handle,[thyDragHandle]'
 })
-export class ThyDragHandleDirective {
+export class ThyDragHandleDirective implements IThyDragHandleDirective {
     element = inject<ElementRef<HTMLElement>>(ElementRef);
 
     private _disabled = false;

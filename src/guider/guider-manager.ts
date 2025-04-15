@@ -1,5 +1,6 @@
 import { ThyGuiderRef } from './guider-ref';
 import { Injectable } from '@angular/core';
+import { IThyGuiderManager } from './guider.interface';
 
 /**
  * @public
@@ -8,8 +9,8 @@ import { Injectable } from '@angular/core';
 @Injectable({
     providedIn: 'root'
 })
-export class ThyGuiderManager {
-    private targetListMap = {};
+export class ThyGuiderManager implements IThyGuiderManager {
+    private targetListMap: Record<string, HTMLElement> = {};
 
     private thyGuiderRef: ThyGuiderRef;
 
@@ -17,16 +18,16 @@ export class ThyGuiderManager {
 
     constructor() {}
 
-    public updateActive(key: string, guiderRef: ThyGuiderRef) {
+    public updateActive(key: string, guiderRef: ThyGuiderRef): void {
         this.activeStepKey = key;
         this.thyGuiderRef = guiderRef;
     }
 
-    public addStepTarget(key: string, el: HTMLElement) {
+    public addStepTarget(key: string, el: HTMLElement): void {
         this.targetListMap[key] = el;
     }
 
-    public removeStepTarget(key: string) {
+    public removeStepTarget(key: string): void {
         delete this.targetListMap[key];
     }
 

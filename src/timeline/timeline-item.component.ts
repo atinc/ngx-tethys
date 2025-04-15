@@ -13,7 +13,7 @@ import {
     inject
 } from '@angular/core';
 import { SafeAny } from 'ngx-tethys/types';
-import { ThyTimeMode } from './timeline.component';
+import { ThyTimeMode } from './timeline.type';
 import { ThyTimelineService } from './timeline.service';
 import { NgTemplateOutlet } from '@angular/common';
 
