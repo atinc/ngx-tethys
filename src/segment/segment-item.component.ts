@@ -11,7 +11,7 @@ import {
     Renderer2,
     inject
 } from '@angular/core';
-import { IThySegmentComponent, THY_SEGMENTED_COMPONENT } from './segment.token';
+import { THY_SEGMENTED_COMPONENT } from './segment.token';
 import { assertIconOnly, coerceBooleanProperty } from 'ngx-tethys/util';
 import { Subject, fromEvent } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -38,7 +38,7 @@ export class ThySegmentItem implements AfterViewInit, OnDestroy {
     private ngZone = inject(NgZone);
     private cdr = inject(ChangeDetectorRef);
     private renderer = inject(Renderer2);
-    private parent = inject(THY_SEGMENTED_COMPONENT, { optional: true })!;
+    private parent = inject(THY_SEGMENTED_COMPONENT, { optional: true })!; // 参考
 
     /**
      * 选项的值

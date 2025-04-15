@@ -1,19 +1,7 @@
 import { inject, Injectable, signal, Signal, WritableSignal } from '@angular/core';
-import {
-    THY_I18N_LOCALE_ID,
-    THY_I18N_ZH_HANS,
-    THY_I18N_ZH_HANT,
-    THY_I18N_EN_US,
-    THY_I18N_JA_JP,
-    THY_I18N_DE_DE,
-    ThyI18nLocale,
-    ThyLocaleType,
-    zhHansLocale,
-    zhHantLocale,
-    enUsLocale,
-    jaJpLocale,
-    deDeLocale
-} from './index';
+import { THY_I18N_LOCALE_ID, THY_I18N_ZH_HANS, THY_I18N_ZH_HANT, THY_I18N_EN_US, THY_I18N_JA_JP, THY_I18N_DE_DE } from './i18n.token';
+import { ThyLocaleType, ThyI18nLocale } from './i18n';
+import { zhHansLocale, zhHantLocale, enUsLocale, jaJpLocale, deDeLocale } from './locales';
 
 function normalizeLocale(localeId: string): ThyLocaleType {
     return localeId?.toLowerCase().replace(/_/g, '-') as ThyLocaleType;

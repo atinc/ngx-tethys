@@ -859,7 +859,7 @@ export class ThyCascader
         this.ngZone.runOutsideAngular(() => {
             this.resizeSubscription = new Observable(observer => {
                 const resize = new ResizeObserver((entries: ResizeObserverEntry[]) => {
-                    observer.next();
+                    observer.next(null);
                 });
                 resize.observe(this.trigger.nativeElement);
             }).subscribe(() => {

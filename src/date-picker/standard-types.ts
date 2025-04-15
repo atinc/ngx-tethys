@@ -1,11 +1,13 @@
 import { TemplateRef } from '@angular/core';
-import { CompatibleValue } from './inner-types';
+import { TinyDate } from 'ngx-tethys/util';
 
 export type DisabledDateFn = (d: Date) => boolean;
 
 export type ThyPanelMode = 'decade' | 'year' | 'month' | 'date' | 'week' | 'flexible' | 'quarter';
 
 export type CompatibleDate = Date | Date[];
+
+export type CompatibleTinyDate = TinyDate[] | TinyDate;
 
 export type CompatiblePresets = ThyShortcutPreset[] | (() => ThyShortcutPreset[]);
 
@@ -47,6 +49,6 @@ export interface ThyShortcutPreset {
 }
 
 export interface ThyDateChangeEvent {
-    value: CompatibleValue;
+    value: CompatibleTinyDate;
     triggerPreset?: ThyShortcutPreset;
 }

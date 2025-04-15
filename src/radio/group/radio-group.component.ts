@@ -15,7 +15,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
 import { ThyRadioButton } from '../button/radio-button.component';
-import { ThyRadio } from '../radio.component';
+import { IThyRadioComponent, IThyRadioGroupComponent } from '../radio.token';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 const buttonGroupSizeMap = {
@@ -40,6 +40,11 @@ const radioGroupLayoutMap = {
             useExisting: forwardRef(() => ThyRadioGroup),
             multi: true
         }
+        // ,
+        // {
+        //     provide: THY_RADIO_GROUP_COMPONENT,
+        //     useExisting: ThyRadioGroup
+        // }
     ],
     host: {
         '[attr.tabindex]': `-1`
@@ -47,7 +52,7 @@ const radioGroupLayoutMap = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true
 })
-export class ThyRadioGroup implements ControlValueAccessor, OnInit, OnChanges, AfterContentInit {
+export class ThyRadioGroup implements IThyRadioGroupComponent, ControlValueAccessor, OnInit, OnChanges, AfterContentInit {
     private changeDetectorRef = inject(ChangeDetectorRef);
 
     @HostBinding('class.thy-radio-group') thyRadioGroup = true;
@@ -78,7 +83,7 @@ export class ThyRadioGroup implements ControlValueAccessor, OnInit, OnChanges, A
 
     _innerValue: string | number;
 
-    radios: Array<ThyRadio | ThyRadioButton> = [];
+    radios: Array<IThyRadioComponent | ThyRadioButton> = [];
 
     private hostRenderer = useHostRenderer();
 
@@ -91,7 +96,7 @@ export class ThyRadioGroup implements ControlValueAccessor, OnInit, OnChanges, A
     onChange: (_: string) => void = () => null;
     onTouched: () => void = () => null;
 
-    addRadio(radio: ThyRadio | ThyRadioButton): void {
+    addRadio(radio: IThyRadioComponent | ThyRadioButton): void {
         this.radios.push(radio);
         radio.thyChecked = radio.thyValue === this._innerValue;
     }
@@ -126,7 +131,7 @@ export class ThyRadioGroup implements ControlValueAccessor, OnInit, OnChanges, A
         });
     }
 
-    setGroup() {
+    setGroup(): void {
         if (!this.isButtonGroup && !this.isButtonGroupOutline) {
             this.isButtonGroup = true;
             this.isButtonGroupOutline = true;
