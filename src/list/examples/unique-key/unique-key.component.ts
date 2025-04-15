@@ -4,11 +4,12 @@ import { ThyIcon } from 'ngx-tethys/icon';
 import { ThySelectionList } from 'ngx-tethys/list';
 import { ThyListOption } from 'ngx-tethys/shared';
 import { CommonModule } from '@angular/common';
+import { ThyRadioGroup, ThyRadioButton } from 'ngx-tethys/radio';
 
 @Component({
     selector: 'app-list-unique-key-example',
     templateUrl: './unique-key.component.html',
-    imports: [FormsModule, ThySelectionList, ThyListOption, ThyIcon, CommonModule]
+    imports: [FormsModule, ThySelectionList, ThyListOption, ThyIcon, CommonModule, ThyRadioGroup, ThyRadioButton]
 })
 export class ThyListUniqueKeyExampleComponent implements OnInit {
     public gridUniqueKeyItems = [
