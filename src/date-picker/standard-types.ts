@@ -5,9 +5,14 @@ export type DisabledDateFn = (d: Date) => boolean;
 
 export type ThyPanelMode = 'decade' | 'year' | 'month' | 'date' | 'week' | 'flexible' | 'quarter';
 
+/**
+ * @deprecated use ThyCompatibleDate instead
+ */
 export type CompatibleDate = Date | Date[];
 
-export type CompatibleTinyDate = TinyDate[] | TinyDate;
+export type ThyCompatibleDate = Date | Date[];
+
+export type ThyCompatibleTinyDate = TinyDate | TinyDate[];
 
 export type CompatiblePresets = ThyShortcutPreset[] | (() => ThyShortcutPreset[]);
 
@@ -49,6 +54,6 @@ export interface ThyShortcutPreset {
 }
 
 export interface ThyDateChangeEvent {
-    value: CompatibleTinyDate;
+    value: ThyCompatibleTinyDate;
     triggerPreset?: ThyShortcutPreset;
 }

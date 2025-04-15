@@ -27,7 +27,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { THY_TREE_ABSTRACT_TOKEN } from './tree-abstract';
-import { ThyTreeNode } from './tree-node.class';
+import { ThyTreeNode } from './tree.class';
 import {
     ThyTreeBeforeDragDropContext,
     ThyTreeBeforeDragStartContext,
@@ -43,7 +43,7 @@ import { ThyTreeService } from './tree.service';
 import { ThyTreeNodeComponent } from './tree-node.component';
 import { DOCUMENT } from '@angular/common';
 import { CdkDrag, CdkDragDrop, CdkDragEnd, CdkDragMove, CdkDragStart, CdkDropList } from '@angular/cdk/drag-drop';
-import { auditTime, filter, startWith, takeUntil } from 'rxjs/operators';
+import { filter, startWith, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { ThyTreeNodeDraggablePipe } from './tree.pipe';
 

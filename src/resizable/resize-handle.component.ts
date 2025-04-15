@@ -16,15 +16,8 @@ import { ThyResizableService } from './resizable.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { fromEvent, merge } from 'rxjs';
 import { useHostRenderer } from '@tethys/cdk/dom';
-
 import { coerceBooleanProperty } from 'ngx-tethys/util';
-
-export class ThyResizeHandleMouseDownEvent {
-    constructor(
-        public direction: ThyResizeDirection,
-        public mouseEvent: MouseEvent | TouchEvent
-    ) {}
-}
+import { ThyResizeHandleMouseDownEvent } from './interface';
 
 const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveListenerOptions({ passive: true });
 

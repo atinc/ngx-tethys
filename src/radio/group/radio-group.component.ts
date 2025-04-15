@@ -15,7 +15,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
 import { ThyRadioButton } from '../button/radio-button.component';
-import { IThyRadioComponent, IThyRadioGroupComponent } from '../radio.token';
+import { IThyRadioComponent, IThyRadioGroupComponent, THY_RADIO_GROUP_COMPONENT } from '../radio.token';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 const buttonGroupSizeMap = {
@@ -39,6 +39,10 @@ const radioGroupLayoutMap = {
             provide: NG_VALUE_ACCESSOR,
             useExisting: forwardRef(() => ThyRadioGroup),
             multi: true
+        },
+        {
+            provide: THY_RADIO_GROUP_COMPONENT,
+            useExisting: ThyRadioGroup
         }
         // ,
         // {

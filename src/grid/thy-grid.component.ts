@@ -20,23 +20,8 @@ import { throttleTime } from 'rxjs/operators';
 import { ThyGridToken, THY_GRID_COMPONENT } from './grid.token';
 import { ThyGridItem } from './thy-grid-item.component';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { hasLaterChange } from 'ngx-tethys/util';
-
-export type ThyGridResponsiveMode = 'none' | 'self' | 'screen';
-
-export type ThyGridResponsiveDescription = string;
-
-export const THY_GRID_DEFAULT_COLUMNS = 24;
-
-export const THY_GRID_ITEM_DEFAULT_SPAN = 1;
-
-export const screenBreakpointsMap = {
-    xs: 0,
-    sm: 576,
-    md: 768,
-    lg: 992,
-    xl: 1200
-};
+import { screenBreakpointsMap, THY_GRID_DEFAULT_COLUMNS, THY_GRID_ITEM_DEFAULT_SPAN, ThyGridResponsiveMode } from './grid.type';
+import { ThyGridResponsiveDescription } from './grid.type';
 
 /**
  * 栅格组件
@@ -161,7 +146,7 @@ export class ThyGrid implements ThyGridToken, OnInit, OnChanges, AfterContentIni
             this.ngZone.runOutsideAngular(() => {
                 this.gridResizeObserver(this.elementRef.nativeElement)
                     .pipe(throttleTime(100), this.takeUntilDestroyed)
-                    .subscribe(data => {
+                    .subscribe((data: ResizeObserverEntry[]) => {
                         this.responsiveContainerWidth = data[0]?.contentRect?.width;
                         this.setGridStyle();
                         this.handleGridItems();

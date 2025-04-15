@@ -1,4 +1,4 @@
-import { ThySelectionList } from './selection-list';
+import { ThySelectionList } from 'ngx-tethys/list';
 import { ThyListOption } from 'ngx-tethys/shared';
 
 export interface ThySelectionListChange<TValue = any> {
