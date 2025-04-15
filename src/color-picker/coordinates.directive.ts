@@ -6,8 +6,7 @@ import { distinctUntilChanged } from 'rxjs/operators';
  * @internal
  */
 @Directive({
-    selector: '[thyColorCoordinates]',
-    standalone: true
+    selector: '[thyColorCoordinates]'
 })
 export class ThyCoordinatesDirective implements OnInit, OnDestroy {
     el = inject(ElementRef);

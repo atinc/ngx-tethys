@@ -18,8 +18,7 @@ export type ThyPropertiesLayout = 'horizontal' | 'vertical';
         '[class.thy-properties-horizontal]': 'layout === "horizontal"',
         '[class.thy-properties-edit-trigger-hover]': 'thyEditTrigger === "hover"',
         '[class.thy-properties-edit-trigger-click]': 'thyEditTrigger === "click"'
-    },
-    standalone: true
+    }
 })
 export class ThyProperties implements OnInit {
     layout$ = new BehaviorSubject<ThyPropertiesLayout>('horizontal');

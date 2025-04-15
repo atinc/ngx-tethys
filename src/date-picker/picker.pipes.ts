@@ -11,8 +11,7 @@ import { CompatibleDate, DateEntry, ThyDateGranularity, ThyDateRangeEntry } from
  * @private
  */
 @Pipe({
-    name: 'thyDatePickerFormat',
-    standalone: true
+    name: 'thyDatePickerFormat'
 })
 export class ThyDatePickerFormatPipe implements PipeTransform {
     private dateHelper = inject(DateHelperService);
@@ -40,8 +39,7 @@ export class ThyDatePickerFormatPipe implements PipeTransform {
 }
 
 @Pipe({
-    name: 'thyQuarterPickerFormat',
-    standalone: true
+    name: 'thyQuarterPickerFormat'
 })
 export class ThyQuarterPickerFormatPipe implements PipeTransform {
     constructor(private datePickerConfigService: ThyDatePickerConfigService) {}
@@ -75,8 +73,7 @@ export class ThyQuarterPickerFormatPipe implements PipeTransform {
  * @private
  */
 @Pipe({
-    name: 'thyDatePickerFormatString',
-    standalone: true
+    name: 'thyDatePickerFormatString'
 })
 export class ThyDatePickerFormatStringPipe implements PipeTransform {
     private dateHelper = inject(DateHelperService);
@@ -92,8 +89,7 @@ export class ThyDatePickerFormatStringPipe implements PipeTransform {
  * @private
  */
 @Pipe({
-    name: 'showYearTip',
-    standalone: true
+    name: 'showYearTip'
 })
 export class DatePickerAdvancedShowYearTipPipe implements PipeTransform {
     constructor() {}

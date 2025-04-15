@@ -4,8 +4,7 @@ import { Directive, Input, TemplateRef, ViewContainerRef, inject } from '@angula
  * @private
  */
 @Directive({
-    selector: '[thyTransclude]',
-    standalone: true
+    selector: '[thyTransclude]'
 })
 export class ThyTranscludeDirective {
     viewRef: ViewContainerRef;

@@ -53,8 +53,7 @@ const listSizesMap = {
             multi: true
         }
     ],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IThyListOptionParentComponent, ControlValueAccessor {
     private renderer = inject(Renderer2);

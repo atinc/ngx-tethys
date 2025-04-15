@@ -15,8 +15,7 @@ export type ThyRowAlign = 'top' | 'middle' | 'bottom';
     selector: '[thyRow]',
     host: {
         class: 'thy-row'
-    },
-    standalone: true
+    }
 })
 export class ThyRowDirective implements OnInit, OnChanges, AfterViewInit {
     /**

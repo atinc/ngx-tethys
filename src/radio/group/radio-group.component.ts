@@ -44,8 +44,7 @@ const radioGroupLayoutMap = {
     host: {
         '[attr.tabindex]': `-1`
     },
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyRadioGroup implements ControlValueAccessor, OnInit, OnChanges, AfterContentInit {
     private changeDetectorRef = inject(ChangeDetectorRef);

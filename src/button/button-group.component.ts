@@ -21,8 +21,7 @@ const buttonGroupSizeMap = {
 @Component({
     selector: 'thy-button-group',
     template: '<ng-content></ng-content>',
-    encapsulation: ViewEncapsulation.None,
-    standalone: true
+    encapsulation: ViewEncapsulation.None
 })
 export class ThyButtonGroup implements OnInit {
     private initialized = false;

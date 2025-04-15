@@ -1,5 +1,4 @@
 import { isInputOrTextarea } from 'ngx-tethys/util';
-import { Mention } from '../interfaces';
 import { TextareaMentionAdapter } from './textarea.adapter';
 import { EditableMentionAdapter } from './editable.adapter';
 import { MentionInputorElement } from './adapter';

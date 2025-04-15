@@ -13,8 +13,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-card-content'
-    },
-    standalone: true
+    }
 })
 export class ThyCardContent implements OnInit {
     @HostBinding('class.thy-card-content--scroll') scrollClassName = false;

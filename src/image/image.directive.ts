@@ -28,8 +28,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
         '(click)': 'onPreview($event)',
         class: 'thy-image',
         '[class.thy-image-disabled]': 'thyDisablePreview'
-    },
-    standalone: true
+    }
 })
 export class ThyImageDirective implements OnInit, OnChanges, AfterViewInit, OnDestroy {
     private thyImageService = inject(ThyImageService);

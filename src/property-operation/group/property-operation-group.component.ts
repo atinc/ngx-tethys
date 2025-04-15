@@ -5,8 +5,7 @@ import { Component, HostBinding } from '@angular/core';
  */
 @Component({
     selector: 'thy-property-operation-group',
-    templateUrl: './property-operation-group.component.html',
-    standalone: true
+    templateUrl: './property-operation-group.component.html'
 })
 export class ThyPropertyOperationGroup {
     @HostBinding('class.thy-property-operation-group') _isPropertyOperationGroup = true;

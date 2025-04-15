@@ -6,8 +6,7 @@ import { ThyTreeBeforeDragStartContext } from './tree.class';
  * @private
  */
 @Pipe({
-    name: 'treeNodeDraggable',
-    standalone: true
+    name: 'treeNodeDraggable'
 })
 export class ThyTreeNodeDraggablePipe implements PipeTransform {
     transform(node: ThyTreeNode, beforeDragStart: (e: ThyTreeBeforeDragStartContext) => boolean): boolean {

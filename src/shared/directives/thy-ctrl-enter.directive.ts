@@ -5,8 +5,7 @@ import { keycodes } from 'ngx-tethys/util';
  * @name thyCtrlEnter
  */
 @Directive({
-    selector: '[thyCtrlEnter]',
-    standalone: true
+    selector: '[thyCtrlEnter]'
 })
 export class ThyCtrlEnterDirective implements OnInit, OnDestroy {
     private ngZone = inject(NgZone);

@@ -6,8 +6,7 @@ import { Component, HostBinding } from '@angular/core';
  */
 @Component({
     selector: 'thy-list-item,[thy-list-item]',
-    template: '<ng-content></ng-content>',
-    standalone: true
+    template: '<ng-content></ng-content>'
 })
 export class ThyListItem {
     @HostBinding(`class.thy-list-item`) _isListItem = true;

@@ -16,8 +16,7 @@ export interface ThyCopyEvent {
  */
 @Directive({
     selector: '[thyCopy]',
-    hostDirectives: [ThyTooltipDirective],
-    standalone: true
+    hostDirectives: [ThyTooltipDirective]
 })
 export class ThyCopyDirective implements OnInit, OnDestroy {
     private document = inject(DOCUMENT);

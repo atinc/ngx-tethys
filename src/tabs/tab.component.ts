@@ -8,8 +8,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 @Component({
     selector: 'thy-tab',
     template: ` <ng-template #content><ng-content></ng-content></ng-template> `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyTab implements OnInit {
     /**

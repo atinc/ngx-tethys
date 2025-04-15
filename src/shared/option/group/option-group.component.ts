@@ -27,8 +27,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
             provide: THY_OPTION_GROUP_COMPONENT,
             useExisting: ThySelectOptionGroup
         }
-    ],
-    standalone: true
+    ]
 })
 export class ThySelectOptionGroup implements OnDestroy, AfterContentInit {
     private _ngZone = inject(NgZone);

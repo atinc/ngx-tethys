@@ -12,8 +12,7 @@ export type ThyDropdownMenuItemType = 'default' | 'danger' | 'success' | '';
  * @order 30
  */
 @Directive({
-    selector: '[thyDropdownMenuItem]',
-    standalone: true
+    selector: '[thyDropdownMenuItem]'
 })
 export class ThyDropdownMenuItemDirective implements OnInit {
     private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
@@ -75,8 +74,7 @@ export class ThyDropdownMenuItemDirective implements OnInit {
  * @name thyDropdownMenuItemIcon
  */
 @Directive({
-    selector: '[thyDropdownMenuItemIcon]',
-    standalone: true
+    selector: '[thyDropdownMenuItemIcon]'
 })
 export class ThyDropdownMenuItemIconDirective {
     @HostBinding('class.icon') className = true;
@@ -89,8 +87,7 @@ export class ThyDropdownMenuItemIconDirective {
  * @name thyDropdownMenuItemName
  */
 @Directive({
-    selector: '[thyDropdownMenuItemName]',
-    standalone: true
+    selector: '[thyDropdownMenuItemName]'
 })
 export class ThyDropdownMenuItemNameDirective {
     @HostBinding('class.name') className = true;
@@ -103,8 +100,7 @@ export class ThyDropdownMenuItemNameDirective {
  * @name thyDropdownMenuItemMeta
  */
 @Directive({
-    selector: '[thyDropdownMenuItemMeta]',
-    standalone: true
+    selector: '[thyDropdownMenuItemMeta]'
 })
 export class ThyDropdownMenuItemMetaDirective {
     @HostBinding('class.meta') className = true;
@@ -117,8 +113,7 @@ export class ThyDropdownMenuItemMetaDirective {
  * @name thyDropdownMenuItemDesc
  */
 @Directive({
-    selector: '[thyDropdownMenuItemDesc]',
-    standalone: true
+    selector: '[thyDropdownMenuItemDesc]'
 })
 export class ThyDropdownMenuItemDescDirective {
     @HostBinding('class.desc') className = true;
@@ -131,8 +126,7 @@ export class ThyDropdownMenuItemDescDirective {
  * @name thyDropdownMenuItemExtendIcon
  */
 @Directive({
-    selector: '[thyDropdownMenuItemExtendIcon]',
-    standalone: true
+    selector: '[thyDropdownMenuItemExtendIcon]'
 })
 export class ThyDropdownMenuItemExtendIconDirective {
     @HostBinding('class.extend-icon') className = true;
@@ -146,8 +140,7 @@ export class ThyDropdownMenuItemExtendIconDirective {
  * @order 70
  */
 @Directive({
-    selector: '[thyDropdownMenuItemActive]',
-    standalone: true
+    selector: '[thyDropdownMenuItemActive]'
 })
 export class ThyDropdownMenuItemActiveDirective {
     /**

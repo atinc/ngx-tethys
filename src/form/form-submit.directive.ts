@@ -8,8 +8,7 @@ import { ThyFormDirective } from './form.directive';
  * @order 15
  */
 @Directive({
-    selector: '[thyFormSubmit],[thy-form-submit]',
-    standalone: true
+    selector: '[thyFormSubmit],[thy-form-submit]'
 })
 export class ThyFormSubmitDirective implements OnInit {
     private thyFormDirective = inject(ThyFormDirective);

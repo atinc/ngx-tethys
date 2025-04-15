@@ -7,10 +7,7 @@ import { ThyHotkeyDispatcher } from './hotkey-dispatcher';
 /**
  * @name thyHotkey
  */
-@Directive({
-    selector: '[thyHotkey]',
-    standalone: false
-})
+@Directive({ selector: '[thyHotkey]' })
 export class ThyHotkeyDirective implements OnInit, OnDestroy {
     private document = inject(DOCUMENT);
     private hotkeyDispatcher = inject(ThyHotkeyDispatcher);

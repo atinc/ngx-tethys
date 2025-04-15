@@ -6,8 +6,7 @@ import { Directive } from '@angular/core';
  */
 @Directive({
     selector: '[thyDateCell]',
-    exportAs: 'thyDateCell',
-    standalone: true
+    exportAs: 'thyDateCell'
 })
 export class ThyDateCellDirective {}
 
@@ -17,7 +16,6 @@ export class ThyDateCellDirective {}
  */
 @Directive({
     selector: '[thyCalendarHeaderOperation]',
-    exportAs: 'thyCalendarHeaderOperation',
-    standalone: true
+    exportAs: 'thyCalendarHeaderOperation'
 })
 export class ThyCalendarHeaderOperationDirective {}

@@ -38,8 +38,7 @@ export interface ThyCanvasConfigType {
  * @name thyWatermark
  */
 @Directive({
-    selector: '[thyWatermark]',
-    standalone: true
+    selector: '[thyWatermark]'
 })
 export class ThyWatermarkDirective implements OnInit, OnChanges {
     private el = inject(ElementRef);

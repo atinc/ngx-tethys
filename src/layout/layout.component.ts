@@ -12,8 +12,7 @@ import { ChangeDetectionStrategy, Component, Directive, HostBinding } from '@ang
         class: 'thy-layout',
         '[class.thy-layout--has-sidebar]': 'hasSidebar',
         '[class.thy-layout--is-sidebar-right]': 'isSidebarRight'
-    },
-    standalone: true
+    }
 })
 export class ThyLayoutDirective {
     hasSidebar = false;
@@ -29,7 +28,6 @@ export class ThyLayoutDirective {
     selector: 'thy-layout',
     template: ` <ng-content></ng-content> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    hostDirectives: [ThyLayoutDirective],
-    standalone: true
+    hostDirectives: [ThyLayoutDirective]
 })
 export class ThyLayout {}

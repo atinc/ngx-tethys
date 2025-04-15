@@ -10,8 +10,7 @@ type IconNavTypes = 'primary' | 'secondary' | 'individual' | '';
 @Component({
     selector: 'thy-icon-nav',
     templateUrl: './icon-nav.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyIconNav implements OnInit {
     private changeDetectorRef = inject(ChangeDetectorRef);

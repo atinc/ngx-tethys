@@ -13,8 +13,7 @@ export const THY_STEPPER_COMPONENT = new InjectionToken<IThyStepperComponent>('T
  */
 @Component({
     selector: 'thy-step',
-    templateUrl: './step.component.html',
-    standalone: true
+    templateUrl: './step.component.html'
 })
 export class ThyStep {
     stepper = inject(THY_STEPPER_COMPONENT, { optional: true })!;

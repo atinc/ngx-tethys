@@ -8,8 +8,7 @@ import { useHostRenderer } from '@tethys/cdk/dom';
  */
 @Directive({
     selector: '[thyTextColor]',
-    exportAs: 'thyTextColor',
-    standalone: true
+    exportAs: 'thyTextColor'
 })
 export class ThyTextColorDirective implements OnInit {
     private elementRef = inject(ElementRef);

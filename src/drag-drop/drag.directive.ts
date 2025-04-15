@@ -12,8 +12,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
  * @deprecated please use @angular/cdk/drag-drop
  */
 @Directive({
-    selector: 'thy-drag,[thyDrag]',
-    standalone: true
+    selector: 'thy-drag,[thyDrag]'
 })
 export class ThyDragDirective<T = any> implements OnDestroy {
     container = inject(THY_DROP_CONTAINER_DIRECTIVE, { optional: true })!;

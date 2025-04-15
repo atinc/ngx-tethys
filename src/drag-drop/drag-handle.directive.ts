@@ -9,8 +9,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
  * @deprecated please use @angular/cdk/drag-drop
  */
 @Directive({
-    selector: 'thy-drag-handle,[thyDragHandle]',
-    standalone: true
+    selector: 'thy-drag-handle,[thyDragHandle]'
 })
 export class ThyDragHandleDirective {
     element = inject<ElementRef<HTMLElement>>(ElementRef);
