@@ -13,8 +13,7 @@ import { ThyTooltipService } from './tooltip.service';
  */
 @Directive({
     selector: '[thyTooltip],[thy-tooltip]',
-    exportAs: 'thyTooltip',
-    standalone: true
+    exportAs: 'thyTooltip'
 })
 export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnInit, OnDestroy {
     private viewContainerRef = inject(ViewContainerRef);

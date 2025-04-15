@@ -30,8 +30,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
             provide: THY_DROP_CONTAINER_DIRECTIVE,
             useExisting: ThyDropContainerDirective
         }
-    ],
-    standalone: true
+    ]
 })
 export class ThyDropContainerDirective<T = any> implements OnInit, AfterContentInit, IThyDropContainerDirective, OnDestroy {
     private ngZone = inject(NgZone);

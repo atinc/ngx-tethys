@@ -10,8 +10,7 @@ const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveLis
  * @name thyScroll
  */
 @Directive({
-    selector: '[thyScroll]',
-    standalone: true
+    selector: '[thyScroll]'
 })
 export class ThyScrollDirective implements OnInit, OnDestroy {
     private elementRef = inject<ElementRef<any>>(ElementRef);

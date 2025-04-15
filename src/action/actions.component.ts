@@ -22,8 +22,7 @@ import { ThyAction } from './action.component';
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-actions'
-    },
-    standalone: true
+    }
 })
 export class ThyActions implements OnInit, AfterContentInit, OnChanges {
     @ContentChildren(ThyAction) actions: QueryList<ThyAction>;

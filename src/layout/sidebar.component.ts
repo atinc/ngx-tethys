@@ -48,8 +48,7 @@ export type ThySidebarDirection = 'left' | 'right';
         '[class.sidebar-theme-light]': 'thyTheme === "light"',
         '[class.sidebar-theme-dark]': 'thyTheme === "dark"',
         '[class.thy-layout-sidebar-isolated]': 'sidebarIsolated'
-    },
-    standalone: true
+    }
 })
 export class ThySidebarDirective implements OnInit {
     private thyLayoutDirective = inject(ThyLayoutDirective, { optional: true, host: true })!;

@@ -8,8 +8,7 @@ import { ThyStepper } from './stepper.component';
  * @order 40
  */
 @Directive({
-    selector: '[thyStepperNext]',
-    standalone: true
+    selector: '[thyStepperNext]'
 })
 export class ThyStepperNextDirective {
     private stepper = inject(ThyStepper);
@@ -27,8 +26,7 @@ export class ThyStepperNextDirective {
  * @order 30
  */
 @Directive({
-    selector: '[thyStepperPrevious]',
-    standalone: true
+    selector: '[thyStepperPrevious]'
 })
 export class ThyStepperPreviousDirective {
     private stepper = inject(ThyStepper);

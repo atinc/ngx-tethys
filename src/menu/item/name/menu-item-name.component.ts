@@ -11,8 +11,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     templateUrl: './menu-item-name.component.html',
     host: {
         class: 'thy-menu-item-name'
-    },
-    standalone: true
+    }
 })
 export class ThyMenuItemName implements OnInit {
     /**

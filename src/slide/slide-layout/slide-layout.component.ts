@@ -7,8 +7,7 @@ import { Component, ViewEncapsulation, OnInit, HostBinding } from '@angular/core
 @Component({
     selector: 'thy-slide-layout',
     template: '<ng-content></ng-content>',
-    encapsulation: ViewEncapsulation.None,
-    standalone: true
+    encapsulation: ViewEncapsulation.None
 })
 export class ThySlideLayout implements OnInit {
     @HostBinding('class.thy-slide-layout') slideLayout = true;

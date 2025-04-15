@@ -10,8 +10,7 @@ import { take } from 'rxjs/operators';
     host: {
         class: 'thy-nav-ink-bar',
         '[class.thy-nav-ink-bar-animated]': 'animated'
-    },
-    standalone: true
+    }
 })
 export class ThyNavInkBarDirective {
     private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);

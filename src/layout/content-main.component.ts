@@ -9,8 +9,7 @@ import { ChangeDetectionStrategy, Component, Directive } from '@angular/core';
     selector: '[thyContentMain]',
     host: {
         class: 'thy-layout-content-main'
-    },
-    standalone: true
+    }
 })
 export class ThyContentMainDirective {}
 
@@ -24,7 +23,6 @@ export class ThyContentMainDirective {}
     preserveWhitespaces: false,
     template: ` <ng-content></ng-content> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    hostDirectives: [ThyContentMainDirective],
-    standalone: true
+    hostDirectives: [ThyContentMainDirective]
 })
 export class ThyContentMain {}

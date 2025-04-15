@@ -17,8 +17,7 @@ import { ThyFormDirective } from '../form.directive';
             useExisting: ThyUniqueCheckValidator,
             multi: true
         }
-    ],
-    standalone: true
+    ]
 })
 export class ThyUniqueCheckValidator implements AsyncValidator {
     private elementRef = inject(ElementRef);

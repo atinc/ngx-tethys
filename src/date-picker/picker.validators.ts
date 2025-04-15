@@ -15,8 +15,7 @@ const DATE_PICKER_REQUIRED_VALIDATOR: StaticProvider = {
 @Directive({
     selector:
         '[thyDatePicker][required][formControlName],[thyDatePicker][required][formControl],[thyDatePicker][required][ngModel],thy-date-picker[required][formControlName],thy-date-picker[required][formControl],thy-date-picker[required][ngModel]',
-    providers: [DATE_PICKER_REQUIRED_VALIDATOR],
-    standalone: true
+    providers: [DATE_PICKER_REQUIRED_VALIDATOR]
 })
 export class DatePickerRequiredValidator implements Validator {
     private _required!: boolean;
@@ -51,8 +50,7 @@ const RANGE_PICKER_REQUIRED_VALIDATOR: StaticProvider = {
 @Directive({
     selector:
         '[thyRangePicker][required][formControlName],[thyRangePicker][required][formControl],[thyRangePicker][required][ngModel],thy-range-picker[required][formControlName],thy-range-picker[required][formControl],thy-range-picker[required][ngModel]',
-    providers: [RANGE_PICKER_REQUIRED_VALIDATOR],
-    standalone: true
+    providers: [RANGE_PICKER_REQUIRED_VALIDATOR]
 })
 export class RangePickerRequiredValidator implements Validator {
     private _required!: boolean;

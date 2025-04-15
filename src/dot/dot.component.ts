@@ -35,8 +35,7 @@ export const DEFAULT_SHAPE_NAME = 'circle';
         '[class.dot-size-xs]': 'size === "xs"',
         '[class.dot-size-lg]': 'size === "lg"',
         '[class.dot-size-xlg]': 'size === "xlg"'
-    },
-    standalone: true
+    }
 })
 export class ThyDot {
     private el = inject(ElementRef);

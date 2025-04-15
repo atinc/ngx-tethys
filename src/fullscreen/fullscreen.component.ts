@@ -13,8 +13,7 @@ import { ThyFullscreenLaunchDirective } from './fullscreen-launch.directive';
  */
 @Component({
     selector: 'thy-fullscreen, [thyFullscreen]',
-    templateUrl: './fullscreen.component.html',
-    standalone: true
+    templateUrl: './fullscreen.component.html'
 })
 export class ThyFullscreenComponent implements OnInit, OnDestroy {
     private elementRef = inject(ElementRef);

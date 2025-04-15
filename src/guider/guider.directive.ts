@@ -9,8 +9,7 @@ import { take } from 'rxjs/operators';
  */
 @Directive({
     selector: '[thyGuiderTarget]',
-    exportAs: 'thyGuiderTarget',
-    standalone: true
+    exportAs: 'thyGuiderTarget'
 })
 export class ThyGuiderTargetDirective implements OnInit, OnDestroy, AfterViewInit {
     private guiderManager = inject(ThyGuiderManager);

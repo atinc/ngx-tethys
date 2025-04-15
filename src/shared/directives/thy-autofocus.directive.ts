@@ -6,8 +6,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
  * @name input[thyAutofocus],textarea[thyAutofocus]
  */
 @Directive({
-    selector: 'input[thyAutofocus],textarea[thyAutofocus]',
-    standalone: true
+    selector: 'input[thyAutofocus],textarea[thyAutofocus]'
 })
 export class ThyAutofocusDirective {
     private elementRef = inject(ElementRef);

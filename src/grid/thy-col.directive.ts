@@ -22,8 +22,7 @@ export type ThySpan = number | null | 'auto';
     selector: '[thyCol]',
     host: {
         class: 'thy-col'
-    },
-    standalone: true
+    }
 })
 export class ThyColDirective implements OnInit, OnChanges, AfterViewInit {
     thyRowDirective = inject(ThyRowDirective, { optional: true, host: true })!;

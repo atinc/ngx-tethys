@@ -35,7 +35,6 @@ const iconSuffixMap = {
     template: '<ng-content></ng-content>',
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
     host: {
         class: 'thy-icon'
     }

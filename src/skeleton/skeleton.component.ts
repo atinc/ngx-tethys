@@ -10,8 +10,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     selector: 'thy-skeleton',
     template: ` <ng-content></ng-content> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
-    standalone: true
+    encapsulation: ViewEncapsulation.None
 })
 export class ThySkeleton {
     /**

@@ -6,8 +6,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
  * @name thyShow
  */
 @Directive({
-    selector: '[thyShow]',
-    standalone: true
+    selector: '[thyShow]'
 })
 export class ThyShowDirective implements OnDestroy {
     private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);

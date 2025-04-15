@@ -14,8 +14,7 @@ import { Component, ElementRef, Input, OnDestroy, Renderer2, TemplateRef, inject
     templateUrl: './menu-item-action.component.html',
     host: {
         class: 'thy-menu-item-action'
-    },
-    standalone: true
+    }
 })
 export class ThyMenuItemAction implements OnDestroy {
     private popover = inject(ThyPopover);

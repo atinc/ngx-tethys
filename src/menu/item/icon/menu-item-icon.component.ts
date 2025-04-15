@@ -12,8 +12,7 @@ import { useHostRenderer } from '@tethys/cdk/dom';
     host: {
         class: 'thy-menu-item-icon'
     },
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyMenuItemIcon implements OnInit {
     /**

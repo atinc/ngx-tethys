@@ -24,8 +24,7 @@ import { THY_UPLOAD_DEFAULT_OPTIONS, ThyUploadConfig } from './upload.config';
  * @name thyFileDrop
  */
 @Directive({
-    selector: '[thyFileDrop]',
-    standalone: true
+    selector: '[thyFileDrop]'
 })
 export class ThyFileDropDirective extends FileSelectBaseDirective implements OnInit, OnDestroy {
     @HostBinding('class.drop-over')

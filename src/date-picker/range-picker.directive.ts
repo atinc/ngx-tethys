@@ -17,8 +17,7 @@ import { PickerDirective } from './abstract-picker.directive';
             multi: true,
             useExisting: forwardRef(() => ThyRangePickerDirective)
         }
-    ],
-    standalone: true
+    ]
 })
 export class ThyRangePickerDirective extends PickerDirective implements OnInit {
     isRange = true;

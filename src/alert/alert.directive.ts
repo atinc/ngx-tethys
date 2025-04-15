@@ -6,8 +6,7 @@ import { Directive, HostBinding } from '@angular/core';
  * @order 20
  */
 @Directive({
-    selector: '[thyAlertActionItem]',
-    standalone: true
+    selector: '[thyAlertActionItem]'
 })
 export class ThyAlertActionItemDirective {
     @HostBinding('class.thy-alert-action') class = true;

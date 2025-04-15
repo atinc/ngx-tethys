@@ -5,8 +5,7 @@ import { Directive, ElementRef, inject } from '@angular/core';
  * @order 60
  */
 @Directive({
-    selector: '[thyDrawerContainer]',
-    standalone: true
+    selector: '[thyDrawerContainer]'
 })
 export class ThyDrawerContainerDirective {
     elementRef = inject(ElementRef);

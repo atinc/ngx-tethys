@@ -10,8 +10,7 @@ import { useHostRenderer } from '@tethys/cdk/dom';
  * @order 60
  */
 @Directive({
-    selector: '[thyDropdownActive]',
-    standalone: true
+    selector: '[thyDropdownActive]'
 })
 export class ThyDropdownActiveDirective implements OnInit, AfterContentInit {
     private elementRef = inject(ElementRef);
