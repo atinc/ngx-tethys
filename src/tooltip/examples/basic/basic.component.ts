@@ -6,11 +6,22 @@ import { ThyInputNumber } from 'ngx-tethys/input-number';
 import { ThyOption } from 'ngx-tethys/shared';
 import { ThySelect } from 'ngx-tethys/select';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
+import { ThyCheckbox } from 'ngx-tethys/checkbox';
 
 @Component({
     selector: 'thy-tooltip-basic-example',
     templateUrl: './basic.component.html',
-    imports: [FormsModule, ThyFormDirective, ThyFormGroup, ThySelect, ThyOption, ThyInputNumber, ThyTooltipDirective, ThyButton]
+    imports: [
+        FormsModule,
+        ThyFormDirective,
+        ThyFormGroup,
+        ThySelect,
+        ThyOption,
+        ThyInputNumber,
+        ThyTooltipDirective,
+        ThyButton,
+        ThyCheckbox
+    ]
 })
 export class ThyTooltipBasicExampleComponent {
     showTooltips = true;

@@ -12,6 +12,7 @@ import { ThyTag } from 'ngx-tethys/tag';
 import { ThyCascader } from 'ngx-tethys/cascader';
 import { ThyInputNumber } from 'ngx-tethys/input-number';
 import { ThyInputDirective } from 'ngx-tethys/input';
+import { ThyTimePicker } from 'ngx-tethys/time-picker';
 
 @Component({
     selector: 'thy-property-editable-example',
@@ -35,7 +36,8 @@ import { ThyInputDirective } from 'ngx-tethys/input';
         ThyCascader,
         ThyInputNumber,
         ThyInputDirective,
-        CommonModule
+        CommonModule,
+        ThyTimePicker
     ]
 })
 export class ThyPropertyEditableExampleComponent implements OnInit {

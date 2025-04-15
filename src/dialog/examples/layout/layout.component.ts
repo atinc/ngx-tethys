@@ -3,11 +3,12 @@ import { ThyDialog, ThyDialogLayoutConfig } from 'ngx-tethys/dialog';
 import { ThyDialogFooterLayoutExampleComponent } from './dialog-layout.component';
 import { ThyButton } from 'ngx-tethys/button';
 import { FormsModule } from '@angular/forms';
+import { ThyCheckbox } from 'ngx-tethys/checkbox';
 
 @Component({
     selector: 'thy-dialog-layout-example',
     templateUrl: './layout.component.html',
-    imports: [ThyButton, FormsModule]
+    imports: [ThyButton, FormsModule, ThyCheckbox]
 })
 export class ThyDialogLayoutExampleComponent {
     private thyDialog = inject(ThyDialog);
