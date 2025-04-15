@@ -13,7 +13,6 @@ import {
 import { Observable, defer, Subject, merge } from 'rxjs';
 import { ThyOptionVisibleChangeEvent, ThyOption } from '../option.component';
 import { take, switchMap, startWith, takeUntil, debounceTime, map } from 'rxjs/operators';
-import { THY_OPTION_GROUP_COMPONENT } from '../option.token';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
@@ -22,12 +21,6 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 @Component({
     selector: 'thy-option-group',
     templateUrl: './option-group.component.html',
-    providers: [
-        {
-            provide: THY_OPTION_GROUP_COMPONENT,
-            useExisting: ThySelectOptionGroup
-        }
-    ],
     standalone: true
 })
 export class ThySelectOptionGroup implements OnDestroy, AfterContentInit {

@@ -40,6 +40,7 @@ import {
     ThyCarouselTrigger,
     ThyDistanceVector
 } from './typings';
+import { IThyCarouselComponent, THY_CAROUSEL_COMPONENT } from './carousel.token';
 
 /**
  * 走马灯组件
@@ -55,9 +56,15 @@ import {
         class: 'thy-carousel'
     },
     standalone: true,
-    imports: [NgTemplateOutlet, ThyDot, ThyIcon]
+    imports: [NgTemplateOutlet, ThyDot, ThyIcon],
+    providers: [
+        {
+            provide: THY_CAROUSEL_COMPONENT,
+            useExisting: ThyCarousel
+        }
+    ]
 })
-export class ThyCarousel implements OnInit, AfterViewInit, AfterContentInit, OnChanges, OnDestroy {
+export class ThyCarousel implements IThyCarouselComponent, OnInit, AfterViewInit, AfterContentInit, OnChanges, OnDestroy {
     protected renderer = inject(Renderer2);
     private cdr = inject(ChangeDetectorRef);
     private ngZone = inject(NgZone);
@@ -156,7 +163,7 @@ export class ThyCarousel implements OnInit, AfterViewInit, AfterContentInit, OnC
 
     wrapperDomRect: DOMRect;
 
-    activeIndex = 0;
+    activeIndex: number = 0;
 
     wrapperEl: HTMLElement;
 

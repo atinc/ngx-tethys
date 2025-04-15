@@ -21,8 +21,7 @@ import { ThyTimelineService } from './timeline.service';
 import { Subject } from 'rxjs';
 import { NgTemplateOutlet } from '@angular/common';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
-
-export type ThyTimeMode = 'left' | 'right' | 'center';
+import { ThyTimeMode } from './timeline.type';
 
 export enum ThyTimeModes {
     left = 'left',

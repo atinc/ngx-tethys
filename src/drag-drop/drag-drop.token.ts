@@ -1,8 +1,18 @@
-import { EventEmitter, QueryList, InjectionToken } from '@angular/core';
-import { ThyDragDirective } from './drag.directive';
+import { EventEmitter, QueryList, InjectionToken, ElementRef } from '@angular/core';
 import { ThyDragDropEvent, ThyDragStartEvent, ThyDragEndEvent, ThyDragOverEvent } from './drag-drop.class';
+import { SafeAny } from 'ngx-tethys/types';
 
-export interface IThyDropContainerDirective<T = any> {
+export interface IThyDragDirective<T = SafeAny> {
+    data: T;
+    container: IThyDropContainerDirective<T>;
+}
+
+export interface IThyDragHandleDirective {
+    element: ElementRef<HTMLElement>;
+    disabled: boolean;
+}
+
+export interface IThyDropContainerDirective<T = SafeAny> {
     started: EventEmitter<ThyDragStartEvent<T>>;
 
     ended: EventEmitter<ThyDragEndEvent<T>>;
@@ -21,10 +31,7 @@ export interface IThyDropContainerDirective<T = any> {
 
     disabled: boolean;
 
-    draggables: QueryList<ThyDragDirective>;
+    draggables: QueryList<IThyDragDirective>;
 }
 
-/**
- * Injection token used to provide the container directive to drag.
- */
 export const THY_DROP_CONTAINER_DIRECTIVE = new InjectionToken<IThyDropContainerDirective>('THY_DROP_CONTAINER_DIRECTIVE');

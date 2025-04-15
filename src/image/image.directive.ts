@@ -11,7 +11,7 @@ import {
     AfterViewInit,
     inject
 } from '@angular/core';
-import { ThyImageGroup } from './image-group.component';
+import { IThyImageDirective, IThyImageGroupComponent, THY_IMAGE_GROUP_COMPONENT } from './image.token';
 import { ThyImageMeta } from './image.class';
 import { ThyImageService } from './image.service';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
@@ -31,7 +31,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     },
     standalone: true
 })
-export class ThyImageDirective implements OnInit, OnChanges, AfterViewInit, OnDestroy {
+export class ThyImageDirective implements IThyImageDirective, OnInit, OnChanges, AfterViewInit, OnDestroy {
     private thyImageService = inject(ThyImageService);
     private injector = inject(Injector);
     private elementRef = inject(ElementRef);
@@ -71,7 +71,7 @@ export class ThyImageDirective implements OnInit, OnChanges, AfterViewInit, OnDe
         return !this.thyDisablePreview;
     }
 
-    private parentGroup: ThyImageGroup;
+    private parentGroup: IThyImageGroupComponent;
 
     ngOnInit(): void {
         this.getParentGroup();
@@ -87,7 +87,7 @@ export class ThyImageDirective implements OnInit, OnChanges, AfterViewInit, OnDe
         while (true) {
             // 多层 thy-image-group 嵌套时，获取最外层 thy-image-group 下的所有图片
             const injector = this.parentGroup?.injector || this.injector;
-            const parentGroup = injector.get(ThyImageGroup, null, InjectFlags.SkipSelf);
+            const parentGroup = injector.get(THY_IMAGE_GROUP_COMPONENT, null, InjectFlags.SkipSelf);
             if (!parentGroup) {
                 break;
             }

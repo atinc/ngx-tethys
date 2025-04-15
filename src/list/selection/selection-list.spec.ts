@@ -1,10 +1,10 @@
 import { Component, DebugElement, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ThySelectionListChange } from './selection.interface';
 import { waitForAsync, ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
-import { ThyListModule } from '../list.module';
+import { ThyListModule, ThySelectionList } from 'ngx-tethys/list';
 import { By } from '@angular/platform-browser';
-import { ThyListOption, ThyListLayout } from '../../shared/option';
-import { ThySelectionList } from './selection-list';
+import { ThyListOption } from 'ngx-tethys/shared';
+import { ThyListLayout } from 'ngx-tethys/shared';
 import { FormsModule } from '@angular/forms';
 import { dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { DOWN_ARROW, UP_ARROW, SPACE } from 'ngx-tethys/util';

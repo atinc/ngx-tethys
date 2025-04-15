@@ -11,7 +11,7 @@ import {
     Renderer2,
     inject
 } from '@angular/core';
-import { IThySegmentComponent, THY_SEGMENTED_COMPONENT } from './segment.token';
+import { IThySegmentItemComponent, THY_SEGMENTED_COMPONENT } from './segment.token';
 import { assertIconOnly, coerceBooleanProperty } from 'ngx-tethys/util';
 import { Subject, fromEvent } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -33,7 +33,7 @@ import { NgClass } from '@angular/common';
     standalone: true,
     imports: [NgClass, ThyIcon]
 })
-export class ThySegmentItem implements AfterViewInit, OnDestroy {
+export class ThySegmentItem implements IThySegmentItemComponent, AfterViewInit, OnDestroy {
     elementRef = inject(ElementRef);
     private ngZone = inject(NgZone);
     private cdr = inject(ChangeDetectorRef);
@@ -89,11 +89,11 @@ export class ThySegmentItem implements AfterViewInit, OnDestroy {
         this.wrapSpanForText(labelDiv.childNodes);
     }
 
-    public select() {
+    public select(): void {
         this.elementRef.nativeElement.classList.add('active');
     }
 
-    public unselect() {
+    public unselect(): void {
         this.elementRef.nativeElement.classList.remove('active');
     }
 

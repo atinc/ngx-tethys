@@ -8,13 +8,13 @@ import { By } from '@angular/platform-browser';
 import { ThyDragDropEvent } from '../../drag-drop/drag-drop.class';
 import { ThyFlexibleTextModule } from '../../flexible-text/flexible-text.module';
 import { ThyIconModule } from '../../icon';
-import { ThyTreeNode } from '../tree-node.class';
 import {
     ThyTreeBeforeDragDropContext,
     ThyTreeBeforeDragStartContext,
     ThyTreeDragDropEvent,
     ThyTreeDropPosition,
-    ThyTreeEmitEvent
+    ThyTreeEmitEvent,
+    ThyTreeNode
 } from '../tree.class';
 import { ThyTree } from '../tree.component';
 import { ThyTreeModule } from '../tree.module';
