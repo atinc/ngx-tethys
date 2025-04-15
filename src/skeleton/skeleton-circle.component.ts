@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input, OnInit, O
 import { ThySkeleton } from './skeleton.component';
 import { coerceBooleanProperty, helpers } from 'ngx-tethys/util';
 import { InputCssPixel } from 'ngx-tethys/core';
-import { THY_SKELETON_CONFIG, ThySkeletonConfigModel } from './skeleton.config';
+import { THY_SKELETON_CONFIG } from './skeleton.config';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
 import { NgStyle } from '@angular/common';
 
@@ -76,9 +76,12 @@ export class ThySkeletonCircle implements OnInit, OnChanges {
             ...(!isUndefinedOrNull(this._parent?.thyAnimated) && { thyAnimated: this._parent.thyAnimated }) // do it because @InputBoolean() lead to cannot get thyAnimated from _parent inject
         };
         const { thyAnimatedInterval, thyPrimaryColor, thySecondaryColor, thyAnimated } = config;
-        for (let key in { thyAnimatedInterval, thyPrimaryColor, thySecondaryColor, thyAnimated }) {
-            this[key] = !isUndefinedOrNull(this[key]) ? this[key] : config[key];
-        }
+
+        this.thyAnimatedInterval = !isUndefinedOrNull(this.thyAnimatedInterval) ? this.thyAnimatedInterval : thyAnimatedInterval;
+        this.thyPrimaryColor = !isUndefinedOrNull(this.thyPrimaryColor) ? this.thyPrimaryColor : thyPrimaryColor;
+        this.thySecondaryColor = !isUndefinedOrNull(this.thySecondaryColor) ? this.thySecondaryColor : thySecondaryColor;
+        this.thyAnimated = !isUndefinedOrNull(this.thyAnimated) ? this.thyAnimated : thyAnimated;
+
         this.crateAfterStyles();
     }
 

@@ -23,7 +23,7 @@ import { ThyInputDirective } from 'ngx-tethys/input';
 import { coerceBooleanProperty, isValid, TinyDate } from 'ngx-tethys/util';
 import { ThyTimePanel } from './time-picker-panel.component';
 
-export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
+export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
 /**
  * 时间选择组件
@@ -63,9 +63,9 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
 
     /**
      * 输入框大小
-     * @type 'xs' | 'sm' | 'md' | 'lg' | 'default'
+     * @type 'xs' | 'sm' | 'md' | 'lg' | ''
      */
-    @Input() thySize: TimePickerSize = 'default';
+    @Input() thySize: TimePickerSize = '';
 
     /**
      * 输入框提示文字
@@ -239,7 +239,7 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
         this.closeOverlay();
     }
 
-    onPositionChange(e: Event) {
+    onPositionChange() {
         this.cdr.detectChanges();
     }
 

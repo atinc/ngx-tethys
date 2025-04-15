@@ -23,7 +23,10 @@
 <ng-template #rightIcon>
   @if (!disabled && thyAllowClear && !thyReadonly && showText) {
     <span class="{{ prefixCls }}-clear">
-      <thy-icon thyIconName="close-circle-bold-fill" (click)="onClearTime($event)" ngClass="remove-link remove-link-{{ thySize }}"></thy-icon>
+      <thy-icon
+        thyIconName="close-circle-bold-fill"
+        (click)="onClearTime($event)"
+        ngClass="remove-link remove-link-{{ thySize }}"></thy-icon>
     </span>
   }
   <span class="{{ prefixCls }}-icon">
@@ -40,7 +43,7 @@
   [cdkConnectedOverlayPositions]="overlayPositions"
   cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
   cdkConnectedOverlayTransformOriginOn=".thy-time-picker-container"
-  (positionChange)="onPositionChange($event)"
+  (positionChange)="onPositionChange()"
   (backdropClick)="onClickBackdrop()"
   (overlayOutsideClick)="onOutsideClick($event)"
   (detach)="onOverlayDetach()"
@@ -65,6 +68,6 @@
       [thyShowSelectNow]="thyShowSelectNow"
       (ngModelChange)="onPickTimeConfirm($event)"
       (thyPickChange)="onPickTime($event)"
-    (thyClosePanel)="closeOverlay()"></thy-time-picker-panel>
+      (thyClosePanel)="closeOverlay()"></thy-time-picker-panel>
   </div>
 </ng-template>

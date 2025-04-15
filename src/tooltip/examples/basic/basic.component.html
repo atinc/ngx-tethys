@@ -10,7 +10,7 @@
   <thy-form-group thyLabelText="偏移量">
     <thy-select name="size" [(ngModel)]="tooltipConfig.offset" (ngModelChange)="triggerChange()" name="offset">
       @for (option of offsetOptions; track $index) {
-        <thy-option [thyValue]="option" [thyLabelText]="option"></thy-option>
+        <thy-option [thyValue]="option" [thyLabelText]="option.toString()"></thy-option>
       }
     </thy-select>
   </thy-form-group>

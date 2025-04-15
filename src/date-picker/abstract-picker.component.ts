@@ -118,9 +118,9 @@ export abstract class AbstractPickerComponent
 
     /**
      * 输入框的大小
-     * @type xs | sm | md | lg | default
+     * @type xs | sm | md | lg | ''
      */
-    @Input() thySize: 'lg' | 'md' | 'sm' | 'xs' | 'default' = 'default';
+    @Input() thySize: 'lg' | 'md' | 'sm' | 'xs' | '' = '';
 
     /**
      * 设置时间戳精度

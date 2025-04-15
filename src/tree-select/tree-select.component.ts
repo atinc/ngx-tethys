@@ -41,7 +41,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';
 import { injectLocale, ThyTreeSelectLocale } from 'ngx-tethys/i18n';
 
-type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
+export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
 export function filterTreeData(treeNodes: ThyTreeSelectNode[], searchText: string, searchKey: string = 'name') {
     const filterNodes = (node: ThyTreeSelectNode, result: ThyTreeSelectNode[]) => {
@@ -549,7 +549,7 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
         if (result && result.subscribe) {
             result.pipe().subscribe((data: ThyTreeSelectNode[]) => {
                 const nodes = this.flattenNodes(data, this.flattenTreeNodes, [...node.parentValues, node[this.thyPrimaryKey]]);
-                const otherNodes = nodes.filter((item: ThyTreeNode) => {
+                const otherNodes = nodes.filter((item: ThyTreeSelectNode) => {
                     return !this.flattenTreeNodes.find(hasItem => {
                         return hasItem[this.thyPrimaryKey] === item[this.thyPrimaryKey];
                     });
@@ -587,6 +587,7 @@ const DEFAULT_ITEM_SIZE = 40;
 })
 export class ThyTreeSelectNodes implements OnInit {
     parent = inject(ThyTreeSelect);
+
     emptyIcon: Signal<string> = injectPanelEmptyIcon();
 
     @HostBinding('class') class: string;

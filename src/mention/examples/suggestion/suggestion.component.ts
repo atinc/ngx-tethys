@@ -3,6 +3,7 @@ import { ThyInputDirective } from 'ngx-tethys/input';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyAvatar } from 'ngx-tethys/avatar';
+import { ThyPopoverConfig } from 'ngx-tethys/popover';
 
 const mockUsers = [
     'Jacob',
@@ -39,7 +40,8 @@ export class ThyMentionSuggestionExampleComponent implements OnInit {
 
     mentions: Mention<any>[];
 
-    popoverConfig = {
+    popoverConfig: ThyPopoverConfig = {
+        origin: null,
         panelClass: 'mention-popover-panel'
     };
 

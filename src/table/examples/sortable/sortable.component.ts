@@ -17,6 +17,8 @@ export class ThyTableSortableExampleComponent implements OnInit {
 
     sortBy: string = '';
 
+    tableSortDirection = ThyTableSortDirection;
+
     sortDirection: ThyTableSortDirection = ThyTableSortDirection.default;
 
     constructor() {}

@@ -2,6 +2,7 @@ import { Mention, MentionSuggestionSelectEvent, ThyMentionDirective } from 'ngx-
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ThyPopoverConfig } from 'ngx-tethys/popover';
 
 const mockTasks = [
     {
@@ -40,7 +41,8 @@ export class ThyMentionCustomExampleComponent implements OnInit {
 
     mentions: Mention<any>[];
 
-    popoverConfig = {
+    popoverConfig: ThyPopoverConfig = {
+        origin: null,
         panelClass: 'mention-popover-panel'
     };
 

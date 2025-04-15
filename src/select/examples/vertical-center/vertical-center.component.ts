@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { listOfOption } from '../mock-data';
 import { ThySelect } from 'ngx-tethys/select';
-import { ThyOption } from 'ngx-tethys/shared';
+import { SelectControlSize, ThyOption } from 'ngx-tethys/shared';
 import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
 import { FormsModule } from '@angular/forms';
 import { ThyDot } from 'ngx-tethys/dot';
@@ -30,7 +30,10 @@ export class ThySelectVerticalCenterExampleComponent implements OnInit {
 
     avatarSrc = 'assets/images/one-avatar.jpg';
 
-    selectSizes = [
+    selectSizes: {
+        name: SelectControlSize;
+        height: number;
+    }[] = [
         {
             name: 'sm',
             height: 28

@@ -1,5 +1,6 @@
 import { EventEmitter, TemplateRef } from '@angular/core';
 import { ThyTableColumnSkeletonType } from './enums';
+import { ThyEmptySize } from 'ngx-tethys/empty';
 
 export enum ThyTableSortDirection {
     default = '',
@@ -46,7 +47,7 @@ export interface ThyTableEmptyOptions {
     entityName?: string;
     entityNameTranslateKey?: string;
     iconName?: string;
-    size?: string;
+    size?: ThyEmptySize;
     marginTop?: string;
     topAuto?: string;
     container?: TemplateRef<any>;
@@ -54,7 +55,7 @@ export interface ThyTableEmptyOptions {
 
 export type PageChangedEvent = ThyPageChangedEvent;
 export interface ThyPageChangedEvent {
-    itemsPerPage: number;
+    itemsPerPage?: number;
     page: number;
 }
 

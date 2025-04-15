@@ -11,6 +11,7 @@ import { ThyDivider } from 'ngx-tethys/divider';
 import { ThyButton } from 'ngx-tethys/button';
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { ThyOption } from 'ngx-tethys/shared';
+import { ThyPopoverConfig } from 'ngx-tethys/popover';
 
 @Component({
     selector: 'thy-dropdown-options-example',
@@ -34,14 +35,10 @@ import { ThyOption } from 'ngx-tethys/shared';
     ]
 })
 export class ThyDropdownOptionsExampleComponent {
-    popoverOptions: {
-        placement?: ThyPlacement;
-        height?: string | number;
-        minWidth?: string | number;
-        outsideClosable?: boolean;
-    } = {
+    popoverOptions: ThyPopoverConfig = {
+        origin: null,
         placement: 'bottom',
-        height: 108,
+        height: '108px',
         minWidth: '200px',
         outsideClosable: true
     };

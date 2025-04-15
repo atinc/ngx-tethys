@@ -13,29 +13,29 @@ export class ThyDialogSizeExampleComponent implements OnInit {
 
     private config: ThyDialogConfig = {};
 
-    dialogSizes = [
+    dialogSizes: { value: ThyDialogSizes; width: string }[] = [
         {
-            value: 'sm',
+            value: ThyDialogSizes.sm,
             width: '400px'
         },
         {
-            value: 'default',
+            value: ThyDialogSizes.md,
             width: '660px'
         },
         {
-            value: 'lg',
+            value: ThyDialogSizes.lg,
             width: '800px'
         },
         {
-            value: 'maxLg',
+            value: ThyDialogSizes.maxLg,
             width: '980px'
         },
         {
-            value: 'superLg',
+            value: ThyDialogSizes.superLg,
             width: '94vw'
         },
         {
-            value: 'full',
+            value: ThyDialogSizes.full,
             width: '全屏'
         }
     ];
@@ -46,7 +46,7 @@ export class ThyDialogSizeExampleComponent implements OnInit {
         this.thyDialog.open(
             ThyDialogBasicContentComponent,
             Object.assign(this.config, {
-                size: ThyDialogSizes[size]
+                size: size
             })
         );
     }

@@ -51,9 +51,9 @@ export class ThyAlert {
 
     private hostRenderer = useHostRenderer();
 
-    messageIsTemplate = computed(() => {
+    messageTemplate = computed(() => {
         const value = this.thyMessage();
-        return value instanceof TemplateRef;
+        return value instanceof TemplateRef ? value : null;
     });
 
     /**

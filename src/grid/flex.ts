@@ -1,6 +1,7 @@
+import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { ChangeDetectionStrategy, Component, Directive, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { isUndefinedOrNull } from '@tethys/cdk/is';
+import { isUndefinedOrNull } from 'ngx-tethys/util';
 import { hasLaterChange } from 'ngx-tethys/util';
 
 export type ThyFlexDirection = 'row' | 'column' | 'row-reverse' | 'column-reverse';
@@ -60,7 +61,7 @@ export class ThyFlex implements OnInit, OnChanges {
      * Flex Item 之间的间隙 Gap
      * @default 0
      */
-    @Input() thyGap: number;
+    @Input({ transform: coerceNumberProperty }) thyGap: number;
 
     get direction() {
         const direction = this.thyDirection ?? this.thyDirection;
@@ -111,7 +112,7 @@ export class ThyFlex implements OnInit, OnChanges {
             inputs: ['thyDirection', 'thyWrap', 'thyJustifyContent', 'thyAlignItems', 'thyGap']
         }
     ],
-    imports: []
+    imports: [ThyFlex]
 })
 export class ThyFlexComponent {}
 

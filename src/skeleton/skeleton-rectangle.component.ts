@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input, OnInit, O
 import { ThySkeleton } from './skeleton.component';
 import { coerceBooleanProperty, helpers } from 'ngx-tethys/util';
 import { InputCssPixel } from 'ngx-tethys/core';
-import { THY_SKELETON_CONFIG, ThySkeletonConfigModel } from './skeleton.config';
+import { THY_SKELETON_CONFIG } from './skeleton.config';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
 import { NgStyle } from '@angular/common';
 
@@ -46,7 +46,7 @@ export class ThySkeletonRectangle implements OnInit, OnChanges {
      * 动画速度
      * @default 1.5s
      */
-    @Input() thyAnimatedInterval: number;
+    @Input() thyAnimatedInterval: string | number;
 
     /**
      * 骨架边框圆角
@@ -94,9 +94,11 @@ export class ThySkeletonRectangle implements OnInit, OnChanges {
         };
         const { thyAnimatedInterval, thyPrimaryColor, thySecondaryColor, thyAnimated } = config;
 
-        for (let key in { thyAnimatedInterval, thyPrimaryColor, thySecondaryColor, thyAnimated }) {
-            this[key] = !isUndefinedOrNull(this[key]) ? this[key] : config[key];
-        }
+        this.thyAnimatedInterval = !isUndefinedOrNull(this.thyAnimatedInterval) ? this.thyAnimatedInterval : thyAnimatedInterval;
+        this.thyPrimaryColor = !isUndefinedOrNull(this.thyPrimaryColor) ? this.thyPrimaryColor : thyPrimaryColor;
+        this.thySecondaryColor = !isUndefinedOrNull(this.thySecondaryColor) ? this.thySecondaryColor : thySecondaryColor;
+        this.thyAnimated = !isUndefinedOrNull(this.thyAnimated) ? this.thyAnimated : thyAnimated;
+
         this.crateAfterStyles();
     }
 

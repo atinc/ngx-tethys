@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyTimePicker } from 'ngx-tethys/time-picker';
+import { ThyTimePicker, TimePickerSize } from 'ngx-tethys/time-picker';
 import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
 import { NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -12,7 +12,10 @@ import { FormsModule } from '@angular/forms';
 export class ThyTimePickerSizeExampleComponent implements OnInit {
     date: Date;
 
-    sizes = [
+    sizes: {
+        name: TimePickerSize;
+        height: number;
+    }[] = [
         {
             name: 'sm',
             height: 28
@@ -22,7 +25,7 @@ export class ThyTimePickerSizeExampleComponent implements OnInit {
             height: 32
         },
         {
-            name: 'default',
+            name: '',
             height: 36
         },
         {
@@ -31,7 +34,7 @@ export class ThyTimePickerSizeExampleComponent implements OnInit {
         }
     ];
 
-    size: string = 'default';
+    size: TimePickerSize = '';
 
     constructor() {}
 

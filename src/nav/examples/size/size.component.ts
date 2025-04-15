@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyNav, ThyNavItemDirective } from 'ngx-tethys/nav';
+import { ThyNav, ThyNavItemDirective, ThyNavSize } from 'ngx-tethys/nav';
 import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
 import { NgClass } from '@angular/common';
 
@@ -10,7 +10,7 @@ import { NgClass } from '@angular/common';
     imports: [ThyNav, ThyNavItemDirective, ThyButtonGroup, ThyButton, NgClass]
 })
 export class ThyNavSizeExampleComponent implements OnInit {
-    sizes = [
+    sizes: { value: ThyNavSize; text: string }[] = [
         {
             value: 'sm',
             text: 'sm'

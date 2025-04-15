@@ -1,5 +1,13 @@
 import { Component, OnInit, TemplateRef, Renderer2, OnDestroy, inject, DestroyRef } from '@angular/core';
-import { ThyDialogConfig, ThyDialogSizes, ThyDialog, ThyDialogHeader, ThyDialogBody, ThyDialogFooter } from 'ngx-tethys/dialog';
+import {
+    ThyDialogConfig,
+    ThyDialogSizes,
+    ThyDialog,
+    ThyDialogHeader,
+    ThyDialogBody,
+    ThyDialogFooter,
+    ThyDialogFooterAlign
+} from 'ngx-tethys/dialog';
 import { keycodes } from 'ngx-tethys/util';
 import { ThyDialogBasicContentComponent } from './dialog-content.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -26,7 +34,7 @@ export class ThyDialogBasicExampleComponent implements OnInit, OnDestroy {
         hostClass: ['thy-dialog-content', 'test-dialog-content', 'another-test-dialog-content']
     };
 
-    public layoutConfig = {
+    public layoutConfig: { align: ThyDialogFooterAlign; divider: boolean } = {
         align: 'right',
         divider: true
     };

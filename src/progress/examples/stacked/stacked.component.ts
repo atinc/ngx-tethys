@@ -12,7 +12,7 @@ export class ThyProgressStackedExampleComponent {
 
     maxEmpty = 0;
 
-    value = [
+    value: ThyProgressStackedValue[] = [
         {
             type: 'success',
             value: 20

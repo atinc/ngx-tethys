@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef, inject } from '@angular/core';
 import { ThyPopover } from 'ngx-tethys/popover';
-import { ThyMenu, ThyMenuItem, ThyMenuItemAction, ThyMenuGroup, ThyMenuItemName, ThyMenuItemIcon } from 'ngx-tethys/menu';
+import { ThyMenu, ThyMenuItem, ThyMenuItemAction, ThyMenuGroup, ThyMenuItemName, ThyMenuItemIcon, ThyMenuTheme } from 'ngx-tethys/menu';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyRadio, ThyRadioGroup } from 'ngx-tethys/radio';
 import { FormsModule } from '@angular/forms';
@@ -31,7 +31,7 @@ import { ThyDropdownMenuComponent, ThyDropdownMenuItemIconDirective, ThyDropdown
 export class ThyMenuThemeExampleComponent implements OnInit {
     private popover = inject(ThyPopover);
 
-    theme: string = 'loose';
+    theme: ThyMenuTheme = 'loose';
 
     coll: boolean;
 

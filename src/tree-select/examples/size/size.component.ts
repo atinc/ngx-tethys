@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { basicTreeSelectData } from '../mock-data';
-import { ThyTreeSelect } from 'ngx-tethys/tree-select';
+import { InputSize, ThyTreeSelect } from 'ngx-tethys/tree-select';
 import { ThyButtonGroup, ThyButton } from 'ngx-tethys/button';
 import { NgClass } from '@angular/common';
 
@@ -12,9 +12,9 @@ import { NgClass } from '@angular/common';
 export class ThyTreeSelectSizeExampleComponent implements OnInit {
     public treeSelectNodes = basicTreeSelectData;
 
-    public btnSizes = ['xs', 'sm', 'md', 'default', 'lg'];
+    public btnSizes = ['xs', 'sm', 'md', 'lg', ''];
 
-    public currentSize = 'default';
+    public currentSize: InputSize = '';
 
     constructor() {}
 

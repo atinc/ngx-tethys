@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
-import { ThyTabs, ThyTab } from 'ngx-tethys/tabs';
+import { ThyTabs, ThyTab, ThyTabsSize } from 'ngx-tethys/tabs';
 import { NgClass } from '@angular/common';
 
 @Component({
@@ -10,7 +10,10 @@ import { NgClass } from '@angular/common';
     imports: [ThyTabs, ThyTab, ThyButtonGroup, NgClass, ThyButton]
 })
 export class ThyTabsSizeExampleComponent implements OnInit {
-    sizes = [
+    sizes: {
+        value: ThyTabsSize;
+        height: number;
+    }[] = [
         {
             value: 'sm',
             height: 44

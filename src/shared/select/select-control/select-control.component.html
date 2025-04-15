@@ -21,7 +21,7 @@
     </div>
   }
   @if (isMultiple) {
-    <div thyFlex thyWrap="wrap" thyGap="4" thyAlignItems="center" class="w-100">
+    <div thyFlex thyWrap="wrap" [thyGap]="4" thyAlignItems="center" class="w-100">
       @if (thyPreset === 'tag') {
         @for (item of maxSelectedTags; track trackValue($index, item)) {
           <div thyFlexItem class="custom-choice-item text-truncate">
@@ -40,20 +40,14 @@
         }
       } @else {
         @for (item of maxSelectedTags; track trackValue($index, item)) {
-          <div
-            thyFlexItem
-            thyTag
-            class="choice-item"
-            [ngClass]="{ disabled: disabled === true }"
-            [thySize]="tagSize"
-            >
+          <div thyFlexItem thyTag class="choice-item" [ngClass]="{ disabled: disabled === true }" [thySize]="tagSize">
             <div class="text-truncate h-100">
               @if (!customDisplayTemplate) {
                 {{ item.thyLabelText }}
               } @else {
                 <ng-template
                   [ngTemplateOutlet]="customDisplayTemplate"
-                [ngTemplateOutletContext]="{ $implicit: item.thyRawValue || item.thyValue || item }"></ng-template>
+                  [ngTemplateOutletContext]="{ $implicit: item.thyRawValue || item.thyValue || item }"></ng-template>
               }
             </div>
             @if (!disabled) {
@@ -67,12 +61,7 @@
         }
       }
       @if (thyMaxTagCount && multipleSelectedValue.length > thyMaxTagCount) {
-        <div
-          thyFlexItem
-          class="choice-item max-tag-count-choice"
-          thyTag
-          [thySize]="tagSize"
-          [ngClass]="{ disabled: disabled === true }">
+        <div thyFlexItem class="choice-item max-tag-count-choice" thyTag [thySize]="tagSize" [ngClass]="{ disabled: disabled === true }">
           <div class="text-truncate">+{{ multipleSelectedValue.length - thyMaxTagCount + 1 }}...</div>
         </div>
       }

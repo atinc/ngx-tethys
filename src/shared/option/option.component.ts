@@ -62,7 +62,7 @@ export class ThyOption extends SelectOptionBase implements OnDestroy, Highlighta
 
     @Input() thyLabelText: string;
 
-    @Input() thyShowOptionCustom: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyShowOptionCustom: boolean;
 
     @Input() thySearchKey: string;
 

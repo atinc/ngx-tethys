@@ -105,7 +105,7 @@ export class DatePopup implements OnChanges, OnInit {
     @Input() timeZone: string;
 
     @Output() readonly panelModeChange = new EventEmitter<ThyPanelMode | ThyPanelMode[]>();
-    @Output() readonly calendarChange = new EventEmitter<CompatibleValue>();
+    @Output() readonly calendarChange = new EventEmitter<TinyDate[]>();
     @Output() readonly valueChange = new EventEmitter<CompatibleValue | RangeAdvancedValue>();
     @Output() readonly resultOk = new EventEmitter<void>(); // Emitted when done with date selecting
     @Output() readonly showTimePickerChange = new EventEmitter<boolean>();

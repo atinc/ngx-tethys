@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyTag } from 'ngx-tethys/tag';
+import { ThyTag, ThyTagSize } from 'ngx-tethys/tag';
 import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
 import { NgClass } from '@angular/common';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -26,7 +26,7 @@ export class ThyTagSizeExampleComponent implements OnInit {
         }
     ];
 
-    size = 'md';
+    size: ThyTagSize = 'md';
 
     constructor() {}
 

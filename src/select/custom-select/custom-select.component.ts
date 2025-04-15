@@ -375,7 +375,7 @@ export class ThySelect
      * @type ThyPlacement
      */
     @Input()
-    thyPlacement: ThyPlacement;
+    thyPlacement: ThyPlacement | null;
 
     /**
      * 自定义 Overlay Origin

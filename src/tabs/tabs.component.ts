@@ -27,7 +27,7 @@ import { ThyNav, ThyNavItemDirective } from 'ngx-tethys/nav';
 
 export type ThyTabsSize = 'lg' | 'md' | 'sm';
 
-export type ThyTabsType = 'pulled' | 'tabs' | 'pills' | 'lite';
+export type ThyTabsType = 'pulled' | 'tabs' | 'pills' | 'lite' | 'card';
 
 export type ThyTabsPosition = 'top' | 'left';
 

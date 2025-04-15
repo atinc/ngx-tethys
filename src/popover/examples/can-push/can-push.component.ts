@@ -1,4 +1,4 @@
-import { ThyPopover, ThyPopoverDirective, ThyPopoverHeader, ThyPopoverBody } from 'ngx-tethys/popover';
+import { ThyPopover, ThyPopoverDirective, ThyPopoverHeader, ThyPopoverBody, ThyPopoverConfig } from 'ngx-tethys/popover';
 import { Component, OnInit, TemplateRef, inject } from '@angular/core';
 import { Overlay } from '@angular/cdk/overlay';
 import { ThyButton } from 'ngx-tethys/button';
@@ -12,10 +12,13 @@ export class ThyPopoverCanPushExampleComponent implements OnInit {
     private thyPopover = inject(ThyPopover);
     private overlay = inject(Overlay);
 
-    public config = {};
+    public config: ThyPopoverConfig = {
+        origin: null
+    };
 
     ngOnInit(): void {
         this.config = {
+            origin: null,
             scrollStrategy: this.overlay.scrollStrategies.reposition(),
             canPush: false
         };

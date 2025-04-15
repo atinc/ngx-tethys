@@ -27,7 +27,7 @@ import { NgTemplateOutlet } from '@angular/common';
     imports: [NgTemplateOutlet]
 })
 export class ThyTabContent {
-    @Input() content: TemplateRef<void> | null = null;
+    @Input() content: TemplateRef<HTMLElement> | null = null;
 
     @Input() active = false;
 

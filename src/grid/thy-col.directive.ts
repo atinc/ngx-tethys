@@ -11,7 +11,7 @@ export interface ThyColEmbeddedProperty {
     order?: number;
 }
 
-export type ThySpan = number | null | 'auto';
+export type ThySpan = number | null | 'auto' | 'fill';
 
 /**
  * 栅格列指令
@@ -30,7 +30,7 @@ export class ThyColDirective implements OnInit, OnChanges, AfterViewInit {
     /**
      * 栅格项的占位列数，thySpan 如果传递了值，以 thySpan 为准
      */
-    @Input() thyCol: ThySpan;
+    @Input() thyCol: ThySpan | '';
 
     /**
      * 栅格项的占位列数
@@ -56,7 +56,8 @@ export class ThyColDirective implements OnInit, OnChanges, AfterViewInit {
 
     ngAfterViewInit(): void {
         if (this.thyRowDirective) {
-            this.thyRowDirective.actualGutter$.pipe(this.takeUntilDestroyed).subscribe(([horizontalGutter, verticalGutter]) => {
+            this.thyRowDirective.actualGutter$.pipe(this.takeUntilDestroyed).subscribe(gutter => {
+                const [horizontalGutter, verticalGutter] = gutter as [number, number];
                 const renderGutter = (name: string, gutter: number) => {
                     this.hostRenderer.setStyle(name, `${gutter / 2}px`);
                 };

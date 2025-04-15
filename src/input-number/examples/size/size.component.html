@@ -2,7 +2,7 @@
   @for (size of sizes; track $index) {
     <thy-input-number
       [(ngModel)]="value"
-      thyPrecision="2"
+      [thyPrecision]="2"
       [thyMax]="max"
       [thyStep]="step"
       [thySize]="size"

@@ -24,13 +24,15 @@ import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { injectLocale, ThyEmptyLocale } from 'ngx-tethys/i18n';
 
+export type ThyEmptySize = 'lg' | 'md' | 'sm';
+
 const sizeClassMap = {
     lg: ['thy-empty-state', 'thy-empty-state--lg'],
     md: ['thy-empty-state'],
     sm: ['thy-empty-state', 'thy-empty-state--sm']
 };
 
-const sizeMap = {
+const sizeMap: Record<ThyEmptySize, { height: number; offsetTop: number; defaultMarginTop: number }> = {
     lg: {
         height: 168, // 空提示的高度
         offsetTop: 30, // 空提示图标和大小之间的空白距离，需要除去，否则会不居中
@@ -113,7 +115,7 @@ export class ThyEmpty implements OnInit, AfterViewInit, OnChanges {
      * @default md
      */
     @Input()
-    set thySize(value: string) {
+    set thySize(value: ThyEmptySize) {
         this.size = value;
         if (this._initialized) {
             this.updateClass();
@@ -150,7 +152,7 @@ export class ThyEmpty implements OnInit, AfterViewInit, OnChanges {
      */
     @Input() thyDescription: string;
 
-    private size: string = 'md';
+    private size: ThyEmptySize = 'md';
 
     private _initialized = false;
 
@@ -242,7 +244,7 @@ export class ThyEmpty implements OnInit, AfterViewInit, OnChanges {
 
     setPresetSvg(icon: string) {
         this.presetSvg = '';
-        let presetSvg = icon ? PRESET_SVG[icon] : PRESET_SVG.default;
+        let presetSvg = icon ? PRESET_SVG[icon as keyof typeof PRESET_SVG] : PRESET_SVG.default;
 
         this.presetSvg = presetSvg ? this.sanitizer.bypassSecurityTrustHtml(presetSvg) : '';
     }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ThyRadioGroup, ThyRadioButton } from 'ngx-tethys/radio';
 import { FormsModule } from '@angular/forms';
-import { ThySlider } from 'ngx-tethys/slider';
+import { ThySlider, ThySliderType } from 'ngx-tethys/slider';
 import { ThyInputDirective } from 'ngx-tethys/input';
 
 @Component({
@@ -20,7 +20,7 @@ import { ThyInputDirective } from 'ngx-tethys/input';
     imports: [ThySlider, ThyRadioGroup, ThyRadioButton, FormsModule, ThyInputDirective]
 })
 export class ThySliderTypeExampleComponent implements OnInit {
-    public typeValue = 'primary';
+    public typeValue: ThySliderType = 'primary';
 
     public types = ['primary', 'success', 'info', 'warning', 'danger'];
 

@@ -4,6 +4,7 @@ import { ThyCascader } from 'ngx-tethys/cascader';
 import { FormsModule } from '@angular/forms';
 import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
 import { NgClass } from '@angular/common';
+import { SelectControlSize } from 'ngx-tethys/shared';
 
 @Component({
     selector: 'thy-cascader-size-example',
@@ -15,7 +16,7 @@ export class ThyCascaderSizeExampleComponent implements OnInit {
 
     public values: any[] = [];
 
-    public sizes = [
+    public sizes: { name: SelectControlSize; height: number }[] = [
         {
             name: 'xs',
             height: 24
@@ -29,7 +30,7 @@ export class ThyCascaderSizeExampleComponent implements OnInit {
             height: 32
         },
         {
-            name: 'default',
+            name: '',
             height: 36
         },
         {

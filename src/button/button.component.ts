@@ -33,9 +33,10 @@ export type ThyButtonType =
     | 'outline-danger'
     | 'link-danger-weak'
     | 'link-danger'
-    | 'link-success';
+    | 'link-success'
+    | 'link-info';
 
-const btnTypeClassesMap = {
+const btnTypeClassesMap: Record<ThyButtonType, string[]> = {
     primary: ['btn-primary'],
     secondary: ['btn-primary', 'btn-md'],
     info: ['btn-info'],
@@ -49,7 +50,7 @@ const btnTypeClassesMap = {
     'link-danger-weak': ['btn-link', 'btn-link-danger-weak'], // 幽灵危险按钮
     'link-danger': ['btn-link', 'btn-link-danger'], // 危险按钮
     'link-success': ['btn-link', 'btn-link-success'] // 成功按钮
-};
+} as Record<ThyButtonType, string[]>;
 
 const iconOnlyClass = 'thy-btn-icon-only';
 
@@ -76,7 +77,7 @@ export class ThyButton implements OnInit, AfterViewInit {
 
     private _originalText: string;
 
-    private _type: string;
+    private _type: ThyButtonType;
 
     private _size: string;
 
@@ -105,7 +106,7 @@ export class ThyButton implements OnInit, AfterViewInit {
      * @default primary
      */
     @Input()
-    set thyButton(value: ThyButtonType) {
+    set thyButton(value: ThyButtonType | '' | 'outline-default-square') {
         this.setBtnType(value);
     }
 
@@ -192,13 +193,13 @@ export class ThyButton implements OnInit, AfterViewInit {
     @Input({ transform: coerceBooleanProperty })
     thyBlock: boolean;
 
-    private setBtnType(value: ThyButtonType) {
+    private setBtnType(value: ThyButtonType | '' | 'outline-default-square') {
         if (value) {
             if (value.includes('-square')) {
-                this._type = value.replace('-square', '');
+                this._type = value.replace('-square', '') as ThyButtonType;
                 this._isRadiusSquare = true;
             } else {
-                this._type = value;
+                this._type = value as ThyButtonType;
             }
 
             if (this._initialized) {

@@ -52,7 +52,7 @@ export class ThyPicker implements OnChanges, AfterViewInit {
     @Input() allowClear: boolean;
     @Input() autoFocus: boolean;
     @Input() className: string;
-    @Input() size: 'sm' | 'xs' | 'lg' | 'md' | 'default';
+    @Input() size: 'sm' | 'xs' | 'lg' | 'md' | '';
     @Input() suffixIcon: string;
     @Input() placement: ThyPlacement = 'bottomLeft';
     @Input() flexible: boolean = false;

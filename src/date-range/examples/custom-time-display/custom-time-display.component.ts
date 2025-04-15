@@ -13,7 +13,7 @@ export class ThyDateRangeCustomTimeDisplayExampleComponent implements OnInit {
     private locale: Signal<ThyDateRangeLocale> = injectLocale('dateRange');
     public date: DateRangeItemInfo;
 
-    public customKey = 'exception';
+    public customKey: 'custom' | 'exception' = 'exception';
 
     public pickerFormat = 'yyyy-MM';
 

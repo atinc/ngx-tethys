@@ -24,7 +24,7 @@ import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
 import { ThyButtonIcon } from 'ngx-tethys/button';
 import { NgTemplateOutlet, NgClass } from '@angular/common';
 
-type ThyPropertyOperationTypes = 'primary' | 'success' | 'warning' | 'danger';
+export type ThyPropertyOperationTypes = 'primary' | 'success' | 'warning' | 'danger';
 
 /**
  * 属性操作组件

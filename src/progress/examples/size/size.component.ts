@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ThyProgress } from 'ngx-tethys/progress';
+import { ThyProgress, ThyProgressStackedValue } from 'ngx-tethys/progress';
 import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
 
 @Component({
@@ -12,7 +12,7 @@ export class ThyProgressSizeExampleComponent {
 
     max = 100;
 
-    stackedValues = [
+    stackedValues: number | ThyProgressStackedValue[] = [
         {
             type: 'success',
             value: 20

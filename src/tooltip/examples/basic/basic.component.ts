@@ -5,8 +5,9 @@ import { ThyFormGroup, ThyFormDirective } from 'ngx-tethys/form';
 import { ThyInputNumber } from 'ngx-tethys/input-number';
 import { ThyOption } from 'ngx-tethys/shared';
 import { ThySelect } from 'ngx-tethys/select';
-import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
+import { ThyTooltipConfig, ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { ThyCheckbox } from 'ngx-tethys/checkbox';
+import { ThyOverlayTrigger } from 'ngx-tethys/core';
 
 @Component({
     selector: 'thy-tooltip-basic-example',
@@ -25,7 +26,11 @@ import { ThyCheckbox } from 'ngx-tethys/checkbox';
 })
 export class ThyTooltipBasicExampleComponent {
     showTooltips = true;
-    tooltipConfig = {
+
+    tooltipConfig: ThyTooltipConfig & {
+        trigger: ThyOverlayTrigger;
+        disabled: boolean;
+    } = {
         trigger: 'hover',
         disabled: false,
         showDelay: 200,

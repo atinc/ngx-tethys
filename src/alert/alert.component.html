@@ -5,8 +5,8 @@
   @if (thyTheme() === 'naked') {
     <span class="thy-alert-tips">Tips： </span>
   }
-  @if (messageIsTemplate()) {
-    <ng-template *ngTemplateOutlet="thyMessage()"></ng-template>
+  @if (messageTemplate()) {
+    <ng-container *ngTemplateOutlet="messageTemplate()"></ng-container>
   } @else if (thyMessage()) {
     <span>{{ thyMessage() }}</span>
   }

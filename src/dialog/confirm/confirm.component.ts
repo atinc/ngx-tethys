@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy
 
 import { NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ThyButton } from 'ngx-tethys/button';
+import { ThyButton, ThyButtonType } from 'ngx-tethys/button';
 import { ThyDialogBody } from '../body/dialog-body.component';
 import { ThyConfirmConfig, THY_CONFIRM_DEFAULT_OPTIONS } from '../confirm.config';
 import { ThyDialogRef } from '../dialog-ref';
@@ -37,7 +37,7 @@ export class ThyConfirm implements OnInit, OnDestroy {
 
     public okText: string;
 
-    public okType: string;
+    public okType: ThyButtonType;
 
     public cancelText: string;
 

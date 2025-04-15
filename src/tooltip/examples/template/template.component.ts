@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ThyButton } from 'ngx-tethys/button';
-import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
+import { ThyOverlayTrigger } from 'ngx-tethys/core';
+import { ThyTooltipConfig, ThyTooltipDirective } from 'ngx-tethys/tooltip';
 
 @Component({
     selector: 'app-tooltip-template-example',
@@ -8,12 +9,10 @@ import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
     imports: [ThyButton, ThyTooltipDirective]
 })
 export class ThyTooltipTemplateExampleComponent {
-    tooltipConfig = {
+    tooltipConfig: ThyTooltipConfig & { trigger: ThyOverlayTrigger; disabled: boolean } = {
         trigger: 'hover',
         placement: 'top',
         disabled: false,
-        showDelay: 200,
-        hideDelay: 100,
         offset: 4
     };
 }

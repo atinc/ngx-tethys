@@ -1,4 +1,4 @@
-<thy-fullscreen thyMode="emulated" (thyFullscreenChange)="changeFullscreen($event)">
+<thy-fullscreen [thyMode]="mode" (thyFullscreenChange)="changeFullscreen($event)">
   <div fullscreen-target [style.backgroundColor]="'var(--gray-10)'" class="p-2">
     <button thyButton="primary" thyFullscreenLaunch>
       {{ btnContent }}

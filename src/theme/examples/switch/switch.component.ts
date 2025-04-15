@@ -51,8 +51,8 @@ export class ThyThemeSwitchExampleComponent implements OnInit {
         }
     }
 
-    switchTheme(event: ThySegmentEvent<ThyTheme>) {
-        this.theme = event.value;
+    switchTheme(event: ThySegmentEvent<unknown>) {
+        this.theme = event.value as ThyTheme;
         this.activeIndex = event.activeIndex;
 
         window.localStorage.setItem(THEME_CACHE_KEY, this.theme);

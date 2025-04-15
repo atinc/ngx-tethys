@@ -6,7 +6,7 @@
   </thy-radio-group>
 </div>
 
-<thy-table [thyModel]="data" thyRowKey="id" [thyHeaderFixed]="true" [thyHeight]="300" [thyTheme]="theme">
+<thy-table [thyModel]="data" thyRowKey="id" [thyHeaderFixed]="true" [thyHeight]="'300'" [thyTheme]="theme">
   <thy-table-column thyTitle="Id" thyModelKey="id"></thy-table-column>
   <thy-table-column thyTitle="Name" thyModelKey="name" thyWidth="15%">
     <ng-template #cell let-row>

@@ -30,6 +30,6 @@ import { ThyDivider } from 'ngx-tethys/divider';
 })
 export class ThyThemeColorExampleComponent {
     colorVariables = Object.keys(cssVariables.defaultThemeColorsMap);
-    defaultThemeColorsMap = cssVariables.defaultThemeColorsMap;
-    darkThemeColorsMap = cssVariables.darkThemeColorsMap;
+    defaultThemeColorsMap: Record<string, string> = cssVariables.defaultThemeColorsMap;
+    darkThemeColorsMap: Record<string, string> = cssVariables.darkThemeColorsMap;
 }

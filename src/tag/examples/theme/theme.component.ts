@@ -10,9 +10,9 @@ import { NgClass } from '@angular/common';
     imports: [ThyTag, ThyButtonGroup, NgClass, ThyButton]
 })
 export class ThyTagThemeExampleComponent implements OnInit {
-    themes = ['fill', 'outline', 'weak-fill'];
+    themes: ('outline' | 'fill' | 'weak-fill')[] = ['fill', 'outline', 'weak-fill'];
 
-    theme = 'fill';
+    theme: 'outline' | 'fill' | 'weak-fill' = 'fill';
 
     constructor() {}
 

@@ -4,6 +4,7 @@ import { setDefaultErrorHandler, asyncBehavior } from '@tethys/cdk/behaviors';
 import { ThyButton } from 'ngx-tethys/button';
 import { ThyLoading } from 'ngx-tethys/loading';
 import { ThyNotifyService } from 'ngx-tethys/notify';
+import { ThyList, ThyListItem } from 'ngx-tethys/list';
 import { of } from 'rxjs';
 import { delay, tap } from 'rxjs/operators';
 
@@ -16,7 +17,7 @@ interface Todo {
     selector: 'thy-behaviors-async',
     templateUrl: './async.component.html',
     styleUrls: ['./async.component.scss'],
-    imports: [ThyButton, ThyLoading]
+    imports: [ThyButton, ThyLoading, ThyList, ThyListItem]
 })
 export class ThyBehaviorsAsyncComponent implements OnInit {
     private notifyService = inject(ThyNotifyService);

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { listOfOption } from '../mock-data';
 import { ThySelect } from 'ngx-tethys/select';
-import { ThyOption } from 'ngx-tethys/shared';
+import { SelectControlSize, ThyOption } from 'ngx-tethys/shared';
 import { FormsModule } from '@angular/forms';
 import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
 import { NgClass } from '@angular/common';
@@ -24,7 +24,10 @@ export class ThySelectSizeExampleComponent implements OnInit {
 
     listOfSelectedValue = ['option1', 'option2'];
 
-    selectSizes = [
+    selectSizes: {
+        name: SelectControlSize;
+        height: number;
+    }[] = [
         {
             name: 'xs',
             height: 24
@@ -38,7 +41,7 @@ export class ThySelectSizeExampleComponent implements OnInit {
             height: 32
         },
         {
-            name: 'default',
+            name: '',
             height: 36
         },
         {

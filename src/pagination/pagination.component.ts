@@ -23,6 +23,7 @@ import { ThyPaginationConfigModel } from './pagination.class';
 import { DEFAULT_RANGE_COUNT, PaginationDefaultConfig, THY_PAGINATION_CONFIG } from './pagination.config';
 import { PaginationPerPageFormat, PaginationTotalCountFormat } from './pagination.pipe';
 import { injectLocale, ThyI18nLocale, ThyPaginationLocale } from 'ngx-tethys/i18n';
+import { ThyPageChangedEvent } from 'ngx-tethys/table';
 
 /**
  * 分页组件，当数据量过多时，使用分页分解数据。
@@ -219,7 +220,7 @@ export class ThyPagination implements OnInit {
     /**
      * 与Bootstrap pagination 兼容，后续版本会进行删除，参数保持与 bootstrap 一致
      */
-    @Output('thyPageChanged') pageChanged = new EventEmitter<{ page: number }>();
+    @Output('thyPageChanged') pageChanged = new EventEmitter<ThyPageChangedEvent>();
 
     @Output('thyPageSizeChanged') pageSizeChanged = new EventEmitter<number>();
 

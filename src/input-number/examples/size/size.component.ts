@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ThyInputSize } from 'ngx-tethys/input';
 import { ThyInputNumber } from 'ngx-tethys/input-number';
 
 @Component({
@@ -14,7 +15,7 @@ export class ThyInputNumberSizeExampleComponent implements OnInit {
 
     max = 10;
 
-    sizes = ['xs', 'sm', 'md', 'lg'];
+    sizes: ThyInputSize[] = ['xs', 'sm', 'md', 'lg'];
 
     suffix = '%';
 

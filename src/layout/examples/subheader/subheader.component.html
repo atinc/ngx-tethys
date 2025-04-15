@@ -4,14 +4,14 @@
     <thy-header thyDivided="true" thySize="sm">
       <ng-template #headerTitle> </ng-template>
       <ng-template #headerContent>
-        <thy-nav thyType="pulled" thyHorizontal="left" thySize="sm">
+        <thy-nav thyType="pulled" thyHorizontal="start" thySize="sm">
           <a href="javascript:;" thyNavItem thyNavItemActive="true">Link1</a>
           <a href="javascript:;" thyNavItem>Link2</a>
           <a href="javascript:;" thyNavItem>Link3</a>
         </thy-nav>
       </ng-template>
       <ng-template #headerOperation>
-        <thy-nav thyHorizontal="right">
+        <thy-nav thyHorizontal="end">
           <a thyNavItem href="javascript:;">
             <thy-icon [thyIconName]="'edit'"></thy-icon>
             Edit
@@ -36,7 +36,7 @@
       </thy-nav>
     </ng-template>
     <ng-template #headerOperation>
-      <thy-nav thyType="pulled" thySize="lg" thyHorizontal="right">
+      <thy-nav thyType="pulled" thySize="lg" thyHorizontal="end">
         <a thyNavItem href="javascript:;">
           <thy-icon thyIconName="settings"></thy-icon>
         </a>
@@ -47,7 +47,7 @@
     <thy-header thyDivided="true" thySize="sm">
       <ng-template #headerTitle> </ng-template>
       <ng-template #headerContent>
-        <thy-breadcrumb thySeparator="slash" thyIcon="house" class="text-truncate" style="margin-right:30px;">
+        <thy-breadcrumb thySeparator="slash" thyIcon="house" class="text-truncate" style="margin-right: 30px">
           <thy-breadcrumb-item>
             <a href="javascript:;">Home</a>
           </thy-breadcrumb-item>
@@ -60,7 +60,7 @@
         </thy-breadcrumb>
       </ng-template>
       <ng-template #headerOperation>
-        <thy-nav thyType="thirdly" thyHorizontal="right">
+        <thy-nav thyType="thirdly" thyHorizontal="end">
           <a thyNavItem href="javascript:;">
             <thy-icon [thyIconName]="'edit'"></thy-icon>
             Edit

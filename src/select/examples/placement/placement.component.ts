@@ -48,7 +48,7 @@ export class ThySelectPlacementExampleComponent implements OnInit {
         'rightBottom'
     ];
 
-    placements: { value: string; text: string }[] = [];
+    placements: { value: ThyPlacement | null; text: string }[] = [];
 
     ngOnInit(): void {
         this.placements = this._placements.map(item => {
@@ -61,7 +61,7 @@ export class ThySelectPlacementExampleComponent implements OnInit {
         this.placements = [
             ...this.placements,
             {
-                value: '',
+                value: null,
                 text: '支持全局配置'
             }
         ];
