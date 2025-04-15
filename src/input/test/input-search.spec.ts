@@ -1,13 +1,10 @@
 import { dispatchEvent, dispatchFakeEvent, dispatchMouseEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
-
-import { Component, DebugElement, NgModule, ViewChild } from '@angular/core';
+import { Component, DebugElement, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-
 import { ThyInputSearch, ThyInputSearchIconPosition } from '../input-search.component';
-import { ThyInputDirective } from '../input.directive';
-import { ThyInputModule } from '../module';
+import { ThyInputDirective } from 'ngx-tethys/input';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({
@@ -25,7 +22,7 @@ import { provideHttpClient } from '@angular/common/http';
             [thySize]="thySize"
             [thyIconPosition]="iconPosition"></thy-input-search>
     `,
-    standalone: false
+    imports: [ThyInputSearch, FormsModule]
 })
 class TestInputSearchBasicComponent {
     @ViewChild(ThyInputSearch, { static: false }) inputSearchComponent: ThyInputSearch;
@@ -41,13 +38,6 @@ class TestInputSearchBasicComponent {
     modelChange($event: string) {}
 }
 
-@NgModule({
-    imports: [ThyInputModule, FormsModule],
-    declarations: [TestInputSearchBasicComponent],
-    exports: []
-})
-export class InputSearchTestModule {}
-
 describe('input search', () => {
     let fixture: ComponentFixture<TestInputSearchBasicComponent>;
     let basicTestComponent: TestInputSearchBasicComponent;
@@ -57,8 +47,6 @@ describe('input search', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyInputModule, FormsModule],
-            declarations: [TestInputSearchBasicComponent],
             providers: [provideHttpClient()]
         });
         TestBed.compileComponents();

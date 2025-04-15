@@ -1,12 +1,7 @@
 import { TestBed, ComponentFixture, fakeAsync, flush, tick, waitForAsync } from '@angular/core/testing';
-import { ThySelectCommonModule } from '../module';
 import { By } from '@angular/platform-browser';
 import { Component, ViewChild } from '@angular/core';
-import { ThyFormModule } from '../../../form';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { ThyIconModule } from '../../../icon/icon.module';
-import { ThySelectControl, SelectControlSize } from './select-control.component';
-import { SelectOptionBase } from '../../option';
+import { ThySelectControl, SelectControlSize, SelectOptionBase } from 'ngx-tethys/shared';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({
@@ -24,7 +19,7 @@ import { provideHttpClient } from '@angular/common/http';
             [thyBorderless]="borderless"
             [thyMaxTagCount]="thyMaxTagCount"></thy-select-control>
     `,
-    standalone: false
+    imports: [ThySelectControl]
 })
 class BasicSelectControlComponent {
     placeholder = '选择你的值';
@@ -33,11 +28,11 @@ class BasicSelectControlComponent {
 
     thyShowSearch = false;
 
-    selectedOptions = null;
+    selectedOptions: SelectOptionBase | SelectOptionBase[] = null;
 
     thyAllowClear = true;
 
-    thySize = null;
+    thySize: SelectControlSize = null;
 
     thyIsMultiple = false;
 
@@ -52,10 +47,8 @@ class BasicSelectControlComponent {
 }
 
 describe('ThySelectControl', () => {
-    function configureThySelectControlTestingModule(declarations: any[]) {
+    function configureThySelectControlTestingModule() {
         TestBed.configureTestingModule({
-            imports: [ThyFormModule, ReactiveFormsModule, FormsModule, ThyIconModule, ThySelectCommonModule],
-            declarations: declarations,
             providers: [provideHttpClient()]
         }).compileComponents();
     }
@@ -63,7 +56,7 @@ describe('ThySelectControl', () => {
         const testBaseOption: SelectOptionBase = { thyLabelText: '', thyRawValue: {}, thyValue: '' };
 
         beforeEach(waitForAsync(() => {
-            configureThySelectControlTestingModule([BasicSelectControlComponent]);
+            configureThySelectControlTestingModule();
         }));
 
         describe('basic class', () => {

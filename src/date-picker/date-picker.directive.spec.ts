@@ -1,25 +1,19 @@
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { of } from 'rxjs';
-
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import { Component, DebugElement, ViewChild } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, inject, TestBed, TestBedStatic, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { addDays, addWeeks, startOfDay, startOfWeek } from 'date-fns';
-
 import { provideHttpClient } from '@angular/common/http';
 import { TinyDate } from 'ngx-tethys/util';
-import { ThyPopoverConfig, ThyPopoverModule } from '../popover';
-import { ThyPopover } from '../popover/popover.service';
-import { ThyPropertyOperation, ThyPropertyOperationModule } from '../property-operation';
-import { ThyDatePickerDirective } from './date-picker.directive';
-import { ThyDatePickerModule } from './date-picker.module';
-import { DatePopup } from './lib/popups/date-popup.component';
-import { CompatiblePresets, ThyShortcutPosition } from './standard-types';
+import { ThyPopover, ThyPopoverConfig, ThyPopoverModule } from 'ngx-tethys/popover';
+import { ThyPropertyOperation } from 'ngx-tethys/property-operation';
+import { ThyDatePickerDirective, DatePopup, CompatiblePresets, ThyShortcutPosition } from 'ngx-tethys/date-picker';
 
 registerLocaleData(zh);
 
@@ -34,9 +28,8 @@ describe('ThyPickerDirective', () => {
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                imports: [FormsModule, ThyDatePickerModule, ThyPropertyOperationModule, BrowserAnimationsModule],
-                declarations: [ThyTestPickerComponent],
-                providers: [provideHttpClient()]
+                imports: [ThyPopoverModule],
+                providers: [provideHttpClient(), provideAnimations()]
             });
 
             TestBed.compileComponents();
@@ -228,7 +221,7 @@ describe('ThyPickerDirective', () => {
 
         describe('popover config testing', () => {
             it('should get correct thyPlacement and offset and hasBackdrop', fakeAsync(() => {
-                const spy = getPopoverOpenSpy(TestBed);
+                const spy = getPopoverOpenSpy();
 
                 fixture.detectChanges();
                 openPickerByClickTrigger();
@@ -262,7 +255,7 @@ describe('ThyPickerDirective', () => {
             }));
 
             it('should use correct options when open popover', fakeAsync(() => {
-                const spy = getPopoverOpenSpy(TestBed);
+                const spy = getPopoverOpenSpy();
                 fixtureInstance.thyOffset = 0;
                 fixtureInstance.thyPlacement = 'right';
                 fixtureInstance.thyHasBackdrop = false;
@@ -354,9 +347,8 @@ describe('ThyPickerDirective', () => {
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                imports: [FormsModule, ThyDatePickerModule, ThyPropertyOperationModule, BrowserAnimationsModule, ThyPopoverModule],
-                declarations: [ThyTestPickerPlacementComponent],
-                providers: [provideHttpClient()]
+                imports: [ThyPopoverModule],
+                providers: [provideHttpClient(), provideAnimations()]
             }).compileComponents();
         }));
 
@@ -378,7 +370,7 @@ describe('ThyPickerDirective', () => {
 
         describe('should get correct default thyPlacement and offset and hasBackdrop', () => {
             it('should get correct default thyPlacement and offset and hasBackdrop', fakeAsync(() => {
-                const spy = getPopoverOpenSpy(TestBed);
+                const spy = getPopoverOpenSpy();
 
                 fixture.detectChanges();
                 openPickerByClickTrigger();
@@ -390,7 +382,12 @@ describe('ThyPickerDirective', () => {
                     backdropClass: 'thy-overlay-transparent-backdrop',
                     outsideClosable: true,
                     offset: 4,
-                    initialState: { ...getInitState(), defaultPickerValue: null, showShortcut: undefined, timestampPrecision: 'seconds' },
+                    initialState: {
+                        ...getInitState(),
+                        defaultPickerValue: null,
+                        showShortcut: undefined,
+                        timestampPrecision: 'seconds'
+                    },
                     placement: 'bottom'
                 });
             }));
@@ -433,8 +430,8 @@ describe('ThyPickerDirective', () => {
         }
     });
 
-    function getPopoverOpenSpy(testBed: TestBedStatic) {
-        const thyPopover = testBed.get(ThyPopover);
+    function getPopoverOpenSpy() {
+        const thyPopover = TestBed.inject(ThyPopover);
         const spy = spyOn(thyPopover, 'open');
         spy.and.returnValue({
             componentInstance: { valueChange: of(), calendarChange: of(), showTimePickerChange: of(), ngOnChanges: () => {} },
@@ -495,7 +492,7 @@ describe('ThyPickerDirective', () => {
             [thyShortcutPosition]="thyShortcutPosition"
             [thyShortcutPresets]="thyShortcutPresets"></thy-property-operation>
     `,
-    standalone: false
+    imports: [ThyPropertyOperation, ThyDatePickerDirective, FormsModule]
 })
 class ThyTestPickerComponent {
     @ViewChild(ThyDatePickerDirective, { read: false }) thyDatePickerDirective: ThyDatePickerDirective;
@@ -534,7 +531,7 @@ class ThyTestPickerComponent {
             thyDatePicker
             [(ngModel)]="thyValue"></thy-property-operation>
     `,
-    standalone: false
+    imports: [ThyPropertyOperation, ThyDatePickerDirective, FormsModule]
 })
 class ThyTestPickerPlacementComponent {
     thyValue: Date | null;
@@ -548,7 +545,7 @@ class ThyTestPickerPlacementComponent {
             </thy-property-operation>
         </div>
     `,
-    standalone: false
+    imports: [ThyPropertyOperation, ThyDatePickerDirective]
 })
 class ThyTestPickerStopPropagationComponent {
     thyStopPropagation = true;
@@ -562,9 +559,8 @@ describe('should get correct default thyStopPropagation', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyDatePickerModule, ThyPropertyOperationModule, BrowserAnimationsModule],
-            declarations: [ThyTestPickerStopPropagationComponent],
-            providers: [provideHttpClient()]
+            imports: [ThyPopoverModule],
+            providers: [provideHttpClient(), provideAnimations()]
         }).compileComponents();
     }));
 

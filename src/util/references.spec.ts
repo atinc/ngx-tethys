@@ -1,4 +1,4 @@
-import { mergeReferences, buildReferencesKeyBy } from './references';
+import { mergeReferences, buildReferencesKeyBy } from 'ngx-tethys/util';
 
 interface UserInfo {
     uid: string;

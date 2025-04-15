@@ -1,15 +1,19 @@
 import { ThySwitch } from 'ngx-tethys/switch';
 import { createFakeEvent, dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
-
-import { ApplicationRef, Component, DebugElement, NgModule, TemplateRef, ViewChild } from '@angular/core';
+import { ApplicationRef, Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-import { ThyTable } from '../table.component';
-import { ThyPage, ThyTableDraggableEvent, ThyTableSortDirection } from '../table.interface';
-import { ThyTableModule } from '../table.module';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+    ThyPage,
+    ThyTableDraggableEvent,
+    ThyTableSortDirection,
+    ThyTable,
+    ThyTableModule,
+    ThyTableColumnComponent
+} from 'ngx-tethys/table';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
+import { SafeAny } from 'ngx-tethys/types';
 
 @Component({
     selector: 'thy-demo-default-table',
@@ -76,7 +80,7 @@ import { provideHttpClient } from '@angular/common/http';
         </thy-table>
         <ng-template #total let-total>共{{ total }}条</ng-template>
     `,
-    standalone: false
+    imports: [ThyTable, ThyTableColumnComponent]
 })
 class ThyDemoDefaultTableComponent {
     @ViewChild('table') table: ThyTable;
@@ -196,17 +200,9 @@ class ThyDemoDefaultTableComponent {
     onRowContextMenu() {
         return 'onRowContextMenu is ok';
     }
-    onDraggableChange() {
-        console.log('drop');
-    }
-}
 
-@NgModule({
-    imports: [ThyTableModule],
-    declarations: [ThyDemoDefaultTableComponent],
-    exports: [ThyDemoDefaultTableComponent]
-})
-export class TableTestModule {}
+    onDraggableChange() {}
+}
 
 describe('ThyTable: basic', () => {
     let fixture: ComponentFixture<ThyDemoDefaultTableComponent>;
@@ -217,8 +213,8 @@ describe('ThyTable: basic', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyTableModule, TableTestModule, NoopAnimationsModule],
-            providers: [provideHttpClient()]
+            imports: [ThyTableModule],
+            providers: [provideHttpClient(), provideNoopAnimations()]
         });
         TestBed.compileComponents();
     }));
@@ -710,7 +706,7 @@ describe('ThyTable: basic', () => {
             }
         `
     ],
-    standalone: false
+    imports: [ThyTableModule]
 })
 class ThyDemoGroupTableComponent {
     @ViewChild('table') innerTable: ThyTable;
@@ -807,12 +803,9 @@ describe('ThyTable: group', () => {
     let tableComponent: DebugElement;
     let table: HTMLElement;
     let rows: any;
-    let dragDropEvent;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyTableModule, TableTestModule, NoopAnimationsModule],
-            declarations: [ThyDemoGroupTableComponent],
             providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
@@ -1021,10 +1014,10 @@ describe('ThyTable: group', () => {
         </thy-table>
         <ng-template #total let-total>共{{ total }}条</ng-template>
     `,
-    standalone: false
+    imports: [ThyTableModule]
 })
 class ThyDemoEmptyTableComponent {
-    model = [];
+    model: object[] = [];
 
     pagination = {
         index: 1,
@@ -1036,7 +1029,7 @@ class ThyDemoEmptyTableComponent {
     isRowSelect = false;
     tableClassName = 'class-name';
     tableRowClassName = 'row-class-name';
-    selections = [];
+    selections: SafeAny[] = [];
     theme = 'default';
     isLoadingDone = true;
     loadingText = 'loading now';
@@ -1070,8 +1063,6 @@ describe('ThyTable: empty', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyTableModule, NoopAnimationsModule],
-            declarations: [ThyDemoEmptyTableComponent],
             providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
@@ -1108,7 +1099,7 @@ describe('ThyTable: empty', () => {
             <thy-table-column thyTitle="Job" thyModelKey="job" [thyWidth]="'300px'" [thyFixed]="fixedRight"></thy-table-column>
         </thy-table>
     `,
-    standalone: false
+    imports: [ThyTableModule]
 })
 class ThyDemoFixedTableComponent {
     fixedLeft = 'left';
@@ -1122,8 +1113,6 @@ describe('ThyTable: fixed', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyTableModule, NoopAnimationsModule],
-            declarations: [ThyDemoFixedTableComponent],
             providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
@@ -1172,7 +1161,7 @@ describe('ThyTable: fixed', () => {
             <thy-table-column thyTitle="Address" thyModelKey="address"></thy-table-column>
         </thy-table>
     `,
-    standalone: false
+    imports: [ThyTableModule]
 })
 class ThyDemoSortTableComponent {
     data = [
@@ -1193,8 +1182,6 @@ describe('ThyTable: sort', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyTableModule, NoopAnimationsModule],
-            declarations: [ThyDemoSortTableComponent],
             providers: [provideHttpClient()]
         });
         TestBed.compileComponents();

@@ -1,16 +1,14 @@
-import { ThyFormModule } from './../module';
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { ThyFormDirective } from '../form.directive';
-import { ThyFormGroupError } from '../form-group-error/form-group-error.component';
+import { ThyFormDirective, ThyFormGroupError, ThyFormModule } from 'ngx-tethys/form';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-test-form-group-error-basic',
     template: ` <thy-form-group-error [thyErrors]="errors" [thyShowFirst]="showFirst"> </thy-form-group-error> `,
-    standalone: false
+    imports: [ThyFormModule, FormsModule]
 })
 export class TestFormGroupErrorBasicComponent {
     align = '';
@@ -31,8 +29,6 @@ describe('form-group-error', () => {
     describe('isHorizontal', () => {
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                declarations: [TestFormGroupErrorBasicComponent],
-                imports: [ThyFormModule, FormsModule],
                 providers: [
                     provideHttpClient(),
                     {
@@ -87,8 +83,6 @@ describe('form-group-error', () => {
     describe('vertical', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
-                declarations: [TestFormGroupErrorBasicComponent],
-                imports: [ThyFormModule, FormsModule],
                 providers: [
                     provideHttpClient(),
                     {

@@ -1,14 +1,11 @@
-import { Component, OnInit, inject, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { useElementRenderer } from '../element-renderer';
-import { HostRenderer, useHostRenderer } from '../host-renderer';
+import { HostRenderer, useHostRenderer } from '@tethys/cdk/dom';
 
 @Component({
     selector: 'thy-dom-host-renderer-test',
     template: 'Content',
-    providers: [HostRenderer],
-    standalone: false
+    providers: [HostRenderer]
 })
 export class ThyDomHostRendererTestComponent implements OnInit {
     hostRenderer = inject(HostRenderer);
@@ -23,8 +20,7 @@ export class ThyDomHostRendererTestComponent implements OnInit {
 
 @Component({
     selector: 'thy-dom-use-host-renderer-test',
-    template: 'Content',
-    standalone: false
+    template: 'Content'
 })
 export class ThyDomUseHostRendererTestComponent implements OnInit {
     hostRenderer = useHostRenderer();
@@ -42,9 +38,7 @@ describe('host-renderer', () => {
     let hostElement: HTMLElement;
 
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            declarations: [ThyDomUseHostRendererTestComponent]
-        });
+        TestBed.configureTestingModule({});
 
         fixture = TestBed.createComponent(ThyDomUseHostRendererTestComponent);
         fixture.detectChanges();

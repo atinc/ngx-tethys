@@ -1,6 +1,5 @@
 import { addDays, addWeeks, format, fromUnixTime, isSameDay, startOfDay, startOfWeek } from 'date-fns';
 import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
-
 import { ENTER, ESCAPE } from '@angular/cdk/keycodes';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { formatDate, registerLocaleData } from '@angular/common';
@@ -10,15 +9,18 @@ import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush, inject, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { TinyDate } from 'ngx-tethys/util';
 import { take } from 'rxjs/operators';
-import { ThyDatePicker } from './date-picker.component';
-import { THY_DATE_PICKER_CONFIG } from './date-picker.config';
-import { ThyDatePickerModule } from './date-picker.module';
-import { DatePopup } from './lib/popups/date-popup.component';
-import { ThyPicker } from './picker.component';
-import { DateEntry, DisabledDateFn } from './standard-types';
+import {
+    ThyDatePicker,
+    THY_DATE_PICKER_CONFIG,
+    ThyDatePickerModule,
+    DatePopup,
+    ThyPicker,
+    DateEntry,
+    DisabledDateFn
+} from 'ngx-tethys/date-picker';
 
 registerLocaleData(zh);
 
@@ -46,10 +48,9 @@ describe('ThyDatePickerComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [FormsModule, ThyDatePickerModule, NoopAnimationsModule],
-            declarations: [ThyTestDatePickerComponent],
             providers: [
                 provideHttpClient(),
+                provideAnimations(),
                 {
                     provide: THY_DATE_PICKER_CONFIG,
                     useValue: {
@@ -1407,7 +1408,7 @@ describe('ThyDatePickerComponent', () => {
             <div [class.test-first-day]="current.getDate() === 1">{{ current.getDate() }}</div>
         </ng-template>
     `,
-    standalone: false
+    imports: [FormsModule, ThyDatePickerModule]
 })
 class ThyTestDatePickerComponent {
     useSuite: 1 | 2 | 3;

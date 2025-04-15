@@ -5,9 +5,7 @@ import { By } from '@angular/platform-browser';
 import { ThyNav } from 'ngx-tethys/nav';
 import { createFakeEvent, dispatchFakeEvent } from 'ngx-tethys/testing';
 import { SafeAny } from 'ngx-tethys/types';
-import { ThyTabs, ThyTabsPosition, ThyTabsSize, ThyTabsType } from '../tabs.component';
-import { ThyTabsModule } from '../tabs.module';
-import { ThyActiveTabInfo, ThyTabActiveEvent } from '../types';
+import { ThyTabs, ThyTabsPosition, ThyTabsSize, ThyTabsType, ThyTabsModule, ThyActiveTabInfo, ThyTabActiveEvent } from 'ngx-tethys/tabs';
 
 @Component({
     selector: 'test-tabs-basic',
@@ -18,7 +16,7 @@ import { ThyActiveTabInfo, ThyTabActiveEvent } from '../types';
             <thy-tab id="tab3" thyTitle="Tab3">Tab3 Content</thy-tab>
         </thy-tabs>
     `,
-    standalone: false
+    imports: [ThyTabsModule]
 })
 class TestTabsBasicComponent {
     activeTabChange(event: ThyTabActiveEvent) {}
@@ -33,7 +31,7 @@ class TestTabsBasicComponent {
             <thy-tab thyTitle="Tab3">Tab3 Content</thy-tab>
         </thy-tabs>
     `,
-    standalone: false
+    imports: [ThyTabsModule]
 })
 class TestTabsTypeComponent {
     type: ThyTabsType;
@@ -48,7 +46,7 @@ class TestTabsTypeComponent {
             <thy-tab thyTitle="Tab3">Tab3 Content</thy-tab>
         </thy-tabs>
     `,
-    standalone: false
+    imports: [ThyTabsModule]
 })
 class TestTabsSizeComponent {
     size: ThyTabsSize;
@@ -64,7 +62,7 @@ class TestTabsSizeComponent {
             <thy-tab> <ng-template #title>烤乳猪🐷</ng-template>Tab4 Content</thy-tab>
         </thy-tabs>
     `,
-    standalone: false
+    imports: [ThyTabsModule]
 })
 class TestTabsCustomTitleComponent {}
 
@@ -81,7 +79,7 @@ class TestTabsCustomTitleComponent {}
             <button thyButton="outline-default" thySize="md">Extra Action</button>
         </ng-template>
     `,
-    standalone: false
+    imports: [ThyTabsModule]
 })
 class TestTabsExtraComponent {}
 
@@ -94,7 +92,7 @@ class TestTabsExtraComponent {}
             <thy-tab thyTitle="Tab3">Tab3 Content</thy-tab>
         </thy-tabs>
     `,
-    standalone: false
+    imports: [ThyTabsModule]
 })
 class TestTabsPositionComponent {
     position: ThyTabsPosition;
@@ -109,7 +107,7 @@ class TestTabsPositionComponent {
             <thy-tab id="tab3" thyTitle="Tab3">Tab3 Content</thy-tab>
         </thy-tabs>
     `,
-    standalone: false
+    imports: [ThyTabsModule]
 })
 class TestTabsActiveComponent {
     activeTab: ThyActiveTabInfo = 'tab2';
@@ -127,7 +125,7 @@ class TestTabsActiveComponent {
             }
         </thy-tabs>
     `,
-    standalone: false
+    imports: [ThyTabsModule]
 })
 class TestTabsDynamicAddComponent {
     tabs = [
@@ -158,7 +156,7 @@ class TestTabsDynamicAddComponent {
             <thy-tab thyTitle="Tab3">Tab3 Content</thy-tab>
         </thy-tabs>
     `,
-    standalone: false
+    imports: [ThyTabsModule]
 })
 class TestTabsDisabledComponent {
     activeTabChange(event: ThyTabActiveEvent) {}
@@ -173,7 +171,7 @@ class TestTabsDisabledComponent {
             <thy-tab thyTitle="Tab3">Tab3 Content</thy-tab>
         </thy-tabs>
     `,
-    standalone: false
+    imports: [ThyTabsModule]
 })
 class TestTabsAnimatedComponent {
     @ViewChild('tabs', { static: true }) tabComponent: ElementRef<ThyTabs>;
@@ -187,10 +185,8 @@ describe('tabs', () => {
         let tabsInstance: ThyTabs;
 
         beforeEach(() => {
-            TestBed.configureTestingModule({
-                declarations: [TestTabsBasicComponent],
-                imports: [ThyTabsModule]
-            }).compileComponents();
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
 
             fixture = TestBed.createComponent(TestTabsBasicComponent);
             tabsDebugElement = getDebugElement(fixture, ThyTabs);
@@ -219,10 +215,8 @@ describe('tabs', () => {
         let fixture: ComponentFixture<TestTabsTypeComponent>;
 
         beforeEach(() => {
-            TestBed.configureTestingModule({
-                declarations: [TestTabsTypeComponent],
-                imports: [ThyTabsModule]
-            }).compileComponents();
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
 
             fixture = TestBed.createComponent(TestTabsTypeComponent);
             fixture.detectChanges();
@@ -244,10 +238,8 @@ describe('tabs', () => {
         let fixture: ComponentFixture<TestTabsSizeComponent>;
 
         beforeEach(() => {
-            TestBed.configureTestingModule({
-                declarations: [TestTabsSizeComponent],
-                imports: [ThyTabsModule]
-            }).compileComponents();
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
 
             fixture = TestBed.createComponent(TestTabsSizeComponent);
             fixture.detectChanges();
@@ -269,10 +261,8 @@ describe('tabs', () => {
         let fixture: ComponentFixture<TestTabsCustomTitleComponent>;
 
         beforeEach(() => {
-            TestBed.configureTestingModule({
-                declarations: [TestTabsCustomTitleComponent],
-                imports: [ThyTabsModule]
-            }).compileComponents();
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
 
             fixture = TestBed.createComponent(TestTabsCustomTitleComponent);
             fixture.detectChanges();
@@ -288,10 +278,8 @@ describe('tabs', () => {
         let fixture: ComponentFixture<TestTabsExtraComponent>;
 
         beforeEach(() => {
-            TestBed.configureTestingModule({
-                declarations: [TestTabsExtraComponent],
-                imports: [ThyTabsModule]
-            }).compileComponents();
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
 
             fixture = TestBed.createComponent(TestTabsExtraComponent);
             fixture.detectChanges();
@@ -309,10 +297,8 @@ describe('tabs', () => {
         let fixture: ComponentFixture<TestTabsPositionComponent>;
 
         beforeEach(() => {
-            TestBed.configureTestingModule({
-                declarations: [TestTabsPositionComponent],
-                imports: [ThyTabsModule]
-            }).compileComponents();
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
 
             fixture = TestBed.createComponent(TestTabsPositionComponent);
             fixture.detectChanges();
@@ -341,10 +327,8 @@ describe('tabs', () => {
         let fixture: ComponentFixture<TestTabsActiveComponent>;
 
         beforeEach(() => {
-            TestBed.configureTestingModule({
-                declarations: [TestTabsActiveComponent],
-                imports: [ThyTabsModule]
-            }).compileComponents();
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
 
             fixture = TestBed.createComponent(TestTabsActiveComponent);
             fixture.detectChanges();
@@ -385,10 +369,8 @@ describe('tabs', () => {
         let fixture: ComponentFixture<TestTabsDynamicAddComponent>;
 
         beforeEach(() => {
-            TestBed.configureTestingModule({
-                declarations: [TestTabsDynamicAddComponent],
-                imports: [ThyTabsModule]
-            }).compileComponents();
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
 
             fixture = TestBed.createComponent(TestTabsDynamicAddComponent);
             fixture.detectChanges();
@@ -443,10 +425,8 @@ describe('tabs', () => {
         let fixture: ComponentFixture<TestTabsDisabledComponent>;
 
         beforeEach(() => {
-            TestBed.configureTestingModule({
-                declarations: [TestTabsDisabledComponent],
-                imports: [ThyTabsModule]
-            }).compileComponents();
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
 
             fixture = TestBed.createComponent(TestTabsDisabledComponent);
             fixture.detectChanges();
@@ -469,13 +449,9 @@ describe('tabs', () => {
         let fixture: ComponentFixture<TestTabsAnimatedComponent>;
 
         beforeEach(() => {
-            TestBed.configureTestingModule({
-                declarations: [TestTabsAnimatedComponent],
-                imports: [ThyTabsModule]
-            }).compileComponents();
-
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
             fixture = TestBed.createComponent(TestTabsAnimatedComponent);
-            // tabsInstance = getDebugElement(fixture, ThyTabsComponent).componentInstance;
             fixture.detectChanges();
         });
 

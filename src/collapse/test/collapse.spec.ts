@@ -1,12 +1,11 @@
 import { ThyCollapse, ThyCollapseItem, ThyCollapseModule } from 'ngx-tethys/collapse';
 import { ThyIcon, ThyIconModule } from 'ngx-tethys/icon';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
-
 import { CommonModule } from '@angular/common';
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({
@@ -17,7 +16,7 @@ import { provideHttpClient } from '@angular/common/http';
             <thy-collapse-panel thyTitle="这是一个头部标题3">内容区域3</thy-collapse-panel>
         </thy-collapse>
     `,
-    standalone: false
+    imports: [ThyCollapseModule, ThyIconModule, CommonModule]
 })
 export class TestCollapseBasicComponent {
     accordion = false;
@@ -51,7 +50,7 @@ export class TestCollapseBasicComponent {
             <thy-icon class="extra-template" thyIconName="settings" (click)="$event.stopPropagation()"></thy-icon>
         </ng-template>
     `,
-    standalone: false
+    imports: [ThyCollapseModule, ThyIconModule, CommonModule]
 })
 export class TestCollapsePanelBasicComponent {
     title = '默认标题';
@@ -73,9 +72,7 @@ describe('collapse', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [ThyCollapseModule, ThyIconModule, CommonModule, NoopAnimationsModule],
-                declarations: [TestCollapseBasicComponent],
-                providers: [provideHttpClient()]
+                providers: [provideHttpClient(), provideAnimations()]
             }).compileComponents();
         });
 
@@ -198,9 +195,7 @@ describe('collapse-panel', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [ThyCollapseModule, ThyIconModule, CommonModule, NoopAnimationsModule],
-                declarations: [TestCollapsePanelBasicComponent],
-                providers: [provideHttpClient()]
+                providers: [provideHttpClient(), provideAnimations()]
             }).compileComponents();
         });
 

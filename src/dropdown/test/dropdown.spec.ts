@@ -3,15 +3,14 @@ import { Platform } from '@angular/cdk/platform';
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush, inject, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { ComponentTypeOrTemplateRef, ThyOverlayTrigger, ThyPlacement } from 'ngx-tethys/core';
 import { ThyDropdownDirective, ThyDropdownModule } from 'ngx-tethys/dropdown';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyPopoverConfig } from 'ngx-tethys/popover';
 import { dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing';
-import { ThyDropdownMenuItemType } from '../dropdown-menu-item.directive';
-import { ThyDropdownAbstractMenu, ThyDropdownMenuComponent } from '../dropdown-menu.component';
+import { ThyDropdownMenuItemType, ThyDropdownAbstractMenu, ThyDropdownMenuComponent } from 'ngx-tethys/dropdown';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({
@@ -27,7 +26,7 @@ import { provideHttpClient } from '@angular/common/http';
             </a>
         </thy-dropdown-menu>
     `,
-    standalone: false
+    imports: [ThyDropdownModule, ThyButtonModule]
 })
 class DropdownBasicTestComponent {
     trigger: ThyOverlayTrigger = 'click';
@@ -46,11 +45,10 @@ describe('basic dropdown', () => {
     let overlayContainerElement: HTMLElement;
     let dropdownElement: HTMLElement;
     let dropdown: ThyDropdownDirective;
+
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [ThyDropdownModule, ThyButtonModule, NoopAnimationsModule],
-            declarations: [DropdownBasicTestComponent]
-        }).compileComponents();
+        TestBed.configureTestingModule({ providers: [provideNoopAnimations()] });
+        TestBed.compileComponents();
         fixture = TestBed.createComponent(DropdownBasicTestComponent);
         fixture.detectChanges();
     });
@@ -193,10 +191,9 @@ describe('for touch usage', () => {
     beforeEach(() => {
         platform = { IOS: false, isBrowser: true, ANDROID: false };
         TestBed.configureTestingModule({
-            imports: [ThyDropdownModule, ThyButtonModule, NoopAnimationsModule],
-            providers: [{ provide: Platform, useFactory: () => platform }],
-            declarations: [DropdownBasicTestComponent]
-        }).compileComponents();
+            providers: [provideNoopAnimations(), { provide: Platform, useFactory: () => platform }]
+        });
+        TestBed.compileComponents();
         platform.ANDROID = true;
 
         fixture = TestBed.createComponent(DropdownBasicTestComponent);
@@ -296,7 +293,7 @@ describe('for touch usage', () => {
             </a>
         </thy-dropdown-menu>
     `,
-    standalone: false
+    imports: [ThyDropdownModule, ThyButtonModule]
 })
 class DropdownMenuInputTestComponent {
     @ViewChild('invalidDiv', { static: true }) invalidDiv: HTMLElement;
@@ -311,9 +308,9 @@ describe('invalid dropdown', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyDropdownModule, ThyButtonModule, NoopAnimationsModule],
-            declarations: [DropdownMenuInputTestComponent]
-        }).compileComponents();
+            providers: [provideNoopAnimations()]
+        });
+        TestBed.compileComponents();
         fixture = TestBed.createComponent(DropdownMenuInputTestComponent);
         fixture.detectChanges();
     });
@@ -390,7 +387,7 @@ describe('invalid dropdown', () => {
             </a>
         </thy-dropdown-menu>
     `,
-    standalone: false
+    imports: [ThyDropdownModule, ThyButtonModule, ThyIconModule]
 })
 class DropdownMenuTestComponent {
     @ViewChild('dropdownMenu', { static: true }) dropdownMenu: ThyDropdownMenuComponent;
@@ -412,10 +409,9 @@ describe('dropdown menu', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyDropdownModule, ThyButtonModule, NoopAnimationsModule, ThyIconModule],
-            declarations: [DropdownMenuTestComponent],
-            providers: [provideHttpClient()]
-        }).compileComponents();
+            providers: [provideHttpClient(), provideNoopAnimations()]
+        });
+        TestBed.compileComponents();
         fixture = TestBed.createComponent(DropdownMenuTestComponent);
         fixture.detectChanges();
     });
@@ -576,7 +572,7 @@ describe('dropdown menu', () => {
             </a>
         </thy-dropdown-menu>
     `,
-    standalone: false
+    imports: [ThyDropdownModule, ThyButtonModule, ThyIconModule]
 })
 class DropdownSubmenuTestComponent {
     @ViewChild('dropdownMenu', { static: true }) dropdownMenu: ThyDropdownMenuComponent;
@@ -590,10 +586,9 @@ describe('dropdown submenu', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyDropdownModule, ThyButtonModule, NoopAnimationsModule, ThyIconModule],
-            declarations: [DropdownSubmenuTestComponent],
-            providers: [provideHttpClient()]
-        }).compileComponents();
+            providers: [provideHttpClient(), provideNoopAnimations()]
+        });
+        TestBed.compileComponents();
         fixture = TestBed.createComponent(DropdownSubmenuTestComponent);
         fixture.detectChanges();
     });
@@ -842,14 +837,14 @@ describe('dropdown submenu', () => {
             <span>Custom Menu Item2</span>
         </a>
     `,
-    standalone: false
+    imports: [ThyDropdownModule, ThyButtonModule]
 })
 class DropdownCustomMenuComponent extends ThyDropdownAbstractMenu {}
 
 @Component({
     selector: 'thy-dropdown-component-test',
     template: ` <button [thyDropdown]="menu" thyButton="primary">Dropdown</button> `,
-    standalone: false
+    imports: [ThyDropdownModule, ThyButtonModule]
 })
 class DropdownComponentTestComponent {
     menu = DropdownCustomMenuComponent;
@@ -862,11 +857,12 @@ describe('dropdown-component', () => {
     let overlayContainerElement: HTMLElement;
     let dropdownElement: HTMLElement;
     let dropdown: ThyDropdownDirective;
+
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyDropdownModule, ThyButtonModule, NoopAnimationsModule],
-            declarations: [DropdownComponentTestComponent, DropdownCustomMenuComponent]
-        }).compileComponents();
+            providers: [provideNoopAnimations()]
+        });
+        TestBed.compileComponents();
         fixture = TestBed.createComponent(DropdownComponentTestComponent);
         fixture.detectChanges();
     });
@@ -921,7 +917,7 @@ describe('dropdown-component', () => {
             </a>
         </thy-dropdown-menu>
     `,
-    standalone: false
+    imports: [ThyDropdownModule, ThyButtonModule]
 })
 class DropdownOptionsTestComponent {
     trigger: ThyOverlayTrigger = 'click';
@@ -936,11 +932,12 @@ describe('dropdown options', () => {
     let overlayContainerElement: HTMLElement;
     let dropdownElement: HTMLElement;
     let dropdown: ThyDropdownDirective;
+
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyDropdownModule, ThyButtonModule, NoopAnimationsModule],
-            declarations: [DropdownOptionsTestComponent]
-        }).compileComponents();
+            providers: [provideNoopAnimations()]
+        });
+        TestBed.compileComponents();
         fixture = TestBed.createComponent(DropdownOptionsTestComponent);
         fixture.detectChanges();
     });
@@ -1134,7 +1131,7 @@ describe('dropdown options', () => {
             </a>
         </thy-dropdown-menu>
     `,
-    standalone: false
+    imports: [ThyDropdownModule, ThyButtonModule, ThyDropdownMenuComponent]
 })
 class DropdownImmediateRenderTestComponent {
     trigger: ThyOverlayTrigger = 'click';
@@ -1147,11 +1144,12 @@ describe('immediate render dropdown', () => {
     let overlayContainerElement: HTMLElement;
     let dropdownElement: HTMLElement;
     let dropdown: ThyDropdownDirective;
+
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyDropdownModule, ThyButtonModule, NoopAnimationsModule, ThyDropdownMenuComponent],
-            declarations: [DropdownImmediateRenderTestComponent]
-        }).compileComponents();
+            providers: [provideNoopAnimations()]
+        });
+        TestBed.compileComponents();
         fixture = TestBed.createComponent(DropdownImmediateRenderTestComponent);
         fixture.detectChanges();
     });

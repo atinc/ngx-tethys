@@ -1,13 +1,8 @@
 import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
-
-import { Component, DebugElement, NgModule } from '@angular/core';
+import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-import { ThyButtonGroup } from '../button-group.component';
-import { ThyButtonIcon } from '../button-icon.component';
-import { ThyButton } from '../button.component';
-import { ThyButtonModule } from '../button.module';
+import { ThyButtonGroup, ThyButtonIcon, ThyButton, ThyButtonModule } from 'ngx-tethys/button';
 import { provideHttpClient } from '@angular/common/http';
 
 function assertButtonIcon(iconElement: Element, icon: string) {
@@ -23,7 +18,7 @@ function assertButtonIcon(iconElement: Element, icon: string) {
         <thy-button id="btn-with-icon" [thyIcon]="icon" [thyType]="type">Icon Button</thy-button>
         <thy-button id="btn-only-icon" [thyIcon]="icon" [thyType]="type"></thy-button>
     `,
-    standalone: false
+    imports: [ThyButtonModule]
 })
 class ThyTestButtonBasicComponent {
     type = `primary`;
@@ -43,8 +38,6 @@ describe('ThyButton', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                declarations: [ThyTestButtonBasicComponent],
-                imports: [ThyButtonModule],
                 providers: [bypassSanitizeProvider, provideHttpClient()]
             });
 
@@ -194,7 +187,7 @@ describe('ThyButton', () => {
             [thySize]="size"></button>
         <thy-button-icon id="button-icon-component" thyIcon="inbox"></thy-button-icon>
     `,
-    standalone: false
+    imports: [ThyButtonModule]
 })
 class ThyTestButtonIconBasicComponent {
     icon = 'inbox';
@@ -214,8 +207,6 @@ describe('ThyIconButton', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [ThyTestButtonIconBasicComponent],
-            imports: [ThyButtonModule],
             providers: [bypassSanitizeProvider, provideHttpClient()]
         });
 
@@ -320,20 +311,13 @@ describe('ThyIconButton', () => {
             <button thyButton>Right</button>
         </thy-button-group>
     `,
-    standalone: false
+    imports: [ThyButtonGroup, ThyButton]
 })
 class ThyDemoButtonGroupComponent {
     size = ``;
     type = `outline-primary`;
     clearMinWidth = false;
 }
-
-@NgModule({
-    imports: [ThyButtonModule],
-    declarations: [ThyDemoButtonGroupComponent],
-    exports: [ThyDemoButtonGroupComponent]
-})
-export class ButtonGroupTestModule {}
 
 describe('ThyButtonGroup', () => {
     let fixture: ComponentFixture<ThyDemoButtonGroupComponent>;
@@ -342,7 +326,6 @@ describe('ThyButtonGroup', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyButtonModule, ButtonGroupTestModule],
             providers: [bypassSanitizeProvider, provideHttpClient()]
         });
 

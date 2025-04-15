@@ -1,15 +1,13 @@
 import { dispatchKeyboardEvent } from 'ngx-tethys/testing';
 import { ENTER } from 'ngx-tethys/util';
-
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
-import { ThyCtrlEnterDirective } from './thy-ctrl-enter.directive';
+import { ThyCtrlEnterDirective } from 'ngx-tethys/shared';
 
 @Component({
     selector: 'thy-autofocus-test',
     template: ` <input #enter (thyCtrlEnter)="ok($event)" /> `,
-    standalone: false
+    imports: [ThyCtrlEnterDirective]
 })
 class ThyCtrlEnterTestComponent {
     @ViewChild('enter') input: ElementRef;
@@ -23,10 +21,8 @@ describe('ThyCtrlEnterDirective', () => {
     let enterSpy: jasmine.Spy;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
-            imports: [ThyCtrlEnterDirective],
-            declarations: [ThyCtrlEnterTestComponent]
-        }).compileComponents();
+        TestBed.configureTestingModule({});
+        TestBed.compileComponents();
     }));
 
     beforeEach(() => {

@@ -1,16 +1,14 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { ThyDialogModule } from '../dialog.module';
 import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { ThyDialogHeader } from '../header/dialog-header.component';
 import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
-import { THY_DIALOG_LAYOUT_CONFIG } from '../dialog.config';
+import { THY_DIALOG_LAYOUT_CONFIG, ThyDialogFooter, ThyDialogHeader, ThyDialogModule } from 'ngx-tethys/dialog';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-test-dialog-header-basic',
     template: ` <thy-dialog-header [thyDivided]="divided" [thySize]="size" thyTitle="I am dialog header"></thy-dialog-header> `,
-    standalone: false
+    imports: [ThyDialogModule]
 })
 class DialogHeaderBasicComponent {
     size: 'lg' | 'md';
@@ -30,9 +28,9 @@ class DialogHeaderBasicComponent {
         <thy-dialog-footer class="showBorder" [thyDivided]="showBorderTop"> </thy-dialog-footer>
         <thy-dialog-footer class="noConfig"></thy-dialog-footer>
     `,
-    standalone: false
+    imports: [ThyDialogFooter]
 })
-class DialogFooterBasicComponent {
+class DialogFooterBasicTestComponent {
     showBorderTop: boolean;
 
     align = '';
@@ -43,7 +41,7 @@ class DialogFooterBasicComponent {
 @Component({
     selector: 'thy-test-dialog-header-basic',
     template: ` <thy-dialog-header thyTitleTranslationKey="Translation Key Title"></thy-dialog-header> `,
-    standalone: false
+    imports: [ThyDialogModule]
 })
 class DialogHeaderTitleTranslationComponent {}
 
@@ -51,8 +49,6 @@ describe('dialog-layout', () => {
     describe('dialog-header', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [ThyDialogModule],
-                declarations: [DialogHeaderBasicComponent],
                 providers: [bypassSanitizeProvider, provideHttpClient()]
             });
             TestBed.compileComponents();
@@ -101,8 +97,6 @@ describe('dialog-layout', () => {
     describe('dialog-header-title-translation', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [ThyDialogModule],
-                declarations: [DialogHeaderTitleTranslationComponent],
                 providers: [bypassSanitizeProvider, provideHttpClient()]
             });
             TestBed.compileComponents();
@@ -127,7 +121,7 @@ describe('dialog-layout', () => {
     });
 
     describe('dialog-footer', () => {
-        let dialogBasicFixture: ComponentFixture<DialogFooterBasicComponent>;
+        let dialogBasicFixture: ComponentFixture<DialogFooterBasicTestComponent>;
         let dialogFooterNewDebugElement: DebugElement;
         let dialogFooterBorderDebugElement: DebugElement;
         let dialogFooterNoConfigDebugElement: DebugElement;
@@ -136,7 +130,6 @@ describe('dialog-layout', () => {
             beforeEach(() => {
                 TestBed.configureTestingModule({
                     imports: [ThyDialogModule],
-                    declarations: [DialogFooterBasicComponent],
                     providers: [bypassSanitizeProvider, provideHttpClient()]
                 });
                 TestBed.compileComponents();
@@ -145,7 +138,7 @@ describe('dialog-layout', () => {
             });
 
             beforeEach(() => {
-                dialogBasicFixture = TestBed.createComponent(DialogFooterBasicComponent);
+                dialogBasicFixture = TestBed.createComponent(DialogFooterBasicTestComponent);
                 dialogFooterNewDebugElement = dialogBasicFixture.debugElement.query(By.css('.new'));
                 dialogFooterBorderDebugElement = dialogBasicFixture.debugElement.query(By.css('.showBorder'));
                 dialogFooterNoConfigDebugElement = dialogBasicFixture.debugElement.query(By.css('.noConfig'));
@@ -229,7 +222,6 @@ describe('dialog-layout', () => {
             beforeEach(() => {
                 TestBed.configureTestingModule({
                     imports: [ThyDialogModule],
-                    declarations: [DialogFooterBasicComponent],
                     providers: [
                         bypassSanitizeProvider,
                         provideHttpClient(),
@@ -248,7 +240,7 @@ describe('dialog-layout', () => {
             });
 
             beforeEach(() => {
-                dialogBasicFixture = TestBed.createComponent(DialogFooterBasicComponent);
+                dialogBasicFixture = TestBed.createComponent(DialogFooterBasicTestComponent);
                 dialogFooterNewDebugElement = dialogBasicFixture.debugElement.query(By.css('.new'));
                 dialogFooterBorderDebugElement = dialogBasicFixture.debugElement.query(By.css('.showBorder'));
                 dialogFooterNoConfigDebugElement = dialogBasicFixture.debugElement.query(By.css('.noConfig'));

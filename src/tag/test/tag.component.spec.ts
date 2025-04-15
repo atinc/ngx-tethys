@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { TestBed, waitForAsync, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyTagColor, ThyTagShape } from '../tag.component';
-import { ThyTagModule } from '../tag.module';
+import { ThyTagColor, ThyTagShape, ThyTagModule } from 'ngx-tethys/tag';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { provideHttpClient } from '@angular/common/http';
+
 @Component({
     selector: 'thy-tag-basic-test',
     template: `
@@ -17,7 +17,7 @@ import { provideHttpClient } from '@angular/common/http';
         <thy-tag id="custom" thyColor="#56abfb">Tag 6</thy-tag>
         <thy-tag id="hoverable" [thyHoverable]="hoverable">Tag 7</thy-tag>
     `,
-    standalone: false
+    imports: [ThyTagModule, ThyIconModule]
 })
 export class ThyTagBasicTestComponent implements OnInit {
     size: string = 'md';
@@ -35,8 +35,6 @@ describe('thy-tag', () => {
     let fixture: ComponentFixture<ThyTagBasicTestComponent>;
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [ThyTagBasicTestComponent],
-            imports: [ThyTagModule, ThyIconModule],
             providers: [provideHttpClient()]
         }).compileComponents();
     }));

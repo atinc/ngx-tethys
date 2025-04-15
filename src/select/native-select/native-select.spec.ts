@@ -1,12 +1,10 @@
 import { ThyNativeSelect } from 'ngx-tethys/select';
-
 import { Component, DebugElement, Sanitizer, SecurityContext, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-
-import { dispatchFakeEvent } from '../../testing';
-import { ThySelectModule } from '../module';
+import { dispatchFakeEvent } from 'ngx-tethys/testing';
+import { ThySelectModule } from 'ngx-tethys/select';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({
@@ -23,7 +21,7 @@ import { provideHttpClient } from '@angular/common/http';
             <option value="option2">选项2</option>
         </thy-native-select>
     `,
-    standalone: false
+    imports: [ThySelectModule, FormsModule]
 })
 class BasicNativeSelectComponent {
     @ViewChild(ThyNativeSelect, { static: false }) selectComponent: ThyNativeSelect;
@@ -38,8 +36,6 @@ class BasicNativeSelectComponent {
 describe(`select`, () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThySelectModule, FormsModule],
-            declarations: [BasicNativeSelectComponent],
             providers: [
                 provideHttpClient(),
                 {

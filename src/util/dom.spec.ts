@@ -1,4 +1,13 @@
-import { assertIconOnly, elementMatchClosest, fallbackMatches, getElementOffset, getWindow, isDocument, isElement, match } from './dom';
+import {
+    assertIconOnly,
+    elementMatchClosest,
+    fallbackMatches,
+    getElementOffset,
+    getWindow,
+    isDocument,
+    isElement,
+    match
+} from 'ngx-tethys/util';
 
 describe('#dom', () => {
     describe('#match', () => {

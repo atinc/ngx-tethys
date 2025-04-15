@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { ThyShowDirective } from './thy-show';
+import { ThyShowDirective } from 'ngx-tethys/shared';
 
 @Component({
     selector: 'thy-show-test',
     template: ` <div class="thy-show-test" [thyShow]="isShow">测试 ThyShow 指令</div> `,
-    standalone: false
+    imports: [ThyShowDirective]
 })
 class ThyShowTestComponent {
     isShow = false;
@@ -16,10 +16,7 @@ describe('ThyShowDirective', () => {
     let testComponent: ThyShowTestComponent;
 
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [ThyShowDirective],
-            declarations: [ThyShowTestComponent]
-        });
+        TestBed.configureTestingModule({});
     });
 
     beforeEach(() => {

@@ -1,20 +1,22 @@
-import { OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
+import { OverlayContainer } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgStyle } from '@angular/common';
 import { Component, DebugElement, ElementRef, ViewChild, inject as coreInject } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush, inject, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideAnimations, provideNoopAnimations } from '@angular/platform-browser/animations';
 import { ThyDialogModule } from 'ngx-tethys/dialog';
 import { ThyPopover, ThyPopoverModule, ThyPopoverRef } from 'ngx-tethys/popover';
 import { dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing';
-import { ThyColorPickerCustomPanel } from '../color-picker-custom-panel.component';
-import { ThyColorPickerPanel } from '../color-picker-panel.component';
-import { ThyColorPickerDirective } from '../color-picker.component';
+import {
+    ThyColorPickerCustomPanel,
+    ThyColorPickerPanel,
+    ThyColorPickerDirective,
+    ThyColorPickerModule,
+    ThyColor
+} from 'ngx-tethys/color-picker';
 import { ThyCoordinatesDirective } from '../coordinates.directive';
-import { ThyColor } from '../helpers/color.class';
-import { ThyColorPickerModule } from '../module';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({
@@ -47,7 +49,7 @@ import { provideHttpClient } from '@angular/common/http';
             }
         `
     ],
-    standalone: false
+    imports: [CommonModule, FormsModule, ThyDialogModule, ThyColorPickerModule, ThyPopoverModule, ThyColorPickerPanel, NgStyle]
 })
 class ThyDemoColorPickerComponent {
     elementRef = coreInject<ElementRef<HTMLElement>>(ElementRef);
@@ -91,7 +93,7 @@ class ThyDemoColorPickerComponent {
             [defaultColor]="defaultColor"
             [transparentColorSelectable]="transparentColorSelectable"></thy-color-picker-panel>
     `,
-    standalone: false
+    imports: [CommonModule, FormsModule, ThyDialogModule, ThyColorPickerModule, ThyPopoverModule, ThyColorPickerPanel]
 })
 class ThyDemoColorDefaultPanelComponent {
     elementRef = coreInject<ElementRef<HTMLElement>>(ElementRef);
@@ -109,7 +111,7 @@ class ThyDemoColorDefaultPanelComponent {
 @Component({
     selector: 'thy-demo-picker-panel',
     template: ` <thy-color-picker-custom-panel [pickerColorChange]="pickerColorChange" [color]="color"></thy-color-picker-custom-panel> `,
-    standalone: false
+    imports: [CommonModule, FormsModule, ThyDialogModule, ThyColorPickerModule, ThyPopoverModule, ThyColorPickerCustomPanel]
 })
 class ThyDemoPickerPanelComponent {
     elementRef = coreInject<ElementRef<HTMLElement>>(ElementRef);
@@ -136,7 +138,7 @@ class ThyDemoPickerPanelComponent {
             }
         `
     ],
-    standalone: false
+    imports: [CommonModule, FormsModule, ThyDialogModule, ThyColorPickerModule, ThyPopoverModule, ThyCoordinatesDirective]
 })
 class ThyDemoCoordinatesDirectiveComponent {
     elementRef = coreInject<ElementRef<HTMLElement>>(ElementRef);
@@ -178,18 +180,7 @@ describe(`color-picker`, () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [
-                CommonModule,
-                FormsModule,
-                ThyDialogModule,
-                ThyColorPickerModule,
-                ThyPopoverModule,
-                BrowserAnimationsModule,
-                ThyColorPickerPanel,
-                NoopAnimationsModule
-            ],
-            providers: [ThyPopover, ThyPopoverRef, provideHttpClient()],
-            declarations: [ThyDemoColorPickerComponent]
+            providers: [ThyPopover, ThyPopoverRef, provideHttpClient(), provideNoopAnimations()]
         });
         TestBed.compileComponents();
     });
@@ -442,19 +433,10 @@ describe('color-default-panel', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [
-                CommonModule,
-                FormsModule,
-                ThyDialogModule,
-                ThyColorPickerModule,
-                ThyPopoverModule,
-                BrowserAnimationsModule,
-                ThyColorPickerPanel,
-                NoopAnimationsModule
-            ],
             providers: [
                 ThyPopover,
                 provideHttpClient(),
+                provideNoopAnimations(),
                 {
                     provide: ThyPopoverRef,
                     useValue: {
@@ -463,8 +445,7 @@ describe('color-default-panel', () => {
                         }
                     }
                 }
-            ],
-            declarations: [ThyDemoColorDefaultPanelComponent]
+            ]
         });
         TestBed.compileComponents();
     });
@@ -576,18 +557,7 @@ describe('picker-panel', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [
-                CommonModule,
-                FormsModule,
-                ThyDialogModule,
-                ThyColorPickerModule,
-                ThyPopoverModule,
-                BrowserAnimationsModule,
-                ThyColorPickerCustomPanel,
-                NoopAnimationsModule
-            ],
-            providers: [ThyPopover, ThyPopoverRef, provideHttpClient()],
-            declarations: [ThyDemoPickerPanelComponent]
+            providers: [ThyPopover, ThyPopoverRef, provideHttpClient()]
         });
         TestBed.compileComponents();
     });
@@ -635,18 +605,7 @@ describe('coordinates-directive', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [
-                CommonModule,
-                FormsModule,
-                ThyDialogModule,
-                ThyColorPickerModule,
-                ThyPopoverModule,
-                BrowserAnimationsModule,
-                ThyCoordinatesDirective,
-                NoopAnimationsModule
-            ],
-            providers: [ThyPopover, ThyPopoverRef, provideHttpClient()],
-            declarations: [ThyDemoCoordinatesDirectiveComponent]
+            providers: [ThyPopover, ThyPopoverRef, provideHttpClient()]
         });
         TestBed.compileComponents();
     });
@@ -682,18 +641,13 @@ describe(`for touch usage`, () => {
     beforeEach(() => {
         platform = { IOS: false, isBrowser: true, ANDROID: false };
         TestBed.configureTestingModule({
-            imports: [
-                CommonModule,
-                FormsModule,
-                ThyDialogModule,
-                OverlayModule,
-                ThyColorPickerModule,
-                ThyPopoverModule,
-                NoopAnimationsModule,
-                ThyColorPickerPanel
-            ],
-            providers: [ThyPopover, ThyPopoverRef, { provide: Platform, useFactory: () => platform }, provideHttpClient()],
-            declarations: [ThyDemoColorPickerComponent]
+            providers: [
+                ThyPopover,
+                ThyPopoverRef,
+                { provide: Platform, useFactory: () => platform },
+                provideHttpClient(),
+                provideAnimations()
+            ]
         });
         TestBed.compileComponents();
     });

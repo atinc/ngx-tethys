@@ -1,14 +1,13 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { Component, DebugElement, ElementRef, NgModule, ViewChild, inject as coreInject } from '@angular/core';
+import { Component, DebugElement, ElementRef, ViewChild, inject as coreInject } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush, inject, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing';
-import { ThyPlacement } from '../../core/overlay/interface';
-import { ThyPopoverModule } from '../module';
-import { ThyPopoverDirective } from '../popover.directive';
+import { ThyPlacement } from 'ngx-tethys/core';
+import { ThyPopoverDirective, ThyPopoverModule } from 'ngx-tethys/popover';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({
@@ -26,7 +25,7 @@ import { provideHttpClient } from '@angular/common/http';
         </button>
         <ng-template #template> 恩，这是一个 Template </ng-template>
     `,
-    standalone: false
+    imports: [ThyPopoverDirective]
 })
 class ThyDemoVisiblePopoverComponent {
     elementRef = coreInject<ElementRef<HTMLElement>>(ElementRef);
@@ -42,13 +41,6 @@ class ThyDemoVisiblePopoverComponent {
     };
 }
 
-@NgModule({
-    imports: [ThyPopoverModule],
-    declarations: [ThyDemoVisiblePopoverComponent],
-    exports: []
-})
-export class TooltipTestModule {}
-
 describe(`ThyTooltip`, () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
@@ -56,9 +48,10 @@ describe(`ThyTooltip`, () => {
 
     beforeEach(fakeAsync(() => {
         platform = { IOS: false, isBrowser: true, ANDROID: false };
+
         TestBed.configureTestingModule({
-            imports: [TooltipTestModule, NoopAnimationsModule],
-            providers: [provideHttpClient(), { provide: Platform, useFactory: () => platform }]
+            imports: [ThyPopoverModule],
+            providers: [provideHttpClient(), provideNoopAnimations(), { provide: Platform, useFactory: () => platform }]
         });
 
         TestBed.compileComponents();
@@ -191,7 +184,7 @@ describe(`ThyTooltip`, () => {
         </button>
         <ng-template #template> 恩，这是一个 Template </ng-template>
     `,
-    standalone: false
+    imports: [ThyPopoverDirective]
 })
 class TestPopoverDirectiveClickComponent {
     elementRef = coreInject<ElementRef<HTMLElement>>(ElementRef);
@@ -208,13 +201,6 @@ class TestPopoverDirectiveClickComponent {
     disabled = false;
 }
 
-@NgModule({
-    imports: [ThyPopoverModule],
-    declarations: [TestPopoverDirectiveClickComponent],
-    exports: []
-})
-export class PopoverTestModule {}
-
 describe(`ThyPopoverDirective`, () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
@@ -230,9 +216,10 @@ describe(`ThyPopoverDirective`, () => {
 
     beforeEach(fakeAsync(() => {
         platform = { IOS: false, isBrowser: true, ANDROID: false };
+
         TestBed.configureTestingModule({
-            imports: [PopoverTestModule, NoopAnimationsModule],
-            providers: [provideHttpClient(), { provide: Platform, useFactory: () => platform }]
+            imports: [ThyPopoverModule],
+            providers: [provideHttpClient(), provideNoopAnimations(), { provide: Platform, useFactory: () => platform }]
         });
 
         TestBed.compileComponents();

@@ -1,14 +1,21 @@
 import { Component, DebugElement } from '@angular/core';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { ThyLayoutModule } from '../layout.module';
 import { By } from '@angular/platform-browser';
-import { ThyLayout, ThyLayoutDirective } from '../layout.component';
-import { ThyHeader, ThyHeaderDirective } from '../header.component';
 import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing';
-import { ThyContent, ThyContentDirective } from '../content.component';
-import { ThyContentSection, ThyContentSectionDirective } from '../content-section.component';
-import { ThyContentMain, ThyContentMainDirective } from '../content-main.component';
 import { provideHttpClient } from '@angular/common/http';
+import { ThyIcon } from 'ngx-tethys/icon';
+import {
+    ThyLayout,
+    ThyHeader,
+    ThyContent,
+    ThyContentSection,
+    ThyContentMain,
+    ThyContentDirective,
+    ThyLayoutDirective,
+    ThyContentMainDirective,
+    ThyContentSectionDirective,
+    ThyHeaderDirective
+} from 'ngx-tethys/layout';
 
 @Component({
     selector: 'thy-demo-layout-basic',
@@ -22,7 +29,7 @@ import { provideHttpClient } from '@angular/common/http';
             </thy-content>
         </thy-layout>
     `,
-    standalone: false
+    imports: [ThyLayout, ThyHeader, ThyContent, ThyContentSection, ThyContentMain, ThyIcon]
 })
 class ThyDemoLayoutBasicComponent {
     isDivided = false;
@@ -43,7 +50,7 @@ class ThyDemoLayoutBasicComponent {
             <thy-content> 恩，我是 content </thy-content>
         </thy-layout>
     `,
-    standalone: false
+    imports: [ThyLayout, ThyHeader, ThyLayoutDirective, ThyHeaderDirective, ThyContent, ThyContentSection, ThyContentMain, ThyIcon]
 })
 class ThyDemoLayoutCustomHeaderComponent {}
 
@@ -58,7 +65,7 @@ class ThyDemoLayoutCustomHeaderComponent {}
             </div>
         </div>
     `,
-    standalone: false
+    imports: [ThyLayoutDirective, ThyHeaderDirective, ThyContentDirective, ThyContentSectionDirective, ThyContentMainDirective]
 })
 class ThyDemoLayoutDirectiveBasicComponent {
     isDivided = false;
@@ -69,8 +76,6 @@ class ThyDemoLayoutDirectiveBasicComponent {
 describe(`layout`, () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [ThyDemoLayoutBasicComponent, ThyDemoLayoutCustomHeaderComponent, ThyDemoLayoutDirectiveBasicComponent],
-            imports: [ThyLayoutModule],
             providers: [bypassSanitizeProvider, provideHttpClient()]
         });
         TestBed.compileComponents();

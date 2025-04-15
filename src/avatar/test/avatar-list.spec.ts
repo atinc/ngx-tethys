@@ -1,10 +1,9 @@
 import { Component, DebugElement, OnInit } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyAvatarList, ThyAvatarListMode } from '../avatar-list/avatar-list.component';
-import { ThyAvatar } from '../avatar.component';
-import { ThyAvatarModule } from '../avatar.module';
+import { ThyAvatarList, ThyAvatarListMode, ThyAvatar, ThyAvatarModule } from 'ngx-tethys/avatar';
 import { provideHttpClient } from '@angular/common/http';
+import { NgStyle } from '@angular/common';
 
 const userNameList = [{ name: 'Abigail' }, { name: 'Belle' }, { name: 'Camilla' }, { name: 'Abigail' }, { name: 'Belle' }];
 
@@ -24,9 +23,9 @@ const userNameList = [{ name: 'Abigail' }, { name: 'Belle' }, { name: 'Camilla' 
         </div>
     `,
     styleUrls: ['../styles/avatar.scss'],
-    standalone: false
+    imports: [ThyAvatarModule, NgStyle]
 })
-export class AvatarListBasicComponent implements OnInit {
+export class AvatarListBasicTestComponent implements OnInit {
     ngOnInit(): void {}
 }
 
@@ -41,7 +40,7 @@ export class AvatarListBasicComponent implements OnInit {
         </div>
     `,
     styleUrls: ['../styles/avatar.scss'],
-    standalone: false
+    imports: [ThyAvatarModule, NgStyle]
 })
 export class AvatarListTestComponent implements OnInit {
     public size: number | string;
@@ -60,28 +59,28 @@ export class AvatarListTestComponent implements OnInit {
 @Component({
     template: ` <thy-avatar-list> </thy-avatar-list> `,
     styleUrls: ['../styles/avatar.scss'],
-    standalone: false
+    imports: [ThyAvatarModule]
 })
-export class AvatarListEmptyComponent implements OnInit {
+export class AvatarListEmptyTestComponent implements OnInit {
     ngOnInit(): void {}
 }
 
 describe('thy-avatar-list', () => {
-    let componentInstance: AvatarListBasicComponent;
+    let componentInstance: AvatarListBasicTestComponent;
     let avatarListDebugElement: DebugElement;
     let avatarListElement: HTMLElement;
+
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyAvatarModule],
-            declarations: [AvatarListBasicComponent, AvatarListTestComponent, AvatarListEmptyComponent],
             providers: [provideHttpClient()]
         }).compileComponents();
     });
 
     describe('basic', () => {
-        let fixture: ComponentFixture<AvatarListBasicComponent>;
+        let fixture: ComponentFixture<AvatarListBasicTestComponent>;
+
         beforeEach(() => {
-            fixture = TestBed.createComponent(AvatarListBasicComponent);
+            fixture = TestBed.createComponent(AvatarListBasicTestComponent);
             avatarListDebugElement = fixture.debugElement.query(By.directive(ThyAvatarList));
             componentInstance = fixture.componentInstance;
             avatarListElement = avatarListDebugElement.nativeElement;
@@ -115,10 +114,12 @@ describe('thy-avatar-list', () => {
 
     describe('show different size when input different thyAvatarSize value', () => {
         let fixture: ComponentFixture<AvatarListTestComponent>;
+
         beforeEach(() => {
             fixture = TestBed.createComponent(AvatarListTestComponent);
             fixture.detectChanges();
         });
+
         it('should be 16 size When input number 0', fakeAsync(() => {
             fixture.componentInstance.size = 0;
             fixture.detectChanges();
@@ -144,6 +145,7 @@ describe('thy-avatar-list', () => {
 
     describe('should set overlapMode to true when thyMode is set to "overlap"', () => {
         let fixture: ComponentFixture<AvatarListTestComponent>;
+
         beforeEach(() => {
             fixture = TestBed.createComponent(AvatarListTestComponent);
             avatarListDebugElement = fixture.debugElement.query(By.directive(ThyAvatarList));
@@ -207,9 +209,10 @@ describe('thy-avatar-list', () => {
     });
 
     describe('empty', () => {
-        let fixture: ComponentFixture<AvatarListEmptyComponent>;
+        let fixture: ComponentFixture<AvatarListEmptyTestComponent>;
+
         beforeEach(() => {
-            fixture = TestBed.createComponent(AvatarListEmptyComponent);
+            fixture = TestBed.createComponent(AvatarListEmptyTestComponent);
             avatarListDebugElement = fixture.debugElement.query(By.directive(ThyAvatarList));
             fixture.detectChanges();
         });

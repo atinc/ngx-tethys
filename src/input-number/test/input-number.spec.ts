@@ -1,14 +1,10 @@
 import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { keycodes } from 'ngx-tethys/util';
-
-import { CommonModule } from '@angular/common';
-import { Component, DebugElement, NgModule, ViewChild } from '@angular/core';
+import { Component, DebugElement, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-
-import { ThyInputNumber } from '../input-number.component';
-import { ThyInputNumberModule } from '../module';
+import { ThyInputNumber } from 'ngx-tethys/input-number';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({
@@ -47,7 +43,7 @@ import { provideHttpClient } from '@angular/common/http';
             (thyFocus)="onSecondFocus($event)"
             (thyBlur)="onSecondBlur($event)"></thy-input-number>
     `,
-    standalone: false
+    imports: [ThyInputNumber, FormsModule]
 })
 class TestInputNumberComponent {
     @ViewChild(ThyInputNumber, { static: false }) inputNumberComponent: ThyInputNumber;
@@ -89,14 +85,6 @@ class TestInputNumberComponent {
     stepChange = jasmine.createSpy('arrow click callback');
 }
 
-@NgModule({
-    imports: [CommonModule, FormsModule, ThyInputNumberModule],
-    declarations: [TestInputNumberComponent],
-    providers: [provideHttpClient()],
-    exports: []
-})
-export class InputComponentTestModule {}
-
 describe('input-number component', () => {
     let fixture: ComponentFixture<TestInputNumberComponent>;
     let inputNumberComponentInstance: TestInputNumberComponent;
@@ -105,8 +93,7 @@ describe('input-number component', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [InputComponentTestModule],
-            providers: []
+            providers: [provideHttpClient()]
         });
 
         TestBed.compileComponents();

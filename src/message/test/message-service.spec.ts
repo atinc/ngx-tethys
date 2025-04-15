@@ -1,12 +1,10 @@
 import { Component, OnInit, TemplateRef, ViewChild, inject as coreInject } from '@angular/core';
 import { TestBed, ComponentFixture, fakeAsync, flush, inject, tick } from '@angular/core/testing';
-import { ThyMessageModule } from '../module';
-import { ThyMessageService } from '../message.service';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ThyMessageConfig, ThyMessageType } from '../message.config';
+import { ThyMessageConfig, ThyMessageService, ThyMessageModule } from 'ngx-tethys/message';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { provideHttpClient } from '@angular/common/http';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 
 const DEFAULT_DURATION_TIME = 4500;
 
@@ -19,7 +17,7 @@ const DEFAULT_DURATION_TIME = 4500;
         <button class="error-btn" (click)="openMessage('error')">error</button>
         <button class="loading-btn" (click)="openMessage('loading')">loading</button>
     `,
-    standalone: false
+    imports: [ThyMessageModule]
 })
 export class ThyMessageTestComponent implements OnInit {
     messageService = coreInject(ThyMessageService);
@@ -50,9 +48,8 @@ describe('ThyMessage', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyMessageModule, NoopAnimationsModule],
-            declarations: [ThyMessageTestComponent],
-            providers: [provideHttpClient()]
+            imports: [ThyMessageModule],
+            providers: [provideHttpClient(), provideNoopAnimations()]
         });
         inject([OverlayContainer], (oc: OverlayContainer) => {
             overlayContainer = oc;

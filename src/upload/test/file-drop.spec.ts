@@ -1,12 +1,10 @@
-import { Component, DebugElement, NgModule } from '@angular/core';
+import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { createDragEvent } from 'ngx-tethys/testing';
-import { MIME_Map } from '../constant';
-import { ThyFileDropDirective } from '../file-drop.directive';
-import { ThyUploadModule } from '../module';
-import { ThySizeExceedsHandler } from '../types';
+import { ThyFileDropDirective, ThyUploadModule, ThySizeExceedsHandler } from 'ngx-tethys/upload';
 import { createFile } from './utils';
+import { MIME_Map } from '../constant';
 
 @Component({
     selector: 'test-file-drop-demo',
@@ -21,7 +19,7 @@ import { createFile } from './utils';
             (thyOnDrop)="selectFiles($event)"
             (thyFilesReject)="filesReject($event)"></div>
     `,
-    standalone: false
+    imports: [ThyFileDropDirective]
 })
 class FileDropBasicComponent {
     customDragOverClass: string;
@@ -31,9 +29,7 @@ class FileDropBasicComponent {
     exceedsFiles: File[];
     constructor() {}
 
-    selectFiles(event: { files: File[] }) {
-        //  console.log(`select files, ${event.files.length}`);
-    }
+    selectFiles(event: { files: File[] }) {}
 
     filesReject(files: File[]) {}
 
@@ -44,13 +40,6 @@ class FileDropBasicComponent {
     };
 }
 
-@NgModule({
-    imports: [ThyUploadModule],
-    declarations: [FileDropBasicComponent],
-    exports: [FileDropBasicComponent]
-})
-export class FileUploaderTestModule {}
-
 describe('thyFileDrop', () => {
     let fixture: ComponentFixture<FileDropBasicComponent>;
     let testComponent: FileDropBasicComponent;
@@ -59,8 +48,7 @@ describe('thyFileDrop', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyUploadModule, FileUploaderTestModule],
-            providers: []
+            imports: [ThyUploadModule]
         });
         TestBed.compileComponents();
     }));

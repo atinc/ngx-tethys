@@ -1,4 +1,4 @@
-import { sizeExceedsHandler } from '../upload.config';
+import { sizeExceedsHandler } from 'ngx-tethys/upload';
 
 describe(`uploader-config`, () => {
     it('should console incorrect error message for sizeExceedsHandler', () => {

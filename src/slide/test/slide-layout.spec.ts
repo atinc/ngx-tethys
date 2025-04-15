@@ -1,16 +1,22 @@
 import { OverlayContainer, ViewportRuler } from '@angular/cdk/overlay';
-import { Component, DebugElement, ElementRef, NgModule } from '@angular/core';
+import { Component, DebugElement, ElementRef } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { THY_SLIDE_DEFAULT_CONFIG, ThySlideConfig, ThySlideModule, ThySlideRef, ThySlideService, slideDefaultConfigValue } from '../index';
-import { ThySlideBodySection } from '../slide-body/slide-body-section.component';
-import { ThySlideBody } from '../slide-body/slide-body.component';
-import { ThySlideFooter } from '../slide-footer/slide-footer.component';
-import { ThySlideHeader } from '../slide-header/slide-header.component';
-import { ThySlideLayout } from '../slide-layout/slide-layout.component';
-import { SafeAny } from '../../types';
+import {
+    ThySlideBody,
+    ThySlideFooter,
+    ThySlideHeader,
+    ThySlideLayout,
+    ThySlideBodySection,
+    THY_SLIDE_DEFAULT_CONFIG,
+    ThySlideConfig,
+    ThySlideModule,
+    ThySlideRef,
+    ThySlideService,
+    slideDefaultConfigValue
+} from 'ngx-tethys/slide';
 import { provideHttpClient } from '@angular/common/http';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 
 describe('ThySlide', () => {
     describe('ThySlideService', () => {
@@ -22,9 +28,8 @@ describe('ThySlide', () => {
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                imports: [ThySlideModule, ThySlideTestModule],
-                declarations: [],
-                providers: [provideHttpClient()]
+                imports: [ThySlideModule],
+                providers: [provideHttpClient(), provideNoopAnimations()]
             });
             TestBed.compileComponents();
         }));
@@ -602,8 +607,7 @@ describe('ThySlide', () => {
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
                 imports: [ThySlideModule],
-                declarations: [SlideLayoutTestComponent],
-                providers: [provideHttpClient(), { provide: ThySlideService, useValue: ThySlideService }]
+                providers: [provideHttpClient(), provideNoopAnimations(), { provide: ThySlideService, useValue: ThySlideService }]
             });
 
             TestBed.compileComponents();
@@ -679,8 +683,7 @@ describe('ThySlide', () => {
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
                 imports: [ThySlideModule],
-                declarations: [SlideHeaderTestComponent],
-                providers: [provideHttpClient(), { provide: ThySlideService, useValue: ThySlideService }]
+                providers: [provideHttpClient(), provideNoopAnimations(), { provide: ThySlideService, useValue: ThySlideService }]
             });
 
             TestBed.compileComponents();
@@ -704,6 +707,7 @@ describe('ThySlide', () => {
         let overlayContainerElement: HTMLElement;
         let viewContainerFixture: ComponentFixture<SlideLayoutTestComponent>;
         let viewportRuler: ViewportRuler;
+
         const newDefaultConfig = {
             backdropClass: 'new-thy-slide-backdrop',
             panel: 'new-thy-slide'
@@ -711,9 +715,9 @@ describe('ThySlide', () => {
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                imports: [ThySlideModule, ThySlideTestModule],
-                declarations: [],
+                imports: [ThySlideModule],
                 providers: [
+                    provideNoopAnimations(),
                     provideHttpClient(),
                     {
                         provide: THY_SLIDE_DEFAULT_CONFIG,
@@ -770,7 +774,7 @@ describe('ThySlide', () => {
             </thy-slide-footer>
         </thy-slide-layout>
     `,
-    standalone: false
+    imports: [ThySlideLayout, ThySlideHeader, ThySlideBody, ThySlideBodySection, ThySlideFooter]
 })
 class SlideLayoutTestComponent {
     public data: number;
@@ -793,13 +797,6 @@ class SlideLayoutTestComponent {
             </ng-template>
         </thy-slide-header>
     `,
-    standalone: false
+    imports: [ThySlideHeader]
 })
 class SlideHeaderTestComponent {}
-
-@NgModule({
-    imports: [ThySlideModule, NoopAnimationsModule],
-    exports: [SlideLayoutTestComponent, SlideHeaderTestComponent],
-    declarations: [SlideLayoutTestComponent, SlideHeaderTestComponent]
-})
-export class ThySlideTestModule {}

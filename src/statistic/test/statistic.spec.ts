@@ -1,19 +1,18 @@
-import { fakeAsync, TestBed, ComponentFixture } from '@angular/core/testing';
-import { ThyStatisticModule } from '../statistic.module';
-import { NgModule, Component } from '@angular/core';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { ThyStatistic } from '../statistic.component';
+import { ThyStatistic, ThyStatisticShape, ThyStatisticTitlePosition } from 'ngx-tethys/statistic';
+
 describe('thy-statistic', () => {
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [StatisticTestModule]
-        });
+        TestBed.configureTestingModule({});
         TestBed.compileComponents();
     });
+
     describe('thy-statistic-basic', () => {
         let fixture: ComponentFixture<ThyDemoStatisticBasicComponent>;
         let basicTestComponent: ThyDemoStatisticBasicComponent;
-        let statisticComponent;
+        let statisticComponent: DebugElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyDemoStatisticBasicComponent);
@@ -93,7 +92,7 @@ describe('thy-statistic', () => {
     describe('thy-statistic-template', () => {
         let fixture: ComponentFixture<ThyDemoStatisticTemplateComponent>;
         let templateTestComponent: ThyDemoStatisticTemplateComponent;
-        let statisticComponent;
+        let statisticComponent: DebugElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyDemoStatisticTemplateComponent);
@@ -176,17 +175,17 @@ describe('thy-statistic', () => {
             [thyValueStyle]="thyValueStyle"
             [thyTitlePosition]="thyTitlePosition"></thy-statistic>
     `,
-    standalone: false
+    imports: [ThyStatistic]
 })
 class ThyDemoStatisticBasicComponent {
     thyValue = 10;
     thyTitle = '价值';
     thyPrefix = '$';
     thyColor = 'primary';
-    thyShape = undefined;
-    thySuffix = undefined;
-    thyValueStyle = undefined;
-    thyTitlePosition = 'bottom';
+    thyShape: ThyStatisticShape = undefined;
+    thySuffix: string = undefined;
+    thyValueStyle: { [key: string]: string } = undefined;
+    thyTitlePosition: ThyStatisticTitlePosition = 'bottom';
 }
 
 @Component({
@@ -199,7 +198,7 @@ class ThyDemoStatisticBasicComponent {
             <ng-template #title>标题</ng-template>
         </thy-statistic>
     `,
-    standalone: false
+    imports: [ThyStatistic]
 })
 class ThyDemoStatisticTemplateComponent {
     thyValue = 80;
@@ -215,13 +214,6 @@ class ThyDemoStatisticTemplateComponent {
         <ng-template #suffix>后缀</ng-template>
         <ng-template #title>标题</ng-template>
     `,
-    standalone: false
+    imports: [ThyStatistic]
 })
 class ThyDemoStatisticTemplateOutsideComponent {}
-
-@NgModule({
-    imports: [ThyStatisticModule],
-    declarations: [ThyDemoStatisticBasicComponent, ThyDemoStatisticTemplateComponent, ThyDemoStatisticTemplateOutsideComponent],
-    exports: [ThyDemoStatisticBasicComponent, ThyDemoStatisticTemplateComponent, ThyDemoStatisticTemplateOutsideComponent]
-})
-export class StatisticTestModule {}

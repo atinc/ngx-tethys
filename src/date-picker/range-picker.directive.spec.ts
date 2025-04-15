@@ -1,6 +1,5 @@
 import { endOfDay, fromUnixTime, startOfDay } from 'date-fns';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
-
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
@@ -8,11 +7,9 @@ import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
-
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { ThyPropertyOperation, ThyPropertyOperationModule } from 'ngx-tethys/property-operation';
-import { ThyDatePickerModule } from './date-picker.module';
-import { CompatiblePresets, ThyDateRangeEntry, ThyShortcutPosition } from './standard-types';
+import { CompatiblePresets, ThyDatePickerModule, ThyDateRangeEntry, ThyShortcutPosition } from 'ngx-tethys/date-picker';
 import { provideHttpClient } from '@angular/common/http';
 
 registerLocaleData(zh);
@@ -26,9 +23,7 @@ describe('ThyRangePickerDirective', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [FormsModule, ThyDatePickerModule, ThyPropertyOperationModule, BrowserAnimationsModule, NoopAnimationsModule],
-            providers: [provideHttpClient()],
-            declarations: [ThyTestRangePickerComponent]
+            providers: [provideHttpClient(), provideNoopAnimations()]
         });
 
         TestBed.compileComponents();
@@ -218,7 +213,7 @@ describe('ThyRangePickerDirective', () => {
             (ngModelChange)="modelValueChange($event)"
             (thyOpenChange)="thyOpenChange($event)"></thy-property-operation>
     `,
-    standalone: false
+    imports: [ThyPropertyOperationModule, ThyDatePickerModule, FormsModule]
 })
 class ThyTestRangePickerComponent {
     modelValue: ThyDateRangeEntry;

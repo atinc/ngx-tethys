@@ -4,9 +4,8 @@ import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angu
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent, dispatchFakeEvent } from 'ngx-tethys/testing';
-import { ThyTimePicker, TimePickerSize } from '../time-picker.component';
-import { ThyTimePickerModule } from '../time-picker.module';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ThyTimePicker, TimePickerSize, ThyTimePickerModule } from 'ngx-tethys/time-picker';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
 
 describe('ThyTimePickerComponent', () => {
@@ -18,9 +17,7 @@ describe('ThyTimePickerComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [FormsModule, ThyTimePickerModule, NoopAnimationsModule],
-            declarations: [ThyTestTimePickerBaseComponent],
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(), provideNoopAnimations()]
         });
 
         TestBed.compileComponents();
@@ -441,7 +438,7 @@ describe('ThyTimePickerComponent', () => {
             (ngModelChange)="onValueChange($event)"
             (thyOpenChange)="onOpenChange($event)"></thy-time-picker>
     `,
-    standalone: false
+    imports: [FormsModule, ThyTimePickerModule]
 })
 class ThyTestTimePickerBaseComponent {
     @ViewChild('timePicker', { static: false }) timePickerRef: ThyTimePicker;

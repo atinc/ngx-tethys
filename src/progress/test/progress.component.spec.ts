@@ -1,39 +1,27 @@
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
-
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component, DebugElement, NgModule, TemplateRef } from '@angular/core';
+import { Component, DebugElement, TemplateRef } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, flushMicrotasks, inject, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
-import { ThyTooltipDirective } from '../../tooltip';
-import { hexToRgb } from '../../util/helpers';
-import { ThyProgressStackedValue, ThyProgressType } from '../interfaces';
-import { ThyProgressCircle } from '../progress-circle.component';
-import { ThyProgressStrip } from '../progress-strip.component';
-import { ThyProgress } from '../progress.component';
-import { ThyProgressModule } from '../progress.module';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
+import { hexToRgb } from 'ngx-tethys/util';
+import {
+    ThyProgressStackedValue,
+    ThyProgressType,
+    ThyProgressCircle,
+    ThyProgressStrip,
+    ThyProgress,
+    ThyProgressModule
+} from 'ngx-tethys/progress';
 
 const PROGRESS_CLASS_NAME = 'progress';
 const PROGRESS_BAR_CLASS_NAME = 'progress-bar';
 const TOOLTIP_CLASS = `thy-tooltip`;
 const TOOLTIP_MESSAGE = 'this is a string tooltip';
 const TOOLTIP_TEMPLATE_MESSAGE = 'this is a template message';
-const typeColorMap = new Map([
-    ['primary', '#6698ff'],
-    ['success', '#73d897'],
-    ['info', '#5dcfff'],
-    ['warning', '#ffcd5d'],
-    ['danger', '#ff7575']
-]);
 
-const circleMap = new Map([
-    ['xs', 44],
-    ['sm', 80],
-    ['md', 112],
-    ['lg', 160]
-]);
 @Component({
     selector: 'thy-demo-progress-basic',
     template: `
@@ -41,7 +29,7 @@ const circleMap = new Map([
         <thy-progress [thyValue]="value" [thyTips]="tips" [thyType]="type" [thySize]="size"> 20% </thy-progress>
         <ng-template #demo>{{ message }}</ng-template>
     `,
-    standalone: false
+    imports: [ThyProgress]
 })
 class ThyDemoProgressBasicComponent {
     value = 20;
@@ -69,7 +57,7 @@ class ThyDemoProgressBasicComponent {
             20%
         </thy-progress>
     `,
-    standalone: false
+    imports: [ThyProgress]
 })
 class ThyDemoProgressCircleComponent {
     value = 20;
@@ -98,7 +86,7 @@ class ThyDemoProgressCircleComponent {
 @Component({
     selector: 'thy-demo-progress-stacked',
     template: ` <thy-progress [thyValue]="value" [thySize]="size"> </thy-progress> `,
-    standalone: false
+    imports: [ThyProgress]
 })
 class ThyDemoProgressStackedComponent {
     value: ThyProgressStackedValue[] = [
@@ -122,7 +110,7 @@ class ThyDemoProgressStackedComponent {
 @Component({
     selector: 'thy-demo-progress-stacked-max',
     template: ` <thy-progress [thyMax]="max" [thyValue]="value" [thySize]="size"> </thy-progress> `,
-    standalone: false
+    imports: [ThyProgress]
 })
 class ThyDemoProgressStackedMaxComponent {
     value: ThyProgressStackedValue[] = [
@@ -150,7 +138,7 @@ class ThyDemoProgressStackedMaxComponent {
         <thy-progress [thyValue]="value" [thyTips]="customProgressTooTip"></thy-progress>
         <ng-template #customProgressTooTip let-item>type: {{ item.type }}-value: {{ item.value }}</ng-template>
     `,
-    standalone: false
+    imports: [ThyProgress]
 })
 class ThyDemoProgressTooltipTemplateComponent {
     value: ThyProgressStackedValue[] = [
@@ -175,19 +163,6 @@ function assertTooltipInstance(tooltip: ThyTooltipDirective, shouldExist: boolea
     expect(!!tooltipInstance).toBe(shouldExist);
 }
 
-@NgModule({
-    imports: [ThyProgressModule],
-    declarations: [
-        ThyDemoProgressBasicComponent,
-        ThyDemoProgressCircleComponent,
-        ThyDemoProgressStackedComponent,
-        ThyDemoProgressStackedMaxComponent,
-        ThyDemoProgressTooltipTemplateComponent
-    ],
-    exports: [ThyDemoProgressBasicComponent]
-})
-export class ProgressTestModule {}
-
 describe(`ThyProgressComponent`, () => {
     describe(`basic`, () => {
         let fixture: ComponentFixture<ThyDemoProgressBasicComponent>;
@@ -207,10 +182,8 @@ describe(`ThyProgressComponent`, () => {
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                imports: [ThyProgressModule, ProgressTestModule, NoopAnimationsModule],
-                providers: [
-                    // { provide: Location, useClass: SpyLocation }
-                ]
+                imports: [ThyProgressModule],
+                providers: [provideNoopAnimations()]
             });
 
             TestBed.compileComponents();
@@ -218,7 +191,6 @@ describe(`ThyProgressComponent`, () => {
             inject([OverlayContainer, FocusMonitor], (oc: OverlayContainer, fm: FocusMonitor) => {
                 overlayContainer = oc;
                 overlayContainerElement = oc.getContainerElement();
-                // focusMonitor = fm;
             })();
         }));
 
@@ -410,8 +382,8 @@ describe(`ThyProgressComponent`, () => {
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                imports: [ThyProgressModule, ProgressTestModule, NoopAnimationsModule],
-                providers: []
+                imports: [ThyProgressModule],
+                providers: [provideNoopAnimations()]
             });
 
             TestBed.compileComponents();
@@ -593,10 +565,8 @@ describe(`ThyProgressComponent`, () => {
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                imports: [ThyProgressModule, ProgressTestModule, NoopAnimationsModule],
-                providers: [
-                    // { provide: Location, useClass: SpyLocation }
-                ]
+                imports: [ThyProgressModule],
+                providers: [provideNoopAnimations()]
             });
 
             TestBed.compileComponents();
@@ -604,7 +574,6 @@ describe(`ThyProgressComponent`, () => {
             inject([OverlayContainer, FocusMonitor], (oc: OverlayContainer, fm: FocusMonitor) => {
                 overlayContainer = oc;
                 overlayContainerElement = oc.getContainerElement();
-                // focusMonitor = fm;
             })();
         }));
 
@@ -736,7 +705,8 @@ describe(`ThyProgressComponent`, () => {
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                imports: [ThyProgressModule, ProgressTestModule, NoopAnimationsModule]
+                imports: [ThyProgressModule],
+                providers: [provideNoopAnimations()]
             });
 
             TestBed.compileComponents();
@@ -744,7 +714,6 @@ describe(`ThyProgressComponent`, () => {
             inject([OverlayContainer, FocusMonitor], (oc: OverlayContainer, fm: FocusMonitor) => {
                 overlayContainer = oc;
                 overlayContainerElement = oc.getContainerElement();
-                // focusMonitor = fm;
             })();
         }));
 
@@ -950,10 +919,8 @@ describe(`ThyProgressComponent`, () => {
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                imports: [ThyProgressModule, ProgressTestModule, NoopAnimationsModule],
-                providers: [
-                    // { provide: Location, useClass: SpyLocation }
-                ]
+                imports: [ThyProgressModule],
+                providers: [provideNoopAnimations()]
             });
 
             TestBed.compileComponents();
@@ -961,7 +928,6 @@ describe(`ThyProgressComponent`, () => {
             inject([OverlayContainer, FocusMonitor], (oc: OverlayContainer, fm: FocusMonitor) => {
                 overlayContainer = oc;
                 overlayContainerElement = oc.getContainerElement();
-                // focusMonitor = fm;
             })();
         }));
 

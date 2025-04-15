@@ -1,4 +1,4 @@
-import { createWarnDeprecation, log, PREFIX, warn, warnDeprecation } from './logger';
+import { createWarnDeprecation, log, PREFIX, warn, warnDeprecation } from '@tethys/cdk';
 
 describe('#logger', () => {
     beforeEach(function () {

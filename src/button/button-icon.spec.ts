@@ -1,16 +1,15 @@
 import { Component, DebugElement } from '@angular/core';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { ThyButtonModule } from './button.module';
-import { ThyIcon } from '../icon';
+import { ThyButtonModule, ThyButtonIcon } from 'ngx-tethys/button';
+import { ThyIcon } from 'ngx-tethys/icon';
 import { By } from '@angular/platform-browser';
-import { ThyButtonIcon } from './button-icon.component';
 import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'app-basic-button-icon',
     template: ` <button [thyButtonIcon]="icon" [thyColor]="color"></button> `,
-    standalone: false
+    imports: [ThyButtonModule]
 })
 class BasicButtonIconComponent {
     icon = 'inbox';
@@ -20,8 +19,6 @@ class BasicButtonIconComponent {
 describe(`button-icon`, () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyButtonModule],
-            declarations: [BasicButtonIconComponent],
             providers: [bypassSanitizeProvider, provideHttpClient()]
         }).compileComponents();
 

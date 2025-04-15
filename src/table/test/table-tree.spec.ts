@@ -1,11 +1,8 @@
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
-
-import { Component, NgModule } from '@angular/core';
+import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-import { ThyTable } from '../table.component';
-import { ThyTableModule } from '../table.module';
+import { ThyTable, ThyTableModule, ThyTableColumnComponent } from 'ngx-tethys/table';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({
@@ -30,7 +27,7 @@ import { provideHttpClient } from '@angular/common/http';
             </thy-table-column>
         </thy-table>
     `,
-    standalone: false
+    imports: [ThyTable, ThyTableColumnComponent]
 })
 class ThyDemoTableTreeComponent {
     showExpand = false;
@@ -114,22 +111,15 @@ class ThyDemoTableTreeComponent {
     draggable: boolean;
 }
 
-@NgModule({
-    imports: [ThyTableModule],
-    declarations: [ThyDemoTableTreeComponent],
-    exports: [ThyDemoTableTreeComponent]
-})
-export class TableTreeTestModule {}
-
 describe('ThyTable: tree', () => {
     let fixture: ComponentFixture<ThyDemoTableTreeComponent>;
     let testComponent: ThyDemoTableTreeComponent;
-    let tableComponent;
-    let rows;
+    let tableComponent: DebugElement;
+    let rows: HTMLElement[];
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyTableModule, TableTreeTestModule],
+            // imports: [ThyTableModule],
             providers: [provideHttpClient()]
         });
         TestBed.compileComponents();

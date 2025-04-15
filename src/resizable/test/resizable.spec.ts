@@ -1,12 +1,10 @@
 import { ThyGridModule } from 'ngx-tethys/grid';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
-
 import { ApplicationRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DEFAULT_RESIZE_DIRECTION, ThyResizableDirective, ThyResizeEvent } from '../index';
-import { ThyResizableModule } from '../module';
+import { ThyResizableModule, DEFAULT_RESIZE_DIRECTION, ThyResizableDirective, ThyResizeEvent } from 'ngx-tethys/resizable';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({
@@ -25,7 +23,7 @@ import { provideHttpClient } from '@angular/common/http';
         <thy-resize-handles></thy-resize-handles>
         content
     </div> `,
-    standalone: false
+    imports: [ThyResizableModule, ThyGridModule, ThyIconModule]
 })
 export class ThyResizableBasicTestComponent {
     width = 400;
@@ -61,7 +59,7 @@ export class ThyResizableBasicTestComponent {
         </thy-resize-handle>
         content
     </div> `,
-    standalone: false
+    imports: [ThyResizableModule, ThyGridModule, ThyIconModule]
 })
 export class ThyResizableCustomizeTestComponent {
     width = 400;
@@ -90,7 +88,7 @@ export class ThyResizableCustomizeTestComponent {
         </div>
         <div class="col col-right" thyCol [thySpan]="24 - col">col-{{ 24 - col }}</div>
     </div>`,
-    standalone: false
+    imports: [ThyResizableModule, ThyGridModule, ThyIconModule]
 })
 export class ThyResizableGridTestComponent {
     col = 8;
@@ -112,7 +110,7 @@ export class ThyResizableGridTestComponent {
         <thy-resize-handles></thy-resize-handles>
         content
     </div> `,
-    standalone: false
+    imports: [ThyResizableModule, ThyGridModule, ThyIconModule]
 })
 export class ThyResizablePreviewTestComponent {
     width = 400;
@@ -136,7 +134,7 @@ export class ThyResizablePreviewTestComponent {
         <thy-resize-handles></thy-resize-handles>
         content
     </div> `,
-    standalone: false
+    imports: [ThyResizableModule, ThyGridModule, ThyIconModule]
 })
 export class ThyResizableLockAspectRatioTestComponent {
     width = 400;
@@ -157,7 +155,7 @@ export class ThyResizableLockAspectRatioTestComponent {
         </div>
         <div class="right">Right</div>
     </div> `,
-    standalone: false
+    imports: [ThyResizableModule, ThyGridModule, ThyIconModule]
 })
 export class ThyResizableLineTestComponent {
     width = 200;
@@ -206,7 +204,7 @@ export class ThyResizableLineTestComponent {
             }
         `
     ],
-    standalone: false
+    imports: [ThyResizableModule, ThyGridModule, ThyIconModule]
 })
 class ThyTestResizableBoundsComponent {
     @ViewChild('boxRef', { static: true }) boxRef!: ElementRef<HTMLDivElement>;
@@ -235,16 +233,6 @@ function mouseMoveTrigger(el: HTMLElement, from: { x: number; y: number }, to: {
 describe('resizable', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyResizableModule, ThyGridModule, ThyIconModule],
-            declarations: [
-                ThyResizableBasicTestComponent,
-                ThyResizableCustomizeTestComponent,
-                ThyResizableLockAspectRatioTestComponent,
-                ThyResizablePreviewTestComponent,
-                ThyResizableGridTestComponent,
-                ThyTestResizableBoundsComponent,
-                ThyResizableLineTestComponent
-            ],
             providers: [provideHttpClient()]
         }).compileComponents();
     }));

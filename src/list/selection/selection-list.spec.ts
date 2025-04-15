@@ -1,10 +1,9 @@
 import { Component, DebugElement, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ThySelectionListChange } from './selection.interface';
 import { waitForAsync, ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
-import { ThyListModule } from '../list.module';
+import { ThyListModule, ThySelectionList } from 'ngx-tethys/list';
 import { By } from '@angular/platform-browser';
-import { ThyListOption, ThyListLayout } from '../../shared/option';
-import { ThySelectionList } from './selection-list';
+import { ThyListOption, ThyListLayout } from 'ngx-tethys/shared';
 import { FormsModule } from '@angular/forms';
 import { dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { DOWN_ARROW, UP_ARROW, SPACE } from 'ngx-tethys/util';
@@ -24,12 +23,6 @@ describe('ThySelectionList without forms', () => {
 
         beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
-                imports: [FormsModule, ThyListModule],
-                declarations: [
-                    SelectionListWithListOptionsComponent,
-                    SelectionListWithListOptionsDefaultComponent,
-                    SelectionListWithListOptionsByObjectTypeValueComponent
-                ],
                 providers: [provideHttpClient()]
             });
 
@@ -274,7 +267,7 @@ describe('ThySelectionList without forms', () => {
         <button (click)="deselectAll()">清除全部</button>
         <button (click)="determineClearActiveItem()">确认清除</button>
     `,
-    standalone: false
+    imports: [FormsModule, ThyListModule]
 })
 class SelectionListWithListOptionsComponent {
     @ViewChild(ThySelectionList, { static: true }) thySelectionListComponent: ThySelectionList;
@@ -358,7 +351,7 @@ class SelectionListWithListOptionsComponent {
             <thy-list-option thyValue="drafts"> Drafts </thy-list-option>
         </thy-selection-list>
     `,
-    standalone: false
+    imports: [FormsModule, ThyListModule]
 })
 class SelectionListWithListOptionsDefaultComponent {
     autoActiveFirstItem = false;
@@ -381,7 +374,7 @@ class SelectionListWithListOptionsDefaultComponent {
             }
         </thy-selection-list>
     `,
-    standalone: false
+    imports: [FormsModule, ThyListModule]
 })
 class SelectionListWithListOptionsByObjectTypeValueComponent {
     @ViewChild(ThySelectionList, { static: true }) thySelectionListComponent: ThySelectionList;

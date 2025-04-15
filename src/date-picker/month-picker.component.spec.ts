@@ -6,11 +6,9 @@ import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angu
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
-
-import { ThyDatePickerModule } from './date-picker.module';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ThyDatePickerModule } from 'ngx-tethys/date-picker';
 import { provideHttpClient } from '@angular/common/http';
-
+import { provideAnimations } from '@angular/platform-browser/animations';
 registerLocaleData(zh);
 
 describe('ThyMonthPickerComponent', () => {
@@ -22,9 +20,7 @@ describe('ThyMonthPickerComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyDatePickerModule, FormsModule, NoopAnimationsModule],
-            providers: [provideHttpClient()],
-            declarations: [TestMonthPickerComponent]
+            providers: [provideHttpClient(), provideAnimations()]
         });
 
         TestBed.compileComponents();
@@ -274,7 +270,7 @@ describe('ThyMonthPickerComponent', () => {
             [thyPlaceHolder]="thyPlaceHolder">
         </thy-month-picker>
     `,
-    standalone: false
+    imports: [ThyDatePickerModule, FormsModule]
 })
 class TestMonthPickerComponent {
     thyAllowClear: boolean;

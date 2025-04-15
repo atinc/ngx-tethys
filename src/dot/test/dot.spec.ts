@@ -1,7 +1,6 @@
-import { Component, DebugElement, NgModule } from '@angular/core';
+import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
 import {
     COMPONENT_CLASS_NAME,
     DEFAULT_COLOR_NAME,
@@ -13,8 +12,7 @@ import {
     ThyShapeType,
     ThySizeType,
     ThyThemeType
-} from '../';
-import { ThyDotModule } from '../dot.module';
+} from 'ngx-tethys/dot';
 
 describe('ThyDot', () => {
     let fixture: ComponentFixture<ThyDemoDotComponent>;
@@ -27,10 +25,7 @@ describe('ThyDot', () => {
     const themes = ['outline', 'fill'];
 
     beforeEach(fakeAsync(() => {
-        TestBed.configureTestingModule({
-            imports: [ThyDotModule, DotTestModule],
-            providers: []
-        });
+        TestBed.configureTestingModule({});
 
         TestBed.compileComponents();
     }));
@@ -92,7 +87,7 @@ describe('ThyDot', () => {
 @Component({
     selector: 'thy-demo-dot-basic',
     template: ` <span thy-dot [thyColor]="thyColor" [thySize]="thySize" [thyTheme]="thyTheme" [thyShape]="thyShape"></span> `,
-    standalone: false
+    imports: [ThyDot]
 })
 class ThyDemoDotComponent {
     thyColor: ThyColorType;
@@ -103,10 +98,3 @@ class ThyDemoDotComponent {
         console.log('remove success');
     }
 }
-
-@NgModule({
-    imports: [ThyDotModule],
-    declarations: [ThyDemoDotComponent],
-    exports: [ThyDemoDotComponent]
-})
-export class DotTestModule {}

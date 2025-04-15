@@ -1,7 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ComponentFixture, waitForAsync, TestBed, flush, fakeAsync, tick } from '@angular/core/testing';
-import { ThySharedModule } from '../shared.module';
-import { ThyScrollDirective } from './thy-scroll.directive';
+import { ComponentFixture, waitForAsync, TestBed, flush, fakeAsync } from '@angular/core/testing';
+import { ThySharedModule, ThyScrollDirective } from 'ngx-tethys/shared';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
 
 describe('thy-scroll', () => {
@@ -9,10 +8,8 @@ describe('thy-scroll', () => {
     let testComponent: ThyScrollViewportComponent;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
-            imports: [ThySharedModule],
-            declarations: [ThyScrollViewportComponent]
-        }).compileComponents();
+        TestBed.configureTestingModule({});
+        TestBed.compileComponents();
     }));
 
     beforeEach(() => {
@@ -82,7 +79,7 @@ describe('thy-scroll', () => {
             }
         `
     ],
-    standalone: false
+    imports: [ThySharedModule]
 })
 class ThyScrollViewportComponent implements OnInit {
     @ViewChild(ThyScrollDirective, { read: false }) thyScrollDirective: ThyScrollDirective;

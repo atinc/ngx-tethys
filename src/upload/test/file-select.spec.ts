@@ -1,13 +1,9 @@
 import { createFakeEvent } from 'ngx-tethys/testing';
 import { Observable } from 'rxjs';
-
 import { ApplicationRef, Component, DebugElement, NgModule } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-import { ThyFileSelect } from '../file-select.component';
-import { ThyUploadModule } from '../module';
-import { ThyUploadResponse } from '../upload.service';
+import { ThyFileSelect, ThyUploadModule, ThyUploadResponse } from 'ngx-tethys/upload';
 import { createFile } from './utils';
 
 @Component({
@@ -23,7 +19,7 @@ import { createFile } from './utils';
             (thyOnFileSelect)="selectFiles($event)">
         </thy-file-select>
     `,
-    standalone: false
+    imports: [ThyFileSelect]
 })
 class FileSelectBasicComponent {
     multiple: boolean;
@@ -42,13 +38,6 @@ class FileSelectBasicComponent {
     };
 }
 
-@NgModule({
-    imports: [ThyUploadModule],
-    declarations: [FileSelectBasicComponent],
-    exports: [FileSelectBasicComponent]
-})
-export class FileUploaderTestModule {}
-
 describe('ThyFileSelect', () => {
     let fixture: ComponentFixture<FileSelectBasicComponent>;
     let testComponent: FileSelectBasicComponent;
@@ -59,7 +48,7 @@ describe('ThyFileSelect', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyUploadModule, FileUploaderTestModule]
+            imports: [ThyUploadModule]
         }).compileComponents();
     }));
 
@@ -172,18 +161,11 @@ describe('ThyFileSelect', () => {
 @Component({
     selector: 'thy-file-select-static-input',
     template: ` <thy-file-select thyMultiple="true" thyAcceptFolder="false" (thyOnFileSelect)="selectFiles($event)"> </thy-file-select> `,
-    standalone: false
+    imports: [ThyFileSelect]
 })
 class FileSelectStaticInputComponent {
     selectFiles(event: { files: File[] }) {}
 }
-
-@NgModule({
-    imports: [ThyUploadModule],
-    declarations: [FileSelectStaticInputComponent],
-    exports: [FileSelectStaticInputComponent]
-})
-export class FileUploaderTestStaticInputModule {}
 
 describe('ThyFileSelectStaticInput', () => {
     let fixture: ComponentFixture<FileSelectStaticInputComponent>;
@@ -194,7 +176,7 @@ describe('ThyFileSelectStaticInput', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyUploadModule, FileUploaderTestStaticInputModule]
+            imports: [ThyUploadModule]
         }).compileComponents();
     }));
 

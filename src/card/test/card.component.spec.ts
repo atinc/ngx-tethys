@@ -1,10 +1,7 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { ThyCardModule } from '../card.module';
 import { Component, OnInit, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { ThyCard } from '../card.component';
-import { ThyCardContent } from '../content.component';
-import { ThyCardHeader } from '../header.component';
+import { ThyCardModule, ThyCard, ThyCardContent, ThyCardHeader } from 'ngx-tethys/card';
 
 @Component({
     selector: 'thy-card-test-basic',
@@ -14,7 +11,7 @@ import { ThyCardHeader } from '../header.component';
             <thy-card-content>This is content</thy-card-content>
         </thy-card>
     `,
-    standalone: false
+    imports: [ThyCardModule]
 })
 class CardBasicComponent implements OnInit {
     size: 'md' | 'sm' | 'lg' = 'md';
@@ -32,7 +29,7 @@ class CardBasicComponent implements OnInit {
             <thy-card-content>This is content</thy-card-content>
         </thy-card>
     `,
-    standalone: false
+    imports: [ThyCardModule]
 })
 class CardClearPaddingComponent implements OnInit {
     constructor() {}
@@ -48,7 +45,7 @@ class CardClearPaddingComponent implements OnInit {
             <thy-card-content>This is content</thy-card-content>
         </thy-card>
     `,
-    standalone: false
+    imports: [ThyCardModule]
 })
 class CardDividedComponent implements OnInit {
     constructor() {}
@@ -64,7 +61,7 @@ class CardDividedComponent implements OnInit {
             <thy-card-content>This is content</thy-card-content>
         </thy-card>
     `,
-    standalone: false
+    imports: [ThyCardModule]
 })
 class CardBorderedComponent implements OnInit {
     constructor() {}
@@ -80,7 +77,7 @@ class CardBorderedComponent implements OnInit {
             <thy-card-content [thySize]="size">This is content</thy-card-content>
         </thy-card>
     `,
-    standalone: false
+    imports: [ThyCardModule]
 })
 class CardHeaderSizeComponent {
     size: string;
@@ -94,7 +91,7 @@ class CardHeaderSizeComponent {
             <thy-card-content [thySize]="size" [thyScroll]="isScroll">This is content</thy-card-content>
         </thy-card>
     `,
-    standalone: false
+    imports: [ThyCardModule]
 })
 class CardContentSizeAndScrollComponent {
     size: string;
@@ -103,17 +100,7 @@ class CardContentSizeAndScrollComponent {
 
 describe('thy-card', () => {
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [ThyCardModule],
-            declarations: [
-                CardBasicComponent,
-                CardDividedComponent,
-                CardBorderedComponent,
-                CardClearPaddingComponent,
-                CardHeaderSizeComponent,
-                CardContentSizeAndScrollComponent
-            ]
-        });
+        TestBed.configureTestingModule({});
         TestBed.compileComponents();
     });
 

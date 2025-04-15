@@ -4,12 +4,11 @@ import { Component, DebugElement, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyLocaleType } from 'ngx-tethys/i18n';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
-import { TinyDate } from '../util';
-import { ThyDatePickerModule } from './date-picker.module';
-import { ThyQuarterPicker } from './quarter-picker.component';
+import { TinyDate } from 'ngx-tethys/util';
+import { ThyDatePickerModule, ThyQuarterPicker } from 'ngx-tethys/date-picker';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 describe('ThyQuarterPickerComponent', () => {
     let fixture: ComponentFixture<TestQuarterPickerComponent>;
@@ -20,9 +19,7 @@ describe('ThyQuarterPickerComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyDatePickerModule, FormsModule, NoopAnimationsModule],
-            providers: [provideHttpClient()],
-            declarations: [TestQuarterPickerComponent]
+            providers: [provideHttpClient(), provideAnimations()]
         });
 
         TestBed.compileComponents();
@@ -293,7 +290,7 @@ describe('ThyQuarterPickerComponent', () => {
             [thyPlaceHolder]="thyPlaceHolder">
         </thy-quarter-picker>
     `,
-    standalone: false
+    imports: [ThyDatePickerModule, FormsModule]
 })
 class TestQuarterPickerComponent {
     @ViewChild('thyQuarterPicker', { static: true }) thyQuarterPicker: ThyQuarterPicker;

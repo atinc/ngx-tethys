@@ -1,11 +1,9 @@
 import { ApplicationRef, Component, DebugElement, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
-import { ThyBackTop } from '../back-top.component';
-import { ThyBackTopModule } from '../back-top.module';
-import { ThyScrollService } from '../../core';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { ThyBackTopModule, ThyBackTop } from 'ngx-tethys/back-top';
+import { ThyScrollService } from 'ngx-tethys/core';
 import { provideHttpClient } from '@angular/common/http';
 
 describe('Component:thy-back-top', () => {
@@ -33,11 +31,10 @@ describe('Component:thy-back-top', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyBackTopModule, NoopAnimationsModule],
-            declarations: [TestBackTopComponent, TestBackTopTemplateComponent],
             providers: [
                 MockThyScrollService,
                 provideHttpClient(),
+                provideAnimations(),
                 {
                     provide: ThyScrollService,
                     useExisting: MockThyScrollService
@@ -241,7 +238,7 @@ describe('Component:thy-back-top', () => {
         <thy-back-top [thyContainer]="container"></thy-back-top>
         <div id="fakeTarget"></div>
     `,
-    standalone: false
+    imports: [ThyBackTopModule]
 })
 class TestBackTopComponent {
     @ViewChild(ThyBackTop, { static: true })
@@ -263,7 +260,7 @@ class TestBackTopComponent {
             </ng-template>
         </thy-back-top>
     `,
-    standalone: false
+    imports: [ThyBackTopModule]
 })
 class TestBackTopTemplateComponent {
     @ViewChild(ThyBackTop)

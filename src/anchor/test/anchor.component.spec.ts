@@ -1,13 +1,10 @@
 import { Component, DebugElement, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
-import { ThyScrollService } from '../../core/scroll';
-import { getOffset } from '../../util/dom';
-import { ThyAnchorLink } from '../anchor-link.component';
-import { ThyAnchor } from '../anchor.component';
-import { ThyAnchorModule } from '../anchor.module';
+import { ThyScrollService } from 'ngx-tethys/core';
+import { getOffset } from 'ngx-tethys/util';
+import { ThyAnchorModule, ThyAnchor, ThyAnchorLink } from 'ngx-tethys/anchor';
 
 describe('thy-anchor', () => {
     describe('default', () => {
@@ -18,10 +15,7 @@ describe('thy-anchor', () => {
         const id = 'components-anchor-demo-basic';
 
         beforeEach(() => {
-            TestBed.configureTestingModule({
-                imports: [ThyAnchorModule, NoopAnimationsModule],
-                declarations: [TestAnchorComponent]
-            }).compileComponents();
+            TestBed.configureTestingModule({}).compileComponents();
 
             fixture = TestBed.createComponent(TestAnchorComponent);
             component = fixture.componentInstance.thyAnchorComponent;
@@ -81,10 +75,8 @@ describe('thy-anchor', () => {
         const containerClass = '.demo-card';
 
         beforeEach(() => {
-            TestBed.configureTestingModule({
-                imports: [ThyAnchorModule, NoopAnimationsModule],
-                declarations: [TestContainerAnchorComponent]
-            }).compileComponents();
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
 
             fixture = TestBed.createComponent(TestContainerAnchorComponent);
             debugElement = fixture.debugElement;
@@ -108,10 +100,8 @@ describe('thy-anchor', () => {
         let fixture: ComponentFixture<TestThyAnchorLinkComponent>;
 
         beforeEach(() => {
-            TestBed.configureTestingModule({
-                imports: [ThyAnchorModule, NoopAnimationsModule],
-                declarations: [TestThyAnchorLinkComponent]
-            }).compileComponents();
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
 
             fixture = TestBed.createComponent(TestThyAnchorLinkComponent);
 
@@ -135,10 +125,8 @@ describe('thy-anchor', () => {
         const id = 'components-anchor-demo-basic';
 
         beforeEach(() => {
-            TestBed.configureTestingModule({
-                imports: [ThyAnchorModule, NoopAnimationsModule],
-                declarations: [TestAnchorComponent]
-            }).compileComponents();
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
 
             fixture = TestBed.createComponent(TestAnchorComponent);
             component = fixture.componentInstance.thyAnchorComponent;
@@ -250,7 +238,7 @@ describe('thy-anchor', () => {
             </div>
         </div>
     `,
-    standalone: false
+    imports: [ThyAnchorModule]
 })
 class TestAnchorComponent implements OnInit {
     demos: number[] = [];
@@ -286,7 +274,7 @@ class TestAnchorComponent implements OnInit {
             </div>
         </div>
     `,
-    standalone: false
+    imports: [ThyAnchorModule]
 })
 class TestContainerAnchorComponent implements OnInit {
     demos: number[] = [];
@@ -322,7 +310,7 @@ class TestContainerAnchorComponent implements OnInit {
             </ng-template>
         </div>
     `,
-    standalone: false
+    imports: [ThyAnchorModule]
 })
 class TestThyAnchorLinkComponent implements OnInit {
     @ViewChild(ThyAnchor, { static: true })

@@ -2,8 +2,8 @@ import { Component, DebugElement } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThySwitch } from '../switch.component';
-import { ThySwitchModule } from '../switch.module';
+import { ThySwitch, ThySwitchModule } from 'ngx-tethys/switch';
+import { SafeAny } from 'ngx-tethys/types';
 
 @Component({
     selector: 'thy-switch-test',
@@ -14,7 +14,7 @@ import { ThySwitchModule } from '../switch.module';
             [(ngModel)]="isChecked"
             [thyLoading]="isLoading"></thy-switch>
         <thy-switch disabled [(ngModel)]="isChecked"></thy-switch>`,
-    standalone: false
+    imports: [ThySwitchModule, FormsModule]
 })
 class SwitchTestComponent {
     size = ``;
@@ -29,14 +29,10 @@ describe('switch component', () => {
     let testComponent: SwitchTestComponent;
     let switchDebugComponent: DebugElement;
     let switchElement: HTMLElement;
-    let labelNode;
+    let labelNode: SafeAny;
 
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [ThySwitchModule, FormsModule],
-            declarations: [SwitchTestComponent],
-            providers: []
-        });
+        TestBed.configureTestingModule({});
         TestBed.compileComponents();
     });
 

@@ -1,14 +1,9 @@
-import { ThyIconModule } from 'ngx-tethys/icon';
-
-import { Component, NgModule, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { ThyStep } from '../step.component';
-import { ThyStepper } from '../stepper.component';
-import { ThyStepperModule } from '../stepper.module';
+import { ThyStep, ThyStepper } from 'ngx-tethys/stepper';
 import { provideHttpClient } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 @Component({
     selector: 'thy-demo-stepper',
@@ -35,7 +30,7 @@ import { provideHttpClient } from '@angular/common/http';
             </thy-step>
         </thy-stepper>
     `,
-    standalone: false
+    imports: [ThyStepper, ThyStep]
 })
 class ThyDemoStepperComponent {
     @ViewChild('selectedStep', { static: true }) selectedStepperComponent: ThyStep;
@@ -46,21 +41,13 @@ class ThyDemoStepperComponent {
     previous() {}
 }
 
-@NgModule({
-    imports: [ThyStepperModule, BrowserAnimationsModule, ThyIconModule],
-    declarations: [ThyDemoStepperComponent],
-    exports: [ThyDemoStepperComponent],
-    providers: [provideHttpClient()]
-})
-export class ThyStepperTestModule {}
-
 describe('ThyStepper', () => {
     let fixture: ComponentFixture<ThyDemoStepperComponent>;
     let testComponent: ThyDemoStepperComponent;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyStepperTestModule]
+            providers: [provideHttpClient(), provideAnimations()]
         });
         TestBed.compileComponents();
     }));

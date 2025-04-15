@@ -6,8 +6,7 @@ import { Component, DebugElement, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ThyInnerTimePicker } from '../inner/inner-time-picker.component';
-import { ThyTimePickerModule } from '../time-picker.module';
+import { ThyInnerTimePicker, ThyTimePickerModule } from 'ngx-tethys/time-picker';
 import { provideHttpClient } from '@angular/common/http';
 
 registerLocaleData(zh);
@@ -21,8 +20,6 @@ describe('ThyInnerTimePickerComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [FormsModule, ThyTimePickerModule],
-            declarations: [ThyTestInnerTimePickerBaseComponent],
             providers: [provideHttpClient()]
         });
 
@@ -478,7 +475,7 @@ describe('ThyInnerTimePickerComponent', () => {
             [ngModel]="startDate"
             (ngModelChange)="onDateChange($event)"></thy-inner-time-picker>
     `,
-    standalone: false
+    imports: [FormsModule, ThyTimePickerModule]
 })
 class ThyTestInnerTimePickerBaseComponent {
     public containerClass = CONTAINER_CLASS;

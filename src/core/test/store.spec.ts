@@ -1,6 +1,6 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { produce } from 'ngx-tethys/util';
-import { MiniStore, MiniActionState, MiniAction } from '../store';
+import { MiniStore, MiniAction } from 'ngx-tethys/core';
 import { of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
