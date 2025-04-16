@@ -13,7 +13,7 @@ import {
     inject
 } from '@angular/core';
 
-import { ThyCollapse } from './collapse.component';
+import { IThyCollapseItemComponent, THY_COLLAPSE_COMPONENT } from './collapse.token';
 import { SafeAny } from 'ngx-tethys/types';
 import { coerceBooleanProperty, isString } from 'ngx-tethys/util';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -40,9 +40,9 @@ const DEFAULT_ARROW_ICON = 'angle-right';
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [NgTemplateOutlet, ThyIcon]
 })
-export class ThyCollapseItem implements OnInit, OnDestroy {
+export class ThyCollapseItem implements IThyCollapseItemComponent, OnInit, OnDestroy {
     private cdr = inject(ChangeDetectorRef);
-    private thyCollapseComponent = inject(ThyCollapse, { host: true });
+    private thyCollapseComponent = inject(THY_COLLAPSE_COMPONENT, { host: true })!;
 
     public showArrow: boolean = true;
 

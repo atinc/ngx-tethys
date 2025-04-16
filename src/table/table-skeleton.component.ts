@@ -1,4 +1,4 @@
-import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { NgClass, NgStyle } from '@angular/common';
 import {
     AfterViewInit,
     ChangeDetectionStrategy,
@@ -15,7 +15,7 @@ import { ThySkeletonCircle, ThySkeletonRectangle } from 'ngx-tethys/skeleton';
 import { ThyTableSkeletonColumn } from './table.interface';
 import { ThyViewOutletDirective } from 'ngx-tethys/shared';
 import { ThyTableColumnSkeletonType } from './enums';
-import { ThyTableSize, ThyTableTheme } from './table.component';
+import { ThyTableSize, ThyTableTheme } from './table.type';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 const COLUMN_COUNT = 5;

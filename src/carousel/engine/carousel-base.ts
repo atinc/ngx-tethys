@@ -2,13 +2,13 @@ import { ChangeDetectorRef, Renderer2, QueryList } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 import { Observable } from 'rxjs';
 import { ThyCarouselItemDirective } from '../carousel-item.directive';
-import { ThyCarousel } from '../carousel.component';
+import { IThyCarouselComponent } from '../carousel.token';
 import { ThyDistanceVector, ThyCarouselEngine } from '../typings';
 
 export abstract class ThyCarouselBaseEngine implements ThyCarouselEngine {
     protected contentWidth: number;
     protected contentHeight: number;
-    protected readonly carouselComponent: ThyCarousel;
+    protected readonly carouselComponent: IThyCarouselComponent;
     protected wrapperEl: HTMLElement;
     protected playTime: number;
     protected length: number;
@@ -27,7 +27,7 @@ export abstract class ThyCarouselBaseEngine implements ThyCarouselEngine {
     }
 
     protected constructor(
-        thyCarouselComponent: ThyCarousel,
+        thyCarouselComponent: IThyCarouselComponent,
         protected cdr: ChangeDetectorRef,
         protected renderer: Renderer2,
         protected platform: Platform

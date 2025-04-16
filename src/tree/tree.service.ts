@@ -1,8 +1,7 @@
 import { coerceArray, isFunction } from 'ngx-tethys/util';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { Injectable, OnDestroy } from '@angular/core';
-import { ThyTreeNode } from './tree-node.class';
-import { ThyTreeNodeCheckState, ThyTreeNodeData } from './tree.class';
+import { ThyTreeNodeCheckState, ThyTreeNodeData, ThyTreeNode, IThyTreeService, ThyTreeFormatEmitEvent } from './tree.class';
 
 function checkStateResolve(node: ThyTreeNode) {
     const checkedNodes = node.children.filter(n => n.isChecked === ThyTreeNodeCheckState.checked);
@@ -18,17 +17,11 @@ function checkStateResolve(node: ThyTreeNode) {
 
 type FlattenAllNodesCb = (treeNode: ThyTreeNode) => boolean;
 
-export interface ThyTreeFormatEmitEvent {
-    eventName: string;
-    node: ThyTreeNode;
-    event?: MouseEvent | DragEvent;
-}
-
 /**
  * @internal
  */
 @Injectable()
-export class ThyTreeService implements OnDestroy {
+export class ThyTreeService implements IThyTreeService, OnDestroy {
     selectedNode!: ThyTreeNode;
 
     flattenNodes$ = new BehaviorSubject<ThyTreeNode[]>([]);
@@ -55,7 +48,7 @@ export class ThyTreeService implements OnDestroy {
         this.treeNodes = (rootNodes || []).map(node => new ThyTreeNode(node, null, this));
     }
 
-    public syncFlattenTreeNodes() {
+    public syncFlattenTreeNodes(): ThyTreeNode[] {
         this.flattenTreeNodes = this.getParallelTreeNodes(this.treeNodes, false);
         this.flattenNodes$.next(this.flattenTreeNodes);
         return this.flattenTreeNodes;
@@ -156,7 +149,7 @@ export class ThyTreeService implements OnDestroy {
     }
 
     // 设置节点选中状态
-    public setNodeChecked(node: ThyTreeNode, checked: boolean, propagateUp = true, propagateDown = true) {
+    public setNodeChecked(node: ThyTreeNode, checked: boolean, propagateUp = true, propagateDown = true): void {
         this._setNodeChecked(node, checked, propagateUp, propagateDown);
         this.syncFlattenTreeNodes();
     }
@@ -188,7 +181,7 @@ export class ThyTreeService implements OnDestroy {
         }
     }
 
-    public syncNodeCheckState(node: ThyTreeNode) {
+    public syncNodeCheckState(node: ThyTreeNode): void {
         this._syncNodeCheckState(node);
         this.syncFlattenTreeNodes();
     }

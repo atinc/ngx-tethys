@@ -1,13 +1,11 @@
 import { Component, Input, HostBinding, ElementRef, ChangeDetectorRef, HostListener, inject } from '@angular/core';
 import { Highlightable } from '@angular/cdk/a11y';
-import { IThyListOptionParentComponent, THY_LIST_OPTION_PARENT_COMPONENT } from '../option.token';
+import { IThyOptionComponent, THY_LIST_OPTION_PARENT_COMPONENT } from '../option.token';
 import { ThyIcon } from 'ngx-tethys/icon';
 
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 let _uniqueIdCounter = 0;
-
-export type ThyListLayout = 'list' | 'grid';
 
 /**
  * @private
@@ -18,7 +16,7 @@ export type ThyListLayout = 'list' | 'grid';
     templateUrl: './list-option.component.html',
     imports: [ThyIcon]
 })
-export class ThyListOption implements Highlightable {
+export class ThyListOption implements IThyOptionComponent, Highlightable {
     element = inject<ElementRef<HTMLElement>>(ElementRef);
     private changeDetector = inject(ChangeDetectorRef);
     parentSelectionList = inject(THY_LIST_OPTION_PARENT_COMPONENT, { optional: true })!;

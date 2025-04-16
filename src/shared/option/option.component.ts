@@ -16,12 +16,7 @@ import {
 import { Highlightable } from '@angular/cdk/a11y';
 import { SelectOptionBase } from './select-option-base';
 import { ENTER, SPACE, coerceBooleanProperty, hasModifierKey } from 'ngx-tethys/util';
-import {
-    IThyOptionGroupComponent,
-    IThyOptionParentComponent,
-    THY_OPTION_GROUP_COMPONENT,
-    THY_OPTION_PARENT_COMPONENT
-} from './option.token';
+import { THY_OPTION_PARENT_COMPONENT } from './option.token';
 
 import { ThyIcon } from 'ngx-tethys/icon';
 
@@ -49,7 +44,6 @@ export class ThyOptionVisibleChangeEvent {
 export class ThyOption extends SelectOptionBase implements OnDestroy, Highlightable {
     element = inject<ElementRef<HTMLElement>>(ElementRef);
     parent = inject(THY_OPTION_PARENT_COMPONENT, { optional: true })!;
-    group = inject(THY_OPTION_GROUP_COMPONENT, { optional: true })!;
     private cdr = inject(ChangeDetectorRef);
 
     private _selected = false;

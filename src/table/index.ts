@@ -1,4 +1,5 @@
 export * from './table.interface';
+export * from './table.type';
 export * from './table.component';
 export * from './pipes/table.pipe';
 export * from './pipes/drag.pipe';
