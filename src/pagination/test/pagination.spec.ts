@@ -1,11 +1,10 @@
 import { TestBed, ComponentFixture, tick, fakeAsync } from '@angular/core/testing';
 import { Component, ViewChild, TemplateRef, DebugElement } from '@angular/core';
-import { ThyPaginationModule } from '../pagination.module';
-import { ThyPagination } from '../pagination.component';
+import { ThyPaginationModule, ThyPagination } from 'ngx-tethys/pagination';
 import { By } from '@angular/platform-browser';
 import { ENTER } from 'ngx-tethys/util';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({
@@ -19,7 +18,8 @@ import { provideHttpClient } from '@angular/common/http';
             (thyPageChanged)="onPageChange($event)"
             (thyPageIndexChange)="onPageIndexChange($event)"></thy-pagination>
         <ng-template #total let-total>共{{ total }}条</ng-template>
-    `
+    `,
+    imports: [ThyPaginationModule]
 })
 class PaginationBasicComponent {
     pagination = {
@@ -55,7 +55,8 @@ class PaginationBasicComponent {
             [thySize]="size"
             [thyPageSizeOptions]="[10, 20, 50, 100]"
             (thyPageSizeChanged)="pageSizeChanged($event)"></thy-pagination>
-    `
+    `,
+    imports: [ThyPaginationModule]
 })
 class PaginationTestComponent {
     pagination = {
@@ -85,7 +86,8 @@ describe('ThyPagination', () => {
                 [thyCustomPages]="pages"
                 [thyShowQuickJumper]="false"
                 (thyPageIndexChange)="pageIndexChange($event)"></thy-pagination>
-        `
+        `,
+        imports: [ThyPaginationModule]
     })
     class PaginationCustomPagesComponent {
         currentIndex = 1;
@@ -97,9 +99,7 @@ describe('ThyPagination', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyPaginationModule, NoopAnimationsModule],
-            declarations: [PaginationTestComponent, PaginationBasicComponent, PaginationCustomPagesComponent],
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(), provideNoopAnimations()]
         });
         TestBed.compileComponents();
     });

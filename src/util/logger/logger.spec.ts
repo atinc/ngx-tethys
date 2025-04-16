@@ -1,4 +1,4 @@
-import { PREFIX, log, warn, warnDeprecation, createWarnDeprecation, setWarnDeprecation } from './logger';
+import { PREFIX, log, warn, warnDeprecation, createWarnDeprecation, setWarnDeprecation } from 'ngx-tethys/util';
 
 describe('#logger', () => {
     beforeEach(() => {

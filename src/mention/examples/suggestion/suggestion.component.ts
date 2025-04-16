@@ -1,6 +1,8 @@
-import { Mention, MentionSuggestionSelectEvent } from 'ngx-tethys/mention';
-
+import { Mention, MentionSuggestionSelectEvent, ThyMentionDirective } from 'ngx-tethys/mention';
+import { ThyInputDirective } from 'ngx-tethys/input';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ThyAvatar } from 'ngx-tethys/avatar';
 
 const mockUsers = [
     'Jacob',
@@ -27,7 +29,8 @@ const mockUsers = [
 
 @Component({
     selector: 'thy-mention-suggestion-example',
-    templateUrl: './suggestion.component.html'
+    templateUrl: './suggestion.component.html',
+    imports: [ThyMentionDirective, FormsModule, ThyAvatar, ThyInputDirective]
 })
 export class ThyMentionSuggestionExampleComponent implements OnInit {
     value = `This is text! please type @`;

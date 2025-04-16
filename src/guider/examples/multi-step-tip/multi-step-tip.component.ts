@@ -1,9 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core';
+import { ThyButton } from 'ngx-tethys/button';
 import { ThyGuider, ThyGuiderConfig, ThyGuiderRef, ThyGuiderStep } from 'ngx-tethys/guider';
 
 @Component({
     selector: 'thy-guider-multi-step-tip-example',
-    templateUrl: 'multi-step-tip.component.html'
+    templateUrl: 'multi-step-tip.component.html',
+    imports: [ThyButton]
 })
 export class ThyGuiderMultiStepTipExampleComponent implements OnInit {
     private thyGuider = inject(ThyGuider);

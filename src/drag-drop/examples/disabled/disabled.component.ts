@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
-import { ThyDropPosition } from 'ngx-tethys/drag-drop';
+import { ThyDropContainerDirective, ThyDropPosition, ThyDragDirective } from 'ngx-tethys/drag-drop';
+import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
+import { ThyButton } from 'ngx-tethys/button';
+import { ThyList, ThyListItem } from 'ngx-tethys/list';
 
 const nodes = [
     {
@@ -37,7 +40,8 @@ type DragDropNode = (typeof nodes)[0];
 
 @Component({
     selector: 'thy-drag-drop-disabled-example',
-    templateUrl: './disabled.component.html'
+    templateUrl: './disabled.component.html',
+    imports: [ThySpace, ThySpaceItemDirective, ThyButton, ThyList, ThyDropContainerDirective, ThyListItem, ThyDragDirective]
 })
 export class ThyDragDropDisabledExampleComponent implements OnInit {
     nodes = nodes;

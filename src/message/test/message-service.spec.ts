@@ -1,12 +1,10 @@
 import { Component, OnInit, TemplateRef, ViewChild, inject as coreInject } from '@angular/core';
 import { TestBed, ComponentFixture, fakeAsync, flush, inject, tick } from '@angular/core/testing';
-import { ThyMessageModule } from '../module';
-import { ThyMessageService } from '../message.service';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ThyMessageConfig, ThyMessageType } from '../message.config';
+import { ThyMessageConfig, ThyMessageService, ThyMessageModule } from 'ngx-tethys/message';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { provideHttpClient } from '@angular/common/http';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 
 const DEFAULT_DURATION_TIME = 4500;
 
@@ -18,7 +16,8 @@ const DEFAULT_DURATION_TIME = 4500;
         <button class="warning-btn" (click)="openMessage('warning')">warning</button>
         <button class="error-btn" (click)="openMessage('error')">error</button>
         <button class="loading-btn" (click)="openMessage('loading')">loading</button>
-    `
+    `,
+    imports: [ThyMessageModule]
 })
 export class ThyMessageTestComponent implements OnInit {
     messageService = coreInject(ThyMessageService);
@@ -49,9 +48,8 @@ describe('ThyMessage', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyMessageModule, NoopAnimationsModule],
-            declarations: [ThyMessageTestComponent],
-            providers: [provideHttpClient()]
+            imports: [ThyMessageModule],
+            providers: [provideHttpClient(), provideNoopAnimations()]
         });
         inject([OverlayContainer], (oc: OverlayContainer) => {
             overlayContainer = oc;
@@ -162,7 +160,7 @@ describe('ThyMessage', () => {
         fixture.detectChanges();
         flush();
         const message: HTMLElement = messageElement;
-        expect(message.style.opacity).toBe('0');
+        expect(message.style.opacity).toBe('');
         fixture.detectChanges();
         flush();
     }));
@@ -220,7 +218,7 @@ describe('ThyMessage', () => {
         dispatchMouseEvent(notHasCloseIconMessageElement, 'mouseenter');
         fixture.detectChanges();
         tick(DEFAULT_DURATION_TIME + 1000);
-        expect((notHasCloseIconMessageElement as HTMLElement).style.opacity).toBe('0');
+        expect((notHasCloseIconMessageElement as HTMLElement).style.opacity).toBe('');
 
         tick(DEFAULT_DURATION_TIME);
         fixture.detectChanges();

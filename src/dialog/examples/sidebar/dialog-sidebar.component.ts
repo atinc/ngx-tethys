@@ -1,9 +1,12 @@
 import { Component, HostBinding, inject } from '@angular/core';
-import { ThyDialogRef } from 'ngx-tethys/dialog';
+import { ThyDialogHeader, ThyDialogBody, ThyDialogFooter, ThyDialogRef } from 'ngx-tethys/dialog';
+import { ThyLayout, ThySidebar, ThySidebarHeader, ThySidebarContent } from 'ngx-tethys/layout';
+import { ThyMenu } from 'ngx-tethys/menu';
 
 @Component({
     selector: 'thy-dialog-sidebar-content-example',
-    templateUrl: './dialog-sidebar.component.html'
+    templateUrl: './dialog-sidebar.component.html',
+    imports: [ThyLayout, ThySidebar, ThySidebarHeader, ThySidebarContent, ThyMenu, ThyDialogHeader, ThyDialogBody, ThyDialogFooter]
 })
 export class ThyDialogSidebarContentExampleComponent {
     private thyDialogRef = inject<ThyDialogRef<any>>(ThyDialogRef);

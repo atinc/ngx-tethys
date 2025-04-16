@@ -2,10 +2,14 @@ import { Component, DebugElement, OnInit, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
-import { ThyCarouselModule } from '../module';
-import { ThyCarousel, ThyCarouselPause } from 'ngx-tethys/carousel';
-import { ThyCarouselItemDirective } from 'ngx-tethys/carousel';
-import { ThyCarouselEffect, ThyCarouselTrigger } from '../typings';
+import {
+    ThyCarousel,
+    ThyCarouselPause,
+    ThyCarouselModule,
+    ThyCarouselEffect,
+    ThyCarouselTrigger,
+    ThyCarouselItemDirective
+} from 'ngx-tethys/carousel';
 import { mouseSwipe, touchSwipe, windowResize } from './carousel-events';
 import { provideHttpClient } from '@angular/common/http';
 
@@ -28,7 +32,8 @@ import { provideHttpClient } from '@angular/common/http';
                 }
             </thy-carousel>
         </div>
-    `
+    `,
+    imports: [ThyCarouselModule]
 })
 class ThyTestCarouselBasicComponent implements OnInit {
     @ViewChild(ThyCarousel, { static: false }) thyCarouselComponent!: ThyCarousel;
@@ -69,7 +74,8 @@ class ThyTestCarouselBasicComponent implements OnInit {
                 }
             </thy-carousel>
         </div>
-    `
+    `,
+    imports: [ThyCarouselModule]
 })
 class ThyTestCarouselTouchableComponent implements OnInit {
     @ViewChild(ThyCarousel, { static: false }) thyCarouselComponent!: ThyCarousel;
@@ -88,8 +94,6 @@ class ThyTestCarouselTouchableComponent implements OnInit {
 describe('carousel', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyCarouselModule],
-            declarations: [ThyTestCarouselBasicComponent, ThyTestCarouselTouchableComponent],
             providers: [provideHttpClient()]
         });
         TestBed.compileComponents();

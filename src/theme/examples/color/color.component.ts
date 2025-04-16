@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { cssVariables } from './css-variables';
+import { ThyColDirective, ThyRowDirective } from 'ngx-tethys/grid';
+import { ThyDivider } from 'ngx-tethys/divider';
 
 @Component({
     selector: 'thy-theme-color-example',
@@ -23,7 +25,8 @@ import { cssVariables } from './css-variables';
                 }
             }
         `
-    ]
+    ],
+    imports: [ThyColDirective, ThyRowDirective, ThyDivider]
 })
 export class ThyThemeColorExampleComponent {
     colorVariables = Object.keys(cssVariables.defaultThemeColorsMap);

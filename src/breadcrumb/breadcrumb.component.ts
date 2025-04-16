@@ -45,7 +45,6 @@ const ELLIPSIS_ITEM = { _id: THY_BREADCRUMB_ITEM_ELLIPSIS_ID };
         '[class.thy-breadcrumb-separator-backslash]': 'thySeparator === "backslash"',
         '[class.thy-breadcrumb-separator-vertical-line]': 'thySeparator === "vertical-line"'
     },
-    standalone: true,
     imports: [
         ThyIcon,
         NgClass,
@@ -54,7 +53,6 @@ const ELLIPSIS_ITEM = { _id: THY_BREADCRUMB_ITEM_ELLIPSIS_ID };
         ThyAction,
         ThyDropdownDirective,
         ThyDropdownMenuItemDirective,
-        ThyDropdownMenuItemNameDirective,
         ThyDropdownMenuComponent,
         ThyIcon
     ]

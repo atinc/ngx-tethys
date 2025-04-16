@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ThySkeletonCircle } from 'ngx-tethys/skeleton';
 
 @Component({
     selector: 'thy-skeleton-circle-example',
@@ -9,7 +10,8 @@ import { Component, OnInit } from '@angular/core';
             [thyPrimaryColor]="model.thyPrimaryColor"
             [thySecondaryColor]="model.thySecondaryColor">
         </thy-skeleton-circle>
-    `
+    `,
+    imports: [ThySkeletonCircle]
 })
 export class ThySkeletonExampleCircleComponent implements OnInit {
     model = {

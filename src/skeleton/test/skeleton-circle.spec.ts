@@ -1,10 +1,7 @@
-import { Component, DebugElement, NgModule, OnInit, TemplateRef, ViewChild } from '@angular/core';
-
-import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { Component, DebugElement } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThySkeletonCircle } from '../skeleton-circle.component';
-
-import { ThySkeletonModule } from '../module';
+import { ThySkeletonCircle, ThySkeletonModule } from 'ngx-tethys/skeleton';
 
 @Component({
     selector: 'thy-skeleton-circle-test',
@@ -18,7 +15,8 @@ import { ThySkeletonModule } from '../module';
                 [thySecondaryColor]="model.thySecondaryColor">
             </thy-skeleton-circle>
         </thy-skeleton>
-    `
+    `,
+    imports: [ThySkeletonModule]
 })
 class ThySkeletonCircleTestComponent {
     model = {
@@ -37,11 +35,7 @@ describe('skeleton circle', () => {
     let circleElement: HTMLElement;
 
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [ThySkeletonModule],
-            declarations: [ThySkeletonCircleTestComponent],
-            providers: []
-        });
+        TestBed.configureTestingModule({});
         TestBed.compileComponents();
     });
 

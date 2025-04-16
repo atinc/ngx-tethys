@@ -6,8 +6,7 @@ import { ThyI18nLocale } from 'ngx-tethys/i18n';
  * @private
  */
 @Pipe({
-    name: 'paginationTotalPagesFormat',
-    standalone: true
+    name: 'paginationTotalPagesFormat'
 })
 export class PaginationTotalCountFormat implements PipeTransform {
     private sanitizer = inject(DomSanitizer);
@@ -22,8 +21,7 @@ export class PaginationTotalCountFormat implements PipeTransform {
 }
 
 @Pipe({
-    name: 'paginationPerPageFormat',
-    standalone: true
+    name: 'paginationPerPageFormat'
 })
 export class PaginationPerPageFormat implements PipeTransform {
     transform(unit: string, locale: ThyI18nLocale): string {

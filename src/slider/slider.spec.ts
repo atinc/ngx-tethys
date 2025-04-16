@@ -1,6 +1,6 @@
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ThySliderModule } from './slider.module';
+import { ThySliderModule } from 'ngx-tethys/slider';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { Component, DebugElement, ViewEncapsulation } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
@@ -31,7 +31,8 @@ import { provideHttpClient } from '@angular/common/http';
                 height: 200px;
             }
         `
-    ]
+    ],
+    imports: [FormsModule, ThySliderModule]
 })
 class ThyTestSliderComponent {
     value: number;
@@ -56,9 +57,7 @@ describe('ThyTestSliderComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [FormsModule, ThySliderModule],
-            providers: [provideHttpClient()],
-            declarations: [ThyTestSliderComponent]
+            providers: [provideHttpClient()]
         });
 
         TestBed.compileComponents();

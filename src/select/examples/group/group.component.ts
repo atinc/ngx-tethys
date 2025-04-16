@@ -1,8 +1,14 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ThyAvatar } from 'ngx-tethys/avatar';
+import { ThyDot } from 'ngx-tethys/dot';
+import { ThySelect } from 'ngx-tethys/select';
+import { ThyOption, ThySelectOptionGroup } from 'ngx-tethys/shared';
 
 @Component({
     selector: 'thy-select-group-example',
-    templateUrl: './group.component.html'
+    templateUrl: './group.component.html',
+    imports: [ThySelect, ThyOption, FormsModule, ThyDot, ThyAvatar, ThySelectOptionGroup]
 })
 export class ThySelectGroupExampleComponent {
     productGroups = [

@@ -1,13 +1,11 @@
 import { ApplicationRef, Component, DebugElement, ViewChild } from '@angular/core';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { ThyPropertyOperationModule } from '../module';
+import { ThyPropertyOperationModule, ThyPropertyOperation } from 'ngx-tethys/property-operation';
 import { By } from '@angular/platform-browser';
-import { ThyPropertyOperation } from '../property-operation.component';
-import { ThyButtonIcon } from '../../button';
+import { ThyButtonIcon } from 'ngx-tethys/button';
 import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing';
 import { provideHttpClient } from '@angular/common/http';
-
-//#region test component
+import { NgClass } from '@angular/common';
 
 @Component({
     template: `
@@ -24,7 +22,8 @@ import { provideHttpClient } from '@angular/common/http';
             (thyOnRemove)="thyOnRemove()"
             (thyClick)="thyOnclick()">
         </thy-property-operation>
-    `
+    `,
+    imports: [ThyPropertyOperationModule, NgClass]
 })
 class PropertyOperationBasicComponent {
     @ViewChild(ThyPropertyOperation, { static: true }) component: ThyPropertyOperation;
@@ -54,13 +53,10 @@ class PropertyOperationBasicComponent {
     }
 }
 
-//#endregion
-
 describe('ThyPropertyOperation', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyPropertyOperationModule],
-            declarations: [PropertyOperationBasicComponent],
             providers: [bypassSanitizeProvider, provideHttpClient()]
         }).compileComponents();
 

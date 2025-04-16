@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ThyTable, ThyTableColumnComponent } from 'ngx-tethys/table';
 
 @Component({
     selector: 'thy-table-draggable-example',
-    templateUrl: './draggable.component.html'
+    templateUrl: './draggable.component.html',
+    imports: [ThyTable, ThyTableColumnComponent]
 })
 export class ThyTableDraggableExampleComponent implements OnInit {
     data = [

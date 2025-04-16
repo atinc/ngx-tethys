@@ -1,16 +1,13 @@
 import { endOfMonth, startOfMonth } from 'date-fns';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
 import { getUnixTime, TinyDate } from 'ngx-tethys/util';
-
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-
-import { ThyCalendarHeader } from '../calendar-header.component';
-import { ThyCalendar } from '../calendar.component';
-import { ThyCalendarModule } from '../module';
+import { ThyCalendarHeader, ThyCalendar, ThyCalendarModule } from 'ngx-tethys/calendar';
 import { provideHttpClient } from '@angular/common/http';
+import { DateRangeItemInfo } from 'ngx-tethys/date-range';
 
 @Component({
     template: `
@@ -51,16 +48,17 @@ import { provideHttpClient } from '@angular/common/http';
         <thy-calendar [(ngModel)]="value1"> </thy-calendar>
 
         <thy-calendar> </thy-calendar>
-    `
+    `,
+    imports: [FormsModule, ThyCalendarModule]
 })
 export class TestCalendarBasicComponent {
     value = new Date(2021, 2, 1);
 
     value1 = new Date(2020, 1, 3);
 
-    dateRangeChange() {}
+    dateRangeChange(event: DateRangeItemInfo) {}
 
-    selectedChange() {}
+    selectedChange(event: Date) {}
 
     listDataMap = {
         eight: [
@@ -84,7 +82,8 @@ export class TestCalendarBasicComponent {
 }
 
 @Component({
-    template: ` <thy-calendar [thyDisabledDate]="thyDisabledDate"> </thy-calendar> `
+    template: ` <thy-calendar [thyDisabledDate]="thyDisabledDate"> </thy-calendar> `,
+    imports: [ThyCalendarModule]
 })
 export class TestCalendarDisabledDateComponent {
     thyDisabledDate(date: Date) {
@@ -108,14 +107,15 @@ export class TestCalendarDisabledDateComponent {
                 <span class="app-sign">Prod</span>
             </ng-template>
         </thy-calendar-header>
-    `
+    `,
+    imports: [ThyCalendarModule]
 })
 export class TestCalendarHeaderComponent {
     currentDate = new TinyDate(new Date(2020, 0, 3));
 
-    onMonthSelect() {}
-    onYearSelect() {}
-    onDateRangeSelect() {}
+    onMonthSelect(event: number) {}
+    onYearSelect(event: number) {}
+    onDateRangeSelect(event: DateRangeItemInfo) {}
 }
 
 describe('calendar', () => {
@@ -126,8 +126,6 @@ describe('calendar', () => {
 
         beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
-                imports: [FormsModule, ThyCalendarModule],
-                declarations: [TestCalendarBasicComponent],
                 providers: [provideHttpClient()]
             }).compileComponents();
         }));
@@ -215,8 +213,6 @@ describe('calendar', () => {
 
         beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
-                imports: [ThyCalendarModule],
-                declarations: [TestCalendarDisabledDateComponent],
                 providers: [provideHttpClient()]
             }).compileComponents();
         }));
@@ -246,8 +242,6 @@ describe('calendar-header', () => {
 
         beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
-                imports: [ThyCalendarModule],
-                declarations: [TestCalendarHeaderComponent],
                 providers: [provideHttpClient()]
             }).compileComponents();
         }));

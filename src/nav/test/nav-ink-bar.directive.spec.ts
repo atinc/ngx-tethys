@@ -2,16 +2,15 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, DebugElement, OnInit } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Router, RouterLinkActive, Routes } from '@angular/router';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { Router, RouterLinkActive, RouterModule, Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { dispatchFakeEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
-import { ThyBadgeModule } from '../../badge';
-import { ThyIconModule } from '../../icon';
-import { ThyNavInkBarDirective } from '../nav-ink-bar.directive';
-import { ThyNavSize, ThyNavType } from '../nav.component';
-import { ThyNavModule } from '../nav.module';
+import { ThyBadgeModule } from 'ngx-tethys/badge';
+import { ThyIconModule } from 'ngx-tethys/icon';
+import { ThyNavSize, ThyNavType, ThyNavModule } from 'ngx-tethys/nav';
 import { provideHttpClient } from '@angular/common/http';
+import { ThyNavInkBarDirective } from '../nav-ink-bar.directive';
 
 @Component({
     selector: 'app-nav-ink-bar',
@@ -28,7 +27,8 @@ import { provideHttpClient } from '@angular/common/http';
                 display: block;
             }
         `
-    ]
+    ],
+    imports: [ThyNavModule, ThyIconModule]
 })
 export class NavInkBarComponent implements OnInit {
     activeName: string = 'Item1';
@@ -100,7 +100,8 @@ const routes: Routes = [
                 }
             </thy-nav>
         </div>
-    `
+    `,
+    imports: [ThyBadgeModule, ThyNavModule, RouterModule]
 })
 export class NavInkBarRouterLinkActiveModeComponent implements OnInit {
     type: ThyNavType = 'pulled';
@@ -133,7 +134,8 @@ export class NavInkBarRouterLinkActiveModeComponent implements OnInit {
                 }
             </thy-nav>
         </div>
-    `
+    `,
+    imports: [ThyBadgeModule, ThyNavModule]
 })
 export class NavInkBarHaveBadgeModeComponent implements OnInit {
     type: ThyNavType = 'pulled';
@@ -156,9 +158,7 @@ export class NavInkBarHaveBadgeModeComponent implements OnInit {
 describe(`thy-nav-ink-bar`, () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [NavInkBarComponent],
-            imports: [ThyNavModule, ThyIconModule, NoopAnimationsModule],
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(), provideAnimations()]
         });
         TestBed.compileComponents();
         injectDefaultSvgIconSet();
@@ -237,9 +237,8 @@ describe(`thy-nav-ink-bar`, () => {
 describe(`thy-nav-ink-bar-router-link-active-mode`, () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [NavInkBarRouterLinkActiveModeComponent, Link1Component, Link2Component, Link3Component, LinkNoneComponent],
-            imports: [ThyBadgeModule, ThyNavModule, NoopAnimationsModule, RouterTestingModule.withRoutes(routes)],
-            providers: [provideHttpClient()]
+            imports: [RouterTestingModule.withRoutes(routes)],
+            providers: [provideHttpClient(), provideAnimations()]
         });
         TestBed.compileComponents();
         injectDefaultSvgIconSet();
@@ -305,9 +304,7 @@ describe(`thy-nav-ink-bar-router-link-active-mode`, () => {
 describe(`thy-nav-ink-bar-have-badge-mode`, () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [NavInkBarHaveBadgeModeComponent],
-            imports: [ThyBadgeModule, ThyNavModule, NoopAnimationsModule],
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(), provideAnimations()]
         });
         TestBed.compileComponents();
         injectDefaultSvgIconSet();

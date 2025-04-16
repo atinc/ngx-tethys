@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { TransferDirection, ThyTransferItem, ThyTransferDragEvent } from 'ngx-tethys/transfer';
+import { TransferDirection, ThyTransfer, ThyTransferItem, ThyTransferDragEvent } from 'ngx-tethys/transfer';
 
 @Component({
     selector: 'thy-transfer-basic-example',
-    templateUrl: './basic.component.html'
+    templateUrl: './basic.component.html',
+    imports: [ThyTransfer]
 })
 export class ThyTransferBasicExampleComponent implements OnInit {
     public lockItems: ThyTransferItem[] = [];

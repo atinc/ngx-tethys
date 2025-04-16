@@ -48,8 +48,7 @@ export type ThySidebarDirection = 'left' | 'right';
         '[class.sidebar-theme-light]': 'thyTheme === "light"',
         '[class.sidebar-theme-dark]': 'thyTheme === "dark"',
         '[class.thy-layout-sidebar-isolated]': 'sidebarIsolated'
-    },
-    standalone: true
+    }
 })
 export class ThySidebarDirective implements OnInit {
     private thyLayoutDirective = inject(ThyLayoutDirective, { optional: true, host: true })!;
@@ -187,8 +186,7 @@ export class ThySidebarDirective implements OnInit {
             inputs: ['thyTheme', 'thyDirection', 'thyWidth', 'thyIsolated', 'thyDivided', 'thyHasBorderLeft', 'thyHasBorderRight']
         }
     ],
-    standalone: true,
-    imports: [NgTemplateOutlet, ThyResizeHandle, ThyResizableDirective, ThyIcon, ThyTooltipDirective, NgClass, NgStyle]
+    imports: [NgTemplateOutlet, ThyResizeHandle, ThyResizableDirective, ThyIcon, ThyTooltipDirective, NgClass]
 })
 export class ThySidebar implements OnInit, OnDestroy {
     private locale: Signal<ThyLayoutLocale> = injectLocale('layout');

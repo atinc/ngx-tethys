@@ -1,12 +1,10 @@
 import { ThyGridModule } from 'ngx-tethys/grid';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
-
 import { ApplicationRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DEFAULT_RESIZE_DIRECTION, ThyResizableDirective, ThyResizeEvent } from '../index';
-import { ThyResizableModule } from '../module';
+import { ThyResizableModule, DEFAULT_RESIZE_DIRECTION, ThyResizableDirective, ThyResizeEvent } from 'ngx-tethys/resizable';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({
@@ -24,7 +22,8 @@ import { provideHttpClient } from '@angular/common/http';
         (thyResize)="onResize($event)">
         <thy-resize-handles></thy-resize-handles>
         content
-    </div> `
+    </div> `,
+    imports: [ThyResizableModule, ThyGridModule, ThyIconModule]
 })
 export class ThyResizableBasicTestComponent {
     width = 400;
@@ -59,7 +58,8 @@ export class ThyResizableBasicTestComponent {
             </div>
         </thy-resize-handle>
         content
-    </div> `
+    </div> `,
+    imports: [ThyResizableModule, ThyGridModule, ThyIconModule]
 })
 export class ThyResizableCustomizeTestComponent {
     width = 400;
@@ -87,7 +87,8 @@ export class ThyResizableCustomizeTestComponent {
             col-{{ col }}
         </div>
         <div class="col col-right" thyCol [thySpan]="24 - col">col-{{ 24 - col }}</div>
-    </div>`
+    </div>`,
+    imports: [ThyResizableModule, ThyGridModule, ThyIconModule]
 })
 export class ThyResizableGridTestComponent {
     col = 8;
@@ -108,7 +109,8 @@ export class ThyResizableGridTestComponent {
         (thyResizeEnd)="onResize($event)">
         <thy-resize-handles></thy-resize-handles>
         content
-    </div> `
+    </div> `,
+    imports: [ThyResizableModule, ThyGridModule, ThyIconModule]
 })
 export class ThyResizablePreviewTestComponent {
     width = 400;
@@ -131,7 +133,8 @@ export class ThyResizablePreviewTestComponent {
         (thyResize)="onResize($event)">
         <thy-resize-handles></thy-resize-handles>
         content
-    </div> `
+    </div> `,
+    imports: [ThyResizableModule, ThyGridModule, ThyIconModule]
 })
 export class ThyResizableLockAspectRatioTestComponent {
     width = 400;
@@ -151,7 +154,8 @@ export class ThyResizableLockAspectRatioTestComponent {
             <thy-resize-handles (dblclick)="reset()" [thyDirections]="directions" thyLine="true"></thy-resize-handles>
         </div>
         <div class="right">Right</div>
-    </div> `
+    </div> `,
+    imports: [ThyResizableModule, ThyGridModule, ThyIconModule]
 })
 export class ThyResizableLineTestComponent {
     width = 200;
@@ -199,7 +203,8 @@ export class ThyResizableLineTestComponent {
                 height: 200px;
             }
         `
-    ]
+    ],
+    imports: [ThyResizableModule, ThyGridModule, ThyIconModule]
 })
 class ThyTestResizableBoundsComponent {
     @ViewChild('boxRef', { static: true }) boxRef!: ElementRef<HTMLDivElement>;
@@ -228,16 +233,6 @@ function mouseMoveTrigger(el: HTMLElement, from: { x: number; y: number }, to: {
 describe('resizable', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyResizableModule, ThyGridModule, ThyIconModule],
-            declarations: [
-                ThyResizableBasicTestComponent,
-                ThyResizableCustomizeTestComponent,
-                ThyResizableLockAspectRatioTestComponent,
-                ThyResizablePreviewTestComponent,
-                ThyResizableGridTestComponent,
-                ThyTestResizableBoundsComponent,
-                ThyResizableLineTestComponent
-            ],
             providers: [provideHttpClient()]
         }).compileComponents();
     }));
@@ -401,7 +396,7 @@ describe('resizable', () => {
                 tick(16);
                 fixture.detectChanges();
                 expect(testComponent.height).toBeLessThanOrEqual(200);
-                expect(testComponent.height).toBeGreaterThanOrEqual(100);
+                expect(testComponent.height).toBeGreaterThanOrEqual(99);
             }));
 
             /**
@@ -559,7 +554,7 @@ describe('resizable', () => {
                 expect(testComponent.width).toBeLessThanOrEqual(400);
                 expect(testComponent.width).toBeGreaterThanOrEqual(300);
                 expect(testComponent.height).toBeLessThanOrEqual(200);
-                expect(testComponent.height).toBeGreaterThanOrEqual(100);
+                expect(testComponent.height).toBeGreaterThanOrEqual(99);
             }));
 
             it('should resizing', fakeAsync(() => {

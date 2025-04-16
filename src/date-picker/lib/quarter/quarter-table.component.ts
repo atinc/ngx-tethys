@@ -14,7 +14,6 @@ import { NgClass } from '@angular/common';
     selector: 'quarter-table',
     exportAs: 'quarterTable',
     templateUrl: 'quarter-table.component.html',
-    standalone: true,
     imports: [NgClass]
 })
 export class QuarterTable extends CalendarTable implements OnChanges {

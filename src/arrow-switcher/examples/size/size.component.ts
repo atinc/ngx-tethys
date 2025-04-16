@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyArrowSwitcherEvent } from 'ngx-tethys/arrow-switcher';
+import { ThyArrowSwitcher, ThyArrowSwitcherEvent } from 'ngx-tethys/arrow-switcher';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'thy-arrow-switcher-size-example',
-    templateUrl: './size.component.html'
+    templateUrl: './size.component.html',
+    imports: [ThyArrowSwitcher, FormsModule]
 })
 export class ThyArrowSwitcherSizeExampleComponent implements OnInit {
     index = 0;

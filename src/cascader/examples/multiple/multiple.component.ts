@@ -1,10 +1,13 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { clone, options } from '../cascader-address-options';
+import { ThyCascader } from 'ngx-tethys/cascader';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'thy-cascader-multiple-example',
-    templateUrl: './multiple.component.html'
+    templateUrl: './multiple.component.html',
+    imports: [ThyCascader, FormsModule]
 })
 export class ThyCascaderMultipleExampleComponent implements OnInit {
     private notifyService = inject(ThyNotifyService);

@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { ThySegment, ThySegmentItem } from 'ngx-tethys/segment';
 
 @Component({
     selector: 'thy-segment-mode-example',
-    templateUrl: './mode.component.html'
+    templateUrl: './mode.component.html',
+    imports: [ThySegment, ThySegmentItem]
 })
 export class ThySegmentModeExampleComponent {
     items = [

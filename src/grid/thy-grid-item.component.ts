@@ -15,8 +15,7 @@ import { useHostRenderer } from '@tethys/cdk/dom';
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-grid-item'
-    },
-    standalone: true
+    }
 })
 export class ThyGridItem implements OnInit {
     elementRef = inject(ElementRef);

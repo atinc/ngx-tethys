@@ -1,10 +1,12 @@
 import { Component, OnInit, inject } from '@angular/core';
+import { ThyButton } from 'ngx-tethys/button';
 import { ThyDialog, ThyDialogConfig, ThyDialogSizes } from 'ngx-tethys/dialog';
 import { ThyDialogBasicContentComponent } from '../basic/dialog-content.component';
 
 @Component({
     selector: 'thy-dialog-size-example',
-    templateUrl: './size.component.html'
+    templateUrl: './size.component.html',
+    imports: [ThyButton]
 })
 export class ThyDialogSizeExampleComponent implements OnInit {
     private thyDialog = inject(ThyDialog);

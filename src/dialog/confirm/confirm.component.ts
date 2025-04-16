@@ -19,7 +19,6 @@ import { injectLocale, ThyDialogLocale } from 'ngx-tethys/i18n';
     selector: 'thy-confirm-default',
     templateUrl: './confirm.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
     imports: [ThyDialogHeader, ThyDialogBody, FormsModule, ThyFormDirective, ThyFormGroupFooter, NgClass, ThyButton]
 })
 export class ThyConfirm implements OnInit, OnDestroy {

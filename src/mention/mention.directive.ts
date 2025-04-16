@@ -33,8 +33,7 @@ const DEFAULT_MENTION_CONFIG: Partial<Mention> = {
  * @order 10
  */
 @Directive({
-    selector: '[thyMention]',
-    standalone: true
+    selector: '[thyMention]'
 })
 export class ThyMentionDirective implements OnInit, OnDestroy {
     private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);

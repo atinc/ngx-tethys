@@ -66,7 +66,6 @@ const iconOnlyClass = 'thy-btn-icon-only';
     host: {
         class: 'thy-btn btn'
     },
-    standalone: true,
     imports: [ThyIcon, NgClass]
 })
 export class ThyButton implements OnInit, AfterViewInit {

@@ -1,23 +1,17 @@
-import { Component, NgModule } from '@angular/core';
+import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-import { ThyVote } from '../vote.component';
-import { ThyVoteModule } from '../vote.module';
+import { ThyVote } from 'ngx-tethys/vote';
 import { provideHttpClient } from '@angular/common/http';
 
 describe('ThyVote', () => {
     let fixture: ComponentFixture<ThyDemoVoteBasicComponent>;
     let basicTestComponent: ThyDemoVoteBasicComponent;
-    let voteComponent;
+    let voteComponent: DebugElement;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyVoteModule, VoteTestModule],
-            providers: [
-                provideHttpClient()
-                // { provide: Location, useClass: SpyLocation }
-            ]
+            providers: [provideHttpClient()]
         });
 
         TestBed.compileComponents();
@@ -90,7 +84,8 @@ describe('ThyVote', () => {
             [thySize]="size"
             [thyRound]="isRound"
             [thyDisabled]="isDisabled"></div>
-    `
+    `,
+    imports: [ThyVote]
 })
 class ThyDemoVoteBasicComponent {
     vote_count = '10';
@@ -101,10 +96,3 @@ class ThyDemoVoteBasicComponent {
     isRound = true;
     isDisabled = false;
 }
-
-@NgModule({
-    imports: [ThyVoteModule],
-    declarations: [ThyDemoVoteBasicComponent],
-    exports: [ThyDemoVoteBasicComponent]
-})
-export class VoteTestModule {}

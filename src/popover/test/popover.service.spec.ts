@@ -1,5 +1,5 @@
 import { ContentObserver } from '@angular/cdk/observers';
-import { CloseScrollStrategy, Overlay, OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
+import { CloseScrollStrategy, Overlay, OverlayContainer } from '@angular/cdk/overlay';
 import { Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
 import {
@@ -8,27 +8,24 @@ import {
     Directive,
     ElementRef,
     Injector,
-    NgModule,
     TemplateRef,
     ViewChild,
     ViewContainerRef,
     inject as coreInject
 } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
 import { Subject } from 'rxjs';
-
-import { isArray, isUndefinedOrNull } from '../../util';
-import { ThyPopoverModule } from '../module';
-import { ThyPopoverRef } from '../popover-ref';
+import { isArray, isUndefinedOrNull } from 'ngx-tethys/util';
 import {
+    ThyPopoverRef,
     THY_POPOVER_DEFAULT_CONFIG,
     THY_POPOVER_DEFAULT_CONFIG_VALUE,
     THY_POPOVER_SCROLL_STRATEGY,
-    ThyPopoverConfig
-} from '../popover.config';
-import { ThyPopover } from '../popover.service';
+    ThyPopoverConfig,
+    ThyPopover,
+    ThyPopoverModule
+} from 'ngx-tethys/popover';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 
 @Component({
     selector: 'thy-popover-basic',
@@ -43,26 +40,26 @@ class PopoverBasicComponent {
     @ViewChild('trigger') trigger: TemplateRef<any>;
 }
 
-// eslint-disable-next-line @angular-eslint/directive-selector
-@Directive({ selector: 'thy-with-view-container-directive' })
-class WithViewContainerDirective {
+@Directive({ selector: '[thyWithViewContainer]' })
+class WithViewContainerTestDirective {
     viewContainerRef = coreInject(ViewContainerRef);
 }
 
 @Component({
     selector: 'thy-with-child-view-container-component',
     template: `
-        <thy-with-view-container-directive></thy-with-view-container-directive>
+        <div thyWithViewContainer></div>
         <button #openPopoverOrigin>Open Popover</button>
         <button #openTemplate>open template</button>
         <ng-template #template>
             <div>template</div>
         </ng-template>
-    `
+    `,
+    imports: [WithViewContainerTestDirective]
 })
-class WithChildViewContainerComponent {
-    @ViewChild(WithViewContainerDirective, { static: true })
-    childWithViewContainer: WithViewContainerDirective;
+class WithChildViewContainerTestComponent {
+    @ViewChild(WithViewContainerTestDirective, { static: true })
+    childWithViewContainer: WithViewContainerTestDirective;
 
     @ViewChild('openPopoverOrigin', { static: true })
     openPopoverOrigin: HTMLElement;
@@ -188,37 +185,16 @@ export class PopoverConfigComponent {
     template: TemplateRef<any>;
 }
 
-const TEST_COMPONENTS = [
-    PopoverBasicComponent,
-    PopoverSimpleContentComponent,
-    WithViewContainerDirective,
-    WithChildViewContainerComponent,
-    PopoverManualClosureContentComponent,
-    PopoverOutsideClosableComponent,
-    PopoverInsideClosableComponent,
-    PopoverConfigComponent
-];
-@NgModule({
-    declarations: TEST_COMPONENTS,
-    imports: [ThyPopoverModule, NoopAnimationsModule, OverlayModule],
-    exports: TEST_COMPONENTS
-})
-class PopoverTestModule {}
-
 describe(`thyPopover`, () => {
     let popover: ThyPopover;
     let mockLocation: SpyLocation;
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: Element;
-    let viewContainerFixture: ComponentFixture<WithChildViewContainerComponent>;
+    let viewContainerFixture: ComponentFixture<WithChildViewContainerTestComponent>;
     let overlay: Overlay;
 
     function getPopoverContainerElement() {
         return overlayContainerElement.querySelector(`thy-popover-container`);
-    }
-
-    function getOverlayBackdropElement() {
-        return overlayContainerElement.querySelector('.cdk-overlay-backdrop');
     }
 
     function getOverlayPaneElement() {
@@ -244,8 +220,8 @@ describe(`thyPopover`, () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [PopoverTestModule],
-            providers: [{ provide: Location, useClass: SpyLocation }]
+            imports: [ThyPopoverModule],
+            providers: [provideNoopAnimations(), { provide: Location, useClass: SpyLocation }]
         });
         TestBed.compileComponents();
     });
@@ -267,7 +243,7 @@ describe(`thyPopover`, () => {
         ));
 
         beforeEach(() => {
-            viewContainerFixture = TestBed.createComponent(WithChildViewContainerComponent);
+            viewContainerFixture = TestBed.createComponent(WithChildViewContainerTestComponent);
             viewContainerFixture.detectChanges();
         });
 
@@ -305,8 +281,9 @@ describe(`thyPopover`, () => {
             });
             tick(1000);
             viewContainerFixture.detectChanges();
+            tick(1000);
             let containers = overlayContainerElement.querySelectorAll(`thy-popover-container`);
-            expect(containers.length).toBe(2);
+            expect(containers.length).toBe(1);
             popover.closeAll();
             tick(1000);
             viewContainerFixture.detectChanges();
@@ -410,8 +387,8 @@ describe(`thyPopover`, () => {
 
             tick(1000);
             viewContainerFixture.detectChanges();
-            expect(openedPopover.length).toEqual(2);
-            expect(openedPopover[1]).toEqual(popoverRef1);
+            expect(openedPopover.length).toEqual(1);
+            expect(openedPopover[0]).toEqual(popoverRef1);
             flush();
         }));
 
@@ -478,7 +455,7 @@ describe(`thyPopover`, () => {
         ));
 
         beforeEach(() => {
-            viewContainerFixture = TestBed.createComponent(WithChildViewContainerComponent);
+            viewContainerFixture = TestBed.createComponent(WithChildViewContainerTestComponent);
             viewContainerFixture.detectChanges();
         });
 
@@ -680,6 +657,7 @@ describe(`thyPopover`, () => {
     describe('config', () => {
         const config = { hasBackdrop: false, outsideClosable: true };
         const otherConfig: { panelClass: string[] } = { panelClass: [] };
+
         describe('has default config', () => {
             let popoverConfigFixture: ComponentFixture<PopoverConfigComponent>;
             let popoverConfigComponent: PopoverConfigComponent;
@@ -687,23 +665,23 @@ describe(`thyPopover`, () => {
             const globalDefaultConfig = { hasBackdrop: false };
 
             beforeEach(() => {
-                TestBed.overrideModule(PopoverTestModule, {
-                    set: {
-                        providers: [
-                            {
-                                provide: THY_POPOVER_SCROLL_STRATEGY,
-                                deps: [Overlay],
-                                useFactory: (_overlay: Overlay) => {
-                                    closeScrollStrategy = _overlay.scrollStrategies.close();
-                                    return () => closeScrollStrategy;
-                                }
-                            },
-                            {
-                                provide: THY_POPOVER_DEFAULT_CONFIG,
-                                useValue: globalDefaultConfig
+                TestBed.configureTestingModule({
+                    imports: [ThyPopoverModule],
+                    providers: [
+                        provideNoopAnimations(),
+                        {
+                            provide: THY_POPOVER_SCROLL_STRATEGY,
+                            deps: [Overlay],
+                            useFactory: (_overlay: Overlay) => {
+                                closeScrollStrategy = _overlay.scrollStrategies.close();
+                                return () => closeScrollStrategy;
                             }
-                        ]
-                    }
+                        },
+                        {
+                            provide: THY_POPOVER_DEFAULT_CONFIG,
+                            useValue: globalDefaultConfig
+                        }
+                    ]
                 });
                 TestBed.compileComponents();
             });

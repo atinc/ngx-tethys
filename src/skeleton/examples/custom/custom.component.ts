@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ThySkeleton, ThySkeletonCircle, ThySkeletonList, ThySkeletonRectangle } from 'ngx-tethys/skeleton';
 
 @Component({
     selector: 'thy-skeleton-custom-example',
-    templateUrl: './custom.component.html'
+    templateUrl: './custom.component.html',
+    imports: [ThySkeleton, ThySkeletonCircle, ThySkeletonRectangle, ThySkeletonList]
 })
 export class ThySkeletonExampleCustomComponent implements OnInit {
     // generalModel为circleSkeleton、rectangleSkeleton公共配置。

@@ -24,7 +24,6 @@ import { NgTemplateOutlet } from '@angular/common';
         '[style.overflow-y]': 'tabPaneAnimated ? active ? null : "none" : null',
         '[style.display]': '!tabPaneAnimated ? active ? null : "none" : null'
     },
-    standalone: true,
     imports: [NgTemplateOutlet]
 })
 export class ThyTabContent {

@@ -1,4 +1,4 @@
-import { produce } from './immutable';
+import { produce } from 'ngx-tethys/util';
 
 describe('immutable', () => {
     interface UserInfo {

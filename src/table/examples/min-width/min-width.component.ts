@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { ThyTable, ThyTableColumnComponent } from 'ngx-tethys/table';
+import { ThyIcon } from 'ngx-tethys/icon';
 
 @Component({
     selector: 'thy-table-min-width-example',
-    templateUrl: './min-width.component.html'
+    templateUrl: './min-width.component.html',
+    imports: [ThyTable, ThyTableColumnComponent, ThyIcon]
 })
 export class ThyTableMinWidthExampleComponent implements OnInit {
     data = [

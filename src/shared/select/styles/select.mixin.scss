@@ -1,3 +1,4 @@
+@use 'sass:map';
 @use '../../../styles/variables';
 @use '../../../styles/mixins/shadow.scss';
 @use '../../../avatar/styles/mixin.scss' as avatarMixin;
@@ -106,7 +107,7 @@ $avatarHeight: (
     .thy-option-item {
         .thy-avatar {
             display: inline-flex;
-            @include avatarMixin.avatarSize(calc(map-get($map: $avatarHeight, $key: $size) / 1px));
+            @include avatarMixin.avatarSize(calc(map.get($avatarHeight, $size) / 1px));
         }
     }
 }

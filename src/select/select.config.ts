@@ -4,7 +4,7 @@ import { ThyPlacement } from 'ngx-tethys/core';
 
 export const THY_SELECT_SCROLL_STRATEGY = new InjectionToken<() => ScrollStrategy>('thy-select-scroll-strategy');
 
-export const THY_SELECT_SCROLL_STRATEGY_FACTORY = (overlay: Overlay) => {
+export const THY_SELECT_SCROLL_STRATEGY_FACTORY: (overlay: Overlay) => () => ScrollStrategy = (overlay: Overlay) => {
     return () => overlay.scrollStrategies.reposition();
 };
 

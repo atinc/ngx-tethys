@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ThyDropdownMenuComponent, ThyDropdownMenuItemDirective } from 'ngx-tethys/dropdown';
 
 @Component({
     selector: 'thy-custom-menu',
@@ -11,6 +12,7 @@ import { Component } from '@angular/core';
                 <span>Immediate Menu Item2</span>
             </a>
         </thy-dropdown-menu>
-    `
+    `,
+    imports: [ThyDropdownMenuComponent, ThyDropdownMenuItemDirective]
 })
 export class ImmediateMenuComponent {}

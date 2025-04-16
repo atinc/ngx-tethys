@@ -1,8 +1,10 @@
 import { Component, ElementRef, HostBinding, inject } from '@angular/core';
+import { ThyEmpty } from 'ngx-tethys/empty';
 
 @Component({
     selector: 'thy-empty-container-example',
-    templateUrl: './container.component.html'
+    templateUrl: './container.component.html',
+    imports: [ThyEmpty]
 })
 export class ThyEmptyContainerExampleComponent {
     elementRef = inject(ElementRef);

@@ -83,7 +83,7 @@
 
 // Contextual colors
 $text-colors: () !default;
-$text-colors: map-merge(
+$text-colors: map.merge(
     (
         '.text-placeholder': variables.$text-placeholder,
         '.text-body': variables.$text-body,

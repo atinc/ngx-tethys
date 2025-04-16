@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
 import { setDefaultErrorHandler, asyncBehavior } from '@tethys/cdk/behaviors';
+import { ThyButton } from 'ngx-tethys/button';
+import { ThyLoading } from 'ngx-tethys/loading';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { of } from 'rxjs';
 import { delay, tap } from 'rxjs/operators';
@@ -13,7 +15,8 @@ interface Todo {
 @Component({
     selector: 'thy-behaviors-async',
     templateUrl: './async.component.html',
-    styleUrls: ['./async.component.scss']
+    styleUrls: ['./async.component.scss'],
+    imports: [ThyButton, ThyLoading]
 })
 export class ThyBehaviorsAsyncComponent implements OnInit {
     private notifyService = inject(ThyNotifyService);

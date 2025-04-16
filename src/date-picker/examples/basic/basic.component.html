@@ -14,6 +14,7 @@
   <thy-date-picker
     class="d-block w-50 mb-3"
     thyShowTime
+    [thyTimeZone]="tz"
     [thyFormat]="dateShowTime | thyDatePickerFormatString"
     thyTimestampPrecision="milliseconds"
     thyPlaceHolder="选择时间"

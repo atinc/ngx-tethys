@@ -4,7 +4,8 @@ import { TinyDate } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-tree-async-example',
-    templateUrl: './async.component.html'
+    templateUrl: './async.component.html',
+    imports: [ThyTree]
 })
 export class ThyTreeAsyncExampleComponent {
     @ViewChild('tree') treeComponent: ThyTree;

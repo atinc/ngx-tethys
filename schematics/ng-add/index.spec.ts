@@ -1,7 +1,7 @@
 import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import { DEPENDENCIES } from '../dependencies';
-import { createTestApp, createTestWorkspaceFactory, getJsonFileContent } from '../testing';
+import { createTestApp, getJsonFileContent } from '../testing';
 import { addPackageToPackageJson } from '../utils';
 import { VERSION } from '../version';
 

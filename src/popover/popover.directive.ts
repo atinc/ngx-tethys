@@ -28,8 +28,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
  * @order 50
  */
 @Directive({
-    selector: '[thyPopover]',
-    standalone: true
+    selector: '[thyPopover]'
 })
 export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnInit, OnDestroy {
     elementRef: ElementRef;

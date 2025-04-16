@@ -29,7 +29,6 @@ import { injectLocale, ThyTransferLocale } from 'ngx-tethys/i18n';
     selector: 'thy-transfer-list',
     templateUrl: './transfer-list.component.html',
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
     imports: [CdkDropListGroup, ThyList, CdkDropList, ThyDragDropDirective, ThyListItem, CdkDrag, NgClass, NgTemplateOutlet]
 })
 export class ThyTransferList implements OnInit, DoCheck {

@@ -39,7 +39,6 @@ type CalendarDateTemplate = TemplateRef<{ $implicit: Date }>;
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => ThyCalendar), multi: true }],
-    standalone: true,
     imports: [ThyCalendarHeader, DateTable, MonthTable]
 })
 export class ThyCalendar implements OnInit, OnChanges {

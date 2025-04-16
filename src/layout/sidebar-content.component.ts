@@ -9,8 +9,7 @@ import { ChangeDetectionStrategy, Component, Directive, OnInit } from '@angular/
     selector: '[thySidebarContent]',
     host: {
         class: 'sidebar-content'
-    },
-    standalone: true
+    }
 })
 export class ThySidebarContentDirective {}
 
@@ -23,7 +22,6 @@ export class ThySidebarContentDirective {}
     selector: 'thy-sidebar-content',
     template: ` <ng-content></ng-content> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    hostDirectives: [ThySidebarContentDirective],
-    standalone: true
+    hostDirectives: [ThySidebarContentDirective]
 })
 export class ThySidebarContent {}

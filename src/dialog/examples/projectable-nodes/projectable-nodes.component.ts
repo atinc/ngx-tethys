@@ -7,8 +7,7 @@ import { ThyStealthView } from '@tethys/cdk/dom';
 @Component({
     selector: 'thy-dialog-projectable-nodes-example',
     templateUrl: './projectable-nodes.component.html',
-    standalone: true,
-    imports: [ThyDialogBasicContentComponent, ThyButton, ThyStealthView]
+    imports: [ThyButton, ThyStealthView]
 })
 export class ThyDialogProjectableNodesExampleComponent {
     private thyDialog = inject(ThyDialog);

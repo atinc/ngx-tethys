@@ -1,5 +1,7 @@
 import { endOfDay, endOfMonth, endOfQuarter, endOfYear, startOfDay, startOfMonth, startOfWeek, startOfYear } from 'date-fns';
-import { sortRangeValue, TinyDate } from './tiny-date';
+import * as dateFnsLocales from 'date-fns/locale';
+import { ThyLocaleType } from 'ngx-tethys/i18n';
+import { getDateFnsLocale, sortRangeValue, TinyDate } from 'ngx-tethys/util';
 
 describe('tiny-date', () => {
     const date = new TinyDate('2020-2-2 20:20:20');
@@ -214,6 +216,10 @@ describe('tiny-date', () => {
         expect(date['useTimeZone']).toBe('America/Los_Angeles');
         expect(defaultDate.getHours()).not.toBe(date.getHours());
         expect(date.getHours()).toBe(23);
+    });
+
+    it('should get date-fns locale', () => {
+        expect(getDateFnsLocale(ThyLocaleType.enUs)).toEqual(dateFnsLocales[`enUS`]);
     });
 
     describe('#sortRangeValue', () => {

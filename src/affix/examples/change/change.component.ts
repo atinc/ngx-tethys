@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ThyAffix } from 'ngx-tethys/affix';
+import { ThyButton } from 'ngx-tethys/button';
 
 @Component({
     selector: 'thy-affix-on-change-example',
@@ -8,7 +10,8 @@ import { Component } from '@angular/core';
                 <span>120px to affix top</span>
             </button>
         </thy-affix>
-    `
+    `,
+    imports: [ThyAffix, ThyButton]
 })
 export class ThyAffixChangeExampleComponent {
     onChange(status: boolean): void {

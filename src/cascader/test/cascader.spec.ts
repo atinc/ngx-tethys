@@ -1,10 +1,8 @@
-import { ThyCascader } from 'ngx-tethys/cascader';
 import { EXPANDED_DROPDOWN_POSITIONS } from 'ngx-tethys/core';
 import { dispatchFakeEvent, typeInElement } from 'ngx-tethys/testing';
 import { SafeAny } from 'ngx-tethys/types';
 import { Subject, of } from 'rxjs';
 import { delay, take } from 'rxjs/operators';
-
 import { OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { CommonModule, registerLocaleData } from '@angular/common';
@@ -13,16 +11,17 @@ import { Component, DebugElement, ViewChild } from '@angular/core';
 import { ComponentFixture, ComponentFixtureAutoDetect, TestBed, fakeAsync, flush, inject, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { clone } from '../examples/cascader-address-options';
-import { ThyCascaderModule } from '../module';
-import { ThyCascaderExpandTrigger, ThyCascaderTriggerType } from '../types';
+import { ThyCascaderModule, ThyCascaderExpandTrigger, ThyCascaderTriggerType, ThyCascader } from 'ngx-tethys/cascader';
 import { ThyFlexibleTextModule } from 'ngx-tethys/flexible-text';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { provideHttpClient } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 registerLocaleData(zh);
+
+function clone(obj: any) {
+    return JSON.parse(JSON.stringify(obj));
+}
 
 const customerOptions = [
     {
@@ -340,7 +339,8 @@ const customLabelPropertyOptions = [
             [thyCustomOptions]="customOptions"
             [thyHasBackdrop]="hasBackdrop">
         </thy-cascader>
-    `
+    `,
+    imports: [FormsModule, CommonModule, OverlayModule, ThyCascaderModule, ThyFlexibleTextModule, ThyIconModule]
 })
 class CascaderBasicComponent {
     @ViewChild(ThyCascader, { static: false }) cascader: ThyCascader;
@@ -394,7 +394,8 @@ class CascaderBasicComponent {
 }
 @Component({
     selector: 'thy-cascader-load',
-    template: ` <thy-cascader [thyLoadData]="thyLoadData" [(ngModel)]="curVal" style="width:400px;"> </thy-cascader> `
+    template: ` <thy-cascader [thyLoadData]="thyLoadData" [(ngModel)]="curVal" style="width:400px;"> </thy-cascader> `,
+    imports: [FormsModule, CommonModule, OverlayModule, ThyCascaderModule, ThyFlexibleTextModule, ThyIconModule]
 })
 class CascaderLoadComponent {
     success = true;
@@ -449,7 +450,8 @@ class CascaderLoadComponent {
             <thy-icon class="option-icon mr-2" thyIconName="view-tile"></thy-icon>
             <span thyFlexibleText class="option-label-item" [thyTooltipContent]="option.label || ''"> {{ option.label || '' }}</span>
         </ng-template>
-    `
+    `,
+    imports: [FormsModule, CommonModule, OverlayModule, ThyCascaderModule, ThyFlexibleTextModule, ThyIconModule]
 })
 class CascaderTemplateComponent {
     public curVal: string | string[] = 'xihu';
@@ -477,7 +479,8 @@ class CascaderTemplateComponent {
             [thyDisabled]="disabled"
             style="width:400px;">
         </thy-cascader>
-    `
+    `,
+    imports: [FormsModule, CommonModule, OverlayModule, ThyCascaderModule, ThyFlexibleTextModule, ThyIconModule]
 })
 class CascaderMultipleComponent {
     public multipleOptions: any[] = multipleOptions;
@@ -527,7 +530,8 @@ class CascaderMultipleComponent {
             [thyDisabled]="disabled"
             style="width:400px;">
         </thy-cascader>
-    `
+    `,
+    imports: [FormsModule, CommonModule, OverlayModule, ThyCascaderModule, ThyFlexibleTextModule, ThyIconModule]
 })
 class CascaderCustomLabelPropertyComponent {
     public multipleOptions: any[] = customLabelPropertyOptions;
@@ -553,23 +557,8 @@ class CascaderCustomLabelPropertyComponent {
 describe('thy-cascader', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            imports: [
-                FormsModule,
-                CommonModule,
-                OverlayModule,
-                ThyCascaderModule,
-                ThyFlexibleTextModule,
-                ThyIconModule,
-                NoopAnimationsModule
-            ],
-            declarations: [
-                CascaderTemplateComponent,
-                CascaderBasicComponent,
-                CascaderLoadComponent,
-                CascaderMultipleComponent,
-                CascaderCustomLabelPropertyComponent
-            ],
-            providers: [provideHttpClient(), { provide: ComponentFixtureAutoDetect, useValue: true }]
+            imports: [ThyCascaderModule],
+            providers: [provideHttpClient(), provideAnimations(), { provide: ComponentFixtureAutoDetect, useValue: true }]
         });
         TestBed.compileComponents();
     }));

@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
-import { ThyResizeEvent } from 'ngx-tethys/resizable';
+import { ThyColDirective, ThyRowDirective } from 'ngx-tethys/grid';
+import { ThyResizableDirective, ThyResizeEvent, ThyResizeHandles } from 'ngx-tethys/resizable';
 
 @Component({
     selector: 'thy-resizable-grid-example',
     templateUrl: './grid.component.html',
-    styleUrls: ['../style.scss']
+    styleUrls: ['../style.scss'],
+    imports: [ThyResizableDirective, ThyResizeHandles, ThyColDirective, ThyRowDirective]
 })
 export class ThyResizableGridExampleComponent {
     col = 8;

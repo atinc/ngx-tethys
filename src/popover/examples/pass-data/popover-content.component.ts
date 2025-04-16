@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ThyPopoverHeader, ThyPopoverBody } from 'ngx-tethys/popover';
 
 @Component({
     selector: 'thy-popover-pass-data-content',
@@ -7,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
         <thy-popover-body>
             {{ content }}
         </thy-popover-body>
-    `
+    `,
+    imports: [ThyPopoverHeader, ThyPopoverBody]
 })
 export class ThyPopoverPassDataContentComponent implements OnInit {
     title: string;

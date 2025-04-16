@@ -34,7 +34,6 @@ export type ThyAvatarFetchPriority = 'high' | 'low' | 'auto';
     selector: 'thy-avatar',
     templateUrl: './avatar.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
     imports: [NgClass, NgStyle, ThyIcon, AvatarShortNamePipe, AvatarBgColorPipe, AvatarSrcPipe]
 })
 export class ThyAvatar implements OnInit {

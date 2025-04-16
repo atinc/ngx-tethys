@@ -5,8 +5,7 @@ import { Directive, ElementRef, Renderer2, inject } from '@angular/core';
  */
 @Directive({
     selector: '[thyCarouselItem],[thy-carousel-item]',
-    exportAs: 'thyCarouseItem',
-    standalone: true
+    exportAs: 'thyCarouseItem'
 })
 export class ThyCarouselItemDirective {
     private renderer = inject(Renderer2);

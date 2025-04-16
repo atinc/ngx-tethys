@@ -29,8 +29,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     selector: '[thySpaceItem]',
     host: {
         class: 'thy-space-item'
-    },
-    standalone: true
+    }
 })
 export class ThySpaceItemDirective implements OnInit {
     constructor() {}
@@ -52,7 +51,6 @@ const DEFAULT_SIZE: ThySpacingSize = 'md';
     host: {
         class: 'thy-space'
     },
-    standalone: true,
     imports: [NgTemplateOutlet]
 })
 export class ThySpace implements OnInit, AfterContentInit {

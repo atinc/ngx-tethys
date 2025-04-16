@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
+import { ThyFullscreenLaunchDirective, ThyFullscreenComponent } from 'ngx-tethys/fullscreen';
+import { ThyButton } from 'ngx-tethys/button';
 
 @Component({
     selector: 'thy-fullscreen-normal-example',
-    templateUrl: './normal.component.html'
+    templateUrl: './normal.component.html',
+    imports: [ThyFullscreenLaunchDirective, ThyFullscreenComponent, ThyButton]
 })
 export class ThyFullscreenNormalExampleComponent {
     btnContent = '全屏';

@@ -1,11 +1,13 @@
 import { Component, inject } from '@angular/core';
+import { ThyButton } from 'ngx-tethys/button';
 import { ThyConfirmConfig, ThyDialog } from 'ngx-tethys/dialog';
 import { of } from 'rxjs';
 import { map, delay } from 'rxjs/operators';
 
 @Component({
     selector: 'thy-dialog-confirm-example',
-    templateUrl: './confirm.component.html'
+    templateUrl: './confirm.component.html',
+    imports: [ThyButton]
 })
 export class ThyDialogConfirmExampleComponent {
     private thyDialog = inject(ThyDialog);

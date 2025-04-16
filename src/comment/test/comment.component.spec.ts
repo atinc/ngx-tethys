@@ -3,12 +3,13 @@ import { waitForAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyCommentNestExampleComponent } from './../examples/nest/nest.component';
 import { ThyCommentBasicExampleComponent } from './../examples/basic/basic.component';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('thyCommentComponent', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyCommentModule],
-            declarations: [ThyCommentBasicExampleComponent, ThyCommentNestExampleComponent]
+            providers: [provideHttpClient()]
         }).compileComponents();
     }));
 

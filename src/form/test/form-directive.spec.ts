@@ -4,22 +4,25 @@ import { ThyLayoutModule } from 'ngx-tethys/layout';
 import { ThySelectModule } from 'ngx-tethys/select';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing';
 import { keycodes } from 'ngx-tethys/util';
-
 import { CommonModule } from '@angular/common';
 import { Component, DebugElement, inject } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormBuilder, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-
-import { ThyFormSubmitDirective } from '../form-submit.directive';
-import { THY_FORM_CONFIG, ThyFormValidatorConfig } from '../form.class';
-import { ThyEnterKeyMode, ThyFormDirective } from '../form.directive';
-import { ThyFormModule } from '../module';
+import {
+    THY_FORM_CONFIG,
+    ThyFormValidatorConfig,
+    ThyFormModule,
+    ThyEnterKeyMode,
+    ThyFormDirective,
+    ThyFormSubmitDirective
+} from 'ngx-tethys/form';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'app-test-basic-form',
-    template: ` <form thyForm [thyLayout]="thyLayout"></form> `
+    template: ` <form thyForm [thyLayout]="thyLayout"></form> `,
+    imports: [ThyFormDirective, ThyLayoutModule, FormsModule]
 })
 export class TestFormBasicDirectiveComponent {
     thyLayout = '';
@@ -63,7 +66,8 @@ export class TestFormBasicDirectiveComponent {
                 </thy-form-group-footer>
             </form>
         }
-    `
+    `,
+    imports: [CommonModule, FormsModule, ThyFormModule, ThyLayoutModule, ThyButtonModule, ThyInputModule]
 })
 export class TestFormFullComponent {
     model = {
@@ -135,7 +139,17 @@ export class TestFormFullComponent {
                 </thy-form-group-footer>
             </form>
         }
-    `
+    `,
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ThyFormModule,
+        ThyLayoutModule,
+        ThyButtonModule,
+        ThyInputModule,
+        ThySelectModule
+    ]
 })
 export class TestFormReactiveComponent {
     private formBuilder = inject(FormBuilder);
@@ -173,8 +187,7 @@ describe('form basic directive', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [TestFormBasicDirectiveComponent],
-            imports: [ThyFormModule, FormsModule, ThyLayoutModule],
+            imports: [ThyFormModule],
             providers: [provideHttpClient()]
         });
 
@@ -215,8 +228,7 @@ describe('form directive global config', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyFormModule, FormsModule, ThyLayoutModule],
-            declarations: [TestFormBasicDirectiveComponent],
+            imports: [ThyFormModule],
             providers: [
                 provideHttpClient(),
                 {
@@ -298,8 +310,6 @@ describe('form validate', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [TestFormFullComponent],
-            imports: [CommonModule, FormsModule, ThyFormModule, ThyLayoutModule, ThyButtonModule, ThyInputModule],
             providers: [provideHttpClient()]
         });
 
@@ -589,17 +599,6 @@ describe('reactive form validate', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [TestFormReactiveComponent],
-            imports: [
-                CommonModule,
-                FormsModule,
-                ReactiveFormsModule,
-                ThyFormModule,
-                ThyLayoutModule,
-                ThyButtonModule,
-                ThyInputModule,
-                ThySelectModule
-            ],
             providers: [provideHttpClient()]
         });
 
@@ -756,7 +755,8 @@ describe('reactive form validate', () => {
                 <button [thyButton]="'primary'" thyLoadingText="确定">登录</button>
             </thy-form-group-footer>
         </form>
-    `
+    `,
+    imports: [CommonModule, FormsModule, ThyFormModule, ThyLayoutModule, ThyButtonModule, ThyInputModule]
 })
 export class TestNoFormSubmitComponent {}
 
@@ -767,10 +767,9 @@ describe(`enter keydown`, () => {
     let formDirective: ThyFormDirective;
     let formElement: HTMLElement;
     let formSubmitDebugElement: DebugElement;
+
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [TestNoFormSubmitComponent],
-            imports: [CommonModule, FormsModule, ThyFormModule, ThyLayoutModule, ThyButtonModule, ThyInputModule],
             providers: [provideHttpClient()]
         });
 

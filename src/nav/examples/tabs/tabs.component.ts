@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { ThyNav, ThyNavItemDirective } from 'ngx-tethys/nav';
 
 @Component({
     selector: 'thy-nav-tabs-example',
     templateUrl: './tabs.component.html',
-    styleUrls: ['./tabs.component.scss']
+    styleUrls: ['./tabs.component.scss'],
+    imports: [ThyNav, ThyNavItemDirective]
 })
 export class ThyNavTabsExampleComponent implements OnInit {
     public activeIndex = 0;

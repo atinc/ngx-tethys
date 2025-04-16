@@ -2,7 +2,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import {
     ThyTableColumnSkeletonType,
     ThyTableModule,
@@ -45,7 +45,8 @@ const defaultColumns = [
         [thyColumns]="columns"
         [thyHeadless]="headless"
         [thyMinWidth]="minWidth">
-    </thy-table-skeleton>`
+    </thy-table-skeleton>`,
+    imports: [ThyTableModule]
 })
 class TestTableSkeletonBasicComponent {
     rowCount: number;
@@ -71,9 +72,8 @@ describe('thy-table-skeleton', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [TestTableSkeletonBasicComponent],
-            imports: [ThyTableModule, BrowserAnimationsModule],
-            providers: [provideHttpClient()]
+            imports: [ThyTableModule],
+            providers: [provideHttpClient(), provideAnimations()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestTableSkeletonBasicComponent);

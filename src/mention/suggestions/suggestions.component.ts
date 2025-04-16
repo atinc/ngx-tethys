@@ -17,7 +17,6 @@ import { NgTemplateOutlet, SlicePipe } from '@angular/common';
 @Component({
     selector: 'thy-mention-suggestions',
     templateUrl: './suggestions.component.html',
-    standalone: true,
     imports: [NgTemplateOutlet, ThyLoading, ThySelectionList, ThyListOption, SlicePipe]
 })
 export class ThyMentionSuggestions<TItem = MentionDefaultDataItem> implements OnInit, OnDestroy {

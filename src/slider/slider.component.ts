@@ -47,7 +47,6 @@ export type ThySliderSize = 'sm' | 'md' | 'lg';
     host: {
         '[attr.tabindex]': `tabIndex`
     },
-    standalone: true,
     imports: [NgStyle]
 })
 export class ThySlider

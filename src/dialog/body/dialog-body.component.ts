@@ -13,7 +13,6 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     template: '<ng-content></ng-content>',
     // changeDetection: ChangeDetectionStrategy.OnPush,
     exportAs: 'thyDialogBody',
-    standalone: true,
     hostDirectives: [CdkScrollable]
 })
 export class ThyDialogBody implements OnInit {

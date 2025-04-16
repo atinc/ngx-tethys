@@ -1,4 +1,4 @@
-import { CdkConnectedOverlay, CdkOverlayOrigin } from '@angular/cdk/overlay';
+import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair } from '@angular/cdk/overlay';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import {
     AfterViewInit,
@@ -45,7 +45,6 @@ export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
         '[class.thy-time-picker-disabled]': `disabled`,
         '[class.thy-time-picker-readonly]': `thyReadonly`
     },
-    standalone: true,
     imports: [CdkOverlayOrigin, ThyInputDirective, FormsModule, NgTemplateOutlet, ThyIcon, NgClass, CdkConnectedOverlay, ThyTimePanel],
     animations: [scaleXMotion, scaleYMotion, scaleMotion]
 })
@@ -163,7 +162,7 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
 
     prefixCls = 'thy-time-picker';
 
-    overlayPositions = getFlexiblePositions(this.thyPlacement, 4);
+    overlayPositions: ConnectionPositionPair[] = getFlexiblePositions(this.thyPlacement, 4);
 
     format: string = 'HH:mm:ss';
 

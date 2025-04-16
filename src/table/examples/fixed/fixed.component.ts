@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { ThyTable, ThyTableColumnComponent } from 'ngx-tethys/table';
+import { ThyIcon } from 'ngx-tethys/icon';
 
 @Component({
     selector: 'thy-table-fixed-example',
-    templateUrl: './fixed.component.html'
+    templateUrl: './fixed.component.html',
+    imports: [ThyTable, ThyTableColumnComponent, ThyIcon]
 })
 export class ThyTableFixedExampleComponent implements OnInit {
     data = [

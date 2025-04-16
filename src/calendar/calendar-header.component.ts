@@ -16,13 +16,12 @@ import { injectLocale, ThyCalendarLocale } from 'ngx-tethys/i18n';
 @Component({
     selector: 'thy-calendar-header',
     templateUrl: './calendar-header.component.html',
-    standalone: true,
     imports: [ThyDateRange, FormsModule, ThyButton, NgTemplateOutlet, JsonPipe]
 })
 export class ThyCalendarHeader implements OnInit {
     private cdr = inject(ChangeDetectorRef);
     private dateHelper = inject(DateHelperService);
-    private locale: Signal<ThyCalendarLocale> = injectLocale('calendar');
+    public locale: Signal<ThyCalendarLocale> = injectLocale('calendar');
 
     @HostBinding('class.thy-calendar-full-header-container') className = true;
 

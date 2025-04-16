@@ -12,7 +12,6 @@ import { NgClass } from '@angular/common';
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'year-table',
     templateUrl: 'year-table.component.html',
-    standalone: true,
     imports: [NgClass]
 })
 export class YearTable extends CalendarTable implements OnChanges {

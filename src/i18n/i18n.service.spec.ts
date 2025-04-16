@@ -13,9 +13,7 @@ import {
     zhHansLocale
 } from 'ngx-tethys/i18n';
 
-@Component({
-    template: 'thy-i18n-test'
-})
+@Component({ template: 'thy-i18n-test' })
 export class ThyI18nTestComponent {
     i18n = inject(ThyI18nService);
 
@@ -32,9 +30,8 @@ describe('I18n', () => {
 
     describe('ThyI18nService', () => {
         beforeEach(() => {
-            TestBed.configureTestingModule({
-                declarations: [ThyI18nTestComponent]
-            }).compileComponents();
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
         });
 
         beforeEach(() => {
@@ -60,7 +57,6 @@ describe('I18n', () => {
     describe('global configure', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
-                declarations: [ThyI18nTestComponent],
                 providers: [
                     {
                         provide: THY_I18N_LOCALE_ID,

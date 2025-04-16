@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ThySkeletonParagraph } from 'ngx-tethys/skeleton';
 
 @Component({
     selector: 'thy-skeleton-example-paragraph',
@@ -15,7 +16,8 @@ import { Component, OnInit } from '@angular/core';
             [thyAnimatedInterval]="model.thyAnimatedInterval"
             [thyAnimated]="model.thyAnimated">
         </thy-skeleton-paragraph>
-    `
+    `,
+    imports: [ThySkeletonParagraph]
 })
 export class ThySkeletonExampleParagraphComponent implements OnInit {
     model = {

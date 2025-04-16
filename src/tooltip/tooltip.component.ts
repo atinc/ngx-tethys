@@ -30,7 +30,6 @@ import { NgTemplateOutlet } from '@angular/common';
         '(@state.start)': 'animationStart()',
         '(@state.done)': 'animationDone($event)'
     },
-    standalone: true,
     imports: [NgTemplateOutlet]
 })
 export class ThyTooltip implements OnInit {

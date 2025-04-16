@@ -57,7 +57,6 @@ export interface ThyAutocompleteActivatedEvent {
             useExisting: ThyAutocomplete
         }
     ],
-    standalone: true,
     imports: [ThyStopPropagationDirective, NgClass, ThyEmpty]
 })
 export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, AfterContentInit, OnDestroy {

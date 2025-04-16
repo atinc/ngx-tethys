@@ -3,11 +3,13 @@ import { setDefaultErrorHandler, actionBehavior } from '@tethys/cdk/behaviors';
 import { of, Observable } from 'rxjs';
 import { delay, tap } from 'rxjs/operators';
 import { ThyNotifyService } from 'ngx-tethys/notify';
+import { ThyButton } from 'ngx-tethys/button';
 
 @Component({
     selector: 'thy-behaviors-action',
     templateUrl: './action.component.html',
-    styleUrls: ['./action.component.scss']
+    styleUrls: ['./action.component.scss'],
+    imports: [ThyButton]
 })
 export class ThyBehaviorsActionComponent implements OnInit {
     addBehavior = actionBehavior((obj: { name: string }) => {

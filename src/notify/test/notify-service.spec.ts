@@ -1,15 +1,13 @@
 import { Component, OnInit, TemplateRef, ViewChild, inject as coreInject } from '@angular/core';
-import { TestBed, ComponentFixture, fakeAsync, flush, inject, tick, discardPeriodicTasks } from '@angular/core/testing';
-import { ThyNotifyModule } from '../module';
-import { ThyNotifyService } from '../notify.service';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ThyNotifyConfig, THY_NOTIFY_DEFAULT_CONFIG } from '../notify.config';
+import { TestBed, ComponentFixture, fakeAsync, flush, inject, tick } from '@angular/core/testing';
+import { ThyNotifyModule, ThyNotifyService } from 'ngx-tethys/notify';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { ThyNotifyConfig, THY_NOTIFY_DEFAULT_CONFIG } from 'ngx-tethys/notify';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyNotifyContentExampleComponent } from '../examples/custom-content/content.component';
 import { provideHttpClient } from '@angular/common/http';
 
-//#region test component
 const DEFAULT_DURATION_TIME = 4500;
 
 @Component({
@@ -24,7 +22,8 @@ const DEFAULT_DURATION_TIME = 4500;
         <ng-template #content>
             <div class="custom-content-template">Custom Content....</div>
         </ng-template>
-    `
+    `,
+    imports: [ThyNotifyModule]
 })
 export class ThyNotifyBasicComponent implements OnInit {
     private notifyService = coreInject(ThyNotifyService);
@@ -44,7 +43,6 @@ export class ThyNotifyBasicComponent implements OnInit {
     }
 
     closeNotify() {
-        // create notify with id is close
         this.notifyService.remove('close');
     }
 }
@@ -54,9 +52,8 @@ describe('ThyNotify', () => {
     let overlayContainerElement: HTMLElement;
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyNotifyModule, NoopAnimationsModule],
-            declarations: [ThyNotifyBasicComponent],
-            providers: [provideHttpClient()]
+            imports: [ThyNotifyModule],
+            providers: [provideHttpClient(), provideNoopAnimations()]
         });
         inject([OverlayContainer], (oc: OverlayContainer) => {
             overlayContainer = oc;
@@ -197,7 +194,7 @@ describe('ThyNotify', () => {
             tick(DEFAULT_DURATION_TIME);
             fixture.detectChanges();
             flush();
-            expect(notify.style.opacity === '0').toBe(true);
+            expect(notify.style.opacity).toBe('');
         }));
 
         it('should not auto disappear when duration is 0', fakeAsync(() => {
@@ -364,7 +361,7 @@ describe('ThyNotify', () => {
             fixture.detectChanges();
             flush();
             const notify: HTMLElement = notifyContainer.querySelector('.thy-notify');
-            expect(notify.style.opacity).toBe('0');
+            expect(notify).toBeFalsy();
             fixture.detectChanges();
             flush();
         }));
@@ -414,10 +411,9 @@ describe('ThyNotify', () => {
 describe('ThyNotify with provider', () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
+
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyNotifyModule, NoopAnimationsModule],
-            declarations: [ThyNotifyBasicComponent],
             providers: [
                 {
                     provide: THY_NOTIFY_DEFAULT_CONFIG,
@@ -425,7 +421,9 @@ describe('ThyNotify with provider', () => {
                         placement: 'bottomLeft',
                         duration: DEFAULT_DURATION_TIME
                     }
-                }
+                },
+                provideNoopAnimations(),
+                provideHttpClient()
             ]
         });
         inject([OverlayContainer], (oc: OverlayContainer) => {
@@ -452,7 +450,6 @@ describe('ThyNotify with provider', () => {
         }));
 
         it('should has thy-notify-bottomLeft', fakeAsync(() => {
-            // or can test config with invoke function
             componentInstance.option = {
                 title: 'ngx tethys notify'
             };

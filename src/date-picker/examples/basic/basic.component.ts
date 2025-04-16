@@ -1,16 +1,39 @@
 import { Component, OnInit } from '@angular/core';
-import { DateEntry, ThyDateRangeEntry } from 'ngx-tethys/date-picker';
+import { FormsModule } from '@angular/forms';
+import {
+    DateEntry,
+    ThyDatePicker,
+    ThyDatePickerFormatStringPipe,
+    ThyDateRangeEntry,
+    ThyMonthPicker,
+    ThyQuarterPicker,
+    ThyYearPicker,
+    ThyRangePicker
+} from 'ngx-tethys/date-picker';
+import { ThyFormGroup } from 'ngx-tethys/form';
 import { endOfDay, startOfDay, subWeeks, TinyDate } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-date-picker-basic-example',
-    templateUrl: './basic.component.html'
+    templateUrl: './basic.component.html',
+    imports: [
+        ThyFormGroup,
+        ThyDatePicker,
+        FormsModule,
+        ThyMonthPicker,
+        ThyYearPicker,
+        ThyQuarterPicker,
+        ThyRangePicker,
+        ThyDatePickerFormatStringPipe
+    ]
 })
 export class ThyDatePickerBasicExampleComponent implements OnInit {
     dateShowTime = {
         date: 0,
         with_time: 1
     } as DateEntry;
+
+    tz = 'Asia/Seoul';
 
     date = { date: new TinyDate().getTime(), with_time: 0 };
 

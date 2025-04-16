@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { ThyHotkeyModule } from '../module';
+import { ThyHotkeyModule } from '@tethys/cdk';
 import { createKeyboardEvent } from '@tethys/cdk/testing';
 
 @Component({
@@ -17,7 +17,8 @@ import { createKeyboardEvent } from '@tethys/cdk/testing';
             thyButton="primary"
             thySize="sm"
             (click)="save()"></button>
-    `
+    `,
+    imports: [ThyHotkeyModule]
 })
 class ThyHotkeyDirectiveTestComponent {
     @ViewChild('input') input: ElementRef<HTMLInputElement>;
@@ -34,7 +35,7 @@ describe('ThyHotkeyDirective', () => {
     let component: ThyHotkeyDirectiveTestComponent;
 
     beforeEach(() => {
-        TestBed.configureTestingModule({ imports: [ThyHotkeyModule], declarations: [ThyHotkeyDirectiveTestComponent] });
+        TestBed.configureTestingModule({});
         TestBed.compileComponents();
     });
 

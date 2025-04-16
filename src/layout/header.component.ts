@@ -17,8 +17,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
         '[class.thy-layout-header-xlg]': `thySize === 'xlg'`,
         '[class.thy-layout-header-shadow]': `thyShadow`,
         '[class.thy-layout-header-divided]': `divided`
-    },
-    standalone: true
+    }
 })
 export class ThyHeaderDirective {
     /**
@@ -69,8 +68,7 @@ export class ThyHeaderDirective {
             inputs: ['thySize', 'thyShadow', 'thyHasBorder', 'thyDivided']
         }
     ],
-    standalone: true,
-    imports: [NgTemplateOutlet, ThyIcon, NgClass, ThyHeaderDirective]
+    imports: [NgTemplateOutlet, ThyIcon, NgClass]
 })
 export class ThyHeader {
     public iconClass: string;

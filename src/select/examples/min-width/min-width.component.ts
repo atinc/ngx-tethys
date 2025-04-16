@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { listOfOption } from '../mock-data';
 import { THY_SELECT_CONFIG } from 'ngx-tethys/select';
+import { ThySelect } from 'ngx-tethys/select';
+import { ThyOption } from 'ngx-tethys/shared';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'thy-select-min-width-example',
@@ -26,7 +29,8 @@ import { THY_SELECT_CONFIG } from 'ngx-tethys/select';
                 dropdownWidthMode: 'min-width'
             }
         }
-    ]
+    ],
+    imports: [ThySelect, ThyOption, FormsModule]
 })
 export class ThySelectMinWidthExampleComponent {
     listOfOption = listOfOption;

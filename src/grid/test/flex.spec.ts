@@ -1,7 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ThyGridModule } from '../module';
-import { ThyFlexAlignItems, ThyFlexDirection, ThyFlexGrow, ThyFlexJustifyContent, ThyFlexShrink, ThyFlexWrap } from '../flex';
+import {
+    ThyGridModule,
+    ThyFlexAlignItems,
+    ThyFlexDirection,
+    ThyFlexGrow,
+    ThyFlexJustifyContent,
+    ThyFlexShrink,
+    ThyFlexWrap
+} from 'ngx-tethys/grid';
 import { By } from '@angular/platform-browser';
 
 @Component({
@@ -24,8 +31,7 @@ import { By } from '@angular/platform-browser';
             <thy-flex-item thyGrow="1" id="flex-component-item-1"><div class="blue">Item 1</div></thy-flex-item>
         </thy-flex>
     `,
-    imports: [ThyGridModule],
-    standalone: true
+    imports: [ThyGridModule]
 })
 class FlexTestComponent implements OnInit {
     direction: ThyFlexDirection;
@@ -48,10 +54,8 @@ describe('flex', () => {
     let fixture: ComponentFixture<FlexTestComponent>;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
-            declarations: [],
-            providers: []
-        }).compileComponents();
+        TestBed.configureTestingModule({});
+        TestBed.compileComponents();
     }));
 
     beforeEach(() => {

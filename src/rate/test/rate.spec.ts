@@ -1,24 +1,26 @@
-import { Component, DebugElement, TemplateRef, ViewChild, QueryList } from '@angular/core';
+import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ComponentFixture, TestBed, fakeAsync, tick, flush, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyRateModule } from '../module';
-import { ThyRate } from '../rate.component';
+import { ThyRateModule, ThyRate } from 'ngx-tethys/rate';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
 import { ThyRateTemplateExampleComponent } from '../examples/template/template.component';
 import { provideHttpClient } from '@angular/common/http';
 
-// 基础
 @Component({
     selector: 'thy-rate-basic-test',
-    template: ` <thy-rate [(ngModel)]="value" (ngModelChange)="modelChange($event)" (thyItemHoverChange)="hoverChange($event)"></thy-rate> `
+    template: `
+        <thy-rate [(ngModel)]="value" (ngModelChange)="modelChange($event)" (thyItemHoverChange)="hoverChange($event)"></thy-rate>
+    `,
+    imports: [ThyRateModule, FormsModule]
 })
 class RateBasicTestComponent {
     value = 0;
     modelChange = jasmine.createSpy('model change callback');
     hoverChange = jasmine.createSpy('item hover change callback');
 }
+
 describe('Rate basic component', () => {
     let fixture: ComponentFixture<RateBasicTestComponent>;
     let testRateBasicComponent: RateBasicTestComponent;
@@ -27,8 +29,7 @@ describe('Rate basic component', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyRateModule, FormsModule],
-            declarations: [RateBasicTestComponent],
+            imports: [ThyRateModule],
             providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
@@ -110,12 +111,14 @@ describe('Rate basic component', () => {
 // 数量
 @Component({
     selector: 'thy-rate-count-test',
-    template: ` <thy-rate [(ngModel)]="value" [thyCount]="count"></thy-rate> `
+    template: ` <thy-rate [(ngModel)]="value" [thyCount]="count"></thy-rate> `,
+    imports: [ThyRateModule, FormsModule]
 })
 class RateCountTestComponent {
     value = 1;
     count = 1;
 }
+
 describe('Rate count component', () => {
     let fixture: ComponentFixture<RateCountTestComponent>;
     let testRateCountComponent: RateCountTestComponent;
@@ -124,8 +127,7 @@ describe('Rate count component', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyRateModule, FormsModule],
-            declarations: [RateCountTestComponent],
+            imports: [ThyRateModule],
             providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
@@ -156,13 +158,15 @@ describe('Rate count component', () => {
 // 半选
 @Component({
     selector: 'thy-rate-half-test',
-    template: ` <thy-rate [(ngModel)]="value" [thyAllowHalf]="allowHalf" (thyItemHoverChange)="hoverChange($event)"></thy-rate> `
+    template: ` <thy-rate [(ngModel)]="value" [thyAllowHalf]="allowHalf" (thyItemHoverChange)="hoverChange($event)"></thy-rate> `,
+    imports: [ThyRateModule, FormsModule]
 })
 class RateHalfTestComponent {
     value = 1;
     allowHalf = false;
     hoverChange = jasmine.createSpy('item hover change callback');
 }
+
 describe('Rate half component', () => {
     let fixture: ComponentFixture<RateHalfTestComponent>;
     let testRateHalfComponent: RateHalfTestComponent;
@@ -171,8 +175,7 @@ describe('Rate half component', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyRateModule, FormsModule],
-            declarations: [RateHalfTestComponent],
+            imports: [ThyRateModule],
             providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
@@ -227,13 +230,15 @@ describe('Rate half component', () => {
 // 清除
 @Component({
     selector: 'thy-rate-clear-test',
-    template: ` <thy-rate [(ngModel)]="value" [thyAllowClear]="allowClear" (ngModelChange)="modelChange($event)"></thy-rate> `
+    template: ` <thy-rate [(ngModel)]="value" [thyAllowClear]="allowClear" (ngModelChange)="modelChange($event)"></thy-rate> `,
+    imports: [ThyRateModule, FormsModule]
 })
 class RateClearTestComponent {
     value = 2;
     allowClear = false;
     modelChange = jasmine.createSpy('model change callback');
 }
+
 describe('Rate clear component', () => {
     let fixture: ComponentFixture<RateClearTestComponent>;
     let testRateClearComponent: RateClearTestComponent;
@@ -242,8 +247,7 @@ describe('Rate clear component', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyRateModule, FormsModule],
-            declarations: [RateClearTestComponent],
+            imports: [ThyRateModule],
             providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
@@ -287,7 +291,6 @@ describe('Rate clear component', () => {
     }));
 });
 
-// 只读
 @Component({
     selector: 'thy-rate-disabled-test',
     template: `
@@ -296,7 +299,8 @@ describe('Rate clear component', () => {
             [thyDisabled]="disabled"
             (ngModelChange)="modelChange($event)"
             (thyItemHoverChange)="hoverChange($event)"></thy-rate>
-    `
+    `,
+    imports: [ThyRateModule, FormsModule]
 })
 class RateDisabledTestComponent {
     value = 1;
@@ -304,6 +308,7 @@ class RateDisabledTestComponent {
     modelChange = jasmine.createSpy('model change callback');
     hoverChange = jasmine.createSpy('item hover change callback');
 }
+
 describe('Rate disabled component', () => {
     let fixture: ComponentFixture<RateDisabledTestComponent>;
     let testRateDisabledComponent: RateDisabledTestComponent;
@@ -312,8 +317,7 @@ describe('Rate disabled component', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyRateModule, FormsModule],
-            declarations: [RateDisabledTestComponent],
+            imports: [ThyRateModule],
             providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
@@ -363,7 +367,8 @@ describe('Rate disabled component', () => {
 // 自定义提示信息
 @Component({
     selector: 'thy-rate-tooltip-test',
-    template: ` <thy-rate [(ngModel)]="value" [thyTooltips]="tooltips" (ngModelChange)="modelChange($event)"></thy-rate> `
+    template: ` <thy-rate [(ngModel)]="value" [thyTooltips]="tooltips" (ngModelChange)="modelChange($event)"></thy-rate> `,
+    imports: [ThyRateModule, FormsModule]
 })
 class RateTooltipTestComponent {
     @ViewChild(ThyTooltipDirective, { static: true }) tooltip: ThyTooltipDirective;
@@ -371,6 +376,7 @@ class RateTooltipTestComponent {
     tooltips = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
     modelChange = jasmine.createSpy('model change callback');
 }
+
 describe('Rate tooltip component', () => {
     let fixture: ComponentFixture<RateTooltipTestComponent>;
     let testRateTooltipComponent: RateTooltipTestComponent;
@@ -379,8 +385,7 @@ describe('Rate tooltip component', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyRateModule, FormsModule],
-            declarations: [RateTooltipTestComponent],
+            imports: [ThyRateModule],
             providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
@@ -420,7 +425,8 @@ describe('Rate tooltip component', () => {
         <ng-template #icon3>所</ng-template>
         <ng-template #icon4>欲</ng-template>
         <ng-template #icon5>赞</ng-template>
-    `
+    `,
+    imports: [ThyRateModule, FormsModule]
 })
 class RateTemplateTestComponent {
     value = 1;
@@ -439,6 +445,7 @@ class RateTemplateTestComponent {
 
     @ViewChild('icon5') icon5: TemplateRef<any>;
 }
+
 describe('Rate template component', () => {
     let fixture: ComponentFixture<RateTemplateTestComponent>;
     let testRateTemplateComponent: RateTemplateTestComponent;
@@ -448,8 +455,7 @@ describe('Rate template component', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyRateModule, FormsModule],
-            declarations: [RateTemplateTestComponent, ThyRateTemplateExampleComponent],
+            imports: [ThyRateModule],
             providers: [provideHttpClient()]
         });
         TestBed.compileComponents();

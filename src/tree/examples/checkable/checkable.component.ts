@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { ThyTreeNode, ThyTreeNodeCheckState } from 'ngx-tethys/tree';
+import { ThyTree, ThyTreeNode, ThyTreeNodeCheckState } from 'ngx-tethys/tree';
 import { treeNodes } from '../mocks';
 
 @Component({
     selector: 'thy-tree-checkable-example',
-    templateUrl: './checkable.component.html'
+    templateUrl: './checkable.component.html',
+    imports: [ThyTree]
 })
 export class ThyTreeCheckableExampleComponent {
     treeNodes = treeNodes;

@@ -2,15 +2,15 @@ import { ApplicationRef, Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { dispatchEvent, dispatchFakeEvent } from 'ngx-tethys/testing';
-
-import { ThySharedModule } from '../shared.module';
+import { ThySharedModule } from 'ngx-tethys/shared';
 
 @Component({
     template: `
         <div class="parent-container" (click)="parentClick()">
             <div class="child-container" thyStopPropagation></div>
         </div>
-    `
+    `,
+    imports: [ThySharedModule]
 })
 class ThyStopPropagationDirectiveTrueViewComponent {
     parentClick = jasmine.createSpy('thyStopPropagation callback');
@@ -21,7 +21,8 @@ class ThyStopPropagationDirectiveTrueViewComponent {
         <div class="parent-container" (click)="parentClick()">
             <div class="child-container" [thyStopPropagation]></div>
         </div>
-    `
+    `,
+    imports: [ThySharedModule]
 })
 class ThyStopPropagationDirectiveTrueComponent {
     parentClick = jasmine.createSpy('thyStopPropagation callback');
@@ -32,7 +33,8 @@ class ThyStopPropagationDirectiveTrueComponent {
         <div class="parent-container" (click)="parentClick()">
             <div class="child-container" [thyStopPropagation]="true"></div>
         </div>
-    `
+    `,
+    imports: [ThySharedModule]
 })
 class ThyStopPropagationDirectiveBooleanTrueComponent {
     parentClick = jasmine.createSpy('thyStopPropagation callback');
@@ -43,7 +45,8 @@ class ThyStopPropagationDirectiveBooleanTrueComponent {
         <div class="parent-container" (click)="parentClick()">
             <div class="child-container" [thyStopPropagation]="'true'"></div>
         </div>
-    `
+    `,
+    imports: [ThySharedModule]
 })
 class ThyStopPropagationDirectiveStringTrueComponent {
     parentClick = jasmine.createSpy('thyStopPropagation callback');
@@ -54,7 +57,8 @@ class ThyStopPropagationDirectiveStringTrueComponent {
         <div class="parent-container" (click)="parentClick()">
             <div class="child-container" [thyStopPropagation]="false"></div>
         </div>
-    `
+    `,
+    imports: [ThySharedModule]
 })
 class ThyStopPropagationDirectiveFalseComponent {
     parentClick = jasmine.createSpy('thyStopPropagation callback');
@@ -65,7 +69,8 @@ class ThyStopPropagationDirectiveFalseComponent {
         <div class="parent-container" (click)="parentClick()">
             <div class="child-container" thyStopPropagation="false"></div>
         </div>
-    `
+    `,
+    imports: [ThySharedModule]
 })
 class ThyStopPropagationDirectiveFalseViewComponent {
     parentClick = jasmine.createSpy('thyStopPropagation callback');
@@ -76,7 +81,8 @@ class ThyStopPropagationDirectiveFalseViewComponent {
         <div class="parent-container" (click)="parentClick()">
             <div class="child-container" [thyStopPropagation]="'hover'"></div>
         </div>
-    `
+    `,
+    imports: [ThySharedModule]
 })
 class ThyStopPropagationDirectiveEventComponent {
     parentClick = jasmine.createSpy('thyStopPropagation callback');
@@ -87,7 +93,8 @@ class ThyStopPropagationDirectiveEventComponent {
         <div class="parent-container" (click)="parentClick()" (mouseover)="parentMouseOver()">
             <div class="child-container" [thyStopPropagation]="'mouseover'"></div>
         </div>
-    `
+    `,
+    imports: [ThySharedModule]
 })
 class ThyStopPropagationDirectiveValueIsEventNameComponent {
     parentClick = jasmine.createSpy('thyStopPropagation click callback');
@@ -99,7 +106,8 @@ class ThyStopPropagationDirectiveValueIsEventNameComponent {
         <div class="parent-container" (click)="parentClick()">
             <div class="child-container" [thyStopPropagation]="isStopPropagation"></div>
         </div>
-    `
+    `,
+    imports: [ThySharedModule]
 })
 class ThyStopPropagationDirectiveValueIsUndefinedComponent {
     isStopPropagation: string | boolean;
@@ -111,7 +119,8 @@ class ThyStopPropagationDirectiveValueIsUndefinedComponent {
         <div class="parent-container" (click)="parentClick()" (mouseover)="parentMouseover()">
             <div class="child-container" [thyStopPropagation]="stopPropagation"></div>
         </div>
-    `
+    `,
+    imports: [ThySharedModule]
 })
 class ThyStopPropagationDirectiveWithDynamicBindingComponent {
     stopPropagation: string | boolean;
@@ -126,10 +135,8 @@ describe('thy-stop-propagation', () => {
         let childElement: DebugElement;
 
         beforeEach(() => {
-            TestBed.configureTestingModule({
-                imports: [ThySharedModule],
-                declarations: [ThyStopPropagationDirectiveTrueViewComponent]
-            }).compileComponents();
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
         });
 
         beforeEach(() => {
@@ -152,10 +159,8 @@ describe('thy-stop-propagation', () => {
         let childElement: DebugElement;
 
         beforeEach(() => {
-            TestBed.configureTestingModule({
-                imports: [ThySharedModule],
-                declarations: [ThyStopPropagationDirectiveTrueComponent]
-            }).compileComponents();
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
         });
 
         beforeEach(() => {
@@ -178,10 +183,8 @@ describe('thy-stop-propagation', () => {
         let childElement: DebugElement;
 
         beforeEach(() => {
-            TestBed.configureTestingModule({
-                imports: [ThySharedModule],
-                declarations: [ThyStopPropagationDirectiveStringTrueComponent]
-            }).compileComponents();
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
         });
 
         beforeEach(() => {
@@ -204,10 +207,8 @@ describe('thy-stop-propagation', () => {
         let childElement: DebugElement;
 
         beforeEach(() => {
-            TestBed.configureTestingModule({
-                imports: [ThySharedModule],
-                declarations: [ThyStopPropagationDirectiveBooleanTrueComponent]
-            }).compileComponents();
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
         });
 
         beforeEach(() => {
@@ -230,10 +231,8 @@ describe('thy-stop-propagation', () => {
         let childElement: DebugElement;
 
         beforeEach(() => {
-            TestBed.configureTestingModule({
-                imports: [ThySharedModule],
-                declarations: [ThyStopPropagationDirectiveFalseComponent]
-            }).compileComponents();
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
         });
 
         beforeEach(() => {
@@ -256,10 +255,8 @@ describe('thy-stop-propagation', () => {
         let childElement: DebugElement;
 
         beforeEach(() => {
-            TestBed.configureTestingModule({
-                imports: [ThySharedModule],
-                declarations: [ThyStopPropagationDirectiveFalseViewComponent]
-            }).compileComponents();
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
         });
 
         beforeEach(() => {
@@ -282,10 +279,8 @@ describe('thy-stop-propagation', () => {
         let childElement: DebugElement;
 
         beforeEach(() => {
-            TestBed.configureTestingModule({
-                imports: [ThySharedModule],
-                declarations: [ThyStopPropagationDirectiveEventComponent]
-            }).compileComponents();
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
         });
 
         beforeEach(() => {
@@ -308,10 +303,8 @@ describe('thy-stop-propagation', () => {
         let childElement: DebugElement;
 
         beforeEach(() => {
-            TestBed.configureTestingModule({
-                imports: [ThySharedModule],
-                declarations: [ThyStopPropagationDirectiveValueIsEventNameComponent]
-            }).compileComponents();
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
         });
 
         beforeEach(() => {
@@ -340,10 +333,8 @@ describe('thy-stop-propagation', () => {
         let childElement: DebugElement;
 
         beforeEach(() => {
-            TestBed.configureTestingModule({
-                imports: [ThySharedModule],
-                declarations: [ThyStopPropagationDirectiveValueIsUndefinedComponent]
-            }).compileComponents();
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
         });
 
         beforeEach(() => {
@@ -366,10 +357,8 @@ describe('thy-stop-propagation', () => {
         let childElement: DebugElement;
 
         beforeEach(() => {
-            TestBed.configureTestingModule({
-                imports: [ThySharedModule],
-                declarations: [ThyStopPropagationDirectiveWithDynamicBindingComponent]
-            }).compileComponents();
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
         });
 
         beforeEach(() => {

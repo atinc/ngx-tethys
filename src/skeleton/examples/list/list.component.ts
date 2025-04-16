@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ThySkeletonList } from 'ngx-tethys/skeleton';
 
 @Component({
     selector: 'thy-skeleton-example-list',
@@ -13,7 +14,8 @@ import { Component, OnInit } from '@angular/core';
             [thyAnimated]="model.thyAnimated"
             [thyRowCount]="model.thyRowCount">
         </thy-skeleton-list>
-    `
+    `,
+    imports: [ThySkeletonList]
 })
 export class ThySkeletonExampleListComponent implements OnInit {
     model = {

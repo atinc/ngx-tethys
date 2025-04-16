@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
-import { ThyDragOverEvent, ThyDragStartEvent, ThyDropPosition } from 'ngx-tethys/drag-drop';
+import { ThyDragDirective, ThyDragOverEvent, ThyDragStartEvent, ThyDropContainerDirective, ThyDropPosition } from 'ngx-tethys/drag-drop';
+import { NgTemplateOutlet } from '@angular/common';
 
 const nodes = [
     {
@@ -66,7 +67,8 @@ interface DragDropNode {
 @Component({
     selector: 'thy-drag-drop-tree-drag-example',
     templateUrl: './tree-drag.component.html',
-    styleUrls: ['./tree-drag.component.scss']
+    styleUrls: ['./tree-drag.component.scss'],
+    imports: [ThyDropContainerDirective, ThyDragDirective, NgTemplateOutlet]
 })
 export class ThyDragDropTreeDragExampleComponent implements OnInit {
     nodes = nodes;

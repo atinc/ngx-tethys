@@ -9,8 +9,7 @@ import { ChangeDetectionStrategy, Component, Directive } from '@angular/core';
     selector: '[thyContent]:not(thy-badge):not([thyBadge])',
     host: {
         class: 'thy-layout-content'
-    },
-    standalone: true
+    }
 })
 export class ThyContentDirective {}
 
@@ -24,7 +23,6 @@ export class ThyContentDirective {}
     preserveWhitespaces: false,
     template: ` <ng-content></ng-content> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    hostDirectives: [ThyContentDirective],
-    standalone: true
+    hostDirectives: [ThyContentDirective]
 })
 export class ThyContent {}

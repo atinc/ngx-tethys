@@ -1,12 +1,10 @@
 import { Component, DebugElement, ElementRef, ViewChild } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { ThyEmpty, ThyEmptyImageFetchPriority, ThyEmptyImageLoading } from '../empty.component';
-import { ThyEmptyConfig } from '../empty.config';
-import { ThyEmptyModule } from '../empty.module';
+import { ThyEmpty, ThyEmptyImageFetchPriority, ThyEmptyImageLoading } from 'ngx-tethys/empty';
+import { ThyEmptyConfig, ThyEmptyModule } from 'ngx-tethys/empty';
 import { provideHttpClient } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 @Component({
     selector: 'thy-demo-empty',
@@ -50,7 +48,8 @@ import { provideHttpClient } from '@angular/common/http';
                 margin-top: 18px;
             }
         `
-    ]
+    ],
+    imports: [ThyEmptyModule]
 })
 class EmptyTestComponent {
     @ViewChild('ThyEmptyComponent', { static: true }) thyEmptyComponent: ThyEmpty;
@@ -68,15 +67,14 @@ class EmptyTestComponent {
     thyImageLoading?: ThyEmptyImageLoading;
     thyImageFetchPriority?: ThyEmptyImageFetchPriority;
 }
+
 describe('EmptyComponent', () => {
     let componentInstance: EmptyTestComponent;
     let fixture: ComponentFixture<EmptyTestComponent>;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            imports: [BrowserAnimationsModule, ThyEmptyModule],
-            declarations: [EmptyTestComponent],
-            providers: [ThyEmptyConfig, provideHttpClient()]
+            providers: [ThyEmptyConfig, provideHttpClient(), provideAnimations()]
         }).compileComponents();
         fixture = TestBed.createComponent(EmptyTestComponent);
         componentInstance = fixture.componentInstance;

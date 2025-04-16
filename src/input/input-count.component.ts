@@ -16,8 +16,7 @@ import { ThyInputGroup } from './input-group.component';
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-input-count text-muted'
-    },
-    standalone: true
+    }
 })
 export class ThyInputCount implements OnInit {
     private changeDetectorRef = inject(ChangeDetectorRef);

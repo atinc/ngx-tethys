@@ -1,6 +1,5 @@
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
-
 import { AnimationEvent } from '@angular/animations';
 import { Overlay, OverlayConfig, OverlayContainer, OverlayModule, OverlayRef, ScrollStrategy } from '@angular/cdk/overlay';
 import { CdkPortalOutlet, ComponentPortal, PortalModule } from '@angular/cdk/portal';
@@ -20,14 +19,17 @@ import {
     inject as coreInject
 } from '@angular/core';
 import { TestBed, fakeAsync, flush, inject } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
-import { ThyClickPositioner } from '../../click-positioner';
-import { ThyAbstractOverlayContainer } from '../../overlay/abstract-overlay-container';
-import { ThyAbstractInternalOverlayRef, ThyAbstractOverlayRef } from '../../overlay/abstract-overlay-ref';
-import { ThyAbstractOverlayConfig, ThyAbstractOverlayOptions, ThyAbstractOverlayPosition } from '../../overlay/abstract-overlay.config';
-import { ComponentTypeOrTemplateRef, ThyAbstractOverlayService } from '../../overlay/abstract-overlay.service';
-import { helpers } from '../../../util';
+import {
+    ThyAbstractOverlayContainer,
+    ThyAbstractInternalOverlayRef,
+    ThyAbstractOverlayRef,
+    ThyAbstractOverlayConfig,
+    ThyAbstractOverlayOptions,
+    ThyAbstractOverlayPosition,
+    ComponentTypeOrTemplateRef,
+    ThyAbstractOverlayService
+} from 'ngx-tethys/core';
+import { helpers } from 'ngx-tethys/util';
 
 const overlayWrapperClass = '.cdk-global-overlay-wrapper';
 const dialogPaneClass = '.dialog-overlay-pane';
@@ -60,7 +62,8 @@ class TestDialogConfig<TData = any> extends ThyAbstractOverlayConfig<TData> {
         // '[@dialogContainer]': 'animationState',
         // '(@dialogContainer.start)': 'onAnimationStart($event)',
         // '(@dialogContainer.done)': 'onAnimationDone($event)'
-    }
+    },
+    imports: [CdkPortalOutlet]
 })
 export class TestDialogContainerComponent<TData = unknown> extends ThyAbstractOverlayContainer<TData> implements OnDestroy {
     config: ThyAbstractOverlayConfig<TData>;
@@ -181,8 +184,7 @@ export class TestDialogService extends ThyAbstractOverlayService<TestDialogConfi
 }
 
 @NgModule({
-    declarations: [TestDialogContainerComponent],
-    imports: [CommonModule, OverlayModule, PortalModule],
+    imports: [CommonModule, OverlayModule, PortalModule, TestDialogContainerComponent],
     exports: [],
     providers: []
 })
@@ -190,7 +192,8 @@ export class TestDialogModule {}
 
 @Component({
     selector: 'test-dialog-basic',
-    template: `Hello Test Dialog<ng-content></ng-content> `
+    template: `Hello Test Dialog<ng-content></ng-content> `,
+    imports: [TestDialogModule]
 })
 class TestDialogBasicContentComponent {
     testDialogRef = coreInject<TestDialogRef<TestDialogBasicContentComponent>>(TestDialogRef);
@@ -208,7 +211,8 @@ class TestDialogBasicContentComponent {
 
 @Component({
     selector: 'test-dialog-view-container',
-    template: 'Hello Test Dialog'
+    template: 'Hello Test Dialog',
+    imports: [TestDialogModule]
 })
 class TestDialogViewContainerComponent {
     private dialog = coreInject(TestDialogService);
@@ -228,8 +232,6 @@ describe('abstract-overlay', () => {
 
     beforeEach(async () => {
         TestBed.configureTestingModule({
-            imports: [TestDialogModule, NoopAnimationsModule],
-            declarations: [TestDialogBasicContentComponent, TestDialogViewContainerComponent],
             providers: [TestDialogService]
         });
 

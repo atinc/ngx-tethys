@@ -9,7 +9,7 @@ import { By } from '@angular/platform-browser';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { dispatchKeyboardEvent } from 'ngx-tethys/testing';
 import { ENTER, TinyDate } from 'ngx-tethys/util';
-import { ThyPicker } from './picker.component';
+import { ThyPicker } from 'ngx-tethys/date-picker';
 
 class CdkOverlayOriginSpy {
     elementRef: ElementRef;
@@ -30,8 +30,6 @@ describe('ThyPickerComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [ThyTestPickerComponent],
-            imports: [CommonModule, OverlayModule, ThyPicker, ThyIcon],
             providers: [
                 {
                     provide: CdkOverlayOrigin,
@@ -134,7 +132,8 @@ describe('ThyPickerComponent', () => {
             [readonly]="thyReadonly"
             (inputChange)="onInputChange($event)">
         </thy-picker>
-    `
+    `,
+    imports: [CommonModule, OverlayModule, ThyPicker, ThyIcon]
 })
 class ThyTestPickerComponent {
     @ViewChild('thyPicker', { static: true }) thyPicker: ThyPicker;

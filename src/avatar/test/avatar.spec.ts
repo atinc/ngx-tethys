@@ -2,11 +2,8 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { Component, inject } from '@angular/core';
 import { DomSanitizer, By } from '@angular/platform-browser';
 import { Observable, Subscriber } from 'rxjs';
-
-import { ThyAvatarModule } from '../avatar.module';
-import { ThyAvatarService } from '../avatar.service';
-import { ThyAvatarFetchPriority, ThyAvatarLoading } from '../avatar.component';
-import { dispatchFakeEvent } from '../../testing';
+import { ThyAvatarModule, ThyAvatarService, ThyAvatarFetchPriority, ThyAvatarLoading } from 'ngx-tethys/avatar';
+import { dispatchFakeEvent } from 'ngx-tethys/testing';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({
@@ -41,7 +38,8 @@ import { provideHttpClient } from '@angular/common/http';
                 <thy-avatar [thyName]="name" thyRemovable="true" (thyRemove)="remove()"></thy-avatar>
             }
         }
-    `
+    `,
+    imports: [ThyAvatarModule]
 })
 class ThyTestAvatarComponent {
     private thyAvatarService = inject(ThyAvatarService);
@@ -91,8 +89,6 @@ describe('ThyAvatarComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyAvatarModule],
-            declarations: [ThyTestAvatarComponent],
             providers: [provideHttpClient()]
         });
         TestBed.compileComponents();

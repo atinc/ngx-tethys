@@ -6,7 +6,6 @@ import { ComponentRef, Directive, EmbeddedViewRef } from '@angular/core';
 @Directive({
     selector: '[thyPortalOutlet]',
     exportAs: 'thyPortalOutlet',
-    standalone: true,
     inputs: ['portal: thyPortalOutlet']
 })
 export class ThyPortalOutlet extends CdkPortalOutlet {

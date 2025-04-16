@@ -70,7 +70,6 @@ import { injectLocale, ThyCascaderLocale } from 'ngx-tethys/i18n';
         '(focus)': 'onFocus($event)',
         '(blur)': 'onBlur($event)'
     },
-    standalone: true,
     imports: [
         CdkOverlayOrigin,
         ThySelectControl,
@@ -81,7 +80,6 @@ import { injectLocale, ThyCascaderLocale } from 'ngx-tethys/i18n';
         ThyCascaderOptionComponent,
         ThyCascaderSearchOptionComponent,
         ThyEmpty,
-        ThyIcon,
         ThyDivider
     ],
     animations: [scaleYMotion]
@@ -859,7 +857,7 @@ export class ThyCascader
         this.ngZone.runOutsideAngular(() => {
             this.resizeSubscription = new Observable(observer => {
                 const resize = new ResizeObserver((entries: ResizeObserverEntry[]) => {
-                    observer.next();
+                    observer.next(null);
                 });
                 resize.observe(this.trigger.nativeElement);
             }).subscribe(() => {

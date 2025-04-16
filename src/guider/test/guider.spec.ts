@@ -1,16 +1,20 @@
-import { OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
-import { Component, DebugElement, NgModule, OnInit, TemplateRef, ViewChild, inject as coreInject } from '@angular/core';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { Component, DebugElement, OnInit, TemplateRef, ViewChild, inject as coreInject } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
-import { ThyGuiderManager } from '../guider-manager';
-import { ThyGuiderRef } from '../guider-ref';
-import { defaultGuiderPositionConfig, ThyGuiderConfig, ThyGuiderStep } from '../guider.class';
-import { ThyGuiderModule } from '../guider.module';
-import { ThyGuider } from '../guider.service';
+import {
+    ThyGuiderManager,
+    ThyGuiderRef,
+    ThyGuiderConfig,
+    ThyGuiderStep,
+    ThyGuiderModule,
+    ThyGuider,
+    defaultGuiderPositionConfig,
+    ThyGuiderTargetDirective
+} from 'ngx-tethys/guider';
 
 const guiderSteps: ThyGuiderStep[] = [
     {
@@ -159,7 +163,8 @@ class GuiderBasicComponent implements OnInit {
         @if (delayShow) {
             <span thyGuiderTarget="directive-tip-target-second" class="test-directive-span-second"> directive 2</span>
         }
-    `
+    `,
+    imports: [ThyGuiderTargetDirective]
 })
 class TestGuiderDirectiveComponent implements OnInit {
     private thyGuider = coreInject(ThyGuider);
@@ -226,12 +231,6 @@ class TestGuiderMultiTargetsComponent implements OnInit {
 }
 
 const TEST_COMPONENTS = [GuiderBasicComponent, TestGuiderDirectiveComponent, TestGuiderMultiTargetsComponent];
-@NgModule({
-    declarations: TEST_COMPONENTS,
-    imports: [ThyGuiderModule, NoopAnimationsModule, OverlayModule],
-    exports: TEST_COMPONENTS
-})
-class GuiderTestModule {}
 
 describe(`thyGuider`, () => {
     let guider: ThyGuider;
@@ -242,10 +241,11 @@ describe(`thyGuider`, () => {
     let debugElement: DebugElement;
     let managerService: ThyGuiderManager;
     const routerSpy = jasmine.createSpyObj('Router', ['navigateByUrl']);
+
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyGuiderModule, GuiderTestModule, RouterTestingModule],
-            providers: [{ provide: Router, useValue: routerSpy }]
+            imports: [ThyGuiderModule],
+            providers: [{ provide: Router, useValue: routerSpy }, provideNoopAnimations()]
         });
         TestBed.compileComponents();
     }));

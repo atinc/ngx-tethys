@@ -18,7 +18,6 @@ export type ThyStatisticTitlePosition = 'top' | 'bottom';
 @Component({
     selector: 'thy-statistic',
     templateUrl: './statistic.component.html',
-    standalone: true,
     imports: [NgTemplateOutlet, NgStyle]
 })
 export class ThyStatistic implements OnInit {

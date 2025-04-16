@@ -1,10 +1,12 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
+import { ThyBackTop } from 'ngx-tethys/back-top';
 
 @Component({
     selector: 'thy-back-top-target-example',
     templateUrl: './target.component.html',
-    styleUrls: ['./target.scss']
+    styleUrls: ['./target.scss'],
+    imports: [ThyBackTop]
 })
 export class ThyBackTopTargetExampleComponent implements OnInit {
     private notifyService = inject(ThyNotifyService);

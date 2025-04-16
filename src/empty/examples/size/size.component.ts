@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ThyEmpty } from 'ngx-tethys/empty';
 
 @Component({
     selector: 'thy-empty-size-example',
@@ -14,7 +15,8 @@ import { Component } from '@angular/core';
                 margin-bottom: 0;
             }
         `
-    ]
+    ],
+    imports: [ThyEmpty]
 })
 export class ThyEmptySizeExampleComponent {
     constructor() {}

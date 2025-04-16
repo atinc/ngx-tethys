@@ -24,7 +24,6 @@ import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
     host: {
         class: 'progress-circle'
     },
-    standalone: true,
     imports: [ThyTooltipDirective, NgClass, NgStyle]
 })
 export class ThyProgressCircle implements OnInit, OnChanges {

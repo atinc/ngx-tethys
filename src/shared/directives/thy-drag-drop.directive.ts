@@ -7,8 +7,7 @@ import { takeUntil, startWith } from 'rxjs/operators';
  * @private
  */
 @Directive({
-    selector: '[thyDragDrop]',
-    standalone: true
+    selector: '[thyDragDrop]'
 })
 export class ThyDragDropDirective implements AfterContentInit, OnDestroy {
     @ContentChildren(CdkDrag, { descendants: true }) draggables: QueryList<CdkDrag>;

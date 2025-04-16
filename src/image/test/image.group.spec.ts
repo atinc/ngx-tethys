@@ -1,8 +1,8 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, DebugElement } from '@angular/core';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { ThyDialogModule } from 'ngx-tethys/dialog';
-import { ThyImageModule } from '../module';
+import { ThyImageModule } from 'ngx-tethys/image';
 import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 
@@ -14,7 +14,8 @@ import { provideHttpClient } from '@angular/common/http';
                 <img thyImage [thySrc]="image.src" [thyImageMeta]="image.imageMeta" />
             }
         </thy-image-group>
-    `
+    `,
+    imports: [ThyImageModule, ThyDialogModule]
 })
 class ImageGroupTestComponent {
     images = [
@@ -44,9 +45,8 @@ describe('image-group', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyImageModule, ThyDialogModule, NoopAnimationsModule],
-            declarations: [ImageGroupTestComponent],
-            providers: [provideHttpClient()]
+            imports: [ThyImageModule],
+            providers: [provideHttpClient(), provideNoopAnimations()]
         }).compileComponents();
         fixture = TestBed.createComponent(ImageGroupTestComponent);
         basicTestComponent = fixture.debugElement.componentInstance;

@@ -43,8 +43,7 @@ const THY_AFFIX_DEFAULT_SCROLL_TIME = 20;
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
-    standalone: true
+    encapsulation: ViewEncapsulation.None
 })
 export class ThyAffix implements AfterViewInit, OnChanges, OnDestroy {
     private scrollService = inject(ThyScrollService);

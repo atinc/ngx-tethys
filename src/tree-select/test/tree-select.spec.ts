@@ -1,21 +1,17 @@
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
-import { animationFrameScheduler, of } from 'rxjs';
-
+import { of } from 'rxjs';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { ApplicationRef, Component, DebugElement, OnInit, Sanitizer, SecurityContext, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { By, DomSanitizer } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
-import { ThyFormModule } from '../../form';
-import { ThyIcon, ThyIconRegistry } from '../../icon';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { ThyIcon, ThyIconRegistry } from 'ngx-tethys/icon';
 import { bigTreeNodes, moreOptionTreeSelectData, searchTreeSelectData } from '../examples/mock-data';
-import { ThyTreeSelectModule } from '../module';
-import { ThyTreeSelectNode } from '../tree-select.class';
-import { filterTreeData, ThyTreeSelect } from '../tree-select.component';
+import { ThyTreeSelectNode, filterTreeData, ThyTreeSelect, ThyTreeSelectModule } from 'ngx-tethys/tree-select';
 import { provideHttpClient } from '@angular/common/http';
+import { ThyFormModule } from 'ngx-tethys/form';
 
 function treeNodesExpands(nodes: ThyTreeSelectNode[]) {
     const arr = [] as ThyTreeSelectNode[];
@@ -50,7 +46,8 @@ function treeNodesExpands(nodes: ThyTreeSelectNode[]) {
                 [thyDisableNodeKey]="disableKey"
                 (thyExpandStatusChange)="expandChange($event)"></thy-tree-select>
         </div>
-    `
+    `,
+    imports: [ThyTreeSelect]
 })
 class BasicTreeSelectComponent {
     @ViewChild(ThyTreeSelect, { static: false }) treeComponent: ThyTreeSelect;
@@ -188,7 +185,8 @@ class BasicTreeSelectComponent {
                 [thyPlaceholder]="thyPlaceholder"
                 thyShowKey="title"></thy-tree-select>
         </div>
-    `
+    `,
+    imports: [ThyTreeSelect]
 })
 class PlaceHolderTreeSelectComponent {
     nodes: ThyTreeSelectNode[] = [
@@ -285,7 +283,8 @@ class PlaceHolderTreeSelectComponent {
                 (ngModelChange)="treeSelectChange()"
                 [thyMultiple]="multiple"></thy-tree-select>
         </div>
-    `
+    `,
+    imports: [ThyTreeSelect, FormsModule]
 })
 class NgModelTreeSelectComponent {
     nodes: ThyTreeSelectNode[] = [
@@ -383,7 +382,8 @@ class NgModelTreeSelectComponent {
                 [(ngModel)]="selectedValue"
                 [thyShowSearch]="treeShowSearch"></thy-tree-select>
         </div>
-    `
+    `,
+    imports: [ThyTreeSelect, FormsModule]
 })
 class SearchTreeSelectComponent {
     nodes = searchTreeSelectData;
@@ -400,7 +400,8 @@ class SearchTreeSelectComponent {
     selector: 'test-virtual-scrolling-tree-select',
     template: `
         <thy-tree-select #treeSelect [thyTreeNodes]="mockData" [(ngModel)]="selectedValue" [thyVirtualScroll]="true"> </thy-tree-select>
-    `
+    `,
+    imports: [ThyTreeSelect, FormsModule]
 })
 export class VirtualScrollingTreeSelectComponent implements OnInit {
     @ViewChild('treeSelect', { static: true }) treeSelect: ThyTreeSelect;
@@ -418,10 +419,10 @@ describe('ThyTreeSelect', () => {
 
     function configureThyCustomSelectTestingModule(declarations: any[]) {
         TestBed.configureTestingModule({
-            imports: [ThyFormModule, ThyTreeSelectModule, ReactiveFormsModule, FormsModule, NoopAnimationsModule],
-            declarations: declarations,
+            imports: [ThyFormModule],
             providers: [
                 provideHttpClient(),
+                provideAnimations(),
                 {
                     provide: Sanitizer,
                     useValue: {
@@ -927,7 +928,6 @@ describe('ThyTreeSelect', () => {
 
             const wrap = document.querySelector('.cdk-virtual-scroll-content-wrapper');
             dispatchFakeEvent(wrap, 'scroll');
-            animationFrameScheduler.flush();
 
             tick(100);
             fixture.detectChanges();

@@ -26,7 +26,6 @@ export type ThyFlexShrink = '1' | '0' | 0 | 1;
  */
 @Directive({
     selector: '[thyFlex]',
-    standalone: true,
     host: {
         class: 'thy-flex d-flex'
     }
@@ -105,7 +104,6 @@ export class ThyFlex implements OnInit, OnChanges {
 @Component({
     selector: 'thy-flex',
     template: `<ng-content></ng-content>`,
-    standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     hostDirectives: [
         {
@@ -113,7 +111,7 @@ export class ThyFlex implements OnInit, OnChanges {
             inputs: ['thyDirection', 'thyWrap', 'thyJustifyContent', 'thyAlignItems', 'thyGap']
         }
     ],
-    imports: [ThyFlex]
+    imports: []
 })
 export class ThyFlexComponent {}
 
@@ -124,7 +122,6 @@ export class ThyFlexComponent {}
  */
 @Directive({
     selector: '[thyFlexItem]',
-    standalone: true,
     host: {
         class: 'thy-flex-item'
     }
@@ -197,9 +194,8 @@ export class ThyFlexItem implements OnInit, OnChanges {
 @Component({
     selector: 'thy-flex-item',
     template: `<ng-content></ng-content>`,
-    standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [ThyFlexItem],
+    imports: [],
     hostDirectives: [
         {
             directive: ThyFlexItem,

@@ -29,8 +29,7 @@ export type ThyNavLink = '' | 'active';
         class: 'thy-nav-item',
         '[class.active]': 'thyNavItemActive || thyNavLinkActive',
         '[class.disabled]': 'thyNavItemDisabled'
-    },
-    standalone: true
+    }
 })
 export class ThyNavItemDirective implements AfterViewInit {
     elementRef = inject(ElementRef);

@@ -46,8 +46,7 @@ enum Type {
             multi: true
         }
     ],
-    standalone: true,
-    imports: [ThyIcon, ThyInputDirective, ThyAutofocusDirective, FormsModule, ThyMinDirective, ThyMaxDirective],
+    imports: [ThyIcon, ThyInputDirective, ThyAutofocusDirective, FormsModule],
     host: {
         class: 'thy-input-number',
         '[attr.tabindex]': 'tabIndex'

@@ -1,9 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ThyGuiderStep, ThyGuider, ThyGuiderConfig, ThyGuiderRef } from 'ngx-tethys/guider';
+import { ThyGuiderStep, ThyGuider, ThyGuiderConfig, ThyGuiderRef, ThyGuiderTargetDirective } from 'ngx-tethys/guider';
+import { ThyButton } from 'ngx-tethys/button';
 
 @Component({
     selector: 'thy-guider-directive-hint-example',
-    templateUrl: 'directive-hint.component.html'
+    templateUrl: 'directive-hint.component.html',
+    imports: [ThyButton, ThyGuiderTargetDirective]
 })
 export class ThyGuiderDirectiveHintExampleComponent implements OnInit {
     private thyGuider = inject(ThyGuider);

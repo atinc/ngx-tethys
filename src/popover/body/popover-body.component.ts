@@ -12,7 +12,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-popover-body'
-    },
-    standalone: true
+    }
 })
 export class ThyPopoverBody {}

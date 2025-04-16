@@ -13,8 +13,7 @@ const SET_OF_LETTERS_REGEX = /^[a-zA-Z\/ ]+$/;
  * @private
  */
 @Pipe({
-    name: 'avatarShortName',
-    standalone: true
+    name: 'avatarShortName'
 })
 export class AvatarShortNamePipe implements PipeTransform {
     transform(name: string | null | undefined): string {
@@ -41,8 +40,7 @@ export class AvatarShortNamePipe implements PipeTransform {
  * @private
  */
 @Pipe({
-    name: 'avatarBgColor',
-    standalone: true
+    name: 'avatarBgColor'
 })
 export class AvatarBgColorPipe implements PipeTransform {
     transform(name: string) {
@@ -71,8 +69,7 @@ export class AvatarBgColorPipe implements PipeTransform {
  * @private
  */
 @Pipe({
-    name: 'thyAvatarSrc',
-    standalone: true
+    name: 'thyAvatarSrc'
 })
 export class AvatarSrcPipe implements PipeTransform {
     private thyAvatarService = inject(ThyAvatarService);

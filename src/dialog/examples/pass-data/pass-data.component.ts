@@ -1,8 +1,6 @@
 import { Component, inject, input, OnInit } from '@angular/core';
-import { ThyDialog, ThyDialogConfig, ThyDialogRef, ThyDialogSizes } from 'ngx-tethys/dialog';
-import { ThyDialogBasicContentComponent } from '../basic/dialog-content.component';
 import { ThyButton } from 'ngx-tethys/button';
-import { ThyDialogHeader, ThyDialogBody, ThyDialogFooter } from 'ngx-tethys/dialog';
+import { ThyDialogHeader, ThyDialogBody, ThyDialogFooter, ThyDialog, ThyDialogConfig, ThyDialogRef } from 'ngx-tethys/dialog';
 
 @Component({
     selector: `thy-dialog-pass-data-content-example`,
@@ -13,7 +11,6 @@ import { ThyDialogHeader, ThyDialogBody, ThyDialogFooter } from 'ngx-tethys/dial
             <button thyButton="primary" (click)="dialogRef.close()">确定</button>
         </thy-dialog-footer>
     `,
-    standalone: true,
     imports: [ThyDialogHeader, ThyDialogBody, ThyDialogFooter, ThyButton]
 })
 class ThyDialogPassDataContentComponent {
@@ -27,7 +24,6 @@ class ThyDialogPassDataContentComponent {
 @Component({
     selector: 'thy-dialog-pass-data-example',
     templateUrl: './pass-data.component.html',
-    standalone: true,
     imports: [ThyButton]
 })
 export class ThyDialogPassDataExampleComponent implements OnInit {

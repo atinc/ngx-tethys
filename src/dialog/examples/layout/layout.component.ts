@@ -1,10 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { ThyDialog, ThyDialogLayoutConfig } from 'ngx-tethys/dialog';
 import { ThyDialogFooterLayoutExampleComponent } from './dialog-layout.component';
+import { ThyButton } from 'ngx-tethys/button';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'thy-dialog-layout-example',
-    templateUrl: './layout.component.html'
+    templateUrl: './layout.component.html',
+    imports: [ThyButton, FormsModule]
 })
 export class ThyDialogLayoutExampleComponent {
     private thyDialog = inject(ThyDialog);

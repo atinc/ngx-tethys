@@ -13,7 +13,6 @@ import { NgTemplateOutlet } from '@angular/common';
     selector: '[date-table-cell]',
     exportAs: 'dateTableCell',
     templateUrl: './date-table-cell.component.html',
-    standalone: true,
     imports: [NgTemplateOutlet]
 })
 export class DateTableCell {

@@ -44,7 +44,6 @@ export type ThyPropertyItemOperationTrigger = 'hover' | 'always';
         '[class.thy-property-item-operational-hover]': "thyOperationTrigger === 'hover'"
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
     imports: [ThyFlexibleText, NgTemplateOutlet]
 })
 export class ThyPropertyItem implements OnInit, OnChanges, OnDestroy {

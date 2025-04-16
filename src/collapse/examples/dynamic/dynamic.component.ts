@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ThyCollapse, ThyCollapseItem } from 'ngx-tethys/collapse';
 
 @Component({
     selector: 'thy-collapse-dynamic-example',
-    templateUrl: './dynamic.component.html'
+    templateUrl: './dynamic.component.html',
+    imports: [ThyCollapse, ThyCollapseItem]
 })
 export class ThyCollapseDynamicExampleComponent implements OnInit {
     items = [

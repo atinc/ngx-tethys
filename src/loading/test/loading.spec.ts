@@ -1,8 +1,7 @@
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyLoading } from '..';
-import { ThyLoadingModule } from '../loading.module';
+import { ThyLoading, ThyLoadingModule } from 'ngx-tethys/loading';
 
 @Component({
     selector: `test-loading`,
@@ -11,7 +10,8 @@ import { ThyLoadingModule } from '../loading.module';
             <div style="width: 500px; height:500px">Test loading</div>
         }
         <thy-loading [thyDone]="loadingDone" [thyIsMask]="isMask" [thyTip]="tip"></thy-loading>
-    `
+    `,
+    imports: [ThyLoadingModule]
 })
 export class TestLoadingComponent {
     loadingDone: boolean;
@@ -26,10 +26,8 @@ describe('test loading', () => {
     let loadingElement: HTMLElement;
 
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [ThyLoadingModule],
-            declarations: [TestLoadingComponent]
-        }).compileComponents();
+        TestBed.configureTestingModule({});
+        TestBed.compileComponents();
 
         fixture = TestBed.createComponent(TestLoadingComponent);
         testComponent = fixture.debugElement.componentInstance;

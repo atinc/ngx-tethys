@@ -1,6 +1,5 @@
 import { addDays, addWeeks, format, fromUnixTime, isSameDay, startOfDay, startOfWeek } from 'date-fns';
 import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
-
 import { ENTER, ESCAPE } from '@angular/cdk/keycodes';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { formatDate, registerLocaleData } from '@angular/common';
@@ -10,15 +9,18 @@ import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush, inject, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { TinyDate } from 'ngx-tethys/util';
 import { take } from 'rxjs/operators';
-import { ThyDatePicker } from './date-picker.component';
-import { THY_DATE_PICKER_CONFIG } from './date-picker.config';
-import { ThyDatePickerModule } from './date-picker.module';
-import { DatePopup } from './lib/popups/date-popup.component';
-import { ThyPicker } from './picker.component';
-import { DateEntry, DisabledDateFn } from './standard-types';
+import {
+    ThyDatePicker,
+    THY_DATE_PICKER_CONFIG,
+    ThyDatePickerModule,
+    DatePopup,
+    ThyPicker,
+    DateEntry,
+    DisabledDateFn
+} from 'ngx-tethys/date-picker';
 
 registerLocaleData(zh);
 
@@ -46,10 +48,9 @@ describe('ThyDatePickerComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [FormsModule, ThyDatePickerModule, NoopAnimationsModule],
-            declarations: [ThyTestDatePickerComponent],
             providers: [
                 provideHttpClient(),
+                provideAnimations(),
                 {
                     provide: THY_DATE_PICKER_CONFIG,
                     useValue: {
@@ -605,6 +606,28 @@ describe('ThyDatePickerComponent', () => {
                 value: now.startOfDay(),
                 triggerPreset: triggerPreset
             });
+        }));
+
+        it('should support thyTimeZone', fakeAsync(() => {
+            fixtureInstance.thyValue = new Date('2023-11-11T12:00:00Z');
+            fixtureInstance.thyShowTime = true;
+            fixtureInstance.thyTimeZone = 'Asia/Shanghai';
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(getPickerTrigger().value).toBe('2023-11-11 20:00');
+
+            fixtureInstance.thyTimeZone = 'America/New_York';
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(getPickerTrigger().value).toBe('2023-11-11 07:00');
+
+            fixtureInstance.thyTimeZone = 'Europe/London';
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(getPickerTrigger().value).toBe('2023-11-11 12:00');
         }));
     });
 
@@ -1366,6 +1389,7 @@ describe('ThyDatePickerComponent', () => {
                     [thyMinDate]="thyMinDate"
                     [thyMaxDate]="thyMaxDate"
                     [thyHasBackdrop]="hasBackdrop"
+                    [thyTimeZone]="thyTimeZone"
                     (thyOnOk)="thyOnOk($event)"></thy-date-picker>
             }
 
@@ -1383,7 +1407,8 @@ describe('ThyDatePickerComponent', () => {
         <ng-template #tplDateRender let-current>
             <div [class.test-first-day]="current.getDate() === 1">{{ current.getDate() }}</div>
         </ng-template>
-    `
+    `,
+    imports: [FormsModule, ThyDatePickerModule]
 })
 class ThyTestDatePickerComponent {
     useSuite: 1 | 2 | 3;
@@ -1417,6 +1442,7 @@ class ThyTestDatePickerComponent {
     thyOpenChange(): void {}
     thyDateChange(): void {}
     thyOnPanelChange(): void {}
+    thyTimeZone: string;
 
     thyOnOk(): void {}
 

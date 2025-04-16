@@ -18,7 +18,7 @@ interface NgAddSchema {
 function addStyleToWorkspace(projectName: string) {
     return (tree: Tree) => {
         return updateWorkspace(workspace => {
-            const project = getProjectFromWorkspace(workspace, projectName);
+            const project = getProjectFromWorkspace(workspace as any, projectName);
             const stylesList = (project.targets.get('build').options.styles as any[]) || [];
             const filePath = `./node_modules/ngx-tethys/styles/index.scss`;
             if (!stylesList.includes(filePath)) {
@@ -31,7 +31,7 @@ function addStyleToWorkspace(projectName: string) {
 
 function addIconToWorkspace(projectName: string) {
     return updateWorkspace(workspace => {
-        const project = getProjectFromWorkspace(workspace, projectName);
+        const project = getProjectFromWorkspace(workspace as any, projectName);
         const list: JsonArray = (project.targets.get('build').options.assets as any) || [];
         list.push({
             glob: '**/*',
@@ -59,6 +59,11 @@ export function main(options: NgAddSchema = {}) {
         }
 
         context.addTask(new NodePackageInstallTask());
-        return chain([options.icon ? addIconToWorkspace(options.project) : noop(), addStyleToWorkspace(options.project)]);
+        const rules = [];
+        if (options.icon) {
+            rules.push(addIconToWorkspace(options.project));
+        }
+        rules.push(addStyleToWorkspace(options.project));
+        return chain(rules);
     };
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ThySkeletonRectangle } from 'ngx-tethys/skeleton';
+
 @Component({
     selector: 'thy-skeleton-rectangle-example',
     template: `
@@ -11,7 +13,8 @@ import { Component, OnInit } from '@angular/core';
             [thyBorderRadius]="model.thyBorderRadius"
             [thyAnimated]="model.thyAnimated">
         </thy-skeleton-rectangle>
-    `
+    `,
+    imports: [ThySkeletonRectangle]
 })
 export class ThySkeletonExampleRectangleComponent implements OnInit {
     model = {

@@ -5,7 +5,6 @@ export * from './helpers/index';
 export { produce } from './immutable';
 import * as dom from './dom';
 import * as helpers from './helpers/index';
-import * as keycodes from './keycodes';
 import * as references from './references';
 
 export { EntityAddOptions as EntityAddOptions$0, EntityMoveOptions, Producer, ProducerOptions } from './immutable';
@@ -14,4 +13,4 @@ export * from './references';
 
 export * from './keycodes';
 export * from './logger/index';
-export { dom, helpers, keycodes, references };
+export { dom, helpers, references };

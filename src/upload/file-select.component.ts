@@ -29,8 +29,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
  */
 @Component({
     selector: '[thyFileSelect],thy-file-select',
-    templateUrl: './file-select.component.html',
-    standalone: true
+    templateUrl: './file-select.component.html'
 })
 export class ThyFileSelect extends FileSelectBaseDirective implements OnChanges, OnDestroy {
     /**

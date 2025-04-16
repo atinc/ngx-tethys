@@ -1,11 +1,11 @@
 import { ApplicationRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-
-import { ThyAutofocusDirective } from './thy-autofocus.directive';
+import { ThyAutofocusDirective } from 'ngx-tethys/shared';
 
 @Component({
     selector: 'thy-autofocus-test',
-    template: ` <input [thyAutofocus]="autofocus" [thyAutoSelect]="autoSelect" #autofocusInput /> `
+    template: ` <input [thyAutofocus]="autofocus" [thyAutoSelect]="autoSelect" #autofocusInput /> `,
+    imports: [ThyAutofocusDirective]
 })
 class ThyAutofocusTestComponent {
     @ViewChild('autofocusInput') input: ElementRef;
@@ -21,10 +21,8 @@ describe('ThyAutofocusDirective', () => {
     let focusSpy: jasmine.Spy;
 
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [ThyAutofocusDirective],
-            declarations: [ThyAutofocusTestComponent]
-        });
+        TestBed.configureTestingModule({});
+        TestBed.compileComponents();
     });
 
     beforeEach(() => {

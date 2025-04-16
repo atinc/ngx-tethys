@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { ThyPagination } from 'ngx-tethys/pagination';
 
 @Component({
     selector: 'thy-pagination-custom-pages-example',
-    templateUrl: './custom-pages.component.html'
+    templateUrl: './custom-pages.component.html',
+    imports: [ThyPagination]
 })
 export class ThyPaginationCustomPagesExampleComponent {
     currentIndex = 1;

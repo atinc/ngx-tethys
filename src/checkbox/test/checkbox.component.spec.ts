@@ -2,9 +2,7 @@ import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-
-import { ThyCheckbox } from '../checkbox.component';
-import { ThyCheckboxModule } from '../module';
+import { ThyCheckboxModule, ThyCheckbox } from 'ngx-tethys/checkbox';
 
 @Component({
     selector: 'thy-radio-test',
@@ -18,7 +16,8 @@ import { ThyCheckboxModule } from '../module';
         <label thyCheckbox thyLabelText="多选选项1" [(ngModel)]="model.checked1"></label>
         <label thyCheckbox [thyLabelText]="labelText" [(ngModel)]="model.checked2"></label>
         <label thyCheckbox thyLabelText="多选选项3" [thyDisabled]="isDisabled" [(ngModel)]="model.checked3"></label>
-    `
+    `,
+    imports: [ThyCheckboxModule, FormsModule]
 })
 class CheckboxTestComponent {
     labelText = '';
@@ -43,11 +42,7 @@ describe('checkbox component', () => {
     let checkboxComponent: DebugElement;
 
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [ThyCheckboxModule, FormsModule],
-            declarations: [CheckboxTestComponent],
-            providers: []
-        });
+        TestBed.configureTestingModule({});
         TestBed.compileComponents();
     });
 

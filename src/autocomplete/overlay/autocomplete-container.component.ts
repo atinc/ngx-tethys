@@ -26,7 +26,6 @@ import { autocompleteAbstractOverlayOptions } from './autocomplete.options';
         '(@autocompleteContainer.start)': 'onAnimationStart($event)',
         '(@autocompleteContainer.done)': 'onAnimationDone($event)'
     },
-    standalone: true,
     imports: [PortalModule, ThyPortalOutlet]
 })
 export class ThyAutocompleteContainer extends ThyAbstractOverlayContainer implements AfterViewInit {

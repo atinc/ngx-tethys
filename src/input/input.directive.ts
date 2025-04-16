@@ -18,8 +18,7 @@ const inputGroupSizeMap = {
  */
 @Directive({
     selector: 'input[thyInput], select[thyInput], textarea[thyInput]',
-    exportAs: 'thyInput',
-    standalone: true
+    exportAs: 'thyInput'
 })
 export class ThyInputDirective implements OnInit {
     private elementRef = inject(ElementRef);

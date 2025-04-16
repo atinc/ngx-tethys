@@ -6,30 +6,27 @@ import {
     inject,
     Injector,
     input,
-    NgModule,
     OnInit,
     TemplateRef,
     ViewChild,
     ViewContainerRef
 } from '@angular/core';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SafeAny } from 'ngx-tethys/types';
-import { ThyDialog, ThyDialogModule, ThyDialogRef } from '../';
+import { ThyDialog, ThyDialogModule, ThyDialogRef } from 'ngx-tethys/dialog';
+import { ThyButtonModule } from 'ngx-tethys/button';
 
-// simple dialog component
 @Component({
-    selector: 'thy-dialog-content-component',
+    selector: 'thy-dialog-content-test-component',
     template: ` <div>Hello Dialog <button>Close</button></div> `
 })
-export class DialogSimpleContentComponent {
-    dialogRef = inject<ThyDialogRef<DialogSimpleContentComponent>>(ThyDialogRef);
+export class DialogSimpleContentTestComponent {
+    dialogRef = inject<ThyDialogRef<DialogSimpleContentTestComponent>>(ThyDialogRef);
     dialogInjector = inject(Injector);
     directionality = inject(Directionality);
 }
 
-// full dialog component
 @Component({
-    selector: 'thy-dialog-full-content-component',
+    selector: 'thy-dialog-full-content-test-component',
     template: `
         <thy-dialog-header thyTitleTranslationKey="Translation Key Title"> </thy-dialog-header>
         <thy-dialog-body thyClearPadding>
@@ -39,10 +36,11 @@ export class DialogSimpleContentComponent {
             <button thyButton="primary" (click)="ok()">确定</button>
             <button thyButton="link-secondary" (click)="close()">取消</button>
         </thy-dialog-footer>
-    `
+    `,
+    imports: [ThyDialogModule, ThyButtonModule]
 })
-export class DialogFullContentComponent {
-    dialogRef = inject<ThyDialogRef<DialogFullContentComponent>>(ThyDialogRef);
+export class DialogFullContentTestComponent {
+    dialogRef = inject<ThyDialogRef<DialogFullContentTestComponent>>(ThyDialogRef);
     dialogInjector = inject(Injector);
 
     ok() {
@@ -54,9 +52,8 @@ export class DialogFullContentComponent {
     }
 }
 
-// dialog
 @Component({
-    selector: 'thy-dialog-restore-component',
+    selector: 'thy-dialog-restore-test-component',
     template: `
         <div class="scrollable-container">
             <div class="view-container"></div>
@@ -74,9 +71,10 @@ export class DialogFullContentComponent {
                 height: 500px;
             }
         `
-    ]
+    ],
+    imports: [ThyDialogModule, ThyButtonModule]
 })
-export class DialogRestoreComponent {
+export class DialogRestoreTestComponent {
     private thyDialog = inject(ThyDialog);
 
     restoreFocus = true;
@@ -85,29 +83,29 @@ export class DialogRestoreComponent {
         preventScroll: true
     };
 
-    dialogRef: ThyDialogRef<DialogFullContentComponent>;
+    dialogRef: ThyDialogRef<DialogFullContentTestComponent>;
 
     open() {
-        this.dialogRef = this.thyDialog.open(DialogFullContentComponent, {
+        this.dialogRef = this.thyDialog.open(DialogFullContentTestComponent, {
             restoreFocus: this.restoreFocus,
             restoreFocusOptions: this.restoreFocusOptions
         });
     }
 }
 
-// eslint-disable-next-line @angular-eslint/directive-selector
-@Directive({ selector: 'thy-with-view-container-directive' })
-export class WithViewContainerDirective {
+@Directive({ selector: '[thyWithViewContainerTestDirective]' })
+export class WithViewContainerTestDirective {
     viewContainerRef = inject(ViewContainerRef);
 }
 
 @Component({
-    selector: 'thy-with-child-view-component',
-    template: ` <thy-with-view-container-directive></thy-with-view-container-directive> `
+    selector: 'thy-with-child-view-test-component',
+    template: ` <div thyWithViewContainerTestDirective></div> `,
+    imports: [WithViewContainerTestDirective]
 })
-export class WithChildViewContainerComponent {
-    @ViewChild(WithViewContainerDirective, { static: true })
-    childWithViewContainer: WithViewContainerDirective;
+export class WithChildViewContainerTestComponent {
+    @ViewChild(WithViewContainerTestDirective, { static: true })
+    childWithViewContainer: WithViewContainerTestDirective;
 
     get childViewContainer() {
         return this.childWithViewContainer.viewContainerRef;
@@ -115,27 +113,28 @@ export class WithChildViewContainerComponent {
 }
 
 @Component({
-    selector: 'thy-arbitrary-component-with-template-ref',
+    selector: 'thy-arbitrary-component-with-template-ref-test-component',
     template: `
         <ng-template let-initialState let-dialogRef="dialogRef">
             Cheese {{ localValue }} {{ initialState?.value }}{{ setDialogRef(dialogRef) }}</ng-template
         >
-    `
+    `,
+    imports: [ThyDialogModule]
 })
-export class WithTemplateRefComponent {
+export class WithTemplateRefTestComponent {
     localValue: string;
     dialogRef: ThyDialogRef<any>;
 
     @ViewChild(TemplateRef, { static: true }) templateRef: TemplateRef<any>;
 
-    setDialogRef(dialogRef: ThyDialogRef<WithTemplateRefComponent>): string {
+    setDialogRef(dialogRef: ThyDialogRef<WithTemplateRefTestComponent>): string {
         this.dialogRef = dialogRef;
         return '';
     }
 }
 
 @Component({ template: '' })
-export class WithInjectedDataDialogComponent implements OnInit {
+export class WithInjectedDataDialogTestComponent implements OnInit {
     data: any;
 
     input1 = input();
@@ -149,26 +148,26 @@ export class WithInjectedDataDialogComponent implements OnInit {
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: 'hello'
 })
-export class WithOnPushViewContainerComponent {
+export class WithOnPushViewContainerTestComponent {
     viewContainerRef = inject(ViewContainerRef);
 }
 
-//  multi dialog component
 @Component({
-    selector: `thy-dialog-popup-first-component`,
+    selector: `thy-dialog-popup-first-test-component`,
     template: `
         <thy-dialog-header thyTitle="Dialog with first"></thy-dialog-header>
         <thy-dialog-body> 第一个弹框 </thy-dialog-body>
         <thy-dialog-footer>
             <button thyButton="primary" (click)="dialogRef.close()">确定</button>
         </thy-dialog-footer>
-    `
+    `,
+    imports: [ThyDialogModule, ThyButtonModule]
 })
-class PopupFirstComponent {
+class PopupFirstTestComponent {
     dialogRef = inject(ThyDialogRef);
 }
 @Component({
-    selector: `thy-dialog-popup-second-component`,
+    selector: `thy-dialog-popup-second-test-component`,
     template: `
         <thy-dialog-header thyTitle="Dialog with second"></thy-dialog-header>
         <thy-dialog-body>
@@ -180,9 +179,10 @@ class PopupFirstComponent {
             <button thyButton="primary" (click)="toTop()">弹窗一置顶</button>
             <button thyButton="primary" (click)="dialogRef.close()">确定</button>
         </thy-dialog-footer>
-    `
+    `,
+    imports: [ThyDialogModule, ThyButtonModule]
 })
-class PopupSecondComponent {
+class PopupSecondTestComponent {
     dialogRef = inject(ThyDialogRef);
     thyDialog = inject(ThyDialog);
     toTop() {
@@ -191,27 +191,30 @@ class PopupSecondComponent {
 }
 
 @Component({
-    selector: 'thy-dialog-to-top-component',
+    selector: 'thy-dialog-to-top-test-component',
     template: `
         <div class="btn-pair">
             <button thyButton="primary" (click)="open()">Open Dialog</button>
         </div>
-    `
+    `,
+    imports: [ThyDialogModule, ThyButtonModule]
 })
-export class DialogToTopComponent implements OnInit {
-    @ViewChild(PopupFirstComponent, { static: true }) popupFirst: PopupFirstComponent;
+export class DialogToTopTestComponent implements OnInit {
+    @ViewChild(PopupFirstTestComponent, { static: true }) popupFirst: PopupFirstTestComponent;
 
-    @ViewChild(PopupSecondComponent, { static: true }) popupSecond: PopupSecondComponent;
+    @ViewChild(PopupSecondTestComponent, { static: true }) popupSecond: PopupSecondTestComponent;
 
     public thyDialog = inject(ThyDialog);
 
     public openedDialogs: SafeAny[] = [];
 
     constructor(public viewContainerRef: ViewContainerRef) {}
+
     ngOnInit() {}
+
     open() {
-        this.openDialog(PopupFirstComponent, 'first', this.viewContainerRef);
-        this.openDialog(PopupSecondComponent, 'second', this.viewContainerRef);
+        this.openDialog(PopupFirstTestComponent, 'first', this.viewContainerRef);
+        this.openDialog(PopupSecondTestComponent, 'second', this.viewContainerRef);
     }
 
     openDialog(template?: any, id?: string, viewContainerRef?: ViewContainerRef) {
@@ -226,20 +229,3 @@ export class DialogToTopComponent implements OnInit {
         });
     }
 }
-
-const TEST_DIRECTIVES = [
-    DialogSimpleContentComponent,
-    DialogFullContentComponent,
-    WithViewContainerDirective,
-    WithTemplateRefComponent,
-    WithChildViewContainerComponent,
-    WithInjectedDataDialogComponent,
-    WithOnPushViewContainerComponent,
-    DialogToTopComponent
-];
-@NgModule({
-    imports: [ThyDialogModule, NoopAnimationsModule],
-    exports: TEST_DIRECTIVES,
-    declarations: TEST_DIRECTIVES
-})
-export class DialogTestModule {}

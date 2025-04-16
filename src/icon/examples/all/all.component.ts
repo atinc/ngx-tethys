@@ -1,8 +1,6 @@
-import { ThyIconRegistry } from 'ngx-tethys/icon';
-
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { HttpClient } from '@angular/common/http';
+import { ThyIcon } from 'ngx-tethys/icon';
 
 interface GlyphIcon {
     name: string;
@@ -20,7 +18,8 @@ interface GlyphCategory {
 @Component({
     selector: 'thy-icon-all-example',
     templateUrl: './all.component.html',
-    styleUrls: ['./all.component.scss']
+    styleUrls: ['./all.component.scss'],
+    imports: [ThyIcon]
 })
 export class ThyIconAllExampleComponent implements OnInit {
     private http = inject(HttpClient);

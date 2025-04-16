@@ -1,16 +1,12 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component, DebugElement, ElementRef, NgModule, ViewChild, inject as coreInject } from '@angular/core';
+import { Component, DebugElement, ElementRef, ViewChild, inject as coreInject } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync, fakeAsync, flush, flushMicrotasks, inject, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ThyTooltipModule } from '../tooltip.module';
-
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { ThyTooltipModule, ThyTooltipDirective, ThyTooltipService, ThyTooltipRef } from 'ngx-tethys/tooltip';
 import { Platform } from '@angular/cdk/platform';
 import { dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing';
-import { ThyTooltipRef } from '../tooltip-ref';
-import { ThyTooltipDirective } from '../tooltip.directive';
-import { ThyTooltipService } from '../tooltip.service';
 
 const initialTooltipMessage = 'hello, this is tooltip message';
 const TOOLTIP_CLASS = `thy-tooltip`;
@@ -29,7 +25,8 @@ const tooltipTemplateContext = { text: 'hello world' };
         </button>
 
         <button #tooltipHost>Tooltip Host</button>
-    `
+    `,
+    imports: [ThyTooltipDirective]
 })
 class ThyDemoTooltipBasicComponent {
     elementRef = coreInject<ElementRef<HTMLElement>>(ElementRef);
@@ -63,7 +60,8 @@ class ThyDemoTooltipBasicComponent {
             Tooltip with Template
         </button>
         <ng-template #world let-data>{{ data.text }}</ng-template>
-    `
+    `,
+    imports: [ThyTooltipDirective]
 })
 class ThyDemoTooltipTemplateComponent {
     @ViewChild(ThyTooltipDirective, { static: true }) tooltip: ThyTooltipDirective;
@@ -79,13 +77,6 @@ class ThyDemoTooltipTemplateComponent {
     placement = 'top';
 }
 
-@NgModule({
-    imports: [ThyTooltipModule],
-    declarations: [ThyDemoTooltipBasicComponent, ThyDemoTooltipTemplateComponent],
-    exports: []
-})
-export class TooltipTestModule {}
-
 describe(`ThyTooltip`, () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
@@ -94,8 +85,8 @@ describe(`ThyTooltip`, () => {
     beforeEach(fakeAsync(() => {
         platform = { IOS: false, isBrowser: true, ANDROID: false };
         TestBed.configureTestingModule({
-            imports: [TooltipTestModule, NoopAnimationsModule],
-            providers: [{ provide: Platform, useFactory: () => platform }]
+            imports: [ThyTooltipModule],
+            providers: [provideNoopAnimations(), { provide: Platform, useFactory: () => platform }]
         });
 
         TestBed.compileComponents();

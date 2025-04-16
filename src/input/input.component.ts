@@ -47,7 +47,6 @@ const password = 'password';
         '[class.form-control-active]': 'focused',
         '[class.disabled]': 'disabled'
     },
-    standalone: true,
     imports: [NgTemplateOutlet, ThyInputDirective, ThyAutofocusDirective, FormsModule, ThyIcon]
 })
 export class ThyInput implements ControlValueAccessor, OnInit {

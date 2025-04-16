@@ -25,7 +25,6 @@ import { NgClass } from '@angular/common';
         '[attr.tabindex]': `-1`
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
     imports: [NgClass]
 })
 export class ThyRadio extends ThyFormCheckBaseComponent implements OnInit {

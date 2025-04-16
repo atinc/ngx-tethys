@@ -1,8 +1,6 @@
-import { Component, OnInit, inject, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { useElementRenderer } from '../element-renderer';
-import { HostRenderer, useHostRenderer } from '../host-renderer';
+import { HostRenderer, useHostRenderer } from '@tethys/cdk/dom';
 
 @Component({
     selector: 'thy-dom-host-renderer-test',
@@ -40,9 +38,7 @@ describe('host-renderer', () => {
     let hostElement: HTMLElement;
 
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            declarations: [ThyDomUseHostRendererTestComponent]
-        });
+        TestBed.configureTestingModule({});
 
         fixture = TestBed.createComponent(ThyDomUseHostRendererTestComponent);
         fixture.detectChanges();

@@ -1,6 +1,5 @@
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThySpace, ThySpaceModule } from 'ngx-tethys/space';
-
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -15,7 +14,8 @@ import { By } from '@angular/platform-browser';
                 <button *thySpaceItem thyButton="info">Button3</button>
             }
         </thy-space>
-    `
+    `,
+    imports: [ThyButtonModule, ThySpaceModule]
 })
 class TestBasicComponent {
     dynamicShow = false;
@@ -30,7 +30,8 @@ class TestBasicComponent {
             <button *thySpaceItem thyButton="primary">Button1</button>
             <button *thySpaceItem thyButton="info">Button2</button>
         </thy-space>
-    `
+    `,
+    imports: [ThyButtonModule, ThySpaceModule]
 })
 class TestSizeComponent {
     size: string | number = 'md';
@@ -51,10 +52,8 @@ describe('space', () => {
         let spaceDebugElement: DebugElement;
 
         beforeEach(() => {
-            TestBed.configureTestingModule({
-                declarations: [TestBasicComponent],
-                imports: [ThyButtonModule, ThySpaceModule]
-            }).compileComponents();
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
 
             fixture = TestBed.createComponent(TestBasicComponent);
             spaceDebugElement = fixture.debugElement.query(By.directive(ThySpace));
@@ -109,10 +108,8 @@ describe('space', () => {
         let spaceDebugElement: DebugElement;
 
         beforeEach(() => {
-            TestBed.configureTestingModule({
-                declarations: [TestSizeComponent],
-                imports: [ThyButtonModule, ThySpaceModule]
-            }).compileComponents();
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
 
             fixture = TestBed.createComponent(TestSizeComponent);
             spaceDebugElement = fixture.debugElement.query(By.directive(ThySpace));
