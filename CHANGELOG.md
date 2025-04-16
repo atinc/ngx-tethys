@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [18.2.11](https://github.com/atinc/ngx-tethys/compare/18.2.10...18.2.11) (2025-04-16)
+
+
+### Bug Fixes
+
+* **util:** handle i18n and tinyDate set default locale ([#3331](https://github.com/atinc/ngx-tethys/issues/3331)) ([b00b3eb](https://github.com/atinc/ngx-tethys/commit/b00b3eba0d488f02d0badad5158ac3f6cad7e948))
+
+
+### Features
+
+* **date-picker:** add timezone support to date picker components and utilities #TINFR-1734 ([#3335](https://github.com/atinc/ngx-tethys/issues/3335)) ([d1765bd](https://github.com/atinc/ngx-tethys/commit/d1765bdc4adba0744817f7958d1199827793ee14)), closes [#TINFR-1734](https://github.com/atinc/ngx-tethys/issues/TINFR-1734)
+
+
+
 ## [18.2.10](https://github.com/atinc/ngx-tethys/compare/18.2.9...18.2.10) (2025-04-08)
 
 ### Features
