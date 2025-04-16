@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [19.0.5](https://github.com/atinc/ngx-tethys/compare/19.0.4...19.0.5) (2025-04-16)
+
+
+### Features
+
+* **date-picker:** add timezone support to date picker components and utilities #TINFR-1734 ([#3335](https://github.com/atinc/ngx-tethys/issues/3335)) ([7d38d23](https://github.com/atinc/ngx-tethys/commit/7d38d2344b5234581a94fd7c4c95b0528641af1f)), closes [#TINFR-1734](https://github.com/atinc/ngx-tethys/issues/TINFR-1734)
+* use strictStandalone mode TINFR-1826 ([a9903ae](https://github.com/atinc/ngx-tethys/commit/a9903aeb0453a5eff75bc0eaf36e646f3ed27b22))
+
+
+
 ## [19.0.4](https://github.com/atinc/ngx-tethys/compare/19.0.3...19.0.4) (2025-04-14)
 
 
