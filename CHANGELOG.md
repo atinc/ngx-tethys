@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [18.2.12](https://github.com/atinc/ngx-tethys/compare/18.2.11...18.2.12) (2025-04-18)
+
+
+### Bug Fixes
+
+* **date-picker:** update TinyDate initialization and methods to handle timezone correctly ([#3345](https://github.com/atinc/ngx-tethys/issues/3345)) ([#3346](https://github.com/atinc/ngx-tethys/issues/3346)) ([21734ba](https://github.com/atinc/ngx-tethys/commit/21734ba63dff3bd5e31e2ff3f7c242f9f14ea62b))
+
+
+
 ## [18.2.11](https://github.com/atinc/ngx-tethys/compare/18.2.10...18.2.11) (2025-04-16)
 
 
