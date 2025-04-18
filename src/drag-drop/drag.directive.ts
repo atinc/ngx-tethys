@@ -2,7 +2,7 @@ import { Directive, NgZone, ElementRef, HostBinding, Input, OnDestroy, Renderer2
 import { DragRef } from './drag-ref';
 import { DOCUMENT } from '@angular/common';
 import { ThyDragDropService } from './drag-drop.service';
-import { THY_DROP_CONTAINER_DIRECTIVE, IThyDropContainerDirective } from './drop-container.class';
+import { IThyDragDirective, THY_DROP_CONTAINER_DIRECTIVE } from './drag-drop.token';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
@@ -14,7 +14,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 @Directive({
     selector: 'thy-drag,[thyDrag]'
 })
-export class ThyDragDirective<T = any> implements OnDestroy {
+export class ThyDragDirective<T = any> implements IThyDragDirective, OnDestroy {
     container = inject(THY_DROP_CONTAINER_DIRECTIVE, { optional: true })!;
     private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 

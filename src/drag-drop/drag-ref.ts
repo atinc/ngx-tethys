@@ -2,11 +2,9 @@ import { NgZone, ElementRef, Renderer2 } from '@angular/core';
 import { coerceElement } from '@angular/cdk/coercion';
 import { Subject, fromEvent } from 'rxjs';
 import { auditTime, takeUntil } from 'rxjs/operators';
-import { ThyDragHandleDirective } from './drag-handle.directive';
 import { ThyDragDropService } from './drag-drop.service';
 import { ThyDragStartEvent, ThyDragEndEvent, ThyDragOverEvent, ThyDragDropEvent, ThyDropPosition } from './drag-drop.class';
-import { ThyDragDirective } from './drag.directive';
-import { IThyDropContainerDirective } from './drop-container.class';
+import { IThyDragDirective, IThyDragHandleDirective, IThyDropContainerDirective } from './drag-drop.token';
 import { coerceArray, isEmpty, isString } from 'ngx-tethys/util';
 
 const dropPositionClass = {
@@ -22,7 +20,7 @@ export class DragRef<T = any> {
 
     private target: HTMLElement;
 
-    private handles: ThyDragHandleDirective[];
+    private handles: IThyDragHandleDirective[];
 
     private ngUnsubscribe$ = new Subject();
 
@@ -51,7 +49,7 @@ export class DragRef<T = any> {
 
     constructor(
         element: ElementRef<HTMLElement> | HTMLElement,
-        private drag: ThyDragDirective,
+        private drag: IThyDragDirective,
         private container: IThyDropContainerDirective<T>,
         private dragDropService: ThyDragDropService<T>,
         private document: any,
@@ -82,7 +80,7 @@ export class DragRef<T = any> {
         return this;
     }
 
-    withHandles(handleOrHandles: ThyDragHandleDirective | ThyDragHandleDirective[]): this {
+    withHandles(handleOrHandles: IThyDragHandleDirective | IThyDragHandleDirective[]): this {
         this.handles = coerceArray(handleOrHandles);
         return this;
     }

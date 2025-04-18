@@ -4,8 +4,7 @@ import { Inject, Renderer2, RendererFactory2 } from '@angular/core';
 import { ThyPopover, ThyPopoverConfig, ThyPopoverRef } from 'ngx-tethys/popover';
 import { coerceArray, isArray, isNull, isString, isUndefinedOrNull } from 'ngx-tethys/util';
 import { fromEvent, Subscription } from 'rxjs';
-import { ThyGuiderManager } from './guider-manager';
-import { ThyGuiderRef } from './guider-ref';
+import { IThyGuiderManager, IThyGuiderRef } from './guider.interface';
 import { ThyGuiderStep } from './guider.class';
 import { isPositionDataType } from './utils';
 
@@ -26,7 +25,7 @@ export class ThyGuiderStepRef {
 
     private lastTipContainer: any;
 
-    private guiderRef: ThyGuiderRef;
+    private guiderRef: IThyGuiderRef;
 
     private lastPopoverRef: ThyPopoverRef<any>;
 
@@ -35,14 +34,14 @@ export class ThyGuiderStepRef {
         public stepIndex: number,
         private readonly rendererFactory: RendererFactory2,
         private popover: ThyPopover,
-        private guiderManager: ThyGuiderManager,
+        private guiderManager: IThyGuiderManager,
         private overlay: Overlay,
         @Inject(DOCUMENT) private document: Document
     ) {
         this.renderer = this.rendererFactory.createRenderer(null, null);
     }
 
-    public show(guiderRef: ThyGuiderRef) {
+    public show(guiderRef: IThyGuiderRef): void {
         this.guiderRef = guiderRef;
         this.createPoint(this.step, guiderRef);
     }
@@ -67,7 +66,7 @@ export class ThyGuiderStepRef {
         return targetElement;
     }
 
-    private createPoint(step: ThyGuiderStep, guiderRef: ThyGuiderRef) {
+    private createPoint(step: ThyGuiderStep, guiderRef: IThyGuiderRef) {
         // target 为空并且 guiderManager 中的 targetMap 也没有此step 的 key，或者 target 直接为 坐标数组
         // 则执行无 target 的显示
         if (!this.isTipHasTarget(step)) {

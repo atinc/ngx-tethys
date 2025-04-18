@@ -11,20 +11,12 @@ import {
     DestroyRef
 } from '@angular/core';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
-import { ThyResizeDirection } from './interface';
+import { ThyResizeDirection, ThyResizeHandleMouseDownEvent } from './interface';
 import { ThyResizableService } from './resizable.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { fromEvent, merge } from 'rxjs';
 import { useHostRenderer } from '@tethys/cdk/dom';
-
 import { coerceBooleanProperty } from 'ngx-tethys/util';
-
-export class ThyResizeHandleMouseDownEvent {
-    constructor(
-        public direction: ThyResizeDirection,
-        public mouseEvent: MouseEvent | TouchEvent
-    ) {}
-}
 
 const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveListenerOptions({ passive: true });
 

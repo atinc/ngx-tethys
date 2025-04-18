@@ -6,3 +6,10 @@ export interface ThyResizeEvent {
     col?: number;
     mouseEvent?: MouseEvent | TouchEvent;
 }
+
+export class ThyResizeHandleMouseDownEvent {
+    constructor(
+        public direction: ThyResizeDirection,
+        public mouseEvent: MouseEvent | TouchEvent
+    ) {}
+}

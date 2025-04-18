@@ -1,21 +1,8 @@
 import { inject, Injectable, signal, Signal, WritableSignal } from '@angular/core';
-import {
-    deDeLocale,
-    enUsLocale,
-    getDefaultLocaleId,
-    jaJpLocale,
-    normalizeLocale,
-    THY_I18N_DE_DE,
-    THY_I18N_EN_US,
-    THY_I18N_JA_JP,
-    THY_I18N_LOCALE_ID,
-    THY_I18N_ZH_HANS,
-    THY_I18N_ZH_HANT,
-    ThyI18nLocale,
-    ThyLocaleType,
-    zhHansLocale,
-    zhHantLocale
-} from './index';
+import { THY_I18N_LOCALE_ID, THY_I18N_ZH_HANS, THY_I18N_ZH_HANT, THY_I18N_EN_US, THY_I18N_JA_JP, THY_I18N_DE_DE } from './i18n.token';
+import { ThyLocaleType, ThyI18nLocale } from './i18n';
+import { normalizeLocale, getDefaultLocaleId } from './util';
+import { zhHansLocale, zhHantLocale, enUsLocale, jaJpLocale, deDeLocale } from './locales';
 
 @Injectable({
     providedIn: 'root'

@@ -2,19 +2,19 @@ import { Router } from '@angular/router';
 import { helpers } from 'ngx-tethys/util';
 import { DOCUMENT } from '@angular/common';
 import { ThyPopover } from 'ngx-tethys/popover';
-import { ThyGuiderManager } from './guider-manager';
+import { IThyGuiderManager, IThyGuiderRef } from './guider.interface';
 import { ThyGuiderStepRef } from './guider-step-ref';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { ThyGuiderConfig, ThyGuiderStep } from './guider.class';
 import { Inject, NgZone, RendererFactory2 } from '@angular/core';
 import { Overlay } from '@angular/cdk/overlay';
 
-export class ThyGuiderRef {
+export class ThyGuiderRef implements IThyGuiderRef {
     public steps: ThyGuiderStep[];
 
     private stepChange$: ReplaySubject<ThyGuiderStep> = new ReplaySubject<ThyGuiderStep>();
 
-    private guiderEnded$ = new Subject();
+    private guiderEnded$ = new Subject<ThyGuiderStep>();
 
     private closed$ = new Subject<ThyGuiderStep>();
 
@@ -31,7 +31,7 @@ export class ThyGuiderRef {
         private rendererFactory: RendererFactory2,
         private popover: ThyPopover,
         private router: Router,
-        private guiderManager: ThyGuiderManager,
+        private guiderManager: IThyGuiderManager,
         private ngZone: NgZone,
         private overlay: Overlay,
         @Inject(DOCUMENT) private document: any
@@ -46,15 +46,15 @@ export class ThyGuiderRef {
         return this.stepChange$.asObservable();
     }
 
-    public ended() {
+    public ended(): Subject<ThyGuiderStep> {
         return this.guiderEnded$;
     }
 
-    public closed() {
+    public closed(): Subject<ThyGuiderStep> {
         return this.closed$;
     }
 
-    public targetClicked() {
+    public targetClicked(): Subject<ThyGuiderStep> {
         return this.targetClicked$;
     }
 
@@ -64,14 +64,14 @@ export class ThyGuiderRef {
         return this.stepChange();
     }
 
-    public next() {
+    public next(): void {
         if (this.currentStepIndex + 1 > this.steps.length) {
             return;
         }
         this.to(this.currentStepIndex + 1);
     }
 
-    public previous() {
+    public previous(): void {
         if (this.currentStepIndex - 1 < 0) {
             return;
         }
@@ -114,13 +114,13 @@ export class ThyGuiderRef {
         }, 0);
     }
 
-    public close() {
+    public close(): void {
         this.removeManagerActiveKey();
         this.stepsRef[this.currentStepIndex]?.dispose();
         this.closed$.next(this.currentStep);
     }
 
-    public end() {
+    public end(): void {
         this.close();
         this.guiderEnded$.next(this.currentStep);
         this.notifyGuiderIsFinished();
@@ -144,7 +144,6 @@ export class ThyGuiderRef {
 
     private notifyGuiderIsFinished() {
         this.stepChange$.complete();
-        // this.targetClicked().unsubscribe();
         this.currentStepIndex = 0;
     }
 

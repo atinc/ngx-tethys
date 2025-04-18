@@ -1,4 +1,5 @@
 export * from './shared.module';
+export * from './shared.type';
 export * from './base-form-check.component';
 export * from './ng-transclude.directive';
 export * from './directives/thy-autofocus.directive';
