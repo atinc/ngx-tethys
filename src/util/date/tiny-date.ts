@@ -95,7 +95,7 @@ export class TinyDate implements Record<string, any> {
                 this.nativeDate = TinyDate.utcToZonedTime(date, this.useTimeZone);
             } else if (typeof date === 'string') {
                 if (hasTimeInStringDate(date)) {
-                    // 如果字符串中包含时间，则需要将时间转换为UTC时间再传递给TZDate
+                    // If the string contains time, you need to convert the time to UTC time before passing it to TZDate
                     const originTime = new Date(date);
                     const zoneTime = TZDate.tz(this.useTimeZone, originTime);
                     const utcDate = fromZonedTime(zoneTime, this.useTimeZone).toISOString();
@@ -214,15 +214,11 @@ export class TinyDate implements Record<string, any> {
 
     // set
     setDate(amount: number): TinyDate {
-        const date = new Date(this.nativeDate);
-        date.setDate(amount);
-        return new TinyDate(date, this.useTimeZone);
+        return new TinyDate(this.nativeDate.setDate(amount), this.useTimeZone);
     }
 
     setHms(hour: number, minute: number, second: number): TinyDate {
-        const date = new Date(this.nativeDate);
-        date.setHours(hour, minute, second);
-        return new TinyDate(date, this.useTimeZone);
+        return new TinyDate(this.nativeDate?.setHours(hour, minute, second), this.useTimeZone);
     }
 
     setYear(year: number): TinyDate {
@@ -491,7 +487,7 @@ export class TinyDate implements Record<string, any> {
     }
 
     clone(): TinyDate {
-        return new TinyDate(new Date(this.nativeDate), this.useTimeZone);
+        return new TinyDate(this.nativeDate, this.useTimeZone);
     }
 
     getUnixTime(): number {
