@@ -60,7 +60,7 @@ export abstract class CalendarTable implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.activeDate && !changes.activeDate.currentValue) {
-            this.activeDate = new TinyDate();
+            this.activeDate = new TinyDate(undefined, this.timeZone);
         }
 
         if (
