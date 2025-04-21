@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [18.2.13](https://github.com/atinc/ngx-tethys/compare/18.2.11...18.2.13) (2025-04-21)
+
+
+### Bug Fixes
+
+* change package-lock ([0083efa](https://github.com/atinc/ngx-tethys/commit/0083efa523a95e55589e7f747676a73b27d15ec1))
+* change package-lock ([aaf353c](https://github.com/atinc/ngx-tethys/commit/aaf353c8902caa9874cec9d3891c8d8e134db832))
+* **date-picker:** update TinyDate initialization and methods to handle timezone correctly ([#3345](https://github.com/atinc/ngx-tethys/issues/3345)) ([#3346](https://github.com/atinc/ngx-tethys/issues/3346)) ([21734ba](https://github.com/atinc/ngx-tethys/commit/21734ba63dff3bd5e31e2ff3f7c242f9f14ea62b))
+* **table:** handle fixed header border style ([#3349](https://github.com/atinc/ngx-tethys/issues/3349)) ([085db0f](https://github.com/atinc/ngx-tethys/commit/085db0f8160853d70960686105d47bc30128a54f))
+
+
+
 ## [18.2.12](https://github.com/atinc/ngx-tethys/compare/18.2.11...18.2.12) (2025-04-18)
 
 
