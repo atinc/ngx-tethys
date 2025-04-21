@@ -1,7 +1,7 @@
 import { inject, Injectable, signal, Signal, WritableSignal } from '@angular/core';
 import { THY_I18N_LOCALE_ID, THY_I18N_ZH_HANS, THY_I18N_ZH_HANT, THY_I18N_EN_US, THY_I18N_JA_JP, THY_I18N_DE_DE } from './i18n.token';
 import { ThyLocaleType, ThyI18nLocale } from './i18n';
-import { normalizeLocale } from './util';
+import { normalizeLocale, getDefaultLocaleId } from './util';
 import { zhHansLocale, zhHantLocale, enUsLocale, jaJpLocale, deDeLocale } from './locales';
 
 @Injectable({
@@ -16,7 +16,7 @@ export class ThyI18nService {
         [ThyLocaleType.deDe]: inject(THY_I18N_DE_DE, { optional: true }) || deDeLocale
     };
 
-    private defaultLocaleId: ThyLocaleType = normalizeLocale(inject(THY_I18N_LOCALE_ID, { optional: true })) || ThyLocaleType.zhHans;
+    private defaultLocaleId: ThyLocaleType = normalizeLocale(inject(THY_I18N_LOCALE_ID, { optional: true })) || getDefaultLocaleId();
 
     private locale: WritableSignal<ThyI18nLocale> = signal(this.locales[this.defaultLocaleId]);
 

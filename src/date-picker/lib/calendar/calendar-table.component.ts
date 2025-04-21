@@ -1,8 +1,8 @@
 import { Directive, EventEmitter, Input, OnChanges, OnInit, Output, Signal, SimpleChange, SimpleChanges, TemplateRef } from '@angular/core';
+import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
 import { SafeAny } from 'ngx-tethys/types';
 import { FunctionProp, isTemplateRef, TinyDate } from 'ngx-tethys/util';
-import { DateCell, DateBodyRow } from '../date/types';
-import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
+import { DateBodyRow, DateCell } from '../date/types';
 
 /**
  * @private
@@ -22,6 +22,7 @@ export abstract class CalendarTable implements OnInit, OnChanges {
     @Input() showWeek: boolean = false;
     @Input() selectedValue: TinyDate[] = []; // Range ONLY
     @Input() hoverValue: TinyDate[] = []; // Range ONLY
+    @Input() timeZone: string;
     @Input() disabledDate?: (d: Date) => boolean;
     @Input() cellRender?: FunctionProp<TemplateRef<Date> | string>;
     @Input() fullCellRender?: FunctionProp<TemplateRef<Date> | string>;
@@ -59,7 +60,7 @@ export abstract class CalendarTable implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.activeDate && !changes.activeDate.currentValue) {
-            this.activeDate = new TinyDate();
+            this.activeDate = new TinyDate(undefined, this.timeZone);
         }
 
         if (

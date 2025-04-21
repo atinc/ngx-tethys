@@ -345,12 +345,20 @@
 
     &-fixed-header {
         thead {
-            border: 1px solid variables.$gray-200;
             background-color: variables.$bg-default;
             position: sticky;
             left: 0;
             top: 0;
             z-index: variables.$z-index-6;
+            &::after {
+                content: '';
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                height: 1px;
+                background: variables.$gray-200;
+            }
             th {
                 border-bottom: 0;
             }

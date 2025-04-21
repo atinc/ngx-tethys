@@ -1,25 +1,26 @@
 import { ElementRef, EmbeddedViewRef, TemplateRef } from '@angular/core';
 import {
     clamp,
-    keyBy,
-    indexKeyBy,
     coerceBooleanProperty,
-    isString,
-    hexToRgb,
-    concatArray,
-    isElementRef,
-    isTemplateRef,
-    isDate,
-    isObject,
-    isNumber,
-    isHTMLElement,
-    isBoolean,
-    isEmpty,
     coerceCssPixelValue,
-    shallowEqual,
+    concatArray,
     dateToUnixTimestamp,
+    hasTimeInStringDate,
+    hexToRgb,
     htmlElementIsEmpty,
-    isFloat
+    indexKeyBy,
+    isBoolean,
+    isDate,
+    isElementRef,
+    isEmpty,
+    isFloat,
+    isHTMLElement,
+    isNumber,
+    isObject,
+    isString,
+    isTemplateRef,
+    keyBy,
+    shallowEqual
 } from './helpers';
 
 const falsey = [, null, undefined, false, 0, NaN, ''];
@@ -446,6 +447,41 @@ describe('#helper', () => {
         it('should return `false` for float values', () => {
             ['123a', '', undefined, null].forEach(value => {
                 expect(isFloat(value)).toEqual(false);
+            });
+        });
+    });
+
+    describe('#hasTimeInStringDate', () => {
+        it('should return `true` for date strings with time information', () => {
+            const dateStringsWithTime = [
+                '2025-04-10 21:26',
+                '2025/04/10 21:26',
+                '2025年04月10日 21时26分',
+                '2025年04月10日 21:26',
+                'Apr 10, 2025 21:26',
+                '10 Apr 2025 21:26',
+                '2025-04-10T21:26:00'
+            ];
+
+            dateStringsWithTime.forEach(value => {
+                expect(hasTimeInStringDate(value)).toEqual(true, `${value} should be recognized as containing time`);
+            });
+        });
+
+        it('should return `false` for date strings without time information', () => {
+            const dateStringsWithoutTime = [
+                '2025-04-10',
+                '2025/04/10',
+                '2025年04月10日',
+                'Apr 10, 2025',
+                '10 Apr 2025',
+                '',
+                null,
+                undefined
+            ];
+
+            dateStringsWithoutTime.forEach(value => {
+                expect(hasTimeInStringDate(value)).toEqual(false, `${value} should be recognized as not containing time`);
             });
         });
     });

@@ -90,6 +90,8 @@ export class ThyInnerTimePicker implements ControlValueAccessor, TimePickerCompo
     @Input() minutesPlaceholder: string;
     /** placeholder for seconds field in timePicker */
     @Input() secondsPlaceholder: string;
+    /** timezone */
+    @Input() timeZone: string;
 
     /** emits true if value is a valid date */
     @Output() isValid = new EventEmitter<boolean>();
@@ -140,7 +142,7 @@ export class ThyInnerTimePicker implements ControlValueAccessor, TimePickerCompo
                     // update UI values if date changed
                     this._renderTime(value);
                     this.onChange(value);
-                    this._store.updateControls(getControlsValue(this));
+                    this._store.updateControls(getControlsValue(this), this.timeZone);
                 })
         );
 
@@ -174,22 +176,22 @@ export class ThyInnerTimePicker implements ControlValueAccessor, TimePickerCompo
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        this._store.updateControls(getControlsValue(this));
+        this._store.updateControls(getControlsValue(this), this.timeZone);
     }
 
     changeHours(step: number, source: TimeChangeSource = ''): void {
         this.resetValidation();
-        this._store.changeHours({ step, source });
+        this._store.changeHours({ step, source }, this.timeZone);
     }
 
     changeMinutes(step: number, source: TimeChangeSource = ''): void {
         this.resetValidation();
-        this._store.changeMinutes({ step, source });
+        this._store.changeMinutes({ step, source }, this.timeZone);
     }
 
     changeSeconds(step: number, source: TimeChangeSource = ''): void {
         this.resetValidation();
-        this._store.changeSeconds({ step, source });
+        this._store.changeSeconds({ step, source }, this.timeZone);
     }
 
     updateHours(hours: string): void {
@@ -252,7 +254,8 @@ export class ThyInnerTimePicker implements ControlValueAccessor, TimePickerCompo
                 isPM: this.isPM()
             },
             this.max,
-            this.min
+            this.min,
+            this.timeZone
         );
     }
 
@@ -266,12 +269,15 @@ export class ThyInnerTimePicker implements ControlValueAccessor, TimePickerCompo
             return;
         }
 
-        this._store.setTime({
-            hour: this.hours,
-            minute: this.minutes,
-            seconds: this.seconds,
-            isPM: this.isPM()
-        });
+        this._store.setTime(
+            {
+                hour: this.hours,
+                minute: this.minutes,
+                seconds: this.seconds,
+                isPM: this.isPM()
+            },
+            this.timeZone
+        );
     }
 
     toggleMeridian(): void {
@@ -288,7 +294,7 @@ export class ThyInnerTimePicker implements ControlValueAccessor, TimePickerCompo
 
     writeValue(obj: string | null | undefined | Date): void {
         if (isValidDate(obj)) {
-            this._store.writeValue(parseTime(obj));
+            this._store.writeValue(parseTime(obj, this.timeZone));
         } else if (obj == null) {
             this._store.writeValue(null);
         }
@@ -321,7 +327,7 @@ export class ThyInnerTimePicker implements ControlValueAccessor, TimePickerCompo
             return;
         }
 
-        const _value = parseTime(value);
+        const _value = parseTime(value, this.timeZone);
         const _hoursPerDayHalf = 12;
         let _hours = _value.getHours();
 
