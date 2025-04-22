@@ -1,7 +1,12 @@
 import { OverlayRef } from '@angular/cdk/overlay';
 import { Subject } from 'rxjs';
 import { ThyMessageBaseConfig } from '../message.config';
-import { ThyAbstractMessageQueue } from './abstract-message-queue.service';
+import { BehaviorSubject } from 'rxjs';
+
+export interface IThyAbstractMessageQueue<TReferences extends ThyAbstractMessageRef = ThyAbstractMessageRef> {
+    queues$: BehaviorSubject<TReferences[]>;
+    queues: TReferences[];
+}
 
 export class ThyAbstractMessageRef<TConfig extends ThyMessageBaseConfig = ThyMessageBaseConfig> {
     id: string;
@@ -10,11 +15,11 @@ export class ThyAbstractMessageRef<TConfig extends ThyMessageBaseConfig = ThyMes
 
     private overlayRef: OverlayRef;
 
-    private queueService: ThyAbstractMessageQueue;
+    private queueService: IThyAbstractMessageQueue;
 
     private _afterClosed = new Subject<void>();
 
-    constructor(config: TConfig, overlayRef: OverlayRef, queueService: ThyAbstractMessageQueue) {
+    constructor(config: TConfig, overlayRef: OverlayRef, queueService: IThyAbstractMessageQueue) {
         this.id = config.id;
         this.config = config;
         this.overlayRef = overlayRef;

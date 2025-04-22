@@ -1,5 +1,5 @@
 import { computed, Injectable, Signal, signal } from '@angular/core';
-import { ThyTheme } from './theme';
+import { ThyTheme } from './enum';
 
 @Injectable({
     providedIn: 'root'

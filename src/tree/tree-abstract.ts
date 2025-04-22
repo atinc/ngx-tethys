@@ -1,5 +1,5 @@
 import { InjectionToken } from '@angular/core';
-import { ThyTreeNode } from './tree-node.class';
+import { ThyTreeNode } from './tree.class';
 import { ThyTreeBeforeDragDropContext, ThyTreeBeforeDragStartContext, ThyTreeDragDropEvent, ThyTreeIcons } from './tree.class';
 
 export interface ThyTreeAbstractComponent {

@@ -16,6 +16,7 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 
 import { ThyRadioButton } from '../button/radio-button.component';
 import { ThyRadio } from '../radio.component';
+import { IThyRadioGroupComponent, THY_RADIO_GROUP_COMPONENT } from '../radio.token';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 const buttonGroupSizeMap = {
@@ -39,6 +40,10 @@ const radioGroupLayoutMap = {
             provide: NG_VALUE_ACCESSOR,
             useExisting: forwardRef(() => ThyRadioGroup),
             multi: true
+        },
+        {
+            provide: THY_RADIO_GROUP_COMPONENT,
+            useExisting: ThyRadioGroup
         }
     ],
     host: {
@@ -46,7 +51,7 @@ const radioGroupLayoutMap = {
     },
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ThyRadioGroup implements ControlValueAccessor, OnInit, OnChanges, AfterContentInit {
+export class ThyRadioGroup implements IThyRadioGroupComponent, ControlValueAccessor, OnInit, OnChanges, AfterContentInit {
     private changeDetectorRef = inject(ChangeDetectorRef);
 
     @HostBinding('class.thy-radio-group') thyRadioGroup = true;
@@ -125,7 +130,7 @@ export class ThyRadioGroup implements ControlValueAccessor, OnInit, OnChanges, A
         });
     }
 
-    setGroup() {
+    setGroup(): void {
         if (!this.isButtonGroup && !this.isButtonGroupOutline) {
             this.isButtonGroup = true;
             this.isButtonGroupOutline = true;

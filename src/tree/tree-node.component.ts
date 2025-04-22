@@ -1,5 +1,4 @@
 import { Subject } from 'rxjs';
-import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import {
     Component,
     ContentChild,
@@ -19,16 +18,14 @@ import {
     inject
 } from '@angular/core';
 
-import { THY_TREE_ABSTRACT_TOKEN, ThyTreeAbstractComponent } from './tree-abstract';
-import { ThyTreeNode } from './tree-node.class';
+import { THY_TREE_ABSTRACT_TOKEN } from './tree-abstract';
+import { ThyTreeNode } from './tree.class';
 import { ThyTreeEmitEvent, ThyTreeNodeCheckState, ThyClickBehavior } from './tree.class';
 import { ThyTreeService } from './tree.service';
 import { ThyLoading } from 'ngx-tethys/loading';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
-
-const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveListenerOptions({ passive: true });
 
 /**
  * 树形控件的节点组件

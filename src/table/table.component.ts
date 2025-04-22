@@ -67,12 +67,7 @@ import { ThyDragDropDirective, ThyContextMenuDirective } from 'ngx-tethys/shared
 import { ThyIcon } from 'ngx-tethys/icon';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { ThyTableColumnSkeletonType } from './enums';
-
-export type ThyTableTheme = 'default' | 'bordered' | 'boxed';
-
-export type ThyTableMode = 'list' | 'group' | 'tree';
-
-export type ThyTableSize = 'md' | 'sm' | 'xs' | 'lg' | 'xlg' | 'default';
+import { ThyTableTheme, ThyTableMode, ThyTableSize } from './table.type';
 
 export enum ThyFixedDirection {
     left = 'left',

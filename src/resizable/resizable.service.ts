@@ -2,7 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Injectable, NgZone, OnDestroy, inject } from '@angular/core';
 import { isTouchEvent } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
-import { ThyResizeHandleMouseDownEvent } from './resize-handle.component';
+import { ThyResizeHandleMouseDownEvent } from './interface';
 
 /**
  * @internal

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, Injector, ElementRef, inject } from '@angular/core';
-import { ThyImageDirective } from './image.directive';
+import { IThyImageDirective, IThyImageGroupComponent, THY_IMAGE_GROUP_COMPONENT } from './image.token';
 
 /**
  * 图片分组，提供 thyImageGroup 指令和 thy-image-group 标签两种使用方式
@@ -9,15 +9,22 @@ import { ThyImageDirective } from './image.directive';
     selector: 'thy-image-group, [thyImageGroup]',
     template: '<ng-content></ng-content>',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    providers: [
+        {
+            provide: THY_IMAGE_GROUP_COMPONENT,
+            useClass: ThyImageGroup
+        }
+    ]
 })
-export class ThyImageGroup {
+export class ThyImageGroup implements IThyImageGroupComponent {
     injector = inject(Injector);
+
     element = inject(ElementRef);
 
-    images: ThyImageDirective[] = [];
+    images: IThyImageDirective[] = [];
 
-    addImage(image: ThyImageDirective, index: number): void {
+    addImage(image: IThyImageDirective, index: number): void {
         this.images.splice(index, 0, image);
     }
 

@@ -15,7 +15,7 @@ import { ThyDragDirective } from './drag.directive';
 import { merge, Observable, defer, Subject } from 'rxjs';
 import { takeUntil, startWith, take, switchMap } from 'rxjs/operators';
 import { ThyDragDropEvent, ThyDragStartEvent, ThyDragEndEvent, ThyDragOverEvent } from './drag-drop.class';
-import { THY_DROP_CONTAINER_DIRECTIVE, IThyDropContainerDirective } from './drop-container.class';
+import { THY_DROP_CONTAINER_DIRECTIVE, IThyDropContainerDirective } from './drag-drop.token';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**

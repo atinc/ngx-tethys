@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
-import { ThyAnchor } from './anchor.component';
+import { IThyAnchorLinkComponent, THY_ANCHOR_COMPONENT } from './anchor.token';
 import { NgTemplateOutlet } from '@angular/common';
 
 /**
@@ -39,9 +39,9 @@ import { NgTemplateOutlet } from '@angular/common';
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [NgTemplateOutlet]
 })
-export class ThyAnchorLink implements OnInit, OnDestroy {
+export class ThyAnchorLink implements IThyAnchorLinkComponent, OnInit, OnDestroy {
     elementRef = inject(ElementRef);
-    private anchorComponent = inject(ThyAnchor);
+    private anchorComponent = inject(THY_ANCHOR_COMPONENT, { optional: true })!;
     private platform = inject(Platform);
 
     title: string | null = '';
