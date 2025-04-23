@@ -3,16 +3,16 @@ import {
     AfterContentInit,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
     Directive,
     ElementRef,
-    Input,
     NgZone,
     OnChanges,
     OnInit,
-    QueryList,
     SimpleChanges,
-    inject
+    inject,
+    input,
+    contentChildren,
+    effect
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Observable, Subject } from 'rxjs';
@@ -46,7 +46,7 @@ import {
     }
 })
 // eslint-disable-next-line @angular-eslint/directive-class-suffix
-export class ThyGrid implements ThyGridToken, OnInit, OnChanges, AfterContentInit {
+export class ThyGrid implements ThyGridToken, OnInit, AfterContentInit {
     private elementRef = inject(ElementRef);
     private viewportRuler = inject(ViewportRuler);
     private ngZone = inject(NgZone);
@@ -54,28 +54,28 @@ export class ThyGrid implements ThyGridToken, OnInit, OnChanges, AfterContentIni
     /**
      * @internal
      */
-    @ContentChildren(ThyGridItem) gridItems!: QueryList<ThyGridItem>;
+    readonly gridItems = contentChildren(ThyGridItem);
 
     /**
      * 栅格的列数
      * @default 24
      */
-    @Input() thyCols: number | ThyGridResponsiveDescription = THY_GRID_DEFAULT_COLUMNS;
+    readonly thyCols = input<number | ThyGridResponsiveDescription>(THY_GRID_DEFAULT_COLUMNS);
 
     /**
      * 栅格的水平间隔
      */
-    @Input() thyXGap: number | ThyGridResponsiveDescription = 0;
+    readonly thyXGap = input<number | ThyGridResponsiveDescription>(0);
 
     /**
      * 栅格的垂直间隔
      */
-    @Input() thyYGap: number | ThyGridResponsiveDescription = 0;
+    readonly thyYGap = input<number | ThyGridResponsiveDescription>(0);
 
     /**
      * 栅格的水平和垂直间隔
      */
-    @Input() thyGap: number | ThyGridResponsiveDescription = 0;
+    readonly thyGap = input<number | ThyGridResponsiveDescription>(0);
 
     /**
      * 响应式栅格列数<br/>
@@ -83,7 +83,7 @@ export class ThyGrid implements ThyGridToken, OnInit, OnChanges, AfterContentIni
      * self：根据grid的自身宽度进行响应式布局。<br/>
      * screen：根据屏幕断点进行响应式布局，目前预设了5种响应式尺寸：`xs: 0, sm: 576, md: 768, lg: 992, xl: 1200`。
      */
-    @Input() thyResponsive: ThyGridResponsiveMode = 'none';
+    readonly thyResponsive = input<ThyGridResponsiveMode>('none');
 
     private hostRenderer = useHostRenderer();
 
@@ -101,34 +101,34 @@ export class ThyGrid implements ThyGridToken, OnInit, OnChanges, AfterContentIni
 
     private takeUntilDestroyed = takeUntilDestroyed();
 
+    constructor() {
+        effect(() => {
+            this.handleGridItems();
+        });
+    }
+
     ngOnInit(): void {
         this.setGridStyle();
 
-        if (this.thyResponsive !== 'none') {
+        if (this.thyResponsive() !== 'none') {
             this.listenResizeEvent();
         }
     }
 
-    ngOnChanges(changes: SimpleChanges): void {}
-
     ngAfterContentInit(): void {
         this.handleGridItems();
-
-        this.gridItems.changes.pipe(this.takeUntilDestroyed).subscribe(() => {
-            Promise.resolve().then(() => {
-                this.handleGridItems();
-            });
-        });
     }
 
     private setGridStyle() {
-        this.cols = this.calculateActualValue(this.thyCols || THY_GRID_DEFAULT_COLUMNS, THY_GRID_DEFAULT_COLUMNS);
-        if (!this.thyXGap && !this.thyYGap) {
-            this.xGap = this.calculateActualValue(this.thyGap || 0);
+        this.cols = this.calculateActualValue(this.thyCols() || THY_GRID_DEFAULT_COLUMNS, THY_GRID_DEFAULT_COLUMNS);
+        const thyXGap = this.thyXGap();
+        const thyYGap = this.thyYGap();
+        if (!thyXGap && !thyYGap) {
+            this.xGap = this.calculateActualValue(this.thyGap() || 0);
             this.yGap = this.xGap;
         } else {
-            this.xGap = this.calculateActualValue(this.thyXGap || this.thyGap);
-            this.yGap = this.calculateActualValue(this.thyYGap || this.thyGap);
+            this.xGap = this.calculateActualValue(thyXGap || this.thyGap());
+            this.yGap = this.calculateActualValue(thyYGap || this.thyGap());
         }
 
         this.hostRenderer.setStyle('display', 'grid');
@@ -137,7 +137,7 @@ export class ThyGrid implements ThyGridToken, OnInit, OnChanges, AfterContentIni
     }
 
     private listenResizeEvent() {
-        if (this.thyResponsive === 'screen') {
+        if (this.thyResponsive() === 'screen') {
             this.viewportRuler
                 .change(100)
                 .pipe(this.takeUntilDestroyed)
@@ -160,10 +160,10 @@ export class ThyGrid implements ThyGridToken, OnInit, OnChanges, AfterContentIni
     }
 
     private handleGridItems() {
-        this.gridItems.forEach((gridItem: ThyGridItem) => {
-            const rawSpan = getRawSpan(gridItem.thySpan);
+        this.gridItems().forEach((gridItem: ThyGridItem) => {
+            const rawSpan = getRawSpan(gridItem.thySpan());
             const span = this.calculateActualValue(rawSpan, THY_GRID_ITEM_DEFAULT_SPAN);
-            const offset = this.calculateActualValue(gridItem.thyOffset || 0);
+            const offset = this.calculateActualValue(gridItem.thyOffset() || 0);
 
             gridItem.span = Math.min(span + offset, this.cols);
             gridItem.offset = offset;
@@ -180,7 +180,7 @@ export class ThyGrid implements ThyGridToken, OnInit, OnChanges, AfterContentIni
             const breakpointKeys = Object.keys(responsiveValueMap);
             const breakpoint = this.calculateBreakPoint(breakpointKeys);
 
-            if (this.thyResponsive !== 'none' && breakpoint) {
+            if (this.thyResponsive() !== 'none' && breakpoint) {
                 return responsiveValueMap[breakpoint];
             } else if (breakpointKeys.includes('0')) {
                 return responsiveValueMap['0'];
@@ -202,7 +202,7 @@ export class ThyGrid implements ThyGridToken, OnInit, OnChanges, AfterContentIni
     }
 
     private calculateBreakPoint(breakpointKeys: string[]): string {
-        if (this.thyResponsive === 'screen') {
+        if (this.thyResponsive() === 'screen') {
             const width = this.responsiveContainerWidth || this.viewportRuler.getViewportSize().width;
             return breakpointKeys.find((key: string, index: number) => {
                 return index < breakpointKeys.length - 1

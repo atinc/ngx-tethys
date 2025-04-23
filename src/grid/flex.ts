@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, Component, Directive, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Directive, computed, effect, input } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { isUndefinedOrNull } from '@tethys/cdk/is';
-import { hasLaterChange } from 'ngx-tethys/util';
 
 export type ThyFlexDirection = 'row' | 'column' | 'row-reverse' | 'column-reverse';
 export type ThyFlexWrap = 'nowrap' | 'wrap' | 'wrap-reverse';
@@ -31,70 +30,63 @@ export type ThyFlexShrink = '1' | '0' | 0 | 1;
     }
 })
 // eslint-disable-next-line @angular-eslint/directive-class-suffix
-export class ThyFlex implements OnInit, OnChanges {
+export class ThyFlex {
     private hostRenderer = useHostRenderer();
 
     /**
      * Flex 方向，为 row 或者 column
      * @default row
      */
-    @Input() thyDirection: ThyFlexDirection;
+    readonly thyDirection = input<ThyFlexDirection>();
 
     /**
      * Flex Wrap
      * @default nowrap
      */
-    @Input() thyWrap: ThyFlexWrap;
+    readonly thyWrap = input<ThyFlexWrap>();
 
     /**
      * Justify Content
      */
-    @Input() thyJustifyContent: ThyFlexJustifyContent;
+    readonly thyJustifyContent = input<ThyFlexJustifyContent>();
 
     /**
      * Align Items
      */
-    @Input() thyAlignItems: ThyFlexAlignItems;
+    readonly thyAlignItems = input<ThyFlexAlignItems>();
 
     /**
      * Flex Item 之间的间隙 Gap
      * @default 0
      */
-    @Input() thyGap: number;
+    readonly thyGap = input<number>();
 
-    get direction() {
-        const direction = this.thyDirection ?? this.thyDirection;
-        return direction || 'row';
-    }
+    direction = computed(() => {
+        return this.thyDirection() || 'row';
+    });
 
-    constructor() {}
-
-    ngOnInit(): void {
-        this.updateClasses();
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        if (hasLaterChange(changes)) {
+    constructor() {
+        effect(() => {
             this.updateClasses();
-        }
+        });
     }
 
     private updateClasses() {
         const classes: string[] = [];
-        if (!isUndefinedOrNull(this.thyJustifyContent)) {
-            classes.push(`justify-content-${normalizeStartEnd(this.thyJustifyContent)}`);
+        if (!isUndefinedOrNull(this.thyJustifyContent())) {
+            classes.push(`justify-content-${normalizeStartEnd(this.thyJustifyContent())}`);
         }
-        if (!isUndefinedOrNull(this.thyAlignItems)) {
-            classes.push(`align-items-${normalizeStartEnd(this.thyAlignItems)}`);
+        if (!isUndefinedOrNull(this.thyAlignItems())) {
+            classes.push(`align-items-${normalizeStartEnd(this.thyAlignItems())}`);
         }
-        if (!isUndefinedOrNull(this.thyWrap)) {
-            classes.push(`flex-${this.thyWrap}`);
+        if (!isUndefinedOrNull(this.thyWrap())) {
+            classes.push(`flex-${this.thyWrap()}`);
         }
-        if (!isUndefinedOrNull(this.direction)) {
-            classes.push(`flex-${this.direction}`);
+        if (!isUndefinedOrNull(this.direction())) {
+            classes.push(`flex-${this.direction()}`);
         }
         this.hostRenderer.updateClass(classes);
-        this.hostRenderer.setStyle('gap', `${this.thyGap ?? '0'}px`);
+        this.hostRenderer.setStyle('gap', `${this.thyGap() ?? '0'}px`);
     }
 }
 
@@ -127,62 +119,56 @@ export class ThyFlexComponent {}
     }
 })
 // eslint-disable-next-line @angular-eslint/directive-class-suffix
-export class ThyFlexItem implements OnInit, OnChanges {
+export class ThyFlexItem {
     private hostRenderer = useHostRenderer();
 
     /**
      * Flex Item 属性，表示 grow 、shrink 、basis
      */
-    @Input() thyFlexItem: 'fill' | string;
+    readonly thyFlexItem = input<'fill' | string>();
 
     /**
      * Flew Grow，设置或检索弹性盒子的扩展比率，设置 1 为填充剩余区域
      */
-    @Input() thyGrow: ThyFlexGrow;
+    readonly thyGrow = input<ThyFlexGrow>();
 
     /**
      * Flex Shrink，设置或检索弹性盒收缩比例
      * @default 1
      */
-    @Input() thyShrink: ThyFlexShrink;
+    readonly thyShrink = input<ThyFlexShrink>();
 
     /**
      * Flex Basis，设置或检索弹性盒伸缩基准值
      * @default 1
      */
-    @Input() thyBasis: string;
+    readonly thyBasis = input<string>();
 
-    constructor() {}
-
-    ngOnInit(): void {
-        this.updateClasses();
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        if (hasLaterChange(changes)) {
+    constructor() {
+        effect(() => {
             this.updateClasses();
-        }
+        });
     }
 
     private updateClasses() {
         const classes: string[] = [];
         this.hostRenderer.setStyle('flex', '');
         this.hostRenderer.setStyle('basis', '');
-        if (this.thyFlexItem) {
-            if (this.thyFlexItem === 'fill') {
-                classes.push(`flex-${this.thyFlexItem}`);
+        if (this.thyFlexItem()) {
+            if (this.thyFlexItem() === 'fill') {
+                classes.push(`flex-${this.thyFlexItem()}`);
             } else {
-                this.hostRenderer.setStyle('flex', this.thyFlexItem);
+                this.hostRenderer.setStyle('flex', this.thyFlexItem());
             }
         }
-        if (!isUndefinedOrNull(this.thyGrow)) {
-            classes.push(`flex-grow-${this.thyGrow}`);
+        if (!isUndefinedOrNull(this.thyGrow())) {
+            classes.push(`flex-grow-${this.thyGrow()}`);
         }
-        if (!isUndefinedOrNull(this.thyShrink)) {
-            classes.push(`flex-shrink-${this.thyShrink}`);
+        if (!isUndefinedOrNull(this.thyShrink())) {
+            classes.push(`flex-shrink-${this.thyShrink()}`);
         }
-        if (!isUndefinedOrNull(this.thyBasis)) {
-            this.hostRenderer.setStyle('flex-basis', this.thyBasis);
+        if (!isUndefinedOrNull(this.thyBasis())) {
+            this.hostRenderer.setStyle('flex-basis', this.thyBasis());
         }
         this.hostRenderer.updateClass(classes);
     }

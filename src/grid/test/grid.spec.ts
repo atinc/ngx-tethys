@@ -90,11 +90,11 @@ describe('grid', () => {
         });
 
         it('should set correct default value for grid', () => {
-            expect(gridInstance.thyCols).toBe(24);
-            expect(gridInstance.thyGap).toBe(0);
-            expect(gridInstance.thyXGap).toBe(0);
-            expect(gridInstance.thyYGap).toBe(0);
-            expect(gridInstance.thyResponsive).toBe('none');
+            expect(gridInstance.thyCols()).toBe(24);
+            expect(gridInstance.thyGap()).toBe(0);
+            expect(gridInstance.thyXGap()).toBe(0);
+            expect(gridInstance.thyYGap()).toBe(0);
+            expect(gridInstance.thyResponsive()).toBe('none');
         });
 
         it('should have default style for grid', () => {
@@ -111,8 +111,8 @@ describe('grid', () => {
                 const gridItemElement = gridItem.nativeElement;
                 expect(gridItemElement.classList.contains('thy-grid-item')).toBeTruthy();
                 const gridItemInstance = gridItem.componentInstance;
-                expect(gridItemInstance.thySpan).toBe(1);
-                expect(gridItemInstance.thyOffset).toBe(0);
+                expect(gridItemInstance.thySpan()).toBe(1);
+                expect(gridItemInstance.thyOffset()).toBe(0);
             });
         });
     });

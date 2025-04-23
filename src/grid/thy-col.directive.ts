@@ -1,4 +1,4 @@
-import { Directive, Input, OnChanges, AfterViewInit, OnInit, SimpleChanges, inject } from '@angular/core';
+import { Directive, AfterViewInit, inject, input, computed, effect } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyRowDirective } from './thy-row.directive';
@@ -24,34 +24,32 @@ export type ThySpan = number | null | 'auto';
         class: 'thy-col'
     }
 })
-export class ThyColDirective implements OnInit, OnChanges, AfterViewInit {
+export class ThyColDirective implements AfterViewInit {
     thyRowDirective = inject(ThyRowDirective, { optional: true, host: true })!;
 
     /**
      * 栅格项的占位列数，thySpan 如果传递了值，以 thySpan 为准
      */
-    @Input() thyCol: ThySpan;
+    readonly thyCol = input<ThySpan>();
 
     /**
      * 栅格项的占位列数
      */
-    @Input() thySpan: ThySpan;
+    readonly thySpan = input<ThySpan>();
 
-    get span() {
-        const span = this.thySpan ?? this.thyCol;
+    span = computed(() => {
+        const span = this.thySpan() ?? this.thyCol();
         return span || 24;
-    }
+    });
 
     private hostRenderer = useHostRenderer();
 
     private takeUntilDestroyed = takeUntilDestroyed();
 
-    ngOnInit() {
-        this.updateHostClass();
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        this.updateHostClass();
+    constructor() {
+        effect(() => {
+            this.updateHostClass();
+        });
     }
 
     ngAfterViewInit(): void {
@@ -73,8 +71,9 @@ export class ThyColDirective implements OnInit, OnChanges, AfterViewInit {
     }
 
     private updateHostClass() {
+        const span = this.span();
         this.hostRenderer.updateClassByMap({
-            [`thy-col-${this.span}`]: true
+            [`thy-col-${span}`]: true
         });
     }
 }
