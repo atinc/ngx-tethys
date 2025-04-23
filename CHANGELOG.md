@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [19.0.6](https://github.com/atinc/ngx-tethys/compare/19.0.5...19.0.6) (2025-04-23)
+
+
+### Bug Fixes
+
+* **date-picker:** update TinyDate initialization and methods to handle timezone correctly ([#3345](https://github.com/atinc/ngx-tethys/issues/3345)) ([95d4316](https://github.com/atinc/ngx-tethys/commit/95d43167f74ac8dba34046e45f86502c8f3b9d0b))
+* **notify:** resolve auto close for multiple notifications #TINFR-1903 ([#3355](https://github.com/atinc/ngx-tethys/issues/3355)) ([e69f83b](https://github.com/atinc/ngx-tethys/commit/e69f83b90aaef6987cd84baeba41cf83f2676e7c)), closes [#TINFR-1903](https://github.com/atinc/ngx-tethys/issues/TINFR-1903)
+* **table:** handle fixed header border style ([#3347](https://github.com/atinc/ngx-tethys/issues/3347)) ([d6828b5](https://github.com/atinc/ngx-tethys/commit/d6828b5919cb31a1663a133edcf7e81c9e2dcbcd))
+
+
+
 ## [19.0.5](https://github.com/atinc/ngx-tethys/compare/19.0.4...19.0.5) (2025-04-16)
 
 
