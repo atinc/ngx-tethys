@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [19.0.7](https://github.com/atinc/ngx-tethys/compare/19.0.6...19.0.7) (2025-04-24)
+
+
+### Bug Fixes
+
+* **tree:** the parameters provided by IThyTreeService are incomplete #TINFR-1854 ([#3361](https://github.com/atinc/ngx-tethys/issues/3361)) ([40ae7ac](https://github.com/atinc/ngx-tethys/commit/40ae7ac1ba68592851bf43de0ddaade6b66cac85)), closes [#TINFR-1854](https://github.com/atinc/ngx-tethys/issues/TINFR-1854)
+
+
+
 ## [19.0.6](https://github.com/atinc/ngx-tethys/compare/19.0.5...19.0.6) (2025-04-23)
 
 
