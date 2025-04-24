@@ -1,26 +1,26 @@
 <div class="thy-date-range-container">
-  @if (!thyDisabledSwitch) {
+  @if (!thyDisabledSwitch()) {
     <a thyAction thyIcon="angle-left" href="javascript:;" (click)="previous()"></a>
   }
   <span
     href="javascript:;"
     (click)="openOptionalDateRangesMenu($event)"
     class="thy-date-range-text"
-    [ngClass]="{ 'thy-date-range-disabled': thyHiddenMenu }">
+    [ngClass]="{ 'thy-date-range-disabled': thyHiddenMenu() }">
     @if (selectedDate?.key === 'custom') {
       {{ selectedDate?.begin | thyDatePickerFormat }}{{ separator() }}{{ selectedDate?.end | thyDatePickerFormat }}
     }
     @if (selectedDate?.key === 'exception') {
-      {{ selectedDate?.begin | thyDatePickerFormat: thyPickerFormat }}
+      {{ selectedDate?.begin | thyDatePickerFormat: thyPickerFormat() }}
     }
     @if (selectedDate?.key !== 'custom' && selectedDate?.key !== 'exception') {
       {{ selectedDate?.text }}
     }
-    @if (!thyHiddenMenu) {
+    @if (!thyHiddenMenu()) {
       <thy-icon class="thy-date-range-text-caret-down ml-2" thyIconName="angle-down"></thy-icon>
     }
   </span>
-  @if (!thyDisabledSwitch) {
+  @if (!thyDisabledSwitch()) {
     <a thyAction thyIcon="angle-right" href="javascript:;" (click)="next()"></a>
   }
 </div>
