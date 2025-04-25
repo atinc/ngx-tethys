@@ -8,7 +8,6 @@ All notable changes to this project will be documented in this file. See [commit
 ### Bug Fixes
 
 * **nav:** the default value of showMore should be false #TINFR-1943 ([#3364](https://github.com/atinc/ngx-tethys/issues/3364)) ([b1b9360](https://github.com/atinc/ngx-tethys/commit/b1b9360545512f14524035343a1117e6e9572379)), closes [#TINFR-1943](https://github.com/atinc/ngx-tethys/issues/TINFR-1943)
-* **tree:** the parameters provided by IThyTreeService are incomplete #TINFR-1854 ([#3361](https://github.com/atinc/ngx-tethys/issues/3361)) ([40ae7ac](https://github.com/atinc/ngx-tethys/commit/40ae7ac1ba68592851bf43de0ddaade6b66cac85)), closes [#TINFR-1854](https://github.com/atinc/ngx-tethys/issues/TINFR-1854)
 
 
 
