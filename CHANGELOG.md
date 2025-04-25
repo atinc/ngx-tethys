@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [19.0.8](https://github.com/atinc/ngx-tethys/compare/19.0.6...19.0.8) (2025-04-25)
+
+
+### Bug Fixes
+
+* **nav:** the default value of showMore should be false #TINFR-1943 ([#3364](https://github.com/atinc/ngx-tethys/issues/3364)) ([b1b9360](https://github.com/atinc/ngx-tethys/commit/b1b9360545512f14524035343a1117e6e9572379)), closes [#TINFR-1943](https://github.com/atinc/ngx-tethys/issues/TINFR-1943)
+
+
+
 ## [19.0.7](https://github.com/atinc/ngx-tethys/compare/19.0.6...19.0.7) (2025-04-24)
 
 
