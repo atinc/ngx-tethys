@@ -387,7 +387,7 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
         const tabs = this.links.toArray();
         if (!tabs.length) {
             this.hiddenItems = [];
-            this.showMore.set(this.hiddenItems.length > 0);
+            this.showMore.set(false);
             return;
         }
 
