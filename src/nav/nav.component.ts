@@ -22,10 +22,12 @@ import {
     OnChanges,
     OnInit,
     QueryList,
+    signal,
     Signal,
     SimpleChanges,
     TemplateRef,
-    ViewChild
+    ViewChild,
+    WritableSignal
 } from '@angular/core';
 
 import { RouterLinkActive } from '@angular/router';
@@ -113,7 +115,7 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
 
     public moreActive: boolean;
 
-    public showMore = true;
+    readonly showMore: WritableSignal<boolean> = signal(false);
 
     private moreBtnOffset: { height: number; width: number } = { height: 0, width: 0 };
 
@@ -385,7 +387,7 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
         const tabs = this.links.toArray();
         if (!tabs.length) {
             this.hiddenItems = [];
-            this.showMore = this.hiddenItems.length > 0;
+            this.showMore.set(false);
             return;
         }
 
@@ -401,7 +403,7 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
             item.setNavLinkHidden(true);
         });
 
-        this.showMore = this.hiddenItems.length > 0;
+        this.showMore.set(this.hiddenItems.length > 0);
         this.initialized = true;
     }
 
