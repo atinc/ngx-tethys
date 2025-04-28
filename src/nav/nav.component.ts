@@ -281,6 +281,7 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
         if (this.thyResponsive) {
             this.setMoreBtnOffset();
             this.ngZone.onStable.pipe(take(1)).subscribe(() => {
+                this.setMoreBtnOffset();
                 this.links.toArray().forEach(link => link.setOffset());
                 this.setHiddenItems();
             });
@@ -305,6 +306,7 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
                             }
 
                             if (this.thyResponsive) {
+                                this.setMoreBtnOffset();
                                 this.resetSizes();
                                 this.setHiddenItems();
                                 this.calculateMoreIsActive();
@@ -342,9 +344,10 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
     }
 
     private setMoreBtnOffset() {
+        const computedStyle = window.getComputedStyle(this.defaultMoreOperation?.nativeElement);
         this.moreBtnOffset = {
-            height: this.defaultMoreOperation?.nativeElement?.offsetHeight,
-            width: this.defaultMoreOperation?.nativeElement?.offsetWidth
+            height: this.defaultMoreOperation?.nativeElement?.offsetHeight + parseFloat(computedStyle?.marginBottom) || 0,
+            width: this.defaultMoreOperation?.nativeElement?.offsetWidth + parseFloat(computedStyle?.marginRight) || 0
         };
     }
 
