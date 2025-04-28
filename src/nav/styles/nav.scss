@@ -12,6 +12,7 @@
     margin-bottom: 0;
     list-style: none;
     position: relative;
+    width: 100%;
 
     .thy-nav-item {
         display: block;
@@ -34,7 +35,7 @@
     }
 
     .thy-nav-more-icon {
-        margin-left: 8px;
+        margin-left: 4px;
     }
 
     .thy-nav-origin-active {
@@ -306,4 +307,6 @@
     flex: 1 !important;
     flex-grow: 0 !important;
     white-space: nowrap;
+    width: fit-content;
+    min-width: fit-content;
 }
