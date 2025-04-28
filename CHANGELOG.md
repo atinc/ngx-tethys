@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [18.2.15](https://github.com/atinc/ngx-tethys/compare/18.2.14...18.2.15) (2025-04-28)
+
+
+### Bug Fixes
+
+* **nav:** improve button offset calculation and adjust styles for better responsiveness #TINFR-1984 ([#3370](https://github.com/atinc/ngx-tethys/issues/3370)) ([8d31e80](https://github.com/atinc/ngx-tethys/commit/8d31e804c36116329c9e7c5ca2786a229757ef53)), closes [#TINFR-1984](https://github.com/atinc/ngx-tethys/issues/TINFR-1984)
+
+
+
 ## [18.2.14](https://github.com/atinc/ngx-tethys/compare/18.2.13...18.2.14) (2025-04-27)
 
 
