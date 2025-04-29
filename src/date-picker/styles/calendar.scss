@@ -67,6 +67,7 @@
         .#{style.$calendar-prefix-cls}-column-header-inner {
             display: block;
             font-weight: normal;
+            color: variables.$text-color;
         }
     }
 

@@ -53,6 +53,7 @@
                 text-overflow: ellipsis;
                 white-space: nowrap;
                 transition: all 0.15s ease-in-out;
+                color: variables.$text-color;
                 &:hover {
                     color: variables.$primary;
                     border-color: variables.$primary;
