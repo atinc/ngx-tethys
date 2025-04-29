@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { IThyCollapseItemComponent, IThyCollapseComponent, THY_COLLAPSE_COMPONENT } from './collapse.token';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
@@ -21,11 +20,11 @@ export type ThyCollapsedIconPosition = 'left' | 'right';
     `,
     host: {
         class: 'thy-collapse',
-        '[class.thy-collapse-divided]': `thyTheme === 'divided'`,
-        '[class.thy-collapse-bordered]': `thyTheme === 'bordered'`,
-        '[class.thy-collapse-ghost]': `thyTheme === 'ghost'`,
-        '[class.thy-collapse-icon-position-right]': `thyArrowIconPosition === 'right'`,
-        '[class.thy-collapse-icon-position-left]': `thyArrowIconPosition === 'left'`
+        '[class.thy-collapse-divided]': `thyTheme() === 'divided'`,
+        '[class.thy-collapse-bordered]': `thyTheme() === 'bordered'`,
+        '[class.thy-collapse-ghost]': `thyTheme() === 'ghost'`,
+        '[class.thy-collapse-icon-position-right]': `thyArrowIconPosition() === 'right'`,
+        '[class.thy-collapse-icon-position-left]': `thyArrowIconPosition() === 'left'`
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
@@ -35,29 +34,23 @@ export type ThyCollapsedIconPosition = 'left' | 'right';
         }
     ]
 })
-export class ThyCollapse implements IThyCollapseComponent, OnInit {
+export class ThyCollapse implements IThyCollapseComponent {
     /**
      * 折叠面板主题，支持 `divided` | `bordered` | `ghost`
      */
-    @Input() thyTheme: ThyCollapseTheme = 'divided';
+    readonly thyTheme = input<ThyCollapseTheme>('divided');
 
     /**
      * 是否为手风琴模式，手风琴模式下，只能展开一个面板
-     * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyAccordion: boolean;
+    readonly thyAccordion = input<boolean, unknown>(false, { transform: coerceBooleanProperty });
 
     /**
-     * 展开收起图标的位置
-     * @type left | right
+     * 展开收起图标的位置，支持 `left` | `right`
      */
-    @Input() thyArrowIconPosition: ThyCollapsedIconPosition = 'left';
+    readonly thyArrowIconPosition = input<ThyCollapsedIconPosition>('left');
 
     private listOfCollapsePanelComponent: IThyCollapseItemComponent[] = [];
-
-    constructor() {}
-
-    ngOnInit() {}
 
     addPanel(value: IThyCollapseItemComponent): void {
         this.listOfCollapsePanelComponent.push(value);
@@ -68,18 +61,18 @@ export class ThyCollapse implements IThyCollapseComponent, OnInit {
     }
 
     click(collapseItem: IThyCollapseItemComponent, event: Event): void {
-        if (this.thyAccordion && !collapseItem.thyActive) {
+        if (this.thyAccordion() && !collapseItem.thyActive()) {
             this.listOfCollapsePanelComponent
                 .filter(item => item !== collapseItem)
                 .forEach(item => {
-                    if (item.thyActive) {
-                        item.thyActive = false;
-                        item.thyActiveChange.emit({ active: collapseItem.thyActive, event });
+                    if (item.thyActive()) {
+                        item.thyActive.set(false);
+                        item.thyActiveChange.emit({ active: collapseItem.thyActive(), event });
                         item.markForCheck();
                     }
                 });
         }
-        collapseItem.thyActive = !collapseItem.thyActive;
-        collapseItem.thyActiveChange.emit({ active: collapseItem.thyActive, event });
+        collapseItem.thyActive.set(!collapseItem.thyActive());
+        collapseItem.thyActiveChange.emit({ active: collapseItem.thyActive(), event });
     }
 }

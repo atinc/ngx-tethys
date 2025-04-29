@@ -6,22 +6,20 @@ import { auditTime, map, takeUntil } from 'rxjs/operators';
 import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
 import {
-    AfterViewInit,
-    ChangeDetectionStrategy,
-    Component,
-    ElementRef,
-    EventEmitter,
-    Input,
-    NgZone,
-    numberAttribute,
-    OnChanges,
-    OnDestroy,
-    Output,
-    Renderer2,
-    SimpleChanges,
-    ViewChild,
-    ViewEncapsulation,
-    inject
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  NgZone,
+  numberAttribute,
+  OnDestroy,
+  Renderer2,
+  ViewEncapsulation,
+  inject,
+  input,
+  effect,
+  output,
+  viewChild
 } from '@angular/core';
 
 import { AffixRespondEvents } from './respond-events';
@@ -45,38 +43,34 @@ const THY_AFFIX_DEFAULT_SCROLL_TIME = 20;
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class ThyAffix implements AfterViewInit, OnChanges, OnDestroy {
+export class ThyAffix implements AfterViewInit, OnDestroy {
     private scrollService = inject(ThyScrollService);
     private ngZone = inject(NgZone);
     private platform = inject(Platform);
     private renderer = inject(Renderer2);
 
-    @ViewChild('fixedElement', { static: true }) private fixedElement!: ElementRef<HTMLDivElement>;
+    readonly fixedElement = viewChild.required<ElementRef<HTMLDivElement>>('fixedElement');
 
     /**
      * 设置 thy-affix 需要监听其滚动事件的元素，值为一个返回对应 DOM 元素的函数
      * @default window
-     * @type string | Element | Window
      */
-    @Input() thyContainer?: string | Element | Window;
+    readonly thyContainer = input<string | Element | Window>(undefined);
 
     /**
      * 距离窗口顶部缓冲的偏移量阈值
-     * @default 0
      */
-    @Input({ transform: numberAttribute })
-    thyOffsetTop?: null | number;
+    readonly thyOffsetTop = input<null | number, unknown>(0, { transform: numberAttribute });
 
     /**
      * 距离窗口底部缓冲的偏移量阈值
      */
-    @Input({ transform: numberAttribute })
-    thyOffsetBottom?: null | number;
+    readonly thyOffsetBottom = input<null | number, unknown>(undefined, { transform: numberAttribute });
 
     /**
      * 固定状态改变时触发的回调函数
      */
-    @Output() readonly thyChange = new EventEmitter<boolean>();
+    readonly thyChange = output<boolean>();
 
     private readonly placeholderNode: HTMLElement;
 
@@ -89,7 +83,7 @@ export class ThyAffix implements AfterViewInit, OnChanges, OnDestroy {
     private document: any;
 
     private get container(): Element | Window {
-        const el = this.thyContainer;
+        const el = this.thyContainer();
         return (typeof el === 'string' ? this.document.querySelector(el) : el) || window;
     }
 
@@ -100,17 +94,15 @@ export class ThyAffix implements AfterViewInit, OnChanges, OnDestroy {
         // The wrapper would stay at the original position as a placeholder.
         this.placeholderNode = el.nativeElement;
         this.document = document;
-    }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        const { thyOffsetBottom, thyOffsetTop, thyContainer } = changes;
-
-        if (thyOffsetBottom || thyOffsetTop) {
-            this.offsetChanged$.next(undefined);
-        }
-        if (thyContainer) {
-            this.registerListeners();
-        }
+        effect(() => {
+            if (this.thyOffsetBottom() || this.thyOffsetTop()) {
+                this.offsetChanged$.next(undefined);
+            }
+            if (this.thyContainer()) {
+                this.registerListeners();
+            }
+        });
     }
 
     ngAfterViewInit(): void {
@@ -174,7 +166,7 @@ export class ThyAffix implements AfterViewInit, OnChanges, OnDestroy {
         }
 
         const fixed = !!affixStyle;
-        const wrapElement = this.fixedElement.nativeElement;
+        const wrapElement = this.fixedElement().nativeElement;
         this.renderer.setStyle(wrapElement, 'cssText', dom.getStyleAsText(affixStyle));
         this.affixStyle = affixStyle;
         if (fixed) {
@@ -205,7 +197,7 @@ export class ThyAffix implements AfterViewInit, OnChanges, OnDestroy {
         this.placeholderStyle = undefined;
         const styleObj = {
             width: this.placeholderNode.offsetWidth,
-            height: this.fixedElement.nativeElement.offsetHeight
+            height: this.fixedElement().nativeElement.offsetHeight
         };
         this.setAffixStyle(e, {
             ...this.affixStyle,
@@ -220,10 +212,10 @@ export class ThyAffix implements AfterViewInit, OnChanges, OnDestroy {
         }
 
         const containerNode = this.container;
-        let offsetTop = this.thyOffsetTop;
+        let offsetTop = this.thyOffsetTop();
         const scrollTop = this.scrollService.getScroll(containerNode, true);
         const elementOffset = this.getOffset(this.placeholderNode, containerNode);
-        const fixedNode = this.fixedElement.nativeElement;
+        const fixedNode = this.fixedElement().nativeElement;
         const elemSize = {
             width: fixedNode.offsetWidth,
             height: fixedNode.offsetHeight
@@ -233,12 +225,13 @@ export class ThyAffix implements AfterViewInit, OnChanges, OnDestroy {
             bottom: false
         };
         // Default to `offsetTop=0`.
-        if (typeof offsetTop !== 'number' && typeof this.thyOffsetBottom !== 'number') {
+        const thyOffsetBottom = this.thyOffsetBottom();
+        if (typeof offsetTop !== 'number' && typeof thyOffsetBottom !== 'number') {
             offsetMode.top = true;
             offsetTop = 0;
         } else {
             offsetMode.top = typeof offsetTop === 'number';
-            offsetMode.bottom = typeof this.thyOffsetBottom === 'number';
+            offsetMode.bottom = typeof thyOffsetBottom === 'number';
         }
         const containerRect = dom.getContainerRect(containerNode as Window);
         const targetInnerHeight = (containerNode as Window).innerHeight || (containerNode as HTMLElement).clientHeight;
@@ -256,14 +249,14 @@ export class ThyAffix implements AfterViewInit, OnChanges, OnDestroy {
                 height: elemSize.height
             });
         } else if (
-            scrollTop <= elementOffset.top + elemSize.height + (this.thyOffsetBottom as number) - targetInnerHeight &&
+            scrollTop <= elementOffset.top + elemSize.height + (thyOffsetBottom as number) - targetInnerHeight &&
             offsetMode.bottom
         ) {
             const targetBottomOffset = containerNode === window ? 0 : window.innerHeight - containerRect.bottom;
             const width = elementOffset.width;
             this.setAffixStyle(e, {
                 position: 'fixed',
-                bottom: targetBottomOffset + (this.thyOffsetBottom as number),
+                bottom: targetBottomOffset + (thyOffsetBottom as number),
                 left: containerRect.left + elementOffset.left,
                 width
             });
