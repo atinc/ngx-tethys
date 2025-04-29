@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [19.0.9](https://github.com/atinc/ngx-tethys/compare/19.0.8...19.0.9) (2025-04-28)
+
+
+### Bug Fixes
+
+* **nav:** improve button offset calculation and adjust styles for better responsiveness #TINFR-1984 ([#3370](https://github.com/atinc/ngx-tethys/issues/3370)) ([#3371](https://github.com/atinc/ngx-tethys/issues/3371)) ([dee521f](https://github.com/atinc/ngx-tethys/commit/dee521fc8e462878146d73053dbec4e80455973f)), closes [#TINFR-1984](https://github.com/atinc/ngx-tethys/issues/TINFR-1984)
+
+
+
+## [19.0.8](https://github.com/atinc/ngx-tethys/compare/19.0.6...19.0.8) (2025-04-25)
+
+
+### Bug Fixes
+
+* **nav:** the default value of showMore should be false #TINFR-1943 ([#3364](https://github.com/atinc/ngx-tethys/issues/3364)) ([b1b9360](https://github.com/atinc/ngx-tethys/commit/b1b9360545512f14524035343a1117e6e9572379)), closes [#TINFR-1943](https://github.com/atinc/ngx-tethys/issues/TINFR-1943)
+
+
+
+## [19.0.7](https://github.com/atinc/ngx-tethys/compare/19.0.6...19.0.7) (2025-04-24)
+
+
+### Bug Fixes
+
+* **tree:** the parameters provided by IThyTreeService are incomplete #TINFR-1854 ([#3361](https://github.com/atinc/ngx-tethys/issues/3361)) ([40ae7ac](https://github.com/atinc/ngx-tethys/commit/40ae7ac1ba68592851bf43de0ddaade6b66cac85)), closes [#TINFR-1854](https://github.com/atinc/ngx-tethys/issues/TINFR-1854)
+
+
+
 ## [19.0.6](https://github.com/atinc/ngx-tethys/compare/19.0.5...19.0.6) (2025-04-23)
 
 

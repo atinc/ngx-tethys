@@ -1,5 +1,5 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component, DebugElement, OnInit, TemplateRef, ViewChild, inject as coreInject } from '@angular/core';
+import { Component, DebugElement, OnInit, TemplateRef, inject as coreInject, viewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
@@ -105,7 +105,7 @@ class GuiderBasicComponent implements OnInit {
 
     public guiderRef: ThyGuiderRef;
 
-    @ViewChild('descTemp', { static: true }) descTemp: TemplateRef<HTMLElement>;
+    readonly descTemp = viewChild<TemplateRef<HTMLElement>>('descTemp');
 
     public option = {
         steps: basicGuiderSteps
@@ -144,7 +144,7 @@ class GuiderBasicComponent implements OnInit {
                     data: {
                         image: '',
                         title: '基础新手引导的使用',
-                        description: this.descTemp
+                        description: this.descTemp()
                     }
                 }
             ]

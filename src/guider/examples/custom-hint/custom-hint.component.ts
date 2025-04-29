@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnDestroy, OnInit, TemplateRef, ViewChild, inject } from '@angular/core';
+import { Component, HostBinding, OnDestroy, OnInit, TemplateRef, inject, viewChild } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { ThyButton } from 'ngx-tethys/button';
 import { ThyGuiderStepRef, ThyGuiderConfig, ThyGuiderRef, ThyGuiderStep, ThyGuider, ThyGuiderModule } from 'ngx-tethys/guider';
@@ -16,7 +16,7 @@ export class ThyGuiderCustomHintExampleComponent implements OnInit, OnDestroy {
 
     private guiderRef: ThyGuiderRef;
 
-    @ViewChild('descTemplate', { static: true }) descTemplate: TemplateRef<any>;
+    readonly descTemplate = viewChild<TemplateRef<any>>('descTemplate');
 
     ngOnInit() {
         this.option = this.setDefaultGuiderOption();
@@ -35,7 +35,7 @@ export class ThyGuiderCustomHintExampleComponent implements OnInit, OnDestroy {
                     key: 'custom-tip-target',
                     target: '.custom-tip-target',
                     data: {
-                        descTemplate: this.descTemplate,
+                        descTemplate: this.descTemplate(),
                         descString: 'Hello World'
                     },
                     hintPlacement: 'bottom',
