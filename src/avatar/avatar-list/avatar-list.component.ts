@@ -1,22 +1,8 @@
-import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
-import {
-    AfterContentInit,
-    Component,
-    ContentChild,
-    ContentChildren,
-    HostBinding,
-    Input,
-    OnChanges,
-    OnDestroy,
-    QueryList,
-    SimpleChanges,
-    TemplateRef
-} from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
+import { Component, computed, contentChild, effect, input, Signal, TemplateRef, contentChildren } from '@angular/core';
 import { UpdateHostClassService } from 'ngx-tethys/core';
 import { SafeAny } from 'ngx-tethys/types';
-import { Subject } from 'rxjs';
 import { DEFAULT_SIZE, ThyAvatar } from '../avatar.component';
-import { takeUntil, startWith } from 'rxjs/operators';
 
 export const THY_AVATAR_ITEM_SPACE = 4;
 
@@ -36,72 +22,53 @@ export const enum ThyAvatarListMode {
     selector: 'thy-avatar-list',
     templateUrl: `./avatar-list.component.html`,
     host: {
-        class: 'thy-avatar-list'
+        class: 'thy-avatar-list',
+        '[class.thy-avatar-list-overlap]': 'isOverlapMode()'
     },
     providers: [UpdateHostClassService],
     imports: [NgTemplateOutlet]
 })
-export class ThyAvatarList implements OnChanges, OnDestroy, AfterContentInit {
-    @HostBinding('class.thy-avatar-list-overlap') overlapMode = false;
-
+export class ThyAvatarList {
     public avatarItems: ThyAvatar[] = [];
-
-    private ngUnsubscribe$ = new Subject<void>();
 
     /**
      * 展示方式
      * @type  overlap | default
-     * @default default
      */
-    @Input() thyMode: ThyAvatarListMode;
+    readonly thyMode = input<ThyAvatarListMode>(ThyAvatarListMode.default);
+
+    isOverlapMode: Signal<boolean> = computed(() => {
+        return this.thyMode() === ThyAvatarListMode.overlap;
+    });
 
     /**
      * 头像大小
      * @type 16 | 22 | 24 | 28 | 32 | 36 | 44 | 48 | 68 | 110 | 160 | xxs(22px) | xs(24px) | sm(32px) | md(36px) | lg(48px)
      * @default 36
      */
-    @Input() thyAvatarSize: number | string = DEFAULT_SIZE;
+    readonly thyAvatarSize = input<number | string>(DEFAULT_SIZE);
 
     /**
      *  append 自定义操作
      */
-    @ContentChild('append', { static: false }) append: TemplateRef<SafeAny>;
+    readonly append = contentChild<TemplateRef<SafeAny>>('append');
 
     /**
      * @private
      */
-    @ContentChildren(ThyAvatar) avatarComponents: QueryList<ThyAvatar>;
+    readonly avatarComponents = contentChildren<ThyAvatar>(ThyAvatar);
 
-    constructor() {}
-
-    ngOnChanges(changes: SimpleChanges) {
-        if (changes.thyAvatarSize && !changes.thyAvatarSize.firstChange) {
-            this.updateAvatarItems();
-        }
-        if (changes.thyMode) {
-            this.overlapMode = changes.thyMode.currentValue === ThyAvatarListMode.overlap;
-            if (!changes.thyMode.firstChange) {
-                this.updateAvatarItems();
-            }
-        }
-    }
-
-    ngAfterContentInit() {
-        this.avatarComponents.changes.pipe(startWith(this.avatarComponents), takeUntil(this.ngUnsubscribe$)).subscribe(() => {
+    constructor() {
+        effect(() => {
             this.updateAvatarItems();
         });
     }
 
     private updateAvatarItems() {
-        this.avatarItems = this.avatarComponents.toArray();
+        this.avatarItems = Array.from(this.avatarComponents());
         this.avatarItems.forEach((item, index) => {
-            item.thySize = this.thyAvatarSize;
+            item.thySize.set(this.thyAvatarSize());
             item.elementRef.nativeElement.style.zIndex = this.avatarItems.length - index;
         });
-    }
-
-    ngOnDestroy() {
-        this.ngUnsubscribe$.next();
-        this.ngUnsubscribe$.complete();
     }
 }
