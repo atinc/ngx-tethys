@@ -137,5 +137,16 @@ export default {
     },
     empty: {
         noDataText: '暫無資料'
+    },
+    image: {
+        zoomOut: '縮小',
+        zoomIn: '放大',
+        originalSize: '原始比例',
+        fitToScreen: '適應屏幕',
+        fullScreen: '全屏顯示',
+        spin: '旋轉',
+        download: '下載',
+        viewOriginal: '查看原圖',
+        copyLink: '複製連結'
     }
 };
