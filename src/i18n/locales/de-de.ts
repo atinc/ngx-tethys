@@ -137,5 +137,16 @@ export default {
     },
     empty: {
         noDataText: 'Keine Daten vorhanden'
+    },
+    image: {
+        zoomOut: 'Verkleinern',
+        zoomIn: 'Vergrößern',
+        originalSize: 'Originalgröße',
+        fitToScreen: 'An den Bildschirm anpassen',
+        fullScreen: 'Vollbild anzeigen',
+        spin: 'Drehen',
+        download: 'Herunterladen',
+        viewOriginal: 'Original anzeigen',
+        copyLink: 'Link kopieren'
     }
 };
