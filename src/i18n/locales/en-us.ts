@@ -29,8 +29,8 @@ export default {
         today: 'Today',
         tomorrow: 'Tomorrow',
         nextWeek: 'Next week',
-        lastSevenDays: 'Recent 7 days',
-        lastThirtyDays: 'Recent 30 days',
+        lastSevenDays: '7 days',
+        lastThirtyDays: '30 days',
         currentMonth: 'This month',
         currentWeek: 'This week',
 
