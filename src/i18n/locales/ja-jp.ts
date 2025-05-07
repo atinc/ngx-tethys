@@ -147,6 +147,12 @@ export default {
         spin: '回転',
         download: 'ダウンロード',
         viewOriginal: '元の画像を表示',
-        copyLink: 'リンクをコピー'
+        copyLink: 'リンクをコピー',
+        exitPreview: 'プレビューを終了',
+        exitFullScreen: '全画面表示を終了',
+        copySuccess: '画像のURLをコピーしました',
+        copyError: '画像のURLをコピーできませんでした',
+        prev: '前の画像',
+        next: '次の画像'
     }
 };

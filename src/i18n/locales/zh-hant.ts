@@ -147,6 +147,12 @@ export default {
         spin: '旋轉',
         download: '下載',
         viewOriginal: '查看原圖',
-        copyLink: '複製連結'
+        copyLink: '複製連結',
+        exitPreview: '退出預覽',
+        exitFullScreen: '退出全屏',
+        copySuccess: '複製圖片地址成功',
+        copyError: '複製圖片地址失敗',
+        prev: '上一張',
+        next: '下一張'
     }
 };
