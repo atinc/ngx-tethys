@@ -10,6 +10,7 @@ import {
     NgZone,
     OnInit,
     Output,
+    Signal,
     ViewChild,
     ViewEncapsulation,
     inject
@@ -29,6 +30,7 @@ import { getClientSize, getFitContentPosition, getOffset, helpers, humanizeBytes
 import { Observable, fromEvent } from 'rxjs';
 import { InternalImageInfo, ThyImageInfo, ThyImagePreviewMode, ThyImagePreviewOperation, ThyImagePreviewOptions } from '../image.class';
 import { fetchImageBlob } from '../utils';
+import { injectLocale, ThyImageLocale } from 'ngx-tethys/i18n';
 
 const initialPosition = {
     x: 0,
@@ -65,6 +67,7 @@ export class ThyImagePreview implements OnInit {
     private notifyService = inject(ThyNotifyService);
     private host = inject<ElementRef<HTMLElement>>(ElementRef);
     private sanitizer = inject(DomSanitizer);
+    private locale: Signal<ThyImageLocale> = injectLocale('image');
 
     @Output() downloadClicked: EventEmitter<ThyImageInfo> = new EventEmitter();
 
@@ -87,7 +90,7 @@ export class ThyImagePreview implements OnInit {
     defaultPreviewOperations: ThyImagePreviewOperation[] = [
         {
             icon: 'zoom-out',
-            name: '缩小',
+            name: this.locale().zoomOut,
             action: (image: ThyImageInfo) => {
                 this.zoomOut();
             },
@@ -95,7 +98,7 @@ export class ThyImagePreview implements OnInit {
         },
         {
             icon: 'zoom-in',
-            name: '放大',
+            name: this.locale().zoomIn,
             action: (image: ThyImageInfo) => {
                 this.zoomIn();
             },
@@ -103,7 +106,7 @@ export class ThyImagePreview implements OnInit {
         },
         {
             icon: 'one-to-one',
-            name: '原始比例',
+            name: this.locale().originalSize,
             action: (image: ThyImageInfo) => {
                 this.setOriginalSize();
             },
@@ -111,7 +114,7 @@ export class ThyImagePreview implements OnInit {
         },
         {
             icon: 'max-view',
-            name: '适应屏幕',
+            name: this.locale().fitToScreen,
             action: () => {
                 this.setFitScreen();
             },
@@ -119,7 +122,7 @@ export class ThyImagePreview implements OnInit {
         },
         {
             icon: 'expand-arrows',
-            name: '全屏显示',
+            name: this.locale().fullScreen,
             action: () => {
                 this.fullScreen();
             },
@@ -127,7 +130,7 @@ export class ThyImagePreview implements OnInit {
         },
         {
             icon: 'rotate-right',
-            name: '旋转',
+            name: this.locale().spin,
             action: (image: ThyImageInfo) => {
                 this.rotateRight();
             },
@@ -135,7 +138,7 @@ export class ThyImagePreview implements OnInit {
         },
         {
             icon: 'download',
-            name: '下载',
+            name: this.locale().download,
             action: (image: ThyImageInfo) => {
                 this.download(image);
             },
@@ -143,7 +146,7 @@ export class ThyImagePreview implements OnInit {
         },
         {
             icon: 'preview',
-            name: '查看原图',
+            name: this.locale().viewOriginal,
             action: () => {
                 this.viewOriginal();
             },
@@ -151,7 +154,7 @@ export class ThyImagePreview implements OnInit {
         },
         {
             icon: 'link-insert',
-            name: '复制链接',
+            name: this.locale().copyLink,
             type: 'copyLink'
         }
     ];
