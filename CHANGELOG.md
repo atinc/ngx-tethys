@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [19.0.10](https://github.com/atinc/ngx-tethys/compare/19.0.9...19.0.10) (2025-05-07)
+
+
+### Bug Fixes
+
+* **i18n:** update translation of lastSevenDays and lastThirtyDays #TINFR-2033 ([#3385](https://github.com/atinc/ngx-tethys/issues/3385)) ([512af06](https://github.com/atinc/ngx-tethys/commit/512af0645339b39f7ce216f15e4d99d42cc839a1)), closes [#TINFR-2033](https://github.com/atinc/ngx-tethys/issues/TINFR-2033)
+* **pagination:** fix missing type ([#3389](https://github.com/atinc/ngx-tethys/issues/3389)) ([86f09e9](https://github.com/atinc/ngx-tethys/commit/86f09e9be0d8639b3208c8cb0d2bf1c69de3780d))
+
+
+### Features
+
+* **image:** support i18n for image ([#3386](https://github.com/atinc/ngx-tethys/issues/3386)) ([e601d6b](https://github.com/atinc/ngx-tethys/commit/e601d6bbf1978f496911121dde68e5b2827e8556))
+
+
+
 ## [19.0.9](https://github.com/atinc/ngx-tethys/compare/19.0.8...19.0.9) (2025-04-28)
 
 
