@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [18.2.16](https://github.com/atinc/ngx-tethys/compare/18.2.15...18.2.16) (2025-05-07)
+
+
+### Bug Fixes
+
+* fix RangeError: Maximum call stack size exceeded ([#3374](https://github.com/atinc/ngx-tethys/issues/3374)) ([f61831b](https://github.com/atinc/ngx-tethys/commit/f61831b9e7f2e5eba91a0b119b075381f35a939b))
+* **i18n:** update translation of lastSevenDays and lastThirtyDays #TINFR-2033 ([#3385](https://github.com/atinc/ngx-tethys/issues/3385)) ([e68082d](https://github.com/atinc/ngx-tethys/commit/e68082dbb91e7acd6e49ea2f3bae33f84408532e)), closes [#TINFR-2033](https://github.com/atinc/ngx-tethys/issues/TINFR-2033)
+* **pagination:** fix missing type [#3389](https://github.com/atinc/ngx-tethys/issues/3389) ([#3390](https://github.com/atinc/ngx-tethys/issues/3390)) ([238dfee](https://github.com/atinc/ngx-tethys/commit/238dfee96d1b0775a9a818fd829019b911529123))
+
+
+### Features
+
+* **image:** support i18n for image ([#3387](https://github.com/atinc/ngx-tethys/issues/3387)) ([f88b179](https://github.com/atinc/ngx-tethys/commit/f88b179ea8ac7dfd15f2d222d6b6a55bdcb6016b))
+
+
+
 ## [18.2.15](https://github.com/atinc/ngx-tethys/compare/18.2.14...18.2.15) (2025-04-28)
 
 
