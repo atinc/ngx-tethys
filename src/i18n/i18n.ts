@@ -180,6 +180,7 @@ export interface ThyCascaderLocale {
 
 export interface ThyPaginationLocale {
     page: string;
+    order: string;
     total: string;
     totalCount: string;
     jumpTo: string;
