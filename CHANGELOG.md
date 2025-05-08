@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [18.2.17](https://github.com/atinc/ngx-tethys/compare/18.2.16...18.2.17) (2025-05-08)
+
+
+### Bug Fixes
+
+* **image:** support i18n for image ([#3394](https://github.com/atinc/ngx-tethys/issues/3394)) ([f6e0ac9](https://github.com/atinc/ngx-tethys/commit/f6e0ac95ef2e469407f76d78b4ce059986f31024))
+
+
+
 ## [18.2.16](https://github.com/atinc/ngx-tethys/compare/18.2.15...18.2.16) (2025-05-07)
 
 
