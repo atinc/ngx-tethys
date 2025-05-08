@@ -1,14 +1,4 @@
-import {
-    Component,
-    ChangeDetectionStrategy,
-    TemplateRef,
-    numberAttribute,
-    input,
-    contentChild,
-    effect,
-    Signal,
-    computed
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, TemplateRef, numberAttribute, input, contentChild, Signal, computed } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { ThyBreadcrumbItem } from './breadcrumb-item.component';
@@ -106,17 +96,7 @@ export class ThyBreadcrumb {
 
     public ellipsisItemId = THY_BREADCRUMB_ITEM_ELLIPSIS_ID;
 
-    public ellipsisItems: SafeAny[];
-
-    public showItems: SafeAny[];
-
-    constructor() {
-        effect(() => {
-            this.resetItems();
-        });
-    }
-
-    private resetItems() {
+    public readonly processedItems: Signal<SafeAny> = computed(() => {
         const items = this.items();
         if (!items?.length) {
             return;
@@ -124,11 +104,15 @@ export class ThyBreadcrumb {
         const thyMaxCount = this.thyMaxCount();
         if (thyMaxCount && items.length > thyMaxCount) {
             const ellipsisIndex = items.length - thyMaxCount + 2;
-            this.ellipsisItems = items.slice(1, ellipsisIndex);
-            this.showItems = [items[0], ELLIPSIS_ITEM, ...items.slice(ellipsisIndex)];
+            return {
+                ellipsisItems: items.slice(1, ellipsisIndex),
+                showItems: [items[0], ELLIPSIS_ITEM, ...items.slice(ellipsisIndex)]
+            };
         } else {
-            this.showItems = [...items];
-            this.ellipsisItems = [];
+            return {
+                ellipsisItems: [],
+                showItems: [...items]
+            };
         }
-    }
+    });
 }
