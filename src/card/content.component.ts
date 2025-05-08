@@ -20,14 +20,12 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 export class ThyCardContent implements OnInit {
     /**
      * 内容区，滚动
-     * @default false
      */
     readonly thyScroll = input<boolean, unknown>(false, { transform: coerceBooleanProperty });
 
     /**
      * 已废弃，Content 大小，sm 时 padding-top 间距变小
      * @deprecated
-     * @default md
      */
     readonly thySize = input<string>('md');
 

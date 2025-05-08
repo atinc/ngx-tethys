@@ -28,20 +28,17 @@ export class ThyCard {
 
     /**
      * 是否是分割模式，分割模式头部和内容区之间有一条分割线
-     * @default false
      */
     readonly thyDivided = input<boolean | string, boolean | string | number>(false, { transform: coerceBooleanProperty });
 
     /**
      * 是否有边框，边框颜色为#eee
-     * @default false
      */
     readonly thyBordered = input<boolean | string, boolean | string | number>(false, { transform: coerceBooleanProperty });
 
     /**
      * 大小
      * @type sm | md | lg
-     * @default md
      */
     readonly thySize = input<'md' | 'sm' | 'lg'>('md');
 }

@@ -25,17 +25,16 @@ export class ThyCardHeader implements OnInit {
     /**
      * 头部，标题
      */
-    readonly thyTitle = input<string>(undefined);
+    readonly thyTitle = input<string>();
 
     /**
      * 头部，附加信息
      */
-    readonly thyDescription = input<string>(undefined);
+    readonly thyDescription = input<string>();
 
     /**
      * 已废弃，头部大小
      * @deprecated
-     * @default md
      */
     readonly thySize = input<'sm' | 'lg' | 'md' | ''>('md');
 
