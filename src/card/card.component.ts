@@ -24,17 +24,17 @@ export class ThyCard {
      * 左右是否有内边距，已废弃，如需配置间距使用 spacing 工具样式覆盖默认间距
      * @deprecated
      */
-    readonly thyHasLeftRightPadding = input<boolean | string, boolean | string | number>(true, { transform: coerceBooleanProperty });
+    readonly thyHasLeftRightPadding = input(true, { transform: coerceBooleanProperty });
 
     /**
      * 是否是分割模式，分割模式头部和内容区之间有一条分割线
      */
-    readonly thyDivided = input<boolean | string, boolean | string | number>(false, { transform: coerceBooleanProperty });
+    readonly thyDivided = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 是否有边框，边框颜色为#eee
      */
-    readonly thyBordered = input<boolean | string, boolean | string | number>(false, { transform: coerceBooleanProperty });
+    readonly thyBordered = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 大小

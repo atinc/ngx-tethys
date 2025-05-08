@@ -21,7 +21,7 @@ export class ThyCardContent implements OnInit {
     /**
      * 内容区，滚动
      */
-    readonly thyScroll = input<boolean, unknown>(false, { transform: coerceBooleanProperty });
+    readonly thyScroll = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 已废弃，Content 大小，sm 时 padding-top 间距变小
