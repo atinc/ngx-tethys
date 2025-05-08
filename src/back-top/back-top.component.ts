@@ -3,10 +3,7 @@ import {
     OnInit,
     ChangeDetectionStrategy,
     ViewEncapsulation,
-    Input,
     TemplateRef,
-    EventEmitter,
-    Output,
     HostBinding,
     NgZone,
     ChangeDetectorRef,
@@ -15,7 +12,13 @@ import {
     ViewChild,
     ElementRef,
     numberAttribute,
-    inject
+    inject,
+    input,
+    output,
+    effect,
+    viewChild,
+    Signal,
+    computed
 } from '@angular/core';
 import { Subject, fromEvent, BehaviorSubject, EMPTY, Observable } from 'rxjs';
 import { Platform } from '@angular/cdk/platform';
@@ -36,7 +39,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
     animations: [fadeMotion],
     imports: [ThyIcon, NgTemplateOutlet]
 })
-export class ThyBackTop implements OnInit, OnDestroy, OnChanges {
+export class ThyBackTop implements OnInit, OnDestroy {
     private doc = inject(DOCUMENT);
     private thyScrollService = inject(ThyScrollService);
     private platform = inject(Platform);
@@ -48,36 +51,33 @@ export class ThyBackTop implements OnInit, OnDestroy, OnChanges {
     /**
      * 自定义按钮显示模板
      */
-    @Input() thyTemplate?: TemplateRef<void>;
+    readonly thyTemplate = input<TemplateRef<void>>(undefined);
 
     /**
      * 指定对哪个 DOM 元素返回顶部
      * @type string | HTMLElement
      * @default window
      */
-    @Input() thyContainer?: string | HTMLElement;
+    readonly thyContainer = input<string | HTMLElement>(undefined);
 
     /**
      * 滚动高度达到此参数值才出现 thy-back-top
      * @type number
      */
-    @Input({ transform: numberAttribute }) thyVisibilityHeight = 400;
+    readonly thyVisibilityHeight = input(400, { transform: numberAttribute });
 
     /**
      * 点击按钮的回调函数
      */
-    @Output() readonly thyClick: EventEmitter<boolean> = new EventEmitter();
+    readonly thyClick = output<boolean>();
 
     /**
      * 监听按钮显示状态的回调函数
      */
-    @Output() public visibleChange: EventEmitter<boolean> = new EventEmitter();
+    public readonly visibleChange = output<boolean>();
 
     /** The native `<div class="thy-back-top"></div>` element. */
-    @ViewChild('backTop', { static: false })
-    set backTop(backTop: ElementRef<HTMLElement> | undefined) {
-        this.backTop$.next(backTop);
-    }
+    readonly backTop = viewChild<ElementRef<HTMLElement>>('backTop');
 
     public visible = false;
 
@@ -90,9 +90,14 @@ export class ThyBackTop implements OnInit, OnDestroy, OnChanges {
     private backTop$ = new BehaviorSubject<ElementRef<HTMLElement> | undefined>(undefined);
 
     private destroy$ = new Subject<void>();
+
     private scrollListenerDestroy$ = new Subject<void>();
 
-    private target: HTMLElement | null = null;
+    private target: Signal<Element | Window> = computed(() => {
+        const thyContainerValue = this.thyContainer();
+        const target = typeof thyContainerValue === 'string' ? this.doc.querySelector(thyContainerValue) : thyContainerValue;
+        return target || window;
+    });
 
     constructor() {
         const zone = this.zone;
@@ -109,32 +114,30 @@ export class ThyBackTop implements OnInit, OnDestroy, OnChanges {
                 takeUntil(this.destroy$)
             )
             .subscribe(() => {
-                this.thyScrollService.scrollTo(this.getTarget(), 0);
-                if (this.thyClick.observers.length) {
-                    zone.run(() => this.thyClick.emit(true));
-                }
+                this.thyScrollService.scrollTo(this.target(), 0);
+                zone.run(() => this.thyClick.emit(true));
             });
+
+        effect(() => {
+            this.registerScrollEvent();
+            const backTop = this.backTop();
+            if (backTop) {
+                this.backTop$.next(backTop);
+            }
+        });
     }
 
-    ngOnInit(): void {
-        this.registerScrollEvent();
-    }
-
-    private getTarget(): HTMLElement | Window {
-        return this.target || window;
-    }
+    ngOnInit(): void {}
 
     private handleScroll(): void {
-        if (this.visible === this.thyScrollService.getScroll(this.getTarget()) > this.thyVisibilityHeight) {
+        if (this.visible === this.thyScrollService.getScroll(this.target()) > this.thyVisibilityHeight()) {
             return;
         }
         this.visible = !this.visible;
         this.cdr.detectChanges();
-        if (this.visibleChange.observers.length > 0) {
-            this.zone.run(() => {
-                this.visibleChange.emit(this.visible);
-            });
-        }
+        this.zone.run(() => {
+            this.visibleChange.emit(this.visible);
+        });
     }
 
     private registerScrollEvent(): void {
@@ -144,7 +147,7 @@ export class ThyBackTop implements OnInit, OnDestroy, OnChanges {
         this.scrollListenerDestroy$.next();
         this.handleScroll();
         this.zone.runOutsideAngular(() => {
-            fromEvent(this.getTarget(), 'scroll', { passive: true })
+            fromEvent(this.target(), 'scroll', { passive: true })
                 .pipe(throttleTime(50), takeUntil(this.scrollListenerDestroy$))
                 .subscribe(() => this.handleScroll());
         });
@@ -153,13 +156,5 @@ export class ThyBackTop implements OnInit, OnDestroy, OnChanges {
     ngOnDestroy(): void {
         this.destroy$.next();
         this.scrollListenerDestroy$.next();
-    }
-
-    ngOnChanges(changes: any): void {
-        const { thyContainer } = changes;
-        if (thyContainer) {
-            this.target = typeof this.thyContainer === 'string' ? this.doc.querySelector(this.thyContainer) : this.thyContainer;
-            this.registerScrollEvent();
-        }
     }
 }
