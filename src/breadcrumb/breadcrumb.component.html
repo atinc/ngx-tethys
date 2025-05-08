@@ -1,9 +1,9 @@
-@if (svgIconName || iconClasses) {
+@if (svgIconName() || iconClasses()) {
   <div class="thy-breadcrumb-icon">
-    @if (svgIconName) {
-      <thy-icon [thyIconName]="svgIconName"></thy-icon>
+    @if (svgIconName()) {
+      <thy-icon [thyIconName]="svgIconName()"></thy-icon>
     } @else {
-      <i [ngClass]="iconClasses"></i>
+      <i [ngClass]="iconClasses()"></i>
     }
   </div>
 }
@@ -18,7 +18,7 @@
         href="javascript:;"
         thyActionIcon="more"
         thyActiveClass="active"
-        [class.disabled]="!thyExpandable"
+        [class.disabled]="!thyExpandable()"
         class="ellipsis-action ml-n1 mr-n1"
         [thyDropdown]="ellipsisList"></a>
     }
@@ -36,8 +36,8 @@
 </ng-template>
 
 <ng-template #itemContentTpl let-item>
-  @if (itemTemplate) {
-    <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-template>
+  @if (itemTemplate()) {
+    <ng-template *ngTemplateOutlet="itemTemplate(); context: { $implicit: item }"></ng-template>
   } @else {
     @if (item?.icon) {
       <thy-icon [thyIconName]="item.icon" class="mr-2"></thy-icon>
