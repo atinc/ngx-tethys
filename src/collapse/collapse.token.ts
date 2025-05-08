@@ -1,8 +1,8 @@
-import { EventEmitter, InjectionToken } from '@angular/core';
+import { InjectionToken, ModelSignal, OutputEmitterRef } from '@angular/core';
 
 export interface IThyCollapseItemComponent {
-    thyActive: boolean;
-    thyActiveChange: EventEmitter<{ active: boolean; event: Event }>;
+    thyActive: ModelSignal<boolean>;
+    thyActiveChange: OutputEmitterRef<{ active: boolean; event: Event }>;
     markForCheck: () => void;
 }
 
