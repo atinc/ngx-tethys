@@ -1,4 +1,4 @@
-import { Directive, Input, OnChanges, OnInit, AfterViewInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Directive, OnChanges, OnInit, AfterViewInit, OnDestroy, ChangeDetectionStrategy, input } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { isString } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -21,7 +21,17 @@ export class ThyRowDirective implements OnInit, OnChanges, AfterViewInit {
     /**
      * 栅格的间距
      */
-    @Input() thyGutter: number | { xs?: number; sm?: number; md?: number; lg?: number; xl?: number; xxl?: number };
+    readonly thyGutter = input<
+        | {
+              xs?: number;
+              sm?: number;
+              md?: number;
+              lg?: number;
+              xl?: number;
+              xxl?: number;
+          }
+        | number
+    >(undefined);
 
     public actualGutter$ = new ReplaySubject<[number, number]>(1);
 
@@ -56,9 +66,10 @@ export class ThyRowDirective implements OnInit, OnChanges, AfterViewInit {
     }
 
     private getGutter() {
-        if (isString(this.thyGutter)) {
+        const thyGutter = this.thyGutter();
+        if (isString(thyGutter)) {
             throw Error(`thyGutter value can not be string type`);
         }
-        return [this.thyGutter as number, 0];
+        return [thyGutter as number, 0];
     }
 }
