@@ -147,6 +147,12 @@ export default {
         spin: 'Drehen',
         download: 'Herunterladen',
         viewOriginal: 'Original anzeigen',
-        copyLink: 'Link kopieren'
+        copyLink: 'Link kopieren',
+        exitPreview: 'Vorschau beenden',
+        exitFullScreen: 'Vollbildmodus beenden',
+        copySuccess: 'Link erfolgreich kopiert',
+        copyError: 'Link kopieren fehlgeschlagen',
+        prev: 'Vorherige',
+        next: 'Nächste'
     }
 };

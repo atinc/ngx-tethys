@@ -66,7 +66,7 @@ export class ThyImagePreview implements OnInit {
     private notifyService = inject(ThyNotifyService);
     private host = inject<ElementRef<HTMLElement>>(ElementRef);
     private sanitizer = inject(DomSanitizer);
-    private locale: Signal<ThyImageLocale> = injectLocale('image');
+    public locale: Signal<ThyImageLocale> = injectLocale('image');
 
     @Output() downloadClicked: EventEmitter<ThyImageInfo> = new EventEmitter();
 
@@ -396,9 +396,9 @@ export class ThyImagePreview implements OnInit {
 
     copyLink(event: ThyCopyEvent) {
         if (event.isSuccess) {
-            this.notifyService.success('复制图片地址成功');
+            this.notifyService.success(this.locale().copySuccess);
         } else {
-            this.notifyService.error('复制图片地址失败');
+            this.notifyService.error(this.locale().copyError);
         }
     }
 
