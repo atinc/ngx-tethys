@@ -1,6 +1,6 @@
 import { isTemplateRef } from 'ngx-tethys/util';
 import { SafeAny } from 'ngx-tethys/types';
-import { ChangeDetectionStrategy, Component, Input, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, TemplateRef, input } from '@angular/core';
 import { ThyAvatar } from 'ngx-tethys/avatar';
 import { ThyStringOrTemplateOutletDirective } from 'ngx-tethys/shared';
 import { NgTemplateOutlet } from '@angular/common';
@@ -22,17 +22,17 @@ export class ThyComment {
     /**
      * 展示评论作者
      */
-    @Input() thyAuthor?: string | TemplateRef<SafeAny>;
+    readonly thyAuthor = input<string | TemplateRef<SafeAny>>();
 
     /**
      * 展示评论时间
      */
-    @Input() thyDatetime?: string | TemplateRef<SafeAny>;
+    readonly thyDatetime = input<string | TemplateRef<SafeAny>>();
 
     /**
      * 展示评论作者头像
      */
-    @Input() thyAvatar?: string | TemplateRef<SafeAny>;
+    readonly thyAvatar = input<string | TemplateRef<SafeAny>>();
 
     isTemplateRef = isTemplateRef;
 }
