@@ -1,21 +1,20 @@
 import {
     Component,
     TemplateRef,
-    ViewChild,
     ChangeDetectionStrategy,
     ContentChildren,
     QueryList,
     OnInit,
-    Output,
-    EventEmitter,
     NgZone,
     OnDestroy,
     AfterContentInit,
     ChangeDetectorRef,
-    Input,
     ElementRef,
     inject,
-    Signal
+    Signal,
+    viewChild,
+    input,
+    output
 } from '@angular/core';
 import { defer, merge, Observable, Subject, timer } from 'rxjs';
 import { take, switchMap, takeUntil, startWith } from 'rxjs/operators';
@@ -84,12 +83,10 @@ export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, After
     /** Manages active item in option list based on key events. */
     keyManager: ActiveDescendantKeyManager<ThyOption>;
 
-    @ViewChild('contentTemplate', { static: true })
-    contentTemplateRef: TemplateRef<any>;
+    readonly contentTemplateRef = viewChild<TemplateRef<any>>('contentTemplate');
 
     // scroll element container
-    @ViewChild('panel')
-    optionsContainer: ElementRef<any>;
+    readonly optionsContainer = viewChild<ElementRef<any>>('panel');
 
     /**
      * @private
@@ -110,39 +107,33 @@ export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, After
      * 空选项时的文本
      * @default 没有任何数据
      */
-    @Input() thyEmptyText = this.locale().empty;
+    readonly thyEmptyText = input<string>(this.locale().empty);
 
     /**
      * 是否默认高亮第一个选项
-     * @type boolean
-     * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyAutoActiveFirstOption: boolean;
+    readonly thyAutoActiveFirstOption = input<boolean, unknown>(false, { transform: coerceBooleanProperty });
 
     /**
      * 被选中时调用，参数包含选中项的 value 值
-     * @type EventEmitter<ThyOptionSelectionChangeEvent>
      */
-    @Output() thyOptionSelected: EventEmitter<ThyOptionSelectionChangeEvent> = new EventEmitter<ThyOptionSelectionChangeEvent>();
+    readonly thyOptionSelected = output<ThyOptionSelectionChangeEvent>();
 
     /**
      * 只读，展开下拉菜单的回调
-     * @type EventEmitter<void>
      */
-    @Output() readonly thyOpened: EventEmitter<void> = new EventEmitter<void>();
+    readonly thyOpened = output<void>();
 
     /**
      * 只读，关闭下拉菜单的回调
-     * @type EventEmitter<void>
      */
-    @Output() readonly thyClosed: EventEmitter<void> = new EventEmitter<void>();
+    readonly thyClosed = output<void>();
 
     /** Emits whenever an option is activated using the keyboard. */
     /**
      * 只读，option 激活状态变化时，调用此函数
-     * @type EventEmitter<ThyAutocompleteActivatedEvent>
      */
-    @Output() readonly thyOptionActivated: EventEmitter<ThyAutocompleteActivatedEvent> = new EventEmitter<ThyAutocompleteActivatedEvent>();
+    readonly thyOptionActivated = output<ThyAutocompleteActivatedEvent>();
 
     ngOnInit() {
         this.setDropDownClass();
