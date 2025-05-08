@@ -147,7 +147,13 @@ export default {
         spin: 'Spin',
         download: 'Download',
         viewOriginal: 'View original',
-        copyLink: 'Copy link'
+        copyLink: 'Copy link',
+        exitPreview: 'Exit preview',
+        exitFullScreen: 'Exit full screen',
+        copySuccess: 'Copied successfully',
+        copyError: 'Copy failed',
+        prev: 'Previous',
+        next: 'Next'
     }
 };
 

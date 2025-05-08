@@ -219,4 +219,10 @@ export interface ThyImageLocale {
     download: string;
     viewOriginal: string;
     copyLink: string;
+    exitPreview: string;
+    exitFullScreen: string;
+    copySuccess: string;
+    copyError: string;
+    prev: string;
+    next: string;
 }
