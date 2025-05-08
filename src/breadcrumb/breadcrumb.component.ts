@@ -44,7 +44,7 @@ export class ThyBreadcrumb {
     /**
      * 面包屑的前缀 展示图标，如 folder-fill
      */
-    readonly thyIcon = input<string>(undefined);
+    readonly thyIcon = input<string>();
 
     iconClasses: Signal<string[]> = computed(() => {
         const icon = this.thyIcon();
@@ -72,7 +72,7 @@ export class ThyBreadcrumb {
      * 面包屑的分隔符，不传值默认为 ">"
      * @type slash | backslash | vertical-line
      */
-    readonly thySeparator = input<'slash' | 'backslash' | 'vertical-line'>(undefined);
+    readonly thySeparator = input<'slash' | 'backslash' | 'vertical-line'>();
 
     /**
      * 面包屑的每一项数据
