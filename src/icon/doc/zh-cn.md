@@ -27,7 +27,7 @@ export class AppModule {
         // 注册 defs SVG 雪碧图
         iconRegistry.addSvgIconSet(sanitizer.bypassSecurityTrustResourceUrl(`assets/icons/defs/svg/sprite.defs.svg`));
         // 注册 symbol SVG 雪碧图
-        iconRegistry.addSvgIconSet(sanitizer.bypassSecurityTrustResourceUrl(`assets/icons/symbol/svg/sprite.defs.svg`));
+        iconRegistry.addSvgIconSet(sanitizer.bypassSecurityTrustResourceUrl(`assets/icons/symbol/svg/sprite.symbol.svg`));
     }
 }
 ```
