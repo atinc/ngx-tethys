@@ -1,4 +1,4 @@
-import { Directive, NgZone, ElementRef, HostBinding, Input, OnDestroy, Renderer2, inject } from '@angular/core';
+import { Directive, NgZone, ElementRef, HostBinding, Input, OnDestroy, Renderer2, inject, input, computed } from '@angular/core';
 import { DragRef } from './drag-ref';
 import { DOCUMENT } from '@angular/common';
 import { ThyDragDropService } from './drag-drop.service';
@@ -12,7 +12,10 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
  * @deprecated please use @angular/cdk/drag-drop
  */
 @Directive({
-    selector: 'thy-drag,[thyDrag]'
+    selector: 'thy-drag,[thyDrag]',
+    host: {
+        '[attr.draggable]': '!disabled()'
+    }
 })
 export class ThyDragDirective<T = any> implements IThyDragDirective, OnDestroy {
     container = inject(THY_DROP_CONTAINER_DIRECTIVE, { optional: true })!;
@@ -22,33 +25,23 @@ export class ThyDragDirective<T = any> implements IThyDragDirective, OnDestroy {
      * 元数据
      * @type any
      */
-    @Input('thyDrag')
-    set dragData(data: T) {
-        this.data = data;
-    }
+    readonly thyDrag = input<T>();
 
     /**
      * 元数据
      * @type any
      */
-    @Input('thyDragData') data: T;
-
-    @HostBinding('attr.draggable') isDraggable = true;
-
-    private _disabled = false;
+    readonly thyDragData = input<T>();
 
     /**
      * 是否禁用拖拽
      * @default false
      */
-    @Input({ alias: 'thyDragDisabled', transform: coerceBooleanProperty })
-    set disabled(isDisabled: boolean) {
-        this._disabled = isDisabled;
-        this.isDraggable = !isDisabled;
-    }
-    get disabled() {
-        return this._disabled;
-    }
+    readonly disabled = input(false, { alias: 'thyDragDisabled', transform: coerceBooleanProperty });
+
+    data = computed(() => {
+        return this.thyDrag() || this.thyDragData();
+    });
 
     public dragRef: DragRef<T>;
 

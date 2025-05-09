@@ -1,37 +1,37 @@
-import { EventEmitter, QueryList, InjectionToken, ElementRef } from '@angular/core';
+import { EventEmitter, QueryList, InjectionToken, ElementRef, Signal, OutputEmitterRef } from '@angular/core';
 import { ThyDragDropEvent, ThyDragStartEvent, ThyDragEndEvent, ThyDragOverEvent } from './drag-drop.class';
 import { SafeAny } from 'ngx-tethys/types';
 
 export interface IThyDragDirective<T = SafeAny> {
-    data: T;
+    data: Signal<T>;
     container: IThyDropContainerDirective<T>;
 }
 
 export interface IThyDragHandleDirective {
     element: ElementRef<HTMLElement>;
-    disabled: boolean;
+    disabled: Signal<boolean>;
 }
 
 export interface IThyDropContainerDirective<T = SafeAny> {
-    started: EventEmitter<ThyDragStartEvent<T>>;
+    started: OutputEmitterRef<ThyDragStartEvent<T>>;
 
-    ended: EventEmitter<ThyDragEndEvent<T>>;
+    ended: OutputEmitterRef<ThyDragEndEvent<T>>;
 
-    overed: EventEmitter<ThyDragOverEvent<T>>;
+    overed: OutputEmitterRef<ThyDragOverEvent<T>>;
 
-    dropped: EventEmitter<ThyDragDropEvent<T>>;
+    dropped: OutputEmitterRef<ThyDragDropEvent<T>>;
 
-    beforeStart: (e: ThyDragStartEvent<T>) => boolean;
+    beforeStart: Signal<(e: ThyDragStartEvent<T>) => boolean>;
 
-    beforeOver: (e: ThyDragOverEvent<T>) => boolean;
+    beforeOver: Signal<(e: ThyDragOverEvent<T>) => boolean>;
 
-    beforeDrop: (e: ThyDragDropEvent<T>) => boolean;
+    beforeDrop: Signal<(e: ThyDragDropEvent<T>) => boolean>;
 
-    data: T[];
+    data: Signal<T[]>;
 
-    disabled: boolean;
+    disabled: Signal<boolean>;
 
-    draggables: QueryList<IThyDragDirective>;
+    draggables: Signal<readonly IThyDragDirective<any>[]>;
 }
 
 export const THY_DROP_CONTAINER_DIRECTIVE = new InjectionToken<IThyDropContainerDirective>('THY_DROP_CONTAINER_DIRECTIVE');

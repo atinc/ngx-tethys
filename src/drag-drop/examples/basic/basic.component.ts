@@ -45,7 +45,17 @@ export class ThyDragDropBasicExampleComponent implements OnInit {
 
     constructor() {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        let flag = true;
+        setInterval(() => {
+            if (flag) {
+                this.nodes = nodes.slice(0, 3);
+            } else {
+                this.nodes = nodes;
+            }
+            flag = !flag;
+        }, 2000);
+    }
 
     onDragDrop(event: ThyDragDropEvent<DragDropNode>) {
         moveItemInArray(event.containerItems, event.previousIndex, event.currentIndex);

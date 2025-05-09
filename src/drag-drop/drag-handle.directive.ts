@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, inject } from '@angular/core';
+import { Directive, ElementRef, Input, inject, input } from '@angular/core';
 import { ThyDragDirective } from './drag.directive';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { IThyDragHandleDirective } from './drag-drop.token';
@@ -15,19 +15,14 @@ import { IThyDragHandleDirective } from './drag-drop.token';
 export class ThyDragHandleDirective implements IThyDragHandleDirective {
     element = inject<ElementRef<HTMLElement>>(ElementRef);
 
-    private _disabled = false;
-
     /**
      * 是否禁用
      * @default false
+     * @type boolean
      */
-    @Input({ alias: 'thyDisabled', transform: coerceBooleanProperty })
-    set disabled(value: boolean) {
-        this._disabled = value;
-    }
-    get disabled(): boolean {
-        return this._disabled;
-    }
+    disabled = input(false, { alias: 'thyDisabled', transform: coerceBooleanProperty });
+    
+    
 
     constructor() {
         const drag = inject(ThyDragDirective, { optional: true })!;
