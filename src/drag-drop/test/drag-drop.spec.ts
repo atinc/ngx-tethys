@@ -1,4 +1,4 @@
-import { Component, DebugElement, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, DebugElement, viewChild, viewChildren } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
@@ -105,7 +105,7 @@ describe('drag-drop basic directive', () => {
         fixture.detectChanges();
         expect(fixture.componentInstance.beforeStartSpy).toHaveBeenCalled();
         expect(fixture.componentInstance.dragStartSpy).toHaveBeenCalled();
-        const lastDrag = fixture.componentInstance.drags.last;
+        const lastDrag = fixture.componentInstance.drags().at(-1)!;
 
         expect(lastDrag.dragRef['dragDropService'].previousDrag).not.toBeUndefined();
         expect(lastDrag.dragRef['dragDropService'].classMap.size).toBe(0);
@@ -118,7 +118,7 @@ describe('drag-drop basic directive', () => {
         expect(lastDrag.dragRef['dragDropService'].classMap.size).toBe(1);
 
         fixture.detectChanges();
-        const dragenterItem = testComponent.drags.first;
+        const dragenterItem = testComponent.drags().at(0)!;
         const dragenterSpy = jasmine.createSpy('drag enter');
         dragenterItem.dragRef.entered.asObservable().subscribe(() => {
             dragenterSpy();
@@ -148,7 +148,7 @@ describe('drag-drop basic directive', () => {
         expect(lastDrag.dragRef['dragDropService'].previousDrag).toBeUndefined();
 
         fixture.detectChanges();
-        const drag = testComponent.drags.first;
+        const drag = testComponent.drags().at(0)!;
         const spy = jasmine.createSpy('drag leave');
         drag.dragRef.leaved.asObservable().subscribe(() => {
             spy();
@@ -167,8 +167,8 @@ describe('drag-drop basic directive', () => {
     it('should get right disabled value when set thyDragDisabled for thyDrag item', () => {
         fixture.detectChanges();
 
-        const lastDrag = testComponent.drags.last;
-        expect(lastDrag.disabled).toEqual(true);
+        const lastDrag = testComponent.drags().at(-1)!;
+        expect(lastDrag.disabled()).toEqual(true);
     });
 
     it("should not drag when dragContainer's disabled is true", () => {
@@ -177,13 +177,13 @@ describe('drag-drop basic directive', () => {
 
         const dragstartEvent = createDragEvent('dragstart');
 
-        const lastDrag = testComponent.drags.last;
+        const lastDrag = testComponent.drags().at(-1)!;
         expect(lastDrag.dragRef['dragStart'](dragstartEvent)).toEqual(false);
     });
 
     it("should not drag when dragRef's disabled is true", () => {
         fixture.detectChanges();
-        const drag = testComponent.drags.first;
+        const drag = testComponent.drags().at(0)!;
         drag.dragRef.disabled = true;
 
         fixture.detectChanges();
@@ -234,17 +234,17 @@ describe('with handle', () => {
     it('should drag by handleDisabled', () => {
         fixture.detectChanges();
         const nodesData = testComponent.basicNodes;
-        const firstDragHandle = testComponent.dragHandles.first;
-        const lastDragHandle = testComponent.dragHandles.last;
-        expect(firstDragHandle.disabled).toEqual(nodesData[0].handleDisabled);
-        expect(lastDragHandle.disabled).toEqual(nodesData[nodesData.length - 1].handleDisabled);
+        const firstDragHandle = testComponent.dragHandles().at(0)!;
+        const lastDragHandle = testComponent.dragHandles().at(-1)!;
+        expect(firstDragHandle.disabled()).toEqual(nodesData[0].handleDisabled);
+        expect(lastDragHandle.disabled()).toEqual(nodesData[nodesData.length - 1].handleDisabled);
     });
 
     it('should get right target for drag handle', () => {
         fixture.detectChanges();
         const item = fixture.debugElement.query(By.css('.drag-handle-4')).nativeElement;
         dispatchFakeEvent(item, 'mouseover', true);
-        const target = testComponent.drags.last.dragRef['target'];
+        const target = testComponent.drags().at(-1)!.dragRef['target'];
         expect(target).toEqual(item);
         const dragstartEvent = createDragEvent('dragstart');
 
@@ -302,9 +302,9 @@ export class TestBasicDragDropComponent {
 
     public disabled = false;
 
-    @ViewChild(ThyDragContentDirective, { static: true }) dropContainer: ThyDragContentDirective;
+    readonly dropContainer = viewChild(ThyDragContentDirective);
 
-    @ViewChildren(ThyDragDirective) drags: QueryList<ThyDragDirective>;
+    readonly drags = viewChildren(ThyDragDirective);
 
     beforeStartSpy = jasmine.createSpy('before drag start');
 
@@ -395,9 +395,9 @@ export class TestWithHandleDragDropComponent {
 
     public disabled = false;
 
-    @ViewChild(ThyDragContentDirective, { static: true }) dropContainer: ThyDragContentDirective;
+    readonly dropContainer = viewChild(ThyDragContentDirective);
 
-    @ViewChildren(ThyDragDirective) drags: QueryList<ThyDragDirective>;
+    readonly drags = viewChildren(ThyDragDirective);
 
-    @ViewChildren(ThyDragHandleDirective) dragHandles: QueryList<ThyDragHandleDirective>;
+    readonly dragHandles = viewChildren(ThyDragHandleDirective);
 }

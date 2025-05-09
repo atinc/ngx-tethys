@@ -39,7 +39,7 @@ export class DragRef<T = any> {
     private _disabled = false;
 
     get disabled(): boolean {
-        return (this.container && this.container.disabled) || this._disabled;
+        return (this.container && this.container.disabled()) || this._disabled;
     }
     set disabled(value: boolean) {
         this._disabled = value;
@@ -102,7 +102,8 @@ export class DragRef<T = any> {
         this.ngZone.runOutsideAngular(() => {
             for (const name in events) {
                 if (events.hasOwnProperty(name)) {
-                    fromEvent(this.rootElement, name).pipe(takeUntil(this.ngUnsubscribe$)).subscribe(events[name].bind(this));
+                    const eventName = name as keyof typeof events;
+                    fromEvent(this.rootElement, name).pipe(takeUntil(this.ngUnsubscribe$)).subscribe(events[eventName].bind(this));
                 }
             }
         });
@@ -112,11 +113,11 @@ export class DragRef<T = any> {
         event.stopPropagation();
         const dragStartEvent: ThyDragStartEvent = {
             event: event,
-            item: this.drag.data,
-            containerItems: this.container.data,
-            currentIndex: this.container.data.indexOf(this.drag.data)
+            item: this.drag.data(),
+            containerItems: this.container.data(),
+            currentIndex: this.container.data().indexOf(this.drag.data())
         };
-        if (this.disabled || !this.isTriggerHandle() || (this.container.beforeStart && !this.container.beforeStart(dragStartEvent))) {
+        if (this.disabled || !this.isTriggerHandle() || (this.container.beforeStart() && !this.container.beforeStart()(dragStartEvent))) {
             event.preventDefault();
             return false;
         }
@@ -140,8 +141,8 @@ export class DragRef<T = any> {
     }
 
     private getPreviousEventData() {
-        const previousItem = this.dragDropService.previousDrag?.data;
-        const previousContainerItems = this.dragDropService.previousDrag?.container?.data;
+        const previousItem = this.dragDropService.previousDrag?.data();
+        const previousContainerItems = this.dragDropService.previousDrag?.container?.data();
         return {
             previousItem: previousItem,
             previousContainerItems,
@@ -153,8 +154,8 @@ export class DragRef<T = any> {
         if (event.item === event.previousItem && event.position === ThyDropPosition.in) {
             return false;
         }
-        if (container && container.beforeOver) {
-            return container.beforeOver(event);
+        if (container && container.beforeOver()) {
+            return container.beforeOver()(event);
         }
         return true;
     }
@@ -170,9 +171,9 @@ export class DragRef<T = any> {
         }
         const dragOverEvent: ThyDragOverEvent<T> = {
             event: event,
-            item: this.drag.data,
-            containerItems: this.drag.container.data,
-            currentIndex: this.container.data.indexOf(this.drag.data),
+            item: this.drag.data(),
+            containerItems: this.drag.container.data(),
+            currentIndex: this.container.data().indexOf(this.drag.data()),
             position: dropPosition,
             ...previousEventData
         };
@@ -198,13 +199,13 @@ export class DragRef<T = any> {
         }
         const dragDropEvent: ThyDragDropEvent<T> = {
             event: event,
-            item: this.drag.data,
-            containerItems: this.drag.container.data,
-            currentIndex: this.container.data.indexOf(this.drag.data),
+            item: this.drag.data(),
+            containerItems: this.drag.container.data(),
+            currentIndex: this.container.data().indexOf(this.drag.data()),
             position: this.calcDropPosition(event),
             ...previousEventData
         };
-        if (this.dragDropService.previousDrag === this.drag || (this.container.beforeDrop && !this.container.beforeDrop(dragDropEvent))) {
+        if (this.dragDropService.previousDrag === this.drag || (this.container.beforeDrop() && !this.container.beforeDrop()(dragDropEvent))) {
             event.preventDefault();
             return;
         }
@@ -218,8 +219,8 @@ export class DragRef<T = any> {
         this.ngZone.run(() => {
             this.ended.next({
                 event: event,
-                item: this.drag.data,
-                containerItems: this.container.data
+                item: this.drag.data(),
+                containerItems: this.container.data()
             });
         });
         this.dragDropService.previousDrag = undefined;

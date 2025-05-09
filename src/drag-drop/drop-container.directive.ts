@@ -1,22 +1,24 @@
 import {
-    OnInit,
-    Directive,
-    Output,
-    EventEmitter,
-    ContentChildren,
-    QueryList,
-    AfterContentInit,
-    NgZone,
-    Input,
-    OnDestroy,
-    inject
+  OnInit,
+  Directive,
+  AfterContentInit,
+  NgZone,
+  Input,
+  OnDestroy,
+  inject,
+  input,
+  computed,
+  output,
+  contentChildren,
+  effect
 } from '@angular/core';
 import { ThyDragDirective } from './drag.directive';
 import { merge, Observable, defer, Subject } from 'rxjs';
-import { takeUntil, startWith, take, switchMap } from 'rxjs/operators';
+import { takeUntil, startWith, take, switchMap, tap, skip } from 'rxjs/operators';
 import { ThyDragDropEvent, ThyDragStartEvent, ThyDragEndEvent, ThyDragOverEvent } from './drag-drop.class';
 import { THY_DROP_CONTAINER_DIRECTIVE, IThyDropContainerDirective } from './drag-drop.token';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { toObservable } from '@angular/core/rxjs-interop';
 
 /**
  * @name thy-drop-container,[thyDropContainer]
@@ -32,7 +34,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
         }
     ]
 })
-export class ThyDropContainerDirective<T = any> implements OnInit, AfterContentInit, IThyDropContainerDirective, OnDestroy {
+export class ThyDropContainerDirective<T = any> implements OnInit, IThyDropContainerDirective, OnDestroy {
     private ngZone = inject(NgZone);
 
     private ngUnsubscribe$ = new Subject<void>();
@@ -41,73 +43,74 @@ export class ThyDropContainerDirective<T = any> implements OnInit, AfterContentI
      * 元数据
      * @type any[]
      */
-    @Input('thyDropContainer')
-    set dragContainer(data: T[]) {
-        this.data = data;
-    }
+    readonly thyDropContainer = input<T[]>();
 
     /**
      * 元数据
      * @type any[]
      */
-    @Input('thyDropContainerData') data: T[];
+    readonly thyDropContainerData = input<T[]>();
+
+    data = computed(() => {
+        return this.thyDropContainer() || this.thyDropContainerData();
+    });
 
     /**
      * 是否禁用拖拽
      * @default false
      */
-    @Input({ alias: 'thyDropContainerDisabled', transform: coerceBooleanProperty }) disabled: boolean;
+    readonly disabled = input<boolean, boolean | string | number>(undefined, { alias: "thyDropContainerDisabled", transform: coerceBooleanProperty });
 
     /**
      * 拖拽之前的回调，函数返回 false 则阻止拖拽
      */
-    @Input('thyBeforeDragStart') beforeStart: (e: ThyDragStartEvent<T>) => boolean;
+    readonly beforeStart = input<(e: ThyDragStartEvent<T>) => boolean>(undefined, { alias: "thyBeforeDragStart" });
 
     /**
      * 拖拽时回调，函数返回 false 则阻止移入
      */
-    @Input('thyBeforeDragOver') beforeOver: (e: ThyDragOverEvent<T>) => boolean;
+    readonly beforeOver = input<(e: ThyDragOverEvent<T>) => boolean>(undefined, { alias: "thyBeforeDragOver" });
 
     /**
      * 拖放到元素时回调，函数返回 false 则阻止放置
      */
-    @Input('thyBeforeDragDrop') beforeDrop: (e: ThyDragDropEvent<T>) => boolean;
+    readonly beforeDrop = input<(e: ThyDragDropEvent<T>) => boolean>(undefined, { alias: "thyBeforeDragDrop" });
 
     /**
      * 开始拖拽时调用
      */
-    @Output('thyDragStarted') started = new EventEmitter<ThyDragStartEvent<ThyDragDirective>>();
+    readonly started = output<ThyDragStartEvent<ThyDragDirective>>({ alias: 'thyDragStarted' });
 
     /**
      * dragend 触发时调用
      */
-    @Output('thyDragEnded') ended = new EventEmitter<ThyDragEndEvent<ThyDragDirective>>();
+    readonly ended = output<ThyDragEndEvent<ThyDragDirective>>({ alias: 'thyDragEnded' });
 
     /**
      * dragover 触发时调用
      */
-    @Output('thyDragOvered') overed = new EventEmitter<ThyDragOverEvent<ThyDragDirective>>();
+    readonly overed = output<ThyDragOverEvent<ThyDragDirective>>({ alias: 'thyDragOvered' });
 
     /**
      * drop 触发时调用
      */
-    @Output('thyDragDropped') dropped = new EventEmitter<ThyDragDropEvent<ThyDragDirective>>();
+    readonly dropped = output<ThyDragDropEvent<ThyDragDirective>>({ alias: 'thyDragDropped' });
 
     /**
      * @internal
      */
-    @ContentChildren(ThyDragDirective, {
-        descendants: false
-    })
-    draggables: QueryList<ThyDragDirective>;
+    readonly draggables = contentChildren(ThyDragDirective, { descendants: false });
 
-    ngOnInit() {}
+    draggablesChanges$ = toObservable(this.draggables);
 
-    ngAfterContentInit() {
-        this.draggables.changes.pipe(startWith(null), takeUntil(this.ngUnsubscribe$)).subscribe(() => {
+    constructor() {
+        effect(() => {
+            this.draggables();
             this.draggableChanges();
         });
     }
+
+    ngOnInit() {}
 
     private draggableChanges() {
         this.resetDraggableChanges(item => item.dragRef.started).subscribe(event => {
@@ -126,14 +129,15 @@ export class ThyDropContainerDirective<T = any> implements OnInit, AfterContentI
 
     private resetDraggableChanges(fn: (item: ThyDragDirective) => Observable<any>) {
         return defer(() => {
-            if (this.draggables) {
-                return merge(...this.draggables.map(fn));
+            const draggables = this.draggables();
+            if (draggables) {
+                return merge(...draggables.map(fn));
             }
             return this.ngZone.onStable.asObservable().pipe(
                 take(1),
                 switchMap(() => this.resetDraggableChanges.bind(this, fn))
             );
-        }).pipe(takeUntil(merge(this.ngUnsubscribe$, this.draggables.changes))) as Observable<any>;
+        }).pipe(takeUntil(merge(this.ngUnsubscribe$, this.draggablesChanges$.pipe(skip(1))))) as Observable<any>;
     }
 
     ngOnDestroy(): void {
