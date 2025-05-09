@@ -23,7 +23,9 @@ import { ThyIconRegistry } from 'ngx-tethys/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
 export class AppModule {
-    constructor(iconRegistry: ThyIconRegistry, sanitizer: DomSanitizer) {
+    constructor() {
+        const iconRegistry = inject(ThyIconRegistry);
+        const sanitizer = inject(DomSanitizer);
         // 注册 defs SVG 雪碧图
         iconRegistry.addSvgIconSet(sanitizer.bypassSecurityTrustResourceUrl(`assets/icons/defs/svg/sprite.defs.svg`));
         // 注册 symbol SVG 雪碧图
