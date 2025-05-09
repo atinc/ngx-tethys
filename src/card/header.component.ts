@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, TemplateRef, ContentChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, TemplateRef, ChangeDetectionStrategy, input, contentChild } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 
 /**
@@ -13,9 +13,9 @@ import { NgTemplateOutlet } from '@angular/common';
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-card-header',
-        '[class.thy-card-header--sm]': 'thySize === "sm"',
-        '[class.thy-card-header--lg]': 'thySize === "lg"',
-        '[class.thy-card-header--md]': 'thySize === "md"'
+        '[class.thy-card-header--sm]': 'thySize() === "sm"',
+        '[class.thy-card-header--lg]': 'thySize() === "lg"',
+        '[class.thy-card-header--md]': 'thySize() === "md"'
     },
     imports: [NgTemplateOutlet]
 })
@@ -25,40 +25,36 @@ export class ThyCardHeader implements OnInit {
     /**
      * 头部，标题
      */
-    @Input('thyTitle') thyTitle: string;
+    readonly thyTitle = input<string>();
 
     /**
      * 头部，附加信息
      */
-    @Input('thyDescription') thyDescription: string;
+    readonly thyDescription = input<string>();
 
     /**
      * 已废弃，头部大小
      * @deprecated
-     * @default md
      */
-    @Input('thySize') thySize: 'sm' | 'lg' | 'md' | '';
+    readonly thySize = input<'sm' | 'lg' | 'md' | ''>('md');
 
     /**
      * 自定义头部标题
      * @type TemplateRef
      */
-    @ContentChild('headerTitle')
-    public titleTemplateRef: TemplateRef<any>;
+    public readonly titleTemplateRef = contentChild<TemplateRef<any>>('headerTitle');
 
     /**
      * 自定义头部描述
      * @type TemplateRef
      */
-    @ContentChild('headerDescription')
-    public descriptionTemplateRef: TemplateRef<any>;
+    public readonly descriptionTemplateRef = contentChild<TemplateRef<any>>('headerDescription');
 
     /**
      * 自定义头部操作区域
      * @type TemplateRef
      */
-    @ContentChild('headerOperation')
-    public operationTemplateRef: TemplateRef<any>;
+    public readonly operationTemplateRef = contentChild<TemplateRef<any>>('headerOperation');
 
     constructor() {}
 
