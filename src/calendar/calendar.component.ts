@@ -5,15 +5,16 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    ContentChild,
-    EventEmitter,
+    computed,
+    contentChild,
     forwardRef,
     HostBinding,
     inject,
-    Input,
+    input,
     OnChanges,
     OnInit,
-    Output,
+    output,
+    Signal,
     SimpleChanges,
     TemplateRef,
     ViewEncapsulation
@@ -52,58 +53,60 @@ export class ThyCalendar implements OnInit, OnChanges {
      * 展示模式
      * @type month | year
      */
-    @Input() thyMode: CalendarMode = 'month';
+    readonly thyMode = input<CalendarMode>('month');
 
     /**
      * （可双向绑定）展示日期，默认为当前日期
      */
-    @Input() thyValue?: Date;
+    readonly thyValue = input<Date>(undefined);
 
     /**
      * 不可选择的日期
      */
-    @Input() thyDisabledDate?: (date: Date) => boolean;
+    readonly thyDisabledDate = input<(date: Date) => boolean>(undefined);
 
     /**
      * 日期选择变化的回调
      */
-    @Output() thySelectChange: EventEmitter<Date> = new EventEmitter();
+    readonly thySelectChange = output<Date>();
 
     /**
      * 日期选择变化的回调
      */
-    @Output() thyValueChange: EventEmitter<Date> = new EventEmitter();
+    readonly thyValueChange = output<Date>();
 
     /**
      * 日期选择范围变化的回调
      */
-    @Output() thyDateRangeChange: EventEmitter<DateRangeItemInfo> = new EventEmitter();
+    readonly thyDateRangeChange = output<DateRangeItemInfo>();
 
     /**
      * （可作为内容）自定义渲染日期单元格，模板内容会被追加到单元格
      */
-    @Input() thyDateCell?: CalendarDateTemplate;
+    readonly thyDateCell = input<CalendarDateTemplate>(undefined);
 
     /**
      *  追加到单元格的自定义模板
      */
-    @ContentChild(DateCell, { read: TemplateRef }) thyDateCellChild?: CalendarDateTemplate;
-    get dateCell(): CalendarDateTemplate {
-        return (this.thyDateCell || this.thyDateCellChild)!;
-    }
+    readonly thyDateCellChild = contentChild(DateCell, { read: TemplateRef });
+
+    dateCell: Signal<CalendarDateTemplate> = computed(() => {
+        return (this.thyDateCell() || this.thyDateCellChild())!;
+    });
 
     /**
      * （可作为内容）自定义渲染右上角操作项
      */
-    @Input() thyCalendarHeaderOperation?: CalendarDateTemplate;
+    readonly thyCalendarHeaderOperation = input<CalendarDateTemplate>(undefined);
 
     /**
      * 右上角操作项的自定义模板
      */
-    @ContentChild(HeaderOperation, { read: TemplateRef }) thyCalendarHeaderOperationChild?: CalendarDateTemplate;
-    get headerOperation(): CalendarDateTemplate {
-        return (this.thyCalendarHeaderOperation || this.thyCalendarHeaderOperationChild)!;
-    }
+    readonly thyCalendarHeaderOperationChild = contentChild(HeaderOperation, { read: TemplateRef });
+
+    headerOperation: Signal<CalendarDateTemplate> = computed(() => {
+        return (this.thyCalendarHeaderOperation() || this.thyCalendarHeaderOperationChild())!;
+    });
 
     public currentDate = new TinyDate();
 
@@ -161,7 +164,7 @@ export class ThyCalendar implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.thyValue) {
-            this.updateDate(new TinyDate(this.thyValue), false);
+            this.updateDate(new TinyDate(this.thyValue()), false);
         }
     }
 }

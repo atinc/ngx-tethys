@@ -2,7 +2,7 @@ import { DateRangeItemInfo, ThyDateRange } from 'ngx-tethys/date-range';
 import { endOfMonth, FunctionProp, getMonth, getUnixTime, getYear, startOfMonth, TinyDate } from 'ngx-tethys/util';
 
 import { JsonPipe, NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectorRef, Component, EventEmitter, HostBinding, inject, Input, OnInit, Output, Signal, TemplateRef } from '@angular/core';
+import { ChangeDetectorRef, Component, HostBinding, inject, Input, input, OnInit, output, Signal, TemplateRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyButton } from 'ngx-tethys/button';
 import { DateHelperService } from 'ngx-tethys/date-picker';
@@ -36,22 +36,22 @@ export class ThyCalendarHeader implements OnInit {
     /**
      * 	自定义渲染右侧操作项
      */
-    @Input() operationRender: FunctionProp<TemplateRef<any>>;
+    readonly operationRender = input<FunctionProp<TemplateRef<any>>>(undefined);
 
     /**
      * 日期选择范围（年）发生变化的回调
      */
-    @Output() readonly yearChange: EventEmitter<number> = new EventEmitter();
+    readonly yearChange = output<number>();
 
     /**
      * 日期选择范围（月）发生变化的回调
      */
-    @Output() readonly monthChange: EventEmitter<number> = new EventEmitter();
+    readonly monthChange = output<number>();
 
     /**
      * 日期选择范围（日期）发生变化的回调
      */
-    @Output() readonly dateRangeChange: EventEmitter<DateRangeItemInfo> = new EventEmitter();
+    readonly dateRangeChange = output<DateRangeItemInfo>();
 
     public pickerFormat = this.locale().yearMonthFormat;
 
