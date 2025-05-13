@@ -11,7 +11,7 @@ import {
     computed,
     signal,
     output,
-    effect,
+    effect
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
@@ -155,4 +155,3 @@ export class ThySwitch extends TabIndexDisabledControlValueAccessorMixin impleme
         this.thyChange?.emit(event);
     }
 }
-
