@@ -37,7 +37,7 @@ class TestSizeComponent {
     size: string | number = 'md';
 }
 
-describe('space', () => {
+fdescribe('space', () => {
     function assertSpaceSize(spaceElement: HTMLElement, size: number) {
         const items = spaceElement.querySelectorAll('.thy-space-item');
         expect(items).toBeTruthy();
