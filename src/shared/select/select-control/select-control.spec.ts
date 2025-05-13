@@ -174,7 +174,7 @@ describe('ThySelectControl', () => {
                 fixture.componentInstance.selectedOptions = selectedOption1;
                 fixture.detectChanges();
                 flush();
-                expect(fixture.componentInstance.selectControlComponent.inputValue).toEqual('');
+                expect(fixture.componentInstance.selectControlComponent.inputValue).toEqual(null);
             }));
 
             it('should not clear input value when selected reset', fakeAsync(() => {
