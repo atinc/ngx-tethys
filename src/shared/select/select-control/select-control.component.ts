@@ -77,7 +77,9 @@ export class ThySelectControl implements OnInit {
         }
         if (!this.panelOpened && this.thyShowSearch) {
             new Promise(resolve => setTimeout(resolve, 100)).then(() => {
-                this.setInputValue('');
+                this.inputValue = '';
+                this.updateWidth();
+                this.thyOnSearch.emit(this.inputValue);
             });
         }
         this.setSelectControlClass();
@@ -124,7 +126,8 @@ export class ThySelectControl implements OnInit {
         if (this.panelOpened && this.thyShowSearch) {
             if (!sameValue) {
                 Promise.resolve(null).then(() => {
-                    this.setInputValue(null);
+                    this.inputValue = '';
+                    this.updateWidth();
                 });
             }
             //等待组件渲染好再聚焦
@@ -277,9 +280,7 @@ export class ThySelectControl implements OnInit {
         if (value !== this.inputValue) {
             this.inputValue = value;
             this.updateWidth();
-            if (this.inputValue !== null) {
-                this.thyOnSearch.emit(this.inputValue);
-            }
+            this.thyOnSearch.emit(this.inputValue);
         }
     }
 
