@@ -1,24 +1,25 @@
-<label #switch class="thy-switch" [ngClass]="classNames">
+<label #switch class="thy-switch" [ngClass]="classNames()">
   <input
     type="checkbox"
     [attr.tabindex]="-1"
-    [disabled]="disabled || loading"
+    [disabled]="disabled() || thyLoading()"
     class="thy-switch-input"
-    [checked]="model"
+    [checked]="model()"
     (change)="toggle($event)" />
   <span class="thy-switch-label" [attr.tabindex]="tabIndex"></span>
   <span class="thy-switch-handle">
-    @if (loading) {
-      <svg [attr.viewBox]="loadingCircle?.viewBox" [class.mb-1]="size === 'xs'">
+    @if (thyLoading()) {
+      @let circleConfig = loadingCircle();
+      <svg [attr.viewBox]="circleConfig?.viewBox" [class.mb-1]="size() === 'xs'">
         <circle
           class="thy-switch-loading"
-          [style.transform-origin]="loadingCircle?.cx + 'px ' + loadingCircle?.cy + 'px'"
-          [attr.cx]="loadingCircle?.cx"
-          [attr.cy]="loadingCircle?.cy"
-          [attr.r]="loadingCircle?.r"
-          [attr.stroke]="model ? 'rgba(102,152,255,1)' : 'rgba(202,202,202,1)'"
+          [style.transform-origin]="circleConfig?.cx + 'px ' + circleConfig?.cy + 'px'"
+          [attr.cx]="circleConfig?.cx"
+          [attr.cy]="circleConfig?.cy"
+          [attr.r]="circleConfig?.r"
+          [attr.stroke]="model() ? 'rgba(102,152,255,1)' : 'rgba(202,202,202,1)'"
           stroke-width="1"
-          [attr.stroke-dasharray]="loadingCircle?.dasharray"
+          [attr.stroke-dasharray]="circleConfig?.dasharray"
           fill="white" />
       </svg>
     }

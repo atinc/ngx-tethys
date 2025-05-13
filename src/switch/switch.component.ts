@@ -4,17 +4,22 @@ import {
     ChangeDetectorRef,
     Component,
     ElementRef,
-    EventEmitter,
     forwardRef,
-    Input,
-    OnInit,
-    Output,
-    ViewChild,
-    inject
+    inject,
+    viewChild,
+    input,
+    computed,
+    signal,
+    output,
+    effect,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+
+const supportedTypes: string[] = ['primary', 'info', 'warning', 'danger'];
+
+const supportedSizes: string[] = ['', 'sm', 'xs'];
 
 /**
  * 开关组件
@@ -25,139 +30,110 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     selector: 'thy-switch',
     templateUrl: './switch.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => ThySwitch),
-            multi: true
-        }
-    ],
+    providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => ThySwitch), multi: true }],
     imports: [NgClass],
-    host: {
-        class: 'thy-switch',
-        '[class.thy-switch-xs]': 'size === "xs"',
-        '[class.thy-switch-sm]': 'size === "sm"'
-    }
+    host: { class: 'thy-switch', '[class.thy-switch-xs]': 'size() === "xs"', '[class.thy-switch-sm]': 'size() === "sm"' }
 })
-export class ThySwitch extends TabIndexDisabledControlValueAccessorMixin implements OnInit, ControlValueAccessor {
-    cdr = inject(ChangeDetectorRef);
-
-    public model: boolean;
-
-    public type?: string = 'primary';
-
-    public size?: string = '';
-
-    public disabled?: boolean = false;
-
-    public loading: boolean = false;
-
-    public classNames: string[];
-
-    public typeArray: string[] = ['primary', 'info', 'warning', 'danger'];
-
-    public sizeArray: string[] = ['', 'sm', 'xs'];
-
-    public loadingCircle: {
-        viewBox?: string;
-        cx?: number;
-        cy?: number;
-        r?: number;
-        dasharray?: string;
-    } = {};
-
-    private initialized = false;
-
-    private loadingInitialized = false;
-
-    private isDisabledFirstChange = true;
-
-    @ViewChild('switch', { static: true }) switchElementRef: ElementRef;
-
+export class ThySwitch extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor {
     /**
      * 类型，目前分为: 'primary' |'info' | 'warning' | 'danger'
      */
-    @Input()
-    set thyType(value: string) {
-        if (!this.typeArray.includes(value)) {
-            value = 'primary';
-        }
-        this.type = value;
-        if (this.initialized) {
-            this.setClassNames();
-        }
-    }
+    readonly thyType = input<string>('primary');
 
     /**
      * 大小
      * @type xs | sm | md
      * @default md
      */
-    @Input()
-    set thySize(value: string) {
-        if (!this.sizeArray.includes(value)) {
-            value = '';
-        }
-        this.size = value;
-        if (this.initialized) {
-            this.setClassNames();
-        }
-
-        if (this.loadingInitialized) {
-            this.setLoadingCircle();
-        }
-    }
+    readonly thySize = input<string>('');
 
     /**
      * 是否属于禁用状态
      */
-    @Input({ transform: coerceBooleanProperty })
-    override set thyDisabled(value: boolean) {
-        this.disabled = value;
-        this.setClassNames();
-    }
-    override get thyDisabled(): boolean {
-        return this.disabled;
-    }
+    readonly inputDisabled = input<boolean, boolean>(false, { transform: coerceBooleanProperty, alias: `thyDisabled` });
 
     /**
      * 是否加载中
      */
-    @Input({ transform: coerceBooleanProperty }) set thyLoading(value: boolean) {
-        this.loading = value;
-        if (this.initialized) {
-            this.setClassNames();
-        }
-
-        if (this.loading && !this.loadingInitialized) {
-            this.setLoadingCircle();
-            this.loadingInitialized = true;
-        }
-    }
+    readonly thyLoading = input<string | boolean, boolean>(false, { transform: coerceBooleanProperty });
 
     /**
      * 数据变化的回调事件，即将被弃用，请使用 ngModelChange
      * @deprecated
      */
-    @Output() thyChange: EventEmitter<Event> = new EventEmitter<Event>();
+    thyChange = output<Event>();
+
+    model = signal<boolean>(false);
+
+    disabled = signal(false);
+
+    get thyDisabled() {
+        return this.disabled() as boolean;
+    }
+
+    type = computed(() => {
+        if (!supportedTypes.includes(this.thyType())) {
+            return 'primary';
+        } else {
+            return this.thyType();
+        }
+    });
+
+    size = computed(() => {
+        if (!supportedSizes.includes(this.thySize())) {
+            return '';
+        } else {
+            return this.thySize();
+        }
+    });
+
+    classNames = computed(() => {
+        const classList = [`thy-switch-${this.type()}`];
+        if (this.size()) {
+            classList.push(`thy-switch-${this.size()}`);
+        }
+        if (this.disabled() || this.thyLoading()) {
+            classList.push(`thy-switch-disabled`);
+            if (this.model()) {
+                classList.push(`thy-switch-disabled-true`);
+            }
+        }
+        return classList;
+    });
+
+    loadingCircle = computed(() => {
+        const svgSize: Record<string, number> = { xs: 12, sm: 16 };
+        const circleSize = svgSize[this.size()] ?? 20;
+        const centerPoint = circleSize / 2;
+        const r = circleSize / 4;
+        return {
+            viewBox: `0 0 ${circleSize} ${circleSize}`,
+            cx: centerPoint,
+            cy: centerPoint,
+            r: r,
+            dasharray: `${2 * Math.PI * r * 0.75} ${2 * Math.PI * r * 0.25}`
+        };
+    });
+
+    onModelChange: Function = () => {};
+
+    onModelTouched: Function = () => {};
+
+    readonly switchElementRef = viewChild<string, ElementRef<HTMLElement>>('switch', { read: ElementRef<HTMLElement> });
+
+    private cdr = inject(ChangeDetectorRef);
 
     constructor() {
         super();
+
+        effect(() => {
+            this.disabled.set(this.inputDisabled());
+        });
     }
-
-    ngOnInit() {
-        this.setClassNames();
-        this.initialized = true;
-    }
-
-    public onModelChange: Function = () => {};
-
-    public onModelTouched: Function = () => {};
 
     writeValue(value: boolean) {
-        this.model = value;
+        this.model.set(value);
         this.cdr.markForCheck();
-        // this.setClassNames();
     }
 
     registerOnChange(fn: Function): void {
@@ -169,50 +145,14 @@ export class ThySwitch extends TabIndexDisabledControlValueAccessorMixin impleme
     }
 
     setDisabledState(isDisabled: boolean): void {
-        this.disabled = (this.isDisabledFirstChange && this.thyDisabled) || isDisabled;
-        this.isDisabledFirstChange = false;
-        this.setClassNames();
+        this.disabled.set(isDisabled);
     }
 
     toggle(event: Event) {
-        this.model = !this.model;
-        this.onModelChange(this.model);
+        this.model.set(!this.model());
+        this.onModelChange(this.model());
         this.onModelTouched();
-        this.thyChange.emit(event);
-    }
-
-    setClassNames() {
-        this.classNames = [`thy-switch-${this.type}`];
-        if (this.size) {
-            this.classNames.push(`thy-switch-${this.size}`);
-        }
-        if (this.disabled || this.loading) {
-            this.classNames.push(`thy-switch-disabled`);
-            if (this.model) {
-                this.classNames.push(`thy-switch-disabled-true`);
-            }
-        }
-        this.cdr.markForCheck();
-    }
-
-    setLoadingCircle() {
-        const svgSize = {
-            ['xs']: 12,
-            ['sm']: 16,
-            ['']: 20
-        };
-
-        const circleSize = svgSize[this.size];
-        const centerPoint = circleSize / 2;
-        const r = circleSize / 4;
-
-        this.loadingCircle = {
-            viewBox: `0 0 ${circleSize} ${circleSize}`,
-            cx: centerPoint,
-            cy: centerPoint,
-            r: r,
-            dasharray: `${2 * Math.PI * r * 0.75} ${2 * Math.PI * r * 0.25}`
-        };
-        this.cdr.markForCheck();
+        this.thyChange?.emit(event);
     }
 }
+
