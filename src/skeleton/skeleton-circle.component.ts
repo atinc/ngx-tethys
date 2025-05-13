@@ -23,11 +23,11 @@ import { coerceCssPixelValue } from '@angular/cdk/coercion';
     template: ` <div class="thy-skeleton-after" [ngStyle]="afterStyles()"></div> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    imports: [NgStyle],
+    imports: [NgStyle]
 })
 export class ThySkeletonCircle {
     private skeletonConfigModel = inject(THY_SKELETON_CONFIG, { optional: true })!;
-    
+
     private parent = inject(ThySkeleton, { optional: true })!;
 
     /**

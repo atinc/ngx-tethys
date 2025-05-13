@@ -81,7 +81,7 @@ export class ThySkeletonRectangle {
     });
 
     secondaryColor = computed(() => {
-            return this.thySecondaryColor() || this.parent?.thySecondaryColor() || this.skeletonConfigModel.thySecondaryColor;
+        return this.thySecondaryColor() || this.parent?.thySecondaryColor() || this.skeletonConfigModel.thySecondaryColor;
     });
 
     animated = computed(() => {
