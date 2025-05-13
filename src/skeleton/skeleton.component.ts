@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input, input } from '@angular/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
@@ -17,21 +17,20 @@ export class ThySkeleton {
      * 是否开启动画
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty })
-    thyAnimated: boolean;
+    thyAnimated = input<string | boolean, boolean>(false, { transform: coerceBooleanProperty });
 
     /**
      * 动画速度
      */
-    @Input() thyAnimatedInterval: string | number;
+    thyAnimatedInterval = input<string | number>();
 
     /**
      * 骨架主色调
      */
-    @Input() thyPrimaryColor: string;
+    thyPrimaryColor = input<string>();
 
     /**
      * 骨架次色调
      */
-    @Input() thySecondaryColor: string;
+    thySecondaryColor = input<string>();
 }
