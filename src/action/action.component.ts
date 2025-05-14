@@ -113,13 +113,12 @@ export class ThyAction implements OnInit, AfterViewInit, OnChanges, OnDestroy {
     /**
      * Hover 展示的图标
      */
-    readonly thyHoverIcon = input<string>(undefined);
+    readonly thyHoverIcon = input<string>();
 
     /**
      * 是否处于禁用状态
-     * @default false
      */
-    readonly thyDisabled = input<boolean, boolean | string | number>(undefined, { transform: coerceBooleanProperty });
+    readonly thyDisabled = input<boolean, boolean | string | number>(false, { transform: coerceBooleanProperty });
 
     ngOnInit(): void {
         this.updateClasses();
