@@ -1,6 +1,6 @@
 import { TestBed, ComponentFixture, fakeAsync, flush, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Component, ViewChild } from '@angular/core';
+import { Component, DebugElement, ViewChild } from '@angular/core';
 import { ThySelectControl, SelectControlSize, SelectOptionBase } from 'ngx-tethys/shared';
 import { provideHttpClient } from '@angular/common/http';
 
@@ -17,7 +17,8 @@ import { provideHttpClient } from '@angular/common/http';
             [thyIsMultiple]="thyIsMultiple"
             [thyPanelOpened]="thyPanelOpened"
             [thyBorderless]="borderless"
-            [thyMaxTagCount]="thyMaxTagCount"></thy-select-control>
+            [thyMaxTagCount]="thyMaxTagCount"
+            (thyOnSearch)="search($event)"></thy-select-control>
     `,
     imports: [ThySelectControl]
 })
@@ -44,6 +45,8 @@ class BasicSelectControlComponent {
 
     @ViewChild(ThySelectControl, { static: true })
     selectControlComponent: ThySelectControl;
+
+    search(value: string) {}
 }
 
 describe('ThySelectControl', () => {
@@ -171,10 +174,12 @@ describe('ThySelectControl', () => {
                 fixture.detectChanges();
 
                 const selectedOption1: SelectOptionBase = { thyLabelText: '', thyRawValue: {}, thyValue: '1' };
+                const search = spyOn(fixture.componentInstance, 'search');
                 fixture.componentInstance.selectedOptions = selectedOption1;
                 fixture.detectChanges();
                 flush();
                 expect(fixture.componentInstance.selectControlComponent.inputValue).toEqual('');
+                expect(search).not.toHaveBeenCalled();
             }));
 
             it('should not clear input value when selected reset', fakeAsync(() => {
@@ -229,6 +234,37 @@ describe('ThySelectControl', () => {
                 expect(choiceItems.length).toEqual(3);
                 maxTagCountChoic = selectElement.querySelector('.max-tag-count-choice');
                 expect(maxTagCountChoic).toBeTruthy();
+            }));
+        });
+
+        describe('search', () => {
+            let fixture: ComponentFixture<BasicSelectControlComponent>;
+            let searchElement: DebugElement;
+
+            beforeEach(waitForAsync(() => {
+                fixture = TestBed.createComponent(BasicSelectControlComponent);
+                fixture.detectChanges();
+                searchElement = fixture.debugElement.query(By.css('.form-control.search-input-field'));
+            }));
+
+            it('should call search methods when thyPanelOpened is false', fakeAsync(() => {
+                fixture.componentInstance.thyShowSearch = true;
+                fixture.componentInstance.thyPanelOpened = true;
+                fixture.detectChanges();
+                const search = spyOn(fixture.componentInstance, 'search');
+                fixture.componentInstance.thyPanelOpened = false;
+                fixture.detectChanges();
+                tick(100);
+                expect(search).toHaveBeenCalledWith('');
+            }));
+
+            it('should call search methods when input value change', fakeAsync(() => {
+                fixture.componentInstance.thyShowSearch = true;
+                fixture.detectChanges();
+                const search = spyOn(fixture.componentInstance, 'search');
+                searchElement.nativeElement.value = '新值';
+                searchElement.nativeElement.dispatchEvent(new Event('input'));
+                expect(search).toHaveBeenCalledWith('新值');
             }));
         });
     });
