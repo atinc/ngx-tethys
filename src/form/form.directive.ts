@@ -41,7 +41,7 @@ export enum ThyEnterKeyMode {
  * @order 10
  */
 @Directive({ selector: '[thyForm],[thy-form]', providers: [ThyFormValidatorService], exportAs: 'thyForm', host: { class: 'thy-form' } })
-export class ThyFormDirective implements OnInit, OnDestroy {
+export class ThyFormDirective implements OnInit, AfterViewInit, OnDestroy {
     private ngForm = inject(ControlContainer);
     private elementRef = inject(ElementRef);
     private renderer = inject(Renderer2);
@@ -99,6 +99,7 @@ export class ThyFormDirective implements OnInit, OnDestroy {
             }
         });
 
+        // TODO:: replace ngAfterViewInit with afterNextRender
         // afterNextRender(() => {
         //     this.validator.initialize(this.ngForm as NgForm, this.elementRef.nativeElement);
         //     this.validator.initializeFormControlsValidation(this.controls.toArray());
