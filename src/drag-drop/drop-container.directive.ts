@@ -1,17 +1,4 @@
-import {
-  OnInit,
-  Directive,
-  AfterContentInit,
-  NgZone,
-  Input,
-  OnDestroy,
-  inject,
-  input,
-  computed,
-  output,
-  contentChildren,
-  effect
-} from '@angular/core';
+import { OnInit, Directive, NgZone, OnDestroy, inject, input, computed, output, contentChildren, effect } from '@angular/core';
 import { ThyDragDirective } from './drag.directive';
 import { merge, Observable, defer, Subject } from 'rxjs';
 import { takeUntil, startWith, take, switchMap, tap, skip } from 'rxjs/operators';
@@ -59,22 +46,25 @@ export class ThyDropContainerDirective<T = any> implements OnInit, IThyDropConta
      * 是否禁用拖拽
      * @default false
      */
-    readonly disabled = input<boolean, boolean | string | number>(undefined, { alias: "thyDropContainerDisabled", transform: coerceBooleanProperty });
+    readonly disabled = input<boolean, boolean | string | number>(undefined, {
+        alias: 'thyDropContainerDisabled',
+        transform: coerceBooleanProperty
+    });
 
     /**
      * 拖拽之前的回调，函数返回 false 则阻止拖拽
      */
-    readonly beforeStart = input<(e: ThyDragStartEvent<T>) => boolean>(undefined, { alias: "thyBeforeDragStart" });
+    readonly beforeStart = input<(e: ThyDragStartEvent<T>) => boolean>(undefined, { alias: 'thyBeforeDragStart' });
 
     /**
      * 拖拽时回调，函数返回 false 则阻止移入
      */
-    readonly beforeOver = input<(e: ThyDragOverEvent<T>) => boolean>(undefined, { alias: "thyBeforeDragOver" });
+    readonly beforeOver = input<(e: ThyDragOverEvent<T>) => boolean>(undefined, { alias: 'thyBeforeDragOver' });
 
     /**
      * 拖放到元素时回调，函数返回 false 则阻止放置
      */
-    readonly beforeDrop = input<(e: ThyDragDropEvent<T>) => boolean>(undefined, { alias: "thyBeforeDragDrop" });
+    readonly beforeDrop = input<(e: ThyDragDropEvent<T>) => boolean>(undefined, { alias: 'thyBeforeDragDrop' });
 
     /**
      * 开始拖拽时调用

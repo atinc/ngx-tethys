@@ -205,7 +205,10 @@ export class DragRef<T = any> {
             position: this.calcDropPosition(event),
             ...previousEventData
         };
-        if (this.dragDropService.previousDrag === this.drag || (this.container.beforeDrop() && !this.container.beforeDrop()(dragDropEvent))) {
+        if (
+            this.dragDropService.previousDrag === this.drag ||
+            (this.container.beforeDrop() && !this.container.beforeDrop()(dragDropEvent))
+        ) {
             event.preventDefault();
             return;
         }
