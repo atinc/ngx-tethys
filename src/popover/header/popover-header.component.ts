@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, Input, Output, TemplateRef, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, computed, TemplateRef, inject, input, output } from '@angular/core';
 import { ThyTranslate } from 'ngx-tethys/core';
 import { ThyPopover } from '../popover.service';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -26,17 +26,24 @@ export class ThyPopoverHeader {
     /**
      * 头部标题
      */
-    @Input() thyTitle: string;
+    readonly thyTitle = input<string>(undefined);
 
     /**
      * 标题的多语言 Key
      */
-    @Input()
-    set thyTitleTranslationKey(key: string) {
-        if (key && !this.thyTitle) {
-            this.thyTitle = this.translate.instant(key);
+    readonly thyTitleTranslationKey = input<string>(undefined);
+
+    protected readonly titleSignal = computed(() => {
+        const title = this.thyTitle();
+        if (title) {
+            return title;
         }
-    }
+        const titleTranslationKey = this.thyTitleTranslationKey();
+        if (titleTranslationKey) {
+            return this.translate.instant(titleTranslationKey);
+        }
+        return '';
+    });
 
     /**
      * 自定义头部模板
@@ -48,7 +55,7 @@ export class ThyPopoverHeader {
     /**
      * @internal
      */
-    @Output() thyClosed: EventEmitter<Event> = new EventEmitter<Event>();
+    readonly thyClosed = output<Event>();
 
     /**
      * @internal
