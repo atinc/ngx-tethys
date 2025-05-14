@@ -1,7 +1,7 @@
 import { ThyIcon } from 'ngx-tethys/icon';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
-import { Component, HostBinding, Input, numberAttribute } from '@angular/core';
+import { Component, HostBinding, Input, numberAttribute, input, ChangeDetectionStrategy } from '@angular/core';
 
 /**
  * 步骤条头部组件
@@ -11,20 +11,18 @@ import { Component, HostBinding, Input, numberAttribute } from '@angular/core';
 @Component({
     selector: 'thy-step-header',
     templateUrl: './step-header.component.html',
-    imports: [ThyIcon]
+    imports: [ThyIcon],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: { class: 'thy-stepper-header' }
 })
 export class ThyStepHeader {
-    @Input() label: string;
+    readonly label = input<string>();
 
-    @Input() icon: string;
+    readonly icon = input<string>();
 
-    @Input({ transform: numberAttribute }) index: number;
+    readonly index = input<number, number>(undefined, { transform: numberAttribute });
 
-    @HostBinding('class.thy-stepper-header-selected')
-    @Input({ transform: coerceBooleanProperty })
-    selected: boolean;
+    readonly selected = input<boolean, boolean>(undefined, { transform: coerceBooleanProperty });
 
-    @Input({ transform: coerceBooleanProperty }) active: boolean;
-
-    @HostBinding('class.thy-stepper-header') thyStepHeader = true;
+    readonly active = input<boolean, boolean>(undefined, { transform: coerceBooleanProperty });
 }
