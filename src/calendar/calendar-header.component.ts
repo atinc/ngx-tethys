@@ -2,7 +2,7 @@ import { DateRangeItemInfo, ThyDateRange } from 'ngx-tethys/date-range';
 import { endOfMonth, FunctionProp, getMonth, getUnixTime, getYear, startOfMonth, TinyDate } from 'ngx-tethys/util';
 
 import { JsonPipe, NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectorRef, Component, HostBinding, inject, Input, input, OnInit, output, Signal, TemplateRef } from '@angular/core';
+import { ChangeDetectorRef, Component, effect, HostBinding, inject, input, OnInit, output, Signal, TemplateRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyButton } from 'ngx-tethys/button';
 import { DateHelperService } from 'ngx-tethys/date-picker';
@@ -28,10 +28,7 @@ export class ThyCalendarHeader implements OnInit {
     /**
      * 当前选中日期
      */
-    @Input()
-    set currentDate(value: TinyDate) {
-        this.setDate(value);
-    }
+    readonly currentDate = input<TinyDate>();
 
     /**
      * 	自定义渲染右侧操作项
@@ -73,6 +70,14 @@ export class ThyCalendarHeader implements OnInit {
     private _currentDate: TinyDate;
 
     public isCurrent: boolean;
+
+    constructor() {
+        effect(() => {
+            if (this.currentDate()) {
+                this.setDate(this.currentDate());
+            }
+        });
+    }
 
     ngOnInit(): void {}
 
