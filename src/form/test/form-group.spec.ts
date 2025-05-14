@@ -152,8 +152,8 @@ describe('form-group basic', () => {
         const displayNameFormGroup = getFormGroup(1);
         const feedbackElement: HTMLElement = displayNameFormGroup.element.querySelector('.form-control-feedback');
         expect(feedbackElement).toBeTruthy();
-        expect(feedbackElement.classList.contains(`wtf`)).toBe(true);
-        expect(feedbackElement.classList.contains(`wtf-schedule-o`)).toBe(true);
+        expect(feedbackElement.classList.contains(`thy-icon`)).toBe(true);
+        expect(feedbackElement.classList.contains(`thy-icon-calendar`)).toBe(true);
     });
 
     it('should clear label padding top succuss', () => {
