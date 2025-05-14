@@ -58,12 +58,12 @@ export class ThyCalendar implements OnInit, OnChanges {
     /**
      * （可双向绑定）展示日期，默认为当前日期
      */
-    readonly thyValue = input<Date>(undefined);
+    readonly thyValue = input<Date>();
 
     /**
      * 不可选择的日期
      */
-    readonly thyDisabledDate = input<(date: Date) => boolean>(undefined);
+    readonly thyDisabledDate = input<(date: Date) => boolean>();
 
     /**
      * 日期选择变化的回调
@@ -83,7 +83,7 @@ export class ThyCalendar implements OnInit, OnChanges {
     /**
      * （可作为内容）自定义渲染日期单元格，模板内容会被追加到单元格
      */
-    readonly thyDateCell = input<CalendarDateTemplate>(undefined);
+    readonly thyDateCell = input<CalendarDateTemplate>();
 
     /**
      *  追加到单元格的自定义模板
@@ -97,7 +97,7 @@ export class ThyCalendar implements OnInit, OnChanges {
     /**
      * （可作为内容）自定义渲染右上角操作项
      */
-    readonly thyCalendarHeaderOperation = input<CalendarDateTemplate>(undefined);
+    readonly thyCalendarHeaderOperation = input<CalendarDateTemplate>();
 
     /**
      * 右上角操作项的自定义模板

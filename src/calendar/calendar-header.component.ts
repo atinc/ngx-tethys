@@ -36,7 +36,7 @@ export class ThyCalendarHeader implements OnInit {
     /**
      * 	自定义渲染右侧操作项
      */
-    readonly operationRender = input<FunctionProp<TemplateRef<any>>>(undefined);
+    readonly operationRender = input<FunctionProp<TemplateRef<any>>>();
 
     /**
      * 日期选择范围（年）发生变化的回调
