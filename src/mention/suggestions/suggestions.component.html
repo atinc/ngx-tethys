@@ -1,9 +1,9 @@
-@if (mention.suggestionsTemplateRef) {
-  <ng-container [ngTemplateOutlet]="mention.suggestionsTemplateRef" [ngTemplateOutletContext]="{ data: data }"></ng-container>
+@if (mention().suggestionsTemplateRef) {
+  <ng-container [ngTemplateOutlet]="mention().suggestionsTemplateRef" [ngTemplateOutletContext]="{ data: data() }"></ng-container>
 } @else {
-  <thy-loading [thyDone]="loadingDone"></thy-loading>
-  @if (loadingDone) {
-    @if (data?.length > 0) {
+  <thy-loading [thyDone]="loadingDone()"></thy-loading>
+  @if (loadingDone()) {
+    @if (data()?.length > 0) {
       <thy-selection-list
         thyBindKeyEventContainer="body"
         thyMultiple="false"
@@ -11,10 +11,10 @@
         thySpaceKeyEnabled="false"
         [thyScrollContainer]="elementRef"
         (thySelectionChange)="selectionChange($event)">
-        @for (item of data | slice: 0 : mention.limit; track $index) {
+        @for (item of data() | slice: 0 : mention().limit; track $index) {
           <thy-list-option [thyValue]="item">
-            @if (mention?.displayTemplateRef) {
-              <ng-template *ngTemplateOutlet="mention?.displayTemplateRef; context: { $implicit: item }"></ng-template>
+            @if (mention().displayTemplateRef) {
+              <ng-template *ngTemplateOutlet="mention().displayTemplateRef; context: { $implicit: item }"></ng-template>
             } @else {
               {{ item['name'] || '' }}
             }
@@ -23,7 +23,7 @@
       </thy-selection-list>
     } @else {
       <div class="text-desc p-3">
-        {{ mention?.emptyText }}
+        {{ mention().emptyText }}
       </div>
     }
   }
