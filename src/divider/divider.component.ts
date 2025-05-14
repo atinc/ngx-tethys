@@ -96,13 +96,13 @@ export class ThyDivider implements OnInit {
 
     constructor() {
         effect(() => {
-            this.setColor(this.thyColor());
+            this.setColor();
         });
     }
 
     ngOnInit(): void {}
 
-    setColor(color: ThyDividerColor) {
-        this.hostRenderer.updateClass([`thy-divider-${color}`]);
+    setColor() {
+        this.hostRenderer.updateClass([`thy-divider-${this.thyColor()}`]);
     }
 }
