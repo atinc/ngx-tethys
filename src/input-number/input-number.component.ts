@@ -7,24 +7,18 @@ import { coerceBooleanProperty, DOWN_ARROW, ENTER, isFloat, isNumber, isUndefine
 
 import { FocusOrigin } from '@angular/cdk/a11y';
 import {
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  EventEmitter,
-  forwardRef,
-  Input,
-  numberAttribute,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  Output,
-  SimpleChanges,
-  inject,
-  input,
-  effect,
-  signal,
-  output,
-  viewChild
+    Component,
+    ElementRef,
+    forwardRef,
+    Input,
+    numberAttribute,
+    OnDestroy,
+    OnInit,
+    input,
+    effect,
+    signal,
+    output,
+    viewChild
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -56,10 +50,7 @@ enum Type {
         '[attr.tabindex]': 'tabIndex'
     }
 })
-export class ThyInputNumber
-    extends TabIndexDisabledControlValueAccessorMixin
-    implements ControlValueAccessor, OnInit, OnDestroy
-{
+export class ThyInputNumber extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor, OnInit, OnDestroy {
     readonly inputElement = viewChild<ElementRef<any>>('input');
 
     private autoStepTimer: any;
@@ -97,13 +88,13 @@ export class ThyInputNumber
      * 最大值
      * @default Infinity
      */
-    readonly thyMax = input(Infinity, { transform: (value: number) => isNumber(value) ? value : Infinity });
-    
+    readonly thyMax = input(Infinity, { transform: (value: number) => (isNumber(value) ? value : Infinity) });
+
     /**
      * 最小值
      * @default -Infinity
      */
-    readonly thyMin = input(-Infinity, { transform: (value: number) => isNumber(value) ? value : -Infinity });
+    readonly thyMin = input(-Infinity, { transform: (value: number) => (isNumber(value) ? value : -Infinity) });
 
     /**
      * 每次改变步数，可以为小数
@@ -145,7 +136,7 @@ export class ThyInputNumber
     /**
      * 上下箭头点击事件
      */
-    thyStepChange = output<{ value: number; type: Type }>()
+    thyStepChange = output<{ value: number; type: Type }>();
 
     private isFocused: boolean;
 
@@ -158,7 +149,7 @@ export class ThyInputNumber
                 const val = Number(this.displayValue());
                 this.disabledUp.set(val >= max);
             }
-        })
+        });
 
         effect(() => {
             const min = this.thyMin();
@@ -173,7 +164,7 @@ export class ThyInputNumber
             const validValue = this.getCurrentValidValue(this.validValue);
             this.updateValidValue(validValue);
             this.displayValue.set(this.formatterValue(validValue));
-        })
+        });
     }
 
     setDisabledState?(isDisabled: boolean): void {
@@ -291,7 +282,7 @@ export class ThyInputNumber
             return;
         }
         this.autoStepTimer = setTimeout(() => {
-            (this[(Type[type] as keyof typeof Type)] as (e: MouseEvent | KeyboardEvent) => void)(e);
+            (this[Type[type] as keyof typeof Type] as (e: MouseEvent | KeyboardEvent) => void)(e);
         }, this.thyStepDelay());
     }
 
