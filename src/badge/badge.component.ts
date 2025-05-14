@@ -122,12 +122,12 @@ export class ThyBadge implements OnInit {
      * 徽标内容文本
      * @type string
      */
-    readonly thyContent = model<string>(undefined);
+    readonly thyContent = model<string>();
 
     /**
      * 已废弃，徽标内容文本，命名错误，请使用 thyContent
      */
-    readonly thyContext = input<string>(undefined);
+    readonly thyContext = input<string>();
 
     /**
      * 徽标显示的最大值, 与 thyCount 一起使用,thyCount 超过了 thyMaxCount 设置的值时，徽标内容为 thyMaxCount+
