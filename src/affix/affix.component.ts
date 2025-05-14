@@ -57,7 +57,7 @@ export class ThyAffix implements AfterViewInit, OnChanges, OnDestroy {
      * @default window
      * @type string | Element | Window
      */
-    readonly thyContainer = input<string | Element | Window>(undefined);
+    readonly thyContainer = input<string | Element | Window>();
 
     /**
      * 距离窗口顶部缓冲的偏移量阈值
