@@ -67,7 +67,7 @@ export class ThyAffix implements AfterViewInit, OnChanges, OnDestroy {
     /**
      * 距离窗口底部缓冲的偏移量阈值
      */
-    readonly thyOffsetBottom = input<null | number, unknown>(undefined, { transform: numberAttribute });
+    readonly thyOffsetBottom = input<null | number, unknown>(0, { transform: numberAttribute });
 
     /**
      * 固定状态改变时触发的回调函数
