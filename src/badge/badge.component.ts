@@ -1,18 +1,6 @@
 import { isTextColor } from 'ngx-tethys/core';
 
-import {
-    ChangeDetectionStrategy,
-    Component,
-    ElementRef,
-    OnInit,
-    Signal,
-    computed,
-    effect,
-    inject,
-    input,
-    model,
-    numberAttribute
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, OnInit, Signal, computed, inject, input, numberAttribute } from '@angular/core';
 
 import { coerceBooleanProperty, isUndefined } from 'ngx-tethys/util';
 
@@ -38,8 +26,7 @@ export class ThyBadge implements OnInit {
     private nativeElement: any;
 
     displayContent: Signal<string> = computed(() => {
-        let content = '';
-        content = this.value() as string;
+        let content = this.value() as string;
         if (this.value() && !isUndefined(this.thyMaxCount()) && (this.value() as number) > this.thyMaxCount()) {
             content = `${this.thyMaxCount()}+`;
         }
@@ -59,11 +46,13 @@ export class ThyBadge implements OnInit {
         } else {
             classes.push(`thy-badge-count`);
         }
-        if (this.builtInTextColorClass()) {
-            classes.push(this.builtInTextColorClass());
+        const builtInTextColorClass = isTextColor(this.thyTextColor()) ? `text-${this.thyTextColor()}` : null;
+        if (builtInTextColorClass) {
+            classes.push(builtInTextColorClass);
         }
-        if (this.builtInBackgroundColorClass()) {
-            classes.push(this.builtInBackgroundColorClass());
+        const builtInBackgroundColorClass = isTextColor(this.thyBackgroundColor()) ? `bg-${this.thyBackgroundColor()}` : null;
+        if (builtInBackgroundColorClass) {
+            classes.push(builtInBackgroundColorClass);
         }
         return classes.join(' ');
     });
@@ -76,32 +65,19 @@ export class ThyBadge implements OnInit {
     });
 
     private value: Signal<number | string> = computed(() => {
-        return this.thyContent() || this.thyCount();
+        return this.thyContent() || this.thyContext() || this.thyCount();
     });
 
     protected textColor: Signal<string> = computed(() => {
         return !isTextColor(this.thyTextColor()) ? this.thyTextColor() : null;
     });
 
-    protected builtInTextColorClass: Signal<string> = computed(() => {
-        return isTextColor(this.thyTextColor()) ? `text-${this.thyTextColor()}` : null;
-    });
-
     protected backgroundColor: Signal<string> = computed(() => {
         return !isTextColor(this.thyBackgroundColor()) ? this.thyBackgroundColor() : null;
     });
 
-    protected builtInBackgroundColorClass: Signal<string> = computed(() => {
-        return isTextColor(this.thyBackgroundColor()) ? `bg-${this.thyBackgroundColor()}` : null;
-    });
-
     constructor() {
         this.nativeElement = this.elementRef.nativeElement;
-        effect(() => {
-            if (this.thyContext()) {
-                this.thyContent.set(this.thyContext());
-            }
-        });
     }
 
     /**
@@ -122,7 +98,7 @@ export class ThyBadge implements OnInit {
      * 徽标内容文本
      * @type string
      */
-    readonly thyContent = model<string>();
+    readonly thyContent = input<string>();
 
     /**
      * 已废弃，徽标内容文本，命名错误，请使用 thyContent
@@ -147,13 +123,13 @@ export class ThyBadge implements OnInit {
      * 已废弃，徽标是一个实心点，已经被废弃
      * @deprecated
      */
-    readonly thyIsDot = input(undefined, { transform: coerceBooleanProperty });
+    readonly thyIsDot = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 已废弃，徽标是一个空心点
      * @deprecated
      */
-    readonly thyIsHollow = input(undefined, { transform: coerceBooleanProperty });
+    readonly thyIsHollow = input(false, { transform: coerceBooleanProperty });
 
     /**
      * thyCount 为 0 时，强制显示数字 0，默认不显示
