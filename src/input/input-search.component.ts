@@ -11,19 +11,21 @@ import {
 } from 'ngx-tethys/core';
 
 import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    EventEmitter,
-    forwardRef,
-    Input,
-    OnDestroy,
-    OnInit,
-    Output,
-    ViewChild,
-    ViewEncapsulation,
-    inject
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  forwardRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewEncapsulation,
+  inject,
+  input,
+  effect,
+  signal,
+  output,
+  viewChild
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -63,10 +65,10 @@ const _MixinBase: Constructor<ThyHasTabIndex> &
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-input form-control thy-input-search',
-        '[class.thy-input-search-ellipse]': 'thyTheme === "ellipse"',
-        '[class.thy-input-search-transparent]': 'thyTheme === "transparent"',
-        '[class.thy-input-search-before-with-clear]': 'searchText && iconPosition === "before"',
-        '[class.form-control-active]': 'focused',
+        '[class.thy-input-search-ellipse]': 'thyTheme() === "ellipse"',
+        '[class.thy-input-search-transparent]': 'thyTheme() === "transparent"',
+        '[class.thy-input-search-before-with-clear]': 'searchText && iconPosition() === "before"',
+        '[class.form-control-active]': 'focused()',
         '[attr.tabindex]': 'tabIndex'
     },
     imports: [ThyIcon, ThyInputDirective, ThyAutofocusDirective, FormsModule]
@@ -75,7 +77,7 @@ export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, 
     private cdr = inject(ChangeDetectorRef);
     private elementRef = inject(ElementRef);
 
-    @ViewChild('input', { static: true }) inputElement: ElementRef<any>;
+    readonly inputElement = viewChild<ElementRef<any>>('input');
 
     private hostRenderer = useHostRenderer();
 
@@ -83,68 +85,65 @@ export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, 
 
     public disabled = false;
 
-    public autoFocus = false;
-
-    public iconPosition: ThyInputSearchIconPosition = 'before';
-
     searchText: string;
 
-    focused = false;
+    focused = signal(false);
 
     /**
      * 搜索框 name 属性
      */
-    @Input() name = '';
+    readonly name = input('');
 
     /**
      * 搜索框 Placeholder
      */
-    @Input() placeholder = '';
+    readonly placeholder = input('');
 
     /**
      * 搜索框风格
      * @type 'default' | 'ellipse' | 'transparent'
      * @default default
      */
-    @Input() thyTheme: ThyInputSearchTheme;
+    readonly thyTheme = input<ThyInputSearchTheme>();
 
     /**
      * 是否自动聚焦
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty })
-    set thySearchFocus(value: boolean) {
-        this.autoFocus = value;
-        this.focused = value;
-    }
+    readonly autoFocus = input(false, { alias: 'thySearchFocus', transform: coerceBooleanProperty });
 
     /**
      * 搜索图标位置，当传入 after 时，搜索图标在输入框后方显示，有内容时显示为关闭按钮
-     * @type
+     * @type ThyInputSearchIconPosition
      */
-    @Input() set thyIconPosition(value: ThyInputSearchIconPosition) {
-        this.iconPosition = value || 'before';
-        this.updateClasses();
-    }
+    readonly iconPosition = input('before', { alias: 'thyIconPosition', transform: (value: ThyInputSearchIconPosition) => value || 'before' });
 
     /**
      * 输入框大小
      * @type 'xs' | 'sm' | 'md' | 'default' | 'lg'
      */
-    @Input() thySize: ThyInputSize;
+    readonly thySize = input<ThyInputSize>();
 
     /**
      * @deprecated please use thyClear
      */
-    @Output() clear: EventEmitter<Event> = new EventEmitter<Event>();
+    readonly clear = output<Event>();
 
     /**
      * 清除搜索事件
      */
-    @Output() thyClear: EventEmitter<Event> = new EventEmitter<Event>();
+    readonly thyClear = output<Event>();
 
     constructor() {
         super();
+
+        effect(() => {
+            this.focused.set(this.autoFocus());
+        });
+
+        effect(() => {
+            this.updateClasses();
+        });
     }
 
     ngOnInit(): void {
@@ -157,22 +156,21 @@ export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, 
             }
 
             if (origin) {
-                if (!this.focused) {
-                    this.inputElement.nativeElement.focus();
+                if (!this.focused()) {
+                    this.inputElement().nativeElement.focus();
                 }
             } else {
-                if (this.focused) {
-                    this.focused = false;
+                if (this.focused()) {
+                    this.focused.set(false);
                     this.onTouchedFn();
                 }
             }
-            this.cdr.markForCheck();
         };
     }
 
     updateClasses(forceUpdate = false) {
         if (this.initialized || forceUpdate) {
-            this.hostRenderer.updateClass([`thy-input-search-${this.iconPosition}`]);
+            this.hostRenderer.updateClass([`thy-input-search-${this.iconPosition()}`]);
         }
     }
 

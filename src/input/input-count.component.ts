@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef, inject, DestroyRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef, inject, DestroyRef, input, effect } from '@angular/core';
 import { ThyInputDirective } from './input.directive';
 import { switchMap, filter, tap } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -30,10 +30,7 @@ export class ThyInputCount implements OnInit {
      * 输入框组件，如果不传默认会读取外层 thy-input-group 下的 thyInput 指令
      * @type ThyInputDirective
      */
-    @Input() set thyInput(value: ThyInputDirective) {
-        this.hasInput = true;
-        this.thyInput$.next(value);
-    }
+    readonly thyInput = input<ThyInputDirective>();
 
     maxLength: number | string;
 
@@ -43,6 +40,14 @@ export class ThyInputCount implements OnInit {
 
     constructor() {
         this.setup();
+
+        effect(() => {
+            const input = this.thyInput();
+            if (input) {
+                this.hasInput = true;
+                this.thyInput$.next(input);
+            }
+        });
     }
 
     setup() {
@@ -69,8 +74,9 @@ export class ThyInputCount implements OnInit {
     }
 
     ngOnInit(): void {
-        if (!this.hasInput && this.inputGroup && this.inputGroup.inputDirective) {
-            this.thyInput$.next(this.inputGroup.inputDirective);
+        const inputDirective = this.inputGroup.inputDirective();
+        if (!this.hasInput && this.inputGroup && inputDirective) {
+            this.thyInput$.next(inputDirective);
         }
     }
 }

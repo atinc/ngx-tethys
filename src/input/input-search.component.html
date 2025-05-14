@@ -1,20 +1,20 @@
-@if (iconPosition === 'before') {
+@if (iconPosition() === 'before') {
   <thy-icon class="input-prepend" thyIconName="search"></thy-icon>
 }
 <input
   class="input-search-control"
   #input
   thyInput
-  [name]="name"
-  [placeholder]="placeholder"
+  [name]="name()"
+  [placeholder]="placeholder()"
   [disabled]="disabled"
-  [thyAutofocus]="autoFocus"
+  [thyAutofocus]="autoFocus()"
   [(ngModel)]="searchText"
   (ngModelChange)="searchModelChange()"
-  (focus)="!focused ? (focused = true) : null"
-  [thySize]="thySize"
+  (focus)="!focused() ? (focused.set(true)) : null"
+  [thySize]="thySize()"
   tabindex="-1" />
-@if (iconPosition === 'after') {
+@if (iconPosition() === 'after') {
   <div class="input-append input-append-divider">
     @if (searchText) {
       <a class="close" href="javascript:;" (click)="clearSearchText($event)">
@@ -26,7 +26,7 @@
   </div>
 }
 
-@if (searchText && iconPosition === 'before') {
+@if (searchText && iconPosition() === 'before') {
   <a class="close input-append" href="javascript:;" (click)="clearSearchText($event)">
     <thy-icon thyIconName="close"></thy-icon>
   </a>

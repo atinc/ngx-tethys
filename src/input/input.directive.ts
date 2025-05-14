@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostBinding, Input, OnInit, Renderer2, inject } from '@angular/core';
+import { Directive, ElementRef, HostBinding, Input, OnInit, Renderer2, effect, inject, input } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
@@ -36,14 +36,7 @@ export class ThyInputDirective implements OnInit {
      * @type 'xs' | 'sm' | 'md' | 'default' | 'lg'
      * @default default
      */
-    @Input()
-    set thySize(size: ThyInputSize) {
-        if (size && inputGroupSizeMap[size]) {
-            this.hostRenderer.updateClass(inputGroupSizeMap[size]);
-        } else {
-            this.hostRenderer.updateClass([]);
-        }
-    }
+    readonly thySize = input<ThyInputSize>(undefined);
 
     get ngControl() {
         return this.control;
@@ -51,6 +44,17 @@ export class ThyInputDirective implements OnInit {
 
     get nativeElement(): HTMLInputElement {
         return this.elementRef.nativeElement;
+    }
+
+    constructor() {
+        effect(() => {
+            const size = this.thySize();
+            if (size && inputGroupSizeMap[size]) {
+                this.hostRenderer.updateClass(inputGroupSizeMap[size]);
+            } else {
+                this.hostRenderer.updateClass([]);
+            }
+        })
     }
 
     ngOnInit() {
