@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnChanges, OnInit, SimpleChanges, contentChildren, effect, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, contentChildren, effect, input } from '@angular/core';
 import { ThySpacingSize, getNumericSize } from 'ngx-tethys/core';
 import { ThyAction } from './action.component';
 
@@ -14,7 +14,7 @@ import { ThyAction } from './action.component';
         class: 'thy-actions'
     }
 })
-export class ThyActions implements OnInit, OnChanges {
+export class ThyActions implements OnInit {
     readonly actions = contentChildren<ThyAction>(ThyAction);
 
     /**
@@ -25,20 +25,14 @@ export class ThyActions implements OnInit, OnChanges {
 
     constructor() {
         effect(() => {
-            this.setActionsSize(Array.from(this.actions()));
+            this.setActionsSize();
         });
     }
 
     ngOnInit(): void {}
 
-    ngOnChanges(changes: SimpleChanges): void {
-        const actions = Array.from(this.actions());
-        if (changes.thySize && !changes.thySize.firstChange && actions) {
-            this.setActionsSize(actions);
-        }
-    }
-
-    private setActionsSize(actions: ThyAction[]) {
+    private setActionsSize() {
+        const actions: ThyAction[] = Array.from(this.actions());
         actions.forEach((action: ThyAction, index) => {
             // can't set marginRight value for last item
             if (index !== actions.length - 1) {

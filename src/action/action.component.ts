@@ -72,7 +72,7 @@ export class ThyAction implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 
     active: Signal<boolean> = computed(() => this.thyActionActive() || this.thyActive());
 
-    private type: Signal<string> = computed(() => this.thyType());
+    private type: Signal<string> = computed(() => this.thyType() || 'primary');
 
     private hostRenderer = useHostRenderer();
 
@@ -97,12 +97,12 @@ export class ThyAction implements OnInit, AfterViewInit, OnChanges, OnDestroy {
     /**
      * 操作的图标 Active 状态，设置为 true 时会在 Item 上添加 active class
      */
-    readonly thyActive = input<boolean>(false);
+    readonly thyActive = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 操作的图标 Active 状态，当 thyActive 和其他指令参数名有冲突时使用 thyActionActive
      */
-    readonly thyActionActive = input<boolean>(false);
+    readonly thyActionActive = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 操作图标的主题
