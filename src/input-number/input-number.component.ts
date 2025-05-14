@@ -7,20 +7,24 @@ import { coerceBooleanProperty, DOWN_ARROW, ENTER, isFloat, isNumber, isUndefine
 
 import { FocusOrigin } from '@angular/cdk/a11y';
 import {
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    EventEmitter,
-    forwardRef,
-    Input,
-    numberAttribute,
-    OnChanges,
-    OnDestroy,
-    OnInit,
-    Output,
-    SimpleChanges,
-    ViewChild,
-    inject
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  forwardRef,
+  Input,
+  numberAttribute,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges,
+  inject,
+  input,
+  effect,
+  signal,
+  output,
+  viewChild
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -54,11 +58,9 @@ enum Type {
 })
 export class ThyInputNumber
     extends TabIndexDisabledControlValueAccessorMixin
-    implements ControlValueAccessor, OnChanges, OnInit, OnDestroy
+    implements ControlValueAccessor, OnInit, OnDestroy
 {
-    private cdr = inject(ChangeDetectorRef);
-
-    @ViewChild('input', { static: true }) inputElement: ElementRef<any>;
+    readonly inputElement = viewChild<ElementRef<any>>('input');
 
     private autoStepTimer: any;
 
@@ -66,11 +68,11 @@ export class ThyInputNumber
 
     validValue: number | string;
 
-    displayValue: number | string;
+    displayValue = signal<number | string>(undefined);
 
-    disabledUp = false;
+    disabledUp = signal(false);
 
-    disabledDown = false;
+    disabledDown = signal(false);
 
     activeValue: string = '';
 
@@ -78,12 +80,12 @@ export class ThyInputNumber
      * 是否自动聚焦
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyAutoFocus: boolean;
+    readonly thyAutoFocus = input<boolean, boolean | string | number>(false, { transform: coerceBooleanProperty });
 
     /**
      * 输入框的placeholder
      */
-    @Input() thyPlaceholder: string = '';
+    readonly thyPlaceholder = input<string>('');
 
     /**
      * 是否禁用
@@ -95,84 +97,83 @@ export class ThyInputNumber
      * 最大值
      * @default Infinity
      */
-    @Input() set thyMax(value: number) {
-        this.innerMax = isNumber(value) ? value : this.innerMax;
-        if (this.displayValue || this.displayValue === 0) {
-            const val = Number(this.displayValue);
-            this.disabledUp = val >= this.innerMax;
-        }
-    }
-
-    get thyMax() {
-        return this.innerMax;
-    }
-
+    readonly thyMax = input(Infinity, { transform: (value: number) => isNumber(value) ? value : Infinity });
+    
     /**
      * 最小值
      * @default -Infinity
      */
-    @Input() set thyMin(value: number) {
-        this.innerMin = isNumber(value) ? value : this.innerMin;
-        if (this.displayValue || this.displayValue === 0) {
-            const val = Number(this.displayValue);
-            this.disabledDown = val <= this.innerMin;
-        }
-    }
-
-    get thyMin() {
-        return this.innerMin;
-    }
+    readonly thyMin = input(-Infinity, { transform: (value: number) => isNumber(value) ? value : -Infinity });
 
     /**
      * 每次改变步数，可以为小数
      */
-    @Input({ transform: numberAttribute }) thyStep = 1;
+    readonly thyStep = input(1, { transform: numberAttribute });
 
     /**
      * 改变步数时的延迟毫秒数，值越小变化的速度越快
      * @default 300
      */
-    @Input({ transform: numberAttribute }) thyStepDelay = 300;
+    readonly thyStepDelay = input(300, { transform: numberAttribute });
 
     /**
      * 输入框大小
      * @type xs | sm | md | lg
      */
-    @Input() thySize: InputSize;
+    readonly thySize = input<InputSize>();
 
     /**
      * 数值精度
      */
-    @Input() thyPrecision: number;
+    readonly thyPrecision = input<number>();
 
     /**
      * 数值后缀
      */
-    @Input() thySuffix: string;
+    readonly thySuffix = input<string>();
 
     /**
      * 焦点失去事件
      */
-    @Output() thyBlur = new EventEmitter<Event>();
+    thyBlur = output();
 
     /**
      * 焦点激活事件
      */
-    @Output() thyFocus = new EventEmitter<Event>();
+    thyFocus = output<Event>();
 
     /**
      * 上下箭头点击事件
      */
-    @Output() thyStepChange = new EventEmitter<{ value: number; type: Type }>();
-
-    private innerMax: number = Infinity;
-
-    private innerMin: number = -Infinity;
+    thyStepChange = output<{ value: number; type: Type }>()
 
     private isFocused: boolean;
 
     constructor() {
         super();
+
+        effect(() => {
+            const max = this.thyMax();
+            if (this.displayValue() || this.displayValue() === 0) {
+                const val = Number(this.displayValue());
+                this.disabledUp.set(val >= max);
+            }
+        })
+
+        effect(() => {
+            const min = this.thyMin();
+            if (this.displayValue() || this.displayValue() === 0) {
+                const val = Number(this.displayValue());
+                this.disabledDown.set(val <= min);
+            }
+        });
+
+        effect(() => {
+            const suffix = this.thySuffix();
+            const validValue = this.getCurrentValidValue(this.validValue);
+            this.updateValidValue(validValue);
+            this.displayValue.set(this.formatterValue(validValue));
+        })
     }
 
     setDisabledState?(isDisabled: boolean): void {
@@ -187,11 +188,11 @@ export class ThyInputNumber
 
             if (origin) {
                 if (!this.isFocused) {
-                    this.inputElement.nativeElement.focus();
+                    this.inputElement().nativeElement.focus();
                 }
             } else {
                 if (this.isFocused) {
-                    this.displayValue = this.formatterValue(this.validValue);
+                    this.displayValue.set(this.formatterValue(this.validValue));
                     this.onTouchedFn();
                     this.thyBlur.emit();
                     this.isFocused = false;
@@ -200,19 +201,10 @@ export class ThyInputNumber
         };
     }
 
-    ngOnChanges(changes: SimpleChanges) {
-        if (changes.thySuffix && !changes.thySuffix.isFirstChange()) {
-            const validValue = this.getCurrentValidValue(this.validValue);
-            this.updateValidValue(validValue);
-            this.displayValue = this.formatterValue(validValue);
-        }
-    }
-
     writeValue(value: number | string): void {
         const _value = this.getCurrentValidValue(value);
         this.updateValidValue(_value);
-        this.displayValue = this.formatterValue(_value);
-        this.cdr.markForCheck();
+        this.displayValue.set(this.formatterValue(_value));
     }
 
     updateValidValue(value: number | string): void {
@@ -221,14 +213,15 @@ export class ThyInputNumber
         } else if (this.validValue !== value) {
             this.validValue = value;
         }
-        this.disabledUp = this.disabledDown = false;
+        this.disabledUp.set(false);
+        this.disabledDown.set(false);
         if (value || value === 0) {
             const val = Number(value);
-            if (val >= this.thyMax) {
-                this.disabledUp = true;
+            if (val >= this.thyMax()) {
+                this.disabledUp.set(true);
             }
-            if (val <= this.thyMin) {
-                this.disabledDown = true;
+            if (val <= this.thyMin()) {
+                this.disabledDown.set(true);
             }
         }
     }
@@ -238,8 +231,8 @@ export class ThyInputNumber
         if (this.isInputNumber(value)) {
             this.activeValue = value;
         } else {
-            this.displayValue = parseValue;
-            this.inputElement.nativeElement.value = parseValue;
+            this.displayValue.set(parseValue);
+            this.inputElement().nativeElement.value = parseValue;
         }
         const validValue = this.getCurrentValidValue(parseValue);
         if (`${this.validValue}` !== `${validValue}`) {
@@ -249,7 +242,7 @@ export class ThyInputNumber
     }
 
     onInputFocus(event?: Event) {
-        this.activeValue = this.parser(this.displayValue.toString());
+        this.activeValue = this.parser(this.displayValue().toString());
         if (!this.isFocused) {
             this.isFocused = true;
             this.thyFocus.emit(event);
@@ -264,7 +257,7 @@ export class ThyInputNumber
             this.down(e);
             this.stop();
         } else if (e.keyCode === ENTER) {
-            this.displayValue = this.formatterValue(this.validValue);
+            this.displayValue.set(this.formatterValue(this.validValue));
         }
     }
 
@@ -272,7 +265,7 @@ export class ThyInputNumber
         if (this.autoStepTimer) {
             clearTimeout(this.autoStepTimer);
         }
-        this.displayValue = this.toNumber(this.displayValue);
+        this.displayValue.set(this.toNumber(this.displayValue()));
     }
 
     step(type: Type, e: MouseEvent | KeyboardEvent): void {
@@ -288,39 +281,40 @@ export class ThyInputNumber
         } else if (type === Type.down) {
             val = this.downStep(value);
         }
-        const outOfRange = val > this.thyMax || val < this.thyMin;
+        const outOfRange = val > this.thyMax() || val < this.thyMin();
         val = this.getCurrentValidValue(val);
         this.updateValidValue(val);
         this.onChangeFn(this.validValue);
         this.thyStepChange.emit({ value: this.validValue as number, type });
-        this.displayValue = this.formatterValue(val);
+        this.displayValue.set(this.formatterValue(val));
         if (outOfRange) {
             return;
         }
         this.autoStepTimer = setTimeout(() => {
-            (this[Type[type]] as (e: MouseEvent | KeyboardEvent) => void)(e);
-        }, this.thyStepDelay);
+            (this[(Type[type] as keyof typeof Type)] as (e: MouseEvent | KeyboardEvent) => void)(e);
+        }, this.thyStepDelay());
     }
 
     upStep(value: number): number {
         const precisionFactor = this.getPrecisionFactor(value);
         const precision = this.getMaxPrecision(value);
-        const result = ((precisionFactor * value + precisionFactor * this.thyStep) / precisionFactor).toFixed(precision);
+        const result = ((precisionFactor * value + precisionFactor * this.thyStep()) / precisionFactor).toFixed(precision);
         return this.toNumber(result);
     }
 
     downStep(value: number): number {
         const precisionFactor = this.getPrecisionFactor(value);
         const precision = Math.abs(this.getMaxPrecision(value));
-        const result = ((precisionFactor * value - precisionFactor * this.thyStep) / precisionFactor).toFixed(precision);
+        const result = ((precisionFactor * value - precisionFactor * this.thyStep()) / precisionFactor).toFixed(precision);
         return this.toNumber(result);
     }
 
     getMaxPrecision(value: string | number): number {
-        if (!isUndefinedOrNull(this.thyPrecision)) {
-            return this.thyPrecision;
+        const thyPrecision = this.thyPrecision();
+        if (!isUndefinedOrNull(thyPrecision)) {
+            return thyPrecision;
         }
-        const stepPrecision = this.getPrecision(this.thyStep);
+        const stepPrecision = this.getPrecision(this.thyStep());
         const currentValuePrecision = this.getPrecision(value as number);
         if (!value) {
             return stepPrecision;
@@ -348,19 +342,20 @@ export class ThyInputNumber
     }
 
     up(e: MouseEvent | KeyboardEvent) {
-        this.inputElement.nativeElement.focus();
+        this.inputElement().nativeElement.focus();
         this.step(Type.up, e);
     }
 
     down(e: MouseEvent | KeyboardEvent) {
-        this.inputElement.nativeElement.focus();
+        this.inputElement().nativeElement.focus();
         this.step(Type.down, e);
     }
 
     formatterValue(value: number | string) {
         const parseValue = this.parser(`${value}`);
         if (parseValue) {
-            return this.thySuffix ? `${parseValue} ${this.thySuffix}` : parseValue;
+            const thySuffix = this.thySuffix();
+            return thySuffix ? `${parseValue} ${thySuffix}` : parseValue;
         } else {
             return '';
         }
@@ -371,7 +366,7 @@ export class ThyInputNumber
             .trim()
             .replace(/。/g, '.')
             .replace(/[^\w\.-]+/g, '')
-            .replace(this.thySuffix, '');
+            .replace(this.thySuffix(), '');
     }
 
     getCurrentValidValue(value: string | number): number | string {
@@ -383,11 +378,11 @@ export class ThyInputNumber
         if (this.isNotValid(val)) {
             val = this.validValue;
         }
-        if ((val as number) < this.thyMin) {
-            val = this.thyMin;
+        if ((val as number) < this.thyMin()) {
+            val = this.thyMin();
         }
-        if ((val as number) > this.thyMax) {
-            val = this.thyMax;
+        if ((val as number) > this.thyMax()) {
+            val = this.thyMax();
         }
 
         return this.toNumber(val);
@@ -402,8 +397,9 @@ export class ThyInputNumber
             return num as number;
         }
         const numStr = String(num);
-        if (numStr.indexOf('.') >= 0 && !isUndefinedOrNull(this.thyPrecision)) {
-            return Number(Number(num).toFixed(this.thyPrecision));
+        const thyPrecision = this.thyPrecision();
+        if (numStr.indexOf('.') >= 0 && !isUndefinedOrNull(thyPrecision)) {
+            return Number(Number(num).toFixed(thyPrecision));
         }
         return Number(num);
     }
