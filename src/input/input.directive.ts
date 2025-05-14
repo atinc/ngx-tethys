@@ -54,7 +54,7 @@ export class ThyInputDirective implements OnInit {
             } else {
                 this.hostRenderer.updateClass([]);
             }
-        })
+        });
     }
 
     ngOnInit() {

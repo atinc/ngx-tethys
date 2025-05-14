@@ -1,22 +1,18 @@
 import {
-  Component,
-  HostBinding,
-  Input,
-  TemplateRef,
-  ViewEncapsulation,
-  ChangeDetectionStrategy,
-  AfterContentChecked,
-  OnInit,
-  OnDestroy,
-  ChangeDetectorRef,
-  NgZone,
-  inject,
-  DestroyRef,
-  input,
-  computed,
-  effect,
-  contentChild,
-  signal
+    Component,
+    TemplateRef,
+    ViewEncapsulation,
+    ChangeDetectionStrategy,
+    OnInit,
+    OnDestroy,
+    NgZone,
+    inject,
+    DestroyRef,
+    input,
+    computed,
+    effect,
+    contentChild,
+    signal
 } from '@angular/core';
 import { ThyTranslate, useHostFocusControl } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -96,18 +92,18 @@ export class ThyInputGroup implements OnInit, OnDestroy {
     prependText = computed(() => {
         const prependTextTranslateKey = this.thyPrependTextTranslateKey();
         if (prependTextTranslateKey) {
-            return this.thyTranslate.instant(prependTextTranslateKey)
+            return this.thyTranslate.instant(prependTextTranslateKey);
         }
         return this.thyPrependText();
-    })
+    });
 
     appendText = computed(() => {
         const appendTextTranslateKey = this.thyAppendTextTranslateKey();
         if (appendTextTranslateKey) {
-            return this.thyTranslate.instant(appendTextTranslateKey)
+            return this.thyTranslate.instant(appendTextTranslateKey);
         }
         return this.thyAppendText();
-    })
+    });
 
     /**
      * 输入框分组大小
@@ -154,14 +150,13 @@ export class ThyInputGroup implements OnInit, OnDestroy {
         });
 
         effect(() => {
-            const inputDirective= this.inputDirective();
+            const inputDirective = this.inputDirective();
             if (inputDirective?.nativeElement) {
                 this.isTextareaSuffix.set(inputDirective?.nativeElement?.tagName === 'TEXTAREA');
                 if (this.isTextareaSuffix()) {
                     this.determineHasScrollbar();
                 }
             }
-            
         });
 
         effect(() => {
@@ -171,7 +166,7 @@ export class ThyInputGroup implements OnInit, OnDestroy {
                 this.disabledObservable = new MutationObserverFactory().create(mutations => {
                     for (const mutation of mutations) {
                         if (mutation.type === 'attributes' && mutation.attributeName === 'disabled') {
-                            this.disabled.set(!!inputDirective.nativeElement.hasAttribute('disabled'))
+                            this.disabled.set(!!inputDirective.nativeElement.hasAttribute('disabled'));
                         }
                     }
                 });
@@ -200,7 +195,8 @@ export class ThyInputGroup implements OnInit, OnDestroy {
             this.resizeObserver(this.inputDirective().nativeElement)
                 .pipe(throttleTime(100), takeUntilDestroyed(this.destroyRef))
                 .subscribe(() => {
-                    const hasScrollbar = this.inputDirective().nativeElement.scrollHeight > this.inputDirective().nativeElement.clientHeight;
+                    const hasScrollbar =
+                        this.inputDirective().nativeElement.scrollHeight > this.inputDirective().nativeElement.clientHeight;
                     if (this.hasScrollbar() !== hasScrollbar) {
                         this.ngZone.run(() => {
                             this.hasScrollbar.set(hasScrollbar);

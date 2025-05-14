@@ -11,21 +11,20 @@ import {
 } from 'ngx-tethys/core';
 
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  forwardRef,
-  Input,
-  OnDestroy,
-  OnInit,
-  ViewEncapsulation,
-  inject,
-  input,
-  effect,
-  signal,
-  output,
-  viewChild
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    forwardRef,
+    OnDestroy,
+    OnInit,
+    ViewEncapsulation,
+    inject,
+    input,
+    effect,
+    signal,
+    output,
+    viewChild
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -116,7 +115,10 @@ export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, 
      * 搜索图标位置，当传入 after 时，搜索图标在输入框后方显示，有内容时显示为关闭按钮
      * @type ThyInputSearchIconPosition
      */
-    readonly iconPosition = input('before', { alias: 'thyIconPosition', transform: (value: ThyInputSearchIconPosition) => value || 'before' });
+    readonly iconPosition = input('before', {
+        alias: 'thyIconPosition',
+        transform: (value: ThyInputSearchIconPosition) => value || 'before'
+    });
 
     /**
      * 输入框大小

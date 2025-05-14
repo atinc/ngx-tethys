@@ -2,23 +2,19 @@ import { take } from 'rxjs/operators';
 
 import { NgTemplateOutlet } from '@angular/common';
 import {
-  Component,
-  ElementRef,
-  forwardRef,
-  Input,
-  NgZone,
-  OnInit,
-  TemplateRef,
-  ViewEncapsulation,
-  inject,
-  input,
-  effect,
-  computed,
-  signal,
-  output,
-  contentChild,
-  viewChild,
-  Signal
+    Component,
+    ElementRef,
+    forwardRef,
+    NgZone,
+    OnInit,
+    TemplateRef,
+    ViewEncapsulation,
+    inject,
+    input,
+    effect,
+    signal,
+    output,
+    contentChild
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -133,7 +129,7 @@ export class ThyInput implements ControlValueAccessor, OnInit {
 
     constructor() {
         effect(() => {
-            this.type.set(this.thyType() || this._type())
+            this.type.set(this.thyType() || this._type());
         });
     }
 
