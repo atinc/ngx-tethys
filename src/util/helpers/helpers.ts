@@ -1,6 +1,8 @@
 import { _isNumberValue, coerceCssPixelValue as coerceCssPixel } from '@angular/cdk/coercion';
 import { ElementRef, TemplateRef } from '@angular/core';
 
+export type ThyBoolean = boolean | string | number;
+
 export function isUndefined(value: any): value is undefined {
     return value === undefined;
 }
@@ -229,7 +231,7 @@ export function isElementRef(value: any): value is ElementRef {
 /**
  * fix angular cdk's coerceBooleanProperty will transform 0 to true
  */
-export function coerceBooleanProperty(value: boolean | string | number): boolean {
+export function coerceBooleanProperty(value: ThyBoolean): boolean {
     if (value === '' || (value && value !== 'false')) {
         return true;
     } else {
