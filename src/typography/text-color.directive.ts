@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnInit, inject } from '@angular/core';
+import { Directive, ElementRef, OnInit, effect, inject, input } from '@angular/core';
 import { isTextColor, isThemeColor, ThyTextColor, ThyThemeColor } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
@@ -21,10 +21,15 @@ export class ThyTextColorDirective implements OnInit {
      * @type ThyThemeColor | ThyTextColor | string
      * @description 文本颜色，支持设置主题色和自定义颜色值，主题色为 `default`、`primary`、`success`、`info`、`warning`、`danger`、`light`、`secondary`、`muted`、`desc`、`placeholder`
      */
-    @Input() set thyTextColor(value: ThyThemeColor | ThyTextColor | string) {
-        this.clearColor();
-        this.color = value;
-        this.setColor();
+    readonly thyTextColor = input<ThyThemeColor | ThyTextColor | string>(undefined);
+
+    constructor() {
+        effect(() => {
+            const color = this.thyTextColor();
+            this.clearColor();
+            this.color = color;
+            this.setColor();
+        });
     }
 
     ngOnInit(): void {}
