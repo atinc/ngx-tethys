@@ -94,7 +94,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
     /**
      * 是否允许聚焦时打开下拉菜单
      */
-    readonly thyIsFocusOpen = input<boolean, unknown>(true, { transform: coerceBooleanProperty });
+    readonly thyIsFocusOpen = input<boolean, boolean | string | number>(true, { transform: coerceBooleanProperty });
 
     activeOption: Signal<ThyOption | null> = computed(() => {
         if (this.autocompleteComponent() && this.autocompleteComponent().keyManager) {
