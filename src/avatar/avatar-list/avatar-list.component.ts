@@ -13,6 +13,7 @@ export const enum ThyAvatarListMode {
     default = 'default'
 }
 
+export type ThyAvatarListModeType = 'overlap' | 'default';
 /**
  * 头像列表组件
  * @name thy-avatar-list

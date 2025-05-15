@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ThyAvatar, ThyAvatarList } from 'ngx-tethys/avatar';
+import { ThyAvatar, ThyAvatarList, ThyAvatarListMode } from 'ngx-tethys/avatar';
 import { ThyButtonIcon } from 'ngx-tethys/button';
 
 @Component({
@@ -32,6 +32,8 @@ export class ThyAvatarListExampleComponent {
         'Pamela',
         'Rebecca'
     ];
+
+    mode = ThyAvatarListMode.overlap;
 
     constructor() {}
 

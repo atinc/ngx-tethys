@@ -58,7 +58,7 @@ export class ThyBadge implements OnInit {
 
     protected backgroundColor: string;
 
-    protected builtInBackgroundColorClass: string;
+    protected builtInBackgroundColorClass: string | null;
 
     protected supClasses: string[] = [];
 

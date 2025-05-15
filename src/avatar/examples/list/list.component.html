@@ -15,7 +15,7 @@
 </div>
 
 <div class="mt-4">
-  <thy-avatar-list [thyMode]="'overlap'">
+  <thy-avatar-list thyMode="overlap">
     @for (name of names; track $index) {
       <thy-avatar [thyName]="name" [thySrc]="name === 'Chan' ? avatarSrc : ''"></thy-avatar>
     }

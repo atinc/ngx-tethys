@@ -16,13 +16,23 @@
     "typeRoots": ["node_modules/@types", "@types/node", "./typings"],
     "lib": ["es2020", "dom"],
     "resolveJsonModule": true,
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "strict": true,
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictStandalone": true,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": false
+    "strictTemplates": false,
+    // "strictInputTypes": false,
+    // "strictNullInputTypes": true,
+    // "strictAttributeTypes": false,
+    // "strictSafeNavigationTypes": false,
+    // "strictDomLocalRefTypes": false,
+    // "strictOutputEventTypes": false,
+    // "strictDomEventTypes": false,
+    // "strictContextGenerics": false,
+    // "strictLiteralTypes": false
   }
 }

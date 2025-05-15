@@ -47,7 +47,7 @@ export class ObjectProducer<TEntity> {
         const split = propPath.split('.');
         const lastIndex = split.length - 1;
 
-        split.reduce((previousValue, part, index) => {
+        split.reduce((previousValue: any, part: string, index: number) => {
             if (index === lastIndex) {
                 previousValue[part] = value;
             } else {

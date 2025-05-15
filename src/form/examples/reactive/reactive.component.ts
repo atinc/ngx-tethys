@@ -158,7 +158,7 @@ export class ThyFormReactiveExampleComponent implements OnInit {
 
     dateRange: any = null;
 
-    formGroup: FormGroup;
+    formGroup: FormGroup | undefined;
 
     updateOnList = [
         {

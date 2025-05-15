@@ -10,6 +10,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { ThyButton } from 'ngx-tethys/button';
+import { ThyFormModule } from 'ngx-tethys/form';
 
 @Component({
     selector: 'thy-form-validate-example',
@@ -22,7 +23,8 @@ import { ThyButton } from 'ngx-tethys/button';
         ThyFormGroupError,
         ThyFormGroupFooter,
         ThyButton,
-        ThyFormSubmitDirective
+        ThyFormSubmitDirective,
+        ThyFormModule
     ]
 })
 export class ThyFormValidateExampleComponent implements OnInit {

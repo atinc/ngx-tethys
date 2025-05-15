@@ -104,8 +104,8 @@ export class ThyButton implements OnInit, AfterViewInit {
      * @type primary | info | warning | danger | success
      * @default primary
      */
-    @Input()
-    set thyButton(value: ThyButtonType) {
+    set thyButton(value: ThyButtonType | '') {
+        console.log(value);
         this.setBtnType(value);
     }
 
@@ -192,7 +192,7 @@ export class ThyButton implements OnInit, AfterViewInit {
     @Input({ transform: coerceBooleanProperty })
     thyBlock: boolean;
 
-    private setBtnType(value: ThyButtonType) {
+    private setBtnType(value: ThyButtonType | '') {
         if (value) {
             if (value.includes('-square')) {
                 this._type = value.replace('-square', '');

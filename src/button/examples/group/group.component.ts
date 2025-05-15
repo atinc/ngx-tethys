@@ -1,6 +1,6 @@
 import { NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ThyButton, ThyButtonGroup, ThyButtonIcon } from 'ngx-tethys/button';
+import { ButtonGroupSize, ThyButton, ThyButtonGroup, ThyButtonIcon } from 'ngx-tethys/button';
 import { ThyIcon } from 'ngx-tethys/icon';
 
 @Component({
@@ -9,7 +9,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
     imports: [ThyButton, ThyButtonGroup, ThyButtonIcon, NgClass, ThyIcon]
 })
 export class ThyButtonGroupExampleComponent implements OnInit {
-    sizes = [
+    sizes: { value: ButtonGroupSize; height: number }[] = [
         {
             value: 'xs',
             height: 24

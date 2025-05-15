@@ -8,7 +8,7 @@ import { ThyAnchor, ThyAnchorLink } from 'ngx-tethys/anchor';
     imports: [ThyAnchor, ThyAnchorLink, NgStyle]
 })
 export class ThyAnchorHorizontalExampleComponent implements OnInit {
-    direction = 'horizontal';
+    direction= 'horizontal';
 
     demos: number[] = [];
 
