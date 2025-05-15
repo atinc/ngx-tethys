@@ -1,8 +1,7 @@
-import { ContentChildren, Directive, ElementRef, Input, QueryList, AfterContentInit, OnInit, inject } from '@angular/core';
-import { coerceArray } from 'ngx-tethys/util';
-import { mergeMap, startWith } from 'rxjs/operators';
-import { ThyDropdownDirective } from './dropdown.directive';
+import { Directive, OnInit, Signal, computed, contentChildren, effect, inject, input } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
+import { coerceArray } from 'ngx-tethys/util';
+import { ThyDropdownDirective } from './dropdown.directive';
 
 /**
  * 跟踪 Dropdown 菜单是否被打开处于激活状态，允许指定一个或多个CSS类，以便在菜单打开状态时添加到元素中
@@ -12,11 +11,12 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 @Directive({
     selector: '[thyDropdownActive]'
 })
-export class ThyDropdownActiveDirective implements OnInit, AfterContentInit {
-    private elementRef = inject(ElementRef);
+export class ThyDropdownActiveDirective implements OnInit {
     private trigger = inject(ThyDropdownDirective, { optional: true });
 
-    classes: string[];
+    classes: Signal<string[]> = computed(() => {
+        return coerceArray(this.thyDropdownActive()).filter(c => !!c);
+    });
 
     private hostRenderer = useHostRenderer();
 
@@ -24,45 +24,34 @@ export class ThyDropdownActiveDirective implements OnInit, AfterContentInit {
      * 设置 Active 样式类，可以是一个或多个CSS类
      * @type string[] | string
      */
-    @Input()
-    set thyDropdownActive(data: string[] | string) {
-        this.classes = coerceArray(data).filter(c => !!c);
-    }
+    readonly thyDropdownActive = input<string[] | string>();
 
     /**
      * @private
      */
-    @ContentChildren(ThyDropdownDirective, { descendants: true }) triggers!: QueryList<ThyDropdownDirective>;
+    readonly triggers = contentChildren(ThyDropdownDirective, { descendants: true });
 
-    ngOnInit(): void {}
-
-    ngAfterContentInit(): void {
-        this.triggers.changes
-            .pipe(
-                startWith(this.triggers.toArray()),
-                mergeMap((triggers: ThyDropdownDirective[]) => {
-                    const result = triggers.map(item => {
-                        return item.thyActiveChange;
+    constructor() {
+        effect(() => {
+            if (this.triggers()) {
+                const result = this.triggers().map(item => {
+                    return item.thyActiveChange;
+                });
+                this.trigger && result.push(this.trigger.thyActiveChange);
+                result.forEach(item => {
+                    item.subscribe(active => {
+                        this.classes()?.forEach(className => {
+                            if (active) {
+                                this.hostRenderer.addClass(className);
+                            } else {
+                                this.hostRenderer.removeClass(className);
+                            }
+                        });
                     });
-                    this.trigger && result.push(this.trigger.thyActiveChange);
-                    return result;
-                }),
-                mergeMap(result => {
-                    return result;
-                })
-            )
-            .subscribe(active => {
-                this.update(active);
-            });
-    }
-
-    update(active: boolean) {
-        this.classes.forEach(className => {
-            if (active) {
-                this.hostRenderer.addClass(className);
-            } else {
-                this.hostRenderer.removeClass(className);
+                });
             }
         });
     }
+
+    ngOnInit(): void {}
 }

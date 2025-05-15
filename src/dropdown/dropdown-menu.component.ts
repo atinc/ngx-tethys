@@ -1,15 +1,15 @@
+import { coerceCssPixelValue } from '@angular/cdk/coercion';
 import { NgTemplateOutlet } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     Component,
     Directive,
     HostBinding,
-    Input,
     TemplateRef,
-    ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    input,
+    viewChild
 } from '@angular/core';
-import { InputCssPixel } from 'ngx-tethys/core';
 import { SafeAny } from 'ngx-tethys/types';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
@@ -33,11 +33,11 @@ export class ThyDropdownAbstractMenu {
 @Component({
     selector: 'thy-dropdown-menu',
     template: `
-        @if (thyImmediateRender) {
+        @if (thyImmediateRender()) {
             <ng-container *ngTemplateOutlet="content"></ng-container>
         }
         <ng-template #dropdownMenu>
-            <div class="thy-dropdown-menu" [style.width]="thyWidth">
+            <div class="thy-dropdown-menu" [style.width]="thyWidth()">
                 <ng-container *ngTemplateOutlet="content"></ng-container>
             </div>
         </ng-template>
@@ -48,31 +48,23 @@ export class ThyDropdownAbstractMenu {
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        '[class.thy-dropdown-menu]': 'thyImmediateRender',
-        '[style.width]': "thyImmediateRender ? thyWidth : ''"
+        '[class.thy-dropdown-menu]': 'thyImmediateRender()',
+        '[style.width]': "thyImmediateRender() ? thyWidth() : ''"
     },
     imports: [NgTemplateOutlet]
 })
 export class ThyDropdownMenuComponent {
-    get template() {
-        return this.templateRef;
-    }
-
-    @ViewChild('dropdownMenu', { static: true }) templateRef!: TemplateRef<SafeAny>;
+    readonly templateRef = viewChild.required<TemplateRef<SafeAny>>('dropdownMenu');
 
     /**
      * 设置菜单宽度
-     * @default 240px
      */
-    @Input()
-    @InputCssPixel()
-    thyWidth: number | string = THY_DROPDOWN_DEFAULT_WIDTH;
+    readonly thyWidth = input(THY_DROPDOWN_DEFAULT_WIDTH, { transform: coerceCssPixelValue });
 
     /**
      * 是否直接渲染 dropdown-menu 中的元素
-     * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyImmediateRender = false;
+    readonly thyImmediateRender = input(false, { transform: coerceBooleanProperty });
 
     constructor() {}
 }
@@ -85,7 +77,7 @@ export class ThyDropdownMenuComponent {
 @Component({
     selector: 'thy-dropdown-menu-group',
     template: `
-        <div class="dropdown-menu-group-title">{{ title }}</div>
+        <div class="dropdown-menu-group-title">{{ thyTitle() }}</div>
         <ng-content></ng-content>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -94,15 +86,10 @@ export class ThyDropdownMenuComponent {
     }
 })
 export class ThyDropdownMenuGroup {
-    title: string;
-
     /**
      * 分组标题
      */
-    @Input()
-    set thyTitle(value: string) {
-        this.title = value;
-    }
+    readonly thyTitle = input<string>();
 
     constructor() {}
 }

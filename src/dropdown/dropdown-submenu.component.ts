@@ -1,7 +1,7 @@
-import { getElementOffset } from 'ngx-tethys/util';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { getElementOffset } from 'ngx-tethys/util';
 
-import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, Input, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, OnInit, Signal, computed, inject, input } from '@angular/core';
 
 import { ThyDropdownMenuItemDirective } from './dropdown-menu-item.directive';
 
@@ -30,25 +30,24 @@ export class ThyDropdownSubmenu implements OnInit {
 
     private readonly destroyRef = inject(DestroyRef);
 
-    private direction: InnerDropdownSubmenuDirection = 'right';
+    private direction: Signal<InnerDropdownSubmenuDirection> = computed(() => {
+        return this.thyDirection() || 'right';
+    });
 
     /**
      * 菜单方向
      * @type left | right | auto
-     * @default right
      */
-    @Input() set thyDirection(value: ThyDropdownSubmenuDirection) {
-        this.direction = value;
-    }
+    readonly thyDirection = input<ThyDropdownSubmenuDirection>('right');
 
     ngOnInit(): void {
-        let direction = this.direction || 'right';
+        let direction = this.direction();
         this.updateClassByDirection(direction);
         this.dropdownMenuItem
             .bindMouseenterEvent()
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe(() => {
-                if (this.direction === 'auto') {
+                if (this.direction() === 'auto') {
                     const element = this.dropdownMenuItem.getElement();
                     const offset = getElementOffset(element);
                     if (document.documentElement.clientWidth < offset.left + offset.width + offset.width) {
