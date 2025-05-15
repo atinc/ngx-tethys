@@ -1,16 +1,15 @@
 import {
     Component,
-    Input,
     HostBinding,
     OnInit,
-    OnChanges,
     ContentChild,
     TemplateRef,
     ViewChild,
     ChangeDetectorRef,
     ChangeDetectionStrategy,
-    SimpleChanges,
-    inject
+    inject,
+    input,
+    effect
 } from '@angular/core';
 import { SafeAny } from 'ngx-tethys/types';
 import { ThyTimeMode } from './timeline.type';
@@ -31,7 +30,7 @@ export type thyColor = 'primary' | 'success' | 'warning' | 'danger' | 'info';
     exportAs: 'ThyTimelineItem',
     imports: [NgTemplateOutlet]
 })
-export class ThyTimelineItem implements OnInit, OnChanges {
+export class ThyTimelineItem implements OnInit {
     private cdr = inject(ChangeDetectorRef);
     private timelineService = inject(ThyTimelineService);
 
@@ -54,18 +53,13 @@ export class ThyTimelineItem implements OnInit, OnChanges {
      * @type primary | success | warning | danger | info
      * @default primary
      */
-    @Input()
-    set thyColor(value: thyColor) {
-        if (value) {
-            this.color = value;
-        }
-    }
+    readonly thyColor = input<thyColor>(undefined);
 
     /**
      * 自定义节点位置
      * @type left | right | center
      */
-    @Input() thyPosition: ThyTimeMode;
+    readonly thyPosition = input<ThyTimeMode>(undefined);
 
     /**
      * 自定义时间轴点模板
@@ -79,12 +73,23 @@ export class ThyTimelineItem implements OnInit, OnChanges {
      */
     @ContentChild('description', { static: false }) description: TemplateRef<SafeAny>;
 
-    detectChanges(): void {
-        this.cdr.detectChanges();
+    constructor() {
+        effect(() => {
+            const color = this.thyColor();
+            if (color) {
+                this.color = color;
+            }
+        });
+
+        effect(() => {
+            const position = this.thyPosition();
+            const color = this.thyColor();
+            this.timelineService.markForCheck();
+        });
     }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        this.timelineService.markForCheck();
+    detectChanges(): void {
+        this.cdr.detectChanges();
     }
 
     ngOnInit() {}
