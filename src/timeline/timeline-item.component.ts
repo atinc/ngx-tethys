@@ -80,12 +80,6 @@ export class ThyTimelineItem implements OnInit {
                 this.color = color;
             }
         });
-
-        effect(() => {
-            const position = this.thyPosition();
-            const color = this.thyColor();
-            this.timelineService.markForCheck();
-        });
     }
 
     detectChanges(): void {
