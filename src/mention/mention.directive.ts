@@ -2,7 +2,7 @@ import { ThyPopover, ThyPopoverConfig, ThyPopoverRef } from 'ngx-tethys/popover'
 import { EMPTY, fromEvent, Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 
-import { Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, inject } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, computed, inject, input, output } from '@angular/core';
 import { NgControl } from '@angular/forms';
 
 import { createMentionAdapter, MatchedMention, MentionAdapter, MentionInputorElement } from './adapter';
@@ -13,10 +13,7 @@ import { isInputOrTextarea } from 'ngx-tethys/util';
 
 const SUGGESTION_BACKDROP_CLASS = 'thy-mention-suggestions-backdrop';
 
-const POPOVER_DEFAULT_CONFIG = {
-    backdropClass: SUGGESTION_BACKDROP_CLASS,
-    placement: 'bottomLeft'
-};
+const POPOVER_DEFAULT_CONFIG = { backdropClass: SUGGESTION_BACKDROP_CLASS, placement: 'bottomLeft' };
 
 const DEFAULT_MENTION_CONFIG: Partial<Mention> = {
     autoClose: true,
@@ -32,9 +29,7 @@ const DEFAULT_MENTION_CONFIG: Partial<Mention> = {
  * @name thyMention
  * @order 10
  */
-@Directive({
-    selector: '[thyMention]'
-})
+@Directive({ selector: '[thyMention]' })
 export class ThyMentionDirective implements OnInit, OnDestroy {
     private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
     private thyPopover = inject(ThyPopover);
@@ -44,40 +39,38 @@ export class ThyMentionDirective implements OnInit, OnDestroy {
 
     public openedSuggestionsRef: ThyPopoverRef<ThyMentionSuggestions>;
 
-    private _mentions: Mention<any>[];
-    get mentions() {
-        return this._mentions;
-    }
-
     /**
      * 提及输入配置参数，同时支持多个提及规则
      * @type Mention<any>[]
      */
-    @Input('thyMention') set mentions(value: Mention<any>[]) {
-        this._mentions = value;
-        if (this._mentions) {
-            this._mentions = this._mentions.map(mention => {
+    readonly thyMention = input<Mention<any>[]>([]);
+
+    /**
+     * Popover 弹出层参数配置
+     */
+    readonly thyPopoverConfig = input<ThyPopoverConfig>();
+
+    /**
+     * 选择后的回调函数
+     */
+    readonly thySelectSuggestion = output<MentionSuggestionSelectEvent>();
+
+    get isOpened() {
+        return !!this.openedSuggestionsRef;
+    }
+
+    mentions = computed(() => {
+        if (this.thyMention()) {
+            return this.thyMention().map(mention => {
                 if ((typeof ngDevMode === 'undefined' || ngDevMode) && !mention.trigger) {
                     throw new Error(`mention trigger is required`);
                 }
                 return Object.assign({}, DEFAULT_MENTION_CONFIG, mention);
             });
+        } else {
+            return [];
         }
-    }
-
-    /**
-     * Popover 弹出层参数配置
-     */
-    @Input('thyPopoverConfig') popoverConfig: ThyPopoverConfig;
-
-    /**
-     * 选择后的回调函数
-     */
-    @Output('thySelectSuggestion') select = new EventEmitter<MentionSuggestionSelectEvent>();
-
-    get isOpened() {
-        return !!this.openedSuggestionsRef;
-    }
+    });
 
     private destroy$ = new Subject<void>();
 
@@ -117,7 +110,7 @@ export class ThyMentionDirective implements OnInit, OnDestroy {
                     this.elementRef.nativeElement.innerText = newValue;
                 }
                 this.openedSuggestionsRef.close();
-                this.select.emit(event);
+                this.thySelectSuggestion.emit(event);
             });
     }
 
@@ -134,7 +127,7 @@ export class ThyMentionDirective implements OnInit, OnDestroy {
     }
 
     private lookup(event: Event) {
-        const matched = this.adapter.lookup(event, this.mentions);
+        const matched = this.adapter.lookup(event, this.mentions());
         if (matched) {
             this.openSuggestions(matched);
         } else {
@@ -154,17 +147,10 @@ export class ThyMentionDirective implements OnInit, OnDestroy {
                     POPOVER_DEFAULT_CONFIG,
                     {
                         origin: this.elementRef,
-                        originPosition: {
-                            x: position.left,
-                            y: position.top,
-                            width: fontSize,
-                            height: fontSize
-                        },
-                        initialState: {
-                            mention: matched.mention
-                        }
+                        originPosition: { x: position.left, y: position.top, width: fontSize, height: fontSize },
+                        initialState: { mention: matched.mention }
                     },
-                    this.popoverConfig
+                    this.thyPopoverConfig()
                 )
             );
             this.openedSuggestionsRef.afterClosed().subscribe(() => {

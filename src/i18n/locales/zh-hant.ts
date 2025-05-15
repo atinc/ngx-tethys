@@ -137,5 +137,22 @@ export default {
     },
     empty: {
         noDataText: '暫無資料'
+    },
+    image: {
+        zoomOut: '縮小',
+        zoomIn: '放大',
+        originalSize: '原始比例',
+        fitToScreen: '適應屏幕',
+        fullScreen: '全屏顯示',
+        spin: '旋轉',
+        download: '下載',
+        viewOriginal: '查看原圖',
+        copyLink: '複製連結',
+        exitPreview: '退出預覽',
+        exitFullScreen: '退出全屏',
+        copySuccess: '複製圖片地址成功',
+        copyError: '複製圖片地址失敗',
+        prev: '上一張',
+        next: '下一張'
     }
 };

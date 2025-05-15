@@ -137,5 +137,22 @@ export default {
     },
     empty: {
         noDataText: '暂无数据'
+    },
+    image: {
+        zoomOut: '缩小',
+        zoomIn: '放大',
+        originalSize: '原始比例',
+        fitToScreen: '适应屏幕',
+        fullScreen: '全屏显示',
+        spin: '旋转',
+        download: '下载',
+        viewOriginal: '查看原图',
+        copyLink: '复制链接',
+        exitPreview: '退出预览',
+        exitFullScreen: '退出全屏',
+        copySuccess: '复制图片地址成功',
+        copyError: '复制图片地址失败',
+        prev: '上一张',
+        next: '下一张'
     }
 };
