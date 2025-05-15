@@ -71,25 +71,25 @@ export class ThyDot {
      * 大小
      * @type xs | sm | md | lg | xlg
      */
-    readonly thySize = input<ThySizeType>(DEFAULT_SIZE_NAME);
-
-    size: Signal<ThySizeType> = computed(() => this.thySize() || DEFAULT_SIZE_NAME);
+    readonly thySize = input<ThySizeType, ThySizeType>(DEFAULT_SIZE_NAME, {
+        transform: (value: ThySizeType) => value || DEFAULT_SIZE_NAME
+    });
 
     /**
      * 主题
      * @type outline(线框) | fill(填充)
      */
-    readonly thyTheme = input<ThyThemeType>(DEFAULT_THEME_NAME);
-
-    theme: Signal<ThyThemeType> = computed(() => this.thyTheme() || DEFAULT_THEME_NAME);
+    readonly thyTheme = input<ThyThemeType, ThyThemeType>(DEFAULT_THEME_NAME, {
+        transform: (value: ThyThemeType) => value || DEFAULT_THEME_NAME
+    });
 
     /**
      * 形状
      * @type circle(圆形) | square(方形)
      */
-    readonly thyShape = input<ThyShapeType>(DEFAULT_SHAPE_NAME);
-
-    shape: Signal<ThyShapeType> = computed(() => this.thyShape() || DEFAULT_SHAPE_NAME);
+    readonly thyShape = input<ThyShapeType, ThyShapeType>(DEFAULT_SHAPE_NAME, {
+        transform: (value: ThyShapeType) => value || DEFAULT_SHAPE_NAME
+    });
 
     updateColorStyle() {
         Array.from(this.nativeElement.classList)
