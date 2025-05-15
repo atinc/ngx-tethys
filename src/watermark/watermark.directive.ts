@@ -3,7 +3,7 @@ import { Subject, Observable } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DEFAULT_WATERMARK_CONFIG, DEFAULT_CANVAS_CONFIG } from './config';
 import { MutationObserverFactory } from '@angular/cdk/observers';
-import { coerceBooleanProperty, ThyBoolean } from 'ngx-tethys/util';
+import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
 import { ThyThemeStore } from 'ngx-tethys/core';
 
 /**
@@ -46,19 +46,19 @@ export class ThyWatermarkDirective implements OnInit {
     /**
      * 是否禁用，默认为 false
      */
-    readonly thyDisabled = input<boolean, ThyBoolean>(false, { transform: coerceBooleanProperty });
+    readonly thyDisabled = input<boolean, ThyBooleanInput>(false, { transform: coerceBooleanProperty });
 
     /**
      * 水印内容
      */
-    thyWatermark = input<string>(undefined);
+    readonly thyWatermark = input<string>(undefined);
 
     /**
      * 水印样式配置
      */
     readonly thyCanvasConfig = input<ThyCanvasConfigType>(undefined);
 
-    content = computed(() => {
+    readonly content = computed(() => {
         const value = this.thyWatermark()?.replace(/^\"|\"$/g, '');
         return value || '';
     });
