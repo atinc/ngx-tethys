@@ -1,9 +1,9 @@
+import { provideHttpClient } from '@angular/common/http';
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { ThyActionModule } from 'ngx-tethys/action';
 import { injectDefaultSvgIconSet } from 'ngx-tethys/testing';
-import { By } from '@angular/platform-browser';
-import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-test-action-basic',

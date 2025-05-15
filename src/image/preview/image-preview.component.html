@@ -7,7 +7,7 @@
         </p>
         <span class="thy-image-size"> {{ previewImage?.size }}</span>
       </div>
-      <a thyAction thyIcon="close" thyTooltip="退出预览" href="javascript:;" (click)="thyDialog.close()"></a>
+      <a thyAction thyIcon="close" [thyTooltip]="locale().exitPreview" href="javascript:;" (click)="thyDialog.close()"></a>
     </div>
   }
   @if (isFullScreen) {
@@ -15,10 +15,9 @@
       class="thy-image-preview-exit-fullscreen"
       thyAction
       thyIcon="close"
-      thyTooltip="退出预览"
       href="javascript:;"
       (click)="thyFullscreen.exit()"
-      thyTooltip="退出全屏"></a>
+      [thyTooltip]="locale().exitFullScreen"></a>
   }
   <div
     class="thy-image-preview-img-wrapper"
@@ -40,14 +39,14 @@
     <div
       class="thy-image-preview-switch-left"
       [thyTooltipDisabled]="previewIndex <= 0"
-      thyTooltip="上一张"
+      [thyTooltip]="locale().prev"
       [class.thy-image-preview-switch-left-disabled]="previewIndex <= 0"
       (click)="prev()">
       <thy-icon thyIconName="angle-left-bold"></thy-icon>
     </div>
     <div
       class="thy-image-preview-switch-right"
-      thyTooltip="下一张"
+      [thyTooltip]="locale().next"
       [thyTooltipDisabled]="previewIndex >= images.length - 1"
       [class.thy-image-preview-switch-right-disabled]="previewIndex >= images.length - 1"
       (click)="next()">

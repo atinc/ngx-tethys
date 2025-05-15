@@ -2,9 +2,7 @@ import { ThySelectionListChange, ThySelectionList } from 'ngx-tethys/list';
 import { ThyPopoverRef } from 'ngx-tethys/popover';
 import { Observable, of, Subject } from 'rxjs';
 import { catchError, debounceTime, switchMap, take } from 'rxjs/operators';
-
-import { Component, ElementRef, HostBinding, NgZone, OnDestroy, OnInit, inject } from '@angular/core';
-
+import { Component, ElementRef, NgZone, OnDestroy, OnInit, inject, signal, input } from '@angular/core';
 import { SeekQueryResult } from '../adapter/adapter';
 import { Mention, MentionDefaultDataItem, MentionSuggestionSelectEvent } from '../interfaces';
 import { ThyListOption } from 'ngx-tethys/shared';
@@ -17,50 +15,51 @@ import { NgTemplateOutlet, SlicePipe } from '@angular/common';
 @Component({
     selector: 'thy-mention-suggestions',
     templateUrl: './suggestions.component.html',
-    imports: [NgTemplateOutlet, ThyLoading, ThySelectionList, ThyListOption, SlicePipe]
+    imports: [NgTemplateOutlet, ThyLoading, ThySelectionList, ThyListOption, SlicePipe],
+    host: { class: 'thy-mention-suggestions' }
 })
 export class ThyMentionSuggestions<TItem = MentionDefaultDataItem> implements OnInit, OnDestroy {
-    elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
-    private ngZone = inject(NgZone);
-    private popoverRef = inject<ThyPopoverRef<any>>(ThyPopoverRef);
+    readonly mention = input<Mention<TItem>>();
 
-    data: TItem[];
-
-    mention: Mention<TItem>;
+    data = signal<TItem[]>([]);
 
     suggestionSelect$ = new Subject<MentionSuggestionSelectEvent>();
 
     debounce = 150;
 
-    loadingDone = true;
+    loadingDone = signal(true);
 
     private search$ = new Subject<SeekQueryResult>();
 
-    @HostBinding('class.thy-mention-suggestions') suggestionsClass = true;
+    private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+
+    private ngZone = inject(NgZone);
+
+    private popoverRef = inject<ThyPopoverRef<any>>(ThyPopoverRef);
 
     constructor() {
         this.search$
             .pipe(
                 switchMap(query => {
-                    const data = this.mention.search(query.term, this.mention.data);
+                    const data = this.mention().search(query.term, this.mention().data);
                     if (data instanceof Observable) {
-                        this.loadingDone = false;
+                        this.loadingDone.set(false);
                         return (data as Observable<TItem[]>).pipe(debounceTime(this.debounce));
                     } else {
                         return of(data as TItem[]);
                     }
                 }),
                 catchError(() => {
-                    this.loadingDone = false;
-                    return [];
+                    this.loadingDone.set(false);
+                    return of([]);
                 })
             )
             .subscribe(data => {
-                this.loadingDone = true;
-                this.data = data || [];
+                this.loadingDone.set(true);
+                this.data.set(data || []);
 
                 if (this.popoverRef) {
-                    if (this.mention.autoClose && this.data.length === 0) {
+                    if (this.mention().autoClose && this.data().length === 0) {
                         this.popoverRef.close();
                     }
                     this.ngZone.onStable.pipe(take(1)).subscribe(() => {
@@ -71,8 +70,8 @@ export class ThyMentionSuggestions<TItem = MentionDefaultDataItem> implements On
     }
 
     ngOnInit(): void {
-        if (this.mention.popoverClass) {
-            this.elementRef.nativeElement.classList.add(this.mention.popoverClass);
+        if (this.mention().popoverClass) {
+            this.elementRef.nativeElement.classList.add(this.mention().popoverClass);
         }
     }
 
@@ -81,10 +80,7 @@ export class ThyMentionSuggestions<TItem = MentionDefaultDataItem> implements On
     }
 
     select(item: TItem, event: Event) {
-        this.suggestionSelect$.next({
-            event,
-            item
-        });
+        this.suggestionSelect$.next({ event, item });
     }
 
     selectionChange(event: ThySelectionListChange<TItem>) {

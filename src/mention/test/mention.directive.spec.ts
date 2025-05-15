@@ -180,7 +180,7 @@ describe('MentionDirective', () => {
     });
 
     it('should open suggestions popover success', () => {
-        mentionDirective['openSuggestions']({ query: { term: 'test1', start: 0, end: 1 }, mention: mentionDirective.mentions[0] });
+        mentionDirective['openSuggestions']({ query: { term: 'test1', start: 0, end: 1 }, mention: mentionDirective.mentions()[0] });
         fixture.detectChanges();
         const panelElement = document.querySelector('.mention-popover-panel');
         expect(panelElement).toBeTruthy();
@@ -190,7 +190,7 @@ describe('MentionDirective', () => {
     });
 
     it('should limit effect', () => {
-        mentionDirective['openSuggestions']({ query: { term: 'test', start: 0, end: 1 }, mention: mentionDirective.mentions[0] });
+        mentionDirective['openSuggestions']({ query: { term: 'test', start: 0, end: 1 }, mention: mentionDirective.mentions()[0] });
         fixture.detectChanges();
         const suggestionsElement = document.querySelectorAll('thy-mention-suggestions .thy-list-option');
         expect(suggestionsElement.length).toEqual(2);
