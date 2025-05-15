@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ContentChild, computed, TemplateRef, inject, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, TemplateRef, inject, input, output, contentChild } from '@angular/core';
 import { ThyTranslate } from 'ngx-tethys/core';
 import { ThyPopover } from '../popover.service';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -49,8 +49,7 @@ export class ThyPopoverHeader {
      * 自定义头部模板
      * @type TemplateRef
      */
-    @ContentChild('popoverHeader')
-    public headerTemplate: TemplateRef<any>;
+    public headerTemplate = contentChild<TemplateRef<any>>('popoverHeader');
 
     /**
      * @internal

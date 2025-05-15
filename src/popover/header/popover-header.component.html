@@ -1,5 +1,5 @@
-@if (headerTemplate) {
-  <template [ngTemplateOutlet]="headerTemplate"></template>
+@if (headerTemplate()) {
+  <template [ngTemplateOutlet]="headerTemplate()"></template>
 } @else {
   <h5 class="thy-popover-title">{{ titleSignal() }}</h5>
   <button type="button" class="close" (click)="close($event)">
