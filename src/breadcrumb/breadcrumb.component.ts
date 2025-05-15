@@ -96,7 +96,10 @@ export class ThyBreadcrumb {
 
     public ellipsisItemId = THY_BREADCRUMB_ITEM_ELLIPSIS_ID;
 
-    public readonly processedItems: Signal<SafeAny> = computed(() => {
+    public readonly processedItems: Signal<{
+        ellipsisItems: SafeAny[];
+        showItems: SafeAny[];
+    }> = computed(() => {
         const items = this.items();
         if (!items?.length) {
             return;
