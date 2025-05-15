@@ -75,7 +75,7 @@ export class ThyAvatar {
     /**
      * 是否展示人员名称
      */
-    readonly thyShowName = input<boolean, unknown>(false, { transform: coerceBooleanProperty });
+    readonly thyShowName = input<boolean, boolean | string | number>(false, { transform: coerceBooleanProperty });
 
     /**
      * 头像路径地址, 默认为全路径，如果不是全路径，可以通过自定义服务 ThyAvatarService，重写 srcTransform 方法实现转换
@@ -131,12 +131,12 @@ export class ThyAvatar {
      * 已废弃，请使用 thyRemovable
      * @deprecated
      */
-    readonly thyShowRemove = input<boolean, unknown>(false, { transform: coerceBooleanProperty });
+    readonly thyShowRemove = input<boolean, boolean | string | number>(false, { transform: coerceBooleanProperty });
 
     /**
      * 是否展示移除按钮
      */
-    readonly thyRemovable = input<boolean, unknown>(false, { transform: coerceBooleanProperty });
+    readonly thyRemovable = input<boolean, boolean | string | number>(false, { transform: coerceBooleanProperty });
 
     showRemove: Signal<boolean> = computed(() => this.thyRemovable() || this.thyShowRemove());
 
@@ -148,7 +148,7 @@ export class ThyAvatar {
     /**
      * 是否禁用
      */
-    readonly thyDisabled = input<boolean, unknown>(false, { transform: coerceBooleanProperty });
+    readonly thyDisabled = input<boolean, boolean | string | number>(false, { transform: coerceBooleanProperty });
 
     /**
      * 图片加载策略

@@ -1,28 +1,28 @@
 <div class="thy-collapse-header" (click)="activeChange($event)">
-  @if (showArrow) {
-    @if (arrowIconTemplate) {
-      <ng-template [ngTemplateOutlet]="arrowIconTemplate"></ng-template>
+  @if (showArrow()) {
+    @if (arrowIconTemplate()) {
+      <ng-template [ngTemplateOutlet]="arrowIconTemplate()"></ng-template>
     } @else {
-      <thy-icon [thyIconName]="arrowIcon || 'angle-right'" class="thy-collapse-icon" [thyIconRotate]="thyActive ? -90 : 0"></thy-icon>
+      <thy-icon [thyIconName]="arrowIcon() || 'angle-right'" class="thy-collapse-icon" [thyIconRotate]="thyActive() ? -90 : 0"></thy-icon>
     }
   }
 
-  @if (thyHeaderTemplate) {
-    <ng-template [ngTemplateOutlet]="thyHeaderTemplate"></ng-template>
+  @if (thyHeaderTemplate()) {
+    <ng-template [ngTemplateOutlet]="thyHeaderTemplate()"></ng-template>
   } @else {
     <ng-container>
-      <span class="d-flex thy-collapse-title"> {{ thyTitle }}</span></ng-container
-      >
-    }
+      <span class="d-flex thy-collapse-title"> {{ thyTitle() }}</span></ng-container
+    >
+  }
 
-    @if (thyExtra) {
-      <div class="thy-collapse-extra">
-        <ng-template [ngTemplateOutlet]="thyExtra"></ng-template>
-      </div>
-    }
-  </div>
-  <div class="thy-collapse-content" [@collapseMotion]="thyActive ? 'expanded' : 'hidden'">
-    <div class="thy-collapse-content-box">
-      <ng-content></ng-content>
+  @if (thyExtra()) {
+    <div class="thy-collapse-extra">
+      <ng-template [ngTemplateOutlet]="thyExtra()"></ng-template>
     </div>
+  }
+</div>
+<div class="thy-collapse-content" [@collapseMotion]="thyActive() ? 'expanded' : 'hidden'">
+  <div class="thy-collapse-content-box">
+    <ng-content></ng-content>
   </div>
+</div>
