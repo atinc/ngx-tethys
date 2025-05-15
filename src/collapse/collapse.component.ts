@@ -43,7 +43,7 @@ export class ThyCollapse implements IThyCollapseComponent {
     /**
      * 是否为手风琴模式，手风琴模式下，只能展开一个面板
      */
-    readonly thyAccordion = input<boolean, unknown>(false, { transform: coerceBooleanProperty });
+    readonly thyAccordion = input<boolean, boolean | string | number>(false, { transform: coerceBooleanProperty });
 
     /**
      * 展开收起图标的位置，支持 `left` | `right`

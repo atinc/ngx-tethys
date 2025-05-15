@@ -58,7 +58,7 @@ export class ThyCollapseItem implements IThyCollapseItemComponent, OnInit, OnDes
     /**
      * 是否禁用当前面板
      */
-    readonly thyDisabled = input<boolean, unknown>(false, { transform: coerceBooleanProperty });
+    readonly thyDisabled = input<boolean, boolean | string | number>(false, { transform: coerceBooleanProperty });
 
     /**
      * 自定义面板头
