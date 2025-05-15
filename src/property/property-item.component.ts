@@ -6,24 +6,23 @@ import { delay, filter, take, takeUntil } from 'rxjs/operators';
 import { OverlayOutsideClickDispatcher, OverlayRef } from '@angular/cdk/overlay';
 import { NgTemplateOutlet } from '@angular/common';
 import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ContentChild,
-    ElementRef,
-    EventEmitter,
-    HostBinding,
-    Input,
-    NgZone,
-    numberAttribute,
-    OnChanges,
-    OnDestroy,
-    OnInit,
-    Output,
-    SimpleChanges,
-    TemplateRef,
-    ViewChild,
-    inject
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  NgZone,
+  numberAttribute,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+  TemplateRef,
+  inject,
+  input,
+  computed,
+  effect,
+  output,
+  contentChild,
+  viewChild
 } from '@angular/core';
 
 import { ThyProperties } from './properties.component';
@@ -40,13 +39,14 @@ export type ThyPropertyItemOperationTrigger = 'hover' | 'always';
     templateUrl: './property-item.component.html',
     host: {
         class: 'thy-property-item',
-        '[class.thy-property-item-operational]': '!!operation',
-        '[class.thy-property-item-operational-hover]': "thyOperationTrigger === 'hover'"
+        '[class.thy-property-item-operational]': '!!operation()',
+        '[class.thy-property-item-operational-hover]': "thyOperationTrigger() === 'hover'",
+        '[style.grid-column]': 'gridColumn()'
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [ThyFlexibleText, NgTemplateOutlet]
 })
-export class ThyPropertyItem implements OnInit, OnChanges, OnDestroy {
+export class ThyPropertyItem implements OnInit, OnDestroy {
     private cdr = inject(ChangeDetectorRef);
     private clickDispatcher = inject(ThyClickDispatcher);
     private ngZone = inject(NgZone);
@@ -58,56 +58,56 @@ export class ThyPropertyItem implements OnInit, OnChanges, OnDestroy {
      * @type sting
      * @default thyLabelText
      */
-    @Input() thyLabelText: string;
+    readonly thyLabelText = input<string>();
 
     /**
      * 设置属性是否是可编辑的
      * @type sting
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyEditable: boolean;
+    readonly thyEditable = input<boolean, boolean | string | number>(false, { transform: coerceBooleanProperty });
 
     /**
      * 设置跨列的数量
      * @type number
      */
-    @Input({ transform: numberAttribute }) thySpan: number = 1;
+    readonly thySpan = input(1, { transform: numberAttribute });
 
     /**
      * 设置属性操作现实触发方式，默认 always 一直显示
      * @type 'hover' | 'always'
      */
-    @Input() thyOperationTrigger: ThyPropertyItemOperationTrigger = 'always';
+    readonly thyOperationTrigger = input<ThyPropertyItemOperationTrigger>('always');
 
-    @Output() thyEditingChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+    readonly thyEditingChange = output<boolean>();
 
     /**
      * 属性名称自定义模板
      * @type TemplateRef
      */
-    @ContentChild('label', { static: true }) label!: TemplateRef<void>;
+    readonly label = contentChild<TemplateRef<void>>('label');
 
     /**
      * 属性内容编辑模板，只有在 thyEditable 为 true 时生效
      * @type TemplateRef
      */
-    @ContentChild('editor', { static: true }) editor!: TemplateRef<void>;
+    readonly editor = contentChild<TemplateRef<void>>('editor');
 
     /**
      * 操作区模板
      * @type TemplateRef
      */
-    @ContentChild('operation', { static: true }) operation!: TemplateRef<void>;
+    readonly operation = contentChild<TemplateRef<void>>('operation');
 
     /**
      * @private
      */
-    @ViewChild('contentTemplate', { static: true }) content!: TemplateRef<void>;
+    readonly content = viewChild<TemplateRef<void>>('contentTemplate');
 
     /**
      * @private
      */
-    @ViewChild('item', { static: true }) itemContent: ElementRef<HTMLElement>;
+    readonly itemContent = viewChild<ElementRef<HTMLElement>>('item');
 
     editing: boolean;
 
@@ -121,15 +121,29 @@ export class ThyPropertyItem implements OnInit, OnChanges, OnDestroy {
 
     private clickEventSubscription: Subscription;
 
-    @HostBinding('style.grid-column')
-    get gridColumn() {
-        return `span ${Math.min(this.thySpan, this.parent.thyColumn)}`;
-    }
+    gridColumn = computed(() => {
+        return `span ${Math.min(this.thySpan(), this.parent.thyColumn())}`;
+    });
 
     isVertical = false;
 
     constructor() {
         this.originOverlays = [...this.overlayOutsideClickDispatcher._attachedOverlays] as OverlayRef[];
+
+        effect(() => {
+            if (this.thyEditable()) {
+                this.subscribeClick();
+            } else {
+                this.setEditing(false);
+                this.eventDestroy$.next();
+                this.eventDestroy$.complete();
+
+                if (this.clickEventSubscription) {
+                    this.clickEventSubscription.unsubscribe();
+                    this.clickEventSubscription = null;
+                }
+            }
+        });
     }
 
     ngOnInit() {
@@ -138,21 +152,6 @@ export class ThyPropertyItem implements OnInit, OnChanges, OnDestroy {
             this.isVertical = layout === 'vertical';
             this.cdr.markForCheck();
         });
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes.thyEditable && changes.thyEditable.currentValue) {
-            this.subscribeClick();
-        } else {
-            this.setEditing(false);
-            this.eventDestroy$.next();
-            this.eventDestroy$.complete();
-
-            if (this.clickEventSubscription) {
-                this.clickEventSubscription.unsubscribe();
-                this.clickEventSubscription = null;
-            }
-        }
     }
 
     setEditing(editing: boolean) {
@@ -177,16 +176,16 @@ export class ThyPropertyItem implements OnInit, OnChanges, OnDestroy {
     }
 
     private subscribeClick() {
-        if (this.thyEditable === true) {
+        if (this.thyEditable() === true) {
             this.ngZone.runOutsideAngular(() => {
                 if (this.clickEventSubscription) {
                     return;
                 }
-                this.clickEventSubscription = fromEvent(this.itemContent.nativeElement, 'click')
+                this.clickEventSubscription = fromEvent(this.itemContent().nativeElement, 'click')
                     .pipe(takeUntil(this.eventDestroy$))
                     .subscribe(() => {
                         this.setEditing(true);
-                        this.bindEditorBlurEvent(this.itemContent.nativeElement);
+                        this.bindEditorBlurEvent(this.itemContent().nativeElement);
                     });
             });
         }

@@ -2,15 +2,15 @@
   <ng-content></ng-content>
 </ng-template>
 <div class="thy-property-item-label">
-  @if (thyLabelText) {
-    <span thyFlexibleText [thyTooltipContent]="thyLabelText">{{ thyLabelText }}</span>
+  @if (thyLabelText()) {
+    <span thyFlexibleText [thyTooltipContent]="thyLabelText()">{{ thyLabelText() }}</span>
   }
-  @if (label) {
-    <span> <ng-template [ngTemplateOutlet]="label"></ng-template></span>
+  @if (label()) {
+    <span> <ng-template [ngTemplateOutlet]="label()"></ng-template></span>
   }
-  @if (operation && isVertical) {
+  @if (operation() && isVertical) {
     <div class="thy-property-item-operation">
-      <ng-template [ngTemplateOutlet]="operation"></ng-template>
+      <ng-template [ngTemplateOutlet]="operation()"></ng-template>
     </div>
   }
 </div>
@@ -18,24 +18,24 @@
   <div
     #item
     class="thy-property-item-content"
-    [class.thy-property-item-content-editable]="thyEditable"
+    [class.thy-property-item-content-editable]="thyEditable()"
     [class.thy-property-item-content-editing]="editing">
     <div class="thy-property-item-content-text">
-      @if (content) {
-        <ng-template [ngTemplateOutlet]="content"></ng-template>
+      @if (content()) {
+        <ng-template [ngTemplateOutlet]="content()"></ng-template>
       }
     </div>
-    @if (thyEditable) {
+    @if (thyEditable()) {
       <div class="thy-property-item-content-editor">
-        @if (editor) {
-          <ng-template [ngTemplateOutlet]="editor"></ng-template>
+        @if (editor()) {
+          <ng-template [ngTemplateOutlet]="editor()"></ng-template>
         }
       </div>
     }
   </div>
-  @if (operation && !isVertical) {
+  @if (operation() && !isVertical) {
     <div class="thy-property-item-operation">
-      <ng-template [ngTemplateOutlet]="operation"></ng-template>
+      <ng-template [ngTemplateOutlet]="operation()"></ng-template>
     </div>
   }
 </div>
