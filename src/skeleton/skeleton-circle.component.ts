@@ -58,7 +58,7 @@ export class ThySkeletonCircle {
      * 是否展示动画
      * @default true
      */
-    readonly thyAnimated = input< boolean, ThyBooleanInput>(undefined, { transform: coerceBooleanProperty });
+    readonly thyAnimated = input<boolean, ThyBooleanInput>(undefined, { transform: coerceBooleanProperty });
 
     readonly animatedInterval = computed(() => {
         return this.thyAnimatedInterval() || this.parent?.thyAnimatedInterval() || this.skeletonConfigModel.thyAnimatedInterval;
