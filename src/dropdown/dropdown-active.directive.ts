@@ -1,6 +1,7 @@
-import { Directive, OnInit, Signal, computed, contentChildren, effect, inject, input } from '@angular/core';
+import { AfterContentInit, ContentChildren, Directive, OnInit, QueryList, Signal, computed, inject, input } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { coerceArray } from 'ngx-tethys/util';
+import { mergeMap, startWith } from 'rxjs';
 import { ThyDropdownDirective } from './dropdown.directive';
 
 /**
@@ -11,10 +12,10 @@ import { ThyDropdownDirective } from './dropdown.directive';
 @Directive({
     selector: '[thyDropdownActive]'
 })
-export class ThyDropdownActiveDirective implements OnInit {
+export class ThyDropdownActiveDirective implements OnInit, AfterContentInit {
     private trigger = inject(ThyDropdownDirective, { optional: true });
 
-    classes: Signal<string[]> = computed(() => {
+    readonly classes: Signal<string[]> = computed(() => {
         return coerceArray(this.thyDropdownActive()).filter(c => !!c);
     });
 
@@ -29,29 +30,37 @@ export class ThyDropdownActiveDirective implements OnInit {
     /**
      * @private
      */
-    readonly triggers = contentChildren(ThyDropdownDirective, { descendants: true });
+    @ContentChildren(ThyDropdownDirective, { descendants: true }) triggers!: QueryList<ThyDropdownDirective>;
 
-    constructor() {
-        effect(() => {
-            if (this.triggers()) {
-                const result = this.triggers().map(item => {
-                    return item.thyActiveChange;
-                });
-                this.trigger && result.push(this.trigger.thyActiveChange);
-                result.forEach(item => {
-                    item.subscribe(active => {
-                        this.classes()?.forEach(className => {
-                            if (active) {
-                                this.hostRenderer.addClass(className);
-                            } else {
-                                this.hostRenderer.removeClass(className);
-                            }
-                        });
+    ngOnInit(): void {}
+
+    ngAfterContentInit(): void {
+        this.triggers.changes
+            .pipe(
+                startWith(this.triggers.toArray()),
+                mergeMap((triggers: ThyDropdownDirective[]) => {
+                    const result = triggers.map(item => {
+                        return item.thyActiveChange;
                     });
-                });
+                    this.trigger && result.push(this.trigger.thyActiveChange);
+                    return result;
+                }),
+                mergeMap(result => {
+                    return result;
+                })
+            )
+            .subscribe(active => {
+                this.update(active);
+            });
+    }
+
+    update(active: boolean) {
+        this.classes().forEach(className => {
+            if (active) {
+                this.hostRenderer.addClass(className);
+            } else {
+                this.hostRenderer.removeClass(className);
             }
         });
     }
-
-    ngOnInit(): void {}
 }
