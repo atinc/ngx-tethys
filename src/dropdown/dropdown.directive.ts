@@ -98,7 +98,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
     /**
      * 弹出框的显示位置，会覆盖 thyPopoverOptions 中的 placement，`top` | `topLeft` | `topRight` | `bottom` | `bottomLeft` | `bottomRight` | `left` | `leftTop` | `leftBottom` | `right` | `rightTop` | `rightBottom`
      */
-    readonly thyPlacement = input<ThyPlacement>('bottomLeft');
+    readonly thyPlacement = input<ThyPlacement, ThyPlacement>('bottomLeft', { transform: (value: ThyPlacement) => value || 'bottomLeft' });
 
     /**
      * 点击 dropdown-menu 内部是否关闭弹出框，会覆盖 thyPopoverOptions 中的 insideClosable
@@ -109,7 +109,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
      * 弹出框 overlay panel 的类名
      * @type string | string[]
      */
-    readonly thyPanelClass = input<string | string[]>('bottomLeft');
+    readonly thyPanelClass = input<string | string[]>();
 
     /**
      * 菜单 Active 事件，打开菜单返回 true，关闭返回 false
