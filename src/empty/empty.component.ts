@@ -1,28 +1,27 @@
-import { ThyTranslate } from 'ngx-tethys/core';
-import { useHostRenderer } from '@tethys/cdk/dom';
 import {
     AfterViewInit,
     Component,
-    ContentChild,
+    computed,
+    contentChild,
+    effect,
     ElementRef,
-    OnChanges,
-    Input,
-    NgZone,
-    OnInit,
-    TemplateRef,
-    SimpleChanges,
     inject,
-    Signal
+    input,
+    NgZone,
+    Signal,
+    TemplateRef
 } from '@angular/core';
+import { useHostRenderer } from '@tethys/cdk/dom';
+import { ThyTranslate } from 'ngx-tethys/core';
 
+import { NgClass, NgTemplateOutlet } from '@angular/common';
+import { DomSanitizer } from '@angular/platform-browser';
+import { injectLocale, ThyEmptyLocale } from 'ngx-tethys/i18n';
+import { ThyIcon } from 'ngx-tethys/icon';
+import { SafeAny } from 'ngx-tethys/types';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { ThyEmptyConfig } from './empty.config';
 import { PRESET_SVG } from './svgs';
-import { DomSanitizer } from '@angular/platform-browser';
-import { SafeAny } from 'ngx-tethys/types';
-import { ThyIcon } from 'ngx-tethys/icon';
-import { NgClass, NgTemplateOutlet } from '@angular/common';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
-import { injectLocale, ThyEmptyLocale } from 'ngx-tethys/i18n';
 
 const sizeClassMap = {
     lg: ['thy-empty-state', 'thy-empty-state--lg'],
@@ -64,7 +63,7 @@ export type ThyEmptyImageFetchPriority = 'high' | 'low' | 'auto';
     templateUrl: './empty.component.html',
     imports: [ThyIcon, NgClass, NgTemplateOutlet]
 })
-export class ThyEmpty implements OnInit, AfterViewInit, OnChanges {
+export class ThyEmpty implements AfterViewInit {
     private thyTranslate = inject(ThyTranslate);
     private thyEmptyConfig = inject(ThyEmptyConfig);
     private elementRef = inject(ElementRef);
@@ -76,120 +75,121 @@ export class ThyEmpty implements OnInit, AfterViewInit, OnChanges {
      * 显示文本提示信息。同时传入 thyMessage，thyTranslationKey，thyEntityName，thyEntityNameTranslateKey 时优先级最高
      * @default 暂无数据
      */
-    @Input() thyMessage: string;
+    readonly thyMessage = input<string>();
 
     /**
      * 已废弃。显示文本提示信息多语言 Key。同时传入 thyTranslationKey，thyEntityName，thyEntityNameTranslateKey 时优先级最高
      * @deprecated
      */
-    @Input() thyTranslationKey: string;
+    readonly thyTranslationKey = input<string>();
 
     /**
      * 已废弃。显示文本提示信息多语言 Key 的 Values。传入 thyTranslationKey 后，传入这个才会生效
      * @deprecated
      */
-    @Input() thyTranslationValues: any;
+    readonly thyTranslationValues = input<any>();
 
     /**
      * 已废弃。显示默认提示信息，替换默认提示信息的目标对象，比如：没有 {thyEntityName}。同时传入 thyEntityName，thyEntityNameTranslateKey 时优先级较高
      * @deprecated
      */
-    @Input() thyEntityName: string;
+    readonly thyEntityName = input<string>();
 
     /**
      * 已废弃。thyEntityName 的多语言 Key。thyMessage，thyTranslationKey，thyEntityName 均未传入时才会生效
      * @deprecated
      */
-    @Input() thyEntityNameTranslateKey: string;
+    readonly thyEntityNameTranslateKey = input<string>();
 
     /**
      * 提示图标名
      */
-    @Input() thyIconName: string;
+    readonly thyIconName = input<string>();
 
     /**
      * 大小
      * @type sm | md | lg
      * @default md
      */
-    @Input()
-    set thySize(value: string) {
-        this.size = value;
-        if (this._initialized) {
-            this.updateClass();
-        }
-    }
+    readonly thySize = input<string>('md');
 
     /**
      * 距上距离
      */
-    @Input() thyMarginTop: number | string;
+    readonly thyMarginTop = input<number | string>();
 
     /**
      * 是否自动根据父容器计算高度，垂直居中
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyTopAuto: boolean;
+    readonly thyTopAuto = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 自动计算高度垂直居中(即 thyTopAuto 为 true)时，支持传入自定义父容器
      */
-    @Input() thyContainer: ElementRef;
+    readonly thyContainer = input<ElementRef>();
 
     /**
      * 提示图片链接
      */
-    @Input() thyImageUrl: string;
+    readonly thyImageUrl = input<string>();
 
-    @Input() thyImageLoading?: ThyEmptyImageLoading;
+    readonly thyImageLoading = input<ThyEmptyImageLoading>();
 
-    @Input() thyImageFetchPriority?: ThyEmptyImageFetchPriority;
+    readonly thyImageFetchPriority = input<ThyEmptyImageFetchPriority>();
 
     /**
      * 显示文本描述
      */
-    @Input() thyDescription: string;
-
-    private size: string = 'md';
-
-    private _initialized = false;
+    readonly thyDescription = input<string>();
 
     private hostRenderer = useHostRenderer();
-
-    presetSvg: SafeAny;
 
     /**
      * 除提示图片，文本外的其他信息传入模板
      * @type TemplateRef
      */
-    @ContentChild('extra') extraTemplateRef: TemplateRef<any>;
+    readonly extraTemplateRef = contentChild<TemplateRef<SafeAny>>('extra');
 
-    get displayText() {
-        if (this.thyMessage) {
-            return this.thyMessage;
-        } else if (this.thyTranslationKey) {
-            return this.thyTranslate.instant(this.thyTranslationKey, this.thyTranslationValues);
-        } else if (this.thyEntityName) {
+    protected readonly presetSvg = computed(() => {
+        let presetSvg = this.thyIconName() ? PRESET_SVG[this.thyIconName() as keyof typeof PRESET_SVG] : PRESET_SVG.default;
+
+        return presetSvg ? this.sanitizer.bypassSecurityTrustHtml(presetSvg) : '';
+    });
+
+    protected readonly displayText = computed(() => {
+        if (this.thyMessage()) {
+            return this.thyMessage();
+        } else if (this.thyTranslationKey()) {
+            return this.thyTranslate.instant(this.thyTranslationKey(), this.thyTranslationValues());
+        } else if (this.thyEntityName()) {
             return this.thyTranslate.instant(this.thyEmptyConfig.noResultWithTargetTranslateKey, {
-                target: this.thyEntityName
+                target: this.thyEntityName()
             });
-        } else if (this.thyEntityNameTranslateKey) {
+        } else if (this.thyEntityNameTranslateKey()) {
             return this.thyTranslate.instant(this.thyEmptyConfig.noResultWithTargetTranslateKey, {
-                target: this.thyTranslate.instant(this.thyEntityNameTranslateKey)
+                target: this.thyTranslate.instant(this.thyEntityNameTranslateKey())
             });
         } else if (this.thyTranslate.instant(this.thyEmptyConfig.noResultTranslateKey) !== 'common.tips.NO_RESULT') {
             return this.thyTranslate.instant(this.thyEmptyConfig.noResultTranslateKey);
         } else {
             return this.locale().noDataText;
         }
+    });
+
+    constructor() {
+        effect(() => {
+            this.updateClass();
+        });
     }
 
     private _calculatePosition() {
-        const sizeOptions = sizeMap[this.thySize || 'md'];
+        const sizeOptions = sizeMap[(this.thySize() as keyof typeof sizeMap) || 'md'];
         let marginTop = null;
-        if (this.thyTopAuto) {
+        if (this.thyTopAuto()) {
             // 选择参考父容器居中
-            const containerElement = this.thyContainer ? this.thyContainer.nativeElement : this.elementRef.nativeElement.parentElement;
+            const thyContainer = this.thyContainer();
+            const containerElement = thyContainer ? thyContainer.nativeElement : this.elementRef.nativeElement.parentElement;
             // containerElement.height;
             let emptyStateHeight = this.elementRef.nativeElement.offsetHeight;
             // 高度没有自动计算出来使用默认值
@@ -202,8 +202,9 @@ export class ThyEmpty implements OnInit, AfterViewInit, OnChanges {
                 marginTop = 0; // sizeOptions.defaultMarginTop;
             }
         } else {
-            if (this.thyMarginTop) {
-                marginTop = this.thyMarginTop;
+            const thyMarginTop = this.thyMarginTop();
+            if (thyMarginTop) {
+                marginTop = thyMarginTop;
             } else {
                 marginTop = 0; // sizeOptions.defaultMarginTop;
             }
@@ -213,14 +214,8 @@ export class ThyEmpty implements OnInit, AfterViewInit, OnChanges {
         }
     }
 
-    ngOnInit() {
-        this.updateClass();
-        this._initialized = true;
-        this.setPresetSvg(this.thyIconName);
-    }
-
     updateClass() {
-        const classList = sizeClassMap[this.size] || sizeClassMap['md'];
+        const classList = sizeClassMap[(this.thySize() as keyof typeof sizeClassMap) || 'md'];
         if (classList) {
             this.hostRenderer.updateClass(classList);
         }
@@ -232,18 +227,5 @@ export class ThyEmpty implements OnInit, AfterViewInit, OnChanges {
                 this._calculatePosition();
             }, 50);
         });
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes.thyIconName && changes.thyIconName.currentValue && !changes.thyIconName.firstChange) {
-            this.setPresetSvg(changes.thyIconName.currentValue);
-        }
-    }
-
-    setPresetSvg(icon: string) {
-        this.presetSvg = '';
-        let presetSvg = icon ? PRESET_SVG[icon] : PRESET_SVG.default;
-
-        this.presetSvg = presetSvg ? this.sanitizer.bypassSecurityTrustHtml(presetSvg) : '';
     }
 }
