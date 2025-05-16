@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, input } from '@angular/core';
 
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
@@ -29,7 +29,6 @@ export class ThyLoading {
      * 加载时是否启用嵌套遮罩模式，不传或传 false，没有遮罩层，加载完成出现内容
      */
     readonly thyIsMask = input(false, { transform: coerceBooleanProperty });
-
 
     @HostBinding('class.thy-loading') loadingClassName = true;
 }
