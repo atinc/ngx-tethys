@@ -4,7 +4,12 @@
   <label thyRadioButton thyLabelText="Right" thyValue="right"></label>
 </thy-radio-group>
 
-<thy-timeline [thyMode]="mode">
+<thy-radio-group class="mb-4 ml-2" [(ngModel)]="direction" thySize="sm">
+  <label thyRadioButton thyLabelText="Horizontal" thyValue="horizontal"></label>
+  <label thyRadioButton thyLabelText="Vertical" thyValue="vertical"></label>
+</thy-radio-group>
+
+<thy-timeline [thyMode]="mode" [thyDirection]="direction">
   <thy-timeline-item
     >2012年11月 北京易成时代科技有限公司成立 by <thy-avatar [thyShowName]="true" thyName="Anytao" thySize="xs"></thy-avatar> 和
     <thy-avatar [thyShowName]="true" thyName="Terry" thySize="xs"></thy-avatar
