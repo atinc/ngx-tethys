@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
-import { InputCssPixel } from 'ngx-tethys/core';
+import { ChangeDetectionStrategy, Component, input, ViewEncapsulation, computed } from '@angular/core';
 import { ThySkeletonRectangle } from '../skeleton-rectangle.component';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
+import { coerceCssPixelValue } from '@angular/cdk/coercion';
 
 /**
  * 骨架屏列表组件
@@ -11,21 +11,19 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 @Component({
     selector: 'thy-skeleton-list',
     template: `
-        @for (k of rowCount; track $index; let i = $index) {
+        @for (k of rows(); track $index; let i = $index) {
             <thy-skeleton-rectangle
                 class="vertical-gap"
-                [thyRowWidth]="thyRowWidth"
-                [thyRowHeight]="thyRowHeight"
-                [thyAnimated]="thyAnimated"
-                [thyPrimaryColor]="thyPrimaryColor"
-                [thySecondaryColor]="thySecondaryColor"
-                [thyBorderRadius]="thyBorderRadius"
-                [thyAnimatedInterval]="thyAnimatedInterval"></thy-skeleton-rectangle>
+                [thyRowWidth]="thyRowWidth()"
+                [thyRowHeight]="thyRowHeight()"
+                [thyAnimated]="thyAnimated()"
+                [thyPrimaryColor]="thyPrimaryColor()"
+                [thySecondaryColor]="thySecondaryColor()"
+                [thyBorderRadius]="thyBorderRadius()"
+                [thyAnimatedInterval]="thyAnimatedInterval()"></thy-skeleton-rectangle>
         }
     `,
-    host: {
-        '[class.thy-skeleton-list]': 'true'
-    },
+    host: { '[class.thy-skeleton-list]': 'true' },
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     imports: [ThySkeletonRectangle]
@@ -34,56 +32,45 @@ export class ThySkeletonList {
     /**
      * 骨架宽度
      */
-    @Input()
-    @InputCssPixel()
-    thyRowWidth: string | number;
+    readonly thyRowWidth = input<string, string | number>(undefined, { transform: coerceCssPixelValue });
 
     /**
      * 骨架高度
      */
-    @Input()
-    @InputCssPixel()
-    thyRowHeight: string | number;
+    readonly thyRowHeight = input<string, string | number>(undefined, { transform: coerceCssPixelValue });
 
     /**
      * 骨架边框圆角
      */
-    @Input()
-    @InputCssPixel()
-    thyBorderRadius: string | number;
+    readonly thyBorderRadius = input<string, string | number>(undefined, { transform: coerceCssPixelValue });
 
     /**
      * 是否开启动画
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty })
-    thyAnimated: boolean;
+    readonly thyAnimated = input<boolean, ThyBooleanInput>(undefined, { transform: coerceBooleanProperty });
 
     /**
      * 动画速度
      */
-    @Input() thyAnimatedInterval: string;
+    readonly thyAnimatedInterval = input<string | number>();
 
     /**
      * 骨架主色
      */
-    @Input() thyPrimaryColor: string;
+    readonly thyPrimaryColor = input<string>();
 
     /**
      * 骨架次色
      */
-    @Input() thySecondaryColor: string;
-
-    rowCount: number[] = [];
+    readonly thySecondaryColor = input<string>();
 
     /**
      * 行数
      */
-    @Input()
-    set thyRowCount(value: number | string) {
-        this.rowCount = Array.from({ length: +value });
-    }
-    get thyRowCount() {
-        return this.rowCount.length;
-    }
+    readonly thyRowCount = input<number | string>();
+
+    readonly rows = computed(() => {
+        return Array.from({ length: +this.thyRowCount() });
+    });
 }
