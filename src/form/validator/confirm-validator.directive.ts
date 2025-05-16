@@ -1,4 +1,4 @@
-import { Directive, Input } from '@angular/core';
+import { Directive, input } from '@angular/core';
 import { AbstractControl, NG_VALIDATORS, Validator, ValidatorFn } from '@angular/forms';
 
 export function confirmValidator(value: string): ValidatorFn {
@@ -22,9 +22,9 @@ export class ThyConfirmValidatorDirective implements Validator {
     /**
      * 表单控件的校验值
      */
-    @Input() confirm: string;
+    readonly confirm = input<string>(undefined);
 
     validate(control: AbstractControl) {
-        return confirmValidator(this.confirm)(control);
+        return confirmValidator(this.confirm())(control);
     }
 }

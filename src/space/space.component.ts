@@ -1,20 +1,19 @@
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import {
     AfterContentInit,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    ContentChildren,
     DestroyRef,
     Directive,
-    HostBinding,
     inject,
-    Input,
+    input,
     OnInit,
-    QueryList,
-    TemplateRef
+    TemplateRef,
+    computed,
+    effect,
+    contentChildren
 } from '@angular/core';
 import { ThySpacingSize, getNumericSize } from 'ngx-tethys/core';
 import { NgTemplateOutlet } from '@angular/common';
@@ -25,12 +24,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
  * @name thySpaceItem
  * @order 20
  */
-@Directive({
-    selector: '[thySpaceItem]',
-    host: {
-        class: 'thy-space-item'
-    }
-})
+@Directive({ selector: '[thySpaceItem]', host: { class: 'thy-space-item' } })
 export class ThySpaceItemDirective implements OnInit {
     constructor() {}
 
@@ -49,7 +43,8 @@ const DEFAULT_SIZE: ThySpacingSize = 'md';
     templateUrl: './space.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        class: 'thy-space'
+        '[class.thy-space]': 'true',
+        '[class.thy-space-vertical]': 'thyVertical()'
     },
     imports: [NgTemplateOutlet]
 })
@@ -58,41 +53,38 @@ export class ThySpace implements OnInit, AfterContentInit {
 
     private readonly destroyRef = inject(DestroyRef);
 
-    public space: number = getNumericSize(DEFAULT_SIZE);
-
     private hostRenderer = useHostRenderer();
 
     /**
      * 大小，支持 `zero` | `xxs` | `xs` | `sm` | `md` | `lg` | `xlg` 和自定义数字大小
      * @type string | number
      */
-    @Input() set thySize(size: ThySpacingSize) {
-        this.space = getNumericSize(size, DEFAULT_SIZE);
-    }
+    readonly thySize = input<ThySpacingSize>(DEFAULT_SIZE);
+
+    space = computed(() => {
+        return getNumericSize(this.thySize(), DEFAULT_SIZE);
+    });
 
     /**
      * 间距垂直方向，默认是水平方向
      */
-    @HostBinding(`class.thy-space-vertical`)
-    @Input({ transform: coerceBooleanProperty })
-    thyVertical: boolean = false;
+    readonly thyVertical = input<string | boolean, boolean>(false, { transform: coerceBooleanProperty });
 
     // @ClassBinding(`align-items-{{value}}`)
     /**
      * 对齐方式，可选择 `start` | `end` | `baseline` | `center`
      */
-    @Input()
-    set thyAlign(align: string) {
-        this.hostRenderer.updateClass(align ? [`align-items-${align}`] : []);
-    }
+    readonly thyAlign = input<string>();
 
-    @ContentChildren(ThySpaceItemDirective, { read: TemplateRef }) items!: QueryList<TemplateRef<HTMLElement>>;
+    items = contentChildren(ThySpaceItemDirective, { read: TemplateRef<HTMLElement> });
+
+    constructor() {
+        effect(() => {
+            this.hostRenderer.updateClass(this.thyAlign() ? [`align-items-${this.thyAlign()}`] : []);
+        });
+    }
 
     ngOnInit(): void {}
 
-    ngAfterContentInit(): void {
-        this.items.changes.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
-            this.cdr.markForCheck();
-        });
-    }
+    ngAfterContentInit(): void {}
 }

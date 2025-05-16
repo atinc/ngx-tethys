@@ -53,7 +53,7 @@ export class ThyMentionDirective implements OnInit, OnDestroy {
     /**
      * 选择后的回调函数
      */
-    readonly select = output<MentionSuggestionSelectEvent>();
+    readonly thySelectSuggestion = output<MentionSuggestionSelectEvent>();
 
     get isOpened() {
         return !!this.openedSuggestionsRef;
@@ -110,7 +110,7 @@ export class ThyMentionDirective implements OnInit, OnDestroy {
                     this.elementRef.nativeElement.innerText = newValue;
                 }
                 this.openedSuggestionsRef.close();
-                this.select.emit(event);
+                this.thySelectSuggestion.emit(event);
             });
     }
 

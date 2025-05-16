@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, HostListener, Input } from '@angular/core';
+import { Component, OnInit, HostBinding, HostListener, input } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ThyRadio } from '../radio.component';
 
@@ -22,7 +22,7 @@ export class ThyRadioButton extends ThyRadio implements OnInit {
 
     name: string;
 
-    @Input() thyValue: string;
+    readonly thyValue = input<string>();
 
     set thyChecked(value: boolean) {
         this.isActive = !!value;
