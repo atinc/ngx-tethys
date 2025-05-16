@@ -26,7 +26,7 @@ import {
 } from '@angular/core';
 
 import { ThyProperties } from './properties.component';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
 
 export type ThyPropertyItemOperationTrigger = 'hover' | 'always';
 
@@ -65,7 +65,7 @@ export class ThyPropertyItem implements OnInit, OnDestroy {
      * @type sting
      * @default false
      */
-    readonly thyEditable = input<boolean, boolean | string | number>(false, { transform: coerceBooleanProperty });
+    readonly thyEditable = input<boolean, ThyBooleanInput>(false, { transform: coerceBooleanProperty });
 
     /**
      * 设置跨列的数量
