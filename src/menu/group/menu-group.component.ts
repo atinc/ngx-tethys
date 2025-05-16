@@ -5,14 +5,13 @@ import {
     ChangeDetectionStrategy,
     Component,
     ElementRef,
-    EventEmitter,
     OnInit,
-    Output,
     TemplateRef,
     contentChild,
     effect,
     inject,
     input,
+    output,
     signal,
     viewChild
 } from '@angular/core';
@@ -124,9 +123,9 @@ export class ThyMenuGroup implements OnInit {
     /**
      * Action 点击事件
      */
-    @Output() thyOnActionClick: EventEmitter<Event> = new EventEmitter<Event>();
+    readonly thyOnActionClick = output<Event>();
 
-    @Output() thyCollapsedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+    readonly thyCollapsedChange = output<boolean>();
 
     /**
      * 设置 Action 菜单
