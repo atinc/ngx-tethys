@@ -1,8 +1,8 @@
-import { ContentChildren, Directive, ElementRef, Input, QueryList, AfterContentInit, OnInit, inject } from '@angular/core';
-import { coerceArray } from 'ngx-tethys/util';
-import { mergeMap, startWith } from 'rxjs/operators';
-import { ThyDropdownDirective } from './dropdown.directive';
+import { AfterContentInit, ContentChildren, Directive, OnInit, QueryList, Signal, computed, inject, input } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
+import { coerceArray } from 'ngx-tethys/util';
+import { mergeMap, startWith } from 'rxjs';
+import { ThyDropdownDirective } from './dropdown.directive';
 
 /**
  * 跟踪 Dropdown 菜单是否被打开处于激活状态，允许指定一个或多个CSS类，以便在菜单打开状态时添加到元素中
@@ -13,10 +13,11 @@ import { useHostRenderer } from '@tethys/cdk/dom';
     selector: '[thyDropdownActive]'
 })
 export class ThyDropdownActiveDirective implements OnInit, AfterContentInit {
-    private elementRef = inject(ElementRef);
     private trigger = inject(ThyDropdownDirective, { optional: true });
 
-    classes: string[];
+    readonly classes: Signal<string[]> = computed(() => {
+        return coerceArray(this.thyDropdownActive()).filter(c => !!c);
+    });
 
     private hostRenderer = useHostRenderer();
 
@@ -24,10 +25,7 @@ export class ThyDropdownActiveDirective implements OnInit, AfterContentInit {
      * 设置 Active 样式类，可以是一个或多个CSS类
      * @type string[] | string
      */
-    @Input()
-    set thyDropdownActive(data: string[] | string) {
-        this.classes = coerceArray(data).filter(c => !!c);
-    }
+    readonly thyDropdownActive = input<string[] | string>();
 
     /**
      * @private
@@ -57,7 +55,7 @@ export class ThyDropdownActiveDirective implements OnInit, AfterContentInit {
     }
 
     update(active: boolean) {
-        this.classes.forEach(className => {
+        this.classes().forEach(className => {
             if (active) {
                 this.hostRenderer.addClass(className);
             } else {
