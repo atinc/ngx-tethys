@@ -1,22 +1,23 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ComponentType } from '@angular/cdk/portal';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     Component,
-    ContentChild,
     ElementRef,
     EventEmitter,
-    HostBinding,
-    Input,
     OnInit,
     Output,
     TemplateRef,
-    ViewChild,
-    inject
+    contentChild,
+    effect,
+    inject,
+    input,
+    signal,
+    viewChild
 } from '@angular/core';
-import { ThyPopover } from 'ngx-tethys/popover';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { NgClass, NgTemplateOutlet } from '@angular/common';
+import { ThyPopover } from 'ngx-tethys/popover';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
@@ -51,92 +52,74 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
             transition('* => *', animate('0ms ease-out'))
         ])
     ],
+    host: {
+        '[class.thy-menu-group]': 'true',
+        '[class.collapsed]': 'isCollapsed()',
+        '[class.has-icon]': 'thyShowIcon()'
+    },
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [NgClass, NgTemplateOutlet, ThyIcon]
 })
 export class ThyMenuGroup implements OnInit {
     private popover = inject(ThyPopover);
 
-    public _actionMenu: ComponentType<any> | TemplateRef<any>;
-
-    public rightIconClass = 'more';
-
-    public iconClass = 'folder-bold';
-
     public groupHeaderPaddingLeft = 0;
 
-    @ViewChild('thyMenuGroup', { static: true }) _thyMenuGroup: ElementRef;
+    readonly _thyMenuGroup = viewChild<ElementRef>('thyMenuGroup');
 
-    @ContentChild('headerContent')
-    headerContentTemplateRef: TemplateRef<any>;
+    readonly headerContentTemplateRef = contentChild<TemplateRef<any>>('headerContent');
 
-    @HostBinding('class.thy-menu-group') isThyMenuGroup = true;
-
-    @HostBinding('class.has-icon') showIcon = false;
-
-    @HostBinding('class.collapsed') isCollapsed = false;
+    readonly isCollapsed = signal(false);
 
     /**
      * 分组标题
      */
-    @Input() thyTitle = '';
+    readonly thyTitle = input<string>('');
 
     /**
      * 已废弃，请使用 thyCollapsed
      * @deprecated
      */
-    @Input({ transform: coerceBooleanProperty })
-    set thyExpand(value: boolean) {
-        this.isCollapsed = !!!value;
-    }
+    readonly thyExpand = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 是否处于收起状态
-     * @default false
      */
-    @Input({ transform: coerceBooleanProperty })
-    set thyCollapsed(value: boolean) {
-        this.isCollapsed = value;
-    }
+    readonly thyCollapsed = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 是否支持展开收起
      */
-    @Input({ transform: coerceBooleanProperty }) thyCollapsible: boolean = false;
+    readonly thyCollapsible = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 是否显示 Icon
      */
-    @Input({ transform: coerceBooleanProperty })
-    set thyShowIcon(value: boolean) {
-        this.showIcon = value;
-    }
+    readonly thyShowIcon = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 图标
      */
-    @Input('thyIcon')
-    set thyIcon(value: string) {
-        this.iconClass = value;
-    }
+    readonly thyIcon = input<string, string>('folder-bold', {
+        transform: (value: string) => value || 'folder-bold'
+    });
 
     /**
      * 操作图标
      */
-    @Input('thyActionIcon')
-    set thyActionIcon(value: string) {
-        this.rightIconClass = value;
-    }
+    readonly thyActionIcon = input<string, string>('more', {
+        transform: (value: string) => value || 'more'
+    });
 
     /**
      *是否显示操作
      */
-    @Input({ transform: coerceBooleanProperty }) thyShowAction = false;
+    readonly thyShowAction = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 操作阻止冒泡事件
      */
-    @Input({ transform: coerceBooleanProperty }) thyActionStopPropagation = true;
+    readonly thyActionStopPropagation = input(true, { transform: coerceBooleanProperty });
 
     /**
      * Action 点击事件
@@ -148,27 +131,30 @@ export class ThyMenuGroup implements OnInit {
     /**
      * 设置 Action 菜单
      */
-    @Input()
-    set thyActionMenu(value: ComponentType<any> | TemplateRef<any>) {
-        this._actionMenu = value;
+    readonly thyActionMenu = input<ComponentType<any> | TemplateRef<any>>();
+
+    constructor() {
+        effect(() => {
+            this.isCollapsed.set(this.thyCollapsed() || this.thyExpand());
+        });
     }
 
     ngOnInit(): void {}
 
     collapseGroup(): void {
-        if (!this.thyCollapsible) {
+        if (!this.thyCollapsible()) {
             return;
         }
-        this.isCollapsed = !this.isCollapsed;
-        this.thyCollapsedChange.emit(this.isCollapsed);
+        this.isCollapsed.update(value => !value);
+        this.thyCollapsedChange.emit(this.isCollapsed());
     }
 
     onActionClick(event: Event): void {
-        if (this.thyActionStopPropagation) {
+        if (this.thyActionStopPropagation()) {
             event.stopPropagation();
         }
-        if (this._actionMenu) {
-            this.popover.open(this._actionMenu, {
+        if (this.thyActionMenu()) {
+            this.popover.open(this.thyActionMenu(), {
                 origin: event.currentTarget as HTMLElement,
                 insideClosable: true,
                 placement: 'bottom'
