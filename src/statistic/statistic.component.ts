@@ -127,19 +127,19 @@ export class ThyStatistic {
      */
     readonly contentSuffixTemplate = contentChild<TemplateRef<void>>('suffix');
 
-    valueTemplate = computed(() => {
+    readonly valueTemplate = computed(() => {
         return this.thyValueTemplate() || this.contentValueTemplate();
     });
 
-    titleTemplate = computed(() => {
+    readonly titleTemplate = computed(() => {
         return this.thyTitleTemplate() || this.contentTitleTemplate();
     });
 
-    prefixTemplate = computed(() => {
+    readonly prefixTemplate = computed(() => {
         return this.thyPrefixTemplate() || this.contentPrefixTemplate();
     });
 
-    suffixTemplate = computed(() => {
+    readonly suffixTemplate = computed(() => {
         return this.thySuffixTemplate() || this.contentSuffixTemplate();
     });
 
