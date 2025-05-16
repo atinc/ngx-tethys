@@ -5,6 +5,14 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 
 export type ThyRowJustify = 'start' | 'end' | 'center' | 'space-around' | 'space-between';
 export type ThyRowAlign = 'top' | 'middle' | 'bottom';
+export interface ThyGutterType {
+    xs?: number;
+    sm?: number;
+    md?: number;
+    lg?: number;
+    xl?: number;
+    xxl?: number;
+}
 
 /**
  * 栅格行指令
@@ -17,21 +25,11 @@ export type ThyRowAlign = 'top' | 'middle' | 'bottom';
         class: 'thy-row'
     }
 })
-export class ThyRowDirective implements OnInit, OnChanges, AfterViewInit {
+export class ThyRowDirective implements OnInit, OnChanges {
     /**
      * 栅格的间距
      */
-    readonly thyGutter = input<
-        | {
-              xs?: number;
-              sm?: number;
-              md?: number;
-              lg?: number;
-              xl?: number;
-              xxl?: number;
-          }
-        | number
-    >(undefined);
+    readonly thyGutter = input<ThyGutterType | number>(undefined);
 
     public actualGutter$ = new ReplaySubject<[number, number]>(1);
 
@@ -46,8 +44,6 @@ export class ThyRowDirective implements OnInit, OnChanges, AfterViewInit {
     ngOnChanges() {
         this.setGutterStyle();
     }
-
-    ngAfterViewInit(): void {}
 
     private setGutterStyle() {
         const [horizontalGutter, verticalGutter] = this.getGutter();

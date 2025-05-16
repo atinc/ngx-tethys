@@ -1,4 +1,4 @@
-import { Directive, AfterViewInit, inject, input, computed, effect } from '@angular/core';
+import { Directive, inject, input, computed, effect, afterNextRender } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyRowDirective } from './thy-row.directive';
@@ -24,7 +24,7 @@ export type ThySpan = number | null | 'auto';
         class: 'thy-col'
     }
 })
-export class ThyColDirective implements AfterViewInit {
+export class ThyColDirective {
     thyRowDirective = inject(ThyRowDirective, { optional: true, host: true })!;
 
     /**
@@ -50,24 +50,24 @@ export class ThyColDirective implements AfterViewInit {
         effect(() => {
             this.updateHostClass();
         });
-    }
 
-    ngAfterViewInit(): void {
-        if (this.thyRowDirective) {
-            this.thyRowDirective.actualGutter$.pipe(this.takeUntilDestroyed).subscribe(([horizontalGutter, verticalGutter]) => {
-                const renderGutter = (name: string, gutter: number) => {
-                    this.hostRenderer.setStyle(name, `${gutter / 2}px`);
-                };
-                if (horizontalGutter > 0) {
-                    renderGutter('padding-left', horizontalGutter);
-                    renderGutter('padding-right', horizontalGutter);
-                }
-                if (verticalGutter > 0) {
-                    renderGutter('padding-top', verticalGutter);
-                    renderGutter('padding-bottom', verticalGutter);
-                }
-            });
-        }
+        afterNextRender(() => {
+            if (this.thyRowDirective) {
+                this.thyRowDirective.actualGutter$.pipe(this.takeUntilDestroyed).subscribe(([horizontalGutter, verticalGutter]) => {
+                    const renderGutter = (name: string, gutter: number) => {
+                        this.hostRenderer.setStyle(name, `${gutter / 2}px`);
+                    };
+                    if (horizontalGutter > 0) {
+                        renderGutter('padding-left', horizontalGutter);
+                        renderGutter('padding-right', horizontalGutter);
+                    }
+                    if (verticalGutter > 0) {
+                        renderGutter('padding-top', verticalGutter);
+                        renderGutter('padding-bottom', verticalGutter);
+                    }
+                });
+            }
+        });
     }
 
     private updateHostClass() {

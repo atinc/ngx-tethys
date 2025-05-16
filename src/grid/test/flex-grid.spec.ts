@@ -82,7 +82,6 @@ describe('flex-grid', () => {
     });
 
     it('should set span success', () => {
-        debugger;
         component.span = 8;
         fixture.detectChanges();
 

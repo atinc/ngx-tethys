@@ -228,7 +228,6 @@ describe('grid', () => {
             it('should hidden the grid item when thySpan is 0', () => {
                 testComponent.span = 0;
                 fixture.detectChanges();
-                gridInstance.ngAfterContentInit();
 
                 const gridItem = gridDebugElement.queryAll(By.directive(ThyGridItem))[0];
                 const gridItemElement = gridItem.nativeElement;
@@ -238,7 +237,6 @@ describe('grid', () => {
             it('should support thySpan is number', () => {
                 testComponent.span2 = 2;
                 fixture.detectChanges();
-                gridInstance.ngAfterContentInit();
 
                 const gridItem = gridDebugElement.queryAll(By.directive(ThyGridItem))[1];
                 const gridItemElement = gridItem.nativeElement;
@@ -251,7 +249,6 @@ describe('grid', () => {
                 testComponent.span = '0 sm:2 md:3 lg:4 xl:5';
                 fixture.detectChanges();
                 gridInstance.ngOnInit();
-                gridInstance.ngAfterContentInit();
 
                 const gridItem = gridDebugElement.queryAll(By.directive(ThyGridItem))[0];
                 const gridItemElement = gridItem.nativeElement;
@@ -287,13 +284,11 @@ describe('grid', () => {
 
                 testComponent.offset2 = 1;
                 fixture.detectChanges();
-                gridInstance.ngAfterContentInit();
                 expect(gridItemElement.style.gridColumn).toContain('span 2');
                 // expect(gridItemElement.style.marginLeft).toBe('calc(((100% - 0px) / 2 + 0px) * 1)');
 
                 testComponent.offset2 = 2;
                 fixture.detectChanges();
-                gridInstance.ngAfterContentInit();
                 expect(gridItemElement.style.gridColumn).toContain('span 3');
                 // expect(gridItemElement.style.marginLeft).toBe('calc(((100% - 0px) / 3 + 0px) * 2)');
 
@@ -301,7 +296,6 @@ describe('grid', () => {
                 testComponent.gap = 8;
                 fixture.detectChanges();
                 gridInstance.ngOnInit();
-                gridInstance.ngAfterContentInit();
                 expect(gridItemElement.style.gridColumn).toContain('span 4');
                 // expect(gridItemElement.style.marginLeft).toBe('calc(((100% - 24px) / 4 + 8px) * 2)');
             });
@@ -312,7 +306,6 @@ describe('grid', () => {
 
                 testComponent.offset = '2';
                 fixture.detectChanges();
-                gridInstance.ngAfterContentInit();
                 expect(gridItemElement.style.gridColumn).toContain('span 3');
                 // expect(gridItemElement.style.marginLeft).toBe('calc(((100% - 0px) / 3 + 0px) * 2)');
             });
@@ -323,7 +316,6 @@ describe('grid', () => {
                 testComponent.offset = '3 md:2 lg:1';
                 fixture.detectChanges();
                 gridInstance.ngOnInit();
-                gridInstance.ngAfterContentInit();
 
                 const gridItem = gridDebugElement.queryAll(By.directive(ThyGridItem))[0];
                 const gridItemElement = gridItem.nativeElement;

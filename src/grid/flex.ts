@@ -61,7 +61,7 @@ export class ThyFlex {
      */
     readonly thyGap = input<number>();
 
-    direction = computed(() => {
+    protected readonly direction = computed(() => {
         return this.thyDirection() || 'row';
     });
 
@@ -73,17 +73,24 @@ export class ThyFlex {
 
     private updateClasses() {
         const classes: string[] = [];
-        if (!isUndefinedOrNull(this.thyJustifyContent())) {
-            classes.push(`justify-content-${normalizeStartEnd(this.thyJustifyContent())}`);
+        const justifyContent = this.thyJustifyContent();
+        if (!isUndefinedOrNull(justifyContent)) {
+            classes.push(`justify-content-${normalizeStartEnd(justifyContent)}`);
         }
-        if (!isUndefinedOrNull(this.thyAlignItems())) {
-            classes.push(`align-items-${normalizeStartEnd(this.thyAlignItems())}`);
+
+        const alignItems = this.thyAlignItems();
+        if (!isUndefinedOrNull(alignItems)) {
+            classes.push(`align-items-${normalizeStartEnd(alignItems)}`);
         }
-        if (!isUndefinedOrNull(this.thyWrap())) {
-            classes.push(`flex-${this.thyWrap()}`);
+
+        const wrap = this.thyWrap();
+        if (!isUndefinedOrNull(wrap)) {
+            classes.push(`flex-${wrap}`);
         }
-        if (!isUndefinedOrNull(this.direction())) {
-            classes.push(`flex-${this.direction()}`);
+
+        const direction = this.direction();
+        if (!isUndefinedOrNull(direction)) {
+            classes.push(`flex-${direction}`);
         }
         this.hostRenderer.updateClass(classes);
         this.hostRenderer.setStyle('gap', `${this.thyGap() ?? '0'}px`);
@@ -151,24 +158,28 @@ export class ThyFlexItem {
     }
 
     private updateClasses() {
+        const flexItem = this.thyFlexItem();
         const classes: string[] = [];
         this.hostRenderer.setStyle('flex', '');
         this.hostRenderer.setStyle('basis', '');
-        if (this.thyFlexItem()) {
-            if (this.thyFlexItem() === 'fill') {
-                classes.push(`flex-${this.thyFlexItem()}`);
+        if (flexItem) {
+            if (flexItem === 'fill') {
+                classes.push(`flex-${flexItem}`);
             } else {
-                this.hostRenderer.setStyle('flex', this.thyFlexItem());
+                this.hostRenderer.setStyle('flex', flexItem);
             }
         }
-        if (!isUndefinedOrNull(this.thyGrow())) {
-            classes.push(`flex-grow-${this.thyGrow()}`);
+        const grow = this.thyGrow();
+        if (!isUndefinedOrNull(grow)) {
+            classes.push(`flex-grow-${grow}`);
         }
-        if (!isUndefinedOrNull(this.thyShrink())) {
-            classes.push(`flex-shrink-${this.thyShrink()}`);
+        const shrink = this.thyShrink();
+        if (!isUndefinedOrNull(shrink)) {
+            classes.push(`flex-shrink-${shrink}`);
         }
-        if (!isUndefinedOrNull(this.thyBasis())) {
-            this.hostRenderer.setStyle('flex-basis', this.thyBasis());
+        const basis = this.thyBasis();
+        if (!isUndefinedOrNull(basis)) {
+            this.hostRenderer.setStyle('flex-basis', basis);
         }
         this.hostRenderer.updateClass(classes);
     }

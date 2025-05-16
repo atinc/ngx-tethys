@@ -46,7 +46,7 @@ import {
     }
 })
 // eslint-disable-next-line @angular-eslint/directive-class-suffix
-export class ThyGrid implements ThyGridToken, OnInit, AfterContentInit {
+export class ThyGrid implements ThyGridToken, OnInit {
     private elementRef = inject(ElementRef);
     private viewportRuler = inject(ViewportRuler);
     private ngZone = inject(NgZone);
@@ -115,20 +115,17 @@ export class ThyGrid implements ThyGridToken, OnInit, AfterContentInit {
         }
     }
 
-    ngAfterContentInit(): void {
-        this.handleGridItems();
-    }
-
     private setGridStyle() {
         this.cols = this.calculateActualValue(this.thyCols() || THY_GRID_DEFAULT_COLUMNS, THY_GRID_DEFAULT_COLUMNS);
-        const thyXGap = this.thyXGap();
-        const thyYGap = this.thyYGap();
-        if (!thyXGap && !thyYGap) {
-            this.xGap = this.calculateActualValue(this.thyGap() || 0);
+        const xGap = this.thyXGap();
+        const yGap = this.thyYGap();
+        const gap = this.thyGap();
+        if (!xGap && !yGap) {
+            this.xGap = this.calculateActualValue(gap || 0);
             this.yGap = this.xGap;
         } else {
-            this.xGap = this.calculateActualValue(thyXGap || this.thyGap());
-            this.yGap = this.calculateActualValue(thyYGap || this.thyGap());
+            this.xGap = this.calculateActualValue(xGap || gap);
+            this.yGap = this.calculateActualValue(yGap || gap);
         }
 
         this.hostRenderer.setStyle('display', 'grid');
