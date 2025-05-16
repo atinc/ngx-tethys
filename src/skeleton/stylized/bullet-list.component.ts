@@ -45,55 +45,55 @@ export class ThySkeletonBulletList {
      * 骨架宽度
      * @default 100%
      */
-    thyRowWidth = input<string | number, string>(undefined, { transform: coerceCssPixelValue });
+    readonly thyRowWidth = input<string, string | number>(undefined, { transform: coerceCssPixelValue });
 
     /**
      * 骨架高度
      * @default 20px
      */
-    thyRowHeight = input<string | number, string>(undefined, { transform: coerceCssPixelValue });
+    readonly thyRowHeight = input<string, string | number>(undefined, { transform: coerceCssPixelValue });
 
     /**
      * 骨架边框圆角
      * @default 4px
      */
-    thyBorderRadius = input<string | number, string>(undefined, { transform: coerceCssPixelValue });
+    readonly thyBorderRadius = input<string, string | number>(undefined, { transform: coerceCssPixelValue });
 
     /**
      * 是否开启动画
      * @default true
      */
-    thyAnimated = input<string | boolean, boolean>(undefined, { transform: coerceBooleanProperty });
+    readonly thyAnimated = input<boolean, string | boolean>(undefined, { transform: coerceBooleanProperty });
 
     /**
      * 动画速度
      * @default 1.5s
      */
-    thyAnimatedInterval = input<string | number>();
+    readonly thyAnimatedInterval = input<string | number>();
 
     /**
      * 骨架主色
      * @default #f7f7f7
      */
-    thyPrimaryColor = input<string>();
+    readonly thyPrimaryColor = input<string>();
 
     /**
      * 骨架次色
      * @default #aaaaaa
      */
-    thySecondaryColor = input<string>();
+    readonly thySecondaryColor = input<string>();
 
     /**
      * circle类型骨架尺寸
      */
-    thySize = input<string | number, string>(undefined, { transform: coerceCssPixelValue });
+    readonly thySize = input<string, string | number>(undefined, { transform: coerceCssPixelValue });
 
     /**
      * 行数
      */
-    thyRowCount = input<number | string>();
+    readonly thyRowCount = input<number | string>();
 
-    rows = computed(() => {
+    readonly rows = computed(() => {
         return Array.from({ length: +this.thyRowCount() });
     });
 

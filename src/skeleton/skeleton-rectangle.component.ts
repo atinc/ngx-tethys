@@ -34,57 +34,57 @@ export class ThySkeletonRectangle {
      * 是否展示动画
      * @default true
      */
-    thyAnimated = input<string | boolean, boolean>(true, { transform: coerceBooleanProperty });
+    readonly thyAnimated = input<boolean, string | boolean>(undefined, { transform: coerceBooleanProperty });
 
     /**
      * 动画速度
      * @default 1.5s
      */
-    thyAnimatedInterval = input<string | number>();
+    readonly thyAnimatedInterval = input<string | number>();
 
     /**
      * 骨架边框圆角
      * @default 4px
      */
-    thyBorderRadius = input<string | number, string>(4, { transform: coerceCssPixelValue });
+    readonly thyBorderRadius = input<string, string | number>(undefined, { transform: coerceCssPixelValue });
 
     /**
      * 骨架宽度
      * @default 100%
      */
-    thyRowWidth = input<string | number, string>(100, { transform: coerceCssPixelValue });
+    readonly thyRowWidth = input<string, string | number>(undefined, { transform: coerceCssPixelValue });
 
     /**
      * 骨架高度
      * @default 20px
      */
-    thyRowHeight = input<string | number, string>(undefined, { transform: coerceCssPixelValue });
+    readonly thyRowHeight = input<string, string | number>(undefined, { transform: coerceCssPixelValue });
 
     /**
      * 骨架主色
      * @default #F7F7F7
      */
-    thyPrimaryColor = input<string>();
+    readonly thyPrimaryColor = input<string>();
 
     /**
      * 骨架次色
      * @default #aaaaaa
      */
-    thySecondaryColor = input<string>();
+    readonly thySecondaryColor = input<string>();
 
-    animatedInterval = computed(() => {
+    readonly animatedInterval = computed(() => {
         return this.thyAnimatedInterval() || this.parent?.thyAnimatedInterval() || this.skeletonConfigModel.thyAnimatedInterval;
     });
 
-    primaryColor = computed(() => {
+    readonly primaryColor = computed(() => {
         return this.thyPrimaryColor() || this.parent?.thyPrimaryColor() || this.skeletonConfigModel.thyPrimaryColor;
     });
 
-    secondaryColor = computed(() => {
+    readonly secondaryColor = computed(() => {
         return this.thySecondaryColor() || this.parent?.thySecondaryColor() || this.skeletonConfigModel.thySecondaryColor;
     });
 
-    animated = computed(() => {
+    readonly animated = computed(() => {
         if (!isUndefinedOrNull(this.thyAnimated())) {
             return this.thyAnimated();
         }
@@ -94,7 +94,7 @@ export class ThySkeletonRectangle {
         return this.skeletonConfigModel.thyAnimated;
     });
 
-    afterStyles = computed(() => {
+    readonly afterStyles = computed(() => {
         return {
             ...(this.secondaryColor() && {
                 background: `linear-gradient(90deg, ${helpers.hexToRgb(this.secondaryColor(), 0)}, ${helpers.hexToRgb(

@@ -17,20 +17,20 @@ export class ThySkeleton {
      * 是否开启动画
      * @default false
      */
-    thyAnimated = input<string | boolean, boolean>(false, { transform: coerceBooleanProperty });
+    readonly thyAnimated = input<boolean, string | boolean>(undefined, { transform: coerceBooleanProperty });
 
     /**
      * 动画速度
      */
-    thyAnimatedInterval = input<string | number>();
+    readonly thyAnimatedInterval = input<string | number>();
 
     /**
      * 骨架主色调
      */
-    thyPrimaryColor = input<string>();
+    readonly thyPrimaryColor = input<string>();
 
     /**
      * 骨架次色调
      */
-    thySecondaryColor = input<string>();
+    readonly thySecondaryColor = input<string>();
 }

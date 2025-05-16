@@ -32,46 +32,45 @@ export class ThySkeletonList {
     /**
      * 骨架宽度
      */
-
-    thyRowWidth = input<string | number, string>(undefined, { transform: coerceCssPixelValue });
+    readonly thyRowWidth = input<string, string | number>(undefined, { transform: coerceCssPixelValue });
 
     /**
      * 骨架高度
      */
-    thyRowHeight = input<string | number, string>(undefined, { transform: coerceCssPixelValue });
+    readonly thyRowHeight = input<string, string | number>(undefined, { transform: coerceCssPixelValue });
 
     /**
      * 骨架边框圆角
      */
-    thyBorderRadius = input<string | number, string>(undefined, { transform: coerceCssPixelValue });
+    readonly thyBorderRadius = input<string, string | number>(undefined, { transform: coerceCssPixelValue });
 
     /**
      * 是否开启动画
      * @default false
      */
-    thyAnimated = input<string | boolean, boolean>(undefined, { transform: coerceBooleanProperty });
+    readonly thyAnimated = input<boolean, string | boolean>(undefined, { transform: coerceBooleanProperty });
 
     /**
      * 动画速度
      */
-    thyAnimatedInterval = input<string | number>();
+    readonly thyAnimatedInterval = input<string | number>();
 
     /**
      * 骨架主色
      */
-    thyPrimaryColor = input<string>();
+    readonly thyPrimaryColor = input<string>();
 
     /**
      * 骨架次色
      */
-    thySecondaryColor = input<string>();
+    readonly thySecondaryColor = input<string>();
 
     /**
      * 行数
      */
-    thyRowCount = input<number | string>();
+    readonly thyRowCount = input<number | string>();
 
-    rows = computed(() => {
+    readonly rows = computed(() => {
         return Array.from({ length: +this.thyRowCount() });
     });
 }

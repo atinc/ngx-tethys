@@ -34,45 +34,45 @@ export class ThySkeletonCircle {
      * 动画速度
      * @default 1.5s
      */
-    thyAnimatedInterval = input<string | number>();
+    readonly thyAnimatedInterval = input<string | number>();
 
     /**
      * 骨架尺寸
      * @default 20px
      */
-    thySize = input<string | number, string>(20, { transform: coerceCssPixelValue });
+    readonly thySize = input<string, string | number>(`20px`, { transform: coerceCssPixelValue });
 
     /**
      * 骨架主色
      * @default #F7F7F7
      */
-    thyPrimaryColor = input<string>();
+    readonly thyPrimaryColor = input<string>();
 
     /**
      * 骨架次色
      * @default #aaaaaa
      */
-    thySecondaryColor = input<string>();
+    readonly thySecondaryColor = input<string>();
 
     /**
      * 是否展示动画
      * @default true
      */
-    thyAnimated = input<string | boolean, boolean>(true, { transform: coerceBooleanProperty });
+    readonly thyAnimated = input< boolean, string | boolean>(undefined, { transform: coerceBooleanProperty });
 
-    animatedInterval = computed(() => {
+    readonly animatedInterval = computed(() => {
         return this.thyAnimatedInterval() || this.parent?.thyAnimatedInterval() || this.skeletonConfigModel.thyAnimatedInterval;
     });
 
-    primaryColor = computed(() => {
+    readonly primaryColor = computed(() => {
         return this.thyPrimaryColor() || this.parent?.thyPrimaryColor() || this.skeletonConfigModel.thyPrimaryColor;
     });
 
-    secondaryColor = computed(() => {
+    readonly secondaryColor = computed(() => {
         return this.thySecondaryColor() || this.parent?.thySecondaryColor() || this.skeletonConfigModel.thySecondaryColor;
     });
 
-    animated = computed(() => {
+    readonly animated = computed(() => {
         if (!isUndefinedOrNull(this.thyAnimated())) {
             return this.thyAnimated();
         }
@@ -82,7 +82,7 @@ export class ThySkeletonCircle {
         return this.skeletonConfigModel.thyAnimated;
     });
 
-    afterStyles = computed(() => {
+    readonly afterStyles = computed(() => {
         return {
             ...(this.secondaryColor() && {
                 background: `linear-gradient(90deg, ${helpers.hexToRgb(this.secondaryColor(), 0)}, ${helpers.hexToRgb(
