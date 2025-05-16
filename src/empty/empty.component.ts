@@ -1,7 +1,8 @@
 import {
     AfterViewInit,
     Component,
-    ContentChild,
+    computed,
+    contentChild,
     effect,
     ElementRef,
     inject,
@@ -143,28 +144,21 @@ export class ThyEmpty implements OnInit, AfterViewInit {
      */
     readonly thyDescription = input<string>();
 
-    private _initialized = false;
-
     private hostRenderer = useHostRenderer();
-
-    presetSvg: SafeAny;
 
     /**
      * 除提示图片，文本外的其他信息传入模板
      * @type TemplateRef
      */
-    @ContentChild('extra') extraTemplateRef: TemplateRef<any>;
+    readonly extraTemplateRef = contentChild<TemplateRef<SafeAny>>('extra');
 
-    constructor() {
-        effect(() => {
-            const icon = this.thyIconName();
-            if (icon) {
-                this.setPresetSvg(icon);
-            }
-        });
-    }
+    presetSvg = computed(() => {
+        let presetSvg = this.thyIconName() ? PRESET_SVG[this.thyIconName() as keyof typeof PRESET_SVG] : PRESET_SVG.default;
 
-    get displayText() {
+        return presetSvg ? this.sanitizer.bypassSecurityTrustHtml(presetSvg) : '';
+    });
+
+    displayText = computed(() => {
         if (this.thyMessage()) {
             return this.thyMessage();
         } else if (this.thyTranslationKey()) {
@@ -182,7 +176,17 @@ export class ThyEmpty implements OnInit, AfterViewInit {
         } else {
             return this.locale().noDataText;
         }
+    });
+
+    constructor() {
+        effect(() => {
+            const classList = sizeClassMap[(this.thySize() as keyof typeof sizeClassMap) || 'md'];
+            if (classList) {
+                this.hostRenderer.updateClass(classList);
+            }
+        });
     }
+
     private _calculatePosition() {
         const sizeOptions = sizeMap[(this.thySize() as keyof typeof sizeMap) || 'md'];
         let marginTop = null;
@@ -214,18 +218,7 @@ export class ThyEmpty implements OnInit, AfterViewInit {
         }
     }
 
-    ngOnInit() {
-        this.updateClass();
-        this._initialized = true;
-        this.setPresetSvg(this.thyIconName());
-    }
-
-    updateClass() {
-        const classList = sizeClassMap[(this.thySize() as keyof typeof sizeClassMap) || 'md'];
-        if (classList) {
-            this.hostRenderer.updateClass(classList);
-        }
-    }
+    ngOnInit() {}
 
     ngAfterViewInit() {
         this.ngZone.runOutsideAngular(() => {
@@ -233,12 +226,5 @@ export class ThyEmpty implements OnInit, AfterViewInit {
                 this._calculatePosition();
             }, 50);
         });
-    }
-
-    setPresetSvg(icon: string) {
-        this.presetSvg = '';
-        let presetSvg = icon ? PRESET_SVG[icon as keyof typeof PRESET_SVG] : PRESET_SVG.default;
-
-        this.presetSvg = presetSvg ? this.sanitizer.bypassSecurityTrustHtml(presetSvg) : '';
     }
 }

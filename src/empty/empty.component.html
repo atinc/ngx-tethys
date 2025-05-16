@@ -7,8 +7,8 @@
       class="empty-img"
       />
   } @else {
-    @if (presetSvg) {
-      <div [innerHTML]="presetSvg"></div>
+    @if (presetSvg()) {
+      <div [innerHTML]="presetSvg()"></div>
     } @else {
       @if (thyIconName()) {
         <thy-icon class="empty-icon" [thyIconName]="thyIconName()"></thy-icon>
@@ -18,7 +18,7 @@
 </div>
 
 <div [ngClass]="{ 'thy-empty-text': !thyDescription(), 'thy-empty-text-with-extra': thyDescription() }">
-  {{ displayText }}
+  {{ displayText() }}
 </div>
 
 @if (thyDescription()) {
@@ -27,8 +27,8 @@
   </div>
 }
 
-@if (extraTemplateRef) {
+@if (extraTemplateRef()) {
   <div class="thy-empty-extra">
-    <ng-template [ngTemplateOutlet]="extraTemplateRef"></ng-template>
+    <ng-template [ngTemplateOutlet]="extraTemplateRef()"></ng-template>
   </div>
 }
