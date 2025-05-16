@@ -6,23 +6,23 @@ import { delay, filter, take, takeUntil } from 'rxjs/operators';
 import { OverlayOutsideClickDispatcher, OverlayRef } from '@angular/cdk/overlay';
 import { NgTemplateOutlet } from '@angular/common';
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  NgZone,
-  numberAttribute,
-  OnDestroy,
-  OnInit,
-  SimpleChanges,
-  TemplateRef,
-  inject,
-  input,
-  computed,
-  effect,
-  output,
-  contentChild,
-  viewChild
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    NgZone,
+    numberAttribute,
+    OnDestroy,
+    OnInit,
+    SimpleChanges,
+    TemplateRef,
+    inject,
+    input,
+    computed,
+    effect,
+    output,
+    contentChild,
+    viewChild
 } from '@angular/core';
 
 import { ThyProperties } from './properties.component';
