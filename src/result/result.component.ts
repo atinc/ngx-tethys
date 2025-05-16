@@ -62,7 +62,7 @@ export class ThyResult implements OnInit {
      * @description 自定义操作区域
      * @type TemplateRef<any>
      */
-    protected readonly extraTemplateRef = contentChild<TemplateRef<any>>('extra');
+    protected readonly extraTemplateRef = contentChild<TemplateRef<any>>('thyExtra');
 
     constructor() {}
 

@@ -1,6 +1,6 @@
 <div class="result-icon">
-  @if (iconTemplateRef) {
-    <ng-template [ngTemplateOutlet]="iconTemplateRef"></ng-template>
+  @if (iconTemplateRef()) {
+    <ng-template [ngTemplateOutlet]="iconTemplateRef()"></ng-template>
   } @else {
     @if (thyIcon()) {
       <img [src]="thyIcon()" />
@@ -2056,14 +2056,14 @@
 </div>
 <div class="thy-result-title">
   {{ thyTitle() }}
-  <ng-template [ngTemplateOutlet]="titleTemplateRef"></ng-template>
+  <ng-template [ngTemplateOutlet]="titleTemplateRef()"></ng-template>
 </div>
 <div class="thy-result-subtitle">
   {{ thySubtitle() }}
-  <ng-template [ngTemplateOutlet]="subtitleTemplateRef"></ng-template>
+  <ng-template [ngTemplateOutlet]="subtitleTemplateRef()"></ng-template>
 </div>
-@if (extraTemplateRef) {
+@if (extraTemplateRef()) {
   <div class="thy-result-extra">
-    <ng-template [ngTemplateOutlet]="extraTemplateRef"></ng-template>
+    <ng-template [ngTemplateOutlet]="extraTemplateRef()"></ng-template>
   </div>
 }
