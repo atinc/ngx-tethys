@@ -2,11 +2,11 @@
   @if (iconTemplateRef) {
     <ng-template [ngTemplateOutlet]="iconTemplateRef"></ng-template>
   } @else {
-    @if (thyIcon) {
-      <img [src]="thyIcon" />
+    @if (thyIcon()()) {
+      <img [src]="thyIcon()()" />
     } @else {
       <ng-container>
-        @if (thyStatus === 'success') {
+        @if (thyStatus()() === 'success') {
           <svg
             class="thy-result-svg-success"
             width="403px"
@@ -522,7 +522,7 @@
             </g>
           </svg>
         }
-        @if (thyStatus === 'error') {
+        @if (thyStatus()() === 'error') {
           <svg
             class="thy-result-svg-error"
             width="403px"
@@ -1062,7 +1062,7 @@
             </g>
           </svg>
         }
-        @if (thyStatus === 'warning') {
+        @if (thyStatus()() === 'warning') {
           <svg
             class="thy-result-svg-warning"
             width="411px"
@@ -2055,11 +2055,11 @@
   }
 </div>
 <div class="thy-result-title">
-  {{ thyTitle }}
+  {{ thyTitle()() }}
   <ng-template [ngTemplateOutlet]="titleTemplateRef"></ng-template>
 </div>
 <div class="thy-result-subtitle">
-  {{ thySubtitle }}
+  {{ thySubtitle()() }}
   <ng-template [ngTemplateOutlet]="subtitleTemplateRef"></ng-template>
 </div>
 @if (extraTemplateRef) {
