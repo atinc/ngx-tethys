@@ -1,17 +1,6 @@
 import { isThemeColor, ThyThemeColor } from 'ngx-tethys/core';
 
-import {
-    ChangeDetectionStrategy,
-    Component,
-    ElementRef,
-    Renderer2,
-    Signal,
-    ViewEncapsulation,
-    computed,
-    effect,
-    inject,
-    input
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Renderer2, ViewEncapsulation, effect, inject, input } from '@angular/core';
 
 export type ThyColorType = ThyThemeColor | string;
 export type ThySizeType = 'xs' | 'sm' | 'md' | 'lg' | 'xlg';
@@ -37,15 +26,15 @@ export const DEFAULT_SHAPE_NAME = 'circle';
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-dot',
-        '[class.dot-theme-fill]': 'theme() === "fill"',
-        '[class.dot-theme-outline]': 'theme() === "outline"',
-        '[class.dot-shape-square]': 'shape() === "square"',
-        '[class.dot-shape-circle]': 'shape() === "circle"',
-        '[class.dot-size-md]': 'size() === "md"',
-        '[class.dot-size-sm]': 'size() === "sm"',
-        '[class.dot-size-xs]': 'size() === "xs"',
-        '[class.dot-size-lg]': 'size() === "lg"',
-        '[class.dot-size-xlg]': 'size() === "xlg"'
+        '[class.dot-theme-fill]': 'thyTheme() === "fill"',
+        '[class.dot-theme-outline]': 'thyTheme() === "outline"',
+        '[class.dot-shape-square]': 'thyShape() === "square"',
+        '[class.dot-shape-circle]': 'thyShape() === "circle"',
+        '[class.dot-size-md]': 'thySize() === "md"',
+        '[class.dot-size-sm]': 'thySize() === "sm"',
+        '[class.dot-size-xs]': 'thySize() === "xs"',
+        '[class.dot-size-lg]': 'thySize() === "lg"',
+        '[class.dot-size-xlg]': 'thySize() === "xlg"'
     }
 })
 export class ThyDot {
@@ -65,7 +54,9 @@ export class ThyDot {
      * 颜色，可选值为：`primary` `success` `info` `warning` `danger` `default` `light`和自定义颜色，如`#2cccda` `red`  `rgb(153, 153, 153)`
      * @type ThyThemeColor | string
      */
-    readonly thyColor = input<ThyColorType>(DEFAULT_COLOR_NAME);
+    readonly thyColor = input<ThyColorType, ThyColorType>(DEFAULT_COLOR_NAME, {
+        transform: (value: ThyColorType) => value || DEFAULT_COLOR_NAME
+    });
 
     /**
      * 大小
@@ -96,12 +87,11 @@ export class ThyDot {
             .filter(it => /^dot-color-[\w]+$/.test(it))
             .forEach(it => this.renderer.removeClass(this.nativeElement, it));
 
-        const color = this.thyColor() || DEFAULT_COLOR_NAME;
-        if (isThemeColor(color)) {
+        if (isThemeColor(this.thyColor())) {
             this.renderer.setStyle(this.nativeElement, 'borderColor', 'none');
-            this.renderer.addClass(this.nativeElement, `dot-color-${color}`);
+            this.renderer.addClass(this.nativeElement, `dot-color-${this.thyColor()}`);
         } else {
-            this.renderer.setStyle(this.nativeElement, 'borderColor', color);
+            this.renderer.setStyle(this.nativeElement, 'borderColor', this.thyColor());
         }
     }
 }
