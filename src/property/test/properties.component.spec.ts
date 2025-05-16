@@ -252,23 +252,23 @@ describe(`thy-properties`, () => {
             overlayRef.attach(new DomPortal(basicComponent.elementRef.nativeElement));
             basicComponent.sexPropertyItemComponent().itemContent().nativeElement.click();
             fixture.detectChanges();
-            expect(basicComponent.sexPropertyItemComponent().editing).toBeTruthy();
+            expect(basicComponent.sexPropertyItemComponent().editing()).toBeTruthy();
             tick(50);
             fixture.detectChanges();
             overlayRef.detach();
             tick(50);
-            expect(basicComponent.sexPropertyItemComponent().editing).toBeFalsy();
+            expect(basicComponent.sexPropertyItemComponent().editing()).toBeFalsy();
         }));
 
         it('should edit canceled when editor outside clicked', fakeAsync(() => {
             basicComponent.agePropertyItemComponent().itemContent().nativeElement.click();
             fixture.detectChanges();
-            expect(basicComponent.agePropertyItemComponent().editing).toBeTruthy();
+            expect(basicComponent.agePropertyItemComponent().editing()).toBeTruthy();
             tick(50);
             fixture.detectChanges();
             dispatchMouseEvent(fixture.debugElement.query(By.css('.thy-property-item-label')).nativeElement, 'click');
             fixture.detectChanges();
-            expect(basicComponent.agePropertyItemComponent().editing).toBeFalsy();
+            expect(basicComponent.agePropertyItemComponent().editing()).toBeFalsy();
         }));
     });
 

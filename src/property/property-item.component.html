@@ -8,7 +8,7 @@
   @if (label()) {
     <span> <ng-template [ngTemplateOutlet]="label()"></ng-template></span>
   }
-  @if (operation() && isVertical) {
+  @if (operation() && isVertical()) {
     <div class="thy-property-item-operation">
       <ng-template [ngTemplateOutlet]="operation()"></ng-template>
     </div>
@@ -19,7 +19,7 @@
     #item
     class="thy-property-item-content"
     [class.thy-property-item-content-editable]="thyEditable()"
-    [class.thy-property-item-content-editing]="editing">
+    [class.thy-property-item-content-editing]="editing()">
     <div class="thy-property-item-content-text">
       @if (content()) {
         <ng-template [ngTemplateOutlet]="content()"></ng-template>
@@ -33,7 +33,7 @@
       </div>
     }
   </div>
-  @if (operation() && !isVertical) {
+  @if (operation() && !isVertical()) {
     <div class="thy-property-item-operation">
       <ng-template [ngTemplateOutlet]="operation()"></ng-template>
     </div>

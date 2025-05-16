@@ -1,6 +1,4 @@
-import { Subject } from 'rxjs';
-
-import { ChangeDetectionStrategy, Component, OnInit, numberAttribute, input, computed, effect } from '@angular/core';
+import { ChangeDetectionStrategy, Component, numberAttribute, input, computed, effect } from '@angular/core';
 
 export type ThyPropertiesLayout = 'horizontal' | 'vertical';
 
@@ -22,8 +20,6 @@ export type ThyPropertiesLayout = 'horizontal' | 'vertical';
     }
 })
 export class ThyProperties {
-    layout$ = new Subject<ThyPropertiesLayout>();
-
     /**
      * 展示布局
      * @type "horizontal" | "vertical"
@@ -46,11 +42,4 @@ export class ThyProperties {
     protected readonly gridTemplateColumns = computed(() => {
         return `repeat(${this.thyColumn()}, 1fr)`;
     });
-
-    constructor() {
-        effect(() => {
-            const layout = this.layout();
-            this.layout$.next(layout);
-        });
-    }
 }

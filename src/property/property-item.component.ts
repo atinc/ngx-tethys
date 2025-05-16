@@ -7,7 +7,6 @@ import { OverlayOutsideClickDispatcher, OverlayRef } from '@angular/cdk/overlay'
 import { NgTemplateOutlet } from '@angular/common';
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ElementRef,
     NgZone,
@@ -22,7 +21,8 @@ import {
     effect,
     output,
     contentChild,
-    viewChild
+    viewChild,
+    signal
 } from '@angular/core';
 
 import { ThyProperties } from './properties.component';
@@ -47,7 +47,6 @@ export type ThyPropertyItemOperationTrigger = 'hover' | 'always';
     imports: [ThyFlexibleText, NgTemplateOutlet]
 })
 export class ThyPropertyItem implements OnInit, OnDestroy {
-    private cdr = inject(ChangeDetectorRef);
     private clickDispatcher = inject(ThyClickDispatcher);
     private ngZone = inject(NgZone);
     private overlayOutsideClickDispatcher = inject(OverlayOutsideClickDispatcher);
@@ -109,7 +108,7 @@ export class ThyPropertyItem implements OnInit, OnDestroy {
      */
     readonly itemContent = viewChild<ElementRef<HTMLElement>>('item');
 
-    editing: boolean;
+    editing = signal(false);
 
     changes$ = new Subject<SimpleChanges>();
 
@@ -125,7 +124,7 @@ export class ThyPropertyItem implements OnInit, OnDestroy {
         return `span ${Math.min(this.thySpan(), this.parent.thyColumn())}`;
     });
 
-    isVertical = false;
+    isVertical = signal(false);
 
     constructor() {
         this.originOverlays = [...this.overlayOutsideClickDispatcher._attachedOverlays] as OverlayRef[];
@@ -144,23 +143,23 @@ export class ThyPropertyItem implements OnInit, OnDestroy {
                 }
             }
         });
+
+        effect(() => {
+            const layout = this.parent.layout();
+            this.isVertical.set(layout === 'vertical');
+        });
     }
 
     ngOnInit() {
         this.subscribeClick();
-        this.parent.layout$.pipe(takeUntil(this.destroy$)).subscribe(layout => {
-            this.isVertical = layout === 'vertical';
-            this.cdr.markForCheck();
-        });
     }
 
     setEditing(editing: boolean) {
         this.ngZone.run(() => {
-            if (!!this.editing !== !!editing) {
+            if (!!this.editing() !== !!editing) {
                 this.thyEditingChange.emit(editing);
             }
-            this.editing = editing;
-            this.cdr.markForCheck();
+            this.editing.set(editing);
         });
     }
 
