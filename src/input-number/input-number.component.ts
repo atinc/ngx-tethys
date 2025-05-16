@@ -126,17 +126,17 @@ export class ThyInputNumber extends TabIndexDisabledControlValueAccessorMixin im
     /**
      * 焦点失去事件
      */
-    thyBlur = output();
+    readonly thyBlur = output();
 
     /**
      * 焦点激活事件
      */
-    thyFocus = output<Event>();
+    readonly thyFocus = output<Event>();
 
     /**
      * 上下箭头点击事件
      */
-    thyStepChange = output<{ value: number; type: Type }>();
+    readonly thyStepChange = output<{ value: number; type: Type }>();
 
     private isFocused: boolean;
 
@@ -301,9 +301,9 @@ export class ThyInputNumber extends TabIndexDisabledControlValueAccessorMixin im
     }
 
     getMaxPrecision(value: string | number): number {
-        const thyPrecision = this.thyPrecision();
-        if (!isUndefinedOrNull(thyPrecision)) {
-            return thyPrecision;
+        const precision = this.thyPrecision();
+        if (!isUndefinedOrNull(precision)) {
+            return precision;
         }
         const stepPrecision = this.getPrecision(this.thyStep());
         const currentValuePrecision = this.getPrecision(value as number);
@@ -345,8 +345,8 @@ export class ThyInputNumber extends TabIndexDisabledControlValueAccessorMixin im
     formatterValue(value: number | string) {
         const parseValue = this.parser(`${value}`);
         if (parseValue) {
-            const thySuffix = this.thySuffix();
-            return thySuffix ? `${parseValue} ${thySuffix}` : parseValue;
+            const suffix = this.thySuffix();
+            return suffix ? `${parseValue} ${suffix}` : parseValue;
         } else {
             return '';
         }
@@ -388,9 +388,9 @@ export class ThyInputNumber extends TabIndexDisabledControlValueAccessorMixin im
             return num as number;
         }
         const numStr = String(num);
-        const thyPrecision = this.thyPrecision();
-        if (numStr.indexOf('.') >= 0 && !isUndefinedOrNull(thyPrecision)) {
-            return Number(Number(num).toFixed(thyPrecision));
+        const precision = this.thyPrecision();
+        if (numStr.indexOf('.') >= 0 && !isUndefinedOrNull(precision)) {
+            return Number(Number(num).toFixed(precision));
         }
         return Number(num);
     }
