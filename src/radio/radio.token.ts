@@ -1,7 +1,7 @@
-import { InjectionToken } from '@angular/core';
+import { InjectionToken, InputSignal } from '@angular/core';
 
 export interface IThyRadioComponent {
-    thyValue: string;
+    thyValue: InputSignal<string>;
     thyChecked: boolean;
     setDisabledState?(isDisabled: boolean): void;
 }

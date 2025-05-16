@@ -1,26 +1,9 @@
-import {
-    Component,
-    ChangeDetectionStrategy,
-    Input,
-    ContentChild,
-    TemplateRef,
-    numberAttribute,
-    OnChanges,
-    SimpleChanges,
-    OnInit,
-    ChangeDetectorRef,
-    inject
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, TemplateRef, numberAttribute, input, contentChild, Signal, computed } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { ThyBreadcrumbItem } from './breadcrumb-item.component';
 import { SafeAny } from 'ngx-tethys/types';
-import {
-    ThyDropdownDirective,
-    ThyDropdownMenuComponent,
-    ThyDropdownMenuItemDirective,
-    ThyDropdownMenuItemNameDirective
-} from 'ngx-tethys/dropdown';
+import { ThyDropdownDirective, ThyDropdownMenuComponent, ThyDropdownMenuItemDirective } from 'ngx-tethys/dropdown';
 import { ThyAction } from 'ngx-tethys/action';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
@@ -40,10 +23,10 @@ const ELLIPSIS_ITEM = { _id: THY_BREADCRUMB_ITEM_ELLIPSIS_ID };
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-breadcrumb',
-        '[class.thy-breadcrumb-separator]': '!!thySeparator',
-        '[class.thy-breadcrumb-separator-slash]': 'thySeparator === "slash"',
-        '[class.thy-breadcrumb-separator-backslash]': 'thySeparator === "backslash"',
-        '[class.thy-breadcrumb-separator-vertical-line]': 'thySeparator === "vertical-line"'
+        '[class.thy-breadcrumb-separator]': '!!thySeparator()',
+        '[class.thy-breadcrumb-separator-slash]': 'thySeparator() === "slash"',
+        '[class.thy-breadcrumb-separator-backslash]': 'thySeparator() === "backslash"',
+        '[class.thy-breadcrumb-separator-vertical-line]': 'thySeparator() === "vertical-line"'
     },
     imports: [
         ThyIcon,
@@ -57,90 +40,82 @@ const ELLIPSIS_ITEM = { _id: THY_BREADCRUMB_ITEM_ELLIPSIS_ID };
         ThyIcon
     ]
 })
-export class ThyBreadcrumb implements OnInit, OnChanges {
-    private cdr = inject(ChangeDetectorRef);
-
-    iconClasses: string[];
-    svgIconName: string;
-
+export class ThyBreadcrumb {
     /**
      * 面包屑的前缀 展示图标，如 folder-fill
      */
-    @Input()
-    set thyIcon(icon: string) {
-        this.setIcon(icon);
-    }
+    readonly thyIcon = input<string>();
+
+    iconClasses: Signal<string[]> = computed(() => {
+        const icon = this.thyIcon();
+        if (icon && icon.includes('wtf')) {
+            const classes = icon.split(' ');
+            if (classes.length === 1) {
+                classes.unshift('wtf');
+            }
+            return classes;
+        } else {
+            return null;
+        }
+    });
+
+    svgIconName: Signal<string> = computed(() => {
+        const icon = this.thyIcon();
+        if (icon && !icon.includes('wtf')) {
+            return icon;
+        } else {
+            return null;
+        }
+    });
 
     /**
      * 面包屑的分隔符，不传值默认为 ">"
      * @type slash | backslash | vertical-line
      */
-    @Input() thySeparator: 'slash' | 'backslash' | 'vertical-line';
+    readonly thySeparator = input<'slash' | 'backslash' | 'vertical-line'>();
 
     /**
      * 面包屑的每一项数据
      */
-    @Input({ alias: 'thyItems' }) items: SafeAny[];
+    readonly items = input<SafeAny[]>(undefined, { alias: 'thyItems' });
 
     /**
      * 最大显示数量，超出此数量后，面包屑会被省略, 0 表示不省略（仅当传入 thyItems 时有效）
      */
-    @Input({ transform: numberAttribute }) thyMaxCount = 4;
+    readonly thyMaxCount = input(4, { transform: numberAttribute });
 
     /**
      * 是否可点击弹出已被省略的面包屑项（仅当传入 thyItems 时有效）
      */
-    @Input({ transform: coerceBooleanProperty }) thyExpandable = true;
+    readonly thyExpandable = input(true, { transform: coerceBooleanProperty });
 
     /**
      * 面包屑的每一项模板（仅当传入 thyItems 时有效）
      */
-    @ContentChild('item') itemTemplate: TemplateRef<SafeAny>;
+    readonly itemTemplate = contentChild<TemplateRef<SafeAny>>('item');
 
     public ellipsisItemId = THY_BREADCRUMB_ITEM_ELLIPSIS_ID;
 
-    public ellipsisItems: SafeAny[];
-
-    public showItems: SafeAny[];
-
-    ngOnInit() {
-        this.resetItems();
-    }
-
-    ngOnChanges(changes: SimpleChanges) {
-        if ((changes.items && !changes.items.firstChange) || (changes.thyMaxCount && !changes.thyMaxCount.firstChange)) {
-            this.resetItems();
-        }
-    }
-
-    private setIcon(icon: string) {
-        if (icon) {
-            if (icon.includes('wtf')) {
-                const classes = icon.split(' ');
-                if (classes.length === 1) {
-                    classes.unshift('wtf');
-                }
-                this.iconClasses = classes;
-            } else {
-                this.svgIconName = icon;
-            }
-        } else {
-            this.iconClasses = null;
-            this.svgIconName = null;
-        }
-    }
-
-    private resetItems() {
-        if (!this.items?.length) {
+    public readonly processedItems: Signal<{
+        ellipsisItems: SafeAny[];
+        showItems: SafeAny[];
+    }> = computed(() => {
+        const items = this.items();
+        if (!items?.length) {
             return;
         }
-        if (this.thyMaxCount && this.items.length > this.thyMaxCount) {
-            const ellipsisIndex = this.items.length - this.thyMaxCount + 2;
-            this.ellipsisItems = this.items.slice(1, ellipsisIndex);
-            this.showItems = [this.items[0], ELLIPSIS_ITEM, ...this.items.slice(ellipsisIndex)];
+        const thyMaxCount = this.thyMaxCount();
+        if (thyMaxCount && items.length > thyMaxCount) {
+            const ellipsisIndex = items.length - thyMaxCount + 2;
+            return {
+                ellipsisItems: items.slice(1, ellipsisIndex),
+                showItems: [items[0], ELLIPSIS_ITEM, ...items.slice(ellipsisIndex)]
+            };
         } else {
-            this.showItems = [...this.items];
-            this.ellipsisItems = [];
+            return {
+                ellipsisItems: [],
+                showItems: [...items]
+            };
         }
-    }
+    });
 }

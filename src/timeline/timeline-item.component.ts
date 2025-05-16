@@ -1,20 +1,16 @@
 import {
     Component,
-    Input,
-    HostBinding,
     OnInit,
-    OnChanges,
-    ContentChild,
     TemplateRef,
-    ViewChild,
     ChangeDetectorRef,
     ChangeDetectionStrategy,
-    SimpleChanges,
-    inject
+    inject,
+    input,
+    viewChild,
+    contentChild
 } from '@angular/core';
 import { SafeAny } from 'ngx-tethys/types';
 import { ThyTimeMode } from './timeline.type';
-import { ThyTimelineService } from './timeline.service';
 import { NgTemplateOutlet } from '@angular/common';
 
 export type thyColor = 'primary' | 'success' | 'warning' | 'danger' | 'info';
@@ -31,15 +27,10 @@ export type thyColor = 'primary' | 'success' | 'warning' | 'danger' | 'info';
     exportAs: 'ThyTimelineItem',
     imports: [NgTemplateOutlet]
 })
-export class ThyTimelineItem implements OnInit, OnChanges {
+export class ThyTimelineItem implements OnInit {
     private cdr = inject(ChangeDetectorRef);
-    private timelineService = inject(ThyTimelineService);
 
-    @ViewChild('timelineItem', { static: false }) template: TemplateRef<void>;
-
-    @HostBinding('class') className: string;
-
-    public color: thyColor = 'primary';
+    readonly template = viewChild<TemplateRef<void>>('timelineItem');
 
     public isLast = false;
 
@@ -54,37 +45,30 @@ export class ThyTimelineItem implements OnInit, OnChanges {
      * @type primary | success | warning | danger | info
      * @default primary
      */
-    @Input()
-    set thyColor(value: thyColor) {
-        if (value) {
-            this.color = value;
-        }
-    }
+    readonly thyColor = input<thyColor>('primary');
 
     /**
      * 自定义节点位置
      * @type left | right | center
      */
-    @Input() thyPosition: ThyTimeMode;
+    readonly thyPosition = input<ThyTimeMode>(undefined);
 
     /**
      * 自定义时间轴点模板
      * @type TemplateRef
      */
-    @ContentChild('dot', { static: false }) dot: TemplateRef<SafeAny>;
+    readonly dot = contentChild<TemplateRef<SafeAny>>('dot');
 
     /**
      * 自定义另一侧的模板
      * @type TemplateRef
      */
-    @ContentChild('description', { static: false }) description: TemplateRef<SafeAny>;
+    readonly description = contentChild<TemplateRef<SafeAny>>('description');
+
+    constructor() {}
 
     detectChanges(): void {
         this.cdr.detectChanges();
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        this.timelineService.markForCheck();
     }
 
     ngOnInit() {}
