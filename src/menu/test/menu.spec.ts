@@ -1,23 +1,23 @@
-import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
-import { Component, DebugElement, ViewChild } from '@angular/core';
+import { provideHttpClient } from '@angular/common/http';
+import { Component, DebugElement, viewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { ThyDividerModule } from 'ngx-tethys/divider';
 import { ThyIconModule } from 'ngx-tethys/icon';
-import { ThyPopover, ThyPopoverModule } from 'ngx-tethys/popover';
 import {
-    ThyMenuGroup,
-    ThyMenuItemIcon,
-    ThyMenuItemAction,
-    ThyMenuItemName,
     ThyMenu,
-    ThyMenuTheme,
-    ThyMenuModule,
     ThyMenuDivider,
-    ThyMenuItem
+    ThyMenuGroup,
+    ThyMenuItem,
+    ThyMenuItemAction,
+    ThyMenuItemIcon,
+    ThyMenuItemName,
+    ThyMenuModule,
+    ThyMenuTheme
 } from 'ngx-tethys/menu';
-import { provideHttpClient } from '@angular/common/http';
-import { provideAnimations } from '@angular/platform-browser/animations';
+import { ThyPopover, ThyPopoverModule } from 'ngx-tethys/popover';
+import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 
 @Component({
     selector: 'thy-demo-menu',
@@ -25,7 +25,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
         <thy-menu [thyTheme]="theme">
             <thy-menu-group
                 thyTitle="工作"
-                [thyExpand]="true"
+                [thyExpand]="expand"
                 [thyCollapsible]="collapsible"
                 (thyCollapsedChange)="toggle($event)"
                 [thyShowAction]="true"
@@ -66,15 +66,16 @@ import { provideAnimations } from '@angular/platform-browser/animations';
     imports: [ThyMenuModule, ThyDividerModule, ThyPopoverModule, ThyIconModule]
 })
 class ThyDemoMenuComponent {
-    @ViewChild(ThyMenuDivider, { static: true }) divider: ThyMenuDivider;
-    @ViewChild(ThyMenuGroup, { static: true }) group: ThyMenuGroup;
-    @ViewChild(ThyMenuItem, { static: true }) item: ThyMenuItem;
-    @ViewChild(ThyMenuItemIcon, { static: true }) icon: ThyMenuItemIcon;
-    @ViewChild(ThyMenuItemAction, { static: true }) action: ThyMenuItemAction;
-    @ViewChild(ThyMenuItemName, { static: true }) name: ThyMenuItemName;
+    readonly divider = viewChild(ThyMenuDivider);
+    readonly group = viewChild(ThyMenuGroup);
+    readonly item = viewChild(ThyMenuItem);
+    readonly icon = viewChild(ThyMenuItemIcon);
+    readonly action = viewChild(ThyMenuItemAction);
+    readonly name = viewChild(ThyMenuItemName);
 
     theme = 'default';
     collapsible = true;
+    expand = true;
 
     click() {}
 
@@ -207,7 +208,7 @@ describe('ThyMenu', () => {
 
         it('should create thy-menu-group', () => {
             expect(group.componentInstance).toBeTruthy();
-            expect(group.componentInstance === component.group).toBeTruthy();
+            expect(group.componentInstance === component.group()).toBeTruthy();
         });
 
         it('should have class thy-menu-group', () => {
@@ -217,23 +218,25 @@ describe('ThyMenu', () => {
         it('should collapsible worked', () => {
             fixture.debugElement.componentInstance.theme = 'loose';
             fixture.debugElement.componentInstance.collapsible = false;
+            fixture.debugElement.componentInstance.expand = false;
             fixture.detectChanges();
             expect(fixture.debugElement.query(By.css('.thy-menu-group-arrow'))).toBeFalsy();
             const group = fixture.debugElement.query(By.directive(ThyMenuGroup));
             const groupHeader = group.nativeElement.querySelector('.thy-menu-group-header');
             groupHeader.click();
             fixture.detectChanges();
-            expect(group.componentInstance.isCollapsed).toBe(false);
+            expect(group.componentInstance.isCollapsed()).toBe(false);
         });
 
         it('should toggle worked', () => {
+            fixture.debugElement.componentInstance.expand = false;
             fixture.detectChanges();
             const group = fixture.debugElement.query(By.directive(ThyMenuGroup));
             const groupHeader = group.nativeElement.querySelector('.thy-menu-group-header');
             const spy = spyOn(fixture.componentInstance, 'toggle');
             groupHeader.click();
             fixture.detectChanges();
-            expect(group.componentInstance.isCollapsed).toBe(true);
+            expect(group.componentInstance.isCollapsed()).toBe(true);
             expect(spy).toHaveBeenCalledTimes(1);
         });
 
@@ -254,7 +257,7 @@ describe('ThyMenu', () => {
 
         it('should create thy-menu-item', () => {
             expect(item.componentInstance).toBeTruthy();
-            expect(item.componentInstance === component.item).toBeTruthy();
+            expect(item.componentInstance === component.item()).toBeTruthy();
         });
 
         it('should has class thy-menu-item', () => {
@@ -276,7 +279,7 @@ describe('ThyMenu', () => {
 
         it('should create thy-menu-item-name', () => {
             expect(name.componentInstance).toBeTruthy();
-            expect(name.componentInstance === component.name).toBeTruthy();
+            expect(name.componentInstance === component.name()).toBeTruthy();
         });
 
         it('should have class thy-menu-item-name', () => {
@@ -297,7 +300,7 @@ describe('ThyMenu', () => {
         it('should create thy-menu-item-icon', () => {
             const icon = fixture.debugElement.query(By.directive(ThyMenuItemIcon));
             expect(icon.componentInstance).toBeTruthy();
-            expect(icon.componentInstance === component.icon).toBeTruthy();
+            expect(icon.componentInstance === component.icon()).toBeTruthy();
         });
 
         it('should have class thy-menu-item-icon', () => {
@@ -324,29 +327,12 @@ describe('ThyMenu', () => {
 
         it('should create thy-menu-item-action', () => {
             expect(action.componentInstance).toBeTruthy();
-            expect(action.componentInstance === component.action).toBeTruthy();
+            expect(action.componentInstance === component.action()).toBeTruthy();
         });
 
         it('should have class thy-menu-item-action', () => {
             expect(action.nativeElement.classList.contains('thy-menu-item-action')).toBeTruthy();
         });
-
-        // it(`should not call click event when [thyStopPropagation] is empty`, () => {
-        //     const spy = (fixture.componentInstance.click = jasmine.createSpy(`action`));
-        //     let event: Event;
-        //     spy.and.callFake(($event: Event) => {
-        //         event = $event;
-        //     });
-
-        //     expect(spy).not.toHaveBeenCalled();
-        //     expect(event).toBeFalsy();
-
-        //     action.nativeElement.click();
-        //     fixture.detectChanges();
-
-        //     expect(spy).not.toHaveBeenCalled();
-        //     expect(event).toBeFalsy();
-        // });
 
         it(`should not call click event and open template #action when [thyStopPropagation] is true and [thyActionMenu] has value`, () => {
             const actionTemplate = fixture.debugElement.query(By.css('.actionTemplate'));

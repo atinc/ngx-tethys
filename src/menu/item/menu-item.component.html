@@ -1,6 +1,6 @@
 <div class="thy-menu-item-content" #content>
-  @if (thyIcon) {
-    <thy-icon class="thy-menu-item-icon" [thyIconName]="thyIcon"></thy-icon>
+  @if (thyIcon()) {
+    <thy-icon class="thy-menu-item-icon" [thyIconName]="thyIcon()"></thy-icon>
   }
   <ng-content></ng-content>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ChangeDetectionStrategy, Input, Renderer2, ElementRef, ViewChild, inject } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnInit, Renderer2, inject, input, viewChild } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 
 /**
@@ -18,16 +18,16 @@ import { ThyIcon } from 'ngx-tethys/icon';
 export class ThyMenuItem implements OnInit, AfterViewInit {
     private renderer = inject(Renderer2);
 
-    @ViewChild('content', { read: ElementRef }) content: ElementRef<HTMLElement>;
+    readonly content = viewChild('content', { read: ElementRef });
     /**
      * 菜单项的图标
      */
-    @Input() thyIcon: string;
+    readonly thyIcon = input<string>();
 
     ngOnInit(): void {}
 
     ngAfterViewInit() {
-        this.wrapSpanForText(this.content.nativeElement.childNodes);
+        this.wrapSpanForText(this.content().nativeElement.childNodes);
     }
 
     private wrapSpanForText(nodes: NodeList): void {

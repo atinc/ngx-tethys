@@ -2,7 +2,7 @@ import { ThyPopover, ThyPopoverConfig } from 'ngx-tethys/popover';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 import { ComponentType } from '@angular/cdk/portal';
-import { Component, ElementRef, Input, OnDestroy, Renderer2, TemplateRef, inject } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, Renderer2, TemplateRef, inject, input } from '@angular/core';
 
 /**
  * 菜单项操作组件
@@ -16,36 +16,28 @@ import { Component, ElementRef, Input, OnDestroy, Renderer2, TemplateRef, inject
         class: 'thy-menu-item-action'
     }
 })
-export class ThyMenuItemAction implements OnDestroy {
+export class ThyMenuItemAction implements OnInit, OnDestroy {
     private popover = inject(ThyPopover);
     private renderer = inject(Renderer2);
     private elementRef = inject(ElementRef);
 
     _boundEvent = false;
 
-    _actionMenu: ComponentType<any> | TemplateRef<any>;
-
     /**
      * 设置 Action 菜单
      */
-    @Input()
-    set thyActionMenu(value: ComponentType<any> | TemplateRef<any>) {
-        this._actionMenu = value;
-        if (this._actionMenu) {
-            this.bindClickEvent();
-        }
-    }
+    readonly thyActionMenu = input<ComponentType<any> | TemplateRef<any>>();
 
     /**
      * 是否阻止事件冒泡
      */
-    @Input({ transform: coerceBooleanProperty }) thyStopPropagation = true;
+    readonly thyStopPropagation = input(true, { transform: coerceBooleanProperty });
 
     /**
      * 弹出框的参数
      * @default { placement: "bottomLeft", insideClosable: true }
      */
-    @Input() thyPopoverOptions: ThyPopoverConfig;
+    readonly thyPopoverOptions = input<ThyPopoverConfig>();
 
     private bindClickEvent() {
         if (this._boundEvent) {
@@ -53,15 +45,15 @@ export class ThyMenuItemAction implements OnDestroy {
         }
         this._boundEvent = true;
         this.removeClickListenerFn = this.renderer.listen(this.elementRef.nativeElement, 'click', event => {
-            if (this.thyStopPropagation) {
+            if (this.thyStopPropagation()) {
                 event.stopPropagation();
             }
-            if (this._actionMenu) {
+            if (this.thyActionMenu()) {
                 const activeClass = 'action-active';
                 const wrapDOM = (event.target as HTMLElement).closest('.thy-menu-item');
                 wrapDOM?.classList.add(activeClass);
                 const popoverRef = this.popover.open(
-                    this._actionMenu,
+                    this.thyActionMenu(),
                     Object.assign(
                         {
                             origin: event.currentTarget as HTMLElement,
@@ -69,7 +61,7 @@ export class ThyMenuItemAction implements OnDestroy {
                             placement: 'bottomLeft',
                             originActiveClass: 'active'
                         },
-                        this.thyPopoverOptions
+                        this.thyPopoverOptions()
                     )
                 );
                 popoverRef?.afterClosed().subscribe(() => {
@@ -80,6 +72,10 @@ export class ThyMenuItemAction implements OnDestroy {
     }
 
     private removeClickListenerFn: VoidFunction | null = null;
+
+    ngOnInit(): void {
+        this.bindClickEvent();
+    }
 
     ngOnDestroy(): void {
         this.removeClickListenerFn?.();
