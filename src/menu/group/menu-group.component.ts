@@ -144,7 +144,7 @@ export class ThyMenuGroup implements OnInit {
         if (!this.thyCollapsible()) {
             return;
         }
-        this.isCollapsed.update(value => !value);
+        this.isCollapsed.set(!this.isCollapsed());
         this.thyCollapsedChange.emit(this.isCollapsed());
     }
 
