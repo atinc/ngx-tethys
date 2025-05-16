@@ -1,9 +1,9 @@
-import { Component, forwardRef, OnInit, Input, ChangeDetectionStrategy, inject } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ThyFormCheckBaseComponent } from 'ngx-tethys/shared';
-import { THY_RADIO_GROUP_COMPONENT, IThyRadioComponent } from './radio.token';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { NgClass } from '@angular/common';
+import { ChangeDetectionStrategy, Component, forwardRef, inject, input, OnInit } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ThyFormCheckBaseComponent } from 'ngx-tethys/shared';
+import { IThyRadioComponent, THY_RADIO_GROUP_COMPONENT } from './radio.token';
 
 /**
  * 单选框组件
@@ -35,7 +35,7 @@ export class ThyRadio extends ThyFormCheckBaseComponent implements IThyRadioComp
     /**
      * 当和 thy-radio-group 配合使用时的值，选中后的 NgModel 值
      */
-    @Input() thyValue: string;
+    readonly thyValue = input<string>();
 
     set thyChecked(value: boolean) {
         this.writeValue(coerceBooleanProperty(value));
@@ -50,7 +50,7 @@ export class ThyRadio extends ThyFormCheckBaseComponent implements IThyRadioComp
 
     change() {
         if (this.thyRadioGroupComponent) {
-            this.thyRadioGroupComponent.updateValue(this.thyValue, true);
+            this.thyRadioGroupComponent.updateValue(this.thyValue(), true);
         } else {
             this.updateValue(!this._innerValue);
         }

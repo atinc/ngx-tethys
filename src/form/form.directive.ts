@@ -12,7 +12,11 @@ import {
     OnInit,
     QueryList,
     Renderer2,
-    inject
+    inject,
+    input,
+    afterRenderEffect,
+    effect,
+    afterNextRender
 } from '@angular/core';
 import { ControlContainer, NgControl, NgForm } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -36,25 +40,14 @@ export enum ThyEnterKeyMode {
  * @name thyForm,[thy-form]
  * @order 10
  */
-@Directive({
-    selector: '[thyForm],[thy-form]',
-    providers: [ThyFormValidatorService],
-    exportAs: 'thyForm',
-    host: {
-        class: 'thy-form'
-    }
-})
+@Directive({ selector: '[thyForm],[thy-form]', providers: [ThyFormValidatorService], exportAs: 'thyForm', host: { class: 'thy-form' } })
 export class ThyFormDirective implements OnInit, AfterViewInit, OnDestroy {
     private ngForm = inject(ControlContainer);
     private elementRef = inject(ElementRef);
     private renderer = inject(Renderer2);
     private ngZone = inject(NgZone);
-    validator = inject(ThyFormValidatorService);
+    readonly validator = inject(ThyFormValidatorService);
     private config = inject(THY_FORM_CONFIG);
-
-    private layout: ThyFormLayout;
-
-    private initialized = false;
 
     private hostRenderer = useHostRenderer();
 
@@ -63,22 +56,14 @@ export class ThyFormDirective implements OnInit, AfterViewInit, OnDestroy {
      * @type horizontal | vertical | inline
      * @default horizontal
      */
-    @Input()
-    set thyLayout(value: ThyFormLayout) {
-        if (value) {
-            this.layout = value;
-            if (this.initialized) {
-                this.updateClasses();
-            }
-        }
-    }
-
-    get thyLayout(): ThyFormLayout {
-        return this.layout;
-    }
+    readonly thyLayout = input<ThyFormLayout>(undefined);
 
     get isHorizontal() {
         return this.layout === 'horizontal';
+    }
+
+    private get layout() {
+        return this.thyLayout() || this.config.layout;
     }
 
     /**
@@ -86,15 +71,12 @@ export class ThyFormDirective implements OnInit, AfterViewInit, OnDestroy {
      * @type submit | alwaysSubmit | forbidSubmit
      * @default submit
      */
-    @Input() thyEnterKeyMode: ThyEnterKeyMode;
+    readonly thyEnterKeyMode = input<ThyEnterKeyMode>(undefined);
 
     /**
      * 表单验证规则配置项 （更多内容查看：thyFormValidatorConfig）
      */
-    @Input()
-    set thyFormValidatorConfig(config: ThyFormValidatorConfig) {
-        this.validator.setValidatorConfig(config);
-    }
+    readonly thyFormValidatorConfig = input<ThyFormValidatorConfig>();
 
     @HostBinding('class.was-validated') wasValidated = false;
 
@@ -102,21 +84,35 @@ export class ThyFormDirective implements OnInit, AfterViewInit, OnDestroy {
 
     private _unsubscribe: () => void;
 
-    @ContentChildren(NgControl, {
-        descendants: true
-    })
+    @ContentChildren(NgControl, { descendants: true })
     public controls: QueryList<NgControl>;
 
     constructor() {
-        this.layout = this.config.layout;
+        effect(() => {
+            this.updateClasses();
+        });
+
+        effect(() => {
+            const config = this.thyFormValidatorConfig();
+            if (config) {
+                this.validator.setValidatorConfig(config);
+            }
+        });
+
+        // TODO:: replace ngAfterViewInit with afterNextRender
+        // afterNextRender(() => {
+        //     this.validator.initialize(this.ngForm as NgForm, this.elementRef.nativeElement);
+        //     this.validator.initializeFormControlsValidation(this.controls.toArray());
+        //     this.controls.changes.subscribe(controls => {
+        //         this.validator.initializeFormControlsValidation(this.controls.toArray());
+        //     });
+        // });
     }
 
     ngOnInit(): void {
         this.ngZone.runOutsideAngular(() => {
             this._unsubscribe = this.renderer.listen(this.elementRef.nativeElement, 'keydown', this.onKeydown.bind(this));
         });
-        this.updateClasses();
-        this.initialized = true;
     }
 
     ngAfterViewInit() {
@@ -138,9 +134,7 @@ export class ThyFormDirective implements OnInit, AfterViewInit, OnDestroy {
     }
 
     updateClasses() {
-        this.hostRenderer.updateClassByMap({
-            [`thy-form-${this.thyLayout}`]: true
-        });
+        this.hostRenderer.updateClassByMap({ [`thy-form-${this.layout}`]: true });
     }
 
     submitRunInZone($event: any) {
@@ -153,7 +147,8 @@ export class ThyFormDirective implements OnInit, AfterViewInit, OnDestroy {
         const currentInput = document.activeElement;
         const key = $event.which || $event.keyCode;
         if (key === keycodes.ENTER && currentInput.tagName) {
-            if (!this.thyEnterKeyMode || this.thyEnterKeyMode === ThyEnterKeyMode.submit) {
+            const thyEnterKeyMode = this.thyEnterKeyMode();
+            if (!thyEnterKeyMode || thyEnterKeyMode === ThyEnterKeyMode.submit) {
                 // TEXTAREA或包含[contenteditable]属性的元素 Ctrl + Enter 或者 Command + Enter 阻止默认行为并提交
                 if (currentInput.tagName === 'TEXTAREA' || coerceBooleanProperty(currentInput.getAttribute('contenteditable'))) {
                     if ($event.ctrlKey || $event.metaKey) {
@@ -165,7 +160,7 @@ export class ThyFormDirective implements OnInit, AfterViewInit, OnDestroy {
                     $event.preventDefault();
                     this.submitRunInZone($event);
                 }
-            } else if (this.thyEnterKeyMode === ThyEnterKeyMode.alwaysSubmit) {
+            } else if (thyEnterKeyMode === ThyEnterKeyMode.alwaysSubmit) {
                 $event.preventDefault();
                 this.submitRunInZone($event);
             } else {

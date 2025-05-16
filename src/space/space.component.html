@@ -1,7 +1,7 @@
 <ng-content></ng-content>
 
-@for (item of items; track $index; let last = $last; let index = $index) {
-  <div class="thy-space-item" [style.margin-right.px]="last ? null : space">
+@for (item of items(); track $index; let last = $last; let index = $index) {
+  <div class="thy-space-item" [style.margin-right.px]="last ? null : space()">
     <ng-container [ngTemplateOutlet]="item"></ng-container>
   </div>
 }
