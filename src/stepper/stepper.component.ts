@@ -32,9 +32,8 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 export class ThyStepper implements IThyStepperComponent {
     /**
      * 当前处于激活状态的步骤 index
-     * @default 0
      */
-    readonly thySelectedIndex = input<number, number>(undefined, { transform: numberAttribute });
+    readonly thySelectedIndex = input<number, unknown>(0, { transform: numberAttribute });
 
     /**
      * 当前处于激活状态的步骤实例
@@ -44,7 +43,7 @@ export class ThyStepper implements IThyStepperComponent {
     /**
      * 步骤条导航是否展示，默认展示
      */
-    readonly thyShowStepHeader = input<boolean, boolean>(true, { transform: coerceBooleanProperty });
+    readonly thyShowStepHeader = input(true, { transform: coerceBooleanProperty });
 
     readonly selectionChange = output<any>();
 
