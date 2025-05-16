@@ -65,18 +65,18 @@ export class ThyPagination {
      * 设置当前页，支持双向绑定
      * @default 1
      */
-    readonly thyPageIndex = input<number, number | string>(undefined, { transform: numberAttribute });
+    readonly thyPageIndex = input<number, unknown>(undefined, { transform: numberAttribute });
 
     /**
      * 每页条目数量
      * @default 20
      */
-    readonly thyPageSize = input<number, number | string>(undefined, { transform: numberAttribute });
+    readonly thyPageSize = input<number, unknown>(undefined, { transform: numberAttribute });
 
     /**
      * 数据总数
      */
-    readonly thyTotal = input<number, number | string>(undefined, { transform: numberAttribute });
+    readonly thyTotal = input<number, unknown>(undefined, { transform: numberAttribute });
 
     /**
      * 自定义分页页码，设置自定义分页页码后将不根据 Total 和 PageSize 来自动计算页码，完全以传入的页码为准
@@ -112,19 +112,19 @@ export class ThyPagination {
      * 设置最大显示数量，超出最大显示数后会自动进行分割显示
      * @default 9
      */
-    readonly thyMaxCount = input<number, number | string>(undefined, { transform: numberAttribute });
+    readonly thyMaxCount = input<number, unknown>(undefined, { transform: numberAttribute });
 
     /**
      * 设置边缘显示数量
      * @default 2
      */
-    readonly thyMarginalCount = input<number, number | string>(undefined, { transform: numberAttribute });
+    readonly thyMarginalCount = input<number, unknown>(undefined, { transform: numberAttribute });
 
     /**
      * 设置中间区域显示数量
      * @default 5
      */
-    readonly thyRangeCount = input<number, number | string>(undefined, { transform: numberAttribute });
+    readonly thyRangeCount = input<number, unknown>(undefined, { transform: numberAttribute });
 
     /**
      * 是否显示分页大小选择器
