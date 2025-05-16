@@ -7,15 +7,14 @@ import {
     Component,
     computed,
     contentChild,
+    effect,
     forwardRef,
     HostBinding,
     inject,
     input,
-    OnChanges,
     OnInit,
     output,
     Signal,
-    SimpleChanges,
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
@@ -42,7 +41,7 @@ type CalendarDateTemplate = TemplateRef<{ $implicit: Date }>;
     providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => ThyCalendar), multi: true }],
     imports: [ThyCalendarHeader, DateTable, MonthTable]
 })
-export class ThyCalendar implements OnInit, OnChanges {
+export class ThyCalendar implements OnInit {
     private cdr = inject(ChangeDetectorRef);
 
     @HostBinding('class.thy-calendar-container') className = true;
@@ -90,7 +89,7 @@ export class ThyCalendar implements OnInit, OnChanges {
      */
     readonly thyDateCellChild = contentChild(DateCell, { read: TemplateRef });
 
-    dateCell: Signal<CalendarDateTemplate> = computed(() => {
+    readonly dateCell: Signal<CalendarDateTemplate> = computed(() => {
         return (this.thyDateCell() || this.thyDateCellChild())!;
     });
 
@@ -104,7 +103,7 @@ export class ThyCalendar implements OnInit, OnChanges {
      */
     readonly thyCalendarHeaderOperationChild = contentChild(HeaderOperation, { read: TemplateRef });
 
-    headerOperation: Signal<CalendarDateTemplate> = computed(() => {
+    readonly headerOperation: Signal<CalendarDateTemplate> = computed(() => {
         return (this.thyCalendarHeaderOperation() || this.thyCalendarHeaderOperationChild())!;
     });
 
@@ -162,9 +161,11 @@ export class ThyCalendar implements OnInit, OnChanges {
         }
     }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes.thyValue) {
-            this.updateDate(new TinyDate(this.thyValue()), false);
-        }
+    constructor() {
+        effect(() => {
+            if (this.thyValue()) {
+                this.updateDate(new TinyDate(this.thyValue()), false);
+            }
+        });
     }
 }
