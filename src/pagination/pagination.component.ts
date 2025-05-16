@@ -1,29 +1,30 @@
 import { NgTemplateOutlet } from '@angular/common';
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
-    EventEmitter,
-    HostBinding,
-    Input,
-    OnInit,
-    Output,
     TemplateRef,
     numberAttribute,
     inject,
-    Signal
+    Signal,
+    input,
+    output,
+    effect,
+    computed,
+    signal,
+    model,
+    WritableSignal,
+    ModelSignal
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThySelect } from 'ngx-tethys/select';
 import { ThyEnterDirective, ThyOption } from 'ngx-tethys/shared';
 import { coerceBooleanProperty, isTemplateRef } from 'ngx-tethys/util';
 import { ThyPaginationConfigModel } from './pagination.class';
-import { DEFAULT_RANGE_COUNT, PaginationDefaultConfig, THY_PAGINATION_CONFIG } from './pagination.config';
+import { PaginationDefaultConfig, THY_PAGINATION_CONFIG, DEFAULT_RANGE_COUNT } from './pagination.config';
 import { PaginationPerPageFormat, PaginationTotalCountFormat } from './pagination.pipe';
 import { injectLocale, ThyI18nLocale, ThyPaginationLocale } from 'ngx-tethys/i18n';
-
+import { isString, isArray, isBoolean } from 'ngx-tethys/util';
 /**
  * 分页组件，当数据量过多时，使用分页分解数据。
  * @name thy-pagination
@@ -42,277 +43,220 @@ import { injectLocale, ThyI18nLocale, ThyPaginationLocale } from 'ngx-tethys/i18
         ThyEnterDirective,
         PaginationTotalCountFormat,
         PaginationPerPageFormat
-    ]
+    ],
+    host: {
+        class: 'thy-pagination',
+        '[class.thy-pagination-sm]': 'thySize() === "sm"',
+        '[class.thy-pagination-md]': 'thySize() === "md"',
+        '[class.thy-pagination-lg]': 'thySize() === "lg"',
+        '[class.thy-pagination-has-total]': 'thyShowTotal()'
+    }
 })
-export class ThyPagination implements OnInit {
+export class ThyPagination {
     private paginationConfig = inject(THY_PAGINATION_CONFIG, { optional: true })!;
-    private cdr = inject(ChangeDetectorRef);
+
     allLocale: Signal<ThyI18nLocale> = injectLocale();
-    locale: Signal<ThyPaginationLocale> = injectLocale('pagination');
+
+    paginationLocale: Signal<ThyPaginationLocale> = injectLocale('pagination');
 
     isTemplateRef = isTemplateRef;
-    public config: ThyPaginationConfigModel = Object.assign(
-        {},
-        PaginationDefaultConfig,
-        {
-            firstText: this.locale().firstPage,
-            lastText: this.locale().lastPage,
-            totalPagesFormat: this.locale().totalCount,
-            unit: this.locale().defaultUnit
-        },
-        this.paginationConfig.main
-    );
 
     /**
      * 设置当前页，支持双向绑定
      * @default 1
      */
-    @Input({ transform: numberAttribute })
-    set thyPageIndex(pageIndex: number) {
-        this.pageIndex = pageIndex;
-        if (this.initialized) {
-            this.setPageIndex(pageIndex);
-        }
-    }
+    readonly thyPageIndex = input<number, number | string>(undefined, { transform: numberAttribute });
 
     /**
      * 每页条目数量
      * @default 20
      */
-    @Input({ transform: numberAttribute })
-    set thyPageSize(pageSize: number) {
-        this.pageSize = pageSize;
-        this.selectPageSize = pageSize;
-        if (this.initialized) {
-            this.calculatePageCount();
-            this.initializePages(this.pageIndex, this.pageCount);
-            this.cdr.markForCheck();
-        }
-    }
+    readonly thyPageSize = input<number, number | string>(undefined, { transform: numberAttribute });
 
     /**
-     * 总页数 与 totalPages 二选一传入
+     * 数据总数
      */
-    @Input({ transform: numberAttribute })
-    set thyTotal(total: number) {
-        this.total = total;
-        if (this.initialized) {
-            this.calculatePageCount();
-            this.setPageIndex(this.pageIndex);
-            this.cdr.markForCheck();
-        }
-    }
+    readonly thyTotal = input<number, number | string>(undefined, { transform: numberAttribute });
 
     /**
      * 自定义分页页码，设置自定义分页页码后将不根据 Total 和 PageSize 来自动计算页码，完全以传入的页码为准
      * @type number[]
      */
-    @Input()
-    set thyCustomPages(pages: number[]) {
-        this.customPages = pages;
-        this.config.showTotalPageCount = false;
-        if (this.initialized) {
-            this.calculatePageCount();
-            this.initializePages(this.pageIndex, this.pageCount);
-            this.cdr.markForCheck();
-        }
-    }
+    readonly thyCustomPages = input<number[]>();
 
     /**
      * 是否禁用
      */
-    @Input({ alias: 'thyDisabled', transform: coerceBooleanProperty }) disabled = false;
+    readonly thyDisabled = input<boolean, boolean | string>(false, { transform: coerceBooleanProperty });
 
     /**
      * 是否显示快速跳转
      * @default false
      */
-    @Input({ alias: 'thyShowQuickJumper', transform: coerceBooleanProperty })
-    set showQuickJumper(value: boolean) {
-        this.config.showQuickJumper = value;
-    }
+    readonly thyShowQuickJumper = input<boolean, boolean | string>(undefined, { transform: coerceBooleanProperty });
 
     /**
      * 设置是否显示总页数信息
      * @default true
      */
-    @Input({ alias: 'thyShowTotalPageCount', transform: coerceBooleanProperty })
-    set showTotalPageCount(value: boolean) {
-        this.config.showTotalPageCount = value;
-    }
+    readonly thyShowTotalPageCount = input<boolean, boolean | string>(undefined, { transform: coerceBooleanProperty });
 
     /**
      * 设置分页组件的大小
      * @type sm | md | lg
      * @default md
      */
-    @Input('thySize')
-    set size(size: 'sm' | 'md' | 'lg') {
-        this.selectSize = size;
-        this.hostRenderer.addClass(`thy-pagination-${size}`);
-    }
+    readonly thySize = input<'sm' | 'md' | 'lg'>('md', { alias: 'thySize' });
 
     /**
      * 设置最大显示数量，超出最大显示数后会自动进行分割显示
      * @default 9
      */
-    @Input({ alias: 'thyMaxCount', transform: numberAttribute })
-    set maxCount(value: number) {
-        this.config.maxCount = value;
-    }
+    readonly thyMaxCount = input<number, number | string>(undefined, { transform: numberAttribute });
 
     /**
      * 设置边缘显示数量
      * @default 2
      */
-    @Input({ alias: 'thyMarginalCount', transform: numberAttribute }) marginalCount: number;
+    readonly thyMarginalCount = input<number, number | string>(undefined, { transform: numberAttribute });
 
     /**
      * 设置中间区域显示数量
      * @default 5
      */
-    @Input({ transform: numberAttribute })
-    set thyRangeCount(value: number) {
-        if (Number.isInteger(value)) {
-            this.config.rangeCount = value;
-            if (this.initialized) {
-                this.setMarginalCount(value);
-            }
-        }
-    }
+    readonly thyRangeCount = input<number, number | string>(undefined, { transform: numberAttribute });
 
-    @Input({ alias: 'thyShowSizeChanger', transform: coerceBooleanProperty })
-    set showSizeChanger(value: boolean) {
-        this.config.showSizeChanger = value;
-    }
+    /**
+     * 是否显示分页大小选择器
+     * @default false
+     */
+    readonly thyShowSizeChanger = input<boolean, boolean | string>(undefined, { transform: coerceBooleanProperty });
 
     /**
      * @type number[]
      */
-    @Input('thyPageSizeOptions')
-    set pageSizeOptions(value: number[]) {
-        this.config.pageSizeOptions = value;
-    }
+    readonly thyPageSizeOptions = input<number[]>(undefined);
 
     /**
      * 只有一页时是否隐藏分页器
      * @default false
      */
-    @Input({ alias: 'thyHideOnSinglePage', transform: coerceBooleanProperty }) hideOnSinglePage: boolean;
+    readonly thyHideOnSinglePage = input<boolean, boolean | string>(undefined, { transform: coerceBooleanProperty });
 
     /**
      * 分页器单位
      * @default 条
      */
-    @Input('thyUnit')
-    set unit(value: string) {
-        if (value) {
-            this.config.unit = value;
-        }
-    }
-
-    /**
-     * 页码改变的回调
-     */
-    @Output('thyPageIndexChange') pageIndexChange = new EventEmitter<number>();
-
-    /**
-     * 与Bootstrap pagination 兼容，后续版本会进行删除，参数保持与 bootstrap 一致
-     */
-    @Output('thyPageChanged') pageChanged = new EventEmitter<{ page: number }>();
-
-    @Output('thyPageSizeChanged') pageSizeChanged = new EventEmitter<number>();
-
-    public pages: { index?: number; text?: string; active?: boolean }[] = [];
-
-    public pageIndex = 1;
-
-    public pageSize: number;
-
-    public pageCount: number;
-
-    public customPages: number[];
-
-    public total: number;
-
-    public range = { from: 0, to: 0 };
-
-    public firstIndex = 1;
-
-    public isHideOnSinglePage = false;
-
-    private initialized = false;
-
-    private hostRenderer = useHostRenderer();
-
-    public selectSize = 'md';
-
-    public selectPageSize: Number = 20;
-
-    @HostBinding('class.thy-pagination') isPaginationClass = true;
+    readonly thyUnit = input<string>();
 
     /**
      * 是否显示范围和total
      * @default false
      */
-    @HostBinding('class.thy-pagination-has-total')
-    @Input('thyShowTotal')
-    showTotal: boolean | TemplateRef<{ $implicit: number; range: { from: number; to: number } }> = false;
 
-    ngOnInit() {
-        this.setMarginalCount(this.config.rangeCount);
-        this.calculatePageCount();
-        this.setPageIndex(this.pageIndex);
-        this.initialized = true;
-    }
+    readonly thyShowTotal = input<boolean | TemplateRef<{ $implicit: number; range: { from: number; to: number } }>>(false);
 
-    private setMarginalCount(range: number) {
-        if (!this.marginalCount) {
-            this.marginalCount = range <= DEFAULT_RANGE_COUNT ? 1 : 2;
+    /**
+     * 页码改变的回调
+     */
+    readonly thyPageIndexChange = output<number>();
+
+    /**
+     * 与Bootstrap pagination 兼容，后续版本会进行删除，参数保持与 bootstrap 一致
+     */
+    readonly thyPageChanged = output<{ page: number }>();
+
+    readonly thyPageSizeChanged = output<number>();
+
+    public currentPageIndex = signal(1);
+
+    public currentPageSize: WritableSignal<number> = signal(null);
+
+    public selectedPageSize: ModelSignal<number> = model();
+
+    public firstIndex = 1;
+
+    computedConfig: Signal<ThyPaginationConfigModel> = computed(() => {
+        const result: ThyPaginationConfigModel = Object.assign(
+            {},
+            PaginationDefaultConfig,
+            {
+                firstText: this.paginationLocale().firstPage,
+                lastText: this.paginationLocale().lastPage,
+                totalPagesFormat: this.paginationLocale().totalCount,
+                unit: this.paginationLocale().defaultUnit
+            },
+            this.paginationConfig.main
+        );
+
+        if (isBoolean(this.thyShowQuickJumper())) {
+            result.showQuickJumper = this.thyShowQuickJumper();
         }
-    }
 
-    private setPageIndex(pageIndex: number) {
-        this.pageIndex = pageIndex > this.pageCount ? this.pageCount : pageIndex || 1;
-        const toPageSize = this.pageIndex * this.pageSize;
-        this.range = {
-            from: (this.pageIndex - 1) * this.pageSize + 1,
-            to: toPageSize > this.total ? this.total : toPageSize
-        };
-        this.initializePages(this.pageIndex, this.pageCount);
-        this.cdr.markForCheck();
-    }
+        if (isBoolean(this.thyShowTotalPageCount())) {
+            result.showTotalPageCount = this.thyShowTotalPageCount();
+        }
 
-    private calculatePageCount() {
-        let pageCount = null;
-        if (this.customPages && this.customPages.length > 0) {
-            pageCount = this.customPages[this.customPages.length - 1];
+        if (this.thyCustomPages() && isArray(this.thyCustomPages())) {
+            result.showTotalPageCount = false;
+        }
+
+        if (Number.isInteger(this.thyMaxCount())) {
+            result.maxCount = this.thyMaxCount();
+        }
+
+        if (isString(this.thyUnit()) && this.thyUnit()) {
+            result.unit = this.thyUnit();
+        }
+
+        if (isBoolean(this.thyShowSizeChanger())) {
+            result.showSizeChanger = this.thyShowSizeChanger();
+        }
+
+        if (this.thyPageSizeOptions() && isArray(this.thyPageSizeOptions())) {
+            result.pageSizeOptions = this.thyPageSizeOptions();
+        }
+
+        if (Number.isInteger(this.thyRangeCount())) {
+            result.rangeCount = this.thyRangeCount();
+        }
+
+        return result;
+    });
+
+    marginalCount = computed(() => {
+        if (!this.thyMarginalCount()) {
+            return this.computedConfig().rangeCount <= DEFAULT_RANGE_COUNT ? 1 : 2;
         } else {
-            pageCount = this.pageSize < 1 ? 1 : Math.ceil(this.total / this.pageSize);
+            return this.thyMarginalCount();
         }
-        this.pageCount = Math.max(pageCount || 0, 1);
-    }
+    });
 
-    private makePage(index: number, text: string, active: boolean): { index: number; text: string; active: boolean } {
-        return { index, text, active };
-    }
+    computedPageCount = computed(() => {
+        let pageCount = null;
+        if (this.thyCustomPages() && this.thyCustomPages().length > 0) {
+            pageCount = this.thyCustomPages()[this.thyCustomPages().length - 1];
+        } else {
+            pageCount = this.currentPageSize() < 1 ? 1 : Math.ceil(this.thyTotal() / this.currentPageSize());
+        }
+        return Math.max(pageCount || 0, 1);
+    });
 
-    private initializePages(pageIndex: number, pageCount: number) {
-        if (this.customPages && this.customPages.length > 0) {
-            this.pages = this.customPages.map(page => {
-                return {
-                    index: page,
-                    text: page.toString(),
-                    active: page === +pageIndex
-                };
+    computedPages = computed(() => {
+        const pageCount = this.computedPageCount();
+        const pageIndex = this.currentPageIndex();
+        const config = this.computedConfig();
+
+        if (this.thyCustomPages() && this.thyCustomPages().length > 0) {
+            return this.thyCustomPages().map(page => {
+                return { index: page, text: page.toString(), active: page === +pageIndex };
             });
-            return;
         }
 
         let pages = [];
-        const marginalCount = this.marginalCount;
-        const rangeCount = this.config.rangeCount;
-        const maxCount = this.config.maxCount;
+        const marginalCount = this.marginalCount();
+        const rangeCount = config.rangeCount;
+        const maxCount = config.maxCount;
         const isMaxSized = pageCount > maxCount;
         if (isMaxSized) {
             const beforePages = [];
@@ -329,11 +273,7 @@ export class ThyPagination implements OnInit {
             }
 
             for (let i = start; i <= end; i++) {
-                pages.push({
-                    index: i,
-                    text: i.toString(),
-                    active: i === +pageIndex
-                });
+                pages.push({ index: i, text: i.toString(), active: i === +pageIndex });
             }
 
             // beforePages
@@ -356,27 +296,67 @@ export class ThyPagination implements OnInit {
             pages = [...beforePages, ...pages, ...afterPages];
         } else {
             for (let i = 1; i <= pageCount; i++) {
-                pages.push({
-                    index: i,
-                    text: i.toString(),
-                    active: i === +pageIndex
-                });
+                pages.push({ index: i, text: i.toString(), active: i === +pageIndex });
             }
         }
-        this.pages = pages;
+        return pages;
+    });
+
+    computedRange = computed(() => {
+        const pageIndex = this.currentPageIndex();
+        const pageSize = this.currentPageSize();
+        const total = this.thyTotal();
+        const toPageSize = pageIndex * pageSize;
+        return { from: (pageIndex - 1) * pageSize + 1, to: toPageSize > total ? total : toPageSize };
+    });
+
+    constructor() {
+        effect(() => {
+            const pageIndex = this.thyPageIndex();
+            if (Number.isInteger(pageIndex)) {
+                this.setPageIndex(pageIndex);
+            }
+        });
+
+        effect(() => {
+            let pageSize = this.thyPageSize();
+
+            if (Number.isInteger(pageSize)) {
+                this.currentPageSize.set(pageSize);
+                this.selectedPageSize.set(pageSize);
+            } else {
+                const config = this.computedConfig();
+                if (config.pageSizeOptions && config.pageSizeOptions.length > 0) {
+                    pageSize = config.pageSizeOptions[0];
+                } else {
+                    pageSize = config.pageSize;
+                }
+                this.currentPageSize.set(pageSize);
+                this.selectedPageSize.set(pageSize);
+            }
+        });
+    }
+
+    private setPageIndex(pageIndex: number) {
+        pageIndex = pageIndex > this.computedPageCount() ? this.computedPageCount() : pageIndex || 1;
+        this.currentPageIndex.set(pageIndex);
+    }
+
+    private makePage(index: number, text: string, active: boolean): { index: number; text: string; active: boolean } {
+        return { index, text, active };
     }
 
     private pageChange(pageIndex: number) {
-        this.pageIndexChange.emit(pageIndex);
-        this.pageChanged.emit({ page: pageIndex });
+        this.thyPageIndexChange.emit(pageIndex);
+        this.thyPageChanged.emit({ page: pageIndex });
     }
 
     selectPage(pageIndex: number) {
-        if (this.disabled || pageIndex === this.firstIndex - 1 || pageIndex === this.pageCount + 1) {
+        if (this.thyDisabled() || pageIndex === this.firstIndex - 1 || pageIndex === this.computedPageCount() + 1) {
             return;
         }
         this.setPageIndex(pageIndex);
-        this.pageChange(this.pageIndex);
+        this.pageChange(this.currentPageIndex());
     }
 
     jumpPage(input: HTMLInputElement) {
@@ -388,9 +368,8 @@ export class ThyPagination implements OnInit {
     }
 
     onPageSizeChange(event: number) {
-        this.pageSize = event;
-        this.calculatePageCount();
-        this.setPageIndex(this.pageIndex);
-        this.pageSizeChanged.emit(event);
+        this.currentPageSize.set(event);
+        this.setPageIndex(event);
+        this.thyPageSizeChanged.emit(event);
     }
 }
