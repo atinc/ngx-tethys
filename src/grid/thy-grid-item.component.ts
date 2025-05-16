@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, inject, DestroyRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, OnInit, inject, DestroyRef, input } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { THY_GRID_COMPONENT } from './grid.token';
 import { ThyGridResponsiveDescription, THY_GRID_ITEM_DEFAULT_SPAN } from './grid.type';
@@ -25,12 +25,12 @@ export class ThyGridItem implements OnInit {
      * 栅格项的占位列数，为 0 时会隐藏该栅格项
      * @default 1
      */
-    @Input() thySpan: number | ThyGridResponsiveDescription = THY_GRID_ITEM_DEFAULT_SPAN;
+    readonly thySpan = input<number | ThyGridResponsiveDescription>(THY_GRID_ITEM_DEFAULT_SPAN);
 
     /**
      * 栅格项左侧的偏移列数
      */
-    @Input() thyOffset: number | ThyGridResponsiveDescription = 0;
+    readonly thyOffset = input<number | ThyGridResponsiveDescription>(0);
 
     private readonly destroyRef = inject(DestroyRef);
 
