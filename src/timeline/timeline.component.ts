@@ -1,27 +1,23 @@
 import {
     Component,
-    Input,
-    HostBinding,
-    ContentChildren,
-    QueryList,
-    AfterContentInit,
-    OnChanges,
-    OnDestroy,
     OnInit,
-    SimpleChanges,
-    SimpleChange,
     ChangeDetectorRef,
     ViewEncapsulation,
     ChangeDetectionStrategy,
-    inject
+    inject,
+    input,
+    effect,
+    computed,
+    signal,
+    WritableSignal,
+    contentChildren
 } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
 import { ThyTimelineItem } from './timeline-item.component';
 import { ThyTimelineService } from './timeline.service';
-import { Subject } from 'rxjs';
 import { NgTemplateOutlet } from '@angular/common';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
 import { ThyTimeMode } from './timeline.type';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 export enum ThyTimeModes {
     left = 'left',
@@ -44,111 +40,112 @@ export type ThyTimeDirection = 'horizontal' | 'vertical';
     template: `
         <ng-container>
             @for (item of timelineItems; track $index) {
-                <ng-template [ngTemplateOutlet]="item.template"></ng-template>
+                <ng-template [ngTemplateOutlet]="item.template()"></ng-template>
             }
             <ng-template>
                 <ng-content></ng-content>
             </ng-template>
         </ng-container>
     `,
+    host: {
+        class: 'thy-timeline',
+        '[class.thy-timeline-right]': `rightTimeline()`,
+        '[class.thy-timeline-center]': `centerTimeline()`,
+        '[class.thy-timeline-template]': `templateTimeline()`,
+        '[class.thy-timeline-horizontal]': `horizontal()`
+    },
     imports: [NgTemplateOutlet]
 })
-export class ThyTimeline implements OnInit, AfterContentInit, OnChanges, OnDestroy {
+export class ThyTimeline implements OnInit {
     private cdr = inject(ChangeDetectorRef);
+
     private timelineService = inject(ThyTimelineService);
 
     /**
      * 节点排序是否倒序
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyReverse: boolean;
+    readonly thyReverse = input<boolean, ThyBooleanInput>(false, { transform: coerceBooleanProperty });
 
     /**
      * 改变时间轴和内容的相对位置
      * @type left | right | center
      * @default left
      */
-    @Input() thyMode: ThyTimeMode;
+    readonly thyMode = input<ThyTimeMode>('left');
 
     /**
      * 时间轴的方向
      * @type horizontal | vertical
      */
-    @Input() thyDirection: ThyTimeDirection = 'vertical';
+    readonly thyDirection = input<ThyTimeDirection>('vertical');
 
     public timelineItems: ThyTimelineItem[] = [];
 
-    private destroy$ = new Subject<void>();
+    public templateTimeline: WritableSignal<boolean> = signal(false);
 
-    @HostBinding(`class.thy-timeline`) isTimeline = true;
-    @HostBinding(`class.thy-timeline-right`) rightTimeline = false;
-    @HostBinding(`class.thy-timeline-center`) centerTimeline = false;
-    @HostBinding(`class.thy-timeline-template`) templateTimeline = false;
-    @HostBinding(`class.thy-timeline-horizontal`) horizontal = false;
+    public horizontal = computed(() => {
+        return this.thyDirection() === 'horizontal' ? true : false;
+    });
 
-    @ContentChildren(ThyTimelineItem)
-    listOfItems: QueryList<ThyTimelineItem>;
-
-    ngOnChanges(changes: SimpleChanges): void {
-        const { thyMode, thyReverse } = changes;
-        if (thyMode && !this.horizontal) {
-            if (thyMode.currentValue === 'right') {
-                this.rightTimeline = !this.templateTimeline;
-                this.centerTimeline = false;
-            } else if (thyMode.currentValue === 'center') {
-                this.centerTimeline = true;
-                this.rightTimeline = false;
+    public rightTimeline = computed(() => {
+        const thyMode = this.thyMode();
+        const horizontal = this.horizontal();
+        const templateTimeline = this.templateTimeline();
+        if (thyMode && !horizontal) {
+            if (thyMode === 'right') {
+                return !templateTimeline;
             } else {
-                this.rightTimeline = false;
-                this.centerTimeline = false;
+                return false;
             }
         }
-        if ((simpleChangeActivated(thyMode) && !this.horizontal) || simpleChangeActivated(thyReverse)) {
-            this.updateChildren();
+    });
+
+    public centerTimeline = computed(() => {
+        const thyMode = this.thyMode();
+        const horizontal = this.horizontal();
+        if (thyMode && !horizontal) {
+            return thyMode === 'center';
         }
+    });
+
+    readonly listOfItems = contentChildren(ThyTimelineItem);
+
+    private takeUntilDestroyed = takeUntilDestroyed();
+
+    constructor() {
+        effect(() => {
+            this.updateChildren();
+        });
     }
 
     ngOnInit() {
-        this.horizontal = this.thyDirection === 'horizontal' ? true : false;
-        this.timelineService.check$.pipe(takeUntil(this.destroy$)).subscribe(() => {
+        this.timelineService.check$.pipe(this.takeUntilDestroyed).subscribe(() => {
             this.cdr.markForCheck();
         });
     }
 
-    ngAfterContentInit() {
-        this.updateChildren();
-        this.listOfItems.changes.subscribe(() => {
-            this.updateChildren();
-        });
-    }
-
-    ngOnDestroy(): void {
-        this.destroy$.next();
-        this.destroy$.complete();
-    }
-
     private updateChildren(): void {
-        if (this.listOfItems && this.listOfItems.length) {
-            const length = this.listOfItems.length;
-            this.listOfItems.forEach((item, index) => {
-                item.isLast = !this.thyReverse ? index === length - 1 : index === 0;
-                item.isFirst = this.thyReverse ? index === length - 1 : index === 0;
-                item.reverse = this.thyReverse;
-                if (!this.horizontal) {
-                    item.position = getTimelineItemPosition(index, this.thyMode);
+        const listOfItems = this.listOfItems();
+        const thyReverse = this.thyReverse();
+        if (listOfItems && listOfItems.length) {
+            const length = listOfItems.length;
+            listOfItems.forEach((item, index) => {
+                item.isLast = !thyReverse ? index === length - 1 : index === 0;
+                item.isFirst = thyReverse ? index === length - 1 : index === 0;
+                item.reverse = thyReverse;
+                if (!this.horizontal()) {
+                    item.position = getTimelineItemPosition(index, this.thyMode());
                 }
-                if (item.description || (item.thyPosition && !this.horizontal)) {
-                    this.templateTimeline = true;
+                if (item.description() || (item.thyPosition() && !this.horizontal())) {
+                    this.templateTimeline.set(true);
                 }
                 item.detectChanges();
             });
-            this.timelineItems = this.thyReverse ? this.listOfItems.toArray().reverse() : this.listOfItems.toArray();
+            this.timelineItems = this.thyReverse() ? [...listOfItems].reverse() : [...listOfItems];
         }
         this.cdr.markForCheck();
     }
-}
-function simpleChangeActivated(simpleChange?: SimpleChange): boolean {
-    return !!(simpleChange && (simpleChange.previousValue !== simpleChange.currentValue || simpleChange.isFirstChange()));
 }
 
 function getTimelineItemPosition(index: number, mode: ThyTimeMode): ThyTimeMode | undefined {

@@ -1,10 +1,18 @@
-import { Directive, Input, OnChanges, OnInit, AfterViewInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Directive, OnChanges, OnInit, AfterViewInit, OnDestroy, ChangeDetectionStrategy, input } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { isString } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
 export type ThyRowJustify = 'start' | 'end' | 'center' | 'space-around' | 'space-between';
 export type ThyRowAlign = 'top' | 'middle' | 'bottom';
+export interface ThyGutterType {
+    xs?: number;
+    sm?: number;
+    md?: number;
+    lg?: number;
+    xl?: number;
+    xxl?: number;
+}
 
 /**
  * 栅格行指令
@@ -17,11 +25,11 @@ export type ThyRowAlign = 'top' | 'middle' | 'bottom';
         class: 'thy-row'
     }
 })
-export class ThyRowDirective implements OnInit, OnChanges, AfterViewInit {
+export class ThyRowDirective implements OnInit, OnChanges {
     /**
      * 栅格的间距
      */
-    @Input() thyGutter: number | { xs?: number; sm?: number; md?: number; lg?: number; xl?: number; xxl?: number };
+    readonly thyGutter = input<ThyGutterType | number>(undefined);
 
     public actualGutter$ = new ReplaySubject<[number, number]>(1);
 
@@ -36,8 +44,6 @@ export class ThyRowDirective implements OnInit, OnChanges, AfterViewInit {
     ngOnChanges() {
         this.setGutterStyle();
     }
-
-    ngAfterViewInit(): void {}
 
     private setGutterStyle() {
         const [horizontalGutter, verticalGutter] = this.getGutter();
@@ -56,9 +62,10 @@ export class ThyRowDirective implements OnInit, OnChanges, AfterViewInit {
     }
 
     private getGutter() {
-        if (isString(this.thyGutter)) {
+        const thyGutter = this.thyGutter();
+        if (isString(thyGutter)) {
             throw Error(`thyGutter value can not be string type`);
         }
-        return [this.thyGutter as number, 0];
+        return [thyGutter as number, 0];
     }
 }

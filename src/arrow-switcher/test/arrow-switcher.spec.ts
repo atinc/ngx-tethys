@@ -1,6 +1,6 @@
 import { fakeAsync, ComponentFixture, TestBed, flush } from '@angular/core/testing';
 import { ThyArrowSwitcherModule, ThyArrowSwitcher } from 'ngx-tethys/arrow-switcher';
-import { Component, DebugElement, ViewChild } from '@angular/core';
+import { Component, DebugElement, viewChild } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
@@ -53,7 +53,7 @@ describe('ThyArrowSwitcher', () => {
     it('should show correct total', () => {
         testComponent.totalCount = 20;
         fixture.detectChanges();
-        expect(arrowSwitcherComponent.componentInstance.total).toEqual(20);
+        expect(arrowSwitcherComponent.componentInstance.thyTotal()).toEqual(20);
     });
 
     it('should show correct index', fakeAsync(() => {
@@ -61,7 +61,7 @@ describe('ThyArrowSwitcher', () => {
         fixture.detectChanges();
         flush();
         fixture.detectChanges();
-        expect(arrowSwitcherComponent.componentInstance.index).toEqual(5);
+        expect(arrowSwitcherComponent.componentInstance.index()).toEqual(5);
     }));
 
     it('should support disabled', fakeAsync(() => {
@@ -69,16 +69,15 @@ describe('ThyArrowSwitcher', () => {
         fixture.detectChanges();
         flush();
         fixture.detectChanges();
-        expect(arrowSwitcherComponent.componentInstance.previousDisabled).toBeFalsy();
-        expect(arrowSwitcherComponent.componentInstance.nextDisabled).toBeFalsy();
+        expect(arrowSwitcherComponent.componentInstance.previousDisabled()).toBeFalsy();
+        expect(arrowSwitcherComponent.componentInstance.nextDisabled()).toBeFalsy();
 
         testComponent.disabled = true;
         fixture.detectChanges();
         flush();
         fixture.detectChanges();
-        testComponent.switcherComponent.getDisabled();
-        expect(arrowSwitcherComponent.componentInstance.previousDisabled).toBeTruthy();
-        expect(arrowSwitcherComponent.componentInstance.nextDisabled).toBeTruthy();
+        expect(arrowSwitcherComponent.componentInstance.previousDisabled()).toBeTruthy();
+        expect(arrowSwitcherComponent.componentInstance.nextDisabled()).toBeTruthy();
     }));
 
     it('should support thyPrevious', fakeAsync(() => {
@@ -89,7 +88,7 @@ describe('ThyArrowSwitcher', () => {
         btnElements = arrowSwitcherComponent.nativeElement.querySelectorAll('button');
         (btnElements[0] as HTMLElement).click();
         fixture.detectChanges();
-        expect(arrowSwitcherComponent.componentInstance.index).toEqual(2);
+        expect(arrowSwitcherComponent.componentInstance.index()).toEqual(2);
     }));
 
     it('should support thyNext', fakeAsync(() => {
@@ -100,7 +99,7 @@ describe('ThyArrowSwitcher', () => {
         btnElements = arrowSwitcherComponent.nativeElement.querySelectorAll('button');
         (btnElements[1] as HTMLElement).click();
         fixture.detectChanges();
-        expect(arrowSwitcherComponent.componentInstance.index).toEqual(4);
+        expect(arrowSwitcherComponent.componentInstance.index()).toEqual(4);
     }));
 
     it('should tooltip works', fakeAsync(() => {
@@ -136,7 +135,7 @@ class ThyDemoArrowSwitcherComponent {
     previousTooltip: string;
     nextTooltip: string;
 
-    @ViewChild('switcher', { static: true }) switcherComponent: ThyArrowSwitcher;
+    readonly switcherComponent = viewChild<ThyArrowSwitcher>('switcher');
 
     previousClick() {}
 
