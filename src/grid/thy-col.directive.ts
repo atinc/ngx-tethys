@@ -37,7 +37,7 @@ export class ThyColDirective {
      */
     readonly thySpan = input<ThySpan>();
 
-    span = computed(() => {
+    protected readonly span = computed(() => {
         const span = this.thySpan() ?? this.thyCol();
         return span || 24;
     });
