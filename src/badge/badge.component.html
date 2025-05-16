@@ -1,6 +1,6 @@
-@if (isShowBadge) {
-  <div class="thy-badge {{ badgeClassName }}" [style.color]="textColor" [style.backgroundColor]="backgroundColor">
-    <span>{{ displayContent }}</span>
+@if (isShowBadge()) {
+  <div class="thy-badge {{ badgeClassName() }}" [style.color]="textColor()" [style.backgroundColor]="backgroundColor()">
+    <span>{{ displayContent() }}</span>
   </div>
 }
 <ng-content></ng-content>

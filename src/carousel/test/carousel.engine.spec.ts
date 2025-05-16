@@ -1,4 +1,4 @@
-import { Component, DebugElement, OnInit, ViewChild } from '@angular/core';
+import { Component, DebugElement, OnInit, viewChild } from '@angular/core';
 import { ThyCarousel, ThyCarouselEffect, ThyCarouselItemDirective, ThyCarouselModule } from 'ngx-tethys/carousel';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -21,7 +21,7 @@ import { provideHttpClient } from '@angular/common/http';
     imports: [ThyCarouselModule]
 })
 class ThyTestCarouselEngineComponent implements OnInit {
-    @ViewChild(ThyCarousel, { static: false }) thyCarouselComponent!: ThyCarousel;
+    readonly thyCarouselComponent = viewChild.required(ThyCarousel);
     constructor() {}
 
     array: string[] = [];
@@ -49,17 +49,19 @@ describe(`carousel`, () => {
         let carouselContents: DebugElement[];
         const drag = () => {
             fixture.detectChanges();
-            mouseSwipe(basicTestComponent.thyCarouselComponent, 500);
+            const thyCarouselComponent = basicTestComponent.thyCarouselComponent();
+            mouseSwipe(thyCarouselComponent, 500);
             fixture.detectChanges();
             tick(1000);
             expect(carouselContents[1].nativeElement.classList).toContain('thy-carousel-item-active');
-            mouseSwipe(basicTestComponent.thyCarouselComponent, 100, 1000, fixture);
+            mouseSwipe(thyCarouselComponent, 100, 1000, fixture);
             fixture.detectChanges();
             tick(2000);
             expect(carouselContents[1].nativeElement.classList).toContain('thy-carousel-item-active');
         };
         const horizontalStructure = () => {
-            mouseSwipe(basicTestComponent.thyCarouselComponent, 500);
+            const thyCarouselComponent = basicTestComponent.thyCarouselComponent();
+            mouseSwipe(thyCarouselComponent, 500);
             fixture.detectChanges();
             tick(1000);
             expect(carouselContents[1].nativeElement.classList).toContain('thy-carousel-item-active');
@@ -68,7 +70,7 @@ describe(`carousel`, () => {
             expect(carouselWrapper.nativeElement.querySelector('.thy-carousel-wrapper').style.transform).toBe(
                 `translate3d(${-width}px, 0px, 0px)`
             );
-            mouseSwipe(basicTestComponent.thyCarouselComponent, 500);
+            mouseSwipe(thyCarouselComponent, 500);
             fixture.detectChanges();
             tick(1000);
             expect(carouselContents[2].nativeElement.classList).toContain('thy-carousel-item-active');
@@ -84,7 +86,7 @@ describe(`carousel`, () => {
             );
         };
         const centralizedStructure = () => {
-            mouseSwipe(basicTestComponent.thyCarouselComponent, 500);
+            mouseSwipe(basicTestComponent.thyCarouselComponent(), 500);
             fixture.detectChanges();
             tick(1000);
             expect(carouselContents[1].nativeElement.classList).toContain('thy-carousel-item-active');

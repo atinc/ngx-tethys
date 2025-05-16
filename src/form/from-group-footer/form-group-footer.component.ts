@@ -1,4 +1,4 @@
-import { Component, HostBinding, ViewEncapsulation, OnInit, Input, ContentChild, TemplateRef, inject } from '@angular/core';
+import { Component, HostBinding, ViewEncapsulation, OnInit, ContentChild, TemplateRef, inject, input } from '@angular/core';
 import { ThyFormDirective } from '../form.directive';
 import { ThyFormGroupFooterAlign, THY_FORM_CONFIG, ThyFormConfig } from '../form.class';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
@@ -29,12 +29,13 @@ export class ThyFormGroupFooter implements OnInit {
      * @type left | right | center
      * @default left
      */
-    @Input() thyAlign: ThyFormGroupFooterAlign;
+    readonly thyAlign = input<ThyFormGroupFooterAlign>(undefined);
 
     public footerClassMap = {};
 
     private get align() {
-        return !!this.thyAlign ? this.thyAlign : this.defaultConfig.footerAlign;
+        const thyAlign = this.thyAlign();
+        return !!thyAlign ? thyAlign : this.defaultConfig.footerAlign;
     }
 
     ngOnInit() {
