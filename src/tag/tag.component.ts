@@ -38,7 +38,7 @@ export class ThyTag {
      * @type primary | success | info | warning | danger | default | light | string
      * @default default
      */
-    readonly thyTag = input<ThyTagColor>('default');
+    readonly thyTag = input<ThyTagColor>('');
 
     /**
      * 标签形状
@@ -49,7 +49,7 @@ export class ThyTag {
     /**
      * 标签颜色，支持设置主题色和颜色值，主题色为 default、primary、success、info、warning、danger
      */
-    readonly thyColor = input<ThyTagColor>('default');
+    readonly thyColor = input<ThyTagColor>('');
 
     /**
      * 标签主题，fill 为颜色填充，outline 为线框，weak-fill 为背景色0.1透明度效果
@@ -69,13 +69,11 @@ export class ThyTag {
      */
     readonly thyHoverable = input(false, { transform: coerceBooleanProperty });
 
-    protected readonly color = computed(() => this.thyColor() || this.thyTag());
+    protected readonly color = computed(() => this.thyColor() || this.thyTag() || 'default');
 
     constructor() {
         effect(() => {
-            if (this.thyColor() || this.thyTheme()) {
-                this.setColor();
-            }
+            this.setColor();
         });
     }
 
