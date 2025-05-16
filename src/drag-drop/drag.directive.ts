@@ -39,7 +39,7 @@ export class ThyDragDirective<T = any> implements IThyDragDirective, OnDestroy {
      */
     readonly disabled = input(false, { alias: 'thyDragDisabled', transform: coerceBooleanProperty });
 
-    data = computed(() => {
+    readonly data = computed(() => {
         return this.thyDrag() || this.thyDragData();
     });
 

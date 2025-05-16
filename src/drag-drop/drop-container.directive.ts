@@ -38,7 +38,7 @@ export class ThyDropContainerDirective<T = any> implements OnInit, IThyDropConta
      */
     readonly thyDropContainerData = input<T[]>();
 
-    data = computed(() => {
+    readonly data = computed(() => {
         return this.thyDropContainer() || this.thyDropContainerData();
     });
 
