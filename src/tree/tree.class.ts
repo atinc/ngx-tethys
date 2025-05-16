@@ -1,5 +1,5 @@
 import { helpers, isArray } from 'ngx-tethys/util';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 export enum ThyTreeNodeCheckState {
     unchecked = 0,
@@ -87,8 +87,21 @@ export interface ThyTreeFormatEmitEvent {
 }
 
 export interface IThyTreeService {
+    selectedNode: ThyTreeNode;
+    flattenNodes$: BehaviorSubject<ThyTreeNode[]>;
+    flattenTreeNodes: ThyTreeNode[];
+    treeNodes: ThyTreeNode[];
     statusChange$: Subject<ThyTreeFormatEmitEvent>;
+    initializeTreeNodes: (rootNodes: ThyTreeNodeData[]) => void;
     syncFlattenTreeNodes: () => ThyTreeNode[];
+    setCheckStateResolve: (resolve: (node: ThyTreeNode) => ThyTreeNodeCheckState) => void;
+    resetSortedTreeNodes: (treeNodes: ThyTreeNode[], parent?: ThyTreeNode) => void;
+    getTreeNode: (key: string | number) => ThyTreeNode;
+    getExpandedNodes: () => ThyTreeNode[];
+    getCheckedNodes: () => ThyTreeNode[];
+    deleteTreeNode: (node: ThyTreeNode) => void;
+    addTreeNode: (node: ThyTreeNode, parent?: ThyTreeNode, index?: number) => void;
+    expandTreeNodes: (keyOrKeys: string | number | (string | number)[] | true) => void;
     setNodeChecked: (node: ThyTreeNode, checked: boolean, propagateUp?: boolean, propagateDown?: boolean) => void;
     syncNodeCheckState: (node: ThyTreeNode) => void;
     checkStateResolve: (node: ThyTreeNode) => ThyTreeNodeCheckState;

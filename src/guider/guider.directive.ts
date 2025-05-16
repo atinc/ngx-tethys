@@ -1,5 +1,5 @@
 import { ThyGuiderManager } from './guider-manager';
-import { AfterViewInit, Directive, ElementRef, Input, OnDestroy, OnInit, NgZone, inject } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, OnDestroy, OnInit, NgZone, inject, input } from '@angular/core';
 import { take } from 'rxjs/operators';
 
 /**
@@ -19,15 +19,14 @@ export class ThyGuiderTargetDirective implements OnInit, OnDestroy, AfterViewIni
     /**
      * 标记当前元素对应的新手引导中 step 的 key
      */
-    @Input('thyGuiderTarget')
-    target: string;
+    readonly target = input<string>(undefined, { alias: 'thyGuiderTarget' });
 
     ngOnInit() {
-        this.guiderManager.addStepTarget(this.target, this.el.nativeElement);
+        this.guiderManager.addStepTarget(this.target(), this.el.nativeElement);
         this.ngZone.onStable.pipe(take(1)).subscribe(() => {
             const { key, guiderRef } = this.guiderManager.getActive();
-            if (key === this.target) {
-                const index = guiderRef.steps.findIndex(step => step.key === this.target);
+            if (key === this.target()) {
+                const index = guiderRef.steps.findIndex(step => step.key === this.target());
                 this.ngZone.run(() => {
                     guiderRef.active(index);
                 });
@@ -42,6 +41,6 @@ export class ThyGuiderTargetDirective implements OnInit, OnDestroy, AfterViewIni
         if (guiderRef) {
             guiderRef.close();
         }
-        this.guiderManager.removeStepTarget(this.target);
+        this.guiderManager.removeStepTarget(this.target());
     }
 }
