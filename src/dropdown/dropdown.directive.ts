@@ -85,10 +85,8 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
     /**
      * 弹出菜单后的当前触发元素的激活样式类
      */
-    readonly thyActiveClass = input<string>('thy-dropdown-origin-active');
-
-    readonly activeClass: Signal<string> = computed(() => {
-        return this.thyActiveClass() || 'thy-dropdown-origin-active';
+    readonly thyActiveClass = input<string, string>('thy-dropdown-origin-active', {
+        transform: (value: string) => value || 'thy-dropdown-origin-active'
     });
 
     /**
@@ -180,7 +178,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
             outsideClosable,
             insideClosable: helpers.isUndefined(thyMenuInsideClosable) ? insideClosable : thyMenuInsideClosable,
             minWidth,
-            originActiveClass: this.activeClass()
+            originActiveClass: this.thyActiveClass()
         };
         this.popoverRef = this.popover.open(componentTypeOrTemplateRef, config);
         this.popoverRef.afterOpened().subscribe(() => {
