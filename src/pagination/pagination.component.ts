@@ -19,7 +19,7 @@ import { FormsModule } from '@angular/forms';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThySelect } from 'ngx-tethys/select';
 import { ThyEnterDirective, ThyOption } from 'ngx-tethys/shared';
-import { coerceBooleanProperty, isTemplateRef } from 'ngx-tethys/util';
+import { coerceBooleanProperty, isTemplateRef, ThyBooleanInput } from 'ngx-tethys/util';
 import { ThyPaginationConfigModel } from './pagination.class';
 import { PaginationDefaultConfig, THY_PAGINATION_CONFIG, DEFAULT_RANGE_COUNT } from './pagination.config';
 import { PaginationPerPageFormat, PaginationTotalCountFormat } from './pagination.pipe';
@@ -87,19 +87,19 @@ export class ThyPagination {
     /**
      * 是否禁用
      */
-    readonly thyDisabled = input<boolean, boolean | string>(false, { transform: coerceBooleanProperty });
+    readonly thyDisabled = input<boolean, ThyBooleanInput>(false, { transform: coerceBooleanProperty });
 
     /**
      * 是否显示快速跳转
      * @default false
      */
-    readonly thyShowQuickJumper = input<boolean, boolean | string>(undefined, { transform: coerceBooleanProperty });
+    readonly thyShowQuickJumper = input<boolean, ThyBooleanInput>(undefined, { transform: coerceBooleanProperty });
 
     /**
      * 设置是否显示总页数信息
      * @default true
      */
-    readonly thyShowTotalPageCount = input<boolean, boolean | string>(undefined, { transform: coerceBooleanProperty });
+    readonly thyShowTotalPageCount = input<boolean, ThyBooleanInput>(undefined, { transform: coerceBooleanProperty });
 
     /**
      * 设置分页组件的大小
@@ -130,7 +130,7 @@ export class ThyPagination {
      * 是否显示分页大小选择器
      * @default false
      */
-    readonly thyShowSizeChanger = input<boolean, boolean | string>(undefined, { transform: coerceBooleanProperty });
+    readonly thyShowSizeChanger = input<boolean, ThyBooleanInput>(undefined, { transform: coerceBooleanProperty });
 
     /**
      * @type number[]
@@ -141,7 +141,7 @@ export class ThyPagination {
      * 只有一页时是否隐藏分页器
      * @default false
      */
-    readonly thyHideOnSinglePage = input<boolean, boolean | string>(undefined, { transform: coerceBooleanProperty });
+    readonly thyHideOnSinglePage = input<boolean, ThyBooleanInput>(undefined, { transform: coerceBooleanProperty });
 
     /**
      * 分页器单位
