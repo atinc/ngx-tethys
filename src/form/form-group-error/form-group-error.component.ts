@@ -1,4 +1,4 @@
-import { Component, HostBinding, ViewEncapsulation, OnInit, Input, inject } from '@angular/core';
+import { Component, HostBinding, ViewEncapsulation, OnInit, Input, inject, input } from '@angular/core';
 import { ThyFormDirective } from '../form.directive';
 import { ThyAlert } from 'ngx-tethys/alert';
 import { NgClass } from '@angular/common';
@@ -19,7 +19,7 @@ export class ThyFormGroupError implements OnInit {
 
     public errors: string[];
 
-    @Input({ transform: coerceBooleanProperty }) thyShowFirst = true;
+    readonly thyShowFirst = input(true, { transform: coerceBooleanProperty });
 
     /**
      * @type string[]
@@ -31,7 +31,7 @@ export class ThyFormGroupError implements OnInit {
 
     get thyErrors() {
         const errors = this.errors || this.thyParentForm.validator.errors;
-        return errors && errors.length > 0 && this.thyShowFirst ? [errors[0]] : errors;
+        return errors && errors.length > 0 && this.thyShowFirst() ? [errors[0]] : errors;
     }
 
     @HostBinding('class.form-group')

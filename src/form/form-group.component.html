@@ -1,11 +1,11 @@
+@let tips = tipsSignal();
+@let labelText = labelTextSignal();
+@let isHorizontal = isHorizontalSignal();
+@let feedbackIcon = thyFeedbackIcon();
 @if (contentTemplate || contentTemplateRef) {
   <ng-container [ngTemplateOutlet]="contentTemplate || contentTemplateRef"></ng-container>
-  @if (feedbackSvgIconName) {
-    <thy-icon class="form-control-feedback" [thyIconName]="feedbackSvgIconName"></thy-icon>
-  } @else {
-    @if (feedbackIcon) {
-      <span class="form-control-feedback {{ feedbackIcon }}"></span>
-    }
+  @if (feedbackIcon) {
+    <thy-icon class="form-control-feedback" [thyIconName]="feedbackIcon"></thy-icon>
   }
 } @else {
   @if (!(!isHorizontal && !labelText)) {
@@ -13,30 +13,26 @@
       class="form-label "
     [ngClass]="{
       'col-sm-2 col-form-label': isHorizontal,
-      'pt-0': labelPaddingTopClear
+      'pt-0': thyLabelPaddingTopClear()
     }"
       >
       <span
       [ngClass]="{
-        'label-required': labelRequired
+        'label-required': thyLabelRequired()
       }"
         >{{ labelText }}</span
         >
-        @if (tipMode === 'label' && tips) {
+        @if (thyTipsMode() === 'label' && tips) {
           <thy-icon class="label-tips-icon" thyIconName="question-circle" [thyTooltip]="tips"></thy-icon>
         }
       </label>
     }
     <div [ngClass]="{ 'col-sm-10 col-form-control': isHorizontal, 'position-relative': !isHorizontal }">
       <ng-content></ng-content>
-      @if (feedbackSvgIconName) {
-        <thy-icon class="form-control-feedback" [thyIconName]="feedbackSvgIconName"></thy-icon>
-      } @else {
-        @if (feedbackIcon) {
-          <span class="form-control-feedback {{ feedbackIcon }}"></span>
-        }
+      @if (feedbackIcon) {
+        <thy-icon class="form-control-feedback" [thyIconName]="feedbackIcon"></thy-icon>
       }
-      @if (tipMode === 'default' && tips) {
+      @if (thyTipsMode() === 'default' && tips) {
         <span class="form-text text-desc">{{ tips }}</span>
       }
     </div>

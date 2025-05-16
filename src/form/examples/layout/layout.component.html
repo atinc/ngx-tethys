@@ -11,10 +11,10 @@
 
 @if (showForm) {
   <form thyForm name="demoForm" #demoForm="ngForm" [thyLayout]="currentLayout?.value">
-    <thy-form-group thyLabelText="Username" thyLabelRequired>
+    <thy-form-group thyLabelText="Username">
       <input thyInput name="username" placeholder="Please type username" />
     </thy-form-group>
-    <thy-form-group thyLabelText="Password" thyLabelRequired>
+    <thy-form-group thyLabelText="Password">
       <input thyInput type="password" name="password" placeholder="Please type password" />
     </thy-form-group>
     <thy-form-group-footer>

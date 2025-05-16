@@ -1,4 +1,4 @@
-import { Component, ContentChild, HostBinding, Input, OnInit, TemplateRef } from '@angular/core';
+import { Component, ContentChild, HostBinding, OnInit, TemplateRef, contentChild, input } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 
 type ThyResultStatus = 'success' | 'warning' | 'error';
@@ -10,58 +10,59 @@ type ThyResultStatus = 'success' | 'warning' | 'error';
 @Component({
     selector: 'thy-result',
     templateUrl: './result.component.html',
-    imports: [NgTemplateOutlet]
+    imports: [NgTemplateOutlet],
+    host: {
+        class: 'thy-result'
+    }
 })
 export class ThyResult implements OnInit {
     /**
      * @description 结果的状态，决定显示的图标
      * @type success | warning | error
      */
-    @Input() thyStatus: ThyResultStatus;
+    readonly thyStatus = input<ThyResultStatus>(undefined);
 
     /**
      * @description 自定义 icon，作为 img 的 src 显示
      * @type string
      */
-    @Input() thyIcon: string;
+    readonly thyIcon = input<string>(undefined);
 
     /**
      * @description 标题
      * @type string
      */
-    @Input() thyTitle: string;
+    readonly thyTitle = input<string>(undefined);
 
     /**
      * @description 二级标题
      * @type string
      */
-    @Input() thySubtitle: string;
+    readonly thySubtitle = input<string>(undefined);
 
     /**
      * @description 自定义 icon 模板
      * @type TemplateRef<any>
      */
-    @ContentChild('thyIcon') iconTemplateRef: TemplateRef<any>;
+    protected readonly iconTemplateRef = contentChild<TemplateRef<any>>('thyIcon');
 
     /**
      * @description 自定义标题模板
      * @type TemplateRef<any>
      */
-    @ContentChild('thyTitle') titleTemplateRef: TemplateRef<any>;
+    protected readonly titleTemplateRef = contentChild<TemplateRef<any>>('thyTitle');
 
     /**
      * @description 自定义二级标题模板
      * @type TemplateRef<any>
      */
-    @ContentChild('thySubtitle') subtitleTemplateRef: TemplateRef<any>;
+    protected readonly subtitleTemplateRef = contentChild<TemplateRef<any>>('thySubtitle');
 
     /**
      * @description 自定义操作区域
      * @type TemplateRef<any>
      */
-    @ContentChild('thyExtra') extraTemplateRef: TemplateRef<any>;
-
-    @HostBinding('class.thy-result') className = true;
+    protected readonly extraTemplateRef = contentChild<TemplateRef<any>>('thyExtra');
 
     constructor() {}
 

@@ -1,4 +1,4 @@
-import { Component, DebugElement, OnInit, ViewChild } from '@angular/core';
+import { Component, DebugElement, OnInit, viewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
@@ -36,7 +36,7 @@ import { provideHttpClient } from '@angular/common/http';
     imports: [ThyCarouselModule]
 })
 class ThyTestCarouselBasicComponent implements OnInit {
-    @ViewChild(ThyCarousel, { static: false }) thyCarouselComponent!: ThyCarousel;
+    readonly thyCarouselComponent = viewChild.required(ThyCarousel);
     constructor() {}
 
     array: string[] = [];
@@ -78,7 +78,7 @@ class ThyTestCarouselBasicComponent implements OnInit {
     imports: [ThyCarouselModule]
 })
 class ThyTestCarouselTouchableComponent implements OnInit {
-    @ViewChild(ThyCarousel, { static: false }) thyCarouselComponent!: ThyCarousel;
+    readonly thyCarouselComponent = viewChild.required(ThyCarousel);
 
     array: string[] = [];
 
@@ -198,20 +198,22 @@ describe('carousel', () => {
         }));
 
         it('should touch event work', fakeAsync(() => {
-            touchSwipe(basicTestComponent.thyCarouselComponent, carouselWrapper.nativeElement, 500);
+            const thyCarouselComponent = basicTestComponent.thyCarouselComponent();
+            touchSwipe(thyCarouselComponent, carouselWrapper.nativeElement, 500);
             fixture.detectChanges();
             tick(1000);
             expect(carouselContents[1].nativeElement.classList).toContain('thy-carousel-item-active');
             fixture.detectChanges();
             tick(1000);
-            touchSwipe(basicTestComponent.thyCarouselComponent, carouselWrapper.nativeElement, -500, 500, fixture);
+            touchSwipe(thyCarouselComponent, carouselWrapper.nativeElement, -500, 500, fixture);
             fixture.detectChanges();
             tick(1000);
             expect(carouselContents[0].nativeElement.classList).toContain('thy-carousel-item-active');
         }));
 
         it('should trigger slide when window is resized', fakeAsync(() => {
-            mouseSwipe(basicTestComponent.thyCarouselComponent, 500);
+            const thyCarouselComponent = basicTestComponent.thyCarouselComponent();
+            mouseSwipe(thyCarouselComponent, 500);
             fixture.detectChanges();
             tick(1000);
             expect(carouselContents[1].nativeElement.classList).toContain('thy-carousel-item-active');
@@ -220,7 +222,7 @@ describe('carousel', () => {
             expect(carouselWrapper.nativeElement.querySelector('.thy-carousel-wrapper').style.transform).toBe(
                 `translate3d(${-width}px, 0px, 0px)`
             );
-            mouseSwipe(basicTestComponent.thyCarouselComponent, 500);
+            mouseSwipe(thyCarouselComponent, 500);
             fixture.detectChanges();
             tick(1000);
             expect(carouselContents[2].nativeElement.classList).toContain('thy-carousel-item-active');
@@ -279,14 +281,15 @@ describe('carousel', () => {
 
         it('should touchable work', fakeAsync(() => {
             fixture.detectChanges();
-            mouseSwipe(touchableTestComponent.thyCarouselComponent, 500);
+            const thyCarouselComponent = touchableTestComponent.thyCarouselComponent();
+            mouseSwipe(thyCarouselComponent, 500);
             fixture.detectChanges();
             tick(1000);
             expect(carouselContents[0].nativeElement.classList).toContain('thy-carousel-item-active');
 
             touchableTestComponent.touchable = true;
             fixture.detectChanges();
-            mouseSwipe(touchableTestComponent.thyCarouselComponent, 500);
+            mouseSwipe(thyCarouselComponent, 500);
             fixture.detectChanges();
             tick(1000);
             expect(carouselContents[1].nativeElement.classList).toContain('thy-carousel-item-active');
