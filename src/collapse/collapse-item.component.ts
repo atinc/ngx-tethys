@@ -58,7 +58,7 @@ export class ThyCollapseItem implements IThyCollapseItemComponent, OnInit, OnDes
     /**
      * 是否禁用当前面板
      */
-    readonly thyDisabled = input<boolean, boolean | string | number>(false, { transform: coerceBooleanProperty });
+    readonly thyDisabled = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 自定义面板头
@@ -70,17 +70,17 @@ export class ThyCollapseItem implements IThyCollapseItemComponent, OnInit, OnDes
      */
     thyArrowIcon = model<string | TemplateRef<SafeAny> | boolean>(DEFAULT_ARROW_ICON);
 
-    arrowIconTemplate = computed(() => {
+    readonly arrowIconTemplate = computed(() => {
         const arrowIcon = this.thyArrowIcon();
         return arrowIcon instanceof TemplateRef ? arrowIcon : null;
     });
 
-    arrowIcon = computed(() => {
+    readonly arrowIcon = computed(() => {
         const arrowIcon = this.thyArrowIcon();
         return isString(arrowIcon) ? arrowIcon : DEFAULT_ARROW_ICON;
     });
 
-    showArrow = computed(() => {
+    readonly showArrow = computed(() => {
         const arrowIcon = this.thyArrowIcon();
         if (!(arrowIcon instanceof TemplateRef) && !isString(arrowIcon)) {
             return this.thyArrowIcon();

@@ -87,17 +87,17 @@ export class ThyArrowSwitcher implements ControlValueAccessor {
      */
     readonly thySize = input<string>();
 
-    isSmallSize: Signal<boolean> = computed(() => {
+    readonly isSmallSize: Signal<boolean> = computed(() => {
         return this.thySize() === 'sm';
     });
 
     index: WritableSignal<number> = signal(0);
 
-    previousDisabled = computed(() => {
+    readonly previousDisabled = computed(() => {
         return this.index() <= 0 || this.disabled();
     });
 
-    nextDisabled = computed(() => {
+    readonly nextDisabled = computed(() => {
         return this.index() >= this.thyTotal() - 1 || this.disabled();
     });
 
