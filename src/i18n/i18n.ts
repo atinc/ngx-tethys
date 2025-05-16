@@ -17,7 +17,8 @@ export type ThyModuleType =
     | 'cascader'
     | 'pagination'
     | 'form'
-    | 'empty';
+    | 'empty'
+    | 'image';
 
 export type ThyModuleLocaleType<K extends ThyModuleType> = ThyI18nLocale[K];
 
@@ -50,6 +51,7 @@ export interface ThyI18nLocale {
     pagination: ThyPaginationLocale;
     form: ThyFormLocale;
     empty: ThyEmptyLocale;
+    image: ThyImageLocale;
 }
 
 export interface ThyLayoutLocale {
@@ -180,6 +182,7 @@ export interface ThyCascaderLocale {
 
 export interface ThyPaginationLocale {
     page: string;
+    order: string;
     total: string;
     totalCount: string;
     jumpTo: string;
@@ -204,4 +207,22 @@ export interface ThyFormLocale {
 
 export interface ThyEmptyLocale {
     noDataText: string;
+}
+
+export interface ThyImageLocale {
+    zoomOut: string;
+    zoomIn: string;
+    originalSize: string;
+    fitToScreen: string;
+    fullScreen: string;
+    spin: string;
+    download: string;
+    viewOriginal: string;
+    copyLink: string;
+    exitPreview: string;
+    exitFullScreen: string;
+    copySuccess: string;
+    copyError: string;
+    prev: string;
+    next: string;
 }

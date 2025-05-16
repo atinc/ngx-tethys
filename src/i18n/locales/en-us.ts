@@ -29,8 +29,8 @@ export default {
         today: 'Today',
         tomorrow: 'Tomorrow',
         nextWeek: 'Next week',
-        lastSevenDays: 'Recent 7 days',
-        lastThirtyDays: 'Recent 30 days',
+        lastSevenDays: '7 days',
+        lastThirtyDays: '30 days',
         currentMonth: 'This month',
         currentWeek: 'This week',
 
@@ -137,6 +137,23 @@ export default {
     },
     empty: {
         noDataText: 'No data available'
+    },
+    image: {
+        zoomOut: 'Zoom out',
+        zoomIn: 'Zoom in',
+        originalSize: 'Original size',
+        fitToScreen: 'Fit to screen',
+        fullScreen: 'Full screen',
+        spin: 'Spin',
+        download: 'Download',
+        viewOriginal: 'View original',
+        copyLink: 'Copy link',
+        exitPreview: 'Exit preview',
+        exitFullScreen: 'Exit full screen',
+        copySuccess: 'Copied successfully',
+        copyError: 'Copy failed',
+        prev: 'Previous',
+        next: 'Next'
     }
 };
 

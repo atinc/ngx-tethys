@@ -76,8 +76,10 @@ export class ThySelectControl implements OnInit {
             });
         }
         if (!this.panelOpened && this.thyShowSearch) {
-            Promise.resolve(null).then(() => {
-                this.setInputValue('');
+            new Promise(resolve => setTimeout(resolve, 100)).then(() => {
+                this.inputValue = '';
+                this.updateWidth();
+                this.thyOnSearch.emit(this.inputValue);
             });
         }
         this.setSelectControlClass();
@@ -124,7 +126,8 @@ export class ThySelectControl implements OnInit {
         if (this.panelOpened && this.thyShowSearch) {
             if (!sameValue) {
                 Promise.resolve(null).then(() => {
-                    this.setInputValue('');
+                    this.inputValue = '';
+                    this.updateWidth();
                 });
             }
             //等待组件渲染好再聚焦
@@ -285,7 +288,7 @@ export class ThySelectControl implements OnInit {
         if ((event as KeyboardEvent).isComposing) {
             return;
         }
-        if (this.inputValue.length === 0 && this.selectedOptions instanceof Array) {
+        if (!this.inputValue?.length && this.selectedOptions instanceof Array) {
             if (this.selectedOptions.length > 0) {
                 this.removeHandle(this.selectedOptions[this.selectedOptions.length - 1], event);
             }

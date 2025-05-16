@@ -137,5 +137,22 @@ export default {
     },
     empty: {
         noDataText: 'データはありません'
+    },
+    image: {
+        zoomOut: '縮小',
+        zoomIn: '拡大',
+        originalSize: '元のサイズ',
+        fitToScreen: '画面に合わせる',
+        fullScreen: '全画面表示',
+        spin: '回転',
+        download: 'ダウンロード',
+        viewOriginal: '元の画像を表示',
+        copyLink: 'リンクをコピー',
+        exitPreview: 'プレビューを終了',
+        exitFullScreen: '全画面表示を終了',
+        copySuccess: '画像のURLをコピーしました',
+        copyError: '画像のURLをコピーできませんでした',
+        prev: '前の画像',
+        next: '次の画像'
     }
 };
