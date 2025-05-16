@@ -89,7 +89,7 @@ export class ThyInputGroup implements OnInit, OnDestroy {
      */
     readonly thyPrependTextTranslateKey = input<string>();
 
-    prependText = computed(() => {
+    protected readonly prependText = computed(() => {
         const prependTextTranslateKey = this.thyPrependTextTranslateKey();
         if (prependTextTranslateKey) {
             return this.thyTranslate.instant(prependTextTranslateKey);
@@ -97,7 +97,7 @@ export class ThyInputGroup implements OnInit, OnDestroy {
         return this.thyPrependText();
     });
 
-    appendText = computed(() => {
+    protected readonly appendText = computed(() => {
         const appendTextTranslateKey = this.thyAppendTextTranslateKey();
         if (appendTextTranslateKey) {
             return this.thyTranslate.instant(appendTextTranslateKey);
