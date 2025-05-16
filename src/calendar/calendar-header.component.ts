@@ -73,9 +73,7 @@ export class ThyCalendarHeader implements OnInit {
 
     constructor() {
         effect(() => {
-            if (this.currentDate()) {
-                this.setDate(this.currentDate());
-            }
+            this.setDate();
         });
     }
 
@@ -105,10 +103,11 @@ export class ThyCalendarHeader implements OnInit {
         this.cdr.detectChanges();
     }
 
-    setDate(value: TinyDate) {
-        this.isCurrentDate(value);
+    setDate() {
+        const currentDate = this.currentDate();
+        this.isCurrentDate(currentDate);
         if (this.isCurrent) {
-            this._currentDate = value;
+            this._currentDate = currentDate;
             const dateRange = {
                 ...this.dateRanges[0],
                 key: 'exception',
