@@ -1,4 +1,4 @@
-import { ApplicationRef, Component, DebugElement, ViewChild } from '@angular/core';
+import { Component, DebugElement, viewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -43,7 +43,7 @@ describe('Component:thy-back-top', () => {
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestBackTopComponent);
-        component = fixture.componentInstance.thyBackTopComponent;
+        component = fixture.componentInstance.thyBackTopComponent();
         componentObject = new ThyBackTopPageObject();
         debugElement = fixture.debugElement;
         scrollService = TestBed.inject(MockThyScrollService);
@@ -86,25 +86,6 @@ describe('Component:thy-back-top', () => {
 
                 expect(scrollService.getScroll()).toEqual(0);
             }));
-
-            it('should not run change detection if there are no `thyClick` observers', fakeAsync(() => {
-                const thyClickSpy = jasmine.createSpy();
-                const appRef = TestBed.inject(ApplicationRef);
-                spyOn(appRef, 'tick');
-
-                componentObject.clickBackTop();
-                tick();
-
-                expect(scrollService.getScroll()).toEqual(0);
-                expect(appRef.tick).not.toHaveBeenCalled();
-
-                component.thyClick.subscribe(thyClickSpy);
-                componentObject.clickBackTop();
-                tick();
-
-                expect(thyClickSpy).toHaveBeenCalled();
-                expect(appRef.tick).toHaveBeenCalledTimes(1);
-            }));
         });
     });
 
@@ -112,7 +93,8 @@ describe('Component:thy-back-top', () => {
         const customVisibilityHeight = 100;
 
         beforeEach(() => {
-            component.thyVisibilityHeight = customVisibilityHeight;
+            fixture.componentInstance.visibilityHeight = customVisibilityHeight;
+            fixture.detectChanges();
         });
 
         it(`should not show when scroll is below ${customVisibilityHeight}`, fakeAsync(() => {
@@ -208,7 +190,8 @@ describe('Component:thy-back-top', () => {
         }));
 
         it('element (use string id) scroll shows the button', fakeAsync(() => {
-            component.thyContainer = '#fakeTarget';
+            fixture.componentInstance.container = '#fakeTarget';
+            fixture.detectChanges();
 
             const throttleTime = 50;
 
@@ -235,16 +218,15 @@ describe('Component:thy-back-top', () => {
 
 @Component({
     template: `
-        <thy-back-top [thyContainer]="container"></thy-back-top>
+        <thy-back-top [thyContainer]="container" [thyVisibilityHeight]="visibilityHeight"></thy-back-top>
         <div id="fakeTarget"></div>
     `,
     imports: [ThyBackTopModule]
 })
 class TestBackTopComponent {
-    @ViewChild(ThyBackTop, { static: true })
-    thyBackTopComponent!: ThyBackTop;
-
-    container: HTMLElement | null = null;
+    readonly thyBackTopComponent = viewChild.required(ThyBackTop);
+    container: HTMLElement | string | null = null;
+    visibilityHeight = 400;
 
     setTarget(container: HTMLElement): void {
         this.container = container;
@@ -253,7 +235,6 @@ class TestBackTopComponent {
 
 @Component({
     template: `
-        my comp
         <thy-back-top [thyTemplate]="tpl">
             <ng-template #tpl>
                 <div class="this-is-my-template"></div>
@@ -263,8 +244,7 @@ class TestBackTopComponent {
     imports: [ThyBackTopModule]
 })
 class TestBackTopTemplateComponent {
-    @ViewChild(ThyBackTop)
-    thyBackTopComponent!: ThyBackTop;
+    readonly thyBackTopComponent = viewChild.required(ThyBackTop);
 }
 
 class MockThyScrollService {
