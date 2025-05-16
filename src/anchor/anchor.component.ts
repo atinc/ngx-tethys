@@ -122,13 +122,13 @@ export class ThyAnchor implements IThyAnchorComponent, OnDestroy, AfterViewInit 
 
     visible = false;
 
-    wrapperStyle = computed(() => {
+    readonly wrapperStyle = computed(() => {
         return {
             'max-height': this.thyOffsetTop() ? `calc(100vh - ${this.thyOffsetTop()}px)` : '100vh'
         };
     });
 
-    container: Signal<HTMLElement | Window> = computed(() => {
+    readonly container: Signal<HTMLElement | Window> = computed(() => {
         return (
             (typeof this.thyContainer() === 'string'
                 ? (this.document.querySelector(this.thyContainer() as string) as HTMLElement)

@@ -75,14 +75,14 @@ export class ThyAvatar {
     /**
      * 是否展示人员名称
      */
-    readonly thyShowName = input<boolean, boolean | string | number>(false, { transform: coerceBooleanProperty });
+    readonly thyShowName = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 头像路径地址, 默认为全路径，如果不是全路径，可以通过自定义服务 ThyAvatarService，重写 srcTransform 方法实现转换
      */
     readonly thySrc = input<string>();
 
-    src = computed(() => {
+    readonly src = computed(() => {
         if (this.isAvatarImgError()) {
             return null;
         }
@@ -97,12 +97,12 @@ export class ThyAvatar {
      */
     readonly thyName = input<string>();
 
-    avatarName: Signal<string> = computed(() => {
+    readonly avatarName: Signal<string> = computed(() => {
         const name = this.thyAvatarService.nameTransform(this.thyName());
         return isString(name) ? name : this.thyName();
     });
 
-    avatarNameSafeHtml: Signal<SafeHtml> = computed(() => {
+    readonly avatarNameSafeHtml: Signal<SafeHtml> = computed(() => {
         const name = this.thyAvatarService.nameTransform(this.thyName());
         if (!isString(name)) {
             return name;
@@ -117,7 +117,7 @@ export class ThyAvatar {
      */
     readonly thySize = model<number | string>('md');
 
-    size: Signal<number> = computed(() => {
+    readonly size: Signal<number> = computed(() => {
         const sizeKey = this.thySize() as 'xxs' | 'xs' | 'sm' | 'md' | 'lg';
         if (thyAvatarSizeMap[sizeKey]) {
             return thyAvatarSizeMap[sizeKey];
@@ -131,14 +131,14 @@ export class ThyAvatar {
      * 已废弃，请使用 thyRemovable
      * @deprecated
      */
-    readonly thyShowRemove = input<boolean, boolean | string | number>(false, { transform: coerceBooleanProperty });
+    readonly thyShowRemove = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 是否展示移除按钮
      */
-    readonly thyRemovable = input<boolean, boolean | string | number>(false, { transform: coerceBooleanProperty });
+    readonly thyRemovable = input(false, { transform: coerceBooleanProperty });
 
-    showRemove: Signal<boolean> = computed(() => this.thyRemovable() || this.thyShowRemove());
+    readonly showRemove: Signal<boolean> = computed(() => this.thyRemovable() || this.thyShowRemove());
 
     /**
      * 图片自定义类
@@ -148,7 +148,7 @@ export class ThyAvatar {
     /**
      * 是否禁用
      */
-    readonly thyDisabled = input<boolean, boolean | string | number>(false, { transform: coerceBooleanProperty });
+    readonly thyDisabled = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 图片加载策略

@@ -72,7 +72,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
      */
     readonly thyAutocomplete = input<ThyAutocomplete>();
 
-    autocompleteComponent: Signal<ThyAutocomplete> = computed(() => {
+    readonly autocompleteComponent: Signal<ThyAutocomplete> = computed(() => {
         return this.thyAutocomplete() || this.thyAutocompleteComponent();
     });
 
@@ -94,9 +94,9 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
     /**
      * 是否允许聚焦时打开下拉菜单
      */
-    readonly thyIsFocusOpen = input<boolean, boolean | string | number>(true, { transform: coerceBooleanProperty });
+    readonly thyIsFocusOpen = input(true, { transform: coerceBooleanProperty });
 
-    activeOption: Signal<ThyOption | null> = computed(() => {
+    private readonly activeOption: Signal<ThyOption | null> = computed(() => {
         if (this.autocompleteComponent() && this.autocompleteComponent().keyManager) {
             return this.autocompleteComponent().keyManager.activeItem;
         }
