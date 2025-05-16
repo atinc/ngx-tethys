@@ -50,12 +50,12 @@ export class ThySwitch extends TabIndexDisabledControlValueAccessorMixin impleme
     /**
      * 是否属于禁用状态
      */
-    readonly inputDisabled = input<boolean, boolean>(false, { transform: coerceBooleanProperty, alias: `thyDisabled` });
+    readonly inputDisabled = input(false, { transform: coerceBooleanProperty, alias: `thyDisabled` });
 
     /**
      * 是否加载中
      */
-    readonly thyLoading = input<string | boolean, boolean>(false, { transform: coerceBooleanProperty });
+    readonly thyLoading = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 数据变化的回调事件，即将被弃用，请使用 ngModelChange
@@ -71,7 +71,7 @@ export class ThySwitch extends TabIndexDisabledControlValueAccessorMixin impleme
         return this.disabled() as boolean;
     }
 
-    type = computed(() => {
+    readonly type = computed(() => {
         if (!supportedTypes.includes(this.thyType())) {
             return 'primary';
         } else {
@@ -79,7 +79,7 @@ export class ThySwitch extends TabIndexDisabledControlValueAccessorMixin impleme
         }
     });
 
-    size = computed(() => {
+    readonly size = computed(() => {
         if (!supportedSizes.includes(this.thySize())) {
             return '';
         } else {
@@ -87,7 +87,7 @@ export class ThySwitch extends TabIndexDisabledControlValueAccessorMixin impleme
         }
     });
 
-    classNames = computed(() => {
+    readonly classNames = computed(() => {
         const classList = [`thy-switch-${this.type()}`];
         if (this.size()) {
             classList.push(`thy-switch-${this.size()}`);
@@ -101,7 +101,7 @@ export class ThySwitch extends TabIndexDisabledControlValueAccessorMixin impleme
         return classList;
     });
 
-    loadingCircle = computed(() => {
+    readonly loadingCircle = computed(() => {
         const svgSize: Record<string, number> = { xs: 12, sm: 16 };
         const circleSize = svgSize[this.size()] ?? 20;
         const centerPoint = circleSize / 2;
