@@ -96,7 +96,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
      */
     readonly thyIsFocusOpen = input(true, { transform: coerceBooleanProperty });
 
-    private readonly activeOption: Signal<ThyOption | null> = computed(() => {
+    readonly activeOption: Signal<ThyOption | null> = computed(() => {
         if (this.autocompleteComponent() && this.autocompleteComponent().keyManager) {
             return this.autocompleteComponent().keyManager.activeItem;
         }
