@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input, inject, input, computed } from '@angular/core';
 import { ThySkeleton } from './skeleton.component';
-import { coerceBooleanProperty, helpers } from 'ngx-tethys/util';
+import { coerceBooleanProperty, helpers, ThyBooleanInput } from 'ngx-tethys/util';
 import { THY_SKELETON_CONFIG } from './skeleton.config';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
 import { NgStyle } from '@angular/common';
@@ -58,7 +58,7 @@ export class ThySkeletonCircle {
      * 是否展示动画
      * @default true
      */
-    readonly thyAnimated = input< boolean, string | boolean>(undefined, { transform: coerceBooleanProperty });
+    readonly thyAnimated = input< boolean, ThyBooleanInput>(undefined, { transform: coerceBooleanProperty });
 
     readonly animatedInterval = computed(() => {
         return this.thyAnimatedInterval() || this.parent?.thyAnimatedInterval() || this.skeletonConfigModel.thyAnimatedInterval;

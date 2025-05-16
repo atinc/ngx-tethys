@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, input, ViewEncapsulation, computed } from '@angular/core';
 import { ThySkeletonRectangle } from '../skeleton-rectangle.component';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
 import { coerceCssPixelValue } from '@angular/cdk/coercion';
 
 /**
@@ -48,7 +48,7 @@ export class ThySkeletonList {
      * 是否开启动画
      * @default false
      */
-    readonly thyAnimated = input<boolean, string | boolean>(undefined, { transform: coerceBooleanProperty });
+    readonly thyAnimated = input<boolean, ThyBooleanInput>(undefined, { transform: coerceBooleanProperty });
 
     /**
      * 动画速度
