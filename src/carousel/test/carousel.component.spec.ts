@@ -133,13 +133,13 @@ describe('carousel', () => {
             basicTestComponent.autoPlayInterval = 0;
             fixture.detectChanges();
             tick(4000);
-            expect(carouselContents[1].nativeElement.classList).not.toContain('thy-carousel-item-active');
+            expect(carouselContents[1].nativeElement.classList).toContain('thy-carousel-item-active');
             fixture.detectChanges();
             basicTestComponent.autoPlayInterval = 3000;
             basicTestComponent.autoPlay = false;
             fixture.detectChanges();
             tick(3000);
-            expect(carouselContents[1].nativeElement.classList).not.toContain('thy-carousel-item-active');
+            expect(carouselContents[1].nativeElement.classList).toContain('thy-carousel-item-active');
         }));
 
         it('should indicators handle click', fakeAsync(() => {

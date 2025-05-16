@@ -10,11 +10,9 @@ import {
     inject,
     NgZone,
     numberAttribute,
-    OnChanges,
     OnDestroy,
     OnInit,
     Renderer2,
-    SimpleChanges,
     TemplateRef,
     ViewEncapsulation,
     input,
@@ -187,11 +185,15 @@ export class ThyCarousel implements IThyCarouselComponent, OnInit, AfterViewInit
                 this.markContentActive(0);
                 this.setInitialValue();
             }
+        });
 
+        effect(() => {
             if (this.thyTouchable()) {
                 this.renderer.setStyle(this.wrapperEl, 'cursor', this.thyTouchable() ? 'grab' : 'default');
             }
+        });
 
+        effect(() => {
             if (!this.thyAutoPlay() || !this.thyAutoPlayInterval()) {
                 this.clearScheduledTransition();
             } else {
@@ -232,7 +234,6 @@ export class ThyCarousel implements IThyCarouselComponent, OnInit, AfterViewInit
         this.carouselItems?.forEach((carouselContent: ThyCarouselItemDirective, i: number) => {
             carouselContent.isActive = index === i;
         });
-        // 由于在 effect 中会自动执行 detectChanges，这里不需要手动调用
     }
 
     private setInitialValue(): void {
@@ -343,7 +344,6 @@ export class ThyCarousel implements IThyCarouselComponent, OnInit, AfterViewInit
         });
         this.markContentActive(0);
         this.setInitialValue();
-
         if (!this.thyTouchable()) {
             this.renderer.setStyle(this.wrapperEl, 'cursor', 'default');
         }
