@@ -1,5 +1,5 @@
 import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyInputGroup, ThyInputDirective, ThyInputCount } from 'ngx-tethys/input';
 import { ThyTranslate } from 'ngx-tethys/core';
@@ -153,13 +153,16 @@ describe('input group', () => {
             expect(debugElement.nativeElement.innerText.includes('Append Content')).toBe(true);
         });
 
-        it('group should disabled when thyInput is disabled', fakeAsync(() => {
+        it('group should disabled when thyInput is disabled', (done: () => void) => {
             fixture.detectChanges();
             basicTestComponent.disabled = true;
             fixture.detectChanges();
-            tick();
-            expect(Array.from(debugElement.nativeElement.classList).includes('disabled')).toBe(true);
-        }));
+            setTimeout(() => {
+                fixture.detectChanges();
+                expect(Array.from(debugElement.nativeElement.classList).includes('disabled')).toBe(true);
+                done();
+            }, 200);
+        });
     });
 
     describe('prefix-suffix', () => {

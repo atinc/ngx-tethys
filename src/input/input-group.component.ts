@@ -1,18 +1,18 @@
 import {
     Component,
-    HostBinding,
-    Input,
-    ContentChild,
     TemplateRef,
     ViewEncapsulation,
     ChangeDetectionStrategy,
-    AfterContentChecked,
     OnInit,
     OnDestroy,
-    ChangeDetectorRef,
     NgZone,
     inject,
-    DestroyRef
+    DestroyRef,
+    input,
+    computed,
+    effect,
+    contentChild,
+    signal
 } from '@angular/core';
 import { ThyTranslate, useHostFocusControl } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -22,6 +22,7 @@ import { throttleTime } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Observable, of } from 'rxjs';
 import { FocusOrigin } from '@angular/cdk/a11y';
+import { MutationObserverFactory } from '@angular/cdk/observers';
 
 export type InputGroupSize = 'sm' | 'lg' | 'md' | '';
 
@@ -43,18 +44,18 @@ const inputGroupSizeMap = {
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'thy-input-group',
-        '[class.form-control]': 'prefixTemplate || suffixTemplate',
-        '[class.thy-input-group-with-prefix]': 'prefixTemplate',
-        '[class.thy-input-group-with-suffix]': 'suffixTemplate',
-        '[class.thy-input-group-with-textarea-suffix]': 'isTextareaSuffix',
-        '[class.thy-input-group-with-scroll-bar]': 'isTextareaSuffix && hasScrollbar'
+        '[class.form-control]': 'prefixTemplate() || suffixTemplate()',
+        '[class.thy-input-group-with-prefix]': 'prefixTemplate()',
+        '[class.thy-input-group-with-suffix]': 'suffixTemplate()',
+        '[class.thy-input-group-with-textarea-suffix]': 'isTextareaSuffix()',
+        '[class.thy-input-group-with-scroll-bar]': 'isTextareaSuffix() && hasScrollbar()',
+        '[class.disabled]': 'disabled()'
     },
     imports: [NgTemplateOutlet]
 })
-export class ThyInputGroup implements OnInit, AfterContentChecked, OnDestroy {
+export class ThyInputGroup implements OnInit, OnDestroy {
     private thyTranslate = inject(ThyTranslate);
     private ngZone = inject(NgZone);
-    private cdr = inject(ChangeDetectorRef);
 
     private hostRenderer = useHostRenderer();
 
@@ -62,90 +63,122 @@ export class ThyInputGroup implements OnInit, AfterContentChecked, OnDestroy {
 
     private readonly destroyRef = inject(DestroyRef);
 
-    public appendText: string;
+    public isTextareaSuffix = signal(false);
 
-    public prependText: string;
+    public hasScrollbar = signal(false);
 
-    public isTextareaSuffix: boolean;
-
-    public hasScrollbar: boolean;
-
-    @HostBinding('class.disabled') disabled = false;
+    disabled = signal(false);
 
     /**
      * 输入框上添加的后置文本
      */
-    @Input()
-    set thyAppendText(value: string) {
-        this.appendText = value;
-    }
+    readonly thyAppendText = input<string>();
 
     /**
      * 输入框上添加的后置文本多语言 Key
      */
-    @Input()
-    set thyAppendTextTranslateKey(value: string) {
-        if (value) {
-            this.appendText = this.thyTranslate.instant(value);
-        }
-    }
+    readonly thyAppendTextTranslateKey = input<string>();
 
     /**
      * 输入框上添加的前置文本
      */
-    @Input()
-    set thyPrependText(value: string) {
-        this.prependText = value;
-    }
+    readonly thyPrependText = input<string>();
 
     /**
      * 输入框上添加的前置文本多语言 Key
      */
-    @Input()
-    set thyPrependTextTranslateKey(value: string) {
-        if (value) {
-            this.prependText = this.thyTranslate.instant(value);
+    readonly thyPrependTextTranslateKey = input<string>();
+
+    protected readonly prependText = computed(() => {
+        const prependTextTranslateKey = this.thyPrependTextTranslateKey();
+        if (prependTextTranslateKey) {
+            return this.thyTranslate.instant(prependTextTranslateKey);
         }
-    }
+        return this.thyPrependText();
+    });
+
+    protected readonly appendText = computed(() => {
+        const appendTextTranslateKey = this.thyAppendTextTranslateKey();
+        if (appendTextTranslateKey) {
+            return this.thyTranslate.instant(appendTextTranslateKey);
+        }
+        return this.thyAppendText();
+    });
 
     /**
      * 输入框分组大小
      * @type 'sm' | 'lg' | 'md' | ''
      * @default ''
      */
-    @Input()
-    set thySize(size: InputGroupSize) {
-        if (size && inputGroupSizeMap[size]) {
-            this.hostRenderer.updateClass(inputGroupSizeMap[size]);
-        } else {
-            this.hostRenderer.updateClass([]);
-        }
-    }
+    readonly thySize = input<InputGroupSize>();
 
     /**
      * 后置模板
      */
-    @ContentChild('append') appendTemplate: TemplateRef<unknown>;
+    readonly appendTemplate = contentChild<TemplateRef<unknown>>('append');
 
     /**
      * 前置模板
      */
-    @ContentChild('prepend') prependTemplate: TemplateRef<unknown>;
+    readonly prependTemplate = contentChild<TemplateRef<unknown>>('prepend');
 
     /**
      * 前缀
      */
-    @ContentChild('prefix') prefixTemplate: TemplateRef<unknown>;
+    readonly prefixTemplate = contentChild<TemplateRef<unknown>>('prefix');
 
     /**
      * 后缀
      */
-    @ContentChild('suffix') suffixTemplate: TemplateRef<unknown>;
+    readonly suffixTemplate = contentChild<TemplateRef<unknown>>('suffix');
 
     /**
      * @private
      */
-    @ContentChild(ThyInputDirective) inputDirective: ThyInputDirective;
+    readonly inputDirective = contentChild(ThyInputDirective);
+
+    private disabledObservable: MutationObserver;
+
+    constructor() {
+        effect(() => {
+            const size = this.thySize();
+            if (size && inputGroupSizeMap[size]) {
+                this.hostRenderer.updateClass(inputGroupSizeMap[size]);
+            } else {
+                this.hostRenderer.updateClass([]);
+            }
+        });
+
+        effect(() => {
+            const inputDirective = this.inputDirective();
+            if (inputDirective?.nativeElement) {
+                this.isTextareaSuffix.set(inputDirective?.nativeElement?.tagName === 'TEXTAREA');
+                if (this.isTextareaSuffix()) {
+                    this.determineHasScrollbar();
+                }
+            }
+        });
+
+        effect(() => {
+            const inputDirective = this.inputDirective();
+            this.disabledObservable?.disconnect();
+            if (inputDirective?.nativeElement) {
+                this.disabledObservable = new MutationObserverFactory().create(mutations => {
+                    for (const mutation of mutations) {
+                        if (mutation.type === 'attributes' && mutation.attributeName === 'disabled') {
+                            this.disabled.set(!!inputDirective.nativeElement.hasAttribute('disabled'));
+                        }
+                    }
+                });
+                if (this.disabledObservable) {
+                    this.disabledObservable.observe(inputDirective.nativeElement, {
+                        attributes: true,
+                        attributeFilter: ['disabled']
+                    });
+                }
+            }
+        });
+    }
 
     ngOnInit() {
         this.hostFocusControl.focusChanged = (origin: FocusOrigin) => {
@@ -157,25 +190,16 @@ export class ThyInputGroup implements OnInit, AfterContentChecked, OnDestroy {
         };
     }
 
-    ngAfterContentChecked(): void {
-        this.disabled = !!this.inputDirective?.nativeElement?.hasAttribute('disabled');
-
-        this.isTextareaSuffix = this.inputDirective?.nativeElement?.tagName === 'TEXTAREA';
-        if (this.isTextareaSuffix) {
-            this.determineHasScrollbar();
-        }
-    }
-
     private determineHasScrollbar() {
         this.ngZone.runOutsideAngular(() => {
-            this.resizeObserver(this.inputDirective.nativeElement)
+            this.resizeObserver(this.inputDirective().nativeElement)
                 .pipe(throttleTime(100), takeUntilDestroyed(this.destroyRef))
                 .subscribe(() => {
-                    const hasScrollbar = this.inputDirective.nativeElement.scrollHeight > this.inputDirective.nativeElement.clientHeight;
-                    if (this.hasScrollbar !== hasScrollbar) {
+                    const hasScrollbar =
+                        this.inputDirective().nativeElement.scrollHeight > this.inputDirective().nativeElement.clientHeight;
+                    if (this.hasScrollbar() !== hasScrollbar) {
                         this.ngZone.run(() => {
-                            this.hasScrollbar = hasScrollbar;
-                            this.cdr.detectChanges();
+                            this.hasScrollbar.set(hasScrollbar);
                         });
                     }
                 });

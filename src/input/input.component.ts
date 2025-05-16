@@ -3,18 +3,18 @@ import { take } from 'rxjs/operators';
 import { NgTemplateOutlet } from '@angular/common';
 import {
     Component,
-    ContentChild,
     ElementRef,
-    EventEmitter,
     forwardRef,
-    Input,
     NgZone,
     OnInit,
-    Output,
     TemplateRef,
-    ViewChild,
     ViewEncapsulation,
-    inject
+    inject,
+    input,
+    effect,
+    signal,
+    output,
+    contentChild
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -44,8 +44,8 @@ const password = 'password';
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'thy-input form-control',
-        '[class.form-control-active]': 'focused',
-        '[class.disabled]': 'disabled'
+        '[class.form-control-active]': 'focused()',
+        '[class.disabled]': 'disabled()'
     },
     imports: [NgTemplateOutlet, ThyInputDirective, ThyAutofocusDirective, FormsModule, ThyIcon]
 })
@@ -56,90 +56,91 @@ export class ThyInput implements ControlValueAccessor, OnInit {
     /**
      * Placeholder
      */
-    @Input() placeholder = '';
+    readonly placeholder = input('');
 
     /**
      * 输入框大小
      * @type 'xs' | 'sm' | 'md' | 'default' | 'lg'
      * @default default
      */
-    @Input() thySize: ThyInputSize;
+    readonly thySize = input<ThyInputSize>();
 
     /**
      * 是否自动聚焦
      */
-    @Input({ transform: coerceBooleanProperty }) thyAutofocus = false;
+    readonly thyAutofocus = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 输入框类型
      * @type 'number' | 'input'
      */
-    @Input()
-    set thyType(value: string) {
-        this.type = value;
-    }
+    readonly thyType = input<string>();
 
     /**
      * @deprecated please use thyType
      */
-    @Input() type: string;
+    readonly _type = input<string>(undefined, { alias: 'type' });
 
     /**
      * 输入 Label 文本
      */
-    @Input() thyLabelText: string;
+    readonly thyLabelText = input<string>(undefined);
 
     /**
      * 是否只读
      */
-    @Input({ transform: coerceBooleanProperty }) readonly = false;
+    readonly readonly = input(false, { transform: coerceBooleanProperty });
 
     /**
      * focus 聚焦事件
      */
-    @Output() focus: EventEmitter<Event> = new EventEmitter<Event>();
+    readonly focus = output<Event>();
 
     /**
      * blur 失焦事件
      */
-    @Output() blur: EventEmitter<Event> = new EventEmitter<Event>();
+    readonly blur = output<Event>();
 
     /**
      * 后置模板
      */
-    @ContentChild('append') appendTemplate: TemplateRef<any>;
+    readonly appendTemplate = contentChild<TemplateRef<any>>('append');
 
     /**
      * 前置模板
      */
-    @ContentChild('prepend') prependTemplate: TemplateRef<any>;
+    readonly prependTemplate = contentChild<TemplateRef<any>>('prepend');
 
-    @ViewChild('eye', { static: true }) eyeTemplate: TemplateRef<any>;
+    public type = signal<string>(undefined);
 
-    public _type = 'text';
+    public value = signal('');
 
-    public value: string;
+    public showLabel = signal(false);
 
-    public showLabel: boolean;
+    public focused = signal(false);
 
-    public focused = false;
-
-    public disabled = false;
+    public disabled = signal(false);
 
     private onTouchedCallback: () => void = noop;
 
     private onChangeCallback: (_: any) => void = noop;
 
+    public isPasswordType = signal(false);
+
+    constructor() {
+        effect(() => {
+            this.type.set(this.thyType() || this._type());
+        });
+    }
+
     ngOnInit() {
         this.ngZone.onStable.pipe(take(1)).subscribe(() => {
-            if (this.isPassword(this.type)) {
-                this.appendTemplate = this.eyeTemplate;
-            }
+            this.isPasswordType.set(this.isPassword(this.type()));
         });
     }
 
     writeValue(value: any): void {
-        this.value = value;
+        this.value.set(value);
     }
 
     registerOnChange(fn: any): void {
@@ -151,16 +152,16 @@ export class ThyInput implements ControlValueAccessor, OnInit {
     }
 
     setDisabledState?(isDisabled: boolean): void {
-        this.disabled = isDisabled;
+        this.disabled.set(isDisabled);
     }
 
     onModelChange() {
-        this.onChangeCallback(this.value);
+        this.onChangeCallback(this.value());
     }
 
     onInputFocus(event: Event) {
-        this.focused = true;
-        this.showLabel = true;
+        this.focused.set(true);
+        this.showLabel.set(true);
         this.focus.emit(event);
     }
 
@@ -169,8 +170,8 @@ export class ThyInput implements ControlValueAccessor, OnInit {
         if (this.elementRef.nativeElement.onblur) {
             this.elementRef.nativeElement.onblur(event);
         }
-        this.focused = false;
-        this.showLabel = false;
+        this.focused.set(false);
+        this.showLabel.set(false);
         this.blur.emit(event);
     }
 
@@ -179,6 +180,6 @@ export class ThyInput implements ControlValueAccessor, OnInit {
     }
 
     togglePasswordType() {
-        this.type = this.isPassword(this.type) ? 'text' : 'password';
+        this.type.set(this.isPassword(this.type()) ? 'text' : 'password');
     }
 }
