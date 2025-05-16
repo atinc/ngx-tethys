@@ -1,15 +1,15 @@
-<div [class.thy-loading-mask]="isMask && !isDone">
-  @if (!isDone) {
+<div [class.thy-loading-mask]="thyIsMask() && !thyDone()">
+  @if (!thyDone()) {
     <div class="thy-loading-indicator">
       <h4>
-        <span [style.display]="tip ? 'inline' : 'none'">{{ tip }}</span>
+        <span [style.display]="thyTip() ? 'inline' : 'none'">{{ thyTip() }}</span>
         <div class="thy-loading-ellipsis">
           <span class="thy-spot"></span>
         </div>
       </h4>
     </div>
   }
-  @if (isMask || isDone) {
+  @if (thyIsMask() || thyDone()) {
     <ng-content></ng-content>
   }
 </div>
