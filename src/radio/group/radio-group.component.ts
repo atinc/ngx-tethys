@@ -5,19 +5,19 @@ import {
     Component,
     forwardRef,
     HostBinding,
-    Input,
+    inject,
+    input,
     OnChanges,
     OnInit,
-    SimpleChanges,
-    inject
+    SimpleChanges
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { ThyRadioButton } from '../button/radio-button.component';
 import { ThyRadio } from '../radio.component';
 import { IThyRadioGroupComponent, THY_RADIO_GROUP_COMPONENT } from '../radio.token';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 const buttonGroupSizeMap = {
     sm: ['btn-group-sm'],
@@ -61,24 +61,18 @@ export class ThyRadioGroup implements IThyRadioGroupComponent, ControlValueAcces
     @HostBinding('class.btn-group-outline-default')
     isButtonGroupOutline = false;
 
-    private _size: string;
-
-    private _layout: string;
-
     /**
      * 大小
      * @type sm | md | lg
      * @default md
      */
-    @Input()
-    set thySize(size: string) {
-        this._size = size;
-    }
+    readonly thySize = input<string>('md');
 
-    @Input()
-    set thyLayout(layout: string) {
-        this._layout = layout;
-    }
+    /**
+     * 布局
+     * @type flex
+     */
+    readonly thyLayout = input<string>();
 
     _innerValue: string | number;
 
@@ -90,20 +84,20 @@ export class ThyRadioGroup implements IThyRadioGroupComponent, ControlValueAcces
      * 是否禁用单选组合框
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyDisabled = false;
+    readonly thyDisabled = input(false, { transform: coerceBooleanProperty });
 
     onChange: (_: string) => void = () => null;
     onTouched: () => void = () => null;
 
     addRadio(radio: ThyRadio | ThyRadioButton): void {
         this.radios.push(radio);
-        radio.thyChecked = radio.thyValue === this._innerValue;
+        radio.thyChecked = radio.thyValue() === this._innerValue;
     }
 
     updateValue(value: string, emit: boolean): void {
         this._innerValue = value;
         this.radios.forEach(radio => {
-            radio.thyChecked = radio.thyValue === this._innerValue;
+            radio.thyChecked = radio.thyValue() === this._innerValue;
         });
         if (emit) {
             this.onChange(value);
@@ -144,21 +138,23 @@ export class ThyRadioGroup implements IThyRadioGroupComponent, ControlValueAcces
     ngOnChanges(changes: SimpleChanges): void {
         const { thyDisabled } = changes;
         if (thyDisabled) {
-            this.setDisabledState(this.thyDisabled);
+            this.setDisabledState(this.thyDisabled());
         }
     }
 
     ngAfterContentInit(): void {
-        this.setDisabledState(this.thyDisabled);
+        this.setDisabledState(this.thyDisabled());
     }
 
     private _setClasses() {
         const classNames: string[] = [];
-        if (buttonGroupSizeMap[this._size]) {
-            classNames.push(buttonGroupSizeMap[this._size]);
+        const size = this.thySize();
+        if (size && buttonGroupSizeMap[size]) {
+            classNames.push(buttonGroupSizeMap[size]);
         }
-        if (radioGroupLayoutMap[this._layout]) {
-            classNames.push(radioGroupLayoutMap[this._layout]);
+        const layout = this.thyLayout();
+        if (layout && radioGroupLayoutMap[layout]) {
+            classNames.push(radioGroupLayoutMap[layout]);
         }
         this.hostRenderer.updateClass(classNames);
     }
