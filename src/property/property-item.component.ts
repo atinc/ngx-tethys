@@ -121,7 +121,7 @@ export class ThyPropertyItem implements OnInit, OnDestroy {
 
     private clickEventSubscription: Subscription;
 
-    gridColumn = computed(() => {
+    protected readonly gridColumn = computed(() => {
         return `span ${Math.min(this.thySpan(), this.parent.thyColumn())}`;
     });
 

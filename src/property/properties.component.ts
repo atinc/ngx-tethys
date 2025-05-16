@@ -43,7 +43,7 @@ export class ThyProperties {
      */
     readonly thyEditTrigger = input<'hover' | 'click'>('hover');
 
-    gridTemplateColumns = computed(() => {
+    protected readonly gridTemplateColumns = computed(() => {
         return `repeat(${this.thyColumn()}, 1fr)`;
     });
 
