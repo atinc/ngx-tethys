@@ -35,7 +35,7 @@ export class ThyBadge implements OnInit {
 
     badgeClassName: Signal<string> = computed(() => {
         const classes: string[] = [];
-        classes.push(`thy-badge-${this.type()}`);
+        classes.push(`thy-badge-${this.thyType()}`);
         if (this.size()) {
             classes.push(`thy-badge-${this.size()}`);
         }
@@ -84,9 +84,9 @@ export class ThyBadge implements OnInit {
      * 徽标类型
      * @type default | primary | danger | warning | success
      */
-    readonly thyType = input<string>('danger');
-
-    type: Signal<string> = computed(() => this.thyType() || 'danger');
+    readonly thyType = input<string, string>('danger', {
+        transform: (value: string) => value || 'danger'
+    });
 
     /**
      * 徽标内容数字
