@@ -36,8 +36,8 @@ export class ThyBadge implements OnInit {
     badgeClassName: Signal<string> = computed(() => {
         const classes: string[] = [];
         classes.push(`thy-badge-${this.thyType()}`);
-        if (this.size()) {
-            classes.push(`thy-badge-${this.size()}`);
+        if (this.thySize()) {
+            classes.push(`thy-badge-${this.thySize()}`);
         }
         if (this.thyIsDot()) {
             classes.push(`thy-badge-dot`);
@@ -92,7 +92,7 @@ export class ThyBadge implements OnInit {
      * 徽标内容数字
      * @type number
      */
-    readonly thyCount = input(undefined, { transform: numberAttribute });
+    readonly thyCount = input<number, unknown>(undefined, { transform: numberAttribute });
 
     /**
      * 徽标内容文本
@@ -109,15 +109,13 @@ export class ThyBadge implements OnInit {
      * 徽标显示的最大值, 与 thyCount 一起使用,thyCount 超过了 thyMaxCount 设置的值时，徽标内容为 thyMaxCount+
      * @type number
      */
-    readonly thyMaxCount = input(undefined, { transform: numberAttribute });
+    readonly thyMaxCount = input<number, unknown>(undefined, { transform: numberAttribute });
 
     /**
      * 徽标显示的大小
      * @type md | sm | lg
      */
-    readonly thySize = input<ThyBadgeSize>('md');
-
-    size: Signal<ThyBadgeSize> = computed(() => this.thySize() || 'md');
+    readonly thySize = input<ThyBadgeSize, ThyBadgeSize>('md', { transform: (value: ThyBadgeSize) => value || 'md' });
 
     /**
      * 已废弃，徽标是一个实心点，已经被废弃
