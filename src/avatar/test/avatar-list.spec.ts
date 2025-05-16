@@ -100,7 +100,7 @@ describe('thy-avatar-list', () => {
             expect(moreComponent).not.toBeTruthy();
         }));
 
-        it('should be 36px size which is the default size When thyAvatarSize is empty', fakeAsync(() => {
+        it('should be 36px size which is the default size when thyAvatarSize is empty', fakeAsync(() => {
             const avatarComponent = fixture.debugElement.queryAll(By.directive(ThyAvatar));
             const avatarElement = avatarComponent[0].nativeElement;
             expect(avatarElement.classList.contains('thy-avatar-36')).toEqual(true);
@@ -120,21 +120,21 @@ describe('thy-avatar-list', () => {
             fixture.detectChanges();
         });
 
-        it('should be 16 size When input number 0', fakeAsync(() => {
+        it('should be 16 size when input number 0', fakeAsync(() => {
             fixture.componentInstance.size = 0;
             fixture.detectChanges();
             const avatarContainer = fixture.debugElement.query(By.css('.thy-avatar-16'));
             expect(avatarContainer).not.toBeNull();
         }));
 
-        it('should be 24px size When input xs string', fakeAsync(() => {
+        it('should be 24px size when input xs string', fakeAsync(() => {
             fixture.componentInstance.size = 'xs';
             fixture.detectChanges();
             const avatarContainer = fixture.debugElement.query(By.css('.thy-avatar-24'));
             expect(avatarContainer).not.toBeNull();
         }));
 
-        it('should be 68px size When input number 80', fakeAsync(() => {
+        it('should be 68px size when input number 80', fakeAsync(() => {
             fixture.componentInstance.size = '80';
             fixture.detectChanges();
             const avatarComponent = fixture.debugElement.queryAll(By.directive(ThyAvatar));
@@ -153,12 +153,12 @@ describe('thy-avatar-list', () => {
             fixture.detectChanges();
         });
 
-        it('should be default type which is the default type When thyMode is empty', fakeAsync(() => {
+        it('should be default type which is the default type when thyMode is empty', fakeAsync(() => {
             expect(avatarListElement.classList.contains('thy-avatar-list')).toEqual(true);
             expect(fixture.debugElement.query(By.css('.thy-avatar-list-overlap'))).toBeNull();
         }));
 
-        it('should show current overlap space When thyMode is overlap', fakeAsync(() => {
+        it('should show current overlap space when thyMode is overlap', fakeAsync(() => {
             fixture.componentInstance.mode = ThyAvatarListMode.overlap;
             fixture.componentInstance.size = 60;
             fixture.detectChanges();
