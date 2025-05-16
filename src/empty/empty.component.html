@@ -1,34 +1,34 @@
 <div class="thy-empty-icon">
-  @if (thyImageUrl) {
+  @if (thyImageUrl()) {
     <img
-      [src]="thyImageUrl"
-      [attr.loading]="thyImageLoading"
-      [attr.fetchpriority]="thyImageFetchPriority"
+      [src]="thyImageUrl()"
+      [attr.loading]="thyImageLoading()"
+      [attr.fetchpriority]="thyImageFetchPriority()"
       class="empty-img"
       />
   } @else {
-    @if (presetSvg) {
-      <div [innerHTML]="presetSvg"></div>
+    @if (presetSvg()) {
+      <div [innerHTML]="presetSvg()"></div>
     } @else {
-      @if (thyIconName) {
-        <thy-icon class="empty-icon" [thyIconName]="thyIconName"></thy-icon>
+      @if (thyIconName()) {
+        <thy-icon class="empty-icon" [thyIconName]="thyIconName()"></thy-icon>
       }
     }
   }
 </div>
 
-<div [ngClass]="{ 'thy-empty-text': !thyDescription, 'thy-empty-text-with-extra': thyDescription }">
-  {{ displayText }}
+<div [ngClass]="{ 'thy-empty-text': !thyDescription(), 'thy-empty-text-with-extra': thyDescription() }">
+  {{ displayText() }}
 </div>
 
-@if (thyDescription) {
+@if (thyDescription()) {
   <div class="thy-empty-description">
-    {{ thyDescription }}
+    {{ thyDescription() }}
   </div>
 }
 
-@if (extraTemplateRef) {
+@if (extraTemplateRef()) {
   <div class="thy-empty-extra">
-    <ng-template [ngTemplateOutlet]="extraTemplateRef"></ng-template>
+    <ng-template [ngTemplateOutlet]="extraTemplateRef()"></ng-template>
   </div>
 }
