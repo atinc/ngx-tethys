@@ -1,10 +1,10 @@
 <div class="thy-comment-inner">
-  @if (isTemplateRef(this.thyAvatar)) {
-    <ng-template [ngTemplateOutlet]="thyAvatar"></ng-template>
+  @if (isTemplateRef(this.thyAvatar())) {
+    <ng-template [ngTemplateOutlet]="thyAvatar()"></ng-template>
   } @else {
-    @if (thyAuthor || thyAvatar) {
+    @if (thyAuthor() || thyAvatar()) {
       <div class="thy-comment-avatar">
-        <thy-avatar [thyName]="!isTemplateRef(thyAuthor) && thyAuthor" thySize="28" [thySrc]="thyAvatar || ''"></thy-avatar>
+        <thy-avatar [thyName]="!isTemplateRef(thyAuthor()) && thyAuthor()" thySize="28" [thySrc]="thyAvatar() || ''"></thy-avatar>
       </div>
     }
   }
@@ -12,10 +12,10 @@
   <div class="thy-comment-body">
     <div class="thy-comment-body-author">
       <span class="thy-comment-body-author-name">
-        <ng-container *thyStringOrTemplateOutlet="thyAuthor"></ng-container>
+        <ng-container *thyStringOrTemplateOutlet="thyAuthor()"></ng-container>
       </span>
       <span class="thy-comment-body-author-time">
-        <ng-container *thyStringOrTemplateOutlet="thyDatetime"></ng-container>
+        <ng-container *thyStringOrTemplateOutlet="thyDatetime()"></ng-container>
       </span>
     </div>
     <ng-content select="[thyCommentContent]"></ng-content>
@@ -25,4 +25,3 @@
 <div class="thy-comment-nested">
   <ng-content></ng-content>
 </div>
-

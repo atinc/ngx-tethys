@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, inject } from '@angular/core';
+import { Directive, ElementRef, effect, inject, input } from '@angular/core';
 import { isBgColor, isThemeColor, ThyBgColor, ThyThemeColor } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
@@ -21,10 +21,15 @@ export class ThyBackgroundColorDirective {
      *  @type ThyThemeColor | ThyBgColor | string
      *  @description 背景颜色，支持设置主题色和自定义颜色值，主题色为 `primary`、`success`、`info`、`danger`、`warning`、`dark`、`secondary`、`light`、`lighter`、`bright`、`content`、`white`、`transparent`
      */
-    @Input() set thyBgColor(value: ThyThemeColor | ThyBgColor | string) {
-        this.clearBgColor();
-        this.bgColor = value;
-        this.setBgColor();
+    readonly thyBgColor = input<ThyThemeColor | ThyBgColor | string>(undefined);
+
+    constructor() {
+        effect(() => {
+            const bgColor = this.thyBgColor();
+            this.clearBgColor();
+            this.bgColor = bgColor;
+            this.setBgColor();
+        });
     }
 
     private setBgColor() {
