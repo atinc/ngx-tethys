@@ -1,13 +1,30 @@
+@let locale = paginationLocale();
+@let hideOnSinglePage = thyHideOnSinglePage();
+@let pageIndex = currentPageIndex();
+@let pageSize = currentPageSize();
+@let total = thyTotal();
+@let range = computedRange();
+@let config = computedConfig();
+@let pages = computedPages();
+@let pageCount = computedPageCount();
+@let disabled = thyDisabled();
+@let size = thySize();
+@let showTotal = thyShowTotal();
+
 @if ((hideOnSinglePage && total > pageSize) || !hideOnSinglePage) {
   @if (showTotal) {
-    <div class="thy-pagination-total">
+    <div
+      class="thy-pagination-total"
+      [class.thy-pagination-total-sm]="size === 'sm'"
+      [class.thy-pagination-total-md]="size === 'md'"
+      [class.thy-pagination-total-lg]="size === 'lg'">
       @if (!isTemplateRef(showTotal)) {
         @if (total > 0) {
           <div class="mr-3">
-            {{ locale().order }}<span class="number"> {{ range.from }}-{{ range.to }} </span>{{ config.unit }}
+            {{ locale.order }}<span class="number"> {{ range.from }}-{{ range.to }} </span>{{ config.unit }}
           </div>
           <div>
-            {{ locale().total }}<span class="number"> {{ total }} </span>{{ config.unit }}
+            {{ locale.total }}<span class="number"> {{ total }} </span>{{ config.unit }}
           </div>
         }
       } @else {
@@ -18,7 +35,7 @@
   <div class="thy-pagination-content">
     @if (config.showSizeChanger) {
       <div class="thy-pagination-size">
-        <thy-select [(ngModel)]="selectPageSize" [thySize]="selectSize" [thyDisabled]="disabled" (ngModelChange)="onPageSizeChange($event)">
+        <thy-select [(ngModel)]="selectedPageSize" [thySize]="size" [thyDisabled]="disabled" (ngModelChange)="onPageSizeChange($event)">
           @for (option of config.pageSizeOptions; track option) {
             <thy-option
               class="page-size-option"
@@ -89,9 +106,9 @@
     @if (config.showQuickJumper) {
       <div class="thy-pagination-jumper">
         <div class="thy-pagination-jumper-input">
-          {{ locale().jumpTo }}
+          {{ locale.jumpTo }}
           <input type="text" [disabled]="disabled" #jumperInput (thyEnter)="jumpPage(jumperInput)" (blur)="jumpPage(jumperInput)" />
-          {{ locale().page }}
+          {{ locale.page }}
         </div>
       </div>
     }
