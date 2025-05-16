@@ -8,7 +8,6 @@ import {
     inject,
     input,
     NgZone,
-    OnInit,
     Signal,
     TemplateRef
 } from '@angular/core';
@@ -64,7 +63,7 @@ export type ThyEmptyImageFetchPriority = 'high' | 'low' | 'auto';
     templateUrl: './empty.component.html',
     imports: [ThyIcon, NgClass, NgTemplateOutlet]
 })
-export class ThyEmpty implements OnInit, AfterViewInit {
+export class ThyEmpty implements AfterViewInit {
     private thyTranslate = inject(ThyTranslate);
     private thyEmptyConfig = inject(ThyEmptyConfig);
     private elementRef = inject(ElementRef);
@@ -152,13 +151,13 @@ export class ThyEmpty implements OnInit, AfterViewInit {
      */
     readonly extraTemplateRef = contentChild<TemplateRef<SafeAny>>('extra');
 
-    presetSvg = computed(() => {
+    protected readonly presetSvg = computed(() => {
         let presetSvg = this.thyIconName() ? PRESET_SVG[this.thyIconName() as keyof typeof PRESET_SVG] : PRESET_SVG.default;
 
         return presetSvg ? this.sanitizer.bypassSecurityTrustHtml(presetSvg) : '';
     });
 
-    displayText = computed(() => {
+    protected readonly displayText = computed(() => {
         if (this.thyMessage()) {
             return this.thyMessage();
         } else if (this.thyTranslationKey()) {
@@ -180,10 +179,7 @@ export class ThyEmpty implements OnInit, AfterViewInit {
 
     constructor() {
         effect(() => {
-            const classList = sizeClassMap[(this.thySize() as keyof typeof sizeClassMap) || 'md'];
-            if (classList) {
-                this.hostRenderer.updateClass(classList);
-            }
+            this.updateClass();
         });
     }
 
@@ -218,7 +214,12 @@ export class ThyEmpty implements OnInit, AfterViewInit {
         }
     }
 
-    ngOnInit() {}
+    updateClass() {
+        const classList = sizeClassMap[(this.thySize() as keyof typeof sizeClassMap) || 'md'];
+        if (classList) {
+            this.hostRenderer.updateClass(classList);
+        }
+    }
 
     ngAfterViewInit() {
         this.ngZone.runOutsideAngular(() => {
