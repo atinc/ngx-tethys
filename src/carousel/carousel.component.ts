@@ -6,23 +6,22 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    ContentChildren,
     ElementRef,
-    EventEmitter,
     inject,
-    Input,
     NgZone,
     numberAttribute,
-    OnChanges,
     OnDestroy,
     OnInit,
-    Output,
-    QueryList,
     Renderer2,
-    SimpleChanges,
     TemplateRef,
-    ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    input,
+    output,
+    viewChild,
+    QueryList,
+    computed,
+    ContentChildren,
+    effect
 } from '@angular/core';
 import { ThyDot } from 'ngx-tethys/dot';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -32,14 +31,7 @@ import { debounceTime, takeUntil } from 'rxjs/operators';
 import { ThyCarouselItemDirective } from './carousel-item.directive';
 import { ThyCarouselService } from './carousel.service';
 import { ThyCarouselFadeEngine, ThyCarouselNoopEngine, ThyCarouselSlideEngine } from './engine';
-import {
-    ThyCarouselEffect,
-    ThyCarouselEngine,
-    ThyCarouselPause,
-    ThyCarouselSwitchData,
-    ThyCarouselTrigger,
-    ThyDistanceVector
-} from './typings';
+import { ThyCarouselEffect, ThyCarouselPause, ThyCarouselSwitchData, ThyCarouselTrigger, ThyDistanceVector } from './typings';
 import { IThyCarouselComponent, THY_CAROUSEL_COMPONENT } from './carousel.token';
 
 /**
@@ -63,7 +55,7 @@ import { IThyCarouselComponent, THY_CAROUSEL_COMPONENT } from './carousel.token'
         }
     ]
 })
-export class ThyCarousel implements IThyCarouselComponent, OnInit, AfterViewInit, AfterContentInit, OnChanges, OnDestroy {
+export class ThyCarousel implements IThyCarouselComponent, OnInit, AfterViewInit, AfterContentInit, OnDestroy {
     protected renderer = inject(Renderer2);
     private cdr = inject(ChangeDetectorRef);
     private ngZone = inject(NgZone);
@@ -78,75 +70,79 @@ export class ThyCarousel implements IThyCarouselComponent, OnInit, AfterViewInit
     /**
      * @private
      */
-    @ViewChild('carouselWrapper', { static: true }) carouselWrapper: ElementRef<HTMLElement>;
+    readonly carouselWrapper = viewChild<ElementRef<HTMLElement>>('carouselWrapper');
 
     /**
-     * 是否自动切换，默认 false
+     * 是否自动切换
      */
-    @Input({ transform: coerceBooleanProperty }) thyAutoPlay: boolean = false;
+    readonly thyAutoPlay = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 自动切换时间间隔(毫秒)
      */
-    @Input({ transform: numberAttribute }) thyAutoPlayInterval: number = 3000;
+    readonly thyAutoPlayInterval = input(3000, { transform: numberAttribute });
 
     /**
      * 切换动画样式
      * @type slide | fade | noop
      */
-    @Input() thyEffect: ThyCarouselEffect = 'slide';
+    readonly thyEffect = input<ThyCarouselEffect>('slide');
 
     /**
      * 是否显示切换指示器
      */
-    @Input({ transform: coerceBooleanProperty }) thyIndicators = true;
+    readonly thyIndicators = input(true, { transform: coerceBooleanProperty });
 
     /**
      * 指示器 Item 的渲染模板
      */
-    @Input() thyIndicatorRender?: TemplateRef<{ $implicit: boolean }>;
+    readonly thyIndicatorRender = input<
+        TemplateRef<{
+            $implicit: boolean;
+        }>
+    >();
 
     /**
      * 是否显示左右切换
      */
-    @Input({ transform: coerceBooleanProperty }) thyControls = true;
+    readonly thyControls = input(true, { transform: coerceBooleanProperty });
 
     /**
      * 上一个控制器渲染模板
      */
-    @Input() thyControlPrev?: TemplateRef<any>;
+    readonly thyControlPrev = input<TemplateRef<any>>();
 
     /**
      * 下一个控制器渲染模板
      */
-    @Input() thyControlNext?: TemplateRef<any>;
+    readonly thyControlNext = input<TemplateRef<any>>();
 
     /**
      * 是否支持手势滑动
      */
-    @Input({ transform: coerceBooleanProperty }) thyTouchable = true;
+    readonly thyTouchable = input(true, { transform: coerceBooleanProperty });
 
     /**
      * 指示点切换的触发条件
      * @type click | hover
      */
-    @Input() thyTrigger: ThyCarouselTrigger = 'click';
+    readonly thyTrigger = input<ThyCarouselTrigger>('click');
 
     /**
      * 鼠标移动到指示器时是否暂停播放
      * @type false | hover
      */
-    @Input() thyPause: ThyCarouselPause = 'hover';
+    readonly thyPause = input<ThyCarouselPause>('hover');
 
     /**
      * 触发切换帧之前，返回 `{from: number, to: number}`
      */
-    @Output() readonly thyBeforeChange = new EventEmitter<ThyCarouselSwitchData>();
+    readonly thyBeforeChange = output<ThyCarouselSwitchData>();
 
     /**
      * 切换帧之后的回调，返回当前帧索引
      */
-    @Output() readonly thyAfterChange = new EventEmitter<number>();
+    readonly thyAfterChange = output<number>();
 
     private isDragging = false;
 
@@ -154,7 +150,18 @@ export class ThyCarousel implements IThyCarouselComponent, OnInit, AfterViewInit
 
     private pointerVector: ThyDistanceVector = { x: 0, y: 0 };
 
-    private engine: ThyCarouselEngine;
+    readonly engine = computed(() => {
+        switch (this.thyEffect()) {
+            case 'slide':
+                return new ThyCarouselSlideEngine(this, this.cdr, this.renderer, this.platform);
+
+            case 'fade':
+                return new ThyCarouselFadeEngine(this, this.cdr, this.renderer, this.platform);
+
+            default:
+                return new ThyCarouselNoopEngine(this, this.cdr, this.renderer, this.platform);
+        }
+    });
 
     private _trigger$ = new Subject<number | null>();
 
@@ -172,63 +179,75 @@ export class ThyCarousel implements IThyCarouselComponent, OnInit, AfterViewInit
 
     isPause: boolean = false;
 
+    constructor() {
+        effect(() => {
+            if (this.thyEffect()) {
+                this.markContentActive(0);
+                this.setInitialValue();
+            }
+        });
+
+        effect(() => {
+            if (this.thyTouchable()) {
+                this.renderer.setStyle(this.wrapperEl, 'cursor', this.thyTouchable() ? 'grab' : 'default');
+            }
+        });
+
+        effect(() => {
+            if (!this.thyAutoPlay() || !this.thyAutoPlayInterval()) {
+                this.clearScheduledTransition();
+            } else {
+                this.scheduleNextTransition();
+            }
+        });
+    }
+
     private moveTo(index: number): void {
-        if (this.carouselItems && this.carouselItems.length && !this.isTransitioning) {
+        const carouselItems = this.carouselItems;
+        if (carouselItems && carouselItems.length && !this.isTransitioning) {
             this.setInitialValue();
-            const len = this.carouselItems.length;
+            const len = carouselItems.length;
             const from = this.activeIndex;
             const to = (index + len) % len;
             this.thyBeforeChange.emit({ from, to });
             this.isTransitioning = true;
-            this.engine?.switch(index, this.activeIndex).subscribe(
-                () => {
-                    this.activeIndex = to;
-                    this.markContentActive(this.activeIndex);
-                    this.scheduleNextTransition();
-                    this.thyAfterChange.emit(this.activeIndex);
-                },
-                () => {},
-                () => {
-                    this.isTransitioning = false;
-                }
-            );
+            this.engine()
+                ?.switch(index, this.activeIndex)
+                .subscribe(
+                    () => {
+                        this.activeIndex = to;
+                        this.markContentActive(this.activeIndex);
+                        this.scheduleNextTransition();
+                        this.thyAfterChange.emit(this.activeIndex);
+                    },
+                    () => {},
+                    () => {
+                        this.isTransitioning = false;
+                    }
+                );
             this.cdr.markForCheck();
-        }
-    }
-
-    private switchEngine(): void {
-        switch (this.thyEffect) {
-            case 'slide':
-                this.engine = new ThyCarouselSlideEngine(this, this.cdr, this.renderer, this.platform);
-                break;
-            case 'fade':
-                this.engine = new ThyCarouselFadeEngine(this, this.cdr, this.renderer, this.platform);
-                break;
-            default:
-                this.engine = new ThyCarouselNoopEngine(this, this.cdr, this.renderer, this.platform);
         }
     }
 
     private markContentActive(index: number) {
         this.activeIndex = index;
-        this.carouselItems.forEach((carouselContent: ThyCarouselItemDirective, i: number) => {
+        this.carouselItems?.forEach((carouselContent: ThyCarouselItemDirective, i: number) => {
             carouselContent.isActive = index === i;
         });
-        this.cdr.detectChanges();
     }
 
     private setInitialValue(): void {
-        if (this.engine) {
-            this.engine.initializeCarouselContents(this.carouselItems);
+        if (this.engine() && this.carouselItems) {
+            this.engine()?.initializeCarouselContents(this.carouselItems);
         }
     }
 
     private scheduleNextTransition(): void {
         this.clearScheduledTransition();
-        if (this.thyAutoPlay && !this.isPause) {
+        if (this.thyAutoPlay() && !this.isPause) {
             this.transitionTimer = setTimeout(() => {
                 this.moveTo(this.activeIndex + 1);
-            }, this.thyAutoPlayInterval);
+            }, this.thyAutoPlayInterval());
         }
     }
 
@@ -240,7 +259,7 @@ export class ThyCarousel implements IThyCarouselComponent, OnInit, AfterViewInit
     }
 
     onDrag(event: TouchEvent | MouseEvent): void {
-        if (!this.isDragging && !this.isTransitioning && this.thyTouchable) {
+        if (!this.isDragging && !this.isTransitioning && this.thyTouchable()) {
             const mouseDownTime = new TinyDate().getTime();
             let mouseUpTime: number;
             this.clearScheduledTransition();
@@ -250,7 +269,7 @@ export class ThyCarousel implements IThyCarouselComponent, OnInit, AfterViewInit
                     this.renderer.setStyle(this.wrapperEl, 'cursor', 'grabbing');
                     this.pointerVector = pointerVector;
                     this.isDragging = true;
-                    this.engine?.dragging(this.pointerVector, this.wrapperDomRect);
+                    this.engine()?.dragging(this.pointerVector, this.wrapperDomRect);
                 },
                 () => {},
                 () => {
@@ -277,23 +296,23 @@ export class ThyCarousel implements IThyCarouselComponent, OnInit, AfterViewInit
     }
 
     indicatorHandleClick(index: number): void {
-        if (this.thyTrigger === 'click') {
+        if (this.thyTrigger() === 'click') {
             this.moveTo(index);
         }
     }
 
     indicatorHandleTrigger(index: number): void {
-        if (this.thyPause === 'hover') {
+        if (this.thyPause() === 'hover') {
             this.isPause = true;
             this.clearScheduledTransition();
         }
-        if (this.thyTrigger === 'hover') {
+        if (this.thyTrigger() === 'hover') {
             this._trigger$.next(index);
         }
     }
 
     indicatorHandleLeave() {
-        if (this.thyPause === 'hover') {
+        if (this.thyPause() === 'hover') {
             this.isPause = false;
             this.scheduleNextTransition();
         }
@@ -308,32 +327,14 @@ export class ThyCarousel implements IThyCarouselComponent, OnInit, AfterViewInit
     }
 
     ngOnInit(): void {
-        this.wrapperEl = this.carouselWrapper!.nativeElement;
+        this.wrapperEl = this.carouselWrapper()!.nativeElement;
         this.ngZone.runOutsideAngular(() => {
             fromEvent(window, 'resize')
                 .pipe(takeUntil(this._destroy$), debounceTime(100))
                 .subscribe(() => {
-                    this.engine?.correctionOffset();
+                    this.engine()?.correctionOffset();
                 });
         });
-    }
-    ngOnChanges(changes: SimpleChanges) {
-        const { thyEffect, thyTouchable } = changes;
-        if (thyEffect && !thyEffect.isFirstChange()) {
-            this.switchEngine();
-            this.markContentActive(0);
-            this.setInitialValue();
-        }
-
-        if (thyTouchable && !thyTouchable.isFirstChange()) {
-            this.renderer.setStyle(this.wrapperEl, 'cursor', thyTouchable.currentValue ? 'grab' : 'default');
-        }
-
-        if (!this.thyAutoPlay || !this.thyAutoPlayInterval) {
-            this.clearScheduledTransition();
-        } else {
-            this.scheduleNextTransition();
-        }
     }
 
     ngAfterViewInit(): void {
@@ -341,11 +342,9 @@ export class ThyCarousel implements IThyCarouselComponent, OnInit, AfterViewInit
             this.markContentActive(0);
             this.setInitialValue();
         });
-        this.switchEngine();
         this.markContentActive(0);
         this.setInitialValue();
-
-        if (!this.thyTouchable) {
+        if (!this.thyTouchable()) {
             this.renderer.setStyle(this.wrapperEl, 'cursor', 'default');
         }
     }
