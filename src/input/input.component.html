@@ -10,14 +10,14 @@
   [thyAutofocus]="thyAutofocus()"
   [type]="type()"
   [placeholder]="placeholder()"
-  [disabled]="disabled"
+  [disabled]="disabled()"
   [(ngModel)]="value"
   (ngModelChange)="onModelChange()"
   (focus)="onInputFocus($event)"
   (blur)="onInputBlur($event)"
   [readonly]="readonly()"
   />
-<span class="input-label input-label-{{ thySize() }}" [class.active]="showLabel">{{ thyLabelText() }}</span>
+<span class="input-label input-label-{{ thySize() }}" [class.active]="showLabel()">{{ thyLabelText() }}</span>
 
 @if (isPasswordType() || appendTemplate()) {
   <div #append class="input-append">

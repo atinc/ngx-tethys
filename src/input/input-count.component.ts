@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef, inject, DestroyRef, input, effect } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, inject, DestroyRef, input, effect, signal } from '@angular/core';
 import { ThyInputDirective } from './input.directive';
 import { switchMap, filter, tap } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -12,14 +12,13 @@ import { ThyInputGroup } from './input-group.component';
  */
 @Component({
     selector: 'thy-input-count',
-    template: '{{inputLength}} / {{maxLength}}',
+    template: '{{inputLength()}} / {{maxLength()}}',
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-input-count text-muted'
     }
 })
 export class ThyInputCount implements OnInit {
-    private changeDetectorRef = inject(ChangeDetectorRef);
     private inputGroup = inject(ThyInputGroup, { optional: true })!;
 
     private readonly destroyRef = inject(DestroyRef);
@@ -32,9 +31,9 @@ export class ThyInputCount implements OnInit {
      */
     readonly thyInput = input<ThyInputDirective>();
 
-    maxLength: number | string;
+    maxLength = signal<number | string>(undefined);
 
-    inputLength = 0;
+    inputLength = signal(0);
 
     thyInput$ = new Subject<ThyInputDirective>();
 
@@ -57,16 +56,14 @@ export class ThyInputCount implements OnInit {
                     return !!input;
                 }),
                 tap(input => {
-                    this.maxLength = input.nativeElement.getAttribute('maxlength');
-                    this.changeDetectorRef.markForCheck();
+                    this.maxLength.set(input.nativeElement.getAttribute('maxlength'));
                 }),
                 takeUntilDestroyed(this.destroyRef),
                 switchMap(input => {
                     return input.ngControl.valueChanges;
                 }),
                 tap(value => {
-                    this.inputLength = value?.length || 0;
-                    this.changeDetectorRef.markForCheck();
+                    this.inputLength.set(value?.length || 0);
                 }),
                 takeUntilDestroyed(this.destroyRef)
             )

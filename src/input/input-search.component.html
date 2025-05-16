@@ -7,7 +7,7 @@
   thyInput
   [name]="name()"
   [placeholder]="placeholder()"
-  [disabled]="disabled"
+  [disabled]="disabled()"
   [thyAutofocus]="autoFocus()"
   [(ngModel)]="searchText"
   (ngModelChange)="searchModelChange()"
@@ -16,7 +16,7 @@
   tabindex="-1" />
 @if (iconPosition() === 'after') {
   <div class="input-append input-append-divider">
-    @if (searchText) {
+    @if (searchText()) {
       <a class="close" href="javascript:;" (click)="clearSearchText($event)">
         <thy-icon thyIconName="close"></thy-icon>
       </a>
@@ -26,7 +26,7 @@
   </div>
 }
 
-@if (searchText && iconPosition() === 'before') {
+@if (searchText() && iconPosition() === 'before') {
   <a class="close input-append" href="javascript:;" (click)="clearSearchText($event)">
     <thy-icon thyIconName="close"></thy-icon>
   </a>

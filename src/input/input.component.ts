@@ -44,8 +44,8 @@ const password = 'password';
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'thy-input form-control',
-        '[class.form-control-active]': 'focused',
-        '[class.disabled]': 'disabled'
+        '[class.form-control-active]': 'focused()',
+        '[class.disabled]': 'disabled()'
     },
     imports: [NgTemplateOutlet, ThyInputDirective, ThyAutofocusDirective, FormsModule, ThyIcon]
 })
@@ -113,13 +113,13 @@ export class ThyInput implements ControlValueAccessor, OnInit {
 
     public type = signal<string>(undefined);
 
-    public value: string;
+    public value = signal('');
 
-    public showLabel: boolean;
+    public showLabel = signal(false);
 
-    public focused = false;
+    public focused = signal(false);
 
-    public disabled = false;
+    public disabled = signal(false);
 
     private onTouchedCallback: () => void = noop;
 
@@ -140,7 +140,7 @@ export class ThyInput implements ControlValueAccessor, OnInit {
     }
 
     writeValue(value: any): void {
-        this.value = value;
+        this.value.set(value);
     }
 
     registerOnChange(fn: any): void {
@@ -152,16 +152,16 @@ export class ThyInput implements ControlValueAccessor, OnInit {
     }
 
     setDisabledState?(isDisabled: boolean): void {
-        this.disabled = isDisabled;
+        this.disabled.set(isDisabled);
     }
 
     onModelChange() {
-        this.onChangeCallback(this.value);
+        this.onChangeCallback(this.value());
     }
 
     onInputFocus(event: Event) {
-        this.focused = true;
-        this.showLabel = true;
+        this.focused.set(true);
+        this.showLabel.set(true);
         this.focus.emit(event);
     }
 
@@ -170,8 +170,8 @@ export class ThyInput implements ControlValueAccessor, OnInit {
         if (this.elementRef.nativeElement.onblur) {
             this.elementRef.nativeElement.onblur(event);
         }
-        this.focused = false;
-        this.showLabel = false;
+        this.focused.set(false);
+        this.showLabel.set(false);
         this.blur.emit(event);
     }
 

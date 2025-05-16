@@ -66,14 +66,13 @@ const _MixinBase: Constructor<ThyHasTabIndex> &
         class: 'thy-input form-control thy-input-search',
         '[class.thy-input-search-ellipse]': 'thyTheme() === "ellipse"',
         '[class.thy-input-search-transparent]': 'thyTheme() === "transparent"',
-        '[class.thy-input-search-before-with-clear]': 'searchText && iconPosition() === "before"',
+        '[class.thy-input-search-before-with-clear]': 'searchText() && iconPosition() === "before"',
         '[class.form-control-active]': 'focused()',
         '[attr.tabindex]': 'tabIndex'
     },
     imports: [ThyIcon, ThyInputDirective, ThyAutofocusDirective, FormsModule]
 })
 export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, OnInit, OnDestroy {
-    private cdr = inject(ChangeDetectorRef);
     private elementRef = inject(ElementRef);
 
     readonly inputElement = viewChild<ElementRef<any>>('input');
@@ -82,9 +81,9 @@ export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, 
 
     private hostFocusControl = useHostFocusControl();
 
-    public disabled = false;
+    public disabled = signal(false);
 
-    searchText: string;
+    searchText = signal<string>('');
 
     focused = signal(false);
 
@@ -153,7 +152,7 @@ export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, 
         this.updateClasses(true);
 
         this.hostFocusControl.focusChanged = (origin: FocusOrigin) => {
-            if (this.disabled) {
+            if (this.disabled()) {
                 return;
             }
 
@@ -177,27 +176,26 @@ export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, 
     }
 
     writeValue(value: any): void {
-        this.searchText = value;
-        this.cdr.markForCheck();
+        this.searchText.set(value);
     }
 
     setDisabledState?(isDisabled: boolean): void {
-        this.disabled = isDisabled;
+        this.disabled.set(isDisabled);
     }
 
     searchModelChange() {
-        this.onChangeFn(this.searchText);
+        this.onChangeFn(this.searchText());
     }
 
     clearSearchText(event: Event) {
         const element = this.elementRef.nativeElement.querySelector('.input-search-control');
         element.focus();
         event.stopPropagation();
-        if (this.disabled) {
+        if (this.disabled()) {
             return;
         }
-        this.searchText = '';
-        this.onChangeFn(this.searchText);
+        this.searchText.set('');
+        this.onChangeFn(this.searchText());
         this.clear.emit(event);
         this.thyClear.emit(event);
     }
