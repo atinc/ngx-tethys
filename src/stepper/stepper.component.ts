@@ -49,9 +49,9 @@ export class ThyStepper implements IThyStepperComponent {
 
     readonly steps = contentChildren(ThyStep);
 
-    selectedIndex = signal(0);
+    protected selectedIndex = signal(0);
 
-    selected = computed(() => this.steps()?.[this.selectedIndex()]);
+    protected readonly selected = computed(() => this.steps()?.[this.selectedIndex()]);
 
     constructor() {
         effect(() => {
