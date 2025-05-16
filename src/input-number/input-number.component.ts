@@ -144,17 +144,19 @@ export class ThyInputNumber extends TabIndexDisabledControlValueAccessorMixin im
         super();
 
         effect(() => {
+            const displayValue = this.displayValue();
             const max = this.thyMax();
-            if (this.displayValue() || this.displayValue() === 0) {
-                const val = Number(this.displayValue());
+            if (displayValue || displayValue === 0) {
+                const val = Number(displayValue);
                 this.disabledUp.set(val >= max);
             }
         });
 
         effect(() => {
             const min = this.thyMin();
-            if (this.displayValue() || this.displayValue() === 0) {
-                const val = Number(this.displayValue());
+            const displayValue = this.displayValue();
+            if (displayValue || displayValue === 0) {
+                const val = Number(displayValue);
                 this.disabledDown.set(val <= min);
             }
         });
