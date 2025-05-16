@@ -25,7 +25,7 @@ export class ThyBadge implements OnInit {
 
     private nativeElement: any;
 
-    displayContent: Signal<string> = computed(() => {
+    readonly displayContent: Signal<string> = computed(() => {
         let content = this.value() as string;
         if (this.value() && !isUndefined(this.thyMaxCount()) && (this.value() as number) > this.thyMaxCount()) {
             content = `${this.thyMaxCount()}+`;
@@ -33,7 +33,7 @@ export class ThyBadge implements OnInit {
         return content;
     });
 
-    badgeClassName: Signal<string> = computed(() => {
+    readonly badgeClassName: Signal<string> = computed(() => {
         const classes: string[] = [];
         classes.push(`thy-badge-${this.thyType()}`);
         if (this.thySize()) {
@@ -60,19 +60,19 @@ export class ThyBadge implements OnInit {
     // 是否包裹在元素上
     protected isWrapper = false;
 
-    public isShowBadge: Signal<boolean> = computed(() => {
+    public readonly isShowBadge: Signal<boolean> = computed(() => {
         return !(!this.value() && !this.thyKeepShow() && !this.thyIsDot() && !this.thyIsHollow());
     });
 
-    private value: Signal<number | string> = computed(() => {
+    private readonly value: Signal<number | string> = computed(() => {
         return this.thyContent() || this.thyContext() || this.thyCount();
     });
 
-    protected textColor: Signal<string> = computed(() => {
+    protected readonly textColor: Signal<string> = computed(() => {
         return !isTextColor(this.thyTextColor()) ? this.thyTextColor() : null;
     });
 
-    protected backgroundColor: Signal<string> = computed(() => {
+    protected readonly backgroundColor: Signal<string> = computed(() => {
         return !isTextColor(this.thyBackgroundColor()) ? this.thyBackgroundColor() : null;
     });
 
