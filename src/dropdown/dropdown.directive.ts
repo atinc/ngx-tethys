@@ -43,13 +43,13 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
     private viewContainerRef = inject(ViewContainerRef);
     private popover = inject(ThyPopover);
 
-    menu: Signal<ThyDropdownMenu> = computed(() => {
+    readonly menu: Signal<ThyDropdownMenu> = computed(() => {
         return (this.thyDropdownMenu() || this.thyDropdown())!;
     });
 
     private popoverRef: ThyPopoverRef<unknown>;
 
-    private innerPanelClassList: Signal<string[]> = computed(() => {
+    private readonly innerPanelClassList: Signal<string[]> = computed(() => {
         return !isUndefined(this.thyPanelClass()) ? ['thy-dropdown-pane'].concat(coerceArray(this.thyPanelClass())) : ['thy-dropdown-pane'];
     });
 

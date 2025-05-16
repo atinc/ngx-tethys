@@ -23,9 +23,9 @@ export type ThyDropdownMenuItemType = 'default' | 'danger' | 'success' | '';
 export class ThyDropdownMenuItemDirective implements OnInit {
     private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
-    danger = computed(() => (this.thyType() === 'danger' ? true : false));
+    readonly danger = computed(() => this.thyType() === 'danger');
 
-    success = computed(() => (this.thyType() === 'success' ? true : false));
+    readonly success = computed(() => this.thyType() === 'success');
 
     /**
      * 菜单项类型
