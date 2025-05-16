@@ -1,19 +1,16 @@
 import {
     Component,
-    HostBinding,
     OnInit,
-    ContentChild,
     TemplateRef,
-    ViewChild,
     ChangeDetectorRef,
     ChangeDetectionStrategy,
     inject,
     input,
-    effect
+    viewChild,
+    contentChild
 } from '@angular/core';
 import { SafeAny } from 'ngx-tethys/types';
 import { ThyTimeMode } from './timeline.type';
-import { ThyTimelineService } from './timeline.service';
 import { NgTemplateOutlet } from '@angular/common';
 
 export type thyColor = 'primary' | 'success' | 'warning' | 'danger' | 'info';
@@ -32,13 +29,8 @@ export type thyColor = 'primary' | 'success' | 'warning' | 'danger' | 'info';
 })
 export class ThyTimelineItem implements OnInit {
     private cdr = inject(ChangeDetectorRef);
-    private timelineService = inject(ThyTimelineService);
 
-    @ViewChild('timelineItem', { static: false }) template: TemplateRef<void>;
-
-    @HostBinding('class') className: string;
-
-    public color: thyColor = 'primary';
+    readonly template = viewChild<TemplateRef<void>>('timelineItem');
 
     public isLast = false;
 
@@ -53,7 +45,7 @@ export class ThyTimelineItem implements OnInit {
      * @type primary | success | warning | danger | info
      * @default primary
      */
-    readonly thyColor = input<thyColor>(undefined);
+    readonly thyColor = input<thyColor>('primary');
 
     /**
      * 自定义节点位置
@@ -65,22 +57,15 @@ export class ThyTimelineItem implements OnInit {
      * 自定义时间轴点模板
      * @type TemplateRef
      */
-    @ContentChild('dot', { static: false }) dot: TemplateRef<SafeAny>;
+    readonly dot = contentChild<TemplateRef<SafeAny>>('dot');
 
     /**
      * 自定义另一侧的模板
      * @type TemplateRef
      */
-    @ContentChild('description', { static: false }) description: TemplateRef<SafeAny>;
+    readonly description = contentChild<TemplateRef<SafeAny>>('description');
 
-    constructor() {
-        effect(() => {
-            const color = this.thyColor();
-            if (color) {
-                this.color = color;
-            }
-        });
-    }
+    constructor() {}
 
     detectChanges(): void {
         this.cdr.detectChanges();

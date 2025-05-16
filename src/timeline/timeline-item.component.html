@@ -5,28 +5,26 @@
     [class.thy-timeline-item-last]="isLast"
     [class.thy-timeline-item-reverse-first]="isFirst && reverse"
     [class.thy-timeline-item-right]="(thyPosition() || position) === 'right'"
-    [class.thy-timeline-item-left]="(thyPosition() || position) === 'left'"
-    >
+    [class.thy-timeline-item-left]="(thyPosition() || position) === 'left'">
     <div class="thy-timeline-item-tail"></div>
     <div
       class="thy-timeline-item-dot"
-      [class.thy-timeline-item-dot-primary]="color === 'primary'"
-      [class.thy-timeline-item-dot-success]="color === 'success'"
-      [class.thy-timeline-item-dot-warning]="color === 'warning'"
-      [class.thy-timeline-item-dot-danger]="color === 'danger'"
-      [class.thy-timeline-item-dot-info]="color === 'info'"
-      [class.thy-timeline-item-dot-custom]="!!dot"
-      >
-      @if (dot) {
-        <ng-template [ngTemplateOutlet]="dot"></ng-template>
+      [class.thy-timeline-item-dot-primary]="thyColor() === 'primary'"
+      [class.thy-timeline-item-dot-success]="thyColor() === 'success'"
+      [class.thy-timeline-item-dot-warning]="thyColor() === 'warning'"
+      [class.thy-timeline-item-dot-danger]="thyColor() === 'danger'"
+      [class.thy-timeline-item-dot-info]="thyColor() === 'info'"
+      [class.thy-timeline-item-dot-custom]="!!dot()">
+      @if (dot()) {
+        <ng-template [ngTemplateOutlet]="dot()"></ng-template>
       }
     </div>
     <div class="thy-timeline-item-content">
       <ng-content></ng-content>
     </div>
     <div class="thy-timeline-item-content-other-side">
-      @if (description) {
-        <ng-template [ngTemplateOutlet]="description"></ng-template>
+      @if (description()) {
+        <ng-template [ngTemplateOutlet]="description()"></ng-template>
       }
     </div>
   </div>
