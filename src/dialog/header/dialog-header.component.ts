@@ -1,4 +1,17 @@
-import { Component, Input, Output, EventEmitter, ContentChild, TemplateRef, OnInit, ElementRef, inject } from '@angular/core';
+import {
+    Component,
+    Input,
+    Output,
+    EventEmitter,
+    TemplateRef,
+    OnInit,
+    ElementRef,
+    inject,
+    input,
+    contentChild,
+    computed,
+    Signal
+} from '@angular/core';
 import { ThyDialog } from '../dialog.service';
 import { ThyDialogContainer } from '../dialog-container.component';
 import { ThyTranslate } from 'ngx-tethys/core';
@@ -20,8 +33,8 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     exportAs: 'thyDialogHeader',
     host: {
         class: 'dialog-header thy-dialog-header',
-        '[class.thy-dialog-header-lg]': `thySize === 'lg'`,
-        '[class.thy-dialog-header-divided]': `thyDivided`
+        '[class.thy-dialog-header-lg]': `thySize() === 'lg'`,
+        '[class.thy-dialog-header-divided]': `thyDivided()`
     },
     imports: [NgTemplateOutlet, ThyIcon, ThyAction]
 })
@@ -34,41 +47,42 @@ export class ThyDialogHeader implements OnInit {
     /**
      * 自定义头部模板
      */
-    @ContentChild('dialogHeader')
-    public headerTemplate: TemplateRef<any>;
+    public readonly headerTemplate = contentChild<TemplateRef<any>>('dialogHeader');
 
     /**
      * 标题
      */
-    @Input() thyTitle: string;
+    readonly thyTitle = input<string>();
 
     /**
      * 大小，只有大的详情页场景会使用 lg，左右 padding 缩小至 20px
      * @type lg | md
-     * @default md
      */
-    @Input() thySize: 'lg' | 'md';
+    readonly thySize = input<'lg' | 'md'>('md');
 
     /**
      * 是否显示分割线
-     * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyDivided: boolean;
+    readonly thyDivided = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 标题的多语言 Key
      */
-    @Input()
-    set thyTitleTranslationKey(key: string) {
-        if (key && !this.thyTitle) {
-            this.thyTitle = this.translate.instant(key);
+    readonly thyTitleTranslationKey = input<string>();
+
+    readonly title: Signal<string> = computed(() => {
+        const title = this.thyTitle();
+        const titleTranslationKey = this.thyTitleTranslationKey();
+        if (titleTranslationKey && !title) {
+            return this.translate.instant(titleTranslationKey);
         }
-    }
+        return this.thyTitle();
+    });
 
     /**
      * 头部图标
      */
-    @Input() thyIcon: string;
+    readonly thyIcon = input<string>();
 
     /**
      * 关闭事件
@@ -90,7 +104,7 @@ export class ThyDialogHeader implements OnInit {
         // because sub component change parent's HostBinding property (ariaLabelledBy)
         Promise.resolve().then(() => {
             if (this.dialogContainer) {
-                this.dialogContainer.ariaLabelledBy = this.thyTitle;
+                this.dialogContainer.ariaLabelledBy = this.title();
             }
         });
     }

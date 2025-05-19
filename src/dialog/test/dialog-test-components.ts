@@ -1,15 +1,15 @@
 import { Directionality } from '@angular/cdk/bidi';
 import {
-    ChangeDetectionStrategy,
-    Component,
-    Directive,
-    inject,
-    Injector,
-    input,
-    OnInit,
-    TemplateRef,
-    ViewChild,
-    ViewContainerRef
+  ChangeDetectionStrategy,
+  Component,
+  Directive,
+  inject,
+  Injector,
+  input,
+  OnInit,
+  TemplateRef,
+  ViewContainerRef,
+  viewChild
 } from '@angular/core';
 import { SafeAny } from 'ngx-tethys/types';
 import { ThyDialog, ThyDialogModule, ThyDialogRef } from 'ngx-tethys/dialog';
@@ -104,11 +104,10 @@ export class WithViewContainerTestDirective {
     imports: [WithViewContainerTestDirective]
 })
 export class WithChildViewContainerTestComponent {
-    @ViewChild(WithViewContainerTestDirective, { static: true })
-    childWithViewContainer: WithViewContainerTestDirective;
+    readonly childWithViewContainer = viewChild(WithViewContainerTestDirective);
 
     get childViewContainer() {
-        return this.childWithViewContainer.viewContainerRef;
+        return this.childWithViewContainer().viewContainerRef;
     }
 }
 
@@ -125,7 +124,7 @@ export class WithTemplateRefTestComponent {
     localValue: string;
     dialogRef: ThyDialogRef<any>;
 
-    @ViewChild(TemplateRef, { static: true }) templateRef: TemplateRef<any>;
+    readonly templateRef = viewChild(TemplateRef);
 
     setDialogRef(dialogRef: ThyDialogRef<WithTemplateRefTestComponent>): string {
         this.dialogRef = dialogRef;
@@ -200,9 +199,9 @@ class PopupSecondTestComponent {
     imports: [ThyDialogModule, ThyButtonModule]
 })
 export class DialogToTopTestComponent implements OnInit {
-    @ViewChild(PopupFirstTestComponent, { static: true }) popupFirst: PopupFirstTestComponent;
+    readonly popupFirst = viewChild(PopupFirstTestComponent);
 
-    @ViewChild(PopupSecondTestComponent, { static: true }) popupSecond: PopupSecondTestComponent;
+    readonly popupSecond = viewChild(PopupSecondTestComponent);
 
     public thyDialog = inject(ThyDialog);
 

@@ -1,6 +1,6 @@
-@if (headerTemplate) {
-  <template [ngTemplateOutlet]="headerTemplate"></template>
+@if (headerTemplate()) {
+  <template [ngTemplateOutlet]="headerTemplate()"></template>
 } @else {
-  <h3 class="dialog-title"><thy-icon [thyIconName]="thyIcon"></thy-icon>{{ thyTitle }}</h3>
+  <h3 class="dialog-title"><thy-icon [thyIconName]="thyIcon()"></thy-icon>{{ title() }}</h3>
   <a href="javascript:;" class="mr-n2" thyAction thyActionIcon="close" (click)="close($event)"></a>
 }
