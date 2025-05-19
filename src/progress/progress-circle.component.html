@@ -1,6 +1,8 @@
+@let tips = thyTips();
+
 <div
-  [thyTooltip]="thyTips"
-  [thyTooltipDisabled]="!thyTips"
+  [thyTooltip]="tips"
+  [thyTooltipDisabled]="!tips"
   [style.width.px]="width"
   [style.height.px]="width"
   [ngClass]="progressSize"

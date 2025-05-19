@@ -1,11 +1,22 @@
-import { Component, HostBinding, InjectionToken, Input, TemplateRef, ViewEncapsulation, numberAttribute, inject } from '@angular/core';
+import {
+    Component,
+    InjectionToken,
+    computed,
+    TemplateRef,
+    ViewEncapsulation,
+    numberAttribute,
+    inject,
+    input,
+    effect,
+    Signal
+} from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyProgressType } from './interfaces';
 import { NgStyle } from '@angular/common';
 
 export interface ThyParentProgress {
-    max: number;
-    bars: ThyProgressStrip[];
+    readonly max: Signal<number>;
+    readonly bars: Signal<readonly ThyProgressStrip[]>;
 }
 export const THY_PROGRESS_COMPONENT = new InjectionToken<ThyParentProgress>('THY_PROGRESS_COMPONENT');
 
@@ -16,41 +27,41 @@ export const THY_PROGRESS_COMPONENT = new InjectionToken<ThyParentProgress>('THY
     selector: 'thy-progress-bar',
     templateUrl: './progress-strip.component.html',
     encapsulation: ViewEncapsulation.None,
-    imports: [NgStyle]
+    imports: [NgStyle],
+    host: {
+        class: 'progress-bar',
+        '[style.width.%]': 'percent()'
+    }
 })
 export class ThyProgressStrip {
     private progress = inject(THY_PROGRESS_COMPONENT);
 
-    private value: number;
+    // private value: number;
 
     private hostRenderer = useHostRenderer();
 
-    color: string;
+    readonly thyTips = input<string | TemplateRef<HTMLElement>>(undefined);
 
-    @HostBinding(`class.progress-bar`) isProgressBar = true;
+    readonly thyType = input<ThyProgressType>();
 
-    @HostBinding('style.width.%') percent = 0;
+    readonly thyValue = input(0, {
+        transform: numberAttribute
+    });
 
-    @Input() thyTips: string | TemplateRef<HTMLElement>;
+    readonly thyColor = input<string>();
 
-    @Input() set thyType(type: ThyProgressType) {
-        this.hostRenderer.updateClass(type ? [`progress-bar-${type}`] : []);
-    }
-
-    @Input({ transform: numberAttribute })
-    set thyValue(value: number) {
+    protected readonly percent = computed(() => {
+        const value = this.thyValue();
         if (!value && value !== 0) {
-            return;
+            return 0;
         }
-        this.value = value;
-        this.recalculatePercentage();
-    }
+        return +((value / this.progress.max()) * 100).toFixed(2);
+    });
 
-    @Input() set thyColor(color: string) {
-        this.color = color || '';
-    }
-
-    recalculatePercentage(): void {
-        this.percent = +((this.value / this.progress.max) * 100).toFixed(2);
+    constructor() {
+        effect(() => {
+            const type = this.thyType();
+            this.hostRenderer.updateClass(type ? [`progress-bar-${type}`] : []);
+        });
     }
 }
