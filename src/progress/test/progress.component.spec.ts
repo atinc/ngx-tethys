@@ -213,7 +213,7 @@ describe(`ThyProgressComponent`, () => {
             expect(progressComponent).toBeTruthy();
         });
 
-       it('should be correct class by default type', () => {
+        it('should be correct class by default type', () => {
             fixture.detectChanges();
             progressBarComponent = fixture.debugElement.query(By.directive(ThyProgressStrip));
             assertProgressAndBarComponentClass();
