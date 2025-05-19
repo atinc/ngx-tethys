@@ -51,14 +51,14 @@ export class ThyBackTop implements OnInit, OnDestroy {
     /**
      * 自定义按钮显示模板
      */
-    readonly thyTemplate = input<TemplateRef<void>>(undefined);
+    readonly thyTemplate = input<TemplateRef<void>>();
 
     /**
      * 指定对哪个 DOM 元素返回顶部
      * @type string | HTMLElement
      * @default window
      */
-    readonly thyContainer = input<string | HTMLElement>(undefined);
+    readonly thyContainer = input<string | HTMLElement>();
 
     /**
      * 滚动高度达到此参数值才出现 thy-back-top
@@ -119,15 +119,13 @@ export class ThyBackTop implements OnInit, OnDestroy {
             });
 
         effect(() => {
-            this.registerScrollEvent();
-            const backTop = this.backTop();
-            if (backTop) {
-                this.backTop$.next(backTop);
-            }
+            this.backTop$.next(this.backTop());
         });
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.registerScrollEvent();
+    }
 
     private handleScroll(): void {
         if (this.visible === this.thyScrollService.getScroll(this.target()) > this.thyVisibilityHeight()) {
