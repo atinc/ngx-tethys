@@ -1,7 +1,8 @@
-import { Component, ElementRef, contentChild, effect, inject, input, output } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, contentChild, effect, inject, input, output } from '@angular/core';
 import { ThyFullscreen } from './fullscreen.service';
 import { ThyFullscreenMode } from './fullscreen.config';
 import { ThyFullscreenLaunchDirective } from './fullscreen-launch.directive';
+import { EMPTY, fromEvent, Subject, switchMap, takeUntil } from 'rxjs';
 
 /**
  * 全屏组件，将某一区域进行全屏展示，支持组件`thy-fullscreen`和`thyFullscreen`指令两种形式
@@ -12,7 +13,7 @@ import { ThyFullscreenLaunchDirective } from './fullscreen-launch.directive';
     selector: 'thy-fullscreen, [thyFullscreen]',
     templateUrl: './fullscreen.component.html'
 })
-export class ThyFullscreenComponent {
+export class ThyFullscreenComponent implements OnInit, OnDestroy {
     private elementRef = inject(ElementRef);
     private service = inject(ThyFullscreen);
 
@@ -36,12 +37,23 @@ export class ThyFullscreenComponent {
         read: ElementRef
     });
 
+    private ngUnsubscribe$ = new Subject<void>();
+
+    private fullscreenLaunch$ = new Subject<ElementRef<HTMLButtonElement> | undefined>();
+
     constructor() {
         effect(() => {
-            this.fullscreenLaunch()?.nativeElement.addEventListener('click', () => {
-                this.handleFullscreen();
-            });
+            this.fullscreenLaunch$.next(this.fullscreenLaunch());
         });
+    }
+
+    ngOnInit(): void {
+        this.fullscreenLaunch$
+            .pipe(
+                switchMap(fullscreenLaunch => (fullscreenLaunch ? fromEvent(fullscreenLaunch.nativeElement, 'click') : EMPTY)),
+                takeUntil(this.ngUnsubscribe$)
+            )
+            .subscribe(this.handleFullscreen);
     }
 
     // Toggles full screen on or off.
@@ -67,4 +79,9 @@ export class ThyFullscreenComponent {
             });
         }
     };
+
+    ngOnDestroy() {
+        this.ngUnsubscribe$.next();
+        this.ngUnsubscribe$.complete();
+    }
 }
