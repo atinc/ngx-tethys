@@ -134,7 +134,7 @@ export class ThyMenuGroup implements OnInit {
 
     constructor() {
         effect(() => {
-            this.isCollapsed.set(this.thyCollapsed() || this.thyExpand());
+            this.isCollapsed.set(this.thyCollapsed() ?? this.thyExpand());
         });
     }
 
