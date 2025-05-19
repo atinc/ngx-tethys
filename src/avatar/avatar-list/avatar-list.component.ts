@@ -37,7 +37,7 @@ export class ThyAvatarList {
      */
     readonly thyMode = input<ThyAvatarListMode>(ThyAvatarListMode.default);
 
-    isOverlapMode: Signal<boolean> = computed(() => {
+    readonly isOverlapMode = computed(() => {
         return this.thyMode() === ThyAvatarListMode.overlap;
     });
 

@@ -330,7 +330,7 @@ describe('ThyPagination', () => {
                 total: 15
             };
             fixture.detectChanges();
-            expect(pageComponent.componentInstance.range).toEqual({
+            expect(pageComponent.componentInstance.computedRange()).toEqual({
                 from: 1,
                 to: 15
             });
@@ -346,13 +346,13 @@ describe('ThyPagination', () => {
                 total: 15
             };
             fixture.detectChanges();
-            expect(pageComponent.componentInstance.range).toEqual({
+            expect(pageComponent.componentInstance.computedRange()).toEqual({
                 from: 1,
                 to: 15
             });
             basicTestComponent.pagination.total = 30;
             fixture.detectChanges();
-            expect(pageComponent.componentInstance.range).toEqual({
+            expect(pageComponent.componentInstance.computedRange()).toEqual({
                 from: 1,
                 to: 20
             });
@@ -368,15 +368,15 @@ describe('ThyPagination', () => {
                 total: 30
             };
             fixture.detectChanges();
-            expect(pageComponent.componentInstance.pageIndex).toEqual(2);
-            expect(pageComponent.componentInstance.range).toEqual({
+            expect(pageComponent.componentInstance.currentPageIndex()).toEqual(2);
+            expect(pageComponent.componentInstance.computedRange()).toEqual({
                 from: 21,
                 to: 30
             });
             basicTestComponent.pagination.total = 19;
             fixture.detectChanges();
-            expect(pageComponent.componentInstance.pageIndex).toEqual(1);
-            expect(pageComponent.componentInstance.range).toEqual({
+            expect(pageComponent.componentInstance.currentPageIndex()).toEqual(1);
+            expect(pageComponent.componentInstance.computedRange()).toEqual({
                 from: 1,
                 to: 19
             });
