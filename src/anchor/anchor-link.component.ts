@@ -46,11 +46,11 @@ export class ThyAnchorLink implements IThyAnchorLinkComponent, OnInit, OnDestroy
     private anchorComponent = inject(THY_ANCHOR_COMPONENT, { optional: true })!;
     private platform = inject(Platform);
 
-    title: Signal<string | null> = computed(() => {
+    readonly title: Signal<string | null> = computed(() => {
         return this.thyTitle() instanceof TemplateRef ? null : (this.thyTitle() as string);
     });
 
-    titleTemplate: Signal<TemplateRef<any>> = computed(() => {
+    readonly titleTemplate: Signal<TemplateRef<any>> = computed(() => {
         return this.thyTitle() instanceof TemplateRef ? (this.thyTitle() as TemplateRef<any>) : null;
     });
 
