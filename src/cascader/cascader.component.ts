@@ -5,24 +5,23 @@ import {
     ChangeDetectorRef,
     Component,
     ElementRef,
-    EventEmitter,
     forwardRef,
     HostListener,
     Input,
     NgZone,
     numberAttribute,
-    OnChanges,
     OnDestroy,
     OnInit,
-    Output,
     PLATFORM_ID,
-    QueryList,
-    SimpleChanges,
     TemplateRef,
-    ViewChild,
-    ViewChildren,
     inject,
-    Signal
+    Signal,
+    input,
+    computed,
+    output,
+    viewChild,
+    effect,
+    viewChildren
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -35,13 +34,11 @@ import {
     injectPanelEmptyIcon
 } from 'ngx-tethys/core';
 import { ThyEmpty } from 'ngx-tethys/empty';
-import { ThyIcon } from 'ngx-tethys/icon';
 import { SelectControlSize, SelectOptionBase, ThySelectControl } from 'ngx-tethys/shared';
 import { SafeAny } from 'ngx-tethys/types';
 import { coerceBooleanProperty, elementMatchClosest, isEmpty } from 'ngx-tethys/util';
 import { BehaviorSubject, Observable, Subject, Subscription, timer } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, take, takeUntil } from 'rxjs/operators';
-
+import { distinctUntilChanged, filter, take, takeUntil } from 'rxjs/operators';
 import { scaleYMotion } from 'ngx-tethys/core';
 import { ThyDivider } from 'ngx-tethys/divider';
 import { ThyCascaderOptionComponent } from './cascader-li.component';
@@ -86,7 +83,7 @@ import { injectLocale, ThyCascaderLocale } from 'ngx-tethys/i18n';
 })
 export class ThyCascader
     extends TabIndexDisabledControlValueAccessorMixin
-    implements ControlValueAccessor, OnInit, OnChanges, OnDestroy, AfterContentInit
+    implements ControlValueAccessor, OnInit, OnDestroy, AfterContentInit
 {
     private platformId = inject(PLATFORM_ID);
     private cdr = inject(ChangeDetectorRef);
@@ -100,149 +97,119 @@ export class ThyCascader
     /**
      * 选项的实际值的属性名
      */
-    @Input() thyValueProperty = 'value';
+    readonly thyValueProperty = input('value');
 
     /**
      * 选项的显示值的属性名
      */
-    @Input() thyLabelProperty = 'label';
+    readonly thyLabelProperty = input('label');
 
     /**
      * 描述输入字段预期值的简短的提示信息
      */
-    @Input() thyPlaceholder = this.locale().placeholder;
+    readonly thyPlaceholder = input(this.locale().placeholder);
 
     /**
      * 控制大小（5种）
      * @type 'xs' ｜ 'sm' | 'md' | 'lg' | ''
      */
-    @Input() thySize: SelectControlSize = '';
+    readonly thySize = input<SelectControlSize>('');
 
     /**
      * 数据项
      * @type ThyCascaderOption[]
-     * @default []
      */
-    @Input()
-    set thyOptions(options: ThyCascaderOption[] | null) {
-        const columns = options && options.length ? [options] : [];
-        this.thyCascaderService.initColumns(columns);
-        if (this.thyCascaderService.defaultValue && columns.length) {
-            this.thyCascaderService.initOptions(0);
-        }
-    }
+    readonly thyOptions = input<ThyCascaderOption[] | null>([]);
 
     /**
      * 自定义选项
      * @type ThyCascaderOption[]
-     * @default []
      */
-    @Input() set thyCustomOptions(options: ThyCascaderOption[] | null) {
-        this.thyCascaderService.customOptions = (options || []).map(item => ({ ...item }));
-    }
-
-    get thyCustomOptions() {
-        return this.thyCascaderService.customOptions;
-    }
+    readonly thyCustomOptions = input<ThyCascaderOption[] | null>([]);
 
     /**
      * 点击父级菜单选项时，可通过该函数判断是否允许值的变化
      */
-    @Input() thyChangeOn: (option: ThyCascaderOption, level: number) => boolean;
+    readonly thyChangeOn = input<(option: ThyCascaderOption, level: number) => boolean>();
 
     /**
      * 点击项时，表单是否动态展示数据项
      * @type boolean
      */
-    @Input({ transform: coerceBooleanProperty }) thyChangeOnSelect = false;
+    readonly thyChangeOnSelect = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 显示输入框
      * @type boolean
      */
-    @Input({ transform: coerceBooleanProperty }) thyShowInput = true;
+    readonly thyShowInput = input(true, { transform: coerceBooleanProperty });
 
     /**
      * 用户自定义选项模板
      * @type TemplateRef
      */
-    @Input() thyOptionRender: TemplateRef<SafeAny>;
+    readonly thyOptionRender = input<TemplateRef<SafeAny>>();
 
     /**
      * 用户自定义模板
      * @type TemplateRef
      */
-    @Input()
-    set thyLabelRender(value: TemplateRef<any>) {
-        this.labelRenderTpl = value;
-        this.isLabelRenderTemplate = value instanceof TemplateRef;
-        this.thyCascaderService.setCascaderOptions({ isLabelRenderTemplate: this.isLabelRenderTemplate });
-    }
+    readonly thyLabelRender = input<TemplateRef<any>>();
 
-    get thyLabelRender(): TemplateRef<any> {
-        return this.labelRenderTpl;
-    }
+    readonly isLabelRenderTemplate: Signal<boolean> = computed(() => {
+        return this.thyLabelRender() instanceof TemplateRef;
+    });
 
+    /**
     /**
      * 用于动态加载选项
      */
-    @Input() set thyLoadData(value: (node: ThyCascaderOption, index?: number) => PromiseLike<any>) {
-        this.thyCascaderService.setCascaderOptions({ loadData: value });
-    }
-
-    get thyLoadData() {
-        return this.thyCascaderService?.cascaderOptions?.loadData;
-    }
+    readonly thyLoadData = input<(node: ThyCascaderOption, index?: number) => PromiseLike<any>>();
 
     /**
      * 控制触发状态, 支持 `click` | `hover`
      * @type ThyCascaderTriggerType | ThyCascaderTriggerType[]
      */
-    @Input() thyTriggerAction: ThyCascaderTriggerType | ThyCascaderTriggerType[] = ['click'];
+    readonly thyTriggerAction = input<ThyCascaderTriggerType | ThyCascaderTriggerType[]>(['click']);
 
     /**
      * 鼠标经过下方列表项时，是否自动展开列表，支持 `click` | `hover`
      * @type ThyCascaderExpandTrigger | ThyCascaderExpandTrigger[]
      */
-    @Input() thyExpandTriggerAction: ThyCascaderExpandTrigger | ThyCascaderExpandTrigger[] = ['click'];
+    readonly thyExpandTriggerAction = input<ThyCascaderExpandTrigger | ThyCascaderExpandTrigger[]>(['click']);
 
     /**
      * 自定义浮层样式
      */
-    @Input() thyMenuStyle: { [key: string]: string };
+    readonly thyMenuStyle = input<{
+        [key: string]: string;
+    }>();
 
     /**
      * 自定义搜索样式
      */
-    @Input() thySearchListStyle: { [key: string]: string };
+    readonly thySearchListStyle = input<{
+        [key: string]: string;
+    }>();
 
     /**
      * 自定义浮层类名
      * @type string
      */
-    @Input()
-    set thyMenuClassName(value: string) {
-        this.menuClassName = value;
-        this.setMenuClass();
-    }
-
-    get thyMenuClassName(): string {
-        return this.menuClassName;
-    }
+    readonly thyMenuClassName = input<string>();
 
     /**
      * 自定义浮层列类名
      * @type string
      */
-    @Input()
-    set thyColumnClassName(value: string) {
-        this.columnClassName = value;
-        this.setMenuClass();
-    }
+    readonly thyColumnClassName = input<string>();
 
-    get thyColumnClassName(): string {
-        return this.columnClassName;
-    }
+    readonly menuColumnCls = computed(() => {
+        return {
+            [`${this.prefixCls}-menu`]: true,
+            [`${this.thyColumnClassName()}`]: this.thyColumnClassName()
+        };
+    });
 
     /**
      * 是否只读
@@ -262,78 +229,63 @@ export class ThyCascader
      * 空状态下的展示文字
      * @default 暂无可选项
      */
-    @Input()
-    set thyEmptyStateText(value: string) {
-        this.emptyStateText = value;
-    }
+
+    readonly thyEmptyStateText = input<string>();
 
     /**
      * 是否多选
      * @type boolean
-     * @default false
      */
-    @Input({ transform: coerceBooleanProperty })
-    set thyMultiple(value: boolean) {
-        this.isMultiple = value;
-        this.thyCascaderService.setCascaderOptions({ isMultiple: value });
-    }
-
-    get thyMultiple(): boolean {
-        return this.isMultiple;
-    }
+    readonly thyMultiple = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 设置多选时最大显示的标签数量，0 表示不限制
      * @type number
      */
-    @Input({ transform: numberAttribute }) thyMaxTagCount = 0;
+    readonly thyMaxTagCount = input(0, { transform: numberAttribute });
 
     /**
      * 是否仅允许选择叶子项
      * @default true
      */
-    @Input({ transform: coerceBooleanProperty })
-    thyIsOnlySelectLeaf = true;
+    readonly thyIsOnlySelectLeaf = input(true, { transform: coerceBooleanProperty });
 
     /**
      * 初始化时，是否展开面板
-     * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyAutoExpand: boolean;
+    readonly thyAutoExpand = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 是否支持搜索
-     * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyShowSearch: boolean = false;
+    readonly thyShowSearch = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 多选选中项的展示方式，默认为空，渲染文字模板，传入tag，渲染展示模板,
-     * @default ''｜tag
      */
-    @Input() thyPreset: string = '';
+    readonly thyPreset = input<string>('');
 
     /**
      * 是否有幕布
      */
-    @Input({ transform: coerceBooleanProperty }) thyHasBackdrop = true;
+    readonly thyHasBackdrop = input(true, { transform: coerceBooleanProperty });
 
     /**
      * 值发生变化时触发，返回选择项的值
      * @type EventEmitter<any[]>
      */
-    @Output() thyChange = new EventEmitter<any[]>();
+    readonly thyChange = output<any[]>();
 
     /**
      * 值发生变化时触发，返回选择项列表
      * @type EventEmitter<ThyCascaderOption[]>
      */
-    @Output() thySelectionChange = new EventEmitter<ThyCascaderOption[]>();
+    readonly thySelectionChange = output<ThyCascaderOption[]>();
 
     /**
      * 选择选项时触发
      */
-    @Output() thySelect = new EventEmitter<{
+    readonly thySelect = output<{
         option: ThyCascaderOption;
         index: number;
     }>();
@@ -341,7 +293,7 @@ export class ThyCascader
     /**
      * @private 暂无实现
      */
-    @Output() thyDeselect = new EventEmitter<{
+    readonly thyDeselect = output<{
         option: ThyCascaderOption;
         index: number;
     }>();
@@ -349,59 +301,46 @@ export class ThyCascader
     /**
      * 清空选项时触发
      */
-    @Output() thyClear = new EventEmitter<void>();
+    readonly thyClear = output<void>();
 
     /**
      * 下拉选项展开和折叠状态事件
      */
-    @Output() thyExpandStatusChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+    readonly thyExpandStatusChange = output<boolean>();
 
-    @ViewChildren('cascaderOptions', { read: ElementRef }) cascaderOptions: QueryList<ElementRef>;
+    readonly cascaderOptions = viewChildren<ThyCascaderOptionComponent, ElementRef>('cascaderOptions', { read: ElementRef });
 
-    @ViewChildren('cascaderOptionContainers', { read: ElementRef }) cascaderOptionContainers: QueryList<ElementRef>;
+    readonly cascaderOptionContainers = viewChildren('cascaderOptionContainers', { read: ElementRef });
 
-    @ViewChild(CdkConnectedOverlay, { static: true }) cdkConnectedOverlay: CdkConnectedOverlay;
+    readonly cdkConnectedOverlay = viewChild<CdkConnectedOverlay>(CdkConnectedOverlay);
 
-    @ViewChild('trigger', { read: ElementRef, static: true }) trigger: ElementRef<any>;
+    readonly trigger = viewChild<ElementRef<any>>('trigger');
 
-    @ViewChild('input') input: ElementRef;
+    readonly input = viewChild<ElementRef>('input');
 
-    @ViewChild('menu') menu: ElementRef;
+    readonly menu = viewChild<ElementRef>('menu');
 
     public dropDownPosition = 'bottom';
 
     public menuVisible = false;
 
-    public isLabelRenderTemplate = false;
-
     public triggerRect: DOMRect;
 
-    public emptyStateText = this.locale().empty;
+    public menuCls: { [name: string]: any };
+
+    public labelCls: { [name: string]: any };
 
     private prefixCls = 'thy-cascader';
 
-    private menuClassName: string;
-
-    private columnClassName: string;
-
-    private _menuColumnCls: any;
-
     private readonly destroy$ = new Subject<void>();
-
-    private _menuCls: { [name: string]: any };
-
-    private _labelCls: { [name: string]: any };
-
-    private labelRenderTpl: TemplateRef<any>;
 
     private hostRenderer = useHostRenderer();
 
     public positions: ConnectionPositionPair[];
 
     get selected(): SelectOptionBase | SelectOptionBase[] {
-        return this.thyMultiple ? this.thyCascaderService.selectionModel.selected : this.thyCascaderService.selectionModel.selected[0];
+        return this.thyMultiple() ? this.thyCascaderService.selectionModel.selected : this.thyCascaderService.selectionModel.selected[0];
     }
-    private isMultiple = false;
 
     public menuMinWidth = 122;
 
@@ -433,21 +372,53 @@ export class ThyCascader
 
     private resizeSubscription: Subscription;
 
+    constructor() {
+        super();
+        effect(() => {
+            const options = this.thyOptions();
+            const columns = options && options.length ? [options] : [];
+            this.thyCascaderService.initColumns(columns);
+            if (this.thyCascaderService.defaultValue && columns.length) {
+                this.thyCascaderService.initOptions(0);
+            }
+        });
+
+        effect(() => {
+            this.thyCascaderService.customOptions = (this.thyCustomOptions() || []).map(item => ({ ...item }));
+        });
+
+        effect(() => {
+            const options = {
+                labelProperty: this.thyLabelProperty(),
+                valueProperty: this.thyValueProperty(),
+                isMultiple: this.thyMultiple(),
+                isOnlySelectLeaf: this.thyIsOnlySelectLeaf(),
+                isLabelRenderTemplate: this.isLabelRenderTemplate(),
+                loadData: this.thyLoadData()
+            };
+            this.thyCascaderService.setCascaderOptions(options);
+        });
+
+        effect(() => {
+            this.setMenuClass();
+        });
+    }
+
     ngOnInit(): void {
         this.setClassMap();
-        this.setMenuClass();
-        this.setMenuColumnClass();
         this.setLabelClass();
         this.initPosition();
         this.initSearch();
+
         const options = {
-            labelProperty: this.thyLabelProperty,
-            valueProperty: this.thyValueProperty,
-            isMultiple: this.isMultiple,
-            isOnlySelectLeaf: this.thyIsOnlySelectLeaf,
-            isLabelRenderTemplate: this.isLabelRenderTemplate,
-            loadData: this.thyLoadData
+            labelProperty: this.thyLabelProperty(),
+            valueProperty: this.thyValueProperty(),
+            isMultiple: this.thyMultiple(),
+            isOnlySelectLeaf: this.thyIsOnlySelectLeaf(),
+            isLabelRenderTemplate: this.isLabelRenderTemplate(),
+            loadData: this.thyLoadData()
         };
+
         this.thyCascaderService.setCascaderOptions(options);
 
         this.thyCascaderService.cascaderValueChange().subscribe(options => {
@@ -472,7 +443,7 @@ export class ThyCascader
                 .subscribe(event => {
                     if (
                         !this.elementRef.nativeElement.contains(event.target) &&
-                        !this.menu?.nativeElement.contains(event.target as Node) &&
+                        !this.menu()?.nativeElement.contains(event.target as Node) &&
                         this.menuVisible
                     ) {
                         this.ngZone.run(() => {
@@ -485,17 +456,11 @@ export class ThyCascader
     }
 
     ngAfterContentInit() {
-        if (this.thyAutoExpand) {
+        if (this.thyAutoExpand()) {
             timer(0).subscribe(() => {
                 this.cdr.markForCheck();
                 this.setMenuVisible(true);
             });
-        }
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes['thyIsOnlySelectLeaf']) {
-            this.thyCascaderService.setCascaderOptions({ isOnlySelectLeaf: changes['thyIsOnlySelectLeaf'].currentValue });
         }
     }
 
@@ -508,7 +473,7 @@ export class ThyCascader
 
     writeValue(value: any): void {
         this.thyCascaderService.writeCascaderValue(value);
-        if (this.isMultiple) {
+        if (this.thyMultiple()) {
             this.cdr.detectChanges();
         }
     }
@@ -539,19 +504,21 @@ export class ThyCascader
 
     public attached(): void {
         this.cdr.detectChanges();
-        this.cdkConnectedOverlay.positionChange.pipe(take(1), takeUntil(this.destroy$)).subscribe(() => {
-            this.scrollActiveElementIntoView();
-        });
+        this.cdkConnectedOverlay()
+            .positionChange.pipe(take(1), takeUntil(this.destroy$))
+            .subscribe(() => {
+                this.scrollActiveElementIntoView();
+            });
     }
 
     private scrollActiveElementIntoView() {
         if (!isEmpty(this.thyCascaderService.selectedOptions)) {
-            const activeOptions = this.cascaderOptions
+            const activeOptions = this.cascaderOptions()
                 .filter(item => item.nativeElement.classList.contains('thy-cascader-menu-item-active'))
                 // for multiple mode
-                .slice(-this.cascaderOptionContainers.length);
+                .slice(-this.cascaderOptionContainers().length);
 
-            this.cascaderOptionContainers.forEach((item, index) => {
+            this.cascaderOptionContainers().forEach((item, index) => {
                 if (index <= activeOptions.length - 1) {
                     ScrollToService.scrollToElement(activeOptions[index].nativeElement, item.nativeElement);
                     this.cdr.detectChanges();
@@ -568,7 +535,7 @@ export class ThyCascader
             this.setClassMap();
             this.setMenuClass();
             if (this.menuVisible) {
-                this.triggerRect = this.trigger.nativeElement.getBoundingClientRect();
+                this.triggerRect = this.trigger().nativeElement.getBoundingClientRect();
                 this.subscribeTriggerResize();
             } else {
                 this.unsubscribeTriggerResize();
@@ -577,36 +544,17 @@ export class ThyCascader
         }
     }
 
-    public get menuCls(): any {
-        return this._menuCls;
-    }
-
     private setMenuClass(): void {
-        this._menuCls = {
+        this.menuCls = {
             [`${this.prefixCls}-menus`]: true,
             [`${this.prefixCls}-menus-hidden`]: !this.menuVisible,
-            [`${this.thyMenuClassName}`]: this.thyMenuClassName,
+            [`${this.thyMenuClassName()}`]: this.thyMenuClassName(),
             [`w-100`]: this.columns.length === 0
         };
     }
 
-    public get menuColumnCls(): any {
-        return this._menuColumnCls;
-    }
-
-    private setMenuColumnClass(): void {
-        this._menuColumnCls = {
-            [`${this.prefixCls}-menu`]: true,
-            [`${this.thyColumnClassName}`]: this.thyColumnClassName
-        };
-    }
-
-    public get labelCls(): any {
-        return this._labelCls;
-    }
-
     private setLabelClass(): void {
-        this._labelCls = {
+        this.labelCls = {
             [`${this.prefixCls}-picker-label`]: true,
             [`${this.prefixCls}-show-search`]: false,
             [`${this.prefixCls}-focused`]: false,
@@ -618,7 +566,7 @@ export class ThyCascader
         const classMap = {
             [`${this.prefixCls}`]: true,
             [`${this.prefixCls}-picker`]: true,
-            [`${this.prefixCls}-${this.thySize}`]: true,
+            [`${this.prefixCls}-${this.thySize()}`]: true,
             [`${this.prefixCls}-picker-disabled`]: this.disabled,
             [`${this.prefixCls}-picker-open`]: this.menuVisible
         };
@@ -626,24 +574,27 @@ export class ThyCascader
     }
 
     private isClickTriggerAction(): boolean {
-        if (typeof this.thyTriggerAction === 'string') {
-            return this.thyTriggerAction === 'click';
+        const thyTriggerAction = this.thyTriggerAction();
+        if (typeof thyTriggerAction === 'string') {
+            return thyTriggerAction === 'click';
         }
-        return this.thyTriggerAction.indexOf('click') !== -1;
+        return thyTriggerAction.indexOf('click') !== -1;
     }
 
     private isHoverTriggerAction(): boolean {
-        if (typeof this.thyTriggerAction === 'string') {
-            return this.thyTriggerAction === 'hover';
+        const thyTriggerAction = this.thyTriggerAction();
+        if (typeof thyTriggerAction === 'string') {
+            return thyTriggerAction === 'hover';
         }
-        return this.thyTriggerAction.indexOf('hover') !== -1;
+        return thyTriggerAction.indexOf('hover') !== -1;
     }
 
     private isHoverExpandTriggerAction(): boolean {
-        if (typeof this.thyExpandTriggerAction === 'string') {
-            return this.thyExpandTriggerAction === 'hover';
+        const thyExpandTriggerAction = this.thyExpandTriggerAction();
+        if (typeof thyExpandTriggerAction === 'string') {
+            return thyExpandTriggerAction === 'hover';
         }
-        return this.thyExpandTriggerAction.indexOf('hover') !== -1;
+        return thyExpandTriggerAction.indexOf('hover') !== -1;
     }
 
     @HostListener('click', ['$event'])
@@ -695,13 +646,12 @@ export class ThyCascader
     public clickOption(option: ThyCascaderOption, index: number, event: Event | boolean): void {
         this.thyCascaderService.removeCustomOption();
         this.thyCascaderService.clickOption(option, index, event, this.selectOption);
-
-        if (this.cdkConnectedOverlay && this.cdkConnectedOverlay.overlayRef) {
+        if (this.cdkConnectedOverlay() && this.cdkConnectedOverlay().overlayRef) {
             // Make sure to calculate and update the position after the submenu is opened
             this.cdr.detectChanges();
 
             // Update the position to prevent the submenu from appearing off-screen
-            this.cdkConnectedOverlay.overlayRef.updatePosition();
+            this.cdkConnectedOverlay().overlayRef.updatePosition();
             this.cdr.markForCheck();
         }
     }
@@ -711,11 +661,11 @@ export class ThyCascader
             event.preventDefault();
         }
 
-        if (option && option.disabled && !this.isMultiple) {
+        if (option && option.disabled && !this.thyMultiple()) {
             return;
         }
 
-        if (!this.isHoverExpandTriggerAction() && !(option && option.disabled && this.isMultiple)) {
+        if (!this.isHoverExpandTriggerAction() && !(option && option.disabled && this.thyMultiple())) {
             return;
         }
         this.setActiveOption(option, index, false);
@@ -750,15 +700,17 @@ export class ThyCascader
     }
 
     private selectOption = (option: ThyCascaderOption, index: number) => {
-        if ((option.isLeaf || !this.thyIsOnlySelectLeaf) && !this.thyMultiple) {
+        const isOnlySelectLeaf = this.thyIsOnlySelectLeaf();
+
+        if ((option.isLeaf || !isOnlySelectLeaf) && !this.thyMultiple()) {
             this.afterChangeFn = () => {
                 this.setMenuVisible(false);
                 this.onTouchedFn();
             };
         }
         this.thySelect.emit({ option, index });
-        const isOptionCanSelect = this.thyChangeOnSelect && !this.isMultiple;
-        if (option.isLeaf || !this.thyIsOnlySelectLeaf || isOptionCanSelect || this.shouldPerformSelection(option, index)) {
+        const isOptionCanSelect = this.thyChangeOnSelect() && !this.thyMultiple();
+        if (option.isLeaf || !isOnlySelectLeaf || isOptionCanSelect || this.shouldPerformSelection(option, index)) {
             this.thyCascaderService.selectOption(option, index);
         }
     };
@@ -769,7 +721,8 @@ export class ThyCascader
     }
 
     private shouldPerformSelection(option: ThyCascaderOption, level: number): boolean {
-        return typeof this.thyChangeOn === 'function' ? this.thyChangeOn(option, level) === true : false;
+        const thyChangeOn = this.thyChangeOn();
+        return typeof thyChangeOn === 'function' ? thyChangeOn(option, level) === true : false;
     }
 
     public clearSelection($event: Event): void {
@@ -781,10 +734,6 @@ export class ThyCascader
             this.setMenuVisible(false);
         };
         this.thyCascaderService.clearSelection();
-    }
-
-    constructor() {
-        super();
     }
 
     public trackByFn(index: number, item: ThyCascaderOption) {
@@ -829,7 +778,7 @@ export class ThyCascader
     public selectSearchResult(selectOptionData: ThyCascaderSearchOption): void {
         const { thyRowValue: selectedOptions } = selectOptionData;
         if (selectOptionData.selected) {
-            if (!this.isMultiple) {
+            if (!this.thyMultiple()) {
                 this.closeMenu();
             }
             return;
@@ -837,7 +786,7 @@ export class ThyCascader
         selectedOptions.forEach((item: ThyCascaderOption, index: number) => {
             this.setActiveOption(item, index, index === selectedOptions.length - 1);
         });
-        if (this.isMultiple) {
+        if (this.thyMultiple()) {
             this.isSelectingSearchState = true;
             selectOptionData.selected = true;
             const originSearchResultList = this.searchResultList;
@@ -859,12 +808,12 @@ export class ThyCascader
                 const resize = new ResizeObserver((entries: ResizeObserverEntry[]) => {
                     observer.next(null);
                 });
-                resize.observe(this.trigger.nativeElement);
+                resize.observe(this.trigger().nativeElement);
             }).subscribe(() => {
                 this.ngZone.run(() => {
-                    this.triggerRect = this.trigger.nativeElement.getBoundingClientRect();
-                    if (this.cdkConnectedOverlay && this.cdkConnectedOverlay.overlayRef) {
-                        this.cdkConnectedOverlay.overlayRef.updatePosition();
+                    this.triggerRect = this.trigger().nativeElement.getBoundingClientRect();
+                    if (this.cdkConnectedOverlay() && this.cdkConnectedOverlay().overlayRef) {
+                        this.cdkConnectedOverlay().overlayRef.updatePosition();
                     }
                     this.cdr.markForCheck();
                 });

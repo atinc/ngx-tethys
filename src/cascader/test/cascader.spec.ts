@@ -850,7 +850,7 @@ describe('thy-cascader', () => {
         }));
 
         xit('should change height when the window is resized', fakeAsync(() => {
-            const element = component.cascaderRef.trigger.nativeElement as Element;
+            const element = component.cascaderRef.trigger().nativeElement as Element;
             const getBoundingClientRect = spyOn(element, 'getBoundingClientRect');
 
             getBoundingClientRect.and.returnValues(
@@ -1012,14 +1012,14 @@ describe('thy-cascader', () => {
         });
 
         it('should show thy-input-search when set thyShowSearch', fakeAsync(() => {
-            expect(fixture.componentInstance.cascaderRef.thyShowSearch).toBe(false);
+            expect(fixture.componentInstance.cascaderRef.thyShowSearch()).toBe(false);
 
             fixture.componentInstance.isShowSearch = true;
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
             fixture.detectChanges();
 
-            expect(fixture.componentInstance.cascaderRef.thyShowSearch).toBe(true);
+            expect(fixture.componentInstance.cascaderRef.thyShowSearch()).toBe(true);
             expect(fixture.debugElement.query(By.css('.search-input-field'))).not.toBeNull();
         }));
 
