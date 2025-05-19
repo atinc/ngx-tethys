@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnChanges, SimpleChanges, effect, input } from '@angular/core';
 import { ThyResizeDirection } from './interface';
 import { ThyResizeHandle } from './resize-handle.component';
 
@@ -24,29 +24,29 @@ export const DEFAULT_RESIZE_DIRECTION: ThyResizeDirection[] = [
     exportAs: 'thyResizeHandles',
     template: `
         @for (dir of directions; track $index) {
-            <thy-resize-handle [thyLine]="thyLine" [thyDirection]="dir"></thy-resize-handle>
+            <thy-resize-handle [thyLine]="thyLine()" [thyDirection]="dir"></thy-resize-handle>
         }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [ThyResizeHandle]
 })
-export class ThyResizeHandles implements OnChanges {
+export class ThyResizeHandles {
     /**
      * 定义调整手柄的方向
      * @type ThyResizeDirection[]
      */
-    @Input() thyDirections: ThyResizeDirection[] = DEFAULT_RESIZE_DIRECTION;
+    readonly thyDirections = input<ThyResizeDirection[]>(DEFAULT_RESIZE_DIRECTION);
 
     /**
      * 是否展示拖拽线
      */
-    @Input({ transform: coerceBooleanProperty }) thyLine = false;
+    readonly thyLine = input(false, { transform: coerceBooleanProperty });
 
-    directions = new Set<ThyResizeDirection>(this.thyDirections);
+    directions = new Set<ThyResizeDirection>(this.thyDirections());
 
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes.thyDirections) {
-            this.directions = new Set(changes.thyDirections.currentValue);
-        }
+    constructor() {
+        effect(() => {
+            this.directions = new Set(this.thyDirections());
+        });
     }
 }

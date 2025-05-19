@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, viewChild } from '@angular/core';
 import { ThyResizableDirective, ThyResizeHandles, ThyResizeEvent } from 'ngx-tethys/resizable';
 
 @Component({
@@ -11,7 +11,7 @@ export class ThyResizableBasicExampleComponent {
     width = 400;
     height = 200;
     disabled = false;
-    @ViewChild(ThyResizableDirective, { static: true }) directive: ThyResizableDirective;
+    readonly directive = viewChild(ThyResizableDirective);
 
     onResize({ width, height }: ThyResizeEvent): void {
         this.width = width!;
