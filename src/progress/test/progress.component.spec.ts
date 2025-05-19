@@ -345,7 +345,7 @@ describe(`ThyProgressComponent`, () => {
         function computedCirclePath(strokeValue: string, value = 20, gapDegree = 0, strokeWidth = 6, size: string = 'md') {
             const circle = Math.PI * 2 * (50 - strokeWidth / 2);
             const len = `${(value / 100) * (circle - gapDegree)}px ${circle}px`;
-            strokeValue = progressCircleComponent.componentInstance.progressCirclePath[0].strokePathStyle.strokeDasharray;
+            strokeValue = progressCircleComponent.componentInstance.circle().progressCirclePath[0].strokePathStyle.strokeDasharray;
             expect(strokeValue).toBe(len);
         }
 
