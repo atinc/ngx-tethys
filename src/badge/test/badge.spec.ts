@@ -1,7 +1,7 @@
-import { Component, OnInit, DebugElement } from '@angular/core';
-import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { ThyBadgeModule, ThyBadge } from 'ngx-tethys/badge';
+import { Component, DebugElement, OnInit } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ThyBadge, ThyBadgeModule } from 'ngx-tethys/badge';
 
 @Component({
     selector: 'thy-badge-basic',
@@ -144,6 +144,7 @@ describe('thy-badge', () => {
             expect(badgeSpanElement).toBeTruthy();
             expect(badgeSpanElement.classList.contains('thy-badge')).toBe(true);
             expect(badgeSpanElement.classList.contains('thy-badge-count')).toBe(true);
+            expect(badgeSpanElement.classList.contains('thy-badge-md')).toBe(true);
             expect(badgeSpanElement.classList.contains('thy-badge-danger')).toBe(true);
             expect(badgeElement.classList.contains('thy-badge-wrapper')).toBe(true);
         });

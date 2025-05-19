@@ -31,5 +31,5 @@ export class ThyCheckbox extends ThyFormCheckBaseComponent {
      * 设置 indeterminate 状态，只负责样式控制
      * @description.en-us Set the indeterminate state, responsible only for style control
      */
-    readonly thyIndeterminate = input<boolean, boolean | string | number>(false, { transform: coerceBooleanProperty });
+    readonly thyIndeterminate = input(false, { transform: coerceBooleanProperty });
 }
