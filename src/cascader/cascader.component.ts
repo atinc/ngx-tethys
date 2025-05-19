@@ -388,15 +388,7 @@ export class ThyCascader
         });
 
         effect(() => {
-            const options = {
-                labelProperty: this.thyLabelProperty(),
-                valueProperty: this.thyValueProperty(),
-                isMultiple: this.thyMultiple(),
-                isOnlySelectLeaf: this.thyIsOnlySelectLeaf(),
-                isLabelRenderTemplate: this.isLabelRenderTemplate(),
-                loadData: this.thyLoadData()
-            };
-            this.thyCascaderService.setCascaderOptions(options);
+            this.setCascaderOptions();
         });
 
         effect(() => {
@@ -409,18 +401,7 @@ export class ThyCascader
         this.setLabelClass();
         this.initPosition();
         this.initSearch();
-
-        const options = {
-            labelProperty: this.thyLabelProperty(),
-            valueProperty: this.thyValueProperty(),
-            isMultiple: this.thyMultiple(),
-            isOnlySelectLeaf: this.thyIsOnlySelectLeaf(),
-            isLabelRenderTemplate: this.isLabelRenderTemplate(),
-            loadData: this.thyLoadData()
-        };
-
-        this.thyCascaderService.setCascaderOptions(options);
-
+        this.setCascaderOptions();
         this.thyCascaderService.cascaderValueChange().subscribe(options => {
             if (!options.isValueEqual) {
                 this.onChangeFn(options.value);
@@ -462,6 +443,19 @@ export class ThyCascader
                 this.setMenuVisible(true);
             });
         }
+    }
+
+    private setCascaderOptions() {
+        const options = {
+            labelProperty: this.thyLabelProperty(),
+            valueProperty: this.thyValueProperty(),
+            isMultiple: this.thyMultiple(),
+            isOnlySelectLeaf: this.thyIsOnlySelectLeaf(),
+            isLabelRenderTemplate: this.isLabelRenderTemplate(),
+            loadData: this.thyLoadData()
+        };
+
+        this.thyCascaderService.setCascaderOptions(options);
     }
 
     private initPosition() {
