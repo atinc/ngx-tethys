@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, input } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 
 /**
@@ -19,7 +19,7 @@ export class ThyText implements OnInit {
     /**
      * 前置图标
      */
-    @Input() thyIcon: string;
+    readonly thyIcon = input<string>(undefined);
 
     constructor() {}
 

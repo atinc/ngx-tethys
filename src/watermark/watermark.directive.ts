@@ -1,9 +1,9 @@
-import { Directive, Input, ElementRef, OnInit, SimpleChanges, OnChanges, inject, DestroyRef, effect } from '@angular/core';
+import { Directive, ElementRef, OnInit, inject, DestroyRef, effect, input, computed } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DEFAULT_WATERMARK_CONFIG, DEFAULT_CANVAS_CONFIG } from './config';
 import { MutationObserverFactory } from '@angular/cdk/observers';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
 import { ThyThemeStore } from 'ngx-tethys/core';
 
 /**
@@ -40,29 +40,28 @@ export interface ThyCanvasConfigType {
 @Directive({
     selector: '[thyWatermark]'
 })
-export class ThyWatermarkDirective implements OnInit, OnChanges {
+export class ThyWatermarkDirective implements OnInit {
     private el = inject(ElementRef);
 
     /**
      * 是否禁用，默认为 false
      */
-    @Input({ transform: coerceBooleanProperty })
-    thyDisabled: boolean = false;
+    readonly thyDisabled = input<boolean, ThyBooleanInput>(false, { transform: coerceBooleanProperty });
 
-    content: string;
     /**
      * 水印内容
      */
-    @Input()
-    set thyWatermark(value: string) {
-        value = value?.replace(/^\"|\"$/g, '');
-        this.content = !!value ? value : '';
-    }
+    readonly thyWatermark = input<string>(undefined);
 
     /**
      * 水印样式配置
      */
-    @Input() thyCanvasConfig: ThyCanvasConfigType;
+    readonly thyCanvasConfig = input<ThyCanvasConfigType>(undefined);
+
+    readonly content = computed(() => {
+        const value = this.thyWatermark()?.replace(/^\"|\"$/g, '');
+        return value || '';
+    });
 
     private createWatermark$ = new Subject<string>();
 
@@ -78,14 +77,30 @@ export class ThyWatermarkDirective implements OnInit, OnChanges {
 
     constructor() {
         effect(() => {
-            if (!this.thyDisabled && this.thyThemeStore.theme()) {
+            if (!this.thyDisabled() && this.thyThemeStore.theme()) {
+                this.refreshWatermark();
+            }
+        });
+
+        effect(() => {
+            const thyWatermark = this.thyWatermark();
+            if (thyWatermark) {
+                this.refreshWatermark();
+            }
+        });
+
+        effect(() => {
+            const thyDisabled = this.thyDisabled();
+            if (thyDisabled) {
+                this.removeWatermark();
+            } else {
                 this.refreshWatermark();
             }
         });
     }
 
     ngOnInit() {
-        if (!this.thyDisabled) {
+        if (!this.thyDisabled()) {
             this.createWatermark$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
                 this.observeAttributes()
                     .pipe(takeUntilDestroyed(this.destroyRef))
@@ -94,22 +109,6 @@ export class ThyWatermarkDirective implements OnInit, OnChanges {
 
             this.createWatermark();
         }
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        const { thyWatermark, thyDisabled } = changes;
-        const thyWatermarkChange = () => {
-            if (thyWatermark.firstChange) return;
-            if (thyWatermark.currentValue) {
-                this.refreshWatermark();
-            }
-        };
-        const thyDisabledChange = () => {
-            if (thyDisabled.firstChange) return;
-            thyDisabled?.currentValue ? this.removeWatermark() : this.refreshWatermark();
-        };
-        thyWatermark && thyWatermarkChange();
-        thyDisabled && thyDisabledChange();
     }
 
     private refreshWatermark() {
@@ -127,7 +126,7 @@ export class ThyWatermarkDirective implements OnInit, OnChanges {
     createCanvas() {
         let { gutter, fontSize, color, degree, textLineHeight } = {
             ...DEFAULT_CANVAS_CONFIG,
-            ...(this.thyCanvasConfig || {})
+            ...(this.thyCanvasConfig() || {})
         };
         color = this.thyThemeStore.normalizeColor(color);
 
@@ -137,7 +136,7 @@ export class ThyWatermarkDirective implements OnInit, OnChanges {
 
         const getFakeSize = () => {
             const fakeBox = document.createElement('div');
-            const fakeBoxStyle = {
+            const fakeBoxStyle: Record<string, string | number> = {
                 position: 'absolute',
                 top: 0,
                 left: 0,
@@ -150,7 +149,7 @@ export class ThyWatermarkDirective implements OnInit, OnChanges {
             const styleStr = Object.keys(fakeBoxStyle).reduce((pre, next) => ((pre += `${next}:${fakeBoxStyle[next]};`), pre), '');
             fakeBox.setAttribute('style', styleStr);
 
-            fakeBox.innerHTML = this.content.replace(/(\\n)/gm, '</br>');
+            fakeBox.innerHTML = this.content().replace(/(\\n)/gm, '</br>');
             document.querySelector('body').insertBefore(fakeBox, document.querySelector('body').firstChild);
             const { width, height } = fakeBox.getBoundingClientRect();
             fakeBox.remove();
@@ -159,7 +158,7 @@ export class ThyWatermarkDirective implements OnInit, OnChanges {
         const { width: fakeBoxWidth, height: fakeBoxHeight } = getFakeSize();
 
         const angle = (degree * Math.PI) / 180;
-        const contentArr = this.content.split('\\n');
+        const contentArr = this.content().split('\\n');
         const canvasHeight = Math.sin(angle) * fakeBoxWidth + fakeBoxHeight;
 
         let start = Math.ceil(Math.sin(angle) * fakeBoxWidth * Math.sin(angle));
@@ -184,7 +183,7 @@ export class ThyWatermarkDirective implements OnInit, OnChanges {
         const watermarkDiv = this.wmDiv || document.createElement('div');
 
         const background = !isRefresh ? this.canvas.toDataURL() : this.createCanvas().toDataURL();
-        const watermarkStyle = {
+        const watermarkStyle: Record<string, string | number> = {
             ...DEFAULT_WATERMARK_CONFIG,
             'background-image': `url(${background})`
         };

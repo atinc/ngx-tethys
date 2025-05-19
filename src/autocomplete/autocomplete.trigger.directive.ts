@@ -3,13 +3,15 @@ import {
     ElementRef,
     NgZone,
     OnDestroy,
-    Input,
     OnInit,
     ViewContainerRef,
     HostBinding,
     ChangeDetectorRef,
     numberAttribute,
-    inject
+    inject,
+    input,
+    computed,
+    Signal
 } from '@angular/core';
 import { OverlayRef, Overlay } from '@angular/cdk/overlay';
 import { ThyPlacement } from 'ngx-tethys/core';
@@ -22,7 +24,7 @@ import { Subject, Observable, merge, fromEvent, of, Subscription } from 'rxjs';
 import { ESCAPE, UP_ARROW, ENTER, DOWN_ARROW, TAB, coerceBooleanProperty } from 'ngx-tethys/util';
 import { filter, map, take, delay, switchMap } from 'rxjs/operators';
 import { ScrollToService } from 'ngx-tethys/core';
-import { warnDeprecation } from 'ngx-tethys/util';
+import { outputToObservable } from '@angular/core/rxjs-interop';
 
 /**
  * 自动完成触发指令
@@ -55,8 +57,6 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
 
     private closingActionsSubscription: Subscription;
 
-    private _autocompleteComponent: ThyAutocomplete;
-
     @HostBinding(`class.thy-autocomplete-opened`) panelOpened = false;
 
     /**
@@ -64,63 +64,49 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
      * @type thyAutocompleteComponent
      * @deprecated
      */
-    @Input('thyAutocompleteComponent')
-    set autocompleteComponent(data: ThyAutocomplete) {
-        if (typeof ngDevMode === 'undefined' || ngDevMode) {
-            warnDeprecation(`The property thyAutocompleteComponent will be deprecated, please use thyAutocomplete instead.`);
-        }
-        this._autocompleteComponent = data;
-    }
+    readonly thyAutocompleteComponent = input<ThyAutocomplete>();
 
     /**
      * 下拉菜单组件实例
      * @type thyAutocompleteComponent
      */
-    @Input('thyAutocomplete')
-    set autocomplete(data: ThyAutocomplete) {
-        this._autocompleteComponent = data;
-    }
+    readonly thyAutocomplete = input<ThyAutocomplete>();
 
-    get autocompleteComponent() {
-        return this._autocompleteComponent;
-    }
+    readonly autocompleteComponent: Signal<ThyAutocomplete> = computed(() => {
+        return this.thyAutocomplete() || this.thyAutocompleteComponent();
+    });
 
     /**
      * 弹出框默认 offset
-     * @type number
      */
-    @Input({ transform: numberAttribute }) thyOffset = 4;
+    readonly thyOffset = input<number, unknown>(4, { transform: numberAttribute });
 
     /**
      * 下拉菜单的宽度，不设置默认与输入框同宽
-     * @type number
      */
-    @Input({ transform: numberAttribute }) thyAutocompleteWidth: number;
+    readonly thyAutocompleteWidth = input<number, unknown>(undefined, { transform: numberAttribute });
 
     /**
      * 下拉菜单的显示位置，'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'
-     * @type string
      */
-    @Input() thyPlacement: ThyPlacement = 'bottomLeft';
+    readonly thyPlacement = input<ThyPlacement>('bottomLeft');
 
     /**
      * 是否允许聚焦时打开下拉菜单
-     * @type boolean
      */
-    @Input({ transform: coerceBooleanProperty }) thyIsFocusOpen = true;
+    readonly thyIsFocusOpen = input(true, { transform: coerceBooleanProperty });
 
-    get activeOption(): ThyOption | null {
-        if (this.autocompleteComponent && this.autocompleteComponent.keyManager) {
-            return this.autocompleteComponent.keyManager.activeItem;
+    readonly activeOption: Signal<ThyOption | null> = computed(() => {
+        if (this.autocompleteComponent() && this.autocompleteComponent().keyManager) {
+            return this.autocompleteComponent().keyManager.activeItem;
         }
-
         return null;
-    }
+    });
 
     get panelClosingActions(): Observable<ThyOptionSelectionChangeEvent | null> {
         return merge(
-            this.autocompleteComponent.thyOptionSelected,
-            this.autocompleteComponent.keyManager.tabOut.pipe(filter(() => this.panelOpened)),
+            outputToObservable(this.autocompleteComponent().thyOptionSelected),
+            this.autocompleteComponent().keyManager.tabOut.pipe(filter(() => this.panelOpened)),
             this.closeKeyEventStream,
             this.getOutsideClickStream(),
             this.overlayRef ? this.overlayRef.detachments().pipe(filter(() => this.panelOpened)) : of()
@@ -133,7 +119,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
     ngOnInit(): void {}
 
     onFocus() {
-        if (this.canOpen() && this.thyIsFocusOpen) {
+        if (this.canOpen() && this.thyIsFocusOpen()) {
             this.openPanel();
         }
     }
@@ -147,25 +133,26 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
         if (keyCode === ESCAPE) {
             event.preventDefault();
         }
-        if (this.activeOption && keyCode === ENTER && this.panelOpened) {
-            this.activeOption.selectViaInteraction();
+        const autocompleteComponent = this.autocompleteComponent();
+        if (this.activeOption() && keyCode === ENTER && this.panelOpened) {
+            this.activeOption().selectViaInteraction();
             this.resetActiveItem();
             event.preventDefault();
-        } else if (this.autocompleteComponent) {
-            const prevActiveItem = this.autocompleteComponent.keyManager.activeItem;
+        } else if (autocompleteComponent) {
+            const prevActiveItem = autocompleteComponent.keyManager.activeItem;
             const isArrowKey = keyCode === UP_ARROW || keyCode === DOWN_ARROW;
             if (this.panelOpened || keyCode === TAB) {
-                this.autocompleteComponent.keyManager.onKeydown(event);
+                autocompleteComponent.keyManager.onKeydown(event);
             } else if (isArrowKey && this.canOpen()) {
                 this.openPanel();
             }
             if (
-                (isArrowKey || this.autocompleteComponent.keyManager.activeItem !== prevActiveItem) &&
-                this.autocompleteComponent.keyManager.activeItem
+                (isArrowKey || autocompleteComponent.keyManager.activeItem !== prevActiveItem) &&
+                autocompleteComponent.keyManager.activeItem
             ) {
                 ScrollToService.scrollToElement(
-                    this.autocompleteComponent.keyManager.activeItem.element.nativeElement,
-                    this.autocompleteComponent.optionsContainer.nativeElement
+                    autocompleteComponent.keyManager.activeItem.element.nativeElement,
+                    autocompleteComponent.optionsContainer().nativeElement
                 );
             }
         }
@@ -196,7 +183,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
             }
         });
         this.panelOpened = true;
-        this.autocompleteComponent.open();
+        this.autocompleteComponent().open();
     }
 
     closePanel() {
@@ -211,15 +198,16 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
         const config = Object.assign({
             origin: this.elementRef.nativeElement,
             viewContainerRef: this.viewContainerRef,
-            placement: this.thyPlacement,
-            offset: this.thyOffset,
+            placement: this.thyPlacement(),
+            offset: this.thyOffset(),
             scrollStrategy: this.overlay.scrollStrategies.reposition(),
-            width: this.thyAutocompleteWidth || this.elementRef.nativeElement.clientWidth
+            width: this.thyAutocompleteWidth() || this.elementRef.nativeElement.clientWidth
         });
-        this.autocompleteRef = this.autocompleteService.open(this.autocompleteComponent.contentTemplateRef, config);
+        const autocompleteComponent = this.autocompleteComponent();
+        this.autocompleteRef = this.autocompleteService.open(autocompleteComponent.contentTemplateRef(), config);
         this.autocompleteRef.afterClosed().subscribe(() => {
             this.panelOpened = false;
-            this.autocompleteComponent.close();
+            autocompleteComponent.close();
         });
         // delay 200ms to prevent emit document click rightnow
         this.autocompleteRef
@@ -237,7 +225,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
      */
     private subscribeToClosingActions(): Subscription {
         const firstStable = this.ngZone.onStable.asObservable().pipe(take(1));
-        const optionChanges = this.autocompleteComponent.options.changes.pipe(
+        const optionChanges = this.autocompleteComponent().options.changes.pipe(
             // Defer emitting to the stream until the next tick, because changing
             // bindings in here will cause "changed after checked" errors.
             delay(0)
@@ -308,7 +296,9 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
     }
 
     private resetActiveItem(): void {
-        this.autocompleteComponent.keyManager.setActiveItem(this.autocompleteComponent.thyAutoActiveFirstOption ? 0 : -1);
+        const autocompleteComponent = this.autocompleteComponent();
+        const index = autocompleteComponent.thyAutoActiveFirstOption() ? 0 : -1;
+        autocompleteComponent.keyManager.setActiveItem(index);
     }
 
     private destroyPanel(): void {
