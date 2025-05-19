@@ -1,15 +1,15 @@
 import { Directionality } from '@angular/cdk/bidi';
 import {
-  ChangeDetectionStrategy,
-  Component,
-  Directive,
-  inject,
-  Injector,
-  input,
-  OnInit,
-  TemplateRef,
-  ViewContainerRef,
-  viewChild
+    ChangeDetectionStrategy,
+    Component,
+    Directive,
+    inject,
+    Injector,
+    input,
+    OnInit,
+    TemplateRef,
+    ViewContainerRef,
+    viewChild
 } from '@angular/core';
 import { SafeAny } from 'ngx-tethys/types';
 import { ThyDialog, ThyDialogModule, ThyDialogRef } from 'ngx-tethys/dialog';
