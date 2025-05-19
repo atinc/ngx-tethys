@@ -36,8 +36,6 @@ export const THY_PROGRESS_COMPONENT = new InjectionToken<ThyParentProgress>('THY
 export class ThyProgressStrip {
     private progress = inject(THY_PROGRESS_COMPONENT);
 
-    // private value: number;
-
     private hostRenderer = useHostRenderer();
 
     readonly thyTips = input<string | TemplateRef<HTMLElement>>(undefined);

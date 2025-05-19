@@ -1,8 +1,7 @@
-import { isString } from 'ngx-tethys/util';
+import { isNumber, isString } from 'ngx-tethys/util';
 
 import {
     Component,
-    Input,
     OnChanges,
     OnInit,
     SimpleChanges,
@@ -10,7 +9,8 @@ import {
     ViewEncapsulation,
     numberAttribute,
     input,
-    effect
+    effect,
+    computed
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
@@ -43,15 +43,6 @@ export class ThyProgressCircle implements OnInit, OnChanges {
     readonly thyType = input<ThyProgressType>(undefined);
 
     readonly thySize = input<string | number>(undefined);
-    // @Input() set thySize(size: string | number) {
-    //     if (size) {
-    //         if (isString(size)) {
-    //             this.progressSize = `progress-circle-inner-${size}`;
-    //         } else {
-    //             this.width = size;
-    //         }
-    //     }
-    // }
 
     readonly thyValue = input<number | ThyProgressStackedValue[]>(undefined);
 
@@ -67,54 +58,27 @@ export class ThyProgressCircle implements OnInit, OnChanges {
 
     readonly thyStrokeWidth = input<number, unknown>(undefined, { transform: numberAttribute });
 
-    public trailPathStyle: ThyProgressPathStyle | null = null;
-
-    public progressCirclePath: ThyProgressCirclePath[];
-
-    public pathString?: string;
-
-    public width: number = 112;
-
-    public progressSize: string;
-
     get strokeWidth(): number {
         return this.thyStrokeWidth() || 6;
     }
 
-    constructor() {
-        effect(() => {
-            const type = this.thyType();
-            this.hostRenderer.updateClass(type ? [`progress-circle-${type}`] : []);
-        });
+    readonly progressSize = computed(() => {
+        const size = this.thySize();
+        if (size && isString(size)) {
+            return `progress-circle-inner-${size}`;
+        }
+        return '';
+    });
 
-        effect(() => {
-            const size = this.thySize();
-            if (size) {
-                if (isString(size)) {
-                    this.progressSize = `progress-circle-inner-${size}`;
-                } else {
-                    this.width = size;
-                }
-            }
-        });
+    readonly width = computed(() => {
+        const size = this.thySize();
+        if (size && isNumber(size)) {
+            return size;
+        }
+        return 112;
+    });
 
-        effect(() => {
-            this.createCircleProgress();
-        });
-    }
-
-    ngOnInit() {
-        // this.createCircleProgress();
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        // const { thyGapDegree, thyValue, thyGapPosition } = changes;
-        // if (thyGapDegree || thyValue || thyGapPosition) {
-        //     this.createCircleProgress();
-        // }
-    }
-
-    private createCircleProgress(): void {
+    readonly circle = computed(() => {
         let values: ThyProgressStackedValue[] = [];
 
         const thyValue = this.thyValue();
@@ -159,15 +123,15 @@ export class ThyProgressCircle implements OnInit, OnChanges {
             default:
         }
 
-        this.pathString = `M 50,50 m ${beginPositionX},${beginPositionY} a ${radius},${radius} 0 1 1 ${endPositionX},${-endPositionY} a ${radius},${radius} 0 1 1 ${-endPositionX},${endPositionY}`;
+        const pathString = `M 50,50 m ${beginPositionX},${beginPositionY} a ${radius},${radius} 0 1 1 ${endPositionX},${-endPositionY} a ${radius},${radius} 0 1 1 ${-endPositionX},${endPositionY}`;
 
-        this.trailPathStyle = {
+        const trailPathStyle = {
             strokeDasharray: `${len - gapDegree}px ${len}px`,
             strokeDashoffset: `-${gapDegree / 2}px`,
             transition: 'stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s'
         };
 
-        this.progressCirclePath = values
+        const progressCirclePath = values
             .map((item, index) => {
                 return {
                     stroke: '',
@@ -182,5 +146,17 @@ export class ThyProgressCircle implements OnInit, OnChanges {
                 };
             })
             .reverse();
+        return { pathString, trailPathStyle, progressCirclePath };
+    });
+
+    constructor() {
+        effect(() => {
+            const type = this.thyType();
+            this.hostRenderer.updateClass(type ? [`progress-circle-${type}`] : []);
+        });
     }
+
+    ngOnInit() {}
+
+    ngOnChanges(changes: SimpleChanges): void {}
 }

@@ -51,10 +51,6 @@ import { NgClass, NgTemplateOutlet } from '@angular/common';
     imports: [ThyProgressStrip, NgClass, ThyTooltipDirective, NgTemplateOutlet, ThyProgressCircle]
 })
 export class ThyProgress implements ThyParentProgress, OnInit, OnChanges {
-    // value: number | ThyProgressStackedValue[];
-
-    // bars: ThyProgressStrip[] = [];
-
     private hostRenderer = useHostRenderer();
 
     readonly barsTotalValue = computed(() => {
@@ -87,10 +83,6 @@ export class ThyProgress implements ThyParentProgress, OnInit, OnChanges {
     });
 
     readonly bars = viewChildren(ThyProgressStrip);
-    // @ViewChildren(ThyProgressStrip)
-    // set barsQueryList(value: QueryList<ThyProgressStrip>) {
-    //     this.bars = value.toArray();
-    // }
 
     /**
      * 进度条类型: `primary` | `success` | `info` | `warning` | `danger`
@@ -103,10 +95,6 @@ export class ThyProgress implements ThyParentProgress, OnInit, OnChanges {
      * @default md
      */
     readonly thySize = input<string | number>('md');
-    // @Input() set thySize(size: string | number) {
-    //     this.size = size;
-    //     this.hostRenderer.updateClass(size ? [`progress-${size}`] : []);
-    // }
 
     /**
      * 进度值，传入数字时显示百分比 = value / max * 100，当传入数组时显示多个 bar，stacked 模式的进度条
@@ -121,29 +109,11 @@ export class ThyProgress implements ThyParentProgress, OnInit, OnChanges {
             }
         }
     });
-    // @Input() set thyValue(value: number | ThyProgressStackedValue[]) {
-    //     // 自动求和计算 max
-    //     if (Array.isArray(value)) {
-    //         this.isStacked = true;
-    //         this.value = [...value].filter(item => item.value !== 0);
-    //         this.barsTotalValue = this.value.reduce((total, item) => {
-    //             return total + item.value;
-    //         }, 0);
-    //         this.calculateMax();
-    //     } else {
-    //         this.value = value;
-    //     }
-    // }
 
     /**
      * 最大值，主要计算百分比进度的分母使用，当 thyValue 传入数组时，自动累加数组中的 value 之和为 max
      */
     readonly thyMax = input<number, number | string | unknown>(undefined, { transform: numberAttribute });
-    // @Input({ transform: numberAttribute })
-    // set thyMax(max: number) {
-    //     this.settedMax = max;
-    //     this.calculateMax();
-    // }
 
     /**
      * 鼠标移入进度条时显示的提示文案或者模板
@@ -182,18 +152,4 @@ export class ThyProgress implements ThyParentProgress, OnInit, OnChanges {
     ngOnInit() {}
 
     ngOnChanges(changes: SimpleChanges): void {}
-
-    // calculateMax() {
-    //     if (isNumber(this.settedMax) && this.settedMax > 0) {
-    //         this.max = this.settedMax;
-    //     } else {
-    //         this.max = this.barsTotalValue;
-    //     }
-    //     if (this.max < this.barsTotalValue) {
-    //         this.max = this.barsTotalValue;
-    //     }
-    //     this.bars.forEach(bar => {
-    //         bar.recalculatePercentage();
-    //     });
-    // }
 }
