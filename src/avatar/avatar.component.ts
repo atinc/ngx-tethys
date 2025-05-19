@@ -1,4 +1,17 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output, inject } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    Signal,
+    WritableSignal,
+    computed,
+    effect,
+    inject,
+    input,
+    model,
+    output,
+    signal
+} from '@angular/core';
 import { SafeHtml } from '@angular/platform-browser';
 import { isString, coerceBooleanProperty } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -33,127 +46,130 @@ export type ThyAvatarFetchPriority = 'high' | 'low' | 'auto';
 @Component({
     selector: 'thy-avatar',
     templateUrl: './avatar.component.html',
+    host: {
+        class: 'thy-avatar'
+    },
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [NgClass, NgStyle, ThyIcon, AvatarShortNamePipe, AvatarBgColorPipe, AvatarSrcPipe]
 })
-export class ThyAvatar implements OnInit {
+export class ThyAvatar {
     private thyAvatarService = inject(ThyAvatarService);
     elementRef = inject(ElementRef);
-
-    _src: string;
-    _name: string;
-    _size: number;
-    _showRemove = false;
-
-    public avatarSrc: string;
-    public avatarName?: string;
-    public avatarNameSafeHtml?: SafeHtml;
-
-    @HostBinding('class.thy-avatar') _isAvatar = true;
 
     /**
      * * 已废弃，请使用 thyRemove
      * @deprecated
      */
-    @Output() thyOnRemove = new EventEmitter();
+    readonly thyOnRemove = output<Event>();
 
     /**
-     *  移除按钮的事件, 当 thyRemovable 为 true 时起作用
+     *  移除按钮的事件，当 thyRemovable 为 true 时起作用
      */
-    @Output() thyRemove = new EventEmitter();
+    readonly thyRemove = output<Event>();
 
     /**
      *  头像 img 加载 error 时触发
      */
-    @Output() thyError: EventEmitter<Event> = new EventEmitter<Event>();
+    readonly thyError = output<Event>();
 
     /**
      * 是否展示人员名称
-     * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyShowName: boolean;
+    readonly thyShowName = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 头像路径地址, 默认为全路径，如果不是全路径，可以通过自定义服务 ThyAvatarService，重写 srcTransform 方法实现转换
-     *
      */
-    @Input()
-    set thySrc(value: string) {
-        this._setAvatarSrc(value);
-    }
+    readonly thySrc = input<string>();
+
+    readonly src = computed(() => {
+        if (this.isAvatarImgError()) {
+            return null;
+        }
+        if (this.thySrc() && this.thyAvatarService.ignoreAvatarSrcPaths.indexOf(this.thySrc()) < 0) {
+            return this.thySrc();
+        }
+        return null;
+    });
 
     /**
      * 人员名称（可设置自定义名称，需通过自定义服务 ThyAvatarService，重写 nameTransform 方法去实现转换）
      */
-    @Input()
-    set thyName(value: string) {
-        // this._name = value;
-        this._setAvatarName(value);
-    }
+    readonly thyName = input<string>();
+
+    readonly avatarName: Signal<string> = computed(() => {
+        const name = this.thyAvatarService.nameTransform(this.thyName());
+        return isString(name) ? name : this.thyName();
+    });
+
+    readonly avatarNameSafeHtml: Signal<SafeHtml> = computed(() => {
+        const name = this.thyAvatarService.nameTransform(this.thyName());
+        if (!isString(name)) {
+            return name;
+        }
+        return null;
+    });
 
     /**
      * 头像大小
      * @type 16 | 22 | 24 | 28 | 32 | 36 | 44 | 48 | 68 | 110 | 160 | xxs(22px) | xs(24px) | sm(32px) | md(36px) | lg(48px)
      * @default md
      */
-    @Input()
-    set thySize(value: number | string) {
-        if (thyAvatarSizeMap[value]) {
-            this._setAvatarSize(thyAvatarSizeMap[value]);
+    readonly thySize = model<number | string>('md');
+
+    readonly size: Signal<number> = computed(() => {
+        const sizeKey = this.thySize() as 'xxs' | 'xs' | 'sm' | 'md' | 'lg';
+        if (thyAvatarSizeMap[sizeKey]) {
+            return thyAvatarSizeMap[sizeKey];
         } else {
-            this._setAvatarSize((value as number) * 1);
+            const size = (this.thySize() as number) * 1;
+            return sizeArray.indexOf(size) > -1 ? size : this.findClosestSize(sizeArray, size);
         }
-    }
+    });
 
     /**
      * 已废弃，请使用 thyRemovable
      * @deprecated
-     * @default false
      */
-    @Input({ transform: coerceBooleanProperty })
-    set thyShowRemove(value: boolean) {
-        this._showRemove = value;
-    }
+    readonly thyShowRemove = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 是否展示移除按钮
-     * @default false
      */
-    @Input({ transform: coerceBooleanProperty })
-    set thyRemovable(value: boolean) {
-        this._showRemove = value;
-    }
+    readonly thyRemovable = input(false, { transform: coerceBooleanProperty });
+
+    readonly showRemove: Signal<boolean> = computed(() => this.thyRemovable() || this.thyShowRemove());
 
     /**
      * 图片自定义类
      */
-    @Input() thyImgClass: string;
+    readonly thyImgClass = input<string>();
 
     /**
      * 是否禁用
-     * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyDisabled: boolean;
+    readonly thyDisabled = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 图片加载策略
      * @type eager(立即加载) | lazy(延迟加载)
      */
-    @Input() thyLoading?: ThyAvatarLoading;
+    readonly thyLoading = input<ThyAvatarLoading>();
 
     /**
      * 图片加载优先级
      * @type auto(默认) | high(高) | low(低)
      */
-    @Input() thyFetchPriority?: ThyAvatarFetchPriority;
+    readonly thyFetchPriority = input<ThyAvatarFetchPriority>();
 
-    private _setAvatarSize(size: number) {
-        if (sizeArray.indexOf(size) > -1) {
-            this._size = size;
-        } else {
-            this._size = this.findClosestSize(sizeArray, size);
-        }
-        this.hostRenderer.updateClass([`thy-avatar-${this._size}`]);
+    private isAvatarImgError: WritableSignal<boolean> = signal(false);
+
+    private hostRenderer = useHostRenderer();
+
+    constructor() {
+        effect(() => {
+            this.hostRenderer.updateClass([`thy-avatar-${this.size()}`]);
+        });
     }
 
     private findClosestSize(sizeArray: number[], currentSize: number): number {
@@ -171,40 +187,13 @@ export class ThyAvatar implements OnInit {
         return closestValue;
     }
 
-    private _setAvatarSrc(src: string) {
-        if (src && this.thyAvatarService.ignoreAvatarSrcPaths.indexOf(src) < 0) {
-            this._src = src;
-        } else {
-            this._src = null;
-        }
-    }
-
-    private _setAvatarName(value: string) {
-        const name = this.thyAvatarService.nameTransform(value);
-        if (isString(name)) {
-            this.avatarName = name as string;
-        } else {
-            this.avatarName = value;
-            this.avatarNameSafeHtml = name;
-        }
-    }
-
-    private hostRenderer = useHostRenderer();
-
-    ngOnInit() {
-        if (!this._size) {
-            this._setAvatarSize(DEFAULT_SIZE);
-        }
-        this.hostRenderer.updateClass([`thy-avatar-${this._size}`]);
-    }
-
     remove($event: Event) {
         this.thyOnRemove.emit($event);
         this.thyRemove.emit($event);
     }
 
     avatarImgError($event: Event) {
-        this._setAvatarSrc(null);
+        this.isAvatarImgError.set(true);
         this.thyError.emit($event);
     }
 }

@@ -255,11 +255,11 @@ describe('collapse-panel', () => {
             fixture.detectChanges();
             const withoutArrowIcon = fixture.debugElement.query(By.css('#without-arrow-icon'));
             const collapseItem = withoutArrowIcon.componentInstance as ThyCollapseItem;
-            collapseItem.thyArrowIcon = true;
-            expect(collapseItem.arrowIcon).toEqual('angle-right');
-            expect(collapseItem.showArrow).toEqual(true);
-            collapseItem.thyArrowIcon = false;
-            expect(collapseItem.showArrow).toEqual(false);
+            collapseItem.thyArrowIcon.set(true);
+            expect(collapseItem.arrowIcon()).toEqual('angle-right');
+            expect(collapseItem.showArrow()).toEqual(true);
+            collapseItem.thyArrowIcon.set(false);
+            expect(collapseItem.showArrow()).toEqual(false);
         });
 
         it('should have thy-collapse-item-active when thyActive is true or click header', () => {

@@ -1,4 +1,4 @@
-import { Directive, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, Signal, inject } from '@angular/core';
+import { Directive, ElementRef, HostListener, OnDestroy, OnInit, Signal, inject, input, output } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { coerceElement } from '@angular/cdk/coercion';
 import { ThyNotifyService } from 'ngx-tethys/notify';
@@ -27,43 +27,45 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
     /**
      * 默认为点击标签，可传复制目标标签
      */
-    @Output() thyCopy = new EventEmitter<ThyCopyEvent>();
+    readonly thyCopy = output<ThyCopyEvent>();
 
     /**
      * 复制成功时的文案
      */
-    @Input() thyCopySuccessText = this.locale().success;
+    readonly thyCopySuccessText = input<string>(this.locale().success);
 
     /**
      * 提示文案
      */
-    @Input() thyCopyTips = this.locale().tips;
+    readonly thyCopyTips = input<string>(this.locale().tips);
 
     /**
      * 偏移量
      */
-    @Input() thyCopyTipsOffset: number;
+    readonly thyCopyTipsOffset = input<number>(undefined);
 
     /**
      * 当为 string 时，复制的是传入的内容；当为 ElementRef | HTMLElement 时，复制的是 dom 节点的 value 或者 textContent
      */
-    @Input() thyCopyContent: string | ElementRef | HTMLElement;
+    readonly thyCopyContent = input<string | ElementRef | HTMLElement>(undefined);
 
     /**
      * 是否展示通知
      */
-    @Input({ transform: coerceBooleanProperty }) thyShowNotify = true;
+    readonly thyShowNotify = input(true, { transform: coerceBooleanProperty });
 
     ngOnInit() {
-        this.tooltipDirective.content = this.thyCopyTips ? this.thyCopyTips : this.locale().tips;
-        this.tooltipDirective.tooltipOffset = this.thyCopyTipsOffset;
+        const thyCopyTips = this.thyCopyTips();
+        this.tooltipDirective.content = thyCopyTips ? thyCopyTips : this.locale().tips;
+        this.tooltipDirective.tooltipOffset = this.thyCopyTipsOffset();
     }
 
     private getContent(event: Event) {
-        if (typeof this.thyCopyContent === 'string') {
-            return this.thyCopyContent;
+        const thyCopyContent = this.thyCopyContent();
+        if (typeof thyCopyContent === 'string') {
+            return thyCopyContent;
         } else {
-            const target = this.thyCopyContent ? coerceElement(this.thyCopyContent) : event.target;
+            const target = thyCopyContent ? coerceElement(thyCopyContent) : event.target;
             return target.value || target.textContent;
         }
     }
@@ -77,12 +79,12 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
         try {
             document.execCommand('copy', false, null);
             this.thyCopy.emit({ isSuccess: true, event });
-            if (this.thyShowNotify) {
-                this.notifyService.success(this.thyCopySuccessText);
+            if (this.thyShowNotify()) {
+                this.notifyService.success(this.thyCopySuccessText());
             }
         } catch (err) {
             this.thyCopy.emit({ isSuccess: false, event });
-            if (this.thyShowNotify) {
+            if (this.thyShowNotify()) {
                 this.notifyService.error(this.locale().error);
             }
         } finally {

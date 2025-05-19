@@ -3,14 +3,15 @@ import { collapseMotion } from 'ngx-tethys/core';
 import {
     ChangeDetectorRef,
     Component,
-    EventEmitter,
     ChangeDetectionStrategy,
-    Input,
     OnDestroy,
     OnInit,
-    Output,
     TemplateRef,
-    inject
+    inject,
+    input,
+    output,
+    computed,
+    model
 } from '@angular/core';
 
 import { IThyCollapseItemComponent, THY_COLLAPSE_COMPONENT } from './collapse.token';
@@ -33,9 +34,9 @@ const DEFAULT_ARROW_ICON = 'angle-right';
     animations: [collapseMotion],
     host: {
         '[class.thy-collapse-item]': 'true',
-        '[class.thy-collapse-no-arrow]': '!showArrow',
-        '[class.thy-collapse-item-active]': 'thyActive',
-        '[class.thy-collapse-item-disabled]': 'thyDisabled'
+        '[class.thy-collapse-no-arrow]': '!showArrow()',
+        '[class.thy-collapse-item-active]': 'thyActive()',
+        '[class.thy-collapse-item-disabled]': 'thyDisabled()'
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [NgTemplateOutlet, ThyIcon]
@@ -44,61 +45,58 @@ export class ThyCollapseItem implements IThyCollapseItemComponent, OnInit, OnDes
     private cdr = inject(ChangeDetectorRef);
     private thyCollapseComponent = inject(THY_COLLAPSE_COMPONENT, { host: true })!;
 
-    public showArrow: boolean = true;
-
-    public arrowIconTemplate: TemplateRef<SafeAny>;
-
-    public arrowIcon: string = DEFAULT_ARROW_ICON;
-
     /**
      * 标题
      */
-    @Input() thyTitle: string;
+    readonly thyTitle = input<string>();
 
     /**
      * 是否处于激活展开状态
      */
-    @Input({ transform: coerceBooleanProperty }) thyActive: boolean = false;
+    thyActive = model<boolean>(false);
 
     /**
      * 是否禁用当前面板
-     * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyDisabled: boolean;
+    readonly thyDisabled = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 自定义面板头
-     * @type TemplateRef
      */
-    @Input() thyHeaderTemplate: TemplateRef<SafeAny>;
+    readonly thyHeaderTemplate = input<TemplateRef<SafeAny>>();
 
     /**
      * 自定义箭头(展开收起)图标，设置为 false 表示隐藏图标
-     * @type {string | TemplateRef<SafeAny> | false}
      */
-    @Input()
-    set thyArrowIcon(value: string | TemplateRef<SafeAny> | boolean) {
-        if (value instanceof TemplateRef) {
-            this.arrowIconTemplate = value as TemplateRef<SafeAny>;
-        } else if (isString(value)) {
-            this.arrowIcon = value as string;
-        } else {
-            this.showArrow = value;
-            this.arrowIconTemplate = null;
-            this.arrowIcon = DEFAULT_ARROW_ICON;
+    thyArrowIcon = model<string | TemplateRef<SafeAny> | boolean>(DEFAULT_ARROW_ICON);
+
+    readonly arrowIconTemplate = computed(() => {
+        const arrowIcon = this.thyArrowIcon();
+        return arrowIcon instanceof TemplateRef ? arrowIcon : null;
+    });
+
+    readonly arrowIcon = computed(() => {
+        const arrowIcon = this.thyArrowIcon();
+        return isString(arrowIcon) ? arrowIcon : DEFAULT_ARROW_ICON;
+    });
+
+    readonly showArrow = computed(() => {
+        const arrowIcon = this.thyArrowIcon();
+        if (!(arrowIcon instanceof TemplateRef) && !isString(arrowIcon)) {
+            return this.thyArrowIcon();
         }
-    }
+        return true;
+    });
 
     /**
      * 额外附加模板
-     * @type TemplateRef
      */
-    @Input() thyExtra: TemplateRef<SafeAny>;
+    readonly thyExtra = input<TemplateRef<SafeAny>>();
 
     /**
      * 展开收起事件
      */
-    @Output() thyActiveChange = new EventEmitter<{ active: boolean; event: Event }>();
+    readonly thyActiveChange = output<{ active: boolean; event: Event }>();
 
     ngOnInit() {
         this.thyCollapseComponent.addPanel(this);
@@ -109,7 +107,7 @@ export class ThyCollapseItem implements IThyCollapseItemComponent, OnInit, OnDes
     }
 
     activeChange(event: Event) {
-        if (!this.thyDisabled) {
+        if (!this.thyDisabled()) {
             this.thyCollapseComponent.click(this, event);
         }
     }

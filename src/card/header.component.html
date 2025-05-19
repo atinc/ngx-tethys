@@ -1,15 +1,15 @@
 <div class="card-header-title">
-  <ng-template [ngTemplateOutlet]="titleTemplateRef"></ng-template>
-  @if (!titleTemplateRef) {
-    <span>{{ thyTitle }}</span>
+  <ng-template [ngTemplateOutlet]="titleTemplateRef()"></ng-template>
+  @if (!titleTemplateRef()) {
+    <span>{{ thyTitle() }}</span>
   }
 </div>
 <div class="card-header-description">
-  <ng-template [ngTemplateOutlet]="descriptionTemplateRef"></ng-template>
-  @if (!descriptionTemplateRef) {
-    <span>{{ thyDescription }}</span>
+  <ng-template [ngTemplateOutlet]="descriptionTemplateRef()"></ng-template>
+  @if (!descriptionTemplateRef()) {
+    <span>{{ thyDescription() }}</span>
   }
 </div>
 <div class="card-header-operation">
-  <ng-template [ngTemplateOutlet]="operationTemplateRef"></ng-template>
+  <ng-template [ngTemplateOutlet]="operationTemplateRef()"></ng-template>
 </div>

@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
-import { InputCssPixel } from 'ngx-tethys/core';
-
+import { ChangeDetectionStrategy, Component, input, ViewEncapsulation, computed } from '@angular/core';
 import { ThySkeletonCircle } from '../skeleton-circle.component';
 import { ThySkeletonRectangle } from '../skeleton-rectangle.component';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
+import { coerceCssPixelValue } from '@angular/cdk/coercion';
 
 /**
  * 骨架屏无序列表组件
@@ -13,32 +12,30 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 @Component({
     selector: 'thy-skeleton-bullet-list',
     template: `
-        @for (item of rowCount; track $index; let i = $index) {
+        @for (item of rows(); track $index; let i = $index) {
             <div class="d-flex vertical-gap">
                 <thy-skeleton-circle
-                    [thyAnimated]="thyAnimated"
-                    [thyAnimatedInterval]="thyAnimatedInterval"
-                    [thySize]="thySize"
-                    [thyPrimaryColor]="thyPrimaryColor"
-                    [thySecondaryColor]="thySecondaryColor">
+                    [thyAnimated]="thyAnimated()"
+                    [thyAnimatedInterval]="thyAnimatedInterval()"
+                    [thySize]="thySize()"
+                    [thyPrimaryColor]="thyPrimaryColor()"
+                    [thySecondaryColor]="thySecondaryColor()">
                 </thy-skeleton-circle>
                 <div class="horizontal-gap"></div>
                 <div style="flex: 1">
                     <thy-skeleton-rectangle
-                        [thyRowWidth]="thyRowWidth"
-                        [thyRowHeight]="thyRowHeight"
-                        [thyAnimated]="thyAnimated"
-                        [thyPrimaryColor]="thyPrimaryColor"
-                        [thySecondaryColor]="thySecondaryColor"
-                        [thyBorderRadius]="thyBorderRadius"
-                        [thyAnimatedInterval]="thyAnimatedInterval"></thy-skeleton-rectangle>
+                        [thyRowWidth]="thyRowWidth()"
+                        [thyRowHeight]="thyRowHeight()"
+                        [thyAnimated]="thyAnimated()"
+                        [thyPrimaryColor]="thyPrimaryColor()"
+                        [thySecondaryColor]="thySecondaryColor()"
+                        [thyBorderRadius]="thyBorderRadius()"
+                        [thyAnimatedInterval]="thyAnimatedInterval()"></thy-skeleton-rectangle>
                 </div>
             </div>
         }
     `,
-    host: {
-        '[class.thy-skeleton-bullet-list]': 'true'
-    },
+    host: { '[class.thy-skeleton-bullet-list]': 'true' },
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     imports: [ThySkeletonCircle, ThySkeletonRectangle]
@@ -48,69 +45,57 @@ export class ThySkeletonBulletList {
      * 骨架宽度
      * @default 100%
      */
-    @Input()
-    @InputCssPixel()
-    thyRowWidth: string | number;
+    readonly thyRowWidth = input<string, string | number>(undefined, { transform: coerceCssPixelValue });
 
     /**
      * 骨架高度
      * @default 20px
      */
-    @Input()
-    @InputCssPixel()
-    thyRowHeight: string | number;
+    readonly thyRowHeight = input<string, string | number>(undefined, { transform: coerceCssPixelValue });
 
     /**
      * 骨架边框圆角
      * @default 4px
      */
-    @Input()
-    @InputCssPixel()
-    thyBorderRadius: string | number;
+    readonly thyBorderRadius = input<string, string | number>(undefined, { transform: coerceCssPixelValue });
 
     /**
      * 是否开启动画
      * @default true
      */
-    @Input({ transform: coerceBooleanProperty })
-    thyAnimated: boolean;
+    readonly thyAnimated = input<boolean, ThyBooleanInput>(undefined, { transform: coerceBooleanProperty });
 
     /**
      * 动画速度
      * @default 1.5s
      */
-    @Input() thyAnimatedInterval: string | number;
+    readonly thyAnimatedInterval = input<string | number>();
 
     /**
      * 骨架主色
      * @default #f7f7f7
      */
-    @Input() thyPrimaryColor: string;
+    readonly thyPrimaryColor = input<string>();
 
     /**
      * 骨架次色
      * @default #aaaaaa
      */
-    @Input() thySecondaryColor: string;
+    readonly thySecondaryColor = input<string>();
 
     /**
      * circle类型骨架尺寸
      */
-    @Input()
-    @InputCssPixel()
-    thySize: string | number;
+    readonly thySize = input<string, string | number>(undefined, { transform: coerceCssPixelValue });
 
-    rowCount: number[] = [];
     /**
      * 行数
      */
-    @Input()
-    set thyRowCount(value: number | string) {
-        this.rowCount = Array.from({ length: +value });
-    }
-    get thyRowCount() {
-        return this.rowCount.length;
-    }
+    readonly thyRowCount = input<number | string>();
+
+    readonly rows = computed(() => {
+        return Array.from({ length: +this.thyRowCount() });
+    });
 
     constructor() {}
 }

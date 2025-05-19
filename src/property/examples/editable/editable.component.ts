@@ -1,7 +1,7 @@
 import { ThyDialog, ThyDialogBody, ThyDialogHeader } from 'ngx-tethys/dialog';
 import { ThySelect } from 'ngx-tethys/select';
 import { ThyTreeSelect, ThyTreeSelectNode } from 'ngx-tethys/tree-select';
-import { ChangeDetectorRef, Component, ElementRef, OnInit, TemplateRef, ViewChild, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, TemplateRef, inject, viewChild } from '@angular/core';
 import { ThyProperties, ThyPropertyItem } from 'ngx-tethys/property';
 import { NgClass, NgTemplateOutlet, CommonModule } from '@angular/common';
 import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
@@ -89,13 +89,13 @@ export class ThyPropertyEditableExampleComponent implements OnInit {
 
     public thyEditTrigger: 'click' | 'hover' = 'hover';
 
-    @ViewChild('text', { read: ElementRef }) text: ElementRef;
+    readonly text = viewChild('text', { read: ElementRef });
 
-    @ViewChild('number', { read: ElementRef }) number: ElementRef;
+    readonly number = viewChild('number', { read: ElementRef });
 
-    @ViewChild('selectSex', { read: ThySelect }) selectSex: ThySelect;
+    readonly selectSex = viewChild('selectSex', { read: ThySelect });
 
-    @ViewChild('selectProfession', { read: ThySelect }) selectProfession: ThySelect;
+    readonly selectProfession = viewChild('selectProfession', { read: ThySelect });
 
     ngOnInit() {}
 
@@ -107,22 +107,22 @@ export class ThyPropertyEditableExampleComponent implements OnInit {
         if (event && option && this.thyEditTrigger === 'click') {
             if (option.isSex) {
                 setTimeout(() => {
-                    this.selectSex.open();
+                    this.selectSex().open();
                 });
             }
             if (option.isProfession) {
                 setTimeout(() => {
-                    this.selectProfession.open();
+                    this.selectProfession().open();
                 });
             }
             if (option.type === 'text') {
                 setTimeout(() => {
-                    this.text.nativeElement.focus();
+                    this.text().nativeElement.focus();
                 });
             }
             if (option.type === 'number') {
                 setTimeout(() => {
-                    this.number.nativeElement.focus();
+                    this.number().nativeElement.focus();
                 });
             }
             this.cdr.markForCheck();

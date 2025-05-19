@@ -6,17 +6,15 @@ import {
     ContentChildren,
     DestroyRef,
     ElementRef,
-    EventEmitter,
-    Input,
-    OnChanges,
     OnInit,
-    Output,
     QueryList,
-    SimpleChanges,
     TemplateRef,
-    inject
+    effect,
+    inject,
+    input,
+    output
 } from '@angular/core';
-import { coerceBooleanProperty, isString } from 'ngx-tethys/util';
+import { coerceBooleanProperty, isString, ThyBooleanInput } from 'ngx-tethys/util';
 import { fromEvent } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ThyTab } from './tab.component';
@@ -41,13 +39,13 @@ export type ThyTabsPosition = 'top' | 'left';
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-tabs',
-        '[class.thy-tabs-top]': `thyPosition === 'top'`,
-        '[class.thy-tabs-left]': `thyPosition === 'left'`,
+        '[class.thy-tabs-top]': `thyPosition() === 'top'`,
+        '[class.thy-tabs-left]': `thyPosition() === 'left'`,
         '[style.overflow]': `transitionStarted ? "hidden" : null`
     },
     imports: [ThyNav, ThyNavItemDirective, NgTemplateOutlet, ThyTabContent]
 })
-export class ThyTabs implements OnInit, OnChanges, AfterContentInit {
+export class ThyTabs implements OnInit, AfterContentInit {
     private cd = inject(ChangeDetectorRef);
     private el = inject(ElementRef);
 
@@ -59,59 +57,63 @@ export class ThyTabs implements OnInit, OnChanges, AfterContentInit {
      * 标签类型
      * @type 'pulled' | 'tabs' | 'pills' | 'lite'
      */
-    @Input() thyType: ThyTabsType = 'tabs';
+    readonly thyType = input<ThyTabsType>('tabs');
 
     /**
      * 选项卡的大小
      * @type 'lg' | 'md' | 'sm'
      */
-    @Input() thySize: ThyTabsSize = 'md';
+    readonly thySize = input<ThyTabsSize>('md');
 
     /**
      * 激活的项
      */
-    @Input()
-    set thyActiveTab(value: ThyActiveTabInfo) {
-        if (isString(value)) {
-            this.activeTabId = value;
-            this.activeTabIndex = undefined;
-        } else {
-            this.activeTabIndex = value;
-            this.activeTabId = undefined;
-        }
-    }
+    readonly thyActiveTab = input<ThyActiveTabInfo>(0);
 
     /**
      * 附加操作
      */
-    @Input() thyExtra: TemplateRef<unknown>;
+    readonly thyExtra = input<TemplateRef<unknown>>(undefined);
 
     /**
      * 选项卡的位置
      * @type 'top' | 'left'
      */
-    @Input() thyPosition: ThyTabsPosition = 'top';
+    readonly thyPosition = input<ThyTabsPosition>('top');
 
     /**
      * 是否使用动画切换 Tabs
      */
-    @Input({ transform: coerceBooleanProperty }) thyAnimated: boolean = false;
+    readonly thyAnimated = input<boolean, ThyBooleanInput>(false, { transform: coerceBooleanProperty });
 
     /**
      * 响应式，自动计算宽度存放 thyNavItem，并添加更多弹框
      */
-    @Input({ transform: coerceBooleanProperty }) thyResponsive: boolean = false;
+    readonly thyResponsive = input<boolean, ThyBooleanInput>(false, { transform: coerceBooleanProperty });
 
     /**
      * 激活的项发生改变时的回调
      */
-    @Output() thyActiveTabChange: EventEmitter<ThyTabActiveEvent> = new EventEmitter<ThyTabActiveEvent>();
+    readonly thyActiveTabChange = output<ThyTabActiveEvent>();
 
     activeTabIndex: number = 0;
 
     activeTabId: string;
 
     transitionStarted: boolean = false;
+
+    constructor() {
+        effect(() => {
+            const value = this.thyActiveTab();
+            if (isString(value)) {
+                this.activeTabId = value;
+                this.activeTabIndex = undefined;
+            } else {
+                this.activeTabIndex = value;
+                this.activeTabId = undefined;
+            }
+        });
+    }
 
     ngOnInit(): void {
         const tabsContent = this.el.nativeElement.querySelector('.thy-tabs-content');
@@ -123,25 +125,16 @@ export class ThyTabs implements OnInit, OnChanges, AfterContentInit {
             });
     }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        const { thyActiveTab } = changes;
-        if (thyActiveTab && !thyActiveTab.firstChange && this.thyAnimated) {
-            const index = thyActiveTab?.currentValue?.index || Array.from(this.tabs).findIndex(k => k.id === thyActiveTab?.currentValue.id);
-            this.transitionStarted = this.activeTabIndex !== index;
-            this.activeTabIndex = index;
-        }
-    }
-
     ngAfterContentInit() {
         this.tabs.changes.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(data => {
-            this.thyAnimated && (this.transitionStarted = true);
+            this.thyAnimated() && (this.transitionStarted = true);
             this.activeTabIndex = data.length - 1;
             this.cd.markForCheck();
         });
     }
 
     get tabPaneAnimated(): boolean {
-        return this.thyPosition === 'top' && this.thyAnimated;
+        return this.thyPosition() === 'top' && this.thyAnimated();
     }
 
     getTabContentMarginLeft(): string {
@@ -152,13 +145,14 @@ export class ThyTabs implements OnInit, OnChanges, AfterContentInit {
     }
 
     activeTab(tab: ThyTab, index: number) {
-        if (tab.thyDisabled) {
+        if (tab.thyDisabled()) {
             return;
         }
-        this.activeTabId = tab.id || null;
-        this.thyAnimated && (this.transitionStarted = this.activeTabIndex !== index);
+        this.activeTabId = tab.id() || null;
+        this.thyAnimated() && (this.transitionStarted = this.activeTabIndex !== index);
         this.activeTabIndex = index;
-        const activeTab = tab.id ? tab.id : index;
+        const id = tab.id();
+        const activeTab = id ? id : index;
         this.thyActiveTabChange.emit(activeTab);
     }
 }

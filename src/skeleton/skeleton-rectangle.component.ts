@@ -1,16 +1,10 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input, OnInit, OnChanges, SimpleChanges, inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewEncapsulation, inject, input, computed } from '@angular/core';
 import { ThySkeleton } from './skeleton.component';
-import { coerceBooleanProperty, helpers } from 'ngx-tethys/util';
-import { InputCssPixel } from 'ngx-tethys/core';
-import { THY_SKELETON_CONFIG, ThySkeletonConfigModel } from './skeleton.config';
+import { coerceBooleanProperty, helpers, ThyBooleanInput } from 'ngx-tethys/util';
+import { THY_SKELETON_CONFIG } from './skeleton.config';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
 import { NgStyle } from '@angular/common';
-
-interface Style {
-    background?: string;
-    animation?: string;
-}
-
+import { coerceCssPixelValue } from '@angular/cdk/coercion';
 /**
  * 骨架屏矩形组件
  * @name thy-skeleton-rectangle
@@ -21,107 +15,94 @@ interface Style {
     host: {
         '[class.thy-skeleton]': 'true',
         '[class.thy-skeleton-rectangle]': 'true',
-        '[style.background]': 'thyPrimaryColor',
-        '[style.width]': 'thyRowWidth',
-        '[style.height]': 'thyRowHeight',
-        '[style.borderRadius]': 'thyBorderRadius'
+        '[style.background]': 'primaryColor()',
+        '[style.width]': 'thyRowWidth()',
+        '[style.height]': 'thyRowHeight()',
+        '[style.borderRadius]': 'thyBorderRadius()'
     },
-    template: ` <div class="thy-skeleton-after" [ngStyle]="afterStyles"></div> `,
+    template: ` <div class="thy-skeleton-after" [ngStyle]="afterStyles()"></div> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     imports: [NgStyle]
 })
-export class ThySkeletonRectangle implements OnInit, OnChanges {
-    private skeletonConfigModel = inject(THY_SKELETON_CONFIG, { optional: true })!;
-    private _parent = inject(ThySkeleton, { optional: true })!;
+export class ThySkeletonRectangle {
+    private skeletonConfigModel = inject(THY_SKELETON_CONFIG, { optional: true });
+
+    private parent = inject(ThySkeleton, { optional: true })!;
 
     /**
-     * 是否开启动画
-     * @default false
+     * 是否展示动画
+     * @default true
      */
-    @Input({ transform: coerceBooleanProperty })
-    thyAnimated: boolean;
+    readonly thyAnimated = input<boolean, ThyBooleanInput>(undefined, { transform: coerceBooleanProperty });
 
     /**
      * 动画速度
      * @default 1.5s
      */
-    @Input() thyAnimatedInterval: number;
+    readonly thyAnimatedInterval = input<string | number>();
 
     /**
      * 骨架边框圆角
      * @default 4px
      */
-    @Input()
-    @InputCssPixel()
-    thyBorderRadius: string | number;
+    readonly thyBorderRadius = input<string, string | number>(undefined, { transform: coerceCssPixelValue });
 
     /**
      * 骨架宽度
      * @default 100%
      */
-    @Input()
-    @InputCssPixel()
-    thyRowWidth: string | number;
+    readonly thyRowWidth = input<string, string | number>(undefined, { transform: coerceCssPixelValue });
 
     /**
      * 骨架高度
      * @default 20px
      */
-    @Input()
-    @InputCssPixel()
-    thyRowHeight: string | number;
+    readonly thyRowHeight = input<string, string | number>(undefined, { transform: coerceCssPixelValue });
 
     /**
      * 骨架主色
      * @default #F7F7F7
      */
-    @Input() thyPrimaryColor: string;
+    readonly thyPrimaryColor = input<string>();
 
     /**
      * 骨架次色
      * @default #aaaaaa
      */
-    @Input() thySecondaryColor: string;
+    readonly thySecondaryColor = input<string>();
 
-    afterStyles: Style = {};
+    readonly animatedInterval = computed(() => {
+        return this.thyAnimatedInterval() || this.parent?.thyAnimatedInterval() || this.skeletonConfigModel.thyAnimatedInterval;
+    });
 
-    ngOnInit() {
-        const config = {
-            ...this.skeletonConfigModel,
-            ...(this._parent || {}),
-            ...(!isUndefinedOrNull(this._parent?.thyAnimated) && { thyAnimated: this._parent.thyAnimated })
-        };
-        const { thyAnimatedInterval, thyPrimaryColor, thySecondaryColor, thyAnimated } = config;
+    readonly primaryColor = computed(() => {
+        return this.thyPrimaryColor() || this.parent?.thyPrimaryColor() || this.skeletonConfigModel.thyPrimaryColor;
+    });
 
-        for (let key in { thyAnimatedInterval, thyPrimaryColor, thySecondaryColor, thyAnimated }) {
-            this[key] = !isUndefinedOrNull(this[key]) ? this[key] : config[key];
+    readonly secondaryColor = computed(() => {
+        return this.thySecondaryColor() || this.parent?.thySecondaryColor() || this.skeletonConfigModel.thySecondaryColor;
+    });
+
+    readonly animated = computed(() => {
+        if (!isUndefinedOrNull(this.thyAnimated())) {
+            return this.thyAnimated();
         }
-        this.crateAfterStyles();
-    }
+        if (!isUndefinedOrNull(this.parent?.thyAnimated())) {
+            return this.parent.thyAnimated();
+        }
+        return this.skeletonConfigModel.thyAnimated;
+    });
 
-    crateAfterStyles() {
-        this.afterStyles = {
-            ...(this.thySecondaryColor && {
-                background: `linear-gradient(90deg, ${helpers.hexToRgb(this.thySecondaryColor, 0)}, ${helpers.hexToRgb(
-                    this.thySecondaryColor,
+    readonly afterStyles = computed(() => {
+        return {
+            ...(this.secondaryColor() && {
+                background: `linear-gradient(90deg, ${helpers.hexToRgb(this.secondaryColor(), 0)}, ${helpers.hexToRgb(
+                    this.secondaryColor(),
                     0.15
-                )}, ${helpers.hexToRgb(this.thySecondaryColor, 0)}`
+                )}, ${helpers.hexToRgb(this.secondaryColor(), 0)}`
             }),
-            animation: ![false, 'false'].includes(this.thyAnimated)
-                ? `thy-skeleton-animation ${this.thyAnimatedInterval}s infinite`
-                : 'none'
+            animation: ![false, 'false'].includes(this.animated()) ? `thy-skeleton-animation ${this.animatedInterval()}s infinite` : 'none'
         };
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        const { thySecondaryColor, thyAnimated, thyAnimatedInterval } = changes;
-        if (
-            (thySecondaryColor && !thySecondaryColor?.firstChange) ||
-            (thyAnimated && !thyAnimated?.firstChange) ||
-            (thyAnimatedInterval && !thyAnimatedInterval?.firstChange)
-        ) {
-            this.crateAfterStyles();
-        }
-    }
+    });
 }

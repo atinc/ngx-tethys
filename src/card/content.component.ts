@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, OnInit } from '@angular/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
@@ -12,32 +12,22 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     template: ` <ng-content></ng-content> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        class: 'thy-card-content'
+        class: 'thy-card-content',
+        '[class.thy-card-content--scroll]': '!!thyScroll()',
+        '[class.thy-card-content--sm]': 'thySize() === "sm"'
     }
 })
 export class ThyCardContent implements OnInit {
-    @HostBinding('class.thy-card-content--scroll') scrollClassName = false;
-
     /**
      * 内容区，滚动
-     * @default false
      */
-    @Input({ transform: coerceBooleanProperty })
-    set thyScroll(value: boolean) {
-        this.scrollClassName = value;
-    }
-
-    @HostBinding('class.thy-card-content--sm') _thySizeSm = false;
+    readonly thyScroll = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 已废弃，Content 大小，sm 时 padding-top 间距变小
      * @deprecated
-     * @default md
      */
-    @Input('thySize')
-    set thySize(value: string) {
-        this._thySizeSm = value === 'sm';
-    }
+    readonly thySize = input<string>('md');
 
     ngOnInit() {}
 }

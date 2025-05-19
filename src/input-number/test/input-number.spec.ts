@@ -1,6 +1,6 @@
 import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { keycodes } from 'ngx-tethys/util';
-import { Component, DebugElement, ViewChild } from '@angular/core';
+import { Component, DebugElement, viewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -46,9 +46,9 @@ import { provideHttpClient } from '@angular/common/http';
     imports: [ThyInputNumber, FormsModule]
 })
 class TestInputNumberComponent {
-    @ViewChild(ThyInputNumber, { static: false }) inputNumberComponent: ThyInputNumber;
+    readonly inputNumberComponent = viewChild(ThyInputNumber);
 
-    @ViewChild('second', { static: false }) secondInputNumberComponent: ThyInputNumber;
+    readonly secondInputNumberComponent = viewChild<ThyInputNumber>('second');
 
     thySize = ``;
 
@@ -123,18 +123,18 @@ describe('input-number component', () => {
 
     it('should empty value work', () => {
         fixture.detectChanges();
-        inputNumberComponentInstance.inputNumberComponent.onModelChange('3');
+        inputNumberComponentInstance.inputNumberComponent().onModelChange('3');
         fixture.detectChanges();
         expect(inputNumberComponentInstance.modelValue).toBe(3);
         fixture.detectChanges();
-        inputNumberComponentInstance.inputNumberComponent.onModelChange('');
+        inputNumberComponentInstance.inputNumberComponent().onModelChange('');
         fixture.detectChanges();
         expect(inputNumberComponentInstance.modelValue).toBe('');
     });
 
     it('should NaN value work', fakeAsync(() => {
         fixture.detectChanges();
-        inputNumberComponentInstance.inputNumberComponent.onModelChange('aa');
+        inputNumberComponentInstance.inputNumberComponent().onModelChange('aa');
         fixture.detectChanges();
         expect(inputNumberComponentInstance.modelValue).toBe(undefined);
         const upElement = inputNumberDebugElement.nativeElement.querySelector('.input-number-handler-up');
@@ -151,17 +151,17 @@ describe('input-number component', () => {
 
     it('should user input work', () => {
         fixture.detectChanges();
-        inputNumberComponentInstance.inputNumberComponent.onModelChange('1');
+        inputNumberComponentInstance.inputNumberComponent().onModelChange('1');
         fixture.detectChanges();
         expect(inputNumberComponentInstance.modelValue).toBe(1);
         expect(inputNumberComponentInstance.change).toHaveBeenCalledTimes(1);
         fixture.detectChanges();
-        inputNumberComponentInstance.inputNumberComponent.onModelChange('123');
+        inputNumberComponentInstance.inputNumberComponent().onModelChange('123');
         fixture.detectChanges();
         expect(inputNumberComponentInstance.modelValue).toBe(10);
         expect(inputNumberComponentInstance.change).toHaveBeenCalledTimes(2);
         fixture.detectChanges();
-        inputNumberComponentInstance.inputNumberComponent.onModelChange('-1');
+        inputNumberComponentInstance.inputNumberComponent().onModelChange('-1');
         fixture.detectChanges();
         expect(inputNumberComponentInstance.modelValue).toBe(0);
         expect(inputNumberComponentInstance.change).toHaveBeenCalledTimes(3);
@@ -290,13 +290,13 @@ describe('input-number component', () => {
 
     it('should thyPrecision work', fakeAsync(() => {
         fixture.detectChanges();
-        inputNumberComponentInstance.inputNumberComponent.onModelChange('0.99');
+        inputNumberComponentInstance.inputNumberComponent().onModelChange('0.99');
         fixture.detectChanges();
         expect(inputNumberComponentInstance.modelValue).toBe(0.99);
-        inputNumberComponentInstance.inputNumberComponent.onModelChange('0.992');
+        inputNumberComponentInstance.inputNumberComponent().onModelChange('0.992');
         fixture.detectChanges();
         expect(inputNumberComponentInstance.modelValue).toBe(0.99);
-        inputNumberComponentInstance.inputNumberComponent.onModelChange('0.999');
+        inputNumberComponentInstance.inputNumberComponent().onModelChange('0.999');
         fixture.detectChanges();
         expect(inputNumberComponentInstance.modelValue).toBe(1);
 
@@ -345,10 +345,10 @@ describe('input-number component', () => {
 
     it('should thyMax and thyMin work', () => {
         fixture.detectChanges();
-        inputNumberComponentInstance.inputNumberComponent.onModelChange('11');
+        inputNumberComponentInstance.inputNumberComponent().onModelChange('11');
         fixture.detectChanges();
         expect(inputNumberComponentInstance.modelValue).toBe(10);
-        inputNumberComponentInstance.inputNumberComponent.onModelChange('-2');
+        inputNumberComponentInstance.inputNumberComponent().onModelChange('-2');
         fixture.detectChanges();
         expect(inputNumberComponentInstance.modelValue).toBe(0);
     });
@@ -356,7 +356,7 @@ describe('input-number component', () => {
     it('should thySuffix work', fakeAsync(() => {
         fixture.detectChanges();
         inputNumberComponentInstance.thySuffix = '%';
-        inputNumberComponentInstance.inputNumberComponent.onModelChange('5');
+        inputNumberComponentInstance.inputNumberComponent().onModelChange('5');
         fixture.detectChanges();
         fixture.whenStable().then(() => {
             expect(inputElement.value).toBe('5 %');
@@ -392,7 +392,7 @@ describe('input-number component', () => {
 
     it('should focus method work when focus input', fakeAsync(() => {
         fixture.detectChanges();
-        const trigger = inputNumberComponentInstance.inputNumberComponent.inputElement.nativeElement;
+        const trigger = inputNumberComponentInstance.inputNumberComponent().inputElement().nativeElement;
         dispatchFakeEvent(trigger, 'focus');
         fixture.detectChanges();
         expect(inputNumberComponentInstance.onFocus).toHaveBeenCalledTimes(1);
@@ -404,11 +404,11 @@ describe('input-number component', () => {
 
     it('should focus method work when focus input-number', fakeAsync(() => {
         fixture.detectChanges();
-        const onInputFocusSpy = spyOn(inputNumberComponentInstance.inputNumberComponent, 'onInputFocus').and.callThrough();
+        const onInputFocusSpy = spyOn(inputNumberComponentInstance.inputNumberComponent(), 'onInputFocus').and.callThrough();
         const trigger = fixture.debugElement.query(By.css('.thy-input-number-first')).nativeElement;
         dispatchFakeEvent(trigger, 'focus');
 
-        dispatchFakeEvent(inputNumberComponentInstance.inputNumberComponent.inputElement.nativeElement, 'focus');
+        dispatchFakeEvent(inputNumberComponentInstance.inputNumberComponent().inputElement().nativeElement, 'focus');
         expect(onInputFocusSpy).toHaveBeenCalled();
         expect(inputNumberComponentInstance.onFocus).toHaveBeenCalledTimes(1);
 
@@ -419,13 +419,13 @@ describe('input-number component', () => {
 
     it('should focus method work when focus input-number', fakeAsync(() => {
         fixture.detectChanges();
-        inputNumberComponentInstance.inputNumberComponent.thyDisabled = true;
+        inputNumberComponentInstance.inputNumberComponent().thyDisabled = true;
         fixture.detectChanges();
-        const onInputFocusSpy = spyOn(inputNumberComponentInstance.inputNumberComponent, 'onInputFocus').and.callThrough();
+        const onInputFocusSpy = spyOn(inputNumberComponentInstance.inputNumberComponent(), 'onInputFocus').and.callThrough();
         const trigger = fixture.debugElement.query(By.css('.thy-input-number-first')).nativeElement;
         dispatchFakeEvent(trigger, 'focus');
 
-        dispatchFakeEvent(inputNumberComponentInstance.inputNumberComponent.inputElement.nativeElement, 'focus');
+        dispatchFakeEvent(inputNumberComponentInstance.inputNumberComponent().inputElement().nativeElement, 'focus');
         expect(onInputFocusSpy).toHaveBeenCalled();
         expect(inputNumberComponentInstance.onFocus).toHaveBeenCalledTimes(1);
 
@@ -437,12 +437,12 @@ describe('input-number component', () => {
     it('should call blur and call __onBlurValidation when input-number blur and validateOn is blur', fakeAsync(() => {
         fixture.detectChanges();
         const blurSpy = spyOn(
-            fixture.componentInstance.inputNumberComponent as unknown as { __onBlurValidation: Function },
+            fixture.componentInstance.inputNumberComponent() as unknown as { __onBlurValidation: Function },
             '__onBlurValidation'
         );
         const trigger = fixture.debugElement.query(By.css('.thy-input-number-first')).nativeElement;
         dispatchFakeEvent(trigger, 'focus');
-        dispatchFakeEvent(inputNumberComponentInstance.inputNumberComponent.inputElement.nativeElement, 'focus');
+        dispatchFakeEvent(inputNumberComponentInstance.inputNumberComponent().inputElement().nativeElement, 'focus');
         fixture.detectChanges();
 
         dispatchFakeEvent(trigger, 'blur');
@@ -456,13 +456,13 @@ describe('input-number component', () => {
         fixture.detectChanges();
 
         const onBlurValidationSpy = spyOn(
-            fixture.componentInstance.inputNumberComponent as unknown as { __onBlurValidation: Function },
+            fixture.componentInstance.inputNumberComponent() as unknown as { __onBlurValidation: Function },
             '__onBlurValidation'
         );
 
-        dispatchFakeEvent(inputNumberComponentInstance.inputNumberComponent.inputElement.nativeElement, 'focus');
+        dispatchFakeEvent(inputNumberComponentInstance.inputNumberComponent().inputElement().nativeElement, 'focus');
 
-        dispatchFakeEvent(inputNumberComponentInstance.inputNumberComponent.inputElement.nativeElement, 'blur');
+        dispatchFakeEvent(inputNumberComponentInstance.inputNumberComponent().inputElement().nativeElement, 'blur');
         fixture.detectChanges();
         expect(onBlurValidationSpy).toHaveBeenCalledTimes(1);
     }));
@@ -472,12 +472,12 @@ describe('input-number component', () => {
         fixture.detectChanges();
 
         const onBlurValidationSpy = spyOn(
-            fixture.componentInstance.inputNumberComponent as unknown as { __onBlurValidation: Function },
+            fixture.componentInstance.inputNumberComponent() as unknown as { __onBlurValidation: Function },
             '__onBlurValidation'
         );
 
         const inputAutoFocusSpy = spyOn(
-            inputNumberComponentInstance.inputNumberComponent.inputElement.nativeElement,
+            inputNumberComponentInstance.inputNumberComponent().inputElement().nativeElement,
             'focus'
         ).and.callThrough();
 
@@ -485,10 +485,10 @@ describe('input-number component', () => {
         dispatchFakeEvent(inputNumberTrigger, 'focus');
         fixture.detectChanges();
         // auto focus input
-        expect(inputNumberComponentInstance.inputNumberComponent.inputElement.nativeElement === document.activeElement).toBeTruthy();
+        expect(inputNumberComponentInstance.inputNumberComponent().inputElement().nativeElement === document.activeElement).toBeTruthy();
         expect(inputAutoFocusSpy).toHaveBeenCalled();
 
-        const inputTrigger = inputNumberComponentInstance.inputNumberComponent.inputElement.nativeElement;
+        const inputTrigger = inputNumberComponentInstance.inputNumberComponent().inputElement().nativeElement;
         dispatchFakeEvent(inputTrigger, 'focus');
 
         fixture.detectChanges();
@@ -550,9 +550,9 @@ describe('input-number component', () => {
 
     it('should call focus and not blur when click other thy-input-number', fakeAsync(() => {
         fixture.detectChanges();
-        const firstTrigger = inputNumberComponentInstance.inputNumberComponent.inputElement.nativeElement;
+        const firstTrigger = inputNumberComponentInstance.inputNumberComponent().inputElement().nativeElement;
         dispatchFakeEvent(firstTrigger, 'focus');
-        const secondTrigger = inputNumberComponentInstance.secondInputNumberComponent.inputElement.nativeElement;
+        const secondTrigger = inputNumberComponentInstance.secondInputNumberComponent().inputElement().nativeElement;
         dispatchFakeEvent(secondTrigger, 'focus');
         dispatchFakeEvent(firstTrigger, 'blur');
         fixture.detectChanges();
@@ -573,13 +573,13 @@ describe('input-number component', () => {
         ];
         fixture.detectChanges();
         testValueToken.forEach(item => {
-            const inputNumberComponent = inputNumberComponentInstance.inputNumberComponent;
+            const inputNumberComponent = inputNumberComponentInstance.inputNumberComponent();
             inputNumberComponent.onModelChange(item.from);
             dispatchKeyboardEvent(inputElement, 'keydown', keycodes.ENTER);
             tick();
             fixture.detectChanges();
             flush();
-            expect(inputNumberComponent.displayValue).toBe(item.to);
+            expect(inputNumberComponent.displayValue()).toBe(item.to);
         });
     }));
 
@@ -588,23 +588,23 @@ describe('input-number component', () => {
         const falseToken = ['1..', '1ab.', '1e.', 'abc'];
         fixture.detectChanges();
         trueTokens.forEach(token => {
-            expect(inputNumberComponentInstance.inputNumberComponent.isInputNumber(token)).toBe(true);
+            expect(inputNumberComponentInstance.inputNumberComponent().isInputNumber(token)).toBe(true);
         });
         falseToken.forEach(token => {
-            expect(inputNumberComponentInstance.inputNumberComponent.isInputNumber(token)).toBe(false);
+            expect(inputNumberComponentInstance.inputNumberComponent().isInputNumber(token)).toBe(false);
         });
     }));
 
     it('should set activeValue to value if it is a number', () => {
         fixture.detectChanges();
-        const component = inputNumberComponentInstance.inputNumberComponent;
+        const component = inputNumberComponentInstance.inputNumberComponent();
         component.onModelChange('123');
         expect(component.activeValue).toBe('123');
     });
 
     it('should call parser with value', () => {
         fixture.detectChanges();
-        const component = inputNumberComponentInstance.inputNumberComponent;
+        const component = inputNumberComponentInstance.inputNumberComponent();
         const parserSpy = spyOn(component, 'parser');
         component.onModelChange('123');
         expect(parserSpy).toHaveBeenCalledWith('123');
@@ -612,7 +612,7 @@ describe('input-number component', () => {
 
     it('should call getCurrentValidValue with the parsed value', () => {
         fixture.detectChanges();
-        const component = inputNumberComponentInstance.inputNumberComponent;
+        const component = inputNumberComponentInstance.inputNumberComponent();
         const parserSpy = spyOn(component, 'parser').and.returnValue('123').and.callThrough();
         const getCurrentValidValueSpy = spyOn(component, 'getCurrentValidValue');
         component.onModelChange('123');
@@ -622,7 +622,7 @@ describe('input-number component', () => {
 
     it('should call updateValidValue and onChangeFn with the valid value', () => {
         fixture.detectChanges();
-        const component = inputNumberComponentInstance.inputNumberComponent;
+        const component = inputNumberComponentInstance.inputNumberComponent();
         const getCurrentValidValueSpy = spyOn(component, 'getCurrentValidValue').and.returnValue('456');
         const updateValidValueSpy = spyOn(component, 'updateValidValue').and.callThrough();
         const changeFnSpy = spyOn(component, 'onChangeFn' as any);
@@ -651,7 +651,7 @@ describe('input-number component', () => {
     it('should validValue be empty when value to null', fakeAsync(() => {
         inputNumberComponentInstance.modelValue = null;
         fixture.detectChanges();
-        const component = inputNumberComponentInstance.inputNumberComponent;
+        const component = inputNumberComponentInstance.inputNumberComponent();
         const getCurrentValidValueSpy = spyOn(component, 'getCurrentValidValue');
         fixture.detectChanges();
         tick();

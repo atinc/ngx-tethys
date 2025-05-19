@@ -1,34 +1,32 @@
-@if (_src) {
+@if (src()) {
   <img
-    [src]="_src | thyAvatarSrc: _size"
+    [src]="src() | thyAvatarSrc: size()"
     class="avatar-avatar"
-    [ngClass]="thyImgClass"
-    alt="{{ avatarName || '' }}"
-    [attr.loading]="thyLoading"
-    [attr.fetchpriority]="thyFetchPriority"
-    (error)="avatarImgError($event)"
-    />
+    [ngClass]="thyImgClass()"
+    alt="{{ avatarName() || '' }}"
+    [attr.loading]="thyLoading()"
+    [attr.fetchpriority]="thyFetchPriority()"
+    (error)="avatarImgError($event)" />
 } @else {
-  <span class="avatar-default" [ngStyle]="avatarName | avatarBgColor">
-    <div>{{ avatarName | avatarShortName }}</div>
+  <span class="avatar-default" [ngStyle]="avatarName() | avatarBgColor">
+    <div>{{ avatarName() | avatarShortName }}</div>
   </span>
 }
 
-
-@if (thyShowName) {
-  @if (avatarNameSafeHtml) {
-    <div class="avatar-name" [innerHtml]="avatarNameSafeHtml"></div>
+@if (thyShowName()) {
+  @if (avatarNameSafeHtml()) {
+    <div class="avatar-name" [innerHtml]="avatarNameSafeHtml()"></div>
   } @else {
-    <div class="avatar-name">{{ avatarName }}</div>
+    <div class="avatar-name">{{ avatarName() }}</div>
   }
 }
 
-@if (_showRemove) {
+@if (showRemove()) {
   <a (click)="remove($event)" href="javascript:;" class="remove-link avatar-remove">
     <thy-icon class="remove-link-icon" thyIconName="close-circle-bold-fill"></thy-icon>
   </a>
 }
-@if (thyDisabled) {
+@if (thyDisabled()) {
   <div class="thy-avatar-disabled">
     <thy-icon class="thy-avatar-disabled-icon" thyIconName="ban"></thy-icon>
   </div>
