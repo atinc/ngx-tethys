@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
+import { Component, effect, HostBinding, input, OnInit, output, signal, WritableSignal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyInputDirective, ThyInputGroup } from 'ngx-tethys/input';
 import { ThyInputNumber } from 'ngx-tethys/input-number';
@@ -13,36 +13,33 @@ import { ThyColor } from '../../helpers/color.class';
     templateUrl: './inputs.component.html',
     imports: [ThyInputDirective, FormsModule, ThyEnterDirective, ThyInputNumber, ThyInputGroup]
 })
-export class ThyColorInputs {
+export class ThyColorInputs implements OnInit {
     @HostBinding('class.thy-color-inputs') className = true;
 
-    innerColor: ThyColor;
+    readonly color = input<ThyColor>();
 
-    hex: string;
+    readonly colorChange = output<ThyColor>();
 
-    @Input()
-    set color(value: ThyColor) {
-        this.alpha = Math.round(value.rgba.alpha * 100);
-        this.innerColor = value;
-        this.hex = this.innerColor.toHexString(false).slice(1, 7);
+    readonly hex: WritableSignal<string> = signal('');
+
+    readonly alpha: WritableSignal<number> = signal(100);
+
+    constructor() {
+        effect(() => {
+            this.hex.set(this.color()?.toHexString(false).slice(1, 7) || '');
+            this.alpha.set(Math.round(this.color()?.rgba.alpha * 100) || 100);
+        });
     }
 
-    get color() {
-        return this.innerColor;
-    }
-
-    @Output()
-    public colorChange = new EventEmitter<ThyColor>(false);
-
-    alpha: number;
+    ngOnInit(): void {}
 
     onInputChange(event: Event, type: string) {
         let newColor;
-        const alpha = this.alpha / 100;
+        const alpha = this.alpha() / 100;
         if (type === 'hex') {
-            let finalDisplayValue = this.hex;
-            if (this.hex.length === 3) {
-                finalDisplayValue = this.hex
+            let finalDisplayValue = this.hex();
+            if (this.hex().length === 3) {
+                finalDisplayValue = this.hex()
                     .split('')
                     .map(value => value + value)
                     .join('');
@@ -53,7 +50,7 @@ export class ThyColorInputs {
             }
             newColor = new ThyColor(finalDisplayValue);
         } else {
-            newColor = new ThyColor().setRgba(this.innerColor.rgba.red, this.innerColor.rgba.green, this.innerColor.rgba.blue, alpha);
+            newColor = new ThyColor().setRgba(this.color().rgba.red, this.color().rgba.green, this.color().rgba.blue, alpha);
         }
         this.colorChange.emit(newColor);
     }

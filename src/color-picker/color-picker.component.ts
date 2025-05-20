@@ -1,28 +1,30 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
+import { OverlayRef } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import {
+    AfterViewInit,
     Directive,
+    effect,
     ElementRef,
-    EventEmitter,
     forwardRef,
+    inject,
     Input,
+    input,
     NgZone,
     numberAttribute,
     OnDestroy,
     OnInit,
-    Output,
-    inject
+    output
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ThyOverlayDirectiveBase, ThyPlacement, ThyOverlayTrigger, mixinTabIndex, mixinDisabled } from 'ngx-tethys/core';
+import { mixinDisabled, mixinTabIndex, ThyOverlayDirectiveBase, ThyOverlayTrigger, ThyPlacement } from 'ngx-tethys/core';
 import { ThyPopover, ThyPopoverRef } from 'ngx-tethys/popover';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { fromEvent, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { ThyColorPickerPanel } from './color-picker-panel.component';
 import { DEFAULT_COLORS } from './constant';
 import { ThyColor } from './helpers/color.class';
-import { takeUntil } from 'rxjs/operators';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
-import { OverlayRef } from '@angular/cdk/overlay';
 
 export class OverlayBase extends ThyOverlayDirectiveBase {
     constructor(
@@ -60,76 +62,67 @@ const _BaseMixin = mixinTabIndex(mixinDisabled(OverlayBase));
         }
     ]
 })
-export class ThyColorPickerDirective extends _BaseMixin implements OnInit, OnDestroy {
+export class ThyColorPickerDirective extends _BaseMixin implements OnInit, OnDestroy, AfterViewInit {
     private thyPopover = inject(ThyPopover);
 
     /**
      * 弹框偏移量
      * @type  number
      */
-    @Input({ transform: numberAttribute }) thyOffset: number = 0;
+    readonly thyOffset = input<number, unknown>(0, { transform: numberAttribute });
 
     /**
      * 颜色选择面板是否有幕布
      */
-    @Input({ transform: coerceBooleanProperty }) thyHasBackdrop: boolean = true;
+    readonly thyHasBackdrop = input(true, { transform: coerceBooleanProperty });
 
     /**
      * 设置颜色选择面板的默认颜色选项值
      */
-    @Input() thyDefaultColor: string;
+    readonly thyDefaultColor = input<string>();
 
     /**
      * 是否显示'无填充色'选项
      */
-    @Input({ transform: coerceBooleanProperty }) thyTransparentColorSelectable: boolean = true;
+    readonly thyTransparentColorSelectable = input(true, { transform: coerceBooleanProperty });
 
     /**
      * 预设的快捷选择颜色
      * @type string[]
      */
-    @Input() thyPresetColors: string[] = DEFAULT_COLORS;
+    readonly thyPresetColors = input<string[]>(DEFAULT_COLORS);
 
     /**
      * 颜色面板弹出位置 'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'
      * @type ThyPlacement
      */
-    @Input() thyPlacement: ThyPlacement = 'bottom';
+    readonly thyPlacement = input<ThyPlacement>('bottom');
 
     /**
      * panel 展开后触发
      */
-    @Output() thyPanelOpen: EventEmitter<ThyPopoverRef<ThyColorPickerPanel>> = new EventEmitter<ThyPopoverRef<ThyColorPickerPanel>>();
+    readonly thyPanelOpen = output<ThyPopoverRef<ThyColorPickerPanel>>();
 
     /**
      * panel 关闭后触发
      */
-    @Output() thyPanelClose: EventEmitter<ThyPopoverRef<ThyColorPickerPanel>> = new EventEmitter<ThyPopoverRef<ThyColorPickerPanel>>();
+    readonly thyPanelClose = output<ThyPopoverRef<ThyColorPickerPanel>>();
 
     /**
      * 弹出悬浮层的触发方式
      * @type 'hover' | 'click'
-     * @default click
      */
-    @Input() set thyTrigger(trigger: ThyOverlayTrigger) {
-        this.trigger = trigger;
-    }
+    readonly thyTrigger = input<ThyOverlayTrigger>('click');
 
     /**
      * 显示延迟时间
      */
-    @Input({ transform: numberAttribute })
-    set thyShowDelay(value: number) {
-        this.showDelay = value;
-    }
+    readonly thyShowDelay = input<number, unknown>(100, { transform: numberAttribute });
 
     /**
      * 隐藏延迟时间
      */
-    @Input({ transform: numberAttribute })
-    set thyHideDelay(value: number) {
-        this.hideDelay = value;
-    }
+    readonly thyHideDelay = input<number, unknown>(100, { transform: numberAttribute });
 
     /**
      * 是否属于禁用状态
@@ -165,9 +158,18 @@ export class ThyColorPickerDirective extends _BaseMixin implements OnInit, OnDes
         const focusMonitor = inject(FocusMonitor);
 
         super(zone, elementRef, platform, focusMonitor);
+
+        effect(() => {
+            // TODO: 基类参数
+            this.showDelay = this.thyShowDelay() ?? 100;
+            this.hideDelay = this.thyHideDelay() ?? 100;
+            this.trigger = this.thyTrigger() || 'click';
+        });
     }
 
-    ngOnInit(): void {
+    ngOnInit(): void {}
+
+    ngAfterViewInit() {
         this.initialize();
         if (this.trigger === 'hover') {
             this.ngZone.runOutsideAngular(() => {
@@ -196,12 +198,12 @@ export class ThyColorPickerDirective extends _BaseMixin implements OnInit, OnDes
         this.closePanel = false;
         this.popoverRef = this.thyPopover.open(ThyColorPickerPanel, {
             origin: this.elementRef.nativeElement as HTMLElement,
-            offset: this.thyOffset,
+            offset: this.thyOffset(),
             manualClosure: true,
             width: '286px',
-            placement: this.thyPlacement,
+            placement: this.thyPlacement(),
             originActiveClass: 'thy-default-picker-active',
-            hasBackdrop: this.thyHasBackdrop,
+            hasBackdrop: this.thyHasBackdrop(),
             outsideClosable: false,
             canClose: () => {
                 if (this.trigger === 'hover') {
@@ -211,9 +213,9 @@ export class ThyColorPickerDirective extends _BaseMixin implements OnInit, OnDes
             },
             initialState: {
                 color: new ThyColor(this.color).toHexString(true),
-                defaultColor: this.thyDefaultColor,
-                transparentColorSelectable: this.thyTransparentColorSelectable,
-                defaultColors: this.thyPresetColors,
+                defaultColor: this.thyDefaultColor(),
+                transparentColorSelectable: this.thyTransparentColorSelectable(),
+                defaultColors: this.thyPresetColors(),
                 colorChange: (value: string) => {
                     this.closePanel = true;
                     this.onModelChange(value);
@@ -229,7 +231,7 @@ export class ThyColorPickerDirective extends _BaseMixin implements OnInit, OnDes
                 this.elementRef.nativeElement.focus();
             });
         }
-        if (this.popoverRef && !this.thyHasBackdrop) {
+        if (this.popoverRef && !this.thyHasBackdrop()) {
             this.popoverRef
                 .getOverlayRef()
                 .outsidePointerEvents()
