@@ -46,7 +46,7 @@ export class ThyFileDropDirective extends FileSelectBaseDirective implements OnI
      * 当拖拽的文件中有不符合 thyAcceptType 中定义的类型时触发
      * @description.en-us It is triggered when there are files in the dragged files that do not conform to the types defined in thyAcceptType.
      */
-    @Output() thyFilesReject = new EventEmitter<File[]>();
+    thyFilesReject = output<File[]>();
 
     private destroyRef = inject(DestroyRef);
 
