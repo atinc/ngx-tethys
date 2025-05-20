@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [19.0.13](https://github.com/atinc/ngx-tethys/compare/19.0.11...19.0.13) (2025-05-20)
+
+
+### Bug Fixes
+
+* **shared:** update input value handling and search emission logic #TINFR-2053 ([#3408](https://github.com/atinc/ngx-tethys/issues/3408)) ([0ebeb82](https://github.com/atinc/ngx-tethys/commit/0ebeb82c6c8303a06c86b6e523128ec5bf52cc1f)), closes [#TINFR-2053](https://github.com/atinc/ngx-tethys/issues/TINFR-2053)
+
+
+
 ## [19.0.11](https://github.com/atinc/ngx-tethys/compare/19.0.10...19.0.11) (2025-05-08)
 
 
