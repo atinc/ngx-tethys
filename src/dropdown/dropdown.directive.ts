@@ -127,19 +127,9 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
 
         // TODO: 以下为 overlay 基类中参数，之后需统一修改
         effect(() => {
-            if (this.thyTrigger()) {
-                this.trigger = (this.thyTrigger() || 'click') as ThyOverlayTrigger;
-            }
-        });
-        effect(() => {
-            if (this.thyHideDelay()) {
-                this.hideDelay = this.thyHideDelay() || 100;
-            }
-        });
-        effect(() => {
-            if (this.thyShowDelay()) {
-                this.showDelay = this.thyShowDelay() || 100;
-            }
+            this.trigger = (this.thyTrigger() || 'click') as ThyOverlayTrigger;
+            this.hideDelay = this.thyHideDelay() || 100;
+            this.showDelay = this.thyShowDelay() || 100;
         });
     }
 
