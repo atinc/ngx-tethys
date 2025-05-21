@@ -1,36 +1,37 @@
-@if (prependTemplate) {
+@if (prependTemplate()) {
   <div #prepend class="input-prepend">
-    <ng-template *ngTemplateOutlet="prependTemplate"></ng-template>
+    <ng-template *ngTemplateOutlet="prependTemplate()"></ng-template>
   </div>
 }
 <input
   #input
   thyInput
-  [thySize]="thySize"
-  [thyAutofocus]="thyAutofocus"
-  [type]="type"
-  [placeholder]="placeholder"
-  [disabled]="disabled"
+  [thySize]="thySize()"
+  [thyAutofocus]="thyAutofocus()"
+  [type]="type()"
+  [placeholder]="placeholder()"
+  [disabled]="disabled()"
   [(ngModel)]="value"
   (ngModelChange)="onModelChange()"
   (focus)="onInputFocus($event)"
   (blur)="onInputBlur($event)"
-  [readonly]="readonly"
+  [readonly]="readonly()"
   />
-<span class="input-label input-label-{{ thySize }}" [class.active]="showLabel">{{ thyLabelText }}</span>
-@if (appendTemplate) {
+<span class="input-label input-label-{{ thySize() }}" [class.active]="showLabel()">{{ thyLabelText() }}</span>
+
+@if (isPasswordType() || appendTemplate()) {
   <div #append class="input-append">
-    <ng-template *ngTemplateOutlet="appendTemplate"></ng-template>
+    @if (isPasswordType()) {
+      <a href="javascript:;" class="link-secondary input-password-icon" (click)="togglePasswordType()">
+        @if (isPassword(type())) {
+          <thy-icon thyIconName="eye"></thy-icon>
+        }
+        @if (!isPassword(type())) {
+          <thy-icon thyIconName="eye-invisible"></thy-icon>
+        }
+      </a>
+    } @else {
+      <ng-template *ngTemplateOutlet="appendTemplate()"></ng-template>
+    }
   </div>
 }
-
-<ng-template #eye>
-  <a href="javascript:;" class="link-secondary input-password-icon" (click)="togglePasswordType()">
-    @if (isPassword(type)) {
-      <thy-icon thyIconName="eye"></thy-icon>
-    }
-    @if (!isPassword(type)) {
-      <thy-icon thyIconName="eye-invisible"></thy-icon>
-    }
-  </a>
-</ng-template>

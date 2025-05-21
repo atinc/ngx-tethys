@@ -1,5 +1,5 @@
 import { dispatchEvent, dispatchFakeEvent, dispatchMouseEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
-import { Component, DebugElement, ViewChild } from '@angular/core';
+import { Component, DebugElement, viewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -25,7 +25,7 @@ import { provideHttpClient } from '@angular/common/http';
     imports: [ThyInputSearch, FormsModule]
 })
 class TestInputSearchBasicComponent {
-    @ViewChild(ThyInputSearch, { static: false }) inputSearchComponent: ThyInputSearch;
+    readonly inputSearchComponent = viewChild(ThyInputSearch);
 
     searchFocus = true;
     searchText = '';
@@ -156,7 +156,7 @@ describe('input search', () => {
         expect(searchElement.classList.contains('form-control-active')).toBe(true);
 
         const debugInputInstance = fixture.debugElement.query(By.directive(ThyInputSearch)).componentInstance;
-        debugInputInstance.focused = false;
+        debugInputInstance.focused.set(false);
         fixture.detectChanges();
         expect(searchElement.classList.contains('form-control-active')).toBe(false);
     }));
@@ -166,7 +166,7 @@ describe('input search', () => {
         fixture.detectChanges();
         tick();
         fixture.detectChanges;
-        expect(debugSearchElement.componentInstance.disabled).toBe(true);
+        expect(debugSearchElement.componentInstance.disabled()).toBe(true);
 
         basicTestComponent.searchText = 'New Text';
         fixture.detectChanges();
@@ -193,7 +193,7 @@ describe('input search', () => {
 
     it('should call blur methods when blur', fakeAsync(() => {
         fixture.detectChanges();
-        const touchSpy = spyOn<any>(fixture.componentInstance.inputSearchComponent, 'onTouchedFn');
+        const touchSpy = spyOn<any>(fixture.componentInstance.inputSearchComponent(), 'onTouchedFn');
         const trigger = fixture.debugElement.query(By.css('.input-search-control')).nativeElement;
         dispatchFakeEvent(trigger, 'blur');
         fixture.detectChanges();
@@ -204,20 +204,20 @@ describe('input search', () => {
         fixture.detectChanges();
         dispatchFakeEvent(searchElement, 'focus');
         fixture.detectChanges();
-        expect(fixture.componentInstance.inputSearchComponent.focused).toBe(true);
+        expect(fixture.componentInstance.inputSearchComponent().focused()).toBe(true);
     }));
 
     it('should call blur and call __onBlurValidation when input blur', fakeAsync(() => {
         fixture.detectChanges();
 
         const onBlurValidationSpy = spyOn(
-            fixture.componentInstance.inputSearchComponent as unknown as { __onBlurValidation: Function },
+            fixture.componentInstance.inputSearchComponent() as unknown as { __onBlurValidation: Function },
             '__onBlurValidation'
         );
 
-        dispatchFakeEvent(fixture.componentInstance.inputSearchComponent.inputElement.nativeElement, 'focus');
+        dispatchFakeEvent(fixture.componentInstance.inputSearchComponent().inputElement().nativeElement, 'focus');
 
-        dispatchFakeEvent(fixture.componentInstance.inputSearchComponent.inputElement.nativeElement, 'blur');
+        dispatchFakeEvent(fixture.componentInstance.inputSearchComponent().inputElement().nativeElement, 'blur');
         fixture.detectChanges();
         expect(onBlurValidationSpy).toHaveBeenCalledTimes(1);
     }));
@@ -227,12 +227,12 @@ describe('input search', () => {
         fixture.detectChanges();
 
         const onBlurValidationSpy = spyOn(
-            fixture.componentInstance.inputSearchComponent as unknown as { __onBlurValidation: Function },
+            fixture.componentInstance.inputSearchComponent() as unknown as { __onBlurValidation: Function },
             '__onBlurValidation'
         );
 
         const inputAutoFocusSpy = spyOn(
-            fixture.componentInstance.inputSearchComponent.inputElement.nativeElement,
+            fixture.componentInstance.inputSearchComponent().inputElement().nativeElement,
             'focus'
         ).and.callThrough();
 
