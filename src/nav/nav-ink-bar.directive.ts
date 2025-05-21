@@ -1,4 +1,4 @@
-import { ANIMATION_MODULE_TYPE, Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { ANIMATION_MODULE_TYPE, Directive, ElementRef, NgZone, computed, inject, input } from '@angular/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { take } from 'rxjs/operators';
 
@@ -9,7 +9,7 @@ import { take } from 'rxjs/operators';
     selector: 'thy-nav-ink-bar, [thyNavInkBar]',
     host: {
         class: 'thy-nav-ink-bar',
-        '[class.thy-nav-ink-bar-animated]': 'animated'
+        '[class.thy-nav-ink-bar-animated]': 'animated()'
     }
 })
 export class ThyNavInkBarDirective {
@@ -17,13 +17,11 @@ export class ThyNavInkBarDirective {
     private ngZone = inject(NgZone);
     animationMode? = inject(ANIMATION_MODULE_TYPE, { optional: true });
 
-    @Input({ transform: coerceBooleanProperty }) isVertical: boolean;
+    readonly isVertical = input(false, { transform: coerceBooleanProperty });
 
-    @Input({ transform: coerceBooleanProperty }) showInkBar: boolean;
+    readonly showInkBar = input(false, { transform: coerceBooleanProperty });
 
-    get animated(): boolean {
-        return this.animationMode !== 'NoopAnimations' && this.showInkBar;
-    }
+    readonly animated = computed(() => this.animationMode !== 'NoopAnimations' && this.showInkBar());
 
     public alignToElement(element: HTMLElement): void {
         this.show();
@@ -36,7 +34,7 @@ export class ThyNavInkBarDirective {
 
     private setStyles(element: HTMLElement): void {
         const inkBar: HTMLElement = this.elementRef.nativeElement;
-        if (!this.isVertical) {
+        if (!this.isVertical()) {
             inkBar.style.top = '';
             inkBar.style.bottom = '0px';
             inkBar.style.height = '2px';
