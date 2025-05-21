@@ -1,20 +1,20 @@
-@if (headerTemplate) {
-  <ng-template [ngTemplateOutlet]="headerTemplate"></ng-template>
+@if (headerTemplate()) {
+  <ng-template [ngTemplateOutlet]="headerTemplate()"></ng-template>
 } @else {
   <h3 class="thy-slide-header-title">
-    @if (!isIconFont && thyIcon) {
-      <thy-icon [thyIconName]="thyIcon"></thy-icon>
+    @if (!isIconFont() && thyIcon()) {
+      <thy-icon [thyIconName]="thyIcon()"></thy-icon>
     } @else {
-      @if (thyIcon) {
-        <i class="wft {{ thyIcon }}"></i>
+      @if (thyIcon()) {
+        <i class="wft {{ thyIcon() }}"></i>
       }
     }
-    {{ thyTitle }}
+    {{ thyTitle() }}
   </h3>
   <div class="thy-slide-header-main">
     <ng-container>
-      @if (headerOperateTemplate) {
-        <ng-template [ngTemplateOutlet]="headerOperateTemplate"> </ng-template>
+      @if (headerOperateTemplate()) {
+        <ng-template [ngTemplateOutlet]="headerOperateTemplate()"> </ng-template>
       }
     </ng-container>
   </div>

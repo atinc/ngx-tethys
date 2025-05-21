@@ -1,4 +1,4 @@
-import { Component, ContentChild, TemplateRef, Input, OnInit, HostBinding, inject } from '@angular/core';
+import { Component, TemplateRef, OnInit, inject, input, computed, contentChild } from '@angular/core';
 import { ThySlideService } from '../slide.service';
 import { ThyAction } from 'ngx-tethys/action';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -12,49 +12,37 @@ import { NgTemplateOutlet } from '@angular/common';
 @Component({
     selector: 'thy-slide-header',
     templateUrl: './slide-header.component.html',
-    imports: [NgTemplateOutlet, ThyIcon, ThyAction]
+    imports: [NgTemplateOutlet, ThyIcon, ThyAction],
+    host: {
+        class: 'thy-slide-header'
+    }
 })
 export class ThySlideHeader implements OnInit {
     private thySlideService = inject(ThySlideService);
 
-    isIconFont = false;
-
-    private _iconName = '';
-
-    @HostBinding('class.thy-slide-header') slideLayoutHeader = true;
-
     /**
      * 标题
      */
-    @Input() thyTitle: string;
+    readonly thyTitle = input<string>(undefined);
 
     /**
      * 标题的图标
      */
-    @Input() set thyIcon(value: string) {
-        this._iconName = value;
-        if (value.includes('wtf')) {
-            this.isIconFont = true;
-        } else {
-            this.isIconFont = false;
-        }
-    }
+    readonly thyIcon = input<string>(undefined);
 
-    get thyIcon() {
-        return this._iconName;
-    }
+    readonly isIconFont = computed(() => (this.thyIcon() || '').includes('wtf'));
 
     /**
      * 自定义头模板
      * @type TemplateRef
      */
-    @ContentChild('thyHeader') headerTemplate: TemplateRef<any>;
+    readonly headerTemplate = contentChild<TemplateRef<any>>('thyHeader');
 
     /**
      * 头部操作区域模板
      * @type TemplateRef
      */
-    @ContentChild('thyHeaderOperate') headerOperateTemplate: TemplateRef<any>;
+    readonly headerOperateTemplate = contentChild<TemplateRef<any>>('thyHeaderOperate');
 
     ngOnInit() {}
 
