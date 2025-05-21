@@ -1,8 +1,3 @@
-import { ThyPopover, ThyPopoverConfig } from 'ngx-tethys/popover';
-import { merge, Observable, of } from 'rxjs';
-import { startWith, take, tap } from 'rxjs/operators';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { useHostRenderer } from '@tethys/cdk/dom';
 import {
     AfterContentChecked,
     AfterContentInit,
@@ -10,14 +5,15 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    ContentChild,
+    computed,
+    contentChild,
     ContentChildren,
+    contentChildren,
     DestroyRef,
+    effect,
     ElementRef,
-    HostBinding,
     inject,
     input,
-    Input,
     NgZone,
     OnChanges,
     OnDestroy,
@@ -27,20 +23,25 @@ import {
     Signal,
     SimpleChanges,
     TemplateRef,
-    ViewChild,
+    viewChild,
     WritableSignal
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { useHostRenderer } from '@tethys/cdk/dom';
+import { ThyPopover, ThyPopoverConfig } from 'ngx-tethys/popover';
+import { merge, Observable, of } from 'rxjs';
+import { startWith, take, tap } from 'rxjs/operators';
 
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { RouterLinkActive } from '@angular/router';
+import { ThyPlacement } from 'ngx-tethys/core';
+import { ThyDropdownMenuComponent, ThyDropdownMenuItemActiveDirective, ThyDropdownMenuItemDirective } from 'ngx-tethys/dropdown';
+import { injectLocale, ThyNavLocale } from 'ngx-tethys/i18n';
+import { ThyIcon } from 'ngx-tethys/icon';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { ThyNavInkBarDirective } from './nav-ink-bar.directive';
 import { ThyNavItemDirective } from './nav-item.directive';
 import { BypassSecurityTrustHtmlPipe } from './nav.pipe';
-import { ThyDropdownMenuComponent, ThyDropdownMenuItemDirective, ThyDropdownMenuItemActiveDirective } from 'ngx-tethys/dropdown';
-import { ThyIcon } from 'ngx-tethys/icon';
-import { NgClass, NgTemplateOutlet } from '@angular/common';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
-import { injectLocale, ThyNavLocale } from 'ngx-tethys/i18n';
-import { ThyPlacement } from 'ngx-tethys/core';
 
 export type ThyNavType = 'pulled' | 'tabs' | 'pills' | 'lite' | 'card' | 'primary' | 'secondary' | 'thirdly' | 'secondary-divider';
 export type ThyNavSize = 'lg' | 'md' | 'sm';
@@ -76,7 +77,9 @@ const tabItemRight = 20;
     selector: 'thy-nav',
     templateUrl: './nav.component.html',
     host: {
-        class: 'thy-nav'
+        '[class.thy-nav]': 'true',
+        '[class.thy-nav--vertical]': 'thyVertical()',
+        '[class.thy-nav--fill]': 'thyFill()'
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [
@@ -99,11 +102,7 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
 
     private readonly destroyRef = inject(DestroyRef);
 
-    public type: ThyNavType = 'pulled';
-    private size: ThyNavSize = 'md';
     public initialized = false;
-
-    public horizontal: ThyNavHorizontal;
     public wrapperOffset: { height: number; width: number; left: number; top: number } = {
         height: 0,
         width: 0,
@@ -130,58 +129,38 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
      * @type pulled | tabs | pills | lite | primary | secondary | thirdly | secondary-divider
      * @default pulled
      */
-    @Input()
-    set thyType(type: ThyNavType) {
-        this.type = type || 'pulled';
-        if (this.initialized) {
-            this.updateClasses();
-        }
-    }
+    readonly thyType = input<ThyNavType>();
 
     /**
      * 导航大小
      * @type lg | md | sm
      * @default md
      */
-    @Input()
-    set thySize(size: ThyNavSize) {
-        this.size = size;
-        if (this.initialized) {
-            this.updateClasses();
-        }
-    }
+    readonly thySize = input<ThyNavSize>('md');
 
     /**
      * 水平排列
      * @type '' | 'start' | 'center' | 'end'
      * @default false
      */
-    @Input()
-    set thyHorizontal(horizontal: ThyNavHorizontal) {
-        this.horizontal = (horizontal as string) === 'right' ? 'end' : horizontal;
-    }
+    readonly thyHorizontal = input<ThyNavHorizontal>('');
 
     /**
      * 是否垂直排列
      * @default false
      */
-    @HostBinding('class.thy-nav--vertical')
-    @Input({ transform: coerceBooleanProperty })
-    thyVertical: boolean;
+    readonly thyVertical = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 是否是填充模式
      */
-    @HostBinding('class.thy-nav--fill')
-    @Input({ transform: coerceBooleanProperty })
-    thyFill: boolean = false;
+    readonly thyFill = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 是否响应式，自动计算宽度存放 thyNavItem，并添加更多弹框
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty })
-    thyResponsive: boolean;
+    readonly thyResponsive = input(undefined, { transform: coerceBooleanProperty });
 
     /**
      * 支持暂停自适应计算
@@ -192,8 +171,7 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
      * 更多操作的菜单点击内部是否可关闭
      * @deprecated please use thyPopoverOptions
      */
-    @Input({ transform: coerceBooleanProperty })
-    thyInsideClosable = true;
+    readonly thyInsideClosable = input(true, { transform: coerceBooleanProperty });
 
     /**
      * 更多菜单弹出框的参数，底层使用 Popover 组件
@@ -205,7 +183,7 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
      * 右侧额外区域模板
      * @type TemplateRef
      */
-    @Input() thyExtra: TemplateRef<unknown>;
+    readonly thyExtra = input<TemplateRef<unknown>>();
 
     /**
      * @private
@@ -222,43 +200,48 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
     /**
      * @private
      */
-    @ContentChildren(RouterLinkActive, { descendants: true }) routers: QueryList<RouterLinkActive>;
+    readonly routers = contentChildren(RouterLinkActive, { descendants: true });
 
     /**
      * 响应式模式下更多操作模板
      * @type TemplateRef
      */
-    @ContentChild('more') moreOperation: TemplateRef<unknown>;
+    readonly moreOperation = contentChild<TemplateRef<unknown>>('more');
 
     /**
      * 响应式模式下更多弹框模板
      * @type TemplateRef
      */
-    @ContentChild('morePopover') morePopover: TemplateRef<unknown>;
+    readonly morePopover = contentChild<TemplateRef<unknown>>('morePopover');
 
     /**
      * 右侧额外区域模板，支持 thyExtra 传参和 <ng-template #extra></ng-template> 模板
      * @name extra
      * @type TemplateRef
      */
-    @ContentChild('extra') extra: TemplateRef<unknown>;
+    readonly extra = contentChild<TemplateRef<unknown>>('extra');
 
-    @ViewChild('moreOperationContainer') defaultMoreOperation: ElementRef<HTMLAnchorElement>;
+    readonly defaultMoreOperation = viewChild<ElementRef<HTMLAnchorElement>>('moreOperationContainer');
 
-    @ViewChild(ThyNavInkBarDirective, { static: true }) inkBar!: ThyNavInkBarDirective;
+    readonly inkBar = viewChild.required(ThyNavInkBarDirective);
+
+    readonly horizontal = computed(() => {
+        const horizontalValue = this.thyHorizontal() as string;
+        return horizontalValue === 'right' ? 'end' : horizontalValue;
+    });
 
     get showInkBar(): boolean {
         const showTypes: ThyNavType[] = ['pulled', 'tabs'];
-        return showTypes.includes(this.type);
+        return showTypes.includes(this.type());
     }
 
     private updateClasses() {
         let classNames: string[] = [];
-        if (navTypeClassesMap[this.type]) {
-            classNames = [...navTypeClassesMap[this.type]];
+        if (navTypeClassesMap[this.type()]) {
+            classNames = [...navTypeClassesMap[this.type()]];
         }
-        if (navSizeClassesMap[this.size]) {
-            classNames.push(navSizeClassesMap[this.size]);
+        if (navSizeClassesMap[this.thySize()]) {
+            classNames.push(navSizeClassesMap[this.thySize()]);
         }
         this.hostRenderer.updateClass(classNames);
     }
@@ -269,16 +252,22 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
 
     private navSubscription: { unsubscribe: () => void } | null = null;
 
+    readonly type = computed(() => this.thyType() || 'pulled');
+
+    constructor() {
+        effect(() => {
+            this.updateClasses();
+        });
+    }
+
     ngOnInit() {
-        if (!this.thyResponsive) {
+        if (!this.thyResponsive()) {
             this.initialized = true;
         }
-
-        this.updateClasses();
     }
 
     ngAfterViewInit() {
-        if (this.thyResponsive) {
+        if (this.thyResponsive()) {
             this.setMoreBtnOffset();
             this.ngZone.onStable.pipe(take(1)).subscribe(() => {
                 this.setMoreBtnOffset();
@@ -296,7 +285,7 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
                 this.navSubscription = merge(
                     this.createResizeObserver(this.elementRef.nativeElement),
                     ...this.links.map(item => this.createResizeObserver(item.elementRef.nativeElement).pipe(tap(() => item.setOffset()))),
-                    ...(this.routers || []).map(router => router?.isActiveChange)
+                    ...(this.routers() || []).map(router => router?.isActiveChange)
                 )
                     .pipe(
                         takeUntilDestroyed(this.destroyRef),
@@ -305,14 +294,14 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
                                 return;
                             }
 
-                            if (this.thyResponsive) {
+                            if (this.thyResponsive()) {
                                 this.setMoreBtnOffset();
                                 this.resetSizes();
                                 this.setHiddenItems();
                                 this.calculateMoreIsActive();
                             }
 
-                            if (this.type === 'card') {
+                            if (this.type() === 'card') {
                                 this.setNavItemDivider();
                             }
                         })
@@ -325,7 +314,7 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
     }
 
     ngAfterContentInit(): void {
-        if (this.thyResponsive) {
+        if (this.thyResponsive()) {
             this.ngZone.onStable.pipe(take(1)).subscribe(() => {
                 this.resetSizes();
             });
@@ -337,17 +326,18 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
 
         this.curActiveIndex = this.links && this.links.length ? this.links.toArray().findIndex(item => item.linkIsActive()) : -1;
         if (this.curActiveIndex < 0) {
-            this.inkBar.hide();
+            this.inkBar().hide();
         } else if (this.curActiveIndex !== this.prevActiveIndex) {
             this.alignInkBarToSelectedTab();
         }
     }
 
     private setMoreBtnOffset() {
-        const computedStyle = window.getComputedStyle(this.defaultMoreOperation?.nativeElement);
+        const defaultMoreOperation = this.defaultMoreOperation();
+        const computedStyle = window.getComputedStyle(defaultMoreOperation?.nativeElement);
         this.moreBtnOffset = {
-            height: this.defaultMoreOperation?.nativeElement?.offsetHeight + parseFloat(computedStyle?.marginBottom) || 0,
-            width: this.defaultMoreOperation?.nativeElement?.offsetWidth + parseFloat(computedStyle?.marginRight) || 0
+            height: defaultMoreOperation?.nativeElement?.offsetHeight + parseFloat(computedStyle?.marginBottom) || 0,
+            width: defaultMoreOperation?.nativeElement?.offsetWidth + parseFloat(computedStyle?.marginRight) || 0
         };
     }
 
@@ -394,7 +384,7 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
             return;
         }
 
-        const endIndex = this.thyVertical ? this.getShowItemsEndIndexWhenVertical(tabs) : this.getShowItemsEndIndexWhenHorizontal(tabs);
+        const endIndex = this.thyVertical() ? this.getShowItemsEndIndexWhenVertical(tabs) : this.getShowItemsEndIndexWhenHorizontal(tabs);
 
         const showItems = tabs.slice(0, endIndex + 1);
         (showItems || []).forEach(item => {
@@ -488,7 +478,7 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
 
     private alignInkBarToSelectedTab(): void {
         if (!this.showInkBar) {
-            this.inkBar.hide();
+            this.inkBar().hide();
             return;
         }
         const tabs = this.links?.toArray() ?? [];
@@ -496,11 +486,11 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
         let selectedItemElement: HTMLElement = selectedItem && selectedItem.elementRef.nativeElement;
 
         if (selectedItem && this.moreActive) {
-            selectedItemElement = this.defaultMoreOperation.nativeElement;
+            selectedItemElement = this.defaultMoreOperation().nativeElement;
         }
         if (selectedItemElement) {
             this.prevActiveIndex = this.curActiveIndex;
-            this.inkBar.alignToElement(selectedItemElement);
+            this.inkBar().alignToElement(selectedItemElement);
         }
     }
 

@@ -19,7 +19,7 @@
     [thyMin]="0"
     [thyMax]="255"
     class="px-0 text-center"
-    [(ngModel)]="color.rgba.red"
+    [(ngModel)]="color().rgba.red"
     (thyBlur)="onInputChange($event, 'R')"
     (thyEnter)="onInputChange($event, 'R')"></thy-input-number>
   <span>R</span>
@@ -30,7 +30,7 @@
     [thyMin]="0"
     [thyMax]="255"
     class="px-0 text-center"
-    [(ngModel)]="color.rgba.green"
+    [(ngModel)]="color().rgba.green"
     (thyBlur)="onInputChange($event, 'G')"
     (thyEnter)="onInputChange($event, 'G')"></thy-input-number>
   <span>G</span>
@@ -41,7 +41,7 @@
     [thyMin]="0"
     [thyMax]="255"
     class="px-0 text-center"
-    [(ngModel)]="color.rgba.blue"
+    [(ngModel)]="color().rgba.blue"
     (thyBlur)="onInputChange($event, 'B')"
     (thyEnter)="onInputChange($event, 'B')"></thy-input-number>
   <span>B</span>

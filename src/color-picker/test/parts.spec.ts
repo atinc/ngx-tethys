@@ -1,12 +1,12 @@
-import { ThyInputNumber } from 'ngx-tethys/input-number';
-import { dispatchEvent, dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, ViewChild, inject } from '@angular/core';
+import { provideHttpClient } from '@angular/common/http';
+import { Component, ElementRef, inject, viewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { ThyColor, ThyColorPickerModule, ThyAlpha, ThyHue, ThyIndicator, ThyColorInputs, ThySaturation } from 'ngx-tethys/color-picker';
-import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { ThyAlpha, ThyColor, ThyColorInputs, ThyColorPickerModule, ThyHue, ThyIndicator, ThySaturation } from 'ngx-tethys/color-picker';
+import { ThyInputNumber } from 'ngx-tethys/input-number';
+import { dispatchEvent, dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 
 @Component({
     selector: 'thy-demo-alpha',
@@ -26,7 +26,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 class ThyDemoAlphaComponent {
     elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
-    @ViewChild(ThyAlpha) alphaComponent: ThyAlpha;
+    readonly alphaComponent = viewChild(ThyAlpha);
 
     color = new ThyColor('#fafafa');
 
@@ -43,7 +43,7 @@ class ThyDemoAlphaComponent {
 class ThyDemoHueComponent {
     elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
-    @ViewChild(ThyHue) hueComponent: ThyHue;
+    readonly hueComponent = viewChild(ThyHue);
 
     color = new ThyColor('#fafafa');
 
@@ -60,7 +60,7 @@ class ThyDemoHueComponent {
 class ThyDemoSaturationComponent {
     elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
-    @ViewChild(ThySaturation) hueComponent: ThySaturation;
+    readonly hueComponent = viewChild(ThySaturation);
 
     color = new ThyColor('#fafafa');
 
@@ -77,8 +77,8 @@ class ThyDemoSaturationComponent {
 class ThyDemoColorInputsComponent {
     elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
-    @ViewChild(ThyColorInputs) colorInputsComponent: ThyColorInputs;
-    @ViewChild(ThyInputNumber) inputNumber: ThyInputNumber;
+    readonly colorInputsComponent = viewChild(ThyColorInputs);
+    readonly inputNumber = viewChild(ThyInputNumber);
 
     color = new ThyColor('#fafafa');
 
@@ -95,7 +95,7 @@ class ThyDemoColorInputsComponent {
 class ThyDemoIndicatorComponent {
     elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
-    @ViewChild(ThyIndicator) colorIndicatorComponent: ThyIndicator;
+    readonly colorIndicatorComponent = viewChild(ThyIndicator);
 
     color = new ThyColor('#ddd');
 
@@ -329,7 +329,7 @@ describe('thy-color-inputs', () => {
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
-            expect(fixtureInstance.colorInputsComponent.color.displayValue).toEqual('#DDDDDD');
+            expect(fixtureInstance.colorInputsComponent().color().displayValue).toEqual('#DDDDDD');
         }));
     });
 });
@@ -356,7 +356,7 @@ describe('thy-indicator', () => {
             fixture.detectChanges();
             const indicator = element.querySelector('.thy-indicator');
             expect(indicator).toBeTruthy();
-            expect(fixtureInstance.colorIndicatorComponent.backgroundColor).toEqual('rgba(221, 221, 221, 1)');
+            expect(fixtureInstance.colorIndicatorComponent().backgroundColor()).toEqual('rgba(221, 221, 221, 1)');
         }));
     });
 });
