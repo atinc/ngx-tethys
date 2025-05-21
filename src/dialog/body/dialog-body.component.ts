@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, HostBinding, inject } from '@angular/core';
+import { Component, Input, OnInit, HostBinding, inject, input } from '@angular/core';
 import { ThyDialog } from '../dialog.service';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
@@ -13,24 +13,18 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     template: '<ng-content></ng-content>',
     // changeDetection: ChangeDetectionStrategy.OnPush,
     exportAs: 'thyDialogBody',
-    hostDirectives: [CdkScrollable]
+    hostDirectives: [CdkScrollable],
+    host: {
+        class: 'dialog-body',
+        '[class.dialog-body-clear-padding]': 'thyClearPadding()'
+    }
 })
 export class ThyDialogBody implements OnInit {
     private dialog = inject(ThyDialog);
-
-    @HostBinding(`class.dialog-body`) _isDialogBody = true;
-
-    @HostBinding(`class.dialog-body-clear-padding`)
-    thyClearPaddingClassName = false;
-
     /**
      * 清除间距
-     * @default false
      */
-    @Input({ transform: coerceBooleanProperty })
-    set thyClearPadding(value: boolean) {
-        this.thyClearPaddingClassName = value;
-    }
+    readonly thyClearPadding = input(false, { transform: coerceBooleanProperty });
 
     ngOnInit() {}
 }
