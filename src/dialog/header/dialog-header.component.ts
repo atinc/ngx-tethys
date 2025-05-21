@@ -73,10 +73,7 @@ export class ThyDialogHeader implements OnInit {
     readonly title: Signal<string> = computed(() => {
         const title = this.thyTitle();
         const titleTranslationKey = this.thyTitleTranslationKey();
-        if (titleTranslationKey && !title) {
-            return this.translate.instant(titleTranslationKey);
-        }
-        return this.thyTitle();
+        return title || (titleTranslationKey && this.translate.instant(titleTranslationKey));
     });
 
     /**
