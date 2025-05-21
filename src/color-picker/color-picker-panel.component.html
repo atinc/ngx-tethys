@@ -1,18 +1,18 @@
-@if (customDefaultColor) {
-  <div class="quick-color" [ngClass]="transparentColorSelectable ? ' mb-0 pb-0' : ''" (click)="selectColor(defaultColor)">
-    <ng-template [ngTemplateOutlet]="checkIconTpl" [ngTemplateOutletContext]="{ $implicit: defaultColor }"></ng-template>
+@if (defaultColor()) {
+  <div class="quick-color" [ngClass]="transparentColorSelectable() ? ' mb-0 pb-0' : ''" (click)="selectColor(defaultColor())">
+    <ng-template [ngTemplateOutlet]="checkIconTpl" [ngTemplateOutletContext]="{ $implicit: defaultColor() }"></ng-template>
     <span class="ml-2 font-size-sm text-secondary">{{ locale().defaultColor }}</span>
   </div>
 }
-@if (transparentColorSelectable) {
-  <div class="quick-color" [ngClass]="customDefaultColor ? 'mt-0 pt-0' : ''" (click)="selectColor('transparent')">
+@if (transparentColorSelectable()) {
+  <div class="quick-color" [ngClass]="defaultColor() ? 'mt-0 pt-0' : ''" (click)="selectColor('transparent')">
     <div class="color-block"></div>
     <span class="ml-2 font-size-sm text-secondary">{{ locale().noFillColor }}</span>
   </div>
 }
 <div class="main-content">
   <div class="default-color">
-    @for (item of defaultColors; track $index) {
+    @for (item of defaultColors(); track $index) {
       <ng-template [ngTemplateOutlet]="checkIconTpl" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
     }
   </div>
@@ -42,7 +42,7 @@
       thyIconName="check-thick"
       class="check-icon"
       [ngClass]="
-        color === colorItem ? (getIconColor(colorItem) === 'white' ? 'checked white-check' : 'checked black-check') : ''
+        color() === colorItem ? (getIconColor(colorItem) === 'white' ? 'checked white-check' : 'checked black-check') : ''
       "></thy-icon>
   </div>
 </ng-template>

@@ -2,15 +2,13 @@ import {
     ChangeDetectionStrategy,
     Component,
     ElementRef,
-    EventEmitter,
     HostBinding,
-    Input,
-    OnChanges,
-    Output,
     Renderer2,
-    SimpleChanges,
-    ViewChild,
-    inject
+    effect,
+    inject,
+    input,
+    output,
+    viewChild
 } from '@angular/core';
 import { ThyCoordinatesDirective } from '../../coordinates.directive';
 import { ThyColor } from '../../helpers/color.class';
@@ -24,43 +22,40 @@ import { ThyColor } from '../../helpers/color.class';
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [ThyCoordinatesDirective]
 })
-export class ThyAlpha implements OnChanges {
+export class ThyAlpha {
     private readonly renderer = inject(Renderer2);
 
     @HostBinding('class.thy-alpha') className = true;
 
-    @Input() color: ThyColor;
+    readonly color = input<ThyColor>();
 
-    @ViewChild('pointer', { static: true })
-    public pointer: ElementRef;
+    readonly pointer = viewChild<ElementRef>('pointer');
 
-    @ViewChild('gradient', { static: true })
-    public gradient: ElementRef;
+    readonly gradient = viewChild<ElementRef>('gradient');
 
-    @Output()
-    public colorChange = new EventEmitter<ThyColor>(false);
+    readonly colorChange = output<ThyColor>();
+
+    constructor() {
+        effect(() => {
+            this.setBackground();
+            this.changePointerPosition();
+        });
+    }
 
     setBackground() {
         this.renderer.setStyle(
-            this.gradient.nativeElement,
+            this.gradient().nativeElement,
             'background',
-            `linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(${this.color.rgba.red},
-            ${this.color.rgba.green},
-            ${this.color.rgba.blue},
+            `linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(${this.color().rgba.red},
+            ${this.color().rgba.green},
+            ${this.color().rgba.blue},
             1) 100%)`
         );
     }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes.color && changes.color.previousValue !== changes.color.currentValue) {
-            this.setBackground();
-            this.changePointerPosition(this.color.alpha);
-        }
-    }
-
-    private changePointerPosition(alpha: number): void {
-        const x = alpha * 100;
-        this.renderer.setStyle(this.pointer.nativeElement, 'left', `${x}%`);
+    private changePointerPosition(alpha?: number): void {
+        const x = (alpha ?? this.color().alpha) * 100;
+        this.renderer.setStyle(this.pointer().nativeElement, 'left', `${x}%`);
     }
 
     handleChange(event: {
@@ -81,6 +76,6 @@ export class ThyAlpha implements OnChanges {
             x = Math.round((event.left * 100) / event.containerWidth) / 100;
         }
         this.changePointerPosition(x);
-        this.colorChange.emit(new ThyColor({ h: this.color.hue, s: this.color.saturation, v: this.color.value, alpha: x }));
+        this.colorChange.emit(new ThyColor({ h: this.color().hue, s: this.color().saturation, v: this.color().value, alpha: x }));
     }
 }

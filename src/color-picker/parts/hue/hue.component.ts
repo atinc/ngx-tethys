@@ -2,15 +2,13 @@ import {
     ChangeDetectionStrategy,
     Component,
     ElementRef,
-    EventEmitter,
     HostBinding,
-    Input,
-    OnChanges,
-    Output,
     Renderer2,
-    SimpleChanges,
     ViewChild,
-    inject
+    effect,
+    inject,
+    input,
+    output
 } from '@angular/core';
 import { ThyCoordinatesDirective } from '../../coordinates.directive';
 import { ThyColor } from '../../helpers/color.class';
@@ -24,27 +22,27 @@ import { ThyColor } from '../../helpers/color.class';
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [ThyCoordinatesDirective]
 })
-export class ThyHue implements OnChanges {
+export class ThyHue {
     private readonly renderer = inject(Renderer2);
 
     @HostBinding('class.thy-hue') className = true;
 
-    @Input() color: ThyColor;
+    readonly color = input<ThyColor>();
 
-    @Output()
-    public colorChange = new EventEmitter<ThyColor>(false);
+    readonly colorChange = output<ThyColor>();
 
     @ViewChild('pointer', { static: true })
     public pointer: ElementRef;
 
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes.color && changes.color.previousValue !== changes.color.currentValue) {
-            this.changePointerPosition(this.color.hue);
-        }
+    constructor() {
+        effect(() => {
+            this.changePointerPosition();
+        });
     }
 
-    private changePointerPosition(hue: number): void {
-        const x = (hue / 360) * 100;
+    private changePointerPosition(hue?: number): void {
+        const newHue = hue ?? this.color().hue;
+        const x = (newHue / 360) * 100;
         this.renderer.setStyle(this.pointer.nativeElement, 'left', `${x}%`);
     }
 
@@ -66,6 +64,6 @@ export class ThyHue implements OnChanges {
             x = Math.round((event.left * 100) / event.containerWidth) / 100;
         }
         this.changePointerPosition(x * 360);
-        this.colorChange.emit(new ThyColor({ h: x * 360, s: this.color.saturation, v: this.color.value, alpha: this.color.alpha }));
+        this.colorChange.emit(new ThyColor({ h: x * 360, s: this.color().saturation, v: this.color().value, alpha: this.color().alpha }));
     }
 }
