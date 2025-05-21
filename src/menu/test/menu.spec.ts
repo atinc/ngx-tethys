@@ -25,7 +25,7 @@ import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/test
         <thy-menu [thyTheme]="theme">
             <thy-menu-group
                 thyTitle="工作"
-                [thyExpand]="expand"
+                [thyCollapsed]="expand"
                 [thyCollapsible]="collapsible"
                 (thyCollapsedChange)="toggle($event)"
                 [thyShowAction]="true"
@@ -225,7 +225,7 @@ describe('ThyMenu', () => {
             const groupHeader = group.nativeElement.querySelector('.thy-menu-group-header');
             groupHeader.click();
             fixture.detectChanges();
-            expect(group.componentInstance.isCollapsed()).toBe(false);
+            expect(group.componentInstance.thyCollapsed()).toBe(false);
         });
 
         it('should toggle worked', () => {
@@ -236,7 +236,7 @@ describe('ThyMenu', () => {
             const spy = spyOn(fixture.componentInstance, 'toggle');
             groupHeader.click();
             fixture.detectChanges();
-            expect(group.componentInstance.isCollapsed()).toBe(true);
+            expect(group.componentInstance.thyCollapsed()).toBe(true);
             expect(spy).toHaveBeenCalledTimes(1);
         });
 

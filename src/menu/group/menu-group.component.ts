@@ -5,14 +5,14 @@ import {
     ChangeDetectionStrategy,
     Component,
     ElementRef,
+    ModelSignal,
     OnInit,
     TemplateRef,
     contentChild,
-    effect,
     inject,
     input,
+    model,
     output,
-    signal,
     viewChild
 } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -53,7 +53,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     ],
     host: {
         '[class.thy-menu-group]': 'true',
-        '[class.collapsed]': 'isCollapsed()',
+        '[class.collapsed]': 'thyCollapsed()',
         '[class.has-icon]': 'thyShowIcon()'
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -68,23 +68,15 @@ export class ThyMenuGroup implements OnInit {
 
     readonly headerContentTemplateRef = contentChild<TemplateRef<any>>('headerContent');
 
-    readonly isCollapsed = signal(false);
-
     /**
      * 分组标题
      */
     readonly thyTitle = input<string>('');
 
     /**
-     * 已废弃，请使用 thyCollapsed
-     * @deprecated
-     */
-    readonly thyExpand = input(false, { transform: coerceBooleanProperty });
-
-    /**
      * 是否处于收起状态
      */
-    readonly thyCollapsed = input(false, { transform: coerceBooleanProperty });
+    readonly thyCollapsed: ModelSignal<boolean> = model(false);
 
     /**
      * 是否支持展开收起
@@ -132,11 +124,7 @@ export class ThyMenuGroup implements OnInit {
      */
     readonly thyActionMenu = input<ComponentType<any> | TemplateRef<any>>();
 
-    constructor() {
-        effect(() => {
-            this.isCollapsed.set(this.thyCollapsed() ?? this.thyExpand());
-        });
-    }
+    constructor() {}
 
     ngOnInit(): void {}
 
@@ -144,8 +132,8 @@ export class ThyMenuGroup implements OnInit {
         if (!this.thyCollapsible()) {
             return;
         }
-        this.isCollapsed.set(!this.isCollapsed());
-        this.thyCollapsedChange.emit(this.isCollapsed());
+        this.thyCollapsed.set(!this.thyCollapsed());
+        this.thyCollapsedChange.emit(this.thyCollapsed());
     }
 
     onActionClick(event: Event): void {
