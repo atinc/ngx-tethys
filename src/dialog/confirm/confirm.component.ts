@@ -1,8 +1,6 @@
 import { ThyFormDirective, ThyFormGroupFooterAlign, ThyFormGroupFooter } from 'ngx-tethys/form';
 import { finalize } from 'rxjs/operators';
-
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, Signal, inject } from '@angular/core';
-
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, Signal, inject, input } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThyButton } from 'ngx-tethys/button';
@@ -29,7 +27,7 @@ export class ThyConfirm implements OnInit, OnDestroy {
 
     loading: boolean;
 
-    @Input() options: ThyConfirmConfig;
+    readonly options = input<ThyConfirmConfig>();
 
     public title: string;
 
@@ -59,7 +57,7 @@ export class ThyConfirm implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.defaultConfig = { ...this.defaultConfig, ...this.options };
+        this.defaultConfig = { ...this.defaultConfig, ...this.options() };
         this.title = this.defaultConfig.title;
         this.content = this.defaultConfig.content;
         this.okText = this.defaultConfig.okText;
@@ -71,7 +69,7 @@ export class ThyConfirm implements OnInit, OnDestroy {
 
     confirm() {
         this.loading = true;
-        const result = this.options.onOk();
+        const result = this.options().onOk();
         if (result && result.subscribe) {
             result
                 .pipe(
@@ -91,7 +89,7 @@ export class ThyConfirm implements OnInit, OnDestroy {
     }
 
     close() {
-        this.options?.onCancel?.();
+        this.options()?.onCancel?.();
         this.dialogRef.close();
     }
 
