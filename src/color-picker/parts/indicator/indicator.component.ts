@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, computed, HostBinding, input, Signal } from '@angular/core';
 import { ThyColor } from '../../helpers/color.class';
 
 /**
@@ -11,10 +11,9 @@ import { ThyColor } from '../../helpers/color.class';
 export class ThyIndicator {
     @HostBinding('class.thy-indicator') className = true;
 
-    @Input()
-    public color: ThyColor;
+    readonly color = input<ThyColor>();
 
-    public get backgroundColor(): string {
-        return this.color.rgba.toString();
-    }
+    readonly backgroundColor: Signal<string> = computed(() => {
+        return this.color()?.rgba.toString() || '';
+    });
 }

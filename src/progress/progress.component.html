@@ -1,49 +1,51 @@
 <ng-container>
-  @if (thyShape === 'strip') {
+  @if (thyShape()=== 'strip') {
     <div class="thy-progress-strip-outer">
-      @if (isStacked) {
-        @for (item of value; track $index) {
+      @if (isStacked()) {
+        @for (item of thyValue(); track $index) {
           <thy-progress-bar
             [thyType]="item.type"
-            [ngClass]="{ 'cursor-pointer': item.tips || thyTips }"
-            [thyTooltip]="item.tips || thyTips"
+            [ngClass]="{ 'cursor-pointer': item.tips || thyTips()}"
+            [thyTooltip]="item.tips || thyTips()"
             [thyTooltipTemplateContext]="item"
-            [thyTooltipDisabled]="!thyTips && !item.tips"
+            [thyTooltipDisabled]="!thyTips() && !item.tips"
             [thyColor]="item.color"
             [thyValue]="item.value"
             >{{ item.label }}
           </thy-progress-bar>
         }
       } @else {
+        @let value = thyValue();
         @if (value) {
           <thy-progress-bar
-            [thyType]="thyType"
-            [ngClass]="{ 'cursor-pointer': thyTips }"
-            [thyTooltip]="thyTips"
+            [thyType]="thyType()"
+            [ngClass]="{ 'cursor-pointer': thyTips()}"
+            [thyTooltip]="thyTips()"
             [thyTooltipTemplateContext]="value"
-            [thyTooltipDisabled]="!thyTips"
+            [thyTooltipDisabled]="!thyTips()"
             [thyValue]="value">
           </thy-progress-bar>
         }
       }
     </div>
-    @if (thyShape === 'strip') {
+    @if (thyShape()=== 'strip') {
       <div class="thy-progress-strip-text">
         <ng-template [ngTemplateOutlet]="contentTemplate"></ng-template>
       </div>
     }
   } @else {
+    @let value = thyValue();
     <thy-progress-circle
-      [thyType]="thyType"
-      [thyTooltip]="thyTips"
-      [thyTooltipDisabled]="!thyTips"
+      [thyType]="thyType()"
+      [thyTooltip]="thyTips()"
+      [thyTooltipDisabled]="!thyTips()"
       [thyTooltipTemplateContext]="value"
       [thyValue]="value"
-      [thySize]="size"
-      [thyMax]="max"
-      [thyGapDegree]="thyGapDegree"
-      [thyGapPosition]="thyGapPosition"
-      [thyStrokeWidth]="thyStrokeWidth">
+      [thySize]="thySize()"
+      [thyMax]="max()"
+      [thyGapDegree]="thyGapDegree()"
+      [thyGapPosition]="thyGapPosition()"
+      [thyStrokeWidth]="thyStrokeWidth()">
       <ng-template [ngTemplateOutlet]="contentTemplate"></ng-template
     ></thy-progress-circle>
   }

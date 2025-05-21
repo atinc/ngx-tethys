@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, OnInit, WritableSignal, input, model, signal } from '@angular/core';
 import { ThyColor } from './helpers/color.class';
-import { ThyColorInputs } from './parts/inputs/inputs.component';
-import { ThyIndicator } from './parts/indicator/indicator.component';
 import { ThyAlpha } from './parts/alpha/alpha.component';
 import { ThyHue } from './parts/hue/hue.component';
+import { ThyIndicator } from './parts/indicator/indicator.component';
+import { ThyColorInputs } from './parts/inputs/inputs.component';
 import { ThySaturation } from './parts/saturation/saturation.component';
 
 /**
@@ -18,21 +18,21 @@ import { ThySaturation } from './parts/saturation/saturation.component';
 export class ThyColorPickerCustomPanel implements OnInit {
     @HostBinding('class.thy-color-picker-custom-panel') className = true;
 
-    colorInstance: ThyColor;
+    readonly color = model<string>();
 
-    @Input() color?: string;
+    colorInstance: WritableSignal<ThyColor> = signal<ThyColor>(null);
 
-    @Input() pickerColorChange: (color: string) => {};
+    readonly pickerColorChange = input<(color: string) => {}>();
 
     constructor() {}
 
     ngOnInit() {
-        this.colorInstance = new ThyColor(this.color);
+        this.colorInstance.set(new ThyColor(this.color()));
     }
 
     colorChangeEvent($event: ThyColor) {
-        this.colorInstance = $event;
-        this.color = this.colorInstance.displayValue;
-        this.pickerColorChange(this.color);
+        this.colorInstance.set($event);
+        this.color.set(this.colorInstance().displayValue);
+        this.pickerColorChange()(this.color());
     }
 }

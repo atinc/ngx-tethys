@@ -1,16 +1,4 @@
-import {
-    Component,
-    ElementRef,
-    EventEmitter,
-    HostBinding,
-    Input,
-    OnChanges,
-    Output,
-    Renderer2,
-    SimpleChanges,
-    ViewChild,
-    inject
-} from '@angular/core';
+import { Component, ElementRef, HostBinding, Renderer2, effect, inject, input, output, viewChild } from '@angular/core';
 import { ThyCoordinatesDirective } from '../../coordinates.directive';
 import { ThyColor } from '../../helpers/color.class';
 
@@ -22,37 +10,36 @@ import { ThyColor } from '../../helpers/color.class';
     templateUrl: './saturation.component.html',
     imports: [ThyCoordinatesDirective]
 })
-export class ThySaturation implements OnChanges {
+export class ThySaturation {
     private readonly renderer = inject(Renderer2);
 
     @HostBinding('class.thy-saturation') className = true;
 
-    @ViewChild('panel', { static: true })
-    public panel: ElementRef;
+    readonly panel = viewChild<ElementRef>('panel');
 
-    @ViewChild('pointer', { static: true })
-    public pointer: ElementRef;
+    readonly pointer = viewChild<ElementRef>('pointer');
 
-    @Output()
-    public colorChange = new EventEmitter<ThyColor>(false);
+    readonly colorChange = output<ThyColor>();
 
-    @Input()
-    public color: ThyColor;
+    readonly color = input<ThyColor>();
 
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes.color && changes.color.previousValue !== changes.color.currentValue) {
+    constructor() {
+        effect(() => {
             this.setBackground();
-            this.changePointerPosition(this.color.saturation, this.color.value);
-        }
+            this.changePointerPosition();
+        });
     }
 
     setBackground() {
-        this.renderer.setStyle(this.panel.nativeElement, 'background', `hsl(${this.color.hue},100%,50%)`);
+        this.renderer.setStyle(this.panel().nativeElement, 'background', `hsl(${this.color().hue},100%,50%)`);
     }
 
-    changePointerPosition(s: number, v: number) {
-        this.renderer.setStyle(this.pointer.nativeElement, 'left', `${s}%`);
-        this.renderer.setStyle(this.pointer.nativeElement, 'top', `${100 - v}%`);
+    changePointerPosition(s?: number, v?: number) {
+        const saturation = s ?? this.color().saturation;
+        const value = v ?? this.color().value;
+        const pointer = this.pointer();
+        this.renderer.setStyle(pointer.nativeElement, 'left', `${saturation}%`);
+        this.renderer.setStyle(pointer.nativeElement, 'top', `${100 - value}%`);
     }
 
     handleChange(event: {
@@ -84,6 +71,6 @@ export class ThySaturation implements OnChanges {
 
         this.changePointerPosition(s * 100, v * 100);
 
-        this.colorChange.emit(new ThyColor({ h: this.color.hue, s: s * 100, v: v * 100, alpha: this.color.alpha }));
+        this.colorChange.emit(new ThyColor({ h: this.color().hue, s: s * 100, v: v * 100, alpha: this.color().alpha }));
     }
 }

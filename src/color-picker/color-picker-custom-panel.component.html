@@ -1,11 +1,11 @@
-<thy-saturation [color]="colorInstance" (colorChange)="colorChangeEvent($event)"></thy-saturation>
+<thy-saturation [color]="colorInstance()" (colorChange)="colorChangeEvent($event)"></thy-saturation>
 <div class="controls">
   <div class="indicator-hue-alp">
     <div class="rows">
-      <thy-hue [color]="colorInstance" (colorChange)="colorChangeEvent($event)"></thy-hue>
-      <thy-alpha [color]="colorInstance" (colorChange)="colorChangeEvent($event)"></thy-alpha>
+      <thy-hue [color]="colorInstance()" (colorChange)="colorChangeEvent($event)"></thy-hue>
+      <thy-alpha [color]="colorInstance()" (colorChange)="colorChangeEvent($event)"></thy-alpha>
     </div>
-    <thy-indicator [color]="colorInstance" (colorChange)="colorChangeEvent($event)"></thy-indicator>
+    <thy-indicator [color]="colorInstance()" (colorChange)="colorChangeEvent($event)"></thy-indicator>
   </div>
 </div>
-<thy-color-inputs [color]="colorInstance" (colorChange)="colorChangeEvent($event)"></thy-color-inputs>
+<thy-color-inputs [color]="colorInstance()" (colorChange)="colorChangeEvent($event)"></thy-color-inputs>
