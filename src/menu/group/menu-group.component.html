@@ -1,27 +1,23 @@
-<div class="thy-menu-group-header" [ngClass]="{ 'thy-menu-group-collapsible': thyCollapsible }" (click)="collapseGroup()">
+<div class="thy-menu-group-header" [ngClass]="{ 'thy-menu-group-collapsible': thyCollapsible() }" (click)="collapseGroup()">
   <div class="thy-menu-group-header-content">
-    @if (headerContentTemplateRef) {
-      <ng-template [ngTemplateOutlet]="headerContentTemplateRef"></ng-template>
+    @if (headerContentTemplateRef()) {
+      <ng-template [ngTemplateOutlet]="headerContentTemplateRef()"></ng-template>
     } @else {
       <span class="thy-menu-group-title">
-        @if (showIcon) {
-          <thy-icon class="thy-menu-group-title-icon mr-2" [thyIconName]="iconClass"></thy-icon>
+        @if (thyShowIcon()) {
+          <thy-icon class="thy-menu-group-title-icon mr-2" [thyIconName]="thyIcon()"></thy-icon>
         }
-        <span class="thy-menu-group-title-text">{{ thyTitle }}</span>
+        <span class="thy-menu-group-title-text">{{ thyTitle() }}</span>
       </span>
     }
   </div>
-  @if (thyShowAction) {
-    <thy-icon
-      class="thy-menu-group-operation"
-      [thyIconName]="rightIconClass"
-      (click)="onActionClick($event)"
-    ></thy-icon>
+  @if (thyShowAction()) {
+    <thy-icon class="thy-menu-group-operation" [thyIconName]="thyActionIcon()" (click)="onActionClick($event)"></thy-icon>
   }
-  @if (thyCollapsible) {
+  @if (thyCollapsible()) {
     <thy-icon thyIconName="angle-up" class="thy-menu-group-arrow"></thy-icon>
   }
 </div>
-<div class="thy-menu-group-body" #thyMenuGroup [@detailsContentAnimation]="isCollapsed">
+<div class="thy-menu-group-body" #thyMenuGroup [@detailsContentAnimation]="thyCollapsed()">
   <ng-content></ng-content>
 </div>

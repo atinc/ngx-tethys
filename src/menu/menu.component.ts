@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, input, OnInit } from '@angular/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export type ThyMenuTheme = 'compact' | 'loose' | 'dark';
@@ -13,28 +13,24 @@ export type ThyMenuTheme = 'compact' | 'loose' | 'dark';
     templateUrl: './menu.component.html',
     host: {
         class: 'thy-menu',
-        '[class.thy-menu-collapsed]': 'thyCollapsed',
-        '[class.thy-menu-theme-loose]': 'theme === "loose"',
-        '[class.thy-menu-theme-dark]': 'theme === "dark"'
+        '[class.thy-menu-collapsed]': 'thyCollapsed()',
+        '[class.thy-menu-theme-loose]': 'thyTheme() === "loose"',
+        '[class.thy-menu-theme-dark]': 'thyTheme() === "dark"'
     }
 })
 export class ThyMenu implements OnInit {
-    theme: ThyMenuTheme = 'compact';
-
     /**
      * 主题
      * @type compact | loose
-     * @default compact
      */
-    @Input() set thyTheme(value: ThyMenuTheme) {
-        this.theme = value;
-    }
+    readonly thyTheme = input<ThyMenuTheme, ThyMenuTheme>('compact', {
+        transform: (value: ThyMenuTheme) => value || 'compact'
+    });
 
     /**
      * 是否收起
-     * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyCollapsed: boolean;
+    readonly thyCollapsed = input(false, { transform: coerceBooleanProperty });
 
     constructor() {}
 
