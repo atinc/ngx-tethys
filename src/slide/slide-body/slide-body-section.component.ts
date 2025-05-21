@@ -18,7 +18,7 @@ export class ThySlideBodySection implements OnInit {
      * 是否有分割线
      * @default false
      */
-    thyDividerBorder = input<boolean, ThyBooleanInput>(false, { transform: coerceBooleanProperty });
+    readonly thyDividerBorder = input<boolean, ThyBooleanInput>(false, { transform: coerceBooleanProperty });
 
     ngOnInit() {}
 }
