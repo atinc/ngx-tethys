@@ -46,7 +46,7 @@ export type ThyPropertyItemOperationTrigger = 'hover' | 'always';
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [ThyFlexibleText, NgTemplateOutlet]
 })
-export class ThyPropertyItem implements OnInit, OnDestroy {
+export class ThyPropertyItem implements OnDestroy {
     private clickDispatcher = inject(ThyClickDispatcher);
     private ngZone = inject(NgZone);
     private overlayOutsideClickDispatcher = inject(OverlayOutsideClickDispatcher);
@@ -148,10 +148,6 @@ export class ThyPropertyItem implements OnInit, OnDestroy {
             const layout = this.parent.layout();
             this.isVertical.set(layout === 'vertical');
         });
-    }
-
-    ngOnInit() {
-        this.subscribeClick();
     }
 
     setEditing(editing: boolean) {

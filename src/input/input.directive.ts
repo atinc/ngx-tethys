@@ -20,14 +20,12 @@ const inputGroupSizeMap = {
     selector: 'input[thyInput], select[thyInput], textarea[thyInput]',
     exportAs: 'thyInput'
 })
-export class ThyInputDirective implements OnInit {
+export class ThyInputDirective {
     private elementRef = inject(ElementRef);
     private render = inject(Renderer2);
     private control = inject(NgControl, { optional: true, self: true })!;
 
     @HostBinding('class.form-control') isFormControl = true;
-
-    private initialized = false;
 
     private hostRenderer = useHostRenderer();
 
@@ -55,9 +53,5 @@ export class ThyInputDirective implements OnInit {
                 this.hostRenderer.updateClass([]);
             }
         });
-    }
-
-    ngOnInit() {
-        this.initialized = true;
     }
 }
