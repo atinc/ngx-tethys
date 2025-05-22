@@ -12,7 +12,6 @@ import {
 
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ElementRef,
     forwardRef,
@@ -143,13 +142,13 @@ export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, 
         });
 
         effect(() => {
-            this.updateClasses();
+            const iconPosition = this.iconPosition();
+            this.hostRenderer.updateClass([`thy-input-search-${iconPosition}`]);
         });
     }
 
     ngOnInit(): void {
         super.ngOnInit();
-        this.updateClasses(true);
 
         this.hostFocusControl.focusChanged = (origin: FocusOrigin) => {
             if (this.disabled()) {
@@ -167,12 +166,6 @@ export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, 
                 }
             }
         };
-    }
-
-    updateClasses(forceUpdate = false) {
-        if (this.initialized || forceUpdate) {
-            this.hostRenderer.updateClass([`thy-input-search-${this.iconPosition()}`]);
-        }
     }
 
     writeValue(value: any): void {
