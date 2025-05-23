@@ -61,7 +61,7 @@ export default {
         yearMonthFormat: 'yyyy-MM'
     },
     autocomplete: {
-        empty: 'Keine Daten vorhanden'
+        empty: 'Noch keine Daten'
     },
     transfer: {
         maxLimit: '(Maximal {max} Stück)',
@@ -101,16 +101,16 @@ export default {
         cancel: 'Abbrechen'
     },
     select: {
-        placeholder: 'Bitte Knoten auswählen',
-        empty: 'Derzeit keine Daten verfügbar'
+        placeholder: 'Bitte wählen',
+        empty: 'Noch keine Daten'
     },
     treeSelect: {
-        placeholder: 'Bitte Knoten auswählen',
-        empty: 'Derzeit keine Daten verfügbar'
+        placeholder: 'Bitte wählen',
+        empty: 'Noch keine Daten'
     },
     cascader: {
-        placeholder: 'Bitte auswählen',
-        empty: 'Keine Optionen verfügbar'
+        placeholder: 'Bitte wählen',
+        empty: 'Noch keine Daten'
     },
     pagination: {
         page: 'Seite',
