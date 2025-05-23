@@ -43,7 +43,7 @@
         }
     }
 
-    &.thy-properties-edit-trigger-hover {
+    &.thy-property-edit-trigger-hover {
         .thy-property-item-wrapper {
             &:hover {
                 .thy-property-item-content-editable {
@@ -53,7 +53,7 @@
         }
     }
 
-    &.thy-properties-edit-trigger-click {
+    &.thy-property-edit-trigger-click {
         .thy-property-item-wrapper {
             &:hover {
                 .thy-property-item-content {
@@ -100,76 +100,148 @@
             }
         }
     }
+}
 
-    .thy-property-item {
-        display: flex;
-        // 添加最小宽度是因为内容区域过多时会超出对应宽度区域
-        min-width: 0px;
-        .thy-property-item-label {
-            display: inline-grid;
-            align-items: center;
-            height: variables.$property-item-min-height;
-            color: variables.$property-item-label-color;
-            grid-template-columns: auto auto;
-            flex-shrink: 0;
-
-            .thy-property-item-operation {
-                text-align: end;
-            }
-            span {
-                display: inline-block;
-            }
-        }
-
-        .thy-property-item-wrapper {
-            display: flex;
-            align-items: center;
-            flex: 1;
-            min-width: 0;
-        }
-
-        .thy-property-item-content {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            color: variables.$property-item-content-color;
-            min-height: variables.$property-item-min-height;
-            min-width: 0px;
-
-            .thy-property-item-content-text {
-                display: flex;
-                align-items: center;
-                min-width: 0px;
-                flex: auto;
-            }
-
-            .thy-property-item-content-editor {
-                display: none;
-                margin-left: variables.$property-item-editor-offset;
-                width: calc(100% - variables.$property-item-editor-offset);
-            }
-
-            &-editing {
+.thy-property-edit-trigger-hover {
+    .thy-property-item-wrapper {
+        &:hover {
+            .thy-property-item-content-editable {
                 @include display-item-editor();
             }
         }
+    }
+}
 
-        .thy-property-item-operation {
-            margin-left: 4px;
-            .thy-action + .thy-action {
-                margin-left: 4px;
+.thy-property-edit-trigger-click {
+    .thy-property-item-wrapper {
+        &:hover {
+            .thy-property-item-content {
+                &.thy-property-item-content-editable {
+                    cursor: pointer;
+                    position: relative;
+
+                    &:after,
+                    &:before {
+                        content: '';
+                        display: block;
+                        position: absolute;
+                        right: 0;
+                        bottom: 0;
+                        left: 0;
+                        top: 0;
+                        margin-left: variables.$property-item-editor-offset;
+                        border-radius: variables.$border-radius;
+                    }
+
+                    &:after {
+                        border: solid 1px variables.$primary;
+                    }
+
+                    &:before {
+                        background: variables.$bg-default;
+                    }
+
+                    &:not(.thy-property-item-content-editing):after {
+                        z-index: 999;
+                    }
+                    .thy-property-item-content-text {
+                        z-index: 1;
+                    }
+                    &.thy-property-item-content-editing:after {
+                        z-index: -1;
+                        transition: 100ms;
+                    }
+                    &.thy-property-item-content-editing:before {
+                        z-index: -1;
+                    }
+                }
             }
         }
+    }
+}
 
-        &.thy-property-item-operational-hover {
-            .thy-property-item-operation {
-                visibility: hidden;
-            }
+.thy-property-item {
+    display: flex;
+    // 添加最小宽度是因为内容区域过多时会超出对应宽度区域
+    min-width: 0px;
 
-            .thy-property-item-label,
-            .thy-property-item-wrapper {
-                @include property-item-operation-hover-visible();
-            }
+    &.thy-property-item-single {
+        flex-direction: row;
+        .thy-property-item-label {
+            padding-right: variables.$property-item-padding-x;
+        }
+
+        .thy-property-item-operation {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+    }
+
+    .thy-property-item-label {
+        display: inline-grid;
+        align-items: center;
+        height: variables.$property-item-min-height;
+        color: variables.$property-item-label-color;
+        grid-template-columns: auto auto;
+        flex-shrink: 0;
+
+        .thy-property-item-operation {
+            text-align: end;
+        }
+        span {
+            display: inline-block;
+        }
+    }
+
+    .thy-property-item-wrapper {
+        display: flex;
+        align-items: center;
+        flex: 1;
+        min-width: 0;
+    }
+
+    .thy-property-item-content {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        color: variables.$property-item-content-color;
+        min-height: variables.$property-item-min-height;
+        min-width: 0px;
+
+        .thy-property-item-content-text {
+            display: flex;
+            align-items: center;
+            min-width: 0px;
+            flex: auto;
+        }
+
+        .thy-property-item-content-editor {
+            display: none;
+            margin-left: variables.$property-item-editor-offset;
+            width: calc(100% - variables.$property-item-editor-offset);
+        }
+
+        &-editing {
+            @include display-item-editor();
+        }
+    }
+
+    .thy-property-item-operation {
+        margin-left: 4px;
+        .thy-action + .thy-action {
+            margin-left: 4px;
+        }
+    }
+
+    &.thy-property-item-operational-hover {
+        .thy-property-item-operation {
+            visibility: hidden;
+        }
+
+        .thy-property-item-label,
+        .thy-property-item-wrapper {
+            @include property-item-operation-hover-visible();
         }
     }
 }

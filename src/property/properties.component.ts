@@ -14,8 +14,8 @@ export type ThyPropertiesLayout = 'horizontal' | 'vertical';
         class: 'thy-properties',
         '[class.thy-properties-vertical]': 'layout() === "vertical"',
         '[class.thy-properties-horizontal]': 'layout() === "horizontal"',
-        '[class.thy-properties-edit-trigger-hover]': 'thyEditTrigger() === "hover"',
-        '[class.thy-properties-edit-trigger-click]': 'thyEditTrigger() === "click"',
+        '[class.thy-property-edit-trigger-hover]': 'thyEditTrigger() === "hover"',
+        '[class.thy-property-edit-trigger-click]': 'thyEditTrigger() === "click"',
         '[style.grid-template-columns]': 'gridTemplateColumns()'
     }
 })
