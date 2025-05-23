@@ -14,13 +14,19 @@ import {
     SimpleChanges,
     ViewChild,
     inject,
-    Inject
+    Inject,
+    viewChild,
+    output,
+    input,
+    DestroyRef,
+    effect
 } from '@angular/core';
-
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FileSelectBaseDirective } from './file-select-base';
 import { THY_UPLOAD_DEFAULT_OPTIONS, ThyUploadConfig } from './upload.config';
 import { mimeTypeConvert } from './util';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { ThyFileSelectEvent } from './types';
 
 /**
  * 文件上传组件
@@ -31,40 +37,26 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     selector: '[thyFileSelect],thy-file-select',
     templateUrl: './file-select.component.html'
 })
-export class ThyFileSelect extends FileSelectBaseDirective implements OnChanges, OnDestroy {
+export class ThyFileSelect extends FileSelectBaseDirective {
     /**
      * 文件选择事件
      */
-    @Output() thyOnFileSelect = new EventEmitter();
+    readonly thyOnFileSelect = output<ThyFileSelectEvent>();
 
-    @ViewChild('fileInput', { static: true }) fileInput: ElementRef<HTMLInputElement>;
+    protected readonly fileInput = viewChild<ElementRef<HTMLInputElement>>('fileInput');
 
     /**
      * 文件是否多选
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyMultiple: boolean;
-
-    @Input({ transform: coerceBooleanProperty }) thyAcceptFolder: boolean;
+    readonly thyMultiple = input(false, { transform: coerceBooleanProperty });
 
     /**
-     * 指定文件后缀类型（MIME_Map），例如".xls,xlsx"，"[".doc",".docx"]"
-     * @type Array<string> | string
+     * 是否接受文件夹
      */
-    @Input()
-    set thyAcceptType(value: Array<string> | string) {
-        this.acceptType = mimeTypeConvert(value);
-    }
+    readonly thyAcceptFolder = input(false, { transform: coerceBooleanProperty });
 
-    /**
-     * 文件上传大小限制，单位`kb`，`0`表示没有任何限制
-     */
-    @Input({ transform: numberAttribute })
-    set thySizeThreshold(value: number) {
-        this.sizeThreshold = value;
-    }
-
-    private destroy$ = new Subject<void>();
+    private destroyRef = inject(DestroyRef);
 
     constructor(
         public elementRef: ElementRef,
@@ -75,40 +67,34 @@ export class ThyFileSelect extends FileSelectBaseDirective implements OnChanges,
 
         this.ngZone.runOutsideAngular(() =>
             fromEvent(this.elementRef.nativeElement, 'click')
-                .pipe(takeUntil(this.destroy$))
+                .pipe(takeUntilDestroyed(this.destroyRef))
                 .subscribe(() => {
-                    this.fileInput.nativeElement.click();
+                    this.fileInput().nativeElement.click();
                 })
         );
-    }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes.thyMultiple) {
-            if (changes.thyMultiple.currentValue) {
-                this.fileInput.nativeElement.setAttribute('multiple', '');
+        effect(() => {
+            const multiple = this.thyMultiple();
+            const acceptFolder = this.thyAcceptFolder();
+            const inputElement = this.fileInput().nativeElement;
+            if (multiple) {
+                inputElement.setAttribute('multiple', '');
             } else {
-                this.fileInput.nativeElement.removeAttribute('multiple');
+                inputElement.removeAttribute('multiple');
             }
-        }
-
-        if (changes.thyAcceptFolder) {
-            if (changes.thyAcceptFolder.currentValue) {
-                this.fileInput.nativeElement.setAttribute('webkitdirectory', '');
+            if (acceptFolder) {
+                inputElement.setAttribute('webkitdirectory', '');
             } else {
-                this.fileInput.nativeElement.removeAttribute('webkitdirectory');
+                inputElement.removeAttribute('webkitdirectory');
             }
-        }
+        });
     }
 
     selectFile($event: Event) {
-        const files = this.fileInput.nativeElement.files;
+        const files = this.fileInput().nativeElement.files;
         if (files && files.length > 0) {
             this.selectFiles($event, Array.from(files), this.thyOnFileSelect);
-            this.fileInput.nativeElement.value = '';
+            this.fileInput().nativeElement.value = '';
         }
-    }
-
-    ngOnDestroy(): void {
-        this.destroy$.next();
     }
 }

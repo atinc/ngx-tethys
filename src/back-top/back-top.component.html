@@ -5,6 +5,6 @@
         <thy-icon class="back-top-icon text-muted font-size-lg" thyIconName="arrow-up"></thy-icon>
       </div>
     </ng-template>
-    <ng-template [ngTemplateOutlet]="thyTemplate || defaultContent"></ng-template>
+    <ng-template [ngTemplateOutlet]="thyTemplate() || defaultContent"></ng-template>
   </div>
 }

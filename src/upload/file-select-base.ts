@@ -1,5 +1,5 @@
 import { isNumber } from 'ngx-tethys/util';
-import { Directive, ElementRef, EventEmitter, Input, NgZone, numberAttribute, inject, Inject, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, Input, NgZone, numberAttribute, inject, Inject, input, OutputEmitterRef } from '@angular/core';
 import { ThyFileSelectEvent, ThySizeExceedsHandler } from './types';
 import { THY_UPLOAD_DEFAULT_OPTIONS, ThyUploadConfig } from './upload.config';
 import { mimeTypeConvert } from './util';
@@ -9,58 +9,56 @@ import { mimeTypeConvert } from './util';
  */
 @Directive()
 export class FileSelectBaseDirective {
-    acceptType: string;
-    sizeThreshold: number;
-    sizeExceedsHandler: ThySizeExceedsHandler;
-
-    @Input({ transform: numberAttribute })
-    set thySizeThreshold(value: number) {
-        const sizeThreshold = value;
-        if (isNumber(sizeThreshold)) {
-            this.sizeThreshold = sizeThreshold;
+    readonly thySizeThreshold = input(this.defaultConfig.sizeThreshold, {
+        transform: (inputValue: string | number) => {
+            const sizeThreshold = numberAttribute(inputValue);
+            if (isNumber(sizeThreshold)) {
+                return sizeThreshold;
+            }
+            return this.defaultConfig.sizeThreshold;
         }
-    }
+    });
 
-    @Input() set thySizeExceedsHandler(value: ThySizeExceedsHandler) {
-        if (value) {
-            this.sizeExceedsHandler = value;
+    readonly thySizeExceedsHandler = input(this.defaultConfig.sizeExceedsHandler, {
+        transform: (inputValue: ThySizeExceedsHandler) => {
+            if (inputValue) {
+                return inputValue;
+            }
+            return this.defaultConfig.sizeExceedsHandler;
         }
-    }
+    });
 
     /**
      * 指定文件后缀类型（MIME_Map），例如".xls,xlsx"，"[".doc",".docx"]"
      */
-    @Input()
-    set thyAcceptType(value: Array<string> | string) {
-        this.acceptType = mimeTypeConvert(value);
-    }
+    thyAcceptType = input(mimeTypeConvert(this.defaultConfig.acceptType), {
+        transform: (inputValue: Array<string> | string) => {
+            return mimeTypeConvert(inputValue);
+        }
+    });
 
     constructor(
         public elementRef: ElementRef,
         @Inject(THY_UPLOAD_DEFAULT_OPTIONS) public defaultConfig: ThyUploadConfig
-    ) {
-        this.sizeThreshold = defaultConfig.sizeThreshold;
-        this.sizeExceedsHandler = defaultConfig.sizeExceedsHandler;
-        this.acceptType = mimeTypeConvert(defaultConfig.acceptType);
-    }
+    ) {}
 
     handleSizeExceeds(event: Event, files: File[]) {
-        let sizeExceedsFiles = files.filter(item => item.size / 1024 > this.sizeThreshold);
+        let sizeExceedsFiles = files.filter(item => item.size / 1024 > this.thySizeThreshold());
         if (sizeExceedsFiles.length > 0) {
             const sizeExceedContext = {
                 files: files,
                 exceedsFiles: sizeExceedsFiles,
                 nativeEvent: event,
-                sizeThreshold: this.sizeThreshold
+                sizeThreshold: this.thySizeThreshold()
             };
-            return this.sizeExceedsHandler(sizeExceedContext);
+            return this.thySizeExceedsHandler()(sizeExceedContext);
         }
         return files;
     }
 
-    selectFiles(event: Event, files: File[], eventEmitter: EventEmitter<ThyFileSelectEvent>) {
+    selectFiles(event: Event, files: File[], eventEmitter: OutputEmitterRef<ThyFileSelectEvent>) {
         let successFiles: File[] | void = files;
-        if (this.sizeThreshold && this.sizeThreshold > 0) {
+        if (this.thySizeThreshold() && this.thySizeThreshold() > 0) {
             successFiles = this.handleSizeExceeds(event, files);
         }
         if (successFiles) {
