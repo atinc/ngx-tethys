@@ -57,7 +57,7 @@ export default {
         ok: 'Bestätigen'
     },
     calendar: {
-        today: 'Bitte wählen',
+        today: 'Heute',
         yearMonthFormat: 'yyyy-MM'
     },
     autocomplete: {
