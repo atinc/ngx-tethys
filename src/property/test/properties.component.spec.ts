@@ -192,7 +192,7 @@ describe(`thy-properties`, () => {
             basicComponent.editTrigger = 'hover';
             fixture.detectChanges();
             const element = fixture.debugElement.query(By.css('.thy-properties'));
-            expect(element.nativeElement.classList).toContain('thy-properties-edit-trigger-hover');
+            expect(element.nativeElement.classList).toContain('thy-property-edit-trigger-hover');
         });
 
         it('should set editing success', () => {

@@ -43,7 +43,7 @@
         }
     }
 
-    &.thy-properties-edit-trigger-hover {
+    &.thy-property-edit-trigger-hover {
         .thy-property-item-wrapper {
             &:hover {
                 .thy-property-item-content-editable {
@@ -53,7 +53,7 @@
         }
     }
 
-    &.thy-properties-edit-trigger-click {
+    &.thy-property-edit-trigger-click {
         .thy-property-item-wrapper {
             &:hover {
                 .thy-property-item-content {
@@ -102,8 +102,7 @@
     }
 }
 
-
-.thy-properties-edit-trigger-hover {
+.thy-property-edit-trigger-hover {
     .thy-property-item-wrapper {
         &:hover {
             .thy-property-item-content-editable {
@@ -113,7 +112,7 @@
     }
 }
 
-.thy-properties-edit-trigger-click {
+.thy-property-edit-trigger-click {
     .thy-property-item-wrapper {
         &:hover {
             .thy-property-item-content {
@@ -165,6 +164,20 @@
     display: flex;
     // 添加最小宽度是因为内容区域过多时会超出对应宽度区域
     min-width: 0px;
+
+    &.thy-property-item-single {
+        flex-direction: row;
+        .thy-property-item-label {
+            padding-right: variables.$property-item-padding-x;
+        }
+
+        .thy-property-item-operation {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+    }
+
     .thy-property-item-label {
         display: inline-grid;
         align-items: center;

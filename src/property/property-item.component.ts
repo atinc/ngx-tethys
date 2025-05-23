@@ -39,11 +39,12 @@ export type ThyPropertyItemOperationTrigger = 'hover' | 'always';
     templateUrl: './property-item.component.html',
     host: {
         class: 'thy-property-item',
-        '[class.thy-properties-edit-trigger-hover]': 'thyEditTrigger() === "hover"',
-        '[class.thy-properties-edit-trigger-click]': 'thyEditTrigger() === "click"',
+        '[class.thy-property-edit-trigger-hover]': 'thyEditTrigger() === "hover"',
+        '[class.thy-property-edit-trigger-click]': 'thyEditTrigger() === "click"',
         '[class.thy-property-item-operational]': '!!operation()',
         '[class.thy-property-item-operational-hover]': "thyOperationTrigger() === 'hover'",
-        '[style.grid-column]': 'gridColumn()'
+        '[style.grid-column]': 'gridColumn()',
+        '[class.thy-property-item-single]': '!parent'
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [ThyFlexibleText, NgTemplateOutlet]

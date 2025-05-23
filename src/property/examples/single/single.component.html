@@ -1,14 +1,5 @@
-<!-- <thy-property-item thyEditTrigger="click" (thyEditingChange)="changeEditing($event)" thyEditable="true">
-  <thy-avatar thyName="张萌" thySize="xxs" thyShowName="true"></thy-avatar>
-  <ng-template #editor>
-    <input thyInput thySize="md" placeholder="" />
-  </ng-template>
-  <ng-template #operation>
-    <a href="javascript:;" thyAction thyIcon="publish"></a>
-  </ng-template>
-</thy-property-item> -->
 
-<thy-property-item thyEditTrigger="click" (thyEditingChange)="changeEditing($event)" thyEditable="true">
+<thy-property-item thyLabelText="姓名" thyEditTrigger="click" (thyEditingChange)="changeEditing($event)" thyEditable="true">
   {{ user.name }}
   <ng-template #editor>
     <input class="active" thyInput thySize="md" [(ngModel)]="user.name" />
