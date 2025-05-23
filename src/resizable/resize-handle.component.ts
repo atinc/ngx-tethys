@@ -1,15 +1,4 @@
-import {
-    OnInit,
-    Component,
-    ChangeDetectionStrategy,
-    Input,
-    Output,
-    NgZone,
-    EventEmitter,
-    ElementRef,
-    inject,
-    DestroyRef
-} from '@angular/core';
+import { OnInit, Component, ChangeDetectionStrategy, NgZone, ElementRef, inject, DestroyRef, input, output } from '@angular/core';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { ThyResizeDirection, ThyResizeHandleMouseDownEvent } from './interface';
 import { ThyResizableService } from './resizable.service';
@@ -29,21 +18,21 @@ const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveLis
     exportAs: 'thyResizeHandle',
     template: `
         <ng-content></ng-content>
-        @if (thyLine) {
+        @if (thyLine()) {
             <div class="thy-resizable-handle-line"></div>
         }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-resizable-handle',
-        '[class.thy-resizable-handle-top]': `thyDirection === 'top'`,
-        '[class.thy-resizable-handle-right]': `thyDirection === 'right'`,
-        '[class.thy-resizable-handle-bottom]': `thyDirection === 'bottom'`,
-        '[class.thy-resizable-handle-left]': `thyDirection === 'left'`,
-        '[class.thy-resizable-handle-topRight]': `thyDirection === 'topRight'`,
-        '[class.thy-resizable-handle-bottomRight]': `thyDirection === 'bottomRight'`,
-        '[class.thy-resizable-handle-bottomLeft]': `thyDirection === 'bottomLeft'`,
-        '[class.thy-resizable-handle-topLeft]': `thyDirection === 'topLeft'`,
+        '[class.thy-resizable-handle-top]': `thyDirection() === 'top'`,
+        '[class.thy-resizable-handle-right]': `thyDirection() === 'right'`,
+        '[class.thy-resizable-handle-bottom]': `thyDirection() === 'bottom'`,
+        '[class.thy-resizable-handle-left]': `thyDirection() === 'left'`,
+        '[class.thy-resizable-handle-topRight]': `thyDirection() === 'topRight'`,
+        '[class.thy-resizable-handle-bottomRight]': `thyDirection() === 'bottomRight'`,
+        '[class.thy-resizable-handle-bottomLeft]': `thyDirection() === 'bottomLeft'`,
+        '[class.thy-resizable-handle-topLeft]': `thyDirection() === 'topLeft'`,
         '[class.thy-resizable-handle-box-hover]': 'entered'
     },
     imports: []
@@ -57,17 +46,18 @@ export class ThyResizeHandle implements OnInit {
      * 调整方向
      * @type top | right | bottom | left | topRight | bottomRight | bottomLeft | topLeft
      */
-    @Input() thyDirection: ThyResizeDirection = 'bottomRight';
+    readonly thyDirection = input<ThyResizeDirection>('bottomRight');
 
     /**
      * 是否展示拖拽线
+     * @type boolean
      */
-    @Input({ transform: coerceBooleanProperty }) thyLine = false;
+    readonly thyLine = input(false, { transform: coerceBooleanProperty });
 
     /**
      * MouseDown 回调事件
      */
-    @Output() readonly thyMouseDown = new EventEmitter<ThyResizeHandleMouseDownEvent>();
+    readonly thyMouseDown = output<ThyResizeHandleMouseDownEvent>();
 
     private hostRenderer = useHostRenderer();
 
@@ -92,7 +82,7 @@ export class ThyResizeHandle implements OnInit {
                 .pipe(takeUntilDestroyed(this.destroyRef))
                 .subscribe((event: MouseEvent | TouchEvent) => {
                     this.thyResizableService.handleMouseDownOutsideAngular$.next(
-                        new ThyResizeHandleMouseDownEvent(this.thyDirection, event)
+                        new ThyResizeHandleMouseDownEvent(this.thyDirection(), event)
                     );
                 });
         });
