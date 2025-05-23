@@ -290,21 +290,21 @@ export class ThyResizableDirective implements OnDestroy {
         let minWidth = this.thyMinWidth();
         let boundWidth = Infinity;
         let boundHeight = Infinity;
-        const thyBounds = this.thyBounds();
-        if (thyBounds === 'parent') {
+        const bounds = this.thyBounds();
+        if (bounds === 'parent') {
             const parent = this.renderer.parentNode(this.nativeElement);
             if (parent instanceof HTMLElement) {
                 const parentRect = parent.getBoundingClientRect();
                 boundWidth = parentRect.width;
                 boundHeight = parentRect.height;
             }
-        } else if (thyBounds === 'window') {
+        } else if (bounds === 'window') {
             if (typeof window !== 'undefined') {
                 boundWidth = window.innerWidth;
                 boundHeight = window.innerHeight;
             }
-        } else if (thyBounds && thyBounds.nativeElement && thyBounds.nativeElement instanceof HTMLElement) {
-            const boundsRect = thyBounds.nativeElement.getBoundingClientRect();
+        } else if (bounds && bounds.nativeElement && bounds.nativeElement instanceof HTMLElement) {
+            const boundsRect = bounds.nativeElement.getBoundingClientRect();
             boundWidth = boundsRect.width;
             boundHeight = boundsRect.height;
         }
@@ -312,35 +312,36 @@ export class ThyResizableDirective implements OnDestroy {
         maxWidth = ensureInBounds(this.thyMaxWidth()!, boundWidth);
         maxHeight = ensureInBounds(this.thyMaxHeight()!, boundHeight);
 
-        const thyGridColumnCount = this.thyGridColumnCount();
-        if (thyGridColumnCount !== -1) {
-            spanWidth = maxWidth / thyGridColumnCount;
-            const thyMinColumn = this.thyMinColumn();
-            minWidth = thyMinColumn !== -1 ? spanWidth * thyMinColumn : minWidth;
-            const thyMaxColumn = this.thyMaxColumn();
-            maxWidth = thyMaxColumn !== -1 ? spanWidth * thyMaxColumn : maxWidth;
+        const gridColumnCount = this.thyGridColumnCount();
+        if (gridColumnCount !== -1) {
+            spanWidth = maxWidth / gridColumnCount;
+            const minColumn = this.thyMinColumn();
+            minWidth = minColumn !== -1 ? spanWidth * minColumn : minWidth;
+            const maxColumn = this.thyMaxColumn();
+            maxWidth = maxColumn !== -1 ? spanWidth * maxColumn : maxWidth;
         }
 
+        const minHeight = this.thyMinHeight();
         if (ratio !== -1) {
             if (/(left|right)/i.test(this.currentHandleEvent!.direction)) {
                 newWidth = Math.min(Math.max(width, minWidth), maxWidth);
-                newHeight = Math.min(Math.max(newWidth / ratio, this.thyMinHeight()), maxHeight);
-                if (newHeight >= maxHeight || newHeight <= this.thyMinHeight()) {
+                newHeight = Math.min(Math.max(newWidth / ratio, minHeight), maxHeight);
+                if (newHeight >= maxHeight || newHeight <= minHeight) {
                     newWidth = Math.min(Math.max(newHeight * ratio, minWidth), maxWidth);
                 }
             } else {
-                newHeight = Math.min(Math.max(height, this.thyMinHeight()), maxHeight);
+                newHeight = Math.min(Math.max(height, minHeight), maxHeight);
                 newWidth = Math.min(Math.max(newHeight * ratio, minWidth), maxWidth);
                 if (newWidth >= maxWidth || newWidth <= minWidth) {
-                    newHeight = Math.min(Math.max(newWidth / ratio, this.thyMinHeight()), maxHeight);
+                    newHeight = Math.min(Math.max(newWidth / ratio, minHeight), maxHeight);
                 }
             }
         } else {
             newWidth = Math.min(Math.max(width, minWidth), maxWidth);
-            newHeight = Math.min(Math.max(height, this.thyMinHeight()), maxHeight);
+            newHeight = Math.min(Math.max(height, minHeight), maxHeight);
         }
 
-        if (thyGridColumnCount !== -1) {
+        if (gridColumnCount !== -1) {
             col = Math.round(newWidth / spanWidth);
             newWidth = col * spanWidth;
         }
