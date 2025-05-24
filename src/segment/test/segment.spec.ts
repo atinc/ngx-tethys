@@ -106,19 +106,27 @@ class TestSegmentModeComponent {
     mode: ThySegmentMode = 'block';
 }
 
+const items = [
+    { value: 'member', labelText: '成员' },
+    { value: 'department', labelText: '部门' },
+    { value: 'group', labelText: '用户组' }
+];
+
 @Component({
     selector: 'test-segment-active',
     template: `
         <thy-segment [thyActiveIndex]="selectedIndex" (thySelectChange)="selectedChange($event)">
-            <thy-segment-item thyValue="member">成员</thy-segment-item>
-            <thy-segment-item thyValue="department">部门</thy-segment-item>
-            <thy-segment-item thyValue="group">用户组</thy-segment-item>
+            @for (item of items; track item.value) {
+                <thy-segment-item [thyValue]="item.value">{{ item.labelText }}</thy-segment-item>
+            }
         </thy-segment>
     `,
     imports: [ThySegmentModule]
 })
 class TestSegmentActiveComponent {
     selectedIndex: number = 2;
+
+    items = [...items];
 
     selectedChange(event: ThySegmentEvent) {
         this.selectedIndex = event.activeIndex;
@@ -199,7 +207,7 @@ describe('segment', () => {
         });
 
         it('should default to block mode', () => {
-            expect(segmentedInstance.thyMode).toBe('block');
+            expect(segmentedInstance.thyMode()).toBe('block');
             expect(segmentedElement.classList.contains('thy-segment-block')).toBeTruthy();
         });
     });
@@ -358,12 +366,12 @@ describe('segment', () => {
             const segmentedElement = segmentedDebugElement.nativeElement;
             const segmentedInstance = segmentedDebugElement.componentInstance;
 
-            expect(segmentedInstance.thyMode).toBe('block');
+            expect(segmentedInstance.thyMode()).toBe('block');
             expect(segmentedElement.classList.contains('thy-segment-block')).toBeTruthy();
 
             fixture.debugElement.componentInstance.mode = 'inline';
             fixture.detectChanges();
-            expect(segmentedInstance.thyMode).toBe('inline');
+            expect(segmentedInstance.thyMode()).toBe('inline');
             expect(segmentedElement.classList.contains('thy-segment-block')).toBeFalsy();
         });
     });
@@ -414,20 +422,22 @@ describe('segment', () => {
             expect(spy).not.toHaveBeenCalled();
         });
 
-        it('should change active index when options is changed', fakeAsync(() => {
+        it('should change active index when options is changed', async () => {
             const spy = spyOn(fixture.componentInstance, 'selectedChange');
             segmentedDebugElement.componentInstance.newActiveIndex = 3;
             fixture.detectChanges();
             expect(spy).not.toHaveBeenCalled();
 
+            fixture.debugElement.componentInstance.items = [];
+            fixture.detectChanges();
+            await fixture.whenStable();
             segmentedDebugElement.componentInstance.newActiveIndex = 1;
+            fixture.debugElement.componentInstance.items = [...items];
             fixture.detectChanges();
-            const options = segmentedDebugElement.componentInstance.options;
-            options.changes.next();
-            fixture.detectChanges();
-            const items = segmentedDebugElement.queryAll(By.directive(ThySegmentItem));
-            expect(items[1].nativeElement.classList.contains('active')).toBeTruthy();
-        }));
+            await fixture.whenStable();
+            const segmentItems = segmentedDebugElement.queryAll(By.directive(ThySegmentItem));
+            expect(segmentItems[1].nativeElement.classList.contains('active')).toBeTruthy();
+        });
     });
 
     describe('custom template', () => {

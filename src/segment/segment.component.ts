@@ -1,18 +1,16 @@
 import {
-    AfterContentInit,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    ContentChildren,
     DestroyRef,
-    EventEmitter,
-    HostBinding,
-    Input,
-    Output,
-    QueryList,
     ViewEncapsulation,
     numberAttribute,
-    inject
+    inject,
+    input,
+    signal,
+    effect,
+    output,
+    contentChildren
 } from '@angular/core';
 import { ThumbAnimationProps } from 'ngx-tethys/core';
 import { thumbMotion } from 'ngx-tethys/core';
@@ -47,66 +45,50 @@ export type ThySegmentMode = 'block' | 'inline';
     ],
     host: {
         class: 'thy-segment',
-        '[class.thy-segment-xs]': `thySize === 'xs'`,
-        '[class.thy-segment-sm]': `thySize === 'sm'`,
-        '[class.thy-segment-md]': `thySize === 'md'`,
-        '[class.thy-segment-default]': `!thySize || thySize === 'default'`,
-        '[class.thy-segment-block]': `thyMode === 'block'`
+        '[class.thy-segment-xs]': `thySize() === 'xs'`,
+        '[class.thy-segment-sm]': `thySize() === 'sm'`,
+        '[class.thy-segment-md]': `thySize() === 'md'`,
+        '[class.thy-segment-default]': `!thySize() || thySize() === 'default'`,
+        '[class.thy-segment-block]': `thyMode() === 'block'`,
+        '[class.disabled]': 'thyDisabled()'
     },
     imports: []
 })
-export class ThySegment implements IThySegmentComponent, AfterContentInit {
+export class ThySegment implements IThySegmentComponent {
     private cdr = inject(ChangeDetectorRef);
     private destroyRef = inject(DestroyRef);
 
     /**
      * @internal
      */
-    @ContentChildren(ThySegmentItem) options!: QueryList<ThySegmentItem>;
+    readonly options = contentChildren(ThySegmentItem);
 
     /**
      * 大小
      * @type xs | sm | md | default
      */
-    @Input() thySize: ThySegmentSize = 'default';
+    readonly thySize = input<ThySegmentSize>('default');
 
     /**
      * 模式
      * @type block | inline
      */
-    @Input() thyMode: ThySegmentMode = 'block';
+    readonly thyMode = input<ThySegmentMode>('block');
 
     /**
      * 是否禁用分段控制器
      */
-    @Input({ transform: coerceBooleanProperty })
-    @HostBinding(`class.disabled`)
-    thyDisabled = false;
+    readonly thyDisabled = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 选中选项的索引
      */
-    @Input({ transform: numberAttribute })
-    set thyActiveIndex(value: number) {
-        this.newActiveIndex = value;
-        if (value < 0 || value === this.activeIndex) {
-            return;
-        }
-        setTimeout(() => {
-            const selectedItem = this.options?.get(this.activeIndex);
-            if (selectedItem) {
-                selectedItem.unselect();
-                this.changeSelectedItem(this.options.get(value));
-            } else {
-                this.activeIndex = value;
-            }
-        });
-    }
+    readonly thyActiveIndex = input(undefined, { transform: numberAttribute });
 
     /**
      * 选项被选中的回调事件
      */
-    @Output() readonly thySelectChange = new EventEmitter<ThySegmentEvent>();
+    readonly thySelectChange = output<ThySegmentEvent>();
 
     public selectedItem: ThySegmentItem;
 
@@ -114,42 +96,57 @@ export class ThySegment implements IThySegmentComponent, AfterContentInit {
 
     private activeIndex: number;
 
-    public animationState: null | { value: string; params: ThumbAnimationProps } = null;
+    public animationState = signal<{ value: string; params: ThumbAnimationProps }>(null);
 
     public transitionedTo: any = null;
 
-    ngAfterContentInit(): void {
-        this.selectedItem = this.options.get(this.newActiveIndex) || this.options.get(0);
-        this.selectedItem?.select();
+    constructor() {
+        effect(() => {
+            const value = this.thyActiveIndex();
+            this.newActiveIndex = value;
+            if (value < 0 || value === this.activeIndex) {
+                return;
+            }
+            setTimeout(() => {
+                const options = this.options();
+                const selectedItem = options?.[this.activeIndex];
+                if (selectedItem) {
+                    selectedItem.unselect();
+                    this.changeSelectedItem(options?.[value]);
+                } else {
+                    this.activeIndex = value;
+                }
+            });
+        });
 
-        this.options.changes.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
-            this.options.forEach(item => {
+        effect(() => {
+            const options = this.options();
+            (options || []).forEach(item => {
                 item.unselect();
             });
-            this.selectedItem = this.options.get(this.newActiveIndex) || this.options.get(0);
+            this.selectedItem = options?.[this.newActiveIndex] || options?.[0];
             this.selectedItem?.select();
-            this.cdr.detectChanges();
         });
     }
 
     public changeSelectedItem(item: ThySegmentItem, event?: Event): void {
-        this.animationState = {
+        const options = this.options();
+        this.animationState.set({
             value: 'from',
-            params: getThumbAnimationProps(this.options?.get(this.activeIndex || 0)?.elementRef.nativeElement!)
-        };
+            params: getThumbAnimationProps(options?.[this.activeIndex || 0]?.elementRef.nativeElement!)
+        });
         this.selectedItem = null;
         this.cdr.detectChanges();
 
-        this.animationState = {
+        this.animationState.set({
             value: 'to',
             params: getThumbAnimationProps(item.elementRef.nativeElement!)
-        };
-        this.transitionedTo = item;
-        this.activeIndex = this.options?.toArray().findIndex(option => {
-            return option.thyValue === item?.thyValue;
         });
-        this.thySelectChange.emit({ event: event, value: item.thyValue, activeIndex: this.activeIndex });
-        this.cdr.detectChanges();
+        this.transitionedTo = item;
+        this.activeIndex = options.findIndex(option => {
+            return option.thyValue() === item?.thyValue();
+        });
+        this.thySelectChange.emit({ event: event, value: item.thyValue(), activeIndex: this.activeIndex });
     }
 
     public handleThumbAnimationDone(event: AnimationEvent): void {
@@ -157,8 +154,7 @@ export class ThySegment implements IThySegmentComponent, AfterContentInit {
             this.selectedItem = this.transitionedTo;
             this.selectedItem?.select();
             this.transitionedTo = null;
-            this.animationState = null;
-            this.cdr.detectChanges();
+            this.animationState.set(null);
         }
     }
 }

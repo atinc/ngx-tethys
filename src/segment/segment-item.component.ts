@@ -1,23 +1,22 @@
 import {
-    AfterViewInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
+    DestroyRef,
     ElementRef,
-    HostBinding,
-    Input,
     NgZone,
-    OnDestroy,
     Renderer2,
-    inject
+    afterNextRender,
+    inject,
+    input,
+    signal
 } from '@angular/core';
 import { IThySegmentItemComponent, THY_SEGMENTED_COMPONENT } from './segment.token';
 import { assertIconOnly, coerceBooleanProperty } from 'ngx-tethys/util';
-import { Subject, fromEvent } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { fromEvent } from 'rxjs';
 import { SafeAny } from 'ngx-tethys/types';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgClass } from '@angular/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * 分段控制器的选项组件
@@ -28,39 +27,37 @@ import { NgClass } from '@angular/common';
     templateUrl: './segment-item.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        class: 'thy-segment-item'
+        class: 'thy-segment-item',
+        '[class.disabled]': 'thyDisabled()'
     },
     imports: [NgClass, ThyIcon]
 })
-export class ThySegmentItem implements IThySegmentItemComponent, AfterViewInit, OnDestroy {
+export class ThySegmentItem implements IThySegmentItemComponent {
     elementRef = inject(ElementRef);
     private ngZone = inject(NgZone);
-    private cdr = inject(ChangeDetectorRef);
     private renderer = inject(Renderer2);
     private parent = inject(THY_SEGMENTED_COMPONENT, { optional: true })!;
 
     /**
      * 选项的值
      */
-    @Input() thyValue: SafeAny;
+    readonly thyValue = input<SafeAny>();
 
     /**
      * 选项的图标
      */
-    @Input() thyIcon: string;
+    readonly thyIcon = input<string>();
 
     /**
      * 是否禁用该选项
      */
-    @Input({ transform: coerceBooleanProperty })
-    @HostBinding(`class.disabled`)
-    thyDisabled = false;
+    readonly thyDisabled = input(false, { transform: coerceBooleanProperty });
 
-    public isOnlyIcon: boolean;
+    public isOnlyIcon = signal(false);
 
-    public isWithText: boolean;
+    public isWithText = signal(false);
 
-    private destroy$ = new Subject<void>();
+    private destroyRef = inject(DestroyRef);
 
     constructor() {
         const elementRef = this.elementRef;
@@ -68,9 +65,14 @@ export class ThySegmentItem implements IThySegmentItemComponent, AfterViewInit, 
 
         ngZone.runOutsideAngular(() =>
             fromEvent(elementRef.nativeElement, 'click')
-                .pipe(takeUntil(this.destroy$))
+                .pipe(takeUntilDestroyed(this.destroyRef))
                 .subscribe((event: Event) => {
-                    if (!this.thyDisabled && !this.parent.thyDisabled && this.parent.selectedItem && this.parent.selectedItem !== this) {
+                    if (
+                        !this.thyDisabled() &&
+                        !this.parent.thyDisabled() &&
+                        this.parent.selectedItem &&
+                        this.parent.selectedItem !== this
+                    ) {
                         ngZone.run(() => {
                             this.parent.selectedItem.unselect();
                             this.parent.changeSelectedItem(this, event);
@@ -78,14 +80,12 @@ export class ThySegmentItem implements IThySegmentItemComponent, AfterViewInit, 
                     }
                 })
         );
-    }
 
-    ngAfterViewInit(): void {
-        const labelDiv = this.elementRef.nativeElement.children[0];
-        this.isOnlyIcon = assertIconOnly(labelDiv) && this.parent.thyMode === 'inline';
-        this.cdr.detectChanges();
-
-        this.wrapSpanForText(labelDiv.childNodes);
+        afterNextRender(() => {
+            const labelDiv = this.elementRef.nativeElement.children[0];
+            this.isOnlyIcon.set(assertIconOnly(labelDiv) && this.parent.thyMode() === 'inline');
+            this.wrapSpanForText(labelDiv.childNodes);
+        });
     }
 
     public select(): void {
@@ -106,14 +106,8 @@ export class ThySegmentItem implements IThySegmentItemComponent, AfterViewInit, 
             }
 
             if (node.nodeName === '#text' || node.nodeName === 'SPAN') {
-                this.isWithText = true;
-                this.cdr.detectChanges();
+                this.isWithText.set(true);
             }
         });
-    }
-
-    ngOnDestroy(): void {
-        this.destroy$.next();
-        this.destroy$.complete();
     }
 }
