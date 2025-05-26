@@ -21,7 +21,7 @@ import {
 import { ComponentTypeOrTemplateRef, ThyOverlayDirectiveBase, ThyOverlayTrigger, ThyPlacement } from 'ngx-tethys/core';
 import { ThyPopover, ThyPopoverConfig, ThyPopoverRef } from 'ngx-tethys/popover';
 import { SafeAny } from 'ngx-tethys/types';
-import { coerceArray, coerceBooleanProperty, helpers, isFunction, isTemplateRef, isUndefined } from 'ngx-tethys/util';
+import { coerceArray, coerceBooleanProperty, helpers, isFunction, isTemplateRef, isUndefinedOrNull } from 'ngx-tethys/util';
 import { ThyDropdownMenuComponent } from './dropdown-menu.component';
 
 export type ThyDropdownTrigger = 'click' | 'hover';
@@ -48,10 +48,6 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
     });
 
     private popoverRef: ThyPopoverRef<unknown>;
-
-    private readonly innerPanelClassList: Signal<string[]> = computed(() => {
-        return !isUndefined(this.thyPanelClass()) ? ['thy-dropdown-pane'].concat(coerceArray(this.thyPanelClass())) : ['thy-dropdown-pane'];
-    });
 
     popoverOpened = false;
 
@@ -109,7 +105,10 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
      * 弹出框 overlay panel 的类名
      * @type string | string[]
      */
-    readonly thyPanelClass = input<string | string[]>();
+    readonly thyPanelClass = input<string | string[], string | string[]>(['thy-dropdown-pane'], {
+        transform: (value: string | string[]) =>
+            (!isUndefinedOrNull(value) && ['thy-dropdown-pane'].concat(coerceArray(value))) || ['thy-dropdown-pane']
+    });
 
     /**
      * 菜单 Active 事件，打开菜单返回 true，关闭返回 false
@@ -128,8 +127,12 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
         // TODO: 以下为 overlay 基类中参数，之后需统一修改
         effect(() => {
             this.trigger = (this.thyTrigger() || 'click') as ThyOverlayTrigger;
-            this.hideDelay = this.thyHideDelay() || 100;
-            this.showDelay = this.thyShowDelay() || 100;
+        });
+        effect(() => {
+            this.hideDelay = this.thyHideDelay() ?? 100;
+        });
+        effect(() => {
+            this.showDelay = this.thyShowDelay() ?? 100;
         });
     }
 
@@ -162,7 +165,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
             hasBackdrop: false,
             viewContainerRef: this.viewContainerRef,
             offset: 0,
-            panelClass: this.innerPanelClassList(),
+            panelClass: this.thyPanelClass(),
             placement: thyPlacement ? thyPlacement : placement,
             height,
             outsideClosable,
