@@ -95,17 +95,17 @@ export class ThySlider
     /**
      * 最大值
      */
-    readonly thyMax = input(100, { transform: numberAttribute });
+    readonly thyMax = input<number, unknown>(100, { transform: numberAttribute });
 
     /**
      * 最小值
      */
-    readonly thyMin = input(0, { transform: numberAttribute });
+    readonly thyMin = input<number, unknown>(0, { transform: numberAttribute });
 
     /**
      * 步长，需要被 thyMax - thyMin 的差值整除。
      */
-    readonly thyStep = input(1, { transform: numberAttribute });
+    readonly thyStep = input<number, unknown>(1, { transform: numberAttribute });
 
     /**
      * 切换主题类型

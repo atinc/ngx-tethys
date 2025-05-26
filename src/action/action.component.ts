@@ -4,13 +4,12 @@ import {
     ChangeDetectorRef,
     Component,
     ElementRef,
-    OnChanges,
     OnDestroy,
     OnInit,
     Renderer2,
     Signal,
-    SimpleChanges,
     computed,
+    effect,
     inject,
     input
 } from '@angular/core';
@@ -59,20 +58,18 @@ const defaultFeedbackOptions: Record<ThyActionFeedback, ThyActionFeedbackOptions
     },
     imports: [ThyIcon]
 })
-export class ThyAction implements OnInit, AfterViewInit, OnChanges, OnDestroy {
+export class ThyAction implements OnInit, AfterViewInit, OnDestroy {
     private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
     private renderer = inject(Renderer2);
     private cdr = inject(ChangeDetectorRef);
 
-    public icon: Signal<string> = computed(() => this.thyActionIcon() || this.thyIcon());
+    public readonly icon: Signal<string> = computed(() => this.thyActionIcon() || this.thyIcon());
 
     feedback: ThyActionFeedback = null;
 
     feedbackOptions: ThyActionFeedbackOptions;
 
-    active: Signal<boolean> = computed(() => this.thyActionActive() || this.thyActive());
-
-    private type: Signal<string> = computed(() => this.thyType() || 'primary');
+    readonly active: Signal<boolean> = computed(() => this.thyActionActive() || this.thyActive());
 
     private hostRenderer = useHostRenderer();
 
@@ -82,7 +79,9 @@ export class ThyAction implements OnInit, AfterViewInit, OnChanges, OnDestroy {
      * 操作图标的类型
      * @type primary | success | danger | warning
      */
-    readonly thyType = input<ThyActionType>('primary');
+    readonly thyType = input<ThyActionType, ThyActionType>('primary', {
+        transform: (value: ThyActionType) => value || 'primary'
+    });
 
     /**
      * 操作图标，支持传参同时也支持在投影中写 thy-icon 组件
@@ -128,10 +127,10 @@ export class ThyAction implements OnInit, AfterViewInit, OnChanges, OnDestroy {
         this.wrapSpanForText(this.elementRef.nativeElement.childNodes);
     }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        if ((changes.thyType && !changes.thyType.firstChange) || (changes.thyTheme && !changes.thyTheme.firstChange)) {
+    constructor() {
+        effect(() => {
             this.updateClasses();
-        }
+        });
     }
 
     setMarginRight(marginRight: string) {
@@ -186,7 +185,7 @@ export class ThyAction implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 
     private updateClasses() {
         let classNames: string[] = [];
-        classNames.push(`action-${this.type()}`);
+        classNames.push(`action-${this.thyType()}`);
         if (this.thyTheme() === 'lite') {
             classNames.push('thy-action-lite');
         }
