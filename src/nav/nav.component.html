@@ -1,6 +1,6 @@
-<div class="thy-nav-list" [ngClass]="horizontal ? 'justify-content-' + horizontal : ''" #navList>
+<div class="thy-nav-list" [ngClass]="horizontal() ? 'justify-content-' + horizontal() : ''" #navList>
   <ng-container [ngTemplateOutlet]="content"></ng-container>
-  @if (thyResponsive) {
+  @if (thyResponsive()) {
     <a
       href="javascript:;"
       class="thy-nav-more-container"
@@ -10,25 +10,25 @@
       thyNavLink
       [thyNavItemActive]="moreActive"
       (click)="openMoreMenu($event, navListPopover)">
-      @if (moreOperation) {
-        <ng-container [ngTemplateOutlet]="moreOperation"></ng-container>
+      @if (moreOperation()) {
+        <ng-container [ngTemplateOutlet]="moreOperation()"></ng-container>
       } @else {
         {{ locale().more }}
         <thy-icon thyIconName="angle-down" class="thy-nav-more-icon"></thy-icon>
       }
     </a>
   }
-  @if (thyExtra || extra) {
+  @if (thyExtra() || extra()) {
     <div class="thy-nav-extra">
-      <ng-container [ngTemplateOutlet]="thyExtra || extra"></ng-container>
+      <ng-container [ngTemplateOutlet]="thyExtra() || extra()"></ng-container>
     </div>
   }
-  <thy-nav-ink-bar [showInkBar]="showInkBar" [isVertical]="thyVertical"></thy-nav-ink-bar>
+  <thy-nav-ink-bar [showInkBar]="showInkBar" [isVertical]="thyVertical()"></thy-nav-ink-bar>
 </div>
 
 <ng-template #navListPopover>
-  @if (morePopover) {
-    <ng-container [ngTemplateOutlet]="morePopover" [ngTemplateOutletContext]="{ $implicit: hiddenItems }"></ng-container>
+  @if (morePopover()) {
+    <ng-container [ngTemplateOutlet]="morePopover()" [ngTemplateOutletContext]="{ $implicit: hiddenItems }"></ng-container>
   } @else {
     <thy-dropdown-menu thyImmediateRender>
       @for (item of hiddenItems; track $index) {

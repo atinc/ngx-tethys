@@ -3,6 +3,7 @@ import { fromEvent, Subject } from 'rxjs';
 import { filter, takeUntil, tap } from 'rxjs/operators';
 
 import {
+    DestroyRef,
     Directive,
     ElementRef,
     EventEmitter,
@@ -10,41 +11,44 @@ import {
     Inject,
     Input,
     NgZone,
-    OnDestroy,
     OnInit,
     Output,
     Renderer2,
-    inject
+    inject,
+    input,
+    output,
+    signal
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { FileSelectBaseDirective } from './file-select-base';
 import { THY_UPLOAD_DEFAULT_OPTIONS, ThyUploadConfig } from './upload.config';
+import { ThyFileSelectEvent } from './types';
 
 /**
  * @name thyFileDrop
  */
 @Directive({
-    selector: '[thyFileDrop]'
-})
-export class ThyFileDropDirective extends FileSelectBaseDirective implements OnInit, OnDestroy {
-    @HostBinding('class.drop-over')
-    @HostBinding('class.thy-drop-over')
-    isDragOver = false;
-    private dragOverCustomClass: string;
-
-    @Input() set thyFileDropClassName(value: string) {
-        this.dragOverCustomClass = value;
+    selector: '[thyFileDrop]',
+    host: {
+        '[class.thy-drop-over]': 'isDragOver()',
+        '[class.drop-over]': 'isDragOver()'
     }
+})
+export class ThyFileDropDirective extends FileSelectBaseDirective implements OnInit {
+    protected isDragOver = signal(false);
 
-    @Output() thyOnDrop = new EventEmitter();
+    readonly thyFileDropClassName = input<string>();
+
+    readonly thyOnDrop = output<ThyFileSelectEvent>();
 
     /**
      * 当拖拽的文件中有不符合 thyAcceptType 中定义的类型时触发
      * @description.en-us It is triggered when there are files in the dragged files that do not conform to the types defined in thyAcceptType.
      */
-    @Output() thyFilesReject = new EventEmitter<File[]>();
+    thyFilesReject = output<File[]>();
 
-    private ngUnsubscribe$ = new Subject<void>();
+    private destroyRef = inject(DestroyRef);
 
     constructor(
         public elementRef: ElementRef,
@@ -59,7 +63,7 @@ export class ThyFileDropDirective extends FileSelectBaseDirective implements OnI
         this.ngZone.runOutsideAngular(() => {
             fromEvent(this.elementRef.nativeElement, 'dragenter')
                 .pipe(
-                    takeUntil(this.ngUnsubscribe$),
+                    takeUntilDestroyed(this.destroyRef),
                     tap((event: DragEvent) => {
                         event.preventDefault();
                     }),
@@ -70,7 +74,7 @@ export class ThyFileDropDirective extends FileSelectBaseDirective implements OnI
                         const files = this.filterFilesOrItems(Array.from(event.dataTransfer.items));
                         if (!isEmpty(files)) {
                             this.ngZone.run(() => {
-                                this.isDragOver = true;
+                                this.isDragOver.set(true);
                                 this.toggleDropOverClassName();
                             });
                         }
@@ -78,13 +82,13 @@ export class ThyFileDropDirective extends FileSelectBaseDirective implements OnI
                 });
 
             fromEvent(this.elementRef.nativeElement, 'dragover')
-                .pipe(takeUntil(this.ngUnsubscribe$))
+                .pipe(takeUntilDestroyed(this.destroyRef))
                 .subscribe((event: any) => {
                     event.preventDefault();
                 });
 
             fromEvent(this.elementRef.nativeElement, 'dragleave')
-                .pipe(takeUntil(this.ngUnsubscribe$))
+                .pipe(takeUntilDestroyed(this.destroyRef))
                 .subscribe((event: any) => {
                     this.ngZone.run(() => {
                         if (!this.elementRef.nativeElement.contains(event.fromElement)) {
@@ -96,7 +100,7 @@ export class ThyFileDropDirective extends FileSelectBaseDirective implements OnI
 
             fromEvent(this.elementRef.nativeElement, 'drop')
                 .pipe(
-                    takeUntil(this.ngUnsubscribe$),
+                    takeUntilDestroyed(this.destroyRef),
                     tap((event: DragEvent) => {
                         event.preventDefault();
                     })
@@ -149,10 +153,11 @@ export class ThyFileDropDirective extends FileSelectBaseDirective implements OnI
     }
 
     private filterFilesOrItems(items: Array<DataTransferItem | File>): Array<DataTransferItem | File> {
-        if (this.acceptType && this.acceptType != '*/*') {
+        const acceptType = this.thyAcceptType();
+        if (acceptType && acceptType != '*/*') {
             return items.filter(item => {
                 const isValidType = isString(item.type) && item.type.length > 0;
-                return isValidType && this.acceptType.includes(item.type);
+                return isValidType && acceptType.includes(item.type);
             });
         } else {
             return Array.from(items);
@@ -160,25 +165,16 @@ export class ThyFileDropDirective extends FileSelectBaseDirective implements OnI
     }
 
     private toggleDropOverClassName() {
-        if (this.dragOverCustomClass) {
-            if (this.isDragOver) {
-                this.renderer.addClass(this.elementRef.nativeElement, this.dragOverCustomClass);
+        const dragOverCustomClass = this.thyFileDropClassName();
+        if (dragOverCustomClass) {
+            if (this.isDragOver()) {
+                this.renderer.addClass(this.elementRef.nativeElement, dragOverCustomClass);
             } else {
-                this.renderer.removeClass(this.elementRef.nativeElement, this.dragOverCustomClass);
+                this.renderer.removeClass(this.elementRef.nativeElement, dragOverCustomClass);
             }
         }
     }
-
-    private setDragOverState(isDragOver: boolean) {
-        this.isDragOver = isDragOver;
-    }
-
     private resetDragOver() {
-        this.setDragOverState(false);
-    }
-
-    public ngOnDestroy(): void {
-        this.ngUnsubscribe$.next();
-        this.ngUnsubscribe$.complete();
+        this.isDragOver.set(false);
     }
 }

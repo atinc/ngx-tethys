@@ -4,19 +4,8 @@ import { ThyRadio } from 'ngx-tethys/radio';
 import { ThyStopPropagationDirective } from 'ngx-tethys/shared';
 import { SafeAny } from 'ngx-tethys/types';
 import { NgTemplateOutlet } from '@angular/common';
-import {
-    ChangeDetectionStrategy,
-    Component,
-    EventEmitter,
-    HostBinding,
-    Input,
-    OnInit,
-    Output,
-    TemplateRef,
-    ViewEncapsulation
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, Signal, TemplateRef, ViewEncapsulation, computed, input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
 import { ThyCascaderOption } from './types';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
@@ -29,47 +18,36 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: '[thy-cascader-option]',
     templateUrl: './cascader-li.component.html',
-    imports: [ThyFlexibleText, ThyCheckbox, ThyRadio, FormsModule, ThyStopPropagationDirective, NgTemplateOutlet]
+    imports: [ThyFlexibleText, ThyCheckbox, ThyRadio, FormsModule, ThyStopPropagationDirective, NgTemplateOutlet],
+    host: {
+        class: 'd-flex thy-cascader-menu-item',
+        '[class.thy-cascader-menu-item-active]': 'active()',
+        '[class.thy-cascader-menu-item-disabled]': 'disabled()',
+        '[class.thy-cascader-menu-item-expand]': 'expand()'
+    }
 })
 export class ThyCascaderOptionComponent implements OnInit {
-    @Input() option: ThyCascaderOption;
+    readonly option = input<ThyCascaderOption>();
 
-    @Input({ transform: coerceBooleanProperty })
-    multiple = false;
+    readonly multiple = input(false, { transform: coerceBooleanProperty });
 
-    @Input({ transform: coerceBooleanProperty })
-    isOnlySelectLeaf = true;
+    readonly isOnlySelectLeaf = input(true, { transform: coerceBooleanProperty });
 
-    @Input()
-    optionRender: TemplateRef<SafeAny>;
+    readonly optionRender = input<TemplateRef<SafeAny>>();
 
-    @HostBinding('class') class = 'd-flex';
+    readonly active = input(false, { transform: coerceBooleanProperty });
 
-    @HostBinding('class.thy-cascader-menu-item') item = true;
+    readonly halfSelected = input(false, { transform: coerceBooleanProperty });
 
-    @HostBinding('class.thy-cascader-menu-item-active')
-    @Input({ transform: coerceBooleanProperty })
-    active: boolean = false;
+    readonly selected = input(false, { transform: coerceBooleanProperty });
 
-    @Input({ transform: coerceBooleanProperty })
-    halfSelected = false;
+    readonly disabled: Signal<boolean> = computed(() => this.option().disabled);
 
-    @Input({ transform: coerceBooleanProperty })
-    selected: boolean = false;
+    readonly expand: Signal<boolean> = computed(() => this.option() && !this.option().isLeaf);
 
-    @HostBinding('class.thy-cascader-menu-item-disabled')
-    get disabled() {
-        return this.option.disabled;
-    }
+    readonly labelProperty = input<string>('label');
 
-    @HostBinding('class.thy-cascader-menu-item-expand')
-    get expand() {
-        return this.option && !this.option.isLeaf;
-    }
-
-    @Input() labelProperty: string = 'label';
-
-    @Output() toggleSelectChange: EventEmitter<boolean> = new EventEmitter();
+    readonly toggleSelectChange = output<boolean>();
 
     constructor() {}
 

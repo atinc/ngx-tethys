@@ -1,11 +1,11 @@
-import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit, Signal, ViewContainerRef, inject } from '@angular/core';
+import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject, input, model, OnInit, Signal, ViewContainerRef } from '@angular/core';
+import { injectLocale, ThyColorPickerLocale } from 'ngx-tethys/i18n';
+import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyPopover, ThyPopoverRef } from 'ngx-tethys/popover';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { ThyColorPickerCustomPanel } from './color-picker-custom-panel.component';
 import { ThyColor } from './helpers/color.class';
-import { ThyIcon } from 'ngx-tethys/icon';
-import { NgClass, NgTemplateOutlet, NgStyle } from '@angular/common';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
-import { injectLocale, ThyColorPickerLocale } from 'ngx-tethys/i18n';
 
 /**
  * @internal
@@ -15,7 +15,8 @@ import { injectLocale, ThyColorPickerLocale } from 'ngx-tethys/i18n';
     templateUrl: './color-picker-panel.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        '[class.pt-4]': '!transparentColorSelectable'
+        '[class.pt-4]': '!transparentColorSelectable()',
+        '[class.thy-color-picker-panel]': 'true'
     },
     imports: [NgClass, NgTemplateOutlet, ThyIcon, NgStyle]
 })
@@ -25,25 +26,19 @@ export class ThyColorPickerPanel implements OnInit {
     private thyPopoverRef = inject<ThyPopoverRef<ThyColorPickerPanel>>(ThyPopoverRef);
     locale: Signal<ThyColorPickerLocale> = injectLocale('colorPicker');
 
-    @HostBinding('class.thy-color-picker-panel') className = true;
+    readonly color = model<string>();
 
-    @Input() color: string;
+    readonly colorChange = input<(color: string) => {}>();
 
-    @Input() colorChange: (color: string) => {};
+    readonly defaultColor = input<string, string>('', {
+        transform: (value: string) => {
+            return (value && new ThyColor(value).toHexString(true)) || '';
+        }
+    });
 
-    @Input() set defaultColor(value: string) {
-        this.customDefaultColor = value;
-    }
+    readonly transparentColorSelectable = input(false, { transform: coerceBooleanProperty });
 
-    get defaultColor() {
-        return new ThyColor(this.customDefaultColor).toHexString(true);
-    }
-
-    @Input({ transform: coerceBooleanProperty }) transparentColorSelectable: boolean;
-
-    @Input() defaultColors: string[];
-
-    public customDefaultColor: string;
+    readonly defaultColors = input<string[]>();
 
     recentColors: string[] = [];
 
@@ -59,8 +54,8 @@ export class ThyColorPickerPanel implements OnInit {
     }
 
     selectColor(color: string) {
-        this.color = color;
-        this.colorChange(this.color);
+        this.color.set(color);
+        this.colorChange()(this.color());
         this.thyPopoverRef.close();
     }
 
@@ -76,10 +71,10 @@ export class ThyColorPickerPanel implements OnInit {
                 viewContainerRef: this.viewContainerRef,
                 originActiveClass: 'thy-color-picker-active',
                 initialState: {
-                    color: this.color,
+                    color: this.color(),
                     pickerColorChange: (value: string) => {
                         this.newColor = value;
-                        this.colorChange(value);
+                        this.colorChange()(value);
                     }
                 }
             });

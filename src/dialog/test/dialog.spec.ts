@@ -179,7 +179,7 @@ describe('ThyDialog', () => {
 
         const initialState = { value: 'Knees' };
 
-        const dialogRef = dialog.open(templateRefFixture.componentInstance.templateRef, { initialState });
+        const dialogRef = dialog.open(templateRefFixture.componentInstance.templateRef(), { initialState });
 
         viewContainerFixture.detectChanges();
 

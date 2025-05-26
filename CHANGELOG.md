@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [19.1.0-next.0](https://github.com/atinc/ngx-tethys/compare/19.0.12...19.1.0-next.0) (2025-05-23)
+
+
+### Bug Fixes
+
+* **property:** remove oninit to subscribe click #TINFR-1760 ([#3451](https://github.com/atinc/ngx-tethys/issues/3451)) ([e2e81de](https://github.com/atinc/ngx-tethys/commit/e2e81de6dd6d26485b03601430559c526e0fd3b8)), closes [#TINFR-1760](https://github.com/atinc/ngx-tethys/issues/TINFR-1760)
+
+
+### Features
+
+* **badge:** migrate to signal for badge  [@wumeimin](https://github.com/wumeimin) ([#3412](https://github.com/atinc/ngx-tethys/issues/3412)) ([79d0b83](https://github.com/atinc/ngx-tethys/commit/79d0b83657b472135b74fa7d7aaa2450f2e26ee7))
+* **calendar:** migrate to signal for calendar [@wumeimin](https://github.com/wumeimin) ([#3411](https://github.com/atinc/ngx-tethys/issues/3411)) ([16b11d2](https://github.com/atinc/ngx-tethys/commit/16b11d285b7fe8a8d81f96f87d6168b726e4dfc2))
+* **colorPicker:** migrate to signal for colorPicker ([#3450](https://github.com/atinc/ngx-tethys/issues/3450)) ([a58d1ae](https://github.com/atinc/ngx-tethys/commit/a58d1ae3c76be93bc8ca98a80a1a1e87b3b7c4a7))
+* **i18n:** unify placeholder and empty text in drop-down components #TINFR-2111 ([#3454](https://github.com/atinc/ngx-tethys/issues/3454)) ([4c166a6](https://github.com/atinc/ngx-tethys/commit/4c166a66bed4f7a1af6bdf26ecbfe19221d4a74d)), closes [#TINFR-2111](https://github.com/atinc/ngx-tethys/issues/TINFR-2111)
+* **menu:** migrate to signal for menu ([#3439](https://github.com/atinc/ngx-tethys/issues/3439)) ([aa865a6](https://github.com/atinc/ngx-tethys/commit/aa865a6214add62db48d1de0737234df21895008))
+* **property:** thy-property-item support single without  thy-properties #TINFR-2098 ([#3453](https://github.com/atinc/ngx-tethys/issues/3453)) ([d88df2c](https://github.com/atinc/ngx-tethys/commit/d88df2ca611a6741f6060b1acd4e122347e8ef27)), closes [#TINFR-2098](https://github.com/atinc/ngx-tethys/issues/TINFR-2098)
+* **slider:** migrate to signal for slider ([#3431](https://github.com/atinc/ngx-tethys/issues/3431)) ([02b31f1](https://github.com/atinc/ngx-tethys/commit/02b31f114d35b6b2d222c591122becffc3c69aef))
+* **stepper:** migrate to signal for stepper  #TINFR-1774 ([#3417](https://github.com/atinc/ngx-tethys/issues/3417)) ([70d3e96](https://github.com/atinc/ngx-tethys/commit/70d3e961e4f5cfdd48d94bb1f6a3ab20e9d46c37)), closes [#TINFR-1774](https://github.com/atinc/ngx-tethys/issues/TINFR-1774)
+
+
+
 ## [19.0.12](https://github.com/atinc/ngx-tethys/compare/19.0.11...19.0.12) (2025-05-14)
 
 

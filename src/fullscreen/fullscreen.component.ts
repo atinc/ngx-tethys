@@ -1,10 +1,8 @@
-import { Component, ContentChild, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, inject } from '@angular/core';
-import { EMPTY, fromEvent, Subject } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
-
+import { Component, ElementRef, OnDestroy, OnInit, contentChild, effect, inject, input, output } from '@angular/core';
 import { ThyFullscreen } from './fullscreen.service';
 import { ThyFullscreenMode } from './fullscreen.config';
 import { ThyFullscreenLaunchDirective } from './fullscreen-launch.directive';
+import { EMPTY, fromEvent, Subject, switchMap, takeUntil } from 'rxjs';
 
 /**
  * 全屏组件，将某一区域进行全屏展示，支持组件`thy-fullscreen`和`thyFullscreen`指令两种形式
@@ -22,27 +20,32 @@ export class ThyFullscreenComponent implements OnInit, OnDestroy {
     /**
      * immersive 模式使用了浏览器提供的全屏，整个窗体都全屏，emulated 模式为仿真的，只会在 body 区域全屏
      * @type immersive | emulated
-     * @default immersive
      */
-    @Input() thyMode: ThyFullscreenMode = ThyFullscreenMode.immersive;
+    readonly thyMode = input<ThyFullscreenMode>(ThyFullscreenMode.immersive);
 
     /**
      * 打开全屏时需要添加的类名
      */
-    @Input() thyFullscreenClasses: string;
+    readonly thyFullscreenClasses = input<string>();
 
     /**
      * 全屏之后的回调
      */
-    @Output() thyFullscreenChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+    readonly thyFullscreenChange = output<boolean>();
 
-    @ContentChild(ThyFullscreenLaunchDirective, { read: ElementRef, static: false })
-    set fullscreenLaunch(fullscreenLaunch: ElementRef<HTMLButtonElement> | undefined) {
-        this.fullscreenLaunch$.next(fullscreenLaunch);
-    }
+    readonly fullscreenLaunch = contentChild<ThyFullscreenLaunchDirective, ElementRef>(ThyFullscreenLaunchDirective, {
+        read: ElementRef
+    });
 
     private ngUnsubscribe$ = new Subject<void>();
+
     private fullscreenLaunch$ = new Subject<ElementRef<HTMLButtonElement> | undefined>();
+
+    constructor() {
+        effect(() => {
+            this.fullscreenLaunch$.next(this.fullscreenLaunch());
+        });
+    }
 
     ngOnInit(): void {
         this.fullscreenLaunch$
@@ -63,9 +66,9 @@ export class ThyFullscreenComponent implements OnInit, OnDestroy {
             this.service.exit();
         } else {
             const fullscreenRef = this.service.launch({
-                mode: this.thyMode,
+                mode: this.thyMode(),
                 target: targetElement,
-                targetLaunchedClass: this.thyFullscreenClasses,
+                targetLaunchedClass: this.thyFullscreenClasses(),
                 emulatedContainer: containerElement
             });
 
@@ -79,5 +82,6 @@ export class ThyFullscreenComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.ngUnsubscribe$.next();
+        this.ngUnsubscribe$.complete();
     }
 }

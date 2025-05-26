@@ -2,7 +2,7 @@
   <button thyButton (click)="operationTrigger = 'always'" [ngClass]="{ active: operationTrigger === 'always' }">Always</button>
   <button thyButton (click)="operationTrigger = 'hover'" [ngClass]="{ active: operationTrigger === 'hover' }">Hover</button>
 </thy-button-group>
-
+<thy-divider thyText="水平布局"></thy-divider>
 <thy-properties>
   <thy-property-item [thyOperationTrigger]="operationTrigger" thyLabelText="标题" thyEditable="true">
     这是一个标题

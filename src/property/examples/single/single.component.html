@@ -1,0 +1,21 @@
+
+<thy-property-item thyLabelText="姓名" thyEditTrigger="click" (thyEditingChange)="changeEditing($event)" thyEditable="true">
+  {{ user.name }}
+  <ng-template #editor>
+    <input class="active" thyInput thySize="md" [(ngModel)]="user.name" />
+  </ng-template>
+</thy-property-item>
+
+<thy-property-item thyEditTrigger="hover" (thyEditingChange)="changeEditing($event)" thyEditable="true">
+  {{ user.age }}
+  <ng-template #editor>
+    <thy-input-number
+      #number
+      thySize="md"
+      [(ngModel)]="user.age"
+      [thyAutoFocus]="true"
+      thyPrecision="0"
+      [thyMax]="100"
+      [thyStep]="1"></thy-input-number>
+  </ng-template>
+</thy-property-item>

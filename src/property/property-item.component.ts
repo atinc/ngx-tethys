@@ -39,18 +39,21 @@ export type ThyPropertyItemOperationTrigger = 'hover' | 'always';
     templateUrl: './property-item.component.html',
     host: {
         class: 'thy-property-item',
+        '[class.thy-property-edit-trigger-hover]': 'thyEditTrigger() === "hover"',
+        '[class.thy-property-edit-trigger-click]': 'thyEditTrigger() === "click"',
         '[class.thy-property-item-operational]': '!!operation()',
         '[class.thy-property-item-operational-hover]': "thyOperationTrigger() === 'hover'",
-        '[style.grid-column]': 'gridColumn()'
+        '[style.grid-column]': 'gridColumn()',
+        '[class.thy-property-item-single]': '!parent'
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [ThyFlexibleText, NgTemplateOutlet]
 })
-export class ThyPropertyItem implements OnInit, OnDestroy {
+export class ThyPropertyItem implements OnDestroy {
     private clickDispatcher = inject(ThyClickDispatcher);
     private ngZone = inject(NgZone);
     private overlayOutsideClickDispatcher = inject(OverlayOutsideClickDispatcher);
-    private parent = inject(ThyProperties);
+    private parent = inject(ThyProperties, { optional: true });
 
     /**
      * 属性名称
@@ -71,6 +74,12 @@ export class ThyPropertyItem implements OnInit, OnDestroy {
      * @type number
      */
     readonly thySpan = input(1, { transform: numberAttribute });
+
+    /**
+     * 设置编辑状态触发方法
+     * @type 'hover' | 'click'
+     */
+    readonly thyEditTrigger = input<'hover' | 'click'>();
 
     /**
      * 设置属性操作现实触发方式，默认 always 一直显示
@@ -121,7 +130,7 @@ export class ThyPropertyItem implements OnInit, OnDestroy {
     private clickEventSubscription: Subscription;
 
     protected readonly gridColumn = computed(() => {
-        return `span ${Math.min(this.thySpan(), this.parent.thyColumn())}`;
+        return `span ${Math.min(this.thySpan(), this.parent?.thyColumn())}`;
     });
 
     isVertical = signal(false);
@@ -145,13 +154,9 @@ export class ThyPropertyItem implements OnInit, OnDestroy {
         });
 
         effect(() => {
-            const layout = this.parent.layout();
+            const layout = this.parent?.layout();
             this.isVertical.set(layout === 'vertical');
         });
-    }
-
-    ngOnInit() {
-        this.subscribeClick();
     }
 
     setEditing(editing: boolean) {
@@ -180,11 +185,13 @@ export class ThyPropertyItem implements OnInit, OnDestroy {
                 if (this.clickEventSubscription) {
                     return;
                 }
-                this.clickEventSubscription = fromEvent(this.itemContent().nativeElement, 'click')
+                const itemElement = this.itemContent().nativeElement;
+                this.clickEventSubscription = fromEvent(itemElement, 'click')
                     .pipe(takeUntil(this.eventDestroy$))
                     .subscribe(() => {
                         this.setEditing(true);
-                        this.bindEditorBlurEvent(this.itemContent().nativeElement);
+                        this.bindEditorBlurEvent(itemElement);
+                        itemElement.querySelector('input')?.focus();
                     });
             });
         }
