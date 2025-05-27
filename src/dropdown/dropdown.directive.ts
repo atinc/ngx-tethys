@@ -6,19 +6,22 @@ import {
     Directive,
     ElementRef,
     EventEmitter,
-    Input,
     NgZone,
     OnInit,
     Output,
+    Signal,
     TemplateRef,
     ViewContainerRef,
-    numberAttribute,
-    inject
+    computed,
+    effect,
+    inject,
+    input,
+    numberAttribute
 } from '@angular/core';
 import { ComponentTypeOrTemplateRef, ThyOverlayDirectiveBase, ThyOverlayTrigger, ThyPlacement } from 'ngx-tethys/core';
 import { ThyPopover, ThyPopoverConfig, ThyPopoverRef } from 'ngx-tethys/popover';
 import { SafeAny } from 'ngx-tethys/types';
-import { coerceArray, coerceBooleanProperty, helpers, isFunction, isTemplateRef } from 'ngx-tethys/util';
+import { coerceArray, coerceBooleanProperty, helpers, isFunction, isTemplateRef, isUndefinedOrNull } from 'ngx-tethys/util';
 import { ThyDropdownMenuComponent } from './dropdown-menu.component';
 
 export type ThyDropdownTrigger = 'click' | 'hover';
@@ -40,89 +43,72 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
     private viewContainerRef = inject(ViewContainerRef);
     private popover = inject(ThyPopover);
 
-    menu!: ThyDropdownMenu;
+    readonly menu: Signal<ThyDropdownMenu> = computed(() => {
+        return (this.thyDropdownMenu() || this.thyDropdown())!;
+    });
 
     private popoverRef: ThyPopoverRef<unknown>;
-
-    private innerPanelClassList: string[] = ['thy-dropdown-pane'];
 
     popoverOpened = false;
 
     /**
      * Dropdown 下拉菜单，支持 thy-dropdown-menu 组件、TemplateRef 和自定义菜单组件
      */
-    @Input() set thyDropdownMenu(menu: ThyDropdownMenu) {
-        this.menu = menu;
-    }
+    readonly thyDropdownMenu = input<ThyDropdownMenu>();
 
     /**
      * Dropdown 下拉菜单组件，和 thyDropdownMenu 参与相同，快捷传下拉菜单组件参数
      */
-    @Input() set thyDropdown(menu: ThyDropdownMenu) {
-        this.menu = menu;
-    }
+    readonly thyDropdown = input<ThyDropdownMenu>();
 
     /**
      * 下拉菜单触发方式
      * @type 'hover' | 'focus' | 'click' | string
      * @default click
      */
-    @Input() set thyTrigger(value: ThyOverlayTrigger | string) {
-        this.trigger = value as ThyOverlayTrigger;
-    }
+    readonly thyTrigger = input<ThyOverlayTrigger | string>('click');
 
     /**
      * 打开延迟毫秒
-     * @default 100
      */
-    @Input({ transform: numberAttribute })
-    set thyShowDelay(value: number) {
-        this.showDelay = value;
-    }
+    readonly thyShowDelay = input(100, { transform: numberAttribute });
 
     /**
      * 关闭延迟毫秒
-     * @default 100
      */
-    @Input({ transform: numberAttribute })
-    set thyHideDelay(value: number) {
-        this.hideDelay = value;
-    }
+    readonly thyHideDelay = input(100, { transform: numberAttribute });
 
     /**
      * 弹出菜单后的当前触发元素的激活样式类
      */
-    @Input() thyActiveClass: string = 'thy-dropdown-origin-active';
+    readonly thyActiveClass = input<string, string>('thy-dropdown-origin-active', {
+        transform: (value: string) => value || 'thy-dropdown-origin-active'
+    });
 
     /**
      * 弹出框的参数，底层使用 Popover 组件, 默认为`{ placement: "bottomLeft", insideClosable: true, minWidth: "240px", outsideClosable: true }`
-     * @default { placement: "bottomLeft", insideClosable: true, minWidth: "240px", outsideClosable: true }
      */
-    @Input() thyPopoverOptions: Pick<ThyPopoverConfig, 'placement' | 'height' | 'insideClosable' | 'minWidth' | 'outsideClosable'>;
+    readonly thyPopoverOptions =
+        input<Pick<ThyPopoverConfig, 'placement' | 'height' | 'insideClosable' | 'minWidth' | 'outsideClosable'>>();
 
     /**
      * 弹出框的显示位置，会覆盖 thyPopoverOptions 中的 placement，`top` | `topLeft` | `topRight` | `bottom` | `bottomLeft` | `bottomRight` | `left` | `leftTop` | `leftBottom` | `right` | `rightTop` | `rightBottom`
-     * @default bottomLeft
      */
-    @Input() thyPlacement: ThyPlacement;
+    readonly thyPlacement = input<ThyPlacement, ThyPlacement>('bottomLeft', { transform: (value: ThyPlacement) => value || 'bottomLeft' });
 
     /**
      * 点击 dropdown-menu 内部是否关闭弹出框，会覆盖 thyPopoverOptions 中的 insideClosable
-     * @default true
      */
-    @Input({ transform: coerceBooleanProperty }) thyMenuInsideClosable: boolean;
+    readonly thyMenuInsideClosable = input(true, { transform: coerceBooleanProperty });
 
     /**
      * 弹出框 overlay panel 的类名
      * @type string | string[]
      */
-    @Input() set thyPanelClass(value: string | string[]) {
-        this.innerPanelClassList = this.innerPanelClassList.concat(coerceArray(value));
-    }
-
-    get thyPanelClass() {
-        return this.innerPanelClassList;
-    }
+    readonly thyPanelClass = input<string | string[], string | string[]>(['thy-dropdown-pane'], {
+        transform: (value: string | string[]) =>
+            (!isUndefinedOrNull(value) && ['thy-dropdown-pane'].concat(coerceArray(value))) || ['thy-dropdown-pane']
+    });
 
     /**
      * 菜单 Active 事件，打开菜单返回 true，关闭返回 false
@@ -137,6 +123,17 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
         const changeDetectorRef = inject(ChangeDetectorRef);
 
         super(elementRef, platform, focusMonitor, ngZone, true, changeDetectorRef);
+
+        // TODO: 以下为 overlay 基类中参数，之后需统一修改
+        effect(() => {
+            this.trigger = (this.thyTrigger() || 'click') as ThyOverlayTrigger;
+        });
+        effect(() => {
+            this.hideDelay = this.thyHideDelay() ?? 100;
+        });
+        effect(() => {
+            this.showDelay = this.thyShowDelay() ?? 100;
+        });
     }
 
     ngOnInit() {
@@ -145,10 +142,11 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
 
     createOverlay(): OverlayRef {
         let componentTypeOrTemplateRef: ComponentTypeOrTemplateRef<SafeAny>;
-        if (this.menu && this.menu instanceof ThyDropdownMenuComponent) {
-            componentTypeOrTemplateRef = this.menu.templateRef;
-        } else if (isFunction(this.menu) || isTemplateRef(this.menu)) {
-            componentTypeOrTemplateRef = this.menu as ComponentTypeOrTemplateRef<SafeAny>;
+        const menu = this.menu();
+        if (menu && menu instanceof ThyDropdownMenuComponent) {
+            componentTypeOrTemplateRef = menu?.templateRef();
+        } else if (isFunction(menu) || isTemplateRef(menu)) {
+            componentTypeOrTemplateRef = menu as ComponentTypeOrTemplateRef<SafeAny>;
         }
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
             if (!componentTypeOrTemplateRef) {
@@ -158,20 +156,22 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
 
         const { placement, height, insideClosable, outsideClosable, minWidth } = Object.assign(
             { placement: 'bottomLeft', insideClosable: true, outsideClosable: true },
-            this.thyPopoverOptions
+            this.thyPopoverOptions()
         );
+        const thyPlacement = this.thyPlacement();
+        const thyMenuInsideClosable = this.thyMenuInsideClosable();
         const config: ThyPopoverConfig = {
             origin: this.elementRef.nativeElement,
             hasBackdrop: false,
             viewContainerRef: this.viewContainerRef,
             offset: 0,
-            panelClass: this.thyPanelClass,
-            placement: this.thyPlacement ? this.thyPlacement : placement,
+            panelClass: this.thyPanelClass(),
+            placement: thyPlacement ? thyPlacement : placement,
             height,
             outsideClosable,
-            insideClosable: helpers.isUndefined(this.thyMenuInsideClosable) ? insideClosable : this.thyMenuInsideClosable,
+            insideClosable: helpers.isUndefined(thyMenuInsideClosable) ? insideClosable : thyMenuInsideClosable,
             minWidth,
-            originActiveClass: this.thyActiveClass
+            originActiveClass: this.thyActiveClass()
         };
         this.popoverRef = this.popover.open(componentTypeOrTemplateRef, config);
         this.popoverRef.afterOpened().subscribe(() => {
