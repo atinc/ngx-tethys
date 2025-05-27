@@ -90,23 +90,29 @@ export class ThyFlexibleText implements AfterContentInit, OnDestroy {
         });
         effect(() => {
             const content = this.thyTooltipContent();
-            const placement = this.thyTooltipPlacement();
-            const offset = this.thyTooltipOffset();
-            const trigger = this.trigger();
             if (this.tooltipDirective && content) {
                 this.tooltipDirective.content = content;
             }
+        });
+        effect(() => {
+            const placement = this.thyTooltipPlacement();
             if (this.tooltipDirective && placement) {
                 this.tooltipDirective.placement = placement;
             }
+        });
+        effect(() => {
+            const offset = this.thyTooltipOffset();
             if (this.tooltipDirective && !isUndefinedOrNull(offset)) {
                 this.tooltipDirective.tooltipOffset = offset;
             }
+        });
+        effect(() => {
+            const trigger = this.trigger();
             if (this.tooltipDirective && trigger) {
                 this.tooltipDirective.trigger = trigger;
             }
-            this.tooltipDirective.thyTooltipDisabled = true;
         });
+        this.tooltipDirective.thyTooltipDisabled = true;
     }
 
     ngAfterContentInit() {
