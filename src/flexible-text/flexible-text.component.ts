@@ -152,7 +152,7 @@ export class ThyFlexibleText implements AfterContentInit, OnDestroy {
         } else {
             this.isOverflow = false;
         }
-        this.tooltipDirective.thyTooltipDisabled = !this.isOverflow;
+        this.tooltipDirective.thyTooltipDisabled.
     }
 
     updateContainerClass() {
