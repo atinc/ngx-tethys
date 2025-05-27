@@ -56,8 +56,8 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
 
     ngOnInit() {
         const thyCopyTips = this.thyCopyTips();
-        this.tooltipDirective.content = thyCopyTips ? thyCopyTips : this.locale().tips;
-        this.tooltipDirective.tooltipOffset = this.thyCopyTipsOffset();
+        this.tooltipDirective.setContent(thyCopyTips ? thyCopyTips : this.locale().tips);
+        this.tooltipDirective.setOffset(this.thyCopyTipsOffset());
     }
 
     private getContent(event: Event) {

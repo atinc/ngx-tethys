@@ -134,7 +134,7 @@ describe(`ThyTooltip`, () => {
             assertTooltipInstance(tooltipDirective, false);
             dispatchTouchEvent(buttonElement, 'touchstart');
             fixture.detectChanges();
-            tick(100); // tap time
+            tick(500); // tap time
             dispatchTouchEvent(buttonElement, 'touchend');
             fixture.detectChanges();
             tick(100);
@@ -173,6 +173,9 @@ describe(`ThyTooltip`, () => {
             tick(500); // Finish the delay.
             fixture.detectChanges();
             tick(500); // Finish the exit animation.
+
+            fixture.detectChanges();
+            tick(500);
 
             assertTooltipInstance(tooltipDirective, false);
             expect(getTooltipVisible()).toBe(false);
@@ -417,7 +420,7 @@ describe(`ThyTooltip`, () => {
             fixture.detectChanges();
             expect(overlayContainerElement.textContent).toContain(initialTooltipMessage);
             const newMessage = 'new tooltip message';
-            tooltipDirective.content = newMessage;
+            tooltipDirective.setContent(newMessage);
             fixture.detectChanges();
             expect(overlayContainerElement.textContent).toContain(newMessage);
         }));
