@@ -36,11 +36,7 @@ export class ThyFlexibleText implements AfterContentInit, OnDestroy {
 
     isOverflow = false;
 
-    placement: ThyPlacement;
-
     subscription: Subscription | null = null;
-
-    offset: number;
 
     /**
      * 触发提示方式
