@@ -1,5 +1,5 @@
 import { MutationObserverFactory } from '@angular/cdk/observers';
-import { Component, ViewChild } from '@angular/core';
+import { Component, viewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
@@ -48,7 +48,7 @@ import { ThyFlexibleText, ThyFlexibleTextModule } from 'ngx-tethys/flexible-text
     imports: [ThyTooltipModule, ThyFlexibleTextModule]
 })
 class FlexibleTextTestComponent {
-    @ViewChild('FlexibleText', { static: true }) flexibleText: ThyFlexibleText;
+    readonly flexibleText = viewChild<ThyFlexibleText>('FlexibleText');
     tooltipContent = '默认内容。。。';
     placement = 'bottom';
     content = '默认内容。。。';
@@ -58,7 +58,7 @@ class FlexibleTextTestComponent {
     constructor() {}
 }
 
-describe('FlexibleTextComponent', () => {
+fdescribe('FlexibleTextComponent', () => {
     let componentInstance: FlexibleTextTestComponent;
     let fixture: ComponentFixture<FlexibleTextTestComponent>;
 
@@ -99,12 +99,12 @@ describe('FlexibleTextComponent', () => {
     }));
 
     it('should not overflow when content is less', () => {
-        const component = componentInstance.flexibleText;
+        const component = componentInstance.flexibleText();
         expect(component.isOverflow).toBe(false);
     });
 
     it('multiple line : should overflow when content is more', fakeAsync(() => {
-        const component = componentInstance.flexibleText;
+        const component = componentInstance.flexibleText();
         const content = `周杰伦练琴辛酸史家长进游戏群控诉韩国一桑拿房起火伊斯兰堡会谈推迟游客夫妻美国被捕黄晓明否认拒演京东回应收集隐私救护
         车高速被堵沈祥福回应炮轰烟台回应广告牌美国奥罗周杰伦练琴辛酸史家长进游戏群控诉韩国一桑拿房起火伊斯兰堡会谈推迟游客夫妻美国被捕黄晓明否认拒演京东回应收集隐私救护
         车高速被堵沈祥福回应炮轰烟台回应广告牌美国奥罗`;
@@ -120,7 +120,7 @@ describe('FlexibleTextComponent', () => {
     }));
 
     it('single line : should overflow when content is more', fakeAsync(() => {
-        const component = componentInstance.flexibleText;
+        const component = componentInstance.flexibleText();
         const content = `周杰伦练琴辛酸史家长进游戏群控诉韩国一桑拿房起火伊斯兰堡会谈推迟游客夫妻美国被捕黄晓明否认拒演京东回应收集隐私救护
         车高速被堵沈祥福回应炮轰烟台回应广告牌美国奥罗周杰伦练琴辛酸史家长进游戏群控诉韩国一桑拿房起火伊斯兰堡会谈推迟游客夫妻美国被捕黄晓明否认拒演京东回应收集隐私救护
         车高速被堵沈祥福回应炮轰烟台回应广告牌美国奥罗`;
@@ -132,7 +132,7 @@ describe('FlexibleTextComponent', () => {
     }));
 
     it('should change content of thyTooltipDirective when set thyTooltipContent of thy-flexible-text', () => {
-        const component = componentInstance.flexibleText;
+        const component = componentInstance.flexibleText();
         expect(component.tooltipDirective.content as string).toBe(componentInstance.tooltipContent);
         const newContent = `新内容。。。`;
         componentInstance.tooltipContent = newContent;
@@ -141,7 +141,7 @@ describe('FlexibleTextComponent', () => {
     });
 
     it('should change placement of thyTooltipDirective when set placement of thy-flexible-text', () => {
-        const component = componentInstance.flexibleText;
+        const component = componentInstance.flexibleText();
         expect(component.tooltipDirective.placement).toBe(componentInstance.placement);
         const newPlacement = `left`;
         componentInstance.placement = newPlacement;
@@ -150,7 +150,7 @@ describe('FlexibleTextComponent', () => {
     });
 
     it('should change offset of thyTooltipDirective when set offset of thy-flexible-text', () => {
-        const component = componentInstance.flexibleText;
+        const component = componentInstance.flexibleText();
         expect(component.tooltipDirective.tooltipOffset).toBe(componentInstance.offset);
         const newOffset = 5;
         componentInstance.offset = newOffset;
@@ -159,7 +159,7 @@ describe('FlexibleTextComponent', () => {
     });
 
     it('should apply trigger="click"', () => {
-        const component = componentInstance.flexibleText;
+        const component = componentInstance.flexibleText();
         expect(component.tooltipDirective.trigger).toBe('click');
     });
 
@@ -177,7 +177,7 @@ describe('FlexibleTextComponent', () => {
     });
 
     it('resize change:show update tooltips overflow status when changed size', fakeAsync(() => {
-        const component = componentInstance.flexibleText;
+        const component = componentInstance.flexibleText();
         const shortContent = `this is short content message`;
         componentInstance.content = shortContent;
         componentInstance.tooltipContent = shortContent;

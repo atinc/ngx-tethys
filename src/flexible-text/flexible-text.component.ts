@@ -3,13 +3,13 @@ import {
     AfterContentInit,
     Component,
     ElementRef,
-    Input,
     NgZone,
     OnDestroy,
-    OnInit,
     TemplateRef,
     numberAttribute,
-    inject
+    inject,
+    input,
+    effect
 } from '@angular/core';
 import { ThyPlacement } from 'ngx-tethys/core';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
@@ -28,7 +28,7 @@ import { debounceTime, take, takeUntil } from 'rxjs/operators';
     templateUrl: './flexible-text.component.html',
     hostDirectives: [ThyTooltipDirective]
 })
-export class ThyFlexibleText implements OnInit, AfterContentInit, OnDestroy {
+export class ThyFlexibleText implements AfterContentInit, OnDestroy {
     private elementRef = inject(ElementRef);
     private contentObserver = inject(ContentObserver);
     private ngZone = inject(NgZone);
@@ -36,11 +36,7 @@ export class ThyFlexibleText implements OnInit, AfterContentInit, OnDestroy {
 
     isOverflow = false;
 
-    content: string | TemplateRef<HTMLElement>;
-
     placement: ThyPlacement;
-
-    containerClass: string;
 
     subscription: Subscription | null = null;
 
@@ -51,53 +47,30 @@ export class ThyFlexibleText implements OnInit, AfterContentInit, OnDestroy {
      * @type hover | focus | click
      * @default hover
      */
-    @Input('thyTooltipTrigger') trigger: 'hover' | 'focus' | 'click';
+    readonly trigger = input<'hover' | 'focus' | 'click'>(undefined, { alias: 'thyTooltipTrigger' });
 
     /**
      * 自定义class类，如果不设置默认会包含 `flexible-text-container`
      */
-    @Input('thyContainerClass')
-    set thyContainerClass(value: string) {
-        this.containerClass = value;
-        this.updateContainerClass();
-    }
-
-    get thyContainerClass(): string {
-        return this.containerClass;
-    }
+    readonly thyContainerClass = input<string>();
 
     /**
      * 需要展示的全部内容
      * @type string | TemplateRef<HTMLElement>
      */
-    @Input('thyTooltipContent') set thyContent(value: string | TemplateRef<HTMLElement>) {
-        this.content = value;
-        if (this.tooltipDirective) {
-            this.tooltipDirective.content = this.content;
-        }
-    }
+    readonly thyTooltipContent = input<string | TemplateRef<HTMLElement>>();
 
     /**
      * tooltip 的提示位置
      * @type top | bottom | left | right
      * @default top
      */
-    @Input('thyTooltipPlacement') set thyPlacement(value: ThyPlacement) {
-        this.placement = value;
-        if (this.tooltipDirective) {
-            this.tooltipDirective.placement = this.placement;
-        }
-    }
+    readonly thyTooltipPlacement = input<ThyPlacement>();
 
     /**
      * tooltip 偏移量
      */
-    @Input({ alias: 'thyTooltipOffset', transform: numberAttribute }) set thyOffset(value: number) {
-        this.offset = value;
-        if (this.tooltipDirective) {
-            this.tooltipDirective.tooltipOffset = this.offset;
-        }
-    }
+    readonly thyTooltipOffset = input<number, unknown>(undefined, { transform: numberAttribute });
 
     private destroy$ = new Subject<void>();
 
@@ -115,19 +88,29 @@ export class ThyFlexibleText implements OnInit, AfterContentInit, OnDestroy {
         });
     }
 
-    ngOnInit() {
-        this.updateContainerClass();
-        if (this.placement) {
-            this.tooltipDirective.placement = this.placement;
-        }
-        if (this.offset) {
-            this.tooltipDirective.tooltipOffset = this.offset;
-        }
-        if (this.trigger) {
-            this.tooltipDirective.trigger = this.trigger;
-        }
-        this.tooltipDirective.content = this.content;
-        this.tooltipDirective.thyTooltipDisabled = true;
+    constructor() {
+        effect(() => {
+            this.updateContainerClass();
+        });
+        effect(() => {
+            const content = this.thyTooltipContent();
+            const placement = this.thyTooltipPlacement();
+            const offset = this.thyTooltipOffset();
+            const trigger = this.trigger();
+            if (this.tooltipDirective && content) {
+                this.tooltipDirective.content = content;
+            }
+            if (this.tooltipDirective && placement) {
+                this.tooltipDirective.placement = placement;
+            }
+            if (this.tooltipDirective && !isUndefinedOrNull(offset)) {
+                this.tooltipDirective.tooltipOffset = offset;
+            }
+            if (this.tooltipDirective && trigger) {
+                this.tooltipDirective.trigger = trigger;
+            }
+            this.tooltipDirective.thyTooltipDisabled = true;
+        });
     }
 
     ngAfterContentInit() {
@@ -171,11 +154,8 @@ export class ThyFlexibleText implements OnInit, AfterContentInit, OnDestroy {
     }
 
     updateContainerClass() {
-        const containerClass = isUndefinedOrNull(this.containerClass) ? 'flexible-text-container' : this.containerClass;
-        const flexibleTextClass = {
-            'text-truncate': true,
-            [containerClass]: containerClass !== ''
-        };
+        const containerClass = isUndefinedOrNull(this.thyContainerClass()) ? 'flexible-text-container' : this.thyContainerClass();
+        const flexibleTextClass = { 'text-truncate': true, [containerClass]: containerClass !== '' };
         this.hostRenderer.updateClassByMap(flexibleTextClass);
     }
 }
