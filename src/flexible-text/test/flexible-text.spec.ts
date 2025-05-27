@@ -58,7 +58,7 @@ class FlexibleTextTestComponent {
     constructor() {}
 }
 
-fdescribe('FlexibleTextComponent', () => {
+describe('FlexibleTextComponent', () => {
     let componentInstance: FlexibleTextTestComponent;
     let fixture: ComponentFixture<FlexibleTextTestComponent>;
 
