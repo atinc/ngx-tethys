@@ -44,7 +44,7 @@ export class ThyResizeHandles {
 
     directions = computed(() => {
         const directions = this.thyDirections();
-        return new Set<ThyResizeDirection>(directions)
+        return new Set<ThyResizeDirection>(directions);
     });
 
     constructor() {}
