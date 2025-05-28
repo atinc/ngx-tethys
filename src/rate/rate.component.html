@@ -1,16 +1,16 @@
 <div class="thy-rate-container" [class.thy-rate-container--disabled]="thyDisabled" (mouseleave)="onRateLeave($event)">
-  @for (star of rateArray; track trackByFn(index, star); let index = $index) {
+  @for (star of rateArray(); track trackByFn(index, star); let index = $index) {
     <div
       thyStopPropagation
       class="thy-rate-star"
-      [ngClass]="rateStyleArray[index] || ''"
+      [ngClass]="rateStyleArray()[index] || ''"
       thy-rate-item
-      [allowHalf]="thyAllowHalf"
-      [iconValue]="iconValue"
-      [iconTemplate]="iconTemplate"
+      [allowHalf]="thyAllowHalf()"
+      [iconValue]="iconValue()"
+      [iconTemplate]="iconTemplate()"
       (itemHover)="itemHover($event, index)"
       (itemClick)="itemClick($event, index)"
-      [thyTooltip]="thyTooltips[index]"
+      [thyTooltip]="thyTooltips()[index]"
       thyTooltipPlacement="top"
     ></div>
   }

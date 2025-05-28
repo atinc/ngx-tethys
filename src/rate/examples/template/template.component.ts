@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, TemplateRef, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyRate } from 'ngx-tethys/rate';
 
@@ -9,15 +9,15 @@ import { ThyRate } from 'ngx-tethys/rate';
     imports: [ThyRate, FormsModule]
 })
 export class ThyRateTemplateExampleComponent implements AfterViewInit {
-    @ViewChild('icon1') icon1: TemplateRef<any>;
+    readonly icon1 = viewChild<TemplateRef<any>>('icon1');
 
-    @ViewChild('icon2') icon2: TemplateRef<any>;
+    readonly icon2 = viewChild<TemplateRef<any>>('icon2');
 
-    @ViewChild('icon3') icon3: TemplateRef<any>;
+    readonly icon3 = viewChild<TemplateRef<any>>('icon3');
 
-    @ViewChild('icon4') icon4: TemplateRef<any>;
+    readonly icon4 = viewChild<TemplateRef<any>>('icon4');
 
-    @ViewChild('icon5') icon5: TemplateRef<any>;
+    readonly icon5 = viewChild<TemplateRef<any>>('icon5');
 
     value = 1;
 
@@ -32,7 +32,7 @@ export class ThyRateTemplateExampleComponent implements AfterViewInit {
     constructor() {}
 
     ngAfterViewInit(): void {
-        this.templates = [this.icon1, this.icon2, this.icon3, this.icon4, this.icon5];
-        this.template = this.icon5;
+        this.templates = [this.icon1(), this.icon2(), this.icon3(), this.icon4(), this.icon5()];
+        this.template = this.icon5();
     }
 }
