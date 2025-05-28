@@ -1,4 +1,4 @@
-import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
+import { Component, DebugElement, TemplateRef, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -371,7 +371,7 @@ describe('Rate disabled component', () => {
     imports: [ThyRateModule, FormsModule]
 })
 class RateTooltipTestComponent {
-    @ViewChild(ThyTooltipDirective, { static: true }) tooltip: ThyTooltipDirective;
+    readonly tooltip = viewChild(ThyTooltipDirective);
     value = 1;
     tooltips = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
     modelChange = jasmine.createSpy('model change callback');
@@ -435,15 +435,15 @@ class RateTemplateTestComponent {
 
     hoverChange = jasmine.createSpy('item hover change callback');
 
-    @ViewChild('icon1') icon1: TemplateRef<any>;
+    readonly icon1 = viewChild<TemplateRef<any>>('icon1');
 
-    @ViewChild('icon2') icon2: TemplateRef<any>;
+    readonly icon2 = viewChild<TemplateRef<any>>('icon2');
 
-    @ViewChild('icon3') icon3: TemplateRef<any>;
+    readonly icon3 = viewChild<TemplateRef<any>>('icon3');
 
-    @ViewChild('icon4') icon4: TemplateRef<any>;
+    readonly icon4 = viewChild<TemplateRef<any>>('icon4');
 
-    @ViewChild('icon5') icon5: TemplateRef<any>;
+    readonly icon5 = viewChild<TemplateRef<any>>('icon5');
 }
 
 describe('Rate template component', () => {
@@ -513,7 +513,7 @@ describe('Rate template component', () => {
 
     it('should set single template mode to component', fakeAsync(() => {
         fixture.detectChanges();
-        testRateTemplateComponent.iconsTemplate = testRateTemplateComponent.icon5;
+        testRateTemplateComponent.iconsTemplate = testRateTemplateComponent.icon5();
         fixture.detectChanges();
         tick(500);
         fixture.detectChanges();
@@ -525,11 +525,11 @@ describe('Rate template component', () => {
         fixture.detectChanges();
         testRateTemplateComponent.value = 0;
         testRateTemplateComponent.iconsTemplate = [
-            testRateTemplateComponent.icon1,
-            testRateTemplateComponent.icon2,
-            testRateTemplateComponent.icon3,
-            testRateTemplateComponent.icon4,
-            testRateTemplateComponent.icon5
+            testRateTemplateComponent.icon1(),
+            testRateTemplateComponent.icon2(),
+            testRateTemplateComponent.icon3(),
+            testRateTemplateComponent.icon4(),
+            testRateTemplateComponent.icon5()
         ];
         fixture.detectChanges();
         tick(500);
