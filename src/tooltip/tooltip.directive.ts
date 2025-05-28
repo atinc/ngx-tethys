@@ -39,6 +39,9 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
      * @type string | TemplateRef<T>
      */
     readonly content = input<ThyTooltipContent>(undefined, { alias: 'thyTooltip' });
+    
+
+    // actualExpanded = linkedSignal(() => this.expanded());
 
     /**
      * 指定提示的位置

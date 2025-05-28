@@ -26,7 +26,10 @@ import { debounceTime, take, takeUntil } from 'rxjs/operators';
     selector: 'thy-flexible-text,[thyFlexibleText]',
     exportAs: 'thyFlexibleText',
     templateUrl: './flexible-text.component.html',
-    hostDirectives: [ThyTooltipDirective]
+    hostDirectives: [{
+    directive: ThyTooltipDirective,
+    inputs: ['thyTooltip', 'thyTooltipPlacement', 'thyTooltipOffset'],
+  }]
 })
 export class ThyFlexibleText implements AfterContentInit, OnDestroy {
     private elementRef = inject(ElementRef);
@@ -112,7 +115,8 @@ export class ThyFlexibleText implements AfterContentInit, OnDestroy {
                 this.tooltipDirective.trigger = trigger;
             }
         });
-        this.tooltipDirective.thyTooltipDisabled = true;
+        this.tooltipDirective.
+        // this.tooltipDirective.thyTooltipDisabled.set
     }
 
     ngAfterContentInit() {
