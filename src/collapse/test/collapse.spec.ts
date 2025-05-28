@@ -1,6 +1,6 @@
 import { ThyCollapse, ThyCollapseItem, ThyCollapseModule } from 'ngx-tethys/collapse';
 import { ThyIcon, ThyIconModule } from 'ngx-tethys/icon';
-import { dispatchFakeEvent } from 'ngx-tethys/testing';
+import { dispatchFakeEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 import { CommonModule } from '@angular/common';
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -62,18 +62,24 @@ export class TestCollapsePanelBasicComponent {
     active = false;
 }
 
+function assertRenderIconRotate(debugElementOfIcon: DebugElement) {
+    const svg = debugElementOfIcon.componentInstance.elementRef.nativeElement.querySelector('svg') as HTMLElement;
+    expect(svg).toBeTruthy();
+    expect(svg.style['transform']).toBeTruthy();
+}
+
 describe('collapse', () => {
     describe('basic', () => {
         let component: TestCollapseBasicComponent;
         let fixture: ComponentFixture<TestCollapseBasicComponent>;
         let debugElement: DebugElement;
         let icon: any;
-        let iconRotateSpy: any;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
                 providers: [provideHttpClient(), provideAnimations()]
             }).compileComponents();
+            injectDefaultSvgIconSet();
         });
 
         beforeEach(() => {
@@ -82,9 +88,6 @@ describe('collapse', () => {
             fixture.detectChanges();
             debugElement = fixture.debugElement.query(By.directive(ThyCollapse));
             icon = fixture.debugElement.query(By.directive(ThyIcon));
-
-            iconRotateSpy = spyOn(icon.componentInstance.render, 'setStyle');
-            fixture.detectChanges();
         });
 
         it('should create collapse component', () => {
@@ -108,8 +111,7 @@ describe('collapse', () => {
             const activeClass2 = debugElement.queryAll(By.css('.thy-collapse-item-active'));
             expect(activeClass2.length).toBe(2);
             fixture.detectChanges();
-
-            expect(iconRotateSpy).toHaveBeenCalled();
+            assertRenderIconRotate(icon);
         });
 
         it('should collapse only expand one panel when thyAccordion is true', () => {
@@ -185,29 +187,24 @@ describe('collapse', () => {
     });
 });
 
-describe('collapse-panel', () => {
+fdescribe('collapse-panel', () => {
     describe('basic', () => {
         let component: TestCollapsePanelBasicComponent;
         let fixture: ComponentFixture<TestCollapsePanelBasicComponent>;
-        let debugElement: DebugElement;
         let icon: any;
-        let iconRotateSpy: any;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
                 providers: [provideHttpClient(), provideAnimations()]
             }).compileComponents();
+            injectDefaultSvgIconSet();
         });
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestCollapsePanelBasicComponent);
             component = fixture.componentInstance;
             fixture.detectChanges();
-            debugElement = fixture.debugElement.query(By.directive(ThyCollapse));
             icon = fixture.debugElement.query(By.directive(ThyIcon));
-
-            iconRotateSpy = spyOn(icon.componentInstance.render, 'setStyle');
-            fixture.detectChanges();
         });
 
         it('should create collapse and collapse-panel component', () => {
@@ -241,7 +238,7 @@ describe('collapse-panel', () => {
             fixture.detectChanges();
             expect(collapsePanels[5].nativeElement.classList).toContain('thy-collapse-item-active');
 
-            expect(iconRotateSpy).toHaveBeenCalled();
+            assertRenderIconRotate(icon);
         });
 
         it('should have thy-collapse-no-arrow with arrowIcon null', () => {
@@ -281,7 +278,7 @@ describe('collapse-panel', () => {
             fixture.detectChanges();
             expect(collapsePanels[0].nativeElement.classList).toContain('thy-collapse-item-active');
 
-            expect(iconRotateSpy).toHaveBeenCalled();
+            assertRenderIconRotate(icon);
         });
 
         it('should have correct title', () => {

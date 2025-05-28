@@ -5,15 +5,12 @@ import {
     ChangeDetectionStrategy,
     Component,
     ElementRef,
-    HostBinding,
-    Input,
-    OnChanges,
-    OnInit,
     Renderer2,
-    SimpleChanges,
     ViewEncapsulation,
     numberAttribute,
-    inject
+    inject,
+    input,
+    effect
 } from '@angular/core';
 
 import { getWhetherPrintErrorWhenIconNotFound } from './config';
@@ -36,73 +33,59 @@ const iconSuffixMap = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        class: 'thy-icon'
+        class: 'thy-icon',
+        '[class.thy-icon-legging]': 'thyIconLegging()'
     }
 })
-export class ThyIcon implements OnInit, OnChanges {
+export class ThyIcon {
     private render = inject(Renderer2);
     private elementRef = inject(ElementRef);
     private iconRegistry = inject(ThyIconRegistry);
-
-    private initialized = false;
 
     /**
      * 图标的类型
      * @type outline | fill | twotone
      */
-    @Input('thyIconType') iconType: 'outline' | 'fill' | 'twotone' = 'outline';
+    readonly thyIconType = input<'outline' | 'fill' | 'twotone'>('outline');
 
-    @Input('thyTwotoneColor') iconTwotoneColor: string;
+    readonly thyTwotoneColor = input<string>();
 
     /**
      * 图标的名字
      */
-    @Input('thyIconName') iconName: string;
+    readonly thyIconName = input.required<string>();
 
     /**
      * 图标的旋转角度
      * @default 0
      */
-    @Input({ alias: 'thyIconRotate', transform: numberAttribute }) iconRotate: number;
+    readonly thyIconRotate = input<number, unknown>(undefined, { transform: numberAttribute });
 
-    @Input('thyIconSet') iconSet: string;
+    readonly thyIconSet = input<string>();
 
     /**
      * 图标打底色，镂空的图标，会透过颜色来
      * @default false
      */
-    @HostBinding(`class.thy-icon-legging`)
-    @Input({ alias: 'thyIconLegging', transform: coerceBooleanProperty })
-    iconLegging: boolean;
+    readonly thyIconLegging = input<boolean, undefined>(undefined, { transform: coerceBooleanProperty });
 
-    @Input({ alias: 'thyIconLinearGradient', transform: coerceBooleanProperty })
-    iconLinearGradient: boolean;
+    readonly thyIconLinearGradient = input<boolean, unknown>(undefined, {
+        transform: coerceBooleanProperty
+    });
 
     private hostRenderer = useHostRenderer();
 
-    ngOnInit() {
-        this.updateClasses();
-        this.initialized = true;
-    }
-
-    ngOnChanges(changes: SimpleChanges) {
-        if (this.initialized) {
-            if (
-                changes['iconName'] ||
-                changes['iconSet'] ||
-                changes['iconTwotoneColor'] ||
-                changes['iconType'] ||
-                changes['iconLinearGradient']
-            ) {
-                this.updateClasses();
-            } else if (changes['iconRotate']) {
-                this.setStyleRotate();
-            }
-        }
+    constructor() {
+        effect(() => {
+            this.updateClasses();
+        });
+        effect(() => {
+            this.setStyleRotate();
+        });
     }
 
     private updateClasses() {
-        const [namespace, iconName] = this.iconRegistry.splitIconName(this.iconName);
+        const [namespace, iconName] = this.iconRegistry.splitIconName(this.thyIconName());
         if (iconName) {
             if (this.iconRegistry.iconMode === 'svg') {
                 this.iconRegistry
@@ -120,17 +103,22 @@ export class ThyIcon implements OnInit, OnChanges {
                     );
                 this.hostRenderer.updateClass([`thy-icon${namespace ? `-${namespace}` : ``}-${this.buildIconNameByType(iconName)}`]);
             } else {
-                const fontSetClass = this.iconSet
-                    ? this.iconRegistry.getFontSetClassByAlias(this.iconSet)
+                const fontSetClass = this.thyIconSet()
+                    ? this.iconRegistry.getFontSetClassByAlias(this.thyIconSet())
                     : this.iconRegistry.getDefaultFontSetClass();
-                this.hostRenderer.updateClass([fontSetClass, `${fontSetClass}-${this.iconName}`]);
+                this.hostRenderer.updateClass([fontSetClass, `${fontSetClass}-${this.thyIconName()}`]);
             }
         }
     }
 
     private setStyleRotate() {
-        if (this.iconRotate !== undefined) {
-            this.render.setStyle(this.elementRef.nativeElement.querySelector('svg'), 'transform', `rotate(${this.iconRotate}deg)`);
+        if (this.thyIconRotate() !== undefined) {
+            // 基于 effect 无法保证在 setSvgElement 之前执行，所以这里增加判断
+            const svg = this.elementRef.nativeElement.querySelector('svg');
+            if (!svg) {
+                return;
+            }
+            this.render.setStyle(svg, 'transform', `rotate(${this.thyIconRotate()}deg)`);
         }
     }
 
@@ -148,12 +136,12 @@ export class ThyIcon implements OnInit, OnChanges {
             styleTags[i].textContent += ' ';
         }
 
-        if (this.iconType === 'twotone') {
+        if (this.thyIconType() === 'twotone') {
             const allPaths = svg.querySelectorAll('path');
             if (allPaths.length > 1) {
                 allPaths.forEach((child, index: number) => {
                     if (child.getAttribute('id').includes('secondary-color')) {
-                        child.setAttribute('fill', this.iconTwotoneColor);
+                        child.setAttribute('fill', this.thyTwotoneColor());
                     }
                 });
             }
@@ -167,7 +155,7 @@ export class ThyIcon implements OnInit, OnChanges {
         //     this._cacheChildrenWithExternalReferences(svg);
         //     this._prependPathToReferences(path);
         // }
-        if (this.iconLinearGradient) {
+        if (this.thyIconLinearGradient()) {
             this.setBaseUrl(svg);
             this.clearTitleElement(svg);
         }
@@ -200,8 +188,8 @@ export class ThyIcon implements OnInit, OnChanges {
     //#endregion
 
     private buildIconNameByType(iconName: string) {
-        if (this.iconType && ['fill', 'twotone'].indexOf(this.iconType) >= 0) {
-            const suffix = iconSuffixMap[this.iconType];
+        if (this.thyIconType() && ['fill', 'twotone'].indexOf(this.thyIconType()) >= 0) {
+            const suffix = iconSuffixMap[this.thyIconType() as keyof typeof iconSuffixMap];
             return iconName.includes(`-${suffix}`) ? iconName : `${iconName}-${suffix}`;
         } else {
             return iconName;
