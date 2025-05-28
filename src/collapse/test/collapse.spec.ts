@@ -187,7 +187,7 @@ describe('collapse', () => {
     });
 });
 
-fdescribe('collapse-panel', () => {
+describe('collapse-panel', () => {
     describe('basic', () => {
         let component: TestCollapsePanelBasicComponent;
         let fixture: ComponentFixture<TestCollapsePanelBasicComponent>;
