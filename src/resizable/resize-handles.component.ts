@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnChanges, SimpleChanges, effect, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnChanges, SimpleChanges, computed, effect, input } from '@angular/core';
 import { ThyResizeDirection } from './interface';
 import { ThyResizeHandle } from './resize-handle.component';
 
@@ -23,7 +23,7 @@ export const DEFAULT_RESIZE_DIRECTION: ThyResizeDirection[] = [
     selector: 'thy-resize-handles',
     exportAs: 'thyResizeHandles',
     template: `
-        @for (dir of directions; track $index) {
+        @for (dir of directions(); track $index) {
             <thy-resize-handle [thyLine]="thyLine()" [thyDirection]="dir"></thy-resize-handle>
         }
     `,
@@ -42,11 +42,10 @@ export class ThyResizeHandles {
      */
     readonly thyLine = input(false, { transform: coerceBooleanProperty });
 
-    directions = new Set<ThyResizeDirection>(this.thyDirections());
+    directions = computed(() => {
+        const directions = this.thyDirections();
+        return new Set<ThyResizeDirection>(directions)
+    });
 
-    constructor() {
-        effect(() => {
-            this.directions = new Set(this.thyDirections());
-        });
-    }
+    constructor() {}
 }

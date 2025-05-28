@@ -19,7 +19,7 @@ import { ThyResizeHandleMouseDownEvent } from './interface';
 import { ThyResizeEvent } from './interface';
 import { getEventWithPoint, ensureInBounds, setCompatibleStyle } from './utils';
 import { fromEvent } from 'rxjs';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { coerceBooleanProperty, ThyNumberInput } from 'ngx-tethys/util';
 
 /**
  * 调整尺寸
@@ -50,61 +50,51 @@ export class ThyResizableDirective implements OnDestroy {
 
     /**
      * 最大高度(超过边界部分忽略)
-     * @type number
      */
-    readonly thyMaxHeight = input(undefined, { transform: numberAttribute });
+    readonly thyMaxHeight = input<number, ThyNumberInput>(undefined, { transform: numberAttribute });
 
     /**
      * 最大宽度(超过边界部分忽略)
-     * @type number
      */
-    readonly thyMaxWidth = input(undefined, { transform: numberAttribute });
+    readonly thyMaxWidth = input<number, ThyNumberInput>(undefined, { transform: numberAttribute });
 
     /**
      * 最小高度
-     * @type number
      */
     readonly thyMinHeight = input(40, { transform: numberAttribute });
 
     /**
      * 最小宽度
-     * @type number
      */
     readonly thyMinWidth = input(40, { transform: numberAttribute });
 
     /**
      * 栅格列数(-1 为不栅格)
-     * @type number
      */
     readonly thyGridColumnCount = input(-1, { transform: numberAttribute });
 
     /**
      * 栅格最大列数
-     * @type number
      */
     readonly thyMaxColumn = input(-1, { transform: numberAttribute });
 
     /**
      * 栅格最小列数
-     * @type number
      */
     readonly thyMinColumn = input(-1, { transform: numberAttribute });
 
     /**
      * 锁定宽高比
-     * @type boolean
      */
     readonly thyLockAspectRatio = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 是否预览模式
-     * @type boolean
      */
     readonly thyPreview = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 是否禁用调整大小
-     * @type boolean
      */
     readonly thyDisabled = input(false, { transform: coerceBooleanProperty });
 
