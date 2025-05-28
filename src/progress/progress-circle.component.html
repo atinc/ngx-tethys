@@ -1,23 +1,25 @@
+@let tips = thyTips();
+@let circleAttr = circle();
 <div
-  [thyTooltip]="thyTips"
-  [thyTooltipDisabled]="!thyTips"
-  [style.width.px]="width"
-  [style.height.px]="width"
-  [ngClass]="progressSize"
+  [thyTooltip]="tips"
+  [thyTooltipDisabled]="!tips"
+  [style.width.px]="width()"
+  [style.height.px]="width()"
+  [ngClass]="progressSize()"
   class="progress-circle-inner">
   <svg class="progress-circle-svg" viewBox="0 0 100 100">
     <path
       class="progress-circle-trail"
       fill-opacity="0"
-      [attr.d]="pathString"
-      [ngStyle]="trailPathStyle"
+      [attr.d]="circleAttr.pathString"
+      [ngStyle]="circleAttr.trailPathStyle"
       [attr.stroke-width]="strokeWidth"></path>
-    @for (p of progressCirclePath; track $index) {
+    @for (p of circleAttr.progressCirclePath; track $index) {
       <path
         class="progress-circle-path"
         [ngClass]="p.className"
         fill-opacity="0"
-        [attr.d]="pathString"
+        [attr.d]="circleAttr.pathString"
         [attr.stroke-linecap]="'round'"
         [attr.stroke]="p.stroke"
         [attr.stroke-width]="p.value ? strokeWidth : 0"

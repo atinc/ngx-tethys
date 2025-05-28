@@ -1,6 +1,4 @@
-import { BehaviorSubject } from 'rxjs';
-
-import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit, numberAttribute } from '@angular/core';
+import { ChangeDetectionStrategy, Component, numberAttribute, input, computed, effect } from '@angular/core';
 
 export type ThyPropertiesLayout = 'horizontal' | 'vertical';
 
@@ -14,45 +12,34 @@ export type ThyPropertiesLayout = 'horizontal' | 'vertical';
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-properties',
-        '[class.thy-properties-vertical]': 'layout === "vertical"',
-        '[class.thy-properties-horizontal]': 'layout === "horizontal"',
-        '[class.thy-properties-edit-trigger-hover]': 'thyEditTrigger === "hover"',
-        '[class.thy-properties-edit-trigger-click]': 'thyEditTrigger === "click"'
+        '[class.thy-properties-vertical]': 'layout() === "vertical"',
+        '[class.thy-properties-horizontal]': 'layout() === "horizontal"',
+        '[class.thy-property-edit-trigger-hover]': 'thyEditTrigger() === "hover"',
+        '[class.thy-property-edit-trigger-click]': 'thyEditTrigger() === "click"',
+        '[style.grid-template-columns]': 'gridTemplateColumns()'
     }
 })
-export class ThyProperties implements OnInit {
-    layout$ = new BehaviorSubject<ThyPropertiesLayout>('horizontal');
-
-    layout: ThyPropertiesLayout = 'horizontal';
-
+export class ThyProperties {
     /**
      * 展示布局
      * @type "horizontal" | "vertical"
      * @default horizontal
      */
-    @Input() set thyLayout(layout: ThyPropertiesLayout) {
-        this.layout = layout;
-        this.layout$.next(layout);
-    }
+    readonly layout = input<ThyPropertiesLayout>('horizontal', { alias: 'thyLayout' });
 
     /**
      * 设置一行的可以 property-item 的数量
      * @type  number
      */
-    @Input({ transform: numberAttribute }) thyColumn: number = 1;
+    readonly thyColumn = input(1, { transform: numberAttribute });
 
     /**
      * 设置编辑状态触发方法
      * @type 'hover' | 'click'
      */
-    @Input() thyEditTrigger: 'hover' | 'click' = 'hover';
+    readonly thyEditTrigger = input<'hover' | 'click'>('hover');
 
-    @HostBinding('style.grid-template-columns')
-    get gridTemplateColumns() {
-        return `repeat(${this.thyColumn}, 1fr)`;
-    }
-
-    constructor() {}
-
-    ngOnInit() {}
+    protected readonly gridTemplateColumns = computed(() => {
+        return `repeat(${this.thyColumn()}, 1fr)`;
+    });
 }

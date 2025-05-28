@@ -9,16 +9,17 @@ import {
     AfterViewInit,
     ChangeDetectionStrategy,
     Component,
+    computed,
+    effect,
     ElementRef,
     inject,
     input,
     NgZone,
     numberAttribute,
-    OnChanges,
     OnDestroy,
     output,
     Renderer2,
-    SimpleChanges,
+    Signal,
     viewChild,
     ViewEncapsulation
 } from '@angular/core';
@@ -44,7 +45,7 @@ const THY_AFFIX_DEFAULT_SCROLL_TIME = 20;
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class ThyAffix implements AfterViewInit, OnChanges, OnDestroy {
+export class ThyAffix implements AfterViewInit, OnDestroy {
     private scrollService = inject(ThyScrollService);
     private ngZone = inject(NgZone);
     private platform = inject(Platform);
@@ -62,12 +63,12 @@ export class ThyAffix implements AfterViewInit, OnChanges, OnDestroy {
     /**
      * 距离窗口顶部缓冲的偏移量阈值
      */
-    readonly thyOffsetTop = input<null | number, unknown>(0, { transform: numberAttribute });
+    readonly thyOffsetTop = input<number, unknown>(0, { transform: numberAttribute });
 
     /**
      * 距离窗口底部缓冲的偏移量阈值
      */
-    readonly thyOffsetBottom = input<null | number, unknown>(0, { transform: numberAttribute });
+    readonly thyOffsetBottom = input<number, unknown>(0, { transform: numberAttribute });
 
     /**
      * 固定状态改变时触发的回调函数
@@ -84,10 +85,10 @@ export class ThyAffix implements AfterViewInit, OnChanges, OnDestroy {
     private timeout?: any;
     private document: any;
 
-    private get container(): Element | Window {
+    private readonly container: Signal<Element | Window> = computed(() => {
         const el = this.thyContainer();
         return (typeof el === 'string' ? this.document.querySelector(el) : el) || window;
-    }
+    });
 
     constructor() {
         const el = inject(ElementRef);
@@ -96,17 +97,11 @@ export class ThyAffix implements AfterViewInit, OnChanges, OnDestroy {
         // The wrapper would stay at the original position as a placeholder.
         this.placeholderNode = el.nativeElement;
         this.document = document;
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        const { thyOffsetBottom, thyOffsetTop, thyContainer } = changes;
-
-        if (thyOffsetBottom || thyOffsetTop) {
-            this.offsetChanged$.next(undefined);
-        }
-        if (thyContainer) {
-            this.registerListeners();
-        }
+        effect(() => {
+            if (this.thyOffsetBottom() || this.thyOffsetTop()) {
+                this.offsetChanged$.next(undefined);
+            }
+        });
     }
 
     ngAfterViewInit(): void {
@@ -121,7 +116,7 @@ export class ThyAffix implements AfterViewInit, OnChanges, OnDestroy {
         this.removeListeners();
         this.positionChangeSubscription = this.ngZone.runOutsideAngular(() => {
             return merge(
-                ...Object.keys(AffixRespondEvents).map(evName => fromEvent(this.container, evName)),
+                ...Object.keys(AffixRespondEvents).map(evName => fromEvent(this.container(), evName)),
                 this.offsetChanged$.pipe(
                     takeUntil(this.destroy$),
                     map(() => ({}))
@@ -161,7 +156,7 @@ export class ThyAffix implements AfterViewInit, OnChanges, OnDestroy {
 
     private setAffixStyle(e: Event, affixStyle?: any): void {
         const originalAffixStyle = this.affixStyle;
-        const isWindow = this.container === window;
+        const isWindow = this.container() === window;
         if (e.type === 'scroll' && originalAffixStyle && affixStyle && isWindow) {
             return;
         }
@@ -215,7 +210,7 @@ export class ThyAffix implements AfterViewInit, OnChanges, OnDestroy {
             return;
         }
 
-        const containerNode = this.container;
+        const containerNode = this.container();
         let offsetTop = this.thyOffsetTop();
         const scrollTop = this.scrollService.getScroll(containerNode, true);
         const elementOffset = this.getOffset(this.placeholderNode, containerNode);

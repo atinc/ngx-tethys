@@ -1,23 +1,23 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { CommonModule, NgStyle } from '@angular/common';
-import { Component, DebugElement, ElementRef, ViewChild, inject as coreInject } from '@angular/core';
+import { provideHttpClient } from '@angular/common/http';
+import { Component, DebugElement, ElementRef, inject as coreInject, viewChild } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush, inject, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { provideAnimations, provideNoopAnimations } from '@angular/platform-browser/animations';
+import {
+    ThyColor,
+    ThyColorPickerCustomPanel,
+    ThyColorPickerDirective,
+    ThyColorPickerModule,
+    ThyColorPickerPanel
+} from 'ngx-tethys/color-picker';
 import { ThyDialogModule } from 'ngx-tethys/dialog';
 import { ThyPopover, ThyPopoverModule, ThyPopoverRef } from 'ngx-tethys/popover';
 import { dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing';
-import {
-    ThyColorPickerCustomPanel,
-    ThyColorPickerPanel,
-    ThyColorPickerDirective,
-    ThyColorPickerModule,
-    ThyColor
-} from 'ngx-tethys/color-picker';
 import { ThyCoordinatesDirective } from '../coordinates.directive';
-import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-demo-color-picker-basic',
@@ -55,8 +55,8 @@ class ThyDemoColorPickerComponent {
     elementRef = coreInject<ElementRef<HTMLElement>>(ElementRef);
     private thyPopoverRef = coreInject<ThyPopoverRef<ThyColorPickerPanel>>(ThyPopoverRef);
 
-    @ViewChild(ThyColorPickerDirective, { static: true }) colorPicker: ThyColorPickerDirective;
-    @ViewChild(ThyColorPickerPanel) defaultPanel: ThyColorPickerPanel;
+    readonly colorPicker = viewChild(ThyColorPickerDirective);
+    readonly defaultPanel = viewChild(ThyColorPickerPanel);
     color = '#ddd';
 
     defaultPanelColor = '#fafafa';
@@ -99,7 +99,7 @@ class ThyDemoColorDefaultPanelComponent {
     elementRef = coreInject<ElementRef<HTMLElement>>(ElementRef);
     thyPopover = coreInject(ThyPopover);
 
-    @ViewChild(ThyColorPickerPanel) defaultPanel: ThyColorPickerPanel;
+    readonly defaultPanel = viewChild(ThyColorPickerPanel);
     defaultPanelColor = '#fafafa';
     defaultColor = '';
     transparentColorSelectable: boolean;
@@ -116,7 +116,7 @@ class ThyDemoColorDefaultPanelComponent {
 class ThyDemoPickerPanelComponent {
     elementRef = coreInject<ElementRef<HTMLElement>>(ElementRef);
 
-    @ViewChild(ThyColorPickerCustomPanel) pickerPanel: ThyColorPickerCustomPanel;
+    readonly pickerPanel = viewChild(ThyColorPickerCustomPanel);
 
     color = '#fafafa';
 
@@ -143,7 +143,7 @@ class ThyDemoPickerPanelComponent {
 class ThyDemoCoordinatesDirectiveComponent {
     elementRef = coreInject<ElementRef<HTMLElement>>(ElementRef);
 
-    @ViewChild(ThyCoordinatesDirective) coordinates: ThyCoordinatesDirective;
+    readonly coordinates = viewChild(ThyCoordinatesDirective);
 
     e: {
         x: number;
@@ -342,16 +342,16 @@ describe(`color-picker`, () => {
 
         it('should get correct bgcolor', fakeAsync(() => {
             openDefaultPanel();
-            expect(colorPickerDebugElement.componentInstance.colorPicker.backgroundColor).toEqual('#ddd');
+            expect(colorPickerDebugElement.componentInstance.colorPicker().backgroundColor).toEqual('#ddd');
         }));
 
         it('should model change', fakeAsync(() => {
             openDefaultPanel();
-            const change = spyOn(colorPickerDebugElement.componentInstance.colorPicker, 'onChangeFn');
+            const change = spyOn(colorPickerDebugElement.componentInstance.colorPicker(), 'onChangeFn');
 
-            colorPickerDebugElement.componentInstance.colorPicker.onModelChange('#ffffff');
+            colorPickerDebugElement.componentInstance.colorPicker().onModelChange('#ffffff');
             fixture.detectChanges();
-            expect(colorPickerDebugElement.componentInstance.colorPicker.color).toEqual('#ffffff');
+            expect(colorPickerDebugElement.componentInstance.colorPicker().color).toEqual('#ffffff');
             expect(change).toHaveBeenCalled();
         }));
 
@@ -370,7 +370,7 @@ describe(`color-picker`, () => {
             fixture.componentInstance.panelClose = panelClose;
             fixture.detectChanges();
             openDefaultPanel();
-            colorPickerDebugElement.componentInstance.colorPicker.hide();
+            colorPickerDebugElement.componentInstance.colorPicker()?.hide();
             fixture.detectChanges();
             tick(100);
             fixture.detectChanges();
@@ -384,7 +384,7 @@ describe(`color-picker`, () => {
             localStorage.setItem('recentColors', '["#ff0000"]');
             openDefaultPanel();
             fixture.detectChanges();
-            expect(fixtureInstance.defaultPanel.recentColors).toEqual(['#ff0000']);
+            expect(fixtureInstance.defaultPanel().recentColors).toEqual(['#ff0000']);
             localStorage.setItem('recentColors', '');
         }));
 
@@ -416,7 +416,7 @@ describe(`color-picker`, () => {
         it('should normally closed color-picker component used hide func', fakeAsync(() => {
             openDefaultPanel();
             expect(overlayContainerElement).toBeTruthy();
-            colorPickerDebugElement.componentInstance.colorPicker.hide();
+            colorPickerDebugElement.componentInstance.colorPicker().hide();
             expect(overlayContainerElement.querySelector('thy-default-picker-active')).toBeFalsy();
             fixture.detectChanges();
             flush();
@@ -467,17 +467,17 @@ describe('color-default-panel', () => {
     describe('default-panel-component', () => {
         it('should change default panel color after dispatch selectColor', fakeAsync(() => {
             fixture.detectChanges();
-            const defaultPanel = fixtureInstance.defaultPanel;
+            const defaultPanel = fixtureInstance.defaultPanel();
             defaultPanel.selectColor('#ff0000');
             fixture.detectChanges();
-            expect(defaultPanel.color).toEqual('#ff0000');
+            expect(defaultPanel.color()).toEqual('#ff0000');
             expect(fixtureInstance.defaultPanelColor).toEqual('#ff0000');
         }));
 
         it('should return correct icon color', fakeAsync(() => {
             fixture.detectChanges();
-            expect(fixtureInstance.defaultPanel.getIconColor('#ffffff')).toEqual('black');
-            expect(fixtureInstance.defaultPanel.getIconColor('#000000')).toEqual('white');
+            expect(fixtureInstance.defaultPanel().getIconColor('#ffffff')).toEqual('black');
+            expect(fixtureInstance.defaultPanel().getIconColor('#000000')).toEqual('white');
         }));
 
         it('should set correct recent color', fakeAsync(() => {
@@ -487,7 +487,7 @@ describe('color-default-panel', () => {
             fixture.detectChanges();
             flush();
 
-            fixtureInstance.defaultPanel.newColor = '#fafafa';
+            fixtureInstance.defaultPanel().newColor = '#fafafa';
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
@@ -505,8 +505,8 @@ describe('color-default-panel', () => {
             fixture.detectChanges();
             flush();
 
-            fixtureInstance.defaultPanel.recentColors = ['#aaaaaa', '#fafafa'];
-            fixtureInstance.defaultPanel.newColor = '#fafafa';
+            fixtureInstance.defaultPanel().recentColors = ['#aaaaaa', '#fafafa'];
+            fixtureInstance.defaultPanel().newColor = '#fafafa';
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
@@ -579,7 +579,7 @@ describe('picker-panel', () => {
     describe('picker-panel-component', () => {
         it('should called colorChangeEvent', fakeAsync(() => {
             fixture.detectChanges();
-            fixtureInstance.pickerPanel.colorChangeEvent(new ThyColor('#ccc'));
+            fixtureInstance.pickerPanel().colorChangeEvent(new ThyColor('#ccc'));
             fixture.detectChanges();
             const defaultColorPanel = overlayContainerElement.querySelector('.thy-color-picker-panel');
             expect(defaultColorPanel).toBeFalsy();

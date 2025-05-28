@@ -271,7 +271,9 @@ export class ThyFormReactiveExampleComponent implements OnInit {
                 radioGroup: ['', [Validators.required]],
                 radio: ['', [Validators.required]],
                 slider: [0, [Validators.min(10)]],
-                checkbox: ['', [Validators.requiredTrue]]
+                checkbox: ['', [Validators.requiredTrue]],
+                checkbox1: ['', [Validators.requiredTrue]],
+                checkbox2: ['', [Validators.requiredTrue]]
             },
             { updateOn }
         );

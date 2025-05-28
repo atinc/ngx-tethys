@@ -1,17 +1,22 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { Component, ViewChild } from '@angular/core';
+import { provideHttpClient } from '@angular/common/http';
+import { Component, viewChild } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush, inject, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { ComponentTypeOrTemplateRef, ThyOverlayTrigger, ThyPlacement } from 'ngx-tethys/core';
-import { ThyDropdownDirective, ThyDropdownModule } from 'ngx-tethys/dropdown';
+import {
+    ThyDropdownAbstractMenu,
+    ThyDropdownDirective,
+    ThyDropdownMenuComponent,
+    ThyDropdownMenuItemType,
+    ThyDropdownModule
+} from 'ngx-tethys/dropdown';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyPopoverConfig } from 'ngx-tethys/popover';
 import { dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing';
-import { ThyDropdownMenuItemType, ThyDropdownAbstractMenu, ThyDropdownMenuComponent } from 'ngx-tethys/dropdown';
-import { provideHttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'thy-dropdown-test',
@@ -296,8 +301,8 @@ describe('for touch usage', () => {
     imports: [ThyDropdownModule, ThyButtonModule]
 })
 class DropdownMenuInputTestComponent {
-    @ViewChild('invalidDiv', { static: true }) invalidDiv: HTMLElement;
-    @ViewChild('dropdownMenu', { static: true }) dropdownMenu: ThyDropdownMenuComponent;
+    readonly invalidDiv = viewChild<HTMLElement>('invalidDiv');
+    readonly dropdownMenu = viewChild<ThyDropdownMenuComponent>('dropdownMenu');
     menu: HTMLElement | ThyDropdownMenuComponent | string = null;
 }
 
@@ -336,7 +341,7 @@ describe('invalid dropdown', () => {
     }));
 
     it('should throw error when menu is a div', fakeAsync(() => {
-        fixture.componentInstance.menu = fixture.componentInstance.invalidDiv;
+        fixture.componentInstance.menu = fixture.componentInstance.invalidDiv();
         fixture.detectChanges();
         expect(() => {
             dropdown.show();
@@ -345,7 +350,7 @@ describe('invalid dropdown', () => {
     }));
 
     it('should not throw error when menu is dropdownMenu', fakeAsync(() => {
-        fixture.componentInstance.menu = fixture.componentInstance.dropdownMenu;
+        fixture.componentInstance.menu = fixture.componentInstance.dropdownMenu();
         fixture.detectChanges();
         expect(() => {
             dropdown.show();
@@ -390,7 +395,7 @@ describe('invalid dropdown', () => {
     imports: [ThyDropdownModule, ThyButtonModule, ThyIconModule]
 })
 class DropdownMenuTestComponent {
-    @ViewChild('dropdownMenu', { static: true }) dropdownMenu: ThyDropdownMenuComponent;
+    readonly dropdownMenu = viewChild<ThyDropdownMenuComponent>('dropdownMenu');
 
     width: number;
 
@@ -575,7 +580,7 @@ describe('dropdown menu', () => {
     imports: [ThyDropdownModule, ThyButtonModule, ThyIconModule]
 })
 class DropdownSubmenuTestComponent {
-    @ViewChild('dropdownMenu', { static: true }) dropdownMenu: ThyDropdownMenuComponent;
+    readonly dropdownMenu = viewChild<ThyDropdownMenuComponent>('dropdownMenu');
 }
 
 describe('dropdown submenu', () => {
@@ -905,7 +910,10 @@ describe('dropdown-component', () => {
             [thyTrigger]="trigger"
             thyButton="primary"
             [thyPopoverOptions]="popoverOptions"
-            [thyPlacement]="placement">
+            [thyPlacement]="placement"
+            [thyActiveClass]="activeClass"
+            [thyMenuInsideClosable]="insideClosable"
+            [thyPanelClass]="panelClass">
             Dropdown
         </button>
         <thy-dropdown-menu #menu>
@@ -923,6 +931,9 @@ class DropdownOptionsTestComponent {
     trigger: ThyOverlayTrigger = 'click';
     popoverOptions: Pick<ThyPopoverConfig, 'width' | 'height'> = {};
     placement: ThyPlacement = 'bottomLeft';
+    activeClass: string;
+    insideClosable = true;
+    panelClass: string;
 }
 
 describe('dropdown options', () => {
@@ -995,8 +1006,9 @@ describe('dropdown options', () => {
         });
 
         it('should get default options', () => {
-            dropdown.thyPopoverOptions = undefined;
             expect(calledConfig).toBeUndefined();
+            fixture.componentInstance.popoverOptions = {};
+            fixture.detectChanges();
             dropdown.createOverlay();
             expect(calledConfig).toEqual(
                 jasmine.objectContaining({
@@ -1012,7 +1024,8 @@ describe('dropdown options', () => {
         });
 
         it('should set thyActiveClass', () => {
-            dropdown.thyActiveClass = 'active';
+            fixture.componentInstance.activeClass = 'active';
+            fixture.detectChanges();
             expect(calledConfig).toBeUndefined();
             dropdown.createOverlay();
             expect(calledConfig).toEqual(
@@ -1028,9 +1041,10 @@ describe('dropdown options', () => {
         });
 
         it('should get custom options', () => {
-            dropdown.thyPopoverOptions = {
+            fixture.componentInstance.popoverOptions = {
                 height: '100px'
             };
+            fixture.detectChanges();
             expect(calledConfig).toBeUndefined();
             dropdown.createOverlay();
             expect(calledConfig).toEqual(
@@ -1041,12 +1055,12 @@ describe('dropdown options', () => {
         });
 
         it('should filter invalid options', () => {
-            dropdown.thyPopoverOptions = {
+            fixture.componentInstance.popoverOptions = {
                 offset: 1,
                 hasBackdrop: false,
                 panelClass: 'invalid-panel'
             } as any;
-
+            fixture.detectChanges();
             expect(calledConfig).toBeUndefined();
             dropdown.createOverlay();
             expect(calledConfig).toEqual(
@@ -1059,8 +1073,8 @@ describe('dropdown options', () => {
         });
 
         it('should set placement', () => {
-            dropdown.thyPlacement = 'bottomRight';
-
+            fixture.componentInstance.placement = 'bottomRight';
+            fixture.detectChanges();
             expect(calledConfig).toBeUndefined();
             dropdown.createOverlay();
             expect(calledConfig).toEqual(
@@ -1071,8 +1085,8 @@ describe('dropdown options', () => {
         });
 
         it('should set insideClosable', () => {
-            dropdown.thyMenuInsideClosable = false;
-
+            fixture.componentInstance.insideClosable = false;
+            fixture.detectChanges();
             expect(calledConfig).toBeUndefined();
             dropdown.createOverlay();
             expect(calledConfig).toEqual(
@@ -1083,7 +1097,7 @@ describe('dropdown options', () => {
         });
 
         it('should set outsideClosable', () => {
-            dropdown.thyPopoverOptions.outsideClosable = false;
+            dropdown.thyPopoverOptions().outsideClosable = false;
 
             expect(calledConfig).toBeUndefined();
             dropdown.createOverlay();
@@ -1095,8 +1109,8 @@ describe('dropdown options', () => {
         });
 
         it('should set panel class', () => {
-            dropdown.thyPanelClass = 'test-dropdown-panel-class';
-
+            fixture.componentInstance.panelClass = 'test-dropdown-panel-class';
+            fixture.detectChanges();
             expect(calledConfig).toBeUndefined();
             dropdown.createOverlay();
             expect(calledConfig).toEqual(

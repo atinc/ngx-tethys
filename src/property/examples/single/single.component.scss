@@ -1,0 +1,6 @@
+.thy-property-item {
+    width: 360px;
+    &:not(:first-child) {
+        margin-top: 8px;
+    }
+}

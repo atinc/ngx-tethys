@@ -1,21 +1,23 @@
-@if (thyShowStepHeader) {
+@if (thyShowStepHeader()) {
   <div class="thy-stepper-header-container">
-    @for (step of steps; track $index; let i = $index; let isLast = $last) {
+    @for (step of steps(); track $index; let i = $index; let isLast = $last) {
       <thy-step-header
         [index]="i"
-        [label]="step.thyLabel || step.label"
-        [icon]="step.thyIcon"
-        [selected]="selectedIndex === i"
-        [class.thy-stepper-header-active]="i <= selectedIndex"
-        [active]="i <= selectedIndex">
+        [label]="step.thyLabel() || step.label()"
+        [icon]="step.thyIcon()"
+        [selected]="selectedIndex() === i"
+        [class.thy-stepper-header-active]="i <= selectedIndex()"
+        [active]="i <= selectedIndex()">
       </thy-step-header>
       @if (!isLast) {
-        <div class="thy-stepper-line" [class.thy-stepper-line-active]="i < selectedIndex"></div>
+        <div class="thy-stepper-line" [class.thy-stepper-line-active]="i < selectedIndex()"></div>
       }
     }
   </div>
 }
 
 <div class="thy-stepper-content-container">
-  <ng-container [ngTemplateOutlet]="selected?.content"></ng-container>
+  <ng-container [ngTemplateOutlet]="selected()?.content()"></ng-container>
 </div>
+
+ 

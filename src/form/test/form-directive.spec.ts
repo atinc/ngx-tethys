@@ -370,7 +370,10 @@ describe('form validate', () => {
 
     it('should create validations success when validateOn was change', fakeAsync(async () => {
         testComponent.loadingDone = false;
-        testComponent.validateConfig.validateOn = 'change';
+        testComponent.validateConfig = {
+            ...testComponent.validateConfig,
+            validateOn: 'change'
+        };
         fixture.detectChanges();
         testComponent.loadingDone = true;
         fixture.detectChanges();

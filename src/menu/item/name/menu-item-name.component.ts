@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, Input } from '@angular/core';
+import { Component, input, OnInit } from '@angular/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
@@ -10,16 +10,15 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     selector: 'thy-menu-item-name,[thy-menu-item-name],[thyMenuItemName]',
     templateUrl: './menu-item-name.component.html',
     host: {
-        class: 'thy-menu-item-name'
+        class: 'thy-menu-item-name',
+        '[class.thy-menu-item-name-ellipsis]': 'thyOverflowEllipsis()'
     }
 })
 export class ThyMenuItemName implements OnInit {
     /**
      * 是否 ellipsis
      */
-    @HostBinding('class.thy-menu-item-name-ellipsis')
-    @Input({ transform: coerceBooleanProperty })
-    thyOverflowEllipsis = true;
+    readonly thyOverflowEllipsis = input(true, { transform: coerceBooleanProperty });
 
     constructor() {}
 

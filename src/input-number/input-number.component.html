@@ -5,7 +5,7 @@
     (mousedown)="up($event)"
     (mouseup)="stop()"
     (mouseleave)="stop()"
-    [class.disabled]="disabledUp">
+    [class.disabled]="disabledUp()">
     <thy-icon thyIconName="angle-up"></thy-icon>
   </span>
   <span
@@ -14,7 +14,7 @@
     (mousedown)="down($event)"
     (mouseup)="stop()"
     (mouseleave)="stop()"
-    [class.disabled]="disabledDown">
+    [class.disabled]="disabledDown()">
     <thy-icon thyIconName="angle-down"></thy-icon>
   </span>
 </div>
@@ -23,13 +23,13 @@
   #input
   autocomplete="off"
   class="input-number-input form-control"
-  [thySize]="thySize"
-  [thyAutofocus]="thyAutoFocus"
+  [thySize]="thySize()"
+  [thyAutofocus]="thyAutoFocus()"
   [disabled]="thyDisabled"
-  [attr.min]="thyMin"
-  [attr.max]="thyMax"
-  [placeholder]="thyPlaceholder"
-  [attr.step]="thyStep"
+  [attr.min]="thyMin()"
+  [attr.max]="thyMax()"
+  [placeholder]="thyPlaceholder()"
+  [attr.step]="thyStep()"
   (keydown)="onKeyDown($event)"
   (keyup)="stop()"
   [(ngModel)]="displayValue"

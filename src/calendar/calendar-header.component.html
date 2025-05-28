@@ -11,7 +11,7 @@
   }
 </div>
 <div class="thy-calendar-full-header-right">
-  <ng-container *ngTemplateOutlet="$any(operationRender); context: { $implicit: operationRender }">
-    <span>{{ operationRender | json }}</span>
+  <ng-container *ngTemplateOutlet="$any(operationRender()); context: { $implicit: operationRender() }">
+    <span>{{ operationRender() | json }}</span>
   </ng-container>
 </div>

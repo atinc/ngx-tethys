@@ -1,8 +1,8 @@
 <div class="dialog-footer-actions btn-pair">
   <ng-content></ng-content>
 </div>
-@if (description) {
+@if (description()) {
   <div class="dialog-footer-description">
-    <ng-container [ngTemplateOutlet]="description"></ng-container>
+    <ng-container [ngTemplateOutlet]="description()"></ng-container>
   </div>
 }

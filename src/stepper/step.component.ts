@@ -1,7 +1,7 @@
-import { Component, InjectionToken, Input, TemplateRef, ViewChild, inject } from '@angular/core';
+import { Component, InjectionToken, TemplateRef, ViewChild, inject, input, WritableSignal, viewChild } from '@angular/core';
 
 export interface IThyStepperComponent {
-    selected: ThyStep;
+    updateSelected(step: ThyStep): void;
 }
 
 export const THY_STEPPER_COMPONENT = new InjectionToken<IThyStepperComponent>('THY_STEPPER_COMPONENT');
@@ -11,29 +11,26 @@ export const THY_STEPPER_COMPONENT = new InjectionToken<IThyStepperComponent>('T
  * @name thy-step
  * @order 20
  */
-@Component({
-    selector: 'thy-step',
-    templateUrl: './step.component.html'
-})
+@Component({ selector: 'thy-step', templateUrl: './step.component.html' })
 export class ThyStep {
     stepper = inject(THY_STEPPER_COMPONENT, { optional: true })!;
 
-    @ViewChild(TemplateRef, { static: true }) content: TemplateRef<any>;
+    readonly content = viewChild<TemplateRef<any>>(TemplateRef);
 
-    @Input() label: string;
+    readonly label = input<string>();
 
     /**
      * 步骤条中每个步骤的label文本
      */
-    @Input() thyLabel: string;
+    readonly thyLabel = input<string>();
 
     /**
      * 步骤条中每个步骤完成的图标
      * @default check-circle
      */
-    @Input() thyIcon: string;
+    readonly thyIcon = input<string>();
 
     select() {
-        this.stepper.selected = this;
+        this.stepper.updateSelected(this);
     }
 }

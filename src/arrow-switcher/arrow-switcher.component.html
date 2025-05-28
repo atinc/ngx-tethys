@@ -1,15 +1,15 @@
-@if (theme === 'lite') {
+@if (thyTheme() === 'lite') {
   <div class="switcher-wrapper">
     <a
       thyAction
-      [thyTooltip]="thyPreviousTooltip"
+      [thyTooltip]="thyPreviousTooltip()"
       href="javascript:;"
-      [thyDisabled]="previousDisabled"
+      [thyDisabled]="previousDisabled()"
       class="mr-2"
       (click)="onPreviousClick($event)"
       ><thy-icon thyIconName="angle-up"></thy-icon
     ></a>
-    <a thyAction [thyTooltip]="thyNextTooltip" href="javascript:;" [thyDisabled]="nextDisabled" (click)="onNextClick($event)"
+    <a thyAction [thyTooltip]="thyNextTooltip()" href="javascript:;" [thyDisabled]="nextDisabled()" (click)="onNextClick($event)"
       ><thy-icon thyIconName="angle-down"></thy-icon
     ></a>
   </div>
@@ -17,12 +17,10 @@
   <div class="switcher-wrapper">
     <button
       thyButtonIcon="angle-left"
-      [thyTooltip]="thyPreviousTooltip"
-      [disabled]="previousDisabled"
-      (click)="onPreviousClick($event)"
-    ></button>
-    <span>{{ index + 1 }} / {{ total }}</span>
-    <button thyButtonIcon="angle-right" [thyTooltip]="thyNextTooltip" [disabled]="nextDisabled" (click)="onNextClick($event)"></button>
+      [thyTooltip]="thyPreviousTooltip()"
+      [disabled]="previousDisabled()"
+      (click)="onPreviousClick($event)"></button>
+    <span>{{ index() + 1 }} / {{ thyTotal() }}</span>
+    <button thyButtonIcon="angle-right" [thyTooltip]="thyNextTooltip()" [disabled]="nextDisabled()" (click)="onNextClick($event)"></button>
   </div>
 }
-

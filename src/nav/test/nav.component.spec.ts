@@ -1,6 +1,5 @@
-import { bypassSanitizeProvider, dispatchFakeEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
-import { Subject } from 'rxjs';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { provideHttpClient } from '@angular/common/http';
 import { Component, DebugElement, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -8,8 +7,9 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { Router, RouterModule, Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ThyIconModule } from 'ngx-tethys/icon';
-import { ThyNavItemDirective, ThyNav, ThyNavHorizontal, ThyNavSize, ThyNavType, ThyNavModule } from 'ngx-tethys/nav';
-import { provideHttpClient } from '@angular/common/http';
+import { ThyNav, ThyNavHorizontal, ThyNavItemDirective, ThyNavModule, ThyNavSize, ThyNavType } from 'ngx-tethys/nav';
+import { bypassSanitizeProvider, dispatchFakeEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
+import { Subject } from 'rxjs';
 
 const NAV_CLASS = `thy-nav`;
 const NAV_LINK_CLASS = `thy-nav-item`;
@@ -234,7 +234,7 @@ describe(`thy-nav`, () => {
         });
 
         it('should get correct default value for thyInsideClosable', () => {
-            expect(navDebugElement.componentInstance.thyInsideClosable).toBe(true);
+            expect(navDebugElement.componentInstance.thyInsideClosable()).toBe(true);
         });
     });
 
@@ -379,7 +379,7 @@ describe(`thy-nav`, () => {
             fixture.debugElement.componentInstance.insideClosable = false;
             fixture.detectChanges();
             const navDebugElement = fixture.debugElement.query(By.directive(ThyNav));
-            expect(navDebugElement.componentInstance.thyInsideClosable).toBe(false);
+            expect(navDebugElement.componentInstance.thyInsideClosable()).toBe(false);
         }));
 
         it('should call item event when click navLink in more popover', fakeAsync(() => {

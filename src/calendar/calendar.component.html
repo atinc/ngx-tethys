@@ -1,28 +1,25 @@
 <thy-calendar-header
-  [operationRender]="headerOperation"
+  [operationRender]="headerOperation()"
   (monthChange)="onMonthSelect($event)"
   (yearChange)="onYearSelect($event)"
   (dateRangeChange)="onDateRangeSelect($event)"
-  [currentDate]="currentDate"
-></thy-calendar-header>
+  [currentDate]="currentDate"></thy-calendar-header>
 
 <div class="thy-calendar-panel">
-  <div class="thy-calendar-{{ thyMode === 'month' ? 'date' : 'month' }}-panel">
+  <div class="thy-calendar-{{ thyMode() === 'month' ? 'date' : 'month' }}-panel">
     <div class="thy-calendar-body">
-      @if (thyMode === 'month') {
+      @if (thyMode() === 'month') {
         <date-table
           [prefixCls]="prefixCls"
           [value]="currentDate"
           [activeDate]="currentDate"
           [selectedValue]="currentDate"
-          [cellRender]="dateCell"
-          [disabledDate]="thyDisabledDate"
-          (valueChange)="onDateSelect($event)"
-        ></date-table>
+          [cellRender]="dateCell()"
+          [disabledDate]="thyDisabledDate()"
+          (valueChange)="onDateSelect($event)"></date-table>
       } @else {
-        <month-table [value]="currentDate" [disabledDate]="thyDisabledDate" (valueChange)="onDateSelect($event)"></month-table>
+        <month-table [value]="currentDate" [disabledDate]="thyDisabledDate()" (valueChange)="onDateSelect($event)"></month-table>
       }
     </div>
   </div>
 </div>
-

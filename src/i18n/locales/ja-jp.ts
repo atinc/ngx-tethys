@@ -61,7 +61,7 @@ export default {
         yearMonthFormat: 'yyyy年MM月'
     },
     autocomplete: {
-        empty: 'データはありません'
+        empty: 'まだデータはありません'
     },
     transfer: {
         maxLimit: '(上限{max}個)',
@@ -101,16 +101,16 @@ export default {
         cancel: 'キャンセル'
     },
     select: {
-        placeholder: 'ノードを選択してください',
-        empty: '選択可能なデータはありません'
+        placeholder: '選択してください',
+        empty: 'まだデータはありません'
     },
     treeSelect: {
-        placeholder: 'ノードを選択してください',
-        empty: '選択可能なデータはありません'
+        placeholder: '選択してください',
+        empty: 'まだデータはありません'
     },
     cascader: {
         placeholder: '選択してください',
-        empty: '選択肢はありません'
+        empty: 'まだデータはありません'
     },
     pagination: {
         page: 'ページ',

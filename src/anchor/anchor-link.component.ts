@@ -2,15 +2,17 @@ import { Platform } from '@angular/cdk/platform';
 import {
     ChangeDetectionStrategy,
     Component,
-    ContentChild,
     ElementRef,
-    Input,
     OnDestroy,
     OnInit,
     TemplateRef,
-    ViewChild,
     ViewEncapsulation,
-    inject
+    inject,
+    input,
+    contentChild,
+    viewChild,
+    Signal,
+    computed
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
@@ -26,11 +28,11 @@ import { NgTemplateOutlet } from '@angular/common';
     exportAs: 'thyLink,thyAnchorLink',
     preserveWhitespaces: false,
     template: `
-        <a #linkTitle (click)="goToClick($event)" href="{{ thyHref }}" class="thy-anchor-link-title" title="{{ title }}">
-            @if (title) {
-                <span>{{ title }}</span>
+        <a #linkTitle (click)="goToClick($event)" href="{{ thyHref() }}" class="thy-anchor-link-title" title="{{ title() }}">
+            @if (title()) {
+                <span>{{ title() }}</span>
             } @else {
-                <ng-template [ngTemplateOutlet]="titleTemplate || thyTemplate"></ng-template>
+                <ng-template [ngTemplateOutlet]="titleTemplate() || thyTemplate()"></ng-template>
             }
         </a>
         <ng-content></ng-content>
@@ -44,33 +46,29 @@ export class ThyAnchorLink implements IThyAnchorLinkComponent, OnInit, OnDestroy
     private anchorComponent = inject(THY_ANCHOR_COMPONENT, { optional: true })!;
     private platform = inject(Platform);
 
-    title: string | null = '';
+    readonly title: Signal<string | null> = computed(() => {
+        return this.thyTitle() instanceof TemplateRef ? null : (this.thyTitle() as string);
+    });
 
-    titleTemplate?: TemplateRef<any>;
+    readonly titleTemplate: Signal<TemplateRef<any>> = computed(() => {
+        return this.thyTitle() instanceof TemplateRef ? (this.thyTitle() as TemplateRef<any>) : null;
+    });
 
     private hostRenderer = useHostRenderer();
 
     /**
      * 锚点链接
      */
-    @Input() thyHref = '#';
+    readonly thyHref = input('#');
 
     /**
      * 文字内容
      */
-    @Input()
-    set thyTitle(value: string | TemplateRef<void>) {
-        if (value instanceof TemplateRef) {
-            this.title = null;
-            this.titleTemplate = value;
-        } else {
-            this.title = value;
-        }
-    }
+    readonly thyTitle = input<string | TemplateRef<void>>('');
 
-    @ContentChild('thyTemplate') thyTemplate!: TemplateRef<void>;
+    readonly thyTemplate = contentChild.required<TemplateRef<void>>('thyTemplate');
 
-    @ViewChild('linkTitle', { static: true }) linkTitle!: ElementRef<HTMLAnchorElement>;
+    readonly linkTitle = viewChild.required<ElementRef<HTMLAnchorElement>>('linkTitle');
 
     constructor() {
         const elementRef = this.elementRef;
@@ -86,7 +84,7 @@ export class ThyAnchorLink implements IThyAnchorLinkComponent, OnInit, OnDestroy
     }
 
     getLinkTitleElement(): HTMLAnchorElement {
-        return this.linkTitle.nativeElement;
+        return this.linkTitle().nativeElement;
     }
 
     setActive(): void {

@@ -2,7 +2,7 @@ import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { SafeAny } from 'ngx-tethys/types';
 import { Overlay, OverlayOutsideClickDispatcher } from '@angular/cdk/overlay';
 import { DomPortal } from '@angular/cdk/portal';
-import { Component, ElementRef, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, inject, viewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -50,11 +50,11 @@ class ThyPropertiesTestBasicComponent {
     overlay = inject(Overlay);
     overlayOutsideClickDispatcher = inject(OverlayOutsideClickDispatcher);
 
-    @ViewChild('properties') propertiesComponent: ThyProperties;
+    readonly propertiesComponent = viewChild<ThyProperties>('properties');
 
-    @ViewChild('ageProperty') agePropertyItemComponent: ThyPropertyItem;
+    readonly agePropertyItemComponent = viewChild<ThyPropertyItem>('ageProperty');
 
-    @ViewChild('sexProperty') sexPropertyItemComponent: ThyPropertyItem;
+    readonly sexPropertyItemComponent = viewChild<ThyPropertyItem>('sexProperty');
 
     editable = true;
 
@@ -93,7 +93,7 @@ class ThyPropertiesTestBasicComponent {
     imports: [ThyProperties, ThyPropertyItem]
 })
 class ThyPropertiesTestColumnComponent {
-    @ViewChild('properties') propertiesComponent: ThyProperties;
+    readonly propertiesComponent = viewChild<ThyProperties>('properties');
 
     column = 3;
 
@@ -192,15 +192,15 @@ describe(`thy-properties`, () => {
             basicComponent.editTrigger = 'hover';
             fixture.detectChanges();
             const element = fixture.debugElement.query(By.css('.thy-properties'));
-            expect(element.nativeElement.classList).toContain('thy-properties-edit-trigger-hover');
+            expect(element.nativeElement.classList).toContain('thy-property-edit-trigger-hover');
         });
 
         it('should set editing success', () => {
             const ageEditorElement = fixture.debugElement.query(By.css('.age-input')).parent;
-            basicComponent.agePropertyItemComponent.setEditing(true);
+            basicComponent.agePropertyItemComponent().setEditing(true);
             fixture.detectChanges();
             expect(ageEditorElement.nativeElement.parentNode.classList).toContain('thy-property-item-content-editing');
-            basicComponent.agePropertyItemComponent.setEditing(false);
+            basicComponent.agePropertyItemComponent().setEditing(false);
             fixture.detectChanges();
             expect(ageEditorElement.nativeElement.parentNode.classList).not.toContain('thy-property-item-content-editing');
         });
@@ -209,8 +209,8 @@ describe(`thy-properties`, () => {
             basicComponent.editable = true;
             fixture.detectChanges();
 
-            const itemContentElement = basicComponent.agePropertyItemComponent.itemContent.nativeElement;
-            const setEditingSpy = spyOn(basicComponent.agePropertyItemComponent, 'setEditing');
+            const itemContentElement = basicComponent.agePropertyItemComponent().itemContent().nativeElement;
+            const setEditingSpy = spyOn(basicComponent.agePropertyItemComponent(), 'setEditing');
             itemContentElement.click();
             fixture.detectChanges();
             tick(50);
@@ -221,13 +221,13 @@ describe(`thy-properties`, () => {
         it('should destroy the subscription of click event when the value of thyEditable is changed from true to false', fakeAsync(() => {
             basicComponent.editable = true;
             fixture.detectChanges();
-            expect(!!(basicComponent.agePropertyItemComponent as SafeAny).clickEventSubscription).toBeTruthy();
+            expect(!!(basicComponent.agePropertyItemComponent() as SafeAny).clickEventSubscription).toBeTruthy();
 
-            const itemContentElement = basicComponent.agePropertyItemComponent.itemContent.nativeElement;
+            const itemContentElement = basicComponent.agePropertyItemComponent().itemContent().nativeElement;
             itemContentElement.click();
             fixture.detectChanges();
 
-            const unsubscribeSpy = spyOn((basicComponent.agePropertyItemComponent as SafeAny).clickEventSubscription, 'unsubscribe');
+            const unsubscribeSpy = spyOn((basicComponent.agePropertyItemComponent() as SafeAny).clickEventSubscription, 'unsubscribe');
             basicComponent.editable = false;
             fixture.detectChanges();
             tick(60);
@@ -250,25 +250,25 @@ describe(`thy-properties`, () => {
             // fake overlay
             const overlayRef = basicComponent.overlay.create();
             overlayRef.attach(new DomPortal(basicComponent.elementRef.nativeElement));
-            basicComponent.sexPropertyItemComponent.itemContent.nativeElement.click();
+            basicComponent.sexPropertyItemComponent().itemContent().nativeElement.click();
             fixture.detectChanges();
-            expect(basicComponent.sexPropertyItemComponent.editing).toBeTruthy();
+            expect(basicComponent.sexPropertyItemComponent().editing()).toBeTruthy();
             tick(50);
             fixture.detectChanges();
             overlayRef.detach();
             tick(50);
-            expect(basicComponent.sexPropertyItemComponent.editing).toBeFalsy();
+            expect(basicComponent.sexPropertyItemComponent().editing()).toBeFalsy();
         }));
 
         it('should edit canceled when editor outside clicked', fakeAsync(() => {
-            basicComponent.agePropertyItemComponent.itemContent.nativeElement.click();
+            basicComponent.agePropertyItemComponent().itemContent().nativeElement.click();
             fixture.detectChanges();
-            expect(basicComponent.agePropertyItemComponent.editing).toBeTruthy();
+            expect(basicComponent.agePropertyItemComponent().editing()).toBeTruthy();
             tick(50);
             fixture.detectChanges();
             dispatchMouseEvent(fixture.debugElement.query(By.css('.thy-property-item-label')).nativeElement, 'click');
             fixture.detectChanges();
-            expect(basicComponent.agePropertyItemComponent.editing).toBeFalsy();
+            expect(basicComponent.agePropertyItemComponent().editing()).toBeFalsy();
         }));
     });
 

@@ -1,15 +1,16 @@
 import {
     Component,
-    HostBinding,
-    Input,
-    Output,
-    EventEmitter,
     ChangeDetectionStrategy,
-    OnInit,
     ChangeDetectorRef,
     forwardRef,
     numberAttribute,
-    inject
+    inject,
+    input,
+    output,
+    computed,
+    Signal,
+    WritableSignal,
+    signal
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyButtonIcon } from 'ngx-tethys/button';
@@ -31,6 +32,10 @@ export interface ThyArrowSwitcherEvent {
 @Component({
     selector: 'thy-arrow-switcher',
     templateUrl: './arrow-switcher.component.html',
+    host: {
+        class: 'thy-arrow-switcher',
+        '[class.thy-arrow-switcher-small]': 'isSmallSize()'
+    },
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         {
@@ -41,85 +46,68 @@ export interface ThyArrowSwitcherEvent {
     ],
     imports: [ThyAction, ThyTooltipDirective, ThyIcon, ThyButtonIcon]
 })
-export class ThyArrowSwitcher implements OnInit, ControlValueAccessor {
+export class ThyArrowSwitcher implements ControlValueAccessor {
     private cd = inject(ChangeDetectorRef);
 
-    @HostBinding('class.thy-arrow-switcher') _isArrowSwitcher = true;
-
-    @HostBinding('class.thy-arrow-switcher-small') _isSmallSize = false;
-
-    total: number;
-
-    theme: ThyArrowSwitcherTheme = 'default';
+    private disabled: WritableSignal<boolean> = signal(false);
 
     /**
      * 点击上一条事件
      */
-    @Output() thyPrevious = new EventEmitter<ThyArrowSwitcherEvent>();
+    readonly thyPrevious = output<ThyArrowSwitcherEvent>();
 
     /**
      * 点击下一条事件
      */
-    @Output() thyNext = new EventEmitter<ThyArrowSwitcherEvent>();
+    readonly thyNext = output<ThyArrowSwitcherEvent>();
 
     /**
      * 设置上一条 Hover Tooltip 提示
      */
-    @Input() thyPreviousTooltip: string;
+    readonly thyPreviousTooltip = input<string>();
 
     /**
      * 设置下一条 Hover Tooltip 提示
      */
-    @Input() thyNextTooltip: string;
+    readonly thyNextTooltip = input<string>();
 
     /**
      * 展示主题
      * @type default | lite
-     * @default default
      */
-    @Input() set thyTheme(value: ThyArrowSwitcherTheme) {
-        this.theme = value;
-    }
+    readonly thyTheme = input<ThyArrowSwitcherTheme>('default');
 
     /**
      * 总条数
      */
-    @Input({ transform: numberAttribute })
-    set thyTotal(value: number) {
-        if (value) {
-            this.total = value;
-            this.getDisabled();
-        }
-    }
+    readonly thyTotal = input<number, unknown>(undefined, { transform: numberAttribute });
 
     /**
      * 尺寸大小，默认尺寸为大号，取值为`sm`时展示小号
      */
-    @Input()
-    set thySize(size: string) {
-        if (size === 'sm') {
-            this._isSmallSize = true;
-        }
-    }
+    readonly thySize = input<string>();
 
-    index = 0;
+    readonly isSmallSize: Signal<boolean> = computed(() => {
+        return this.thySize() === 'sm';
+    });
 
-    disabled = false;
+    index: WritableSignal<number> = signal(0);
 
-    previousDisabled = false;
+    readonly previousDisabled = computed(() => {
+        return this.index() <= 0 || this.disabled();
+    });
 
-    nextDisabled = false;
+    readonly nextDisabled = computed(() => {
+        return this.index() >= this.thyTotal() - 1 || this.disabled();
+    });
 
     private onModelChange: (value: number) => void;
 
     private onModelTouched: () => void;
 
-    ngOnInit() {}
-
     writeValue(value: number): void {
         if (value >= 0) {
-            this.index = value;
-            this.getDisabled();
+            this.index.set(value);
         }
         this.cd.markForCheck();
     }
@@ -133,25 +121,20 @@ export class ThyArrowSwitcher implements OnInit, ControlValueAccessor {
     }
 
     setDisabledState(isDisable: boolean) {
-        this.disabled = isDisable;
-    }
-
-    getDisabled() {
-        this.previousDisabled = this.index <= 0 || this.disabled;
-        this.nextDisabled = this.index >= this.total - 1 || this.disabled;
+        this.disabled.set(isDisable);
     }
 
     onPreviousClick(event: Event) {
-        this.index--;
-        this.onModelChange(this.index);
-        this.getDisabled();
-        this.thyPrevious.emit({ index: this.index, event });
+        this.index.set(this.index() - 1);
+        this.onModelChange(this.index());
+
+        this.thyPrevious.emit({ index: this.index(), event });
     }
 
     onNextClick(event: Event) {
-        this.index++;
-        this.onModelChange(this.index);
-        this.getDisabled();
-        this.thyNext.emit({ index: this.index, event });
+        this.index.set(this.index() + 1);
+        this.onModelChange(this.index());
+
+        this.thyNext.emit({ index: this.index(), event });
     }
 }

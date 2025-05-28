@@ -61,7 +61,7 @@ export default {
         yearMonthFormat: 'yyyy年MM月'
     },
     autocomplete: {
-        empty: '没有任何数据'
+        empty: '暂无数据'
     },
     transfer: {
         maxLimit: '(上限{max}个)',
@@ -101,16 +101,16 @@ export default {
         cancel: '取消'
     },
     select: {
-        placeholder: '请选择节点',
-        empty: '暂时没有数据可选'
+        placeholder: '请选择',
+        empty: '暂无数据'
     },
     treeSelect: {
-        placeholder: '请选择节点',
-        empty: '暂时没有数据可选'
+        placeholder: '请选择',
+        empty: '暂无数据'
     },
     cascader: {
         placeholder: '请选择',
-        empty: '暂无可选项'
+        empty: '暂无数据'
     },
     pagination: {
         page: '页',

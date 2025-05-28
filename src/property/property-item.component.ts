@@ -7,27 +7,26 @@ import { OverlayOutsideClickDispatcher, OverlayRef } from '@angular/cdk/overlay'
 import { NgTemplateOutlet } from '@angular/common';
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
-    ContentChild,
     ElementRef,
-    EventEmitter,
-    HostBinding,
-    Input,
     NgZone,
     numberAttribute,
-    OnChanges,
     OnDestroy,
     OnInit,
-    Output,
     SimpleChanges,
     TemplateRef,
-    ViewChild,
-    inject
+    inject,
+    input,
+    computed,
+    effect,
+    output,
+    contentChild,
+    viewChild,
+    signal
 } from '@angular/core';
 
 import { ThyProperties } from './properties.component';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
 
 export type ThyPropertyItemOperationTrigger = 'hover' | 'always';
 
@@ -40,76 +39,85 @@ export type ThyPropertyItemOperationTrigger = 'hover' | 'always';
     templateUrl: './property-item.component.html',
     host: {
         class: 'thy-property-item',
-        '[class.thy-property-item-operational]': '!!operation',
-        '[class.thy-property-item-operational-hover]': "thyOperationTrigger === 'hover'"
+        '[class.thy-property-edit-trigger-hover]': 'thyEditTrigger() === "hover"',
+        '[class.thy-property-edit-trigger-click]': 'thyEditTrigger() === "click"',
+        '[class.thy-property-item-operational]': '!!operation()',
+        '[class.thy-property-item-operational-hover]': "thyOperationTrigger() === 'hover'",
+        '[style.grid-column]': 'gridColumn()',
+        '[class.thy-property-item-single]': '!parent'
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [ThyFlexibleText, NgTemplateOutlet]
 })
-export class ThyPropertyItem implements OnInit, OnChanges, OnDestroy {
-    private cdr = inject(ChangeDetectorRef);
+export class ThyPropertyItem implements OnDestroy {
     private clickDispatcher = inject(ThyClickDispatcher);
     private ngZone = inject(NgZone);
     private overlayOutsideClickDispatcher = inject(OverlayOutsideClickDispatcher);
-    private parent = inject(ThyProperties);
+    private parent = inject(ThyProperties, { optional: true });
 
     /**
      * 属性名称
      * @type sting
      * @default thyLabelText
      */
-    @Input() thyLabelText: string;
+    readonly thyLabelText = input<string>();
 
     /**
      * 设置属性是否是可编辑的
      * @type sting
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyEditable: boolean;
+    readonly thyEditable = input<boolean, ThyBooleanInput>(false, { transform: coerceBooleanProperty });
 
     /**
      * 设置跨列的数量
      * @type number
      */
-    @Input({ transform: numberAttribute }) thySpan: number = 1;
+    readonly thySpan = input(1, { transform: numberAttribute });
+
+    /**
+     * 设置编辑状态触发方法
+     * @type 'hover' | 'click'
+     */
+    readonly thyEditTrigger = input<'hover' | 'click'>();
 
     /**
      * 设置属性操作现实触发方式，默认 always 一直显示
      * @type 'hover' | 'always'
      */
-    @Input() thyOperationTrigger: ThyPropertyItemOperationTrigger = 'always';
+    readonly thyOperationTrigger = input<ThyPropertyItemOperationTrigger>('always');
 
-    @Output() thyEditingChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+    readonly thyEditingChange = output<boolean>();
 
     /**
      * 属性名称自定义模板
      * @type TemplateRef
      */
-    @ContentChild('label', { static: true }) label!: TemplateRef<void>;
+    readonly label = contentChild<TemplateRef<void>>('label');
 
     /**
      * 属性内容编辑模板，只有在 thyEditable 为 true 时生效
      * @type TemplateRef
      */
-    @ContentChild('editor', { static: true }) editor!: TemplateRef<void>;
+    readonly editor = contentChild<TemplateRef<void>>('editor');
 
     /**
      * 操作区模板
      * @type TemplateRef
      */
-    @ContentChild('operation', { static: true }) operation!: TemplateRef<void>;
+    readonly operation = contentChild<TemplateRef<void>>('operation');
 
     /**
      * @private
      */
-    @ViewChild('contentTemplate', { static: true }) content!: TemplateRef<void>;
+    readonly content = viewChild<TemplateRef<void>>('contentTemplate');
 
     /**
      * @private
      */
-    @ViewChild('item', { static: true }) itemContent: ElementRef<HTMLElement>;
+    readonly itemContent = viewChild<ElementRef<HTMLElement>>('item');
 
-    editing: boolean;
+    editing = signal(false);
 
     changes$ = new Subject<SimpleChanges>();
 
@@ -121,47 +129,42 @@ export class ThyPropertyItem implements OnInit, OnChanges, OnDestroy {
 
     private clickEventSubscription: Subscription;
 
-    @HostBinding('style.grid-column')
-    get gridColumn() {
-        return `span ${Math.min(this.thySpan, this.parent.thyColumn)}`;
-    }
+    protected readonly gridColumn = computed(() => {
+        return `span ${Math.min(this.thySpan(), this.parent?.thyColumn())}`;
+    });
 
-    isVertical = false;
+    isVertical = signal(false);
 
     constructor() {
         this.originOverlays = [...this.overlayOutsideClickDispatcher._attachedOverlays] as OverlayRef[];
-    }
 
-    ngOnInit() {
-        this.subscribeClick();
-        this.parent.layout$.pipe(takeUntil(this.destroy$)).subscribe(layout => {
-            this.isVertical = layout === 'vertical';
-            this.cdr.markForCheck();
-        });
-    }
+        effect(() => {
+            if (this.thyEditable()) {
+                this.subscribeClick();
+            } else {
+                this.setEditing(false);
+                this.eventDestroy$.next();
+                this.eventDestroy$.complete();
 
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes.thyEditable && changes.thyEditable.currentValue) {
-            this.subscribeClick();
-        } else {
-            this.setEditing(false);
-            this.eventDestroy$.next();
-            this.eventDestroy$.complete();
-
-            if (this.clickEventSubscription) {
-                this.clickEventSubscription.unsubscribe();
-                this.clickEventSubscription = null;
+                if (this.clickEventSubscription) {
+                    this.clickEventSubscription.unsubscribe();
+                    this.clickEventSubscription = null;
+                }
             }
-        }
+        });
+
+        effect(() => {
+            const layout = this.parent?.layout();
+            this.isVertical.set(layout === 'vertical');
+        });
     }
 
     setEditing(editing: boolean) {
         this.ngZone.run(() => {
-            if (!!this.editing !== !!editing) {
+            if (!!this.editing() !== !!editing) {
                 this.thyEditingChange.emit(editing);
             }
-            this.editing = editing;
-            this.cdr.markForCheck();
+            this.editing.set(editing);
         });
     }
 
@@ -177,16 +180,18 @@ export class ThyPropertyItem implements OnInit, OnChanges, OnDestroy {
     }
 
     private subscribeClick() {
-        if (this.thyEditable === true) {
+        if (this.thyEditable() === true) {
             this.ngZone.runOutsideAngular(() => {
                 if (this.clickEventSubscription) {
                     return;
                 }
-                this.clickEventSubscription = fromEvent(this.itemContent.nativeElement, 'click')
+                const itemElement = this.itemContent().nativeElement;
+                this.clickEventSubscription = fromEvent(itemElement, 'click')
                     .pipe(takeUntil(this.eventDestroy$))
                     .subscribe(() => {
                         this.setEditing(true);
-                        this.bindEditorBlurEvent(this.itemContent.nativeElement);
+                        this.bindEditorBlurEvent(itemElement);
+                        itemElement.querySelector('input')?.focus();
                     });
             });
         }

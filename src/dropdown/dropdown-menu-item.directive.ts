@@ -1,8 +1,8 @@
-import { Directive, HostBinding, Input, HostListener, ElementRef, OnInit, inject } from '@angular/core';
-import { fromEvent } from 'rxjs';
-import { debounceTime, shareReplay } from 'rxjs/operators';
+import { Directive, ElementRef, HostBinding, HostListener, OnInit, computed, inject, input } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { fromEvent } from 'rxjs';
+import { debounceTime, shareReplay } from 'rxjs/operators';
 
 export type ThyDropdownMenuItemType = 'default' | 'danger' | 'success' | '';
 
@@ -12,41 +12,35 @@ export type ThyDropdownMenuItemType = 'default' | 'danger' | 'success' | '';
  * @order 30
  */
 @Directive({
-    selector: '[thyDropdownMenuItem]'
+    selector: '[thyDropdownMenuItem]',
+    host: {
+        class: 'dropdown-menu-item',
+        '[class.dropdown-menu-item--disabled]': `thyDisabled()`,
+        '[class.dropdown-menu-item--danger]': 'danger()',
+        '[class.dropdown-menu-item--success]': 'success()'
+    }
 })
 export class ThyDropdownMenuItemDirective implements OnInit {
     private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
-    @HostBinding('class.dropdown-menu-item') className = true;
+    readonly danger = computed(() => this.thyType() === 'danger' || false);
 
-    @HostBinding('class.dropdown-menu-item--disabled') disabled = false;
-
-    @HostBinding('class.dropdown-menu-item--danger') danger = false;
-
-    @HostBinding('class.dropdown-menu-item--success') success = false;
+    readonly success = computed(() => this.thyType() === 'success' || false);
 
     /**
      * 菜单项类型
      * @type 'default' | 'danger' | 'success' | ''
-     * @default default
      */
-    @Input()
-    set thyType(value: ThyDropdownMenuItemType) {
-        this[value] = true;
-    }
+    readonly thyType = input<ThyDropdownMenuItemType>('default');
 
     /**
      * 菜单项是否处于禁用状态
-     * @default false
      */
-    @Input({ transform: coerceBooleanProperty })
-    set thyDisabled(value: boolean) {
-        this.disabled = value;
-    }
+    readonly thyDisabled = input(false, { transform: coerceBooleanProperty });
 
     @HostListener('click', ['$event'])
     onClick(event: Event): void {
-        if (this.disabled) {
+        if (this.thyDisabled()) {
             event.stopPropagation();
             event.preventDefault();
         }
@@ -140,17 +134,17 @@ export class ThyDropdownMenuItemExtendIconDirective {
  * @order 70
  */
 @Directive({
-    selector: '[thyDropdownMenuItemActive]'
+    selector: '[thyDropdownMenuItemActive]',
+    host: {
+        '[class.active]': `thyDropdownMenuItemActive()`
+    }
 })
 export class ThyDropdownMenuItemActiveDirective {
     /**
      * 是否激活
      * @type boolean | string
-     * @default false
      */
-    @HostBinding('class.active')
-    @Input({ transform: coerceBooleanProperty })
-    thyDropdownMenuItemActive: boolean;
+    readonly thyDropdownMenuItemActive = input(false, { transform: coerceBooleanProperty });
 
     constructor() {}
 }

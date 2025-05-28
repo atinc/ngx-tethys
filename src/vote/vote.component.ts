@@ -1,6 +1,5 @@
 import { useHostRenderer } from '@tethys/cdk/dom';
-
-import { Component, ContentChild, HostBinding, Input, OnInit, TemplateRef } from '@angular/core';
+import { Component, contentChild, effect, input, TemplateRef } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgTemplateOutlet } from '@angular/common';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
@@ -20,127 +19,83 @@ export type ThyVoteLayout = 'vertical' | 'horizontal';
     selector: 'thy-vote,[thyVote]',
     templateUrl: './vote.component.html',
     host: {
-        '[class.thy-vote-disabled]': `thyDisabled`
+        class: 'thy-vote',
+        '[class.has-voted]': 'thyHasVoted()',
+        '[class.thy-vote-disabled]': `thyDisabled()`
     },
     imports: [ThyIcon, NgTemplateOutlet]
 })
-export class ThyVote implements OnInit {
-    _size: ThyVoteSizes;
-
-    _type: ThyVoteType;
-
-    _layout: ThyVoteLayout;
-
-    _initialized = false;
-
+export class ThyVote {
     private hostRenderer = useHostRenderer();
-
-    @HostBinding(`class.thy-vote`) class = true;
-
-    @HostBinding(`class.has-voted`) _hasVoted = true;
 
     /**
      * 大小，thyLayout="vertical" 时，支持: sm | default
-     * @default default
      */
-    @Input()
-    set thySize(value: ThyVoteSizes) {
-        this._size = value;
-        if (this._initialized) {
-            this._setClassesByType();
-        }
-    }
+    readonly thySize = input<ThyVoteSizes, ThyVoteSizes>('default', {
+        transform: (value: ThyVoteSizes) => value || 'default'
+    });
 
     /**
      * 标签类型: primary | success | primary-weak | success-weak
-     * @default primary
      */
-    @Input()
-    set thyVote(value: ThyVoteType) {
-        this._type = value;
-        if (this._initialized) {
-            this._setClassesByType();
-        }
-    }
+    readonly thyVote = input<ThyVoteType, ThyVoteType>('primary', {
+        transform: (value: ThyVoteType) => value || 'primary'
+    });
 
     /**
      * 是否是偏圆型
-     * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyRound: boolean;
+    readonly thyRound = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 布局: horizontal | vertical
-     * @default horizontal
      */
-    @Input()
-    set thyLayout(value: ThyVoteLayout) {
-        this._layout = value;
-        if (this._initialized) {
-            this._setClassesByType();
-        }
-    }
+    readonly thyLayout = input<ThyVoteLayout, ThyVoteLayout>('horizontal', {
+        transform: (value: ThyVoteLayout) => value || 'horizontal'
+    });
 
     /**
      * 赞同的数量
      */
-    @Input() thyVoteCount: number | string;
+    readonly thyVoteCount = input<number | string>();
 
     /**
      * 图标
-     * @type string
      */
-    @Input() thyIcon = 'thumb-up';
+    readonly thyIcon = input<string, string>('thumb-up', {
+        transform: (value: string) => value || 'thumb-up'
+    });
 
     /**
      * 是否赞同
-     * @type boolean
-     * @default false
      */
-    @Input({ transform: coerceBooleanProperty })
-    set thyHasVoted(value: boolean) {
-        this._hasVoted = value;
-        if (this._initialized) {
-            this._setClassesByType();
-        }
-    }
+    readonly thyHasVoted = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 是否禁用
-     * @type boolean
      */
-    @Input({ transform: coerceBooleanProperty }) thyDisabled = false;
+    readonly thyDisabled = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 自定义Icon模板
-     * @type TemplateRef
      */
-    @ContentChild('voteIcon') voteIcon: TemplateRef<any>;
+    readonly voteIcon = contentChild<TemplateRef<any>>('voteIcon');
 
-    constructor() {}
-
-    ngOnInit() {
-        this._setClassesByType();
-        this._initialized = true;
+    constructor() {
+        effect(() => {
+            this.setClassesByType();
+        });
     }
 
-    _setClassesByType() {
+    private setClassesByType() {
         const classNames = [];
-        if (!this._type) {
-            this._type = 'primary';
-        }
-        if (!this._layout) {
-            this._layout = 'horizontal';
-        }
-        if (!this._size) {
-            this._size = 'default';
-        }
-        if (this.thyRound) {
+
+        if (this.thyRound()) {
             classNames.push('thy-vote-round');
         }
-        classNames.push(`thy-vote-${this._type}`);
-        classNames.push(`thy-vote-${this._layout}`);
-        classNames.push(`thy-vote-${this._layout}-size-${this._size}`);
+        classNames.push(`thy-vote-${this.thyVote()}`);
+        classNames.push(`thy-vote-${this.thyLayout()}`);
+        classNames.push(`thy-vote-${this.thyLayout()}-size-${this.thySize()}`);
         this.hostRenderer.updateClass(classNames);
     }
 }

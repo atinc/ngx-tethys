@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostBinding, Input, OnInit, Renderer2, inject } from '@angular/core';
+import { Directive, ElementRef, HostBinding, Input, OnInit, Renderer2, effect, inject, input } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
@@ -20,14 +20,12 @@ const inputGroupSizeMap = {
     selector: 'input[thyInput], select[thyInput], textarea[thyInput]',
     exportAs: 'thyInput'
 })
-export class ThyInputDirective implements OnInit {
+export class ThyInputDirective {
     private elementRef = inject(ElementRef);
     private render = inject(Renderer2);
     private control = inject(NgControl, { optional: true, self: true })!;
 
     @HostBinding('class.form-control') isFormControl = true;
-
-    private initialized = false;
 
     private hostRenderer = useHostRenderer();
 
@@ -36,14 +34,7 @@ export class ThyInputDirective implements OnInit {
      * @type 'xs' | 'sm' | 'md' | 'default' | 'lg'
      * @default default
      */
-    @Input()
-    set thySize(size: ThyInputSize) {
-        if (size && inputGroupSizeMap[size]) {
-            this.hostRenderer.updateClass(inputGroupSizeMap[size]);
-        } else {
-            this.hostRenderer.updateClass([]);
-        }
-    }
+    readonly thySize = input<ThyInputSize>(undefined);
 
     get ngControl() {
         return this.control;
@@ -53,7 +44,14 @@ export class ThyInputDirective implements OnInit {
         return this.elementRef.nativeElement;
     }
 
-    ngOnInit() {
-        this.initialized = true;
+    constructor() {
+        effect(() => {
+            const size = this.thySize();
+            if (size && inputGroupSizeMap[size]) {
+                this.hostRenderer.updateClass(inputGroupSizeMap[size]);
+            } else {
+                this.hostRenderer.updateClass([]);
+            }
+        });
     }
 }

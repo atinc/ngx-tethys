@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, inject } from '@angular/core';
+import { Component, HostBinding, inject, input } from '@angular/core';
 import { ThyDialogFooter, ThyDialogLayoutConfig, ThyDialogRef, ThyDialogHeader, ThyDialogBody } from 'ngx-tethys/dialog';
 import { ThyButton } from 'ngx-tethys/button';
 
@@ -12,7 +12,7 @@ export class ThyDialogFooterLayoutExampleComponent {
 
     @HostBinding(`class.thy-dialog-content`) addFillColumn = true;
 
-    @Input() layoutConfig: ThyDialogLayoutConfig;
+    readonly layoutConfig = input<ThyDialogLayoutConfig>();
 
     ok() {
         this.thyDialogRef.close();

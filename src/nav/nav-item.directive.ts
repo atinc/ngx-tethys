@@ -1,19 +1,7 @@
+import { AfterViewInit, contentChildren, DestroyRef, Directive, ElementRef, forwardRef, inject, input, NgZone } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { useHostRenderer } from '@tethys/cdk/dom';
-import {
-    AfterViewInit,
-    ContentChildren,
-    DestroyRef,
-    Directive,
-    ElementRef,
-    forwardRef,
-    inject,
-    input,
-    Input,
-    NgZone,
-    QueryList
-} from '@angular/core';
 import { RouterLinkActive } from '@angular/router';
+import { useHostRenderer } from '@tethys/cdk/dom';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export type ThyNavLink = '' | 'active';
@@ -27,8 +15,8 @@ export type ThyNavLink = '' | 'active';
     selector: '[thyNavLink],[thyNavItem]',
     host: {
         class: 'thy-nav-item',
-        '[class.active]': 'thyNavItemActive || thyNavLinkActive',
-        '[class.disabled]': 'thyNavItemDisabled'
+        '[class.active]': 'thyNavItemActive() || thyNavLinkActive()',
+        '[class.disabled]': 'thyNavItemDisabled()'
     }
 })
 export class ThyNavItemDirective implements AfterViewInit {
@@ -45,34 +33,33 @@ export class ThyNavItemDirective implements AfterViewInit {
      * 是否激活状态
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty })
-    thyNavItemActive: boolean;
+    readonly thyNavItemActive = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 已经废弃，请使用 thyNavItemActive
      * @deprecated please use thyNavItemActive
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty })
-    thyNavLinkActive: boolean;
+    readonly thyNavLinkActive = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 是否禁用
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty })
-    thyNavItemDisabled: boolean;
+    readonly thyNavItemDisabled = input(false, { transform: coerceBooleanProperty });
 
     /**
      * @private
      */
-    @ContentChildren(forwardRef(() => ThyNavItemDirective), { descendants: true })
-    links: QueryList<ThyNavItemDirective>;
+    readonly links = contentChildren(
+        forwardRef(() => ThyNavItemDirective),
+        { descendants: true }
+    );
 
     /**
      * @private
      */
-    @ContentChildren(RouterLinkActive, { descendants: true }) routers: QueryList<RouterLinkActive>;
+    readonly routers = contentChildren(RouterLinkActive, { descendants: true });
 
     // @HostBinding('attr.href') navLinkHref = 'javascript:;';
 
@@ -116,13 +103,14 @@ export class ThyNavItemDirective implements AfterViewInit {
     }
 
     linkIsActive() {
+        const links = this.links();
         return (
-            this.thyNavItemActive ||
-            this.thyNavLinkActive ||
+            this.thyNavItemActive() ||
+            this.thyNavLinkActive() ||
             (this.routerLinkActive && this.routerLinkActive.isActive) ||
-            this.routers.some(router => router.isActive) ||
-            this.links.some(item => item.thyNavItemActive) ||
-            this.links.some(item => item.thyNavLinkActive)
+            this.routers().some(router => router.isActive) ||
+            links.some(item => item.thyNavItemActive()) ||
+            links.some(item => item.thyNavLinkActive())
         );
     }
 
