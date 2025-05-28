@@ -1,17 +1,16 @@
 <thy-transfer-list
-  [items]="allDataSource"
-  [title]="leftTitle"
-  [draggable]="thyLeftDraggable"
-  [disabled]="thyRightMax <= rightDataSource.length"
-  [renderContentRef]="leftContentRef"
+  [items]="thyData()"
+  [title]="leftTitle()"
+  [draggable]="thyLeftDraggable()"
+  [disabled]="thyRightMax() <= rightDataSource.length"
+  [renderContentRef]="leftContentRef()"
   (draggableUpdate)="onDragUpdate('left', $event)"
   [template]="leftTemplateRef"
   (selectItem)="selectItem($event)"
-  (unselectItem)="unselectItem($event)"
-  >
+  (unselectItem)="unselectItem($event)">
   <ng-template #leftTemplateRef let-item>
     <div (click)="onSelect(item.direction === 'left' ? 'left' : 'right', { item: item })" class="list-item-content">
-      @if (thyLeftDraggable) {
+      @if (thyLeftDraggable()) {
         <thy-icon thyIconName="drag" class="drag-handle"></thy-icon>
       }
       <div class="item-name" [ngClass]="{ 'un-select-item': item.direction !== 'right' }">
@@ -34,19 +33,18 @@
 
 <thy-transfer-list
   [items]="rightDataSource"
-  [title]="rightTitle"
-  [draggable]="thyRightDraggable"
+  [title]="rightTitle()"
+  [draggable]="thyRightDraggable()"
   (draggableUpdate)="onDragUpdate('right', $event)"
-  [canLock]="thyRightCanLock"
-  [maxLock]="thyRightLockMax"
-  [max]="thyRightMax"
+  [canLock]="thyRightCanLock()"
+  [maxLock]="thyRightLockMax()"
+  [max]="thyRightMax()"
   [template]="rightTemplateRef"
-  [renderContentRef]="rightContentRef"
+  [renderContentRef]="rightContentRef()"
   (selectItem)="selectItem($event)"
-  (unselectItem)="unselectItem($event)"
-  >
+  (unselectItem)="unselectItem($event)">
   <ng-template #rightTemplateRef let-item>
-    @if (thyRightDraggable) {
+    @if (thyRightDraggable()) {
       <thy-icon thyIconName="drag" class="drag-handle"></thy-icon>
     }
     <div class="item-name">
@@ -61,10 +59,10 @@
 </thy-transfer-list>
 
 <ng-template #thyTransferListItem let-item>
-  @if (templateRef) {
-    <ng-template [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
+  @if (templateRef()) {
+    <ng-template [ngTemplateOutlet]="templateRef()" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
   }
-  @if (!templateRef) {
+  @if (!templateRef()) {
     <thy-flexible-text [thyTooltipContent]="item.title">
       {{ item.title }}
     </thy-flexible-text>

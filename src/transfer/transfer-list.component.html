@@ -1,15 +1,15 @@
 <div class="thy-transfer-list-header">
   <span class="thy-transfer-list-header-title"
-    >{{ title }} · {{ items?.length }}
-    @if (max) {
-      <span>{{ locale().maxLimit.replace('{max}', max) }}</span>
+    >{{ title() }} · {{ items()?.length }}
+    @if (max()) {
+      <span>{{ locale().maxLimit.replace('{max}', max()?.toString() ?? '') }}</span>
     }
   </span>
 </div>
-@if (!contentRef) {
-  <div class="thy-transfer-list-body" cdkDropListGroup [cdkDropListGroupDisabled]="!draggable">
-    @if (canLock) {
-      <div class="thy-transfer-list-group-name">{{ locale().maxLockLimit.replace('{maxLock}', maxLock) }}</div>
+@if (!renderContentRef()) {
+  <div class="thy-transfer-list-body" cdkDropListGroup [cdkDropListGroupDisabled]="!draggable()">
+    @if (canLock()) {
+      <div class="thy-transfer-list-group-name">{{ locale().maxLockLimit.replace('{maxLock}', maxLock()?.toString() ?? '') }}</div>
       <thy-list
         class="thy-transfer-list-content"
         cdkDropList
@@ -27,7 +27,7 @@
             cdkDrag
             [cdkDragData]="item"
             [ngClass]="{ active: item.checked }">
-            <ng-template [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
+            <ng-template [ngTemplateOutlet]="template()" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
           </thy-list-item>
         }
       </thy-list>
@@ -37,7 +37,7 @@
       class="thy-transfer-list-content"
       cdkDropList
       thyDragDrop
-      [cdkDropListDisabled]="!draggable"
+      [cdkDropListDisabled]="!draggable()"
       id="unlock"
       [cdkDropListData]="unlockItems"
       (cdkDropListDropped)="drop($event)"
@@ -50,8 +50,8 @@
           class="thy-transfer-list-content-item text-truncate"
           cdkDrag
           [cdkDragData]="item"
-          [ngClass]="{ active: item.checked, disabled: disabled && item.direction === 'left' }">
-          <ng-template [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
+          [ngClass]="{ active: item.checked, disabled: disabled() && item.direction === 'left' }">
+          <ng-template [ngTemplateOutlet]="template()" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
         </thy-list-item>
       }
     </thy-list>
@@ -60,9 +60,9 @@
   <div class="thy-transfer-list-body">
     <ng-container
       *ngTemplateOutlet="
-        contentRef;
+        renderContentRef();
         context: {
-          $implicit: items,
+          $implicit: items(),
           onSelectItem: onSelectItem,
           onUnselectItem: onUnselectItem
         }

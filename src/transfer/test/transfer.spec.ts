@@ -1,7 +1,7 @@
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyListModule } from 'ngx-tethys/list';
 import { ThySelectModule } from 'ngx-tethys/select';
-import { Component, DebugElement, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, DebugElement, ViewEncapsulation, signal, viewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
@@ -149,7 +149,7 @@ function buildDataList() {
     imports: [ThyTransferModule, ThyListModule, ThyIconModule, ThySelectModule]
 })
 class TestTransferComponent {
-    @ViewChild('comp', { static: true }) comp: ThyTransfer;
+    readonly comp = viewChild<ThyTransfer>('comp');
     dataSource: any[] = buildDataList();
     titles = ['Source', 'Target'];
 
@@ -171,7 +171,7 @@ class TestTransferComponent {
     imports: [ThyTransferModule, ThyListModule, ThyIconModule, ThySelectModule]
 })
 class TestTransferCustomRenderComponent {
-    @ViewChild('comp', { static: true }) comp: ThyTransfer;
+    readonly comp = viewChild<ThyTransfer>('comp');
     dataSource: any[] = buildDataList();
 }
 
@@ -181,7 +181,7 @@ class TestTransferCustomRenderComponent {
     imports: [ThyTransferModule, ThyListModule, ThyIconModule, ThySelectModule]
 })
 class TestTransferCustomRenderContentComponent {
-    @ViewChild('comp', { static: true }) comp: ThyTransfer;
+    readonly comp = viewChild<ThyTransfer>('comp');
     dataSource: any[] = buildDataList();
     titles = ['Source', 'Target'];
 
@@ -215,7 +215,7 @@ describe('transfer', () => {
         dl = fixture.debugElement;
         instance = dl.componentInstance;
         pageObject = new TransferPageObject();
-        transferComponent = fixture.componentInstance.comp;
+        transferComponent = fixture.componentInstance.comp();
         fixture.detectChanges();
     });
 
@@ -318,12 +318,12 @@ describe('transfer', () => {
         }
 
         expectLeft(count: number): this {
-            expect(instance.comp.allDataSource.length).toBe(count);
+            expect(instance.comp().thyData().length).toBe(count);
             return this;
         }
 
         expectRight(count: number): this {
-            expect(instance.comp.rightDataSource.length).toBe(count);
+            expect(instance.comp().rightDataSource.length).toBe(count);
             return this;
         }
 
