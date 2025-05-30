@@ -88,7 +88,6 @@ describe('ThyIconComponent', () => {
             componentInstance.iconType = 'fill';
             fixture.detectChanges();
             assertSvgIcon(iconDebugElement.nativeElement, 'check', 'fill');
-
             componentInstance.iconType = 'twotone';
             fixture.detectChanges();
             assertSvgIcon(iconDebugElement.nativeElement, 'check', 'tt');
@@ -99,7 +98,6 @@ describe('ThyIconComponent', () => {
             fixture.detectChanges();
             assertSvgIcon(iconDebugElement.nativeElement, 'check');
             expect(iconDebugElement.nativeElement.classList.contains(`${iconSvgClassPrefix}-legging`)).toBeTruthy();
-
             componentInstance.legging = false;
             fixture.detectChanges();
             expect(iconDebugElement.nativeElement.classList.contains(`${iconSvgClassPrefix}-legging`)).toBeFalsy();
@@ -128,7 +126,6 @@ describe('ThyIconComponent', () => {
             componentInstance.iconName = 'sort-tt';
             componentInstance.twotoneColor = '#66666';
             fixture.detectChanges();
-
             const svgElement: HTMLElement = iconDebugElement.nativeElement.querySelector('svg');
             expect(svgElement).toBeTruthy();
             const ttPathElement = svgElement.querySelector('#sort-secondary-color');
