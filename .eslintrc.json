@@ -1,8 +1,5 @@
 {
   "root": true,
-  "ignorePatterns": [
-    "projects/**/*"
-  ],
   "overrides": [
     {
       "files": [
@@ -18,9 +15,14 @@
       "extends": [
         "plugin:@angular-eslint/recommended",
         "plugin:@angular-eslint/template/process-inline-templates",
-        "plugin:prettier/recommended"
+        "plugin:prettier/recommended",
+        "plugin:@typescript-eslint/recommended"
       ],
       "rules": {
+        "@typescript-eslint/no-explicit-any": "error",
+        "@typescript-eslint/strict-boolean-expressions": "error",
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/init-declarations": "error",
         "@angular-eslint/no-empty-lifecycle-method": "off",
         "@angular-eslint/no-host-metadata-property": "off",
         "@angular-eslint/no-input-rename": "off",
