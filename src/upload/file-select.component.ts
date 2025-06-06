@@ -1,30 +1,8 @@
-import { fromEvent, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-
-import {
-    Component,
-    ElementRef,
-    EventEmitter,
-    Input,
-    NgZone,
-    numberAttribute,
-    OnChanges,
-    OnDestroy,
-    Output,
-    SimpleChanges,
-    ViewChild,
-    inject,
-    Inject,
-    viewChild,
-    output,
-    input,
-    DestroyRef,
-    effect
-} from '@angular/core';
+import { fromEvent } from 'rxjs';
+import { Component, ElementRef, NgZone, inject, Inject, viewChild, output, input, DestroyRef, effect } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FileSelectBaseDirective } from './file-select-base';
 import { THY_UPLOAD_DEFAULT_OPTIONS, ThyUploadConfig } from './upload.config';
-import { mimeTypeConvert } from './util';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { ThyFileSelectEvent } from './types';
 
