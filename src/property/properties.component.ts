@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, numberAttribute, input, computed, effect } from '@angular/core';
+import { ChangeDetectionStrategy, Component, numberAttribute, input, computed } from '@angular/core';
 
 export type ThyPropertiesLayout = 'horizontal' | 'vertical';
 
@@ -23,13 +23,11 @@ export class ThyProperties {
     /**
      * 展示布局
      * @type "horizontal" | "vertical"
-     * @default horizontal
      */
     readonly layout = input<ThyPropertiesLayout>('horizontal', { alias: 'thyLayout' });
 
     /**
      * 设置一行的可以 property-item 的数量
-     * @type  number
      */
     readonly thyColumn = input(1, { transform: numberAttribute });
 

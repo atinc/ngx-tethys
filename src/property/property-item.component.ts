@@ -12,7 +12,6 @@ import {
     NgZone,
     numberAttribute,
     OnDestroy,
-    OnInit,
     SimpleChanges,
     TemplateRef,
     inject,
@@ -22,11 +21,13 @@ import {
     output,
     contentChild,
     viewChild,
-    signal
+    signal,
+    DestroyRef
 } from '@angular/core';
 
 import { ThyProperties } from './properties.component';
 import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 export type ThyPropertyItemOperationTrigger = 'hover' | 'always';
 
@@ -54,24 +55,21 @@ export class ThyPropertyItem implements OnDestroy {
     private ngZone = inject(NgZone);
     private overlayOutsideClickDispatcher = inject(OverlayOutsideClickDispatcher);
     private parent = inject(ThyProperties, { optional: true });
+    private destroyRef = inject(DestroyRef);
 
     /**
      * 属性名称
      * @type sting
-     * @default thyLabelText
      */
     readonly thyLabelText = input<string>();
 
     /**
      * 设置属性是否是可编辑的
-     * @type sting
-     * @default false
      */
     readonly thyEditable = input<boolean, ThyBooleanInput>(false, { transform: coerceBooleanProperty });
 
     /**
      * 设置跨列的数量
-     * @type number
      */
     readonly thySpan = input(1, { transform: numberAttribute });
 
@@ -121,8 +119,6 @@ export class ThyPropertyItem implements OnDestroy {
 
     changes$ = new Subject<SimpleChanges>();
 
-    private destroy$ = new Subject<void>();
-
     private eventDestroy$ = new Subject<void>();
 
     private originOverlays: OverlayRef[] = [];
@@ -133,7 +129,9 @@ export class ThyPropertyItem implements OnDestroy {
         return `span ${Math.min(this.thySpan(), this.parent?.thyColumn())}`;
     });
 
-    isVertical = signal(false);
+    readonly isVertical = computed(() => {
+        return this.parent?.layout() === 'vertical';
+    });
 
     constructor() {
         this.originOverlays = [...this.overlayOutsideClickDispatcher._attachedOverlays] as OverlayRef[];
@@ -151,11 +149,6 @@ export class ThyPropertyItem implements OnDestroy {
                     this.clickEventSubscription = null;
                 }
             }
-        });
-
-        effect(() => {
-            const layout = this.parent?.layout();
-            this.isVertical.set(layout === 'vertical');
         });
     }
 
@@ -204,7 +197,7 @@ export class ThyPropertyItem implements OnDestroy {
         const overlaysDetachments$ = openedOverlays.map(overlay => overlay.detachments());
         if (overlaysDetachments$.length) {
             combineLatest(overlaysDetachments$)
-                .pipe(delay(50), take(1), takeUntil(this.destroy$))
+                .pipe(delay(50), take(1), takeUntilDestroyed(this.destroyRef))
                 .subscribe(() => {
                     this.setEditing(false);
                 });
@@ -219,7 +212,7 @@ export class ThyPropertyItem implements OnDestroy {
                     return !editorElement.contains(event.target as HTMLElement);
                 }),
                 take(1),
-                takeUntil(this.destroy$)
+                takeUntilDestroyed(this.destroyRef)
             )
             .subscribe(() => {
                 this.setEditing(false);
@@ -237,9 +230,6 @@ export class ThyPropertyItem implements OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.destroy$.next();
-        this.destroy$.complete();
-
         this.eventDestroy$.next();
         this.eventDestroy$.complete();
     }
