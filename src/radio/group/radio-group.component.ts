@@ -1,19 +1,6 @@
-import {
-    AfterContentInit,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    forwardRef,
-    HostBinding,
-    inject,
-    input,
-    OnChanges,
-    OnInit,
-    SimpleChanges
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, forwardRef, inject, input, signal } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
-
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { ThyRadioButton } from '../button/radio-button.component';
 import { ThyRadio } from '../radio.component';
@@ -47,19 +34,19 @@ const radioGroupLayoutMap = {
         }
     ],
     host: {
+        class: 'thy-radio-group',
+        '[class.btn-group]': 'isButtonGroup()',
+        '[class.btn-group-outline-default]': 'isButtonGroupOutline()',
         '[attr.tabindex]': `-1`
     },
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ThyRadioGroup implements IThyRadioGroupComponent, ControlValueAccessor, OnInit, OnChanges, AfterContentInit {
+export class ThyRadioGroup implements IThyRadioGroupComponent, ControlValueAccessor {
     private changeDetectorRef = inject(ChangeDetectorRef);
 
-    @HostBinding('class.thy-radio-group') thyRadioGroup = true;
+    isButtonGroup = signal(false);
 
-    @HostBinding('class.btn-group') isButtonGroup = false;
-
-    @HostBinding('class.btn-group-outline-default')
-    isButtonGroupOutline = false;
+    isButtonGroupOutline = signal(false);
 
     /**
      * 大小
@@ -87,6 +74,7 @@ export class ThyRadioGroup implements IThyRadioGroupComponent, ControlValueAcces
     readonly thyDisabled = input(false, { transform: coerceBooleanProperty });
 
     onChange: (_: string) => void = () => null;
+
     onTouched: () => void = () => null;
 
     addRadio(radio: ThyRadio | ThyRadioButton): void {
@@ -125,28 +113,24 @@ export class ThyRadioGroup implements IThyRadioGroupComponent, ControlValueAcces
     }
 
     setGroup(): void {
-        if (!this.isButtonGroup && !this.isButtonGroupOutline) {
-            this.isButtonGroup = true;
-            this.isButtonGroupOutline = true;
+        if (!this.isButtonGroup() && !this.isButtonGroupOutline()) {
+            this.isButtonGroup.set(true);
+            this.isButtonGroupOutline.set(true);
         }
     }
 
-    ngOnInit() {
-        this._setClasses();
+    constructor() {
+        effect(() => {
+            this.setClasses();
+        });
+
+        effect(() => {
+            const disabled = this.thyDisabled();
+            this.setDisabledState(disabled);
+        });
     }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        const { thyDisabled } = changes;
-        if (thyDisabled) {
-            this.setDisabledState(this.thyDisabled());
-        }
-    }
-
-    ngAfterContentInit(): void {
-        this.setDisabledState(this.thyDisabled());
-    }
-
-    private _setClasses() {
+    private setClasses() {
         const classNames: string[] = [];
         const size = this.thySize();
         if (size && buttonGroupSizeMap[size]) {

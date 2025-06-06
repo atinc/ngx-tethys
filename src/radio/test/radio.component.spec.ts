@@ -141,8 +141,6 @@ describe('thy-radio-group component', () => {
         ['sm', 'md', 'lg'].forEach(size => {
             groupComponent.size = size;
             groupFixture.detectChanges();
-            groupComponent.radioGroup.ngOnInit();
-            groupFixture.detectChanges();
             if (size === 'md') {
                 expect(radioGroupElement.classList.contains(`${buttonGroupSizeMap[size]}`)).toBeFalsy();
             } else {
