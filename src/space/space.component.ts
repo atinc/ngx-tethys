@@ -1,20 +1,6 @@
 import { useHostRenderer } from '@tethys/cdk/dom';
 
-import {
-    AfterContentInit,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    DestroyRef,
-    Directive,
-    inject,
-    input,
-    OnInit,
-    TemplateRef,
-    computed,
-    effect,
-    contentChildren
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Directive, input, TemplateRef, computed, effect, contentChildren } from '@angular/core';
 import { ThySpacingSize, getNumericSize } from 'ngx-tethys/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
@@ -25,11 +11,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
  * @order 20
  */
 @Directive({ selector: '[thySpaceItem]', host: { class: 'thy-space-item' } })
-export class ThySpaceItemDirective implements OnInit {
-    constructor() {}
-
-    ngOnInit(): void {}
-}
+export class ThySpaceItemDirective {}
 
 const DEFAULT_SIZE: ThySpacingSize = 'md';
 
@@ -48,11 +30,7 @@ const DEFAULT_SIZE: ThySpacingSize = 'md';
     },
     imports: [NgTemplateOutlet]
 })
-export class ThySpace implements OnInit, AfterContentInit {
-    private cdr = inject(ChangeDetectorRef);
-
-    private readonly destroyRef = inject(DestroyRef);
-
+export class ThySpace {
     private hostRenderer = useHostRenderer();
 
     /**
@@ -61,7 +39,7 @@ export class ThySpace implements OnInit, AfterContentInit {
      */
     readonly thySize = input<ThySpacingSize>(DEFAULT_SIZE);
 
-    space = computed(() => {
+    readonly space = computed(() => {
         return getNumericSize(this.thySize(), DEFAULT_SIZE);
     });
 
@@ -76,15 +54,11 @@ export class ThySpace implements OnInit, AfterContentInit {
      */
     readonly thyAlign = input<string>();
 
-    items = contentChildren(ThySpaceItemDirective, { read: TemplateRef<HTMLElement> });
+    readonly items = contentChildren(ThySpaceItemDirective, { read: TemplateRef<HTMLElement> });
 
     constructor() {
         effect(() => {
             this.hostRenderer.updateClass(this.thyAlign() ? [`align-items-${this.thyAlign()}`] : []);
         });
     }
-
-    ngOnInit(): void {}
-
-    ngAfterContentInit(): void {}
 }
