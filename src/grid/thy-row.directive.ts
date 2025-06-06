@@ -1,4 +1,4 @@
-import { Directive, OnChanges, OnInit, AfterViewInit, OnDestroy, ChangeDetectionStrategy, input } from '@angular/core';
+import { Directive, effect, input } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { isString } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -25,24 +25,20 @@ export interface ThyGutterType {
         class: 'thy-row'
     }
 })
-export class ThyRowDirective implements OnInit, OnChanges {
+export class ThyRowDirective {
     /**
      * 栅格的间距
      */
-    readonly thyGutter = input<ThyGutterType | number>(undefined);
+    readonly thyGutter = input<ThyGutterType | number>();
 
     public actualGutter$ = new ReplaySubject<[number, number]>(1);
 
     private hostRenderer = useHostRenderer();
 
-    constructor() {}
-
-    ngOnInit() {
-        this.setGutterStyle();
-    }
-
-    ngOnChanges() {
-        this.setGutterStyle();
+    constructor() {
+        effect(() => {
+            this.setGutterStyle();
+        });
     }
 
     private setGutterStyle() {

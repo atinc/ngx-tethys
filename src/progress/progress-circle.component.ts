@@ -1,27 +1,7 @@
 import { isNumber, isString } from 'ngx-tethys/util';
-
-import {
-    Component,
-    OnChanges,
-    OnInit,
-    SimpleChanges,
-    TemplateRef,
-    ViewEncapsulation,
-    numberAttribute,
-    input,
-    effect,
-    computed
-} from '@angular/core';
+import { Component, TemplateRef, ViewEncapsulation, numberAttribute, input, effect, computed } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
-
-import {
-    ThyProgressCirclePath,
-    ThyProgressGapPositionType,
-    ThyProgressPathStyle,
-    ThyProgressShapeType,
-    ThyProgressStackedValue,
-    ThyProgressType
-} from './interfaces';
+import { ThyProgressGapPositionType, ThyProgressShapeType, ThyProgressStackedValue, ThyProgressType } from './interfaces';
 import { NgClass, NgStyle } from '@angular/common';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 
@@ -37,7 +17,7 @@ import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
     },
     imports: [ThyTooltipDirective, NgClass, NgStyle]
 })
-export class ThyProgressCircle implements OnInit, OnChanges {
+export class ThyProgressCircle {
     private hostRenderer = useHostRenderer();
 
     readonly thyType = input<ThyProgressType>(undefined);
@@ -58,9 +38,9 @@ export class ThyProgressCircle implements OnInit, OnChanges {
 
     readonly thyStrokeWidth = input<number, unknown>(undefined, { transform: numberAttribute });
 
-    get strokeWidth(): number {
+    readonly strokeWidth = computed(() => {
         return this.thyStrokeWidth() || 6;
-    }
+    });
 
     readonly progressSize = computed(() => {
         const size = this.thySize();
@@ -93,7 +73,7 @@ export class ThyProgressCircle implements OnInit, OnChanges {
             values = [{ value: thyValue }];
         }
 
-        const radius = 50 - this.strokeWidth / 2;
+        const radius = 50 - this.strokeWidth() / 2;
         const gapPosition = this.thyGapPosition() || 'top';
         const len = Math.PI * 2 * radius;
         const gapDegree = this.thyGapDegree() || 0;
@@ -155,8 +135,4 @@ export class ThyProgressCircle implements OnInit, OnChanges {
             this.hostRenderer.updateClass(type ? [`progress-circle-${type}`] : []);
         });
     }
-
-    ngOnInit() {}
-
-    ngOnChanges(changes: SimpleChanges): void {}
 }

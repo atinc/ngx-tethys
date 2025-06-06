@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnChanges, SimpleChanges, computed, effect, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { ThyResizeDirection } from './interface';
 import { ThyResizeHandle } from './resize-handle.component';
 
@@ -42,10 +42,8 @@ export class ThyResizeHandles {
      */
     readonly thyLine = input(false, { transform: coerceBooleanProperty });
 
-    directions = computed(() => {
+    readonly directions = computed(() => {
         const directions = this.thyDirections();
         return new Set<ThyResizeDirection>(directions);
     });
-
-    constructor() {}
 }
