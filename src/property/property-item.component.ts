@@ -2,7 +2,6 @@ import { ThyClickDispatcher } from 'ngx-tethys/core';
 import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
 import { combineLatest, fromEvent, Subject, Subscription, timer } from 'rxjs';
 import { delay, filter, take, takeUntil } from 'rxjs/operators';
-
 import { OverlayOutsideClickDispatcher, OverlayRef } from '@angular/cdk/overlay';
 import { NgTemplateOutlet } from '@angular/common';
 import {
@@ -12,7 +11,6 @@ import {
     NgZone,
     numberAttribute,
     OnDestroy,
-    SimpleChanges,
     TemplateRef,
     inject,
     input,
@@ -24,7 +22,6 @@ import {
     signal,
     DestroyRef
 } from '@angular/core';
-
 import { ThyProperties } from './properties.component';
 import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -116,8 +113,6 @@ export class ThyPropertyItem implements OnDestroy {
     readonly itemContent = viewChild<ElementRef<HTMLElement>>('item');
 
     editing = signal(false);
-
-    changes$ = new Subject<SimpleChanges>();
 
     private eventDestroy$ = new Subject<void>();
 
