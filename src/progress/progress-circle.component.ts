@@ -58,9 +58,9 @@ export class ThyProgressCircle implements OnInit, OnChanges {
 
     readonly thyStrokeWidth = input<number, unknown>(undefined, { transform: numberAttribute });
 
-    get strokeWidth(): number {
+    readonly strokeWidth = computed(() => {
         return this.thyStrokeWidth() || 6;
-    }
+    });
 
     readonly progressSize = computed(() => {
         const size = this.thySize();
@@ -93,7 +93,7 @@ export class ThyProgressCircle implements OnInit, OnChanges {
             values = [{ value: thyValue }];
         }
 
-        const radius = 50 - this.strokeWidth / 2;
+        const radius = 50 - this.strokeWidth() / 2;
         const gapPosition = this.thyGapPosition() || 'top';
         const len = Math.PI * 2 * radius;
         const gapDegree = this.thyGapDegree() || 0;
