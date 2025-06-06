@@ -1,12 +1,12 @@
-import { ElementRef, InjectionToken, Injector } from '@angular/core';
+import { ElementRef, InjectionToken, Injector, InputSignal } from '@angular/core';
 import { ThyImageMeta } from './image.class';
 
 export interface IThyImageDirective {
     previewable: boolean;
-    thySrc: string;
-    thyPreviewSrc: string;
-    thyOriginSrc: string;
-    thyImageMeta: ThyImageMeta;
+    thySrc: InputSignal<string>;
+    thyPreviewSrc: InputSignal<string>;
+    thyOriginSrc: InputSignal<string>;
+    thyImageMeta: InputSignal<ThyImageMeta>;
 }
 
 export interface IThyImageGroupComponent {
