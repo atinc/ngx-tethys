@@ -56,7 +56,6 @@ export class ThyPropertyItem implements OnDestroy {
 
     /**
      * 属性名称
-     * @type sting
      */
     readonly thyLabelText = input<string>();
 

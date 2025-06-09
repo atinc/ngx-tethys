@@ -71,7 +71,7 @@ export class ThyInputNumber extends TabIndexDisabledControlValueAccessorMixin im
      * 是否自动聚焦
      * @default false
      */
-    readonly thyAutoFocus = input<boolean, boolean | string | number>(false, { transform: coerceBooleanProperty });
+    readonly thyAutoFocus = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 输入框的placeholder

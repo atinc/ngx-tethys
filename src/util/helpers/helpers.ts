@@ -3,8 +3,6 @@ import { ElementRef, TemplateRef } from '@angular/core';
 
 export type ThyBooleanInput = boolean | string | number | unknown;
 
-export type ThyNumberInput = number | string | unknown;
-
 export function isUndefined(value: any): value is undefined {
     return value === undefined;
 }

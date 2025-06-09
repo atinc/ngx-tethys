@@ -65,13 +65,10 @@ export class ThyIcon {
 
     /**
      * 图标打底色，镂空的图标，会透过颜色来
-     * @default false
      */
-    readonly thyIconLegging = input<boolean, undefined>(undefined, { transform: coerceBooleanProperty });
+    readonly thyIconLegging = input(false, { transform: coerceBooleanProperty });
 
-    readonly thyIconLinearGradient = input<boolean, unknown>(undefined, {
-        transform: coerceBooleanProperty
-    });
+    readonly thyIconLinearGradient = input(false, { transform: coerceBooleanProperty });
 
     private hostRenderer = useHostRenderer();
 
