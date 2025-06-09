@@ -104,7 +104,7 @@ export class ThyProgress implements ThyParentProgress {
     /**
      * 最大值，主要计算百分比进度的分母使用，当 thyValue 传入数组时，自动累加数组中的 value 之和为 max
      */
-    readonly thyMax = input<number, number | string | unknown>(undefined, { transform: numberAttribute });
+    readonly thyMax = input<number, unknown>(undefined, { transform: numberAttribute });
 
     /**
      * 鼠标移入进度条时显示的提示文案或者模板

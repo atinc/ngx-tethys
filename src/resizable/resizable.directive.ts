@@ -19,7 +19,7 @@ import { ThyResizeHandleMouseDownEvent } from './interface';
 import { ThyResizeEvent } from './interface';
 import { getEventWithPoint, ensureInBounds, setCompatibleStyle } from './utils';
 import { fromEvent } from 'rxjs';
-import { coerceBooleanProperty, ThyNumberInput } from 'ngx-tethys/util';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
  * 调整尺寸
@@ -51,12 +51,12 @@ export class ThyResizableDirective implements OnDestroy {
     /**
      * 最大高度(超过边界部分忽略)
      */
-    readonly thyMaxHeight = input<number, ThyNumberInput>(undefined, { transform: numberAttribute });
+    readonly thyMaxHeight = input<number, unknown>(undefined, { transform: numberAttribute });
 
     /**
      * 最大宽度(超过边界部分忽略)
      */
-    readonly thyMaxWidth = input<number, ThyNumberInput>(undefined, { transform: numberAttribute });
+    readonly thyMaxWidth = input<number, unknown>(undefined, { transform: numberAttribute });
 
     /**
      * 最小高度
