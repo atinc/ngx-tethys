@@ -2,16 +2,16 @@ import {
     ChangeDetectionStrategy,
     Component,
     ElementRef,
-    HostBinding,
-    Input,
-    OnInit,
     Renderer2,
     ViewEncapsulation,
-    AfterViewInit,
-    inject
+    inject,
+    input,
+    computed,
+    effect,
+    afterNextRender
 } from '@angular/core';
 
-import { assertIconOnly, coerceBooleanProperty } from 'ngx-tethys/util';
+import { assertIconOnly, coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgClass } from '@angular/common';
@@ -35,7 +35,7 @@ export type ThyButtonType =
     | 'link-danger'
     | 'link-success';
 
-const btnTypeClassesMap = {
+const btnTypeClassesMap: Record<string, string[]> = {
     primary: ['btn-primary'],
     secondary: ['btn-primary', 'btn-md'],
     info: ['btn-info'],
@@ -64,34 +64,16 @@ const iconOnlyClass = 'thy-btn-icon-only';
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        class: 'thy-btn btn'
+        class: 'thy-btn btn',
+        '[class.btn-block]': 'thyBlock()'
     },
     imports: [ThyIcon, NgClass]
 })
-export class ThyButton implements OnInit, AfterViewInit {
+export class ThyButton {
     private elementRef = inject(ElementRef);
     private renderer = inject(Renderer2);
 
-    private _initialized = false;
-
     private _originalText: string;
-
-    private _type: string;
-
-    private _size: string;
-
-    private _icon: string;
-
-    private _loading: boolean;
-
-    private _loadingText: string;
-
-    // 圆角方形
-    _isRadiusSquare = false;
-
-    iconClass: string[];
-
-    svgIconName: string;
 
     private get nativeElement(): HTMLElement {
         return this.elementRef.nativeElement;
@@ -104,157 +86,147 @@ export class ThyButton implements OnInit, AfterViewInit {
      * @type primary | info | warning | danger | success
      * @default primary
      */
-    @Input()
-    set thyButton(value: ThyButtonType) {
-        this.setBtnType(value);
-    }
+    readonly thyButton = input<ThyButtonType>();
 
     /**
      * 和`thyButton`参数一样，一般使用`thyButton`，为了减少参数输入, 当通过`thy-button`使用时，只能使用该参数控制类型
      * @default primary
      */
-    @Input()
-    set thyType(value: ThyButtonType) {
-        this.setBtnType(value);
-    }
+    readonly thyType = input<ThyButtonType>();
 
     /**
      * 加载状态
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty })
-    set thyLoading(value: boolean) {
-        if (!this._loading && value) {
-            this._loading = value;
-            const textElement = this.nativeElement.querySelector('span');
-            this._originalText = textElement ? textElement.innerText : '';
-            this.setLoadingStatus();
-        } else {
-            this._loading = value;
-            this.setLoadingStatus();
+    readonly thyLoading = input<boolean, ThyBooleanInput>(false, {
+        transform: value => {
+            if (!this.thyLoading() && value) {
+                const textElement = this.nativeElement?.querySelector('span');
+                this._originalText = textElement ? textElement.innerText : '';
+            }
+            return coerceBooleanProperty(value);
         }
-    }
+    });
 
     /**
      * 加载状态时显示的文案
      */
-    @Input()
-    set thyLoadingText(value: string) {
-        if (this._loadingText !== value) {
-            this._loadingText = value;
-            if (this._loading) {
-                this.setLoadingText(this._loadingText);
-            }
-        }
-    }
+    readonly thyLoadingText = input<string>();
 
     /**
      * 按钮大小
      * @type xs | sm | md | default | lg
      * @default default
      */
-    @Input()
-    set thySize(size: string) {
-        this._size = size;
-        if (this._initialized) {
-            this.updateClasses();
-        }
-    }
+    readonly thySize = input<string>();
 
     /**
      * 按钮中显示的图标，支持SVG图标名称，比如`angle-left`，也支持传之前的 wtf 字体，比如: wtf-plus
      */
-    @Input()
-    set thyIcon(icon: string) {
-        this._icon = icon;
-        if (this._icon) {
-            if (icon.includes('wtf')) {
-                const classes = this._icon.split(' ');
-                if (classes.length === 1) {
-                    classes.unshift('wtf');
-                }
-                this.iconClass = classes;
-                this.svgIconName = null;
-            } else {
-                this.svgIconName = icon;
-            }
-        } else {
-            this.iconClass = null;
-            this.svgIconName = null;
-        }
-    }
+    readonly thyIcon = input<string>();
 
     /**
      * 按钮整块展示
      * @default false
      */
-    @HostBinding(`class.btn-block`)
-    @Input({ transform: coerceBooleanProperty })
-    thyBlock: boolean;
+    readonly thyBlock = input<boolean, ThyBooleanInput>(false, { transform: coerceBooleanProperty });
 
-    private setBtnType(value: ThyButtonType) {
-        if (value) {
-            if (value.includes('-square')) {
-                this._type = value.replace('-square', '');
-                this._isRadiusSquare = true;
-            } else {
-                this._type = value;
-            }
+    private isWtfIcon = computed(() => {
+        const icon = this.thyIcon();
+        return icon && icon.includes('wtf');
+    });
 
-            if (this._initialized) {
-                this.updateClasses();
-            }
+    protected svgIconName = computed(() => {
+        if (!this.isWtfIcon()) {
+            return this.thyIcon();
         }
-    }
+        return null;
+    });
 
-    private setLoadingText(text: string) {
+    protected iconClass = computed<string[]>(() => {
+        const icon = this.thyIcon();
+        if (this.isWtfIcon()) {
+            const classes = icon.split(' ');
+            if (classes.length === 1) {
+                classes.unshift('wtf');
+            }
+            return classes;
+        }
+        return null;
+    });
+
+    private buttonType = computed(() => {
+        return this.thyButton() || this.thyType();
+    });
+
+    protected isRadiusSquare = computed(() => {
+        const type = this.buttonType();
+        return !!type?.includes('-square');
+    });
+
+    protected type = computed(() => {
+        const type = this.buttonType();
+        if (this.isRadiusSquare()) {
+            return type.replace('-square', '');
+        } else {
+            return type;
+        }
+    });
+
+    private setButtonText() {
+        const text = this.thyLoading() ? this.thyLoadingText() : this._originalText;
         const spanElement = this.nativeElement.querySelector('span');
-        if (spanElement) {
+        if (spanElement && text) {
             this.renderer.setProperty(spanElement, 'innerText', text);
         }
     }
 
-    private setLoadingStatus() {
-        const innerText = this._loading ? this._loadingText : this._originalText;
-        this.updateClasses();
-        if (innerText) {
-            this.setLoadingText(innerText);
-        }
-    }
-
     private updateClasses() {
+        const type = this.type();
+        if (!type) {
+            return;
+        }
+
         let classNames: string[] = [];
-        if (btnTypeClassesMap[this._type]) {
-            classNames = [...btnTypeClassesMap[this._type]];
+        if (btnTypeClassesMap[type]) {
+            classNames = [...btnTypeClassesMap[type]];
         } else {
-            if (this._type) {
-                classNames.push(`btn-${this._type}`);
+            if (type) {
+                classNames.push(`btn-${type}`);
             }
         }
-        if (this._size) {
-            classNames.push(`btn-${this._size}`);
+
+        const size = this.thySize();
+        if (size) {
+            classNames.push(`btn-${size}`);
         }
-        if (this._isRadiusSquare) {
+        if (this.isRadiusSquare()) {
             classNames.push('btn-square');
         }
-        if (this._loading) {
+        const loading = this.thyLoading();
+        if (loading) {
             classNames.push('loading');
         }
         this.hostRenderer.updateClass(classNames);
     }
 
-    ngOnInit() {
-        this.updateClasses();
-        this._initialized = true;
-    }
+    constructor() {
+        effect(() => {
+            this.updateClasses();
+        });
 
-    ngAfterViewInit() {
-        if (assertIconOnly(this.nativeElement)) {
-            this.hostRenderer.addClass(iconOnlyClass);
-        } else {
-            this.hostRenderer.removeClass(iconOnlyClass);
-        }
-        this.wrapSpanForText(this.nativeElement.childNodes);
+        effect(() => {
+            this.setButtonText();
+        });
+
+        afterNextRender(() => {
+            if (assertIconOnly(this.nativeElement)) {
+                this.hostRenderer.addClass(iconOnlyClass);
+            } else {
+                this.hostRenderer.removeClass(iconOnlyClass);
+            }
+            this.wrapSpanForText(this.nativeElement.childNodes);
+        });
     }
 
     private wrapSpanForText(nodes: NodeList): void {
