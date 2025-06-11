@@ -1,6 +1,6 @@
 <div>
-  {{ strengthTitle }} <span class="strength-text strength-text-{{ strengthMap[strength]?.level }}">{{ strengthMap[strength]?.text }}</span>
+  {{ titleKey() }} <span class="strength-text strength-text-{{ strengthMap()[strength]?.level }}">{{ strengthMap()[strength]?.text }}</span>
 </div>
-<div class="strength-level strength-level-{{ strengthMap[strength]?.level }}">
+<div class="strength-level strength-level-{{ strengthMap()[strength]?.level }}">
   <span></span>
 </div>
