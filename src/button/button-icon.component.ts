@@ -88,10 +88,6 @@ export class ThyButtonIcon {
         effect(() => {
             this.setClasses();
         });
-
-        effect(() => {
-            console.log(this.iconClasses(), this.svgIconName(), this.isWtfIcon());
-        });
     }
 
     private hostRenderer = useHostRenderer();
