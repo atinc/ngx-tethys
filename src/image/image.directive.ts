@@ -1,20 +1,8 @@
-import {
-    Directive,
-    ElementRef,
-    InjectFlags,
-    Input,
-    OnChanges,
-    OnInit,
-    SimpleChanges,
-    Injector,
-    OnDestroy,
-    AfterViewInit,
-    inject
-} from '@angular/core';
+import { Directive, ElementRef, InjectFlags, OnInit, Injector, OnDestroy, AfterViewInit, inject, input, effect } from '@angular/core';
 import { IThyImageDirective, IThyImageGroupComponent, THY_IMAGE_GROUP_COMPONENT } from './image.token';
 import { ThyImageMeta } from './image.class';
 import { ThyImageService } from './image.service';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
 
 /**
  * thyImage: 预览图片指令，只可绑定到 img 标签上
@@ -27,10 +15,10 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     host: {
         '(click)': 'onPreview($event)',
         class: 'thy-image',
-        '[class.thy-image-disabled]': 'thyDisablePreview'
+        '[class.thy-image-disabled]': 'thyDisablePreview()'
     }
 })
-export class ThyImageDirective implements IThyImageDirective, OnInit, OnChanges, AfterViewInit, OnDestroy {
+export class ThyImageDirective implements IThyImageDirective, OnInit, AfterViewInit, OnDestroy {
     private thyImageService = inject(ThyImageService);
     private injector = inject(Injector);
     private elementRef = inject(ElementRef);
@@ -38,39 +26,45 @@ export class ThyImageDirective implements IThyImageDirective, OnInit, OnChanges,
     /**
      * 图片地址
      */
-    @Input() thySrc: string;
+    readonly thySrc = input<string>();
 
     /**
      * 预览图片地址
      */
-    @Input() thyPreviewSrc: string;
+    readonly thyPreviewSrc = input<string>();
 
     /**
      * 图片原图地址
      */
-    @Input() thyOriginSrc: string;
+    readonly thyOriginSrc = input<string>();
 
     /**
      * 图片附加信息，包含 { name: string, size?: string | number; }
      */
-    @Input() thyImageMeta: ThyImageMeta;
+    readonly thyImageMeta = input<ThyImageMeta>();
 
     /**
      * 是否禁止预览
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyDisablePreview: boolean;
+    readonly thyDisablePreview = input<boolean, ThyBooleanInput>(undefined, { transform: coerceBooleanProperty });
 
     /**
      * 是否自动计算图片资源大小
      */
-    @Input({ transform: coerceBooleanProperty }) thyResolveSize = false;
+    readonly thyResolveSize = input(false, { transform: coerceBooleanProperty });
 
     get previewable(): boolean {
-        return !this.thyDisablePreview;
+        return !this.thyDisablePreview();
     }
 
     private parentGroup: IThyImageGroupComponent;
+
+    constructor() {
+        effect(() => {
+            this.elementRef.nativeElement.src = this.thySrc();
+        });
+    }
 
     ngOnInit(): void {
         this.getParentGroup();
@@ -107,13 +101,6 @@ export class ThyImageDirective implements IThyImageDirective, OnInit, OnChanges,
         });
     }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        const { thySrc } = changes;
-        if (thySrc) {
-            this.elementRef.nativeElement.src = thySrc.currentValue;
-        }
-    }
-
     onPreview(event: MouseEvent) {
         if (!this.previewable || event.button !== 0) {
             return;
@@ -121,28 +108,28 @@ export class ThyImageDirective implements IThyImageDirective, OnInit, OnChanges,
         if (this.parentGroup) {
             const previewAbleImages = this.parentGroup.images.filter(e => e.previewable);
             const previewImages = previewAbleImages.map(e => ({
-                src: e.thyPreviewSrc || e.thySrc,
-                ...e.thyImageMeta,
+                src: e.thyPreviewSrc() || e.thySrc(),
+                ...e.thyImageMeta(),
                 origin: {
-                    src: e.thyOriginSrc
+                    src: e.thyOriginSrc()
                 }
             }));
             const startIndex = previewAbleImages.findIndex(el => this === el);
             this.thyImageService.preview(previewImages, {
                 startIndex,
-                resolveSize: this.thyResolveSize
+                resolveSize: this.thyResolveSize()
             });
         } else {
             const previewImages = [
                 {
-                    src: this.thyPreviewSrc || this.thySrc,
-                    ...this.thyImageMeta,
+                    src: this.thyPreviewSrc() || this.thySrc(),
+                    ...this.thyImageMeta(),
                     origin: {
-                        src: this.thyOriginSrc
+                        src: this.thyOriginSrc()
                     }
                 }
             ];
-            this.thyImageService.preview(previewImages, { resolveSize: this.thyResolveSize });
+            this.thyImageService.preview(previewImages, { resolveSize: this.thyResolveSize() });
         }
     }
 
