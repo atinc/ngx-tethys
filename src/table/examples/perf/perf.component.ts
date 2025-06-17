@@ -7,7 +7,7 @@ import { ThyTable, ThyTableColumnComponent } from 'ngx-tethys/table';
 function perfTracker() {
     let lastDate = new Date().getTime();
     return {
-        step(name: string) {
+        add(name: string) {
             const current = new Date().getTime();
             console.log(`[${name}] ${current}, duration: ${current - lastDate}`);
             lastDate = current;
@@ -36,39 +36,39 @@ export class ThyTablePerfExampleComponent implements OnInit, AfterViewInit, Afte
             this.data.push({ id: i, name: 'Tom', age: 30, job: 'Engineer', address: 'New Industrial Park, Shushan, Hefei, Anhui' });
         }
 
-        this.perfTracker.step('constructor');
+        this.perfTracker.add('constructor');
         afterNextRender(() => {
-            this.perfTracker.step('afterNextRender');
+            this.perfTracker.add('afterNextRender');
         });
 
         afterRender(() => {
-            this.perfTracker.step('afterRender');
+            this.perfTracker.add('afterRender');
         });
     }
     ngDoCheck(): void {
-        // this.perfTracker.step('ngDoCheck');
+        // this.perfTracker.add('ngDoCheck');
     }
 
     ngAfterContentChecked(): void {
-        // this.perfTracker.step('ngAfterContentChecked');
+        // this.perfTracker.add('ngAfterContentChecked');
     }
 
     ngOnInit(): void {
         this.loadingDone = true;
-        this.perfTracker.step('ngOnInit');
+        this.perfTracker.add('ngOnInit');
     }
 
     ngAfterViewInit(): void {
-        this.perfTracker.step('ngAfterViewInit');
+        this.perfTracker.add('ngAfterViewInit');
     }
 
     refresh() {
-        this.perfTracker.step('loading');
+        this.perfTracker.add('loading');
         this.loadingDone = false;
         setTimeout(() => {
             this.data = [...this.data];
             this.loadingDone = true;
-            this.perfTracker.step('refresh');
+            this.perfTracker.add('refresh');
         });
     }
 }
