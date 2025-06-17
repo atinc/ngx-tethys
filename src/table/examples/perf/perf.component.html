@@ -1,0 +1,23 @@
+<button thyButton="primary" thySize="md" (click)="refresh()">重新渲染</button>
+<thy-table [thyModel]="data" thyRowKey="id" [thyLoadingDone]="loadingDone">
+  <thy-table-column thyTitle="Id" thyModelKey="id"></thy-table-column>
+  <thy-table-column thyTitle="Name" thyModelKey="name" thyWidth="15%">
+    <ng-template #cell let-row>
+      <thy-avatar thyLoading="lazy" [thyName]="row.name" thySize="xs" thyShowName="true" [thySrc]="'assets/images/one-avatar.jpg'"></thy-avatar>
+    </ng-template>
+  </thy-table-column>
+  <thy-table-column thyTitle="Age" thyModelKey="age"></thy-table-column>
+  <thy-table-column thyTitle="Job" thyModelKey="job"> </thy-table-column>
+  <thy-table-column thyTitle="Address" thyModelKey="address" thySecondary="true"></thy-table-column>
+  <thy-table-column thyTitle="" thyOperational="true">
+    <ng-template #cell let-row>
+      <a class="link-secondary" href="javascript:;">
+        <thy-icon thyIconName="user-add"></thy-icon>
+      </a>
+      <a class="link-danger-weak" href="javascript:;">
+        <thy-icon thyIconName="trash"></thy-icon>
+      </a>
+      <a href="javascript:;" thyAction thyIcon="settings"> </a>
+    </ng-template>
+  </thy-table-column>
+</thy-table>
