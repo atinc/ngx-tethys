@@ -11,6 +11,11 @@ function perfTracker() {
             const current = new Date().getTime();
             console.log(`[${name}] ${current}, duration: ${current - lastDate}`);
             lastDate = current;
+        },
+        reset(name: string) {
+            const current = new Date().getTime();
+            console.log(`[${name}] ${current}`);
+            lastDate = current;
         }
     };
 }
@@ -63,12 +68,12 @@ export class ThyTablePerfExampleComponent implements OnInit, AfterViewInit, Afte
     }
 
     refresh() {
-        this.perfTracker.add('loading');
+        this.perfTracker.reset('loading');
         this.loadingDone = false;
         setTimeout(() => {
             this.data = [...this.data];
             this.loadingDone = true;
-            this.perfTracker.add('refresh');
+            this.perfTracker.reset('refreshing');
         });
     }
 }
