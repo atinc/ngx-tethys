@@ -320,21 +320,21 @@ describe('ThyTreeComponent', () => {
         });
 
         it('test ngOnChanges methods called when multiple or thyType or thySelectedKeys was modified after init', () => {
-            const selectionModelSpy = spyOn<any>(treeComponent, `_instanceSelectionModel`);
+            const selectionModelSpy = spyOn<any>(treeComponent, `instanceSelectionModel`);
 
             treeInstance.options.multiple = true;
             fixture.detectChanges();
 
             expect(selectionModelSpy).toHaveBeenCalledTimes(1);
 
-            const treeTypeSpy = spyOn<any>(treeComponent, '_setTreeType');
+            const treeTypeSpy = spyOn<any>(treeComponent, 'setTreeType');
 
             treeInstance.treeType = 'default';
             fixture.detectChanges();
 
             expect(treeTypeSpy).toHaveBeenCalledTimes(1);
 
-            const treeNodesSpy = spyOn<any>(treeComponent, '_selectTreeNodes');
+            const treeNodesSpy = spyOn<any>(treeComponent, 'selectTreeNodes');
 
             const onChangesData = JSON.parse(JSON.stringify(treeNodes));
             onChangesData.pop();
@@ -380,7 +380,7 @@ describe('ThyTreeComponent', () => {
             debugger;
             const multipleElement = multipleFixture.debugElement.query(By.directive(ThyTree)).nativeElement;
             const multipleTree = multipleFixture.debugElement.componentInstance.tree();
-            const selectionModelSpy = spyOn(multipleTree._selectionModel, 'toggle');
+            const selectionModelSpy = spyOn(multipleTree.selectionModel, 'toggle');
             const nodeElement = multipleElement.querySelector('.thy-tree-node-wrapper') as HTMLElement;
             nodeElement.click();
             fixture.detectChanges();

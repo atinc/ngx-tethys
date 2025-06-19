@@ -125,15 +125,15 @@ export class ThyTreeNodeComponent {
      */
     readonly thyIndent = input(25, { transform: numberAttribute });
 
-    nodeIcon = computed(() => {
+    readonly nodeIcon = computed(() => {
         return this.node().origin.icon;
     });
 
-    nodeIconStyle = computed(() => {
+    readonly nodeIconStyle = computed(() => {
         return this.node().origin.iconStyle;
     });
 
-    protected itemClass = computed(() => {
+    protected readonly itemClass = computed(() => {
         return this.node()?.itemClass?.join(' ');
     });
 

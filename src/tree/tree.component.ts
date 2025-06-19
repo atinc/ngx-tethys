@@ -5,7 +5,6 @@ import { CdkVirtualScrollViewport, CdkFixedSizeVirtualScroll, CdkVirtualForOf } 
 import {
     ChangeDetectionStrategy,
     Component,
-    ContentChild,
     forwardRef,
     numberAttribute,
     TemplateRef,
@@ -103,11 +102,9 @@ export class ThyTree implements ControlValueAccessor {
     private document = inject(DOCUMENT);
     private destroyRef = inject(DestroyRef);
 
-    private _templateRef: TemplateRef<any>;
+    private expandedKeys: (string | number)[];
 
-    private _expandedKeys: (string | number)[];
-
-    private _selectedKeys: (string | number)[];
+    private selectedKeys: (string | number)[];
 
     private hostRenderer = useHostRenderer();
 
@@ -135,13 +132,13 @@ export class ThyTree implements ControlValueAccessor {
             );
         };
 
-    public _selectionModel: SelectionModel<ThyTreeNode>;
+    public selectionModel: SelectionModel<ThyTreeNode>;
 
     public get treeNodes() {
         return this.thyTreeService.treeNodes;
     }
 
-    public flattenTreeNodes = computed(() => this.thyTreeService.flattenTreeNodes());
+    public readonly flattenTreeNodes = computed(() => this.thyTreeService.flattenTreeNodes());
 
     /**
      * 虚拟化滚动的视口
@@ -229,14 +226,14 @@ export class ThyTree implements ControlValueAccessor {
         }
     });
 
-    protected icons = computed(() => {
+    protected readonly icons = computed(() => {
         if (this.thyType() === 'especial') {
             return { expand: 'minus-square', collapse: 'plus-square' };
         }
         return this.thyIcons();
     });
 
-    public itemSize = computed(() => {
+    public readonly itemSize = computed(() => {
         const itemSize = this.thyItemSize();
         const size = this.thySize();
         if (size === 'default') {
@@ -314,16 +311,7 @@ export class ThyTree implements ControlValueAccessor {
     /**
      * 设置 TreeNode 的渲染模板
      */
-    @ContentChild('treeNodeTemplate', { static: true })
-    set templateRef(template: TemplateRef<any>) {
-        if (template) {
-            this._templateRef = template;
-        }
-    }
-
-    get templateRef() {
-        return this._templateRef;
-    }
+    readonly templateRef = contentChild<TemplateRef<any>>('treeNodeTemplate');
 
     /**
      * 设置子的空数据渲染模板
@@ -343,23 +331,23 @@ export class ThyTree implements ControlValueAccessor {
         });
 
         effect(() => {
-            this._initThyNodes();
+            this.initThyNodes();
         });
 
         effect(() => {
-            this._setTreeSize();
+            this.setTreeSize();
         });
 
         effect(() => {
-            this._setTreeType();
+            this.setTreeType();
         });
 
         effect(() => {
-            this._instanceSelectionModel();
+            this.instanceSelectionModel();
         });
 
         effect(() => {
-            this._selectTreeNodes(this.thySelectedKeys());
+            this.selectTreeNodes(this.thySelectedKeys());
         });
 
         effect(() => {
@@ -399,27 +387,27 @@ export class ThyTree implements ControlValueAccessor {
         }
     }
 
-    private _initThyNodes() {
-        this._expandedKeys = this.getExpandedNodes().map(node => node.key);
-        this._selectedKeys = this.getSelectedNodes().map(node => node.key);
+    private initThyNodes() {
+        this.expandedKeys = this.getExpandedNodes().map(node => node.key);
+        this.selectedKeys = this.getSelectedNodes().map(node => node.key);
         this.thyTreeService.initializeTreeNodes(this.thyNodes());
-        this._selectTreeNodes(this._selectedKeys);
-        this._handleExpandedKeys();
+        this.selectTreeNodes(this.selectedKeys);
+        this.handleExpandedKeys();
     }
 
-    private _handleExpandedKeys() {
+    private handleExpandedKeys() {
         if (this.thyExpandAll()) {
             this.thyTreeService.expandTreeNodes(true);
         } else {
-            this._expandedKeys = helpers.concatArray(
-                (this.thyExpandedKeys() || []).filter(key => !this._expandedKeys.includes(key)),
-                this._expandedKeys
+            this.expandedKeys = helpers.concatArray(
+                (this.thyExpandedKeys() || []).filter(key => !this.expandedKeys.includes(key)),
+                this.expandedKeys
             );
-            this.thyTreeService.expandTreeNodes(this._expandedKeys);
+            this.thyTreeService.expandTreeNodes(this.expandedKeys);
         }
     }
 
-    private _setTreeType() {
+    private setTreeType() {
         const type = this.thyType();
         if (type && treeTypeClassMap[type]) {
             treeTypeClassMap[type].forEach(className => {
@@ -428,18 +416,18 @@ export class ThyTree implements ControlValueAccessor {
         }
     }
 
-    private _setTreeSize() {
+    private setTreeSize() {
         const size = this.thySize();
         if (size) {
             this.hostRenderer.addClass(`thy-tree-${size}`);
         }
     }
 
-    private _instanceSelectionModel() {
-        this._selectionModel = new SelectionModel<any>(this.thyMultiple());
+    private instanceSelectionModel() {
+        this.selectionModel = new SelectionModel<any>(this.thyMultiple());
     }
 
-    private _selectTreeNodes(keys: (string | number)[]) {
+    private selectTreeNodes(keys: (string | number)[]) {
         (keys || []).forEach(key => {
             const node = this.thyTreeService.getTreeNode(key);
             if (node) {
@@ -449,12 +437,12 @@ export class ThyTree implements ControlValueAccessor {
     }
 
     isSelected(node: ThyTreeNode) {
-        return this._selectionModel.isSelected(node);
+        return this.selectionModel.isSelected(node);
     }
 
     toggleTreeNode(node: ThyTreeNode) {
         if (node && !node.isDisabled) {
-            this._selectionModel.toggle(node);
+            this.selectionModel.toggle(node);
         }
     }
 
@@ -649,7 +637,7 @@ export class ThyTree implements ControlValueAccessor {
     // region Public Functions
     selectTreeNode(node: ThyTreeNode) {
         if (node && !node.isDisabled) {
-            this._selectionModel.select(node);
+            this.selectionModel.select(node);
             this.thyTreeService.syncFlattenTreeNodes();
         }
     }
@@ -659,11 +647,11 @@ export class ThyTree implements ControlValueAccessor {
     }
 
     getSelectedNode(): ThyTreeNode {
-        return this._selectionModel ? this._selectionModel.selected[0] : null;
+        return this.selectionModel ? this.selectionModel.selected[0] : null;
     }
 
     getSelectedNodes(): ThyTreeNode[] {
-        return this._selectionModel ? this._selectionModel.selected : [];
+        return this.selectionModel ? this.selectionModel.selected : [];
     }
 
     getExpandedNodes(): ThyTreeNode[] {
@@ -681,7 +669,7 @@ export class ThyTree implements ControlValueAccessor {
 
     deleteTreeNode(node: ThyTreeNode) {
         if (this.isSelected(node)) {
-            this._selectionModel.toggle(node);
+            this.selectionModel.toggle(node);
         }
         this.thyTreeService.deleteTreeNode(node);
         this.thyTreeService.syncFlattenTreeNodes();
