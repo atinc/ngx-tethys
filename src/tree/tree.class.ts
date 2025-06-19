@@ -1,3 +1,4 @@
+import { Signal } from '@angular/core';
 import { helpers, isArray } from 'ngx-tethys/util';
 import { BehaviorSubject, Subject } from 'rxjs';
 
@@ -88,12 +89,11 @@ export interface ThyTreeFormatEmitEvent {
 
 export interface IThyTreeService {
     selectedNode: ThyTreeNode;
-    flattenNodes$: BehaviorSubject<ThyTreeNode[]>;
-    flattenTreeNodes: ThyTreeNode[];
+    flattenTreeNodes: Signal<ThyTreeNode[]>;
     treeNodes: ThyTreeNode[];
     statusChange$: Subject<ThyTreeFormatEmitEvent>;
     initializeTreeNodes: (rootNodes: ThyTreeNodeData[]) => void;
-    syncFlattenTreeNodes: () => ThyTreeNode[];
+    syncFlattenTreeNodes: () => void;
     setCheckStateResolve: (resolve: (node: ThyTreeNode) => ThyTreeNodeCheckState) => void;
     resetSortedTreeNodes: (treeNodes: ThyTreeNode[], parent?: ThyTreeNode) => void;
     getTreeNode: (key: string | number) => ThyTreeNode;

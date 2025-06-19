@@ -22,19 +22,18 @@ import {
     Component,
     ContentChild,
     ElementRef,
-    EventEmitter,
     forwardRef,
     HostBinding,
     Input,
     NgZone,
     OnDestroy,
     OnInit,
-    Output,
     PLATFORM_ID,
     TemplateRef,
     ViewChild,
     inject,
-    Signal
+    Signal,
+    output
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -301,7 +300,7 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
     /**
      * 树选择组件展开和折叠状态事件
      */
-    @Output() thyExpandStatusChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+    readonly thyExpandStatusChange = output<boolean>();
 
     private _getNgModelType() {
         if (this.thyMultiple) {

@@ -1,6 +1,6 @@
 import { coerceArray, isFunction } from 'ngx-tethys/util';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, signal } from '@angular/core';
 import { ThyTreeNodeCheckState, ThyTreeNodeData, ThyTreeNode, IThyTreeService, ThyTreeFormatEmitEvent } from './tree.class';
 
 function checkStateResolve(node: ThyTreeNode) {
@@ -24,9 +24,7 @@ type FlattenAllNodesCb = (treeNode: ThyTreeNode) => boolean;
 export class ThyTreeService implements IThyTreeService, OnDestroy {
     selectedNode!: ThyTreeNode;
 
-    flattenNodes$ = new BehaviorSubject<ThyTreeNode[]>([]);
-
-    flattenTreeNodes: ThyTreeNode[] = [];
+    flattenTreeNodes = signal<ThyTreeNode[]>([]);
 
     private originTreeNodes: ThyTreeNodeData[] = [];
 
@@ -48,10 +46,8 @@ export class ThyTreeService implements IThyTreeService, OnDestroy {
         this.treeNodes = (rootNodes || []).map(node => new ThyTreeNode(node, null, this));
     }
 
-    public syncFlattenTreeNodes(): ThyTreeNode[] {
-        this.flattenTreeNodes = this.getParallelTreeNodes(this.treeNodes, false);
-        this.flattenNodes$.next(this.flattenTreeNodes);
-        return this.flattenTreeNodes;
+    public syncFlattenTreeNodes() {
+        this.flattenTreeNodes.set(this.getParallelTreeNodes(this.treeNodes, false));
     }
 
     private getParallelTreeNodes(rootTrees: ThyTreeNode[] = this.treeNodes, flattenAllNodes: boolean | FlattenAllNodesCb = true) {

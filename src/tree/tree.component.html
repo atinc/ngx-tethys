@@ -1,34 +1,43 @@
-@if (thyVirtualScroll) {
+@let flattenTreeNodesValue = flattenTreeNodes();
+@let draggable = thyDraggable();
+@let async = thyAsync();
+@let checkable = thyCheckable();
+@let multiple = thyMultiple();
+@let titleTruncate = thyTitleTruncate();
+@let indent = thyIndent();
+@let clickBehavior = thyClickBehavior();
+
+@if (thyVirtualScroll()) {
   <cdk-virtual-scroll-viewport
     #viewport
-    [itemSize]="thyItemSize"
+    [itemSize]="itemSize()"
     [style.height]="'100%'"
     cdkDropList
     [cdkDropListAutoScrollStep]="6"
-    [cdkDropListData]="flattenTreeNodes"
+    [cdkDropListData]="flattenTreeNodesValue"
     [cdkDropListSortingDisabled]="true"
     (cdkDropListDropped)="onListDropped($event)"
     >
     <div class="virtual-trees-container">
       <thy-tree-node
-        *cdkVirtualFor="let node of flattenTreeNodes; trackBy: trackByFn; let i = index"
+        *cdkVirtualFor="let node of flattenTreeNodesValue; trackBy: trackByFn; let i = index"
         cdkDrag
         [cdkDragData]="node"
-        [cdkDragDisabled]="!thyDraggable || !(node | treeNodeDraggable : thyBeforeDragStart)"
+        [cdkDragDisabled]="!draggable || !(node | treeNodeDraggable : thyBeforeDragStart())"
         (cdkDragStarted)="onDragStarted($event)"
         (cdkDragEnded)="onDragEnded($event)"
         (cdkDragMoved)="emitDragMoved($event)"
         [node]="node"
-        [templateRef]="templateRef"
-        [emptyChildrenTemplateRef]="emptyChildrenTemplate"
-        [thyAsync]="thyAsync"
-        [thyDraggable]="thyDraggable"
-        [thyCheckable]="thyCheckable"
-        [thyMultiple]="thyMultiple"
-        [thyClickBehavior]="thyClickBehavior"
-        [thyTitleTruncate]="thyTitleTruncate"
-        [thyItemSize]="thyItemSize"
-        [thyIndent]="thyIndent"
+        [templateRef]="templateRef()"
+        [emptyChildrenTemplateRef]="emptyChildrenTemplate()"
+        [thyAsync]="async"
+        [thyDraggable]="draggable"
+        [thyCheckable]="checkable"
+        [thyMultiple]="multiple"
+        [thyClickBehavior]="clickBehavior"
+        [thyTitleTruncate]="titleTruncate"
+        [thyItemSize]="itemSize()"
+        [thyIndent]="indent"
         (thyOnClick)="thyOnClick.emit($event)"
         (thyDblClick)="thyDblClick.emit($event)"
         (thyOnExpandChange)="eventTriggerChanged($event)"
@@ -38,32 +47,32 @@
   </cdk-virtual-scroll-viewport>
 }
 
-@if (!thyVirtualScroll) {
+@if (!thyVirtualScroll()) {
   <div
     cdkDropList
     [cdkDropListAutoScrollStep]="6"
-    [cdkDropListData]="flattenTreeNodes"
+    [cdkDropListData]="flattenTreeNodesValue"
     [cdkDropListSortingDisabled]="true"
     (cdkDropListDropped)="onListDropped($event)">
-    @for (node of flattenTreeNodes; track trackByFn(i, node); let i = $index) {
+    @for (node of flattenTreeNodesValue; track trackByFn(i, node); let i = $index) {
       <thy-tree-node
         cdkDrag
         [cdkDragData]="node"
-        [cdkDragDisabled]="!thyDraggable || !(node | treeNodeDraggable : thyBeforeDragStart)"
+        [cdkDragDisabled]="!draggable || !(node | treeNodeDraggable : thyBeforeDragStart())"
         (cdkDragStarted)="onDragStarted($event)"
         (cdkDragEnded)="onDragEnded($event)"
         (cdkDragMoved)="emitDragMoved($event)"
         [node]="node"
-        [templateRef]="templateRef"
-        [emptyChildrenTemplateRef]="emptyChildrenTemplate"
-        [thyAsync]="thyAsync"
-        [thyDraggable]="thyDraggable"
-        [thyCheckable]="thyCheckable"
-        [thyMultiple]="thyMultiple"
-        [thyTitleTruncate]="thyTitleTruncate"
-        [thyItemSize]="thyItemSize"
-        [thyClickBehavior]="thyClickBehavior"
-        [thyIndent]="thyIndent"
+        [templateRef]="templateRef()"
+        [emptyChildrenTemplateRef]="emptyChildrenTemplate()"
+        [thyAsync]="async"
+        [thyDraggable]="draggable"
+        [thyCheckable]="checkable"
+        [thyMultiple]="multiple"
+        [thyTitleTruncate]="titleTruncate"
+        [thyItemSize]="itemSize()"
+        [thyClickBehavior]="clickBehavior"
+        [thyIndent]="indent"
         (thyOnClick)="thyOnClick.emit($event)"
         (thyDblClick)="thyDblClick.emit($event)"
         (thyOnExpandChange)="eventTriggerChanged($event)"

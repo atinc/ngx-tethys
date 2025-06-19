@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, viewChild } from '@angular/core';
 import { ThyTree, ThyTreeEmitEvent, ThyTreeNodeData } from 'ngx-tethys/tree';
 import { TinyDate } from 'ngx-tethys/util';
 
@@ -8,7 +8,7 @@ import { TinyDate } from 'ngx-tethys/util';
     imports: [ThyTree]
 })
 export class ThyTreeAsyncExampleComponent {
-    @ViewChild('tree') treeComponent: ThyTree;
+    readonly treeComponent = viewChild<ThyTree>('tree');
 
     treeNodes: ThyTreeNodeData[] = [
         {

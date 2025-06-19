@@ -3,27 +3,24 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CdkVirtualScrollViewport, CdkFixedSizeVirtualScroll, CdkVirtualForOf } from '@angular/cdk/scrolling';
 import {
-    AfterViewInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
-    ContentChild,
-    EventEmitter,
     forwardRef,
-    HostBinding,
-    Input,
     numberAttribute,
-    OnChanges,
-    OnDestroy,
-    OnInit,
-    Output,
-    QueryList,
-    SimpleChanges,
     TemplateRef,
-    ViewChild,
-    ViewChildren,
     ViewEncapsulation,
-    inject
+    inject,
+    input,
+    signal,
+    effect,
+    computed,
+    model,
+    DestroyRef,
+    viewChild,
+    contentChild,
+    viewChildren,
+    afterNextRender,
+    output
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { THY_TREE_ABSTRACT_TOKEN } from './tree-abstract';
@@ -46,6 +43,7 @@ import { CdkDrag, CdkDragDrop, CdkDragEnd, CdkDragMove, CdkDragStart, CdkDropLis
 import { filter, startWith, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { ThyTreeNodeDraggablePipe } from './tree.pipe';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 type ThyTreeSize = 'sm' | 'default';
 
@@ -70,6 +68,13 @@ const treeItemSizeMap = {
     templateUrl: './tree.component.html',
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        class: 'thy-tree',
+        '[class.thy-multiple-selection-list]': 'thyMultiple()',
+        '[class.thy-virtual-scrolling-tree]': 'thyVirtualScroll()',
+        '[class.thy-tree-draggable]': 'thyDraggable()',
+        '[class.thy-tree-dragging]': 'dragging()'
+    },
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
@@ -92,20 +97,14 @@ const treeItemSizeMap = {
         ThyTreeNodeDraggablePipe
     ]
 })
-export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterViewInit, OnDestroy {
+export class ThyTree implements ControlValueAccessor {
     thyTreeService = inject(ThyTreeService);
-    private cdr = inject(ChangeDetectorRef);
     private document = inject(DOCUMENT);
+    private destroyRef = inject(DestroyRef);
 
-    private _templateRef: TemplateRef<any>;
+    private expandedKeys: (string | number)[];
 
-    private _emptyChildrenTemplateRef: TemplateRef<any>;
-
-    private _draggable = false;
-
-    private _expandedKeys: (string | number)[];
-
-    private _selectedKeys: (string | number)[];
+    private selectedKeys: (string | number)[];
 
     private hostRenderer = useHostRenderer();
 
@@ -113,14 +112,10 @@ export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterVi
 
     private _onChange: (value: any) => void = (_: any) => {};
 
-    private destroy$ = new Subject<void>();
-
     // 缓存 Element 和 DragRef 的关系，方便在 Item 拖动时查找
     private nodeDragsMap = new Map<HTMLElement, CdkDrag<ThyTreeNode>>();
 
     private nodeDragMoved = new Subject<CdkDragMove>();
-
-    // private startDragNodeExpanded: boolean;
 
     private startDragNodeClone: ThyTreeNode;
 
@@ -137,309 +132,248 @@ export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterVi
             );
         };
 
-    public _selectionModel: SelectionModel<ThyTreeNode>;
+    public selectionModel: SelectionModel<ThyTreeNode>;
 
     public get treeNodes() {
         return this.thyTreeService.treeNodes;
     }
 
-    public flattenTreeNodes: ThyTreeNode[] = [];
+    public readonly flattenTreeNodes = computed(() => this.thyTreeService.flattenTreeNodes());
 
     /**
      * 虚拟化滚动的视口
      */
-    @Output() @ViewChild('viewport', { static: false }) viewport: CdkVirtualScrollViewport;
+    readonly viewport = viewChild<CdkVirtualScrollViewport>('viewport');
 
     /**
      * TreeNode 展现所需的数据
      * @type ThyTreeNodeData[]
      */
-    @Input() thyNodes: ThyTreeNodeData[];
+    readonly thyNodes = model<ThyTreeNodeData[]>(undefined);
 
     /**
      * 设置 TreeNode 是否支持展开
      * @type boolean | Function
      */
-    @Input() thyShowExpand: boolean | ((_: ThyTreeNodeData) => boolean) = true;
+    readonly thyShowExpand = input<boolean | ((_: ThyTreeNodeData) => boolean)>(true);
 
     /**
      * 设置是否支持多选节点
      */
-    @HostBinding(`class.thy-multiple-selection-list`)
-    @Input({ transform: coerceBooleanProperty })
-    thyMultiple = false;
+    readonly thyMultiple = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 设置 TreeNode 是否支持拖拽排序
      * @default false
      */
-    @HostBinding('class.thy-tree-draggable')
-    @Input({ transform: coerceBooleanProperty })
-    set thyDraggable(value: boolean) {
-        this._draggable = value;
-    }
-
-    get thyDraggable() {
-        return this._draggable;
-    }
+    readonly thyDraggable = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 设置 TreeNode 是否支持 Checkbox 选择
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyCheckable: boolean;
+    readonly thyCheckable = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 点击节点的行为，`default` 为选中当前节点，`selectCheckbox` 为选中节点的 Checkbox， `thyCheckable` 为 true 时生效。
      */
-    @Input() thyClickBehavior: ThyClickBehavior = 'default';
+    readonly thyClickBehavior = input<ThyClickBehavior>('default');
 
     /**
      * 设置 check 状态的计算策略
      */
-    @Input() set thyCheckStateResolve(resolve: (node: ThyTreeNode) => ThyTreeNodeCheckState) {
-        if (resolve) {
-            this.thyTreeService.setCheckStateResolve(resolve);
-        }
-    }
+    readonly thyCheckStateResolve = input<(node: ThyTreeNode) => ThyTreeNodeCheckState>();
 
     /**
      * 设置 TreeNode 是否支持异步加载
      */
-    @Input({ transform: coerceBooleanProperty }) thyAsync = false;
-
-    private _thyType: ThyTreeType = 'default';
+    readonly thyAsync = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 设置不同展示类型的 Tree，`default` 为小箭头展示， `especial` 为 加减号图标展示
      * @type ThyTreeType
      * @default default
      */
-    @Input()
-    set thyType(type: ThyTreeType) {
-        this._thyType = type;
-        if (type === 'especial') {
-            this.thyIcons = { expand: 'minus-square', collapse: 'plus-square' };
-        }
-    }
-
-    get thyType() {
-        return this._thyType;
-    }
+    readonly thyType = input<ThyTreeType>('default');
 
     /**
      * 设置不同 Tree 展开折叠的图标，`expand` 为展开状态的图标，`collapse` 为折叠状态的图标
      * @type { expand: string, collapse: string }
      */
-    @Input() thyIcons: ThyTreeIcons = {};
-
-    private _thySize: ThyTreeSize = 'default';
+    readonly thyIcons = input<ThyTreeIcons>({});
     /**
      * 支持 `sm` | `default` 两种大小，默认值为 `default`
      * @type ThyTreeSize
      * @default default
      */
-    @Input()
-    set thySize(size: ThyTreeSize) {
-        this._thySize = size;
-        if (this._thySize) {
-            this._thyItemSize = treeItemSizeMap[this._thySize];
-        } else {
-            this._thyItemSize = treeItemSizeMap.default;
-        }
-    }
-
-    get thySize() {
-        return this._thySize;
-    }
+    readonly thySize = input<ThyTreeSize>('default');
 
     /**
      * 设置是否开启虚拟滚动
      */
-    @HostBinding('class.thy-virtual-scrolling-tree')
-    @Input({ transform: coerceBooleanProperty })
-    thyVirtualScroll = false;
-
-    private _thyItemSize = 44;
+    readonly thyVirtualScroll = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 开启虚拟滚动时，单行节点的高度，当`thySize`为`default`时，该参数才生效
      * @default 44
      */
-    @Input({ transform: numberAttribute })
-    set thyItemSize(itemSize: number) {
-        if (this.thySize !== 'default') {
-            throw new Error('setting thySize and thyItemSize at the same time is not allowed');
+    readonly thyItemSize = input(44, {
+        transform: value => {
+            if (value && this.thySize() !== 'default') {
+                throw new Error('setting thySize and thyItemSize at the same time is not allowed');
+            }
+            return numberAttribute(value);
         }
-        this._thyItemSize = itemSize;
-    }
+    });
 
-    get thyItemSize() {
-        return this._thyItemSize;
-    }
+    protected readonly icons = computed(() => {
+        if (this.thyType() === 'especial') {
+            return { expand: 'minus-square', collapse: 'plus-square' };
+        }
+        return this.thyIcons();
+    });
+
+    public readonly itemSize = computed(() => {
+        const itemSize = this.thyItemSize();
+        const size = this.thySize();
+        if (size === 'default') {
+            return itemSize || treeItemSizeMap.default;
+        } else if (size) {
+            return treeItemSizeMap[size] || treeItemSizeMap.default;
+        } else {
+            return treeItemSizeMap.default;
+        }
+    });
 
     /**
      * 设置节点名称是否支持超出截取
      * @type boolean
      */
-    @Input({ transform: coerceBooleanProperty }) thyTitleTruncate = true;
+    readonly thyTitleTruncate = input(true, { transform: coerceBooleanProperty });
 
     /**
      * 已选中的 node 节点集合
      * @default []
      */
-    @Input() thySelectedKeys: string[];
+    readonly thySelectedKeys = input<string[]>(undefined);
 
     /**
      * 展开指定的树节点
      */
-    @Input() thyExpandedKeys: (string | number)[];
+    readonly thyExpandedKeys = input<(string | number)[]>(undefined);
 
     /**
      * 是否展开所有树节点
      */
-    @Input({ transform: coerceBooleanProperty }) thyExpandAll: boolean = false;
+    readonly thyExpandAll = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 设置缩进距离，缩进距离 = thyIndent * node.level
      * @type number
      */
-    @Input({ transform: numberAttribute }) thyIndent = 25;
+    readonly thyIndent = input(25, { transform: numberAttribute });
 
     /**
      * 拖拽之前的回调，函数返回 false 则阻止拖拽
      */
-    @Input() thyBeforeDragStart: (context: ThyTreeBeforeDragStartContext) => boolean;
+    readonly thyBeforeDragStart = input<(context: ThyTreeBeforeDragStartContext) => boolean>(undefined);
 
     /**
      * 拖放到元素时回调，函数返回 false 则阻止拖放到当前元素
      */
-    @Input() thyBeforeDragDrop: (context: ThyTreeBeforeDragDropContext) => boolean;
+    readonly thyBeforeDragDrop = input<(context: ThyTreeBeforeDragDropContext) => boolean>(undefined);
 
     /**
      * 设置子 TreeNode 点击事件
      */
-    @Output() thyOnClick: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
+    readonly thyOnClick = output<ThyTreeEmitEvent>();
 
     /**
      * 设置 check 选择事件
      */
-    @Output() thyOnCheckboxChange: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
+    readonly thyOnCheckboxChange = output<ThyTreeEmitEvent>();
 
     /**
      * 设置点击展开触发事件
      */
-    @Output() thyOnExpandChange: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
+    readonly thyOnExpandChange = output<ThyTreeEmitEvent>();
 
     /**
      * 设置 TreeNode 拖拽事件
      */
-    @Output() thyOnDragDrop: EventEmitter<ThyTreeDragDropEvent> = new EventEmitter<ThyTreeDragDropEvent>();
+    readonly thyOnDragDrop = output<ThyTreeDragDropEvent>();
 
     /**
      * 双击 TreeNode 事件
      */
-    @Output() thyDblClick: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
+    readonly thyDblClick = output<ThyTreeEmitEvent>();
 
     /**
      * 设置 TreeNode 的渲染模板
      */
-    @ContentChild('treeNodeTemplate', { static: true })
-    set templateRef(template: TemplateRef<any>) {
-        if (template) {
-            this._templateRef = template;
-        }
-    }
-
-    get templateRef() {
-        return this._templateRef;
-    }
+    readonly templateRef = contentChild<TemplateRef<any>>('treeNodeTemplate');
 
     /**
      * 设置子的空数据渲染模板
      */
-    @ContentChild('emptyChildrenTemplate', { static: true }) emptyChildrenTemplate: TemplateRef<any>;
-    set emptyChildrenTemplateRef(template: TemplateRef<any>) {
-        if (template) {
-            this._emptyChildrenTemplateRef = template;
-        }
-    }
+    readonly emptyChildrenTemplate = contentChild<TemplateRef<any>>('emptyChildrenTemplate');
 
-    get emptyChildrenTemplateRef() {
-        return this._emptyChildrenTemplateRef;
-    }
+    dragging = signal(false);
 
-    @HostBinding('class.thy-tree')
-    thyTreeClass = true;
+    readonly cdkDrags = viewChildren(CdkDrag);
 
-    @HostBinding('class.thy-tree-dragging')
-    dragging: boolean;
+    constructor() {
+        effect(() => {
+            const resolve = this.thyCheckStateResolve();
+            if (resolve) {
+                this.thyTreeService.setCheckStateResolve(resolve);
+            }
+        });
 
-    @ViewChildren(CdkDrag) cdkDrags: QueryList<CdkDrag<ThyTreeNode>>;
+        effect(() => {
+            this.initThyNodes();
+        });
 
-    ngOnInit(): void {
-        this._initThyNodes();
-        this._setTreeType();
-        this._setTreeSize();
-        this._instanceSelectionModel();
-        this._selectTreeNodes(this.thySelectedKeys);
+        effect(() => {
+            this.setTreeSize();
+        });
 
-        this.thyTreeService.flattenNodes$.subscribe(flattenTreeNodes => {
-            this.flattenTreeNodes = flattenTreeNodes;
-            this.cdr.markForCheck();
+        effect(() => {
+            this.setTreeType();
+        });
+
+        effect(() => {
+            this.instanceSelectionModel();
+        });
+
+        effect(() => {
+            this.selectTreeNodes(this.thySelectedKeys());
+        });
+
+        effect(() => {
+            const drags = this.cdkDrags();
+            this.nodeDragsMap.clear();
+            drags.forEach(drag => {
+                if (drag.data) {
+                    // cdkDrag 变化时，缓存 Element 与 DragRef 的关系，方便 Drag Move 时查找
+                    this.nodeDragsMap.set(drag.element.nativeElement, drag);
+                }
+            });
+        });
+
+        afterNextRender(() => {
+            this.nodeDragMoved
+                .pipe(
+                    // auditTime(30),
+                    //  auditTime 可能会导致拖动结束后仍然执行 moved ，所以通过判断 dragging 状态来过滤无效 moved
+                    filter((event: CdkDragMove) => event.source._dragRef.isDragging()),
+                    takeUntilDestroyed(this.destroyRef)
+                )
+                .subscribe(event => {
+                    this.onDragMoved(event);
+                });
         });
     }
-
-    ngAfterViewInit(): void {
-        this.cdkDrags.changes
-            .pipe(startWith(this.cdkDrags), takeUntil(this.destroy$))
-            .subscribe((drags: QueryList<CdkDrag<ThyTreeNode>>) => {
-                this.nodeDragsMap.clear();
-                drags.forEach(drag => {
-                    if (drag.data) {
-                        // cdkDrag 变化时，缓存 Element 与 DragRef 的关系，方便 Drag Move 时查找
-                        this.nodeDragsMap.set(drag.element.nativeElement, drag);
-                    }
-                });
-            });
-
-        this.nodeDragMoved
-            .pipe(
-                // auditTime(30),
-                //  auditTime 可能会导致拖动结束后仍然执行 moved ，所以通过判断 dragging 状态来过滤无效 moved
-                filter((event: CdkDragMove) => event.source._dragRef.isDragging()),
-                takeUntil(this.destroy$)
-            )
-            .subscribe(event => {
-                this.onDragMoved(event);
-            });
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes.thyNodes && !changes.thyNodes.isFirstChange()) {
-            this._initThyNodes();
-        }
-        if (changes.thyType && !changes.thyType.isFirstChange()) {
-            this._setTreeType();
-        }
-        if (changes.thyMultiple && !changes.thyMultiple.isFirstChange()) {
-            this._instanceSelectionModel();
-        }
-
-        if (changes.thySelectedKeys && !changes.thySelectedKeys.isFirstChange()) {
-            this._selectedKeys = changes.thySelectedKeys.currentValue;
-            this._selectTreeNodes(changes.thySelectedKeys.currentValue);
-        }
-
-        if (changes.thyExpandedKeys && !changes.thyExpandedKeys.isFirstChange()) {
-            this._handleExpandedKeys();
-        }
-        if (changes.thyExpandAll && !changes.thyExpandAll.isFirstChange()) {
-            this._handleExpandedKeys();
-        }
-    }
-
-    renderView = () => {};
 
     eventTriggerChanged(event: ThyTreeEmitEvent): void {
         switch (event.eventName) {
@@ -453,44 +387,47 @@ export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterVi
         }
     }
 
-    private _initThyNodes() {
-        this._expandedKeys = this.getExpandedNodes().map(node => node.key);
-        this._selectedKeys = this.getSelectedNodes().map(node => node.key);
-        this.thyTreeService.initializeTreeNodes(this.thyNodes);
-        this.flattenTreeNodes = this.thyTreeService.flattenTreeNodes;
-        this._selectTreeNodes(this._selectedKeys);
-        this._handleExpandedKeys();
+    private initThyNodes() {
+        this.expandedKeys = this.getExpandedNodes().map(node => node.key);
+        this.selectedKeys = this.getSelectedNodes().map(node => node.key);
+        this.thyTreeService.initializeTreeNodes(this.thyNodes());
+        this.selectTreeNodes(this.selectedKeys);
+        this.handleExpandedKeys();
     }
 
-    private _handleExpandedKeys() {
-        if (this.thyExpandedKeys?.length) {
-            this._expandedKeys = helpers.concatArray(
-                this.thyExpandedKeys.filter(key => !this._expandedKeys.includes(key)),
-                this._expandedKeys
+    private handleExpandedKeys() {
+        if (this.thyExpandAll()) {
+            this.thyTreeService.expandTreeNodes(true);
+        } else {
+            this.expandedKeys = helpers.concatArray(
+                (this.thyExpandedKeys() || []).filter(key => !this.expandedKeys.includes(key)),
+                this.expandedKeys
             );
+            this.thyTreeService.expandTreeNodes(this.expandedKeys);
         }
-        this.thyTreeService.expandTreeNodes(this.thyExpandAll || this._expandedKeys);
     }
 
-    private _setTreeType() {
-        if (this.thyType && treeTypeClassMap[this.thyType]) {
-            treeTypeClassMap[this.thyType].forEach(className => {
+    private setTreeType() {
+        const type = this.thyType();
+        if (type && treeTypeClassMap[type]) {
+            treeTypeClassMap[type].forEach(className => {
                 this.hostRenderer.addClass(className);
             });
         }
     }
 
-    private _setTreeSize() {
-        if (this.thySize) {
-            this.hostRenderer.addClass(`thy-tree-${this.thySize}`);
+    private setTreeSize() {
+        const size = this.thySize();
+        if (size) {
+            this.hostRenderer.addClass(`thy-tree-${size}`);
         }
     }
 
-    private _instanceSelectionModel() {
-        this._selectionModel = new SelectionModel<any>(this.thyMultiple);
+    private instanceSelectionModel() {
+        this.selectionModel = new SelectionModel<any>(this.thyMultiple());
     }
 
-    private _selectTreeNodes(keys: (string | number)[]) {
+    private selectTreeNodes(keys: (string | number)[]) {
         (keys || []).forEach(key => {
             const node = this.thyTreeService.getTreeNode(key);
             if (node) {
@@ -500,12 +437,12 @@ export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterVi
     }
 
     isSelected(node: ThyTreeNode) {
-        return this._selectionModel.isSelected(node);
+        return this.selectionModel.isSelected(node);
     }
 
     toggleTreeNode(node: ThyTreeNode) {
         if (node && !node.isDisabled) {
-            this._selectionModel.toggle(node);
+            this.selectionModel.toggle(node);
         }
     }
 
@@ -514,17 +451,17 @@ export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterVi
     }
 
     isShowExpand(node: ThyTreeNode) {
-        if (helpers.isFunction(this.thyShowExpand)) {
-            return (this.thyShowExpand as Function)(node);
+        const thyShowExpand = this.thyShowExpand();
+        if (helpers.isFunction(thyShowExpand)) {
+            return (thyShowExpand as Function)(node);
         } else {
-            return this.thyShowExpand;
+            return thyShowExpand;
         }
     }
 
     writeValue(value: ThyTreeNodeData[]): void {
         if (value) {
-            this.thyNodes = value;
-            this._initThyNodes();
+            this.thyNodes.set(value);
         }
     }
 
@@ -537,7 +474,7 @@ export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterVi
     }
 
     onDragStarted(event: CdkDragStart<ThyTreeNode>) {
-        this.dragging = true;
+        this.dragging.set(true);
         this.startDragNodeClone = Object.assign({}, event.source.data);
         if (event.source.data.isExpanded) {
             event.source.data.setExpanded(false);
@@ -588,7 +525,7 @@ export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterVi
     }
 
     onDragEnded(event: CdkDragEnd<ThyTreeNode>) {
-        this.dragging = false;
+        this.dragging.set(false);
         // 拖拽结束后恢复原始的展开状态
         event.source.data.setExpanded(this.startDragNodeClone.isExpanded);
         setTimeout(() => {
@@ -607,7 +544,7 @@ export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterVi
 
         const sourceNode = this.startDragNodeClone;
         const sourceNodeParent = sourceNode.parentNode;
-        const targetDragRef = this.cdkDrags.find(item => item.data?.key === this.nodeDropTarget.key);
+        const targetDragRef = this.cdkDrags().find(item => item.data?.key === this.nodeDropTarget.key);
         const targetNode = targetDragRef?.data;
         const targetNodeParent = targetNode.parentNode;
 
@@ -619,7 +556,8 @@ export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterVi
             position: this.nodeDropTarget.position
         };
 
-        if (this.thyBeforeDragDrop && !this.thyBeforeDragDrop(beforeDragDropContext)) {
+        const thyBeforeDragDrop = this.thyBeforeDragDrop();
+        if (thyBeforeDragDrop && !thyBeforeDragDrop(beforeDragDropContext)) {
             this.cleanupDragArtifacts();
             return;
         }
@@ -697,16 +635,11 @@ export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterVi
     }
 
     // region Public Functions
-
     selectTreeNode(node: ThyTreeNode) {
         if (node && !node.isDisabled) {
-            this._selectionModel.select(node);
+            this.selectionModel.select(node);
             this.thyTreeService.syncFlattenTreeNodes();
         }
-    }
-
-    getRootNodes(): ThyTreeNode[] {
-        return this.treeNodes;
     }
 
     getTreeNode(key: string) {
@@ -714,11 +647,11 @@ export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterVi
     }
 
     getSelectedNode(): ThyTreeNode {
-        return this._selectionModel ? this._selectionModel.selected[0] : null;
+        return this.selectionModel ? this.selectionModel.selected[0] : null;
     }
 
     getSelectedNodes(): ThyTreeNode[] {
-        return this._selectionModel ? this._selectionModel.selected : [];
+        return this.selectionModel ? this.selectionModel.selected : [];
     }
 
     getExpandedNodes(): ThyTreeNode[] {
@@ -736,26 +669,19 @@ export class ThyTree implements ControlValueAccessor, OnInit, OnChanges, AfterVi
 
     deleteTreeNode(node: ThyTreeNode) {
         if (this.isSelected(node)) {
-            this._selectionModel.toggle(node);
+            this.selectionModel.toggle(node);
         }
         this.thyTreeService.deleteTreeNode(node);
         this.thyTreeService.syncFlattenTreeNodes();
     }
 
     expandAllNodes() {
-        const nodes = this.getRootNodes();
+        const nodes = this.treeNodes;
         nodes.forEach(n => n.setExpanded(true, true));
     }
 
     collapsedAllNodes() {
-        const nodes = this.getRootNodes();
+        const nodes = this.treeNodes;
         nodes.forEach(n => n.setExpanded(false, true));
-    }
-
-    // endregion
-
-    ngOnDestroy(): void {
-        this.destroy$.next();
-        this.destroy$.complete();
     }
 }

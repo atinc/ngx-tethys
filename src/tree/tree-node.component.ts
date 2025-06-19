@@ -1,21 +1,15 @@
-import { Subject } from 'rxjs';
 import {
     Component,
-    ContentChild,
     ElementRef,
-    EventEmitter,
-    HostBinding,
-    Input,
-    OnChanges,
-    OnDestroy,
-    OnInit,
-    Output,
-    SimpleChanges,
     TemplateRef,
-    ViewChild,
     ViewEncapsulation,
     numberAttribute,
-    inject
+    inject,
+    input,
+    computed,
+    contentChild,
+    viewChild,
+    output
 } from '@angular/core';
 
 import { THY_TREE_ABSTRACT_TOKEN } from './tree-abstract';
@@ -36,131 +30,134 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     selector: 'thy-tree-node',
     templateUrl: './tree-node.component.html',
     encapsulation: ViewEncapsulation.None,
-    imports: [ThyIcon, NgClass, NgStyle, NgTemplateOutlet, ThyLoading]
+    imports: [ThyIcon, NgClass, NgStyle, NgTemplateOutlet, ThyLoading],
+    host: {
+        '[class.thy-tree-node]': 'true',
+        '[class]': 'itemClass()'
+    }
 })
-export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
+export class ThyTreeNodeComponent {
     root = inject(THY_TREE_ABSTRACT_TOKEN);
     thyTreeService = inject(ThyTreeService);
 
     /**
      * node 节点展现所需的数据
      */
-    @Input() node: ThyTreeNode;
+    readonly node = input<ThyTreeNode>(null);
 
     /**
      * 设置 TreeNode 是否支持异步加载
      */
-    @Input({ transform: coerceBooleanProperty }) thyAsync = false;
+    readonly thyAsync = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 设置 TreeNode 是否支持多选节点
      */
-    @Input({ transform: coerceBooleanProperty }) thyMultiple = false;
+    readonly thyMultiple = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 设置 TreeNode 是否支持拖拽排序
      */
-    @Input({ transform: coerceBooleanProperty }) thyDraggable = false;
+    readonly thyDraggable = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 设置 TreeNode 是否支持 Checkbox 选择
      */
-    @Input({ transform: coerceBooleanProperty }) thyCheckable = false;
+    readonly thyCheckable = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 点击节点的行为，`default` 为选中当前节点，`selectCheckbox` 为选中节点的 Checkbox， `thyCheckable` 为 true 时生效。
      * @default default
      */
-    @Input() thyClickBehavior: ThyClickBehavior;
+    readonly thyClickBehavior = input<ThyClickBehavior>(undefined);
 
     /**
      * 设置节点名称是否支持超出截取
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyTitleTruncate: boolean;
+    readonly thyTitleTruncate = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 设置 TreeNode 的渲染模板
      */
-    @Input() templateRef: TemplateRef<any>;
+    readonly templateRef = input<TemplateRef<any>>();
 
     /**
      * 设置子的空数据渲染模板
      */
-    @Input() emptyChildrenTemplateRef: TemplateRef<any>;
+    readonly emptyChildrenTemplateRef = input<TemplateRef<any>>();
 
     /**
      * 设置 node 点击事件
      */
-    @Output() thyOnClick: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
+    readonly thyOnClick = output<ThyTreeEmitEvent>();
 
     /**
      * 双击 node 事件
      */
-    @Output() thyDblClick: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
+    readonly thyDblClick = output<ThyTreeEmitEvent>();
 
     /**
      * 点击展开触发事件
      */
-    @Output() thyOnExpandChange: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
+    readonly thyOnExpandChange = output<ThyTreeEmitEvent>();
 
     /**
      * 设置 check 选择事件
      */
-    @Output() thyOnCheckboxChange: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
+    readonly thyOnCheckboxChange = output<ThyTreeEmitEvent>();
 
     /**
      * 设置 childrenTree 的渲染模板
      */
-    @ContentChild('childrenTree') childrenTreeTemplateRef: TemplateRef<any>;
+    readonly childrenTreeTemplateRef = contentChild<TemplateRef<any>>('childrenTree');
 
     /** The native `<div class="thy-tree-node-wrapper thy-sortable-item"></div>` element. */
-    @ViewChild('treeNodeWrapper', { static: true }) treeNodeWrapper: ElementRef<HTMLElement>;
-
-    @HostBinding('class.thy-tree-node') thyTreeNodeClass = true;
-
-    @HostBinding('class') itemClass: string;
+    readonly treeNodeWrapper = viewChild<ElementRef<HTMLElement>>('treeNodeWrapper');
 
     /**
      * 开启虚拟滚动时，单行节点的高度，当`thySize`为`default`时，该参数才生效
      */
-    @Input({ transform: numberAttribute }) thyItemSize = 44;
+    readonly thyItemSize = input(44, { transform: numberAttribute });
 
     /**
      * 设置节点缩进距离，缩进距离 = thyIndent * node.level
      */
-    @Input({ transform: numberAttribute }) thyIndent = 25;
+    readonly thyIndent = input(25, { transform: numberAttribute });
 
-    public get nodeIcon() {
-        return this.node.origin.icon;
-    }
+    readonly nodeIcon = computed(() => {
+        return this.node().origin.icon;
+    });
 
-    public get nodeIconStyle() {
-        return this.node.origin.iconStyle;
-    }
+    readonly nodeIconStyle = computed(() => {
+        return this.node().origin.iconStyle;
+    });
 
-    private destroy$ = new Subject<void>();
+    protected readonly itemClass = computed(() => {
+        return this.node()?.itemClass?.join(' ');
+    });
 
     checkState = ThyTreeNodeCheckState;
 
     public clickNode(event: Event) {
-        if (this.node.isDisabled) {
+        const node = this.node();
+        if (node.isDisabled) {
             this.expandNode(event);
         } else {
-            if (this.thyCheckable && this.thyClickBehavior === 'selectCheckbox') {
+            if (this.thyCheckable() && this.thyClickBehavior() === 'selectCheckbox') {
                 this.clickNodeCheck(event);
             } else {
-                if (this.root.thyMultiple) {
-                    this.root.toggleTreeNode(this.node);
+                if (this.root.thyMultiple()) {
+                    this.root.toggleTreeNode(node);
                 } else {
-                    this.root.selectTreeNode(this.node);
+                    this.root.selectTreeNode(node);
                 }
             }
         }
         this.thyOnClick.emit({
             eventName: 'click',
             event: event,
-            node: this.node
+            node: node
         });
     }
 
@@ -168,63 +165,50 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
         this.thyDblClick.emit({
             eventName: 'dbclick',
             event: event,
-            node: this.node
+            node: this.node()
         });
     }
 
     public clickNodeCheck(event: Event) {
         event.stopPropagation();
-        if (this.node.isChecked === ThyTreeNodeCheckState.unchecked) {
-            this.node.setChecked(true);
-        } else if (this.node.isChecked === ThyTreeNodeCheckState.checked) {
-            this.node.setChecked(false);
-        } else if (this.node.isChecked === ThyTreeNodeCheckState.indeterminate) {
-            if (this.node.children?.length) {
-                const activeChildren = this.node.children.filter(item => !item.isDisabled);
+        const node = this.node();
+        if (node.isChecked === ThyTreeNodeCheckState.unchecked) {
+            node.setChecked(true);
+        } else if (node.isChecked === ThyTreeNodeCheckState.checked) {
+            node.setChecked(false);
+        } else if (node.isChecked === ThyTreeNodeCheckState.indeterminate) {
+            if (node.children?.length) {
+                const activeChildren = node.children.filter(item => !item.isDisabled);
                 const isAllActiveChildrenChecked = activeChildren.every(item => item.isChecked);
-                this.node.setChecked(!isAllActiveChildrenChecked);
+                node.setChecked(!isAllActiveChildrenChecked);
             } else {
-                this.node.setChecked(true);
+                node.setChecked(true);
             }
         }
         this.thyOnCheckboxChange.emit({
             eventName: 'checkboxChange',
             event: event,
-            node: this.node
+            node: node
         });
     }
 
     public expandNode(event: Event) {
         event.stopPropagation();
-        this.node.setExpanded(!this.node.isExpanded);
-        if (this.root.thyShowExpand) {
+        const node = this.node();
+        this.node().setExpanded(!node.isExpanded);
+        if (this.root.thyShowExpand()) {
             this.thyOnExpandChange.emit({
                 eventName: 'expand',
                 event: event,
-                node: this.node
+                node: node
             });
-            if (this.thyAsync && this.node.children.length === 0) {
-                this.node.setLoading(true);
+            if (this.thyAsync() && node.children.length === 0) {
+                node.setLoading(true);
             }
         }
     }
 
     public isShowExpand(node: ThyTreeNode) {
         return this.root.isShowExpand(node);
-    }
-
-    ngOnInit(): void {
-        this.itemClass = this.node?.itemClass?.join(' ');
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes.node && !changes.node.isFirstChange()) {
-            this.itemClass = changes?.node?.currentValue.itemClass?.join(' ');
-        }
-    }
-
-    ngOnDestroy(): void {
-        this.destroy$.next();
-        this.destroy$.complete();
     }
 }
