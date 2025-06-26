@@ -18,7 +18,7 @@ Worktile & PingCode 前端团队开发的快速且可靠的企业级 Tethys Angu
 [English](https://github.com/atinc/ngx-tethys/blob/master/README.md) | 中文文档
 
 # ✨ 特性
-- 📦 开箱即用
+- 📦 开箱即用1
 - 🚀 强大且包含 60+ 个丰富组件
 - 🔰 完美支持 TypeScrip，提供完整的类型定义
 - 🎨 提炼企业级交互语言和设计风格 
