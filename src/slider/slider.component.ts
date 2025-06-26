@@ -196,6 +196,7 @@ export class ThySlider
     }
 
     registerOnTouched(fn: any) {
+        console.log('registerOnTouched', fn);
         this.onTouchedCallback = fn;
     }
 
