@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [19.0.14](https://github.com/atinc/ngx-tethys/compare/19.0.13...19.0.14) (2025-06-27)
+
+
+### Bug Fixes
+
+* **date-picker:** fix date-carousel pick month the end time sometimes is not correctly #TINFR-2309  ([#3477](https://github.com/atinc/ngx-tethys/issues/3477)) ([590c2c3](https://github.com/atinc/ngx-tethys/commit/590c2c320bb12097b9479f1a2a44ab56bbbe13b1)), closes [#TINFR-2309](https://github.com/atinc/ngx-tethys/issues/TINFR-2309)
+
+
+
 ## [19.0.13](https://github.com/atinc/ngx-tethys/compare/19.0.11...19.0.13) (2025-05-20)
 
 
