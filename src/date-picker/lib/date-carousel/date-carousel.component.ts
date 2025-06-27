@@ -252,8 +252,8 @@ export class DateCarousel implements OnInit, ControlValueAccessor, OnDestroy {
         return {
             type: 'year',
             content: `${currentDate.addYears(preOrNextcount).getYear()}`,
-            startValue: currentDate.startOfYear().addYears(preOrNextcount),
-            endValue: currentDate.endOfYear().addYears(preOrNextcount),
+            startValue: currentDate.addYears(preOrNextcount).startOfYear(),
+            endValue: currentDate.addYears(preOrNextcount).endOfYear(),
             classMap: {}
         };
     }
@@ -263,8 +263,8 @@ export class DateCarousel implements OnInit, ControlValueAccessor, OnDestroy {
         return {
             type: 'quarter',
             content: `${currentDate.addQuarters(preOrNextcount).format('qqq')}`,
-            startValue: currentDate.startOfQuarter().addQuarters(preOrNextcount),
-            endValue: currentDate.endOfQuarter().addQuarters(preOrNextcount),
+            startValue: currentDate.addQuarters(preOrNextcount).startOfQuarter(),
+            endValue: currentDate.addQuarters(preOrNextcount).endOfQuarter(),
             classMap: {}
         };
     }
@@ -275,8 +275,8 @@ export class DateCarousel implements OnInit, ControlValueAccessor, OnDestroy {
         const cell: AdvancedSelectableCell = {
             type: 'month',
             content: this.dateHelper.format(currentDate.addMonths(preOrNextcount).nativeDate, this.locale().monthFormat),
-            startValue: currentDate.startOfMonth().addMonths(preOrNextcount),
-            endValue: currentDate.endOfMonth().addMonths(preOrNextcount),
+            startValue: currentDate.addMonths(preOrNextcount).startOfMonth(),
+            endValue: currentDate.addMonths(preOrNextcount).endOfMonth(),
             classMap: {}
         };
         return cell;
@@ -311,6 +311,7 @@ export class DateCarousel implements OnInit, ControlValueAccessor, OnDestroy {
     }
 
     selectDate(type: ThyDateGranularity, value: AdvancedSelectableCell) {
+        console.log(type, value)
         this.selectableData[type].forEach(item => {
             item.isInRange = false;
             item.isOutRange = false;
