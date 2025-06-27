@@ -311,7 +311,6 @@ export class DateCarousel implements OnInit, ControlValueAccessor, OnDestroy {
     }
 
     selectDate(type: ThyDateGranularity, value: AdvancedSelectableCell) {
-        console.log(type, value)
         this.selectableData[type].forEach(item => {
             item.isInRange = false;
             item.isOutRange = false;
