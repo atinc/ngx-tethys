@@ -247,6 +247,12 @@ describe('ThySelectControl', () => {
                 searchElement = fixture.debugElement.query(By.css('.form-control.search-input-field'));
             }));
 
+            it('should get disable class when set thyDisabled', () => {
+                fixture.componentInstance.thyDisabled = true;
+                fixture.detectChanges();
+                expect(searchElement.nativeElement.classList.contains('disabled')).toBeTruthy();
+            });
+
             it('should call search methods when thyPanelOpened is false', fakeAsync(() => {
                 fixture.componentInstance.thyShowSearch = true;
                 fixture.componentInstance.thyPanelOpened = true;
