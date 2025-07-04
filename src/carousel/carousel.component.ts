@@ -231,6 +231,7 @@ export class ThyCarousel implements IThyCarouselComponent, OnInit, AfterViewInit
 
     private markContentActive(index: number) {
         this.activeIndex = index;
+        this.cdr.markForCheck();
         this.carouselItems?.forEach((carouselContent: ThyCarouselItemDirective, i: number) => {
             carouselContent.isActive = index === i;
         });
