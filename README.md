@@ -73,4 +73,3 @@ running with the flag `--dry-run` allows you to see what commands would be run, 
 
 1. Don't use `barrel index` (should directly import specify component in module, don't import `index.ts`)
 1. Should exports component module in `public-api.ts`
-
