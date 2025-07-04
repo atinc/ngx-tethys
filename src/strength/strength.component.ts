@@ -1,6 +1,6 @@
 import { ThyTranslate } from 'ngx-tethys/core';
 
-import { Component, computed, forwardRef, HostBinding, inject, input, OnInit, Signal } from '@angular/core';
+import { Component, forwardRef, HostBinding, Input, OnInit, inject, Signal } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { injectLocale, ThyStrengthLocale } from 'ngx-tethys/i18n';
 
@@ -32,63 +32,74 @@ export class ThyStrength implements OnInit, ControlValueAccessor {
 
     @HostBinding('class.password-strength-container') styleClass = true;
 
+    strengthTitle: string;
+
     strength: ThyStrengthEnum;
 
     locale: Signal<ThyStrengthLocale> = injectLocale('strength');
 
-    readonly strengthMap = computed(() => {
-        return {
-            [ThyStrengthEnum.highest]: {
-                level: 'highest',
-                text: this.highestKey()
-            },
-            [ThyStrengthEnum.high]: {
-                level: 'high',
-                text: this.highKey()
-            },
-            [ThyStrengthEnum.average]: {
-                level: 'average',
-                text: this.averageKey()
-            },
-            [ThyStrengthEnum.low]: {
-                level: 'low',
-                text: this.lowKey()
-            }
-        };
-    });
+    strengthMap = {
+        [ThyStrengthEnum.highest]: {
+            level: 'highest',
+            text: this.locale().highest
+        },
+        [ThyStrengthEnum.high]: {
+            level: 'high',
+            text: this.locale().high
+        },
+        [ThyStrengthEnum.average]: {
+            level: 'average',
+            text: this.locale().medium
+        },
+        [ThyStrengthEnum.low]: {
+            level: 'low',
+            text: this.locale().low
+        }
+    };
 
     /**
      * 组件标题，描述程度所指类型
      */
-    readonly titleKey = input<string, string>('', { transform: (value: string) => this.translate.instant(value) || '' });
+    @Input()
+    set titleKey(value: string) {
+        this.strengthTitle = this.translate.instant(value);
+    }
 
     /**
      * 程度最高值文本
+     * @default 最高
      */
-    readonly highestKey = input<string, string>(this.locale().highest, {
-        transform: (value: string) => this.translate.instant(value) || this.locale().highest
-    });
+    @Input()
+    set highestKey(value: string) {
+        this.strengthMap[ThyStrengthEnum.highest].text = this.translate.instant(value);
+    }
 
     /**
      * 程度为高值时展示的文本
+     * @default 高
      */
-    readonly highKey = input<string, string>(this.locale().high, {
-        transform: (value: string) => this.translate.instant(value) || this.locale().high
-    });
+    @Input()
+    set highKey(value: string) {
+        this.strengthMap[ThyStrengthEnum.high].text = this.translate.instant(value);
+    }
 
     /**
      * 程度为中值时展示的文本
+     * @default 中
      */
-    readonly averageKey = input<string, string>(this.locale().medium, {
-        transform: (value: string) => this.translate.instant(value) || this.locale().medium
-    });
+    @Input()
+    set averageKey(value: string) {
+        this.strengthMap[ThyStrengthEnum.average].text = this.translate.instant(value);
+    }
 
     /**
      * 程度为低值时展示的文本
+     * @default 低
      */
-    readonly lowKey = input<string, string>(this.locale().low, {
-        transform: (value: string) => this.translate.instant(value) || this.locale().low
-    });
+    @Input()
+    set lowKey(value: string) {
+        this.strengthMap[ThyStrengthEnum.low].text = this.translate.instant(value);
+    }
 
     private _onChange = Function.prototype;
 
