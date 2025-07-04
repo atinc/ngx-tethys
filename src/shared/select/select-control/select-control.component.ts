@@ -272,7 +272,8 @@ export class ThySelectControl implements OnInit {
             [`form-control`]: true,
             [`form-control-${this.thySize}`]: !!this.thySize,
             [`search-input-field`]: true,
-            [`hidden`]: !this.thyShowSearch
+            [`hidden`]: !this.thyShowSearch,
+            [`disabled`]: this.thyDisabled
         };
     }
 
