@@ -29,6 +29,7 @@
         &.#{style.$calendar-prefix-cls}-active-week {
             .#{style.$calendar-prefix-cls}-date {
                 color: variables.$white;
+                background: variables.$primary;
             }
             &::after {
                 background: variables.$primary;
