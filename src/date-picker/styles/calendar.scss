@@ -131,7 +131,7 @@
         position: relative;
         border: style.$border-width-base style.$border-style-base transparent;
         color: style.$disabled-color;
-        background: style.$disabled-bg;
+        background: style.$disabled-bg !important;
         border-radius: 0;
         cursor: variables.$disabled-cursor;
         width: auto;
