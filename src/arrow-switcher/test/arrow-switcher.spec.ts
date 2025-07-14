@@ -102,6 +102,15 @@ describe('ThyArrowSwitcher', () => {
         expect(arrowSwitcherComponent.componentInstance.index()).toEqual(4);
     }));
 
+    it('should support setPreviousTooltip and setNextTooltip', fakeAsync(() => {
+        testComponent.index = 3;
+        testComponent.switcherComponent().setPreviousTooltip('pre tooltip');
+        testComponent.switcherComponent().setNextTooltip('next tooltip');
+        fixture.detectChanges();
+        expect((testComponent.switcherComponent() as any).previousTooltip()).toEqual('pre tooltip');
+        expect((testComponent.switcherComponent() as any).nextTooltip()).toEqual('next tooltip');
+    }));
+
     it('should tooltip works', fakeAsync(() => {
         fixture.detectChanges();
         const tooltipDebugElement = fixture.debugElement.query(By.directive(ThyTooltipDirective));

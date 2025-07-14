@@ -10,7 +10,8 @@ import {
     computed,
     Signal,
     WritableSignal,
-    signal
+    signal,
+    linkedSignal
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyButtonIcon } from 'ngx-tethys/button';
@@ -91,7 +92,7 @@ export class ThyArrowSwitcher implements ControlValueAccessor {
         return this.thySize() === 'sm';
     });
 
-    index: WritableSignal<number> = signal(0);
+    protected readonly index: WritableSignal<number> = signal(0);
 
     readonly previousDisabled = computed(() => {
         return this.index() <= 0 || this.disabled();
@@ -104,6 +105,22 @@ export class ThyArrowSwitcher implements ControlValueAccessor {
     private onModelChange: (value: number) => void;
 
     private onModelTouched: () => void;
+
+    protected readonly previousTooltip = linkedSignal(() => {
+        return this.thyPreviousTooltip();
+    });
+
+    protected readonly nextTooltip = linkedSignal(() => {
+        return this.thyNextTooltip();
+    });
+
+    public setPreviousTooltip(value: string) {
+        this.previousTooltip.set(value);
+    }
+
+    public setNextTooltip(value: string) {
+        this.nextTooltip.set(value);
+    }
 
     writeValue(value: number): void {
         if (value >= 0) {
