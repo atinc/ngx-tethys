@@ -16,15 +16,15 @@ jobs:
     test:
         name: Test on node ${{ matrix.node_version }} and ${{ matrix.os }}
         runs-on: ${{ matrix.os }}
-        strategy:
-            matrix:
-                node_version: ['22']
-                os: [ubuntu-latest]
-        environment:
+        env:
             LANG: 'zh_CN.UTF-8'
             LC_ALL: 'zh_CN.UTF-8'
             LANGUAGE: 'zh_CN:zh'
             TZ: 'Asia/Shanghai'
+        strategy:
+            matrix:
+                node_version: ['22']
+                os: [ubuntu-latest]
         steps:
             - uses: actions/checkout@v4
             - name: Use Node.js ${{ matrix.node_version }}
