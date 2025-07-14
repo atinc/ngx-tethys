@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [19.0.15](https://github.com/atinc/ngx-tethys/compare/19.0.14...19.0.15) (2025-07-14)
+
+
+### Bug Fixes
+
+* **datePicker:** fix week mode today style error #TINFR-2359 ([e867dfc](https://github.com/atinc/ngx-tethys/commit/e867dfc40efefb9fcbf376f9ca94c5ce2e89eead)), closes [#TINFR-2359](https://github.com/atinc/ngx-tethys/issues/TINFR-2359)
+* **shared:** fix select control search style error #TINFR-2321 ([1a44bd1](https://github.com/atinc/ngx-tethys/commit/1a44bd1c1aaf49c649a9e07ba792d31001568f55)), closes [#TINFR-2321](https://github.com/atinc/ngx-tethys/issues/TINFR-2321)
+
+
+
 ## [19.0.14](https://github.com/atinc/ngx-tethys/compare/19.0.13...19.0.14) (2025-06-27)
 
 
