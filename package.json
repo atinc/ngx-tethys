@@ -1,6 +1,6 @@
 {
   "name": "ngx-tethys",
-  "version": "19.0.14",
+  "version": "19.0.15",
   "license": "MIT",
   "engines": {
     "node": ">=18.19.0",
