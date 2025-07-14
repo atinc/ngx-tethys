@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [19.1.0-next.1](https://github.com/atinc/ngx-tethys/compare/19.1.0-next.0...19.1.0-next.1) (2025-07-14)
+
+
+### Bug Fixes
+
+* **carousel:** incorrect active state of Indicators when switching slides. ([#3473](https://github.com/atinc/ngx-tethys/issues/3473)) ([2e32978](https://github.com/atinc/ngx-tethys/commit/2e32978b479cd473b75147475b0297fbcb8eb783))
+* **date-picker:** fix date-carousel pick month the end time sometimes is not correctly #TINFR-2309 ([#3476](https://github.com/atinc/ngx-tethys/issues/3476)) ([5dbc857](https://github.com/atinc/ngx-tethys/commit/5dbc8574a58ff81c579908e1af9d669dfd912086)), closes [#TINFR-2309](https://github.com/atinc/ngx-tethys/issues/TINFR-2309)
+* **datePicker:** fix week mode today style error #TINFR-2359 ([#3485](https://github.com/atinc/ngx-tethys/issues/3485)) ([fba5a50](https://github.com/atinc/ngx-tethys/commit/fba5a5082799faccb25df116aadc5e232ba2685c)), closes [#TINFR-2359](https://github.com/atinc/ngx-tethys/issues/TINFR-2359)
+* **shared:** fix select control search style error #TINFR-2321 ([#3479](https://github.com/atinc/ngx-tethys/issues/3479)) ([83df8a2](https://github.com/atinc/ngx-tethys/commit/83df8a24a572cde54599b1735fd76a1e0a528e6c)), closes [#TINFR-2321](https://github.com/atinc/ngx-tethys/issues/TINFR-2321)
+
+
+### Features
+
+* **action:** update action and affix signal ([#3438](https://github.com/atinc/ngx-tethys/issues/3438)) ([7b15232](https://github.com/atinc/ngx-tethys/commit/7b15232fce159016729c14675709af33936bc501))
+* **dropdown:** migrate to signal for dropdown  [@wumeimin](https://github.com/wumeimin) [@luxiaobei](https://github.com/luxiaobei)  ([#3429](https://github.com/atinc/ngx-tethys/issues/3429)) ([de68059](https://github.com/atinc/ngx-tethys/commit/de680590d4d6513738d1c98b5e509ea9c97e10f9))
+* **resizable:** migration signal for resizable #TINFR-1764 [@wumeimin](https://github.com/wumeimin) ([#3441](https://github.com/atinc/ngx-tethys/issues/3441)) ([a0833aa](https://github.com/atinc/ngx-tethys/commit/a0833aa634520e6b655f889d65f21c3b256e6e8f)), closes [#TINFR-1764](https://github.com/atinc/ngx-tethys/issues/TINFR-1764)
+* **segment:** migration signal for segment #TINFR-1766 ([#3452](https://github.com/atinc/ngx-tethys/issues/3452)) ([f464004](https://github.com/atinc/ngx-tethys/commit/f46400484627d5f3f84831889e568650224d9d51)), closes [#TINFR-1766](https://github.com/atinc/ngx-tethys/issues/TINFR-1766)
+* **strength:** migrate to signal for strength ([#3469](https://github.com/atinc/ngx-tethys/issues/3469)) ([9502c29](https://github.com/atinc/ngx-tethys/commit/9502c29f8de93ea058d3f34c91af09824c67b205))
+
+
+
 # [19.1.0-next.0](https://github.com/atinc/ngx-tethys/compare/19.0.12...19.1.0-next.0) (2025-05-23)
 
 
