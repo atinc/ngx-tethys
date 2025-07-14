@@ -16,7 +16,11 @@ jobs:
     test:
         name: Test on node ${{ matrix.node_version }} and ${{ matrix.os }}
         runs-on: ${{ matrix.os }}
-        environment: test-env
+        env:
+            LANG: 'zh_CN.UTF-8'
+            LC_ALL: 'zh_CN.UTF-8'
+            LANGUAGE: 'zh_CN:zh'
+            TZ: 'Asia/Shanghai'
         strategy:
             matrix:
                 node_version: ['22']
