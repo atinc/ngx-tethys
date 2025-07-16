@@ -18,7 +18,7 @@ export interface ActionBehavior<R> {
 class ActionBehaviorImpl<R, A extends (...args: any) => Observable<R>> implements ActionBehavior<R> {
     saving = signal(false);
 
-    executeParams: Parameters<A>;
+    executeParams!: Parameters<A>;
 
     takeUntilDestroyed = takeUntilDestroyed();
 
@@ -29,9 +29,9 @@ class ActionBehaviorImpl<R, A extends (...args: any) => Observable<R>> implement
 
     execute(success?: SuccessFn<R>, error?: ErrorFn): Observable<R>;
     execute(context: BehaviorContext<R>): Observable<R>;
-    execute(successOrContext: SuccessFn<R> | BehaviorContext<R>, error?: ErrorFn): Observable<R> {
+    execute(successOrContext?: SuccessFn<R> | BehaviorContext<R>, error?: ErrorFn): Observable<R> {
         if (this.saving()) {
-            return;
+            return throwError(() => new Error('Action already executing'));
         }
         this.saving.set(true);
         const callbacks = pickBehaviorCallbacks(this.context, successOrContext, error);
@@ -40,26 +40,30 @@ class ActionBehaviorImpl<R, A extends (...args: any) => Observable<R>> implement
                 this.takeUntilDestroyed,
                 finalize(() => {
                     this.saving.set(false);
-                    this.executeParams = undefined;
+                    this.executeParams = undefined as any;
                 }),
-                tap(value => {
+                tap(() => {
                     this.saving.set(false);
-                    this.executeParams = undefined;
+                    this.executeParams = undefined as any;
                 }),
                 shareReplay(1)
             );
-            result.subscribe({
-                next: callbacks?.success,
-                error: (error: Error) => {
+            (result as Observable<unknown>).subscribe({
+                next: (value: unknown) => {
+                    if (callbacks && callbacks.success) {
+                        callbacks.success(value as R);
+                    }
+                },
+                error: (error: unknown) => {
                     this.saving.set(false);
-                    handleBehaviorError(error, callbacks.error);
+                    handleBehaviorError(error instanceof Error ? error : new Error(String(error)), callbacks?.error);
                 }
             });
-            return result;
+            return result as Observable<R>;
         } catch (error) {
             this.saving.set(false);
-            handleBehaviorError(error, callbacks.error);
-            return throwError(error);
+            handleBehaviorError(error instanceof Error ? error : new Error(String(error)), callbacks?.error);
+            return throwError(() => error);
         }
     }
 }
@@ -71,14 +75,14 @@ export function actionBehavior<A extends (...args: any) => Observable<any> = (..
     const behavior = new ActionBehaviorImpl(action, context);
 
     const fn = function (...params: Parameters<A>) {
-        fn['executeParams'] = params;
+        (fn as any)['executeParams'] = params;
         return fn;
     };
     return createBehaviorFromFunction(fn, {
         context: context,
         action: action,
         takeUntilDestroyed: behavior.takeUntilDestroyed,
-        execute: behavior.execute.bind(fn),
+        execute: behavior.execute.bind(behavior),
         saving: behavior.saving
     }) as unknown as Behavior<Parameters<A>, ActionBehavior<ExtractObservableValue<ReturnType<A>>>> &
         ActionBehavior<ExtractObservableValue<ReturnType<A>>>;

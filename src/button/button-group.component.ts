@@ -20,7 +20,7 @@ const buttonGroupSizeMap = {
  */
 @Component({
     selector: 'thy-button-group',
-    template: '<ng-content></ng-content>',
+    template: '',
     encapsulation: ViewEncapsulation.None
 })
 export class ThyButtonGroup implements OnInit {
@@ -79,12 +79,12 @@ export class ThyButtonGroup implements OnInit {
     }
 
     private setClasses() {
-        let classNames: string[] = [];
+        const classNames: string[] = [];
         if (this.type) {
             classNames.push(`btn-group-${this.type}`);
         }
-        if (buttonGroupSizeMap[this.size]) {
-            classNames.push(buttonGroupSizeMap[this.size]);
+        if (this.size && this.size in buttonGroupSizeMap) {
+            classNames.push(...(buttonGroupSizeMap[this.size as keyof typeof buttonGroupSizeMap] as string[]));
         }
         this.hostRenderer.updateClass(classNames);
     }

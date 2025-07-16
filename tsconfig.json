@@ -24,7 +24,7 @@
     "strictStandalone": true,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": false,
+    "strictTemplates": true,
     // "strictInputTypes": false,
     // "strictNullInputTypes": true,
     // "strictAttributeTypes": false,

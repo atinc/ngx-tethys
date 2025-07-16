@@ -127,7 +127,7 @@ export class ThyButton implements OnInit, AfterViewInit {
         if (!this._loading && value) {
             this._loading = value;
             const textElement = this.nativeElement.querySelector('span');
-            this._originalText = textElement ? textElement.innerText : '';
+            this._originalText = textElement !== null ? textElement.innerText : '';
             this.setLoadingStatus();
         } else {
             this._loading = value;
@@ -209,7 +209,7 @@ export class ThyButton implements OnInit, AfterViewInit {
 
     private setLoadingText(text: string) {
         const spanElement = this.nativeElement.querySelector('span');
-        if (spanElement) {
+        if (spanElement !== null) {
             this.renderer.setProperty(spanElement, 'innerText', text);
         }
     }
@@ -224,8 +224,8 @@ export class ThyButton implements OnInit, AfterViewInit {
 
     private updateClasses() {
         let classNames: string[] = [];
-        if (btnTypeClassesMap[this._type]) {
-            classNames = [...btnTypeClassesMap[this._type]];
+        if (this._type && this._type in btnTypeClassesMap) {
+            classNames = [...btnTypeClassesMap[this._type as keyof typeof btnTypeClassesMap]];
         } else {
             if (this._type) {
                 classNames.push(`btn-${this._type}`);

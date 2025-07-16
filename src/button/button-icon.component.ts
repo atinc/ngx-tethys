@@ -152,13 +152,13 @@ export class ThyButtonIcon implements OnInit {
         if (!first && !this.initialized) {
             return;
         }
-        const classes = sizeClassesMap[this.size] ? [...sizeClassesMap[this.size]] : [];
-        if (this.shape && shapeClassesMap[this.shape]) {
+        const classes = this.size && this.size in sizeClassesMap ? [...sizeClassesMap[this.size as keyof typeof sizeClassesMap]] : [];
+        if (this.shape && this.shape in shapeClassesMap) {
             shapeClassesMap[this.shape].forEach((className: string) => {
                 classes.push(className);
             });
         }
-        if (this.theme && themeClassesMap[this.theme]) {
+        if (this.theme && this.theme in themeClassesMap) {
             themeClassesMap[this.theme].forEach((className: string) => {
                 classes.push(className);
             });

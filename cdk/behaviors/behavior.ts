@@ -1,4 +1,4 @@
-import { isFunction } from '@tethys/cdk/is';
+import { isFunction } from '../is/utils';
 import { getDefaultErrorHandler } from './error-handler';
 import { ErrorFn, SuccessFn } from './types';
 
@@ -18,7 +18,7 @@ export function createBehaviorFromFunction<P extends any[], R, U extends Record<
     fn: () => R,
     extraApi: U
 ): Behavior<P, R> & U;
-export function createBehaviorFromFunction<P extends any[], R, U extends Record<string, unknown> = {}>(
+export function createBehaviorFromFunction<P extends any[], R, U extends Record<string, unknown> = Record<string, unknown>>(
     fn: () => R,
     extraApi: U = {} as U
 ): Behavior<P, R> & U {
@@ -32,11 +32,11 @@ export function createBehaviorFromFunction<P extends any[], R, U extends Record<
 
 export function pickBehaviorCallbacks<R>(
     beforeContext: BehaviorContext<R>,
-    successOrContext: SuccessFn<R> | BehaviorContext<R>,
+    successOrContext?: SuccessFn<R> | BehaviorContext<R>,
     error?: ErrorFn
 ) {
-    let successFn: SuccessFn<R>;
-    let errorFn: ErrorFn;
+    let successFn: SuccessFn<R> | undefined = undefined;
+    let errorFn: ErrorFn | undefined = undefined;
     if (successOrContext) {
         if (isFunction(successOrContext)) {
             successFn = successOrContext;
@@ -54,11 +54,13 @@ export function pickBehaviorCallbacks<R>(
     };
 }
 
-export function handleBehaviorError(error: Error, errorFn: ErrorFn) {
+export function handleBehaviorError(error: Error, errorFn?: ErrorFn) {
     if (errorFn) {
         errorFn(error);
     } else {
         const defaultErrorHandler = getDefaultErrorHandler();
-        defaultErrorHandler && defaultErrorHandler(error);
+        if (defaultErrorHandler) {
+            defaultErrorHandler(error);
+        }
     }
 }
