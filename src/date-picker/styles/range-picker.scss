@@ -40,6 +40,7 @@ $input-box-height: 34px;
         }
 
         &-flexible {
+            width: 338px;
             .#{style.$calendar-prefix-cls}-picker-inner-popup {
                 width: 338px;
                 .thy-calendar-body {
