@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [19.0.16](https://github.com/atinc/ngx-tethys/compare/19.0.15...19.0.16) (2025-07-23)
+
+
+### Bug Fixes
+
+* **upload:** add subfix as mime to  compatible with browser #TINFR-2565 ([#3492](https://github.com/atinc/ngx-tethys/issues/3492)) ([43539e3](https://github.com/atinc/ngx-tethys/commit/43539e3940775dfc4db336cfd629ba9e887a9dd3)), closes [#TINFR-2565](https://github.com/atinc/ngx-tethys/issues/TINFR-2565)
+
+
+
 ## [19.0.15](https://github.com/atinc/ngx-tethys/compare/19.0.14...19.0.15) (2025-07-14)
 
 
