@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [19.1.0-next.2](https://github.com/atinc/ngx-tethys/compare/19.1.0-next.1...19.1.0-next.2) (2025-07-28)
+
+
+### Bug Fixes
+
+* **datePicker:** adjust ranger-picker date-panel-flexible style #TINFR-2562 ([#3491](https://github.com/atinc/ngx-tethys/issues/3491)) ([171b556](https://github.com/atinc/ngx-tethys/commit/171b556f26bf705230207526abf9d459faa4501f)), closes [#TINFR-2562](https://github.com/atinc/ngx-tethys/issues/TINFR-2562)
+* **upload:** add subfix as mime to  compatible with browser #TINFR-2565 ([#3492](https://github.com/atinc/ngx-tethys/issues/3492)) ([da9b2c1](https://github.com/atinc/ngx-tethys/commit/da9b2c12da00d63d3b7a30589ad4315fb32a8084)), closes [#TINFR-2565](https://github.com/atinc/ngx-tethys/issues/TINFR-2565)
+
+
+### Features
+
+* **arrow-switcher:** add setPreviousTooltip and setNextTooltip #TINFR-2390 ([ecb0654](https://github.com/atinc/ngx-tethys/commit/ecb0654fd23439b237d29f2741211a3c6ea22246)), closes [#TINFR-2390](https://github.com/atinc/ngx-tethys/issues/TINFR-2390)
+
+
+
 # [19.1.0-next.1](https://github.com/atinc/ngx-tethys/compare/19.1.0-next.0...19.1.0-next.1) (2025-07-14)
 
 
