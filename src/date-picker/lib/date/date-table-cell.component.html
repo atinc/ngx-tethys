@@ -1,16 +1,18 @@
-
 @switch (prefixCls) {
   @case ('thy-calendar') {
     @switch (true) {
-      @case (isTemplateRef(cell.dateCellRender)) {
-        <ng-container *ngTemplateOutlet="cell.dateCellRender; context: { $implicit: cell.value }"></ng-container>
+      @case (isTemplateRef(cellRender())) {
+        <ng-container *ngTemplateOutlet="cellRender(); context: { $implicit: cell().value }"></ng-container>
       }
-      @case (isNonEmptyString(cell.dateCellRender)) {
-        <span [innerHTML]="cell.dateCellRender"></span>
+      @case (isNonEmptyString(cellRender())) {
+        <span [innerHTML]="cellRender()"></span>
+      }
+      @case (isNonEmptyFunction(cellRender())) {
+        <span [innerHTML]="$any(cellRender())(cell().value)"></span>
       }
       @default {
-        <div class="{{ prefixCls }}-date" [attr.aria-selected]="cell.isSelected" [attr.aria-disabled]="cell.isDisabled">
-          {{ cell.content }}
+        <div class="{{ prefixCls }}-date" [attr.aria-selected]="cell().isSelected" [attr.aria-disabled]="cell().isDisabled">
+          {{ cell().content }}
         </div>
       }
     }
@@ -19,18 +21,17 @@
     <div
       tabindex="0"
       class="{{ prefixCls }}-date thy-calendar-full-cell-inner"
-      [class.thy-calendar-full-calendar-date-today]="cell.isToday"
-      >
-      @if (cell.fullCellRender) {
-        <ng-container *ngTemplateOutlet="$any(cell.fullCellRender); context: { $implicit: cell.value }"> </ng-container>
+      [class.thy-calendar-full-calendar-date-today]="cell().isToday">
+      @if (cell().fullCellRender) {
+        <ng-container *ngTemplateOutlet="$any(cell().fullCellRender); context: { $implicit: cell().value }"> </ng-container>
       } @else {
         <div class="{{ prefixCls }}-date-value">
           <span class="{{ prefixCls }}-date-value-today-text">
-            <span class="{{ prefixCls }}-date-value-text">{{ cell.content }}</span>
+            <span class="{{ prefixCls }}-date-value-text">{{ cell().content }}</span>
           </span>
         </div>
         <div class="{{ prefixCls }}-date-content">
-          <ng-container *ngTemplateOutlet="$any(cell.dateCellRender); context: { $implicit: cell.value }"> </ng-container>
+          <ng-container *ngTemplateOutlet="$any(cellRender()); context: { $implicit: cell().value }"> </ng-container>
         </div>
       }
     </div>
