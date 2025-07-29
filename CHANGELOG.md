@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [19.0.17](https://github.com/atinc/ngx-tethys/compare/19.0.16...19.0.17) (2025-07-29)
+
+
+### Bug Fixes
+
+* **datePicker:** adjust ranger-picker date-panel-flexible style #TINFR-2562 ([#3491](https://github.com/atinc/ngx-tethys/issues/3491)) ([5db74a9](https://github.com/atinc/ngx-tethys/commit/5db74a986f9779d7c432679c63d199b78ca0beea)), closes [#TINFR-2562](https://github.com/atinc/ngx-tethys/issues/TINFR-2562)
+
+
+
 ## [19.0.16](https://github.com/atinc/ngx-tethys/compare/19.0.15...19.0.16) (2025-07-23)
 
 
