@@ -122,6 +122,13 @@ describe('EmptyComponent', () => {
         expect(empty.nativeElement.querySelector('.thy-empty-text').textContent).toContain('暂无数据');
     });
 
+    it('should set message text', () => {
+        const empty = fixture.debugElement.query(By.directive(ThyEmpty));
+        empty.componentInstance.setMessage('custom message');
+        fixture.detectChanges();
+        expect(empty.nativeElement.querySelector('.thy-empty-text').textContent).toContain('custom message');
+    });
+
     it('should contain outer class', () => {
         fixture.detectChanges();
         const empty = fixture.debugElement.query(By.directive(ThyEmpty));

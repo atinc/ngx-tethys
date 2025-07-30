@@ -2,6 +2,7 @@ import {
     AfterViewInit,
     Component,
     computed,
+    linkedSignal,
     contentChild,
     effect,
     ElementRef,
@@ -157,7 +158,7 @@ export class ThyEmpty implements AfterViewInit {
         return presetSvg ? this.sanitizer.bypassSecurityTrustHtml(presetSvg) : '';
     });
 
-    protected readonly displayText = computed(() => {
+    protected readonly displayText = linkedSignal(() => {
         if (this.thyMessage()) {
             return this.thyMessage();
         } else if (this.thyTranslationKey()) {
@@ -176,6 +177,10 @@ export class ThyEmpty implements AfterViewInit {
             return this.locale().noDataText;
         }
     });
+
+    setMessage(text: string) {
+        this.displayText.set(text);
+    }
 
     constructor() {
         effect(() => {
