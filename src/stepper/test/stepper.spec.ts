@@ -60,7 +60,7 @@ describe('ThyStepper', () => {
     });
 
     describe('stepper', () => {
-        fit('should create stepper component', () => {
+        it('should create stepper component', () => {
             expect(testComponent).toBeTruthy();
         });
 
