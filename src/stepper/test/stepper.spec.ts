@@ -8,7 +8,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 @Component({
     selector: 'thy-demo-stepper',
     template: `
-        <thy-stepper [thySelectedIndex]="selectedIndex" [thySelected]="selected" [thyShowStepHeader]="showStepHeader">
+        <thy-stepper [thySelectedIndex]="selectedIndex" [thySelected]="selectedStep" [thyShowStepHeader]="showStepHeader">
             <thy-step label="第一步" [thyIcon]="icon">
                 <div class="demo-stepper-body first-step">
                     <button thyButton="primary">下一步</button>
@@ -36,7 +36,7 @@ class ThyDemoStepperComponent {
     @ViewChild('selectedStep', { static: true }) selectedStepperComponent: ThyStep;
     showStepHeader = true;
     selectedIndex = 0;
-    selected: ThyStep = null;
+    selectedStep: ThyStep = null;
     icon: string;
     next() {}
     previous() {}
@@ -60,7 +60,7 @@ describe('ThyStepper', () => {
     });
 
     describe('stepper', () => {
-        it('should create stepper component', () => {
+        fit('should create stepper component', () => {
             expect(testComponent).toBeTruthy();
         });
 
@@ -105,7 +105,7 @@ describe('ThyStepper', () => {
 
         it('should support thySelected', () => {
             const stepper = fixture.debugElement.query(By.directive(ThyStepper)).componentInstance;
-            fixture.componentInstance.selected = testComponent.selectedStepperComponent;
+            fixture.componentInstance.selectedStep = testComponent.selectedStepperComponent;
             fixture.componentInstance.selectedIndex = undefined;
             fixture.detectChanges();
             expect(stepper.selected()).toEqual(testComponent.selectedStepperComponent);
