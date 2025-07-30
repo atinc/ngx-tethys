@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [19.0.18](https://github.com/atinc/ngx-tethys/compare/19.0.17...19.0.18) (2025-07-30)
+
+
+### Features
+
+* **date-picker:** add dateCellRender #TINFR-2386 ([#3495](https://github.com/atinc/ngx-tethys/issues/3495)) ([1fac2cb](https://github.com/atinc/ngx-tethys/commit/1fac2cbe6a8fa54294eb780cb8d7bb334c0f90fd)), closes [#TINFR-2386](https://github.com/atinc/ngx-tethys/issues/TINFR-2386)
+
+
+
 ## [19.0.17](https://github.com/atinc/ngx-tethys/compare/19.0.16...19.0.17) (2025-07-29)
 
 
