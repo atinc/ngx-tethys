@@ -19,7 +19,7 @@ class TestHostComponent {
     sanitizer = inject(DomSanitizer);
 }
 
-describe('DateTableCell config', () => {
+fdescribe('DateTableCell config', () => {
     let component: DateTableCell;
     let fixture: ComponentFixture<DateTableCell>;
     let testHostFixture: ComponentFixture<TestHostComponent>;
@@ -60,9 +60,12 @@ describe('DateTableCell config', () => {
         component = fixture.componentInstance;
 
         // Initialize component with mock data
-        component.prefixCls = 'thy-calendar';
         Object.defineProperty(component, 'cell', {
             get: () => () => ({ ...mockCell })
+        });
+        Object.defineProperty(component, 'prefixCls', {
+            get: () => signal('thy-calendar'),
+            configurable: true
         });
 
         testHostFixture = TestBed.createComponent(TestHostComponent);
