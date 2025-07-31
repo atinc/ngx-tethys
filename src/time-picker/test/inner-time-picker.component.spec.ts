@@ -2,7 +2,7 @@ import { addHours, format } from 'date-fns';
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
-import { Component, DebugElement, ViewChild } from '@angular/core';
+import { Component, DebugElement, viewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -161,7 +161,7 @@ describe('ThyInnerTimePickerComponent', () => {
             flush();
             fixture.detectChanges();
             const container = getMeridianBtn();
-            const originMeridian = fixtureInstance.timePicker.meridians;
+            const originMeridian = fixtureInstance.timePicker().meridians();
             expect(container.innerText).toEqual(originMeridian[0]);
 
             fixture.detectChanges();
@@ -392,7 +392,7 @@ describe('ThyInnerTimePickerComponent', () => {
             const hoursContainer = getHoursContainer();
             const minutesContainer = getMinutesContainer();
             hoursContainer.value = '10';
-            fixtureInstance.timePicker.minutes = '66';
+            fixtureInstance.timePicker().minutes = '66';
             dispatchFakeEvent(hoursContainer, 'change');
             fixture.detectChanges();
             flush();
@@ -480,7 +480,7 @@ describe('ThyInnerTimePickerComponent', () => {
 class ThyTestInnerTimePickerBaseComponent {
     public containerClass = CONTAINER_CLASS;
 
-    @ViewChild('timePicker') timePicker: ThyInnerTimePicker;
+    readonly timePicker = viewChild<ThyInnerTimePicker>('timePicker');
     // 默认值与 timePicker 的默认值一致，见 ../time-picker.config.ts
     readonly = false;
 
