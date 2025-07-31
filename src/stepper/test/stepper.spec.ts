@@ -15,7 +15,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
                     <p>This is first description.</p>
                 </div>
             </thy-step>
-            <thy-step label="第二步" #selectedStep>
+            <thy-step label="第二步" #step2>
                 <div class="demo-stepper-body second-step">
                     <button thyButton="primary">下一步</button>
                     <a thyButton="link-secondary">上一步</a>
@@ -33,7 +33,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
     imports: [ThyStepper, ThyStep]
 })
 class ThyDemoStepperComponent {
-    @ViewChild('selectedStep', { static: true }) selectedStepperComponent: ThyStep;
+    @ViewChild('step2', { static: true }) selectedStepperComponent: ThyStep;
     showStepHeader = true;
     selectedIndex = 0;
     selectedStep: ThyStep = null;
