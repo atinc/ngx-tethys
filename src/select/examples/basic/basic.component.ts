@@ -1,10 +1,8 @@
 import { Component, ElementRef, OnInit, Signal, ViewChild } from '@angular/core';
-import { listOfOption } from '../mock-data';
 import { injectLocale, ThySelectLocale } from 'ngx-tethys/i18n';
 import { ThySelect } from 'ngx-tethys/select';
 import { ThyOption } from 'ngx-tethys/shared';
-import { ThyInputGroup } from 'ngx-tethys/input';
-import { ThyIcon } from 'ngx-tethys/icon';
+import { listOfOption } from '../mock-data';
 
 @Component({
     selector: 'thy-select-basic-example',
@@ -19,15 +17,15 @@ import { ThyIcon } from 'ngx-tethys/icon';
             thy-select,
             thy-custom-select {
                 flex: 0 0 auto;
-                width: 120px;
                 margin-right: 20px;
             }
         `
     ],
-    imports: [ThySelect, ThyOption, ThyInputGroup, ThyIcon]
+    imports: [ThySelect, ThyOption]
 })
 export class ThySelectBasicExampleComponent implements OnInit {
     listOfOption = listOfOption;
+
     locale: Signal<ThySelectLocale> = injectLocale('select');
 
     @ViewChild('origin', { read: ElementRef, static: true }) customizeOrigin: ElementRef;
