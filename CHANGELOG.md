@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [19.1.0-next.3](https://github.com/atinc/ngx-tethys/compare/19.1.0-next.2...19.1.0-next.3) (2025-08-01)
+
+
+### Features
+
+* **empty:** add setMessage for update display text #TINFR-2616 ([0e060ef](https://github.com/atinc/ngx-tethys/commit/0e060ef3bb28f860ea0117685f11a94092796f7d)), closes [#TINFR-2616](https://github.com/atinc/ngx-tethys/issues/TINFR-2616)
+
+
+
 # [19.1.0-next.2](https://github.com/atinc/ngx-tethys/compare/19.1.0-next.1...19.1.0-next.2) (2025-07-28)
 
 
