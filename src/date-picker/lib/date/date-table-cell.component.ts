@@ -1,9 +1,10 @@
-import { isEmpty, isString, isTemplateRef } from 'ngx-tethys/util';
+import { isEmpty, isFunction, isString, isTemplateRef, isUndefinedOrNull } from 'ngx-tethys/util';
 
-import { Component, Input } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 
-import { DateCell } from './types';
 import { NgTemplateOutlet } from '@angular/common';
+import { ThyDatePickerConfigService } from '../../date-picker.service';
+import { DateCell } from './types';
 
 /**
  * @private
@@ -18,8 +19,25 @@ import { NgTemplateOutlet } from '@angular/common';
 export class DateTableCell {
     isTemplateRef = isTemplateRef;
 
-    @Input() prefixCls: 'thy-calendar' | 'thy-calendar-full';
-    @Input() cell: DateCell;
+    readonly prefixCls = input<'thy-calendar' | 'thy-calendar-full'>();
+
+    readonly cell = input<DateCell>();
 
     isNonEmptyString = (v: any) => isEmpty(v) && isString(v);
+
+    functionRenderResult = computed(() => {
+        const renderFn = this.cellRender();
+        if (!isFunction(renderFn)) {
+            return false;
+        }
+
+        const result = renderFn(this.cell().value);
+        return !isUndefinedOrNull(result);
+    });
+
+    datePickerConfigService = inject(ThyDatePickerConfigService);
+
+    cellRender = computed(() => {
+        return this.cell()?.dateCellRender || this.datePickerConfigService.config?.dateCellRender;
+    });
 }

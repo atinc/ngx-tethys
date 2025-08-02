@@ -1,4 +1,5 @@
 import { InjectionToken, Signal } from '@angular/core';
+import { SafeHtml } from '@angular/platform-browser';
 import { injectLocale, ThyDatePickerLocale, ThyI18nService } from 'ngx-tethys/i18n';
 import { addDays, addWeeks, startOfDay, startOfWeek, subDays, TinyDate, WeekDayIndex } from 'ngx-tethys/util';
 import { CompatiblePresets, ThyShortcutPosition } from './standard-types';
@@ -11,6 +12,7 @@ export interface ThyDatePickerConfig {
     weekStartsOn: WeekDayIndex;
     separator: string;
     timestampPrecision: 'seconds' | 'milliseconds';
+    dateCellRender?: (date: Date) => SafeHtml | undefined;
 }
 
 /**
