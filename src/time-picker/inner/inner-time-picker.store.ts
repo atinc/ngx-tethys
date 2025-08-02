@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MiniAction, MiniStore } from 'ngx-tethys/core';
-import { TinyDate } from 'ngx-tethys/util';
+import { isFunction, TinyDate } from 'ngx-tethys/util';
 import { canChangeHours, canChangeMinutes, canChangeSeconds, canChangeValue, timePickerControls } from '../time-picker-controls.util';
 import { changeTime, isValidLimit, setTime } from '../time-picker.utils';
 import { Time, TimeChangeEvent, TimePickerComponentState, TimePickerControls } from './inner-time-picker.class';
@@ -14,7 +14,7 @@ export interface TimePickerState {
 
 export const initialState: TimePickerState = {
     value: null,
-    config: new TimePickerConfig(),
+    config: new TimePickerConfig() as unknown as TimePickerComponentState,
     controls: {
         canIncrementHours: true,
         canIncrementMinutes: true,
@@ -52,8 +52,9 @@ export class ThyTimePickerStore extends MiniStore<TimePickerState> {
         }
 
         const _newTime = changeTime(state.value, { hour: event.step }, timeZone);
-
-        if ((state.config.max || state.config.min) && !isValidLimit(state.config, _newTime)) {
+        const max = state.config.max();
+        const min = state.config.min();
+        if ((max || min) && !isValidLimit(state.config, _newTime)) {
             return state;
         }
 
@@ -69,7 +70,10 @@ export class ThyTimePickerStore extends MiniStore<TimePickerState> {
 
         const _newTime = changeTime(state.value, { minute: event.step }, timeZone);
 
-        if ((state.config.max || state.config.min) && !isValidLimit(state.config, _newTime)) {
+        const max = state.config.max();
+        const min = state.config.min();
+
+        if ((max || min) && !isValidLimit(state.config, _newTime)) {
             return state;
         }
 
@@ -91,7 +95,10 @@ export class ThyTimePickerStore extends MiniStore<TimePickerState> {
             timeZone
         );
 
-        if ((state.config.max || state.config.min) && !isValidLimit(state.config, _newTime)) {
+        const max = state.config.max();
+        const min = state.config.min();
+
+        if ((max || min) && !isValidLimit(state.config, _newTime)) {
             return state;
         }
 
@@ -119,7 +126,9 @@ export class ThyTimePickerStore extends MiniStore<TimePickerState> {
             controls: _newControlsState
         };
 
-        if (state.config.showMeridian !== _newState.config.showMeridian) {
+        const showMeridian = isFunction(state.config.showMeridian) ? state.config.showMeridian() : state.config.showMeridian;
+        const newShowMeridian = isFunction(_newState.config.showMeridian) ? _newState.config.showMeridian() : _newState.config.showMeridian;
+        if (showMeridian !== newShowMeridian) {
             if (state.value) {
                 _newState.value = new TinyDate(state.value, timeZone)?.nativeDate;
             }

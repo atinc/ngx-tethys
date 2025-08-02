@@ -1,5 +1,5 @@
-import { startOfDay, TinyDate } from 'ngx-tethys/util';
 import { isValidLimit, setTime } from 'ngx-tethys/time-picker';
+import { startOfDay, TinyDate } from 'ngx-tethys/util';
 import { Time, TimePickerComponentState } from '../inner/inner-time-picker.class';
 
 describe('ThyTimePickerUtil', () => {
@@ -7,17 +7,17 @@ describe('ThyTimePickerUtil', () => {
         describe('isValidLimit', () => {
             it('min false', () => {
                 const testDate = new Date('2013-11-05');
-                const controls = { min: new Date() } as TimePickerComponentState;
+                const controls = { min: new Date() } as unknown as TimePickerComponentState;
                 expect(isValidLimit(controls, testDate)).toBeFalsy();
             });
             it('max false', () => {
                 const testDate = new Date('2013-11-05');
-                const controls = { max: new Date('2013-11-04') } as TimePickerComponentState;
+                const controls = { max: new Date('2013-11-04') } as unknown as TimePickerComponentState;
                 expect(isValidLimit(controls, testDate)).toBeFalsy();
             });
             it('true', () => {
                 const testDate = new Date('2013-11-05');
-                const controls = {} as TimePickerComponentState;
+                const controls = {} as unknown as TimePickerComponentState;
                 expect(isValidLimit(controls, testDate)).toEqual(true);
             });
         });

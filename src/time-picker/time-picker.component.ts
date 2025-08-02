@@ -5,15 +5,17 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
+    effect,
     ElementRef,
     EventEmitter,
     forwardRef,
     inject,
-    Input,
+    input,
+    model,
     OnInit,
-    Output,
+    output,
     Signal,
-    ViewChild
+    viewChild
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { getFlexiblePositions, scaleMotion, scaleXMotion, scaleYMotion, ThyPlacement } from 'ngx-tethys/core';
@@ -42,8 +44,8 @@ export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
     ],
     host: {
         class: 'thy-time-picker',
-        '[class.thy-time-picker-disabled]': `disabled`,
-        '[class.thy-time-picker-readonly]': `thyReadonly`
+        '[class.thy-time-picker-disabled]': `thyDisabled()`,
+        '[class.thy-time-picker-readonly]': `thyReadonly()`
     },
     imports: [CdkOverlayOrigin, ThyInputDirective, FormsModule, NgTemplateOutlet, ThyIcon, NgClass, CdkConnectedOverlay, ThyTimePanel],
     animations: [scaleXMotion, scaleYMotion, scaleMotion]
@@ -53,122 +55,107 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
     private elementRef = inject(ElementRef);
     locale: Signal<ThyTimePickerLocale> = injectLocale('timePicker');
 
-    @ViewChild(CdkConnectedOverlay, { static: true }) cdkConnectedOverlay: CdkConnectedOverlay;
+    readonly cdkConnectedOverlay = viewChild(CdkConnectedOverlay);
 
-    @ViewChild('origin', { static: true }) origin: CdkOverlayOrigin;
+    readonly origin = viewChild<CdkOverlayOrigin>('origin');
 
-    @ViewChild('pickerInput', { static: true }) inputRef: ElementRef<HTMLInputElement>;
+    readonly inputRef = viewChild<ElementRef<HTMLInputElement>>('pickerInput');
 
-    @ViewChild('overlayContainer', { static: false }) overlayContainer: ElementRef<HTMLElement>;
+    readonly overlayContainer = viewChild<ElementRef<HTMLElement>>('overlayContainer');
 
     /**
      * 输入框大小
      * @type 'xs' | 'sm' | 'md' | 'lg' | 'default'
      */
-    @Input() thySize: TimePickerSize = 'default';
+    readonly thySize = input<TimePickerSize>('default');
 
     /**
      * 输入框提示文字
      * @type string
      */
-    @Input() thyPlaceholder: string = this.locale().placeholder;
+    readonly thyPlaceholder = input<string>(this.locale().placeholder);
 
     /**
      * 弹出位置
      * @type 'top' | 'topLeft'| 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'
      */
-    @Input() thyPlacement: ThyPlacement = 'bottomLeft';
+    readonly thyPlacement = input<ThyPlacement>('bottomLeft');
 
     /**
      * 展示的日期格式，支持 'HH:mm:ss' | 'HH:mm' | 'mm:ss'
      * @type string
      * @default HH:mm:ss
      */
-    @Input() set thyFormat(value: string) {
-        this.format = value || 'HH:mm:ss';
-        if (this.value && isValid(this.value)) {
-            this.showText = new TinyDate(this.value).format(this.format);
-        }
-    }
+    readonly thyFormat = input<string, string>('HH:mm:ss', { transform: (value: string) => value || 'HH:mm:ss' });
 
     /**
      * 小时间隔步长
      * @type number
      */
-    @Input() thyHourStep: number = 1;
+    readonly thyHourStep = input<number>(1);
 
     /**
      * 分钟间隔步长
      * @type number
      */
-    @Input() thyMinuteStep: number = 1;
+    readonly thyMinuteStep = input<number>(1);
 
     /**
      * 秒间隔步长
      * @type number
      */
-    @Input() thySecondStep: number = 1;
+    readonly thySecondStep = input<number>(1);
 
     /**
      * 弹出层组件 class
      * @type string
      */
-    @Input() thyPopupClass: string;
+    readonly thyPopupClass = input<string>();
 
     /**
      * 是否显示弹出层遮罩
      * @type boolean
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyBackdrop: boolean;
+    readonly thyBackdrop = input<boolean, unknown>(false, { transform: coerceBooleanProperty });
 
     /**
      * 禁用
      * @type boolean
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) set thyDisabled(value: boolean) {
-        this.disabled = value;
-    }
-
-    get thyDisabled(): boolean {
-        return this.disabled;
-    }
+    readonly thyDisabled = model<boolean>(false);
 
     /**
      * 只读
      * @type boolean
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyReadonly: boolean;
+    readonly thyReadonly = input<boolean, unknown>(false, { transform: coerceBooleanProperty });
 
     /**
      * 展示选择此刻
      * @type boolean
      */
-    @Input({ transform: coerceBooleanProperty }) thyShowSelectNow = true;
+    readonly thyShowSelectNow = input(true, { transform: coerceBooleanProperty });
 
     /**
      * 可清空值
      * @type boolean
      */
-    @Input({ transform: coerceBooleanProperty }) thyAllowClear = true;
+    readonly thyAllowClear = input(true, { transform: coerceBooleanProperty });
 
     /**
      * 打开/关闭弹窗事件
      * @type EventEmitter<boolean>
      */
-    @Output() thyOpenChange = new EventEmitter<boolean>();
+    readonly thyOpenChange = output<boolean>();
 
     prefixCls = 'thy-time-picker';
 
-    overlayPositions: ConnectionPositionPair[] = getFlexiblePositions(this.thyPlacement, 4);
+    overlayPositions: ConnectionPositionPair[] = getFlexiblePositions(this.thyPlacement(), 4);
 
-    format: string = 'HH:mm:ss';
-
-    disabled: boolean;
-
-    showText: string = '';
+    readonly showText = model<string>('');
 
     openState: boolean;
 
@@ -184,10 +171,18 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
 
     onTouchedFn: () => void = () => void 0;
 
+    constructor() {
+        effect(() => {
+            if (this.thyFormat() && this.value && isValid(this.value)) {
+                this.showText.set(new TinyDate(this.value).format(this.thyFormat()));
+            }
+        });
+    }
+
     ngOnInit() {}
 
     ngAfterViewInit() {
-        this.overlayPositions = getFlexiblePositions(this.thyPlacement, 4);
+        this.overlayPositions = getFlexiblePositions(this.thyPlacement(), 4);
     }
 
     onInputPickerClick() {
@@ -255,7 +250,7 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
         if (
             this.openState &&
             !this.elementRef.nativeElement.contains(event.target) &&
-            !this.overlayContainer.nativeElement.contains(event.target as Node)
+            !this.overlayContainer().nativeElement.contains(event.target as Node)
         ) {
             this.closeOverlay();
             this.cdr.detectChanges();
@@ -263,8 +258,9 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
     }
 
     onOverlayAttach() {
-        if (this.cdkConnectedOverlay && this.cdkConnectedOverlay.overlayRef) {
-            this.cdkConnectedOverlay.overlayRef.updatePosition();
+        const cdkConnectedOverlay = this.cdkConnectedOverlay();
+        if (cdkConnectedOverlay && cdkConnectedOverlay.overlayRef) {
+            cdkConnectedOverlay.overlayRef.updatePosition();
         }
     }
 
@@ -282,14 +278,14 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
             this.keepFocus = false;
             this.openState = false;
             this.blur();
-            if (this.showText?.length) {
-                if (!this.validateCustomizeInput(this.showText)) {
+            if (this.showText()?.length) {
+                if (!this.validateCustomizeInput(this.showText())) {
                     this.setValue(this.originValue);
                 } else {
-                    this.showText = new TinyDate(this.value).format(this.format);
+                    this.showText.set(new TinyDate(this.value).format(this.thyFormat()));
                 }
             } else {
-                if (!this.thyAllowClear) {
+                if (!this.thyAllowClear()) {
                     this.setValue(this.originValue);
                 }
             }
@@ -298,14 +294,16 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
     }
 
     focus() {
-        if (this.inputRef) {
-            this.inputRef.nativeElement.focus();
+        const inputRef = this.inputRef();
+        if (inputRef) {
+            inputRef.nativeElement.focus();
         }
     }
 
     blur() {
-        if (this.inputRef) {
-            this.inputRef.nativeElement.blur();
+        const inputRef = this.inputRef();
+        if (inputRef) {
+            inputRef.nativeElement.blur();
         }
     }
 
@@ -327,7 +325,7 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
     }
 
     setDisabledState?(isDisabled: boolean): void {
-        this.disabled = (this.isDisabledFirstChange && this.thyDisabled) || isDisabled;
+        this.thyDisabled.set((this.isDisabledFirstChange && this.thyDisabled()) || isDisabled);
         this.isDisabledFirstChange = false;
     }
 
@@ -335,11 +333,11 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
         if (value && isValid(value)) {
             this.value = new TinyDate(value)?.nativeDate;
             if (formatText) {
-                this.showText = new TinyDate(this.value).format(this.format);
+                this.showText.set(new TinyDate(this.value).format(this.thyFormat()));
             }
         } else {
             this.value = null;
-            this.showText = '';
+            this.showText.set('');
         }
         this.cdr.markForCheck();
     }
@@ -374,13 +372,13 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
                 this.emitValue();
             }
         } else {
-            if (this.thyAllowClear) {
+            if (this.thyAllowClear()) {
                 this.originValue = null;
                 this.setValue(null);
                 this.emitValue();
             } else {
                 this.value = new TinyDate(this.originValue)?.nativeDate;
-                this.showText = ``;
+                this.showText.set('');
                 this.cdr.markForCheck();
             }
         }
@@ -388,10 +386,10 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
 
     private validateCustomizeInput(value: string): boolean {
         let valid: boolean = false;
-        if (value.length > this.format.length) {
+        if (value.length > this.thyFormat().length) {
             return valid;
         }
-        const formatRule = this.format.split(':');
+        const formatRule = this.thyFormat().split(':');
         const formatter = value.split(':');
         valid = !formatRule
             .map((m, i) => {
@@ -402,6 +400,6 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
     }
 
     private disabledUserOperation() {
-        return this.disabled || this.thyReadonly;
+        return this.thyDisabled() || this.thyReadonly();
     }
 }

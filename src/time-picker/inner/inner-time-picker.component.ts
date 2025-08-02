@@ -2,14 +2,13 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    EventEmitter,
+    computed,
     forwardRef,
     inject,
-    Input,
-    OnChanges,
+    input,
+    model,
     OnDestroy,
-    Output,
-    SimpleChanges,
+    output,
     StaticProvider
 } from '@angular/core';
 
@@ -51,59 +50,60 @@ export const TIMEPICKER_CONTROL_VALUE_ACCESSOR: StaticProvider = {
     templateUrl: './inner-time-picker.component.html',
     imports: []
 })
-export class ThyInnerTimePicker implements ControlValueAccessor, TimePickerComponentState, TimePickerControls, OnChanges, OnDestroy {
+export class ThyInnerTimePicker implements ControlValueAccessor, TimePickerComponentState, TimePickerControls, OnDestroy {
     private _cd = inject(ChangeDetectorRef);
     private _store = inject(ThyTimePickerStore);
+    private _config = inject(TimePickerConfig);
 
     /** hours change step */
-    @Input() hourStep: number;
-    /** hours change step */
-    @Input() minuteStep: number;
+    readonly hourStep = input<number>(this._config.hourStep);
+    /** minutes change step */
+    readonly minuteStep = input<number>(this._config.minuteStep);
     /** seconds change step */
-    @Input() secondsStep: number;
+    readonly secondsStep = input<number>(this._config.secondsStep);
     /** if true hours and minutes fields will be readonly */
-    @Input() readonlyInput: boolean;
+    readonly readonlyInput = input<boolean>(this._config.readonlyInput);
     /** if true hours and minutes fields will be disabled */
-    @Input() disabled: boolean;
+    readonly disabled = model<boolean>(this._config.disabled);
     /** if true scroll inside hours and minutes inputs will change time */
-    @Input() mousewheel: boolean;
+    readonly mousewheel = input<boolean>(this._config.mousewheel);
     /** if true the values of hours and minutes can be changed using the up/down arrow keys on the keyboard */
-    @Input() arrowKeys: boolean;
+    readonly arrowKeys = input<boolean>(this._config.arrowKeys);
     /** if true spinner arrows above and below the inputs will be shown */
-    @Input() showSpinners: boolean;
+    readonly showSpinners = input<boolean>(this._config.showSpinners);
     /** if true meridian button will be shown */
-    @Input() showMeridian: boolean;
+    readonly showMeridian = input<boolean>(this._config.showMeridian);
     /** show minutes in timePicker */
-    @Input() showMinutes: boolean;
+    readonly showMinutes = input<boolean>(this._config.showMinutes);
     /** show seconds in timePicker */
-    @Input() showSeconds: boolean;
+    readonly showSeconds = input<boolean>(this._config.showSeconds);
     /** meridian labels based on locale */
-    @Input() meridians: string[];
+    readonly meridians = input<string[]>(this._config.meridians);
     /** minimum time user can select */
-    @Input() min: Date;
+    readonly min = input<Date>(this._config.min);
     /** maximum time user can select */
-    @Input() max: Date;
+    readonly max = input<Date>(this._config.max);
     /** placeholder for hours field in timePicker */
-    @Input() hoursPlaceholder: string;
+    readonly hoursPlaceholder = input<string>(this._config.hoursPlaceholder);
     /** placeholder for minutes field in timePicker */
-    @Input() minutesPlaceholder: string;
+    readonly minutesPlaceholder = input<string>(this._config.minutesPlaceholder);
     /** placeholder for seconds field in timePicker */
-    @Input() secondsPlaceholder: string;
+    readonly secondsPlaceholder = input<string>(this._config.secondsPlaceholder);
     /** timezone */
-    @Input() timeZone: string;
+    readonly timeZone = input<string>();
 
     /** emits true if value is a valid date */
-    @Output() isValid = new EventEmitter<boolean>();
+    readonly isValid = output<boolean>();
+
+    readonly isEditable = computed(() => !(this.readonlyInput() || this.disabled()));
+
+    readonly isPM = computed(() => this.showMeridian() && this.meridian === this.meridians()[1]);
 
     // ui variables
     hours: string;
     minutes: string;
     seconds: string;
     meridian: string;
-
-    get isEditable(): boolean {
-        return !(this.readonlyInput || this.disabled);
-    }
 
     // min/max validation for input fields
     invalidHours = false;
@@ -128,11 +128,8 @@ export class ThyInnerTimePicker implements ControlValueAccessor, TimePickerCompo
     private timerPickerSubscription = new Subscription();
 
     constructor() {
-        const _config = inject(TimePickerConfig);
         const _cd = this._cd;
         const _store = this._store;
-
-        Object.assign(this, _config);
 
         this.timerPickerSubscription.add(
             _store
@@ -141,7 +138,7 @@ export class ThyInnerTimePicker implements ControlValueAccessor, TimePickerCompo
                     // update UI values if date changed
                     this._renderTime(value);
                     this.onChange(value);
-                    this._store.updateControls(getControlsValue(this), this.timeZone);
+                    this._store.updateControls(getControlsValue(this), this.timeZone());
                 })
         );
 
@@ -162,10 +159,6 @@ export class ThyInnerTimePicker implements ControlValueAccessor, TimePickerCompo
         this.invalidSeconds = false;
     }
 
-    isPM(): boolean {
-        return this.showMeridian && this.meridian === this.meridians[1];
-    }
-
     prevDef($event: Event) {
         $event.preventDefault();
     }
@@ -174,23 +167,19 @@ export class ThyInnerTimePicker implements ControlValueAccessor, TimePickerCompo
         return Math.sign($event.deltaY) * -1;
     }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        this._store.updateControls(getControlsValue(this), this.timeZone);
-    }
-
     changeHours(step: number, source: TimeChangeSource = ''): void {
         this.resetValidation();
-        this._store.changeHours({ step, source }, this.timeZone);
+        this._store.changeHours({ step, source }, this.timeZone());
     }
 
     changeMinutes(step: number, source: TimeChangeSource = ''): void {
         this.resetValidation();
-        this._store.changeMinutes({ step, source }, this.timeZone);
+        this._store.changeMinutes({ step, source }, this.timeZone());
     }
 
     changeSeconds(step: number, source: TimeChangeSource = ''): void {
         this.resetValidation();
-        this._store.changeSeconds({ step, source }, this.timeZone);
+        this._store.changeSeconds({ step, source }, this.timeZone());
     }
 
     updateHours(hours: string): void {
@@ -252,15 +241,15 @@ export class ThyInnerTimePicker implements ControlValueAccessor, TimePickerCompo
                 seconds: this.seconds,
                 isPM: this.isPM()
             },
-            this.max,
-            this.min,
-            this.timeZone
+            this.max(),
+            this.min(),
+            this.timeZone()
         );
     }
 
     _updateTime() {
-        const _seconds = this.showSeconds ? this.seconds : void 0;
-        const _minutes = this.showMinutes ? this.minutes : void 0;
+        const _seconds = this.showSeconds() ? this.seconds : void 0;
+        const _minutes = this.showMinutes() ? this.minutes : void 0;
         if (!isInputValid(this.hours, _minutes, _seconds, this.isPM())) {
             this.isValid.emit(false);
             this.onChange(null);
@@ -275,12 +264,12 @@ export class ThyInnerTimePicker implements ControlValueAccessor, TimePickerCompo
                 seconds: this.seconds,
                 isPM: this.isPM()
             },
-            this.timeZone
+            this.timeZone()
         );
     }
 
     toggleMeridian(): void {
-        if (!this.showMeridian || !this.isEditable) {
+        if (!this.showMeridian() || !this.isEditable()) {
             return;
         }
 
@@ -293,7 +282,7 @@ export class ThyInnerTimePicker implements ControlValueAccessor, TimePickerCompo
 
     writeValue(obj: string | null | undefined | Date): void {
         if (isValidDate(obj)) {
-            this._store.writeValue(parseTime(obj, this.timeZone));
+            this._store.writeValue(parseTime(obj, this.timeZone()));
         } else if (obj == null) {
             this._store.writeValue(null);
         }
@@ -308,7 +297,7 @@ export class ThyInnerTimePicker implements ControlValueAccessor, TimePickerCompo
     }
 
     setDisabledState(isDisabled: boolean): void {
-        this.disabled = isDisabled;
+        this.disabled.set(isDisabled);
         this._cd.markForCheck();
     }
 
@@ -321,17 +310,17 @@ export class ThyInnerTimePicker implements ControlValueAccessor, TimePickerCompo
             this.hours = '';
             this.minutes = '';
             this.seconds = '';
-            this.meridian = this.meridians[0];
+            this.meridian = this.meridians()[0];
 
             return;
         }
 
-        const _value = parseTime(value, this.timeZone);
+        const _value = parseTime(value, this.timeZone());
         const _hoursPerDayHalf = 12;
         let _hours = _value.getHours();
 
-        if (this.showMeridian) {
-            this.meridian = this.meridians[_hours >= _hoursPerDayHalf ? 1 : 0];
+        if (this.showMeridian()) {
+            this.meridian = this.meridians()[_hours >= _hoursPerDayHalf ? 1 : 0];
             _hours = _hours % _hoursPerDayHalf;
             // should be 12 PM, not 00 PM
             if (_hours === 0) {

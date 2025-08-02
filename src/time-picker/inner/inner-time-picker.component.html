@@ -1,42 +1,42 @@
 <table>
   <tbody>
-    <tr class="text-center" [hidden]="!showSpinners">
+    <tr class="text-center" [hidden]="!showSpinners()">
       <!-- increment hours button-->
       <td>
-        <a class="btn btn-link" [class.disabled]="!canIncrementHours || !isEditable" (click)="changeHours(hourStep)"
+        <a class="btn btn-link" [class.disabled]="!canIncrementHours || !isEditable()" (click)="changeHours(hourStep())"
           ><span class="thy-chevron thy-chevron-up"></span
         ></a>
       </td>
       <!-- divider -->
-      @if (showMinutes) {
+      @if (showMinutes()) {
         <td>&nbsp;&nbsp;&nbsp;</td>
       }
       <!-- increment minutes button -->
-      @if (showMinutes) {
+      @if (showMinutes()) {
         <td>
-          <a class="btn btn-link" [class.disabled]="!canIncrementMinutes || !isEditable" (click)="changeMinutes(minuteStep)"
+          <a class="btn btn-link" [class.disabled]="!canIncrementMinutes || !isEditable()" (click)="changeMinutes(minuteStep())"
             ><span class="thy-chevron thy-chevron-up"></span
           ></a>
         </td>
       }
       <!-- divider -->
-      @if (showSeconds) {
+      @if (showSeconds()) {
         <td>&nbsp;</td>
       }
       <!-- increment seconds button -->
-      @if (showSeconds) {
+      @if (showSeconds()) {
         <td>
-          <a class="btn btn-link" [class.disabled]="!canIncrementSeconds || !isEditable" (click)="changeSeconds(secondsStep)">
+          <a class="btn btn-link" [class.disabled]="!canIncrementSeconds || !isEditable()" (click)="changeSeconds(secondsStep())">
             <span class="thy-chevron thy-chevron-up"></span>
           </a>
         </td>
       }
       <!-- space between -->
-      @if (showMeridian) {
+      @if (showMeridian()) {
         <td>&nbsp;&nbsp;&nbsp;</td>
       }
       <!-- meridian placeholder-->
-      @if (showMeridian) {
+      @if (showMeridian()) {
         <td></td>
       }
     </tr>
@@ -47,120 +47,116 @@
           type="text"
           [class.is-invalid]="invalidHours"
           class="form-control text-center thy-time-picker-field"
-          [placeholder]="hoursPlaceholder"
+          [placeholder]="hoursPlaceholder()"
           maxlength="2"
-          [readonly]="readonlyInput"
-          [disabled]="disabled"
+          [readonly]="readonlyInput()"
+          [disabled]="disabled()"
           [value]="hours"
-          (wheel)="prevDef($event); changeHours(hourStep * wheelSign($event), 'wheel')"
-          (keydown.ArrowUp)="changeHours(hourStep, 'key')"
-          (keydown.ArrowDown)="changeHours(-hourStep, 'key')"
-          (change)="updateHours($event.target.value)"
-          />
+          (wheel)="prevDef($event); changeHours(hourStep() * wheelSign($event), 'wheel')"
+          (keydown.ArrowUp)="changeHours(hourStep(), 'key')"
+          (keydown.ArrowDown)="changeHours(-hourStep(), 'key')"
+          (change)="updateHours($event.target.value)" />
       </td>
 
       <!-- divider -->
-      @if (showMinutes) {
+      @if (showMinutes()) {
         <td>&nbsp;:&nbsp;</td>
       }
       <!-- minutes -->
-      @if (showMinutes) {
+      @if (showMinutes()) {
         <td class="form-group" [class.has-error]="invalidMinutes">
           <input
             type="text"
             [class.is-invalid]="invalidMinutes"
             class="form-control text-center thy-time-picker-field"
-            [placeholder]="minutesPlaceholder"
+            [placeholder]="minutesPlaceholder()"
             maxlength="2"
-            [readonly]="readonlyInput"
-            [disabled]="disabled"
+            [readonly]="readonlyInput()"
+            [disabled]="disabled()"
             [value]="minutes"
-            (wheel)="prevDef($event); changeMinutes(minuteStep * wheelSign($event), 'wheel')"
-            (keydown.ArrowUp)="changeMinutes(minuteStep, 'key')"
-            (keydown.ArrowDown)="changeMinutes(-minuteStep, 'key')"
-            (change)="updateMinutes($event.target.value)"
-            />
+            (wheel)="prevDef($event); changeMinutes(minuteStep() * wheelSign($event), 'wheel')"
+            (keydown.ArrowUp)="changeMinutes(minuteStep(), 'key')"
+            (keydown.ArrowDown)="changeMinutes(-minuteStep(), 'key')"
+            (change)="updateMinutes($event.target.value)" />
         </td>
       }
       <!-- divider -->
-      @if (showSeconds) {
+      @if (showSeconds()) {
         <td>&nbsp;:&nbsp;</td>
       }
       <!-- seconds -->
-      @if (showSeconds) {
+      @if (showSeconds()) {
         <td class="form-group" [class.has-error]="invalidSeconds">
           <input
             type="text"
             [class.is-invalid]="invalidSeconds"
             class="form-control text-center thy-time-picker-field"
-            [placeholder]="secondsPlaceholder"
+            [placeholder]="secondsPlaceholder()"
             maxlength="2"
-            [readonly]="readonlyInput"
-            [disabled]="disabled"
+            [readonly]="readonlyInput()"
+            [disabled]="disabled()"
             [value]="seconds"
-            (wheel)="prevDef($event); changeSeconds(secondsStep * wheelSign($event), 'wheel')"
-            (keydown.ArrowUp)="changeSeconds(secondsStep, 'key')"
-            (keydown.ArrowDown)="changeSeconds(-secondsStep, 'key')"
-            (change)="updateSeconds($event.target.value)"
-            />
+            (wheel)="prevDef($event); changeSeconds(secondsStep() * wheelSign($event), 'wheel')"
+            (keydown.ArrowUp)="changeSeconds(secondsStep(), 'key')"
+            (keydown.ArrowDown)="changeSeconds(-secondsStep(), 'key')"
+            (change)="updateSeconds($event.target.value)" />
         </td>
       }
       <!-- space between -->
-      @if (showMeridian) {
+      @if (showMeridian()) {
         <td>&nbsp;&nbsp;&nbsp;</td>
       }
       <!-- meridian -->
-      @if (showMeridian) {
+      @if (showMeridian()) {
         <td>
           <button
             type="button"
             class="btn btn-default text-center"
-            [disabled]="!isEditable || !canToggleMeridian"
-            [class.disabled]="!isEditable || !canToggleMeridian"
-            (click)="toggleMeridian()"
-            >
+            [disabled]="!isEditable() || !canToggleMeridian"
+            [class.disabled]="!isEditable() || !canToggleMeridian"
+            (click)="toggleMeridian()">
             {{ meridian }}
           </button>
         </td>
       }
     </tr>
-    <tr class="text-center" [hidden]="!showSpinners">
+    <tr class="text-center" [hidden]="!showSpinners()">
       <!-- decrement hours button-->
       <td>
-        <a class="btn btn-link" [class.disabled]="!canDecrementHours || !isEditable" (click)="changeHours(-hourStep)">
+        <a class="btn btn-link" [class.disabled]="!canDecrementHours || !isEditable()" (click)="changeHours(-hourStep())">
           <span class="thy-chevron thy-chevron-down"></span>
         </a>
       </td>
       <!-- divider -->
-      @if (showMinutes) {
+      @if (showMinutes()) {
         <td>&nbsp;&nbsp;&nbsp;</td>
       }
       <!-- decrement minutes button-->
-      @if (showMinutes) {
+      @if (showMinutes()) {
         <td>
-          <a class="btn btn-link" [class.disabled]="!canDecrementMinutes || !isEditable" (click)="changeMinutes(-minuteStep)">
+          <a class="btn btn-link" [class.disabled]="!canDecrementMinutes || !isEditable()" (click)="changeMinutes(-minuteStep())">
             <span class="thy-chevron thy-chevron-down"></span>
           </a>
         </td>
       }
       <!-- divider -->
-      @if (showSeconds) {
+      @if (showSeconds()) {
         <td>&nbsp;</td>
       }
       <!-- decrement seconds button-->
-      @if (showSeconds) {
+      @if (showSeconds()) {
         <td>
-          <a class="btn btn-link" [class.disabled]="!canDecrementSeconds || !isEditable" (click)="changeSeconds(-secondsStep)">
+          <a class="btn btn-link" [class.disabled]="!canDecrementSeconds || !isEditable()" (click)="changeSeconds(-secondsStep())">
             <span class="thy-chevron thy-chevron-down"></span>
           </a>
         </td>
       }
       <!-- space between -->
-      @if (showMeridian) {
+      @if (showMeridian()) {
         <td>&nbsp;&nbsp;&nbsp;</td>
       }
       <!-- meridian placeholder-->
-      @if (showMeridian) {
+      @if (showMeridian()) {
         <td></td>
       }
     </tr>

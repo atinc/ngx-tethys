@@ -3,17 +3,17 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
+    effect,
     ElementRef,
-    EventEmitter,
     forwardRef,
     inject,
-    Input,
+    input,
     NgZone,
     OnDestroy,
     OnInit,
-    Output,
+    output,
     Signal,
-    ViewChild
+    viewChild
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyButton } from 'ngx-tethys/button';
@@ -38,7 +38,7 @@ import { coerceBooleanProperty, isValid, TinyDate } from 'ngx-tethys/util';
     ],
     host: {
         class: 'thy-time-picker-panel',
-        '[class.thy-time-picker-panel-has-bottom-operation]': `thyShowOperations`,
+        '[class.thy-time-picker-panel-has-bottom-operation]': `thyShowOperations()`,
         '[class.thy-time-picker-panel-columns-2]': `showColumnCount === 2`,
         '[class.thy-time-picker-panel-columns-3]': `showColumnCount === 3`
     },
@@ -49,73 +49,60 @@ export class ThyTimePanel implements OnInit, OnDestroy, ControlValueAccessor {
     private ngZone = inject(NgZone);
     locale: Signal<ThyTimePickerLocale> = injectLocale('timePicker');
 
-    @ViewChild('hourListElement', { static: false }) hourListRef: ElementRef<HTMLElement>;
+    readonly hourListRef = viewChild<ElementRef<HTMLElement>>('hourListElement');
 
-    @ViewChild('minuteListElement', { static: false }) minuteListRef: ElementRef<HTMLElement>;
+    readonly minuteListRef = viewChild<ElementRef<HTMLElement>>('minuteListElement');
 
-    @ViewChild('secondListElement', { static: false }) secondListRef: ElementRef<HTMLElement>;
+    readonly secondListRef = viewChild<ElementRef<HTMLElement>>('secondListElement');
 
     /**
      * 展示的日期格式，支持 'HH:mm:ss' | 'HH:mm' | 'mm:ss'
      * @type string
      * @default HH:mm:ss
      */
-    @Input() set thyFormat(value: string) {
-        if (value) {
-            const formatSet = new Set(value);
-            this.showHourColumn = formatSet.has('H') || formatSet.has('h');
-            this.showMinuteColumn = formatSet.has('m');
-            this.showSecondColumn = formatSet.has('s');
-        } else {
-            this.showHourColumn = true;
-            this.showMinuteColumn = true;
-            this.showSecondColumn = true;
-        }
-        this.showColumnCount = [this.showHourColumn, this.showMinuteColumn, this.showSecondColumn].filter(m => m).length;
-        this.cdr.markForCheck();
-    }
+    readonly thyFormat = input<string>('HH:mm:ss');
 
     /**
      * 小时间隔步长
      * @type number
      */
-    @Input() thyHourStep: number = 1;
+    readonly thyHourStep = input<number>(1);
 
     /**
      * 分钟间隔步长
      * @type number
      */
-    @Input() thyMinuteStep: number = 1;
+    readonly thyMinuteStep = input<number>(1);
 
     /**
      * 秒间隔步长
      * @type number
      */
-    @Input() thySecondStep: number = 1;
+    readonly thySecondStep = input<number>(1);
 
     /**
      * 展示选择此刻
      * @type boolean
      */
-    @Input({ transform: coerceBooleanProperty }) thyShowSelectNow = true;
+    readonly thyShowSelectNow = input(true, { transform: coerceBooleanProperty });
 
     /**
      * 展示底部操作
      * @type boolean
      */
-    @Input({ transform: coerceBooleanProperty }) thyShowOperations = true;
+    readonly thyShowOperations = input(true, { transform: coerceBooleanProperty });
 
     /**
      * 选择时间触发的事件
      * @type EventEmitter<Date>
      */
-    @Output() thyPickChange = new EventEmitter<Date>();
+    readonly thyPickChange = output<Date>();
 
     /**
      * 关闭面板事件
      * @type EventEmitter<void>
      */
-    @Output() thyClosePanel = new EventEmitter<void>();
+    readonly thyClosePanel = output<void>();
 
     // margin-top + 1px border
     SCROLL_OFFSET_SPACING = 5;
@@ -152,6 +139,22 @@ export class ThyTimePanel implements OnInit, OnDestroy, ControlValueAccessor {
 
     onTouchedFn: () => void = () => void 0;
 
+    constructor() {
+        effect(() => {
+            if (this.thyFormat()) {
+                const formatSet = new Set(this.thyFormat());
+                this.showHourColumn = formatSet.has('H') || formatSet.has('h');
+                this.showMinuteColumn = formatSet.has('m');
+                this.showSecondColumn = formatSet.has('s');
+            } else {
+                this.showHourColumn = true;
+                this.showMinuteColumn = true;
+                this.showSecondColumn = true;
+            }
+            this.showColumnCount = [this.showHourColumn, this.showMinuteColumn, this.showSecondColumn].filter(m => m).length;
+        });
+    }
+
     ngOnInit(): void {
         this.generateTimeRange();
         this.initialValue();
@@ -161,30 +164,30 @@ export class ThyTimePanel implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     generateTimeRange() {
-        this.hourRange = this.buildTimeRange(24, this.thyHourStep);
-        this.minuteRange = this.buildTimeRange(60, this.thyMinuteStep);
-        this.secondRange = this.buildTimeRange(60, this.thySecondStep);
+        this.hourRange = this.buildTimeRange(24, this.thyHourStep());
+        this.minuteRange = this.buildTimeRange(60, this.thyMinuteStep());
+        this.secondRange = this.buildTimeRange(60, this.thySecondStep());
     }
 
     pickHours(hours: { value: number; disabled: boolean }, index: number) {
         this.value.setHours(hours.value);
         this.hour = hours.value;
         this.thyPickChange.emit(this.value);
-        this.scrollTo(this.hourListRef.nativeElement, index);
+        this.scrollTo(this.hourListRef().nativeElement, index);
     }
 
     pickMinutes(minutes: { value: number; disabled: boolean }, index: number) {
         this.value.setMinutes(minutes.value);
         this.minute = minutes.value;
         this.thyPickChange.emit(this.value);
-        this.scrollTo(this.minuteListRef.nativeElement, index);
+        this.scrollTo(this.minuteListRef().nativeElement, index);
     }
 
     pickSeconds(seconds: { value: number; disabled: boolean }, index: number) {
         this.value.setSeconds(seconds.value);
         this.second = seconds.value;
         this.thyPickChange.emit(this.value);
-        this.scrollTo(this.secondListRef.nativeElement, index);
+        this.scrollTo(this.secondListRef().nativeElement, index);
     }
 
     selectNow() {
@@ -248,14 +251,17 @@ export class ThyTimePanel implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     private resetScrollPosition() {
-        if (this.hourListRef) {
-            this.hourListRef.nativeElement.scrollTop = 0;
+        const hourListRef = this.hourListRef();
+        if (hourListRef) {
+            hourListRef.nativeElement.scrollTop = 0;
         }
-        if (this.minuteListRef) {
-            this.minuteListRef.nativeElement.scrollTop = 0;
+        const minuteListRef = this.minuteListRef();
+        if (minuteListRef) {
+            minuteListRef.nativeElement.scrollTop = 0;
         }
-        if (this.secondListRef) {
-            this.secondListRef.nativeElement.scrollTop = 0;
+        const secondListRef = this.secondListRef();
+        if (secondListRef) {
+            secondListRef.nativeElement.scrollTop = 0;
         }
         this.initialScrollPosition = false;
     }
@@ -279,23 +285,26 @@ export class ThyTimePanel implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     private autoScroll(duration: number = this.SCROLL_DEFAULT_DURATION) {
-        if (this.hourListRef) {
+        const hourListRef = this.hourListRef();
+        if (hourListRef) {
             this.scrollTo(
-                this.hourListRef.nativeElement,
+                hourListRef.nativeElement,
                 this.hourRange.findIndex(m => m.value === this.hour),
                 duration
             );
         }
-        if (this.minuteListRef) {
+        const minuteListRef = this.minuteListRef();
+        if (minuteListRef) {
             this.scrollTo(
-                this.minuteListRef.nativeElement,
+                minuteListRef.nativeElement,
                 this.minuteRange.findIndex(m => m.value === this.minute),
                 duration
             );
         }
-        if (this.secondListRef) {
+        const secondListRef = this.secondListRef();
+        if (secondListRef) {
             this.scrollTo(
-                this.secondListRef.nativeElement,
+                secondListRef.nativeElement,
                 this.secondRange.findIndex(m => m.value === this.second),
                 duration
             );

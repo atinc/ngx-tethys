@@ -4,14 +4,14 @@
       #pickerInput
       thyInput
       class="form-control {{ prefixCls }}-input"
-      [class.thy-input-disabled]="disabled"
-      [class.thy-input-readonly]="thyReadonly"
+      [class.thy-input-disabled]="thyDisabled()"
+      [class.thy-input-readonly]="thyReadonly()"
       [class.thy-time-picker-panel-opened]="openState"
       [(ngModel)]="showText"
-      [thySize]="thySize"
-      [disabled]="disabled"
-      [readonly]="thyReadonly"
-      [placeholder]="thyPlaceholder"
+      [thySize]="thySize()"
+      [disabled]="thyDisabled()"
+      [readonly]="thyReadonly()"
+      [placeholder]="thyPlaceholder()"
       (blur)="onInputPickerBlur()"
       (keyup.enter)="onKeyupEnter()"
       (keyup.escape)="onKeyupEsc()"
@@ -21,13 +21,16 @@
 </span>
 
 <ng-template #rightIcon>
-  @if (!disabled && thyAllowClear && !thyReadonly && showText) {
+  @if (!thyDisabled() && thyAllowClear() && !thyReadonly() && showText()) {
     <span class="{{ prefixCls }}-clear">
-      <thy-icon thyIconName="close-circle-bold-fill" (click)="onClearTime($event)" ngClass="remove-link remove-link-{{ thySize }}"></thy-icon>
+      <thy-icon
+        thyIconName="close-circle-bold-fill"
+        (click)="onClearTime($event)"
+        ngClass="remove-link remove-link-{{ thySize() }}"></thy-icon>
     </span>
   }
   <span class="{{ prefixCls }}-icon">
-    <thy-icon [thyIconName]="'clock-circle-moment'" ngClass="remove-link-{{ thySize }}"></thy-icon>
+    <thy-icon [thyIconName]="'clock-circle-moment'" ngClass="remove-link-{{ thySize() }}"></thy-icon>
   </span>
 </ng-template>
 
@@ -36,7 +39,7 @@
   cdkConnectedOverlay
   [cdkConnectedOverlayOrigin]="origin"
   [cdkConnectedOverlayOpen]="openState"
-  [cdkConnectedOverlayHasBackdrop]="thyBackdrop"
+  [cdkConnectedOverlayHasBackdrop]="thyBackdrop()"
   [cdkConnectedOverlayPositions]="overlayPositions"
   cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
   cdkConnectedOverlayTransformOriginOn=".thy-time-picker-container"
@@ -48,23 +51,23 @@
   <div
     #overlayContainer
     style="position: relative"
-    [@scaleXMotion]="thyPlacement === 'left' || thyPlacement === 'right' ? 'enter' : 'void'"
-    [@scaleYMotion]="thyPlacement === 'top' || thyPlacement === 'bottom' ? 'enter' : 'void'"
+    [@scaleXMotion]="thyPlacement() === 'left' || thyPlacement() === 'right' ? 'enter' : 'void'"
+    [@scaleYMotion]="thyPlacement() === 'top' || thyPlacement() === 'bottom' ? 'enter' : 'void'"
     [@scaleMotion]="
-      thyPlacement !== 'left' && thyPlacement !== 'right' && thyPlacement !== 'top' && thyPlacement !== 'bottom' ? 'enter' : 'void'
+      thyPlacement() !== 'left' && thyPlacement() !== 'right' && thyPlacement() !== 'top' && thyPlacement() !== 'bottom' ? 'enter' : 'void'
     "
     class="thy-time-picker-container">
     <!-- Compatible for overlay that not support offset dynamically and immediately -->
     <thy-time-picker-panel
-      [ngClass]="thyPopupClass"
+      [ngClass]="thyPopupClass()"
       [(ngModel)]="value"
-      [thyFormat]="format"
-      [thyHourStep]="thyHourStep"
-      [thyMinuteStep]="thyMinuteStep"
-      [thySecondStep]="thySecondStep"
-      [thyShowSelectNow]="thyShowSelectNow"
+      [thyFormat]="thyFormat()"
+      [thyHourStep]="thyHourStep()"
+      [thyMinuteStep]="thyMinuteStep()"
+      [thySecondStep]="thySecondStep()"
+      [thyShowSelectNow]="thyShowSelectNow()"
       (ngModelChange)="onPickTimeConfirm($event)"
       (thyPickChange)="onPickTime($event)"
-    (thyClosePanel)="closeOverlay()"></thy-time-picker-panel>
+      (thyClosePanel)="closeOverlay()"></thy-time-picker-panel>
   </div>
 </ng-template>
