@@ -7,8 +7,8 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'thy-options-example',
-    templateUrl: './thy-options.component.html',
-    imports: [ThySelect, FormsModule]
+    templateUrl: './thy-options.component.html'
+    // imports: [ThySelect, FormsModule]
 })
 export class ThyOptionsExampleComponent implements OnInit {
     loadMoreOptions: ThySelectOptionModel[] = [];
