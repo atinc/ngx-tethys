@@ -1,4 +1,4 @@
-import { Directive, HostListener, Input, NgZone, OnDestroy, OnInit, inject } from '@angular/core';
+import { Directive, HostListener, NgZone, OnDestroy, OnInit, inject, input } from '@angular/core';
 import { ThyMessageBaseConfig } from '../message.config';
 import { ThyAbstractMessageQueue } from './abstract-message-queue.service';
 
@@ -15,45 +15,40 @@ export class ThyAbstractMessageComponent<TConfig extends ThyMessageBaseConfig> i
 
     animationState: string;
 
-    config: TConfig;
-
     iconName = '';
 
     private closeTimer: any;
 
     private queue: ThyAbstractMessageQueue;
 
-    @Input()
-    set thyConfig(value: TConfig) {
-        this.config = value;
-    }
+    readonly config = input<TConfig>(null, { alias: 'thyConfig' });
 
     constructor(queue: ThyAbstractMessageQueue) {
         this.queue = queue;
     }
 
     ngOnInit() {
-        const iconName = {
+        const iconName: Record<string, string> = {
             success: 'check-circle-fill',
             info: 'info-circle-fill',
             warning: 'waring-fill',
             error: 'close-circle-fill'
         };
 
-        this.iconName = iconName[this.config.type];
+        this.iconName = iconName[this.config()?.type];
         this.createCloseTimer();
     }
 
     @HostListener('mouseenter')
     mouseenter() {
-        if (this.config.pauseOnHover) {
+        if (this.config()?.pauseOnHover) {
             this.clearCloseTimer();
         }
     }
 
     @HostListener('mouseleave')
     mouseleave() {
-        if (this.config.pauseOnHover) {
+        if (this.config()?.pauseOnHover) {
             this.createCloseTimer();
         }
     }
@@ -62,17 +57,18 @@ export class ThyAbstractMessageComponent<TConfig extends ThyMessageBaseConfig> i
         this._ngZone.runOutsideAngular(() => {
             this.animationState = 'componentHide';
             setTimeout(() => {
-                this.queue.remove(this.config.id);
+                this.queue.remove(this.config()?.id);
             }, ANIMATION_OUT_DURATION);
         });
     }
 
     private createCloseTimer() {
-        if (this.config.duration) {
+        const config = this.config();
+        if (config?.duration) {
             this.closeTimer = setInterval(() => {
                 this.clearCloseTimer();
                 this.close();
-            }, this.config.duration);
+            }, config.duration);
         }
     }
 

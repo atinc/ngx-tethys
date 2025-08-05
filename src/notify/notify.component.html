@@ -1,9 +1,11 @@
-@if (config?.html) {
+@let notifyConfig = config();
+
+@if (notifyConfig?.html) {
   <a href="javascript:;" class="thy-notify-close" (click)="close()">
     <thy-icon thyIconName="close"></thy-icon>
   </a>
   <div class="thy-notify-main">
-    <template [ngTemplateOutlet]="config?.html"></template>
+    <template [ngTemplateOutlet]="notifyConfig?.html"></template>
   </div>
 } @else {
   <a href="javascript:;" class="thy-notify-close" (click)="close()">
@@ -13,23 +15,23 @@
     <thy-icon [thyIconName]="iconName"></thy-icon>
   </div>
   <div class="thy-notify-main">
-    <div class="thy-notify-title">{{ config?.title }}</div>
-    @if (config?.detail || config?.content) {
-      <div class="thy-notify-content" [ngClass]="{ 'thy-notify-content--extend': extendContentClass === true }" (click)="extendContent()">
-        @if (config.content) {
-          @if (contentIsString) {
-            {{ config.content }}
+    <div class="thy-notify-title">{{ notifyConfig?.title }}</div>
+    @if (notifyConfig?.detail || notifyConfig?.content) {
+      <div class="thy-notify-content" [ngClass]="{ 'thy-notify-content--extend': extendContentClass() }" (click)="extendContent()">
+        @if (notifyConfig?.content) {
+          @if (contentIsString()) {
+            {{ notifyConfig?.content }}
           } @else {
-            <ng-container *thyViewOutlet="config.content; context: config.contentInitialState || {}"></ng-container>
+            <ng-container *thyViewOutlet="notifyConfig?.content; context: notifyConfig?.contentInitialState || {}"></ng-container>
           }
         }
-        @if (config?.detail) {
-          <a href="javascript:;" class="link-secondary" (click)="triggerDetail()">{{ (config?.detail)['link'] }}</a>
+        @if (notifyConfig?.detail) {
+          <a href="javascript:;" class="link-secondary" (click)="triggerDetail()">{{ (notifyConfig?.detail)['link'] }}</a>
         }
       </div>
     }
-    @if (isShowDetail) {
-      <div class="thy-notify-detail">{{ (config?.detail)['content'] }}</div>
+    @if (isShowDetail()) {
+      <div class="thy-notify-detail">{{ (notifyConfig?.detail)['content'] }}</div>
     }
   </div>
 }
