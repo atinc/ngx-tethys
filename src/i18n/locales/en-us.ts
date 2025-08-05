@@ -9,7 +9,6 @@ export default {
     datePicker: {
         yearFormat: 'yyyy', // eg. 2025
         monthFormat: 'MMM', // eg. Sep
-        zhMonthFormat: 'MMM', // eg. Sep
         weekFormat: 'EEE', // eg. Tue
         fullWeekFormat: 'EEE', // eg. Tue
         weekThFormat: 'yyyy-ww', //  eg. 2025-01st、2025-02nd、2025-03rd、2025-27th
