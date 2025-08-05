@@ -262,7 +262,7 @@ export class DateCarousel implements OnInit, ControlValueAccessor, OnDestroy {
         currentDate = currentDate || this.activeDate || new TinyDate().startOfQuarter();
         return {
             type: 'quarter',
-            content: `${currentDate.addQuarters(preOrNextcount).format('qqq')}`,
+            content: `${currentDate.addQuarters(preOrNextcount).format("'Q'q")}`,
             startValue: currentDate.addQuarters(preOrNextcount).startOfQuarter(),
             endValue: currentDate.addQuarters(preOrNextcount).endOfQuarter(),
             classMap: {}

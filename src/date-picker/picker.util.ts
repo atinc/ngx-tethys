@@ -76,7 +76,7 @@ export function getFlexibleAdvancedReadableValue(
             }
             break;
         case 'quarter':
-            const quarterFormatStr = locale()?.id === ThyLocaleType.zhHans ? `yyyy年 qqq` : `yyyy-qqq`;
+            const quarterFormatStr = locale()?.id === ThyLocaleType.zhHans ? `yyyy年 'Q'q` : `yyyy-'Q'q`;
             if (tinyDates[0].isSameQuarter(tinyDates[1])) {
                 value = `${tinyDates[0].format(quarterFormatStr)}`;
             } else {

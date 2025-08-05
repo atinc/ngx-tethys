@@ -796,7 +796,7 @@ describe('ThyRangePickerComponent', () => {
                 end: new TinyDate().endOfQuarter().getUnixTime(),
                 granularity: 'quarter'
             });
-            expect(getRangePickerInput().value).toBe(`${new TinyDate().format('yyyy年 qqq')}`);
+            expect(getRangePickerInput().value).toBe(`${new TinyDate().format("yyyy年 'Q'q")}`);
         }));
 
         it('should select advanced month', fakeAsync(() => {

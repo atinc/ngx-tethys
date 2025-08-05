@@ -48,7 +48,7 @@ export class ThyQuarterPickerFormatPipe implements PipeTransform {
         const { value, withTime } = transformDateValue(originalValue);
 
         if (!formatStr) {
-            formatStr = 'yyyy-qqq';
+            formatStr = "yyyy-'Q'q";
         }
 
         if (!value) {

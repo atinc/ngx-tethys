@@ -48,7 +48,7 @@ export class QuarterTable extends CalendarTable implements OnChanges {
             for (let colIndex = 0; colIndex < this.MAX_COL; colIndex++) {
                 const quarter = this.activeDate.setQuarter(quarterValue + 1);
                 const isDisabled = this.disabledDate ? this.disabledDate(quarter.nativeDate) : false;
-                const content = `${quarter.format('qqq')}`;
+                const content = `${quarter.format("'Q'q")}`;
                 const cell: DateCell = {
                     trackByIndex: colIndex,
                     value: quarter.nativeDate,
