@@ -25,7 +25,7 @@ export class ThyBadge implements OnInit {
 
     private nativeElement: any;
 
-    readonly displayContent: Signal<string> = computed(() => {
+    readonly displayContent: Signal<string | number> = computed(() => {
         let content = this.value() as string;
         if (this.value() && !isUndefined(this.thyMaxCount()) && (this.value() as number) > this.thyMaxCount()) {
             content = `${this.thyMaxCount()}+`;

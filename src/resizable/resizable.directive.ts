@@ -9,7 +9,6 @@ import {
     numberAttribute,
     input,
     output,
-    afterNextRender,
     signal
 } from '@angular/core';
 import { ThyResizableService } from './resizable.service';
@@ -114,7 +113,9 @@ export class ThyResizableDirective implements OnDestroy {
     readonly thyResizeEnd = output<ThyResizeEvent>();
 
     resizing = signal(false);
-    private nativeElement!: HTMLElement;
+    private get nativeElement() {
+        return this.elementRef.nativeElement as HTMLElement;
+    }
     private nativeElementRect!: ClientRect | DOMRect;
     private sizeCache: ThyResizeEvent | null = null;
     private ghostElement: HTMLDivElement | null = null;
@@ -153,24 +154,25 @@ export class ThyResizableDirective implements OnDestroy {
             }
         });
 
-        afterNextRender(() => {
-            if (!this.platform.isBrowser) {
-                return;
-            }
-            this.nativeElement = this.elementRef.nativeElement;
-            this.ngZone.runOutsideAngular(() => {
-                fromEvent(this.nativeElement, 'mouseenter')
-                    .pipe(takeUntilDestroyed(this.destroyRef))
-                    .subscribe(() => {
-                        this.thyResizableService.mouseEnteredOutsideAngular$.next(true);
-                    });
+        this.bindMouseEnterAndLeaveEvents();
+    }
 
-                fromEvent(this.nativeElement, 'mouseleave')
-                    .pipe(takeUntilDestroyed(this.destroyRef))
-                    .subscribe(() => {
-                        this.thyResizableService.mouseEnteredOutsideAngular$.next(false);
-                    });
-            });
+    private bindMouseEnterAndLeaveEvents() {
+        if (!this.platform.isBrowser) {
+            return;
+        }
+        this.ngZone.runOutsideAngular(() => {
+            fromEvent(this.nativeElement, 'mouseenter')
+                .pipe(takeUntilDestroyed(this.destroyRef))
+                .subscribe(() => {
+                    this.thyResizableService.mouseEnteredOutsideAngular$.next(true);
+                });
+
+            fromEvent(this.nativeElement, 'mouseleave')
+                .pipe(takeUntilDestroyed(this.destroyRef))
+                .subscribe(() => {
+                    this.thyResizableService.mouseEnteredOutsideAngular$.next(false);
+                });
         });
     }
 
