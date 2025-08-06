@@ -1,12 +1,13 @@
+@let messageConfig = config();
+
 @if (iconName) {
   <thy-icon class="thy-message-icon" [thyIconName]="iconName"></thy-icon>
 } @else {
   <span class="thy-message-icon loading-icon"></span>
 }
 <div class="thy-message-main">
-  <ng-container *thyStringOrTemplateOutlet="config.content"></ng-container>
+  <ng-container *thyStringOrTemplateOutlet="messageConfig?.content"></ng-container>
 </div>
-@if (config.showClose) {
+@if (messageConfig?.showClose) {
   <thy-icon class="thy-message-close" thyIconName="close" (click)="close()"></thy-icon>
 }
-
