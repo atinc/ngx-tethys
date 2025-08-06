@@ -3,7 +3,7 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    effect,
+    computed,
     ElementRef,
     forwardRef,
     inject,
@@ -39,8 +39,8 @@ import { coerceBooleanProperty, isValid, TinyDate } from 'ngx-tethys/util';
     host: {
         class: 'thy-time-picker-panel',
         '[class.thy-time-picker-panel-has-bottom-operation]': `thyShowOperations()`,
-        '[class.thy-time-picker-panel-columns-2]': `showColumnCount === 2`,
-        '[class.thy-time-picker-panel-columns-3]': `showColumnCount === 3`
+        '[class.thy-time-picker-panel-columns-2]': `showColumnCount() === 2`,
+        '[class.thy-time-picker-panel-columns-3]': `showColumnCount() === 3`
     },
     imports: [ThyButton, DecimalPipe]
 })
@@ -117,13 +117,36 @@ export class ThyTimePanel implements OnInit, OnDestroy, ControlValueAccessor {
 
     secondRange: ReadonlyArray<{ value: number; disabled: boolean }> = [];
 
-    showHourColumn = true;
+    public readonly showHourColumn = computed(() => {
+        const format = this.thyFormat();
+        if (format) {
+            return new Set(format).has('H') || new Set(format).has('h');
+        }
+        return true;
+    });
 
-    showMinuteColumn = true;
+    public readonly showMinuteColumn = computed(() => {
+        const format = this.thyFormat();
+        if (format) {
+            return new Set(format).has('m');
+        }
+        return true;
+    });
 
-    showSecondColumn = true;
+    public readonly showSecondColumn = computed(() => {
+        const format = this.thyFormat();
+        if (format) {
+            return new Set(format).has('s');
+        }
+        return true;
+    });
 
-    showColumnCount: number = 3;
+    readonly showColumnCount = computed(() => {
+        const showHour = this.showHourColumn();
+        const showMinute = this.showMinuteColumn();
+        const showSecond = this.showSecondColumn();
+        return [showHour, showMinute, showSecond].filter(m => m).length || 3;
+    });
 
     value: Date;
 
@@ -139,21 +162,7 @@ export class ThyTimePanel implements OnInit, OnDestroy, ControlValueAccessor {
 
     onTouchedFn: () => void = () => void 0;
 
-    constructor() {
-        effect(() => {
-            if (this.thyFormat()) {
-                const formatSet = new Set(this.thyFormat());
-                this.showHourColumn = formatSet.has('H') || formatSet.has('h');
-                this.showMinuteColumn = formatSet.has('m');
-                this.showSecondColumn = formatSet.has('s');
-            } else {
-                this.showHourColumn = true;
-                this.showMinuteColumn = true;
-                this.showSecondColumn = true;
-            }
-            this.showColumnCount = [this.showHourColumn, this.showMinuteColumn, this.showSecondColumn].filter(m => m).length;
-        });
-    }
+    constructor() {}
 
     ngOnInit(): void {
         this.generateTimeRange();

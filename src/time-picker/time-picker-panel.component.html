@@ -1,5 +1,5 @@
 <div class="{{ prefixCls }}-content">
-  @if (showHourColumn) {
+  @if (showHourColumn()) {
     <ul #hourListElement class="{{ prefixCls }}-time-column {{ prefixCls }}-hour-column">
       @for (time of hourRange; track $index; let i = $index) {
         <li
@@ -11,7 +11,7 @@
       }
     </ul>
   }
-  @if (showMinuteColumn) {
+  @if (showMinuteColumn()) {
     <ul #minuteListElement class="{{ prefixCls }}-time-column {{ prefixCls }}-minute-column">
       @for (time of minuteRange; track $index; let i = $index) {
         <li
@@ -23,7 +23,7 @@
       }
     </ul>
   }
-  @if (showSecondColumn) {
+  @if (showSecondColumn()) {
     <ul #secondListElement class="{{ prefixCls }}-time-column {{ prefixCls }}-second-column">
       @for (time of secondRange; track $index; let i = $index) {
         <li
