@@ -62,7 +62,6 @@ export interface ThyLayoutLocale {
 export interface ThyDatePickerLocale {
     yearFormat: string;
     monthFormat: string;
-    zhMonthFormat: string;
     weekFormat: string;
     fullWeekFormat: string;
     weekThFormat: string;

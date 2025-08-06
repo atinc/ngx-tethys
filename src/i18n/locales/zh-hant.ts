@@ -9,7 +9,6 @@ export default {
     datePicker: {
         yearFormat: 'yyyy年',
         monthFormat: 'MMM',
-        zhMonthFormat: 'MMMM',
         weekFormat: 'EEEEE',
         fullWeekFormat: 'EE',
         weekThFormat: 'yyyy-ww週',

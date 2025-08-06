@@ -112,7 +112,7 @@ describe('ThyMonthPickerComponent', () => {
             fixture.detectChanges();
             flush();
             const allDisabledCells = queryFromOverlay('.thy-calendar-month-panel-cell-disabled');
-            expect(allDisabledCells.textContent).toContain('三月');
+            expect(allDisabledCells.textContent).toContain('3月');
         }));
 
         it('should support thyPlaceHolder', () => {
