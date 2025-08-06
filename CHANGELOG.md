@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [19.1.0-next.4](https://github.com/atinc/ngx-tethys/compare/19.1.0-next.3...19.1.0-next.4) (2025-08-06)
+
+
+### Bug Fixes
+
+* **resizable:** remove bindMouseEnterAndLeaveEvents from afterNextRender #TINFR-2644 ([3d7c006](https://github.com/atinc/ngx-tethys/commit/3d7c006dde8861cd8212a27c348da24eae83736d)), closes [#TINFR-2644](https://github.com/atinc/ngx-tethys/issues/TINFR-2644)
+
+
+### Features
+
+* **date-picker:** add dateCellRender #TINFR-2386 ([#3495](https://github.com/atinc/ngx-tethys/issues/3495)) ([#3499](https://github.com/atinc/ngx-tethys/issues/3499)) ([346c27b](https://github.com/atinc/ngx-tethys/commit/346c27b20e8668f1a5a5e33e0fe1681ed67a4679)), closes [#TINFR-2386](https://github.com/atinc/ngx-tethys/issues/TINFR-2386)
+* **time-picker:** migrate to signal for time-picker  ([#3501](https://github.com/atinc/ngx-tethys/issues/3501)) ([4399590](https://github.com/atinc/ngx-tethys/commit/439959008b2bfcdbd6d0bad6807120af63ab4008))
+
+
+
 # [19.1.0-next.3](https://github.com/atinc/ngx-tethys/compare/19.1.0-next.2...19.1.0-next.3) (2025-08-01)
 
 
