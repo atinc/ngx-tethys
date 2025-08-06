@@ -132,7 +132,7 @@
     <thy-property-item (thyEditingChange)="changeEditing($event, { type: 'cascader' })" thyLabelText="地区" thyEditable="true">
       {{ values }}
       <ng-template #editor>
-        <thy-cascader [thyOptions]="areaCode" [(ngModel)]="values" thyColumnClassName="column-class-name"> </thy-cascader>
+        <thy-cascader [thyOptions]="areaCode" thySize="md" [(ngModel)]="values" thyColumnClassName="column-class-name"> </thy-cascader>
       </ng-template>
     </thy-property-item>
 
