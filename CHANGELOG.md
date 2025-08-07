@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [19.1.0-next.5](https://github.com/atinc/ngx-tethys/compare/19.1.0-next.4...19.1.0-next.5) (2025-08-07)
+
+
+### Bug Fixes
+
+* **divider:** margin is incorrect after migration signal #TINFR-2663 ([#3508](https://github.com/atinc/ngx-tethys/issues/3508)) ([fa0b80a](https://github.com/atinc/ngx-tethys/commit/fa0b80aeeb8d21ddac26991907cf3f15628f6d51)), closes [#TINFR-2663](https://github.com/atinc/ngx-tethys/issues/TINFR-2663)
+
+
+
 # [19.1.0-next.4](https://github.com/atinc/ngx-tethys/compare/19.1.0-next.3...19.1.0-next.4) (2025-08-06)
 
 
