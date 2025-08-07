@@ -19,7 +19,7 @@ class TestHostComponent {
     sanitizer = inject(DomSanitizer);
 }
 
-fdescribe('DateTableCell config', () => {
+describe('DateTableCell config', () => {
     let component: DateTableCell;
     let fixture: ComponentFixture<DateTableCell>;
     let testHostFixture: ComponentFixture<TestHostComponent>;
