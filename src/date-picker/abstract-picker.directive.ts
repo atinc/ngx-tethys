@@ -3,23 +3,20 @@ import { ThyPopover, ThyPopoverConfig } from 'ngx-tethys/popover';
 import { FunctionProp, warnDeprecation } from 'ngx-tethys/util';
 import { fromEvent, Observable, Subject } from 'rxjs';
 import { debounceTime, mapTo, takeUntil, tap } from 'rxjs/operators';
-
+import { outputToObservable } from '@angular/core/rxjs-interop';
 import { coerceArray, coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
     AfterViewInit,
     ChangeDetectorRef,
     Directive,
     ElementRef,
-    EventEmitter,
-    Input,
-    OnChanges,
     OnDestroy,
-    OnInit,
-    Output,
-    SimpleChange,
     TemplateRef,
     numberAttribute,
-    inject
+    inject,
+    computed,
+    input,
+    output
 } from '@angular/core';
 
 import { AbstractPickerComponent } from './abstract-picker.component';
@@ -32,90 +29,85 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
  * @private
  */
 @Directive()
-export abstract class PickerDirective extends AbstractPickerComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
+export abstract class PickerDirective extends AbstractPickerComponent implements AfterViewInit, OnDestroy {
     elementRef = inject(ElementRef);
     cdr: ChangeDetectorRef;
     private thyPopover = inject(ThyPopover);
 
-    showWeek = false;
+    readonly showWeek = computed<boolean>(() => this.thyMode() === 'week');
 
-    @Input() thyDateRender: FunctionProp<TemplateRef<Date> | string>;
+    readonly thyDateRender = input<FunctionProp<TemplateRef<Date> | string>>();
 
-    panelMode: ThyPanelMode | ThyPanelMode[];
+    readonly panelMode = computed<ThyPanelMode | ThyPanelMode[]>(() => {
+        const mode = this.thyMode();
+        if (this.isRange()) {
+            return this.flexible() ? ['date', 'date'] : [mode, mode];
+        }
+        return mode;
+    });
 
-    /**
-     * @type EventEmitter<ThyPanelMode | ThyPanelMode[]>
-     */
-    @Output() readonly thyOnPanelChange = new EventEmitter<ThyPanelMode | ThyPanelMode[]>();
+    readonly thyOnPanelChange = output<ThyPanelMode | ThyPanelMode[]>();
 
-    /**
-     * @type EventEmitter<Date[]>
-     */
-    @Output() readonly thyOnCalendarChange = new EventEmitter<Date[]>();
+    readonly thyOnCalendarChange = output<Date[]>();
 
-    private _showTime: object | boolean;
-    @Input() get thyShowTime(): object | boolean {
-        return this._showTime;
-    }
-    set thyShowTime(value: object | boolean) {
-        this._showTime = typeof value === 'object' ? value : coerceBooleanProperty(value);
-    }
+    readonly thyShowTime = input(false, {
+        transform: (value: object | boolean) => {
+            return typeof value === 'object' ? value : coerceBooleanProperty(value);
+        }
+    });
 
     /**
      * 是否展示时间(时、分)
-     * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyMustShowTime = false;
+    readonly thyMustShowTime = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 弹出位置
      * @type top | topLeft | topRight | bottom | bottomLeft | bottomRight | left | leftTop | leftBottom | right | rightTop | rightBottom
      */
-    @Input() thyPlacement: ThyPlacement = 'bottom';
-
-    private offset = 4;
+    readonly thyPlacement = input<ThyPlacement>('bottom');
 
     /**
      * 弹出 DatePicker 的偏移量
-     * @default 4
      */
-    @Input({ transform: numberAttribute })
-    set thyOffset(value: number) {
-        if (typeof ngDevMode === 'undefined' || ngDevMode) {
-            warnDeprecation(`thyOffset parameter will be deprecated, please use thyPopoverOptions instead.`);
+    readonly thyOffset = input(4, {
+        transform: (value: number) => {
+            if (typeof ngDevMode === 'undefined' || ngDevMode) {
+                warnDeprecation(`thyOffset parameter will be deprecated, please use thyPopoverOptions instead.`);
+            }
+            return numberAttribute(value) || 4;
         }
-        this.offset = value;
-    }
-
-    private hasBackdrop = true;
+    });
 
     /**
      * 是否有幕布
-     * @default true
      */
-    @Input({ transform: coerceBooleanProperty })
-    set thyHasBackdrop(value: boolean) {
-        if (typeof ngDevMode === 'undefined' || ngDevMode) {
-            warnDeprecation(`thyHasBackdrop parameter will be deprecated, please use thyPopoverOptions instead.`);
+    readonly thyHasBackdrop = input(true, {
+        transform: value => {
+            if (typeof ngDevMode === 'undefined' || ngDevMode) {
+                warnDeprecation(`thyHasBackdrop parameter will be deprecated, please use thyPopoverOptions instead.`);
+            }
+            return coerceBooleanProperty(value);
         }
-        this.hasBackdrop = value;
-    }
+    });
 
     /**
      * popover 的其它参数
      */
-    @Input() thyPopoverOptions: ThyPopoverConfig;
+    readonly thyPopoverOptions = input<ThyPopoverConfig>();
 
     /**
      * 是否阻止冒泡
      */
-    @Input({ transform: coerceBooleanProperty }) thyStopPropagation = true;
+    readonly thyStopPropagation = input(true, { transform: coerceBooleanProperty });
 
     private destroy$ = new Subject<void>();
+
     private el: HTMLElement = this.elementRef.nativeElement;
+
     readonly $click: Observable<boolean> = fromEvent(this.el, 'click').pipe(
         tap(e => {
-            if (this.thyStopPropagation) {
+            if (this.thyStopPropagation()) {
                 e.stopPropagation();
             }
         }),
@@ -124,75 +116,64 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
 
     takeUntilDestroyed = takeUntilDestroyed();
 
-    ngOnInit() {
-        this.getInitialState();
-    }
-
-    private getInitialState() {
-        this.thyMode = this.thyMode || 'date';
-        this.flexible = this.thyMode === 'flexible';
-
-        if (this.isRange) {
-            this.panelMode = this.flexible ? ['date', 'date'] : [this.thyMode, this.thyMode];
-        } else {
-            this.panelMode = this.thyMode;
-        }
-        this.showWeek = this.thyMode === 'week';
-    }
-
     private openOverlay(): void {
-        this.getInitialState();
         const popoverRef = this.thyPopover.open(
             DatePopup,
             Object.assign(
                 {
                     origin: this.el,
-                    hasBackdrop: this.hasBackdrop,
+                    hasBackdrop: this.thyHasBackdrop(),
                     backdropClass: 'thy-overlay-transparent-backdrop',
-                    offset: this.offset,
+                    offset: this.thyOffset(),
                     outsideClosable: true,
                     initialState: {
-                        isRange: this.isRange,
-                        panelMode: this.panelMode,
-                        showWeek: this.showWeek,
-                        value: this.thyValue,
-                        showTime: this.thyShowTime,
+                        isRange: this.isRange(),
+                        panelMode: this.panelMode(),
+                        showWeek: this.showWeek(),
+                        value: this.thyValue(),
+                        showTime: this.thyShowTime(),
                         mustShowTime: this.withTime,
-                        format: this.thyFormat,
-                        dateRender: this.thyDateRender,
-                        disabledDate: this.thyDisabledDate,
-                        placeholder: this.thyPlaceHolder,
-                        className: this.thyPanelClassName,
-                        defaultPickerValue: this.thyDefaultPickerValue,
-                        minDate: this.thyMinDate,
-                        maxDate: this.thyMaxDate,
-                        showShortcut: this.thyShowShortcut,
-                        shortcutPresets: this.shortcutPresets,
-                        shortcutPosition: this.shortcutPosition,
-                        flexible: this.flexible,
+                        format: this.thyFormat(),
+                        dateRender: this.thyDateRender(),
+                        disabledDate: this.thyDisabledDate(),
+                        placeholder: this.thyPlaceHolder(),
+                        className: this.thyPanelClassName(),
+                        defaultPickerValue: this.thyDefaultPickerValue(),
+                        minDate: this.thyMinDate(),
+                        maxDate: this.thyMaxDate(),
+                        showShortcut: this.thyShowShortcut(),
+                        shortcutPresets: this.thyShortcutPresets(),
+                        shortcutPosition: this.thyShortcutPosition(),
+                        flexible: this.flexible(),
                         flexibleDateGranularity: this.flexibleDateGranularity,
-                        timestampPrecision: this.thyTimestampPrecision
+                        timestampPrecision: this.thyTimestampPrecision()
                     },
-                    placement: this.thyPlacement
+                    placement: this.thyPlacement()
                 },
-                this.thyPopoverOptions
+                this.thyPopoverOptions()
             )
         );
         if (popoverRef) {
             const componentInstance = popoverRef.componentInstance;
-            componentInstance.valueChange.pipe(takeUntil(this.destroy$)).subscribe((event: CompatibleValue) => this.onValueChange(event));
-            componentInstance.calendarChange.pipe(takeUntil(this.destroy$)).subscribe((event: CompatibleValue) => {
-                const rangeValue = coerceArray(event).map(x => x.nativeDate);
-                this.thyOnCalendarChange.emit(rangeValue);
-            });
-            componentInstance.showTimePickerChange
+            outputToObservable(componentInstance.valueChange)
+                .pipe(takeUntil(this.destroy$))
+                .subscribe((event: CompatibleValue) => this.onValueChange(event));
+            outputToObservable(componentInstance.calendarChange)
+                .pipe(takeUntil(this.destroy$))
+                .subscribe((event: CompatibleValue) => {
+                    const rangeValue = coerceArray(event).map(x => x.nativeDate);
+                    this.thyOnCalendarChange.emit(rangeValue);
+                });
+            outputToObservable(componentInstance.showTimePickerChange)
                 .pipe(takeUntil(this.destroy$))
                 .subscribe((event: boolean) => this.onShowTimePickerChange(event));
             // eslint-disable-next-line max-len
-            componentInstance.ngOnChanges({ value: {} as SimpleChange }); // dynamically created components don't call ngOnChanges, manual call
-            componentInstance.dateValueChange?.pipe(this.takeUntilDestroyed).subscribe((event: ThyDateChangeEvent) => {
-                this.thyDateChange.emit(event);
-            });
+            // componentInstance.ngOnChanges({ value: {} as SimpleChange }); // dynamically created components don't call ngOnChanges, manual call
+            outputToObservable(componentInstance.dateValueChange)
+                ?.pipe(this.takeUntilDestroyed)
+                .subscribe((event: ThyDateChangeEvent) => {
+                    this.thyDateChange.emit(event);
+                });
             popoverRef
                 .afterOpened()
                 .pipe(takeUntil(this.destroy$))
@@ -210,7 +191,7 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
 
     initActionSubscribe(): void {
         this.$click.pipe(debounceTime(50), takeUntil(this.destroy$)).subscribe(() => {
-            if (!this.thyDisabled && !this.thyReadonly) {
+            if (!this.thyDisabled && !this.thyReadonly()) {
                 this.openOverlay();
             }
         });
@@ -229,20 +210,20 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
     onValueChange(value: CompatibleValue): void {
         this.restoreTimePickerState(value);
         super.onValueChange(value);
-        if (!this.flexible) {
+        if (!this.flexible()) {
             this.closeOverlay();
         }
     }
 
     // Displays the time directly when the time must be displayed by default
     setDefaultTimePickerState() {
-        this.withTime = this.thyMustShowTime;
+        this.withTime = this.thyMustShowTime();
     }
 
     // Restore after clearing time to select whether the original picker time is displayed or not
     restoreTimePickerState(value: CompatibleValue | null) {
         if (!value) {
-            this.withTime = this.thyMustShowTime || this.originWithTime;
+            this.withTime = this.thyMustShowTime() || this.originWithTime;
         }
     }
     onShowTimePickerChange(show: boolean): void {

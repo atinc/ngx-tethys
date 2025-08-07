@@ -2,7 +2,7 @@
   <div style="position: relative">
     <a
       class="{{ prefixCls }}-prev-year-btn"
-      [ngClass]="showSuperPreBtn ? 'd-block' : 'd-none'"
+      [ngClass]="showSuperPreBtn() ? 'd-block' : 'd-none'"
       role="button"
       (click)="superPrevious()"
       [title]="locale().previousYear">
@@ -10,7 +10,7 @@
     </a>
     <a
       class="{{ prefixCls }}-prev-month-btn"
-      [ngClass]="showPreBtn ? 'd-block' : 'd-none'"
+      [ngClass]="showPreBtn() ? 'd-block' : 'd-none'"
       role="button"
       (click)="previous()"
       [title]="locale().previousMonth">
@@ -27,7 +27,7 @@
 
     <a
       class="{{ prefixCls }}-next-month-btn"
-      [ngClass]="showNextBtn ? 'd-block' : 'd-none'"
+      [ngClass]="showNextBtn() ? 'd-block' : 'd-none'"
       role="button"
       (click)="next()"
       [title]="locale().nextMonth">
@@ -35,7 +35,7 @@
     </a>
     <a
       class="{{ prefixCls }}-next-year-btn"
-      [ngClass]="showSuperNextBtn ? 'd-block' : 'd-none'"
+      [ngClass]="showSuperNextBtn() ? 'd-block' : 'd-none'"
       role="button"
       (click)="superNext()"
       [title]="locale().nextYear">

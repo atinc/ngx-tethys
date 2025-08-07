@@ -1,13 +1,13 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { provideHttpClient } from '@angular/common/http';
-import { Component, DebugElement, ViewChild } from '@angular/core';
+import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ThyLocaleType } from 'ngx-tethys/i18n';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { TinyDate } from 'ngx-tethys/util';
-import { ThyDatePickerModule, ThyQuarterPicker } from 'ngx-tethys/date-picker';
+import { ThyDatePickerModule } from 'ngx-tethys/date-picker';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
 describe('ThyQuarterPickerComponent', () => {
@@ -293,7 +293,6 @@ describe('ThyQuarterPickerComponent', () => {
     imports: [ThyDatePickerModule, FormsModule]
 })
 class TestQuarterPickerComponent {
-    @ViewChild('thyQuarterPicker', { static: true }) thyQuarterPicker: ThyQuarterPicker;
     thyAllowClear: boolean;
     thyDisabled: boolean;
     thyDisabledDate: (d: Date) => boolean;

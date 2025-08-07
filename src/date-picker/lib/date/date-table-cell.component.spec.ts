@@ -1,4 +1,4 @@
-import { Component, TemplateRef, ViewChild, inject, signal } from '@angular/core';
+import { Component, TemplateRef, inject, signal, viewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By, DomSanitizer } from '@angular/platform-browser';
 import { ThyI18nService } from '../../../i18n';
@@ -14,12 +14,12 @@ import { DateTableCell } from './date-table-cell.component';
     `
 })
 class TestHostComponent {
-    @ViewChild('testTemplate') testTemplate!: TemplateRef<Date>;
+    readonly testTemplate = viewChild<TemplateRef<Date>>('testTemplate');
 
     sanitizer = inject(DomSanitizer);
 }
 
-fdescribe('DateTableCell config', () => {
+describe('DateTableCell config', () => {
     let component: DateTableCell;
     let fixture: ComponentFixture<DateTableCell>;
     let testHostFixture: ComponentFixture<TestHostComponent>;
@@ -79,7 +79,7 @@ fdescribe('DateTableCell config', () => {
 
     describe('date-table-cell', () => {
         it('should render template when cellRender is TemplateRef', () => {
-            component.cellRender = signal(testHostComponent.testTemplate);
+            component.cellRender = signal(testHostComponent.testTemplate());
             fixture.detectChanges();
 
             const templateContent = fixture.debugElement.query(By.css('.custom-template'));

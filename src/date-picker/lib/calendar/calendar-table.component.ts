@@ -1,14 +1,15 @@
-import { Directive, EventEmitter, Input, OnChanges, OnInit, Output, Signal, SimpleChange, SimpleChanges, TemplateRef } from '@angular/core';
+import { Directive, input, OnInit, Signal, SimpleChange, SimpleChanges, TemplateRef, model, output } from '@angular/core';
 import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
 import { SafeAny } from 'ngx-tethys/types';
 import { FunctionProp, isTemplateRef, TinyDate } from 'ngx-tethys/util';
 import { DateBodyRow, DateCell } from '../date/types';
+import { DisabledDateFn } from 'ngx-tethys/date-picker';
 
 /**
  * @private
  */
 @Directive()
-export abstract class CalendarTable implements OnInit, OnChanges {
+export abstract class CalendarTable implements OnInit {
     locale: Signal<ThyDatePickerLocale> = injectLocale('datePicker');
     isTemplateRef = isTemplateRef;
     headRow: DateCell[] = [];
@@ -16,24 +17,32 @@ export abstract class CalendarTable implements OnInit, OnChanges {
     MAX_ROW = 6;
     MAX_COL = 7;
 
-    @Input() prefixCls: string = 'thy-calendar';
-    @Input() value: TinyDate;
-    @Input() activeDate: TinyDate = new TinyDate();
-    @Input() showWeek: boolean = false;
-    @Input() selectedValue: TinyDate[] = []; // Range ONLY
-    @Input() hoverValue: TinyDate[] = []; // Range ONLY
-    @Input() timeZone: string;
-    @Input() disabledDate?: (d: Date) => boolean;
-    @Input() cellRender?: FunctionProp<TemplateRef<Date> | string>;
-    @Input() fullCellRender?: FunctionProp<TemplateRef<Date> | string>;
-    @Output() readonly valueChange = new EventEmitter<TinyDate>();
+    readonly prefixCls = input<string>('thy-calendar');
 
-    @Output() readonly cellHover = new EventEmitter<TinyDate>(); // Emitted when hover on a day by mouse enter
+    value = model<TinyDate>();
+
+    activeDate = model<TinyDate>(new TinyDate());
+
+    readonly showWeek = input<boolean>(false);
+
+    readonly selectedValue = input<TinyDate[]>([]);
+
+    readonly hoverValue = input<TinyDate[]>([]);
+
+    readonly timeZone = input<string>();
+
+    readonly disabledDate = input<DisabledDateFn>();
+
+    readonly cellRender = input<FunctionProp<TemplateRef<Date> | string>>();
+
+    readonly valueChange = output<TinyDate>();
+
+    readonly cellHover = output<TinyDate>(); // Emitted when hover on a day by mouse enter
 
     constructor() {}
 
     protected render(): void {
-        if (this.activeDate) {
+        if (this.activeDate()) {
             this.headRow = this.makeHeadRow();
             this.bodyRows = this.makeBodyRows();
         }
@@ -48,7 +57,7 @@ export abstract class CalendarTable implements OnInit, OnChanges {
     }
 
     hasRangeValue(): boolean {
-        return this.selectedValue?.length > 0 || this.hoverValue?.length > 0;
+        return this.selectedValue()?.length > 0 || this.hoverValue()?.length > 0;
     }
 
     abstract makeHeadRow(): DateCell[];
@@ -58,9 +67,10 @@ export abstract class CalendarTable implements OnInit, OnChanges {
         this.render();
     }
 
+    // TODO
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.activeDate && !changes.activeDate.currentValue) {
-            this.activeDate = new TinyDate(undefined, this.timeZone);
+            this.activeDate.set(new TinyDate(undefined, this.timeZone()));
         }
 
         if (

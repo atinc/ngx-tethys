@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, forwardRef, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, forwardRef, model } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
@@ -28,17 +28,12 @@ import { ThyPicker } from './picker.component';
 export class ThyMonthPicker extends BasePicker {
     protected element: ElementRef;
 
-    /**
-     * 展示的月份格式
-     */
-    @Input() thyFormat = 'yyyy-MM';
-
     private hostRenderer = useHostRenderer();
 
     constructor() {
         super();
-
+        this.thyMode.set('month');
+        this.thyFormat.set('yyyy-MM');
         this.hostRenderer.addClass('thy-calendar-picker');
-        this.thyMode = 'month';
     }
 }
