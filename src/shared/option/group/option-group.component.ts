@@ -1,19 +1,20 @@
 import {
     Component,
     HostBinding,
-    Input,
-    ContentChildren,
-    QueryList,
     NgZone,
     OnDestroy,
     AfterContentInit,
     ChangeDetectorRef,
-    inject
+    inject,
+    input,
+    ContentChildren,
+    QueryList
 } from '@angular/core';
 import { Observable, defer, Subject, merge } from 'rxjs';
 import { ThyOptionVisibleChangeEvent, ThyOption } from '../option.component';
 import { take, switchMap, startWith, takeUntil, debounceTime, map } from 'rxjs/operators';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { outputToObservable } from '@angular/core/rxjs-interop';
 
 /**
  * @private
@@ -27,9 +28,8 @@ export class ThySelectOptionGroup implements OnDestroy, AfterContentInit {
     private cdr = inject(ChangeDetectorRef);
 
     _hidden = false;
-    @Input({ transform: coerceBooleanProperty })
     @HostBinding(`class.disabled`)
-    thyDisabled: boolean;
+    readonly thyDisabled = input(false, { transform: coerceBooleanProperty });
 
     @HostBinding('class.thy-option-item-group') _isOptionGroup = true;
 
@@ -38,7 +38,7 @@ export class ThySelectOptionGroup implements OnDestroy, AfterContentInit {
         return this._hidden;
     }
 
-    @Input() thyGroupLabel: string;
+    readonly thyGroupLabel = input<string>(undefined);
 
     @ContentChildren(ThyOption) options: QueryList<ThyOption>;
 
@@ -46,13 +46,13 @@ export class ThySelectOptionGroup implements OnDestroy, AfterContentInit {
 
     optionVisibleChanges: Observable<ThyOptionVisibleChangeEvent> = defer(() => {
         if (this.options) {
-            return merge(...this.options.map(option => option.visibleChange));
+            return merge(...this.options.map(option => outputToObservable(option.visibleChange)));
         }
         return this._ngZone.onStable.asObservable().pipe(
             take(1),
             switchMap(() => this.optionVisibleChanges)
         );
-    }) as Observable<ThyOptionVisibleChangeEvent>;
+    });
 
     ngAfterContentInit() {
         this.options.changes.pipe(startWith(null), takeUntil(this._destroy$)).subscribe(() => {
@@ -62,7 +62,7 @@ export class ThySelectOptionGroup implements OnDestroy, AfterContentInit {
 
     _resetOptions() {
         const changedOrDestroyed$ = merge(this.options.changes, this._destroy$);
-        merge(...this.options.map(option => option.visibleChange))
+        merge(...this.options.map(option => outputToObservable(option.visibleChange)))
             .pipe(
                 takeUntil(changedOrDestroyed$),
                 debounceTime(10),

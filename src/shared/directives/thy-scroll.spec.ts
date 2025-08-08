@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, viewChild } from '@angular/core';
 import { ComponentFixture, waitForAsync, TestBed, flush, fakeAsync } from '@angular/core/testing';
 import { ThySharedModule, ThyScrollDirective } from 'ngx-tethys/shared';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
@@ -22,7 +22,8 @@ describe('thy-scroll', () => {
             const spy = testComponent.thyScrolled;
             fixture.detectChanges();
 
-            const el = fixture.componentInstance.scrollContainer.nativeElement;
+            const el = fixture.componentInstance.scrollContainer().nativeElement;
+
             dispatchFakeEvent(el, 'scroll');
             fixture.detectChanges();
             flush();
@@ -35,7 +36,7 @@ describe('thy-scroll', () => {
             testComponent.thyEnable = false;
             fixture.detectChanges();
 
-            const el = fixture.componentInstance.scrollContainer.nativeElement;
+            const el = fixture.componentInstance.scrollContainer().nativeElement;
             dispatchFakeEvent(el, 'scroll');
 
             fixture.detectChanges();
@@ -82,12 +83,12 @@ describe('thy-scroll', () => {
     imports: [ThySharedModule]
 })
 class ThyScrollViewportComponent implements OnInit {
-    @ViewChild(ThyScrollDirective, { read: false }) thyScrollDirective: ThyScrollDirective;
-    @ViewChild('scrollContainer', { read: false }) scrollContainer: ElementRef<Element>;
-    @ViewChild('firstRowStart', { read: false }) firstRowStart: ElementRef<Element>;
-    @ViewChild('firstRowEnd', { read: false }) firstRowEnd: ElementRef<Element>;
-    @ViewChild('lastRowStart', { read: false }) lastRowStart: ElementRef<Element>;
-    @ViewChild('lastRowEnd', { read: false }) lastRowEnd: ElementRef<Element>;
+    readonly thyScrollDirective = viewChild(ThyScrollDirective);
+    readonly scrollContainer = viewChild<ElementRef<Element>>('scrollContainer');
+    readonly firstRowStart = viewChild<ElementRef<Element>>('firstRowStart');
+    readonly firstRowEnd = viewChild<ElementRef<Element>>('firstRowEnd');
+    readonly lastRowStart = viewChild<ElementRef<Element>>('lastRowStart');
+    readonly lastRowEnd = viewChild<ElementRef<Element>>('lastRowEnd');
     thyScrolled = jasmine.createSpy('thyScrolled callback');
     thyEnable = true;
 

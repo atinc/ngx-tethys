@@ -41,7 +41,7 @@ describe('ThySelectionList without forms', () => {
             const optionValues = ['inbox', 'starred', 'sent-mail', 'drafts'];
 
             optionValues.forEach((optionValue, index) => {
-                expect(listOptions[index].componentInstance.thyValue).toBe(optionValue);
+                expect(listOptions[index].componentInstance.thyValue()).toBe(optionValue);
             });
         });
 

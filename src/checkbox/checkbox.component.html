@@ -1,12 +1,12 @@
 <input
   class="form-check-input"
-  [ngClass]="{ 'form-check-indeterminate': thyIndeterminate(), 'form-check-no-label-text': !_labelText }"
+  [ngClass]="{ 'form-check-indeterminate': thyIndeterminate(), 'form-check-no-label-text': !_labelText() }"
   [checked]="_innerValue"
   (change)="change()"
   type="checkbox"
   [attr.tabindex]="tabIndex"
   [disabled]="_disabled" />
-@if (_labelText) {
-  <span class="form-check-label">{{ _labelText }}</span>
+@if (_labelText()) {
+  <span class="form-check-label">{{ _labelText() }}</span>
 }
 <ng-content></ng-content>

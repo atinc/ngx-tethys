@@ -1,6 +1,6 @@
 import { dispatchKeyboardEvent } from 'ngx-tethys/testing';
 import { ENTER } from 'ngx-tethys/util';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, viewChild } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ThyCtrlEnterDirective } from 'ngx-tethys/shared';
 
@@ -10,7 +10,7 @@ import { ThyCtrlEnterDirective } from 'ngx-tethys/shared';
     imports: [ThyCtrlEnterDirective]
 })
 class ThyCtrlEnterTestComponent {
-    @ViewChild('enter') input: ElementRef;
+    readonly input = viewChild<ElementRef>('enter');
 
     ok(event: KeyboardEvent) {}
 }
@@ -33,7 +33,7 @@ describe('ThyCtrlEnterDirective', () => {
     });
 
     it('should call thyCtrlEnter when enter', () => {
-        const event = dispatchKeyboardEvent(testComponent.input.nativeElement, 'keydown', ENTER, '', { control: true, meta: true });
+        const event = dispatchKeyboardEvent(testComponent.input().nativeElement, 'keydown', ENTER, '', { control: true, meta: true });
         fixture.detectChanges();
         expect(enterSpy).toHaveBeenCalled();
         expect(enterSpy).toHaveBeenCalledWith(event);

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, TemplateRef, viewChild } from '@angular/core';
 
 @Component({
     selector: 'thy-options-container',
@@ -10,7 +10,7 @@ import { ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild } fr
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyOptionsContainer implements OnInit {
-    @ViewChild('options') optionsTemplate: TemplateRef<any>;
+    readonly optionsTemplate = viewChild<TemplateRef<any>>('options');
 
     constructor() {}
 

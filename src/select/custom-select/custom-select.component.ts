@@ -86,6 +86,7 @@ import {
     ThySelectConfig
 } from '../select.config';
 import { injectLocale, ThySelectLocale } from 'ngx-tethys/i18n';
+import { outputToObservable } from '@angular/core/rxjs-interop';
 
 export type SelectMode = 'multiple' | '';
 
@@ -229,7 +230,7 @@ export class ThySelect
 
     readonly optionSelectionChanges: Observable<ThyOptionSelectionChangeEvent> = defer(() => {
         if (this.options) {
-            return merge(...this.options.map(option => option.selectionChange));
+            return merge(...this.options.map(option => outputToObservable(option.selectionChange)));
         }
         return this.ngZone.onStable.asObservable().pipe(
             take(1),
@@ -631,7 +632,7 @@ export class ThySelect
     }
 
     public get isHiddenOptions(): boolean {
-        return this.options.toArray().every(option => option.hidden);
+        return this.options.toArray().every(option => option.hidden());
     }
 
     public onAttached(): void {
@@ -909,7 +910,7 @@ export class ThySelect
             manager.activeItem.selectViaInteraction();
         } else if (this.isMultiple && keyCode === A && event.ctrlKey) {
             event.preventDefault();
-            const hasDeselectedOptions = this.options.some(opt => !opt.disabled && !opt.selected);
+            const hasDeselectedOptions = this.options.some(opt => !opt.disabled && !opt.selected());
 
             this.options.forEach(option => {
                 if (!option.disabled) {
@@ -1025,8 +1026,8 @@ export class ThySelect
             option.deselect();
             this.selectionModel.clear();
         } else {
-            if (wasSelected !== option.selected) {
-                option.selected ? this.selectionModel.select(option) : this.selectionModel.deselect(option);
+            if (wasSelected !== option.selected()) {
+                option.selected() ? this.selectionModel.select(option) : this.selectionModel.deselect(option);
             }
 
             if (isUserInput) {

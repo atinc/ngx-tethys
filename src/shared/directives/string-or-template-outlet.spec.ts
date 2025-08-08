@@ -1,4 +1,4 @@
-import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
+import { Component, DebugElement, TemplateRef, viewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyStringOrTemplateOutletDirective } from 'ngx-tethys/shared';
@@ -14,10 +14,10 @@ import { ThyStringOrTemplateOutletDirective } from 'ngx-tethys/shared';
     imports: [ThyStringOrTemplateOutletDirective]
 })
 class ThyStringOrTemplateOutletTestComponent {
-    @ViewChild('stringTpl') stringTpl!: TemplateRef<any>;
-    @ViewChild('emptyTpl') emptyTpl!: TemplateRef<any>;
-    @ViewChild('dataTimeTpl') dataTimeTpl!: TemplateRef<any>;
-    @ViewChild(ThyStringOrTemplateOutletDirective) thyStringOrTemplateOutletDirective!: ThyStringOrTemplateOutletDirective;
+    readonly stringTpl = viewChild.required<TemplateRef<any>>('stringTpl');
+    readonly emptyTpl = viewChild.required<TemplateRef<any>>('emptyTpl');
+    readonly dataTimeTpl = viewChild.required<TemplateRef<any>>('dataTimeTpl');
+    readonly thyStringOrTemplateOutletDirective = viewChild.required(ThyStringOrTemplateOutletDirective);
     stringTemplateOutlet: TemplateRef<any> | string | null = null;
     context: any = { $implicit: '' };
 }
@@ -50,7 +50,7 @@ describe('string or template outlet directive', () => {
         expect(fixture.nativeElement.innerText).toBe('TargetText');
     });
     it('should work when switch between null and template', () => {
-        component.stringTemplateOutlet = component.stringTpl;
+        component.stringTemplateOutlet = component.stringTpl();
         fixture.detectChanges();
         expect(fixture.nativeElement.innerText).toBe('TargetText The data is');
         component.stringTemplateOutlet = null;
@@ -69,7 +69,7 @@ describe('string or template outlet directive', () => {
         component.stringTemplateOutlet = 'String Testing';
         fixture.detectChanges();
         expect(fixture.nativeElement.innerText).toBe('TargetText String Testing');
-        component.stringTemplateOutlet = component.stringTpl;
+        component.stringTemplateOutlet = component.stringTpl();
         fixture.detectChanges();
         expect(fixture.nativeElement.innerText).toBe('TargetText The data is');
         component.stringTemplateOutlet = 'String Testing';
@@ -77,16 +77,16 @@ describe('string or template outlet directive', () => {
         expect(fixture.nativeElement.innerText).toBe('TargetText String Testing');
     });
     it('should work when switch between template', () => {
-        component.stringTemplateOutlet = component.stringTpl;
+        component.stringTemplateOutlet = component.stringTpl();
         fixture.detectChanges();
         expect(fixture.nativeElement.innerText).toBe('TargetText The data is');
-        component.stringTemplateOutlet = component.emptyTpl;
+        component.stringTemplateOutlet = component.emptyTpl();
         fixture.detectChanges();
         expect(fixture.nativeElement.innerText).toBe('TargetText Empty Template');
     });
 
     it('should work when context shape change', () => {
-        component.stringTemplateOutlet = component.dataTimeTpl;
+        component.stringTemplateOutlet = component.dataTimeTpl();
         fixture.detectChanges();
         expect(fixture.nativeElement.innerText).toBe('TargetText The data is , The time is');
         component.context = { $implicit: 'data', time: 'time' };
@@ -94,7 +94,7 @@ describe('string or template outlet directive', () => {
         expect(fixture.nativeElement.innerText).toBe('TargetText The data is data, The time is time');
     });
     it('should work when context implicit change', () => {
-        component.stringTemplateOutlet = component.stringTpl;
+        component.stringTemplateOutlet = component.stringTpl();
         fixture.detectChanges();
         expect(fixture.nativeElement.innerText).toBe('TargetText The data is');
         component.context = { $implicit: 'data' };

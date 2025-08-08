@@ -377,7 +377,6 @@ describe('ThyTreeComponent', () => {
             multipleFixture.detectChanges();
             tick(100);
             multipleFixture.detectChanges();
-            debugger;
             const multipleElement = multipleFixture.debugElement.query(By.directive(ThyTree)).nativeElement;
             const multipleTree = multipleFixture.debugElement.componentInstance.tree();
             const selectionModelSpy = spyOn(multipleTree.selectionModel, 'toggle');
