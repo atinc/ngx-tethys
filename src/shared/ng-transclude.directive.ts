@@ -1,4 +1,4 @@
-import { Directive, Input, TemplateRef, ViewContainerRef, inject } from '@angular/core';
+import { Directive, Input, TemplateRef, ViewContainerRef, effect, inject, input } from '@angular/core';
 
 /**
  * @private
@@ -12,21 +12,18 @@ export class ThyTranscludeDirective {
     protected _viewRef: ViewContainerRef;
     protected _ngTransclude: TemplateRef<any>;
 
-    @Input()
-    set thyTransclude(templateRef: TemplateRef<any>) {
-        this._ngTransclude = templateRef;
-        if (templateRef) {
-            this.viewRef.createEmbeddedView(templateRef);
-        }
-    }
-
-    get thyTransclude(): TemplateRef<any> {
-        return this._ngTransclude;
-    }
+    readonly thyTransclude = input<TemplateRef<any>>();
 
     constructor() {
         const viewRef = inject(ViewContainerRef);
 
         this.viewRef = viewRef;
+
+        effect(() => {
+            const transclude = this.thyTransclude();
+            if (transclude) {
+                this.viewRef.createEmbeddedView(transclude);
+            }
+        });
     }
 }

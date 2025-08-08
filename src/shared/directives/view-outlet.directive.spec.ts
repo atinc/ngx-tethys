@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnChanges, SimpleChanges, input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ThySharedModule } from 'ngx-tethys/shared';
 
@@ -37,11 +37,11 @@ class ThyViewOutletComponentTestComponent {
 let contentMultiTestChanges: SimpleChanges;
 @Component({
     selector: 'thy-shared-view-outlet-content-multi',
-    template: `Count: {{ count }}, Name: {{ innerName }}, Called: {{ nameSetInvokeCount }}, Input Name: {{ inputName }}`,
+    template: `Count: {{ count() }}, Name: {{ innerName }}, Called: {{ nameSetInvokeCount }}, Input Name: {{ inputName() }}`,
     imports: [ThySharedModule]
 })
 class ThyViewOutletContentMultiTestComponent implements OnChanges {
-    @Input() count = 1;
+    readonly count = input(1);
 
     innerName: string;
 
@@ -52,7 +52,7 @@ class ThyViewOutletContentMultiTestComponent implements OnChanges {
         this.nameSetInvokeCount = this.nameSetInvokeCount + 1;
     }
 
-    @Input() inputName: string;
+    readonly inputName = input<string>();
 
     ngOnChanges(changes: SimpleChanges): void {
         contentMultiTestChanges = changes;

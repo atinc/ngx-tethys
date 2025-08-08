@@ -50,7 +50,7 @@
         (thyOnScrolled)="onOptionsScrolled($event)"
         [thyEnable]="thyEnableScrollLoad">
         @if (isReactiveDriven) {
-          <ng-template [ngTemplateOutlet]="optionsContainer.optionsTemplate"></ng-template>
+          <ng-template [ngTemplateOutlet]="optionsContainer.optionsTemplate()"></ng-template>
         }
         <ng-content></ng-content>
         @if (isHiddenOptions) {

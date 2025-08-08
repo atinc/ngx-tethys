@@ -1046,7 +1046,7 @@ describe('thy-cascader', () => {
         }));
 
         it('should searched some options that is parent when isOnlySelectLeaf is false', fakeAsync(() => {
-            component.isOnlySelectLeaf = false;
+            fixture.componentInstance.isOnlySelectLeaf = false;
             fixture.componentInstance.isShowSearch = true;
             fixture.detectChanges();
 

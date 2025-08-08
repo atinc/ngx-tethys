@@ -1,5 +1,5 @@
 import { ControlValueAccessor } from '@angular/forms';
-import { HostBinding, Input, ChangeDetectorRef, Directive, inject } from '@angular/core';
+import { HostBinding, Input, ChangeDetectorRef, Directive, inject, input, computed } from '@angular/core';
 import { ThyTranslate, TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
@@ -8,7 +8,14 @@ const noop = () => {};
 /**
  * @private
  */
-@Directive()
+@Directive({
+    host: {
+        '[class.form-check]': '_isFormCheck',
+        '[class.form-check-inline]': 'thyInline()',
+        '[class.form-check-checked]': '_isChecked',
+        '[class.form-check-inline-no-label-text]': '_isNoText()'
+    }
+})
 export class ThyFormCheckBaseComponent extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor {
     protected thyTranslate = inject(ThyTranslate);
     protected changeDetectorRef? = inject(ChangeDetectorRef);
@@ -22,46 +29,35 @@ export class ThyFormCheckBaseComponent extends TabIndexDisabledControlValueAcces
 
     private onChangeCallback: (_: any) => void = noop;
 
-    _labelText: string;
+    _isFormCheck = true;
 
-    @HostBinding('class.form-check') _isFormCheck = true;
-
-    @HostBinding('class.form-check-inline') _isFormCheckInline = false;
-
-    @HostBinding('class.form-check-checked') _isChecked = false;
-
-    @HostBinding('class.form-check-inline-no-label-text') get _isNoText() {
-        return this._isFormCheckInline && !this._labelText;
-    }
+    _isChecked = false;
 
     /**
      * 是否同一行展示
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty })
-    set thyInline(value: boolean) {
-        this._isFormCheckInline = value;
-    }
+    readonly thyInline = input(false, { transform: coerceBooleanProperty });
 
     /**
      * Label 展示文本
      */
-    @Input()
-    set thyLabelText(value: string) {
-        this._labelText = value;
-    }
+    readonly thyLabelText = input<string>();
 
     /**
      * Label 文本多语言 key
      */
-    @Input()
-    set thyLabelTextTranslateKey(value: string) {
-        if (value) {
-            this._labelText = this.thyTranslate.instant(value);
-        } else {
-            this._labelText = '';
-        }
-    }
+    readonly thyLabelTextTranslateKey = input<string>();
+
+    _labelText = computed(() => {
+        const labelTextTranslateKey = this.thyLabelTextTranslateKey();
+        const labelText = this.thyLabelText();
+        return labelTextTranslateKey ? this.thyTranslate.instant(labelTextTranslateKey) : labelText || '';
+    });
+
+    _isNoText = computed(() => {
+        return this.thyInline() && !this._labelText();
+    });
 
     disabled = false;
 

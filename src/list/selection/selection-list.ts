@@ -182,7 +182,7 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
     private _emitChangeEvent(option: ThyListOption, event: Event) {
         this.thySelectionChange.emit({
             source: this,
-            value: option.thyValue,
+            value: option.thyValue(),
             option: option,
             event: event,
             selected: this.isSelected(option)
@@ -195,10 +195,10 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
             if (this.thyUniqueKey) {
                 selectedValues = selectedValues.map(selectedValue => {
                     const selectedOption = this.options.find(option => {
-                        return option.thyValue[this.thyUniqueKey] === selectedValue;
+                        return option.thyValue()[this.thyUniqueKey] === selectedValue;
                     });
                     if (selectedOption) {
-                        return selectedOption.thyValue;
+                        return selectedOption.thyValue();
                     } else {
                         return this._modelValues.find(value => {
                             return value[this.thyUniqueKey] === selectedValue;
@@ -252,8 +252,9 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
     }
 
     private _getOptionSelectionValue(option: ThyListOption) {
-        if (option.thyValue) {
-            return this.thyUniqueKey ? option.thyValue[this.thyUniqueKey] : option.thyValue;
+        const thyValue = option.thyValue();
+        if (thyValue) {
+            return this.thyUniqueKey ? thyValue[this.thyUniqueKey] : thyValue;
         } else {
             return option;
         }
@@ -276,10 +277,10 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
         let hasChanged = false;
 
         this.options.forEach(option => {
-            const fromIsSelected = this.selectionModel.isSelected(option.thyValue);
+            const fromIsSelected = this.selectionModel.isSelected(option.thyValue());
             if (fromIsSelected !== toIsSelected) {
                 hasChanged = true;
-                this.selectionModel.toggle(option.thyValue);
+                this.selectionModel.toggle(option.thyValue());
             }
         });
 
@@ -290,13 +291,13 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
 
     private _getOptionByValue(value: any) {
         return this.options.find(option => {
-            return this._compareValue(option.thyValue, value);
+            return this._compareValue(option.thyValue(), value);
         });
     }
 
     private _getActiveOption() {
         if (this._keyManager.activeItem) {
-            return this._getOptionByValue(this._keyManager.activeItem.thyValue);
+            return this._getOptionByValue(this._keyManager.activeItem.thyValue());
         } else {
             return null;
         }
@@ -385,7 +386,7 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
     }
 
     toggleOption(option: ThyListOption, event?: Event) {
-        if (option && !option.disabled) {
+        if (option && !option.thyDisabled()) {
             this.selectionModel.toggle(this._getOptionSelectionValue(option));
             // Emit a change event because the focused option changed its state through user
             // interaction.

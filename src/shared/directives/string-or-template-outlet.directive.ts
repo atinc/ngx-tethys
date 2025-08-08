@@ -1,14 +1,4 @@
-import {
-    Directive,
-    EmbeddedViewRef,
-    Input,
-    OnChanges,
-    Renderer2,
-    SimpleChanges,
-    TemplateRef,
-    ViewContainerRef,
-    inject
-} from '@angular/core';
+import { Directive, EmbeddedViewRef, Renderer2, TemplateRef, ViewContainerRef, effect, inject, input } from '@angular/core';
 import { isTemplateRef } from 'ngx-tethys/util';
 
 /**
@@ -18,7 +8,7 @@ import { isTemplateRef } from 'ngx-tethys/util';
     selector: '[thyStringOrTemplateOutlet]',
     exportAs: 'thyStringOrTemplateOutlet'
 })
-export class ThyStringOrTemplateOutletDirective implements OnChanges {
+export class ThyStringOrTemplateOutletDirective {
     private viewContainerRef = inject(ViewContainerRef);
     private renderer = inject(Renderer2);
 
@@ -26,29 +16,30 @@ export class ThyStringOrTemplateOutletDirective implements OnChanges {
 
     private textNode: Text;
 
-    @Input() thyStringOrTemplateOutletContext: any;
+    readonly thyStringOrTemplateOutletContext = input<any>();
 
-    @Input() thyStringOrTemplateOutlet: any | TemplateRef<any>;
+    readonly thyStringOrTemplateOutlet = input<any | TemplateRef<any>>();
 
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes['thyStringOrTemplateOutlet']) {
+    constructor() {
+        effect(() => {
             this.updateView();
-        } else if (this.viewRef && changes['thyStringOrTemplateOutletContext'] && this.thyStringOrTemplateOutletContext) {
-            this.viewRef.context = this.thyStringOrTemplateOutletContext;
-        }
+        });
+
+        effect(() => {
+            if (this.viewRef && this.thyStringOrTemplateOutletContext()) {
+                this.viewRef.context = this.thyStringOrTemplateOutletContext();
+            }
+        });
     }
 
     private updateView() {
+        const thyStringOrTemplateOutlet = this.thyStringOrTemplateOutlet();
         this.clear();
-
-        if (this.thyStringOrTemplateOutlet) {
-            if (isTemplateRef(this.thyStringOrTemplateOutlet)) {
-                this.viewRef = this.viewContainerRef.createEmbeddedView(
-                    this.thyStringOrTemplateOutlet,
-                    this.thyStringOrTemplateOutletContext
-                );
+        if (thyStringOrTemplateOutlet) {
+            if (isTemplateRef(thyStringOrTemplateOutlet)) {
+                this.viewRef = this.viewContainerRef.createEmbeddedView(thyStringOrTemplateOutlet, this.thyStringOrTemplateOutletContext());
             } else {
-                this.textNode = this.renderer.createText(this.thyStringOrTemplateOutlet + '');
+                this.textNode = this.renderer.createText(thyStringOrTemplateOutlet + '');
                 const element = this.viewContainerRef.element.nativeElement as HTMLElement;
                 this.renderer.insertBefore(element.parentNode, this.textNode, element);
             }

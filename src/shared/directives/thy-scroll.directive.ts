@@ -1,4 +1,4 @@
-import { Directive, ElementRef, OnInit, NgZone, OnDestroy, Output, EventEmitter, Input, inject } from '@angular/core';
+import { Directive, ElementRef, OnInit, NgZone, OnDestroy, inject, input, output, effect } from '@angular/core';
 import { Subject, Observable, Observer, fromEvent, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
@@ -17,8 +17,6 @@ export class ThyScrollDirective implements OnInit, OnDestroy {
     private ngZone = inject(NgZone);
 
     private _destroyed = new Subject<void>();
-    private _enable = true;
-    private _initialled = false;
     private _subscription: Subscription;
 
     private _elementScrolled: Observable<Event> = new Observable((observer: Observer<Event>) =>
@@ -29,20 +27,7 @@ export class ThyScrollDirective implements OnInit, OnDestroy {
         )
     );
 
-    @Input({ transform: coerceBooleanProperty })
-    set thyEnable(value: boolean) {
-        this._enable = value;
-        if (this._initialled) {
-            if (this._enable && this._subscription === null) {
-                this._subscription = this._elementScrolled.subscribe(() => this.thyOnScrolled.emit(this.elementRef));
-            } else {
-                if (this._subscription) {
-                    this._subscription.unsubscribe();
-                    this._subscription = null;
-                }
-            }
-        }
-    }
+    readonly thyEnable = input(true, { transform: coerceBooleanProperty });
 
     /**
      * @description
@@ -63,14 +48,24 @@ export class ThyScrollDirective implements OnInit, OnDestroy {
      * }
      * ```
      */
-    @Output() thyOnScrolled: EventEmitter<ElementRef> = new EventEmitter<ElementRef>();
 
-    ngOnInit() {
-        if (this._enable) {
-            this._subscription = this._elementScrolled.subscribe(() => this.thyOnScrolled.emit(this.elementRef));
-        }
-        this._initialled = true;
+    readonly thyOnScrolled = output<ElementRef>();
+
+    constructor() {
+        effect(() => {
+            const thyEnable = this.thyEnable();
+            if (thyEnable && !this._subscription) {
+                this._subscription = this._elementScrolled.subscribe(() => this.thyOnScrolled.emit(this.elementRef));
+            } else {
+                if (this._subscription) {
+                    this._subscription.unsubscribe();
+                    this._subscription = null;
+                }
+            }
+        });
     }
+
+    ngOnInit() {}
 
     ngOnDestroy() {
         this._destroyed.next();
