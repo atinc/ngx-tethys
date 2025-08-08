@@ -1,17 +1,22 @@
-import { changeTime } from './time-picker.utils';
 import { TimeChangeEvent, TimePickerComponentState, TimePickerControls } from './inner/inner-time-picker.class';
+import { changeTime } from './time-picker.utils';
 
 export function canChangeValue(state: TimePickerComponentState, event?: TimeChangeEvent): boolean {
-    if (state.readonlyInput || state.disabled) {
+    const mousewheel = state.mousewheel();
+    const arrowKeys = state.arrowKeys();
+    const readonlyInput = state.readonlyInput();
+    const disabled = state.disabled();
+
+    if (readonlyInput || disabled) {
         return false;
     }
 
     if (event) {
-        if (event.source === 'wheel' && !state.mousewheel) {
+        if (event.source === 'wheel' && !mousewheel) {
             return false;
         }
 
-        if (event.source === 'key' && !state.arrowKeys) {
+        if (event.source === 'key' && !arrowKeys) {
             return false;
         }
     }
@@ -99,7 +104,13 @@ export function getControlsValue(state: TimePickerComponentState): TimePickerCom
 
 export function timePickerControls(value: Date, state: TimePickerComponentState): TimePickerControls {
     const hoursPerDayHalf = 12;
-    const { min, max, hourStep, minuteStep, secondsStep, showSeconds } = state;
+    const min = state.min();
+    const max = state.max();
+    const hourStep = state.hourStep();
+    const minuteStep = state.minuteStep();
+    const secondsStep = state.secondsStep();
+    const showSeconds = state.showSeconds();
+
     const res: TimePickerControls = {
         canIncrementHours: true,
         canIncrementMinutes: true,

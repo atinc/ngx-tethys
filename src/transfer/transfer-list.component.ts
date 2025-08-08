@@ -2,18 +2,17 @@ import { CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup, moveItemInArray, t
 import {
     Component,
     DoCheck,
-    EventEmitter,
-    HostBinding,
-    Input,
     IterableChanges,
     IterableDiffer,
     IterableDiffers,
     OnInit,
-    Output,
     Signal,
     TemplateRef,
     ViewEncapsulation,
-    inject
+    inject,
+    input,
+    numberAttribute,
+    output
 } from '@angular/core';
 
 import { NgClass, NgTemplateOutlet } from '@angular/common';
@@ -21,6 +20,7 @@ import { ThyList, ThyListItem } from 'ngx-tethys/list';
 import { ThyDragDropDirective } from 'ngx-tethys/shared';
 import { InnerTransferDragEvent, ThyTransferDragEvent, ThyTransferItem, ThyTransferSelectEvent } from './transfer.interface';
 import { injectLocale, ThyTransferLocale } from 'ngx-tethys/i18n';
+import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
 
 /**
  * @private
@@ -28,6 +28,9 @@ import { injectLocale, ThyTransferLocale } from 'ngx-tethys/i18n';
 @Component({
     selector: 'thy-transfer-list',
     templateUrl: './transfer-list.component.html',
+    host: {
+        class: 'thy-transfer-list'
+    },
     encapsulation: ViewEncapsulation.None,
     imports: [CdkDropListGroup, ThyList, CdkDropList, ThyDragDropDirective, ThyListItem, CdkDrag, NgClass, NgTemplateOutlet]
 })
@@ -46,48 +49,48 @@ export class ThyTransferList implements OnInit, DoCheck {
 
     locale: Signal<ThyTransferLocale> = injectLocale('transfer');
 
-    @Input() title: string;
+    readonly title = input<string>();
 
-    @Input() items: ThyTransferItem[];
+    readonly items = input<ThyTransferItem[]>();
 
-    @Input() draggable: boolean;
+    readonly draggable = input<boolean, ThyBooleanInput>(false, { transform: coerceBooleanProperty });
 
-    @Input() canLock: boolean;
+    readonly canLock = input<boolean, ThyBooleanInput>(false, { transform: coerceBooleanProperty });
 
-    @Input() maxLock: number;
+    readonly maxLock = input<number, unknown>(undefined, { transform: numberAttribute });
 
-    @Input() max: number;
+    readonly max = input<number, unknown>(undefined, { transform: numberAttribute });
 
-    @Input() disabled: boolean;
+    readonly disabled = input<boolean, ThyBooleanInput>(false, { transform: coerceBooleanProperty });
 
-    @Input() template: TemplateRef<any>;
+    readonly template = input<TemplateRef<any>>();
 
-    @Input('renderContentRef') contentRef: TemplateRef<any>;
+    readonly renderContentRef = input<TemplateRef<any>>();
 
-    @Output() draggableUpdate: EventEmitter<InnerTransferDragEvent> = new EventEmitter<InnerTransferDragEvent>();
+    readonly draggableUpdate = output<InnerTransferDragEvent>();
 
-    @Output() selectItem: EventEmitter<ThyTransferSelectEvent> = new EventEmitter<ThyTransferSelectEvent>();
+    readonly selectItem = output<ThyTransferSelectEvent>();
 
-    @Output() unselectItem: EventEmitter<ThyTransferSelectEvent> = new EventEmitter<ThyTransferSelectEvent>();
+    readonly unselectItem = output<ThyTransferSelectEvent>();
 
-    @HostBinding('class') hostClass = 'thy-transfer-list';
+    constructor() {}
 
     ngOnInit() {
         this._combineTransferData();
-        if (this.canLock) {
+        if (this.canLock()) {
             this._lockDiff = this.differs.find(this.lockItems).create();
             this._unlockDiff = this.differs.find(this.unlockItems).create();
         } else {
             this._unlockDiff = this.differs.find(this.unlockItems).create();
         }
-        this._diff = this.differs.find(this.items).create();
+        this._diff = this.differs.find(this.items()).create();
     }
 
     private _combineTransferData() {
         this.lockItems = [];
         this.unlockItems = [];
-        if (this.canLock) {
-            (this.items || []).forEach(item => {
+        if (this.canLock()) {
+            (this.items() || []).forEach(item => {
                 if (item.isLock) {
                     this.lockItems.push(item);
                 } else {
@@ -95,7 +98,7 @@ export class ThyTransferList implements OnInit, DoCheck {
                 }
             });
         } else {
-            this.unlockItems = this.items;
+            this.unlockItems = this.items();
         }
     }
 
@@ -117,9 +120,9 @@ export class ThyTransferList implements OnInit, DoCheck {
     }
 
     ngDoCheck() {
-        const changes = this._diff.diff(this.items);
+        const changes = this._diff.diff(this.items());
         if (changes) {
-            this._afterChangeItems(changes, this.items);
+            this._afterChangeItems(changes, this.items());
             this._combineTransferData();
         }
         if (this._lockDiff) {
@@ -135,7 +138,7 @@ export class ThyTransferList implements OnInit, DoCheck {
     }
 
     lockListEnterPredicate = () => {
-        return this.lockItems.length < this.maxLock;
+        return this.lockItems.length < this.maxLock();
     };
 
     unlockListEnterPredicate = (event: CdkDrag<ThyTransferItem>) => {

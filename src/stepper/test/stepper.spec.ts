@@ -8,14 +8,14 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 @Component({
     selector: 'thy-demo-stepper',
     template: `
-        <thy-stepper [thySelectedIndex]="selectedIndex" [thySelected]="selected" [thyShowStepHeader]="showStepHeader">
+        <thy-stepper [thySelectedIndex]="selectedIndex" [thySelected]="selectedStep" [thyShowStepHeader]="showStepHeader">
             <thy-step label="第一步" [thyIcon]="icon">
                 <div class="demo-stepper-body first-step">
                     <button thyButton="primary">下一步</button>
                     <p>This is first description.</p>
                 </div>
             </thy-step>
-            <thy-step label="第二步" #selectedStep>
+            <thy-step label="第二步" #step2>
                 <div class="demo-stepper-body second-step">
                     <button thyButton="primary">下一步</button>
                     <a thyButton="link-secondary">上一步</a>
@@ -33,10 +33,10 @@ import { provideAnimations } from '@angular/platform-browser/animations';
     imports: [ThyStepper, ThyStep]
 })
 class ThyDemoStepperComponent {
-    @ViewChild('selectedStep', { static: true }) selectedStepperComponent: ThyStep;
+    @ViewChild('step2', { static: true }) selectedStepperComponent: ThyStep;
     showStepHeader = true;
     selectedIndex = 0;
-    selected: ThyStep = null;
+    selectedStep: ThyStep = null;
     icon: string;
     next() {}
     previous() {}
@@ -105,7 +105,7 @@ describe('ThyStepper', () => {
 
         it('should support thySelected', () => {
             const stepper = fixture.debugElement.query(By.directive(ThyStepper)).componentInstance;
-            fixture.componentInstance.selected = testComponent.selectedStepperComponent;
+            fixture.componentInstance.selectedStep = testComponent.selectedStepperComponent;
             fixture.componentInstance.selectedIndex = undefined;
             fixture.detectChanges();
             expect(stepper.selected()).toEqual(testComponent.selectedStepperComponent);

@@ -1,8 +1,8 @@
-@if (svgIconName) {
-  <thy-icon [thyIconName]="svgIconName" [style.color]="thyColor" [style.borderColor]="thyColor"></thy-icon>
+@if (svgIconName()) {
+  <thy-icon [thyIconName]="svgIconName()" [style.color]="thyColor()" [style.borderColor]="thyColor()"></thy-icon>
 } @else {
-  @if (iconClasses) {
-    <i [ngClass]="iconClasses" [style.color]="thyColor" [style.borderColor]="thyColor"></i>
+  @if (iconClasses()) {
+    <i [ngClass]="iconClasses()" [style.color]="thyColor()" [style.borderColor]="thyColor()"></i>
   }
 }
 <ng-content></ng-content>

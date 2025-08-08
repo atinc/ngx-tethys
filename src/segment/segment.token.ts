@@ -1,5 +1,6 @@
-import { ElementRef, InjectionToken } from '@angular/core';
+import { ElementRef, InjectionToken, InputSignal, InputSignalWithTransform } from '@angular/core';
 import { SafeAny } from 'ngx-tethys/types';
+import { ThyBooleanInput } from 'ngx-tethys/util';
 
 export interface IThySegmentItemComponent {
     elementRef: ElementRef<HTMLElement>;
@@ -9,8 +10,8 @@ export interface IThySegmentItemComponent {
 }
 
 export interface IThySegmentComponent {
-    thyMode: string;
-    thyDisabled: boolean;
+    thyMode: InputSignal<string>;
+    thyDisabled: InputSignalWithTransform<boolean, ThyBooleanInput> | InputSignal<boolean>;
     selectedItem: IThySegmentItemComponent;
     changeSelectedItem: (item: IThySegmentItemComponent, event?: Event) => void;
 }

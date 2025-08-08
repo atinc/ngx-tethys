@@ -1,4 +1,15 @@
-import { Component, ContentChild, EventEmitter, HostBinding, Input, OnInit, Output, TemplateRef, ViewEncapsulation } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    TemplateRef,
+    ViewEncapsulation,
+    computed,
+    input,
+    output,
+    contentChild,
+    numberAttribute,
+    effect
+} from '@angular/core';
 
 import {
     Direction,
@@ -13,6 +24,7 @@ import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { ThyTransferList } from './transfer-list.component';
+import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
 
 /**
  * 穿梭框组件
@@ -22,126 +34,112 @@ import { ThyTransferList } from './transfer-list.component';
 @Component({
     selector: 'thy-transfer',
     templateUrl: './transfer.component.html',
+    host: {
+        class: 'thy-transfer'
+    },
     encapsulation: ViewEncapsulation.None,
     imports: [ThyTransferList, ThyIcon, NgClass, NgTemplateOutlet, ThyFlexibleText]
 })
 export class ThyTransfer implements OnInit {
-    @HostBinding('class') hostClass = 'thy-transfer';
-
     public leftDataSource: ThyTransferItem[] = [];
 
     public rightDataSource: ThyTransferItem[] = [];
-
-    public allDataSource: ThyTransferItem[] = [];
-
-    public leftTitle: string;
-
-    public rightTitle: string;
-
-    public rightDraggable = false;
-
-    private _autoMove = true;
-
     /**
      * 数据源
      * @type ThyTransferItem[]
      */
-    @Input()
-    set thyData(value: ThyTransferItem[]) {
-        if (value) {
-            this.initializeTransferData(value);
-        }
-    }
+    readonly thyData = input<ThyTransferItem[]>([]);
 
-    @Input() thyrenderLeftTemplateRef: TemplateRef<any>;
+    readonly thyRenderLeftTemplateRef = input<TemplateRef<any>>();
 
-    @Input() thyrenderRightTemplateRef: TemplateRef<any>;
+    readonly thyRenderRightTemplateRef = input<TemplateRef<any>>();
 
     /**
      * title集合，title[0]为左标题，title[1]为右标题
      * @type string[]
      */
-    @Input()
-    set thyTitles(value: string[]) {
-        this.leftTitle = value[0] || '';
-        this.rightTitle = value[1] || '';
-    }
+    readonly thyTitles = input<string[]>([]);
 
     /**
      * 右侧列表是否可以锁定
      * @default false
      */
-    @Input() thyRightCanLock: boolean;
+    readonly thyRightCanLock = input<boolean, ThyBooleanInput>(false, { transform: coerceBooleanProperty });
 
     /**
      * 右侧锁定最大数量
      */
-    @Input() thyRightLockMax: number;
+    readonly thyRightLockMax = input<number, unknown>(undefined, { transform: numberAttribute });
 
     /**
      * 右侧选择最大数量
      */
-    @Input() thyRightMax: number;
+    readonly thyRightMax = input<number, unknown>(undefined, { transform: numberAttribute });
 
     /**
      * 设置是否自动移动
      * @description.en-us Currently not implemented, in order to support the selections move
      * @default true
      */
-    @Input()
-    set thyAutoMove(value: boolean) {
-        this._autoMove = value;
-    }
+    readonly thyAutoMove = input<boolean, ThyBooleanInput>(true, { transform: coerceBooleanProperty });
 
     /**
      * 左侧列表是否拖动
      * @default false
      */
-    @Input() thyLeftDraggable: boolean;
+    readonly thyLeftDraggable = input<boolean, ThyBooleanInput>(false, { transform: coerceBooleanProperty });
 
     /**
      * 右侧列表是否拖动
      * @default false
      */
-    @Input() thyRightDraggable: boolean;
+    readonly thyRightDraggable = input<boolean, ThyBooleanInput>(false, { transform: coerceBooleanProperty });
 
     /**
      * @type EventEmitter<ThyTransferDragEvent>
      */
-    @Output() thyDraggableUpdate: EventEmitter<ThyTransferDragEvent> = new EventEmitter<ThyTransferDragEvent>();
+    thyDraggableUpdate = output<ThyTransferDragEvent>();
 
     /**
      * Transfer变化的回调事件
      * @type EventEmitter<ThyTransferChangeEvent>
      */
-    @Output() thyChange: EventEmitter<ThyTransferChangeEvent> = new EventEmitter<ThyTransferChangeEvent>();
+    thyChange = output<ThyTransferChangeEvent>();
 
     /**
      * 设置自定义Item渲染数据模板
      * @type TemplateRef
      */
-    @ContentChild('renderTemplate') templateRef: TemplateRef<any>;
+    readonly templateRef = contentChild<TemplateRef<any>>('renderTemplate');
 
     /**
      * 设置自定义左侧内容模板
      * @type TemplateRef
      */
-    @ContentChild('renderLeftTemplate') leftContentRef: TemplateRef<any>;
+    readonly leftContentRef = contentChild<TemplateRef<any>>('renderLeftTemplate');
 
     /**
      * 设置自定义右侧内容模板
      * @type TemplateRef
      */
-    @ContentChild('renderRightTemplate') rightContentRef: TemplateRef<any>;
+    readonly rightContentRef = contentChild<TemplateRef<any>>('renderRightTemplate');
+
+    readonly leftTitle = computed(() => this.thyTitles()[0] || '');
+
+    readonly rightTitle = computed(() => this.thyTitles()[1] || '');
+
+    constructor() {
+        effect(() => {
+            this.initializeTransferData();
+        });
+    }
 
     ngOnInit() {}
 
     initializeTransferData(data: ThyTransferItem[] = []) {
-        this.allDataSource = [];
         this.leftDataSource = [];
         this.rightDataSource = [];
-        data.forEach(item => {
-            this.allDataSource.push(item);
+        this.thyData().forEach(item => {
             if (item.direction === TransferDirection.left) {
                 this.leftDataSource.push(item);
             }
@@ -155,12 +153,12 @@ export class ThyTransfer implements OnInit {
         if (event.item.isFixed) {
             return;
         }
-        if (this.thyRightMax <= this.rightDataSource.length && from === TransferDirection.left) {
+        if (this.thyRightMax() <= this.rightDataSource.length && from === TransferDirection.left) {
             return;
         }
         const to = from === TransferDirection.left ? TransferDirection.right : TransferDirection.left;
         event.item.checked = !event.item.checked;
-        if (this._autoMove) {
+        if (this.thyAutoMove()) {
             this.onMove(to);
         }
     }

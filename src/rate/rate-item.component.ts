@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { Component, TemplateRef, input, output } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgTemplateOutlet } from '@angular/common';
 import { ThyStopPropagationDirective } from 'ngx-tethys/shared';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
 
 /**
  * @private
@@ -11,10 +11,10 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     selector: 'thy-rate-item, [thy-rate-item]',
     template: `
         <div class="thy-rate-item-left" thyStopPropagation (mouseover)="hoverRateItem(true)" (click)="clickRateItem(true)">
-            <ng-template [ngTemplateOutlet]="iconTemplate || (iconValue && character) || defaultTemplate"></ng-template>
+            <ng-template [ngTemplateOutlet]="iconTemplate() || (iconValue() && character) || defaultTemplate"></ng-template>
         </div>
         <div class="thy-rate-item-all" thyStopPropagation (mouseover)="hoverRateItem(false)" (click)="clickRateItem(false)">
-            <ng-template [ngTemplateOutlet]="iconTemplate || (iconValue && character) || defaultTemplate"></ng-template>
+            <ng-template [ngTemplateOutlet]="iconTemplate() || (iconValue() && character) || defaultTemplate"></ng-template>
         </div>
 
         <ng-template #defaultTemplate>
@@ -22,31 +22,29 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
         </ng-template>
 
         <ng-template #character>
-            <thy-icon [thyIconName]="iconValue"></thy-icon>
+            <thy-icon [thyIconName]="iconValue()"></thy-icon>
         </ng-template>
     `,
     imports: [ThyStopPropagationDirective, NgTemplateOutlet, ThyIcon]
 })
-export class ThyRateItem implements OnInit {
-    @Input({ transform: coerceBooleanProperty }) allowHalf = false;
+export class ThyRateItem {
+    readonly allowHalf = input<boolean, ThyBooleanInput>(false, { transform: coerceBooleanProperty });
 
-    @Input() iconValue: string;
+    readonly iconValue = input<string>();
 
-    @Input() iconTemplate: TemplateRef<any>;
+    readonly iconTemplate = input<TemplateRef<any>>();
 
-    @Output() readonly itemHover = new EventEmitter<boolean>();
+    readonly itemHover = output<boolean>();
 
-    @Output() readonly itemClick = new EventEmitter<boolean>();
+    readonly itemClick = output<boolean>();
 
     constructor() {}
 
-    ngOnInit() {}
-
     hoverRateItem(isHalf: boolean): void {
-        this.itemHover.next(isHalf && this.allowHalf);
+        this.itemHover.emit(isHalf && this.allowHalf());
     }
 
     clickRateItem(isHalf: boolean): void {
-        this.itemClick.next(isHalf && this.allowHalf);
+        this.itemClick.emit(isHalf && this.allowHalf());
     }
 }

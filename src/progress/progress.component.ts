@@ -1,25 +1,16 @@
 import { isNumber } from 'ngx-tethys/util';
-
 import {
     ChangeDetectionStrategy,
     Component,
     computed,
-    Input,
-    OnChanges,
-    OnInit,
-    QueryList,
-    SimpleChanges,
     TemplateRef,
-    ViewChildren,
     ViewEncapsulation,
     numberAttribute,
     input,
-    signal,
     viewChildren,
     effect
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
-
 import { ThyProgressGapPositionType, ThyProgressShapeType, ThyProgressStackedValue, ThyProgressType } from './interfaces';
 import { THY_PROGRESS_COMPONENT, ThyParentProgress, ThyProgressStrip } from './progress-strip.component';
 import { ThyProgressCircle } from './progress-circle.component';
@@ -50,7 +41,7 @@ import { NgClass, NgTemplateOutlet } from '@angular/common';
     },
     imports: [ThyProgressStrip, NgClass, ThyTooltipDirective, NgTemplateOutlet, ThyProgressCircle]
 })
-export class ThyProgress implements ThyParentProgress, OnInit, OnChanges {
+export class ThyProgress implements ThyParentProgress {
     private hostRenderer = useHostRenderer();
 
     readonly barsTotalValue = computed(() => {
@@ -113,7 +104,7 @@ export class ThyProgress implements ThyParentProgress, OnInit, OnChanges {
     /**
      * 最大值，主要计算百分比进度的分母使用，当 thyValue 传入数组时，自动累加数组中的 value 之和为 max
      */
-    readonly thyMax = input<number, number | string | unknown>(undefined, { transform: numberAttribute });
+    readonly thyMax = input<number, unknown>(undefined, { transform: numberAttribute });
 
     /**
      * 鼠标移入进度条时显示的提示文案或者模板
@@ -148,8 +139,4 @@ export class ThyProgress implements ThyParentProgress, OnInit, OnChanges {
             this.hostRenderer.updateClass(size ? [`progress-${size}`] : []);
         });
     }
-
-    ngOnInit() {}
-
-    ngOnChanges(changes: SimpleChanges): void {}
 }

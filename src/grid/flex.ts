@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Directive, computed, effect, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Directive, effect, input } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { isUndefinedOrNull } from '@tethys/cdk/is';
 
@@ -35,9 +35,10 @@ export class ThyFlex {
 
     /**
      * Flex 方向，为 row 或者 column
-     * @default row
      */
-    readonly thyDirection = input<ThyFlexDirection>();
+    readonly thyDirection = input<ThyFlexDirection, ThyFlexDirection>('row', {
+        transform: (value: ThyFlexDirection) => value || 'row'
+    });
 
     /**
      * Flex Wrap
@@ -60,10 +61,6 @@ export class ThyFlex {
      * @default 0
      */
     readonly thyGap = input<number>();
-
-    protected readonly direction = computed(() => {
-        return this.thyDirection() || 'row';
-    });
 
     constructor() {
         effect(() => {
@@ -88,7 +85,7 @@ export class ThyFlex {
             classes.push(`flex-${wrap}`);
         }
 
-        const direction = this.direction();
+        const direction = this.thyDirection();
         if (!isUndefinedOrNull(direction)) {
             classes.push(`flex-${direction}`);
         }

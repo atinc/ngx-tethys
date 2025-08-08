@@ -1,17 +1,15 @@
 import {
     Directive,
-    AfterViewInit,
     OnDestroy,
     ElementRef,
     Renderer2,
     NgZone,
-    Input,
-    Output,
-    EventEmitter,
-    ChangeDetectorRef,
     inject,
     DestroyRef,
-    numberAttribute
+    numberAttribute,
+    input,
+    output,
+    signal
 } from '@angular/core';
 import { ThyResizableService } from './resizable.service';
 import { Platform } from '@angular/cdk/platform';
@@ -31,92 +29,93 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     providers: [ThyResizableService],
     host: {
         class: 'thy-resizable',
-        '[class.thy-resizable-resizing]': 'resizing',
-        '[class.thy-resizable-disabled]': 'thyDisabled'
+        '[class.thy-resizable-resizing]': 'resizing()',
+        '[class.thy-resizable-disabled]': 'thyDisabled()'
     }
 })
-export class ThyResizableDirective implements AfterViewInit, OnDestroy {
+export class ThyResizableDirective implements OnDestroy {
     private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
     private renderer = inject(Renderer2);
     private platform = inject(Platform);
     private ngZone = inject(NgZone);
     private thyResizableService = inject(ThyResizableService);
-    private changeDetectorRef = inject(ChangeDetectorRef);
 
     /**
      * 调整尺寸的边界
      * @default parent
      * @type 'window' | 'parent' | ElementRef<HTMLElement>
      */
-    @Input() thyBounds: 'window' | 'parent' | ElementRef<HTMLElement> = 'parent';
+    readonly thyBounds = input<'window' | 'parent' | ElementRef<HTMLElement>>('parent');
 
     /**
      * 最大高度(超过边界部分忽略)
      */
-    @Input({ transform: numberAttribute }) thyMaxHeight?: number;
+    readonly thyMaxHeight = input<number, unknown>(undefined, { transform: numberAttribute });
 
     /**
      * 最大宽度(超过边界部分忽略)
      */
-    @Input({ transform: numberAttribute }) thyMaxWidth?: number;
+    readonly thyMaxWidth = input<number, unknown>(undefined, { transform: numberAttribute });
 
     /**
      * 最小高度
      */
-    @Input({ transform: numberAttribute }) thyMinHeight: number = 40;
+    readonly thyMinHeight = input(40, { transform: numberAttribute });
 
     /**
      * 最小宽度
      */
-    @Input({ transform: numberAttribute }) thyMinWidth: number = 40;
+    readonly thyMinWidth = input(40, { transform: numberAttribute });
 
     /**
      * 栅格列数(-1 为不栅格)
      */
-    @Input({ transform: numberAttribute }) thyGridColumnCount: number = -1;
+    readonly thyGridColumnCount = input(-1, { transform: numberAttribute });
 
     /**
      * 栅格最大列数
      */
-    @Input({ transform: numberAttribute }) thyMaxColumn: number = -1;
+    readonly thyMaxColumn = input(-1, { transform: numberAttribute });
 
     /**
      * 栅格最小列数
      */
-    @Input({ transform: numberAttribute }) thyMinColumn: number = -1;
+    readonly thyMinColumn = input(-1, { transform: numberAttribute });
 
     /**
      * 锁定宽高比
      */
-    @Input({ transform: coerceBooleanProperty }) thyLockAspectRatio: boolean = false;
+    readonly thyLockAspectRatio = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 是否预览模式
      */
-    @Input({ transform: coerceBooleanProperty }) thyPreview: boolean = false;
+    readonly thyPreview = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 是否禁用调整大小
      */
-    @Input({ transform: coerceBooleanProperty }) thyDisabled: boolean = false;
+    readonly thyDisabled = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 调整尺寸时的事件
      */
-    @Output() readonly thyResize = new EventEmitter<ThyResizeEvent>();
+    readonly thyResize = output<ThyResizeEvent>();
 
     /**
      * 开始调整尺寸时的事件
      */
-    @Output() readonly thyResizeStart = new EventEmitter<ThyResizeEvent>();
+    readonly thyResizeStart = output<ThyResizeEvent>();
 
     /**
      * 结束调整尺寸时的事件
      */
-    @Output() readonly thyResizeEnd = new EventEmitter<ThyResizeEvent>();
+    readonly thyResizeEnd = output<ThyResizeEvent>();
 
-    resizing = false;
-    private nativeElement!: HTMLElement;
+    resizing = signal(false);
+    private get nativeElement() {
+        return this.elementRef.nativeElement as HTMLElement;
+    }
     private nativeElementRect!: ClientRect | DOMRect;
     private sizeCache: ThyResizeEvent | null = null;
     private ghostElement: HTMLDivElement | null = null;
@@ -125,27 +124,24 @@ export class ThyResizableDirective implements AfterViewInit, OnDestroy {
 
     constructor() {
         this.thyResizableService.handleMouseDownOutsideAngular$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(event => {
-            if (this.thyDisabled) {
+            if (this.thyDisabled()) {
                 return;
             }
-            this.resizing = true;
+            this.resizing.set(true);
             const { mouseEvent } = event;
             this.thyResizableService.startResizing(mouseEvent);
             this.currentHandleEvent = event;
             this.setCursor();
             // Re-enter the Angular zone and run the change detection only if there're any `thyResizeStart` listeners,
             // e.g.: `<div thyResizable (thyResizeStart)="..."></div>`.
-            if (this.thyResizeStart.observers.length) {
-                this.ngZone.run(() => this.thyResizeStart.emit({ mouseEvent }));
-            }
+            this.ngZone.run(() => this.thyResizeStart.emit({ mouseEvent }));
             this.nativeElementRect = this.nativeElement.getBoundingClientRect();
         });
 
         this.thyResizableService.documentMouseUpOutsideAngular$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(event => {
-            if (this.resizing) {
+            if (this.resizing()) {
                 this.ngZone.run(() => {
-                    this.resizing = false;
-                    this.changeDetectorRef.markForCheck();
+                    this.resizing.set(false);
                 });
                 this.thyResizableService.documentMouseUpOutsideAngular$.next(event);
                 this.endResize(event);
@@ -153,17 +149,18 @@ export class ThyResizableDirective implements AfterViewInit, OnDestroy {
         });
 
         this.thyResizableService.documentMouseMoveOutsideAngular$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(event => {
-            if (this.resizing) {
+            if (this.resizing()) {
                 this.resize(event);
             }
         });
+
+        this.bindMouseEnterAndLeaveEvents();
     }
 
-    ngAfterViewInit(): void {
+    private bindMouseEnterAndLeaveEvents() {
         if (!this.platform.isBrowser) {
             return;
         }
-        this.nativeElement = this.elementRef.nativeElement;
         this.ngZone.runOutsideAngular(() => {
             fromEvent(this.nativeElement, 'mouseenter')
                 .pipe(takeUntilDestroyed(this.destroyRef))
@@ -213,14 +210,12 @@ export class ThyResizableDirective implements AfterViewInit, OnDestroy {
               };
         // Re-enter the Angular zone and run the change detection only if there're any `thyResizeEnd` listeners,
         // e.g.: `<div thyResizable (thyResizeEnd)="..."></div>`.
-        if (this.thyResizeEnd.observers.length) {
-            this.ngZone.run(() => {
-                this.thyResizeEnd.emit({
-                    ...size,
-                    mouseEvent: event
-                });
+        this.ngZone.run(() => {
+            this.thyResizeEnd.emit({
+                ...size,
+                mouseEvent: event
             });
-        }
+        });
         this.sizeCache = null;
         this.currentHandleEvent = null;
     }
@@ -231,7 +226,7 @@ export class ThyResizableDirective implements AfterViewInit, OnDestroy {
         const handleEvent = getEventWithPoint(this.currentHandleEvent!.mouseEvent);
         let width = nativeElementRect.width;
         let height = nativeElementRect.height;
-        const ratio = this.thyLockAspectRatio ? width / height : -1;
+        const ratio = this.thyLockAspectRatio() ? width / height : -1;
         switch (this.currentHandleEvent!.direction) {
             case 'bottomRight':
                 width = resizeEvent.clientX - nativeElementRect.left;
@@ -265,16 +260,14 @@ export class ThyResizableDirective implements AfterViewInit, OnDestroy {
         this.sizeCache = { ...size };
         // Re-enter the Angular zone and run the change detection only if there're any `thyResize` listeners,
         // e.g.: `<div thyResizable (thyResize)="..."></div>`.
-        if (this.thyResize.observers.length) {
-            this.ngZone.run(() => {
-                this.thyResize.emit({
-                    ...size,
-                    mouseEvent: event
-                });
+        this.ngZone.run(() => {
+            this.thyResize.emit({
+                ...size,
+                mouseEvent: event
             });
-        }
+        });
 
-        if (this.thyPreview) {
+        if (this.thyPreview()) {
             this.previewResize(size);
         }
     }
@@ -286,56 +279,61 @@ export class ThyResizableDirective implements AfterViewInit, OnDestroy {
         let maxHeight: number;
         let col = 0;
         let spanWidth = 0;
-        let minWidth = this.thyMinWidth;
+        let minWidth = this.thyMinWidth();
         let boundWidth = Infinity;
         let boundHeight = Infinity;
-        if (this.thyBounds === 'parent') {
+        const bounds = this.thyBounds();
+        if (bounds === 'parent') {
             const parent = this.renderer.parentNode(this.nativeElement);
             if (parent instanceof HTMLElement) {
                 const parentRect = parent.getBoundingClientRect();
                 boundWidth = parentRect.width;
                 boundHeight = parentRect.height;
             }
-        } else if (this.thyBounds === 'window') {
+        } else if (bounds === 'window') {
             if (typeof window !== 'undefined') {
                 boundWidth = window.innerWidth;
                 boundHeight = window.innerHeight;
             }
-        } else if (this.thyBounds && this.thyBounds.nativeElement && this.thyBounds.nativeElement instanceof HTMLElement) {
-            const boundsRect = this.thyBounds.nativeElement.getBoundingClientRect();
+        } else if (bounds && bounds.nativeElement && bounds.nativeElement instanceof HTMLElement) {
+            const boundsRect = bounds.nativeElement.getBoundingClientRect();
             boundWidth = boundsRect.width;
             boundHeight = boundsRect.height;
         }
 
-        maxWidth = ensureInBounds(this.thyMaxWidth!, boundWidth);
-        maxHeight = ensureInBounds(this.thyMaxHeight!, boundHeight);
+        maxWidth = ensureInBounds(this.thyMaxWidth()!, boundWidth);
+        maxHeight = ensureInBounds(this.thyMaxHeight()!, boundHeight);
 
-        if (this.thyGridColumnCount !== -1) {
-            spanWidth = maxWidth / this.thyGridColumnCount;
-            minWidth = this.thyMinColumn !== -1 ? spanWidth * this.thyMinColumn : minWidth;
-            maxWidth = this.thyMaxColumn !== -1 ? spanWidth * this.thyMaxColumn : maxWidth;
+        const gridColumnCount = this.thyGridColumnCount();
+        if (gridColumnCount !== -1) {
+            spanWidth = maxWidth / gridColumnCount;
+            const minColumn = this.thyMinColumn();
+            minWidth = minColumn !== -1 ? spanWidth * minColumn : minWidth;
+            const maxColumn = this.thyMaxColumn();
+            maxWidth = maxColumn !== -1 ? spanWidth * maxColumn : maxWidth;
         }
 
+        const minHeight = this.thyMinHeight();
         if (ratio !== -1) {
             if (/(left|right)/i.test(this.currentHandleEvent!.direction)) {
                 newWidth = Math.min(Math.max(width, minWidth), maxWidth);
-                newHeight = Math.min(Math.max(newWidth / ratio, this.thyMinHeight), maxHeight);
-                if (newHeight >= maxHeight || newHeight <= this.thyMinHeight) {
+                newHeight = Math.min(Math.max(newWidth / ratio, minHeight), maxHeight);
+                if (newHeight >= maxHeight || newHeight <= minHeight) {
                     newWidth = Math.min(Math.max(newHeight * ratio, minWidth), maxWidth);
                 }
             } else {
-                newHeight = Math.min(Math.max(height, this.thyMinHeight), maxHeight);
+                newHeight = Math.min(Math.max(height, minHeight), maxHeight);
                 newWidth = Math.min(Math.max(newHeight * ratio, minWidth), maxWidth);
                 if (newWidth >= maxWidth || newWidth <= minWidth) {
-                    newHeight = Math.min(Math.max(newWidth / ratio, this.thyMinHeight), maxHeight);
+                    newHeight = Math.min(Math.max(newWidth / ratio, minHeight), maxHeight);
                 }
             }
         } else {
             newWidth = Math.min(Math.max(width, minWidth), maxWidth);
-            newHeight = Math.min(Math.max(height, this.thyMinHeight), maxHeight);
+            newHeight = Math.min(Math.max(height, minHeight), maxHeight);
         }
 
-        if (this.thyGridColumnCount !== -1) {
+        if (gridColumnCount !== -1) {
             col = Math.round(newWidth / spanWidth);
             newWidth = col * spanWidth;
         }

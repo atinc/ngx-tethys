@@ -1,4 +1,4 @@
-import { Component, Input, HostBinding, NgZone, inject } from '@angular/core';
+import { Component, HostBinding, effect, inject } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { ThyMessageConfig } from './message.config';
 import { ThyMessageQueue } from './message-queue.service';
@@ -16,7 +16,7 @@ import { useHostRenderer } from '@tethys/cdk/dom';
     selector: 'thy-message',
     templateUrl: './message.component.html',
     host: {
-        '[class]': "'thy-message thy-message-' + config.type"
+        '[class]': "'thy-message thy-message-' + config().type"
     },
     animations: [
         trigger('flyInOut', [
@@ -34,22 +34,18 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 export class ThyMessage extends ThyAbstractMessageComponent<ThyMessageConfig> {
     @HostBinding('@flyInOut') animationState = 'flyIn';
 
-    config: ThyMessageConfig;
-
     private hostRenderer = useHostRenderer();
-
-    @Input()
-    set thyConfig(value: ThyMessageConfig) {
-        this.config = value;
-
-        if (this.config?.hostClass) {
-            const hostClass = coerceArray(this.config.hostClass);
-            this.hostRenderer.updateClass(hostClass);
-        }
-    }
 
     constructor() {
         const messageQueue = inject(ThyMessageQueue);
         super(messageQueue);
+
+        effect(() => {
+            const config = this.config();
+            if (config?.hostClass) {
+                const hostClass = coerceArray(config.hostClass);
+                this.hostRenderer.updateClass(hostClass);
+            }
+        });
     }
 }

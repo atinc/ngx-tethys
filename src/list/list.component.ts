@@ -1,4 +1,4 @@
-import { Component, Input, HostBinding } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
@@ -8,21 +8,15 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
  */
 @Component({
     selector: 'thy-list',
+    host: {
+        class: 'thy-list',
+        '[class.thy-list-divided]': 'thyDivided()'
+    },
     template: '<ng-content></ng-content>'
 })
 export class ThyList {
     /**
      * 控制分割线的显示与隐藏
-     * @default false
      */
-    @Input({ transform: coerceBooleanProperty })
-    set thyDivided(value: boolean) {
-        this._isDivided = value;
-    }
-
-    @HostBinding(`class.thy-list-divided`) _isDivided = false;
-
-    @HostBinding(`class.thy-list`) _isList = true;
-
-    constructor() {}
+    readonly thyDivided = input(false, { transform: coerceBooleanProperty });
 }

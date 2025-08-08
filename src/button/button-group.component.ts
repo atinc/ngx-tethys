@@ -1,6 +1,6 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { Component, HostBinding, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, effect, HostBinding, input, Input, OnInit, ViewEncapsulation } from '@angular/core';
 
 export type ButtonGroupSize = 'sm' | 'lg' | 'xs' | 'md';
 
@@ -20,16 +20,14 @@ const buttonGroupSizeMap = {
  */
 @Component({
     selector: 'thy-button-group',
-    template: '',
+    template: '<ng-content></ng-content>',
+    host: {
+        class: 'btn-group',
+        '[class.btn-group-clear-min-width]': 'thyClearMinWidth()'
+    },
     encapsulation: ViewEncapsulation.None
 })
-export class ThyButtonGroup implements OnInit {
-    private initialized = false;
-
-    private type: string;
-
-    private size: string;
-
+export class ThyButtonGroup {
     private hostRenderer = useHostRenderer();
 
     /**
@@ -37,54 +35,36 @@ export class ThyButtonGroup implements OnInit {
      * @type xs | sm | md | lg
      * @default md
      */
-    @Input()
-    set thySize(size: ButtonGroupSize) {
-        this.size = size;
-        if (this.initialized) {
-            this.setClasses();
-        }
-    }
+    readonly thySize = input<ButtonGroupSize>();
 
     /**
      * 类型
      * @type outline-default | outline-primary
      * @default outline-default
      */
-    @Input()
-    set thyType(type: ButtonGroupType) {
-        this.type = type;
-        if (this.initialized) {
-            this.setClasses();
-        }
-    }
+    readonly thyType = input<ButtonGroupType>();
 
     /**
      * 是否需要最小宽度，默认按钮最小宽度为80px
      * @default false
      */
-    @Input()
-    set thyClearMinWidth(value: string) {
-        this.thyClearMinWidthClassName = coerceBooleanProperty(value);
-    }
+    readonly thyClearMinWidth = input(false, { transform: coerceBooleanProperty });
 
-    @HostBinding('class.btn-group') _isButtonGroup = true;
-    @HostBinding(`class.btn-group-clear-min-width`)
-    thyClearMinWidthClassName = false;
-
-    constructor() {}
-
-    ngOnInit() {
-        this.setClasses();
-        this.initialized = true;
+    constructor() {
+        effect(() => {
+            this.setClasses();
+        });
     }
 
     private setClasses() {
-        const classNames: string[] = [];
-        if (this.type) {
-            classNames.push(`btn-group-${this.type}`);
+        const type = this.thyType();
+        const size = this.thySize();
+        let classNames: string[] = [];
+        if (type) {
+            classNames.push(`btn-group-${type}`);
         }
-        if (this.size && this.size in buttonGroupSizeMap) {
-            classNames.push(...(buttonGroupSizeMap[this.size as keyof typeof buttonGroupSizeMap] as string[]));
+        if (buttonGroupSizeMap[size]) {
+            classNames = classNames.concat(...buttonGroupSizeMap[size]);
         }
         this.hostRenderer.updateClass(classNames);
     }

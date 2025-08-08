@@ -1,22 +1,22 @@
 import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
-import { coerceBooleanProperty, helpers } from 'ngx-tethys/util';
+import { coerceBooleanProperty, helpers, ThyBooleanInput } from 'ngx-tethys/util';
 
 import { NgClass } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    EventEmitter,
     forwardRef,
-    HostBinding,
     Input,
     numberAttribute,
-    OnChanges,
-    OnInit,
-    Output,
-    SimpleChanges,
     TemplateRef,
-    inject
+    inject,
+    input,
+    output,
+    computed,
+    model,
+    ModelSignal,
+    effect
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyStopPropagationDirective } from 'ngx-tethys/shared';
@@ -47,24 +47,14 @@ const noop = () => {};
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [ThyStopPropagationDirective, ThyRateItem, NgClass, ThyTooltipDirective]
 })
-export class ThyRate extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor, OnInit, OnChanges {
+export class ThyRate extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor {
     private cdr = inject(ChangeDetectorRef);
 
-    private _value = 0;
+    readonly thyValue: ModelSignal<number> = model(0);
 
-    private currentValue = 0;
+    readonly currentValue: ModelSignal<number> = model(0);
 
-    private hasHalf = false;
-
-    public rateArray: number[] = [];
-
-    public rateStyleArray: Record<string, boolean>[] = [];
-
-    private icons: string | TemplateRef<any> | string[] | TemplateRef<any>[] = null;
-
-    public iconValue: string = null;
-
-    public iconTemplate: TemplateRef<any> = null;
+    readonly hasHalf: ModelSignal<boolean> = model(false);
 
     private onTouchedCallback: () => void = noop;
 
@@ -73,7 +63,7 @@ export class ThyRate extends TabIndexDisabledControlValueAccessorMixin implement
     /**
      * 自定义评分的总数
      */
-    @Input({ transform: numberAttribute }) thyCount = 5;
+    readonly thyCount = input(5, { transform: numberAttribute });
 
     /**
      * 是否只读
@@ -93,163 +83,149 @@ export class ThyRate extends TabIndexDisabledControlValueAccessorMixin implement
      * 是否允许半选
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyAllowHalf = false;
+    readonly thyAllowHalf = input<boolean, ThyBooleanInput>(false, { transform: coerceBooleanProperty });
 
     /**
      * 是否允许再次点击后清除
      */
-    @Input({ transform: coerceBooleanProperty }) thyAllowClear = true;
+    readonly thyAllowClear = input<boolean, ThyBooleanInput>(true, { transform: coerceBooleanProperty });
 
     /**
      * 自定义每项的提示信息
      * @type string[]
      */
-    @Input() thyTooltips: string[] = [];
+    readonly thyTooltips = input<string[]>([]);
 
     /**
      * 自定义模板，目前支持传单个模板或图标名称、数组(模板 | 图标名称)
      * @type string | TemplateRef<any> | string[] | TemplateRef<any>[]
      */
-    @Input('thyIconTemplate')
-    set thyIconTemplate(value: string | TemplateRef<any> | string[] | TemplateRef<any>[]) {
-        this.icons = value;
-        if (!this.icons) {
-            this.iconValue = null;
-            this.iconTemplate = null;
-        } else {
-            this.setIconTemplate();
-        }
-    }
+    readonly thyIconTemplate = input<string | TemplateRef<any> | string[] | TemplateRef<any>[]>(null);
 
     /**
      * 当前值hover时的回调
      */
-    @Output() readonly thyItemHoverChange = new EventEmitter<number>();
+    readonly thyItemHoverChange = output<number>();
 
-    @HostBinding('class.thy-rate') className = true;
+    readonly iconValue = computed(() => {
+        const icons = this.thyIconTemplate();
+        const currentValue = this.currentValue();
+        if (!icons) {
+            return null;
+        } else {
+            let iconValue = null;
+            if (helpers.isArray(icons) && icons.length > 0) {
+                const currentIcon = (currentValue && currentValue - 1) || 0;
+                iconValue = icons[currentIcon];
+            } else if (!helpers.isArray(icons)) {
+                iconValue = icons;
+            }
+            if (iconValue instanceof TemplateRef) {
+                return null;
+            } else {
+                return iconValue;
+            }
+        }
+    });
+
+    readonly iconTemplate = computed(() => {
+        const icons = this.thyIconTemplate();
+        const currentValue = this.currentValue();
+        if (!icons) {
+            return null;
+        } else {
+            let iconTemplate = null;
+            if (helpers.isArray(icons) && icons.length > 0) {
+                const currentIcon = (currentValue && currentValue - 1) || 0;
+                iconTemplate = icons[currentIcon] as TemplateRef<any>;
+            } else if (!helpers.isArray(icons)) {
+                iconTemplate = icons;
+            }
+            if (iconTemplate instanceof TemplateRef) {
+                return iconTemplate;
+            } else {
+                return null;
+            }
+        }
+    });
+
+    readonly rateArray = computed(() => {
+        return this.updateRateArray();
+    });
+
+    readonly rateStyleArray = computed(() => {
+        return this.updateItemStyle();
+    });
 
     constructor() {
         super();
-    }
-
-    get thyValue(): number {
-        return this._value;
-    }
-
-    set thyValue(value: number) {
-        if (this._value === value) {
-            return;
-        }
-        this._value = value;
-        this.hasHalf = !Number.isInteger(value);
-        this.currentValue = Math.ceil(value);
+        effect(() => {
+            this.hasHalf.set(!Number.isInteger(this.thyValue()));
+            this.currentValue.set(Math.ceil(this.thyValue()));
+        });
     }
 
     writeValue(value: number): void {
-        this.thyValue = value || 0;
-        this.updateRateArray();
+        this.thyValue.set(value || 0);
         this.cdr.markForCheck();
     }
 
-    ngOnInit() {}
-
-    ngOnChanges(changes: SimpleChanges): void {
-        const { thyCount, thyValue } = changes;
-        if (thyCount) {
-            this.updateRateArray();
-        }
-
-        if (thyValue) {
-            this.updateItemStyle();
-        }
-        this.cdr.detectChanges();
-    }
-
     itemHover(isHalf: boolean, index: number): void {
-        if (this.thyDisabled || (this.currentValue === index + 1 && this.hasHalf === isHalf)) {
+        if (this.thyDisabled || (this.currentValue() === index + 1 && this.hasHalf() === isHalf)) {
             return;
         }
-        this.currentValue = index + 1;
-        this.hasHalf = isHalf;
-        const _value = isHalf ? Number(this.currentValue - 0.5) : this.currentValue;
+        this.currentValue.set(index + 1);
+        this.hasHalf.set(isHalf);
+        const _value = isHalf ? Number(this.currentValue() - 0.5) : this.currentValue();
         this.thyItemHoverChange.emit(_value);
-        this.updateItemStyle();
     }
 
     itemClick(isHalf: boolean, index: number) {
         if (this.thyDisabled) {
             return;
         }
-        this.currentValue = index + 1;
+        this.currentValue.set(index + 1);
         const _value = isHalf ? index + 1 - 0.5 : index + 1;
-        if (this.thyValue === _value) {
-            if (this.thyAllowClear) {
-                this.thyValue = 0;
-                this.onChangeCallback(this.thyValue);
+        if (this.thyValue() === _value) {
+            if (this.thyAllowClear()) {
+                this.thyValue.set(0);
+                this.onChangeCallback(this.thyValue());
                 this.onTouchedCallback();
             }
         } else {
-            this.thyValue = _value;
-            this.onChangeCallback(this.thyValue);
+            this.thyValue.set(_value);
+            this.onChangeCallback(this.thyValue());
             this.onTouchedCallback();
         }
-        this.updateItemStyle();
     }
 
     onRateLeave(event: Event): void {
         event.stopPropagation();
-        this.hasHalf = !Number.isInteger(this.thyValue);
-        this.currentValue = Math.ceil(this.thyValue);
-        this.updateItemStyle();
+        this.hasHalf.set(!Number.isInteger(this.thyValue()));
+        this.currentValue.set(Math.ceil(this.thyValue()));
     }
 
-    updateRateArray(): void {
-        this.rateArray = Array(this.thyCount)
-            .fill(0)
-            .map((_, i) => {
-                return i;
-            });
-        this.updateItemStyle();
+    updateRateArray(): number[] {
+        return this.thyCount() > 0
+            ? Array(this.thyCount())
+                  .fill(0)
+                  .map((_, i) => {
+                      return i;
+                  })
+            : [];
     }
 
-    updateItemStyle(): void {
-        this.updateIcon();
+    updateItemStyle(): Record<string, boolean>[] {
         const rateStyle = 'thy-rate-star';
-        this.rateStyleArray = this.rateArray.map(i => {
+        return this.rateArray().map(i => {
             const value = i + 1;
             return {
-                [`${rateStyle}--full`]: value < this.currentValue || (value === this.currentValue && !this.hasHalf),
-                [`${rateStyle}--half`]: this.hasHalf && value === this.currentValue,
-                [`${rateStyle}--active`]: this.hasHalf && value === this.currentValue,
-                [`${rateStyle}--zero`]: value > this.currentValue
+                [`${rateStyle}--full`]: value < this.currentValue() || (value === this.currentValue() && !this.hasHalf()),
+                [`${rateStyle}--half`]: this.hasHalf() && value === this.currentValue(),
+                [`${rateStyle}--active`]: this.hasHalf() && value === this.currentValue(),
+                [`${rateStyle}--zero`]: value > this.currentValue()
             };
         });
-    }
-
-    updateIcon(): void {
-        if (!this.icons) {
-            this.iconValue = null;
-            this.iconTemplate = null;
-        } else {
-            this.setIconTemplate();
-        }
-    }
-
-    setIconTemplate(): void {
-        if (helpers.isArray(this.icons) && this.icons.length > 0) {
-            const currentIcon = (this.currentValue && this.currentValue - 1) || 0;
-            if (this.icons[currentIcon] instanceof TemplateRef) {
-                this.iconTemplate = this.icons[currentIcon] as TemplateRef<any>;
-            } else {
-                this.iconValue = this.icons[currentIcon] as string;
-            }
-        } else if (!helpers.isArray(this.icons)) {
-            if (this.icons instanceof TemplateRef) {
-                this.iconTemplate = this.icons;
-            } else {
-                this.iconValue = this.icons;
-            }
-        }
     }
 
     registerOnChange(fn: any): void {

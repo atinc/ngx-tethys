@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, viewChild } from '@angular/core';
 import { bigTreeNodes } from '../mocks';
 import { ThyTree, ThyTreeDragDropEvent } from 'ngx-tethys/tree';
 
@@ -10,7 +10,7 @@ import { ThyTree, ThyTreeDragDropEvent } from 'ngx-tethys/tree';
 export class ThyTreeVirtualScrollExampleComponent {
     bigTreeNodes = bigTreeNodes;
 
-    @ViewChild('tree', { static: true }) tree: any;
+    readonly tree = viewChild<ThyTree>('tree');
 
     constructor() {}
 

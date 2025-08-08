@@ -117,7 +117,7 @@ export class ThyAction implements OnInit, AfterViewInit, OnDestroy {
     /**
      * 是否处于禁用状态
      */
-    readonly thyDisabled = input<boolean, boolean | string | number>(false, { transform: coerceBooleanProperty });
+    readonly thyDisabled = input(false, { transform: coerceBooleanProperty });
 
     ngOnInit(): void {
         this.updateClasses();

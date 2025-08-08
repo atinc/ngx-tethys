@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { ThyAbstractMessageQueue } from './abstract';
 import { ThyMessageRef } from './message-ref';
-import { ThyGlobalMessageConfig, THY_MESSAGE_DEFAULT_CONFIG, THY_MESSAGE_DEFAULT_CONFIG_VALUE } from './message.config';
+import { THY_MESSAGE_DEFAULT_CONFIG, THY_MESSAGE_DEFAULT_CONFIG_VALUE } from './message.config';
 
 /**
  * @internal
