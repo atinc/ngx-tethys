@@ -1,7 +1,6 @@
-import { Directive, EventEmitter, Input, OnChanges, OnInit, Output, Signal, SimpleChanges, inject } from '@angular/core';
-
+import { Directive, OnInit, Signal, effect, inject, input, model, output } from '@angular/core';
 import { ThyPanelMode } from '../../standard-types';
-import { TinyDate } from 'ngx-tethys/util';
+import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
 import { DateHelperService } from '../../date-helper.service';
 import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
 
@@ -16,33 +15,40 @@ export interface PanelSelector {
  * @private
  */
 @Directive()
-export abstract class CalendarHeader implements OnInit, OnChanges {
-    dateHelper = inject(DateHelperService);
-    locale: Signal<ThyDatePickerLocale> = injectLocale('datePicker');
+export abstract class CalendarHeader implements OnInit {
+    protected dateHelper = inject(DateHelperService);
 
-    @Input() showSuperPreBtn: boolean = true;
-    @Input() showSuperNextBtn: boolean = true;
-    @Input() showPreBtn: boolean = true;
-    @Input() showNextBtn: boolean = true;
-    @Input() value: TinyDate;
-    @Output() readonly valueChange = new EventEmitter<TinyDate>();
-    @Output() readonly panelModeChange = new EventEmitter<ThyPanelMode>();
+    protected locale: Signal<ThyDatePickerLocale> = injectLocale('datePicker');
+
+    readonly showSuperPreBtn = input(true, { transform: coerceBooleanProperty });
+
+    readonly showSuperNextBtn = input(true, { transform: coerceBooleanProperty });
+
+    readonly showPreBtn = input(true, { transform: coerceBooleanProperty });
+
+    readonly showNextBtn = input(true, { transform: coerceBooleanProperty });
+
+    readonly value = model<TinyDate>();
+
+    readonly valueChange = output<TinyDate>();
+
+    readonly panelModeChange = output<ThyPanelMode>();
 
     abstract getSelectors(): PanelSelector[];
 
-    prefixCls = 'thy-calendar';
-    selectors: PanelSelector[];
+    protected prefixCls = 'thy-calendar';
 
-    ngOnInit(): void {
-        if (!this.value) {
-            this.value = new TinyDate();
-        }
-        this.selectors = this.getSelectors();
+    protected selectors: PanelSelector[];
+
+    constructor() {
+        effect(() => {
+            this.render();
+        });
     }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes.value) {
-            this.render();
+    ngOnInit(): void {
+        if (!this.value()) {
+            this.value.set(new TinyDate());
         }
     }
 
@@ -72,28 +78,28 @@ export abstract class CalendarHeader implements OnInit, OnChanges {
     }
 
     private render(): void {
-        if (this.value) {
+        if (this.value()) {
             this.selectors = this.getSelectors();
         }
     }
 
     private gotoMonth(amount: number): void {
-        this.changeValue(this.value.addMonths(amount));
+        this.changeValue(this.value().addMonths(amount));
     }
 
     private gotoYear(amount: number): void {
-        this.changeValue(this.value.addYears(amount));
+        this.changeValue(this.value().addYears(amount));
     }
 
     public changeValue(value: TinyDate): void {
-        if (this.value !== value) {
-            this.value = value;
-            this.valueChange.emit(this.value);
-            this.render();
+        if (this.value() !== value) {
+            this.value.set(value);
+            this.valueChange.emit(value);
         }
     }
 
     formatDateTime(format: string): string {
-        return this.dateHelper.format(this.value.nativeDate, format);
+        const date = this.value().nativeDate;
+        return this.dateHelper.format(date, format);
     }
 }
