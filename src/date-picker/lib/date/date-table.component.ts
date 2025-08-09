@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, OnChanges, Output, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, output } from '@angular/core';
 import { TinyDate, valueFunctionProp } from 'ngx-tethys/util';
 import { DateHelperService } from '../../date-helper.service';
 import { ThyDatePickerConfigService } from '../../date-picker.service';
@@ -18,11 +18,12 @@ import { DateBodyRow, DateCell } from './types';
     templateUrl: 'date-table.component.html',
     imports: [NgClass, DateTableCell]
 })
-export class DateTable extends CalendarTable implements OnChanges {
+export class DateTable extends CalendarTable {
     private dateHelper = inject(DateHelperService);
+
     private datePickerConfigService = inject(ThyDatePickerConfigService);
 
-    @Output() readonly dayHover = new EventEmitter<TinyDate>(); // Emitted when hover on a day by mouse enter
+    readonly dayHover = output<TinyDate>(); // Emitted when hover on a day by mouse enter
 
     constructor() {
         super();
@@ -30,25 +31,27 @@ export class DateTable extends CalendarTable implements OnChanges {
 
     private chooseDate(value: TinyDate): void {
         // Only change date not change time
+        const activeDate = this.activeDate();
+        const timeZone = this.timeZone();
         const date = new TinyDate(
             TinyDate.createDateInTimeZone(
                 value.getFullYear(),
                 value.getMonth(),
                 value.getDate(),
-                this.activeDate?.getHours(),
-                this.activeDate?.getMinutes(),
-                this.activeDate?.getSeconds(),
-                this.timeZone
+                activeDate?.getHours(),
+                activeDate?.getMinutes(),
+                activeDate?.getSeconds(),
+                timeZone
             ),
-            this.timeZone
+            timeZone
         );
-        this.activeDate = date.clone();
+        this.activeDate.set(date.clone());
         this.valueChange.emit(date);
     }
 
     makeHeadRow(): DateCell[] {
         const weekDays: DateCell[] = [];
-        const start = this.activeDate.calendarStart({ weekStartsOn: this.datePickerConfigService.config.weekStartsOn });
+        const start = this.activeDate().calendarStart({ weekStartsOn: this.datePickerConfigService.config.weekStartsOn });
         for (let colIndex = 0; colIndex < this.MAX_COL; colIndex++) {
             const day = start.addDays(colIndex);
             weekDays[colIndex] = {
@@ -65,14 +68,16 @@ export class DateTable extends CalendarTable implements OnChanges {
 
     private getVeryShortWeekFormat(): string {
         if (this.dateHelper.relyOnDatePipe) {
-            return this.prefixCls === 'thy-calendar-full' ? this.locale().fullWeekFormat : this.locale().weekFormat;
+            const locale = this.locale();
+            const prefixCls = this.prefixCls();
+            return prefixCls === 'thy-calendar-full' ? locale.fullWeekFormat : locale.weekFormat;
         }
         return 'dd';
     }
 
     makeBodyRows(): DateBodyRow[] {
         const dateRows: DateBodyRow[] = [];
-        const firstDayOfMonth = this.activeDate.calendarStart({ weekStartsOn: this.datePickerConfigService.config.weekStartsOn });
+        const firstDayOfMonth = this.activeDate().calendarStart({ weekStartsOn: this.datePickerConfigService.config.weekStartsOn });
         for (let week = 0; week < this.MAX_ROW; week++) {
             const weekStart = firstDayOfMonth.addDays(week * 7);
             const row: DateBodyRow = {
@@ -95,14 +100,14 @@ export class DateTable extends CalendarTable implements OnChanges {
                     isDisabled: false,
                     isToday: false,
                     title: title,
-                    dateCellRender: valueFunctionProp(this.cellRender, date),
+                    dateCellRender: valueFunctionProp(this.cellRender(), date),
                     content: `${date.getDate()}`,
                     onClick: () => this.chooseDate(date),
                     onMouseEnter: () => this.dayHover.emit(date)
                 };
                 this.addCellProperty(cell, date);
 
-                if (this.showWeek && !row.weekNum) {
+                if (this.showWeek() && !row.weekNum) {
                     row.weekNum = this.dateHelper.getISOWeek(date.nativeDate);
                 }
 
@@ -111,24 +116,26 @@ export class DateTable extends CalendarTable implements OnChanges {
                     row.isCurrent = true;
                 }
 
-                if (this.selectedValue?.length > 0) {
-                    const [startSelected, endSelected] = this.selectedValue;
+                const selectedValue = this.selectedValue();
+                if (selectedValue?.length > 0) {
+                    const [startSelected, endSelected] = selectedValue;
                     if (date.isSameDay(startSelected)) {
                         row.isActive = true;
                     }
                     if (date.isSameDay(endSelected)) {
                         row.isActive = true;
                     }
-                } else if (date.isSameDay(this.value)) {
+                } else if (date.isSameDay(this.value())) {
                     row.isActive = true;
                 }
 
                 row.dateCells.push(cell);
             }
 
+            const prefixCls = this.prefixCls();
             row.classMap = {
-                [`${this.prefixCls}-current-week`]: row.isCurrent,
-                [`${this.prefixCls}-active-week`]: row.isActive
+                [`${prefixCls}-current-week`]: row.isCurrent,
+                [`${prefixCls}-active-week`]: row.isActive
             };
 
             dateRows.push(row);
@@ -138,8 +145,9 @@ export class DateTable extends CalendarTable implements OnChanges {
     }
 
     addCellProperty(cell: DateCell, date: TinyDate): void {
-        if (this.selectedValue?.length > 0) {
-            const [startSelected, endSelected] = this.selectedValue;
+        const selectedValue = this.selectedValue();
+        if (selectedValue?.length > 0) {
+            const [startSelected, endSelected] = selectedValue;
             if (startSelected?.isSameDay(date)) {
                 cell.isSelected = true;
             }
@@ -150,26 +158,29 @@ export class DateTable extends CalendarTable implements OnChanges {
             cell.isEndSingle = !startSelected && !!endSelected;
             cell.isInRange = startSelected?.isBeforeDay(date) && date.isBeforeDay(endSelected);
         } else {
-            cell.isSelected = date.isSameDay(this.value);
+            cell.isSelected = date.isSameDay(this.value());
         }
-        cell.isLastMonthCell = date.isBeforeMonth(this.activeDate);
-        cell.isNextMonthCell = date.isAfterMonth(this.activeDate);
+
+        const activeDate = this.activeDate();
+        cell.isLastMonthCell = date.isBeforeMonth(activeDate);
+        cell.isNextMonthCell = date.isAfterMonth(activeDate);
         cell.isToday = date.isToday();
-        cell.isDisabled = !!this.disabledDate?.(date.nativeDate);
+        cell.isDisabled = !!this.disabledDate()?.(date.nativeDate);
         cell.classMap = this.getClassMap(cell);
     }
 
     getClassMap(cell: DateCell): { [key: string]: boolean } {
+        const prefixCls = this.prefixCls();
         return {
-            [`${this.prefixCls}-cell`]: true,
-            [`${this.prefixCls}-today`]: cell.isToday,
-            [`${this.prefixCls}-last-month-cell`]: cell.isLastMonthCell,
-            [`${this.prefixCls}-next-month-btn-day`]: cell.isNextMonthCell,
-            [`${this.prefixCls}-selected-day`]: cell.isSelected,
-            [`${this.prefixCls}-disabled-cell`]: cell.isDisabled,
-            [`${this.prefixCls}-selected-start-date`]: !!cell.isSelectedStartDate,
-            [`${this.prefixCls}-selected-end-date`]: !!cell.isSelectedEndDate,
-            [`${this.prefixCls}-in-range-cell`]: !!cell.isInRange
+            [`${prefixCls}-cell`]: true,
+            [`${prefixCls}-today`]: cell.isToday,
+            [`${prefixCls}-last-month-cell`]: cell.isLastMonthCell,
+            [`${prefixCls}-next-month-btn-day`]: cell.isNextMonthCell,
+            [`${prefixCls}-selected-day`]: cell.isSelected,
+            [`${prefixCls}-disabled-cell`]: cell.isDisabled,
+            [`${prefixCls}-selected-start-date`]: !!cell.isSelectedStartDate,
+            [`${prefixCls}-selected-end-date`]: !!cell.isSelectedEndDate,
+            [`${prefixCls}-in-range-cell`]: !!cell.isInRange
         };
     }
 }

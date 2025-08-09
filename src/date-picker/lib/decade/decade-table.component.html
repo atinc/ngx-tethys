@@ -1,10 +1,11 @@
-<table class="{{ prefixCls }}-decade-panel-table" cellSpacing="0" role="grid">
-  <tbody class="{{ prefixCls }}-decade-panel-tbody">
+@let prefixClass = prefixCls();
+<table class="{{ prefixClass }}-decade-panel-table" cellSpacing="0" role="grid">
+  <tbody class="{{ prefixClass }}-decade-panel-tbody">
     @for (row of bodyRows; track $index) {
       <tr role="row">
         @for (cell of row.dateCells; track $index) {
           <td role="gridcell" title="{{ cell.title }}" (click)="cellClick($event, cell)" [ngClass]="cell.classMap">
-            <a class="{{ prefixCls }}-decade-panel-decade">{{ cell.content }}</a>
+            <a class="{{ prefixClass }}-decade-panel-decade">{{ cell.content }}</a>
           </td>
         }
       </tr>

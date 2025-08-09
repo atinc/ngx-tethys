@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, OnChanges, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, output } from '@angular/core';
 import { TinyDate } from 'ngx-tethys/util';
 import { CalendarTable } from '../calendar/calendar-table.component';
 import { DateCell, DateBodyRow, YearCell } from '../date/types';
@@ -14,19 +14,17 @@ import { NgClass } from '@angular/common';
     templateUrl: 'year-table.component.html',
     imports: [NgClass]
 })
-export class YearTable extends CalendarTable implements OnChanges {
+export class YearTable extends CalendarTable {
     MAX_ROW = 4;
 
     MAX_COL = 3;
 
-    @Output() readonly decadePanelShow = new EventEmitter<void>();
+    readonly decadePanelShow = output<void>();
 
-    constructor() {
-        super();
-    }
     private chooseYear(year: number): void {
-        this.value = this.activeDate.setYear(year);
-        this.valueChange.emit(this.value);
+        const newValue = this.activeDate().setYear(year);
+        this.value.set(newValue);
+        this.valueChange.emit(newValue);
         this.render();
     }
 
@@ -36,7 +34,8 @@ export class YearTable extends CalendarTable implements OnChanges {
 
     makeBodyRows(): DateBodyRow[] {
         const years: DateBodyRow[] = [];
-        const currentYear = this.activeDate && this.activeDate.getYear();
+        const activeDate = this.activeDate();
+        const currentYear = activeDate && activeDate.getYear();
         const startYear = parseInt(`${currentYear / 10}`, 10) * 10;
         const endYear = startYear + 9;
         const previousYear = startYear - 1;
@@ -48,17 +47,19 @@ export class YearTable extends CalendarTable implements OnChanges {
             };
             for (let colIndex = 0; colIndex < this.MAX_COL; colIndex++) {
                 const yearNum = previousYear + yearValue;
-                const year = this.activeDate.setYear(yearNum);
+                const year = activeDate.setYear(yearNum);
                 const content = String(yearNum);
-                const isDisabled = this.disabledDate ? this.disabledDate(year.nativeDate) : false;
+                const disabledDate = this.disabledDate();
+                const isDisabled = disabledDate ? disabledDate(year.nativeDate) : false;
 
+                const value = this.value();
                 const cell: YearCell = {
                     trackByIndex: colIndex,
                     isDisabled,
                     content,
                     value: year.nativeDate,
                     title: content,
-                    isSelected: yearNum === (this.value && this.value.getYear()),
+                    isSelected: yearNum === (value && value.getYear()),
                     isSameDecade: yearNum >= startYear && yearNum <= endYear,
                     classMap: {},
                     onClick: () => this.chooseYear(cell.value?.getFullYear()),
@@ -74,8 +75,9 @@ export class YearTable extends CalendarTable implements OnChanges {
     }
 
     private addCellProperty(cell: DateCell, year: TinyDate): void {
-        if (this.selectedValue?.length > 0) {
-            const [startSelected, endSelected] = this.selectedValue;
+        const selectedValue = this.selectedValue();
+        if (selectedValue?.length > 0) {
+            const [startSelected, endSelected] = selectedValue;
             if (startSelected?.isSameYear(year)) {
                 cell.isSelected = true;
             }
@@ -87,7 +89,7 @@ export class YearTable extends CalendarTable implements OnChanges {
             cell.isStartSingle = startSelected && !endSelected;
             cell.isEndSingle = !startSelected && !!endSelected;
             cell.isInRange = startSelected?.isBeforeYear(year) && year?.isBeforeYear(endSelected);
-        } else if (year.isSameYear(this.value)) {
+        } else if (year.isSameYear(this.value())) {
             cell.isSelected = true;
         }
         cell.classMap = this.getClassMap(cell);
@@ -99,12 +101,13 @@ export class YearTable extends CalendarTable implements OnChanges {
     }
 
     getClassMap(cell: YearCell): { [key: string]: boolean } {
+        const prefixCls = this.prefixCls();
         return {
-            [`${this.prefixCls}-year-panel-cell`]: true,
-            [`${this.prefixCls}-year-panel-selected-cell`]: cell.isSelected,
-            [`${this.prefixCls}-year-panel-cell-disabled`]: cell.isDisabled,
-            [`${this.prefixCls}-year-panel-cell-in-view`]: cell.isSameDecade,
-            [`${this.prefixCls}-in-range-cell`]: !!cell.isInRange
+            [`${prefixCls}-year-panel-cell`]: true,
+            [`${prefixCls}-year-panel-selected-cell`]: cell.isSelected,
+            [`${prefixCls}-year-panel-cell-disabled`]: cell.isDisabled,
+            [`${prefixCls}-year-panel-cell-in-view`]: cell.isSameDecade,
+            [`${prefixCls}-in-range-cell`]: !!cell.isInRange
         };
     }
 }
