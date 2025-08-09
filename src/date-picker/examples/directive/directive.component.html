@@ -1,4 +1,4 @@
-<thy-property-operation
+<!-- <thy-property-operation
   class="w-25 mb-3"
   thyLabelText="日期"
   [thyValue]="date | thyDatePickerFormat"
@@ -47,8 +47,9 @@
   thyDatePicker
   [(ngModel)]="time"
   [thyShowTime]="true"></thy-property-operation>
-<br />
+<br /> -->
 
+<!-- ============================================================ 问题示例 start =============================================== -->
 <thy-property-operation
   class="w-25 mb-3"
   thyLabelText="日期区间"
@@ -89,7 +90,22 @@
   (thyOnCalendarChange)="calendarChange($event)"
   (thyOpenChange)="panelOpenChange($event)"></thy-property-operation>
 <br />
+
 <thy-property-operation
+  class="w-25 mb-3"
+  thyLabelText="周区间"
+  [thyValue]="weekRange | thyDatePickerFormat: weekThFormat"
+  thyIcon="calendar-check"
+  thyRangePicker
+  [(ngModel)]="weekRange"
+  (ngModelChange)="onChange($event)"
+  thyMode="week"
+  [thyShowShortcut]="true"
+  [thyShortcutPresets]="shortcutMonthPresets"></thy-property-operation>
+
+<!-- ============================================================ 问题示例 end =============================================== -->
+
+<!-- <thy-property-operation
   class="w-50 mb-3"
   thyLabelText="禁用日期"
   [thyValue]="date | thyDatePickerFormat"
@@ -97,7 +113,8 @@
   thyDatePicker
   thyDisabled="true"
   [(ngModel)]="date"></thy-property-operation>
-<br />
+<br /> 
+
 <div
   class="w-25 mb-3 d-inline-block"
   thyDatePicker
@@ -113,6 +130,7 @@
   </div>
 </div>
 <br />
+
 <thy-property-operation
   class="w-25 mb-3"
   thyLabelText="日期区间"
@@ -126,14 +144,4 @@
   [thyShowShortcut]="true"></thy-property-operation>
 <br />
 
-<thy-property-operation
-  class="w-25 mb-3"
-  thyLabelText="周区间"
-  [thyValue]="weekRange | thyDatePickerFormat: weekThFormat"
-  thyIcon="calendar-check"
-  thyRangePicker
-  [(ngModel)]="weekRange"
-  (ngModelChange)="onChange($event)"
-  thyMode="week"
-  [thyShowShortcut]="true"
-  [thyShortcutPresets]="shortcutMonthPresets"></thy-property-operation>
+-->

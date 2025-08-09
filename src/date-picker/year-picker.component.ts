@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, forwardRef, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, forwardRef, signal, model } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
@@ -29,22 +29,14 @@ import { ThyPanelMode } from './standard-types';
 export class ThyYearPicker extends BasePicker {
     protected elementRef: ElementRef;
 
-    /**
-     * 展示的年份格式
-     * @type string
-     */
-    @Input() thyFormat = 'yyyy';
-
-    isRange = false;
-
-    endPanelMode: ThyPanelMode = 'year';
+    // endPanelMode: ThyPanelMode = 'year';
 
     private hostRenderer = useHostRenderer();
 
     constructor() {
         super();
-
+        this.thyMode.set('year');
+        this.thyFormat.set('yyyy');
         this.hostRenderer.addClass('thy-calendar-picker');
-        this.thyMode = 'year';
     }
 }

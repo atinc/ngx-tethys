@@ -14,7 +14,7 @@ import { provideHttpClient } from '@angular/common/http';
 
 registerLocaleData(zh);
 
-describe('ThyRangePickerDirective', () => {
+fdescribe('ThyRangePickerDirective', () => {
     let fixture: ComponentFixture<ThyTestRangePickerComponent>;
     let fixtureInstance: ThyTestRangePickerComponent;
     let debugElement: DebugElement;

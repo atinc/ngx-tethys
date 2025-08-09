@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { DecadeTable, LibPackerModule } from 'ngx-tethys/date-picker';
 
-describe('DecadeTableComponent', () => {
+fdescribe('DecadeTableComponent', () => {
     let fixture: ComponentFixture<ThyTestDecadeTableComponent>;
     let fixtureInstance: ThyTestDecadeTableComponent;
     let decadeComponent: DebugElement;

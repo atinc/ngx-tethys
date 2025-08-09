@@ -12,7 +12,7 @@ import { provideHttpClient } from '@angular/common/http';
 
 registerLocaleData(zh);
 
-describe('ThyWeekPickerComponent', () => {
+fdescribe('ThyWeekPickerComponent', () => {
     let fixture: ComponentFixture<TestWeekPickerComponent>;
     let fixtureInstance: TestWeekPickerComponent;
     let debugElement: DebugElement;

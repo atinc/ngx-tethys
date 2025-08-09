@@ -1,4 +1,4 @@
-import { Directive, Input, StaticProvider, forwardRef } from '@angular/core';
+import { Directive, StaticProvider, forwardRef, input } from '@angular/core';
 import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
 import { instanceOfDateEntry, instanceOfRangeEntry } from './picker.util';
 import { DateEntry, ThyDateRangeEntry } from './standard-types';
@@ -18,19 +18,14 @@ const DATE_PICKER_REQUIRED_VALIDATOR: StaticProvider = {
     providers: [DATE_PICKER_REQUIRED_VALIDATOR]
 })
 export class DatePickerRequiredValidator implements Validator {
-    private _required!: boolean;
-
-    @Input()
-    get required(): boolean | string {
-        return this._required;
-    }
-
-    set required(value: boolean | string) {
-        this._required = value != null && value !== false && `${value}` !== 'false';
-    }
+    readonly required = input(false, {
+        transform: (value: boolean | string) => {
+            return value != null && value !== false && `${value}` !== 'false';
+        }
+    });
 
     validate(control: AbstractControl): ValidationErrors | null {
-        return this.required ? this.validateRequired(control) : null;
+        return this.required() ? this.validateRequired(control) : null;
     }
 
     private validateRequired(control: AbstractControl): ValidationErrors | null {
@@ -53,19 +48,14 @@ const RANGE_PICKER_REQUIRED_VALIDATOR: StaticProvider = {
     providers: [RANGE_PICKER_REQUIRED_VALIDATOR]
 })
 export class RangePickerRequiredValidator implements Validator {
-    private _required!: boolean;
-
-    @Input()
-    get required(): boolean | string {
-        return this._required;
-    }
-
-    set required(value: boolean | string) {
-        this._required = value != null && value !== false && `${value}` !== 'false';
-    }
+    readonly required = input(false, {
+        transform: (value: boolean | string) => {
+            return value != null && value !== false && `${value}` !== 'false';
+        }
+    });
 
     validate(control: AbstractControl): ValidationErrors | null {
-        return this.required ? this.validateRequired(control) : null;
+        return this.required() ? this.validateRequired(control) : null;
     }
 
     private validateRequired(control: AbstractControl): ValidationErrors | null {

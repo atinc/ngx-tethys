@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnChanges, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TinyDate } from 'ngx-tethys/util';
-import { DateHelperService } from '../../date-helper.service';
 import { CalendarTable } from '../calendar/calendar-table.component';
 import { DateCell, DateBodyRow } from '../date/types';
 import { NgClass } from '@angular/common';
@@ -16,9 +15,7 @@ import { NgClass } from '@angular/common';
     templateUrl: 'quarter-table.component.html',
     imports: [NgClass]
 })
-export class QuarterTable extends CalendarTable implements OnChanges {
-    private dateHelper = inject(DateHelperService);
-
+export class QuarterTable extends CalendarTable {
     MAX_ROW = 1;
 
     MAX_COL = 4;
@@ -28,8 +25,8 @@ export class QuarterTable extends CalendarTable implements OnChanges {
     }
 
     private chooseQuarter(quarter: number): void {
-        this.value = this.activeDate.setQuarter(quarter);
-        this.valueChange.emit(this.value);
+        this.value.set(this.activeDate().setQuarter(quarter));
+        this.valueChange.emit(this.value());
         this.render();
     }
 
@@ -46,8 +43,8 @@ export class QuarterTable extends CalendarTable implements OnChanges {
                 trackByIndex: rowIndex
             };
             for (let colIndex = 0; colIndex < this.MAX_COL; colIndex++) {
-                const quarter = this.activeDate.setQuarter(quarterValue + 1);
-                const isDisabled = this.disabledDate ? this.disabledDate(quarter.nativeDate) : false;
+                const quarter = this.activeDate().setQuarter(quarterValue + 1);
+                const isDisabled = this.disabledDate ? this.disabledDate()(quarter.nativeDate) : false;
                 const content = `${quarter.format('qqq')}`;
                 const cell: DateCell = {
                     trackByIndex: colIndex,
@@ -56,7 +53,7 @@ export class QuarterTable extends CalendarTable implements OnChanges {
                     content,
                     title: content,
                     classMap: null,
-                    isSelected: quarter.isSameQuarter(this.value),
+                    isSelected: quarter.isSameQuarter(this.value()),
                     onClick: () => {
                         this.chooseQuarter(quarter.getQuarter());
                     },
@@ -72,8 +69,8 @@ export class QuarterTable extends CalendarTable implements OnChanges {
     }
 
     private addCellProperty(cell: DateCell, quarter: TinyDate): void {
-        if (this.selectedValue?.length > 0) {
-            const [startSelected, endSelected] = this.selectedValue;
+        if (this.selectedValue()?.length > 0) {
+            const [startSelected, endSelected] = this.selectedValue();
             if (startSelected?.isSameQuarter(quarter)) {
                 cell.isSelectedStartDate = true;
                 cell.isSelected = true;
@@ -87,7 +84,7 @@ export class QuarterTable extends CalendarTable implements OnChanges {
             cell.isStartSingle = startSelected && !endSelected;
             cell.isEndSingle = !startSelected && !!endSelected;
             cell.isInRange = startSelected?.isBeforeQuarter(quarter) && quarter?.isBeforeQuarter(endSelected);
-        } else if (quarter.isSameQuarter(this.value)) {
+        } else if (quarter.isSameQuarter(this.value())) {
             cell.isSelected = true;
         }
         cell.classMap = this.getClassMap(cell, quarter);
@@ -99,13 +96,14 @@ export class QuarterTable extends CalendarTable implements OnChanges {
     }
 
     getClassMap(cell: DateCell, quarter: TinyDate): { [key: string]: boolean } {
+        const prefixCls = this.prefixCls();
         return {
-            [`${this.prefixCls}-quarter-panel-cell`]: true,
-            [`${this.prefixCls}-quarter-panel-cell-disabled`]: cell.isDisabled,
-            [`${this.prefixCls}-quarter-panel-selected-cell`]: cell.isSelected,
-            [`${this.prefixCls}-in-range-cell`]: !!cell.isInRange,
-            [`${this.prefixCls}-quarter-panel-current-cell`]:
-                new TinyDate().getYear() === this.activeDate.getYear() && quarter.getQuarter() === new TinyDate().getQuarter()
+            [`${prefixCls}-quarter-panel-cell`]: true,
+            [`${prefixCls}-quarter-panel-cell-disabled`]: cell.isDisabled,
+            [`${prefixCls}-quarter-panel-selected-cell`]: cell.isSelected,
+            [`${prefixCls}-in-range-cell`]: !!cell.isInRange,
+            [`${prefixCls}-quarter-panel-current-cell`]:
+                new TinyDate().getYear() === this.activeDate().getYear() && quarter.getQuarter() === new TinyDate().getQuarter()
         };
     }
 }

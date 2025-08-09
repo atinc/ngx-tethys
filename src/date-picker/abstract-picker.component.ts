@@ -1,24 +1,20 @@
 import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
 import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
-import { Subject } from 'rxjs';
-
 import {
     ChangeDetectorRef,
     computed,
     Directive,
-    EventEmitter,
     inject,
+    input,
+    model,
     Input,
-    OnChanges,
-    OnDestroy,
-    OnInit,
-    Output,
     Signal,
-    SimpleChanges,
-    ViewChild
+    signal,
+    output,
+    viewChild,
+    effect
 } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-
 import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
 import { SafeAny } from 'ngx-tethys/types';
 import { ThyDatePickerConfigService } from './date-picker.service';
@@ -26,7 +22,7 @@ import { CompatibleValue, RangeAdvancedValue } from './inner-types';
 import { ThyPicker } from './picker.component';
 import { makeValue, setValueByTimestampPrecision, transformDateValue } from './picker.util';
 import {
-    CompatibleDate,
+    ThyCompatibleDate,
     CompatiblePresets,
     DateEntry,
     DisabledDateFn,
@@ -41,158 +37,128 @@ import {
  * @private
  */
 @Directive()
-export abstract class AbstractPickerComponent
-    extends TabIndexDisabledControlValueAccessorMixin
-    implements OnInit, OnChanges, OnDestroy, ControlValueAccessor
-{
+export abstract class AbstractPickerComponent extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor {
+    private datePickerConfigService = inject(ThyDatePickerConfigService);
+
     cdr = inject(ChangeDetectorRef);
 
     locale: Signal<ThyDatePickerLocale> = injectLocale('datePicker');
-
-    thyValue: CompatibleValue | null;
-
-    _panelMode: ThyPanelMode = 'date';
-
-    private datePickerConfigService = inject(ThyDatePickerConfigService);
 
     /**
      * 模式
      * @type decade | year | month | date | week | flexible
      */
-    @Input() set thyMode(value: ThyPanelMode) {
-        this._panelMode = value ?? 'date';
-    }
-
-    get thyMode() {
-        return this._panelMode;
-    }
+    readonly thyMode = model<ThyPanelMode>('date');
 
     /**
      * 是否显示清除按钮
      */
-    @Input({ transform: coerceBooleanProperty }) thyAllowClear = true;
+    readonly thyAllowClear = input(true, { transform: coerceBooleanProperty });
 
     /**
      * 是否自动获取焦点
-     * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyAutoFocus = false;
+    readonly thyAutoFocus = input(false, { transform: coerceBooleanProperty });
 
-    @Input({ transform: coerceBooleanProperty }) thyOpen: boolean;
+    readonly thyOpen = model<boolean>();
 
-    @Input() thyDisabledDate: DisabledDateFn;
+    readonly thyDisabledDate = input<DisabledDateFn>();
 
     /**
      * 最小值
-     * @type Date | number
      */
-    @Input() thyMinDate: Date | number;
+    readonly thyMinDate = input<Date | number>();
 
     /**
      * 最大值
-     * @type Date | number
      */
-    @Input() thyMaxDate: Date | number;
-
-    /**
-     * 输入框提示文字
-     * @type string | string[]
-     */
-    @Input() thyPlaceHolder: string | string[];
+    readonly thyMaxDate = input<Date | number>();
 
     /**
      * 是否只读
-     * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyReadonly: boolean;
+    readonly thyReadonly = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 选择器 className
      */
-    @Input() thyOriginClassName: string;
+    readonly thyOriginClassName = input<string>();
 
     /**
      * 弹出层 className
      */
-    @Input() thyPanelClassName: string;
+    readonly thyPanelClassName = input<string>();
 
     /**
      * 输入框的大小
-     * @type xs | sm | md | lg | default
      */
-    @Input() thySize: 'lg' | 'md' | 'sm' | 'xs' | 'default' = 'default';
+    readonly thySize = input<'lg' | 'md' | 'sm' | 'xs' | 'default'>('default');
 
     /**
      * 设置时间戳精度
      * @default seconds 10位
      */
-    @Input() thyTimestampPrecision: 'seconds' | 'milliseconds' = this.datePickerConfigService.config?.timestampPrecision || 'seconds';
+    readonly thyTimestampPrecision = input<'seconds' | 'milliseconds'>(
+        this.datePickerConfigService.config?.timestampPrecision || 'seconds'
+    );
 
     /**
      * 展示的日期格式
      * @default yyyy-MM-dd
      */
-    @Input() thyFormat: string;
+    readonly thyFormat = model<string>();
 
     /**
      * 区间分隔符，不传值默认为 "~"
      */
-    @Input() thySeparator: string = this.datePickerConfigService.config?.separator;
-
-    separator: Signal<string> = computed(() => {
-        return ` ${this.thySeparator?.trim()} `;
+    readonly thySeparator = input<string, string>(` ${this.datePickerConfigService.config?.separator?.trim()} `, {
+        transform: (value: string) => {
+            return ` ${value?.trim()} `;
+        }
     });
 
     /**
      * @description.en-us only for range picker, Whether to automatically take the beginning and ending unixTime of the day
      * @description.zh-cn 是否取值开始日期的00:00以及截止日期的24:00
-     * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyAutoStartAndEnd = false;
+    readonly thyAutoStartAndEnd = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 面板默认日期
-     * @type CompatibleDate | number | null
      */
-    @Input() thyDefaultPickerValue: CompatibleDate | number | null = null;
+    readonly thyDefaultPickerValue = input<ThyCompatibleDate | number | null>(null);
 
     /**
      * 自定义的后缀图标
      */
-    @Input() thySuffixIcon = 'calendar';
+    readonly thySuffixIcon = input('calendar');
 
     /**
      * 是否展示快捷选项面板
-     * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyShowShortcut: boolean;
+    readonly thyShowShortcut = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 快捷选项面板的显示位置
      * @type left | bottom
      */
-    @Input() set thyShortcutPosition(position: ThyShortcutPosition) {
-        if (!!position) {
-            this.shortcutPosition = position;
-        }
-    }
+    readonly thyShortcutPosition = input('left', {
+        transform: (value: ThyShortcutPosition) => value || 'left'
+    });
 
     /**
      * 自定义快捷选项
-     * @type ThyShortcutPreset[]
      */
-    @Input() set thyShortcutPresets(presets: CompatiblePresets) {
-        this.shortcutPresets = presets;
-    }
+    readonly thyShortcutPresets = input<CompatiblePresets>();
 
     /**
      * 日期变化的回调
      */
-    @Output() readonly thyDateChange = new EventEmitter<ThyDateChangeEvent>();
+    readonly thyDateChange = output<ThyDateChangeEvent>();
 
-    @Output() readonly thyOpenChange = new EventEmitter<boolean>();
+    readonly thyOpenChange = output<boolean>();
 
-    @ViewChild(ThyPicker, { static: true }) public picker: ThyPicker;
+    public picker = viewChild<ThyPicker>(ThyPicker);
 
     /**
      * 是否禁用
@@ -209,79 +175,77 @@ export abstract class AbstractPickerComponent
     /**
      * 时区，不传使用默认时区
      */
-    @Input() thyTimeZone: string;
+    readonly thyTimeZone = input<string>();
 
     disabled = false;
 
-    shortcutPosition: ThyShortcutPosition = 'left';
+    readonly isRange = signal(false);
 
-    shortcutPresets: CompatiblePresets;
+    /**
+     * 输入框提示文字
+     */
+    readonly thyPlaceHolder = model<string | string[]>(undefined);
 
-    isRange: boolean;
+    readonly thyValue = signal<CompatibleValue | null>(undefined);
 
     withTime: boolean;
 
-    flexible: boolean;
+    readonly flexible = computed<boolean>(() => this.thyMode() === 'flexible');
 
     flexibleDateGranularity: ThyDateGranularity;
 
-    protected destroyed$: Subject<void> = new Subject();
-    protected isCustomPlaceHolder = false;
     private onlyEmitDate = false;
+
     protected originWithTime: boolean;
-    protected innerValue: CompatibleDate;
 
-    get realOpenState(): boolean {
-        return this.picker.realOpenState;
-    }
+    protected innerValue: ThyCompatibleDate;
 
-    get isShowDatePopup(): boolean {
-        return this.picker.isShowDatePopup;
-    }
+    readonly realOpenState = computed<boolean>(() => {
+        return this.picker().realOpenState();
+    });
 
-    initValue(): void {
-        this.thyValue = this.isRange ? [] : null;
-    }
+    readonly isShowDatePopup = computed<boolean>(() => {
+        return this.picker().isShowDatePopup();
+    });
 
     constructor() {
         super();
+
+        effect(() => {
+            if (this.thyTimeZone()) {
+                this.setValue(this.innerValue);
+            }
+        });
     }
 
     ngOnInit(): void {
-        this.setDefaultPlaceHolder();
         this.initValue();
-        this.isFlexible();
+        this.initPlaceHolder();
     }
 
-    isFlexible() {
-        this.flexible = this.thyMode === 'flexible';
+    initValue(): void {
+        this.thyValue.set(this.isRange() ? [] : null);
+    }
+
+    initPlaceHolder(): void {
+        if (this.thyPlaceHolder() === undefined) {
+            const defaultPlaceholder = this.isRange() ? [this.locale().startDate, this.locale().endDate] : this.locale().placeholder;
+            this.thyPlaceHolder.set(defaultPlaceholder);
+        }
     }
 
     onDateValueChange(event: ThyDateChangeEvent) {
+        console.log('====onDateValueChange==>', event);
         this.thyDateChange.emit(event);
     }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes.thyPlaceHolder && changes.thyPlaceHolder.firstChange && typeof this.thyPlaceHolder !== 'undefined') {
-            this.isCustomPlaceHolder = true;
-        }
-        if (changes.thyTimeZone && changes.thyTimeZone.currentValue) {
-            this.setValue(this.innerValue);
-        }
-    }
-
-    ngOnDestroy(): void {
-        this.destroyed$.next();
-        this.destroyed$.complete();
-    }
-
     closeOverlay(): void {
-        this.picker.hideOverlay();
+        this.picker().hideOverlay();
     }
 
     getAutoStartAndEndValue(begin: TinyDate, end: TinyDate) {
         let value: { begin: number; end: number };
-        switch (this.thyMode) {
+        switch (this.thyMode()) {
             case 'date':
                 value = { begin: begin.startOfDay().getUnixTime(), end: end.endOfDay().getUnixTime() };
                 break;
@@ -306,12 +270,12 @@ export abstract class AbstractPickerComponent
         const { value, withTime, flexibleDateGranularity } = transformDateValue(originalValue);
         this.flexibleDateGranularity = flexibleDateGranularity;
         this.setValue(value);
-        if (this.isRange) {
-            const vAsRange: any = this.thyValue;
+        if (this.isRange()) {
+            const vAsRange: any = this.thyValue();
             let value = { begin: null, end: null } as ThyDateRangeEntry;
             if (vAsRange.length) {
                 const [begin, end] = vAsRange as TinyDate[];
-                if (this.thyAutoStartAndEnd) {
+                if (this.thyAutoStartAndEnd()) {
                     value = this.getAutoStartAndEndValue(begin, end);
                 } else {
                     value = { begin: begin.getUnixTime(), end: end.getUnixTime() };
@@ -319,12 +283,12 @@ export abstract class AbstractPickerComponent
             }
             const [beginUnixTime, endUnixTime] = this.setValueByPrecision(value) as number[];
             this.onChangeFn(
-                Object.assign({ begin: beginUnixTime, end: endUnixTime }, this.flexible ? { granularity: flexibleDateGranularity } : {})
+                Object.assign({ begin: beginUnixTime, end: endUnixTime }, this.flexible() ? { granularity: flexibleDateGranularity } : {})
             );
         } else {
             const value = { date: null, with_time: this.withTime ? 1 : 0 } as DateEntry;
-            if (this.thyValue) {
-                value.date = (this.thyValue as TinyDate).getUnixTime();
+            if (this.thyValue()) {
+                value.date = (this.thyValue() as TinyDate).getUnixTime();
             }
             if (this.onlyEmitDate) {
                 this.onChangeFn(this.setValueByPrecision(value.date) as number);
@@ -335,29 +299,29 @@ export abstract class AbstractPickerComponent
     }
 
     setFormatRule() {
-        if (!this.thyFormat) {
+        if (!this.thyFormat()) {
             if (this.withTime) {
-                this.thyFormat = 'yyyy-MM-dd HH:mm';
+                this.thyFormat.set('yyyy-MM-dd HH:mm');
             } else {
                 if (!this.onlyEmitDate) {
-                    this.thyFormat = 'yyyy-MM-dd';
+                    this.thyFormat.set('yyyy-MM-dd');
                 }
             }
         }
     }
 
     onOpenChange(open: boolean): void {
-        this.thyOpen = open;
+        this.thyOpen.set(open);
         this.thyOpenChange.emit(open);
     }
 
-    onChangeFn: (val: CompatibleDate | DateEntry | ThyDateRangeEntry | number | null) => void = () => void 0;
+    onChangeFn: (val: ThyCompatibleDate | DateEntry | ThyDateRangeEntry | number | null) => void = () => void 0;
 
-    writeValue(originalValue: CompatibleDate | ThyDateRangeEntry): void {
+    writeValue(originalValue: ThyCompatibleDate | ThyDateRangeEntry): void {
         const { value, withTime, flexibleDateGranularity } = transformDateValue(originalValue);
         this.flexibleDateGranularity = flexibleDateGranularity;
         this.innerValue = value;
-        if (this.flexible && value && (value as Date[]).length) {
+        if (this.flexible() && value && (value as Date[]).length) {
             if (!this.flexibleDateGranularity) {
                 this.flexibleDateGranularity = 'day';
             }
@@ -373,6 +337,7 @@ export abstract class AbstractPickerComponent
 
     setTimePickerState(withTime: boolean): void {
         this.withTime = withTime;
+        this.cdr.markForCheck();
     }
 
     setDisabledState(disabled: boolean): void {
@@ -380,18 +345,11 @@ export abstract class AbstractPickerComponent
         this.cdr.markForCheck();
     }
 
-    private setDefaultPlaceHolder(): void {
-        if (!this.isCustomPlaceHolder) {
-            this.thyPlaceHolder = this.isRange ? [this.locale().startDate, this.locale().endDate] : this.locale().placeholder;
-        }
-        this.cdr.markForCheck();
+    private setValue(value: ThyCompatibleDate): void {
+        this.thyValue.set(makeValue(value, this.isRange(), this.thyTimeZone()));
     }
 
-    public setValue(value: CompatibleDate): void {
-        this.thyValue = makeValue(value, this.isRange, this.thyTimeZone);
-    }
-
-    private setValueByPrecision(value: CompatibleDate | number | Date | DateEntry | ThyDateRangeEntry | SafeAny): number | number[] {
-        return setValueByTimestampPrecision(value, this.isRange, this.thyTimestampPrecision, this.thyTimeZone);
+    private setValueByPrecision(value: ThyCompatibleDate | number | Date | DateEntry | ThyDateRangeEntry | SafeAny): number | number[] {
+        return setValueByTimestampPrecision(value, this.isRange(), this.thyTimestampPrecision(), this.thyTimeZone());
     }
 }

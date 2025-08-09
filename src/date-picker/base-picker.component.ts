@@ -1,21 +1,6 @@
 import { ThyClickDispatcher, ThyPlacement } from 'ngx-tethys/core';
 import { elementMatchClosest, FunctionProp, TinyDate } from 'ngx-tethys/util';
-
-import {
-    Component,
-    ElementRef,
-    EventEmitter,
-    inject,
-    Input,
-    NgZone,
-    OnChanges,
-    OnInit,
-    Output,
-    PLATFORM_ID,
-    TemplateRef,
-    ViewChild
-} from '@angular/core';
-
+import { Component, ElementRef, inject, input, NgZone, OnInit, output, PLATFORM_ID, TemplateRef, viewChild } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { isPlatformBrowser } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -23,7 +8,7 @@ import { AbstractPickerComponent } from './abstract-picker.component';
 import { CompatibleValue, RangeAdvancedValue } from './inner-types';
 import { ThyPicker } from './picker.component';
 import { hasTimeInStringDate, isValidStringDate, parseStringDate, transformDateValue } from './picker.util';
-import { CompatibleDate, ThyPanelMode } from './standard-types';
+import { ThyCompatibleDate, ThyPanelMode } from './standard-types';
 
 /**
  * @private
@@ -36,77 +21,49 @@ import { CompatibleDate, ThyPanelMode } from './standard-types';
         '(blur)': 'onBlur($event)'
     }
 })
-export class BasePicker extends AbstractPickerComponent implements OnInit, OnChanges {
+export class BasePicker extends AbstractPickerComponent implements OnInit {
     protected element = inject(ElementRef);
 
     showWeek = false;
 
     panelMode: ThyPanelMode | ThyPanelMode[];
 
-    initialized: boolean;
-
     private innerPreviousDate: string;
 
-    @ViewChild('thyPicker', { static: true }) thyPicker: ThyPicker;
+    readonly thyPicker = viewChild<ThyPicker>('thyPicker');
 
-    @Input() thyDateRender: FunctionProp<TemplateRef<Date> | string>;
-
-    @Input() set thyMode(value: ThyPanelMode) {
-        this._panelMode = value ?? 'date';
-        if (this.initialized) {
-            this.setDefaultTimePickerState(this._panelMode);
-        }
-    }
-
-    get thyMode() {
-        return this._panelMode;
-    }
+    readonly thyDateRender = input<FunctionProp<TemplateRef<Date> | string>>();
 
     /**
      * 是否有幕布
-     * @default true
      */
-    @Input({ transform: coerceBooleanProperty }) thyHasBackdrop = true;
+    readonly thyHasBackdrop = input(true, { transform: coerceBooleanProperty });
 
-    /**
-     * @type EventEmitter<ThyPanelMode | ThyPanelMode[]>
-     */
-    @Output() readonly thyOnPanelChange = new EventEmitter<ThyPanelMode | ThyPanelMode[]>();
+    readonly thyOnPanelChange = output<ThyPanelMode | ThyPanelMode[]>();
 
-    /**
-     * @type EventEmitter<Date[]>
-     */
-    @Output() readonly thyOnCalendarChange = new EventEmitter<Date[]>();
-
-    private _showTime: object | boolean;
+    readonly thyOnCalendarChange = output<Date[]>();
 
     /**
      * 增加时间选择功能
-     * @default false
      */
-    @Input() get thyShowTime(): object | boolean {
-        return this._showTime;
-    }
-    set thyShowTime(value: object | boolean) {
-        this._showTime = typeof value === 'object' ? value : coerceBooleanProperty(value);
-    }
+    readonly thyShowTime = input(false, {
+        transform: (value: object | boolean) => {
+            return typeof value === 'object' ? value : coerceBooleanProperty(value);
+        }
+    });
 
     /**
      * 是否展示时间(时、分)
-     * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyMustShowTime = false;
+    readonly thyMustShowTime = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 弹出位置
      * @type top | topLeft | topRight | bottom | bottomLeft | bottomRight | left | leftTop | leftBottom | right | rightTop | rightBottom
      */
-    @Input() thyPlacement: ThyPlacement = 'bottomLeft';
+    readonly thyPlacement = input<ThyPlacement>('bottomLeft');
 
-    /**
-     * @type EventEmitter<CompatibleDate | null>
-     */
-    @Output() readonly thyOnOk = new EventEmitter<CompatibleDate | null>();
+    readonly thyOnOk = output<ThyCompatibleDate | null>();
 
     takeUntilDestroyed = takeUntilDestroyed();
 
@@ -118,8 +75,7 @@ export class BasePicker extends AbstractPickerComponent implements OnInit, OnCha
 
     ngOnInit(): void {
         super.ngOnInit();
-        this.setDefaultTimePickerState(this._panelMode);
-        this.initialized = true;
+        this.setDefaultTimePickerState(this.thyMode());
 
         if (isPlatformBrowser(this.platformId)) {
             this.thyClickDispatcher
@@ -128,8 +84,10 @@ export class BasePicker extends AbstractPickerComponent implements OnInit, OnCha
                 .subscribe((event: Event) => {
                     if (
                         !this.element.nativeElement.contains(event.target) &&
-                        !this.thyPicker?.overlayContainer?.nativeElement.contains(event.target as Node) &&
-                        this.realOpenState
+                        !this.thyPicker()
+                            ?.overlayContainer()
+                            ?.nativeElement.contains(event.target as Node) &&
+                        this.realOpenState()
                     ) {
                         this.ngZone.run(() => {
                             this.closeOverlay();
@@ -141,13 +99,13 @@ export class BasePicker extends AbstractPickerComponent implements OnInit, OnCha
     }
 
     onValueChange(value: CompatibleValue | RangeAdvancedValue): void {
-        this.thyPicker.entering = false;
+        this.thyPicker().entering = false;
         this.restoreTimePickerState(value as CompatibleValue);
         super.onValueChange(value);
-        if (!this.flexible) {
+        if (!this.flexible()) {
             this.closeOverlay();
         }
-        this.innerPreviousDate = this.thyPicker.getReadableValue(this.thyValue);
+        this.innerPreviousDate = this.thyPicker().getReadableValue(this.thyValue());
     }
 
     onInputValueChange(formatDate: string | null | Array<null>) {
@@ -158,17 +116,18 @@ export class BasePicker extends AbstractPickerComponent implements OnInit, OnCha
             return;
         }
         let value = formatDate as string;
-        const valueValid = isValidStringDate(value, this.thyTimeZone);
-        const valueLimitValid = valueValid ? this.isValidDateLimit(parseStringDate(value, this.thyTimeZone)) : false;
+        const timeZone = this.thyTimeZone();
+        const valueValid = isValidStringDate(value, timeZone);
+        const valueLimitValid = valueValid ? this.isValidDateLimit(parseStringDate(value, timeZone)) : false;
         if (valueValid && valueLimitValid) {
             this.innerPreviousDate = value;
         } else {
             value = this.innerPreviousDate;
         }
         const tinyDate = value
-            ? this.thyShowTime
-                ? parseStringDate(value, this.thyTimeZone)
-                : parseStringDate(value, this.thyTimeZone).startOfDay()
+            ? this.thyShowTime()
+                ? parseStringDate(value, timeZone)
+                : parseStringDate(value, timeZone).startOfDay()
             : null;
         this.restoreTimePickerState(tinyDate);
         super.onValueChange(tinyDate);
@@ -176,36 +135,38 @@ export class BasePicker extends AbstractPickerComponent implements OnInit, OnCha
 
     // Displays the time directly when the time must be displayed by default
     setDefaultTimePickerState(value: ThyPanelMode) {
-        this.withTime = this.thyMustShowTime;
-        if (this.isRange) {
-            this.panelMode = this.flexible ? ['date', 'date'] : [value, value];
+        this.withTime = this.thyMustShowTime();
+        if (this.isRange()) {
+            this.panelMode = this.flexible() ? ['date', 'date'] : [value, value];
         } else {
             this.panelMode = value;
         }
         this.showWeek = value === 'week';
-        if (!this.thyFormat) {
+        if (!this.thyFormat()) {
             const inputFormats: { [key in ThyPanelMode]?: string } = {
                 year: 'yyyy',
                 quarter: 'yyyy-qqq',
                 month: 'yyyy-MM',
                 week: this.locale().weekThFormat,
-                date: this.thyShowTime ? 'yyyy-MM-dd HH:mm' : 'yyyy-MM-dd'
+                date: this.thyShowTime() ? 'yyyy-MM-dd HH:mm' : 'yyyy-MM-dd'
             };
-            this.thyFormat = this.flexible ? inputFormats['date'] : inputFormats[value];
+            const format = this.flexible() ? inputFormats['date'] : inputFormats[value];
+            this.thyFormat.set(format);
         }
     }
 
     // Restore after clearing time to select whether the original picker time is displayed or not
     restoreTimePickerState(value: CompatibleValue | null) {
         if (!value) {
-            this.withTime = this.thyMustShowTime || this.originWithTime;
+            this.withTime = this.thyMustShowTime() || this.originWithTime;
         }
     }
 
     // Emit thyOnCalendarChange when select date by thy-range-picker
     onCalendarChange(value: TinyDate[]): void {
-        if (this.isRange) {
+        if (this.isRange()) {
             const rangeValue = value.map(x => x.nativeDate);
+            console.log('====onCalendarChange==>', rangeValue);
             this.thyOnCalendarChange.emit(rangeValue);
         }
     }
@@ -215,16 +176,17 @@ export class BasePicker extends AbstractPickerComponent implements OnInit, OnCha
     }
 
     onResultOk(): void {
-        if (this.isRange) {
-            const value = this.thyValue as TinyDate[];
-            if (value.length) {
+        if (this.isRange()) {
+            const value = this.thyValue() as TinyDate[];
+            if (value && (value as TinyDate[]).length) {
                 this.thyOnOk.emit([value[0].nativeDate, value[1].nativeDate]);
             } else {
                 this.thyOnOk.emit([]);
             }
         } else {
-            if (this.thyValue) {
-                this.thyOnOk.emit((this.thyValue as TinyDate).nativeDate);
+            const value = this.thyValue() as TinyDate;
+            if (value) {
+                this.thyOnOk.emit(value.nativeDate);
             } else {
                 this.thyOnOk.emit(null);
             }
@@ -240,7 +202,7 @@ export class BasePicker extends AbstractPickerComponent implements OnInit, OnCha
     }
 
     onFocus(event: Event) {
-        this.picker.focus();
+        this.picker().focus();
     }
 
     onBlur(event?: FocusEvent) {
@@ -252,21 +214,29 @@ export class BasePicker extends AbstractPickerComponent implements OnInit, OnCha
     }
 
     onInputDate(value: string) {
-        if (value && isValidStringDate(value, this.thyTimeZone)) {
-            if (this.thyShowTime) {
-                this.withTime = hasTimeInStringDate(value, this.thyTimeZone);
+        const timeZone = this.thyTimeZone();
+        if (value && isValidStringDate(value, timeZone)) {
+            if (this.thyShowTime()) {
+                this.withTime = hasTimeInStringDate(value, timeZone);
             }
-            this.thyValue = parseStringDate(value, this.thyTimeZone);
+            this.thyValue.set(parseStringDate(value, timeZone));
         }
     }
 
     private isValidDateLimit(date: TinyDate): boolean {
         let disable = false;
-        if (this.thyDisabledDate !== undefined) {
-            disable = this.thyDisabledDate(date.nativeDate);
+
+        const disabledDate = this.thyDisabledDate();
+        if (disabledDate !== undefined) {
+            disable = disabledDate(date.nativeDate);
         }
-        const minDate = this.thyMinDate ? new TinyDate(transformDateValue(this.thyMinDate).value as Date, this.thyTimeZone) : null;
-        const maxDate = this.thyMaxDate ? new TinyDate(transformDateValue(this.thyMaxDate).value as Date, this.thyTimeZone) : null;
+
+        const timeZone = this.thyTimeZone();
+        const _minDate = this.thyMinDate();
+        const minDate = _minDate ? new TinyDate(transformDateValue(_minDate).value as Date, timeZone) : null;
+
+        const _maxDate = this.thyMaxDate();
+        const maxDate = _maxDate ? new TinyDate(transformDateValue(_maxDate).value as Date, timeZone) : null;
         return (
             (!minDate || date.startOfDay().nativeDate >= minDate.startOfDay().nativeDate) &&
             (!maxDate || date.startOfDay().nativeDate <= maxDate.startOfDay().nativeDate) &&

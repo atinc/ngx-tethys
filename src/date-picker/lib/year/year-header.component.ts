@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { DateHelperService } from '../../../date-picker/date-helper.service';
 import { CalendarHeader, PanelSelector } from '../calendar/calendar-header.component';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgClass } from '@angular/common';
@@ -15,10 +14,8 @@ import { NgClass } from '@angular/common';
     imports: [NgClass, ThyIcon]
 })
 export class YearHeader extends CalendarHeader {
-    dateHelper: DateHelperService;
-
     get startYear(): number {
-        return parseInt(`${this.value.getYear() / 10}`, 10) * 10;
+        return parseInt(`${this.value().getYear() / 10}`, 10) * 10;
     }
 
     get endYear(): number {
@@ -26,11 +23,11 @@ export class YearHeader extends CalendarHeader {
     }
 
     superPrevious(): void {
-        this.changeValue(this.value.addYears(-10));
+        this.changeValue(this.value().addYears(-10));
     }
 
     superNext(): void {
-        this.changeValue(this.value.addYears(10));
+        this.changeValue(this.value().addYears(10));
     }
 
     getSelectors(): PanelSelector[] {

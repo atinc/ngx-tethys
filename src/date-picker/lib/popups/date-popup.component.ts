@@ -1,4 +1,5 @@
 import {
+    coerceBooleanProperty,
     endOfDay,
     FunctionProp,
     helpers,
@@ -9,22 +10,21 @@ import {
     TinyDate,
     TinyDateCompareGrain
 } from 'ngx-tethys/util';
-
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    EventEmitter,
+    computed,
+    effect,
     inject,
-    Input,
-    OnChanges,
+    input,
+    model,
     OnInit,
-    Output,
+    output,
     Signal,
-    SimpleChanges,
-    TemplateRef
+    TemplateRef,
+    signal
 } from '@angular/core';
-
 import { NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThyButtonIcon } from 'ngx-tethys/button';
@@ -32,9 +32,17 @@ import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
 import { ThyNav, ThyNavItemDirective } from 'ngx-tethys/nav';
 import { ThyDatePickerConfigService } from '../../date-picker.service';
 import { CompatibleValue, DatePickerFlexibleTab, RangeAdvancedValue, RangePartType } from '../../inner-types';
-import { dateAddAmount, getShortcutValue, hasValue, makeValue, setValueByTimestampPrecision, transformDateValue } from '../../picker.util';
 import {
-    CompatibleDate,
+    dateAddAmount,
+    getShortcutValue,
+    hasValue,
+    instanceOfCompatibleValue,
+    makeValue,
+    setValueByTimestampPrecision,
+    transformDateValue
+} from '../../picker.util';
+import {
+    ThyCompatibleDate,
     CompatiblePresets,
     DisabledDateFn,
     SupportTimeOptions,
@@ -60,133 +68,198 @@ import { InnerPopup } from './inner-popup.component';
     templateUrl: './date-popup.component.html',
     imports: [ThyNav, ThyNavItemDirective, ThyButtonIcon, DateCarousel, FormsModule, NgTemplateOutlet, InnerPopup, CalendarFooter]
 })
-export class DatePopup implements OnChanges, OnInit {
+export class DatePopup implements OnInit {
     private cdr = inject(ChangeDetectorRef);
+
     private datePickerConfigService = inject(ThyDatePickerConfigService);
+
     locale: Signal<ThyDatePickerLocale> = injectLocale('datePicker');
 
-    @Input() isRange: boolean;
-    @Input() showWeek: boolean;
+    readonly isRange = input<boolean>();
 
-    @Input() format: string;
-    @Input() disabledDate: DisabledDateFn;
-    @Input() minDate: Date | number;
-    @Input() maxDate: Date | number;
-    @Input() showToday: boolean;
+    readonly showWeek = input<boolean>();
+
+    readonly format = input<string>();
+
+    readonly disabledDate = model<DisabledDateFn>();
+
+    readonly minDate = input<Date | number>();
+
+    readonly maxDate = input<Date | number>();
+
+    readonly showToday = input<boolean>();
 
     /**
      * 是否支持设置时间(时、分)
      */
-    @Input() showTime: SupportTimeOptions | boolean;
+    readonly showTime = input<SupportTimeOptions | boolean>();
 
     /**
      * 是否展示时间(时、分)
      */
-    @Input() mustShowTime: boolean;
+    readonly mustShowTime = input(false, { transform: coerceBooleanProperty });
 
-    @Input() dateRender: FunctionProp<TemplateRef<Date> | string>;
-    @Input() className: string;
-    @Input() panelMode: ThyPanelMode | ThyPanelMode[];
-    @Input() value: CompatibleValue;
-    @Input() defaultPickerValue: CompatibleDate | number;
+    readonly dateRender = input<FunctionProp<TemplateRef<Date> | string>>();
 
-    @Input() showShortcut: boolean;
+    readonly className = input<string>();
 
-    @Input() shortcutPresets: CompatiblePresets;
+    readonly panelMode = model<ThyPanelMode | ThyPanelMode[]>();
 
-    @Input() shortcutPosition: ThyShortcutPosition;
+    readonly defaultPickerValue = input<ThyCompatibleDate | number>();
 
-    @Input() flexible: boolean;
+    readonly value = model<CompatibleValue>();
 
-    @Input() flexibleDateGranularity: ThyDateGranularity;
+    readonly showShortcut = model<boolean>();
 
-    @Input() timestampPrecision: 'seconds' | 'milliseconds';
+    readonly shortcutPresets = model<CompatiblePresets>();
 
-    @Input() timeZone: string;
+    readonly shortcutPosition = input<ThyShortcutPosition>();
 
-    @Output() readonly panelModeChange = new EventEmitter<ThyPanelMode | ThyPanelMode[]>();
-    @Output() readonly calendarChange = new EventEmitter<CompatibleValue>();
-    @Output() readonly valueChange = new EventEmitter<CompatibleValue | RangeAdvancedValue>();
-    @Output() readonly resultOk = new EventEmitter<void>(); // Emitted when done with date selecting
-    @Output() readonly showTimePickerChange = new EventEmitter<boolean>();
-    @Output() readonly dateValueChange = new EventEmitter<ThyDateChangeEvent>();
+    readonly flexible = input(false, { transform: coerceBooleanProperty });
+
+    readonly flexibleDateGranularity = model<ThyDateGranularity>();
+
+    readonly timestampPrecision = input<'seconds' | 'milliseconds'>();
+
+    readonly timeZone = input<string>();
+
+    readonly panelModeChange = output<ThyPanelMode | ThyPanelMode[]>();
+
+    readonly calendarChange = output<CompatibleValue>();
+
+    readonly valueChange = output<CompatibleValue | RangeAdvancedValue>();
+
+    readonly resultOk = output<void>(); // Emitted when done with date selecting
+
+    readonly showTimePickerChange = output<boolean>();
+
+    readonly dateValueChange = output<ThyDateChangeEvent>();
 
     prefixCls = 'thy-calendar';
+
     showTimePicker = false;
+
     timeOptions: SupportTimeOptions | SupportTimeOptions[] | null;
+
     activeDate: TinyDate | TinyDate[];
+
     selectedValue: TinyDate[] = []; // Range ONLY
+
     hoverValue: TinyDate[] = []; // Range ONLY
 
     advancedSelectedValue: RangeAdvancedValue; // advanced ONLY
 
     flexibleActiveTab: DatePickerFlexibleTab = 'advanced';
 
-    get hasTimePicker(): boolean {
-        return !!this.showTime;
-    }
     private partTypeMap: { [key: string]: number } = { left: 0, right: 1 };
 
     [property: string]: any;
 
-    endPanelMode: ThyPanelMode | ThyPanelMode[];
+    readonly endPanelMode = signal<ThyPanelMode | ThyPanelMode[]>(undefined);
 
     innerShortcutPresets: ThyShortcutPreset[];
 
-    disableTimeConfirm = false;
+    readonly disableTimeConfirm = computed(() => {
+        const isRange = this.isRange();
+        const showTime = this.showTime();
+        const value = this.value();
+        const timeZone = this.timeZone();
+
+        if (!isRange && showTime) {
+            const date: TinyDate = value ? (value as TinyDate) : new TinyDate(undefined, timeZone);
+            const minDate: TinyDate = this.getMinTinyDate();
+            const maxDate: TinyDate = this.getMaxTinyDate();
+
+            if ((minDate && date.getTime() < minDate.getTime()) || (maxDate && date.getTime() > maxDate.getTime())) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
+    });
 
     setProperty<T extends keyof DatePopup>(key: T, value: this[T]): void {
         this[key] = value;
         this.cdr.markForCheck();
     }
 
+    constructor() {
+        effect(() => {
+            const panelMode = this.panelMode();
+            if (panelMode) {
+                if (helpers.isArray(panelMode)) {
+                    this.endPanelMode.set([...panelMode]);
+                } else {
+                    this.endPanelMode.set(panelMode);
+                }
+            }
+        });
+
+        effect(() => {
+            if (this.value()) {
+                console.log('====update ActiveDate 1====');
+                // 日期区间选值时不应该触发这里
+                this.updateActiveDate();
+            }
+        });
+    }
+
     ngOnInit(): void {
         this.initShortcutPresets();
         this.initPanelMode();
-        if (this.flexible && this.flexibleDateGranularity === 'day') {
+
+        const flexible = this.flexible();
+        const isRange = this.isRange();
+        const timeZone = this.timeZone();
+        const flexibleDateGranularity = this.flexibleDateGranularity();
+
+        if (flexible && flexibleDateGranularity === 'day') {
             this.flexibleActiveTab = 'custom';
         }
-        if (this.defaultPickerValue && !hasValue(this.value)) {
-            const { value } = transformDateValue(this.defaultPickerValue);
-            this.value = makeValue(value, this.isRange, this.timeZone);
+
+        const defaultPickerValue = this.defaultPickerValue();
+        if (defaultPickerValue && !hasValue(this.value())) {
+            const { value } = transformDateValue(defaultPickerValue);
+            this.value.set(makeValue(value, isRange, timeZone));
         }
+
+        console.log('====update ActiveDate 2====');
         this.updateActiveDate();
         this.initDisabledDate();
-        if (this.isRange && this.flexible && this.value) {
-            this.advancedSelectedValue = { begin: this.value[0], end: this.value[1], dateGranularity: this.flexibleDateGranularity };
-        }
-    }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes.panelMode) {
-            if (helpers.isArray(this.panelMode)) {
-                this.endPanelMode = [...this.panelMode];
-            } else {
-                this.endPanelMode = this.panelMode;
-            }
-        }
-        if (changes.defaultPickerValue) {
-            this.updateActiveDate();
-        }
-        if (changes.value && changes.value.currentValue) {
-            this.updateActiveDate();
+        const value = this.value();
+        if (isRange && flexible && value) {
+            this.advancedSelectedValue = {
+                begin: (value as TinyDate[])[0],
+                end: (value as TinyDate[])[1],
+                dateGranularity: flexibleDateGranularity
+            };
         }
     }
 
     initShortcutPresets(): void {
+        const timeZone = this.timeZone();
         const { shortcutRangesPresets, shortcutDatePresets, showShortcut } = this.datePickerConfigService;
 
-        this.showShortcut =
-            ['date', 'date,date'].includes(this.panelMode.toString()) && isUndefinedOrNull(this.showShortcut)
+        this.showShortcut.set(
+            ['date', 'date,date'].includes(this.panelMode()?.toString()) && isUndefinedOrNull(this.showShortcut())
                 ? showShortcut
-                : this.showShortcut;
+                : this.showShortcut()
+        );
 
-        if (this.showShortcut) {
-            if (!this.shortcutPresets) {
-                this.shortcutPresets = this.isRange ? shortcutRangesPresets : shortcutDatePresets;
+        if (this.showShortcut()) {
+            if (!this.shortcutPresets()) {
+                const presets = this.isRange() ? shortcutRangesPresets : shortcutDatePresets;
+                this.shortcutPresets.set(presets);
             }
 
-            this.innerShortcutPresets = isFunction(this.shortcutPresets) ? this.shortcutPresets() : this.shortcutPresets;
+            if (isFunction(this.shortcutPresets())) {
+                this.innerShortcutPresets = (this.shortcutPresets() as () => ThyShortcutPreset[])();
+            } else {
+                this.innerShortcutPresets = this.shortcutPresets() as ThyShortcutPreset[];
+            }
+
             if (this.innerShortcutPresets.length) {
                 const minDate: TinyDate = this.getMinTinyDate();
                 const maxDate: TinyDate = this.getMaxTinyDate();
@@ -194,13 +267,13 @@ export class DatePopup implements OnChanges, OnInit {
                 const minTime = minDate ? minDate.getTime() : null;
                 const maxTime = maxDate ? maxDate.getTime() : null;
 
-                if (this.isRange) {
+                if (this.isRange()) {
                     this.innerShortcutPresets.forEach((preset: ThyShortcutPreset) => {
-                        const begin: number | Date = getShortcutValue(preset.value[0]);
-                        const beginTime: number = new TinyDate(startOfDay(begin), this.timeZone).getTime();
+                        const begin: number | Date = getShortcutValue((preset.value as [ThyShortcutValue, ThyShortcutValue])[0]);
+                        const beginTime: number = new TinyDate(startOfDay(begin), timeZone).getTime();
 
-                        const end: number | Date = getShortcutValue(preset.value[1]);
-                        const endTime: number = new TinyDate(endOfDay(end), this.timeZone).getTime();
+                        const end: number | Date = getShortcutValue((preset.value as [ThyShortcutValue, ThyShortcutValue])[1]);
+                        const endTime: number = new TinyDate(endOfDay(end), timeZone).getTime();
 
                         if ((minDate && endTime < minTime) || (maxDate && beginTime > maxTime)) {
                             preset.disabled = true;
@@ -211,7 +284,7 @@ export class DatePopup implements OnChanges, OnInit {
                 } else {
                     this.innerShortcutPresets.forEach((preset: ThyShortcutPreset) => {
                         const singleValue: number | Date = getShortcutValue(preset.value as ThyShortcutValue);
-                        const singleTime: number = new TinyDate(singleValue, this.timeZone).getTime();
+                        const singleTime: number = new TinyDate(singleValue, timeZone).getTime();
 
                         if ((minDate && singleTime < minTime) || (maxDate && singleTime > maxTime)) {
                             preset.disabled = true;
@@ -226,53 +299,58 @@ export class DatePopup implements OnChanges, OnInit {
 
     updateActiveDate() {
         this.clearHoverValue();
-        if (!this.value) {
-            const { value } = transformDateValue(this.defaultPickerValue);
-            this.value = makeValue(value, this.isRange, this.timeZone);
+        const value = this.value();
+        if (!value) {
+            const { value } = transformDateValue(this.defaultPickerValue());
+            this.value.set(makeValue(value, this.isRange(), this.timeZone()));
         }
-        if (this.isRange) {
-            if (!this.flexible || this.flexibleDateGranularity === 'day') {
-                this.selectedValue = this.value as TinyDate[];
+        if (this.isRange()) {
+            if (!this.flexible() || this.flexibleDateGranularity() === 'day') {
+                // 问题出在这里 value 即 this.value() 值的类型变了
+                //    判断如果 value 是 TinyDate[] 类型才赋值
+                if (instanceOfCompatibleValue(value)) {
+                    this.selectedValue = value as TinyDate[];
+                }
             }
-            this.activeDate = this.normalizeRangeValue(this.value as TinyDate[], this.getPanelMode(this.endPanelMode) as ThyPanelMode);
+            this.activeDate = this.normalizeRangeValue(value as TinyDate[], this.getPanelMode(this.endPanelMode()) as ThyPanelMode);
         } else {
-            this.activeDate = this.value as TinyDate;
+            this.activeDate = value as TinyDate;
         }
-        this.isDisableTimeConfirm();
     }
 
     initPanelMode() {
-        if (!this.endPanelMode) {
-            if (helpers.isArray(this.panelMode)) {
-                this.endPanelMode = [...this.panelMode];
+        if (!this.endPanelMode()) {
+            if (helpers.isArray(this.panelMode())) {
+                this.endPanelMode.set([...(this.panelMode() as ThyPanelMode[])]);
             } else {
-                this.endPanelMode = this.panelMode;
+                this.endPanelMode.set(this.panelMode());
             }
         } else {
-            if (helpers.isArray(this.endPanelMode)) {
-                this.panelMode = [...this.endPanelMode];
+            if (helpers.isArray(this.endPanelMode())) {
+                this.panelMode.set([...(this.endPanelMode() as ThyPanelMode[])]);
             } else {
-                this.panelMode = this.endPanelMode;
+                this.panelMode.set(this.endPanelMode());
             }
         }
     }
 
     initDisabledDate(): void {
+        const timeZone = this.timeZone();
         let minDate: TinyDate;
         let maxDate: TinyDate;
         let disabledDateFn: DisabledDateFn;
-        if (this.minDate) {
-            const { value } = transformDateValue(this.minDate);
-            minDate = new TinyDate(value as Date, this.timeZone);
+        if (this.minDate()) {
+            const { value } = transformDateValue(this.minDate());
+            minDate = new TinyDate(value as Date, timeZone);
         }
-        if (this.maxDate) {
-            const { value } = transformDateValue(this.maxDate);
-            maxDate = new TinyDate(value as Date, this.timeZone);
+        if (this.maxDate()) {
+            const { value } = transformDateValue(this.maxDate());
+            maxDate = new TinyDate(value as Date, timeZone);
         }
-        if (this.disabledDate) {
-            disabledDateFn = this.disabledDate;
+        if (this.disabledDate()) {
+            disabledDateFn = this.disabledDate();
         }
-        this.disabledDate = d => {
+        this.disabledDate.set(d => {
             let expression = false;
             if (minDate) {
                 expression = d < minDate.startOfDay().nativeDate;
@@ -284,7 +362,7 @@ export class DatePopup implements OnChanges, OnInit {
                 expression = disabledDateFn(d);
             }
             return expression;
-        };
+        });
     }
 
     onShowTimePickerChange(show: boolean): void {
@@ -293,18 +371,19 @@ export class DatePopup implements OnChanges, OnInit {
     }
 
     onClickOk(): void {
-        this.setValue(this.value);
-        this.valueChange.emit(this.value);
+        const value = this.value();
+        this.setValue(value);
+        this.valueChange.emit(value);
         this.resultOk.emit();
     }
 
     onClickRemove(): void {
-        this.value = this.isRange ? [] : null;
-        this.valueChange.emit(this.value);
+        this.value.set(this.isRange() ? [] : null);
+        this.valueChange.emit(this.value());
     }
 
     onDayHover(value: TinyDate): void {
-        if (this.isRange && this.selectedValue[0] && !this.selectedValue[1]) {
+        if (this.isRange() && this.selectedValue[0] && !this.selectedValue[1]) {
             // When right value is selected, don't do hover
             const base = this.selectedValue[0]; // Use the left of selected value as the base to decide later hoverValue
             if (base.isBeforeDay(value)) {
@@ -316,20 +395,20 @@ export class DatePopup implements OnChanges, OnInit {
     }
 
     onPanelModeChange(mode: ThyPanelMode, partType?: RangePartType): void {
-        if (this.isRange) {
-            (this.panelMode as ThyPanelMode[])[this.getPartTypeIndex(partType)] = mode;
+        if (this.isRange()) {
+            (this.panelMode() as ThyPanelMode[])[this.getPartTypeIndex(partType)] = mode;
         } else {
-            this.panelMode = mode;
+            this.panelMode.set(mode);
         }
-        this.panelModeChange.emit(this.panelMode);
+        this.panelModeChange.emit(this.panelMode());
     }
 
     onHeaderChange(value: TinyDate, partType?: RangePartType): void {
-        if (this.isRange) {
-            this.activeDate[this.getPartTypeIndex(partType)] = value;
+        if (this.isRange()) {
+            (this.activeDate as TinyDate[])[this.getPartTypeIndex(partType)] = value;
             this.activeDate = this.normalizeRangeValue(
                 this.activeDate as TinyDate[],
-                this.getPanelMode(this.endPanelMode, partType) as ThyPanelMode
+                this.getPanelMode(this.endPanelMode(), partType) as ThyPanelMode
             );
         } else {
             this.activeDate = value;
@@ -337,10 +416,10 @@ export class DatePopup implements OnChanges, OnInit {
     }
 
     onSelectTime(value: TinyDate, partType?: RangePartType): void {
-        if (this.isRange) {
+        if (this.isRange()) {
             // TODO:range picker set time
         } else {
-            this.setValue(new TinyDate(value.nativeDate, this.timeZone));
+            this.setValue(new TinyDate(value.nativeDate, this.timeZone()));
         }
     }
 
@@ -349,13 +428,13 @@ export class DatePopup implements OnChanges, OnInit {
     }
 
     clearFlexibleValue() {
-        this.flexibleDateGranularity = null;
+        this.flexibleDateGranularity.set(null);
         if (this.flexibleActiveTab === 'advanced') {
             this.advancedSelectedValue = {};
         } else {
             this.selectedValue = [];
         }
-        this.valueChange.emit({ begin: null, end: null, dateGranularity: this.flexibleDateGranularity });
+        this.valueChange.emit({ begin: null, end: null, dateGranularity: this.flexibleDateGranularity() });
     }
 
     changeValueFromAdvancedSelect(value: RangeAdvancedValue) {
@@ -365,8 +444,10 @@ export class DatePopup implements OnChanges, OnInit {
         this.dateValueChange.emit({ value: [value.begin, value.end] });
     }
 
+    // ⭐️⭐️⭐️ 选第二个值进入这里
+    // 跑了两次 normalizeRangeValue ，第一次的值是对的，第二次类型不对
     changeValueFromSelect(value: TinyDate, partType?: RangePartType): void {
-        if (this.isRange) {
+        if (this.isRange()) {
             // clear advanced date when select a custom date
             this.advancedSelectedValue = {};
 
@@ -378,16 +459,20 @@ export class DatePopup implements OnChanges, OnInit {
                 this.selectedValue = [this.selectedValue[0].startOfDay()];
                 this.calendarChange.emit([this.selectedValue[0].clone()]);
             } else if (left && !right) {
+                // ⭐️⭐️⭐️ 选第二个值进入这里
                 // If one of them is empty, assign the other one and sort, then set the final values
                 this.clearHoverValue(); // Clean up
                 this.setRangeValue('right', value);
                 this.selectedValue = sortRangeValue(this.selectedValue); // Sort
                 this.selectedValue = this.getSelectedRangeValueByMode(this.selectedValue);
+                // 进入 normalizeRangeValue 一次，第一次类型正确
                 this.activeDate = this.normalizeRangeValue(
                     this.selectedValue,
-                    this.getPanelMode(this.endPanelMode, partType) as ThyPanelMode
+                    this.getPanelMode(this.endPanelMode(), partType) as ThyPanelMode
                 );
                 this.setValue(this.cloneRangeDate(this.selectedValue));
+
+                // 怀疑是这里把正确的数据抛出去，但是外部又传进来了错误的数据
                 this.calendarChange.emit(this.cloneRangeDate(this.selectedValue));
                 this.dateValueChange.emit({ value: this.cloneRangeDate(this.selectedValue) });
             }
@@ -399,7 +484,7 @@ export class DatePopup implements OnChanges, OnInit {
     }
 
     private getSelectedRangeValueByMode(value: TinyDate[]): TinyDate[] {
-        const panelMode = this.getPanelMode(this.endPanelMode);
+        const panelMode = this.getPanelMode(this.endPanelMode());
         if (panelMode === 'year') {
             return [value[0].startOfYear(), value[1].endOfYear()];
         } else if (panelMode === 'quarter') {
@@ -414,10 +499,10 @@ export class DatePopup implements OnChanges, OnInit {
     }
 
     private updateHourMinute(value: TinyDate): TinyDate {
-        if (!this.value) {
+        if (!this.value()) {
             return value;
         }
-        const originDate = this.value as TinyDate;
+        const originDate = this.value() as TinyDate;
         const dateTime = [value.getHours(), value.getMinutes(), value.getSeconds()];
         const originDateTime = [originDate.getHours(), originDate.getMinutes(), originDate.getSeconds()];
 
@@ -430,7 +515,7 @@ export class DatePopup implements OnChanges, OnInit {
     }
 
     enablePrevNext(direction: 'prev' | 'next', partType?: RangePartType): boolean {
-        if (this.isRange && this.panelMode === this.endPanelMode) {
+        if (this.isRange() && this.panelMode() === this.endPanelMode()) {
             const [start, end] = this.activeDate as TinyDate[];
             const showMiddle = !start.addMonths(1).isSame(end, 'month'); // One month diff then don't show middle prev/next
             if ((partType === 'left' && direction === 'next') || (partType === 'right' && direction === 'prev')) {
@@ -443,7 +528,7 @@ export class DatePopup implements OnChanges, OnInit {
     }
 
     getPanelMode(panelMode: ThyPanelMode | ThyPanelMode[], partType?: RangePartType): ThyPanelMode {
-        if (this.isRange) {
+        if (this.isRange()) {
             return panelMode[this.getPartTypeIndex(partType)] as ThyPanelMode;
         } else {
             return panelMode as ThyPanelMode;
@@ -451,17 +536,17 @@ export class DatePopup implements OnChanges, OnInit {
     }
 
     getValueBySelector(partType?: RangePartType): TinyDate {
-        if (this.isRange) {
+        if (this.isRange()) {
             const valueShow = this.selectedValue; // Use the real time value that without decorations when timepicker is shown up
             return (valueShow as TinyDate[])[this.getPartTypeIndex(partType)];
         } else {
-            return this.value as TinyDate;
+            return this.value() as TinyDate;
         }
     }
 
     getActiveDate(partType?: RangePartType): TinyDate {
-        if (this.isRange) {
-            return this.activeDate[this.getPartTypeIndex(partType)];
+        if (this.isRange()) {
+            return (this.activeDate as TinyDate[])[this.getPartTypeIndex(partType)];
         } else {
             return this.activeDate as TinyDate;
         }
@@ -472,11 +557,13 @@ export class DatePopup implements OnChanges, OnInit {
     }
 
     private getMinTinyDate() {
-        return this.minDate ? new TinyDate(transformDateValue(this.minDate).value as Date, this.timeZone) : null;
+        const minDate = this.minDate();
+        return minDate ? new TinyDate(transformDateValue(minDate).value as Date, this.timeZone()) : null;
     }
 
     private getMaxTinyDate() {
-        return this.maxDate ? new TinyDate(transformDateValue(this.maxDate).value as Date, this.timeZone) : null;
+        const maxDate = this.maxDate();
+        return maxDate ? new TinyDate(transformDateValue(maxDate).value as Date, this.timeZone()) : null;
     }
 
     private clearHoverValue(): void {
@@ -484,16 +571,19 @@ export class DatePopup implements OnChanges, OnInit {
     }
 
     private setValue(value: CompatibleValue): void {
-        this.value = value;
-        if (this.isRange && this.flexible) {
-            this.flexibleDateGranularity = 'day';
-            this.valueChange.emit({ begin: value[0], end: value[1], dateGranularity: this.flexibleDateGranularity });
+        this.value.set(value);
+        if (this.isRange() && this.flexible()) {
+            this.flexibleDateGranularity.set('day');
+            this.valueChange.emit({
+                begin: (value as TinyDate[])[0],
+                end: (value as TinyDate[])[1],
+                dateGranularity: this.flexibleDateGranularity()
+            });
         } else {
-            if (!this.showTime || !this.showTimePicker) {
-                this.valueChange.emit(this.value);
+            if (!this.showTime() || !this.showTimePicker) {
+                this.valueChange.emit(this.value());
             }
         }
-        this.isDisableTimeConfirm();
     }
 
     private normalizeRangeValue(value: TinyDate[], mode: ThyPanelMode = 'month'): TinyDate[] {
@@ -506,9 +596,9 @@ export class DatePopup implements OnChanges, OnInit {
         };
         const headerMode = headerModes[mode];
         const [start, end] = value;
-        const newStart = start || new TinyDate(undefined, this.timeZone);
+        const newStart = start || new TinyDate(undefined, this.timeZone());
         let newEnd = end;
-        if (!newEnd || newStart.isSame(end, headerMode as TinyDateCompareGrain)) {
+        if (!newEnd || newStart.isSame?.(end, headerMode as TinyDateCompareGrain)) {
             newEnd = dateAddAmount(newStart, 1, headerMode);
         }
         return [newStart, newEnd];
@@ -521,22 +611,6 @@ export class DatePopup implements OnChanges, OnInit {
 
     private cloneRangeDate(value: TinyDate[]): TinyDate[] {
         return [value[0] && value[0].clone(), value[1] && value[1].clone()] as TinyDate[];
-    }
-
-    private isDisableTimeConfirm() {
-        if (this.isRange || !this.showTime) {
-            return;
-        }
-
-        const date: TinyDate = this.value ? (this.value as TinyDate) : new TinyDate(undefined, this.timeZone);
-        const minDate: TinyDate = this.getMinTinyDate();
-        const maxDate: TinyDate = this.getMaxTinyDate();
-
-        if ((minDate && date.getTime() < minDate.getTime()) || (maxDate && date.getTime() > maxDate.getTime())) {
-            this.disableTimeConfirm = true;
-        } else {
-            this.disableTimeConfirm = false;
-        }
     }
 
     private getSelectedShortcutPreset(date: CompatibleValue): CompatibleValue {
@@ -591,6 +665,7 @@ export class DatePopup implements OnChanges, OnInit {
             return;
         }
 
+        const timeZone = this.timeZone();
         let selectedPresetValue: CompatibleValue;
         if (helpers.isArray(value)) {
             const begin: number | Date = getShortcutValue(value[0]);
@@ -598,39 +673,40 @@ export class DatePopup implements OnChanges, OnInit {
 
             if (begin && end) {
                 this.selectedValue = this.getSelectedShortcutPreset([
-                    new TinyDate(begin, this.timeZone).startOfDay(),
-                    new TinyDate(end, this.timeZone).endOfDay()
+                    new TinyDate(begin, timeZone).startOfDay(),
+                    new TinyDate(end, timeZone).endOfDay()
                 ]) as TinyDate[];
                 selectedPresetValue = this.cloneRangeDate(this.selectedValue);
             }
         } else {
-            const originDate = this.value as TinyDate;
+            const originDate = this.value() as TinyDate;
             const zonedTime = this.createInZoneTime(
-                new TinyDate(getShortcutValue(value), this.timeZone),
+                new TinyDate(getShortcutValue(value), timeZone),
                 originDate?.getHours() ?? 0,
                 originDate?.getMinutes() ?? 0,
                 originDate?.getSeconds() ?? 0
             );
-            const singleTinyDate: TinyDate = this.updateHourMinute(new TinyDate(zonedTime, this.timeZone));
+            const singleTinyDate: TinyDate = this.updateHourMinute(new TinyDate(zonedTime, timeZone));
             selectedPresetValue = this.getSelectedShortcutPreset(singleTinyDate) as TinyDate;
         }
         this.setValue(selectedPresetValue);
         const shortcutPresetsValue = setValueByTimestampPrecision(
             shortcutPresets?.value,
-            this.isRange,
-            this.timestampPrecision,
-            this.timeZone
+            this.isRange(),
+            this.timestampPrecision(),
+            timeZone
         ) as number;
         this.dateValueChange.emit({
             value: helpers.isArray(value) ? this.selectedValue : selectedPresetValue,
             triggerPreset: Object.assign({}, shortcutPresets, { value: shortcutPresetsValue })
         });
-        if (!helpers.isArray(value) && this.showTime && this.showTimePicker) {
+        if (!helpers.isArray(value) && this.showTime() && this.showTimePicker) {
+            console.log('====update ActiveDate 3====');
             this.updateActiveDate();
         }
     }
 
     private createInZoneTime(date: TinyDate, hours?: number, minutes?: number, seconds?: number): Date {
-        return TinyDate.createDateInTimeZone(date.getYear(), date.getMonth(), date.getDate(), hours, minutes, seconds, this.timeZone);
+        return TinyDate.createDateInTimeZone(date.getYear(), date.getMonth(), date.getDate(), hours, minutes, seconds, this.timeZone());
     }
 }

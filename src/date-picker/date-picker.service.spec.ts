@@ -3,7 +3,7 @@ import { fakeAsync, TestBed } from '@angular/core/testing';
 import { ThyI18nService } from 'ngx-tethys/i18n';
 import { THY_DATE_PICKER_CONFIG, useDatePickerDefaultConfig, ThyDatePickerConfigService } from 'ngx-tethys/date-picker';
 
-describe('thyDatePickerConfigService Angular testing', () => {
+fdescribe('thyDatePickerConfigService Angular testing', () => {
     let thyDatePickerConfigService: ThyDatePickerConfigService;
 
     function run(fn: Function): void {

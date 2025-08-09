@@ -1,6 +1,5 @@
-import { forwardRef, OnInit, Directive } from '@angular/core';
+import { forwardRef, Directive } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-
 import { PickerDirective } from './abstract-picker.directive';
 
 /**
@@ -19,10 +18,9 @@ import { PickerDirective } from './abstract-picker.directive';
         }
     ]
 })
-export class ThyRangePickerDirective extends PickerDirective implements OnInit {
-    isRange = true;
-
+export class ThyRangePickerDirective extends PickerDirective {
     constructor() {
         super();
+        this.isRange.set(true);
     }
 }

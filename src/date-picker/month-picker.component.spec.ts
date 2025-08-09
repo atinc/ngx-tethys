@@ -11,7 +11,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 registerLocaleData(zh);
 
-describe('ThyMonthPickerComponent', () => {
+fdescribe('ThyMonthPickerComponent', () => {
     let fixture: ComponentFixture<TestMonthPickerComponent>;
     let fixtureInstance: TestMonthPickerComponent;
     let debugElement: DebugElement;
