@@ -3,7 +3,6 @@ import { ThyPopover, ThyPopoverConfig } from 'ngx-tethys/popover';
 import { FunctionProp, warnDeprecation } from 'ngx-tethys/util';
 import { fromEvent, Observable, Subject } from 'rxjs';
 import { debounceTime, mapTo, takeUntil, tap } from 'rxjs/operators';
-
 import { coerceArray, coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
     AfterViewInit,
@@ -19,9 +18,9 @@ import {
     SimpleChange,
     TemplateRef,
     numberAttribute,
-    inject
+    inject,
+    OutputRefSubscription
 } from '@angular/core';
-
 import { AbstractPickerComponent } from './abstract-picker.component';
 import { DatePopup } from './lib/popups/date-popup.component';
 import { ThyDateChangeEvent, ThyPanelMode } from './standard-types';
@@ -124,6 +123,14 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
 
     takeUntilDestroyed = takeUntilDestroyed();
 
+    private valueChangeSubscription: OutputRefSubscription;
+
+    private calendarChangeSubscription: OutputRefSubscription;
+
+    private showTimePickerChangeSubscription: OutputRefSubscription;
+
+    private dateValueChangeSubscription: OutputRefSubscription;
+
     ngOnInit() {
         this.getInitialState();
     }
@@ -180,19 +187,37 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
         );
         if (popoverRef) {
             const componentInstance = popoverRef.componentInstance;
-            componentInstance.valueChange.pipe(takeUntil(this.destroy$)).subscribe((event: CompatibleValue) => this.onValueChange(event));
-            componentInstance.calendarChange.pipe(takeUntil(this.destroy$)).subscribe((event: CompatibleValue) => {
+
+            if (this.valueChangeSubscription) {
+                this.valueChangeSubscription.unsubscribe();
+            }
+            this.valueChangeSubscription = componentInstance.valueChange?.subscribe((event: CompatibleValue) => this.onValueChange(event));
+
+            if (this.calendarChangeSubscription) {
+                this.calendarChangeSubscription.unsubscribe();
+            }
+            this.calendarChangeSubscription = componentInstance.calendarChange?.subscribe((event: CompatibleValue) => {
                 const rangeValue = coerceArray(event).map(x => x.nativeDate);
                 this.thyOnCalendarChange.emit(rangeValue);
             });
-            componentInstance.showTimePickerChange
-                .pipe(takeUntil(this.destroy$))
-                .subscribe((event: boolean) => this.onShowTimePickerChange(event));
+
+            if (this.showTimePickerChangeSubscription) {
+                this.showTimePickerChangeSubscription.unsubscribe();
+            }
+            this.showTimePickerChangeSubscription = componentInstance.showTimePickerChange?.subscribe((event: boolean) =>
+                this.onShowTimePickerChange(event)
+            );
+
             // eslint-disable-next-line max-len
             componentInstance.ngOnChanges({ value: {} as SimpleChange }); // dynamically created components don't call ngOnChanges, manual call
-            componentInstance.dateValueChange?.pipe(this.takeUntilDestroyed).subscribe((event: ThyDateChangeEvent) => {
+
+            if (this.dateValueChangeSubscription) {
+                this.dateValueChangeSubscription.unsubscribe();
+            }
+            this.dateValueChangeSubscription = componentInstance.dateValueChange?.subscribe((event: ThyDateChangeEvent) => {
                 this.thyDateChange.emit(event);
             });
+
             popoverRef
                 .afterOpened()
                 .pipe(takeUntil(this.destroy$))
@@ -224,6 +249,19 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
     ngOnDestroy(): void {
         this.destroy$.next();
         this.destroy$.complete();
+
+        if (this.valueChangeSubscription) {
+            this.valueChangeSubscription.unsubscribe();
+        }
+        if (this.calendarChangeSubscription) {
+            this.calendarChangeSubscription.unsubscribe();
+        }
+        if (this.showTimePickerChangeSubscription) {
+            this.showTimePickerChangeSubscription.unsubscribe();
+        }
+        if (this.dateValueChangeSubscription) {
+            this.dateValueChangeSubscription.unsubscribe();
+        }
     }
 
     onValueChange(value: CompatibleValue): void {

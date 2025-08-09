@@ -411,7 +411,6 @@ describe('ThyPickerDirective', () => {
                 componentInstance.clearFlexibleValue();
                 componentInstance.onDayHover(componentInstance.tplInnerPopup);
                 componentInstance.setProperty('key', 1);
-                expect(componentInstance.hasTimePicker).toBe(false);
                 expect(componentInstance.enablePrevNext('prev', 'right')).toBe(true);
                 expect(componentInstance.enablePrevNext('prev', 'left')).toBe(true);
             }));

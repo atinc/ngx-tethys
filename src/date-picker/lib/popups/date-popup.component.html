@@ -1,8 +1,8 @@
-<div class="{{ prefixCls }}-picker-container {{ className }}">
+<div class="{{ prefixCls }}-picker-container {{ className() }}">
   <div
-    class="{{ prefixCls }} {{ showWeek ? prefixCls + '-week-number' : '' }}
-     {{ isRange ? prefixCls + '-range' : '' }} {{ prefixCls }}-picker-shortcut-{{ shortcutPosition === 'left' ? 'left' : 'bottom' }}">
-    @if (showShortcut) {
+    class="{{ prefixCls }} {{ showWeek() ? prefixCls + '-week-number' : '' }}
+     {{ isRange() ? prefixCls + '-range' : '' }} {{ prefixCls }}-picker-shortcut-{{ shortcutPosition() === 'left' ? 'left' : 'bottom' }}">
+    @if (showShortcut()) {
       <div class="{{ prefixCls }}-picker-shortcut">
         @for (item of innerShortcutPresets; track $index) {
           <div class="{{ prefixCls }}-picker-shortcut-item" [class.disabled]="item.disabled" (click)="shortcutSetValue(item)">
@@ -13,7 +13,7 @@
     }
     <div class="{{ prefixCls }}-panel">
       <div class="{{ prefixCls }}-date-panel">
-        @if (flexible) {
+        @if (flexible()) {
           <div class="{{ prefixCls }}-date-panel-flexible">
             <div class="{{ prefixCls }}-date-panel-flexible-tab">
               <thy-nav thyType="pulled" thySize="sm">
@@ -40,7 +40,7 @@
             </div>
           </div>
         } @else {
-          @if (isRange) {
+          @if (isRange()) {
             <ng-container *ngTemplateOutlet="tplRangePart; context: { partType: 'left' }"></ng-container>
             <ng-container *ngTemplateOutlet="tplRangePart; context: { partType: 'right' }"></ng-container>
           } @else {
@@ -48,7 +48,7 @@
               <ng-container *ngTemplateOutlet="tplInnerPopup"></ng-container>
             </div>
           }
-          @if (!isRange) {
+          @if (!isRange()) {
             <ng-container *ngTemplateOutlet="tplFooter"></ng-container>
           }
         }
@@ -59,23 +59,21 @@
 
 <ng-template #tplInnerPopup let-partType="partType">
   <inner-popup
-    [showWeek]="showWeek"
-    [isRange]="isRange"
-    [panelMode]="getPanelMode(panelMode, partType)"
-    [endPanelMode]="getPanelMode(endPanelMode, partType)"
+    [showWeek]="showWeek()"
+    [isRange]="isRange()"
+    [panelMode]="getPanelMode(panelMode(), partType)"
+    [endPanelMode]="getPanelMode(endPanelMode(), partType)"
     [partType]="partType"
-    [showDateRangeInput]="flexible && flexibleActiveTab === 'custom'"
+    [showDateRangeInput]="flexible() && flexibleActiveTab === 'custom'"
     (panelModeChange)="onPanelModeChange($event, partType)"
     [value]="getValueBySelector(partType)"
     [selectedValue]="selectedValue"
     [activeDate]="getActiveDate(partType)"
     [rangeActiveDate]="activeDate"
-    [disabledDate]="disabledDate"
-    [dateRender]="dateRender"
+    [disabledDate]="disabledDate()"
+    [dateRender]="dateRender()"
     [hoverValue]="hoverValue"
-    [timeZone]="timeZone"
-    [enablePrev]="enablePrevNext('prev', partType)"
-    [enableNext]="enablePrevNext('next', partType)"
+    [timeZone]="timeZone()"
     (dayHover)="onDayHover($event)"
     (selectDate)="changeValueFromSelect($event, partType)"
     (headerChange)="onHeaderChange($event, partType)"></inner-popup>
@@ -83,11 +81,11 @@
 
 <ng-template #tplFooter>
   <calendar-footer
-    [showTime]="showTime"
-    [mustShowTime]="mustShowTime"
-    [value]="value"
-    [timeZone]="timeZone"
-    [disableTimeConfirm]="disableTimeConfirm"
+    [showTime]="showTime()"
+    [mustShowTime]="mustShowTime()"
+    [value]="value()"
+    [timeZone]="timeZone()"
+    [disableTimeConfirm]="disableTimeConfirm()"
     (showTimePickerChange)="onShowTimePickerChange($event)"
     (selectTime)="onSelectTime($event)"
     (clickOk)="onClickOk()"
