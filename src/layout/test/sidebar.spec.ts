@@ -33,8 +33,6 @@ const SIDEBAR_ISOLATED_CLASS = 'thy-layout-sidebar-isolated';
                 [thyTheme]="thyTheme"
                 [thyIsolated]="isolated"
                 [thyDivided]="isDivided"
-                [thyHasBorderLeft]="hasBorderLeft"
-                [thyHasBorderRight]="hasBorderRight"
                 [thyDraggable]="draggable"
                 [thyDragMaxWidth]="dragMaxWidth"
                 [thyDragMinWidth]="dragMinWidth"
@@ -62,8 +60,6 @@ class ThyDemoLayoutSidebarBasicComponent {
     defaultWidth: string | number = 260;
     isolated = false;
     isDivided = true;
-    hasBorderLeft = true;
-    hasBorderRight = true;
     draggable = false;
     dragMinWidth: number;
     dragMaxWidth = 100;
@@ -235,21 +231,6 @@ describe(`sidebar`, () => {
             expect(sidebarElement.classList.contains(SIDEBAR_ISOLATED_CLASS)).toEqual(true);
         });
 
-        it(`should get correct class according to thyHasBorderLeft value`, () => {
-            expect(sidebarElement.classList).not.toContain('thy-layout-sidebar--clear-border-left');
-            testInstance.sidebarDirection = 'right';
-            testInstance.hasBorderLeft = false;
-            fixture.detectChanges();
-            expect(sidebarElement.classList).toContain('thy-layout-sidebar--clear-border-left');
-        });
-
-        it(`should get correct class according to thyHasBorderRight value`, () => {
-            expect(sidebarElement.classList).not.toContain('thy-layout-sidebar--clear-border-right');
-            testInstance.hasBorderRight = false;
-            fixture.detectChanges();
-            expect(sidebarElement.classList).toContain('thy-layout-sidebar--clear-border-right');
-        });
-
         it(`should get correct class according to thyDirection value`, () => {
             expect(sidebarElement.classList).not.toContain('thy-layout-sidebar-right');
             testInstance.sidebarDirection = 'right';
@@ -310,22 +291,21 @@ describe(`sidebar`, () => {
 
             it('should collapse sidebar when drag width equal thyCollapsedWidth', fakeAsync(() => {
                 testInstance.draggable = true;
+                testInstance.collapsibleWidth = 20;
+                testInstance.collapsible = true;
+                testInstance.isCollapsed = true;
                 fixture.detectChanges();
                 tick();
 
-                sidebarComponent.collapseVisible = true;
-                sidebarComponent.thyCollapsedWidth = 20;
-                sidebarComponent.thyCollapsible = true;
-                expect(sidebarComponent.isCollapsed).toEqual(false);
-                sidebarComponent.resizeHandler({ width: sidebarComponent.thyCollapsedWidth } as unknown as ThyResizeEvent);
-                expect(sidebarComponent.collapseVisible).toEqual(false);
-                expect(sidebarComponent.isCollapsed).toEqual(true);
+                sidebarComponent.resizeHandler({ width: sidebarComponent.thyCollapsedWidth() } as unknown as ThyResizeEvent);
+                expect(sidebarComponent.collapseVisible()).toEqual(false);
+                expect(sidebarComponent.collapsed()).toEqual(true);
                 tick(200);
-                expect(sidebarComponent.collapseTip).toContain('展开');
+                expect(sidebarComponent.collapseTip()).toContain('展开');
 
                 const dragWidthChangeSpy = spyOn(sidebarComponent.thyDragWidthChange, 'emit');
                 sidebarComponent.resizeHandler({
-                    width: sidebarComponent.sidebarDirective.thyLayoutSidebarWidth
+                    width: sidebarComponent.sidebarDirective.sidebarWidth()
                 } as unknown as ThyResizeEvent);
                 expect(dragWidthChangeSpy).not.toHaveBeenCalled();
             }));
@@ -336,8 +316,8 @@ describe(`sidebar`, () => {
             testInstance.collapsibleWidth = 80;
             fixture.detectChanges();
             tick();
-            expect(sidebarComponent.thyCollapsible).toEqual(true);
-            expect(sidebarComponent.thyCollapsedWidth).toEqual(80);
+            expect(sidebarComponent.thyCollapsible()).toEqual(true);
+            expect(sidebarComponent.thyCollapsedWidth()).toEqual(80);
         }));
 
         it('should sidebar expand or collapsed when press mete+/ or control+/', fakeAsync(() => {
@@ -379,12 +359,12 @@ describe(`sidebar`, () => {
             testInstance.collapsibleWidth = 80;
             fixture.detectChanges();
             tick();
-            expect(sidebarComponent.collapseTip).toContain('收起');
+            expect(sidebarComponent.collapseTip()).toContain('收起');
             const sidebarCollapseElement = sidebarElement.querySelector('.sidebar-collapse');
             dispatchMouseEvent(sidebarCollapseElement, 'click');
             fixture.detectChanges();
             tick(200);
-            expect(sidebarComponent.collapseTip).toContain('展开');
+            expect(sidebarComponent.collapseTip()).toContain('展开');
             flush();
         }));
 
