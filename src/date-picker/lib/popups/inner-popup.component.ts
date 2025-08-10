@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, model, input, output, Signal, SimpleChanges, TemplateRef, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, model, input, output, Signal, TemplateRef, inject, effect } from '@angular/core';
 import { FunctionProp, TinyDate, coerceBooleanProperty } from 'ngx-tethys/util';
 import { DateHelperService } from '../../date-helper.service';
 import { RangePartType } from '../../inner-types';
@@ -92,10 +92,12 @@ export class InnerPopup {
 
     prefixCls = 'thy-calendar';
 
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes.activeDate && !changes.activeDate.currentValue) {
-            this.activeDate.set(new TinyDate(undefined, this.timeZone()));
-        }
+    constructor() {
+        effect(() => {
+            if (!this.activeDate()) {
+                this.activeDate.set(new TinyDate(undefined, this.timeZone()));
+            }
+        });
     }
 
     getReadableValue(value: TinyDate) {

@@ -1,11 +1,9 @@
 import { forwardRef, ChangeDetectionStrategy, Component, ElementRef, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
-
 import { BasePicker } from './base-picker.component';
 import { DatePopup } from './lib/popups/date-popup.component';
 import { ThyPicker } from './picker.component';
-import { helpers } from 'ngx-tethys/util';
 
 /**
  * 日期范围选择组件
