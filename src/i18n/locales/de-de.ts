@@ -14,6 +14,9 @@ export default {
         weekThFormat: 'yyyy-ww',
         dateFormat: 'yyyy-MM-dd',
 
+        yearQuarterFormat: "yyyy-'Q'q",
+        yearMonthFormat: 'yyyy-MM',
+
         yearText: 'Jahr',
         quarterText: 'Quartal',
         monthText: 'Monat',

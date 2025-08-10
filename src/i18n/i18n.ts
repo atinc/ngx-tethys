@@ -67,6 +67,9 @@ export interface ThyDatePickerLocale {
     weekThFormat: string;
     dateFormat: string;
 
+    yearQuarterFormat: string;
+    yearMonthFormat: string;
+
     yearText: string;
     quarterText: string;
     monthText: string;

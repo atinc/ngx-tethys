@@ -14,6 +14,9 @@ export default {
         weekThFormat: 'yyyy-ww週',
         dateFormat: 'yyyy年MM月dd日',
 
+        yearQuarterFormat: "yyyy年 'Q'q",
+        yearMonthFormat: 'yyyy年 MM月',
+
         yearText: '年份',
         quarterText: '季度',
         monthText: '月份',

@@ -4,6 +4,7 @@ import { DateHelperService } from '../../date-helper.service';
 import { CalendarTable } from '../calendar/calendar-table.component';
 import { DateCell, DateBodyRow } from '../date/types';
 import { NgClass } from '@angular/common';
+import { QUARTER_FORMAT } from '../../date-picker.config';
 
 /**
  * @private
@@ -48,7 +49,7 @@ export class QuarterTable extends CalendarTable implements OnChanges {
             for (let colIndex = 0; colIndex < this.MAX_COL; colIndex++) {
                 const quarter = this.activeDate.setQuarter(quarterValue + 1);
                 const isDisabled = this.disabledDate ? this.disabledDate(quarter.nativeDate) : false;
-                const content = `${quarter.format("'Q'q")}`;
+                const content = `${quarter.format(QUARTER_FORMAT)}`;
                 const cell: DateCell = {
                     trackByIndex: colIndex,
                     value: quarter.nativeDate,

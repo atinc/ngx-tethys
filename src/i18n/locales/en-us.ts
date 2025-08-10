@@ -14,6 +14,9 @@ export default {
         weekThFormat: 'yyyy-ww', //  eg. 2025-01st、2025-02nd、2025-03rd、2025-27th
         dateFormat: 'yyyy-MM-dd', // eg. 2025-09-02
 
+        yearQuarterFormat: "yyyy-'Q'q",
+        yearMonthFormat: 'yyyy-MM',
+
         yearText: 'Year',
         quarterText: 'Quarter',
         monthText: 'Month',

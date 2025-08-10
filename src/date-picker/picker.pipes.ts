@@ -2,6 +2,7 @@ import { Pipe, PipeTransform, inject } from '@angular/core';
 import { ThyI18nService } from 'ngx-tethys/i18n';
 import { TinyDate } from 'ngx-tethys/util';
 import { DateHelperService } from './date-helper.service';
+import { QUARTER_FORMAT } from './date-picker.config';
 import { ThyDatePickerConfigService } from './date-picker.service';
 import { AdvancedSelectableCell } from './inner-types';
 import { getFlexibleAdvancedReadableValue, transformDateValue } from './picker.util';
@@ -45,10 +46,10 @@ export class ThyQuarterPickerFormatPipe implements PipeTransform {
     constructor(private datePickerConfigService: ThyDatePickerConfigService) {}
 
     transform(originalValue: CompatibleDate | DateEntry | ThyDateRangeEntry, formatStr?: string, separator?: string): string {
-        const { value, withTime } = transformDateValue(originalValue);
+        const { value } = transformDateValue(originalValue);
 
         if (!formatStr) {
-            formatStr = "yyyy-'Q'q";
+            formatStr = `yyyy-${QUARTER_FORMAT}`;
         }
 
         if (!value) {
