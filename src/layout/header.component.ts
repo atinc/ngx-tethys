@@ -2,12 +2,11 @@ import { NgClass, NgTemplateOutlet } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     Component,
-    ContentChild,
     Directive,
     Input,
     TemplateRef,
     computed,
-    contentChildren,
+    contentChild,
     input
 } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -121,17 +120,17 @@ export class ThyHeader {
      * 头部自定义标题模板，`<ng-template #headerTitle></ng-template>`
      * @type TemplateRef
      */
-    readonly titleTemplateRef = contentChildren<TemplateRef<any>>('headerTitle');
+    readonly titleTemplateRef = contentChild<TemplateRef<any>>('headerTitle');
 
     /**
      * 头部自定义内容模板，`<ng-template #headerContent></ng-template>`
      * @type TemplateRef
      */
-    readonly contentTemplateRef = contentChildren<TemplateRef<any>>('headerContent');
+    readonly contentTemplateRef = contentChild<TemplateRef<any>>('headerContent');
 
     /**
      * 头部自定义操作模板，`<ng-template #headerOperation></ng-template>`
      * @type TemplateRef
      */
-    readonly operationTemplateRef = contentChildren<TemplateRef<any>>('headerOperation');
+    readonly operationTemplateRef = contentChild<TemplateRef<any>>('headerOperation');
 }

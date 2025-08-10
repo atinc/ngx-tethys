@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ContentChild, Directive, TemplateRef, contentChildren, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Directive, TemplateRef, contentChild, input } from '@angular/core';
 import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
 
 /**
@@ -51,11 +51,11 @@ export class ThySidebarHeader {
      * 头部自定义操作模板，`<ng-template #headerOperation></ng-template>`
      * @type TemplateRef
      */
-    readonly operationTemplateRef = contentChildren<TemplateRef<unknown>>('headerOperation');
+    readonly operationTemplateRef = contentChild<TemplateRef<unknown>>('headerOperation');
 
     /**
      * 头部自定义标题模板，`<ng-template #headerTitle></ng-template>`
      * @type TemplateRef
      */
-    readonly titleTemplateRef = contentChildren<TemplateRef<any>>('headerTitle');
+    readonly titleTemplateRef = contentChild<TemplateRef<any>>('headerTitle');
 }
