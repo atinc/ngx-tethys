@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, Directive, HostBinding } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, Directive, HostBinding, signal } from '@angular/core';
+import { ThySidebarDirection } from './sidebar.component';
 
 /**
  * 布局指令
@@ -10,13 +11,15 @@ import { ChangeDetectionStrategy, Component, Directive, HostBinding } from '@ang
         '[thyLayout]:not([thyForm]):not(thy-form):not(thy-radio-group):not(thy-properties):not(thy-selection-list):not(thy-vote):not([thyVote])',
     host: {
         class: 'thy-layout',
-        '[class.thy-layout--has-sidebar]': 'hasSidebar',
-        '[class.thy-layout--is-sidebar-right]': 'isSidebarRight'
+        '[class.thy-layout--has-sidebar]': 'sidebarDirection()',
+        '[class.thy-layout--is-sidebar-right]': 'isSidebarRight()'
     }
 })
 export class ThyLayoutDirective {
-    hasSidebar = false;
-    isSidebarRight = false;
+    readonly sidebarDirection = signal<ThySidebarDirection | null>(null);
+    readonly isSidebarRight = computed(() => {
+        return this.sidebarDirection() === 'right';
+    });
 }
 
 /**

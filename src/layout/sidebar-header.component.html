@@ -1,13 +1,13 @@
-@if (thyTitle || titleTemplateRef) {
+@if (thyTitle() || titleTemplateRef()) {
   <span class="title">
-    @if (titleTemplateRef) {
-      <ng-template [ngTemplateOutlet]="titleTemplateRef"></ng-template>
+    @if (titleTemplateRef()) {
+      <ng-template [ngTemplateOutlet]="titleTemplateRef()"></ng-template>
     } @else {
-      {{ thyTitle }}
+      {{ thyTitle() }}
     }
   </span>
 }
 <ng-content></ng-content>
 <div class="operation">
-  <ng-template [ngTemplateOutlet]="operationTemplateRef"></ng-template>
+  <ng-template [ngTemplateOutlet]="operationTemplateRef()"></ng-template>
 </div>
