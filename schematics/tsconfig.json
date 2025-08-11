@@ -10,6 +10,8 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
-    "noEmitHelpers": false
+    "noEmitHelpers": false,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true
   }
 }

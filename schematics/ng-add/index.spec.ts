@@ -1,5 +1,5 @@
 import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
+import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing/index.js';
 import { DEPENDENCIES } from '../dependencies';
 import { createTestApp, getJsonFileContent } from '../testing';
 import { addPackageToPackageJson } from '../utils';
