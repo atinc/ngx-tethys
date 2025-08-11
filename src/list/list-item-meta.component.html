@@ -1,23 +1,23 @@
 <div class="thy-list-item-meta-avatar">
-  @if (thyAvatar) {
-    <thy-avatar [thySrc]="thyAvatar"></thy-avatar>
+  @if (thyAvatar()) {
+    <thy-avatar [thySrc]="thyAvatar()"></thy-avatar>
   } @else {
-    <ng-template [ngTemplateOutlet]="avatarTemplateRef"></ng-template>
+    <ng-template [ngTemplateOutlet]="avatarTemplateRef()"></ng-template>
   }
 </div>
 <div class="thy-list-item-meta-content">
   <div class="thy-list-item-meta-title">
-    @if (thyTitle) {
-      {{ thyTitle }}
+    @if (thyTitle()) {
+      {{ thyTitle() }}
     } @else {
-      <ng-template [ngTemplateOutlet]="titleTemplateRef"></ng-template>
+      <ng-template [ngTemplateOutlet]="titleTemplateRef()"></ng-template>
     }
   </div>
   <div class="thy-list-item-meta-description">
-    @if (thyDescription) {
-      {{ thyDescription }}
+    @if (thyDescription()) {
+      {{ thyDescription() }}
     } @else {
-      <ng-template [ngTemplateOutlet]="descriptionTemplateRef"></ng-template>
+      <ng-template [ngTemplateOutlet]="descriptionTemplateRef()"></ng-template>
     }
   </div>
 </div>

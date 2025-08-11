@@ -1,4 +1,4 @@
-import { Component, DebugElement, ViewChild } from '@angular/core';
+import { Component, DebugElement, viewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -113,20 +113,20 @@ describe('ThyTimePanelComponent', () => {
             fixture.detectChanges();
             tick(500);
 
-            expect(fixtureInstance.timePanelRef.value.getTime() === date.getTime()).toBeTruthy();
-            expect(fixtureInstance.timePanelRef.hour === 10).toBeTruthy();
-            expect(fixtureInstance.timePanelRef.minute === 20).toBeTruthy();
-            expect(fixtureInstance.timePanelRef.second === 3).toBeTruthy();
+            expect(fixtureInstance.timePanelRef().value.getTime() === date.getTime()).toBeTruthy();
+            expect(fixtureInstance.timePanelRef().hour === 10).toBeTruthy();
+            expect(fixtureInstance.timePanelRef().minute === 20).toBeTruthy();
+            expect(fixtureInstance.timePanelRef().second === 3).toBeTruthy();
 
             const value = new Date().setHours(10, 20, 30);
             fixtureInstance.value = value;
             fixture.detectChanges();
             tick(500);
 
-            expect(fixtureInstance.timePanelRef.value.getTime() === value).toBeTruthy();
-            expect(fixtureInstance.timePanelRef.hour === 10).toBeTruthy();
-            expect(fixtureInstance.timePanelRef.minute === 20).toBeTruthy();
-            expect(fixtureInstance.timePanelRef.second === 30).toBeTruthy();
+            expect(fixtureInstance.timePanelRef().value.getTime() === value).toBeTruthy();
+            expect(fixtureInstance.timePanelRef().hour === 10).toBeTruthy();
+            expect(fixtureInstance.timePanelRef().minute === 20).toBeTruthy();
+            expect(fixtureInstance.timePanelRef().second === 30).toBeTruthy();
         }));
 
         it('should support pick hour,minute,second and emit change event', fakeAsync(() => {
@@ -136,7 +136,7 @@ describe('ThyTimePanelComponent', () => {
             fixtureInstance.value = date;
             fixture.detectChanges();
             tick(500);
-            expect(fixtureInstance.timePanelRef.value.getTime() === new Date(date).getTime()).toBeTruthy();
+            expect(fixtureInstance.timePanelRef().value.getTime() === new Date(date).getTime()).toBeTruthy();
 
             const valueChange = spyOn(fixtureInstance, 'onPickTime');
 
@@ -164,7 +164,7 @@ describe('ThyTimePanelComponent', () => {
             fixtureInstance.value = date;
             fixture.detectChanges();
             tick(500);
-            expect(fixtureInstance.timePanelRef.value.getTime() === new Date(date).getTime()).toBeTruthy();
+            expect(fixtureInstance.timePanelRef().value.getTime() === new Date(date).getTime()).toBeTruthy();
 
             const valueChange = spyOn(fixtureInstance, 'onValueChange');
 
@@ -240,7 +240,7 @@ describe('ThyTimePanelComponent', () => {
     imports: [FormsModule, ThyTimePickerModule]
 })
 class ThyTestTimePanelComponent {
-    @ViewChild('panel') timePanelRef: ThyTimePanel;
+    readonly timePanelRef = viewChild<ThyTimePanel>('panel');
 
     value: Date | number;
 

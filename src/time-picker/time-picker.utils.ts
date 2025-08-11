@@ -1,5 +1,5 @@
 import { coerceNumberProperty } from '@angular/cdk/coercion';
-import { TinyDate } from 'ngx-tethys/util';
+import { isFunction, TinyDate } from 'ngx-tethys/util';
 import { Time, TimePickerComponentState } from './inner/inner-time-picker.class';
 
 const hoursPerDay = 24;
@@ -24,11 +24,13 @@ export function isValidDate(value?: string | Date): boolean {
 }
 
 export function isValidLimit(controls: TimePickerComponentState, newDate: Date): boolean {
-    if (controls.min && newDate < controls.min) {
+    const min = isFunction(controls.min) ? controls.min() : controls.min;
+    const max = isFunction(controls.max) ? controls.max() : controls.max;
+    if (min && newDate < min) {
         return false;
     }
 
-    if (controls.max && newDate > controls.max) {
+    if (max && newDate > max) {
         return false;
     }
 

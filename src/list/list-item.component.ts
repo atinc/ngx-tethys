@@ -1,4 +1,4 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component } from '@angular/core';
 
 /**
  * @name thy-list-item,[thy-list-item]
@@ -6,10 +6,9 @@ import { Component, HostBinding } from '@angular/core';
  */
 @Component({
     selector: 'thy-list-item,[thy-list-item]',
-    template: '<ng-content></ng-content>'
+    template: '<ng-content></ng-content>',
+    host: {
+        class: 'thy-list-item'
+    }
 })
-export class ThyListItem {
-    @HostBinding(`class.thy-list-item`) _isListItem = true;
-
-    constructor() {}
-}
+export class ThyListItem {}
