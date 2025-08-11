@@ -6,6 +6,7 @@ import { BasePicker } from './base-picker.component';
 import { DatePopup } from './lib/popups/date-popup.component';
 import { ThyPicker } from './picker.component';
 import { ThyPanelMode } from './standard-types';
+import { QUARTER_FORMAT } from './date-picker.config';
 
 /**
  * 季度选择组件
@@ -33,7 +34,7 @@ export class ThyQuarterPicker extends BasePicker {
      * 展示的季度格式
      * @type string
      */
-    @Input() thyFormat = 'yyyy-qqq';
+    @Input() thyFormat = `yyyy-${QUARTER_FORMAT}`;
 
     isRange = false;
 

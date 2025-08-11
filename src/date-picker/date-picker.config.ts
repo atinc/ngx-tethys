@@ -62,6 +62,8 @@ export const DEFAULT_DATE_PICKER_CONFIG: ThyDatePickerConfig = {
     }
 };
 
+export const QUARTER_FORMAT = "'Q'q";
+
 export const THY_DATE_PICKER_CONFIG = new InjectionToken<ThyDatePickerConfig>('thy-date-picker-config');
 
 export function useDatePickerDefaultConfig(): ThyDatePickerConfig {
