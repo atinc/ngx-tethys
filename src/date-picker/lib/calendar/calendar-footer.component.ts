@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, Signal, SimpleChanges } from '@angular/core';
-
+import { ChangeDetectionStrategy, Component, input, model, effect, OnInit, output, signal, Signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyButton } from 'ngx-tethys/button';
 import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
@@ -18,69 +17,83 @@ import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
     templateUrl: 'calendar-footer.component.html',
     imports: [ThyIcon, ThyInnerTimePicker, FormsModule, ThyButton]
 })
-export class CalendarFooter implements OnInit, OnChanges {
-    @Input() showTime = false;
-    @Input() mustShowTime = false;
-    @Input() value: TinyDate;
-    @Input() timeZone: string;
-    @Input({ transform: coerceBooleanProperty }) disableTimeConfirm = false;
-    @Output() readonly selectTime = new EventEmitter<TinyDate>();
-    @Output() readonly clickOk = new EventEmitter<void>();
-    @Output() readonly clickRemove = new EventEmitter<void>();
-    @Output() readonly showTimePickerChange = new EventEmitter<boolean>();
-    isShowTime = false;
-    isCanTime = false;
-    locale: Signal<ThyDatePickerLocale> = injectLocale('datePicker');
+export class CalendarFooter implements OnInit {
+    /**
+     * 是否支持设置时间 (时、分)
+     */
+    readonly showTime = input(false, { transform: coerceBooleanProperty });
 
-    ngOnInit() {
-        this._initTimeShowMode();
-        if (!this.value) {
-            this.value = new TinyDate(undefined, this.timeZone);
-        }
+    /**
+     * 是否展示时间 (时、分)
+     */
+    readonly mustShowTime = input(false, { transform: coerceBooleanProperty });
+
+    readonly value = model<TinyDate>();
+
+    readonly timeZone = input<string>();
+
+    readonly disableTimeConfirm = input(false, { transform: coerceBooleanProperty });
+
+    readonly selectTime = output<TinyDate>();
+
+    readonly clickOk = output<void>();
+
+    readonly clickRemove = output<void>();
+
+    readonly showTimePickerChange = output<boolean>();
+
+    readonly isShowTime = signal<boolean>(false);
+
+    readonly isCanTime = signal<boolean>(false);
+
+    readonly locale: Signal<ThyDatePickerLocale> = injectLocale('datePicker');
+
+    constructor() {
+        effect(() => {
+            this.initTimeShowMode();
+        });
     }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes.mustShowTime) {
-            this._initTimeShowMode();
+    ngOnInit() {
+        this.initValue();
+    }
+
+    initValue(): void {
+        if (!this.value()) {
+            const defaultDate = new TinyDate(undefined, this.timeZone());
+            this.value.set(defaultDate);
         }
     }
 
     onSelectTime(date: Date): void {
-        this.selectTime.emit(new TinyDate(date, this.timeZone));
+        this.selectTime.emit(new TinyDate(date, this.timeZone()));
     }
 
     onTimeOk() {
-        if (this.disableTimeConfirm) {
+        if (this.disableTimeConfirm()) {
             return;
         }
-        this.selectTime.emit(this.value);
+        this.selectTime.emit(this.value());
         this.clickOk.emit();
     }
 
     onClear() {
-        this.value = null;
+        this.value.set(null);
         this.clickRemove.emit();
     }
 
     changeTimeShowMode(type: string) {
-        switch (type) {
-            case 'can':
-                this.isCanTime = true;
-                this.isShowTime = false;
-                break;
-            case 'show':
-                this.isCanTime = false;
-                this.isShowTime = true;
-                break;
-        }
-        this.showTimePickerChange.emit(this.isShowTime);
+        this.isCanTime.set(type === 'can');
+        this.isShowTime.set(type === 'show');
+
+        this.showTimePickerChange.emit(this.isShowTime());
     }
 
-    private _initTimeShowMode() {
-        if (this.mustShowTime) {
+    private initTimeShowMode() {
+        if (this.mustShowTime()) {
             this.changeTimeShowMode('show');
         } else {
-            if (this.showTime) {
+            if (this.showTime()) {
                 this.changeTimeShowMode('can');
             }
         }

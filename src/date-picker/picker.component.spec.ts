@@ -3,7 +3,7 @@ import { CommonModule, registerLocaleData } from '@angular/common';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import zh from '@angular/common/locales/zh';
-import { Component, DebugElement, ElementRef, ViewChild } from '@angular/core';
+import { Component, DebugElement, ElementRef, viewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -57,7 +57,7 @@ describe('ThyPickerComponent', () => {
         const inputChange = spyOn(fixtureInstance, 'onInputChange');
         fixtureInstance.thyReadonly = false;
         fixture.detectChanges();
-        expect(fixtureInstance.thyPicker.readonlyState).toBe(false);
+        expect(fixtureInstance.thyPicker().readonlyState).toBe(false);
         const setValue = '2023-11-02 12:00';
         getPickerInputElement().value = setValue;
         getPickerInputElement().dispatchEvent(new Event('input'));
@@ -136,7 +136,7 @@ describe('ThyPickerComponent', () => {
     imports: [CommonModule, OverlayModule, ThyPicker, ThyIcon]
 })
 class ThyTestPickerComponent {
-    @ViewChild('thyPicker', { static: true }) thyPicker: ThyPicker;
+    readonly thyPicker = viewChild<ThyPicker>('thyPicker');
 
     thyValue = new TinyDate(new Date());
     thyDisabled = false;

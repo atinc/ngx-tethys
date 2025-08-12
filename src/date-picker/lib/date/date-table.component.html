@@ -1,28 +1,29 @@
-<table class="{{ prefixCls }}-table" cellSpacing="0" role="grid">
+@let prefixClass = prefixCls();
+<table class="{{ prefixClass }}-table" cellSpacing="0" role="grid">
   <thead>
     <tr role="row">
-      @if (showWeek) {
-        <th role="columnheader" [title]="locale().week" class="{{ prefixCls }}-column-header {{ prefixCls }}-week-number-header">
-          <span class="{{ prefixCls }}-column-header-inner">{{ locale().prefixWeek }}</span>
+      @if (showWeek()) {
+        <th role="columnheader" [title]="locale().week" class="{{ prefixClass }}-column-header {{ prefixClass }}-week-number-header">
+          <span class="{{ prefixClass }}-column-header-inner">{{ locale().prefixWeek }}</span>
         </th>
       }
       @for (cell of headRow; track $index) {
-        <th role="columnheader" title="{{ cell.title }}" class="{{ prefixCls }}-column-header">
-          @if (prefixCls === 'thy-calendar') {
-            <span class="{{ prefixCls }}-column-header-inner">{{ cell.content }}</span>
+        <th role="columnheader" title="{{ cell.title }}" class="{{ prefixClass }}-column-header">
+          @if (prefixClass === 'thy-calendar') {
+            <span class="{{ prefixClass }}-column-header-inner">{{ cell.content }}</span>
           }
-          @if (prefixCls === 'thy-calendar-full') {
-            <span class="{{ prefixCls }}-column-header-inner">{{ cell.content }}</span>
+          @if (prefixClass === 'thy-calendar-full') {
+            <span class="{{ prefixClass }}-column-header-inner">{{ cell.content }}</span>
           }
         </th>
       }
     </tr>
   </thead>
-  <tbody class="{{ prefixCls }}-tbody">
+  <tbody class="{{ prefixClass }}-tbody">
     @for (row of bodyRows; track $index) {
       <tr [ngClass]="row.classMap" role="row">
         @if (row.weekNum) {
-          <td role="gridcell" class="{{ prefixCls }}-week-number-cell">
+          <td role="gridcell" class="{{ prefixClass }}-week-number-cell">
             {{ row.weekNum }}
           </td>
         }
@@ -32,7 +33,7 @@
             [ngClass]="cell.classMap"
             (click)="cell.isDisabled ? null : cell.onClick()"
             date-table-cell
-            [prefixCls]="prefixCls"
+            [prefixCls]="prefixClass"
             [cell]="cell"></td>
         }
       </tr>

@@ -6,7 +6,7 @@ import { QUARTER_FORMAT } from './date-picker.config';
 import { ThyDatePickerConfigService } from './date-picker.service';
 import { AdvancedSelectableCell } from './inner-types';
 import { getFlexibleAdvancedReadableValue, transformDateValue } from './picker.util';
-import { CompatibleDate, DateEntry, ThyDateGranularity, ThyDateRangeEntry } from './standard-types';
+import { ThyCompatibleDate, DateEntry, ThyDateGranularity, ThyDateRangeEntry } from './standard-types';
 
 /**
  * @private
@@ -19,7 +19,7 @@ export class ThyDatePickerFormatPipe implements PipeTransform {
     private datePickerConfigService = inject(ThyDatePickerConfigService);
     private i18n = inject(ThyI18nService);
 
-    transform(originalValue: CompatibleDate | DateEntry | ThyDateRangeEntry, formatStr?: string, separator?: string): string {
+    transform(originalValue: ThyCompatibleDate | DateEntry | ThyDateRangeEntry, formatStr?: string, separator?: string): string {
         const { value, withTime, flexibleDateGranularity } = transformDateValue(originalValue);
 
         if (!formatStr) {
@@ -45,7 +45,7 @@ export class ThyDatePickerFormatPipe implements PipeTransform {
 export class ThyQuarterPickerFormatPipe implements PipeTransform {
     constructor(private datePickerConfigService: ThyDatePickerConfigService) {}
 
-    transform(originalValue: CompatibleDate | DateEntry | ThyDateRangeEntry, formatStr?: string, separator?: string): string {
+    transform(originalValue: ThyCompatibleDate | DateEntry | ThyDateRangeEntry, formatStr?: string, separator?: string): string {
         const { value } = transformDateValue(originalValue);
 
         if (!formatStr) {
@@ -77,9 +77,7 @@ export class ThyQuarterPickerFormatPipe implements PipeTransform {
     name: 'thyDatePickerFormatString'
 })
 export class ThyDatePickerFormatStringPipe implements PipeTransform {
-    private dateHelper = inject(DateHelperService);
-
-    transform(originalValue: CompatibleDate | DateEntry | ThyDateRangeEntry): string {
+    transform(originalValue: ThyCompatibleDate | DateEntry | ThyDateRangeEntry): string {
         const { withTime } = transformDateValue(originalValue);
 
         return withTime ? 'yyyy-MM-dd HH:mm' : 'yyyy-MM-dd';

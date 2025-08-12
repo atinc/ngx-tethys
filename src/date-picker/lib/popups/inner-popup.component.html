@@ -1,11 +1,11 @@
-@if (showDateRangeInput) {
+@if (showDateRangeInput()) {
   <div class="{{ prefixCls }}-picker-inner-popup-range-input">
-    <input thyInput thySize="sm" [value]="getReadableValue(selectedValue[0])" [placeholder]="locale().startDate" />
+    <input thyInput thySize="sm" [value]="getReadableValue(selectedValue()[0])" [placeholder]="locale().startDate" />
     <span class="split"></span>
-    <input thyInput thySize="sm" [value]="getReadableValue(selectedValue[1])" [placeholder]="locale().endDate" />
+    <input thyInput thySize="sm" [value]="getReadableValue(selectedValue()[1])" [placeholder]="locale().endDate" />
   </div>
 }
-@switch (panelMode) {
+@switch (panelMode()) {
   @case ('decade') {
     <div class="{{ prefixCls }}-decade">
       <decade-header
@@ -18,7 +18,7 @@
         (valueChange)="headerChange.emit($event)">
       </decade-header>
       <div class="{{ prefixCls }}-body">
-        <decade-table [value]="value" [activeDate]="activeDate" (valueChange)="onChooseDecade($event)"></decade-table>
+        <decade-table [value]="value()" [activeDate]="activeDate()" (valueChange)="onChooseDecade($event)"></decade-table>
       </div>
     </div>
   }
@@ -35,11 +35,11 @@
       </year-header>
       <div class="{{ prefixCls }}-body">
         <year-table
-          [value]="value"
-          [activeDate]="activeDate"
-          [disabledDate]="disabledDate"
+          [value]="value()"
+          [activeDate]="activeDate()"
+          [disabledDate]="disabledDate()"
           (valueChange)="onChooseYear($event)"
-          [selectedValue]="selectedValue">
+          [selectedValue]="selectedValue()">
         </year-table>
       </div>
     </div>
@@ -57,11 +57,11 @@
       </month-header>
       <div class="{{ prefixCls }}-body">
         <month-table
-          [value]="value"
-          [activeDate]="activeDate"
-          [disabledDate]="disabledDate"
+          [value]="value()"
+          [activeDate]="activeDate()"
+          [disabledDate]="disabledDate()"
           (valueChange)="onChooseMonth($event)"
-          [selectedValue]="selectedValue">
+          [selectedValue]="selectedValue()">
         </month-table>
       </div>
     </div>
@@ -79,11 +79,11 @@
       </month-header>
       <div class="{{ prefixCls }}-body">
         <quarter-table
-          [value]="value"
-          [activeDate]="activeDate"
-          [disabledDate]="disabledDate"
+          [value]="value()"
+          [activeDate]="activeDate()"
+          [disabledDate]="disabledDate()"
           (valueChange)="onChooseQuarter($event)"
-          [selectedValue]="selectedValue">
+          [selectedValue]="selectedValue()">
         </quarter-table>
       </div>
     </div>
@@ -99,16 +99,16 @@
       (valueChange)="headerChange.emit($event)"></date-header>
     <div class="{{ prefixCls }}-body">
       <date-table
-        [showWeek]="showWeek"
-        [value]="value"
-        [activeDate]="activeDate"
+        [showWeek]="showWeek()"
+        [value]="value()"
+        [activeDate]="activeDate()"
         (valueChange)="onSelectDate($event)"
         showWeekNumber="false"
-        [disabledDate]="disabledDate"
-        [cellRender]="dateRender"
-        [selectedValue]="selectedValue"
-        [hoverValue]="hoverValue"
-        [timeZone]="timeZone"
+        [disabledDate]="disabledDate()"
+        [cellRender]="dateRender()"
+        [selectedValue]="selectedValue()"
+        [hoverValue]="hoverValue()"
+        [timeZone]="timeZone()"
         (dayHover)="dayHover.emit($event)"></date-table>
     </div>
   }

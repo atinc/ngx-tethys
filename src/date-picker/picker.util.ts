@@ -3,10 +3,12 @@ import { ThyI18nLocale } from 'ngx-tethys/i18n';
 import { SafeAny } from 'ngx-tethys/types';
 import { coerceArray, helpers, TinyDate } from 'ngx-tethys/util';
 import { CompatibleValue, RangeAdvancedValue } from './inner-types';
-import { CompatibleDate, DateEntry, ThyDateGranularity, ThyDateRangeEntry, ThyPanelMode, ThyShortcutValue } from './standard-types';
+import { ThyCompatibleDate, DateEntry, ThyDateGranularity, ThyDateRangeEntry, ThyPanelMode, ThyShortcutValue } from './standard-types';
 
-export function transformDateValue(value: CompatibleDate | CompatibleValue | number | DateEntry | ThyDateRangeEntry | RangeAdvancedValue): {
-    value: CompatibleDate;
+export function transformDateValue(
+    value: ThyCompatibleDate | CompatibleValue | number | DateEntry | ThyDateRangeEntry | RangeAdvancedValue
+): {
+    value: ThyCompatibleDate;
     withTime?: boolean;
     flexibleDateGranularity?: ThyDateGranularity;
 } {
@@ -53,7 +55,7 @@ export function transformDateValue(value: CompatibleDate | CompatibleValue | num
             value[1] = convertDate(rangeValue.end.nativeDate);
         }
     }
-    return { value: value as CompatibleDate, withTime, flexibleDateGranularity };
+    return { value: value as ThyCompatibleDate, withTime, flexibleDateGranularity };
 }
 
 export function getFlexibleAdvancedReadableValue(
@@ -117,7 +119,7 @@ export function hasValue(value: CompatibleValue): boolean {
     }
 }
 
-export function makeValue(value: CompatibleDate | null, isRange: boolean = false, timeZone?: string): CompatibleValue {
+export function makeValue(value: ThyCompatibleDate | null, isRange: boolean = false, timeZone?: string): CompatibleValue {
     if (isRange) {
         return Array.isArray(value) ? (value as Date[]).map(val => new TinyDate(val, timeZone)) : [];
     } else {
@@ -239,7 +241,7 @@ function fixStringDate(dateStr: string, timeZone?: string) {
 }
 
 export function setValueByTimestampPrecision(
-    date: CompatibleDate | number | Date | DateEntry | ThyDateRangeEntry | SafeAny,
+    date: ThyCompatibleDate | number | Date | DateEntry | ThyDateRangeEntry | SafeAny,
     isRange: boolean,
     timestampPrecision: 'seconds' | 'milliseconds',
     timeZone?: string

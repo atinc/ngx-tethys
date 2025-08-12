@@ -1,11 +1,10 @@
 import { addDays, endOfDay, format, fromUnixTime, isSameDay, startOfDay, subDays } from 'date-fns';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { QUARTER_FORMAT } from './date-picker.config';
-
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
-import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
+import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -1101,8 +1100,6 @@ describe('ThyRangePickerComponent', () => {
 })
 class ThyTestRangePickerComponent {
     useSuite: 1 | 2 | 3 | 4;
-    @ViewChild('tplDateRender', { static: true }) tplDateRender: TemplateRef<Date>;
-    @ViewChild('tplExtraFooter', { static: true }) tplExtraFooter: TemplateRef<void>;
     thyMinDate: Date | number;
     thyMaxDate: Date | number;
     thyAllowClear: boolean;

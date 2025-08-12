@@ -1,19 +1,19 @@
 <span
   cdkOverlayOrigin
   #origin="cdkOverlayOrigin"
-  class="{{ prefixCls }}-picker {{ size ? prefixCls + '-picker-' + size : '' }} {{ className }}"
+  class="{{ prefixCls }}-picker {{ size() ? prefixCls + '-picker-' + size() : '' }} {{ className() }}"
   (click)="onClickInputBox()">
   <ng-container>
     <input
       #pickerInput
       thyInput
-      class="form-control-{{ size }} form-control {{ prefixCls }}-picker-input"
+      class="form-control-{{ size() }} form-control {{ prefixCls }}-picker-input"
       [ngClass]="{ 'panel-is-opened': realOpenState }"
-      [thySize]="size"
+      [thySize]="size()"
       [tabindex]="-1"
-      [class.thy-input-disabled]="disabled"
-      [class.thy-input-readonly]="readonly"
-      [disabled]="disabled"
+      [class.thy-input-disabled]="disabled()"
+      [class.thy-input-readonly]="readonly()"
+      [disabled]="disabled()"
       [readonly]="readonlyState"
       (blur)="onBlur($event)"
       (input)="onInput($event)"
@@ -27,15 +27,15 @@
 <!-- Right operator icons -->
 <ng-template #tplRightRest>
   <span class="{{ prefixCls }}-picker-clear">
-    @if (!disabled && !isEmptyValue(value) && allowClear && !readonly) {
+    @if (!disabled() && !isEmptyValue(value()) && allowClear() && !readonly()) {
       <thy-icon
         thyIconName="close-circle-bold-fill"
         (click)="onClickClear($event)"
-      ngClass="remove-link remove-link-{{ size }}"></thy-icon>
+        ngClass="remove-link remove-link-{{ size() }}"></thy-icon>
     }
   </span>
   <span class="{{ prefixCls }}-picker-icon">
-    <thy-icon [thyIconName]="suffixIcon" ngClass="remove-link-{{ size ? size : 'default' }}"></thy-icon>
+    <thy-icon [thyIconName]="suffixIcon()" ngClass="remove-link-{{ size() ? size() : 'default' }}"></thy-icon>
   </span>
 </ng-template>
 
@@ -44,7 +44,7 @@
   cdkConnectedOverlay
   [cdkConnectedOverlayOrigin]="origin"
   [cdkConnectedOverlayOpen]="realOpenState"
-  [cdkConnectedOverlayHasBackdrop]="hasBackdrop"
+  [cdkConnectedOverlayHasBackdrop]="hasBackdrop()"
   [cdkConnectedOverlayPositions]="overlayPositions"
   cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
   cdkConnectedOverlayTransformOriginOn=".thy-picker-container"
@@ -55,9 +55,11 @@
     #overlayContainer
     style="position: relative"
     class="thy-picker-container"
-    [@scaleXMotion]="placement === 'left' || placement === 'right' ? 'enter' : 'void'"
-    [@scaleYMotion]="placement === 'top' || placement === 'bottom' ? 'enter' : 'void'"
-    [@scaleMotion]="placement !== 'left' && placement !== 'right' && placement !== 'top' && placement !== 'bottom' ? 'enter' : 'void'">
+    [@scaleXMotion]="placement() === 'left' || placement() === 'right' ? 'enter' : 'void'"
+    [@scaleYMotion]="placement() === 'top' || placement() === 'bottom' ? 'enter' : 'void'"
+    [@scaleMotion]="
+      placement() !== 'left' && placement() !== 'right' && placement() !== 'top' && placement() !== 'bottom' ? 'enter' : 'void'
+    ">
     <!-- Compatible for overlay that not support offset dynamically and immediately -->
     <ng-content></ng-content>
   </div>

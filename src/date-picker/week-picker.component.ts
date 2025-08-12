@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, ElementRef, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
-
 import { BasePicker } from './base-picker.component';
 import { DatePopup } from './lib/popups/date-popup.component';
 import { ThyPicker } from './picker.component';
@@ -27,8 +26,6 @@ import { ThyPicker } from './picker.component';
 })
 export class ThyWeekPicker extends BasePicker {
     protected elementRef: ElementRef;
-
-    showWeek = true;
 
     private hostRenderer = useHostRenderer();
 
