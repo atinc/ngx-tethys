@@ -1,17 +1,4 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    EventEmitter,
-    HostBinding,
-    Input,
-    OnChanges,
-    Output,
-    Signal,
-    SimpleChanges,
-    TemplateRef,
-    inject
-} from '@angular/core';
-
+import { ChangeDetectionStrategy, Component, model, input, output, Signal, TemplateRef, inject, effect } from '@angular/core';
 import { FunctionProp, TinyDate, coerceBooleanProperty } from 'ngx-tethys/util';
 import { DateHelperService } from '../../date-helper.service';
 import { RangePartType } from '../../inner-types';
@@ -19,7 +6,6 @@ import { isAfterMoreThanLessOneYear, isAfterMoreThanOneDecade, isAfterMoreThanOn
 import { DisabledDateFn, ThyPanelMode } from '../../standard-types';
 import { DateHeader } from '../date/date-header.component';
 import { DateTable } from '../date/date-table.component';
-
 import { ThyDatePickerLocale, injectLocale } from 'ngx-tethys/i18n';
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { DecadeHeader } from '../decade/decade-header.component';
@@ -50,59 +36,68 @@ import { YearTable } from '../year/year-table.component';
         QuarterTable,
         DateHeader,
         DateTable
-    ]
+    ],
+    host: {
+        class: 'thy-calendar-picker-inner-popup',
+        '[class.thy-calendar-picker-inner-popup-with-range-input]': 'showDateRangeInput()'
+    }
 })
-export class InnerPopup implements OnChanges {
+export class InnerPopup {
     private dateHelper = inject(DateHelperService);
+
     locale: Signal<ThyDatePickerLocale> = injectLocale('datePicker');
 
-    @HostBinding('class.thy-calendar-picker-inner-popup') className = true;
-    @HostBinding('class.thy-calendar-picker-inner-popup-with-range-input') _showDateRangeInput = false;
+    readonly showWeek = input(false, { transform: coerceBooleanProperty });
 
-    @Input() showWeek: boolean;
-    @Input() isRange: boolean;
-    @Input() activeDate: TinyDate;
-    @Input() rangeActiveDate: TinyDate[]; // Range ONLY
-    @Input() enablePrev: boolean;
-    @Input() enableNext: boolean;
-    @Input() disabledDate: DisabledDateFn;
-    @Input() dateRender: FunctionProp<TemplateRef<Date> | string>;
-    @Input() selectedValue: TinyDate[]; // Range ONLY
-    @Input() hoverValue: TinyDate[]; // Range ONLY
+    readonly isRange = input(false, { transform: coerceBooleanProperty });
 
-    @Input() panelMode: ThyPanelMode;
-    @Input() timeZone: string;
+    readonly activeDate = model<TinyDate>();
 
-    @Input({ transform: coerceBooleanProperty })
-    set showDateRangeInput(value: boolean) {
-        this._showDateRangeInput = value;
-    }
+    readonly rangeActiveDate = input<TinyDate[]>(); // Range ONLY
 
-    get showDateRangeInput() {
-        return this._showDateRangeInput;
-    }
+    readonly disabledDate = input<DisabledDateFn>();
 
-    @Input() partType: RangePartType;
+    readonly dateRender = input<FunctionProp<TemplateRef<Date> | string>>();
 
-    @Input() endPanelMode: ThyPanelMode;
+    readonly selectedValue = input<TinyDate[]>(); // Range ONLY
 
-    @Output() readonly panelModeChange = new EventEmitter<ThyPanelMode>();
+    readonly hoverValue = input<TinyDate[]>(); // Range ONLY
 
-    @Input() value: TinyDate;
+    readonly panelMode = input(null, {
+        transform: (value: ThyPanelMode | 'time') => {
+            if (value === 'time') {
+                return 'date';
+            }
+            return value;
+        }
+    });
 
-    @Output() readonly headerChange = new EventEmitter<TinyDate>();
-    @Output() readonly selectDate = new EventEmitter<TinyDate>();
-    @Output() readonly dayHover = new EventEmitter<TinyDate>();
+    readonly timeZone = input<string>();
+
+    readonly showDateRangeInput = input(false, { transform: coerceBooleanProperty });
+
+    readonly partType = input<RangePartType>();
+
+    readonly endPanelMode = input<ThyPanelMode>();
+
+    readonly value = model<TinyDate>();
+
+    readonly panelModeChange = output<ThyPanelMode>();
+
+    readonly headerChange = output<TinyDate>();
+
+    readonly selectDate = output<TinyDate>();
+
+    readonly dayHover = output<TinyDate>();
 
     prefixCls = 'thy-calendar';
 
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes.activeDate && !changes.activeDate.currentValue) {
-            this.activeDate = new TinyDate(undefined, this.timeZone);
-        }
-        if (changes.panelMode && changes.panelMode.currentValue === 'time') {
-            this.panelMode = 'date';
-        }
+    constructor() {
+        effect(() => {
+            if (!this.activeDate()) {
+                this.activeDate.set(new TinyDate(undefined, this.timeZone()));
+            }
+        });
     }
 
     getReadableValue(value: TinyDate) {
@@ -110,48 +105,59 @@ export class InnerPopup implements OnChanges {
     }
 
     onSelectDate(date: TinyDate): void {
-        const value = date instanceof TinyDate ? date : new TinyDate(date, this.timeZone);
-
+        const value = date instanceof TinyDate ? date : new TinyDate(date, this.timeZone());
         this.selectDate.emit(value);
     }
 
     onChooseMonth(value: TinyDate): void {
-        this.activeDate = this.activeDate.setMonth(value.getMonth());
-        if (this.endPanelMode === 'month') {
-            this.value = value;
+        const activeDate = this.activeDate().setMonth(value.getMonth());
+        const endPanelMode = this.endPanelMode();
+
+        this.activeDate.set(activeDate);
+        if (endPanelMode === 'month') {
+            this.value.set(value);
             this.selectDate.emit(value);
         } else {
             this.headerChange.emit(value);
-            this.panelModeChange.emit(this.endPanelMode);
+            this.panelModeChange.emit(endPanelMode);
         }
     }
 
     onChooseQuarter(value: TinyDate): void {
-        this.activeDate = this.activeDate.setQuarter(value.getQuarter());
-        if (this.endPanelMode === 'quarter') {
-            this.value = value;
+        const activeDate = this.activeDate().setQuarter(value.getQuarter());
+        const endPanelMode = this.endPanelMode();
+
+        this.activeDate.set(activeDate);
+        if (endPanelMode === 'quarter') {
+            this.value.set(value);
             this.selectDate.emit(value);
         } else {
             this.headerChange.emit(value);
-            this.panelModeChange.emit(this.endPanelMode);
+            this.panelModeChange.emit(endPanelMode);
         }
     }
 
     onChooseYear(value: TinyDate): void {
-        this.activeDate = this.activeDate.setYear(value.getYear());
-        if (this.endPanelMode === 'year') {
-            this.value = value;
+        const activeDate = this.activeDate().setYear(value.getYear());
+        const endPanelMode = this.endPanelMode();
+
+        this.activeDate.set(activeDate);
+        if (endPanelMode === 'year') {
+            this.value.set(value);
             this.selectDate.emit(value);
         } else {
             this.headerChange.emit(value);
-            this.panelModeChange.emit(this.endPanelMode);
+            this.panelModeChange.emit(endPanelMode);
         }
     }
 
     onChooseDecade(value: TinyDate): void {
-        this.activeDate = this.activeDate.setYear(value.getYear());
-        if (this.endPanelMode === 'decade') {
-            this.value = value;
+        const activeDate = this.activeDate().setYear(value.getYear());
+        const endPanelMode = this.endPanelMode();
+
+        this.activeDate.set(activeDate);
+        if (endPanelMode === 'decade') {
+            this.value.set(value);
             this.selectDate.emit(value);
         } else {
             this.headerChange.emit(value);
@@ -160,9 +166,10 @@ export class InnerPopup implements OnChanges {
     }
 
     enablePrevNext(direction: 'prev' | 'next', mode: ThyPanelMode): boolean {
-        if (this.isRange) {
-            if ((this.partType === 'left' && direction === 'next') || (this.partType === 'right' && direction === 'prev')) {
-                const [headerLeftDate, headerRightDate] = this.rangeActiveDate;
+        if (this.isRange()) {
+            const partType = this.partType();
+            if ((partType === 'left' && direction === 'next') || (partType === 'right' && direction === 'prev')) {
+                const [headerLeftDate, headerRightDate] = this.rangeActiveDate();
                 return isAfterMoreThanOneMonth(headerRightDate, headerLeftDate);
             } else {
                 return true;
@@ -173,9 +180,10 @@ export class InnerPopup implements OnChanges {
     }
 
     enableSuperPrevNext(direction: 'prev' | 'next', panelMode: ThyPanelMode) {
-        if (this.isRange) {
-            if ((this.partType === 'left' && direction === 'next') || (this.partType === 'right' && direction === 'prev')) {
-                const [headerLeftDate, headerRightDate] = this.rangeActiveDate;
+        if (this.isRange()) {
+            const partType = this.partType();
+            if ((partType === 'left' && direction === 'next') || (partType === 'right' && direction === 'prev')) {
+                const [headerLeftDate, headerRightDate] = this.rangeActiveDate();
                 if (panelMode === 'date') {
                     return isAfterMoreThanLessOneYear(headerRightDate, headerLeftDate);
                 } else if (panelMode === 'month' || panelMode === 'quarter') {

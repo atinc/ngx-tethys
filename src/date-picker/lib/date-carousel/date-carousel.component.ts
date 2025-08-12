@@ -1,16 +1,5 @@
 import { NgClass, NgTemplateOutlet } from '@angular/common';
-import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    forwardRef,
-    HostBinding,
-    inject,
-    Input,
-    OnDestroy,
-    OnInit,
-    Signal
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, inject, input, OnDestroy, OnInit, Signal } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyButton } from 'ngx-tethys/button';
 import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
@@ -21,6 +10,7 @@ import { DateHelperService } from '../../date-helper.service';
 import { AdvancedSelectableCell, RangeAdvancedValue } from '../../inner-types';
 import { DatePickerAdvancedShowYearTipPipe } from '../../picker.pipes';
 import { ThyDateGranularity } from '../../standard-types';
+import { QUARTER_FORMAT } from '../../date-picker.config';
 
 /**
  * @private
@@ -37,16 +27,19 @@ import { ThyDateGranularity } from '../../standard-types';
             useExisting: forwardRef(() => DateCarousel)
         }
     ],
+    host: {
+        class: 'thy-date-picker-advanced-carousel'
+    },
     imports: [NgTemplateOutlet, ThyButton, ThyIcon, NgClass, DatePickerAdvancedShowYearTipPipe]
 })
 export class DateCarousel implements OnInit, ControlValueAccessor, OnDestroy {
     private cdr = inject(ChangeDetectorRef);
+
     private dateHelper = inject(DateHelperService);
+
     locale: Signal<ThyDatePickerLocale> = injectLocale('datePicker');
 
-    @HostBinding('class') className = 'thy-date-picker-advanced-carousel';
-
-    @Input() activeDate: TinyDate;
+    readonly activeDate = input<TinyDate>();
 
     set defaultValue(value: RangeAdvancedValue) {
         this.dateGranularity = value.dateGranularity;
@@ -248,7 +241,7 @@ export class DateCarousel implements OnInit, ControlValueAccessor, OnDestroy {
     }
 
     getSelectableYear(currentDate: TinyDate, preOrNextcount: number = 0): AdvancedSelectableCell {
-        currentDate = currentDate || this.activeDate || new TinyDate().startOfYear();
+        currentDate = currentDate || this.activeDate() || new TinyDate().startOfYear();
         return {
             type: 'year',
             content: `${currentDate.addYears(preOrNextcount).getYear()}`,
@@ -259,10 +252,10 @@ export class DateCarousel implements OnInit, ControlValueAccessor, OnDestroy {
     }
 
     getSelectableQuarter(currentDate: TinyDate, preOrNextcount: number = 0): AdvancedSelectableCell {
-        currentDate = currentDate || this.activeDate || new TinyDate().startOfQuarter();
+        currentDate = currentDate || this.activeDate() || new TinyDate().startOfQuarter();
         return {
             type: 'quarter',
-            content: `${currentDate.addQuarters(preOrNextcount).format('qqq')}`,
+            content: `${currentDate.addQuarters(preOrNextcount).format(QUARTER_FORMAT)}`,
             startValue: currentDate.addQuarters(preOrNextcount).startOfQuarter(),
             endValue: currentDate.addQuarters(preOrNextcount).endOfQuarter(),
             classMap: {}
@@ -270,7 +263,7 @@ export class DateCarousel implements OnInit, ControlValueAccessor, OnDestroy {
     }
 
     getSelectableMonth(currentDate: TinyDate, preOrNextcount: number = 0): AdvancedSelectableCell {
-        currentDate = currentDate || this.activeDate || new TinyDate().startOfMonth();
+        currentDate = currentDate || this.activeDate() || new TinyDate().startOfMonth();
         // Selectable months for advanced range selector
         const cell: AdvancedSelectableCell = {
             type: 'month',

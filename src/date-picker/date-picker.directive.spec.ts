@@ -3,7 +3,7 @@ import { of } from 'rxjs';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
-import { Component, DebugElement, ViewChild } from '@angular/core';
+import { Component, DebugElement, viewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -288,12 +288,12 @@ describe('ThyPickerDirective', () => {
                     )
                 );
 
-                fixtureInstance.thyDatePickerDirective.isRange = true;
-                fixtureInstance.thyDatePickerDirective.panelMode = ['decade', 'week'];
+                fixtureInstance.thyDatePickerDirective().isRange = true;
+                fixtureInstance.thyDatePickerDirective().panelMode = ['decade', 'week'];
 
                 fixture.detectChanges();
                 openPickerByClickTrigger();
-                expect(fixtureInstance.thyDatePickerDirective.panelMode).toEqual(['date', 'date']);
+                expect(fixtureInstance.thyDatePickerDirective().panelMode).toEqual(['date', 'date']);
             }));
         });
 
@@ -411,7 +411,6 @@ describe('ThyPickerDirective', () => {
                 componentInstance.clearFlexibleValue();
                 componentInstance.onDayHover(componentInstance.tplInnerPopup);
                 componentInstance.setProperty('key', 1);
-                expect(componentInstance.hasTimePicker).toBe(false);
                 expect(componentInstance.enablePrevNext('prev', 'right')).toBe(true);
                 expect(componentInstance.enablePrevNext('prev', 'left')).toBe(true);
             }));
@@ -495,7 +494,7 @@ describe('ThyPickerDirective', () => {
     imports: [ThyPropertyOperation, ThyDatePickerDirective, FormsModule]
 })
 class ThyTestPickerComponent {
-    @ViewChild(ThyDatePickerDirective, { read: false }) thyDatePickerDirective: ThyDatePickerDirective;
+    readonly thyDatePickerDirective = viewChild<ThyDatePickerDirective>(ThyDatePickerDirective);
     thyPlaceHolder: string;
     thyPanelClassName: string;
     thyValue: Date | null;

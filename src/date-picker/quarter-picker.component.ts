@@ -1,11 +1,11 @@
-import { ChangeDetectionStrategy, Component, ElementRef, forwardRef, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, forwardRef, model } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
-
 import { BasePicker } from './base-picker.component';
 import { DatePopup } from './lib/popups/date-popup.component';
 import { ThyPicker } from './picker.component';
 import { ThyPanelMode } from './standard-types';
+import { QUARTER_FORMAT } from './date-picker.config';
 
 /**
  * 季度选择组件
@@ -31,9 +31,8 @@ export class ThyQuarterPicker extends BasePicker {
 
     /**
      * 展示的季度格式
-     * @type string
      */
-    @Input() thyFormat = 'yyyy-qqq';
+    readonly thyFormat = model<string>(`yyyy-${QUARTER_FORMAT}`);
 
     isRange = false;
 

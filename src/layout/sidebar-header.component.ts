@@ -1,6 +1,6 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ContentChild, Directive, Input, TemplateRef } from '@angular/core';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { ChangeDetectionStrategy, Component, Directive, TemplateRef, contentChild, input } from '@angular/core';
+import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
 
 /**
  * 侧边栏头部布局指令
@@ -11,7 +11,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     selector: '[thySidebarHeader]',
     host: {
         class: 'sidebar-header',
-        '[class.sidebar-header-divided]': 'thyDivided'
+        '[class.sidebar-header-divided]': 'thyDivided()'
     }
 })
 export class ThySidebarHeaderDirective {
@@ -19,7 +19,9 @@ export class ThySidebarHeaderDirective {
      * 是否有分割线
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyDivided: boolean | string;
+    readonly thyDivided = input<boolean, ThyBooleanInput>(false, { transform: coerceBooleanProperty });
+
+    constructor() {}
 }
 
 /**
@@ -43,20 +45,17 @@ export class ThySidebarHeader {
     /**
      * 头部标题
      */
-    @Input()
-    thyTitle: string;
+    readonly thyTitle = input<string>(undefined);
 
     /**
      * 头部自定义操作模板，`<ng-template #headerOperation></ng-template>`
      * @type TemplateRef
      */
-    @ContentChild('headerOperation')
-    public operationTemplateRef: TemplateRef<unknown>;
+    readonly operationTemplateRef = contentChild<TemplateRef<unknown>>('headerOperation');
 
     /**
      * 头部自定义标题模板，`<ng-template #headerTitle></ng-template>`
      * @type TemplateRef
      */
-    @ContentChild('headerTitle')
-    public titleTemplateRef: TemplateRef<any>;
+    readonly titleTemplateRef = contentChild<TemplateRef<any>>('headerTitle');
 }

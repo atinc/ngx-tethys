@@ -8,12 +8,14 @@ export default {
     },
     datePicker: {
         yearFormat: 'yyyy',
-        monthFormat: 'MMM',
-        zhMonthFormat: 'MMM', //  MMM：月份缩写。  MMMM：月份全称。
+        monthFormat: 'MMM', //  MMM：月份缩写。  MMMM：月份全称。
         weekFormat: 'EE',
         fullWeekFormat: 'EE',
         weekThFormat: 'yyyy-ww',
         dateFormat: 'yyyy-MM-dd',
+
+        yearQuarterFormat: "yyyy-'Q'q",
+        yearMonthFormat: 'yyyy-MM',
 
         yearText: 'Jahr',
         quarterText: 'Quartal',

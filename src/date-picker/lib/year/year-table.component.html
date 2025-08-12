@@ -1,15 +1,11 @@
-<table class="{{ prefixCls }}-year-panel-table" cellSpacing="0" role="grid">
-  <tbody class="{{ prefixCls }}-year-panel-tbody">
+@let prefixClass = prefixCls();
+<table class="{{ prefixClass }}-year-panel-table" cellSpacing="0" role="grid">
+  <tbody class="{{ prefixClass }}-year-panel-tbody">
     @for (row of bodyRows; track trackByBodyRow($index, row)) {
       <tr role="row">
         @for (yearCell of row.dateCells; track trackByBodyColumn($index, yearCell)) {
-          <td
-            role="gridcell"
-            title="{{ yearCell.title }}"
-            (click)="yearCellClick($event, yearCell)"
-            [ngClass]="yearCell.classMap"
-            >
-            <a class="{{ prefixCls }}-year-panel-year">{{ yearCell.content }}</a>
+          <td role="gridcell" title="{{ yearCell.title }}" (click)="yearCellClick($event, yearCell)" [ngClass]="yearCell.classMap">
+            <a class="{{ prefixClass }}-year-panel-year">{{ yearCell.content }}</a>
           </td>
         }
       </tr>

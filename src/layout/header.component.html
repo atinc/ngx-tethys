@@ -1,19 +1,20 @@
 <div class="layout-header-title">
-  <ng-template [ngTemplateOutlet]="titleTemplateRef"></ng-template>
-  @if (!titleTemplateRef) {
-    @if (svgIconName) {
-      <thy-icon class="prefix-icon" [thyIconName]="svgIconName"></thy-icon>
+  @if (titleTemplateRef()) {
+    <ng-template [ngTemplateOutlet]="titleTemplateRef()"></ng-template>
+  } @else {
+    @if (svgIconName()) {
+      <thy-icon class="prefix-icon" [thyIconName]="svgIconName()"></thy-icon>
     } @else {
-      @if (iconClass) {
-        <i class="prefix-icon" [ngClass]="iconClass"></i>
+      @if (iconClass()) {
+        <i class="prefix-icon" [ngClass]="iconClass()"></i>
       }
     }
-    <span class="title-name">{{ thyTitle }}</span>
+    <span class="title-name">{{ thyTitle() }}</span>
   }
 </div>
 <div class="layout-header-content">
-  <ng-template [ngTemplateOutlet]="contentTemplateRef"></ng-template>
+  <ng-template [ngTemplateOutlet]="contentTemplateRef()"></ng-template>
 </div>
 <div class="layout-header-operation">
-  <ng-template [ngTemplateOutlet]="operationTemplateRef"></ng-template>
+  <ng-template [ngTemplateOutlet]="operationTemplateRef()"></ng-template>
 </div>

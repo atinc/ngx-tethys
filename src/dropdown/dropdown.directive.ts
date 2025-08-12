@@ -93,8 +93,9 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
 
     /**
      * 弹出框的显示位置，会覆盖 thyPopoverOptions 中的 placement，`top` | `topLeft` | `topRight` | `bottom` | `bottomLeft` | `bottomRight` | `left` | `leftTop` | `leftBottom` | `right` | `rightTop` | `rightBottom`
+     * @default bottomLeft
      */
-    readonly thyPlacement = input<ThyPlacement, ThyPlacement>('bottomLeft', { transform: (value: ThyPlacement) => value || 'bottomLeft' });
+    readonly thyPlacement = input<ThyPlacement>();
 
     /**
      * 点击 dropdown-menu 内部是否关闭弹出框，会覆盖 thyPopoverOptions 中的 insideClosable

@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, Component, ElementRef, forwardRef, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, forwardRef, model } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
-
 import { BasePicker } from './base-picker.component';
 import { DatePopup } from './lib/popups/date-popup.component';
 import { ThyPicker } from './picker.component';
@@ -31,7 +30,7 @@ export class ThyMonthPicker extends BasePicker {
     /**
      * 展示的月份格式
      */
-    @Input() thyFormat = 'yyyy-MM';
+    readonly thyFormat = model<string>('yyyy-MM');
 
     private hostRenderer = useHostRenderer();
 

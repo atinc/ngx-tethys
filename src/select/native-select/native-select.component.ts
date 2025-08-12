@@ -1,12 +1,12 @@
-import { Component, forwardRef, HostBinding, Input, OnInit, inject } from '@angular/core';
+import { Component, forwardRef, OnInit, input, viewChild, model, signal } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
 import { coerceBooleanProperty, elementMatchClosest } from 'ngx-tethys/util';
-
-import { ElementRef, ViewChild } from '@angular/core';
+import { ElementRef } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyInputDirective } from 'ngx-tethys/input';
+import { SafeAny } from 'ngx-tethys/types';
 
 export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -29,43 +29,35 @@ const noop = () => {};
     ],
     imports: [ThyInputDirective, FormsModule, ThyIcon],
     host: {
+        class: 'thy-select',
         '[attr.tabindex]': 'tabIndex',
         '(focus)': 'onFocus($event)',
         '(blur)': 'onBlur($event)'
     }
 })
 export class ThyNativeSelect extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor, OnInit {
-    private elementRef = inject(ElementRef);
+    readonly selectElement = viewChild<ElementRef<any>>('select');
 
-    @ViewChild('select', { static: true }) selectElement: ElementRef<any>;
+    readonly innerValue = model<SafeAny>(null);
 
-    // The internal data model
-    _innerValue: any = null;
-    _disabled = false;
-    _size: InputSize;
-    _expandOptions = false;
+    readonly disabled = signal<boolean>(false);
 
     private hostRenderer = useHostRenderer();
 
-    @HostBinding('class.thy-select') _isSelect = true;
+    readonly thySize = input<InputSize>();
 
-    @Input()
-    set thySize(value: InputSize) {
-        this._size = value;
-    }
+    readonly name = input<string>();
 
-    @Input() name: string;
-
-    @Input({ transform: coerceBooleanProperty }) thyAllowClear = false;
+    readonly thyAllowClear = input(false, { transform: coerceBooleanProperty });
 
     writeValue(obj: any): void {
-        if (obj !== this._innerValue) {
-            this._innerValue = obj;
+        if (obj !== this.innerValue()) {
+            this.innerValue.set(obj);
         }
     }
 
     setDisabledState?(isDisabled: boolean): void {
-        this._disabled = isDisabled;
+        this.disabled.set(isDisabled);
     }
 
     constructor() {
@@ -73,12 +65,13 @@ export class ThyNativeSelect extends TabIndexDisabledControlValueAccessorMixin i
     }
 
     ngModelChange() {
-        this.onChangeFn(this._innerValue);
+        this.onChangeFn(this.innerValue());
         this.onTouchedFn();
     }
 
     ngOnInit() {
-        const classes = this._size ? [`thy-select-${this._size}`] : [];
+        const size = this.thySize();
+        const classes = size ? [`thy-select-${size}`] : [];
         this.hostRenderer.updateClass(classes);
     }
 
@@ -90,12 +83,12 @@ export class ThyNativeSelect extends TabIndexDisabledControlValueAccessorMixin i
     }
 
     onFocus(event?: Event) {
-        this.selectElement.nativeElement.focus();
+        this.selectElement().nativeElement.focus();
     }
 
     clearSelectValue(event: Event) {
         event.stopPropagation();
-        this._innerValue = '';
-        this.onChangeFn(this._innerValue);
+        this.innerValue.set('');
+        this.onChangeFn(this.innerValue());
     }
 }

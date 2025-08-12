@@ -11,7 +11,7 @@ import { fromEvent, Subject, timer } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Overlay, OverlayContainer, ScrollDispatcher } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { Component, ElementRef, OnInit, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, OnInit, TemplateRef, viewChild, viewChildren } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -44,7 +44,10 @@ interface FoodsInfo {
                 [thyDisabled]="selectDisabled"
                 [thyMode]="mode"
                 [thyBorderless]="borderless"
-                [thyOrigin]="customizeOrigin">
+                [thyOrigin]="customizeOrigin"
+                [thyFooterTemplate]="footerTmp"
+                [thyFooterClass]="footerClass"
+                [thyEmptyStateText]="emptyStateText">
                 @for (food of foods; track food.value) {
                     <thy-option [thyValue]="food.value" [thyDisabled]="food.disabled" [thyLabelText]="food.viewValue"> </thy-option>
                 }
@@ -77,13 +80,13 @@ class BasicSelectComponent {
     thyAutoActiveFirstItem = true;
     customizeOrigin: ElementRef | HTMLElement;
     borderless = false;
-    @ViewChild(ThySelect, { static: true }) select: ThySelect;
-    @ViewChildren(ThyOption) options: QueryList<ThyOption>;
-
-    @ViewChild('footer', { static: true, read: TemplateRef })
-    footerTemplate: TemplateRef<any>;
-
-    @ViewChild('origin', { static: true }) origin: ElementRef;
+    footerTmp: TemplateRef<any>;
+    footerClass: string;
+    emptyStateText: string;
+    readonly select = viewChild<ThySelect>(ThySelect);
+    readonly options = viewChildren<ThyOption>(ThyOption);
+    readonly footerTemplate = viewChild<TemplateRef<any>>('footer');
+    readonly origin = viewChild<ElementRef>('origin');
     thyOnScrollToBottom = jasmine.createSpy('thyOnScrollToBottom callback');
 }
 
@@ -118,8 +121,8 @@ class MultipleSelectComponent {
 
     selectedFoods: any[] = [];
 
-    @ViewChild('Foods', { static: true }) foodsComponent: ThySelect;
-    @ViewChild('Vegetables', { static: true }) vegetablesComponent: ThySelect;
+    readonly foodsComponent = viewChild<ThySelect>('Foods');
+    readonly vegetablesComponent = viewChild<ThySelect>('Vegetables');
 }
 
 @Component({
@@ -143,8 +146,8 @@ class NgModelSelectComponent {
     ];
     isDisabled: boolean;
 
-    @ViewChild(ThySelect, { static: true }) select: ThySelect;
-    @ViewChildren(ThyOption) options: QueryList<ThyOption>;
+    readonly select = viewChild<ThySelect>(ThySelect);
+    readonly options = viewChildren<ThyOption>(ThyOption);
 }
 
 @Component({
@@ -195,8 +198,8 @@ class SingleSelectWithPreselectedArrayValuesComponent {
 
     selectedFoods = this.foods[1].value;
 
-    @ViewChild(ThySelect, { static: true }) select: ThySelect;
-    @ViewChildren(ThyOption) options: QueryList<ThyOption>;
+    readonly select = viewChild<ThySelect>(ThySelect);
+    readonly options = viewChildren<ThyOption>(ThyOption);
 }
 
 @Component({
@@ -220,8 +223,8 @@ class SingleSelectNgModelComponent {
 
     selectedValues = this.values[1].value;
 
-    @ViewChild(ThySelect, { static: true }) select: ThySelect;
-    @ViewChildren(ThyOption) options: QueryList<ThyOption>;
+    readonly select = viewChild<ThySelect>(ThySelect);
+    readonly options = viewChildren<ThyOption>(ThyOption);
 }
 
 @Component({
@@ -279,8 +282,8 @@ class SelectWithSearchComponent {
     ];
     thyShowSearch = false;
     control = new UntypedFormControl();
-    @ViewChild(ThySelect, { static: true }) select: ThySelect;
-    @ViewChildren(ThyOption) options: QueryList<ThyOption>;
+    readonly select = viewChild<ThySelect>(ThySelect);
+    readonly options = viewChildren<ThyOption>(ThyOption);
 }
 
 @Component({
@@ -322,8 +325,8 @@ class SelectWithSearchUseSearchKeyComponent {
     ];
     thyShowSearch = true;
     control = new UntypedFormControl();
-    @ViewChild(ThySelect, { static: true }) select: ThySelect;
-    @ViewChildren(ThyOption) options: QueryList<ThyOption>;
+    readonly select = viewChild<ThySelect>(ThySelect);
+    readonly options = viewChildren<ThyOption>(ThyOption);
 }
 
 @Component({
@@ -366,8 +369,7 @@ class SelectWithSearchAndGroupComponent {
         }
     ];
     thyEmptySearchMessageText = 'empty result';
-    @ViewChild(ThySelect, { static: true })
-    select: ThySelect;
+    readonly select = viewChild<ThySelect>(ThySelect);
 }
 
 @Component({
@@ -402,8 +404,8 @@ class SelectWithSearchAndServerSearchComponent {
     selected = this.foods[7];
     thyShowSearch = true;
     control = new UntypedFormControl();
-    @ViewChild(ThySelect, { static: true }) select: ThySelect;
-    @ViewChildren(ThyOption) options: QueryList<ThyOption>;
+    readonly select = viewChild<ThySelect>(ThySelect);
+    readonly options = viewChildren<ThyOption>(ThyOption);
     thyOnSearch = jasmine.createSpy('thyServerSearch callback');
 }
 
@@ -444,8 +446,8 @@ class SelectEimtOptionsChangesComponent {
     thyAllowClear = true;
     disabled = false;
     isRequired: boolean;
-    @ViewChild(ThySelect, { static: true }) select: ThySelect;
-    @ViewChildren(ThyOption) options: QueryList<ThyOption>;
+    readonly select = viewChild<ThySelect>(ThySelect);
+    readonly options = viewChildren<ThyOption>(ThyOption);
 }
 
 @Component({
@@ -465,7 +467,7 @@ class SelectWithExpandStatusComponent {
     foods: FoodsInfo[] = [{ value: 'pizza-1', viewValue: 'Pizza' }];
     control = new UntypedFormControl();
     thyOnExpandStatusChange = jasmine.createSpy('thyOnExpandStatusChange callback');
-    @ViewChild(ThySelect, { static: true }) select: ThySelect;
+    readonly select = viewChild<ThySelect>(ThySelect);
 }
 
 @Component({
@@ -491,8 +493,8 @@ class SelectWithThyModeComponent {
 
     selectedFoods: string[] = null;
 
-    @ViewChild(ThySelect, { static: true }) select: ThySelect;
-    @ViewChildren(ThyOption) options: QueryList<ThyOption>;
+    readonly select = viewChild<ThySelect>(ThySelect);
+    readonly options = viewChildren<ThyOption>(ThyOption);
 }
 
 @Component({
@@ -525,8 +527,8 @@ class SelectWithThySortComparatorComponent {
 
     selectedFoods: string[] = null;
 
-    @ViewChild(ThySelect, { static: true }) select: ThySelect;
-    @ViewChildren(ThyOption) options: QueryList<ThyOption>;
+    readonly select = viewChild<ThySelect>(ThySelect);
+    readonly options = viewChildren<ThyOption>(ThyOption);
 }
 
 @Component({
@@ -545,7 +547,7 @@ class SelectWithThyAutoExpendComponent implements OnInit {
 
     isAutoExpend = true;
 
-    @ViewChild(ThySelect, { static: true }) select: ThySelect;
+    readonly select = viewChild<ThySelect>(ThySelect);
 
     constructor() {}
 
@@ -574,7 +576,7 @@ class SelectWithThyPlacementComponent implements OnInit {
 
     thyPlacement: ThyPlacement = 'top';
 
-    @ViewChild(ThySelect, { static: true }) select: ThySelect;
+    readonly select = viewChild<ThySelect>(ThySelect);
 
     constructor() {}
 
@@ -615,8 +617,8 @@ class SelectWithScrollAndSearchComponent {
     serverSearch = true;
     selected: any = null;
     control = new UntypedFormControl();
-    @ViewChild(ThySelect, { static: true }) select: ThySelect;
-    @ViewChildren(ThyOption) options: QueryList<ThyOption>;
+    readonly select = viewChild<ThySelect>(ThySelect);
+    readonly options = viewChildren<ThyOption>(ThyOption);
     thyOnSearch(value: string) {
         timer(100).subscribe(() => {
             this.foods = this.foods.slice(5);
@@ -636,7 +638,7 @@ class SelectWithScrollAndSearchComponent {
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithAsyncLoadComponent implements OnInit {
-    @ViewChild(ThySelect) customSelect: ThySelect;
+    readonly customSelect = viewChild<ThySelect>(ThySelect);
 
     loadState = true;
 
@@ -788,19 +790,19 @@ describe('ThyCustomSelect', () => {
             }));
 
             it('should get right item count when invoke itemCount method', () => {
-                const ins = fixture.componentInstance.select;
+                const ins = fixture.componentInstance.select();
                 expect(fixture.componentInstance.foods.length).toEqual(ins.getItemCount());
             });
 
             it('should get correct mode when get thyMode', () => {
-                fixture.componentInstance.select.mode = 'multiple';
+                fixture.componentInstance.mode = 'multiple';
                 fixture.detectChanges();
-                expect(fixture.componentInstance.select.thyMode).toEqual('multiple');
+                expect(fixture.componentInstance.select().thyMode()).toEqual('multiple');
             });
 
             it('select component modelValue will be null when multiple is false and changeValue length is 0', () => {
-                const selectComponent = fixture.componentInstance.select;
-                selectComponent.mode = '';
+                fixture.componentInstance.mode = '';
+                const selectComponent = fixture.componentInstance.select();
                 selectComponent.selectionModel.clear();
                 fixture.detectChanges();
                 selectComponent.clearSelectValue();
@@ -811,7 +813,7 @@ describe('ThyCustomSelect', () => {
             it('should auto focus to input element when select focus', fakeAsync(() => {
                 const customSelectDebugElement = fixture.debugElement.query(By.directive(ThySelect));
                 fixture.detectChanges();
-                const focusSpy = spyOn(fixture.componentInstance.select, 'onFocus').and.callThrough();
+                const focusSpy = spyOn(fixture.componentInstance.select(), 'onFocus').and.callThrough();
 
                 dispatchFakeEvent(customSelectDebugElement.nativeElement, 'focus');
                 fixture.detectChanges();
@@ -819,7 +821,7 @@ describe('ThyCustomSelect', () => {
 
                 expect(focusSpy).toHaveBeenCalled();
 
-                fixture.componentInstance.select.onFocus({ relatedTarget: fixture.debugElement } as any);
+                fixture.componentInstance.select().onFocus({ relatedTarget: fixture.debugElement } as any);
                 fixture.detectChanges();
 
                 const inputElement = fixture.nativeElement.querySelector('input');
@@ -831,10 +833,10 @@ describe('ThyCustomSelect', () => {
                 let focusCalled = false;
                 spyOn(selectElement, 'focus').and.callFake(() => {
                     focusCalled = true;
-                    expect(fixture.componentInstance.select['manualFocusing']).toBe(true);
+                    expect(fixture.componentInstance.select()['manualFocusing']).toBe(true);
                 });
-                fixture.componentInstance.select.focus();
-                expect(fixture.componentInstance.select['manualFocusing']).toBe(false);
+                fixture.componentInstance.select().focus();
+                expect(fixture.componentInstance.select()['manualFocusing']).toBe(false);
                 expect(focusCalled).toBe(true);
             }));
 
@@ -843,18 +845,18 @@ describe('ThyCustomSelect', () => {
                 const input: HTMLInputElement = fixture.debugElement.nativeElement.querySelector('input');
                 expect(input).toBeTruthy();
                 const focusSpy = spyOn(input, 'focus');
-                fixture.componentInstance.select['manualFocusing'] = true;
-                fixture.componentInstance.select.onFocus({ relatedTarget: input } as unknown as FocusEvent);
+                fixture.componentInstance.select()['manualFocusing'] = true;
+                fixture.componentInstance.select().onFocus({ relatedTarget: input } as unknown as FocusEvent);
                 expect(focusSpy).not.toHaveBeenCalled();
-                expect(fixture.componentInstance.select['manualFocusing']).toBe(false);
-                fixture.componentInstance.select.onFocus({ relatedTarget: fixture.debugElement.nativeElement } as unknown as FocusEvent);
+                expect(fixture.componentInstance.select()['manualFocusing']).toBe(false);
+                fixture.componentInstance.select().onFocus({ relatedTarget: fixture.debugElement.nativeElement } as unknown as FocusEvent);
                 expect(focusSpy).toHaveBeenCalled();
             }));
 
             it('should call onBlur methods when blur', fakeAsync(() => {
                 const customSelectDebugElement = fixture.debugElement.query(By.directive(ThySelect));
                 fixture.detectChanges();
-                const blurSpy = spyOn(fixture.componentInstance.select, 'onBlur').and.callThrough();
+                const blurSpy = spyOn(fixture.componentInstance.select(), 'onBlur').and.callThrough();
 
                 dispatchFakeEvent(customSelectDebugElement.nativeElement, 'blur');
                 fixture.detectChanges();
@@ -865,9 +867,9 @@ describe('ThyCustomSelect', () => {
             }));
 
             it('should call blur and not call onTouchFn when blur', fakeAsync(() => {
-                const blurSpy = spyOn<any>(fixture.componentInstance.select, 'onTouchedFn');
+                const blurSpy = spyOn<any>(fixture.componentInstance.select(), 'onTouchedFn');
                 const trigger = fixture.debugElement.query(By.css('.select-control-search input')).nativeElement;
-                fixture.componentInstance.select.onBlur({ relatedTarget: trigger } as FocusEvent);
+                fixture.componentInstance.select().onBlur({ relatedTarget: trigger } as FocusEvent);
 
                 fixture.detectChanges();
 
@@ -875,8 +877,8 @@ describe('ThyCustomSelect', () => {
             }));
 
             it('should call onTouchFn when value change in single mode', () => {
-                const blurSpy = spyOn<any>(fixture.componentInstance.select, 'onTouchedFn');
-                const optionInstances = fixture.componentInstance.options.toArray();
+                const blurSpy = spyOn<any>(fixture.componentInstance.select(), 'onTouchedFn');
+                const optionInstances = fixture.componentInstance.options();
                 optionInstances[1].select();
                 fixture.detectChanges();
                 optionInstances[1].deselect();
@@ -887,8 +889,8 @@ describe('ThyCustomSelect', () => {
             it('should not call onTouchFn when value change in multiple mode', () => {
                 fixture.componentInstance.mode = 'multiple';
                 fixture.detectChanges();
-                const blurSpy = spyOn<any>(fixture.componentInstance.select, 'onTouchedFn');
-                const optionInstances = fixture.componentInstance.options.toArray();
+                const blurSpy = spyOn<any>(fixture.componentInstance.select(), 'onTouchedFn');
+                const optionInstances = fixture.componentInstance.options();
                 optionInstances[1].select();
                 fixture.detectChanges();
                 optionInstances[1].deselect();
@@ -941,7 +943,7 @@ describe('ThyCustomSelect', () => {
 
             it('should not throw when attempting to open too early', () => {
                 fixture = TestBed.createComponent(BasicSelectComponent);
-                expect(() => fixture.componentInstance.select.open()).not.toThrow();
+                expect(() => fixture.componentInstance.select().open()).not.toThrow();
             });
 
             it('should open the panel when trigger is clicked', fakeAsync(() => {
@@ -949,7 +951,7 @@ describe('ThyCustomSelect', () => {
                 fixture.detectChanges();
                 flush();
 
-                expect(fixture.componentInstance.select.panelOpen).toBe(true);
+                expect(fixture.componentInstance.select().panelOpen).toBe(true);
                 expect(overlayContainerElement.textContent).toContain('Steak');
                 expect(overlayContainerElement.textContent).toContain('Pizza');
                 expect(overlayContainerElement.textContent).toContain('Tacos');
@@ -967,7 +969,7 @@ describe('ThyCustomSelect', () => {
                 flush();
 
                 expect(overlayContainerElement.textContent).toEqual('');
-                expect(fixture.componentInstance.select.panelOpen).toBe(false);
+                expect(fixture.componentInstance.select().panelOpen).toBe(false);
             }));
 
             it('should remove select active item when mousemove', fakeAsync(() => {
@@ -977,7 +979,7 @@ describe('ThyCustomSelect', () => {
 
                 const el = overlayContainerElement.querySelector('.thy-select-dropdown') as HTMLElement;
                 dispatchMouseEvent(el, 'mousemove');
-                expect(fixture.componentInstance.select.keyManager.activeItem).toEqual(null);
+                expect(fixture.componentInstance.select().keyManager.activeItem).toEqual(null);
             }));
 
             it('should exec thyOnScrollToBottom when thyEnableScrollLoad is true', fakeAsync(() => {
@@ -1006,7 +1008,7 @@ describe('ThyCustomSelect', () => {
                 flush();
 
                 expect(overlayContainerElement.textContent).toEqual('');
-                expect(fixture.componentInstance.select.panelOpen).toBe(false);
+                expect(fixture.componentInstance.select().panelOpen).toBe(false);
             }));
 
             it('should set the width of the overlay based on the trigger', fakeAsync(() => {
@@ -1062,9 +1064,9 @@ describe('ThyCustomSelect', () => {
                 trigger.click();
                 fixture.detectChanges();
 
-                expect(fixture.componentInstance.select.panelOpen).toBe(true);
+                expect(fixture.componentInstance.select().panelOpen).toBe(true);
 
-                expect(fixture.componentInstance.select.options.length).toBe(0);
+                expect(fixture.componentInstance.select().options.length).toBe(0);
 
                 flush();
             }));
@@ -1076,14 +1078,14 @@ describe('ThyCustomSelect', () => {
                 trigger.click();
                 fixture.detectChanges();
 
-                expect(overlayContainerElement.textContent).toContain(fixture.componentInstance.select.emptyStateText);
+                expect(overlayContainerElement.textContent).toContain(fixture.componentInstance.select().thyEmptyStateText());
                 flush();
             }));
 
             it('should show thyEmptyStateText when assign thyEmptyStateText property', fakeAsync(() => {
                 const thyEmptyStateText = '无任何内容';
                 fixture.componentInstance.foods = [];
-                fixture.componentInstance.select.thyEmptyStateText = thyEmptyStateText;
+                fixture.componentInstance.emptyStateText = thyEmptyStateText;
                 fixture.detectChanges();
                 trigger.click();
                 fixture.detectChanges();
@@ -1097,13 +1099,13 @@ describe('ThyCustomSelect', () => {
                 fixture.detectChanges();
                 flush();
 
-                expect(fixture.componentInstance.select.panelOpen).toBe(true);
+                expect(fixture.componentInstance.select().panelOpen).toBe(true);
 
                 dispatchKeyboardEvent(trigger, 'keydown', ESCAPE);
                 fixture.detectChanges();
                 flush();
 
-                expect(fixture.componentInstance.select.panelOpen).toBe(false);
+                expect(fixture.componentInstance.select().panelOpen).toBe(false);
             }));
 
             it('should be able to render options inside groups with an ng-container', fakeAsync(() => {
@@ -1121,7 +1123,7 @@ describe('ThyCustomSelect', () => {
             }));
 
             it('should custom origin effected when origin is elementRef', fakeAsync(() => {
-                fixture.componentInstance.customizeOrigin = fixture.componentInstance.origin;
+                fixture.componentInstance.customizeOrigin = fixture.componentInstance.origin();
                 fixture.detectChanges();
 
                 trigger.click();
@@ -1162,7 +1164,7 @@ describe('ThyCustomSelect', () => {
             }));
 
             it('should show thyFooterTemplate when thyFooterTemplate had been assign', fakeAsync(() => {
-                fixture.componentInstance.select.thyFooterTemplate = fixture.componentInstance.footerTemplate;
+                fixture.componentInstance.footerTmp = fixture.componentInstance.footerTemplate();
                 trigger.click();
                 fixture.detectChanges();
                 flush();
@@ -1172,8 +1174,8 @@ describe('ThyCustomSelect', () => {
 
             it('should show thyFooterTemplate with custom-footer-class when thyFooterTemplate had been assign', fakeAsync(() => {
                 const footerClass = 'custom-footer-class';
-                fixture.componentInstance.select.thyFooterTemplate = fixture.componentInstance.footerTemplate;
-                fixture.componentInstance.select.thyFooterClass = footerClass;
+                fixture.componentInstance.footerTmp = fixture.componentInstance.footerTemplate();
+                fixture.componentInstance.footerClass = footerClass;
                 trigger.click();
                 fixture.detectChanges();
                 flush();
@@ -1198,13 +1200,13 @@ describe('ThyCustomSelect', () => {
                 fixture.detectChanges();
                 flush();
 
-                expect(fixture.componentInstance.foodsComponent.panelOpen).toBe(true);
+                expect(fixture.componentInstance.foodsComponent().panelOpen).toBe(true);
 
                 vegetablesTrigger.click();
                 fixture.detectChanges();
                 flush();
 
-                expect(fixture.componentInstance.foodsComponent.panelOpen).toBe(false);
+                expect(fixture.componentInstance.foodsComponent().panelOpen).toBe(false);
             }));
 
             it('should handle Ctrl + A correctly', fakeAsync(() => {
@@ -1249,8 +1251,8 @@ describe('ThyCustomSelect', () => {
                 option = overlayContainerElement.querySelector('thy-option') as HTMLElement;
 
                 expect(option.classList).toContain('active');
-                expect(fixture.componentInstance.options.first.selected()).toEqual(true);
-                expect(fixture.componentInstance.select.selectionModel.selected[0]).toBe(fixture.componentInstance.options.first);
+                expect(fixture.componentInstance.options()[0].selected).toEqual(true);
+                expect(fixture.componentInstance.select().selectionModel.selected[0]).toBe(fixture.componentInstance.options()[0]);
             }));
 
             it('should be able to select to an option using th ThyOptionComponent API', fakeAsync(() => {
@@ -1258,15 +1260,15 @@ describe('ThyCustomSelect', () => {
                 fixture.detectChanges();
                 flush();
 
-                const optionInstances = fixture.componentInstance.options.toArray();
+                const optionInstances = fixture.componentInstance.options();
                 const optionNodes: NodeListOf<HTMLElement> = overlayContainerElement.querySelectorAll('thy-option');
 
                 optionInstances[1].select();
                 fixture.detectChanges();
                 flush();
                 expect(optionNodes[1].classList).toContain('active');
-                expect(optionInstances[1].selected()).toBe(true);
-                expect(fixture.componentInstance.select.selectionModel.selected[0]).toBe(optionInstances[1]);
+                expect(optionInstances[1].selected).toBe(true);
+                expect(fixture.componentInstance.select().selectionModel.selected[0]).toBe(optionInstances[1]);
             }));
 
             it('should deselect other options when one is selected', fakeAsync(() => {
@@ -1296,9 +1298,9 @@ describe('ThyCustomSelect', () => {
                 expect(options[1].classList).not.toContain('active');
                 expect(options[2].classList).not.toContain('active');
 
-                const optionInstances = fixture.componentInstance.options.toArray();
-                expect(optionInstances[1].selected()).toBe(false);
-                expect(optionInstances[2].selected()).toBe(false);
+                const optionInstances = fixture.componentInstance.options();
+                expect(optionInstances[1].selected).toBe(false);
+                expect(optionInstances[2].selected).toBe(false);
             }));
         });
 
@@ -1351,11 +1353,11 @@ describe('ThyCustomSelect', () => {
 
                 typeInElement('any word', input);
                 fixture.detectChanges();
-                expect(fixtureIns.select['isSearching']).toBeTruthy();
+                expect(fixtureIns.select()['isSearching']).toBeTruthy();
                 tick(200);
                 fixture.detectChanges();
-                expect(fixtureIns.select['isSearching']).toBeFalsy();
-                expect(fixtureIns.select.keyManager.activeItem).toEqual(fixtureIns.select.options.toArray()[0]);
+                expect(fixtureIns.select()['isSearching']).toBeFalsy();
+                expect(fixtureIns.select().keyManager.activeItem).toEqual(fixtureIns.select().options.toArray()[0]);
             }));
 
             it('should  scroll to active item when thyEnableScrollLoad is true and thyShowSearch is true', fakeAsync(() => {
@@ -1369,7 +1371,7 @@ describe('ThyCustomSelect', () => {
 
                 typeInElement('any word', input);
                 fixture.detectChanges();
-                expect(fixtureIns.select['isSearching']).toBeFalsy();
+                expect(fixtureIns.select()['isSearching']).toBeFalsy();
                 flush();
             }));
 
@@ -1381,11 +1383,11 @@ describe('ThyCustomSelect', () => {
                 trigger.click();
                 fixture.detectChanges();
 
-                expect(fixture.componentInstance.select.panelOpen).toBeTruthy();
+                expect(fixture.componentInstance.select().panelOpen).toBeTruthy();
 
                 trigger.click();
                 fixture.detectChanges();
-                expect(fixture.componentInstance.select.panelOpen).toBeFalsy();
+                expect(fixture.componentInstance.select().panelOpen).toBeFalsy();
             }));
 
             it('should not close panel when dispatch toggle at thyShowSearch is true', fakeAsync(() => {
@@ -1479,7 +1481,7 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
 
             expect(overlayContainerElement.textContent).toEqual('', `Expected select panel to stay closed.`);
-            expect(fixture.componentInstance.select.panelOpen).toBe(false, `Expected select panelOpen property to stay false.`);
+            expect(fixture.componentInstance.select().panelOpen).toBe(false, `Expected select panelOpen property to stay false.`);
 
             fixture.componentInstance.isDisabled = false;
             fixture.detectChanges();
@@ -1491,7 +1493,7 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
 
             expect(overlayContainerElement.textContent).toContain('Steak', `Expected select panel to open normally on re-enabled control`);
-            expect(fixture.componentInstance.select.panelOpen).toBe(true, `Expected select panelOpen property to become true.`);
+            expect(fixture.componentInstance.select().panelOpen).toBe(true, `Expected select panelOpen property to become true.`);
         }));
     });
 
@@ -1507,7 +1509,7 @@ describe('ThyCustomSelect', () => {
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
 
             expect(trigger.textContent).toContain('Pizza');
-            expect(fixture.componentInstance.options.toArray()[1].selected()).toBe(true);
+            expect(fixture.componentInstance.options()[1].selected).toBe(true);
         }));
     });
 
@@ -1517,7 +1519,7 @@ describe('ThyCustomSelect', () => {
         it('should clear selection model for single choice when ngModel value change ', fakeAsync(() => {
             const fixture = TestBed.createComponent(SingleSelectNgModelComponent);
             fixture.detectChanges();
-            const optionComponents = fixture.componentInstance.options.toArray();
+            const optionComponents = fixture.componentInstance.options();
             fixture.componentInstance.selectedValues = null;
             fixture.detectChanges();
             flush();
@@ -1566,14 +1568,14 @@ describe('ThyCustomSelect', () => {
             const fixture = TestBed.createComponent(SelectWithSearchComponent);
             fixture.detectChanges();
 
-            expect(fixture.componentInstance.select.thyShowSearch).toBe(false);
+            expect(fixture.componentInstance.select().thyShowSearch()).toBe(false);
 
             fixture.componentInstance.thyShowSearch = true;
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
             fixture.detectChanges();
 
-            expect(fixture.componentInstance.select.thyShowSearch).toBe(true);
+            expect(fixture.componentInstance.select().thyShowSearch()).toBe(true);
             expect(fixture.debugElement.query(By.css('.search-input-field'))).not.toBeNull();
         }));
         it('should hide the options that can not be searched', fakeAsync(() => {
@@ -1591,7 +1593,7 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
 
-            const options = fixture.componentInstance.select.options.toArray();
+            const options = fixture.componentInstance.select().options.toArray();
 
             expect(options[0].hidden()).toBe(false);
             expect(options[1].hidden()).toBe(true);
@@ -1621,7 +1623,7 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
 
-            const options = fixture.componentInstance.select.options.toArray();
+            const options = fixture.componentInstance.select().options.toArray();
             const optionNodes = overlayContainerElement.querySelectorAll('thy-option') as NodeListOf<HTMLElement>;
 
             expect(options[1].hidden()).toBe(false);
@@ -1648,8 +1650,8 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
 
-            const options = fixture.componentInstance.select.options.toArray();
-            expect(options[0].hidden()).toBe(false);
+            const options = fixture.componentInstance.select().options.toArray();
+            expect(options[0].hidden).toBe(false);
         }));
         it('should hide the thy-group when all options of the group is hidden', fakeAsync(() => {
             const fixture = TestBed.createComponent(SelectWithSearchAndGroupComponent);
@@ -1658,7 +1660,7 @@ describe('ThyCustomSelect', () => {
             trigger.click();
             fixture.detectChanges();
 
-            const groups = fixture.componentInstance.select.contentGroups.toArray();
+            const groups = fixture.componentInstance.select().contentGroups();
             const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
             typeInElement('Cat', input);
 
@@ -1746,7 +1748,7 @@ describe('ThyCustomSelect', () => {
             flush();
             fixture.detectChanges();
 
-            fixture.componentInstance.select.disabled = true;
+            fixture.componentInstance.select().disabled = true;
             const closeIcon = fixture.nativeElement.querySelector('.choice-remove-link');
             dispatchFakeEvent(closeIcon, 'click');
             fixture.detectChanges();
@@ -1802,7 +1804,7 @@ describe('ThyCustomSelect', () => {
             flush();
             fixture.detectChanges();
 
-            const blurSpy = spyOn<any>(fixture.componentInstance.select, 'onTouchedFn');
+            const blurSpy = spyOn<any>(fixture.componentInstance.select(), 'onTouchedFn');
             const trigger = fixture.debugElement.query(By.css('.select-control-clear')).nativeElement;
             trigger.click();
             tick();
@@ -1817,7 +1819,7 @@ describe('ThyCustomSelect', () => {
             fixture.componentInstance.mode = 'multiple';
             fixture.detectChanges();
 
-            const blurSpy = spyOn<any>(fixture.componentInstance.select, 'onTouchedFn');
+            const blurSpy = spyOn<any>(fixture.componentInstance.select(), 'onTouchedFn');
             const trigger = fixture.debugElement.query(By.css('.select-control-clear')).nativeElement;
             trigger.click();
             tick();
@@ -1892,7 +1894,7 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
 
-            expect(fixture.componentInstance.select.panelOpen).toBe(true);
+            expect(fixture.componentInstance.select().panelOpen).toBe(true);
         }));
 
         it('should close expand when thyMode change to empty', fakeAsync(() => {
@@ -1912,7 +1914,7 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
 
-            expect(fixture.componentInstance.select.panelOpen).toBe(false);
+            expect(fixture.componentInstance.select().panelOpen).toBe(false);
         }));
 
         it('should clear selected status when thyMode change', fakeAsync(() => {
@@ -1924,7 +1926,7 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
 
-            const optionComponents = fixture.componentInstance.options.toArray();
+            const optionComponents = fixture.componentInstance.options();
             const options = overlayContainerElement.querySelectorAll('thy-option');
 
             (options.item(0) as HTMLElement).click();
@@ -1968,7 +1970,7 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
 
-            const optionComponents = fixture.componentInstance.options.toArray();
+            const optionComponents = fixture.componentInstance.options();
             const options = overlayContainerElement.querySelectorAll('thy-option');
 
             (options.item(0) as HTMLElement).click();
@@ -2007,8 +2009,8 @@ describe('ThyCustomSelect', () => {
             (options.item(0) as HTMLElement).click();
             fixture.detectChanges();
             flush();
-            const optionComponents = fixture.componentInstance.options.toArray();
-            expect(optionComponents[0].selected()).toBe(true);
+            const optionComponents = fixture.componentInstance.options();
+            expect(optionComponents[0].selected).toBe(true);
             (options.item(1) as HTMLElement).click();
             fixture.detectChanges();
             flush();
@@ -2037,7 +2039,7 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
 
-            const optionComponents = fixture.componentInstance.options.toArray();
+            const optionComponents = fixture.componentInstance.options();
 
             (options.item(0) as HTMLElement).click();
             (options.item(1) as HTMLElement).click();
@@ -2113,7 +2115,9 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
 
-            expect(fixture.componentInstance.select.keyManager.activeItem).toEqual(fixture.componentInstance.select.options.toArray()[0]);
+            expect(fixture.componentInstance.select().keyManager.activeItem).toEqual(
+                fixture.componentInstance.select().options.toArray()[0]
+            );
         }));
 
         it('should set next active option when press down_arrow', fakeAsync(() => {
@@ -2128,7 +2132,9 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
 
-            expect(fixture.componentInstance.select.keyManager.activeItem).toEqual(fixture.componentInstance.select.options.toArray()[1]);
+            expect(fixture.componentInstance.select().keyManager.activeItem).toEqual(
+                fixture.componentInstance.select().options.toArray()[1]
+            );
         }));
 
         it('should set selected option active when open panel', fakeAsync(() => {
@@ -2143,12 +2149,14 @@ describe('ThyCustomSelect', () => {
             dispatchKeyboardEvent(trigger, 'keydown', ESCAPE);
             fixture.detectChanges();
             flush();
-            expect(fixture.componentInstance.select.panelOpen).toBeFalsy();
+            expect(fixture.componentInstance.select().panelOpen).toBeFalsy();
 
             trigger.click();
             fixture.detectChanges();
             flush();
-            expect(fixture.componentInstance.select.keyManager.activeItem).toEqual(fixture.componentInstance.select.options.toArray()[1]);
+            expect(fixture.componentInstance.select().keyManager.activeItem).toEqual(
+                fixture.componentInstance.select().options.toArray()[1]
+            );
         }));
 
         it('should stopPropagation when press enter on custom-select', fakeAsync(() => {
@@ -2185,8 +2193,8 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
 
-            expect(fixture.componentInstance.options.first.selected()).toEqual(true);
-            expect(fixture.componentInstance.select.selectionModel.selected[0]).toBe(fixture.componentInstance.options.first);
+            expect(fixture.componentInstance.options()[0].selected).toEqual(true);
+            expect(fixture.componentInstance.select().selectionModel.selected[0]).toBe(fixture.componentInstance.options()[0]);
         }));
 
         it('should open the panel when press enter on trigger', fakeAsync(() => {
@@ -2198,7 +2206,7 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
 
-            expect(fixture.componentInstance.select.panelOpen).toEqual(true);
+            expect(fixture.componentInstance.select().panelOpen).toEqual(true);
         }));
 
         it('should select an option when press down_arrow on trigger', fakeAsync(() => {
@@ -2210,8 +2218,8 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
 
-            expect(fixture.componentInstance.options.first.selected()).toEqual(true);
-            expect(fixture.componentInstance.select.selectionModel.selected[0]).toBe(fixture.componentInstance.options.first);
+            expect(fixture.componentInstance.options()[0].selected).toEqual(true);
+            expect(fixture.componentInstance.select().selectionModel.selected[0]).toBe(fixture.componentInstance.options()[0]);
         }));
     });
 
@@ -2229,7 +2237,7 @@ describe('ThyCustomSelect', () => {
         }));
 
         it('auto expend', fakeAsync(() => {
-            expect(fixture.componentInstance.select.panelOpen).toBe(true);
+            expect(fixture.componentInstance.select().panelOpen).toBe(true);
         }));
     });
 
@@ -2334,12 +2342,12 @@ describe('ThyCustomSelect', () => {
                 trigger.click();
                 fixture.detectChanges();
 
-                spyOn(fixture.componentInstance.select.cdkConnectedOverlay.overlayRef, 'detach');
+                spyOn(fixture.componentInstance.select().cdkConnectedOverlay().overlayRef, 'detach');
 
-                expect(fixture.componentInstance.select.cdkConnectedOverlay.overlayRef.detach).toHaveBeenCalledTimes(0);
+                expect(fixture.componentInstance.select().cdkConnectedOverlay().overlayRef.detach).toHaveBeenCalledTimes(0);
 
                 scrolledSubject.next();
-                expect(fixture.componentInstance.select.cdkConnectedOverlay.overlayRef.detach).toHaveBeenCalledTimes(1);
+                expect(fixture.componentInstance.select().cdkConnectedOverlay().overlayRef.detach).toHaveBeenCalledTimes(1);
             });
         });
 
@@ -2370,11 +2378,11 @@ describe('ThyCustomSelect', () => {
                 trigger.click();
                 fixture.detectChanges();
 
-                spyOn(fixture.componentInstance.select.cdkConnectedOverlay.overlayRef, 'updatePosition');
-                expect(fixture.componentInstance.select.cdkConnectedOverlay.overlayRef.updatePosition).toHaveBeenCalledTimes(0);
+                spyOn(fixture.componentInstance.select().cdkConnectedOverlay().overlayRef, 'updatePosition');
+                expect(fixture.componentInstance.select().cdkConnectedOverlay().overlayRef.updatePosition).toHaveBeenCalledTimes(0);
 
                 scrolledSubject.next();
-                expect(fixture.componentInstance.select.cdkConnectedOverlay.overlayRef.updatePosition).toHaveBeenCalledTimes(1);
+                expect(fixture.componentInstance.select().cdkConnectedOverlay().overlayRef.updatePosition).toHaveBeenCalledTimes(1);
             });
         });
     });
@@ -2392,7 +2400,9 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
 
-            expect(fixture.componentInstance.select.keyManager.activeItem).toEqual(fixture.componentInstance.select.options.toArray()[0]);
+            expect(fixture.componentInstance.select().keyManager.activeItem).toEqual(
+                fixture.componentInstance.select().options.toArray()[0]
+            );
             const spy = jasmine.createSpy('keydown spy');
             fromEvent(fixture.debugElement.nativeElement, 'keydown').subscribe(() => {
                 spy();
@@ -2415,7 +2425,7 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
 
-            expect(fixture.componentInstance.select.keyManager.activeItem).toBeFalsy();
+            expect(fixture.componentInstance.select().keyManager.activeItem).toBeFalsy();
             const spy = jasmine.createSpy('keydown spy');
             fromEvent(fixture.debugElement.nativeElement, 'keydown').subscribe(() => {
                 spy();
@@ -2437,10 +2447,14 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
             dispatchKeyboardEvent(trigger, 'keydown', DOWN_ARROW);
-            expect(fixture.componentInstance.select.keyManager.activeItem).toEqual(fixture.componentInstance.select.options.toArray()[1]);
+            expect(fixture.componentInstance.select().keyManager.activeItem).toEqual(
+                fixture.componentInstance.select().options.toArray()[1]
+            );
             fixture.detectChanges();
             dispatchKeyboardEvent(trigger, 'keydown', HOME);
-            expect(fixture.componentInstance.select.keyManager.activeItem).toEqual(fixture.componentInstance.select.options.toArray()[0]);
+            expect(fixture.componentInstance.select().keyManager.activeItem).toEqual(
+                fixture.componentInstance.select().options.toArray()[0]
+            );
         }));
 
         it('should active last option when set keycode END', fakeAsync(() => {
@@ -2452,8 +2466,8 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
             dispatchKeyboardEvent(trigger, 'keydown', END);
-            expect(fixture.componentInstance.select.keyManager.activeItem).toEqual(
-                fixture.componentInstance.select.options.toArray()[fixture.componentInstance.select.options.length - 1]
+            expect(fixture.componentInstance.select().keyManager.activeItem).toEqual(
+                fixture.componentInstance.select().options.toArray()[fixture.componentInstance.select().options.length - 1]
             );
         }));
 
@@ -2466,12 +2480,14 @@ describe('ThyCustomSelect', () => {
             flush();
             dispatchKeyboardEvent(trigger, 'keydown', END);
             tick();
-            expect(fixture.componentInstance.select.keyManager.activeItem).toEqual(
-                fixture.componentInstance.select.options.toArray()[fixture.componentInstance.select.options.length - 1]
+            expect(fixture.componentInstance.select().keyManager.activeItem).toEqual(
+                fixture.componentInstance.select().options.toArray()[fixture.componentInstance.select().options.length - 1]
             );
             dispatchKeyboardEvent(trigger, 'keydown', HOME);
             tick();
-            expect(fixture.componentInstance.select.keyManager.activeItem).toEqual(fixture.componentInstance.select.options.toArray()[0]);
+            expect(fixture.componentInstance.select().keyManager.activeItem).toEqual(
+                fixture.componentInstance.select().options.toArray()[0]
+            );
         }));
 
         it('should close panel when set keycode arrow', fakeAsync(() => {
@@ -2483,7 +2499,7 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
             dispatchKeyboardEvent(trigger, 'keydown', DOWN_ARROW, '', { alt: true });
-            expect(fixture.componentInstance.select.panelOpen).toBe(false);
+            expect(fixture.componentInstance.select().panelOpen).toBe(false);
         }));
     });
 

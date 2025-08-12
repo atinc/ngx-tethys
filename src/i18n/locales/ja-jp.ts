@@ -9,11 +9,13 @@ export default {
     datePicker: {
         yearFormat: 'yyyy年',
         monthFormat: 'MMM',
-        zhMonthFormat: 'MMMM',
         weekFormat: 'EEEEE',
         fullWeekFormat: 'EE',
         weekThFormat: 'yyyy-ww週',
         dateFormat: 'yyyy年MM月dd日',
+
+        yearQuarterFormat: "yyyy-'Q'q",
+        yearMonthFormat: 'yyyy-MM',
 
         yearText: '年',
         quarterText: '四半期',

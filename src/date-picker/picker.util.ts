@@ -1,12 +1,14 @@
 import { Signal } from '@angular/core';
-import { ThyI18nLocale, ThyLocaleType } from 'ngx-tethys/i18n';
+import { ThyI18nLocale } from 'ngx-tethys/i18n';
 import { SafeAny } from 'ngx-tethys/types';
 import { coerceArray, helpers, TinyDate } from 'ngx-tethys/util';
 import { CompatibleValue, RangeAdvancedValue } from './inner-types';
-import { CompatibleDate, DateEntry, ThyDateGranularity, ThyDateRangeEntry, ThyPanelMode, ThyShortcutValue } from './standard-types';
+import { ThyCompatibleDate, DateEntry, ThyDateGranularity, ThyDateRangeEntry, ThyPanelMode, ThyShortcutValue } from './standard-types';
 
-export function transformDateValue(value: CompatibleDate | CompatibleValue | number | DateEntry | ThyDateRangeEntry | RangeAdvancedValue): {
-    value: CompatibleDate;
+export function transformDateValue(
+    value: ThyCompatibleDate | CompatibleValue | number | DateEntry | ThyDateRangeEntry | RangeAdvancedValue
+): {
+    value: ThyCompatibleDate;
     withTime?: boolean;
     flexibleDateGranularity?: ThyDateGranularity;
 } {
@@ -53,7 +55,7 @@ export function transformDateValue(value: CompatibleDate | CompatibleValue | num
             value[1] = convertDate(rangeValue.end.nativeDate);
         }
     }
-    return { value: value as CompatibleDate, withTime, flexibleDateGranularity };
+    return { value: value as ThyCompatibleDate, withTime, flexibleDateGranularity };
 }
 
 export function getFlexibleAdvancedReadableValue(
@@ -68,7 +70,7 @@ export function getFlexibleAdvancedReadableValue(
     }
     switch (flexibleDateGranularity) {
         case 'year':
-            const yearFormatStr = locale()?.id === ThyLocaleType.zhHans ? `yyyy年` : `yyyy`;
+            const yearFormatStr = locale().datePicker.yearFormat;
             if (tinyDates[0].isSameYear(tinyDates[1])) {
                 value = `${tinyDates[0].format(yearFormatStr)}`;
             } else {
@@ -76,7 +78,7 @@ export function getFlexibleAdvancedReadableValue(
             }
             break;
         case 'quarter':
-            const quarterFormatStr = locale()?.id === ThyLocaleType.zhHans ? `yyyy年 qqq` : `yyyy-qqq`;
+            const quarterFormatStr = locale().datePicker.yearQuarterFormat;
             if (tinyDates[0].isSameQuarter(tinyDates[1])) {
                 value = `${tinyDates[0].format(quarterFormatStr)}`;
             } else {
@@ -84,7 +86,7 @@ export function getFlexibleAdvancedReadableValue(
             }
             break;
         case 'month':
-            const monthFormatStr = locale()?.id === ThyLocaleType.zhHans ? `yyyy年 MM月` : `yyyy-MM`;
+            const monthFormatStr = locale().datePicker.yearMonthFormat;
             if (tinyDates[0].isSameMonth(tinyDates[1])) {
                 value = `${tinyDates[0].format(monthFormatStr)}`;
             } else {
@@ -117,7 +119,7 @@ export function hasValue(value: CompatibleValue): boolean {
     }
 }
 
-export function makeValue(value: CompatibleDate | null, isRange: boolean = false, timeZone?: string): CompatibleValue {
+export function makeValue(value: ThyCompatibleDate | null, isRange: boolean = false, timeZone?: string): CompatibleValue {
     if (isRange) {
         return Array.isArray(value) ? (value as Date[]).map(val => new TinyDate(val, timeZone)) : [];
     } else {
@@ -239,7 +241,7 @@ function fixStringDate(dateStr: string, timeZone?: string) {
 }
 
 export function setValueByTimestampPrecision(
-    date: CompatibleDate | number | Date | DateEntry | ThyDateRangeEntry | SafeAny,
+    date: ThyCompatibleDate | number | Date | DateEntry | ThyDateRangeEntry | SafeAny,
     isRange: boolean,
     timestampPrecision: 'seconds' | 'milliseconds',
     timeZone?: string
