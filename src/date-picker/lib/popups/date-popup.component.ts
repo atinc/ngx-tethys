@@ -23,7 +23,8 @@ import {
     SimpleChanges,
     TemplateRef,
     signal,
-    OutputEmitterRef
+    OutputEmitterRef,
+    OnChanges
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -60,7 +61,7 @@ import { InnerPopup } from './inner-popup.component';
     templateUrl: './date-popup.component.html',
     imports: [ThyNav, ThyNavItemDirective, ThyButtonIcon, DateCarousel, FormsModule, NgTemplateOutlet, InnerPopup, CalendarFooter]
 })
-export class DatePopup implements OnInit {
+export class DatePopup implements OnInit, OnChanges {
     private cdr = inject(ChangeDetectorRef);
 
     private datePickerConfigService = inject(ThyDatePickerConfigService);

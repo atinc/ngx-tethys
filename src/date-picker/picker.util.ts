@@ -1,5 +1,5 @@
 import { Signal } from '@angular/core';
-import { ThyI18nLocale, ThyLocaleType } from 'ngx-tethys/i18n';
+import { ThyI18nLocale } from 'ngx-tethys/i18n';
 import { SafeAny } from 'ngx-tethys/types';
 import { coerceArray, helpers, TinyDate } from 'ngx-tethys/util';
 import { CompatibleValue, RangeAdvancedValue } from './inner-types';
@@ -70,7 +70,7 @@ export function getFlexibleAdvancedReadableValue(
     }
     switch (flexibleDateGranularity) {
         case 'year':
-            const yearFormatStr = locale()?.id === ThyLocaleType.zhHans ? `yyyy年` : `yyyy`;
+            const yearFormatStr = locale().datePicker.yearFormat;
             if (tinyDates[0].isSameYear(tinyDates[1])) {
                 value = `${tinyDates[0].format(yearFormatStr)}`;
             } else {
@@ -78,7 +78,7 @@ export function getFlexibleAdvancedReadableValue(
             }
             break;
         case 'quarter':
-            const quarterFormatStr = locale()?.id === ThyLocaleType.zhHans ? `yyyy年 qqq` : `yyyy-qqq`;
+            const quarterFormatStr = locale().datePicker.yearQuarterFormat;
             if (tinyDates[0].isSameQuarter(tinyDates[1])) {
                 value = `${tinyDates[0].format(quarterFormatStr)}`;
             } else {
@@ -86,7 +86,7 @@ export function getFlexibleAdvancedReadableValue(
             }
             break;
         case 'month':
-            const monthFormatStr = locale()?.id === ThyLocaleType.zhHans ? `yyyy年 MM月` : `yyyy-MM`;
+            const monthFormatStr = locale().datePicker.yearMonthFormat;
             if (tinyDates[0].isSameMonth(tinyDates[1])) {
                 value = `${tinyDates[0].format(monthFormatStr)}`;
             } else {

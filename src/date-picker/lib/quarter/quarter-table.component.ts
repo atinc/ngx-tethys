@@ -3,6 +3,7 @@ import { TinyDate } from 'ngx-tethys/util';
 import { CalendarTable } from '../calendar/calendar-table.component';
 import { DateCell, DateBodyRow } from '../date/types';
 import { NgClass } from '@angular/common';
+import { QUARTER_FORMAT } from '../../date-picker.config';
 
 /**
  * @private
@@ -42,7 +43,7 @@ export class QuarterTable extends CalendarTable {
             for (let colIndex = 0; colIndex < this.MAX_COL; colIndex++) {
                 const quarter = this.activeDate().setQuarter(quarterValue + 1);
                 const isDisabled = this.disabledDate ? this.disabledDate()(quarter.nativeDate) : false;
-                const content = `${quarter.format('qqq')}`;
+                const content = `${quarter.format(QUARTER_FORMAT)}`;
                 const cell: DateCell = {
                     trackByIndex: colIndex,
                     value: quarter.nativeDate,

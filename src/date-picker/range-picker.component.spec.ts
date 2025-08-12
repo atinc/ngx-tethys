@@ -1,5 +1,6 @@
 import { addDays, endOfDay, format, fromUnixTime, isSameDay, startOfDay, subDays } from 'date-fns';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
+import { QUARTER_FORMAT } from './date-picker.config';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
@@ -795,7 +796,7 @@ describe('ThyRangePickerComponent', () => {
                 end: new TinyDate().endOfQuarter().getUnixTime(),
                 granularity: 'quarter'
             });
-            expect(getRangePickerInput().value).toBe(`${new TinyDate().format('yyyy年 qqq')}`);
+            expect(getRangePickerInput().value).toBe(`${new TinyDate().format(`yyyy年 ${QUARTER_FORMAT}`)}`);
         }));
 
         it('should select advanced month', fakeAsync(() => {

@@ -7,26 +7,26 @@
   [thyPanelOpened]="panelOpen"
   [thySelectedOptions]="selected"
   [thyIsMultiple]="isMultiple"
-  [thyShowSearch]="thyShowSearch"
-  [thyAllowClear]="thyAllowClear"
-  [thySize]="thySize"
-  [thyPlaceholder]="thyPlaceHolder"
-  [customDisplayTemplate]="selectedValueDisplayRef"
+  [thyShowSearch]="thyShowSearch()"
+  [thyAllowClear]="thyAllowClear()"
+  [thySize]="thySize()"
+  [thyPlaceholder]="thyPlaceHolder()"
+  [customDisplayTemplate]="selectedValueDisplayRef()"
   [thyDisabled]="disabled"
-  [thyBorderless]="thyBorderless"
+  [thyBorderless]="thyBorderless()"
   (thyOnClear)="clearSelectValue($event)"
   (thyOnRemove)="remove($event)"
   (thyOnSearch)="onSearchFilter($event)"
   (thyOnBlur)="onBlur($event)"
-  [thyMaxTagCount]="thyMaxTagCount"
-  [thyPreset]="thyPreset"></div>
+  [thyMaxTagCount]="thyMaxTagCount()"
+  [thyPreset]="thyPreset()"></div>
 
 <ng-template
   cdk-connected-overlay
   cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
-  [cdkConnectedOverlayHasBackdrop]="thyHasBackdrop"
+  [cdkConnectedOverlayHasBackdrop]="thyHasBackdrop()"
   [cdkConnectedOverlayPositions]="dropDownPositions"
-  [cdkConnectedOverlayOrigin]="thyOrigin || origin"
+  [cdkConnectedOverlayOrigin]="thyOrigin() || origin"
   [cdkConnectedOverlayOpen]="panelOpen"
   [cdkConnectedOverlayWidth]="triggerRectWidth"
   [cdkConnectedOverlayMinWidth]="dropDownMinWidth"
@@ -45,35 +45,35 @@
     @if (contentOptions?.length > 0 || contentGroups?.length > 0 || innerOptions?.length > 0) {
       <div
         #panel
-        class="thy-select-dropdown-options thy-select-dropdown-options-{{ size }}"
+        class="thy-select-dropdown-options thy-select-dropdown-options-{{ thySize() }}"
         thyScroll
         (thyOnScrolled)="onOptionsScrolled($event)"
-        [thyEnable]="thyEnableScrollLoad">
+        [thyEnable]="thyEnableScrollLoad()">
         @if (isReactiveDriven) {
           <ng-template [ngTemplateOutlet]="optionsContainer.optionsTemplate"></ng-template>
         }
         <ng-content></ng-content>
         @if (isHiddenOptions) {
-          <thy-loading [thyDone]="thyLoadState" thySize="sm"></thy-loading>
+          <thy-loading [thyDone]="thyLoadState()" thySize="sm"></thy-loading>
           <div class="thy-select-empty-content">
-            @if (thyLoadState) {
-              <thy-empty [thyMessage]="emptySearchMessageText" thySize="sm" [thyIconName]="emptyIcon()"></thy-empty>
+            @if (thyLoadState()) {
+              <thy-empty [thyMessage]="thyEmptySearchMessageText()" thySize="sm" [thyIconName]="emptyIcon()"></thy-empty>
             }
           </div>
         }
       </div>
     } @else {
-      <thy-loading [thyDone]="thyLoadState" thySize="sm"></thy-loading>
+      <thy-loading [thyDone]="thyLoadState()" thySize="sm"></thy-loading>
       <div class="thy-select-empty-content">
-        @if (thyLoadState) {
-          <thy-empty [thyMessage]="emptyStateText" thySize="sm" [thyIconName]="emptyIcon()"></thy-empty>
+        @if (thyLoadState()) {
+          <thy-empty [thyMessage]="thyEmptyStateText()" thySize="sm" [thyIconName]="emptyIcon()"></thy-empty>
         }
       </div>
     }
-    @if (thyFooterTemplate) {
-      <div [class]="thyFooterClass ? thyFooterClass : 'thy-custom-select-footer'">
-        @if (thyFooterTemplate) {
-          <ng-template [ngTemplateOutlet]="thyFooterTemplate"></ng-template>
+    @if (thyFooterTemplate()) {
+      <div [class]="thyFooterClass() ? thyFooterClass() : 'thy-custom-select-footer'">
+        @if (thyFooterTemplate()) {
+          <ng-template [ngTemplateOutlet]="thyFooterTemplate()"></ng-template>
         }
       </div>
     }

@@ -10,6 +10,7 @@ import { DateHelperService } from '../../date-helper.service';
 import { AdvancedSelectableCell, RangeAdvancedValue } from '../../inner-types';
 import { DatePickerAdvancedShowYearTipPipe } from '../../picker.pipes';
 import { ThyDateGranularity } from '../../standard-types';
+import { QUARTER_FORMAT } from '../../date-picker.config';
 
 /**
  * @private
@@ -254,7 +255,7 @@ export class DateCarousel implements OnInit, ControlValueAccessor, OnDestroy {
         currentDate = currentDate || this.activeDate() || new TinyDate().startOfQuarter();
         return {
             type: 'quarter',
-            content: `${currentDate.addQuarters(preOrNextcount).format('qqq')}`,
+            content: `${currentDate.addQuarters(preOrNextcount).format(QUARTER_FORMAT)}`,
             startValue: currentDate.addQuarters(preOrNextcount).startOfQuarter(),
             endValue: currentDate.addQuarters(preOrNextcount).endOfQuarter(),
             classMap: {}

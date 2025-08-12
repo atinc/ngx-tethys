@@ -2,16 +2,16 @@
   #select
   thyInput
   [tabindex]="-1"
-  [thySize]="_size"
-  [disabled]="_disabled"
-  [(ngModel)]="_innerValue"
+  [thySize]="thySize()"
+  [disabled]="disabled()"
+  [(ngModel)]="innerValue"
   (ngModelChange)="ngModelChange()"
   (blur)="onBlur($event)"
-  [class.thy-select-selection-allow-clear]="thyAllowClear">
+  [class.thy-select-selection-allow-clear]="thyAllowClear()">
   <ng-content></ng-content>
 </select>
 <thy-icon thyIconName="angle-down"></thy-icon>
-@if (thyAllowClear && _innerValue) {
+@if (thyAllowClear() && innerValue()) {
   <a class="thy-select-remove remove-link" href="javascript:;" (click)="clearSelectValue($event)">
     <thy-icon class="remove-link-icon" thyIconName="close-circle-bold-fill"></thy-icon>
   </a>

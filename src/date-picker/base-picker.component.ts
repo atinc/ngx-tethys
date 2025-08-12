@@ -22,6 +22,7 @@ import { CompatibleValue, RangeAdvancedValue } from './inner-types';
 import { ThyPicker } from './picker.component';
 import { hasTimeInStringDate, isValidStringDate, parseStringDate, transformDateValue } from './picker.util';
 import { ThyCompatibleDate, ThyPanelMode } from './standard-types';
+import { QUARTER_FORMAT } from './date-picker.config';
 
 /**
  * @private
@@ -145,7 +146,7 @@ export class BasePicker extends AbstractPickerComponent implements OnInit, OnCha
         if (!this.thyFormat()) {
             const inputFormats: { [key in ThyPanelMode]?: string } = {
                 year: 'yyyy',
-                quarter: 'yyyy-qqq',
+                quarter: `yyyy-${QUARTER_FORMAT}`,
                 month: 'yyyy-MM',
                 week: this.locale().weekThFormat,
                 date: this.thyShowTime() ? 'yyyy-MM-dd HH:mm' : 'yyyy-MM-dd'

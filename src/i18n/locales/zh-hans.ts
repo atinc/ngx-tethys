@@ -9,11 +9,13 @@ export default {
     datePicker: {
         yearFormat: 'yyyy年', // Used in header of month picker
         monthFormat: 'MMM', // Used in header of date picker, advanced range picker （2月）
-        zhMonthFormat: 'MMMM', // Used in month picker （二月）
         weekFormat: 'EEEEE', // Used in date picker table （六）
         fullWeekFormat: 'EE', // Used in calendar (周六)
         weekThFormat: 'yyyy-ww周', // Used in week picker
         dateFormat: 'yyyy年MM月dd日',
+
+        yearQuarterFormat: "yyyy年 'Q'q",
+        yearMonthFormat: 'yyyy年 MM月',
 
         yearText: '年份',
         quarterText: '季度',

@@ -43,7 +43,6 @@ import {
 } from 'ngx-tethys/util';
 import { defer, merge, Observable, Subject, Subscription, timer } from 'rxjs';
 import { distinctUntilChanged, filter, map, startWith, switchMap, take, takeUntil } from 'rxjs/operators';
-
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { coerceElement } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -55,26 +54,30 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    ContentChild,
     ContentChildren,
     ElementRef,
-    EventEmitter,
     forwardRef,
-    HostBinding,
     HostListener,
     Input,
     NgZone,
     numberAttribute,
     OnDestroy,
     OnInit,
-    Output,
+    output,
     PLATFORM_ID,
     QueryList,
     TemplateRef,
     ViewChild,
+    viewChild,
     ViewChildren,
     inject,
-    Signal
+    Signal,
+    input,
+    contentChild,
+    effect,
+    untracked,
+    viewChildren,
+    contentChildren
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -159,6 +162,9 @@ const noop = () => {};
         NgTemplateOutlet
     ],
     host: {
+        '[class.thy-select-custom]': 'true',
+        '[class.thy-select]': 'true',
+        '[class.menu-is-opened]': 'panelOpen',
         '[attr.tabindex]': 'tabIndex',
         '(focus)': 'onFocus($event)',
         '(blur)': 'onBlur($event)'
@@ -182,13 +188,7 @@ export class ThySelect
 
     disabled = false;
 
-    size: SelectControlSize;
-
     mode: SelectMode = '';
-
-    emptyStateText = this.locale().empty;
-
-    emptySearchMessageText = this.locale().empty;
 
     scrollTop = 0;
 
@@ -204,7 +204,7 @@ export class ThySelect
      * 设置下拉框的最小宽度，默认值 `match-select`，表示与输入框的宽度一致；`min-width` 表示最小宽度为200px；支持自定义最小宽度，比如传 `{minWidth: 150}` 表示最小宽度为150px
      * @default match-select
      */
-    @Input() thyDropdownWidthMode: ThyDropdownWidthMode;
+    readonly thyDropdownWidthMode = input<ThyDropdownWidthMode>();
 
     public dropDownPositions: ConnectionPositionPair[];
 
@@ -237,114 +237,84 @@ export class ThySelect
         );
     }) as Observable<ThyOptionSelectionChangeEvent>;
 
-    @ViewChild(CdkConnectedOverlay, { static: true }) cdkConnectedOverlay: CdkConnectedOverlay;
-
-    @HostBinding('class.thy-select-custom') isSelectCustom = true;
-
-    @HostBinding('class.thy-select') isSelect = true;
+    readonly cdkConnectedOverlay = viewChild<CdkConnectedOverlay>(CdkConnectedOverlay);
 
     keyManager: ActiveDescendantKeyManager<ThyOption>;
 
-    @HostBinding('class.menu-is-opened')
     panelOpen = false;
 
     /**
      * 搜索时回调
      */
-    @Output() thyOnSearch: EventEmitter<string> = new EventEmitter<string>();
+    readonly thyOnSearch = output<string>();
 
     /**
      * 下拉菜单滚动到底部事件，可以用这个事件实现滚动加载
      */
-    @Output() thyOnScrollToBottom: EventEmitter<void> = new EventEmitter<void>();
+    readonly thyOnScrollToBottom = output<void>();
 
     /**
      * 下拉菜单展开和折叠状态事件
      */
-    @Output() thyOnExpandStatusChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+    readonly thyOnExpandStatusChange = output<boolean>();
 
     /**
      * 下拉列表是否显示搜索框
-     * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyShowSearch: boolean;
+    readonly thyShowSearch = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 选择框默认文字
      */
-    @Input() thyPlaceHolder = this.locale().placeholder;
+    readonly thyPlaceHolder = input<string>(this.locale().placeholder);
 
     /**
      * 是否使用服务端搜索，当为 true 时，将不再在前端进行过滤
-     * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyServerSearch: boolean;
+    readonly thyServerSearch = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 异步加载 loading 状态，false 表示加载中，true 表示加载完成
      */
-    @Input({ transform: coerceBooleanProperty }) thyLoadState = true;
+    readonly thyLoadState = input(true, { transform: coerceBooleanProperty });
 
     /**
      * 是否自动设置选项第一条为高亮状态
      */
-    @Input({ transform: coerceBooleanProperty }) thyAutoActiveFirstItem = true;
+    readonly thyAutoActiveFirstItem = input(true, { transform: coerceBooleanProperty });
 
     /**
      * 下拉选择模式
      * @type 'multiple' | ''
      */
-    @Input()
-    set thyMode(value: SelectMode) {
-        this.mode = value;
-        this.instanceSelectionModel();
-        this.getPositions();
-        this.setDropDownClass();
-    }
-
-    get thyMode(): SelectMode {
-        return this.mode;
-    }
+    readonly thyMode = input<SelectMode>('');
 
     /**
      * 操作图标类型
      * @type primary | success | danger | warning
      * @default primary
      */
-    @Input()
-    get thySize(): SelectControlSize {
-        return this.size;
-    }
-    set thySize(value: SelectControlSize) {
-        this.size = value;
-    }
+    readonly thySize = input<SelectControlSize>();
 
     /**
      * 数据为空时显示的提示文字
      */
-    @Input()
-    set thyEmptyStateText(value: string) {
-        this.emptyStateText = value;
-    }
+    readonly thyEmptyStateText = input(this.locale().empty, { transform: (value: string) => value || this.locale().empty });
 
     /**
      * 搜索结果为空时显示的提示文字
      */
-    @Input()
-    set thyEmptySearchMessageText(value: string) {
-        this.emptySearchMessageText = value;
-    }
+    readonly thyEmptySearchMessageText = input(this.locale().empty, { transform: (value: string) => value || this.locale().empty });
 
     /**
      * 滚动加载是否可用，只能当这个参数可以，下面的thyOnScrollToBottom事件才会触发
      */
-    @Input({ transform: coerceBooleanProperty })
-    thyEnableScrollLoad = false;
+    readonly thyEnableScrollLoad = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 单选( thyMode="" 或者不设置)时，选择框支持清除
      */
-    @Input({ transform: coerceBooleanProperty }) thyAllowClear = false;
+    readonly thyAllowClear = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 是否禁用
@@ -361,61 +331,53 @@ export class ThySelect
     /**
      * 排序比较函数
      */
-    @Input() thySortComparator: (a: ThyOption, b: ThyOption, options: ThyOption[]) => number;
+    readonly thySortComparator = input<(a: ThyOption, b: ThyOption, options: ThyOption[]) => number>();
 
     /**
      * Footer 模板，默认值为空不显示 Footer
-     * @type TemplateRef
      */
-    @Input()
-    thyFooterTemplate: TemplateRef<any>;
+    readonly thyFooterTemplate = input<TemplateRef<any>>();
 
     /**
      * 弹出位置
      * @type ThyPlacement
      */
-    @Input()
-    thyPlacement: ThyPlacement;
+    readonly thyPlacement = input<ThyPlacement>();
 
     /**
      * 自定义 Overlay Origin
      */
-    @Input()
-    thyOrigin: ElementRef | HTMLElement;
+    readonly thyOrigin = input<ElementRef | HTMLElement>();
 
     /**
      * 自定义 Footer 模板容器 class
      */
-    @Input()
-    thyFooterClass = 'thy-custom-select-footer';
+    readonly thyFooterClass = input<string>('thy-custom-select-footer');
 
     /**
      * @private
      */
-    @ContentChild('selectedDisplay') selectedValueDisplayRef: TemplateRef<any>;
+    readonly selectedValueDisplayRef = contentChild<TemplateRef<any>>('selectedDisplay');
 
     /**
      * 初始化时，是否展开面板
-     * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyAutoExpand: boolean;
+    readonly thyAutoExpand = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 是否弹出透明遮罩，如果显示遮罩则会阻止滚动区域滚动
      */
-    @Input({ transform: coerceBooleanProperty })
-    thyHasBackdrop = false;
+    readonly thyHasBackdrop = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 设置多选时最大显示的标签数量，0 表示不限制
      */
-    @Input({ transform: numberAttribute }) thyMaxTagCount = 0;
+    readonly thyMaxTagCount = input(0, { transform: numberAttribute });
 
     /**
      * 是否隐藏选择框边框
-     * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyBorderless = false;
+    readonly thyBorderless = input(false, { transform: coerceBooleanProperty });
 
     isReactiveDriven = false;
 
@@ -425,17 +387,18 @@ export class ThySelect
 
     /**
      * option 列表
-     * @type ThySelectOptionModel[]
      */
-    @Input()
-    set thyOptions(value: ThySelectOptionModel[]) {
-        if (value === null) {
-            value = [];
+    readonly thyOptions = input(undefined, {
+        transform: (value: ThySelectOptionModel[]) => {
+            if (value === null) {
+                value = [];
+            }
+            this.innerOptions = value;
+            this.isReactiveDriven = true;
+            this.buildReactiveOptions();
+            return value;
         }
-        this.innerOptions = value;
-        this.isReactiveDriven = true;
-        this.buildReactiveOptions();
-    }
+    });
 
     options: QueryList<ThyOption>;
 
@@ -443,11 +406,11 @@ export class ThySelect
      * 目前只支持多选选中项的展示，默认为空，渲染文字模板，传入tag，渲染展示模板,
      * @default ''｜tag
      */
-    @Input() thyPreset: string = '';
+    readonly thyPreset = input<string>('');
 
     @ViewChild('trigger', { read: ElementRef, static: true }) trigger: ElementRef<HTMLElement>;
 
-    @ViewChild('panel', { read: ElementRef }) panel: ElementRef<HTMLElement>;
+    readonly panel = viewChild<ElementRef<HTMLElement>>('panel');
 
     /**
      * @private
@@ -459,9 +422,9 @@ export class ThySelect
     /**
      * @private
      */
-    @ContentChildren(ThySelectOptionGroup) contentGroups: QueryList<ThySelectOptionGroup>;
+    readonly contentGroups = contentChildren<ThySelectOptionGroup>(ThySelectOptionGroup);
 
-    @ViewChildren(ThySelectOptionGroup) viewGroups: QueryList<ThySelectOptionGroup>;
+    readonly viewGroups = viewChildren<ThySelectOptionGroup>(ThySelectOptionGroup);
 
     @HostListener('keydown', ['$event'])
     handleKeydown(event: KeyboardEvent): void {
@@ -501,7 +464,7 @@ export class ThySelect
     groupBy = (item: ThySelectOptionModel) => item.groupLabel;
 
     get placement(): ThyPlacement {
-        return this.thyPlacement || this.config.placement;
+        return this.thyPlacement() || this.config.placement;
     }
 
     constructor() {
@@ -510,6 +473,15 @@ export class ThySelect
 
         this.config = { ...DEFAULT_SELECT_CONFIG, ...selectConfig };
         this.buildScrollStrategy();
+
+        effect(() => {
+            this.mode = this.thyMode();
+            untracked(() => {
+                this.instanceSelectionModel();
+                this.getPositions();
+                this.setDropDownClass();
+            });
+        });
     }
 
     writeValue(value: any): void {
@@ -575,7 +547,7 @@ export class ThySelect
     }
 
     getDropdownMinWidth(): number | null {
-        const mode = this.thyDropdownWidthMode || this.config.dropdownWidthMode;
+        const mode = this.thyDropdownWidthMode() || this.config.dropdownWidthMode;
         let dropdownMinWidth: number | null = null;
 
         if ((mode as { minWidth: number })?.minWidth) {
@@ -615,13 +587,13 @@ export class ThySelect
                 .asObservable()
                 .pipe(take(1))
                 .subscribe(() => {
-                    if (this.cdkConnectedOverlay && this.cdkConnectedOverlay.overlayRef) {
-                        this.cdkConnectedOverlay.overlayRef.updatePosition();
+                    if (this.cdkConnectedOverlay() && this.cdkConnectedOverlay().overlayRef) {
+                        this.cdkConnectedOverlay().overlayRef.updatePosition();
                     }
                 });
         });
 
-        if (this.thyAutoExpand) {
+        if (this.thyAutoExpand()) {
             timer(0).subscribe(() => {
                 this.changeDetectorRef.markForCheck();
                 this.open();
@@ -635,19 +607,24 @@ export class ThySelect
     }
 
     public onAttached(): void {
-        this.cdkConnectedOverlay.positionChange.pipe(take(1)).subscribe(() => {
-            if (this.panel) {
-                if (this.keyManager.activeItem) {
-                    ScrollToService.scrollToElement(this.keyManager.activeItem.element.nativeElement, this.panel.nativeElement);
-                    this.changeDetectorRef.detectChanges();
-                } else {
-                    if (!this.empty) {
-                        ScrollToService.scrollToElement(this.selectionModel.selected[0].element.nativeElement, this.panel.nativeElement);
+        this.cdkConnectedOverlay()
+            .positionChange.pipe(take(1))
+            .subscribe(() => {
+                if (this.panel()) {
+                    if (this.keyManager.activeItem) {
+                        ScrollToService.scrollToElement(this.keyManager.activeItem.element.nativeElement, this.panel().nativeElement);
                         this.changeDetectorRef.detectChanges();
+                    } else {
+                        if (!this.empty) {
+                            ScrollToService.scrollToElement(
+                                this.selectionModel.selected[0].element.nativeElement,
+                                this.panel().nativeElement
+                            );
+                            this.changeDetectorRef.detectChanges();
+                        }
                     }
                 }
-            }
-        });
+            });
     }
 
     public dropDownMouseMove(event: MouseEvent) {
@@ -662,17 +639,15 @@ export class ThySelect
             scrollHeight = elementRef.nativeElement.scrollHeight;
 
         if (scroll + height + 10 >= scrollHeight) {
-            if (this.thyOnScrollToBottom.observers.length > 0) {
-                this.ngZone.run(() => {
-                    this.thyOnScrollToBottom.emit();
-                });
-            }
+            this.ngZone.run(() => {
+                this.thyOnScrollToBottom.emit();
+            });
         }
     }
 
     public onSearchFilter(searchText: string) {
         searchText = searchText.trim();
-        if (this.thyServerSearch) {
+        if (this.thyServerSearch()) {
             this.isSearching = true;
             this.thyOnSearch.emit(searchText);
         } else {
@@ -701,7 +676,7 @@ export class ThySelect
         // thyShowSearch 与 panelOpen 均为 true 时，点击 thySelectControl 需要触发自动聚焦到 input 的逻辑
         // manualFocusing 如果是手动聚焦，不触发自动聚焦到 input 的逻辑
         if (
-            (this.thyShowSearch && this.panelOpen) ||
+            (this.thyShowSearch() && this.panelOpen) ||
             (!this.manualFocusing &&
                 !elementMatchClosest(event?.relatedTarget as HTMLElement, ['.thy-select-dropdown', 'thy-custom-select']))
         ) {
@@ -745,8 +720,8 @@ export class ThySelect
 
     public updateCdkConnectedOverlayPositions(): void {
         setTimeout(() => {
-            if (this.cdkConnectedOverlay && this.cdkConnectedOverlay.overlayRef) {
-                this.cdkConnectedOverlay.overlayRef.updatePosition();
+            if (this.cdkConnectedOverlay() && this.cdkConnectedOverlay().overlayRef) {
+                this.cdkConnectedOverlay().overlayRef.updatePosition();
             }
         });
     }
@@ -764,13 +739,13 @@ export class ThySelect
     }
 
     public getItemCount(): number {
-        const group = this.isReactiveDriven ? this.viewGroups : this.contentGroups;
+        const group = this.isReactiveDriven ? this.viewGroups() : this.contentGroups();
         return this.options.length + group.length;
     }
 
     public toggle(event: MouseEvent): void {
         if (this.panelOpen) {
-            if (!this.thyShowSearch) {
+            if (!this.thyShowSearch()) {
                 this.close();
             }
         } else {
@@ -825,7 +800,7 @@ export class ThySelect
                     return;
                 }
                 if (this.empty) {
-                    if (!this.thyAutoActiveFirstItem) {
+                    if (!this.thyAutoActiveFirstItem()) {
                         return;
                     }
                     this.keyManager.setFirstItemActive();
@@ -833,7 +808,7 @@ export class ThySelect
                     this.keyManager.setActiveItem(this.selectionModel.selected[0]);
                 }
             } else {
-                if (!this.thyAutoActiveFirstItem) {
+                if (!this.thyAutoActiveFirstItem()) {
                     return;
                 }
                 // always set first option active
@@ -857,9 +832,9 @@ export class ThySelect
             this.close();
         });
         this.keyManager.change.pipe(takeUntil(this.destroy$)).subscribe(() => {
-            if (this.panelOpen && this.panel) {
+            if (this.panelOpen && this.panel()) {
                 if (this.keyManager.activeItem) {
-                    ScrollToService.scrollToElement(this.keyManager.activeItem.element.nativeElement, this.panel.nativeElement);
+                    ScrollToService.scrollToElement(this.keyManager.activeItem.element.nativeElement, this.panel().nativeElement);
                 }
             } else if (!this.panelOpen && !this.isMultiple && this.keyManager.activeItem) {
                 this.keyManager.activeItem.selectViaInteraction();
@@ -937,7 +912,7 @@ export class ThySelect
     }
 
     private getPositions() {
-        this.dropDownPositions = getFlexiblePositions(this.thyPlacement || this.config.placement, this.defaultOffset);
+        this.dropDownPositions = getFlexiblePositions(this.thyPlacement() || this.config.placement, this.defaultOffset);
     }
 
     private instanceSelectionModel() {
@@ -1054,16 +1029,16 @@ export class ThySelect
         if (this.isMultiple) {
             const options = this.options.toArray();
 
-            if (this.thySortComparator) {
+            if (this.thySortComparator()) {
                 this.selectionModel.sort((a, b) => {
-                    return this.thySortComparator(a, b, options);
+                    return this.thySortComparator()(a, b, options);
                 });
             }
         }
     }
 
     private getOriginRectWidth() {
-        return this.thyOrigin ? coerceElement(this.thyOrigin).offsetWidth : this.trigger.nativeElement.offsetWidth;
+        return this.thyOrigin() ? coerceElement(this.thyOrigin()).offsetWidth : this.trigger.nativeElement.offsetWidth;
     }
 
     private subscribeTriggerResize(): void {
