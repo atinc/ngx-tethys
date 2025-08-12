@@ -94,7 +94,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
     /**
      * 弹出框的显示位置，会覆盖 thyPopoverOptions 中的 placement，`top` | `topLeft` | `topRight` | `bottom` | `bottomLeft` | `bottomRight` | `left` | `leftTop` | `leftBottom` | `right` | `rightTop` | `rightBottom`
      */
-    readonly thyPlacement = input<ThyPlacement>(undefined);
+    readonly thyPlacement = input<ThyPlacement>();
 
     /**
      * 点击 dropdown-menu 内部是否关闭弹出框，会覆盖 thyPopoverOptions 中的 insideClosable
@@ -158,6 +158,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
             { placement: 'bottomLeft', insideClosable: true, outsideClosable: true },
             this.thyPopoverOptions()
         );
+        const thyPlacement = this.thyPlacement();
         const thyMenuInsideClosable = this.thyMenuInsideClosable();
         const config: ThyPopoverConfig = {
             origin: this.elementRef.nativeElement,
@@ -165,7 +166,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
             viewContainerRef: this.viewContainerRef,
             offset: 0,
             panelClass: this.thyPanelClass(),
-            placement: placement,
+            placement: thyPlacement ? thyPlacement : placement,
             height,
             outsideClosable,
             insideClosable: helpers.isUndefined(thyMenuInsideClosable) ? insideClosable : thyMenuInsideClosable,
