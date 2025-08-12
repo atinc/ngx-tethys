@@ -646,9 +646,7 @@ export class ThyTreeSelectNodes {
                 return item.parentValues.indexOf(node[primaryKey]) > -1;
             });
         } else {
-            isSelectedNodeParent = this.selectedNode()
-                ? this.selectedNode().parentValues.indexOf(node[primaryKey]) > -1
-                : false;
+            isSelectedNodeParent = this.selectedNode() ? this.selectedNode().parentValues.indexOf(node[primaryKey]) > -1 : false;
         }
         const isExpand = node.expand || (Object.keys(node).indexOf('expand') < 0 && isSelectedNodeParent);
         node.expand = isExpand;
