@@ -3,24 +3,24 @@
   thySelectControl
   (click)="openSelectPop()"
   #origin="cdkOverlayOrigin"
-  [thyPanelOpened]="expandTreeSelectOptions"
-  [thySelectedOptions]="selectedValueObject"
-  [thyIsMultiple]="thyMultiple"
-  [thyAllowClear]="thyAllowClear"
-  [thySize]="thySize"
-  [thyPlaceholder]="placeholder"
+  [thyPanelOpened]="expandTreeSelectOptions()"
+  [thySelectedOptions]="selectedValueObject()"
+  [thyIsMultiple]="thyMultiple()"
+  [thyAllowClear]="thyAllowClear()"
+  [thySize]="thySize()"
+  [thyPlaceholder]="thyPlaceholder()"
   [customDisplayTemplate]="customDisplayTemplate"
-  [thyShowSearch]="thyShowSearch"
-  [thyDisabled]="thyDisable"
+  [thyShowSearch]="thyShowSearch()"
+  [thyDisabled]="thyDisable()"
   (thyOnBlur)="onBlur($event)"
   (thyOnClear)="clearSelectedValue($event)"
   (thyOnRemove)="removeMultipleSelectedNode($event)"
   (thyOnSearch)="searchValue($event)">
   <ng-template #customDisplayTemplate let-node>
-    @if (thyTreeSelectTriggerDisplayRef) {
-      <ng-template [ngTemplateOutlet]="thyTreeSelectTriggerDisplayRef" [ngTemplateOutletContext]="{ $implicit: node }"></ng-template>
+    @if (thyTreeSelectTriggerDisplayRef()) {
+      <ng-template [ngTemplateOutlet]="thyTreeSelectTriggerDisplayRef()" [ngTemplateOutletContext]="{ $implicit: node }"></ng-template>
     } @else {
-      {{ node[thyShowKey] }}
+      {{ node[thyShowKey()] }}
     }
   </ng-template>
 </div>
@@ -29,16 +29,16 @@
   cdkConnectedOverlay
   [cdkConnectedOverlayHasBackdrop]="false"
   [cdkConnectedOverlayOrigin]="origin"
-  [cdkConnectedOverlayMinWidth]="cdkConnectOverlayWidth"
+  [cdkConnectedOverlayMinWidth]="cdkConnectOverlayWidth()"
   [cdkConnectedOverlayFlexibleDimensions]="true"
-  [cdkConnectedOverlayOpen]="expandTreeSelectOptions"
+  [cdkConnectedOverlayOpen]="expandTreeSelectOptions()"
   cdkConnectedOverlayTransformOriginOn=".thy-tree-select-dropdown"
   [cdkConnectedOverlayPositions]="expandedDropdownPositions"
   (detach)="close()">
   <thy-tree-select-nodes
     thyStopPropagation
-    [thyVirtualScroll]="thyVirtualScroll"
-    [treeNodes]="thyVirtualScroll ? virtualTreeNodes : treeNodes"
+    [thyVirtualScroll]="thyVirtualScroll()"
+    [treeNodes]="thyVirtualScroll() ? virtualTreeNodes() : treeNodes()"
     [@scaleYMotion]="'enter'">
   </thy-tree-select-nodes>
 </ng-template>

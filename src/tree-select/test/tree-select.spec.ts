@@ -2,7 +2,7 @@ import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { of } from 'rxjs';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { ApplicationRef, Component, DebugElement, OnInit, Sanitizer, SecurityContext, ViewChild } from '@angular/core';
+import { ApplicationRef, Component, DebugElement, OnInit, Sanitizer, SecurityContext, viewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By, DomSanitizer } from '@angular/platform-browser';
@@ -50,7 +50,7 @@ function treeNodesExpands(nodes: ThyTreeSelectNode[]) {
     imports: [ThyTreeSelect]
 })
 class BasicTreeSelectComponent {
-    @ViewChild(ThyTreeSelect, { static: false }) treeComponent: ThyTreeSelect;
+    readonly treeComponent = viewChild(ThyTreeSelect);
 
     nodes: ThyTreeSelectNode[] = [
         {
@@ -138,8 +138,7 @@ class BasicTreeSelectComponent {
 
     expandTreeSelectOptions = false;
 
-    @ViewChild('treeSelect', { static: true })
-    treeSelect: ThyTreeSelect;
+    readonly treeSelect = viewChild<ThyTreeSelect>('treeSelect');
 
     asyncNode = true;
 
@@ -266,8 +265,7 @@ class PlaceHolderTreeSelectComponent {
 
     thyPlaceholder = 'this is a placeholder';
 
-    @ViewChild('treeSelect', { static: true })
-    treeSelect: ThyTreeSelect;
+    readonly treeSelect = viewChild<ThyTreeSelect>('treeSelect');
 }
 
 @Component({
@@ -364,8 +362,7 @@ class NgModelTreeSelectComponent {
 
     multiple = false;
 
-    @ViewChild('treeSelect', { static: true })
-    treeSelect: ThyTreeSelect;
+    readonly treeSelect = viewChild<ThyTreeSelect>('treeSelect');
 
     treeSelectChange = jasmine.createSpy('treeSelectChange');
 }
@@ -378,7 +375,7 @@ class NgModelTreeSelectComponent {
                 #treeSelect
                 [thyTreeNodes]="nodes"
                 thyPrimaryKey="key"
-                thyShowKey="title"
+                thyShowKey="name"
                 [(ngModel)]="selectedValue"
                 [thyShowSearch]="treeShowSearch"></thy-tree-select>
         </div>
@@ -392,8 +389,7 @@ class SearchTreeSelectComponent {
 
     treeShowSearch = true;
 
-    @ViewChild('treeSelect', { static: true })
-    treeSelect: ThyTreeSelect;
+    readonly treeSelect = viewChild<ThyTreeSelect>('treeSelect');
 }
 
 @Component({
@@ -404,7 +400,7 @@ class SearchTreeSelectComponent {
     imports: [ThyTreeSelect, FormsModule]
 })
 export class VirtualScrollingTreeSelectComponent implements OnInit {
-    @ViewChild('treeSelect', { static: true }) treeSelect: ThyTreeSelect;
+    readonly treeSelect = viewChild<ThyTreeSelect>('treeSelect');
 
     mockData = bigTreeNodes;
     public selectedValue = '';
@@ -519,7 +515,7 @@ describe('ThyTreeSelect', () => {
                 const fixture = TestBed.createComponent(BasicTreeSelectComponent);
                 fixture.detectChanges();
 
-                const touchSpy = spyOn<any>(fixture.componentInstance.treeSelect, 'onTouchedFn');
+                const touchSpy = spyOn<any>(fixture.componentInstance.treeSelect(), 'onTouchedFn');
 
                 const trigger = fixture.debugElement.query(By.css('.thy-select-custom')).nativeElement.children[0];
                 trigger.click();
@@ -542,7 +538,7 @@ describe('ThyTreeSelect', () => {
                 fixture.componentInstance.multiple = false;
                 fixture.detectChanges();
 
-                const touchSpy = spyOn<any>(fixture.componentInstance.treeSelect, 'onTouchedFn');
+                const touchSpy = spyOn<any>(fixture.componentInstance.treeSelect(), 'onTouchedFn');
 
                 const trigger = fixture.debugElement.query(By.css('.thy-select-custom')).nativeElement.children[0];
                 trigger.click();
@@ -570,7 +566,7 @@ describe('ThyTreeSelect', () => {
                 optionNodes[1].click();
                 document.body.click();
                 fixture.detectChanges();
-                expect(fixture.componentInstance.treeSelect.expandTreeSelectOptions).toBeFalsy();
+                expect(fixture.componentInstance.treeSelect().expandTreeSelectOptions()).toBeFalsy();
             }));
 
             it('should change expandStatus when thyExpandStatusChange is dispatched', fakeAsync(() => {
@@ -608,7 +604,7 @@ describe('ThyTreeSelect', () => {
                 const fixture = TestBed.createComponent(BasicTreeSelectComponent);
                 const treeSelectDebugElement = fixture.debugElement.query(By.directive(ThyTreeSelect));
                 fixture.detectChanges();
-                const focusSpy = spyOn(fixture.componentInstance.treeComponent, 'onFocus').and.callThrough();
+                const focusSpy = spyOn(fixture.componentInstance.treeComponent(), 'onFocus').and.callThrough();
 
                 dispatchFakeEvent(treeSelectDebugElement.nativeElement, 'focus');
                 fixture.detectChanges();
@@ -620,9 +616,9 @@ describe('ThyTreeSelect', () => {
                 const fixture = TestBed.createComponent(BasicTreeSelectComponent);
                 fixture.detectChanges();
 
-                const blurSpy = spyOn<any>(fixture.componentInstance.treeComponent, 'onTouchedFn');
+                const blurSpy = spyOn<any>(fixture.componentInstance.treeComponent(), 'onTouchedFn');
                 const trigger = fixture.debugElement.query(By.css('.select-control-search input')).nativeElement;
-                fixture.componentInstance.treeComponent.onBlur({ relatedTarget: trigger } as FocusEvent);
+                fixture.componentInstance.treeComponent().onBlur({ relatedTarget: trigger } as FocusEvent);
 
                 fixture.detectChanges();
 
@@ -634,7 +630,7 @@ describe('ThyTreeSelect', () => {
                 fixture.detectChanges();
                 fixture.componentInstance.multiple = false;
                 fixture.detectChanges();
-                const blurSpy = spyOn<any>(fixture.componentInstance.treeComponent, 'onTouchedFn');
+                const blurSpy = spyOn<any>(fixture.componentInstance.treeComponent(), 'onTouchedFn');
                 const trigger = fixture.debugElement.query(By.css('.thy-select-custom')).nativeElement.children[0];
                 trigger.click();
                 fixture.detectChanges();
@@ -650,7 +646,7 @@ describe('ThyTreeSelect', () => {
                 fixture.detectChanges();
                 fixture.componentInstance.multiple = true;
                 fixture.detectChanges();
-                const blurSpy = spyOn<any>(fixture.componentInstance.treeComponent, 'onTouchedFn');
+                const blurSpy = spyOn<any>(fixture.componentInstance.treeComponent(), 'onTouchedFn');
                 const trigger = fixture.debugElement.query(By.css('.thy-select-custom')).nativeElement.children[0];
                 trigger.click();
                 fixture.detectChanges();
@@ -775,7 +771,7 @@ describe('ThyTreeSelect', () => {
             const fixture = TestBed.createComponent(NgModelTreeSelectComponent);
             fixture.detectChanges();
 
-            expect(fixture.componentInstance.treeSelect.selectedNode).toBe(null);
+            expect(fixture.componentInstance.treeSelect().selectedNode()).toBe(null);
             const treeSelectShowNode = fixture.debugElement.query(By.css('.select-control-rendered')).nativeElement;
 
             fixture.componentInstance.objSelectedValue = fixture.componentInstance.nodes[fixture.componentInstance.nodes.length - 1];
@@ -783,7 +779,7 @@ describe('ThyTreeSelect', () => {
             flush();
             fixture.detectChanges();
 
-            expect(fixture.componentInstance.treeSelect.selectedNode).toBe(
+            expect(fixture.componentInstance.treeSelect().selectedNode()).toBe(
                 fixture.componentInstance.nodes[fixture.componentInstance.nodes.length - 1]
             );
             expect(treeSelectShowNode.textContent).toContain('root6');
@@ -800,7 +796,7 @@ describe('ThyTreeSelect', () => {
             fixture.componentInstance.multiple = true;
             fixture.detectChanges();
 
-            expect(fixture.componentInstance.treeSelect.selectedNodes.length).toBe(0);
+            expect(fixture.componentInstance.treeSelect().selectedNodes().length).toBe(0);
 
             fixture.componentInstance.objSelectedValue = fixture.componentInstance.nodes.slice(
                 fixture.componentInstance.nodes.length - 2,
@@ -810,7 +806,7 @@ describe('ThyTreeSelect', () => {
             flush();
             fixture.detectChanges();
 
-            expect(fixture.componentInstance.treeSelect.selectedNodes.length).toBe(2);
+            expect(fixture.componentInstance.treeSelect().selectedNodes().length).toBe(2);
             const multipleWrapper = fixture.debugElement.query(By.css('.select-control-rendered')).nativeElement;
             expect(multipleWrapper.textContent).toContain('root5');
             expect(multipleWrapper.textContent).toContain('root6');
@@ -838,7 +834,7 @@ describe('ThyTreeSelect', () => {
             fixture.detectChanges();
 
             expect(fixture.componentInstance.treeSelectChange).toHaveBeenCalledTimes(1);
-            expect(fixture.componentInstance.treeSelect.selectedNodes.length).toBe(1);
+            expect(fixture.componentInstance.treeSelect().selectedNodes().length).toBe(1);
 
             const changeSpy = jasmine.createSpy('newChangeSpy');
             fixture.componentInstance.treeSelectChange = changeSpy;
@@ -846,7 +842,7 @@ describe('ThyTreeSelect', () => {
             optionNodes[0].click();
             fixture.detectChanges();
             expect(changeSpy).toHaveBeenCalledTimes(1);
-            expect(fixture.componentInstance.treeSelect.selectedNodes.length).toBe(0);
+            expect(fixture.componentInstance.treeSelect().selectedNodes().length).toBe(0);
         }));
     });
 
@@ -857,7 +853,7 @@ describe('ThyTreeSelect', () => {
             fixture.detectChanges();
             expect(fixture.debugElement.nativeElement.querySelector('input')).toBeTruthy();
 
-            const touchSpy = spyOn<any>(fixture.componentInstance.treeSelect, 'onTouchedFn');
+            const touchSpy = spyOn<any>(fixture.componentInstance.treeSelect(), 'onTouchedFn');
             const trigger = fixture.debugElement.query(By.css('.select-control-search input')).nativeElement;
             dispatchFakeEvent(trigger, 'blur');
 
@@ -868,13 +864,14 @@ describe('ThyTreeSelect', () => {
 
         it('should show filter trees when has search text', fakeAsync(() => {
             const fixture = TestBed.createComponent(SearchTreeSelectComponent);
-            const componentInstance = fixture.debugElement.componentInstance;
+            const componentInstance: SearchTreeSelectComponent = fixture.debugElement.componentInstance;
             fixture.detectChanges();
-            const filterNodes = filterTreeData(componentInstance.treeSelect.originTreeNodes, '2-1', 'name');
-            componentInstance.treeSelect.searchValue('2-1 ');
-            componentInstance.treeSelect.treeNodes = filterNodes;
+            const filterNodes = filterTreeData(componentInstance.treeSelect().thyTreeNodes(), '2-1', 'name');
+            componentInstance.treeSelect().searchValue('2-1 ');
             fixture.detectChanges();
-            expect(treeNodesExpands(componentInstance.treeSelect.treeNodes).length).toEqual(2);
+            tick(200);
+            fixture.detectChanges();
+            expect(treeNodesExpands(componentInstance.treeSelect().treeNodes()).length).toEqual(treeNodesExpands(filterNodes).length);
         }));
     });
 
@@ -899,7 +896,7 @@ describe('ThyTreeSelect', () => {
         });
 
         it('should call buildFlattenTreeNodes when thyTreeNodes changed', fakeAsync(() => {
-            const buildVirtualTreeNodesSpy = spyOn<any>(fixture.componentInstance.treeSelect, 'buildFlattenTreeNodes');
+            const buildVirtualTreeNodesSpy = spyOn<any>(fixture.componentInstance.treeSelect(), 'buildFlattenTreeNodes');
             fixture.componentInstance.mockData = moreOptionTreeSelectData;
             fixture.detectChanges();
             tick(100);
