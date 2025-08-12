@@ -571,13 +571,23 @@ export class ThyTreeSelectNodes {
 
     readonly thyVirtualScroll = input<boolean>(false);
 
-    public isMultiple = computed(() => this.parent.thyMultiple());
+    public readonly isMultiple = computed(() => this.parent.thyMultiple());
 
-    public childCountKey = computed(() => this.parent.thyChildCountKey());
+    public readonly childCountKey = computed(() => this.parent.thyChildCountKey());
 
-    public treeNodeTemplateRef = computed(() => this.parent.treeNodeTemplateRef());
+    public readonly treeNodeTemplateRef = computed(() => this.parent.treeNodeTemplateRef());
 
     public defaultItemSize = DEFAULT_ITEM_SIZE;
+
+    public readonly thyPrimaryKey = computed(() => this.parent.thyPrimaryKey());
+
+    public readonly selectedNodes = computed(() => this.parent.selectedNodes());
+
+    public readonly selectedNode = computed(() => this.parent.selectedNode());
+
+    public readonly hiddenNodeKey = computed(() => this.parent.thyHiddenNodeKey());
+
+    public readonly disableNodeKey = computed(() => this.parent.thyDisableNodeKey());
 
     public readonly thyVirtualHeight = computed(() => {
         const treeSelectHeight = this.defaultItemSize * this.treeNodes().length;
@@ -590,21 +600,22 @@ export class ThyTreeSelectNodes {
     });
 
     treeNodeIsSelected(node: ThyTreeSelectNode) {
-        const primaryKey = this.parent.thyPrimaryKey();
+        const primaryKey = this.thyPrimaryKey();
         const isMultiple = this.isMultiple();
         if (isMultiple) {
-            return (this.parent.selectedNodes() || []).find(item => {
+            const selectedNodes = this.selectedNodes() || [];
+            return selectedNodes.find(item => {
                 return item[primaryKey] === node[primaryKey];
             });
         } else {
-            return this.parent.selectedNode() && this.parent.selectedNode()[primaryKey] === node[primaryKey];
+            return this.selectedNode() && this.selectedNode()[primaryKey] === node[primaryKey];
         }
     }
 
     treeNodeIsHidden(node: ThyTreeSelectNode) {
-        const thyHiddenNodeKey = this.parent.thyHiddenNodeKey();
-        if (thyHiddenNodeKey) {
-            return node[thyHiddenNodeKey];
+        const hiddenNodeKey = this.hiddenNodeKey();
+        if (hiddenNodeKey) {
+            return node[hiddenNodeKey];
         }
         const thyHiddenNodeFn = this.parent.thyHiddenNodeFn;
         if (thyHiddenNodeFn) {
@@ -614,9 +625,9 @@ export class ThyTreeSelectNodes {
     }
 
     treeNodeIsDisable(node: ThyTreeSelectNode) {
-        const thyDisableNodeKey = this.parent.thyDisableNodeKey();
-        if (thyDisableNodeKey) {
-            return node[thyDisableNodeKey];
+        const disableNodeKey = this.disableNodeKey();
+        if (disableNodeKey) {
+            return node[disableNodeKey];
         }
         const thyDisableNodeFn = this.parent.thyDisableNodeFn;
         if (thyDisableNodeFn) {
@@ -627,15 +638,16 @@ export class ThyTreeSelectNodes {
 
     treeNodeIsExpand(node: ThyTreeSelectNode) {
         const isMultiple = this.isMultiple();
-        const primaryKey = this.parent.thyPrimaryKey();
+        const primaryKey = this.thyPrimaryKey();
         let isSelectedNodeParent = false;
         if (isMultiple) {
-            isSelectedNodeParent = !!(this.parent.selectedNodes() || []).find(item => {
+            const selectedNodes = this.selectedNodes() || [];
+            isSelectedNodeParent = !!selectedNodes.find(item => {
                 return item.parentValues.indexOf(node[primaryKey]) > -1;
             });
         } else {
-            isSelectedNodeParent = this.parent.selectedNode()
-                ? this.parent.selectedNode().parentValues.indexOf(node[primaryKey]) > -1
+            isSelectedNodeParent = this.selectedNode()
+                ? this.selectedNode().parentValues.indexOf(node[primaryKey]) > -1
                 : false;
         }
         const isExpand = node.expand || (Object.keys(node).indexOf('expand') < 0 && isSelectedNodeParent);
