@@ -17,7 +17,8 @@ import {
     numberAttribute,
     inject,
     OutputRefSubscription,
-    input
+    input,
+    OnDestroy
 } from '@angular/core';
 import { AbstractPickerComponent } from './abstract-picker.component';
 import { DatePopup } from './lib/popups/date-popup.component';
@@ -29,7 +30,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
  * @private
  */
 @Directive()
-export abstract class PickerDirective extends AbstractPickerComponent implements OnInit, AfterViewInit, OnChanges {
+export abstract class PickerDirective extends AbstractPickerComponent implements OnInit, OnDestroy, AfterViewInit, OnChanges {
     elementRef = inject(ElementRef);
 
     cdr = inject(ChangeDetectorRef);
