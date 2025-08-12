@@ -10,9 +10,9 @@ import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThySelectControl, ThyStopPropagationDirective } from 'ngx-tethys/shared';
 import { ThyTreeNode } from 'ngx-tethys/tree';
-import { coerceBooleanProperty, elementMatchClosest, isArray, isObject, produce, warnDeprecation } from 'ngx-tethys/util';
-import { Observable, of, Subject } from 'rxjs';
-import { take, takeUntil } from 'rxjs/operators';
+import { coerceBooleanProperty, elementMatchClosest, isArray, isObject, produce } from 'ngx-tethys/util';
+import { Observable, of } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair, ViewportRuler } from '@angular/cdk/overlay';
 import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
@@ -20,25 +20,29 @@ import { isPlatformBrowser, NgClass, NgStyle, NgTemplateOutlet } from '@angular/
 import {
     ChangeDetectorRef,
     Component,
-    ContentChild,
     ElementRef,
     forwardRef,
-    HostBinding,
     Input,
     NgZone,
-    OnDestroy,
-    OnInit,
     PLATFORM_ID,
     TemplateRef,
-    ViewChild,
     inject,
     Signal,
-    output
+    output,
+    input,
+    effect,
+    computed,
+    signal,
+    afterNextRender,
+    DestroyRef,
+    contentChild,
+    viewChild
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';
 import { injectLocale, ThyTreeSelectLocale } from 'ngx-tethys/i18n';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -85,42 +89,38 @@ export function filterTreeData(treeNodes: ThyTreeSelectNode[], searchText: strin
         ThyStopPropagationDirective
     ],
     host: {
+        class: 'thy-select-custom thy-select',
+        '[class.thy-select-custom--multiple]': 'thyMultiple()',
+        '[class.menu-is-opened]': 'expandTreeSelectOptions()',
         '[attr.tabindex]': 'tabIndex',
         '(focus)': 'onFocus($event)',
         '(blur)': 'onBlur($event)'
     },
     animations: [scaleYMotion]
 })
-export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin implements OnInit, OnDestroy, ControlValueAccessor {
+export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor {
     elementRef = inject(ElementRef);
     private ngZone = inject(NgZone);
     private ref = inject(ChangeDetectorRef);
     private platformId = inject(PLATFORM_ID);
     private thyClickDispatcher = inject(ThyClickDispatcher);
     private viewportRuler = inject(ViewportRuler);
-
-    @HostBinding('class.thy-select-custom') treeSelectClass = true;
-
-    @HostBinding('class.thy-select') isTreeSelect = true;
+    private destroyRef = inject(DestroyRef);
 
     // 菜单是否展开
-    @HostBinding('class.menu-is-opened') expandTreeSelectOptions = false;
+    public expandTreeSelectOptions = signal(false);
 
-    @HostBinding('class.thy-select-custom--multiple') isMulti = false;
+    public selectedValue = signal<any>(undefined);
 
-    public treeNodes: ThyTreeSelectNode[];
+    public selectedNode = signal<ThyTreeSelectNode>(null);
 
-    public selectedValue: any;
+    public selectedNodes = signal<ThyTreeSelectNode[]>([]);
 
-    public selectedNode: ThyTreeSelectNode;
+    public flattenTreeNodes = signal<ThyTreeSelectNode[]>([]);
 
-    public selectedNodes: ThyTreeSelectNode[] = [];
+    virtualTreeNodes = signal<ThyTreeSelectNode[]>([]);
 
-    public flattenTreeNodes: ThyTreeSelectNode[] = [];
-
-    virtualTreeNodes: ThyTreeSelectNode[] = [];
-
-    public cdkConnectOverlayWidth = 0;
+    public cdkConnectOverlayWidth = signal(0);
 
     public expandedDropdownPositions: ConnectionPositionPair[] = EXPANDED_DROPDOWN_POSITIONS;
 
@@ -130,154 +130,133 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
         gap: 15
     };
 
-    private initialled = false;
-
-    private destroy$ = new Subject<void>();
-
     private locale: Signal<ThyTreeSelectLocale> = injectLocale('treeSelect');
 
-    public valueIsObject = false;
+    public valueIsObject = computed(() => {
+        const selectedValue = this.selectedValue();
+        if (this.thyMultiple()) {
+            return selectedValue && (!selectedValue[0] || isObject(selectedValue[0]));
+        } else {
+            return isObject(selectedValue);
+        }
+    });
 
-    originTreeNodes: ThyTreeSelectNode[];
+    public searchText = signal('');
 
-    @ContentChild('thyTreeSelectTriggerDisplay')
-    thyTreeSelectTriggerDisplayRef: TemplateRef<any>;
+    readonly thyTreeSelectTriggerDisplayRef = contentChild<TemplateRef<any>>('thyTreeSelectTriggerDisplay');
 
-    @ContentChild('treeNodeTemplate')
-    treeNodeTemplateRef: TemplateRef<any>;
+    readonly treeNodeTemplateRef = contentChild<TemplateRef<any>>('treeNodeTemplate');
 
-    @ViewChild(CdkOverlayOrigin, { static: true }) cdkOverlayOrigin: CdkOverlayOrigin;
+    readonly cdkOverlayOrigin = viewChild(CdkOverlayOrigin);
 
-    @ViewChild(CdkConnectedOverlay, { static: true }) cdkConnectedOverlay: CdkConnectedOverlay;
+    readonly cdkConnectedOverlay = viewChild(CdkConnectedOverlay);
 
-    @ViewChild('customDisplayTemplate', { static: true }) customDisplayTemplate: TemplateRef<any>;
+    readonly customDisplayTemplate = viewChild<TemplateRef<any>>('customDisplayTemplate');
 
     /**
      * treeNodes 数据
      * @type ThyTreeSelectNode[]
      */
-    @Input()
-    set thyTreeNodes(value: ThyTreeSelectNode[]) {
-        this.treeNodes = value;
-        this.originTreeNodes = value;
-        if (this.initialled) {
-            this.flattenTreeNodes = this.flattenNodes(this.treeNodes, this.flattenTreeNodes, []);
-            this.setSelectedNodes();
+    readonly thyTreeNodes = input<ThyTreeSelectNode[]>([]);
 
-            if (this.thyVirtualScroll) {
-                this.buildFlattenTreeNodes();
-            }
-        }
-    }
+    treeNodes = computed(() => {
+        return filterTreeData(this.thyTreeNodes(), this.searchText(), this.thyShowKey());
+    });
 
     /**
      * 开启虚拟滚动
      */
-    @Input({ transform: coerceBooleanProperty }) thyVirtualScroll: boolean = false;
+    readonly thyVirtualScroll = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 树节点的唯一标识
      * @type string
      */
-    @Input() thyPrimaryKey = '_id';
+    readonly thyPrimaryKey = input('_id');
 
     /**
      * 树节点的显示的字段 key
      * @type string
      */
-    @Input() thyShowKey = 'name';
+    readonly thyShowKey = input('name');
 
-    @Input() thyChildCountKey = 'childCount';
+    readonly thyChildCountKey = input('childCount');
 
     /**
      * 单选时，是否显示清除按钮，当为 true 时，显示清除按钮
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyAllowClear: boolean;
+    readonly thyAllowClear = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 是否多选
      * @type boolean
      */
-    @Input({ transform: coerceBooleanProperty }) thyMultiple = false;
+    readonly thyMultiple = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 是否禁用树选择器，当为 true 禁用树选择器
      * @type boolean
      */
-    @Input({ transform: coerceBooleanProperty }) thyDisable = false;
+    readonly thyDisable = input(false, { transform: coerceBooleanProperty });
 
     get thyDisabled(): boolean {
-        return this.thyDisable;
+        return this.thyDisable();
     }
 
     /**
      * 树选择框默认文字
      * @type string
      */
-    @Input() thyPlaceholder = this.locale().placeholder;
-
-    get placeholder() {
-        return this.thyPlaceholder;
-    }
+    readonly thyPlaceholder = input(this.locale().placeholder);
 
     /**
      * 控制树选择的输入框大小
      * @type xs | sm | md | default | lg
      */
-    @Input() thySize: InputSize;
+    readonly thySize = input<InputSize>(undefined);
 
     /**
      * 改变空选项的情况下的提示文本
      * @type string
      */
-    @Input() thyEmptyOptionsText = this.locale().empty;
+    readonly thyEmptyOptionsText = input(this.locale().empty);
 
     /**
      * 设置是否隐藏节点(不可进行任何操作)，优先级高于 thyHiddenNodeFn
      * @type string
      */
-    @Input() thyHiddenNodeKey = 'hidden';
+    readonly thyHiddenNodeKey = input('hidden');
 
     /**
      * 设置是否禁用节点(不可进行任何操作)，优先级高于 thyDisableNodeFn
      * @type string
      */
-    @Input() thyDisableNodeKey = 'disabled';
+    readonly thyDisableNodeKey = input('disabled');
 
     /**
      * 是否异步加载节点的子节点(显示加载状态)，当为 true 时，异步获取
      * @type boolean
      */
-    @Input({ transform: coerceBooleanProperty }) thyAsyncNode = false;
+    readonly thyAsyncNode = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 是否展示全名
      * @type boolean
      */
-    @Input({ transform: coerceBooleanProperty }) thyShowWholeName = false;
+    readonly thyShowWholeName = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 是否展示搜索
      * @type boolean
      */
-    @Input({ transform: coerceBooleanProperty }) thyShowSearch = false;
+    readonly thyShowSearch = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 图标类型，支持 default | especial，已废弃
      * @deprecated
      */
-    @Input()
-    set thyIconType(type: ThyTreeSelectType) {
-        if (typeof ngDevMode === 'undefined' || ngDevMode) {
-            warnDeprecation('This parameter has been deprecation');
-        }
-        // if (type === 'especial') {
-        //     this.icons = { expand: 'minus-square', collapse: 'plus-square', gap: 20 };
-        // } else {
-        //     this.icons = { expand: 'caret-right-down', collapse: 'caret-right', gap: 15 };
-        // }
-    }
+    readonly thyIconType = input<ThyTreeSelectType>(undefined);
 
     /**
      * 设置是否隐藏节点(不可进行任何操作),优先级低于 thyHiddenNodeKey。
@@ -302,19 +281,11 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
      */
     readonly thyExpandStatusChange = output<boolean>();
 
-    private _getNgModelType() {
-        if (this.thyMultiple) {
-            this.valueIsObject = !this.selectedValue[0] || isObject(this.selectedValue[0]);
-        } else {
-            this.valueIsObject = isObject(this.selectedValue);
-        }
-    }
-
     public buildFlattenTreeNodes() {
-        this.virtualTreeNodes = this.getFlattenTreeNodes(this.treeNodes);
+        this.virtualTreeNodes.set(this.getFlattenTreeNodes(this.treeNodes()));
     }
 
-    private getFlattenTreeNodes(rootTrees: ThyTreeSelectNode[] = this.treeNodes) {
+    private getFlattenTreeNodes(rootTrees: ThyTreeSelectNode[] = this.treeNodes()) {
         const forEachTree = (tree: ThyTreeSelectNode[], fn: any, result: ThyTreeSelectNode[] = []) => {
             tree.forEach(item => {
                 result.push(item);
@@ -328,47 +299,52 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
     }
 
     writeValue(value: any): void {
-        this.selectedValue = value;
-
-        if (value) {
-            this._getNgModelType();
-        }
-        this.setSelectedNodes();
+        this.selectedValue.set(value);
     }
 
     constructor() {
         super();
+
+        this.bindClickEvent();
+        this.bindResizeEvent();
+
+        effect(() => {
+            this.setSelectedNodes();
+        });
+
+        effect(() => {
+            if (this.thyVirtualScroll()) {
+                this.buildFlattenTreeNodes();
+            }
+        });
+
+        effect(() => {
+            this.flattenTreeNodes.set(this.flattenNodes(this.treeNodes(), []));
+        });
     }
 
-    ngOnInit() {
-        this.isMulti = this.thyMultiple;
-        this.flattenTreeNodes = this.flattenNodes(this.treeNodes, this.flattenTreeNodes, []);
-        this.setSelectedNodes();
-        this.initialled = true;
-
-        if (this.thyVirtualScroll) {
-            this.buildFlattenTreeNodes();
-        }
-
+    private bindClickEvent() {
         if (isPlatformBrowser(this.platformId)) {
             this.thyClickDispatcher
                 .clicked(0)
-                .pipe(takeUntil(this.destroy$))
+                .pipe(takeUntilDestroyed(this.destroyRef))
                 .subscribe(event => {
                     event.stopPropagation();
-                    if (!this.elementRef.nativeElement.contains(event.target) && this.expandTreeSelectOptions) {
+                    if (!this.elementRef.nativeElement.contains(event.target) && this.expandTreeSelectOptions()) {
                         this.ngZone.run(() => {
                             this.close();
-                            this.ref.markForCheck();
                         });
                     }
                 });
         }
+    }
+
+    private bindResizeEvent() {
         this.viewportRuler
             .change()
-            .pipe(takeUntil(this.destroy$))
+            .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe(() => {
-                this.init();
+                this.cdkConnectOverlayWidth.set(this.cdkOverlayOrigin().elementRef.nativeElement.getBoundingClientRect().width);
             });
     }
 
@@ -386,16 +362,12 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
         this.onTouchedFn();
     }
 
-    ngOnDestroy(): void {
-        this.destroy$.next();
-    }
-
-    get selectedValueObject() {
-        return this.thyMultiple ? this.selectedNodes : this.selectedNode;
-    }
+    public readonly selectedValueObject = computed(() => {
+        return this.thyMultiple() ? this.selectedNodes() : this.selectedNode();
+    });
 
     searchValue(searchText: string) {
-        this.treeNodes = filterTreeData(this.originTreeNodes, searchText.trim(), this.thyShowKey);
+        this.searchText.set(searchText.trim());
     }
 
     public setPosition() {
@@ -403,102 +375,103 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
             .asObservable()
             .pipe(take(1))
             .subscribe(() => {
-                this.cdkConnectedOverlay.overlayRef.updatePosition();
+                this.cdkConnectedOverlay().overlayRef.updatePosition();
             });
     }
 
-    private init() {
-        this.cdkConnectOverlayWidth = this.cdkOverlayOrigin.elementRef.nativeElement.getBoundingClientRect().width;
-    }
-
-    private flattenNodes(
-        nodes: ThyTreeSelectNode[] = [],
-        resultNodes: ThyTreeSelectNode[] = [],
-        parentPrimaryValue: string[] = []
-    ): ThyTreeSelectNode[] {
-        resultNodes = resultNodes.concat(nodes);
-        let nodesLeafs: ThyTreeSelectNode[] = [];
+    private flattenNodes(nodes: ThyTreeSelectNode[] = [], parentPrimaryValue: string[] = []): ThyTreeSelectNode[] {
+        let flattenedNodes: ThyTreeSelectNode[] = [];
         (nodes || []).forEach(item => {
             item.parentValues = parentPrimaryValue;
             item.level = item.parentValues.length;
+            flattenedNodes.push(item);
             if (item.children && isArray(item.children)) {
-                const nodeLeafs = this.flattenNodes(item.children, resultNodes, [...parentPrimaryValue, item[this.thyPrimaryKey]]);
-                nodesLeafs = [...nodesLeafs, ...nodeLeafs];
+                const childNodes = this.flattenNodes(item.children, [...parentPrimaryValue, item[this.thyPrimaryKey()]]);
+                flattenedNodes = flattenedNodes.concat(childNodes);
             }
         });
-        return [...nodes, ...nodesLeafs];
+        return flattenedNodes;
     }
 
     private _findTreeNode(value: string): ThyTreeSelectNode {
-        return (this.flattenTreeNodes || []).find(item => item[this.thyPrimaryKey] === value);
+        return (this.flattenTreeNodes() || []).find(item => item[this.thyPrimaryKey()] === value);
     }
 
     private setSelectedNodes() {
-        if (this.selectedValue) {
+        const isMultiple = this.thyMultiple();
+        const primaryKey = this.thyPrimaryKey();
+        const selectedValue = this.selectedValue();
+        const valueIsObject = this.valueIsObject();
+        if (selectedValue) {
             // 多选数据初始化
-            if (this.thyMultiple) {
-                if (this.selectedValue.length > 0) {
-                    if (this.valueIsObject && Object.keys(this.selectedValue[0]).indexOf(this.thyPrimaryKey) >= 0) {
-                        this.selectedNodes = this.selectedValue.map((item: any) => {
-                            return this._findTreeNode(item[this.thyPrimaryKey]);
-                        });
+            if (isMultiple) {
+                if (selectedValue.length > 0) {
+                    if (valueIsObject && Object.keys(selectedValue[0]).indexOf(primaryKey) >= 0) {
+                        this.selectedNodes.set(
+                            selectedValue.map((item: any) => {
+                                return this._findTreeNode(item[primaryKey]);
+                            })
+                        );
                     } else {
-                        this.selectedNodes = this.selectedValue.map((item: any) => {
-                            return this._findTreeNode(item);
-                        });
+                        this.selectedNodes.set(
+                            selectedValue.map((item: any) => {
+                                return this._findTreeNode(item);
+                            })
+                        );
                     }
                 }
             } else {
                 // 单选数据初始化
-                if (this.valueIsObject) {
-                    if (Object.keys(this.selectedValue).indexOf(this.thyPrimaryKey) >= 0) {
-                        this.selectedNode = this._findTreeNode(this.selectedValue[this.thyPrimaryKey]);
+                if (valueIsObject) {
+                    if (Object.keys(selectedValue).indexOf(primaryKey) >= 0) {
+                        this.selectedNode.set(this._findTreeNode(selectedValue[primaryKey]));
                     }
                 } else {
-                    this.selectedNode = this._findTreeNode(this.selectedValue);
+                    this.selectedNode.set(this._findTreeNode(selectedValue));
                 }
             }
         } else {
-            this.selectedNodes = [];
-            this.selectedNode = null;
+            this.selectedNodes.set([]);
+            this.selectedNode.set(null);
         }
     }
 
     openSelectPop() {
-        if (this.thyDisable) {
+        if (this.thyDisable()) {
             return;
         }
-        this.cdkConnectOverlayWidth = this.cdkOverlayOrigin.elementRef.nativeElement.getBoundingClientRect().width;
-        this.expandTreeSelectOptions = !this.expandTreeSelectOptions;
-        this.thyExpandStatusChange.emit(this.expandTreeSelectOptions);
+        this.cdkConnectOverlayWidth.set(this.cdkOverlayOrigin().elementRef.nativeElement.getBoundingClientRect().width);
+        this.expandTreeSelectOptions.set(!this.expandTreeSelectOptions());
+        this.thyExpandStatusChange.emit(this.expandTreeSelectOptions());
     }
 
     close() {
-        if (this.expandTreeSelectOptions) {
-            this.expandTreeSelectOptions = false;
-            this.thyExpandStatusChange.emit(this.expandTreeSelectOptions);
+        if (this.expandTreeSelectOptions()) {
+            this.expandTreeSelectOptions.set(false);
+            this.thyExpandStatusChange.emit(false);
             this.onTouchedFn();
         }
     }
 
     clearSelectedValue(event: Event) {
         event.stopPropagation();
-        this.selectedValue = null;
-        this.selectedNode = null;
-        this.selectedNodes = [];
-        this.onChangeFn(this.selectedValue);
+        this.selectedValue.set(null);
+        this.selectedNode.set(null);
+        this.selectedNodes.set([]);
+        this.onChangeFn(null);
     }
 
     private _changeSelectValue() {
-        if (this.valueIsObject) {
-            this.selectedValue = this.thyMultiple ? this.selectedNodes : this.selectedNode;
+        const selectedNodes = this.selectedNodes();
+        const selectedNode = this.selectedNode();
+        if (this.valueIsObject()) {
+            this.selectedValue.set(this.thyMultiple() ? selectedNodes : selectedNode);
         } else {
-            this.selectedValue = this.thyMultiple
-                ? this.selectedNodes.map(item => item[this.thyPrimaryKey])
-                : this.selectedNode[this.thyPrimaryKey];
+            const value = this.thyMultiple() ? selectedNodes.map(item => item[this.thyPrimaryKey()]) : selectedNode[this.thyPrimaryKey()];
+            this.selectedValue.set(value);
         }
-        this.onChangeFn(this.selectedValue);
-        if (!this.thyMultiple) {
+        this.onChangeFn(this.selectedValue());
+        if (!this.thyMultiple()) {
             this.onTouchedFn();
         }
     }
@@ -512,32 +485,34 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
         if (event) {
             event.stopPropagation();
         }
-        if (this.thyDisable) {
+        if (this.thyDisable()) {
             return;
         }
-        if (this.thyMultiple) {
-            this.selectedNodes = produce(this.selectedNodes).remove((item: ThyTreeSelectNode) => {
-                return item[this.thyPrimaryKey] === node[this.thyPrimaryKey];
-            });
+        if (this.thyMultiple()) {
+            this.selectedNodes.set(
+                produce(this.selectedNodes()).remove((item: ThyTreeSelectNode) => {
+                    return item[this.thyPrimaryKey()] === node[this.thyPrimaryKey()];
+                })
+            );
             this._changeSelectValue();
         }
     }
 
     selectNode(node: ThyTreeSelectNode) {
-        if (!this.thyMultiple) {
-            this.selectedNode = node;
-            this.expandTreeSelectOptions = false;
-            this.thyExpandStatusChange.emit(this.expandTreeSelectOptions);
+        if (!this.thyMultiple()) {
+            this.selectedNode.set(node);
+            this.expandTreeSelectOptions.set(false);
+            this.thyExpandStatusChange.emit(false);
             this._changeSelectValue();
         } else {
             if (
-                this.selectedNodes.find(item => {
-                    return item[this.thyPrimaryKey] === node[this.thyPrimaryKey];
+                this.selectedNodes().find(item => {
+                    return item[this.thyPrimaryKey()] === node[this.thyPrimaryKey()];
                 })
             ) {
                 this.removeSelectedNode(node);
             } else {
-                this.selectedNodes = produce(this.selectedNodes).add(node);
+                this.selectedNodes.set(produce(this.selectedNodes()).add(node));
                 this._changeSelectValue();
             }
         }
@@ -546,14 +521,15 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
     getNodeChildren(node: ThyTreeSelectNode) {
         const result = this.thyGetNodeChildren(node);
         if (result && result.subscribe) {
-            result.pipe().subscribe((data: ThyTreeSelectNode[]) => {
-                const nodes = this.flattenNodes(data, this.flattenTreeNodes, [...node.parentValues, node[this.thyPrimaryKey]]);
+            result.subscribe((data: ThyTreeSelectNode[]) => {
+                const flattenTreeNodes = this.flattenTreeNodes();
+                const nodes = this.flattenNodes(data, [...node.parentValues, node[this.thyPrimaryKey()]]);
                 const otherNodes = nodes.filter((item: ThyTreeNode) => {
-                    return !this.flattenTreeNodes.find(hasItem => {
-                        return hasItem[this.thyPrimaryKey] === item[this.thyPrimaryKey];
+                    return !flattenTreeNodes.find(hasItem => {
+                        return hasItem[this.thyPrimaryKey()] === item[this.thyPrimaryKey() as keyof ThyTreeNode];
                     });
                 });
-                this.flattenTreeNodes = [...this.flattenTreeNodes, ...otherNodes];
+                this.flattenTreeNodes.set(flattenTreeNodes.concat(otherNodes));
                 node.children = data;
             });
             return result;
@@ -581,92 +557,85 @@ const DEFAULT_ITEM_SIZE = 40;
         ThyFlexibleText
     ],
     host: {
-        '[attr.tabindex]': '-1'
+        '[attr.tabindex]': '-1',
+        class: 'thy-tree-select-dropdown',
+        '[class.thy-tree-select-dropdown-multiple]': 'isMultiple()'
     }
 })
-export class ThyTreeSelectNodes implements OnInit {
+export class ThyTreeSelectNodes {
     parent = inject(ThyTreeSelect);
+
     emptyIcon: Signal<string> = injectPanelEmptyIcon();
 
-    @HostBinding('class') class: string;
+    readonly treeNodes = input<ThyTreeSelectNode[]>([]);
 
-    nodeList: ThyTreeSelectNode[] = [];
+    readonly thyVirtualScroll = input<boolean>(false);
 
-    @Input() set treeNodes(value: ThyTreeSelectNode[]) {
-        const treeSelectHeight = this.defaultItemSize * value.length;
-        // 父级设置了max-height:300 & padding:10 0; 故此处最多设置280，否则将出现滚动条
-        this.thyVirtualHeight = treeSelectHeight > 300 ? '280px' : `${treeSelectHeight}px`;
-        this.nodeList = value;
-        this.hasNodeChildren = this.nodeList.every(
-            item => !item.hasOwnProperty('children') || (!item?.children?.length && !item?.childCount)
-        );
-    }
+    public isMultiple = computed(() => this.parent.thyMultiple());
 
-    @Input() thyVirtualScroll: boolean = false;
+    public childCountKey = computed(() => this.parent.thyChildCountKey());
 
-    public primaryKey = this.parent.thyPrimaryKey;
-
-    public showKey = this.parent.thyShowKey;
-
-    public isMultiple = this.parent.thyMultiple;
-
-    public valueIsObject = this.parent.valueIsObject;
-
-    public selectedValue = this.parent.selectedValue;
-
-    public childCountKey = this.parent.thyChildCountKey;
-
-    public treeNodeTemplateRef = this.parent.treeNodeTemplateRef;
+    public treeNodeTemplateRef = computed(() => this.parent.treeNodeTemplateRef());
 
     public defaultItemSize = DEFAULT_ITEM_SIZE;
 
-    public thyVirtualHeight: string = null;
+    public readonly thyVirtualHeight = computed(() => {
+        const treeSelectHeight = this.defaultItemSize * this.treeNodes().length;
+        // 父级设置了max-height:300 & padding:10 0; 故此处最多设置280，否则将出现滚动条
+        return treeSelectHeight > 300 ? '280px' : `${treeSelectHeight}px`;
+    });
 
-    public hasNodeChildren: boolean = false;
-
-    ngOnInit() {
-        this.class = this.isMultiple ? 'thy-tree-select-dropdown thy-tree-select-dropdown-multiple' : 'thy-tree-select-dropdown';
-    }
+    public readonly hasNodeChildren = computed(() => {
+        return this.treeNodes().every(item => !item.hasOwnProperty('children') || (!item?.children?.length && !item?.childCount));
+    });
 
     treeNodeIsSelected(node: ThyTreeSelectNode) {
-        if (this.parent.thyMultiple) {
-            return (this.parent.selectedNodes || []).find(item => {
-                return item[this.primaryKey] === node[this.primaryKey];
+        const primaryKey = this.parent.thyPrimaryKey();
+        const isMultiple = this.isMultiple();
+        if (isMultiple) {
+            return (this.parent.selectedNodes() || []).find(item => {
+                return item[primaryKey] === node[primaryKey];
             });
         } else {
-            return this.parent.selectedNode && this.parent.selectedNode[this.primaryKey] === node[this.primaryKey];
+            return this.parent.selectedNode() && this.parent.selectedNode()[primaryKey] === node[primaryKey];
         }
     }
 
     treeNodeIsHidden(node: ThyTreeSelectNode) {
-        if (this.parent.thyHiddenNodeKey) {
-            return node[this.parent.thyHiddenNodeKey];
+        const thyHiddenNodeKey = this.parent.thyHiddenNodeKey();
+        if (thyHiddenNodeKey) {
+            return node[thyHiddenNodeKey];
         }
-        if (this.parent.thyHiddenNodeFn) {
-            return this.parent.thyHiddenNodeFn(node);
+        const thyHiddenNodeFn = this.parent.thyHiddenNodeFn;
+        if (thyHiddenNodeFn) {
+            return thyHiddenNodeFn(node);
         }
         return false;
     }
 
     treeNodeIsDisable(node: ThyTreeSelectNode) {
-        if (this.parent.thyDisableNodeKey) {
-            return node[this.parent.thyDisableNodeKey];
+        const thyDisableNodeKey = this.parent.thyDisableNodeKey();
+        if (thyDisableNodeKey) {
+            return node[thyDisableNodeKey];
         }
-        if (this.parent.thyDisableNodeFn) {
-            return this.parent.thyDisableNodeFn(node);
+        const thyDisableNodeFn = this.parent.thyDisableNodeFn;
+        if (thyDisableNodeFn) {
+            return thyDisableNodeFn(node);
         }
         return false;
     }
 
     treeNodeIsExpand(node: ThyTreeSelectNode) {
+        const isMultiple = this.isMultiple();
+        const primaryKey = this.parent.thyPrimaryKey();
         let isSelectedNodeParent = false;
-        if (this.parent.thyMultiple) {
-            isSelectedNodeParent = !!(this.parent.selectedNodes || []).find(item => {
-                return item.parentValues.indexOf(node[this.primaryKey]) > -1;
+        if (isMultiple) {
+            isSelectedNodeParent = !!(this.parent.selectedNodes() || []).find(item => {
+                return item.parentValues.indexOf(node[primaryKey]) > -1;
             });
         } else {
-            isSelectedNodeParent = this.parent.selectedNode
-                ? this.parent.selectedNode.parentValues.indexOf(node[this.primaryKey]) > -1
+            isSelectedNodeParent = this.parent.selectedNode()
+                ? this.parent.selectedNode().parentValues.indexOf(node[primaryKey]) > -1
                 : false;
         }
         const isExpand = node.expand || (Object.keys(node).indexOf('expand') < 0 && isSelectedNodeParent);
@@ -696,13 +665,13 @@ export class ThyTreeSelectNodes implements OnInit {
             }
         }
 
-        if (node.expand && this.parent.thyAsyncNode) {
+        if (node.expand && this.parent.thyAsyncNode()) {
             this.getNodeChildren(node).subscribe(() => {
                 this.parent.setPosition();
             });
         }
         // this.parent.setPosition();
-        if (this.thyVirtualScroll) {
+        if (this.thyVirtualScroll()) {
             this.parent.buildFlattenTreeNodes();
         }
     }
