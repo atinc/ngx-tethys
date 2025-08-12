@@ -1,4 +1,4 @@
-import { Directive, input, OnInit, Signal, SimpleChange, SimpleChanges, TemplateRef, model, output, effect } from '@angular/core';
+import { Directive, input, OnInit, Signal, SimpleChange, SimpleChanges, TemplateRef, model, output, OnChanges } from '@angular/core';
 import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
 import { SafeAny } from 'ngx-tethys/types';
 import { coerceBooleanProperty, FunctionProp, isTemplateRef, TinyDate } from 'ngx-tethys/util';
@@ -9,7 +9,7 @@ import { DisabledDateFn } from 'ngx-tethys/date-picker';
  * @private
  */
 @Directive()
-export abstract class CalendarTable implements OnInit {
+export abstract class CalendarTable implements OnInit, OnChanges {
     protected locale: Signal<ThyDatePickerLocale> = injectLocale('datePicker');
 
     isTemplateRef = isTemplateRef;
