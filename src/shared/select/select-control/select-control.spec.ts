@@ -256,6 +256,8 @@ describe('ThySelectControl', () => {
                 fixture.componentInstance.thyShowSearch = true;
                 fixture.componentInstance.thyPanelOpened = true;
                 fixture.detectChanges();
+                const typeValue = 'test';
+                fixture.componentInstance.selectControlComponent().inputValue = typeValue;
                 const search = spyOn(fixture.componentInstance, 'search');
                 fixture.componentInstance.thyPanelOpened = false;
                 fixture.detectChanges();

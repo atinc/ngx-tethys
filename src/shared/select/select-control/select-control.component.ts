@@ -49,12 +49,6 @@ export class ThySelectControl implements OnInit {
 
     isComposing = false;
 
-    // panelOpened = false;
-
-    // isMultiple = false;
-
-    // selectedOptions: SelectOptionBase | SelectOptionBase[];
-
     searchInputControlClass: { [key: string]: boolean };
 
     private hostRenderer = useHostRenderer();
@@ -158,22 +152,32 @@ export class ThySelectControl implements OnInit {
 
     constructor() {
         effect(() => {
-            this.setSelectControlClass();
+            const panelOpened = this.thyPanelOpened();
+            if (panelOpened) {
+                untracked(() => {
+                    if (this.thyShowSearch()) {
+                        Promise.resolve(null).then(() => {
+                            this.inputElement().nativeElement.focus();
+                        });
+                    }
+                });
+            } else {
+                untracked(() => {
+                    if (this.thyShowSearch()) {
+                        new Promise(resolve => setTimeout(resolve, 100)).then(() => {
+                            if (this.inputValue) {
+                                this.inputValue = '';
+                                this.updateWidth();
+                                this.thyOnSearch.emit(this.inputValue);
+                            }
+                        });
+                    }
+                });
+            }
         });
 
         effect(() => {
-            if (this.thyPanelOpened() && this.thyShowSearch()) {
-                Promise.resolve(null).then(() => {
-                    this.inputElement().nativeElement.focus();
-                });
-            }
-            if (!this.thyPanelOpened() && this.thyShowSearch()) {
-                new Promise(resolve => setTimeout(resolve, 100)).then(() => {
-                    this.inputValue = '';
-                    this.updateWidth();
-                    this.thyOnSearch.emit(this.inputValue);
-                });
-            }
+            this.setSelectControlClass();
         });
 
         effect(() => {

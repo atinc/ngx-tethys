@@ -8,7 +8,9 @@ import {
     inject,
     input,
     ContentChildren,
-    QueryList
+    QueryList,
+    WritableSignal,
+    signal
 } from '@angular/core';
 import { Observable, defer, Subject, merge } from 'rxjs';
 import { ThyOptionVisibleChangeEvent, ThyOption } from '../option.component';
@@ -21,22 +23,20 @@ import { outputToObservable } from '@angular/core/rxjs-interop';
  */
 @Component({
     selector: 'thy-option-group',
-    templateUrl: './option-group.component.html'
+    templateUrl: './option-group.component.html',
+    host: {
+        class: 'thy-option-item-group',
+        '[class.disabled]': 'thyDisabled()',
+        '[class.thy-select-option-group-hidden]': 'hidden()'
+    }
 })
 export class ThySelectOptionGroup implements OnDestroy, AfterContentInit {
     private _ngZone = inject(NgZone);
     private cdr = inject(ChangeDetectorRef);
 
-    _hidden = false;
-    @HostBinding(`class.disabled`)
     readonly thyDisabled = input(false, { transform: coerceBooleanProperty });
 
-    @HostBinding('class.thy-option-item-group') _isOptionGroup = true;
-
-    @HostBinding('class.thy-select-option-group-hidden')
-    get hidden(): boolean {
-        return this._hidden;
-    }
+    readonly hidden: WritableSignal<boolean> = signal(false);
 
     readonly thyGroupLabel = input<string>(undefined);
 
@@ -68,7 +68,7 @@ export class ThySelectOptionGroup implements OnDestroy, AfterContentInit {
                 debounceTime(10),
                 map((event: ThyOptionVisibleChangeEvent) => {
                     const hasOption = this.options.find(option => {
-                        if (!option.hidden) {
+                        if (!option.hidden()) {
                             return true;
                         }
                     });
@@ -80,7 +80,7 @@ export class ThySelectOptionGroup implements OnDestroy, AfterContentInit {
                 })
             )
             .subscribe((data: boolean) => {
-                this._hidden = data;
+                this.hidden.set(data);
                 this.cdr.markForCheck();
             });
     }

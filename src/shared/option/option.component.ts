@@ -56,6 +56,7 @@ export class ThyOption extends SelectOptionBase implements OnDestroy, Highlighta
     parent = inject(THY_OPTION_PARENT_COMPONENT, { optional: true })!;
     private cdr = inject(ChangeDetectorRef);
 
+    // 继承至 SelectOptionBase，无法修改为 Signal
     @Input() thyValue: any;
 
     @Input() thyRawValue: any;
