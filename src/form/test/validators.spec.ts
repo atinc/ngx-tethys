@@ -55,7 +55,7 @@ describe('validator', () => {
                 value: number;
             }
 
-            let fixture: ComponentFixture<TestMaxComponent>;
+            let fixture: ComponentFixture<TestMaxComponent> | undefined = undefined;
 
             beforeEach(() => {
                 TestBed.configureTestingModule({});
@@ -117,7 +117,7 @@ describe('validator', () => {
                 value: number;
             }
 
-            let fixture: ComponentFixture<TestMinComponent>;
+            let fixture: ComponentFixture<TestMinComponent> | undefined = undefined;
 
             beforeEach(() => {
                 TestBed.configureTestingModule({});
@@ -176,7 +176,7 @@ describe('validator', () => {
             };
         }
 
-        let fixture: ComponentFixture<TestUniqueCheckComponent>;
+        let fixture: ComponentFixture<TestUniqueCheckComponent> | undefined = undefined;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});

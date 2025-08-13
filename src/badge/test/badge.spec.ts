@@ -108,8 +108,8 @@ class BadgeBasicCustomColorComponent implements OnInit {
 }
 
 describe('thy-badge', () => {
-    let testComponent: any;
-    let badgeElement: HTMLElement;
+    let testComponent: any | undefined = undefined;
+    let badgeElement: HTMLElement | undefined = undefined;
 
     beforeEach(() => {
         TestBed.configureTestingModule({});
@@ -117,8 +117,8 @@ describe('thy-badge', () => {
     });
 
     describe('basic', () => {
-        let fixture: ComponentFixture<BadgeBasicComponent>;
-        let badgeComponent: DebugElement;
+        let fixture: ComponentFixture<BadgeBasicComponent> | undefined = undefined;
+        let badgeComponent: DebugElement | undefined = undefined;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(BadgeBasicComponent);
@@ -201,8 +201,8 @@ describe('thy-badge', () => {
     });
 
     describe('content', () => {
-        let fixture: ComponentFixture<BadgeContentTestComponent>;
-        let badgeComponent: DebugElement;
+        let fixture: ComponentFixture<BadgeContentTestComponent> | undefined = undefined;
+        let badgeComponent: DebugElement | undefined = undefined;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(BadgeContentTestComponent);
@@ -228,8 +228,8 @@ describe('thy-badge', () => {
     });
 
     describe('context', () => {
-        let fixture: ComponentFixture<BadgeBasicContextComponent>;
-        let badgeComponent: DebugElement;
+        let fixture: ComponentFixture<BadgeBasicContextComponent> | undefined = undefined;
+        let badgeComponent: DebugElement | undefined = undefined;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(BadgeBasicContextComponent);
@@ -255,8 +255,8 @@ describe('thy-badge', () => {
     });
 
     describe('hollow', () => {
-        let fixture: ComponentFixture<BadgeBasicHollowComponent>;
-        let badgeComponent: DebugElement;
+        let fixture: ComponentFixture<BadgeBasicHollowComponent> | undefined = undefined;
+        let badgeComponent: DebugElement | undefined = undefined;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(BadgeBasicHollowComponent);
@@ -281,8 +281,8 @@ describe('thy-badge', () => {
     });
 
     describe('dot', () => {
-        let fixture: ComponentFixture<BadgeBasicDotComponent>;
-        let badgeComponent: DebugElement;
+        let fixture: ComponentFixture<BadgeBasicDotComponent> | undefined = undefined;
+        let badgeComponent: DebugElement | undefined = undefined;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(BadgeBasicDotComponent);
@@ -307,8 +307,8 @@ describe('thy-badge', () => {
     });
 
     describe('custom-color', () => {
-        let fixture: ComponentFixture<BadgeBasicCustomColorComponent>;
-        let badgeComponent: DebugElement;
+        let fixture: ComponentFixture<BadgeBasicCustomColorComponent> | undefined = undefined;
+        let badgeComponent: DebugElement | undefined = undefined;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(BadgeBasicCustomColorComponent);

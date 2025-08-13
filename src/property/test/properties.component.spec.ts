@@ -121,8 +121,8 @@ class ThyPropertiesTestOperationComponent {
 
 describe(`thy-properties`, () => {
     describe(`basic`, () => {
-        let fixture: ComponentFixture<ThyPropertiesTestBasicComponent>;
-        let basicComponent: ThyPropertiesTestBasicComponent;
+        let fixture: ComponentFixture<ThyPropertiesTestBasicComponent> | undefined = undefined;
+        let basicComponent: ThyPropertiesTestBasicComponent | undefined = undefined;
 
         beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
@@ -273,8 +273,8 @@ describe(`thy-properties`, () => {
     });
 
     describe(`column`, () => {
-        let fixture: ComponentFixture<ThyPropertiesTestColumnComponent>;
-        let testColumnComponent: ThyPropertiesTestColumnComponent;
+        let fixture: ComponentFixture<ThyPropertiesTestColumnComponent> | undefined = undefined;
+        let testColumnComponent: ThyPropertiesTestColumnComponent | undefined = undefined;
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
@@ -310,8 +310,8 @@ describe(`thy-properties`, () => {
     });
 
     describe('property-item-operation', () => {
-        let fixture: ComponentFixture<ThyPropertiesTestOperationComponent>;
-        let testComponent: ThyPropertiesTestOperationComponent;
+        let fixture: ComponentFixture<ThyPropertiesTestOperationComponent> | undefined = undefined;
+        let testComponent: ThyPropertiesTestOperationComponent | undefined = undefined;
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({

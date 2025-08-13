@@ -16,9 +16,9 @@ class ThyAutofocusTestComponent {
 }
 
 describe('ThyAutofocusDirective', () => {
-    let fixture: ComponentFixture<ThyAutofocusTestComponent>;
-    let testComponent: ThyAutofocusTestComponent;
-    let focusSpy: jasmine.Spy;
+    let fixture: ComponentFixture<ThyAutofocusTestComponent> | undefined = undefined;
+    let testComponent: ThyAutofocusTestComponent | undefined = undefined;
+    let focusSpy: jasmine.Spy | undefined = undefined;
 
     beforeEach(() => {
         TestBed.configureTestingModule({});

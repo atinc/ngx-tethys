@@ -56,9 +56,9 @@ describe('popover-layout', () => {
             TestBed.compileComponents();
         });
 
-        let popoverBasicFixture: ComponentFixture<PopoverHeaderBasicComponent>;
-        let popoverHeaderDebugElement: DebugElement;
-        let popoverHeaderElement: HTMLElement;
+        let popoverBasicFixture: ComponentFixture<PopoverHeaderBasicComponent> | undefined = undefined;
+        let popoverHeaderDebugElement: DebugElement | undefined = undefined;
+        let popoverHeaderElement: HTMLElement | undefined = undefined;
 
         beforeEach(() => {
             popoverBasicFixture = TestBed.createComponent(PopoverHeaderBasicComponent);
@@ -121,8 +121,8 @@ describe('popover-layout', () => {
             }).compileComponents();
         });
 
-        let fixture: ComponentFixture<PopoverHeaderTranslationComponent>;
-        let popoverHeaderElement: HTMLElement;
+        let fixture: ComponentFixture<PopoverHeaderTranslationComponent> | undefined = undefined;
+        let popoverHeaderElement: HTMLElement | undefined = undefined;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(PopoverHeaderTranslationComponent);
@@ -148,9 +148,9 @@ describe('popover-layout', () => {
             TestBed.compileComponents();
         });
 
-        let popoverBasicFixture: ComponentFixture<PopoverBodyBasicComponent>;
-        let popoverBodyDebugElement: DebugElement;
-        let popoverBodyElement: HTMLElement;
+        let popoverBasicFixture: ComponentFixture<PopoverBodyBasicComponent> | undefined = undefined;
+        let popoverBodyDebugElement: DebugElement | undefined = undefined;
+        let popoverBodyElement: HTMLElement | undefined = undefined;
 
         beforeEach(() => {
             popoverBasicFixture = TestBed.createComponent(PopoverBodyBasicComponent);
@@ -179,9 +179,9 @@ describe('popover-layout', () => {
             TestBed.compileComponents();
         });
 
-        let fixture: ComponentFixture<PopoverHeaderTemplateBasicComponent>;
-        let popoverHeaderDebugElement: DebugElement;
-        let popoverHeaderElement: HTMLElement;
+        let fixture: ComponentFixture<PopoverHeaderTemplateBasicComponent> | undefined = undefined;
+        let popoverHeaderDebugElement: DebugElement | undefined = undefined;
+        let popoverHeaderElement: HTMLElement | undefined = undefined;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(PopoverHeaderTemplateBasicComponent);

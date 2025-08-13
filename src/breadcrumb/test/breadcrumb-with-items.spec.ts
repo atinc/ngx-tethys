@@ -23,7 +23,7 @@ class ThyDemoBreadcrumbWithItemsComponent {
 }
 
 describe('ThyBreadcrumb With Items', () => {
-    let fixture: ComponentFixture<ThyDemoBreadcrumbWithItemsComponent>;
+    let fixture: ComponentFixture<ThyDemoBreadcrumbWithItemsComponent> | undefined = undefined;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({

@@ -179,10 +179,10 @@ class TestTabsAnimatedComponent {
 
 describe('tabs', () => {
     describe('basic', () => {
-        let fixture: ComponentFixture<TestTabsBasicComponent>;
-        let tabsDebugElement: DebugElement;
-        let tabsElement: HTMLElement;
-        let tabsInstance: ThyTabs;
+        let fixture: ComponentFixture<TestTabsBasicComponent> | undefined = undefined;
+        let tabsDebugElement: DebugElement | undefined = undefined;
+        let tabsElement: HTMLElement | undefined = undefined;
+        let tabsInstance: ThyTabs | undefined = undefined;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -212,7 +212,7 @@ describe('tabs', () => {
     });
 
     describe('thyType', () => {
-        let fixture: ComponentFixture<TestTabsTypeComponent>;
+        let fixture: ComponentFixture<TestTabsTypeComponent> | undefined = undefined;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -235,7 +235,7 @@ describe('tabs', () => {
     });
 
     describe('thySize', () => {
-        let fixture: ComponentFixture<TestTabsSizeComponent>;
+        let fixture: ComponentFixture<TestTabsSizeComponent> | undefined = undefined;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -258,7 +258,7 @@ describe('tabs', () => {
     });
 
     describe('custom title template', () => {
-        let fixture: ComponentFixture<TestTabsCustomTitleComponent>;
+        let fixture: ComponentFixture<TestTabsCustomTitleComponent> | undefined = undefined;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -275,7 +275,7 @@ describe('tabs', () => {
     });
 
     describe('thyExtra', () => {
-        let fixture: ComponentFixture<TestTabsExtraComponent>;
+        let fixture: ComponentFixture<TestTabsExtraComponent> | undefined = undefined;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -294,7 +294,7 @@ describe('tabs', () => {
     });
 
     describe('thyPosition', () => {
-        let fixture: ComponentFixture<TestTabsPositionComponent>;
+        let fixture: ComponentFixture<TestTabsPositionComponent> | undefined = undefined;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -324,7 +324,7 @@ describe('tabs', () => {
     });
 
     describe('thyActiveTab', () => {
-        let fixture: ComponentFixture<TestTabsActiveComponent>;
+        let fixture: ComponentFixture<TestTabsActiveComponent> | undefined = undefined;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -366,7 +366,7 @@ describe('tabs', () => {
     });
 
     describe('add tab dynamically', () => {
-        let fixture: ComponentFixture<TestTabsDynamicAddComponent>;
+        let fixture: ComponentFixture<TestTabsDynamicAddComponent> | undefined = undefined;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -422,7 +422,7 @@ describe('tabs', () => {
     });
 
     describe('thyDisabled', () => {
-        let fixture: ComponentFixture<TestTabsDisabledComponent>;
+        let fixture: ComponentFixture<TestTabsDisabledComponent> | undefined = undefined;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -446,7 +446,7 @@ describe('tabs', () => {
     });
 
     describe('thyAnimated', () => {
-        let fixture: ComponentFixture<TestTabsAnimatedComponent>;
+        let fixture: ComponentFixture<TestTabsAnimatedComponent> | undefined = undefined;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});

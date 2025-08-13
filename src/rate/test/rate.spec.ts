@@ -22,10 +22,10 @@ class RateBasicTestComponent {
 }
 
 describe('Rate basic component', () => {
-    let fixture: ComponentFixture<RateBasicTestComponent>;
-    let testRateBasicComponent: RateBasicTestComponent;
-    let rateBasicDebugComponent: DebugElement;
-    let rateBasicElement: HTMLElement;
+    let fixture: ComponentFixture<RateBasicTestComponent> | undefined = undefined;
+    let testRateBasicComponent: RateBasicTestComponent | undefined = undefined;
+    let rateBasicDebugComponent: DebugElement | undefined = undefined;
+    let rateBasicElement: HTMLElement | undefined = undefined;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -120,10 +120,10 @@ class RateCountTestComponent {
 }
 
 describe('Rate count component', () => {
-    let fixture: ComponentFixture<RateCountTestComponent>;
-    let testRateCountComponent: RateCountTestComponent;
-    let rateCountDebugComponent: DebugElement;
-    let rateCountElement: HTMLElement;
+    let fixture: ComponentFixture<RateCountTestComponent> | undefined = undefined;
+    let testRateCountComponent: RateCountTestComponent | undefined = undefined;
+    let rateCountDebugComponent: DebugElement | undefined = undefined;
+    let rateCountElement: HTMLElement | undefined = undefined;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -168,10 +168,10 @@ class RateHalfTestComponent {
 }
 
 describe('Rate half component', () => {
-    let fixture: ComponentFixture<RateHalfTestComponent>;
-    let testRateHalfComponent: RateHalfTestComponent;
-    let rateHalfDebugComponent: DebugElement;
-    let rateHalfElement: HTMLElement;
+    let fixture: ComponentFixture<RateHalfTestComponent> | undefined = undefined;
+    let testRateHalfComponent: RateHalfTestComponent | undefined = undefined;
+    let rateHalfDebugComponent: DebugElement | undefined = undefined;
+    let rateHalfElement: HTMLElement | undefined = undefined;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -240,10 +240,10 @@ class RateClearTestComponent {
 }
 
 describe('Rate clear component', () => {
-    let fixture: ComponentFixture<RateClearTestComponent>;
-    let testRateClearComponent: RateClearTestComponent;
-    let rateClearDebugComponent: DebugElement;
-    let rateClearElement: HTMLElement;
+    let fixture: ComponentFixture<RateClearTestComponent> | undefined = undefined;
+    let testRateClearComponent: RateClearTestComponent | undefined = undefined;
+    let rateClearDebugComponent: DebugElement | undefined = undefined;
+    let rateClearElement: HTMLElement | undefined = undefined;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -310,10 +310,10 @@ class RateDisabledTestComponent {
 }
 
 describe('Rate disabled component', () => {
-    let fixture: ComponentFixture<RateDisabledTestComponent>;
-    let testRateDisabledComponent: RateDisabledTestComponent;
-    let rateDisabledDebugComponent: DebugElement;
-    let rateDisabledElement: HTMLElement;
+    let fixture: ComponentFixture<RateDisabledTestComponent> | undefined = undefined;
+    let testRateDisabledComponent: RateDisabledTestComponent | undefined = undefined;
+    let rateDisabledDebugComponent: DebugElement | undefined = undefined;
+    let rateDisabledElement: HTMLElement | undefined = undefined;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -378,10 +378,10 @@ class RateTooltipTestComponent {
 }
 
 describe('Rate tooltip component', () => {
-    let fixture: ComponentFixture<RateTooltipTestComponent>;
-    let testRateTooltipComponent: RateTooltipTestComponent;
-    let rateTooltipDebugComponent: DebugElement;
-    let rateTooltipElement: HTMLElement;
+    let fixture: ComponentFixture<RateTooltipTestComponent> | undefined = undefined;
+    let testRateTooltipComponent: RateTooltipTestComponent | undefined = undefined;
+    let rateTooltipDebugComponent: DebugElement | undefined = undefined;
+    let rateTooltipElement: HTMLElement | undefined = undefined;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -447,11 +447,11 @@ class RateTemplateTestComponent {
 }
 
 describe('Rate template component', () => {
-    let fixture: ComponentFixture<RateTemplateTestComponent>;
-    let testRateTemplateComponent: RateTemplateTestComponent;
-    let rateTemplateDebugComponent: DebugElement;
-    let rateTemplateElement: HTMLElement;
-    let templatesComponent: ThyRateTemplateExampleComponent;
+    let fixture: ComponentFixture<RateTemplateTestComponent> | undefined = undefined;
+    let testRateTemplateComponent: RateTemplateTestComponent | undefined = undefined;
+    let rateTemplateDebugComponent: DebugElement | undefined = undefined;
+    let rateTemplateElement: HTMLElement | undefined = undefined;
+    let templatesComponent: ThyRateTemplateExampleComponent | undefined = undefined;
 
     beforeEach(() => {
         TestBed.configureTestingModule({

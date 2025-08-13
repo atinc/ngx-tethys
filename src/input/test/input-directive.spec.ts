@@ -13,9 +13,9 @@ class TestBedInputDirectiveComponent {
 }
 
 describe('input directive', () => {
-    let fixture: ComponentFixture<TestBedInputDirectiveComponent>;
-    let basicTestComponent: TestBedInputDirectiveComponent;
-    let debugElement: DebugElement;
+    let fixture: ComponentFixture<TestBedInputDirectiveComponent> | undefined = undefined;
+    let basicTestComponent: TestBedInputDirectiveComponent | undefined = undefined;
+    let debugElement: DebugElement | undefined = undefined;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({});

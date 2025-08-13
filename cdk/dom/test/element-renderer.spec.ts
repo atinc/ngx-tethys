@@ -39,8 +39,8 @@ export class ThyDomElementRendererWithoutElementTestComponent implements OnInit 
 }
 
 describe('element-renderer', () => {
-    let fixture: ComponentFixture<ThyDomUseElementRendererTestComponent>;
-    let debugElement: DebugElement;
+    let fixture: ComponentFixture<ThyDomUseElementRendererTestComponent> | undefined = undefined;
+    let debugElement: DebugElement | undefined = undefined;
 
     beforeEach(() => {
         TestBed.configureTestingModule({});

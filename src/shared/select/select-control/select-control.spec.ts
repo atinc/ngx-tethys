@@ -63,8 +63,8 @@ describe('ThySelectControl', () => {
         }));
 
         describe('basic class', () => {
-            let fixture: ComponentFixture<BasicSelectControlComponent>;
-            let selectElement: HTMLElement;
+            let fixture: ComponentFixture<BasicSelectControlComponent> | undefined = undefined;
+            let selectElement: HTMLElement | undefined = undefined;
 
             beforeEach(waitForAsync(() => {
                 fixture = TestBed.createComponent(BasicSelectControlComponent);
@@ -108,8 +108,8 @@ describe('ThySelectControl', () => {
         });
 
         describe('placeholder', () => {
-            let fixture: ComponentFixture<BasicSelectControlComponent>;
-            let selectElement: HTMLElement;
+            let fixture: ComponentFixture<BasicSelectControlComponent> | undefined = undefined;
+            let selectElement: HTMLElement | undefined = undefined;
 
             beforeEach(waitForAsync(() => {
                 fixture = TestBed.createComponent(BasicSelectControlComponent);
@@ -131,8 +131,8 @@ describe('ThySelectControl', () => {
         });
 
         describe('allowClear', () => {
-            let fixture: ComponentFixture<BasicSelectControlComponent>;
-            let selectElement: HTMLElement;
+            let fixture: ComponentFixture<BasicSelectControlComponent> | undefined = undefined;
+            let selectElement: HTMLElement | undefined = undefined;
 
             beforeEach(waitForAsync(() => {
                 fixture = TestBed.createComponent(BasicSelectControlComponent);
@@ -154,8 +154,8 @@ describe('ThySelectControl', () => {
         });
 
         describe('selected options', () => {
-            let fixture: ComponentFixture<BasicSelectControlComponent>;
-            let selectElement: HTMLElement;
+            let fixture: ComponentFixture<BasicSelectControlComponent> | undefined = undefined;
+            let selectElement: HTMLElement | undefined = undefined;
 
             beforeEach(waitForAsync(() => {
                 fixture = TestBed.createComponent(BasicSelectControlComponent);
@@ -204,7 +204,7 @@ describe('ThySelectControl', () => {
 
             it('should just show max tag', fakeAsync(() => {
                 fixture.componentInstance.thyIsMultiple = true;
-                let selectedOptions = [
+                const selectedOptions = [
                     { thyLabelText: '1', thyRawValue: {}, thyValue: '1' },
                     { thyLabelText: '2', thyRawValue: {}, thyValue: '2' },
                     { thyLabelText: '3', thyRawValue: {}, thyValue: '3' }
@@ -238,8 +238,8 @@ describe('ThySelectControl', () => {
         });
 
         describe('search', () => {
-            let fixture: ComponentFixture<BasicSelectControlComponent>;
-            let searchElement: DebugElement;
+            let fixture: ComponentFixture<BasicSelectControlComponent> | undefined = undefined;
+            let searchElement: DebugElement | undefined = undefined;
 
             beforeEach(waitForAsync(() => {
                 fixture = TestBed.createComponent(BasicSelectControlComponent);

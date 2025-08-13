@@ -52,7 +52,7 @@ export class ThyGuiderStepRef {
     }
 
     private getTargetElement(step: ThyGuiderStep) {
-        let targetElement: HTMLElement;
+        let targetElement: HTMLElement | undefined = undefined;
 
         if (step.target && !isPositionDataType(step.target)) {
             const target = [...coerceArray(step.target)];

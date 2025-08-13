@@ -2,7 +2,7 @@ import { isString, isArray } from 'ngx-tethys/util';
 import { MIME_Map } from './constant';
 
 export function mimeTypeConvert(value: Array<string> | string): string {
-    let inputTypes: Array<string>;
+    let inputTypes: Array<string> | undefined = undefined;
     const acceptTypes: Array<string> = [];
     if (isArray(value)) {
         inputTypes = value as Array<string>;

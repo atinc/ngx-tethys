@@ -25,11 +25,11 @@ import {
 registerLocaleData(zh);
 
 describe('ThyDatePickerComponent', () => {
-    let fixture: ComponentFixture<ThyTestDatePickerComponent>;
-    let fixtureInstance: ThyTestDatePickerComponent;
-    let debugElement: DebugElement;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let fixture: ComponentFixture<ThyTestDatePickerComponent> | undefined = undefined;
+    let fixtureInstance: ThyTestDatePickerComponent | undefined = undefined;
+    let debugElement: DebugElement | undefined = undefined;
+    let overlayContainer: OverlayContainer | undefined = undefined;
+    let overlayContainerElement: HTMLElement | undefined = undefined;
 
     const shortcutDatePresets = () => {
         return [
@@ -870,7 +870,7 @@ describe('ThyDatePickerComponent', () => {
         }));
 
         it('should support thyPlacement', fakeAsync(() => {
-            let placement = 'top';
+            const placement = 'top';
             fixtureInstance.thyPlacement = placement;
             fixture.detectChanges();
             openPickerByClickTrigger();

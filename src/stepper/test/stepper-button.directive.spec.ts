@@ -19,8 +19,8 @@ class MockThyStepperComponent {
 }
 
 describe('ThyStepperNext', () => {
-    let fixture: ComponentFixture<ThyStepperButtonDirectiveComponent>;
-    let thyStepperComponent: MockThyStepperComponent;
+    let fixture: ComponentFixture<ThyStepperButtonDirectiveComponent> | undefined = undefined;
+    let thyStepperComponent: MockThyStepperComponent | undefined = undefined;
 
     beforeEach(() => {
         TestBed.configureTestingModule({

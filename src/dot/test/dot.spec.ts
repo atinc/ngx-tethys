@@ -15,9 +15,9 @@ import {
 } from 'ngx-tethys/dot';
 
 describe('ThyDot', () => {
-    let fixture: ComponentFixture<ThyDemoDotComponent>;
-    let basicTestComponent: ThyDemoDotComponent;
-    let dotComponent: DebugElement;
+    let fixture: ComponentFixture<ThyDemoDotComponent> | undefined = undefined;
+    let basicTestComponent: ThyDemoDotComponent | undefined = undefined;
+    let dotComponent: DebugElement | undefined = undefined;
 
     const colors = ['primary', 'info', 'danger', 'warning', 'success'];
     const sizes = ['xs', 'sm', 'md', 'lg', 'xlg'];
@@ -44,7 +44,7 @@ describe('ThyDot', () => {
     function getRandomColor() {
         const letters = '0123456789ABCDEF';
         let color = '#';
-        for (var i = 0; i < 6; i++) {
+        for (let i = 0; i < 6; i++) {
             color += letters[Math.floor(Math.random() * 16)];
         }
         return color;

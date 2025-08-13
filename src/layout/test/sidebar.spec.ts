@@ -146,15 +146,15 @@ describe(`sidebar`, () => {
     });
 
     describe('basic', () => {
-        let fixture: ComponentFixture<ThyDemoLayoutSidebarBasicComponent>;
-        let testInstance: ThyDemoLayoutSidebarBasicComponent;
-        let layoutDebugElement: DebugElement;
-        let layoutElement: HTMLElement;
-        let sidebarDebugElement: DebugElement;
-        let sidebarElement: HTMLElement;
-        let sidebarComponent: ThySidebar;
-        let sidebarHeaderDebugElement: DebugElement;
-        let sidebarHeaderElement: HTMLElement;
+        let fixture: ComponentFixture<ThyDemoLayoutSidebarBasicComponent> | undefined = undefined;
+        let testInstance: ThyDemoLayoutSidebarBasicComponent | undefined = undefined;
+        let layoutDebugElement: DebugElement | undefined = undefined;
+        let layoutElement: HTMLElement | undefined = undefined;
+        let sidebarDebugElement: DebugElement | undefined = undefined;
+        let sidebarElement: HTMLElement | undefined = undefined;
+        let sidebarComponent: ThySidebar | undefined = undefined;
+        let sidebarHeaderDebugElement: DebugElement | undefined = undefined;
+        let sidebarHeaderElement: HTMLElement | undefined = undefined;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyDemoLayoutSidebarBasicComponent);
@@ -485,13 +485,13 @@ describe(`sidebar`, () => {
     });
 
     describe('custom-sidebar', () => {
-        let fixture: ComponentFixture<ThyDemoLayoutCustomSidebarComponent>;
-        let layoutDebugElement: DebugElement;
-        let layoutElement: HTMLElement;
-        let sidebarDebugElement: DebugElement;
-        let sidebarElement: HTMLElement;
-        let sidebarHeaderDebugElement: DebugElement;
-        let sidebarHeaderElement: HTMLElement;
+        let fixture: ComponentFixture<ThyDemoLayoutCustomSidebarComponent> | undefined = undefined;
+        let layoutDebugElement: DebugElement | undefined = undefined;
+        let layoutElement: HTMLElement | undefined = undefined;
+        let sidebarDebugElement: DebugElement | undefined = undefined;
+        let sidebarElement: HTMLElement | undefined = undefined;
+        let sidebarHeaderDebugElement: DebugElement | undefined = undefined;
+        let sidebarHeaderElement: HTMLElement | undefined = undefined;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyDemoLayoutCustomSidebarComponent);
@@ -524,11 +524,11 @@ describe(`sidebar`, () => {
     });
 
     describe('directive', () => {
-        let fixture: ComponentFixture<ThyDemoLayoutSidebarDirectiveComponent>;
-        let testInstance: ThyDemoLayoutSidebarDirectiveComponent;
-        let layoutElement: HTMLElement;
-        let sidebarElement: HTMLElement;
-        let sidebarHeaderElement: HTMLElement;
+        let fixture: ComponentFixture<ThyDemoLayoutSidebarDirectiveComponent> | undefined = undefined;
+        let testInstance: ThyDemoLayoutSidebarDirectiveComponent | undefined = undefined;
+        let layoutElement: HTMLElement | undefined = undefined;
+        let sidebarElement: HTMLElement | undefined = undefined;
+        let sidebarHeaderElement: HTMLElement | undefined = undefined;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyDemoLayoutSidebarDirectiveComponent);

@@ -14,8 +14,8 @@ describe('ClickDispatcher', () => {
     });
 
     describe('basic usage', () => {
-        let click: ThyClickDispatcher;
-        let fixture: ComponentFixture<ClickComponent>;
+        let click: ThyClickDispatcher | undefined = undefined;
+        let fixture: ComponentFixture<ClickComponent> | undefined = undefined;
 
         beforeEach(inject([ThyClickDispatcher], (s: ThyClickDispatcher) => {
             click = s;
@@ -92,7 +92,7 @@ describe('ClickDispatcher', () => {
     });
 
     describe('lazy subscription', () => {
-        let click: ThyClickDispatcher;
+        let click: ThyClickDispatcher | undefined = undefined;
 
         beforeEach(inject([ThyClickDispatcher], (s: ThyClickDispatcher) => {
             click = s;

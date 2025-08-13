@@ -112,10 +112,10 @@ class ThyDemoTableTreeComponent {
 }
 
 describe('ThyTable: tree', () => {
-    let fixture: ComponentFixture<ThyDemoTableTreeComponent>;
-    let testComponent: ThyDemoTableTreeComponent;
-    let tableComponent: DebugElement;
-    let rows: HTMLElement[];
+    let fixture: ComponentFixture<ThyDemoTableTreeComponent> | undefined = undefined;
+    let testComponent: ThyDemoTableTreeComponent | undefined = undefined;
+    let tableComponent: DebugElement | undefined = undefined;
+    let rows: HTMLElement[] | undefined = undefined;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({

@@ -46,12 +46,12 @@ describe('ThyTreeComponent', () => {
     }
 
     describe('basic tree', () => {
-        let treeInstance: TestBasicTreeComponent;
-        let treeElement: HTMLElement;
-        let component: TestBasicTreeComponent;
-        let fixture: ComponentFixture<TestBasicTreeComponent>;
-        let multipleFixture: ComponentFixture<TestMultipleTreeComponent>;
-        let treeComponent: ThyTree;
+        let treeInstance: TestBasicTreeComponent | undefined = undefined;
+        let treeElement: HTMLElement | undefined = undefined;
+        let component: TestBasicTreeComponent | undefined = undefined;
+        let fixture: ComponentFixture<TestBasicTreeComponent> | undefined = undefined;
+        let multipleFixture: ComponentFixture<TestMultipleTreeComponent> | undefined = undefined;
+        let treeComponent: ThyTree | undefined = undefined;
 
         beforeEach(fakeAsync(() => {
             configureThyTreeTestingModule();
@@ -305,7 +305,7 @@ describe('ThyTreeComponent', () => {
                 if (dragContent.className.includes('disabled')) {
                     expect(dragIconVisible.style.visibility).toBeTruthy();
                 } else {
-                    let cssVisible = dragContentInnerHTML.includes('不可拖拽') ? 'hidden' : 'visible';
+                    const cssVisible = dragContentInnerHTML.includes('不可拖拽') ? 'hidden' : 'visible';
                     expect(dragIconVisible.style.visibility === cssVisible).toBeTruthy();
                 }
 
@@ -457,9 +457,9 @@ describe('ThyTreeComponent', () => {
     });
 
     describe('async tree', () => {
-        let treeElement: HTMLElement;
-        let component: TestAsyncTreeComponent;
-        let fixture: ComponentFixture<TestAsyncTreeComponent>;
+        let treeElement: HTMLElement | undefined = undefined;
+        let component: TestAsyncTreeComponent | undefined = undefined;
+        let fixture: ComponentFixture<TestAsyncTreeComponent> | undefined = undefined;
 
         beforeEach(waitForAsync(() => {
             configureThyTreeTestingModule();
@@ -491,10 +491,10 @@ describe('ThyTreeComponent', () => {
     });
 
     describe('virtual scrolling tree', () => {
-        let treeElement: HTMLElement;
-        let component: TestVirtualScrollingTreeComponent;
-        let fixture: ComponentFixture<TestVirtualScrollingTreeComponent>;
-        let document: Document;
+        let treeElement: HTMLElement | undefined = undefined;
+        let component: TestVirtualScrollingTreeComponent | undefined = undefined;
+        let fixture: ComponentFixture<TestVirtualScrollingTreeComponent> | undefined = undefined;
+        let document: Document | undefined = undefined;
 
         beforeEach(fakeAsync(() => {
             configureThyTreeTestingModule();
@@ -579,11 +579,11 @@ describe('ThyTreeComponent', () => {
     });
 
     describe('has checked nodes tree', () => {
-        let treeElement: HTMLElement;
-        let treeInstance: TestHasCheckedTreeComponent;
-        let component: TestHasCheckedTreeComponent;
-        let fixture: ComponentFixture<TestHasCheckedTreeComponent>;
-        let treeComponent: ThyTree;
+        let treeElement: HTMLElement | undefined = undefined;
+        let treeInstance: TestHasCheckedTreeComponent | undefined = undefined;
+        let component: TestHasCheckedTreeComponent | undefined = undefined;
+        let fixture: ComponentFixture<TestHasCheckedTreeComponent> | undefined = undefined;
+        let treeComponent: ThyTree | undefined = undefined;
 
         beforeEach(fakeAsync(() => {
             configureThyTreeTestingModule();
@@ -614,11 +614,11 @@ describe('ThyTreeComponent', () => {
     });
 
     describe('drag drop tree', () => {
-        let treeElement: HTMLElement;
-        let component: TestDragDropTreeComponent;
-        let fixture: ComponentFixture<TestDragDropTreeComponent>;
-        let document: Document;
-        let elementFromPointSpy: jasmine.Spy;
+        let treeElement: HTMLElement | undefined = undefined;
+        let component: TestDragDropTreeComponent | undefined = undefined;
+        let fixture: ComponentFixture<TestDragDropTreeComponent> | undefined = undefined;
+        let document: Document | undefined = undefined;
+        let elementFromPointSpy: jasmine.Spy | undefined = undefined;
 
         beforeEach(fakeAsync(() => {
             configureThyTreeTestingModule();

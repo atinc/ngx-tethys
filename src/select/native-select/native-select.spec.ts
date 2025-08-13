@@ -58,11 +58,11 @@ describe(`select`, () => {
     });
 
     describe(`basic`, () => {
-        let fixture: ComponentFixture<BasicNativeSelectComponent>;
-        let testComponent: BasicNativeSelectComponent;
-        let debugComponent: DebugElement;
-        let selectElement: any;
-        let selectElementChildren: any[];
+        let fixture: ComponentFixture<BasicNativeSelectComponent> | undefined = undefined;
+        let testComponent: BasicNativeSelectComponent | undefined = undefined;
+        let debugComponent: DebugElement | undefined = undefined;
+        let selectElement: any | undefined = undefined;
+        let selectElementChildren: any[] | undefined = undefined;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(BasicNativeSelectComponent);

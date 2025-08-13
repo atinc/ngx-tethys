@@ -9,11 +9,11 @@ import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyTimePicker, ThyTimePickerModule, TimePickerSize } from 'ngx-tethys/time-picker';
 
 describe('ThyTimePickerComponent', () => {
-    let fixture: ComponentFixture<ThyTestTimePickerBaseComponent>;
-    let fixtureInstance: ThyTestTimePickerBaseComponent;
-    let debugElement: DebugElement;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let fixture: ComponentFixture<ThyTestTimePickerBaseComponent> | undefined = undefined;
+    let fixtureInstance: ThyTestTimePickerBaseComponent | undefined = undefined;
+    let debugElement: DebugElement | undefined = undefined;
+    let overlayContainer: OverlayContainer | undefined = undefined;
+    let overlayContainerElement: HTMLElement | undefined = undefined;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -140,7 +140,7 @@ describe('ThyTimePickerComponent', () => {
         }));
 
         it('should support thyFormat', fakeAsync(() => {
-            let date = new Date();
+            const date = new Date();
             date.setHours(8, 20, 6);
             fixtureInstance.value = date;
             fixture.detectChanges();
@@ -315,7 +315,7 @@ describe('ThyTimePickerComponent', () => {
         it('should emit change when pick hour,minute,second and click confirm button', fakeAsync(() => {
             const date = new Date();
             date.setHours(10, 20, 3);
-            let newDate = new Date(date);
+            const newDate = new Date(date);
             fixtureInstance.value = date;
             fixture.detectChanges();
             tick(500);

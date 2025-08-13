@@ -37,11 +37,11 @@ class ImageGroupTestComponent {
 }
 
 describe('image-group', () => {
-    let fixture: ComponentFixture<ImageGroupTestComponent>;
-    let basicTestComponent: ImageGroupTestComponent;
-    let debugElement: DebugElement;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let fixture: ComponentFixture<ImageGroupTestComponent> | undefined = undefined;
+    let basicTestComponent: ImageGroupTestComponent | undefined = undefined;
+    let debugElement: DebugElement | undefined = undefined;
+    let overlayContainer: OverlayContainer | undefined = undefined;
+    let overlayContainerElement: HTMLElement | undefined = undefined;
 
     beforeEach(() => {
         TestBed.configureTestingModule({

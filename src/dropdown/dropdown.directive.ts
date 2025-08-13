@@ -141,7 +141,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
     }
 
     createOverlay(): OverlayRef {
-        let componentTypeOrTemplateRef: ComponentTypeOrTemplateRef<SafeAny>;
+        let componentTypeOrTemplateRef: ComponentTypeOrTemplateRef<SafeAny> | undefined = undefined;
         const menu = this.menu();
         if (menu && menu instanceof ThyDropdownMenuComponent) {
             componentTypeOrTemplateRef = menu?.templateRef();

@@ -31,8 +31,8 @@ class ThyHotkeyDirectiveTestComponent {
 }
 
 describe('ThyHotkeyDirective', () => {
-    let fixture: ComponentFixture<ThyHotkeyDirectiveTestComponent>;
-    let component: ThyHotkeyDirectiveTestComponent;
+    let fixture: ComponentFixture<ThyHotkeyDirectiveTestComponent> | undefined = undefined;
+    let component: ThyHotkeyDirectiveTestComponent | undefined = undefined;
 
     beforeEach(() => {
         TestBed.configureTestingModule({});

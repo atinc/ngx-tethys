@@ -14,7 +14,7 @@ describe('HotkeyDispatcher', () => {
     });
 
     describe('basic usage', () => {
-        let hotkeyDispatcher: ThyHotkeyDispatcher;
+        let hotkeyDispatcher: ThyHotkeyDispatcher | undefined = undefined;
 
         beforeEach(inject([ThyHotkeyDispatcher], (dispatcher: ThyHotkeyDispatcher) => {
             hotkeyDispatcher = dispatcher;

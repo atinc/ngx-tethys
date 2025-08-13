@@ -180,10 +180,10 @@ export class TestFormReactiveComponent {
 }
 
 describe('form basic directive', () => {
-    let fixture: ComponentFixture<TestFormBasicDirectiveComponent>;
-    let basicTestComponent: TestFormBasicDirectiveComponent;
-    let debugElement: DebugElement;
-    let formElement: HTMLElement;
+    let fixture: ComponentFixture<TestFormBasicDirectiveComponent> | undefined = undefined;
+    let basicTestComponent: TestFormBasicDirectiveComponent | undefined = undefined;
+    let debugElement: DebugElement | undefined = undefined;
+    let formElement: HTMLElement | undefined = undefined;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -221,10 +221,10 @@ describe('form basic directive', () => {
 });
 
 describe('form directive global config', () => {
-    let fixture: ComponentFixture<TestFormBasicDirectiveComponent>;
-    let basicTestComponent: TestFormBasicDirectiveComponent;
-    let debugElement: DebugElement;
-    let formElement: HTMLElement;
+    let fixture: ComponentFixture<TestFormBasicDirectiveComponent> | undefined = undefined;
+    let basicTestComponent: TestFormBasicDirectiveComponent | undefined = undefined;
+    let debugElement: DebugElement | undefined = undefined;
+    let formElement: HTMLElement | undefined = undefined;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -267,12 +267,12 @@ describe('form directive global config', () => {
 });
 
 describe('form validate', () => {
-    let fixture: ComponentFixture<TestFormFullComponent>;
-    let testComponent: TestFormFullComponent;
-    let formDebugElement: DebugElement;
-    let formDirective: ThyFormDirective;
-    let formElement: HTMLElement;
-    let formSubmitDebugElement: DebugElement;
+    let fixture: ComponentFixture<TestFormFullComponent> | undefined = undefined;
+    let testComponent: TestFormFullComponent | undefined = undefined;
+    let formDebugElement: DebugElement | undefined = undefined;
+    let formDirective: ThyFormDirective | undefined = undefined;
+    let formElement: HTMLElement | undefined = undefined;
+    let formSubmitDebugElement: DebugElement | undefined = undefined;
 
     function focusTextarea() {
         const descriptionElement: HTMLInputElement = formElement.querySelector('[name=description]');
@@ -285,7 +285,7 @@ describe('form validate', () => {
 
     function assertElementInvalidError(elementName: string, message: string = `user name is required`) {
         const input = formElement.querySelector(`[name=${elementName}`);
-        let invalidFeedbackElement = input.parentElement.querySelector('.invalid-feedback');
+        const invalidFeedbackElement = input.parentElement.querySelector('.invalid-feedback');
         expect(invalidFeedbackElement).toBeTruthy();
         expect(invalidFeedbackElement.textContent).toContain(message);
     }
@@ -568,16 +568,16 @@ describe('form validate', () => {
 });
 
 describe('reactive form validate', () => {
-    let fixture: ComponentFixture<TestFormReactiveComponent>;
-    let testComponent: TestFormReactiveComponent;
-    let formDebugElement: DebugElement;
-    let formDirective: ThyFormDirective;
-    let formElement: HTMLElement;
-    let formSubmitDebugElement: DebugElement;
+    let fixture: ComponentFixture<TestFormReactiveComponent> | undefined = undefined;
+    let testComponent: TestFormReactiveComponent | undefined = undefined;
+    let formDebugElement: DebugElement | undefined = undefined;
+    let formDirective: ThyFormDirective | undefined = undefined;
+    let formElement: HTMLElement | undefined = undefined;
+    let formSubmitDebugElement: DebugElement | undefined = undefined;
 
     function assertElementInvalidError(elementName: string, message: string = `user name is required`) {
         const input = formElement.querySelector(`[name=${elementName}`);
-        let invalidFeedbackElement = input.parentElement.querySelector('.invalid-feedback');
+        const invalidFeedbackElement = input.parentElement.querySelector('.invalid-feedback');
         expect(invalidFeedbackElement).toBeTruthy();
         expect(invalidFeedbackElement.textContent).toContain(message);
     }
@@ -764,12 +764,12 @@ describe('reactive form validate', () => {
 export class TestNoFormSubmitComponent {}
 
 describe(`enter keydown`, () => {
-    let fixture: ComponentFixture<TestNoFormSubmitComponent>;
-    let testComponent: TestNoFormSubmitComponent;
-    let formDebugElement: DebugElement;
-    let formDirective: ThyFormDirective;
-    let formElement: HTMLElement;
-    let formSubmitDebugElement: DebugElement;
+    let fixture: ComponentFixture<TestNoFormSubmitComponent> | undefined = undefined;
+    let testComponent: TestNoFormSubmitComponent | undefined = undefined;
+    let formDebugElement: DebugElement | undefined = undefined;
+    let formDirective: ThyFormDirective | undefined = undefined;
+    let formElement: HTMLElement | undefined = undefined;
+    let formSubmitDebugElement: DebugElement | undefined = undefined;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({

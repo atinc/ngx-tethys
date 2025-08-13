@@ -8,10 +8,10 @@ import { ThyAnchorModule, ThyAnchor, ThyAnchorLink } from 'ngx-tethys/anchor';
 
 describe('thy-anchor', () => {
     describe('default', () => {
-        let fixture: ComponentFixture<TestAnchorComponent>;
-        let debugElement: DebugElement;
-        let component: ThyAnchor;
-        let scrollService: ThyScrollService;
+        let fixture: ComponentFixture<TestAnchorComponent> | undefined = undefined;
+        let debugElement: DebugElement | undefined = undefined;
+        let component: ThyAnchor | undefined = undefined;
+        let scrollService: ThyScrollService | undefined = undefined;
         const id = 'components-anchor-demo-basic';
 
         beforeEach(() => {
@@ -35,7 +35,7 @@ describe('thy-anchor', () => {
         }));
 
         it(`should do anything when thy-anchor-link's thyHref element is not found`, fakeAsync(() => {
-            let invalidId = 'will-not-found-id';
+            const invalidId = 'will-not-found-id';
             const beforeClickScrollTop = scrollService.getScroll();
             const staticLink: HTMLElement = debugElement.query(By.css(`[href="#${invalidId}"]`)).nativeElement;
             dispatchFakeEvent(staticLink, 'click');
@@ -69,8 +69,8 @@ describe('thy-anchor', () => {
     });
 
     describe('thyContainer', () => {
-        let fixture: ComponentFixture<TestContainerAnchorComponent>;
-        let debugElement: DebugElement;
+        let fixture: ComponentFixture<TestContainerAnchorComponent> | undefined = undefined;
+        let debugElement: DebugElement | undefined = undefined;
         const id = 'components-anchor-demo-basic';
         const containerClass = '.demo-card';
 
@@ -97,7 +97,7 @@ describe('thy-anchor', () => {
     });
 
     describe('thyAnchorLink', () => {
-        let fixture: ComponentFixture<TestThyAnchorLinkComponent>;
+        let fixture: ComponentFixture<TestThyAnchorLinkComponent> | undefined = undefined;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -118,10 +118,10 @@ describe('thy-anchor', () => {
     });
 
     describe('horizontal anchor', () => {
-        let fixture: ComponentFixture<TestAnchorComponent>;
-        let debugElement: DebugElement;
-        let component: ThyAnchor;
-        let scrollService: ThyScrollService;
+        let fixture: ComponentFixture<TestAnchorComponent> | undefined = undefined;
+        let debugElement: DebugElement | undefined = undefined;
+        let component: ThyAnchor | undefined = undefined;
+        let scrollService: ThyScrollService | undefined = undefined;
         const id = 'components-anchor-demo-basic';
 
         beforeEach(() => {

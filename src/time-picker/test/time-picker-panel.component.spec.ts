@@ -6,9 +6,9 @@ import { ThyTimePanel, ThyTimePickerModule } from 'ngx-tethys/time-picker';
 import { provideHttpClient } from '@angular/common/http';
 
 describe('ThyTimePanelComponent', () => {
-    let fixture: ComponentFixture<ThyTestTimePanelComponent>;
-    let fixtureInstance: ThyTestTimePanelComponent;
-    let debugElement: DebugElement;
+    let fixture: ComponentFixture<ThyTestTimePanelComponent> | undefined = undefined;
+    let fixtureInstance: ThyTestTimePanelComponent | undefined = undefined;
+    let debugElement: DebugElement | undefined = undefined;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -132,7 +132,7 @@ describe('ThyTimePanelComponent', () => {
         it('should support pick hour,minute,second and emit change event', fakeAsync(() => {
             const date = new Date();
             date.setHours(10, 20, 3);
-            let newDate = new Date(date);
+            const newDate = new Date(date);
             fixtureInstance.value = date;
             fixture.detectChanges();
             tick(500);
@@ -160,7 +160,7 @@ describe('ThyTimePanelComponent', () => {
         it('should support confirm emit change', fakeAsync(() => {
             const date = new Date();
             date.setHours(10, 20, 3);
-            let newDate = new Date(date);
+            const newDate = new Date(date);
             fixtureInstance.value = date;
             fixture.detectChanges();
             tick(500);

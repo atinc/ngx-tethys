@@ -26,10 +26,10 @@ class ThyTestWatermarkBasicComponent implements OnInit {
 }
 
 describe('WatermarkDirective', () => {
-    let fixture: ComponentFixture<ThyTestWatermarkBasicComponent>;
-    let divDebugElement: DebugElement;
-    let watermarkDirective: ThyWatermarkDirective;
-    let testComponent: any;
+    let fixture: ComponentFixture<ThyTestWatermarkBasicComponent> | undefined = undefined;
+    let divDebugElement: DebugElement | undefined = undefined;
+    let watermarkDirective: ThyWatermarkDirective | undefined = undefined;
+    let testComponent: any | undefined = undefined;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({}).compileComponents();

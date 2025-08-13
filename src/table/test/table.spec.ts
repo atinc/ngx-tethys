@@ -205,11 +205,11 @@ class ThyDemoDefaultTableComponent {
 }
 
 describe('ThyTable: basic', () => {
-    let fixture: ComponentFixture<ThyDemoDefaultTableComponent>;
-    let testComponent: ThyDemoDefaultTableComponent;
-    let tableComponent: any;
-    let table: HTMLElement;
-    let rows: any;
+    let fixture: ComponentFixture<ThyDemoDefaultTableComponent> | undefined = undefined;
+    let testComponent: ThyDemoDefaultTableComponent | undefined = undefined;
+    let tableComponent: any | undefined = undefined;
+    let table: HTMLElement | undefined = undefined;
+    let rows: any | undefined = undefined;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -798,11 +798,11 @@ class ThyDemoGroupTableComponent {
 }
 
 describe('ThyTable: group', () => {
-    let fixture: ComponentFixture<ThyDemoGroupTableComponent>;
-    let testComponent: ThyDemoGroupTableComponent;
-    let tableComponent: DebugElement;
-    let table: HTMLElement;
-    let rows: any;
+    let fixture: ComponentFixture<ThyDemoGroupTableComponent> | undefined = undefined;
+    let testComponent: ThyDemoGroupTableComponent | undefined = undefined;
+    let tableComponent: DebugElement | undefined = undefined;
+    let table: HTMLElement | undefined = undefined;
+    let rows: any | undefined = undefined;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -1057,9 +1057,9 @@ class ThyDemoEmptyTableComponent {
     }
 }
 describe('ThyTable: empty', () => {
-    let fixture: ComponentFixture<ThyDemoEmptyTableComponent>;
-    let testComponent: ThyDemoEmptyTableComponent;
-    let tableComponent: DebugElement;
+    let fixture: ComponentFixture<ThyDemoEmptyTableComponent> | undefined = undefined;
+    let testComponent: ThyDemoEmptyTableComponent | undefined = undefined;
+    let tableComponent: DebugElement | undefined = undefined;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -1107,9 +1107,9 @@ class ThyDemoFixedTableComponent {
 }
 
 describe('ThyTable: fixed', () => {
-    let fixture: ComponentFixture<ThyDemoFixedTableComponent>;
-    let testComponent: ThyDemoFixedTableComponent;
-    let tableComponent: DebugElement;
+    let fixture: ComponentFixture<ThyDemoFixedTableComponent> | undefined = undefined;
+    let testComponent: ThyDemoFixedTableComponent | undefined = undefined;
+    let tableComponent: DebugElement | undefined = undefined;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -1176,9 +1176,9 @@ class ThyDemoSortTableComponent {
 }
 
 describe('ThyTable: sort', () => {
-    let fixture: ComponentFixture<ThyDemoSortTableComponent>;
-    let testComponent: ThyDemoSortTableComponent;
-    let tableComponent: DebugElement;
+    let fixture: ComponentFixture<ThyDemoSortTableComponent> | undefined = undefined;
+    let testComponent: ThyDemoSortTableComponent | undefined = undefined;
+    let tableComponent: DebugElement | undefined = undefined;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({

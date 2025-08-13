@@ -3,10 +3,10 @@ import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/te
 import { createTestWorkspaceFactory } from '../../testing';
 
 describe('ng-update v19 Schematic', () => {
-    let tree: Tree;
+    let tree: Tree | undefined = undefined;
     const schematicRunner = new SchematicTestRunner('migrations', require.resolve('../migration-collection.json'));
 
-    let workspaceTree: UnitTestTree;
+    let workspaceTree: UnitTestTree | undefined = undefined;
 
     beforeEach(async () => {
         const factory = createTestWorkspaceFactory(schematicRunner);

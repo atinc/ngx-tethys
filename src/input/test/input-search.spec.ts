@@ -39,11 +39,11 @@ class TestInputSearchBasicComponent {
 }
 
 describe('input search', () => {
-    let fixture: ComponentFixture<TestInputSearchBasicComponent>;
-    let basicTestComponent: TestInputSearchBasicComponent;
-    let debugInputElement: DebugElement;
-    let debugSearchElement: DebugElement;
-    let searchElement: HTMLElement;
+    let fixture: ComponentFixture<TestInputSearchBasicComponent> | undefined = undefined;
+    let basicTestComponent: TestInputSearchBasicComponent | undefined = undefined;
+    let debugInputElement: DebugElement | undefined = undefined;
+    let debugSearchElement: DebugElement | undefined = undefined;
+    let searchElement: HTMLElement | undefined = undefined;
 
     beforeEach(() => {
         TestBed.configureTestingModule({

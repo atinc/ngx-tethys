@@ -20,12 +20,12 @@ class thySkeletonTestComponent {
 }
 
 describe('skeleton ', () => {
-    let fixture: ComponentFixture<thySkeletonTestComponent>;
-    let skeletonComponent: thySkeletonTestComponent;
-    let circleDebugComponent: DebugElement;
-    let circleElement: HTMLElement;
-    let rectangleDebugComponent: DebugElement;
-    let rectangleElement: HTMLElement;
+    let fixture: ComponentFixture<thySkeletonTestComponent> | undefined = undefined;
+    let skeletonComponent: thySkeletonTestComponent | undefined = undefined;
+    let circleDebugComponent: DebugElement | undefined = undefined;
+    let circleElement: HTMLElement | undefined = undefined;
+    let rectangleDebugComponent: DebugElement | undefined = undefined;
+    let rectangleElement: HTMLElement | undefined = undefined;
 
     beforeEach(() => {
         TestBed.configureTestingModule({});

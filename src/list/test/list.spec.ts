@@ -5,9 +5,9 @@ import { ThyListModule, ThyList } from 'ngx-tethys/list';
 import { provideHttpClient } from '@angular/common/http';
 
 describe('list', () => {
-    let fixture: ComponentFixture<TestListComponent>;
-    let listDebugElement: DebugElement;
-    let listElement: HTMLElement;
+    let fixture: ComponentFixture<TestListComponent> | undefined = undefined;
+    let listDebugElement: DebugElement | undefined = undefined;
+    let listElement: HTMLElement | undefined = undefined;
 
     beforeEach(() => {
         TestBed.configureTestingModule({

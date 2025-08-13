@@ -41,7 +41,7 @@ describe('form-validator-loader', () => {
         }
     };
 
-    let formValidatorLoader: ThyFormValidatorLoader;
+    let formValidatorLoader: ThyFormValidatorLoader | undefined = undefined;
 
     function run(fn: Function): void {
         runInInjectionContext(TestBed.inject(EnvironmentInjector), () => {

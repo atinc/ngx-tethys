@@ -19,11 +19,11 @@ class ImageDirectiveTestComponent {
 }
 
 describe('image-directive', () => {
-    let fixture: ComponentFixture<ImageDirectiveTestComponent>;
-    let basicTestComponent: ImageDirectiveTestComponent;
-    let debugElement: DebugElement;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let fixture: ComponentFixture<ImageDirectiveTestComponent> | undefined = undefined;
+    let basicTestComponent: ImageDirectiveTestComponent | undefined = undefined;
+    let debugElement: DebugElement | undefined = undefined;
+    let overlayContainer: OverlayContainer | undefined = undefined;
+    let overlayContainerElement: HTMLElement | undefined = undefined;
 
     beforeEach(() => {
         TestBed.configureTestingModule({

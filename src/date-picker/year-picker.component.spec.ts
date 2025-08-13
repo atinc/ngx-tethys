@@ -13,11 +13,11 @@ import { provideHttpClient } from '@angular/common/http';
 registerLocaleData(zh);
 
 describe('ThyYearPickerComponent', () => {
-    let fixture: ComponentFixture<TestYearPickerComponent>;
-    let fixtureInstance: TestYearPickerComponent;
-    let debugElement: DebugElement;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let fixture: ComponentFixture<TestYearPickerComponent> | undefined = undefined;
+    let fixtureInstance: TestYearPickerComponent | undefined = undefined;
+    let debugElement: DebugElement | undefined = undefined;
+    let overlayContainer: OverlayContainer | undefined = undefined;
+    let overlayContainerElement: HTMLElement | undefined = undefined;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({

@@ -50,8 +50,8 @@ class ThyPropertyTestBasicComponent {
 
 describe(`thy-property-item`, () => {
     describe(`basic`, () => {
-        let fixture: ComponentFixture<ThyPropertyTestBasicComponent>;
-        let basicComponent: ThyPropertyTestBasicComponent;
+        let fixture: ComponentFixture<ThyPropertyTestBasicComponent> | undefined = undefined;
+        let basicComponent: ThyPropertyTestBasicComponent | undefined = undefined;
 
         beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({

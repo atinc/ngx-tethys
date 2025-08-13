@@ -233,13 +233,13 @@ class TestGuiderMultiTargetsComponent implements OnInit {
 const TEST_COMPONENTS = [GuiderBasicComponent, TestGuiderDirectiveComponent, TestGuiderMultiTargetsComponent];
 
 describe(`thyGuider`, () => {
-    let guider: ThyGuider;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: Element;
-    let fixture: ComponentFixture<GuiderBasicComponent>;
-    let fixtureInstance: GuiderBasicComponent;
-    let debugElement: DebugElement;
-    let managerService: ThyGuiderManager;
+    let guider: ThyGuider | undefined = undefined;
+    let overlayContainer: OverlayContainer | undefined = undefined;
+    let overlayContainerElement: Element | undefined = undefined;
+    let fixture: ComponentFixture<GuiderBasicComponent> | undefined = undefined;
+    let fixtureInstance: GuiderBasicComponent | undefined = undefined;
+    let debugElement: DebugElement | undefined = undefined;
+    let managerService: ThyGuiderManager | undefined = undefined;
     const routerSpy = jasmine.createSpyObj('Router', ['navigateByUrl']);
 
     beforeEach(fakeAsync(() => {
@@ -265,8 +265,8 @@ describe(`thyGuider`, () => {
     });
 
     describe('basic', () => {
-        let basicConfig: ThyGuiderConfig;
-        let guiderRef: ThyGuiderRef;
+        let basicConfig: ThyGuiderConfig | undefined = undefined;
+        let guiderRef: ThyGuiderRef | undefined = undefined;
         beforeEach(() => {
             basicConfig = {
                 steps: [
@@ -549,9 +549,9 @@ describe(`thyGuider`, () => {
     });
 
     describe('guider directive and guider manager service', () => {
-        let fixtureOfDirective: ComponentFixture<TestGuiderDirectiveComponent>;
-        let fixtureInstanceOfDirective: TestGuiderDirectiveComponent;
-        let debugElement: DebugElement;
+        let fixtureOfDirective: ComponentFixture<TestGuiderDirectiveComponent> | undefined = undefined;
+        let fixtureInstanceOfDirective: TestGuiderDirectiveComponent | undefined = undefined;
+        let debugElement: DebugElement | undefined = undefined;
         beforeEach(() => {
             fixtureOfDirective = TestBed.createComponent(TestGuiderDirectiveComponent);
             fixtureInstanceOfDirective = fixtureOfDirective.componentInstance;
@@ -610,9 +610,9 @@ describe(`thyGuider`, () => {
     });
 
     describe('multi target', () => {
-        let fixtureOfMulti: ComponentFixture<TestGuiderMultiTargetsComponent>;
-        let fixtureInstanceOfMulti: TestGuiderMultiTargetsComponent;
-        let debugElement: DebugElement;
+        let fixtureOfMulti: ComponentFixture<TestGuiderMultiTargetsComponent> | undefined = undefined;
+        let fixtureInstanceOfMulti: TestGuiderMultiTargetsComponent | undefined = undefined;
+        let debugElement: DebugElement | undefined = undefined;
         beforeEach(() => {
             fixtureOfMulti = TestBed.createComponent(TestGuiderMultiTargetsComponent);
             fixtureInstanceOfMulti = fixtureOfMulti.componentInstance;

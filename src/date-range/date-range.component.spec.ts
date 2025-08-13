@@ -29,11 +29,11 @@ registerLocaleData(zh);
 const CURRENT_DATE = new Date();
 
 describe('ThyTestDateRangeComponent', () => {
-    let fixture: ComponentFixture<ThyTestDateRangeComponent>;
-    let fixtureInstance: ThyTestDateRangeComponent;
-    let debugElement: DebugElement;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let fixture: ComponentFixture<ThyTestDateRangeComponent> | undefined = undefined;
+    let fixtureInstance: ThyTestDateRangeComponent | undefined = undefined;
+    let debugElement: DebugElement | undefined = undefined;
+    let overlayContainer: OverlayContainer | undefined = undefined;
+    let overlayContainerElement: HTMLElement | undefined = undefined;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({

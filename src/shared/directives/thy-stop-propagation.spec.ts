@@ -130,9 +130,9 @@ class ThyStopPropagationDirectiveWithDynamicBindingComponent {
 
 describe('thy-stop-propagation', () => {
     describe('thy-stop-propagation', () => {
-        let fixture: ComponentFixture<ThyStopPropagationDirectiveTrueViewComponent>;
-        let fixtureInstance: ThyStopPropagationDirectiveTrueViewComponent;
-        let childElement: DebugElement;
+        let fixture: ComponentFixture<ThyStopPropagationDirectiveTrueViewComponent> | undefined = undefined;
+        let fixtureInstance: ThyStopPropagationDirectiveTrueViewComponent | undefined = undefined;
+        let childElement: DebugElement | undefined = undefined;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -154,9 +154,9 @@ describe('thy-stop-propagation', () => {
     });
 
     describe('thy-stop-propagation-true', () => {
-        let fixture: ComponentFixture<ThyStopPropagationDirectiveTrueComponent>;
-        let fixtureInstance: ThyStopPropagationDirectiveTrueComponent;
-        let childElement: DebugElement;
+        let fixture: ComponentFixture<ThyStopPropagationDirectiveTrueComponent> | undefined = undefined;
+        let fixtureInstance: ThyStopPropagationDirectiveTrueComponent | undefined = undefined;
+        let childElement: DebugElement | undefined = undefined;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -178,9 +178,9 @@ describe('thy-stop-propagation', () => {
     });
 
     describe('thyStopPropagation value is string true', () => {
-        let fixture: ComponentFixture<ThyStopPropagationDirectiveStringTrueComponent>;
-        let fixtureInstance: ThyStopPropagationDirectiveStringTrueComponent;
-        let childElement: DebugElement;
+        let fixture: ComponentFixture<ThyStopPropagationDirectiveStringTrueComponent> | undefined = undefined;
+        let fixtureInstance: ThyStopPropagationDirectiveStringTrueComponent | undefined = undefined;
+        let childElement: DebugElement | undefined = undefined;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -202,9 +202,9 @@ describe('thy-stop-propagation', () => {
     });
 
     describe('thyStopPropagation value is boolean true', () => {
-        let fixture: ComponentFixture<ThyStopPropagationDirectiveBooleanTrueComponent>;
-        let fixtureInstance: ThyStopPropagationDirectiveBooleanTrueComponent;
-        let childElement: DebugElement;
+        let fixture: ComponentFixture<ThyStopPropagationDirectiveBooleanTrueComponent> | undefined = undefined;
+        let fixtureInstance: ThyStopPropagationDirectiveBooleanTrueComponent | undefined = undefined;
+        let childElement: DebugElement | undefined = undefined;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -226,9 +226,9 @@ describe('thy-stop-propagation', () => {
     });
 
     describe('thy-stop-propagation-false', () => {
-        let fixture: ComponentFixture<ThyStopPropagationDirectiveFalseComponent>;
-        let fixtureInstance: ThyStopPropagationDirectiveFalseComponent;
-        let childElement: DebugElement;
+        let fixture: ComponentFixture<ThyStopPropagationDirectiveFalseComponent> | undefined = undefined;
+        let fixtureInstance: ThyStopPropagationDirectiveFalseComponent | undefined = undefined;
+        let childElement: DebugElement | undefined = undefined;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -250,9 +250,9 @@ describe('thy-stop-propagation', () => {
     });
 
     describe('thy-stop-propagation-false', () => {
-        let fixture: ComponentFixture<ThyStopPropagationDirectiveFalseViewComponent>;
-        let fixtureInstance: ThyStopPropagationDirectiveFalseViewComponent;
-        let childElement: DebugElement;
+        let fixture: ComponentFixture<ThyStopPropagationDirectiveFalseViewComponent> | undefined = undefined;
+        let fixtureInstance: ThyStopPropagationDirectiveFalseViewComponent | undefined = undefined;
+        let childElement: DebugElement | undefined = undefined;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -274,9 +274,9 @@ describe('thy-stop-propagation', () => {
     });
 
     describe('thy-stop-propagation-event', () => {
-        let fixture: ComponentFixture<ThyStopPropagationDirectiveEventComponent>;
-        let fixtureInstance: ThyStopPropagationDirectiveEventComponent;
-        let childElement: DebugElement;
+        let fixture: ComponentFixture<ThyStopPropagationDirectiveEventComponent> | undefined = undefined;
+        let fixtureInstance: ThyStopPropagationDirectiveEventComponent | undefined = undefined;
+        let childElement: DebugElement | undefined = undefined;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -298,9 +298,9 @@ describe('thy-stop-propagation', () => {
     });
 
     describe('thyStopPropagation value is mouseover', () => {
-        let fixture: ComponentFixture<ThyStopPropagationDirectiveValueIsEventNameComponent>;
-        let fixtureInstance: ThyStopPropagationDirectiveValueIsEventNameComponent;
-        let childElement: DebugElement;
+        let fixture: ComponentFixture<ThyStopPropagationDirectiveValueIsEventNameComponent> | undefined = undefined;
+        let fixtureInstance: ThyStopPropagationDirectiveValueIsEventNameComponent | undefined = undefined;
+        let childElement: DebugElement | undefined = undefined;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -328,9 +328,9 @@ describe('thy-stop-propagation', () => {
     });
 
     describe('thyStopPropagation value is undefined', () => {
-        let fixture: ComponentFixture<ThyStopPropagationDirectiveValueIsUndefinedComponent>;
-        let fixtureInstance: ThyStopPropagationDirectiveValueIsUndefinedComponent;
-        let childElement: DebugElement;
+        let fixture: ComponentFixture<ThyStopPropagationDirectiveValueIsUndefinedComponent> | undefined = undefined;
+        let fixtureInstance: ThyStopPropagationDirectiveValueIsUndefinedComponent | undefined = undefined;
+        let childElement: DebugElement | undefined = undefined;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -352,9 +352,9 @@ describe('thy-stop-propagation', () => {
     });
 
     describe('thyStopPropagation with dynamic binding', () => {
-        let fixture: ComponentFixture<ThyStopPropagationDirectiveWithDynamicBindingComponent>;
-        let fixtureInstance: ThyStopPropagationDirectiveWithDynamicBindingComponent;
-        let childElement: DebugElement;
+        let fixture: ComponentFixture<ThyStopPropagationDirectiveWithDynamicBindingComponent> | undefined = undefined;
+        let fixtureInstance: ThyStopPropagationDirectiveWithDynamicBindingComponent | undefined = undefined;
+        let childElement: DebugElement | undefined = undefined;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});

@@ -18,9 +18,9 @@ export class FakeFullscreenService extends ThyFullscreen {
 }
 
 describe('ThyFullscreen', () => {
-    let fixture: ComponentFixture<ThyDemoFullscreenComponent>;
-    let testComponent: ThyDemoFullscreenComponent;
-    let fullscreenComponent: DebugElement;
+    let fixture: ComponentFixture<ThyDemoFullscreenComponent> | undefined = undefined;
+    let testComponent: ThyDemoFullscreenComponent | undefined = undefined;
+    let fullscreenComponent: DebugElement | undefined = undefined;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -131,9 +131,9 @@ class ThyDemoFullscreenComponent {
 }
 
 describe('Container ThyFullscreen', () => {
-    let fixture: ComponentFixture<ThyContainerFullscreenTestComponent>;
-    let testComponent: ThyContainerFullscreenTestComponent;
-    let fullscreenComponent: DebugElement;
+    let fixture: ComponentFixture<ThyContainerFullscreenTestComponent> | undefined = undefined;
+    let testComponent: ThyContainerFullscreenTestComponent | undefined = undefined;
+    let fullscreenComponent: DebugElement | undefined = undefined;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -200,7 +200,7 @@ describe('Container ThyFullscreen', () => {
 });
 
 describe('`thy-fulscreen` with dynamic launch button', () => {
-    let fixture: ComponentFixture<ThyContainerFullscreenDynamicLaunchComponent>;
+    let fixture: ComponentFixture<ThyContainerFullscreenDynamicLaunchComponent> | undefined = undefined;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({

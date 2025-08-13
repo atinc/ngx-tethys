@@ -24,11 +24,11 @@ import {
 registerLocaleData(zh);
 
 describe('ThyRangePickerComponent', () => {
-    let fixture: ComponentFixture<ThyTestRangePickerComponent>;
-    let fixtureInstance: ThyTestRangePickerComponent;
-    let debugElement: DebugElement;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let fixture: ComponentFixture<ThyTestRangePickerComponent> | undefined = undefined;
+    let fixtureInstance: ThyTestRangePickerComponent | undefined = undefined;
+    let debugElement: DebugElement | undefined = undefined;
+    let overlayContainer: OverlayContainer | undefined = undefined;
+    let overlayContainerElement: HTMLElement | undefined = undefined;
 
     const leftYearBtn = '.thy-calendar-range-left .thy-calendar-year-btn';
     const leftMonthBtn = '.thy-calendar-range-left .thy-calendar-month-btn';
@@ -105,7 +105,7 @@ describe('ThyRangePickerComponent', () => {
             fixture.detectChanges();
         });
 
-        let rangePresets = shortcutRangesPresets();
+        const rangePresets = shortcutRangesPresets();
         const shortcutIndex = 0;
         const startDate: number = rangePresets[shortcutIndex].value[0];
         const endDate: number = rangePresets[shortcutIndex].value[1];
@@ -420,7 +420,7 @@ describe('ThyRangePickerComponent', () => {
         it('should support thyDateChange', fakeAsync(() => {
             fixtureInstance.thyShowShortcut = true;
             fixtureInstance.thyTimestampPrecision = 'milliseconds';
-            let rangePresets = shortcutRangesPresets();
+            const rangePresets = shortcutRangesPresets();
             const triggerPreset = Object.assign(rangePresets[0], { disabled: false });
             const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
             fixture.detectChanges();

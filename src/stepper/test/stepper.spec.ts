@@ -43,8 +43,8 @@ class ThyDemoStepperComponent {
 }
 
 describe('ThyStepper', () => {
-    let fixture: ComponentFixture<ThyDemoStepperComponent>;
-    let testComponent: ThyDemoStepperComponent;
+    let fixture: ComponentFixture<ThyDemoStepperComponent> | undefined = undefined;
+    let testComponent: ThyDemoStepperComponent | undefined = undefined;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({

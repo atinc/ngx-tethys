@@ -48,10 +48,10 @@ class TestBedComponent {
 }
 
 describe('input component', () => {
-    let fixture: ComponentFixture<TestBedComponent>;
-    let basicTestComponent: TestBedComponent;
-    let debugElement: DebugElement;
-    let debugContainerElement: DebugElement;
+    let fixture: ComponentFixture<TestBedComponent> | undefined = undefined;
+    let basicTestComponent: TestBedComponent | undefined = undefined;
+    let debugElement: DebugElement | undefined = undefined;
+    let debugContainerElement: DebugElement | undefined = undefined;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({

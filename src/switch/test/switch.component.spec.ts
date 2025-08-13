@@ -25,11 +25,11 @@ class SwitchTestComponent {
 }
 
 describe('switch component', () => {
-    let fixture: ComponentFixture<SwitchTestComponent>;
-    let testComponent: SwitchTestComponent;
-    let switchDebugComponent: DebugElement;
-    let switchElement: HTMLElement;
-    let labelNode: SafeAny;
+    let fixture: ComponentFixture<SwitchTestComponent> | undefined = undefined;
+    let testComponent: SwitchTestComponent | undefined = undefined;
+    let switchDebugComponent: DebugElement | undefined = undefined;
+    let switchElement: HTMLElement | undefined = undefined;
+    let labelNode: SafeAny | undefined = undefined;
 
     beforeEach(() => {
         TestBed.configureTestingModule({});

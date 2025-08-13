@@ -84,8 +84,8 @@ class ThyTestAvatarComponent {
 }
 
 describe('ThyAvatarComponent', () => {
-    let fixture: ComponentFixture<ThyTestAvatarComponent>;
-    let componentInstance: ThyTestAvatarComponent;
+    let fixture: ComponentFixture<ThyTestAvatarComponent> | undefined = undefined;
+    let componentInstance: ThyTestAvatarComponent | undefined = undefined;
 
     beforeEach(() => {
         TestBed.configureTestingModule({

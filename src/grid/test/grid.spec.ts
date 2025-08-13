@@ -62,10 +62,10 @@ export class TestGridBasicComponent {
 
 describe('grid', () => {
     describe('default', () => {
-        let fixture: ComponentFixture<TestGridDefaultComponent>;
-        let gridDebugElement: DebugElement;
-        let gridElement: HTMLElement;
-        let gridInstance: ThyGrid;
+        let fixture: ComponentFixture<TestGridDefaultComponent> | undefined = undefined;
+        let gridDebugElement: DebugElement | undefined = undefined;
+        let gridElement: HTMLElement | undefined = undefined;
+        let gridInstance: ThyGrid | undefined = undefined;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -118,11 +118,11 @@ describe('grid', () => {
     });
 
     describe('basic', () => {
-        let fixture: ComponentFixture<TestGridBasicComponent>;
-        let gridDebugElement: DebugElement;
-        let gridElement: HTMLElement;
-        let gridInstance: ThyGrid;
-        let testComponent: TestGridBasicComponent;
+        let fixture: ComponentFixture<TestGridBasicComponent> | undefined = undefined;
+        let gridDebugElement: DebugElement | undefined = undefined;
+        let gridElement: HTMLElement | undefined = undefined;
+        let gridInstance: ThyGrid | undefined = undefined;
+        let testComponent: TestGridBasicComponent | undefined = undefined;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});

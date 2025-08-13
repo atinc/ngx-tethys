@@ -273,10 +273,10 @@ export class ThyResizableDirective implements OnDestroy {
     }
 
     calcSize(width: number, height: number, ratio: number): ThyResizeEvent {
-        let newWidth: number;
-        let newHeight: number;
-        let maxWidth: number;
-        let maxHeight: number;
+        let newWidth: number | undefined = undefined;
+        let newHeight: number | undefined = undefined;
+        let maxWidth: number | undefined = undefined;
+        let maxHeight: number | undefined = undefined;
         let col = 0;
         let spanWidth = 0;
         let minWidth = this.thyMinWidth();

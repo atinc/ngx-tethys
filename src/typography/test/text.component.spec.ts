@@ -40,7 +40,7 @@ describe('thy-text', () => {
     }));
 
     describe('basic', () => {
-        let fixture: ComponentFixture<ThyTextBasicTestComponent>;
+        let fixture: ComponentFixture<ThyTextBasicTestComponent> | undefined = undefined;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyTextBasicTestComponent);
@@ -86,9 +86,9 @@ describe('thy-text', () => {
     });
 
     describe('bg-color', () => {
-        let fixture: ComponentFixture<ThyTextBackgroundTestComponent>;
-        let bgColorTestComponent: ThyTextBackgroundTestComponent;
-        let textDebugElement: DebugElement;
+        let fixture: ComponentFixture<ThyTextBackgroundTestComponent> | undefined = undefined;
+        let bgColorTestComponent: ThyTextBackgroundTestComponent | undefined = undefined;
+        let textDebugElement: DebugElement | undefined = undefined;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyTextBackgroundTestComponent);

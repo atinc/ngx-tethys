@@ -100,10 +100,10 @@ describe('carousel', () => {
     }));
 
     describe('basic', () => {
-        let fixture: ComponentFixture<ThyTestCarouselBasicComponent>;
-        let basicTestComponent: ThyTestCarouselBasicComponent;
-        let carouselWrapper: DebugElement;
-        let carouselContents: DebugElement[];
+        let fixture: ComponentFixture<ThyTestCarouselBasicComponent> | undefined = undefined;
+        let basicTestComponent: ThyTestCarouselBasicComponent | undefined = undefined;
+        let carouselWrapper: DebugElement | undefined = undefined;
+        let carouselContents: DebugElement[] | undefined = undefined;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyTestCarouselBasicComponent);
@@ -268,9 +268,9 @@ describe('carousel', () => {
     });
 
     describe('touchable', () => {
-        let fixture: ComponentFixture<ThyTestCarouselTouchableComponent>;
-        let touchableTestComponent: ThyTestCarouselTouchableComponent;
-        let carouselContents: DebugElement[];
+        let fixture: ComponentFixture<ThyTestCarouselTouchableComponent> | undefined = undefined;
+        let touchableTestComponent: ThyTestCarouselTouchableComponent | undefined = undefined;
+        let carouselContents: DebugElement[] | undefined = undefined;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyTestCarouselTouchableComponent);

@@ -1,12 +1,12 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { Component, effect, HostBinding, input, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, effect, input, ViewEncapsulation } from '@angular/core';
 
 export type ButtonGroupSize = 'sm' | 'lg' | 'xs' | 'md';
 
 export type ButtonGroupType = 'outline-primary' | 'outline-default';
 
-const buttonGroupSizeMap = {
+const buttonGroupSizeMap: Record<ButtonGroupSize, string[]> = {
     sm: ['btn-group-sm'],
     md: ['btn-group-md'],
     lg: ['btn-group-lg'],
@@ -20,7 +20,7 @@ const buttonGroupSizeMap = {
  */
 @Component({
     selector: 'thy-button-group',
-    template: '<ng-content></ng-content>',
+    template: `<ng-content></ng-content>`,
     host: {
         class: 'btn-group',
         '[class.btn-group-clear-min-width]': 'thyClearMinWidth()'
@@ -63,8 +63,8 @@ export class ThyButtonGroup {
         if (type) {
             classNames.push(`btn-group-${type}`);
         }
-        if (buttonGroupSizeMap[size]) {
-            classNames = classNames.concat(...buttonGroupSizeMap[size]);
+        if (size && size in buttonGroupSizeMap) {
+            classNames = classNames.concat(buttonGroupSizeMap[size]);
         }
         this.hostRenderer.updateClass(classNames);
     }

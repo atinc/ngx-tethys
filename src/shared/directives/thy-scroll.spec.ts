@@ -4,8 +4,8 @@ import { ThySharedModule, ThyScrollDirective } from 'ngx-tethys/shared';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
 
 describe('thy-scroll', () => {
-    let fixture: ComponentFixture<ThyScrollViewportComponent>;
-    let testComponent: ThyScrollViewportComponent;
+    let fixture: ComponentFixture<ThyScrollViewportComponent> | undefined = undefined;
+    let testComponent: ThyScrollViewportComponent | undefined = undefined;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({});

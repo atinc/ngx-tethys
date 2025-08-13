@@ -165,10 +165,10 @@ describe(`thy-nav-ink-bar`, () => {
     });
 
     describe('basic', () => {
-        let overlayContainer: OverlayContainer;
-        let fixture: ComponentFixture<NavInkBarComponent>;
-        let navInkBarDebugElement: DebugElement;
-        let navInkBarElement: HTMLElement;
+        let overlayContainer: OverlayContainer | undefined = undefined;
+        let fixture: ComponentFixture<NavInkBarComponent> | undefined = undefined;
+        let navInkBarDebugElement: DebugElement | undefined = undefined;
+        let navInkBarElement: HTMLElement | undefined = undefined;
         beforeEach(() => {
             fixture = TestBed.createComponent(NavInkBarComponent);
             overlayContainer = TestBed.inject(OverlayContainer);
@@ -245,11 +245,11 @@ describe(`thy-nav-ink-bar-router-link-active-mode`, () => {
     });
 
     describe('basic', () => {
-        let overlayContainer: OverlayContainer;
-        let fixture: ComponentFixture<NavInkBarRouterLinkActiveModeComponent>;
-        let navInkBarDebugElement: DebugElement;
-        let navInkBarElement: HTMLElement;
-        let router: Router;
+        let overlayContainer: OverlayContainer | undefined = undefined;
+        let fixture: ComponentFixture<NavInkBarRouterLinkActiveModeComponent> | undefined = undefined;
+        let navInkBarDebugElement: DebugElement | undefined = undefined;
+        let navInkBarElement: HTMLElement | undefined = undefined;
+        let router: Router | undefined = undefined;
         beforeEach(() => {
             fixture = TestBed.createComponent(NavInkBarRouterLinkActiveModeComponent);
             router = TestBed.inject(Router);
@@ -311,10 +311,10 @@ describe(`thy-nav-ink-bar-have-badge-mode`, () => {
     });
 
     describe('basic', () => {
-        let overlayContainer: OverlayContainer;
-        let fixture: ComponentFixture<NavInkBarHaveBadgeModeComponent>;
-        let navInkBarDebugElement: DebugElement;
-        let navInkBarElement: HTMLElement;
+        let overlayContainer: OverlayContainer | undefined = undefined;
+        let fixture: ComponentFixture<NavInkBarHaveBadgeModeComponent> | undefined = undefined;
+        let navInkBarDebugElement: DebugElement | undefined = undefined;
+        let navInkBarElement: HTMLElement | undefined = undefined;
         beforeEach(() => {
             fixture = TestBed.createComponent(NavInkBarHaveBadgeModeComponent);
 

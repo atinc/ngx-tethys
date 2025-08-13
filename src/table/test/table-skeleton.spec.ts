@@ -63,12 +63,12 @@ class TestTableSkeletonBasicComponent {
 }
 
 describe('thy-table-skeleton', () => {
-    let fixture: ComponentFixture<TestTableSkeletonBasicComponent>;
-    let tableSkeletonElement: SafeAny;
-    let tableSkeletonInstance: ThyTableSkeleton;
-    let tableDebugElement: DebugElement;
-    let tableElement: SafeAny;
-    let testComponent: TestTableSkeletonBasicComponent;
+    let fixture: ComponentFixture<TestTableSkeletonBasicComponent> | undefined = undefined;
+    let tableSkeletonElement: SafeAny | undefined = undefined;
+    let tableSkeletonInstance: ThyTableSkeleton | undefined = undefined;
+    let tableDebugElement: DebugElement | undefined = undefined;
+    let tableElement: SafeAny | undefined = undefined;
+    let testComponent: TestTableSkeletonBasicComponent | undefined = undefined;
 
     beforeEach(() => {
         TestBed.configureTestingModule({

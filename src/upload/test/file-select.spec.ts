@@ -39,12 +39,12 @@ class FileSelectBasicComponent {
 }
 
 describe('ThyFileSelect', () => {
-    let fixture: ComponentFixture<FileSelectBasicComponent>;
-    let testComponent: FileSelectBasicComponent;
-    let fileSelectDebugElement: DebugElement;
-    let fileSelectComponent: ThyFileSelect;
-    let inputElement: HTMLInputElement;
-    let dataTransfer: DataTransfer;
+    let fixture: ComponentFixture<FileSelectBasicComponent> | undefined = undefined;
+    let testComponent: FileSelectBasicComponent | undefined = undefined;
+    let fileSelectDebugElement: DebugElement | undefined = undefined;
+    let fileSelectComponent: ThyFileSelect | undefined = undefined;
+    let inputElement: HTMLInputElement | undefined = undefined;
+    let dataTransfer: DataTransfer | undefined = undefined;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -168,11 +168,11 @@ class FileSelectStaticInputComponent {
 }
 
 describe('ThyFileSelectStaticInput', () => {
-    let fixture: ComponentFixture<FileSelectStaticInputComponent>;
-    let testComponent: FileSelectStaticInputComponent;
-    let fileSelectDebugElement: DebugElement;
-    let inputElement: HTMLInputElement;
-    let dataTransfer: DataTransfer;
+    let fixture: ComponentFixture<FileSelectStaticInputComponent> | undefined = undefined;
+    let testComponent: FileSelectStaticInputComponent | undefined = undefined;
+    let fileSelectDebugElement: DebugElement | undefined = undefined;
+    let inputElement: HTMLInputElement | undefined = undefined;
+    let dataTransfer: DataTransfer | undefined = undefined;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({

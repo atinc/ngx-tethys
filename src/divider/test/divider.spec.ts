@@ -44,8 +44,8 @@ class ThyTestDividerComponent {
 }
 
 describe('ThyDividerComponent', () => {
-    let fixture: ComponentFixture<ThyTestDividerComponent>;
-    let componentInstance: ThyTestDividerComponent;
+    let fixture: ComponentFixture<ThyTestDividerComponent> | undefined = undefined;
+    let componentInstance: ThyTestDividerComponent | undefined = undefined;
 
     beforeEach(() => {
         TestBed.configureTestingModule({

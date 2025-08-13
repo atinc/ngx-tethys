@@ -7,10 +7,10 @@ import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { provideHttpClient } from '@angular/common/http';
 
 describe('ThyArrowSwitcher', () => {
-    let fixture: ComponentFixture<ThyDemoArrowSwitcherComponent>;
-    let testComponent: ThyDemoArrowSwitcherComponent;
-    let arrowSwitcherComponent: DebugElement;
-    let btnElements: HTMLElement;
+    let fixture: ComponentFixture<ThyDemoArrowSwitcherComponent> | undefined = undefined;
+    let testComponent: ThyDemoArrowSwitcherComponent | undefined = undefined;
+    let arrowSwitcherComponent: DebugElement | undefined = undefined;
+    let btnElements: HTMLElement | undefined = undefined;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({

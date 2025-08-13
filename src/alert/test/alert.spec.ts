@@ -15,11 +15,11 @@ describe('ThyAlert', () => {
     }));
 
     describe('basic', () => {
-        let fixture: ComponentFixture<ThyDemoAlertComponent>;
-        let testComponent: ThyDemoAlertComponent;
-        let alertComponent: DebugElement;
-        let alertElement: HTMLElement;
-        let alertContentElement: HTMLElement;
+        let fixture: ComponentFixture<ThyDemoAlertComponent> | undefined = undefined;
+        let testComponent: ThyDemoAlertComponent | undefined = undefined;
+        let alertComponent: DebugElement | undefined = undefined;
+        let alertElement: HTMLElement | undefined = undefined;
+        let alertContentElement: HTMLElement | undefined = undefined;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyDemoAlertComponent);

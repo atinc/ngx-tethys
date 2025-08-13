@@ -34,7 +34,7 @@ class ThyViewOutletComponentTestComponent {
     context = { count: 1 };
 }
 
-let contentMultiTestChanges: SimpleChanges;
+let contentMultiTestChanges: SimpleChanges | undefined = undefined;
 @Component({
     selector: 'thy-shared-view-outlet-content-multi',
     template: `Count: {{ count }}, Name: {{ innerName }}, Called: {{ nameSetInvokeCount }}, Input Name: {{ inputName }}`,
@@ -74,8 +74,8 @@ class ThyViewOutletComponentMultiTestComponent {
 
 describe('thy-view-outlet', () => {
     describe('template', () => {
-        let fixture: ComponentFixture<ThyViewOutletTemplateTestComponent>;
-        let fixtureInstance: ThyViewOutletTemplateTestComponent;
+        let fixture: ComponentFixture<ThyViewOutletTemplateTestComponent> | undefined = undefined;
+        let fixtureInstance: ThyViewOutletTemplateTestComponent | undefined = undefined;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -102,8 +102,8 @@ describe('thy-view-outlet', () => {
     });
 
     describe('component', () => {
-        let fixture: ComponentFixture<ThyViewOutletComponentTestComponent>;
-        let fixtureInstance: ThyViewOutletComponentTestComponent;
+        let fixture: ComponentFixture<ThyViewOutletComponentTestComponent> | undefined = undefined;
+        let fixtureInstance: ThyViewOutletComponentTestComponent | undefined = undefined;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -137,8 +137,8 @@ describe('thy-view-outlet', () => {
     });
 
     describe('component-multi', () => {
-        let fixture: ComponentFixture<ThyViewOutletComponentMultiTestComponent>;
-        let fixtureInstance: ThyViewOutletComponentMultiTestComponent;
+        let fixture: ComponentFixture<ThyViewOutletComponentMultiTestComponent> | undefined = undefined;
+        let fixtureInstance: ThyViewOutletComponentMultiTestComponent | undefined = undefined;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});

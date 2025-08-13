@@ -121,8 +121,8 @@ export class ThyColor {
         const Cmin = Math.min(red, green, blue);
         const delta = Cmax - Cmin;
         let hue = 0;
-        let saturation: number = Cmax === 0 ? 0 : delta / Cmax;
-        let brightness: number = Cmax;
+        const saturation: number = Cmax === 0 ? 0 : delta / Cmax;
+        const brightness: number = Cmax;
         if (Cmax !== Cmin) {
             switch (Cmax) {
                 case red:
@@ -270,7 +270,7 @@ export class ThyColor {
     }
 
     getFinalValue() {
-        let { hue, saturation, value, alpha, format } = this;
+        const { hue, saturation, value, alpha, format } = this;
         if (this.enableAlpha) {
             switch (format) {
                 case 'hsl':

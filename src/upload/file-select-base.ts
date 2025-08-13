@@ -43,7 +43,7 @@ export class FileSelectBaseDirective {
     ) {}
 
     handleSizeExceeds(event: Event, files: File[]) {
-        let sizeExceedsFiles = files.filter(item => item.size / 1024 > this.thySizeThreshold());
+        const sizeExceedsFiles = files.filter(item => item.size / 1024 > this.thySizeThreshold());
         if (sizeExceedsFiles.length > 0) {
             const sizeExceedContext = {
                 files: files,

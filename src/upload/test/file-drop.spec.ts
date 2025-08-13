@@ -41,10 +41,10 @@ class FileDropBasicComponent {
 }
 
 describe('thyFileDrop', () => {
-    let fixture: ComponentFixture<FileDropBasicComponent>;
-    let testComponent: FileDropBasicComponent;
-    let fileDropDebugElement: DebugElement;
-    let dataTransfer: DataTransfer;
+    let fixture: ComponentFixture<FileDropBasicComponent> | undefined = undefined;
+    let testComponent: FileDropBasicComponent | undefined = undefined;
+    let fileDropDebugElement: DebugElement | undefined = undefined;
+    let dataTransfer: DataTransfer | undefined = undefined;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({

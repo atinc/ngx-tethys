@@ -20,10 +20,10 @@ export class TestLoadingComponent {
 }
 
 describe('test loading', () => {
-    let fixture: ComponentFixture<TestLoadingComponent>;
-    let testComponent: TestLoadingComponent;
-    let loadingComponent: DebugElement;
-    let loadingElement: HTMLElement;
+    let fixture: ComponentFixture<TestLoadingComponent> | undefined = undefined;
+    let testComponent: TestLoadingComponent | undefined = undefined;
+    let loadingComponent: DebugElement | undefined = undefined;
+    let loadingElement: HTMLElement | undefined = undefined;
 
     beforeEach(() => {
         TestBed.configureTestingModule({});

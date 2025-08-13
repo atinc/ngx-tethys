@@ -48,8 +48,8 @@ describe('space', () => {
     }
 
     describe('basic', () => {
-        let fixture: ComponentFixture<TestBasicComponent>;
-        let spaceDebugElement: DebugElement;
+        let fixture: ComponentFixture<TestBasicComponent> | undefined = undefined;
+        let spaceDebugElement: DebugElement | undefined = undefined;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -104,8 +104,8 @@ describe('space', () => {
     });
 
     describe('size', () => {
-        let fixture: ComponentFixture<TestSizeComponent>;
-        let spaceDebugElement: DebugElement;
+        let fixture: ComponentFixture<TestSizeComponent> | undefined = undefined;
+        let spaceDebugElement: DebugElement | undefined = undefined;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});

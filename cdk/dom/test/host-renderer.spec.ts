@@ -34,8 +34,8 @@ export class ThyDomUseHostRendererTestComponent implements OnInit {
 }
 
 describe('host-renderer', () => {
-    let fixture: ComponentFixture<ThyDomUseHostRendererTestComponent>;
-    let hostElement: HTMLElement;
+    let fixture: ComponentFixture<ThyDomUseHostRendererTestComponent> | undefined = undefined;
+    let hostElement: HTMLElement | undefined = undefined;
 
     beforeEach(() => {
         TestBed.configureTestingModule({});

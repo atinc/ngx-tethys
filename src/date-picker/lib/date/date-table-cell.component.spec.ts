@@ -20,10 +20,10 @@ class TestHostComponent {
 }
 
 describe('DateTableCell config', () => {
-    let component: DateTableCell;
-    let fixture: ComponentFixture<DateTableCell>;
-    let testHostFixture: ComponentFixture<TestHostComponent>;
-    let testHostComponent: TestHostComponent;
+    let component: DateTableCell | undefined = undefined;
+    let fixture: ComponentFixture<DateTableCell> | undefined = undefined;
+    let testHostFixture: ComponentFixture<TestHostComponent> | undefined = undefined;
+    let testHostComponent: TestHostComponent | undefined = undefined;
 
     // Mock cell data
     const mockCell = {

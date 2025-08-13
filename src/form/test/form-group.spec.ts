@@ -60,10 +60,10 @@ export class TestFormWithGroupComponent {
 
 // form-group basic
 describe('form-group basic', () => {
-    let fixture: ComponentFixture<TestFormWithGroupComponent>;
-    let testComponent: TestFormWithGroupComponent;
+    let fixture: ComponentFixture<TestFormWithGroupComponent> | undefined = undefined;
+    let testComponent: TestFormWithGroupComponent | undefined = undefined;
 
-    let formGroupDebugElements: DebugElement[];
+    let formGroupDebugElements: DebugElement[] | undefined = undefined;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -200,10 +200,10 @@ export class TestFormGroupVerticalComponent {
 }
 
 describe('form-group in vertical', () => {
-    let fixture: ComponentFixture<TestFormGroupVerticalComponent>;
-    let testComponent: TestFormGroupVerticalComponent;
+    let fixture: ComponentFixture<TestFormGroupVerticalComponent> | undefined = undefined;
+    let testComponent: TestFormGroupVerticalComponent | undefined = undefined;
 
-    let formGroupDebugElement: DebugElement;
+    let formGroupDebugElement: DebugElement | undefined = undefined;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -257,9 +257,9 @@ export class TestFormGroupTranslateKeyComponent {
 }
 
 describe('form-group for TranslateKey', () => {
-    let fixture: ComponentFixture<TestFormGroupTranslateKeyComponent>;
-    let testComponent: TestFormGroupTranslateKeyComponent;
-    let formGroupDebugElement: DebugElement;
+    let fixture: ComponentFixture<TestFormGroupTranslateKeyComponent> | undefined = undefined;
+    let testComponent: TestFormGroupTranslateKeyComponent | undefined = undefined;
+    let formGroupDebugElement: DebugElement | undefined = undefined;
 
     const TRANSLATE_KEYS = {
         'common.USER_NAME': 'User Name',
@@ -328,11 +328,11 @@ export class TestFormGroupLabelBasicComponent {
 }
 
 describe('form-group for TranslateKey', () => {
-    let fixture: ComponentFixture<TestFormGroupLabelBasicComponent>;
-    let testComponent: TestFormGroupLabelBasicComponent;
+    let fixture: ComponentFixture<TestFormGroupLabelBasicComponent> | undefined = undefined;
+    let testComponent: TestFormGroupLabelBasicComponent | undefined = undefined;
 
-    let formGroupLabelDebugElement: DebugElement;
-    let formGroupLabelDirective: ThyFormGroupLabelDirective;
+    let formGroupLabelDebugElement: DebugElement | undefined = undefined;
+    let formGroupLabelDirective: ThyFormGroupLabelDirective | undefined = undefined;
 
     const TRANSLATE_KEYS = {
         'common.USER_NAME': 'User Name'

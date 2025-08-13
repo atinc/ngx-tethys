@@ -12,11 +12,11 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 registerLocaleData(zh);
 
 describe('ThyMonthPickerComponent', () => {
-    let fixture: ComponentFixture<TestMonthPickerComponent>;
-    let fixtureInstance: TestMonthPickerComponent;
-    let debugElement: DebugElement;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let fixture: ComponentFixture<TestMonthPickerComponent> | undefined = undefined;
+    let fixtureInstance: TestMonthPickerComponent | undefined = undefined;
+    let debugElement: DebugElement | undefined = undefined;
+    let overlayContainer: OverlayContainer | undefined = undefined;
+    let overlayContainerElement: HTMLElement | undefined = undefined;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({

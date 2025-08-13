@@ -22,7 +22,7 @@ export class ThyTagsBasicTestComponent implements OnInit {
 }
 
 describe('thy-tags', () => {
-    let fixture: ComponentFixture<ThyTagsBasicTestComponent>;
+    let fixture: ComponentFixture<ThyTagsBasicTestComponent> | undefined = undefined;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({

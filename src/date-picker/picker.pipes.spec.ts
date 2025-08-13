@@ -4,8 +4,8 @@ import { TinyDate } from 'ngx-tethys/util';
 import { ThyDatePickerConfigService, ThyQuarterPickerFormatPipe } from 'ngx-tethys/date-picker';
 
 describe('thyQuarterPickerFormat', () => {
-    let datePickerConfigService: ThyDatePickerConfigService;
-    let quarterPickerFormatPipe: ThyQuarterPickerFormatPipe;
+    let datePickerConfigService: ThyDatePickerConfigService | undefined = undefined;
+    let quarterPickerFormatPipe: ThyQuarterPickerFormatPipe | undefined = undefined;
 
     beforeEach(() => {
         TestBed.configureTestingModule({

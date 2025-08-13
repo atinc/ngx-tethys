@@ -487,12 +487,12 @@ export class ThyTree implements ControlValueAccessor {
 
     onDragMoved(event: CdkDragMove<ThyTreeNode>) {
         // 通过鼠标位置查找对应的目标 Item 元素
-        let currentPointElement = this.document.elementFromPoint(event.pointerPosition.x, event.pointerPosition.y) as HTMLElement;
+        const currentPointElement = this.document.elementFromPoint(event.pointerPosition.x, event.pointerPosition.y) as HTMLElement;
         if (!currentPointElement) {
             this.cleanupDragArtifacts();
             return;
         }
-        let targetElement = currentPointElement.classList.contains('thy-tree-node')
+        const targetElement = currentPointElement.classList.contains('thy-tree-node')
             ? currentPointElement
             : (currentPointElement.closest('.thy-tree-node') as HTMLElement);
         if (!targetElement) {

@@ -78,8 +78,8 @@ class ThyDemoTooltipTemplateComponent {
 }
 
 describe(`ThyTooltip`, () => {
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let overlayContainer: OverlayContainer | undefined = undefined;
+    let overlayContainerElement: HTMLElement | undefined = undefined;
     let platform: { IOS: boolean; isBrowser: boolean; ANDROID: boolean };
 
     beforeEach(fakeAsync(() => {
@@ -112,10 +112,10 @@ describe(`ThyTooltip`, () => {
     }
 
     describe(`touch usage`, () => {
-        let fixture: ComponentFixture<ThyDemoTooltipBasicComponent>;
-        let tooltipDirective: ThyTooltipDirective;
-        let buttonDebugElement: DebugElement;
-        let buttonElement: HTMLElement;
+        let fixture: ComponentFixture<ThyDemoTooltipBasicComponent> | undefined = undefined;
+        let tooltipDirective: ThyTooltipDirective | undefined = undefined;
+        let buttonDebugElement: DebugElement | undefined = undefined;
+        let buttonElement: HTMLElement | undefined = undefined;
 
         function getTooltipVisible() {
             return tooltipDirective['tooltipRef'] ? tooltipDirective['tooltipRef']['isTooltipVisible']() : false;
@@ -200,12 +200,12 @@ describe(`ThyTooltip`, () => {
     });
 
     describe(`basic usage`, () => {
-        let fixture: ComponentFixture<ThyDemoTooltipBasicComponent>;
-        let basicTestComponent: ThyDemoTooltipBasicComponent;
+        let fixture: ComponentFixture<ThyDemoTooltipBasicComponent> | undefined = undefined;
+        let basicTestComponent: ThyDemoTooltipBasicComponent | undefined = undefined;
         // let tooltipDebugElement: DebugElement;
-        let tooltipDirective: ThyTooltipDirective;
-        let buttonDebugElement: DebugElement;
-        let buttonElement: HTMLElement;
+        let tooltipDirective: ThyTooltipDirective | undefined = undefined;
+        let buttonDebugElement: DebugElement | undefined = undefined;
+        let buttonElement: HTMLElement | undefined = undefined;
 
         function getTooltipVisible() {
             return tooltipDirective['tooltipRef'] ? tooltipDirective['tooltipRef']['isTooltipVisible']() : false;
@@ -440,12 +440,12 @@ describe(`ThyTooltip`, () => {
     });
 
     describe(`template usage`, () => {
-        let fixture: ComponentFixture<ThyDemoTooltipTemplateComponent>;
-        let basicTestComponent: ThyDemoTooltipTemplateComponent;
+        let fixture: ComponentFixture<ThyDemoTooltipTemplateComponent> | undefined = undefined;
+        let basicTestComponent: ThyDemoTooltipTemplateComponent | undefined = undefined;
         // let tooltipDebugElement: DebugElement;
-        let tooltipDirective: ThyTooltipDirective;
-        let buttonDebugElement: DebugElement;
-        let buttonElement: HTMLElement;
+        let tooltipDirective: ThyTooltipDirective | undefined = undefined;
+        let buttonDebugElement: DebugElement | undefined = undefined;
+        let buttonElement: HTMLElement | undefined = undefined;
 
         function getTooltipVisible() {
             return tooltipDirective['tooltipRef'] ? tooltipDirective['tooltipRef']['isTooltipVisible']() : false;
@@ -592,9 +592,9 @@ describe(`ThyTooltip`, () => {
     });
 
     describe(`usage with tooltip service`, () => {
-        let fixture: ComponentFixture<ThyDemoTooltipBasicComponent>;
-        let basicTestComponent: ThyDemoTooltipBasicComponent;
-        let tooltipService: ThyTooltipService;
+        let fixture: ComponentFixture<ThyDemoTooltipBasicComponent> | undefined = undefined;
+        let basicTestComponent: ThyDemoTooltipBasicComponent | undefined = undefined;
+        let tooltipService: ThyTooltipService | undefined = undefined;
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyDemoTooltipBasicComponent);
             fixture.detectChanges();

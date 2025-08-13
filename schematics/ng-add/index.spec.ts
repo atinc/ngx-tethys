@@ -6,11 +6,11 @@ import { addPackageToPackageJson } from '../utils';
 import { VERSION } from '../version';
 
 describe('ng-add Schematic', () => {
-    let tree: Tree;
+    let tree: Tree | undefined = undefined;
     const baseOptions = { project: 'ngx-tethys-example' };
     const schematicRunner = new SchematicTestRunner(baseOptions.project, require.resolve('../collection.json'));
 
-    let workspaceTree: UnitTestTree;
+    let workspaceTree: UnitTestTree | undefined = undefined;
 
     beforeEach(async () => {
         tree = await createTestApp(schematicRunner, { name: baseOptions.project });

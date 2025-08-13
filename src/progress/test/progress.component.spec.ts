@@ -165,16 +165,16 @@ function assertTooltipInstance(tooltip: ThyTooltipDirective, shouldExist: boolea
 
 describe(`ThyProgressComponent`, () => {
     describe(`basic`, () => {
-        let fixture: ComponentFixture<ThyDemoProgressBasicComponent>;
-        let basicTestComponent: ThyDemoProgressBasicComponent;
-        let progressComponent: DebugElement;
-        let progressBarComponent: DebugElement;
-        let progressElement: HTMLElement;
-        let progressBarElement: HTMLElement;
-        let progressBarInnerElement: HTMLElement;
-        let tooltipDirective: ThyTooltipDirective;
-        let overlayContainer: OverlayContainer;
-        let overlayContainerElement: HTMLElement;
+        let fixture: ComponentFixture<ThyDemoProgressBasicComponent> | undefined = undefined;
+        let basicTestComponent: ThyDemoProgressBasicComponent | undefined = undefined;
+        let progressComponent: DebugElement | undefined = undefined;
+        let progressBarComponent: DebugElement | undefined = undefined;
+        let progressElement: HTMLElement | undefined = undefined;
+        let progressBarElement: HTMLElement | undefined = undefined;
+        let progressBarInnerElement: HTMLElement | undefined = undefined;
+        let tooltipDirective: ThyTooltipDirective | undefined = undefined;
+        let overlayContainer: OverlayContainer | undefined = undefined;
+        let overlayContainerElement: HTMLElement | undefined = undefined;
 
         function getTooltipVisible() {
             return tooltipDirective['tooltipRef'] ? tooltipDirective['tooltipRef']['isTooltipVisible']() : false;
@@ -327,16 +327,16 @@ describe(`ThyProgressComponent`, () => {
     });
 
     describe(`circle`, () => {
-        let fixture: ComponentFixture<ThyDemoProgressCircleComponent>;
-        let circleTestComponent: ThyDemoProgressCircleComponent;
-        let progressComponent: DebugElement;
-        let progressCircleComponent: DebugElement;
-        let progressElement: HTMLElement;
-        let progressCircleElement: HTMLElement;
-        let progressCircleInnerElement: HTMLElement;
-        let tooltipDirective: ThyTooltipDirective;
-        let overlayContainer: OverlayContainer;
-        let overlayContainerElement: HTMLElement;
+        let fixture: ComponentFixture<ThyDemoProgressCircleComponent> | undefined = undefined;
+        let circleTestComponent: ThyDemoProgressCircleComponent | undefined = undefined;
+        let progressComponent: DebugElement | undefined = undefined;
+        let progressCircleComponent: DebugElement | undefined = undefined;
+        let progressElement: HTMLElement | undefined = undefined;
+        let progressCircleElement: HTMLElement | undefined = undefined;
+        let progressCircleInnerElement: HTMLElement | undefined = undefined;
+        let tooltipDirective: ThyTooltipDirective | undefined = undefined;
+        let overlayContainer: OverlayContainer | undefined = undefined;
+        let overlayContainerElement: HTMLElement | undefined = undefined;
 
         function getTooltipVisible() {
             return tooltipDirective['tooltipRef'] ? tooltipDirective['tooltipRef']['isTooltipVisible']() : false;
@@ -350,7 +350,7 @@ describe(`ThyProgressComponent`, () => {
         }
 
         function computedPathString(position: string = 'top', strokeWidth = 6) {
-            let circlePath = progressCircleElement.querySelector('.progress-circle-path');
+            const circlePath = progressCircleElement.querySelector('.progress-circle-path');
             const radius = 50 - strokeWidth / 2;
             let beginPositionX = 0;
             let beginPositionY = -radius;
@@ -547,17 +547,17 @@ describe(`ThyProgressComponent`, () => {
     });
 
     describe(`stacked`, () => {
-        let fixture: ComponentFixture<ThyDemoProgressStackedComponent>;
-        let stackedTestComponent: ThyDemoProgressStackedComponent;
-        let progressComponent: DebugElement;
-        let progressBarComponents: DebugElement[];
-        let progressElement: HTMLElement;
-        let progressBarElements: HTMLElement[];
-        let progressBarElement: HTMLElement;
-        let progressTooltipBarElement: HTMLElement;
-        let overlayContainer: OverlayContainer;
-        let overlayContainerElement: HTMLElement;
-        let tooltipDirective: ThyTooltipDirective;
+        let fixture: ComponentFixture<ThyDemoProgressStackedComponent> | undefined = undefined;
+        let stackedTestComponent: ThyDemoProgressStackedComponent | undefined = undefined;
+        let progressComponent: DebugElement | undefined = undefined;
+        let progressBarComponents: DebugElement[] | undefined = undefined;
+        let progressElement: HTMLElement | undefined = undefined;
+        let progressBarElements: HTMLElement[] | undefined = undefined;
+        let progressBarElement: HTMLElement | undefined = undefined;
+        let progressTooltipBarElement: HTMLElement | undefined = undefined;
+        let overlayContainer: OverlayContainer | undefined = undefined;
+        let overlayContainerElement: HTMLElement | undefined = undefined;
+        let tooltipDirective: ThyTooltipDirective | undefined = undefined;
 
         function getTooltipVisible() {
             return tooltipDirective['tooltipRef']['isTooltipVisible']();
@@ -694,14 +694,14 @@ describe(`ThyProgressComponent`, () => {
     });
 
     describe(`stacked has max`, () => {
-        let fixture: ComponentFixture<ThyDemoProgressStackedMaxComponent>;
-        let stackedTestComponent: ThyDemoProgressStackedMaxComponent;
-        let progressComponent: DebugElement;
-        let progressBarComponents: DebugElement[];
-        let progressElement: HTMLElement;
-        let progressBarElements: HTMLElement[];
-        let overlayContainer: OverlayContainer;
-        let overlayContainerElement: HTMLElement;
+        let fixture: ComponentFixture<ThyDemoProgressStackedMaxComponent> | undefined = undefined;
+        let stackedTestComponent: ThyDemoProgressStackedMaxComponent | undefined = undefined;
+        let progressComponent: DebugElement | undefined = undefined;
+        let progressBarComponents: DebugElement[] | undefined = undefined;
+        let progressElement: HTMLElement | undefined = undefined;
+        let progressBarElements: HTMLElement[] | undefined = undefined;
+        let overlayContainer: OverlayContainer | undefined = undefined;
+        let overlayContainerElement: HTMLElement | undefined = undefined;
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
@@ -902,16 +902,16 @@ describe(`ThyProgressComponent`, () => {
     });
 
     describe(`tooltipTemplate`, () => {
-        let fixture: ComponentFixture<ThyDemoProgressTooltipTemplateComponent>;
-        let toolTipTemplateTestComponent: ThyDemoProgressTooltipTemplateComponent;
-        let progressComponent: DebugElement;
-        let progressBarComponents: DebugElement[];
-        let progressElement: HTMLElement;
-        let tooltipDirective: ThyTooltipDirective;
-        let progressBarElements: HTMLElement[];
-        let progressBarElement: HTMLElement;
-        let overlayContainer: OverlayContainer;
-        let overlayContainerElement: HTMLElement;
+        let fixture: ComponentFixture<ThyDemoProgressTooltipTemplateComponent> | undefined = undefined;
+        let toolTipTemplateTestComponent: ThyDemoProgressTooltipTemplateComponent | undefined = undefined;
+        let progressComponent: DebugElement | undefined = undefined;
+        let progressBarComponents: DebugElement[] | undefined = undefined;
+        let progressElement: HTMLElement | undefined = undefined;
+        let tooltipDirective: ThyTooltipDirective | undefined = undefined;
+        let progressBarElements: HTMLElement[] | undefined = undefined;
+        let progressBarElement: HTMLElement | undefined = undefined;
+        let overlayContainer: OverlayContainer | undefined = undefined;
+        let overlayContainerElement: HTMLElement | undefined = undefined;
 
         function getTooltipVisible() {
             return tooltipDirective['tooltipRef'] ? tooltipDirective['tooltipRef']['isTooltipVisible']() : false;

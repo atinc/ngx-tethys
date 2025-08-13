@@ -85,9 +85,9 @@ export class TestTimelineCustomItemsComponent {
 
 describe('timeline', () => {
     describe('basic', () => {
-        let component: TestTimelineBasicComponent;
-        let fixture: ComponentFixture<TestTimelineBasicComponent>;
-        let debugElement: DebugElement;
+        let component: TestTimelineBasicComponent | undefined = undefined;
+        let fixture: ComponentFixture<TestTimelineBasicComponent> | undefined = undefined;
+        let debugElement: DebugElement | undefined = undefined;
         let items: HTMLDivElement[] = [];
 
         beforeEach(waitForAsync(() => {
@@ -167,7 +167,7 @@ describe('timeline', () => {
     });
 
     describe('custom position', () => {
-        let fixture: ComponentFixture<TestTimelineCustomPositionComponent>;
+        let fixture: ComponentFixture<TestTimelineCustomPositionComponent> | undefined = undefined;
 
         beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({});
@@ -187,8 +187,8 @@ describe('timeline', () => {
     });
 
     describe('custom description', () => {
-        let fixture: ComponentFixture<TestTimelineCustomDescriptionComponent>;
-        let debugElement: DebugElement;
+        let fixture: ComponentFixture<TestTimelineCustomDescriptionComponent> | undefined = undefined;
+        let debugElement: DebugElement | undefined = undefined;
 
         beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({});
@@ -207,8 +207,8 @@ describe('timeline', () => {
     });
 
     describe('custom direction', () => {
-        let fixture: ComponentFixture<TestTimelineCustomHorizontalComponent>;
-        let debugElement: DebugElement;
+        let fixture: ComponentFixture<TestTimelineCustomHorizontalComponent> | undefined = undefined;
+        let debugElement: DebugElement | undefined = undefined;
 
         beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({});
@@ -227,7 +227,7 @@ describe('timeline', () => {
     });
 
     describe('custom timeline items', () => {
-        let fixture: ComponentFixture<TestTimelineCustomItemsComponent>;
+        let fixture: ComponentFixture<TestTimelineCustomItemsComponent> | undefined = undefined;
 
         beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({});

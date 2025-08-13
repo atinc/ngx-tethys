@@ -66,9 +66,9 @@ export class AvatarListEmptyTestComponent implements OnInit {
 }
 
 describe('thy-avatar-list', () => {
-    let componentInstance: AvatarListBasicTestComponent;
-    let avatarListDebugElement: DebugElement;
-    let avatarListElement: HTMLElement;
+    let componentInstance: AvatarListBasicTestComponent | undefined = undefined;
+    let avatarListDebugElement: DebugElement | undefined = undefined;
+    let avatarListElement: HTMLElement | undefined = undefined;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -77,7 +77,7 @@ describe('thy-avatar-list', () => {
     });
 
     describe('basic', () => {
-        let fixture: ComponentFixture<AvatarListBasicTestComponent>;
+        let fixture: ComponentFixture<AvatarListBasicTestComponent> | undefined = undefined;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(AvatarListBasicTestComponent);
@@ -113,7 +113,7 @@ describe('thy-avatar-list', () => {
     });
 
     describe('show different size when input different thyAvatarSize value', () => {
-        let fixture: ComponentFixture<AvatarListTestComponent>;
+        let fixture: ComponentFixture<AvatarListTestComponent> | undefined = undefined;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(AvatarListTestComponent);
@@ -144,7 +144,7 @@ describe('thy-avatar-list', () => {
     });
 
     describe('should set overlapMode to true when thyMode is set to "overlap"', () => {
-        let fixture: ComponentFixture<AvatarListTestComponent>;
+        let fixture: ComponentFixture<AvatarListTestComponent> | undefined = undefined;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(AvatarListTestComponent);
@@ -209,7 +209,7 @@ describe('thy-avatar-list', () => {
     });
 
     describe('empty', () => {
-        let fixture: ComponentFixture<AvatarListEmptyTestComponent>;
+        let fixture: ComponentFixture<AvatarListEmptyTestComponent> | undefined = undefined;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(AvatarListEmptyTestComponent);

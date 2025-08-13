@@ -29,10 +29,10 @@ class ThyDemoBreadcrumbBasicComponent {
 }
 
 describe('ThyBreadcrumb', () => {
-    let fixture: ComponentFixture<ThyDemoBreadcrumbBasicComponent>;
-    let basicTestComponent: ThyDemoBreadcrumbBasicComponent;
-    let breadcrumbComponent: DebugElement;
-    let breadcrumbItems: DebugElement[];
+    let fixture: ComponentFixture<ThyDemoBreadcrumbBasicComponent> | undefined = undefined;
+    let basicTestComponent: ThyDemoBreadcrumbBasicComponent | undefined = undefined;
+    let breadcrumbComponent: DebugElement | undefined = undefined;
+    let breadcrumbItems: DebugElement[] | undefined = undefined;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({

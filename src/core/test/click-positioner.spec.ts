@@ -10,8 +10,8 @@ describe('ClickDispatcher', () => {
         TestBed.compileComponents();
     });
 
-    let clickPositioner: ThyClickPositioner;
-    let fixture: ComponentFixture<ClickPositionerComponent>;
+    let clickPositioner: ThyClickPositioner | undefined = undefined;
+    let fixture: ComponentFixture<ClickPositionerComponent> | undefined = undefined;
 
     beforeEach(inject([ThyClickPositioner], (_clickPositioner: ThyClickPositioner) => {
         clickPositioner = _clickPositioner;

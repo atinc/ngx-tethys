@@ -169,14 +169,14 @@ class ThyDemoCoordinatesDirectiveComponent {
 }
 
 describe(`color-picker`, () => {
-    let fixture: ComponentFixture<ThyDemoColorPickerComponent>;
-    let boxElement: HTMLElement;
-    let fixtureInstance: ThyDemoColorPickerComponent;
-    let colorPickerElement: HTMLElement;
-    let colorPickerDirective: ThyColorPickerDirective;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
-    let colorPickerDebugElement: DebugElement;
+    let fixture: ComponentFixture<ThyDemoColorPickerComponent> | undefined = undefined;
+    let boxElement: HTMLElement | undefined = undefined;
+    let fixtureInstance: ThyDemoColorPickerComponent | undefined = undefined;
+    let colorPickerElement: HTMLElement | undefined = undefined;
+    let colorPickerDirective: ThyColorPickerDirective | undefined = undefined;
+    let overlayContainer: OverlayContainer | undefined = undefined;
+    let overlayContainerElement: HTMLElement | undefined = undefined;
+    let colorPickerDebugElement: DebugElement | undefined = undefined;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -425,10 +425,10 @@ describe(`color-picker`, () => {
 });
 
 describe('color-default-panel', () => {
-    let fixture: ComponentFixture<ThyDemoColorDefaultPanelComponent>;
-    let fixtureInstance: ThyDemoColorDefaultPanelComponent;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let fixture: ComponentFixture<ThyDemoColorDefaultPanelComponent> | undefined = undefined;
+    let fixtureInstance: ThyDemoColorDefaultPanelComponent | undefined = undefined;
+    let overlayContainer: OverlayContainer | undefined = undefined;
+    let overlayContainerElement: HTMLElement | undefined = undefined;
     const closeCallback = jasmine.createSpy('popover close');
 
     beforeEach(() => {
@@ -550,10 +550,10 @@ describe('color-default-panel', () => {
 });
 
 describe('picker-panel', () => {
-    let fixture: ComponentFixture<ThyDemoPickerPanelComponent>;
-    let fixtureInstance: ThyDemoPickerPanelComponent;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let fixture: ComponentFixture<ThyDemoPickerPanelComponent> | undefined = undefined;
+    let fixtureInstance: ThyDemoPickerPanelComponent | undefined = undefined;
+    let overlayContainer: OverlayContainer | undefined = undefined;
+    let overlayContainerElement: HTMLElement | undefined = undefined;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -597,11 +597,11 @@ describe('picker-panel', () => {
 });
 
 describe('coordinates-directive', () => {
-    let fixture: ComponentFixture<ThyDemoCoordinatesDirectiveComponent>;
-    let fixtureInstance: ThyDemoCoordinatesDirectiveComponent;
-    let boxElement: HTMLElement;
-    let boxRect: DOMRect;
-    let coordinatesDebugElement: DebugElement;
+    let fixture: ComponentFixture<ThyDemoCoordinatesDirectiveComponent> | undefined = undefined;
+    let fixtureInstance: ThyDemoCoordinatesDirectiveComponent | undefined = undefined;
+    let boxElement: HTMLElement | undefined = undefined;
+    let boxRect: DOMRect | undefined = undefined;
+    let coordinatesDebugElement: DebugElement | undefined = undefined;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -632,11 +632,11 @@ describe('coordinates-directive', () => {
 });
 
 describe(`for touch usage`, () => {
-    let fixture: ComponentFixture<ThyDemoColorPickerComponent>;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let fixture: ComponentFixture<ThyDemoColorPickerComponent> | undefined = undefined;
+    let overlayContainer: OverlayContainer | undefined = undefined;
+    let overlayContainerElement: HTMLElement | undefined = undefined;
     let platform: { IOS: boolean; isBrowser: boolean; ANDROID: boolean };
-    let buttonElement: HTMLElement;
+    let buttonElement: HTMLElement | undefined = undefined;
 
     beforeEach(() => {
         platform = { IOS: false, isBrowser: true, ANDROID: false };

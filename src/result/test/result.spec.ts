@@ -4,9 +4,9 @@ import { By } from '@angular/platform-browser';
 import { ThyResult } from 'ngx-tethys/result';
 
 describe('ThyResult', () => {
-    let fixture: ComponentFixture<ThyResultDemoComponent>;
-    let testComponent: ThyResultDemoComponent;
-    let thyResultComponent: DebugElement;
+    let fixture: ComponentFixture<ThyResultDemoComponent> | undefined = undefined;
+    let testComponent: ThyResultDemoComponent | undefined = undefined;
+    let thyResultComponent: DebugElement | undefined = undefined;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({});

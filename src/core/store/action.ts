@@ -11,7 +11,7 @@ import { ActionContext, ActionStatus } from './actions-stream';
 export function MiniAction() {
     return function (target: any, name: string, descriptor: TypedPropertyDescriptor<any>) {
         const meta = findAndCreateStoreMetadata(target);
-        let action: { type: string };
+        let action: { type: string } | undefined = undefined;
         // default use function name as action type
         if (!action) {
             action = {

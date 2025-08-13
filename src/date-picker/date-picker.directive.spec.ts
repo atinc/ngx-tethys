@@ -19,12 +19,12 @@ registerLocaleData(zh);
 
 describe('ThyPickerDirective', () => {
     describe('ThyPickerDirective', () => {
-        let fixture: ComponentFixture<ThyTestPickerComponent>;
-        let fixtureInstance: ThyTestPickerComponent;
-        let debugElement: DebugElement;
-        let overlayContainer: OverlayContainer;
-        let overlayContainerElement: HTMLElement;
-        let popover: ThyPopover;
+        let fixture: ComponentFixture<ThyTestPickerComponent> | undefined = undefined;
+        let fixtureInstance: ThyTestPickerComponent | undefined = undefined;
+        let debugElement: DebugElement | undefined = undefined;
+        let overlayContainer: OverlayContainer | undefined = undefined;
+        let overlayContainerElement: HTMLElement | undefined = undefined;
+        let popover: ThyPopover | undefined = undefined;
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
@@ -338,12 +338,12 @@ describe('ThyPickerDirective', () => {
     });
 
     describe('should get correct default thyPlacement and offset', () => {
-        let fixture: ComponentFixture<ThyTestPickerPlacementComponent>;
-        let fixtureInstance: ThyTestPickerPlacementComponent;
-        let debugElement: DebugElement;
-        let overlayContainer: OverlayContainer;
-        let overlayContainerElement: HTMLElement;
-        let popover: ThyPopover;
+        let fixture: ComponentFixture<ThyTestPickerPlacementComponent> | undefined = undefined;
+        let fixtureInstance: ThyTestPickerPlacementComponent | undefined = undefined;
+        let debugElement: DebugElement | undefined = undefined;
+        let overlayContainer: OverlayContainer | undefined = undefined;
+        let overlayContainerElement: HTMLElement | undefined = undefined;
+        let popover: ThyPopover | undefined = undefined;
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
@@ -407,7 +407,7 @@ describe('ThyPickerDirective', () => {
                     },
                     placement: 'bottom'
                 });
-                let componentInstance = popoverRef.componentInstance;
+                const componentInstance = popoverRef.componentInstance;
                 componentInstance.clearFlexibleValue();
                 componentInstance.onDayHover(componentInstance.tplInnerPopup);
                 componentInstance.setProperty('key', 1);
@@ -553,9 +553,9 @@ class ThyTestPickerStopPropagationComponent {
 }
 
 describe('should get correct default thyStopPropagation', () => {
-    let fixture: ComponentFixture<ThyTestPickerStopPropagationComponent>;
-    let fixtureInstance: ThyTestPickerStopPropagationComponent;
-    let debugElement: DebugElement;
+    let fixture: ComponentFixture<ThyTestPickerStopPropagationComponent> | undefined = undefined;
+    let fixtureInstance: ThyTestPickerStopPropagationComponent | undefined = undefined;
+    let debugElement: DebugElement | undefined = undefined;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({

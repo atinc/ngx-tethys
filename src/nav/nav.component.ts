@@ -408,7 +408,7 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
         for (let i = 0; i < tabsLength; i += 1) {
             const _totalWidth = i === tabsLength - 1 ? totalWidth + tabs[i].offset.width : totalWidth + tabs[i].offset.width + tabItemRight;
             if (_totalWidth > this.wrapperOffset.width) {
-                let moreOperationWidth = this.moreBtnOffset.width;
+                const moreOperationWidth = this.moreBtnOffset.width;
                 if (totalWidth + moreOperationWidth <= this.wrapperOffset.width) {
                     endIndex = i - 1;
                 } else {
@@ -430,7 +430,7 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
         for (let i = 0; i < tabsLength; i += 1) {
             const _totalHeight = totalHeight + tabs[i].offset.height;
             if (_totalHeight > this.wrapperOffset.height) {
-                let moreOperationHeight = this.moreBtnOffset.height;
+                const moreOperationHeight = this.moreBtnOffset.height;
                 if (totalHeight + moreOperationHeight <= this.wrapperOffset.height) {
                     endIndex = i - 1;
                 } else {

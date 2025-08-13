@@ -20,11 +20,11 @@ import { provideNoopAnimations } from '@angular/platform-browser/animations';
 
 describe('ThySlide', () => {
     describe('ThySlideService', () => {
-        let thySlideService: ThySlideService;
-        let overlayContainer: OverlayContainer;
-        let overlayContainerElement: HTMLElement;
-        let viewContainerFixture: ComponentFixture<SlideLayoutTestComponent>;
-        let viewportRuler: ViewportRuler;
+        let thySlideService: ThySlideService | undefined = undefined;
+        let overlayContainer: OverlayContainer | undefined = undefined;
+        let overlayContainerElement: HTMLElement | undefined = undefined;
+        let viewContainerFixture: ComponentFixture<SlideLayoutTestComponent> | undefined = undefined;
+        let viewportRuler: ViewportRuler | undefined = undefined;
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
@@ -597,12 +597,12 @@ describe('ThySlide', () => {
     });
 
     describe('ThySlideLayout', () => {
-        let fixture: ComponentFixture<SlideLayoutTestComponent>;
-        let layouts: DebugElement[];
-        let headers: DebugElement[];
-        let bodys: DebugElement[];
-        let bodySections: DebugElement[];
-        let footers: DebugElement[];
+        let fixture: ComponentFixture<SlideLayoutTestComponent> | undefined = undefined;
+        let layouts: DebugElement[] | undefined = undefined;
+        let headers: DebugElement[] | undefined = undefined;
+        let bodys: DebugElement[] | undefined = undefined;
+        let bodySections: DebugElement[] | undefined = undefined;
+        let footers: DebugElement[] | undefined = undefined;
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
@@ -678,7 +678,7 @@ describe('ThySlide', () => {
     });
 
     describe('ThySlideHeader', () => {
-        let slideHeaderFixture: ComponentFixture<SlideHeaderTestComponent>;
+        let slideHeaderFixture: ComponentFixture<SlideHeaderTestComponent> | undefined = undefined;
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
@@ -702,11 +702,11 @@ describe('ThySlide', () => {
     });
 
     describe('THY_SLIDE_DEFAULT_CONFIG', () => {
-        let thySlideService: ThySlideService;
-        let overlayContainer: OverlayContainer;
-        let overlayContainerElement: HTMLElement;
-        let viewContainerFixture: ComponentFixture<SlideLayoutTestComponent>;
-        let viewportRuler: ViewportRuler;
+        let thySlideService: ThySlideService | undefined = undefined;
+        let overlayContainer: OverlayContainer | undefined = undefined;
+        let overlayContainerElement: HTMLElement | undefined = undefined;
+        let viewContainerFixture: ComponentFixture<SlideLayoutTestComponent> | undefined = undefined;
+        let viewportRuler: ViewportRuler | undefined = undefined;
 
         const newDefaultConfig = {
             backdropClass: 'new-thy-slide-backdrop',

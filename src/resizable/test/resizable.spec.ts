@@ -238,9 +238,9 @@ describe('resizable', () => {
     }));
 
     describe('basic', () => {
-        let fixture: ComponentFixture<ThyResizableBasicTestComponent>;
-        let testComponent: ThyResizableBasicTestComponent;
-        let resizableEle: HTMLElement;
+        let fixture: ComponentFixture<ThyResizableBasicTestComponent> | undefined = undefined;
+        let testComponent: ThyResizableBasicTestComponent | undefined = undefined;
+        let resizableEle: HTMLElement | undefined = undefined;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyResizableBasicTestComponent);
@@ -328,7 +328,7 @@ describe('resizable', () => {
         }));
 
         describe('should resize work', () => {
-            let rect: ClientRect | DOMRect;
+            let rect: ClientRect | DOMRect | undefined = undefined;
 
             beforeEach(() => {
                 testComponent.height = 200;
@@ -588,9 +588,9 @@ describe('resizable', () => {
     });
 
     describe('customize', () => {
-        let fixture: ComponentFixture<ThyResizableCustomizeTestComponent>;
-        let testComponent: ThyResizableCustomizeTestComponent;
-        let resizableEle: HTMLElement;
+        let fixture: ComponentFixture<ThyResizableCustomizeTestComponent> | undefined = undefined;
+        let testComponent: ThyResizableCustomizeTestComponent | undefined = undefined;
+        let resizableEle: HTMLElement | undefined = undefined;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyResizableCustomizeTestComponent);
@@ -627,9 +627,9 @@ describe('resizable', () => {
     });
 
     describe('lock aspect ratio', () => {
-        let fixture: ComponentFixture<ThyResizableLockAspectRatioTestComponent>;
-        let resizableEle: HTMLElement;
-        let testComponent: ThyResizableLockAspectRatioTestComponent;
+        let fixture: ComponentFixture<ThyResizableLockAspectRatioTestComponent> | undefined = undefined;
+        let resizableEle: HTMLElement | undefined = undefined;
+        let testComponent: ThyResizableLockAspectRatioTestComponent | undefined = undefined;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyResizableLockAspectRatioTestComponent);
@@ -691,8 +691,8 @@ describe('resizable', () => {
     });
 
     describe('preview', () => {
-        let fixture: ComponentFixture<ThyResizablePreviewTestComponent>;
-        let resizableEle: HTMLElement;
+        let fixture: ComponentFixture<ThyResizablePreviewTestComponent> | undefined = undefined;
+        let resizableEle: HTMLElement | undefined = undefined;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyResizablePreviewTestComponent);
@@ -716,9 +716,9 @@ describe('resizable', () => {
     });
 
     describe('grid', () => {
-        let fixture: ComponentFixture<ThyResizableGridTestComponent>;
-        let resizableEle: HTMLElement;
-        let testComponent: ThyResizableGridTestComponent;
+        let fixture: ComponentFixture<ThyResizableGridTestComponent> | undefined = undefined;
+        let resizableEle: HTMLElement | undefined = undefined;
+        let testComponent: ThyResizableGridTestComponent | undefined = undefined;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyResizableGridTestComponent);
@@ -764,9 +764,9 @@ describe('resizable', () => {
     });
 
     describe('bounds', () => {
-        let fixture: ComponentFixture<ThyTestResizableBoundsComponent>;
-        let resizableEle: HTMLElement;
-        let testComponent: ThyTestResizableBoundsComponent;
+        let fixture: ComponentFixture<ThyTestResizableBoundsComponent> | undefined = undefined;
+        let resizableEle: HTMLElement | undefined = undefined;
+        let testComponent: ThyTestResizableBoundsComponent | undefined = undefined;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyTestResizableBoundsComponent);
@@ -863,9 +863,9 @@ describe('resizable', () => {
     });
 
     describe('resize-handles', () => {
-        let fixture: ComponentFixture<ThyResizableLineTestComponent>;
-        let resizableElement: HTMLElement;
-        let testComponent: ThyTestResizableBoundsComponent;
+        let fixture: ComponentFixture<ThyResizableLineTestComponent> | undefined = undefined;
+        let resizableElement: HTMLElement | undefined = undefined;
+        let testComponent: ThyTestResizableBoundsComponent | undefined = undefined;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyResizableLineTestComponent);

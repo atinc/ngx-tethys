@@ -48,8 +48,8 @@ export class ThyNotifyBasicComponent implements OnInit {
 }
 
 describe('ThyNotify', () => {
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let overlayContainer: OverlayContainer | undefined = undefined;
+    let overlayContainerElement: HTMLElement | undefined = undefined;
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyNotifyModule],
@@ -67,10 +67,10 @@ describe('ThyNotify', () => {
     });
 
     describe('basic', () => {
-        let fixture: ComponentFixture<ThyNotifyBasicComponent>;
-        let componentInstance: ThyNotifyBasicComponent;
-        let btnElement: HTMLElement;
-        let notifyContainer: NodeListOf<Element>, notifyTopLeftContainer: NodeListOf<Element>;
+        let fixture: ComponentFixture<ThyNotifyBasicComponent> | undefined = undefined;
+        let componentInstance: ThyNotifyBasicComponent | undefined = undefined;
+        let btnElement: HTMLElement | undefined = undefined;
+        let notifyContainer: NodeListOf<Element>, notifyTopLeftContainer: NodeListOf<Element> | undefined = undefined;
 
         beforeEach(fakeAsync(() => {
             fixture = TestBed.createComponent(ThyNotifyBasicComponent);
@@ -124,7 +124,7 @@ describe('ThyNotify', () => {
         }));
 
         it('should custom content is string worked correctly', fakeAsync(() => {
-            let content = 'string content';
+            const content = 'string content';
             componentInstance.option = {
                 title: 'ngx tethys notify',
                 placement: 'topLeft',
@@ -409,8 +409,8 @@ describe('ThyNotify', () => {
 });
 
 describe('ThyNotify with provider', () => {
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let overlayContainer: OverlayContainer | undefined = undefined;
+    let overlayContainerElement: HTMLElement | undefined = undefined;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -438,9 +438,9 @@ describe('ThyNotify with provider', () => {
     });
 
     describe('basic', () => {
-        let fixture: ComponentFixture<ThyNotifyBasicComponent>;
-        let componentInstance: ThyNotifyBasicComponent;
-        let btnElement: HTMLElement;
+        let fixture: ComponentFixture<ThyNotifyBasicComponent> | undefined = undefined;
+        let componentInstance: ThyNotifyBasicComponent | undefined = undefined;
+        let btnElement: HTMLElement | undefined = undefined;
 
         beforeEach(fakeAsync(() => {
             fixture = TestBed.createComponent(ThyNotifyBasicComponent);

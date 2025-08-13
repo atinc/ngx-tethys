@@ -27,8 +27,8 @@ class FlexGridTestComponent implements OnInit {
 }
 
 describe('flex-grid', () => {
-    let component: FlexGridTestComponent;
-    let fixture: ComponentFixture<FlexGridTestComponent>;
+    let component: FlexGridTestComponent | undefined = undefined;
+    let fixture: ComponentFixture<FlexGridTestComponent> | undefined = undefined;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({});

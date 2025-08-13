@@ -22,8 +22,8 @@ class ThyDragDropTestComponent {
 }
 
 describe('thy-drag-drop', () => {
-    let fixture: ComponentFixture<ThyDragDropTestComponent>;
-    let testComponent: ThyDragDropTestComponent;
+    let fixture: ComponentFixture<ThyDragDropTestComponent> | undefined = undefined;
+    let testComponent: ThyDragDropTestComponent | undefined = undefined;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({});

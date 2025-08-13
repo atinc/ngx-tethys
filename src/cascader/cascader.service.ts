@@ -215,7 +215,7 @@ export class ThyCascaderService {
     }
 
     private activateOnInit(index: number, value: any): void {
-        let option: ThyCascaderOption;
+        let option: ThyCascaderOption | undefined = undefined;
         if (isArray(this.customOptions) && this.customOptions.length > 0) {
             option = this.customOptions.find(item => get(item, this.cascaderOptions.valueProperty) === value);
         }
@@ -584,7 +584,7 @@ export class ThyCascaderService {
     }
 
     public getValues() {
-        let selectedItems: any[];
+        let selectedItems: any[] | undefined = undefined;
         const selected = this.selectionModel.selected;
         selectedItems = selected.map(item => this.getSubmitValue(item.thyRawValue.value));
         return this.cascaderOptions?.isMultiple ? selectedItems : (selectedItems[0] ?? selectedItems);
@@ -645,7 +645,7 @@ export class ThyCascaderService {
             return;
         }
 
-        let selectedCustomOptions = this.getSelectedCustomOptions();
+        const selectedCustomOptions = this.getSelectedCustomOptions();
         selectedCustomOptions.forEach(item => {
             this.removeSelectedItem(item);
         });

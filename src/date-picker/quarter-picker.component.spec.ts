@@ -11,11 +11,11 @@ import { ThyDatePickerModule, ThyQuarterPicker } from 'ngx-tethys/date-picker';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
 describe('ThyQuarterPickerComponent', () => {
-    let fixture: ComponentFixture<TestQuarterPickerComponent>;
-    let fixtureInstance: TestQuarterPickerComponent;
-    let debugElement: DebugElement;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let fixture: ComponentFixture<TestQuarterPickerComponent> | undefined = undefined;
+    let fixtureInstance: TestQuarterPickerComponent | undefined = undefined;
+    let debugElement: DebugElement | undefined = undefined;
+    let overlayContainer: OverlayContainer | undefined = undefined;
+    let overlayContainerElement: HTMLElement | undefined = undefined;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({

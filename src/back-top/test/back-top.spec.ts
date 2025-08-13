@@ -7,11 +7,11 @@ import { ThyScrollService } from 'ngx-tethys/core';
 import { provideHttpClient } from '@angular/common/http';
 
 describe('Component:thy-back-top', () => {
-    let scrollService: MockThyScrollService;
-    let fixture: ComponentFixture<TestBackTopComponent>;
-    let debugElement: DebugElement;
-    let component: ThyBackTop;
-    let componentObject: ThyBackTopPageObject;
+    let scrollService: MockThyScrollService | undefined = undefined;
+    let fixture: ComponentFixture<TestBackTopComponent> | undefined = undefined;
+    let debugElement: DebugElement | undefined = undefined;
+    let component: ThyBackTop | undefined = undefined;
+    let componentObject: ThyBackTopPageObject | undefined = undefined;
     const defaultVisibilityHeight = 400;
 
     class ThyBackTopPageObject {
@@ -164,7 +164,7 @@ describe('Component:thy-back-top', () => {
     });
 
     describe('[thyContainer]', () => {
-        let fakeTarget: HTMLElement;
+        let fakeTarget: HTMLElement | undefined = undefined;
         beforeEach(fakeAsync(() => {
             fakeTarget = debugElement.query(By.css('#fakeTarget')).nativeElement;
             fixture.componentInstance.setTarget(fakeTarget);
@@ -205,7 +205,7 @@ describe('Component:thy-back-top', () => {
 
     describe('#thyTemplate', () => {
         it(`should show custom template`, fakeAsync(() => {
-            let fixtureTemplate: ComponentFixture<TestBackTopTemplateComponent>;
+            let fixtureTemplate: ComponentFixture<TestBackTopTemplateComponent> | undefined = undefined;
             fixtureTemplate = TestBed.createComponent(TestBackTopTemplateComponent);
 
             componentObject.scrollTo(window, defaultVisibilityHeight + 1);

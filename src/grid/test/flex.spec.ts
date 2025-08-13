@@ -50,8 +50,8 @@ class FlexTestComponent implements OnInit {
 }
 
 describe('flex', () => {
-    let component: FlexTestComponent;
-    let fixture: ComponentFixture<FlexTestComponent>;
+    let component: FlexTestComponent | undefined = undefined;
+    let fixture: ComponentFixture<FlexTestComponent> | undefined = undefined;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({});

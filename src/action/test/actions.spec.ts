@@ -24,8 +24,8 @@ class ThyActionsTestBasicComponent {
 }
 
 describe('thy-actions', () => {
-    let fixture: ComponentFixture<ThyActionsTestBasicComponent>;
-    let actionsDebugElement: DebugElement;
+    let fixture: ComponentFixture<ThyActionsTestBasicComponent> | undefined = undefined;
+    let actionsDebugElement: DebugElement | undefined = undefined;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
