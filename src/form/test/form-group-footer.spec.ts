@@ -20,9 +20,11 @@ describe('form-group-footer', () => {
     let fixture: ComponentFixture<FormGroupFooterComponent> | undefined = undefined;
     let formGroupFooterComponent: FormGroupFooterComponent | undefined = undefined;
     let debugElement: DebugElement | undefined = undefined;
-    let thyFormDirective: {
-        isHorizontal: boolean;
-    };
+    let thyFormDirective:
+        | {
+              isHorizontal: boolean;
+          }
+        | undefined = undefined;
 
     describe('without global config', () => {
         beforeEach(fakeAsync(() => {

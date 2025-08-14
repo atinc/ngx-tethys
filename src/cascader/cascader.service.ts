@@ -504,8 +504,8 @@ export class ThyCascaderService {
             return;
         }
 
-        let labelRenderContext;
-        let labelRenderText;
+        let labelRenderContext: { labels: string[]; selectedOptions: ThyCascaderOption[] } | undefined = undefined;
+        let labelRenderText: string | undefined = undefined;
 
         if (this.cascaderOptions.isLabelRenderTemplate) {
             labelRenderContext = { labels, selectedOptions };
@@ -611,7 +611,9 @@ export class ThyCascaderService {
     private handleActivateInit(option: ThyCascaderOption): void {
         if (isArray(this.customOptions) && this.customOptions.length > 0) {
             const valueKey = this.cascaderOptions.valueProperty;
-            this.customOptions.some(item => get(item, valueKey) == get(option, valueKey)) && set(option, 'selected', true);
+            if (this.customOptions.some(item => get(item, valueKey) == get(option, valueKey))) {
+                set(option, 'selected', true);
+            }
         }
         if (this.cascaderOptions.isOnlySelectLeaf && option.isLeaf) {
             set(option, 'selected', true);

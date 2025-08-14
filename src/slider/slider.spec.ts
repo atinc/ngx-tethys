@@ -90,7 +90,7 @@ describe('ThyTestSliderComponent', () => {
 
         it('should not show when thyStep is out of range', fakeAsync(() => {
             fixture.detectChanges();
-            expect(debugElement.query(By.css('.thy-slider')).nativeElement).not.toBeNull;
+            expect(debugElement.query(By.css('.thy-slider')).nativeElement).not.toBeNull();
 
             expect(() => {
                 fixtureInstance.min = 9999;
@@ -107,7 +107,7 @@ describe('ThyTestSliderComponent', () => {
 
         it('should not show when thyStep can not divisible by max- min value', fakeAsync(() => {
             fixture.detectChanges();
-            expect(debugElement.query(By.css('.thy-slider')).nativeElement).not.toBeNull;
+            expect(debugElement.query(By.css('.thy-slider')).nativeElement).not.toBeNull();
 
             expect(() => {
                 fixtureInstance.step = 9;

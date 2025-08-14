@@ -57,7 +57,6 @@ describe('ThyFileSelect', () => {
         testComponent = fixture.debugElement.componentInstance;
         fileSelectDebugElement = fixture.debugElement.query(By.directive(ThyFileSelect));
         fileSelectComponent = fileSelectDebugElement.componentInstance;
-        fileSelectDebugElement.componentInstance;
         inputElement = fileSelectDebugElement.nativeElement.querySelector('input');
         fixture.detectChanges();
 

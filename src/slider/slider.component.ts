@@ -154,7 +154,9 @@ export class ThySlider
         effect(() => {
             if (this.thyType()) {
                 const typeName = `thy-slider-${this.thyType() || 'success'}`;
-                this.typeClassName() && this.hostRenderer.removeClass(this.typeClassName());
+                if (this.typeClassName()) {
+                    this.hostRenderer.removeClass(this.typeClassName());
+                }
                 this.hostRenderer.addClass(typeName);
                 this.typeClassName.set(typeName);
             }
@@ -163,7 +165,9 @@ export class ThySlider
         effect(() => {
             if (this.thySize()) {
                 const sizeName = `thy-slider-${this.thySize() || 'sm'}`;
-                this.sizeClassName() && this.hostRenderer.removeClass(this.sizeClassName());
+                if (this.sizeClassName()) {
+                    this.hostRenderer.removeClass(this.sizeClassName());
+                }
                 this.hostRenderer.addClass(sizeName);
                 this.sizeClassName.set(sizeName);
             }

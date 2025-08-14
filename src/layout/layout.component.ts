@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Directive, HostBinding } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Directive } from '@angular/core';
 
 /**
  * 布局指令

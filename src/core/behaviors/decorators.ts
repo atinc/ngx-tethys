@@ -27,7 +27,9 @@ function makePropDecorator<T, D>(
     initialize?: PropertyDecorator
 ): PropertyDecorator {
     function propDecorator(target: SafeAny, propName: string, originalDescriptor?: TypedPropertyDescriptor<any>): any {
-        initialize && initialize(target, propName);
+        if (initialize) {
+            initialize(target, propName);
+        }
         const privatePropName = `$$__${propName}`;
 
         if (typeof ngDevMode === 'undefined' || ngDevMode) {

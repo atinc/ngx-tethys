@@ -165,7 +165,7 @@ describe('input search', () => {
         basicTestComponent.disabled = true;
         fixture.detectChanges();
         tick();
-        fixture.detectChanges;
+        fixture.detectChanges();
         expect(debugSearchElement.componentInstance.disabled()).toBe(true);
 
         basicTestComponent.searchText = 'New Text';

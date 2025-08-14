@@ -132,7 +132,7 @@ export class ThySlideContainer extends ThyAbstractOverlayContainer implements On
     }
 
     private setSlideContainerStyles() {
-        let width, height, top, left;
+        let width: number, height, top, left;
         const drawerContainerElementRect = (this.drawerContainerElement || document.body).getBoundingClientRect();
         if (this.isLeftOrRight) {
             height = drawerContainerElementRect.height;

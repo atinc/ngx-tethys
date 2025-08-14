@@ -2,7 +2,7 @@ import { helpers } from 'ngx-tethys/util';
 import { BehaviorSubject, from, Observable, Observer, Subscription } from 'rxjs';
 import { distinctUntilChanged, map, shareReplay } from 'rxjs/operators';
 
-import { Directive, isDevMode, OnDestroy, inject } from '@angular/core';
+import { Directive, isDevMode, OnDestroy } from '@angular/core';
 
 import { MiniAction } from './action';
 import { MiniActionState } from './action-state';

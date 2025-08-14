@@ -211,6 +211,6 @@ export class ThyIcon {
 
     private clearTitleElement(svg: SVGElement) {
         const titleElement = svg.querySelector('title');
-        titleElement && titleElement.remove();
+        titleElement?.remove();
     }
 }

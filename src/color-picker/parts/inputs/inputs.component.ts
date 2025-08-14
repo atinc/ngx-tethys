@@ -34,7 +34,7 @@ export class ThyColorInputs implements OnInit {
     ngOnInit(): void {}
 
     onInputChange(event: Event, type: string) {
-        let newColor;
+        let newColor: ThyColor | undefined = undefined;
         const alpha = this.alpha() / 100;
         if (type === 'hex') {
             let finalDisplayValue = this.hex();

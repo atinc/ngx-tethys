@@ -44,7 +44,7 @@ class ThyDemoVisiblePopoverComponent {
 describe(`ThyTooltip`, () => {
     let overlayContainer: OverlayContainer | undefined = undefined;
     let overlayContainerElement: HTMLElement | undefined = undefined;
-    let platform: { IOS: boolean; isBrowser: boolean; ANDROID: boolean };
+    let platform: { IOS: boolean; isBrowser: boolean; ANDROID: boolean } | undefined = undefined;
 
     beforeEach(fakeAsync(() => {
         platform = { IOS: false, isBrowser: true, ANDROID: false };
@@ -204,7 +204,7 @@ class TestPopoverDirectiveClickComponent {
 describe(`ThyPopoverDirective`, () => {
     let overlayContainer: OverlayContainer | undefined = undefined;
     let overlayContainerElement: HTMLElement | undefined = undefined;
-    let platform: { IOS: boolean; isBrowser: boolean; ANDROID: boolean };
+    let platform: { IOS: boolean; isBrowser: boolean; ANDROID: boolean } | undefined = undefined;
     let popoverDirective: ThyPopoverDirective | undefined = undefined;
     let fixture: ComponentFixture<TestPopoverDirectiveClickComponent> | undefined = undefined;
     let buttonDebugElement: DebugElement | undefined = undefined;

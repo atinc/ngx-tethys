@@ -124,10 +124,12 @@ export class ThyWatermarkDirective implements OnInit {
     }
 
     createCanvas() {
-        let { gutter, fontSize, color, degree, textLineHeight } = {
-            ...DEFAULT_CANVAS_CONFIG,
-            ...(this.thyCanvasConfig() || {})
+        const config = { ...DEFAULT_CANVAS_CONFIG, ...(this.thyCanvasConfig() || {}) };
+        const { gutter, fontSize, degree, textLineHeight } = {
+            ...config
         };
+
+        let color = config.color;
         color = this.thyThemeStore.normalizeColor(color);
 
         const [xGutter, yGutter] = gutter;

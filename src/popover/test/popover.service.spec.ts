@@ -460,8 +460,10 @@ describe(`thyPopover`, () => {
         });
 
         let viewContainerFixtureManualClosure: ComponentFixture<PopoverManualClosureContentComponent> | undefined = undefined;
-        let btn1: HTMLElement, btn2: HTMLElement | undefined = undefined;
-        let template1: TemplateRef<any>, template2: TemplateRef<any> | undefined = undefined;
+        let btn1: HTMLElement | undefined = undefined,
+            btn2: HTMLElement | undefined = undefined;
+        let template1: TemplateRef<any> | undefined = undefined,
+            template2: TemplateRef<any> | undefined = undefined;
 
         beforeEach(() => {
             viewContainerFixtureManualClosure = TestBed.createComponent(PopoverManualClosureContentComponent);
@@ -644,7 +646,7 @@ describe(`thyPopover`, () => {
                 origin: insideClosableComponent.openBtn,
                 insideClosable: true
             });
-            insideClosableFixture.detectChanges;
+            insideClosableFixture.detectChanges();
             tick(1000);
 
             const innerContent = document.querySelector('.thy-popover-container') as HTMLElement;

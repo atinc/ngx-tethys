@@ -5,7 +5,6 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 import { BasePicker } from './base-picker.component';
 import { DatePopup } from './lib/popups/date-popup.component';
 import { ThyPicker } from './picker.component';
-import { helpers } from 'ngx-tethys/util';
 
 /**
  * 日期范围选择组件

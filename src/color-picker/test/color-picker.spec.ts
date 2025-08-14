@@ -635,7 +635,7 @@ describe(`for touch usage`, () => {
     let fixture: ComponentFixture<ThyDemoColorPickerComponent> | undefined = undefined;
     let overlayContainer: OverlayContainer | undefined = undefined;
     let overlayContainerElement: HTMLElement | undefined = undefined;
-    let platform: { IOS: boolean; isBrowser: boolean; ANDROID: boolean };
+    let platform: { IOS: boolean; isBrowser: boolean; ANDROID: boolean } | undefined = undefined;
     let buttonElement: HTMLElement | undefined = undefined;
 
     beforeEach(() => {

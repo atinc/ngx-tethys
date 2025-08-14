@@ -51,7 +51,9 @@
     "prettier-all": "prettier --write \"./src/**/*.ts\"",
     "prettier-schematics": "prettier --write \"./schematics/**/*.ts\"",
     "prepublishOnly": "./scripts/pre-publish.js",
-    "extract-css-varibales": "node ./scripts/extract-css-variables.js"
+    "extract-css-varibales": "node ./scripts/extract-css-variables.js",
+    "ts-strictify": "ts-strictify",
+    "fix:init-declarations": "node ./scripts/fix-init-declarations.mjs src cdk schematics"
   },
   "repository": {
     "type": "git",
@@ -134,6 +136,6 @@
     "semver": "^7.5.2",
     "ts-node": "~10.9.1",
     "typescript": "~5.8.2",
-    "typescript-eslint": "^8.36.0"
+    "ts-strictify": "1.6.0"
   }
 }

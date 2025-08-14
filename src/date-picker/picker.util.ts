@@ -13,7 +13,8 @@ export function transformDateValue(value: CompatibleDate | CompatibleValue | num
     if (!value) {
         return { value: null };
     }
-    let withTime, flexibleDateGranularity: ThyDateGranularity;
+    let withTime: boolean = false,
+        flexibleDateGranularity: ThyDateGranularity | undefined = undefined;
     if (value && typeof value === 'number') {
         value = convertDate(value);
     }
@@ -21,8 +22,7 @@ export function transformDateValue(value: CompatibleDate | CompatibleValue | num
         if (value instanceof TinyDate) {
             value = convertDate(value.nativeDate);
         } else {
-            value[0] = convertDate(value[0].nativeDate);
-            value[1] = convertDate(value[1].nativeDate);
+            value = [convertDate((value as TinyDate[])[0].nativeDate), convertDate((value as TinyDate[])[1].nativeDate)];
         }
     }
     if (value && instanceOfDateEntry(value as DateEntry)) {

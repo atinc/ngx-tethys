@@ -341,7 +341,7 @@ describe('form validate', () => {
         fixture.detectChanges();
         testComponent.loadingDone = true;
         fixture.detectChanges();
-        let input;
+        let input: Element | undefined = undefined;
 
         testComponent.model.age = -1;
         fixture.detectChanges();
@@ -377,8 +377,7 @@ describe('form validate', () => {
         fixture.detectChanges();
         testComponent.loadingDone = true;
         fixture.detectChanges();
-        let input;
-
+        let input: Element | undefined = undefined;
         testComponent.model.age = -1;
         fixture.detectChanges();
         tick(100);
@@ -635,7 +634,7 @@ describe('reactive form validate', () => {
         fixture.detectChanges();
         testComponent.loadingDone = true;
         fixture.detectChanges();
-        let input;
+        let input: Element | undefined = undefined;
 
         testComponent.formGroup.patchValue({ age: -1, username: '1' });
         fixture.detectChanges();
@@ -669,7 +668,7 @@ describe('reactive form validate', () => {
         fixture.detectChanges();
         testComponent.loadingDone = true;
         fixture.detectChanges();
-        let input;
+        let input: Element | undefined = undefined;
 
         testComponent.formGroup.patchValue({ age: -1, username: '1' });
         tick(100);

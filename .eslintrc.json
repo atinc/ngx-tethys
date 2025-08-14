@@ -1,21 +1,10 @@
 {
   "root": true,
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "ecmaVersion": 2020,
-    "sourceType": "module"
-  },
-  "extends": [
-    "plugin:@angular-eslint/recommended",
-    "plugin:prettier/recommended",
-    "plugin:@typescript-eslint/recommended"
-  ],
   "overrides": [
     {
       "files": [
         "*.ts"
       ],
-      "parser": "@typescript-eslint/parser",
       "parserOptions": {
         "project": [
           "tsconfig.json",
@@ -24,13 +13,19 @@
         "createDefaultProgram": true
       },
       "extends": [
-        "plugin:@angular-eslint/template/process-inline-templates"
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "plugin:prettier/recommended",
+        "plugin:@typescript-eslint/recommended"
       ],
       "rules": {
         "@typescript-eslint/no-explicit-any": "off",
-        "@typescript-eslint/strict-boolean-expressions": "error",
+        "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/no-unsafe-function-type": "off",
+        "@typescript-eslint/no-empty-object-type": "off",
+        "@typescript-eslint/ban-ts-comment": "off",
+        "@typescript-eslint/strict-boolean-expressions": "off",
         "@typescript-eslint/no-non-null-assertion": "off",
-        "@typescript-eslint/init-declarations": "error",
         "@angular-eslint/no-empty-lifecycle-method": "off",
         "@angular-eslint/no-host-metadata-property": "off",
         "@angular-eslint/no-input-rename": "off",
@@ -54,20 +49,15 @@
           }
         ]
       }
+    },
+    {
+      "files": [
+        "*.html"
+      ],
+      "extends": [
+        "plugin:@angular-eslint/template/recommended"
+      ],
+      "rules": {}
     }
-    // {
-    //   "files": [
-    //     "*.html"
-    //   ],
-    //   "parser": "@angular-eslint/template-parser",
-    //   "parserOptions": {
-    //     "ecmaVersion": 2020,
-    //     "sourceType": "module"
-    //   },
-    //   "extends": [
-    //     "plugin:@angular-eslint/template/recommended"
-    //   ],
-    //   "rules": {}
-    // }
   ]
 }

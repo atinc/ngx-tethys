@@ -197,7 +197,11 @@ export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, After
             this.selectionModel.clear();
         } else {
             if (wasSelected !== option.selected) {
-                option.selected ? this.selectionModel.select(option) : this.selectionModel.deselect(option);
+                if (option.selected) {
+                    this.selectionModel.select(option);
+                } else {
+                    this.selectionModel.deselect(option);
+                }
             }
 
             if (isUserInput) {

@@ -400,7 +400,8 @@ export class DateCarousel implements OnInit, ControlValueAccessor, OnDestroy {
     getActualStartAndEnd(value: AdvancedSelectableCell) {
         const selectedStart = this.selectedValue[0].startValue;
         const selectedEnd = this.selectedValue[this.selectedValue.length - 1].endValue;
-        let rangeStart: TinyDate, rangeEnd: TinyDate | undefined = undefined;
+        let rangeStart: TinyDate | undefined = undefined,
+            rangeEnd: TinyDate | undefined = undefined;
         if (value.startValue.isBeforeDay(selectedStart)) {
             rangeStart = value.startValue;
             rangeEnd = selectedStart;

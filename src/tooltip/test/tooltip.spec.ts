@@ -80,7 +80,7 @@ class ThyDemoTooltipTemplateComponent {
 describe(`ThyTooltip`, () => {
     let overlayContainer: OverlayContainer | undefined = undefined;
     let overlayContainerElement: HTMLElement | undefined = undefined;
-    let platform: { IOS: boolean; isBrowser: boolean; ANDROID: boolean };
+    let platform: { IOS: boolean; isBrowser: boolean; ANDROID: boolean } | undefined = undefined;
 
     beforeEach(fakeAsync(() => {
         platform = { IOS: false, isBrowser: true, ANDROID: false };

@@ -197,7 +197,9 @@ class TestTransferCustomRenderContentComponent {
 }
 
 describe('transfer', () => {
-    let fixture: ComponentFixture<TestTransferComponent | TestTransferCustomRenderComponent | TestTransferCustomRenderContentComponent> | undefined = undefined;
+    let fixture:
+        | ComponentFixture<TestTransferComponent | TestTransferCustomRenderComponent | TestTransferCustomRenderContentComponent>
+        | undefined = undefined;
     let dl: DebugElement | undefined = undefined;
     let instance: TestTransferComponent | undefined = undefined;
     let pageObject: TransferPageObject | undefined = undefined;

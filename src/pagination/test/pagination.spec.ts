@@ -109,7 +109,7 @@ describe('ThyPagination', () => {
         let componentInstance: PaginationTestComponent | undefined = undefined;
         let paginationDebugElement: DebugElement | undefined = undefined;
         let paginationElement: HTMLElement | undefined = undefined;
-        let pagination: { pageIndex: number; pageSize: number; total: number };
+        let pagination: { pageIndex: number; pageSize: number; total: number } | undefined = undefined;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(PaginationTestComponent);

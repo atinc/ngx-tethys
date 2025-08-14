@@ -469,7 +469,11 @@ export class ThySelect
             if (event.keyCode === ENTER) {
                 event.stopPropagation();
             }
-            this.panelOpen ? this.handleOpenKeydown(event) : this.handleClosedKeydown(event);
+            if (this.panelOpen) {
+                this.handleOpenKeydown(event);
+            } else {
+                this.handleClosedKeydown(event);
+            }
         }
     }
 
@@ -879,7 +883,12 @@ export class ThySelect
             this.open();
         } else if (!this.isMultiple) {
             if (keyCode === HOME || keyCode === END) {
-                keyCode === HOME ? manager.setFirstItemActive() : manager.setLastItemActive();
+                if (keyCode === HOME) {
+                    manager.setFirstItemActive();
+                } else {
+                    manager.setLastItemActive();
+                }
+
                 event.preventDefault();
             } else {
                 manager.onKeydown(event);
@@ -894,7 +903,11 @@ export class ThySelect
 
         if (keyCode === HOME || keyCode === END) {
             event.preventDefault();
-            keyCode === HOME ? manager.setFirstItemActive() : manager.setLastItemActive();
+            if (keyCode === HOME) {
+                manager.setFirstItemActive();
+            } else {
+                manager.setLastItemActive();
+            }
         } else if (isArrowKey && event.altKey) {
             // Close the select on ALT + arrow key to match the native <select>
             event.preventDefault();
@@ -913,7 +926,11 @@ export class ThySelect
 
             this.options.forEach(option => {
                 if (!option.disabled) {
-                    hasDeselectedOptions ? option.select() : option.deselect();
+                    if (hasDeselectedOptions) {
+                        option.select();
+                    } else {
+                        option.deselect();
+                    }
                 }
             });
         } else {
@@ -1026,7 +1043,11 @@ export class ThySelect
             this.selectionModel.clear();
         } else {
             if (wasSelected !== option.selected) {
-                option.selected ? this.selectionModel.select(option) : this.selectionModel.deselect(option);
+                if (option.selected) {
+                    this.selectionModel.select(option);
+                } else {
+                    this.selectionModel.deselect(option);
+                }
             }
 
             if (isUserInput) {

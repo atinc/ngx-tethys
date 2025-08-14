@@ -47,15 +47,15 @@ describe('test loading', () => {
         testComponent.loadingDone = false;
         fixture.detectChanges();
         expect(loadingElement.classList).toContain('thy-loading');
-        expect(indicatorElement).toBeTruthy;
-        expect(ellipsisElement).toBeTruthy;
-        expect(spotElement).toBeTruthy;
+        expect(indicatorElement).toBeTruthy();
+        expect(ellipsisElement).toBeTruthy();
+        expect(spotElement).toBeTruthy();
 
         testComponent.loadingDone = true;
         fixture.detectChanges();
-        expect(indicatorElement).toBeFalsy;
-        expect(ellipsisElement).toBeFalsy;
-        expect(spotElement).toBeFalsy;
+        expect(indicatorElement).toBeFalsy();
+        expect(ellipsisElement).toBeFalsy();
+        expect(spotElement).toBeFalsy();
     });
 
     it('thyIsMask', () => {

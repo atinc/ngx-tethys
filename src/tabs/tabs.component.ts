@@ -127,7 +127,9 @@ export class ThyTabs implements OnInit, AfterContentInit {
 
     ngAfterContentInit() {
         this.tabs.changes.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(data => {
-            this.thyAnimated() && (this.transitionStarted = true);
+            if (this.thyAnimated()) {
+                this.transitionStarted = true;
+            }
             this.activeTabIndex = data.length - 1;
             this.cd.markForCheck();
         });
@@ -149,7 +151,9 @@ export class ThyTabs implements OnInit, AfterContentInit {
             return;
         }
         this.activeTabId = tab.id() || null;
-        this.thyAnimated() && (this.transitionStarted = this.activeTabIndex !== index);
+        if (this.thyAnimated()) {
+            this.transitionStarted = this.activeTabIndex !== index;
+        }
         this.activeTabIndex = index;
         const id = tab.id();
         const activeTab = id ? id : index;

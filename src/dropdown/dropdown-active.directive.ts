@@ -42,7 +42,9 @@ export class ThyDropdownActiveDirective implements OnInit, AfterContentInit {
                     const result = triggers.map(item => {
                         return item.thyActiveChange;
                     });
-                    this.trigger && result.push(this.trigger.thyActiveChange);
+                    if (this.trigger) {
+                        result.push(this.trigger.thyActiveChange);
+                    }
                     return result;
                 }),
                 mergeMap(result => {

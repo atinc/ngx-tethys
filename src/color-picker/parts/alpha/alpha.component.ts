@@ -67,7 +67,7 @@ export class ThyAlpha {
         containerWidth: number;
         $event: Event;
     }) {
-        let x;
+        let x: number | undefined = undefined;
         if (event.left < 0) {
             x = 0;
         } else if (event.left > event.containerWidth) {

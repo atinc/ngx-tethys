@@ -275,7 +275,9 @@ export class ThyColorPickerDirective extends _BaseMixin implements OnInit, OnDes
 
         this.hideTimeoutId = setTimeout(() => {
             if (this.popoverRef) {
-                this.popoverRef?.getOverlayRef()?.hasAttached() && this.popoverRef.close();
+                if (this.popoverRef?.getOverlayRef()?.hasAttached()) {
+                    this.popoverRef.close();
+                }
             }
             this.hideTimeoutId = null;
         }, delay);

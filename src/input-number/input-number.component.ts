@@ -268,13 +268,13 @@ export class ThyInputNumber extends TabIndexDisabledControlValueAccessorMixin im
             return;
         }
         const value = this.validValue as number;
-        let val;
+        let val: number | string | undefined = undefined;
         if (type === Type.up) {
             val = this.upStep(value);
         } else if (type === Type.down) {
             val = this.downStep(value);
         }
-        const outOfRange = val > this.thyMax() || val < this.thyMin();
+        const outOfRange = (val as number) > this.thyMax() || (val as number) < this.thyMin();
         val = this.getCurrentValidValue(val);
         this.updateValidValue(val);
         this.onChangeFn(this.validValue);

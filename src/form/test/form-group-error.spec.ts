@@ -22,9 +22,11 @@ describe('form-group-error', () => {
     let fixture: ComponentFixture<TestFormGroupErrorBasicComponent> | undefined = undefined;
     let formGroupFooterComponent: TestFormGroupErrorBasicComponent | undefined = undefined;
     let debugElement: DebugElement | undefined = undefined;
-    let thyFormDirective: {
-        isHorizontal: boolean;
-    };
+    let thyFormDirective:
+        | {
+              isHorizontal: boolean;
+          }
+        | undefined = undefined;
 
     describe('isHorizontal', () => {
         beforeEach(fakeAsync(() => {

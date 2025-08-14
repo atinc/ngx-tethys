@@ -138,7 +138,6 @@ describe('ThyRangePickerComponent', () => {
         it('should be [thyMinDate, endDate] when startDate < thyMinDate', fakeAsync(() => {
             const minDate: Date = startOfDay(addDays(new Date(), -3));
             const maxDate: Date = endOfDay(addDays(new Date(), 30));
-            fixtureInstance.thyShortcutPresets;
             const expectValue = `${format(minDate.getTime(), 'yyyy-MM-dd')}${fixture.componentInstance.thySeparator}${format(endDate, 'yyyy-MM-dd')}`;
 
             assertAccordingToMinAndMaxDate(minDate, maxDate, expectValue);

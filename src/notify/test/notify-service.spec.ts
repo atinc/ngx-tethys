@@ -70,7 +70,8 @@ describe('ThyNotify', () => {
         let fixture: ComponentFixture<ThyNotifyBasicComponent> | undefined = undefined;
         let componentInstance: ThyNotifyBasicComponent | undefined = undefined;
         let btnElement: HTMLElement | undefined = undefined;
-        let notifyContainer: NodeListOf<Element>, notifyTopLeftContainer: NodeListOf<Element> | undefined = undefined;
+        let notifyContainer: NodeListOf<Element> | undefined = undefined,
+            notifyTopLeftContainer: NodeListOf<Element> | undefined = undefined;
 
         beforeEach(fakeAsync(() => {
             fixture = TestBed.createComponent(ThyNotifyBasicComponent);

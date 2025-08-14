@@ -126,7 +126,9 @@ export class ThyFormDirective implements OnInit, AfterViewInit, OnDestroy {
     submit($event: Event) {
         const result = this.validator.validateWithDetail($event);
         if (result.valid) {
-            this.onSubmitSuccess && this.onSubmitSuccess($event);
+            if (this.onSubmitSuccess) {
+                this.onSubmitSuccess($event);
+            }
         } else {
             const invalidElement = result.invalidControls[0].element;
             invalidElement.focus();

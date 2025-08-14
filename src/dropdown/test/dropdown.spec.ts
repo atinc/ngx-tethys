@@ -191,7 +191,7 @@ describe('for touch usage', () => {
     let buttonElement: HTMLElement | undefined = undefined;
     let overlayContainer: OverlayContainer | undefined = undefined;
     let overlayContainerElement: HTMLElement | undefined = undefined;
-    let platform: { IOS: boolean; isBrowser: boolean; ANDROID: boolean };
+    let platform: { IOS: boolean; isBrowser: boolean; ANDROID: boolean } | undefined = undefined;
 
     beforeEach(() => {
         platform = { IOS: false, isBrowser: true, ANDROID: false };
