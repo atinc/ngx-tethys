@@ -1,4 +1,4 @@
-import { ApplicationRef, Component, ElementRef, ViewChild } from '@angular/core';
+import { ApplicationRef, Component, ElementRef, viewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { ThyAutofocusDirective } from 'ngx-tethys/shared';
 
@@ -8,7 +8,7 @@ import { ThyAutofocusDirective } from 'ngx-tethys/shared';
     imports: [ThyAutofocusDirective]
 })
 class ThyAutofocusTestComponent {
-    @ViewChild('autofocusInput') input: ElementRef;
+    readonly input = viewChild<ElementRef>('autofocusInput');
 
     autofocus = false;
 
@@ -29,7 +29,7 @@ describe('ThyAutofocusDirective', () => {
         fixture = TestBed.createComponent(ThyAutofocusTestComponent);
         testComponent = fixture.componentInstance;
         fixture.detectChanges();
-        focusSpy = spyOn(testComponent.input.nativeElement, 'focus');
+        focusSpy = spyOn(testComponent.input().nativeElement, 'focus');
     });
 
     it('should not focus input when autofocus is false', fakeAsync(() => {
@@ -50,7 +50,7 @@ describe('ThyAutofocusDirective', () => {
     it('should select input when autofocus and autoSelect is true', fakeAsync(() => {
         testComponent.autofocus = true;
         testComponent.autoSelect = true;
-        const autoSelectSpy = spyOn(testComponent.input.nativeElement, 'select');
+        const autoSelectSpy = spyOn(testComponent.input().nativeElement, 'select');
         fixture.detectChanges();
         tick(16);
         fixture.detectChanges();
@@ -61,7 +61,7 @@ describe('ThyAutofocusDirective', () => {
     it('should not select input when autoSelect is false', fakeAsync(() => {
         testComponent.autofocus = true;
         testComponent.autoSelect = false;
-        const autoSelectSpy = spyOn(testComponent.input.nativeElement, 'select');
+        const autoSelectSpy = spyOn(testComponent.input().nativeElement, 'select');
         fixture.detectChanges();
         tick(16);
         expect(focusSpy).toHaveBeenCalled();
@@ -73,7 +73,7 @@ describe('ThyAutofocusDirective', () => {
         spyOn(appRef, 'tick');
         testComponent.autofocus = true;
         testComponent.autoSelect = true;
-        const autoSelectSpy = spyOn(testComponent.input.nativeElement, 'select');
+        const autoSelectSpy = spyOn(testComponent.input().nativeElement, 'select');
         fixture.detectChanges();
         tick(16);
         expect(focusSpy).toHaveBeenCalled();

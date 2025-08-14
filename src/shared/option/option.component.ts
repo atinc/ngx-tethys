@@ -1,17 +1,19 @@
 import {
     Component,
-    Input,
     TemplateRef,
-    ViewChild,
     ChangeDetectionStrategy,
     HostBinding,
     HostListener,
     ElementRef,
     ChangeDetectorRef,
-    EventEmitter,
     OnDestroy,
-    Output,
-    inject
+    inject,
+    input,
+    viewChild,
+    WritableSignal,
+    signal,
+    output,
+    Input
 } from '@angular/core';
 import { Highlightable } from '@angular/cdk/a11y';
 import { SelectOptionBase } from './select-option-base';
@@ -19,6 +21,7 @@ import { ENTER, SPACE, coerceBooleanProperty, hasModifierKey } from 'ngx-tethys/
 import { THY_OPTION_PARENT_COMPONENT } from './option.token';
 
 import { ThyIcon } from 'ngx-tethys/icon';
+import { SafeAny } from '../../types';
 
 export class ThyOptionSelectionChangeEvent {
     constructor(
@@ -39,62 +42,51 @@ export class ThyOptionVisibleChangeEvent {
     selector: 'thy-option',
     templateUrl: './option.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [ThyIcon]
+    imports: [ThyIcon],
+    host: {
+        class: 'thy-option-item',
+        '[class.disabled]': 'thyDisabled()',
+        '[class.hidden]': 'hidden()',
+        '[attr.tabindex]': `tabIndex`,
+        '[class.active]': 'selected()'
+    }
 })
 export class ThyOption extends SelectOptionBase implements OnDestroy, Highlightable {
     element = inject<ElementRef<HTMLElement>>(ElementRef);
     parent = inject(THY_OPTION_PARENT_COMPONENT, { optional: true })!;
     private cdr = inject(ChangeDetectorRef);
 
-    private _selected = false;
-    private _hidden = false;
-    private _disabled = false;
-
+    // 继承至 SelectOptionBase，无法修改为 Signal
     @Input() thyValue: any;
 
     @Input() thyRawValue: any;
 
     @Input() thyLabelText: string;
 
-    @Input() thyShowOptionCustom: boolean;
+    readonly thyShowOptionCustom = input<boolean>();
 
-    @Input() thySearchKey: string;
+    readonly thySearchKey = input<string>();
 
-    @HostBinding('class.thy-option-item') _isOptionItem = true;
+    readonly template = viewChild(TemplateRef);
 
-    @ViewChild(TemplateRef, { static: true }) template: TemplateRef<any>;
+    readonly thyDisabled = input(false, { transform: coerceBooleanProperty });
 
-    @Input({ transform: coerceBooleanProperty })
-    @HostBinding(`class.disabled`)
-    set thyDisabled(value: boolean) {
-        this._disabled = value;
-    }
+    readonly hidden: WritableSignal<boolean> = signal(false);
 
-    get thyDisabled(): boolean {
-        return this._disabled;
-    }
-
+    // 继承至 Highlightable，无法修改为 Signal
     get disabled(): boolean {
-        return this.hidden || this._disabled;
+        return this.hidden() || this.thyDisabled();
     }
 
-    @HostBinding('class.hidden')
-    get hidden(): boolean {
-        return this._hidden;
-    }
-
-    @HostBinding('attr.tabindex')
     get tabIndex(): string {
         return this.disabled ? '-1' : '0';
     }
 
-    @HostBinding(`class.active`)
-    get selected(): boolean {
-        return this._selected;
-    }
+    readonly selected: WritableSignal<boolean> = signal(false);
 
-    @Output() readonly selectionChange: EventEmitter<ThyOptionSelectionChangeEvent> = new EventEmitter();
-    @Output() readonly visibleChange: EventEmitter<ThyOptionVisibleChangeEvent> = new EventEmitter();
+    readonly selectionChange = output<ThyOptionSelectionChangeEvent>();
+
+    readonly visibleChange = output<ThyOptionVisibleChangeEvent>();
 
     constructor() {
         super();
@@ -119,7 +111,8 @@ export class ThyOption extends SelectOptionBase implements OnDestroy, Highlighta
 
     selectViaInteraction(): void {
         if (!this.disabled) {
-            this._selected = this.parent.isMultiple ? !this._selected : true;
+            const selected = this.parent.isMultiple ? !this.selected() : true;
+            this.selected.set(selected);
             this.cdr.markForCheck();
             this.emitSelectionChangeEvent(true);
         }
@@ -127,8 +120,8 @@ export class ThyOption extends SelectOptionBase implements OnDestroy, Highlighta
 
     select(event?: Event): void {
         if (!this.disabled) {
-            if (!this._selected) {
-                this._selected = true;
+            if (!this.selected()) {
+                this.selected.set(true);
                 this.emitSelectionChangeEvent();
                 this.cdr.markForCheck();
             }
@@ -136,32 +129,33 @@ export class ThyOption extends SelectOptionBase implements OnDestroy, Highlighta
     }
 
     deselect(): void {
-        if (this._selected || this.disabled) {
-            this._selected = false;
+        if (this.selected() || this.disabled) {
+            this.selected.set(false);
             this.emitSelectionChangeEvent();
             this.cdr.markForCheck();
         }
     }
 
     hideOption() {
-        if (!this._hidden) {
-            this._hidden = true;
+        if (!this.hidden()) {
+            this.hidden.set(true);
             this.visibleChange.emit({ option: this });
             this.cdr.markForCheck();
         }
     }
 
     showOption() {
-        if (this._hidden) {
-            this._hidden = false;
+        if (this.hidden()) {
+            this.hidden.set(false);
             this.visibleChange.emit({ option: this });
             this.cdr.markForCheck();
         }
     }
 
     matchSearchText(searchText: string): boolean {
-        if (this.thySearchKey) {
-            if (this.thySearchKey.toLowerCase().indexOf(searchText.toLowerCase()) >= 0) {
+        const thySearchKey = this.thySearchKey();
+        if (thySearchKey) {
+            if (thySearchKey.toLowerCase().indexOf(searchText.toLowerCase()) >= 0) {
                 return true;
             } else {
                 return false;

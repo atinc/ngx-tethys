@@ -1,4 +1,4 @@
-import { Component, Input, HostBinding, ElementRef, ChangeDetectorRef, HostListener, inject } from '@angular/core';
+import { Component, Input, HostBinding, ElementRef, ChangeDetectorRef, HostListener, inject, input } from '@angular/core';
 import { Highlightable } from '@angular/cdk/a11y';
 import { IThyOptionComponent, THY_LIST_OPTION_PARENT_COMPONENT } from '../option.token';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -14,11 +14,13 @@ let _uniqueIdCounter = 0;
 @Component({
     selector: 'thy-list-option,[thy-list-option]',
     templateUrl: './list-option.component.html',
-    imports: [ThyIcon]
+    imports: [ThyIcon],
+    host: {
+        '[class.disabled]': 'thyDisabled()'
+    }
 })
 export class ThyListOption implements IThyOptionComponent, Highlightable {
     element = inject<ElementRef<HTMLElement>>(ElementRef);
-    private changeDetector = inject(ChangeDetectorRef);
     parentSelectionList = inject(THY_LIST_OPTION_PARENT_COMPONENT, { optional: true })!;
 
     @HostBinding(`class.thy-list-option`)
@@ -35,16 +37,11 @@ export class ThyListOption implements IThyOptionComponent, Highlightable {
 
     @HostBinding(`attr.tabindex`) _tabIndex = -1;
 
-    @Input() id = `thy-list-option-${_uniqueIdCounter++}`;
+    readonly id = input(`thy-list-option-${_uniqueIdCounter++}`);
 
-    @Input() thyValue: any;
+    readonly thyValue = input<any>(undefined);
 
-    @Input({ transform: coerceBooleanProperty })
-    set thyDisabled(value: boolean) {
-        this.disabled = value;
-    }
-
-    @HostBinding(`class.disabled`) disabled?: boolean;
+    readonly thyDisabled = input(false, { transform: coerceBooleanProperty });
 
     /** Whether the option is selected. */
     @HostBinding(`class.active`)

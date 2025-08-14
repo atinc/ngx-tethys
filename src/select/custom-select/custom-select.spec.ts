@@ -1251,7 +1251,7 @@ describe('ThyCustomSelect', () => {
                 option = overlayContainerElement.querySelector('thy-option') as HTMLElement;
 
                 expect(option.classList).toContain('active');
-                expect(fixture.componentInstance.options()[0].selected).toEqual(true);
+                expect(fixture.componentInstance.options()[0].selected()).toEqual(true);
                 expect(fixture.componentInstance.select().selectionModel.selected[0]).toBe(fixture.componentInstance.options()[0]);
             }));
 
@@ -1267,7 +1267,7 @@ describe('ThyCustomSelect', () => {
                 fixture.detectChanges();
                 flush();
                 expect(optionNodes[1].classList).toContain('active');
-                expect(optionInstances[1].selected).toBe(true);
+                expect(optionInstances[1].selected()).toBe(true);
                 expect(fixture.componentInstance.select().selectionModel.selected[0]).toBe(optionInstances[1]);
             }));
 
@@ -1299,8 +1299,8 @@ describe('ThyCustomSelect', () => {
                 expect(options[2].classList).not.toContain('active');
 
                 const optionInstances = fixture.componentInstance.options();
-                expect(optionInstances[1].selected).toBe(false);
-                expect(optionInstances[2].selected).toBe(false);
+                expect(optionInstances[1].selected()).toBe(false);
+                expect(optionInstances[2].selected()).toBe(false);
             }));
         });
 
@@ -1346,17 +1346,18 @@ describe('ThyCustomSelect', () => {
             it('should scroll to active item when thyEnableScrollLoad and thyServerSearch is true', fakeAsync(() => {
                 fixture.detectChanges();
                 const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+                tick(100);
                 trigger.click();
                 fixture.detectChanges();
 
                 const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
-
                 typeInElement('any word', input);
                 fixture.detectChanges();
                 expect(fixtureIns.select()['isSearching']).toBeTruthy();
                 tick(200);
                 fixture.detectChanges();
                 expect(fixtureIns.select()['isSearching']).toBeFalsy();
+
                 expect(fixtureIns.select().keyManager.activeItem).toEqual(fixtureIns.select().options.toArray()[0]);
             }));
 
@@ -1509,7 +1510,7 @@ describe('ThyCustomSelect', () => {
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
 
             expect(trigger.textContent).toContain('Pizza');
-            expect(fixture.componentInstance.options()[1].selected).toBe(true);
+            expect(fixture.componentInstance.options()[1].selected()).toBe(true);
         }));
     });
 
@@ -1523,9 +1524,9 @@ describe('ThyCustomSelect', () => {
             fixture.componentInstance.selectedValues = null;
             fixture.detectChanges();
             flush();
-            expect(optionComponents[0].selected).toBe(false);
-            expect(optionComponents[1].selected).toBe(false);
-            expect(optionComponents[2].selected).toBe(false);
+            expect(optionComponents[0].selected()).toBe(false);
+            expect(optionComponents[1].selected()).toBe(false);
+            expect(optionComponents[2].selected()).toBe(false);
         }));
     });
 
@@ -1595,8 +1596,8 @@ describe('ThyCustomSelect', () => {
 
             const options = fixture.componentInstance.select().options.toArray();
 
-            expect(options[0].hidden).toBe(false);
-            expect(options[1].hidden).toBe(true);
+            expect(options[0].hidden()).toBe(false);
+            expect(options[1].hidden()).toBe(true);
             const optionNodes = overlayContainerElement.querySelectorAll('thy-option') as NodeListOf<HTMLElement>;
             expect(optionNodes[0].classList).not.toContain('hidden');
             expect(optionNodes[1].classList).toContain('hidden');
@@ -1605,8 +1606,8 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
 
-            expect(options[0].hidden).toBe(false);
-            expect(options[1].hidden).toBe(false);
+            expect(options[0].hidden()).toBe(false);
+            expect(options[1].hidden()).toBe(false);
             expect(optionNodes[0].classList).not.toContain('hidden');
             expect(optionNodes[1].classList).not.toContain('hidden');
         }));
@@ -1626,14 +1627,14 @@ describe('ThyCustomSelect', () => {
             const options = fixture.componentInstance.select().options.toArray();
             const optionNodes = overlayContainerElement.querySelectorAll('thy-option') as NodeListOf<HTMLElement>;
 
-            expect(options[1].hidden).toBe(false);
+            expect(options[1].hidden()).toBe(false);
             expect(optionNodes[1].classList).not.toContain('hidden');
 
             typeInElement('other', input);
             fixture.detectChanges();
             flush();
 
-            expect(options[1].hidden).toBe(true);
+            expect(options[1].hidden()).toBe(true);
             expect(optionNodes[1].classList).toContain('hidden');
         }));
         it('should also find content when search by upperCase or lowerCase', fakeAsync(() => {
@@ -1651,7 +1652,7 @@ describe('ThyCustomSelect', () => {
             flush();
 
             const options = fixture.componentInstance.select().options.toArray();
-            expect(options[0].hidden).toBe(false);
+            expect(options[0].hidden()).toBe(false);
         }));
         it('should hide the thy-group when all options of the group is hidden', fakeAsync(() => {
             const fixture = TestBed.createComponent(SelectWithSearchAndGroupComponent);
@@ -1662,14 +1663,15 @@ describe('ThyCustomSelect', () => {
 
             const groups = fixture.componentInstance.select().contentGroups();
             const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
+            tick(100);
             typeInElement('Cat', input);
 
             tick(1000);
             fixture.detectChanges();
             flush();
 
-            expect(groups[0].hidden).toBe(false);
-            expect(groups[1].hidden).toBe(true);
+            expect(groups[0].hidden()).toBe(false);
+            expect(groups[1].hidden()).toBe(true);
 
             typeInElement('cat2', input);
 
@@ -1677,8 +1679,8 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
 
-            expect(groups[0].hidden).toBe(true);
-            expect(groups[1].hidden).toBe(true);
+            expect(groups[0].hidden()).toBe(true);
+            expect(groups[1].hidden()).toBe(true);
         }));
         it('should exec thyOnSearch when thyServerSearch is true', fakeAsync(() => {
             const fixture = TestBed.createComponent(SelectWithSearchAndServerSearchComponent);
@@ -1701,6 +1703,7 @@ describe('ThyCustomSelect', () => {
             const fixture = TestBed.createComponent(SelectWithSearchAndGroupComponent);
             fixture.detectChanges();
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            tick(100);
             trigger.click();
             fixture.detectChanges();
 
@@ -1937,27 +1940,27 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
 
-            expect(optionComponents[0].selected).toBe(true);
-            expect(optionComponents[1].selected).toBe(true);
+            expect(optionComponents[0].selected()).toBe(true);
+            expect(optionComponents[1].selected()).toBe(true);
 
             fixture.componentInstance.selectMode = '';
             fixture.detectChanges();
             flush();
 
-            expect(optionComponents[0].selected).toBe(false);
-            expect(optionComponents[1].selected).toBe(false);
+            expect(optionComponents[0].selected()).toBe(false);
+            expect(optionComponents[1].selected()).toBe(false);
 
             trigger.click();
             fixture.detectChanges();
             flush();
             (options.item(0) as HTMLElement).click();
-            expect(optionComponents[0].selected).toBe(true);
+            expect(optionComponents[0].selected()).toBe(true);
 
             fixture.componentInstance.selectMode = 'multiple';
             fixture.detectChanges();
             flush();
 
-            expect(optionComponents[0].selected).toBe(false);
+            expect(optionComponents[0].selected()).toBe(false);
         }));
 
         it('should not clear status when the thyMode value is not change', fakeAsync(() => {
@@ -1981,15 +1984,15 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
 
-            expect(optionComponents[0].selected).toBe(true);
-            expect(optionComponents[1].selected).toBe(true);
+            expect(optionComponents[0].selected()).toBe(true);
+            expect(optionComponents[1].selected()).toBe(true);
 
             fixture.componentInstance.selectMode = 'multiple';
             fixture.detectChanges();
             flush();
 
-            expect(optionComponents[0].selected).toBe(true);
-            expect(optionComponents[1].selected).toBe(true);
+            expect(optionComponents[0].selected()).toBe(true);
+            expect(optionComponents[1].selected()).toBe(true);
         }));
 
         it('should apply default mode when thyMode change to empty', fakeAsync(() => {
@@ -2009,12 +2012,12 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
             const optionComponents = fixture.componentInstance.options();
-            expect(optionComponents[0].selected).toBe(true);
+            expect(optionComponents[0].selected()).toBe(true);
             (options.item(1) as HTMLElement).click();
             fixture.detectChanges();
             flush();
-            expect(optionComponents[0].selected).toBe(false);
-            expect(optionComponents[1].selected).toBe(true);
+            expect(optionComponents[0].selected()).toBe(false);
+            expect(optionComponents[1].selected()).toBe(true);
         }));
 
         it('should apply multiple mode when thyMode change to multiple', fakeAsync(() => {
@@ -2045,8 +2048,8 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
 
-            expect(optionComponents[0].selected).toBe(true);
-            expect(optionComponents[1].selected).toBe(true);
+            expect(optionComponents[0].selected()).toBe(true);
+            expect(optionComponents[1].selected()).toBe(true);
         }));
     });
 
@@ -2192,7 +2195,7 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
 
-            expect(fixture.componentInstance.options()[0].selected).toEqual(true);
+            expect(fixture.componentInstance.options()[0].selected()).toEqual(true);
             expect(fixture.componentInstance.select().selectionModel.selected[0]).toBe(fixture.componentInstance.options()[0]);
         }));
 
@@ -2217,7 +2220,7 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
 
-            expect(fixture.componentInstance.options()[0].selected).toEqual(true);
+            expect(fixture.componentInstance.options()[0].selected()).toEqual(true);
             expect(fixture.componentInstance.select().selectionModel.selected[0]).toBe(fixture.componentInstance.options()[0]);
         }));
     });

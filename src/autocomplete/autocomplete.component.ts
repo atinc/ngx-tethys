@@ -18,6 +18,7 @@ import {
 } from '@angular/core';
 import { defer, merge, Observable, Subject, timer } from 'rxjs';
 import { take, switchMap, takeUntil, startWith } from 'rxjs/operators';
+import { outputToObservable } from '@angular/core/rxjs-interop';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
     THY_OPTION_PARENT_COMPONENT,
@@ -95,7 +96,7 @@ export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, After
 
     readonly optionSelectionChanges: Observable<ThyOptionSelectionChangeEvent> = defer(() => {
         if (this.options) {
-            return merge(...this.options.map(option => option.selectionChange));
+            return merge(...this.options.map(option => outputToObservable(option.selectionChange)));
         }
         return this.ngZone.onStable.asObservable().pipe(
             take(1),
@@ -196,8 +197,8 @@ export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, After
             option.deselect();
             this.selectionModel.clear();
         } else {
-            if (wasSelected !== option.selected) {
-                option.selected ? this.selectionModel.select(option) : this.selectionModel.deselect(option);
+            if (wasSelected !== option.selected()) {
+                option.selected() ? this.selectionModel.select(option) : this.selectionModel.deselect(option);
             }
 
             if (isUserInput) {

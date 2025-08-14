@@ -1,44 +1,44 @@
 import {
     Component,
     HostBinding,
-    Input,
-    ContentChildren,
-    QueryList,
     NgZone,
     OnDestroy,
     AfterContentInit,
     ChangeDetectorRef,
-    inject
+    inject,
+    input,
+    ContentChildren,
+    QueryList,
+    WritableSignal,
+    signal
 } from '@angular/core';
 import { Observable, defer, Subject, merge } from 'rxjs';
 import { ThyOptionVisibleChangeEvent, ThyOption } from '../option.component';
 import { take, switchMap, startWith, takeUntil, debounceTime, map } from 'rxjs/operators';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { outputToObservable } from '@angular/core/rxjs-interop';
 
 /**
  * @private
  */
 @Component({
     selector: 'thy-option-group',
-    templateUrl: './option-group.component.html'
+    templateUrl: './option-group.component.html',
+    host: {
+        class: 'thy-option-item-group',
+        '[class.disabled]': 'thyDisabled()',
+        '[class.thy-select-option-group-hidden]': 'hidden()'
+    }
 })
 export class ThySelectOptionGroup implements OnDestroy, AfterContentInit {
     private _ngZone = inject(NgZone);
     private cdr = inject(ChangeDetectorRef);
 
-    _hidden = false;
-    @Input({ transform: coerceBooleanProperty })
-    @HostBinding(`class.disabled`)
-    thyDisabled: boolean;
+    readonly thyDisabled = input(false, { transform: coerceBooleanProperty });
 
-    @HostBinding('class.thy-option-item-group') _isOptionGroup = true;
+    readonly hidden: WritableSignal<boolean> = signal(false);
 
-    @HostBinding('class.thy-select-option-group-hidden')
-    get hidden(): boolean {
-        return this._hidden;
-    }
-
-    @Input() thyGroupLabel: string;
+    readonly thyGroupLabel = input<string>(undefined);
 
     @ContentChildren(ThyOption) options: QueryList<ThyOption>;
 
@@ -46,13 +46,13 @@ export class ThySelectOptionGroup implements OnDestroy, AfterContentInit {
 
     optionVisibleChanges: Observable<ThyOptionVisibleChangeEvent> = defer(() => {
         if (this.options) {
-            return merge(...this.options.map(option => option.visibleChange));
+            return merge(...this.options.map(option => outputToObservable(option.visibleChange)));
         }
         return this._ngZone.onStable.asObservable().pipe(
             take(1),
             switchMap(() => this.optionVisibleChanges)
         );
-    }) as Observable<ThyOptionVisibleChangeEvent>;
+    });
 
     ngAfterContentInit() {
         this.options.changes.pipe(startWith(null), takeUntil(this._destroy$)).subscribe(() => {
@@ -62,13 +62,13 @@ export class ThySelectOptionGroup implements OnDestroy, AfterContentInit {
 
     _resetOptions() {
         const changedOrDestroyed$ = merge(this.options.changes, this._destroy$);
-        merge(...this.options.map(option => option.visibleChange))
+        merge(...this.options.map(option => outputToObservable(option.visibleChange)))
             .pipe(
                 takeUntil(changedOrDestroyed$),
                 debounceTime(10),
                 map((event: ThyOptionVisibleChangeEvent) => {
                     const hasOption = this.options.find(option => {
-                        if (!option.hidden) {
+                        if (!option.hidden()) {
                             return true;
                         }
                     });
@@ -80,7 +80,7 @@ export class ThySelectOptionGroup implements OnDestroy, AfterContentInit {
                 })
             )
             .subscribe((data: boolean) => {
-                this._hidden = data;
+                this.hidden.set(data);
                 this.cdr.markForCheck();
             });
     }
