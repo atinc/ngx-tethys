@@ -3,7 +3,7 @@ import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
 import { SafeAny } from 'ngx-tethys/types';
 import { coerceBooleanProperty, FunctionProp, isTemplateRef, TinyDate } from 'ngx-tethys/util';
 import { DateBodyRow, DateCell } from '../date/types';
-import { DisabledDateFn } from 'ngx-tethys/date-picker';
+import { DisabledDateFn } from '../../standard-types';
 
 /**
  * @private
