@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, AfterViewInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyAutocomplete, ThyAutocompleteTriggerDirective } from 'ngx-tethys/autocomplete';
 import { ThyInputDirective } from 'ngx-tethys/input';
@@ -10,23 +10,39 @@ import { ThyOption } from 'ngx-tethys/shared';
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [ThyInputDirective, FormsModule, ThyAutocompleteTriggerDirective, ThyAutocomplete, ThyOption]
 })
-export class ThyAutocompleteBasicExampleComponent implements OnInit {
+export class ThyAutocompleteBasicExampleComponent implements OnInit, AfterViewInit {
     value = '';
 
-    children: Array<{ label: string; value: string }> = [];
+    optionCount = 20000;
 
-    listOfOption: Array<{ label: string; value: string }> = [];
+    listOfOption = Array.from({ length: this.optionCount }, (_, index) => ({
+        value: `${index + 1}option`,
+        text: `${index + 1} 选项`
+    }));
 
-    constructor() {}
+    private perfTracker = perfTracker();
+
+    constructor() {
+        console.log('数据量 optionCount:', `${this.optionCount}`);
+        this.perfTracker.add('constructor');
+    }
 
     ngOnInit() {
-        for (let i = 10; i < 36; i++) {
-            this.children.push({ label: i.toString(36) + i, value: i.toString(36) + i });
-        }
-        this.listOfOption = [...this.children];
+        this.perfTracker.add('ngOnInit');
     }
 
-    valueChange(newValue: string) {
-        this.listOfOption = this.children.filter(item => item.label.includes(newValue));
+    ngAfterViewInit() {
+        this.perfTracker.add('ngAfterViewInit');
     }
+}
+
+function perfTracker() {
+    let lastDate = new Date().getTime();
+    return {
+        add(name: string) {
+            const current = new Date().getTime();
+            console.log(`[${name}] ${current}, duration: ${current - lastDate}`);
+            lastDate = current;
+        }
+    };
 }

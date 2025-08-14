@@ -1,0 +1,22 @@
+// @import '~ng-zorro-antd/style/index.min.css';
+// @import '~ng-zorro-antd/select/style/index.min.css';
+
+:host {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.basic-container {
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
+}
+thy-select,
+thy-custom-select,
+mat-mdc-select,
+.ant-select {
+    flex: 0 0 auto;
+    width: 90px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
