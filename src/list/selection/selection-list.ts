@@ -54,7 +54,7 @@ const listSizesMap = {
     ],
     host: {
         class: 'thy-list thy-selection-list',
-        '[class.thy-multiple-selection-list]': 'thyMultiple()',
+        '[class.thy-multiple-selection-list]': 'multiple()',
         '[class.thy-grid-list]': 'isLayoutGrid()'
     },
     changeDetection: ChangeDetectionStrategy.OnPush
@@ -86,12 +86,10 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
      */
     @ContentChildren(ThyListOption, { descendants: true }) options: QueryList<ThyListOption>;
 
-    // readonly options = contentChildren<ThyListOption>(ThyListOption, { descendants: true });
-
     /**
      * 改变 grid item 的选择模式，使其支持多选
      */
-    readonly thyMultiple = input<boolean, ThyBooleanInput>(true, { transform: coerceBooleanProperty });
+    readonly multiple = input<boolean, ThyBooleanInput>(true, { alias: 'thyMultiple', transform: coerceBooleanProperty });
 
     /**
      * 绑定键盘事件的容器
@@ -126,9 +124,9 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
      * grid item 的展示样式
      * @type list | grid
      */
-    readonly thyLayout = input<ThyListLayout>('list');
+    readonly layout = input<ThyListLayout>('list', { alias: 'thyLayout' });
 
-    readonly isLayoutGrid = computed<boolean>(() => this.thyLayout() === 'grid');
+    readonly isLayoutGrid = computed<boolean>(() => this.layout() === 'grid');
 
     /**
      * 是否自动激活第一项
@@ -195,7 +193,7 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
             }
             this.modelValues = selectedValues;
             let changeValue = selectedValues;
-            if (!this.thyMultiple() && selectedValues && selectedValues.length > 0) {
+            if (!this.multiple() && selectedValues && selectedValues.length > 0) {
                 changeValue = selectedValues[0];
             }
             this.onChange(changeValue);
@@ -220,7 +218,7 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
     }
 
     private instanceSelectionModel() {
-        this.selectionModel = new SelectionModel<any>(this.thyMultiple());
+        this.selectionModel = new SelectionModel<any>(this.multiple());
     }
 
     private getElementBySelector(element: HTMLElement | ElementRef | string): HTMLElement {
@@ -316,7 +314,7 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
 
     writeValue(value: any[] | any): void {
         if ((typeof ngDevMode === 'undefined' || ngDevMode) && value) {
-            const multiple = this.thyMultiple();
+            const multiple = this.multiple();
             if (multiple && !helpers.isArray(value)) {
                 throw new Error(`The multiple selection ngModel must be an array.`);
             }

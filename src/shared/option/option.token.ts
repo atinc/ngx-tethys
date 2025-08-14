@@ -17,8 +17,8 @@ export interface IThyOptionComponent {
 }
 
 export interface IThyListOptionParentComponent {
-    thyMultiple?: InputSignal<ThyBooleanInput>;
-    thyLayout?: InputSignal<ThyListLayout>;
+    multiple?: InputSignal<ThyBooleanInput>;
+    layout?: InputSignal<ThyListLayout>;
     // 选择，取消选择 option
     toggleOption(option: IThyOptionComponent, event?: Event): void;
     // 设置当前选项为激活状态，即 hover 状态

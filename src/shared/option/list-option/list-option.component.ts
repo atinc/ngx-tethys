@@ -32,11 +32,11 @@ export class ThyListOption implements IThyOptionComponent, Highlightable {
 
     tabIndex = -1;
 
-    readonly isMultiple = computed(() => this.parentSelectionList.thyMultiple());
+    readonly isMultiple = computed(() => this.parentSelectionList.multiple());
 
-    readonly isListOption = computed(() => this.parentSelectionList.thyLayout() === 'list');
+    readonly isListOption = computed(() => this.parentSelectionList.layout() === 'list');
 
-    readonly isGridOption = computed(() => this.parentSelectionList.thyLayout() === 'grid');
+    readonly isGridOption = computed(() => this.parentSelectionList.layout() === 'grid');
 
     readonly id = input(`thy-list-option-${_uniqueIdCounter++}`);
 
@@ -51,7 +51,7 @@ export class ThyListOption implements IThyOptionComponent, Highlightable {
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
-        if (this.parentSelectionList.thyMultiple() || !this.parentSelectionList.isSelected(this)) {
+        if (this.parentSelectionList.multiple() || !this.parentSelectionList.isSelected(this)) {
             this.parentSelectionList.toggleOption(this, event);
             this.parentSelectionList.setActiveOption(this);
         }
