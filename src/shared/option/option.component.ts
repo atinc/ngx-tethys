@@ -19,9 +19,7 @@ import { Highlightable } from '@angular/cdk/a11y';
 import { SelectOptionBase } from './select-option-base';
 import { ENTER, SPACE, coerceBooleanProperty, hasModifierKey } from 'ngx-tethys/util';
 import { THY_OPTION_PARENT_COMPONENT } from './option.token';
-
 import { ThyIcon } from 'ngx-tethys/icon';
-import { SafeAny } from '../../types';
 
 export class ThyOptionSelectionChangeEvent {
     constructor(
