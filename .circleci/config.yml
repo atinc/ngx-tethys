@@ -34,4 +34,3 @@ jobs:
       - run: npm run test-tethys -- --no-watch --no-progress --browsers=ChromeHeadlessCI --source-map=false
       - run: npm run test-cdk -- --no-watch --no-progress --browsers=ChromeHeadlessCI --source-map=false
       - run: npm run test-schematics
-      - run: npm run report-coverage

@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [19.1.0-next.6](https://github.com/atinc/ngx-tethys/compare/19.1.0-next.5...19.1.0-next.6) (2025-08-14)
+
+
+### Bug Fixes
+
+* **date-picker:** chang format '第三季' to ‘Q3’ for quarter picker, and change format '二月‘ to '2月' for month picker #TINFR-2391 ([#3505](https://github.com/atinc/ngx-tethys/issues/3505)) ([f621bac](https://github.com/atinc/ngx-tethys/commit/f621bacac05b4520daa5476a791516ccd130bc29)), closes [#TINFR-2391](https://github.com/atinc/ngx-tethys/issues/TINFR-2391)
+* **dropdown:** handle placement default value ([#3519](https://github.com/atinc/ngx-tethys/issues/3519)) ([aa9fa8e](https://github.com/atinc/ngx-tethys/commit/aa9fa8ee206b26aec27524d7ff69f68eb67a28e6))
+
+
+### Features
+
+* **layout:** migrate inputs to signals inputs #TINFR-1480 ([#3512](https://github.com/atinc/ngx-tethys/issues/3512)) ([6d22be5](https://github.com/atinc/ngx-tethys/commit/6d22be5bb7c862de688264fc11be745f98e1b586)), closes [#TINFR-1480](https://github.com/atinc/ngx-tethys/issues/TINFR-1480)
+
+
+
 # [19.1.0-next.5](https://github.com/atinc/ngx-tethys/compare/19.1.0-next.4...19.1.0-next.5) (2025-08-07)
 
 
