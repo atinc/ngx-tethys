@@ -633,6 +633,43 @@ export class ThySelect
         }
     }
 
+    public optionClick(event: Event) {
+        const option = this.getOptionFromEvent(event);
+        if (this.isOptionSelectable(option)) {
+            option.selectViaInteraction();
+        }
+    }
+
+    public optionKeydown(event: KeyboardEvent) {
+        const option = this.getOptionFromEvent(event);
+        if (this.isOptionSelectable(option)) {
+            if ((event.keyCode === ENTER || event.keyCode === SPACE) && !hasModifierKey(event)) {
+                option.selectViaInteraction();
+                event.preventDefault();
+            }
+        }
+    }
+
+    private getOptionFromEvent(event: Event): ThyOption | null {
+        const targetElement = event.target as HTMLElement;
+        if (elementMatchClosest(targetElement, 'thy-option')) {
+            const optionElement = targetElement.closest('thy-option') as HTMLElement;
+            if (optionElement) {
+                return this.findOptionByElement(optionElement);
+            }
+        }
+        return null;
+    }
+
+    private isOptionSelectable(option: ThyOption | null): option is ThyOption {
+        return option !== null && !option.disabled;
+    }
+
+    private findOptionByElement(element: HTMLElement): ThyOption | null {
+        const allOptions = this.options.toArray();
+        return allOptions.find(option => option.getHostElement() === element) || null;
+    }
+
     public onOptionsScrolled(elementRef: ElementRef) {
         const scroll = elementRef.nativeElement.scrollTop,
             height = elementRef.nativeElement.clientHeight,

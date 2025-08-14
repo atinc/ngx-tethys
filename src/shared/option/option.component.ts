@@ -104,6 +104,7 @@ export class ThyOption extends SelectOptionBase implements OnDestroy, Highlighta
         return this.element.nativeElement;
     }
 
+    // 绑定的事件
     @HostListener('click', ['$event'])
     onClick(event: Event) {
         this.selectViaInteraction();
