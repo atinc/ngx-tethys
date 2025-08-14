@@ -1,0 +1,29 @@
+<!-- =====ngx-tethys===== -->
+@for (item of listOfSelect; track item.id) {
+  <thy-select>
+    @for (option of listOfOption; track option.value) {
+      <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+    }
+  </thy-select>
+}
+
+<!-- ==== angular cdk ==== -->
+<!-- @for (item of listOfSelect; track item.id) {
+  <mat-form-field>
+    <mat-label>Favorite food</mat-label>
+    <mat-select>
+      @for (option of listOfOption; track option.value) {
+        <mat-option [value]="option.value">{{ option.text }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+} -->
+
+<!-- ==== ng-zorro ==== -->
+<!-- @for (item of listOfSelect; track item.id) {
+  <nz-select>
+    @for (option of listOfOption; track option.value) {
+      <nz-option [nzValue]="option.value" [nzLabel]="option.text"></nz-option>
+    }
+  </nz-select>
+} -->

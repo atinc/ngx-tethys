@@ -1,8 +1,8 @@
 <div>
-  <input thyInput [(ngModel)]="value" [placeholder]="'请输入'" [thyAutocomplete]="auto" (ngModelChange)="valueChange($event)" />
+  <input thyInput [(ngModel)]="value" [placeholder]="'请输入'" [thyAutocomplete]="auto" />
   <thy-autocomplete #auto>
-    @for (item of listOfOption; track $index) {
-      <thy-option [thyLabelText]="item.label" [thyValue]="item.value"></thy-option>
+    @for (item of listOfOption; track item.value) {
+      <thy-option [thyLabelText]="item.text" [thyValue]="item.value"></thy-option>
     }
   </thy-autocomplete>
 </div>
