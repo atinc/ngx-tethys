@@ -11,7 +11,8 @@ import {
     inject
 } from '@angular/core';
 import { Observable, defer, Subject, merge } from 'rxjs';
-import { ThyOptionVisibleChangeEvent, ThyOption } from '../option.component';
+import { ThyOptionVisibleChangeEvent } from '../option-render.component';
+import { ThyOption } from '../option.component';
 import { take, switchMap, startWith, takeUntil, debounceTime, map } from 'rxjs/operators';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
@@ -45,9 +46,9 @@ export class ThySelectOptionGroup implements OnDestroy, AfterContentInit {
     _destroy$: Subject<void> = new Subject<void>();
 
     optionVisibleChanges: Observable<ThyOptionVisibleChangeEvent> = defer(() => {
-        if (this.options) {
-            return merge(...this.options.map(option => option.visibleChange));
-        }
+        // if (this.options) {
+        //     return merge(...this.options.map(option => option.visibleChange));
+        // }
         return this._ngZone.onStable.asObservable().pipe(
             take(1),
             switchMap(() => this.optionVisibleChanges)
@@ -61,28 +62,28 @@ export class ThySelectOptionGroup implements OnDestroy, AfterContentInit {
     }
 
     _resetOptions() {
-        const changedOrDestroyed$ = merge(this.options.changes, this._destroy$);
-        merge(...this.options.map(option => option.visibleChange))
-            .pipe(
-                takeUntil(changedOrDestroyed$),
-                debounceTime(10),
-                map((event: ThyOptionVisibleChangeEvent) => {
-                    const hasOption = this.options.find(option => {
-                        if (!option.hidden) {
-                            return true;
-                        }
-                    });
-                    if (hasOption) {
-                        return false;
-                    } else {
-                        return true;
-                    }
-                })
-            )
-            .subscribe((data: boolean) => {
-                this._hidden = data;
-                this.cdr.markForCheck();
-            });
+        // const changedOrDestroyed$ = merge(this.options.changes, this._destroy$);
+        // merge(...this.options.map(option => option.visibleChange))
+        //     .pipe(
+        //         takeUntil(changedOrDestroyed$),
+        //         debounceTime(10),
+        //         map((event: ThyOptionVisibleChangeEvent) => {
+        //             const hasOption = this.options.find(option => {
+        //                 if (!option.hidden) {
+        //                     return true;
+        //                 }
+        //             });
+        //             if (hasOption) {
+        //                 return false;
+        //             } else {
+        //                 return true;
+        //             }
+        //         })
+        //     )
+        //     .subscribe((data: boolean) => {
+        //         this._hidden = data;
+        //         this.cdr.markForCheck();
+        //     });
     }
 
     ngOnDestroy() {

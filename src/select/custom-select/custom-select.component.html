@@ -54,7 +54,20 @@
         @if (isReactiveDriven) {
           <ng-template [ngTemplateOutlet]="optionsContainer.optionsTemplate"></ng-template>
         }
-        <ng-content></ng-content>
+
+        @for (option of contentOptions; track option.thyValue) {
+          <thy-option-render
+            [thyValue]="option.thyValue()"
+            [thyRawValue]="option.thyRawValue()"
+            [thyLabelText]="option.thyLabelText()"
+            [thyShowOptionCustom]="option.thyShowOptionCustom()"
+            [thySearchKey]="option.thySearchKey()"
+            [thyDisabled]="option.thyDisabled()"
+            [thyTemplate]="option.template()"
+            (selectionChange)="optionSelectionChange($event)">
+          </thy-option-render>
+        }
+
         @if (isHiddenOptions) {
           <thy-loading [thyDone]="thyLoadState()" thySize="sm"></thy-loading>
           <div class="thy-select-empty-content">
@@ -83,6 +96,7 @@
 </ng-template>
 
 <thy-options-container #optionsContainer>
+  <!-- @if (!thyVirtualScroll()) { -->
   @for (option of optionGroups; track $index) {
     @if (!option.children) {
       <thy-option
@@ -98,4 +112,23 @@
       </thy-option-group>
     }
   }
+  <!-- } @else {
+    <cdk-virtual-scroll-viewport #viewport [itemSize]="thyItemSize()" [style.height]="thyVirtualHeight()">
+      <ng-container *cdkVirtualFor="let option of optionGroups; trackBy: trackByFn">
+        @if (!option.children) {
+          <thy-option
+            [thyDisabled]="option.disabled"
+            [thyLabelText]="option.label"
+            [thyValue]="option.value"
+            [thyRawValue]="option"></thy-option>
+        } @else {
+          <thy-option-group [thyGroupLabel]="option.groupLabel">
+            @for (sub of option.children; track sub.value) {
+              <thy-option [thyDisabled]="sub.disabled" [thyLabelText]="sub.label" [thyValue]="sub.value" [thyRawValue]="sub"></thy-option>
+            }
+          </thy-option-group>
+        }
+      </ng-container>
+    </cdk-virtual-scroll-viewport>
+  } -->
 </thy-options-container>

@@ -16,6 +16,7 @@ import {
     SelectControlSize,
     THY_OPTION_PARENT_COMPONENT,
     ThyOption,
+    ThyOptionRender,
     ThyOptionsContainer,
     ThyOptionSelectionChangeEvent,
     ThyScrollDirective,
@@ -47,6 +48,7 @@ import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { coerceElement } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair, Overlay, ScrollStrategy } from '@angular/cdk/overlay';
+import { CdkVirtualScrollViewport, CdkFixedSizeVirtualScroll, CdkVirtualForOf } from '@angular/cdk/scrolling';
 import { isPlatformBrowser, NgClass, NgTemplateOutlet } from '@angular/common';
 import {
     AfterContentInit,
@@ -158,8 +160,12 @@ const noop = () => {};
         ThyEmpty,
         ThyOptionsContainer,
         ThyOption,
+        ThyOptionRender,
         ThySelectOptionGroup,
-        NgTemplateOutlet
+        NgTemplateOutlet,
+        CdkVirtualScrollViewport,
+        CdkFixedSizeVirtualScroll,
+        CdkVirtualForOf
     ],
     host: {
         '[class.thy-select-custom]': 'true',
@@ -208,7 +214,7 @@ export class ThySelect
 
     public dropDownPositions: ConnectionPositionPair[];
 
-    public selectionModel: SelectionModel<ThyOption>;
+    public selectionModel: SelectionModel<ThyOptionRender>;
 
     public triggerRectWidth: number;
 
@@ -228,18 +234,14 @@ export class ThySelect
     private readonly destroy$ = new Subject<void>();
 
     readonly optionSelectionChanges: Observable<ThyOptionSelectionChangeEvent> = defer(() => {
-        if (this.options) {
-            return merge(...this.options.map(option => option.selectionChange));
-        }
-        return this.ngZone.onStable.asObservable().pipe(
-            take(1),
-            switchMap(() => this.optionSelectionChanges)
-        );
+        // 由于 ThyOption 现在只是数据容器，我们直接返回一个空的 Observable
+        // 实际的事件处理在 onOptionSelectionChange 方法中
+        return new Observable<ThyOptionSelectionChangeEvent>();
     }) as Observable<ThyOptionSelectionChangeEvent>;
 
     readonly cdkConnectedOverlay = viewChild<CdkConnectedOverlay>(CdkConnectedOverlay);
 
-    keyManager: ActiveDescendantKeyManager<ThyOption>;
+    keyManager: ActiveDescendantKeyManager<ThyOptionRender>;
 
     panelOpen = false;
 
@@ -331,7 +333,7 @@ export class ThySelect
     /**
      * 排序比较函数
      */
-    readonly thySortComparator = input<(a: ThyOption, b: ThyOption, options: ThyOption[]) => number>();
+    readonly thySortComparator = input<(a: ThyOptionRender, b: ThyOptionRender, options: ThyOptionRender[]) => number>();
 
     /**
      * Footer 模板，默认值为空不显示 Footer
@@ -379,6 +381,22 @@ export class ThySelect
      */
     readonly thyBorderless = input(false, { transform: coerceBooleanProperty });
 
+    /**
+     * 设置是否开启虚拟滚动
+     */
+    readonly thyVirtualScroll = input(false, { transform: coerceBooleanProperty });
+
+    /**
+     * 开启虚拟滚动时，单行选项的高度
+     * @default 40
+     */
+    readonly thyItemSize = input(40, { transform: numberAttribute });
+
+    /**
+     * 虚拟滚动时的容器高度
+     */
+    readonly thyVirtualHeight = input('300px');
+
     isReactiveDriven = false;
 
     innerOptions: ThySelectOptionModel[];
@@ -399,6 +417,8 @@ export class ThySelect
             return value;
         }
     });
+
+    @ViewChildren(ThyOptionRender) optionRenders: QueryList<ThyOptionRender>;
 
     options: QueryList<ThyOption>;
 
@@ -603,7 +623,7 @@ export class ThySelect
     }
 
     public get isHiddenOptions(): boolean {
-        return this.options.toArray().every(option => option.hidden);
+        return this.optionRenders.toArray().every(option => option.hidden);
     }
 
     public onAttached(): void {
@@ -650,10 +670,10 @@ export class ThySelect
         }
     }
 
-    private getOptionFromEvent(event: Event): ThyOption | null {
+    private getOptionFromEvent(event: Event): ThyOptionRender | null {
         const targetElement = event.target as HTMLElement;
-        if (elementMatchClosest(targetElement, 'thy-option')) {
-            const optionElement = targetElement.closest('thy-option') as HTMLElement;
+        if (elementMatchClosest(targetElement, 'thy-option-render')) {
+            const optionElement = targetElement.closest('thy-option-render') as HTMLElement;
             if (optionElement) {
                 return this.findOptionByElement(optionElement);
             }
@@ -661,12 +681,12 @@ export class ThySelect
         return null;
     }
 
-    private isOptionSelectable(option: ThyOption | null): option is ThyOption {
+    private isOptionSelectable(option: ThyOptionRender | null): option is ThyOptionRender {
         return option !== null && !option.disabled;
     }
 
-    private findOptionByElement(element: HTMLElement): ThyOption | null {
-        const allOptions = this.options.toArray();
+    private findOptionByElement(element: HTMLElement): ThyOptionRender | null {
+        const allOptions = this.optionRenders.toArray();
         return allOptions.find(option => option.getHostElement() === element) || null;
     }
 
@@ -688,7 +708,7 @@ export class ThySelect
             this.isSearching = true;
             this.thyOnSearch.emit(searchText);
         } else {
-            const options = this.options.toArray();
+            const options = this.optionRenders.toArray();
             options.forEach(option => {
                 if (option.matchSearchText(searchText)) {
                     option.showOption();
@@ -729,12 +749,12 @@ export class ThySelect
         this.manualFocusing = false;
     }
 
-    public remove($event: { item: ThyOption; $eventOrigin: Event }) {
+    public remove($event: { item: ThyOptionRender; $eventOrigin: Event }) {
         $event.$eventOrigin.stopPropagation();
         if (this.disabled) {
             return;
         }
-        if (!this.options.find(option => option === $event.item)) {
+        if (!this.optionRenders.find(option => option === $event.item)) {
             $event.item.deselect();
             // fix option unselect can not emit changes;
             this.onSelect($event.item, true);
@@ -763,7 +783,7 @@ export class ThySelect
         });
     }
 
-    public get selected(): ThyOption | ThyOption[] {
+    public get selected(): ThyOptionRender | ThyOptionRender[] {
         return this.isMultiple ? this.selectionModel.selected : this.selectionModel.selected[0];
     }
 
@@ -814,7 +834,7 @@ export class ThySelect
 
     private emitModelValueChange() {
         const selectedValues = this.selectionModel.selected;
-        const changeValue = selectedValues.map((option: ThyOption) => {
+        const changeValue = selectedValues.map((option: ThyOptionRender) => {
             return option.thyValue;
         });
         if (this.isMultiple) {
@@ -858,7 +878,7 @@ export class ThySelect
         if (this.keyManager && this.keyManager.activeItem) {
             this.keyManager.activeItem.setInactiveStyles();
         }
-        this.keyManager = new ActiveDescendantKeyManager<ThyOption>(this.options)
+        this.keyManager = new ActiveDescendantKeyManager<ThyOptionRender>(this.optionRenders)
             .withTypeAhead()
             .withWrap()
             .withVerticalOrientation()
@@ -921,9 +941,9 @@ export class ThySelect
             manager.activeItem.selectViaInteraction();
         } else if (this.isMultiple && keyCode === A && event.ctrlKey) {
             event.preventDefault();
-            const hasDeselectedOptions = this.options.some(opt => !opt.disabled && !opt.selected);
+            const hasDeselectedOptions = this.optionRenders.some(opt => !opt.disabled && !opt.selected);
 
-            this.options.forEach(option => {
+            this.optionRenders.forEach(option => {
                 if (!option.disabled) {
                     hasDeselectedOptions ? option.select() : option.deselect();
                 }
@@ -956,7 +976,7 @@ export class ThySelect
         if (this.selectionModel) {
             this.selectionModel.clear();
         }
-        this.selectionModel = new SelectionModel<ThyOption>(this.isMultiple);
+        this.selectionModel = new SelectionModel<ThyOptionRender>(this.isMultiple);
         if (this.selectionModelSubscription) {
             this.selectionModelSubscription.unsubscribe();
             this.selectionModelSubscription = null;
@@ -1012,7 +1032,7 @@ export class ThySelect
                 this.selectionModel.clear();
                 (modalValue as Array<any>).forEach(itemValue => {
                     const option =
-                        this.options.find(_option => _option.thyValue === itemValue) ||
+                        this.optionRenders.find(_option => _option.thyValue === itemValue) ||
                         selected.find(_option => _option.thyValue === itemValue);
                     if (option) {
                         this.selectionModel.select(option);
@@ -1020,7 +1040,7 @@ export class ThySelect
                 });
             }
         } else {
-            const selectedOption = this.options?.find(option => {
+            const selectedOption = this.optionRenders?.find(option => {
                 return option.thyValue === modalValue;
             });
             if (selectedOption) {
@@ -1030,7 +1050,28 @@ export class ThySelect
         this.changeDetectorRef.markForCheck();
     }
 
-    private onSelect(option: ThyOption, isUserInput: boolean) {
+    optionSelectionChange(event: any) {
+        // 处理 ThyOptionRender 的选择事件
+        const selectedValue = event.option.thyValue;
+        if (this.isMultiple) {
+            // 多选逻辑
+            const currentValues = this.modalValue || [];
+            const index = currentValues.indexOf(selectedValue);
+            if (index > -1) {
+                currentValues.splice(index, 1);
+            } else {
+                currentValues.push(selectedValue);
+            }
+            this.writeValue(currentValues);
+        } else {
+            // 单选逻辑
+            this.writeValue(selectedValue);
+            this.close();
+        }
+        this.onTouchedFn();
+    }
+
+    private onSelect(option: ThyOptionRender, isUserInput: boolean) {
         const wasSelected = this.selectionModel.isSelected(option);
 
         if (option.thyValue == null && !this.isMultiple) {
@@ -1064,7 +1105,7 @@ export class ThySelect
 
     private sortValues() {
         if (this.isMultiple) {
-            const options = this.options.toArray();
+            const options = this.optionRenders.toArray();
 
             if (this.thySortComparator()) {
                 this.selectionModel.sort((a, b) => {
@@ -1109,6 +1150,10 @@ export class ThySelect
             this.resizeSubscription.unsubscribe();
             this.resizeSubscription = null;
         }
+    }
+
+    trackByFn(index: number, item: any): any {
+        return item.value || index;
     }
 
     ngOnDestroy() {

@@ -94,9 +94,9 @@ export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, After
     @ContentChildren(ThyOption, { descendants: true }) options: QueryList<ThyOption>;
 
     readonly optionSelectionChanges: Observable<ThyOptionSelectionChangeEvent> = defer(() => {
-        if (this.options) {
-            return merge(...this.options.map(option => option.selectionChange));
-        }
+        // if (this.options) {
+        //     return merge(...this.options.map(option => option.selectionChange));
+        // }
         return this.ngZone.onStable.asObservable().pipe(
             take(1),
             switchMap(() => this.optionSelectionChanges)
@@ -147,16 +147,16 @@ export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, After
                 this.isEmptyOptions = this.options.length <= 0;
                 this.changeDetectorRef.detectChanges();
             });
-            this.initKeyManager();
+            // this.initKeyManager();
         });
     }
 
     initKeyManager() {
-        const changedOrDestroyed$ = merge(this.options.changes, this.ngUnsubscribe$);
-        this.keyManager = new ActiveDescendantKeyManager<ThyOption>(this.options).withWrap();
-        this.keyManager.change.pipe(takeUntil(changedOrDestroyed$)).subscribe(index => {
-            this.thyOptionActivated.emit({ source: this, option: this.options.toArray()[index] || null });
-        });
+        // const changedOrDestroyed$ = merge(this.options.changes, this.ngUnsubscribe$);
+        // this.keyManager = new ActiveDescendantKeyManager<ThyOption>(this.options).withWrap();
+        // this.keyManager.change.pipe(takeUntil(changedOrDestroyed$)).subscribe(index => {
+        //     this.thyOptionActivated.emit({ source: this, option: this.options.toArray()[index] || null });
+        // });
     }
 
     open() {
@@ -173,9 +173,9 @@ export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, After
     private resetOptions() {
         const changedOrDestroyed$ = merge(this.options.changes, this.ngUnsubscribe$);
 
-        this.optionSelectionChanges.pipe(takeUntil(changedOrDestroyed$)).subscribe((event: ThyOptionSelectionChangeEvent) => {
-            this.onSelect(event.option, event.isUserInput);
-        });
+        // this.optionSelectionChanges.pipe(takeUntil(changedOrDestroyed$)).subscribe((event: ThyOptionSelectionChangeEvent) => {
+        //     this.onSelect(event.option, event.isUserInput);
+        // });
     }
 
     private instanceSelectionModel() {
@@ -183,22 +183,22 @@ export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, After
             this.selectionModel.clear();
         }
         this.selectionModel = new SelectionModel<ThyOption>(this.isMultiple);
-        this.selectionModel.changed.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(event => {
-            event.added.forEach(option => option.select());
-            event.removed.forEach(option => option.deselect());
-        });
+        // this.selectionModel.changed.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(event => {
+        //     event.added.forEach(option => option.select());
+        //     event.removed.forEach(option => option.deselect());
+        // });
     }
 
     private onSelect(option: ThyOption, isUserInput: boolean) {
         const wasSelected = this.selectionModel.isSelected(option);
 
         if (option.thyValue == null && !this.isMultiple) {
-            option.deselect();
+            // option.deselect();
             this.selectionModel.clear();
         } else {
-            if (wasSelected !== option.selected) {
-                option.selected ? this.selectionModel.select(option) : this.selectionModel.deselect(option);
-            }
+            // if (wasSelected !== option.selected) {
+            //     option.selected ? this.selectionModel.select(option) : this.selectionModel.deselect(option);
+            // }
 
             if (isUserInput) {
                 this.keyManager.setActiveItem(option);
@@ -206,7 +206,7 @@ export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, After
         }
 
         if (wasSelected !== this.selectionModel.isSelected(option)) {
-            this.thyOptionSelected.emit(new ThyOptionSelectionChangeEvent(option, false));
+            // this.thyOptionSelected.emit(new ThyOptionSelectionChangeEvent(option, false));
         }
         this.changeDetectorRef.markForCheck();
     }

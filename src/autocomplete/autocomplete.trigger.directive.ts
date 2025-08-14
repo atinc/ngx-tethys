@@ -135,7 +135,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
         }
         const autocompleteComponent = this.autocompleteComponent();
         if (this.activeOption() && keyCode === ENTER && this.panelOpened) {
-            this.activeOption().selectViaInteraction();
+            // this.activeOption().selectViaInteraction();
             this.resetActiveItem();
             event.preventDefault();
         } else if (autocompleteComponent) {
@@ -150,10 +150,10 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
                 (isArrowKey || autocompleteComponent.keyManager.activeItem !== prevActiveItem) &&
                 autocompleteComponent.keyManager.activeItem
             ) {
-                ScrollToService.scrollToElement(
-                    autocompleteComponent.keyManager.activeItem.element.nativeElement,
-                    autocompleteComponent.optionsContainer().nativeElement
-                );
+                // ScrollToService.scrollToElement(
+                //     // autocompleteComponent.keyManager.activeItem.element.nativeElement,
+                //     autocompleteComponent.optionsContainer().nativeElement
+                // );
             }
         }
     }
