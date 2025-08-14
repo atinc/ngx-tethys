@@ -1,11 +1,16 @@
+@let icon = thyIcon();
+@let value = thyValue();
+@let showClose = thyShowClose();
+@let disabled = thyDisabled();
+@let labelHideWhenHasValue = thyLabelHideWhenHasValue();
+
 <div class="thy-operation-icon">
-  <ng-container *ngTemplateOutlet="operationIcon"></ng-container>
+  <ng-container *ngTemplateOutlet="operationIcon()"></ng-container>
   @if (icon) {
     <button
       [ngClass]="{ disabled: disabled }"
       [thyButtonIcon]="icon"
-      [thyShape]="onlyHasTips ? 'circle-thick-dashed' : 'circle-thick-solid'"
-    ></button>
+      [thyShape]="onlyHasTips ? 'circle-thick-dashed' : 'circle-thick-solid'"></button>
   }
 </div>
 <div class="thy-operation-content" [ngClass]="{ 'only-has-tips': onlyHasTips }">
@@ -17,11 +22,11 @@
   }
 
   @if (!value || (!labelHideWhenHasValue && value)) {
-    <div class="thy-tips">{{ labelText }}</div>
+    <div class="thy-tips">{{ labelText() }}</div>
   }
 </div>
 @if (showClose && !disabled) {
   <span (click)="remove($event)" class="close-link close-link-danger">
-    <thy-icon thyIconName="close" class=" close-link-sm"></thy-icon>
+    <thy-icon thyIconName="close" class="close-link-sm"></thy-icon>
   </span>
 }

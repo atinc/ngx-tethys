@@ -1,4 +1,4 @@
-import { ApplicationRef, Component, DebugElement, ViewChild } from '@angular/core';
+import { ApplicationRef, Component, DebugElement } from '@angular/core';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { ThyPropertyOperationModule, ThyPropertyOperation } from 'ngx-tethys/property-operation';
 import { By } from '@angular/platform-browser';
@@ -26,8 +26,6 @@ import { NgClass } from '@angular/common';
     imports: [ThyPropertyOperationModule, NgClass]
 })
 class PropertyOperationBasicComponent {
-    @ViewChild(ThyPropertyOperation, { static: true }) component: ThyPropertyOperation;
-
     thyIcon = 'calendar-check';
 
     thyLabelText = '截止时间';
@@ -152,22 +150,6 @@ describe('ThyPropertyOperation', () => {
                 propertyOperationElement.click();
 
                 expect(appRef.tick).not.toHaveBeenCalled();
-            });
-
-            it('should not run change detection if there are no `thyClick` observers', () => {
-                componentInstance.component.thyClick.observers = [];
-
-                const appRef = TestBed.inject(ApplicationRef);
-                spyOn(appRef, 'tick');
-
-                propertyOperationElement.click();
-
-                expect(appRef.tick).not.toHaveBeenCalled();
-
-                componentInstance.component.thyClick.subscribe();
-                propertyOperationElement.click();
-
-                expect(appRef.tick).toHaveBeenCalled();
             });
         });
     });

@@ -1,28 +1,29 @@
 import {
-    AfterContentInit,
     Component,
-    ContentChild,
     ElementRef,
-    EventEmitter,
-    HostBinding,
-    Input,
     OnInit,
-    Output,
-    TemplateRef,
-    ViewChild,
-    OnDestroy,
     NgZone,
-    inject
+    inject,
+    output,
+    viewChild,
+    input,
+    computed,
+    effect,
+    DestroyRef,
+    TemplateRef,
+    contentChild,
+    Output,
+    EventEmitter
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyTranslate } from 'ngx-tethys/core';
 import { coerceBooleanProperty, htmlElementIsEmpty } from 'ngx-tethys/util';
-import { fromEvent, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { fromEvent } from 'rxjs';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
 import { ThyButtonIcon } from 'ngx-tethys/button';
 import { NgTemplateOutlet, NgClass } from '@angular/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 type ThyPropertyOperationTypes = 'primary' | 'success' | 'warning' | 'danger';
 
@@ -34,161 +35,109 @@ type ThyPropertyOperationTypes = 'primary' | 'success' | 'warning' | 'danger';
 @Component({
     selector: 'thy-property-operation',
     templateUrl: './property-operation.component.html',
+    host: {
+        '[class.thy-property-operation]': 'true',
+        '[class.active]': 'thyActive()',
+        '[class.thy-property-operation-disabled]': 'thyDisabled()'
+    },
     imports: [NgTemplateOutlet, NgClass, ThyButtonIcon, ThyFlexibleText, ThyIcon]
 })
-export class ThyPropertyOperation implements OnInit, AfterContentInit, OnDestroy {
-    private thyTranslate = inject(ThyTranslate);
-    private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
-    private ngZone = inject(NgZone);
+export class ThyPropertyOperation implements OnInit {
+    private destroyRef = inject(DestroyRef);
 
-    private initialized = false;
+    private thyTranslate = inject(ThyTranslate);
+
+    private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+
+    private ngZone = inject(NgZone);
 
     private hostRenderer = useHostRenderer();
 
-    labelText: string;
-
-    onlyHasTips = false;
-
-    showClose = false;
-
-    type: ThyPropertyOperationTypes;
-
-    icon: string;
-
-    value: string;
-
-    labelHideWhenHasValue = false;
+    readonly onlyHasTips = computed<boolean>(() => {
+        if (htmlElementIsEmpty(this.contentElement().nativeElement)) {
+            return true;
+        }
+        return false;
+    });
 
     /**
      * 点击移除图标时的事件回调，此函数只有在thyShowClose为true时才会发生
      */
-    @Output() thyOnRemove = new EventEmitter();
+    readonly thyOnRemove = output<Event>();
 
     /**
      * 点击事件回调
      */
-    @Output() thyClick = new EventEmitter<Event>();
+    readonly thyClick = output<Event>();
 
-    @HostBinding('class.thy-property-operation') _isPropertyOperation = true;
+    readonly contentElement = viewChild<ElementRef<HTMLElement>>('contentElement');
 
-    @ContentChild('operationIcon') operationIcon: TemplateRef<any>;
-
-    @ViewChild('contentElement', { static: true }) contentElement: ElementRef;
+    readonly operationIcon = contentChild<TemplateRef<any>>('operationIcon');
 
     /**
      * 属性的 Label 文本
      */
-    @Input()
-    set thyLabelText(value: string) {
-        this.labelText = value;
-    }
-
-    /**
-     * 属性的值
-     */
-    @Input()
-    set thyValue(value: string) {
-        this.value = value;
-        this.setOnlyHasTips();
-    }
+    readonly thyLabelText = input<string>();
 
     /**
      * 属性的 Label Translate Key
      */
-    @Input()
-    set thyLabelTextTranslateKey(value: string) {
-        this.labelText = this.thyTranslate.instant(value);
-    }
+    readonly thyLabelTextTranslateKey = input<string>();
+
+    readonly labelText = computed(() => this.thyTranslate.instant(this.thyLabelTextTranslateKey()) || this.thyLabelText());
+
+    /**
+     * 属性的值
+     */
+    readonly thyValue = input<string>();
 
     /**
      * 图标
      */
-    @Input()
-    set thyIcon(value: string) {
-        this.icon = value;
-    }
+    readonly thyIcon = input<string>();
 
     /**
      * 当有属性值时是否展示移除图标
-     * @default false
      */
-    @Input({ transform: coerceBooleanProperty })
-    set thyShowClose(value: boolean) {
-        this.showClose = value;
-    }
+    readonly thyShowClose = input(false, { transform: coerceBooleanProperty });
 
     // 支持有值时，label不显示
-    @Input({ transform: coerceBooleanProperty })
-    set thyLabelHasValue(value: boolean) {
-        this.labelHideWhenHasValue = !value;
-    }
+
+    readonly thyLabelHasValue = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 有值时隐藏 label
-     * @default false
      */
-    @Input({ transform: coerceBooleanProperty })
-    set thyLabelHideWhenHasValue(value: boolean) {
-        this.labelHideWhenHasValue = value;
-    }
+    readonly thyLabelHideWhenHasValue = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 属性类型
      * @type  danger | primary | success | warning | null
-     * @default null
      */
-    @Input()
-    set thyType(value: ThyPropertyOperationTypes) {
-        this.type = value;
-        this.setHostClass();
-    }
+    readonly thyType = input<ThyPropertyOperationTypes>();
 
     /**
      * 激活状态
-     * @default false
      */
-    @HostBinding('class.active')
-    @Input({ alias: 'thyActive', transform: coerceBooleanProperty })
-    active: boolean;
+    readonly thyActive = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 禁用操作，添加后property operation中thyClick和thyOnRemove事件将会被禁用
-     * @default false
      */
-    @HostBinding('class.thy-property-operation-disabled')
-    @Input({ alias: 'thyDisabled', transform: coerceBooleanProperty })
-    disabled: boolean;
+    readonly thyDisabled = input(false, { transform: coerceBooleanProperty });
 
-    private destroy$ = new Subject<void>();
-
-    private setHostClass(first = false) {
-        if (!this.initialized && !first) {
-            return;
-        }
-        this.hostRenderer.updateClass(this.type ? [`thy-property-operation-${this.type}`] : []);
-    }
-
-    private setOnlyHasTips(first = false) {
-        if (!this.initialized && !first) {
-            return;
-        }
-        if (this.value) {
-            this.onlyHasTips = false;
-        } else if (htmlElementIsEmpty(this.contentElement.nativeElement)) {
-            this.onlyHasTips = true;
-        } else {
-            this.onlyHasTips = false;
-        }
+    constructor() {
+        effect(() => {
+            this.setHostClass();
+        });
     }
 
     ngOnInit() {
-        this.setHostClass(true);
-
         this.ngZone.runOutsideAngular(() =>
             fromEvent<Event>(this.elementRef.nativeElement, 'click')
-                .pipe(takeUntil(this.destroy$))
+                .pipe(takeUntilDestroyed(this.destroyRef))
                 .subscribe(event => {
-                    if (this.disabled || this.thyClick.observers.length === 0) {
+                    if (this.thyDisabled()) {
                         return;
                     }
 
@@ -197,13 +146,9 @@ export class ThyPropertyOperation implements OnInit, AfterContentInit, OnDestroy
         );
     }
 
-    ngAfterContentInit() {
-        this.setOnlyHasTips(true);
-        this.initialized = true;
-    }
-
-    ngOnDestroy(): void {
-        this.destroy$.next();
+    private setHostClass() {
+        const type = this.thyType();
+        this.hostRenderer.updateClass(type ? [`thy-property-operation-${type}`] : []);
     }
 
     remove($event: Event) {
