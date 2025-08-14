@@ -1,8 +1,6 @@
 import { ScrollToService } from 'ngx-tethys/core';
 import { IThyListOptionParentComponent, THY_LIST_OPTION_PARENT_COMPONENT, ThyListOption } from 'ngx-tethys/shared';
-import { coerceBooleanProperty, dom, helpers, keycodes } from 'ngx-tethys/util';
-import { Subscription } from 'rxjs';
-import { startWith } from 'rxjs/operators';
+import { coerceBooleanProperty, dom, helpers, keycodes, ThyBooleanInput } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -13,21 +11,22 @@ import {
     Component,
     ContentChildren,
     ElementRef,
-    EventEmitter,
     forwardRef,
-    HostBinding,
-    Input,
     NgZone,
     OnDestroy,
     OnInit,
-    Output,
     QueryList,
     Renderer2,
-    inject
+    inject,
+    input,
+    computed,
+    effect,
+    output
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyListLayout } from 'ngx-tethys/shared';
 import { ThySelectionListChange } from './selection.interface';
+import { startWith } from 'rxjs/operators';
 
 export type ThyListSize = 'sm' | 'md' | 'lg';
 
@@ -53,21 +52,27 @@ const listSizesMap = {
             multi: true
         }
     ],
+    host: {
+        class: 'thy-list thy-selection-list',
+        '[class.thy-multiple-selection-list]': 'thyMultiple()',
+        '[class.thy-grid-list]': 'isLayoutGrid()'
+    },
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IThyListOptionParentComponent, ControlValueAccessor {
     private renderer = inject(Renderer2);
+
     private elementRef = inject(ElementRef);
+
     private ngZone = inject(NgZone);
+
     private changeDetectorRef = inject(ChangeDetectorRef);
 
-    private _keyManager: ActiveDescendantKeyManager<ThyListOption>;
+    private keyManager: ActiveDescendantKeyManager<ThyListOption>;
 
-    private _selectionChangesUnsubscribe$ = Subscription.EMPTY;
+    private bindKeyEventUnsubscribe: () => void;
 
-    private _bindKeyEventUnsubscribe: () => void;
-
-    private _modelValues: any[];
+    private modelValues: any[];
 
     private hostRenderer = useHostRenderer();
 
@@ -76,110 +81,91 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
 
     disabled: boolean;
 
-    layout: ThyListLayout = 'list';
-
-    @HostBinding(`class.thy-list`) _isList = true;
-
-    @HostBinding(`class.thy-selection-list`) _isSelectionList = true;
-
-    @HostBinding(`class.thy-multiple-selection-list`) multiple = true;
-
-    @HostBinding(`class.thy-grid-list`) isLayoutGrid = false;
-
     /**
      * @internal
      */
     @ContentChildren(ThyListOption, { descendants: true }) options: QueryList<ThyListOption>;
 
+    // readonly options = contentChildren<ThyListOption>(ThyListOption, { descendants: true });
+
     /**
      * 改变 grid item 的选择模式，使其支持多选
-     * @default true
      */
-    @Input({ transform: coerceBooleanProperty })
-    set thyMultiple(value: boolean) {
-        const previousValue = this.multiple;
-        this.multiple = value;
-        if (previousValue !== this.multiple) {
-            this._instanceSelectionModel();
-        }
-    }
+    readonly thyMultiple = input<boolean, ThyBooleanInput>(true, { transform: coerceBooleanProperty });
 
     /**
      * 绑定键盘事件的容器
      * @type HTMLElement | ElementRef | string
      * @default thy-selection-list 组件绑定的元素
      */
-    @Input() thyBindKeyEventContainer: HTMLElement | ElementRef | string;
+    readonly thyBindKeyEventContainer = input<HTMLElement | ElementRef | string>();
 
     /**
      * 出现滚动条的容器
      * @type HTMLElement | ElementRef | string
      * @default thy-selection-list 组件绑定的元素
      */
-    @Input() thyScrollContainer: HTMLElement | ElementRef | string;
+    readonly thyScrollContainer = input<HTMLElement | ElementRef | string>();
 
     /**
      * 键盘事件触发 Before 调用，如果返回 false 则停止继续执行
      */
-    @Input() thyBeforeKeydown: (event?: KeyboardEvent) => boolean;
+    readonly thyBeforeKeydown = input<(event?: KeyboardEvent) => boolean>();
 
     /**
      * Option Value 唯一的 Key，用于存储哪些选择被选中的唯一值，只有 Option 的 thyValue 是对象的时才可以传入该选项
      */
-    @Input() thyUniqueKey: string;
+    readonly thyUniqueKey = input<string>();
 
     /**
      * 比较2个选项的 Value 是否相同
      */
-    @Input() thyCompareWith: (o1: any, o2: any) => boolean;
+    readonly thyCompareWith = input<(o1: any, o2: any) => boolean>();
 
     /**
      * grid item 的展示样式
      * @type list | grid
-     * @default list
      */
-    @Input() set thyLayout(value: ThyListLayout) {
-        this.layout = value;
-        this.isLayoutGrid = value === 'grid';
-    }
+    readonly thyLayout = input<ThyListLayout>('list');
+
+    readonly isLayoutGrid = computed<boolean>(() => this.thyLayout() === 'grid');
 
     /**
      * 是否自动激活第一项
      */
-    @Input({ transform: coerceBooleanProperty }) set thyAutoActiveFirstItem(value: boolean) {
-        this.autoActiveFirstItem = value;
-    }
+    readonly thyAutoActiveFirstItem = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 改变 grid item 的大小，支持默认以及 sm 两种大小
      * @type sm | md | lg
      */
-    @Input() set thySize(value: ThyListSize) {
-        this._setListSize(value);
-    }
-
-    private spaceEnabled = true;
+    readonly thySize = input<ThyListSize>();
 
     /**
      * 是否按下空格切换聚焦选项
      */
-    @Input({ transform: coerceBooleanProperty }) set thySpaceKeyEnabled(value: boolean) {
-        this.spaceEnabled = value;
-    }
+    readonly thySpaceKeyEnabled = input(true, { transform: coerceBooleanProperty });
 
     /**
      * 每当选项的选定状态发生更改时，都会触发更改事件
-     * @type EventEmitter<ThySelectionListChange>
      */
-    @Output() readonly thySelectionChange: EventEmitter<ThySelectionListChange> = new EventEmitter<ThySelectionListChange>();
+    readonly thySelectionChange = output<ThySelectionListChange>();
 
-    private autoActiveFirstItem: boolean;
+    private onTouched: () => void = () => {};
 
-    private _onTouched: () => void = () => {};
+    private onChange: (value: any) => void = (_: any) => {};
 
-    private _onChange: (value: any) => void = (_: any) => {};
+    constructor() {
+        effect(() => {
+            this.setListSize();
+        });
 
-    private _emitChangeEvent(option: ThyListOption, event: Event) {
+        effect(() => {
+            this.instanceSelectionModel();
+        });
+    }
+
+    private emitChangeEvent(option: ThyListOption, event: Event) {
         this.thySelectionChange.emit({
             source: this,
             value: option.thyValue(),
@@ -189,42 +175,43 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
         });
     }
 
-    private _emitModelValueChange() {
+    private emitModelValueChange() {
+        const uniqueKey = this.thyUniqueKey();
         if (this.options) {
             let selectedValues = this.selectionModel.selected;
-            if (this.thyUniqueKey) {
+            if (uniqueKey) {
                 selectedValues = selectedValues.map(selectedValue => {
                     const selectedOption = this.options.find(option => {
-                        return option.thyValue()[this.thyUniqueKey] === selectedValue;
+                        return option.thyValue()[uniqueKey] === selectedValue;
                     });
                     if (selectedOption) {
                         return selectedOption.thyValue();
                     } else {
-                        return this._modelValues.find(value => {
-                            return value[this.thyUniqueKey] === selectedValue;
+                        return this.modelValues.find(value => {
+                            return value[uniqueKey] === selectedValue;
                         });
                     }
                 });
             }
-            this._modelValues = selectedValues;
+            this.modelValues = selectedValues;
             let changeValue = selectedValues;
-            if (!this.multiple && selectedValues && selectedValues.length > 0) {
+            if (!this.thyMultiple() && selectedValues && selectedValues.length > 0) {
                 changeValue = selectedValues[0];
             }
-            this._onChange(changeValue);
+            this.onChange(changeValue);
         }
     }
 
-    private _toggleFocusedOption(event: KeyboardEvent): void {
-        if (this._keyManager.activeItem) {
+    private toggleFocusedOption(event: KeyboardEvent): void {
+        if (this.keyManager.activeItem) {
             this.ngZone.run(() => {
-                this.toggleOption(this._keyManager.activeItem, event);
+                this.toggleOption(this.keyManager.activeItem, event);
             });
         }
     }
 
-    private _initializeFocusKeyManager() {
-        this._keyManager = new ActiveDescendantKeyManager<ThyListOption>(this.options)
+    private initializeFocusKeyManager() {
+        this.keyManager = new ActiveDescendantKeyManager<ThyListOption>(this.options)
             .withWrap()
             // .withTypeAhead()
             // Allow disabled items to be focusable. For accessibility reasons, there must be a way for
@@ -232,46 +219,50 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
             .skipPredicate(() => false);
     }
 
-    private _instanceSelectionModel() {
-        this.selectionModel = new SelectionModel<any>(this.multiple);
+    private instanceSelectionModel() {
+        this.selectionModel = new SelectionModel<any>(this.thyMultiple());
     }
 
-    private _getElementBySelector(element: HTMLElement | ElementRef | string): HTMLElement {
+    private getElementBySelector(element: HTMLElement | ElementRef | string): HTMLElement {
         return dom.getHTMLElementBySelector(element, this.elementRef);
     }
 
-    private _compareValue(value1: any, value2: any) {
-        if (this.thyCompareWith) {
-            const compareFn = this.thyCompareWith as (o1: any, o2: any) => boolean;
+    private compareValue(value1: any, value2: any) {
+        const thyUniqueKey = this.thyUniqueKey();
+        const thyCompareWith = this.thyCompareWith();
+        if (thyCompareWith) {
+            const compareFn = thyCompareWith as (o1: any, o2: any) => boolean;
             return compareFn(value1, value2);
-        } else if (this.thyUniqueKey) {
-            return value1 && value1[this.thyUniqueKey] === value2 && value2[this.thyUniqueKey];
+        } else if (thyUniqueKey) {
+            return value1 && value1[thyUniqueKey] === value2 && value2[thyUniqueKey];
         } else {
             return value1 === value2;
         }
     }
 
-    private _getOptionSelectionValue(option: ThyListOption) {
+    private getOptionSelectionValue(option: ThyListOption) {
         const thyValue = option.thyValue();
         if (thyValue) {
-            return this.thyUniqueKey ? thyValue[this.thyUniqueKey] : thyValue;
+            const thyUniqueKey = this.thyUniqueKey();
+            return thyUniqueKey ? thyValue[thyUniqueKey] : thyValue;
         } else {
             return option;
         }
     }
 
-    private _setSelectionByValues(values: any[]) {
+    private setSelectionByValues(values: any[]) {
         this.selectionModel.clear();
         values.forEach(value => {
-            if (this.thyUniqueKey) {
-                this.selectionModel.select(value[this.thyUniqueKey]);
+            const thyUniqueKey = this.thyUniqueKey();
+            if (thyUniqueKey) {
+                this.selectionModel.select(value[thyUniqueKey]);
             } else {
                 this.selectionModel.select(value);
             }
         });
     }
 
-    private _setAllOptionsSelected(toIsSelected: boolean) {
+    private setAllOptionsSelected(toIsSelected: boolean) {
         // Keep track of whether anything changed, because we only want to
         // emit the changed event when something actually changed.
         let hasChanged = false;
@@ -285,66 +276,68 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
         });
 
         if (hasChanged) {
-            this._emitModelValueChange();
+            this.emitModelValueChange();
         }
     }
 
-    private _getOptionByValue(value: any) {
+    private getOptionByValue(value: any) {
         return this.options.find(option => {
-            return this._compareValue(option.thyValue(), value);
+            return this.compareValue(option.thyValue(), value);
         });
     }
 
-    private _getActiveOption() {
-        if (this._keyManager.activeItem) {
-            return this._getOptionByValue(this._keyManager.activeItem.thyValue());
+    private getActiveOption() {
+        if (this.keyManager.activeItem) {
+            return this.getOptionByValue(this.keyManager.activeItem.thyValue());
         } else {
             return null;
         }
     }
 
-    private _setListSize(size: ThyListSize) {
+    private setListSize() {
+        const size = this.thySize();
         for (const key in listSizesMap) {
             if (listSizesMap.hasOwnProperty(key)) {
-                this.hostRenderer.removeClass(listSizesMap[key]);
+                this.hostRenderer.removeClass(listSizesMap[key as keyof typeof listSizesMap]);
             }
         }
         if (size) {
-            this.hostRenderer.addClass(listSizesMap[size]);
+            this.hostRenderer.addClass(listSizesMap[size as keyof typeof listSizesMap]);
         }
     }
 
     ngOnInit() {
-        const bindKeyEventElement = this._getElementBySelector(this.thyBindKeyEventContainer);
+        const bindKeyEventElement = this.getElementBySelector(this.thyBindKeyEventContainer());
         this.ngZone.runOutsideAngular(() => {
-            this._bindKeyEventUnsubscribe = this.renderer.listen(bindKeyEventElement, 'keydown', this.onKeydown.bind(this));
+            this.bindKeyEventUnsubscribe = this.renderer.listen(bindKeyEventElement, 'keydown', this.onKeydown.bind(this));
         });
-        this._instanceSelectionModel();
+        this.instanceSelectionModel();
     }
 
     writeValue(value: any[] | any): void {
         if ((typeof ngDevMode === 'undefined' || ngDevMode) && value) {
-            if (this.multiple && !helpers.isArray(value)) {
+            const multiple = this.thyMultiple();
+            if (multiple && !helpers.isArray(value)) {
                 throw new Error(`The multiple selection ngModel must be an array.`);
             }
-            if (!this.multiple && helpers.isArray(value)) {
+            if (!multiple && helpers.isArray(value)) {
                 throw new Error(`The single selection ngModel should not be an array.`);
             }
         }
         const values = helpers.isArray(value) ? value : value ? [value] : [];
-        this._modelValues = values;
+        this.modelValues = values;
         if (this.options) {
-            this._setSelectionByValues(values);
+            this.setSelectionByValues(values);
         }
         this.changeDetectorRef.markForCheck();
     }
 
     registerOnChange(fn: any): void {
-        this._onChange = fn;
+        this.onChange = fn;
     }
 
     registerOnTouched(fn: any): void {
-        this._onTouched = fn;
+        this.onTouched = fn;
     }
 
     setDisabledState(isDisabled: boolean): void {
@@ -352,24 +345,25 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
     }
 
     onKeydown(event: KeyboardEvent) {
-        if (this.thyBeforeKeydown) {
+        const thyBeforeKeydown = this.thyBeforeKeydown();
+        if (thyBeforeKeydown) {
             // stop key down event
-            const isContinue = this.thyBeforeKeydown(event);
+            const isContinue = thyBeforeKeydown(event);
             if (!isContinue) {
                 return;
             }
         }
         const keyCode = event.keyCode || event.which;
-        const manager = this._keyManager;
+        const manager = this.keyManager;
         const previousFocusIndex = manager.activeItemIndex;
 
         switch (keyCode) {
             case keycodes.SPACE:
             case keycodes.ENTER:
-                if (keyCode === keycodes.SPACE && !this.spaceEnabled) {
+                if (keyCode === keycodes.SPACE && !this.thySpaceKeyEnabled()) {
                     return;
                 }
-                this._toggleFocusedOption(event);
+                this.toggleFocusedOption(event);
                 // Always prevent space from scrolling the page since the list has focus
                 event.preventDefault();
                 break;
@@ -381,70 +375,69 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
             event.shiftKey &&
             manager.activeItemIndex !== previousFocusIndex
         ) {
-            this._toggleFocusedOption(event);
+            this.toggleFocusedOption(event);
         }
     }
 
     toggleOption(option: ThyListOption, event?: Event) {
         if (option && !option.thyDisabled()) {
-            this.selectionModel.toggle(this._getOptionSelectionValue(option));
+            this.selectionModel.toggle(this.getOptionSelectionValue(option));
             // Emit a change event because the focused option changed its state through user
             // interaction.
-            this._emitModelValueChange();
-            this._emitChangeEvent(option, event);
+            this.emitModelValueChange();
+            this.emitChangeEvent(option, event);
         }
     }
 
     setActiveOption(option: ThyListOption) {
-        this._keyManager.updateActiveItem(option); // .updateActiveItemIndex(this._getOptionIndex(option));
+        this.keyManager.updateActiveItem(option); // .updateActiveItemIndex(this._getOptionIndex(option));
     }
 
     scrollIntoView(option: ThyListOption) {
-        const scrollContainerElement = dom.getHTMLElementBySelector(this.thyScrollContainer, this.elementRef);
+        const scrollContainerElement = dom.getHTMLElementBySelector(this.thyScrollContainer(), this.elementRef);
         ScrollToService.scrollToElement(option.element.nativeElement, scrollContainerElement);
     }
 
     isSelected(option: ThyListOption) {
-        return this.selectionModel.isSelected(this._getOptionSelectionValue(option));
+        return this.selectionModel.isSelected(this.getOptionSelectionValue(option));
     }
 
     clearActiveItem() {
-        if (this._keyManager.activeItem) {
-            this._keyManager.setActiveItem(-1);
+        if (this.keyManager.activeItem) {
+            this.keyManager.setActiveItem(-1);
         }
     }
 
     determineClearActiveItem() {
-        if (!this._getActiveOption()) {
+        if (!this.getActiveOption()) {
             this.clearActiveItem();
         }
     }
 
     /** Selects all of the options. */
     selectAll() {
-        this._setAllOptionsSelected(true);
+        this.setAllOptionsSelected(true);
     }
 
     /** Deselects all of the options. */
     deselectAll() {
-        this._setAllOptionsSelected(false);
+        this.setAllOptionsSelected(false);
     }
 
     ngAfterContentInit(): void {
-        this._initializeFocusKeyManager();
+        this.initializeFocusKeyManager();
         this.options.changes.pipe(startWith(true)).subscribe(() => {
-            if (this.autoActiveFirstItem) {
-                if (!this._keyManager.activeItem || this.options.toArray().indexOf(this._keyManager.activeItem) < 0) {
-                    this._keyManager.setFirstItemActive();
+            if (this.thyAutoActiveFirstItem()) {
+                if (!this.keyManager.activeItem || this.options.toArray().indexOf(this.keyManager.activeItem) < 0) {
+                    this.keyManager.setFirstItemActive();
                 }
             }
         });
     }
 
     ngOnDestroy() {
-        this._selectionChangesUnsubscribe$.unsubscribe();
-        if (this._bindKeyEventUnsubscribe) {
-            this._bindKeyEventUnsubscribe();
+        if (this.bindKeyEventUnsubscribe) {
+            this.bindKeyEventUnsubscribe();
         }
     }
 }

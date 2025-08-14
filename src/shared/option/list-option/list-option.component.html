@@ -1,10 +1,10 @@
 <ng-content></ng-content>
-@if (parentSelectionList.multiple && parentSelectionList.layout === 'list') {
+@if (isMultiple() && isListOption()) {
   <span class="checked-icon">
     <thy-icon thyIconName="check"></thy-icon>
   </span>
 }
-@if (parentSelectionList.layout === 'grid') {
+@if (isGridOption()) {
   <span class="checked-icon">
     <thy-icon thyIconName="check-circle-fill"></thy-icon>
   </span>

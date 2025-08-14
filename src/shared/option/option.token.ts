@@ -1,5 +1,6 @@
-import { ElementRef, InjectionToken } from '@angular/core';
+import { ElementRef, InjectionToken, InputSignal } from '@angular/core';
 import { ThyListLayout } from '../shared.type';
+import { ThyBooleanInput } from 'ngx-tethys/util';
 
 export interface IThyOptionParentComponent {
     isMultiple: boolean;
@@ -16,8 +17,8 @@ export interface IThyOptionComponent {
 }
 
 export interface IThyListOptionParentComponent {
-    multiple?: boolean;
-    layout?: ThyListLayout;
+    thyMultiple?: InputSignal<ThyBooleanInput>;
+    thyLayout?: InputSignal<ThyListLayout>;
     // 选择，取消选择 option
     toggleOption(option: IThyOptionComponent, event?: Event): void;
     // 设置当前选项为激活状态，即 hover 状态
