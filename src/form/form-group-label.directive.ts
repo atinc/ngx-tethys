@@ -1,4 +1,4 @@
-import { Directive, HostBinding, Input, inject } from '@angular/core';
+import { Directive, computed, inject, input } from '@angular/core';
 import { ThyTranslate } from 'ngx-tethys/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
@@ -7,31 +7,25 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
  * @order 45
  */
 @Directive({
-    selector: '[thyFormGroupLabel]'
+    selector: '[thyFormGroupLabel]',
+    host: {
+        '[class.label-required]': 'thyLabelRequired()',
+        '[class.col-form-label]': 'true'
+    }
 })
 export class ThyFormGroupLabelDirective {
     private thyTranslate = inject(ThyTranslate);
 
-    public labelText: string;
+    readonly thyLabelText = input<string>();
 
-    @HostBinding('class.label-required') labelRequired = false;
+    readonly thyLabelTranslateKey = input<string>();
 
-    @HostBinding('class.col-form-label') _isFormGroupLabel = true;
-
-    @Input()
-    set thyLabelText(value: string) {
-        this.labelText = value;
-    }
-
-    @Input()
-    set thyLabelTranslateKey(translateKey: string) {
-        if (translateKey) {
-            this.labelText = this.thyTranslate.instant(translateKey);
+    readonly labelText = computed<string>(() => {
+        if (this.thyLabelTranslateKey()) {
+            return this.thyTranslate.instant(this.thyLabelTranslateKey());
         }
-    }
+        return this.thyLabelText();
+    });
 
-    @Input({ transform: coerceBooleanProperty })
-    set thyLabelRequired(value: boolean) {
-        this.labelRequired = value;
-    }
+    readonly thyLabelRequired = input(false, { transform: coerceBooleanProperty });
 }

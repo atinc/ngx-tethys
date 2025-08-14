@@ -364,14 +364,14 @@ describe('form-group for TranslateKey', () => {
     it('should create formGroupLabel success', () => {
         expect(formGroupLabelDebugElement).toBeTruthy();
         expect(formGroupLabelDebugElement.nativeElement.classList.contains('col-form-label')).toBeTruthy();
-        expect(formGroupLabelDirective.labelText).toEqual('default value');
+        expect(formGroupLabelDirective.labelText()).toEqual('default value');
     });
 
     it('should get correct label text for translateKey', () => {
         expect(formGroupLabelDebugElement).toBeTruthy();
         testComponent.translateKey = 'common.USER_NAME';
         fixture.detectChanges();
-        expect(formGroupLabelDirective.labelText).toEqual(TRANSLATE_KEYS[testComponent.translateKey]);
+        expect(formGroupLabelDirective.labelText()).toEqual(TRANSLATE_KEYS[testComponent.translateKey]);
     });
 
     it('should get correct label required class', () => {
