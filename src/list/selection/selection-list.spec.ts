@@ -1,4 +1,4 @@
-import { Component, DebugElement, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, DebugElement, viewChild, ViewChild } from '@angular/core';
 import { ThySelectionListChange } from './selection.interface';
 import { waitForAsync, ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
 import { ThyListModule, ThySelectionList } from 'ngx-tethys/list';
@@ -161,7 +161,7 @@ describe('ThySelectionList without forms', () => {
             fixture.componentInstance.spaceKeyEnabled = true;
 
             fixture.detectChanges();
-            const toggleOption = spyOn(fixture.componentInstance.thySelectionListComponent, 'toggleOption');
+            const toggleOption = spyOn(fixture.componentInstance.thySelectionListComponent(), 'toggleOption');
             expect(toggleOption).toHaveBeenCalledTimes(0);
             const options = Array.from((fixture.debugElement.nativeElement as HTMLElement).querySelectorAll('thy-list-option'));
 
@@ -193,7 +193,7 @@ describe('ThySelectionList without forms', () => {
             fixture.componentInstance.selectedValues = selectedValue;
             fixture.detectChanges();
             await fixture.whenStable();
-            const selectionModel = fixture.componentInstance.thySelectionListComponent.selectionModel;
+            const selectionModel = fixture.componentInstance.thySelectionListComponent().selectionModel;
 
             expect(selectionModel.selected).toEqual(selectedValue);
 
@@ -212,7 +212,7 @@ describe('ThySelectionList without forms', () => {
             selectionFixture.detectChanges();
             const selectionListOptions = selectionFixture.debugElement.queryAll(By.directive(ThyListOption));
             expect(selectionListOptions[0].nativeElement.classList).toContain('hover');
-            selectionFixture.componentInstance.thySelectionListComponent.clearActiveItem();
+            selectionFixture.componentInstance.thySelectionListComponent().clearActiveItem();
             selectionFixture.detectChanges();
             expect(selectionListOptions[0].nativeElement.classList).not.toContain('hover');
         });
@@ -225,7 +225,7 @@ describe('ThySelectionList without forms', () => {
             dispatchKeyboardEvent(options[0], 'keydown', UP_ARROW);
 
             fixture.detectChanges();
-            const selectionListIns = fixture.componentInstance.thySelectionListComponent;
+            const selectionListIns = fixture.componentInstance.thySelectionListComponent();
             spyOn(selectionListIns, 'clearActiveItem');
 
             const buttons = Array.from((fixture.debugElement.nativeElement as HTMLElement).querySelectorAll('button'));
@@ -270,9 +270,7 @@ describe('ThySelectionList without forms', () => {
     imports: [FormsModule, ThyListModule]
 })
 class SelectionListWithListOptionsComponent {
-    @ViewChild(ThySelectionList, { static: true }) thySelectionListComponent: ThySelectionList;
-
-    @ViewChildren(ThyListOption) optionQueryList: QueryList<ThyListOption>;
+    readonly thySelectionListComponent = viewChild<ThySelectionList>(ThySelectionList);
 
     public items = [
         {
@@ -320,19 +318,17 @@ class SelectionListWithListOptionsComponent {
     onValueChange(_change: ThySelectionListChange) {}
 
     selectAll() {
-        this.thySelectionListComponent.selectAll();
+        this.thySelectionListComponent().selectAll();
     }
 
     deselectAll() {
-        this.thySelectionListComponent.deselectAll();
+        this.thySelectionListComponent().deselectAll();
     }
 
     determineClearActiveItem() {
         this.items.shift();
         setTimeout(() => {
-            this.thySelectionListComponent.options = this.optionQueryList;
-
-            this.thySelectionListComponent.determineClearActiveItem();
+            this.thySelectionListComponent().determineClearActiveItem();
         }, 1000);
     }
 }
