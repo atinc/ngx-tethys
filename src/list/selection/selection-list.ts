@@ -1,5 +1,5 @@
 import { ScrollToService } from 'ngx-tethys/core';
-import { IThyListOptionParentComponent, THY_LIST_OPTION_PARENT_COMPONENT, ThyListOption } from 'ngx-tethys/shared';
+import { IThyListOptionParentComponent, THY_LIST_OPTION_PARENT_COMPONENT, ThyListOption, ThyListLayout } from 'ngx-tethys/shared';
 import { coerceBooleanProperty, dom, helpers, keycodes } from 'ngx-tethys/util';
 import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
@@ -26,7 +26,6 @@ import {
     inject
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ThyListLayout } from 'ngx-tethys/shared';
 import { ThySelectionListChange } from './selection.interface';
 
 export type ThyListSize = 'sm' | 'md' | 'lg';

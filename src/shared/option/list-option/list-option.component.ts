@@ -1,4 +1,4 @@
-import { Component, Input, HostBinding, ElementRef, ChangeDetectorRef, HostListener, inject, input } from '@angular/core';
+import { Component, HostBinding, ElementRef, HostListener, inject, input } from '@angular/core';
 import { Highlightable } from '@angular/cdk/a11y';
 import { IThyOptionComponent, THY_LIST_OPTION_PARENT_COMPONENT } from '../option.token';
 import { ThyIcon } from 'ngx-tethys/icon';

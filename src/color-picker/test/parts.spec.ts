@@ -301,7 +301,7 @@ describe('thy-color-inputs', () => {
             fixture.detectChanges();
             const element = fixtureInstance.elementRef.nativeElement;
             const colorChange = spyOn(fixtureInstance, 'colorChangeEvent');
-            let rInput = element.querySelector('.input-number-input') as HTMLInputElement;
+            const rInput = element.querySelector('.input-number-input') as HTMLInputElement;
             dispatchFakeEvent(rInput, 'focus');
             rInput.value = '200';
             dispatchFakeEvent(rInput, 'blur');

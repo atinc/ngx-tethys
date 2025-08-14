@@ -1,4 +1,4 @@
-import { Component, ContentChild, HostBinding, OnInit, TemplateRef, contentChild, input } from '@angular/core';
+import { Component, OnInit, TemplateRef, contentChild, input } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 
 type ThyResultStatus = 'success' | 'warning' | 'error';

@@ -44,10 +44,10 @@ class ImagePreviewTestComponent implements OnInit {
     imageRef: ThyImagePreviewRef;
 
     ngOnInit(): void {
-        var urlCreator = window.URL || window.webkitURL;
+        const urlCreator = window.URL || window.webkitURL;
         this.images.forEach(img => {
             img.blob = new File([''], img.name, { type: 'image/jpeg' });
-            var objectURL = urlCreator.createObjectURL(img.blob);
+            const objectURL = urlCreator.createObjectURL(img.blob);
             img.objectURL = this.sanitizer.bypassSecurityTrustUrl(objectURL);
         });
     }
@@ -162,7 +162,7 @@ describe('image-preview', () => {
         button.click();
         fixture.detectChanges();
 
-        let previousZoom = basicTestComponent.imageRef.previewInstance.zoom;
+        const previousZoom = basicTestComponent.imageRef.previewInstance.zoom;
         expect(previousZoom).toBe(basicTestComponent.previewConfig.zoom);
         const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
         const zoomOut = operations[0] as HTMLElement;
@@ -187,7 +187,7 @@ describe('image-preview', () => {
         const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
         button.click();
 
-        let previousZoom = basicTestComponent.imageRef.previewInstance.zoom;
+        const previousZoom = basicTestComponent.imageRef.previewInstance.zoom;
         expect(previousZoom).toBe(basicTestComponent.previewConfig.zoom);
         const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
         const zoomIn = operations[1] as HTMLElement;
@@ -212,7 +212,7 @@ describe('image-preview', () => {
         const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
         button.click();
 
-        let operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
+        const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
         const originalSize = operations[2] as HTMLElement;
         expect(originalSize.getAttribute('ng-reflect-content')).toBe('原始比例');
         const spy = spyOn(basicTestComponent.imageRef.previewInstance, 'calculateInsideScreen').and.callThrough();
@@ -387,7 +387,7 @@ describe('image-preview', () => {
         button.click();
 
         expect(overlayContainerElement).toBeTruthy();
-        let wrapper = overlayContainerElement.querySelector('.thy-image-preview-wrap');
+        const wrapper = overlayContainerElement.querySelector('.thy-image-preview-wrap');
         dispatchMouseEvent(wrapper, 'click', 100, 100);
         timer(300);
         fixture.detectChanges();

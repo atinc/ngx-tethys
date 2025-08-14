@@ -8,8 +8,6 @@ import {
     NgZone,
     ChangeDetectorRef,
     OnDestroy,
-    OnChanges,
-    ViewChild,
     ElementRef,
     numberAttribute,
     inject,

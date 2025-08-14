@@ -126,7 +126,7 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
     /**
      * 获取所有打开的 Dialog
      */
-    getOpenedDialogs(): ThyDialogRef<any>[] {
+    getOpenedDialogs(): Array<ThyDialogRef<any>> {
         return this.getAbstractOverlays();
     }
 

@@ -109,7 +109,7 @@ describe('FlexibleTextComponent', () => {
         车高速被堵沈祥福回应炮轰烟台回应广告牌美国奥罗周杰伦练琴辛酸史家长进游戏群控诉韩国一桑拿房起火伊斯兰堡会谈推迟游客夫妻美国被捕黄晓明否认拒演京东回应收集隐私救护
         车高速被堵沈祥福回应炮轰烟台回应广告牌美国奥罗`;
         componentInstance.content = content;
-        let custom = 'customer-multiple-line';
+        const custom = 'customer-multiple-line';
         componentInstance.customContainerClass = custom;
         invokeCallbacks([{}]);
         fixture.detectChanges();

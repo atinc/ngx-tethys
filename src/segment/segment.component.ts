@@ -12,14 +12,12 @@ import {
     output,
     contentChildren
 } from '@angular/core';
-import { ThumbAnimationProps } from 'ngx-tethys/core';
-import { thumbMotion } from 'ngx-tethys/core';
+import { ThumbAnimationProps, thumbMotion } from 'ngx-tethys/core';
 import { ThySegmentItem } from './segment-item.component';
 import { IThySegmentComponent, THY_SEGMENTED_COMPONENT } from './segment.token';
 import { ThySegmentEvent } from './types';
 import { AnimationEvent } from '@angular/animations';
 
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export type ThySegmentSize = 'xs' | 'sm' | 'md' | 'default';

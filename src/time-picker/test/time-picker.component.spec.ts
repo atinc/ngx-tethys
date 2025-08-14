@@ -140,7 +140,7 @@ describe('ThyTimePickerComponent', () => {
         }));
 
         it('should support thyFormat', fakeAsync(() => {
-            let date = new Date();
+            const date = new Date();
             date.setHours(8, 20, 6);
             fixtureInstance.value = date;
             fixture.detectChanges();
@@ -315,7 +315,7 @@ describe('ThyTimePickerComponent', () => {
         it('should emit change when pick hour,minute,second and click confirm button', fakeAsync(() => {
             const date = new Date();
             date.setHours(10, 20, 3);
-            let newDate = new Date(date);
+            const newDate = new Date(date);
             fixtureInstance.value = date;
             fixture.detectChanges();
             tick(500);

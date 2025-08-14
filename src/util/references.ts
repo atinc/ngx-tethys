@@ -9,7 +9,7 @@ export type ReferenceObjectExtract<T> = {
 };
 // 收取 References 中所有的属性 Names，如果ArrayInferExtract不是对象，返回 never
 export type ReferenceExtractNames<T> = { [key in keyof T]: ArrayInferExtract<T[key]> extends object ? key : never };
-export type ReferenceArrayExtractNames<T> = { [key in keyof T]: T[key] extends Array<object> ? key : never };
+export type ReferenceArrayExtractNames<T> = { [key in keyof T]: T[key] extends object[] ? key : never };
 // 排除 ReferenceExtractNames 抽取 Names 中的 never，只保留是对象的 Names
 export type ReferenceExtractAllowNames<T> = {
     [key in ReferenceExtractNames<T>[keyof T]]: ReferenceExtractNames<T>[key];

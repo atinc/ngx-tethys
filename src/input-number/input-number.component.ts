@@ -1,5 +1,4 @@
 import { TabIndexDisabledControlValueAccessorMixin, useHostFocusControl } from 'ngx-tethys/core';
-import { ThyMaxDirective, ThyMinDirective } from 'ngx-tethys/form';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { ThyAutofocusDirective } from 'ngx-tethys/shared';

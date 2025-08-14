@@ -1,7 +1,7 @@
 import { getNumericSize, ThySpacingSize } from 'ngx-tethys/core';
 
 describe('spacing', () => {
-    const sizes: { value: ThySpacingSize; space: number }[] = [
+    const sizes: Array<{ value: ThySpacingSize; space: number }> = [
         {
             value: 'zero',
             space: 0

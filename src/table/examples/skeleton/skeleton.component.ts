@@ -19,7 +19,7 @@ export class ThyTableSkeletonExampleComponent {
 
     theme: ThyTableTheme = 'default';
 
-    sizes: { value: ThyTableSize; height: number }[] = [
+    sizes: Array<{ value: ThyTableSize; height: number }> = [
         {
             value: 'xs',
             height: 44

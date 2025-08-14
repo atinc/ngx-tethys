@@ -1,6 +1,6 @@
 import { Signal } from '@angular/core';
 import { helpers, isArray } from 'ngx-tethys/util';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 export enum ThyTreeNodeCheckState {
     unchecked = 0,
@@ -25,7 +25,7 @@ export interface ThyTreeNodeData<T = any> {
         [key: string]: any;
     };
 
-    children?: ThyTreeNodeData<T>[];
+    children?: Array<ThyTreeNodeData<T>>;
 
     origin?: any;
 
@@ -101,7 +101,7 @@ export interface IThyTreeService {
     getCheckedNodes: () => ThyTreeNode[];
     deleteTreeNode: (node: ThyTreeNode) => void;
     addTreeNode: (node: ThyTreeNode, parent?: ThyTreeNode, index?: number) => void;
-    expandTreeNodes: (keyOrKeys: string | number | (string | number)[] | true) => void;
+    expandTreeNodes: (keyOrKeys: string | number | Array<string | number> | true) => void;
     setNodeChecked: (node: ThyTreeNode, checked: boolean, propagateUp?: boolean, propagateDown?: boolean) => void;
     syncNodeCheckState: (node: ThyTreeNode) => void;
     checkStateResolve: (node: ThyTreeNode) => ThyTreeNodeCheckState;

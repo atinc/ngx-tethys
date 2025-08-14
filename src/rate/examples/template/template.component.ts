@@ -25,7 +25,7 @@ export class ThyRateTemplateExampleComponent implements AfterViewInit {
 
     icons = ['angry', 'angry', 'expressionless', 'smile', 'smile'];
 
-    templates: TemplateRef<any>[] = null;
+    templates: Array<TemplateRef<any>> = null;
 
     template: TemplateRef<any> = null;
 

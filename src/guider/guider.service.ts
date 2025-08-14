@@ -2,10 +2,9 @@ import { Router } from '@angular/router';
 import { helpers } from 'ngx-tethys/util';
 import { DOCUMENT } from '@angular/common';
 import { ThyGuiderRef } from './guider-ref';
-import { NgZone, inject } from '@angular/core';
+import { NgZone, inject, Injectable, RendererFactory2 } from '@angular/core';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { ThyGuiderManager } from './guider-manager';
-import { Injectable, RendererFactory2 } from '@angular/core';
 import { ThyGuiderStep, ThyGuiderConfig, defaultGuiderPositionConfig } from './guider.class';
 import { Overlay } from '@angular/cdk/overlay';
 

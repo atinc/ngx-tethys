@@ -1,4 +1,4 @@
-import { animate, state, style, transition, trigger, AnimationTriggerMetadata } from '@angular/animations';
+import { state, style, trigger, AnimationTriggerMetadata } from '@angular/animations';
 
 const animationBody = [
     // Note: The `enter` animation transitions to `transform: none`, because for some reason

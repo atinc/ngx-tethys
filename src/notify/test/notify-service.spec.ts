@@ -1,8 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild, inject as coreInject } from '@angular/core';
 import { TestBed, ComponentFixture, fakeAsync, flush, inject, tick } from '@angular/core/testing';
-import { ThyNotifyModule, ThyNotifyService } from 'ngx-tethys/notify';
+import { ThyNotifyModule, ThyNotifyService, ThyNotifyConfig, THY_NOTIFY_DEFAULT_CONFIG } from 'ngx-tethys/notify';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
-import { ThyNotifyConfig, THY_NOTIFY_DEFAULT_CONFIG } from 'ngx-tethys/notify';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyNotifyContentExampleComponent } from '../examples/custom-content/content.component';
@@ -124,7 +123,7 @@ describe('ThyNotify', () => {
         }));
 
         it('should custom content is string worked correctly', fakeAsync(() => {
-            let content = 'string content';
+            const content = 'string content';
             componentInstance.option = {
                 title: 'ngx tethys notify',
                 placement: 'topLeft',

@@ -1,4 +1,4 @@
-import { Directive, Renderer2, Input, ElementRef, Output, EventEmitter, OnDestroy, NgZone, inject, effect, input } from '@angular/core';
+import { Directive, Renderer2, ElementRef, Output, EventEmitter, OnDestroy, NgZone, inject, effect, input } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 

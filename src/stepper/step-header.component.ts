@@ -1,7 +1,7 @@
 import { ThyIcon } from 'ngx-tethys/icon';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
-import { Component, HostBinding, Input, numberAttribute, input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, numberAttribute, input, ChangeDetectionStrategy } from '@angular/core';
 
 /**
  * 步骤条头部组件

@@ -285,7 +285,7 @@ describe('form validate', () => {
 
     function assertElementInvalidError(elementName: string, message: string = `user name is required`) {
         const input = formElement.querySelector(`[name=${elementName}`);
-        let invalidFeedbackElement = input.parentElement.querySelector('.invalid-feedback');
+        const invalidFeedbackElement = input.parentElement.querySelector('.invalid-feedback');
         expect(invalidFeedbackElement).toBeTruthy();
         expect(invalidFeedbackElement.textContent).toContain(message);
     }
@@ -577,7 +577,7 @@ describe('reactive form validate', () => {
 
     function assertElementInvalidError(elementName: string, message: string = `user name is required`) {
         const input = formElement.querySelector(`[name=${elementName}`);
-        let invalidFeedbackElement = input.parentElement.querySelector('.invalid-feedback');
+        const invalidFeedbackElement = input.parentElement.querySelector('.invalid-feedback');
         expect(invalidFeedbackElement).toBeTruthy();
         expect(invalidFeedbackElement.textContent).toContain(message);
     }

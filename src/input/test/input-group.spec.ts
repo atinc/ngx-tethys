@@ -1,5 +1,5 @@
 import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyInputGroup, ThyInputDirective, ThyInputCount } from 'ngx-tethys/input';
 import { ThyTranslate } from 'ngx-tethys/core';

@@ -56,7 +56,7 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
     /**
      * 提示内容自定义样式
      */
-    @Input('thyTooltipClass')
+    @Input()
     set thyTooltipClass(value: string | string[]) {
         this.tooltipClass = value;
         this.tooltipRef?.setTooltipClass(this.tooltipClass);
@@ -82,7 +82,7 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
      *
      * @type hover | focus | click
      */
-    @Input('thyTooltipTrigger') set thyTooltipTrigger(value: ThyOverlayTrigger) {
+    @Input() set thyTooltipTrigger(value: ThyOverlayTrigger) {
         this.trigger = value;
     }
 
@@ -90,7 +90,7 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
      * 设置是否禁用提示
      * @default false
      */
-    @Input({ alias: 'thyTooltipDisabled', transform: coerceBooleanProperty })
+    @Input({ transform: coerceBooleanProperty })
     set thyTooltipDisabled(value: boolean) {
         this.disabled = value;
         // If tooltip is disabled, hide immediately.

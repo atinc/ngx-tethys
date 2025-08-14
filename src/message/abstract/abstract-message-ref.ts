@@ -1,7 +1,6 @@
 import { OverlayRef } from '@angular/cdk/overlay';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { ThyMessageBaseConfig } from '../message.config';
-import { BehaviorSubject } from 'rxjs';
 
 export interface IThyAbstractMessageQueue<TReferences extends ThyAbstractMessageRef = ThyAbstractMessageRef> {
     queues$: BehaviorSubject<TReferences[]>;

@@ -1,11 +1,11 @@
 import { isString, isArray } from 'ngx-tethys/util';
 import { MIME_Map } from './constant';
 
-export function mimeTypeConvert(value: Array<string> | string): string {
-    let inputTypes: Array<string>;
-    const acceptTypes: Array<string> = [];
+export function mimeTypeConvert(value: string[] | string): string {
+    let inputTypes: string[];
+    const acceptTypes: string[] = [];
     if (isArray(value)) {
-        inputTypes = value as Array<string>;
+        inputTypes = value as string[];
     } else if (isString(value)) {
         inputTypes = value.split(',');
     } else {

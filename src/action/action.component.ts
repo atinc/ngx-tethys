@@ -184,7 +184,7 @@ export class ThyAction implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private updateClasses() {
-        let classNames: string[] = [];
+        const classNames: string[] = [];
         classNames.push(`action-${this.thyType()}`);
         if (this.thyTheme() === 'lite') {
             classNames.push('thy-action-lite');

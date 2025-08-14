@@ -431,7 +431,7 @@ describe('Rate tooltip component', () => {
 class RateTemplateTestComponent {
     value = 1;
 
-    iconsTemplate: string | TemplateRef<any> | string[] | TemplateRef<any>[];
+    iconsTemplate: string | TemplateRef<any> | string[] | Array<TemplateRef<any>>;
 
     hoverChange = jasmine.createSpy('item hover change callback');
 

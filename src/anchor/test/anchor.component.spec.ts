@@ -35,7 +35,7 @@ describe('thy-anchor', () => {
         }));
 
         it(`should do anything when thy-anchor-link's thyHref element is not found`, fakeAsync(() => {
-            let invalidId = 'will-not-found-id';
+            const invalidId = 'will-not-found-id';
             const beforeClickScrollTop = scrollService.getScroll();
             const staticLink: HTMLElement = debugElement.query(By.css(`[href="#${invalidId}"]`)).nativeElement;
             dispatchFakeEvent(staticLink, 'click');

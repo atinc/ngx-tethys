@@ -68,7 +68,7 @@ export class ThyImagePreview implements OnInit {
     private sanitizer = inject(DomSanitizer);
     public locale: Signal<ThyImageLocale> = injectLocale('image');
 
-    @Output() downloadClicked: EventEmitter<ThyImageInfo> = new EventEmitter();
+    @Output() downloadClicked = new EventEmitter<ThyImageInfo>();
 
     private readonly destroyRef = inject(DestroyRef);
 
@@ -169,9 +169,9 @@ export class ThyImagePreview implements OnInit {
     }
 
     get previewImageOriginSrc() {
-        let imageSrc = this.previewImage.origin?.src || this.previewImage.src;
+        const imageSrc = this.previewImage.origin?.src || this.previewImage.src;
         if (imageSrc.startsWith('./')) {
-            return window.location.host + '/' + imageSrc.split('./')[1];
+            return `${window.location.host}/${imageSrc.split('./')[1]}`;
         }
         return imageSrc;
     }
@@ -239,7 +239,7 @@ export class ThyImagePreview implements OnInit {
     }
 
     useCalculateZoomUpdate(isUpdateImageWrapper?: boolean) {
-        let img = new Image();
+        const img = new Image();
         img.src = this.previewImage.src;
         img.onload = () => {
             const { width: offsetWidth, height: offsetHeight } = getClientSize();
@@ -283,7 +283,7 @@ export class ThyImagePreview implements OnInit {
     }
 
     resolvePreviewImage() {
-        return new Observable<Boolean>(subscriber => {
+        return new Observable<boolean>(subscriber => {
             if (this.previewImage.src.startsWith('blob:')) {
                 this.previewImage.objectURL = this.sanitizer.bypassSecurityTrustUrl(this.previewImage.src);
                 subscriber.next(true);
@@ -337,7 +337,7 @@ export class ThyImagePreview implements OnInit {
             .subscribe(blob => {
                 const urlCreator = window.URL || window.webkitURL;
                 const objectURL = urlCreator.createObjectURL(blob);
-                let a = document.createElement('a');
+                const a = document.createElement('a');
                 a.download = image.name || 'default.png';
                 a.href = objectURL;
                 a.click();

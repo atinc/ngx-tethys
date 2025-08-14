@@ -221,7 +221,7 @@ const emptyOptions = [
     }
 ];
 
-const loadDataOption: { [key: string]: { children?: any[]; [key: string]: any }[] } = {
+const loadDataOption: { [key: string]: Array<{ children?: any[]; [key: string]: any }> } = {
     root: [
         {
             value: 'zhejiang',
@@ -1124,12 +1124,12 @@ describe('thy-cascader', () => {
             tick(300);
             fixture.detectChanges();
             const searchOption = overlayContainerElement.querySelector('.thy-cascader-search-list-item');
-            let text: string[] = [];
+            const text: string[] = [];
             (searchOption as HTMLElement).querySelectorAll('.thy-breadcrumb-item').forEach(item => {
                 text.push((item as HTMLElement).innerText);
             });
             let options = fixture.componentInstance.thyCustomerOptions;
-            let selectedValue: string[] = [];
+            const selectedValue: string[] = [];
             while (text.length) {
                 const curText = text.shift();
                 const curOption = options.find(item => item.label === curText);

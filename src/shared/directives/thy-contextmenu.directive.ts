@@ -1,4 +1,4 @@
-import { Directive, Output, ElementRef, EventEmitter, OnInit, NgZone, Renderer2, HostListener, OnDestroy, inject } from '@angular/core';
+import { Directive, Output, ElementRef, EventEmitter, OnInit, NgZone, Renderer2, OnDestroy, inject } from '@angular/core';
 
 /**
  * @name thyContextMenu

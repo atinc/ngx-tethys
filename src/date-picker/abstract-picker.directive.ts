@@ -167,7 +167,6 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
                 this.onShowTimePickerChange(event)
             );
 
-            // eslint-disable-next-line max-len
             componentInstance.ngOnChanges({ value: {} as SimpleChange }); // dynamically created components don't call ngOnChanges, manual call
 
             if (this.dateValueChangeSubscription) {

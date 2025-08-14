@@ -335,7 +335,7 @@ export const treeNodes = [
         _id: '000000000000000000000000',
         name: '未分配部门',
         parent_id: '',
-        children: [] as Array<any>
+        children: [] as any[]
     }
 ];
 
@@ -575,7 +575,7 @@ export const hasCheckTreeNodes = [
         _id: '000000000000000000000000',
         name: '未分配部门',
         parent_id: '',
-        children: [] as Array<any>,
+        children: [] as any[],
         disabled: true
     }
 ];

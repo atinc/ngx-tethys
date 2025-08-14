@@ -132,7 +132,7 @@ describe('ThyTimePanelComponent', () => {
         it('should support pick hour,minute,second and emit change event', fakeAsync(() => {
             const date = new Date();
             date.setHours(10, 20, 3);
-            let newDate = new Date(date);
+            const newDate = new Date(date);
             fixtureInstance.value = date;
             fixture.detectChanges();
             tick(500);
@@ -160,7 +160,7 @@ describe('ThyTimePanelComponent', () => {
         it('should support confirm emit change', fakeAsync(() => {
             const date = new Date();
             date.setHours(10, 20, 3);
-            let newDate = new Date(date);
+            const newDate = new Date(date);
             fixtureInstance.value = date;
             fixture.detectChanges();
             tick(500);

@@ -262,10 +262,10 @@ export class ThyCascaderService {
         selected: boolean,
         selectFn?: (option: ThyCascaderOption, index: number) => void
     ): void {
-        const allLeafs: {
+        const allLeafs: Array<{
             option: ThyCascaderOption;
             index: number;
-        }[] = this.getAllLeafs(option, index, selected);
+        }> = this.getAllLeafs(option, index, selected);
         option.selected = selected;
 
         while (allLeafs.length) {
@@ -286,14 +286,14 @@ export class ThyCascaderService {
         option: ThyCascaderOption,
         index: number,
         selected: boolean
-    ): {
+    ): Array<{
         option: ThyCascaderOption;
         index: number;
-    }[] {
-        let allLeafs: {
+    }> {
+        let allLeafs: Array<{
             option: ThyCascaderOption;
             index: number;
-        }[] = [];
+        }> = [];
         if (option.children.length > 0) {
             for (const childOption of option.children) {
                 childOption.parent = option;
@@ -645,7 +645,7 @@ export class ThyCascaderService {
             return;
         }
 
-        let selectedCustomOptions = this.getSelectedCustomOptions();
+        const selectedCustomOptions = this.getSelectedCustomOptions();
         selectedCustomOptions.forEach(item => {
             this.removeSelectedItem(item);
         });

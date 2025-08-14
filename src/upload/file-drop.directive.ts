@@ -1,24 +1,8 @@
 import { isEmpty, isString } from 'ngx-tethys/util';
-import { fromEvent, Subject } from 'rxjs';
-import { filter, takeUntil, tap } from 'rxjs/operators';
+import { fromEvent } from 'rxjs';
+import { filter, tap } from 'rxjs/operators';
 
-import {
-    DestroyRef,
-    Directive,
-    ElementRef,
-    EventEmitter,
-    HostBinding,
-    Inject,
-    Input,
-    NgZone,
-    OnInit,
-    Output,
-    Renderer2,
-    inject,
-    input,
-    output,
-    signal
-} from '@angular/core';
+import { DestroyRef, Directive, ElementRef, Inject, NgZone, OnInit, Renderer2, inject, input, output, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { FileSelectBaseDirective } from './file-select-base';
@@ -46,7 +30,7 @@ export class ThyFileDropDirective extends FileSelectBaseDirective implements OnI
      * 当拖拽的文件中有不符合 thyAcceptType 中定义的类型时触发
      * @description.en-us It is triggered when there are files in the dragged files that do not conform to the types defined in thyAcceptType.
      */
-    thyFilesReject = output<File[]>();
+    readonly thyFilesReject = output<File[]>();
 
     private destroyRef = inject(DestroyRef);
 

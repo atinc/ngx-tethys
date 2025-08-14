@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Directive, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Directive } from '@angular/core';
 
 /**
  * 侧边栏底部布局指令

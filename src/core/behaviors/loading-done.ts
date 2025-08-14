@@ -1,5 +1,3 @@
-import { Subject, Observable } from 'rxjs';
-import { OnDestroy } from '@angular/core';
 import { Constructor } from './constructor';
 
 export interface ThyLoadingDone {

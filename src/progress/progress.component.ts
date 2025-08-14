@@ -57,7 +57,7 @@ export class ThyProgress implements ThyParentProgress {
     readonly max = computed(() => {
         const setMax = this.thyMax();
         const barsTotalValue = this.barsTotalValue();
-        let result: number = 100;
+        let result = 100;
         if (isNumber(setMax) && setMax > 0) {
             result = setMax;
         } else if (isNumber(barsTotalValue)) {

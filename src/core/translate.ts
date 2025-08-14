@@ -5,11 +5,11 @@ import { Observable, Observer } from 'rxjs';
     providedIn: 'root'
 })
 export class ThyTranslate {
-    instant(key: string | Array<string>, interpolateParams?: object): string | any {
+    instant(key: string | string[], interpolateParams?: object): string | any {
         return key;
     }
 
-    get(key: string | Array<string>, interpolateParams?: object): Observable<string | any> {
+    get(key: string | string[], interpolateParams?: object): Observable<string | any> {
         return new Observable((observer: Observer<any>) => {
             observer.next(key);
         });

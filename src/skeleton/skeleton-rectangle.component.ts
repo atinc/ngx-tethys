@@ -1,8 +1,7 @@
 import { Component, ChangeDetectionStrategy, ViewEncapsulation, inject, input, computed } from '@angular/core';
 import { ThySkeleton } from './skeleton.component';
-import { coerceBooleanProperty, helpers, ThyBooleanInput } from 'ngx-tethys/util';
+import { coerceBooleanProperty, helpers, ThyBooleanInput, isUndefinedOrNull } from 'ngx-tethys/util';
 import { THY_SKELETON_CONFIG } from './skeleton.config';
-import { isUndefinedOrNull } from 'ngx-tethys/util';
 import { NgStyle } from '@angular/common';
 import { coerceCssPixelValue } from '@angular/cdk/coercion';
 /**

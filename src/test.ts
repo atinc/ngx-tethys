@@ -6,7 +6,7 @@ import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@ang
 import { setPrintErrorWhenIconNotFound } from './icon';
 import { setWarnDeprecation } from './util';
 import { DebounceTimeWrapper } from './core';
-import { debounce, interval, Observable, tap } from 'rxjs';
+import { debounce, interval } from 'rxjs';
 
 /**
  * mock debounceTime for issue https://github.com/angular/angular/issues/44351

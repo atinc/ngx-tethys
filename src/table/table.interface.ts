@@ -80,7 +80,7 @@ export interface ThyTableDraggableEvent {
     oldIndex?: number;
     newIndex?: number;
     model?: any;
-    models?: Array<any>;
+    models?: any[];
     [key: string]: any;
 }
 

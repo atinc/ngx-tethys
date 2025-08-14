@@ -117,7 +117,7 @@ class MultipleSelectComponent {
         { value: 'pasta-6', viewValue: 'Pasta' },
         { value: 'sushi-7', viewValue: 'Sushi' }
     ];
-    vegetables: { value: string; viewValue: string }[] = [{ value: 'potatoes', viewValue: 'Potatoes' }];
+    vegetables: Array<{ value: string; viewValue: string }> = [{ value: 'potatoes', viewValue: 'Potatoes' }];
 
     selectedFoods: any[] = [];
 
@@ -301,7 +301,7 @@ class SelectWithSearchComponent {
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithSearchUseSearchKeyComponent {
-    teamMembers: { _id: string; name: string; pin_yin: string }[] = [
+    teamMembers: Array<{ _id: string; name: string; pin_yin: string }> = [
         {
             _id: 'sadfasdfasdfasfdasdfs5',
             name: '公告',
@@ -780,7 +780,7 @@ describe('ThyCustomSelect', () => {
             });
 
             it('should get default placement', fakeAsync(() => {
-                let trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+                const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
                 trigger.click();
                 fixture.detectChanges();
                 flush();
@@ -1033,7 +1033,7 @@ describe('ThyCustomSelect', () => {
                 flush();
 
                 const pane = overlayContainerElement.querySelector('.cdk-overlay-pane') as HTMLElement;
-                // eslint-disable-next-line radix
+
                 const initialWidth = parseInt(pane.style.width || '0');
 
                 expect(initialWidth).toBeGreaterThan(0);
@@ -1053,7 +1053,6 @@ describe('ThyCustomSelect', () => {
                 }, 0);
                 tick(100);
 
-                // eslint-disable-next-line radix
                 // expect(parseInt(pane.style.width || '0')).toBeGreaterThan(initialWidth);
             }));
 
@@ -1414,7 +1413,7 @@ describe('ThyCustomSelect', () => {
         it('should support thyDropdownWidthMode to set cdkConnectedOverlayMinWidth', fakeAsync(() => {
             configureThyCustomSelectTestingModule();
 
-            let fixture: ComponentFixture<SelectDropdownWidthComponent> = TestBed.createComponent(SelectDropdownWidthComponent);
+            const fixture: ComponentFixture<SelectDropdownWidthComponent> = TestBed.createComponent(SelectDropdownWidthComponent);
             fixture.detectChanges();
 
             containerSelector = '.select1';
@@ -1433,7 +1432,7 @@ describe('ThyCustomSelect', () => {
                 }
             ]);
 
-            let fixture: ComponentFixture<SelectDropdownWidthComponent> = TestBed.createComponent(SelectDropdownWidthComponent);
+            const fixture: ComponentFixture<SelectDropdownWidthComponent> = TestBed.createComponent(SelectDropdownWidthComponent);
             fixture.detectChanges();
             containerSelector = '.select2';
             assertDropdownMinWidth(fixture, null, 'minWidth', THY_SELECT_PANEL_MIN_WIDTH);
@@ -2298,7 +2297,7 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
 
-            let trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
             fixture.detectChanges();
             flush();

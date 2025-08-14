@@ -24,7 +24,7 @@ import { ThyInputDirective } from 'ngx-tethys/input';
 class ThyTestMentionBasicComponent implements OnInit {
     value = `@t`;
 
-    mentions: Mention<any>[];
+    mentions: Array<Mention<any>>;
 
     popoverConfig = {
         panelClass: 'mention-popover-panel'
@@ -67,7 +67,7 @@ class ThyTestMentionBasicComponent implements OnInit {
 class ThyTestMentionSuggestionsTemplateComponent implements OnInit {
     value = `@`;
 
-    mentions: Mention<any>[];
+    mentions: Array<Mention<any>>;
 
     popoverConfig = {
         panelClass: 'mention-suggestions-template-popover-panel'

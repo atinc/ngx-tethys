@@ -203,7 +203,7 @@ describe('ThySelectControl', () => {
 
             it('should just show max tag', fakeAsync(() => {
                 fixture.componentInstance.thyIsMultiple = true;
-                let selectedOptions = [
+                const selectedOptions = [
                     { thyLabelText: '1', thyRawValue: {}, thyValue: '1' },
                     { thyLabelText: '2', thyRawValue: {}, thyValue: '2' },
                     { thyLabelText: '3', thyRawValue: {}, thyValue: '3' }

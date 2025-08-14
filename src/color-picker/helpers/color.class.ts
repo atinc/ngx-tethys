@@ -121,8 +121,8 @@ export class ThyColor {
         const Cmin = Math.min(red, green, blue);
         const delta = Cmax - Cmin;
         let hue = 0;
-        let saturation: number = Cmax === 0 ? 0 : delta / Cmax;
-        let brightness: number = Cmax;
+        const saturation: number = Cmax === 0 ? 0 : delta / Cmax;
+        const brightness: number = Cmax;
         if (Cmax !== Cmin) {
             switch (Cmax) {
                 case red:
@@ -208,7 +208,7 @@ export class ThyColor {
     }
 
     public toHexString(alpha: boolean = false): string {
-        let hex = '#' + ((1 << 24) | (this.rgba.getRed() << 16) | (this.rgba.getGreen() << 8) | this.rgba.getBlue()).toString(16).substr(1);
+        let hex = `#${((1 << 24) | (this.rgba.getRed() << 16) | (this.rgba.getGreen() << 8) | this.rgba.getBlue()).toString(16).substr(1)}`;
         if (alpha && this.rgba.alpha !== 1) {
             hex += ((1 << 8) | Math.round(this.rgba.alpha * 255)).toString(16).substr(1);
         }
@@ -270,11 +270,12 @@ export class ThyColor {
     }
 
     getFinalValue() {
-        let { hue, saturation, value, alpha, format } = this;
+        const { hue, saturation, value, alpha, format } = this;
+        let hsl: number[];
         if (this.enableAlpha) {
             switch (format) {
                 case 'hsl':
-                    const hsl = hsv2hsl(hue, saturation / 100, value / 100);
+                    hsl = hsv2hsl(hue, saturation / 100, value / 100);
                     this.displayValue = `hsla(${hue}, ${Math.round(hsl[1] * 100)}%, ${Math.round(hsl[2] * 100)}%, ${alpha})`;
                     break;
                 case 'hsv':
@@ -289,7 +290,7 @@ export class ThyColor {
         } else {
             switch (format) {
                 case 'hsl':
-                    const hsl = hsv2hsl(hue, saturation / 100, value / 100);
+                    hsl = hsv2hsl(hue, saturation / 100, value / 100);
                     this.displayValue = `hsl(${hue}, ${Math.round(hsl[1] * 100)}%, ${Math.round(hsl[2] * 100)}%)`;
                     break;
                 case 'hsv':

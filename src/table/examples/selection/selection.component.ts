@@ -22,7 +22,7 @@ export class ThyTableSelectionExampleComponent implements OnInit {
         { id: 5, name: 'Jill', age: 22, job: 'DevOps', address: 'Hangzhou' }
     ];
 
-    selections: { id: number; name: string }[] = [];
+    selections: Array<{ id: number; name: string }> = [];
 
     updating = false;
 

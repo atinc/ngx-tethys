@@ -9,7 +9,7 @@ import { By, DomSanitizer } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { ThyIcon, ThyIconRegistry } from 'ngx-tethys/icon';
 import { bigTreeNodes, moreOptionTreeSelectData, searchTreeSelectData } from '../examples/mock-data';
-import { ThyTreeSelectNode, filterTreeData, ThyTreeSelect, ThyTreeSelectModule } from 'ngx-tethys/tree-select';
+import { ThyTreeSelectNode, filterTreeData, ThyTreeSelect } from 'ngx-tethys/tree-select';
 import { provideHttpClient } from '@angular/common/http';
 import { ThyFormModule } from 'ngx-tethys/form';
 

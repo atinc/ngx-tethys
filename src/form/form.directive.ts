@@ -6,7 +6,6 @@ import {
     Directive,
     ElementRef,
     HostBinding,
-    Input,
     NgZone,
     OnDestroy,
     OnInit,
@@ -14,15 +13,13 @@ import {
     Renderer2,
     inject,
     input,
-    afterRenderEffect,
-    effect,
-    afterNextRender
+    effect
 } from '@angular/core';
 import { ControlContainer, NgControl, NgForm } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
 import { ThyFormValidatorService } from './form-validator.service';
-import { THY_FORM_CONFIG, ThyFormConfig, ThyFormLayout, ThyFormValidatorConfig } from './form.class';
+import { THY_FORM_CONFIG, ThyFormLayout, ThyFormValidatorConfig } from './form.class';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 // 1. submit 按 Enter 键提交, Textare或包含[contenteditable]属性的元素 除外，需要按 Ctrl | Command + Enter 提交

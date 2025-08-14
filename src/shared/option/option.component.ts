@@ -2,7 +2,6 @@ import {
     Component,
     TemplateRef,
     ChangeDetectionStrategy,
-    HostBinding,
     HostListener,
     ElementRef,
     ChangeDetectorRef,
@@ -21,7 +20,6 @@ import { ENTER, SPACE, coerceBooleanProperty, hasModifierKey } from 'ngx-tethys/
 import { THY_OPTION_PARENT_COMPONENT } from './option.token';
 
 import { ThyIcon } from 'ngx-tethys/icon';
-import { SafeAny } from '../../types';
 
 export class ThyOptionSelectionChangeEvent {
     constructor(

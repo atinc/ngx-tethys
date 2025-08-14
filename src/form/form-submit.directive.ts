@@ -1,4 +1,4 @@
-import { Directive, EventEmitter, HostListener, OnInit, Output, inject, output } from '@angular/core';
+import { Directive, HostListener, OnInit, inject, output } from '@angular/core';
 
 import { ThyFormDirective } from './form.directive';
 

@@ -1,4 +1,4 @@
-import { ThyTagSize } from 'ngx-tethys/tag';
+import { ThyTagSize, ThyTag } from 'ngx-tethys/tag';
 import { coerceBooleanProperty, isUndefinedOrNull } from 'ngx-tethys/util';
 
 import {
@@ -25,7 +25,6 @@ import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThyGridModule } from 'ngx-tethys/grid';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { ThyTag } from 'ngx-tethys/tag';
 import { SelectOptionBase } from '../../option/select-option-base';
 
 export type SelectControlSize = 'xs' | 'sm' | 'md' | 'lg' | '';
@@ -106,7 +105,7 @@ export class ThySelectControl implements OnInit {
     isSelectedValue = computed(() => {
         return (
             (!this.thyIsMultiple() && !isUndefinedOrNull(this.thySelectedOptions())) ||
-            (this.thyIsMultiple() && (<SelectOptionBase[]>this.thySelectedOptions()).length > 0)
+            (this.thyIsMultiple() && (this.thySelectedOptions() as SelectOptionBase[]).length > 0)
         );
     });
 

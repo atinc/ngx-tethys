@@ -407,7 +407,7 @@ describe('ThyPickerDirective', () => {
                     },
                     placement: 'bottom'
                 });
-                let componentInstance = popoverRef.componentInstance;
+                const componentInstance = popoverRef.componentInstance;
                 componentInstance.clearFlexibleValue();
                 componentInstance.onDayHover(componentInstance.tplInnerPopup);
                 componentInstance.setProperty('key', 1);

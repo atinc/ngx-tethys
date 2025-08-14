@@ -2,8 +2,7 @@
   class="thy-segment-item-label"
   [ngClass]="{
     'thy-segment-item-label-only-icon': isOnlyIcon()
-  }"
-  >
+  }">
   @if (thyIcon()) {
     <thy-icon class="thy-segment-item-icon" [ngClass]="{ 'icon-with-text': isWithText() }" [thyIconName]="thyIcon()"></thy-icon>
   }

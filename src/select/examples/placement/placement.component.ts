@@ -48,7 +48,7 @@ export class ThySelectPlacementExampleComponent implements OnInit {
         'rightBottom'
     ];
 
-    placements: { value: string; text: string }[] = [];
+    placements: Array<{ value: string; text: string }> = [];
 
     ngOnInit(): void {
         this.placements = this._placements.map(item => {

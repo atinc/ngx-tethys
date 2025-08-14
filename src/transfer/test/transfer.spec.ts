@@ -1,7 +1,7 @@
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyListModule } from 'ngx-tethys/list';
 import { ThySelectModule } from 'ngx-tethys/select';
-import { Component, DebugElement, ViewEncapsulation, signal, viewChild } from '@angular/core';
+import { Component, DebugElement, ViewEncapsulation, viewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';

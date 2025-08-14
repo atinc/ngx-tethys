@@ -305,7 +305,7 @@ describe('ThyTreeComponent', () => {
                 if (dragContent.className.includes('disabled')) {
                     expect(dragIconVisible.style.visibility).toBeTruthy();
                 } else {
-                    let cssVisible = dragContentInnerHTML.includes('不可拖拽') ? 'hidden' : 'visible';
+                    const cssVisible = dragContentInnerHTML.includes('不可拖拽') ? 'hidden' : 'visible';
                     expect(dragIconVisible.style.visibility === cssVisible).toBeTruthy();
                 }
 

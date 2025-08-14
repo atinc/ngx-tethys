@@ -14,7 +14,7 @@ import {
     Signal
 } from '@angular/core';
 import { OverlayRef, Overlay } from '@angular/cdk/overlay';
-import { ThyPlacement } from 'ngx-tethys/core';
+import { ThyPlacement, ScrollToService } from 'ngx-tethys/core';
 import { ThyAutocompleteService } from './overlay/autocomplete.service';
 import { ThyAutocompleteRef } from './overlay/autocomplete-ref';
 import { ThyAutocomplete } from './autocomplete.component';
@@ -23,7 +23,6 @@ import { DOCUMENT } from '@angular/common';
 import { Subject, Observable, merge, fromEvent, of, Subscription } from 'rxjs';
 import { ESCAPE, UP_ARROW, ENTER, DOWN_ARROW, TAB, coerceBooleanProperty } from 'ngx-tethys/util';
 import { filter, map, take, delay, switchMap } from 'rxjs/operators';
-import { ScrollToService } from 'ngx-tethys/core';
 import { outputToObservable } from '@angular/core/rxjs-interop';
 
 /**

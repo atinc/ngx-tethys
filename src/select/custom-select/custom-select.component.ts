@@ -974,7 +974,7 @@ export class ThySelect
             if (isArray(modalValue)) {
                 const selected = [...this.selectionModel.selected];
                 this.selectionModel.clear();
-                (modalValue as Array<any>).forEach(itemValue => {
+                (modalValue as any[]).forEach(itemValue => {
                     const option =
                         this.options.find(_option => _option.thyValue === itemValue) ||
                         selected.find(_option => _option.thyValue === itemValue);

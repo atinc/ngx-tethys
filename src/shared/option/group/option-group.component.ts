@@ -1,6 +1,5 @@
 import {
     Component,
-    HostBinding,
     NgZone,
     OnDestroy,
     AfterContentInit,

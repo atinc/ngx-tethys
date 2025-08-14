@@ -870,7 +870,7 @@ describe('ThyDatePickerComponent', () => {
         }));
 
         it('should support thyPlacement', fakeAsync(() => {
-            let placement = 'top';
+            const placement = 'top';
             fixtureInstance.thyPlacement = placement;
             fixture.detectChanges();
             openPickerByClickTrigger();

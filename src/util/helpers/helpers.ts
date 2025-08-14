@@ -15,7 +15,7 @@ export function isUndefinedOrNull(value: any): value is undefined | null {
     return isUndefined(value) || isNull(value);
 }
 
-export function isArray<T = any>(value: any): value is Array<T> {
+export function isArray<T = any>(value: any): value is T[] {
     return value && baseGetTag(value) === '[object Array]';
 }
 

@@ -1,7 +1,6 @@
 import {
     Component,
     numberAttribute,
-    viewChildren,
     output,
     contentChildren,
     input,

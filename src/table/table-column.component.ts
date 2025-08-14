@@ -1,4 +1,4 @@
-import { _isNumberValue, coerceCssPixelValue } from '@angular/cdk/coercion';
+import { coerceCssPixelValue } from '@angular/cdk/coercion';
 import {
     Component,
     ContentChild,
@@ -202,6 +202,6 @@ export class ThyTableColumnComponent implements OnInit {
     }
 
     private _generateKey() {
-        return '[$$column]' + Math.random().toString(16).slice(2, 10);
+        return `[$$column]${Math.random().toString(16).slice(2, 10)}`;
     }
 }

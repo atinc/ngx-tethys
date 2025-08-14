@@ -1,7 +1,6 @@
-import { META_KEY } from './types';
 import { findAndCreateStoreMetadata } from './utils';
-import { Observable, Observer, of, throwError } from 'rxjs';
-import { map, shareReplay, catchError, exhaustMap } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { shareReplay, catchError, exhaustMap } from 'rxjs/operators';
 import { MiniActionState } from './action-state';
 import { ActionContext, ActionStatus } from './actions-stream';
 

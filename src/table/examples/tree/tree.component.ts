@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ThyTable, ThyTableColumnComponent } from 'ngx-tethys/table';
 import { ThyIcon } from 'ngx-tethys/icon';
 
@@ -7,7 +7,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
     templateUrl: './tree.component.html',
     imports: [ThyTable, ThyTableColumnComponent, ThyIcon]
 })
-export class ThyTableTreeExampleComponent implements OnInit {
+export class ThyTableTreeExampleComponent {
     data = [
         {
             id: '1',
@@ -38,7 +38,5 @@ export class ThyTableTreeExampleComponent implements OnInit {
         { id: '3', name: 'Elyse', age: 31, job: 'Engineer', address: 'Yichuan Ningxia' }
     ];
 
-    selections: { id: number; name: string }[] = [];
-
-    ngOnInit() {}
+    selections: Array<{ id: number; name: string }> = [];
 }

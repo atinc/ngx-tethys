@@ -118,7 +118,7 @@ export class BasePicker extends AbstractPickerComponent implements OnInit, OnCha
         this.innerPreviousDate = this.thyPicker().getReadableValue(this.thyValue);
     }
 
-    onInputValueChange(formatDate: string | null | Array<null>) {
+    onInputValueChange(formatDate: string | null | null[]) {
         if (!formatDate || !formatDate.length) {
             const compatibleValue = formatDate ? (formatDate as CompatibleValue) : null;
             this.restoreTimePickerState(compatibleValue);

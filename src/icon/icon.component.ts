@@ -201,10 +201,10 @@ export class ThyIcon {
         const styleElements = svg.querySelectorAll('style');
         styleElements.forEach((n: HTMLElement) => {
             if (n.style.cssText.includes('url')) {
-                n.style.fill = n.style.fill.replace('url("', 'url("' + location.pathname);
+                n.style.fill = n.style.fill.replace('url("', `url("${location.pathname}`);
             }
             if (n.style.cssText.includes('clip-path')) {
-                n.style.clipPath = n.style.clipPath.replace('url("', 'url("' + location.pathname);
+                n.style.clipPath = n.style.clipPath.replace('url("', `url("${location.pathname}`);
             }
         });
     }

@@ -346,7 +346,7 @@ describe(`sidebar`, () => {
             dispatchMouseEvent(sidebarCollapseElement, 'click');
             fixture.detectChanges();
             expect(testInstance.isCollapsed).toEqual(true);
-            expect(sidebarDebugElement.nativeElement.style.width).toEqual(inputCollapseWidth + 'px');
+            expect(sidebarDebugElement.nativeElement.style.width).toEqual(`${inputCollapseWidth}px`);
             dispatchMouseEvent(sidebarCollapseElement, 'click');
             fixture.detectChanges();
             expect(testInstance.isCollapsed).toEqual(false);

@@ -17,7 +17,7 @@ export class ThyOptionsExampleComponent implements OnInit {
 
     value = '';
 
-    multipleValue: Array<string> = [];
+    multipleValue: string[] = [];
 
     loading = false;
 
@@ -43,7 +43,7 @@ export class ThyOptionsExampleComponent implements OnInit {
                 }
 
                 this.loadMoreOptions.forEach((item, index: number) => {
-                    item.value = `${item.value}` + index;
+                    item.value = `${item.value}${index}`;
                 });
 
                 this.loadMoreOptions = [...this.loadMoreOptions];

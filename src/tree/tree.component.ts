@@ -24,8 +24,8 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { THY_TREE_ABSTRACT_TOKEN } from './tree-abstract';
-import { ThyTreeNode } from './tree.class';
 import {
+    ThyTreeNode,
     ThyTreeBeforeDragDropContext,
     ThyTreeBeforeDragStartContext,
     ThyClickBehavior,
@@ -40,7 +40,7 @@ import { ThyTreeService } from './tree.service';
 import { ThyTreeNodeComponent } from './tree-node.component';
 import { DOCUMENT } from '@angular/common';
 import { CdkDrag, CdkDragDrop, CdkDragEnd, CdkDragMove, CdkDragStart, CdkDropList } from '@angular/cdk/drag-drop';
-import { filter, startWith, takeUntil } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { ThyTreeNodeDraggablePipe } from './tree.pipe';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -102,9 +102,9 @@ export class ThyTree implements ControlValueAccessor {
     private document = inject(DOCUMENT);
     private destroyRef = inject(DestroyRef);
 
-    private expandedKeys: (string | number)[];
+    private expandedKeys: Array<string | number>;
 
-    private selectedKeys: (string | number)[];
+    private selectedKeys: Array<string | number>;
 
     private hostRenderer = useHostRenderer();
 
@@ -260,7 +260,7 @@ export class ThyTree implements ControlValueAccessor {
     /**
      * 展开指定的树节点
      */
-    readonly thyExpandedKeys = input<(string | number)[]>(undefined);
+    readonly thyExpandedKeys = input<Array<string | number>>(undefined);
 
     /**
      * 是否展开所有树节点
@@ -427,7 +427,7 @@ export class ThyTree implements ControlValueAccessor {
         this.selectionModel = new SelectionModel<any>(this.thyMultiple());
     }
 
-    private selectTreeNodes(keys: (string | number)[]) {
+    private selectTreeNodes(keys: Array<string | number>) {
         (keys || []).forEach(key => {
             const node = this.thyTreeService.getTreeNode(key);
             if (node) {
@@ -487,12 +487,12 @@ export class ThyTree implements ControlValueAccessor {
 
     onDragMoved(event: CdkDragMove<ThyTreeNode>) {
         // 通过鼠标位置查找对应的目标 Item 元素
-        let currentPointElement = this.document.elementFromPoint(event.pointerPosition.x, event.pointerPosition.y) as HTMLElement;
+        const currentPointElement = this.document.elementFromPoint(event.pointerPosition.x, event.pointerPosition.y) as HTMLElement;
         if (!currentPointElement) {
             this.cleanupDragArtifacts();
             return;
         }
-        let targetElement = currentPointElement.classList.contains('thy-tree-node')
+        const targetElement = currentPointElement.classList.contains('thy-tree-node')
             ? currentPointElement
             : (currentPointElement.closest('.thy-tree-node') as HTMLElement);
         if (!targetElement) {

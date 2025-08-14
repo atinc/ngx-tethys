@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, computed, contentChild, effect, input, Signal, TemplateRef, contentChildren } from '@angular/core';
+import { Component, computed, contentChild, effect, input, TemplateRef, contentChildren } from '@angular/core';
 import { UpdateHostClassService } from 'ngx-tethys/core';
 import { SafeAny } from 'ngx-tethys/types';
 import { DEFAULT_SIZE, ThyAvatar } from '../avatar.component';

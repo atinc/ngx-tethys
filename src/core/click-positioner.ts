@@ -1,4 +1,4 @@
-import { Injectable, NgZone, inject } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ThyClickDispatcher } from './event-dispatchers/index';
 
 export interface ThyClickPosition {

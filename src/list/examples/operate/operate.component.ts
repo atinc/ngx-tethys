@@ -1,7 +1,6 @@
 import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ThyListOption } from 'ngx-tethys/shared';
-import { ThySelectionListChange } from 'ngx-tethys/list';
-import { ThySelectionList } from 'ngx-tethys/list';
+import { ThySelectionListChange, ThySelectionList } from 'ngx-tethys/list';
 import { ThyButton } from 'ngx-tethys/button';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';

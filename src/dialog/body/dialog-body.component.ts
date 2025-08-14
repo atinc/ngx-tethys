@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, HostBinding, inject, input } from '@angular/core';
+import { Component, OnInit, inject, input } from '@angular/core';
 import { ThyDialog } from '../dialog.service';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { coerceBooleanProperty } from 'ngx-tethys/util';

@@ -33,7 +33,6 @@ import {
     effect,
     computed,
     signal,
-    afterNextRender,
     DestroyRef,
     contentChild,
     viewChild

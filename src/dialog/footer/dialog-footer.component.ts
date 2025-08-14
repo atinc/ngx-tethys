@@ -1,5 +1,5 @@
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { Component, OnInit, TemplateRef, inject, input, contentChild, computed, WritableSignal, effect, Input } from '@angular/core';
+import { Component, OnInit, TemplateRef, inject, input, contentChild, computed } from '@angular/core';
 
 import { THY_DIALOG_LAYOUT_CONFIG, ThyDialogFooterAlign } from '../dialog.config';
 import { NgTemplateOutlet } from '@angular/common';
@@ -45,7 +45,7 @@ export class ThyDialogFooter implements OnInit {
      */
     readonly thyAlign = input<ThyDialogFooterAlign>();
 
-    readonly align = computed(() => (!!this.thyAlign() ? this.thyAlign() : this.dialogLayoutConfig.footerAlign));
+    readonly align = computed(() => (this.thyAlign() ? this.thyAlign() : this.dialogLayoutConfig.footerAlign));
 
     private hostRenderer = useHostRenderer();
 

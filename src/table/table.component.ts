@@ -1068,7 +1068,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
                                             // Note: since Chrome 56 defaults document level `touchstart` listener to passive.
                                             // The element `touchstart` listener is not passive by default
                                             // We never call `preventDefault()` on it, so we're safe making it passive too.
-                                            <AddEventListenerOptions>passiveEventListenerOptions
+                                            passiveEventListenerOptions as AddEventListenerOptions
                                         )
                                     )
                                 ).subscribe(subscriber)

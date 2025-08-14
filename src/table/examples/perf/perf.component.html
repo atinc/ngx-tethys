@@ -3,7 +3,12 @@
   <thy-table-column thyTitle="Id" thyModelKey="id"></thy-table-column>
   <thy-table-column thyTitle="Name" thyModelKey="name" thyWidth="15%">
     <ng-template #cell let-row>
-      <thy-avatar thyLoading="lazy" [thyName]="row.name" thySize="xs" thyShowName="true" [thySrc]="'assets/images/one-avatar.jpg'"></thy-avatar>
+      <thy-avatar
+        thyLoading="lazy"
+        [thyName]="row.name"
+        thySize="xs"
+        thyShowName="true"
+        [thySrc]="'assets/images/one-avatar.jpg'"></thy-avatar>
     </ng-template>
   </thy-table-column>
   <thy-table-column thyTitle="Age" thyModelKey="age"></thy-table-column>

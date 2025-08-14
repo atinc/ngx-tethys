@@ -37,7 +37,7 @@ export class ThyMentionSuggestionExampleComponent implements OnInit {
 
     @ViewChild('memberDisplayTemplate', { static: true }) memberDisplayTemplateRef: TemplateRef<any>;
 
-    mentions: Mention<any>[];
+    mentions: Array<Mention<any>>;
 
     popoverConfig = {
         panelClass: 'mention-popover-panel'

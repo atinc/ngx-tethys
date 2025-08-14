@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThySwitch } from 'ngx-tethys/switch';
 
@@ -7,10 +7,8 @@ import { ThySwitch } from 'ngx-tethys/switch';
     templateUrl: './disabled.component.html',
     imports: [ThySwitch, FormsModule]
 })
-export class ThySwitchDisabledExampleComponent implements OnInit {
-    isChecked: Boolean = true;
+export class ThySwitchDisabledExampleComponent {
+    isChecked: boolean = true;
 
     constructor() {}
-
-    ngOnInit() {}
 }

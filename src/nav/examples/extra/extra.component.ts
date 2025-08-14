@@ -10,7 +10,7 @@ import { ThyNav, ThyNavItemDirective } from 'ngx-tethys/nav';
 export class ThyNavExtraExampleComponent implements OnInit {
     activeIndex = 1;
 
-    items: { index: number; name: string }[] = [];
+    items: Array<{ index: number; name: string }> = [];
 
     ngOnInit(): void {
         for (let i = 0; i < 5; i++) {

@@ -11,7 +11,7 @@
   [thyAutofocus]="autoFocus()"
   [(ngModel)]="searchText"
   (ngModelChange)="searchModelChange()"
-  (focus)="!focused() ? (focused.set(true)) : null"
+  (focus)="!focused() ? focused.set(true) : null"
   [thySize]="thySize()"
   tabindex="-1" />
 @if (iconPosition() === 'after') {
