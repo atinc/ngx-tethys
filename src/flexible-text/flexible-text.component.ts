@@ -91,19 +91,19 @@ export class ThyFlexibleText implements AfterContentInit, OnDestroy {
         effect(() => {
             const content = this.thyTooltipContent();
             if (this.tooltipDirective && content) {
-                this.tooltipDirective.content = content;
+                this.tooltipDirective.setContent(content);
             }
         });
         effect(() => {
             const placement = this.thyTooltipPlacement();
             if (this.tooltipDirective && placement) {
-                this.tooltipDirective.placement = placement;
+                this.tooltipDirective.setPlacement(placement);
             }
         });
         effect(() => {
             const offset = this.thyTooltipOffset();
             if (this.tooltipDirective && !isUndefinedOrNull(offset)) {
-                this.tooltipDirective.tooltipOffset = offset;
+                this.tooltipDirective.setOffset(offset);
             }
         });
         effect(() => {
@@ -112,7 +112,6 @@ export class ThyFlexibleText implements AfterContentInit, OnDestroy {
                 this.tooltipDirective.trigger = trigger;
             }
         });
-        this.tooltipDirective.thyTooltipDisabled = true;
     }
 
     ngAfterContentInit() {
@@ -152,7 +151,7 @@ export class ThyFlexibleText implements AfterContentInit, OnDestroy {
         } else {
             this.isOverflow = false;
         }
-        this.tooltipDirective.thyTooltipDisabled = !this.isOverflow;
+        this.tooltipDirective.setDisabled(!this.isOverflow);
     }
 
     updateContainerClass() {
