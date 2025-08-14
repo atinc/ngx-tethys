@@ -6,10 +6,9 @@ import {
     Component,
     DestroyRef,
     ElementRef,
-    EventEmitter,
     NgZone,
     OnInit,
-    Output,
+    output,
     Signal,
     ViewChild,
     ViewEncapsulation,
@@ -68,7 +67,7 @@ export class ThyImagePreview implements OnInit {
     private sanitizer = inject(DomSanitizer);
     public locale: Signal<ThyImageLocale> = injectLocale('image');
 
-    @Output() downloadClicked: EventEmitter<ThyImageInfo> = new EventEmitter();
+    readonly downloadClicked = output<ThyImageInfo>();
 
     private readonly destroyRef = inject(DestroyRef);
 

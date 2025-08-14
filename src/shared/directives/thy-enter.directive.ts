@@ -1,4 +1,4 @@
-import { Directive, Output, EventEmitter, OnInit, NgZone, ElementRef, Renderer2, OnDestroy, inject } from '@angular/core';
+import { Directive, OnInit, NgZone, ElementRef, Renderer2, OnDestroy, inject, output } from '@angular/core';
 import { keycodes } from 'ngx-tethys/util';
 
 /**
@@ -13,7 +13,7 @@ export class ThyEnterDirective implements OnInit, OnDestroy {
     private elementRef = inject(ElementRef);
     private renderer = inject(Renderer2);
 
-    @Output() thyEnter = new EventEmitter();
+    readonly thyEnter = output<KeyboardEvent>();
 
     onKeydown = (event: KeyboardEvent) => {
         const keyCode = event.which || event.keyCode;

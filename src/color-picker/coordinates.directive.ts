@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, OnDestroy, OnInit, Output, inject } from '@angular/core';
+import { Directive, ElementRef, HostListener, OnDestroy, OnInit, inject, output } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
 
@@ -11,8 +11,7 @@ import { distinctUntilChanged } from 'rxjs/operators';
 export class ThyCoordinatesDirective implements OnInit, OnDestroy {
     el = inject(ElementRef);
 
-    @Output()
-    coordinatesChange = new Subject<{
+    readonly coordinatesChange = output<{
         x: number;
         y: number;
         left: number;
@@ -63,7 +62,7 @@ export class ThyCoordinatesDirective implements OnInit, OnDestroy {
         const containerHeight = this.el.nativeElement.clientHeight;
         const left = x - (this.el.nativeElement.getBoundingClientRect().left + window.pageXOffset);
         const top = y - (this.el.nativeElement.getBoundingClientRect().top + window.pageYOffset);
-        this.coordinatesChange.next({
+        this.coordinatesChange.emit({
             x,
             y,
             top,

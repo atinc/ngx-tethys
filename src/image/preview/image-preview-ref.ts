@@ -3,6 +3,7 @@ import { ThyDialogRef } from 'ngx-tethys/dialog';
 import { LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
 import { ThyImageInfo, ThyImagePreviewOptions } from '../image.class';
 import { Observable } from 'rxjs';
+import { outputToObservable } from '@angular/core/rxjs-interop';
 
 export class ThyImagePreviewRef {
     get componentInstance() {
@@ -36,6 +37,6 @@ export class ThyImagePreviewRef {
     }
 
     downloadClicked(): Observable<ThyImageInfo> {
-        return this.previewInstance.downloadClicked.asObservable();
+        return outputToObservable(this.previewInstance.downloadClicked);
     }
 }
