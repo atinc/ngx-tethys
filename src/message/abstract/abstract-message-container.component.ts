@@ -1,5 +1,5 @@
-import { coerceCssPixelValue } from '@angular/cdk/coercion';
 import { Directive, ElementRef, HostBinding, inject } from '@angular/core';
+import { coerceCssPixelValue } from 'ngx-tethys/util';
 import { ThyGlobalMessageConfig } from '../message.config';
 
 /**
