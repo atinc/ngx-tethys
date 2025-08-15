@@ -408,9 +408,11 @@ describe('Rate tooltip component', () => {
         fixture.detectChanges();
         tick(500);
         fixture.detectChanges();
+        tick(500);
+        fixture.detectChanges();
         const rateItems = (fixture.debugElement.nativeElement as HTMLElement).querySelectorAll('.thy-rate-star');
         rateItems.forEach((rate, ind) => {
-            expect(rate.attributes.getNamedItem('ng-reflect-content').value).toContain(testRateTooltipComponent.tooltips[ind]);
+            expect(rate.attributes.getNamedItem('ng-reflect-thy-tooltip-content').value).toContain(testRateTooltipComponent.tooltips[ind]);
         });
     }));
 });

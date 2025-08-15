@@ -3,6 +3,7 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 import { coerceArray } from 'ngx-tethys/util';
 import { mergeMap, startWith } from 'rxjs';
 import { ThyDropdownDirective } from './dropdown.directive';
+import { outputToObservable } from '@angular/core/rxjs-interop';
 
 /**
  * 跟踪 Dropdown 菜单是否被打开处于激活状态，允许指定一个或多个CSS类，以便在菜单打开状态时添加到元素中
@@ -40,9 +41,9 @@ export class ThyDropdownActiveDirective implements OnInit, AfterContentInit {
                 startWith(this.triggers.toArray()),
                 mergeMap((triggers: ThyDropdownDirective[]) => {
                     const result = triggers.map(item => {
-                        return item.thyActiveChange;
+                        return outputToObservable(item.thyActiveChange);
                     });
-                    this.trigger && result.push(this.trigger.thyActiveChange);
+                    this.trigger && result.push(outputToObservable(this.trigger.thyActiveChange));
                     return result;
                 }),
                 mergeMap(result => {

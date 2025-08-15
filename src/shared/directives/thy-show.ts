@@ -1,4 +1,4 @@
-import { Directive, Renderer2, ElementRef, Output, EventEmitter, OnDestroy, NgZone, inject, effect, input } from '@angular/core';
+import { Directive, Renderer2, output, ElementRef, OnDestroy, NgZone, inject, effect, input } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
@@ -13,7 +13,7 @@ export class ThyShowDirective implements OnDestroy {
     private renderer = inject(Renderer2);
     private ngZone = inject(NgZone);
 
-    @Output() readonly thyShowChange = new EventEmitter();
+    readonly thyShowChange = output<boolean>();
 
     private hostRenderer = useHostRenderer();
 
@@ -36,9 +36,7 @@ export class ThyShowDirective implements OnDestroy {
                     setTimeout(() => {
                         this.unListenEvent = this.renderer.listen('document', 'click', event => {
                             if (!this.elementRef.nativeElement.contains(event.target)) {
-                                if (this.thyShowChange.observers.length) {
-                                    this.ngZone.run(() => this.thyShowChange.emit(false));
-                                }
+                                this.ngZone.run(() => this.thyShowChange.emit(false));
                                 this.unListenDocument();
                             }
                         });

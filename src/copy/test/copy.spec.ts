@@ -55,21 +55,21 @@ describe('thy-copy', () => {
         it('thyCopyTips should be default', fakeAsync(() => {
             fixture.detectChanges();
             const component = testComponent.copyDirective;
-            expect(component.tooltipDirective.content as string).toBe('点击复制');
+            expect(component.tooltipDirective.content() as string).toBe('点击复制');
         }));
 
         it('thyCopyTips should be correct', fakeAsync(() => {
             testComponent.copyTooltip = '测试';
             fixture.detectChanges();
             const component = testComponent.copyDirective;
-            expect(component.tooltipDirective.content as string).toBe(testComponent.copyTooltip);
+            expect(component.tooltipDirective.content() as string).toBe(testComponent.copyTooltip);
         }));
 
         it('thyCopyTipOffset should be correct', fakeAsync(() => {
             testComponent.copyTipsOffset = 10;
             fixture.detectChanges();
             const component = testComponent.copyDirective;
-            expect(component.tooltipDirective.tooltipOffset).toBe(10);
+            expect(component.tooltipDirective.tooltipOffset()).toBe(10);
         }));
     });
 });

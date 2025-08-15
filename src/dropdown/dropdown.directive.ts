@@ -5,10 +5,8 @@ import {
     ChangeDetectorRef,
     Directive,
     ElementRef,
-    EventEmitter,
     NgZone,
     OnInit,
-    Output,
     Signal,
     TemplateRef,
     ViewContainerRef,
@@ -16,7 +14,8 @@ import {
     effect,
     inject,
     input,
-    numberAttribute
+    numberAttribute,
+    output
 } from '@angular/core';
 import { ComponentTypeOrTemplateRef, ThyOverlayDirectiveBase, ThyOverlayTrigger, ThyPlacement } from 'ngx-tethys/core';
 import { ThyPopover, ThyPopoverConfig, ThyPopoverRef } from 'ngx-tethys/popover';
@@ -114,7 +113,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
     /**
      * 菜单 Active 事件，打开菜单返回 true，关闭返回 false
      */
-    @Output() readonly thyActiveChange = new EventEmitter<boolean>();
+    readonly thyActiveChange = output<boolean>();
 
     constructor() {
         const elementRef = inject(ElementRef);

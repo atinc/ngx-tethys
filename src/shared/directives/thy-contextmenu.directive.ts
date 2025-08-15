@@ -1,4 +1,4 @@
-import { Directive, Output, ElementRef, EventEmitter, OnInit, NgZone, Renderer2, OnDestroy, inject } from '@angular/core';
+import { Directive, ElementRef, OnInit, NgZone, Renderer2, OnDestroy, inject, output } from '@angular/core';
 
 /**
  * @name thyContextMenu
@@ -11,7 +11,7 @@ export class ThyContextMenuDirective implements OnInit, OnDestroy {
     private elementRef = inject(ElementRef);
     private renderer = inject(Renderer2);
 
-    @Output() readonly thyContextMenu = new EventEmitter();
+    readonly thyContextMenu = output<Event>();
 
     private removeContextListenerFn: VoidFunction;
 

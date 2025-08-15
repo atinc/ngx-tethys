@@ -150,7 +150,7 @@ describe('image-preview', () => {
         const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
         const preview = operations[4] as HTMLElement;
 
-        expect(preview.getAttribute('ng-reflect-content')).toBe('查看原图');
+        expect(preview.getAttribute('ng-reflect-thy-tooltip-content')).toBe('查看原图');
         preview.click();
 
         expect(previewSpy).toHaveBeenCalledWith(basicTestComponent.images[0]);
@@ -166,7 +166,7 @@ describe('image-preview', () => {
         expect(previousZoom).toBe(basicTestComponent.previewConfig.zoom);
         const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
         const zoomOut = operations[0] as HTMLElement;
-        expect(zoomOut.getAttribute('ng-reflect-content')).toBe('缩小');
+        expect(zoomOut.getAttribute('ng-reflect-thy-tooltip-content')).toBe('缩小');
         zoomOut.click();
 
         let currentZoom = basicTestComponent.imageRef.previewInstance.zoom;
@@ -191,7 +191,7 @@ describe('image-preview', () => {
         expect(previousZoom).toBe(basicTestComponent.previewConfig.zoom);
         const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
         const zoomIn = operations[1] as HTMLElement;
-        expect(zoomIn.getAttribute('ng-reflect-content')).toBe('放大');
+        expect(zoomIn.getAttribute('ng-reflect-thy-tooltip-content')).toBe('放大');
         zoomIn.click();
 
         let currentZoom = basicTestComponent.imageRef.previewInstance.zoom;
@@ -214,7 +214,7 @@ describe('image-preview', () => {
 
         const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
         const originalSize = operations[2] as HTMLElement;
-        expect(originalSize.getAttribute('ng-reflect-content')).toBe('原始比例');
+        expect(originalSize.getAttribute('ng-reflect-thy-tooltip-content')).toBe('原始比例');
         const spy = spyOn(basicTestComponent.imageRef.previewInstance, 'calculateInsideScreen').and.callThrough();
         originalSize.click();
 
@@ -223,7 +223,7 @@ describe('image-preview', () => {
         let currentImageTransform = basicTestComponent.imageRef.previewInstance.previewImageTransform;
         const fitScreen = overlayContainerElement.querySelectorAll('.thy-actions .thy-action')[2] as HTMLElement;
         expect(spy).toHaveBeenCalled();
-        expect(fitScreen.getAttribute('ng-reflect-content')).toBe('适应屏幕');
+        expect(fitScreen.getAttribute('ng-reflect-thy-tooltip-content')).toBe('适应屏幕');
         expect(currentZoom).toBe(1);
         expect(basicTestComponent.imageRef.componentInstance.isInsideScreen).toBe(true);
         expect(currentImageTransform).toContain(`scale3d(1, 1, 1)`);
@@ -231,7 +231,7 @@ describe('image-preview', () => {
         fitScreen.click();
         currentZoom = basicTestComponent.imageRef.previewInstance.zoom;
         currentImageTransform = basicTestComponent.imageRef.previewInstance.previewImageTransform;
-        expect(originalSize.getAttribute('ng-reflect-content')).toBe('原始比例');
+        expect(originalSize.getAttribute('ng-reflect-thy-tooltip-content')).toBe('原始比例');
         const defaultZoom = basicTestComponent.previewConfig.zoom;
         expect(currentZoom).toBe(defaultZoom);
         expect(currentImageTransform).toContain(`scale3d(${defaultZoom}, ${defaultZoom}, 1)`);
@@ -245,7 +245,7 @@ describe('image-preview', () => {
         expect(overlayContainerElement.querySelector('.thy-fullscreen-active')).toBeFalsy();
         const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
         const fullScreen = operations[3] as HTMLElement;
-        expect(fullScreen.getAttribute('ng-reflect-content')).toBe('全屏显示');
+        expect(fullScreen.getAttribute('ng-reflect-thy-tooltip-content')).toBe('全屏显示');
         fullScreen.click();
 
         expect(document.documentElement.requestFullscreen).toHaveBeenCalled();
@@ -261,7 +261,7 @@ describe('image-preview', () => {
         const previousRotate = basicTestComponent.imageRef.previewInstance['rotate'];
         const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
         const rotate = operations[4] as HTMLElement;
-        expect(rotate.getAttribute('ng-reflect-content')).toBe('旋转');
+        expect(rotate.getAttribute('ng-reflect-thy-tooltip-content')).toBe('旋转');
         expect(previousRotate).toBe(basicTestComponent.previewConfig.rotate);
         rotate.click();
 
@@ -286,7 +286,7 @@ describe('image-preview', () => {
 
         const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
         const download = operations[5] as HTMLElement;
-        expect(download.getAttribute('ng-reflect-content')).toBe('下载');
+        expect(download.getAttribute('ng-reflect-thy-tooltip-content')).toBe('下载');
         download.click();
 
         fetchImageBlob(basicTestComponent.images[0].origin.src).subscribe(() => {
@@ -312,7 +312,7 @@ describe('image-preview', () => {
 
         const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
         const download = operations[5] as HTMLElement;
-        expect(download.getAttribute('ng-reflect-content')).toBe('下载');
+        expect(download.getAttribute('ng-reflect-thy-tooltip-content')).toBe('下载');
         download.click();
 
         expect(downloadSpy).toHaveBeenCalledWith(basicTestComponent.images[0]);
@@ -329,7 +329,7 @@ describe('image-preview', () => {
         const openSpy = spyOn(window, 'open').and.callFake(() => {
             return true;
         });
-        expect(download.getAttribute('ng-reflect-content')).toBe('查看原图');
+        expect(download.getAttribute('ng-reflect-thy-tooltip-content')).toBe('查看原图');
         download.click();
 
         expect(openSpy).toHaveBeenCalled();
