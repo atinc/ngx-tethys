@@ -1,5 +1,5 @@
 import { ScrollToService } from 'ngx-tethys/core';
-import { IThyListOptionParentComponent, THY_LIST_OPTION_PARENT_COMPONENT, ThyListOption } from 'ngx-tethys/shared';
+import { IThyListOptionParentComponent, THY_LIST_OPTION_PARENT_COMPONENT, ThyListLayout, ThyListOption } from 'ngx-tethys/shared';
 import { coerceBooleanProperty, dom, helpers, keycodes, ThyBooleanInput } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
