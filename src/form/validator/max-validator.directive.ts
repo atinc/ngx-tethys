@@ -6,6 +6,7 @@ import { Validator, AbstractControl, NG_VALIDATORS, Validators, ValidatorFn } fr
  * @order 30
  */
 @Directive({
+    // eslint-disable-next-line @angular-eslint/directive-selector
     selector: '[max][formControlName],[max][formControl],[max][ngModel]',
     providers: [
         {
