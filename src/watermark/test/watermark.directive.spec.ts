@@ -1,4 +1,4 @@
-import { Component, DebugElement, OnInit, ViewChild } from '@angular/core';
+import { Component, DebugElement, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyWatermarkDirective } from 'ngx-tethys/watermark';
@@ -15,21 +15,19 @@ import { ThyWatermarkDirective } from 'ngx-tethys/watermark';
     `,
     imports: [ThyWatermarkDirective]
 })
-class ThyTestWatermarkBasicComponent implements OnInit {
+class ThyTestWatermarkBasicComponent {
     isDisabled = false;
     watermarkContent = 'worktile';
     @ViewChild(ThyWatermarkDirective, { static: true }) watermarkDirective: ThyWatermarkDirective;
 
     constructor() {}
-
-    ngOnInit(): void {}
 }
 
 describe('WatermarkDirective', () => {
-    let fixture: ComponentFixture<ThyTestWatermarkBasicComponent>;
-    let divDebugElement: DebugElement;
-    let watermarkDirective: ThyWatermarkDirective;
-    let testComponent: any;
+    let fixture!: ComponentFixture<ThyTestWatermarkBasicComponent>;
+    let divDebugElement!: DebugElement;
+    let watermarkDirective!: ThyWatermarkDirective;
+    let testComponent!: any;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({}).compileComponents();

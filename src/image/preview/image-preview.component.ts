@@ -68,7 +68,7 @@ export class ThyImagePreview implements OnInit {
     private sanitizer = inject(DomSanitizer);
     public locale: Signal<ThyImageLocale> = injectLocale('image');
 
-    @Output() downloadClicked = new EventEmitter<ThyImageInfo>();
+    @Output() readonly downloadClicked = new EventEmitter<ThyImageInfo>();
 
     private readonly destroyRef = inject(DestroyRef);
 

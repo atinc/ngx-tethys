@@ -5,9 +5,9 @@ import { By } from '@angular/platform-browser';
 import { DecadeTable, LibPackerModule } from 'ngx-tethys/date-picker';
 
 describe('DecadeTableComponent', () => {
-    let fixture: ComponentFixture<ThyTestDecadeTableComponent>;
-    let fixtureInstance: ThyTestDecadeTableComponent;
-    let decadeComponent: DebugElement;
+    let fixture!: ComponentFixture<ThyTestDecadeTableComponent>;
+    let fixtureInstance!: ThyTestDecadeTableComponent;
+    let decadeComponent!: DebugElement;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({});

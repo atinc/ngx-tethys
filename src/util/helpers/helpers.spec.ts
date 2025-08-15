@@ -1,3 +1,4 @@
+/* eslint-disable no-sparse-arrays */
 import { ElementRef, EmbeddedViewRef, TemplateRef } from '@angular/core';
 import {
     clamp,

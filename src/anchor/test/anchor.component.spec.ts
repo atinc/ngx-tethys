@@ -8,10 +8,10 @@ import { ThyAnchorModule, ThyAnchor, ThyAnchorLink } from 'ngx-tethys/anchor';
 
 describe('thy-anchor', () => {
     describe('default', () => {
-        let fixture: ComponentFixture<TestAnchorComponent>;
-        let debugElement: DebugElement;
-        let component: ThyAnchor;
-        let scrollService: ThyScrollService;
+        let fixture!: ComponentFixture<TestAnchorComponent>;
+        let debugElement!: DebugElement;
+        let component!: ThyAnchor;
+        let scrollService!: ThyScrollService;
         const id = 'components-anchor-demo-basic';
 
         beforeEach(() => {
@@ -69,8 +69,8 @@ describe('thy-anchor', () => {
     });
 
     describe('thyContainer', () => {
-        let fixture: ComponentFixture<TestContainerAnchorComponent>;
-        let debugElement: DebugElement;
+        let fixture!: ComponentFixture<TestContainerAnchorComponent>;
+        let debugElement!: DebugElement;
         const id = 'components-anchor-demo-basic';
         const containerClass = '.demo-card';
 
@@ -97,7 +97,7 @@ describe('thy-anchor', () => {
     });
 
     describe('thyAnchorLink', () => {
-        let fixture: ComponentFixture<TestThyAnchorLinkComponent>;
+        let fixture!: ComponentFixture<TestThyAnchorLinkComponent>;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -118,10 +118,10 @@ describe('thy-anchor', () => {
     });
 
     describe('horizontal anchor', () => {
-        let fixture: ComponentFixture<TestAnchorComponent>;
-        let debugElement: DebugElement;
-        let component: ThyAnchor;
-        let scrollService: ThyScrollService;
+        let fixture!: ComponentFixture<TestAnchorComponent>;
+        let debugElement!: DebugElement;
+        let component!: ThyAnchor;
+        let scrollService!: ThyScrollService;
         const id = 'components-anchor-demo-basic';
 
         beforeEach(() => {

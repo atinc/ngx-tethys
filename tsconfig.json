@@ -16,7 +16,8 @@
     "typeRoots": ["node_modules/@types", "@types/node", "./typings"],
     "lib": ["es2020", "dom"],
     "resolveJsonModule": true,
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "strict": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

@@ -1,19 +1,21 @@
 import { ElementRef } from '@angular/core';
 import * as helpers from './helpers';
+import { SafeAny } from 'ngx-tethys/types';
 
 const proto = Element.prototype;
 const vendor =
     proto.matches ||
-    proto['matchesSelector'] ||
-    proto['webkitMatchesSelector'] ||
-    proto['mozMatchesSelector'] ||
-    proto['msMatchesSelector'] ||
-    proto['oMatchesSelector'];
+    (proto as SafeAny)['matchesSelector'] ||
+    (proto as SafeAny)['webkitMatchesSelector'] ||
+    (proto as SafeAny)['mozMatchesSelector'] ||
+    (proto as SafeAny)['msMatchesSelector'] ||
+    (proto as SafeAny)['oMatchesSelector'];
 
 export function fallbackMatches(el: Element | Node, selector: string) {
-    const nodes = el.parentNode.querySelectorAll(selector);
-    for (let i = 0; i < nodes.length; i++) {
-        if (nodes[i] === el) {
+    const nodes = el.parentNode?.querySelectorAll(selector);
+
+    for (let i = 0; i < (nodes || []).length; i++) {
+        if (nodes![i] === el) {
             return true;
         }
     }
@@ -47,7 +49,7 @@ export function getWindow(elem: any) {
 }
 
 export function getElementOffset(elem: HTMLElement) {
-    let docElem, win, rect, doc;
+    let docElem, win, doc;
 
     if (!elem) {
         return;
@@ -58,7 +60,7 @@ export function getElementOffset(elem: HTMLElement) {
     if (!elem.getClientRects().length) {
         return { top: 0, left: 0 };
     }
-    rect = elem.getBoundingClientRect();
+    const rect = elem.getBoundingClientRect();
 
     // Make sure element is not hidden (display: none)
     if (rect.width || rect.height) {
@@ -111,13 +113,13 @@ export function getClientSize(): { width: number; height: number } {
 
 export type ElementSelector = HTMLElement | ElementRef | string;
 
-export function getHTMLElementBySelector(selector: ElementSelector, defaultElementRef: ElementRef): HTMLElement {
+export function getHTMLElementBySelector(selector: ElementSelector, defaultElementRef: ElementRef): HTMLElement | null {
     if (!selector) {
         return defaultElementRef.nativeElement;
     } else if (selector === 'body') {
         return document.body;
     } else if (helpers.isString(selector)) {
-        return document.querySelector(selector as string);
+        return document?.querySelector(selector as string);
     } else if (selector instanceof ElementRef) {
         return selector.nativeElement;
     } else {

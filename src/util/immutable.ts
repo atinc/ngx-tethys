@@ -29,6 +29,10 @@ export class Producer<TEntity> {
         }
     }
 
+    private getEntityId(entity: TEntity): Id {
+        return (entity as any)[this.idKey] as Id;
+    }
+
     /**
      * Add an entity or entities.
      *
@@ -48,7 +52,7 @@ export class Producer<TEntity> {
                 const entities = [...this.entities];
                 const index =
                     this.entities.findIndex(item => {
-                        return item[this.idKey] === addOptions.afterId;
+                        return this.getEntityId(item) === addOptions.afterId;
                     }) + 1;
                 entities.splice(index, 0, ...addEntities);
                 this.entities = [...entities];
@@ -91,7 +95,7 @@ export class Producer<TEntity> {
 
         for (let i = 0; i < this.entities.length; i++) {
             const oldEntity = this.entities[i];
-            if (ids.indexOf(oldEntity[this.idKey]) >= 0) {
+            if (ids.indexOf(this.getEntityId(oldEntity)) >= 0) {
                 const newState = isFunction(newStateOrFn) ? (newStateOrFn as any)(oldEntity) : newStateOrFn;
                 this.entities[i] = { ...(oldEntity as any), ...newState };
             }
@@ -118,7 +122,7 @@ export class Producer<TEntity> {
         } else {
             const ids = coerceArray(idsOrFn);
             this.entities = this.entities.filter(entity => {
-                return ids.indexOf(entity[this.idKey]) === -1;
+                return ids.indexOf(this.getEntityId(entity)) === -1;
             });
         }
         return this.entities;
@@ -133,7 +137,7 @@ export class Producer<TEntity> {
      * produce([users]).move(5, {toIndex: 0});
      */
     move(id: Id, moveOptions?: EntityMoveOptions): TEntity[] {
-        const fromIndex = this.entities.findIndex(item => item[this.idKey] === id);
+        const fromIndex = this.entities.findIndex(item => this.getEntityId(item) === id);
         let toIndex = 0;
         const newEntities = [...this.entities];
 
@@ -143,7 +147,7 @@ export class Producer<TEntity> {
 
         if (moveOptions) {
             if (!isUndefinedOrNull(moveOptions.afterId)) {
-                toIndex = this.entities.findIndex(item => item[this.idKey] === moveOptions.afterId);
+                toIndex = this.entities.findIndex(item => this.getEntityId(item) === moveOptions.afterId);
             } else if (moveOptions.toIndex) {
                 toIndex = moveOptions.toIndex;
             }

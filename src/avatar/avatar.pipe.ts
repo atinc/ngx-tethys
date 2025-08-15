@@ -7,7 +7,7 @@ import { ThyAvatarService } from './avatar.service';
  */
 const UNIFIED_IDEOGRAPHS_REGEX = /^[\u4e00-\u9fa5]+$/;
 
-const SET_OF_LETTERS_REGEX = /^[a-zA-Z\/ ]+$/;
+const SET_OF_LETTERS_REGEX = /^[a-zA-Z/ ]+$/;
 
 /**
  * @private

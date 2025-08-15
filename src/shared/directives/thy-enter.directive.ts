@@ -13,7 +13,7 @@ export class ThyEnterDirective implements OnInit, OnDestroy {
     private elementRef = inject(ElementRef);
     private renderer = inject(Renderer2);
 
-    @Output() thyEnter = new EventEmitter();
+    @Output() readonly thyEnter = new EventEmitter();
 
     onKeydown = (event: KeyboardEvent) => {
         const keyCode = event.which || event.keyCode;

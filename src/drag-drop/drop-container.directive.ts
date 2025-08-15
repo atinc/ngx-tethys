@@ -76,22 +76,22 @@ export class ThyDropContainerDirective<T = any> implements OnInit, AfterContentI
     /**
      * 开始拖拽时调用
      */
-    @Output('thyDragStarted') started = new EventEmitter<ThyDragStartEvent<ThyDragDirective>>();
+    @Output('thyDragStarted') readonly started = new EventEmitter<ThyDragStartEvent<ThyDragDirective>>();
 
     /**
      * dragend 触发时调用
      */
-    @Output('thyDragEnded') ended = new EventEmitter<ThyDragEndEvent<ThyDragDirective>>();
+    @Output('thyDragEnded') readonly ended = new EventEmitter<ThyDragEndEvent<ThyDragDirective>>();
 
     /**
      * dragover 触发时调用
      */
-    @Output('thyDragOvered') overed = new EventEmitter<ThyDragOverEvent<ThyDragDirective>>();
+    @Output('thyDragOvered') readonly overed = new EventEmitter<ThyDragOverEvent<ThyDragDirective>>();
 
     /**
      * drop 触发时调用
      */
-    @Output('thyDragDropped') dropped = new EventEmitter<ThyDragDropEvent<ThyDragDirective>>();
+    @Output('thyDragDropped') readonly dropped = new EventEmitter<ThyDragDropEvent<ThyDragDirective>>();
 
     /**
      * @internal

@@ -68,8 +68,8 @@ class EmptyTestComponent {
 }
 
 describe('EmptyComponent', () => {
-    let componentInstance: EmptyTestComponent;
-    let fixture: ComponentFixture<EmptyTestComponent>;
+    let componentInstance!: EmptyTestComponent;
+    let fixture!: ComponentFixture<EmptyTestComponent>;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({

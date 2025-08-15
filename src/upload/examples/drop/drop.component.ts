@@ -17,6 +17,7 @@ export class ThyUploadDropExampleComponent {
     queueFiles: ThyUploadFile[] = [];
 
     onDrop(event: { files: File[] }) {
+        // eslint-disable-next-line @typescript-eslint/prefer-for-of
         for (let i = 0; i < event.files.length; i++) {
             this.thyUploadService
                 .upload({

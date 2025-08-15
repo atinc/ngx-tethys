@@ -494,46 +494,46 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
     /**
      * 切换组件回调事件
      */
-    @Output() thyOnSwitchChange: EventEmitter<ThySwitchEvent> = new EventEmitter<ThySwitchEvent>();
+    @Output() readonly thyOnSwitchChange: EventEmitter<ThySwitchEvent> = new EventEmitter<ThySwitchEvent>();
 
     /**
      * 表格分页回调事件
      */
-    @Output() thyOnPageChange: EventEmitter<PageChangedEvent> = new EventEmitter<PageChangedEvent>();
+    @Output() readonly thyOnPageChange: EventEmitter<PageChangedEvent> = new EventEmitter<PageChangedEvent>();
 
     /**
      * 表格分页当前页改变回调事件
      */
-    @Output() thyOnPageIndexChange: EventEmitter<number> = new EventEmitter<number>();
+    @Output() readonly thyOnPageIndexChange: EventEmitter<number> = new EventEmitter<number>();
 
-    @Output() thyOnPageSizeChange: EventEmitter<number> = new EventEmitter<number>();
+    @Output() readonly thyOnPageSizeChange: EventEmitter<number> = new EventEmitter<number>();
 
     /**
      * 多选回调事件
      */
-    @Output() thyOnMultiSelectChange: EventEmitter<ThyMultiSelectEvent> = new EventEmitter<ThyMultiSelectEvent>();
+    @Output() readonly thyOnMultiSelectChange: EventEmitter<ThyMultiSelectEvent> = new EventEmitter<ThyMultiSelectEvent>();
 
     /**
      * 单选回调事件
      */
-    @Output() thyOnRadioSelectChange: EventEmitter<ThyRadioSelectEvent> = new EventEmitter<ThyRadioSelectEvent>();
+    @Output() readonly thyOnRadioSelectChange: EventEmitter<ThyRadioSelectEvent> = new EventEmitter<ThyRadioSelectEvent>();
 
     /**
      * 拖动修改事件
      */
-    @Output() thyOnDraggableChange: EventEmitter<ThyTableDraggableEvent> = new EventEmitter<ThyTableDraggableEvent>();
+    @Output() readonly thyOnDraggableChange: EventEmitter<ThyTableDraggableEvent> = new EventEmitter<ThyTableDraggableEvent>();
 
     /**
      * 表格行点击触发事件
      */
-    @Output() thyOnRowClick: EventEmitter<ThyTableRowEvent> = new EventEmitter<ThyTableRowEvent>();
+    @Output() readonly thyOnRowClick: EventEmitter<ThyTableRowEvent> = new EventEmitter<ThyTableRowEvent>();
 
     /**
      * 列排序修改事件
      */
-    @Output() thySortChange: EventEmitter<ThyTableSortEvent> = new EventEmitter<ThyTableSortEvent>();
+    @Output() readonly thySortChange: EventEmitter<ThyTableSortEvent> = new EventEmitter<ThyTableSortEvent>();
 
-    @Output() thyOnRowContextMenu: EventEmitter<ThyTableEvent> = new EventEmitter<ThyTableEvent>();
+    @Output() readonly thyOnRowContextMenu: EventEmitter<ThyTableEvent> = new EventEmitter<ThyTableEvent>();
 
     @ContentChild('group', { static: true }) groupTemplate: TemplateRef<SafeAny>;
 

@@ -62,12 +62,12 @@ export class ThyPropertyOperation implements OnInit, AfterContentInit, OnDestroy
     /**
      * 点击移除图标时的事件回调，此函数只有在thyShowClose为true时才会发生
      */
-    @Output() thyOnRemove = new EventEmitter();
+    @Output() readonly thyOnRemove = new EventEmitter();
 
     /**
      * 点击事件回调
      */
-    @Output() thyClick = new EventEmitter<Event>();
+    @Output() readonly thyClick = new EventEmitter<Event>();
 
     @HostBinding('class.thy-property-operation') _isPropertyOperation = true;
 

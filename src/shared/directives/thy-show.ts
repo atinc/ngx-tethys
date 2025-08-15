@@ -13,7 +13,7 @@ export class ThyShowDirective implements OnDestroy {
     private renderer = inject(Renderer2);
     private ngZone = inject(NgZone);
 
-    @Output() thyShowChange = new EventEmitter();
+    @Output() readonly thyShowChange = new EventEmitter();
 
     private hostRenderer = useHostRenderer();
 

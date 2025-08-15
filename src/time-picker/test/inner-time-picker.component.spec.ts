@@ -14,9 +14,9 @@ registerLocaleData(zh);
 const CONTAINER_CLASS = 'time-picker-container';
 
 describe('ThyInnerTimePickerComponent', () => {
-    let fixture: ComponentFixture<ThyTestInnerTimePickerBaseComponent>;
-    let fixtureInstance: ThyTestInnerTimePickerBaseComponent;
-    let debugElement: DebugElement;
+    let fixture!: ComponentFixture<ThyTestInnerTimePickerBaseComponent>;
+    let fixtureInstance!: ThyTestInnerTimePickerBaseComponent;
+    let debugElement!: DebugElement;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({

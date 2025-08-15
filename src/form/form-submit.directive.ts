@@ -16,7 +16,7 @@ export class ThyFormSubmitDirective implements OnInit {
     /**
      * Form 验证通过的提交函数
      */
-    thyFormSubmit = output<Event>();
+    readonly thyFormSubmit = output<Event>();
 
     ngOnInit(): void {
         this.thyFormDirective.onSubmitSuccess = ($event: Event) => {

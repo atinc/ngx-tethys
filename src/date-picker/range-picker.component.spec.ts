@@ -24,11 +24,11 @@ import {
 registerLocaleData(zh);
 
 describe('ThyRangePickerComponent', () => {
-    let fixture: ComponentFixture<ThyTestRangePickerComponent>;
-    let fixtureInstance: ThyTestRangePickerComponent;
-    let debugElement: DebugElement;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let fixture!: ComponentFixture<ThyTestRangePickerComponent>;
+    let fixtureInstance!: ThyTestRangePickerComponent;
+    let debugElement!: DebugElement;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
 
     const leftYearBtn = '.thy-calendar-range-left .thy-calendar-year-btn';
     const leftMonthBtn = '.thy-calendar-range-left .thy-calendar-month-btn';

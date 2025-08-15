@@ -62,8 +62,8 @@ describe('ThySelectControl', () => {
         }));
 
         describe('basic class', () => {
-            let fixture: ComponentFixture<BasicSelectControlComponent>;
-            let selectElement: HTMLElement;
+            let fixture!: ComponentFixture<BasicSelectControlComponent>;
+            let selectElement!: HTMLElement;
 
             beforeEach(waitForAsync(() => {
                 fixture = TestBed.createComponent(BasicSelectControlComponent);
@@ -107,8 +107,8 @@ describe('ThySelectControl', () => {
         });
 
         describe('placeholder', () => {
-            let fixture: ComponentFixture<BasicSelectControlComponent>;
-            let selectElement: HTMLElement;
+            let fixture!: ComponentFixture<BasicSelectControlComponent>;
+            let selectElement!: HTMLElement;
 
             beforeEach(waitForAsync(() => {
                 fixture = TestBed.createComponent(BasicSelectControlComponent);
@@ -130,8 +130,8 @@ describe('ThySelectControl', () => {
         });
 
         describe('allowClear', () => {
-            let fixture: ComponentFixture<BasicSelectControlComponent>;
-            let selectElement: HTMLElement;
+            let fixture!: ComponentFixture<BasicSelectControlComponent>;
+            let selectElement!: HTMLElement;
 
             beforeEach(waitForAsync(() => {
                 fixture = TestBed.createComponent(BasicSelectControlComponent);
@@ -153,8 +153,8 @@ describe('ThySelectControl', () => {
         });
 
         describe('selected options', () => {
-            let fixture: ComponentFixture<BasicSelectControlComponent>;
-            let selectElement: HTMLElement;
+            let fixture!: ComponentFixture<BasicSelectControlComponent>;
+            let selectElement!: HTMLElement;
 
             beforeEach(waitForAsync(() => {
                 fixture = TestBed.createComponent(BasicSelectControlComponent);
@@ -237,8 +237,8 @@ describe('ThySelectControl', () => {
         });
 
         describe('search', () => {
-            let fixture: ComponentFixture<BasicSelectControlComponent>;
-            let searchElement: DebugElement;
+            let fixture!: ComponentFixture<BasicSelectControlComponent>;
+            let searchElement!: DebugElement;
 
             beforeEach(waitForAsync(() => {
                 fixture = TestBed.createComponent(BasicSelectControlComponent);

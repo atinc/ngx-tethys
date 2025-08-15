@@ -101,7 +101,7 @@ export class ThyIcon {
                 this.hostRenderer.updateClass([`thy-icon${namespace ? `-${namespace}` : ``}-${this.buildIconNameByType(iconName)}`]);
             } else {
                 const fontSetClass = this.thyIconSet()
-                    ? this.iconRegistry.getFontSetClassByAlias(this.thyIconSet())
+                    ? this.iconRegistry.getFontSetClassByAlias(this.thyIconSet()!)
                     : this.iconRegistry.getDefaultFontSetClass();
                 this.hostRenderer.updateClass([fontSetClass, `${fontSetClass}-${this.thyIconName()}`]);
             }
@@ -129,6 +129,7 @@ export class ThyIcon {
         // Do this before inserting the element into the DOM, in order to avoid a style recalculation.
         const styleTags = svg.querySelectorAll('style') as NodeListOf<HTMLStyleElement>;
 
+        // eslint-disable-next-line @typescript-eslint/prefer-for-of
         for (let i = 0; i < styleTags.length; i++) {
             styleTags[i].textContent += ' ';
         }
@@ -137,8 +138,8 @@ export class ThyIcon {
             const allPaths = svg.querySelectorAll('path');
             if (allPaths.length > 1) {
                 allPaths.forEach((child, index: number) => {
-                    if (child.getAttribute('id').includes('secondary-color')) {
-                        child.setAttribute('fill', this.thyTwotoneColor());
+                    if (child.getAttribute('id')?.includes('secondary-color')) {
+                        child.setAttribute('fill', this.thyTwotoneColor()!);
                     }
                 });
             }

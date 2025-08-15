@@ -16,7 +16,7 @@ export class ThyHotkeyDirective implements OnInit, OnDestroy {
     /**
      *  热键对应 Code，多个热键组合支持通过数组或逗号分割的形式传入
      */
-    @Input() thyHotkey: string | string[];
+    @Input() thyHotkey!: string | string[];
 
     /**
      *  配置热键触发范围，默认绑定在 document 上
@@ -26,13 +26,13 @@ export class ThyHotkeyDirective implements OnInit, OnDestroy {
     /**
      *  热键触发后的事件
      */
-    @Output() thyHotkeyListener: EventEmitter<KeyboardEvent> = new EventEmitter();
+    @Output() readonly thyHotkeyListener: EventEmitter<KeyboardEvent> = new EventEmitter<KeyboardEvent>();
 
-    private subscription: Subscription = null;
+    private subscription: Subscription | null = null;
 
     ngOnInit(): void {
         const scope = isString(this.thyHotkeyScope) ? this.document.querySelector(this.thyHotkeyScope) : this.thyHotkeyScope;
-        this.subscription = this.hotkeyDispatcher.keydown(this.thyHotkey, scope).subscribe(event => {
+        this.subscription = this.hotkeyDispatcher.keydown(this.thyHotkey, scope!).subscribe(event => {
             event.preventDefault();
             event.stopPropagation();
             if (isFormElement(this.elementRef)) {

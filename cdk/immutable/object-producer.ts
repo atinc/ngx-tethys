@@ -47,17 +47,18 @@ export class ObjectProducer<TEntity> {
         const split = propPath.split('.');
         const lastIndex = split.length - 1;
 
-        split.reduce((previousValue, part, index) => {
+        split.reduce<Record<string, any>>((previousValue, part, index) => {
             if (index === lastIndex) {
-                previousValue[part] = value;
+                previousValue[part] = value as any;
             } else {
-                previousValue[part] = Array.isArray(previousValue[part]) ? previousValue[part].slice() : { ...previousValue[part] };
+                const current = previousValue[part];
+                previousValue[part] = Array.isArray(current) ? current.slice() : { ...(current || {}) };
             }
 
-            return previousValue && previousValue[part];
-        }, newEntity);
+            return previousValue[part] as Record<string, any>;
+        }, newEntity as unknown as Record<string, any>);
 
-        this.entity = newEntity
+        this.entity = newEntity;
         return newEntity;
     }
 }

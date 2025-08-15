@@ -730,9 +730,9 @@ class SelectWidthThyOptionsComponent {
 }
 
 describe('ThyCustomSelect', () => {
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
-    let platform: Platform;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
+    let platform!: Platform;
 
     function configureThyCustomSelectTestingModule(providers: any[] = []) {
         TestBed.configureTestingModule({
@@ -759,8 +759,8 @@ describe('ThyCustomSelect', () => {
         });
 
         describe('basic class', () => {
-            let fixture: ComponentFixture<BasicSelectComponent>;
-            let selectElement: HTMLElement;
+            let fixture!: ComponentFixture<BasicSelectComponent>;
+            let selectElement!: HTMLElement;
 
             beforeEach(() => {
                 fixture = TestBed.createComponent(BasicSelectComponent);
@@ -908,7 +908,7 @@ describe('ThyCustomSelect', () => {
         });
 
         describe('size', () => {
-            let fixture: ComponentFixture<BasicSelectComponent>;
+            let fixture!: ComponentFixture<BasicSelectComponent>;
 
             beforeEach(waitForAsync(() => {
                 fixture = TestBed.createComponent(BasicSelectComponent);
@@ -932,8 +932,8 @@ describe('ThyCustomSelect', () => {
         });
 
         describe('overlay panel', () => {
-            let fixture: ComponentFixture<BasicSelectComponent>;
-            let trigger: HTMLElement;
+            let fixture!: ComponentFixture<BasicSelectComponent>;
+            let trigger!: HTMLElement;
 
             beforeEach(fakeAsync(() => {
                 fixture = TestBed.createComponent(BasicSelectComponent);
@@ -1145,8 +1145,8 @@ describe('ThyCustomSelect', () => {
         });
 
         describe('thyFooter', () => {
-            let fixture: ComponentFixture<BasicSelectComponent>;
-            let trigger: HTMLElement;
+            let fixture!: ComponentFixture<BasicSelectComponent>;
+            let trigger!: HTMLElement;
 
             beforeEach(fakeAsync(() => {
                 fixture = TestBed.createComponent(BasicSelectComponent);
@@ -1184,7 +1184,7 @@ describe('ThyCustomSelect', () => {
         });
 
         describe('close logic', () => {
-            let fixture: ComponentFixture<MultipleSelectComponent>;
+            let fixture!: ComponentFixture<MultipleSelectComponent>;
 
             beforeEach(fakeAsync(() => {
                 fixture = TestBed.createComponent(MultipleSelectComponent);
@@ -1222,9 +1222,9 @@ describe('ThyCustomSelect', () => {
         });
 
         describe('selection logic', () => {
-            let fixture: ComponentFixture<BasicSelectComponent>;
-            let trigger: HTMLElement;
-            let form: HTMLElement;
+            let fixture!: ComponentFixture<BasicSelectComponent>;
+            let trigger!: HTMLElement;
+            let form!: HTMLElement;
 
             beforeEach(fakeAsync(() => {
                 fixture = TestBed.createComponent(BasicSelectComponent);
@@ -1304,8 +1304,8 @@ describe('ThyCustomSelect', () => {
         });
 
         describe('select expand status change', () => {
-            let fixture: ComponentFixture<SelectWithExpandStatusComponent>;
-            let trigger: HTMLElement;
+            let fixture!: ComponentFixture<SelectWithExpandStatusComponent>;
+            let trigger!: HTMLElement;
 
             beforeEach(fakeAsync(() => {
                 fixture = TestBed.createComponent(SelectWithExpandStatusComponent);
@@ -1334,8 +1334,8 @@ describe('ThyCustomSelect', () => {
         });
 
         describe('scroll and search', () => {
-            let fixture: ComponentFixture<SelectWithScrollAndSearchComponent>;
-            let fixtureIns: SelectWithScrollAndSearchComponent;
+            let fixture!: ComponentFixture<SelectWithScrollAndSearchComponent>;
+            let fixtureIns!: SelectWithScrollAndSearchComponent;
             beforeEach(waitForAsync(() => {
                 fixture = TestBed.createComponent(SelectWithScrollAndSearchComponent);
                 fixtureIns = fixture.componentInstance;
@@ -1408,7 +1408,7 @@ describe('ThyCustomSelect', () => {
     });
 
     describe('dropdown min width', () => {
-        let containerSelector: string;
+        let containerSelector!: string;
 
         it('should support thyDropdownWidthMode to set cdkConnectedOverlayMinWidth', fakeAsync(() => {
             configureThyCustomSelectTestingModule();
@@ -2225,7 +2225,7 @@ describe('ThyCustomSelect', () => {
     });
 
     describe('autoExpend', () => {
-        let fixture: ComponentFixture<SelectWithThyAutoExpendComponent>;
+        let fixture!: ComponentFixture<SelectWithThyAutoExpendComponent>;
 
         beforeEach(waitForAsync(() => {
             configureThyCustomSelectTestingModule();
@@ -2328,9 +2328,9 @@ describe('ThyCustomSelect', () => {
                     }
                 ])));
 
-            let fixture: ComponentFixture<BasicSelectComponent>;
-            let selectElement: HTMLElement;
-            let trigger: HTMLElement;
+            let fixture!: ComponentFixture<BasicSelectComponent>;
+            let selectElement!: HTMLElement;
+            let trigger!: HTMLElement;
 
             beforeEach(() => {
                 fixture = TestBed.createComponent(BasicSelectComponent);
@@ -2364,9 +2364,9 @@ describe('ThyCustomSelect', () => {
                     }
                 ])));
 
-            let fixture: ComponentFixture<BasicSelectComponent>;
-            let selectElement: HTMLElement;
-            let trigger: HTMLElement;
+            let fixture!: ComponentFixture<BasicSelectComponent>;
+            let selectElement!: HTMLElement;
+            let trigger!: HTMLElement;
 
             beforeEach(() => {
                 fixture = TestBed.createComponent(BasicSelectComponent);

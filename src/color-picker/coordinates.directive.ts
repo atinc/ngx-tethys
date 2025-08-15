@@ -12,7 +12,7 @@ export class ThyCoordinatesDirective implements OnInit, OnDestroy {
     el = inject(ElementRef);
 
     @Output()
-    coordinatesChange = new Subject<{
+    readonly coordinatesChange = new Subject<{
         x: number;
         y: number;
         left: number;

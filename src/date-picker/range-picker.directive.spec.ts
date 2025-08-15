@@ -15,11 +15,11 @@ import { provideHttpClient } from '@angular/common/http';
 registerLocaleData(zh);
 
 describe('ThyRangePickerDirective', () => {
-    let fixture: ComponentFixture<ThyTestRangePickerComponent>;
-    let fixtureInstance: ThyTestRangePickerComponent;
-    let debugElement: DebugElement;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let fixture!: ComponentFixture<ThyTestRangePickerComponent>;
+    let fixtureInstance!: ThyTestRangePickerComponent;
+    let debugElement!: DebugElement;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({

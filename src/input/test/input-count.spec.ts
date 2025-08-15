@@ -44,8 +44,8 @@ class TestInputCountSpecifyInputBasicComponent {
 }
 
 describe('input count', () => {
-    let fixture: ComponentFixture<TestInputCountBasicComponent>;
-    let countDebugElement: DebugElement;
+    let fixture!: ComponentFixture<TestInputCountBasicComponent>;
+    let countDebugElement!: DebugElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({

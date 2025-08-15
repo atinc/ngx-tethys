@@ -60,11 +60,13 @@ export class ThyColor {
                 switch (colorTypeName) {
                     case 'rgba':
                         this.alpha = parseFloat(params.pop());
+                    // eslint-disable-next-line no-fallthrough
                     case 'rgb':
                         rgba = new ThyRgba(parseInt(params[0], 10), parseInt(params[1], 10), parseInt(params[2], 10), this.alpha);
                         break;
                     case 'hsla':
                         this.alpha = parseFloat(params.pop());
+                    // eslint-disable-next-line no-fallthrough
                     case 'hsl':
                         rgba = this.hslaToRgba(parseInt(params[0], 10), parseInt(params[1], 10), parseInt(params[2], 10), this.alpha);
                         break;
@@ -271,7 +273,7 @@ export class ThyColor {
 
     getFinalValue() {
         const { hue, saturation, value, alpha, format } = this;
-        let hsl: number[];
+        let hsl!: number[];
         if (this.enableAlpha) {
             switch (format) {
                 case 'hsl':

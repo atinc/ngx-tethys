@@ -12,7 +12,7 @@ export class ThyCtrlEnterDirective implements OnInit, OnDestroy {
     private elementRef = inject(ElementRef);
     private renderer = inject(Renderer2);
 
-    @Output() thyCtrlEnter = new EventEmitter();
+    @Output() readonly thyCtrlEnter = new EventEmitter();
 
     private removeKeydownListenerFn: VoidFunction;
 

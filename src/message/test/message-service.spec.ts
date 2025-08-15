@@ -40,11 +40,11 @@ export class ThyMessageTestComponent implements OnInit {
 }
 
 describe('ThyMessage', () => {
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
-    let fixture: ComponentFixture<ThyMessageTestComponent>;
-    let componentInstance: ThyMessageTestComponent;
-    let successButton: HTMLElement;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
+    let fixture!: ComponentFixture<ThyMessageTestComponent>;
+    let componentInstance!: ThyMessageTestComponent;
+    let successButton!: HTMLElement;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({

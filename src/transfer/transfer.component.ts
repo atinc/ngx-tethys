@@ -98,13 +98,13 @@ export class ThyTransfer implements OnInit {
     /**
      * @type EventEmitter<ThyTransferDragEvent>
      */
-    thyDraggableUpdate = output<ThyTransferDragEvent>();
+    readonly thyDraggableUpdate = output<ThyTransferDragEvent>();
 
     /**
      * Transfer变化的回调事件
      * @type EventEmitter<ThyTransferChangeEvent>
      */
-    thyChange = output<ThyTransferChangeEvent>();
+    readonly thyChange = output<ThyTransferChangeEvent>();
 
     /**
      * 设置自定义Item渲染数据模板

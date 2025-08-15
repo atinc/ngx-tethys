@@ -7,14 +7,14 @@ import { Tree } from '@angular-devkit/schematics';
 function sortObjectByKeys(obj: Record<string, any>): object {
     return Object.keys(obj)
         .sort()
-        .reduce((result, key) => (result[key] = obj[key]) && result, {});
+        .reduce((result, key) => ((result as Record<string, any>)[key] = obj[key]) && result, {});
 }
 
 /** Adds a package to the package.json in the given host tree. */
 export function addPackageToPackageJson(host: Tree, pkg: string, version: string): Tree {
     if (host.exists('package.json')) {
-        const sourceText = host.read('package.json').toString('utf-8');
-        const json = JSON.parse(sourceText);
+        const sourceText = host.read('package.json')?.toString('utf-8');
+        const json = JSON.parse(sourceText!);
 
         if (!json.dependencies) {
             json.dependencies = {};
@@ -37,7 +37,7 @@ export function getPackageVersionFromPackageJson(tree: Tree, name: string): stri
         return null;
     }
 
-    const packageJson = JSON.parse(tree.read('package.json').toString('utf8'));
+    const packageJson = JSON.parse(tree.read('package.json')?.toString('utf8')!);
 
     return packageJson.dependencies?.[name] ?? null;
 }

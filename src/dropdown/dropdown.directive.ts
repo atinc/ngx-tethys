@@ -114,7 +114,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
     /**
      * 菜单 Active 事件，打开菜单返回 true，关闭返回 false
      */
-    @Output() thyActiveChange = new EventEmitter<boolean>();
+    @Output() readonly thyActiveChange = new EventEmitter<boolean>();
 
     constructor() {
         const elementRef = inject(ElementRef);
@@ -142,7 +142,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
     }
 
     createOverlay(): OverlayRef {
-        let componentTypeOrTemplateRef: ComponentTypeOrTemplateRef<SafeAny>;
+        let componentTypeOrTemplateRef!: ComponentTypeOrTemplateRef<SafeAny>;
         const menu = this.menu();
         if (menu && menu instanceof ThyDropdownMenuComponent) {
             componentTypeOrTemplateRef = menu?.templateRef();

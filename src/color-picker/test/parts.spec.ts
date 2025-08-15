@@ -105,9 +105,9 @@ class ThyDemoIndicatorComponent {
 }
 
 describe('thy-alpha', () => {
-    let fixture: ComponentFixture<ThyDemoAlphaComponent>;
-    let fixtureInstance: ThyDemoAlphaComponent;
-    let alphaElement: HTMLElement;
+    let fixture!: ComponentFixture<ThyDemoAlphaComponent>;
+    let fixtureInstance!: ThyDemoAlphaComponent;
+    let alphaElement!: HTMLElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -162,8 +162,8 @@ describe('thy-alpha', () => {
 });
 
 describe('thy-hue', () => {
-    let fixture: ComponentFixture<ThyDemoHueComponent>;
-    let fixtureInstance: ThyDemoHueComponent;
+    let fixture!: ComponentFixture<ThyDemoHueComponent>;
+    let fixtureInstance!: ThyDemoHueComponent;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -219,8 +219,8 @@ describe('thy-hue', () => {
 });
 
 describe('thy-saturation', () => {
-    let fixture: ComponentFixture<ThyDemoSaturationComponent>;
-    let fixtureInstance: ThyDemoSaturationComponent;
+    let fixture!: ComponentFixture<ThyDemoSaturationComponent>;
+    let fixtureInstance!: ThyDemoSaturationComponent;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -281,8 +281,8 @@ describe('thy-saturation', () => {
 });
 
 describe('thy-color-inputs', () => {
-    let fixture: ComponentFixture<ThyDemoColorInputsComponent>;
-    let fixtureInstance: ThyDemoColorInputsComponent;
+    let fixture!: ComponentFixture<ThyDemoColorInputsComponent>;
+    let fixtureInstance!: ThyDemoColorInputsComponent;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -335,8 +335,8 @@ describe('thy-color-inputs', () => {
 });
 
 describe('thy-indicator', () => {
-    let fixture: ComponentFixture<ThyDemoIndicatorComponent>;
-    let fixtureInstance: ThyDemoIndicatorComponent;
+    let fixture!: ComponentFixture<ThyDemoIndicatorComponent>;
+    let fixtureInstance!: ThyDemoIndicatorComponent;
 
     beforeEach(() => {
         TestBed.configureTestingModule({

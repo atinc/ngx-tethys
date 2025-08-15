@@ -114,6 +114,7 @@ export class ThyFileDropDirective extends FileSelectBaseDirective implements OnI
         // 排除文件夹和HTML元素拖拽
         const items: DataTransferItemList | DataTransferItem[] = event.dataTransfer ? event.dataTransfer.items : [];
         let res = true;
+        // eslint-disable-next-line @typescript-eslint/prefer-for-of
         for (let index = 0; index < items.length; index++) {
             const item = items[index];
             const entry = this.getAsEntry(item);
@@ -126,7 +127,7 @@ export class ThyFileDropDirective extends FileSelectBaseDirective implements OnI
     }
 
     private getAsEntry(item: DataTransferItem): FileSystemEntry {
-        let entry: FileSystemEntry;
+        let entry!: FileSystemEntry;
         if ((item as unknown as { getAsEntry: () => FileSystemEntry })['getAsEntry']) {
             // https://wiki.whatwg.org/wiki/DragAndDropEntries
             entry = (item as unknown as { getAsEntry: () => FileSystemEntry })['getAsEntry']();

@@ -7,7 +7,7 @@ const DEFAULT_EVENT_TIME = 100;
 
 @Directive()
 export abstract class ThyEventDispatcher<T = Event> implements OnDestroy {
-    private _globalSubscription: Subscription = null;
+    private _globalSubscription: Subscription | null = null;
 
     private _event$ = new Subject<T>();
 
@@ -28,7 +28,7 @@ export abstract class ThyEventDispatcher<T = Event> implements OnDestroy {
         }
     }
 
-    get globalSubscription(): Subscription {
+    get globalSubscription(): Subscription | null {
         return this._globalSubscription;
     }
 
@@ -38,7 +38,7 @@ export abstract class ThyEventDispatcher<T = Event> implements OnDestroy {
         private eventName: string
     ) {}
 
-    protected subscribe(auditTimeInMs: number = DEFAULT_EVENT_TIME): Observable<T> {
+    protected subscribe(auditTimeInMs: number | null = DEFAULT_EVENT_TIME): Observable<T> {
         return new Observable(observer => {
             if (!this._globalSubscription) {
                 this._addGlobalListener();
@@ -46,7 +46,7 @@ export abstract class ThyEventDispatcher<T = Event> implements OnDestroy {
             // In the case of a 0ms delay, use an observable without auditTime
             // since it does add a perceptible delay in processing overhead.
             const subscription =
-                auditTimeInMs > 0 ? this._event$.pipe(auditTime(auditTimeInMs)).subscribe(observer) : this._event$.subscribe(observer);
+                auditTimeInMs! > 0 ? this._event$.pipe(auditTime(auditTimeInMs!)).subscribe(observer) : this._event$.subscribe(observer);
 
             this._subscriptionCount++;
             return () => {

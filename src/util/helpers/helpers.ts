@@ -1,5 +1,6 @@
 import { _isNumberValue, coerceCssPixelValue as coerceCssPixel } from '@angular/cdk/coercion';
 import { ElementRef, TemplateRef } from '@angular/core';
+import { SafeAny } from 'ngx-tethys/types';
 
 export type ThyBooleanInput = boolean | string | number | unknown;
 
@@ -49,7 +50,9 @@ function baseGetTag(value: any) {
     try {
         value[symToStringTag] = undefined;
         unmasked = true;
-    } catch (e) {}
+    } catch (e) {
+        return;
+    }
 
     const result = toString.call(value);
     if (unmasked) {
@@ -89,9 +92,9 @@ export function coerceArray<T>(value: T | T[]): T[] {
 
 export function get(object: any, path: string, defaultValue?: any): any {
     const paths = path.split('.');
-    let result = object[paths.shift()];
+    let result = object[paths.shift() as string];
     while (result && paths.length) {
-        result = result[paths.shift()];
+        result = result[paths.shift() as string];
     }
     return result === undefined ? defaultValue : result;
 }
@@ -109,12 +112,12 @@ export function set(object: any, path: string, value: any): void {
         const key = paths[index];
         if (isObject(nested)) {
             if (index === lastIndex) {
-                nested[key] = value;
-                nested = nested[key];
+                (nested as SafeAny)[key] = value;
+                nested = (nested as SafeAny)[key];
                 break;
             } else {
-                if (nested[key] == null) {
-                    nested[key] = {};
+                if ((nested as SafeAny)[key] == null) {
+                    (nested as SafeAny)[key] = {};
                 }
             }
         }
@@ -133,12 +136,11 @@ export function isClass(value: any): value is Function {
 
 export function htmlElementIsEmpty(element: HTMLElement) {
     if (element && element.childNodes) {
-        const nodes = element.childNodes;
-        for (let i = 0; i < nodes.length; i++) {
-            const node = nodes[i];
+        const nodes = Array.from(element.childNodes);
+        for (const node of nodes) {
             if (node.nodeType === Node.ELEMENT_NODE && (node as HTMLElement).outerHTML.toString().trim().length !== 0) {
                 return false;
-            } else if (node.nodeType === Node.TEXT_NODE && node.textContent.toString().trim().length !== 0) {
+            } else if (node.nodeType === Node.TEXT_NODE && node.textContent?.toString().trim().length !== 0) {
                 return false;
             } else if (node.nodeType !== Node.COMMENT_NODE) {
                 return false;
@@ -148,7 +150,7 @@ export function htmlElementIsEmpty(element: HTMLElement) {
     return true;
 }
 
-export function hexToRgb(hexValue: string, alpha?: number): string {
+export function hexToRgb(hexValue: string, alpha?: number): string | undefined {
     const rgx = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
     const hex = hexValue.replace(rgx, (m: any, r: any, g: any, b: any) => r + r + g + g + b + b);
     const rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -201,7 +203,7 @@ function upperFirst(string: string): string {
     return string.slice(0, 1).toUpperCase() + string.slice(1);
 }
 
-export function camelCase(values: string[]): string {
+export function camelCase(values: string[]): string | undefined {
     if (isArray(values)) {
         return values.reduce((result, word, index) => {
             word = word.toLowerCase();
@@ -286,8 +288,7 @@ export function shallowEqual(objA?: Record<string, any>, objB?: Record<string, a
 
     const bHasOwnProperty = Object.prototype.hasOwnProperty.bind(objB);
 
-    for (let idx = 0; idx < keysA.length; idx++) {
-        const key = keysA[idx];
+    for (const key of keysA) {
         if (!bHasOwnProperty(key)) {
             return false;
         }

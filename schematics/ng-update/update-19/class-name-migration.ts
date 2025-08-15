@@ -14,9 +14,9 @@ import * as ts from 'typescript';
 export class ClassNamesMigration extends Migration<UpgradeData> {
     data: ClassNameUpgradeData[] = getVersionUpgradeData(this, 'classNames');
 
-    trustedIdentifiers: Set<string> = new Set();
+    trustedIdentifiers: Set<string> = new Set<string>();
 
-    trustedNamespaces: Set<string> = new Set();
+    trustedNamespaces: Set<string> = new Set<string>();
 
     enabled = this.data.length !== 0;
 

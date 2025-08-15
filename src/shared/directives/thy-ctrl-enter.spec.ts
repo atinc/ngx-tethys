@@ -16,9 +16,9 @@ class ThyCtrlEnterTestComponent {
 }
 
 describe('ThyCtrlEnterDirective', () => {
-    let fixture: ComponentFixture<ThyCtrlEnterTestComponent>;
-    let testComponent: ThyCtrlEnterTestComponent;
-    let enterSpy: jasmine.Spy;
+    let fixture!: ComponentFixture<ThyCtrlEnterTestComponent>;
+    let testComponent!: ThyCtrlEnterTestComponent;
+    let enterSpy!: jasmine.Spy;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({});

@@ -59,6 +59,7 @@ export class ThyWatermarkDirective implements OnInit {
     readonly thyCanvasConfig = input<ThyCanvasConfigType>(undefined);
 
     readonly content = computed(() => {
+        // eslint-disable-next-line no-useless-escape
         const value = this.thyWatermark()?.replace(/^\"|\"$/g, '');
         return value || '';
     });
@@ -124,11 +125,11 @@ export class ThyWatermarkDirective implements OnInit {
     }
 
     createCanvas() {
-        let { gutter, fontSize, color, degree, textLineHeight } = {
-            ...DEFAULT_CANVAS_CONFIG,
-            ...(this.thyCanvasConfig() || {})
+        const config = { ...DEFAULT_CANVAS_CONFIG, ...(this.thyCanvasConfig() || {}) };
+        const { gutter, fontSize, degree, textLineHeight } = {
+            ...config
         };
-        color = this.thyThemeStore.normalizeColor(color);
+        const color = this.thyThemeStore.normalizeColor(config.color);
 
         const [xGutter, yGutter] = gutter;
         const canvas = document.createElement('canvas');

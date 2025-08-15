@@ -105,9 +105,9 @@ class InputSearchSelectComponent {
 }
 
 describe('ThyAutocomplete', () => {
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
-    let platform: Platform;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
+    let platform!: Platform;
 
     function configureThyCustomSelectTestingModule(declarations: any[]) {
         TestBed.configureTestingModule({
@@ -133,8 +133,8 @@ describe('ThyAutocomplete', () => {
         }));
 
         describe('panel', () => {
-            let fixture: ComponentFixture<BasicSelectComponent>;
-            let trigger: HTMLElement;
+            let fixture!: ComponentFixture<BasicSelectComponent>;
+            let trigger!: HTMLElement;
 
             beforeEach(fakeAsync(() => {
                 fixture = TestBed.createComponent(BasicSelectComponent);
@@ -314,8 +314,8 @@ describe('ThyAutocomplete', () => {
         });
 
         describe('input-search', () => {
-            let fixture: ComponentFixture<InputSearchSelectComponent>;
-            let debugSearchElement: DebugElement;
+            let fixture!: ComponentFixture<InputSearchSelectComponent>;
+            let debugSearchElement!: DebugElement;
 
             beforeEach(fakeAsync(() => {
                 fixture = TestBed.createComponent(InputSearchSelectComponent);

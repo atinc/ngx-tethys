@@ -27,11 +27,11 @@ export class ThyHotkeyDispatcher extends ThyEventDispatcher {
         super(document, ngZone, 'keydown');
     }
 
-    private createKeydownObservable(scope: Element | Document) {
+    private createKeydownObservable(scope: Element | Document): Observable<KeyboardEvent> {
         if (scope === this.document) {
-            return this.subscribe(null);
+            return this.subscribe(null) as Observable<KeyboardEvent>;
         } else {
-            return fromEvent(scope, 'keydown');
+            return fromEvent(scope, 'keydown') as Observable<KeyboardEvent>;
         }
     }
 

@@ -83,7 +83,7 @@ export class ThyDialogHeader implements OnInit {
     /**
      * 关闭事件
      */
-    @Output() thyOnClose: EventEmitter<Event> = new EventEmitter<Event>();
+    @Output() readonly thyOnClose: EventEmitter<Event> = new EventEmitter<Event>();
 
     ngOnInit() {
         if (!this.dialogContainer) {

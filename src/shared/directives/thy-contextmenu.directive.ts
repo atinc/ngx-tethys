@@ -11,7 +11,7 @@ export class ThyContextMenuDirective implements OnInit, OnDestroy {
     private elementRef = inject(ElementRef);
     private renderer = inject(Renderer2);
 
-    @Output() thyContextMenu = new EventEmitter();
+    @Output() readonly thyContextMenu = new EventEmitter();
 
     private removeContextListenerFn: VoidFunction;
 

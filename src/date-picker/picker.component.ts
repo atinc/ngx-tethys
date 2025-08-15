@@ -280,7 +280,7 @@ export class ThyPicker implements OnChanges, AfterViewInit {
     }
 
     getReadableValue(tinyDate: TinyDate | TinyDate[]): string | null {
-        let value: TinyDate;
+        let value!: TinyDate;
         if (this.isRange()) {
             if (this.flexible() && this.innerflexibleDateGranularity !== 'day') {
                 return getFlexibleAdvancedReadableValue(

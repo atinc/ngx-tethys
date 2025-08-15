@@ -62,7 +62,9 @@ function baseGetTag(value: any) {
     try {
         value[symToStringTag] = undefined;
         unmasked = true;
-    } catch (e) {}
+    } catch (e) {
+        return;
+    }
 
     const result = toString.call(value);
     if (unmasked) {

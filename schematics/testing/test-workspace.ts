@@ -5,7 +5,7 @@ import * as path from 'path';
 
 export class TestWorkspaceFactory {
     private hostTree = new HostTree();
-    private tree: UnitTestTree;
+    private tree!: UnitTestTree;
     constructor(public runner: SchematicTestRunner) {}
 
     async create(options?: {
@@ -57,25 +57,26 @@ export class TestWorkspaceFactory {
         const toAddList = [{ parentFromPath: from, parentToPath: to, children: list }];
         while (toAddList.length) {
             const item = toAddList.pop();
-            for (let i = 0; i < item.children.length; i++) {
-                const element = item.children[i];
-                const absolutePath = path.resolve(item.parentFromPath, element);
+            // eslint-disable-next-line @typescript-eslint/prefer-for-of
+            for (let i = 0; i < item!.children.length; i++) {
+                const element = item!.children[i];
+                const absolutePath = path.resolve(item!.parentFromPath, element);
                 const stat = fs.statSync(absolutePath);
 
                 if (stat.isDirectory()) {
                     toAddList.push({
                         parentFromPath: absolutePath,
-                        parentToPath: path.join(item.parentToPath, element),
+                        parentToPath: path.join(item!.parentToPath, element),
                         children: fs.readdirSync(absolutePath)
                     });
                 } else {
-                    if (this.hostTree.exists(path.join(item.parentToPath, element))) {
+                    if (this.hostTree.exists(path.join(item!.parentToPath, element))) {
                         if (overwrite) {
-                            this.hostTree.overwrite(path.join(item.parentToPath, element), fs.readFileSync(absolutePath));
+                            this.hostTree.overwrite(path.join(item!.parentToPath, element), fs.readFileSync(absolutePath));
                         }
                         continue;
                     }
-                    this.hostTree.create(path.join(item.parentToPath, element), fs.readFileSync(absolutePath));
+                    this.hostTree.create(path.join(item!.parentToPath, element), fs.readFileSync(absolutePath));
                 }
             }
         }
