@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [19.1.0-next.7](https://github.com/atinc/ngx-tethys/compare/19.1.0-next.6...19.1.0-next.7) (2025-08-15)
+
+
+### Features
+
+* **date-picker:** rename open to opened and add open method #TINFR-1463 ([#3532](https://github.com/atinc/ngx-tethys/issues/3532)) ([67ba3f5](https://github.com/atinc/ngx-tethys/commit/67ba3f55e68781181c28992c1c4c421d603fb3f6)), closes [#TINFR-1463](https://github.com/atinc/ngx-tethys/issues/TINFR-1463)
+* migrate tooltip signal and related component ([#3518](https://github.com/atinc/ngx-tethys/issues/3518)) ([58189df](https://github.com/atinc/ngx-tethys/commit/58189df326aee2d2c0e449d53ebe6b46c08a3a10))
+
+
+
 # [19.1.0-next.6](https://github.com/atinc/ngx-tethys/compare/19.1.0-next.5...19.1.0-next.6) (2025-08-14)
 
 

@@ -1,9 +1,9 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation, inject, input, computed } from '@angular/core';
-import { ThySkeleton } from './skeleton.component';
-import { coerceBooleanProperty, helpers, ThyBooleanInput, isUndefinedOrNull } from 'ngx-tethys/util';
-import { THY_SKELETON_CONFIG } from './skeleton.config';
 import { NgStyle } from '@angular/common';
-import { coerceCssPixelValue } from '@angular/cdk/coercion';
+import { ChangeDetectionStrategy, Component, computed, inject, input, ViewEncapsulation } from '@angular/core';
+import { coerceBooleanProperty, coerceCssPixelValue, helpers, isUndefinedOrNull, ThyBooleanInput } from 'ngx-tethys/util';
+import { ThySkeleton } from './skeleton.component';
+import { THY_SKELETON_CONFIG } from './skeleton.config';
+
 /**
  * 骨架屏矩形组件
  * @name thy-skeleton-rectangle

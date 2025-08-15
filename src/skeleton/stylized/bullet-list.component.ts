@@ -1,8 +1,7 @@
-import { ChangeDetectionStrategy, Component, input, ViewEncapsulation, computed } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, ViewEncapsulation } from '@angular/core';
+import { coerceBooleanProperty, coerceCssPixelValue, ThyBooleanInput } from 'ngx-tethys/util';
 import { ThySkeletonCircle } from '../skeleton-circle.component';
 import { ThySkeletonRectangle } from '../skeleton-rectangle.component';
-import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
-import { coerceCssPixelValue } from '@angular/cdk/coercion';
 
 /**
  * 骨架屏无序列表组件

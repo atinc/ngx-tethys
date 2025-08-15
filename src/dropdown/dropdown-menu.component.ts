@@ -1,4 +1,3 @@
-import { coerceCssPixelValue } from '@angular/cdk/coercion';
 import { NgTemplateOutlet } from '@angular/common';
 import {
     ChangeDetectionStrategy,
@@ -11,7 +10,7 @@ import {
     viewChild
 } from '@angular/core';
 import { SafeAny } from 'ngx-tethys/types';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { coerceBooleanProperty, coerceCssPixelValue } from 'ngx-tethys/util';
 
 export type ThyDropdownMenuDividerType = 'default' | 'crossing' | '';
 

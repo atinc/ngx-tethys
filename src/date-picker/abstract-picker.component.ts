@@ -16,7 +16,8 @@ import {
     SimpleChanges,
     viewChild,
     model,
-    DestroyRef
+    DestroyRef,
+    linkedSignal
 } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
@@ -81,9 +82,9 @@ export abstract class AbstractPickerComponent
      */
     readonly thyAutoFocus = input(false, { transform: coerceBooleanProperty });
 
-    readonly open = signal(undefined);
-
     readonly thyOpen = input(undefined, { transform: coerceBooleanProperty });
+
+    readonly opened = linkedSignal(this.thyOpen);
 
     readonly thyDisabledDate = input<DisabledDateFn>();
 
@@ -257,10 +258,6 @@ export abstract class AbstractPickerComponent
         super();
 
         effect(() => {
-            this.open.set(this.thyOpen());
-        });
-
-        effect(() => {
             if (this.isCustomPlaceHolder) {
                 this.placeholder.set(this.thyPlaceHolder());
             }
@@ -361,7 +358,7 @@ export abstract class AbstractPickerComponent
     }
 
     onOpenChange(open: boolean): void {
-        this.open.set(open);
+        this.opened.set(open);
         this.thyOpenChange.emit(open);
     }
 
