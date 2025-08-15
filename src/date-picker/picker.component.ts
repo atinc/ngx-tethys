@@ -37,7 +37,7 @@ import { ThyDateGranularity } from './standard-types';
     imports: [CdkOverlayOrigin, ThyInputDirective, ThyEnterDirective, NgTemplateOutlet, ThyIcon, NgClass, CdkConnectedOverlay],
     animations: [scaleXMotion, scaleYMotion, scaleMotion]
 })
-export class ThyPicker implements OnChanges, AfterViewInit {
+export class ThyPicker implements AfterViewInit {
     private changeDetector = inject(ChangeDetectorRef);
 
     private dateHelper = inject(DateHelperService);
@@ -46,7 +46,7 @@ export class ThyPicker implements OnChanges, AfterViewInit {
 
     readonly isRange = input(false, { transform: coerceBooleanProperty });
 
-    readonly open = input<boolean | undefined>(undefined);
+    readonly opened = input<boolean | undefined>(undefined);
 
     readonly disabled = input(false, { transform: coerceBooleanProperty });
 
@@ -116,7 +116,7 @@ export class ThyPicker implements OnChanges, AfterViewInit {
 
     get realOpenState(): boolean {
         // The value that really decide the open state of overlay
-        return this.isOpenHandledByUser() ? !!this.open() : this.overlayOpen;
+        return this.isOpenHandledByUser() ? !!this.opened() : this.overlayOpen;
     }
 
     get readonlyState(): boolean {
@@ -152,17 +152,17 @@ export class ThyPicker implements OnChanges, AfterViewInit {
                 this.formatDate(this.innerValue as TinyDate);
             }
         });
-    }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        // open by user
-        if (changes.open && changes.open.currentValue !== undefined) {
-            if (changes.open.currentValue) {
-                this.showDatePopup();
-            } else {
-                this.closeDatePopup();
+        effect(() => {
+            const openedState = this.opened();
+            if (openedState != undefined) {
+                if (openedState) {
+                    this.showDatePopup();
+                } else {
+                    this.closeDatePopup();
+                }
             }
-        }
+        });
     }
 
     ngAfterViewInit(): void {
@@ -277,7 +277,7 @@ export class ThyPicker implements OnChanges, AfterViewInit {
 
     // Whether open state is permanently controlled by user himself
     isOpenHandledByUser(): boolean {
-        return this.open() !== undefined;
+        return this.opened() !== undefined;
     }
 
     getReadableValue(tinyDate: TinyDate | TinyDate[]): string | null {
