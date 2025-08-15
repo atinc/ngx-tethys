@@ -23,9 +23,9 @@ class ThyStringOrTemplateOutletTestComponent {
 }
 
 describe('string or template outlet directive', () => {
-    let fixture: ComponentFixture<ThyStringOrTemplateOutletTestComponent>;
-    let component: ThyStringOrTemplateOutletTestComponent;
-    let debugElement: DebugElement;
+    let fixture!: ComponentFixture<ThyStringOrTemplateOutletTestComponent>;
+    let component!: ThyStringOrTemplateOutletTestComponent;
+    let debugElement!: DebugElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({});

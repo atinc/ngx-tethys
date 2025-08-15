@@ -3,16 +3,13 @@ import {
     ChangeDetectionStrategy,
     Component,
     ContentChild,
-    HostBinding,
-    Input,
     OnInit,
     TemplateRef,
     ViewEncapsulation,
     inject,
     input,
     computed,
-    signal,
-    effect
+    signal
 } from '@angular/core';
 
 import { ThyTranslate } from 'ngx-tethys/core';

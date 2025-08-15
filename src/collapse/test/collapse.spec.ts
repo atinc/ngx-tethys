@@ -70,10 +70,10 @@ function assertRenderIconRotate(debugElementOfIcon: DebugElement) {
 
 describe('collapse', () => {
     describe('basic', () => {
-        let component: TestCollapseBasicComponent;
-        let fixture: ComponentFixture<TestCollapseBasicComponent>;
-        let debugElement: DebugElement;
-        let icon: any;
+        let component!: TestCollapseBasicComponent;
+        let fixture!: ComponentFixture<TestCollapseBasicComponent>;
+        let debugElement!: DebugElement;
+        let icon!: any;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
@@ -189,9 +189,9 @@ describe('collapse', () => {
 
 describe('collapse-panel', () => {
     describe('basic', () => {
-        let component: TestCollapsePanelBasicComponent;
-        let fixture: ComponentFixture<TestCollapsePanelBasicComponent>;
-        let icon: any;
+        let component!: TestCollapsePanelBasicComponent;
+        let fixture!: ComponentFixture<TestCollapsePanelBasicComponent>;
+        let icon!: any;
 
         beforeEach(() => {
             TestBed.configureTestingModule({

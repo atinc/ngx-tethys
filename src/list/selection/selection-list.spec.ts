@@ -17,9 +17,9 @@ export function createFakeEvent(type: string, canBubble = false, cancelable = tr
 
 describe('ThySelectionList without forms', () => {
     describe('with list option', () => {
-        let fixture: ComponentFixture<SelectionListWithListOptionsComponent>;
-        let listOptions: DebugElement[];
-        let selectionList: DebugElement;
+        let fixture!: ComponentFixture<SelectionListWithListOptionsComponent>;
+        let listOptions!: DebugElement[];
+        let selectionList!: DebugElement;
 
         beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({

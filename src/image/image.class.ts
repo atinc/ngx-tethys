@@ -29,7 +29,7 @@ export interface ThyImagePreviewOptions {
     disableKeyboardSelectable?: boolean;
     zoom?: number;
     rotate?: number;
-    operations?: (ThyImagePreviewOperationType | ThyImagePreviewOperation)[];
+    operations?: Array<ThyImagePreviewOperationType | ThyImagePreviewOperation>;
     resolveSize?: boolean;
 }
 

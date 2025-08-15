@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input, input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewEncapsulation, input } from '@angular/core';
 import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
 
 /**

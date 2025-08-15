@@ -13,10 +13,10 @@ import { TinyDate } from 'ngx-tethys/util';
 registerLocaleData(zh);
 
 describe('TestDateCarouselComponent', () => {
-    let fixture: ComponentFixture<TestDateCarouselComponent>;
-    let fixtureInstance: TestDateCarouselComponent;
-    let debugElement: DebugElement;
-    let nativeElement: HTMLElement;
+    let fixture!: ComponentFixture<TestDateCarouselComponent>;
+    let fixtureInstance!: TestDateCarouselComponent;
+    let debugElement!: DebugElement;
+    let nativeElement!: HTMLElement;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({

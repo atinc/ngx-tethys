@@ -1,6 +1,6 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { Component, effect, HostBinding, input, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, effect, input, ViewEncapsulation } from '@angular/core';
 
 export type ButtonGroupSize = 'sm' | 'lg' | 'xs' | 'md';
 

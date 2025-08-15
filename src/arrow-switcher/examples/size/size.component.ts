@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ThyArrowSwitcher, ThyArrowSwitcherEvent } from 'ngx-tethys/arrow-switcher';
 import { FormsModule } from '@angular/forms';
 
@@ -7,20 +7,18 @@ import { FormsModule } from '@angular/forms';
     templateUrl: './size.component.html',
     imports: [ThyArrowSwitcher, FormsModule]
 })
-export class ThyArrowSwitcherSizeExampleComponent implements OnInit {
+export class ThyArrowSwitcherSizeExampleComponent {
     index = 0;
 
     totalCount = 10;
 
     constructor() {}
 
-    ngOnInit(): void {}
-
     onPreviousClick(event: ThyArrowSwitcherEvent) {
-        console.log('点击上一条' + event.index);
+        console.log(`点击上一条${event.index}`);
     }
 
     onNextClick(event: ThyArrowSwitcherEvent) {
-        console.log('点击下一条' + event.index);
+        console.log(`点击下一条${event.index}`);
     }
 }

@@ -23,8 +23,8 @@ import { injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 class ThyActionTestBasicComponent {}
 
 describe('thy-action', () => {
-    let fixture: ComponentFixture<ThyActionTestBasicComponent>;
-    let actionDebugElement: DebugElement;
+    let fixture!: ComponentFixture<ThyActionTestBasicComponent>;
+    let actionDebugElement!: DebugElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({

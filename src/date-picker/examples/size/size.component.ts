@@ -1,7 +1,10 @@
 import { NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
-import { ThyQuarterPicker, ThyDatePicker, ThyRangePicker, ThyMonthPicker } from 'ngx-tethys/date-picker';
+import { ThyDatePicker } from '../../date-picker.component';
+import { ThyMonthPicker } from '../../month-picker.component';
+import { ThyQuarterPicker } from '../../quarter-picker.component';
+import { ThyRangePicker } from '../../range-picker.component';
 
 @Component({
     selector: 'thy-date-picker-size-example',

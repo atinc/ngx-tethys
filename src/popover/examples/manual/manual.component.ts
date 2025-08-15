@@ -1,6 +1,5 @@
-import { ThyPopoverBody, ThyPopoverConfig, ThyPopoverHeader } from 'ngx-tethys/popover';
+import { ThyPopoverBody, ThyPopoverConfig, ThyPopoverHeader, ThyPopover } from 'ngx-tethys/popover';
 import { Component, OnInit, TemplateRef, inject } from '@angular/core';
-import { ThyPopover } from 'ngx-tethys/popover';
 import { ThyPopoverManualContentComponent } from './popover-content.component';
 import { ThyButton } from 'ngx-tethys/button';
 

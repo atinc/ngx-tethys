@@ -1,4 +1,3 @@
-import { Injectable } from '@angular/core';
 import { dom } from 'ngx-tethys/util';
 
 export class ScrollToService {

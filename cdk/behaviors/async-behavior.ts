@@ -22,13 +22,13 @@ class AsyncBehaviorImpl<T, A extends (...args: any) => Observable<T>> implements
 
     loadingDone: Signal<boolean> = computed(() => !this.loading());
 
-    value: WritableSignal<T> = signal(null);
+    value?: WritableSignal<T>;
 
     state: WritableSignal<'pending' | 'loading' | 'success' | 'error'> = signal('pending');
 
-    error?: WritableSignal<Error> = signal(null);
+    error?: WritableSignal<Error>;
 
-    executeParams: Parameters<A>;
+    executeParams!: Parameters<A>;
 
     takeUntilDestroyed = takeUntilDestroyed();
 
@@ -39,12 +39,12 @@ class AsyncBehaviorImpl<T, A extends (...args: any) => Observable<T>> implements
 
     execute(success?: SuccessFn<T>, error?: ErrorFn): void;
     execute(context: BehaviorContext<T>): void;
-    execute(successOrContext: SuccessFn<T> | BehaviorContext<T>, error?: ErrorFn): void {
+    execute(successOrContext?: SuccessFn<T> | BehaviorContext<T>, error?: ErrorFn): void {
         this.setLoadingState(true);
         this.state.set('loading');
-        const callbacks = pickBehaviorCallbacks(this.context, successOrContext, error);
+        const callbacks = pickBehaviorCallbacks(this.context, successOrContext as any, error);
         try {
-            return this.action
+            this.action
                 .apply(undefined, this.executeParams)
                 .pipe(
                     this.takeUntilDestroyed,
@@ -52,24 +52,39 @@ class AsyncBehaviorImpl<T, A extends (...args: any) => Observable<T>> implements
                         this.setLoadingState(false);
                     }),
                     tap(value => {
-                        this.value.set(value as T);
+                        if (this.value) {
+                            this.value.set(value as T);
+                        } else {
+                            this.value = signal(value as T);
+                        }
                         this.state.set('success');
                         this.setLoadingState(false);
                     })
                 )
                 .subscribe({
-                    next: callbacks.success,
-                    error: error => {
+                    next: (value: unknown) => {
+                        callbacks.success && callbacks.success(value as T);
+                    },
+                    error: err => {
                         this.state.set('error');
-                        this.error.set(error);
-                        handleBehaviorError(error, callbacks.error);
+                        if (this.error) {
+                            this.error.set(err as Error);
+                        } else {
+                            this.error = signal(err as Error);
+                        }
+                        handleBehaviorError(err as Error, callbacks.error);
                     }
                 });
         } catch (error) {
             this.state.set('error');
-            this.error.set(error);
+            const err = error as Error;
+            if (this.error) {
+                this.error.set(err);
+            } else {
+                this.error = signal(err);
+            }
             this.setLoadingState(false);
-            handleBehaviorError(error, callbacks.error);
+            handleBehaviorError(err, callbacks.error);
         }
     }
 
@@ -85,7 +100,7 @@ export function asyncBehavior<A extends (...args: any) => Observable<any> = (...
     const behavior = new AsyncBehaviorImpl(action, context);
 
     const fn = function (...params: Parameters<A>) {
-        fn['executeParams'] = params;
+        (fn as any)['executeParams'] = params;
         return fn;
     };
     return createBehaviorFromFunction(fn, {

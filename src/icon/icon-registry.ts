@@ -113,6 +113,7 @@ export class ThyIconRegistry {
     private toSvgElement(element: Element): SVGElement {
         const svg = this.svgElementFromString('<svg></svg>');
 
+        // eslint-disable-next-line @typescript-eslint/prefer-for-of
         for (let i = 0; i < element.childNodes.length; i++) {
             if (element.childNodes[i].nodeType === this.document.ELEMENT_NODE) {
                 svg.appendChild(element.childNodes[i].cloneNode(true));
@@ -252,7 +253,7 @@ export class ThyIconRegistry {
 
         // Not found in any cached icon sets. If there are icon sets with URLs that we haven't
         // fetched, fetch them now and look for iconName in the results.
-        const iconSetFetchRequests: Observable<SVGElement | null>[] = iconSetConfigs
+        const iconSetFetchRequests: Array<Observable<SVGElement | null>> = iconSetConfigs
             .filter(iconSetConfig => !iconSetConfig.svgElement)
             .map(iconSetConfig => {
                 return this.loadSvgIconSetFromConfig(iconSetConfig).pipe(
@@ -288,7 +289,7 @@ export class ThyIconRegistry {
     }
 
     public buildIconKey(namespace: string, name: string) {
-        return namespace + ':' + name;
+        return `${namespace}:${name}`;
     }
 
     public splitIconName(iconName: string): [string, string] {
@@ -300,7 +301,7 @@ export class ThyIconRegistry {
             case 1:
                 return ['', parts[0]]; // Use default namespace.
             case 2:
-                return <[string, string]>parts;
+                return parts as [string, string];
             default:
                 throw Error(`Invalid icon name: "${iconName}"`);
         }

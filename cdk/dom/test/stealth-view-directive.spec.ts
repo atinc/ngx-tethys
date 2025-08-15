@@ -39,8 +39,8 @@ class ThyStealthViewDirectiveTestComponent {
 }
 
 describe('ThyStealthViewDirective', () => {
-    let fixture: ComponentFixture<ThyStealthViewDirectiveTestComponent>;
-    let component: ThyStealthViewDirectiveTestComponent;
+    let fixture!: ComponentFixture<ThyStealthViewDirectiveTestComponent>;
+    let component!: ThyStealthViewDirectiveTestComponent;
 
     beforeEach(() => {
         TestBed.configureTestingModule({});

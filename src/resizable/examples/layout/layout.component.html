@@ -12,8 +12,7 @@
       (thyResizeEnd)="resizeEnd($event)"
       (thyResizeStart)="resizeStart($event)"
       [thyCollapsedWidth]="collapsedWidth"
-      (thyCollapsedChange)="collapsedChange($event)"
-    >
+      (thyCollapsedChange)="collapsedChange($event)">
       <thy-resize-handle thyDirection="right">
         <div class="sidebar-resize-line"></div>
       </thy-resize-handle>
@@ -26,16 +25,13 @@
         [style.height.px]="contentHeight"
         [thyMaxHeight]="300"
         [thyMinHeight]="50"
-        (thyResize)="onContentResize($event)"
-      >
+        (thyResize)="onContentResize($event)">
         <thy-resize-handle thyDirection="bottom">
           <div class="content-resize-line"></div>
         </thy-resize-handle>
         Content 1
       </div>
-      <div>
-        Content 2
-      </div>
+      <div>Content 2</div>
     </thy-content>
   </thy-layout>
 </thy-layout>

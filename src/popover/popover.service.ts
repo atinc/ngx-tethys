@@ -19,7 +19,7 @@ import {
 import { Platform } from '@angular/cdk/platform';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
-import { ElementRef, Injectable, Injector, NgZone, OnDestroy, StaticProvider, TemplateRef, inject } from '@angular/core';
+import { ElementRef, Injectable, Injector, NgZone, OnDestroy, StaticProvider, inject } from '@angular/core';
 
 import { ThyPopoverContainer } from './popover-container.component';
 import { ThyInternalPopoverRef, ThyPopoverRef } from './popover-ref';
@@ -229,7 +229,7 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
     /**
      * 获取已经打开的悬浮层
      */
-    getOpenedPopovers(): ThyPopoverRef<SafeAny>[] {
+    getOpenedPopovers(): Array<ThyPopoverRef<SafeAny>> {
         return this.getAbstractOverlays();
     }
 

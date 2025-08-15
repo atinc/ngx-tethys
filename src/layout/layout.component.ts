@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, Directive, HostBinding, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, Directive, signal } from '@angular/core';
 import { ThySidebarDirection } from './sidebar.component';
 
 /**

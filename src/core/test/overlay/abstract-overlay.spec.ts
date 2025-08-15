@@ -226,9 +226,9 @@ class TestDialogViewContainerComponent {
 }
 
 describe('abstract-overlay', () => {
-    let dialog: TestDialogService;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let dialog!: TestDialogService;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
 
     beforeEach(async () => {
         TestBed.configureTestingModule({

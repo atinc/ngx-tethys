@@ -17,9 +17,9 @@ export class FormGroupFooterComponent {
 }
 
 describe('form-group-footer', () => {
-    let fixture: ComponentFixture<FormGroupFooterComponent>;
-    let formGroupFooterComponent: FormGroupFooterComponent;
-    let debugElement: DebugElement;
+    let fixture!: ComponentFixture<FormGroupFooterComponent>;
+    let formGroupFooterComponent!: FormGroupFooterComponent;
+    let debugElement!: DebugElement;
     let thyFormDirective: {
         isHorizontal: boolean;
     };

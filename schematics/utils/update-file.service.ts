@@ -49,6 +49,6 @@ export class UpdateFileService {
     }
 }
 
-export function createUpdateFileService(tree) {
+export function createUpdateFileService(tree: Tree) {
     return new UpdateFileService(tree);
 }

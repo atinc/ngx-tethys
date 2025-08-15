@@ -28,7 +28,7 @@ export class ThyHotkeyDirective implements OnInit, OnDestroy {
      */
     readonly thyHotkeyListener = output<KeyboardEvent>();
 
-    private subscription: Subscription = null;
+    private subscription: Subscription | null = null;
 
     ngOnInit(): void {
         const hotkeyScope = this.thyHotkeyScope();

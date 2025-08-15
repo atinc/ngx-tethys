@@ -8,8 +8,8 @@ import { ThyCopyDirective, ThyCopyModule } from 'ngx-tethys/copy';
 import { provideHttpClient } from '@angular/common/http';
 
 describe('thy-copy', () => {
-    let fixture: ComponentFixture<ThyCopyTestComponent>;
-    let testComponent: ThyCopyTestComponent;
+    let fixture!: ComponentFixture<ThyCopyTestComponent>;
+    let testComponent!: ThyCopyTestComponent;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({

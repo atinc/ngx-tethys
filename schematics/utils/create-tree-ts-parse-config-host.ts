@@ -6,7 +6,7 @@ export class TreeTsParseConfigHost implements ts.ParseConfigFileHost {
     useCaseSensitiveFileNames = true;
     constructor(private tree: Tree) {}
 
-    onUnRecoverableConfigFileDiagnostic = r => {
+    onUnRecoverableConfigFileDiagnostic = (r: any) => {
         console.warn(r);
     };
 
@@ -15,7 +15,7 @@ export class TreeTsParseConfigHost implements ts.ParseConfigFileHost {
     }
 
     readFile(filePath: string) {
-        return this.tree.read(path.join(filePath)).toString();
+        return this.tree.read(path.join(filePath))?.toString();
     }
 
     readDirectory(
@@ -25,7 +25,7 @@ export class TreeTsParseConfigHost implements ts.ParseConfigFileHost {
         includes: readonly string[],
         depth?: number
     ) {
-        excludes = excludes.map(exclude => path.join(rootDir, exclude));
+        excludes = excludes?.map(exclude => path.join(rootDir, exclude));
         includes = includes.map(include => path.join(rootDir, include));
         return this._readDirectory(rootDir, extensions, excludes, includes, depth);
     }
@@ -36,13 +36,13 @@ export class TreeTsParseConfigHost implements ts.ParseConfigFileHost {
         excludes: readonly string[] | undefined,
         includes: readonly string[],
         depth?: number
-    ) {
+    ): string[] {
         const dirEntry = this.tree.getDir(path.join(fileDir));
         const subdirs = dirEntry.subdirs.filter(dirPath => dirPath !== 'node_modules');
         return dirEntry.subfiles
             .map(file => path.join(fileDir, file))
             .filter(fileName => (extensions.length ? extensions.some(extension => fileName.endsWith(extension)) : true))
-            .filter(item => (excludes.length ? !excludes.some(exclude => minimatch(path.join(fileDir, item), exclude)) : true))
+            .filter(item => (excludes?.length ? !excludes.some(exclude => minimatch(path.join(fileDir, item), exclude)) : true))
             .filter(item => (includes.length ? includes.some(include => minimatch(path.join(fileDir, item), include)) : false))
             .concat(
                 ...(dirEntry.subdirs.length

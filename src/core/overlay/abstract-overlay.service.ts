@@ -13,7 +13,7 @@ import { ThyAbstractOverlayConfig, ThyAbstractOverlayOptions } from './abstract-
 export type ComponentTypeOrTemplateRef<T> = ComponentType<T> | TemplateRef<T>;
 
 export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverlayConfig, TContainer extends ThyAbstractOverlayContainer> {
-    protected openedOverlays: ThyAbstractOverlayRef<unknown, TContainer>[] = [];
+    protected openedOverlays: Array<ThyAbstractOverlayRef<unknown, TContainer>> = [];
 
     private readonly _afterAllClosed = new Subject<void>();
 
@@ -72,10 +72,10 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
 
         if (componentOrTemplateRef instanceof TemplateRef) {
             containerInstance.attachTemplatePortal(
-                new TemplatePortal<T>(componentOrTemplateRef, null, <any>{
+                new TemplatePortal<T>(componentOrTemplateRef, null, {
                     $implicit: config.initialState,
                     [`${this.options.name}Ref`]: abstractOverlayRef
-                })
+                } as any)
             );
         } else {
             const injector = this.createInjector<T>(config, abstractOverlayRef, containerInstance);
@@ -122,7 +122,7 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
         return this.openedOverlays.find(overlay => overlay.id === id);
     }
 
-    protected getAbstractOverlays(): ThyAbstractOverlayRef<any, TContainer>[] {
+    protected getAbstractOverlays(): Array<ThyAbstractOverlayRef<any, TContainer>> {
         return this.openedOverlays;
     }
 

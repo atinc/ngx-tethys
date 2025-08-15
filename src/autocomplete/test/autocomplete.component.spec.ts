@@ -1,4 +1,4 @@
-import { ThyInputSearch } from 'ngx-tethys/input';
+import { ThyInputSearch, ThyInputModule } from 'ngx-tethys/input';
 import {
     bypassSanitizeProvider,
     dispatchFakeEvent,
@@ -14,7 +14,6 @@ import { Component, DebugElement, viewChild, viewChildren } from '@angular/core'
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyOptionModule, ThyOption } from 'ngx-tethys/shared';
 import { ThyAutocomplete, ThyAutocompleteTriggerDirective, ThyAutocompleteModule } from 'ngx-tethys/autocomplete';
 import { provideHttpClient } from '@angular/common/http';
@@ -96,7 +95,7 @@ class InputSearchSelectComponent {
 
     isFocusOpen = true;
 
-    foods: { value: string; viewValue: string }[] = [
+    foods: Array<{ value: string; viewValue: string }> = [
         { value: 'steak-0', viewValue: 'Steak' },
         { value: 'pizza-1', viewValue: 'Pizza' }
     ];
@@ -106,9 +105,9 @@ class InputSearchSelectComponent {
 }
 
 describe('ThyAutocomplete', () => {
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
-    let platform: Platform;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
+    let platform!: Platform;
 
     function configureThyCustomSelectTestingModule(declarations: any[]) {
         TestBed.configureTestingModule({
@@ -134,8 +133,8 @@ describe('ThyAutocomplete', () => {
         }));
 
         describe('panel', () => {
-            let fixture: ComponentFixture<BasicSelectComponent>;
-            let trigger: HTMLElement;
+            let fixture!: ComponentFixture<BasicSelectComponent>;
+            let trigger!: HTMLElement;
 
             beforeEach(fakeAsync(() => {
                 fixture = TestBed.createComponent(BasicSelectComponent);
@@ -315,8 +314,8 @@ describe('ThyAutocomplete', () => {
         });
 
         describe('input-search', () => {
-            let fixture: ComponentFixture<InputSearchSelectComponent>;
-            let debugSearchElement: DebugElement;
+            let fixture!: ComponentFixture<InputSearchSelectComponent>;
+            let debugSearchElement!: DebugElement;
 
             beforeEach(fakeAsync(() => {
                 fixture = TestBed.createComponent(InputSearchSelectComponent);

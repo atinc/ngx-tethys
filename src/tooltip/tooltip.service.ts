@@ -1,7 +1,7 @@
 import { Overlay, ScrollDispatcher } from '@angular/cdk/overlay';
 import { Injectable, NgZone, ElementRef, inject } from '@angular/core';
 import { ThyTooltipRef } from './tooltip-ref';
-import { ThyGlobalTooltipConfig, ThyTooltipConfig, THY_TOOLTIP_DEFAULT_CONFIG_TOKEN } from './tooltip.config';
+import { ThyTooltipConfig, THY_TOOLTIP_DEFAULT_CONFIG_TOKEN } from './tooltip.config';
 
 @Injectable({ providedIn: 'root' })
 export class ThyTooltipService {

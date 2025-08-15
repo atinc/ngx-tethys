@@ -43,7 +43,7 @@ export class ThyMentionSuggestionsTemplateExampleComponent implements OnInit {
 
     @ViewChild('suggestionsTemplateRef', { static: true }) suggestionsTemplateRef: TemplateRef<{ data: [] }>;
 
-    mentions: Mention<any>[];
+    mentions: Array<Mention<any>>;
 
     ngOnInit() {
         this.mentions = [

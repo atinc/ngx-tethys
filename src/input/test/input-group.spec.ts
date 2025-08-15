@@ -1,5 +1,5 @@
 import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyInputGroup, ThyInputDirective, ThyInputCount } from 'ngx-tethys/input';
 import { ThyTranslate } from 'ngx-tethys/core';
@@ -85,9 +85,9 @@ class ThyTranslateSimulate {
 
 describe('input group', () => {
     describe('basic', () => {
-        let fixture: ComponentFixture<TestInputGroupBasicComponent>;
-        let basicTestComponent: TestInputGroupBasicComponent;
-        let debugElement: DebugElement;
+        let fixture!: ComponentFixture<TestInputGroupBasicComponent>;
+        let basicTestComponent!: TestInputGroupBasicComponent;
+        let debugElement!: DebugElement;
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
@@ -166,8 +166,8 @@ describe('input group', () => {
     });
 
     describe('prefix-suffix', () => {
-        let fixture: ComponentFixture<TestInputGroupPrefixAndSuffixComponent>;
-        let debugElement: DebugElement;
+        let fixture!: ComponentFixture<TestInputGroupPrefixAndSuffixComponent>;
+        let debugElement!: DebugElement;
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
@@ -233,9 +233,9 @@ describe('input group', () => {
     });
 
     describe('with-textarea-suffix', () => {
-        let fixture: ComponentFixture<TestInputGroupTextareaSuffixComponent>;
-        let debugElement: DebugElement;
-        let inputGroupElement: HTMLElement;
+        let fixture!: ComponentFixture<TestInputGroupTextareaSuffixComponent>;
+        let debugElement!: DebugElement;
+        let inputGroupElement!: HTMLElement;
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({

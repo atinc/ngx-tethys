@@ -17,6 +17,7 @@ export class ThyUploadDropExampleComponent {
     queueFiles: ThyUploadFile[] = [];
 
     onDrop(event: { files: File[] }) {
+        // eslint-disable-next-line @typescript-eslint/prefer-for-of
         for (let i = 0; i < event.files.length; i++) {
             this.thyUploadService
                 .upload({
@@ -39,6 +40,6 @@ export class ThyUploadDropExampleComponent {
     public mdDrop(event: { files: File[] }) {}
 
     public filesRejected(files: File[]) {
-        this.notify.warning('文件类型不符合', files.map(item => item.name).join(',') + '不符合类型');
+        this.notify.warning('文件类型不符合', `${files.map(item => item.name).join(',')}不符合类型`);
     }
 }

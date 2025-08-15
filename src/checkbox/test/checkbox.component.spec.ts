@@ -37,9 +37,9 @@ class CheckboxTestComponent {
 }
 
 describe('checkbox component', () => {
-    let fixture: ComponentFixture<CheckboxTestComponent>;
-    let checkboxTestComponent: CheckboxTestComponent;
-    let checkboxComponent: DebugElement;
+    let fixture!: ComponentFixture<CheckboxTestComponent>;
+    let checkboxTestComponent!: CheckboxTestComponent;
+    let checkboxComponent!: DebugElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({});

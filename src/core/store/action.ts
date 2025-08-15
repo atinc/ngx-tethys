@@ -1,7 +1,6 @@
-import { META_KEY } from './types';
 import { findAndCreateStoreMetadata } from './utils';
-import { Observable, Observer, of, throwError } from 'rxjs';
-import { map, shareReplay, catchError, exhaustMap } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { shareReplay, catchError, exhaustMap } from 'rxjs/operators';
 import { MiniActionState } from './action-state';
 import { ActionContext, ActionStatus } from './actions-stream';
 
@@ -11,7 +10,7 @@ import { ActionContext, ActionStatus } from './actions-stream';
 export function MiniAction() {
     return function (target: any, name: string, descriptor: TypedPropertyDescriptor<any>) {
         const meta = findAndCreateStoreMetadata(target);
-        let action: { type: string };
+        let action!: { type: string };
         // default use function name as action type
         if (!action) {
             action = {

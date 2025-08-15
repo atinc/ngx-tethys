@@ -1,7 +1,7 @@
 import { ThyAbstractInternalOverlayRef, ThyAbstractOverlayPosition, ThyAbstractOverlayRef } from 'ngx-tethys/core';
 
 import { OverlayRef } from '@angular/cdk/overlay';
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { ThySlideContainer } from './slide-container.component';
 import { slideAbstractOverlayOptions, ThySlideConfig } from './slide.config';

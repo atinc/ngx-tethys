@@ -1,6 +1,6 @@
 import { createFakeEvent } from 'ngx-tethys/testing';
 import { Observable } from 'rxjs';
-import { ApplicationRef, Component, DebugElement, NgModule } from '@angular/core';
+import { ApplicationRef, Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyFileSelect, ThyUploadModule, ThyUploadResponse } from 'ngx-tethys/upload';
@@ -39,12 +39,12 @@ class FileSelectBasicComponent {
 }
 
 describe('ThyFileSelect', () => {
-    let fixture: ComponentFixture<FileSelectBasicComponent>;
-    let testComponent: FileSelectBasicComponent;
-    let fileSelectDebugElement: DebugElement;
-    let fileSelectComponent: ThyFileSelect;
-    let inputElement: HTMLInputElement;
-    let dataTransfer: DataTransfer;
+    let fixture!: ComponentFixture<FileSelectBasicComponent>;
+    let testComponent!: FileSelectBasicComponent;
+    let fileSelectDebugElement!: DebugElement;
+    let fileSelectComponent!: ThyFileSelect;
+    let inputElement!: HTMLInputElement;
+    let dataTransfer!: DataTransfer;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -168,11 +168,11 @@ class FileSelectStaticInputComponent {
 }
 
 describe('ThyFileSelectStaticInput', () => {
-    let fixture: ComponentFixture<FileSelectStaticInputComponent>;
-    let testComponent: FileSelectStaticInputComponent;
-    let fileSelectDebugElement: DebugElement;
-    let inputElement: HTMLInputElement;
-    let dataTransfer: DataTransfer;
+    let fixture!: ComponentFixture<FileSelectStaticInputComponent>;
+    let testComponent!: FileSelectStaticInputComponent;
+    let fileSelectDebugElement!: DebugElement;
+    let inputElement!: HTMLInputElement;
+    let dataTransfer!: DataTransfer;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({

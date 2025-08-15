@@ -2,7 +2,7 @@ import { ThyPopover, ThyPopoverConfig, ThyPopoverRef } from 'ngx-tethys/popover'
 import { EMPTY, fromEvent, Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 
-import { Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, computed, inject, input, output } from '@angular/core';
+import { Directive, ElementRef, OnDestroy, OnInit, computed, inject, input, output } from '@angular/core';
 import { NgControl } from '@angular/forms';
 
 import { createMentionAdapter, MatchedMention, MentionAdapter, MentionInputorElement } from './adapter';
@@ -43,7 +43,7 @@ export class ThyMentionDirective implements OnInit, OnDestroy {
      * 提及输入配置参数，同时支持多个提及规则
      * @type Mention<any>[]
      */
-    readonly thyMention = input<Mention<any>[]>([]);
+    readonly thyMention = input<Array<Mention<any>>>([]);
 
     /**
      * Popover 弹出层参数配置

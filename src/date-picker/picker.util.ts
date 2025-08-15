@@ -23,8 +23,7 @@ export function transformDateValue(
         if (value instanceof TinyDate) {
             value = convertDate(value.nativeDate);
         } else {
-            value[0] = convertDate(value[0].nativeDate);
-            value[1] = convertDate(value[1].nativeDate);
+            value = [convertDate((value as TinyDate[])[0].nativeDate), convertDate((value as TinyDate[])[1].nativeDate)];
         }
     }
     if (value && instanceOfDateEntry(value as DateEntry)) {
@@ -68,9 +67,11 @@ export function getFlexibleAdvancedReadableValue(
     if (!tinyDates[0] || !tinyDates[1]) {
         return value;
     }
+    const yearFormatStr = locale().datePicker.yearFormat;
+    const quarterFormatStr = locale().datePicker.yearQuarterFormat;
+    const monthFormatStr = locale().datePicker.yearMonthFormat;
     switch (flexibleDateGranularity) {
         case 'year':
-            const yearFormatStr = locale().datePicker.yearFormat;
             if (tinyDates[0].isSameYear(tinyDates[1])) {
                 value = `${tinyDates[0].format(yearFormatStr)}`;
             } else {
@@ -78,7 +79,6 @@ export function getFlexibleAdvancedReadableValue(
             }
             break;
         case 'quarter':
-            const quarterFormatStr = locale().datePicker.yearQuarterFormat;
             if (tinyDates[0].isSameQuarter(tinyDates[1])) {
                 value = `${tinyDates[0].format(quarterFormatStr)}`;
             } else {
@@ -86,7 +86,6 @@ export function getFlexibleAdvancedReadableValue(
             }
             break;
         case 'month':
-            const monthFormatStr = locale().datePicker.yearMonthFormat;
             if (tinyDates[0].isSameMonth(tinyDates[1])) {
                 value = `${tinyDates[0].format(monthFormatStr)}`;
             } else {
@@ -128,7 +127,7 @@ export function makeValue(value: ThyCompatibleDate | null, isRange: boolean = fa
 }
 
 export function dateAddAmount(value: TinyDate, amount: number, mode: ThyPanelMode): TinyDate {
-    let date: TinyDate;
+    let date!: TinyDate;
     switch (mode) {
         case 'decade':
             date = value.addYears(amount * 10);

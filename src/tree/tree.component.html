@@ -16,14 +16,13 @@
     [cdkDropListAutoScrollStep]="6"
     [cdkDropListData]="flattenTreeNodesValue"
     [cdkDropListSortingDisabled]="true"
-    (cdkDropListDropped)="onListDropped($event)"
-    >
+    (cdkDropListDropped)="onListDropped($event)">
     <div class="virtual-trees-container">
       <thy-tree-node
         *cdkVirtualFor="let node of flattenTreeNodesValue; trackBy: trackByFn; let i = index"
         cdkDrag
         [cdkDragData]="node"
-        [cdkDragDisabled]="!draggable || !(node | treeNodeDraggable : thyBeforeDragStart())"
+        [cdkDragDisabled]="!draggable || !(node | treeNodeDraggable: thyBeforeDragStart())"
         (cdkDragStarted)="onDragStarted($event)"
         (cdkDragEnded)="onDragEnded($event)"
         (cdkDragMoved)="emitDragMoved($event)"
@@ -58,7 +57,7 @@
       <thy-tree-node
         cdkDrag
         [cdkDragData]="node"
-        [cdkDragDisabled]="!draggable || !(node | treeNodeDraggable : thyBeforeDragStart())"
+        [cdkDragDisabled]="!draggable || !(node | treeNodeDraggable: thyBeforeDragStart())"
         (cdkDragStarted)="onDragStarted($event)"
         (cdkDragEnded)="onDragEnded($event)"
         (cdkDragMoved)="emitDragMoved($event)"

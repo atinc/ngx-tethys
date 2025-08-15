@@ -12,7 +12,7 @@ export interface ThyTransferData {
 
 export interface ThyTransferModel {
     title?: string;
-    data: Array<any>;
+    data: any[];
 }
 
 /**

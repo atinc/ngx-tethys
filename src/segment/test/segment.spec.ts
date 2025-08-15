@@ -169,10 +169,10 @@ class TestSegmentCustomTemplateComponent {
 
 describe('segment', () => {
     describe('basic', () => {
-        let fixture: ComponentFixture<TestSegmentBasicComponent>;
-        let segmentedDebugElement: DebugElement;
-        let segmentedElement: any;
-        let segmentedInstance: ThySegment;
+        let fixture!: ComponentFixture<TestSegmentBasicComponent>;
+        let segmentedDebugElement!: DebugElement;
+        let segmentedElement!: any;
+        let segmentedInstance!: ThySegment;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
@@ -213,8 +213,8 @@ describe('segment', () => {
     });
 
     describe('only text', () => {
-        let fixture: ComponentFixture<TestSegmentOnlyTextComponent>;
-        let segmentedDebugElement: DebugElement;
+        let fixture!: ComponentFixture<TestSegmentOnlyTextComponent>;
+        let segmentedDebugElement!: DebugElement;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
@@ -235,8 +235,8 @@ describe('segment', () => {
     });
 
     describe('only icon', () => {
-        let fixture: ComponentFixture<TestSegmentOnlyIconComponent>;
-        let segmentedDebugElement: DebugElement;
+        let fixture!: ComponentFixture<TestSegmentOnlyIconComponent>;
+        let segmentedDebugElement!: DebugElement;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
@@ -257,8 +257,8 @@ describe('segment', () => {
     });
 
     describe('icon and text', () => {
-        let fixture: ComponentFixture<TestSegmentIconAndTextComponent>;
-        let segmentedDebugElement: DebugElement;
+        let fixture!: ComponentFixture<TestSegmentIconAndTextComponent>;
+        let segmentedDebugElement!: DebugElement;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
@@ -281,8 +281,8 @@ describe('segment', () => {
     });
 
     describe('thySize', () => {
-        let fixture: ComponentFixture<TestSegmentSizeComponent>;
-        let segmentedDebugElement: DebugElement;
+        let fixture!: ComponentFixture<TestSegmentSizeComponent>;
+        let segmentedDebugElement!: DebugElement;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
@@ -307,10 +307,10 @@ describe('segment', () => {
     });
 
     describe('thyDisabled', () => {
-        let fixture: ComponentFixture<TestSegmentDisabledComponent>;
-        let segmentedDebugElement: DebugElement;
-        let segmentedElement: any;
-        let testInstance: TestSegmentDisabledComponent;
+        let fixture!: ComponentFixture<TestSegmentDisabledComponent>;
+        let segmentedDebugElement!: DebugElement;
+        let segmentedElement!: any;
+        let testInstance!: TestSegmentDisabledComponent;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
@@ -348,8 +348,8 @@ describe('segment', () => {
     });
 
     describe('thyMode', () => {
-        let fixture: ComponentFixture<TestSegmentModeComponent>;
-        let segmentedDebugElement: DebugElement;
+        let fixture!: ComponentFixture<TestSegmentModeComponent>;
+        let segmentedDebugElement!: DebugElement;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
@@ -377,8 +377,8 @@ describe('segment', () => {
     });
 
     describe('thyActiveIndex', () => {
-        let fixture: ComponentFixture<TestSegmentActiveComponent>;
-        let segmentedDebugElement: DebugElement;
+        let fixture!: ComponentFixture<TestSegmentActiveComponent>;
+        let segmentedDebugElement!: DebugElement;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
@@ -441,8 +441,8 @@ describe('segment', () => {
     });
 
     describe('custom template', () => {
-        let fixture: ComponentFixture<TestSegmentCustomTemplateComponent>;
-        let segmentedDebugElement: DebugElement;
+        let fixture!: ComponentFixture<TestSegmentCustomTemplateComponent>;
+        let segmentedDebugElement!: DebugElement;
 
         beforeEach(() => {
             TestBed.configureTestingModule({

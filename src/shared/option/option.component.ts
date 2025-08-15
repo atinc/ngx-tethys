@@ -2,7 +2,6 @@ import {
     Component,
     TemplateRef,
     ChangeDetectionStrategy,
-    HostBinding,
     HostListener,
     ElementRef,
     ChangeDetectorRef,
