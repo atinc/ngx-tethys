@@ -50,7 +50,7 @@ class ActionBehaviorImpl<R, A extends (...args: any) => Observable<R>> implement
             );
             result.subscribe({
                 next: value => {
-                    callbacks?.success(value as R);
+                    callbacks?.success && callbacks?.success(value as R);
                 },
                 error: (error: Error) => {
                     this.saving.set(false);
