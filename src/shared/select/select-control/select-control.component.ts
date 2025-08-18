@@ -17,7 +17,9 @@ import {
     Signal,
     computed,
     linkedSignal,
-    untracked
+    untracked,
+    signal,
+    model
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
@@ -45,9 +47,9 @@ export type SelectControlSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 export class ThySelectControl implements OnInit {
     private renderer = inject(Renderer2);
 
-    inputValue = '';
+    inputValue = model<string>('');
 
-    isComposing = false;
+    isComposing = signal(false);
 
     searchInputControlClass: { [key: string]: boolean };
 
@@ -122,11 +124,11 @@ export class ThySelectControl implements OnInit {
         return selectedOptions as SelectOptionBase[];
     });
 
-    get selectedValueStyle() {
+    selectedValueStyle = computed(() => {
         let showSelectedValue = false;
         if (this.thyShowSearch()) {
             if (this.thyPanelOpened()) {
-                showSelectedValue = !(this.isComposing || this.inputValue);
+                showSelectedValue = !(this.isComposing() || this.inputValue());
             } else {
                 showSelectedValue = true;
             }
@@ -134,9 +136,9 @@ export class ThySelectControl implements OnInit {
             showSelectedValue = true;
         }
         return { display: showSelectedValue ? 'flex' : 'none' };
-    }
+    });
 
-    get placeholderStyle() {
+    placeholderStyle = computed(() => {
         let placeholder = true;
         if (this.isSelectedValue()) {
             placeholder = false;
@@ -144,11 +146,11 @@ export class ThySelectControl implements OnInit {
         if (!this.thyPlaceholder()) {
             placeholder = false;
         }
-        if (this.isComposing || this.inputValue) {
+        if (this.isComposing() || this.inputValue()) {
             placeholder = false;
         }
         return { display: placeholder ? 'block' : 'none' };
-    }
+    });
 
     constructor() {
         effect(() => {
@@ -165,10 +167,10 @@ export class ThySelectControl implements OnInit {
                 untracked(() => {
                     if (this.thyShowSearch()) {
                         new Promise(resolve => setTimeout(resolve, 100)).then(() => {
-                            if (this.inputValue) {
-                                this.inputValue = '';
+                            if (this.inputValue()) {
+                                this.inputValue.set('');
                                 this.updateWidth();
-                                this.thyOnSearch.emit(this.inputValue);
+                                this.thyOnSearch.emit(this.inputValue());
                             }
                         });
                     }
@@ -181,35 +183,37 @@ export class ThySelectControl implements OnInit {
         });
 
         effect(() => {
-            let sameValue = false;
             const oldValue = this.previousSelectedOptions();
             const value = this.thySelectedOptions();
-            untracked(() => {
-                if (this.thyIsMultiple()) {
-                    if (oldValue instanceof Array && value instanceof Array && oldValue.length === value.length) {
-                        sameValue = value.every((option, index) => option.thyValue === oldValue[index].thyValue);
-                    }
-                } else {
-                    if (oldValue && value) {
-                        sameValue = (oldValue as SelectOptionBase).thyValue === (value as SelectOptionBase).thyValue;
-                    }
-                }
-
-                if (this.thyPanelOpened() && this.thyShowSearch()) {
-                    if (!sameValue) {
-                        Promise.resolve(null).then(() => {
-                            this.inputValue = '';
-                            this.updateWidth();
-                        });
-                    }
-                    //等待组件渲染好再聚焦
-                    setTimeout(() => {
-                        if (this.thyPanelOpened()) {
-                            this.inputElement().nativeElement.focus();
+            if (value) {
+                let sameValue = false;
+                untracked(() => {
+                    if (this.thyIsMultiple()) {
+                        if (oldValue instanceof Array && value instanceof Array && oldValue.length === value.length) {
+                            sameValue = value.every((option, index) => option.thyValue === oldValue[index].thyValue);
                         }
-                    }, 200);
-                }
-            });
+                    } else {
+                        if (oldValue && value) {
+                            sameValue = (oldValue as SelectOptionBase).thyValue === (value as SelectOptionBase).thyValue;
+                        }
+                    }
+
+                    if (this.thyPanelOpened() && this.thyShowSearch()) {
+                        if (!sameValue) {
+                            Promise.resolve(null).then(() => {
+                                this.inputValue.set('');
+                                this.updateWidth();
+                            });
+                        }
+                        //等待组件渲染好再聚焦
+                        setTimeout(() => {
+                            if (this.thyPanelOpened()) {
+                                this.inputElement().nativeElement.focus();
+                            }
+                        }, 200);
+                    }
+                });
+            }
         });
     }
 
@@ -238,10 +242,10 @@ export class ThySelectControl implements OnInit {
     }
 
     setInputValue(value: string) {
-        if (value !== this.inputValue) {
-            this.inputValue = value;
+        if (value !== this.inputValue()) {
+            this.inputValue.set(value);
             this.updateWidth();
-            this.thyOnSearch.emit(this.inputValue);
+            this.thyOnSearch.emit(this.inputValue());
         }
     }
 
@@ -250,7 +254,7 @@ export class ThySelectControl implements OnInit {
             return;
         }
         const selectedOptions = this.thySelectedOptions();
-        if (!this.inputValue?.length && selectedOptions instanceof Array) {
+        if (!this.inputValue()?.length && selectedOptions instanceof Array) {
             if (selectedOptions.length > 0) {
                 this.removeHandle(selectedOptions[selectedOptions.length - 1], event);
             }
@@ -259,7 +263,7 @@ export class ThySelectControl implements OnInit {
 
     updateWidth() {
         if (this.thyIsMultiple() && this.thyShowSearch()) {
-            if (this.inputValue || this.isComposing) {
+            if (this.inputValue() || this.isComposing()) {
                 this.renderer.setStyle(this.inputElement().nativeElement, 'width', `${this.inputElement().nativeElement.scrollWidth}px`);
             } else {
                 this.renderer.removeStyle(this.inputElement().nativeElement, 'width');
@@ -273,6 +277,10 @@ export class ThySelectControl implements OnInit {
 
     clearHandle($event: Event) {
         this.thyOnClear.emit($event);
+    }
+
+    compositionChange(isComposing: boolean) {
+        this.isComposing.set(isComposing);
     }
 
     trackValue(_index: number, option: SelectOptionBase): any {

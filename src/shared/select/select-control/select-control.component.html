@@ -2,12 +2,12 @@
   <input
     #inputElement
     [tabindex]="-1"
-    (compositionstart)="isComposing = true"
-    (compositionend)="isComposing = false"
+    (compositionstart)="compositionChange(true)"
+    (compositionend)="compositionChange(false)"
     autocomplete="something-new"
     [ngClass]="searchInputControlClass"
     (input)="updateWidth()"
-    [ngModel]="inputValue"
+    [ngModel]="inputValue()"
     (ngModelChange)="setInputValue($event)"
     (keydown.backspace)="handleBackspace($event)"
     [disabled]="thyDisabled()"
@@ -16,7 +16,7 @@
 
 <div class="select-control-rendered">
   @if (!isSelectedValue()) {
-    <div class="text-placeholder text-truncate" [ngStyle]="placeholderStyle">
+    <div class="text-placeholder text-truncate" [ngStyle]="placeholderStyle()">
       {{ thyPlaceholder() }}
     </div>
   }
@@ -76,7 +76,7 @@
     </div>
   } @else {
     @if (isSelectedValue()) {
-      <div class="selected-value text-truncate" [ngStyle]="selectedValueStyle">
+      <div class="selected-value text-truncate" [ngStyle]="selectedValueStyle()">
         @if (!customDisplayTemplate()) {
           <span class="text-truncate">{{ thySelectedOptions()?.thyLabelText }}</span>
         } @else {
