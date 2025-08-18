@@ -119,13 +119,13 @@ describe('ThySelectControl', () => {
             it('should display custom placeholder value', () => {
                 const textPlaceholderElement: HTMLElement = fixture.debugElement.query(By.css('.text-placeholder')).nativeElement;
                 expect(textPlaceholderElement.innerText).toEqual(fixture.componentInstance.placeholder);
-                expect(fixture.componentInstance.selectControlComponent().placeholderStyle.display).toEqual('block');
+                expect(fixture.componentInstance.selectControlComponent().placeholderStyle().display).toEqual('block');
             });
 
             it('should hidden placeholder element when assign thySelectedOptions', () => {
                 fixture.componentInstance.selectedOptions = [testBaseOption];
                 fixture.detectChanges();
-                expect(fixture.componentInstance.selectControlComponent().placeholderStyle.display).toEqual('none');
+                expect(fixture.componentInstance.selectControlComponent().placeholderStyle().display).toEqual('none');
             });
         });
 
@@ -169,7 +169,7 @@ describe('ThySelectControl', () => {
                 flush();
                 fixture.detectChanges();
                 const typeValue = 'test';
-                fixture.componentInstance.selectControlComponent().inputValue = typeValue;
+                fixture.componentInstance.selectControlComponent().inputValue.set(typeValue);
                 fixture.detectChanges();
 
                 const selectedOption1: SelectOptionBase = { thyLabelText: '', thyRawValue: {}, thyValue: '1' };
@@ -177,7 +177,7 @@ describe('ThySelectControl', () => {
                 fixture.componentInstance.selectedOptions = selectedOption1;
                 fixture.detectChanges();
                 flush();
-                expect(fixture.componentInstance.selectControlComponent().inputValue).toEqual('');
+                expect(fixture.componentInstance.selectControlComponent().inputValue()).toEqual('');
                 expect(search).not.toHaveBeenCalled();
             }));
 
@@ -193,12 +193,12 @@ describe('ThySelectControl', () => {
                 fixture.detectChanges();
                 flush();
                 const typeValue = 'test';
-                fixture.componentInstance.selectControlComponent().inputValue = typeValue;
+                fixture.componentInstance.selectControlComponent().inputValue.set(typeValue);
                 fixture.detectChanges();
                 fixture.componentInstance.selectedOptions = { ...selectedOption1 };
                 fixture.detectChanges();
                 flush();
-                expect(fixture.componentInstance.selectControlComponent().inputValue).toEqual(typeValue);
+                expect(fixture.componentInstance.selectControlComponent().inputValue()).toEqual(typeValue);
             }));
 
             it('should just show max tag', fakeAsync(() => {
@@ -257,7 +257,7 @@ describe('ThySelectControl', () => {
                 fixture.componentInstance.thyPanelOpened = true;
                 fixture.detectChanges();
                 const typeValue = 'test';
-                fixture.componentInstance.selectControlComponent().inputValue = typeValue;
+                fixture.componentInstance.selectControlComponent().inputValue.set(typeValue);
                 const search = spyOn(fixture.componentInstance, 'search');
                 fixture.componentInstance.thyPanelOpened = false;
                 fixture.detectChanges();
