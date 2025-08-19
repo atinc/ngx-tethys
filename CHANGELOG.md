@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [19.1.0-next.8](https://github.com/atinc/ngx-tethys/compare/19.1.0-next.7...19.1.0-next.8) (2025-08-19)
+
+
+### Bug Fixes
+
+* **shared:** this.inputElement() to this.inputElement()? ([1904d80](https://github.com/atinc/ngx-tethys/commit/1904d80cabd870dce8c7b9c26eca716f6011702e))
+
+
+
 # [19.1.0-next.7](https://github.com/atinc/ngx-tethys/compare/19.1.0-next.6...19.1.0-next.7) (2025-08-15)
 
 
