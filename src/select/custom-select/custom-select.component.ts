@@ -16,12 +16,15 @@ import {
     SelectControlSize,
     THY_OPTION_PARENT_COMPONENT,
     ThyOption,
+    ThyOptionRender,
     ThyOptionsContainer,
     ThyOptionSelectionChangeEvent,
     ThyScrollDirective,
     ThySelectControl,
     ThySelectOptionGroup,
-    ThyStopPropagationDirective
+    ThyStopPropagationDirective,
+    ThySelectOptionGroupRender,
+    SelectOptionBase
 } from 'ngx-tethys/shared';
 import {
     A,
@@ -77,7 +80,11 @@ import {
     effect,
     untracked,
     viewChildren,
-    contentChildren
+    contentChildren,
+    afterNextRender,
+    afterRenderEffect,
+    signal,
+    computed
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -90,6 +97,7 @@ import {
 } from '../select.config';
 import { injectLocale, ThySelectLocale } from 'ngx-tethys/i18n';
 import { outputToObservable } from '@angular/core/rxjs-interop';
+import { SafeAny } from 'ngx-tethys/types';
 
 export type SelectMode = 'multiple' | '';
 
@@ -121,11 +129,28 @@ export interface ThySelectOptionModel {
     groupLabel?: string;
 }
 
+interface ThyRenderItem {
+    type: 'option' | 'group';
+    value?: string | number;
+    rawValue?: any;
+    label?: string;
+    showOptionCustom?: boolean;
+    disabled?: boolean;
+    template?: TemplateRef<any>;
+    searchKey?: string;
+    groupLabel?: string;
+}
+
 interface ThyOptionGroupModel extends ThySelectOptionModel {
     children?: ThySelectOptionModel[];
 }
 
 const noop = () => {};
+
+/**
+ * 打平 options 和 groups 并正常渲染
+ * 点击时，选中或取消选中选项
+ */
 
 /**
  * 下拉选择组件
@@ -159,7 +184,9 @@ const noop = () => {};
         ThyEmpty,
         ThyOptionsContainer,
         ThyOption,
+        ThyOptionRender,
         ThySelectOptionGroup,
+        ThySelectOptionGroupRender,
         NgTemplateOutlet
     ],
     host: {
@@ -209,7 +236,7 @@ export class ThySelect
 
     public dropDownPositions: ConnectionPositionPair[];
 
-    public selectionModel: SelectionModel<ThyOption>;
+    public selectionModel: SelectionModel<ThyOptionRender>;
 
     public triggerRectWidth: number;
 
@@ -228,19 +255,19 @@ export class ThySelect
 
     private readonly destroy$ = new Subject<void>();
 
-    readonly optionSelectionChanges: Observable<ThyOptionSelectionChangeEvent> = defer(() => {
-        if (this.options) {
-            return merge(...this.options.map(option => outputToObservable(option.selectionChange)));
-        }
-        return this.ngZone.onStable.asObservable().pipe(
-            take(1),
-            switchMap(() => this.optionSelectionChanges)
-        );
-    }) as Observable<ThyOptionSelectionChangeEvent>;
+    // readonly optionSelectionChanges: Observable<ThyOptionSelectionChangeEvent> = defer(() => {
+    //     if (this.optionRenders) {
+    //         return merge(...this.optionRenders.map(option => outputToObservable(option.selectionChange)));
+    //     }
+    //     return this.ngZone.onStable.asObservable().pipe(
+    //         take(1),
+    //         switchMap(() => this.optionSelectionChanges)
+    //     );
+    // }) as Observable<ThyOptionSelectionChangeEvent>;
 
     readonly cdkConnectedOverlay = viewChild<CdkConnectedOverlay>(CdkConnectedOverlay);
 
-    keyManager: ActiveDescendantKeyManager<ThyOption>;
+    keyManager: ActiveDescendantKeyManager<ThyOptionRender>;
 
     panelOpen = false;
 
@@ -332,7 +359,7 @@ export class ThySelect
     /**
      * 排序比较函数
      */
-    readonly thySortComparator = input<(a: ThyOption, b: ThyOption, options: ThyOption[]) => number>();
+    readonly thySortComparator = input<(a: ThyOptionRender, b: ThyOptionRender, options: ThyOptionRender[]) => number>();
 
     /**
      * Footer 模板，默认值为空不显示 Footer
@@ -380,6 +407,22 @@ export class ThySelect
      */
     readonly thyBorderless = input(false, { transform: coerceBooleanProperty });
 
+    // /**
+    //  * 设置是否开启虚拟滚动
+    //  */
+    // readonly thyVirtualScroll = input(false, { transform: coerceBooleanProperty });
+
+    // /**
+    //  * 开启虚拟滚动时，单行选项的高度
+    //  * @default 40
+    //  */
+    // readonly thyItemSize = input(40, { transform: numberAttribute });
+
+    // /**
+    //  * 虚拟滚动时的容器高度
+    //  */
+    // readonly thyVirtualHeight = input('300px');
+
     isReactiveDriven = false;
 
     innerOptions: ThySelectOptionModel[];
@@ -391,17 +434,18 @@ export class ThySelect
      */
     readonly thyOptions = input(undefined, {
         transform: (value: ThySelectOptionModel[]) => {
-            if (value === null) {
+            if (value === null || value === undefined) {
                 value = [];
             }
-            this.innerOptions = value;
-            this.isReactiveDriven = true;
-            this.buildReactiveOptions();
+            // this.innerOptions = value;
+            // this.isReactiveDriven = true;
+            // this.buildReactiveOptions();
+            console.log('=== thyOptions ===:', value);
             return value;
         }
     });
 
-    options: QueryList<ThyOption>;
+    // options: QueryList<ThyOptionRender>;
 
     /**
      * 目前只支持多选选中项的展示，默认为空，渲染文字模板，传入tag，渲染展示模板,
@@ -413,12 +457,46 @@ export class ThySelect
 
     readonly panel = viewChild<ElementRef<HTMLElement>>('panel');
 
+    // 暂时命名 newOptions，避免与原来的混淆，最后改成 options
+    readonly newOptions = contentChildren(ThyOption, { descendants: true });
+
+    readonly newGroups = contentChildren(ThySelectOptionGroup, { descendants: true });
+
+    readonly renderItems = signal<ThyRenderItem[]>([]);
+
+    readonly selectedValueOfList = signal<SafeAny[]>([]);
+
+    // select-control 统一接受的是 SelectOptionBase 类型，所以这里需要转换一下
+    readonly selectedOptions = computed<SelectOptionBase | SelectOptionBase[]>(() => {
+        const selectedValue = this.selectedValueOfList();
+
+        console.log('===> 构建 selectedOptions 时，selectedValueOfList:', selectedValue);
+        if (!selectedValue.length) {
+            return this.isMultiple ? [] : null;
+        }
+
+        if (this.isMultiple) {
+            const options: SelectOptionBase[] = [];
+            selectedValue.forEach((value: SafeAny) => {
+                const option = this.convertToSelectOptionBaseByValue(value);
+                if (option) {
+                    options.push(option);
+                }
+            });
+            return options;
+        } else {
+            return this.convertToSelectOptionBaseByValue(selectedValue[0]);
+        }
+    });
+
     /**
      * @private
      */
     @ContentChildren(ThyOption, { descendants: true }) contentOptions: QueryList<ThyOption>;
 
-    @ViewChildren(ThyOption) viewOptions: QueryList<ThyOption>;
+    @ViewChildren(ThyOptionRender) optionRenders: QueryList<ThyOptionRender>;
+
+    // @ViewChildren(ThyOptionRender) viewOptions: QueryList<ThyOptionRender>;
 
     /**
      * @private
@@ -438,11 +516,11 @@ export class ThySelect
     }
 
     get optionsChanges$() {
-        this.options = this.isReactiveDriven ? this.viewOptions : this.contentOptions;
-        let previousOptions: ThyOption[] = this.options.toArray();
-        return this.options.changes.pipe(
+        // this.options = this.isReactiveDriven ? this.viewOptions : this.optionRenders;
+        let previousOptions: ThyOptionRender[] = this.optionRenders.toArray();
+        return this.optionRenders.changes.pipe(
             map(data => {
-                return this.options.toArray();
+                return this.optionRenders.toArray();
             }),
             filter(data => {
                 const res = previousOptions.length !== data.length || previousOptions.some((op, index) => op !== data[index]);
@@ -483,68 +561,219 @@ export class ThySelect
                 this.setDropDownClass();
             });
         });
+
+        // effect(() => {
+        //     console.log('=== effect ===');
+        //     console.log('newOptions:', this.newOptions());
+        //     console.log('newGroups:', this.newGroups());
+        // });
+
+        // afterNextRender(() => {
+        //     console.log('=== afterNextRender ===');
+        //     console.log('newOptions:', this.newOptions());
+        //     console.log('newGroups:', this.newGroups());
+        // });
+
+        afterRenderEffect(() => {
+            console.log('=== afterRenderEffect ===');
+            console.log('newOptions:', this.newOptions());
+            console.log('newGroups:', this.newGroups());
+
+            // 打平 options 和 groups
+            this.buildRenderItems();
+        });
+
+        effect(() => {
+            console.log('===> 观察 selectedValueOfList 变化:', this.selectedValueOfList());
+        });
     }
 
     writeValue(value: any): void {
         this.modalValue = value;
-        this.setSelectionByModelValue(this.modalValue);
+        const selectedValue = this.buildSelectedValueOfList(value);
+        this.selectedValueOfList.set(selectedValue);
+
+        // this.setSelectionByModelValue(this.modalValue);
     }
 
     ngOnInit() {
-        this.getPositions();
-        this.dropDownMinWidth = this.getDropdownMinWidth();
-        if (!this.selectionModel) {
-            this.instanceSelectionModel();
-        }
-        this.setDropDownClass();
+        // console.log('=== ngOnInit ===');
+        // console.log('newOptions:', this.newOptions());
+        // console.log('newGroups:', this.newGroups());
+        // this.getPositions();
+        // this.dropDownMinWidth = this.getDropdownMinWidth();
+        // if (!this.selectionModel) {
+        //     this.instanceSelectionModel();
+        // }
+        // this.setDropDownClass();
+        // if (isPlatformBrowser(this.platformId)) {
+        //     this.thyClickDispatcher
+        //         .clicked(0)
+        //         .pipe(takeUntil(this.destroy$))
+        //         .subscribe(event => {
+        //             if (!this.elementRef.nativeElement.contains(event.target) && this.panelOpen) {
+        //                 this.ngZone.run(() => {
+        //                     this.close();
+        //                     this.changeDetectorRef.markForCheck();
+        //                 });
+        //             }
+        //         });
+        // }
+    }
 
-        if (isPlatformBrowser(this.platformId)) {
-            this.thyClickDispatcher
-                .clicked(0)
-                .pipe(takeUntil(this.destroy$))
-                .subscribe(event => {
-                    if (!this.elementRef.nativeElement.contains(event.target) && this.panelOpen) {
-                        this.ngZone.run(() => {
-                            this.close();
-                            this.changeDetectorRef.markForCheck();
-                        });
-                    }
-                });
+    private buildSelectedValueOfList(value: any) {
+        if (value === null || value === undefined) {
+            return [];
+        } else if (this.isMultiple) {
+            return value;
+        } else {
+            return [value];
         }
+    }
+
+    private convertToSelectOptionBaseByValue(value: SafeAny): SelectOptionBase | null {
+        const option = this.newOptions().find(option => option.thyValue() === value);
+        if (option) {
+            return {
+                thyLabelText: option.thyLabelText(),
+                thyValue: option.thyValue(),
+                thyRawValue: option.thyRawValue()
+            };
+        }
+        return null;
+    }
+
+    private buildRenderItems() {
+        let items: ThyRenderItem[];
+        const isReactiveDriven = this.thyOptions()?.length > 0;
+        if (isReactiveDriven) {
+            items = this.buildRenderItemsByReactiveOptions();
+        } else {
+            items = this.buildRenderItemsByTemplateOptions();
+        }
+        this.renderItems.set(items);
+
+        console.log('=== buildRenderItems ===:', this.renderItems());
+    }
+
+    private buildRenderItemsByReactiveOptions(): ThyRenderItem[] {
+        let items: ThyRenderItem[] = [];
+        const options = this.thyOptions() || [];
+        const groupMap = new Map<string, ThySelectOptionModel[]>();
+        const ungroupedOptions: ThySelectOptionModel[] = [];
+
+        options.forEach((option: ThySelectOptionModel) => {
+            if (option.groupLabel) {
+                if (!groupMap.has(option.groupLabel)) {
+                    groupMap.set(option.groupLabel, []);
+                }
+                groupMap.get(option.groupLabel)!.push(option);
+            } else {
+                ungroupedOptions.push(option);
+            }
+        });
+
+        groupMap.forEach((groupOptions, groupLabel) => {
+            items.push({
+                type: 'group',
+                label: groupLabel
+            });
+            groupOptions.forEach((option: ThySelectOptionModel) => {
+                items.push({
+                    type: 'option',
+                    value: option.value,
+                    label: option.label,
+                    rawValue: option,
+                    showOptionCustom: false,
+                    disabled: !!option.disabled
+                });
+            });
+        });
+
+        ungroupedOptions.forEach((option: ThySelectOptionModel) => {
+            items.push({
+                type: 'option',
+                value: option.value,
+                label: option.label,
+                rawValue: option,
+                showOptionCustom: false,
+                disabled: !!option.disabled
+            });
+        });
+
+        return items;
+    }
+
+    private buildRenderItemsByTemplateOptions(): ThyRenderItem[] {
+        let items: ThyRenderItem[] = [];
+        const options = this.newOptions();
+        const groups = this.newGroups();
+
+        if (options && options.length > 0) {
+            items = options.map((option: ThyOption) => {
+                return {
+                    type: 'option',
+                    value: option.thyValue(),
+                    rawValue: option.thyRawValue(),
+                    label: option.thyLabelText(),
+                    showOptionCustom: option.thyShowOptionCustom(),
+                    disabled: option.thyDisabled(),
+                    template: option.template(),
+                    searchKey: option.thySearchKey(),
+                    groupLabel: option.groupLabel
+                };
+            });
+        }
+
+        if (groups && groups.length > 0) {
+            groups.forEach((group: ThySelectOptionGroup) => {
+                const groupIndex = items.findIndex(option => option.groupLabel === group.thyGroupLabel());
+                if (groupIndex > -1) {
+                    const groupItem: ThyRenderItem = {
+                        type: 'group',
+                        label: group.thyGroupLabel(),
+                        disabled: group.thyDisabled()
+                    };
+                    items.splice(groupIndex, 0, groupItem);
+                }
+            });
+        }
+
+        return items;
     }
 
     buildOptionGroups(options: ThySelectOptionModel[]) {
-        const optionGroups: ThyOptionGroupModel[] = [];
-        const groups = [...new Set(options.filter(item => this.groupBy(item)).map(sub => this.groupBy(sub)))];
-        const groupMap = new Map();
-        groups.forEach(group => {
-            const children = options.filter(item => this.groupBy(item) === group);
-            const groupOption = {
-                groupLabel: group,
-                children: children
-            };
-            groupMap.set(group, groupOption);
-        });
-        options.forEach(option => {
-            if (this.groupBy(option)) {
-                const currentIndex = optionGroups.findIndex(item => item.groupLabel === this.groupBy(option));
-                if (currentIndex === -1) {
-                    const item = groupMap.get(this.groupBy(option));
-                    optionGroups.push(item);
-                }
-            } else {
-                optionGroups.push(option);
-            }
-        });
-        return optionGroups;
+        // const optionGroups: ThyOptionGroupModel[] = [];
+        // const groups = [...new Set(options.filter(item => this.groupBy(item)).map(sub => this.groupBy(sub)))];
+        // const groupMap = new Map();
+        // groups.forEach(group => {
+        //     const children = options.filter(item => this.groupBy(item) === group);
+        //     const groupOption = {
+        //         groupLabel: group,
+        //         children: children
+        //     };
+        //     groupMap.set(group, groupOption);
+        // });
+        // options.forEach(option => {
+        //     if (this.groupBy(option)) {
+        //         const currentIndex = optionGroups.findIndex(item => item.groupLabel === this.groupBy(option));
+        //         if (currentIndex === -1) {
+        //             const item = groupMap.get(this.groupBy(option));
+        //             optionGroups.push(item);
+        //         }
+        //     } else {
+        //         optionGroups.push(option);
+        //     }
+        // });
+        // return optionGroups;
     }
 
     buildReactiveOptions() {
-        if (this.innerOptions.filter(item => this.groupBy(item)).length > 0) {
-            this.optionGroups = this.buildOptionGroups(this.innerOptions);
-        } else {
-            this.optionGroups = this.innerOptions;
-        }
+        // if (this.innerOptions.filter(item => this.groupBy(item)).length > 0) {
+        //     this.optionGroups = this.buildOptionGroups(this.innerOptions);
+        // } else {
+        //     this.optionGroups = this.innerOptions;
+        // }
     }
 
     getDropdownMinWidth(): number | null {
@@ -563,75 +792,101 @@ export class ThySelect
     }
 
     ngAfterViewInit(): void {
-        if (this.isReactiveDriven) {
-            this.setup();
-        }
+        // console.log('=== ngAfterViewInit ===');
+        // console.log('newOptions:', this.newOptions());
+        // console.log('newGroups:', this.newGroups());
+        // // if (this.isReactiveDriven) {
+        // this.setup();
+        // // }
     }
 
     ngAfterContentInit() {
-        if (!this.isReactiveDriven) {
-            this.setup();
-        }
+        // console.log('=== ngAfterContentInit ===');
+        // console.log('newOptions:', this.newOptions());
+        // console.log('newGroups:', this.newGroups());
+        // if (!this.isReactiveDriven) {
+        //     this.setup();
+        // }
     }
 
-    setup() {
-        this.optionsChanges$.pipe(startWith(null), takeUntil(this.destroy$)).subscribe(data => {
-            this.resetOptions();
-            this.initializeSelection();
-            this.initKeyManager();
-            if (this.isSearching) {
-                this.highlightCorrectOption(false);
-                this.isSearching = false;
-            }
-            this.changeDetectorRef.markForCheck();
-            this.ngZone.onStable
-                .asObservable()
-                .pipe(take(1))
-                .subscribe(() => {
-                    if (this.cdkConnectedOverlay() && this.cdkConnectedOverlay().overlayRef) {
-                        this.cdkConnectedOverlay().overlayRef.updatePosition();
-                    }
-                });
-        });
+    // setup() {
+    //     this.optionsChanges$.pipe(startWith(null), takeUntil(this.destroy$)).subscribe(data => {
+    //         this.resetOptions();
+    //         this.initializeSelection();
+    //         this.initKeyManager();
+    //         if (this.isSearching) {
+    //             this.highlightCorrectOption(false);
+    //             this.isSearching = false;
+    //         }
+    //         this.changeDetectorRef.markForCheck();
+    //         this.ngZone.onStable
+    //             .asObservable()
+    //             .pipe(take(1))
+    //             .subscribe(() => {
+    //                 if (this.cdkConnectedOverlay() && this.cdkConnectedOverlay().overlayRef) {
+    //                     this.cdkConnectedOverlay().overlayRef.updatePosition();
+    //                 }
+    //             });
+    //     });
 
-        if (this.thyAutoExpand()) {
-            timer(0).subscribe(() => {
-                this.changeDetectorRef.markForCheck();
-                this.open();
-                this.focus();
-            });
-        }
-    }
+    //     if (this.thyAutoExpand()) {
+    //         timer(0).subscribe(() => {
+    //             this.changeDetectorRef.markForCheck();
+    //             this.open();
+    //             this.focus();
+    //         });
+    //     }
+    // }
 
     public get isHiddenOptions(): boolean {
-        return this.options.toArray().every(option => option.hidden());
+        return this.optionRenders.toArray().every(option => option.hidden());
     }
 
     public onAttached(): void {
         this.cdkConnectedOverlay()
             .positionChange.pipe(take(1))
             .subscribe(() => {
-                if (this.panel()) {
-                    if (this.keyManager.activeItem) {
-                        ScrollToService.scrollToElement(this.keyManager.activeItem.element.nativeElement, this.panel().nativeElement);
-                        this.changeDetectorRef.detectChanges();
-                    } else {
-                        if (!this.empty) {
-                            ScrollToService.scrollToElement(
-                                this.selectionModel.selected[0].element.nativeElement,
-                                this.panel().nativeElement
-                            );
-                            this.changeDetectorRef.detectChanges();
-                        }
-                    }
-                }
+                // if (this.panel()) {
+                //     if (this.keyManager.activeItem) {
+                //         ScrollToService.scrollToElement(this.keyManager.activeItem.element.nativeElement, this.panel().nativeElement);
+                //         this.changeDetectorRef.detectChanges();
+                //     } else {
+                //         if (!this.empty) {
+                //             ScrollToService.scrollToElement(
+                //                 this.selectionModel.selected[0].element.nativeElement,
+                //                 this.panel().nativeElement
+                //             );
+                //             this.changeDetectorRef.detectChanges();
+                //         }
+                //     }
+                // }
             });
     }
 
     public dropDownMouseMove(event: MouseEvent) {
-        if (this.keyManager.activeItem) {
-            this.keyManager.setActiveItem(-1);
+        // if (this.keyManager.activeItem) {
+        //     this.keyManager.setActiveItem(-1);
+        // }
+    }
+
+    private getOptionFromEvent(event: Event): ThyOptionRender | null {
+        const targetElement = event.target as HTMLElement;
+        if (elementMatchClosest(targetElement, 'thy-option-render')) {
+            const optionElement = targetElement.closest('thy-option-render') as HTMLElement;
+            if (optionElement) {
+                return this.findOptionByElement(optionElement);
+            }
         }
+        return null;
+    }
+
+    private isOptionSelectable(option: ThyOptionRender | null): option is ThyOptionRender {
+        return option !== null && !option.disabled;
+    }
+
+    private findOptionByElement(element: HTMLElement): ThyOptionRender | null {
+        const allOptions = this.optionRenders.toArray();
+        return allOptions.find(option => option.getHostElement() === element) || null;
     }
 
     public onOptionsScrolled(elementRef: ElementRef) {
@@ -652,7 +907,7 @@ export class ThySelect
             this.isSearching = true;
             this.thyOnSearch.emit(searchText);
         } else {
-            const options = this.options.toArray();
+            const options = this.optionRenders.toArray();
             options.forEach(option => {
                 if (option.matchSearchText(searchText)) {
                     option.showOption();
@@ -693,12 +948,12 @@ export class ThySelect
         this.manualFocusing = false;
     }
 
-    public remove($event: { item: ThyOption; $eventOrigin: Event }) {
+    public remove($event: { item: ThyOptionRender; $eventOrigin: Event }) {
         $event.$eventOrigin.stopPropagation();
         if (this.disabled) {
             return;
         }
-        if (!this.options.find(option => option === $event.item)) {
+        if (!this.optionRenders.find(option => option === $event.item)) {
             $event.item.deselect();
             // fix option unselect can not emit changes;
             this.onSelect($event.item, true);
@@ -727,7 +982,8 @@ export class ThySelect
         });
     }
 
-    public get selected(): ThyOption | ThyOption[] {
+    // 去掉
+    public get selected(): ThyOptionRender | ThyOptionRender[] {
         return this.isMultiple ? this.selectionModel.selected : this.selectionModel.selected[0];
     }
 
@@ -740,8 +996,9 @@ export class ThySelect
     }
 
     public getItemCount(): number {
-        const group = this.isReactiveDriven ? this.viewGroups() : this.contentGroups();
-        return this.options.length + group.length;
+        // const group = this.isReactiveDriven ? this.viewGroups() : this.contentGroups();
+        // return this.options.length + group.length;
+        return this.optionRenders.length;
     }
 
     public toggle(event: MouseEvent): void {
@@ -755,7 +1012,7 @@ export class ThySelect
     }
 
     public open(): void {
-        if (this.disabled || !this.options || this.panelOpen) {
+        if (this.disabled || !this.optionRenders || this.panelOpen) {
             return;
         }
         this.triggerRectWidth = this.getOriginRectWidth();
@@ -778,7 +1035,7 @@ export class ThySelect
 
     private emitModelValueChange() {
         const selectedValues = this.selectionModel.selected;
-        const changeValue = selectedValues.map((option: ThyOption) => {
+        const changeValue = selectedValues.map((option: ThyOptionRender) => {
             return option.thyValue;
         });
         if (this.isMultiple) {
@@ -822,7 +1079,7 @@ export class ThySelect
         if (this.keyManager && this.keyManager.activeItem) {
             this.keyManager.activeItem.setInactiveStyles();
         }
-        this.keyManager = new ActiveDescendantKeyManager<ThyOption>(this.options)
+        this.keyManager = new ActiveDescendantKeyManager<ThyOptionRender>(this.optionRenders)
             .withTypeAhead()
             .withWrap()
             .withVerticalOrientation()
@@ -885,9 +1142,9 @@ export class ThySelect
             manager.activeItem.selectViaInteraction();
         } else if (this.isMultiple && keyCode === A && event.ctrlKey) {
             event.preventDefault();
-            const hasDeselectedOptions = this.options.some(opt => !opt.disabled && !opt.selected());
+            const hasDeselectedOptions = this.optionRenders.some(opt => !opt.disabled && !opt.selected());
 
-            this.options.forEach(option => {
+            this.optionRenders.forEach(option => {
                 if (!option.disabled) {
                     hasDeselectedOptions ? option.select() : option.deselect();
                 }
@@ -920,7 +1177,7 @@ export class ThySelect
         if (this.selectionModel) {
             this.selectionModel.clear();
         }
-        this.selectionModel = new SelectionModel<ThyOption>(this.isMultiple);
+        this.selectionModel = new SelectionModel<ThyOptionRender>(this.isMultiple);
         if (this.selectionModelSubscription) {
             this.selectionModelSubscription.unsubscribe();
             this.selectionModelSubscription = null;
@@ -932,15 +1189,14 @@ export class ThySelect
     }
 
     private resetOptions() {
-        const changedOrDestroyed$ = merge(this.optionsChanges$, this.destroy$);
-
-        this.optionSelectionChanges.pipe(takeUntil(changedOrDestroyed$)).subscribe((event: ThyOptionSelectionChangeEvent) => {
-            this.onSelect(event.option, event.isUserInput);
-            if (event.isUserInput && !this.isMultiple && this.panelOpen) {
-                this.close();
-                this.focus();
-            }
-        });
+        // const changedOrDestroyed$ = merge(this.optionsChanges$, this.destroy$);
+        // this.optionSelectionChanges.pipe(takeUntil(changedOrDestroyed$)).subscribe((event: ThyOptionSelectionChangeEvent) => {
+        //     this.onSelect(event.option, event.isUserInput);
+        //     if (event.isUserInput && !this.isMultiple && this.panelOpen) {
+        //         this.close();
+        //         this.focus();
+        //     }
+        // });
     }
 
     private initializeSelection() {
@@ -976,7 +1232,7 @@ export class ThySelect
                 this.selectionModel.clear();
                 (modalValue as Array<any>).forEach(itemValue => {
                     const option =
-                        this.options.find(_option => _option.thyValue === itemValue) ||
+                        this.optionRenders.find(_option => _option.thyValue === itemValue) ||
                         selected.find(_option => _option.thyValue === itemValue);
                     if (option) {
                         this.selectionModel.select(option);
@@ -984,7 +1240,7 @@ export class ThySelect
                 });
             }
         } else {
-            const selectedOption = this.options?.find(option => {
+            const selectedOption = this.optionRenders?.find(option => {
                 return option.thyValue === modalValue;
             });
             if (selectedOption) {
@@ -994,7 +1250,27 @@ export class ThySelect
         this.changeDetectorRef.markForCheck();
     }
 
-    private onSelect(option: ThyOption, isUserInput: boolean) {
+    optionClick(value: SafeAny) {
+        const selectedValue = value;
+        if (this.isMultiple) {
+            const currentValues = this.modalValue || [];
+            const index = currentValues.indexOf(selectedValue);
+            if (index > -1) {
+                currentValues.splice(index, 1);
+            } else {
+                currentValues.push(selectedValue);
+            }
+            console.log('===> optionClick isMultiple:', currentValues);
+            this.writeValue(currentValues);
+        } else {
+            console.log('===> optionClick isSingle:', selectedValue);
+            this.writeValue(selectedValue);
+            this.close();
+        }
+        this.onTouchedFn();
+    }
+
+    private onSelect(option: ThyOptionRender, isUserInput: boolean) {
         const wasSelected = this.selectionModel.isSelected(option);
 
         if (option.thyValue == null && !this.isMultiple) {
@@ -1028,7 +1304,7 @@ export class ThySelect
 
     private sortValues() {
         if (this.isMultiple) {
-            const options = this.options.toArray();
+            const options = this.optionRenders.toArray();
 
             if (this.thySortComparator()) {
                 this.selectionModel.sort((a, b) => {
@@ -1073,6 +1349,10 @@ export class ThySelect
             this.resizeSubscription.unsubscribe();
             this.resizeSubscription = null;
         }
+    }
+
+    trackByFn(index: number, item: any): any {
+        return item.value || index;
     }
 
     ngOnDestroy() {

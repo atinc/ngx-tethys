@@ -19,7 +19,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
             thy-select,
             thy-custom-select {
                 flex: 0 0 auto;
-                width: 120px;
+                width: 300px;
                 margin-right: 20px;
             }
         `
@@ -28,6 +28,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
 })
 export class ThySelectBasicExampleComponent implements OnInit {
     listOfOption = listOfOption;
+
     locale: Signal<ThySelectLocale> = injectLocale('select');
 
     @ViewChild('origin', { read: ElementRef, static: true }) customizeOrigin: ElementRef;

@@ -14,7 +14,8 @@ import {
     Signal,
     viewChild,
     input,
-    output
+    output,
+    viewChildren
 } from '@angular/core';
 import { defer, merge, Observable, Subject, timer } from 'rxjs';
 import { take, switchMap, takeUntil, startWith } from 'rxjs/operators';
@@ -24,6 +25,7 @@ import {
     THY_OPTION_PARENT_COMPONENT,
     IThyOptionParentComponent,
     ThyOption,
+    ThyOptionRender,
     ThyOptionSelectionChangeEvent,
     ThyStopPropagationDirective
 } from 'ngx-tethys/shared';
@@ -40,7 +42,7 @@ export interface ThyAutocompleteActivatedEvent {
     source: ThyAutocomplete;
 
     /** Option that was selected. */
-    option: ThyOption | null;
+    option: ThyOptionRender | null;
 }
 
 /**
@@ -57,7 +59,7 @@ export interface ThyAutocompleteActivatedEvent {
             useExisting: ThyAutocomplete
         }
     ],
-    imports: [ThyStopPropagationDirective, NgClass, ThyEmpty]
+    imports: [ThyStopPropagationDirective, NgClass, ThyEmpty, ThyOptionRender]
 })
 export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, AfterContentInit, OnDestroy {
     private ngZone = inject(NgZone);
@@ -77,12 +79,12 @@ export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, After
 
     isEmptyOptions = false;
 
-    selectionModel: SelectionModel<ThyOption>;
+    selectionModel: SelectionModel<ThyOptionRender>;
 
     isOpened = false;
 
     /** Manages active item in option list based on key events. */
-    keyManager: ActiveDescendantKeyManager<ThyOption>;
+    keyManager: ActiveDescendantKeyManager<ThyOptionRender>;
 
     readonly contentTemplateRef = viewChild<TemplateRef<any>>('contentTemplate');
 
@@ -94,15 +96,17 @@ export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, After
      */
     @ContentChildren(ThyOption, { descendants: true }) options: QueryList<ThyOption>;
 
-    readonly optionSelectionChanges: Observable<ThyOptionSelectionChangeEvent> = defer(() => {
-        if (this.options) {
-            return merge(...this.options.map(option => outputToObservable(option.selectionChange)));
-        }
-        return this.ngZone.onStable.asObservable().pipe(
-            take(1),
-            switchMap(() => this.optionSelectionChanges)
-        );
-    }) as Observable<ThyOptionSelectionChangeEvent>;
+    readonly optionRenders = viewChildren(ThyOptionRender);
+
+    // readonly optionSelectionChanges: Observable<ThyOptionSelectionChangeEvent> = defer(() => {
+    //     if (this.optionRenders()) {
+    //         return merge(...this.optionRenders().map(option => outputToObservable(option.selectionChange)));
+    //     }
+    //     return this.ngZone.onStable.asObservable().pipe(
+    //         take(1),
+    //         switchMap(() => this.optionSelectionChanges)
+    //     );
+    // }) as Observable<ThyOptionSelectionChangeEvent>;
 
     /**
      * 空选项时的文本
@@ -154,9 +158,9 @@ export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, After
 
     initKeyManager() {
         const changedOrDestroyed$ = merge(this.options.changes, this.ngUnsubscribe$);
-        this.keyManager = new ActiveDescendantKeyManager<ThyOption>(this.options).withWrap();
+        this.keyManager = new ActiveDescendantKeyManager<ThyOptionRender>(this.optionRenders()).withWrap();
         this.keyManager.change.pipe(takeUntil(changedOrDestroyed$)).subscribe(index => {
-            this.thyOptionActivated.emit({ source: this, option: this.options.toArray()[index] || null });
+            this.thyOptionActivated.emit({ source: this, option: this.optionRenders()[index] || null });
         });
     }
 
@@ -174,23 +178,23 @@ export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, After
     private resetOptions() {
         const changedOrDestroyed$ = merge(this.options.changes, this.ngUnsubscribe$);
 
-        this.optionSelectionChanges.pipe(takeUntil(changedOrDestroyed$)).subscribe((event: ThyOptionSelectionChangeEvent) => {
-            this.onSelect(event.option, event.isUserInput);
-        });
+        // this.optionSelectionChanges.pipe(takeUntil(changedOrDestroyed$)).subscribe((event: ThyOptionSelectionChangeEvent) => {
+        //     this.onSelect(event.option, event.isUserInput);
+        // });
     }
 
     private instanceSelectionModel() {
         if (this.selectionModel) {
             this.selectionModel.clear();
         }
-        this.selectionModel = new SelectionModel<ThyOption>(this.isMultiple);
+        this.selectionModel = new SelectionModel<ThyOptionRender>(this.isMultiple);
         this.selectionModel.changed.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(event => {
             event.added.forEach(option => option.select());
             event.removed.forEach(option => option.deselect());
         });
     }
 
-    private onSelect(option: ThyOption, isUserInput: boolean) {
+    private onSelect(option: ThyOptionRender, isUserInput: boolean) {
         const wasSelected = this.selectionModel.isSelected(option);
 
         if (option.thyValue == null && !this.isMultiple) {

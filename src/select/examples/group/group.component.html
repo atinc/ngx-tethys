@@ -1,14 +1,14 @@
-<div style="display: flex; align-items: center">
-  <thy-select [(ngModel)]="selectedValue1" thyPlaceHolder="选择内容" [thyShowSearch]="true" style="width: 240px; margin-right: 50px">
-    @for (group of productGroups; track group.id) {
-      <thy-option-group [thyGroupLabel]="group.name">
-        @for (option of group.options; track option.value) {
-          <thy-option [thyValue]="option.value" [thyLabelText]="option.text"></thy-option>
-        }
-      </thy-option-group>
-    }
-  </thy-select>
-
+<!-- <div style="display: flex; align-items: center"> -->
+<!-- <thy-select [(ngModel)]="selectedValue1" thyPlaceHolder="选择内容" [thyShowSearch]="true" style="width: 240px; margin-right: 50px">
+  @for (group of productGroups; track group.id) {
+    <thy-option-group [thyGroupLabel]="group.name">
+      @for (option of group.options; track option.value) {
+        <thy-option [thyValue]="option.value" [thyLabelText]="option.text"></thy-option>
+      }
+    </thy-option-group>
+  }
+</thy-select> -->
+<!-- 
   <thy-select [(ngModel)]="selectedValue2" thyPlaceHolder="选择标签" style="width: 240px; margin-right: 50px">
     @for (group of labelGroups; track group.id) {
       <thy-option-group [thyGroupLabel]="group.name">
@@ -38,4 +38,4 @@
       <thy-avatar [thyName]="value.name" [thyShowName]="true" thySize="xs"></thy-avatar>
     </ng-template>
   </thy-select>
-</div>
+</div> -->

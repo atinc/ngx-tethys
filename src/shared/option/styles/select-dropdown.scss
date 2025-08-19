@@ -12,7 +12,7 @@ $optionsSize: 'sm', 'default', 'md', 'lg';
         text-align: center;
     }
 
-    .thy-option-item-group {
+    .thy-option-item-group-render {
         @include option.thy-option-common-layout();
     }
 
@@ -23,7 +23,7 @@ $optionsSize: 'sm', 'default', 'md', 'lg';
         }
     }
 
-    .thy-option-item-group {
+    .thy-option-item-group-render {
         flex-direction: column;
 
         &.thy-select-option-group-hidden {
