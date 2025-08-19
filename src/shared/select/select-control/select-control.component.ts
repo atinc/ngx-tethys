@@ -159,7 +159,7 @@ export class ThySelectControl implements OnInit {
                 untracked(() => {
                     if (this.thyShowSearch()) {
                         Promise.resolve(null).then(() => {
-                            this.inputElement().nativeElement.focus();
+                            this.inputElement()?.nativeElement.focus();
                         });
                     }
                 });
@@ -208,7 +208,7 @@ export class ThySelectControl implements OnInit {
                         //等待组件渲染好再聚焦
                         setTimeout(() => {
                             if (this.thyPanelOpened()) {
-                                this.inputElement().nativeElement.focus();
+                                this.inputElement()?.nativeElement.focus();
                             }
                         }, 200);
                     }
@@ -264,9 +264,9 @@ export class ThySelectControl implements OnInit {
     updateWidth() {
         if (this.thyIsMultiple() && this.thyShowSearch()) {
             if (this.inputValue() || this.isComposing()) {
-                this.renderer.setStyle(this.inputElement().nativeElement, 'width', `${this.inputElement().nativeElement.scrollWidth}px`);
+                this.renderer.setStyle(this.inputElement()?.nativeElement, 'width', `${this.inputElement()?.nativeElement.scrollWidth}px`);
             } else {
-                this.renderer.removeStyle(this.inputElement().nativeElement, 'width');
+                this.renderer.removeStyle(this.inputElement()?.nativeElement, 'width');
             }
         }
     }
