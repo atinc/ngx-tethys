@@ -4,7 +4,7 @@ import { ErrorFn, SuccessFn } from './types';
 
 const BEHAVIOR = Symbol('BEHAVIOR');
 
-export type Behavior<P extends Array<any>, R> = (...args: P) => R & {
+export type Behavior<P extends any[], R> = (...args: P) => R & {
     [BEHAVIOR]: true;
 };
 
@@ -35,18 +35,18 @@ export function pickBehaviorCallbacks<R>(
     successOrContext: SuccessFn<R> | BehaviorContext<R>,
     error?: ErrorFn
 ) {
-    let successFn: SuccessFn<R>;
-    let errorFn: ErrorFn;
+    let successFn!: SuccessFn<R>;
+    let errorFn!: ErrorFn;
     if (successOrContext) {
         if (isFunction(successOrContext)) {
             successFn = successOrContext;
-            errorFn = error;
+            errorFn = error!;
         } else {
-            successFn = successOrContext.success;
-            errorFn = successOrContext.error;
+            successFn = successOrContext.success!;
+            errorFn = successOrContext.error!;
         }
     } else {
-        errorFn = error;
+        errorFn = error!;
     }
     return {
         success: successFn || beforeContext?.success,

@@ -1,8 +1,7 @@
 import { Component, DebugElement, ElementRef, ViewChild } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyEmpty, ThyEmptyImageFetchPriority, ThyEmptyImageLoading } from 'ngx-tethys/empty';
-import { ThyEmptyConfig, ThyEmptyModule } from 'ngx-tethys/empty';
+import { ThyEmpty, ThyEmptyImageFetchPriority, ThyEmptyImageLoading, ThyEmptyConfig, ThyEmptyModule } from 'ngx-tethys/empty';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
@@ -69,8 +68,8 @@ class EmptyTestComponent {
 }
 
 describe('EmptyComponent', () => {
-    let componentInstance: EmptyTestComponent;
-    let fixture: ComponentFixture<EmptyTestComponent>;
+    let componentInstance!: EmptyTestComponent;
+    let fixture!: ComponentFixture<EmptyTestComponent>;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({

@@ -20,11 +20,11 @@ import { provideNoopAnimations } from '@angular/platform-browser/animations';
 
 describe('ThySlide', () => {
     describe('ThySlideService', () => {
-        let thySlideService: ThySlideService;
-        let overlayContainer: OverlayContainer;
-        let overlayContainerElement: HTMLElement;
-        let viewContainerFixture: ComponentFixture<SlideLayoutTestComponent>;
-        let viewportRuler: ViewportRuler;
+        let thySlideService!: ThySlideService;
+        let overlayContainer!: OverlayContainer;
+        let overlayContainerElement!: HTMLElement;
+        let viewContainerFixture!: ComponentFixture<SlideLayoutTestComponent>;
+        let viewportRuler!: ViewportRuler;
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
@@ -207,7 +207,7 @@ describe('ThySlide', () => {
             const querySelectorSpy = spyOn(document, 'querySelector');
             querySelectorSpy.and.returnValue(element as Element);
 
-            const drawerContainerElement: ElementRef<HTMLDivElement> = new ElementRef(document.querySelector('#demo-host'));
+            const drawerContainerElement = new ElementRef<HTMLDivElement>(document.querySelector('#demo-host'));
 
             const slideRef = thySlideService.open(SlideLayoutTestComponent, {
                 id: '1',
@@ -597,12 +597,12 @@ describe('ThySlide', () => {
     });
 
     describe('ThySlideLayout', () => {
-        let fixture: ComponentFixture<SlideLayoutTestComponent>;
-        let layouts: DebugElement[];
-        let headers: DebugElement[];
-        let bodys: DebugElement[];
-        let bodySections: DebugElement[];
-        let footers: DebugElement[];
+        let fixture!: ComponentFixture<SlideLayoutTestComponent>;
+        let layouts!: DebugElement[];
+        let headers!: DebugElement[];
+        let bodys!: DebugElement[];
+        let bodySections!: DebugElement[];
+        let footers!: DebugElement[];
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
@@ -678,7 +678,7 @@ describe('ThySlide', () => {
     });
 
     describe('ThySlideHeader', () => {
-        let slideHeaderFixture: ComponentFixture<SlideHeaderTestComponent>;
+        let slideHeaderFixture!: ComponentFixture<SlideHeaderTestComponent>;
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
@@ -702,11 +702,11 @@ describe('ThySlide', () => {
     });
 
     describe('THY_SLIDE_DEFAULT_CONFIG', () => {
-        let thySlideService: ThySlideService;
-        let overlayContainer: OverlayContainer;
-        let overlayContainerElement: HTMLElement;
-        let viewContainerFixture: ComponentFixture<SlideLayoutTestComponent>;
-        let viewportRuler: ViewportRuler;
+        let thySlideService!: ThySlideService;
+        let overlayContainer!: OverlayContainer;
+        let overlayContainerElement!: HTMLElement;
+        let viewContainerFixture!: ComponentFixture<SlideLayoutTestComponent>;
+        let viewportRuler!: ViewportRuler;
 
         const newDefaultConfig = {
             backdropClass: 'new-thy-slide-backdrop',

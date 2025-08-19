@@ -9,8 +9,7 @@
   (thyOnRowClick)="onRowClick($event)"
   [thyDraggable]="isDraggable"
   [thyDragDisabledPredicate]="dragDisabledPredicate"
-  (thyOnDraggableChange)="thyOnDraggableChange($event)"
->
+  (thyOnDraggableChange)="thyOnDraggableChange($event)">
   <ng-template #group let-group>{{ group?.title }}</ng-template>
   <thy-table-column thyTitle="Name" thyModelKey="name">
     <ng-template #cell let-row>

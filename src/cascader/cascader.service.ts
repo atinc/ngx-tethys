@@ -215,7 +215,7 @@ export class ThyCascaderService {
     }
 
     private activateOnInit(index: number, value: any): void {
-        let option: ThyCascaderOption;
+        let option!: ThyCascaderOption;
         if (isArray(this.customOptions) && this.customOptions.length > 0) {
             option = this.customOptions.find(item => get(item, this.cascaderOptions.valueProperty) === value);
         }
@@ -262,10 +262,10 @@ export class ThyCascaderService {
         selected: boolean,
         selectFn?: (option: ThyCascaderOption, index: number) => void
     ): void {
-        const allLeafs: {
+        const allLeafs: Array<{
             option: ThyCascaderOption;
             index: number;
-        }[] = this.getAllLeafs(option, index, selected);
+        }> = this.getAllLeafs(option, index, selected);
         option.selected = selected;
 
         while (allLeafs.length) {
@@ -286,14 +286,14 @@ export class ThyCascaderService {
         option: ThyCascaderOption,
         index: number,
         selected: boolean
-    ): {
+    ): Array<{
         option: ThyCascaderOption;
         index: number;
-    }[] {
-        let allLeafs: {
+    }> {
+        let allLeafs: Array<{
             option: ThyCascaderOption;
             index: number;
-        }[] = [];
+        }> = [];
         if (option.children.length > 0) {
             for (const childOption of option.children) {
                 childOption.parent = option;
@@ -584,9 +584,8 @@ export class ThyCascaderService {
     }
 
     public getValues() {
-        let selectedItems: any[];
         const selected = this.selectionModel.selected;
-        selectedItems = selected.map(item => this.getSubmitValue(item.thyRawValue.value));
+        const selectedItems = selected.map(item => this.getSubmitValue(item.thyRawValue.value));
         return this.cascaderOptions?.isMultiple ? selectedItems : (selectedItems[0] ?? selectedItems);
     }
 
@@ -645,7 +644,7 @@ export class ThyCascaderService {
             return;
         }
 
-        let selectedCustomOptions = this.getSelectedCustomOptions();
+        const selectedCustomOptions = this.getSelectedCustomOptions();
         selectedCustomOptions.forEach(item => {
             this.removeSelectedItem(item);
         });

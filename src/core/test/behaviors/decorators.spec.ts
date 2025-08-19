@@ -10,7 +10,7 @@ class TestComponent {
 }
 
 describe('InputNumber', () => {
-    let component: TestComponent;
+    let component!: TestComponent;
 
     beforeEach(() => {
         component = new TestComponent();

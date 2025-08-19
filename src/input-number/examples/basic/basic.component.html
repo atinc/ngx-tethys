@@ -1,4 +1,4 @@
-<div style="width: 200px;">
+<div style="width: 200px">
   <thy-input-number
     [(ngModel)]="value"
     [thyAutoFocus]="true"
@@ -6,8 +6,7 @@
     [thySuffix]="suffix"
     [thyMax]="max"
     [thyStep]="step"
-    (ngModelChange)="change($event)"
-  ></thy-input-number>
+    (ngModelChange)="change($event)"></thy-input-number>
   <br />
   <thy-input-number [(ngModel)]="value2" [thyDisabled]="true" (ngModelChange)="change($event)"></thy-input-number>
 </div>

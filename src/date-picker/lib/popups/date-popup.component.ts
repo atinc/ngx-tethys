@@ -284,9 +284,9 @@ export class DatePopup implements OnInit, OnChanges {
     }
 
     initDisabledDate(): void {
-        let minDate: TinyDate;
-        let maxDate: TinyDate;
-        let disabledDateFn: DisabledDateFn;
+        let minDate!: TinyDate;
+        let maxDate!: TinyDate;
+        let disabledDateFn!: DisabledDateFn;
         if (this.minDate()) {
             const { value } = transformDateValue(this.minDate());
             minDate = new TinyDate(value as Date, this.timeZone());
@@ -621,7 +621,7 @@ export class DatePopup implements OnInit, OnChanges {
             return;
         }
 
-        let selectedPresetValue: CompatibleValue;
+        let selectedPresetValue!: CompatibleValue;
         if (helpers.isArray(value)) {
             const begin: number | Date = getShortcutValue(value[0]);
             const end: number | Date = getShortcutValue(value[1]);

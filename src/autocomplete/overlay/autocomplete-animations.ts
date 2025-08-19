@@ -1,4 +1,4 @@
-import { animate, state, style, transition, trigger, AnimationTriggerMetadata } from '@angular/animations';
+import { state, style, trigger, AnimationTriggerMetadata } from '@angular/animations';
 
 const animationBody = [state('void, exit', style({ opacity: 0, transform: 'scale(0.1)' })), state('enter', style({ transform: 'none' }))];
 

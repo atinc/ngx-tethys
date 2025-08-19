@@ -1,4 +1,3 @@
-import { Injectable } from '@angular/core';
 import { getElementOffset } from 'ngx-tethys/util';
 
 export interface CaretCoordinates {
@@ -111,7 +110,7 @@ export class CaretPositioner {
                         parseInt(computed.borderBottomWidth, 10);
                     const targetHeight = outerHeight + parseInt(computed.lineHeight, 10);
                     if (height > targetHeight) {
-                        style.lineHeight = height - outerHeight + 'px';
+                        style.lineHeight = `${height - outerHeight}px`;
                     } else if (height === targetHeight) {
                         style.lineHeight = computed.lineHeight;
                     } else {

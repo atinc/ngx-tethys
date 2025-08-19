@@ -2,7 +2,7 @@ import { dispatchFakeEvent } from 'ngx-tethys/testing';
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyTable, ThyTableModule, ThyTableColumnComponent } from 'ngx-tethys/table';
+import { ThyTable, ThyTableColumnComponent } from 'ngx-tethys/table';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({
@@ -112,10 +112,10 @@ class ThyDemoTableTreeComponent {
 }
 
 describe('ThyTable: tree', () => {
-    let fixture: ComponentFixture<ThyDemoTableTreeComponent>;
-    let testComponent: ThyDemoTableTreeComponent;
-    let tableComponent: DebugElement;
-    let rows: HTMLElement[];
+    let fixture!: ComponentFixture<ThyDemoTableTreeComponent>;
+    let testComponent!: ThyDemoTableTreeComponent;
+    let tableComponent!: DebugElement;
+    let rows!: HTMLElement[];
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({

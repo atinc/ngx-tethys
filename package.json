@@ -41,6 +41,11 @@
     "test-cdk": "ng test cdk",
     "report-coverage": "cat ./coverage/tethys/lcov.info | coveralls",
     "lint": "ng lint ngx-tethys && ng lint cdk",
+    "lint:script": "eslint --cache",
+    "lint:style": "stylelint components/**/*.less",
+    "lint:fix": "npm run lint-fix:script",
+    "lint-fix:script": "npm run lint:script -- --fix",
+    "lint-fix:style": "npm run lint:style -- --fix",
     "lint-fix": "ng lint cdk --fix && ng lint ngx-tethys --fix",
     "pretty": "pretty-quick --staged",
     "e2e": "ng e2e",
@@ -52,7 +57,8 @@
     "prettier-all": "prettier --write \"./src/**/*.ts\"",
     "prettier-schematics": "prettier --write \"./schematics/**/*.ts\"",
     "prepublishOnly": "./scripts/pre-publish.js",
-    "extract-css-varibales": "node ./scripts/extract-css-variables.js"
+    "extract-css-varibales": "node ./scripts/extract-css-variables.js",
+    "fix:init-declarations": "node ./scripts/fix-init-declarations.mjs src cdk schematics"
   },
   "repository": {
     "type": "git",
@@ -111,9 +117,8 @@
     "conventional-changelog-cli": "^2.0.29",
     "coveralls": "^3.1.1",
     "cpx": "^1.5.0",
-    "eslint": "^8.57.0",
+    "eslint": "^9.31.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.2.1",
     "fs-extra": "^8.0.1",
     "http-server": "^14.1.1",
     "husky": "^2.4.1",
@@ -133,6 +138,16 @@
     "replace": "^1.1.0",
     "semver": "^7.5.2",
     "ts-node": "~10.9.1",
-    "typescript": "~5.8.2"
+    "typescript": "~5.8.2",
+    "@eslint/js": "^9.23.0",
+    "@eslint/markdown": "^7.0.0",
+    "eslint-plugin-header": "~3.1.1",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-jsdoc": "^51.0.0",
+    "eslint-plugin-prefer-arrow": "~1.2.2",
+    "eslint-plugin-prettier": "~5.5.0",
+    "eslint-plugin-unused-imports": "^4.1.4",
+    "angular-eslint": "^20.1.0",
+    "typescript-eslint": "^8.37.0"
   }
 }

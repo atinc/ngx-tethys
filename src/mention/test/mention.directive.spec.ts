@@ -24,7 +24,7 @@ import { ThyInputDirective } from 'ngx-tethys/input';
 class ThyTestMentionBasicComponent implements OnInit {
     value = `@t`;
 
-    mentions: Mention<any>[];
+    mentions: Array<Mention<any>>;
 
     popoverConfig = {
         panelClass: 'mention-popover-panel'
@@ -67,7 +67,7 @@ class ThyTestMentionBasicComponent implements OnInit {
 class ThyTestMentionSuggestionsTemplateComponent implements OnInit {
     value = `@`;
 
-    mentions: Mention<any>[];
+    mentions: Array<Mention<any>>;
 
     popoverConfig = {
         panelClass: 'mention-suggestions-template-popover-panel'
@@ -148,11 +148,11 @@ class ThyTestContenteditableMentionComponent implements OnInit {
 }
 
 describe('MentionDirective', () => {
-    let fixture: ComponentFixture<ThyTestMentionBasicComponent>;
-    let mentionDirective: ThyMentionDirective;
-    let inputDebugElement: DebugElement;
-    let inputElement: MentionInputorElement;
-    let popover: ThyPopover;
+    let fixture!: ComponentFixture<ThyTestMentionBasicComponent>;
+    let mentionDirective!: ThyMentionDirective;
+    let inputDebugElement!: DebugElement;
+    let inputElement!: MentionInputorElement;
+    let popover!: ThyPopover;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -209,10 +209,10 @@ describe('MentionDirective', () => {
 });
 
 describe('MentionSuggestionsTemplateDirective', () => {
-    let fixture: ComponentFixture<ThyTestMentionSuggestionsTemplateComponent>;
-    let mentionDirective: ThyMentionDirective;
-    let inputDebugElement: DebugElement;
-    let popover: ThyPopover;
+    let fixture!: ComponentFixture<ThyTestMentionSuggestionsTemplateComponent>;
+    let mentionDirective!: ThyMentionDirective;
+    let inputDebugElement!: DebugElement;
+    let popover!: ThyPopover;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -253,10 +253,10 @@ describe('MentionSuggestionsTemplateDirective', () => {
 });
 
 describe('TestMentionInput', () => {
-    let fixture: ComponentFixture<ThyTestInputMentionComponent>;
-    let mentionDirective: ThyMentionDirective;
-    let inputDebugElement: DebugElement;
-    let inputElement: MentionInputorElement;
+    let fixture!: ComponentFixture<ThyTestInputMentionComponent>;
+    let mentionDirective!: ThyMentionDirective;
+    let inputDebugElement!: DebugElement;
+    let inputElement!: MentionInputorElement;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -293,10 +293,10 @@ describe('TestMentionInput', () => {
 });
 
 describe('TestContenteditableMention', () => {
-    let fixture: ComponentFixture<ThyTestContenteditableMentionComponent>;
-    let textDebugElement: DebugElement;
-    let textElement: MentionInputorElement;
-    let mentionDirective: ThyMentionDirective;
+    let fixture!: ComponentFixture<ThyTestContenteditableMentionComponent>;
+    let textDebugElement!: DebugElement;
+    let textElement!: MentionInputorElement;
+    let mentionDirective!: ThyMentionDirective;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({

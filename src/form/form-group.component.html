@@ -10,31 +10,29 @@
 } @else {
   @if (!(!isHorizontal && !labelText)) {
     <label
-      class="form-label "
-    [ngClass]="{
-      'col-sm-2 col-form-label': isHorizontal,
-      'pt-0': thyLabelPaddingTopClear()
-    }"
-      >
-      <span
+      class="form-label"
       [ngClass]="{
-        'label-required': thyLabelRequired()
-      }"
+        'col-sm-2 col-form-label': isHorizontal,
+        'pt-0': thyLabelPaddingTopClear()
+      }">
+      <span
+        [ngClass]="{
+          'label-required': thyLabelRequired()
+        }"
         >{{ labelText }}</span
-        >
-        @if (thyTipsMode() === 'label' && tips) {
-          <thy-icon class="label-tips-icon" thyIconName="question-circle" [thyTooltip]="tips"></thy-icon>
-        }
-      </label>
-    }
-    <div [ngClass]="{ 'col-sm-10 col-form-control': isHorizontal, 'position-relative': !isHorizontal }">
-      <ng-content></ng-content>
-      @if (feedbackIcon) {
-        <thy-icon class="form-control-feedback" [thyIconName]="feedbackIcon"></thy-icon>
+      >
+      @if (thyTipsMode() === 'label' && tips) {
+        <thy-icon class="label-tips-icon" thyIconName="question-circle" [thyTooltip]="tips"></thy-icon>
       }
-      @if (thyTipsMode() === 'default' && tips) {
-        <span class="form-text text-desc">{{ tips }}</span>
-      }
-    </div>
+    </label>
   }
-
+  <div [ngClass]="{ 'col-sm-10 col-form-control': isHorizontal, 'position-relative': !isHorizontal }">
+    <ng-content></ng-content>
+    @if (feedbackIcon) {
+      <thy-icon class="form-control-feedback" [thyIconName]="feedbackIcon"></thy-icon>
+    }
+    @if (thyTipsMode() === 'default' && tips) {
+      <span class="form-text text-desc">{{ tips }}</span>
+    }
+  </div>
+}

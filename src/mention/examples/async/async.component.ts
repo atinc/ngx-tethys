@@ -38,7 +38,7 @@ export class ThyMentionAsyncExampleComponent implements OnInit {
     value = `This is remote mention!`;
     @ViewChild('member', { static: true }) memberDisplayTemplateRef: TemplateRef<any>;
 
-    mentions: Mention<any>[];
+    mentions: Array<Mention<any>>;
 
     constructor() {}
 

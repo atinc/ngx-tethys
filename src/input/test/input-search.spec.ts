@@ -39,11 +39,11 @@ class TestInputSearchBasicComponent {
 }
 
 describe('input search', () => {
-    let fixture: ComponentFixture<TestInputSearchBasicComponent>;
-    let basicTestComponent: TestInputSearchBasicComponent;
-    let debugInputElement: DebugElement;
-    let debugSearchElement: DebugElement;
-    let searchElement: HTMLElement;
+    let fixture!: ComponentFixture<TestInputSearchBasicComponent>;
+    let basicTestComponent!: TestInputSearchBasicComponent;
+    let debugInputElement!: DebugElement;
+    let debugSearchElement!: DebugElement;
+    let searchElement!: HTMLElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({

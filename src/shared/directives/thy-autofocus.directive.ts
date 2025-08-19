@@ -1,4 +1,4 @@
-import { Directive, Input, ElementRef, NgZone, inject, input, effect } from '@angular/core';
+import { Directive, ElementRef, NgZone, inject, input, effect } from '@angular/core';
 import { reqAnimFrame } from 'ngx-tethys/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 /**

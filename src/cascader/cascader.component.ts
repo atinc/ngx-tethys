@@ -31,7 +31,8 @@ import {
     ScrollToService,
     TabIndexDisabledControlValueAccessorMixin,
     ThyClickDispatcher,
-    injectPanelEmptyIcon
+    injectPanelEmptyIcon,
+    scaleYMotion
 } from 'ngx-tethys/core';
 import { ThyEmpty } from 'ngx-tethys/empty';
 import { SelectControlSize, SelectOptionBase, ThySelectControl } from 'ngx-tethys/shared';
@@ -39,7 +40,6 @@ import { SafeAny } from 'ngx-tethys/types';
 import { coerceBooleanProperty, elementMatchClosest, isEmpty } from 'ngx-tethys/util';
 import { BehaviorSubject, Observable, Subject, Subscription, timer } from 'rxjs';
 import { distinctUntilChanged, filter, take, takeUntil } from 'rxjs/operators';
-import { scaleYMotion } from 'ngx-tethys/core';
 import { ThyDivider } from 'ngx-tethys/divider';
 import { ThyCascaderOptionComponent } from './cascader-li.component';
 import { ThyCascaderSearchOptionComponent } from './cascader-search-option.component';

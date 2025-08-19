@@ -14,5 +14,5 @@ export class ElementRenderer extends AbstractElementRenderer {
 }
 
 export function useElementRenderer(element?: Element): ElementRenderer {
-    return new ElementRenderer(element);
+    return new ElementRenderer(element as Element);
 }

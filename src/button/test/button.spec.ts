@@ -32,9 +32,9 @@ describe('ThyButton', () => {
     const sizes = ['lg', 'default', 'md', 'sm', 'xs'];
 
     describe('Basic', () => {
-        let fixture: ComponentFixture<ThyTestButtonBasicComponent>;
-        let basicTestComponent: ThyTestButtonBasicComponent;
-        let buttonComponent: DebugElement;
+        let fixture!: ComponentFixture<ThyTestButtonBasicComponent>;
+        let basicTestComponent!: ThyTestButtonBasicComponent;
+        let buttonComponent!: DebugElement;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
@@ -199,9 +199,9 @@ class ThyTestButtonIconBasicComponent {
 }
 
 describe('ThyIconButton', () => {
-    let fixture: ComponentFixture<ThyTestButtonIconBasicComponent>;
-    let basicTestComponent: ThyTestButtonIconBasicComponent;
-    let buttonIconComponent: DebugElement;
+    let fixture!: ComponentFixture<ThyTestButtonIconBasicComponent>;
+    let basicTestComponent!: ThyTestButtonIconBasicComponent;
+    let buttonIconComponent!: DebugElement;
 
     const sizes = ['lg', 'md', 'sm', 'xs'];
 
@@ -320,9 +320,9 @@ class ThyDemoButtonGroupComponent {
 }
 
 describe('ThyButtonGroup', () => {
-    let fixture: ComponentFixture<ThyDemoButtonGroupComponent>;
-    let basicTestComponent: ThyDemoButtonGroupComponent;
-    let buttonGroupComponent: DebugElement;
+    let fixture!: ComponentFixture<ThyDemoButtonGroupComponent>;
+    let basicTestComponent!: ThyDemoButtonGroupComponent;
+    let buttonGroupComponent!: DebugElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({

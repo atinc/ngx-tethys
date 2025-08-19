@@ -21,7 +21,7 @@ export class ThyNotifyTypeExampleComponent implements OnInit {
     }
 
     openNotify(type: string) {
-        let content: string = '创建项目成功！';
+        let content = '创建项目成功！';
         switch (type) {
             case 'success':
                 content = '创建项目成功！';

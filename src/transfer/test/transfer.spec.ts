@@ -1,7 +1,7 @@
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyListModule } from 'ngx-tethys/list';
 import { ThySelectModule } from 'ngx-tethys/select';
-import { Component, DebugElement, ViewEncapsulation, signal, viewChild } from '@angular/core';
+import { Component, DebugElement, ViewEncapsulation, viewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
@@ -197,11 +197,11 @@ class TestTransferCustomRenderContentComponent {
 }
 
 describe('transfer', () => {
-    let fixture: ComponentFixture<TestTransferComponent | TestTransferCustomRenderComponent | TestTransferCustomRenderContentComponent>;
-    let dl: DebugElement;
-    let instance: TestTransferComponent;
-    let pageObject: TransferPageObject;
-    let transferComponent: ThyTransfer;
+    let fixture!: ComponentFixture<TestTransferComponent | TestTransferCustomRenderComponent | TestTransferCustomRenderContentComponent>;
+    let dl!: DebugElement;
+    let instance!: TestTransferComponent;
+    let pageObject!: TransferPageObject;
+    let transferComponent!: ThyTransfer;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -380,7 +380,7 @@ describe('transfer', () => {
     });
 
     describe('transfer event', () => {
-        let rightListInstance: any;
+        let rightListInstance!: any;
 
         beforeEach(() => {
             pageObject = new TransferPageObject();

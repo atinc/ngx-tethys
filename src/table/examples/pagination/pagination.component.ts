@@ -10,7 +10,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
     imports: [ThyTable, ThyTableColumnComponent, ThyIcon]
 })
 export class ThyTablePaginationExampleComponent implements OnInit {
-    data: { id: number; name: string; age: number; job: string; address: string }[] = [];
+    data: Array<{ id: number; name: string; age: number; job: string; address: string }> = [];
 
     public pagination = {
         index: 1,
@@ -51,7 +51,7 @@ export class ThyTablePaginationExampleComponent implements OnInit {
                     ];
 
                     const startIndex = (this.pagination.index - 1) * this.pagination.size;
-                    let size =
+                    const size =
                         this.pagination.total - startIndex < this.pagination.size
                             ? this.pagination.total - startIndex
                             : this.pagination.size;

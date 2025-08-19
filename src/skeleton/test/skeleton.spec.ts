@@ -20,12 +20,12 @@ class thySkeletonTestComponent {
 }
 
 describe('skeleton ', () => {
-    let fixture: ComponentFixture<thySkeletonTestComponent>;
-    let skeletonComponent: thySkeletonTestComponent;
-    let circleDebugComponent: DebugElement;
-    let circleElement: HTMLElement;
-    let rectangleDebugComponent: DebugElement;
-    let rectangleElement: HTMLElement;
+    let fixture!: ComponentFixture<thySkeletonTestComponent>;
+    let skeletonComponent!: thySkeletonTestComponent;
+    let circleDebugComponent!: DebugElement;
+    let circleElement!: HTMLElement;
+    let rectangleDebugComponent!: DebugElement;
+    let rectangleElement!: HTMLElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({});

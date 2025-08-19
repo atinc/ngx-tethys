@@ -2,14 +2,14 @@ import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { of } from 'rxjs';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { ApplicationRef, Component, DebugElement, OnInit, Sanitizer, SecurityContext, viewChild } from '@angular/core';
+import { ApplicationRef, Component, DebugElement, Sanitizer, SecurityContext, viewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By, DomSanitizer } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { ThyIcon, ThyIconRegistry } from 'ngx-tethys/icon';
 import { bigTreeNodes, moreOptionTreeSelectData, searchTreeSelectData } from '../examples/mock-data';
-import { ThyTreeSelectNode, filterTreeData, ThyTreeSelect, ThyTreeSelectModule } from 'ngx-tethys/tree-select';
+import { ThyTreeSelectNode, filterTreeData, ThyTreeSelect } from 'ngx-tethys/tree-select';
 import { provideHttpClient } from '@angular/common/http';
 import { ThyFormModule } from 'ngx-tethys/form';
 
@@ -399,19 +399,18 @@ class SearchTreeSelectComponent {
     `,
     imports: [ThyTreeSelect, FormsModule]
 })
-export class VirtualScrollingTreeSelectComponent implements OnInit {
+export class VirtualScrollingTreeSelectComponent {
     readonly treeSelect = viewChild<ThyTreeSelect>('treeSelect');
 
     mockData = bigTreeNodes;
     public selectedValue = '';
     constructor() {}
-    ngOnInit(): void {}
 }
 
 describe('ThyTreeSelect', () => {
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
-    let platform: Platform;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
+    let platform!: Platform;
 
     function configureThyCustomSelectTestingModule(declarations: any[]) {
         TestBed.configureTestingModule({
@@ -450,8 +449,8 @@ describe('ThyTreeSelect', () => {
 
     describe('core', () => {
         describe('basic class', () => {
-            let treeSelectDebugElement: DebugElement;
-            let treeSelectElement: HTMLElement;
+            let treeSelectDebugElement!: DebugElement;
+            let treeSelectElement!: HTMLElement;
             beforeEach(waitForAsync(() => {
                 configureThyCustomSelectTestingModule([BasicTreeSelectComponent]);
                 const fixture = TestBed.createComponent(BasicTreeSelectComponent);
@@ -876,9 +875,9 @@ describe('ThyTreeSelect', () => {
     });
 
     describe('virtual scrolling tree-select', () => {
-        let treeSelectElement: HTMLElement;
-        let component: VirtualScrollingTreeSelectComponent;
-        let fixture: ComponentFixture<VirtualScrollingTreeSelectComponent>;
+        let treeSelectElement!: HTMLElement;
+        let component!: VirtualScrollingTreeSelectComponent;
+        let fixture!: ComponentFixture<VirtualScrollingTreeSelectComponent>;
 
         beforeEach(fakeAsync(() => {
             configureThyCustomSelectTestingModule([VirtualScrollingTreeSelectComponent]);

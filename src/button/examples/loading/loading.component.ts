@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ThyButton } from 'ngx-tethys/button';
 
 @Component({
@@ -6,14 +6,12 @@ import { ThyButton } from 'ngx-tethys/button';
     templateUrl: './loading.component.html',
     imports: [ThyButton]
 })
-export class ThyButtonLoadingExampleComponent implements OnInit {
-    loading: Boolean = false;
+export class ThyButtonLoadingExampleComponent {
+    loading: boolean = false;
 
     loadingSeconds = 0;
 
     constructor() {}
-
-    ngOnInit() {}
 
     startLoading() {
         console.log('click loading');

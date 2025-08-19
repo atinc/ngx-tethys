@@ -186,12 +186,12 @@ export class PopoverConfigComponent {
 }
 
 describe(`thyPopover`, () => {
-    let popover: ThyPopover;
-    let mockLocation: SpyLocation;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: Element;
-    let viewContainerFixture: ComponentFixture<WithChildViewContainerTestComponent>;
-    let overlay: Overlay;
+    let popover!: ThyPopover;
+    let mockLocation!: SpyLocation;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: Element;
+    let viewContainerFixture!: ComponentFixture<WithChildViewContainerTestComponent>;
+    let overlay!: Overlay;
 
     function getPopoverContainerElement() {
         return overlayContainerElement.querySelector(`thy-popover-container`);
@@ -459,9 +459,9 @@ describe(`thyPopover`, () => {
             viewContainerFixture.detectChanges();
         });
 
-        let viewContainerFixtureManualClosure: ComponentFixture<PopoverManualClosureContentComponent>;
-        let btn1: HTMLElement, btn2: HTMLElement;
-        let template1: TemplateRef<any>, template2: TemplateRef<any>;
+        let viewContainerFixtureManualClosure!: ComponentFixture<PopoverManualClosureContentComponent>;
+        let btn1!: HTMLElement, btn2: HTMLElement;
+        let template1!: TemplateRef<any>, template2: TemplateRef<any>;
 
         beforeEach(() => {
             viewContainerFixtureManualClosure = TestBed.createComponent(PopoverManualClosureContentComponent);
@@ -564,8 +564,8 @@ describe(`thyPopover`, () => {
     });
 
     describe('outsideClosable', () => {
-        let outsideClosableFixture: ComponentFixture<PopoverOutsideClosableComponent>;
-        let outsideClosableComponent: PopoverOutsideClosableComponent;
+        let outsideClosableFixture!: ComponentFixture<PopoverOutsideClosableComponent>;
+        let outsideClosableComponent!: PopoverOutsideClosableComponent;
 
         beforeEach(inject(
             [ThyPopover, Location, OverlayContainer, Overlay],
@@ -619,8 +619,8 @@ describe(`thyPopover`, () => {
     });
 
     describe('insideClosable', () => {
-        let insideClosableFixture: ComponentFixture<PopoverInsideClosableComponent>;
-        let insideClosableComponent: PopoverInsideClosableComponent;
+        let insideClosableFixture!: ComponentFixture<PopoverInsideClosableComponent>;
+        let insideClosableComponent!: PopoverInsideClosableComponent;
 
         beforeEach(inject(
             [ThyPopover, Location, OverlayContainer, Overlay],
@@ -659,9 +659,9 @@ describe(`thyPopover`, () => {
         const otherConfig: { panelClass: string[] } = { panelClass: [] };
 
         describe('has default config', () => {
-            let popoverConfigFixture: ComponentFixture<PopoverConfigComponent>;
-            let popoverConfigComponent: PopoverConfigComponent;
-            let closeScrollStrategy: CloseScrollStrategy;
+            let popoverConfigFixture!: ComponentFixture<PopoverConfigComponent>;
+            let popoverConfigComponent!: PopoverConfigComponent;
+            let closeScrollStrategy!: CloseScrollStrategy;
             const globalDefaultConfig = { hasBackdrop: false };
 
             beforeEach(() => {
@@ -761,8 +761,8 @@ describe(`thyPopover`, () => {
         });
 
         describe('not set default config', () => {
-            let popoverConfigFixture: ComponentFixture<PopoverConfigComponent>;
-            let popoverConfigComponent: PopoverConfigComponent;
+            let popoverConfigFixture!: ComponentFixture<PopoverConfigComponent>;
+            let popoverConfigComponent!: PopoverConfigComponent;
 
             beforeEach(inject(
                 [ThyPopover, Location, OverlayContainer],

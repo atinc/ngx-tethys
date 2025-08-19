@@ -9,6 +9,6 @@ import { ThySwitch } from 'ngx-tethys/switch';
     imports: [ThySwitch, FormsModule, ThySpace, ThySpaceItemDirective]
 })
 export class ThySwitchLoadingExampleComponent {
-    isChecked: Boolean = true;
-    noChecked: Boolean = false;
+    isChecked: boolean = true;
+    noChecked: boolean = false;
 }

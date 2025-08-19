@@ -15,11 +15,11 @@ class RadioTestComponent {
 }
 
 describe('radio component', () => {
-    let fixture: ComponentFixture<RadioTestComponent>;
-    let testRadioComponent: RadioTestComponent;
-    let radioDebugComponent: DebugElement;
-    let radioElement: HTMLElement;
-    let labelNode: any;
+    let fixture!: ComponentFixture<RadioTestComponent>;
+    let testRadioComponent!: RadioTestComponent;
+    let radioDebugComponent!: DebugElement;
+    let radioElement!: HTMLElement;
+    let labelNode!: any;
 
     beforeEach(() => {
         TestBed.configureTestingModule({});
@@ -80,10 +80,10 @@ class RadioGroupTestComponent {
 }
 
 describe('thy-radio-group component', () => {
-    let groupFixture: ComponentFixture<RadioGroupTestComponent>;
-    let groupComponent: RadioGroupTestComponent;
-    let radioGroupDebugComponent: DebugElement;
-    let labelComponent: DebugElement;
+    let groupFixture!: ComponentFixture<RadioGroupTestComponent>;
+    let groupComponent!: RadioGroupTestComponent;
+    let radioGroupDebugComponent!: DebugElement;
+    let labelComponent!: DebugElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({}).compileComponents();

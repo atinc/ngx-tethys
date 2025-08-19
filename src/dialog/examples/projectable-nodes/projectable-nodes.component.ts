@@ -1,4 +1,4 @@
-import { Component, inject, TemplateRef } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ThyDialog } from 'ngx-tethys/dialog';
 import { ThyDialogBasicContentComponent } from './dialog-content.component';
 import { ThyButton } from 'ngx-tethys/button';

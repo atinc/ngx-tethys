@@ -38,7 +38,7 @@ export class ThyTimelineItem implements OnInit {
 
     public position: ThyTimeMode;
 
-    public reverse: Boolean = false;
+    public reverse: boolean = false;
 
     /**
      * 指定圆圈颜色

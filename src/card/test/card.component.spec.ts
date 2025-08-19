@@ -105,8 +105,8 @@ describe('thy-card', () => {
     });
 
     describe('basic', () => {
-        let basicFixture: ComponentFixture<CardBasicComponent>;
-        let cardBasicDebugElement: DebugElement;
+        let basicFixture!: ComponentFixture<CardBasicComponent>;
+        let cardBasicDebugElement!: DebugElement;
 
         beforeEach(() => {
             basicFixture = TestBed.createComponent(CardBasicComponent);
@@ -141,8 +141,8 @@ describe('thy-card', () => {
     });
 
     describe('divided', () => {
-        let fixture: ComponentFixture<CardDividedComponent>;
-        let cardDebugElement: DebugElement;
+        let fixture!: ComponentFixture<CardDividedComponent>;
+        let cardDebugElement!: DebugElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(CardDividedComponent);
@@ -159,8 +159,8 @@ describe('thy-card', () => {
     });
 
     describe('bordered', () => {
-        let fixture: ComponentFixture<CardBorderedComponent>;
-        let cardDebugElement: DebugElement;
+        let fixture!: ComponentFixture<CardBorderedComponent>;
+        let cardDebugElement!: DebugElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(CardBorderedComponent);
@@ -178,8 +178,8 @@ describe('thy-card', () => {
     });
 
     describe('clear-padding', () => {
-        let fixture: ComponentFixture<CardClearPaddingComponent>;
-        let cardDebugElement: DebugElement;
+        let fixture!: ComponentFixture<CardClearPaddingComponent>;
+        let cardDebugElement!: DebugElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(CardClearPaddingComponent);
@@ -196,9 +196,9 @@ describe('thy-card', () => {
     });
 
     describe('card header', () => {
-        let fixture: ComponentFixture<CardHeaderSizeComponent>;
-        let cardHeaderComponent: DebugElement;
-        let cardHeaderElement: HTMLElement;
+        let fixture!: ComponentFixture<CardHeaderSizeComponent>;
+        let cardHeaderComponent!: DebugElement;
+        let cardHeaderElement!: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(CardHeaderSizeComponent);
@@ -221,9 +221,9 @@ describe('thy-card', () => {
     });
 
     describe('card content', () => {
-        let fixture: ComponentFixture<CardContentSizeAndScrollComponent>;
-        let cardContentComponent: DebugElement;
-        let cardContentElement: HTMLElement;
+        let fixture!: ComponentFixture<CardContentSizeAndScrollComponent>;
+        let cardContentComponent!: DebugElement;
+        let cardContentElement!: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(CardContentSizeAndScrollComponent);

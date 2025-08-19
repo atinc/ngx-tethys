@@ -5,7 +5,7 @@ import ts from 'typescript';
 export function createTreeCompilerHost(options: ts.CompilerOptions, tree: Tree) {
     const host = ts.createCompilerHost(options, true);
     host.readFile = fileName => {
-        return tree.get(fileName).content.toString();
+        return tree.get(fileName)!.content!.toString();
     };
     host.readDirectory = fileName => {
         return tree.getDir(fileName).subfiles.map(item => item);

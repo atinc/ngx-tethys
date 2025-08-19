@@ -32,7 +32,7 @@ export class ThyTagBasicTestComponent implements OnInit {
 }
 
 describe('thy-tag', () => {
-    let fixture: ComponentFixture<ThyTagBasicTestComponent>;
+    let fixture!: ComponentFixture<ThyTagBasicTestComponent>;
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             providers: [provideHttpClient()]

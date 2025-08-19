@@ -38,7 +38,7 @@ const mockMessages = [
 export class ThyMentionCustomExampleComponent implements OnInit {
     value = `Custom insert transform and search, using # to relate task, quick reply using /`;
 
-    mentions: Mention<any>[];
+    mentions: Array<Mention<any>>;
 
     popoverConfig = {
         panelClass: 'mention-popover-panel'

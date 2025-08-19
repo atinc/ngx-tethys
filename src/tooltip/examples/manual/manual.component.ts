@@ -1,6 +1,5 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
-import { ThyTooltipService } from 'ngx-tethys/tooltip';
-import { ThyTooltipRef } from 'ngx-tethys/tooltip';
+import { ThyTooltipService, ThyTooltipRef } from 'ngx-tethys/tooltip';
 import { ThyButton } from 'ngx-tethys/button';
 
 @Component({

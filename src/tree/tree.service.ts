@@ -1,5 +1,5 @@
 import { coerceArray, isFunction } from 'ngx-tethys/util';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { Injectable, OnDestroy, signal } from '@angular/core';
 import { ThyTreeNodeCheckState, ThyTreeNodeData, ThyTreeNode, IThyTreeService, ThyTreeFormatEmitEvent } from './tree.class';
 
@@ -133,7 +133,7 @@ export class ThyTreeService implements IThyTreeService, OnDestroy {
         }
     }
 
-    public expandTreeNodes(keyOrKeys: string | number | (string | number)[] | true) {
+    public expandTreeNodes(keyOrKeys: string | number | Array<string | number> | true) {
         const keys = keyOrKeys === true ? [] : coerceArray(keyOrKeys);
         const needExpandNodes = this.getParallelTreeNodes(this.treeNodes).filter(node => {
             return keys.indexOf(node.key) > -1 || keyOrKeys === true;

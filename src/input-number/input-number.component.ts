@@ -1,5 +1,4 @@
 import { TabIndexDisabledControlValueAccessorMixin, useHostFocusControl } from 'ngx-tethys/core';
-import { ThyMaxDirective, ThyMinDirective } from 'ngx-tethys/form';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { ThyAutofocusDirective } from 'ngx-tethys/shared';
@@ -355,11 +354,14 @@ export class ThyInputNumber extends TabIndexDisabledControlValueAccessorMixin im
     }
 
     parser(value: string) {
-        return value
-            .trim()
-            .replace(/。/g, '.')
-            .replace(/[^\w\.-]+/g, '')
-            .replace(this.thySuffix(), '');
+        return (
+            value
+                .trim()
+                .replace(/。/g, '.')
+                // eslint-disable-next-line no-useless-escape
+                .replace(/[^\w\.-]+/g, '')
+                .replace(this.thySuffix(), '')
+        );
     }
 
     getCurrentValidValue(value: string | number): number | string {

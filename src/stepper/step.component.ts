@@ -1,4 +1,4 @@
-import { Component, InjectionToken, TemplateRef, ViewChild, inject, input, WritableSignal, viewChild } from '@angular/core';
+import { Component, InjectionToken, TemplateRef, inject, input, viewChild } from '@angular/core';
 
 export interface IThyStepperComponent {
     updateSelected(step: ThyStep): void;

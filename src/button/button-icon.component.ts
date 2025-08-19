@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit, ViewEncapsulation, computed, effect, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, effect, input } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';

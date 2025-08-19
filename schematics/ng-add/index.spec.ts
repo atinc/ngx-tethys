@@ -6,11 +6,11 @@ import { addPackageToPackageJson } from '../utils';
 import { VERSION } from '../version';
 
 describe('ng-add Schematic', () => {
-    let tree: Tree;
+    let tree!: Tree;
     const baseOptions = { project: 'ngx-tethys-example' };
     const schematicRunner = new SchematicTestRunner(baseOptions.project, require.resolve('../collection.json'));
 
-    let workspaceTree: UnitTestTree;
+    let workspaceTree!: UnitTestTree;
 
     beforeEach(async () => {
         tree = await createTestApp(schematicRunner, { name: baseOptions.project });
@@ -68,7 +68,7 @@ describe('ng-add Schematic', () => {
         const workspace = getJsonFileContent(workspaceTree, '/angular.json');
 
         const existIcon = workspace.projects[baseOptions.project].architect.build.options.assets.find(
-            a => typeof a === 'object' && a.input === './node_modules/@tethys/icons'
+            (a: any) => typeof a === 'object' && a.input === './node_modules/@tethys/icons'
         );
         expect(existIcon).toEqual({
             glob: '**/*',
@@ -83,7 +83,7 @@ describe('ng-add Schematic', () => {
         const workspace = getJsonFileContent(workspaceTree, '/angular.json');
 
         const existIcon = workspace.projects[baseOptions.project].architect.build.options.assets.find(
-            a => typeof a === 'object' && a.input === './node_modules/@tethys/icons'
+            (a: any) => typeof a === 'object' && a.input === './node_modules/@tethys/icons'
         );
         expect(existIcon).not.toEqual({
             glob: '**/*',

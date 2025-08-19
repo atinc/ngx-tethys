@@ -12,14 +12,12 @@ import {
     output,
     contentChildren
 } from '@angular/core';
-import { ThumbAnimationProps } from 'ngx-tethys/core';
-import { thumbMotion } from 'ngx-tethys/core';
+import { ThumbAnimationProps, thumbMotion } from 'ngx-tethys/core';
 import { ThySegmentItem } from './segment-item.component';
-import { IThySegmentComponent, THY_SEGMENTED_COMPONENT } from './segment.token';
+import { IThySegmentComponent, IThySegmentItemComponent, THY_SEGMENTED_COMPONENT } from './segment.token';
 import { ThySegmentEvent } from './types';
 import { AnimationEvent } from '@angular/animations';
 
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export type ThySegmentSize = 'xs' | 'sm' | 'md' | 'default';
@@ -129,11 +127,11 @@ export class ThySegment implements IThySegmentComponent {
         });
     }
 
-    public changeSelectedItem(item: ThySegmentItem, event?: Event): void {
+    public changeSelectedItem(item: IThySegmentItemComponent, event?: Event): void {
         const options = this.options();
         this.animationState.set({
             value: 'from',
-            params: getThumbAnimationProps(options?.[this.activeIndex || 0]?.elementRef.nativeElement!)
+            params: getThumbAnimationProps(options?.[this.activeIndex || 0]?.elementRef.nativeElement)
         });
         this.selectedItem = null;
         this.cdr.detectChanges();

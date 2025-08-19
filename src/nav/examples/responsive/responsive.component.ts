@@ -18,7 +18,7 @@ import { ThyDropdownMenuComponent, ThyDropdownMenuItemDirective, ThyDropdownMenu
 export class ThyNavResponsiveExampleComponent implements OnInit {
     activeIndex = 13;
 
-    navList: { name: string; index: number }[] = [
+    navList: Array<{ name: string; index: number }> = [
         { name: '导航一', index: 1 },
         { name: '导航二', index: 2 },
         { name: '导航三', index: 3 },

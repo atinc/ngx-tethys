@@ -12,8 +12,8 @@ class ThyShowTestComponent {
 }
 
 describe('ThyShowDirective', () => {
-    let fixture: ComponentFixture<ThyShowTestComponent>;
-    let testComponent: ThyShowTestComponent;
+    let fixture!: ComponentFixture<ThyShowTestComponent>;
+    let testComponent!: ThyShowTestComponent;
 
     beforeEach(() => {
         TestBed.configureTestingModule({});
