@@ -156,5 +156,8 @@ export default {
         copyError: '复制图片地址失败',
         prev: '上一张',
         next: '下一张'
+    },
+    shared: {
+        comma: '，'
     }
 };

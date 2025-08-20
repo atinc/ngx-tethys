@@ -23,12 +23,13 @@ import {
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
-import { NgClass, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThyGridModule } from 'ngx-tethys/grid';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyTag } from 'ngx-tethys/tag';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
+import { injectLocale, ThySharedLocale } from 'ngx-tethys/i18n';
 import { SelectOptionBase } from '../../option/select-option-base';
 
 export type SelectControlSize = 'xs' | 'sm' | 'md' | 'lg' | '';
@@ -40,7 +41,7 @@ export type SelectControlSize = 'xs' | 'sm' | 'md' | 'lg' | '';
     selector: 'thy-select-control,[thySelectControl]',
     templateUrl: './select-control.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [FormsModule, NgIf, NgClass, NgStyle, ThyTag, NgTemplateOutlet, ThyIcon, ThyGridModule, ThyTooltipDirective],
+    imports: [FormsModule, NgClass, NgStyle, ThyTag, NgTemplateOutlet, ThyIcon, ThyGridModule, ThyTooltipDirective],
     host: {
         '[class.select-control-borderless]': 'thyBorderless()'
     }
@@ -106,6 +107,8 @@ export class ThySelectControl implements OnInit {
 
     readonly inputElement = viewChild<ElementRef>('inputElement');
 
+    locale: Signal<ThySharedLocale> = injectLocale('shared');
+
     isSelectedValue = computed(() => {
         return (
             (!this.thyIsMultiple() && !isUndefinedOrNull(this.thySelectedOptions())) ||
@@ -126,9 +129,13 @@ export class ThySelectControl implements OnInit {
     });
 
     collapsedSelectedTags = computed(() => {
-        const selectedOptions = this.thySelectedOptions() as SelectOptionBase[];
-        const maxSelectedTags = this.maxSelectedTags();
-        return selectedOptions.filter(option => !maxSelectedTags.includes(option));
+        const selectedOptions = this.thySelectedOptions();
+        const maxTagCount = this.thyMaxTagCount();
+        if (maxTagCount && selectedOptions instanceof Array && selectedOptions.length > maxTagCount) {
+            const maxSelectedTags = selectedOptions.slice(0, maxTagCount - 1);
+            return selectedOptions.filter(option => !maxSelectedTags.includes(option));
+        }
+        return [];
     });
 
     selectedValueStyle = computed(() => {

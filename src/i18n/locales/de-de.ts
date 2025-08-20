@@ -156,5 +156,8 @@ export default {
         copyError: 'Link kopieren fehlgeschlagen',
         prev: 'Vorherige',
         next: 'Nächste'
+    },
+    shared: {
+        comma: ','
     }
 };

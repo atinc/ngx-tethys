@@ -18,7 +18,8 @@ export type ThyModuleType =
     | 'pagination'
     | 'form'
     | 'empty'
-    | 'image';
+    | 'image'
+    | 'shared';
 
 export type ThyModuleLocaleType<K extends ThyModuleType> = ThyI18nLocale[K];
 
@@ -52,6 +53,7 @@ export interface ThyI18nLocale {
     form: ThyFormLocale;
     empty: ThyEmptyLocale;
     image: ThyImageLocale;
+    shared: ThySharedLocale;
 }
 
 export interface ThyLayoutLocale {
@@ -227,4 +229,8 @@ export interface ThyImageLocale {
     copyError: string;
     prev: string;
     next: string;
+}
+
+export interface ThySharedLocale {
+    comma: string;
 }

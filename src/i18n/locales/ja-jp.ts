@@ -156,5 +156,8 @@ export default {
         copyError: '画像のURLをコピーできませんでした',
         prev: '前の画像',
         next: '次の画像'
+    },
+    shared: {
+        comma: '，'
     }
 };

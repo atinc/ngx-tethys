@@ -156,6 +156,9 @@ export default {
         copyError: 'Copy failed',
         prev: 'Previous',
         next: 'Next'
+    },
+    shared: {
+        comma: ','
     }
 };
 
