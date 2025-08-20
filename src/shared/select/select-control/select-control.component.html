@@ -66,8 +66,9 @@
           class="choice-item max-tag-count-choice"
           thyTag
           [thySize]="tagSize()"
-          [ngClass]="{ disabled: thyDisabled() === true }">
-          <div class="text-truncate">+{{ thySelectedOptions()?.length - thyMaxTagCount() + 1 }}...</div>
+          [ngClass]="{ disabled: thyDisabled() === true }"
+          [thyTooltip]="maxTagTooltip">
+          <div class="text-truncate">+{{ thySelectedOptions()?.length - thyMaxTagCount() + 1 }}</div>
         </div>
       }
       <div thyFlexItem class="select-control-search">
@@ -101,3 +102,9 @@
     <thy-icon class="remove-link-icon font-size-base" thyIconName="close-circle-bold-fill"></thy-icon>
   </span>
 }
+
+<ng-template #maxTagTooltip>
+  @for (item of collapsedSelectedTags(); track trackValue($index, item)) {
+    {{ item.thyLabelText }} <span *ngIf="$index !== collapsedSelectedTags().length - 1">,</span>
+  }
+</ng-template>

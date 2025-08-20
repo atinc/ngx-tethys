@@ -23,11 +23,12 @@ import {
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
-import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { NgClass, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThyGridModule } from 'ngx-tethys/grid';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyTag } from 'ngx-tethys/tag';
+import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { SelectOptionBase } from '../../option/select-option-base';
 
 export type SelectControlSize = 'xs' | 'sm' | 'md' | 'lg' | '';
@@ -39,7 +40,7 @@ export type SelectControlSize = 'xs' | 'sm' | 'md' | 'lg' | '';
     selector: 'thy-select-control,[thySelectControl]',
     templateUrl: './select-control.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [FormsModule, NgClass, NgStyle, ThyTag, NgTemplateOutlet, ThyIcon, ThyGridModule],
+    imports: [FormsModule, NgIf, NgClass, NgStyle, ThyTag, NgTemplateOutlet, ThyIcon, ThyGridModule, ThyTooltipDirective],
     host: {
         '[class.select-control-borderless]': 'thyBorderless()'
     }
@@ -122,6 +123,12 @@ export class ThySelectControl implements OnInit {
             return selectedOptions.slice(0, this.thyMaxTagCount() - 1);
         }
         return selectedOptions as SelectOptionBase[];
+    });
+
+    collapsedSelectedTags = computed(() => {
+        const selectedOptions = this.thySelectedOptions() as SelectOptionBase[];
+        const maxSelectedTags = this.maxSelectedTags();
+        return selectedOptions.filter(option => !maxSelectedTags.includes(option));
     });
 
     selectedValueStyle = computed(() => {
