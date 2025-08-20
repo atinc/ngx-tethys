@@ -3,6 +3,7 @@ import { By } from '@angular/platform-browser';
 import { Component, DebugElement, viewChild } from '@angular/core';
 import { ThySelectControl, SelectControlSize, SelectOptionBase } from 'ngx-tethys/shared';
 import { provideHttpClient } from '@angular/common/http';
+import { THY_TOOLTIP_DEFAULT_CONFIG_PROVIDER } from 'ngx-tethys/tooltip';
 
 @Component({
     selector: 'thy-basic-select-control',
@@ -51,7 +52,7 @@ class BasicSelectControlComponent {
 describe('ThySelectControl', () => {
     function configureThySelectControlTestingModule() {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(), THY_TOOLTIP_DEFAULT_CONFIG_PROVIDER]
         }).compileComponents();
     }
     describe('core', () => {
