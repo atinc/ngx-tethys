@@ -132,8 +132,7 @@ export class ThySelectControl implements OnInit {
         const selectedOptions = this.thySelectedOptions();
         const maxTagCount = this.thyMaxTagCount();
         if (maxTagCount && selectedOptions instanceof Array && selectedOptions.length > maxTagCount) {
-            const maxSelectedTags = selectedOptions.slice(0, maxTagCount - 1);
-            return selectedOptions.filter(option => !maxSelectedTags.includes(option));
+            return selectedOptions.slice(maxTagCount - 1, selectedOptions.length);
         }
         return [];
     });
