@@ -152,7 +152,7 @@ export class ThySidebarDirective implements OnInit {
                     [thyTooltip]="!thyTrigger() && collapseTip()">
                     <ng-template [ngTemplateOutlet]="thyTrigger() || defaultTrigger"></ng-template>
                     <ng-template #defaultTrigger>
-                        <thy-icon class="sidebar-collapse-icon" [thyIconName]="this.collapsed ? 'indent' : 'outdent'"></thy-icon>
+                        <thy-icon class="sidebar-collapse-icon" [thyIconName]="collapsed() ? 'indent' : 'outdent'"></thy-icon>
                     </ng-template>
                 </div>
             }
