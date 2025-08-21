@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [19.1.0-next.9](https://github.com/atinc/ngx-tethys/compare/19.1.0-next.8...19.1.0-next.9) (2025-08-21)
+
+
+### Bug Fixes
+
+* **layout:** fix sidebar collapse icon ([f629534](https://github.com/atinc/ngx-tethys/commit/f6295349a6164addaca765128e6ffa576fe40473))
+
+
+### Features
+
+* **select:** #TINFR-2746 the multiple selections show tips to displa… ([#3536](https://github.com/atinc/ngx-tethys/issues/3536)) ([fad61b1](https://github.com/atinc/ngx-tethys/commit/fad61b1bd05878a15abfbb04b9f1dad04c15e1d8)), closes [#TINFR-2746](https://github.com/atinc/ngx-tethys/issues/TINFR-2746) [#TINFR-2746](https://github.com/atinc/ngx-tethys/issues/TINFR-2746)
+
+
+
 # [19.1.0-next.8](https://github.com/atinc/ngx-tethys/compare/19.1.0-next.7...19.1.0-next.8) (2025-08-19)
 
 
