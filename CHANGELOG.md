@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [19.1.0-next.10](https://github.com/atinc/ngx-tethys/compare/19.1.0-next.9...19.1.0-next.10) (2025-08-22)
+
+
+### Bug Fixes
+
+* **shared:** fix search error when after selecting option #TINFR-2765 ([#3539](https://github.com/atinc/ngx-tethys/issues/3539)) ([85444fa](https://github.com/atinc/ngx-tethys/commit/85444fa65a3fa920021f3304acb579bfbb6f6227)), closes [#TINFR-2765](https://github.com/atinc/ngx-tethys/issues/TINFR-2765)
+
+
+
 # [19.1.0-next.9](https://github.com/atinc/ngx-tethys/compare/19.1.0-next.8...19.1.0-next.9) (2025-08-21)
 
 
