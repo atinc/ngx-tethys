@@ -23,7 +23,7 @@ import {
     DestroyRef
 } from '@angular/core';
 import { ThyProperties } from './properties.component';
-import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
+import { coerceBooleanProperty, helpers, ThyBooleanInput } from 'ngx-tethys/util';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 export type ThyPropertyItemOperationTrigger = 'hover' | 'always';
@@ -128,7 +128,7 @@ export class ThyPropertyItem implements OnDestroy {
     });
 
     constructor() {
-        this.originOverlays = [...this.overlayOutsideClickDispatcher._attachedOverlays] as OverlayRef[];
+        this.originOverlays = [...this.overlayOutsideClickDispatcher._attachedOverlays];
 
         effect(() => {
             if (this.thyEditable()) {
@@ -176,6 +176,7 @@ export class ThyPropertyItem implements OnDestroy {
                 this.clickEventSubscription = fromEvent(itemElement, 'click')
                     .pipe(takeUntil(this.eventDestroy$))
                     .subscribe(() => {
+                        this.originOverlays = [...this.overlayOutsideClickDispatcher._attachedOverlays];
                         this.setEditing(true);
                         this.bindEditorBlurEvent(itemElement);
                         itemElement.querySelector('input')?.focus();
