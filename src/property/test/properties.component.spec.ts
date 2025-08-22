@@ -248,9 +248,9 @@ describe(`thy-properties`, () => {
 
         it('should edit canceled when overlay detached', fakeAsync(() => {
             // fake overlay
+            basicComponent.sexPropertyItemComponent().itemContent().nativeElement.click();
             const overlayRef = basicComponent.overlay.create();
             overlayRef.attach(new DomPortal(basicComponent.elementRef.nativeElement));
-            basicComponent.sexPropertyItemComponent().itemContent().nativeElement.click();
             fixture.detectChanges();
             expect(basicComponent.sexPropertyItemComponent().editing()).toBeTruthy();
             tick(50);
