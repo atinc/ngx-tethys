@@ -55,6 +55,8 @@ export class ThySelectControl implements OnInit {
 
     searchInputControlClass: { [key: string]: boolean };
 
+    private isFirstPanelOpenedChange = true;
+
     private hostRenderer = useHostRenderer();
 
     readonly thyPanelOpened = input(false, { transform: coerceBooleanProperty });
@@ -168,6 +170,10 @@ export class ThySelectControl implements OnInit {
     constructor() {
         effect(() => {
             const panelOpened = this.thyPanelOpened();
+            if (this.isFirstPanelOpenedChange) {
+                this.isFirstPanelOpenedChange = false;
+                return;
+            }
             if (panelOpened) {
                 untracked(() => {
                     if (this.thyShowSearch()) {
@@ -180,11 +186,9 @@ export class ThySelectControl implements OnInit {
                 untracked(() => {
                     if (this.thyShowSearch()) {
                         new Promise(resolve => setTimeout(resolve, 100)).then(() => {
-                            if (this.inputValue()) {
-                                this.inputValue.set('');
-                                this.updateWidth();
-                                this.thyOnSearch.emit(this.inputValue());
-                            }
+                            this.inputValue.set('');
+                            this.updateWidth();
+                            this.thyOnSearch.emit(this.inputValue());
                         });
                     }
                 });
