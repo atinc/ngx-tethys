@@ -1,9 +1,9 @@
-import { ElementRef, InjectionToken, InputSignal } from '@angular/core';
+import { ElementRef, InjectionToken, InputSignal, Signal } from '@angular/core';
 import { ThyListLayout } from '../shared.type';
 import { ThyBooleanInput } from 'ngx-tethys/util';
 
 export interface IThyOptionParentComponent {
-    isMultiple: boolean;
+    isMultiple: Signal<boolean>;
 }
 
 export interface IThyOptionGroupComponent {

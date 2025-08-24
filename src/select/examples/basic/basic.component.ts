@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, Signal, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { listOfOption } from '../mock-data';
 import { injectLocale, ThySelectLocale } from 'ngx-tethys/i18n';
 import { ThySelect } from 'ngx-tethys/select';
@@ -19,18 +20,26 @@ import { ThyIcon } from 'ngx-tethys/icon';
             thy-select,
             thy-custom-select {
                 flex: 0 0 auto;
-                width: 120px;
+                width: 300px;
                 margin-right: 20px;
             }
         `
     ],
-    imports: [ThySelect, ThyOption, ThyInputGroup, ThyIcon]
+    imports: [ThySelect, ThyOption, ThyInputGroup, ThyIcon, FormsModule]
 })
 export class ThySelectBasicExampleComponent implements OnInit {
     listOfOption = listOfOption;
+
+    value1: any = 'option3';
+    value2: any[] = ['option2', 'option3', 'option4'];
+
     locale: Signal<ThySelectLocale> = injectLocale('select');
 
     @ViewChild('origin', { read: ElementRef, static: true }) customizeOrigin: ElementRef;
 
     ngOnInit() {}
+
+    onModelChange(value: any) {
+        console.log('===> onModelChange:', value);
+    }
 }

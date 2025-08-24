@@ -1,10 +1,31 @@
-<div class="basic-container">
-  <thy-select ngModel="option1">
-    @for (option of listOfOption; track option.value) {
-      <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
-    }
-  </thy-select>
-  <thy-custom-select ngModel="option2" [thyAllowClear]="true" [thyPlaceHolder]="locale().placeholder">
+<!-- <div class="basic-container"> -->
+
+<!-- <thy-select ngModel="option1" [thyMode]="'multiple'">
+  @for (option of listOfOption; track option.value) {
+    <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+  }
+</thy-select> -->
+
+单选：
+<thy-select [(ngModel)]="value1" [thyAllowClear]="true" (ngModelChange)="onModelChange($event)" [thyShowSearch]="true">
+  @for (option of listOfOption; track option.value) {
+    <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+  }
+</thy-select>
+<br />
+多选：
+<thy-select
+  [(ngModel)]="value2"
+  [thyAllowClear]="true"
+  (ngModelChange)="onModelChange($event)"
+  [thyMode]="'multiple'"
+  [thyShowSearch]="true">
+  @for (option of listOfOption; track option.value) {
+    <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+  }
+</thy-select>
+
+<!-- <thy-custom-select ngModel="option2" [thyAllowClear]="true" [thyPlaceHolder]="locale().placeholder">
     @for (option of listOfOption; track option.value) {
       <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
     }
@@ -20,4 +41,4 @@
   <ng-template #prefix>
     <thy-icon class="text-placeholder" thyIconName="user"></thy-icon>
   </ng-template>
-</thy-input-group>
+</thy-input-group> -->

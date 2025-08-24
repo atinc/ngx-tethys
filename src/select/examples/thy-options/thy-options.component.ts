@@ -25,6 +25,10 @@ export class ThyOptionsExampleComponent implements OnInit {
 
     page = 0;
 
+    onModelChange(value: any) {
+        console.log('===> onModelChange:', value);
+    }
+
     onScrollToBottom() {
         if (!this.loading && this.haveMore) {
             this.page++;

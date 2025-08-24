@@ -13,11 +13,31 @@ import { ThyListOption } from './list-option/list-option.component';
 import { ThyOptionGroup } from './option-group.component';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyOption } from './option.component';
+import { ThyOptionRender } from './option-render.component';
 import { ThySelectOptionGroup } from './group/option-group.component';
+import { ThySelectOptionGroupRender } from './group/option-group-render.component';
 import { ThyOptionsContainer } from './options-container.component';
 
 @NgModule({
-    imports: [CommonModule, ThyIconModule, ThyListOption, ThyOptionGroup, ThyOption, ThySelectOptionGroup, ThyOptionsContainer],
-    exports: [ThyListOption, ThyOptionGroup, ThyOption, ThySelectOptionGroup, ThyOptionsContainer]
+    imports: [
+        CommonModule,
+        ThyIconModule,
+        ThyListOption,
+        ThyOptionGroup,
+        ThyOption,
+        ThyOptionRender,
+        ThySelectOptionGroup,
+        ThySelectOptionGroupRender,
+        ThyOptionsContainer
+    ],
+    exports: [
+        ThyListOption,
+        ThyOptionGroup,
+        ThyOption,
+        ThyOptionRender,
+        ThySelectOptionGroup,
+        ThySelectOptionGroupRender,
+        ThyOptionsContainer
+    ]
 })
 export class ThyOptionModule {}

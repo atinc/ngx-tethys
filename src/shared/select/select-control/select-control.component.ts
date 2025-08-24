@@ -259,6 +259,7 @@ export class ThySelectControl implements OnInit {
     }
 
     setInputValue(value: string) {
+        console.log('===select-control==> setInputValue', value);
         if (value !== this.inputValue()) {
             this.inputValue.set(value);
             this.updateWidth();
@@ -267,6 +268,7 @@ export class ThySelectControl implements OnInit {
     }
 
     handleBackspace(event: Event) {
+        console.log('===select-control==> handleBackspace', event);
         if ((event as KeyboardEvent).isComposing) {
             return;
         }
@@ -279,6 +281,7 @@ export class ThySelectControl implements OnInit {
     }
 
     updateWidth() {
+        console.log('===select-control==> updateWidth');
         if (this.thyIsMultiple() && this.thyShowSearch()) {
             if (this.inputValue() || this.isComposing()) {
                 this.renderer.setStyle(this.inputElement()?.nativeElement, 'width', `${this.inputElement()?.nativeElement.scrollWidth}px`);
@@ -305,6 +308,7 @@ export class ThySelectControl implements OnInit {
     }
 
     onBlur(event: Event) {
+        console.log('===select-control==> onBlur', event);
         this.thyOnBlur.emit(event);
     }
 }
