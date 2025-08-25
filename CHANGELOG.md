@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [19.1.0-next.11](https://github.com/atinc/ngx-tethys/compare/19.1.0-next.10...19.1.0-next.11) (2025-08-25)
+
+
+### Bug Fixes
+
+* **property:** property-item cannot exit editing occasionally #TINFR-2766 ([#3541](https://github.com/atinc/ngx-tethys/issues/3541)) ([ec46d9d](https://github.com/atinc/ngx-tethys/commit/ec46d9db31e96d727f2abfa695d9cf6e20f01d75)), closes [#TINFR-2766](https://github.com/atinc/ngx-tethys/issues/TINFR-2766)
+
+
+
 # [19.1.0-next.10](https://github.com/atinc/ngx-tethys/compare/19.1.0-next.9...19.1.0-next.10) (2025-08-22)
 
 
