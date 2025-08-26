@@ -91,8 +91,7 @@ export class ThyViewOutletDirective implements OnInit {
                         updatedKeys.push(item.key);
                     });
                 }
-            }
-            
+            }            
             if (this.componentRef) {
                 this.updateContext(this.componentRef.instance, updatedKeys);
                 this.componentRef.injector.get(ChangeDetectorRef).markForCheck();
@@ -100,7 +99,6 @@ export class ThyViewOutletDirective implements OnInit {
                 this.updateContext(this.embeddedViewRef.context, updatedKeys);
                 this.embeddedViewRef.markForCheck();
             }
-            
         });
     }
 
