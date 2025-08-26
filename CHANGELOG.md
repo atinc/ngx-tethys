@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [19.1.0-next.5.1](https://github.com/atinc/ngx-tethys/compare/19.1.0-next.5...19.1.0-next.5.1) (2025-08-26)
+
+
+### Bug Fixes
+
+* **dropdown:** handle placement default value ([#3519](https://github.com/atinc/ngx-tethys/issues/3519)) ([#3545](https://github.com/atinc/ngx-tethys/issues/3545)) ([0332a70](https://github.com/atinc/ngx-tethys/commit/0332a70e8845336082b24721384f0ea5848299b2))
+
+
+
 # [19.1.0-next.5](https://github.com/atinc/ngx-tethys/compare/19.1.0-next.4...19.1.0-next.5) (2025-08-07)
 
 
