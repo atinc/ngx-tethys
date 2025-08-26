@@ -91,7 +91,7 @@ export class ThyViewOutletDirective implements OnInit {
                         updatedKeys.push(item.key);
                     });
                 }
-            }            
+            }
             if (this.componentRef) {
                 this.updateContext(this.componentRef.instance, updatedKeys);
                 this.componentRef.injector.get(ChangeDetectorRef).markForCheck();
