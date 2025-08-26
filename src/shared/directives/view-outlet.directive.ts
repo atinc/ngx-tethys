@@ -11,12 +11,10 @@ import {
     inject,
     input,
     effect,
-    OnInit,
-    DestroyRef
+    linkedSignal,
+    untracked
 } from '@angular/core';
-import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { SafeAny } from 'ngx-tethys/types';
-import { delay, map, pairwise } from 'rxjs/operators';
 
 function hasInput(componentRef: ComponentRef<unknown>, inputKey: string) {
     return componentRef['_tNode'].inputs?.[inputKey];
@@ -30,10 +28,9 @@ function hasInput(componentRef: ComponentRef<unknown>, inputKey: string) {
 @Directive({
     selector: '[thyViewOutlet]'
 })
-export class ThyViewOutletDirective implements OnInit {
+export class ThyViewOutletDirective {
     private viewContainerRef = inject(ViewContainerRef);
     private keyValueDiffers = inject(KeyValueDiffers);
-    private destoryRef = inject(DestroyRef);
 
     private componentRef: ComponentRef<SafeAny> | undefined;
 
@@ -51,9 +48,12 @@ export class ThyViewOutletDirective implements OnInit {
 
     private keyValueDiffer: KeyValueDiffer<SafeAny, SafeAny>;
 
-    private viewOutlet$ = toObservable(this.thyViewOutlet).pipe(pairwise());
-
-    private isViewOutletChanged = false;
+    private readonly isViewOutletChanged = linkedSignal({
+        source: () => this.thyViewOutlet(),
+        computation: (source, previous) => {
+            return !!(source && previous?.source && source !== previous?.source);
+        }
+    });
 
     constructor() {
         effect(() => {
@@ -77,14 +77,15 @@ export class ThyViewOutletDirective implements OnInit {
         effect(() => {
             const thyViewOutletContext = this.thyViewOutletContext();
             let updatedKeys: string[] = [];
+            const isViewOutletChanged = untracked(this.isViewOutletChanged);
             if (thyViewOutletContext) {
-                if (!this.keyValueDiffer || this.isViewOutletChanged) {
+                if (!this.keyValueDiffer || isViewOutletChanged) {
                     if (!this.keyValueDiffer) {
                         this.keyValueDiffer = this.keyValueDiffers.find(this.thyViewOutletContext()).create();
                     }
                     this.keyValueDiffer.diff(thyViewOutletContext);
                     updatedKeys = Object.keys(thyViewOutletContext);
-                    this.isViewOutletChanged = false;
+                    this.isViewOutletChanged.set(false);
                 } else {
                     const diffChanges = this.keyValueDiffer.diff(this.thyViewOutletContext());
                     diffChanges?.forEachChangedItem(item => {
@@ -99,12 +100,6 @@ export class ThyViewOutletDirective implements OnInit {
                 this.updateContext(this.embeddedViewRef.context, updatedKeys);
                 this.embeddedViewRef.markForCheck();
             }
-        });
-    }
-
-    ngOnInit(): void {
-        this.viewOutlet$.pipe(takeUntilDestroyed(this.destoryRef)).subscribe(([oldVal, newVal]) => {
-            this.isViewOutletChanged = oldVal && oldVal !== newVal;
         });
     }
 
