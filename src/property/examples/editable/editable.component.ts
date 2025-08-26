@@ -13,6 +13,7 @@ import { ThyCascader } from 'ngx-tethys/cascader';
 import { ThyInputNumber } from 'ngx-tethys/input-number';
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { ThyTimePicker } from 'ngx-tethys/time-picker';
+import { ThyNotifyRef, ThyNotifyService } from 'ngx-tethys/notify';
 
 @Component({
     selector: 'thy-property-editable-example',
@@ -97,7 +98,53 @@ export class ThyPropertyEditableExampleComponent implements OnInit {
 
     readonly selectProfession = viewChild('selectProfession', { read: ThySelect });
 
-    ngOnInit() {}
+    private notifyService = inject(ThyNotifyService);
+
+    private notifyRef: ThyNotifyRef;
+
+    ngOnInit() {
+        // 5秒后弹一个notify
+        setTimeout(() => {
+            // this.openNotify('success');
+            this.showHasDetail();
+        }, 3000);
+    }
+
+    showHasDetail() {
+        this.notifyRef = this.notifyService.show({
+            id: 'errorId',
+            type: 'error',
+            title: '错误',
+            content: '获取数据失败！',
+            detail: 'TypeError',
+            duration: 0
+        });
+        this.notifyRef.afterClosed().subscribe(() => {
+            console.log(`notify ${this.notifyRef.id} 被关闭了`);
+        });
+    }
+
+    openNotify(type: string) {
+        let content: string = '创建项目成功！';
+        switch (type) {
+            case 'success':
+                content = '创建项目成功！';
+                break;
+            case 'info':
+                content = '你可以尝试创建一个项目。';
+                break;
+            case 'warning':
+                content = '删除项目后，项目将无法还原！';
+                break;
+            case 'error':
+                content = '删除项目失败！';
+                break;
+
+            default:
+                break;
+        }
+        this.notifyService.success(null, content);
+    }
 
     openTemplateDialog(template: TemplateRef<any>) {
         this.thyDialog.open(template);

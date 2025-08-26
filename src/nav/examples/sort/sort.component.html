@@ -1,4 +1,4 @@
-<thy-nav thyType="pulled" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="sort($event)">
+<thy-nav thyType="pulled" [thyResponsive]="true" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="sort($event)">
   @for (item of navList; track $index) {
     <a
       href="javascript:;"

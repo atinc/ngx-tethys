@@ -7,3 +7,17 @@
     </thy-list-item>
   }
 </thy-list>
+
+<div class="d-flex" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="sort($event)">
+  @for (item of ListItems; track $index) {
+    <div cdkDrag style="width: 100px; height: 50px; border: 1px solid #000; margin-right: 10px">
+      <thy-icon thyIconName="drag" class="drag-handle"></thy-icon> 文本1
+    </div>
+  }
+</div>
+
+<div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+  @for (movie of movies; track movie) {
+    <div class="example-box" cdkDrag>{{ movie }}</div>
+  }
+</div>
