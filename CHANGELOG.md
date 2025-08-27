@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [19.1.0-next.12](https://github.com/atinc/ngx-tethys/compare/19.1.0-next.11...19.1.0-next.12) (2025-08-27)
+
+
+### Bug Fixes
+
+* **shared:** fix view outlet change the context not initialize #TINFR-2786 [@luxiaobei](https://github.com/luxiaobei) [@wumeimin](https://github.com/wumeimin) ([#3543](https://github.com/atinc/ngx-tethys/issues/3543)) ([58d8ad1](https://github.com/atinc/ngx-tethys/commit/58d8ad1702d11a555a1d76bd79099b6695e3153a)), closes [#TINFR-2786](https://github.com/atinc/ngx-tethys/issues/TINFR-2786)
+
+
+
 # [19.1.0-next.11](https://github.com/atinc/ngx-tethys/compare/19.1.0-next.10...19.1.0-next.11) (2025-08-25)
 
 
