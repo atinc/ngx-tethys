@@ -6,7 +6,7 @@ import { ThyButton } from 'ngx-tethys/button';
 @Component({
     selector: 'thy-tabs-controlled-example',
     templateUrl: './model.component.html',
-    imports: [ThyTabs, ThyTab, ThyButton,ThySpace, ThySpaceItemDirective],
+    imports: [ThyTabs, ThyTab, ThyButton, ThySpace, ThySpaceItemDirective]
 })
 export class ThyTabsControlledExampleComponent implements OnInit {
     public activeTab: ThyActiveTabInfo = 'tab2';
