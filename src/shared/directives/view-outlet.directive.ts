@@ -81,13 +81,13 @@ export class ThyViewOutletDirective {
             if (thyViewOutletContext) {
                 if (!this.keyValueDiffer || isViewOutletChanged) {
                     if (!this.keyValueDiffer) {
-                        this.keyValueDiffer = this.keyValueDiffers.find(this.thyViewOutletContext()).create();
+                        this.keyValueDiffer = this.keyValueDiffers.find(thyViewOutletContext).create();
                     }
                     this.keyValueDiffer.diff(thyViewOutletContext);
                     updatedKeys = Object.keys(thyViewOutletContext);
                     this.isViewOutletChanged.set(false);
                 } else {
-                    const diffChanges = this.keyValueDiffer.diff(this.thyViewOutletContext());
+                    const diffChanges = this.keyValueDiffer.diff(thyViewOutletContext);
                     diffChanges?.forEachChangedItem(item => {
                         updatedKeys.push(item.key);
                     });
