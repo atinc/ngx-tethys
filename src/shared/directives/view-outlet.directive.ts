@@ -10,7 +10,9 @@ import {
     KeyValueDiffers,
     inject,
     input,
-    effect
+    effect,
+    linkedSignal,
+    untracked
 } from '@angular/core';
 import { SafeAny } from 'ngx-tethys/types';
 
@@ -46,6 +48,13 @@ export class ThyViewOutletDirective {
 
     private keyValueDiffer: KeyValueDiffer<SafeAny, SafeAny>;
 
+    private readonly isViewOutletChanged = linkedSignal({
+        source: () => this.thyViewOutlet(),
+        computation: (source, previous) => {
+            return !!(source && previous?.source && source !== previous?.source);
+        }
+    });
+
     constructor() {
         effect(() => {
             const thyViewOutlet = this.thyViewOutlet();
@@ -68,19 +77,22 @@ export class ThyViewOutletDirective {
         effect(() => {
             const thyViewOutletContext = this.thyViewOutletContext();
             let updatedKeys: string[] = [];
+            const isViewOutletChanged = untracked(this.isViewOutletChanged);
             if (thyViewOutletContext) {
-                if (!this.keyValueDiffer) {
-                    this.keyValueDiffer = this.keyValueDiffers.find(this.thyViewOutletContext()).create();
+                if (!this.keyValueDiffer || isViewOutletChanged) {
+                    if (!this.keyValueDiffer) {
+                        this.keyValueDiffer = this.keyValueDiffers.find(thyViewOutletContext).create();
+                    }
                     this.keyValueDiffer.diff(thyViewOutletContext);
                     updatedKeys = Object.keys(thyViewOutletContext);
+                    this.isViewOutletChanged.set(false);
                 } else {
-                    const diffChanges = this.keyValueDiffer.diff(this.thyViewOutletContext());
+                    const diffChanges = this.keyValueDiffer.diff(thyViewOutletContext);
                     diffChanges?.forEachChangedItem(item => {
                         updatedKeys.push(item.key);
                     });
                 }
             }
-
             if (this.componentRef) {
                 this.updateContext(this.componentRef.instance, updatedKeys);
                 this.componentRef.injector.get(ChangeDetectorRef).markForCheck();
