@@ -153,7 +153,7 @@ export class ThyTabs implements OnInit, AfterContentInit {
         this.thyAnimated() && (this.transitionStarted = this.activeTabIndex !== index);
         this.activeTabIndex = index;
         const id = tab.id();
-        this.thyActiveTab.set(id ? id : index)
+        this.thyActiveTab.set(id ? id : index);
         this.thyActiveTabChange.emit(this.thyActiveTab());
     }
 }
