@@ -9,6 +9,8 @@ import { ThyActiveTabInfo, ThyTabActiveEvent, ThyTabs, ThyTab } from 'ngx-tethys
 export class ThyTabsActiveExampleComponent implements OnInit {
     public activeTab: ThyActiveTabInfo = 'tab2';
 
+    public activeTab2: ThyActiveTabInfo = 'tab1';
+
     constructor() {}
 
     ngOnInit(): void {}

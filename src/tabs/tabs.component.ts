@@ -12,7 +12,8 @@ import {
     effect,
     inject,
     input,
-    output
+    output,
+    model
 } from '@angular/core';
 import { coerceBooleanProperty, isString, ThyBooleanInput } from 'ngx-tethys/util';
 import { fromEvent } from 'rxjs';
@@ -68,7 +69,7 @@ export class ThyTabs implements OnInit, AfterContentInit {
     /**
      * 激活的项
      */
-    readonly thyActiveTab = input<ThyActiveTabInfo>(0);
+    readonly thyActiveTab = model<ThyActiveTabInfo>(0);
 
     /**
      * 附加操作
@@ -152,7 +153,7 @@ export class ThyTabs implements OnInit, AfterContentInit {
         this.thyAnimated() && (this.transitionStarted = this.activeTabIndex !== index);
         this.activeTabIndex = index;
         const id = tab.id();
-        const activeTab = id ? id : index;
-        this.thyActiveTabChange.emit(activeTab);
+        this.thyActiveTab.set(id ? id : index);
+        this.thyActiveTabChange.emit(this.thyActiveTab());
     }
 }
