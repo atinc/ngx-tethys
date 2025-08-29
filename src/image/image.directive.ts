@@ -1,4 +1,4 @@
-import { Directive, ElementRef, InjectFlags, OnInit, Injector, OnDestroy, AfterViewInit, inject, input, effect } from '@angular/core';
+import { Directive, ElementRef, OnInit, Injector, OnDestroy, AfterViewInit, inject, input, effect } from '@angular/core';
 import { IThyImageDirective, IThyImageGroupComponent, THY_IMAGE_GROUP_COMPONENT } from './image.token';
 import { ThyImageMeta } from './image.class';
 import { ThyImageService } from './image.service';
@@ -80,7 +80,9 @@ export class ThyImageDirective implements IThyImageDirective, OnInit, AfterViewI
         while (true) {
             // 多层 thy-image-group 嵌套时，获取最外层 thy-image-group 下的所有图片
             const injector = this.parentGroup?.injector || this.injector;
-            const parentGroup = injector.get(THY_IMAGE_GROUP_COMPONENT, null, InjectFlags.SkipSelf);
+            const parentGroup = injector.get(THY_IMAGE_GROUP_COMPONENT, null, {
+                skipSelf: true
+            });
             if (!parentGroup) {
                 break;
             }
