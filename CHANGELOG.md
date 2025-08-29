@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [19.1.0](https://github.com/atinc/ngx-tethys/compare/19.1.0-next.12...19.1.0) (2025-08-29)
+
+
+### Features
+
+* **tabs:** replace thyActiveTab input with model and write back current value on activation ([#3548](https://github.com/atinc/ngx-tethys/issues/3548)) ([c05f409](https://github.com/atinc/ngx-tethys/commit/c05f40975a88948c2f57ffe845a99d8b51c64e2e))
+
+
+
 # [19.1.0-next.12](https://github.com/atinc/ngx-tethys/compare/19.1.0-next.11...19.1.0-next.12) (2025-08-27)
 
 
