@@ -5,7 +5,7 @@ import { By } from '@angular/platform-browser';
 import { ThyNav } from 'ngx-tethys/nav';
 import { createFakeEvent, dispatchFakeEvent } from 'ngx-tethys/testing';
 import { SafeAny } from 'ngx-tethys/types';
-import { ThyTabs, ThyTabsPosition, ThyTabsSize, ThyTabsType, ThyTabsModule, ThyActiveTabInfo, ThyTabActiveEvent, ThyTab } from 'ngx-tethys/tabs';
+import { ThyTabs, ThyTabsPosition, ThyTabsSize, ThyTabsType, ThyTabsModule, ThyActiveTabInfo, ThyTabActiveEvent } from 'ngx-tethys/tabs';
 
 @Component({
     selector: 'test-tabs-basic',
