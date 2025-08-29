@@ -106,7 +106,12 @@
 <ng-template #maxTagTooltip>
   @let lastIndex = collapsedSelectedTags().length - 1;
   @for (item of collapsedSelectedTags(); track trackValue($index, item)) {
-    {{ item.thyLabelText }}
+    @if (!customDisplayTemplate()) {
+      {{ item.thyLabelText }}
+    } @else {
+      @let label = item?.thyRawValue || item?.thyValue;
+      {{ label?.data?.display_name || label?.name || label?.text || label?.title }}
+    }
     @if ($index !== lastIndex) {
       {{ locale().comma }}
     }
