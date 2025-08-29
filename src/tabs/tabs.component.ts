@@ -92,11 +92,6 @@ export class ThyTabs implements OnInit, AfterContentInit {
      */
     readonly thyResponsive = input<boolean, ThyBooleanInput>(false, { transform: coerceBooleanProperty });
 
-    /**
-     * 激活的项发生改变时的回调
-     */
-    readonly thyActiveTabChange = output<ThyTabActiveEvent>();
-
     activeTabIndex: number = 0;
 
     activeTabId: string;
@@ -154,6 +149,5 @@ export class ThyTabs implements OnInit, AfterContentInit {
         this.activeTabIndex = index;
         const id = tab.id();
         this.thyActiveTab.set(id ? id : index);
-        this.thyActiveTabChange.emit(this.thyActiveTab());
     }
 }

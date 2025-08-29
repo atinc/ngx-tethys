@@ -434,8 +434,8 @@ describe('tabs', () => {
 
         it('should set thyDisabled successfully', fakeAsync(() => {
             const spy = jasmine.createSpy('spy on tab click');
-            const tabsInstance = getDebugElement(fixture, ThyTabs).componentInstance;
-            tabsInstance.thyActiveTabChange.subscribe((event: ThyTabActiveEvent) => {
+            const tabsInstance: ThyTabs = getDebugElement(fixture, ThyTabs).componentInstance;
+            tabsInstance.thyActiveTab.subscribe((event: ThyTabActiveEvent) => {
                 spy();
             });
             const tabElement = fixture.debugElement.queryAll(By.css('.thy-nav-item'))[1].nativeElement;
