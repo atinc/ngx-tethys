@@ -28,7 +28,7 @@ import { ThyFullscreenModule } from 'ngx-tethys/fullscreen';
 import { ThyGridModule } from 'ngx-tethys/grid';
 import { ThyGuiderModule } from 'ngx-tethys/guider';
 import { ThyI18nService } from 'ngx-tethys/i18n';
-import { ThyIconModule } from 'ngx-tethys/icon';
+import { ThyIconModule, ThyIconRegistry } from 'ngx-tethys/icon';
 import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyInputNumberModule } from 'ngx-tethys/input-number';
 import { ThyLayoutModule } from 'ngx-tethys/layout';
@@ -77,7 +77,6 @@ import { MutationObserverFactory } from '@angular/cdk/observers';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ThyTheme, ThyThemeStore } from 'ngx-tethys/core';
 import { Observable, Subject } from 'rxjs';
-import { ThyIconRegistry } from '../../../src/icon/icon-registry';
 import { EXAMPLE_MODULES } from './content/example-modules';
 import { DOCGENI_SITE_PROVIDERS } from './content/index';
 
