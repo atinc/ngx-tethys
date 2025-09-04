@@ -1,0 +1,11 @@
+<thy-button (click)="refresh()">纯 span 测试</thy-button>
+
+@if (!loadingDone()) {
+  <div class="loading">Loading...</div>
+} @else {
+  @for (item of data(); track item?.id) {
+    <span thyFlexibleText [thyTooltipContent]="item?.name" [style.width]="'100px'" class="d-inline-block p-1">
+      {{ item?.name }}
+    </span>
+  }
+}

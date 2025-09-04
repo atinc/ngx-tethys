@@ -1,0 +1,70 @@
+<thy-button (click)="refresh()">加载数据</thy-button>
+
+@if (!loadingDone()) {
+  <div class="loading">Loading...</div>
+} @else {
+  <!-- <div class="mb-3">
+    <h4>测试不同触发方式:</h4>
+
+    <div class="mb-2">
+      <span>Hover 触发 (自定义内容): </span>
+      <span
+        thyFlexibleText
+        [thyTooltipContent]="'这是一个很长的文本内容，应该会被截断并显示 tooltip'"
+        thyTooltipTrigger="hover"
+        [style.width]="'100px'"
+        class="d-inline-block text-truncate border p-1">
+        这是一个很长的文本内容，应该会被截断并显示 tooltip
+      </span>
+    </div>
+
+    <div class="mb-2">
+      <span>Hover 触发 (默认内容): </span>
+      <span thyFlexibleText thyTooltipTrigger="hover" [style.width]="'100px'" class="d-inline-block text-truncate border p-1">
+        这是一个很长的文本内容，应该会被截断并显示默认tooltip
+      </span>
+    </div>
+
+    <div class="mb-2">
+      <span>Click 触发: </span>
+      <span
+        thyFlexibleText
+        [thyTooltipContent]="'点击才会显示的 tooltip 内容'"
+        thyTooltipTrigger="click"
+        [style.width]="'100px'"
+        class="d-inline-block text-truncate border p-1">
+        点击才会显示的 tooltip 内容
+      </span>
+    </div>
+
+    <div class="mb-2">
+      <span>Focus 触发: </span>
+      <input
+        thyFlexibleText
+        [thyTooltipContent]="'获得焦点时显示的 tooltip'"
+        thyTooltipTrigger="focus"
+        [style.width]="'100px'"
+        class="form-control d-inline-block"
+        value="获得焦点时显示的 tooltip" />
+    </div>
+
+    <div class="mb-2">
+      <span>短文本 (不应显示tooltip): </span>
+      <span thyFlexibleText [style.width]="'200px'" class="d-inline-block text-truncate border p-1"> 短文本 </span>
+    </div>
+  </div> -->
+
+  <thy-table [thyModel]="data()" thyRowKey="id" [thyVirtualScroll]="true" [thyWidth]="400">
+    @for (item of properties; track item?.id) {
+      <thy-table-column thyTitle="name" thyModelKey="name">
+        <ng-template #cell let-row>
+          <div [style.width]="item?.width + 'px'">
+            <span>
+              {{ row?.name }}
+            </span>
+          </div>
+        </ng-template>
+      </thy-table-column>
+    }
+  </thy-table>
+}

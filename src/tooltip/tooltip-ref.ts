@@ -34,6 +34,18 @@ export class ThyTooltipRef {
         });
     }
 
+    /**
+     * 更新宿主元素，用于实例池复用
+     */
+    updateHost(newHost: ElementRef<HTMLElement> | HTMLElement): void {
+        this.host = newHost;
+        // 如果已有 overlay，需要重新创建以更新位置策略
+        if (this.overlayRef) {
+            this.overlayRef.dispose();
+            this.overlayRef = null;
+        }
+    }
+
     /** Create the overlay config and position strategy */
     private createOverlay(): OverlayRef {
         if (this.overlayRef) {

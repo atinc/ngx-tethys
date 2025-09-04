@@ -6,6 +6,7 @@ import { SafeAny } from 'ngx-tethys/types';
 import { isNumber } from 'ngx-tethys/util';
 import { Subject, fromEvent } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
+import { OverlayEventDelegationService } from './overlay-event-delegation.service';
 
 export type ThyOverlayTrigger = 'hover' | 'focus' | 'click';
 
@@ -71,17 +72,9 @@ export abstract class ThyOverlayDirectiveBase {
         if (this.hideTimeoutId) {
             clearTimeout(this.hideTimeoutId);
         }
-
-        if (this.longPressTimeoutId) {
-            clearTimeout(this.longPressTimeoutId);
-        }
     }
 
-    private touchStartTime: number;
-
-    private longPressTimeoutId: number | null | SafeAny;
-
-    private isTouchMoving: boolean = false;
+    private eventDelegationService?: OverlayEventDelegationService;
 
     constructor(
         elementRef: ElementRef,
@@ -89,7 +82,8 @@ export abstract class ThyOverlayDirectiveBase {
         focusMonitor: FocusMonitor,
         ngZone: NgZone,
         overlayPin?: boolean,
-        changeDetectorRef?: ChangeDetectorRef
+        changeDetectorRef?: ChangeDetectorRef,
+        eventDelegationService?: OverlayEventDelegationService
     ) {
         this.elementRef = elementRef;
         this.platform = platform;
@@ -97,11 +91,25 @@ export abstract class ThyOverlayDirectiveBase {
         this.ngZone = ngZone;
         this.overlayPin = overlayPin;
         this.changeDetectorRef = changeDetectorRef;
+        this.eventDelegationService = eventDelegationService;
     }
 
     initialize() {
         this.initialized = true;
+
+        // Use global event delegation if available; otherwise, fallback to per-instance listeners
+        if (this.eventDelegationService) {
+            this.eventDelegationService.register(this);
+            return;
+        }
+
+        // Fallback to legacy event handling for backward compatibility
+        this.initializeLegacyEventHandling();
+    }
+
+    private initializeLegacyEventHandling() {
         const element: HTMLElement = this.elementRef.nativeElement;
+
         if (!this.platform.IOS && !this.platform.ANDROID) {
             if (this.trigger === 'hover') {
                 this.manualListeners
@@ -109,7 +117,6 @@ export abstract class ThyOverlayDirectiveBase {
                         this.show();
                     })
                     .set('mouseleave', (event: MouseEvent) => {
-                        // Delay 100ms to avoid the overlay being closed immediately when the cursor is moved to the overlay container
                         this.hide();
                         const overlayElement: HTMLElement = this.overlayRef && this.overlayRef.overlayElement;
                         if (overlayElement && this.overlayPin) {
@@ -124,7 +131,6 @@ export abstract class ThyOverlayDirectiveBase {
                                         });
                                 });
                         }
-                        // if showDelay is too long and mouseleave immediately, overlayRef is not exist, we should clearTimeout
                         if (!this.overlayRef) {
                             this.clearTimer();
                         }
@@ -134,55 +140,22 @@ export abstract class ThyOverlayDirectiveBase {
                     .monitor(this.elementRef)
                     .pipe(takeUntil(this.ngUnsubscribe$))
                     .subscribe(origin => {
-                        // Note that the focus monitor runs outside the Angular zone.
                         if (!origin) {
                             this.ngZone.run(() => this.hide(0));
                         } else {
                             this.ngZone.run(() => this.show());
                         }
                     });
-                // this.manualListeners.set('focus', () => this.show());
-                // this.manualListeners.set('blur', () => this.hide());
             } else if (this.trigger === 'click') {
                 this.manualListeners.set('click', () => {
                     this.show();
                 });
             } else if (typeof ngDevMode === 'undefined' || ngDevMode) {
-                throw new Error(`${this.trigger} is not supporteed, possible values are: hover | focus | click.`);
+                throw new Error(`${this.trigger} is not supported, possible values are: hover | focus | click.`);
             }
         } else {
-            const touchendListener = () => {
-                const touchEndTime = Date.now();
-                const touchDuration = touchEndTime - this.touchStartTime;
-
-                if (touchDuration < longPressTime && !this.isTouchMoving) {
-                    // tap
-                    this.handleTouch();
-                }
-
-                clearTimeout(this.longPressTimeoutId);
-                this.isTouchMoving = false;
-            };
-            // Reserve extensions for mobile in the future
-            this.manualListeners
-                .set('touchend', touchendListener)
-                .set('touchcancel', touchendListener)
-                .set('touchmove', () => {
-                    this.isTouchMoving = true;
-                    clearTimeout(this.longPressTimeoutId);
-                })
-                .set('touchstart', () => {
-                    this.touchStartTime = Date.now();
-                    this.isTouchMoving = false;
-
-                    // 设置一个定时器，如果在一定时间内没有触发 touchend 事件，则判断为长按
-                    this.longPressTimeoutId = setTimeout(() => {
-                        // long press
-                        if (!this.isTouchMoving) {
-                            this.handleTouch();
-                        }
-                    }, longPressTime);
-                });
+            // Mobile touch handling for legacy mode
+            this.initializeMobileTouchHandling();
         }
 
         this.manualListeners.forEach((listener, event) =>
@@ -191,6 +164,42 @@ export abstract class ThyOverlayDirectiveBase {
             // We never call `preventDefault()` on events, so we're safe making them passive.
             element.addEventListener(event, listener, passiveEventListenerOptions)
         );
+    }
+
+    private initializeMobileTouchHandling() {
+        let touchStartTime: number;
+        let longPressTimeoutId: number | null | SafeAny;
+        let isTouchMoving: boolean = false;
+
+        const touchendListener = () => {
+            const touchEndTime = Date.now();
+            const touchDuration = touchEndTime - touchStartTime;
+
+            if (touchDuration < longPressTime && !isTouchMoving) {
+                this.handleTouch();
+            }
+
+            clearTimeout(longPressTimeoutId);
+            isTouchMoving = false;
+        };
+
+        this.manualListeners
+            .set('touchend', touchendListener)
+            .set('touchcancel', touchendListener)
+            .set('touchmove', () => {
+                isTouchMoving = true;
+                clearTimeout(longPressTimeoutId);
+            })
+            .set('touchstart', () => {
+                touchStartTime = Date.now();
+                isTouchMoving = false;
+
+                longPressTimeoutId = setTimeout(() => {
+                    if (!isTouchMoving) {
+                        this.handleTouch();
+                    }
+                }, longPressTime);
+            });
     }
 
     private handleTouch() {
@@ -223,5 +232,60 @@ export abstract class ThyOverlayDirectiveBase {
         }
         this.clearEventListeners();
         this.clearTimer();
+
+        if (this.eventDelegationService) {
+            this.eventDelegationService.unregister(this);
+        }
+    }
+
+    // Methods for global event delegation
+    public getHostElement(): HTMLElement {
+        return this.elementRef.nativeElement as HTMLElement;
+    }
+
+    onHostMouseEnter() {
+        if (this.trigger !== 'hover') return;
+        this.show();
+    }
+
+    onHostMouseLeave() {
+        if (this.trigger !== 'hover') return;
+        // Delay hide to allow moving to overlay when pinned
+        this.hide();
+        const overlayElement: HTMLElement = this.overlayRef && (this.overlayRef.overlayElement as HTMLElement);
+        if (overlayElement && this.overlayPin) {
+            fromEvent(overlayElement, 'mouseenter')
+                .pipe(take(1))
+                .subscribe(() => {
+                    this.clearTimer();
+                    fromEvent(overlayElement, 'mouseleave')
+                        .pipe(take(1))
+                        .subscribe(() => {
+                            this.hide();
+                        });
+                });
+        }
+        if (!this.overlayRef) {
+            this.clearTimer();
+        }
+    }
+
+    onHostClick() {
+        if (this.trigger !== 'click') return;
+        this.show();
+    }
+
+    onHostFocusIn() {
+        if (this.trigger !== 'focus') return;
+        this.show();
+    }
+
+    onHostFocusOut() {
+        if (this.trigger !== 'focus') return;
+        this.hide(0);
+    }
+
+    onHostTouch() {
+        this.handleTouch();
     }
 }

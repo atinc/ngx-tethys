@@ -1,22 +1,23 @@
 import { ContentObserver } from '@angular/cdk/observers';
 import {
     AfterContentInit,
+    ChangeDetectionStrategy,
     Component,
+    effect,
     ElementRef,
-    NgZone,
-    OnDestroy,
-    TemplateRef,
-    numberAttribute,
     inject,
     input,
-    effect
+    NgZone,
+    numberAttribute,
+    OnDestroy,
+    TemplateRef
 } from '@angular/core';
-import { ThyPlacement } from 'ngx-tethys/core';
-import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
-import { isUndefinedOrNull } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { from, Observable, Subject, Subscription } from 'rxjs';
-import { debounceTime, take, takeUntil } from 'rxjs/operators';
+import { ThyPlacement } from 'ngx-tethys/core';
+import { ThyMeasureTextService, ThyTooltipDirective } from 'ngx-tethys/tooltip';
+import { isUndefinedOrNull } from 'ngx-tethys/util';
+import { from, merge, Observable, Subject, Subscription } from 'rxjs';
+import { auditTime, take, takeUntil } from 'rxjs/operators';
 
 /**
  * 文本提示组件，支持组件 thy-flexible-text 和指令 [thyFlexibleText] 两种方式
@@ -26,6 +27,7 @@ import { debounceTime, take, takeUntil } from 'rxjs/operators';
     selector: 'thy-flexible-text,[thyFlexibleText]',
     exportAs: 'thyFlexibleText',
     templateUrl: './flexible-text.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     hostDirectives: [ThyTooltipDirective]
 })
 export class ThyFlexibleText implements AfterContentInit, OnDestroy {
@@ -33,7 +35,7 @@ export class ThyFlexibleText implements AfterContentInit, OnDestroy {
     private contentObserver = inject(ContentObserver);
     private ngZone = inject(NgZone);
     tooltipDirective = inject(ThyTooltipDirective);
-
+    private measureTextService = inject(ThyMeasureTextService);
     isOverflow = false;
 
     subscription: Subscription | null = null;
@@ -123,15 +125,11 @@ export class ThyFlexibleText implements AfterContentInit, OnDestroy {
         this.ngZone.runOutsideAngular(() => {
             // Wait for the next time period to avoid blocking the js thread.
             onStable$.pipe(takeUntil(this.destroy$)).subscribe(() => {
-                this.contentObserver
-                    .observe(this.elementRef)
-                    .pipe(debounceTime(100), takeUntil(this.destroy$))
-                    .subscribe(() => {
-                        this.applyOverflow();
-                    });
-
-                ThyFlexibleText.createResizeObserver(this.elementRef.nativeElement)
-                    .pipe(debounceTime(100), takeUntil(this.destroy$))
+                // Initial calculation once stable
+                this.applyOverflow();
+                // Merge content and resize observers, batch updates and avoid redundant writes
+                merge(this.contentObserver.observe(this.elementRef), ThyFlexibleText.createResizeObserver(this.elementRef.nativeElement))
+                    .pipe(auditTime(100), takeUntil(this.destroy$))
                     .subscribe(() => {
                         this.applyOverflow();
                     });
@@ -141,6 +139,7 @@ export class ThyFlexibleText implements AfterContentInit, OnDestroy {
 
     ngOnDestroy() {
         this.destroy$.next();
+        this.destroy$.complete();
         this.tooltipDirective.hide();
     }
 

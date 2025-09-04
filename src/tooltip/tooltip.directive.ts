@@ -3,16 +3,15 @@ import { Platform } from '@angular/cdk/platform';
 import {
     Directive,
     ElementRef,
-    Input,
     NgZone,
     OnDestroy,
     OnInit,
     ViewContainerRef,
-    numberAttribute,
+    effect,
     inject,
     input,
-    effect,
-    linkedSignal
+    linkedSignal,
+    numberAttribute
 } from '@angular/core';
 import { ThyOverlayDirectiveBase, ThyOverlayTrigger, ThyPlacement } from 'ngx-tethys/core';
 import { SafeAny } from 'ngx-tethys/types';
@@ -202,6 +201,10 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
     }
 
     ngOnDestroy() {
-        this.tooltipRef?.dispose();
+        if (this.tooltipRef) {
+            // 释放实例回池中而不是直接销毁
+            this.thyTooltipService.release(this.tooltipRef);
+            this.tooltipRef = null;
+        }
     }
 }

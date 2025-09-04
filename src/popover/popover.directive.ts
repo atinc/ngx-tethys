@@ -1,28 +1,28 @@
-import {
-    Directive,
-    ElementRef,
-    NgZone,
-    OnDestroy,
-    Input,
-    TemplateRef,
-    OnInit,
-    ViewContainerRef,
-    HostBinding,
-    ChangeDetectorRef,
-    numberAttribute,
-    inject,
-    input,
-    effect
-} from '@angular/core';
-import { Platform } from '@angular/cdk/platform';
-import { OverlayRef } from '@angular/cdk/overlay';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { ThyOverlayDirectiveBase, ThyOverlayTrigger, ThyPlacement } from 'ngx-tethys/core';
-import { ThyPopover } from './popover.service';
+import { OverlayRef } from '@angular/cdk/overlay';
+import { Platform } from '@angular/cdk/platform';
 import { ComponentType } from '@angular/cdk/portal';
+import {
+    ChangeDetectorRef,
+    Directive,
+    effect,
+    ElementRef,
+    HostBinding,
+    inject,
+    Input,
+    input,
+    NgZone,
+    numberAttribute,
+    OnDestroy,
+    OnInit,
+    TemplateRef,
+    ViewContainerRef
+} from '@angular/core';
+import { ThyOverlayDirectiveBase, ThyOverlayTrigger, ThyPlacement } from 'ngx-tethys/core';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { ThyPopoverRef } from './popover-ref';
 import { ThyPopoverConfig } from './popover.config';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { ThyPopover } from './popover.service';
 
 /**
  * 弹出悬浮层指令
@@ -96,7 +96,8 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
         const platform = inject(Platform);
         const focusMonitor = inject(FocusMonitor);
         const ngZone = inject(NgZone);
-        super(elementRef, platform, focusMonitor, ngZone, true);
+        const changeDetectorRef = inject(ChangeDetectorRef);
+        super(elementRef, platform, focusMonitor, ngZone, true, changeDetectorRef);
         this.elementRef = elementRef;
 
         effect(() => {

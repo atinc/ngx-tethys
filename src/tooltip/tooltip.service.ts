@@ -1,7 +1,8 @@
 import { Overlay, ScrollDispatcher } from '@angular/cdk/overlay';
-import { Injectable, NgZone, ElementRef, inject } from '@angular/core';
+import { ElementRef, inject, Injectable, NgZone } from '@angular/core';
+import { ThyTooltipPoolService } from './tooltip-pool.service';
 import { ThyTooltipRef } from './tooltip-ref';
-import { ThyGlobalTooltipConfig, ThyTooltipConfig, THY_TOOLTIP_DEFAULT_CONFIG_TOKEN } from './tooltip.config';
+import { THY_TOOLTIP_DEFAULT_CONFIG_TOKEN, ThyTooltipConfig } from './tooltip.config';
 
 @Injectable({ providedIn: 'root' })
 export class ThyTooltipService {
@@ -9,13 +10,27 @@ export class ThyTooltipService {
     private scrollDispatcher = inject(ScrollDispatcher);
     private ngZone = inject(NgZone);
     private defaultTooltipConfig = inject(THY_TOOLTIP_DEFAULT_CONFIG_TOKEN);
+    private poolService = inject(ThyTooltipPoolService);
 
     /**
-     * 创建一个 Tooltip
+     * 创建一个 Tooltip，优先从池中复用实例
      */
     create(host: ElementRef<HTMLElement> | HTMLElement, config: ThyTooltipConfig = {}) {
         config = Object.assign({}, this.defaultTooltipConfig, config);
-        const tooltipRef = new ThyTooltipRef(host, config, this.overlay, this.scrollDispatcher, this.ngZone);
-        return tooltipRef;
+        return this.poolService.acquire(host, config);
+    }
+
+    /**
+     * 释放 tooltip 实例回池中
+     */
+    release(tooltipRef: ThyTooltipRef): void {
+        this.poolService.release(tooltipRef);
+    }
+
+    /**
+     * 获取池状态信息（用于调试）
+     */
+    getPoolStats() {
+        return this.poolService.getPoolStats();
     }
 }
