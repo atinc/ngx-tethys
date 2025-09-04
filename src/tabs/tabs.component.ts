@@ -137,9 +137,7 @@ export class ThyTabs implements OnInit, AfterContentInit {
         if (tab.thyDisabled()) {
             return;
         }
-        this.activeTabId.set(tab.id() || null);
         this.thyAnimated() && (this.transitionStarted = this.activeTabIndex() !== index);
-        this.activeTabIndex.set(index);
         const id = tab.id();
         this.thyActiveTab.set(id ? id : index);
     }
