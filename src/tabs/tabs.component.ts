@@ -4,17 +4,15 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    computed,
     ContentChildren,
     DestroyRef,
-    effect,
     ElementRef,
     inject,
     input,
+    linkedSignal,
     model,
     OnInit,
     QueryList,
-    signal,
     TemplateRef
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -93,18 +91,18 @@ export class ThyTabs implements OnInit, AfterContentInit {
      */
     readonly thyResponsive = input<boolean, ThyBooleanInput>(false, { transform: coerceBooleanProperty });
 
-    readonly activeTabIndex = signal<number | undefined>(0);
+    readonly activeTabIndex = linkedSignal(() => {
+        const activeTab = this.thyActiveTab();
+        return isNumber(activeTab) ? activeTab : undefined;
+    });
 
-    readonly activeTabId = computed(() => this.thyActiveTab() ?? undefined);
+    readonly activeTabId = linkedSignal(() => {
+        return this.thyActiveTab() ?? undefined;
+    });
 
     transitionStarted: boolean = false;
 
-    constructor() {
-        effect(() => {
-            const activeTab = this.thyActiveTab();
-            this.activeTabIndex.set(isNumber(activeTab) ? activeTab : undefined);
-        });
-    }
+    constructor() {}
 
     ngOnInit(): void {
         const tabsContent = this.el.nativeElement.querySelector('.thy-tabs-content');
@@ -139,10 +137,8 @@ export class ThyTabs implements OnInit, AfterContentInit {
         if (tab.thyDisabled()) {
             return;
         }
-        this.thyActiveTab.set(tab.id() || null);
+        this.thyActiveTab.set(tab.id() ? tab.id() : index);
+        this.activeTabIndex.set(index);
         this.thyAnimated() && (this.transitionStarted = this.activeTabIndex() !== index);
-        this.thyActiveTab.set(index);
-        const id = tab.id();
-        this.thyActiveTab.set(id ? id : index);
     }
 }
