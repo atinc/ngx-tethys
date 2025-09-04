@@ -1,5 +1,5 @@
-<thy-tabs (thyActiveTabChange)="activeTabChange($event)">
-  <thy-tab thyTitle="Tab1">Tab1 Content</thy-tab>
-  <thy-tab thyTitle="Tab2">Tab2 Content</thy-tab>
-  <thy-tab thyTitle="Tab3">Tab3 Content</thy-tab>
+<thy-tabs [(thyActiveTab)]="activeTab">
+  @for (tab of tabs; track tab?.id) {
+    <thy-tab [id]="tab.id" [thyTitle]="tab.title">{{ tab.content }}</thy-tab>
+  }
 </thy-tabs>

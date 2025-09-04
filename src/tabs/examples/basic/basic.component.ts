@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyTabActiveEvent, ThyTabs, ThyTab } from 'ngx-tethys/tabs';
+import { ThyTab, ThyTabs } from 'ngx-tethys/tabs';
 
 @Component({
     selector: 'thy-tabs-basic-example',
@@ -9,9 +9,13 @@ import { ThyTabActiveEvent, ThyTabs, ThyTab } from 'ngx-tethys/tabs';
 export class ThyTabsBasicExampleComponent implements OnInit {
     constructor() {}
 
-    ngOnInit(): void {}
+    public tabs = [
+        { id: 'tab1', title: 'Tab1', content: 'Tab1 Content' },
+        { id: 'tab2', title: 'Tab2', content: 'Tab2 Content' },
+        { id: 'tab3', title: 'Tab3', content: 'Tab3 Content' }
+    ];
 
-    activeTabChange(event: ThyTabActiveEvent) {
-        console.log('激活的项:', event);
-    }
+    public activeTab = 'tab1';
+
+    ngOnInit(): void {}
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ThyTabs, ThyTab } from 'ngx-tethys/tabs';
 import { ThyButton } from 'ngx-tethys/button';
+import { ThyTab, ThyTabs } from 'ngx-tethys/tabs';
 
 @Component({
     selector: 'thy-tabs-dynamic-example',
