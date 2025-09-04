@@ -1,4 +1,4 @@
-<thy-tabs [(thyActiveTab)]="activeTab">
+<thy-tabs [thyActiveTab]="activeTab">
   @for (tab of tabs; track tab?.id) {
     <thy-tab [id]="tab.id" [thyTitle]="tab.title" [thyDisabled]="tab?.disabled">{{ tab.content }}</thy-tab>
   }

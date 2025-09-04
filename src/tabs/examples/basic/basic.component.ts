@@ -18,4 +18,8 @@ export class ThyTabsBasicExampleComponent implements OnInit {
     public activeTab = 'tab1';
 
     ngOnInit(): void {}
+
+    activeTabChange(event: any) {
+        console.log('激活的项：', event);
+    }
 }
