@@ -3,9 +3,9 @@ import { Component, DebugElement, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyNav } from 'ngx-tethys/nav';
+import { ThyActiveTabInfo, ThyTabActiveEvent, ThyTabs, ThyTabsModule, ThyTabsPosition, ThyTabsSize, ThyTabsType } from 'ngx-tethys/tabs';
 import { createFakeEvent, dispatchFakeEvent } from 'ngx-tethys/testing';
 import { SafeAny } from 'ngx-tethys/types';
-import { ThyTabs, ThyTabsPosition, ThyTabsSize, ThyTabsType, ThyTabsModule, ThyActiveTabInfo, ThyTabActiveEvent } from 'ngx-tethys/tabs';
 
 @Component({
     selector: 'test-tabs-basic',
@@ -353,7 +353,7 @@ describe('tabs', () => {
             fixture.debugElement.componentInstance.activeTab = 1;
             fixture.detectChanges();
             const tabsInstance = getDebugElement(fixture, ThyTabs).componentInstance;
-            expect(tabsInstance.activeTabIndex).toEqual(1);
+            expect(tabsInstance.activeTabIndex()).toEqual(1);
         });
 
         it('should set thyActiveTab successfully when thyAnimated', () => {

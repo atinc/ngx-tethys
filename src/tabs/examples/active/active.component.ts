@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyActiveTabInfo, ThyTabActiveEvent, ThyTabs, ThyTab } from 'ngx-tethys/tabs';
+import { ThyActiveTabInfo, ThyTab, ThyTabActiveEvent, ThyTabs } from 'ngx-tethys/tabs';
 
 @Component({
     selector: 'thy-tabs-active-example',
@@ -7,7 +7,7 @@ import { ThyActiveTabInfo, ThyTabActiveEvent, ThyTabs, ThyTab } from 'ngx-tethys
     imports: [ThyTabs, ThyTab]
 })
 export class ThyTabsActiveExampleComponent implements OnInit {
-    public activeTab: ThyActiveTabInfo = 'tab2';
+    public activeTab: ThyActiveTabInfo = 2;
 
     public activeTab2: ThyActiveTabInfo = 'tab1';
 

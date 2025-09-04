@@ -1,3 +1,4 @@
+import { NgTemplateOutlet } from '@angular/common';
 import {
     AfterContentInit,
     ChangeDetectionStrategy,
@@ -6,23 +7,21 @@ import {
     ContentChildren,
     DestroyRef,
     ElementRef,
-    OnInit,
-    QueryList,
-    TemplateRef,
-    effect,
     inject,
     input,
-    output,
-    model
+    linkedSignal,
+    model,
+    OnInit,
+    QueryList,
+    TemplateRef
 } from '@angular/core';
-import { coerceBooleanProperty, isString, ThyBooleanInput } from 'ngx-tethys/util';
-import { fromEvent } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ThyTab } from './tab.component';
-import { ThyActiveTabInfo, ThyTabActiveEvent } from './types';
-import { ThyTabContent } from './tab-content.component';
-import { NgTemplateOutlet } from '@angular/common';
 import { ThyNav, ThyNavItemDirective } from 'ngx-tethys/nav';
+import { coerceBooleanProperty, isNumber, ThyBooleanInput } from 'ngx-tethys/util';
+import { fromEvent } from 'rxjs';
+import { ThyTabContent } from './tab-content.component';
+import { ThyTab } from './tab.component';
+import { ThyActiveTabInfo } from './types';
 
 export type ThyTabsSize = 'lg' | 'md' | 'sm';
 
@@ -92,24 +91,18 @@ export class ThyTabs implements OnInit, AfterContentInit {
      */
     readonly thyResponsive = input<boolean, ThyBooleanInput>(false, { transform: coerceBooleanProperty });
 
-    activeTabIndex: number = 0;
+    readonly activeTabIndex = linkedSignal(() => {
+        const activeTab = this.thyActiveTab();
+        return isNumber(activeTab) ? activeTab : undefined;
+    });
 
-    activeTabId: string;
+    readonly activeTabId = linkedSignal(() => {
+        return this.thyActiveTab() ?? undefined;
+    });
 
     transitionStarted: boolean = false;
 
-    constructor() {
-        effect(() => {
-            const value = this.thyActiveTab();
-            if (isString(value)) {
-                this.activeTabId = value;
-                this.activeTabIndex = undefined;
-            } else {
-                this.activeTabIndex = value;
-                this.activeTabId = undefined;
-            }
-        });
-    }
+    constructor() {}
 
     ngOnInit(): void {
         const tabsContent = this.el.nativeElement.querySelector('.thy-tabs-content');
@@ -124,7 +117,7 @@ export class ThyTabs implements OnInit, AfterContentInit {
     ngAfterContentInit() {
         this.tabs.changes.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(data => {
             this.thyAnimated() && (this.transitionStarted = true);
-            this.activeTabIndex = data.length - 1;
+            this.activeTabIndex.set(data.length - 1);
             this.cd.markForCheck();
         });
     }
@@ -135,7 +128,7 @@ export class ThyTabs implements OnInit, AfterContentInit {
 
     getTabContentMarginLeft(): string {
         if (this.tabPaneAnimated) {
-            return `${-(this.activeTabIndex || 0) * 100}%`;
+            return `${-(this.activeTabIndex() || 0) * 100}%`;
         }
         return '';
     }
@@ -144,9 +137,7 @@ export class ThyTabs implements OnInit, AfterContentInit {
         if (tab.thyDisabled()) {
             return;
         }
-        this.activeTabId = tab.id() || null;
-        this.thyAnimated() && (this.transitionStarted = this.activeTabIndex !== index);
-        this.activeTabIndex = index;
+        this.thyAnimated() && (this.transitionStarted = this.activeTabIndex() !== index);
         const id = tab.id();
         this.thyActiveTab.set(id ? id : index);
     }
