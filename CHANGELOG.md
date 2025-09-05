@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [19.1.1](https://github.com/atinc/ngx-tethys/compare/19.1.0...19.1.1) (2025-09-05)
+
+
+### Bug Fixes
+
+* **tabs:** fix thyActiveTab is number bug and optimize doc  [@wumeimin](https://github.com/wumeimin) ([#3553](https://github.com/atinc/ngx-tethys/issues/3553)) ([f7727eb](https://github.com/atinc/ngx-tethys/commit/f7727eba8243305395f9a0197d9a881ce460e756))
+
+
+
 # [19.1.0](https://github.com/atinc/ngx-tethys/compare/19.1.0-next.12...19.1.0) (2025-08-29)
 
 
