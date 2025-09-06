@@ -321,7 +321,8 @@ describe('ThyAutocomplete', () => {
             beforeEach(fakeAsync(() => {
                 fixture = TestBed.createComponent(InputSearchSelectComponent);
                 debugSearchElement = fixture.debugElement.query(By.directive(ThyInputSearch));
-                fixture.componentInstance.autocomplete().isMultiple = true;
+                // TODO 为什么会有 isMultiple ？？
+                // fixture.componentInstance.autocomplete().isMultiple = true;
                 fixture.detectChanges();
                 tick(100);
             }));

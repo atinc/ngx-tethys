@@ -1,7 +1,20 @@
 <ng-template #contentTemplate>
   <div thyStopPropagation [ngClass]="dropDownClass">
     <div #panel class="thy-select-dropdown-options">
-      <ng-content></ng-content>
+      @for (option of options; track option.thyValue()) {
+        <thy-option-render
+          [thyValue]="option.thyValue()"
+          [thyRawValue]="option.thyRawValue()"
+          [thyLabelText]="option.thyLabelText()"
+          [thyShowOptionCustom]="option.thyShowOptionCustom()"
+          [thySearchKey]="option.thySearchKey()"
+          [thyDisabled]="option.thyDisabled()"
+          [thyTemplate]="option.template()"
+          [thyShowCheckedIcon]="isMultiple()"
+          [thySelectedValuesOfList]="selectedValues()"
+          (optionClick)="optionClick($event)">
+        </thy-option-render>
+      }
       @if (isEmptyOptions) {
         <thy-empty [thyMessage]="thyEmptyText()" [thyIconName]="emptyIcon()"></thy-empty>
       }
