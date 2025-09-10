@@ -42,7 +42,7 @@ export class QuarterTable extends CalendarTable {
             };
             for (let colIndex = 0; colIndex < this.MAX_COL; colIndex++) {
                 const quarter = this.activeDate().setQuarter(quarterValue + 1);
-                const isDisabled = this.disabledDate ? this.disabledDate()(quarter.nativeDate) : false;
+                const isDisabled = this.disabledDate() ? this.disabledDate()(quarter.nativeDate) : false;
                 const content = `${quarter.format(QUARTER_FORMAT)}`;
                 const cell: DateCell = {
                     trackByIndex: colIndex,
