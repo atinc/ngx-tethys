@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [19.1.2](https://github.com/atinc/ngx-tethys/compare/19.1.1...19.1.2) (2025-09-11)
+
+
+### Bug Fixes
+
+* **date-picker:** fix disable date error when not set disabledDate parameter ([#3556](https://github.com/atinc/ngx-tethys/issues/3556)) ([5f8fc70](https://github.com/atinc/ngx-tethys/commit/5f8fc70aeba6cacc89691752f1f05d29b92c10dc))
+
+
+
 ## [19.1.1](https://github.com/atinc/ngx-tethys/compare/19.1.0...19.1.1) (2025-09-05)
 
 
