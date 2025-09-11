@@ -6,29 +6,32 @@
  * （2）清空
  * （3）多选，点击X，remove 单个
  * 4. 键盘操作：
- * （1）上下箭头 选中， enter 或 space 修改值
- * （2）space 打开、关闭
- * （4）esc 关闭
- * （5）tab 关闭，选中下一个select
+ * （1）上下箭头 选中， enter 或 space 选中值
+ * （2）按 space 打开、关闭
+ * （4）按 esc 关闭
+ * （5）按 tab 关闭，选中下一个select
+ * （6）按 tab 选中下一个select，接着按 DOWN_ARROW 选中第一个选项
+ * （7）HOME键 = fn+向左键     END 键 = fn+向右键    分别选中第一个和最后一个
  *
  * 5. 搜索：展示搜索的 option 以及 option 所属的 group
  *   (1) thy-option 、thy-group 模板
  *  （2） thyOptions
  *  （3）有选中值的情况下搜索  --- 搜索后，勾选要正确
+ *   （3-1）本地搜索：有选中值的情况下搜索，搜索后，只展示匹配搜索的项，激活第一个
+ *   (3-2) 服务端搜索：有选中项情况下，搜索，下拉列表展示 = 已选中项+匹配搜索的项，激活的是第一个选中项
  *
  * 6. 支持自定义 option 模板 thyShowOptionCustom
- * 
- * 7. 高亮选项逻辑：
-*   打开下拉面板后，默认高亮第一个，有选中项的，高亮第一个选中项。
-*   鼠标在菜单上下移动，取消原高亮
-*   TODO 打开面板，点击向下键，点击 ESC。 再打开面板，应该高亮上一次选中的项
-* 
-* 检查调用，只有在打开了下拉面板之后，optionRenders 渲染之后，调用 highlightCorrectOption 才有效
-* 
-* 8. 多选选项排序
-
-
-
+ *
+ * 7. 高亮（激活）选项逻辑：
+ *   打开下拉面板后，默认高亮第一个，有选中项的，高亮第一个选中项。
+ *   鼠标在菜单上下移动，取消原高亮
+ *   打开面板，点击向下键，点击 ESC。 再打开面板，滚动到上次高亮的项并高亮
+ *
+ * 8. 多选选项排序 thySortComparator
+ *
+ * 检查调用，只有在打开了下拉面板之后，optionRenders 渲染之后，调用 highlightCorrectOption 才有效
+ *
+ *
  *
  * 每次打开面板，默认高亮第一个，回车能选中
  * TODO load async
@@ -40,9 +43,15 @@
  *
  *
  * 禁用状态下的操作：禁用
- * thySortComparator ??
+ *
  *
  * 性能比对
+ *
+ *
+ * Mark：
+ * highlightCorrectOption 逻辑： 以前 optionsChanges$ 的监听很少触发，监听的是投影进来的 options 的变化，  搜索时不符合的通过 hidden 隐藏，这不会触发 optionsChanges$ 的变化
+ * 现在 optionsChanges$ 的监听会经常触发，因为是监听的 optionRenders 的变化， 打开关闭面板、搜索都会触发 optionRenders 变化。  所以，几乎只在 optionsChanges$ 这一处统一调用 highlightCorrectOption 即可，不需要多个地方调用。
+ *
  *
  */
 
@@ -604,9 +613,11 @@ export class ThySelect
             return isMultiple ? [] : null;
         }
 
-        const allOptionsMap = helpers.keyBy(
-            this.allGroupsAndOptions().filter(item => item.type === 'option'),
-            'value'
+        const allOptionsMap = untracked(() =>
+            helpers.keyBy(
+                this.allGroupsAndOptions().filter(item => item.type === 'option'),
+                'value'
+            )
         );
 
         const result: SelectOptionBase[] = [];
@@ -625,10 +636,6 @@ export class ThySelect
             return result.length > 0 ? result : [];
         }
         return result.length > 0 ? result[0] : null;
-    });
-
-    readonly originRectWidth = computed(() => {
-        return this.thyOrigin() ? coerceElement(this.thyOrigin()).offsetWidth : this.trigger.nativeElement.offsetWidth;
     });
 
     /**
@@ -650,12 +657,19 @@ export class ThySelect
     readonly viewGroups = viewChildren<ThySelectOptionGroup>(ThySelectOptionGroup);
 
     @HostListener('keydown', ['$event'])
-    handleKeydown(event: KeyboardEvent): void {
+    keydown(event: KeyboardEvent): void {
         if (!this.disabled) {
             if (event.keyCode === ENTER) {
                 event.stopPropagation();
             }
-            this.panelOpen ? this.handleOpenKeydown(event) : this.handleClosedKeydown(event);
+
+            // this.panelOpen ? this.handleOpenKeydown(event) : this.handleClosedKeydown(event);
+
+            // keydown 事件触发时，保证 panel 是打开的，保证 optionRenders 存在，才能做激活和选中操作。 ng-zorro 也如此
+            if (!this.panelOpen) {
+                this.panelOpen = true;
+            }
+            this.handleKeydown(event);
         }
     }
 
@@ -674,6 +688,22 @@ export class ThySelect
         );
     }
 
+    // get optionsChanges$() {
+    //     // this.options = this.isReactiveDriven ? this.viewOptions : this.optionRenders;
+    //     // Mark： 这里不能用 optionRenders，因为展开收起都会导致 optionRenders 重新渲染，导致 keyManager 重新初始化
+    //     let previousOptions: ThyOption[] = this.contentOptions.toArray();
+    //     return this.contentOptions.changes.pipe(
+    //         map(data => {
+    //             return this.contentOptions.toArray();
+    //         }),
+    //         filter(data => {
+    //             const res = previousOptions.length !== data.length || previousOptions.some((op, index) => op !== data[index]);
+    //             previousOptions = data;
+    //             return res;
+    //         })
+    //     );
+    // }
+
     private buildScrollStrategy() {
         if (this.scrollStrategyFactory && isFunction(this.scrollStrategyFactory)) {
             this.scrollStrategy = this.scrollStrategyFactory();
@@ -682,7 +712,7 @@ export class ThySelect
         }
     }
 
-    private isSearching = false;
+    // private isSearching = false;
 
     // groupBy = (item: ThySelectOptionModel) => item.groupLabel;
 
@@ -734,6 +764,7 @@ export class ThySelect
                     if (!this.elementRef.nativeElement.contains(event.target) && this.panelOpen) {
                         this.ngZone.run(() => {
                             this.close();
+                            console.log('===ngOnInit0 clicked close===');
                             this.changeDetectorRef.markForCheck();
                         });
                     }
@@ -914,15 +945,17 @@ export class ThySelect
         this.optionsChanges$.pipe(startWith(null), takeUntil(this.destroy$)).subscribe(data => {
             // this.resetOptions();
             // this.initializeSelection();
-            console.log('===optionsChanges$ initKeyManager===>', data);
+            // console.log('===optionsChanges$ initKeyManager===>', data);
+            console.log(`${data?.length ? '=== optionsRenders 渲染了 ===' : '=== 下拉菜单收起状态 ==='}`);
             this.initKeyManager();
-            if (this.isSearching) {
-                this.highlightCorrectOption(false);
-                this.isSearching = false;
-            } else {
-                // 打开下拉面板后，保证 optionRenders 渲染完了，再调用 highlightCorrectOption （以前是在 open 里调的）
-                this.highlightCorrectOption();
-            }
+            // if (this.isSearching) {
+            //     console.log('optionsChanges$ isSearching 触发 highlightCorrectOption, isSearching = false');
+            //     // this.highlightCorrectOption(false);
+            //     this.isSearching = false;
+            // } else {
+            // 打开下拉面板后，保证 optionRenders 渲染完了，再调用 highlightCorrectOption （以前是在 open 里调的）
+            this.highlightCorrectOption();
+            // }
             this.changeDetectorRef.markForCheck();
             this.ngZone.onStable
                 .asObservable()
@@ -948,6 +981,7 @@ export class ThySelect
     // }
 
     public onAttached(): void {
+        // console.log('===打开下拉菜单===');
         this.cdkConnectedOverlay()
             .positionChange.pipe(take(1))
             .subscribe(() => {
@@ -962,6 +996,7 @@ export class ThySelect
                             //     this.panel().nativeElement
                             // );
 
+                            console.log('===onAttached0 滚动到已选中项===');
                             const selectedValue = this.selectedValues().length > 0 ? this.selectedValues()[0] : null;
                             if (selectedValue) {
                                 const option = this.optionRenders.find(option => option.thyValue === selectedValue);
@@ -1022,7 +1057,8 @@ export class ThySelect
         this.selectedValues.set([...this.selectedValues()]);
 
         if (this.thyServerSearch()) {
-            this.isSearching = true;
+            // this.isSearching = true;
+            // console.log('thyServerSearch  isSearching = true');
             this.thyOnSearch.emit(keywords);
         } else {
             // const options = this.optionRenders.toArray();
@@ -1034,7 +1070,8 @@ export class ThySelect
             //     }
             // });
 
-            this.highlightCorrectOption(false);
+            // this.highlightCorrectOption(false);  // 以前的 search 触发 highlightCorrectOption，和 optionsChanges$ 那里重复
+            console.log('以前的 search 触发 highlightCorrectOption');
             this.updateCdkConnectedOverlayPositions();
         }
     }
@@ -1123,10 +1160,14 @@ export class ThySelect
         return !this.selectedValues().length;
     });
 
+    // private
+    activatedOptionValue: SafeAny;
+
     public toggle(event: MouseEvent): void {
         if (this.panelOpen) {
             if (!this.thyShowSearch()) {
                 this.close();
+                console.log('===toggle0 clicked close===');
             }
         } else {
             this.open();
@@ -1137,7 +1178,7 @@ export class ThySelect
         if (this.disabled || !this.optionRenders || this.panelOpen) {
             return;
         }
-        this.triggerRectWidth.set(this.originRectWidth());
+        this.triggerRectWidth.set(this.getOriginRectWidth());
         this.subscribeTriggerResize();
         this.panelOpen = true;
         // this.highlightCorrectOption(); // 改到 optionsChanges$ 里调用，等optionRenders 渲染完了，再调用 highlightCorrectOption
@@ -1172,55 +1213,73 @@ export class ThySelect
     }
 
     // TODO  检查调用，只有在打开了下拉面板之后，optionRenders 渲染了，才能进行高亮
-    private highlightCorrectOption(fromOpenPanel: boolean = true): void {
+    // 去掉参数 fromOpenPanel: boolean = true
+    // 以前，服务端搜索的时候会传入 fromOpenPanel false，然后走 else 激活第一个， 现在监听的是 optionsChanges$ 的变化，会走 B B1 ，执行逻辑及效果和以前意义。
+    // 也就不需要全局的 isSearching 变量来标记 服务端搜索要传入 fromOpenPanel false
+    private highlightCorrectOption(): void {
         if (this.keyManager && this.panelOpen) {
-            if (fromOpenPanel) {
-                if (this.keyManager.activeItem) {
-                    console.log('===A===');
-                    return;
-                }
-                if (this.empty()) {
-                    console.log('===B===');
-                    if (!this.thyAutoActiveFirstItem()) {
-                        console.log('===B0===');
-                        return;
-                    }
-
-                    const firstOption = this.optionRenders.toArray()[0];
-                    if (firstOption) {
-                        this.keyManager.setActiveItem(firstOption);
-                    }
-                    // this.keyManager.setFirstItemActive();
-                    console.log('===B1===');
-                } else {
-                    console.log('===C===');
-                    // this.keyManager.setActiveItem(this.selectionModel.selected[0]);
-                    const selectedValue = this.selectedValues().length > 0 ? this.selectedValues()[0] : null;
-                    if (selectedValue) {
-                        const option = this.optionRenders.find(option => option.thyValue === selectedValue);
-                        if (option) {
-                            console.log('==E===');
-                            this.keyManager.setActiveItem(option);
-                        }
-                    }
-                }
-            } else {
-                console.log('===D===');
-                if (!this.thyAutoActiveFirstItem()) {
-                    console.log('===D0===');
-                    return;
-                }
-                // always set first option active
-                this.keyManager.setFirstItemActive();
-                console.log('===D1===');
+            // if (fromOpenPanel) {
+            if (this.keyManager.activeItem) {
+                console.log('===A===');
+                return;
             }
+
+            if (this.activatedOptionValue) {
+                console.log('=== has activatedOptionValue ===');
+                const option = this.optionRenders.find(option => option.thyValue === this.activatedOptionValue);
+                if (option) {
+                    this.keyManager.setActiveItem(option);
+                }
+                return;
+            }
+
+            if (this.empty()) {
+                // 没有选中项时，默认激活第一个（如果之前激活过并通过点击 ESC 突出，则激活上次激活过的）
+                // console.log('===B 没有选中项===');
+                if (!this.thyAutoActiveFirstItem()) {
+                    console.log('===B0===');
+                    return;
+                }
+
+                const firstOption = this.optionRenders.toArray().length > 0 ? this.optionRenders.toArray()[0] : null;
+                if (firstOption) {
+                    this.keyManager.setActiveItem(firstOption);
+                }
+                // this.keyManager.setFirstItemActive();
+                console.log('===B1 默认激活第一个===');
+            } else {
+                console.log('===C ===');
+                // this.keyManager.setActiveItem(this.selectionModel.selected[0]);
+                const selectedValue = this.selectedValues().length > 0 ? this.selectedValues()[0] : null;
+                if (selectedValue) {
+                    const option = this.optionRenders.find(option => option.thyValue === selectedValue);
+                    if (option) {
+                        console.log('==E===');
+                        this.keyManager.setActiveItem(option);
+                    }
+                }
+            }
+            // }
+            // else
+            // {
+            //     console.log('===D===');
+            //     if (!this.thyAutoActiveFirstItem()) {
+            //         console.log('===D0===');
+            //         return;
+            //     }
+            //     // always set first option active
+            //     this.keyManager.setFirstItemActive();
+            //     console.log('===D1===');
+            // }
         }
     }
 
     private initKeyManager() {
-        if (this.keyManager && this.keyManager.activeItem) {
-            this.keyManager.activeItem.setInactiveStyles();
-        }
+        // console.log('===initKeyManager activeItem===', this.keyManager?.activeItem);
+        // if (this.keyManager && this.keyManager.activeItem) {
+        //     console.log('===initKeyManager0 取消激活样式===');
+        //     this.keyManager.activeItem.setInactiveStyles();
+        // }
         this.keyManager = new ActiveDescendantKeyManager<ThyOptionRender>(this.optionRenders)
             .withTypeAhead()
             .withWrap()
@@ -1230,39 +1289,50 @@ export class ThySelect
         this.keyManager.tabOut.pipe(takeUntil(this.destroy$)).subscribe(() => {
             this.focus();
             this.close();
+            console.log('===initKeyManager1 tabOut focus close===');
         });
+
+        // highlightCorrectOption 会激活hover正确的项；就会触发 keyManager.change 去滚动到激活项
         this.keyManager.change.pipe(takeUntil(this.destroy$)).subscribe(() => {
             if (this.panelOpen && this.panel()) {
                 if (this.keyManager.activeItem) {
+                    console.log('===keyManager.change 滚动到激活项===');
                     ScrollToService.scrollToElement(this.keyManager.activeItem.element.nativeElement, this.panel().nativeElement);
                 }
             } else if (!this.panelOpen && !this.isMultiple() && this.keyManager.activeItem) {
+                console.log('===keyManager.change 选中激活项===');
                 this.keyManager.activeItem.selectViaInteraction();
             }
+            this.activatedOptionValue = this.keyManager.activeItem?.thyValue;
+            console.log('===keyManager.change 记录激活项===', this.activatedOptionValue);
         });
     }
 
-    private handleClosedKeydown(event: KeyboardEvent): void {
-        const keyCode = event.keyCode;
-        const isArrowKey = keyCode === DOWN_ARROW || keyCode === UP_ARROW || keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW;
-        const isOpenKey = keyCode === ENTER || keyCode === SPACE;
-        const manager = this.keyManager;
+    // keydown 事件统一先保证面板打开，再处理
+    // private handleClosedKeydown(event: KeyboardEvent): void {
+    //     const keyCode = event.keyCode;
+    //     const isArrowKey = keyCode === DOWN_ARROW || keyCode === UP_ARROW || keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW;
+    //     const isOpenKey = keyCode === ENTER || keyCode === SPACE;
+    //     const manager = this.keyManager;
 
-        // Open the select on ALT + arrow key to match the native <select>
-        if ((isOpenKey && !hasModifierKey(event)) || ((this.isMultiple() || event.altKey) && isArrowKey)) {
-            event.preventDefault(); // prevents the page from scrolling down when pressing space
-            this.open();
-        } else if (!this.isMultiple()) {
-            if (keyCode === HOME || keyCode === END) {
-                keyCode === HOME ? manager.setFirstItemActive() : manager.setLastItemActive();
-                event.preventDefault();
-            } else {
-                manager.onKeydown(event);
-            }
-        }
-    }
+    //     // Open the select on ALT + arrow key to match the native <select>
+    //     if ((isOpenKey && !hasModifierKey(event)) || ((this.isMultiple() || event.altKey) && isArrowKey)) {
+    //         event.preventDefault(); // prevents the page from scrolling down when pressing space
+    //         this.open();
+    //         console.log('===handleClosedKeydown0 ALT + arrow key===');
+    //     } else if (!this.isMultiple()) {
+    //         if (keyCode === HOME || keyCode === END) {
+    //             keyCode === HOME ? manager.setFirstItemActive() : manager.setLastItemActive();
+    //             event.preventDefault();
+    //             console.log('===handleClosedKeydown1 HOME 或 END===');
+    //         } else {
+    //             manager.onKeydown(event);
+    //             console.log('===handleClosedKeydown2 onKeydown===');
+    //         }
+    //     }
+    // }
 
-    private handleOpenKeydown(event: KeyboardEvent): void {
+    private handleKeydown(event: KeyboardEvent): void {
         const keyCode = event.keyCode;
         const isArrowKey = keyCode === DOWN_ARROW || keyCode === UP_ARROW;
         const manager = this.keyManager;
@@ -1270,10 +1340,12 @@ export class ThySelect
         if (keyCode === HOME || keyCode === END) {
             event.preventDefault();
             keyCode === HOME ? manager.setFirstItemActive() : manager.setLastItemActive();
+            console.log('===handleOpenKeydown0 HOME 或 END===');
         } else if (isArrowKey && event.altKey) {
             // Close the select on ALT + arrow key to match the native <select>
             event.preventDefault();
             this.close();
+            console.log('===handleOpenKeydown1 ALT + arrow key close===');
         } else if ((keyCode === ENTER || keyCode === SPACE) && (manager.activeItem || !this.empty()) && !hasModifierKey(event)) {
             event.preventDefault();
             if (!manager.activeItem) {
@@ -1289,6 +1361,7 @@ export class ThySelect
                 }
             }
             manager.activeItem.selectViaInteraction();
+            console.log('===handleOpenKeydown2 ENTER 或 SPACE===');
         } else if (this.isMultiple() && keyCode === A && event.ctrlKey) {
             event.preventDefault();
             const hasDeselectedOptions = this.optionRenders.some(opt => !opt.disabled && !opt.selected());
@@ -1298,6 +1371,7 @@ export class ThySelect
                     hasDeselectedOptions ? option.select() : option.deselect();
                 }
             });
+            console.log('===handleOpenKeydown3 A 或 CTRL===');
         } else {
             if (manager.activeItemIndex === -1 && !this.empty()) {
                 // manager.setActiveItem(this.selectionModel.selected[0]);
@@ -1311,7 +1385,9 @@ export class ThySelect
             }
             const previouslyFocusedIndex = manager.activeItemIndex;
 
+            // 需要保证 panel 是打开的
             manager.onKeydown(event);
+            console.log('===handleOpenKeydown4 onKeydown===');
 
             if (
                 this.isMultiple() &&
@@ -1321,6 +1397,7 @@ export class ThySelect
                 manager.activeItemIndex !== previouslyFocusedIndex
             ) {
                 manager.activeItem.selectViaInteraction();
+                console.log('===handleOpenKeydown5 selectViaInteraction===');
             }
         }
     }
@@ -1399,6 +1476,15 @@ export class ThySelect
             } else {
                 selectedValues.push(value);
             }
+            if (this.thySortComparator()) {
+                const optionRenders = this.optionRenders.toArray();
+                const optionRendersMap = helpers.keyBy(optionRenders, 'thyValue');
+                selectedValues.sort((a: SafeAny, b: SafeAny) => {
+                    const aOptionRender = optionRendersMap[a];
+                    const bOptionRender = optionRendersMap[b];
+                    return this.thySortComparator()(aOptionRender, bOptionRender, optionRenders);
+                });
+            }
             this.selectedValues.set([...selectedValues]);
         } else {
             this.selectedValues.set([value]);
@@ -1454,6 +1540,10 @@ export class ThySelect
         // }
     }
 
+    private getOriginRectWidth() {
+        return this.thyOrigin() ? coerceElement(this.thyOrigin()).offsetWidth : this.trigger.nativeElement.offsetWidth;
+    }
+
     // ✅ 监听 trigger 的宽度变化，更新下拉框的位置
     private subscribeTriggerResize(): void {
         this.unsubscribeTriggerResize();
@@ -1467,7 +1557,7 @@ export class ThySelect
                 .pipe(
                     startWith(),
                     map(() => {
-                        return this.originRectWidth();
+                        return this.getOriginRectWidth();
                     }),
                     distinctUntilChanged()
                 )
