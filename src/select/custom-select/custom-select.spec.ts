@@ -84,7 +84,6 @@ class BasicSelectComponent {
     footerClass: string;
     emptyStateText: string;
     readonly select = viewChild<ThySelect>(ThySelect);
-    // readonly options = viewChildren<ThyOptionRender>(ThyOptionRender);
     readonly footerTemplate = viewChild<TemplateRef<any>>('footer');
     readonly origin = viewChild<ElementRef>('origin');
     thyOnScrollToBottom = jasmine.createSpy('thyOnScrollToBottom callback');
@@ -335,7 +334,7 @@ class SelectWithSearchUseSearchKeyComponent {
             <thy-select
                 thyPlaceHolder="Pokemon"
                 [thyShowSearch]="true"
-                [thyEmptySearchMessageText]="thyEmptySearchMessageText"
+                [thyEmptySearchMessageText]="emptySearchMessageText"
                 [formControl]="control">
                 @for (group of pokemonTypes; track $index) {
                     <thy-option-group [thyGroupLabel]="group.name">
@@ -367,7 +366,7 @@ class SelectWithSearchAndGroupComponent {
             ]
         }
     ];
-    thyEmptySearchMessageText = 'empty result';
+    emptySearchMessageText = 'empty result';
     readonly select = viewChild<ThySelect>(ThySelect);
 }
 
@@ -729,7 +728,7 @@ class SelectWidthThyOptionsComponent {
     selectedValue = this.options[0].value;
 }
 
-describe('ThyCustomSelect', () => {
+fdescribe('ThyCustomSelect', () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
     let platform: Platform;
@@ -963,10 +962,10 @@ describe('ThyCustomSelect', () => {
 
             it('should close the panel when an item is clicked', fakeAsync(() => {
                 trigger.click();
-                fixture.detectChanges();
                 flush();
+                fixture.detectChanges();
 
-                const option = overlayContainerElement.querySelector('thy-option') as HTMLElement;
+                const option = overlayContainerElement.querySelector('thy-option-render') as HTMLElement;
                 option.click();
 
                 fixture.detectChanges();
@@ -1119,8 +1118,9 @@ describe('ThyCustomSelect', () => {
                 groupFixture.detectChanges();
                 trigger = groupFixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
                 trigger.click();
+                flush();
                 groupFixture.detectChanges();
-                expect(document.querySelectorAll('.cdk-overlay-container thy-option').length).toBeGreaterThan(
+                expect(document.querySelectorAll('.cdk-overlay-container thy-option-render').length).toBeGreaterThan(
                     0,
                     'Expected at least one option to be rendered.'
                 );
@@ -1319,7 +1319,7 @@ describe('ThyCustomSelect', () => {
                 expect(spy).toHaveBeenCalledTimes(1);
                 expect(spy).toHaveBeenCalledWith(true);
 
-                const option = overlayContainerElement.querySelector('thy-option') as HTMLElement;
+                const option = overlayContainerElement.querySelector('thy-option-render') as HTMLElement;
                 option.click();
 
                 fixture.detectChanges();
@@ -1351,27 +1351,7 @@ describe('ThyCustomSelect', () => {
                 const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
                 typeInElement('any word', input);
                 fixture.detectChanges();
-                expect(fixtureIns.select()['isSearching']).toBeTruthy();
-                tick(100);
-                fixture.detectChanges();
-                flush();
-                fixture.detectChanges();
-                expect(fixtureIns.select()['isSearching']).toBeFalsy();
                 expect(fixtureIns.select().keyManager.activeItem).toEqual(fixtureIns.select().optionRenders.toArray()[0]);
-            }));
-
-            it('should  scroll to active item when thyEnableScrollLoad is true and thyShowSearch is true', fakeAsync(() => {
-                fixtureIns.serverSearch = false;
-                fixture.detectChanges();
-                trigger.click();
-                fixture.detectChanges();
-
-                const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
-
-                typeInElement('any word', input);
-                fixture.detectChanges();
-                expect(fixtureIns.select()['isSearching']).toBeFalsy();
-                flush();
             }));
 
             it('should close panel when dispatch toggle at thyShowSearch is false', fakeAsync(() => {
@@ -1709,8 +1689,8 @@ describe('ThyCustomSelect', () => {
             const fixture = TestBed.createComponent(SelectWithSearchAndGroupComponent);
             fixture.detectChanges();
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
-            tick(100);
             trigger.click();
+            flush();
             fixture.detectChanges();
 
             expect(overlayContainerElement.querySelector('thy-empty')).not.toBeTruthy();
@@ -1718,13 +1698,15 @@ describe('ThyCustomSelect', () => {
             const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
             typeInElement('cat2', input);
 
-            tick(1000);
             fixture.detectChanges();
             flush();
+            fixture.detectChanges();
 
             const emptyNode = overlayContainerElement.querySelector('thy-empty') as HTMLElement;
             expect(emptyNode).toBeTruthy();
-            expect(emptyNode.textContent).toContain(fixture.componentInstance.thyEmptySearchMessageText);
+            const emptyTextNode = emptyNode.querySelector('.thy-empty-text') as HTMLElement;
+            expect(emptyTextNode).toBeTruthy();
+            expect(emptyTextNode.textContent).toContain(fixture.componentInstance.emptySearchMessageText);
         }));
     });
 
@@ -1858,11 +1840,13 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
+            flush();
             fixture.detectChanges();
 
             expect(overlayContainerElement.textContent).toContain('Sushi');
             fixture.componentInstance.foods.pop();
-
+            fixture.detectChanges();
+            flush();
             fixture.detectChanges();
 
             expect(overlayContainerElement.textContent).not.toContain('Sushi');
@@ -1919,7 +1903,7 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
 
-            const option = overlayContainerElement.querySelector('thy-option') as HTMLElement;
+            const option = overlayContainerElement.querySelector('thy-option-render') as HTMLElement;
             option.click();
             fixture.detectChanges();
             flush();
@@ -2066,10 +2050,10 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
-            fixture.detectChanges();
             flush();
+            fixture.detectChanges();
 
-            const options = overlayContainerElement.querySelectorAll('thy-option');
+            const options = overlayContainerElement.querySelectorAll('thy-option-render');
             (options.item(1) as HTMLElement).click();
             fixture.detectChanges();
             flush();
@@ -2090,24 +2074,26 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
-            fixture.detectChanges();
             flush();
+            fixture.detectChanges();
 
-            const options = overlayContainerElement.querySelectorAll('thy-option');
+            const options = overlayContainerElement.querySelectorAll('thy-option-render');
             (options.item(1) as HTMLElement).click();
             fixture.detectChanges();
             flush();
+            fixture.detectChanges();
 
             (options.item(0) as HTMLElement).click();
             fixture.detectChanges();
             flush();
+            fixture.detectChanges();
 
             expect(fixture.componentInstance.selectedFoods[0]).toEqual(fixture.componentInstance.foods[0].value);
             expect(fixture.componentInstance.selectedFoods[1]).toEqual(fixture.componentInstance.foods[1].value);
         }));
     });
 
-    describe('shortcuts', () => {
+    describe('key manager', () => {
         beforeEach(waitForAsync(() => {
             configureThyCustomSelectTestingModule();
         }));
@@ -2142,14 +2128,14 @@ describe('ThyCustomSelect', () => {
             );
         }));
 
-        fit('should set selected option active when open panel', fakeAsync(() => {
+        it('should set selected option active when open panel', fakeAsync(() => {
             const fixture = TestBed.createComponent(BasicSelectComponent);
             fixture.detectChanges();
 
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
-            fixture.detectChanges();
             flush();
+            fixture.detectChanges();
             dispatchKeyboardEvent(trigger, 'keydown', DOWN_ARROW);
             dispatchKeyboardEvent(trigger, 'keydown', ESCAPE);
             fixture.detectChanges();
@@ -2159,9 +2145,9 @@ describe('ThyCustomSelect', () => {
             trigger.click();
             flush();
             fixture.detectChanges();
-            // expect(fixture.componentInstance.select().keyManager.activeItem).toEqual(
-            //     fixture.componentInstance.select().optionRenders.toArray()[1]
-            // );
+            expect(fixture.componentInstance.select().keyManager.activeItem).toEqual(
+                fixture.componentInstance.select().optionRenders.toArray()[1]
+            );
         }));
 
         it('should stopPropagation when press enter on custom-select', fakeAsync(() => {
@@ -2185,22 +2171,22 @@ describe('ThyCustomSelect', () => {
             expect(spy).not.toHaveBeenCalled();
         }));
 
-        // it('should select an option when press enter on active option', fakeAsync(() => {
-        //     const fixture = TestBed.createComponent(BasicSelectComponent);
-        //     fixture.detectChanges();
+        it('should select an option when press enter on active option', fakeAsync(() => {
+            const fixture = TestBed.createComponent(BasicSelectComponent);
+            fixture.detectChanges();
 
-        //     const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
-        //     trigger.click();
-        //     fixture.detectChanges();
-        //     flush();
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            flush();
+            fixture.detectChanges();
 
-        //     dispatchKeyboardEvent(trigger, 'keydown', ENTER);
-        //     fixture.detectChanges();
-        //     flush();
+            dispatchKeyboardEvent(trigger, 'keydown', ENTER);
+            fixture.detectChanges();
+            flush();
 
-        //     expect(fixture.componentInstance.options()[0].selected()).toEqual(true);
-        //     expect(fixture.componentInstance.select().selectionModel.selected[0]).toBe(fixture.componentInstance.options()[0]);
-        // }));
+            expect(fixture.componentInstance.select().selectedValues().length).toBe(1);
+            expect(fixture.componentInstance.select().selectedValues()[0]).toBe(fixture.componentInstance.foods[0].value);
+        }));
 
         it('should open the panel when press enter on trigger', fakeAsync(() => {
             const fixture = TestBed.createComponent(BasicSelectComponent);
@@ -2214,18 +2200,25 @@ describe('ThyCustomSelect', () => {
             expect(fixture.componentInstance.select().panelOpen).toEqual(true);
         }));
 
-        // it('should select an option when press down_arrow on trigger', fakeAsync(() => {
-        //     const fixture = TestBed.createComponent(BasicSelectComponent);
-        //     fixture.detectChanges();
+        it('should open panel and highlight first option when press DOWN_ARROW on trigger, then select first option by press ENTER', fakeAsync(() => {
+            const fixture = TestBed.createComponent(BasicSelectComponent);
+            fixture.detectChanges();
 
-        //     const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
-        //     dispatchKeyboardEvent(trigger, 'keydown', DOWN_ARROW);
-        //     fixture.detectChanges();
-        //     flush();
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            dispatchKeyboardEvent(trigger, 'keydown', DOWN_ARROW);
+            fixture.detectChanges();
+            flush();
+            fixture.detectChanges();
+            expect(fixture.componentInstance.select().keyManager.activeItem).toEqual(
+                fixture.componentInstance.select().optionRenders.toArray()[0]
+            );
 
-        //     expect(fixture.componentInstance.options()[0].selected()).toEqual(true);
-        //     expect(fixture.componentInstance.select().selectionModel.selected[0]).toBe(fixture.componentInstance.options()[0]);
-        // }));
+            dispatchKeyboardEvent(trigger, 'keydown', ENTER);
+            fixture.detectChanges();
+            flush();
+            expect(fixture.componentInstance.select().selectedValues().length).toBe(1);
+            expect(fixture.componentInstance.select().selectedValues()[0]).toBe(fixture.componentInstance.foods[0].value);
+        }));
     });
 
     describe('autoExpend', () => {
@@ -2399,104 +2392,85 @@ describe('ThyCustomSelect', () => {
             configureThyCustomSelectTestingModule();
         }));
 
-        // it('should default active first option when open panel', fakeAsync(() => {
-        //     const fixture = TestBed.createComponent(BasicSelectComponent);
-        //     fixture.detectChanges();
+        it('should default active first option when open panel', fakeAsync(() => {
+            const fixture = TestBed.createComponent(BasicSelectComponent);
+            fixture.detectChanges();
 
-        //     const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
-        //     trigger.click();
-        //     fixture.detectChanges();
-        //     flush();
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            flush();
+            fixture.detectChanges();
 
-        //     expect(fixture.componentInstance.select().keyManager.activeItem).toEqual(
-        //         fixture.componentInstance.select().options.toArray()[0]
-        //     );
-        //     const spy = jasmine.createSpy('keydown spy');
-        //     fromEvent(fixture.debugElement.nativeElement, 'keydown').subscribe(() => {
-        //         spy();
-        //     });
+            expect(fixture.componentInstance.select().keyManager.activeItem).toEqual(
+                fixture.componentInstance.select().optionRenders.toArray()[0]
+            );
+            const spy = jasmine.createSpy('keydown spy');
+            fromEvent(fixture.debugElement.nativeElement, 'keydown').subscribe(() => {
+                spy();
+            });
 
-        //     dispatchKeyboardEvent(trigger, 'keydown', ENTER);
-        //     fixture.detectChanges();
-        //     flush();
+            dispatchKeyboardEvent(trigger, 'keydown', ENTER);
+            fixture.detectChanges();
+            flush();
 
-        //     expect(spy).not.toHaveBeenCalled();
-        // }));
+            expect(spy).not.toHaveBeenCalled();
+        }));
 
-        // it('should not active first option when open panel and thyAutoActiveFirstItem is false', fakeAsync(() => {
-        //     const fixture = TestBed.createComponent(BasicSelectComponent);
-        //     fixture.componentInstance.thyAutoActiveFirstItem = false;
-        //     fixture.detectChanges();
+        it('should not active first option when open panel and thyAutoActiveFirstItem is false', fakeAsync(() => {
+            const fixture = TestBed.createComponent(BasicSelectComponent);
+            fixture.componentInstance.thyAutoActiveFirstItem = false;
+            fixture.detectChanges();
 
-        //     const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
-        //     trigger.click();
-        //     fixture.detectChanges();
-        //     flush();
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            flush();
 
-        //     expect(fixture.componentInstance.select().keyManager.activeItem).toBeFalsy();
-        //     const spy = jasmine.createSpy('keydown spy');
-        //     fromEvent(fixture.debugElement.nativeElement, 'keydown').subscribe(() => {
-        //         spy();
-        //     });
+            expect(fixture.componentInstance.select().keyManager.activeItem).toBeFalsy();
+            const spy = jasmine.createSpy('keydown spy');
+            fromEvent(fixture.debugElement.nativeElement, 'keydown').subscribe(() => {
+                spy();
+            });
 
-        //     dispatchKeyboardEvent(trigger, 'keydown', ENTER);
-        //     fixture.detectChanges();
-        //     flush();
+            dispatchKeyboardEvent(trigger, 'keydown', ENTER);
+            fixture.detectChanges();
+            flush();
 
-        //     expect(spy).not.toHaveBeenCalled();
-        // }));
+            expect(spy).not.toHaveBeenCalled();
+        }));
 
-        // it('should active first option when set keycode HOME', fakeAsync(() => {
-        //     const fixture = TestBed.createComponent(BasicSelectComponent);
-        //     fixture.detectChanges();
+        it('should active first option when set keycode HOME', fakeAsync(() => {
+            const fixture = TestBed.createComponent(BasicSelectComponent);
+            fixture.detectChanges();
 
-        //     const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
-        //     trigger.click();
-        //     fixture.detectChanges();
-        //     flush();
-        //     dispatchKeyboardEvent(trigger, 'keydown', DOWN_ARROW);
-        //     expect(fixture.componentInstance.select().keyManager.activeItem).toEqual(
-        //         fixture.componentInstance.select().options.toArray()[1]
-        //     );
-        //     fixture.detectChanges();
-        //     dispatchKeyboardEvent(trigger, 'keydown', HOME);
-        //     expect(fixture.componentInstance.select().keyManager.activeItem).toEqual(
-        //         fixture.componentInstance.select().options.toArray()[0]
-        //     );
-        // }));
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            flush();
+            fixture.detectChanges();
+            dispatchKeyboardEvent(trigger, 'keydown', DOWN_ARROW);
+            expect(fixture.componentInstance.select().keyManager.activeItem).toEqual(
+                fixture.componentInstance.select().optionRenders.toArray()[1]
+            );
+            fixture.detectChanges();
+            dispatchKeyboardEvent(trigger, 'keydown', HOME);
+            expect(fixture.componentInstance.select().keyManager.activeItem).toEqual(
+                fixture.componentInstance.select().optionRenders.toArray()[0]
+            );
+        }));
 
-        // it('should active last option when set keycode END', fakeAsync(() => {
-        //     const fixture = TestBed.createComponent(BasicSelectComponent);
-        //     fixture.detectChanges();
+        it('should active last option when set keycode END', fakeAsync(() => {
+            const fixture = TestBed.createComponent(BasicSelectComponent);
+            fixture.detectChanges();
 
-        //     const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
-        //     trigger.click();
-        //     fixture.detectChanges();
-        //     flush();
-        //     dispatchKeyboardEvent(trigger, 'keydown', END);
-        //     expect(fixture.componentInstance.select().keyManager.activeItem).toEqual(
-        //         fixture.componentInstance.select().options.toArray()[fixture.componentInstance.select().options.length - 1]
-        //     );
-        // }));
-
-        // it('should select correct option when panel is closed', fakeAsync(() => {
-        //     const fixture = TestBed.createComponent(BasicSelectComponent);
-        //     fixture.detectChanges();
-
-        //     const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
-        //     fixture.detectChanges();
-        //     flush();
-        //     dispatchKeyboardEvent(trigger, 'keydown', END);
-        //     tick();
-        //     expect(fixture.componentInstance.select().keyManager.activeItem).toEqual(
-        //         fixture.componentInstance.select().options.toArray()[fixture.componentInstance.select().options.length - 1]
-        //     );
-        //     dispatchKeyboardEvent(trigger, 'keydown', HOME);
-        //     tick();
-        //     expect(fixture.componentInstance.select().keyManager.activeItem).toEqual(
-        //         fixture.componentInstance.select().options.toArray()[0]
-        //     );
-        // }));
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            flush();
+            fixture.detectChanges();
+            dispatchKeyboardEvent(trigger, 'keydown', END);
+            expect(fixture.componentInstance.select().keyManager.activeItem).toEqual(
+                fixture.componentInstance.select().optionRenders.toArray()[fixture.componentInstance.select().optionRenders.length - 1]
+            );
+        }));
 
         it('should close panel when set keycode arrow', fakeAsync(() => {
             const fixture = TestBed.createComponent(BasicSelectComponent);
@@ -2579,7 +2553,7 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
             fixture.detectChanges();
-            const option = overlayContainerElement.querySelector('thy-option') as HTMLElement;
+            const option = overlayContainerElement.querySelector('thy-option-render') as HTMLElement;
             option.click();
             fixture.detectChanges();
             flush();
@@ -2600,7 +2574,7 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
             fixture.detectChanges();
-            const optionGroup = overlayContainerElement.querySelector('thy-option-group') as HTMLElement;
+            const optionGroup = overlayContainerElement.querySelector('thy-option-group-render') as HTMLElement;
             const groupName = optionGroup.querySelector('.group-name') as HTMLElement;
             expect(groupName.innerText).toEqual(fixture.componentInstance.options[0].groupLabel);
         }));

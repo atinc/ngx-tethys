@@ -90,7 +90,11 @@
       <thy-loading [thyDone]="thyLoadState()" thySize="sm"></thy-loading>
       <div class="thy-select-empty-content">
         @if (thyLoadState()) {
-          <thy-empty [thyMessage]="thyEmptyStateText()" thySize="sm" [thyIconName]="emptyIcon()"></thy-empty>
+          @let isSearching = keywords();
+          <thy-empty
+            [thyMessage]="isSearching ? thyEmptySearchMessageText() : thyEmptyStateText()"
+            thySize="sm"
+            [thyIconName]="emptyIcon()"></thy-empty>
         }
       </div>
     }
