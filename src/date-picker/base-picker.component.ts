@@ -82,7 +82,8 @@ export class BasePicker extends AbstractPickerComponent implements OnInit, OnCha
     ngZone = inject(NgZone);
 
     open() {
-        this.opened.set(true);
+        this.thyPicker().focus();
+        this.thyPicker().onClickInputBox();
     }
 
     ngOnInit(): void {
