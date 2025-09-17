@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [19.1.3](https://github.com/atinc/ngx-tethys/compare/19.1.2...19.1.3) (2025-09-17)
+
+
+### Bug Fixes
+
+* **date-picker:** #TINFR-2875 after date-picker popup closed, clicking again cannot open it. ([acd82c1](https://github.com/atinc/ngx-tethys/commit/acd82c119ad3a631da4325f38e86b6af9c252005)), closes [#TINFR-2875](https://github.com/atinc/ngx-tethys/issues/TINFR-2875)
+* **drop-down:** set the default value for thyMenuInsideClosable to undefined ([#3559](https://github.com/atinc/ngx-tethys/issues/3559)) ([ed07891](https://github.com/atinc/ngx-tethys/commit/ed07891bb1918983ffb476e1c0e2d77b8829d9df))
+
+
+
 ## [19.1.2](https://github.com/atinc/ngx-tethys/compare/19.1.1...19.1.2) (2025-09-11)
 
 
