@@ -38,7 +38,7 @@
     <thy-property-item (thyEditingChange)="changeEditing($event, { type: 'date' })" thyLabelText="出生日期" thyEditable="true" #item>
       {{ user.birth_date * 1000 | date: 'yyyy-MM-dd HH:mm' }}
       <ng-template #editor>
-        <thy-property-editable-date-inner [user]="user"></thy-property-editable-date-inner>
+        <thy-property-editable-date-inner [user]="user" [open]="item.editing()"></thy-property-editable-date-inner>
       </ng-template>
     </thy-property-item>
     <thy-property-item (thyEditingChange)="changeEditing($event, { type: 'text' })" thyLabelText="电话" thyEditable="true">
