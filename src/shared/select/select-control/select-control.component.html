@@ -21,10 +21,10 @@
     </div>
   }
   @if (thyIsMultiple()) {
-    <div thyFlex thyWrap="wrap" thyGap="4" thyAlignItems="center" class="w-100">
+    <div thyFlex thyWrap="wrap" thyGap="4" thyAlignItems="center" class="w-100" #tagsContainer>
       @if (thyPreset() === 'tag') {
-        @for (item of maxSelectedTags(); track trackValue($index, item)) {
-          <div thyFlexItem class="custom-choice-item text-truncate">
+        @for (item of selectedTags(); track trackValue($index, item)) {
+          <div thyFlexItem class="custom-choice-item text-truncate" [ngClass]="{ hidden: $index > visibleTagCount() - 1 }">
             <ng-template
               [ngTemplateOutlet]="customDisplayTemplate()"
               [ngTemplateOutletContext]="{ $implicit: item.thyRawValue || item.thyValue || item }">
@@ -39,11 +39,18 @@
           </div>
         }
       } @else {
-        @for (item of maxSelectedTags(); track trackValue($index, item)) {
-          <div thyFlexItem thyTag class="choice-item" [ngClass]="{ disabled: thyDisabled() === true }" [thySize]="tagSize()">
-            <div class="text-truncate h-100">
+        @for (item of selectedTags(); track trackValue($index, item)) {
+          <div
+            thyFlexItem
+            thyTag
+            class="choice-item selected"
+            [ngClass]="{ disabled: thyDisabled() === true, hidden: $index > visibleTagCount() - 1 }"
+            [thySize]="tagSize()">
+            <div class="text-truncate h-100 d-flex">
               @if (!customDisplayTemplate()) {
-                {{ item?.thyLabelText }}
+                <thy-flexible-text [thyTooltipContent]="item?.thyLabelText" class="text-truncate h-100">
+                  {{ item?.thyLabelText }}
+                </thy-flexible-text>
               } @else {
                 <ng-template
                   [ngTemplateOutlet]="customDisplayTemplate()"
@@ -60,7 +67,7 @@
           </div>
         }
       }
-      @if (thyMaxTagCount() && thySelectedOptions()?.length > thyMaxTagCount()) {
+      @if (collapsedSelectedTags()?.length > 0) {
         <div
           thyFlexItem
           class="choice-item max-tag-count-choice"
@@ -68,7 +75,7 @@
           [thySize]="tagSize()"
           [ngClass]="{ disabled: thyDisabled() === true }"
           [thyTooltip]="maxTagTooltip">
-          <div class="text-truncate">+{{ thySelectedOptions()?.length - thyMaxTagCount() + 1 }}</div>
+          <div class="text-truncate">+{{ collapsedSelectedTags()?.length }}</div>
         </div>
       }
       <div thyFlexItem class="select-control-search">

@@ -1,35 +1,43 @@
 import { ThyTagSize } from 'ngx-tethys/tag';
-import { coerceBooleanProperty, isUndefinedOrNull } from 'ngx-tethys/util';
+import { coerceArray, coerceBooleanProperty, isUndefinedOrNull } from 'ngx-tethys/util';
 
 import {
+    AfterViewInit,
     ChangeDetectionStrategy,
+    ChangeDetectorRef,
     Component,
+    computed,
+    DestroyRef,
+    effect,
     ElementRef,
-    OnInit,
-    Renderer2,
-    TemplateRef,
-    numberAttribute,
     inject,
     input,
-    viewChild,
-    output,
-    effect,
-    Signal,
-    computed,
     linkedSignal,
-    untracked,
+    model,
+    NgZone,
+    numberAttribute,
+    OnInit,
+    output,
+    Renderer2,
+    Signal,
     signal,
-    model
+    TemplateRef,
+    untracked,
+    viewChild,
+    ViewChild
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
 import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
+import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
 import { ThyGridModule } from 'ngx-tethys/grid';
+import { injectLocale, ThySharedLocale } from 'ngx-tethys/i18n';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyTag } from 'ngx-tethys/tag';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
-import { injectLocale, ThySharedLocale } from 'ngx-tethys/i18n';
+import { Observable, of, throttleTime } from 'rxjs';
 import { SelectOptionBase } from '../../option/select-option-base';
 
 export type SelectControlSize = 'xs' | 'sm' | 'md' | 'lg' | '';
@@ -41,13 +49,19 @@ export type SelectControlSize = 'xs' | 'sm' | 'md' | 'lg' | '';
     selector: 'thy-select-control,[thySelectControl]',
     templateUrl: './select-control.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [FormsModule, NgClass, NgStyle, ThyTag, NgTemplateOutlet, ThyIcon, ThyGridModule, ThyTooltipDirective],
+    imports: [FormsModule, NgClass, NgStyle, ThyTag, NgTemplateOutlet, ThyIcon, ThyGridModule, ThyTooltipDirective, ThyFlexibleText],
     host: {
         '[class.select-control-borderless]': 'thyBorderless()'
     }
 })
-export class ThySelectControl implements OnInit {
+export class ThySelectControl implements OnInit, AfterViewInit {
     private renderer = inject(Renderer2);
+
+    private cdr = inject(ChangeDetectorRef);
+
+    private ngZone = inject(NgZone);
+
+    private readonly destroyRef = inject(DestroyRef);
 
     inputValue = model<string>('');
 
@@ -118,25 +132,34 @@ export class ThySelectControl implements OnInit {
         );
     });
 
+    @ViewChild('tagsContainer', { static: false }) tagsContainer: ElementRef;
+
+    visibleTagCount = signal(0);
+
     showClearIcon = computed(() => {
         return this.thyAllowClear() && this.isSelectedValue();
     });
 
-    maxSelectedTags = computed(() => {
-        const selectedOptions = this.thySelectedOptions();
-        if (this.thyMaxTagCount() > 0 && selectedOptions instanceof Array && selectedOptions.length > this.thyMaxTagCount()) {
-            return selectedOptions.slice(0, this.thyMaxTagCount() - 1);
-        }
-        return selectedOptions as SelectOptionBase[];
+    selectedTags = computed(() => {
+        if (!this.thyIsMultiple() || !this.thySelectedOptions()) return [];
+        const selectedOptions = coerceArray(this.thySelectedOptions());
+
+        return selectedOptions;
     });
 
     collapsedSelectedTags = computed(() => {
-        const selectedOptions = this.thySelectedOptions();
-        const maxTagCount = this.thyMaxTagCount();
-        if (maxTagCount && selectedOptions instanceof Array && selectedOptions.length > maxTagCount) {
-            return selectedOptions.slice(maxTagCount - 1, selectedOptions.length);
+        if (!this.thyIsMultiple() || !this.thySelectedOptions()) return [];
+        const selectedOptions = coerceArray(this.thySelectedOptions());
+
+        if (this.thyMaxTagCount() <= 0) {
+            return [];
         }
-        return [];
+
+        if (this.visibleTagCount() <= 0) {
+            return selectedOptions;
+        }
+
+        return selectedOptions.slice(this.visibleTagCount());
     });
 
     selectedValueStyle = computed(() => {
@@ -229,12 +252,95 @@ export class ThySelectControl implements OnInit {
                             }
                         }, 200);
                     }
+
+                    // 当选项变化时，重新计算可见标签数量
+                    if (!sameValue && this.thyIsMultiple()) {
+                        // 等待DOM更新后再计算
+                        setTimeout(() => {
+                            this.calculateVisibleTags();
+                        }, 50);
+                    }
                 });
             }
         });
     }
 
     ngOnInit() {}
+
+    ngAfterViewInit() {
+        // 等待DOM渲染完成后计算可见标签数量
+        setTimeout(() => {
+            this.calculateVisibleTags();
+        }, 0);
+
+        this.ngZone.runOutsideAngular(() => {
+            this.resizeObserver(this.inputElement()?.nativeElement)
+                .pipe(throttleTime(100), takeUntilDestroyed(this.destroyRef))
+                .subscribe(() => {
+                    this.calculateVisibleTags();
+                });
+        });
+    }
+
+    private resizeObserver(element: HTMLElement): Observable<ResizeObserverEntry[]> {
+        return typeof ResizeObserver === 'undefined' || !ResizeObserver
+            ? of(null)
+            : new Observable(observer => {
+                  const resize = new ResizeObserver((entries: ResizeObserverEntry[]) => {
+                      observer.next(entries);
+                  });
+                  resize.observe(element);
+                  return () => {
+                      resize.disconnect();
+                  };
+              });
+    }
+
+    calculateVisibleTags() {
+        if (!this.tagsContainer?.nativeElement) return;
+
+        const containerWidth = this.tagsContainer.nativeElement.offsetWidth;
+        if (containerWidth <= 0) return;
+
+        const selectedOptions = coerceArray(this.thySelectedOptions());
+        if (!selectedOptions?.length) {
+            this.visibleTagCount.set(0);
+            return;
+        }
+
+        const maxTagCount = this.thyMaxTagCount();
+        if (isNaN(maxTagCount) || maxTagCount <= 0) {
+            this.visibleTagCount.set(selectedOptions.length);
+            this.cdr.markForCheck();
+            return;
+        }
+
+        const COLLAPSED_TAG_WIDTH = 46;
+        const TAG_GAP = 4;
+        const availableWidth = containerWidth - COLLAPSED_TAG_WIDTH - 3;
+
+        let totalWidth = 0;
+        let visibleCount = 0;
+
+        const tagElements = this.tagsContainer.nativeElement.querySelectorAll('.choice-item.selected,.custom-choice-item');
+        for (let i = 0; i < selectedOptions.length; i++) {
+            let tagWidth: number;
+
+            tagWidth = (tagElements[i]?.offsetWidth || 80) + TAG_GAP;
+
+            if (totalWidth + tagWidth > availableWidth) {
+                break;
+            }
+
+            totalWidth += tagWidth;
+            visibleCount++;
+        }
+
+        // 至少展示一个标签
+        this.visibleTagCount.set(Math.max(1, visibleCount));
+
+        this.cdr.markForCheck();
+    }
 
     setSelectControlClass() {
         const modeType = this.thyIsMultiple() ? 'multiple' : 'single';
