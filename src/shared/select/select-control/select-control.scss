@@ -153,6 +153,14 @@
             color: variables.$gray-500;
         }
     }
+    .custom-choice-item,
+    .choice-item {
+        &.hidden {
+            opacity: 0;
+            height: 0;
+            position: absolute;
+        }
+    }
 }
 .select-control-borderless {
     border-color: transparent !important;

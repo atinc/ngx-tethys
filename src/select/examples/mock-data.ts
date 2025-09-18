@@ -43,7 +43,11 @@ export const listOfOption = [
     { value: 'option17', text: '选项十七' },
     { value: 'option18', text: '选项十八' },
     { value: 'option19', text: '选项十九' },
-    { value: 'option20', text: '选项二十' }
+    { value: 'option20', text: '选项二十' },
+    {
+        value: 'option21',
+        text: '很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长的选项二十一'
+    }
 ];
 
 export const options = [
