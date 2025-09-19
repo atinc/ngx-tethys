@@ -503,9 +503,20 @@ export class ThySelect
                 .clicked(0)
                 .pipe(takeUntil(this.destroy$))
                 .subscribe(event => {
+                    // console.log('this.elementRef.nativeElement:', this.elementRef.nativeElement);
+                    // console.log('event.target:', event.target);
+
+                    console.log(
+                        '!this.elementRef.nativeElement.contains(event.target):',
+                        !this.elementRef.nativeElement.contains(event.target)
+                    );
+                    console.log('this.panelOpen:', this.panelOpen);
+
+                    console.log('-------------------------------------------------------------------');
                     if (!this.elementRef.nativeElement.contains(event.target) && this.panelOpen) {
                         this.ngZone.run(() => {
                             this.close();
+                            console.log('===ngOnInit0 clicked close===');
                             this.changeDetectorRef.markForCheck();
                         });
                     }
@@ -597,6 +608,7 @@ export class ThySelect
         if (this.thyAutoExpand()) {
             timer(0).subscribe(() => {
                 this.changeDetectorRef.markForCheck();
+                console.log('====setup thyAutoExpand 开始 open=====');
                 this.open();
                 this.focus();
             });
@@ -750,6 +762,7 @@ export class ThySelect
                 this.close();
             }
         } else {
+            console.log('====toggle 开始 open=====');
             this.open();
         }
     }
@@ -761,6 +774,7 @@ export class ThySelect
         this.triggerRectWidth = this.getOriginRectWidth();
         this.subscribeTriggerResize();
         this.panelOpen = true;
+        console.log('====open 了 panelOpen=====', this.panelOpen);
         this.highlightCorrectOption();
         this.thyOnExpandStatusChange.emit(this.panelOpen);
         this.changeDetectorRef.markForCheck();
@@ -769,6 +783,7 @@ export class ThySelect
     public close(): void {
         if (this.panelOpen) {
             this.panelOpen = false;
+            console.log('====close 了 panelOpen=====', this.panelOpen);
             this.unsubscribeTriggerResize();
             this.thyOnExpandStatusChange.emit(this.panelOpen);
             this.changeDetectorRef.markForCheck();
@@ -852,6 +867,7 @@ export class ThySelect
         // Open the select on ALT + arrow key to match the native <select>
         if ((isOpenKey && !hasModifierKey(event)) || ((this.isMultiple || event.altKey) && isArrowKey)) {
             event.preventDefault(); // prevents the page from scrolling down when pressing space
+            console.log('====handleClosedKeydown 开始 open=====');
             this.open();
         } else if (!this.isMultiple) {
             if (keyCode === HOME || keyCode === END) {
