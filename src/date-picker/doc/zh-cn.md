@@ -81,6 +81,26 @@ import { ThyDatePickerModule } from 'ngx-tethys/date-picker';
                             value: [new TinyDate().startOfWeek({ weekStartsOn: 1 }).getTime(), new TinyDate().endOfWeek({ weekStartsOn: 1 }).getTime()]
                         }
                     ];
+                },
+                dateCellRender: (date: Date) => {
+                    const formattedDate = format(date, `yyyyMMdd`);
+
+                    const workingDays = ['20230910', '20230925', '20231123'];
+
+                    const restDays = ['20230902', '20230903', '20231124'];
+
+                    let isWorkdays = workingDays.includes(formattedDate);
+                    let isHolidays = restDays.includes(formattedDate);
+
+                    if (isWorkdays || isHolidays) {
+                        const dateText = date.getDate();
+                        const markType = isWorkdays ? `text-success` : `text-danger`;
+                        const markText = isWorkdays ? `班` : `休`;
+                        const dateCellHtml = `<div class="thy-calendar-date thy-calendar-date-special">${dateText}<div class="special-mark ${markType}">${markText}</div></div>`;
+                        return sanitizer.bypassSecurityTrustHtml(dateCellHtml);
+                    }
+
+                    return null;
                 }
             }
         }
