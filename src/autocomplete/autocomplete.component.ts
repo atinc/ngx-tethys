@@ -1,3 +1,10 @@
+/**
+ * 1. 点击打开、展示、选中状态
+ * 2. 选中值展示在输入框
+ *
+ *
+ */
+
 import {
     Component,
     TemplateRef,
@@ -14,7 +21,13 @@ import {
     Signal,
     viewChild,
     input,
-    output
+    output,
+    viewChildren,
+    signal,
+    DestroyRef,
+    contentChildren,
+    afterRenderEffect,
+    untracked
 } from '@angular/core';
 import { defer, merge, Observable, Subject, timer } from 'rxjs';
 import { take, switchMap, takeUntil, startWith } from 'rxjs/operators';
@@ -24,6 +37,7 @@ import {
     THY_OPTION_PARENT_COMPONENT,
     IThyOptionParentComponent,
     ThyOption,
+    ThyOptionRender,
     ThyOptionSelectionChangeEvent,
     ThyStopPropagationDirective
 } from 'ngx-tethys/shared';
@@ -33,6 +47,8 @@ import { NgClass } from '@angular/common';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { injectLocale, ThyAutoCompleteLocale } from 'ngx-tethys/i18n';
 import { injectPanelEmptyIcon } from 'ngx-tethys/core';
+import { SafeAny } from 'ngx-tethys/types';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /** Event object that is emitted when an autocomplete option is activated. */
 export interface ThyAutocompleteActivatedEvent {
@@ -40,7 +56,7 @@ export interface ThyAutocompleteActivatedEvent {
     source: ThyAutocomplete;
 
     /** Option that was selected. */
-    option: ThyOption | null;
+    option: ThyOptionRender | null;
 }
 
 /**
@@ -57,13 +73,14 @@ export interface ThyAutocompleteActivatedEvent {
             useExisting: ThyAutocomplete
         }
     ],
-    imports: [ThyStopPropagationDirective, NgClass, ThyEmpty]
+    imports: [ThyStopPropagationDirective, NgClass, ThyEmpty, ThyOptionRender]
 })
-export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, AfterContentInit, OnDestroy {
+export class ThyAutocomplete implements IThyOptionParentComponent, OnInit {
     private ngZone = inject(NgZone);
+
     private changeDetectorRef = inject(ChangeDetectorRef);
 
-    private ngUnsubscribe$ = new Subject<void>();
+    // private ngUnsubscribe$ = new Subject<void>();
 
     private locale: Signal<ThyAutoCompleteLocale> = injectLocale('autocomplete');
 
@@ -71,18 +88,20 @@ export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, After
 
     dropDownClass: { [key: string]: boolean };
 
-    isMultiple = false;
+    readonly isMultiple = signal(false);
+
+    readonly selectedValues = signal<SafeAny[]>([]);
 
     mode = '';
 
     isEmptyOptions = false;
 
-    selectionModel: SelectionModel<ThyOption>;
+    selectionModel: SelectionModel<ThyOptionRender>;
 
     isOpened = false;
 
     /** Manages active item in option list based on key events. */
-    keyManager: ActiveDescendantKeyManager<ThyOption>;
+    keyManager: ActiveDescendantKeyManager<ThyOptionRender>;
 
     readonly contentTemplateRef = viewChild<TemplateRef<any>>('contentTemplate');
 
@@ -93,16 +112,19 @@ export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, After
      * @private
      */
     @ContentChildren(ThyOption, { descendants: true }) options: QueryList<ThyOption>;
+    // readonly options = contentChildren<ThyOption>(ThyOption, { descendants: true });
 
-    readonly optionSelectionChanges: Observable<ThyOptionSelectionChangeEvent> = defer(() => {
-        if (this.options) {
-            return merge(...this.options.map(option => outputToObservable(option.selectionChange)));
-        }
-        return this.ngZone.onStable.asObservable().pipe(
-            take(1),
-            switchMap(() => this.optionSelectionChanges)
-        );
-    }) as Observable<ThyOptionSelectionChangeEvent>;
+    readonly optionRenders = viewChildren(ThyOptionRender);
+
+    // readonly optionSelectionChanges: Observable<ThyOptionSelectionChangeEvent> = defer(() => {
+    //     if (this.optionRenders()) {
+    //         return merge(...this.optionRenders().map(option => outputToObservable(option.selectionChange)));
+    //     }
+    //     return this.ngZone.onStable.asObservable().pipe(
+    //         take(1),
+    //         switchMap(() => this.optionSelectionChanges)
+    //     );
+    // }) as Observable<ThyOptionSelectionChangeEvent>;
 
     /**
      * 空选项时的文本
@@ -136,14 +158,26 @@ export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, After
      */
     readonly thyOptionActivated = output<ThyAutocompleteActivatedEvent>();
 
+    private destroyRef = inject(DestroyRef);
+
+    constructor() {
+        // afterRenderEffect(() => {
+        //     console.log('=== afterRenderEffect ===');
+        //     const options = this.options();
+        //     untracked(() => {
+        //         this.initKeyManager();
+        //     });
+        // });
+    }
+
     ngOnInit() {
         this.setDropDownClass();
-        this.instanceSelectionModel();
+        // this.instanceSelectionModel();
     }
 
     ngAfterContentInit() {
-        this.options.changes.pipe(startWith(null), takeUntil(this.ngUnsubscribe$)).subscribe(() => {
-            this.resetOptions();
+        this.options.changes.pipe(startWith(null), takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+            // this.resetOptions();
             timer(0).subscribe(() => {
                 this.isEmptyOptions = this.options.length <= 0;
                 this.changeDetectorRef.detectChanges();
@@ -153,10 +187,11 @@ export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, After
     }
 
     initKeyManager() {
-        const changedOrDestroyed$ = merge(this.options.changes, this.ngUnsubscribe$);
-        this.keyManager = new ActiveDescendantKeyManager<ThyOption>(this.options).withWrap();
-        this.keyManager.change.pipe(takeUntil(changedOrDestroyed$)).subscribe(index => {
-            this.thyOptionActivated.emit({ source: this, option: this.options.toArray()[index] || null });
+        // const changedOrDestroyed$ = merge(this.options.changes, this.ngUnsubscribe$);
+        const optionRenders = this.optionRenders();
+        this.keyManager = new ActiveDescendantKeyManager<ThyOptionRender>(optionRenders).withWrap();
+        this.keyManager.change.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(index => {
+            this.thyOptionActivated.emit({ source: this, option: optionRenders[index] || null });
         });
     }
 
@@ -171,50 +206,69 @@ export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, After
         this.thyClosed.emit();
     }
 
-    private resetOptions() {
-        const changedOrDestroyed$ = merge(this.options.changes, this.ngUnsubscribe$);
+    // private resetOptions() {
+    //     const changedOrDestroyed$ = merge(this.options.changes, this.ngUnsubscribe$);
 
-        this.optionSelectionChanges.pipe(takeUntil(changedOrDestroyed$)).subscribe((event: ThyOptionSelectionChangeEvent) => {
-            this.onSelect(event.option, event.isUserInput);
-        });
-    }
+    //     // this.optionSelectionChanges.pipe(takeUntil(changedOrDestroyed$)).subscribe((event: ThyOptionSelectionChangeEvent) => {
+    //     //     this.onSelect(event.option, event.isUserInput);
+    //     // });
+    // }
 
-    private instanceSelectionModel() {
-        if (this.selectionModel) {
-            this.selectionModel.clear();
-        }
-        this.selectionModel = new SelectionModel<ThyOption>(this.isMultiple);
-        this.selectionModel.changed.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(event => {
-            event.added.forEach(option => option.select());
-            event.removed.forEach(option => option.deselect());
-        });
-    }
+    // private instanceSelectionModel() {
+    //     if (this.selectionModel) {
+    //         this.selectionModel.clear();
+    //     }
+    //     this.selectionModel = new SelectionModel<ThyOptionRender>(this.isMultiple());
+    //     this.selectionModel.changed.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(event => {
+    //         event.added.forEach(option => option.select());
+    //         event.removed.forEach(option => option.deselect());
+    //     });
+    // }
 
-    private onSelect(option: ThyOption, isUserInput: boolean) {
-        const wasSelected = this.selectionModel.isSelected(option);
+    // private onSelect(option: ThyOptionRender, isUserInput: boolean) {
+    //     const wasSelected = this.selectionModel.isSelected(option);
 
-        if (option.thyValue == null && !this.isMultiple) {
-            option.deselect();
-            this.selectionModel.clear();
+    //     if (option.thyValue == null && !this.isMultiple()) {
+    //         option.deselect();
+    //         this.selectionModel.clear();
+    //     } else {
+    //         if (wasSelected !== option.selected()) {
+    //             option.selected() ? this.selectionModel.select(option) : this.selectionModel.deselect(option);
+    //         }
+
+    //         if (isUserInput) {
+    //             this.keyManager.setActiveItem(option);
+    //         }
+    //     }
+
+    //     if (wasSelected !== this.selectionModel.isSelected(option)) {
+    //         this.thyOptionSelected.emit(new ThyOptionSelectionChangeEvent(option, false));
+    //     }
+    //     this.changeDetectorRef.markForCheck();
+    // }
+
+    optionClick(value: SafeAny) {
+        console.log('=== optionClick ===', value);
+        if (this.isMultiple()) {
+            const selectedValues = this.selectedValues() || [];
+            const index = selectedValues.indexOf(value);
+            if (index > -1) {
+                selectedValues.splice(index, 1);
+            } else {
+                selectedValues.push(value);
+            }
+            this.selectedValues.set([...selectedValues]);
         } else {
-            if (wasSelected !== option.selected()) {
-                option.selected() ? this.selectionModel.select(option) : this.selectionModel.deselect(option);
-            }
-
-            if (isUserInput) {
-                this.keyManager.setActiveItem(option);
-            }
+            this.selectedValues.set([value]);
+            // this.close();
         }
-
-        if (wasSelected !== this.selectionModel.isSelected(option)) {
-            this.thyOptionSelected.emit(new ThyOptionSelectionChangeEvent(option, false));
-        }
-        this.changeDetectorRef.markForCheck();
+        const optionRender = this.optionRenders().find(option => option.thyValue === value);
+        this.thyOptionSelected.emit(new ThyOptionSelectionChangeEvent(optionRender, false));
     }
 
     private setDropDownClass() {
         let modeClass = '';
-        if (this.isMultiple) {
+        if (this.isMultiple()) {
             modeClass = `thy-select-dropdown-${this.mode}`;
         } else {
             modeClass = `thy-select-dropdown-single`;
@@ -225,8 +279,8 @@ export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, After
         };
     }
 
-    ngOnDestroy() {
-        this.ngUnsubscribe$.next();
-        this.ngUnsubscribe$.complete();
-    }
+    // ngOnDestroy() {
+    //     this.ngUnsubscribe$.next();
+    //     this.ngUnsubscribe$.complete();
+    // }
 }

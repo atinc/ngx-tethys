@@ -30,12 +30,8 @@ export class ThySelectAsyncLoadDataExampleComponent implements OnInit {
         return timer(1500).pipe(
             tap(() => {
                 for (let index = 0; index < 10; index++) {
-                    this.loadMoreData.push({ thyLabelText: `第${this.page + 1}页`, _id: `${this.page}` });
+                    this.loadMoreData.push({ thyLabelText: `第${this.page + 1}页`, _id: `${this.page}${index}` });
                 }
-
-                this.loadMoreData.forEach((item, index: number) => {
-                    item._id = item._id + index;
-                });
 
                 if (this.page > 3) {
                     this.haveMore = false;
