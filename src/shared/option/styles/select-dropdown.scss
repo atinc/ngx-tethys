@@ -12,18 +12,19 @@ $optionsSize: 'sm', 'default', 'md', 'lg';
         text-align: center;
     }
 
-    .thy-option-item-group {
+    .thy-option-group-render {
         @include option.thy-option-common-layout();
     }
 
     .thy-option-item {
         @include option.thy-option();
-        &.hidden {
-            display: none;
-        }
+        // 搜索不再通过 hidden 隐藏选项
+        // &.hidden {
+        //     display: none;
+        // }
     }
 
-    .thy-option-item-group {
+    .thy-option-group-render {
         flex-direction: column;
 
         &.thy-select-option-group-hidden {
