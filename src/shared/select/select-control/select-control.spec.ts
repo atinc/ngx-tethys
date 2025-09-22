@@ -1,8 +1,8 @@
-import { TestBed, ComponentFixture, fakeAsync, flush, tick, waitForAsync } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { Component, DebugElement, viewChild } from '@angular/core';
-import { ThySelectControl, SelectControlSize, SelectOptionBase } from 'ngx-tethys/shared';
 import { provideHttpClient } from '@angular/common/http';
+import { Component, DebugElement, viewChild } from '@angular/core';
+import { ComponentFixture, fakeAsync, flush, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { SelectControlSize, SelectOptionBase, ThySelectControl } from 'ngx-tethys/shared';
 import { THY_TOOLTIP_DEFAULT_CONFIG_PROVIDER } from 'ngx-tethys/tooltip';
 
 @Component({
@@ -202,38 +202,129 @@ describe('ThySelectControl', () => {
                 expect(fixture.componentInstance.selectControlComponent().inputValue()).toEqual(typeValue);
             }));
 
-            it('should just show max tag', fakeAsync(() => {
+            it('should return correct selectedTags when isMultiple is false', () => {
+                fixture.componentInstance.thyIsMultiple = false;
+                fixture.componentInstance.selectedOptions = testBaseOption;
+                fixture.detectChanges();
+                expect(fixture.componentInstance.selectControlComponent().selectedTags()).toEqual([]);
+            });
+
+            it('should return correct selectedTags when isMultiple is true and selectedOptions is empty', () => {
                 fixture.componentInstance.thyIsMultiple = true;
-                let selectedOptions = [
+                fixture.componentInstance.selectedOptions = [];
+                fixture.detectChanges();
+                expect(fixture.componentInstance.selectControlComponent().selectedTags()).toEqual([]);
+            });
+
+            it('should return correct selectedTags when isMultiple is true and selectedOptions has values', () => {
+                fixture.componentInstance.thyIsMultiple = true;
+                const options = [
+                    { thyLabelText: '1', thyRawValue: {}, thyValue: '1' },
+                    { thyLabelText: '2', thyRawValue: {}, thyValue: '2' }
+                ];
+                fixture.componentInstance.selectedOptions = options;
+                fixture.detectChanges();
+                expect(fixture.componentInstance.selectControlComponent().selectedTags()).toEqual(options);
+            });
+
+            it('should calculate visibleTagCount correctly when maxTagCount > 0', fakeAsync(() => {
+                fixture.componentInstance.thyIsMultiple = true;
+                fixture.componentInstance.thyMaxTagCount = 2;
+                const options = [
                     { thyLabelText: '1', thyRawValue: {}, thyValue: '1' },
                     { thyLabelText: '2', thyRawValue: {}, thyValue: '2' },
                     { thyLabelText: '3', thyRawValue: {}, thyValue: '3' }
                 ];
-                fixture.componentInstance.selectedOptions = selectedOptions;
+                fixture.componentInstance.selectedOptions = options;
                 fixture.detectChanges();
                 flush();
                 fixture.detectChanges();
-                selectElement = fixture.debugElement.query(By.css('.form-control')).nativeElement;
-                let choiceItems = selectElement.querySelectorAll('.choice-item');
-                expect(choiceItems.length).toEqual(3);
-                let maxTagCountChoic = selectElement.querySelector('.max-tag-count-choice');
-                expect(maxTagCountChoic).toBeNull();
 
-                fixture.componentInstance.selectedOptions = [
-                    ...selectedOptions,
-                    { thyLabelText: '4', thyRawValue: {}, thyValue: '4' },
-                    { thyLabelText: '5', thyRawValue: {}, thyValue: '5' }
-                ];
+                // 模拟 tagsContainer 和标签宽度
+                const selectControl = fixture.componentInstance.selectControlComponent();
+                selectControl.tagsContainer = {
+                    nativeElement: {
+                        offsetWidth: 200,
+                        querySelectorAll: () => [{ offsetWidth: 60 }, { offsetWidth: 60 }, { offsetWidth: 60 }]
+                    }
+                } as any;
                 fixture.componentInstance.thyMaxTagCount = 3;
+                fixture.componentInstance.selectedOptions = options;
+                selectControl.calculateVisibleTags();
+                // 200 - 46 - 3 = 151, 每个tag 64, 最多展示2个
+                expect(selectControl.visibleTagCount()).toBe(2);
+            }));
+
+            it('should set visibleTagCount to 0 if no selectedOptions', fakeAsync(() => {
+                fixture.componentInstance.thyIsMultiple = true;
+                fixture.componentInstance.thyMaxTagCount = 2;
+                fixture.componentInstance.selectedOptions = [];
                 fixture.detectChanges();
                 flush();
                 fixture.detectChanges();
 
-                selectElement = fixture.debugElement.query(By.css('.form-control')).nativeElement;
-                choiceItems = selectElement.querySelectorAll('.choice-item');
-                expect(choiceItems.length).toEqual(3);
-                maxTagCountChoic = selectElement.querySelector('.max-tag-count-choice');
-                expect(maxTagCountChoic).toBeTruthy();
+                const selectControl = fixture.componentInstance.selectControlComponent();
+                selectControl.tagsContainer = {
+                    nativeElement: {
+                        offsetWidth: 200,
+                        querySelectorAll: () => []
+                    }
+                } as any;
+                fixture.componentInstance.thyMaxTagCount = 3;
+                fixture.componentInstance.selectedOptions = [];
+                selectControl.calculateVisibleTags();
+                expect(selectControl.visibleTagCount()).toBe(0);
+            }));
+
+            it('should set visibleTagCount to selectedOptions.length if maxTagCount <= 0', fakeAsync(() => {
+                fixture.componentInstance.thyIsMultiple = true;
+                fixture.componentInstance.thyMaxTagCount = 0;
+                const options = [
+                    { thyLabelText: '1', thyRawValue: {}, thyValue: '1' },
+                    { thyLabelText: '2', thyRawValue: {}, thyValue: '2' }
+                ];
+                fixture.componentInstance.selectedOptions = options;
+                fixture.detectChanges();
+                flush();
+                fixture.detectChanges();
+
+                const selectControl = fixture.componentInstance.selectControlComponent();
+                selectControl.tagsContainer = {
+                    nativeElement: {
+                        offsetWidth: 200,
+                        querySelectorAll: () => [{ offsetWidth: 60 }, { offsetWidth: 60 }]
+                    }
+                } as any;
+
+                fixture.componentInstance.thyMaxTagCount = 0;
+                fixture.componentInstance.selectedOptions = options;
+                selectControl.calculateVisibleTags();
+                expect(selectControl.visibleTagCount()).toBe(options.length);
+            }));
+
+            it('should always show at least one tag', fakeAsync(() => {
+                fixture.componentInstance.thyIsMultiple = true;
+                fixture.componentInstance.thyMaxTagCount = 2;
+                const options = [
+                    { thyLabelText: '1', thyRawValue: {}, thyValue: '1' },
+                    { thyLabelText: '2', thyRawValue: {}, thyValue: '2' }
+                ];
+                fixture.componentInstance.selectedOptions = options;
+                fixture.detectChanges();
+                flush();
+                fixture.detectChanges();
+
+                const selectControl = fixture.componentInstance.selectControlComponent();
+                selectControl.tagsContainer = {
+                    nativeElement: {
+                        offsetWidth: 50,
+                        querySelectorAll: () => [{ offsetWidth: 60 }, { offsetWidth: 60 }]
+                    }
+                } as any;
+                fixture.componentInstance.thyMaxTagCount = 2;
+                fixture.componentInstance.selectedOptions = options;
+                selectControl.calculateVisibleTags();
+                expect(selectControl.visibleTagCount()).toBe(1);
             }));
         });
 
