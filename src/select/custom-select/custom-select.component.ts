@@ -69,6 +69,13 @@
  *
  * 破坏性更改：TODO  ThyOptionSelectionChangeEvent  isUserInput  selectionChange  ———— ngx-styx、ship等用到
  *
+ * TODO  虚拟滚动参数控制
+ * TODO ViewChild 等改 signal
+ * TODO 代码优化、提交版
+ *
+ * TODO 上下键到底部，需要往下滚动
+ * TODO 滚动条
+ *
  */
 
 import {
@@ -173,6 +180,7 @@ import {
 import { injectLocale, ThySelectLocale } from 'ngx-tethys/i18n';
 import { outputToObservable } from '@angular/core/rxjs-interop';
 import { SafeAny } from 'ngx-tethys/types';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 export type SelectMode = 'multiple' | '';
 
@@ -257,7 +265,8 @@ const noop = () => {};
         ThyOptionRender,
         ThySelectOptionGroup,
         ThyOptionGroupRender,
-        NgTemplateOutlet
+        NgTemplateOutlet,
+        ScrollingModule
     ],
     host: {
         '[class.thy-select-custom]': 'true',
@@ -792,16 +801,17 @@ export class ThySelect
             untracked(() => {
                 this.buildAllGroupsAndOptions();
             });
+            // console.log('==allGroupsAndOptions===>', this.allGroupsAndOptions());
         });
 
         afterRenderEffect(() => {
-            console.log('==allGroupsAndOptions===>', this.allGroupsAndOptions());
+            // console.log('==allGroupsAndOptions===>', this.allGroupsAndOptions());
             const allOptionsMap = helpers.keyBy(
                 this.allGroupsAndOptions().filter(item => item.type === 'option'),
                 'value'
             );
             const selectedValues = this.selectedValues();
-            console.log('==selectedValues===>', selectedValues);
+            // console.log('==selectedValues===>', selectedValues);
             const oldSelectedOptionsMap = untracked(() => {
                 const selected = this.selectedOptions();
                 let aaa: SelectOptionBase[];
@@ -816,8 +826,8 @@ export class ThySelect
                 return helpers.keyBy(aaa, 'thyValue');
             });
 
-            console.log('===allOptionsMap===>', allOptionsMap);
-            console.log('===oldSelectedOptionsMap===', oldSelectedOptionsMap);
+            // console.log('===allOptionsMap===>', allOptionsMap);
+            // console.log('===oldSelectedOptionsMap===', oldSelectedOptionsMap);
 
             let newOptions: SelectOptionBase[] = [];
             const isMultiple = untracked(() => this.isMultiple());
@@ -835,7 +845,7 @@ export class ThySelect
                         newOptions.push(oldSelectedOptionsMap[value]);
                     }
                 });
-                console.log('===newOptions===', newOptions);
+                // console.log('===newOptions===', newOptions);
                 // if(isMultiple){
                 //     this.selectedOptions.set(newOptions);
                 // }else{
@@ -849,7 +859,7 @@ export class ThySelect
             } else {
                 this.selectedOptions.set(isMultiple ? [] : null);
             }
-            console.log('=====selectedOptions====>', this.selectedOptions());
+            // console.log('=====selectedOptions====>', this.selectedOptions());
         });
     }
 
@@ -860,7 +870,7 @@ export class ThySelect
         const selectedValues = this.buildSelectedValues(value);
         // 保持：始终是数组
         this.selectedValues.set([...selectedValues]);
-        console.log('==writeValue===>', this.selectedValues());
+        // console.log('==writeValue===>', this.selectedValues());
 
         // this.setSelectionByModelValue(this.modalValue);
     }
@@ -1701,8 +1711,13 @@ export class ThySelect
         }
     }
 
-    trackByFn(index: number, item: any): any {
-        return item.value || index;
+    trackByFn(index: number, item: ThyRenderItem): SafeAny {
+        if (item.type === 'group') {
+            return item.label || index;
+        }
+        if (item.type === 'option') {
+            return item.value || index;
+        }
     }
 
     ngOnDestroy() {

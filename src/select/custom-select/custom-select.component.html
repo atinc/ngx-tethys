@@ -57,25 +57,40 @@
         } -->
 
         <!-- track -->
-        @for (item of renderGroupsAndOptions(); track $index) {
-          @if (item.type === 'group') {
-            <!-- [thyDisabled]="item.disabled"  分组的禁用好像没什么用？ -->
-            <thy-option-group-render [thyGroupLabel]="item.label"></thy-option-group-render>
-          } @else {
-            <thy-option-render
-              [thyValue]="item.value"
-              [thyRawValue]="item.rawValue"
-              [thyLabelText]="item.label"
-              [thyShowOptionCustom]="item.showOptionCustom"
-              [thySearchKey]="item.searchKey"
-              [thyDisabled]="item.disabled"
-              [thyTemplate]="item.template"
-              [thyShowCheckedIcon]="isMultiple()"
-              [thySelectedValuesOfList]="selectedValues()"
-              (optionClick)="optionClick($event)">
-            </thy-option-render>
-          }
-        }
+        <cdk-virtual-scroll-viewport
+          itemSize="40"
+          maxBufferPx="320"
+          minBufferPx="320"
+          [style.height.px]="renderGroupsAndOptions().length * 40"
+          [style.max-height.px]="320">
+          <ng-template
+            cdkVirtualFor
+            [cdkVirtualForOf]="renderGroupsAndOptions()"
+            [cdkVirtualForTrackBy]="trackByFn"
+            [cdkVirtualForTemplateCacheSize]="0"
+            let-item>
+            <!-- @for (item of renderGroupsAndOptions(); track $index) { -->
+
+            @if (item.type === 'group') {
+              <!-- [thyDisabled]="item.disabled"  分组的禁用好像没什么用？ -->
+              <thy-option-group-render [thyGroupLabel]="item.label"></thy-option-group-render>
+            } @else {
+              <thy-option-render
+                [thyValue]="item.value"
+                [thyRawValue]="item.rawValue"
+                [thyLabelText]="item.label"
+                [thyShowOptionCustom]="item.showOptionCustom"
+                [thySearchKey]="item.searchKey"
+                [thyDisabled]="item.disabled"
+                [thyTemplate]="item.template"
+                [thyShowCheckedIcon]="isMultiple()"
+                [thySelectedValuesOfList]="selectedValues()"
+                (optionClick)="optionClick($event)">
+              </thy-option-render>
+            }
+            <!-- } -->
+          </ng-template>
+        </cdk-virtual-scroll-viewport>
         <ng-content></ng-content>
         <!-- @if (isHiddenOptions) {
           <thy-loading [thyDone]="thyLoadState()" thySize="sm"></thy-loading>

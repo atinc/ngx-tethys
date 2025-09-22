@@ -875,6 +875,9 @@ describe('ThyCustomSelect', () => {
                 fixture.detectChanges();
                 flush();
 
+                tick(100);
+                fixture.detectChanges();
+
                 const blurSpy = spyOn<any>(fixture.componentInstance.select(), 'onTouchedFn');
                 const optionInstances = fixture.componentInstance.select().optionRenders.toArray();
                 optionInstances[1].select();
@@ -891,6 +894,9 @@ describe('ThyCustomSelect', () => {
                 trigger.click();
                 fixture.detectChanges();
                 flush();
+
+                tick(100);
+                fixture.detectChanges();
 
                 const blurSpy = spyOn<any>(fixture.componentInstance.select(), 'onTouchedFn');
                 const optionInstances = fixture.componentInstance.select().optionRenders.toArray();
@@ -951,8 +957,10 @@ describe('ThyCustomSelect', () => {
 
             it('should open the panel when trigger is clicked', fakeAsync(() => {
                 trigger.click();
-                fixture.detectChanges();
                 flush();
+                fixture.detectChanges();
+                tick(100);
+                fixture.detectChanges();
 
                 expect(fixture.componentInstance.select().panelOpen).toBe(true);
                 expect(overlayContainerElement.textContent).toContain('Steak');
@@ -963,6 +971,8 @@ describe('ThyCustomSelect', () => {
             it('should close the panel when an item is clicked', fakeAsync(() => {
                 trigger.click();
                 flush();
+                fixture.detectChanges();
+                tick(100);
                 fixture.detectChanges();
 
                 const option = overlayContainerElement.querySelector('thy-option-render') as HTMLElement;
@@ -1120,6 +1130,8 @@ describe('ThyCustomSelect', () => {
                 trigger.click();
                 flush();
                 groupFixture.detectChanges();
+                tick(100);
+                groupFixture.detectChanges();
                 expect(document.querySelectorAll('.cdk-overlay-container thy-option-render').length).toBeGreaterThan(
                     0,
                     'Expected at least one option to be rendered.'
@@ -1201,14 +1213,18 @@ describe('ThyCustomSelect', () => {
                 const vegetablesTrigger = fixture.debugElement.query(By.css('.vegetables .form-control-custom')).nativeElement;
 
                 foodsTrigger.click();
-                fixture.detectChanges();
                 flush();
+                fixture.detectChanges();
+                tick(100);
+                fixture.detectChanges();
 
                 expect(fixture.componentInstance.foodsComponent().panelOpen).toBe(true);
 
                 vegetablesTrigger.click();
-                fixture.detectChanges();
                 flush();
+                fixture.detectChanges();
+                tick(100);
+                fixture.detectChanges();
 
                 expect(fixture.componentInstance.foodsComponent().panelOpen).toBe(false);
             }));
@@ -1216,11 +1232,14 @@ describe('ThyCustomSelect', () => {
             it('should handle Ctrl + A correctly', fakeAsync(() => {
                 const foodsTrigger = fixture.debugElement.query(By.css('.foods .form-control-custom')).nativeElement;
                 foodsTrigger.click();
-                fixture.detectChanges();
                 flush();
-                dispatchKeyboardEvent(foodsTrigger, 'keydown', 65, 'a', { control: true });
                 fixture.detectChanges();
-                tick(1000);
+                tick(100);
+                fixture.detectChanges();
+                dispatchKeyboardEvent(foodsTrigger, 'keydown', 65, 'a', { control: true });
+                flush();
+                fixture.detectChanges();
+                tick(100);
                 fixture.detectChanges();
                 expect(foodsTrigger.querySelectorAll('.choice-item').length).toBe(7);
             }));
@@ -1242,8 +1261,10 @@ describe('ThyCustomSelect', () => {
 
             it('should select an option when it is clicked', fakeAsync(() => {
                 trigger.click();
-                fixture.detectChanges();
                 flush();
+                fixture.detectChanges();
+                tick(100);
+                fixture.detectChanges();
 
                 let option = overlayContainerElement.querySelector('thy-option-render') as HTMLElement;
                 option.click();
@@ -1251,8 +1272,10 @@ describe('ThyCustomSelect', () => {
                 flush();
 
                 trigger.click();
-                fixture.detectChanges();
                 flush();
+                fixture.detectChanges();
+                tick(100);
+                fixture.detectChanges();
 
                 option = overlayContainerElement.querySelector('thy-option-render') as HTMLElement;
 
@@ -1265,8 +1288,10 @@ describe('ThyCustomSelect', () => {
                 fixture.detectChanges();
 
                 trigger.click();
-                fixture.detectChanges();
                 flush();
+                fixture.detectChanges();
+                tick(100);
+                fixture.detectChanges();
 
                 const optionInstances = selectComponent.optionRenders.toArray();
                 optionInstances[1].select();
@@ -1281,8 +1306,10 @@ describe('ThyCustomSelect', () => {
                 const foods = fixture.debugElement.componentInstance.foods;
 
                 trigger.click();
-                fixture.detectChanges();
                 flush();
+                fixture.detectChanges();
+                tick(100);
+                fixture.detectChanges();
                 optionInstances = selectComponent.optionRenders.toArray();
                 optionInstances[1].element.nativeElement.click();
                 fixture.detectChanges();
@@ -1290,8 +1317,10 @@ describe('ThyCustomSelect', () => {
                 expect(selectComponent.selectedValues()[0]).toBe(foods[1].value);
 
                 trigger.click();
-                fixture.detectChanges();
                 flush();
+                fixture.detectChanges();
+                tick(100);
+                fixture.detectChanges();
                 optionInstances = selectComponent.optionRenders.toArray();
                 optionInstances[0].element.nativeElement.click();
                 fixture.detectChanges();
@@ -1313,8 +1342,10 @@ describe('ThyCustomSelect', () => {
             it('should trigger thyOnExpandStatusChange event when open panel or close panel', fakeAsync(() => {
                 const spy = fixture.componentInstance.thyOnExpandStatusChange;
                 trigger.click();
-                fixture.detectChanges();
                 flush();
+                fixture.detectChanges();
+                tick(100);
+                fixture.detectChanges();
 
                 expect(spy).toHaveBeenCalledTimes(1);
                 expect(spy).toHaveBeenCalledWith(true);
@@ -1346,6 +1377,8 @@ describe('ThyCustomSelect', () => {
                 fixture.detectChanges();
                 tick(100);
                 trigger.click();
+                fixture.detectChanges();
+                tick(100);
                 fixture.detectChanges();
 
                 const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
@@ -1456,6 +1489,8 @@ describe('ThyCustomSelect', () => {
 
             trigger.click();
             fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
 
             expect(overlayContainerElement.textContent).toEqual('', `Expected select panel to stay closed.`);
             expect(fixture.componentInstance.select().panelOpen).toBe(false, `Expected select panelOpen property to stay false.`);
@@ -1467,6 +1502,8 @@ describe('ThyCustomSelect', () => {
             expect(trigger.classList).not.toContain('disabled');
 
             trigger.click();
+            fixture.detectChanges();
+            tick(100);
             fixture.detectChanges();
 
             expect(overlayContainerElement.textContent).toContain('Steak', `Expected select panel to open normally on re-enabled control`);
@@ -1483,8 +1520,9 @@ describe('ThyCustomSelect', () => {
 
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
-            fixture.detectChanges();
             flush();
+            fixture.detectChanges();
+            tick(100);
             fixture.detectChanges();
 
             expect(trigger.textContent).toContain('Pizza');
@@ -1502,6 +1540,8 @@ describe('ThyCustomSelect', () => {
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
             flush();
+            fixture.detectChanges();
+            tick(100);
             fixture.detectChanges();
 
             fixture.componentInstance.selectedValues = null;
@@ -1573,6 +1613,9 @@ describe('ThyCustomSelect', () => {
             fixture.componentInstance.thyShowSearch = true;
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
+            flush();
+            fixture.detectChanges();
+            tick(100);
             fixture.detectChanges();
 
             let options: ThyOptionRender[];
@@ -1580,6 +1623,8 @@ describe('ThyCustomSelect', () => {
 
             typeInElement('Steak', input);
             flush();
+            fixture.detectChanges();
+            tick(100);
             fixture.detectChanges();
             options = fixture.componentInstance.select().optionRenders.toArray();
             expect(options.length).toBe(1);
@@ -1597,6 +1642,9 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
+            flush();
+            fixture.detectChanges();
+            tick(100);
             fixture.detectChanges();
 
             let options: ThyOptionRender[];
@@ -1623,6 +1671,9 @@ describe('ThyCustomSelect', () => {
             fixture.componentInstance.thyShowSearch = true;
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
+            flush();
+            fixture.detectChanges();
+            tick(100);
             fixture.detectChanges();
 
             const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
@@ -1641,6 +1692,9 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
+            flush();
+            fixture.detectChanges();
+            tick(100);
             fixture.detectChanges();
 
             let groups: ThyOptionGroupRender[];
@@ -1842,6 +1896,8 @@ describe('ThyCustomSelect', () => {
             trigger.click();
             flush();
             fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
 
             expect(overlayContainerElement.textContent).toContain('Sushi');
             fixture.componentInstance.foods.pop();
@@ -1879,8 +1935,9 @@ describe('ThyCustomSelect', () => {
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
 
             trigger.click();
-            fixture.detectChanges();
             flush();
+            fixture.detectChanges();
+            tick(100);
             fixture.detectChanges();
 
             const option = fixture.componentInstance.select().optionRenders.toArray()[0];
@@ -1900,8 +1957,10 @@ describe('ThyCustomSelect', () => {
 
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
-            fixture.detectChanges();
             flush();
+            fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
 
             const option = overlayContainerElement.querySelector('thy-option-render') as HTMLElement;
             option.click();
@@ -1917,8 +1976,9 @@ describe('ThyCustomSelect', () => {
 
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
-            fixture.detectChanges();
             flush();
+            fixture.detectChanges();
+            tick(100);
             fixture.detectChanges();
 
             let optionComponents: ThyOptionRender[];
@@ -1949,8 +2009,9 @@ describe('ThyCustomSelect', () => {
 
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
-            fixture.detectChanges();
             flush();
+            fixture.detectChanges();
+            tick(100);
             fixture.detectChanges();
 
             const optionComponents = fixture.componentInstance.select().optionRenders.toArray();
@@ -2014,8 +2075,10 @@ describe('ThyCustomSelect', () => {
 
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
-            fixture.detectChanges();
             flush();
+            fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
 
             optionComponents = fixture.componentInstance.select().optionRenders.toArray();
             optionComponents[0].element.nativeElement.click();
@@ -2027,8 +2090,11 @@ describe('ThyCustomSelect', () => {
             flush();
 
             trigger.click();
-            fixture.detectChanges();
             flush();
+            fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
+
             optionComponents = fixture.componentInstance.select().optionRenders.toArray();
             optionComponents[0].element.nativeElement.click();
             optionComponents[1].element.nativeElement.click();
@@ -2051,6 +2117,8 @@ describe('ThyCustomSelect', () => {
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
             flush();
+            fixture.detectChanges();
+            tick(100);
             fixture.detectChanges();
 
             const options = overlayContainerElement.querySelectorAll('thy-option-render');
@@ -2075,6 +2143,8 @@ describe('ThyCustomSelect', () => {
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
             flush();
+            fixture.detectChanges();
+            tick(100);
             fixture.detectChanges();
 
             const options = overlayContainerElement.querySelectorAll('thy-option-render');
@@ -2106,6 +2176,8 @@ describe('ThyCustomSelect', () => {
             trigger.click();
             flush();
             fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
             expect(fixture.componentInstance.select().keyManager.activeItem).toEqual(
                 fixture.componentInstance.select().optionRenders.toArray()[0]
             );
@@ -2118,6 +2190,8 @@ describe('ThyCustomSelect', () => {
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
             flush();
+            fixture.detectChanges();
+            tick(100);
             fixture.detectChanges();
             dispatchKeyboardEvent(trigger, 'keydown', DOWN_ARROW);
             fixture.detectChanges();
@@ -2136,6 +2210,8 @@ describe('ThyCustomSelect', () => {
             trigger.click();
             flush();
             fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
             dispatchKeyboardEvent(trigger, 'keydown', DOWN_ARROW);
             dispatchKeyboardEvent(trigger, 'keydown', ESCAPE);
             fixture.detectChanges();
@@ -2144,6 +2220,8 @@ describe('ThyCustomSelect', () => {
 
             trigger.click();
             flush();
+            fixture.detectChanges();
+            tick(100);
             fixture.detectChanges();
             expect(fixture.componentInstance.select().keyManager.activeItem).toEqual(
                 fixture.componentInstance.select().optionRenders.toArray()[1]
@@ -2179,6 +2257,8 @@ describe('ThyCustomSelect', () => {
             trigger.click();
             flush();
             fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
 
             dispatchKeyboardEvent(trigger, 'keydown', ENTER);
             fixture.detectChanges();
@@ -2196,6 +2276,9 @@ describe('ThyCustomSelect', () => {
             dispatchKeyboardEvent(trigger, 'keydown', ENTER);
             fixture.detectChanges();
             flush();
+            fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
 
             expect(fixture.componentInstance.select().panelOpen).toEqual(true);
         }));
@@ -2206,8 +2289,9 @@ describe('ThyCustomSelect', () => {
 
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             dispatchKeyboardEvent(trigger, 'keydown', DOWN_ARROW);
-            fixture.detectChanges();
             flush();
+            fixture.detectChanges();
+            tick(100);
             fixture.detectChanges();
             expect(fixture.componentInstance.select().keyManager.activeItem).toEqual(
                 fixture.componentInstance.select().optionRenders.toArray()[0]
@@ -2400,6 +2484,8 @@ describe('ThyCustomSelect', () => {
             trigger.click();
             flush();
             fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
 
             expect(fixture.componentInstance.select().keyManager.activeItem).toEqual(
                 fixture.componentInstance.select().optionRenders.toArray()[0]
@@ -2447,6 +2533,8 @@ describe('ThyCustomSelect', () => {
             trigger.click();
             flush();
             fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
             dispatchKeyboardEvent(trigger, 'keydown', DOWN_ARROW);
             expect(fixture.componentInstance.select().keyManager.activeItem).toEqual(
                 fixture.componentInstance.select().optionRenders.toArray()[1]
@@ -2465,6 +2553,8 @@ describe('ThyCustomSelect', () => {
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
             flush();
+            fixture.detectChanges();
+            tick(100);
             fixture.detectChanges();
             dispatchKeyboardEvent(trigger, 'keydown', END);
             expect(fixture.componentInstance.select().keyManager.activeItem).toEqual(
@@ -2537,8 +2627,9 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
-            fixture.detectChanges();
             flush();
+            fixture.detectChanges();
+            tick(100);
             fixture.detectChanges();
             expect(overlayContainerElement.textContent).toContain('香蕉');
             expect(overlayContainerElement.textContent).toContain('苹果');
@@ -2550,8 +2641,9 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
-            fixture.detectChanges();
             flush();
+            fixture.detectChanges();
+            tick(100);
             fixture.detectChanges();
             const option = overlayContainerElement.querySelector('thy-option-render') as HTMLElement;
             option.click();
@@ -2571,8 +2663,9 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
-            fixture.detectChanges();
             flush();
+            fixture.detectChanges();
+            tick(100);
             fixture.detectChanges();
             const optionGroup = overlayContainerElement.querySelector('thy-option-group-render') as HTMLElement;
             const groupName = optionGroup.querySelector('.group-name') as HTMLElement;
