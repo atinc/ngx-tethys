@@ -19,6 +19,7 @@ export type ThyModuleType =
     | 'form'
     | 'empty'
     | 'image'
+    | 'notify'
     | 'shared';
 
 export type ThyModuleLocaleType<K extends ThyModuleType> = ThyI18nLocale[K];
@@ -53,6 +54,7 @@ export interface ThyI18nLocale {
     form: ThyFormLocale;
     empty: ThyEmptyLocale;
     image: ThyImageLocale;
+    notify: ThyNotifyLocale;
     shared: ThySharedLocale;
 }
 
@@ -229,6 +231,14 @@ export interface ThyImageLocale {
     copyError: string;
     prev: string;
     next: string;
+}
+
+export interface ThyNotifyLocale {
+    success: string;
+    warning: string;
+    error: string;
+    info: string;
+    detail: string;
 }
 
 export interface ThySharedLocale {

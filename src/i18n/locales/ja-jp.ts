@@ -157,6 +157,13 @@ export default {
         prev: '前の画像',
         next: '次の画像'
     },
+    notify: {
+        success: '成功',
+        warning: '警告',
+        error: 'エラー',
+        info: '情報',
+        detail: '詳細'
+    },
     shared: {
         comma: '，'
     }
