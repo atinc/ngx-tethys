@@ -157,6 +157,13 @@ export default {
         prev: 'Vorherige',
         next: 'Nächste'
     },
+    notify: {
+        success: 'Erfolg',
+        warning: 'Warnung',
+        error: 'Fehler',
+        info: 'Hinweis',
+        detail: 'Details'
+    },
     shared: {
         comma: ','
     }
