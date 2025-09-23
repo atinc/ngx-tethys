@@ -1,6 +1,6 @@
-import { isEmpty, isFunction, isString, isTemplateRef, isUndefinedOrNull } from 'ngx-tethys/util';
-import { Component, computed, inject, input } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
+import { Component, computed, inject, input } from '@angular/core';
+import { isEmpty, isFunction, isString, isTemplateRef, isUndefinedOrNull } from 'ngx-tethys/util';
 import { ThyDatePickerConfigService } from '../../date-picker.service';
 import { DateCell } from './types';
 
@@ -38,4 +38,9 @@ export class DateTableCell {
     cellRender = computed(() => {
         return this.cell()?.dateCellRender || this.datePickerConfigService.config?.dateCellRender;
     });
+
+    cellClick(event: Event) {
+        event.stopPropagation();
+        this.cell().onClick();
+    }
 }
