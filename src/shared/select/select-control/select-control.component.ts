@@ -2,6 +2,7 @@ import { ThyTagSize } from 'ngx-tethys/tag';
 import { coerceArray, coerceBooleanProperty, isUndefinedOrNull } from 'ngx-tethys/util';
 
 import {
+    afterRenderEffect,
     AfterViewInit,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -23,8 +24,7 @@ import {
     signal,
     TemplateRef,
     untracked,
-    viewChild,
-    ViewChild
+    viewChild
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
@@ -106,8 +106,13 @@ export class ThySelectControl implements OnInit, AfterViewInit {
             return 'md';
         }
     });
-
+    /**
+     * 可以使用 thyShowMoreTag
+     * @deprecated
+     */
     readonly thyMaxTagCount = input(0, { transform: numberAttribute });
+
+    readonly thyShowMoreTag = input(false, { transform: coerceBooleanProperty });
 
     readonly thyBorderless = input(false, { transform: coerceBooleanProperty });
 
@@ -132,7 +137,7 @@ export class ThySelectControl implements OnInit, AfterViewInit {
         );
     });
 
-    @ViewChild('tagsContainer', { static: false }) tagsContainer: ElementRef;
+    readonly tagsContainer = viewChild<ElementRef>('tagsContainer');
 
     visibleTagCount = signal(0);
 
@@ -151,7 +156,8 @@ export class ThySelectControl implements OnInit, AfterViewInit {
         if (!this.thyIsMultiple() || !this.thySelectedOptions()) return [];
         const selectedOptions = coerceArray(this.thySelectedOptions());
 
-        if (this.thyMaxTagCount() <= 0) {
+        const shouldShowMoreTags = this.thyShowMoreTag() || this.thyMaxTagCount() > 0;
+        if (!shouldShowMoreTags) {
             return [];
         }
 
@@ -252,27 +258,25 @@ export class ThySelectControl implements OnInit, AfterViewInit {
                             }
                         }, 200);
                     }
-
-                    // 当选项变化时，重新计算可见标签数量
-                    if (!sameValue && this.thyIsMultiple()) {
-                        // 等待DOM更新后再计算
-                        setTimeout(() => {
-                            this.calculateVisibleTags();
-                        }, 50);
-                    }
                 });
             }
+        });
+
+        afterRenderEffect(() => {
+            untracked(() => {
+                const isMultiple = this.thyIsMultiple();
+                if (isMultiple) {
+                    setTimeout(() => {
+                        this.calculateVisibleTags();
+                    }, 50);
+                }
+            });
         });
     }
 
     ngOnInit() {}
 
     ngAfterViewInit() {
-        // 等待DOM渲染完成后计算可见标签数量
-        setTimeout(() => {
-            this.calculateVisibleTags();
-        }, 0);
-
         this.ngZone.runOutsideAngular(() => {
             this.resizeObserver(this.inputElement()?.nativeElement)
                 .pipe(throttleTime(100), takeUntilDestroyed(this.destroyRef))
@@ -296,10 +300,10 @@ export class ThySelectControl implements OnInit, AfterViewInit {
               });
     }
 
-    calculateVisibleTags() {
-        if (!this.tagsContainer?.nativeElement) return;
+    private calculateVisibleTags() {
+        if (!this.tagsContainer()?.nativeElement) return;
 
-        const containerWidth = this.tagsContainer.nativeElement.offsetWidth;
+        const containerWidth = this.tagsContainer().nativeElement.offsetWidth;
         if (containerWidth <= 0) return;
 
         const selectedOptions = coerceArray(this.thySelectedOptions());
@@ -308,8 +312,9 @@ export class ThySelectControl implements OnInit, AfterViewInit {
             return;
         }
 
-        const maxTagCount = this.thyMaxTagCount();
-        if (isNaN(maxTagCount) || maxTagCount <= 0) {
+        const shouldShowMoreTags = this.thyShowMoreTag() || this.thyMaxTagCount() > 0;
+
+        if (!shouldShowMoreTags) {
             this.visibleTagCount.set(selectedOptions.length);
             this.cdr.markForCheck();
             return;
@@ -322,7 +327,7 @@ export class ThySelectControl implements OnInit, AfterViewInit {
         let totalWidth = 0;
         let visibleCount = 0;
 
-        const tagElements = this.tagsContainer.nativeElement.querySelectorAll('.choice-item.selected,.custom-choice-item');
+        const tagElements = this.tagsContainer().nativeElement.querySelectorAll('.choice-item.selected,.custom-choice-item');
         for (let i = 0; i < selectedOptions.length; i++) {
             let tagWidth: number;
 
