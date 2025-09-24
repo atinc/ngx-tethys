@@ -6,11 +6,11 @@ import { ThyDatePicker } from 'ngx-tethys/date-picker';
 import { ThyFormGroup } from 'ngx-tethys/form';
 
 @Component({
-    selector: 'thy-date-picker-custom-example',
-    templateUrl: './custom.component.html',
+    selector: 'thy-date-picker-date-render-example',
+    templateUrl: './date-render.component.html',
     imports: [ThyFormGroup, ThyDatePicker, FormsModule]
 })
-export class ThyDatePickerCustomExampleComponent implements OnInit {
+export class ThyDatePickerDateRenderExampleComponent implements OnInit {
     dateTime = new Date('2023-09-01');
 
     sanitizer = inject(DomSanitizer);

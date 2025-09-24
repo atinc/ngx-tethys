@@ -47,7 +47,7 @@ import { ThyDatePickerModule } from 'ngx-tethys/date-picker';
 <examples />
 
 ## 全局配置
-对于日期选择的快捷选择参数可以支持全局配置，如果需要全局替换默认的配置，可以通过注入令牌为`THY_DATE_PICKER_CONFIG`的值进行配置，如下：
+对于日期选择的快捷选择参数、自定义日期渲染等支持全局配置，如果需要全局替换默认的配置，可以通过注入令牌为`THY_DATE_PICKER_CONFIG`的值进行配置，如下：
 ```ts
 @NgModule({
     providers: [
