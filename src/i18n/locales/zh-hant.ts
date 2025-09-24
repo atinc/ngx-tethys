@@ -157,6 +157,13 @@ export default {
         prev: '上一張',
         next: '下一張'
     },
+    notify: {
+        success: '成功',
+        warning: '警告',
+        error: '錯誤',
+        info: '提示',
+        detail: '詳情'
+    },
     shared: {
         comma: '，'
     }

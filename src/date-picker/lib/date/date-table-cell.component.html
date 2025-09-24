@@ -9,10 +9,10 @@
         <ng-container *ngTemplateOutlet="dateCellRender; context: { $implicit: dateCell.value }"></ng-container>
       }
       @case (isNonEmptyString(dateCellRender)) {
-        <span [innerHTML]="dateCellRender"></span>
+        <span (click)="cellClick($event)" [innerHTML]="dateCellRender"></span>
       }
       @case (functionRenderResult()) {
-        <span [innerHTML]="$any(dateCellRender)(dateCell.value)"></span>
+        <span (click)="cellClick($event)" [innerHTML]="$any(dateCellRender)(dateCell.value)"></span>
       }
       @default {
         <div class="{{ prefixClass }}-date" [attr.aria-selected]="dateCell.isSelected" [attr.aria-disabled]="dateCell.isDisabled">

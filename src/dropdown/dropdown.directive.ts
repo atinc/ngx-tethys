@@ -99,7 +99,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
     /**
      * 点击 dropdown-menu 内部是否关闭弹出框，会覆盖 thyPopoverOptions 中的 insideClosable
      */
-    readonly thyMenuInsideClosable = input(true, { transform: coerceBooleanProperty });
+    readonly thyMenuInsideClosable = input(undefined, { transform: coerceBooleanProperty });
 
     /**
      * 弹出框 overlay panel 的类名
