@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [19.1.5](https://github.com/atinc/ngx-tethys/compare/19.1.4...19.1.5) (2025-09-24)
+
+
+### Features
+
+* **notify:** 通知支持多语言 #TINFR-2899 ([#3566](https://github.com/atinc/ngx-tethys/issues/3566)) ([9f08fe9](https://github.com/atinc/ngx-tethys/commit/9f08fe9e5b0520b760e0e98f19ca1c619cf3ab3f)), closes [#TINFR-2899](https://github.com/atinc/ngx-tethys/issues/TINFR-2899)
+
+
+
 ## [19.1.4](https://github.com/atinc/ngx-tethys/compare/19.1.3...19.1.4) (2025-09-23)
 
 
