@@ -2,6 +2,7 @@ import { ThyTagSize } from 'ngx-tethys/tag';
 import { coerceArray, coerceBooleanProperty, isUndefinedOrNull } from 'ngx-tethys/util';
 
 import {
+    afterRenderEffect,
     AfterViewInit,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -257,12 +258,14 @@ export class ThySelectControl implements OnInit, AfterViewInit {
                             }
                         }, 200);
                     }
-                    if (!sameValue && this.thyIsMultiple()) {
-                        setTimeout(() => {
-                            this.calculateVisibleTags();
-                        }, 0);
-                    }
                 });
+            }
+        });
+
+        afterRenderEffect(() => {
+            const thyIsMultiple = untracked(() => this.thyIsMultiple());
+            if (thyIsMultiple) {
+                this.calculateVisibleTags();
             }
         });
     }
@@ -270,6 +273,9 @@ export class ThySelectControl implements OnInit, AfterViewInit {
     ngOnInit() {}
 
     ngAfterViewInit() {
+        setTimeout(() => {
+            this.calculateVisibleTags();
+        }, 0);
         this.ngZone.runOutsideAngular(() => {
             this.resizeObserver(this.inputElement()?.nativeElement)
                 .pipe(throttleTime(100), takeUntilDestroyed(this.destroyRef))
