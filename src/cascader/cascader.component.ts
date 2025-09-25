@@ -4,48 +4,48 @@ import {
     AfterContentInit,
     ChangeDetectorRef,
     Component,
+    computed,
+    effect,
     ElementRef,
     forwardRef,
     HostListener,
+    inject,
     Input,
+    input,
     NgZone,
     numberAttribute,
     OnDestroy,
     OnInit,
-    PLATFORM_ID,
-    TemplateRef,
-    inject,
-    Signal,
-    input,
-    computed,
     output,
+    PLATFORM_ID,
+    Signal,
+    TemplateRef,
     viewChild,
-    effect,
     viewChildren
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import {
-    EXPANDED_DROPDOWN_POSITIONS,
     DebounceTimeWrapper,
+    EXPANDED_DROPDOWN_POSITIONS,
+    injectPanelEmptyIcon,
+    scaleYMotion,
     ScrollToService,
     TabIndexDisabledControlValueAccessorMixin,
-    ThyClickDispatcher,
-    injectPanelEmptyIcon
+    ThyClickDispatcher
 } from 'ngx-tethys/core';
+import { ThyDivider } from 'ngx-tethys/divider';
 import { ThyEmpty } from 'ngx-tethys/empty';
+import { injectLocale, ThyCascaderLocale } from 'ngx-tethys/i18n';
 import { SelectControlSize, SelectOptionBase, ThySelectControl } from 'ngx-tethys/shared';
 import { SafeAny } from 'ngx-tethys/types';
 import { coerceBooleanProperty, elementMatchClosest, isEmpty } from 'ngx-tethys/util';
 import { BehaviorSubject, Observable, Subject, Subscription, timer } from 'rxjs';
 import { distinctUntilChanged, filter, take, takeUntil } from 'rxjs/operators';
-import { scaleYMotion } from 'ngx-tethys/core';
-import { ThyDivider } from 'ngx-tethys/divider';
 import { ThyCascaderOptionComponent } from './cascader-li.component';
 import { ThyCascaderSearchOptionComponent } from './cascader-search-option.component';
 import { ThyCascaderService } from './cascader.service';
 import { ThyCascaderExpandTrigger, ThyCascaderOption, ThyCascaderSearchOption, ThyCascaderTriggerType } from './types';
-import { injectLocale, ThyCascaderLocale } from 'ngx-tethys/i18n';
 
 /**
  * 级联选择菜单
@@ -239,10 +239,16 @@ export class ThyCascader
     readonly thyMultiple = input(false, { transform: coerceBooleanProperty });
 
     /**
-     * 设置多选时最大显示的标签数量，0 表示不限制
+     * 设置多选时最大显示的标签数量，0 表示不限制，即将被弃用，请使用 thyShowMoreTag
+     * @deprecated
      * @type number
      */
     readonly thyMaxTagCount = input(0, { transform: numberAttribute });
+
+    /**
+     * 是否展示折叠标签
+     */
+    readonly thyShowMoreTag = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 是否仅允许选择叶子项

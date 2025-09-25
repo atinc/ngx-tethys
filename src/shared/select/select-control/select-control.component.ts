@@ -2,7 +2,7 @@ import { ThyTagSize } from 'ngx-tethys/tag';
 import { coerceArray, coerceBooleanProperty, isUndefinedOrNull } from 'ngx-tethys/util';
 
 import {
-    afterRenderEffect,
+    afterNextRender,
     AfterViewInit,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -107,7 +107,7 @@ export class ThySelectControl implements OnInit, AfterViewInit {
         }
     });
     /**
-     * 可以使用 thyShowMoreTag
+     * 即将被弃用，请使用 thyShowMoreTag
      * @deprecated
      */
     readonly thyMaxTagCount = input(0, { transform: numberAttribute });
@@ -262,15 +262,17 @@ export class ThySelectControl implements OnInit, AfterViewInit {
             }
         });
 
-        afterRenderEffect(() => {
-            untracked(() => {
-                const isMultiple = this.thyIsMultiple();
-                if (isMultiple) {
+        afterNextRender(() => {
+            const isMultiple = untracked(() => this.thyIsMultiple());
+            if (isMultiple) {
+                if (this.thyShowMoreTag() || this.thyMaxTagCount() > 0) {
                     setTimeout(() => {
                         this.calculateVisibleTags();
-                    }, 50);
+                    }, 0);
+                } else {
+                    this.visibleTagCount.set(coerceArray(this.thySelectedOptions()).length);
                 }
-            });
+            }
         });
     }
 
@@ -309,14 +311,6 @@ export class ThySelectControl implements OnInit, AfterViewInit {
         const selectedOptions = coerceArray(this.thySelectedOptions());
         if (!selectedOptions?.length) {
             this.visibleTagCount.set(0);
-            return;
-        }
-
-        const shouldShowMoreTags = this.thyShowMoreTag() || this.thyMaxTagCount() > 0;
-
-        if (!shouldShowMoreTags) {
-            this.visibleTagCount.set(selectedOptions.length);
-            this.cdr.markForCheck();
             return;
         }
 

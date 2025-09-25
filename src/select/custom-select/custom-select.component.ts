@@ -1,3 +1,40 @@
+import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import { coerceElement } from '@angular/cdk/coercion';
+import { SelectionModel } from '@angular/cdk/collections';
+import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair, Overlay, ScrollStrategy } from '@angular/cdk/overlay';
+import { isPlatformBrowser, NgClass, NgTemplateOutlet } from '@angular/common';
+import {
+    AfterContentInit,
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    contentChild,
+    ContentChildren,
+    contentChildren,
+    effect,
+    ElementRef,
+    forwardRef,
+    HostListener,
+    inject,
+    Input,
+    input,
+    NgZone,
+    numberAttribute,
+    OnDestroy,
+    OnInit,
+    output,
+    PLATFORM_ID,
+    QueryList,
+    Signal,
+    TemplateRef,
+    untracked,
+    ViewChild,
+    viewChild,
+    ViewChildren,
+    viewChildren
+} from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
     getFlexiblePositions,
     injectPanelEmptyIcon,
@@ -43,44 +80,9 @@ import {
 } from 'ngx-tethys/util';
 import { defer, merge, Observable, Subject, Subscription, timer } from 'rxjs';
 import { distinctUntilChanged, filter, map, startWith, switchMap, take, takeUntil } from 'rxjs/operators';
-import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
-import { coerceElement } from '@angular/cdk/coercion';
-import { SelectionModel } from '@angular/cdk/collections';
-import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair, Overlay, ScrollStrategy } from '@angular/cdk/overlay';
-import { isPlatformBrowser, NgClass, NgTemplateOutlet } from '@angular/common';
-import {
-    AfterContentInit,
-    AfterViewInit,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ContentChildren,
-    ElementRef,
-    forwardRef,
-    HostListener,
-    Input,
-    NgZone,
-    numberAttribute,
-    OnDestroy,
-    OnInit,
-    output,
-    PLATFORM_ID,
-    QueryList,
-    TemplateRef,
-    ViewChild,
-    viewChild,
-    ViewChildren,
-    inject,
-    Signal,
-    input,
-    contentChild,
-    effect,
-    untracked,
-    viewChildren,
-    contentChildren
-} from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
+import { outputToObservable } from '@angular/core/rxjs-interop';
+import { injectLocale, ThySelectLocale } from 'ngx-tethys/i18n';
 import {
     DEFAULT_SELECT_CONFIG,
     THY_SELECT_CONFIG,
@@ -88,8 +90,6 @@ import {
     ThyDropdownWidthMode,
     ThySelectConfig
 } from '../select.config';
-import { injectLocale, ThySelectLocale } from 'ngx-tethys/i18n';
-import { outputToObservable } from '@angular/core/rxjs-interop';
 
 export type SelectMode = 'multiple' | '';
 
@@ -371,9 +371,15 @@ export class ThySelect
     readonly thyHasBackdrop = input(false, { transform: coerceBooleanProperty });
 
     /**
-     * 设置多选时最大显示的标签数量，0 表示不限制
+     * 设置多选时最大显示的标签数量，0 表示不限制，即将被弃用，请使用 thyShowMoreTag
+     * @deprecated
      */
     readonly thyMaxTagCount = input(0, { transform: numberAttribute });
+
+    /**
+     * 是否展示折叠标签
+     */
+    readonly thyShowMoreTag = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 是否隐藏选择框边框
