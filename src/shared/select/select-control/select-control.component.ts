@@ -2,7 +2,6 @@ import { ThyTagSize } from 'ngx-tethys/tag';
 import { coerceArray, coerceBooleanProperty, isUndefinedOrNull } from 'ngx-tethys/util';
 
 import {
-    afterNextRender,
     AfterViewInit,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -258,20 +257,12 @@ export class ThySelectControl implements OnInit, AfterViewInit {
                             }
                         }, 200);
                     }
+                    if (!sameValue && this.thyIsMultiple()) {
+                        setTimeout(() => {
+                            this.calculateVisibleTags();
+                        }, 0);
+                    }
                 });
-            }
-        });
-
-        afterNextRender(() => {
-            const isMultiple = untracked(() => this.thyIsMultiple());
-            if (isMultiple) {
-                if (this.thyShowMoreTag() || this.thyMaxTagCount() > 0) {
-                    setTimeout(() => {
-                        this.calculateVisibleTags();
-                    }, 0);
-                } else {
-                    this.visibleTagCount.set(coerceArray(this.thySelectedOptions()).length);
-                }
             }
         });
     }
@@ -311,6 +302,14 @@ export class ThySelectControl implements OnInit, AfterViewInit {
         const selectedOptions = coerceArray(this.thySelectedOptions());
         if (!selectedOptions?.length) {
             this.visibleTagCount.set(0);
+            return;
+        }
+
+        const shouldShowMoreTags = this.thyShowMoreTag() || this.thyMaxTagCount() > 0;
+
+        if (!shouldShowMoreTags) {
+            this.visibleTagCount.set(selectedOptions.length);
+            this.cdr.markForCheck();
             return;
         }
 
