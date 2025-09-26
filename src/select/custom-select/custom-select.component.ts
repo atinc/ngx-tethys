@@ -371,15 +371,14 @@ export class ThySelect
     readonly thyHasBackdrop = input(false, { transform: coerceBooleanProperty });
 
     /**
-     * 设置多选时最大显示的标签数量，0 表示不限制，即将被弃用，请使用 thyShowMoreTag
-     * @deprecated
+     * 设置多选时最大显示的标签数量，0 表示不限制，'auto' 表示自动计算显示数量，默认值为 0
      */
-    readonly thyMaxTagCount = input(0, { transform: numberAttribute });
-
-    /**
-     * 是否展示折叠标签
-     */
-    readonly thyShowMoreTag = input(false, { transform: coerceBooleanProperty });
+    readonly thyMaxTagCount = input(0, {
+        transform: (value: number | 'auto') => {
+            if (value === 'auto') return 'auto';
+            return numberAttribute(value, 0);
+        }
+    });
 
     /**
      * 是否隐藏选择框边框

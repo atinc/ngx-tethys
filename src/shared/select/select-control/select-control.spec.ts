@@ -1,6 +1,6 @@
 import { provideHttpClient } from '@angular/common/http';
 import { Component, DebugElement, viewChild } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, flushMicrotasks, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { SelectControlSize, SelectOptionBase, ThySelectControl } from 'ngx-tethys/shared';
 import { THY_TOOLTIP_DEFAULT_CONFIG_PROVIDER } from 'ngx-tethys/tooltip';
@@ -19,7 +19,6 @@ import { THY_TOOLTIP_DEFAULT_CONFIG_PROVIDER } from 'ngx-tethys/tooltip';
             [thyPanelOpened]="thyPanelOpened"
             [thyBorderless]="borderless"
             [thyMaxTagCount]="thyMaxTagCount"
-            [thyShowMoreTag]="thyShowMoreTag"
             (thyOnSearch)="search($event)"></thy-select-control>
     `,
     imports: [ThySelectControl]
@@ -38,8 +37,6 @@ class BasicSelectControlComponent {
     thySize: SelectControlSize = null;
 
     thyIsMultiple = false;
-
-    thyShowMoreTag = false;
 
     thyPanelOpened = false;
 
@@ -231,70 +228,46 @@ describe('ThySelectControl', () => {
             });
 
             it('should set visibleTagCount to selectedOptions.length if maxTagCount <= 0', () => {
-                fixture.componentInstance.thyMaxTagCount = 0;
-                const options = [
-                    { thyLabelText: '1', thyRawValue: {}, thyValue: '1' },
-                    { thyLabelText: '2', thyRawValue: {}, thyValue: '2' }
-                ];
-                fixture.componentInstance.selectedOptions = options;
-                fixture.detectChanges();
                 setTagsContainer(200, [60, 60]);
-                (component as any).calculateVisibleTags();
-                expect(component.visibleTagCount()).toBe(options.length);
-            });
-
-            it('should calculate visibleTagCount correctly when maxTagCount > 0', () => {
-                fixture.componentInstance.thyMaxTagCount = 3;
-                const options = [
-                    { thyLabelText: '1', thyRawValue: {}, thyValue: '1' },
-                    { thyLabelText: '2', thyRawValue: {}, thyValue: '2' },
-                    { thyLabelText: '3', thyRawValue: {}, thyValue: '3' }
-                ];
-                fixture.componentInstance.selectedOptions = options;
-                fixture.detectChanges();
-                // 200 - 46 - 3 = 151, each tag 64, can show 2 tags
-                setTagsContainer(200, [60, 60, 60]);
-                (component as any).calculateVisibleTags();
+                spyOn(component, 'thySelectedOptions').and.returnValue([{ thyValue: 1 }, { thyValue: 2 }]);
+                spyOn(component, 'thyMaxTagCount').and.returnValue(0);
+                component['calculateVisibleTags']();
                 expect(component.visibleTagCount()).toBe(2);
             });
 
-            it('should always show at least one tag', () => {
-                fixture.componentInstance.thyMaxTagCount = 2;
-                const options = [
-                    { thyLabelText: '1', thyRawValue: {}, thyValue: '1' },
-                    { thyLabelText: '2', thyRawValue: {}, thyValue: '2' }
-                ];
-                fixture.componentInstance.selectedOptions = options;
-                fixture.detectChanges();
+            it('should set visibleTagCount to maxTagCount - 1 if maxTagCount > 0', () => {
+                setTagsContainer(200, [60, 60, 60]);
+                spyOn(component, 'thySelectedOptions').and.returnValue([{ thyValue: 1 }, { thyValue: 2 }, { thyValue: 3 }]);
+                spyOn(component, 'thyMaxTagCount').and.returnValue(3);
+                component['calculateVisibleTags']();
+                expect(component.visibleTagCount()).toBe(2);
+            });
+
+            it('should calculate visibleTagCount based on available width when maxTagCount is auto', fakeAsync(() => {
+                setTagsContainer(200, [60, 60, 60]);
+                spyOn(component, 'thySelectedOptions').and.returnValue([{ thyValue: 1 }, { thyValue: 2 }, { thyValue: 3 }]);
+                spyOn(component, 'thyMaxTagCount').and.returnValue('auto');
+                component['calculateVisibleTags']();
+                flushMicrotasks();
+                // 200 - 46 - 3 = 151, each tag 64, can show 2 tags
+                expect(component.visibleTagCount()).toBe(2);
+            }));
+
+            it('should always show at least one tag', fakeAsync(() => {
                 setTagsContainer(50, [60, 60]);
-                (component as any).calculateVisibleTags();
+                spyOn(component, 'thySelectedOptions').and.returnValue([{ thyValue: 1 }, { thyValue: 2 }]);
+                spyOn(component, 'thyMaxTagCount').and.returnValue('auto');
+                component['calculateVisibleTags']();
+                flushMicrotasks();
                 expect(component.visibleTagCount()).toBe(1);
-            });
+            }));
 
-            it('should calculate visibleTagCount when thyShowMoreTag is true', () => {
-                fixture.componentInstance.thyShowMoreTag = true;
-                fixture.componentInstance.thyMaxTagCount = 0;
-                const options = [
-                    { thyLabelText: '1', thyRawValue: {}, thyValue: '1' },
-                    { thyLabelText: '2', thyRawValue: {}, thyValue: '2' },
-                    { thyLabelText: '3', thyRawValue: {}, thyValue: '3' }
-                ];
-                fixture.componentInstance.selectedOptions = options;
-                fixture.detectChanges();
-                setTagsContainer(150, [60, 60, 60]);
-                (component as any).calculateVisibleTags();
-                // 150 - 46 - 3 = 101, each tag 64, can show 1 tag
-                expect(component.visibleTagCount()).toBe(1);
-            });
-
-            it('should not change visibleTagCount if container width is 0', () => {
-                fixture.componentInstance.thyMaxTagCount = 2;
-                const options = [{ thyLabelText: '1', thyRawValue: {}, thyValue: '1' }];
-                fixture.componentInstance.selectedOptions = options;
-                fixture.detectChanges();
-                setTagsContainer(0, [60]);
+            it('should not change visibleTagCount if container width is 0 (keep previous value)', () => {
                 component.visibleTagCount.set(5);
-                (component as any).calculateVisibleTags();
+                setTagsContainer(0, [60]);
+                spyOn(component, 'thySelectedOptions').and.returnValue([{ thyValue: 1 }]);
+                spyOn(component, 'thyMaxTagCount').and.returnValue('auto');
+                component['calculateVisibleTags']();
                 expect(component.visibleTagCount()).toBe(5);
             });
         });

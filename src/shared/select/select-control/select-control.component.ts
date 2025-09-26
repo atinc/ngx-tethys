@@ -2,7 +2,6 @@ import { ThyTagSize } from 'ngx-tethys/tag';
 import { coerceArray, coerceBooleanProperty, isUndefinedOrNull } from 'ngx-tethys/util';
 
 import {
-    afterRenderEffect,
     AfterViewInit,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -106,13 +105,13 @@ export class ThySelectControl implements OnInit, AfterViewInit {
             return 'md';
         }
     });
-    /**
-     * 即将被弃用，请使用 thyShowMoreTag
-     * @deprecated
-     */
-    readonly thyMaxTagCount = input(0, { transform: numberAttribute });
 
-    readonly thyShowMoreTag = input(false, { transform: coerceBooleanProperty });
+    readonly thyMaxTagCount = input(0, {
+        transform: (value: number | 'auto') => {
+            if (value === 'auto') return 'auto';
+            return numberAttribute(value, 0);
+        }
+    });
 
     readonly thyBorderless = input(false, { transform: coerceBooleanProperty });
 
@@ -156,7 +155,7 @@ export class ThySelectControl implements OnInit, AfterViewInit {
         if (!this.thyIsMultiple() || !this.thySelectedOptions()) return [];
         const selectedOptions = coerceArray(this.thySelectedOptions());
 
-        const shouldShowMoreTags = this.thyShowMoreTag() || this.thyMaxTagCount() > 0;
+        const shouldShowMoreTags = (this.thyMaxTagCount() as string) === 'auto' || (this.thyMaxTagCount() as number) > 0;
         if (!shouldShowMoreTags) {
             return [];
         }
@@ -258,14 +257,10 @@ export class ThySelectControl implements OnInit, AfterViewInit {
                             }
                         }, 200);
                     }
+                    if (!sameValue && this.thyIsMultiple()) {
+                        this.calculateVisibleTags();
+                    }
                 });
-            }
-        });
-
-        afterRenderEffect(() => {
-            const thyIsMultiple = untracked(() => this.thyIsMultiple());
-            if (thyIsMultiple) {
-                this.calculateVisibleTags();
             }
         });
     }
@@ -311,10 +306,16 @@ export class ThySelectControl implements OnInit, AfterViewInit {
             return;
         }
 
-        const shouldShowMoreTags = this.thyShowMoreTag() || this.thyMaxTagCount() > 0;
+        const shouldShowMoreTags = (this.thyMaxTagCount() as string) === 'auto' || (this.thyMaxTagCount() as number) > 0;
 
         if (!shouldShowMoreTags) {
             this.visibleTagCount.set(selectedOptions.length);
+            this.cdr.markForCheck();
+            return;
+        }
+
+        if ((this.thyMaxTagCount() as number) > 0) {
+            this.visibleTagCount.set((this.thyMaxTagCount() as number) - 1);
             this.cdr.markForCheck();
             return;
         }
@@ -326,24 +327,26 @@ export class ThySelectControl implements OnInit, AfterViewInit {
         let totalWidth = 0;
         let visibleCount = 0;
 
-        const tagElements = this.tagsContainer().nativeElement.querySelectorAll('.choice-item.selected,.custom-choice-item');
-        for (let i = 0; i < selectedOptions.length; i++) {
-            let tagWidth: number;
+        Promise.resolve().then(() => {
+            const tagElements = this.tagsContainer().nativeElement.querySelectorAll('.choice-item.selected,.custom-choice-item');
+            for (let i = 0; i < selectedOptions.length; i++) {
+                let tagWidth: number;
 
-            tagWidth = (tagElements[i]?.offsetWidth || 80) + TAG_GAP;
+                tagWidth = (tagElements[i]?.offsetWidth || 80) + TAG_GAP;
 
-            if (totalWidth + tagWidth > availableWidth) {
-                break;
+                if (totalWidth + tagWidth > availableWidth) {
+                    break;
+                }
+
+                totalWidth += tagWidth;
+                visibleCount++;
             }
 
-            totalWidth += tagWidth;
-            visibleCount++;
-        }
+            // 至少展示一个标签
+            this.visibleTagCount.set(Math.max(1, visibleCount));
 
-        // 至少展示一个标签
-        this.visibleTagCount.set(Math.max(1, visibleCount));
-
-        this.cdr.markForCheck();
+            this.cdr.markForCheck();
+        });
     }
 
     setSelectControlClass() {
