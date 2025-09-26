@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [19.1.6](https://github.com/atinc/ngx-tethys/compare/19.1.5...19.1.6) (2025-09-26)
+
+
+### Features
+
+* **select:** thyMaxTagCount support auto #TINFR-2868 ([#3563](https://github.com/atinc/ngx-tethys/issues/3563)) ([b6a51de](https://github.com/atinc/ngx-tethys/commit/b6a51dea592ab71c25bc003445c37f02a70c0778)), closes [#TINFR-2868](https://github.com/atinc/ngx-tethys/issues/TINFR-2868)
+
+
+
 ## [19.1.5](https://github.com/atinc/ngx-tethys/compare/19.1.4...19.1.5) (2025-09-24)
 
 
