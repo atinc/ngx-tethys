@@ -4,11 +4,24 @@
   }
 </thy-select>
 
-<div class="mb-2 mt-2">设置显示最大数量</div>
+<div class="mb-2 mt-2">设置展示最大数量</div>
 <thy-select
   ngModel="option1"
   thyMode="multiple"
-  thyMaxTagCount="3"
+  [thyMaxTagCount]="3"
+  [thyShowSearch]="true"
+  [(ngModel)]="listOfSelectedValue"
+  style="width: 400px">
+  @for (option of listOfOption; track option.value) {
+    <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+  }
+</thy-select>
+
+<div class="mb-2 mt-2">设置展示更多标签</div>
+<thy-select
+  ngModel="option1"
+  thyMode="multiple"
+  [thyMaxTagCount]="'auto'"
   [thyShowSearch]="true"
   [(ngModel)]="listOfSelectedValue"
   style="width: 400px">

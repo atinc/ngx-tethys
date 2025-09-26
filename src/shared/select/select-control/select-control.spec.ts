@@ -1,8 +1,8 @@
-import { TestBed, ComponentFixture, fakeAsync, flush, tick, waitForAsync } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { Component, DebugElement, viewChild } from '@angular/core';
-import { ThySelectControl, SelectControlSize, SelectOptionBase } from 'ngx-tethys/shared';
 import { provideHttpClient } from '@angular/common/http';
+import { Component, DebugElement, viewChild } from '@angular/core';
+import { ComponentFixture, fakeAsync, flush, flushMicrotasks, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { SelectControlSize, SelectOptionBase, ThySelectControl } from 'ngx-tethys/shared';
 import { THY_TOOLTIP_DEFAULT_CONFIG_PROVIDER } from 'ngx-tethys/tooltip';
 
 @Component({
@@ -156,10 +156,21 @@ describe('ThySelectControl', () => {
         describe('selected options', () => {
             let fixture: ComponentFixture<BasicSelectControlComponent>;
             let selectElement: HTMLElement;
+            let component: ThySelectControl;
+
+            function setTagsContainer(offsetWidth: number, tagWidths: number[]) {
+                spyOn(component, 'tagsContainer').and.returnValue({
+                    nativeElement: {
+                        offsetWidth,
+                        querySelectorAll: () => tagWidths.map(w => ({ offsetWidth: w }))
+                    }
+                } as any);
+            }
 
             beforeEach(waitForAsync(() => {
                 fixture = TestBed.createComponent(BasicSelectControlComponent);
                 fixture.detectChanges();
+                component = fixture.componentInstance.selectControlComponent();
                 selectElement = fixture.debugElement.query(By.css('.form-control')).nativeElement;
             }));
 
@@ -202,39 +213,63 @@ describe('ThySelectControl', () => {
                 expect(fixture.componentInstance.selectControlComponent().inputValue()).toEqual(typeValue);
             }));
 
-            it('should just show max tag', fakeAsync(() => {
+            it('should return correct selectedTags when isMultiple is false', () => {
+                fixture.componentInstance.thyIsMultiple = false;
+                fixture.componentInstance.selectedOptions = testBaseOption;
+                fixture.detectChanges();
+                expect(fixture.componentInstance.selectControlComponent().selectedTags()).toEqual([]);
+            });
+
+            it('should return correct selectedTags when isMultiple is true and selectedOptions is empty', () => {
                 fixture.componentInstance.thyIsMultiple = true;
-                let selectedOptions = [
-                    { thyLabelText: '1', thyRawValue: {}, thyValue: '1' },
-                    { thyLabelText: '2', thyRawValue: {}, thyValue: '2' },
-                    { thyLabelText: '3', thyRawValue: {}, thyValue: '3' }
-                ];
-                fixture.componentInstance.selectedOptions = selectedOptions;
+                fixture.componentInstance.selectedOptions = [];
                 fixture.detectChanges();
-                flush();
-                fixture.detectChanges();
-                selectElement = fixture.debugElement.query(By.css('.form-control')).nativeElement;
-                let choiceItems = selectElement.querySelectorAll('.choice-item');
-                expect(choiceItems.length).toEqual(3);
-                let maxTagCountChoic = selectElement.querySelector('.max-tag-count-choice');
-                expect(maxTagCountChoic).toBeNull();
+                expect(fixture.componentInstance.selectControlComponent().selectedTags()).toEqual([]);
+            });
 
-                fixture.componentInstance.selectedOptions = [
-                    ...selectedOptions,
-                    { thyLabelText: '4', thyRawValue: {}, thyValue: '4' },
-                    { thyLabelText: '5', thyRawValue: {}, thyValue: '5' }
-                ];
-                fixture.componentInstance.thyMaxTagCount = 3;
-                fixture.detectChanges();
-                flush();
-                fixture.detectChanges();
+            it('should set visibleTagCount to selectedOptions.length if maxTagCount <= 0', () => {
+                setTagsContainer(200, [60, 60]);
+                spyOn(component, 'thySelectedOptions').and.returnValue([{ thyValue: 1 }, { thyValue: 2 }]);
+                spyOn(component, 'thyMaxTagCount').and.returnValue(0);
+                component['calculateVisibleTags']();
+                expect(component.visibleTagCount()).toBe(2);
+            });
 
-                selectElement = fixture.debugElement.query(By.css('.form-control')).nativeElement;
-                choiceItems = selectElement.querySelectorAll('.choice-item');
-                expect(choiceItems.length).toEqual(3);
-                maxTagCountChoic = selectElement.querySelector('.max-tag-count-choice');
-                expect(maxTagCountChoic).toBeTruthy();
+            it('should set visibleTagCount to maxTagCount - 1 if maxTagCount > 0', () => {
+                setTagsContainer(200, [60, 60, 60]);
+                spyOn(component, 'thySelectedOptions').and.returnValue([{ thyValue: 1 }, { thyValue: 2 }, { thyValue: 3 }]);
+                spyOn(component, 'thyMaxTagCount').and.returnValue(3);
+                component['calculateVisibleTags']();
+                expect(component.visibleTagCount()).toBe(2);
+            });
+
+            it('should calculate visibleTagCount based on available width when maxTagCount is auto', fakeAsync(() => {
+                setTagsContainer(200, [60, 60, 60]);
+                spyOn(component, 'thySelectedOptions').and.returnValue([{ thyValue: 1 }, { thyValue: 2 }, { thyValue: 3 }]);
+                spyOn(component, 'thyMaxTagCount').and.returnValue('auto');
+                component['calculateVisibleTags']();
+                flushMicrotasks();
+                // 200 - 46 - 3 = 151, each tag 64, can show 2 tags
+                expect(component.visibleTagCount()).toBe(2);
             }));
+
+            it('should always show at least one tag', fakeAsync(() => {
+                setTagsContainer(50, [60, 60]);
+                spyOn(component, 'thySelectedOptions').and.returnValue([{ thyValue: 1 }, { thyValue: 2 }]);
+                spyOn(component, 'thyMaxTagCount').and.returnValue('auto');
+                component['calculateVisibleTags']();
+                flushMicrotasks();
+                expect(component.visibleTagCount()).toBe(1);
+            }));
+
+            it('should not change visibleTagCount if container width is 0 (keep previous value)', () => {
+                component.visibleTagCount.set(5);
+                setTagsContainer(0, [60]);
+                spyOn(component, 'thySelectedOptions').and.returnValue([{ thyValue: 1 }]);
+                spyOn(component, 'thyMaxTagCount').and.returnValue('auto');
+                component['calculateVisibleTags']();
+                expect(component.visibleTagCount()).toBe(5);
+            });
         });
 
         describe('search', () => {
