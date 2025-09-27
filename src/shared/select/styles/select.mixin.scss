@@ -99,7 +99,7 @@ $avatarHeight: (
 
 @mixin thy-select-options-container {
     max-height: 300px;
-    overflow-y: auto;
+    // overflow-y: auto; // 会影响 tree-select
     padding: 12px 0;
 }
 

@@ -18,7 +18,7 @@ import { ThyPlacement } from 'ngx-tethys/core';
 import { ThyAutocompleteService } from './overlay/autocomplete.service';
 import { ThyAutocompleteRef } from './overlay/autocomplete-ref';
 import { ThyAutocomplete } from './autocomplete.component';
-import { ThyOption, ThyOptionSelectionChangeEvent } from 'ngx-tethys/shared';
+import { ThyOptionRender, ThyOptionSelectionChangeEvent } from 'ngx-tethys/shared';
 import { DOCUMENT } from '@angular/common';
 import { Subject, Observable, merge, fromEvent, of, Subscription } from 'rxjs';
 import { ESCAPE, UP_ARROW, ENTER, DOWN_ARROW, TAB, coerceBooleanProperty } from 'ngx-tethys/util';
@@ -96,7 +96,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
      */
     readonly thyIsFocusOpen = input(true, { transform: coerceBooleanProperty });
 
-    readonly activeOption: Signal<ThyOption | null> = computed(() => {
+    readonly activeOption: Signal<ThyOptionRender | null> = computed(() => {
         if (this.autocompleteComponent() && this.autocompleteComponent().keyManager) {
             return this.autocompleteComponent().keyManager.activeItem;
         }
@@ -298,6 +298,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
     private resetActiveItem(): void {
         const autocompleteComponent = this.autocompleteComponent();
         const index = autocompleteComponent.thyAutoActiveFirstOption() ? 0 : -1;
+        // TODO 高亮显示第一项
         autocompleteComponent.keyManager.setActiveItem(index);
     }
 
