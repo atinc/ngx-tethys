@@ -1,5 +1,5 @@
 <div class="basic-container">
-  <thy-select ngModel="option1">
+  <thy-select ngModel="option1" [thyAllowClear]="true" thyMode="multiple">
     @for (option of listOfOption; track option.value) {
       <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
     }
@@ -11,7 +11,7 @@
   </thy-custom-select>
 </div>
 
-<thy-input-group class="mt-4" #origin>
+<!-- <thy-input-group class="mt-4" #origin>
   <thy-select ngModel="option1" class="flex-grow-1 mr-0" [thyOrigin]="customizeOrigin">
     @for (option of listOfOption; track option.value) {
       <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
@@ -20,4 +20,4 @@
   <ng-template #prefix>
     <thy-icon class="text-placeholder" thyIconName="user"></thy-icon>
   </ng-template>
-</thy-input-group>
+</thy-input-group> -->

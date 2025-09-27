@@ -35,7 +35,7 @@ export class ThySelectScrollLoadExampleComponent implements OnInit {
         return timer(1000).pipe(
             tap(() => {
                 for (let index = 0; index < 10; index++) {
-                    this.loadMoreData.push({ thyLabelText: `第${this.page + 1}页`, _id: `${this.page}${index}` });
+                    this.loadMoreData.push({ thyLabelText: `第${this.page + 1}页 第${index + 1}个`, _id: `${this.page}${index}` });
                 }
 
                 if (this.page > 3) {

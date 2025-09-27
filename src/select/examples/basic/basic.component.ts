@@ -19,7 +19,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
             thy-select,
             thy-custom-select {
                 flex: 0 0 auto;
-                width: 120px;
+                width: 220px;
                 margin-right: 20px;
             }
         `

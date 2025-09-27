@@ -32,8 +32,8 @@
   [cdkConnectedOverlayMinWidth]="dropDownMinWidth()"
   [cdkConnectedOverlayScrollStrategy]="scrollStrategy"
   cdkConnectedOverlayTransformOriginOn=".thy-select-dropdown"
-  (attach)="onAttached()"
   (detach)="close()">
+  <!-- (attach)="onAttached()" -->
   <div
     thyStopPropagation
     [attr.tabindex]="-1"
@@ -46,29 +46,26 @@
     (mousemove)="dropDownMouseMove($event)">
     <!-- @if (contentOptions?.length > 0 || contentGroups?.length > 0 || innerOptions?.length > 0) { -->
     @if (renderGroupsAndOptions()?.length > 0) {
-      <div
-        #panel
-        class="thy-select-dropdown-options thy-select-dropdown-options-{{ thySize() }}"
-        thyScroll
+      <div #panel class="thy-select-dropdown-options thy-select-dropdown-options-{{ thySize() }}">
+        <!-- thyScroll
         (thyOnScrolled)="onOptionsScrolled($event)"
-        [thyEnable]="thyEnableScrollLoad()">
+        [thyEnable]="thyEnableScrollLoad()" -->
+
         <!-- @if (isReactiveDriven) {
           <ng-template [ngTemplateOutlet]="optionsContainer.optionsTemplate()"></ng-template>
         } -->
 
         <!-- track -->
+        <!-- 276 = 300 - 12 - 12 -->
         <cdk-virtual-scroll-viewport
-          itemSize="40"
-          maxBufferPx="320"
-          minBufferPx="320"
-          [style.height.px]="renderGroupsAndOptions().length * 40"
-          [style.max-height.px]="320">
-          <ng-template
-            cdkVirtualFor
-            [cdkVirtualForOf]="renderGroupsAndOptions()"
-            [cdkVirtualForTrackBy]="trackByFn"
-            [cdkVirtualForTemplateCacheSize]="0"
-            let-item>
+          [itemSize]="itemSize"
+          maxBufferPx="276"
+          minBufferPx="276"
+          [style.height.px]="renderGroupsAndOptions().length * itemSize"
+          [style.max-height.px]="276"
+          (scrolledIndexChange)="optionsScrolled($event)"
+          (mouseleave)="mouseLeave($event)">
+          <ng-template cdkVirtualFor [cdkVirtualForOf]="renderGroupsAndOptions()" [cdkVirtualForTrackBy]="trackByFn" let-item>
             <!-- @for (item of renderGroupsAndOptions(); track $index) { -->
 
             @if (item.type === 'group') {
@@ -85,6 +82,8 @@
                 [thyTemplate]="item.template"
                 [thyShowCheckedIcon]="isMultiple()"
                 [thySelectedValuesOfList]="selectedValues()"
+                [thyActivatedValue]="activatedValue()"
+                (optionHover)="optionHover($event)"
                 (optionClick)="optionClick($event)">
               </thy-option-render>
             }

@@ -9,7 +9,10 @@ import {
     input,
     Input,
     output,
-    computed
+    computed,
+    OnInit,
+    model,
+    effect
 } from '@angular/core';
 import { Highlightable } from '@angular/cdk/a11y';
 import { SelectOptionBase } from './select-option-base';
@@ -44,8 +47,11 @@ export class ThyOptionSelectionChangeEvent {
         class: 'thy-option-item',
         '[class.disabled]': 'thyDisabled()',
         '[attr.tabindex]': `tabIndex`,
-        '[class.active]': 'selected()'
+        '[class.active]': 'selected()',
+        '[class.activated]': 'thyActivatedValue() === thyValue'
     }
+
+    // '[class.activated]': 'thyActivatedValue() === thyValue',
 
     // 以前，搜索，是通过 hidden 来控制只展示想要的选项，现在是通过 renderGroupsAndOptions 来控制只展示想要的选项，所以 hidden 不用了
     // '[class.hidden]': 'hidden()',
@@ -80,11 +86,15 @@ export class ThyOptionRender extends SelectOptionBase implements Highlightable {
 
     readonly showCheckedIcon = input(false, { alias: 'thyShowCheckedIcon', transform: coerceBooleanProperty });
 
+    readonly thyActivatedValue = input();
+
     readonly selected = computed(() => {
         return this.thySelectedValuesOfList().includes(this.thyValue);
     });
 
     readonly optionClick = output<SafeAny>();
+
+    readonly optionHover = output<SafeAny>();
 
     // readonly template = viewChild(TemplateRef);
 
@@ -108,7 +118,6 @@ export class ThyOptionRender extends SelectOptionBase implements Highlightable {
 
     constructor() {
         super();
-        // console.log('===>ThyOptionRender constructor', this.thyValue);
     }
 
     getHostElement(): HTMLElement {
@@ -120,6 +129,11 @@ export class ThyOptionRender extends SelectOptionBase implements Highlightable {
         this.selectViaInteraction();
     }
 
+    @HostListener('mouseenter', ['$event'])
+    mouseenter() {
+        this.optionHover.emit(this.thyValue);
+    }
+
     @HostListener('keydown', ['$event'])
     handleKeydown(event: KeyboardEvent): void {
         if ((event.keyCode === ENTER || event.keyCode === SPACE) && !hasModifierKey(event)) {
@@ -129,6 +143,7 @@ export class ThyOptionRender extends SelectOptionBase implements Highlightable {
     }
 
     selectViaInteraction(): void {
+        // isUserInput
         if (!this.disabled) {
             this.optionClick.emit(this.thyValue);
 
@@ -204,6 +219,7 @@ export class ThyOptionRender extends SelectOptionBase implements Highlightable {
         return '';
     }
 
+    // TODO  需要在 option 中补充返回
     // private emitSelectionChangeEvent(isUserInput = false): void {
     //     this.selectionChange.emit(new ThyOptionSelectionChangeEvent(this, isUserInput));
     // }

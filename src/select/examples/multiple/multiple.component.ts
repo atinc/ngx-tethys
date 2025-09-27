@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 export class ThySelectMultipleExampleComponent implements OnInit {
     listOfOption = listOfOption;
 
-    listOfSelectedValue = ['option1', 'option2'];
+    listOfSelectedValue = ['option1', 'option2', 'option3', 'option4', 'option5'];
 
     ngOnInit() {}
 }

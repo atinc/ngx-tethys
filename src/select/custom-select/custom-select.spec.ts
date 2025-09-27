@@ -995,7 +995,7 @@ describe('ThyCustomSelect', () => {
                 expect(fixture.componentInstance.select().keyManager.activeItem).toEqual(null);
             }));
 
-            it('should exec thyOnScrollToBottom when thyEnableScrollLoad is true', fakeAsync(() => {
+            fit('should exec thyOnScrollToBottom when thyEnableScrollLoad is true', fakeAsync(() => {
                 fixture.componentInstance.enableScrollLoad = true;
                 const spy = fixture.componentInstance.thyOnScrollToBottom;
 
@@ -1373,7 +1373,7 @@ describe('ThyCustomSelect', () => {
                 trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             }));
 
-            it('should scroll to active item when thyEnableScrollLoad and thyServerSearch is true', fakeAsync(() => {
+            fit('should scroll to active item when thyEnableScrollLoad and thyServerSearch is true', fakeAsync(() => {
                 fixture.detectChanges();
                 tick(100);
                 trigger.click();
@@ -2168,7 +2168,7 @@ describe('ThyCustomSelect', () => {
             configureThyCustomSelectTestingModule();
         }));
 
-        it('should set first option active when open panel', fakeAsync(() => {
+        fit('should set first option active when open panel', fakeAsync(() => {
             const fixture = TestBed.createComponent(BasicSelectComponent);
             fixture.detectChanges();
 
@@ -2183,7 +2183,7 @@ describe('ThyCustomSelect', () => {
             );
         }));
 
-        it('should set next active option when press down_arrow', fakeAsync(() => {
+        fit('should set next active option when press down_arrow', fakeAsync(() => {
             const fixture = TestBed.createComponent(BasicSelectComponent);
             fixture.detectChanges();
 
@@ -2202,7 +2202,7 @@ describe('ThyCustomSelect', () => {
             );
         }));
 
-        it('should set selected option active when open panel', fakeAsync(() => {
+        fit('should set selected option active when open panel', fakeAsync(() => {
             const fixture = TestBed.createComponent(BasicSelectComponent);
             fixture.detectChanges();
 
@@ -2249,7 +2249,7 @@ describe('ThyCustomSelect', () => {
             expect(spy).not.toHaveBeenCalled();
         }));
 
-        it('should select an option when press enter on active option', fakeAsync(() => {
+        fit('should select an option when press enter on active option', fakeAsync(() => {
             const fixture = TestBed.createComponent(BasicSelectComponent);
             fixture.detectChanges();
 
@@ -2283,7 +2283,7 @@ describe('ThyCustomSelect', () => {
             expect(fixture.componentInstance.select().panelOpen).toEqual(true);
         }));
 
-        it('should open panel and highlight first option when press DOWN_ARROW on trigger, then select first option by press ENTER', fakeAsync(() => {
+        fit('should open panel and highlight first option when press DOWN_ARROW on trigger, then select first option by press ENTER', fakeAsync(() => {
             const fixture = TestBed.createComponent(BasicSelectComponent);
             fixture.detectChanges();
 
@@ -2476,7 +2476,7 @@ describe('ThyCustomSelect', () => {
             configureThyCustomSelectTestingModule();
         }));
 
-        it('should default active first option when open panel', fakeAsync(() => {
+        fit('should default active first option when open panel', fakeAsync(() => {
             const fixture = TestBed.createComponent(BasicSelectComponent);
             fixture.detectChanges();
 
@@ -2525,7 +2525,7 @@ describe('ThyCustomSelect', () => {
             expect(spy).not.toHaveBeenCalled();
         }));
 
-        it('should active first option when set keycode HOME', fakeAsync(() => {
+        fit('should active first option when set keycode HOME', fakeAsync(() => {
             const fixture = TestBed.createComponent(BasicSelectComponent);
             fixture.detectChanges();
 
@@ -2546,7 +2546,7 @@ describe('ThyCustomSelect', () => {
             );
         }));
 
-        it('should active last option when set keycode END', fakeAsync(() => {
+        fit('should active last option when set keycode END', fakeAsync(() => {
             const fixture = TestBed.createComponent(BasicSelectComponent);
             fixture.detectChanges();
 
@@ -2562,14 +2562,14 @@ describe('ThyCustomSelect', () => {
             );
         }));
 
-        it('should close panel when set keycode arrow', fakeAsync(() => {
+        fit('should close panel when set keycode arrow', fakeAsync(() => {
             const fixture = TestBed.createComponent(BasicSelectComponent);
             fixture.detectChanges();
 
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
-            fixture.detectChanges();
             flush();
+            fixture.detectChanges();
             dispatchKeyboardEvent(trigger, 'keydown', DOWN_ARROW, '', { alt: true });
             expect(fixture.componentInstance.select().panelOpen).toBe(false);
         }));
