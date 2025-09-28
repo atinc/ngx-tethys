@@ -21,7 +21,7 @@ export class ThyAbstractMessageQueue<TReference extends ThyAbstractMessageRef = 
 
     add(messageRef: TReference) {
         const queues = this.queues();
-        if (this.queues.length >= this.defaultConfig.maxStack) {
+        if (queues.length >= this.defaultConfig.maxStack) {
             const closedRef = queues.shift();
             closedRef.close();
         }
