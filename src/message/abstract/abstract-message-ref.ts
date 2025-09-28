@@ -1,11 +1,11 @@
 import { OverlayRef } from '@angular/cdk/overlay';
 import { Subject } from 'rxjs';
 import { ThyMessageBaseConfig } from '../message.config';
-import { BehaviorSubject } from 'rxjs';
+import { WritableSignal, Signal } from '@angular/core';
 
 export interface IThyAbstractMessageQueue<TReferences extends ThyAbstractMessageRef = ThyAbstractMessageRef> {
-    queues$: BehaviorSubject<TReferences[]>;
-    queues: TReferences[];
+    queues: Signal<TReferences[]>;
+    setQueues(newValue: TReferences[]): void;
 }
 
 export class ThyAbstractMessageRef<TConfig extends ThyMessageBaseConfig = ThyMessageBaseConfig> {
@@ -27,7 +27,7 @@ export class ThyAbstractMessageRef<TConfig extends ThyMessageBaseConfig = ThyMes
     }
 
     close() {
-        this.queueService.queues$.next(this.queueService.queues.filter(item => item.id !== this.id));
+        this.queueService.setQueues(this.queueService.queues().filter(item => item.id !== this.id));
         this._afterClosed.next();
         this._afterClosed.complete();
     }

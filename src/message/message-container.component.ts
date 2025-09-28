@@ -11,7 +11,7 @@ import { AsyncPipe } from '@angular/common';
 @Component({
     selector: 'thy-message-container',
     template: `
-        @for (message of messageQueue.queues$ | async; track message.id) {
+        @for (message of messageQueue.queues(); track message.id) {
             <thy-message [thyConfig]="message.config"></thy-message>
         }
     `,
