@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, computed } from '@angular/core';
 import { ThyAbstractMessageQueue } from 'ngx-tethys/message';
 import { map, shareReplay } from 'rxjs/operators';
 import { ThyNotifyRef } from './notify-ref';
@@ -11,25 +11,21 @@ import { THY_NOTIFY_DEFAULT_CONFIG, THY_NOTIFY_DEFAULT_CONFIG_VALUE } from './no
     providedIn: 'root'
 })
 export class ThyNotifyQueue extends ThyAbstractMessageQueue<ThyNotifyRef> {
-    topLeftQueues$ = this.queues$.pipe(
-        map(queues => queues.filter(item => item.config.placement === 'topLeft')),
-        shareReplay()
-    );
+    topLeftQueues = computed(() => {
+        return this.queues().filter(item => item.config.placement === 'topLeft');
+    });
 
-    topRightQueues$ = this.queues$.pipe(
-        map(queues => queues.filter(item => item.config.placement === 'topRight')),
-        shareReplay()
-    );
+    topRightQueues = computed(() => {
+        return this.queues().filter(item => item.config.placement === 'topRight');
+    });
 
-    bottomLeftQueues$ = this.queues$.pipe(
-        map(queues => queues.filter(item => item.config.placement === 'bottomLeft')),
-        shareReplay()
-    );
+    bottomLeftQueues = computed(() => {
+        return this.queues().filter(item => item.config.placement === 'bottomLeft');
+    });
 
-    bottomRightQueues$ = this.queues$.pipe(
-        map(queues => queues.filter(item => item.config.placement === 'bottomRight')),
-        shareReplay()
-    );
+    bottomRightQueues = computed(() => {
+        return this.queues().filter(item => item.config.placement === 'bottomRight');
+    });
 
     constructor() {
         const defaultConfig = inject(THY_NOTIFY_DEFAULT_CONFIG);
