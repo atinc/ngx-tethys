@@ -20,29 +20,28 @@ import { isPlatformBrowser, NgClass, NgStyle, NgTemplateOutlet } from '@angular/
 import {
     ChangeDetectorRef,
     Component,
+    computed,
+    contentChild,
+    DestroyRef,
+    effect,
     ElementRef,
     forwardRef,
-    Input,
-    NgZone,
-    PLATFORM_ID,
-    TemplateRef,
     inject,
-    Signal,
-    output,
+    Input,
     input,
-    effect,
-    computed,
+    NgZone,
+    output,
+    PLATFORM_ID,
+    Signal,
     signal,
-    afterNextRender,
-    DestroyRef,
-    contentChild,
+    TemplateRef,
     viewChild
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';
-import { injectLocale, ThyTreeSelectLocale } from 'ngx-tethys/i18n';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { injectLocale, ThyTreeSelectLocale } from 'ngx-tethys/i18n';
+import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';
 
 type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -137,7 +136,7 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
         if (this.thyMultiple()) {
             return selectedValue && (!selectedValue[0] || isObject(selectedValue[0]));
         } else {
-            return isObject(selectedValue);
+            return (selectedValue && isObject(selectedValue)) || !selectedValue;
         }
     });
 
