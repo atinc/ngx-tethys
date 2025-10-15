@@ -2,21 +2,28 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/tethys",
-    "rootDir": ".",
-    "baseUrl": "./",
     "module": "es2015",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "declaration": true,
     "sourceMap": true,
     "inlineSources": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "types": ["ng-dev-mode"],
-    "lib": ["dom", "ES2020"],
+    "types": [
+      "ng-dev-mode"
+    ],
+    "lib": [
+      "dom",
+      "ES2020"
+    ],
     "paths": {
-      "ngx-tethys/*": ["dist/ngx-tethys/*"],
-      "@tethys/cdk/*": ["dist/cdk/*"]
+      "ngx-tethys/*": [
+        "dist/ngx-tethys/*"
+      ],
+      "@tethys/cdk/*": [
+        "dist/cdk/*"
+      ]
     }
   },
   "exclude": ["test.ts", "*/test/*.ts", "**/*.spec.ts", "**/examples/**"]
