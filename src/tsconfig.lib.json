@@ -15,8 +15,8 @@
     "types": ["ng-dev-mode"],
     "lib": ["dom", "ES2020"],
     "paths": {
-      "ngx-tethys/*": ["./*"],
-      "@tethys/cdk/*": ["../cdk/*"]
+      "ngx-tethys/*": ["dist/ngx-tethys/*"],
+      "@tethys/cdk/*": ["dist/cdk/*"]
     }
   },
   "exclude": ["test.ts", "*/test/*.ts", "**/*.spec.ts", "**/examples/**"]

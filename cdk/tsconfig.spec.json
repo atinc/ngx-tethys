@@ -11,5 +11,5 @@
       "ngx-tethys/*": ["../src/*"]
     }
   },
-  "include": ["**/*.ts", "**/*.d.ts"]
+  "include": ["**/*.d.ts"]
 }
