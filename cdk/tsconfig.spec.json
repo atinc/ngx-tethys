@@ -3,13 +3,8 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/spec",
-    "types": ["jasmine", "ng-dev-mode"],
-    "baseUrl": "./",
-    "paths": {
-      "@tethys/cdk": ["public-api"],
-      "@tethys/cdk/*": ["./*"],
-      "ngx-tethys/*": ["../src/*"]
-    }
+    "types": ["jasmine", "ng-dev-mode"]
   },
-  "include": ["**/*.d.ts"]
+  "files": ["test.ts"],
+  "include": ["**/*.ts", "**/*.spec.ts"]
 }
