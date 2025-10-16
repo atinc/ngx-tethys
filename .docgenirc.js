@@ -50,6 +50,7 @@ module.exports = {
             name: 'ngx-tethys',
             abbrName: 'thy',
             rootDir: './src',
+            tsConfig: 'tsconfig.doc.json',
             include: [],
             exclude: ['core'],
             apiMode: 'compatible',

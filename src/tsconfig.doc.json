@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.lib.json",
+  "compilerOptions": {
+    "baseUrl": "./",
+    "rootDir": ".",
+    "paths": {
+      "ngx-tethys/*": [
+        "./*"
+      ],
+      "ngx-tethys": [
+        "./public-api"
+      ],
+      "@tethys/cdk/*": [
+        "../cdk/*"
+      ]
+    }
+  }
+}

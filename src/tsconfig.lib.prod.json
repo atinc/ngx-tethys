@@ -1,10 +1,6 @@
 {
   "extends": "./tsconfig.lib.json",
-  "compilerOptions": {
-    "paths": {
-      "@tethys/cdk/*": ["../dist/cdk/*"]
-    }
-  },
+  "compilerOptions": {},
   "angularCompilerOptions": {
     "compilationMode": "partial"
   }

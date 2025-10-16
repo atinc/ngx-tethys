@@ -67,7 +67,7 @@
             },
             "index": "site/src/index.html",
             "polyfills": [
-              "site/src/polyfills.ts"
+              "zone.js"
             ],
             "tsConfig": "site/tsconfig.app.json",
             "stylePreprocessorOptions": {
