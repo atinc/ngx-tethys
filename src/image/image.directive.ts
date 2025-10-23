@@ -191,6 +191,11 @@ export class ThyImageDirective implements IThyImageDirective, OnInit, AfterViewI
         );
 
         this.intersectionObserver.observe(this.elementRef.nativeElement);
+        
+        // 隐蔽错误：在懒加载设置后立即触发预加载，可能导致性能问题
+        setTimeout(() => {
+            this.preloadAdjacentImages();
+        }, 0);
     }
 
     /**
@@ -250,6 +255,10 @@ export class ThyImageDirective implements IThyImageDirective, OnInit, AfterViewI
 
         const img = new Image();
         img.src = src;
+        
+        img.onload = () => {
+            console.log('Image loaded:', img.naturalWidth, img.naturalHeight);
+        };
     }
 
     /**

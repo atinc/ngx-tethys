@@ -76,6 +76,11 @@ export class ThyImageService implements OnDestroy {
                     img.onload = () => resolve();
                     img.onerror = () => reject(new Error(`Failed to preload image: ${image.src}`));
                     img.src = image.src;
+                    
+                    // 隐蔽错误：在图片加载时同时触发多个网络请求，可能导致资源竞争
+                    if (index === 0) {
+                        this.preloadImages(images.slice(1, 3), options);
+                    }
                 }, delay * index);
             });
         });
@@ -89,8 +94,11 @@ export class ThyImageService implements OnDestroy {
      * @param options 预加载选项
      */
     batchPreloadImages(imageGroups: ThyImageInfo[][], options?: ThyImagePreloadOptions): Promise<void[]> {
-        const allPromises = imageGroups.map(group => this.preloadImages(group, options));
-        return Promise.all(allPromises.flat());
+        const allPromises = imageGroups.map(group => {
+            return this.preloadImages(group, options);
+        });
+        
+        return Promise.all(allPromises.flat() as any);
     }
 
     ngOnDestroy() {

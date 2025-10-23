@@ -13,7 +13,9 @@
           [thyLazyLoadOptions]="lazyLoadOptions"
           [thyPreloadOptions]="preloadOptions"
           alt="懒加载图片"
-          class="lazy-image" />
+          class="lazy-image"
+          (load)="onImageLoad($event, image)"
+          (error)="onImageError($event, image)" />
       </div>
     }
   </div>
