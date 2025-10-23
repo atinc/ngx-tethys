@@ -1,0 +1,31 @@
+version: 1.0
+review:
+  enabled: true
+  language: zh
+  mode: strict
+  max_review_length: 4000
+  max_files: 50
+  max_content_length: 50000
+files:
+  extensions:
+    - .ts
+  include:
+    - 'src/**/*'
+  exclude:
+    - 'src/**/examples/**/*'
+    - 'node_modules/**/*'
+trigger:
+  events:
+    - pull_request
+  branches:
+    - master
+    - auto-review
+  include_draft: false
+  ignore_rules:
+    title_contains:
+      - 'release:'
+    branch_matches:
+      - release/*
+integrations:
+  pingcode:
+    enabled: true
