@@ -350,11 +350,16 @@ export class ThyCascaderService {
 
     private setSearchResultList(listOfOption: ThyCascaderSearchOption[], searchText: string) {
         this.searchResultList = [];
+        const lowerSearchText = searchText.toLowerCase();
         listOfOption.forEach(item => {
             if (!item.disabled && item.isLeaf) {
-                if (item.labelList.join().toLowerCase().indexOf(searchText.toLowerCase()) !== -1) {
-                    this.searchResultList.push(item);
-                } else if (item.labelList.join('/').toLowerCase().indexOf(searchText.toLowerCase()) !== -1 && searchText !== '/') {
+                const joinedLabel = item.labelList.join();
+                const joinedLabelWithSlash = item.labelList.join('/');
+                if (
+                    joinedLabel.toLowerCase().includes(lowerSearchText) ||
+                    (joinedLabelWithSlash.toLowerCase().includes(lowerSearchText) && searchText !== '/')
+                ) {
+                    // 由于 joinedLabelWithSlash 额外添加了 '/' ，所以这里跳过对 '/' 字符对判断
                     this.searchResultList.push(item);
                 }
             }
