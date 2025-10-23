@@ -351,8 +351,12 @@ export class ThyCascaderService {
     private setSearchResultList(listOfOption: ThyCascaderSearchOption[], searchText: string) {
         this.searchResultList = [];
         listOfOption.forEach(item => {
-            if (!item.disabled && item.isLeaf && item.labelList.join().toLowerCase().indexOf(searchText.toLowerCase()) !== -1) {
-                this.searchResultList.push(item);
+            if (!item.disabled && item.isLeaf) {
+                if (item.labelList.join().toLowerCase().indexOf(searchText.toLowerCase()) !== -1) {
+                    this.searchResultList.push(item);
+                } else if (item.labelList.join('/').toLowerCase().indexOf(searchText.toLowerCase()) !== -1 && searchText !== '/') {
+                    this.searchResultList.push(item);
+                }
             }
         });
     }

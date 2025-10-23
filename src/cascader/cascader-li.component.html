@@ -23,7 +23,7 @@
 }
 
 @if (!optionRender()) {
-  <span thyFlexibleText [thyTooltipContent]="option()[labelProperty()] || ''"> {{ option()[labelProperty()] || '' }}</span>
+  <span [thyTooltipContent]="option()[labelProperty()] || ''"> {{ option()[labelProperty()] || '' }}</span>
 } @else {
   <ng-template [ngTemplateOutlet]="optionRender()" [ngTemplateOutletContext]="{ option: option() }"></ng-template>
 }
