@@ -1,0 +1,20 @@
+<div class="thy-image-lazy-load-demo">
+  <h3>懒加载图片示例</h3>
+  <p>滚动页面查看懒加载效果，图片会在进入视口时自动加载</p>
+  
+  <div class="image-grid">
+    @for (image of images; track $index) {
+      <div class="image-item">
+        <img 
+          thyImage 
+          [thySrc]="image.src" 
+          [thyImageMeta]="{ name: image.name }"
+          [thyLazyLoad]="true"
+          [thyLazyLoadOptions]="lazyLoadOptions"
+          [thyPreloadOptions]="preloadOptions"
+          alt="懒加载图片"
+          class="lazy-image" />
+      </div>
+    }
+  </div>
+</div>

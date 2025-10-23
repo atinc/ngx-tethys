@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy, inject } from '@angular/core';
 import { ThyImagePreviewConfig, THY_IMAGE_DEFAULT_PREVIEW_OPTIONS } from './image.config';
-import { ThyImageInfo, ThyImagePreviewOptions } from './image.class';
+import { ThyImageInfo, ThyImagePreviewOptions, ThyImagePreloadOptions } from './image.class';
 import { ThyImagePreview } from './preview/image-preview.component';
 import { ThyDialog, ThyDialogSizes } from 'ngx-tethys/dialog';
 import { ThyImagePreviewRef } from './preview/image-preview-ref';
@@ -57,6 +57,40 @@ export class ThyImageService implements OnDestroy {
 
     downloadClicked(): Observable<ThyImageInfo> {
         return this.downloadClicked$.asObservable();
+    }
+
+    /**
+     * 预加载图片
+     * @param images 要预加载的图片列表
+     * @param options 预加载选项
+     */
+    preloadImages(images: ThyImageInfo[], options?: ThyImagePreloadOptions): Promise<void[]> {
+        const preloadOptions = options || {};
+        const preloadCount = preloadOptions.preloadCount || 3;
+        const delay = preloadOptions.delay || 0;
+
+        const promises = images.slice(0, preloadCount).map((image, index) => {
+            return new Promise<void>((resolve, reject) => {
+                setTimeout(() => {
+                    const img = new Image();
+                    img.onload = () => resolve();
+                    img.onerror = () => reject(new Error(`Failed to preload image: ${image.src}`));
+                    img.src = image.src;
+                }, delay * index);
+            });
+        });
+
+        return Promise.all(promises);
+    }
+
+    /**
+     * 批量预加载图片
+     * @param imageGroups 图片组列表
+     * @param options 预加载选项
+     */
+    batchPreloadImages(imageGroups: ThyImageInfo[][], options?: ThyImagePreloadOptions): Promise<void[]> {
+        const allPromises = imageGroups.map(group => this.preloadImages(group, options));
+        return Promise.all(allPromises.flat());
     }
 
     ngOnDestroy() {

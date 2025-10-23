@@ -5,6 +5,24 @@ export interface ThyImageMeta {
     size?: string | number;
 }
 
+export interface ThyImageLazyLoadOptions {
+    /** 懒加载根元素，默认为视口 */
+    root?: Element | null;
+    /** 懒加载根边距，用于提前触发加载 */
+    rootMargin?: string;
+    /** 懒加载阈值，0-1之间 */
+    threshold?: number | number[];
+}
+
+export interface ThyImagePreloadOptions {
+    /** 预加载图片数量，默认为3 */
+    preloadCount?: number;
+    /** 预加载方向，'next' | 'prev' | 'both' */
+    direction?: 'next' | 'prev' | 'both';
+    /** 预加载延迟时间（毫秒） */
+    delay?: number;
+}
+
 export interface ThyImageInfo extends ThyImageMeta {
     src: string;
     width?: string | number;
@@ -31,6 +49,10 @@ export interface ThyImagePreviewOptions {
     rotate?: number;
     operations?: (ThyImagePreviewOperationType | ThyImagePreviewOperation)[];
     resolveSize?: boolean;
+    /** 懒加载配置 */
+    lazyLoad?: ThyImageLazyLoadOptions;
+    /** 预加载配置 */
+    preload?: ThyImagePreloadOptions;
 }
 
 export interface ThyImagePreviewOperation {

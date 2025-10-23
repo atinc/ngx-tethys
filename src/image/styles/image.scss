@@ -185,3 +185,38 @@ $image-preview-prefix-cls: 'thy-image-preview';
 .thy-image-disabled {
     cursor: default;
 }
+
+// 懒加载相关样式
+.thy-image-lazy-load-demo {
+    .image-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 16px;
+        padding: 20px;
+    }
+
+    .image-item {
+        position: relative;
+        background: #f5f5f5;
+        border-radius: 8px;
+        overflow: hidden;
+        min-height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .lazy-image {
+        width: 100%;
+        height: auto;
+        transition: opacity 0.3s ease;
+        
+        &[data-loaded="false"] {
+            opacity: 0;
+        }
+        
+        &[data-loaded="true"] {
+            opacity: 1;
+        }
+    }
+}

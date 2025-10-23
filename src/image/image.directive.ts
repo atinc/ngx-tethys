@@ -1,6 +1,6 @@
-import { Directive, ElementRef, InjectFlags, OnInit, Injector, OnDestroy, AfterViewInit, inject, input, effect } from '@angular/core';
+import { Directive, ElementRef, InjectFlags, OnInit, Injector, OnDestroy, AfterViewInit, inject, input, effect, signal } from '@angular/core';
 import { IThyImageDirective, IThyImageGroupComponent, THY_IMAGE_GROUP_COMPONENT } from './image.token';
-import { ThyImageMeta } from './image.class';
+import { ThyImageMeta, ThyImageLazyLoadOptions, ThyImagePreloadOptions } from './image.class';
 import { ThyImageService } from './image.service';
 import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
 
@@ -54,15 +54,38 @@ export class ThyImageDirective implements IThyImageDirective, OnInit, AfterViewI
      */
     readonly thyResolveSize = input(false, { transform: coerceBooleanProperty });
 
+    /**
+     * 是否启用懒加载
+     * @default false
+     */
+    readonly thyLazyLoad = input(false, { transform: coerceBooleanProperty });
+
+    /**
+     * 懒加载配置选项
+     */
+    readonly thyLazyLoadOptions = input<ThyImageLazyLoadOptions>();
+
+    /**
+     * 预加载配置选项
+     */
+    readonly thyPreloadOptions = input<ThyImagePreloadOptions>();
+
     get previewable(): boolean {
         return !this.thyDisablePreview();
     }
 
     private parentGroup: IThyImageGroupComponent;
+    private intersectionObserver?: IntersectionObserver;
+    private isLoaded = signal(false);
+    private preloadTimer?: number;
 
     constructor() {
         effect(() => {
-            this.elementRef.nativeElement.src = this.thySrc();
+            if (this.thyLazyLoad()) {
+                this.setupLazyLoading();
+            } else {
+                this.elementRef.nativeElement.src = this.thySrc();
+            }
         });
     }
 
@@ -137,6 +160,109 @@ export class ThyImageDirective implements IThyImageDirective, OnInit, AfterViewI
         if (this.parentGroup) {
             const index = this.parentGroup.images.findIndex(item => item === this);
             this.parentGroup.removeImage(index);
+        }
+        this.cleanupLazyLoading();
+    }
+
+    /**
+     * 设置懒加载
+     */
+    private setupLazyLoading(): void {
+        if (!('IntersectionObserver' in window)) {
+            this.elementRef.nativeElement.src = this.thySrc();
+            return;
+        }
+
+        const options = this.thyLazyLoadOptions() || {};
+        this.intersectionObserver = new IntersectionObserver(
+            (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        this.loadImage();
+                        this.intersectionObserver?.unobserve(entry.target);
+                    }
+                });
+            },
+            {
+                root: options.root,
+                rootMargin: options.rootMargin || '0px',
+                threshold: options.threshold || 0.1
+            }
+        );
+
+        this.intersectionObserver.observe(this.elementRef.nativeElement);
+    }
+
+    /**
+     * 加载图片
+     */
+    private loadImage(): void {
+        const src = this.thySrc();
+        if (!src) return;
+
+        this.elementRef.nativeElement.src = src;
+        this.isLoaded.set(true);
+
+        this.preloadAdjacentImages();
+    }
+
+    /**
+     * 预加载相邻图片
+     */
+    private preloadAdjacentImages(): void {
+        if (!this.parentGroup || !this.thyPreloadOptions()) return;
+
+        const preloadOptions = this.thyPreloadOptions()!;
+        const preloadCount = preloadOptions.preloadCount || 3;
+        const direction = preloadOptions.direction || 'both';
+        const delay = preloadOptions.delay || 0;
+
+        this.preloadTimer = window.setTimeout(() => {
+            const currentIndex = this.parentGroup!.images.findIndex(img => img === this);
+            const images = this.parentGroup!.images;
+
+            if (direction === 'next' || direction === 'both') {
+                for (let i = 1; i <= preloadCount; i++) {
+                    const nextIndex = currentIndex + i;
+                    if (nextIndex < images.length) {
+                        this.preloadImage(images[nextIndex]);
+                    }
+                }
+            }
+
+            if (direction === 'prev' || direction === 'both') {
+                for (let i = 1; i <= preloadCount; i++) {
+                    const prevIndex = currentIndex - i;
+                    if (prevIndex >= 0) {
+                        this.preloadImage(images[prevIndex]);
+                    }
+                }
+            }
+        }, delay);
+    }
+
+    /**
+     * 预加载单个图片
+     */
+    private preloadImage(imageDirective: IThyImageDirective): void {
+        const src = imageDirective.thyPreviewSrc() || imageDirective.thySrc();
+        if (!src) return;
+
+        const img = new Image();
+        img.src = src;
+    }
+
+    /**
+     * 清理懒加载资源
+     */
+    private cleanupLazyLoading(): void {
+        if (this.intersectionObserver) {
+            this.intersectionObserver.disconnect();
+            this.intersectionObserver = undefined;
+        }
+        if (this.preloadTimer) {
+            clearTimeout(this.preloadTimer);
+            this.preloadTimer = undefined;
         }
     }
 }
