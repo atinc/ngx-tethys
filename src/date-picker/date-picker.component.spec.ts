@@ -771,16 +771,19 @@ describe('ThyDatePickerComponent', () => {
         beforeEach(() => (fixtureInstance.useSuite = 1));
 
         it('should use format rule yyyy-MM-dd when with_time is 0', fakeAsync(() => {
-            const initial = { date: 1587629556, with_time: 0 } as DateEntry;
+            const date = 1587629556;
+            const initial = { date, with_time: 0 } as DateEntry;
             fixtureInstance.thyValue = initial;
             flush();
             fixture.detectChanges();
+            const thyOnChange = spyOn(fixtureInstance, 'thyOnChange');
             openPickerByClickTrigger();
             dispatchMouseEvent(getSelectedDayCell(), 'click');
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
-            expect(getPickerTrigger().value).toBe(format(new Date(1587629556000), 'yyyy-MM-dd'));
+            expect(getPickerTrigger().value).toBe(format(new Date(date * 1000), 'yyyy-MM-dd'));
+            expect(thyOnChange).toHaveBeenCalledWith({ date: new TinyDate(date * 1000).startOfDay().getUnixTime(), with_time: 0 });
         }));
 
         it('should use format rule yyyy-MM-dd HH:mm when with_time is 1', fakeAsync(() => {
