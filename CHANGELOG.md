@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [19.1.9](https://github.com/atinc/ngx-tethys/compare/19.1.8...19.1.9) (2025-10-24)
+
+
+### Features
+
+* **cascader:** adjust cascader option style and search logic #TINFR-2948 ([ea5e834](https://github.com/atinc/ngx-tethys/commit/ea5e834771cc1d230c87782b34c126f45a1a43d3)), closes [#TINFR-2948](https://github.com/atinc/ngx-tethys/issues/TINFR-2948)
+
+
+### Reverts
+
+* Revert "fix(tree-select): fix valueIsObject #TINFR-2935 (#3577)" (#3587) ([6bce791](https://github.com/atinc/ngx-tethys/commit/6bce791370befc270b1a6b6e39cddb7800cca2e7)), closes [#TINFR-2935](https://github.com/atinc/ngx-tethys/issues/TINFR-2935) [#3577](https://github.com/atinc/ngx-tethys/issues/3577) [#3587](https://github.com/atinc/ngx-tethys/issues/3587)
+
+
+
 ## [19.1.8](https://github.com/atinc/ngx-tethys/compare/19.1.7...19.1.8) (2025-10-22)
 
 
