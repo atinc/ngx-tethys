@@ -138,7 +138,6 @@ export class ThyLazyImageDirective implements IThyImageDirective, OnInit, AfterV
 
     private setupIntersectionObserver(): void {
         if (typeof IntersectionObserver === 'undefined') {
-            console.warn('IntersectionObserver is not supported');
             return;
         }
 
@@ -197,7 +196,6 @@ export class ThyLazyImageDirective implements IThyImageDirective, OnInit, AfterV
 
     getParentGroup() {
         while (true) {
-            // 多层 thy-image-group 嵌套时，获取最外层 thy-image-group 下的所有图片
             const injector = this.parentGroup?.injector || this.injector;
             const parentGroup = injector.get(THY_IMAGE_GROUP_COMPONENT, null, InjectFlags.SkipSelf);
             if (!parentGroup) {
