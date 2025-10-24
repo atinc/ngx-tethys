@@ -12,7 +12,7 @@ import { takeUntil, map } from 'rxjs/operators';
  * @order 30
  */
 @Component({
-    selector: 'lazy-image-group',
+    selector: 'thy-lazy-image-group',
     template: '<ng-content></ng-content>',
     exportAs: 'thyLazyImageGroup',
     providers: [
@@ -130,10 +130,8 @@ export class LazyImageGroupComponent implements IThyImageGroupComponent, OnInit,
         
         return this.thyLazyImageService.preloadImages(srcs)
             .then(() => {
-                console.log('All images preloaded');
             })
             .catch(error => {
-                console.error('Preload failed:', error);
             });
     }
 
@@ -144,8 +142,6 @@ export class LazyImageGroupComponent implements IThyImageGroupComponent, OnInit,
         const total = this.images.length;
         const loaded = this.images.filter(img => img.isLoaded).length;
         const failed = this.images.filter(img => img.hasError).length;
-
-        console.log('debug');
         
         const averageLoadTime = 0;
         
@@ -174,14 +170,11 @@ export class LazyImageGroupComponent implements IThyImageGroupComponent, OnInit,
             takeUntil(this.ngUnsubscribe$)
         ).subscribe(stats => {
             this.thyStatsChanged.emit(stats);
+            this.stats$.next(this.getStats());
         });
     }
 
-    /**
-     * 设置批量预加载
-     */
     private setupBatchPreload(): void {
-        console.log('Batch preload setup');
     }
 
     /**
