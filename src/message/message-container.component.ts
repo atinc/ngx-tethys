@@ -15,7 +15,7 @@ import { AsyncPipe } from '@angular/common';
             <thy-message [thyConfig]="message.config"></thy-message>
         }
     `,
-    imports: [ThyMessage, AsyncPipe],
+    imports: [ThyMessage],
     host: {
         class: 'thy-message-container'
     }

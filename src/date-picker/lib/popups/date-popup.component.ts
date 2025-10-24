@@ -166,8 +166,7 @@ export class DatePopup implements OnInit, OnChanges {
             this.flexibleActiveTab = 'custom';
         }
         if (this.defaultPickerValue() && !hasValue(this.value())) {
-            const { value } = transformDateValue(this.defaultPickerValue());
-            this.value.set(makeValue(value, this.isRange(), this.timeZone()));
+            this.value.set(this.getDefaultPickerValue());
         }
         this.updateActiveDate();
         this.initDisabledDate();
@@ -253,8 +252,7 @@ export class DatePopup implements OnInit, OnChanges {
     updateActiveDate() {
         this.clearHoverValue();
         if (!this.value()) {
-            const { value } = transformDateValue(this.defaultPickerValue());
-            this.value.set(makeValue(value, this.isRange(), this.timeZone()));
+            this.value.set(this.getDefaultPickerValue());
         }
         if (this.isRange()) {
             if (!this.flexible() || this.flexibleDateGranularity() === 'day') {
@@ -265,6 +263,11 @@ export class DatePopup implements OnInit, OnChanges {
             this.activeDate = this.value() as TinyDate;
         }
         this.isDisableTimeConfirm();
+    }
+
+    private getDefaultPickerValue() {
+        const { value } = transformDateValue(this.defaultPickerValue());
+        return makeValue(value, this.isRange(), true, this.timeZone());
     }
 
     initPanelMode() {
