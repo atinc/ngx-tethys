@@ -6,3 +6,7 @@ export * from './image.service';
 export * from './module';
 export * from './preview/image-preview-ref';
 export * from './preview/image-preview.component';
+export * from './lazy-image.directive';
+export * from './lazy-image.service';
+export * from './lazy-image-group.component';
+export * from './lazy-image.config';
