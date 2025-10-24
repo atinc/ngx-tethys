@@ -1,8 +1,29 @@
+<thy-form-group thyLabelText="日期选择器">
+  <thy-date-picker
+    class="d-block w-50 mb-3"
+    thyPlaceHolder="选择时间"
+    [(ngModel)]="date"
+    (ngModelChange)="onChange($event)"
+    [thyAllowClear]="isAllowClear"
+    [thyHasBackdrop]="false"></thy-date-picker>
+</thy-form-group>
+
+<thy-form-group thyLabelText="时间选择器1">
+  <thy-date-picker
+    class="d-block w-50 mb-3"
+    thyShowTime
+    [thyFormat]="date1 | thyDatePickerFormatString"
+    thyPlaceHolder="选择时间"
+    [(ngModel)]="date1"
+    (ngModelChange)="onChange($event)"
+    [thyAllowClear]="isAllowClear"
+    [thyHasBackdrop]="false"></thy-date-picker>
+</thy-form-group>
+
 <thy-form-group thyLabelText="时间选择器">
   <thy-date-picker
     class="d-block w-50 mb-3"
     thyShowTime
-    [thyFormat]="dateShowTime | thyDatePickerFormatString"
     thyPlaceHolder="选择时间"
     [(ngModel)]="dateTime"
     (ngModelChange)="onChange($event)"
@@ -15,7 +36,6 @@
     class="d-block w-50 mb-3"
     thyShowTime
     [thyTimeZone]="tz"
-    [thyFormat]="dateShowTime | thyDatePickerFormatString"
     thyTimestampPrecision="milliseconds"
     thyPlaceHolder="选择时间"
     [(ngModel)]="flexibleDateTime"

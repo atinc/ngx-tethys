@@ -35,8 +35,9 @@ export class ThyDatePickerBasicExampleComponent implements OnInit {
 
     tz = 'Asia/Seoul';
 
-    date = { date: new TinyDate().getTime(), with_time: 0 };
+    date1 = { date: new TinyDate().getTime(), with_time: 0 };
 
+    date = new Date();
     dateTime = new Date();
     flexibleDateTime = new Date();
     week = { date: new TinyDate().getTime(), with_time: 0 };
@@ -70,9 +71,8 @@ export class ThyDatePickerBasicExampleComponent implements OnInit {
 
     ngOnInit() {}
 
-    onChange(result: Date): void {
+    onChange(result: any): void {
         console.log('onChange: ', result);
-        console.log(this.dateTime);
     }
 
     allowClearChange() {
