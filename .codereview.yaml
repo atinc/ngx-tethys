@@ -33,7 +33,9 @@ integrations:
       summary_field: description
 
 references:
-  - url: https://rc.pcx.cc/g/lvu4sFd
+  - path: standards/前端代码编程规范.md
     description: 前端代码规范
-  - url: https://rc.pcx.cc/g/MZ63q8?# 《组件库开发规范》
+  - path: standards/组件库开发规范.md
     description: 组件库开发规范
+  - path: standards/TypeScript编程规范.md
+    description: TypeScript编程规范
