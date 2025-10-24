@@ -9,6 +9,7 @@ review:
 files:
   extensions:
     - .ts
+    - .html
   include:
     - 'src/**/*'
   exclude:
