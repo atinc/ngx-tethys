@@ -29,3 +29,11 @@ trigger:
 integrations:
   pingcode:
     enabled: true
+    push_summary:
+      summary_field: description
+
+references:
+  - url: https://rc.pcx.cc/g/lvu4sFd
+    description: 前端代码规范
+  - url: https://rc.pcx.cc/g/MZ63q8?# 《组件库开发规范》
+    description: 组件库开发规范
