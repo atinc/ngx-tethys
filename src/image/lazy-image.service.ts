@@ -158,11 +158,7 @@ export class ThyLazyImageService implements OnDestroy {
         }
     }
 
-    /**
-     * 处理滚动事件
-     */
     private handleScroll(): void {
-        console.log('Scroll detected');
     }
 
     /**
