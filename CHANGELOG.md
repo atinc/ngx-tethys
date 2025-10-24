@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [19.1.9-0](https://github.com/atinc/ngx-tethys/compare/19.1.8...19.1.9-0) (2025-10-24)
+
+
+### Reverts
+
+* Revert "fix(tree-select): fix valueIsObject #TINFR-2935 (#3577)" (#3587) ([2715631](https://github.com/atinc/ngx-tethys/commit/2715631b01d4cdae741300707153d3b1d5a68a84)), closes [#TINFR-2935](https://github.com/atinc/ngx-tethys/issues/TINFR-2935) [#3577](https://github.com/atinc/ngx-tethys/issues/3577) [#3587](https://github.com/atinc/ngx-tethys/issues/3587)
+
+
+
 ## [19.1.8](https://github.com/atinc/ngx-tethys/compare/19.1.7...19.1.8) (2025-10-22)
 
 
