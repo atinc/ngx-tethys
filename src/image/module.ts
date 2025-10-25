@@ -14,9 +14,19 @@ import { ThyCopyModule } from 'ngx-tethys/copy';
 import { ThyLoadingModule } from 'ngx-tethys/loading';
 import { ThyDialogModule } from 'ngx-tethys/dialog';
 import { ThyActionModule } from 'ngx-tethys/action';
+import { ThyLazyImageDirective } from './lazy-image.directive';
+import { ThyLazyImageService } from './lazy-image.service';
+import { LazyImageGroupComponent } from './lazy-image-group.component';
+import { THY_LAZY_IMAGE_CONFIG_PROVIDER } from './lazy-image.config';
 
 @NgModule({
-    exports: [ThyImageDirective, ThyImageGroup, ThyImagePreview],
+    exports: [
+        ThyImageDirective, 
+        ThyImageGroup, 
+        ThyImagePreview,
+        ThyLazyImageDirective,
+        LazyImageGroupComponent
+    ],
     imports: [
         CommonModule,
         PortalModule,
@@ -30,8 +40,15 @@ import { ThyActionModule } from 'ngx-tethys/action';
         ThyActionModule,
         ThyImageDirective,
         ThyImageGroup,
-        ThyImagePreview
+        ThyImagePreview,
+        ThyLazyImageDirective,
+        LazyImageGroupComponent
     ],
-    providers: [ThyImageService, THY_IMAGE_DEFAULT_PREVIEW_OPTIONS_PROVIDER]
+    providers: [
+        ThyImageService, 
+        THY_IMAGE_DEFAULT_PREVIEW_OPTIONS_PROVIDER,
+        ThyLazyImageService,
+        THY_LAZY_IMAGE_CONFIG_PROVIDER
+    ]
 })
 export class ThyImageModule {}
