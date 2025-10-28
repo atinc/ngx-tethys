@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [19.1.11](https://github.com/atinc/ngx-tethys/compare/19.1.10...19.1.11) (2025-10-28)
+
+
+### Features
+
+* **date-picker:** 可选时间时，优化为选择到分 #TINFR-2955 ([#3597](https://github.com/atinc/ngx-tethys/issues/3597)) ([0b12381](https://github.com/atinc/ngx-tethys/commit/0b123812a416e00b6f7382411587f447bfdc7a84)), closes [#TINFR-2955](https://github.com/atinc/ngx-tethys/issues/TINFR-2955)
+
+
+
 ## [19.1.10](https://github.com/atinc/ngx-tethys/compare/19.1.9...19.1.10) (2025-10-28)
 
 
