@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [19.1.10](https://github.com/atinc/ngx-tethys/compare/19.1.9...19.1.10) (2025-10-28)
+
+
+### Features
+
+* withTime 为0或只选日期时，选择日期优化为选中为当天0点 #TINFR-2955 [@wumeimin](https://github.com/wumeimin) [@wangkai](https://github.com/wangkai) ([#3586](https://github.com/atinc/ngx-tethys/issues/3586)) ([5fd3f37](https://github.com/atinc/ngx-tethys/commit/5fd3f37bf0b4b4e3e9710e3eaea3da6c63cb0b0b)), closes [#TINFR-2955](https://github.com/atinc/ngx-tethys/issues/TINFR-2955)
+
+
+
 ## [19.1.9](https://github.com/atinc/ngx-tethys/compare/19.1.8...19.1.9) (2025-10-24)
 
 
