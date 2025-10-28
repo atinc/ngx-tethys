@@ -11,7 +11,7 @@ import { AsyncPipe } from '@angular/common';
 @Component({
     selector: 'thy-notify-container',
     templateUrl: './notify-container.component.html',
-    imports: [ThyNotify, AsyncPipe],
+    imports: [ThyNotify],
     host: {
         class: 'thy-notify-container'
     }

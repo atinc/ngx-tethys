@@ -448,7 +448,7 @@ describe('ThyPickerDirective', () => {
             value: null,
             panelMode: 'date',
             showTime: false,
-            mustShowTime: undefined,
+            mustShowTime: false,
             format: undefined,
             dateRender: undefined,
             disabledDate: undefined,

@@ -160,7 +160,6 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
 
             openPickerByClickTrigger();
-            dispatchMouseEvent(getSetTimeButton(), 'click');
             fixture.detectChanges();
             tick(500);
 
@@ -772,16 +771,19 @@ describe('ThyDatePickerComponent', () => {
         beforeEach(() => (fixtureInstance.useSuite = 1));
 
         it('should use format rule yyyy-MM-dd when with_time is 0', fakeAsync(() => {
-            const initial = { date: 1587629556, with_time: 0 } as DateEntry;
+            const date = 1587629556;
+            const initial = { date, with_time: 0 } as DateEntry;
             fixtureInstance.thyValue = initial;
             flush();
             fixture.detectChanges();
+            const thyOnChange = spyOn(fixtureInstance, 'thyOnChange');
             openPickerByClickTrigger();
             dispatchMouseEvent(getSelectedDayCell(), 'click');
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
-            expect(getPickerTrigger().value).toBe(format(new Date(1587629556000), 'yyyy-MM-dd'));
+            expect(getPickerTrigger().value).toBe(format(new Date(date * 1000), 'yyyy-MM-dd'));
+            expect(thyOnChange).toHaveBeenCalledWith({ date: new TinyDate(date * 1000).startOfDay().getUnixTime(), with_time: 0 });
         }));
 
         it('should use format rule yyyy-MM-dd HH:mm when with_time is 1', fakeAsync(() => {
@@ -812,7 +814,7 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
-            expect(getPickerTrigger().value).toBe(format(new Date(changeValue * 1000), formatValue));
+            expect(getPickerTrigger().value).toBe(new TinyDate(changeValue * 1000).startOfDay().format(formatValue));
         }));
 
         it('should emit value type is same with incoming value type', fakeAsync(() => {
@@ -827,7 +829,7 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
-            expect(thyOnChange).toHaveBeenCalledWith(initial);
+            expect(thyOnChange).toHaveBeenCalledWith(new TinyDate(initial * 1000).startOfDay().getUnixTime());
         }));
 
         it('should support thyDateRender', fakeAsync(() => {
@@ -861,7 +863,6 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             tick(500);
             expect(queryFromOverlay('.time-picker-section')).toBeDefined();
-            dispatchMouseEvent(getSetTimeButton(), 'click');
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
@@ -913,7 +914,6 @@ describe('ThyDatePickerComponent', () => {
             flush();
             fixture.detectChanges();
             openPickerByClickTrigger();
-            dispatchMouseEvent(getSetTimeButton(), 'click');
             fixture.detectChanges();
             tick(500);
 
@@ -984,7 +984,6 @@ describe('ThyDatePickerComponent', () => {
             flush();
             fixture.detectChanges();
             openPickerByClickTrigger();
-            dispatchMouseEvent(getSetTimeButton(), 'click');
             fixture.detectChanges();
             flush();
             // change time
@@ -1101,7 +1100,7 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
 
             openPickerByClickTrigger();
-            dispatchMouseEvent(getSetTimeButton(), 'click');
+            !options.selectedDate && dispatchMouseEvent(getSetTimeButton(), 'click');
             fixture.detectChanges();
             const confirmButton = getConfirmButton();
             expect(confirmButton.hasAttribute('disabled')).toBe(options.disabled);

@@ -119,11 +119,19 @@ export function hasValue(value: CompatibleValue): boolean {
     }
 }
 
-export function makeValue(value: ThyCompatibleDate | null, isRange: boolean = false, timeZone?: string): CompatibleValue {
+export function makeValue(
+    value: ThyCompatibleDate | null,
+    isRange: boolean = false,
+    withTime: boolean,
+    timeZone?: string
+): CompatibleValue {
     if (isRange) {
         return Array.isArray(value) ? (value as Date[]).map(val => new TinyDate(val, timeZone)) : [];
     } else {
-        return value ? new TinyDate(value as Date, timeZone) : null;
+        if (!value) {
+            return null;
+        }
+        return withTime ? new TinyDate(value as Date, timeZone) : new TinyDate(value as Date, timeZone).startOfDay();
     }
 }
 
