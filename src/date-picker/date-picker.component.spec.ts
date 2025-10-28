@@ -908,6 +908,7 @@ describe('ThyDatePickerComponent', () => {
 
         it('should support thyOnOk', fakeAsync(() => {
             spyOn(fixtureInstance, 'thyOnOk');
+            const date = new Date('2018-11-11 11:22:33');
             fixtureInstance.thyValue = new Date('2018-11-11 11:22:33');
             fixtureInstance.thyShowTime = true;
             fixture.detectChanges();
@@ -921,7 +922,7 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
-            expect(fixtureInstance.thyOnOk).toHaveBeenCalledWith(fixtureInstance.thyValue);
+            expect(fixtureInstance.thyOnOk).toHaveBeenCalledWith(new TinyDate(date).setSeconds(0).nativeDate);
         }));
     });
 

@@ -131,7 +131,8 @@ export function makeValue(
         if (!value) {
             return null;
         }
-        return withTime ? new TinyDate(value as Date, timeZone) : new TinyDate(value as Date, timeZone).startOfDay();
+        const date = new TinyDate(value as Date, timeZone);
+        return withTime ? date.setSeconds(0) : date.startOfDay();
     }
 }
 
