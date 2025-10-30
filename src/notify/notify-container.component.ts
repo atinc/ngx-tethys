@@ -3,7 +3,6 @@ import { ThyAbstractMessageContainerComponent } from 'ngx-tethys/message';
 import { ThyNotifyQueue } from './notify-queue.service';
 import { THY_NOTIFY_DEFAULT_CONFIG, THY_NOTIFY_DEFAULT_CONFIG_VALUE } from './notify.config';
 import { ThyNotify } from './notify.component';
-import { AsyncPipe } from '@angular/common';
 
 /**
  * @private
@@ -11,7 +10,7 @@ import { AsyncPipe } from '@angular/common';
 @Component({
     selector: 'thy-notify-container',
     templateUrl: './notify-container.component.html',
-    imports: [ThyNotify, AsyncPipe],
+    imports: [ThyNotify],
     host: {
         class: 'thy-notify-container'
     }

@@ -6,8 +6,8 @@ import { filter, startWith, takeUntil } from 'rxjs/operators';
 import { AnimationEvent } from '@angular/animations';
 import { ViewportRuler } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
-import { DOCUMENT } from '@angular/common';
-import { ChangeDetectorRef, Component, ElementRef, NgZone, OnDestroy, Renderer2, ViewChild, inject } from '@angular/core';
+
+import { ChangeDetectorRef, Component, ElementRef, NgZone, OnDestroy, Renderer2, ViewChild, inject, DOCUMENT } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
 import { thySlideAnimations } from './slide-animations';

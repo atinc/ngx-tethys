@@ -10,6 +10,5 @@
       "@tethys/cdk/*": ["../cdk/*"]
     }
   },
-  "files": ["test.ts", "polyfills.ts"],
   "include": ["**/*.ts", "**/*.d.ts"]
 }

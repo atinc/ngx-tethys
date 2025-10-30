@@ -16,12 +16,13 @@ import {
     output,
     effect,
     computed,
-    Signal
+    Signal,
+    DOCUMENT
 } from '@angular/core';
 import { Subject, fromEvent } from 'rxjs';
 import { takeUntil, throttleTime } from 'rxjs/operators';
 
-import { DOCUMENT, NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { ThyAffix } from 'ngx-tethys/affix';
 import { ThyScrollService } from 'ngx-tethys/core';
 import { coerceBooleanProperty, getOffset } from 'ngx-tethys/util';

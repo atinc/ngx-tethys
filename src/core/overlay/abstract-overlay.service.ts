@@ -80,7 +80,7 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
         } else {
             const injector = this.createInjector<T>(config, abstractOverlayRef, containerInstance);
             const contentRef = containerInstance.attachComponentPortal<T>(
-                new ComponentPortal(componentOrTemplateRef, config.viewContainerRef, injector, undefined, config.projectableNodes)
+                new ComponentPortal(componentOrTemplateRef, config.viewContainerRef, injector, config.projectableNodes)
             );
             if (config.initialState) {
                 const metadata = reflectComponentType(componentOrTemplateRef);

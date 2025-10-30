@@ -17,8 +17,8 @@ import {
 import { Platform } from '@angular/cdk/platform';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ViewportRuler } from '@angular/cdk/scrolling';
-import { DOCUMENT } from '@angular/common';
-import { ElementRef, Injectable, Injector, NgZone, OnDestroy, StaticProvider, TemplateRef, inject } from '@angular/core';
+
+import { ElementRef, Injectable, Injector, NgZone, OnDestroy, StaticProvider, TemplateRef, inject, DOCUMENT } from '@angular/core';
 
 import { ThyAutocompleteContainer } from './autocomplete-container.component';
 import { ThyAutocompleteRef, ThyInternalAutocompleteRef } from './autocomplete-ref';

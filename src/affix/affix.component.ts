@@ -4,7 +4,7 @@ import { fromEvent, merge, ReplaySubject, Subject, Subscription } from 'rxjs';
 import { auditTime, map, takeUntil } from 'rxjs/operators';
 
 import { Platform } from '@angular/cdk/platform';
-import { DOCUMENT } from '@angular/common';
+
 import {
     AfterViewInit,
     ChangeDetectionStrategy,
@@ -21,7 +21,8 @@ import {
     Renderer2,
     Signal,
     viewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    DOCUMENT
 } from '@angular/core';
 
 import { AffixRespondEvents } from './respond-events';

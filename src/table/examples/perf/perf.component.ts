@@ -1,4 +1,4 @@
-import { Component, OnInit, afterNextRender, AfterViewInit, afterRender, AfterContentChecked, DoCheck } from '@angular/core';
+import { Component, OnInit, afterNextRender, AfterViewInit, afterEveryRender, AfterContentChecked, DoCheck } from '@angular/core';
 import { ThyAvatar } from 'ngx-tethys/avatar';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyButton } from 'ngx-tethys/button';
@@ -46,8 +46,8 @@ export class ThyTablePerfExampleComponent implements OnInit, AfterViewInit, Afte
             this.perfTracker.add('afterNextRender');
         });
 
-        afterRender(() => {
-            this.perfTracker.add('afterRender');
+        afterEveryRender(() => {
+            this.perfTracker.add('afterEveryRender');
         });
     }
     ngDoCheck(): void {

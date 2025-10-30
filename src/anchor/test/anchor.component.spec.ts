@@ -20,7 +20,7 @@ describe('thy-anchor', () => {
             fixture = TestBed.createComponent(TestAnchorComponent);
             component = fixture.componentInstance.thyAnchorComponent();
             debugElement = fixture.debugElement;
-            scrollService = TestBed.get(ThyScrollService);
+            scrollService = TestBed.inject(ThyScrollService);
             fixture.detectChanges();
         });
 
@@ -131,7 +131,7 @@ describe('thy-anchor', () => {
             fixture = TestBed.createComponent(TestAnchorComponent);
             component = fixture.componentInstance.thyAnchorComponent();
             debugElement = fixture.debugElement;
-            scrollService = TestBed.get(ThyScrollService);
+            scrollService = TestBed.inject(ThyScrollService);
         });
 
         afterEach(() => {

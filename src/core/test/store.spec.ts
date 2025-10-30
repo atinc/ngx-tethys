@@ -278,7 +278,7 @@ describe('#mini-store', () => {
     describe('#getStoreInstanceId', () => {
         it('should get correct InstanceId', () => {
             const store = new ZoomStore({});
-            expect(store.getStoreInstanceId()).toEqual('ZoomStore');
+            expect(store.getStoreInstanceId()).toEqual(store.constructor.name);
         });
     });
 
