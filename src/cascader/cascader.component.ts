@@ -261,7 +261,11 @@ export class ThyCascader
      * 设置
      * @default 122
      */
-    readonly thyWidth = input<number>(140);
+    readonly thyWidth = input(140, {
+        transform: (value: number) => {
+            return numberAttribute(value, 140);
+        }
+    });
 
     /**
      * 初始化时，是否展开面板

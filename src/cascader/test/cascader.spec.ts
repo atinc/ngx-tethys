@@ -322,6 +322,7 @@ const customLabelPropertyOptions = [
             (ngModelChange)="onChanges($event)"
             [(ngModel)]="curVal"
             style="width:400px;"
+            [thyWidth]="width"
             [thyPlaceholder]="placeholder"
             [thyTriggerAction]="thyTriggerAction"
             [thyExpandTriggerAction]="thyExpandTriggerAction"
@@ -374,6 +375,7 @@ class CascaderBasicComponent {
     public thyAutoExpand = true;
     public hasBackdrop: boolean;
     public customOptions: SafeAny[];
+    public width;
 
     @ViewChild('cascader', { static: true }) cascaderRef: ThyCascader;
 
@@ -627,7 +629,7 @@ describe('thy-cascader', () => {
         TestBed.compileComponents();
     }));
 
-    describe('base', () => {
+    describe('basic', () => {
         let fixture: ComponentFixture<CascaderBasicComponent>;
         let component: CascaderBasicComponent;
         let debugElement: DebugElement;
@@ -688,6 +690,31 @@ describe('thy-cascader', () => {
             fixture.detectChanges();
             const menu = debugElement.query(By.css('.thy-cascader-menu')).nativeElement;
             expect(menu.classList.contains(component.columnClassName)).toBe(true);
+        }));
+
+        it('should use default width when thyWidth unset', fakeAsync(() => {
+            dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
+            const el = debugElement.query(By.css(`.thy-cascader-picker-open`));
+            expect(el).toBeTruthy();
+
+            fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
+            const ul = debugElement.query(By.css('ul')).nativeElement;
+            expect(ul.style.width).toEqual('140px');
+        }));
+
+        it('should use default width when thyWidth unset', fakeAsync(() => {
+            component.width = 150;
+            dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
+            const el = debugElement.query(By.css(`.thy-cascader-picker-open`));
+            expect(el).toBeTruthy();
+
+            fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
+            const ul = debugElement.query(By.css('ul')).nativeElement;
+            expect(ul.style.width).toEqual('150px');
         }));
 
         it('should not click open when thyDisabled is true', fakeAsync(() => {
