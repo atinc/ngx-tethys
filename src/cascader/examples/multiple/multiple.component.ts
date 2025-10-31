@@ -19,7 +19,7 @@ export class ThyCascaderMultipleExampleComponent implements OnInit {
     public values: any[] = [
         ['12', '1201', '120102'],
         ['12', '1201', '120103'],
-        ['14', '1404', '140406']
+        ['14', '1404', '140471']
     ];
 
     ngOnInit() {

@@ -30,7 +30,6 @@ import {
     EXPANDED_DROPDOWN_POSITIONS,
     injectPanelEmptyIcon,
     scaleYMotion,
-    ScrollToService,
     TabIndexDisabledControlValueAccessorMixin,
     ThyClickDispatcher
 } from 'ngx-tethys/core';
@@ -41,11 +40,13 @@ import { SelectControlSize, SelectOptionBase, ThySelectControl } from 'ngx-tethy
 import { SafeAny } from 'ngx-tethys/types';
 import { coerceBooleanProperty, elementMatchClosest, isEmpty } from 'ngx-tethys/util';
 import { BehaviorSubject, Observable, Subject, Subscription, timer } from 'rxjs';
-import { distinctUntilChanged, filter, take, takeUntil } from 'rxjs/operators';
+import { delay, distinctUntilChanged, filter, take, takeUntil } from 'rxjs/operators';
 import { ThyCascaderOptionComponent } from './cascader-li.component';
 import { ThyCascaderSearchOptionComponent } from './cascader-search-option.component';
 import { ThyCascaderService } from './cascader.service';
 import { ThyCascaderExpandTrigger, ThyCascaderOption, ThyCascaderSearchOption, ThyCascaderTriggerType } from './types';
+import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
+import { ThyCascaderOptionsPipe } from './cascader.pipe';
 
 /**
  * 级联选择菜单
@@ -77,7 +78,9 @@ import { ThyCascaderExpandTrigger, ThyCascaderOption, ThyCascaderSearchOption, T
         ThyCascaderOptionComponent,
         ThyCascaderSearchOptionComponent,
         ThyEmpty,
-        ThyDivider
+        ThyDivider,
+        ScrollingModule,
+        ThyCascaderOptionsPipe
     ],
     animations: [scaleYMotion]
 })
@@ -255,6 +258,12 @@ export class ThyCascader
     readonly thyIsOnlySelectLeaf = input(true, { transform: coerceBooleanProperty });
 
     /**
+     * 设置
+     * @default 122
+     */
+    readonly thyWidth = input<number>(122);
+
+    /**
      * 初始化时，是否展开面板
      */
     readonly thyAutoExpand = input(false, { transform: coerceBooleanProperty });
@@ -323,6 +332,8 @@ export class ThyCascader
     readonly input = viewChild<ElementRef>('input');
 
     readonly menu = viewChild<ElementRef>('menu');
+
+    readonly virtualScrollViewports = viewChildren(CdkVirtualScrollViewport);
 
     public dropDownPosition = 'bottom';
 
@@ -503,7 +514,7 @@ export class ThyCascader
     public attached(): void {
         this.cdr.detectChanges();
         this.cdkConnectedOverlay()
-            .positionChange.pipe(take(1), takeUntil(this.destroy$))
+            .positionChange.pipe(take(1), delay(50), takeUntil(this.destroy$))
             .subscribe(() => {
                 this.scrollActiveElementIntoView();
             });
@@ -511,17 +522,14 @@ export class ThyCascader
 
     private scrollActiveElementIntoView() {
         if (!isEmpty(this.thyCascaderService.selectedOptions)) {
-            const activeOptions = this.cascaderOptions()
-                .filter(item => item.nativeElement.classList.contains('thy-cascader-menu-item-active'))
-                // for multiple mode
-                .slice(-this.cascaderOptionContainers().length);
-
-            this.cascaderOptionContainers().forEach((item, index) => {
-                if (index <= activeOptions.length - 1) {
-                    ScrollToService.scrollToElement(activeOptions[index].nativeElement, item.nativeElement);
-                    this.cdr.detectChanges();
+            for (let i = 0; i < this.virtualScrollViewports()?.length; i += 1) {
+                for (let index = this.columns[i].length - 1; index > -1; index -= 1) {
+                    if (this.thyCascaderService.isActivatedOption(this.columns[i][index], i)) {
+                        this.virtualScrollViewports()[i]?.scrollToIndex(index);
+                        break;
+                    }
                 }
-            });
+            }
         }
     }
 

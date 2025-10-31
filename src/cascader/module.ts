@@ -11,6 +11,7 @@ import { ThySelectCommonModule } from 'ngx-tethys/shared';
 import { ThyCascaderOptionComponent } from './cascader-li.component';
 import { ThyCascaderSearchOptionComponent } from './cascader-search-option.component';
 import { ThyCascader } from './cascader.component';
+import { ThyCascaderOptionsPipe } from './cascader.pipe';
 
 @NgModule({
     imports: [
@@ -25,7 +26,8 @@ import { ThyCascader } from './cascader.component';
         ThyFlexibleTextModule,
         ThyCascader,
         ThyCascaderOptionComponent,
-        ThyCascaderSearchOptionComponent
+        ThyCascaderSearchOptionComponent,
+        ThyCascaderOptionsPipe
     ],
     exports: [ThyCascader]
 })
