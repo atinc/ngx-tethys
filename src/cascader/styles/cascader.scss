@@ -64,6 +64,9 @@ $cascader-menu-min-width: 122px;
         &:only-child {
             border-radius: 5px;
         }
+        .cdk-virtual-scroll-content-wrapper {
+            width: 100%;
+        }
     }
     &-menu-item {
         padding: 7px 16px;
