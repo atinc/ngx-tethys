@@ -704,7 +704,7 @@ describe('thy-cascader', () => {
             expect(ul.style.width).toEqual('140px');
         }));
 
-        it('should use default width when thyWidth unset', fakeAsync(() => {
+        it('should use default width when set thyWidth', fakeAsync(() => {
             component.width = 150;
             dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
             const el = debugElement.query(By.css(`.thy-cascader-picker-open`));

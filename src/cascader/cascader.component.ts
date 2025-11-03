@@ -259,7 +259,7 @@ export class ThyCascader
 
     /**
      * 设置
-     * @default 122
+     * @default 140
      */
     readonly thyWidth = input(140, {
         transform: (value: number) => {
