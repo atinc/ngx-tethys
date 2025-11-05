@@ -272,7 +272,7 @@ export class ThyCascader
     /**
      * 异步加载 loading 状态，false 表示加载中，true 表示加载完成
      */
-    readonly thyLoadState = input(true, { transform: coerceBooleanProperty });
+    readonly thyLoadingDone = input(true, { transform: coerceBooleanProperty });
 
     /**
      * 初始化时，是否展开面板

@@ -339,7 +339,7 @@ const customLabelPropertyOptions = [
             [thyAutoExpand]="thyAutoExpand"
             [thyCustomOptions]="customOptions"
             [thyHasBackdrop]="hasBackdrop"
-            [thyLoadState]="loadingDone">
+            [thyLoadingDone]="loadingDone">
         </thy-cascader>
     `,
     styles: [
@@ -694,7 +694,7 @@ describe('thy-cascader', () => {
             expect(menu.classList.contains(component.columnClassName)).toBe(true);
         }));
 
-        it('should display loading when thyLoadState is false', fakeAsync(() => {
+        it('should display loading when thyLoadingDone is false', fakeAsync(() => {
             component.loadingDone = false;
             dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
             const el = debugElement.query(By.css(`.thy-cascader-picker-open`));
