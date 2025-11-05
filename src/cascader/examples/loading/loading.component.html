@@ -1,0 +1,10 @@
+<thy-cascader
+  [thyOptions]="areaCode"
+  [thyHasBackdrop]="false"
+  [(ngModel)]="values"
+  (ngModelChange)="selectChanges($event)"
+  [thyLoadState]="loadingDone"
+  (thyExpandStatusChange)="thyExpandStatusChange($event)"
+  [thyWidth]="180"
+  thyColumnClassName="column-class-name">
+</thy-cascader>

@@ -338,7 +338,8 @@ const customLabelPropertyOptions = [
             (thyExpandStatusChange)="thyExpandStatusChange($event)"
             [thyAutoExpand]="thyAutoExpand"
             [thyCustomOptions]="customOptions"
-            [thyHasBackdrop]="hasBackdrop">
+            [thyHasBackdrop]="hasBackdrop"
+            [thyLoadState]="loadingDone">
         </thy-cascader>
     `,
     styles: [
@@ -376,6 +377,7 @@ class CascaderBasicComponent {
     public hasBackdrop: boolean;
     public customOptions: SafeAny[];
     public width;
+    public loadingDone = true;
 
     @ViewChild('cascader', { static: true }) cascaderRef: ThyCascader;
 
@@ -690,6 +692,19 @@ describe('thy-cascader', () => {
             fixture.detectChanges();
             const menu = debugElement.query(By.css('.thy-cascader-menu')).nativeElement;
             expect(menu.classList.contains(component.columnClassName)).toBe(true);
+        }));
+
+        it('should display loading when thyLoadState is false', fakeAsync(() => {
+            component.loadingDone = false;
+            dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
+            const el = debugElement.query(By.css(`.thy-cascader-picker-open`));
+            expect(el).toBeTruthy();
+
+            fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
+            const loading = debugElement.query(By.css('thy-loading'));
+            expect(loading.nativeElement).not.toBeNull();
         }));
 
         it('should use default width when thyWidth unset', fakeAsync(() => {

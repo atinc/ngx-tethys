@@ -47,6 +47,7 @@ import { ThyCascaderService } from './cascader.service';
 import { ThyCascaderExpandTrigger, ThyCascaderOption, ThyCascaderSearchOption, ThyCascaderTriggerType } from './types';
 import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
 import { ThyCascaderOptionsPipe } from './cascader.pipe';
+import { ThyLoading } from 'ngx-tethys/loading';
 
 /**
  * 级联选择菜单
@@ -80,7 +81,8 @@ import { ThyCascaderOptionsPipe } from './cascader.pipe';
         ThyEmpty,
         ThyDivider,
         ScrollingModule,
-        ThyCascaderOptionsPipe
+        ThyCascaderOptionsPipe,
+        ThyLoading
     ],
     animations: [scaleYMotion]
 })
@@ -266,6 +268,11 @@ export class ThyCascader
             return numberAttribute(value, 140);
         }
     });
+
+    /**
+     * 异步加载 loading 状态，false 表示加载中，true 表示加载完成
+     */
+    readonly thyLoadState = input(true, { transform: coerceBooleanProperty });
 
     /**
      * 初始化时，是否展开面板

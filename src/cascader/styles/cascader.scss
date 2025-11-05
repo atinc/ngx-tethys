@@ -19,6 +19,11 @@ $cascader-menu-min-width: 122px;
             cursor: variables.$disabled-cursor;
         }
     }
+    &-loading {
+        height: 180px;
+        display: flex;
+        align-items: center;
+    }
     &-menus {
         font-size: 14px;
         background: variables.$bg-panel;
