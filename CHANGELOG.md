@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [19.1.13](https://github.com/atinc/ngx-tethys/compare/19.1.12...19.1.13) (2025-11-05)
+
+
+### Features
+
+* **cascader:** support set load state #TINFR-2988 ([#3603](https://github.com/atinc/ngx-tethys/issues/3603)) ([08a9714](https://github.com/atinc/ngx-tethys/commit/08a971403c709f80f29e77abb83da547ed10dd20)), closes [#TINFR-2988](https://github.com/atinc/ngx-tethys/issues/TINFR-2988)
+
+
+
 ## [19.1.12](https://github.com/atinc/ngx-tethys/compare/19.1.11...19.1.12) (2025-11-03)
 
 
