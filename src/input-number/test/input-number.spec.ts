@@ -38,6 +38,7 @@ import { provideHttpClient } from '@angular/common/http';
             [thyMin]="thyMin"
             [thyStep]="thyStep"
             [thyDisabled]="thyDisabled"
+            [thyShowStepControls]="showStepControls"
             (ngModelChange)="change($event)"
             (thyStepChange)="stepChange($event)"
             (thyFocus)="onSecondFocus($event)"
@@ -71,6 +72,8 @@ class TestInputNumberComponent {
     thyAutoFocus = true;
 
     thyDisabled = false;
+
+    showStepControls = false;
 
     change = jasmine.createSpy('change callback');
 
@@ -659,4 +662,18 @@ describe('input-number component', () => {
         expect(getCurrentValidValueSpy).toHaveBeenCalled();
         expect(component.validValue).toBe('');
     }));
+
+    it('should show step controls default and support hidden step controls', () => {
+        fixture.detectChanges();
+
+        const stepControlsElement1 = fixture.debugElement
+            .query(By.css('.thy-input-number-first'))
+            .query(By.css('.input-number-handler-wrap'));
+        expect(stepControlsElement1).toBeTruthy();
+
+        const stepControlsElement2 = fixture.debugElement
+            .query(By.css('.thy-input-number-second'))
+            .query(By.css('.input-number-handler-wrap'));
+        expect(stepControlsElement2).toBeFalsy();
+    });
 });
