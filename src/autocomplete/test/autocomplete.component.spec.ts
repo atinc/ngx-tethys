@@ -108,7 +108,6 @@ class InputSearchSelectComponent {
 describe('ThyAutocomplete', () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
-    let platform: Platform;
 
     function configureThyCustomSelectTestingModule(declarations: any[]) {
         TestBed.configureTestingModule({
@@ -118,7 +117,6 @@ describe('ThyAutocomplete', () => {
         inject([OverlayContainer, Platform], (oc: OverlayContainer, p: Platform) => {
             overlayContainer = oc;
             overlayContainerElement = oc.getContainerElement();
-            platform = p;
         })();
 
         injectDefaultSvgIconSet();
@@ -216,7 +214,7 @@ describe('ThyAutocomplete', () => {
                 fixture.detectChanges();
                 tick(500);
                 const newActiveItem = autocompleteDirective.autocompleteComponent()?.keyManager?.activeItem;
-                expect(newActiveItem?.thyLabelText).toContain('Steak');
+                expect(newActiveItem?.thyLabelText()).toContain('Steak');
 
                 const selectViaInteractionSpy = spyOn(autocompleteDirective.activeOption(), 'selectViaInteraction');
                 const resetActiveItemSpy = spyOn<any>(autocompleteDirective, 'resetActiveItem');
@@ -244,7 +242,7 @@ describe('ThyAutocomplete', () => {
                 fixture.detectChanges();
                 tick(500);
                 const newActiveItem = autocompleteDirective.autocompleteComponent()?.keyManager?.activeItem;
-                expect(newActiveItem?.thyLabelText).toContain('Pizza');
+                expect(newActiveItem?.thyLabelText()).toContain('Pizza');
             }));
 
             it('should openPanel be called when keydown DOWN_ARROW not focusin', fakeAsync(() => {
@@ -268,12 +266,11 @@ describe('ThyAutocomplete', () => {
                 expect(resetActiveItemSpy).toHaveBeenCalled();
             }));
 
-            it('should selectionModel be clear and deselect will be called when keydown focusin and UP_ARROW', fakeAsync(() => {
+            it('should select correct option when keydown focusin and UP_ARROW', fakeAsync(() => {
                 dispatchFakeEvent(trigger, 'focusin');
                 fixture.detectChanges();
                 tick(500);
 
-                const selectionModelSpy = spyOn(fixture.componentInstance.autocomplete().selectionModel, 'clear');
                 dispatchKeyboardEvent(trigger, 'keydown', keycodes.UP_ARROW);
                 fixture.detectChanges();
                 tick(500);
@@ -282,14 +279,14 @@ describe('ThyAutocomplete', () => {
                 fixture.detectChanges();
                 tick(500);
 
-                expect(selectionModelSpy).toHaveBeenCalled();
+                expect(overlayContainerElement.textContent).not.toContain('Sushi');
             }));
 
             it('should close the panel when option is clicked', fakeAsync(() => {
                 dispatchFakeEvent(trigger, 'focusin');
                 fixture.detectChanges();
                 tick(500);
-                const option = overlayContainerElement.querySelector('thy-option') as HTMLElement;
+                const option = overlayContainerElement.querySelector('thy-option-render') as HTMLElement;
                 option.click();
                 fixture.detectChanges();
                 flush();
@@ -306,7 +303,7 @@ describe('ThyAutocomplete', () => {
                 fixture.detectChanges();
                 tick(500);
                 expect(closedSpy).not.toHaveBeenCalled();
-                const option = overlayContainerElement.querySelector('thy-option') as HTMLElement;
+                const option = overlayContainerElement.querySelector('thy-option-render') as HTMLElement;
                 option.click();
                 fixture.detectChanges();
                 flush();
@@ -321,7 +318,6 @@ describe('ThyAutocomplete', () => {
             beforeEach(fakeAsync(() => {
                 fixture = TestBed.createComponent(InputSearchSelectComponent);
                 debugSearchElement = fixture.debugElement.query(By.directive(ThyInputSearch));
-                fixture.componentInstance.autocomplete().isMultiple = true;
                 fixture.detectChanges();
                 tick(100);
             }));
@@ -330,7 +326,7 @@ describe('ThyAutocomplete', () => {
                 expect(fixture.componentInstance).toBeTruthy();
                 expect(fixture.componentInstance.autocomplete().dropDownClass).toEqual({
                     'thy-select-dropdown': true,
-                    'thy-select-dropdown-': true
+                    'thy-select-dropdown-single': true
                 });
             }));
 
@@ -338,7 +334,7 @@ describe('ThyAutocomplete', () => {
                 dispatchFakeEvent(debugSearchElement.nativeElement, 'focusin');
                 fixture.detectChanges();
                 tick(500);
-                const option = overlayContainerElement.querySelector('thy-option') as HTMLElement;
+                const option = overlayContainerElement.querySelector('thy-option-render') as HTMLElement;
                 option.click();
                 fixture.detectChanges();
                 flush();

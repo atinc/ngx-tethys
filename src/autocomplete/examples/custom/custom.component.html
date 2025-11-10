@@ -9,7 +9,7 @@
   <thy-autocomplete #auto>
     @for (item of listOfOption; track $index) {
       <thy-option [thyLabelText]="item.label" [thyValue]="item.value" [thyShowOptionCustom]="true">
-        <thy-icon thyIconName="task"></thy-icon>
+        <thy-icon class="text-muted" thyIconName="task"></thy-icon>
         <span style="margin-left: 5px"> {{ item.label }} </span>
       </thy-option>
     }
