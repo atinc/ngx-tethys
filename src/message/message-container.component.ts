@@ -23,13 +23,11 @@ import { AsyncPipe } from '@angular/common';
 export class ThyMessageContainer extends ThyAbstractMessageContainerComponent {
     messageQueue = inject(ThyMessageQueue);
 
-    constructor() {
-        const elementRef = inject(ElementRef);
+    public defaultConfig = (() => {
         const defaultConfig = inject(THY_MESSAGE_DEFAULT_CONFIG);
-
-        super({
+        return {
             ...THY_MESSAGE_DEFAULT_CONFIG_VALUE,
             ...defaultConfig
-        });
-    }
+        };
+    })();
 }

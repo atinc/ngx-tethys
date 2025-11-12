@@ -6,14 +6,15 @@ import { ThyGlobalMessageConfig } from '../message.config';
  * @internal
  */
 @Directive()
-export class ThyAbstractMessageContainerComponent {
+export abstract class ThyAbstractMessageContainerComponent {
     private elementRef = inject(ElementRef);
 
-    @HostBinding('style.top') offset: string;
-
-    constructor(defaultConfig: ThyGlobalMessageConfig) {
-        this.offset = coerceCssPixelValue(defaultConfig.offset);
+    @HostBinding('style.top')
+    get offset(): string {
+        return coerceCssPixelValue(this.defaultConfig.offset);
     }
+
+    public abstract defaultConfig: ThyGlobalMessageConfig;
 
     toOverlayTop() {
         const globalOverlayWrapper = this.elementRef.nativeElement.closest('.cdk-global-overlay-wrapper');
