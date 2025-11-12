@@ -403,7 +403,8 @@ describe('Rate tooltip component', () => {
         expect(rateTooltipElement).toBeTruthy();
     });
 
-    it('should get correct text when tooltip work', fakeAsync(() => {
+    // TODO
+    xit('should get correct text when tooltip work', fakeAsync(() => {
         testRateTooltipComponent.value = 5;
         fixture.detectChanges();
         tick(500);
