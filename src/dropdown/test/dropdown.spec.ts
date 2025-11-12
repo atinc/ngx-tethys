@@ -1005,60 +1005,52 @@ describe('dropdown options', () => {
             calledConfig = undefined;
         });
 
-        // TODO
-        xit('should get default options', () => {
+        it('should get default options', () => {
             expect(calledConfig).toBeUndefined();
             fixture.componentInstance.popoverOptions = {};
             fixture.detectChanges();
             dropdown.createOverlay();
-            expect(calledConfig).toEqual(
-                jasmine.objectContaining({
-                    placement: 'bottomLeft',
-                    height: undefined,
-                    insideClosable: true,
-                    outsideClosable: true,
-                    hasBackdrop: false,
-                    offset: 0,
-                    originActiveClass: 'thy-dropdown-origin-active'
-                })
-            );
+
+            expect(calledConfig).toBeTruthy();
+            expect(calledConfig.placement).toEqual('bottomLeft');
+            expect(calledConfig.height).toBeUndefined();
+            expect(calledConfig.insideClosable).toBeTruthy();
+            expect(calledConfig.outsideClosable).toBeTruthy();
+            expect(calledConfig.hasBackdrop).toBeFalsy();
+            expect(calledConfig.offset).toBe(0);
+            expect(calledConfig.originActiveClass).toEqual('thy-dropdown-origin-active');
         });
 
-        // TODO
-        xit('should set thyActiveClass', () => {
+        it('should set thyActiveClass', () => {
             fixture.componentInstance.activeClass = 'active';
             fixture.detectChanges();
             expect(calledConfig).toBeUndefined();
             dropdown.createOverlay();
-            expect(calledConfig).toEqual(
-                jasmine.objectContaining({
-                    placement: 'bottomLeft',
-                    height: undefined,
-                    insideClosable: true,
-                    hasBackdrop: false,
-                    offset: 0,
-                    originActiveClass: 'active'
-                })
-            );
+
+            expect(calledConfig).toBeTruthy();
+            expect(calledConfig.placement).toEqual('bottomLeft');
+            expect(calledConfig.height).toBeUndefined();
+            expect(calledConfig.insideClosable).toBeTruthy();
+            expect(calledConfig.outsideClosable).toBeTruthy();
+            expect(calledConfig.hasBackdrop).toBeFalsy();
+            expect(calledConfig.offset).toBe(0);
+            expect(calledConfig.originActiveClass).toEqual('active');
         });
 
-        // TODO
-        xit('should get custom options', () => {
+        it('should get custom options', () => {
             fixture.componentInstance.popoverOptions = {
                 height: '100px'
             };
             fixture.detectChanges();
             expect(calledConfig).toBeUndefined();
             dropdown.createOverlay();
-            expect(calledConfig).toEqual(
-                jasmine.objectContaining({
-                    height: '100px'
-                })
-            );
+
+            expect(calledConfig).toBeTruthy();
+            expect(calledConfig.height).toEqual('100px');
         });
 
         // TODO
-        xit('should filter invalid options', () => {
+        it('should filter invalid options', () => {
             fixture.componentInstance.popoverOptions = {
                 offset: 1,
                 hasBackdrop: false,
@@ -1067,65 +1059,52 @@ describe('dropdown options', () => {
             fixture.detectChanges();
             expect(calledConfig).toBeUndefined();
             dropdown.createOverlay();
-            expect(calledConfig).toEqual(
-                jasmine.objectContaining({
-                    hasBackdrop: false,
-                    offset: 0,
-                    panelClass: ['thy-dropdown-pane']
-                })
-            );
+
+            expect(calledConfig).toBeTruthy();
+            expect(calledConfig.hasBackdrop).toBeFalsy();
+            expect(calledConfig.offset).toBe(0);
+            expect(calledConfig.panelClass).toEqual(['thy-dropdown-pane']);
         });
 
         // TODO
-        xit('should set placement', () => {
+        it('should set placement', () => {
             fixture.componentInstance.placement = 'bottomRight';
             fixture.detectChanges();
             expect(calledConfig).toBeUndefined();
             dropdown.createOverlay();
-            expect(calledConfig).toEqual(
-                jasmine.objectContaining({
-                    placement: 'bottomRight'
-                })
-            );
+
+            expect(calledConfig).toBeTruthy();
+            expect(calledConfig.placement).toEqual('bottomRight');
         });
 
-        // TODO
-        xit('should set insideClosable', () => {
+        it('should set insideClosable', () => {
             fixture.componentInstance.insideClosable = false;
             fixture.detectChanges();
             expect(calledConfig).toBeUndefined();
             dropdown.createOverlay();
-            expect(calledConfig).toEqual(
-                jasmine.objectContaining({
-                    insideClosable: false
-                })
-            );
+
+            expect(calledConfig).toBeTruthy();
+            expect(calledConfig.insideClosable).toBeFalsy();
         });
 
-        // TODO
-        xit('should set outsideClosable', () => {
+        it('should set outsideClosable', () => {
             dropdown.thyPopoverOptions().outsideClosable = false;
 
             expect(calledConfig).toBeUndefined();
             dropdown.createOverlay();
-            expect(calledConfig).toEqual(
-                jasmine.objectContaining({
-                    outsideClosable: false
-                })
-            );
+
+            expect(calledConfig).toBeTruthy();
+            expect(calledConfig.outsideClosable).toBeFalsy();
         });
 
-        // TODO
-        xit('should set panel class', () => {
+        it('should set panel class', () => {
             fixture.componentInstance.panelClass = 'test-dropdown-panel-class';
             fixture.detectChanges();
             expect(calledConfig).toBeUndefined();
             dropdown.createOverlay();
-            expect(calledConfig).toEqual(
-                jasmine.objectContaining({
-                    panelClass: ['thy-dropdown-pane', 'test-dropdown-panel-class']
-                })
-            );
+
+            expect(calledConfig).toBeTruthy();
+            expect(calledConfig.panelClass).toEqual(['thy-dropdown-pane', 'test-dropdown-panel-class']);
         });
     });
 });
