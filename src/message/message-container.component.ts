@@ -3,7 +3,6 @@ import { ThyAbstractMessageContainerComponent } from './abstract';
 import { ThyMessageQueue } from './message-queue.service';
 import { THY_MESSAGE_DEFAULT_CONFIG, THY_MESSAGE_DEFAULT_CONFIG_VALUE } from './message.config';
 import { ThyMessage } from './message.component';
-import { AsyncPipe } from '@angular/common';
 
 /**
  * @internal

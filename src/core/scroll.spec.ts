@@ -1,5 +1,5 @@
-import { DOCUMENT, PlatformLocation } from '@angular/common';
-import { ApplicationRef, Injector, ɵglobal } from '@angular/core';
+import { PlatformLocation } from '@angular/common';
+import { ApplicationRef, Injector, ɵglobal, DOCUMENT } from '@angular/core';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { ThyScrollService } from 'ngx-tethys/core';
 
@@ -34,7 +34,7 @@ describe('ThyScrollService', () => {
     });
 
     beforeEach(() => {
-        injector = TestBed.configureTestingModule({
+        const testbed = TestBed.configureTestingModule({
             providers: [
                 ThyScrollService,
                 { provide: DOCUMENT, useClass: MockDocument },
@@ -42,6 +42,7 @@ describe('ThyScrollService', () => {
             ]
         });
 
+        injector = testbed.inject(Injector);
         document = injector.get<MockDocument>(DOCUMENT);
         scrollService = injector.get(ThyScrollService);
     });

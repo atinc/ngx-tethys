@@ -45,7 +45,8 @@ describe('ThyHotkeyDirective', () => {
         fixture.detectChanges();
     });
 
-    it('should input focus when press Control+m ', fakeAsync(() => {
+    fit('should input focus when press Control+m ', fakeAsync(() => {
+        console.log(component.constructor.name)
         document.dispatchEvent(createKeyboardEvent('keydown', null, 'm', { control: true }));
         tick();
         expect(document.activeElement).toEqual(component.input.nativeElement);

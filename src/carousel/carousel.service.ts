@@ -1,5 +1,5 @@
-import { Injectable, NgZone, inject } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { Injectable, NgZone, inject, DOCUMENT } from '@angular/core';
+
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ThyDistanceVector } from './typings';

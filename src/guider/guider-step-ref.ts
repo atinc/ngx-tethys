@@ -1,6 +1,6 @@
 import { Overlay } from '@angular/cdk/overlay';
-import { DOCUMENT } from '@angular/common';
-import { Inject, Renderer2, RendererFactory2 } from '@angular/core';
+
+import { Inject, Renderer2, RendererFactory2, DOCUMENT } from '@angular/core';
 import { ThyPopover, ThyPopoverConfig, ThyPopoverRef } from 'ngx-tethys/popover';
 import { coerceArray, isArray, isNull, isString, isUndefinedOrNull } from 'ngx-tethys/util';
 import { fromEvent, Subscription } from 'rxjs';

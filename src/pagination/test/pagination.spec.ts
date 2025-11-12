@@ -6,6 +6,7 @@ import { ENTER } from 'ngx-tethys/util';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
+import { ThySelect } from '../../select';
 
 @Component({
     selector: 'thy-test-pagination-basic',
@@ -463,9 +464,8 @@ describe('ThyPagination', () => {
             componentInstance.pagination.pageSize = 50;
             fixture.detectChanges();
             tick(100);
-            expect(
-                paginationElement.querySelectorAll('.thy-pagination-size')[0].children[0].attributes['ng-reflect-model'].nodeValue
-            ).toEqual('50');
+            const selectDirective = fixture.debugElement.query(By.directive(ThySelect)).componentInstance;
+            expect(selectDirective.modalValue).toEqual(50);
         }));
 
         it('should set size when thySize changed', fakeAsync(() => {

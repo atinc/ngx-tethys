@@ -1,5 +1,4 @@
-import { DOCUMENT } from '@angular/common';
-import { Injectable, NgZone, inject } from '@angular/core';
+import { Injectable, NgZone, inject, DOCUMENT } from '@angular/core';
 import { reqAnimFrame } from './request-animation';
 
 export type EasyingFn = (t: number, b: number, c: number, d: number) => number;

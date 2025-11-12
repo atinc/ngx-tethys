@@ -315,9 +315,9 @@ describe('#helper', () => {
 
     it('should get correct value for isTemplateRef', () => {
         class MyTemplateRef extends TemplateRef<unknown> {
-            get elementRef(): ElementRef<any> {
-                throw new Error('Method not implemented.');
-            }
+            // get elementRef(): ElementRef {
+            //     throw new Error('Method not implemented.');
+            // }
             createEmbeddedView(context: unknown): EmbeddedViewRef<unknown> {
                 throw new Error('Method not implemented.');
             }

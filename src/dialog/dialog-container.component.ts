@@ -5,7 +5,7 @@ import { filter } from 'rxjs/operators';
 import { AnimationEvent } from '@angular/animations';
 import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
 import { PortalModule } from '@angular/cdk/portal';
-import { DOCUMENT } from '@angular/common';
+
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -17,7 +17,8 @@ import {
     OnDestroy,
     Renderer2,
     ViewChild,
-    inject
+    inject,
+    DOCUMENT
 } from '@angular/core';
 
 import { thyDialogAnimations } from './dialog-animations';

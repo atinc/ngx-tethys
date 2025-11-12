@@ -32,7 +32,7 @@ describe('ThyStepperNext', () => {
             ]
         }).compileComponents();
         fixture = TestBed.createComponent(ThyStepperButtonDirectiveComponent);
-        thyStepperComponent = TestBed.get(ThyStepper) as any;
+        thyStepperComponent = TestBed.inject(ThyStepper) as any;
     });
 
     describe('nextDirective', () => {

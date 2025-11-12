@@ -8,7 +8,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CdkDrag, CdkDragDrop, CdkDragEnd, CdkDragStart, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ViewportRuler } from '@angular/cdk/overlay';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
-import { DOCUMENT, isPlatformServer, NgClass, NgTemplateOutlet, NgStyle } from '@angular/common';
+import { isPlatformServer, NgClass, NgTemplateOutlet, NgStyle } from '@angular/common';
 import {
     AfterViewInit,
     ChangeDetectorRef,
@@ -38,7 +38,8 @@ import {
     TemplateRef,
     ViewChild,
     ViewChildren,
-    ViewEncapsulation
+    ViewEncapsulation,
+    DOCUMENT
 } from '@angular/core';
 
 import { IThyTableColumnParentComponent, THY_TABLE_COLUMN_PARENT_COMPONENT, ThyTableColumnComponent } from './table-column.component';

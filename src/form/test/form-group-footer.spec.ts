@@ -45,7 +45,7 @@ describe('form-group-footer', () => {
             fixture = TestBed.createComponent(FormGroupFooterComponent);
             formGroupFooterComponent = fixture.debugElement.componentInstance;
             debugElement = fixture.debugElement.query(By.directive(ThyFormGroupFooter));
-            thyFormDirective = TestBed.get(ThyFormDirective);
+            thyFormDirective = TestBed.inject(ThyFormDirective);
         });
         it('should has correct class when form.isHorizontal = false', () => {
             fixture.detectChanges();
@@ -107,7 +107,7 @@ describe('form-group-footer', () => {
             fixture = TestBed.createComponent(FormGroupFooterComponent);
             formGroupFooterComponent = fixture.debugElement.componentInstance;
             debugElement = fixture.debugElement.query(By.directive(ThyFormGroupFooter));
-            thyFormDirective = TestBed.get(ThyFormDirective);
+            thyFormDirective = TestBed.inject(ThyFormDirective);
         });
 
         it('should has correct class when form.isHorizontal = false', () => {

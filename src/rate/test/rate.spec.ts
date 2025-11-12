@@ -1,9 +1,9 @@
-import { Component, DebugElement, TemplateRef, viewChild } from '@angular/core';
+import { Component, DebugElement, TemplateRef, viewChild, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyRateModule, ThyRate } from 'ngx-tethys/rate';
-import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
+import { ThyRateModule, ThyRate, ThyRateItem } from 'ngx-tethys/rate';
+import { ThyTooltip, ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
 import { ThyRateTemplateExampleComponent } from '../examples/template/template.component';
 import { provideHttpClient } from '@angular/common/http';
@@ -410,9 +410,11 @@ describe('Rate tooltip component', () => {
         fixture.detectChanges();
         tick(500);
         fixture.detectChanges();
-        const rateItems = (fixture.debugElement.nativeElement as HTMLElement).querySelectorAll('.thy-rate-star');
+        const rateItems = fixture.debugElement.queryAll(By.directive(ThyRateItem));
         rateItems.forEach((rate, ind) => {
-            expect(rate.attributes.getNamedItem('ng-reflect-thy-tooltip-content').value).toContain(testRateTooltipComponent.tooltips[ind]);
+            const tooltip = rate.injector.get(ThyTooltipDirective);
+            expect(tooltip.thyTooltipContent()).toEqual(testRateTooltipComponent.tooltips[ind]);
+            console.log('thyTooltipContent', tooltip.thyTooltipContent());
         });
     }));
 });

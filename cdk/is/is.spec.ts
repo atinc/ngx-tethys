@@ -160,15 +160,14 @@ describe('is', () => {
         });
     });
 
-    it('should get correct value for isTemplateRef', () => {
+    fit('should get correct value for isTemplateRef', () => {
         class MyTemplateRef extends TemplateRef<unknown> {
-            get elementRef(): ElementRef<any> {
-                throw new Error('Method not implemented.');
-            }
             createEmbeddedView(context: unknown): EmbeddedViewRef<unknown> {
                 throw new Error('Method not implemented.');
             }
         }
+
+        console.log(new MyTemplateRef().constructor.name);
 
         [new MyTemplateRef()].forEach(value => {
             expect(isTemplateRef(value)).toBeTruthy(`${value} is not TemplateRef`);

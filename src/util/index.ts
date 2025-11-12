@@ -7,7 +7,7 @@ import * as dom from './dom';
 import * as helpers from './helpers/index';
 import * as references from './references';
 
-export { EntityAddOptions as EntityAddOptions$0, EntityMoveOptions, Producer, ProducerOptions } from './immutable';
+export type { EntityAddOptions as EntityAddOptions$0, EntityMoveOptions, Producer, ProducerOptions } from './immutable';
 export * from './ng';
 export * from './references';
 

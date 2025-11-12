@@ -1,9 +1,8 @@
 import { forkJoin, Observable, of, throwError } from 'rxjs';
 import { catchError, finalize, map, share, tap } from 'rxjs/operators';
 
-import { DOCUMENT } from '@angular/common';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Injectable, SecurityContext, inject } from '@angular/core';
+import { Injectable, SecurityContext, inject, DOCUMENT } from '@angular/core';
 import { DomSanitizer, SafeHtml, SafeResourceUrl } from '@angular/platform-browser';
 import { isString } from 'ngx-tethys/util';
 

@@ -1,6 +1,6 @@
 import { coerceElement } from '@angular/cdk/coercion';
-import { DOCUMENT } from '@angular/common';
-import { Injectable, NgZone, ElementRef, inject } from '@angular/core';
+
+import { Injectable, NgZone, ElementRef, inject, DOCUMENT } from '@angular/core';
 import { ThyEventDispatcher } from '@tethys/cdk/event';
 import { fromEvent, Observable, OperatorFunction, Subscriber } from 'rxjs';
 import { filter } from 'rxjs/operators';

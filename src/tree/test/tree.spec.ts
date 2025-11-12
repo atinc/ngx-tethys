@@ -1,5 +1,5 @@
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
-import { Component, OnInit, viewChild } from '@angular/core';
+import { Component, OnInit, viewChild, DOCUMENT } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -17,7 +17,7 @@ import {
 } from 'ngx-tethys/tree';
 import { bigTreeNodes, treeNodes, hasCheckTreeNodes } from './mock';
 import { CDK_DRAG_CONFIG, DragDropConfig } from '@angular/cdk/drag-drop';
-import { DOCUMENT } from '@angular/common';
+
 import { scrollToViewport, scrollToViewportOffset } from './utils';
 import { provideHttpClient } from '@angular/common/http';
 import { ThyFlexibleText, ThyFlexibleTextModule } from 'ngx-tethys/flexible-text';
