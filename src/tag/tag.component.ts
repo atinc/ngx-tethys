@@ -22,10 +22,9 @@ export type ThyTagSize = 'sm' | 'md' | 'lg';
         '[class.thy-tag-pill]': 'thyShape() === "pill"',
         '[class.thy-tag-outline]': 'thyTheme() === "outline"',
         '[class.thy-tag-hover]': 'thyHoverable()',
+        '[class.thy-tag-lg]': 'thySize() === "lg"',
         '[class.thy-tag-md]': 'thySize() === "md"',
-        '[class.thy-tag-sm]': 'thySize() === "sm"',
-        '[class.thy-tag-xs]': 'thySize() === "xs"',
-        '[class.thy-tag-lg]': 'thySize() === "lg"'
+        '[class.thy-tag-sm]': 'thySize() === "sm"'
     }
 })
 export class ThyTag {
