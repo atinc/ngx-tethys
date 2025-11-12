@@ -12,6 +12,8 @@ export class ThyInputNumberStepExampleComponent implements OnInit {
 
     valueOfStep2 = 1;
 
+    valueOfStep3 = 1;
+
     step1 = 0.1;
 
     step2 = 2;

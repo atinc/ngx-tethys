@@ -1,13 +1,13 @@
-<div style="width: 200px;">
-  <p>
-    thyStep: 0.1
-  </p>
+<div style="width: 200px">
+  <p>thyStep: 0.1</p>
   <thy-input-number [(ngModel)]="valueOfStep1" [thyStep]="step1" (ngModelChange)="change($event)"></thy-input-number>
   <br />
 
-  <p>
-    thyStep: 2
-  </p>
+  <p>thyStep: 2</p>
   <thy-input-number [(ngModel)]="valueOfStep2" [thyStep]="step2" (ngModelChange)="change($event)"></thy-input-number>
+  <br />
+
+  <p>thyShowStepControls: false</p>
+  <thy-input-number [(ngModel)]="valueOfStep3" [thyShowStepControls]="false"></thy-input-number>
   <br />
 </div>
