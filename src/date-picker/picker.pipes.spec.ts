@@ -1,19 +1,18 @@
 import { TestBed } from '@angular/core/testing';
 import { ThyLocaleType } from 'ngx-tethys/i18n';
 import { TinyDate } from 'ngx-tethys/util';
-import { ThyDatePickerConfigService, ThyQuarterPickerFormatPipe } from 'ngx-tethys/date-picker';
+import { ThyQuarterPickerFormatPipe } from 'ngx-tethys/date-picker';
+import { ThyDatePickerModule } from './date-picker.module';
 
 describe('thyQuarterPickerFormat', () => {
-    let datePickerConfigService: ThyDatePickerConfigService;
     let quarterPickerFormatPipe: ThyQuarterPickerFormatPipe;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [ThyDatePickerConfigService]
+            imports: [ThyDatePickerModule]
         });
         TinyDate.setDefaultLocale(ThyLocaleType.enUs);
-        datePickerConfigService = TestBed.inject(ThyDatePickerConfigService);
-        quarterPickerFormatPipe = new ThyQuarterPickerFormatPipe(datePickerConfigService);
+        quarterPickerFormatPipe = TestBed.runInInjectionContext(() => new ThyQuarterPickerFormatPipe());
     });
 
     it(`should return '2023-Q4'`, () => {
