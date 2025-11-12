@@ -1,7 +1,7 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { XhrFactory } from '@angular/common';
 import { Component, DebugElement, OnInit, ɵglobal, inject as coreInject } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, flush, inject, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, flush, inject, tick, waitForAsync } from '@angular/core/testing';
 import { DomSanitizer } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { ThyDialogModule } from 'ngx-tethys/dialog';
@@ -121,8 +121,7 @@ describe('image-preview', () => {
         expect(overlayContainerElement.querySelectorAll('.thy-action').length).toBe(9);
     });
 
-    // TODO
-    xit('should show custom operations', () => {
+    it('should show custom operations', () => {
         const previewSpy = jasmine.createSpy('view original');
 
         basicTestComponent.previewConfig = {
@@ -151,14 +150,15 @@ describe('image-preview', () => {
         const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
         const preview = operations[4] as HTMLElement;
 
-        expect(preview.getAttribute('ng-reflect-thy-tooltip-content')).toBe('查看原图');
+        dispatchMouseEvent(preview, 'mouseenter');
+        fixture.detectChanges();
+        expect(overlayContainerElement.textContent).toContain('查看原图');
         preview.click();
 
         expect(previewSpy).toHaveBeenCalledWith(basicTestComponent.images[0]);
     });
 
-    // TODO
-    xit('should zoom out image when click zoom-out icon', () => {
+    it('should zoom out image when click zoom-out icon', () => {
         basicTestComponent.previewConfig.zoom = 0.2;
         const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
         button.click();
@@ -168,7 +168,9 @@ describe('image-preview', () => {
         expect(previousZoom).toBe(basicTestComponent.previewConfig.zoom);
         const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
         const zoomOut = operations[0] as HTMLElement;
-        expect(zoomOut.getAttribute('ng-reflect-thy-tooltip-content')).toBe('缩小');
+        dispatchMouseEvent(zoomOut, 'mouseenter');
+        fixture.detectChanges();
+        expect(overlayContainerElement.textContent).toContain('缩小');
         zoomOut.click();
 
         let currentZoom = basicTestComponent.imageRef.previewInstance.zoom;
@@ -183,8 +185,7 @@ describe('image-preview', () => {
         expect(currentImageTransform).toContain(`scale3d(0.1, 0.1, 1)`);
     });
 
-    // TODO
-    xit('should zoom in image when click zoom-in icon', () => {
+    it('should zoom in image when click zoom-in icon', () => {
         basicTestComponent.previewConfig.zoom = 2.9;
         fixture.detectChanges();
         const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
@@ -194,7 +195,9 @@ describe('image-preview', () => {
         expect(previousZoom).toBe(basicTestComponent.previewConfig.zoom);
         const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
         const zoomIn = operations[1] as HTMLElement;
-        expect(zoomIn.getAttribute('ng-reflect-thy-tooltip-content')).toBe('放大');
+        dispatchMouseEvent(zoomIn, 'mouseenter');
+        fixture.detectChanges();
+        expect(overlayContainerElement.textContent).toContain('放大');
         zoomIn.click();
 
         let currentZoom = basicTestComponent.imageRef.previewInstance.zoom;
@@ -209,16 +212,24 @@ describe('image-preview', () => {
         expect(currentImageTransform).toContain(`scale3d(3, 3, 1)`);
     });
 
-    // TODO
-    xit('should set correctly zoom when click change view icon', () => {
+    it('should set correctly zoom when click change view icon', fakeAsync(() => {
         basicTestComponent.previewConfig.zoom = 2;
         fixture.detectChanges();
         const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
         button.click();
 
         let operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
-        const originalSize = operations[2] as HTMLElement;
-        expect(originalSize.getAttribute('ng-reflect-thy-tooltip-content')).toBe('原始比例');
+        let originalSize = operations[2] as HTMLElement;
+        dispatchMouseEvent(originalSize, 'mouseenter');
+        fixture.detectChanges();
+        tick(200);
+        expect(overlayContainerElement.textContent).toContain('原始比例');
+
+        dispatchMouseEvent(originalSize, 'mouseleave');
+        fixture.detectChanges();
+        tick(200);
+        fixture.detectChanges();
+
         const spy = spyOn(basicTestComponent.imageRef.previewInstance, 'calculateInsideScreen').and.callThrough();
         originalSize.click();
 
@@ -227,22 +238,34 @@ describe('image-preview', () => {
         let currentImageTransform = basicTestComponent.imageRef.previewInstance.previewImageTransform;
         const fitScreen = overlayContainerElement.querySelectorAll('.thy-actions .thy-action')[2] as HTMLElement;
         expect(spy).toHaveBeenCalled();
-        expect(fitScreen.getAttribute('ng-reflect-thy-tooltip-content')).toBe('适应屏幕');
+        dispatchMouseEvent(fitScreen, 'mouseenter');
+        fixture.detectChanges();
+        tick(200);
+        expect(overlayContainerElement.textContent).toContain('适应屏幕');
         expect(currentZoom).toBe(1);
         expect(basicTestComponent.imageRef.componentInstance.isInsideScreen).toBe(true);
         expect(currentImageTransform).toContain(`scale3d(1, 1, 1)`);
 
+        dispatchMouseEvent(originalSize, 'mouseleave');
+        fixture.detectChanges();
+        tick(200);
+        fixture.detectChanges();
+
         fitScreen.click();
         currentZoom = basicTestComponent.imageRef.previewInstance.zoom;
         currentImageTransform = basicTestComponent.imageRef.previewInstance.previewImageTransform;
-        expect(originalSize.getAttribute('ng-reflect-thy-tooltip-content')).toBe('原始比例');
+        operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
+        originalSize = operations[2] as HTMLElement;
+        dispatchMouseEvent(originalSize, 'mouseenter');
+        fixture.detectChanges();
+        tick(200);
+        expect(overlayContainerElement.textContent).toContain('原始比例');
         const defaultZoom = basicTestComponent.previewConfig.zoom;
         expect(currentZoom).toBe(defaultZoom);
         expect(currentImageTransform).toContain(`scale3d(${defaultZoom}, ${defaultZoom}, 1)`);
-    });
+    }));
 
-    // TODO
-    xit('should fullscreen when click full-screen icon', () => {
+    it('should fullscreen when click full-screen icon', () => {
         fixture.detectChanges();
         const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
         button.click();
@@ -250,14 +273,15 @@ describe('image-preview', () => {
         expect(overlayContainerElement.querySelector('.thy-fullscreen-active')).toBeFalsy();
         const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
         const fullScreen = operations[3] as HTMLElement;
-        expect(fullScreen.getAttribute('ng-reflect-thy-tooltip-content')).toBe('全屏显示');
+        dispatchMouseEvent(fullScreen, 'mouseenter');
+        fixture.detectChanges();
+        expect(overlayContainerElement.textContent).toContain('全屏显示');
         fullScreen.click();
 
         expect(document.documentElement.requestFullscreen).toHaveBeenCalled();
     });
 
-    // TODO
-    xit('should rotate image when click rotate icon', () => {
+    it('should rotate image when click rotate icon', () => {
         basicTestComponent.previewConfig.rotate = 90;
         fixture.detectChanges();
         const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
@@ -267,7 +291,9 @@ describe('image-preview', () => {
         const previousRotate = basicTestComponent.imageRef.previewInstance['rotate'];
         const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
         const rotate = operations[4] as HTMLElement;
-        expect(rotate.getAttribute('ng-reflect-thy-tooltip-content')).toBe('旋转');
+        dispatchMouseEvent(rotate, 'mouseenter');
+        fixture.detectChanges();
+        expect(overlayContainerElement.textContent).toContain('旋转');
         expect(previousRotate).toBe(basicTestComponent.previewConfig.rotate);
         rotate.click();
 
@@ -277,8 +303,7 @@ describe('image-preview', () => {
         expect(currentImageTransform).toContain(`rotate(${previousRotate + 90}deg)`);
     });
 
-    // TODO
-    xit('should download image when click download icon', done => {
+    it('should download image when click download icon', done => {
         fixture.detectChanges();
         const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
         button.click();
@@ -293,7 +318,6 @@ describe('image-preview', () => {
 
         const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
         const download = operations[5] as HTMLElement;
-        expect(download.getAttribute('ng-reflect-thy-tooltip-content')).toBe('下载');
         download.click();
 
         fetchImageBlob(basicTestComponent.images[0].origin.src).subscribe(() => {
@@ -308,8 +332,7 @@ describe('image-preview', () => {
         expect(XMLHttpRequest.prototype.send).toHaveBeenCalled();
     });
 
-    // TODO
-    xit('should downloadClicked() was subscribed when click download icon', () => {
+    it('should downloadClicked() was subscribed when click download icon', () => {
         fixture.detectChanges();
         const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
         button.click();
@@ -320,14 +343,15 @@ describe('image-preview', () => {
 
         const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
         const download = operations[5] as HTMLElement;
-        expect(download.getAttribute('ng-reflect-thy-tooltip-content')).toBe('下载');
+        dispatchMouseEvent(download, 'mouseenter');
+        fixture.detectChanges();
+        expect(overlayContainerElement.textContent).toContain('下载');
         download.click();
 
         expect(downloadSpy).toHaveBeenCalledWith(basicTestComponent.images[0]);
     });
 
-    // TODO
-    xit('should open new tab with origin src when click origin icon', () => {
+    it('should open new tab with origin src when click origin icon', () => {
         fixture.detectChanges();
         const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
         button.click();
@@ -338,15 +362,16 @@ describe('image-preview', () => {
         const openSpy = spyOn(window, 'open').and.callFake(() => {
             return true;
         });
-        expect(download.getAttribute('ng-reflect-thy-tooltip-content')).toBe('查看原图');
+        dispatchMouseEvent(download, 'mouseenter');
+        fixture.detectChanges();
+        expect(overlayContainerElement.textContent).toContain('查看原图');
         download.click();
 
         expect(openSpy).toHaveBeenCalled();
         expect(openSpy).toHaveBeenCalledWith(basicTestComponent.images[0].origin.src, '_blank');
     });
 
-    // TODO
-    xit('should copy image link when click copy icon', () => {
+    it('should copy image link when click copy icon', () => {
         fixture.detectChanges();
         const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
         button.click();
@@ -354,9 +379,9 @@ describe('image-preview', () => {
         fixture.detectChanges();
         const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
         const copy = operations[7] as HTMLElement;
-        expect(copy.getAttribute('ng-reflect-thy-copy-tips')).toBe('复制链接');
-        // test copy
-        // copy.click()
+        dispatchMouseEvent(copy, 'mouseenter');
+        fixture.detectChanges();
+        expect(overlayContainerElement.textContent).toContain('复制链接');
     });
 
     it('should preview image can be switched correctly', () => {
