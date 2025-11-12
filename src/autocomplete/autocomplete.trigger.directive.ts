@@ -1,18 +1,18 @@
 import {
-  Directive,
-  ElementRef,
-  NgZone,
-  OnDestroy,
-  OnInit,
-  ViewContainerRef,
-  HostBinding,
-  ChangeDetectorRef,
-  numberAttribute,
-  inject,
-  input,
-  computed,
-  Signal,
-  DOCUMENT
+    Directive,
+    ElementRef,
+    NgZone,
+    OnDestroy,
+    OnInit,
+    ViewContainerRef,
+    HostBinding,
+    ChangeDetectorRef,
+    numberAttribute,
+    inject,
+    input,
+    computed,
+    Signal,
+    DOCUMENT
 } from '@angular/core';
 import { OverlayRef, Overlay } from '@angular/cdk/overlay';
 import { ThyPlacement } from 'ngx-tethys/core';

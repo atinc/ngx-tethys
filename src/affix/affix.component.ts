@@ -6,23 +6,23 @@ import { auditTime, map, takeUntil } from 'rxjs/operators';
 import { Platform } from '@angular/cdk/platform';
 
 import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  effect,
-  ElementRef,
-  inject,
-  input,
-  NgZone,
-  numberAttribute,
-  OnDestroy,
-  output,
-  Renderer2,
-  Signal,
-  viewChild,
-  ViewEncapsulation,
-  DOCUMENT
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    effect,
+    ElementRef,
+    inject,
+    input,
+    NgZone,
+    numberAttribute,
+    OnDestroy,
+    output,
+    Renderer2,
+    Signal,
+    viewChild,
+    ViewEncapsulation,
+    DOCUMENT
 } from '@angular/core';
 
 import { AffixRespondEvents } from './respond-events';

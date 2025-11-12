@@ -1,4 +1,3 @@
-
 import { Injectable, NgZone, inject, DOCUMENT } from '@angular/core';
 import { reqAnimFrame } from './request-animation';
 

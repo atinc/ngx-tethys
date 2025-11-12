@@ -1,4 +1,3 @@
-
 import { Injectable, NgZone, OnDestroy, inject, DOCUMENT } from '@angular/core';
 import { isTouchEvent } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';

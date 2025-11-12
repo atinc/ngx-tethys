@@ -1,23 +1,23 @@
 import { Platform } from '@angular/cdk/platform';
 import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  NgZone,
-  OnDestroy,
-  Renderer2,
-  ViewEncapsulation,
-  numberAttribute,
-  inject,
-  input,
-  viewChild,
-  output,
-  effect,
-  computed,
-  Signal,
-  DOCUMENT
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    NgZone,
+    OnDestroy,
+    Renderer2,
+    ViewEncapsulation,
+    numberAttribute,
+    inject,
+    input,
+    viewChild,
+    output,
+    effect,
+    computed,
+    Signal,
+    DOCUMENT
 } from '@angular/core';
 import { Subject, fromEvent } from 'rxjs';
 import { takeUntil, throttleTime } from 'rxjs/operators';
