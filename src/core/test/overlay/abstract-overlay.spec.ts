@@ -104,6 +104,10 @@ class InternalTestDialogRef<T = unknown, TResult = unknown, TData = unknown> ext
     TestDialogContainerComponent<TData>,
     TResult
 > {
+    protected get options(): ThyAbstractOverlayOptions {
+        return testDialogOptions;
+    }
+
     updatePosition(position?: ThyAbstractOverlayPosition): this {
         return this.updateGlobalPosition(position);
     }
@@ -131,7 +135,9 @@ export class TestDialogService extends ThyAbstractOverlayService<TestDialogConfi
         containerInstance: TestDialogContainerComponent,
         config: TestDialogConfig
     ): ThyAbstractOverlayRef<T, TestDialogContainerComponent, TResult> {
-        return new InternalTestDialogRef<T, TResult>(testDialogOptions, overlayRef, containerInstance, config);
+        const internalTestDialogRef = new InternalTestDialogRef<T, TResult>();
+        internalTestDialogRef.initialize(overlayRef, containerInstance, config);
+        return internalTestDialogRef;
     }
 
     // protected createAbstractOverlayRef<T, TData>(

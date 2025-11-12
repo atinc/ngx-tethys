@@ -55,7 +55,9 @@ export class ThySlideService extends ThyAbstractOverlayService<ThySlideConfig, T
         containerInstance: ThySlideContainer,
         config: ThySlideConfig
     ): ThyAbstractOverlayRef<T, ThySlideContainer, any> {
-        return new ThyInternalSlideRef(overlayRef, containerInstance, config);
+        const slideRef = new ThyInternalSlideRef<T>();
+        slideRef.initialize(overlayRef, containerInstance, config);
+        return slideRef;
     }
 
     protected createInjector<T>(

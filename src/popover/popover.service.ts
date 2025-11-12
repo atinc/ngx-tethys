@@ -113,7 +113,9 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
         containerInstance: ThyPopoverContainer,
         config: ThyPopoverConfig
     ): ThyAbstractOverlayRef<T, ThyPopoverContainer, TResult> {
-        return new ThyInternalPopoverRef(overlayRef, containerInstance, config);
+        const popoverRef = new ThyInternalPopoverRef<T, TResult>();
+        popoverRef.initialize(overlayRef, containerInstance, config);
+        return popoverRef;
     }
 
     protected createInjector<T>(config: ThyPopoverConfig, popoverRef: ThyPopoverRef<T>, popoverContainer: ThyPopoverContainer): Injector {

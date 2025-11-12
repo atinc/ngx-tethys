@@ -1,5 +1,10 @@
 import { GlobalPositionStrategy, OverlayRef } from '@angular/cdk/overlay';
-import { ThyAbstractInternalOverlayRef, ThyAbstractOverlayPosition, ThyAbstractOverlayRef } from 'ngx-tethys/core';
+import {
+    ThyAbstractInternalOverlayRef,
+    ThyAbstractOverlayOptions,
+    ThyAbstractOverlayPosition,
+    ThyAbstractOverlayRef
+} from 'ngx-tethys/core';
 
 import { ThyDialogContainer } from './dialog-container.component';
 import { ThyDialogConfig } from './dialog.config';
@@ -18,8 +23,21 @@ export abstract class ThyDialogRef<T, TResult = unknown> extends ThyAbstractOver
 export class ThyInternalDialogRef<T, TResult = unknown> extends ThyAbstractInternalOverlayRef<T, ThyDialogContainer, TResult> {
     thyDialog: ThyAbstractDialog;
 
-    constructor(overlayRef: OverlayRef, containerInstance: ThyDialogContainer, config: ThyDialogConfig<T>, service: ThyAbstractDialog) {
-        super(dialogAbstractOverlayOptions, overlayRef, containerInstance, config);
+    protected get options(): ThyAbstractOverlayOptions {
+        return dialogAbstractOverlayOptions;
+    }
+
+    constructor() {
+        super();
+    }
+
+    override initialize(
+        overlayRef: OverlayRef,
+        containerInstance: ThyDialogContainer,
+        config: ThyDialogConfig<T>,
+        service: ThyAbstractDialog
+    ): void {
+        super.initialize(overlayRef, containerInstance, config);
         this.thyDialog = service;
     }
 

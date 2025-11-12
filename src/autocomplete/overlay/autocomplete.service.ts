@@ -96,7 +96,9 @@ export class ThyAutocompleteService
         containerInstance: ThyAutocompleteContainer,
         config: ThyAutocompleteConfig<any>
     ): ThyInternalAutocompleteRef<T> {
-        return new ThyInternalAutocompleteRef<T>(overlayRef, containerInstance, config);
+        const autocompleteRef = new ThyInternalAutocompleteRef<T>();
+        autocompleteRef.initialize(overlayRef, containerInstance, config);
+        return autocompleteRef;
     }
 
     protected createInjector<T>(
