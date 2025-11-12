@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [19.1.14](https://github.com/atinc/ngx-tethys/compare/19.1.13...19.1.14) (2025-11-12)
+
+
+### Features
+
+* **input-number:** support thyShowStepControls #TINFR-2994 ([#3605](https://github.com/atinc/ngx-tethys/issues/3605)) ([c06a6f8](https://github.com/atinc/ngx-tethys/commit/c06a6f813e619ef63ac99459f8c149439c93bafd)), closes [#TINFR-2994](https://github.com/atinc/ngx-tethys/issues/TINFR-2994)
+
+
+
 ## [19.1.13](https://github.com/atinc/ngx-tethys/compare/19.1.12...19.1.13) (2025-11-05)
 
 
