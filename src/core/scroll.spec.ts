@@ -1,11 +1,10 @@
 import { PlatformLocation } from '@angular/common';
-import { ApplicationRef, Injector, ɵglobal, DOCUMENT } from '@angular/core';
+import { ApplicationRef, ɵglobal, DOCUMENT } from '@angular/core';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { ThyScrollService } from 'ngx-tethys/core';
 
 describe('ThyScrollService', () => {
     const TOP = 10;
-    let injector: Injector;
     let document: MockDocument;
     let scrollService: ThyScrollService;
 
@@ -34,7 +33,7 @@ describe('ThyScrollService', () => {
     });
 
     beforeEach(() => {
-        injector = TestBed.configureTestingModule({
+        TestBed.configureTestingModule({
             providers: [
                 ThyScrollService,
                 { provide: DOCUMENT, useClass: MockDocument },
@@ -42,8 +41,8 @@ describe('ThyScrollService', () => {
             ]
         });
 
-        document = injector.get<MockDocument>(DOCUMENT);
-        scrollService = injector.get(ThyScrollService);
+        document = TestBed.inject<MockDocument>(DOCUMENT);
+        scrollService = TestBed.inject(ThyScrollService);
     });
 
     describe('#setScrollTop', () => {
