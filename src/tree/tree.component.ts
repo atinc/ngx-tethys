@@ -3,24 +3,25 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CdkVirtualScrollViewport, CdkFixedSizeVirtualScroll, CdkVirtualForOf } from '@angular/cdk/scrolling';
 import {
-    ChangeDetectionStrategy,
-    Component,
-    forwardRef,
-    numberAttribute,
-    TemplateRef,
-    ViewEncapsulation,
-    inject,
-    input,
-    signal,
-    effect,
-    computed,
-    model,
-    DestroyRef,
-    viewChild,
-    contentChild,
-    viewChildren,
-    afterNextRender,
-    output
+  ChangeDetectionStrategy,
+  Component,
+  forwardRef,
+  numberAttribute,
+  TemplateRef,
+  ViewEncapsulation,
+  inject,
+  input,
+  signal,
+  effect,
+  computed,
+  model,
+  DestroyRef,
+  viewChild,
+  contentChild,
+  viewChildren,
+  afterNextRender,
+  output,
+  DOCUMENT
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { THY_TREE_ABSTRACT_TOKEN } from './tree-abstract';
@@ -38,7 +39,7 @@ import {
 } from './tree.class';
 import { ThyTreeService } from './tree.service';
 import { ThyTreeNodeComponent } from './tree-node.component';
-import { DOCUMENT } from '@angular/common';
+
 import { CdkDrag, CdkDragDrop, CdkDragEnd, CdkDragMove, CdkDragStart, CdkDropList } from '@angular/cdk/drag-drop';
 import { filter, startWith, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';

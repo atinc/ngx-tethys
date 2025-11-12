@@ -1,29 +1,30 @@
 import {
-    Component,
-    OnInit,
-    ChangeDetectionStrategy,
-    ViewEncapsulation,
-    TemplateRef,
-    HostBinding,
-    NgZone,
-    ChangeDetectorRef,
-    OnDestroy,
-    OnChanges,
-    ViewChild,
-    ElementRef,
-    numberAttribute,
-    inject,
-    input,
-    output,
-    effect,
-    viewChild,
-    Signal,
-    computed
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ViewEncapsulation,
+  TemplateRef,
+  HostBinding,
+  NgZone,
+  ChangeDetectorRef,
+  OnDestroy,
+  OnChanges,
+  ViewChild,
+  ElementRef,
+  numberAttribute,
+  inject,
+  input,
+  output,
+  effect,
+  viewChild,
+  Signal,
+  computed,
+  DOCUMENT
 } from '@angular/core';
 import { Subject, fromEvent, BehaviorSubject, EMPTY, Observable } from 'rxjs';
 import { Platform } from '@angular/cdk/platform';
 import { throttleTime, takeUntil, switchMap } from 'rxjs/operators';
-import { DOCUMENT, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { fadeMotion, ThyScrollService } from 'ngx-tethys/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 

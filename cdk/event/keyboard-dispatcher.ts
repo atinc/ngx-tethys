@@ -6,8 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import { DOCUMENT } from '@angular/common';
-import { Injectable, NgZone, inject } from '@angular/core';
+
+import { Injectable, NgZone, inject, DOCUMENT } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ThyEventDispatcher } from './event-dispatcher';
 

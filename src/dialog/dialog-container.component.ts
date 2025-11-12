@@ -5,19 +5,20 @@ import { filter } from 'rxjs/operators';
 import { AnimationEvent } from '@angular/animations';
 import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
 import { PortalModule } from '@angular/cdk/portal';
-import { DOCUMENT } from '@angular/common';
+
 import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    EventEmitter,
-    HostBinding,
-    NgZone,
-    OnDestroy,
-    Renderer2,
-    ViewChild,
-    inject
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostBinding,
+  NgZone,
+  OnDestroy,
+  Renderer2,
+  ViewChild,
+  inject,
+  DOCUMENT
 } from '@angular/core';
 
 import { thyDialogAnimations } from './dialog-animations';

@@ -1,5 +1,5 @@
-import { Injectable, NgZone, OnDestroy, inject } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { Injectable, NgZone, OnDestroy, inject, DOCUMENT } from '@angular/core';
+
 import { Observable } from 'rxjs';
 import { ThyEventDispatcher } from './event-dispatcher';
 

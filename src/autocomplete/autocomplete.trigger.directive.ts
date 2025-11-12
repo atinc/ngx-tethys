@@ -1,17 +1,18 @@
 import {
-    Directive,
-    ElementRef,
-    NgZone,
-    OnDestroy,
-    OnInit,
-    ViewContainerRef,
-    HostBinding,
-    ChangeDetectorRef,
-    numberAttribute,
-    inject,
-    input,
-    computed,
-    Signal
+  Directive,
+  ElementRef,
+  NgZone,
+  OnDestroy,
+  OnInit,
+  ViewContainerRef,
+  HostBinding,
+  ChangeDetectorRef,
+  numberAttribute,
+  inject,
+  input,
+  computed,
+  Signal,
+  DOCUMENT
 } from '@angular/core';
 import { OverlayRef, Overlay } from '@angular/cdk/overlay';
 import { ThyPlacement } from 'ngx-tethys/core';
@@ -19,7 +20,7 @@ import { ThyAutocompleteService } from './overlay/autocomplete.service';
 import { ThyAutocompleteRef } from './overlay/autocomplete-ref';
 import { ThyAutocomplete } from './autocomplete.component';
 import { ThyOption, ThyOptionSelectionChangeEvent } from 'ngx-tethys/shared';
-import { DOCUMENT } from '@angular/common';
+
 import { Subject, Observable, merge, fromEvent, of, Subscription } from 'rxjs';
 import { ESCAPE, UP_ARROW, ENTER, DOWN_ARROW, TAB, coerceBooleanProperty } from 'ngx-tethys/util';
 import { filter, map, take, delay, switchMap } from 'rxjs/operators';

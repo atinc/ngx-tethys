@@ -1,5 +1,5 @@
-import { DOCUMENT } from '@angular/common';
-import { Injectable, NgZone, inject } from '@angular/core';
+
+import { Injectable, NgZone, inject, DOCUMENT } from '@angular/core';
 import { ThyFullscreenRef } from './fullscreen-ref';
 import { ThyFullscreenConfig, ThyFullscreenMode } from './fullscreen.config';
 
