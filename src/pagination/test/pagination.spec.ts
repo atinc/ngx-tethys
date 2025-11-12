@@ -458,15 +458,23 @@ describe('ThyPagination', () => {
             expect(paginationElement.querySelectorAll('.thy-pagination-size').length).toEqual(1);
         }));
 
-        // TODO
-        xit('should page size changed can works', fakeAsync(() => {
+        it('should page size changed can works', fakeAsync(() => {
             componentInstance.showSizeChanger = true;
-            componentInstance.pagination.pageSize = 50;
             fixture.detectChanges();
-            tick(100);
-            expect(
-                paginationElement.querySelectorAll('.thy-pagination-size')[0].children[0].attributes['ng-reflect-model'].nodeValue
-            ).toEqual('50');
+
+            expect(componentInstance.pagination.pageSize).toBe(20);
+            expect(componentInstance.pageSizeChanged).toHaveBeenCalledTimes(0);
+
+            const paginationDebugElement = fixture.debugElement.query(By.directive(ThyPagination));
+            const paginationComponent = paginationDebugElement.componentInstance as ThyPagination;
+            expect(paginationComponent).toBeTruthy();
+
+            paginationComponent.onPageSizeChange(50);
+            fixture.detectChanges();
+            tick(300);
+
+            expect(componentInstance.pageSizeChanged).toHaveBeenCalledTimes(1);
+            expect(componentInstance.pageSizeChanged).toHaveBeenCalledWith(50);
         }));
 
         it('should set size when thySize changed', fakeAsync(() => {
