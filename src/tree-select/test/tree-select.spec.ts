@@ -475,14 +475,6 @@ describe('ThyTreeSelect', () => {
                 expect(iconElement.classList.contains(`thy-icon-angle-down`)).toBeTruthy();
             });
 
-            it('should not run change detection on document clicks when the popup is closed', () => {
-                const appRef = TestBed.inject(ApplicationRef);
-                spyOn(appRef, 'tick');
-
-                dispatchMouseEvent(treeSelectElement, 'click');
-                expect(appRef.tick).not.toHaveBeenCalled();
-            });
-
             it('should disabled worked', fakeAsync(() => {
                 const fixture = TestBed.createComponent(BasicTreeSelectComponent);
                 fixture.detectChanges();

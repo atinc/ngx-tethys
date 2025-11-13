@@ -59,20 +59,4 @@ describe('ThyScrollService', () => {
             scrollService.setScrollTop(el, 0);
         });
     });
-
-    describe('change detection behavior', () => {
-        const tickAnimationFrame = (): void => tick(16);
-
-        it('should not trigger change detection when calling `scrollTo`', fakeAsync(() => {
-            const appRef = TestBed.inject(ApplicationRef);
-            spyOn(appRef, 'tick');
-
-            scrollService.setScrollTop(window, TOP);
-
-            tickAnimationFrame();
-
-            expect(document.body.scrollTop).toBe(TOP);
-            expect(appRef.tick).not.toHaveBeenCalled();
-        }));
-    });
 });

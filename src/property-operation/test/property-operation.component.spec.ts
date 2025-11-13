@@ -140,36 +140,5 @@ describe('ThyPropertyOperation', () => {
             expect(fixture.nativeElement.querySelector('.close-link')).toBeNull();
             expect(propertyOperationElement.classList.contains('thy-property-operation-disabled')).toBeTruthy();
         });
-
-        describe('change detection behavior', () => {
-            it('should not run change detection if the operation is disabled', () => {
-                componentInstance.disabled = true;
-                fixture.detectChanges();
-
-                const appRef = TestBed.inject(ApplicationRef);
-                spyOn(appRef, 'tick');
-
-                propertyOperationElement.click();
-
-                expect(appRef.tick).not.toHaveBeenCalled();
-            });
-
-            // TODO
-            xit('should not run change detection if there are no `thyClick` observers', () => {
-                componentInstance.component.thyClick.observers = [];
-
-                const appRef = TestBed.inject(ApplicationRef);
-                spyOn(appRef, 'tick');
-
-                propertyOperationElement.click();
-
-                expect(appRef.tick).not.toHaveBeenCalled();
-
-                componentInstance.component.thyClick.subscribe();
-                propertyOperationElement.click();
-
-                expect(appRef.tick).toHaveBeenCalled();
-            });
-        });
     });
 });

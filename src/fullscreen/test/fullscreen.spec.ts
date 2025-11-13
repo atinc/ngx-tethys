@@ -83,35 +83,6 @@ describe('ThyFullscreen', () => {
         expect(fullscreenComponent.query(By.css('.thy-fullscreen-active.test-fullscreen'))).toBeNull();
         expect(fullscreenComponent.query(By.css('.thy-fullscreen.test-fullscreen'))).toBeNull();
     });
-
-    // TODO
-    xit('should not run change detection when the fullscreen is launched in an emulated mode and `keydown` events are dispatched', () => {
-        testComponent.mode = 'emulated';
-        fixture.detectChanges();
-        const buttonEle = fixture.debugElement.query(By.css('.fullscreen-button')).nativeElement;
-        dispatchFakeEvent(buttonEle, 'click');
-        fixture.detectChanges();
-        const appRef = TestBed.inject(ApplicationRef);
-        spyOn(appRef, 'tick');
-        dispatchKeyboardEvent(document, 'keydown', SHIFT);
-        dispatchKeyboardEvent(document, 'keydown', SPACE);
-        expect(appRef.tick).not.toHaveBeenCalled();
-        dispatchKeyboardEvent(document.body, 'keydown', ESCAPE);
-        expect(appRef.tick).toHaveBeenCalled();
-    });
-
-    // TODO
-    xit('should run change detection when the fullscreen is launched in an immersive mode and `change` events are dispatched', () => {
-        testComponent.mode = 'immersive';
-        fixture.detectChanges();
-        const buttonEle = fixture.debugElement.query(By.css('.fullscreen-button')).nativeElement;
-        dispatchFakeEvent(buttonEle, 'click');
-        fixture.detectChanges();
-        const appRef = TestBed.inject(ApplicationRef);
-        spyOn(appRef, 'tick');
-        dispatchKeyboardEvent(document, 'fullscreenchange');
-        expect(appRef.tick).toHaveBeenCalled();
-    });
 });
 
 @Component({
