@@ -1049,7 +1049,6 @@ describe('dropdown options', () => {
             expect(calledConfig.height).toEqual('100px');
         });
 
-        // TODO
         it('should filter invalid options', () => {
             fixture.componentInstance.popoverOptions = {
                 offset: 1,
@@ -1066,7 +1065,6 @@ describe('dropdown options', () => {
             expect(calledConfig.panelClass).toEqual(['thy-dropdown-pane']);
         });
 
-        // TODO
         it('should set placement', () => {
             fixture.componentInstance.placement = 'bottomRight';
             fixture.detectChanges();

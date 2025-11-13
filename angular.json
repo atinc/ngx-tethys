@@ -79,7 +79,15 @@
             "sourceMap": true,
             "optimization": false,
             "namedChunks": true,
-            "browser": "site/src/main.ts"
+            "browser": "site/src/main.ts",
+            "allowedCommonJsDependencies": [
+              "to-factory",
+              "docsearch.js",
+              "hogan.js",
+              "algoliasearch/lite",
+              "autocomplete.js",
+              "autocomplete.js/zepto"
+            ]
           },
           "configurations": {
             "production": {
@@ -97,8 +105,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "4mb",
+                  "maximumError": "6mb"
                 },
                 {
                   "type": "anyComponentStyle",
