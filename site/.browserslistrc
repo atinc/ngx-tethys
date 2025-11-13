@@ -5,8 +5,8 @@
 # You can see what browsers were selected by your queries by running:
 #   npx browserslist
 
-# Updated to support import.meta (Chrome 64+, Firefox 62+, Safari 11.1+, Edge 79+)
-Chrome >= 80
+# Updated to support Angular 20 (Chrome 107+, Firefox 104+, Safari 16+, Edge 107+)
+Chrome >= 107
 ChromeAndroid >= 107
 Edge >= 107
 Firefox >= 104
