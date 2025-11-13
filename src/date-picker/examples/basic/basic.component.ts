@@ -3,7 +3,6 @@ import { FormsModule } from '@angular/forms';
 import {
     DateEntry,
     ThyDatePicker,
-    ThyDatePickerFormatStringPipe,
     ThyDateRangeEntry,
     ThyMonthPicker,
     ThyQuarterPicker,
@@ -16,16 +15,7 @@ import { endOfDay, startOfDay, subWeeks, TinyDate } from 'ngx-tethys/util';
 @Component({
     selector: 'thy-date-picker-basic-example',
     templateUrl: './basic.component.html',
-    imports: [
-        ThyFormGroup,
-        ThyDatePicker,
-        FormsModule,
-        ThyMonthPicker,
-        ThyYearPicker,
-        ThyQuarterPicker,
-        ThyRangePicker,
-        ThyDatePickerFormatStringPipe
-    ]
+    imports: [ThyFormGroup, ThyDatePicker, FormsModule, ThyMonthPicker, ThyYearPicker, ThyQuarterPicker, ThyRangePicker]
 })
 export class ThyDatePickerBasicExampleComponent implements OnInit {
     dateShowTime = {
