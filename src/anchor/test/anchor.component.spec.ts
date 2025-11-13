@@ -45,8 +45,7 @@ describe('thy-anchor', () => {
             expect(Math.floor(currentScrollTop)).toEqual(beforeClickScrollTop);
         }));
 
-        // TODO
-        xit('should scroll to associated anchor when click thy-anchor-link', fakeAsync(() => {
+        it('should scroll to associated anchor when click thy-anchor-link', fakeAsync(() => {
             const staticLink: HTMLElement = debugElement.query(By.css(`[href="#${id}"]`)).nativeElement;
             const targetAnchor: HTMLElement = debugElement.query(By.css(`[id="${id}"]`)).nativeElement;
             const top = Math.floor(getOffset(targetAnchor, window).top - component.thyOffsetTop());
@@ -54,7 +53,8 @@ describe('thy-anchor', () => {
             fixture.detectChanges();
             tick(2000);
             const scrollTop = scrollService.getScroll();
-            expect(Math.floor(scrollTop)).toEqual(top);
+            // Allow 1px difference
+            expect(Math.abs(Math.floor(scrollTop) - top)).toBeLessThanOrEqual(1);
         }));
 
         it('should active associated thy-anchor-link when scrolling to anchor', (done: () => void) => {
@@ -169,8 +169,7 @@ describe('thy-anchor', () => {
             ).toBeTruthy();
         });
 
-        // TODO
-        xit('should scroll to associated anchor when click thy-anchor-link', fakeAsync(() => {
+        it('should scroll to associated anchor when click thy-anchor-link', fakeAsync(() => {
             fixture.componentInstance.thyDirection = 'horizontal';
             fixture.componentInstance.showChildren = false;
             fixture.detectChanges();
@@ -182,7 +181,8 @@ describe('thy-anchor', () => {
             fixture.detectChanges();
             tick(2000);
             const scrollTop = scrollService.getScroll();
-            expect(Math.floor(scrollTop)).toEqual(top);
+            // Allow 1px difference
+            expect(Math.abs(Math.floor(scrollTop) - top)).toBeLessThanOrEqual(1);
         }));
 
         it('should active associated thy-anchor-link when scrolling to anchor', (done: () => void) => {
