@@ -26,6 +26,10 @@ class ZoomStore extends MiniStore<ZoomState> {
         return state.animals;
     };
 
+    getStoreInstanceId(): string {
+        return 'ZoomStore';
+    }
+
     @MiniAction()
     addAnimal(animal: Animal) {
         return of(animal).pipe(
@@ -285,8 +289,7 @@ describe('#mini-store', () => {
     });
 
     describe('#getStoreInstanceId', () => {
-        // TODO
-        xit('should get correct InstanceId', () => {
+        it('should get correct InstanceId', () => {
             const store = new ZoomStore();
             store.initialize({});
             expect(store.getStoreInstanceId()).toEqual('ZoomStore');
