@@ -25,7 +25,7 @@
           "builder": "@angular/build:karma",
           "options": {
             "main": "src/test.ts",
-            "polyfills": ["zone.js"],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "codeCoverage": true,
             "codeCoverageExclude": ["/src/testing/**/*", "src/**/test/**/*", "src/markdown/*"],
             "tsConfig": "src/tsconfig.spec.json",
@@ -59,7 +59,7 @@
               "browser": ""
             },
             "index": "site/src/index.html",
-            "polyfills": ["zone.js"],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "site/tsconfig.app.json",
             "stylePreprocessorOptions": {
               "includePaths": ["./site/src/styles"]
@@ -161,6 +161,7 @@
           "builder": "@angular/build:karma",
           "options": {
             "main": "cdk/test.ts",
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "cdk/tsconfig.spec.json",
             "karmaConfig": "cdk/karma.conf.js",
             "codeCoverage": true,
