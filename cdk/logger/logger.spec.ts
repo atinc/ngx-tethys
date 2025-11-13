@@ -71,7 +71,12 @@ describe('#logger', () => {
             const message = 'Spec createWarnDeprecation my-test has no expectations.';
             myWarnDeprecation(message);
             expect(console.warn).toHaveBeenCalledTimes(1);
-            expect(console.warn).toHaveBeenCalledWith('[my-test]:', 'deprecated:', `${message}`, jasmine.anything());
+
+            const args = (console.warn as jasmine.Spy).calls.argsFor(0);
+            expect(args[0]).toBe('[my-test]:');
+            expect(args[1]).toBe('deprecated:');
+            expect(args[2]).toBe(message);
+            expect(typeof args[3]).toBe('string');
         });
 
         it(`should not log warnDeprecation to the console again when the content is the same`, () => {
@@ -80,7 +85,12 @@ describe('#logger', () => {
             const message = 'Spec createWarnDeprecation my-test has no expectations again.';
             myWarnDeprecation(message);
             expect(console.warn).toHaveBeenCalledTimes(1);
-            expect(console.warn).toHaveBeenCalledWith('[my-test]:', 'deprecated:', `${message}`, jasmine.anything());
+
+            const args = (console.warn as jasmine.Spy).calls.argsFor(0);
+            expect(args[0]).toBe('[my-test]:');
+            expect(args[1]).toBe('deprecated:');
+            expect(args[2]).toBe(message);
+            expect(typeof args[3]).toBe('string');
 
             myWarnDeprecation(message);
             expect(console.warn).toHaveBeenCalledTimes(1);
