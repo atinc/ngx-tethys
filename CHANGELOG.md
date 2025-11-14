@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [20.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/19.1.14...20.0.0-next.0) (2025-11-14)
+
+
+### Features
+
+* upgrade angular to v20 TINFR-2654 ([#3611](https://github.com/atinc/ngx-tethys/issues/3611)) ([ed358f0](https://github.com/atinc/ngx-tethys/commit/ed358f0c341fe6af7725ed43bf44a0ef45b2b6e4))
+
+
+
 ## [19.1.14](https://github.com/atinc/ngx-tethys/compare/19.1.13...19.1.14) (2025-11-12)
 
 
