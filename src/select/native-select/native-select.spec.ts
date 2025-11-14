@@ -155,16 +155,32 @@ describe(`select`, () => {
             expect(spy).toHaveBeenCalled();
         }));
 
-        it('disabled', fakeAsync(() => {
-            expect(debugComponent.attributes['ng-reflect-is-disabled']).toBeUndefined();
-
-            fixture.debugElement.componentInstance.disabled = true;
+        it('should work when disabled is changed', fakeAsync(() => {
             fixture.detectChanges();
-            expect(debugComponent.attributes['ng-reflect-is-disabled']).toBe('true');
+            const selectNativeElement = fixture.debugElement.query(By.css('select')).nativeElement;
+            const component = debugComponent.componentInstance;
+            const changeSpy = spyOn(testComponent, 'change');
 
-            fixture.debugElement.componentInstance.disabled = false;
+            expect(component.disabled()).toBe(false);
+            expect(selectNativeElement.disabled).toBe(false);
+            selectNativeElement.value = 'option1';
+            dispatchFakeEvent(selectNativeElement, 'change');
             fixture.detectChanges();
-            expect(debugComponent.attributes['ng-reflect-is-disabled']).toBe('false');
+            tick();
+            expect(testComponent.value).toBe('option1');
+            expect(changeSpy).toHaveBeenCalled();
+
+            component.setDisabledState(true);
+            fixture.detectChanges();
+            tick();
+            expect(selectNativeElement.disabled).toBe(true);
+            changeSpy.calls.reset();
+            const previousValue = testComponent.value;
+            selectNativeElement.click();
+            fixture.detectChanges();
+            tick();
+            expect(testComponent.value).toBe(previousValue);
+            expect(changeSpy).not.toHaveBeenCalled();
         }));
 
         it('should call blur methods when blur', fakeAsync(() => {

@@ -207,7 +207,9 @@ export class DialogToTopTestComponent implements OnInit {
 
     public openedDialogs: SafeAny[] = [];
 
-    constructor(public viewContainerRef: ViewContainerRef) {}
+    public viewContainerRef: ViewContainerRef = inject(ViewContainerRef);
+
+    constructor() {}
 
     ngOnInit() {}
 

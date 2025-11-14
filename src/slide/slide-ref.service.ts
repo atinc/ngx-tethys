@@ -1,8 +1,10 @@
-import { ThyAbstractInternalOverlayRef, ThyAbstractOverlayPosition, ThyAbstractOverlayRef } from 'ngx-tethys/core';
-
-import { OverlayRef } from '@angular/cdk/overlay';
-import { Injectable, inject } from '@angular/core';
-
+import {
+    ThyAbstractInternalOverlayRef,
+    ThyAbstractOverlayOptions,
+    ThyAbstractOverlayPosition,
+    ThyAbstractOverlayRef
+} from 'ngx-tethys/core';
+import { Injectable } from '@angular/core';
 import { ThySlideContainer } from './slide-container.component';
 import { slideAbstractOverlayOptions, ThySlideConfig } from './slide.config';
 
@@ -17,11 +19,15 @@ export abstract class ThySlideRef<T, TResult = unknown> extends ThyAbstractOverl
  */
 @Injectable()
 export class ThyInternalSlideRef<T = unknown, TResult = unknown>
-    extends ThyAbstractInternalOverlayRef<T, ThySlideContainer, TResult>
+    extends ThyAbstractInternalOverlayRef<T, ThySlideContainer, TResult, ThySlideConfig>
     implements ThySlideRef<T>
 {
-    constructor(overlayRef: OverlayRef, containerInstance: ThySlideContainer, config: ThySlideConfig) {
-        super(slideAbstractOverlayOptions, overlayRef, containerInstance, config);
+    constructor() {
+        super();
+    }
+
+    protected get options(): ThyAbstractOverlayOptions {
+        return slideAbstractOverlayOptions;
     }
 
     updatePosition(position?: ThyAbstractOverlayPosition): this {

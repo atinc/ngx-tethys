@@ -1219,23 +1219,21 @@ describe('ThyTable: sort', () => {
     it(`should emit a sortChange event when sortable-column's header got clicked`, () => {
         testComponent.sortable = true;
         fixture.detectChanges();
-        spyOn(testComponent, 'onThyTableColumnSortChange');
-        expect(testComponent.onThyTableColumnSortChange).toHaveBeenCalledTimes(0);
+        const sortChangeSpy = spyOn(testComponent, 'onThyTableColumnSortChange');
+        expect(sortChangeSpy).toHaveBeenCalledTimes(0);
         const sortableColumnHeader = tableComponent.query(By.css('.thy-table-column-sortable'));
         sortableColumnHeader.nativeElement.dispatchEvent(createFakeEvent('click'));
         fixture.detectChanges();
-        expect(testComponent.onThyTableColumnSortChange).toHaveBeenCalledWith(
-            jasmine.objectContaining({ direction: ThyTableSortDirection.desc })
-        );
+
+        const args = sortChangeSpy.calls.allArgs()[0][0];
+        expect(args.direction).toEqual(ThyTableSortDirection.desc);
 
         sortableColumnHeader.nativeElement.dispatchEvent(createFakeEvent('click'));
-        expect(testComponent.onThyTableColumnSortChange).toHaveBeenCalledWith(
-            jasmine.objectContaining({ direction: ThyTableSortDirection.asc })
-        );
+        const args2 = sortChangeSpy.calls.allArgs()[1][0];
+        expect(args2.direction).toEqual(ThyTableSortDirection.asc);
 
         sortableColumnHeader.nativeElement.dispatchEvent(createFakeEvent('click'));
-        expect(testComponent.onThyTableColumnSortChange).toHaveBeenCalledWith(
-            jasmine.objectContaining({ direction: ThyTableSortDirection.default })
-        );
+        const args3 = sortChangeSpy.calls.allArgs()[2][0];
+        expect(args3.direction).toEqual(ThyTableSortDirection.default);
     });
 });

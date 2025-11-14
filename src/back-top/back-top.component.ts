@@ -18,12 +18,13 @@ import {
     effect,
     viewChild,
     Signal,
-    computed
+    computed,
+    DOCUMENT
 } from '@angular/core';
 import { Subject, fromEvent, BehaviorSubject, EMPTY, Observable } from 'rxjs';
 import { Platform } from '@angular/cdk/platform';
 import { throttleTime, takeUntil, switchMap } from 'rxjs/operators';
-import { DOCUMENT, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { fadeMotion, ThyScrollService } from 'ngx-tethys/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 

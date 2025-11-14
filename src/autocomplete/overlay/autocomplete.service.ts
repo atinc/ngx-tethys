@@ -17,8 +17,8 @@ import {
 import { Platform } from '@angular/cdk/platform';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ViewportRuler } from '@angular/cdk/scrolling';
-import { DOCUMENT } from '@angular/common';
-import { ElementRef, Injectable, Injector, NgZone, OnDestroy, StaticProvider, TemplateRef, inject } from '@angular/core';
+
+import { ElementRef, Injectable, Injector, NgZone, OnDestroy, StaticProvider, TemplateRef, inject, DOCUMENT } from '@angular/core';
 
 import { ThyAutocompleteContainer } from './autocomplete-container.component';
 import { ThyAutocompleteRef, ThyInternalAutocompleteRef } from './autocomplete-ref';
@@ -96,7 +96,9 @@ export class ThyAutocompleteService
         containerInstance: ThyAutocompleteContainer,
         config: ThyAutocompleteConfig<any>
     ): ThyInternalAutocompleteRef<T> {
-        return new ThyInternalAutocompleteRef<T>(overlayRef, containerInstance, config);
+        const autocompleteRef = new ThyInternalAutocompleteRef<T>();
+        autocompleteRef.initialize(overlayRef, containerInstance, config);
+        return autocompleteRef;
     }
 
     protected createInjector<T>(

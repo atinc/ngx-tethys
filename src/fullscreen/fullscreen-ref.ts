@@ -1,7 +1,7 @@
 import { coerceElement } from '@angular/cdk/coercion';
 import { ESCAPE } from '@angular/cdk/keycodes';
-import { DOCUMENT } from '@angular/common';
-import { ElementRef, Inject, NgZone } from '@angular/core';
+
+import { ElementRef, Inject, NgZone, DOCUMENT } from '@angular/core';
 import { fromEvent, merge, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ThyFullscreenConfig, ThyFullscreenMode } from './fullscreen.config';

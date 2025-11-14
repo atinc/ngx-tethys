@@ -4,9 +4,11 @@ import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core
 import { By } from '@angular/platform-browser';
 import { ThyRateModule, ThyRate } from 'ngx-tethys/rate';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
-import { dispatchFakeEvent } from 'ngx-tethys/testing';
+import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyRateTemplateExampleComponent } from '../examples/template/template.component';
 import { provideHttpClient } from '@angular/common/http';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 
 @Component({
     selector: 'thy-rate-basic-test',
@@ -382,13 +384,18 @@ describe('Rate tooltip component', () => {
     let testRateTooltipComponent: RateTooltipTestComponent;
     let rateTooltipDebugComponent: DebugElement;
     let rateTooltipElement: HTMLElement;
+    let overlayContainer: OverlayContainer;
+    let overlayContainerElement: HTMLElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyRateModule],
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(), provideNoopAnimations()]
         });
         TestBed.compileComponents();
+
+        overlayContainer = TestBed.inject(OverlayContainer);
+        overlayContainerElement = overlayContainer.getContainerElement();
     });
 
     beforeEach(() => {
@@ -398,21 +405,36 @@ describe('Rate tooltip component', () => {
         rateTooltipElement = rateTooltipDebugComponent.nativeElement;
     });
 
+    afterEach(() => {
+        if (overlayContainer) {
+            overlayContainer.ngOnDestroy();
+        }
+    });
+
     it('should create rate tooltip component', () => {
         expect(testRateTooltipComponent).toBeTruthy();
         expect(rateTooltipElement).toBeTruthy();
     });
 
     it('should get correct text when tooltip work', fakeAsync(() => {
-        testRateTooltipComponent.value = 5;
         fixture.detectChanges();
-        tick(500);
-        fixture.detectChanges();
-        tick(500);
-        fixture.detectChanges();
+
         const rateItems = (fixture.debugElement.nativeElement as HTMLElement).querySelectorAll('.thy-rate-star');
-        rateItems.forEach((rate, ind) => {
-            expect(rate.attributes.getNamedItem('ng-reflect-thy-tooltip-content').value).toContain(testRateTooltipComponent.tooltips[ind]);
+        expect(rateItems.length).toBe(5);
+
+        rateItems.forEach((star, index) => {
+            const starElement = star as HTMLElement;
+            const expectedTooltip = testRateTooltipComponent.tooltips[index];
+
+            dispatchMouseEvent(starElement, 'mouseenter');
+            fixture.detectChanges();
+            tick(200);
+            expect(overlayContainerElement.textContent).toContain(expectedTooltip);
+
+            dispatchMouseEvent(starElement, 'mouseleave');
+            fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
         });
     }));
 });

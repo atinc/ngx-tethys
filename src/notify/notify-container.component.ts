@@ -19,12 +19,11 @@ import { AsyncPipe } from '@angular/common';
 export class ThyNotifyContainer extends ThyAbstractMessageContainerComponent {
     notifyQueue = inject(ThyNotifyQueue);
 
-    constructor() {
+    public defaultConfig = (() => {
         const defaultConfig = inject(THY_NOTIFY_DEFAULT_CONFIG);
-
-        super({
+        return {
             ...THY_NOTIFY_DEFAULT_CONFIG_VALUE,
             ...defaultConfig
-        });
-    }
+        };
+    })();
 }

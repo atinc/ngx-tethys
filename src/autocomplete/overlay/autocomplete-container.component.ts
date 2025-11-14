@@ -4,8 +4,8 @@ import { filter } from 'rxjs/operators';
 
 import { AnimationEvent } from '@angular/animations';
 import { PortalModule } from '@angular/cdk/portal';
-import { DOCUMENT } from '@angular/common';
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, NgZone, ViewChild, inject } from '@angular/core';
+
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, NgZone, ViewChild, inject, DOCUMENT } from '@angular/core';
 
 import { thyAutocompleteAnimations } from './autocomplete-animations';
 import { ThyAutocompleteConfig } from './autocomplete.config';

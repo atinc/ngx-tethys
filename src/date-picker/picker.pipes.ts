@@ -43,7 +43,7 @@ export class ThyDatePickerFormatPipe implements PipeTransform {
     name: 'thyQuarterPickerFormat'
 })
 export class ThyQuarterPickerFormatPipe implements PipeTransform {
-    constructor(private datePickerConfigService: ThyDatePickerConfigService) {}
+    private datePickerConfigService = inject(ThyDatePickerConfigService);
 
     transform(originalValue: ThyCompatibleDate | DateEntry | ThyDateRangeEntry, formatStr?: string, separator?: string): string {
         const { value } = transformDateValue(originalValue);
@@ -91,7 +91,6 @@ export class ThyDatePickerFormatStringPipe implements PipeTransform {
     name: 'showYearTip'
 })
 export class DatePickerAdvancedShowYearTipPipe implements PipeTransform {
-    constructor() {}
     transform(value: AdvancedSelectableCell, type: ThyDateGranularity): boolean {
         return type !== 'year' && value.startValue.isSameDay(value.startValue.startOfYear());
     }

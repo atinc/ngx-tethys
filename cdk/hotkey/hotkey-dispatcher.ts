@@ -1,8 +1,7 @@
 import { coerceElement } from '@angular/cdk/coercion';
-import { DOCUMENT } from '@angular/common';
-import { Injectable, NgZone, ElementRef, inject } from '@angular/core';
+import { Injectable, NgZone, ElementRef } from '@angular/core';
 import { ThyEventDispatcher } from '@tethys/cdk/event';
-import { fromEvent, Observable, OperatorFunction, Subscriber } from 'rxjs';
+import { fromEvent, Observable, OperatorFunction } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { isFormElement, isString, isUndefinedOrNull } from '@tethys/cdk/is';
 import { isHotkey } from './hotkey';
@@ -20,12 +19,7 @@ function runInZone<T>(zone: NgZone): OperatorFunction<T, T> {
 
 @Injectable({ providedIn: 'root' })
 export class ThyHotkeyDispatcher extends ThyEventDispatcher {
-    constructor() {
-        const document = inject(DOCUMENT);
-        const ngZone = inject(NgZone);
-
-        super(document, ngZone, 'keydown');
-    }
+    eventName = 'keydown';
 
     private createKeydownObservable(scope: Element | Document) {
         if (scope === this.document) {

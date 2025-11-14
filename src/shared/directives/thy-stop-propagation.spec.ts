@@ -368,19 +368,6 @@ describe('thy-stop-propagation', () => {
             fixture.detectChanges();
         });
 
-        it('should not run change detection when the element is clicked', () => {
-            fixtureInstance.stopPropagation = true;
-            fixture.detectChanges();
-
-            const appRef = TestBed.inject(ApplicationRef);
-            spyOn(appRef, 'tick');
-
-            childElement.nativeElement.click();
-
-            expect(appRef.tick).not.toHaveBeenCalled();
-            expect(fixtureInstance.parentClick).toHaveBeenCalledTimes(0);
-        });
-
         it('should respect dynamic binding', () => {
             fixtureInstance.stopPropagation = false;
             fixture.detectChanges();

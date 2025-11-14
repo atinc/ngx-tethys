@@ -1,28 +1,9 @@
 import { isEmpty, isString } from 'ngx-tethys/util';
-import { fromEvent, Subject } from 'rxjs';
-import { filter, takeUntil, tap } from 'rxjs/operators';
-
-import {
-    DestroyRef,
-    Directive,
-    ElementRef,
-    EventEmitter,
-    HostBinding,
-    Inject,
-    Input,
-    NgZone,
-    OnInit,
-    Output,
-    Renderer2,
-    inject,
-    input,
-    output,
-    signal
-} from '@angular/core';
+import { fromEvent } from 'rxjs';
+import { filter, tap } from 'rxjs/operators';
+import { DestroyRef, Directive, NgZone, OnInit, Renderer2, inject, input, output, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-
 import { FileSelectBaseDirective } from './file-select-base';
-import { THY_UPLOAD_DEFAULT_OPTIONS, ThyUploadConfig } from './upload.config';
 import { ThyFileSelectEvent } from './types';
 
 /**
@@ -50,13 +31,12 @@ export class ThyFileDropDirective extends FileSelectBaseDirective implements OnI
 
     private destroyRef = inject(DestroyRef);
 
-    constructor(
-        public elementRef: ElementRef,
-        public renderer: Renderer2,
-        public ngZone: NgZone,
-        @Inject(THY_UPLOAD_DEFAULT_OPTIONS) public defaultConfig: ThyUploadConfig
-    ) {
-        super(elementRef, defaultConfig);
+    private renderer: Renderer2 = inject(Renderer2);
+
+    private ngZone: NgZone = inject(NgZone);
+
+    constructor() {
+        super();
     }
 
     public ngOnInit(): void {
