@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [20.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/20.0.0-next.1...20.0.0-next.2) (2025-11-17)
+
+
+### Bug Fixes
+
+* fix peerDependencies for @tethys/cdk ([#3615](https://github.com/atinc/ngx-tethys/issues/3615)) ([66030b1](https://github.com/atinc/ngx-tethys/commit/66030b18e3f62492c282b6b0b17e3a4bd935902e))
+
+
+
 # [20.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/20.0.0-next.0...20.0.0-next.1) (2025-11-17)
 
 
