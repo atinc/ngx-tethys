@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [20.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/20.0.0-next.0...20.0.0-next.1) (2025-11-17)
+
+
+### Features
+
+* upgrade peerDependencies angular to v20 ([#3613](https://github.com/atinc/ngx-tethys/issues/3613)) ([83536a3](https://github.com/atinc/ngx-tethys/commit/83536a382de152268123b0c67e7dc8c26ae244a3))
+
+
+
 # [20.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/19.1.14...20.0.0-next.0) (2025-11-14)
 
 
