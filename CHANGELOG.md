@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [20.0.0-next.3](https://github.com/atinc/ngx-tethys/compare/20.0.0-next.2...20.0.0-next.3) (2025-11-20)
+
+
+### Bug Fixes
+
+* export behaviors as public api ([#3617](https://github.com/atinc/ngx-tethys/issues/3617)) ([261f04f](https://github.com/atinc/ngx-tethys/commit/261f04f8b35d7dd1d8290cea4c3e6ede4df3c374))
+
+
+
 # [20.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/20.0.0-next.1...20.0.0-next.2) (2025-11-17)
 
 
