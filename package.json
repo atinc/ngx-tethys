@@ -97,7 +97,7 @@
     "@date-fns/tz": "1.2.0",
     "@docgeni/cli": "2.6.0-next.0",
     "@docgeni/template": "2.6.0-next.0",
-    "@schematics/angular": "^18.2.0",
+    "@schematics/angular": "^20.3.12",
     "@tethys/icons": "1.4.50",
     "@types/highlight.js": "^9.12.4",
     "@types/jasmine": "~2.8.6",
