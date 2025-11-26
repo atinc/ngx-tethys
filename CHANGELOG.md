@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [20.0.0](https://github.com/atinc/ngx-tethys/compare/20.0.0-next.3...20.0.0) (2025-11-26)
+
+
+### Bug Fixes
+
+* **date-picker:** fix TypeError: templateRef.createEmbeddedViewImpl is not a function in calendar ([#3619](https://github.com/atinc/ngx-tethys/issues/3619)) ([7b2f807](https://github.com/atinc/ngx-tethys/commit/7b2f807c15d2d40f372013d919ccd136148aac13))
+
+
+
 # [20.0.0-next.3](https://github.com/atinc/ngx-tethys/compare/20.0.0-next.2...20.0.0-next.3) (2025-11-20)
 
 
