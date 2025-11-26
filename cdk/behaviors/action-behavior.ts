@@ -1,9 +1,7 @@
 import { Observable, throwError } from 'rxjs';
 import { finalize, shareReplay, tap } from 'rxjs/operators';
-
 import { Signal, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-
 import { Behavior, BehaviorContext, createBehaviorFromFunction, handleBehaviorError, pickBehaviorCallbacks } from './behavior';
 import { ErrorFn, ExtractObservableValue, SuccessFn } from './types';
 

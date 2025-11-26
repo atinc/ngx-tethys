@@ -574,17 +574,22 @@ describe('ThyDatePickerComponent', () => {
         }));
 
         it('should support thyDateChange without triggerPreset when manual', fakeAsync(() => {
+            fixtureInstance.thyValue = new Date('2018-11-11');
             const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
             fixture.detectChanges();
             openPickerByClickTrigger();
             const cell = getFirstCell();
+            const cellText = cell.textContent.trim();
             dispatchMouseEvent(cell, 'click');
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
             expect(thyDateChange).toHaveBeenCalled();
             const result = thyDateChange.calls.allArgs()[0][0];
-            expect(result).toEqual(jasmine.objectContaining({ value: jasmine.anything() }));
+
+            expect(result.value instanceof TinyDate).toBe(true);
+            expect(result.value.getDate()).toBe(+cellText);
+            expect(result.triggerPreset).toBeUndefined();
         }));
 
         it('should support thyTimestampPrecision to milliseconds', fakeAsync(() => {

@@ -1,6 +1,6 @@
-import { Directive, NgZone, ElementRef, HostBinding, Input, OnDestroy, Renderer2, inject } from '@angular/core';
+import { Directive, NgZone, ElementRef, HostBinding, Input, OnDestroy, Renderer2, inject, DOCUMENT } from '@angular/core';
 import { DragRef } from './drag-ref';
-import { DOCUMENT } from '@angular/common';
+
 import { ThyDragDropService } from './drag-drop.service';
 import { IThyDragDirective, THY_DROP_CONTAINER_DIRECTIVE } from './drag-drop.token';
 import { coerceBooleanProperty } from 'ngx-tethys/util';

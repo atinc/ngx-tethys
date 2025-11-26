@@ -1,7 +1,7 @@
 ---
 title: 19.x 升级指南
 path: 'migration-v19'
-order: 991
+order: 988
 ---
 
 <alert>本文档将帮助你从 ngx-tethys 18.x 版本升级到 19.x 版本。</alert>

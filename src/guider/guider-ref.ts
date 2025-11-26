@@ -1,12 +1,12 @@
 import { Router } from '@angular/router';
 import { helpers } from 'ngx-tethys/util';
-import { DOCUMENT } from '@angular/common';
+
 import { ThyPopover } from 'ngx-tethys/popover';
 import { IThyGuiderManager, IThyGuiderRef } from './guider.interface';
 import { ThyGuiderStepRef } from './guider-step-ref';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { ThyGuiderConfig, ThyGuiderStep } from './guider.class';
-import { Inject, NgZone, RendererFactory2 } from '@angular/core';
+import { Inject, NgZone, RendererFactory2, DOCUMENT } from '@angular/core';
 import { Overlay } from '@angular/cdk/overlay';
 
 export class ThyGuiderRef implements IThyGuiderRef {

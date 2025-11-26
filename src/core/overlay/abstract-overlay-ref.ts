@@ -1,8 +1,6 @@
 import { Observable, Subject } from 'rxjs';
 import { filter, finalize, take } from 'rxjs/operators';
-
 import { GlobalPositionStrategy, OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
-
 import { ESCAPE } from 'ngx-tethys/util';
 import { ThyAbstractOverlayContainer } from './abstract-overlay-container';
 import { ThyAbstractOverlayConfig, ThyAbstractOverlayOptions, ThyAbstractOverlayPosition } from './abstract-overlay.config';
@@ -78,16 +76,17 @@ function getUniqueId(name: string) {
 export abstract class ThyAbstractInternalOverlayRef<
     T,
     TContainer extends ThyAbstractOverlayContainer,
-    TResult = undefined
+    TResult = undefined,
+    TConfig extends ThyAbstractOverlayConfig = ThyAbstractOverlayConfig
 > extends ThyAbstractOverlayRef<T, TContainer, TResult> {
     /** The instance of component opened into the dialog. */
     componentInstance: T;
 
     /** Whether the user is allowed to close the dialog. */
-    backdropClosable: boolean = this.config.backdropClosable;
+    backdropClosable: boolean;
 
     /** Whether the user is not allowed to close the dialog. */
-    disableClose: boolean = this.config.disableClose;
+    disableClose: boolean;
 
     /** Subject for notifying the user that the dialog has finished opening. */
     private readonly _afterOpened = new Subject<void>();
@@ -101,19 +100,28 @@ export abstract class ThyAbstractInternalOverlayRef<
     /** Result to be passed to afterClosed. */
     private _result: TResult | undefined;
 
+    protected abstract get options(): ThyAbstractOverlayOptions;
+
+    protected overlayRef: OverlayRef;
+
+    protected config: TConfig;
+
     /** Fetches the position strategy object from the overlay ref. */
     protected getPositionStrategy(): PositionStrategy {
         return this.overlayRef.getConfig().positionStrategy;
     }
 
-    constructor(
-        private options: ThyAbstractOverlayOptions,
-        protected overlayRef: OverlayRef,
-        containerInstance: TContainer,
-        protected config: ThyAbstractOverlayConfig
-    ) {
+    constructor() {
         super();
+    }
+
+    initialize(overlayRef: OverlayRef, containerInstance: TContainer, config: TConfig, ...args: any[]): void {
+        this.overlayRef = overlayRef;
         this.containerInstance = containerInstance;
+        this.config = config;
+        this.backdropClosable = config.backdropClosable;
+        this.disableClose = config.disableClose;
+
         // Pass the id along to the container.
         this.id = containerInstance.id = config.id ? config.id : `thy-${this.options.name}-${getUniqueId(this.options.name)}`;
         // Emit when opening animation completes
@@ -141,7 +149,7 @@ export abstract class ThyAbstractInternalOverlayRef<
             }
         });
 
-        overlayRef
+        this.overlayRef
             .detachments()
             .pipe(
                 finalize(() => {
@@ -157,7 +165,7 @@ export abstract class ThyAbstractInternalOverlayRef<
             });
 
         // ESC close
-        overlayRef
+        this.overlayRef
             .keydownEvents()
             .pipe(filter(event => event.keyCode === ESCAPE))
             .subscribe(() => {

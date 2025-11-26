@@ -18,8 +18,8 @@ import {
 } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { DOCUMENT } from '@angular/common';
-import { ElementRef, Injectable, Injector, NgZone, OnDestroy, StaticProvider, TemplateRef, inject } from '@angular/core';
+
+import { ElementRef, Injectable, Injector, NgZone, OnDestroy, StaticProvider, TemplateRef, inject, DOCUMENT } from '@angular/core';
 
 import { ThyPopoverContainer } from './popover-container.component';
 import { ThyInternalPopoverRef, ThyPopoverRef } from './popover-ref';
@@ -113,7 +113,9 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
         containerInstance: ThyPopoverContainer,
         config: ThyPopoverConfig
     ): ThyAbstractOverlayRef<T, ThyPopoverContainer, TResult> {
-        return new ThyInternalPopoverRef(overlayRef, containerInstance, config);
+        const popoverRef = new ThyInternalPopoverRef<T, TResult>();
+        popoverRef.initialize(overlayRef, containerInstance, config);
+        return popoverRef;
     }
 
     protected createInjector<T>(config: ThyPopoverConfig, popoverRef: ThyPopoverRef<T>, popoverContainer: ThyPopoverContainer): Injector {

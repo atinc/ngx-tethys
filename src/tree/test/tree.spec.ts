@@ -1,5 +1,5 @@
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
-import { Component, OnInit, viewChild } from '@angular/core';
+import { Component, OnInit, viewChild, DOCUMENT } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -17,7 +17,7 @@ import {
 } from 'ngx-tethys/tree';
 import { bigTreeNodes, treeNodes, hasCheckTreeNodes } from './mock';
 import { CDK_DRAG_CONFIG, DragDropConfig } from '@angular/cdk/drag-drop';
-import { DOCUMENT } from '@angular/common';
+
 import { scrollToViewport, scrollToViewportOffset } from './utils';
 import { provideHttpClient } from '@angular/common/http';
 import { ThyFlexibleText, ThyFlexibleTextModule } from 'ngx-tethys/flexible-text';
@@ -567,13 +567,12 @@ describe('ThyTreeComponent', () => {
 
             tick();
 
-            expect(dragDropSpy).toHaveBeenCalledWith(
-                jasmine.objectContaining({
-                    dragNode: component.treeComponent().getTreeNode(startNodeData.key),
-                    targetNode: component.treeComponent().getTreeNode(targetNodeData.key),
-                    afterNode: undefined
-                })
-            );
+            expect(dragDropSpy).toHaveBeenCalledTimes(1);
+            const args = dragDropSpy.calls.allArgs()[0][0];
+            const treeComponent = component.treeComponent();
+            expect(args.dragNode).toEqual(treeComponent.getTreeNode(startNodeData.key));
+            expect(args.targetNode).toEqual(treeComponent.getTreeNode(targetNodeData.key));
+            expect(args.afterNode).toEqual(undefined);
         }));
     });
 
@@ -633,11 +632,27 @@ describe('ThyTreeComponent', () => {
 
         function dragToTargetNode(options: { start: string; target: string; position: ThyTreeDropPosition }) {
             const nodeDebugElements = fixture.debugElement.queryAll(By.directive(ThyTreeNodeComponent));
-            const startNode = nodeDebugElements.find(item => item.componentInstance.node().key === options.start);
-            const targetNode = nodeDebugElements.find(item => item.componentInstance.node().key === options.target);
+
+            let startNode: any = null;
+            let targetNode: any = null;
+
+            for (let i = 0; i < nodeDebugElements.length; i++) {
+                const item = nodeDebugElements[i];
+                const node = item.componentInstance?.node();
+                if (node && node.key === options.start && !startNode) {
+                    startNode = item;
+                }
+                if (node && node.key === options.target && !targetNode) {
+                    targetNode = item;
+                }
+            }
+
+            if (!startNode || !targetNode) {
+                throw new Error(`Cannot find node: start=${options.start}, target=${options.target}`);
+            }
 
             // elementFromPoint 只能获取可视窗口的元素，但是测试环境是不确定的，可能受到滚动条影响原因，所以通过fake函数指定目标元素
-            elementFromPointSpy.and.callFake(() => targetNode.nativeElement);
+            elementFromPointSpy.and.returnValue(targetNode.nativeElement);
 
             dargNode(fixture, startNode.nativeElement, targetNode.nativeElement, options.position);
         }
@@ -655,13 +670,12 @@ describe('ThyTreeComponent', () => {
                 position: ThyTreeDropPosition.before
             });
 
-            expect(dragDropSpy).toHaveBeenCalledWith(
-                jasmine.objectContaining({
-                    dragNode: component.treeComponent().getTreeNode('001'),
-                    targetNode: null,
-                    afterNode: component.treeComponent().getTreeNode('002')
-                })
-            );
+            expect(dragDropSpy).toHaveBeenCalledTimes(1);
+            const args = dragDropSpy.calls.allArgs()[0][0];
+            const treeComponent = component.treeComponent();
+            expect(args.dragNode).toEqual(treeComponent.getTreeNode('001'));
+            expect(args.targetNode).toEqual(null);
+            expect(args.afterNode).toEqual(treeComponent.getTreeNode('002'));
         }));
 
         it('should successfully drag node to the target after position"', fakeAsync(() => {
@@ -673,13 +687,13 @@ describe('ThyTreeComponent', () => {
                 position: ThyTreeDropPosition.after
             });
 
-            expect(dragDropSpy).toHaveBeenCalledWith(
-                jasmine.objectContaining({
-                    dragNode: component.treeComponent().getTreeNode('002'),
-                    targetNode: component.treeComponent().getTreeNode('001'),
-                    afterNode: component.treeComponent().getTreeNode('001-01')
-                })
-            );
+            fixture.detectChanges();
+            expect(dragDropSpy).toHaveBeenCalledTimes(1);
+            const args = dragDropSpy.calls.allArgs()[0][0];
+            const treeComponent = component.treeComponent();
+            expect(args.dragNode).toEqual(treeComponent.getTreeNode('002'));
+            expect(args.targetNode).toEqual(treeComponent.getTreeNode('001'));
+            expect(args.afterNode).toEqual(treeComponent.getTreeNode('001-01'));
         }));
 
         it('should successfully drag node to the target in position"', fakeAsync(() => {
@@ -691,13 +705,12 @@ describe('ThyTreeComponent', () => {
                 position: ThyTreeDropPosition.in
             });
 
-            expect(dragDropSpy).toHaveBeenCalledWith(
-                jasmine.objectContaining({
-                    dragNode: component.treeComponent().getTreeNode('002'),
-                    targetNode: component.treeComponent().getTreeNode('001'),
-                    afterNode: component.treeComponent().getTreeNode('001-01')
-                })
-            );
+            expect(dragDropSpy).toHaveBeenCalledTimes(1);
+            const args = dragDropSpy.calls.allArgs()[0][0];
+            const treeComponent = component.treeComponent();
+            expect(args.dragNode).toEqual(treeComponent.getTreeNode('002'));
+            expect(args.targetNode).toEqual(treeComponent.getTreeNode('001'));
+            expect(args.afterNode).toEqual(treeComponent.getTreeNode('001-01'));
         }));
 
         it('should update the tree structure correctly when dragging a node to a different level', fakeAsync(() => {

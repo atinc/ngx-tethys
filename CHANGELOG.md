@@ -2,6 +2,42 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [20.0.0-next.3](https://github.com/atinc/ngx-tethys/compare/20.0.0-next.2...20.0.0-next.3) (2025-11-20)
+
+
+### Bug Fixes
+
+* export behaviors as public api ([#3617](https://github.com/atinc/ngx-tethys/issues/3617)) ([261f04f](https://github.com/atinc/ngx-tethys/commit/261f04f8b35d7dd1d8290cea4c3e6ede4df3c374))
+
+
+
+# [20.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/20.0.0-next.1...20.0.0-next.2) (2025-11-17)
+
+
+### Bug Fixes
+
+* fix peerDependencies for @tethys/cdk ([#3615](https://github.com/atinc/ngx-tethys/issues/3615)) ([66030b1](https://github.com/atinc/ngx-tethys/commit/66030b18e3f62492c282b6b0b17e3a4bd935902e))
+
+
+
+# [20.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/20.0.0-next.0...20.0.0-next.1) (2025-11-17)
+
+
+### Features
+
+* upgrade peerDependencies angular to v20 ([#3613](https://github.com/atinc/ngx-tethys/issues/3613)) ([83536a3](https://github.com/atinc/ngx-tethys/commit/83536a382de152268123b0c67e7dc8c26ae244a3))
+
+
+
+# [20.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/19.1.14...20.0.0-next.0) (2025-11-14)
+
+
+### Features
+
+* upgrade angular to v20 TINFR-2654 ([#3611](https://github.com/atinc/ngx-tethys/issues/3611)) ([ed358f0](https://github.com/atinc/ngx-tethys/commit/ed358f0c341fe6af7725ed43bf44a0ef45b2b6e4))
+
+
+
 ## [19.1.14](https://github.com/atinc/ngx-tethys/compare/19.1.13...19.1.14) (2025-11-12)
 
 

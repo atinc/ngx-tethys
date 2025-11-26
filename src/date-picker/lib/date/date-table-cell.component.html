@@ -26,7 +26,7 @@
       tabindex="0"
       class="{{ prefixClass }}-date thy-calendar-full-cell-inner"
       [class.thy-calendar-full-calendar-date-today]="dateCell.isToday">
-      @if (dateCell.fullCellRender) {
+      @if (isTemplateRef(dateCell.fullCellRender)) {
         <ng-container *ngTemplateOutlet="$any(dateCell.fullCellRender); context: { $implicit: dateCell.value }"> </ng-container>
       } @else {
         <div class="{{ prefixClass }}-date-value">
@@ -35,7 +35,9 @@
           </span>
         </div>
         <div class="{{ prefixClass }}-date-content">
-          <ng-container *ngTemplateOutlet="$any(dateCellRender); context: { $implicit: dateCell.value }"> </ng-container>
+          @if (isTemplateRef(dateCellRender)) {
+            <ng-container *ngTemplateOutlet="$any(dateCellRender); context: { $implicit: dateCell.value }"> </ng-container>
+          }
         </div>
       }
     </div>

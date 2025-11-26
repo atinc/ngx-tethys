@@ -5,11 +5,11 @@
 # You can see what browsers were selected by your queries by running:
 #   npx browserslist
 
-> 0.25%
-last 2 versions
-last 10 chrome versions
-Firefox ESR
-not dead
-not IE 9-11 # For IE 9-11 support, remove 'not'.
-not kaios 2.5
-not op_mini all
+# Updated to support Angular 20 (Chrome 107+, Firefox 104+, Safari 16+, Edge 107+)
+Chrome >= 107
+ChromeAndroid >= 107
+Edge >= 107
+Firefox >= 104
+FirefoxAndroid >= 104
+Safari >= 16
+iOS >= 16

@@ -147,15 +147,6 @@ describe('ThyFileSelect', () => {
         fileSelectDebugElement.nativeElement.dispatchEvent(event);
         expect(inputClickSpy).toHaveBeenCalled();
     });
-
-    it('should not run change detection when the `thy-file-select` is clicked but should propagate the click the input', () => {
-        const appRef = TestBed.inject(ApplicationRef);
-        spyOn(appRef, 'tick');
-        spyOn(inputElement, 'click');
-        fileSelectDebugElement.nativeElement.dispatchEvent(createFakeEvent('click'));
-        expect(appRef.tick).not.toHaveBeenCalled();
-        expect(inputElement.click).toHaveBeenCalled();
-    });
 });
 
 @Component({

@@ -60,7 +60,9 @@ export class ExampleComponent implements OnInit {
 
     private tooltipRef: ThyTooltipRef;
 
-    constructor(private tooltipService: ThyTooltipService) {}
+    private tooltipService = inject(ThyTooltipService);
+
+    constructor() {}
 
     ngOnInit(): void {
         this.tooltipRef = this.tooltipService.create(this.tooltipHostElementRef, {

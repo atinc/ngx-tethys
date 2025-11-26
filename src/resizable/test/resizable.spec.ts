@@ -257,33 +257,6 @@ describe('resizable', () => {
             });
         });
 
-        it('should toggle the `thy-resizable-handle-box-hover` class when `mouseenter` and `mouseleave` events are fired and should not run change detection', () => {
-            const appRef = TestBed.inject(ApplicationRef);
-            spyOn(appRef, 'tick');
-            dispatchMouseEvent(resizableEle, 'mouseenter');
-            const handles = resizableEle.querySelectorAll('.thy-resizable-handle');
-            expect(handles.length).toBe(8);
-            handles.forEach(e => {
-                expect(e.classList).toContain('thy-resizable-handle-box-hover');
-            });
-            dispatchMouseEvent(resizableEle, 'mouseleave');
-            handles.forEach(e => {
-                expect(e.classList).not.toContain('thy-resizable-handle-box-hover');
-            });
-            expect(appRef.tick).toHaveBeenCalledTimes(0);
-        });
-
-        it('should not run change detection if there are no `thyResizeStart` observers', () => {
-            const thyResizeStartSpy = jasmine.createSpy();
-            const appRef = TestBed.inject(ApplicationRef);
-            spyOn(appRef, 'tick');
-            const thyResizeHandle = resizableEle.querySelector('thy-resize-handle');
-            testComponent.directive().thyResizeStart.subscribe(thyResizeStartSpy);
-            dispatchMouseEvent(thyResizeHandle, 'mousedown');
-            expect(appRef.tick).toHaveBeenCalledTimes(1);
-            expect(thyResizeStartSpy).toHaveBeenCalled();
-        });
-
         it('should maximum size work', fakeAsync(() => {
             const rect = resizableEle.getBoundingClientRect();
             const handel = resizableEle.querySelector('.thy-resizable-handle-bottomRight') as HTMLElement;

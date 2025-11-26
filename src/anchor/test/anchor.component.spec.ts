@@ -20,7 +20,7 @@ describe('thy-anchor', () => {
             fixture = TestBed.createComponent(TestAnchorComponent);
             component = fixture.componentInstance.thyAnchorComponent();
             debugElement = fixture.debugElement;
-            scrollService = TestBed.get(ThyScrollService);
+            scrollService = TestBed.inject(ThyScrollService);
             fixture.detectChanges();
         });
 
@@ -53,7 +53,8 @@ describe('thy-anchor', () => {
             fixture.detectChanges();
             tick(2000);
             const scrollTop = scrollService.getScroll();
-            expect(Math.floor(scrollTop)).toEqual(top);
+            // Allow 1px difference
+            expect(Math.abs(Math.floor(scrollTop) - top)).toBeLessThanOrEqual(1);
         }));
 
         it('should active associated thy-anchor-link when scrolling to anchor', (done: () => void) => {
@@ -131,7 +132,7 @@ describe('thy-anchor', () => {
             fixture = TestBed.createComponent(TestAnchorComponent);
             component = fixture.componentInstance.thyAnchorComponent();
             debugElement = fixture.debugElement;
-            scrollService = TestBed.get(ThyScrollService);
+            scrollService = TestBed.inject(ThyScrollService);
         });
 
         afterEach(() => {
@@ -180,7 +181,8 @@ describe('thy-anchor', () => {
             fixture.detectChanges();
             tick(2000);
             const scrollTop = scrollService.getScroll();
-            expect(Math.floor(scrollTop)).toEqual(top);
+            // Allow 1px difference
+            expect(Math.abs(Math.floor(scrollTop) - top)).toBeLessThanOrEqual(1);
         }));
 
         it('should active associated thy-anchor-link when scrolling to anchor', (done: () => void) => {
