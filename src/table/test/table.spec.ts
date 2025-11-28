@@ -1,7 +1,7 @@
 import { ThySwitch } from 'ngx-tethys/switch';
 import { createFakeEvent, dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ApplicationRef, Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
     ThyPage,
@@ -569,19 +569,25 @@ describe('ThyTable: basic', () => {
         expect(tableComponent.nativeElement.querySelector('.thy-pagination .thy-pagination-size')).toBeTruthy();
     });
 
-    it('should call onPageSizeChange when call table onPageSizeChange', () => {
+    it('should call onPageSizeChange when call table onPageSizeChange', fakeAsync(() => {
         fixture.detectChanges();
         const pageSizeChangeSpy = spyOn(testComponent, 'onPageSizeChange');
         const paginationElement = tableComponent.nativeElement.querySelector('thy-select .form-control-custom');
         paginationElement.click();
+        flush();
+        fixture.detectChanges();
+        tick(100);
         fixture.detectChanges();
 
         const index = 2;
         const el = document.querySelector('.thy-select-dropdown-options');
         (el.querySelectorAll('.thy-option-item')[index] as HTMLElement).click();
+        flush();
+        fixture.detectChanges();
+        tick(100);
         fixture.detectChanges();
         expect(pageSizeChangeSpy).toHaveBeenCalledWith(testComponent.pagination.sizeOptions[index]);
-    });
+    }));
 
     it('should call onSwitchChange when change switch', fakeAsync(() => {
         fixture.detectChanges();

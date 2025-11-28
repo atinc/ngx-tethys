@@ -1,0 +1,8 @@
+@if (thyShowOptionCustom()) {
+  <ng-container *ngTemplateOutlet="thyTemplate()"></ng-container>
+} @else {
+  <span class="text-truncate">{{ thyLabelText() }}</span>
+}
+@if (thyShowCheckedIcon() && selected()) {
+  <thy-icon class="checked-icon" thyIconName="check"></thy-icon>
+}
