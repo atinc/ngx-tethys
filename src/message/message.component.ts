@@ -36,10 +36,10 @@ export class ThyMessage extends ThyAbstractMessageComponent<ThyMessageConfig> {
 
     private hostRenderer = useHostRenderer();
 
-    constructor() {
-        const messageQueue = inject(ThyMessageQueue);
-        super(messageQueue);
+    protected queue = inject(ThyMessageQueue);
 
+    constructor() {
+        super();
         effect(() => {
             const config = this.config();
             if (config?.hostClass) {

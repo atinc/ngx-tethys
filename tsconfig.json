@@ -1,22 +1,42 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "importHelpers": true,
-    "outDir": "../dist/out-tsc",
     "baseUrl": "./",
+    "importHelpers": true,
     "esModuleInterop": true,
     "sourceMap": true,
     "declaration": false,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "skipLibCheck": false,
     "target": "ES2022",
-    "typeRoots": ["node_modules/@types", "@types/node", "./typings"],
-    "lib": ["es2020", "dom"],
+    "typeRoots": [
+      "node_modules/@types",
+      "@types/node",
+      "./typings"
+    ],
+    "lib": [
+      "es2020",
+      "dom"
+    ],
     "resolveJsonModule": true,
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "paths": {
+      "ngx-tethys": [
+        "src/public-api"
+      ],
+      "ngx-tethys/*": [
+        "src/*"
+      ],
+      "@tethys/cdk": [
+        "cdk/public-api"
+      ],
+      "@tethys/cdk/*": [
+        "cdk/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

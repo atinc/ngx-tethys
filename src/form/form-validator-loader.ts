@@ -1,7 +1,7 @@
 import { Dictionary } from 'ngx-tethys/types';
 import { helpers } from 'ngx-tethys/util';
 
-import { Inject, Injectable, Optional, Signal } from '@angular/core';
+import { inject, Injectable, Signal } from '@angular/core';
 import { ValidationErrors } from '@angular/forms';
 
 import { THY_VALIDATOR_CONFIG, ThyFormValidationMessages, ThyFormValidatorGlobalConfig } from './form.class';
@@ -23,37 +23,36 @@ const defaultValidatorConfig: ThyFormValidatorGlobalConfig = {
  */
 @Injectable()
 export class ThyFormValidatorLoader {
-    private config: ThyFormValidatorGlobalConfig;
+    private config: ThyFormValidatorGlobalConfig = inject(THY_VALIDATOR_CONFIG, { optional: true });
     private locale: Signal<ThyFormLocale> = injectLocale('form');
 
-    private globalValidationMessages = {
-        required: this.locale().required,
-        maxlength: this.locale().maxlength,
-        minlength: this.locale().minlength,
-        thyUniqueCheck: this.locale().uniqueCheck,
-        email: this.locale().email,
-        confirm: this.locale().confirm,
-        pattern: this.locale().pattern,
-        number: this.locale().number,
-        url: this.locale().url,
-        max: this.locale().max,
-        min: this.locale().min
-    };
+    private get globalValidationMessages() {
+        return {
+            required: this.locale().required,
+            maxlength: this.locale().maxlength,
+            minlength: this.locale().minlength,
+            thyUniqueCheck: this.locale().uniqueCheck,
+            email: this.locale().email,
+            confirm: this.locale().confirm,
+            pattern: this.locale().pattern,
+            number: this.locale().number,
+            url: this.locale().url,
+            max: this.locale().max,
+            min: this.locale().min
+        };
+    }
 
     private getDefaultValidationMessage(key: string) {
         if (this.config.globalValidationMessages && this.config.globalValidationMessages[key]) {
             return this.config.globalValidationMessages[key];
         } else {
-            return this.globalValidationMessages[key as keyof typeof this.globalValidationMessages];
+            const messages = this.globalValidationMessages;
+            return messages[key as keyof typeof messages];
         }
     }
 
-    constructor(
-        @Optional()
-        @Inject(THY_VALIDATOR_CONFIG)
-        config: ThyFormValidatorGlobalConfig
-    ) {
-        this.config = Object.assign({}, defaultValidatorConfig, config);
+    constructor() {
+        this.config = Object.assign({}, defaultValidatorConfig, this.config || {});
     }
 
     get validationMessages() {

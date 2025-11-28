@@ -1,8 +1,7 @@
 import { fromEvent } from 'rxjs';
-import { Component, ElementRef, NgZone, inject, Inject, viewChild, output, input, DestroyRef, effect } from '@angular/core';
+import { Component, ElementRef, NgZone, inject, viewChild, output, input, DestroyRef, effect } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FileSelectBaseDirective } from './file-select-base';
-import { THY_UPLOAD_DEFAULT_OPTIONS, ThyUploadConfig } from './upload.config';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { ThyFileSelectEvent } from './types';
 
@@ -36,12 +35,10 @@ export class ThyFileSelect extends FileSelectBaseDirective {
 
     private destroyRef = inject(DestroyRef);
 
-    constructor(
-        public elementRef: ElementRef,
-        @Inject(THY_UPLOAD_DEFAULT_OPTIONS) public defaultConfig: ThyUploadConfig,
-        private ngZone: NgZone
-    ) {
-        super(elementRef, defaultConfig);
+    private ngZone: NgZone = inject(NgZone);
+
+    constructor() {
+        super();
 
         this.ngZone.runOutsideAngular(() =>
             fromEvent(this.elementRef.nativeElement, 'click')

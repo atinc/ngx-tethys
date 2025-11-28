@@ -1,4 +1,4 @@
-import { Component, HostBinding, effect, inject, signal, computed } from '@angular/core';
+import { Component, HostBinding, effect, signal, computed, inject } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { helpers, isString } from 'ngx-tethys/util';
 import { ThyNotifyConfig, ThyNotifyDetail, ThyNotifyPlacement } from './notify.config';
@@ -45,15 +45,15 @@ export class ThyNotify extends ThyAbstractMessageComponent<ThyNotifyConfig> {
 
     readonly contentIsString = computed(() => isString(this.config().content));
 
+    protected queue = inject(ThyNotifyQueue);
+
     private placement = computed<ThyNotifyPlacement>(() => {
         const config = this.config();
         return config.placement || 'topRight';
     });
 
     constructor() {
-        const notifyQueue = inject(ThyNotifyQueue);
-        super(notifyQueue);
-
+        super();
         effect(() => {
             const placement = this.placement();
             if (placement === 'topLeft' || placement === 'bottomLeft') {

@@ -315,6 +315,7 @@ describe('#helper', () => {
 
     it('should get correct value for isTemplateRef', () => {
         class MyTemplateRef extends TemplateRef<unknown> {
+            // @ts-expect-error - elementRef is readonly in TemplateRef, but we need to implement it for testing
             get elementRef(): ElementRef<any> {
                 throw new Error('Method not implemented.');
             }

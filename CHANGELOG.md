@@ -2,6 +2,123 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [20.0.0](https://github.com/atinc/ngx-tethys/compare/20.0.0-next.3...20.0.0) (2025-11-26)
+
+
+### Bug Fixes
+
+* **date-picker:** fix TypeError: templateRef.createEmbeddedViewImpl is not a function in calendar ([#3619](https://github.com/atinc/ngx-tethys/issues/3619)) ([7b2f807](https://github.com/atinc/ngx-tethys/commit/7b2f807c15d2d40f372013d919ccd136148aac13))
+
+
+
+# [20.0.0-next.3](https://github.com/atinc/ngx-tethys/compare/20.0.0-next.2...20.0.0-next.3) (2025-11-20)
+
+
+### Bug Fixes
+
+* export behaviors as public api ([#3617](https://github.com/atinc/ngx-tethys/issues/3617)) ([261f04f](https://github.com/atinc/ngx-tethys/commit/261f04f8b35d7dd1d8290cea4c3e6ede4df3c374))
+
+
+
+# [20.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/20.0.0-next.1...20.0.0-next.2) (2025-11-17)
+
+
+### Bug Fixes
+
+* fix peerDependencies for @tethys/cdk ([#3615](https://github.com/atinc/ngx-tethys/issues/3615)) ([66030b1](https://github.com/atinc/ngx-tethys/commit/66030b18e3f62492c282b6b0b17e3a4bd935902e))
+
+
+
+# [20.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/20.0.0-next.0...20.0.0-next.1) (2025-11-17)
+
+
+### Features
+
+* upgrade peerDependencies angular to v20 ([#3613](https://github.com/atinc/ngx-tethys/issues/3613)) ([83536a3](https://github.com/atinc/ngx-tethys/commit/83536a382de152268123b0c67e7dc8c26ae244a3))
+
+
+
+# [20.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/19.1.14...20.0.0-next.0) (2025-11-14)
+
+
+### Features
+
+* upgrade angular to v20 TINFR-2654 ([#3611](https://github.com/atinc/ngx-tethys/issues/3611)) ([ed358f0](https://github.com/atinc/ngx-tethys/commit/ed358f0c341fe6af7725ed43bf44a0ef45b2b6e4))
+
+
+
+## [19.1.14](https://github.com/atinc/ngx-tethys/compare/19.1.13...19.1.14) (2025-11-12)
+
+
+### Features
+
+* **input-number:** support thyShowStepControls #TINFR-2994 ([#3605](https://github.com/atinc/ngx-tethys/issues/3605)) ([c06a6f8](https://github.com/atinc/ngx-tethys/commit/c06a6f813e619ef63ac99459f8c149439c93bafd)), closes [#TINFR-2994](https://github.com/atinc/ngx-tethys/issues/TINFR-2994)
+
+
+
+## [19.1.13](https://github.com/atinc/ngx-tethys/compare/19.1.12...19.1.13) (2025-11-05)
+
+
+### Features
+
+* **cascader:** support set load state #TINFR-2988 ([#3603](https://github.com/atinc/ngx-tethys/issues/3603)) ([08a9714](https://github.com/atinc/ngx-tethys/commit/08a971403c709f80f29e77abb83da547ed10dd20)), closes [#TINFR-2988](https://github.com/atinc/ngx-tethys/issues/TINFR-2988)
+
+
+
+## [19.1.12](https://github.com/atinc/ngx-tethys/compare/19.1.11...19.1.12) (2025-11-03)
+
+
+
+## [19.1.11](https://github.com/atinc/ngx-tethys/compare/19.1.10...19.1.11) (2025-10-28)
+
+
+### Features
+
+* **date-picker:** 可选时间时，优化为选择到分 #TINFR-2955 ([#3597](https://github.com/atinc/ngx-tethys/issues/3597)) ([0b12381](https://github.com/atinc/ngx-tethys/commit/0b123812a416e00b6f7382411587f447bfdc7a84)), closes [#TINFR-2955](https://github.com/atinc/ngx-tethys/issues/TINFR-2955)
+
+
+
+## [19.1.10](https://github.com/atinc/ngx-tethys/compare/19.1.9...19.1.10) (2025-10-28)
+
+
+### Features
+
+* withTime 为0或只选日期时，选择日期优化为选中为当天0点 #TINFR-2955 [@wumeimin](https://github.com/wumeimin) [@wangkai](https://github.com/wangkai) ([#3586](https://github.com/atinc/ngx-tethys/issues/3586)) ([5fd3f37](https://github.com/atinc/ngx-tethys/commit/5fd3f37bf0b4b4e3e9710e3eaea3da6c63cb0b0b)), closes [#TINFR-2955](https://github.com/atinc/ngx-tethys/issues/TINFR-2955)
+
+
+
+## [19.1.9](https://github.com/atinc/ngx-tethys/compare/19.1.8...19.1.9) (2025-10-24)
+
+
+### Features
+
+* **cascader:** adjust cascader option style and search logic #TINFR-2948 ([ea5e834](https://github.com/atinc/ngx-tethys/commit/ea5e834771cc1d230c87782b34c126f45a1a43d3)), closes [#TINFR-2948](https://github.com/atinc/ngx-tethys/issues/TINFR-2948)
+
+
+### Reverts
+
+* Revert "fix(tree-select): fix valueIsObject #TINFR-2935 (#3577)" (#3587) ([6bce791](https://github.com/atinc/ngx-tethys/commit/6bce791370befc270b1a6b6e39cddb7800cca2e7)), closes [#TINFR-2935](https://github.com/atinc/ngx-tethys/issues/TINFR-2935) [#3577](https://github.com/atinc/ngx-tethys/issues/3577) [#3587](https://github.com/atinc/ngx-tethys/issues/3587)
+
+
+
+## [19.1.8](https://github.com/atinc/ngx-tethys/compare/19.1.7...19.1.8) (2025-10-22)
+
+
+### Bug Fixes
+
+* **select:** fix select style #TINFR-2946 ([c2436da](https://github.com/atinc/ngx-tethys/commit/c2436da23ba9f02e916a859edc22772340590c2e)), closes [#TINFR-2946](https://github.com/atinc/ngx-tethys/issues/TINFR-2946)
+
+
+
+## [19.1.7](https://github.com/atinc/ngx-tethys/compare/19.1.6...19.1.7) (2025-10-14)
+
+
+### Bug Fixes
+
+* **tree-select:** fix valueIsObject #TINFR-2935 ([#3577](https://github.com/atinc/ngx-tethys/issues/3577)) ([4ee67fe](https://github.com/atinc/ngx-tethys/commit/4ee67fe6f6a5eb40603743a570c9a4ad6a73e613)), closes [#TINFR-2935](https://github.com/atinc/ngx-tethys/issues/TINFR-2935)
+
+
+
 ## [19.1.6](https://github.com/atinc/ngx-tethys/compare/19.1.5...19.1.6) (2025-09-26)
 
 

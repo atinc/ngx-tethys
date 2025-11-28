@@ -188,7 +188,7 @@ export class ThyPropertyOperation implements OnInit, AfterContentInit, OnDestroy
             fromEvent<Event>(this.elementRef.nativeElement, 'click')
                 .pipe(takeUntil(this.destroy$))
                 .subscribe(event => {
-                    if (this.disabled || this.thyClick.observers.length === 0) {
+                    if (this.disabled) {
                         return;
                     }
 

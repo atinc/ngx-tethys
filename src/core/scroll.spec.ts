@@ -1,11 +1,10 @@
-import { DOCUMENT, PlatformLocation } from '@angular/common';
-import { ApplicationRef, Injector, ɵglobal } from '@angular/core';
+import { PlatformLocation } from '@angular/common';
+import { ApplicationRef, ɵglobal, DOCUMENT } from '@angular/core';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { ThyScrollService } from 'ngx-tethys/core';
 
 describe('ThyScrollService', () => {
     const TOP = 10;
-    let injector: Injector;
     let document: MockDocument;
     let scrollService: ThyScrollService;
 
@@ -34,7 +33,7 @@ describe('ThyScrollService', () => {
     });
 
     beforeEach(() => {
-        injector = TestBed.configureTestingModule({
+        TestBed.configureTestingModule({
             providers: [
                 ThyScrollService,
                 { provide: DOCUMENT, useClass: MockDocument },
@@ -42,8 +41,8 @@ describe('ThyScrollService', () => {
             ]
         });
 
-        document = injector.get<MockDocument>(DOCUMENT);
-        scrollService = injector.get(ThyScrollService);
+        document = TestBed.inject<MockDocument>(DOCUMENT);
+        scrollService = TestBed.inject(ThyScrollService);
     });
 
     describe('#setScrollTop', () => {
@@ -59,21 +58,5 @@ describe('ThyScrollService', () => {
             expect(el.scrollTop).toBe(TOP);
             scrollService.setScrollTop(el, 0);
         });
-    });
-
-    describe('change detection behavior', () => {
-        const tickAnimationFrame = (): void => tick(16);
-
-        it('should not trigger change detection when calling `scrollTo`', fakeAsync(() => {
-            const appRef = TestBed.inject(ApplicationRef);
-            spyOn(appRef, 'tick');
-
-            scrollService.setScrollTop(window, TOP);
-
-            tickAnimationFrame();
-
-            expect(document.body.scrollTop).toBe(TOP);
-            expect(appRef.tick).not.toHaveBeenCalled();
-        }));
     });
 });

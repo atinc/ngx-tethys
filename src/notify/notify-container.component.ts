@@ -11,7 +11,7 @@ import { AsyncPipe } from '@angular/common';
 @Component({
     selector: 'thy-notify-container',
     templateUrl: './notify-container.component.html',
-    imports: [ThyNotify, AsyncPipe],
+    imports: [ThyNotify],
     host: {
         class: 'thy-notify-container'
     }
@@ -19,12 +19,11 @@ import { AsyncPipe } from '@angular/common';
 export class ThyNotifyContainer extends ThyAbstractMessageContainerComponent {
     notifyQueue = inject(ThyNotifyQueue);
 
-    constructor() {
+    public defaultConfig = (() => {
         const defaultConfig = inject(THY_NOTIFY_DEFAULT_CONFIG);
-
-        super({
+        return {
             ...THY_NOTIFY_DEFAULT_CONFIG_VALUE,
             ...defaultConfig
-        });
-    }
+        };
+    })();
 }

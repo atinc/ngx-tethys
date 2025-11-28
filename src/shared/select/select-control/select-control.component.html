@@ -46,7 +46,7 @@
             class="choice-item selected"
             [ngClass]="{ disabled: thyDisabled() === true, hidden: $index > visibleTagCount() - 1 }"
             [thySize]="tagSize()">
-            <div class="text-truncate h-100 d-flex">
+            <div class="text-truncate h-100 d-flex align-items-center">
               @if (!customDisplayTemplate()) {
                 <thy-flexible-text [thyTooltipContent]="item?.thyLabelText" class="text-truncate h-100">
                   {{ item?.thyLabelText }}

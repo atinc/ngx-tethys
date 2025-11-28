@@ -7,7 +7,7 @@ import { OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
-import { Component, DebugElement, ViewChild } from '@angular/core';
+import { Component, DebugElement, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ComponentFixture, ComponentFixtureAutoDetect, TestBed, fakeAsync, flush, inject, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -322,6 +322,7 @@ const customLabelPropertyOptions = [
             (ngModelChange)="onChanges($event)"
             [(ngModel)]="curVal"
             style="width:400px;"
+            [thyWidth]="width"
             [thyPlaceholder]="placeholder"
             [thyTriggerAction]="thyTriggerAction"
             [thyExpandTriggerAction]="thyExpandTriggerAction"
@@ -337,9 +338,22 @@ const customLabelPropertyOptions = [
             (thyExpandStatusChange)="thyExpandStatusChange($event)"
             [thyAutoExpand]="thyAutoExpand"
             [thyCustomOptions]="customOptions"
-            [thyHasBackdrop]="hasBackdrop">
+            [thyHasBackdrop]="hasBackdrop"
+            [thyLoadingDone]="loadingDone">
         </thy-cascader>
     `,
+    styles: [
+        `
+            .thy-cascader-menu {
+                max-width: 300px;
+                min-width: 300px;
+                height: 180px;
+            }
+            .h-100 {
+                height: 100%;
+            }
+        `
+    ],
     imports: [FormsModule, CommonModule, OverlayModule, ThyCascaderModule, ThyFlexibleTextModule, ThyIconModule]
 })
 class CascaderBasicComponent {
@@ -362,6 +376,8 @@ class CascaderBasicComponent {
     public thyAutoExpand = true;
     public hasBackdrop: boolean;
     public customOptions: SafeAny[];
+    public width;
+    public loadingDone = true;
 
     @ViewChild('cascader', { static: true }) cascaderRef: ThyCascader;
 
@@ -395,6 +411,19 @@ class CascaderBasicComponent {
 @Component({
     selector: 'thy-cascader-load',
     template: ` <thy-cascader [thyLoadData]="thyLoadData" [(ngModel)]="curVal" style="width:400px;"> </thy-cascader> `,
+    styles: [
+        `
+            ul {
+                height: 200px;
+            }
+            .thy-cascader-menu {
+                height: 200px;
+            }
+            .h-100 {
+                height: 100%;
+            }
+        `
+    ],
     imports: [FormsModule, CommonModule, OverlayModule, ThyCascaderModule, ThyFlexibleTextModule, ThyIconModule]
 })
 class CascaderLoadComponent {
@@ -451,6 +480,19 @@ class CascaderLoadComponent {
             <span thyFlexibleText class="option-label-item" [thyTooltipContent]="option.label || ''"> {{ option.label || '' }}</span>
         </ng-template>
     `,
+    styles: [
+        `
+            ul {
+                height: 200px;
+            }
+            .thy-cascader-menu {
+                height: 200px;
+            }
+            .h-100 {
+                height: 100%;
+            }
+        `
+    ],
     imports: [FormsModule, CommonModule, OverlayModule, ThyCascaderModule, ThyFlexibleTextModule, ThyIconModule]
 })
 class CascaderTemplateComponent {
@@ -480,6 +522,19 @@ class CascaderTemplateComponent {
             style="width:400px;">
         </thy-cascader>
     `,
+    styles: [
+        `
+            ul {
+                height: 200px;
+            }
+            .thy-cascader-menu {
+                height: 200px;
+            }
+            .h-100 {
+                height: 100%;
+            }
+        `
+    ],
     imports: [FormsModule, CommonModule, OverlayModule, ThyCascaderModule, ThyFlexibleTextModule, ThyIconModule]
 })
 class CascaderMultipleComponent {
@@ -531,6 +586,19 @@ class CascaderMultipleComponent {
             style="width:400px;">
         </thy-cascader>
     `,
+    styles: [
+        `
+            ul {
+                height: 200px;
+            }
+            .thy-cascader-menu {
+                height: 200px;
+            }
+            .h-100 {
+                height: 100%;
+            }
+        `
+    ],
     imports: [FormsModule, CommonModule, OverlayModule, ThyCascaderModule, ThyFlexibleTextModule, ThyIconModule]
 })
 class CascaderCustomLabelPropertyComponent {
@@ -563,7 +631,7 @@ describe('thy-cascader', () => {
         TestBed.compileComponents();
     }));
 
-    describe('base', () => {
+    describe('basic', () => {
         let fixture: ComponentFixture<CascaderBasicComponent>;
         let component: CascaderBasicComponent;
         let debugElement: DebugElement;
@@ -614,15 +682,55 @@ describe('thy-cascader', () => {
             expect(el.nativeElement.innerText).toBe(component.placeholder);
         });
 
-        it('should click open', () => {
+        it('should click open', fakeAsync(() => {
             dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
             const el = debugElement.query(By.css(`.thy-cascader-picker-open`));
             expect(el).toBeTruthy();
 
             fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
             const menu = debugElement.query(By.css('.thy-cascader-menu')).nativeElement;
             expect(menu.classList.contains(component.columnClassName)).toBe(true);
-        });
+        }));
+
+        it('should display loading when thyLoadingDone is false', fakeAsync(() => {
+            component.loadingDone = false;
+            dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
+            const el = debugElement.query(By.css(`.thy-cascader-picker-open`));
+            expect(el).toBeTruthy();
+
+            fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
+            const loading = debugElement.query(By.css('thy-loading'));
+            expect(loading.nativeElement).not.toBeNull();
+        }));
+
+        it('should use default width when thyWidth unset', fakeAsync(() => {
+            dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
+            const el = debugElement.query(By.css(`.thy-cascader-picker-open`));
+            expect(el).toBeTruthy();
+
+            fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
+            const ul = debugElement.query(By.css('ul')).nativeElement;
+            expect(ul.style.width).toEqual('140px');
+        }));
+
+        it('should use width when set thyWidth', fakeAsync(() => {
+            component.width = 150;
+            dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
+            const el = debugElement.query(By.css(`.thy-cascader-picker-open`));
+            expect(el).toBeTruthy();
+
+            fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
+            const ul = debugElement.query(By.css('ul')).nativeElement;
+            expect(ul.style.width).toEqual('150px');
+        }));
 
         it('should not click open when thyDisabled is true', fakeAsync(() => {
             component.disabled = true;
@@ -635,25 +743,28 @@ describe('thy-cascader', () => {
             expect(el).toBeFalsy();
         }));
 
-        it('should select', done => {
+        it('should select', fakeAsync(() => {
             const selectedVal = ['zhejiang', 'hangzhou', 'xihu'];
             dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
             const el = debugElement.query(By.css(`.thy-cascader-picker-open`));
             expect(el).toBeTruthy();
             fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
             component.changeValue$.pipe(take(1)).subscribe(e => {
                 expect(e).toEqual(selectedVal);
-                done();
             });
 
-            selectedVal.forEach(text => {
+            selectedVal.forEach((text, index) => {
                 const currentItem = debugElement.queryAll(By.css(`ul li`)).find(item => item.nativeElement.innerText.includes(text));
                 dispatchFakeEvent(currentItem.nativeElement, 'click', true);
                 fixture.detectChanges();
+                tick(100);
+                fixture.detectChanges();
             });
-        });
+        }));
 
-        it('should hover item', () => {
+        it('should hover item', fakeAsync(() => {
             component.curVal = null;
             component.thyExpandTriggerAction = 'hover';
             fixture.detectChanges();
@@ -662,13 +773,17 @@ describe('thy-cascader', () => {
             const el = debugElement.query(By.css(`.thy-cascader-picker-open`));
             expect(el).toBeTruthy();
             fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
             expect(debugElement.queryAll(By.css(`ul li`)).length).toBe(customerOptions.length);
             const li = debugElement.query(By.css(`ul li`));
             dispatchFakeEvent(li.nativeElement, 'mouseover', true);
 
             fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
             expect(debugElement.queryAll(By.css(`ul li`)).length).toBe(customerOptions.length + 1);
-        });
+        }));
 
         it('should hover open', () => {
             component.thyTriggerAction = 'hover';
@@ -678,23 +793,24 @@ describe('thy-cascader', () => {
             expect(el).toBeTruthy();
         });
 
-        it('should select one', done => {
+        it('should select one', fakeAsync(() => {
             component.thyChangeOnSelect = true;
             fixture.detectChanges();
             dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
             const el = debugElement.query(By.css(`.thy-cascader-picker-open`));
             expect(el).toBeTruthy();
             fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
             component.changeValue$.pipe(take(1)).subscribe(value => {
                 expect(value.length).toBe(1);
-                done();
             });
             dispatchFakeEvent(debugElement.queryAll(By.css(`ul li`))[1].nativeElement, 'mouseover', true);
             dispatchFakeEvent(debugElement.queryAll(By.css(`ul li`))[1].nativeElement, 'click', true);
             fixture.detectChanges();
-        });
+        }));
 
-        it('should select one when click radio and isOnlySelectLeaf is false', done => {
+        it('should select one when click radio and isOnlySelectLeaf is false', fakeAsync(() => {
             component.thyChangeOnSelect = true;
             component.isOnlySelectLeaf = false;
             fixture.detectChanges();
@@ -702,13 +818,14 @@ describe('thy-cascader', () => {
             const el = debugElement.query(By.css(`.thy-cascader-picker-open`));
             expect(el).toBeTruthy();
             fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
             component.changeValue$.pipe(take(1)).subscribe(value => {
                 expect(value.length).toBe(1);
-                done();
             });
             debugElement.query(By.css('label')).nativeElement.click();
             fixture.detectChanges();
-        });
+        }));
 
         it('should support thyHasBackdrop to be true', fakeAsync(() => {
             component.hasBackdrop = true;
@@ -796,6 +913,7 @@ describe('thy-cascader', () => {
             trigger.click();
             fixture.detectChanges();
             flush();
+            fixture.detectChanges();
             const activatedOptions: NodeListOf<HTMLElement> = overlayContainerElement.querySelectorAll('.thy-cascader-menu-item-active');
             const activatedOptionsText: string[] = [];
             activatedOptions.forEach(item => activatedOptionsText.push(item.innerText.trim()));
@@ -814,6 +932,7 @@ describe('thy-cascader', () => {
             trigger.click();
             fixture.detectChanges();
             tick(1000);
+            fixture.detectChanges();
             const activatedOptions: NodeListOf<HTMLElement> = overlayContainerElement.querySelectorAll('.thy-cascader-menu-item-active');
             const activatedOptionsText: string[] = [];
             activatedOptions.forEach(item => activatedOptionsText.push(item.innerText.trim()));
@@ -830,6 +949,7 @@ describe('thy-cascader', () => {
             trigger.click();
             fixture.detectChanges();
             flush();
+            fixture.detectChanges();
             const el = debugElement.query(By.css('.thy-cascader-menus')).nativeElement;
             el.style.height = 180;
             const elementRect = el.getBoundingClientRect();
@@ -884,6 +1004,7 @@ describe('thy-cascader', () => {
             dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
             fixture.detectChanges();
             flush();
+            fixture.detectChanges();
             const el = debugElement.query(By.css('.thy-cascader-menus'));
             const items = el.queryAll(By.css('.thy-cascader-menu-item'));
             const haveChildrenItem = items[0];
@@ -896,6 +1017,7 @@ describe('thy-cascader', () => {
             dispatchFakeEvent(noChildrenItem.nativeElement, 'click', true);
             fixture.detectChanges();
             flush();
+            fixture.detectChanges();
             const emptySecondMenu = el.queryAll(By.css('.thy-cascader-menu'))[1];
             expect(emptySecondMenu.children.length).toEqual(0);
         }));
@@ -945,6 +1067,7 @@ describe('thy-cascader', () => {
             dispatchFakeEvent(noChildrenItem.nativeElement, 'click', true);
             fixture.detectChanges();
             await fixture.whenStable();
+            fixture.detectChanges();
             const emptySecondMenu = el.queryAll(By.css('.thy-cascader-menu'))[1];
             expect(emptySecondMenu.children.length).toEqual(0);
         });
@@ -989,6 +1112,7 @@ describe('thy-cascader', () => {
             trigger.click();
             fixture.detectChanges();
             flush();
+            fixture.detectChanges();
             const activatedOptions: NodeListOf<HTMLElement> = overlayContainerElement.querySelectorAll('.thy-cascader-menu-item-disabled');
             expect(activatedOptions.length).toEqual(fixture.componentInstance.curVal.length);
             const activatedOptionsText: string[] = [];
@@ -996,16 +1120,18 @@ describe('thy-cascader', () => {
             expect(activatedOptionsText).toEqual(fixture.componentInstance.curVal);
         }));
 
-        it('should hide checkbox and radio when the option is readonly', () => {
+        it('should hide checkbox and radio when the option is readonly', fakeAsync(() => {
             fixture.componentInstance.isMultiple = true;
             fixture.componentInstance.isOnlySelectLeaf = true;
             fixture.detectChanges();
             const trigger = debugElement.query(By.css('input')).nativeElement;
             trigger.click();
             fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
             const checkboxes = fixture.debugElement.query(By.css('.thy-cascader-menu')).queryAll(By.css('.thy-checkbox'));
             expect(checkboxes.length).toEqual(customerOptions.length - 1);
-        });
+        }));
 
         it('should not change EXPANDED_DROPDOWN_POSITIONS when cdkConnectedOverlayPositions is changed', () => {
             expect(EXPANDED_DROPDOWN_POSITIONS).not.toEqual((component.cascader as SafeAny).cascaderPosition);
@@ -1147,13 +1273,15 @@ describe('thy-cascader', () => {
             flush();
         }));
 
-        it('should show custom options', done => {
+        it('should show custom options', fakeAsync(() => {
             component.thyChangeOnSelect = true;
             component.isOnlySelectLeaf = false;
             const customOpts = component.setCustomOptions();
             fixture.detectChanges();
 
             dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
+            fixture.detectChanges();
+            tick(100);
             fixture.detectChanges();
             const elements = debugElement.queryAll(By.css(`.thy-cascader-menu-item`));
             expect(elements[0].nativeElement.innerText).toEqual(customOpts[0].label);
@@ -1165,19 +1293,20 @@ describe('thy-cascader', () => {
             component.changeValue$.pipe(take(1)).subscribe(value => {
                 expect(value.length).toBe(1);
                 expect(value[0]).toEqual(customOpts[0].value);
-                done();
             });
             debugElement.query(By.css('label')).nativeElement.click();
             fixture.detectChanges();
-        });
+        }));
 
-        it('should update selected after click custom option', done => {
+        it('should update selected after click custom option', fakeAsync(() => {
             const clickIdx = 1;
             component.thyChangeOnSelect = true;
             const customOpts = component.setCustomOptions();
             fixture.detectChanges();
 
             dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
+            fixture.detectChanges();
+            tick(100);
             fixture.detectChanges();
             const elements = debugElement.queryAll(By.css(`.thy-cascader-menu-item`));
             expect(elements[0].nativeElement.innerText).toEqual(customOpts[0].label);
@@ -1188,11 +1317,10 @@ describe('thy-cascader', () => {
             component.changeValue$.pipe(take(1)).subscribe(value => {
                 expect(value.length).toBe(1);
                 expect(value[0]).toEqual(customOpts[clickIdx].value);
-                done();
             });
             debugElement.queryAll(By.css('.thy-cascader-menu-item'))[clickIdx].nativeElement.click();
             fixture.detectChanges();
-        });
+        }));
     });
 
     describe('loadData', () => {
@@ -1284,13 +1412,15 @@ describe('thy-cascader', () => {
                 });
         });
 
-        it('should display custom option', () => {
+        it('should display custom option', fakeAsync(() => {
             dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
 
             fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
             const customIcon = debugElement.query(By.css('.option-icon'));
             expect(customIcon).toBeTruthy();
-        });
+        }));
 
         it('should display custom search option', fakeAsync(() => {
             dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
@@ -1354,17 +1484,22 @@ describe('thy-cascader', () => {
 
         it('should add item when click', async () => {
             await fixture.whenStable();
+            fixture.detectChanges();
+
             const originSelectedCount = component.multipleVal?.length;
             dispatchFakeEvent(debugElement.query(By.css('.form-control')).nativeElement, 'click', true);
             fixture.detectChanges();
+            await fixture.whenStable();
 
             const firstLevelItem = getOptionByLevel();
             dispatchFakeEvent(firstLevelItem[2].nativeElement, 'click');
             fixture.detectChanges();
+            await fixture.whenStable();
 
             const sectionLevelItem = getOptionByLevel(1)[0];
             dispatchFakeEvent(sectionLevelItem.nativeElement, 'click');
             fixture.detectChanges();
+            await fixture.whenStable();
 
             const thirdLevelItem = getOptionByLevel(2)[0];
             thirdLevelItem.query(By.css('label')).nativeElement.click();
@@ -1388,10 +1523,12 @@ describe('thy-cascader', () => {
             const originSelectedCount = component.multipleVal?.length;
             dispatchFakeEvent(debugElement.query(By.css('.form-control')).nativeElement, 'click', true);
             fixture.detectChanges();
+            await fixture.whenStable();
 
             const firstLevelItem = getOptionByLevel();
             dispatchFakeEvent(firstLevelItem[2].nativeElement, 'click');
             fixture.detectChanges();
+            await fixture.whenStable();
 
             const sectionLevelItem = getOptionByLevel(1)[0];
             dispatchFakeEvent(sectionLevelItem.nativeElement, 'click');
@@ -1424,14 +1561,17 @@ describe('thy-cascader', () => {
             const originSelectedCount = component.multipleVal?.length;
             dispatchFakeEvent(debugElement.query(By.css('.form-control')).nativeElement, 'click', true);
             fixture.detectChanges();
+            await fixture.whenStable();
             const firstLevelItem = getOptionByLevel();
             const originFirstLevelItemLength = firstLevelItem.length;
             dispatchFakeEvent(firstLevelItem[0].nativeElement, 'click');
             fixture.detectChanges();
+            await fixture.whenStable();
 
             const sectionLevelItem = getOptionByLevel(1)[0];
             dispatchFakeEvent(sectionLevelItem.nativeElement, 'click');
             fixture.detectChanges();
+            await fixture.whenStable();
 
             const thirdLevelItem = getOptionByLevel(2)[0];
             thirdLevelItem.query(By.css('label')).nativeElement.click();
@@ -1471,6 +1611,7 @@ describe('thy-cascader', () => {
 
             dispatchFakeEvent(debugElement.query(By.css('.form-control')).nativeElement, 'click', true);
             fixture.detectChanges();
+            await fixture.whenStable();
             const showedOptions: NodeListOf<HTMLElement> = overlayContainerElement.querySelectorAll('.thy-cascader-menu-item-disabled');
             // The number of displayed disabled items should be equal to the selected number plus the number of the last selected items
             // minus the repeated calculation
@@ -1492,16 +1633,19 @@ describe('thy-cascader', () => {
 
             dispatchFakeEvent(debugElement.query(By.css('.form-control')).nativeElement, 'click', true);
             fixture.detectChanges();
+            await fixture.whenStable();
             const firstLevelItem = getOptionByLevel();
             const firstDisabledItem = firstLevelItem.find(item =>
                 (item.nativeElement as HTMLElement).innerText.includes(originSelected[0][0])
             );
             dispatchFakeEvent(firstDisabledItem.nativeElement, 'click');
             fixture.detectChanges();
+            await fixture.whenStable();
 
             const sectionLevelItem = getOptionByLevel(1)[0];
             dispatchFakeEvent(sectionLevelItem.nativeElement, 'click');
             fixture.detectChanges();
+            await fixture.whenStable();
 
             const showedOptions: NodeListOf<HTMLElement> = overlayContainerElement.querySelectorAll('.thy-cascader-menu-item-disabled');
             // The number of displayed disabled items should be equal to the selected number plus the number of the last selected items
@@ -1547,6 +1691,7 @@ describe('thy-cascader', () => {
 
             dispatchFakeEvent(debugElement.query(By.css('.form-control')).nativeElement, 'click', true);
             fixture.detectChanges();
+            await fixture.whenStable();
             const firstLevelItem = getOptionByLevel();
             for (let i = 0; i < customOpts.length; i++) {
                 expect(firstLevelItem[i].nativeElement.innerText).toEqual(customOpts[i].label);
@@ -1596,10 +1741,9 @@ describe('thy-cascader', () => {
             expect(showLabels.length).toBe(component.multipleVal.length);
             expect(showLabels[0].nativeElement.innerText).toContain(multipleOptions[0].label);
 
-            fixture.detectChanges();
-            await fixture.whenStable();
             dispatchFakeEvent(debugElement.query(By.css('.form-control')).nativeElement, 'click', true);
             fixture.detectChanges();
+            await fixture.whenStable();
 
             const firstLevelItem = getOptionByLevel();
             firstLevelItem[clickIdx].query(By.css('label')).nativeElement.click();
@@ -1614,9 +1758,11 @@ describe('thy-cascader', () => {
 
             dispatchFakeEvent(firstLevelItem[customOpts.length].nativeElement, 'click');
             fixture.detectChanges();
+            await fixture.whenStable();
             const sectionLevelItem = getOptionByLevel(1)[0];
             dispatchFakeEvent(sectionLevelItem.nativeElement, 'click');
             fixture.detectChanges();
+            await fixture.whenStable();
             const thirdLevelItem = getOptionByLevel(2)[0];
             thirdLevelItem.query(By.css('label')).nativeElement.click();
             fixture.detectChanges();
@@ -1728,10 +1874,11 @@ describe('thy-cascader', () => {
             await fixture.whenStable();
             dispatchFakeEvent(debugElement.query(By.css('.form-control')).nativeElement, 'click', true);
             fixture.detectChanges();
+            await fixture.whenStable();
 
             const levelUlList = debugElement.queryAll(By.css('.thy-cascader-menu'))[0];
             const divider = levelUlList.query(By.css('thy-divider'));
-            expect(divider).not.toBe(null);
+            expect(divider).not.toEqual(null);
 
             const firstLevelItem = getOptionByLevel();
             firstLevelItem[clickIdx].query(By.css('label')).nativeElement.click();

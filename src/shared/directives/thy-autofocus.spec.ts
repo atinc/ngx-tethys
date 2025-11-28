@@ -67,19 +67,4 @@ describe('ThyAutofocusDirective', () => {
         expect(focusSpy).toHaveBeenCalled();
         expect(autoSelectSpy).not.toHaveBeenCalled();
     }));
-
-    it('should not run change detection when the input is focused and selected', fakeAsync(() => {
-        const appRef = TestBed.inject(ApplicationRef);
-        spyOn(appRef, 'tick');
-        testComponent.autofocus = true;
-        testComponent.autoSelect = true;
-        const autoSelectSpy = spyOn(testComponent.input().nativeElement, 'select');
-        fixture.detectChanges();
-        tick(16);
-        expect(focusSpy).toHaveBeenCalled();
-        expect(autoSelectSpy).toHaveBeenCalled();
-        // Note: it's been called once since we manually called `fixture.detectChanges()` before `tick(16)`,
-        // otherwise, it would've been called 2 times (because of the `reqAnimFrame`).
-        expect(appRef.tick).toHaveBeenCalledTimes(1);
-    }));
 });

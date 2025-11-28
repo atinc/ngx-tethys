@@ -1,5 +1,5 @@
-import { Directive, ElementRef, HostListener, OnDestroy, OnInit, Signal, inject, input, output } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { Directive, ElementRef, HostListener, OnDestroy, OnInit, Signal, inject, input, output, DOCUMENT } from '@angular/core';
+
 import { coerceElement } from '@angular/cdk/coercion';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';

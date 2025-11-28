@@ -10,7 +10,7 @@ export const HIDE_STYLE = { transform: 'translateX(0)', opacity: 0, height: 0, p
  * @internal
  */
 @Directive()
-export class ThyAbstractMessageComponent<TConfig extends ThyMessageBaseConfig> implements OnInit, OnDestroy {
+export abstract class ThyAbstractMessageComponent<TConfig extends ThyMessageBaseConfig> implements OnInit, OnDestroy {
     private _ngZone = inject(NgZone);
 
     animationState: string;
@@ -19,13 +19,9 @@ export class ThyAbstractMessageComponent<TConfig extends ThyMessageBaseConfig> i
 
     private closeTimer: any;
 
-    private queue: ThyAbstractMessageQueue;
+    protected abstract queue: ThyAbstractMessageQueue;
 
     readonly config = input<TConfig>(null, { alias: 'thyConfig' });
-
-    constructor(queue: ThyAbstractMessageQueue) {
-        this.queue = queue;
-    }
 
     ngOnInit() {
         const iconName: Record<string, string> = {

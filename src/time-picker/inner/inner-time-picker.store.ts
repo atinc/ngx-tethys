@@ -34,7 +34,8 @@ export const initialState: TimePickerState = {
 @Injectable()
 export class ThyTimePickerStore extends MiniStore<TimePickerState> {
     constructor() {
-        super(initialState);
+        super();
+        this.initialize(initialState);
     }
 
     @MiniAction()

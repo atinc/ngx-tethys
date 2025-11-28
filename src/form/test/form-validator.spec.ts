@@ -1,6 +1,5 @@
 import { ThyFormValidatorLoader, ThyFormValidatorGlobalConfig, THY_VALIDATOR_CONFIG, ThyFormModule } from 'ngx-tethys/form';
 import { TestBed } from '@angular/core/testing';
-import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
 
 describe('module', () => {
     const globalConfig: ThyFormValidatorGlobalConfig = {
@@ -42,12 +41,6 @@ describe('form-validator-loader', () => {
     };
 
     let formValidatorLoader: ThyFormValidatorLoader;
-
-    function run(fn: Function): void {
-        runInInjectionContext(TestBed.inject(EnvironmentInjector), () => {
-            fn();
-        });
-    }
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -164,33 +157,45 @@ describe('form-validator-loader', () => {
     });
 
     it('should invoke custom showElementError function success', () => {
-        run(() => {
-            const [_group, element] = createFromGroup();
-            const showElementErrorSpy = jasmine.createSpy('show element error spy');
+        const [_group, element] = createFromGroup();
+        const showElementErrorSpy = jasmine.createSpy('show element error spy');
 
-            formValidatorLoader = new ThyFormValidatorLoader({
-                showElementError: showElementErrorSpy
-            });
-            expect(showElementErrorSpy).not.toHaveBeenCalled();
-            const errorMessages = ['error message', 'error message2'];
-            formValidatorLoader.showError(element, errorMessages);
-            expect(showElementErrorSpy).toHaveBeenCalled();
-            expect(showElementErrorSpy).toHaveBeenCalledWith(element, errorMessages);
+        TestBed.resetTestingModule();
+        TestBed.configureTestingModule({
+            imports: [
+                ThyFormModule.forRoot({
+                    ...globalConfig,
+                    showElementError: showElementErrorSpy
+                })
+            ]
         });
+        formValidatorLoader = TestBed.inject(ThyFormValidatorLoader);
+
+        expect(showElementErrorSpy).not.toHaveBeenCalled();
+        const errorMessages = ['error message', 'error message2'];
+        formValidatorLoader.showError(element, errorMessages);
+        expect(showElementErrorSpy).toHaveBeenCalled();
+        expect(showElementErrorSpy).toHaveBeenCalledWith(element, errorMessages);
     });
 
     it('should invoke custom removeElementError function success', () => {
-        run(() => {
-            const [_group, element] = createFromGroup();
-            const removeElementErrorSpy = jasmine.createSpy('remove element error spy');
+        const [_group, element] = createFromGroup();
+        const removeElementErrorSpy = jasmine.createSpy('remove element error spy');
 
-            formValidatorLoader = new ThyFormValidatorLoader({
-                removeElementError: removeElementErrorSpy
-            });
-            expect(removeElementErrorSpy).not.toHaveBeenCalled();
-            formValidatorLoader.removeError(element);
-            expect(removeElementErrorSpy).toHaveBeenCalled();
-            expect(removeElementErrorSpy).toHaveBeenCalledWith(element);
+        TestBed.resetTestingModule();
+        TestBed.configureTestingModule({
+            imports: [
+                ThyFormModule.forRoot({
+                    ...globalConfig,
+                    removeElementError: removeElementErrorSpy
+                })
+            ]
         });
+        formValidatorLoader = TestBed.inject(ThyFormValidatorLoader);
+
+        expect(removeElementErrorSpy).not.toHaveBeenCalled();
+        formValidatorLoader.removeError(element);
+        expect(removeElementErrorSpy).toHaveBeenCalled();
+        expect(removeElementErrorSpy).toHaveBeenCalledWith(element);
     });
 });

@@ -1,23 +1,25 @@
-<div class="input-number-handler-wrap" [class.input-number-disabled]="thyDisabled">
-  <span
-    unselectable="unselectable"
-    class="input-number-handler input-number-handler-up"
-    (mousedown)="up($event)"
-    (mouseup)="stop()"
-    (mouseleave)="stop()"
-    [class.disabled]="disabledUp()">
-    <thy-icon thyIconName="angle-up"></thy-icon>
-  </span>
-  <span
-    unselectable="unselectable"
-    class="input-number-handler input-number-handler-down"
-    (mousedown)="down($event)"
-    (mouseup)="stop()"
-    (mouseleave)="stop()"
-    [class.disabled]="disabledDown()">
-    <thy-icon thyIconName="angle-down"></thy-icon>
-  </span>
-</div>
+@if (thyShowStepControls()) {
+  <div class="input-number-handler-wrap" [class.input-number-disabled]="thyDisabled">
+    <span
+      unselectable="unselectable"
+      class="input-number-handler input-number-handler-up"
+      (mousedown)="up($event)"
+      (mouseup)="stop()"
+      (mouseleave)="stop()"
+      [class.disabled]="disabledUp()">
+      <thy-icon thyIconName="angle-up"></thy-icon>
+    </span>
+    <span
+      unselectable="unselectable"
+      class="input-number-handler input-number-handler-down"
+      (mousedown)="down($event)"
+      (mouseup)="stop()"
+      (mouseleave)="stop()"
+      [class.disabled]="disabledDown()">
+      <thy-icon thyIconName="angle-down"></thy-icon>
+    </span>
+  </div>
+}
 <input
   thyInput
   #input

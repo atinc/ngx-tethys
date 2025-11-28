@@ -126,10 +126,8 @@ export class ThyPicker implements AfterViewInit {
     constructor() {
         effect(() => {
             this.innerValue = this.value();
-            if (this.innerValue) {
-                if (!this.entering) {
-                    this.updateReadableDate(this.innerValue);
-                }
+            if (!this.entering) {
+                this.updateReadableDate(this.innerValue);
             }
         });
 

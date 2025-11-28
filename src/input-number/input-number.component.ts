@@ -102,6 +102,11 @@ export class ThyInputNumber extends TabIndexDisabledControlValueAccessorMixin im
     readonly thyStep = input(1, { transform: numberAttribute });
 
     /**
+     * 是否展示步数切换按钮
+     */
+    readonly thyShowStepControls = input(true, { transform: coerceBooleanProperty });
+
+    /**
      * 改变步数时的延迟毫秒数，值越小变化的速度越快
      * @default 300
      */

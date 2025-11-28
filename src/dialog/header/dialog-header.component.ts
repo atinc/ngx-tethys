@@ -1,17 +1,4 @@
-import {
-    Component,
-    Input,
-    Output,
-    EventEmitter,
-    TemplateRef,
-    OnInit,
-    ElementRef,
-    inject,
-    input,
-    contentChild,
-    computed,
-    Signal
-} from '@angular/core';
+import { Component, TemplateRef, OnInit, ElementRef, inject, input, output, contentChild, computed, Signal } from '@angular/core';
 import { ThyDialog } from '../dialog.service';
 import { ThyDialogContainer } from '../dialog-container.component';
 import { ThyTranslate } from 'ngx-tethys/core';
@@ -29,7 +16,6 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 @Component({
     selector: 'thy-dialog-header',
     templateUrl: './dialog-header.component.html',
-    // changeDetection: ChangeDetectionStrategy.OnPush,
     exportAs: 'thyDialogHeader',
     host: {
         class: 'dialog-header thy-dialog-header',
@@ -84,7 +70,7 @@ export class ThyDialogHeader implements OnInit {
     /**
      * 关闭事件
      */
-    @Output() thyOnClose: EventEmitter<Event> = new EventEmitter<Event>();
+    readonly thyOnClose = output<Event>();
 
     ngOnInit() {
         if (!this.dialogContainer) {
@@ -107,10 +93,7 @@ export class ThyDialogHeader implements OnInit {
     }
 
     close(event?: Event) {
-        if (this.thyOnClose.observers.length > 0) {
-            this.thyOnClose.emit(event);
-        } else {
-            this.dialog.close();
-        }
+        this.thyOnClose.emit(event);
+        this.dialog.close();
     }
 }

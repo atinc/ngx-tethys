@@ -238,8 +238,6 @@ export abstract class AbstractPickerComponent
 
     private onlyEmitDate = false;
 
-    protected originWithTime: boolean;
-
     protected innerValue: ThyCompatibleDate;
 
     get realOpenState(): boolean {
@@ -314,7 +312,7 @@ export abstract class AbstractPickerComponent
 
     onValueChange(originalValue: CompatibleValue | RangeAdvancedValue): void {
         this.setFormatRule();
-        const { value, withTime, flexibleDateGranularity } = transformDateValue(originalValue);
+        const { value, flexibleDateGranularity } = transformDateValue(originalValue);
         this.flexibleDateGranularity = flexibleDateGranularity;
         this.setValue(value);
         if (this.isRange) {
@@ -374,16 +372,15 @@ export abstract class AbstractPickerComponent
             }
         }
 
-        this.setValue(value);
-        this.setTimePickerState(withTime);
         this.onlyEmitDate = typeof withTime === 'undefined';
-        this.originWithTime = withTime;
+        this.setTimePickerState(this.onlyEmitDate ? value && !!this.thyShowTime() : withTime);
+        this.setValue(value);
         this.setFormatRule();
         this.cdr.markForCheck();
     }
 
     setTimePickerState(withTime: boolean): void {
-        this.withTime = withTime;
+        this.withTime = !!withTime;
     }
 
     // Displays the time directly when the time must be displayed by default
@@ -394,7 +391,9 @@ export abstract class AbstractPickerComponent
     // Restore after clearing time to select whether the original picker time is displayed or not
     restoreTimePickerState(value: CompatibleValue | null) {
         if (!value) {
-            this.withTime = this.thyMustShowTime() || this.originWithTime;
+            this.withTime = this.thyMustShowTime();
+        } else if (this.onlyEmitDate) {
+            this.withTime = !!this.thyShowTime();
         }
     }
 
@@ -420,7 +419,7 @@ export abstract class AbstractPickerComponent
     }
 
     public setValue(value: ThyCompatibleDate): void {
-        this.thyValue = makeValue(value, this.isRange, this.thyTimeZone());
+        this.thyValue = makeValue(value, this.isRange, this.withTime, this.thyTimeZone());
     }
 
     private setValueByPrecision(value: ThyCompatibleDate | number | Date | DateEntry | ThyDateRangeEntry | SafeAny): number | number[] {
