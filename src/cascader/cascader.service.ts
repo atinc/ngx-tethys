@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Id } from '@tethys/cdk/immutable';
 import { SelectOptionBase } from 'ngx-tethys/shared';
 import { helpers, isArray, isEmpty, isUndefinedOrNull, set, get } from 'ngx-tethys/util';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
 import { ThyCascaderOption, ThyCascaderSearchOption } from './types';
 const defaultDisplayRender = (label: any) => label.join(' / ');
@@ -186,10 +186,19 @@ export class ThyCascaderService {
 
         this.isLoading = true;
 
-        this.cascaderOptions.loadData(option, index).then(
-            () => this.handleLoadDataSuccess(option, index, success),
-            () => this.handleLoadDataFailure(option, index, failure)
-        );
+        const result = this.cascaderOptions.loadData(option, index);
+
+        if (result instanceof Promise) {
+            result.then(
+                () => this.handleLoadDataSuccess(option, index, success),
+                () => this.handleLoadDataFailure(option, index, failure)
+            );
+        } else if (result instanceof Observable) {
+            result.pipe().subscribe({
+                next: () => this.handleLoadDataSuccess(option, index, success),
+                error: () => this.handleLoadDataFailure(option, index, failure)
+            });
+        }
     }
 
     private handleLoadDataSuccess(option: ThyCascaderOption, index: number, success?: () => void): void {
