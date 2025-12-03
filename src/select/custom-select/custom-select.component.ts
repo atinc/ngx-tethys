@@ -46,7 +46,6 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    ContentChildren,
     ElementRef,
     forwardRef,
     HostListener,
@@ -67,7 +66,6 @@ import {
     input,
     contentChild,
     untracked,
-    viewChildren,
     contentChildren,
     afterRenderEffect,
     signal,
@@ -97,9 +95,9 @@ export const SELECT_PANEL_MAX_HEIGHT = 300;
 
 export const SELECT_OPTION_MAX_HEIGHT = 40;
 
-export const SELECT_OPTION_GROUP_MAX_HEIGHT = 30;
+export const SELECT_PANEL_PADDING_TOP = 12;
 
-export const SELECT_PANEL_PADDING_TOP = 10;
+export const SELECT_PANEL_PADDING_BOTTOM = 12;
 
 export const THY_SELECT_PANEL_MIN_WIDTH = 200;
 
@@ -119,14 +117,14 @@ export interface ThySelectOptionModel {
     groupLabel?: string;
 }
 
-interface ThyRenderItem {
+interface ThySelectFlatItem {
     type: 'option' | 'group';
     value?: string | number;
     rawValue?: any;
     label?: string;
     showOptionCustom?: boolean;
-    disabled?: boolean;
     template?: TemplateRef<any>;
+    disabled?: boolean;
     searchKey?: string;
     groupLabel?: string;
 }
@@ -228,12 +226,18 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         return getFlexiblePositions(this.placement(), this.defaultOffset);
     });
 
+    public itemSize = SELECT_OPTION_MAX_HEIGHT;
+
     readonly virtualHeight = computed<number>(() => {
-        // virtualHeight = dropdownHeight 300 - topPadding 12 - bottomPadding 12 = 276
-        const maxHeight = 300 - 12 - 12;
-        const height = this.renderGroupsAndOptions().length * this.itemSize;
-        return height > maxHeight ? maxHeight : height;
+        const maxVirtualHeight = SELECT_PANEL_MAX_HEIGHT - SELECT_PANEL_PADDING_TOP - SELECT_PANEL_PADDING_BOTTOM;
+        const height = this.flattedGroupsAndOptions().length * this.itemSize;
+        return Math.min(height, maxVirtualHeight);
     });
+
+    /**
+     * 视觉上能看到的最大选项个数
+     */
+    private maxItemLength = 7;
 
     public triggerRectWidth: WritableSignal<number> = signal(undefined);
 
@@ -395,16 +399,6 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
      */
     readonly thyBorderless = input(false, { transform: coerceBooleanProperty });
 
-    /**
-     * 选项的高度
-     */
-    public itemSize = 40;
-
-    /**
-     * 视觉上最大能看到的选项个数
-     */
-    private maxItemLength = 7;
-
     private scrolledIndex = 0;
 
     readonly cdkVirtualScrollViewport = viewChild<CdkVirtualScrollViewport>(CdkVirtualScrollViewport);
@@ -440,24 +434,24 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     /**
      * 所有分组和选项
      */
-    readonly allGroupsAndOptions = signal<ThyRenderItem[]>([]);
+    readonly allGroupsAndOptions = signal<ThySelectFlatItem[]>([]);
 
     /**
-     * 渲染的分组和选项，比如基于 keywords 过滤后
+     * 渲染的分组和选项，基于 keywords 过滤后
      */
-    readonly renderGroupsAndOptions = computed<ThyRenderItem[]>(() => {
-        return this.buildRenderGroupsAndOptions();
+    readonly flattedGroupsAndOptions = computed<ThySelectFlatItem[]>(() => {
+        return this.buildFlattedGroupsAndOptions();
     });
 
     /**
      * 渲染的选项
      */
-    readonly renderOptions = computed<ThyRenderItem[]>(() => {
-        return this.renderGroupsAndOptions().filter(item => item.type === 'option');
+    readonly flattedOptions = computed<ThySelectFlatItem[]>(() => {
+        return this.flattedGroupsAndOptions().filter(item => item.type === 'option');
     });
 
-    readonly renderOptionsMap = computed<Dictionary<ThyRenderItem>>(() => {
-        return helpers.keyBy(this.renderOptions(), 'value');
+    readonly flattedOptionsMap = computed<Dictionary<ThySelectFlatItem>>(() => {
+        return helpers.keyBy(this.flattedOptions(), 'value');
     });
 
     /**
@@ -470,6 +464,10 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         }
     });
 
+    readonly selectedValuesMap = computed<Map<SafeAny, boolean>>(() => {
+        return new Map(this.selectedValues().map(value => [value, true]));
+    });
+
     /**
      * 传给 selectControl 指令的选中值
      */
@@ -480,21 +478,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         }
     });
 
-    /**
-     * @private
-     */
-    @ContentChildren(ThyOption, { descendants: true }) contentOptions: QueryList<ThyOption>;
-
-    @ViewChildren(ThyOptionGroupRender) optionGroupRenders: QueryList<ThyOptionGroupRender>;
-
     @ViewChildren(ThyOptionRender) optionRenders: QueryList<ThyOptionRender>;
-
-    /**
-     * @private
-     */
-    readonly contentGroups = contentChildren<ThySelectOptionGroup>(ThySelectOptionGroup);
-
-    readonly viewGroups = viewChildren<ThySelectOptionGroup>(ThySelectOptionGroup);
 
     @HostListener('keydown', ['$event'])
     keydown(event: KeyboardEvent): void {
@@ -585,7 +569,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     }
 
     private setup() {
-        this.optionsChanges$.pipe(startWith(null), takeUntilDestroyed(this.destroyRef)).subscribe(data => {
+        this.optionsChanges$.pipe(startWith(null), takeUntilDestroyed(this.destroyRef)).subscribe(() => {
             // Don't scroll to default highlighted option when scroll load more options
             if (this.shouldActivateOption) {
                 this.shouldActivateOption = false;
@@ -612,7 +596,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     }
 
     private buildAllGroupsAndOptions() {
-        let allGroupsAndOptions: ThyRenderItem[];
+        let allGroupsAndOptions: ThySelectFlatItem[];
         const isReactiveDriven = this.thyOptions()?.length > 0;
         if (isReactiveDriven) {
             allGroupsAndOptions = this.allGroupsAndOptionsByReactive();
@@ -622,12 +606,12 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         this.allGroupsAndOptions.set(allGroupsAndOptions);
     }
 
-    private allGroupsAndOptionsByReactive(): ThyRenderItem[] {
+    private allGroupsAndOptionsByReactive(): ThySelectFlatItem[] {
         const options = this.thyOptions();
         const groupMap = new Map<string, ThySelectOptionModel[]>();
         const ungroupedOptions: ThySelectOptionModel[] = [];
 
-        let groupsAndOptions: ThyRenderItem[] = [];
+        let groupsAndOptions: ThySelectFlatItem[] = [];
 
         for (const option of options) {
             if (option.groupLabel) {
@@ -672,11 +656,11 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         return groupsAndOptions;
     }
 
-    private allGroupsAndOptionsByTemplate(): ThyRenderItem[] {
+    private allGroupsAndOptionsByTemplate(): ThySelectFlatItem[] {
         const options = this.options();
         const groups = this.groups();
 
-        let groupsAndOptions: ThyRenderItem[] = [];
+        let groupsAndOptions: ThySelectFlatItem[] = [];
 
         if (options && options.length > 0) {
             groupsAndOptions = options.map((option: ThyOption) => {
@@ -701,7 +685,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             for (const group of groups) {
                 const groupIndex = groupsAndOptions.findIndex(option => option.groupLabel === group.thyGroupLabel());
                 if (groupIndex > -1) {
-                    const groupItem: ThyRenderItem = {
+                    const groupItem: ThySelectFlatItem = {
                         type: 'group',
                         label: group.thyGroupLabel(),
                         disabled: group.thyDisabled()
@@ -714,11 +698,11 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         return groupsAndOptions;
     }
 
-    private buildRenderGroupsAndOptions() {
+    private buildFlattedGroupsAndOptions() {
         const keywords = this.keywords();
         const isServerSearch = this.thyServerSearch();
         const allGroupsAndOptions = this.allGroupsAndOptions();
-        let filteredGroupsAndOptions: ThyRenderItem[] = [];
+        let filteredGroupsAndOptions: ThySelectFlatItem[] = [];
 
         if (keywords && !isServerSearch) {
             const lowerKeywords = keywords.toLowerCase();
@@ -758,7 +742,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         let newOptions: SelectOptionBase[] = [];
 
         if (selectedValues.length) {
-            const renderOptionsMap = this.renderOptionsMap();
+            const flattedOptionsMap = this.flattedOptionsMap();
             const oldSelectedOptionsMap = untracked(() => {
                 const selected = this.selectedOptions();
                 let oldSelectedOptions: SelectOptionBase[];
@@ -773,7 +757,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             });
 
             selectedValues.forEach(value => {
-                let option: ThyRenderItem = renderOptionsMap[value];
+                let option: ThySelectFlatItem = flattedOptionsMap[value];
 
                 if (option) {
                     newOptions.push({
@@ -796,7 +780,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         this.scrolledIndex = index;
 
         if (this.thyEnableScrollLoad()) {
-            const isScrollToBottom = index + this.maxItemLength >= this.renderGroupsAndOptions().length;
+            const isScrollToBottom = index + this.maxItemLength >= this.flattedGroupsAndOptions().length;
             if (isScrollToBottom) {
                 this.thyOnScrollToBottom.emit();
             }
@@ -807,6 +791,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
 
     public search(keywords: string) {
         this.shouldActivateOption = true;
+        this.activatedValue.set(null);
         this.keywords.set(keywords.trim());
         this.reUpdateSelectedStatus();
 
@@ -889,7 +874,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         return !this.selectedValues().length;
     });
 
-    activatedValue = signal(null);
+    public activatedValue = signal(null);
 
     public toggle(event: MouseEvent): void {
         if (this.panelOpen) {
@@ -916,6 +901,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     public close(): void {
         if (this.panelOpen) {
             this.panelOpen = false;
+            this.scrolledIndex = 0;
             this.unsubscribeTriggerResize();
             this.thyOnExpandStatusChange.emit(this.panelOpen);
             this.changeDetectorRef.markForCheck();
@@ -944,18 +930,18 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             return;
         }
 
-        const renderOptions = this.renderOptions();
-        if (!renderOptions.length) {
+        const flattedOptions = this.flattedOptions();
+        if (!flattedOptions.length) {
             return;
         }
 
         let toActivatedValue = this.activatedValue();
-        if (!toActivatedValue || !this.renderOptionsMap()[toActivatedValue]) {
+        if (!toActivatedValue || !this.flattedOptionsMap()[toActivatedValue]) {
             if (this.selectedValues().length > 0) {
                 toActivatedValue = this.selectedValues()[0];
             } else {
                 if (this.thyAutoActiveFirstItem()) {
-                    toActivatedValue = renderOptions[0].value || null;
+                    toActivatedValue = flattedOptions[0].value || null;
                 }
             }
 
@@ -965,7 +951,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             this.activatedValue.set(toActivatedValue);
         }
 
-        const targetIndex = this.renderGroupsAndOptions().findIndex(item => item.value === toActivatedValue);
+        const targetIndex = this.flattedGroupsAndOptions().findIndex(item => item.value === toActivatedValue);
         if (targetIndex === -1) {
             return;
         }
@@ -1000,31 +986,50 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             }
         }
 
-        const renderOptions = this.renderOptions();
+        const flattedOptions = this.flattedOptions();
         if (keyCode === DOWN_ARROW || keyCode === UP_ARROW) {
             event.preventDefault();
 
             const activatedValue = this.activatedValue();
-            const currentOption = this.renderOptionsMap()[activatedValue];
+            const currentOption = this.flattedOptionsMap()[activatedValue];
             if (!currentOption) {
                 return;
             }
 
-            const currentIndex = renderOptions.indexOf(currentOption);
+            const currentIndex = flattedOptions.indexOf(currentOption);
             let targetIndex: number;
             if (keyCode === DOWN_ARROW) {
                 targetIndex = currentIndex + 1;
-                if (targetIndex > renderOptions.length - 1) {
+                if (targetIndex > flattedOptions.length - 1) {
                     targetIndex = 0;
+                }
+                let attempts = 0;
+                while (flattedOptions[targetIndex]?.disabled && attempts < flattedOptions.length) {
+                    targetIndex++;
+                    if (targetIndex > flattedOptions.length - 1) {
+                        targetIndex = 0;
+                    }
+                    attempts++;
                 }
             } else {
                 targetIndex = currentIndex - 1;
                 if (targetIndex < 0) {
-                    targetIndex = renderOptions.length - 1;
+                    targetIndex = flattedOptions.length - 1;
+                }
+                let attempts = 0;
+                while (flattedOptions[targetIndex]?.disabled && attempts < flattedOptions.length) {
+                    targetIndex--;
+                    if (targetIndex < 0) {
+                        targetIndex = flattedOptions.length - 1;
+                    }
+                    attempts++;
                 }
             }
 
-            const targetOption = renderOptions[targetIndex];
+            const targetOption = flattedOptions[targetIndex];
+            if (targetOption?.disabled) {
+                return;
+            }
             this.activatedValue.set(targetOption.value);
 
             if (!hasModifierKey(event)) {
@@ -1034,7 +1039,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             }
         } else if (keyCode === HOME || keyCode === END) {
             event.preventDefault();
-            const targetOption = keyCode === HOME ? renderOptions[0] : renderOptions[renderOptions.length - 1];
+            const targetOption = keyCode === HOME ? flattedOptions[0] : flattedOptions[flattedOptions.length - 1];
             this.activatedValue.set(targetOption.value);
             this.scrollToActivatedOption();
         } else if ((keyCode === ENTER || keyCode === SPACE) && (this.activatedValue() || !this.empty()) && !hasModifierKey(event)) {
@@ -1042,10 +1047,10 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             this.scrollToActivatedOption(true);
         } else if (this.isMultiple() && keyCode === A && event.ctrlKey) {
             event.preventDefault();
-            const hasDeselectedOptions = renderOptions.some(opt => !opt.disabled && !this.selectedValues().includes(opt.value));
+            const hasDeselectedOptions = flattedOptions.some(opt => !opt.disabled && !this.selectedValues().includes(opt.value));
             let selectedValues: SafeAny[] = [];
             if (hasDeselectedOptions) {
-                selectedValues = renderOptions.filter(option => !option.disabled).map(option => option.value);
+                selectedValues = flattedOptions.filter(option => !option.disabled).map(option => option.value);
             }
             this.selectedValues.set(selectedValues);
             this.emitModelValueChange();
@@ -1055,13 +1060,9 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         }
     }
 
-    optionClick(event: { value: SafeAny; isUserInput?: boolean }) {
+    optionClick(event: { value: SafeAny; isUserInput: boolean }) {
         const { value, isUserInput } = event;
         const options = this.options();
-        const option = options.find(option => option.thyValue() === value);
-        if (option) {
-            option.selectionChange.emit({ option, isUserInput });
-        }
 
         if (this.isMultiple()) {
             const selectedValues = this.selectedValues() || [];
@@ -1082,6 +1083,13 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         } else {
             this.selectedValues.set([value]);
             this.close();
+        }
+
+        const option = options.find(option => option.thyValue() === value);
+        if (option) {
+            const selected = this.selectedValues().includes(value);
+            option.selected.set(selected);
+            option.selectionChange.emit({ option, isUserInput });
         }
 
         this.emitModelValueChange();
@@ -1135,7 +1143,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         }
     }
 
-    trackByFn(index: number, item: ThyRenderItem): SafeAny {
+    trackByFn(index: number, item: ThySelectFlatItem): SafeAny {
         if (item.type === 'group') {
             return item.label || index;
         }

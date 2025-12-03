@@ -1,5 +1,6 @@
-import { Component, input, TemplateRef, ChangeDetectionStrategy, viewChild, inject, output } from '@angular/core';
+import { Component, input, TemplateRef, ChangeDetectionStrategy, viewChild, inject, output, signal } from '@angular/core';
 import { ThySelectOptionGroup } from './group/option-group.component';
+import { SafeAny } from 'ngx-tethys/types';
 
 export class ThyOptionSelectionChangeEvent {
     constructor(
@@ -8,6 +9,10 @@ export class ThyOptionSelectionChangeEvent {
     ) {}
 }
 
+/**
+ * 选项组件
+ * @name thy-option
+ */
 @Component({
     selector: 'thy-option',
     template: `
@@ -18,21 +23,50 @@ export class ThyOptionSelectionChangeEvent {
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyOption {
-    readonly thyValue = input<any>();
+    /**
+     * 选项的值，具有唯一性
+     */
+    readonly thyValue = input<SafeAny>();
 
-    readonly thyRawValue = input<any>();
+    /**
+     * 选项的原始值
+     */
+    readonly thyRawValue = input<SafeAny>();
 
+    /**
+     * 选项的文本
+     */
     readonly thyLabelText = input<string>();
 
+    /**
+     * 是否显示自定义模板
+     */
     readonly thyShowOptionCustom = input<boolean>();
 
+    /**
+     * 搜索关键字
+     */
     readonly thySearchKey = input<string>();
 
+    /**
+     * 是否禁用
+     */
     readonly thyDisabled = input<boolean>();
 
+    /**
+     * 是否选中，会跟随 ThyOptionSelectionChangeEvent 抛出去
+     */
+    readonly selected = signal(false);
+
+    /**
+     * 选项被选中时的回调
+     */
     readonly selectionChange = output<ThyOptionSelectionChangeEvent>();
 
-    readonly template = viewChild<TemplateRef<any>>(TemplateRef);
+    /**
+     * 模板
+     */
+    readonly template = viewChild<TemplateRef<SafeAny>>(TemplateRef);
 
     private readonly optionGroupComponent = inject(ThySelectOptionGroup, { optional: true });
 

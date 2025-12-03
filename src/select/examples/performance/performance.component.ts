@@ -4,18 +4,13 @@ import { ThyOption } from 'ngx-tethys/shared';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'thy-select-perf-example',
-    templateUrl: './perf.component.html',
+    selector: 'thy-select-performance-example',
+    templateUrl: './performance.component.html',
     styles: [
         `
-            :host {
+            .select-container {
                 display: flex;
                 align-items: center;
-                flex-wrap: wrap;
-            }
-            .basic-container {
-                display: flex;
-                justify-content: left;
                 flex-wrap: wrap;
             }
             thy-select,
@@ -29,12 +24,12 @@ import { FormsModule } from '@angular/forms';
     ],
     imports: [ThySelect, ThyOption, FormsModule]
 })
-export class ThySelectPerfExampleComponent implements OnInit, AfterViewInit {
+export class ThySelectPerformanceExampleComponent implements OnInit, AfterViewInit {
     private perfTracker = perfTracker();
 
-    private selectCount = 22;
+    selectCount = 22;
 
-    private optionCount = 250;
+    optionCount = 250;
 
     listOfSelect = Array.from({ length: this.selectCount }, (_, index) => ({
         id: index + 1

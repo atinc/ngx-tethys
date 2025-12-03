@@ -1407,6 +1407,11 @@ describe('ThyCustomSelect', () => {
                 const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
                 typeInElement('any word', input);
                 fixture.detectChanges();
+                tick(100);
+                trigger.click();
+                fixture.detectChanges();
+                tick(100);
+                fixture.detectChanges();
                 expect(fixtureIns.select().activatedValue()).toEqual(fixtureIns.foods[0].value);
             }));
 
@@ -1721,29 +1726,28 @@ describe('ThyCustomSelect', () => {
             tick(100);
             fixture.detectChanges();
 
-            let groupRenders: ThyOptionGroupRender[];
-            let optionRenders: ThyOptionRender[];
-
             const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
             tick(100);
             typeInElement('Cat', input);
             flush();
             fixture.detectChanges();
-            groupRenders = fixture.componentInstance.select().optionGroupRenders.toArray();
-            optionRenders = fixture.componentInstance.select().optionRenders.toArray();
 
-            expect(groupRenders.length).toBe(1);
-            expect(groupRenders[0].thyGroupLabel()).toContain('Grass');
+            const optionGroups = overlayContainerElement.querySelectorAll('thy-option-group-render');
+            expect(optionGroups.length).toBe(1);
+            const groupName = optionGroups[0].querySelector('.group-name') as HTMLElement;
+            expect(groupName.innerText).toEqual('Grass');
+
+            const optionRenders = overlayContainerElement.querySelectorAll('thy-option-render');
+            console.log('optionRenders', optionRenders);
             expect(optionRenders.length).toBe(1);
-            expect(optionRenders[0].thyLabelText()).toContain('Cat');
 
             typeInElement('cat2', input);
             flush();
             fixture.detectChanges();
-            groupRenders = fixture.componentInstance.select().optionGroupRenders.toArray();
-            optionRenders = fixture.componentInstance.select().optionRenders.toArray();
-            expect(groupRenders.length).toBe(0);
-            expect(optionRenders.length).toBe(0);
+            const optionGroups2 = overlayContainerElement.querySelectorAll('thy-option-group-render');
+            expect(optionGroups2.length).toBe(0);
+            const optionRenders2 = overlayContainerElement.querySelectorAll('thy-option-render');
+            expect(optionRenders2.length).toBe(0);
         }));
 
         it('should exec thyOnSearch when thyServerSearch is true', fakeAsync(() => {

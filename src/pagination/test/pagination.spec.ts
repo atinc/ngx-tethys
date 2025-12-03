@@ -478,8 +478,10 @@ describe('ThyPagination', () => {
             componentInstance.showSizeChanger = true;
             fixture.detectChanges();
 
+            const pageSizeChangedSpy = spyOn(componentInstance, 'pageSizeChanged');
+
             expect(componentInstance.pagination.pageSize).toBe(20);
-            expect(componentInstance.pageSizeChanged).toHaveBeenCalledTimes(0);
+            expect(pageSizeChangedSpy).toHaveBeenCalledTimes(0);
 
             const paginationDebugElement = fixture.debugElement.query(By.directive(ThyPagination));
             const paginationComponent = paginationDebugElement.componentInstance as ThyPagination;
@@ -489,8 +491,8 @@ describe('ThyPagination', () => {
             fixture.detectChanges();
             tick(300);
 
-            expect(componentInstance.pageSizeChanged).toHaveBeenCalledTimes(1);
-            expect(componentInstance.pageSizeChanged).toHaveBeenCalledWith(50);
+            expect(pageSizeChangedSpy).toHaveBeenCalledTimes(1);
+            expect(pageSizeChangedSpy).toHaveBeenCalledWith(50);
         }));
 
         it('should set size when thySize changed', fakeAsync(() => {

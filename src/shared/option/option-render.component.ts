@@ -7,7 +7,9 @@ import { NgTemplateOutlet } from '@angular/common';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
 /**
+ * 选项渲染组件
  * @private
+ * @name thy-option-render
  */
 @Component({
     selector: 'thy-option-render',
@@ -64,14 +66,19 @@ export class ThyOptionRender implements Highlightable {
     readonly thyTemplate = input<TemplateRef<SafeAny>>();
 
     /**
+     * 模板上下文
+     */
+    readonly thyTemplateContext = input<SafeAny>();
+
+    /**
      * 被选中时，是否显示勾选图标
      */
     readonly thyShowCheckedIcon = input(false, { transform: coerceBooleanProperty });
 
     /**
-     * 父组件 select 选中的值
+     * Select 组件选中的值
      */
-    readonly thySelectedValuesOfList = input([]);
+    readonly thySelectedValuesMap = input<Map<SafeAny, boolean>>(new Map());
 
     /**
      * 当前高亮选项的值
@@ -92,7 +99,7 @@ export class ThyOptionRender implements Highlightable {
      * 是否被选中
      */
     readonly selected = computed(() => {
-        return this.thySelectedValuesOfList().includes(this.thyValue());
+        return this.thySelectedValuesMap().has(this.thyValue());
     });
 
     /**

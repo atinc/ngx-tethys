@@ -14,7 +14,8 @@ import {
     viewChildren,
     signal,
     DestroyRef,
-    afterRenderEffect
+    afterRenderEffect,
+    computed
 } from '@angular/core';
 import { ThyOption, ThyOptionRender, ThyOptionSelectionChangeEvent, ThyStopPropagationDirective } from 'ngx-tethys/shared';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
@@ -62,6 +63,10 @@ export class ThyAutocomplete {
     isOpened = false;
 
     readonly selectedValues = signal<SafeAny[]>([]);
+
+    readonly selectedValuesMap = computed<Map<SafeAny, boolean>>(() => {
+        return new Map(this.selectedValues().map(value => [value, true]));
+    });
 
     /** Manages active item in option list based on key events. */
     keyManager: ActiveDescendantKeyManager<ThyOptionRender>;
