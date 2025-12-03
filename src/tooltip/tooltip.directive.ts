@@ -1,18 +1,21 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
 import {
+    AfterViewInit,
     Directive,
     ElementRef,
-    Input,
+    Injector,
     NgZone,
     OnDestroy,
     OnInit,
     ViewContainerRef,
-    numberAttribute,
+    afterNextRender,
+    effect,
     inject,
     input,
-    effect,
-    linkedSignal
+    linkedSignal,
+    numberAttribute,
+    signal
 } from '@angular/core';
 import { ThyOverlayDirectiveBase, ThyOverlayTrigger, ThyPlacement } from 'ngx-tethys/core';
 import { SafeAny } from 'ngx-tethys/types';
@@ -25,15 +28,18 @@ import { ThyTooltipService } from './tooltip.service';
  * @name thyTooltip
  */
 @Directive({ selector: '[thyTooltip],[thy-tooltip]', exportAs: 'thyTooltip' })
-export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnInit, OnDestroy {
+export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnInit, AfterViewInit, OnDestroy {
     private viewContainerRef = inject(ViewContainerRef);
     private thyTooltipService = inject(ThyTooltipService);
+    private injector = inject(Injector);
 
     touchendHideDelay = 1500;
 
     protected isAutoCloseOnMobileTouch: boolean = true;
 
     private tooltipRef: ThyTooltipRef;
+
+    private readonly viewInitialized = signal(false);
 
     /**
      * 提示消息，可以是文本，也可以是一个模板
@@ -143,38 +149,51 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
 
         effect(() => {
             const value = this.content();
+            const data = this.data();
+            const viewInit = this.viewInitialized();
             if (!value && this.tooltipRef?.isTooltipVisible()) {
                 this.tooltipRef.hide(0);
-            } else {
-                this.tooltipRef?.updateTooltipContent(value, this.data());
+            } else if (value) {
+                this.tooltipRef?.updateTooltipContent(value, data);
+            }
+            if (value && viewInit && !this.disabled) {
+                this.setupEventsIfNeeded();
             }
         });
 
         effect(() => {
-            const tooltipClass = this.thyTooltipClass();
-            this.tooltipRef?.setTooltipClass(tooltipClass);
-        });
-
-        effect(() => {
             const trigger = this.thyTooltipTrigger();
+            const overlayPin = this.tooltipPin();
             this.trigger = trigger;
+            this.overlayPin = overlayPin;
         });
 
         effect(() => {
             const disabled = this.toolTipDisabled();
             this.disabled = disabled;
-            if (disabled) {
+            if (disabled && this.tooltipRef?.isTooltipVisible()) {
                 this.hide(0);
             }
         });
 
-        effect(() => {
-            const overlayPin = this.tooltipPin();
-            this.overlayPin = overlayPin;
+        afterNextRender(() => {
+            const tooltipClass = this.thyTooltipClass();
+            if (this.tooltipRef) {
+                this.tooltipRef.setTooltipClass(tooltipClass);
+            }
         });
     }
 
-    ngOnInit() {
+    ngOnInit() {}
+
+    ngAfterViewInit() {
+        this.viewInitialized.set(true);
+    }
+
+    private setupEventsIfNeeded(): void {
+        if (this.disabled || !this.content() || !this.viewInitialized()) {
+            return;
+        }
         this.initialize();
     }
 
