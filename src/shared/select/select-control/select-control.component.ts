@@ -1,4 +1,4 @@
-import { ThyTagSize } from 'ngx-tethys/tag';
+import { ThyTagSize , ThyTag } from 'ngx-tethys/tag';
 import { coerceArray, coerceBooleanProperty, isUndefinedOrNull } from 'ngx-tethys/util';
 
 import {
@@ -34,7 +34,6 @@ import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
 import { ThyGridModule } from 'ngx-tethys/grid';
 import { injectLocale, ThySharedLocale } from 'ngx-tethys/i18n';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { ThyTag } from 'ngx-tethys/tag';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { Observable, of, throttleTime } from 'rxjs';
 import { SelectOptionBase } from '../../option/select-option-base';
@@ -132,7 +131,7 @@ export class ThySelectControl implements OnInit, AfterViewInit {
     isSelectedValue = computed(() => {
         return (
             (!this.thyIsMultiple() && !isUndefinedOrNull(this.thySelectedOptions())) ||
-            (this.thyIsMultiple() && (<SelectOptionBase[]>this.thySelectedOptions()).length > 0)
+            (this.thyIsMultiple() && (this.thySelectedOptions() as SelectOptionBase[]).length > 0)
         );
     });
 

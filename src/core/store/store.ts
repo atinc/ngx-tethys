@@ -130,7 +130,7 @@ export class MiniStore<T = unknown> implements Observer<T>, OnDestroy {
     }
 
     private _getClassName(): string {
-        const name = this.constructor.name || /function (.+)\(/.exec(this.constructor + '')[1];
+        const name = this.constructor.name || /function (.+)\(/.exec(`${this.constructor  }`)[1];
         return name;
     }
 }

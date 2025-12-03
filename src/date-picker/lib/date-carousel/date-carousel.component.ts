@@ -175,7 +175,7 @@ export class DateCarousel implements OnInit, ControlValueAccessor, OnDestroy {
     }
 
     getShouldBeToggleValue(begin: TinyDate, end: TinyDate) {
-        let selectedValue: AdvancedSelectableCell[] = [];
+        const selectedValue: AdvancedSelectableCell[] = [];
         switch (this.dateGranularity) {
             case 'year':
                 this.dateGranularity = 'year';

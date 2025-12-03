@@ -36,9 +36,9 @@ export class ThyTimelineItem implements OnInit {
 
     public isFirst = false;
 
-    public position: ThyTimeMode;
+    public position!: ThyTimeMode;
 
-    public reverse: Boolean = false;
+    public reverse: boolean = false;
 
     /**
      * 指定圆圈颜色
@@ -51,7 +51,7 @@ export class ThyTimelineItem implements OnInit {
      * 自定义节点位置
      * @type left | right | center
      */
-    readonly thyPosition = input<ThyTimeMode>(undefined);
+    readonly thyPosition = input<ThyTimeMode>();
 
     /**
      * 自定义时间轴点模板

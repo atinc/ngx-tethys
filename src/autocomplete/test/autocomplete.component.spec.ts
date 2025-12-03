@@ -1,4 +1,4 @@
-import { ThyInputSearch } from 'ngx-tethys/input';
+import { ThyInputSearch , ThyInputModule } from 'ngx-tethys/input';
 import {
     bypassSanitizeProvider,
     dispatchFakeEvent,
@@ -14,7 +14,6 @@ import { Component, DebugElement, viewChild, viewChildren } from '@angular/core'
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyOptionModule, ThyOption } from 'ngx-tethys/shared';
 import { ThyAutocomplete, ThyAutocompleteTriggerDirective, ThyAutocompleteModule } from 'ngx-tethys/autocomplete';
 import { provideHttpClient } from '@angular/common/http';

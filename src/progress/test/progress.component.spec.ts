@@ -350,7 +350,7 @@ describe(`ThyProgressComponent`, () => {
         }
 
         function computedPathString(position: string = 'top', strokeWidth = 6) {
-            let circlePath = progressCircleElement.querySelector('.progress-circle-path');
+            const circlePath = progressCircleElement.querySelector('.progress-circle-path');
             const radius = 50 - strokeWidth / 2;
             let beginPositionX = 0;
             let beginPositionY = -radius;

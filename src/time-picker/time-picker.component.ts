@@ -385,7 +385,7 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
     }
 
     private validateCustomizeInput(value: string): boolean {
-        let valid: boolean = false;
+        let valid = false;
         if (value.length > this.thyFormat().length) {
             return valid;
         }

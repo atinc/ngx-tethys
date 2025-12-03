@@ -39,7 +39,7 @@ export class ThyStringOrTemplateOutletDirective {
             if (isTemplateRef(thyStringOrTemplateOutlet)) {
                 this.viewRef = this.viewContainerRef.createEmbeddedView(thyStringOrTemplateOutlet, this.thyStringOrTemplateOutletContext());
             } else {
-                this.textNode = this.renderer.createText(thyStringOrTemplateOutlet + '');
+                this.textNode = this.renderer.createText(`${thyStringOrTemplateOutlet  }`);
                 const element = this.viewContainerRef.element.nativeElement as HTMLElement;
                 this.renderer.insertBefore(element.parentNode, this.textNode, element);
             }

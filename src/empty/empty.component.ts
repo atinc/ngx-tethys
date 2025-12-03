@@ -153,7 +153,7 @@ export class ThyEmpty implements AfterViewInit {
     readonly extraTemplateRef = contentChild<TemplateRef<SafeAny>>('extra');
 
     protected readonly presetSvg = computed(() => {
-        let presetSvg = this.thyIconName() ? PRESET_SVG[this.thyIconName() as keyof typeof PRESET_SVG] : PRESET_SVG.default;
+        const presetSvg = this.thyIconName() ? PRESET_SVG[this.thyIconName() as keyof typeof PRESET_SVG] : PRESET_SVG.default;
 
         return presetSvg ? this.sanitizer.bypassSecurityTrustHtml(presetSvg) : '';
     });
@@ -215,7 +215,7 @@ export class ThyEmpty implements AfterViewInit {
             }
         }
         if (marginTop) {
-            this.hostRenderer.setStyle('marginTop', marginTop + 'px');
+            this.hostRenderer.setStyle('marginTop', `${marginTop  }px`);
         }
     }
 

@@ -72,10 +72,10 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
 
         if (componentOrTemplateRef instanceof TemplateRef) {
             containerInstance.attachTemplatePortal(
-                new TemplatePortal<T>(componentOrTemplateRef, null, <any>{
+                new TemplatePortal<T>(componentOrTemplateRef, null, ({
                     $implicit: config.initialState,
                     [`${this.options.name}Ref`]: abstractOverlayRef
-                })
+                } as any))
             );
         } else {
             const injector = this.createInjector<T>(config, abstractOverlayRef, containerInstance);

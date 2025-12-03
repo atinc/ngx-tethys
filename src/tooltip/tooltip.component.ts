@@ -37,11 +37,11 @@ export class ThyTooltip implements OnInit {
 
     @HostBinding(`class.thy-tooltip`) addTooltipContainerClass = true;
 
-    _content: string | TemplateRef<HTMLElement>;
+    _content!: string | TemplateRef<HTMLElement>;
 
     data: any;
 
-    private readonly onHide: Subject<void> = new Subject();
+    private readonly onHide = new Subject<void>();
 
     private closeOnInteraction = false;
 

@@ -297,13 +297,13 @@ describe('ThyPagination', () => {
             const rangeEle = paginationLeft.querySelector('.number');
             let testValue = (rangeEle as HTMLElement).innerText.trim();
             let expectValue =
-                (basicTestComponent.pagination.index - 1) * pageSize + 1 + '-' + basicTestComponent.pagination.index * pageSize;
+                `${(basicTestComponent.pagination.index - 1) * pageSize + 1  }-${  basicTestComponent.pagination.index * pageSize}`;
             expect(testValue).toEqual(expectValue);
 
             basicTestComponent.pagination.index = 3;
             fixture.detectChanges();
             testValue = (rangeEle as HTMLElement).innerText.trim();
-            expectValue = (basicTestComponent.pagination.index - 1) * pageSize + 1 + '-' + basicTestComponent.pagination.index * pageSize;
+            expectValue = `${(basicTestComponent.pagination.index - 1) * pageSize + 1  }-${  basicTestComponent.pagination.index * pageSize}`;
             expect(testValue).toEqual(expectValue);
         });
 

@@ -1,4 +1,4 @@
-import { getFlexiblePositions, ThyPlacement } from 'ngx-tethys/core';
+import { getFlexiblePositions, ThyPlacement , scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
 import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange, ConnectionPositionPair } from '@angular/cdk/overlay';
 import {
@@ -16,7 +16,6 @@ import {
     viewChild
 } from '@angular/core';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
-import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
 import { ThyI18nService } from 'ngx-tethys/i18n';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyInputDirective } from 'ngx-tethys/input';

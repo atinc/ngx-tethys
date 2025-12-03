@@ -45,7 +45,7 @@ export class ThyDialogFooter implements OnInit {
      */
     readonly thyAlign = input<ThyDialogFooterAlign>();
 
-    readonly align = computed(() => (!!this.thyAlign() ? this.thyAlign() : this.dialogLayoutConfig.footerAlign));
+    readonly align = computed(() => (this.thyAlign() ? this.thyAlign() : this.dialogLayoutConfig.footerAlign));
 
     private hostRenderer = useHostRenderer();
 

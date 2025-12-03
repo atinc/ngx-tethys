@@ -654,7 +654,7 @@ export class ThyCascaderService {
             return;
         }
 
-        let selectedCustomOptions = this.getSelectedCustomOptions();
+        const selectedCustomOptions = this.getSelectedCustomOptions();
         selectedCustomOptions.forEach(item => {
             this.removeSelectedItem(item);
         });

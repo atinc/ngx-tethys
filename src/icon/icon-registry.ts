@@ -287,7 +287,7 @@ export class ThyIconRegistry {
     }
 
     public buildIconKey(namespace: string, name: string) {
-        return namespace + ':' + name;
+        return `${namespace  }:${  name}`;
     }
 
     public splitIconName(iconName: string): [string, string] {
@@ -299,7 +299,7 @@ export class ThyIconRegistry {
             case 1:
                 return ['', parts[0]]; // Use default namespace.
             case 2:
-                return <[string, string]>parts;
+                return parts as [string, string];
             default:
                 throw Error(`Invalid icon name: "${iconName}"`);
         }

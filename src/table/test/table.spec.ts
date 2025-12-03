@@ -624,7 +624,7 @@ describe('ThyTable: basic', () => {
         const dragOriginTds = rows[1].querySelectorAll('td');
         tick(500);
         previewTds.forEach((item, index) => {
-            expect(item.style.width).toBe(dragOriginTds[index].clientWidth + 'px');
+            expect(item.style.width).toBe(`${dragOriginTds[index].clientWidth  }px`);
         });
         expect(spy).toHaveBeenCalled();
     }));
@@ -929,7 +929,7 @@ describe('ThyTable: group', () => {
         tick(500);
         const dragOriginTds = rows[1].querySelectorAll('td');
         previewTds.forEach((item, index) => {
-            expect(item.style.width).toBe(dragOriginTds[index].clientWidth + 'px');
+            expect(item.style.width).toBe(`${dragOriginTds[index].clientWidth  }px`);
         });
         expect(spy).toHaveBeenCalled();
     }));
@@ -956,7 +956,7 @@ describe('ThyTable: group', () => {
         tick(500);
         const dragOriginTds = rows[3].querySelectorAll('td');
         previewTds.forEach((item, index) => {
-            expect(item.style.width).toBe(dragOriginTds[index].clientWidth + 'px');
+            expect(item.style.width).toBe(`${dragOriginTds[index].clientWidth  }px`);
         });
         expect(spy).toHaveBeenCalled();
     }));

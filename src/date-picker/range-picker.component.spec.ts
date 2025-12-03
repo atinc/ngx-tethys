@@ -105,7 +105,7 @@ describe('ThyRangePickerComponent', () => {
             fixture.detectChanges();
         });
 
-        let rangePresets = shortcutRangesPresets();
+        const rangePresets = shortcutRangesPresets();
         const shortcutIndex = 0;
         const startDate: number = rangePresets[shortcutIndex].value[0];
         const endDate: number = rangePresets[shortcutIndex].value[1];
@@ -420,7 +420,7 @@ describe('ThyRangePickerComponent', () => {
         it('should support thyDateChange', fakeAsync(() => {
             fixtureInstance.thyShowShortcut = true;
             fixtureInstance.thyTimestampPrecision = 'milliseconds';
-            let rangePresets = shortcutRangesPresets();
+            const rangePresets = shortcutRangesPresets();
             const triggerPreset = Object.assign(rangePresets[0], { disabled: false });
             const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
             fixture.detectChanges();

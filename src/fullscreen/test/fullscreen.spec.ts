@@ -1,11 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { ThyFullscreen, ThyFullscreenModule } from 'ngx-tethys/fullscreen';
+import { ThyFullscreen, ThyFullscreenModule , ThyFullscreenComponent, ThyFullscreenLaunchDirective } from 'ngx-tethys/fullscreen';
 import { fakeAsync, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Component, DebugElement, ApplicationRef } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing';
 import { ESCAPE, SHIFT, SPACE } from 'ngx-tethys/util';
-import { ThyFullscreenComponent, ThyFullscreenLaunchDirective } from 'ngx-tethys/fullscreen';
 
 export class FakeFullscreenService extends ThyFullscreen {
     launchImmersiveFullscreen() {

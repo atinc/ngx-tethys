@@ -11,7 +11,7 @@ import { IThyRadioComponent, THY_RADIO_GROUP_COMPONENT } from './radio.token';
  * @order 10
  */
 @Component({
-    // eslint-disable-next-line @angular-eslint/component-selector
+     
     selector: '[thy-radio],[thyRadio]',
     templateUrl: './radio.component.html',
     providers: [

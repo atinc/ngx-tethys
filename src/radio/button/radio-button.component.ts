@@ -6,7 +6,7 @@ import { ThyRadio } from '../radio.component';
  * @name [thy-radio-button],[thyRadioButton]
  */
 @Component({
-    // eslint-disable-next-line @angular-eslint/component-selector
+     
     selector: '[thy-radio-button],[thyRadioButton]',
     templateUrl: './radio-button.component.html',
     host: {

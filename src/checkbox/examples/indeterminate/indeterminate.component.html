@@ -4,8 +4,7 @@
     [thyIndeterminate]="model.indeterminate"
     [(ngModel)]="model.checkedAll"
     (ngModelChange)="selectAll()"
-    thyLabelText="Check all"
-  ></label>
+    thyLabelText="Check all"></label>
   <label thyCheckbox [(ngModel)]="model.checked1" (ngModelChange)="select()" thyLabelText="Dog 🐶"></label>
   <label thyCheckbox [(ngModel)]="model.checked2" (ngModelChange)="select()" thyLabelText="Cat 🐱"></label>
   <label thyCheckbox [(ngModel)]="model.checked3" (ngModelChange)="select()" thyLabelText="Rabbit 🐰"></label>

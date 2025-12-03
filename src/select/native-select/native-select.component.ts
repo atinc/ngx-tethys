@@ -1,8 +1,7 @@
-import { Component, forwardRef, OnInit, input, viewChild, model, signal } from '@angular/core';
+import { Component, forwardRef, OnInit, input, viewChild, model, signal , ElementRef } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
 import { coerceBooleanProperty, elementMatchClosest } from 'ngx-tethys/util';
-import { ElementRef } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyInputDirective } from 'ngx-tethys/input';

@@ -1,16 +1,8 @@
-<button thyButton="primary" [thyPopover]="content" thyTrigger="click">
-  Click
-</button>
-<button thyButton="primary" [thyPopover]="content" thyTrigger="hover">
-  Hover
-</button>
-<button thyButton="primary" [thyPopover]="content" thyTrigger="focus">
-  Focus
-</button>
+<button thyButton="primary" [thyPopover]="content" thyTrigger="click">Click</button>
+<button thyButton="primary" [thyPopover]="content" thyTrigger="hover">Hover</button>
+<button thyButton="primary" [thyPopover]="content" thyTrigger="focus">Focus</button>
 
 <ng-template #content>
   <thy-popover-header thyTitle="Title"></thy-popover-header>
-  <thy-popover-body>
-    Hi, I'm popover!
-  </thy-popover-body>
+  <thy-popover-body> Hi, I'm popover! </thy-popover-body>
 </ng-template>

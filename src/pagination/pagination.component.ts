@@ -19,12 +19,11 @@ import { FormsModule } from '@angular/forms';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThySelect } from 'ngx-tethys/select';
 import { ThyEnterDirective, ThyOption } from 'ngx-tethys/shared';
-import { coerceBooleanProperty, isTemplateRef, ThyBooleanInput } from 'ngx-tethys/util';
+import { coerceBooleanProperty, isTemplateRef, ThyBooleanInput , isString, isArray, isBoolean } from 'ngx-tethys/util';
 import { ThyPaginationConfigModel } from './pagination.class';
 import { PaginationDefaultConfig, THY_PAGINATION_CONFIG, DEFAULT_RANGE_COUNT } from './pagination.config';
 import { PaginationPerPageFormat, PaginationTotalCountFormat } from './pagination.pipe';
 import { injectLocale, ThyI18nLocale, ThyPaginationLocale } from 'ngx-tethys/i18n';
-import { isString, isArray, isBoolean } from 'ngx-tethys/util';
 /**
  * 分页组件，当数据量过多时，使用分页分解数据。
  * @name thy-pagination

@@ -1,4 +1,4 @@
-import { ThyAbstractOverlayContainer, ThyClickDispatcher, ThyPortalOutlet } from 'ngx-tethys/core';
+import { ThyAbstractOverlayContainer, ThyClickDispatcher, ThyPortalOutlet , scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
 import { from, Observable, timer } from 'rxjs';
 import { filter, take, takeUntil } from 'rxjs/operators';
 
@@ -20,7 +20,6 @@ import {
 
 import { ThyPopoverConfig } from './popover.config';
 import { popoverAbstractOverlayOptions } from './popover.options';
-import { scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
 
 /**
  * @internal

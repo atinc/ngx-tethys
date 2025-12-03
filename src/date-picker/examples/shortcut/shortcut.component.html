@@ -5,8 +5,7 @@
   [thyMaxDate]="maxDate"
   [thyShowShortcut]="true"
   (ngModelChange)="onChange($event)"
-  (thyDateChange)="dateValueChange($event)"
-></thy-range-picker>
+  (thyDateChange)="dateValueChange($event)"></thy-range-picker>
 
 <thy-range-picker
   class="d-block w-50 mb-3"
@@ -14,8 +13,7 @@
   [thyMaxDate]="maxDate"
   [thyShowShortcut]="true"
   thyShortcutPosition="bottom"
-  (ngModelChange)="onChange($event)"
-></thy-range-picker>
+  (ngModelChange)="onChange($event)"></thy-range-picker>
 
 <thy-range-picker
   class="d-block w-50 mb-3"
@@ -23,8 +21,7 @@
   [thyMinDate]="minDate"
   [thyShowShortcut]="true"
   [thyShortcutPresets]="customShortcut"
-  (ngModelChange)="onChange($event)"
-></thy-range-picker>
+  (ngModelChange)="onChange($event)"></thy-range-picker>
 
 <thy-date-picker
   class="d-block w-50 mb-3"
@@ -33,16 +30,14 @@
   [thyShowShortcut]="true"
   thyTimestampPrecision="milliseconds"
   (ngModelChange)="onChange($event)"
-  (thyDateChange)="dateValueChange($event)"
-></thy-date-picker>
+  (thyDateChange)="dateValueChange($event)"></thy-date-picker>
 
 <thy-date-picker
   class="d-block w-50 mb-3"
   [(ngModel)]="date"
   [thyShowShortcut]="true"
   (ngModelChange)="onChange($event)"
-  (thyDateChange)="dateValueChange($event)"
-></thy-date-picker>
+  (thyDateChange)="dateValueChange($event)"></thy-date-picker>
 
 <thy-date-picker
   class="d-block w-50 mb-3"
@@ -51,8 +46,7 @@
   [thyMaxDate]="maxDate"
   [thyShowShortcut]="true"
   thyShortcutPosition="bottom"
-  (ngModelChange)="onChange($event)"
-></thy-date-picker>
+  (ngModelChange)="onChange($event)"></thy-date-picker>
 
 <br />
 
@@ -64,8 +58,7 @@
   thyRangePicker
   [thyShowShortcut]="false"
   (thyDateChange)="dateValueChange($event)"
-  [(ngModel)]="dateRange"
-></thy-property-operation>
+  [(ngModel)]="dateRange"></thy-property-operation>
 
 <br />
 
@@ -77,8 +70,7 @@
   thyRangePicker
   [thyShowShortcut]="true"
   (thyDateChange)="dateValueChange($event)"
-  [(ngModel)]="dateRange"
-></thy-property-operation>
+  [(ngModel)]="dateRange"></thy-property-operation>
 
 <br />
 
@@ -91,5 +83,4 @@
   [thyShowShortcut]="true"
   (thyDateChange)="dateValueChange($event)"
   [(ngModel)]="date"
-  [thyShortcutPresets]="shortcutDatePresets"
-></thy-property-operation>
+  [thyShortcutPresets]="shortcutDatePresets"></thy-property-operation>

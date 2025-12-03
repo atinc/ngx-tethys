@@ -207,7 +207,7 @@ describe('ThySlide', () => {
             const querySelectorSpy = spyOn(document, 'querySelector');
             querySelectorSpy.and.returnValue(element as Element);
 
-            const drawerContainerElement: ElementRef<HTMLDivElement> = new ElementRef(document.querySelector('#demo-host'));
+            const drawerContainerElement = new ElementRef<HTMLDivElement>(document.querySelector('#demo-host'));
 
             const slideRef = thySlideService.open(SlideLayoutTestComponent, {
                 id: '1',

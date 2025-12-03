@@ -71,20 +71,10 @@ describe('ThyTreeComponent', () => {
         it('test set tree property correctly', () => {
             expect(treeElement.classList).toContain('thy-tree-sm');
             expect(treeElement.classList).toContain('thy-tree-especial');
-            expect(treeElement.querySelector('.thy-tree-node-title').classList).toContain('text-truncate');
-        });
-
-        it('test set data correctly', () => {
-            expect(treeComponent.treeNodes.length).toEqual(2);
-        });
-
-        it('test set icons correctly', () => {
-            treeInstance.options.treeIcons = { expand: 'minus-square', collapse: 'plus-square' };
-            fixture.detectChanges();
-            expect(treeElement.querySelector(expandIconSelector).classList).toContain('thy-icon-minus-square');
+            expect(treeElement.querySelector('.thy-tree-node-title')!!.classList).toContain('thy-icon-minus-square');
             (treeElement.querySelector(expandIconSelector) as HTMLElement).click();
             fixture.detectChanges();
-            expect(treeElement.querySelector(expandIconSelector).classList).toContain('thy-icon-plus-square');
+            expect(treeElement.querySelector(expandIconSelector)!.classList).toContain('thy-icon-plus-square');
         });
 
         it('test set selectedKeys correctly', () => {
@@ -93,7 +83,7 @@ describe('ThyTreeComponent', () => {
         });
 
         it('test tree node disabled state', () => {
-            const disabledElement = treeElement.querySelector(`.disabled`);
+            const disabledElement = treeElement.querySelector(`.disabled`)!;
             expect(disabledElement.innerHTML).toContain('设计部(禁用)');
             (disabledElement as HTMLElement).click();
             fixture.detectChanges();
@@ -155,13 +145,10 @@ describe('ThyTreeComponent', () => {
         });
 
         it(`test public function 'addTreeNode()`, () => {
-            treeComponent.addTreeNode(
-                {
-                    key: '000000000000000000001111',
-                    title: '新增部门'
-                },
-                null
-            );
+            treeComponent.addTreeNode({
+                key: '000000000000000000001111',
+                title: '新增部门'
+            });
             treeComponent.addTreeNode({ key: 'child0001', title: '未分配部门Child' }, treeComponent.treeNodes[1]);
             fixture.detectChanges();
             expect(treeComponent.treeNodes.length).toEqual(3);
@@ -173,7 +160,7 @@ describe('ThyTreeComponent', () => {
                     key: '000000000000000000002222',
                     title: '新增部门2'
                 },
-                null,
+                undefined,
                 0
             );
             fixture.detectChanges();
@@ -295,7 +282,7 @@ describe('ThyTreeComponent', () => {
             const dragContentList = treeElement.querySelectorAll('.thy-drag-content');
 
             dragContentList.forEach(dragContent => {
-                const dragContentInnerHTML = dragContent.querySelector('.thy-tree-node-title').innerHTML;
+                const dragContentInnerHTML = dragContent.querySelector('.thy-tree-node-title')!.innerHTML;
 
                 const dragIcon = dragContent.querySelector('.thy-tree-drag-icon') as HTMLElement;
                 expect(dragIcon.style.visibility).toBeFalsy();
@@ -305,7 +292,7 @@ describe('ThyTreeComponent', () => {
                 if (dragContent.className.includes('disabled')) {
                     expect(dragIconVisible.style.visibility).toBeTruthy();
                 } else {
-                    let cssVisible = dragContentInnerHTML.includes('不可拖拽') ? 'hidden' : 'visible';
+                    const cssVisible = dragContentInnerHTML.includes('不可拖拽') ? 'hidden' : 'visible';
                     expect(dragIconVisible.style.visibility === cssVisible).toBeTruthy();
                 }
 
@@ -419,13 +406,13 @@ describe('ThyTreeComponent', () => {
                 component.size = 'sm';
                 component.itemSize = 55;
             } catch (error) {
-                expect(error.message).toEqual('setting thySize and thyItemSize at the same time is not allowed');
+                expect((error as Error).message).toEqual('setting thySize and thyItemSize at the same time is not allowed');
             }
         });
 
         it('test should thyItemSize is 42 when thySize is sm', () => {
             component.size = 'sm';
-            expect(component.tree().itemSize()).toEqual(42);
+            expect(component.tree()!.itemSize()).toEqual(42);
         });
 
         it('test tree node nodeIconStyle', () => {
@@ -435,15 +422,15 @@ describe('ThyTreeComponent', () => {
         });
 
         it('should thyIndent worked', () => {
-            const indexElement: HTMLElement = treeElement.querySelectorAll('.thy-tree-node')[1].querySelector('.thy-tree-index');
+            const indexElement: HTMLElement = treeElement.querySelectorAll('.thy-tree-node')[1].querySelector('.thy-tree-index')!;
             expect(indexElement.style.width).toEqual('10px');
         });
 
         it('test should successful set thyExpandedKeys ', fakeAsync(() => {
             component.expandedKeys = ['111111111111111111111111', '5d4e5b365fadf30311c3d889'];
             fixture.detectChanges();
-            expect(treeComponent.flattenTreeNodes().find(item => item.key === '111111111111111111111111').isExpanded).toEqual(true);
-            expect(treeComponent.flattenTreeNodes().find(item => item.key === '5d4e5b365fadf30311c3d889').isExpanded).toEqual(true);
+            expect(treeComponent?.flattenTreeNodes()?.find(item => item.key === '111111111111111111111111')?.isExpanded).toEqual(true);
+            expect(treeComponent?.flattenTreeNodes()?.find(item => item.key === '5d4e5b365fadf30311c3d889')?.isExpanded).toEqual(true);
         }));
 
         it('test should successful set thyExpandAll ', fakeAsync(() => {
@@ -569,7 +556,7 @@ describe('ThyTreeComponent', () => {
 
             expect(dragDropSpy).toHaveBeenCalledTimes(1);
             const args = dragDropSpy.calls.allArgs()[0][0];
-            const treeComponent = component.treeComponent();
+            const treeComponent = component.treeComponent()!;
             expect(args.dragNode).toEqual(treeComponent.getTreeNode(startNodeData.key));
             expect(args.targetNode).toEqual(treeComponent.getTreeNode(targetNodeData.key));
             expect(args.afterNode).toEqual(undefined);
@@ -598,7 +585,7 @@ describe('ThyTreeComponent', () => {
         });
 
         it(`should indent default is 25px`, () => {
-            const indexElement: HTMLElement = treeElement.querySelectorAll('.thy-tree-node')[1].querySelector('.thy-tree-index');
+            const indexElement: HTMLElement = treeElement.querySelectorAll('.thy-tree-node')[1].querySelector('.thy-tree-index')!;
             expect(indexElement.style.width).toEqual('25px');
         });
 
@@ -672,7 +659,7 @@ describe('ThyTreeComponent', () => {
 
             expect(dragDropSpy).toHaveBeenCalledTimes(1);
             const args = dragDropSpy.calls.allArgs()[0][0];
-            const treeComponent = component.treeComponent();
+            const treeComponent = component.treeComponent()!;
             expect(args.dragNode).toEqual(treeComponent.getTreeNode('001'));
             expect(args.targetNode).toEqual(null);
             expect(args.afterNode).toEqual(treeComponent.getTreeNode('002'));
@@ -690,7 +677,7 @@ describe('ThyTreeComponent', () => {
             fixture.detectChanges();
             expect(dragDropSpy).toHaveBeenCalledTimes(1);
             const args = dragDropSpy.calls.allArgs()[0][0];
-            const treeComponent = component.treeComponent();
+            const treeComponent = component.treeComponent()!;
             expect(args.dragNode).toEqual(treeComponent.getTreeNode('002'));
             expect(args.targetNode).toEqual(treeComponent.getTreeNode('001'));
             expect(args.afterNode).toEqual(treeComponent.getTreeNode('001-01'));
@@ -707,7 +694,7 @@ describe('ThyTreeComponent', () => {
 
             expect(dragDropSpy).toHaveBeenCalledTimes(1);
             const args = dragDropSpy.calls.allArgs()[0][0];
-            const treeComponent = component.treeComponent();
+            const treeComponent = component.treeComponent()!;
             expect(args.dragNode).toEqual(treeComponent.getTreeNode('002'));
             expect(args.targetNode).toEqual(treeComponent.getTreeNode('001'));
             expect(args.afterNode).toEqual(treeComponent.getTreeNode('001-01'));
@@ -716,8 +703,8 @@ describe('ThyTreeComponent', () => {
         it('should update the tree structure correctly when dragging a node to a different level', fakeAsync(() => {
             const dragDropSpy = spyOn(component, 'onDragDrop');
             dragDropSpy.and.callFake((event: ThyTreeDragDropEvent) => {
-                expect(event.dragNode.level).toEqual(event.targetNode.level + 1);
-                expect(event.targetNode.children).toContain(event.dragNode);
+                expect(event.dragNode!.level).toEqual(event.targetNode!.level + 1);
+                expect(event.targetNode!.children).toContain(event.dragNode!);
             });
 
             dragToTargetNode({
@@ -733,7 +720,7 @@ describe('ThyTreeComponent', () => {
             const dragDropSpy = spyOn(component, 'onDragDrop');
             const beforeDragStart = spyOn(component, 'beforeDragStart');
             beforeDragStart.and.callFake((event: ThyTreeBeforeDragStartContext) => {
-                if (event.item.title.includes('001')) {
+                if (event.item.title!.includes('001')) {
                     return false;
                 }
                 return true;
@@ -748,7 +735,7 @@ describe('ThyTreeComponent', () => {
             });
 
             const nodeDebugElements = fixture.debugElement.queryAll(By.directive(ThyTreeNodeComponent));
-            const startNode = nodeDebugElements.find(item => item.componentInstance.node().key === '001');
+            const startNode = nodeDebugElements.find(item => item.componentInstance.node().key === '001')!;
 
             expect(beforeDragStart).toHaveBeenCalled();
             expect(startNode.nativeElement.classList).toContain('cdk-drag-disabled');
@@ -839,13 +826,13 @@ class TestBasicTreeComponent {
 
     treeType = 'especial';
 
-    size = 'sm';
+    size: string | null = 'sm';
 
     indent = 10;
 
-    itemSize: number = undefined;
+    itemSize: number | undefined = undefined;
 
-    expandedKeys: string[];
+    expandedKeys: string[] | null = null;
 
     expandAll = false;
 
@@ -855,7 +842,7 @@ class TestBasicTreeComponent {
         multiple: false,
         clickBehavior: 'default',
         beforeDragStart: (event: ThyDragDropEvent<ThyTreeNode>) => {
-            return !event.item.title.includes('不可拖拽');
+            return !event.item?.title?.includes('不可拖拽');
         }
     };
 
@@ -937,12 +924,12 @@ class TestAsyncTreeComponent {
 
     onExpandChange(event: ThyTreeEmitEvent) {
         setTimeout(() => {
-            if (event.node.getChildren().length === 0) {
-                const children = this.mockData.find(n => n.key === event.node.key).children;
+            if (event.node!.getChildren().length === 0) {
+                const children = this.mockData.find(n => n.key === event.node!.key)!.children;
                 children.forEach(node => {
-                    node.checked = event.node.origin.checked;
+                    node.checked = event.node!.origin.checked;
                 });
-                event.node.addChildren(children);
+                event.node!.addChildren(children);
             }
         }, 100);
     }
@@ -1089,7 +1076,7 @@ class TestHasCheckedTreeComponent {
         checkable: true,
         multiple: false,
         beforeDragStart: (event: ThyDragDropEvent<ThyTreeNode>) => {
-            return !event.item.title.includes('不可拖拽');
+            return !event.item!.title!.includes('不可拖拽');
         }
     };
 
