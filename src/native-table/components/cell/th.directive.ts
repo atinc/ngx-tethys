@@ -1,0 +1,59 @@
+import { Directive, effect, ElementRef, inject, input, OnChanges, Renderer2, SimpleChanges } from '@angular/core';
+import { Subject } from 'rxjs';
+
+import { ThyNativeTableThMeasureInfo } from '../../services/table-style.service';
+
+@Directive({
+    selector: 'th',
+    standalone: true
+})
+export class ThyNativeTableThDirective implements ThyNativeTableThMeasureInfo {
+    private renderer = inject(Renderer2);
+    private el: HTMLElement = inject(ElementRef<HTMLElement>).nativeElement;
+
+    changes$ = new Subject<void>();
+
+    readonly thyWidth = input<string | number | null>(null);
+
+    readonly thyColspan = input<string | number | null>(null);
+
+    readonly thyColSpan = input<string | number | null>(null);
+
+    readonly thyRowspan = input<string | number | null>(null);
+
+    readonly thyRowSpan = input<string | number | null>(null);
+
+    get colspan(): number | string | null {
+        return this.thyColspan() || this.thyColSpan() || null;
+    }
+
+    get colSpan(): number | string | null {
+        return this.thyColspan() || this.thyColSpan() || null;
+    }
+
+    constructor() {
+        effect(() => {
+            if (this.thyColspan() || this.thyColSpan()) {
+                const col = this.colspan;
+                if (col !== null && col !== undefined) {
+                    this.renderer.setAttribute(this.el, 'colspan', `${col}`);
+                } else {
+                    this.renderer.removeAttribute(this.el, 'colspan');
+                }
+            }
+
+            if (this.thyRowspan() || this.thyRowSpan()) {
+                const row = this.thyRowspan() || this.thyRowSpan() || null;
+                if (row !== null && row !== undefined) {
+                    this.renderer.setAttribute(this.el, 'rowspan', `${row}`);
+                } else {
+                    this.renderer.removeAttribute(this.el, 'rowspan');
+                }
+            }
+
+            if (this.thyWidth() || this.thyColspan() || this.thyColSpan()) {
+                this.changes$.next();
+            }
+        });
+    }
+}

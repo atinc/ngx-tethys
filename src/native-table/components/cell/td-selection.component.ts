@@ -1,0 +1,51 @@
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ViewEncapsulation,
+    booleanAttribute,
+    inject,
+    input,
+    output,
+    OnInit,
+    DestroyRef
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+import { ThyCheckbox } from 'ngx-tethys/checkbox';
+
+@Component({
+    selector: 'th[thyChecked],td[thyShowCheckbox]',
+    standalone: true,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    template: `
+        <label
+            thyCheckbox
+            [ngModel]="thyChecked()"
+            [disabled]="thyDisabled()"
+            [thyIndeterminate]="thyIndeterminate()"
+            (ngModelChange)="onCheckedChange($event)"></label>
+        <ng-content></ng-content>
+    `,
+    host: {
+        '[class.thy-native-table-selection-column]': 'thyShowCheckbox()'
+    },
+    imports: [FormsModule, ThyCheckbox]
+})
+export class ThyNativeTableTdSelectionComponent<T> implements OnInit {
+    private destroyRef = inject(DestroyRef);
+
+    readonly thyRowData = input<T | null>(null);
+
+    readonly thyDisabled = input(false, { transform: booleanAttribute });
+    readonly thyShowCheckbox = input(false, { transform: booleanAttribute });
+    readonly thyChecked = input(false, { transform: booleanAttribute });
+    readonly thyIndeterminate = input(false, { transform: booleanAttribute });
+
+    readonly thyCheckedChange = output<boolean>();
+
+    ngOnInit(): void {}
+
+    onCheckedChange(checked: boolean): void {
+        this.thyCheckedChange.emit(checked);
+    }
+}
