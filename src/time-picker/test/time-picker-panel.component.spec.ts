@@ -6,9 +6,9 @@ import { ThyTimePanel, ThyTimePickerModule } from 'ngx-tethys/time-picker';
 import { provideHttpClient } from '@angular/common/http';
 
 describe('ThyTimePanelComponent', () => {
-    let fixture: ComponentFixture<ThyTestTimePanelComponent>;
-    let fixtureInstance: ThyTestTimePanelComponent;
-    let debugElement: DebugElement;
+    let fixture!: ComponentFixture<ThyTestTimePanelComponent>;
+    let fixtureInstance!: ThyTestTimePanelComponent;
+    let debugElement!: DebugElement;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({

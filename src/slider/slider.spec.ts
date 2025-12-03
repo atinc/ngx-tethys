@@ -51,9 +51,9 @@ class ThyTestSliderComponent {
 }
 
 describe('ThyTestSliderComponent', () => {
-    let fixture: ComponentFixture<ThyTestSliderComponent>;
-    let fixtureInstance: ThyTestSliderComponent;
-    let debugElement: DebugElement;
+    let fixture!: ComponentFixture<ThyTestSliderComponent>;
+    let fixtureInstance!: ThyTestSliderComponent;
+    let debugElement!: DebugElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({

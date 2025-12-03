@@ -15,9 +15,9 @@ import {
 } from 'ngx-tethys/dot';
 
 describe('ThyDot', () => {
-    let fixture: ComponentFixture<ThyDemoDotComponent>;
-    let basicTestComponent: ThyDemoDotComponent;
-    let dotComponent: DebugElement;
+    let fixture!: ComponentFixture<ThyDemoDotComponent>;
+    let basicTestComponent!: ThyDemoDotComponent;
+    let dotComponent!: DebugElement;
 
     const colors = ['primary', 'info', 'danger', 'warning', 'success'];
     const sizes = ['xs', 'sm', 'md', 'lg', 'xlg'];

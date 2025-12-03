@@ -105,10 +105,10 @@ describe('ThyPagination', () => {
     });
 
     describe('basic', () => {
-        let fixture: ComponentFixture<PaginationTestComponent>;
-        let componentInstance: PaginationTestComponent;
-        let paginationDebugElement: DebugElement;
-        let paginationElement: HTMLElement;
+        let fixture!: ComponentFixture<PaginationTestComponent>;
+        let componentInstance!: PaginationTestComponent;
+        let paginationDebugElement!: DebugElement;
+        let paginationElement!: HTMLElement;
         let pagination: { pageIndex: number; pageSize: number; total: number };
 
         beforeEach(() => {
@@ -208,9 +208,9 @@ describe('ThyPagination', () => {
     });
 
     describe('total', () => {
-        let basicTestComponent: PaginationBasicComponent;
-        let fixture: ComponentFixture<PaginationBasicComponent>;
-        let pageComponent: DebugElement;
+        let basicTestComponent!: PaginationBasicComponent;
+        let fixture!: ComponentFixture<PaginationBasicComponent>;
+        let pageComponent!: DebugElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(PaginationBasicComponent);
@@ -402,8 +402,8 @@ describe('ThyPagination', () => {
     });
 
     describe('custom pages', () => {
-        let fixture: ComponentFixture<PaginationCustomPagesComponent>;
-        let componentInstance: PaginationCustomPagesComponent;
+        let fixture!: ComponentFixture<PaginationCustomPagesComponent>;
+        let componentInstance!: PaginationCustomPagesComponent;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(PaginationCustomPagesComponent);
@@ -438,9 +438,9 @@ describe('ThyPagination', () => {
     });
 
     describe('page sizes', () => {
-        let fixture: ComponentFixture<PaginationTestComponent>;
-        let componentInstance: PaginationTestComponent;
-        let paginationElement: HTMLElement;
+        let fixture!: ComponentFixture<PaginationTestComponent>;
+        let componentInstance!: PaginationTestComponent;
+        let paginationElement!: HTMLElement;
         beforeEach(() => {
             fixture = TestBed.createComponent(PaginationTestComponent);
             componentInstance = fixture.debugElement.componentInstance;

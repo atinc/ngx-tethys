@@ -48,8 +48,8 @@ export class ThyNotifyBasicComponent implements OnInit {
 }
 
 describe('ThyNotify', () => {
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyNotifyModule],
@@ -67,10 +67,10 @@ describe('ThyNotify', () => {
     });
 
     describe('basic', () => {
-        let fixture: ComponentFixture<ThyNotifyBasicComponent>;
-        let componentInstance: ThyNotifyBasicComponent;
-        let btnElement: HTMLElement;
-        let notifyContainer: NodeListOf<Element>, notifyTopLeftContainer: NodeListOf<Element>;
+        let fixture!: ComponentFixture<ThyNotifyBasicComponent>;
+        let componentInstance!: ThyNotifyBasicComponent;
+        let btnElement!: HTMLElement;
+        let notifyContainer!: NodeListOf<Element>, notifyTopLeftContainer: NodeListOf<Element>;
 
         beforeEach(fakeAsync(() => {
             fixture = TestBed.createComponent(ThyNotifyBasicComponent);
@@ -409,8 +409,8 @@ describe('ThyNotify', () => {
 });
 
 describe('ThyNotify with provider', () => {
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -438,9 +438,9 @@ describe('ThyNotify with provider', () => {
     });
 
     describe('basic', () => {
-        let fixture: ComponentFixture<ThyNotifyBasicComponent>;
-        let componentInstance: ThyNotifyBasicComponent;
-        let btnElement: HTMLElement;
+        let fixture!: ComponentFixture<ThyNotifyBasicComponent>;
+        let componentInstance!: ThyNotifyBasicComponent;
+        let btnElement!: HTMLElement;
 
         beforeEach(fakeAsync(() => {
             fixture = TestBed.createComponent(ThyNotifyBasicComponent);

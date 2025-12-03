@@ -35,8 +35,8 @@ export function pickBehaviorCallbacks<R>(
     successOrContext: SuccessFn<R> | BehaviorContext<R>,
     error?: ErrorFn
 ) {
-    let successFn: SuccessFn<R>;
-    let errorFn: ErrorFn;
+    let successFn!: SuccessFn<R>;
+    let errorFn!: ErrorFn;
     if (successOrContext) {
         if (isFunction(successOrContext)) {
             successFn = successOrContext;

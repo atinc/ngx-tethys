@@ -44,12 +44,12 @@ class DropdownBasicTestComponent {
 }
 
 describe('basic dropdown', () => {
-    let fixture: ComponentFixture<DropdownBasicTestComponent>;
-    let btnElement: HTMLElement;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
-    let dropdownElement: HTMLElement;
-    let dropdown: ThyDropdownDirective;
+    let fixture!: ComponentFixture<DropdownBasicTestComponent>;
+    let btnElement!: HTMLElement;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
+    let dropdownElement!: HTMLElement;
+    let dropdown!: ThyDropdownDirective;
 
     beforeEach(() => {
         TestBed.configureTestingModule({ providers: [provideNoopAnimations()] });
@@ -187,10 +187,10 @@ describe('basic dropdown', () => {
 });
 
 describe('for touch usage', () => {
-    let fixture: ComponentFixture<DropdownBasicTestComponent>;
-    let buttonElement: HTMLElement;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let fixture!: ComponentFixture<DropdownBasicTestComponent>;
+    let buttonElement!: HTMLElement;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
     let platform: { IOS: boolean; isBrowser: boolean; ANDROID: boolean };
 
     beforeEach(() => {
@@ -307,9 +307,9 @@ class DropdownMenuInputTestComponent {
 }
 
 describe('invalid dropdown', () => {
-    let fixture: ComponentFixture<DropdownMenuInputTestComponent>;
-    let dropdown: ThyDropdownDirective;
-    let overlayContainer: OverlayContainer;
+    let fixture!: ComponentFixture<DropdownMenuInputTestComponent>;
+    let dropdown!: ThyDropdownDirective;
+    let overlayContainer!: OverlayContainer;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -407,10 +407,10 @@ class DropdownMenuTestComponent {
 }
 
 describe('dropdown menu', () => {
-    let fixture: ComponentFixture<DropdownMenuTestComponent>;
-    let dropdown: ThyDropdownDirective;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let fixture!: ComponentFixture<DropdownMenuTestComponent>;
+    let dropdown!: ThyDropdownDirective;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -584,10 +584,10 @@ class DropdownSubmenuTestComponent {
 }
 
 describe('dropdown submenu', () => {
-    let fixture: ComponentFixture<DropdownSubmenuTestComponent>;
-    let dropdown: ThyDropdownDirective;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let fixture!: ComponentFixture<DropdownSubmenuTestComponent>;
+    let dropdown!: ThyDropdownDirective;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -856,12 +856,12 @@ class DropdownComponentTestComponent {
 }
 
 describe('dropdown-component', () => {
-    let fixture: ComponentFixture<DropdownComponentTestComponent>;
-    let btnElement: HTMLElement;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
-    let dropdownElement: HTMLElement;
-    let dropdown: ThyDropdownDirective;
+    let fixture!: ComponentFixture<DropdownComponentTestComponent>;
+    let btnElement!: HTMLElement;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
+    let dropdownElement!: HTMLElement;
+    let dropdown!: ThyDropdownDirective;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -937,12 +937,12 @@ class DropdownOptionsTestComponent {
 }
 
 describe('dropdown options', () => {
-    let fixture: ComponentFixture<DropdownOptionsTestComponent>;
-    let btnElement: HTMLElement;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
-    let dropdownElement: HTMLElement;
-    let dropdown: ThyDropdownDirective;
+    let fixture!: ComponentFixture<DropdownOptionsTestComponent>;
+    let btnElement!: HTMLElement;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
+    let dropdownElement!: HTMLElement;
+    let dropdown!: ThyDropdownDirective;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -989,7 +989,7 @@ describe('dropdown options', () => {
     }));
 
     describe('popover options', () => {
-        let calledConfig: ThyPopoverConfig<unknown>;
+        let calledConfig!: ThyPopoverConfig<unknown>;
         beforeEach(() => {
             const popover = dropdown['popover'];
             const originOpen = popover.open.bind(popover);
@@ -1137,12 +1137,12 @@ class DropdownImmediateRenderTestComponent {
 }
 
 describe('immediate render dropdown', () => {
-    let fixture: ComponentFixture<DropdownImmediateRenderTestComponent>;
-    let btnElement: HTMLElement;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
-    let dropdownElement: HTMLElement;
-    let dropdown: ThyDropdownDirective;
+    let fixture!: ComponentFixture<DropdownImmediateRenderTestComponent>;
+    let btnElement!: HTMLElement;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
+    let dropdownElement!: HTMLElement;
+    let dropdown!: ThyDropdownDirective;
 
     beforeEach(() => {
         TestBed.configureTestingModule({

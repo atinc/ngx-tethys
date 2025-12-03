@@ -19,9 +19,9 @@ export class TestFormGroupErrorBasicComponent {
 }
 
 describe('form-group-error', () => {
-    let fixture: ComponentFixture<TestFormGroupErrorBasicComponent>;
-    let formGroupFooterComponent: TestFormGroupErrorBasicComponent;
-    let debugElement: DebugElement;
+    let fixture!: ComponentFixture<TestFormGroupErrorBasicComponent>;
+    let formGroupFooterComponent!: TestFormGroupErrorBasicComponent;
+    let debugElement!: DebugElement;
     let thyFormDirective: {
         isHorizontal: boolean;
     };

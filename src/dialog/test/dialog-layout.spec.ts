@@ -56,9 +56,9 @@ describe('dialog-layout', () => {
             injectDefaultSvgIconSet();
         });
 
-        let dialogBasicFixture: ComponentFixture<DialogHeaderBasicComponent>;
-        let dialogHeaderDebugElement: DebugElement;
-        let dialogHeaderElement: HTMLElement;
+        let dialogBasicFixture!: ComponentFixture<DialogHeaderBasicComponent>;
+        let dialogHeaderDebugElement!: DebugElement;
+        let dialogHeaderElement!: HTMLElement;
 
         beforeEach(() => {
             dialogBasicFixture = TestBed.createComponent(DialogHeaderBasicComponent);
@@ -104,9 +104,9 @@ describe('dialog-layout', () => {
             injectDefaultSvgIconSet();
         });
 
-        let dialogBasicFixture: ComponentFixture<DialogHeaderTitleTranslationComponent>;
-        let dialogHeaderDebugElement: DebugElement;
-        let dialogHeaderElement: HTMLElement;
+        let dialogBasicFixture!: ComponentFixture<DialogHeaderTitleTranslationComponent>;
+        let dialogHeaderDebugElement!: DebugElement;
+        let dialogHeaderElement!: HTMLElement;
 
         beforeEach(() => {
             dialogBasicFixture = TestBed.createComponent(DialogHeaderTitleTranslationComponent);
@@ -121,10 +121,10 @@ describe('dialog-layout', () => {
     });
 
     describe('dialog-footer', () => {
-        let dialogBasicFixture: ComponentFixture<DialogFooterBasicTestComponent>;
-        let dialogFooterNewDebugElement: DebugElement;
-        let dialogFooterBorderDebugElement: DebugElement;
-        let dialogFooterNoConfigDebugElement: DebugElement;
+        let dialogBasicFixture!: ComponentFixture<DialogFooterBasicTestComponent>;
+        let dialogFooterNewDebugElement!: DebugElement;
+        let dialogFooterBorderDebugElement!: DebugElement;
+        let dialogFooterNoConfigDebugElement!: DebugElement;
 
         describe('without global dialog layout config', () => {
             beforeEach(() => {

@@ -60,10 +60,10 @@ const nodes: DragNodeInfo[] = [
 ];
 
 describe('drag-drop basic directive', () => {
-    let fixture: ComponentFixture<TestBasicDragDropComponent>;
-    let testComponent: TestBasicDragDropComponent;
-    let debugElement: DebugElement;
-    let dropContainerElement: HTMLElement;
+    let fixture!: ComponentFixture<TestBasicDragDropComponent>;
+    let testComponent!: TestBasicDragDropComponent;
+    let debugElement!: DebugElement;
+    let dropContainerElement!: HTMLElement;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({});
@@ -217,8 +217,8 @@ describe('drag-drop basic directive', () => {
 });
 
 describe('with handle', () => {
-    let fixture: ComponentFixture<TestWithHandleDragDropComponent>;
-    let testComponent: TestWithHandleDragDropComponent;
+    let fixture!: ComponentFixture<TestWithHandleDragDropComponent>;
+    let testComponent!: TestWithHandleDragDropComponent;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({});

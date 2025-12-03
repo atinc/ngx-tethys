@@ -37,12 +37,12 @@ describe('async-behavior', () => {
     it('should execute success by pass parameters', () => {
         run(() => {
             const subject = new Subject<number>();
-            let parameters: [string, number];
+            let parameters!: [string, number];
             const async = asyncBehavior((param1: string, param2: number) => {
                 parameters = [param1, param2];
                 return subject.asObservable();
             });
-            let result: number;
+            let result!: number;
             async('hello', 100).execute(data => {
                 result = data;
             });
@@ -59,7 +59,7 @@ describe('async-behavior', () => {
                 return subject.asObservable();
             });
             expect(async.state()).toEqual('pending');
-            let executeError: Error;
+            let executeError!: Error;
             async.execute({
                 error: error => {
                     executeError = error;
@@ -81,7 +81,7 @@ describe('async-behavior', () => {
                 throw mockError;
             });
             expect(async.loading()).toEqual(false);
-            let error: Error;
+            let error!: Error;
             async.execute(undefined, _error => {
                 error = _error;
             });

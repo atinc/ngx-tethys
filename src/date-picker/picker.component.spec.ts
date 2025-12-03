@@ -24,9 +24,9 @@ class CdkConnectedOverlaySpy {
 registerLocaleData(zh);
 
 describe('ThyPickerComponent', () => {
-    let fixture: ComponentFixture<ThyTestPickerComponent>;
-    let fixtureInstance: ThyTestPickerComponent;
-    let debugElement: DebugElement;
+    let fixture!: ComponentFixture<ThyTestPickerComponent>;
+    let fixtureInstance!: ThyTestPickerComponent;
+    let debugElement!: DebugElement;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({

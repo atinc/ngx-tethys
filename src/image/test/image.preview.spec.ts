@@ -58,13 +58,13 @@ class ImagePreviewTestComponent implements OnInit {
 }
 
 describe('image-preview', () => {
-    let fixture: ComponentFixture<ImagePreviewTestComponent>;
-    let basicTestComponent: ImagePreviewTestComponent;
-    let debugElement: DebugElement;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
-    let formElement: HTMLElement;
-    let mockXhrFactory: MockXhrFactory;
+    let fixture!: ComponentFixture<ImagePreviewTestComponent>;
+    let basicTestComponent!: ImagePreviewTestComponent;
+    let debugElement!: DebugElement;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
+    let formElement!: HTMLElement;
+    let mockXhrFactory!: MockXhrFactory;
 
     beforeEach(() => {
         mockXhrFactory = new MockXhrFactory();

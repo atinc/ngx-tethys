@@ -330,7 +330,7 @@ export class ThySelectControl implements OnInit, AfterViewInit {
         Promise.resolve().then(() => {
             const tagElements = this.tagsContainer().nativeElement.querySelectorAll('.choice-item.selected,.custom-choice-item');
             for (let i = 0; i < selectedOptions.length; i++) {
-                let tagWidth: number;
+                let tagWidth!: number;
 
                 tagWidth = (tagElements[i]?.offsetWidth || 80) + TAG_GAP;
 

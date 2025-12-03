@@ -49,9 +49,9 @@ describe('ThyIconComponent', () => {
     });
 
     describe('Basic', () => {
-        let fixture: ComponentFixture<ThyIconTestBasicComponent>;
-        let componentInstance: ThyIconTestBasicComponent;
-        let iconDebugElement: DebugElement;
+        let fixture!: ComponentFixture<ThyIconTestBasicComponent>;
+        let componentInstance!: ThyIconTestBasicComponent;
+        let iconDebugElement!: DebugElement;
         const iconSvgClassPrefix = 'thy-icon';
 
         function assertSvgIcon(iconElement: HTMLElement, iconName: string, classSuffix?: 'fill' | 'tt') {
@@ -161,10 +161,10 @@ describe('ThyIconComponent', () => {
 });
 
 describe('IconRegistry', () => {
-    let iconRegistry: ThyIconRegistry;
-    let domSanitizer: DomSanitizer;
-    let svgRandomName: string;
-    let httpClientSpy: { get: jasmine.Spy };
+    let iconRegistry!: ThyIconRegistry;
+    let domSanitizer!: DomSanitizer;
+    let svgRandomName!: string;
+    let httpClientSpy!: { get: jasmine.Spy };
 
     beforeEach(() => {
         httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
@@ -363,7 +363,7 @@ describe('IconRegistry', () => {
 });
 
 describe('Config', () => {
-    let originalWhetherPrintErrorWhenIconNotFound: boolean;
+    let originalWhetherPrintErrorWhenIconNotFound!: boolean;
 
     beforeEach(() => {
         originalWhetherPrintErrorWhenIconNotFound = getWhetherPrintErrorWhenIconNotFound();

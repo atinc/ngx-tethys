@@ -15,11 +15,11 @@ describe('ThyAlert', () => {
     }));
 
     describe('basic', () => {
-        let fixture: ComponentFixture<ThyDemoAlertComponent>;
-        let testComponent: ThyDemoAlertComponent;
-        let alertComponent: DebugElement;
-        let alertElement: HTMLElement;
-        let alertContentElement: HTMLElement;
+        let fixture!: ComponentFixture<ThyDemoAlertComponent>;
+        let testComponent!: ThyDemoAlertComponent;
+        let alertComponent!: DebugElement;
+        let alertElement!: HTMLElement;
+        let alertContentElement!: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyDemoAlertComponent);

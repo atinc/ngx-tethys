@@ -19,12 +19,12 @@ registerLocaleData(zh);
 
 describe('ThyPickerDirective', () => {
     describe('ThyPickerDirective', () => {
-        let fixture: ComponentFixture<ThyTestPickerComponent>;
-        let fixtureInstance: ThyTestPickerComponent;
-        let debugElement: DebugElement;
-        let overlayContainer: OverlayContainer;
-        let overlayContainerElement: HTMLElement;
-        let popover: ThyPopover;
+        let fixture!: ComponentFixture<ThyTestPickerComponent>;
+        let fixtureInstance!: ThyTestPickerComponent;
+        let debugElement!: DebugElement;
+        let overlayContainer!: OverlayContainer;
+        let overlayContainerElement!: HTMLElement;
+        let popover!: ThyPopover;
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
@@ -338,12 +338,12 @@ describe('ThyPickerDirective', () => {
     });
 
     describe('should get correct default thyPlacement and offset', () => {
-        let fixture: ComponentFixture<ThyTestPickerPlacementComponent>;
-        let fixtureInstance: ThyTestPickerPlacementComponent;
-        let debugElement: DebugElement;
-        let overlayContainer: OverlayContainer;
-        let overlayContainerElement: HTMLElement;
-        let popover: ThyPopover;
+        let fixture!: ComponentFixture<ThyTestPickerPlacementComponent>;
+        let fixtureInstance!: ThyTestPickerPlacementComponent;
+        let debugElement!: DebugElement;
+        let overlayContainer!: OverlayContainer;
+        let overlayContainerElement!: HTMLElement;
+        let popover!: ThyPopover;
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
@@ -552,9 +552,9 @@ class ThyTestPickerStopPropagationComponent {
 }
 
 describe('should get correct default thyStopPropagation', () => {
-    let fixture: ComponentFixture<ThyTestPickerStopPropagationComponent>;
-    let fixtureInstance: ThyTestPickerStopPropagationComponent;
-    let debugElement: DebugElement;
+    let fixture!: ComponentFixture<ThyTestPickerStopPropagationComponent>;
+    let fixtureInstance!: ThyTestPickerStopPropagationComponent;
+    let debugElement!: DebugElement;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({

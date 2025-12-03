@@ -24,10 +24,10 @@ class RateBasicTestComponent {
 }
 
 describe('Rate basic component', () => {
-    let fixture: ComponentFixture<RateBasicTestComponent>;
-    let testRateBasicComponent: RateBasicTestComponent;
-    let rateBasicDebugComponent: DebugElement;
-    let rateBasicElement: HTMLElement;
+    let fixture!: ComponentFixture<RateBasicTestComponent>;
+    let testRateBasicComponent!: RateBasicTestComponent;
+    let rateBasicDebugComponent!: DebugElement;
+    let rateBasicElement!: HTMLElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -122,10 +122,10 @@ class RateCountTestComponent {
 }
 
 describe('Rate count component', () => {
-    let fixture: ComponentFixture<RateCountTestComponent>;
-    let testRateCountComponent: RateCountTestComponent;
-    let rateCountDebugComponent: DebugElement;
-    let rateCountElement: HTMLElement;
+    let fixture!: ComponentFixture<RateCountTestComponent>;
+    let testRateCountComponent!: RateCountTestComponent;
+    let rateCountDebugComponent!: DebugElement;
+    let rateCountElement!: HTMLElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -170,10 +170,10 @@ class RateHalfTestComponent {
 }
 
 describe('Rate half component', () => {
-    let fixture: ComponentFixture<RateHalfTestComponent>;
-    let testRateHalfComponent: RateHalfTestComponent;
-    let rateHalfDebugComponent: DebugElement;
-    let rateHalfElement: HTMLElement;
+    let fixture!: ComponentFixture<RateHalfTestComponent>;
+    let testRateHalfComponent!: RateHalfTestComponent;
+    let rateHalfDebugComponent!: DebugElement;
+    let rateHalfElement!: HTMLElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -242,10 +242,10 @@ class RateClearTestComponent {
 }
 
 describe('Rate clear component', () => {
-    let fixture: ComponentFixture<RateClearTestComponent>;
-    let testRateClearComponent: RateClearTestComponent;
-    let rateClearDebugComponent: DebugElement;
-    let rateClearElement: HTMLElement;
+    let fixture!: ComponentFixture<RateClearTestComponent>;
+    let testRateClearComponent!: RateClearTestComponent;
+    let rateClearDebugComponent!: DebugElement;
+    let rateClearElement!: HTMLElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -312,10 +312,10 @@ class RateDisabledTestComponent {
 }
 
 describe('Rate disabled component', () => {
-    let fixture: ComponentFixture<RateDisabledTestComponent>;
-    let testRateDisabledComponent: RateDisabledTestComponent;
-    let rateDisabledDebugComponent: DebugElement;
-    let rateDisabledElement: HTMLElement;
+    let fixture!: ComponentFixture<RateDisabledTestComponent>;
+    let testRateDisabledComponent!: RateDisabledTestComponent;
+    let rateDisabledDebugComponent!: DebugElement;
+    let rateDisabledElement!: HTMLElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -380,12 +380,12 @@ class RateTooltipTestComponent {
 }
 
 describe('Rate tooltip component', () => {
-    let fixture: ComponentFixture<RateTooltipTestComponent>;
-    let testRateTooltipComponent: RateTooltipTestComponent;
-    let rateTooltipDebugComponent: DebugElement;
-    let rateTooltipElement: HTMLElement;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let fixture!: ComponentFixture<RateTooltipTestComponent>;
+    let testRateTooltipComponent!: RateTooltipTestComponent;
+    let rateTooltipDebugComponent!: DebugElement;
+    let rateTooltipElement!: HTMLElement;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -471,11 +471,11 @@ class RateTemplateTestComponent {
 }
 
 describe('Rate template component', () => {
-    let fixture: ComponentFixture<RateTemplateTestComponent>;
-    let testRateTemplateComponent: RateTemplateTestComponent;
-    let rateTemplateDebugComponent: DebugElement;
-    let rateTemplateElement: HTMLElement;
-    let templatesComponent: ThyRateTemplateExampleComponent;
+    let fixture!: ComponentFixture<RateTemplateTestComponent>;
+    let testRateTemplateComponent!: RateTemplateTestComponent;
+    let rateTemplateDebugComponent!: DebugElement;
+    let rateTemplateElement!: HTMLElement;
+    let templatesComponent!: ThyRateTemplateExampleComponent;
 
     beforeEach(() => {
         TestBed.configureTestingModule({

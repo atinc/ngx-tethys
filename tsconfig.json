@@ -23,6 +23,7 @@
     ],
     "resolveJsonModule": true,
     "useDefineForClassFields": false,
+    "strict": true,
     "paths": {
       "ngx-tethys": [
         "src/public-api"

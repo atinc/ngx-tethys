@@ -137,9 +137,9 @@ describe(`thy-nav`, () => {
     });
 
     describe('basic', () => {
-        let fixture: ComponentFixture<NavBasicComponent>;
-        let navDebugElement: DebugElement;
-        let navElement: HTMLElement;
+        let fixture!: ComponentFixture<NavBasicComponent>;
+        let navDebugElement!: DebugElement;
+        let navElement!: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(NavBasicComponent);
@@ -239,8 +239,8 @@ describe(`thy-nav`, () => {
     });
 
     describe('responsive', () => {
-        let overlayContainer: OverlayContainer;
-        let fixture: ComponentFixture<NavResponsiveComponent>;
+        let overlayContainer!: OverlayContainer;
+        let fixture!: ComponentFixture<NavResponsiveComponent>;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(NavResponsiveComponent);

@@ -197,11 +197,11 @@ class TestTransferCustomRenderContentComponent {
 }
 
 describe('transfer', () => {
-    let fixture: ComponentFixture<TestTransferComponent | TestTransferCustomRenderComponent | TestTransferCustomRenderContentComponent>;
-    let dl: DebugElement;
-    let instance: TestTransferComponent;
-    let pageObject: TransferPageObject;
-    let transferComponent: ThyTransfer;
+    let fixture!: ComponentFixture<TestTransferComponent | TestTransferCustomRenderComponent | TestTransferCustomRenderContentComponent>;
+    let dl!: DebugElement;
+    let instance!: TestTransferComponent;
+    let pageObject!: TransferPageObject;
+    let transferComponent!: ThyTransfer;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -380,7 +380,7 @@ describe('transfer', () => {
     });
 
     describe('transfer event', () => {
-        let rightListInstance: any;
+        let rightListInstance!: any;
 
         beforeEach(() => {
             pageObject = new TransferPageObject();

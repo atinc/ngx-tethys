@@ -9,11 +9,11 @@ import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyTimePicker, ThyTimePickerModule, TimePickerSize } from 'ngx-tethys/time-picker';
 
 describe('ThyTimePickerComponent', () => {
-    let fixture: ComponentFixture<ThyTestTimePickerBaseComponent>;
-    let fixtureInstance: ThyTestTimePickerBaseComponent;
-    let debugElement: DebugElement;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let fixture!: ComponentFixture<ThyTestTimePickerBaseComponent>;
+    let fixtureInstance!: ThyTestTimePickerBaseComponent;
+    let debugElement!: DebugElement;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({

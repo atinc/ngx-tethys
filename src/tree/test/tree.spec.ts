@@ -46,12 +46,12 @@ describe('ThyTreeComponent', () => {
     }
 
     describe('basic tree', () => {
-        let treeInstance: TestBasicTreeComponent;
-        let treeElement: HTMLElement;
-        let component: TestBasicTreeComponent;
-        let fixture: ComponentFixture<TestBasicTreeComponent>;
-        let multipleFixture: ComponentFixture<TestMultipleTreeComponent>;
-        let treeComponent: ThyTree;
+        let treeInstance!: TestBasicTreeComponent;
+        let treeElement!: HTMLElement;
+        let component!: TestBasicTreeComponent;
+        let fixture!: ComponentFixture<TestBasicTreeComponent>;
+        let multipleFixture!: ComponentFixture<TestMultipleTreeComponent>;
+        let treeComponent!: ThyTree;
 
         beforeEach(fakeAsync(() => {
             configureThyTreeTestingModule();
@@ -456,9 +456,9 @@ describe('ThyTreeComponent', () => {
     });
 
     describe('async tree', () => {
-        let treeElement: HTMLElement;
-        let component: TestAsyncTreeComponent;
-        let fixture: ComponentFixture<TestAsyncTreeComponent>;
+        let treeElement!: HTMLElement;
+        let component!: TestAsyncTreeComponent;
+        let fixture!: ComponentFixture<TestAsyncTreeComponent>;
 
         beforeEach(waitForAsync(() => {
             configureThyTreeTestingModule();
@@ -490,10 +490,10 @@ describe('ThyTreeComponent', () => {
     });
 
     describe('virtual scrolling tree', () => {
-        let treeElement: HTMLElement;
-        let component: TestVirtualScrollingTreeComponent;
-        let fixture: ComponentFixture<TestVirtualScrollingTreeComponent>;
-        let document: Document;
+        let treeElement!: HTMLElement;
+        let component!: TestVirtualScrollingTreeComponent;
+        let fixture!: ComponentFixture<TestVirtualScrollingTreeComponent>;
+        let document!: Document;
 
         beforeEach(fakeAsync(() => {
             configureThyTreeTestingModule();
@@ -577,11 +577,11 @@ describe('ThyTreeComponent', () => {
     });
 
     describe('has checked nodes tree', () => {
-        let treeElement: HTMLElement;
-        let treeInstance: TestHasCheckedTreeComponent;
-        let component: TestHasCheckedTreeComponent;
-        let fixture: ComponentFixture<TestHasCheckedTreeComponent>;
-        let treeComponent: ThyTree;
+        let treeElement!: HTMLElement;
+        let treeInstance!: TestHasCheckedTreeComponent;
+        let component!: TestHasCheckedTreeComponent;
+        let fixture!: ComponentFixture<TestHasCheckedTreeComponent>;
+        let treeComponent!: ThyTree;
 
         beforeEach(fakeAsync(() => {
             configureThyTreeTestingModule();
@@ -612,11 +612,11 @@ describe('ThyTreeComponent', () => {
     });
 
     describe('drag drop tree', () => {
-        let treeElement: HTMLElement;
-        let component: TestDragDropTreeComponent;
-        let fixture: ComponentFixture<TestDragDropTreeComponent>;
-        let document: Document;
-        let elementFromPointSpy: jasmine.Spy;
+        let treeElement!: HTMLElement;
+        let component!: TestDragDropTreeComponent;
+        let fixture!: ComponentFixture<TestDragDropTreeComponent>;
+        let document!: Document;
+        let elementFromPointSpy!: jasmine.Spy;
 
         beforeEach(fakeAsync(() => {
             configureThyTreeTestingModule();

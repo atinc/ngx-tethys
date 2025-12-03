@@ -632,11 +632,11 @@ describe('thy-cascader', () => {
     }));
 
     describe('basic', () => {
-        let fixture: ComponentFixture<CascaderBasicComponent>;
-        let component: CascaderBasicComponent;
-        let debugElement: DebugElement;
-        let overlayContainer: OverlayContainer;
-        let overlayContainerElement: HTMLElement;
+        let fixture!: ComponentFixture<CascaderBasicComponent>;
+        let component!: CascaderBasicComponent;
+        let debugElement!: DebugElement;
+        let overlayContainer!: OverlayContainer;
+        let overlayContainerElement!: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(CascaderBasicComponent);
@@ -1324,9 +1324,9 @@ describe('thy-cascader', () => {
     });
 
     describe('loadData', () => {
-        let fixture: ComponentFixture<CascaderLoadComponent>;
-        let component: CascaderLoadComponent;
-        let debugElement: DebugElement;
+        let fixture!: ComponentFixture<CascaderLoadComponent>;
+        let component!: CascaderLoadComponent;
+        let debugElement!: DebugElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(CascaderLoadComponent);
@@ -1360,11 +1360,11 @@ describe('thy-cascader', () => {
     });
 
     describe('template', () => {
-        let fixture: ComponentFixture<CascaderTemplateComponent>;
-        let component: CascaderTemplateComponent;
-        let debugElement: DebugElement;
-        let overlayContainer: OverlayContainer;
-        let overlayContainerElement: HTMLElement;
+        let fixture!: ComponentFixture<CascaderTemplateComponent>;
+        let component!: CascaderTemplateComponent;
+        let debugElement!: DebugElement;
+        let overlayContainer!: OverlayContainer;
+        let overlayContainerElement!: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(CascaderTemplateComponent);
@@ -1438,11 +1438,11 @@ describe('thy-cascader', () => {
     });
 
     describe('multiple mode', () => {
-        let fixture: ComponentFixture<CascaderMultipleComponent>;
-        let component: CascaderMultipleComponent;
-        let debugElement: DebugElement;
-        let overlayContainer: OverlayContainer;
-        let overlayContainerElement: HTMLElement;
+        let fixture!: ComponentFixture<CascaderMultipleComponent>;
+        let component!: CascaderMultipleComponent;
+        let debugElement!: DebugElement;
+        let overlayContainer!: OverlayContainer;
+        let overlayContainerElement!: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(CascaderMultipleComponent);
@@ -1833,11 +1833,11 @@ describe('thy-cascader', () => {
     });
 
     describe('custom label property and custom value property', () => {
-        let fixture: ComponentFixture<CascaderCustomLabelPropertyComponent>;
-        let component: CascaderCustomLabelPropertyComponent;
-        let debugElement: DebugElement;
-        let overlayContainer: OverlayContainer;
-        let overlayContainerElement: HTMLElement;
+        let fixture!: ComponentFixture<CascaderCustomLabelPropertyComponent>;
+        let component!: CascaderCustomLabelPropertyComponent;
+        let debugElement!: DebugElement;
+        let overlayContainer!: OverlayContainer;
+        let overlayContainerElement!: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(CascaderCustomLabelPropertyComponent);

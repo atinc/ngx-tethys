@@ -59,8 +59,8 @@ class FlexibleTextTestComponent {
 }
 
 describe('FlexibleTextComponent', () => {
-    let componentInstance: FlexibleTextTestComponent;
-    let fixture: ComponentFixture<FlexibleTextTestComponent>;
+    let componentInstance!: FlexibleTextTestComponent;
+    let fixture!: ComponentFixture<FlexibleTextTestComponent>;
 
     let callbacks: Function[] = [];
     const invokeCallbacks = (args?: any) => callbacks.forEach(callback => callback(args));

@@ -152,7 +152,7 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
      * Update dialog to top
      */
     toTop(idOrOverlayRef: string | ThyDialogRef<unknown, ThyDialogContainer>) {
-        let dialogRef: ThyAbstractOverlayRef<unknown, ThyDialogContainer>;
+        let dialogRef!: ThyAbstractOverlayRef<unknown, ThyDialogContainer>;
         if (isString(idOrOverlayRef)) {
             dialogRef = this.openedOverlays.find(item => item.id === idOrOverlayRef);
         } else {

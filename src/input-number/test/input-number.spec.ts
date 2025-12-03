@@ -89,10 +89,10 @@ class TestInputNumberComponent {
 }
 
 describe('input-number component', () => {
-    let fixture: ComponentFixture<TestInputNumberComponent>;
-    let inputNumberComponentInstance: TestInputNumberComponent;
-    let inputNumberDebugElement: DebugElement;
-    let inputElement: HTMLInputElement;
+    let fixture!: ComponentFixture<TestInputNumberComponent>;
+    let inputNumberComponentInstance!: TestInputNumberComponent;
+    let inputNumberDebugElement!: DebugElement;
+    let inputElement!: HTMLInputElement;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({

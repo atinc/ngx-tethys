@@ -25,11 +25,11 @@ import {
 registerLocaleData(zh);
 
 describe('ThyDatePickerComponent', () => {
-    let fixture: ComponentFixture<ThyTestDatePickerComponent>;
-    let fixtureInstance: ThyTestDatePickerComponent;
-    let debugElement: DebugElement;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let fixture!: ComponentFixture<ThyTestDatePickerComponent>;
+    let fixtureInstance!: ThyTestDatePickerComponent;
+    let debugElement!: DebugElement;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
 
     const shortcutDatePresets = () => {
         return [
