@@ -73,4 +73,16 @@ export class ThyOption {
     get groupLabel() {
         return this.optionGroupComponent?.thyGroupLabel() || '';
     }
+
+    public setSelected(selected: boolean): void {
+        if (selected) {
+            if (!this.thyDisabled() && !this.selected()) {
+                this.selected.set(true);
+            }
+        } else {
+            if (this.selected() || this.thyDisabled()) {
+                this.selected.set(false);
+            }
+        }
+    }
 }

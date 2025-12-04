@@ -18,7 +18,9 @@ import {
     ThySelectOptionGroup,
     ThyStopPropagationDirective,
     ThyOptionGroupRender,
-    SelectOptionBase
+    SelectOptionBase,
+    ThyOptionsContainer,
+    ThyOptionSelectionChangeEvent
 } from 'ngx-tethys/shared';
 import {
     A,
@@ -33,11 +35,12 @@ import {
     helpers,
     HOME,
     isFunction,
+    isArray,
     SPACE,
     UP_ARROW
 } from 'ngx-tethys/util';
-import { Observable, Subscription, timer } from 'rxjs';
-import { distinctUntilChanged, filter, map, startWith, take } from 'rxjs/operators';
+import { defer, merge, Observable, Subscription, timer } from 'rxjs';
+import { distinctUntilChanged, filter, map, startWith, switchMap, take } from 'rxjs/operators';
 import { coerceElement } from '@angular/cdk/coercion';
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair, Overlay, ScrollStrategy } from '@angular/cdk/overlay';
 import { isPlatformBrowser, NgClass, NgTemplateOutlet } from '@angular/common';
@@ -72,7 +75,8 @@ import {
     computed,
     linkedSignal,
     WritableSignal,
-    DestroyRef
+    DestroyRef,
+    viewChildren
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
@@ -85,7 +89,8 @@ import {
 import { injectLocale, ThySelectLocale } from 'ngx-tethys/i18n';
 import { SafeAny, Dictionary } from 'ngx-tethys/types';
 import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { outputToObservable, takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { SelectionModel } from '@angular/cdk/collections';
 
 export type SelectMode = 'multiple' | '';
 
@@ -115,6 +120,10 @@ export interface ThySelectOptionModel {
     label?: string;
     icon?: string;
     groupLabel?: string;
+}
+
+interface ThyOptionGroupModel extends ThySelectOptionModel {
+    children?: ThySelectOptionModel[];
 }
 
 interface ThyRenderItem {
@@ -154,10 +163,12 @@ interface ThyRenderItem {
         NgClass,
         ThyLoading,
         ThyEmpty,
+        ThyOption,
         ThyOptionRender,
         ThyOptionGroupRender,
         NgTemplateOutlet,
-        ScrollingModule
+        ScrollingModule,
+        ThyOptionsContainer
     ],
     host: {
         '[class.thy-select-custom]': 'true',
@@ -186,6 +197,8 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     mode: SelectMode = '';
 
     scrollTop = 0;
+
+    modelValue: SafeAny = null;
 
     defaultOffset = 4;
 
@@ -218,6 +231,8 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
      */
     readonly thyDropdownWidthMode = input<ThyDropdownWidthMode>();
 
+    public selectionModel: SelectionModel<ThyOption>;
+
     readonly placement = computed<ThyPlacement>(() => {
         return this.thyPlacement() || this.config.placement;
     });
@@ -245,6 +260,8 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
 
     private resizeSubscription: Subscription;
 
+    // private selectionModelSubscription: Subscription;
+
     /**
      * 手动聚焦中的标识
      */
@@ -253,6 +270,16 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     private config: ThySelectConfig;
 
     private destroyRef = inject(DestroyRef);
+
+    // readonly optionSelectionChanges: Observable<ThyOptionSelectionChangeEvent> = defer(() => {
+    //     if (this.options) {
+    //         return merge(...this.options().map(option => outputToObservable(option.selectionChange)));
+    //     }
+    //     return this.ngZone.onStable.asObservable().pipe(
+    //         take(1),
+    //         switchMap(() => this.optionSelectionChanges)
+    //     );
+    // }) as Observable<ThyOptionSelectionChangeEvent>;
 
     readonly cdkConnectedOverlay = viewChild<CdkConnectedOverlay>(CdkConnectedOverlay);
 
@@ -346,7 +373,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     /**
      * 排序比较函数
      */
-    readonly thySortComparator = input<(a: ThyOption, b: ThyOption, options: ThyOption[]) => number>();
+    readonly thySortComparator = input<(a: ThyOption, b: ThyOption, options: readonly ThyOption[]) => number>();
 
     /**
      * Footer 模板，默认值为空不显示 Footer
@@ -399,6 +426,12 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
      */
     readonly thyBorderless = input(false, { transform: coerceBooleanProperty });
 
+    isReactiveDriven = signal<boolean>(false);
+
+    innerOptions: ThySelectOptionModel[];
+
+    optionGroups: ThyOptionGroupModel[] = [];
+
     private scrolledIndex = 0;
 
     readonly cdkVirtualScrollViewport = viewChild<CdkVirtualScrollViewport>(CdkVirtualScrollViewport);
@@ -413,8 +446,19 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             if (helpers.isUndefinedOrNull(value)) {
                 value = [];
             }
+            this.innerOptions = value;
+            this.isReactiveDriven.set(true);
+            this.buildReactiveOptions();
             return value;
         }
+    });
+
+    // options: QueryList<ThyOption>;
+
+    // readonly options: WritableSignal<ThyOption[]> = signal<ThyOption[]>([]);
+
+    private options = computed<readonly ThyOption[]>(() => {
+        return this.isReactiveDriven() ? this.viewOptions() : this.contentOptions();
     });
 
     readonly keywords = signal<string>('');
@@ -427,9 +471,24 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
 
     @ViewChild('trigger', { read: ElementRef, static: true }) trigger: ElementRef<HTMLElement>;
 
-    readonly options = contentChildren<ThyOption>(ThyOption, { descendants: true });
+    /**
+     * 通过以下方式传入的 groups 和 options
+     * <thy-select>
+     *      <thy-option-group>
+     *          <thy-option></thy-option>
+     *      </thy-option-group>
+     *      <thy-option></thy-option>
+     * </thy-select>
+     */
+    readonly contentOptions = contentChildren<ThyOption>(ThyOption, { descendants: true });
+    readonly contentGroups = contentChildren<ThySelectOptionGroup>(ThySelectOptionGroup, { descendants: true });
 
-    readonly groups = contentChildren<ThySelectOptionGroup>(ThySelectOptionGroup, { descendants: true });
+    /**
+     * 通过以下方式传入的 groups 和 options
+     * <thy-select [thyOptions]="options"></thy-select>
+     */
+    readonly viewGroups = viewChildren<ThySelectOptionGroup>(ThySelectOptionGroup);
+    readonly viewOptions = viewChildren<ThyOption>(ThyOption);
 
     /**
      * 所有分组和选项
@@ -457,7 +516,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     /**
      * 当前选中的值
      */
-    readonly selectedValues = linkedSignal<SelectMode, SafeAny[]>({
+    private readonly selectedValues = linkedSignal<SelectMode, SafeAny[]>({
         source: () => this.thyMode(),
         computation: () => {
             return [];
@@ -467,12 +526,12 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     /**
      * 传给 selectControl 指令的选中值
      */
-    readonly selectedOptions: WritableSignal<SelectOptionBase | SelectOptionBase[]> = linkedSignal<SelectMode, SafeAny[]>({
-        source: () => this.thyMode(),
-        computation: () => {
-            return this.thyMode() === 'multiple' ? [] : null;
-        }
-    });
+    // readonly selectedOptions: WritableSignal<SelectOptionBase | SelectOptionBase[]> = linkedSignal<SelectMode, SafeAny[]>({
+    //     source: () => this.thyMode(),
+    //     computation: () => {
+    //         return this.thyMode() === 'multiple' ? [] : null;
+    //     }
+    // });
 
     @ViewChildren(ThyOptionRender) optionRenders: QueryList<ThyOptionRender>;
 
@@ -502,6 +561,21 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         );
     }
 
+    // get optionsChanges$() {
+    //     this.options = this.isReactiveDriven ? this.viewOptions : this.contentOptions;
+    //     let previousOptions: ThyOption[] = this.options.toArray();
+    //     return this.options.changes.pipe(
+    //         map(data => {
+    //             return this.options.toArray();
+    //         }),
+    //         filter(data => {
+    //             const res = previousOptions.length !== data.length || previousOptions.some((op, index) => op !== data[index]);
+    //             previousOptions = data;
+    //             return res;
+    //         })
+    //     );
+    // }
+
     private buildScrollStrategy() {
         if (this.scrollStrategyFactory && isFunction(this.scrollStrategyFactory)) {
             this.scrollStrategy = this.scrollStrategyFactory();
@@ -509,6 +583,10 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             this.scrollStrategy = this.overlay.scrollStrategies.reposition();
         }
     }
+
+    // private isSearching = false;
+
+    groupBy = (item: ThySelectOptionModel) => item.groupLabel;
 
     constructor() {
         super();
@@ -518,8 +596,8 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         this.buildScrollStrategy();
 
         afterRenderEffect(() => {
-            const options = this.options();
-            const groups = this.groups();
+            const groups = this.contentGroups();
+            const options = this.contentOptions();
             const reactiveOptions = this.thyOptions();
 
             untracked(() => {
@@ -527,24 +605,37 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             });
         });
 
-        afterRenderEffect(() => {
-            this.updateSelectedOptions();
-        });
+        // afterRenderEffect(() => {
+        //     this.updateSelectedOptions();
+        // });
+
+        // afterRenderEffect(() => {
+        //     const options = this.options();
+
+        //     untracked(() => {
+        //         this.optionsChange();
+        //     });
+        // });
     }
 
     writeValue(value: SafeAny): void {
-        let selectedValues: SafeAny[];
-        if (helpers.isUndefinedOrNull(value)) {
-            selectedValues = [];
-        } else if (this.isMultiple()) {
-            selectedValues = value;
-        } else {
-            selectedValues = [value];
-        }
-        this.selectedValues.set(selectedValues);
+        // let selectedValues: SafeAny[];
+        // if (helpers.isUndefinedOrNull(value)) {
+        //     selectedValues = [];
+        // } else if (this.isMultiple()) {
+        //     selectedValues = value;
+        // } else {
+        //     selectedValues = [value];
+        // }
+        // this.selectedValues.set(selectedValues);
+
+        this.modelValue = value;
+        this.setSelectionByModelValue(this.modelValue);
     }
 
     ngOnInit() {
+        // this.instanceSelectionModel();
+
         if (isPlatformBrowser(this.platformId)) {
             this.thyClickDispatcher
                 .clicked(0)
@@ -560,9 +651,55 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         }
     }
 
+    buildOptionGroups(options: ThySelectOptionModel[]) {
+        const optionGroups: ThyOptionGroupModel[] = [];
+        const groups = [...new Set(options.filter(item => this.groupBy(item)).map(sub => this.groupBy(sub)))];
+        const groupMap = new Map();
+        groups.forEach(group => {
+            const children = options.filter(item => this.groupBy(item) === group);
+            const groupOption = {
+                groupLabel: group,
+                children: children
+            };
+            groupMap.set(group, groupOption);
+        });
+        options.forEach(option => {
+            if (this.groupBy(option)) {
+                const currentIndex = optionGroups.findIndex(item => item.groupLabel === this.groupBy(option));
+                if (currentIndex === -1) {
+                    const item = groupMap.get(this.groupBy(option));
+                    optionGroups.push(item);
+                }
+            } else {
+                optionGroups.push(option);
+            }
+        });
+        return optionGroups;
+    }
+
+    buildReactiveOptions() {
+        if (this.innerOptions.filter(item => this.groupBy(item)).length > 0) {
+            this.optionGroups = this.buildOptionGroups(this.innerOptions);
+        } else {
+            this.optionGroups = this.innerOptions;
+        }
+    }
+
     ngAfterViewInit(): void {
         this.setup();
     }
+
+    // ngAfterViewInit(): void {
+    //     if (this.isReactiveDriven) {
+    //         this.setup();
+    //     }
+    // }
+
+    // ngAfterContentInit() {
+    //     if (!this.isReactiveDriven) {
+    //         this.setup();
+    //     }
+    // }
 
     private setup() {
         this.optionsChanges$.pipe(startWith(null), takeUntilDestroyed(this.destroyRef)).subscribe(() => {
@@ -590,6 +727,24 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             });
         }
     }
+
+    // private optionsChange() {
+    //     // this.initializeSelection();
+
+    //     // Don't scroll to default highlighted option when scroll load more options
+    //     if (this.shouldActivateOption) {
+    //         this.shouldActivateOption = false;
+    //         this.scrollToActivatedOption();
+    //     }
+    //     this.ngZone.onStable
+    //         .asObservable()
+    //         .pipe(take(1))
+    //         .subscribe(() => {
+    //             if (this.cdkConnectedOverlay() && this.cdkConnectedOverlay().overlayRef) {
+    //                 this.cdkConnectedOverlay().overlayRef.updatePosition();
+    //             }
+    //         });
+    // }
 
     private buildAllGroupsAndOptions() {
         let allGroupsAndOptions: ThyRenderItem[];
@@ -653,8 +808,8 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     }
 
     private allGroupsAndOptionsByTemplate(): ThyRenderItem[] {
-        const options = this.options();
-        const groups = this.groups();
+        const options = this.contentOptions();
+        const groups = this.contentGroups();
 
         let groupsAndOptions: ThyRenderItem[] = [];
 
@@ -732,45 +887,45 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         return allGroupsAndOptions;
     }
 
-    private updateSelectedOptions() {
-        const selectedValues = this.selectedValues();
-        const isMultiple = untracked(() => this.isMultiple());
-        let newOptions: SelectOptionBase[] = [];
+    // private updateSelectedOptions() {
+    //     const selectedValues = this.selectedValues();
+    //     const isMultiple = untracked(() => this.isMultiple());
+    //     let newOptions: SelectOptionBase[] = [];
 
-        if (selectedValues.length) {
-            const renderOptionsMap = this.renderOptionsMap();
-            const oldSelectedOptionsMap = untracked(() => {
-                const selected = this.selectedOptions();
-                let oldSelectedOptions: SelectOptionBase[];
-                if (helpers.isArray(selected)) {
-                    oldSelectedOptions = selected;
-                } else if (selected) {
-                    oldSelectedOptions = [selected];
-                } else {
-                    oldSelectedOptions = [];
-                }
-                return helpers.keyBy(oldSelectedOptions, 'thyValue');
-            });
+    //     if (selectedValues.length) {
+    //         const renderOptionsMap = this.renderOptionsMap();
+    //         const oldSelectedOptionsMap = untracked(() => {
+    //             const selected = this.selectedOptions();
+    //             let oldSelectedOptions: SelectOptionBase[];
+    //             if (helpers.isArray(selected)) {
+    //                 oldSelectedOptions = selected;
+    //             } else if (selected) {
+    //                 oldSelectedOptions = [selected];
+    //             } else {
+    //                 oldSelectedOptions = [];
+    //             }
+    //             return helpers.keyBy(oldSelectedOptions, 'thyValue');
+    //         });
 
-            selectedValues.forEach(value => {
-                let option: ThyRenderItem = renderOptionsMap[value];
+    //         selectedValues.forEach(value => {
+    //             let option: ThyRenderItem = renderOptionsMap[value];
 
-                if (option) {
-                    newOptions.push({
-                        thyLabelText: option.label,
-                        thyValue: option.value,
-                        thyRawValue: option.rawValue
-                    });
-                } else if (oldSelectedOptionsMap[value]) {
-                    newOptions.push(oldSelectedOptionsMap[value]);
-                }
-            });
+    //             if (option) {
+    //                 newOptions.push({
+    //                     thyLabelText: option.label,
+    //                     thyValue: option.value,
+    //                     thyRawValue: option.rawValue
+    //                 });
+    //             } else if (oldSelectedOptionsMap[value]) {
+    //                 newOptions.push(oldSelectedOptionsMap[value]);
+    //             }
+    //         });
 
-            this.selectedOptions.set(isMultiple ? newOptions : newOptions.length ? newOptions[0] : null);
-        } else {
-            this.selectedOptions.set(isMultiple ? [] : null);
-        }
-    }
+    //         this.selectedOptions.set(isMultiple ? newOptions : newOptions.length ? newOptions[0] : null);
+    //     } else {
+    //         this.selectedOptions.set(isMultiple ? [] : null);
+    //     }
+    // }
 
     public optionsScrolled(index: number) {
         this.scrolledIndex = index;
@@ -798,7 +953,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     }
 
     private reUpdateSelectedStatus() {
-        this.selectedValues.set([...this.selectedValues()]);
+        // this.selectedValues.set([...this.selectedValues()]);
     }
 
     onBlur(event?: FocusEvent) {
@@ -829,17 +984,37 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         this.manualFocusing = false;
     }
 
-    public remove($event: { item: SelectOptionBase; $eventOrigin: Event }) {
+    // public remove($event: { item: ThyOption; $eventOrigin: Event }) {
+    //     $event.$eventOrigin.stopPropagation();
+    //     if (this.disabled) {
+    //         return;
+    //     }
+
+    //     const option = this.options().find(option => option.thyValue() === $event.item.thyValue());
+    //     if (option) {
+    //         option.setSelected(false);
+    //     }
+
+    // const selectedValue = this.selectedValues();
+    // const index = selectedValue.indexOf($event.item.thyValue);
+    // if (index > -1) {
+    //     this.selectedValues.set([...selectedValue.slice(0, index), ...selectedValue.slice(index + 1)]);
+    // }
+    // this.emitModelValueChange();
+    // }
+
+    public remove($event: { item: ThyOption; $eventOrigin: Event }) {
         $event.$eventOrigin.stopPropagation();
         if (this.disabled) {
             return;
         }
-        const selectedValue = this.selectedValues();
-        const index = selectedValue.indexOf($event.item.thyValue);
-        if (index > -1) {
-            this.selectedValues.set([...selectedValue.slice(0, index), ...selectedValue.slice(index + 1)]);
+        if (!this.options().find(option => option === $event.item)) {
+            $event.item.deselect();
+            // fix option unselect can not emit changes;
+            this.onSelect($event.item, true);
+        } else {
+            $event.item.deselect();
         }
-        this.emitModelValueChange();
     }
 
     public clearSelectValue(event?: Event) {
@@ -849,7 +1024,9 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         if (this.disabled) {
             return;
         }
-        this.selectedValues.set([]);
+        // this.selectedValues.set([]);
+        this.selectionModel.clear();
+        this.changeDetectorRef.markForCheck();
         this.emitModelValueChange();
     }
 
@@ -864,6 +1041,10 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     readonly isMultiple = computed<boolean>(() => {
         return this.thyMode() === 'multiple';
     });
+
+    public get selected(): ThyOption | ThyOption[] {
+        return this.isMultiple() ? this.selectionModel.selected : this.selectionModel.selected[0];
+    }
 
     readonly empty = computed(() => {
         return !this.selectedValues().length;
@@ -882,7 +1063,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     }
 
     public open(): void {
-        if (this.disabled || this.panelOpen) {
+        if (this.disabled || !this.options()?.length || this.panelOpen) {
             return;
         }
         this.triggerRectWidth.set(this.getOriginRectWidth());
@@ -904,19 +1085,37 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         }
     }
 
+    // private emitModelValueChange() {
+    //     let modelValue: SafeAny;
+    //     const selectedValues = this.selectedValues();
+    //     if (this.isMultiple()) {
+    //         modelValue = selectedValues;
+    //     } else {
+    //         if (selectedValues.length === 0) {
+    //             modelValue = null;
+    //         } else {
+    //             modelValue = selectedValues[0];
+    //         }
+    //     }
+    //     this.onChangeFn(modelValue);
+    //     this.updateCdkConnectedOverlayPositions();
+    // }
+
     private emitModelValueChange() {
-        let modelValue: SafeAny;
-        const selectedValues = this.selectedValues();
-        if (this.isMultiple()) {
-            modelValue = selectedValues;
+        const selectedValues = this.selectionModel.selected;
+        const changeValue = selectedValues.map((option: ThyOption) => {
+            return option.thyValue;
+        });
+        if (this.isMultiple) {
+            this.modelValue = changeValue;
         } else {
-            if (selectedValues.length === 0) {
-                modelValue = null;
+            if (changeValue.length === 0) {
+                this.modelValue = null;
             } else {
-                modelValue = selectedValues[0];
+                this.modelValue = changeValue[0];
             }
         }
-        this.onChangeFn(modelValue);
+        this.onChangeFn(this.modelValue);
         this.updateCdkConnectedOverlayPositions();
     }
 
@@ -1036,12 +1235,125 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         }
     }
 
+    // private instanceSelectionModel() {
+    //     if (this.selectionModel) {
+    //         this.selectionModel.clear();
+    //     }
+    //     this.selectionModel = new SelectionModel<ThyOption>(this.isMultiple());
+    //     if (this.selectionModelSubscription) {
+    //         this.selectionModelSubscription.unsubscribe();
+    //         this.selectionModelSubscription = null;
+    //     }
+    //     this.selectionModelSubscription = this.selectionModel.changed.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(event => {
+    //         event.added.forEach(option => option.select());
+    //         event.removed.forEach(option => option.deselect());
+    //     });
+    // }
+
+    // private resetOptions() {
+    // const changedOrDestroyed$ = merge(this.optionsChanges$, this.destroy$);
+    // takeUntil(changedOrDestroyed$);
+    // this.optionSelectionChanges.pipe().subscribe((event: ThyOptionSelectionChangeEvent) => {
+    //     this.onSelect(event.option, event.isUserInput);
+    //     if (event.isUserInput && !this.isMultiple && this.panelOpen) {
+    //         this.close();
+    //         this.focus();
+    //     }
+    // });
+    // }
+
+    // private initializeSelection() {
+    //     Promise.resolve().then(() => {
+    //         this.setSelectionByModelValue(this.modalValue);
+    //     });
+    // }
+
+    private setSelectionByModelValue(modelValue: any) {
+        if (helpers.isUndefinedOrNull(modelValue)) {
+            if (this.selectionModel.selected.length > 0) {
+                this.selectionModel.clear();
+                this.changeDetectorRef.markForCheck();
+            }
+            return;
+        }
+        if (this.isMultiple) {
+            if (isArray(modelValue)) {
+                const selected = [...this.selectionModel.selected];
+                this.selectionModel.clear();
+                (modelValue as Array<any>).forEach(itemValue => {
+                    const option =
+                        this.options().find(_option => _option.thyValue === itemValue) ||
+                        selected.find(_option => _option.thyValue === itemValue);
+                    if (option) {
+                        this.selectionModel.select(option);
+                    }
+                });
+            }
+        } else {
+            const selectedOption = this.options()?.find(option => {
+                return option.thyValue === modelValue;
+            });
+            if (selectedOption) {
+                this.selectionModel.select(selectedOption);
+            }
+        }
+        this.changeDetectorRef.markForCheck();
+    }
+
+    // private onSelect(option: ThyOption, isUserInput: boolean) {
+    //     const wasSelected = this.selectionModel.isSelected(option);
+
+    //     if (option.thyValue == null && !this.isMultiple) {
+    //         option.deselect();
+    //         this.selectionModel.clear();
+    //     } else {
+    //         if (wasSelected !== option.selected()) {
+    //             option.selected() ? this.selectionModel.select(option) : this.selectionModel.deselect(option);
+    //         }
+
+    //         if (isUserInput) {
+    //             // this.keyManager.setActiveItem(option);
+    //         }
+
+    //         if (this.isMultiple) {
+    //             this.sortValues();
+    //             if (isUserInput) {
+    //                 this.focus();
+    //             }
+    //         }
+    //     }
+
+    //     if (wasSelected !== this.selectionModel.isSelected(option)) {
+    //         this.emitModelValueChange();
+    //     }
+    //     if (!this.isMultiple) {
+    //         this.onTouchedFn();
+    //     }
+    //     this.changeDetectorRef.markForCheck();
+    // }
+
+    // private sortValues() {
+    //     if (this.isMultiple) {
+    //         const options = this.options();
+
+    //         if (this.thySortComparator()) {
+    //             this.selectionModel.sort((a, b) => {
+    //                 return this.thySortComparator()(a, b, options);
+    //             });
+    //         }
+    //     }
+    // }
+
     optionClick(event: { value: SafeAny; isUserInput: boolean }) {
+        // TODO
+        console.log('=========>optionClick:', event);
         const { value, isUserInput } = event;
-        const options = this.options();
+        // TODO 验证 driven
+        const options = this.contentOptions();
 
         if (this.isMultiple()) {
             const selectedValues = this.selectedValues() || [];
+
             const index = selectedValues.indexOf(value);
             if (index > -1) {
                 selectedValues.splice(index, 1);
@@ -1063,8 +1375,10 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
 
         const option = options.find(option => option.thyValue() === value);
         if (option) {
-            const selected = this.selectedValues().includes(value);
-            option.selected.set(selected);
+            // const selected = this.selectedValues().includes(value);
+            // option.selected.set(selected);
+
+            // option.setSelected();
             option.selectionChange.emit({ option, isUserInput });
         }
 

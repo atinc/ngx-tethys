@@ -5,7 +5,7 @@
   #origin="cdkOverlayOrigin"
   #trigger
   [thyPanelOpened]="panelOpen"
-  [thySelectedOptions]="selectedOptions()"
+  [thySelectedOptions]="selected"
   [thyIsMultiple]="isMultiple()"
   [thyShowSearch]="thyShowSearch()"
   [thyAllowClear]="thyAllowClear()"
@@ -46,6 +46,9 @@
       <div
         #panel
         class="thy-select-dropdown-options thy-select-dropdown-options-{{ thySize() }} thy-select-dropdown-options-with-virtual-scroll">
+        @if (isReactiveDriven()) {
+          <ng-template [ngTemplateOutlet]="optionsContainer.optionsTemplate()"></ng-template>
+        }
         <cdk-virtual-scroll-viewport
           class="thy-select-scroll-viewport"
           [itemSize]="itemSize"
@@ -96,3 +99,21 @@
     }
   </div>
 </ng-template>
+
+<thy-options-container #optionsContainer>
+  @for (option of optionGroups; track $index) {
+    @if (!option.children) {
+      <thy-option
+        [thyDisabled]="option.disabled"
+        [thyLabelText]="option.label"
+        [thyValue]="option.value"
+        [thyRawValue]="option"></thy-option>
+    } @else {
+      <thy-option-group [thyGroupLabel]="option.groupLabel">
+        @for (sub of option.children; track sub.value) {
+          <thy-option [thyDisabled]="sub.disabled" [thyLabelText]="sub.label" [thyValue]="sub.value" [thyRawValue]="sub"></thy-option>
+        }
+      </thy-option-group>
+    }
+  }
+</thy-options-container>

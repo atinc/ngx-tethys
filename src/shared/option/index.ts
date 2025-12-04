@@ -7,3 +7,4 @@ export * from './group/option-group.component';
 export * from './group/option-group-render.component';
 export * from './option.token';
 export * from './select-option-base';
+export * from './options-container.component';
