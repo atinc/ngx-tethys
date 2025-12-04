@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ThyDatePicker, ThyMonthPicker, ThyQuarterPicker, ThyRangePicker, ThyYearPicker } from 'ngx-tethys/date-picker';
 
 @Component({
@@ -6,8 +6,4 @@ import { ThyDatePicker, ThyMonthPicker, ThyQuarterPicker, ThyRangePicker, ThyYea
     templateUrl: './disabled.component.html',
     imports: [ThyDatePicker, ThyMonthPicker, ThyQuarterPicker, ThyRangePicker, ThyYearPicker]
 })
-export class ThyDatePickerDisabledExampleComponent implements OnInit {
-    constructor() {}
-
-    ngOnInit() {}
-}
+export class ThyDatePickerDisabledExampleComponent {}

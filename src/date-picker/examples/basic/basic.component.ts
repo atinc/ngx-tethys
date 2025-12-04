@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DateEntry, ThyDatePicker, ThyDateRangeEntry, ThyMonthPicker, ThyQuarterPicker, ThyYearPicker } from 'ngx-tethys/date-picker';
 import { ThyFormGroup } from 'ngx-tethys/form';
@@ -9,7 +9,7 @@ import { endOfDay, startOfDay, subWeeks, TinyDate } from 'ngx-tethys/util';
     templateUrl: './basic.component.html',
     imports: [ThyFormGroup, ThyDatePicker, FormsModule, ThyMonthPicker, ThyYearPicker, ThyQuarterPicker]
 })
-export class ThyDatePickerBasicExampleComponent implements OnInit {
+export class ThyDatePickerBasicExampleComponent {
     dateShowTime = {
         date: 0,
         with_time: 1
@@ -46,10 +46,6 @@ export class ThyDatePickerBasicExampleComponent implements OnInit {
             }
         ];
     };
-
-    constructor() {}
-
-    ngOnInit() {}
 
     onChange(result: Date): void {
         console.log('onChange: ', result);

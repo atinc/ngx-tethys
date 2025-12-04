@@ -1,4 +1,4 @@
-import { Component, OnInit, Signal } from '@angular/core';
+import { Component, Signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
     DateEntry,
@@ -24,7 +24,7 @@ import { differenceInDays, endOfDay, startOfDay, subWeeks, TinyDate } from 'ngx-
         ThyQuarterPickerFormatPipe
     ]
 })
-export class ThyDatePickerDirectiveExampleComponent implements OnInit {
+export class ThyDatePickerDirectiveExampleComponent {
     date = { date: new TinyDate().getTime(), with_time: 0 } as DateEntry;
 
     time = {
@@ -63,10 +63,6 @@ export class ThyDatePickerDirectiveExampleComponent implements OnInit {
     };
 
     flexibleDateRange: ThyDateRangeEntry;
-
-    constructor() {}
-
-    ngOnInit() {}
 
     disableDate = (date: Date) => {
         if (!(this.selectedDateRange && this.selectedDateRange.length === 1)) {

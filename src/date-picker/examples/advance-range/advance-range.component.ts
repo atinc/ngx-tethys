@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyDateRangeEntry, ThyRangePicker } from 'ngx-tethys/date-picker';
 
@@ -7,16 +7,12 @@ import { ThyDateRangeEntry, ThyRangePicker } from 'ngx-tethys/date-picker';
     templateUrl: './advance-range.component.html',
     imports: [FormsModule, ThyRangePicker]
 })
-export class ThyDatePickerAdvanceRangeExampleComponent implements OnInit {
+export class ThyDatePickerAdvanceRangeExampleComponent {
     flexibleDateRange: ThyDateRangeEntry;
 
     isAllowClear = true;
 
-    constructor() {}
-
-    ngOnInit() {}
-
-    onChange(result: Date): void {
+    onChange(result: ThyDateRangeEntry): void {
         console.log('onChange: ', result);
     }
 }

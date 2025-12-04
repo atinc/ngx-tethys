@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyDateRangeEntry, ThyRangePicker } from 'ngx-tethys/date-picker';
 import { ThyFormGroup } from 'ngx-tethys/form';
@@ -9,7 +9,7 @@ import { endOfDay, startOfDay, subWeeks, TinyDate } from 'ngx-tethys/util';
     templateUrl: './range.component.html',
     imports: [ThyFormGroup, ThyRangePicker, FormsModule]
 })
-export class ThyDatePickerRangeExampleComponent implements OnInit {
+export class ThyDatePickerRangeExampleComponent {
     dateRange = { begin: new TinyDate('2023-10')?.nativeDate, end: new TinyDate('2023-12')?.nativeDate };
 
     weekRange = { begin: new TinyDate('2021-10-03')?.nativeDate, end: new TinyDate('2021-12-12')?.nativeDate };
@@ -34,10 +34,6 @@ export class ThyDatePickerRangeExampleComponent implements OnInit {
             }
         ];
     };
-
-    constructor() {}
-
-    ngOnInit() {}
 
     onChange(result: Date | ThyDateRangeEntry): void {
         console.log('onChange: ', result);

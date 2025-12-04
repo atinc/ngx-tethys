@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
 import { ThyDatePicker, ThyRangePicker } from 'ngx-tethys/date-picker';
@@ -10,7 +10,7 @@ import { TinyDate } from 'ngx-tethys/util';
     templateUrl: './format.component.html',
     imports: [ThyButtonGroup, ThyButton, NgClass, ThyDatePicker, FormsModule, ThyRangePicker]
 })
-export class ThyDatePickerFormatExampleComponent implements OnInit {
+export class ThyDatePickerFormatExampleComponent {
     monthFormat = 'yyyy/MM';
     date = new TinyDate().getTime();
 
@@ -19,8 +19,4 @@ export class ThyDatePickerFormatExampleComponent implements OnInit {
     monthFormatTypes = ['yyyy/MM', 'yyyy-MM'];
 
     currentFormat = 'yyyy/MM/dd';
-
-    constructor() {}
-
-    ngOnInit() {}
 }
