@@ -10,6 +10,7 @@ import { TinyDate } from 'ngx-tethys/util';
 })
 export class ThyDatePickerReadonlyExampleComponent {
     date = new TinyDate()?.nativeDate;
+
     dateRange = {
         begin: 1434567890,
         end: 1534567890

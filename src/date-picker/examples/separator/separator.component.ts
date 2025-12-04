@@ -9,16 +9,7 @@ import { TinyDate } from 'ngx-tethys/util';
     imports: [ThyRangePicker, FormsModule]
 })
 export class ThyDatePickerSeparatorExampleComponent {
-    date = { date: new TinyDate().getTime(), with_time: 0 };
-
-    dateTime = 1234567890;
-
     dateRange = { begin: new TinyDate().getTime(), end: new TinyDate().getTime() };
-
-    dateShowTime = {
-        date: 0,
-        with_time: 1
-    };
 
     separator = '/';
 

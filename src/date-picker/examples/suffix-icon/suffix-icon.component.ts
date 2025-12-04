@@ -10,7 +10,7 @@ import { TinyDate } from 'ngx-tethys/util';
 })
 export class ThyDatePickerSuffixIconExampleComponent {
     date = { date: new TinyDate().getTime(), with_time: 0 };
-    dateTime = 1234567890;
+
     dateRange = { begin: new TinyDate().getTime(), end: new TinyDate().getTime() };
 
     onChange(result: Date): void {
