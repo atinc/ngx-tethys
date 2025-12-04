@@ -1,27 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DateEntry, ThyDatePicker, ThyDateRangeEntry, ThyMonthPicker, ThyQuarterPicker, ThyYearPicker } from 'ngx-tethys/date-picker';
+import { ThyDateRangeEntry, ThyRangePicker } from 'ngx-tethys/date-picker';
 import { ThyFormGroup } from 'ngx-tethys/form';
 import { endOfDay, startOfDay, subWeeks, TinyDate } from 'ngx-tethys/util';
 
 @Component({
-    selector: 'thy-date-picker-basic-example',
-    templateUrl: './basic.component.html',
-    imports: [ThyFormGroup, ThyDatePicker, FormsModule, ThyMonthPicker, ThyYearPicker, ThyQuarterPicker]
+    selector: 'thy-date-picker-range-example',
+    templateUrl: './range.component.html',
+    imports: [ThyFormGroup, ThyRangePicker, FormsModule]
 })
-export class ThyDatePickerBasicExampleComponent implements OnInit {
-    dateShowTime = {
-        date: 0,
-        with_time: 1
-    } as DateEntry;
-
-    tz = 'Asia/Seoul';
-
-    date = new Date();
-    dateTime = new Date();
-    flexibleDateTime = new Date();
-    week = { date: new TinyDate().getTime(), with_time: 0 };
-
+export class ThyDatePickerRangeExampleComponent implements OnInit {
     dateRange = { begin: new TinyDate('2023-10')?.nativeDate, end: new TinyDate('2023-12')?.nativeDate };
 
     weekRange = { begin: new TinyDate('2021-10-03')?.nativeDate, end: new TinyDate('2021-12-12')?.nativeDate };
@@ -51,11 +39,7 @@ export class ThyDatePickerBasicExampleComponent implements OnInit {
 
     ngOnInit() {}
 
-    onChange(result: Date): void {
+    onChange(result: Date | ThyDateRangeEntry): void {
         console.log('onChange: ', result);
-    }
-
-    allowClearChange() {
-        this.isAllowClear = !this.isAllowClear;
     }
 }

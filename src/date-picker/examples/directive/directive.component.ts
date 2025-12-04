@@ -2,15 +2,15 @@ import { Component, OnInit, Signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
     DateEntry,
-    ThyDatePickerFormatPipe,
     ThyDatePickerDirective,
-    ThyRangePickerDirective,
+    ThyDatePickerFormatPipe,
     ThyDateRangeEntry,
-    ThyQuarterPickerFormatPipe
+    ThyQuarterPickerFormatPipe,
+    ThyRangePickerDirective
 } from 'ngx-tethys/date-picker';
 import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
-import { differenceInDays, endOfDay, startOfDay, subWeeks, TinyDate } from 'ngx-tethys/util';
 import { ThyPropertyOperation } from 'ngx-tethys/property-operation';
+import { differenceInDays, endOfDay, startOfDay, subWeeks, TinyDate } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-date-picker-directive-example',
@@ -37,7 +37,7 @@ export class ThyDatePickerDirectiveExampleComponent implements OnInit {
         with_time: 1
     } as DateEntry;
 
-    dateRange: { begin: number; end: number };
+    dateRange = { begin: new TinyDate('2025-10')?.nativeDate, end: new TinyDate('2026-01')?.nativeDate };
 
     dateRangeDisabled: { begin: number; end: number };
 

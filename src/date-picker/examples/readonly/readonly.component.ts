@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyQuarterPicker, ThyRangePicker, ThyMonthPicker, ThyDatePicker } from 'ngx-tethys/date-picker';
 import { FormsModule } from '@angular/forms';
+import { ThyDatePicker, ThyMonthPicker, ThyQuarterPicker, ThyRangePicker, ThyYearPicker } from 'ngx-tethys/date-picker';
 import { TinyDate } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-date-picker-readonly-example',
     templateUrl: './readonly.component.html',
-    imports: [ThyDatePicker, FormsModule, ThyMonthPicker, ThyRangePicker, ThyQuarterPicker]
+    imports: [ThyDatePicker, FormsModule, ThyMonthPicker, ThyRangePicker, ThyQuarterPicker, ThyYearPicker]
 })
 export class ThyDatePickerReadonlyExampleComponent implements OnInit {
     date = new TinyDate()?.nativeDate;

@@ -1,129 +1,62 @@
 <thy-form-group thyLabelText="日期选择器">
-  <thy-date-picker
-    class="d-block w-50 mb-3"
-    thyPlaceHolder="选择时间"
-    [(ngModel)]="date"
-    (ngModelChange)="onChange($event)"
-    [thyAllowClear]="isAllowClear"
-    [thyHasBackdrop]="false"></thy-date-picker>
-</thy-form-group>
-
-<thy-form-group thyLabelText="时间选择器">
-  <thy-date-picker
-    class="d-block w-50 mb-3"
-    thyShowTime
-    thyPlaceHolder="选择时间"
-    [(ngModel)]="dateTime"
-    (ngModelChange)="onChange($event)"
-    [thyAllowClear]="isAllowClear"
-    [thyHasBackdrop]="false"></thy-date-picker>
-</thy-form-group>
-
-<thy-form-group thyLabelText="高级时间选择器">
-  <thy-date-picker
-    class="d-block w-50 mb-3"
-    thyShowTime
-    [thyTimeZone]="tz"
-    thyTimestampPrecision="milliseconds"
-    thyPlaceHolder="选择时间"
-    [(ngModel)]="flexibleDateTime"
-    (ngModelChange)="onChange($event)"
-    [thyAllowClear]="isAllowClear"
-    [thyShowShortcut]="true"
-    [thyHasBackdrop]="false"></thy-date-picker>
+  <div class="d-flex flex-column w-50">
+    <thy-date-picker
+      class="d-block"
+      thyShowTime
+      thyPlaceHolder="选择日期"
+      [(ngModel)]="date"
+      (ngModelChange)="onChange($event)"
+      [thyAllowClear]="isAllowClear"
+      [thyHasBackdrop]="false">
+    </thy-date-picker>
+  </div>
 </thy-form-group>
 
 <thy-form-group thyLabelText="周选择器">
-  <thy-date-picker
-    class="d-block w-50 mb-3"
-    thyPlaceHolder="选择周"
-    [(ngModel)]="week"
-    (ngModelChange)="onChange($event)"
-    [thyAllowClear]="isAllowClear"
-    [thyMode]="'week'"></thy-date-picker>
+  <div class="d-flex flex-column w-50">
+    <thy-date-picker
+      class="d-block"
+      thyPlaceHolder="选择周"
+      [thyMode]="'week'"
+      [(ngModel)]="week"
+      (ngModelChange)="onChange($event)"
+      [thyAllowClear]="isAllowClear">
+    </thy-date-picker>
+  </div>
 </thy-form-group>
 
 <thy-form-group thyLabelText="月份选择器">
-  <thy-month-picker
-    class="d-block w-50 mb-3"
-    [(ngModel)]="dateTime"
-    (ngModelChange)="onChange($event)"
-    [thyAllowClear]="isAllowClear"
-    thyPlaceHolder="请选择月份">
-  </thy-month-picker>
-</thy-form-group>
-
-<thy-form-group thyLabelText="年份选择器">
-  <thy-year-picker
-    class="d-block w-50 mb-3"
-    [(ngModel)]="dateTime"
-    (ngModelChange)="onChange($event)"
-    [thyAllowClear]="isAllowClear"
-    thyPlaceHolder="请选择年份"></thy-year-picker>
+  <div class="d-flex flex-column w-50">
+    <thy-month-picker
+      class="d-block"
+      thyPlaceHolder="选择月份"
+      [(ngModel)]="dateTime"
+      (ngModelChange)="onChange($event)"
+      [thyAllowClear]="isAllowClear">
+    </thy-month-picker>
+  </div>
 </thy-form-group>
 
 <thy-form-group thyLabelText="季度选择器">
-  <thy-quarter-picker
-    class="d-block w-50 mb-3"
-    [(ngModel)]="dateTime"
-    (ngModelChange)="onChange($event)"
-    [thyAllowClear]="isAllowClear"
-    thyPlaceHolder="请选择季度"></thy-quarter-picker>
+  <div class="d-flex flex-column w-50">
+    <thy-quarter-picker
+      class="d-block"
+      thyPlaceHolder="选择季度"
+      [(ngModel)]="dateTime"
+      (ngModelChange)="onChange($event)"
+      [thyAllowClear]="isAllowClear">
+    </thy-quarter-picker>
+  </div>
 </thy-form-group>
 
-<thy-form-group thyLabelText="月份范围选择器">
-  <thy-range-picker
-    class="d-block w-50 mb-3"
-    [(ngModel)]="dateRange"
-    (ngModelChange)="onChange($event)"
-    [thyAllowClear]="isAllowClear"
-    [thyMode]="'month'"
-    [thyAutoStartAndEnd]="true"></thy-range-picker>
-</thy-form-group>
-
-<thy-form-group thyLabelText="日期范围选择器">
-  <thy-range-picker
-    class="d-block w-50 mb-3"
-    [(ngModel)]="dateRange"
-    (ngModelChange)="onChange($event)"
-    [thyAllowClear]="isAllowClear"></thy-range-picker>
-</thy-form-group>
-
-<thy-form-group thyLabelText="年范围选择器">
-  <thy-range-picker
-    class="d-block w-50 mb-3"
-    [(ngModel)]="yearRange"
-    thyMode="year"
-    (ngModelChange)="onChange($event)"
-    [thyAllowClear]="isAllowClear"></thy-range-picker>
-</thy-form-group>
-
-<thy-form-group thyLabelText="周范围选择器">
-  <thy-range-picker
-    class="d-block w-50 mb-3"
-    [(ngModel)]="weekRange"
-    thyMode="week"
-    (ngModelChange)="onChange($event)"
-    [thyAllowClear]="isAllowClear"
-    [thyShowShortcut]="true"
-    [thyShortcutPresets]="shortcutMonthPresets"></thy-range-picker>
-</thy-form-group>
-
-<thy-form-group thyLabelText="季度范围选择器">
-  <thy-range-picker
-    class="d-block w-50 mb-3"
-    [(ngModel)]="quarterRange"
-    thyMode="quarter"
-    (ngModelChange)="onChange($event)"
-    [thyAllowClear]="isAllowClear"></thy-range-picker>
-</thy-form-group>
-
-<thy-form-group thyLabelText="高级范围选择器">
-  <thy-range-picker
-    class="d-block w-50 mb-3"
-    [(ngModel)]="flexibleDateRange"
-    thyMode="flexible"
-    [thyShowShortcut]="true"
-    (ngModelChange)="onChange($event)"
-    [thyAllowClear]="isAllowClear"></thy-range-picker>
+<thy-form-group thyLabelText="年份选择器">
+  <div class="d-flex flex-column w-50">
+    <thy-year-picker
+      class="d-block"
+      thyPlaceHolder="选择年份"
+      [(ngModel)]="dateTime"
+      (ngModelChange)="onChange($event)"
+      [thyAllowClear]="isAllowClear">
+    </thy-year-picker>
+  </div>
 </thy-form-group>
