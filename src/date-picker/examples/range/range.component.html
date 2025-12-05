@@ -1,0 +1,56 @@
+<thy-form-group thyLabelText="日期范围选择器">
+  <div class="d-flex flex-column w-50">
+    <thy-range-picker class="d-block" [(ngModel)]="dateRange" (ngModelChange)="onChange($event)" [thyAllowClear]="isAllowClear">
+    </thy-range-picker>
+  </div>
+</thy-form-group>
+
+<thy-form-group thyLabelText="周范围选择器">
+  <div class="d-flex flex-column w-50">
+    <thy-range-picker
+      class="d-block"
+      [(ngModel)]="weekRange"
+      thyMode="week"
+      (ngModelChange)="onChange($event)"
+      [thyAllowClear]="isAllowClear"
+      [thyShowShortcut]="true"
+      [thyShortcutPresets]="shortcutMonthPresets">
+    </thy-range-picker>
+  </div>
+</thy-form-group>
+<thy-form-group thyLabelText="月范围选择器">
+  <div class="d-flex flex-column w-50">
+    <thy-range-picker
+      class="d-block"
+      [(ngModel)]="dateRange"
+      (ngModelChange)="onChange($event)"
+      [thyAllowClear]="isAllowClear"
+      [thyMode]="'month'"
+      [thyAutoStartAndEnd]="true">
+    </thy-range-picker>
+  </div>
+</thy-form-group>
+
+<thy-form-group thyLabelText="季度范围选择器">
+  <div class="d-flex flex-column w-50">
+    <thy-range-picker
+      class="d-block"
+      [(ngModel)]="quarterRange"
+      thyMode="quarter"
+      (ngModelChange)="onChange($event)"
+      [thyAllowClear]="isAllowClear">
+    </thy-range-picker>
+  </div>
+</thy-form-group>
+
+<thy-form-group thyLabelText="年范围选择器">
+  <div class="d-flex flex-column w-50">
+    <thy-range-picker
+      class="d-block"
+      [(ngModel)]="yearRange"
+      thyMode="year"
+      (ngModelChange)="onChange($event)"
+      [thyAllowClear]="isAllowClear">
+    </thy-range-picker>
+  </div>
+</thy-form-group>

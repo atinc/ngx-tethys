@@ -42,7 +42,7 @@
     [@scaleMotion]="
       placement() !== 'top' && placement() !== 'bottom' && placement() !== 'left' && placement() !== 'right' ? 'enter' : 'void'
     ">
-    @if (flattedGroupsAndOptions()?.length > 0) {
+    @if (filteredGroupsAndOptions()?.length > 0) {
       <div
         #panel
         class="thy-select-dropdown-options thy-select-dropdown-options-{{ thySize() }} thy-select-dropdown-options-with-virtual-scroll">
@@ -52,7 +52,7 @@
           [style.height.px]="virtualHeight()"
           (scrolledIndexChange)="optionsScrolled($event)"
           (mouseleave)="mouseLeaveOptions()">
-          <ng-template cdkVirtualFor [cdkVirtualForOf]="flattedGroupsAndOptions()" [cdkVirtualForTrackBy]="trackByFn" let-item>
+          <ng-template cdkVirtualFor [cdkVirtualForOf]="filteredGroupsAndOptions()" [cdkVirtualForTrackBy]="trackByFn" let-item>
             @if (item.type === 'group') {
               <thy-option-group-render [thyGroupLabel]="item.label"></thy-option-group-render>
             } @else {

@@ -117,7 +117,7 @@ export interface ThySelectOptionModel {
     groupLabel?: string;
 }
 
-interface ThySelectFlatItem {
+interface ThySelectFlattedItem {
     type: 'option' | 'group';
     value?: string | number;
     rawValue?: any;
@@ -230,7 +230,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
 
     readonly virtualHeight = computed<number>(() => {
         const maxVirtualHeight = SELECT_PANEL_MAX_HEIGHT - SELECT_PANEL_PADDING_TOP - SELECT_PANEL_PADDING_BOTTOM;
-        const height = this.flattedGroupsAndOptions().length * this.itemSize;
+        const height = this.filteredGroupsAndOptions().length * this.itemSize;
         return Math.min(height, maxVirtualHeight);
     });
 
@@ -427,31 +427,31 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
 
     @ViewChild('trigger', { read: ElementRef, static: true }) trigger: ElementRef<HTMLElement>;
 
-    readonly options = contentChildren<ThyOption>(ThyOption, { descendants: true });
+    private readonly options = contentChildren<ThyOption>(ThyOption, { descendants: true });
 
-    readonly groups = contentChildren<ThySelectOptionGroup>(ThySelectOptionGroup, { descendants: true });
+    private readonly groups = contentChildren<ThySelectOptionGroup>(ThySelectOptionGroup, { descendants: true });
 
     /**
      * 所有分组和选项
      */
-    readonly allGroupsAndOptions = signal<ThySelectFlatItem[]>([]);
+    private readonly allGroupsAndOptions = signal<ThySelectFlattedItem[]>([]);
 
     /**
      * 渲染的分组和选项，基于 keywords 过滤后
      */
-    readonly flattedGroupsAndOptions = computed<ThySelectFlatItem[]>(() => {
-        return this.buildFlattedGroupsAndOptions();
+    readonly filteredGroupsAndOptions = computed<ThySelectFlattedItem[]>(() => {
+        return this.buildFilteredGroupsAndOptions();
     });
 
     /**
      * 渲染的选项
      */
-    readonly flattedOptions = computed<ThySelectFlatItem[]>(() => {
-        return this.flattedGroupsAndOptions().filter(item => item.type === 'option');
+    private readonly filteredOptions = computed<ThySelectFlattedItem[]>(() => {
+        return this.filteredGroupsAndOptions().filter(item => item.type === 'option');
     });
 
-    readonly flattedOptionsMap = computed<Dictionary<ThySelectFlatItem>>(() => {
-        return helpers.keyBy(this.flattedOptions(), 'value');
+    private readonly filteredOptionsMap = computed<Dictionary<ThySelectFlattedItem>>(() => {
+        return helpers.keyBy(this.filteredOptions(), 'value');
     });
 
     /**
@@ -596,7 +596,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     }
 
     private buildAllGroupsAndOptions() {
-        let allGroupsAndOptions: ThySelectFlatItem[];
+        let allGroupsAndOptions: ThySelectFlattedItem[];
         const isReactiveDriven = this.thyOptions()?.length > 0;
         if (isReactiveDriven) {
             allGroupsAndOptions = this.allGroupsAndOptionsByReactive();
@@ -606,12 +606,12 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         this.allGroupsAndOptions.set(allGroupsAndOptions);
     }
 
-    private allGroupsAndOptionsByReactive(): ThySelectFlatItem[] {
+    private allGroupsAndOptionsByReactive(): ThySelectFlattedItem[] {
         const options = this.thyOptions();
         const groupMap = new Map<string, ThySelectOptionModel[]>();
         const ungroupedOptions: ThySelectOptionModel[] = [];
 
-        let groupsAndOptions: ThySelectFlatItem[] = [];
+        let groupsAndOptions: ThySelectFlattedItem[] = [];
 
         for (const option of options) {
             if (option.groupLabel) {
@@ -656,11 +656,11 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         return groupsAndOptions;
     }
 
-    private allGroupsAndOptionsByTemplate(): ThySelectFlatItem[] {
+    private allGroupsAndOptionsByTemplate(): ThySelectFlattedItem[] {
         const options = this.options();
         const groups = this.groups();
 
-        let groupsAndOptions: ThySelectFlatItem[] = [];
+        let groupsAndOptions: ThySelectFlattedItem[] = [];
 
         if (options && options.length > 0) {
             groupsAndOptions = options.map((option: ThyOption) => {
@@ -685,7 +685,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             for (const group of groups) {
                 const groupIndex = groupsAndOptions.findIndex(option => option.groupLabel === group.thyGroupLabel());
                 if (groupIndex > -1) {
-                    const groupItem: ThySelectFlatItem = {
+                    const groupItem: ThySelectFlattedItem = {
                         type: 'group',
                         label: group.thyGroupLabel(),
                         disabled: group.thyDisabled()
@@ -698,11 +698,11 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         return groupsAndOptions;
     }
 
-    private buildFlattedGroupsAndOptions() {
+    private buildFilteredGroupsAndOptions() {
         const keywords = this.keywords();
         const isServerSearch = this.thyServerSearch();
         const allGroupsAndOptions = this.allGroupsAndOptions();
-        let filteredGroupsAndOptions: ThySelectFlatItem[] = [];
+        let filteredGroupsAndOptions: ThySelectFlattedItem[] = [];
 
         if (keywords && !isServerSearch) {
             const lowerKeywords = keywords.toLowerCase();
@@ -742,7 +742,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         let newOptions: SelectOptionBase[] = [];
 
         if (selectedValues.length) {
-            const flattedOptionsMap = this.flattedOptionsMap();
+            const filteredOptionsMap = this.filteredOptionsMap();
             const oldSelectedOptionsMap = untracked(() => {
                 const selected = this.selectedOptions();
                 let oldSelectedOptions: SelectOptionBase[];
@@ -757,7 +757,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             });
 
             selectedValues.forEach(value => {
-                let option: ThySelectFlatItem = flattedOptionsMap[value];
+                let option: ThySelectFlattedItem = filteredOptionsMap[value];
 
                 if (option) {
                     newOptions.push({
@@ -780,7 +780,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         this.scrolledIndex = index;
 
         if (this.thyEnableScrollLoad()) {
-            const isScrollToBottom = index + this.maxItemLength >= this.flattedGroupsAndOptions().length;
+            const isScrollToBottom = index + this.maxItemLength >= this.filteredGroupsAndOptions().length;
             if (isScrollToBottom) {
                 this.thyOnScrollToBottom.emit();
             }
@@ -930,18 +930,18 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             return;
         }
 
-        const flattedOptions = this.flattedOptions();
-        if (!flattedOptions.length) {
+        const filteredOptions = this.filteredOptions();
+        if (!filteredOptions.length) {
             return;
         }
 
         let toActivatedValue = this.activatedValue();
-        if (!toActivatedValue || !this.flattedOptionsMap()[toActivatedValue]) {
+        if (!toActivatedValue || !this.filteredOptionsMap()[toActivatedValue]) {
             if (this.selectedValues().length > 0) {
                 toActivatedValue = this.selectedValues()[0];
             } else {
                 if (this.thyAutoActiveFirstItem()) {
-                    toActivatedValue = flattedOptions[0].value || null;
+                    toActivatedValue = filteredOptions[0].value || null;
                 }
             }
 
@@ -951,7 +951,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             this.activatedValue.set(toActivatedValue);
         }
 
-        const targetIndex = this.flattedGroupsAndOptions().findIndex(item => item.value === toActivatedValue);
+        const targetIndex = this.filteredGroupsAndOptions().findIndex(item => item.value === toActivatedValue);
         if (targetIndex === -1) {
             return;
         }
@@ -986,27 +986,27 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             }
         }
 
-        const flattedOptions = this.flattedOptions();
+        const filteredOptions = this.filteredOptions();
         if (keyCode === DOWN_ARROW || keyCode === UP_ARROW) {
             event.preventDefault();
 
             const activatedValue = this.activatedValue();
-            const currentOption = this.flattedOptionsMap()[activatedValue];
+            const currentOption = this.filteredOptionsMap()[activatedValue];
             if (!currentOption) {
                 return;
             }
 
-            const currentIndex = flattedOptions.indexOf(currentOption);
+            const currentIndex = filteredOptions.indexOf(currentOption);
             let targetIndex: number;
             if (keyCode === DOWN_ARROW) {
                 targetIndex = currentIndex + 1;
-                if (targetIndex > flattedOptions.length - 1) {
+                if (targetIndex > filteredOptions.length - 1) {
                     targetIndex = 0;
                 }
                 let attempts = 0;
-                while (flattedOptions[targetIndex]?.disabled && attempts < flattedOptions.length) {
+                while (filteredOptions[targetIndex]?.disabled && attempts < filteredOptions.length) {
                     targetIndex++;
-                    if (targetIndex > flattedOptions.length - 1) {
+                    if (targetIndex > filteredOptions.length - 1) {
                         targetIndex = 0;
                     }
                     attempts++;
@@ -1014,19 +1014,19 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             } else {
                 targetIndex = currentIndex - 1;
                 if (targetIndex < 0) {
-                    targetIndex = flattedOptions.length - 1;
+                    targetIndex = filteredOptions.length - 1;
                 }
                 let attempts = 0;
-                while (flattedOptions[targetIndex]?.disabled && attempts < flattedOptions.length) {
+                while (filteredOptions[targetIndex]?.disabled && attempts < filteredOptions.length) {
                     targetIndex--;
                     if (targetIndex < 0) {
-                        targetIndex = flattedOptions.length - 1;
+                        targetIndex = filteredOptions.length - 1;
                     }
                     attempts++;
                 }
             }
 
-            const targetOption = flattedOptions[targetIndex];
+            const targetOption = filteredOptions[targetIndex];
             if (targetOption?.disabled) {
                 return;
             }
@@ -1039,7 +1039,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             }
         } else if (keyCode === HOME || keyCode === END) {
             event.preventDefault();
-            const targetOption = keyCode === HOME ? flattedOptions[0] : flattedOptions[flattedOptions.length - 1];
+            const targetOption = keyCode === HOME ? filteredOptions[0] : filteredOptions[filteredOptions.length - 1];
             this.activatedValue.set(targetOption.value);
             this.scrollToActivatedOption();
         } else if ((keyCode === ENTER || keyCode === SPACE) && (this.activatedValue() || !this.empty()) && !hasModifierKey(event)) {
@@ -1047,10 +1047,10 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             this.scrollToActivatedOption(true);
         } else if (this.isMultiple() && keyCode === A && event.ctrlKey) {
             event.preventDefault();
-            const hasDeselectedOptions = flattedOptions.some(opt => !opt.disabled && !this.selectedValues().includes(opt.value));
+            const hasDeselectedOptions = filteredOptions.some(opt => !opt.disabled && !this.selectedValues().includes(opt.value));
             let selectedValues: SafeAny[] = [];
             if (hasDeselectedOptions) {
-                selectedValues = flattedOptions.filter(option => !option.disabled).map(option => option.value);
+                selectedValues = filteredOptions.filter(option => !option.disabled).map(option => option.value);
             }
             this.selectedValues.set(selectedValues);
             this.emitModelValueChange();
@@ -1143,7 +1143,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         }
     }
 
-    trackByFn(index: number, item: ThySelectFlatItem): SafeAny {
+    trackByFn(index: number, item: ThySelectFlattedItem): SafeAny {
         if (item.type === 'group') {
             return item.label || index;
         }

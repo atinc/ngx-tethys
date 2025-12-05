@@ -1,21 +1,24 @@
-<thy-form-group thyLabelText="全局自定义">
+<div class="d-flex flex-column w-50 mb-3">
   <thy-date-picker
-    class="d-block w-50 mb-3"
+    class="d-block"
     thyShowTime
-    thyPlaceHolder="选择时间"
+    thyPlaceHolder="全局自定义"
     [(ngModel)]="dateTime"
     (ngModelChange)="onChange($event)"
     [thyAllowClear]="false"
-    [thyHasBackdrop]="false"></thy-date-picker>
-</thy-form-group>
-<thy-form-group thyLabelText="自定义">
+    [thyHasBackdrop]="false">
+  </thy-date-picker>
+</div>
+
+<div class="d-flex flex-column w-50">
   <thy-date-picker
-    class="d-block w-50 mb-3"
+    class="d-block"
     thyShowTime
-    thyPlaceHolder="选择时间"
+    thyPlaceHolder="日期自定义"
     [(ngModel)]="dateTime"
     [thyDateRender]="dateCellRender"
     (ngModelChange)="onChange($event)"
     [thyAllowClear]="false"
-    [thyHasBackdrop]="false"></thy-date-picker>
-</thy-form-group>
+    [thyHasBackdrop]="false">
+  </thy-date-picker>
+</div>
