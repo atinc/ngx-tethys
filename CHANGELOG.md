@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [20.0.1](https://github.com/atinc/ngx-tethys/compare/20.0.0...20.0.1) (2025-12-05)
+
+
+### Performance Improvements
+
+* **select:** support virtual scroll for select to improve performance #TINFR-2694 ([#3575](https://github.com/atinc/ngx-tethys/issues/3575)) ([7ea3b43](https://github.com/atinc/ngx-tethys/commit/7ea3b43f5a82eb116023eeb7c91ec7926ab054ec)), closes [#TINFR-2694](https://github.com/atinc/ngx-tethys/issues/TINFR-2694)
+
+
+
 # [20.0.0](https://github.com/atinc/ngx-tethys/compare/20.0.0-next.3...20.0.0) (2025-11-26)
 
 
