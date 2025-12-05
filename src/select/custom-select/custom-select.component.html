@@ -5,8 +5,8 @@
   #origin="cdkOverlayOrigin"
   #trigger
   [thyPanelOpened]="panelOpen"
-  [thySelectedOptions]="selected"
-  [thyIsMultiple]="isMultiple"
+  [thySelectedOptions]="selectedOptions()"
+  [thyIsMultiple]="isMultiple()"
   [thyShowSearch]="thyShowSearch()"
   [thyAllowClear]="thyAllowClear()"
   [thySize]="thySize()"
@@ -16,7 +16,7 @@
   [thyBorderless]="thyBorderless()"
   (thyOnClear)="clearSelectValue($event)"
   (thyOnRemove)="remove($event)"
-  (thyOnSearch)="onSearchFilter($event)"
+  (thyOnSearch)="search($event)"
   (thyOnBlur)="onBlur($event)"
   [thyMaxTagCount]="thyMaxTagCount()"
   [thyPreset]="thyPreset()"></div>
@@ -25,48 +25,65 @@
   cdk-connected-overlay
   cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
   [cdkConnectedOverlayHasBackdrop]="thyHasBackdrop()"
-  [cdkConnectedOverlayPositions]="dropDownPositions"
+  [cdkConnectedOverlayPositions]="dropDownPositions()"
   [cdkConnectedOverlayOrigin]="thyOrigin() || origin"
   [cdkConnectedOverlayOpen]="panelOpen"
-  [cdkConnectedOverlayWidth]="triggerRectWidth"
-  [cdkConnectedOverlayMinWidth]="dropDownMinWidth"
+  [cdkConnectedOverlayWidth]="triggerRectWidth()"
+  [cdkConnectedOverlayMinWidth]="dropDownMinWidth()"
   [cdkConnectedOverlayScrollStrategy]="scrollStrategy"
   cdkConnectedOverlayTransformOriginOn=".thy-select-dropdown"
-  (attach)="onAttached()"
   (detach)="close()">
   <div
     thyStopPropagation
     [attr.tabindex]="-1"
-    [ngClass]="dropDownClass"
-    [@scaleYMotion]="placement === 'top' || placement === 'bottom' ? 'enter' : 'void'"
-    [@scaleXMotion]="placement === 'left' || placement === 'right' ? 'enter' : 'void'"
-    [@scaleMotion]="placement !== 'top' && placement !== 'bottom' && placement !== 'left' && placement !== 'right' ? 'enter' : 'void'"
-    (mousemove)="dropDownMouseMove($event)">
-    @if (contentOptions?.length > 0 || contentGroups?.length > 0 || innerOptions?.length > 0) {
+    [ngClass]="dropDownClass()"
+    [@scaleYMotion]="placement() === 'top' || placement() === 'bottom' ? 'enter' : 'void'"
+    [@scaleXMotion]="placement() === 'left' || placement() === 'right' ? 'enter' : 'void'"
+    [@scaleMotion]="
+      placement() !== 'top' && placement() !== 'bottom' && placement() !== 'left' && placement() !== 'right' ? 'enter' : 'void'
+    ">
+    @if (filteredGroupsAndOptions()?.length > 0) {
       <div
         #panel
-        class="thy-select-dropdown-options thy-select-dropdown-options-{{ thySize() }}"
-        thyScroll
-        (thyOnScrolled)="onOptionsScrolled($event)"
-        [thyEnable]="thyEnableScrollLoad()">
-        @if (isReactiveDriven) {
-          <ng-template [ngTemplateOutlet]="optionsContainer.optionsTemplate()"></ng-template>
-        }
-        <ng-content></ng-content>
-        @if (isHiddenOptions) {
-          <thy-loading [thyDone]="thyLoadState()" thySize="sm"></thy-loading>
-          <div class="thy-select-empty-content">
-            @if (thyLoadState()) {
-              <thy-empty [thyMessage]="thyEmptySearchMessageText()" thySize="sm" [thyIconName]="emptyIcon()"></thy-empty>
+        class="thy-select-dropdown-options thy-select-dropdown-options-{{ thySize() }} thy-select-dropdown-options-with-virtual-scroll">
+        <cdk-virtual-scroll-viewport
+          class="thy-select-scroll-viewport"
+          [itemSize]="itemSize"
+          [style.height.px]="virtualHeight()"
+          (scrolledIndexChange)="optionsScrolled($event)"
+          (mouseleave)="mouseLeaveOptions()">
+          <ng-template cdkVirtualFor [cdkVirtualForOf]="filteredGroupsAndOptions()" [cdkVirtualForTrackBy]="trackByFn" let-item>
+            @if (item.type === 'group') {
+              <thy-option-group-render [thyGroupLabel]="item.label"></thy-option-group-render>
+            } @else {
+              <thy-option-render
+                [thyValue]="item.value"
+                [thyRawValue]="item.rawValue"
+                [thyLabelText]="item.label"
+                [thyShowOptionCustom]="item.showOptionCustom"
+                [thySearchKey]="item.searchKey"
+                [thyDisabled]="item.disabled"
+                [thyTemplate]="item.template"
+                [thyShowCheckedIcon]="isMultiple()"
+                [thySelectedValuesMap]="selectedValuesMap()"
+                [thyActivatedValue]="activatedValue()"
+                (optionHover)="optionHover($event)"
+                (optionClick)="optionClick($event)">
+              </thy-option-render>
             }
-          </div>
-        }
+          </ng-template>
+        </cdk-virtual-scroll-viewport>
+        <ng-content></ng-content>
       </div>
     } @else {
       <thy-loading [thyDone]="thyLoadState()" thySize="sm"></thy-loading>
       <div class="thy-select-empty-content">
         @if (thyLoadState()) {
-          <thy-empty [thyMessage]="thyEmptyStateText()" thySize="sm" [thyIconName]="emptyIcon()"></thy-empty>
+          @let isSearching = keywords();
+          <thy-empty
+            [thyMessage]="isSearching ? thyEmptySearchMessageText() : thyEmptyStateText()"
+            thySize="sm"
+            [thyIconName]="emptyIcon()"></thy-empty>
         }
       </div>
     }
@@ -79,21 +96,3 @@
     }
   </div>
 </ng-template>
-
-<thy-options-container #optionsContainer>
-  @for (option of optionGroups; track $index) {
-    @if (!option.children) {
-      <thy-option
-        [thyDisabled]="option.disabled"
-        [thyLabelText]="option.label"
-        [thyValue]="option.value"
-        [thyRawValue]="option"></thy-option>
-    } @else {
-      <thy-option-group [thyGroupLabel]="option.groupLabel">
-        @for (sub of option.children; track sub.value) {
-          <thy-option [thyDisabled]="sub.disabled" [thyLabelText]="sub.label" [thyValue]="sub.value" [thyRawValue]="sub"></thy-option>
-        }
-      </thy-option-group>
-    }
-  }
-</thy-options-container>
