@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { ThyNativeTableComponent } from './components/table/table.component';
 import { ThyNativeTableInnerDefaultComponent } from './components/table/table-inner-default.component';
 import { ThyNativeTableInnerScrollComponent } from './components/table/table-inner-scroll.component';
-import { ThyNativeTableVirtualScrollDirective } from './components/table/table-virtual-scroll.directive';
 import { ThyNativeTableBodyComponent } from './components/table/tbody.component';
 import { ThyNativeTableHeaderComponent } from './components/table/thead.component';
 import { ThyNativeTableTrMeasureComponent } from './components/row/tr-measure.component';
@@ -34,7 +33,6 @@ const EDIT_COMPONENTS = [
         ThyNativeTableComponent,
         ThyNativeTableInnerScrollComponent,
         ThyNativeTableInnerDefaultComponent,
-        ThyNativeTableVirtualScrollDirective,
         ThyNativeTableBodyComponent,
         ThyNativeTableHeaderComponent,
         ThyNativeTableTrMeasureComponent,
@@ -54,7 +52,6 @@ const EDIT_COMPONENTS = [
         ThyNativeTableComponent,
         ThyNativeTableInnerScrollComponent,
         ThyNativeTableInnerDefaultComponent,
-        ThyNativeTableVirtualScrollDirective,
         ThyNativeTableBodyComponent,
         ThyNativeTableHeaderComponent,
         ThyNativeTableTrMeasureComponent,

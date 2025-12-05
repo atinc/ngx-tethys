@@ -41,8 +41,6 @@ import { ThyIcon } from 'ngx-tethys/icon';
     imports: [NgTemplateOutlet, ThyIcon]
 })
 export class ThyNativeTableTdExpandComponent<T> implements OnInit {
-    private destroyRef = inject(DestroyRef);
-
     readonly thyRowData = input<T | null>(null);
 
     readonly thyShowExpand = input(false, { transform: booleanAttribute });
@@ -57,4 +55,3 @@ export class ThyNativeTableTdExpandComponent<T> implements OnInit {
         this.thyExpandChange.emit(expand);
     }
 }
-

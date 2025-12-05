@@ -1,0 +1,44 @@
+<button (click)="refresh()">重新渲染</button>
+<button (click)="insertData()">插入数据</button>
+@if (!loadingDone) {
+  <!-- <span>loading......</span> -->
+} @else {
+  <thy-native-table thyEditable [thyData]="data">
+    <thead>
+      <tr>
+        <th thyWidth="48px" [thyShowCheckbox]="true"></th>
+        <th thyWidth="48px">Id（文本）</th>
+        <th thyWidth="100px">Name(avatar)</th>
+        <th thyWidth="200px">Age(tag)</th>
+        <th thyWidth="200px">Rate</th>
+        <th>日期</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (row of data; track row.id) {
+        <tr>
+          <td [thyShowCheckbox]="true" [thyDisabled]="row.id === 2"></td>
+          <td>{{ row.id }}</td>
+          <td>
+            <thy-avatar [thyName]="row.name" thyShowName="true"></thy-avatar>
+          </td>
+          <td>
+            <thy-tag>{{ row.age }}</thy-tag>
+          </td>
+          <td>
+            <thy-rate [(ngModel)]="row.rate"></thy-rate>
+          </td>
+          <td>
+            <thy-property-operation
+              thyLabelText="日期"
+              [thyValue]="row.date | thyDatePickerFormat"
+              thyIcon="calendar-check"
+              thyDatePicker
+              [thyHasBackdrop]="false"
+              [(ngModel)]="row.date"></thy-property-operation>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </thy-native-table>
+}

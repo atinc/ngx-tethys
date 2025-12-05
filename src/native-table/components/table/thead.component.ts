@@ -39,7 +39,7 @@ import { ThyNativeTableTrDirective } from '../row/tr.directive';
     `,
     imports: [NgTemplateOutlet]
 })
-export class ThyNativeTableHeaderComponent<T> implements AfterContentInit, AfterViewInit, OnInit {
+export class ThyNativeTableHeaderComponent implements AfterContentInit, AfterViewInit, OnInit {
     private styleService = inject(ThyNativeTableStyleService, { optional: true });
     private destroyRef = inject(DestroyRef);
     private el: HTMLElement = inject(ElementRef<HTMLElement>).nativeElement;
@@ -48,9 +48,8 @@ export class ThyNativeTableHeaderComponent<T> implements AfterContentInit, After
     isInsideNativeTable = !!this.styleService;
 
     @ViewChild('contentTemplate', { static: true }) templateRef!: TemplateRef<any>;
-    @ContentChildren(ThyNativeTableTrDirective, { descendants: true }) listOfTrDirective!: QueryList<ThyNativeTableTrDirective>;
 
-    @Output() readonly thySortOrderChange = new EventEmitter<{ key: any; value: string | null }>();
+    @ContentChildren(ThyNativeTableTrDirective, { descendants: true }) listOfTrDirective!: QueryList<ThyNativeTableTrDirective>;
 
     ngOnInit(): void {
         if (this.styleService) {
@@ -78,13 +77,6 @@ export class ThyNativeTableHeaderComponent<T> implements AfterContentInit, After
             listOfColumnsChanges$.subscribe(data => {
                 this.styleService!.setListOfTh(data);
             });
-
-            this.styleService.enableAutoMeasure$
-                .pipe(switchMap(enable => (enable ? listOfColumnsChanges$ : of([]))))
-                .pipe(takeUntilDestroyed(this.destroyRef))
-                .subscribe(data => {
-                    this.styleService!.setListOfMeasureColumn(data);
-                });
         }
     }
 

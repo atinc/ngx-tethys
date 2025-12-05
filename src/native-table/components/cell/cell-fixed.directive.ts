@@ -1,5 +1,4 @@
-import { Directive, ElementRef, Renderer2, inject, input, OnChanges, booleanAttribute, computed, effect } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Directive, ElementRef, Renderer2, inject, input, OnChanges, computed } from '@angular/core';
 
 @Directive({
     selector: 'td[thyFixedRight],th[thyFixedRight],td[thyFixedLeft],th[thyFixedLeft]',
@@ -18,8 +17,6 @@ export class ThyNativeTableCellFixedDirective implements OnChanges {
 
     readonly thyFixedLeft = input<boolean>(false);
 
-    changes$ = new Subject<void>();
-
     isFixed = computed(() => this.thyFixedLeft() || this.thyFixedRight());
 
     setAutoLeft(autoLeft: string | null): void {
@@ -30,7 +27,5 @@ export class ThyNativeTableCellFixedDirective implements OnChanges {
         this.renderer.setStyle(this.el, 'right', autoRight);
     }
 
-    ngOnChanges(): void {
-        this.changes$.next();
-    }
+    ngOnChanges(): void {}
 }

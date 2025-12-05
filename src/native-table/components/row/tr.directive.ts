@@ -21,16 +21,7 @@ export class ThyNativeTableTrDirective implements AfterContentInit {
     @ContentChildren(ThyNativeTableThDirective) listOfThDirective!: QueryList<ThyNativeTableThDirective>;
     @ContentChildren(ThyNativeTableCellFixedDirective) listOfCellFixedDirective!: QueryList<ThyNativeTableCellFixedDirective>;
 
-    private listOfFixedColumns$ = new ReplaySubject<ThyNativeTableCellFixedDirective[]>(1);
     private listOfColumns$ = new ReplaySubject<ThyNativeTableThDirective[]>(1);
-
-    listOfFixedColumnsChanges$: Observable<ThyNativeTableCellFixedDirective[]> = this.listOfFixedColumns$.pipe(
-        switchMap(list => merge(this.listOfFixedColumns$, ...list.map(c => c.changes$)).pipe(mergeMap(() => this.listOfFixedColumns$))),
-        takeUntilDestroyed(this.destroyRef)
-    );
-
-    listOfFixedLeftColumnChanges$ = this.listOfFixedColumnsChanges$.pipe(map(list => list.filter(item => item.thyFixedLeft())));
-    listOfFixedRightColumnChanges$ = this.listOfFixedColumnsChanges$.pipe(map(list => list.filter(item => item.thyFixedRight())));
 
     listOfColumnsChanges$: Observable<ThyNativeTableThDirective[]> = this.listOfColumns$.pipe(
         switchMap(list => merge(this.listOfColumns$, ...list.map(c => c.changes$)).pipe(mergeMap(() => this.listOfColumns$))),
@@ -41,27 +32,11 @@ export class ThyNativeTableTrDirective implements AfterContentInit {
 
     ngAfterContentInit(): void {
         if (this.styleService) {
-            this.listOfCellFixedDirective.changes
-                .pipe(startWith(this.listOfCellFixedDirective), takeUntilDestroyed(this.destroyRef))
-                .subscribe(fixedColumns => {
-                    const fixedColumnList = fixedColumns.toArray();
-                    this.listOfFixedColumns$.next(fixedColumnList);
-                });
-
             this.listOfThDirective.changes
                 .pipe(startWith(this.listOfThDirective), takeUntilDestroyed(this.destroyRef))
                 .subscribe(thDirectives => {
                     const thList = thDirectives.toArray();
                     this.listOfColumns$.next(thList);
-                });
-
-            combineLatest([this.styleService.listOfListOfThWidth$, this.listOfFixedLeftColumnChanges$])
-                .pipe(takeUntilDestroyed(this.destroyRef))
-                .subscribe(([listOfAutoWidth, listOfLeftCell]) => {
-                    listOfLeftCell.forEach((cell, index) => {
-                        //   TODO: 实现固定列左侧宽度计算逻辑
-                        //  cell.setAutoLeftWidth(`${width}px`);
-                    });
                 });
         }
     }

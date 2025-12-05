@@ -1,13 +1,12 @@
 import { Directive, effect, ElementRef, inject, input, OnChanges, Renderer2, SimpleChanges } from '@angular/core';
 import { Subject } from 'rxjs';
-
-import { ThyNativeTableThMeasureInfo } from '../../services/table-style.service';
+import { ThyNativeTableThInfo } from '../../services/table-style.service';
 
 @Directive({
     selector: 'th',
     standalone: true
 })
-export class ThyNativeTableThDirective implements ThyNativeTableThMeasureInfo {
+export class ThyNativeTableThDirective implements ThyNativeTableThInfo {
     private renderer = inject(Renderer2);
     private el: HTMLElement = inject(ElementRef<HTMLElement>).nativeElement;
 

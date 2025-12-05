@@ -1,21 +1,4 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    ElementRef,
-    NgZone,
-    TemplateRef,
-    ViewEncapsulation,
-    booleanAttribute,
-    inject,
-    input,
-    output,
-    OnInit,
-    DestroyRef,
-    signal,
-    computed
-} from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Subject } from 'rxjs';
+import { ChangeDetectionStrategy, Component, TemplateRef, booleanAttribute, input, output, OnInit, signal, computed } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -55,10 +38,6 @@ import { ThyNativeTableSortOrder } from '../../table.interface';
     imports: [NgTemplateOutlet, ThyIcon]
 })
 export class ThyNativeTableThSortComponent implements OnInit {
-    private destroyRef = inject(DestroyRef);
-
-    private sortOrderChange$ = new Subject<ThyNativeTableSortOrder>();
-
     readonly thySortable = input(false, { transform: booleanAttribute });
 
     readonly thySortOrder = input<ThyNativeTableSortOrder | null>(null);
@@ -83,25 +62,11 @@ export class ThyNativeTableThSortComponent implements OnInit {
 
     setSortOrder(order: ThyNativeTableSortOrder): void {
         this.currentSortOrder.set(order);
-        this.sortOrderChange$.next(order);
-    }
-
-    clearSortOrder(): void {
-        if (this.currentSortOrder() !== null) {
-            this.setSortOrder(null);
-        }
     }
 
     ngOnInit(): void {
         if (this.thySortOrder() !== null) {
             this.currentSortOrder.set(this.thySortOrder()!);
         }
-
-        this.sortOrderChange$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(order => {
-            if (this.currentSortOrder() !== order) {
-                this.currentSortOrder.set(order);
-                this.thySortOrderChange.emit(order);
-            }
-        });
     }
 }

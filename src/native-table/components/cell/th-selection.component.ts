@@ -1,16 +1,4 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    ViewEncapsulation,
-    booleanAttribute,
-    inject,
-    input,
-    output,
-    OnInit,
-    effect,
-    signal,
-    DestroyRef
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, booleanAttribute, inject, input, output, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { ThyCheckbox } from 'ngx-tethys/checkbox';
@@ -33,8 +21,6 @@ import { ThyCheckbox } from 'ngx-tethys/checkbox';
     imports: [FormsModule, ThyCheckbox]
 })
 export class ThyNativeTableThSelectionComponent<T> implements OnInit {
-    private destroyRef = inject(DestroyRef);
-
     readonly thyShowCheckbox = input(true, { transform: booleanAttribute });
 
     readonly thyDisabled = input(false, { transform: booleanAttribute });
