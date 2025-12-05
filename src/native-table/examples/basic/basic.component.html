@@ -1,0 +1,32 @@
+<thy-native-table thyEditable [thyData]="data">
+  <thead>
+    <tr>
+      <th [thyShowCheckbox]="true"></th>
+      <th thyWidth="100px">Id</th>
+      <th thyWidth="100px">Name</th>
+      <th thyWidth="200px" thySortable>Age</th>
+      <th>Job</th>
+      <th>Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (row of data; track row.id) {
+      <tr>
+        <td thyShowCheckbox [thyDisabled]="row.id === 2"></td>
+        <td>{{ row.id }}</td>
+        <td>{{ row.name }}</td>
+        <td [thyCellPopoverEdit]="ageEdit">
+          <span thyEditOpen>{{ row.age }}</span>
+          <ng-template #ageEdit>
+            <div class="edit-panel">
+              <input thyInput [ngModel]="row.age" placeholder="Please type (thyInput)" (ngModelChange)="onSubmitAge($event, row)" />
+            </div>
+          </ng-template>
+        </td>
+
+        <td>{{ row.job }}</td>
+        <td>{{ row.address }}</td>
+      </tr>
+    }
+  </tbody>
+</thy-native-table>

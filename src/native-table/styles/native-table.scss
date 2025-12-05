@@ -1,0 +1,170 @@
+@use '../../styles/bootstrap/variables' as bootstrap-variables;
+@use '../../styles/mixins/utilities';
+@use '../../styles/variables';
+@use '../../styles/mixins/tables';
+
+.thy-native-table {
+    width: 100%;
+    max-width: 100%;
+    color: variables.$table-color;
+    background-color: variables.$table-bg;
+
+    th,
+    td {
+        padding: variables.$table-default-header-cell-padding;
+        vertical-align: middle;
+        border-bottom: variables.$table-border-width solid variables.$table-border-color;
+    }
+
+    tbody tr {
+        &.clear-hover {
+            cursor: default !important;
+            box-shadow: initial !important;
+            background-color: transparent !important;
+
+            td {
+                border-bottom: 0;
+            }
+        }
+    }
+
+    @include tables.table-size(
+        variables.$table-cell-height,
+        variables.$table-cell-height,
+        variables.$table-header-padding,
+        variables.$table-cell-padding
+    );
+
+    .thy-native-table {
+        background-color: bootstrap-variables.$body-bg;
+    }
+    .thy-native-table-content {
+        width: 100%;
+    }
+}
+
+.native-table-default {
+    @include tables.table-set-header(
+        left,
+        bottom,
+        400,
+        variables.$table-border-width,
+        transparent,
+        variables.$table-border-color,
+        variables.$table-default-header-color,
+        variables.$table-default-header-padding
+    );
+}
+
+.thy-native-table-bordered {
+    border: variables.$table-border-width solid variables.$table-border-color;
+
+    th,
+    td {
+        border: variables.$table-border-width solid variables.$table-border-color;
+    }
+
+    &:has(+ .thy-table-skeleton) > thead {
+        // 有骨架屏去掉 thead 的 border-bottom，否则会和 table 的边框重叠加粗
+        tr th {
+            border-bottom: 0;
+        }
+    }
+
+    @include tables.table-set-header(
+        center,
+        middle,
+        400,
+        variables.$table-border-width,
+        variables.$table-bordered-bg,
+        variables.$table-border-color,
+        variables.$table-bordered-header-color,
+        0
+    );
+}
+
+.native-table-boxed {
+    border: variables.$table-border-width solid variables.$table-border-color;
+
+    tbody {
+        // 最后一行去掉 border-bottom，否则会和 table 的边框重叠加粗
+        tr:last-child {
+            td {
+                border-bottom: 0px;
+            }
+        }
+    }
+
+    &:has(+ .thy-table-skeleton) {
+        // 有骨架屏 给table只设置上左边框的border-radius
+        border-radius: 0 !important;
+        border-top-left-radius: variables.$border-radius !important;
+    }
+
+    &:has(+ .thy-table-skeleton) > thead {
+        // 有骨架屏去掉 thead 的 border-bottom，否则会和 table 的边框重叠加粗
+        tr th {
+            border-bottom: 0;
+        }
+    }
+
+    @include tables.table-set-header(
+        left,
+        middle,
+        400,
+        variables.$table-border-width,
+        variables.$table-bordered-bg,
+        variables.$table-border-color,
+        variables.$table-bordered-header-color,
+        0
+    );
+}
+
+.native-table-xlg {
+    @include tables.table-size(
+        variables.$table-cell-height-xlg,
+        variables.$table-cell-height-xlg,
+        variables.$table-header-padding-xlg,
+        variables.$table-cell-padding-xlg
+    );
+}
+
+.native-table-lg {
+    @include tables.table-size(
+        variables.$table-cell-height-lg,
+        variables.$table-cell-height-lg,
+        variables.$table-header-padding-lg,
+        variables.$table-cell-padding-lg
+    );
+}
+
+.native-table-md {
+    @include tables.table-size(
+        variables.$table-cell-height,
+        variables.$table-cell-height,
+        variables.$table-header-padding,
+        variables.$table-cell-padding
+    );
+}
+
+.native-table-sm {
+    @include tables.table-size(
+        variables.$table-cell-height-sm,
+        variables.$table-cell-height-sm,
+        variables.$table-header-padding-sm,
+        variables.$table-cell-padding-sm
+    );
+}
+
+.native-table-xs {
+    @include tables.table-size(
+        variables.$table-cell-height-xs,
+        variables.$table-cell-height-xs,
+        variables.$table-header-padding-xs,
+        variables.$table-cell-padding-xs
+    );
+}
+
+.table-fixed {
+    table-layout: fixed;
+}

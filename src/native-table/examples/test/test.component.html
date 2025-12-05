@@ -1,0 +1,34 @@
+<button (click)="refresh()">重新渲染</button>
+<button (click)="insertData()">插入数据</button>
+@if (!loadingDone) {
+  <!-- <span>loading......</span> -->
+} @else {
+  <thy-native-table thyEditable [thyData]="data">
+    <thead>
+      <tr>
+        <th thyWidth="48px" [thyShowCheckbox]="true"></th>
+        <th thyWidth="100px">Id（文本）</th>
+        <th thyWidth="100px">Name(avatar)</th>
+        <th thyWidth="100px">Age(tag)</th>
+        <th thyWidth="200px">Rate</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (row of data; track row.id) {
+        <tr>
+          <td [thyShowCheckbox]="true" [thyDisabled]="row.id === 2"></td>
+          <td>{{ row.id }}</td>
+          <td>
+            <thy-avatar [thyName]="row.name" thySize="md" thyShowName="true"></thy-avatar>
+          </td>
+          <td>
+            <thy-tag>{{ row.age }}</thy-tag>
+          </td>
+          <td>
+            <thy-rate name="rate" [(ngModel)]="row.rate"></thy-rate>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </thy-native-table>
+}
