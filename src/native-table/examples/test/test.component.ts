@@ -28,9 +28,9 @@ function perfTracker() {
 })
 export class ThyNativeTableTestExampleComponent implements OnInit {
     data = [
-        { id: 1, name: 'Peter', age: 25, date: new Date(), rate: 3, job: 'Engineer', address: 'Beijing Dong Sheng Technology' },
-        { id: 2, name: 'James', age: 26, date: new Date(), rate: 3, job: 'Designer', address: 'Xian Economic Development Zone' },
-        { id: 3, name: 'Tom', age: 30, date: new Date(), rate: 3, job: 'Engineer', address: 'New Industrial Park, Shushan, Hefei, Anhui' }
+        { id: 0, name: 'Peter', age: 25, date: new Date(), rate: 3, job: 'Engineer', address: 'Beijing Dong Sheng Technology' },
+        { id: 1, name: 'James', age: 26, date: new Date(), rate: 3, job: 'Designer', address: 'Xian Economic Development Zone' },
+        { id: 2, name: 'Tom', age: 30, date: new Date(), rate: 3, job: 'Engineer', address: 'New Industrial Park, Shushan, Hefei, Anhui' }
     ];
 
     perfTracker = perfTracker();
@@ -99,9 +99,7 @@ export class ThyNativeTableTestExampleComponent implements OnInit {
         setTimeout(() => {
             this.loadingDone = true;
             this.cdr.markForCheck();
-            // this.listOfData = [...this.listOfData];
             this.perfTracker.reset('refreshing');
-            // console.log(this.listOfData);
         });
     }
 

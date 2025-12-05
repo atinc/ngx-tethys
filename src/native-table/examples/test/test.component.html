@@ -7,11 +7,10 @@
     <thead>
       <tr>
         <th thyWidth="48px" [thyShowCheckbox]="true"></th>
-        <th thyWidth="48px">Id（文本）</th>
+        <th thyWidth="100px">Id（文本）</th>
         <th thyWidth="100px">Name(avatar)</th>
-        <th thyWidth="200px">Age(tag)</th>
+        <th thyWidth="100px">Age(tag)</th>
         <th thyWidth="200px">Rate</th>
-        <th>日期</th>
       </tr>
     </thead>
     <tbody>
@@ -20,22 +19,13 @@
           <td [thyShowCheckbox]="true" [thyDisabled]="row.id === 2"></td>
           <td>{{ row.id }}</td>
           <td>
-            <thy-avatar [thyName]="row.name" thyShowName="true"></thy-avatar>
+            <thy-avatar [thyName]="row.name" thySize="md" thyShowName="true"></thy-avatar>
           </td>
           <td>
             <thy-tag>{{ row.age }}</thy-tag>
           </td>
           <td>
-            <thy-rate [(ngModel)]="row.rate"></thy-rate>
-          </td>
-          <td>
-            <thy-property-operation
-              thyLabelText="日期"
-              [thyValue]="row.date | thyDatePickerFormat"
-              thyIcon="calendar-check"
-              thyDatePicker
-              [thyHasBackdrop]="false"
-              [(ngModel)]="row.date"></thy-property-operation>
+            <thy-rate name="rate" [(ngModel)]="row.rate"></thy-rate>
           </td>
         </tr>
       }
