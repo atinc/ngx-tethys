@@ -785,25 +785,18 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
                 this.thyOnScrollToBottom.emit();
             }
         }
-
-        this.reUpdateSelectedStatus();
     }
 
     public search(keywords: string) {
         this.shouldActivateOption = true;
         this.activatedValue.set(null);
         this.keywords.set(keywords.trim());
-        this.reUpdateSelectedStatus();
 
         if (this.thyServerSearch()) {
             this.thyOnSearch.emit(keywords);
         } else {
             this.updateCdkConnectedOverlayPositions();
         }
-    }
-
-    private reUpdateSelectedStatus() {
-        this.selectedValues.set([...this.selectedValues()]);
     }
 
     onBlur(event?: FocusEvent) {
