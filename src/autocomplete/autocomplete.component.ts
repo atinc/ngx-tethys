@@ -69,7 +69,7 @@ export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, After
 
     emptyIcon: Signal<string> = injectPanelEmptyIcon();
 
-    dropDownClass: { [key: string]: boolean };
+    dropDownClass!: { [key: string]: boolean };
 
     isMultiple = false;
 
@@ -77,12 +77,12 @@ export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, After
 
     isEmptyOptions = false;
 
-    selectionModel: SelectionModel<ThyOption>;
+    selectionModel!: SelectionModel<ThyOption>;
 
     isOpened = false;
 
     /** Manages active item in option list based on key events. */
-    keyManager: ActiveDescendantKeyManager<ThyOption>;
+    keyManager!: ActiveDescendantKeyManager<ThyOption>;
 
     readonly contentTemplateRef = viewChild<TemplateRef<any>>('contentTemplate');
 
@@ -92,7 +92,7 @@ export class ThyAutocomplete implements IThyOptionParentComponent, OnInit, After
     /**
      * @private
      */
-    @ContentChildren(ThyOption, { descendants: true }) options: QueryList<ThyOption>;
+    @ContentChildren(ThyOption, { descendants: true }) options!: QueryList<ThyOption>;
 
     readonly optionSelectionChanges: Observable<ThyOptionSelectionChangeEvent> = defer(() => {
         if (this.options) {

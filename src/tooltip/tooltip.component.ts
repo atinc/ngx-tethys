@@ -39,7 +39,7 @@ export class ThyTooltip implements OnInit {
 
     _content!: string | TemplateRef<HTMLElement>;
 
-    data: any;
+    data!: any;
 
     private readonly onHide = new Subject<void>();
 
@@ -49,9 +49,9 @@ export class ThyTooltip implements OnInit {
 
     visibility: ThyTooltipVisibility = 'initial';
 
-    showTimeoutId: number | null | any;
+    showTimeoutId!: number | null | any;
 
-    hideTimeoutId: number | null | any;
+    hideTimeoutId!: number | null | any;
 
     tooltipClasses: string[] = [];
 

@@ -80,7 +80,7 @@ class CardBorderedComponent implements OnInit {
     imports: [ThyCardModule]
 })
 class CardHeaderSizeComponent {
-    size: string;
+    size!: string;
 }
 
 @Component({
@@ -94,8 +94,8 @@ class CardHeaderSizeComponent {
     imports: [ThyCardModule]
 })
 class CardContentSizeAndScrollComponent {
-    size: string;
-    isScroll: boolean;
+    size!: string;
+    isScroll!: boolean;
 }
 
 describe('thy-card', () => {

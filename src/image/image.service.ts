@@ -17,7 +17,7 @@ export class ThyImageService implements OnDestroy {
     /**
      * 图片预览默认配置，外部可通过注入 THY_IMAGE_DEFAULT_PREVIEW_OPTIONS 进行配置
      */
-    defaultConfig: ThyImagePreviewConfig;
+    defaultConfig!: ThyImagePreviewConfig;
 
     private downloadClicked$ = new Subject<ThyImageInfo>();
 
@@ -37,7 +37,7 @@ export class ThyImageService implements OnDestroy {
         const dialogRef = this.thyDialog.open(ThyImagePreview, {
             initialState: {
                 images,
-                previewIndex: options?.startIndex >= 0 && options?.startIndex < images.length ? options.startIndex : 0,
+                previewIndex: options?.startIndex! >= 0 && options?.startIndex! < images.length ? options?.startIndex! : 0,
                 previewConfig: config
             },
             backdropClass: 'thy-image-preview-backdrop',

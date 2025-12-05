@@ -65,7 +65,7 @@ export class ThySelectControl implements OnInit, AfterViewInit {
 
     isComposing = signal(false);
 
-    searchInputControlClass: { [key: string]: boolean };
+    searchInputControlClass!: { [key: string]: boolean };
 
     private isFirstPanelOpenedChange = true;
 
@@ -86,7 +86,7 @@ export class ThySelectControl implements OnInit, AfterViewInit {
 
     readonly thyDisabled = input(false, { transform: coerceBooleanProperty });
 
-    readonly customDisplayTemplate = input<TemplateRef<any>>(undefined);
+    readonly customDisplayTemplate = input<TemplateRef<any>>();
 
     readonly thyAllowClear = input(false, { transform: coerceBooleanProperty });
 
@@ -135,7 +135,7 @@ export class ThySelectControl implements OnInit, AfterViewInit {
         );
     });
 
-    readonly tagsContainer = viewChild<ElementRef>('tagsContainer');
+    readonly tagsContainer = viewChild.required<ElementRef>('tagsContainer');
 
     visibleTagCount = signal(0);
 
@@ -279,7 +279,7 @@ export class ThySelectControl implements OnInit, AfterViewInit {
         });
     }
 
-    private resizeObserver(element: HTMLElement): Observable<ResizeObserverEntry[]> {
+    private resizeObserver(element: HTMLElement): Observable<ResizeObserverEntry[] | null> {
         return typeof ResizeObserver === 'undefined' || !ResizeObserver
             ? of(null)
             : new Observable(observer => {

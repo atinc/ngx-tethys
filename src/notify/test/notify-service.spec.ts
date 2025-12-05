@@ -27,9 +27,9 @@ const DEFAULT_DURATION_TIME = 4500;
 export class ThyNotifyBasicComponent implements OnInit {
     private notifyService = coreInject(ThyNotifyService);
 
-    @ViewChild('content') contentTemplate: TemplateRef<any>;
+    @ViewChild('content') contentTemplate!: TemplateRef<any>;
 
-    option: ThyNotifyConfig;
+    option!: ThyNotifyConfig;
 
     ngOnInit() {}
 
@@ -38,6 +38,7 @@ export class ThyNotifyBasicComponent implements OnInit {
     }
 
     openComponentSuccessNotify(type: string) {
+        // @ts-ignore
         this.notifyService[type](`type is ${type}`, 'some content', { detail: 'this is detail' });
     }
 
@@ -133,7 +134,7 @@ describe('ThyNotify', () => {
             btnElement.click();
             fixture.detectChanges();
             tick();
-            const contentElement = overlayContainerElement.querySelector('.thy-notify .thy-notify-content');
+            const contentElement = overlayContainerElement.querySelector('.thy-notify .thy-notify-content')!;
             expect(contentElement.innerHTML).toContain(content);
             tick(DEFAULT_DURATION_TIME);
             fixture.detectChanges();
@@ -151,7 +152,7 @@ describe('ThyNotify', () => {
             btnElement.click();
             fixture.detectChanges();
             tick();
-            const contentElement = overlayContainerElement.querySelector('.thy-notify .thy-notify-content');
+            const contentElement = overlayContainerElement.querySelector('.thy-notify .thy-notify-content')!;
             expect(contentElement.querySelector('.custom-content-template')).toBeTruthy();
             tick(DEFAULT_DURATION_TIME);
             fixture.detectChanges();
@@ -172,7 +173,7 @@ describe('ThyNotify', () => {
             btnElement.click();
             fixture.detectChanges();
             tick();
-            const contentElement = overlayContainerElement.querySelector('.thy-notify .thy-notify-content');
+            const contentElement = overlayContainerElement.querySelector('.thy-notify .thy-notify-content')!;
             expect(contentElement.querySelector('.thy-notify-content-example')).toBeTruthy();
             tick(DEFAULT_DURATION_TIME);
             fixture.detectChanges();
@@ -187,7 +188,7 @@ describe('ThyNotify', () => {
             btnElement.click();
             fixture.detectChanges();
             tick();
-            const notifyContainer = overlayContainerElement.querySelector('.thy-notify-topRight');
+            const notifyContainer = overlayContainerElement.querySelector('.thy-notify-topRight')!;
             const notify = notifyContainer.querySelector('.thy-notify') as HTMLElement;
             expect(notify.style.opacity === '1').toBe(true);
             tick(DEFAULT_DURATION_TIME);
@@ -205,14 +206,14 @@ describe('ThyNotify', () => {
             btnElement.click();
             fixture.detectChanges();
             tick();
-            const notifyContainer = overlayContainerElement.querySelector('.thy-notify-topRight');
+            const notifyContainer = overlayContainerElement.querySelector('.thy-notify-topRight')!;
             const notify = notifyContainer.querySelector('.thy-notify') as HTMLElement;
             expect(notify.style.opacity === '1').toBe(true);
             tick(DEFAULT_DURATION_TIME);
             fixture.detectChanges();
             flush();
             expect(notify.style.opacity === '0').toBe(false);
-            const closeBtn = notifyContainer.querySelector('.thy-notify-close');
+            const closeBtn = notifyContainer.querySelector('.thy-notify-close')!;
             dispatchFakeEvent(closeBtn, 'click');
             fixture.detectChanges();
             flush();
@@ -239,13 +240,13 @@ describe('ThyNotify', () => {
             btnElement.click();
             fixture.detectChanges();
             tick();
-            const notifyContainer = overlayContainerElement.querySelector(`.thy-notify-topRight`);
-            const linkContainer: HTMLElement = notifyContainer.querySelector(`.link-secondary`);
+            const notifyContainer = overlayContainerElement.querySelector(`.thy-notify-topRight`)!;
+            const linkContainer: HTMLElement = notifyContainer.querySelector(`.link-secondary`)!;
             expect(linkContainer.textContent).toBe(detail.link);
             linkContainer.click();
             fixture.detectChanges();
             expect(actionSpy).toHaveBeenCalled();
-            const detailContentContainer = notifyContainer.querySelector(`.thy-notify-detail`);
+            const detailContentContainer = notifyContainer.querySelector(`.thy-notify-detail`)!;
             expect(detailContentContainer.textContent).toBe(detail.content);
             tick(DEFAULT_DURATION_TIME);
             fixture.detectChanges();
@@ -264,12 +265,12 @@ describe('ThyNotify', () => {
             btnElement.click();
             fixture.detectChanges();
             tick();
-            const notifyContainer = overlayContainerElement.querySelector(`.thy-notify-topRight`);
-            const linkContainer: HTMLElement = notifyContainer.querySelector(`.link-secondary`);
+            const notifyContainer = overlayContainerElement.querySelector(`.thy-notify-topRight`)!;
+            const linkContainer: HTMLElement = notifyContainer.querySelector(`.link-secondary`)!;
             expect(linkContainer.textContent).toEqual('[详情]');
             linkContainer.click();
             fixture.detectChanges();
-            const detailContentContainer = notifyContainer.querySelector(`.thy-notify-detail`);
+            const detailContentContainer = notifyContainer.querySelector(`.thy-notify-detail`)!;
             expect(detailContentContainer.textContent).toBe(detailText);
             tick(DEFAULT_DURATION_TIME);
             fixture.detectChanges();
@@ -285,8 +286,8 @@ describe('ThyNotify', () => {
             btnElement.click();
             fixture.detectChanges();
             tick();
-            const notifyContainer: HTMLElement = overlayContainerElement.querySelector(`.thy-notify-topRight`);
-            const notify = notifyContainer.querySelector('.thy-notify');
+            const notifyContainer: HTMLElement = overlayContainerElement.querySelector(`.thy-notify-topRight`)!;
+            const notify = notifyContainer.querySelector('.thy-notify')!;
             expect(notify.classList.contains('thy-notify-error')).toBeTruthy();
             tick(DEFAULT_DURATION_TIME);
             fixture.detectChanges();
@@ -298,8 +299,8 @@ describe('ThyNotify', () => {
             typeElement.click();
             fixture.detectChanges();
             tick();
-            const notifyContainer: HTMLElement = overlayContainerElement.querySelector(`.thy-notify-topRight`);
-            const notify = notifyContainer.querySelector('.thy-notify');
+            const notifyContainer: HTMLElement = overlayContainerElement.querySelector(`.thy-notify-topRight`)!;
+            const notify = notifyContainer.querySelector('.thy-notify')!;
             expect(notify.classList.contains('thy-notify-success')).toBeTruthy();
             tick(DEFAULT_DURATION_TIME);
             fixture.detectChanges();
@@ -311,8 +312,8 @@ describe('ThyNotify', () => {
             typeElement.click();
             fixture.detectChanges();
             tick();
-            const notifyContainer: HTMLElement = overlayContainerElement.querySelector(`.thy-notify-topRight`);
-            const notify = notifyContainer.querySelector('.thy-notify');
+            const notifyContainer: HTMLElement = overlayContainerElement.querySelector(`.thy-notify-topRight`)!;
+            const notify = notifyContainer.querySelector('.thy-notify')!;
             expect(notify.classList.contains('thy-notify-info')).toBeTruthy();
             tick(DEFAULT_DURATION_TIME);
             fixture.detectChanges();
@@ -324,8 +325,8 @@ describe('ThyNotify', () => {
             typeElement.click();
             fixture.detectChanges();
             tick();
-            const notifyContainer: HTMLElement = overlayContainerElement.querySelector(`.thy-notify-topRight`);
-            const notify = notifyContainer.querySelector('.thy-notify');
+            const notifyContainer: HTMLElement = overlayContainerElement.querySelector(`.thy-notify-topRight`)!;
+            const notify = notifyContainer.querySelector('.thy-notify')!;
             expect(notify.classList.contains('thy-notify-warning')).toBeTruthy();
             tick(DEFAULT_DURATION_TIME);
             fixture.detectChanges();
@@ -337,8 +338,8 @@ describe('ThyNotify', () => {
             typeElement.click();
             fixture.detectChanges();
             tick();
-            const notifyContainer: HTMLElement = overlayContainerElement.querySelector(`.thy-notify-topRight`);
-            const notify = notifyContainer.querySelector('.thy-notify');
+            const notifyContainer: HTMLElement = overlayContainerElement.querySelector(`.thy-notify-topRight`)!;
+            const notify = notifyContainer.querySelector('.thy-notify')!;
             expect(notify.classList.contains('thy-notify-error')).toBeTruthy();
             tick(DEFAULT_DURATION_TIME);
             fixture.detectChanges();
@@ -353,13 +354,13 @@ describe('ThyNotify', () => {
             btnElement.click();
             fixture.detectChanges();
             tick();
-            const notifyContainer = overlayContainerElement.querySelector('.thy-notify-topRight');
-            const closeBtn = notifyContainer.querySelector('.thy-notify-close');
+            const notifyContainer = overlayContainerElement.querySelector('.thy-notify-topRight')!;
+            const closeBtn = notifyContainer.querySelector('.thy-notify-close')!;
             dispatchFakeEvent(closeBtn, 'click');
             tick();
             fixture.detectChanges();
             flush();
-            const notify: HTMLElement = notifyContainer.querySelector('.thy-notify');
+            const notify: HTMLElement | null = notifyContainer.querySelector('.thy-notify');
             expect(notify).toBeFalsy();
             fixture.detectChanges();
             flush();
@@ -374,7 +375,7 @@ describe('ThyNotify', () => {
             btnElement.click();
             fixture.detectChanges();
             tick();
-            const notifyContainer = overlayContainerElement.querySelector('.thy-notify-topRight');
+            const notifyContainer = overlayContainerElement.querySelector('.thy-notify-topRight')!;
             const notify = notifyContainer.querySelector('.thy-notify') as HTMLElement;
             expect(notify.style.opacity).toBe('1');
             const closeBtn = fixture.nativeElement.querySelector('.close-btn');
@@ -396,7 +397,7 @@ describe('ThyNotify', () => {
             tick();
             const notifyContainer = overlayContainerElement.querySelector('.thy-notify-topRight');
 
-            const notify = notifyContainer.querySelector('.thy-notify') as HTMLElement;
+            const notify = notifyContainer?.querySelector('.thy-notify') as HTMLElement;
             expect(notify.style.opacity).toBe('1');
             dispatchMouseEvent(notify, 'mouseenter');
             tick(DEFAULT_DURATION_TIME);
@@ -457,7 +458,7 @@ describe('ThyNotify with provider', () => {
             flush();
 
             const notifyContainer = overlayContainerElement.querySelector('.thy-notify-bottomLeft');
-            const notify = notifyContainer.querySelector('.thy-notify') as HTMLElement;
+            const notify = notifyContainer?.querySelector('.thy-notify') as HTMLElement;
             expect(notify.style.opacity === '1').toBe(true);
             tick(DEFAULT_DURATION_TIME + 100);
             expect(notify.style.opacity === '0').toBe(true);

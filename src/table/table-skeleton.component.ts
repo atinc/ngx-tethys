@@ -50,7 +50,7 @@ export class ThyTableSkeleton implements AfterViewInit {
      */
     @Input()
     @InputCssPixel()
-    thyBorderRadius: string | number;
+    thyBorderRadius!: string | number;
 
     /**
      * 表格内容骨架高度
@@ -115,7 +115,7 @@ export class ThyTableSkeleton implements AfterViewInit {
      */
     @Input()
     @InputCssPixel()
-    thyMinWidth: string | number;
+    thyMinWidth!: string | number;
 
     /**
      * 表格列骨架的配置项，支持配置列宽、骨架类型

@@ -42,9 +42,9 @@ export class ThyColorPickerPanel implements OnInit {
 
     recentColors: string[] = [];
 
-    newColor: string;
+    newColor!: string;
 
-    customPanelPopoverRef: ThyPopoverRef<ThyColorPickerCustomPanel>;
+    customPanelPopoverRef!: ThyPopoverRef<ThyColorPickerCustomPanel>;
 
     ngOnInit(): void {
         const colors = localStorage.getItem('recentColors');
@@ -55,7 +55,10 @@ export class ThyColorPickerPanel implements OnInit {
 
     selectColor(color: string) {
         this.color.set(color);
-        this.colorChange()(this.color());
+        const colorChangeFn = this.colorChange();
+        if (colorChangeFn) {
+            colorChangeFn(this.color()!);
+        }
         this.thyPopoverRef.close();
     }
 
@@ -74,7 +77,9 @@ export class ThyColorPickerPanel implements OnInit {
                     color: this.color(),
                     pickerColorChange: (value: string) => {
                         this.newColor = value;
-                        this.colorChange()(value);
+                        if (this.colorChange()) {
+                            this.colorChange()!(value);
+                        }
                     }
                 }
             });

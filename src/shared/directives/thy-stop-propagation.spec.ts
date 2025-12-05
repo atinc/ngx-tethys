@@ -110,7 +110,7 @@ class ThyStopPropagationDirectiveValueIsEventNameComponent {
     imports: [ThySharedModule]
 })
 class ThyStopPropagationDirectiveValueIsUndefinedComponent {
-    isStopPropagation: string | boolean;
+    isStopPropagation!: string | boolean;
     parentClick = jasmine.createSpy('thyStopPropagation callback');
 }
 
@@ -123,7 +123,7 @@ class ThyStopPropagationDirectiveValueIsUndefinedComponent {
     imports: [ThySharedModule]
 })
 class ThyStopPropagationDirectiveWithDynamicBindingComponent {
-    stopPropagation: string | boolean;
+    stopPropagation!: string | boolean;
     parentClick = jasmine.createSpy('thyStopPropagation click callback');
     parentMouseover = jasmine.createSpy('thyStopPropagation mouseover callback');
 }

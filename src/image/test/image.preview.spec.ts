@@ -12,7 +12,7 @@ import { InternalImageInfo, ThyImagePreviewOptions, ThyImageService, ThyImageMod
 import { fetchImageBlob } from '../utils';
 import { provideHttpClient } from '@angular/common/http';
 
-let imageOnload: () => void = null;
+let imageOnload: () => void;
 
 @Component({
     selector: 'thy-image-preview-test',
@@ -41,12 +41,12 @@ class ImagePreviewTestComponent implements OnInit {
         }
     ];
     previewConfig: ThyImagePreviewOptions = {};
-    imageRef: ThyImagePreviewRef;
+    imageRef!: ThyImagePreviewRef;
 
     ngOnInit(): void {
         const urlCreator = window.URL || window.webkitURL;
         this.images.forEach(img => {
-            img.blob = new File([''], img.name, { type: 'image/jpeg' });
+            img.blob = new File([''], img.name!, { type: 'image/jpeg' });
             const objectURL = urlCreator.createObjectURL(img.blob);
             img.objectURL = this.sanitizer.bypassSecurityTrustUrl(objectURL);
         });
@@ -111,7 +111,7 @@ describe('image-preview', () => {
     });
 
     it('should create image preview when click button', () => {
-        const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
+        const button = (debugElement.nativeElement as HTMLElement).querySelector('button')!;
         button.click();
         fixture.detectChanges();
         expect(overlayContainerElement).toBeTruthy();
@@ -140,7 +140,7 @@ describe('image-preview', () => {
             ]
         };
         fixture.detectChanges();
-        const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
+        const button = (debugElement.nativeElement as HTMLElement).querySelector('button')!;
         button.click();
         fixture.detectChanges();
         expect(overlayContainerElement).toBeTruthy();
@@ -160,7 +160,7 @@ describe('image-preview', () => {
 
     it('should zoom out image when click zoom-out icon', () => {
         basicTestComponent.previewConfig.zoom = 0.2;
-        const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
+        const button = (debugElement.nativeElement as HTMLElement).querySelector('button')!;
         button.click();
         fixture.detectChanges();
 
@@ -188,7 +188,7 @@ describe('image-preview', () => {
     it('should zoom in image when click zoom-in icon', () => {
         basicTestComponent.previewConfig.zoom = 2.9;
         fixture.detectChanges();
-        const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
+        const button = (debugElement.nativeElement as HTMLElement).querySelector('button')!;
         button.click();
 
         const previousZoom = basicTestComponent.imageRef.previewInstance.zoom;
@@ -215,7 +215,7 @@ describe('image-preview', () => {
     it('should set correctly zoom when click change view icon', fakeAsync(() => {
         basicTestComponent.previewConfig.zoom = 2;
         fixture.detectChanges();
-        const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
+        const button = (debugElement.nativeElement as HTMLElement).querySelector('button')!;
         button.click();
 
         let operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
@@ -267,7 +267,7 @@ describe('image-preview', () => {
 
     it('should fullscreen when click full-screen icon', () => {
         fixture.detectChanges();
-        const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
+        const button = (debugElement.nativeElement as HTMLElement).querySelector('button')!;
         button.click();
         expect(overlayContainerElement.querySelector('.thy-image-preview-wrap')).toBeTruthy();
         expect(overlayContainerElement.querySelector('.thy-fullscreen-active')).toBeFalsy();
@@ -284,7 +284,7 @@ describe('image-preview', () => {
     it('should rotate image when click rotate icon', () => {
         basicTestComponent.previewConfig.rotate = 90;
         fixture.detectChanges();
-        const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
+        const button = (debugElement.nativeElement as HTMLElement).querySelector('button')!;
         button.click();
 
         fixture.detectChanges();
@@ -305,7 +305,7 @@ describe('image-preview', () => {
 
     it('should download image when click download icon', done => {
         fixture.detectChanges();
-        const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
+        const button = (debugElement.nativeElement as HTMLElement).querySelector('button')!;
         button.click();
         fixture.detectChanges();
 
@@ -320,7 +320,7 @@ describe('image-preview', () => {
         const download = operations[5] as HTMLElement;
         download.click();
 
-        fetchImageBlob(basicTestComponent.images[0].origin.src).subscribe(() => {
+        fetchImageBlob(basicTestComponent.images[0].origin!.src).subscribe(() => {
             expect(document.createElement).toHaveBeenCalledWith('a');
             expect(anchorElement.download).toBe('first.jpg');
             expect(anchorElement.href).toContain('blob:');
@@ -334,7 +334,7 @@ describe('image-preview', () => {
 
     it('should downloadClicked() was subscribed when click download icon', () => {
         fixture.detectChanges();
-        const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
+        const button = (debugElement.nativeElement as HTMLElement).querySelector('button')!;
         button.click();
         fixture.detectChanges();
 
@@ -353,7 +353,7 @@ describe('image-preview', () => {
 
     it('should open new tab with origin src when click origin icon', () => {
         fixture.detectChanges();
-        const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
+        const button = (debugElement.nativeElement as HTMLElement).querySelector('button')!;
         button.click();
 
         fixture.detectChanges();
@@ -368,12 +368,12 @@ describe('image-preview', () => {
         download.click();
 
         expect(openSpy).toHaveBeenCalled();
-        expect(openSpy).toHaveBeenCalledWith(basicTestComponent.images[0].origin.src, '_blank');
+        expect(openSpy).toHaveBeenCalledWith(basicTestComponent.images[0].origin?.src, '_blank');
     });
 
     it('should copy image link when click copy icon', () => {
         fixture.detectChanges();
-        const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
+        const button = (debugElement.nativeElement as HTMLElement).querySelector('button')!;
         button.click();
 
         fixture.detectChanges();
@@ -386,7 +386,7 @@ describe('image-preview', () => {
 
     it('should preview image can be switched correctly', () => {
         fixture.detectChanges();
-        const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
+        const button = (debugElement.nativeElement as HTMLElement).querySelector('button')!;
         button.click();
 
         fixture.detectChanges();
@@ -418,11 +418,11 @@ describe('image-preview', () => {
 
     it('should close the preview when click backdrop', fakeAsync(() => {
         fixture.detectChanges();
-        const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
+        const button = (debugElement.nativeElement as HTMLElement).querySelector('button')!;
         button.click();
 
         expect(overlayContainerElement).toBeTruthy();
-        const wrapper = overlayContainerElement.querySelector('.thy-image-preview-wrap');
+        const wrapper = overlayContainerElement.querySelector('.thy-image-preview-wrap')!;
         dispatchMouseEvent(wrapper, 'click', 100, 100);
         timer(300);
         fixture.detectChanges();
@@ -444,7 +444,7 @@ describe('image-preview', () => {
         ];
         basicTestComponent.previewConfig.resolveSize = true;
         fixture.detectChanges();
-        const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
+        const button = (debugElement.nativeElement as HTMLElement).querySelector('button')!;
         button.click();
 
         fixture.detectChanges();
@@ -477,7 +477,7 @@ describe('image-preview', () => {
             }
         ];
         basicTestComponent.previewConfig.resolveSize = true;
-        const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
+        const button = (debugElement.nativeElement as HTMLElement).querySelector('button')!;
         button.click();
         fixture.detectChanges();
 
@@ -495,7 +495,7 @@ describe('image-preview', () => {
             }
         ];
         fixture.detectChanges();
-        const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
+        const button = (debugElement.nativeElement as HTMLElement).querySelector('button')!;
         button.click();
         fixture.detectChanges();
 

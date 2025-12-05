@@ -19,9 +19,9 @@ import { SafeAny } from 'ngx-tethys/types';
 class SwitchTestComponent {
     size = ``;
     type = ``;
-    isDisabled: boolean;
-    isChecked: boolean;
-    isLoading: boolean;
+    isDisabled!: boolean;
+    isChecked!: boolean;
+    isLoading!: boolean;
 }
 
 describe('switch component', () => {

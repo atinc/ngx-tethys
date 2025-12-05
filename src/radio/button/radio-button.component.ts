@@ -20,7 +20,7 @@ export class ThyRadioButton extends ThyRadio implements OnInit {
         return this._disabled;
     }
 
-    name: string;
+    name!: string;
 
     readonly thyValue = input<string>();
 

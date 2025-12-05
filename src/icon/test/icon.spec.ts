@@ -34,9 +34,9 @@ class ThyIconTestBasicComponent {
     iconType = '';
     legging = false;
     linearGradient = false;
-    rotate: number;
-    twotoneColor: string;
-    iconSet: string;
+    rotate!: number;
+    twotoneColor!: string;
+    iconSet!: string;
 }
 
 describe('ThyIconComponent', () => {
@@ -130,7 +130,7 @@ describe('ThyIconComponent', () => {
             expect(svgElement).toBeTruthy();
             const ttPathElement = svgElement.querySelector('#sort-secondary-color');
             expect(ttPathElement).toBeTruthy();
-            expect(ttPathElement.getAttribute('fill')).toBe('#66666');
+            expect(ttPathElement?.getAttribute('fill')).toBe('#66666');
         });
 
         it('should set icon mode to font', () => {
@@ -201,7 +201,7 @@ describe('IconRegistry', () => {
         expect(svg.getAttribute('width')).toBe('1em');
         expect(svg.getAttribute('height')).toBe('1em');
         expect(svg.getAttribute('preserveAspectRatio')).toBe('xMidYMid meet');
-        expect(svg.querySelector('path').getAttribute('name')).toEqual(name);
+        expect(svg.querySelector('path')?.getAttribute('name')).toEqual(name);
     }
 
     function assertGetSvgIconSuccess(name: string, namespace?: string) {
@@ -270,6 +270,7 @@ describe('IconRegistry', () => {
 
     it('should addSvgIcon fail when url is null', () => {
         expect(() => {
+            // @ts-ignore
             iconRegistry.addSvgIcon(svgRandomName, null);
             iconRegistry.getSvgIcon(svgRandomName).subscribe();
         }).toThrowError(`Cannot fetch icon from URL "${null}".`);

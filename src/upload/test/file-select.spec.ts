@@ -22,12 +22,12 @@ import { createFile } from './utils';
     imports: [ThyFileSelect]
 })
 class FileSelectBasicComponent {
-    multiple: boolean;
+    multiple!: boolean;
     acceptType = '';
     sizeThreshold = 1;
     acceptFolder = false;
-    uploaderFileResult: Observable<ThyUploadResponse>;
-    exceedsFiles: File[];
+    uploaderFileResult!: Observable<ThyUploadResponse>;
+    exceedsFiles!: File[];
 
     selectFiles(event: { files: File[] }) {}
 

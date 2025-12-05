@@ -50,9 +50,9 @@ describe('validator', () => {
                 imports: [ThyFormModule, FormsModule]
             })
             class TestMaxComponent {
-                @ViewChild('age') ngModel: NgModel;
+                @ViewChild('age') ngModel!: NgModel;
 
-                value: number;
+                value!: number;
             }
 
             let fixture!: ComponentFixture<TestMaxComponent>;
@@ -112,9 +112,9 @@ describe('validator', () => {
                 imports: [ThyFormModule, FormsModule]
             })
             class TestMinComponent {
-                @ViewChild('age') ngModel: NgModel;
+                @ViewChild('age') ngModel!: NgModel;
 
-                value: number;
+                value!: number;
             }
 
             let fixture!: ComponentFixture<TestMinComponent>;
@@ -155,9 +155,9 @@ describe('validator', () => {
             imports: [ThyFormModule, FormsModule]
         })
         class TestUniqueCheckComponent {
-            @ViewChild('username') ngModel: NgModel;
+            @ViewChild('username') ngModel!: NgModel;
 
-            @ViewChild('thyForm') thyForm: ThyFormDirective;
+            @ViewChild('thyForm') thyForm!: ThyFormDirective;
 
             value = '';
 

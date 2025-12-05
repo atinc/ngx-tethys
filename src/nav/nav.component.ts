@@ -112,7 +112,7 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
 
     public hiddenItems: ThyNavItemDirective[] = [];
 
-    public moreActive: boolean;
+    public moreActive?: boolean;
 
     readonly showMore: WritableSignal<boolean> = signal(false);
 
@@ -120,7 +120,7 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
 
     private hostRenderer = useHostRenderer();
 
-    private innerLinks: QueryList<ThyNavItemDirective>;
+    private innerLinks!: QueryList<ThyNavItemDirective>;
 
     locale: Signal<ThyNavLocale> = injectLocale('nav');
 
@@ -177,7 +177,7 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
      * 更多菜单弹出框的参数，底层使用 Popover 组件
      * @type ThyPopoverConfig
      */
-    thyPopoverOptions = input<ThyPopoverConfig<unknown>>(null);
+    thyPopoverOptions = input<ThyPopoverConfig<unknown> | null>(null);
 
     /**
      * 右侧额外区域模板
@@ -246,7 +246,7 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
         this.hostRenderer.updateClass(classNames);
     }
 
-    private curActiveIndex: number;
+    private curActiveIndex?: number;
 
     private prevActiveIndex: number = NaN;
 
@@ -334,10 +334,10 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
 
     private setMoreBtnOffset() {
         const defaultMoreOperation = this.defaultMoreOperation();
-        const computedStyle = window.getComputedStyle(defaultMoreOperation?.nativeElement);
+        const computedStyle = window.getComputedStyle(defaultMoreOperation?.nativeElement!);
         this.moreBtnOffset = {
-            height: defaultMoreOperation?.nativeElement?.offsetHeight + parseFloat(computedStyle?.marginBottom) || 0,
-            width: defaultMoreOperation?.nativeElement?.offsetWidth + parseFloat(computedStyle?.marginRight) || 0
+            height: defaultMoreOperation?.nativeElement?.offsetHeight! + parseFloat(computedStyle?.marginBottom) || 0,
+            width: defaultMoreOperation?.nativeElement?.offsetWidth! + parseFloat(computedStyle?.marginRight) || 0
         };
     }
 
@@ -481,15 +481,15 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
             this.inkBar().hide();
             return;
         }
-        const tabs = this.links?.toArray() ?? [];
+        const tabs = this.links.toArray() ?? [];
         const selectedItem = tabs.find(item => item.linkIsActive());
         let selectedItemElement: HTMLElement = selectedItem && selectedItem.elementRef.nativeElement;
 
         if (selectedItem && this.moreActive) {
-            selectedItemElement = this.defaultMoreOperation().nativeElement;
+            selectedItemElement = this.defaultMoreOperation()!.nativeElement;
         }
         if (selectedItemElement) {
-            this.prevActiveIndex = this.curActiveIndex;
+            this.prevActiveIndex = this.curActiveIndex!;
             this.inkBar().alignToElement(selectedItemElement);
         }
     }

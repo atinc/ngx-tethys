@@ -904,7 +904,7 @@ describe('ThyDatePickerComponent', () => {
             openPickerByClickTrigger();
 
             // Click header to month panel
-            dispatchMouseEvent(overlayContainerElement.querySelector('.thy-calendar-header .thy-calendar-month-btn'), 'click');
+            dispatchMouseEvent(overlayContainerElement.querySelector('.thy-calendar-header .thy-calendar-month-btn')!, 'click');
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
@@ -923,7 +923,7 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             tick(500);
 
-            dispatchMouseEvent(overlayContainerElement.querySelector('.time-picker-btn-wrap > .time-picker-ok-btn'), 'click');
+            dispatchMouseEvent(overlayContainerElement.querySelector('.time-picker-btn-wrap > .time-picker-ok-btn')!, 'click');
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
@@ -1093,16 +1093,16 @@ describe('ThyDatePickerComponent', () => {
         }));
 
         function assertIsDisableTimeConfirm(options: {
-            selectedDate: Date;
-            minDate: Date;
-            maxDate: Date;
+            selectedDate: Date | null;
+            minDate: Date| null;
+            maxDate: Date | null;
             disabled: boolean;
             onOkCallTimes: number;
         }) {
             fixtureInstance.thyShowTime = true;
             fixtureInstance.thyValue = options.selectedDate;
-            fixtureInstance.thyMinDate = options.minDate;
-            fixtureInstance.thyMaxDate = options.maxDate;
+            fixtureInstance.thyMinDate = options.minDate!;
+            fixtureInstance.thyMaxDate = options.maxDate!;
             fixture.detectChanges();
 
             openPickerByClickTrigger();
@@ -1416,45 +1416,45 @@ describe('ThyDatePickerComponent', () => {
     imports: [FormsModule, ThyDatePickerModule]
 })
 class ThyTestDatePickerComponent {
-    readonly tplDateRender = viewChild<TemplateRef<Date>>('tplDateRender');
+    readonly tplDateRender = viewChild.required<TemplateRef<Date>>('tplDateRender');
 
-    readonly datePicker = viewChild<ThyDatePicker>(ThyDatePicker);
+    readonly datePicker = viewChild.required<ThyDatePicker>(ThyDatePicker);
 
-    useSuite: 1 | 2 | 3;
+    useSuite!: 1 | 2 | 3;
 
     // --- Suite 1
     hasBackdrop: boolean = true;
-    thyAllowClear: boolean;
-    thyAutoFocus: boolean;
-    thyDisabled: boolean;
-    thyDisabledDate: (d: Date) => boolean;
-    thyPlaceHolder: string;
-    thyPanelClassName: string;
-    thySize: string;
-    thySuffixIcon: string;
-    thyFormat: string;
-    thyReadonly: boolean;
-    thyValue: Date | null | DateEntry | number;
-    thyDefaultPickerValue: Date | number;
-    thyDateRender: any;
+    thyAllowClear!: boolean;
+    thyAutoFocus!: boolean;
+    thyDisabled!: boolean;
+    thyDisabledDate!: (d: Date) => boolean;
+    thyPlaceHolder!: string;
+    thyPanelClassName!: string;
+    thySize!: string;
+    thySuffixIcon!: string;
+    thyFormat!: string;
+    thyReadonly!: boolean;
+    thyValue!: Date | null | DateEntry | number;
+    thyDefaultPickerValue!: Date | number;
+    thyDateRender!: any;
     thyShowTime: boolean | object = false;
-    thyMode: string;
+    thyMode!: string;
     thyPlacement: string = 'bottomLeft';
     thyTimestampPrecision = 'seconds';
-    thyMinDate: Date | number;
-    thyMaxDate: Date | number;
+    thyMinDate!: Date | number;
+    thyMaxDate!: Date | number;
     thyOnChange(): void {}
     thyOnCalendarChange(): void {}
     thyOpenChange(): void {}
     thyDateChange(): void {}
     thyOnPanelChange(): void {}
-    thyTimeZone: string;
+    thyTimeZone!: string;
 
     thyOnOk(): void {}
 
     // --- Suite 2
-    thyOpen: boolean;
+    thyOpen!: boolean;
 
     // --- Suite 3
-    modelValue: Date;
+    modelValue!: Date | null;
 }

@@ -846,7 +846,7 @@ describe('ThyRangePickerComponent', () => {
             fixtureInstance.flexibleDateRange = { begin: new Date('2018-09-11'), end: new Date('2018-10-12'), granularity: 'month' };
             fixture.detectChanges();
             openPickerByClickTrigger();
-            const clearBtn = overlayContainerElement.querySelector('.thy-calendar-date-panel-flexible-tab button');
+            const clearBtn = overlayContainerElement.querySelector('.thy-calendar-date-panel-flexible-tab button')!;
             fixture.detectChanges();
             dispatchMouseEvent(clearBtn, 'click');
             fixture.detectChanges();
@@ -896,7 +896,7 @@ describe('ThyRangePickerComponent', () => {
         it('should get correct default thyMode', fakeAsync(() => {
             fixture.detectChanges();
             openPickerByClickTrigger();
-            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).not.toContain('thy-calendar-');
+            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild!.className).not.toContain('thy-calendar-');
         }));
 
         it(`should set thyMode to week`, fakeAsync(() => {
@@ -904,7 +904,7 @@ describe('ThyRangePickerComponent', () => {
             fixtureInstance.thyMode = 'week';
             fixture.detectChanges();
             openPickerByClickTrigger();
-            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).not.toContain('thy-calendar-');
+            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild!.className).not.toContain('thy-calendar-');
             expect(queryFromOverlay('.thy-calendar-week-number-header')).toBeTruthy();
         }));
 
@@ -913,7 +913,7 @@ describe('ThyRangePickerComponent', () => {
             fixtureInstance.thyMode = 'month';
             fixture.detectChanges();
             openPickerByClickTrigger();
-            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).toContain('thy-calendar-month');
+            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild!.className).toContain('thy-calendar-month');
         }));
 
         it(`should set thyMode to year`, fakeAsync(() => {
@@ -921,7 +921,7 @@ describe('ThyRangePickerComponent', () => {
             fixtureInstance.thyMode = 'year';
             fixture.detectChanges();
             openPickerByClickTrigger();
-            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).toContain('thy-calendar-year');
+            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild!.className).toContain('thy-calendar-year');
         }));
 
         it('should set thyMode to quarter', fakeAsync(() => {
@@ -929,7 +929,7 @@ describe('ThyRangePickerComponent', () => {
             fixtureInstance.thyMode = 'quarter';
             fixture.detectChanges();
             openPickerByClickTrigger();
-            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).toContain('thy-calendar-quarter');
+            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild!.className).toContain('thy-calendar-quarter');
         }));
 
         it(`should set thyMode to decade`, fakeAsync(() => {
@@ -937,7 +937,7 @@ describe('ThyRangePickerComponent', () => {
             fixtureInstance.thyMode = 'decade';
             fixture.detectChanges();
             openPickerByClickTrigger();
-            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).toContain('thy-calendar-decade');
+            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild?.className).toContain('thy-calendar-decade');
         }));
 
         it('should thyDateChange trigger twice by year mode', fakeAsync(() => {
@@ -1099,24 +1099,24 @@ describe('ThyRangePickerComponent', () => {
     imports: [FormsModule, ThyDatePickerModule]
 })
 class ThyTestRangePickerComponent {
-    useSuite: 1 | 2 | 3 | 4;
-    thyMinDate: Date | number;
-    thyMaxDate: Date | number;
-    thyAllowClear: boolean;
-    thyDisabled: boolean;
-    thyDisabledDate: (d: Date) => boolean;
-    thyPlaceHolder: string | string[];
-    thyPanelClassName: string;
-    thySize: string;
-    thySuffixIcon: string;
+    useSuite!: 1 | 2 | 3 | 4;
+    thyMinDate!: Date | number;
+    thyMaxDate!: Date | number;
+    thyAllowClear!: boolean;
+    thyDisabled!: boolean;
+    thyDisabledDate!: (d: Date) => boolean;
+    thyPlaceHolder!: string | string[];
+    thyPanelClassName!: string;
+    thySize!: string;
+    thySuffixIcon!: string;
     thyTimestampPrecision = 'seconds';
-    modelValue: ThyDateRangeEntry;
-    thyMode: ThyPanelMode;
-    thyOpen: boolean;
-    thyShowShortcut: boolean;
+    modelValue!: ThyDateRangeEntry;
+    thyMode!: ThyPanelMode;
+    thyOpen!: boolean;
+    thyShowShortcut!: boolean;
     thyShortcutPosition: ThyShortcutPosition = 'left';
-    thyShortcutPresets: CompatiblePresets;
-    flexibleDateRange: ThyDateRangeEntry;
+    thyShortcutPresets!: CompatiblePresets;
+    flexibleDateRange!: ThyDateRangeEntry;
     thySeparator = ' ~ ';
     thyOpenChange(): void {}
     modelValueChange(): void {}

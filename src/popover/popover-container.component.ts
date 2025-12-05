@@ -1,4 +1,4 @@
-import { ThyAbstractOverlayContainer, ThyClickDispatcher, ThyPortalOutlet , scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
+import { ThyAbstractOverlayContainer, ThyClickDispatcher, ThyPortalOutlet, scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
 import { from, Observable, timer } from 'rxjs';
 import { filter, take, takeUntil } from 'rxjs/operators';
 
@@ -55,7 +55,7 @@ export class ThyPopoverContainer<TData = unknown> extends ThyAbstractOverlayCont
     private ngZone = inject(NgZone);
 
     @ViewChild(ThyPortalOutlet, { static: true })
-    portalOutlet: ThyPortalOutlet;
+    portalOutlet!: ThyPortalOutlet;
 
     /** State of the popover animation. */
     animationState: 'void' | 'enter' | 'exit' = 'enter';
@@ -63,8 +63,8 @@ export class ThyPopoverContainer<TData = unknown> extends ThyAbstractOverlayCont
     /** Emits when an animation state changes. */
     animationStateChanged = new EventEmitter<AnimationEvent>();
 
-    animationOpeningDone: Observable<AnimationEvent>;
-    animationClosingDone: Observable<AnimationEvent>;
+    animationOpeningDone!: Observable<AnimationEvent>;
+    animationClosingDone!: Observable<AnimationEvent>;
 
     insideClicked = new EventEmitter();
 
@@ -97,6 +97,7 @@ export class ThyPopoverContainer<TData = unknown> extends ThyAbstractOverlayCont
                 this.thyClickDispatcher
                     .clicked()
                     .pipe(takeUntil(this.animationClosingDone))
+                    // @ts-ignore
                     .subscribe((event: MouseEvent) => {
                         if (!this.elementRef.nativeElement.contains(event.target as HTMLElement)) {
                             this.ngZone.run(() => {

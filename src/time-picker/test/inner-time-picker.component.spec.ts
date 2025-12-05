@@ -480,7 +480,7 @@ describe('ThyInnerTimePickerComponent', () => {
 class ThyTestInnerTimePickerBaseComponent {
     public containerClass = CONTAINER_CLASS;
 
-    readonly timePicker = viewChild<ThyInnerTimePicker>('timePicker');
+    readonly timePicker = viewChild.required<ThyInnerTimePicker>('timePicker');
     // 默认值与 timePicker 的默认值一致，见 ../time-picker.config.ts
     readonly = false;
 
@@ -508,11 +508,11 @@ class ThyTestInnerTimePickerBaseComponent {
 
     secondsStep = 10;
 
-    min: Date;
+    min!: Date;
 
-    max: Date;
+    max!: Date;
 
-    startDate: string | Date;
+    startDate!: string | Date;
 
     onDateChange(event: Event) {}
 }

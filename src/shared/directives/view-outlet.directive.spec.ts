@@ -43,7 +43,7 @@ let contentMultiTestChanges!: SimpleChanges;
 class ThyViewOutletContentMultiTestComponent implements OnChanges {
     readonly count = input(1);
 
-    innerName: string;
+    innerName!: string;
 
     nameSetInvokeCount = 0;
 
@@ -69,7 +69,7 @@ class ThyViewOutletComponentMultiTestComponent {
     contentComponent = ThyViewOutletContentMultiTestComponent;
     count = 1;
     name = 'peter';
-    inputName: string = undefined;
+    inputName: string | undefined = undefined;
 }
 
 describe('thy-view-outlet', () => {

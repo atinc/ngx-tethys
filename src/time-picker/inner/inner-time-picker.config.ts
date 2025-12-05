@@ -30,9 +30,9 @@ export class TimePickerConfig {
     /** show minutes in timePicker */
     showMinutes = true;
     /** minimum time user can select */
-    min: Date;
+    min!: Date;
     /** maximum time user can select */
-    max: Date;
+    max!: Date;
     /** placeholder for hours field in timePicker */
     hoursPlaceholder = 'HH';
     /** placeholder for minutes field in timePicker */

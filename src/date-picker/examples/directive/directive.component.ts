@@ -37,9 +37,9 @@ export class ThyDatePickerDirectiveExampleComponent implements OnInit {
         with_time: 1
     } as DateEntry;
 
-    dateRange: { begin: number; end: number };
+    dateRange!: { begin: number; end: number };
 
-    dateRangeDisabled: { begin: number; end: number };
+    dateRangeDisabled!: { begin: number; end: number };
 
     weekRange = { begin: new TinyDate('2021-10-03')?.nativeDate, end: new TinyDate('2021-12-12')?.nativeDate };
 
@@ -62,7 +62,7 @@ export class ThyDatePickerDirectiveExampleComponent implements OnInit {
         ];
     };
 
-    flexibleDateRange: ThyDateRangeEntry;
+    flexibleDateRange!: ThyDateRangeEntry;
 
     constructor() {}
 

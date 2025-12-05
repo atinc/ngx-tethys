@@ -139,9 +139,9 @@ export class ThyColorPickerDirective extends _BaseMixin implements OnInit, OnDes
 
     private onTouchFn: () => void = () => {};
 
-    color: string;
+    color!: string;
 
-    private popoverRef: ThyPopoverRef<ThyColorPickerPanel>;
+    private popoverRef: ThyPopoverRef<ThyColorPickerPanel> | null = null;
 
     private closePanel = true;
 
@@ -224,10 +224,10 @@ export class ThyColorPickerDirective extends _BaseMixin implements OnInit, OnDes
         });
         if (this.popoverRef) {
             this.popoverRef.afterOpened().subscribe(() => {
-                this.thyPanelOpen.emit(this.popoverRef);
+                this.thyPanelOpen.emit(this.popoverRef!);
             });
             this.popoverRef.afterClosed().subscribe(() => {
-                this.thyPanelClose.emit(this.popoverRef);
+                this.thyPanelClose.emit(this.popoverRef!);
                 this.elementRef.nativeElement.focus();
             });
         }
@@ -239,15 +239,15 @@ export class ThyColorPickerDirective extends _BaseMixin implements OnInit, OnDes
                     if ((event.target as HTMLElement).closest('.thy-color-picker-custom-panel')) {
                         return;
                     }
-                    if (!this.popoverRef.getOverlayRef().hostElement.contains(event.target as HTMLElement)) {
-                        this.popoverRef.close();
+                    if (!this.popoverRef!.getOverlayRef().hostElement.contains(event.target as HTMLElement)) {
+                        this.popoverRef!.close();
                     }
                 });
         }
         return this.popoverRef.getOverlayRef();
     }
 
-    override show(delay: number = this.showDelay): void {
+    override show(delay: number = this.showDelay!): void {
         if (this.hideTimeoutId) {
             clearTimeout(this.hideTimeoutId);
             this.hideTimeoutId = null;
@@ -267,7 +267,7 @@ export class ThyColorPickerDirective extends _BaseMixin implements OnInit, OnDes
         }, delay);
     }
 
-    override hide(delay: number = this.hideDelay) {
+    override hide(delay: number = this.hideDelay!) {
         if (this.showTimeoutId) {
             clearTimeout(this.showTimeoutId);
             this.showTimeoutId = null;

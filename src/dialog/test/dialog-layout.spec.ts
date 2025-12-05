@@ -11,7 +11,7 @@ import { provideHttpClient } from '@angular/common/http';
     imports: [ThyDialogModule]
 })
 class DialogHeaderBasicComponent {
-    size: 'lg' | 'md';
+    size!: 'lg' | 'md';
 
     divided = false;
 }
@@ -31,11 +31,11 @@ class DialogHeaderBasicComponent {
     imports: [ThyDialogFooter]
 })
 class DialogFooterBasicTestComponent {
-    showBorderTop: boolean;
+    showBorderTop!: boolean;
 
     align = '';
 
-    divided: boolean;
+    divided!: boolean;
 }
 
 @Component({

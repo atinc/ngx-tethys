@@ -90,10 +90,10 @@ describe('ThyDot', () => {
     imports: [ThyDot]
 })
 class ThyDemoDotComponent {
-    thyColor: ThyColorType;
-    thySize: ThySizeType;
-    thyTheme: ThyThemeType;
-    thyShape: ThyShapeType;
+    thyColor!: ThyColorType;
+    thySize!: ThySizeType;
+    thyTheme!: ThyThemeType;
+    thyShape!: ThyShapeType;
     remove() {
         console.log('remove success');
     }

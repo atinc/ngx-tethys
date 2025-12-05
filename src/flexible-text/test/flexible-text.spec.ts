@@ -48,13 +48,13 @@ import { ThyFlexibleText, ThyFlexibleTextModule } from 'ngx-tethys/flexible-text
     imports: [ThyTooltipModule, ThyFlexibleTextModule]
 })
 class FlexibleTextTestComponent {
-    readonly flexibleText = viewChild<ThyFlexibleText>('FlexibleText');
+    readonly flexibleText = viewChild.required<ThyFlexibleText>('FlexibleText');
     tooltipContent = '默认内容。。。';
     placement = 'bottom';
     content = '默认内容。。。';
     trigger = 'click';
     offset = 10;
-    customContainerClass: string;
+    customContainerClass!: string;
     constructor() {}
 }
 

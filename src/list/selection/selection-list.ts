@@ -76,9 +76,9 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
     private hostRenderer = useHostRenderer();
 
     /** The currently selected options. */
-    selectionModel: SelectionModel<any>;
+    selectionModel!: SelectionModel<any>;
 
-    disabled: boolean;
+    disabled!: boolean;
 
     /**
      * @internal

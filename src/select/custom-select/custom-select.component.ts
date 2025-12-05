@@ -197,7 +197,7 @@ export class ThySelect
 
     defaultOffset = 4;
 
-    dropDownClass: { [key: string]: boolean };
+    dropDownClass!: { [key: string]: boolean };
 
     dropDownMinWidth: number | null = null;
 
@@ -240,7 +240,7 @@ export class ThySelect
 
     readonly cdkConnectedOverlay = viewChild<CdkConnectedOverlay>(CdkConnectedOverlay);
 
-    keyManager: ActiveDescendantKeyManager<ThyOption>;
+    keyManager!: ActiveDescendantKeyManager<ThyOption>;
 
     panelOpen = false;
 
@@ -387,7 +387,7 @@ export class ThySelect
 
     isReactiveDriven = false;
 
-    innerOptions: ThySelectOptionModel[];
+    innerOptions!: ThySelectOptionModel[];
 
     optionGroups: ThyOptionGroupModel[] = [];
 
@@ -406,7 +406,7 @@ export class ThySelect
         }
     });
 
-    options: QueryList<ThyOption>;
+    options!: QueryList<ThyOption>;
 
     /**
      * 目前只支持多选选中项的展示，默认为空，渲染文字模板，传入tag，渲染展示模板,

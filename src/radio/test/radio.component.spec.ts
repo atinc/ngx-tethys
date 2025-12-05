@@ -75,7 +75,7 @@ class RadioGroupTestComponent {
     @ViewChild('radioGroup', { static: true }) radioGroup: ThyRadioGroup;
     checkedValue = 1;
     inlineStatus = false;
-    size: string;
+    size!: string;
     disabled = false;
 }
 

@@ -195,12 +195,12 @@ export class ThyResizableLineTestComponent {
     styles: [
         `
             .box-ref {
-                width: 256px;
-                height: 256px;
+                width!: 256px;
+                height!: 256px;
             }
             .parent {
-                width: 200px;
-                height: 200px;
+                width!: 200px;
+                height!: 200px;
             }
         `
     ],

@@ -34,15 +34,15 @@ import { By } from '@angular/platform-browser';
     imports: [ThyGridModule]
 })
 class FlexTestComponent implements OnInit {
-    direction: ThyFlexDirection;
-    wrap: ThyFlexWrap;
-    justifyContent: ThyFlexJustifyContent;
-    alignItems: ThyFlexAlignItems;
-    gap: number;
-    itemFlex: string;
-    itemGrow: ThyFlexGrow;
-    itemShrink: ThyFlexShrink;
-    itemBasis: string;
+    direction!: ThyFlexDirection;
+    wrap!: ThyFlexWrap;
+    justifyContent!: ThyFlexJustifyContent;
+    alignItems!: ThyFlexAlignItems;
+    gap!: number;
+    itemFlex!: string;
+    itemGrow!: ThyFlexGrow;
+    itemShrink!: ThyFlexShrink;
+    itemBasis!: string;
 
     constructor() {}
 

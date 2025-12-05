@@ -48,7 +48,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 class BasicSelectComponent {
     openedSpy = jasmine.createSpy('opened event spy callback');
 
-    autoActiveFirstOption: boolean;
+    autoActiveFirstOption!: boolean;
 
     foods: any[] = [
         { value: 'steak-0', viewValue: 'Steak' },
@@ -61,8 +61,8 @@ class BasicSelectComponent {
         { value: null, viewValue: 'Sushi' }
     ];
 
-    readonly autocomplete = viewChild(ThyAutocomplete);
-    readonly autocompleteDirective = viewChild(ThyAutocompleteTriggerDirective);
+    readonly autocomplete = viewChild.required(ThyAutocomplete);
+    readonly autocompleteDirective = viewChild.required(ThyAutocompleteTriggerDirective);
     readonly options = viewChildren(ThyOption);
 
     opened() {
@@ -100,7 +100,7 @@ class InputSearchSelectComponent {
         { value: 'pizza-1', viewValue: 'Pizza' }
     ];
 
-    readonly autocomplete = viewChild(ThyAutocomplete);
+    readonly autocomplete = viewChild.required(ThyAutocomplete);
     readonly options = viewChildren(ThyOption);
 }
 
@@ -217,7 +217,7 @@ describe('ThyAutocomplete', () => {
                 const newActiveItem = autocompleteDirective.autocompleteComponent()?.keyManager?.activeItem;
                 expect(newActiveItem?.thyLabelText).toContain('Steak');
 
-                const selectViaInteractionSpy = spyOn(autocompleteDirective.activeOption(), 'selectViaInteraction');
+                const selectViaInteractionSpy = spyOn<any>(autocompleteDirective.activeOption(), 'selectViaInteraction');
                 const resetActiveItemSpy = spyOn<any>(autocompleteDirective, 'resetActiveItem');
                 dispatchKeyboardEvent(trigger, 'keydown', keycodes.ENTER);
                 fixture.detectChanges();

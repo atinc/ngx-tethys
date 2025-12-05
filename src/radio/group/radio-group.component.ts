@@ -61,7 +61,7 @@ export class ThyRadioGroup implements IThyRadioGroupComponent, ControlValueAcces
      */
     readonly thyLayout = input<string>();
 
-    _innerValue: string | number;
+    _innerValue!: string | number;
 
     radios: Array<ThyRadio | ThyRadioButton> = [];
 

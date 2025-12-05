@@ -125,7 +125,7 @@ export class ThyTableColumnComponent implements OnInit {
      */
     @Input({ alias: 'thyExpand', transform: coerceBooleanProperty }) expand = false;
 
-    public sortable: boolean;
+    public sortable!: boolean;
 
     /**
      * 是否开启列排序功能（开启时 thyModelKey 为 必传）
@@ -170,7 +170,7 @@ export class ThyTableColumnComponent implements OnInit {
     /**
      * 列排序修改事件
      */
-    @Output('thySortChange') sortChange: EventEmitter<ThyTableSortEvent> = new EventEmitter<ThyTableSortEvent>();
+    @Output('thySortChange') readonly sortChange: EventEmitter<ThyTableSortEvent> = new EventEmitter<ThyTableSortEvent>();
 
     @ContentChild('header', { static: true }) headerTemplateRef: TemplateRef<any>;
 

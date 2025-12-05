@@ -240,11 +240,11 @@ describe('ThyTimePanelComponent', () => {
     imports: [FormsModule, ThyTimePickerModule]
 })
 class ThyTestTimePanelComponent {
-    readonly timePanelRef = viewChild<ThyTimePanel>('panel');
+    readonly timePanelRef = viewChild.required<ThyTimePanel>('panel');
 
-    value: Date | number;
+    value!: Date | number;
 
-    format: string = 'HH:mm:ss';
+    format: string | null = 'HH:mm:ss';
 
     hourStep = 1;
 

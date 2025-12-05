@@ -24,7 +24,7 @@ describe('ClickDispatcher', () => {
         expect(clickPositioner.lastClickPosition).toBeNull();
         dispatchFakeEvent(document, 'click', false);
 
-        expect(fixture.ngZone.isStable).toBe(true);
+        expect(fixture.ngZone!.isStable).toBe(true);
     });
 
     it('should has value for lastClickPosition from the global click', () => {
@@ -59,8 +59,8 @@ class ClickPositionerComponent implements OnDestroy {
     clickPositioner = coreInject(ThyClickPositioner);
 
     clicked = 0;
-    subscription: Subscription;
-    clicked$: Observable<Event>;
+    subscription: Subscription | null = null;
+    clicked$!: Observable<Event>;
     constructor() {
         const clickPositioner = this.clickPositioner;
 

@@ -19,7 +19,7 @@ import { By } from '@angular/platform-browser';
 })
 class TestBasicComponent {
     dynamicShow = false;
-    align: string;
+    align!: string;
     vertical = false;
 }
 
@@ -39,7 +39,7 @@ class TestSizeComponent {
 
 describe('space', () => {
     function assertSpaceSize(spaceElement: HTMLElement, size: number) {
-        const items = spaceElement.querySelectorAll('.thy-space-item');
+        const items = spaceElement.querySelectorAll<HTMLElement>('.thy-space-item');
         expect(items).toBeTruthy();
 
         items.forEach((item: HTMLElement, index: number) => {

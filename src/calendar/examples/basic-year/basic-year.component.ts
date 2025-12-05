@@ -7,7 +7,7 @@ import { ThyCalendar } from 'ngx-tethys/calendar';
     imports: [ThyCalendar]
 })
 export class ThyCalendarBasicYearExampleComponent implements OnInit {
-    date: Date;
+    date!: Date;
 
     constructor() {}
 

@@ -13,7 +13,7 @@ import { provideHttpClient } from '@angular/common/http';
 export class TestFormGroupErrorBasicComponent {
     align = '';
 
-    errors = ['first error', 'second error'];
+    errors: string[] | null = ['first error', 'second error'];
 
     showFirst = true;
 }

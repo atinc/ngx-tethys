@@ -5,16 +5,17 @@ import { Directive, isDevMode, OnDestroy } from '@angular/core';
 import { MiniAction } from './action';
 import { MiniActionState } from './action-state';
 import { META_KEY, StoreMetaInfo } from './types';
+import { SafeAny } from 'ngx-tethys/types';
 
 @Directive()
 export class MiniStore<T = unknown> implements Observer<T>, OnDestroy {
-    initialStateCache: any;
+    initialStateCache!: any;
 
-    public state$: BehaviorSubject<T>;
+    public state$!: BehaviorSubject<T>;
 
     public reduxToolEnabled = isDevMode();
 
-    private _defaultStoreInstanceId: string;
+    private _defaultStoreInstanceId: string | null = null;
 
     public initialize(initialState: any) {
         this._defaultStoreInstanceId = this._getClassName();
@@ -37,7 +38,7 @@ export class MiniStore<T = unknown> implements Observer<T>, OnDestroy {
     }
 
     private _dispatch(action: any): Observable<any> {
-        const meta = this[META_KEY] as StoreMetaInfo;
+        const meta = (this as SafeAny)[META_KEY] as StoreMetaInfo;
         if ((typeof ngDevMode === 'undefined' || ngDevMode) && !meta) {
             throw new Error(`${META_KEY} is not found, current store has not action`);
         }
@@ -125,12 +126,12 @@ export class MiniStore<T = unknown> implements Observer<T>, OnDestroy {
      * You can override this method if you want to give your container instance a custom id.
      * The returned id must be unique in the application.
      */
-    getStoreInstanceId(): string {
+    getStoreInstanceId(): string | null {
         return this._defaultStoreInstanceId;
     }
 
-    private _getClassName(): string {
-        const name = this.constructor.name || /function (.+)\(/.exec(`${this.constructor  }`)[1];
+    private _getClassName(): string | null {
+        const name = this.constructor.name || /function (.+)\(/.exec(`${this.constructor}`)![1];
         return name;
     }
 }

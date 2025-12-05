@@ -35,7 +35,7 @@ import { provideHttpClient } from '@angular/common/http';
     imports: [FormsModule, ThySliderModule]
 })
 class ThyTestSliderComponent {
-    value: number;
+    value!: number;
     max = 100;
     min = 0;
     step = 1;

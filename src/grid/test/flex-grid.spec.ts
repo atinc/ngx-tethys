@@ -18,8 +18,8 @@ import { By } from '@angular/platform-browser';
     imports: [ThyGridModule]
 })
 class FlexGridTestComponent implements OnInit {
-    gutter: number;
-    span: number;
+    gutter!: number;
+    span!: number;
 
     constructor() {}
 

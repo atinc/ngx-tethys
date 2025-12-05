@@ -167,11 +167,11 @@ export class ThyCarousel implements IThyCarouselComponent, OnInit, AfterViewInit
 
     private _destroy$ = new Subject<void>();
 
-    wrapperDomRect: DOMRect;
+    wrapperDomRect!: DOMRect;
 
     activeIndex: number = 0;
 
-    wrapperEl: HTMLElement;
+    wrapperEl!: HTMLElement;
 
     transitionTimer: any = null;
 

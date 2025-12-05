@@ -494,25 +494,25 @@ describe('ThyPickerDirective', () => {
     imports: [ThyPropertyOperation, ThyDatePickerDirective, FormsModule]
 })
 class ThyTestPickerComponent {
-    readonly thyDatePickerDirective = viewChild<ThyDatePickerDirective>(ThyDatePickerDirective);
-    thyPlaceHolder: string;
-    thyPanelClassName: string;
-    thyValue: Date | null;
-    thyDefaultPickerValue: Date | number;
-    thyMinDate: Date | number;
-    thyMaxDate: Date | number;
-    thyDateRender: any;
+    readonly thyDatePickerDirective = viewChild.required<ThyDatePickerDirective>(ThyDatePickerDirective);
+    thyPlaceHolder!: string;
+    thyPanelClassName!: string;
+    thyValue!: Date | null;
+    thyDefaultPickerValue!: Date | number;
+    thyMinDate!: Date | number;
+    thyMaxDate!: Date | number;
+    thyDateRender!: any;
     thyShowTime: boolean | object = false;
-    thyMode: string;
-    thyDisabled: boolean;
+    thyMode!: string;
+    thyDisabled!: boolean;
     thyOffset = 4;
     thyPlacement = 'bottomLeft';
     thyHasBackdrop = true;
-    popoverOptions: Partial<ThyPopoverConfig>;
-    thyShowShortcut: boolean;
+    popoverOptions!: Partial<ThyPopoverConfig>;
+    thyShowShortcut!: boolean;
     thyShortcutPosition: ThyShortcutPosition = 'left';
-    thyShortcutPresets: CompatiblePresets;
-    timestampPrecision: 'seconds' | 'milliseconds';
+    thyShortcutPresets!: CompatiblePresets;
+    timestampPrecision!: 'seconds' | 'milliseconds';
     thyOnChange(): void {}
     thyOnCalendarChange(): void {}
     thyOpenChange(): void {}
@@ -533,7 +533,7 @@ class ThyTestPickerComponent {
     imports: [ThyPropertyOperation, ThyDatePickerDirective, FormsModule]
 })
 class ThyTestPickerPlacementComponent {
-    thyValue: Date | null;
+    thyValue!: Date | null;
     thyShowTime: boolean | object = false;
 }
 

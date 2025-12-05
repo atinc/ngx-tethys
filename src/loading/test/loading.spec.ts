@@ -14,9 +14,9 @@ import { ThyLoading, ThyLoadingModule } from 'ngx-tethys/loading';
     imports: [ThyLoadingModule]
 })
 export class TestLoadingComponent {
-    loadingDone: boolean;
-    isMask: boolean;
-    tip: string;
+    loadingDone!: boolean;
+    isMask!: boolean;
+    tip!: string;
 }
 
 describe('test loading', () => {

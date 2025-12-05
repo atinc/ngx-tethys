@@ -7,8 +7,8 @@ import { DomSanitizer, SafeHtml, SafeResourceUrl } from '@angular/platform-brows
 import { isString } from 'ngx-tethys/util';
 
 class SvgIconConfig {
-    url: SafeResourceUrl | null;
-    svgElement: SVGElement | null;
+    url!: SafeResourceUrl | null;
+    svgElement!: SVGElement | null;
 
     constructor(data: SafeResourceUrl | SVGElement) {
         // Note that we can't use `instanceof SVGElement` here,
@@ -80,7 +80,7 @@ export class ThyIconRegistry {
             throw Error(`Cannot fetch icon from URL "${safeUrl}".`);
         }
 
-        const url = this.sanitizer.sanitize(SecurityContext.RESOURCE_URL, safeUrl);
+        const url = this.sanitizer.sanitize(SecurityContext.RESOURCE_URL, safeUrl)!;
 
         if ((typeof ngDevMode === 'undefined' || ngDevMode) && !url) {
             throw new Error(

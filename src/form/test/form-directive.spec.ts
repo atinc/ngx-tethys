@@ -78,7 +78,7 @@ export class TestFormFullComponent {
 
     loadingDone = true;
 
-    enterKeyMode: ThyEnterKeyMode;
+    enterKeyMode!: ThyEnterKeyMode;
 
     validateConfig: ThyFormValidatorConfig = {
         validationMessages: {
@@ -275,19 +275,19 @@ describe('form validate', () => {
     let formSubmitDebugElement!: DebugElement;
 
     function focusTextarea() {
-        const descriptionElement: HTMLInputElement = formElement.querySelector('[name=description]');
+        const descriptionElement: HTMLInputElement = formElement.querySelector('[name=description]')!;
         descriptionElement.focus();
     }
 
     function getUserNameInput(): HTMLInputElement {
-        return formElement.querySelector('[name=username]');
+        return formElement.querySelector('[name=username]')!;
     }
 
     function assertElementInvalidError(elementName: string, message: string = `user name is required`) {
-        const input = formElement.querySelector(`[name=${elementName}`);
-        const invalidFeedbackElement = input.parentElement.querySelector('.invalid-feedback');
+        const input = formElement.querySelector(`[name=${elementName}`)!;
+        const invalidFeedbackElement = input.parentElement!.querySelector('.invalid-feedback');
         expect(invalidFeedbackElement).toBeTruthy();
-        expect(invalidFeedbackElement.textContent).toContain(message);
+        expect(invalidFeedbackElement!.textContent).toContain(message);
     }
 
     function assertFormValid() {
@@ -347,7 +347,7 @@ describe('form validate', () => {
         fixture.detectChanges();
         tick();
         formElement = fixture.debugElement.query(By.directive(ThyFormDirective)).nativeElement;
-        input = formElement.querySelector('[name=age]');
+        input = formElement.querySelector('[name=age]')!;
         dispatchFakeEvent(input, 'blur');
         assertElementInvalidError('age', `该选项输入值不能小于0`);
 
@@ -355,7 +355,7 @@ describe('form validate', () => {
         fixture.detectChanges();
         tick();
         formElement = fixture.debugElement.query(By.directive(ThyFormDirective)).nativeElement;
-        input = formElement.querySelector('[name=age]');
+        input = formElement.querySelector('[name=age]')!;
         dispatchFakeEvent(input, 'blur');
         assertFormValid();
 
@@ -363,7 +363,7 @@ describe('form validate', () => {
         fixture.detectChanges();
         tick();
         formElement = fixture.debugElement.query(By.directive(ThyFormDirective)).nativeElement;
-        input = formElement.querySelector('[name=age]');
+        input = formElement.querySelector('[name=age]')!;
         dispatchFakeEvent(input, 'blur');
         assertElementInvalidError('age', `该选项输入值不能大于10`);
     }));
@@ -488,6 +488,7 @@ describe('form validate', () => {
             testComponent.model.description = '';
             fixture.detectChanges();
             tick();
+            // @ts-ignore
             formDirective.submit(null);
             assertElementInvalidError('description', '该选项不能为空');
         }));
@@ -577,9 +578,9 @@ describe('reactive form validate', () => {
 
     function assertElementInvalidError(elementName: string, message: string = `user name is required`) {
         const input = formElement.querySelector(`[name=${elementName}`);
-        const invalidFeedbackElement = input.parentElement.querySelector('.invalid-feedback');
+        const invalidFeedbackElement = input?.parentElement?.querySelector('.invalid-feedback');
         expect(invalidFeedbackElement).toBeTruthy();
-        expect(invalidFeedbackElement.textContent).toContain(message);
+        expect(invalidFeedbackElement!.textContent).toContain(message);
     }
 
     function assertFormValid() {
@@ -641,7 +642,7 @@ describe('reactive form validate', () => {
         fixture.detectChanges();
         tick();
         formElement = fixture.debugElement.query(By.directive(ThyFormDirective)).nativeElement;
-        input = formElement.querySelector('[name=age]');
+        input = formElement.querySelector('[name=age]')!;
         dispatchFakeEvent(input, 'blur');
         assertElementInvalidError('age', `该选项输入值不能小于0`);
 
@@ -649,7 +650,7 @@ describe('reactive form validate', () => {
         fixture.detectChanges();
         tick(100);
         formElement = fixture.debugElement.query(By.directive(ThyFormDirective)).nativeElement;
-        input = formElement.querySelector('[name=age]');
+        input = formElement.querySelector('[name=age]')!;
         dispatchFakeEvent(input, 'blur');
         assertFormValid();
 
@@ -657,7 +658,7 @@ describe('reactive form validate', () => {
         fixture.detectChanges();
         tick();
         formElement = fixture.debugElement.query(By.directive(ThyFormDirective)).nativeElement;
-        input = formElement.querySelector('[name=age]');
+        input = formElement.querySelector('[name=age]')!;
         dispatchFakeEvent(input, 'blur');
         assertElementInvalidError('age', `该选项输入值不能大于10`);
     }));
@@ -788,7 +789,7 @@ describe(`enter keydown`, () => {
     }));
 
     it(`enter keydown, expect not throw error`, fakeAsync(() => {
-        const usernameElement: HTMLInputElement = formElement.querySelector('[name=username]');
+        const usernameElement: HTMLInputElement = formElement.querySelector('[name=username]')!;
         usernameElement.focus();
         const directiveSubmitSpy = spyOn(formDirective, 'submit');
         dispatchKeyboardEvent(formElement, 'keydown', keycodes.ENTER);

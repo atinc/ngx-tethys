@@ -36,15 +36,15 @@ const NAV_LINK_CLASS = `thy-nav-item`;
     imports: [ThyNavModule, ThyIconModule]
 })
 export class NavBasicComponent implements OnInit {
-    type: ThyNavType;
+    type!: ThyNavType;
 
-    size: ThyNavSize;
+    size!: ThyNavSize;
 
     isFill = false;
 
     isVertical = false;
 
-    horizontal: ThyNavHorizontal;
+    horizontal!: ThyNavHorizontal;
 
     constructor() {}
 
@@ -81,27 +81,27 @@ export class NavBasicComponent implements OnInit {
     imports: [ThyNavModule, ThyIconModule, RouterModule]
 })
 export class NavResponsiveComponent implements OnInit {
-    type: ThyNavType;
+    type!: ThyNavType;
 
-    size: ThyNavSize;
+    size!: ThyNavSize;
 
     isFill = false;
 
     isVertical = false;
 
-    horizontal: ThyNavHorizontal;
+    horizontal!: ThyNavHorizontal;
 
     responsive = false;
 
     navLinks = [{ name: 'nav' }, { name: 'link2' }, { name: 'link3' }];
 
-    insideClosable: boolean;
+    insideClosable!: boolean;
 
-    @ViewChildren(ThyNavItemDirective) links: ThyNavItemDirective[];
+    @ViewChildren(ThyNavItemDirective) links!: ThyNavItemDirective[];
 
-    @ViewChildren(ThyNavItemDirective, { read: ElementRef }) linksElement: QueryList<ElementRef>;
+    @ViewChildren(ThyNavItemDirective, { read: ElementRef }) linksElement!: QueryList<ElementRef>;
 
-    @ViewChild(ThyNav) nav: ThyNav;
+    @ViewChild(ThyNav) nav!: ThyNav;
 
     constructor() {}
 
@@ -174,7 +174,7 @@ describe(`thy-nav`, () => {
         it(`should set extra success`, () => {
             const extraElement = navElement.querySelector('.thy-nav-extra');
             expect(extraElement).toBeTruthy();
-            expect(extraElement.textContent).toContain('Extra');
+            expect(extraElement?.textContent).toContain('Extra');
         });
 
         it(`should set disabled class when thyNavItemDisabled is true`, () => {
@@ -218,13 +218,13 @@ describe(`thy-nav`, () => {
         });
 
         it(`should get correct class when input thyHorizontal`, () => {
-            const navHorizontalClassesMap = {
+            const navHorizontalClassesMap: Record<string, string> = {
                 left: '',
                 center: 'justify-content-center',
                 end: 'justify-content-end'
             };
 
-            ['center', 'end'].forEach(item => {
+            ['center', 'end'].forEach((item: string) => {
                 fixture.debugElement.componentInstance.horizontal = item;
                 fixture.detectChanges();
                 const navListElement: HTMLElement = navDebugElement.nativeElement.querySelector('.thy-nav-list');
@@ -372,7 +372,7 @@ describe(`thy-nav`, () => {
 
             const popover = overlayContainer.getContainerElement().querySelector('thy-popover-container');
             expect(popover).toBeTruthy();
-            expect(popover.querySelectorAll('.thy-nav-item-more').length).toEqual(2);
+            expect(popover?.querySelectorAll('.thy-nav-item-more').length).toEqual(2);
         }));
 
         it('should support set thyInsideClosable', fakeAsync(() => {
@@ -396,9 +396,9 @@ describe(`thy-nav`, () => {
             const moreBtn: DebugElement = fixture.debugElement.query(By.css('.thy-nav-more-container'));
             dispatchFakeEvent(moreBtn.nativeElement, 'click');
             const popover = overlayContainer.getContainerElement().querySelector('thy-popover-container');
-            const link = popover.querySelectorAll('.thy-nav-item-more')[0];
+            const link = popover?.querySelectorAll('.thy-nav-item-more')[0];
             const linkSpy = spyOn(fixture.componentInstance.linksElement.toArray()[1].nativeElement, 'click');
-            dispatchFakeEvent(link, 'click');
+            dispatchFakeEvent(link!, 'click');
             fixture.detectChanges();
             expect(linkSpy).toHaveBeenCalled();
         }));

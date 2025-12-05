@@ -10,7 +10,7 @@ describe('ThyArrowSwitcher', () => {
     let fixture!: ComponentFixture<ThyDemoArrowSwitcherComponent>;
     let testComponent!: ThyDemoArrowSwitcherComponent;
     let arrowSwitcherComponent!: DebugElement;
-    let btnElements!: HTMLElement;
+    let btnElements!: HTMLElement[];
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -141,10 +141,10 @@ class ThyDemoArrowSwitcherComponent {
     theme = 'default';
     disabled = false;
     size = ``;
-    previousTooltip: string;
-    nextTooltip: string;
+    previousTooltip!: string;
+    nextTooltip!: string;
 
-    readonly switcherComponent = viewChild<ThyArrowSwitcher>('switcher');
+    readonly switcherComponent = viewChild.required<ThyArrowSwitcher>('switcher');
 
     previousClick() {}
 

@@ -33,8 +33,8 @@ const TOOLTIP_TEMPLATE_MESSAGE = 'this is a template message';
 })
 class ThyDemoProgressBasicComponent {
     value = 20;
-    type: ThyProgressType;
-    size: string;
+    type!: ThyProgressType;
+    size!: string;
     tips: string | TemplateRef<HTMLElement> = TOOLTIP_MESSAGE;
     message = TOOLTIP_TEMPLATE_MESSAGE;
     changeTemplate(templateRef: TemplateRef<HTMLElement>) {
@@ -61,7 +61,7 @@ class ThyDemoProgressBasicComponent {
 })
 class ThyDemoProgressCircleComponent {
     value = 20;
-    type: ThyProgressType;
+    type!: ThyProgressType;
     size: string = 'md';
     tips: string | TemplateRef<HTMLElement> = TOOLTIP_MESSAGE;
     gapDegree = 0;
@@ -104,7 +104,7 @@ class ThyDemoProgressStackedComponent {
             value: 100
         }
     ];
-    size: string;
+    size!: string;
 }
 
 @Component({
@@ -128,7 +128,7 @@ class ThyDemoProgressStackedMaxComponent {
             value: 100
         }
     ];
-    size: string;
+    size!: string;
     max = 100;
 }
 
@@ -155,7 +155,7 @@ class ThyDemoProgressTooltipTemplateComponent {
             value: 100
         }
     ];
-    size: string;
+    size!: string;
 }
 
 function assertTooltipInstance(tooltip: ThyTooltipDirective, shouldExist: boolean): void {
@@ -377,7 +377,7 @@ describe(`ThyProgressComponent`, () => {
             }
 
             const pathString = `M 50,50 m ${beginPositionX},${beginPositionY} a ${radius},${radius} 0 1 1 ${endPositionX},${-endPositionY} a ${radius},${radius} 0 1 1 ${-endPositionX},${endPositionY}`;
-            expect(pathString).toBe(circlePath.getAttribute('d'));
+            expect(pathString).toBe(circlePath!.getAttribute('d')!);
         }
 
         beforeEach(fakeAsync(() => {
@@ -510,12 +510,12 @@ describe(`ThyProgressComponent`, () => {
             const strokeWidthElement = progressCircleElement.querySelector('path');
             circleTestComponent.strokeWidth = 10;
             fixture.detectChanges();
-            const strokeWidth = Number(strokeWidthElement.getAttribute('stroke-width'));
+            const strokeWidth = Number(strokeWidthElement?.getAttribute('stroke-width'));
             expect(strokeWidth).toBe(circleTestComponent.strokeWidth);
 
             circleTestComponent.strokeWidth = 20;
             fixture.detectChanges();
-            const newStrokeWidth = Number(strokeWidthElement.getAttribute('stroke-width'));
+            const newStrokeWidth = Number(strokeWidthElement?.getAttribute('stroke-width'));
             expect(newStrokeWidth).toBe(circleTestComponent.strokeWidth);
         }));
 
@@ -681,13 +681,13 @@ describe(`ThyProgressComponent`, () => {
             expect(progressBarElements[1].style.width).toEqual('28.57%');
             expect(progressBarElements[2].style.width).toEqual('57.14%');
 
-            expect((progressBarElements[0].querySelector('.progress-bar-inner') as HTMLElement).style['background-color']).toEqual(
+            expect((progressBarElements[0].querySelector('.progress-bar-inner') as HTMLElement).style['background-color' as any]).toEqual(
                 hexToRgb('#4e8af9')
             );
-            expect((progressBarElements[1].querySelector('.progress-bar-inner') as HTMLElement).style['background-color']).toEqual(
+            expect((progressBarElements[1].querySelector('.progress-bar-inner') as HTMLElement).style['background-color' as any]).toEqual(
                 hexToRgb('#66c060')
             );
-            expect((progressBarElements[2].querySelector('.progress-bar-inner') as HTMLElement).style['background-color']).toEqual(
+            expect((progressBarElements[2].querySelector('.progress-bar-inner') as HTMLElement).style['background-color' as any]).toEqual(
                 hexToRgb('#ffd234')
             );
         });

@@ -2,19 +2,19 @@ import { MentionAdapter, MentionInputorElement, SeekQueryResult } from './adapte
 import { Mention, MentionDefaultDataItem } from '../interfaces';
 
 export class TextareaMentionAdapter extends MentionAdapter {
-    inputor: MentionInputorElement;
+    inputor!: MentionInputorElement;
 
     constructor(inputor: MentionInputorElement) {
         super(inputor);
     }
 
-    public seekQuery(event: Event, mention: Mention): SeekQueryResult {
+    public seekQuery(event: Event, mention: Mention): SeekQueryResult | null {
         const selectionStart = this.inputor.selectionStart;
         const value = this.inputor.value.replace(/[\r\n]/g, ' ');
         // @123 | @456 => 0(start) => @123
         // @123 @456 | => 5(start) => @456
-        const start = value.lastIndexOf(mention.trigger, selectionStart);
-        const fistSpaceIndexFromStart = value.indexOf(' ', selectionStart);
+        const start = value.lastIndexOf(mention.trigger, selectionStart!);
+        const fistSpaceIndexFromStart = value.indexOf(' ', selectionStart!);
         const end = fistSpaceIndexFromStart > -1 ? fistSpaceIndexFromStart : value.length;
         const termWithTrigger = value.substring(start, end);
         const startBeforeHasSpace = start > 0 && value[start - 1] === ' ';
@@ -36,24 +36,24 @@ export class TextareaMentionAdapter extends MentionAdapter {
         const insertValue = this.getInsertValue(item);
         const value: string = this.inputor.value;
         const newValue = [
-            value.slice(0, this.matchedMention.query.start),
+            value.slice(0, this.matchedMention!.query.start),
             insertValue,
-            value.slice(this.matchedMention.query.end, value.length)
+            value.slice(this.matchedMention!.query.end, value.length)
         ].join('');
         this.inputor.value = newValue;
-        this.focus(this.matchedMention.query.start + insertValue.length);
+        this.focus(this.matchedMention!.query.start + insertValue.length);
         return newValue;
     }
 
     private getInsertValue(item: MentionDefaultDataItem) {
-        if (this.matchedMention.mention.insertTransform) {
+        if (this.matchedMention?.mention.insertTransform) {
             return `${this.matchedMention.mention.insertTransform(item).trim()  } `;
         } else {
-            return `${`${this.matchedMention.mention.trigger}${item['name']}`.trim()  } `;
+            return `${`${this.matchedMention?.mention.trigger}${item['name']}`.trim()  } `;
         }
     }
 
-    private focus(caretPosition?: number): void {
+    private focus(caretPosition: number): void {
         this.inputor.focus();
         this.inputor.setSelectionRange(caretPosition, caretPosition);
     }

@@ -10,13 +10,13 @@ import { FormsModule } from '@angular/forms';
     styles: [
         `
             .select-container {
-                display: flex;
+                display!: flex;
                 justify-content: left;
                 flex-wrap: wrap;
             }
             thy-select {
-                flex: 0 0 auto;
-                width: 100px;
+                flex!: 0 0 auto;
+                width!: 100px;
                 margin-right: 20px;
             }
         `

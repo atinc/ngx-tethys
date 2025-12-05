@@ -39,25 +39,25 @@ export class TestGridDefaultComponent {}
     imports: [ThyGridModule]
 })
 export class TestGridBasicComponent {
-    cols: number | ThyGridResponsiveDescription;
+    cols!: number | ThyGridResponsiveDescription;
 
-    gap: number | ThyGridResponsiveDescription;
+    gap!: number | ThyGridResponsiveDescription;
 
-    xGap: number | ThyGridResponsiveDescription;
+    xGap!: number | ThyGridResponsiveDescription;
 
-    yGap: number | ThyGridResponsiveDescription;
+    yGap!: number | ThyGridResponsiveDescription;
 
-    responsive: ThyGridResponsiveMode;
+    responsive!: ThyGridResponsiveMode;
 
-    span: number | ThyGridResponsiveDescription;
+    span!: number | ThyGridResponsiveDescription;
 
-    span2: number | ThyGridResponsiveDescription;
+    span2!: number | ThyGridResponsiveDescription;
 
-    offset: number | ThyGridResponsiveDescription;
+    offset!: number | ThyGridResponsiveDescription;
 
-    offset2: number | ThyGridResponsiveDescription;
+    offset2!: number | ThyGridResponsiveDescription;
 
-    show: boolean;
+    show!: boolean;
 }
 
 describe('grid', () => {

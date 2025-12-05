@@ -30,16 +30,16 @@ import { IThyRadioComponent, THY_RADIO_GROUP_COMPONENT } from './radio.token';
 export class ThyRadio extends ThyFormCheckBaseComponent implements IThyRadioComponent, OnInit {
     thyRadioGroupComponent = inject(THY_RADIO_GROUP_COMPONENT, { optional: true })!;
 
-    name: string;
+    name?: string;
 
     /**
      * 当和 thy-radio-group 配合使用时的值，选中后的 NgModel 值
      */
-    readonly thyValue = input<string>();
+    readonly thyValue = input.required<string>();
 
     set thyChecked(value: boolean) {
         this.writeValue(coerceBooleanProperty(value));
-        this.changeDetectorRef.markForCheck();
+        this.changeDetectorRef?.markForCheck();
     }
 
     ngOnInit() {

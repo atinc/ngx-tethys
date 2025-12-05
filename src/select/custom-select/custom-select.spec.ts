@@ -25,8 +25,8 @@ import { tap } from 'rxjs/operators';
 import { SelectMode, THY_SELECT_PANEL_MIN_WIDTH, ThySelectOptionModel } from './custom-select.component';
 
 interface FoodsInfo {
-    value: string | string[];
-    viewValue: string;
+    value!: string | string[];
+    viewValue!: string;
     disabled?: boolean;
 }
 
@@ -74,16 +74,16 @@ class BasicSelectComponent {
     ];
     selectDisabled = false;
     control = new UntypedFormControl();
-    isRequired: boolean;
-    enableScrollLoad: boolean;
+    isRequired!: boolean;
+    enableScrollLoad!: boolean;
     size: SelectControlSize = '';
     mode: 'multiple' | '' = '';
     thyAutoActiveFirstItem = true;
-    customizeOrigin: ElementRef | HTMLElement;
+    customizeOrigin!: ElementRef | HTMLElement;
     borderless = false;
-    footerTmp: TemplateRef<any>;
-    footerClass: string;
-    emptyStateText: string;
+    footerTmp!: TemplateRef<any>;
+    footerClass!: string;
+    emptyStateText!: string;
     readonly select = viewChild<ThySelect>(ThySelect);
     readonly options = viewChildren<ThyOption>(ThyOption);
     readonly footerTemplate = viewChild<TemplateRef<any>>('footer');
@@ -145,7 +145,7 @@ class NgModelSelectComponent {
         { value: 'pizza-1', viewValue: 'Pizza' },
         { value: 'tacos-2', viewValue: 'Tacos' }
     ];
-    isDisabled: boolean;
+    isDisabled!: boolean;
 
     readonly select = viewChild<ThySelect>(ThySelect);
     readonly options = viewChildren<ThyOption>(ThyOption);
@@ -446,7 +446,7 @@ class SelectEimtOptionsChangesComponent {
     selectedValue = ['sushi-7'];
     thyAllowClear = true;
     disabled = false;
-    isRequired: boolean;
+    isRequired!: boolean;
     readonly select = viewChild<ThySelect>(ThySelect);
     readonly options = viewChildren<ThyOption>(ThyOption);
 }
@@ -701,7 +701,7 @@ class SelectWithAsyncLoadComponent implements OnInit {
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectDropdownWidthComponent {
-    dropdownWidthMode: ThyDropdownWidthMode;
+    dropdownWidthMode!: ThyDropdownWidthMode;
 
     options = [
         { value: 'steak-0', viewValue: 'Steak' },

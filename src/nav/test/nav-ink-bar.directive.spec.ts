@@ -32,7 +32,7 @@ import { ThyNavInkBarDirective } from '../nav-ink-bar.directive';
 })
 export class NavInkBarComponent implements OnInit {
     activeName: string = 'Item1';
-    type: ThyNavType;
+    type!: ThyNavType;
     isVertical = false;
     responsive = false;
     navLinks = [{ name: 'Item1' }, { name: 'Item2' }, { name: 'Item3' }];

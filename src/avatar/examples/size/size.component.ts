@@ -9,5 +9,5 @@ import { ThyAvatar } from 'ngx-tethys/avatar';
 export class ThyAvatarSizeExampleComponent {
     avatarSrc = 'assets/images/one-avatar.jpg';
 
-    sizes: ['xs', 'sm', 'md', 'lg'];
+    sizes!: ['xs', 'sm', 'md', 'lg'];
 }

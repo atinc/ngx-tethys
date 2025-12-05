@@ -29,7 +29,7 @@ export class ThyOptionSelectionChangeEvent {
 }
 
 export class ThyOptionVisibleChangeEvent {
-    option: ThyOption;
+    option!: ThyOption;
 }
 
 /**
@@ -59,7 +59,7 @@ export class ThyOption extends SelectOptionBase implements OnDestroy, Highlighta
 
     @Input() thyRawValue: any;
 
-    @Input() thyLabelText: string;
+    @Input() thyLabelText!: string;
 
     readonly thyShowOptionCustom = input<boolean>();
 

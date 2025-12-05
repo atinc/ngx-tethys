@@ -51,18 +51,18 @@ import { provideAnimations } from '@angular/platform-browser/animations';
     imports: [ThyEmptyModule]
 })
 class EmptyTestComponent {
-    @ViewChild('ThyEmptyComponent', { static: true }) thyEmptyComponent: ThyEmpty;
+    @ViewChild('ThyEmptyComponent', { static: true }) thyEmptyComponent!: ThyEmpty;
     thyMessage = '暂无数据';
     thyTranslationKey = '暂无活动';
-    thyTranslationValues: any;
+    thyTranslationValues!: any;
     thyEntityName = '任务';
     thyEntityNameTranslateKey = '工作项';
     thyIconName = 'copy';
     thySize: string = 'lg';
     thyMarginTop: number = 200;
     thyTopAuto: boolean = true;
-    thyContainer: ElementRef;
-    thyImageUrl: string;
+    thyContainer!: ElementRef;
+    thyImageUrl!: string;
     thyImageLoading?: ThyEmptyImageLoading;
     thyImageFetchPriority?: ThyEmptyImageFetchPriority;
 }

@@ -48,5 +48,5 @@ describe('DecadeTableComponent', () => {
     imports: [FormsModule, LibPackerModule]
 })
 class ThyTestDecadeTableComponent {
-    modelValue: Date;
+    modelValue!: Date;
 }

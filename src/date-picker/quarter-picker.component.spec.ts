@@ -71,7 +71,7 @@ describe('ThyQuarterPickerComponent', () => {
             const thyOnChange = spyOn(fixtureInstance, 'modelValueChange');
             debugElement.query(clearBtnSelector).nativeElement.click();
             fixture.detectChanges();
-            expect(fixtureInstance.thyValue).toBe(null);
+            expect(fixtureInstance.thyValue).toBeNull();
             expect(thyOnChange).toHaveBeenCalledWith(null);
             expect(debugElement.query(clearBtnSelector)).toBeFalsy();
             flush();
@@ -293,13 +293,13 @@ describe('ThyQuarterPickerComponent', () => {
     imports: [ThyDatePickerModule, FormsModule]
 })
 class TestQuarterPickerComponent {
-    thyAllowClear: boolean;
-    thyDisabled: boolean;
-    thyDisabledDate: (d: Date) => boolean;
+    thyAllowClear!: boolean;
+    thyDisabled!: boolean;
+    thyDisabledDate!: (d: Date) => boolean;
     thyPlaceHolder: string = '请选择季度';
-    thyPanelClassName: string;
-    thyValue: Date;
-    thyOpen: boolean;
+    thyPanelClassName!: string;
+    thyValue!: Date;
+    thyOpen!: boolean;
     modelValueChange(): void {}
     thyDateChange(): void {}
 }

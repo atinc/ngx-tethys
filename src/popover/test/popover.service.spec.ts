@@ -59,16 +59,16 @@ class WithViewContainerTestDirective {
 })
 class WithChildViewContainerTestComponent {
     @ViewChild(WithViewContainerTestDirective, { static: true })
-    childWithViewContainer: WithViewContainerTestDirective;
+    childWithViewContainer!: WithViewContainerTestDirective;
 
     @ViewChild('openPopoverOrigin', { static: true })
-    openPopoverOrigin: HTMLElement;
+    openPopoverOrigin!: HTMLElement;
 
     @ViewChild('openTemplate', { static: true })
-    openTemplate: HTMLElement;
+    openTemplate!: HTMLElement;
 
     @ViewChild('template', { static: true })
-    template: TemplateRef<any>;
+    template!: TemplateRef<any>;
 
     get childViewContainer() {
         return this.childWithViewContainer.viewContainerRef;
@@ -97,7 +97,7 @@ export class PopoverSimpleContentComponent {
     popoverInjector = coreInject(Injector);
     private cdr = coreInject(ChangeDetectorRef);
 
-    demos: number[];
+    demos!: number[];
 
     updateContent() {
         this.demos = [1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8];
@@ -121,14 +121,14 @@ export class PopoverManualClosureContentComponent {
     popoverInjector = coreInject(Injector);
 
     @ViewChild('btn1', { static: true })
-    btn1: HTMLElement;
+    btn1!: HTMLElement;
 
     @ViewChild('btn2', { static: true })
-    btn2: HTMLElement;
+    btn2!: HTMLElement;
 
-    @ViewChild('template1', { static: true }) template1: TemplateRef<any>;
+    @ViewChild('template1', { static: true }) template1!: TemplateRef<any>;
 
-    @ViewChild('template2', { static: true }) template2: TemplateRef<any>;
+    @ViewChild('template2', { static: true }) template2!: TemplateRef<any>;
 }
 
 @Component({
@@ -141,13 +141,13 @@ export class PopoverManualClosureContentComponent {
 })
 export class PopoverOutsideClosableComponent {
     @ViewChild('outsideBtn', { static: true })
-    outsideBtn: ElementRef<any>;
+    outsideBtn!: ElementRef<any>;
 
     @ViewChild('openBtn', { static: true })
-    openBtn: ElementRef<any>;
+    openBtn!: ElementRef<any>;
 
     @ViewChild('template', { static: true })
-    template: TemplateRef<any>;
+    template!: TemplateRef<any>;
 }
 
 @Component({
@@ -159,10 +159,10 @@ export class PopoverOutsideClosableComponent {
 })
 export class PopoverInsideClosableComponent {
     @ViewChild('openBtn', { static: true })
-    openBtn: ElementRef<any>;
+    openBtn!: ElementRef<any>;
 
     @ViewChild('template', { static: true })
-    template: TemplateRef<any>;
+    template!: TemplateRef<any>;
 }
 
 @Component({
@@ -176,13 +176,13 @@ export class PopoverConfigComponent {
     popover = coreInject(ThyPopover);
     overlay = coreInject(Overlay);
 
-    public popoverRef: ThyPopoverRef<any>;
+    public popoverRef?: ThyPopoverRef<any>;
 
     @ViewChild('openBtn', { static: true })
-    openBtn: ElementRef<any>;
+    openBtn!: ElementRef<any>;
 
     @ViewChild('template', { static: true })
-    template: TemplateRef<any>;
+    template!: TemplateRef<any>;
 }
 
 describe(`thyPopover`, () => {
@@ -202,7 +202,7 @@ describe(`thyPopover`, () => {
     }
 
     function assertPopoverContainer() {
-        const popoverContainerElement = getPopoverContainerElement();
+        const popoverContainerElement = getPopoverContainerElement()!;
         expect(popoverContainerElement.classList.contains('thy-popover-container')).toBe(true);
         expect(popoverContainerElement.getAttribute('role')).toBe('popover');
         const overlayPaneElement = getOverlayPaneElement();
@@ -260,7 +260,7 @@ describe(`thyPopover`, () => {
             });
             const paneElement = getOverlayPaneElement();
             expect(paneElement).toBeTruthy();
-            expect(paneElement.classList.contains(`cdk-overlay-pane`)).toBeTruthy();
+            expect(paneElement!.classList.contains(`cdk-overlay-pane`)).toBeTruthy();
         });
 
         it('should open a popover with a template', () => {
@@ -368,7 +368,7 @@ describe(`thyPopover`, () => {
                 origin: viewContainerFixture.componentInstance.openPopoverOrigin
             });
             expect(popover.getPopoverById('pizza')).toBe(popoverRef);
-            expect(popover.getPopoverById('pizza').updatePosition()).toBeTruthy();
+            expect(popover.getPopoverById('pizza')!.updatePosition()).toBeTruthy();
         }));
 
         it('should get correct openedPopovers', fakeAsync(() => {
@@ -400,7 +400,7 @@ describe(`thyPopover`, () => {
             const element = getPopoverContainerElement() as HTMLElement;
             tick(1000);
             viewContainerFixture.detectChanges();
-            expect(popover.getClosestPopover(element.querySelector('thy-popover-simple-content-component'))).toBeTruthy();
+            expect(popover.getClosestPopover(element.querySelector('thy-popover-simple-content-component')!)).toBeTruthy();
         }));
 
         it('should find the null', fakeAsync(() => {
@@ -411,14 +411,14 @@ describe(`thyPopover`, () => {
             const element = getPopoverContainerElement() as HTMLElement;
             tick(1000);
             viewContainerFixture.detectChanges();
-            element.querySelector('thy-popover-simple-content-component').closest('.thy-popover-container').removeAttribute('id');
-            expect(popover.getClosestPopover(element.querySelector('thy-popover-simple-content-component'))).toBe(null);
+            element?.querySelector('thy-popover-simple-content-component')?.closest('.thy-popover-container')?.removeAttribute('id');
+            expect(popover.getClosestPopover(element?.querySelector('thy-popover-simple-content-component')!))?.toBe(null);
         }));
 
         it('should update position when autoAdaptive is true', fakeAsync(() => {
             const contentObserver = TestBed.inject(ContentObserver);
             const observeSubject = new Subject<void>();
-            let containerElementRef: ElementRef<HTMLElement> = null;
+            let containerElementRef: ElementRef<HTMLElement> | null = null;
             spyOn(contentObserver, 'observe').and.callFake((_containerElementRef: ElementRef<HTMLElement>) => {
                 containerElementRef = _containerElementRef;
                 return observeSubject;
@@ -432,7 +432,7 @@ describe(`thyPopover`, () => {
             });
             viewContainerFixture.detectChanges();
             expect(containerElementRef).toBeTruthy();
-            expect(containerElementRef.nativeElement.classList.contains('thy-popover-container')).toBeTruthy();
+            expect(containerElementRef!.nativeElement.classList.contains('thy-popover-container')).toBeTruthy();
             const spyUpdatePosition = spyOn(popoverRef, 'updatePosition');
             expect(spyUpdatePosition).not.toHaveBeenCalled();
             // Need mock content observe change because MutationObserver not patched by zone.js in fakeAsync
@@ -743,7 +743,7 @@ describe(`thyPopover`, () => {
                 expect(comparePopoverConfig(defaultConfig as ThyPopoverConfig, currentConfig as ThyPopoverConfig)).toBeTruthy();
                 const paneElement = getOverlayPaneElement();
                 expect(paneElement).toBeTruthy();
-                expect(paneElement.classList.contains(`cdk-overlay-pane`)).toBeTruthy();
+                expect(paneElement!.classList.contains(`cdk-overlay-pane`)).toBeTruthy();
             });
 
             it('should be overridable by open() options', fakeAsync(() => {
@@ -849,15 +849,20 @@ function comparePopoverConfig(expectConfig: ThyPopoverConfig, currentConfig: Thy
     let isSame = false;
     const keys = Object.keys(THY_POPOVER_DEFAULT_CONFIG_VALUE);
     keys.forEach(key => {
+        // @ts-ignore
         let expectValue = expectConfig[key];
 
         // 自动加上 thy-popover-panel
         if (key === 'panelClass') {
             expectValue = ['thy-popover-panel', ...expectValue];
         }
+        // @ts-ignore
         if (!isUndefinedOrNull(expectValue) && !isUndefinedOrNull(currentConfig[key])) {
+            // @ts-ignore
             if (isArray(currentConfig[key]) && isArray(expectValue)) {
+                // @ts-ignore
                 isSame = currentConfig[key].join(',') === expectValue.join(',');
+                // @ts-ignore
             } else if (expectValue !== currentConfig[key]) {
                 isSame = false;
             }

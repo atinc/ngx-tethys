@@ -96,7 +96,7 @@ describe('ThyTestDateRangeComponent', () => {
             dispatchClickEvent(getPickerTriggerElement());
             tick(100);
             fixture.detectChanges();
-            const lastActionMenuItem = getPickerContainer().querySelector('.thy-dropdown-menu').lastElementChild;
+            const lastActionMenuItem = getPickerContainer().querySelector('.thy-dropdown-menu')?.lastElementChild;
             expect((lastActionMenuItem as HTMLElement).innerText).toEqual(text);
         }));
 
@@ -125,7 +125,7 @@ describe('ThyTestDateRangeComponent', () => {
             fixture.detectChanges();
             dispatchClickEvent(getPickerTriggerElement());
             const actionMenuContainers = getPickerContainer().querySelector('.thy-date-range-dropdown-menu-container');
-            dispatchClickEvent(actionMenuContainers.lastElementChild as HTMLElement);
+            dispatchClickEvent(actionMenuContainers?.lastElementChild as HTMLElement);
             expect(queryFromOverlay('.thy-calendar-picker-container')).not.toBeNull();
 
             const leftCell = getFirstCell('left');
@@ -161,7 +161,7 @@ describe('ThyTestDateRangeComponent', () => {
             dispatchClickEvent(getPickerTriggerElement());
             fixture.detectChanges();
             const actionMenuContainers = getPickerContainer().querySelector('.thy-date-range-dropdown-menu-container');
-            dispatchClickEvent(actionMenuContainers.lastElementChild as HTMLElement);
+            dispatchClickEvent(actionMenuContainers?.lastElementChild as HTMLElement);
             const disabledCell = queryFromOverlay(
                 '.thy-calendar-picker-container .thy-calendar-range-left tbody.thy-calendar-tbody td.thy-calendar-disabled-cell'
             );
@@ -177,11 +177,11 @@ describe('ThyTestDateRangeComponent', () => {
             fixture.detectChanges();
             dispatchClickEvent(getPickerTriggerElement());
             const secondOptional = getPickerContainer()
-                .querySelector('thy-popover-container')
-                .querySelector('.thy-date-range-dropdown-menu-container')
+                .querySelector('thy-popover-container')!
+                .querySelector('.thy-date-range-dropdown-menu-container')!
                 .querySelectorAll('.dropdown-menu-item')[1];
             dispatchClickEvent(secondOptional as HTMLElement);
-            expect(getPickerTriggerElement().innerText).toEqual(value);
+            expect(getPickerTriggerElement().innerText).toEqual(value!);
         }));
 
         it('should support thyOnCalendarChange', fakeAsync(() => {
@@ -191,7 +191,7 @@ describe('ThyTestDateRangeComponent', () => {
             tick(100);
             fixture.detectChanges();
             const actionMenuContainers = getPickerContainer().querySelector('.thy-date-range-dropdown-menu-container');
-            dispatchClickEvent(actionMenuContainers.lastElementChild as HTMLElement);
+            dispatchClickEvent(actionMenuContainers?.lastElementChild as HTMLElement);
             const left = getFirstCell('left');
             const leftText = left.textContent.trim();
             dispatchMouseEvent(left, 'click');
@@ -319,9 +319,9 @@ describe('ThyTestDateRangeComponent', () => {
 
             clickPrevious();
             expect(modelChangedSpy).toHaveBeenCalledTimes(1);
-            const interval = originDate.timestamp.interval;
-            const beginDate = originDate.begin * 1000;
-            const endDate = originDate.end * 1000;
+            const interval = originDate.timestamp?.interval!;
+            const beginDate = originDate.begin! * 1000;
+            const endDate = originDate.end! * 1000;
             const previousModelData = {
                 begin: getUnixTime(addDays(beginDate, -1 * interval)),
                 end: getUnixTime(addDays(endDate, -1 * interval)),
@@ -348,9 +348,9 @@ describe('ThyTestDateRangeComponent', () => {
 
             clickPrevious();
             expect(modelChangedSpy).toHaveBeenCalledTimes(1);
-            const interval = originDate.timestamp.interval;
-            const beginDate = originDate.begin * 1000;
-            const endDate = originDate.end * 1000;
+            const interval = originDate.timestamp!.interval!;
+            const beginDate = originDate.begin! * 1000;
+            const endDate = originDate.end! * 1000;
             const previousModelData = {
                 begin: getUnixTime(addYears(beginDate, -1 * interval)),
                 end: getUnixTime(addYears(endDate, -1 * interval)),
@@ -377,9 +377,9 @@ describe('ThyTestDateRangeComponent', () => {
 
             clickPrevious();
             expect(modelChangedSpy).toHaveBeenCalledTimes(1);
-            const interval: number = originDate.end - originDate.begin + 24 * 60 * 60;
-            const beginDate = originDate.begin;
-            const endDate = originDate.end;
+            const interval: number = originDate.end! - originDate.begin! + 24 * 60 * 60;
+            const beginDate = originDate.begin!;
+            const endDate = originDate.end!;
             const previousModelData = {
                 begin: beginDate - interval,
                 end: endDate - interval,
@@ -454,7 +454,7 @@ describe('ThyTestDateRangeComponent', () => {
 
     function addZeroToSingleDigits(value: number): string {
         if (value < 10) {
-            return `0${  value}`;
+            return `0${value}`;
         }
         return value.toString();
     }
@@ -494,9 +494,9 @@ describe('ThyTestDateRangeComponent', () => {
     imports: [FormsModule, ThyDateRangeModule]
 })
 class ThyTestDateRangeComponent {
-    useSuite: 1 | 2 | 3;
+    useSuite!: 1 | 2 | 3;
 
-    selectedDate: DateRangeItemInfo;
+    selectedDate!: DateRangeItemInfo;
 
     dateRanges: DateRangeItemInfo[] = [
         {
@@ -577,6 +577,7 @@ class ThyTestDateRangeComponent {
 
     separator = '~';
 
+    // @ts-ignore
     thyDisabledDate: (d: Date) => boolean;
 
     dateChanged(date: DateRangeItemInfo) {}

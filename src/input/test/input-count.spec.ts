@@ -18,7 +18,7 @@ import { provideHttpClient } from '@angular/common/http';
     imports: [ThyInputModule, FormsModule]
 })
 class TestInputCountBasicComponent {
-    name: '';
+    name!: '';
 }
 
 @Component({
@@ -40,7 +40,7 @@ class TestInputCountBasicComponent {
     imports: [ThyInputModule, FormsModule]
 })
 class TestInputCountSpecifyInputBasicComponent {
-    name: '';
+    name!: '';
 }
 
 describe('input count', () => {

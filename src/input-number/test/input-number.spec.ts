@@ -53,7 +53,7 @@ class TestInputNumberComponent {
 
     thySize = ``;
 
-    modelValue: string | number;
+    modelValue!: string | number;
 
     sizes = ['sm', 'md', 'lg'];
 

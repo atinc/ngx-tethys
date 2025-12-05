@@ -12,11 +12,11 @@ import { ENTER, TinyDate } from 'ngx-tethys/util';
 import { ThyPicker } from 'ngx-tethys/date-picker';
 
 class CdkOverlayOriginSpy {
-    elementRef: ElementRef;
+    elementRef!: ElementRef;
 }
 
 class CdkConnectedOverlaySpy {
-    overlayRef: {
+    overlayRef!: {
         updatePosition: () => {};
     };
 }
@@ -136,7 +136,7 @@ describe('ThyPickerComponent', () => {
     imports: [CommonModule, OverlayModule, ThyPicker, ThyIcon]
 })
 class ThyTestPickerComponent {
-    readonly thyPicker = viewChild<ThyPicker>('thyPicker');
+    readonly thyPicker = viewChild.required<ThyPicker>('thyPicker');
 
     thyValue = new TinyDate(new Date());
     thyDisabled = false;

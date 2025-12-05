@@ -24,7 +24,7 @@ export class ThyTagBasicTestComponent implements OnInit {
     color: ThyTagColor = 'default';
     theme: 'outline' | 'fill' | 'weak-fill' = 'fill';
     shape: ThyTagShape = 'rectangle';
-    hoverable: boolean;
+    hoverable!: boolean;
 
     constructor() {}
 

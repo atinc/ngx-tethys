@@ -34,7 +34,7 @@ class TestTabsBasicComponent {
     imports: [ThyTabsModule]
 })
 class TestTabsTypeComponent {
-    type: ThyTabsType;
+    type!: ThyTabsType;
 }
 
 @Component({
@@ -49,7 +49,7 @@ class TestTabsTypeComponent {
     imports: [ThyTabsModule]
 })
 class TestTabsSizeComponent {
-    size: ThyTabsSize;
+    size!: ThyTabsSize;
 }
 
 @Component({
@@ -95,7 +95,7 @@ class TestTabsExtraComponent {}
     imports: [ThyTabsModule]
 })
 class TestTabsPositionComponent {
-    position: ThyTabsPosition;
+    position!: ThyTabsPosition;
 }
 
 @Component({

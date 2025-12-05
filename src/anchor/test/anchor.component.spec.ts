@@ -319,7 +319,7 @@ class TestThyAnchorLinkComponent implements OnInit {
 
     thyOffsetTop = 60;
 
-    title: string | TemplateRef<void>;
+    title: undefined | TemplateRef<void>;
 
     ngOnInit(): void {
         this.title = this.titleTemplate();

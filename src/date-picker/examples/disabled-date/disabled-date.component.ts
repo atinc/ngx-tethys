@@ -9,11 +9,11 @@ import { addDays, differenceInDays, endOfDay, startOfDay, TinyDate } from 'ngx-t
     imports: [ThyDatePicker, FormsModule, ThyMonthPicker, ThyYearPicker, ThyQuarterPicker, ThyRangePicker]
 })
 export class ThyDatePickerDisabledDateExampleComponent implements OnInit {
-    date: Date;
+    date!: Date;
 
-    start: Date;
+    start!: Date;
 
-    due: Date;
+    due!: Date;
 
     limitDate = new TinyDate()?.nativeDate;
 
@@ -25,9 +25,9 @@ export class ThyDatePickerDisabledDateExampleComponent implements OnInit {
 
     selectedDateRange: Date[] = [];
 
-    dynamicDisabled: { begin: number; end: number };
+    dynamicDisabled!: { begin: number; end: number };
 
-    dateRange: { begin: number; end: number };
+    dateRange!: { begin: number; end: number };
 
     minDateRange = startOfDay(addDays(new TinyDate().endOfWeek({ weekStartsOn: 1 }).getTime(), 3));
 

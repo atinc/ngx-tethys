@@ -38,7 +38,7 @@ export class ThyDatePickerBasicExampleComponent implements OnInit {
 
     quarterRange = { begin: new TinyDate('2023-6')?.nativeDate, end: new TinyDate('2023-12')?.nativeDate };
 
-    flexibleDateRange: ThyDateRangeEntry;
+    flexibleDateRange!: ThyDateRangeEntry;
 
     isAllowClear = true;
 

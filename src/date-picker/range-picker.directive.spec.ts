@@ -216,11 +216,11 @@ describe('ThyRangePickerDirective', () => {
     imports: [ThyPropertyOperationModule, ThyDatePickerModule, FormsModule]
 })
 class ThyTestRangePickerComponent {
-    modelValue: ThyDateRangeEntry;
-    thyShowShortcut: boolean;
+    modelValue!: ThyDateRangeEntry;
+    thyShowShortcut!: boolean;
     thyShortcutPosition: ThyShortcutPosition = 'left';
-    thyShortcutPresets: CompatiblePresets;
-    mode: string;
+    thyShortcutPresets!: CompatiblePresets;
+    mode!: string;
     modelValueChange(): void {}
     thyOpenChange(): void {}
     thyOnCalendarChange(): void {}

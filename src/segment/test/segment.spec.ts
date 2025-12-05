@@ -85,9 +85,9 @@ class TestSegmentSizeComponent {
     imports: [ThySegmentModule]
 })
 class TestSegmentDisabledComponent {
-    disabledAll: boolean;
+    disabledAll!: boolean;
 
-    disableItem: boolean;
+    disableItem!: boolean;
 
     selectedChange(event: ThySegmentEvent): void {}
 }

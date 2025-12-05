@@ -52,9 +52,9 @@ export abstract class AbstractPickerComponent
 
     locale: Signal<ThyDatePickerLocale> = injectLocale('datePicker');
 
-    thyValue: CompatibleValue | null;
+    thyValue: CompatibleValue | null =null;
 
-    panelMode: ThyPanelMode | ThyPanelMode[];
+    panelMode!: ThyPanelMode | ThyPanelMode[];
 
     _panelMode: ThyPanelMode = 'date';
 
@@ -102,9 +102,9 @@ export abstract class AbstractPickerComponent
      * 输入框提示文字
      * @type string | string[]
      */
-    readonly thyPlaceHolder = input<string | string[]>(undefined);
+    readonly thyPlaceHolder = input<string | string[]>();
 
-    readonly placeholder = signal<string | string[]>(undefined);
+    readonly placeholder = signal<string | string[] | undefined>(undefined);
 
     /**
      * 是否只读
@@ -207,7 +207,7 @@ export abstract class AbstractPickerComponent
 
     readonly thyOpenChange = output<boolean>();
 
-    readonly picker = viewChild<ThyPicker>(ThyPicker);
+    readonly picker = viewChild.required<ThyPicker>(ThyPicker);
 
     /**
      * 是否禁用
@@ -228,17 +228,17 @@ export abstract class AbstractPickerComponent
 
     disabled = false;
 
-    isRange: boolean;
+    isRange!: boolean;
 
-    withTime: boolean;
+    withTime!: boolean;
 
-    flexibleDateGranularity: ThyDateGranularity;
+    flexibleDateGranularity: ThyDateGranularity | undefined;
 
     protected isCustomPlaceHolder = false;
 
     private onlyEmitDate = false;
 
-    protected innerValue: ThyCompatibleDate;
+    protected innerValue!: ThyCompatibleDate;
 
     get realOpenState(): boolean {
         return this.picker().realOpenState;
@@ -373,7 +373,7 @@ export abstract class AbstractPickerComponent
         }
 
         this.onlyEmitDate = typeof withTime === 'undefined';
-        this.setTimePickerState(this.onlyEmitDate ? value && !!this.thyShowTime() : withTime);
+        this.setTimePickerState(this.onlyEmitDate ? value && !!this.thyShowTime() : !!withTime);
         this.setValue(value);
         this.setFormatRule();
         this.cdr.markForCheck();

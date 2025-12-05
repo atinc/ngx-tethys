@@ -17,11 +17,11 @@ class BadgeBasicComponent implements OnInit {
 
     count = 5;
 
-    maxCount: number;
+    maxCount!: number;
 
-    type: string;
+    type!: string;
 
-    size: string;
+    size!: string;
 
     constructor() {}
 
@@ -74,7 +74,7 @@ class BadgeContentTestComponent implements OnInit {
 class BadgeBasicHollowComponent implements OnInit {
     constructor() {}
 
-    isHollow: boolean;
+    isHollow!: boolean;
 
     ngOnInit(): void {}
 }
@@ -87,7 +87,7 @@ class BadgeBasicHollowComponent implements OnInit {
 class BadgeBasicDotComponent implements OnInit {
     constructor() {}
 
-    isDot: boolean;
+    isDot!: boolean;
 
     ngOnInit(): void {}
 }
@@ -219,7 +219,7 @@ describe('thy-badge', () => {
 
         it('thyContext, should set context success', () => {
             fixture.detectChanges();
-            const badgeSpanElement = badgeElement.querySelector('.thy-badge');
+            const badgeSpanElement = badgeElement.querySelector('.thy-badge')!;
             expect(badgeSpanElement.textContent).toBe(`Worktile`);
             testComponent.content = 'PingCode';
             fixture.detectChanges();
@@ -246,7 +246,7 @@ describe('thy-badge', () => {
 
         it('thyContext, should set context success', () => {
             fixture.detectChanges();
-            const badgeSpanElement = badgeElement.querySelector('.thy-badge');
+            const badgeSpanElement = badgeElement.querySelector('.thy-badge')!;
             expect(badgeSpanElement.textContent).toBe(`Worktile`);
             testComponent.context = 'PingCode';
             fixture.detectChanges();

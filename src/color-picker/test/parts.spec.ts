@@ -77,7 +77,7 @@ class ThyDemoSaturationComponent {
 class ThyDemoColorInputsComponent {
     elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
-    readonly colorInputsComponent = viewChild(ThyColorInputs);
+    readonly colorInputsComponent = viewChild.required(ThyColorInputs);
     readonly inputNumber = viewChild(ThyInputNumber);
 
     color = new ThyColor('#fafafa');
@@ -95,7 +95,7 @@ class ThyDemoColorInputsComponent {
 class ThyDemoIndicatorComponent {
     elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
-    readonly colorIndicatorComponent = viewChild(ThyIndicator);
+    readonly colorIndicatorComponent = viewChild.required(ThyIndicator);
 
     color = new ThyColor('#ddd');
 
@@ -310,7 +310,7 @@ describe('thy-color-inputs', () => {
             fixture.detectChanges();
             expect(colorChange).toHaveBeenCalled();
 
-            const hexInputs = element.querySelector('input');
+            const hexInputs = element.querySelector('input')!;
             hexInputs.value = '#DDDDDD';
             dispatchFakeEvent(hexInputs, 'blur');
             fixture.detectChanges();
@@ -320,7 +320,7 @@ describe('thy-color-inputs', () => {
         it('should get correct displayValue', fakeAsync(() => {
             const element = fixtureInstance.elementRef.nativeElement;
             fixture.detectChanges();
-            const hexInputs = element.querySelector('input');
+            const hexInputs = element.querySelector('input')!;
             tick(500);
             hexInputs.value = 'DDDDDD';
             dispatchEvent(hexInputs, new Event('input'));

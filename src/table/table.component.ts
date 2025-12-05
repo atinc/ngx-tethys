@@ -166,7 +166,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
 
     public rowKey = '_id';
 
-    public groupBy: string;
+    public groupBy!: string;
 
     public mode: ThyTableMode = 'list';
 
@@ -176,11 +176,11 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
 
     public size: ThyTableSize = 'md';
 
-    public rowClassName: string | Function;
+    public rowClassName!: string | Function;
 
     public loadingDone = true;
 
-    public loadingText: string;
+    public loadingText!: string;
 
     public emptyOptions: ThyTableEmptyOptions = {};
 
@@ -200,7 +200,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
 
     public columns: ThyTableColumnComponent[] = [];
 
-    private _diff: IterableDiffer<SafeAny>;
+    private _diff!: IterableDiffer<SafeAny>;
 
     private initialized = false;
 
@@ -220,11 +220,11 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
      * 设置数据为空时展示的模板
      * @type TemplateRef
      */
-    @ContentChild('empty') emptyTemplate: TemplateRef<SafeAny>;
+    @ContentChild('empty') emptyTemplate!: TemplateRef<SafeAny>;
 
-    @ViewChild('table', { static: true }) tableElementRef: ElementRef<SafeAny>;
+    @ViewChild('table', { static: true }) tableElementRef!: ElementRef<SafeAny>;
 
-    @ViewChildren('rows', { read: ElementRef }) rows: QueryList<ElementRef<HTMLElement>>;
+    @ViewChildren('rows', { read: ElementRef }) rows!: QueryList<ElementRef<HTMLElement>>;
 
     /**
      * 表格展示方式，列表/分组/树
@@ -304,19 +304,19 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
      */
     @Input()
     @InputCssPixel()
-    thyMinWidth: string | number;
+    thyMinWidth!: string | number;
 
     /**
      * 设置为 fixed 布局表格，设置 fixed 后，列宽将严格按照设置宽度展示，列宽将不会根据表格内容自动调整
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyLayoutFixed: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyLayoutFixed!: boolean;
 
     /**
      * 是否表头固定，若设置为 true， 需要同步设置 thyHeight
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyHeaderFixed: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyHeaderFixed!: boolean;
 
     /**
      * 表格的高度
@@ -324,7 +324,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
     @HostBinding('style.height')
     @Input()
     @InputCssPixel()
-    thyHeight: string;
+    thyHeight!: string;
 
     /**
      * 设置表格的样式
@@ -478,7 +478,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
      */
     @HostBinding('class.thy-table-hover-display-operation')
     @Input({ transform: coerceBooleanProperty })
-    thyHoverDisplayOperation: boolean;
+    thyHoverDisplayOperation!: boolean;
 
     @Input() thyDragDisabledPredicate: (item: SafeAny) => boolean = () => false;
 
@@ -495,48 +495,48 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
     /**
      * 切换组件回调事件
      */
-    @Output() thyOnSwitchChange: EventEmitter<ThySwitchEvent> = new EventEmitter<ThySwitchEvent>();
+    @Output() readonly thyOnSwitchChange: EventEmitter<ThySwitchEvent> = new EventEmitter<ThySwitchEvent>();
 
     /**
      * 表格分页回调事件
      */
-    @Output() thyOnPageChange: EventEmitter<PageChangedEvent> = new EventEmitter<PageChangedEvent>();
+    @Output() readonly thyOnPageChange: EventEmitter<PageChangedEvent> = new EventEmitter<PageChangedEvent>();
 
     /**
      * 表格分页当前页改变回调事件
      */
-    @Output() thyOnPageIndexChange: EventEmitter<number> = new EventEmitter<number>();
+    @Output() readonly thyOnPageIndexChange: EventEmitter<number> = new EventEmitter<number>();
 
-    @Output() thyOnPageSizeChange: EventEmitter<number> = new EventEmitter<number>();
+    @Output() readonly thyOnPageSizeChange: EventEmitter<number> = new EventEmitter<number>();
 
     /**
      * 多选回调事件
      */
-    @Output() thyOnMultiSelectChange: EventEmitter<ThyMultiSelectEvent> = new EventEmitter<ThyMultiSelectEvent>();
+    @Output() readonly thyOnMultiSelectChange: EventEmitter<ThyMultiSelectEvent> = new EventEmitter<ThyMultiSelectEvent>();
 
     /**
      * 单选回调事件
      */
-    @Output() thyOnRadioSelectChange: EventEmitter<ThyRadioSelectEvent> = new EventEmitter<ThyRadioSelectEvent>();
+    @Output() readonly thyOnRadioSelectChange: EventEmitter<ThyRadioSelectEvent> = new EventEmitter<ThyRadioSelectEvent>();
 
     /**
      * 拖动修改事件
      */
-    @Output() thyOnDraggableChange: EventEmitter<ThyTableDraggableEvent> = new EventEmitter<ThyTableDraggableEvent>();
+    @Output() readonly thyOnDraggableChange: EventEmitter<ThyTableDraggableEvent> = new EventEmitter<ThyTableDraggableEvent>();
 
     /**
      * 表格行点击触发事件
      */
-    @Output() thyOnRowClick: EventEmitter<ThyTableRowEvent> = new EventEmitter<ThyTableRowEvent>();
+    @Output() readonly thyOnRowClick: EventEmitter<ThyTableRowEvent> = new EventEmitter<ThyTableRowEvent>();
 
     /**
      * 列排序修改事件
      */
-    @Output() thySortChange: EventEmitter<ThyTableSortEvent> = new EventEmitter<ThyTableSortEvent>();
+    @Output() readonly thySortChange: EventEmitter<ThyTableSortEvent> = new EventEmitter<ThyTableSortEvent>();
 
-    @Output() thyOnRowContextMenu: EventEmitter<ThyTableEvent> = new EventEmitter<ThyTableEvent>();
+    @Output() readonly thyOnRowContextMenu: EventEmitter<ThyTableEvent> = new EventEmitter<ThyTableEvent>();
 
-    @ContentChild('group', { static: true }) groupTemplate: TemplateRef<SafeAny>;
+    @ContentChild('group', { static: true }) groupTemplate!: TemplateRef<SafeAny>;
 
     @ContentChildren(ThyTableColumnComponent)
     set listOfColumnComponents(components: QueryList<ThyTableColumnComponent>) {

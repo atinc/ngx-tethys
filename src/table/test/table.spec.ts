@@ -171,7 +171,7 @@ class ThyDemoDefaultTableComponent {
     tableMinWidth = 500;
     tableLayoutFixed = false;
     tableHeaderFixed = false;
-    tableHeight: number | string;
+    tableHeight!: number | string;
 
     @ViewChild('total', { static: true }) totalTemplate: TemplateRef<any>;
 

@@ -12,11 +12,11 @@ export interface ThyClickPosition {
 export class ThyClickPositioner {
     private clickDispatcher = inject(ThyClickDispatcher);
 
-    private lastPosition: ThyClickPosition = null;
+    private lastPosition: ThyClickPosition | undefined = undefined;
 
     private initialized = false;
 
-    get lastClickPosition(): ThyClickPosition | null {
+    get lastClickPosition(): ThyClickPosition | undefined {
         return this.lastPosition;
     }
 

@@ -75,7 +75,7 @@ describe('ThyWeekPickerComponent', () => {
             const thyOnChange = spyOn(fixtureInstance, 'modelValueChange');
             debugElement.query(clearBtnSelector).nativeElement.click();
             fixture.detectChanges();
-            expect(fixtureInstance.thyValue).toBe(null);
+            expect(fixtureInstance.thyValue).toBeNull();
             expect(thyOnChange).toHaveBeenCalledWith(null);
             expect(debugElement.query(clearBtnSelector)).toBeFalsy();
             flush();
@@ -112,7 +112,7 @@ describe('ThyWeekPickerComponent', () => {
             tick(500);
             fixture.detectChanges();
             flush();
-            const currentWeekTr = document.querySelector('.thy-calendar-today').parentElement;
+            const currentWeekTr = document.querySelector('.thy-calendar-today')?.parentElement!;
             expect(currentWeekTr.classList[0]).toEqual('thy-calendar-current-week');
             expect(currentWeekTr.classList[2]).toEqual('thy-calendar-active-week');
         }));
@@ -164,10 +164,10 @@ describe('ThyWeekPickerComponent', () => {
     imports: [ThyDatePickerModule, FormsModule]
 })
 class TestWeekPickerComponent {
-    thyAllowClear: boolean;
-    thyDisabled: boolean;
+    thyAllowClear!: boolean;
+    thyDisabled!: boolean;
     thyPlaceHolder: string = '请选择周';
-    thyValue: Date;
+    thyValue!: Date;
     modelValueChange(): void {}
     thyDateChange(): void {}
 }

@@ -61,18 +61,18 @@ class ThyDemoLayoutSidebarBasicComponent {
     isolated = false;
     isDivided = true;
     draggable = false;
-    dragMinWidth: number;
+    dragMinWidth!: number;
     dragMaxWidth = 100;
     collapsible = false;
     collapsibleWidth = 0;
-    thyTheme: ThySidebarTheme;
+    thyTheme!: ThySidebarTheme;
     isCollapsed = false;
-    dragWidth: number;
+    dragWidth!: number;
     sidebarDirection: ThySidebarDirection = 'left';
 
     @ViewChild('customTpl', { read: TemplateRef, static: true }) customTpl: TemplateRef<unknown> | undefined;
 
-    triggerTpl: TemplateRef<any> | undefined | null;
+    triggerTpl!: TemplateRef<any> | undefined | null;
 
     collapsedChange(isCollapsed: boolean) {
         this.isCollapsed = isCollapsed;
@@ -124,9 +124,9 @@ class ThyDemoLayoutCustomSidebarComponent {
 })
 class ThyDemoLayoutSidebarDirectiveComponent {
     direction = 'right';
-    theme: ThySidebarTheme;
+    theme!: ThySidebarTheme;
     isDivided = true;
-    width: number | string;
+    width!: number | string;
     isolated = false;
     isSidebarHeaderDivided = true;
 }
