@@ -51,12 +51,12 @@ export class ThyWatermarkDirective implements OnInit {
     /**
      * 水印内容
      */
-    readonly thyWatermark = input<string>(undefined);
+    readonly thyWatermark = input<string>();
 
     /**
      * 水印样式配置
      */
-    readonly thyCanvasConfig = input<ThyCanvasConfigType>(undefined);
+    readonly thyCanvasConfig = input<ThyCanvasConfigType>();
 
     readonly content = computed(() => {
         const value = this.thyWatermark()?.replace(/^\"|\"$/g, '');
@@ -65,11 +65,11 @@ export class ThyWatermarkDirective implements OnInit {
 
     private createWatermark$ = new Subject<string>();
 
-    private observer: MutationObserver;
+    private observer: MutationObserver | null = null;
 
-    private canvas: HTMLCanvasElement;
+    private canvas!: HTMLCanvasElement;
 
-    private wmDiv: HTMLElement;
+    private wmDiv: HTMLElement | null = null;
 
     private readonly destroyRef = inject(DestroyRef);
 
@@ -132,7 +132,7 @@ export class ThyWatermarkDirective implements OnInit {
 
         const [xGutter, yGutter] = gutter;
         const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
+        const ctx = canvas.getContext('2d')!;
 
         const getFakeSize = () => {
             const fakeBox = document.createElement('div');
@@ -141,7 +141,7 @@ export class ThyWatermarkDirective implements OnInit {
                 top: 0,
                 left: 0,
                 display: 'inline-block',
-                'font-size': `${parseFloat('' + fontSize)}px`,
+                'font-size': `${parseFloat(`${  fontSize}`)}px`,
                 'word-wrap': 'break-word',
                 'font-family': 'inherit',
                 'white-space': 'pre-line'
@@ -150,7 +150,7 @@ export class ThyWatermarkDirective implements OnInit {
             fakeBox.setAttribute('style', styleStr);
 
             fakeBox.innerHTML = this.content().replace(/(\\n)/gm, '</br>');
-            document.querySelector('body').insertBefore(fakeBox, document.querySelector('body').firstChild);
+            document.querySelector('body')!.insertBefore(fakeBox, document.querySelector('body')!.firstChild);
             const { width, height } = fakeBox.getBoundingClientRect();
             fakeBox.remove();
             return { width, height };
@@ -163,10 +163,10 @@ export class ThyWatermarkDirective implements OnInit {
 
         let start = Math.ceil(Math.sin(angle) * fakeBoxWidth * Math.sin(angle));
         const canvasWidth = start + fakeBoxWidth;
-        canvas.setAttribute('width', '' + (canvasWidth + xGutter));
-        canvas.setAttribute('height', '' + (canvasHeight + yGutter));
+        canvas.setAttribute('width', `${  canvasWidth + xGutter}`);
+        canvas.setAttribute('height', `${  canvasHeight + yGutter}`);
 
-        ctx.font = `${parseFloat('' + fontSize)}px microsoft yahei`;
+        ctx.font = `${parseFloat(`${  fontSize}`)}px microsoft yahei`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'top';
         ctx.fillStyle = color;
@@ -206,7 +206,7 @@ export class ThyWatermarkDirective implements OnInit {
             const stream = new Subject<MutationRecord[]>();
             this.observer = new MutationObserverFactory().create(mutations => stream.next(mutations));
             if (this.observer) {
-                this.observer.observe(this.wmDiv, {
+                this.observer.observe(this.wmDiv!, {
                     attributes: true
                 });
             }

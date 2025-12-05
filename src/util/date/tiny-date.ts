@@ -77,7 +77,7 @@ export function sortRangeValue(rangeValue: TinyDate[]): TinyDate[] {
 export const DEFAULT_TIMEZONE = 'Asia/Shanghai';
 
 export class TinyDate implements Record<string, any> {
-    nativeDate: Date;
+    nativeDate!: Date;
 
     private useTimeZone: string;
 

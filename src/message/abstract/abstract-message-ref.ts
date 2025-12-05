@@ -4,14 +4,14 @@ import { ThyMessageBaseConfig } from '../message.config';
 import { WritableSignal, Signal } from '@angular/core';
 
 export interface IThyAbstractMessageQueue<TReferences extends ThyAbstractMessageRef = ThyAbstractMessageRef> {
-    queues: Signal<TReferences[]>;
+    queues!: Signal<TReferences[]>;
     setQueues(newValue: TReferences[]): void;
 }
 
 export class ThyAbstractMessageRef<TConfig extends ThyMessageBaseConfig = ThyMessageBaseConfig> {
-    id: string;
+    id!: string;
 
-    config: TConfig;
+    config!: TConfig;
 
     private overlayRef: OverlayRef;
 

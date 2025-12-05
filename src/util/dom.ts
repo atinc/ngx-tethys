@@ -1,7 +1,8 @@
 import { ElementRef } from '@angular/core';
 import * as helpers from './helpers';
+import { SafeAny } from 'ngx-tethys/types';
 
-const proto = Element.prototype;
+const proto: SafeAny = Element.prototype;
 const vendor =
     proto.matches ||
     proto['matchesSelector'] ||
@@ -11,7 +12,7 @@ const vendor =
     proto['oMatchesSelector'];
 
 export function fallbackMatches(el: Element | Node, selector: string) {
-    const nodes = el.parentNode.querySelectorAll(selector);
+    const nodes = el.parentNode?.querySelectorAll(selector) || [];
     for (let i = 0; i < nodes.length; i++) {
         if (nodes[i] === el) {
             return true;
@@ -111,7 +112,7 @@ export function getClientSize(): { width: number; height: number } {
 
 export type ElementSelector = HTMLElement | ElementRef | string;
 
-export function getHTMLElementBySelector(selector: ElementSelector, defaultElementRef: ElementRef): HTMLElement {
+export function getHTMLElementBySelector(selector: ElementSelector, defaultElementRef: ElementRef): HTMLElement | null {
     if (!selector) {
         return defaultElementRef.nativeElement;
     } else if (selector === 'body') {
@@ -159,7 +160,7 @@ export function getStyleAsText(styles?: any): string {
     return Object.keys(styles)
         .map(key => {
             const val = styles[key];
-            return `${key}:${typeof val === 'string' ? val : val + 'px'}`;
+            return `${key}:${typeof val === 'string' ? val : `${val}px`}`;
         })
         .join(';');
 }

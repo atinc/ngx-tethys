@@ -12,8 +12,7 @@ import {
     output,
     contentChildren
 } from '@angular/core';
-import { ThumbAnimationProps } from 'ngx-tethys/core';
-import { thumbMotion } from 'ngx-tethys/core';
+import { ThumbAnimationProps , thumbMotion } from 'ngx-tethys/core';
 import { ThySegmentItem } from './segment-item.component';
 import { IThySegmentComponent, THY_SEGMENTED_COMPONENT } from './segment.token';
 import { ThySegmentEvent } from './types';

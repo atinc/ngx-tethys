@@ -33,18 +33,18 @@ import { provideAnimations } from '@angular/platform-browser/animations';
     imports: [ThyStepper, ThyStep]
 })
 class ThyDemoStepperComponent {
-    @ViewChild('step2', { static: true }) selectedStepperComponent: ThyStep;
+    @ViewChild('step2', { static: true }) selectedStepperComponent!: ThyStep;
     showStepHeader = true;
-    selectedIndex = 0;
-    selectedStep: ThyStep = null;
-    icon: string;
+    selectedIndex: number | undefined = 0;
+    selectedStep: ThyStep | null = null;
+    icon!: string;
     next() {}
     previous() {}
 }
 
 describe('ThyStepper', () => {
-    let fixture: ComponentFixture<ThyDemoStepperComponent>;
-    let testComponent: ThyDemoStepperComponent;
+    let fixture!: ComponentFixture<ThyDemoStepperComponent>;
+    let testComponent!: ThyDemoStepperComponent;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({

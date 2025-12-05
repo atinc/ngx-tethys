@@ -36,7 +36,7 @@ import { dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing';
 class DropdownBasicTestComponent {
     trigger: ThyOverlayTrigger = 'click';
 
-    active: boolean;
+    active?: boolean;
 
     activeChange(active: boolean) {
         this.active = active;
@@ -44,12 +44,12 @@ class DropdownBasicTestComponent {
 }
 
 describe('basic dropdown', () => {
-    let fixture: ComponentFixture<DropdownBasicTestComponent>;
-    let btnElement: HTMLElement;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
-    let dropdownElement: HTMLElement;
-    let dropdown: ThyDropdownDirective;
+    let fixture!: ComponentFixture<DropdownBasicTestComponent>;
+    let btnElement!: HTMLElement;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
+    let dropdownElement!: HTMLElement;
+    let dropdown!: ThyDropdownDirective;
 
     beforeEach(() => {
         TestBed.configureTestingModule({ providers: [provideNoopAnimations()] });
@@ -94,12 +94,12 @@ describe('basic dropdown', () => {
         fixture.detectChanges();
         tick();
         expect(overlayContainerElement).toBeTruthy();
-        const overlayPaneElement: HTMLElement = overlayContainerElement.querySelector('.cdk-overlay-pane');
+        const overlayPaneElement: HTMLElement = overlayContainerElement.querySelector('.cdk-overlay-pane')!;
         expect(overlayPaneElement).toBeTruthy();
         expect(overlayPaneElement.classList.contains('thy-dropdown-pane')).toBeTruthy();
         tick(100);
         fixture.detectChanges();
-        const dropdownMenuElement: HTMLElement = overlayContainerElement.querySelector('.thy-dropdown-menu');
+        const dropdownMenuElement: HTMLElement = overlayContainerElement.querySelector('.thy-dropdown-menu')!;
         expect(dropdownMenuElement).toBeTruthy();
         expect(dropdownMenuElement.textContent).toContain('Menu Item1');
         expect(dropdownMenuElement.textContent).toContain('Menu Item2');
@@ -149,20 +149,22 @@ describe('basic dropdown', () => {
     }));
 
     it('should always have no backdrop', fakeAsync(() => {
-        [
-            {
-                trigger: 'click',
-                hasBackdrop: false
-            },
-            {
-                trigger: 'focus',
-                hasBackdrop: false
-            },
-            {
-                trigger: 'hover',
-                hasBackdrop: false
-            }
-        ].forEach((item: { trigger: ThyOverlayTrigger; hasBackdrop: boolean }) => {
+        (
+            [
+                {
+                    trigger: 'click',
+                    hasBackdrop: false
+                },
+                {
+                    trigger: 'focus',
+                    hasBackdrop: false
+                },
+                {
+                    trigger: 'hover',
+                    hasBackdrop: false
+                }
+            ] as { trigger: ThyOverlayTrigger; hasBackdrop: boolean }[]
+        ).forEach((item: { trigger: ThyOverlayTrigger; hasBackdrop: boolean }) => {
             fixture.componentInstance.trigger = item.trigger;
             fixture.detectChanges();
             dropdown.show();
@@ -187,10 +189,10 @@ describe('basic dropdown', () => {
 });
 
 describe('for touch usage', () => {
-    let fixture: ComponentFixture<DropdownBasicTestComponent>;
-    let buttonElement: HTMLElement;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let fixture!: ComponentFixture<DropdownBasicTestComponent>;
+    let buttonElement!: HTMLElement;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
     let platform: { IOS: boolean; isBrowser: boolean; ANDROID: boolean };
 
     beforeEach(() => {
@@ -303,13 +305,13 @@ describe('for touch usage', () => {
 class DropdownMenuInputTestComponent {
     readonly invalidDiv = viewChild<HTMLElement>('invalidDiv');
     readonly dropdownMenu = viewChild<ThyDropdownMenuComponent>('dropdownMenu');
-    menu: HTMLElement | ThyDropdownMenuComponent | string = null;
+    menu: HTMLElement | ThyDropdownMenuComponent | string | undefined = undefined;
 }
 
 describe('invalid dropdown', () => {
-    let fixture: ComponentFixture<DropdownMenuInputTestComponent>;
-    let dropdown: ThyDropdownDirective;
-    let overlayContainer: OverlayContainer;
+    let fixture!: ComponentFixture<DropdownMenuInputTestComponent>;
+    let dropdown!: ThyDropdownDirective;
+    let overlayContainer!: OverlayContainer;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -397,20 +399,20 @@ describe('invalid dropdown', () => {
 class DropdownMenuTestComponent {
     readonly dropdownMenu = viewChild<ThyDropdownMenuComponent>('dropdownMenu');
 
-    width: number;
+    width!: number;
 
-    type: ThyDropdownMenuItemType;
+    type!: ThyDropdownMenuItemType;
 
-    disabled: boolean;
+    disabled!: boolean;
 
-    active: boolean;
+    active!: boolean;
 }
 
 describe('dropdown menu', () => {
-    let fixture: ComponentFixture<DropdownMenuTestComponent>;
-    let dropdown: ThyDropdownDirective;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let fixture!: ComponentFixture<DropdownMenuTestComponent>;
+    let dropdown!: ThyDropdownDirective;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -436,7 +438,7 @@ describe('dropdown menu', () => {
     });
 
     function getDropdownMenu(): HTMLElement {
-        return overlayContainerElement.querySelector(`.thy-dropdown-menu`);
+        return overlayContainerElement.querySelector(`.thy-dropdown-menu`)!;
     }
 
     it('should create menu', fakeAsync(() => {
@@ -448,11 +450,11 @@ describe('dropdown menu', () => {
         tick();
         expect(dropdownMenuElement).toBeTruthy();
 
-        const dropdownMenuDivider = dropdownMenuElement.querySelector('thy-dropdown-menu-divider');
+        const dropdownMenuDivider = dropdownMenuElement.querySelector('thy-dropdown-menu-divider')!;
         expect(dropdownMenuDivider).toBeTruthy();
         expect(dropdownMenuDivider.classList.contains('dropdown-menu-divider')).toBeTruthy();
 
-        const dropdownMenuItem = dropdownMenuElement.querySelector('.dropdown-menu-item');
+        const dropdownMenuItem = dropdownMenuElement.querySelector('.dropdown-menu-item')!;
         expect(dropdownMenuItem).toBeTruthy();
         expect(dropdownMenuItem.children[0].classList.contains('icon')).toBeTruthy();
         expect(dropdownMenuItem.children[1].classList.contains('name')).toBeTruthy();
@@ -478,10 +480,10 @@ describe('dropdown menu', () => {
         fixture.detectChanges();
         const dropdownMenuElement = getDropdownMenu();
         tick();
-        const groupElement = dropdownMenuElement.querySelector('thy-dropdown-menu-group');
+        const groupElement = dropdownMenuElement.querySelector('thy-dropdown-menu-group')!;
         expect(groupElement).toBeTruthy();
         expect(groupElement.classList.contains('dropdown-menu-group')).toBeTruthy();
-        const title = groupElement.querySelector('.dropdown-menu-group-title');
+        const title = groupElement.querySelector('.dropdown-menu-group-title')!;
         expect(title).toBeTruthy();
         expect(title.textContent).toEqual('Group1');
     }));
@@ -495,7 +497,7 @@ describe('dropdown menu', () => {
             tick();
             fixture.detectChanges();
             const dropdownMenuElement = getDropdownMenu();
-            const menuItem = dropdownMenuElement.querySelector('#menu-item');
+            const menuItem = dropdownMenuElement.querySelector('#menu-item')!;
             expect(menuItem.classList.contains(`dropdown-menu-item--${type}`)).toBeTruthy();
         });
     }));
@@ -508,7 +510,7 @@ describe('dropdown menu', () => {
         fixture.detectChanges();
         const dropdownMenuElement = getDropdownMenu();
         tick();
-        const menuItem: HTMLElement = dropdownMenuElement.querySelector('#menu-item');
+        const menuItem: HTMLElement = dropdownMenuElement.querySelector('#menu-item')!;
         expect(menuItem.classList.contains('dropdown-menu-item--disabled')).toBeTruthy();
 
         menuItem.click();
@@ -521,7 +523,7 @@ describe('dropdown menu', () => {
         fixture.detectChanges();
         const dropdownMenuElement = getDropdownMenu();
         tick();
-        const menuItem: HTMLElement = dropdownMenuElement.querySelector('#menu-item');
+        const menuItem: HTMLElement = dropdownMenuElement.querySelector('#menu-item')!;
         expect(menuItem.classList.contains('active')).toBeFalsy();
         fixture.componentInstance.active = true;
         fixture.detectChanges();
@@ -584,10 +586,10 @@ class DropdownSubmenuTestComponent {
 }
 
 describe('dropdown submenu', () => {
-    let fixture: ComponentFixture<DropdownSubmenuTestComponent>;
-    let dropdown: ThyDropdownDirective;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let fixture!: ComponentFixture<DropdownSubmenuTestComponent>;
+    let dropdown!: ThyDropdownDirective;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -613,7 +615,7 @@ describe('dropdown submenu', () => {
     });
 
     function getDropdownMenu(): HTMLElement {
-        return overlayContainerElement.querySelector(`.thy-dropdown-menu`);
+        return overlayContainerElement.querySelector(`.thy-dropdown-menu`)!;
     }
 
     it('should create submenu', fakeAsync(() => {
@@ -622,10 +624,10 @@ describe('dropdown submenu', () => {
         fixture.detectChanges();
         const dropdownMenu = getDropdownMenu();
         expect(dropdownMenu.style.width).toEqual('240px');
-        const submenu = dropdownMenu.querySelector('#submenu-default');
+        const submenu = dropdownMenu.querySelector('#submenu-default')!;
         expect(submenu.classList.contains('dropdown-submenu')).toBeTruthy();
-        expect(submenu.parentElement.classList.contains('dropdown-menu-item')).toBeTruthy();
-        expect(submenu.parentElement.classList.contains('dropdown-submenu-right')).toBeTruthy();
+        expect(submenu.parentElement!.classList.contains('dropdown-menu-item')).toBeTruthy();
+        expect(submenu.parentElement!.classList.contains('dropdown-submenu-right')).toBeTruthy();
         dropdown.hide();
         flush();
     }));
@@ -637,10 +639,10 @@ describe('dropdown submenu', () => {
         const dropdownMenu = getDropdownMenu();
         tick();
         fixture.detectChanges();
-        const submenu = dropdownMenu.querySelector('#submenu-left');
+        const submenu = dropdownMenu.querySelector('#submenu-left')!;
         expect(submenu.classList.contains('dropdown-submenu')).toBeTruthy();
-        expect(submenu.parentElement.classList.contains('dropdown-menu-item')).toBeTruthy();
-        expect(submenu.parentElement.classList.contains(`dropdown-submenu-left`)).toBeTruthy();
+        expect(submenu.parentElement!.classList.contains('dropdown-menu-item')).toBeTruthy();
+        expect(submenu.parentElement!.classList.contains(`dropdown-submenu-left`)).toBeTruthy();
 
         dropdown.hide();
         tick();
@@ -658,15 +660,15 @@ describe('dropdown submenu', () => {
         dropdownMenu.style.height = '200px';
         tick();
         fixture.detectChanges();
-        const submenu = dropdownMenu.querySelector('#submenu-left');
+        const submenu = dropdownMenu.querySelector('#submenu-left')!;
         expect(submenu.classList.contains('dropdown-submenu')).toBeTruthy();
-        expect(submenu.parentElement.classList.contains('dropdown-menu-item')).toBeTruthy();
-        expect(submenu.parentElement.classList.contains(`dropdown-submenu-left`)).toBeTruthy();
+        expect(submenu.parentElement!.classList.contains('dropdown-menu-item')).toBeTruthy();
+        expect(submenu.parentElement!.classList.contains(`dropdown-submenu-left`)).toBeTruthy();
 
-        dispatchMouseEvent(submenu.parentElement, 'mouseenter');
+        dispatchMouseEvent(submenu.parentElement!, 'mouseenter');
         tick(200);
-        expect(submenu.parentElement.classList.contains('dropdown-submenu-auto')).toBeFalsy();
-        expect(submenu.parentElement.classList.contains('dropdown-submenu-leftBottom')).toBeTruthy();
+        expect(submenu.parentElement!.classList.contains('dropdown-submenu-auto')).toBeFalsy();
+        expect(submenu.parentElement!.classList.contains('dropdown-submenu-leftBottom')).toBeTruthy();
 
         dropdown.hide();
         tick();
@@ -680,10 +682,10 @@ describe('dropdown submenu', () => {
         const dropdownMenu = getDropdownMenu();
         tick();
         fixture.detectChanges();
-        const submenu = dropdownMenu.querySelector('#submenu-right');
+        const submenu = dropdownMenu.querySelector('#submenu-right')!;
         expect(submenu.classList.contains('dropdown-submenu')).toBeTruthy();
-        expect(submenu.parentElement.classList.contains('dropdown-menu-item')).toBeTruthy();
-        expect(submenu.parentElement.classList.contains(`dropdown-submenu-right`)).toBeTruthy();
+        expect(submenu.parentElement!.classList.contains('dropdown-menu-item')).toBeTruthy();
+        expect(submenu.parentElement!.classList.contains(`dropdown-submenu-right`)).toBeTruthy();
 
         dropdown.hide();
         tick();
@@ -702,16 +704,16 @@ describe('dropdown submenu', () => {
         dropdownMenu.style.height = '200px';
         tick();
         fixture.detectChanges();
-        const submenu = dropdownMenu.querySelector('#submenu-right');
+        const submenu = dropdownMenu.querySelector('#submenu-right')!;
         expect(submenu.classList.contains('dropdown-submenu')).toBeTruthy();
-        expect(submenu.parentElement.classList.contains('dropdown-menu-item')).toBeTruthy();
-        expect(submenu.parentElement.classList.contains(`dropdown-submenu-right`)).toBeTruthy();
+        expect(submenu.parentElement!.classList.contains('dropdown-menu-item')).toBeTruthy();
+        expect(submenu.parentElement!.classList.contains(`dropdown-submenu-right`)).toBeTruthy();
 
-        dispatchMouseEvent(submenu.parentElement, 'mouseenter');
+        dispatchMouseEvent(submenu.parentElement!, 'mouseenter');
         tick(200);
 
-        expect(submenu.parentElement.classList.contains('dropdown-submenu-auto')).toBeFalsy();
-        expect(submenu.parentElement.classList.contains('dropdown-submenu-rightBottom')).toBeTruthy();
+        expect(submenu.parentElement!.classList.contains('dropdown-submenu-auto')).toBeFalsy();
+        expect(submenu.parentElement!.classList.contains('dropdown-submenu-rightBottom')).toBeTruthy();
 
         dropdown.hide();
         tick();
@@ -731,17 +733,17 @@ describe('dropdown submenu', () => {
 
         tick();
         fixture.detectChanges();
-        const submenu = dropdownMenu.querySelector('#submenu-auto');
+        const submenu = dropdownMenu.querySelector('#submenu-auto')!;
         expect(submenu.classList.contains('dropdown-submenu')).toBeTruthy();
 
-        expect(submenu.parentElement.classList.contains('dropdown-menu-item')).toBeTruthy();
-        expect(submenu.parentElement.classList.contains('dropdown-submenu-auto')).toBeTruthy();
+        expect(submenu.parentElement!.classList.contains('dropdown-menu-item')).toBeTruthy();
+        expect(submenu.parentElement!.classList.contains('dropdown-submenu-auto')).toBeTruthy();
 
-        dispatchMouseEvent(submenu.parentElement, 'mouseenter');
+        dispatchMouseEvent(submenu.parentElement!, 'mouseenter');
         tick(200);
         fixture.detectChanges();
-        expect(submenu.parentElement.classList.contains('dropdown-submenu-auto')).toBeFalsy();
-        expect(submenu.parentElement.classList.contains('dropdown-submenu-right')).toBeTruthy();
+        expect(submenu.parentElement!.classList.contains('dropdown-submenu-auto')).toBeFalsy();
+        expect(submenu.parentElement!.classList.contains('dropdown-submenu-right')).toBeTruthy();
         dropdown.hide();
         tick();
         flush();
@@ -785,16 +787,16 @@ describe('dropdown submenu', () => {
         dropdownMenu.style.height = '200px';
         tick();
         fixture.detectChanges();
-        const submenu = dropdownMenu.querySelector('#submenu-auto');
+        const submenu = dropdownMenu.querySelector('#submenu-auto')!;
         expect(submenu.classList.contains('dropdown-submenu')).toBeTruthy();
 
-        expect(submenu.parentElement.classList.contains('dropdown-menu-item')).toBeTruthy();
-        expect(submenu.parentElement.classList.contains('dropdown-submenu-auto')).toBeTruthy();
+        expect(submenu.parentElement!.classList.contains('dropdown-menu-item')).toBeTruthy();
+        expect(submenu.parentElement!.classList.contains('dropdown-submenu-auto')).toBeTruthy();
 
-        dispatchMouseEvent(submenu.parentElement, 'mouseenter');
+        dispatchMouseEvent(submenu.parentElement!, 'mouseenter');
         tick(200);
-        expect(submenu.parentElement.classList.contains('dropdown-submenu-auto')).toBeFalsy();
-        expect(submenu.parentElement.classList.contains('dropdown-submenu-leftBottom')).toBeTruthy();
+        expect(submenu.parentElement!.classList.contains('dropdown-submenu-auto')).toBeFalsy();
+        expect(submenu.parentElement!.classList.contains('dropdown-submenu-leftBottom')).toBeTruthy();
         dropdown.hide();
         tick();
         flush();
@@ -815,17 +817,17 @@ describe('dropdown submenu', () => {
 
         tick(150);
         fixture.detectChanges();
-        const submenu = dropdownMenu.querySelector('#submenu-auto');
+        const submenu = dropdownMenu.querySelector('#submenu-auto')!;
         expect(submenu.classList.contains('dropdown-submenu')).toBeTruthy();
 
-        expect(submenu.parentElement.classList.contains('dropdown-menu-item')).toBeTruthy();
-        expect(submenu.parentElement.classList.contains('dropdown-submenu-auto')).toBeTruthy();
+        expect(submenu.parentElement!.classList.contains('dropdown-menu-item')).toBeTruthy();
+        expect(submenu.parentElement!.classList.contains('dropdown-submenu-auto')).toBeTruthy();
 
-        dispatchMouseEvent(submenu.parentElement, 'mouseenter');
+        dispatchMouseEvent(submenu.parentElement!, 'mouseenter');
         tick(200);
         fixture.detectChanges();
-        expect(submenu.parentElement.classList.contains('dropdown-submenu-auto')).toBeFalsy();
-        expect(submenu.parentElement.classList.contains('dropdown-submenu-rightBottom')).toBeTruthy();
+        expect(submenu.parentElement!.classList.contains('dropdown-submenu-auto')).toBeFalsy();
+        expect(submenu.parentElement!.classList.contains('dropdown-submenu-rightBottom')).toBeTruthy();
         dropdown.hide();
         tick();
         flush();
@@ -856,12 +858,12 @@ class DropdownComponentTestComponent {
 }
 
 describe('dropdown-component', () => {
-    let fixture: ComponentFixture<DropdownComponentTestComponent>;
-    let btnElement: HTMLElement;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
-    let dropdownElement: HTMLElement;
-    let dropdown: ThyDropdownDirective;
+    let fixture!: ComponentFixture<DropdownComponentTestComponent>;
+    let btnElement!: HTMLElement;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
+    let dropdownElement!: HTMLElement;
+    let dropdown!: ThyDropdownDirective;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -896,9 +898,9 @@ describe('dropdown-component', () => {
         const customMenu = overlayContainerElement.querySelector('thy-dropdown-custom-menu');
         tick();
         expect(customMenu).toBeTruthy();
-        expect(customMenu.classList.contains('thy-dropdown-menu')).toBeTruthy();
-        expect(customMenu.textContent).toContain('Custom Menu Item1');
-        expect(customMenu.textContent).toContain('Custom Menu Item2');
+        expect(customMenu!.classList.contains('thy-dropdown-menu')).toBeTruthy();
+        expect(customMenu!.textContent).toContain('Custom Menu Item1');
+        expect(customMenu!.textContent).toContain('Custom Menu Item2');
     }));
 });
 
@@ -931,18 +933,18 @@ class DropdownOptionsTestComponent {
     trigger: ThyOverlayTrigger = 'click';
     popoverOptions: Pick<ThyPopoverConfig, 'width' | 'height'> = {};
     placement: ThyPlacement = 'bottomLeft';
-    activeClass: string;
+    activeClass!: string;
     insideClosable = true;
-    panelClass: string;
+    panelClass!: string;
 }
 
 describe('dropdown options', () => {
-    let fixture: ComponentFixture<DropdownOptionsTestComponent>;
-    let btnElement: HTMLElement;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
-    let dropdownElement: HTMLElement;
-    let dropdown: ThyDropdownDirective;
+    let fixture!: ComponentFixture<DropdownOptionsTestComponent>;
+    let btnElement!: HTMLElement;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
+    let dropdownElement!: HTMLElement;
+    let dropdown!: ThyDropdownDirective;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -979,8 +981,8 @@ describe('dropdown options', () => {
         btnElement.click();
         fixture.detectChanges();
         tick();
-        const boundingBox: HTMLElement = overlayContainerElement.querySelector('.cdk-overlay-connected-position-bounding-box');
-        const overlayPaneElement: HTMLElement = overlayContainerElement.querySelector('.cdk-overlay-pane');
+        const boundingBox: HTMLElement = overlayContainerElement.querySelector('.cdk-overlay-connected-position-bounding-box')!;
+        const overlayPaneElement: HTMLElement = overlayContainerElement.querySelector('.cdk-overlay-pane')!;
         expect(overlayPaneElement.style.height).toEqual('20px');
         // expect(boundingBox.style.top).toEqual('0px');
         dropdown.hide();
@@ -989,12 +991,12 @@ describe('dropdown options', () => {
     }));
 
     describe('popover options', () => {
-        let calledConfig: ThyPopoverConfig<unknown>;
+        let calledConfig: ThyPopoverConfig<unknown> | undefined = undefined;
         beforeEach(() => {
             const popover = dropdown['popover'];
             const originOpen = popover.open.bind(popover);
             spyOn(popover, 'open').and.callFake(
-                (componentOrTemplateRef: ComponentTypeOrTemplateRef<unknown>, config?: ThyPopoverConfig<unknown>) => {
+                (componentOrTemplateRef: ComponentTypeOrTemplateRef<unknown>, config: ThyPopoverConfig<unknown>) => {
                     calledConfig = config;
                     return originOpen(componentOrTemplateRef, config);
                 }
@@ -1012,13 +1014,13 @@ describe('dropdown options', () => {
             dropdown.createOverlay();
 
             expect(calledConfig).toBeTruthy();
-            expect(calledConfig.placement).toEqual('bottomLeft');
-            expect(calledConfig.height).toBeUndefined();
-            expect(calledConfig.insideClosable).toBeTruthy();
-            expect(calledConfig.outsideClosable).toBeTruthy();
-            expect(calledConfig.hasBackdrop).toBeFalsy();
-            expect(calledConfig.offset).toBe(0);
-            expect(calledConfig.originActiveClass).toEqual('thy-dropdown-origin-active');
+            expect(calledConfig!.placement).toEqual('bottomLeft');
+            expect(calledConfig!.height).toBeUndefined();
+            expect(calledConfig!.insideClosable).toBeTruthy();
+            expect(calledConfig!.outsideClosable).toBeTruthy();
+            expect(calledConfig!.hasBackdrop).toBeFalsy();
+            expect(calledConfig!.offset).toBe(0);
+            expect(calledConfig!.originActiveClass).toEqual('thy-dropdown-origin-active');
         });
 
         it('should set thyActiveClass', () => {
@@ -1028,13 +1030,13 @@ describe('dropdown options', () => {
             dropdown.createOverlay();
 
             expect(calledConfig).toBeTruthy();
-            expect(calledConfig.placement).toEqual('bottomLeft');
-            expect(calledConfig.height).toBeUndefined();
-            expect(calledConfig.insideClosable).toBeTruthy();
-            expect(calledConfig.outsideClosable).toBeTruthy();
-            expect(calledConfig.hasBackdrop).toBeFalsy();
-            expect(calledConfig.offset).toBe(0);
-            expect(calledConfig.originActiveClass).toEqual('active');
+            expect(calledConfig!.placement).toEqual('bottomLeft');
+            expect(calledConfig!.height).toBeUndefined();
+            expect(calledConfig!.insideClosable).toBeTruthy();
+            expect(calledConfig!.outsideClosable).toBeTruthy();
+            expect(calledConfig!.hasBackdrop).toBeFalsy();
+            expect(calledConfig!.offset).toBe(0);
+            expect(calledConfig!.originActiveClass).toEqual('active');
         });
 
         it('should get custom options', () => {
@@ -1046,7 +1048,7 @@ describe('dropdown options', () => {
             dropdown.createOverlay();
 
             expect(calledConfig).toBeTruthy();
-            expect(calledConfig.height).toEqual('100px');
+            expect(calledConfig!.height).toEqual('100px');
         });
 
         it('should filter invalid options', () => {
@@ -1060,9 +1062,9 @@ describe('dropdown options', () => {
             dropdown.createOverlay();
 
             expect(calledConfig).toBeTruthy();
-            expect(calledConfig.hasBackdrop).toBeFalsy();
-            expect(calledConfig.offset).toBe(0);
-            expect(calledConfig.panelClass).toEqual(['thy-dropdown-pane']);
+            expect(calledConfig!.hasBackdrop).toBeFalsy();
+            expect(calledConfig!.offset).toBe(0);
+            expect(calledConfig!.panelClass).toEqual(['thy-dropdown-pane']);
         });
 
         it('should set placement', () => {
@@ -1072,7 +1074,7 @@ describe('dropdown options', () => {
             dropdown.createOverlay();
 
             expect(calledConfig).toBeTruthy();
-            expect(calledConfig.placement).toEqual('bottomRight');
+            expect(calledConfig!.placement).toEqual('bottomRight');
         });
 
         it('should set insideClosable', () => {
@@ -1082,17 +1084,17 @@ describe('dropdown options', () => {
             dropdown.createOverlay();
 
             expect(calledConfig).toBeTruthy();
-            expect(calledConfig.insideClosable).toBeFalsy();
+            expect(calledConfig!.insideClosable).toBeFalsy();
         });
 
         it('should set outsideClosable', () => {
-            dropdown.thyPopoverOptions().outsideClosable = false;
+            dropdown.thyPopoverOptions()!.outsideClosable = false;
 
             expect(calledConfig).toBeUndefined();
             dropdown.createOverlay();
 
             expect(calledConfig).toBeTruthy();
-            expect(calledConfig.outsideClosable).toBeFalsy();
+            expect(calledConfig!.outsideClosable).toBeFalsy();
         });
 
         it('should set panel class', () => {
@@ -1102,7 +1104,7 @@ describe('dropdown options', () => {
             dropdown.createOverlay();
 
             expect(calledConfig).toBeTruthy();
-            expect(calledConfig.panelClass).toEqual(['thy-dropdown-pane', 'test-dropdown-panel-class']);
+            expect(calledConfig!.panelClass).toEqual(['thy-dropdown-pane', 'test-dropdown-panel-class']);
         });
     });
 });
@@ -1137,12 +1139,12 @@ class DropdownImmediateRenderTestComponent {
 }
 
 describe('immediate render dropdown', () => {
-    let fixture: ComponentFixture<DropdownImmediateRenderTestComponent>;
-    let btnElement: HTMLElement;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
-    let dropdownElement: HTMLElement;
-    let dropdown: ThyDropdownDirective;
+    let fixture!: ComponentFixture<DropdownImmediateRenderTestComponent>;
+    let btnElement!: HTMLElement;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
+    let dropdownElement!: HTMLElement;
+    let dropdown!: ThyDropdownDirective;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -1190,11 +1192,11 @@ describe('immediate render dropdown', () => {
         tick();
         fixture.detectChanges();
         expect(overlayContainerElement).toBeTruthy();
-        const overlayPaneElement: HTMLElement = overlayContainerElement.querySelector('.cdk-overlay-pane');
+        const overlayPaneElement: HTMLElement = overlayContainerElement.querySelector('.cdk-overlay-pane')!;
         expect(overlayPaneElement).toBeTruthy();
         expect((overlayPaneElement.querySelector('.thy-dropdown-menu') as HTMLElement).style.width).toEqual('240px');
         expect(overlayPaneElement.classList.contains('thy-dropdown-pane')).toBeTruthy();
-        const dropdownMenuElement: HTMLElement = overlayContainerElement.querySelector('.thy-dropdown-menu');
+        const dropdownMenuElement: HTMLElement = overlayContainerElement.querySelector('.thy-dropdown-menu')!;
         expect(dropdownMenuElement).toBeTruthy();
         expect(dropdownMenuElement.textContent).toContain('Menu Item1');
         expect(dropdownMenuElement.textContent).toContain('Menu Item2');

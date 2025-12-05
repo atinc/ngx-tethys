@@ -137,7 +137,7 @@ export function makeValue(
 }
 
 export function dateAddAmount(value: TinyDate, amount: number, mode: ThyPanelMode): TinyDate {
-    let date: TinyDate;
+    let date!: TinyDate;
     switch (mode) {
         case 'decade':
             date = value.addYears(amount * 10);

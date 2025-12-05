@@ -30,7 +30,7 @@ export abstract class ThyOverlayDirectiveBase {
         }
     }
 
-    protected overlayRef: OverlayRef;
+    protected overlayRef?: OverlayRef;
     protected manualListeners = new Map<string, EventListenerOrEventListenerObject>();
     protected ngUnsubscribe$ = new Subject<void>();
     protected focusMonitor: FocusMonitor;
@@ -42,13 +42,13 @@ export abstract class ThyOverlayDirectiveBase {
     protected disabled = false;
     protected showTimeoutId: number | null | SafeAny;
     protected hideTimeoutId: number | null | SafeAny;
-    protected changeDetectorRef: ChangeDetectorRef;
+    protected changeDetectorRef?: ChangeDetectorRef;
     protected isAutoCloseOnMobileTouch: boolean = false;
 
     /**
      * The overlay keep opened when the mouse moves to the overlay container
      */
-    protected overlayPin: boolean;
+    protected overlayPin?: boolean;
 
     /** create overlay, you can use popover service or overlay*/
     // abstract createOverlay(): OverlayRef;
@@ -77,7 +77,7 @@ export abstract class ThyOverlayDirectiveBase {
         }
     }
 
-    private touchStartTime: number;
+    private touchStartTime?: number;
 
     private longPressTimeoutId: number | null | SafeAny;
 
@@ -108,10 +108,11 @@ export abstract class ThyOverlayDirectiveBase {
                     .set('mouseenter', () => {
                         this.show();
                     })
+                    // @ts-ignore
                     .set('mouseleave', (event: MouseEvent) => {
                         // Delay 100ms to avoid the overlay being closed immediately when the cursor is moved to the overlay container
                         this.hide();
-                        const overlayElement: HTMLElement = this.overlayRef && this.overlayRef.overlayElement;
+                        const overlayElement: HTMLElement | undefined = this.overlayRef && this.overlayRef.overlayElement;
                         if (overlayElement && this.overlayPin) {
                             fromEvent(overlayElement, 'mouseenter')
                                 .pipe(take(1))
@@ -153,7 +154,7 @@ export abstract class ThyOverlayDirectiveBase {
         } else {
             const touchendListener = () => {
                 const touchEndTime = Date.now();
-                const touchDuration = touchEndTime - this.touchStartTime;
+                const touchDuration = touchEndTime - this.touchStartTime!;
 
                 if (touchDuration < longPressTime && !this.isTouchMoving) {
                     // tap
@@ -201,7 +202,7 @@ export abstract class ThyOverlayDirectiveBase {
                 () => {
                     this.hide(0);
                 },
-                this.touchendHideDelay + (isNumber(this.showDelay) ? this.showDelay : 0)
+                this.touchendHideDelay! + (isNumber(this.showDelay) ? this.showDelay : 0)
             );
         }
     }

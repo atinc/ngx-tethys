@@ -106,8 +106,8 @@ class ThyMenuTestBasicComponent {
 }
 
 describe('ThyMenu', () => {
-    let fixture: ComponentFixture<ThyDemoMenuComponent>;
-    let component: ThyDemoMenuComponent;
+    let fixture!: ComponentFixture<ThyDemoMenuComponent>;
+    let component!: ThyDemoMenuComponent;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -123,10 +123,10 @@ describe('ThyMenu', () => {
     });
 
     describe('thy-menu', () => {
-        let fixture: ComponentFixture<ThyMenuTestBasicComponent>;
-        let component: ThyMenuTestBasicComponent;
-        let menuDebugElement: DebugElement;
-        let menuElement: HTMLElement;
+        let fixture!: ComponentFixture<ThyMenuTestBasicComponent>;
+        let component!: ThyMenuTestBasicComponent;
+        let menuDebugElement!: DebugElement;
+        let menuElement!: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyMenuTestBasicComponent);
@@ -200,7 +200,7 @@ describe('ThyMenu', () => {
     // });
 
     describe('thy-menu-group', () => {
-        let group: DebugElement;
+        let group!: DebugElement;
 
         beforeEach(() => {
             group = fixture.debugElement.query(By.directive(ThyMenuGroup));
@@ -249,7 +249,7 @@ describe('ThyMenu', () => {
     });
 
     describe('thy-menu-item', () => {
-        let item: DebugElement;
+        let item!: DebugElement;
 
         beforeEach(() => {
             item = fixture.debugElement.query(By.directive(ThyMenuItem));
@@ -271,7 +271,7 @@ describe('ThyMenu', () => {
     });
 
     describe('thy-menu-item-name', () => {
-        let name: DebugElement;
+        let name!: DebugElement;
 
         beforeEach(() => {
             name = fixture.debugElement.query(By.directive(ThyMenuItemName));
@@ -320,7 +320,7 @@ describe('ThyMenu', () => {
     });
 
     describe('thy-menu-item-action', () => {
-        let action: DebugElement;
+        let action!: DebugElement;
         beforeEach(() => {
             action = fixture.debugElement.query(By.directive(ThyMenuItemAction));
         });

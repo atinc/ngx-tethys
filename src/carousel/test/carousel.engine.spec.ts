@@ -43,10 +43,10 @@ describe(`carousel`, () => {
         TestBed.compileComponents();
     }));
     describe(`engine`, () => {
-        let fixture: ComponentFixture<ThyTestCarouselEngineComponent>;
-        let basicTestComponent: ThyTestCarouselEngineComponent;
-        let carouselWrapper: DebugElement;
-        let carouselContents: DebugElement[];
+        let fixture!: ComponentFixture<ThyTestCarouselEngineComponent>;
+        let basicTestComponent!: ThyTestCarouselEngineComponent;
+        let carouselWrapper!: DebugElement;
+        let carouselContents!: DebugElement[];
         const drag = () => {
             fixture.detectChanges();
             const thyCarouselComponent = basicTestComponent.thyCarouselComponent();

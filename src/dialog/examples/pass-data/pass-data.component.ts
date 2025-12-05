@@ -14,7 +14,7 @@ import { ThyDialogHeader, ThyDialogBody, ThyDialogFooter, ThyDialog, ThyDialogCo
     imports: [ThyDialogHeader, ThyDialogBody, ThyDialogFooter, ThyButton]
 })
 class ThyDialogPassDataContentComponent {
-    propData: string;
+    propData!: string;
 
     inputData = input('');
 

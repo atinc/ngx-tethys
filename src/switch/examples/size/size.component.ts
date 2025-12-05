@@ -9,5 +9,5 @@ import { ThySwitch } from 'ngx-tethys/switch';
     imports: [ThySwitch, FormsModule, ThySpace, ThySpaceItemDirective]
 })
 export class ThySwitchSizeExampleComponent {
-    isChecked: Boolean = true;
+    isChecked: boolean = true;
 }

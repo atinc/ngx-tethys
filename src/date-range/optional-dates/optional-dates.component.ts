@@ -35,23 +35,23 @@ export class OptionalDateRanges implements OnInit {
 
     hiddenMenu = false;
 
-    optionalDateRanges: DateRangeItemInfo[];
+    optionalDateRanges!: DateRangeItemInfo[];
 
     customValue = this.locale().custom;
 
-    customKey: string;
+    customKey!: string;
 
-    minDate: number | Date;
+    minDate!: number | Date;
 
-    maxDate: number | Date;
+    maxDate!: number | Date;
 
-    disabledDate: (d: Date) => boolean;
+    disabledDate!: (d: Date) => boolean;
 
-    selectedDateRange: (date: DateRangeItemInfo) => void;
+    selectedDateRange!: (date: DateRangeItemInfo) => void;
 
-    calendarChange: (date: Date[]) => void;
+    calendarChange!: (date: Date[]) => void;
 
-    selectedDate: DateRangeItemInfo;
+    selectedDate!: DateRangeItemInfo;
 
     ngOnInit() {}
 

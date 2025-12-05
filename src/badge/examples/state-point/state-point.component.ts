@@ -8,7 +8,7 @@ import { ThyBadge } from 'ngx-tethys/badge';
     imports: [ThyBadge]
 })
 export class ThyBadgeStatePointExampleComponent implements OnInit {
-    badgeDotTheme: string;
+    badgeDotTheme!: string;
 
     themes = ['danger', 'primary', 'warning', 'secondary'];
     constructor() {}

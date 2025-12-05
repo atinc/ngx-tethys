@@ -2,7 +2,6 @@
   class="mt-2 d-inline-block"
   [thySizeThreshold]="512"
   [thySizeExceedsHandler]="sizeExceedsHandler"
-  (thyOnFileSelect)="selectFiles($event)"
->
+  (thyOnFileSelect)="selectFiles($event)">
   <button thyButton="primary">Click to Upload (size > 0.5M)</button>
 </thy-file-select>

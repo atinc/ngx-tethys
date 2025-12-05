@@ -13,10 +13,10 @@ import { TinyDate } from 'ngx-tethys/util';
 registerLocaleData(zh);
 
 describe('TestDateCarouselComponent', () => {
-    let fixture: ComponentFixture<TestDateCarouselComponent>;
-    let fixtureInstance: TestDateCarouselComponent;
-    let debugElement: DebugElement;
-    let nativeElement: HTMLElement;
+    let fixture!: ComponentFixture<TestDateCarouselComponent>;
+    let fixtureInstance!: TestDateCarouselComponent;
+    let debugElement!: DebugElement;
+    let nativeElement!: HTMLElement;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -104,8 +104,8 @@ describe('TestDateCarouselComponent', () => {
             fixture.detectChanges();
             dispatchMouseEvent(yearBtns[0], 'click');
             fixture.detectChanges();
-            expect(fixtureInstance.advancedSelectedValue.begin.isSameDay(new TinyDate('2022-04-01').startOfYear())).toBeTruthy();
-            expect(fixtureInstance.advancedSelectedValue.end.isSameDay(new TinyDate('2022-04-01').endOfYear())).toBeTruthy();
+            expect(fixtureInstance.advancedSelectedValue.begin?.isSameDay(new TinyDate('2022-04-01').startOfYear())).toBeTruthy();
+            expect(fixtureInstance.advancedSelectedValue.end?.isSameDay(new TinyDate('2022-04-01').endOfYear())).toBeTruthy();
             expect(fixtureInstance.advancedSelectedValue.dateGranularity).toBe('year');
         }));
 
@@ -294,6 +294,6 @@ class TestDateCarouselComponent {
         end: undefined,
         dateGranularity: undefined
     };
-    activeDate: TinyDate;
+    activeDate!: TinyDate;
     modelValueChange(): void {}
 }

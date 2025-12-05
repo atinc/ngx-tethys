@@ -6,7 +6,7 @@ import { ThyRadio } from '../radio.component';
  * @name [thy-radio-button],[thyRadioButton]
  */
 @Component({
-    // eslint-disable-next-line @angular-eslint/component-selector
+     
     selector: '[thy-radio-button],[thyRadioButton]',
     templateUrl: './radio-button.component.html',
     host: {
@@ -20,7 +20,7 @@ export class ThyRadioButton extends ThyRadio implements OnInit {
         return this._disabled;
     }
 
-    name: string;
+    name!: string;
 
     readonly thyValue = input<string>();
 

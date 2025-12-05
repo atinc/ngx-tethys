@@ -13,8 +13,7 @@ import {
 } from '@angular/core';
 
 import { THY_TREE_ABSTRACT_TOKEN } from './tree-abstract';
-import { ThyTreeNode } from './tree.class';
-import { ThyTreeEmitEvent, ThyTreeNodeCheckState, ThyClickBehavior } from './tree.class';
+import { ThyTreeNode , ThyTreeEmitEvent, ThyTreeNodeCheckState, ThyClickBehavior } from './tree.class';
 import { ThyTreeService } from './tree.service';
 import { ThyLoading } from 'ngx-tethys/loading';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -28,6 +27,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
  */
 @Component({
     selector: 'thy-tree-node',
+    standalone: true,
     templateUrl: './tree-node.component.html',
     encapsulation: ViewEncapsulation.None,
     imports: [ThyIcon, NgClass, NgStyle, NgTemplateOutlet, ThyLoading],

@@ -39,33 +39,33 @@ export class TestGridDefaultComponent {}
     imports: [ThyGridModule]
 })
 export class TestGridBasicComponent {
-    cols: number | ThyGridResponsiveDescription;
+    cols!: number | ThyGridResponsiveDescription;
 
-    gap: number | ThyGridResponsiveDescription;
+    gap!: number | ThyGridResponsiveDescription;
 
-    xGap: number | ThyGridResponsiveDescription;
+    xGap!: number | ThyGridResponsiveDescription;
 
-    yGap: number | ThyGridResponsiveDescription;
+    yGap!: number | ThyGridResponsiveDescription;
 
-    responsive: ThyGridResponsiveMode;
+    responsive!: ThyGridResponsiveMode;
 
-    span: number | ThyGridResponsiveDescription;
+    span!: number | ThyGridResponsiveDescription;
 
-    span2: number | ThyGridResponsiveDescription;
+    span2!: number | ThyGridResponsiveDescription;
 
-    offset: number | ThyGridResponsiveDescription;
+    offset!: number | ThyGridResponsiveDescription;
 
-    offset2: number | ThyGridResponsiveDescription;
+    offset2!: number | ThyGridResponsiveDescription;
 
-    show: boolean;
+    show!: boolean;
 }
 
 describe('grid', () => {
     describe('default', () => {
-        let fixture: ComponentFixture<TestGridDefaultComponent>;
-        let gridDebugElement: DebugElement;
-        let gridElement: HTMLElement;
-        let gridInstance: ThyGrid;
+        let fixture!: ComponentFixture<TestGridDefaultComponent>;
+        let gridDebugElement!: DebugElement;
+        let gridElement!: HTMLElement;
+        let gridInstance!: ThyGrid;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -118,11 +118,11 @@ describe('grid', () => {
     });
 
     describe('basic', () => {
-        let fixture: ComponentFixture<TestGridBasicComponent>;
-        let gridDebugElement: DebugElement;
-        let gridElement: HTMLElement;
-        let gridInstance: ThyGrid;
-        let testComponent: TestGridBasicComponent;
+        let fixture!: ComponentFixture<TestGridBasicComponent>;
+        let gridDebugElement!: DebugElement;
+        let gridElement!: HTMLElement;
+        let gridInstance!: ThyGrid;
+        let testComponent!: TestGridBasicComponent;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});

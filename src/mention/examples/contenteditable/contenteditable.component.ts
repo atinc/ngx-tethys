@@ -45,9 +45,9 @@ export class ThyMentionContenteditableExampleComponent implements OnInit {
         }
     ];
 
-    @ViewChild(ThyMentionDirective) mention: ThyMentionDirective;
+    @ViewChild(ThyMentionDirective) mention!: ThyMentionDirective;
 
-    @ViewChild('exampleText') exampleText: ElementRef;
+    @ViewChild('exampleText') exampleText!: ElementRef;
 
     constructor() {}
 

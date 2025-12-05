@@ -2,7 +2,7 @@ import { XhrFactory } from '@angular/common';
 import { HttpHeaders } from '@angular/common/http';
 
 export class MockXhrFactory implements XhrFactory {
-    mock: MockXMLHttpRequest;
+    mock!: MockXMLHttpRequest;
 
     build(): XMLHttpRequest {
         return (this.mock = new MockXMLHttpRequest()) as any;
@@ -23,7 +23,7 @@ export class MockXMLHttpRequestUpload {
 
 export class MockXMLHttpRequest {
     // Set by method calls.
-    body: any;
+    body!: any;
     // TODO(issue/24571): remove '!'.
     method!: string;
     // TODO(issue/24571): remove '!'.
@@ -42,7 +42,7 @@ export class MockXMLHttpRequest {
     status: number = 0;
     statusText: string = '';
     mockResponseHeaders: string = '';
-    readyState: number;
+    readyState!: number;
 
     listeners: {
         error?: (event: ErrorEvent) => void;

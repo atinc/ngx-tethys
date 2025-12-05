@@ -8,7 +8,7 @@ export interface PanelSelector {
     className: string;
     title?: string;
     label: string;
-    onClick?(): void;
+    onClick(): void;
 }
 
 /**
@@ -38,7 +38,7 @@ export abstract class CalendarHeader implements OnInit {
 
     protected prefixCls = 'thy-calendar';
 
-    protected selectors: PanelSelector[];
+    protected selectors: PanelSelector[] | null = null;
 
     constructor() {
         effect(() => {
@@ -84,11 +84,11 @@ export abstract class CalendarHeader implements OnInit {
     }
 
     private gotoMonth(amount: number): void {
-        this.changeValue(this.value().addMonths(amount));
+        this.changeValue(this.value()!.addMonths(amount));
     }
 
     private gotoYear(amount: number): void {
-        this.changeValue(this.value().addYears(amount));
+        this.changeValue(this.value()!.addYears(amount));
     }
 
     public changeValue(value: TinyDate): void {
@@ -99,7 +99,7 @@ export abstract class CalendarHeader implements OnInit {
     }
 
     formatDateTime(format: string): string {
-        const date = this.value().nativeDate;
+        const date = this.value()!.nativeDate;
         return this.dateHelper.format(date, format);
     }
 }

@@ -4,7 +4,7 @@ import { ThyI18nService } from 'ngx-tethys/i18n';
 import { THY_DATE_PICKER_CONFIG, useDatePickerDefaultConfig, ThyDatePickerConfigService } from 'ngx-tethys/date-picker';
 
 describe('thyDatePickerConfigService Angular testing', () => {
-    let thyDatePickerConfigService: ThyDatePickerConfigService;
+    let thyDatePickerConfigService!: ThyDatePickerConfigService;
 
     function run(fn: Function): void {
         runInInjectionContext(TestBed.inject(EnvironmentInjector), () => {

@@ -7,7 +7,7 @@ import { Time, TimeChangeEvent, TimePickerComponentState, TimePickerControls } f
 import { TimePickerConfig } from './inner-time-picker.config';
 
 export interface TimePickerState {
-    value: Date;
+    value: Date | null;
     config: TimePickerComponentState;
     controls: TimePickerControls;
 }
@@ -39,7 +39,7 @@ export class ThyTimePickerStore extends MiniStore<TimePickerState> {
     }
 
     @MiniAction()
-    writeValue(value: Date) {
+    writeValue(value: Date | null) {
         if (value?.getTime() !== this.snapshot.value?.getTime()) {
             this.setState({ value: value });
         }
@@ -52,7 +52,7 @@ export class ThyTimePickerStore extends MiniStore<TimePickerState> {
             return state;
         }
 
-        const _newTime = changeTime(state.value, { hour: event.step }, timeZone);
+        const _newTime = changeTime(state.value!, { hour: event.step }, timeZone);
         const max = state.config.max();
         const min = state.config.min();
         if ((max || min) && !isValidLimit(state.config, _newTime)) {
@@ -69,7 +69,7 @@ export class ThyTimePickerStore extends MiniStore<TimePickerState> {
             return state;
         }
 
-        const _newTime = changeTime(state.value, { minute: event.step }, timeZone);
+        const _newTime = changeTime(state.value!, { minute: event.step }, timeZone);
 
         const max = state.config.max();
         const min = state.config.min();
@@ -89,7 +89,7 @@ export class ThyTimePickerStore extends MiniStore<TimePickerState> {
         }
 
         const _newTime = changeTime(
-            state.value,
+            state.value!,
             {
                 seconds: event.step
             },
@@ -113,14 +113,14 @@ export class ThyTimePickerStore extends MiniStore<TimePickerState> {
             return state;
         }
 
-        const _newTime = setTime(state.value, value, timeZone);
+        const _newTime = setTime(state.value!, value, timeZone);
         this.setState({ value: _newTime });
     }
 
     @MiniAction()
     updateControls(value: TimePickerComponentState, timeZone?: string) {
         const state = this.snapshot;
-        const _newControlsState = timePickerControls(state.value, value);
+        const _newControlsState = timePickerControls(state.value!, value);
         const _newState: TimePickerState = {
             value: state.value,
             config: value,

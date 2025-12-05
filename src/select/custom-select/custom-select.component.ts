@@ -219,7 +219,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     readonly thyDropdownWidthMode = input<ThyDropdownWidthMode>();
 
     readonly placement = computed<ThyPlacement>(() => {
-        return this.thyPlacement() || this.config.placement;
+        return this.thyPlacement() || this.config.placement!;
     });
 
     readonly dropDownPositions = computed<ConnectionPositionPair[]>(() => {
@@ -239,11 +239,11 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
      */
     private maxItemLength = 7;
 
-    public triggerRectWidth: WritableSignal<number> = signal(undefined);
+    public triggerRectWidth: WritableSignal<number | undefined> = signal(undefined);
 
-    public scrollStrategy: ScrollStrategy;
+    public scrollStrategy?: ScrollStrategy;
 
-    private resizeSubscription: Subscription;
+    private resizeSubscription?: Subscription | null;
 
     /**
      * 手动聚焦中的标识
@@ -425,7 +425,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
      */
     readonly thyPreset = input<string>('');
 
-    @ViewChild('trigger', { read: ElementRef, static: true }) trigger: ElementRef<HTMLElement>;
+    @ViewChild('trigger', { read: ElementRef, static: true }) trigger!: ElementRef<HTMLElement>;
 
     private readonly options = contentChildren<ThyOption>(ThyOption, { descendants: true });
 
@@ -471,14 +471,14 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     /**
      * 传给 selectControl 指令的选中值
      */
-    readonly selectedOptions: WritableSignal<SelectOptionBase | SelectOptionBase[]> = linkedSignal<SelectMode, SafeAny[]>({
+    readonly selectedOptions: WritableSignal<SelectOptionBase | SelectOptionBase[] | null> = linkedSignal<SelectMode, SafeAny[] | null>({
         source: () => this.thyMode(),
         computation: () => {
             return this.thyMode() === 'multiple' ? [] : null;
         }
     });
 
-    @ViewChildren(ThyOptionRender) optionRenders: QueryList<ThyOptionRender>;
+    @ViewChildren(ThyOptionRender) optionRenders!: QueryList<ThyOptionRender>;
 
     @HostListener('keydown', ['$event'])
     keydown(event: KeyboardEvent): void {
@@ -493,7 +493,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     }
 
     get optionsChanges$() {
-        let previousOptions: ThyOptionRender[] = this.optionRenders.toArray();
+        let previousOptions: ThyOptionRender[] = this.optionRenders?.toArray();
         return this.optionRenders.changes.pipe(
             map(data => {
                 return this.optionRenders.toArray();
@@ -580,8 +580,8 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
                 .asObservable()
                 .pipe(take(1))
                 .subscribe(() => {
-                    if (this.cdkConnectedOverlay() && this.cdkConnectedOverlay().overlayRef) {
-                        this.cdkConnectedOverlay().overlayRef.updatePosition();
+                    if (this.cdkConnectedOverlay() && this.cdkConnectedOverlay()!.overlayRef) {
+                        this.cdkConnectedOverlay()!.overlayRef.updatePosition();
                     }
                 });
         });
@@ -597,7 +597,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
 
     private buildAllGroupsAndOptions() {
         let allGroupsAndOptions: ThySelectFlattedItem[];
-        const isReactiveDriven = this.thyOptions()?.length > 0;
+        const isReactiveDriven = this.thyOptions()!.length > 0;
         if (isReactiveDriven) {
             allGroupsAndOptions = this.allGroupsAndOptionsByReactive();
         } else {
@@ -607,7 +607,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     }
 
     private allGroupsAndOptionsByReactive(): ThySelectFlattedItem[] {
-        const options = this.thyOptions();
+        const options = this.thyOptions()!;
         const groupMap = new Map<string, ThySelectOptionModel[]>();
         const ungroupedOptions: ThySelectOptionModel[] = [];
 
@@ -712,9 +712,9 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
 
             for (const item of allGroupsAndOptions) {
                 if (item.type === 'option') {
-                    const isMatch = (item.searchKey || item.label).toLowerCase().indexOf(lowerKeywords) > -1;
+                    const isMatch = (item.searchKey || item.label)!.toLowerCase().indexOf(lowerKeywords) > -1;
                     if (isMatch) {
-                        matchedOptions.add(item.value);
+                        matchedOptions.add(item.value!);
                         if (item.groupLabel) {
                             matchedGroupLabels.add(item.groupLabel);
                         }
@@ -723,9 +723,9 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             }
 
             for (const item of allGroupsAndOptions) {
-                if (item.type === 'group' && matchedGroupLabels.has(item.label)) {
+                if (item.type === 'group' && matchedGroupLabels.has(item.label!)) {
                     filteredGroupsAndOptions.push(item);
-                } else if (item.type === 'option' && matchedOptions.has(item.value)) {
+                } else if (item.type === 'option' && matchedOptions.has(item.value!)) {
                     filteredGroupsAndOptions.push(item);
                 }
             }
@@ -761,7 +761,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
 
                 if (option) {
                     newOptions.push({
-                        thyLabelText: option.label,
+                        thyLabelText: option.label!,
                         thyValue: option.value,
                         thyRawValue: option.rawValue
                     });
@@ -853,8 +853,8 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
 
     public updateCdkConnectedOverlayPositions(): void {
         setTimeout(() => {
-            if (this.cdkConnectedOverlay() && this.cdkConnectedOverlay().overlayRef) {
-                this.cdkConnectedOverlay().overlayRef.updatePosition();
+            if (this.cdkConnectedOverlay() && this.cdkConnectedOverlay()!.overlayRef) {
+                this.cdkConnectedOverlay()!.overlayRef.updatePosition();
             }
         });
     }
@@ -934,6 +934,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
                 toActivatedValue = this.selectedValues()[0];
             } else {
                 if (this.thyAutoActiveFirstItem()) {
+                    // @ts-ignore
                     toActivatedValue = filteredOptions[0].value || null;
                 }
             }
@@ -984,6 +985,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             event.preventDefault();
 
             const activatedValue = this.activatedValue();
+            // @ts-ignore
             const currentOption = this.filteredOptionsMap()[activatedValue];
             if (!currentOption) {
                 return;
@@ -1023,6 +1025,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             if (targetOption?.disabled) {
                 return;
             }
+            // @ts-ignore
             this.activatedValue.set(targetOption.value);
 
             if (!hasModifierKey(event)) {
@@ -1033,6 +1036,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         } else if (keyCode === HOME || keyCode === END) {
             event.preventDefault();
             const targetOption = keyCode === HOME ? filteredOptions[0] : filteredOptions[filteredOptions.length - 1];
+            // @ts-ignore
             this.activatedValue.set(targetOption.value);
             this.scrollToActivatedOption();
         } else if ((keyCode === ENTER || keyCode === SPACE) && (this.activatedValue() || !this.empty()) && !hasModifierKey(event)) {
@@ -1069,6 +1073,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
                 selectedValues.sort((a: SafeAny, b: SafeAny) => {
                     const aOption = options.find(option => option.thyValue() === a);
                     const bOption = options.find(option => option.thyValue() === b);
+                    // @ts-ignore
                     return this.thySortComparator()(aOption, bOption, [...options]);
                 });
             }
@@ -1108,6 +1113,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         this.ngZone.runOutsideAngular(() => {
             this.resizeSubscription = new Observable<number>(observer => {
                 const resize = new ResizeObserver((entries: ResizeObserverEntry[]) => {
+                    // @ts-ignore
                     observer.next(null);
                 });
                 resize.observe(this.trigger.nativeElement);

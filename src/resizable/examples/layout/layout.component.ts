@@ -21,17 +21,17 @@ export class ThyResizableLayoutExampleComponent {
 
     collapsedWidth = 80;
 
-    originWidth: number;
+    originWidth!: number;
 
     resizeEnd({ width }: ThyResizeEvent) {
-        this.isCollapsed = width > this.sidebarMinWidth ? false : true;
+        this.isCollapsed = width! > this.sidebarMinWidth ? false : true;
         if (this.isCollapsed) {
             this.sidebarWidth = this.originWidth;
         }
     }
 
     onSideResize({ width }: ThyResizeEvent): void {
-        this.sidebarWidth = width;
+        this.sidebarWidth = width!;
     }
 
     onContentResize({ height }: ThyResizeEvent): void {

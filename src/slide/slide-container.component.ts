@@ -45,17 +45,17 @@ export class ThySlideContainer extends ThyAbstractOverlayContainer implements On
     private readonly ngZone = inject(NgZone);
 
     @ViewChild(ThyPortalOutlet, { static: true })
-    portalOutlet: ThyPortalOutlet;
+    portalOutlet!: ThyPortalOutlet;
 
-    animationOpeningDone: Observable<AnimationEvent>;
+    animationOpeningDone!: Observable<AnimationEvent>;
 
-    animationClosingDone: Observable<AnimationEvent>;
+    animationClosingDone!: Observable<AnimationEvent>;
 
     animationState: ThySlideFromTypes = 'void';
 
     slideContainerStyles: { width?: number; height?: number } = {};
 
-    private drawerContainerElement: HTMLElement;
+    private drawerContainerElement!: HTMLElement | null;
 
     private ngUnsubscribe$ = new Subject<void>();
 
@@ -121,7 +121,8 @@ export class ThySlideContainer extends ThyAbstractOverlayContainer implements On
 
     private setDrawerContainerElement() {
         if (typeof this.config.drawerContainer === 'string') {
-            this.drawerContainerElement = this.config.drawerContainer && document.querySelector(this.config.drawerContainer);
+            this.drawerContainerElement =
+                (this.config.drawerContainer && (document.querySelector(this.config.drawerContainer) as HTMLElement)) || null;
         }
         if (this.config.drawerContainer instanceof ElementRef) {
             this.drawerContainerElement = this.config.drawerContainer.nativeElement;
@@ -188,10 +189,10 @@ export class ThySlideContainer extends ThyAbstractOverlayContainer implements On
 
     beforeAttachPortal(): void {
         if (this.config.offset) {
-            this.hostRenderer.setStyle(this.config.from, `${this.config.offset}px`);
-            this.animationState = helpers.camelCase(['offset', this.config.from]) as ThySlideFromTypes;
+            this.hostRenderer.setStyle(this.config.from!, `${this.config.offset}px`);
+            this.animationState = helpers.camelCase(['offset', this.config.from!]) as ThySlideFromTypes;
         } else {
-            this.animationState = this.config.from;
+            this.animationState = this.config.from!;
         }
         this.setDrawerContainerElementStyle();
     }

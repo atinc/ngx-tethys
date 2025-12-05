@@ -121,8 +121,8 @@ export class ThyFileDropDirective extends FileSelectBaseDirective implements OnI
         return res;
     }
 
-    private getAsEntry(item: DataTransferItem): FileSystemEntry {
-        let entry: FileSystemEntry;
+    private getAsEntry(item: DataTransferItem): FileSystemEntry | null {
+        let entry: FileSystemEntry | null = null;
         if ((item as unknown as { getAsEntry: () => FileSystemEntry })['getAsEntry']) {
             // https://wiki.whatwg.org/wiki/DragAndDropEntries
             entry = (item as unknown as { getAsEntry: () => FileSystemEntry })['getAsEntry']();

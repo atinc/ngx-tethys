@@ -108,14 +108,14 @@ class ThyDemoTableTreeComponent {
 
     mode = 'tree';
 
-    draggable: boolean;
+    draggable!: boolean;
 }
 
 describe('ThyTable: tree', () => {
-    let fixture: ComponentFixture<ThyDemoTableTreeComponent>;
-    let testComponent: ThyDemoTableTreeComponent;
-    let tableComponent: DebugElement;
-    let rows: HTMLElement[];
+    let fixture!: ComponentFixture<ThyDemoTableTreeComponent>;
+    let testComponent!: ThyDemoTableTreeComponent;
+    let tableComponent!: DebugElement;
+    let rows!: HTMLElement[];
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -137,7 +137,7 @@ describe('ThyTable: tree', () => {
         expect(rows.length).toEqual(testComponent.model.length + 1);
 
         const secondRowColumnItem = rows[1].querySelectorAll('td');
-        const expandElement = secondRowColumnItem[0].querySelector('.tree-expand-icon');
+        const expandElement = secondRowColumnItem[0].querySelector('.tree-expand-icon')!;
         dispatchFakeEvent(expandElement, 'click', true);
         fixture.detectChanges();
         tick(100);
@@ -184,7 +184,7 @@ describe('ThyTable: tree', () => {
         rows = tableComponent.nativeElement.querySelectorAll('tr');
 
         const secondRowColumnItem = rows[1].querySelectorAll('td');
-        const expandElement = secondRowColumnItem[1].querySelector('.tree-expand-icon');
+        const expandElement = secondRowColumnItem[1].querySelector('.tree-expand-icon')!;
 
         expect(expandElement).toBeTruthy();
 

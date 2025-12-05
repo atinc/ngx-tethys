@@ -13,7 +13,7 @@ export const HIDE_STYLE = { transform: 'translateX(0)', opacity: 0, height: 0, p
 export abstract class ThyAbstractMessageComponent<TConfig extends ThyMessageBaseConfig> implements OnInit, OnDestroy {
     private _ngZone = inject(NgZone);
 
-    animationState: string;
+    animationState!: string;
 
     iconName = '';
 
@@ -21,7 +21,7 @@ export abstract class ThyAbstractMessageComponent<TConfig extends ThyMessageBase
 
     protected abstract queue: ThyAbstractMessageQueue;
 
-    readonly config = input<TConfig>(null, { alias: 'thyConfig' });
+    readonly config = input<TConfig | null>(null, { alias: 'thyConfig' });
 
     ngOnInit() {
         const iconName: Record<string, string> = {
@@ -31,7 +31,7 @@ export abstract class ThyAbstractMessageComponent<TConfig extends ThyMessageBase
             error: 'close-circle-fill'
         };
 
-        this.iconName = iconName[this.config()?.type];
+        this.iconName = this.config()?.type ? iconName[this.config()?.type!] : '';
         this.createCloseTimer();
     }
 

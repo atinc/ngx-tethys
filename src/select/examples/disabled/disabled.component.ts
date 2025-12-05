@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
     styles: [
         `
             thy-select {
-                width: 400px;
+                width!: 400px;
                 margin-bottom: 12px;
             }
         `

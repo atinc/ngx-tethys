@@ -99,12 +99,12 @@ export class ThyArrowSwitcher implements ControlValueAccessor {
     });
 
     readonly nextDisabled = computed(() => {
-        return this.index() >= this.thyTotal() - 1 || this.disabled();
+        return this.index() >= this.thyTotal()! - 1 || this.disabled();
     });
 
-    private onModelChange: (value: number) => void;
+    private onModelChange!: (value: number) => void;
 
-    private onModelTouched: () => void;
+    private onModelTouched!: () => void;
 
     protected readonly previousTooltip = linkedSignal(() => {
         return this.thyPreviousTooltip();

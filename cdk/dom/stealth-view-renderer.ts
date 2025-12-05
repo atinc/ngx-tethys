@@ -9,7 +9,7 @@ export function useStealthViewRenderer(templateRefInput: Signal<TemplateRef<any>
     const applicationRef = inject(ApplicationRef);
     const destroyRef = inject(DestroyRef);
 
-    let embeddedViewRef: EmbeddedViewRef<any>;
+    let embeddedViewRef!: EmbeddedViewRef<any>;
 
     destroyRef.onDestroy(() => {
         if (embeddedViewRef) {

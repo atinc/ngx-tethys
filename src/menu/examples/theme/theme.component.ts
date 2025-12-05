@@ -33,7 +33,7 @@ export class ThyMenuThemeExampleComponent implements OnInit {
 
     theme: string = 'loose';
 
-    coll: boolean;
+    coll!: boolean;
 
     ngOnInit(): void {}
 

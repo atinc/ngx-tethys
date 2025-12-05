@@ -77,7 +77,7 @@ class ThyDemoSaturationComponent {
 class ThyDemoColorInputsComponent {
     elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
-    readonly colorInputsComponent = viewChild(ThyColorInputs);
+    readonly colorInputsComponent = viewChild.required(ThyColorInputs);
     readonly inputNumber = viewChild(ThyInputNumber);
 
     color = new ThyColor('#fafafa');
@@ -95,7 +95,7 @@ class ThyDemoColorInputsComponent {
 class ThyDemoIndicatorComponent {
     elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
-    readonly colorIndicatorComponent = viewChild(ThyIndicator);
+    readonly colorIndicatorComponent = viewChild.required(ThyIndicator);
 
     color = new ThyColor('#ddd');
 
@@ -105,9 +105,9 @@ class ThyDemoIndicatorComponent {
 }
 
 describe('thy-alpha', () => {
-    let fixture: ComponentFixture<ThyDemoAlphaComponent>;
-    let fixtureInstance: ThyDemoAlphaComponent;
-    let alphaElement: HTMLElement;
+    let fixture!: ComponentFixture<ThyDemoAlphaComponent>;
+    let fixtureInstance!: ThyDemoAlphaComponent;
+    let alphaElement!: HTMLElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -162,8 +162,8 @@ describe('thy-alpha', () => {
 });
 
 describe('thy-hue', () => {
-    let fixture: ComponentFixture<ThyDemoHueComponent>;
-    let fixtureInstance: ThyDemoHueComponent;
+    let fixture!: ComponentFixture<ThyDemoHueComponent>;
+    let fixtureInstance!: ThyDemoHueComponent;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -219,8 +219,8 @@ describe('thy-hue', () => {
 });
 
 describe('thy-saturation', () => {
-    let fixture: ComponentFixture<ThyDemoSaturationComponent>;
-    let fixtureInstance: ThyDemoSaturationComponent;
+    let fixture!: ComponentFixture<ThyDemoSaturationComponent>;
+    let fixtureInstance!: ThyDemoSaturationComponent;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -281,8 +281,8 @@ describe('thy-saturation', () => {
 });
 
 describe('thy-color-inputs', () => {
-    let fixture: ComponentFixture<ThyDemoColorInputsComponent>;
-    let fixtureInstance: ThyDemoColorInputsComponent;
+    let fixture!: ComponentFixture<ThyDemoColorInputsComponent>;
+    let fixtureInstance!: ThyDemoColorInputsComponent;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -301,7 +301,7 @@ describe('thy-color-inputs', () => {
             fixture.detectChanges();
             const element = fixtureInstance.elementRef.nativeElement;
             const colorChange = spyOn(fixtureInstance, 'colorChangeEvent');
-            let rInput = element.querySelector('.input-number-input') as HTMLInputElement;
+            const rInput = element.querySelector('.input-number-input') as HTMLInputElement;
             dispatchFakeEvent(rInput, 'focus');
             rInput.value = '200';
             dispatchFakeEvent(rInput, 'blur');
@@ -310,7 +310,7 @@ describe('thy-color-inputs', () => {
             fixture.detectChanges();
             expect(colorChange).toHaveBeenCalled();
 
-            const hexInputs = element.querySelector('input');
+            const hexInputs = element.querySelector('input')!;
             hexInputs.value = '#DDDDDD';
             dispatchFakeEvent(hexInputs, 'blur');
             fixture.detectChanges();
@@ -320,7 +320,7 @@ describe('thy-color-inputs', () => {
         it('should get correct displayValue', fakeAsync(() => {
             const element = fixtureInstance.elementRef.nativeElement;
             fixture.detectChanges();
-            const hexInputs = element.querySelector('input');
+            const hexInputs = element.querySelector('input')!;
             tick(500);
             hexInputs.value = 'DDDDDD';
             dispatchEvent(hexInputs, new Event('input'));
@@ -335,8 +335,8 @@ describe('thy-color-inputs', () => {
 });
 
 describe('thy-indicator', () => {
-    let fixture: ComponentFixture<ThyDemoIndicatorComponent>;
-    let fixtureInstance: ThyDemoIndicatorComponent;
+    let fixture!: ComponentFixture<ThyDemoIndicatorComponent>;
+    let fixtureInstance!: ThyDemoIndicatorComponent;
 
     beforeEach(() => {
         TestBed.configureTestingModule({

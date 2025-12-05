@@ -57,7 +57,7 @@ export class ThyInputNumber extends TabIndexDisabledControlValueAccessorMixin im
 
     private hostFocusControl = useHostFocusControl();
 
-    validValue: number | string;
+    validValue!: number | string;
 
     displayValue = signal<number | string>(undefined);
 

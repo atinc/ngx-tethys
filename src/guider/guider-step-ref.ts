@@ -52,7 +52,7 @@ export class ThyGuiderStepRef {
     }
 
     private getTargetElement(step: ThyGuiderStep) {
-        let targetElement: HTMLElement;
+        let targetElement!: HTMLElement;
 
         if (step.target && !isPositionDataType(step.target)) {
             const target = [...coerceArray(step.target)];
@@ -113,8 +113,8 @@ export class ThyGuiderStepRef {
             this.addPointClass(currentPointContainer, this.guiderRef.config.pointClass);
         }
         this.renderer.setStyle(currentPointContainer, 'position', 'absolute');
-        this.renderer.setStyle(currentPointContainer, 'left', pointPosition[0] + 'px');
-        this.renderer.setStyle(currentPointContainer, 'top', pointPosition[1] + 'px');
+        this.renderer.setStyle(currentPointContainer, 'left', `${pointPosition[0]  }px`);
+        this.renderer.setStyle(currentPointContainer, 'top', `${pointPosition[1]  }px`);
         this.renderer.setStyle(currentPointContainer, 'transform', 'translate(-100%,-100%)');
 
         return currentPointContainer;

@@ -16,8 +16,8 @@ interface FooEntity {
 }
 
 class ZoomState {
-    animals: Animal[];
-    foo: FooEntity;
+    animals!: Animal[];
+    foo: FooEntity | null = null;
 }
 
 @Injectable()
@@ -73,7 +73,7 @@ describe('#mini-store', () => {
         it('should get initial state value is null with initialize', () => {
             const store = new ZoomStore();
             store.initialize(null);
-            expect(store.getState()).toEqual(null);
+            expect(store.getState()).toBeNull();
         });
 
         it('should get initial state value is empty with initialize', () => {

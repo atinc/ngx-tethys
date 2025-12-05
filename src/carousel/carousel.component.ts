@@ -167,11 +167,11 @@ export class ThyCarousel implements IThyCarouselComponent, OnInit, AfterViewInit
 
     private _destroy$ = new Subject<void>();
 
-    wrapperDomRect: DOMRect;
+    wrapperDomRect!: DOMRect;
 
     activeIndex: number = 0;
 
-    wrapperEl: HTMLElement;
+    wrapperEl!: HTMLElement;
 
     transitionTimer: any = null;
 
@@ -262,7 +262,7 @@ export class ThyCarousel implements IThyCarouselComponent, OnInit, AfterViewInit
     onDrag(event: TouchEvent | MouseEvent): void {
         if (!this.isDragging && !this.isTransitioning && this.thyTouchable()) {
             const mouseDownTime = new TinyDate().getTime();
-            let mouseUpTime: number;
+            let mouseUpTime!: number;
             this.clearScheduledTransition();
             this.wrapperDomRect = this.wrapperEl.getBoundingClientRect();
             this.carouselService.registerDrag(event).subscribe(

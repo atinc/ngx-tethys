@@ -5,8 +5,8 @@ import { ThyScrollService } from 'ngx-tethys/core';
 
 describe('ThyScrollService', () => {
     const TOP = 10;
-    let document: MockDocument;
-    let scrollService: ThyScrollService;
+    let document!: MockDocument;
+    let scrollService!: ThyScrollService;
 
     class MockDocument {
         body = new MockElement();

@@ -19,8 +19,7 @@
         [pattern]="'[a-zA-Z0-9_-]{0,19}[^\\d]{1}'"
         required
         maxlength="20"
-        placeholder="Composed of letters, numbers or underscores. the last digit can't be a number"
-      />
+        placeholder="Composed of letters, numbers or underscores. the last digit can't be a number" />
     </thy-form-group>
 
     <thy-form-group thyCol [thySpan]="12" thyLabelText="Time">
@@ -30,9 +29,7 @@
     <thy-form-group-error thyCol [thySpan]="24"></thy-form-group-error>
 
     <thy-form-group-footer thyCol [thySpan]="24">
-      <button [thyButton]="'primary'" (thyFormSubmit)="save(demoForm)">
-        Save
-      </button>
+      <button [thyButton]="'primary'" (thyFormSubmit)="save(demoForm)">Save</button>
     </thy-form-group-footer>
   </div>
 </form>

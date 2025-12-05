@@ -4,8 +4,8 @@ import { ThySharedModule, ThyScrollDirective } from 'ngx-tethys/shared';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
 
 describe('thy-scroll', () => {
-    let fixture: ComponentFixture<ThyScrollViewportComponent>;
-    let testComponent: ThyScrollViewportComponent;
+    let fixture!: ComponentFixture<ThyScrollViewportComponent>;
+    let testComponent!: ThyScrollViewportComponent;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({});
@@ -84,7 +84,7 @@ describe('thy-scroll', () => {
 })
 class ThyScrollViewportComponent implements OnInit {
     readonly thyScrollDirective = viewChild(ThyScrollDirective);
-    readonly scrollContainer = viewChild<ElementRef<Element>>('scrollContainer');
+    readonly scrollContainer = viewChild.required<ElementRef<Element>>('scrollContainer');
     readonly firstRowStart = viewChild<ElementRef<Element>>('firstRowStart');
     readonly firstRowEnd = viewChild<ElementRef<Element>>('firstRowEnd');
     readonly lastRowStart = viewChild<ElementRef<Element>>('lastRowStart');

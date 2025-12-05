@@ -1,11 +1,11 @@
 <ng-container>
-  @if (thyShape()=== 'strip') {
+  @if (thyShape() === 'strip') {
     <div class="thy-progress-strip-outer">
       @if (isStacked()) {
         @for (item of thyValue(); track $index) {
           <thy-progress-bar
             [thyType]="item.type"
-            [ngClass]="{ 'cursor-pointer': item.tips || thyTips()}"
+            [ngClass]="{ 'cursor-pointer': item.tips || thyTips() }"
             [thyTooltip]="item.tips || thyTips()"
             [thyTooltipTemplateContext]="item"
             [thyTooltipDisabled]="!thyTips() && !item.tips"
@@ -19,7 +19,7 @@
         @if (value) {
           <thy-progress-bar
             [thyType]="thyType()"
-            [ngClass]="{ 'cursor-pointer': thyTips()}"
+            [ngClass]="{ 'cursor-pointer': thyTips() }"
             [thyTooltip]="thyTips()"
             [thyTooltipTemplateContext]="value"
             [thyTooltipDisabled]="!thyTips()"
@@ -28,7 +28,7 @@
         }
       }
     </div>
-    @if (thyShape()=== 'strip') {
+    @if (thyShape() === 'strip') {
       <div class="thy-progress-strip-text">
         <ng-template [ngTemplateOutlet]="contentTemplate"></ng-template>
       </div>

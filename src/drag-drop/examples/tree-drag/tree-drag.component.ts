@@ -78,15 +78,15 @@ export class ThyDragDropTreeDragExampleComponent implements OnInit {
     ngOnInit() {}
 
     beforeDragStart = (event: ThyDragStartEvent<DragDropNode>) => {
-        return event.item.draggable;
+        return event.item!.draggable;
     };
 
     beforeDragOver = (event: ThyDragOverEvent<DragDropNode>) => {
-        return !this.IsWillDropOnChildNode(event.previousItem, event.item);
+        return !this.IsWillDropOnChildNode(event.previousItem!, event.item!);
     };
 
     beforeDragDrop = (event: ThyDragDropEvent<DragDropNode>) => {
-        return !this.IsWillDropOnChildNode(event.previousItem, event.item);
+        return !this.IsWillDropOnChildNode(event.previousItem!, event.item!);
     };
 
     onDragStart(event: ThyDragStartEvent) {}
@@ -94,19 +94,19 @@ export class ThyDragDropTreeDragExampleComponent implements OnInit {
     onDragOver(event: ThyDragStartEvent) {}
 
     onDragDrop(event: ThyDragDropEvent<DragDropNode>) {
-        const dragItem = event.previousItem;
-        if (event.position === ThyDropPosition.in && event.item.children) {
-            event.item.children.push(dragItem);
-            event.previousContainerItems.splice(event.previousIndex, 1);
+        const dragItem = event.previousItem!;
+        if (event.position === ThyDropPosition.in && event.item!.children) {
+            event.item!.children.push(dragItem);
+            event.previousContainerItems!.splice(event.previousIndex!, 1);
             return;
         }
 
-        const prevIsInContainer = event.containerItems.find(item => item.key === dragItem.key);
+        const prevIsInContainer = event.containerItems!.find(item => item.key === dragItem.key);
         if (prevIsInContainer) {
-            moveItemInArray(event.containerItems, event.previousIndex, event.currentIndex - 1);
+            moveItemInArray(event.containerItems!, event.previousIndex!, event.currentIndex - 1);
         } else {
-            event.containerItems.splice(event.currentIndex, 0, dragItem);
-            event.previousContainerItems.splice(event.previousIndex, 1);
+            event.containerItems!.splice(event.currentIndex, 0, dragItem);
+            event.previousContainerItems!.splice(event.previousIndex!, 1);
         }
     }
 
