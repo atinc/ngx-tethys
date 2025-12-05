@@ -5,7 +5,23 @@
     </button>
   }
 </thy-button-group>
-<thy-date-picker class="d-block w-50 mb-3" [thySize]="currentSize"></thy-date-picker>
-<thy-month-picker class="d-block w-50 mb-3" [thySize]="currentSize" thyPlaceHolder="选择月份"></thy-month-picker>
-<thy-quarter-picker class="d-block w-50 mb-3" [thySize]="currentSize" thyPlaceHolder="选择季度"></thy-quarter-picker>
-<thy-range-picker class="d-block w-50 mb-3" [thySize]="currentSize"></thy-range-picker>
+
+<div class="d-flex flex-column w-50 mb-3">
+  <thy-date-picker class="d-block" [thySize]="currentSize" [thyMode]="'week'"></thy-date-picker>
+</div>
+
+<div class="d-flex flex-column w-50 mb-3">
+  <thy-month-picker class="d-block" [thySize]="currentSize" thyPlaceHolder="选择月份"></thy-month-picker>
+</div>
+
+<div class="d-flex flex-column w-50 mb-3">
+  <thy-quarter-picker class="d-block" [thySize]="currentSize" thyPlaceHolder="选择季度"></thy-quarter-picker>
+</div>
+
+<div class="d-flex flex-column w-50 mb-3">
+  <thy-year-picker class="d-block" [thySize]="currentSize" thyPlaceHolder="选择年份"></thy-year-picker>
+</div>
+
+<div class="d-flex flex-column w-50">
+  <thy-range-picker class="d-block" [thySize]="currentSize"></thy-range-picker>
+</div>

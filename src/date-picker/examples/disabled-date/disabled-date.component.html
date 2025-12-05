@@ -8,7 +8,6 @@
     [(ngModel)]="start"
     [thyMaxDate]="due">
   </thy-date-picker>
-
   <thy-date-picker
     class="d-block w-50"
     thyPlaceHolder="结束时间"
@@ -19,7 +18,6 @@
     [thyMinDate]="start">
   </thy-date-picker>
 </div>
-
 <thy-date-picker class="d-block w-50 mb-3" thyFormat="yyyy-MM-dd HH:mm:ss" [thyMaxDate]="limitDate"> </thy-date-picker>
 <thy-date-picker class="d-block w-50 mb-3" thyFormat="yyyy-MM-dd HH:mm:ss" [(ngModel)]="date" [thyMinDate]="limitDate"> </thy-date-picker>
 <thy-month-picker
@@ -29,11 +27,11 @@
   [thyDisabledDate]="disableDate1"
   thyPlaceHolder="请选择月份">
 </thy-month-picker>
+<thy-quarter-picker class="d-block w-50 mb-3" [(ngModel)]="quarterDate" [thyDisabledDate]="disableDate1" thyPlaceHolder="请选择季度">
+</thy-quarter-picker>
 <thy-year-picker class="d-block w-50 mb-3" thyFormat="yyyy" [(ngModel)]="date" [thyDisabledDate]="disableDate1" thyPlaceHolder="请选择年份">
 </thy-year-picker>
 
-<thy-quarter-picker class="d-block w-50 mb-3" [(ngModel)]="quarterDate" [thyDisabledDate]="disableDate1" thyPlaceHolder="请选择季度">
-</thy-quarter-picker>
 <thy-range-picker
   class="d-block mb-3 w-50"
   [thyMinDate]="minDate"

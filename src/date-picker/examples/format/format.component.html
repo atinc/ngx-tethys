@@ -6,13 +6,14 @@
   }
 </thy-button-group>
 <thy-date-picker class="d-block w-50 mb-3" [(ngModel)]="date" [thyFormat]="currentFormat"></thy-date-picker>
-<thy-range-picker class="d-block w-50 mb-3" [thyFormat]="currentFormat"></thy-range-picker>
+<thy-range-picker class="d-block w-50" [thyFormat]="currentFormat"></thy-range-picker>
 
-<thy-button-group class="mb-3" thySize="md" thyType="outline-default">
+<thy-button-group class="mb-3 mt-8" thySize="md" thyType="outline-default">
   @for (type of monthFormatTypes; track $index) {
-    <button thyButton (click)="monthFormat = type" [ngClass]="{ active: type === currentFormat }">
+    <button thyButton (click)="monthFormat = type" [ngClass]="{ active: type === monthFormat }">
       {{ type }}
     </button>
   }
 </thy-button-group>
-<thy-month-picker class="d-block w-50 mb-3" [(ngModel)]="date" [thyFormat]="monthFormat"></thy-month-picker>
+<thy-date-picker class="d-block w-50 mb-3" [(ngModel)]="date" [thyFormat]="monthFormat"></thy-date-picker>
+<thy-range-picker class="d-block w-50" [thyFormat]="monthFormat"></thy-range-picker>

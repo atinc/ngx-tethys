@@ -1,23 +1,18 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { format } from 'date-fns';
 import { ThyDatePicker } from 'ngx-tethys/date-picker';
-import { ThyFormGroup } from 'ngx-tethys/form';
 
 @Component({
     selector: 'thy-date-picker-date-render-example',
     templateUrl: './date-render.component.html',
-    imports: [ThyFormGroup, ThyDatePicker, FormsModule]
+    imports: [ThyDatePicker, FormsModule]
 })
-export class ThyDatePickerDateRenderExampleComponent implements OnInit {
+export class ThyDatePickerDateRenderExampleComponent {
     dateTime = new Date('2023-09-01');
 
     sanitizer = inject(DomSanitizer);
-
-    constructor() {}
-
-    ngOnInit() {}
 
     onChange(result: Date): void {
         console.log('onChange: ', result);

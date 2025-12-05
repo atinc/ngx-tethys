@@ -1,0 +1,10 @@
+<div class="d-flex flex-column w-50">
+  <thy-range-picker
+    class="d-block"
+    [(ngModel)]="flexibleDateRange"
+    thyMode="flexible"
+    [thyShowShortcut]="true"
+    (ngModelChange)="onChange($event)"
+    [thyAllowClear]="isAllowClear">
+  </thy-range-picker>
+</div>
