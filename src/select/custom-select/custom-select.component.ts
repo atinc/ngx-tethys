@@ -450,8 +450,14 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         return this.filteredGroupsAndOptions().filter(item => item.type === 'option');
     });
 
-    private readonly filteredOptionsMap = computed<Dictionary<ThySelectFlattedItem>>(() => {
-        return helpers.keyBy(this.filteredOptions(), 'value');
+    private readonly filteredOptionsMap = computed<Map<SafeAny, ThySelectFlattedItem>>(() => {
+        const map = new Map<SafeAny, ThySelectFlattedItem>();
+        this.filteredOptions().forEach(item => {
+            if (item.value !== undefined) {
+                map.set(item.value, item);
+            }
+        });
+        return map;
     });
 
     /**
@@ -757,7 +763,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             });
 
             selectedValues.forEach(value => {
-                let option: ThySelectFlattedItem = filteredOptionsMap[value];
+                let option: ThySelectFlattedItem = filteredOptionsMap.get(value);
 
                 if (option) {
                     newOptions.push({
@@ -929,7 +935,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         }
 
         let toActivatedValue = this.activatedValue();
-        if (!toActivatedValue || !this.filteredOptionsMap()[toActivatedValue]) {
+        if (!toActivatedValue || !this.filteredOptionsMap().has(toActivatedValue)) {
             if (this.selectedValues().length > 0) {
                 toActivatedValue = this.selectedValues()[0];
             } else {
@@ -984,7 +990,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             event.preventDefault();
 
             const activatedValue = this.activatedValue();
-            const currentOption = this.filteredOptionsMap()[activatedValue];
+            const currentOption = this.filteredOptionsMap().get(activatedValue);
             if (!currentOption) {
                 return;
             }
