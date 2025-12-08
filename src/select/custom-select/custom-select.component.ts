@@ -226,18 +226,20 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         return getFlexiblePositions(this.placement(), this.defaultOffset);
     });
 
-    public itemSize = SELECT_OPTION_MAX_HEIGHT;
+    public thyVirtualItemSize = input(SELECT_OPTION_MAX_HEIGHT, { transform: value => numberAttribute(value) });
 
     readonly virtualHeight = computed<number>(() => {
         const maxVirtualHeight = SELECT_PANEL_MAX_HEIGHT - SELECT_PANEL_PADDING_TOP - SELECT_PANEL_PADDING_BOTTOM;
-        const height = this.filteredGroupsAndOptions().length * this.itemSize;
+        const height = this.filteredGroupsAndOptions().length * this.thyVirtualItemSize();
         return Math.min(height, maxVirtualHeight);
     });
 
     /**
-     * 视觉上能看到的最大选项个数
+     * 出现滚动条时，视觉上能看到的最大选项个数
      */
-    private maxItemLength = 7;
+    private maxItemLength = computed(() => {
+        return Math.round(this.virtualHeight() / this.thyVirtualItemSize());
+    });
 
     public triggerRectWidth: WritableSignal<number> = signal(undefined);
 
@@ -780,7 +782,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         this.scrolledIndex = index;
 
         if (this.thyEnableScrollLoad()) {
-            const isScrollToBottom = index + this.maxItemLength >= this.filteredGroupsAndOptions().length;
+            const isScrollToBottom = index + this.maxItemLength() >= this.filteredGroupsAndOptions().length;
             if (isScrollToBottom) {
                 this.thyOnScrollToBottom.emit();
             }
@@ -949,7 +951,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             return;
         }
 
-        if (targetIndex < this.scrolledIndex || targetIndex >= this.scrolledIndex + this.maxItemLength) {
+        if (targetIndex < this.scrolledIndex || targetIndex >= this.scrolledIndex + this.maxItemLength()) {
             this.cdkVirtualScrollViewport()?.scrollToIndex(targetIndex || 0);
         }
 
