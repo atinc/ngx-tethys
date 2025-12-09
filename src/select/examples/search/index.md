@@ -1,4 +1,4 @@
 ---
 title: Search
-order: 20
+order: 0
 ---

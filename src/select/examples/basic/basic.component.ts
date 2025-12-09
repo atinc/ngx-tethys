@@ -5,6 +5,7 @@ import { ThySelect } from 'ngx-tethys/select';
 import { ThyOption } from 'ngx-tethys/shared';
 import { ThyInputGroup } from 'ngx-tethys/input';
 import { ThyIcon } from 'ngx-tethys/icon';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'thy-select-basic-example',
@@ -24,13 +25,19 @@ import { ThyIcon } from 'ngx-tethys/icon';
             }
         `
     ],
-    imports: [ThySelect, ThyOption, ThyInputGroup, ThyIcon]
+    imports: [ThySelect, ThyOption, ThyInputGroup, ThyIcon, FormsModule]
 })
 export class ThySelectBasicExampleComponent implements OnInit {
     listOfOption = listOfOption;
     locale: Signal<ThySelectLocale> = injectLocale('select');
 
+    selectedValue = listOfOption[0].value;
+
     @ViewChild('origin', { read: ElementRef, static: true }) customizeOrigin: ElementRef;
 
     ngOnInit() {}
+
+    valueChange(value: string) {
+        console.log('value', value);
+    }
 }

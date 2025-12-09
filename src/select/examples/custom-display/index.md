@@ -1,4 +1,4 @@
 ---
 title: Custom Display
-order: 70
+order: 5
 ---

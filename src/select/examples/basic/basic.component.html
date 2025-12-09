@@ -1,4 +1,10 @@
-<div class="basic-container">
+<thy-select [(ngModel)]="selectedValue" (ngModelChange)="valueChange($event)">
+  @for (option of listOfOption; track option.value) {
+    <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+  }
+</thy-select>
+
+<!-- <div class="basic-container">
   <thy-select ngModel="option1">
     @for (option of listOfOption; track option.value) {
       <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
@@ -20,4 +26,4 @@
   <ng-template #prefix>
     <thy-icon class="text-placeholder" thyIconName="user"></thy-icon>
   </ng-template>
-</thy-input-group>
+</thy-input-group> -->

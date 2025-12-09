@@ -1,4 +1,4 @@
 ---
 title: ThyOptions
-order: 50
+order: 3
 ---

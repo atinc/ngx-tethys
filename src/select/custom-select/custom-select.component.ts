@@ -791,6 +791,8 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
                 this.thyOnScrollToBottom.emit();
             }
         }
+
+        // this.reUpdateSelectedStatus();
     }
 
     public search(keywords: string) {
@@ -798,12 +800,18 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         this.activatedValue.set(null);
         this.keywords.set(keywords.trim());
 
+        // this.reUpdateSelectedStatus();
+
         if (this.thyServerSearch()) {
             this.thyOnSearch.emit(keywords);
         } else {
             this.updateCdkConnectedOverlayPositions();
         }
     }
+
+    // private reUpdateSelectedStatus() {
+    //     this.selectedValues.set([...this.selectedValues()]);
+    // }
 
     onBlur(event?: FocusEvent) {
         // Tab 聚焦后自动聚焦到 input 输入框，此分支下直接返回，无需触发 onTouchedFn
