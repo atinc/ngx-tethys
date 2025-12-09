@@ -718,7 +718,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
 
             for (const item of allGroupsAndOptions) {
                 if (item.type === 'option') {
-                    const isMatch = (item.searchKey || item.label).toLowerCase().indexOf(lowerKeywords) > -1;
+                    const isMatch = (item.searchKey || item.label)?.toLowerCase().indexOf(lowerKeywords) > -1;
                     if (isMatch) {
                         matchedOptions.add(item.value);
                         if (item.groupLabel) {
@@ -935,9 +935,20 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         }
 
         let toActivatedValue = this.activatedValue();
-        if (!toActivatedValue || !this.filteredOptionsMap().has(toActivatedValue)) {
-            if (this.selectedValues().length > 0) {
-                toActivatedValue = this.selectedValues()[0];
+        const filteredOptionsMap = this.filteredOptionsMap();
+        if (!toActivatedValue || !filteredOptionsMap.has(toActivatedValue)) {
+            let selectedValues = this.selectedValues();
+
+            const lowerKeywords = this.keywords()?.trim()?.toLowerCase();
+            if (lowerKeywords) {
+                selectedValues = selectedValues.filter(value => {
+                    const option = filteredOptionsMap.get(value);
+                    return option && (option.searchKey || option.label)?.toLowerCase().indexOf(lowerKeywords) > -1;
+                });
+            }
+
+            if (selectedValues.length > 0) {
+                toActivatedValue = selectedValues[0];
             } else {
                 if (this.thyAutoActiveFirstItem()) {
                     toActivatedValue = filteredOptions[0].value || null;
