@@ -48,7 +48,7 @@
         class="thy-select-dropdown-options thy-select-dropdown-options-{{ thySize() }} thy-select-dropdown-options-with-virtual-scroll">
         <cdk-virtual-scroll-viewport
           class="thy-select-scroll-viewport"
-          [itemSize]="thyVirtualItemSize()"
+          [itemSize]="thyItemSize()"
           [style.height.px]="virtualHeight()"
           (scrolledIndexChange)="optionsScrolled($event)"
           (mouseleave)="mouseLeaveOptions()">
