@@ -83,9 +83,10 @@ import {
     ThySelectConfig
 } from '../select.config';
 import { injectLocale, ThySelectLocale } from 'ngx-tethys/i18n';
-import { SafeAny, Dictionary } from 'ngx-tethys/types';
+import { SafeAny } from 'ngx-tethys/types';
 import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { isUndefinedOrNull } from '@tethys/cdk/is';
 
 export type SelectMode = 'multiple' | '';
 
@@ -450,8 +451,13 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         return this.filteredGroupsAndOptions().filter(item => item.type === 'option');
     });
 
-    private readonly filteredOptionsMap = computed<Dictionary<ThySelectFlattedItem>>(() => {
-        return helpers.keyBy(this.filteredOptions(), 'value');
+    private readonly filteredOptionsMap = computed<Map<SafeAny, ThySelectFlattedItem>>(() => {
+        return this.filteredOptions().reduce((map, item) => {
+            if (!isUndefinedOrNull(item.value)) {
+                map.set(item.value, item);
+            }
+            return map;
+        }, new Map<SafeAny, ThySelectFlattedItem>());
     });
 
     /**
@@ -757,7 +763,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             });
 
             selectedValues.forEach(value => {
-                let option: ThySelectFlattedItem = filteredOptionsMap[value];
+                let option: ThySelectFlattedItem = filteredOptionsMap.get(value);
 
                 if (option) {
                     newOptions.push({
@@ -929,7 +935,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         }
 
         let toActivatedValue = this.activatedValue();
-        if (!toActivatedValue || !this.filteredOptionsMap()[toActivatedValue]) {
+        if (!toActivatedValue || !this.filteredOptionsMap().has(toActivatedValue)) {
             if (this.selectedValues().length > 0) {
                 toActivatedValue = this.selectedValues()[0];
             } else {
@@ -984,7 +990,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             event.preventDefault();
 
             const activatedValue = this.activatedValue();
-            const currentOption = this.filteredOptionsMap()[activatedValue];
+            const currentOption = this.filteredOptionsMap().get(activatedValue);
             if (!currentOption) {
                 return;
             }
