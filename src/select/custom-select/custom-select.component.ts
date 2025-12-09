@@ -84,7 +84,7 @@ import {
 } from '../select.config';
 import { injectLocale, ThySelectLocale } from 'ngx-tethys/i18n';
 import { SafeAny } from 'ngx-tethys/types';
-import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
+import { CdkVirtualScrollViewport, ScrollDispatcher, ScrollingModule } from '@angular/cdk/scrolling';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { isUndefinedOrNull } from '@tethys/cdk/is';
 
@@ -144,7 +144,8 @@ interface ThySelectFlattedItem {
             provide: NG_VALUE_ACCESSOR,
             useExisting: forwardRef(() => ThySelect),
             multi: true
-        }
+        },
+        ScrollDispatcher
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [
