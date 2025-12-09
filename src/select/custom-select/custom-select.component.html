@@ -52,7 +52,12 @@
           [style.height.px]="virtualHeight()"
           (scrolledIndexChange)="optionsScrolled($event)"
           (mouseleave)="mouseLeaveOptions()">
-          <ng-template cdkVirtualFor [cdkVirtualForOf]="filteredGroupsAndOptions()" [cdkVirtualForTrackBy]="trackByFn" let-item>
+          <ng-template
+            cdkVirtualFor
+            [cdkVirtualForOf]="filteredGroupsAndOptions()"
+            [cdkVirtualForTrackBy]="trackByFn"
+            [cdkVirtualForTemplateCacheSize]="0"
+            let-item>
             @if (item.type === 'group') {
               <thy-option-group-render [thyGroupLabel]="item.label"></thy-option-group-render>
             } @else {
