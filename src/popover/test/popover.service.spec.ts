@@ -412,7 +412,8 @@ describe(`thyPopover`, () => {
             tick(1000);
             viewContainerFixture.detectChanges();
             element?.querySelector('thy-popover-simple-content-component')?.closest('.thy-popover-container')?.removeAttribute('id');
-            expect(popover.getClosestPopover(element?.querySelector('thy-popover-simple-content-component')!))?.toBe(null);
+            // @ts-ignore
+            expect(popover.getClosestPopover(element!.querySelector('thy-popover-simple-content-component')!))?.toBe(null);
         }));
 
         it('should update position when autoAdaptive is true', fakeAsync(() => {

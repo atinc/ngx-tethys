@@ -31,7 +31,7 @@ export abstract class ThyAbstractMessageComponent<TConfig extends ThyMessageBase
             error: 'close-circle-fill'
         };
 
-        this.iconName = this.config()?.type ? iconName[this.config()?.type!] : '';
+        this.iconName = this.config()?.type ? iconName[this.config()!.type!] : '';
         this.createCloseTimer();
     }
 

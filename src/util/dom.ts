@@ -13,6 +13,7 @@ const vendor =
 
 export function fallbackMatches(el: Element | Node, selector: string) {
     const nodes = el.parentNode?.querySelectorAll(selector) || [];
+    // eslint-disable-next-line @typescript-eslint/prefer-for-of
     for (let i = 0; i < nodes.length; i++) {
         if (nodes[i] === el) {
             return true;
@@ -48,7 +49,7 @@ export function getWindow(elem: any) {
 }
 
 export function getElementOffset(elem: HTMLElement) {
-    let docElem, win, rect, doc;
+    let docElem, win, doc;
 
     if (!elem) {
         return;
@@ -59,7 +60,7 @@ export function getElementOffset(elem: HTMLElement) {
     if (!elem.getClientRects().length) {
         return { top: 0, left: 0 };
     }
-    rect = elem.getBoundingClientRect();
+    const rect = elem.getBoundingClientRect();
 
     // Make sure element is not hidden (display: none)
     if (rect.width || rect.height) {

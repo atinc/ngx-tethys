@@ -275,7 +275,6 @@ export class ThyResizableDirective implements OnDestroy {
         let newWidth!: number;
         let newHeight!: number;
         let maxWidth!: number;
-        let maxHeight!: number;
         let col = 0;
         let spanWidth = 0;
         let minWidth = this.thyMinWidth();
@@ -301,7 +300,7 @@ export class ThyResizableDirective implements OnDestroy {
         }
 
         maxWidth = ensureInBounds(this.thyMaxWidth()!, boundWidth);
-        maxHeight = ensureInBounds(this.thyMaxHeight()!, boundHeight);
+        const maxHeight = ensureInBounds(this.thyMaxHeight()!, boundHeight);
 
         const gridColumnCount = this.thyGridColumnCount();
         if (gridColumnCount !== -1) {

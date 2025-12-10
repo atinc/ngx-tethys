@@ -13,13 +13,13 @@ const defaultDisplayRender = (label: any) => label.join(' / ');
  */
 @Injectable()
 export class ThyCascaderService {
-    public selectionModel: SelectionModel<SelectOptionBase>;
+    public selectionModel?: SelectionModel<SelectOptionBase>;
 
     public columns: ThyCascaderOption[][] = [];
 
-    public customOptions: ThyCascaderOption[];
+    public customOptions!: ThyCascaderOption[];
 
-    public cascaderOptions: {
+    public cascaderOptions!: {
         labelProperty?: string;
         valueProperty?: string;
         isMultiple?: boolean;
@@ -32,7 +32,7 @@ export class ThyCascaderService {
 
     public activatedOptions: ThyCascaderOption[] = [];
 
-    public labelRenderText: string;
+    public labelRenderText?: string;
 
     public flattenOptions: ThyCascaderSearchOption[] = [];
 
@@ -42,9 +42,9 @@ export class ThyCascaderService {
 
     public searchResultList: ThyCascaderSearchOption[] = [];
 
-    public defaultValue: any[];
+    public defaultValue: any[] | null = null;
 
-    public value: any[];
+    public value!: any[];
 
     private prevSelectedOptions: Set<ThyCascaderOption> = new Set<ThyCascaderOption>();
 
@@ -56,7 +56,7 @@ export class ThyCascaderService {
                 const valueChangeOptions = {
                     value: this.getValues(),
                     isValueEqual: this.arrayEquals(this.value, this.getValues()),
-                    isSelectionModelEmpty: this.selectionModel.isEmpty()
+                    isSelectionModelEmpty: this.selectionModel!.isEmpty()
                 };
                 this.defaultValue = null;
                 this.value = this.getValues();
@@ -81,8 +81,8 @@ export class ThyCascaderService {
     }
 
     public initSelectionModel(isMultiple?: boolean) {
-        if (this.selectionModel) {
-            this.selectionModel.clear();
+        if (this.selectionModel!) {
+            this.selectionModel!.clear();
         } else {
             this.selectionModel = new SelectionModel(isMultiple);
         }
@@ -99,13 +99,13 @@ export class ThyCascaderService {
         this.activatedOptions = [...this.selectedOptions];
         this.activatedOptions.forEach((item, index) => {
             if (!isEmpty(item.children) && !item.isLeaf) {
-                this.columns[index + 1] = item.children;
+                this.columns[index + 1] = item.children!;
             }
         });
     }
 
     public initOptions(index: number) {
-        const vs = this.defaultValue;
+        const vs = this.defaultValue!;
         const load = () => {
             this.activateOnInit(index, vs[index]);
             if (index < vs.length - 1) {
@@ -139,7 +139,7 @@ export class ThyCascaderService {
         if (this.cascaderOptions.isMultiple && !option.isLeaf && this.cascaderOptions.isOnlySelectLeaf && isSelect) {
             this.toggleAllChildren(option, index, event as boolean, selectFn);
         } else {
-            this.setActiveOption(option, index, isSelect, true, selectFn);
+            this.setActiveOption(option, index, !!isSelect, true, selectFn);
         }
     }
 
@@ -155,7 +155,7 @@ export class ThyCascaderService {
             const originOption = this.activatedOptions[i + 1]?.parent;
             if (
                 !this.activatedOptions[i] ||
-                originOption?.[this.cascaderOptions.valueProperty] !== this.activatedOptions[i]?.[this.cascaderOptions.valueProperty]
+                originOption?.[this.cascaderOptions.valueProperty!] !== this.activatedOptions[i]?.[this.cascaderOptions.valueProperty!]
             ) {
                 this.activatedOptions[i] = originOption ?? this.activatedOptions[i];
             }
@@ -173,7 +173,7 @@ export class ThyCascaderService {
             this.columns = this.columns.slice(0, index + 1);
         }
 
-        if (select) {
+        if (select && selectFn) {
             selectFn(option, index);
         }
     }
@@ -215,9 +215,9 @@ export class ThyCascaderService {
     }
 
     private activateOnInit(index: number, value: any): void {
-        let option!: ThyCascaderOption;
+        let option: ThyCascaderOption | undefined | null;
         if (isArray(this.customOptions) && this.customOptions.length > 0) {
-            option = this.customOptions.find(item => get(item, this.cascaderOptions.valueProperty) === value);
+            option = this.customOptions.find(item => get(item, this.cascaderOptions.valueProperty!) === value);
         }
         if (isUndefinedOrNull(option)) {
             option = this.findOption(value, index);
@@ -231,8 +231,8 @@ export class ThyCascaderService {
                           [`${this.cascaderOptions.labelProperty || 'label'}`]: value
                       };
         }
-        this.updatePrevSelectedOptions(option, true);
-        this.setActiveOption(option, index, false, false);
+        this.updatePrevSelectedOptions(option!, true);
+        this.setActiveOption(option!, index, false, false);
     }
 
     public isSelectedOption(option: ThyCascaderOption, index: number): boolean {
@@ -243,7 +243,7 @@ export class ThyCascaderService {
                 return this.checkSelectedStatus(option, true);
             }
         } else {
-            const selectedOpts = this.selectionModel.selected;
+            const selectedOpts = this.selectionModel!.selected;
             const appearIndex = selectedOpts.findIndex(item => {
                 if (item.thyRawValue.value.length - 1 === index) {
                     const selectedItem = helpers.get(item, `thyRawValue.value.${index}`);
@@ -269,9 +269,9 @@ export class ThyCascaderService {
         option.selected = selected;
 
         while (allLeafs.length) {
-            const { option, index } = allLeafs.shift();
+            const { option, index } = allLeafs.shift()!;
             option.selected = !selected;
-            this.setActiveOption(option, index, true, null, selectFn);
+            this.setActiveOption(option, index, true, undefined, selectFn);
         }
 
         for (let i = 0; i < this.activatedOptions.length; i++) {
@@ -294,8 +294,8 @@ export class ThyCascaderService {
             option: ThyCascaderOption;
             index: number;
         }[] = [];
-        if (option.children.length > 0) {
-            for (const childOption of option.children) {
+        if (option.children!.length > 0) {
+            for (const childOption of option.children!) {
                 childOption.parent = option;
                 if (childOption.isLeaf && !childOption.selected === selected) {
                     allLeafs.push({
@@ -379,7 +379,7 @@ export class ThyCascaderService {
         if (helpers.isEmpty(option.children) && this.cascaderOptions?.isOnlySelectLeaf) {
             return false;
         }
-        for (const childOption of option.children) {
+        for (const childOption of option.children!) {
             if (isArray(childOption.children) && childOption.children.length && !this.checkSelectedStatus(childOption, isSelected)) {
                 return false;
             }
@@ -390,7 +390,7 @@ export class ThyCascaderService {
         return true;
     }
 
-    private findOption(option: any, index: number): ThyCascaderOption {
+    private findOption(option: any, index: number): ThyCascaderOption | null | undefined {
         const options: ThyCascaderOption[] = this.columns[index];
         if (options) {
             const value = typeof option === 'object' ? this.getOptionValue(option) : option;
@@ -417,14 +417,17 @@ export class ThyCascaderService {
     }
 
     public removeSelectedItem(item: SelectOptionBase) {
-        const selectedItems = this.selectionModel.selected;
+        const selectedItems = this.selectionModel!.selected;
         const currentItem = selectedItems.find(i => {
             return helpers.shallowEqual(i.thyValue, item.thyValue);
         });
-        this.deselectOption(currentItem);
-        this.selectionModel.deselect(currentItem);
+        if (currentItem) {
+            this.deselectOption(currentItem);
+            this.selectionModel!.deselect(currentItem);
+        }
+
         // update selectedOptions
-        const updatedSelectedItems = this.selectionModel.selected;
+        const updatedSelectedItems = this.selectionModel!.selected;
         if (isArray(updatedSelectedItems) && updatedSelectedItems.length) {
             this.selectedOptions = updatedSelectedItems[updatedSelectedItems.length - 1].thyRawValue.value;
         }
@@ -446,9 +449,9 @@ export class ThyCascaderService {
     }
 
     private deselectAllSelected() {
-        const selectedOptions = this.selectionModel.selected;
+        const selectedOptions = this.selectionModel!.selected;
         selectedOptions.forEach(item => this.deselectOption(item));
-        this.selectionModel.clear();
+        this.selectionModel!.clear();
         this.valueChange$.next();
     }
 
@@ -467,7 +470,7 @@ export class ThyCascaderService {
         if (option.selected) {
             this.buildDisplayLabel();
         } else {
-            const selectedItems = this.selectionModel.selected;
+            const selectedItems = this.selectionModel!.selected;
             const currentItem = selectedItems.find(item => {
                 if (item.thyRawValue.value.length - 1 === index) {
                     const selectedItem = helpers.get(item, `thyRawValue.value.${index}`);
@@ -476,7 +479,9 @@ export class ThyCascaderService {
                     return false;
                 }
             });
-            this.selectionModel.deselect(currentItem);
+            if (currentItem) {
+                this.selectionModel!.deselect(currentItem);
+            }
         }
         this.valueChange$.next();
     }
@@ -519,6 +524,7 @@ export class ThyCascaderService {
         if (this.cascaderOptions.isLabelRenderTemplate) {
             labelRenderContext = { labels, selectedOptions };
         } else {
+            // @ts-ignore
             labelRenderText = defaultDisplayRender.call(this, labels, selectedOptions);
             this.labelRenderText = labelRenderText;
         }
@@ -533,12 +539,12 @@ export class ThyCascaderService {
                 thyValue: labels,
                 thyLabelText: labelRenderText
             };
-            this.selectionModel.select(selectedData);
+            this.selectionModel!.select(selectedData);
         }
     }
 
     public writeCascaderValue(value: any): void {
-        if (!this.selectionModel) {
+        if (!this.selectionModel!) {
             this.initSelectionModel(this.cascaderOptions.isMultiple);
         }
         if (!this.cascaderOptions.isMultiple) {
@@ -552,7 +558,7 @@ export class ThyCascaderService {
             }
         } else {
             const values = this.toArray(value);
-            this.selectionModel.clear();
+            this.selectionModel!.clear();
             values.forEach(item => {
                 const vs = (this.defaultValue = this.toArray(item));
                 if (vs.length) {
@@ -593,9 +599,8 @@ export class ThyCascaderService {
     }
 
     public getValues() {
-        let selectedItems!: any[];
-        const selected = this.selectionModel.selected;
-        selectedItems = selected.map(item => this.getSubmitValue(item.thyRawValue.value));
+        const selected = this.selectionModel!.selected;
+        const selectedItems = selected.map(item => this.getSubmitValue(item.thyRawValue.value));
         return this.cascaderOptions?.isMultiple ? selectedItems : (selectedItems[0] ?? selectedItems);
     }
 
@@ -610,7 +615,7 @@ export class ThyCascaderService {
             set(option, 'selected', this.isSelected(option, index));
 
             if (this.cascaderOptions.isOnlySelectLeaf && this.cascaderOptions.isMultiple && option.parent) {
-                this.updatePrevSelectedOptions(option.parent, false, index - 1);
+                this.updatePrevSelectedOptions(option.parent, false, index! - 1);
             }
         }
 
@@ -619,7 +624,7 @@ export class ThyCascaderService {
 
     private handleActivateInit(option: ThyCascaderOption): void {
         if (isArray(this.customOptions) && this.customOptions.length > 0) {
-            const valueKey = this.cascaderOptions.valueProperty;
+            const valueKey = this.cascaderOptions.valueProperty!;
             this.customOptions.some(item => get(item, valueKey) == get(option, valueKey)) && set(option, 'selected', true);
         }
         if (this.cascaderOptions.isOnlySelectLeaf && option.isLeaf) {
@@ -629,8 +634,8 @@ export class ThyCascaderService {
 
     private isSelected(option: ThyCascaderOption, index?: number) {
         return this.cascaderOptions.isOnlySelectLeaf && !option.isLeaf && this.cascaderOptions.isMultiple
-            ? this.isSelectedOption(option, index)
-            : !this.isSelectedOption(option, index);
+            ? this.isSelectedOption(option, index!)
+            : !this.isSelectedOption(option, index!);
     }
 
     private clearPrevSelectedOptions() {
@@ -661,14 +666,14 @@ export class ThyCascaderService {
     }
 
     private getSelectedCustomOptions() {
-        const selected = this.cascaderOptions.isMultiple ? this.selectionModel.selected : this.selectionModel.selected[0];
+        const selected = this.cascaderOptions.isMultiple ? this.selectionModel!.selected : this.selectionModel!.selected[0];
         if (!isArray(selected)) {
             return [];
         }
         const valueKey = this.cascaderOptions.valueProperty;
         return selected.filter(item => {
             const selectedId = get(item, `thyRawValue.value.0.${valueKey}`);
-            return this.customOptions.some(option => get(option, valueKey) === selectedId);
+            return this.customOptions.some(option => get(option, valueKey!) === selectedId);
         });
     }
 

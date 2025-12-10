@@ -129,6 +129,7 @@ export class ThyIcon {
         // Do this before inserting the element into the DOM, in order to avoid a style recalculation.
         const styleTags = svg.querySelectorAll('style') as NodeListOf<HTMLStyleElement>;
 
+        // eslint-disable-next-line @typescript-eslint/prefer-for-of
         for (let i = 0; i < styleTags.length; i++) {
             styleTags[i].textContent += ' ';
         }

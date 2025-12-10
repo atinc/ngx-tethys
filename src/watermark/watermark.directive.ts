@@ -59,6 +59,7 @@ export class ThyWatermarkDirective implements OnInit {
     readonly thyCanvasConfig = input<ThyCanvasConfigType>();
 
     readonly content = computed(() => {
+        // eslint-disable-next-line no-useless-escape
         const value = this.thyWatermark()?.replace(/^\"|\"$/g, '');
         return value || '';
     });
@@ -124,10 +125,11 @@ export class ThyWatermarkDirective implements OnInit {
     }
 
     createCanvas() {
-        let { gutter, fontSize, color, degree, textLineHeight } = {
+        const { gutter, fontSize, degree, textLineHeight } = {
             ...DEFAULT_CANVAS_CONFIG,
             ...(this.thyCanvasConfig() || {})
         };
+        let color = { ...DEFAULT_CANVAS_CONFIG, ...(this.thyCanvasConfig() || {}) }.color;
         color = this.thyThemeStore.normalizeColor(color);
 
         const [xGutter, yGutter] = gutter;
@@ -141,7 +143,7 @@ export class ThyWatermarkDirective implements OnInit {
                 top: 0,
                 left: 0,
                 display: 'inline-block',
-                'font-size': `${parseFloat(`${  fontSize}`)}px`,
+                'font-size': `${parseFloat(`${fontSize}`)}px`,
                 'word-wrap': 'break-word',
                 'font-family': 'inherit',
                 'white-space': 'pre-line'
@@ -163,10 +165,10 @@ export class ThyWatermarkDirective implements OnInit {
 
         let start = Math.ceil(Math.sin(angle) * fakeBoxWidth * Math.sin(angle));
         const canvasWidth = start + fakeBoxWidth;
-        canvas.setAttribute('width', `${  canvasWidth + xGutter}`);
-        canvas.setAttribute('height', `${  canvasHeight + yGutter}`);
+        canvas.setAttribute('width', `${canvasWidth + xGutter}`);
+        canvas.setAttribute('height', `${canvasHeight + yGutter}`);
 
-        ctx.font = `${parseFloat(`${  fontSize}`)}px microsoft yahei`;
+        ctx.font = `${parseFloat(`${fontSize}`)}px microsoft yahei`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'top';
         ctx.fillStyle = color;

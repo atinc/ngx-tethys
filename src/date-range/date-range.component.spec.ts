@@ -319,7 +319,7 @@ describe('ThyTestDateRangeComponent', () => {
 
             clickPrevious();
             expect(modelChangedSpy).toHaveBeenCalledTimes(1);
-            const interval = originDate.timestamp?.interval!;
+            const interval = originDate.timestamp!.interval!;
             const beginDate = originDate.begin! * 1000;
             const endDate = originDate.end! * 1000;
             const previousModelData = {

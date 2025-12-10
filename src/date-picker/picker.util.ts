@@ -69,7 +69,7 @@ export function getFlexibleAdvancedReadableValue(
         return value;
     }
     switch (flexibleDateGranularity) {
-        case 'year':
+        case 'year': {
             const yearFormatStr = locale().datePicker.yearFormat;
             if (tinyDates[0].isSameYear(tinyDates[1])) {
                 value = `${tinyDates[0].format(yearFormatStr)}`;
@@ -77,7 +77,8 @@ export function getFlexibleAdvancedReadableValue(
                 value = `${tinyDates[0].format(yearFormatStr)}${separator}${tinyDates[1].format(yearFormatStr)}`;
             }
             break;
-        case 'quarter':
+        }
+        case 'quarter': {
             const quarterFormatStr = locale().datePicker.yearQuarterFormat;
             if (tinyDates[0].isSameQuarter(tinyDates[1])) {
                 value = `${tinyDates[0].format(quarterFormatStr)}`;
@@ -85,7 +86,8 @@ export function getFlexibleAdvancedReadableValue(
                 value = `${tinyDates[0].format(quarterFormatStr)}${separator}${tinyDates[1].format(quarterFormatStr)}`;
             }
             break;
-        case 'month':
+        }
+        case 'month': {
             const monthFormatStr = locale().datePicker.yearMonthFormat;
             if (tinyDates[0].isSameMonth(tinyDates[1])) {
                 value = `${tinyDates[0].format(monthFormatStr)}`;
@@ -93,6 +95,7 @@ export function getFlexibleAdvancedReadableValue(
                 value = `${tinyDates[0].format(monthFormatStr)}${separator}${tinyDates[1].format(monthFormatStr)}`;
             }
             break;
+        }
     }
     return value;
 }

@@ -37,6 +37,7 @@ export class ThyImageService implements OnDestroy {
         const dialogRef = this.thyDialog.open(ThyImagePreview, {
             initialState: {
                 images,
+                // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
                 previewIndex: options?.startIndex! >= 0 && options?.startIndex! < images.length ? options?.startIndex! : 0,
                 previewConfig: config
             },

@@ -112,6 +112,7 @@ export class ThyIconRegistry {
     private toSvgElement(element: Element): SVGElement {
         const svg = this.svgElementFromString('<svg></svg>');
 
+        // eslint-disable-next-line @typescript-eslint/prefer-for-of
         for (let i = 0; i < element.childNodes.length; i++) {
             if (element.childNodes[i].nodeType === this.document.ELEMENT_NODE) {
                 svg.appendChild(element.childNodes[i].cloneNode(true));

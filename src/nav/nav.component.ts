@@ -334,10 +334,10 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
 
     private setMoreBtnOffset() {
         const defaultMoreOperation = this.defaultMoreOperation();
-        const computedStyle = window.getComputedStyle(defaultMoreOperation?.nativeElement!);
+        const computedStyle = window.getComputedStyle(defaultMoreOperation!.nativeElement!);
         this.moreBtnOffset = {
-            height: defaultMoreOperation?.nativeElement?.offsetHeight! + parseFloat(computedStyle?.marginBottom) || 0,
-            width: defaultMoreOperation?.nativeElement?.offsetWidth! + parseFloat(computedStyle?.marginRight) || 0
+            height: defaultMoreOperation!.nativeElement!.offsetHeight! + parseFloat(computedStyle?.marginBottom) || 0,
+            width: defaultMoreOperation!.nativeElement!.offsetWidth! + parseFloat(computedStyle?.marginRight) || 0
         };
     }
 

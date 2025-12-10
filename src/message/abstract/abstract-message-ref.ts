@@ -4,7 +4,7 @@ import { ThyMessageBaseConfig } from '../message.config';
 import { WritableSignal, Signal } from '@angular/core';
 
 export interface IThyAbstractMessageQueue<TReferences extends ThyAbstractMessageRef = ThyAbstractMessageRef> {
-    queues!: Signal<TReferences[]>;
+    queues: Signal<TReferences[]>;
     setQueues(newValue: TReferences[]): void;
 }
 

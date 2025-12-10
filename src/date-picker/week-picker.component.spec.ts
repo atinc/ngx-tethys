@@ -112,7 +112,7 @@ describe('ThyWeekPickerComponent', () => {
             tick(500);
             fixture.detectChanges();
             flush();
-            const currentWeekTr = document.querySelector('.thy-calendar-today')?.parentElement!;
+            const currentWeekTr = document.querySelector('.thy-calendar-today')!.parentElement!;
             expect(currentWeekTr.classList[0]).toEqual('thy-calendar-current-week');
             expect(currentWeekTr.classList[2]).toEqual('thy-calendar-active-week');
         }));

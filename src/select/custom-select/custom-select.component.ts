@@ -721,7 +721,8 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
 
             for (const item of allGroupsAndOptions) {
                 if (item.type === 'option') {
-                    const isMatch = (item.searchKey || item.label)!.toLowerCase()?.indexOf(lowerKeywords) > -1;
+                    const isMatch =
+                        (item.searchKey || item.label) && (item.searchKey || item.label)!.toLowerCase().indexOf(lowerKeywords) > -1;
                     if (isMatch) {
                         matchedOptions.add(item.value!);
                         if (item.groupLabel) {
@@ -946,7 +947,11 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             if (lowerKeywords) {
                 selectedValues = selectedValues.filter(value => {
                     const option = filteredOptionsMap.get(value);
-                    return option && (option.searchKey || option.label)!.toLowerCase().indexOf(lowerKeywords) > -1;
+                    return (
+                        option &&
+                        (option.searchKey || option.label) &&
+                        (option.searchKey || option.label)!.toLowerCase().indexOf(lowerKeywords) > -1
+                    );
                 });
             }
 

@@ -205,8 +205,7 @@ describe('Component:thy-back-top', () => {
 
     describe('#thyTemplate', () => {
         it(`should show custom template`, fakeAsync(() => {
-            let fixtureTemplate!: ComponentFixture<TestBackTopTemplateComponent>;
-            fixtureTemplate = TestBed.createComponent(TestBackTopTemplateComponent);
+            const fixtureTemplate: ComponentFixture<TestBackTopTemplateComponent> = TestBed.createComponent(TestBackTopTemplateComponent);
 
             componentObject.scrollTo(window, defaultVisibilityHeight + 1);
             tick();

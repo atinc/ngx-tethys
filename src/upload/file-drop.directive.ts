@@ -27,7 +27,7 @@ export class ThyFileDropDirective extends FileSelectBaseDirective implements OnI
      * 当拖拽的文件中有不符合 thyAcceptType 中定义的类型时触发
      * @description.en-us It is triggered when there are files in the dragged files that do not conform to the types defined in thyAcceptType.
      */
-    thyFilesReject = output<File[]>();
+    readonly thyFilesReject = output<File[]>();
 
     private destroyRef = inject(DestroyRef);
 
@@ -41,17 +41,17 @@ export class ThyFileDropDirective extends FileSelectBaseDirective implements OnI
 
     public ngOnInit(): void {
         this.ngZone.runOutsideAngular(() => {
-            fromEvent(this.elementRef.nativeElement, 'dragenter')
+            fromEvent<DragEvent>(this.elementRef.nativeElement, 'dragenter')
                 .pipe(
-                    takeUntilDestroyed(this.destroyRef),
                     tap((event: DragEvent) => {
                         event.preventDefault();
                     }),
-                    filter(event => event.dataTransfer.items && event.dataTransfer.items.length > 0)
+                    filter((event: DragEvent) => !!(event.dataTransfer?.items && event.dataTransfer.items.length > 0)),
+                    takeUntilDestroyed(this.destroyRef)
                 )
                 .subscribe((event: DragEvent) => {
                     if (this.checkRejectFolderAndHtmlElement(event)) {
-                        const files = this.filterFilesOrItems(Array.from(event.dataTransfer.items));
+                        const files = this.filterFilesOrItems(Array.from(event.dataTransfer!.items));
                         if (!isEmpty(files)) {
                             this.ngZone.run(() => {
                                 this.isDragOver.set(true);
@@ -78,12 +78,12 @@ export class ThyFileDropDirective extends FileSelectBaseDirective implements OnI
                     });
                 });
 
-            fromEvent(this.elementRef.nativeElement, 'drop')
+            fromEvent<DragEvent>(this.elementRef.nativeElement, 'drop')
                 .pipe(
-                    takeUntilDestroyed(this.destroyRef),
                     tap((event: DragEvent) => {
                         event.preventDefault();
-                    })
+                    }),
+                    takeUntilDestroyed(this.destroyRef)
                 )
                 .subscribe((event: DragEvent) => {
                     this.ngZone.run(() => {
@@ -110,6 +110,7 @@ export class ThyFileDropDirective extends FileSelectBaseDirective implements OnI
         // 排除文件夹和HTML元素拖拽
         const items: DataTransferItemList | DataTransferItem[] = event.dataTransfer ? event.dataTransfer.items : [];
         let res = true;
+        // eslint-disable-next-line @typescript-eslint/prefer-for-of
         for (let index = 0; index < items.length; index++) {
             const item = items[index];
             const entry = this.getAsEntry(item);

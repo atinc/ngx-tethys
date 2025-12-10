@@ -566,14 +566,16 @@ export class ThyTree implements ControlValueAccessor {
         this.thyTreeService.deleteTreeNode(sourceNode);
 
         switch (this.nodeDropTarget.position) {
-            case 'before':
+            case 'before': {
                 const beforeInsertIndex = (targetNodeParent?.children || this.treeNodes).indexOf(targetNode);
                 this.thyTreeService.addTreeNode(sourceNode, targetNodeParent, beforeInsertIndex);
                 break;
-            case 'after':
+            }
+            case 'after': {
                 const afterInsertIndex = (targetNodeParent?.children || this.treeNodes).indexOf(targetNode) + 1;
                 this.thyTreeService.addTreeNode(sourceNode, targetNodeParent, afterInsertIndex);
                 break;
+            }
             case 'in':
                 this.thyTreeService.addTreeNode(sourceNode, targetNode);
                 break;

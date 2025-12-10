@@ -61,7 +61,7 @@ export class ThySwitch extends TabIndexDisabledControlValueAccessorMixin impleme
      * 数据变化的回调事件，即将被弃用，请使用 ngModelChange
      * @deprecated
      */
-    thyChange = output<Event>();
+    readonly thyChange = output<Event>();
 
     model = signal<boolean>(false);
 

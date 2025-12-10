@@ -24,7 +24,7 @@ import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { ThyTransferList } from './transfer-list.component';
-import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
+import { coerceBooleanProperty, isUndefinedOrNull, ThyBooleanInput } from 'ngx-tethys/util';
 
 /**
  * 穿梭框组件
@@ -98,13 +98,13 @@ export class ThyTransfer implements OnInit {
     /**
      * @type EventEmitter<ThyTransferDragEvent>
      */
-    thyDraggableUpdate = output<ThyTransferDragEvent>();
+    readonly thyDraggableUpdate = output<ThyTransferDragEvent>();
 
     /**
      * Transfer变化的回调事件
      * @type EventEmitter<ThyTransferChangeEvent>
      */
-    thyChange = output<ThyTransferChangeEvent>();
+    readonly thyChange = output<ThyTransferChangeEvent>();
 
     /**
      * 设置自定义Item渲染数据模板
@@ -153,7 +153,11 @@ export class ThyTransfer implements OnInit {
         if (event.item.isFixed) {
             return;
         }
-        if (this.thyRightMax() <= this.rightDataSource.length && from === TransferDirection.left) {
+        if (
+            !isUndefinedOrNull(this.thyRightMax()) &&
+            this.thyRightMax()! <= this.rightDataSource.length &&
+            from === TransferDirection.left
+        ) {
             return;
         }
         const to = from === TransferDirection.left ? TransferDirection.right : TransferDirection.left;
@@ -218,7 +222,7 @@ export class ThyTransfer implements OnInit {
 
         this.rightDataSource =
             direction === TransferDirection.right
-                ? [...event.listData.lock, ...event.listData.unlock]
+                ? [...event.listData!.lock!, ...event.listData!.unlock!]
                 : [...otherListData.lock, ...otherListData.unlock];
     }
 }

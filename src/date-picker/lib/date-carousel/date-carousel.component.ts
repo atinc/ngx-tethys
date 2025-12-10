@@ -56,7 +56,7 @@ export class DateCarousel implements OnInit, ControlValueAccessor, OnDestroy {
 
     selectableData: { year?: AdvancedSelectableCell[]; quarter?: AdvancedSelectableCell[]; month?: AdvancedSelectableCell[] } = {};
 
-    dateGranularity!: ThyDateGranularity | null;
+    dateGranularity?: ThyDateGranularity;
 
     selectedValue: AdvancedSelectableCell[] = [];
 
@@ -71,7 +71,7 @@ export class DateCarousel implements OnInit, ControlValueAccessor, OnDestroy {
     ngOnInit(): void {
         this.selectedValueChange$.subscribe(() => {
             if (this.selectedValue.length) {
-                this.buildSelectableData(this.selectedValue[0]?.startValue!, this.dateGranularity);
+                this.buildSelectableData(this.selectedValue[0].startValue!, this.dateGranularity);
             }
             this.selectableData.year?.forEach(item => (item.classMap = this.getClassMap(item)));
             this.selectableData.quarter?.forEach(item => (item.classMap = this.getClassMap(item)));
@@ -318,7 +318,7 @@ export class DateCarousel implements OnInit, ControlValueAccessor, OnDestroy {
         if (this.isSelected(value)) {
             this.toggleSelect(value);
             if (this.isSelectEmpty()) {
-                this.dateGranularity = null;
+                this.dateGranularity = undefined;
             }
             return;
         }

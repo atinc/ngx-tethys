@@ -79,7 +79,7 @@ describe('ThyTreeComponent', () => {
 
         it('test set selectedKeys correctly', () => {
             expect(treeComponent.getSelectedNodes().length).toEqual(1);
-            expect(treeComponent.getSelectedNode().title).toEqual('未分配部门');
+            expect(treeComponent.getSelectedNode()!.title).toEqual('未分配部门');
         });
 
         it('test tree node disabled state', () => {
@@ -133,7 +133,7 @@ describe('ThyTreeComponent', () => {
             treeComponent.selectTreeNode(treeComponent.treeNodes[1]);
             fixture.detectChanges();
             expect(treeComponent.getSelectedNodes().length).toEqual(1);
-            expect(treeComponent.getSelectedNode().title).toEqual('未分配部门');
+            expect(treeComponent.getSelectedNode()!.title).toEqual('未分配部门');
         });
 
         it(`test public function 'getCheckedNodes()`, () => {
@@ -623,6 +623,7 @@ describe('ThyTreeComponent', () => {
             let startNode: any = null;
             let targetNode: any = null;
 
+            // eslint-disable-next-line @typescript-eslint/prefer-for-of
             for (let i = 0; i < nodeDebugElements.length; i++) {
                 const item = nodeDebugElements[i];
                 const node = item.componentInstance?.node();

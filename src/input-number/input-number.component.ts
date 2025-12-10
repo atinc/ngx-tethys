@@ -51,7 +51,7 @@ enum Type {
     }
 })
 export class ThyInputNumber extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor, OnInit, OnDestroy {
-    readonly inputElement = viewChild<ElementRef<any>>('input');
+    readonly inputElement = viewChild.required<ElementRef<any>>('input');
 
     private autoStepTimer: any;
 
@@ -59,7 +59,7 @@ export class ThyInputNumber extends TabIndexDisabledControlValueAccessorMixin im
 
     validValue!: number | string;
 
-    displayValue = signal<number | string>(undefined);
+    displayValue = signal<number | string | undefined>(undefined);
 
     disabledUp = signal(false);
 
@@ -82,7 +82,7 @@ export class ThyInputNumber extends TabIndexDisabledControlValueAccessorMixin im
      * 是否禁用
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyDisabled: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyDisabled: boolean = false;
 
     /**
      * 最大值
@@ -143,7 +143,7 @@ export class ThyInputNumber extends TabIndexDisabledControlValueAccessorMixin im
      */
     readonly thyStepChange = output<{ value: number; type: Type }>();
 
-    private isFocused: boolean;
+    private isFocused: boolean = false;
 
     constructor() {
         super();
@@ -240,10 +240,10 @@ export class ThyInputNumber extends TabIndexDisabledControlValueAccessorMixin im
     }
 
     onInputFocus(event?: Event) {
-        this.activeValue = this.parser(this.displayValue().toString());
+        this.activeValue = this.parser(this.displayValue()!.toString());
         if (!this.isFocused) {
             this.isFocused = true;
-            this.thyFocus.emit(event);
+            this.thyFocus.emit(event!);
         }
     }
 
@@ -263,7 +263,7 @@ export class ThyInputNumber extends TabIndexDisabledControlValueAccessorMixin im
         if (this.autoStepTimer) {
             clearTimeout(this.autoStepTimer);
         }
-        this.displayValue.set(this.toNumber(this.displayValue()));
+        this.displayValue.set(this.toNumber(this.displayValue()!));
     }
 
     step(type: Type, e: MouseEvent | KeyboardEvent): void {
@@ -279,8 +279,8 @@ export class ThyInputNumber extends TabIndexDisabledControlValueAccessorMixin im
         } else if (type === Type.down) {
             val = this.downStep(value);
         }
-        const outOfRange = val > this.thyMax() || val < this.thyMin();
-        val = this.getCurrentValidValue(val);
+        const outOfRange = val! > this.thyMax() || val! < this.thyMin();
+        val = this.getCurrentValidValue(val!);
         this.updateValidValue(val);
         this.onChangeFn(this.validValue);
         this.thyStepChange.emit({ value: this.validValue as number, type });
@@ -360,11 +360,14 @@ export class ThyInputNumber extends TabIndexDisabledControlValueAccessorMixin im
     }
 
     parser(value: string) {
-        return value
-            .trim()
-            .replace(/。/g, '.')
-            .replace(/[^\w\.-]+/g, '')
-            .replace(this.thySuffix(), '');
+        return (
+            value
+                .trim()
+                .replace(/。/g, '.')
+                // eslint-disable-next-line no-useless-escape
+                .replace(/[^\w\.-]+/g, '')
+                .replace(this.thySuffix()!, '')
+        );
     }
 
     getCurrentValidValue(value: string | number): number | string {
