@@ -18,13 +18,13 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-import { ThyNativeTableStyleService } from '../../services/table-style.service';
-import { ThyNativeTableLayout, ThyNativeTableScroll, ThyNativeTableSize, ThyNativeTableTheme } from '../../table.interface';
+import { ThyNativeTableStyleService } from '../services/table-style.service';
+import { ThyNativeTableLayout, ThyNativeTableScroll, ThyNativeTableSize, ThyNativeTableTheme } from '../table.interface';
 import { ThyNativeTableInnerDefaultComponent } from './table-inner-default.component';
 import { ThyNativeTableInnerScrollComponent } from './table-inner-scroll.component';
 import { UpdateHostClassService } from 'ngx-tethys/core';
 import { ThyPagination } from 'ngx-tethys/pagination';
-import { ThyPage } from 'ngx-tethys/table';
+import { ThyPage, ThyTableColumnSkeletonType, ThyTableEmptyOptions } from 'ngx-tethys/table';
 
 @Component({
     selector: 'thy-native-table',
@@ -80,8 +80,8 @@ export class ThyNativeTableComponent<T = any> implements OnInit, AfterViewInit {
     readonly thyTableLayout = input<ThyNativeTableLayout>('auto');
     readonly thySize = input<ThyNativeTableSize>('default');
     readonly thyTheme = input<ThyNativeTableTheme>('default');
+
     readonly thyData = input<readonly T[]>([]);
-    readonly thyRowKey = input<string>('_id');
 
     readonly thyShowPagination = input<boolean>(true);
     readonly thyPageIndex = input<number>(1);
@@ -94,6 +94,10 @@ export class ThyNativeTableComponent<T = any> implements OnInit, AfterViewInit {
     readonly thyPageSizeChange = output<number>();
 
     readonly thyScroll = input<ThyNativeTableScroll>({ x: null, y: null });
+
+    readonly thyEmptyOptions = input<ThyTableEmptyOptions | null>(null);
+
+    readonly thyColumnSkeletonTypes = input<ThyTableColumnSkeletonType[]>(null);
 
     public theadTemplate = signal<TemplateRef<any> | null>(null);
 

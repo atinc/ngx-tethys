@@ -2,7 +2,7 @@ import { DestroyRef, Directive, ElementRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { fromEvent } from 'rxjs';
 
-import { THY_NATIVE_TABLE_CELL_SELECTOR } from '../../constant';
+import { THY_NATIVE_TABLE_CELL_SELECTOR } from '../constant';
 import { ThyNativeTableEditEventDispatcher } from './edit-event-dispatcher.service';
 
 @Directive({

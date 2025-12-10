@@ -5,21 +5,21 @@ export * from './table.interface';
 export * from './constant';
 export * from './services/table-style.service';
 
-export * from './components/cell/cell.directive';
-export * from './components/cell/cell-fixed.directive';
-export * from './components/cell/th.directive';
-export * from './components/row/tr.directive';
-export * from './components/cell/td-selection.component';
-export * from './components/cell/td-expand.component';
-export * from './components/cell/th-selection.component';
-export * from './components/cell/th-sort.component';
+export * from './cell/cell.directive';
+export * from './cell/cell-fixed.directive';
+export * from './cell/th.directive';
+export * from './row/tr.directive';
+export * from './cell/td-selection.component';
+export * from './cell/td-expand.component';
+export * from './cell/th-selection.component';
+export * from './cell/th-sort.component';
 
-export * from './components/table/table.component';
-export * from './components/table/thead.component';
-export * from './components/table/tbody.component';
-export * from './components/table/table-content.component';
-export * from './components/table/table-inner-default.component';
-export * from './components/table/table-inner-scroll.component';
-export * from './components/row/tr-measure.component';
+export * from './table/table.component';
+export * from './table/thead.component';
+export * from './table/tbody.component';
+export * from './table/table-content.component';
+export * from './table/table-inner-default.component';
+export * from './table/table-inner-scroll.component';
+export * from './row/tr-measure.component';
 
-export * from './components/table-editable/index';
+export * from './table-editable/index';

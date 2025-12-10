@@ -21,7 +21,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EMPTY, Observable, merge, of } from 'rxjs';
 import { delay, map, mergeMap, startWith, switchMap } from 'rxjs/operators';
 
-import { ThyNativeTableStyleService } from '../../services/table-style.service';
+import { ThyNativeTableStyleService } from '../services/table-style.service';
 import { ThyNativeTableTrDirective } from '../row/tr.directive';
 
 @Component({

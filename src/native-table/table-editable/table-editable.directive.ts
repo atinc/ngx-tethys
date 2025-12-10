@@ -8,7 +8,7 @@ import {
     THY_NATIVE_TABLE_EDIT_OPEN_SELECTOR,
     THY_NATIVE_TABLE_EDIT_PANE_SELECTOR,
     ThyNativeTableEditTrigger
-} from '../../constant';
+} from '../constant';
 import { ThyNativeTableEditEventDispatcher } from './edit-event-dispatcher.service';
 
 @Directive({

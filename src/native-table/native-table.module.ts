@@ -1,25 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ThyNativeTableComponent } from './components/table/table.component';
-import { ThyNativeTableInnerDefaultComponent } from './components/table/table-inner-default.component';
-import { ThyNativeTableInnerScrollComponent } from './components/table/table-inner-scroll.component';
-import { ThyNativeTableBodyComponent } from './components/table/tbody.component';
-import { ThyNativeTableHeaderComponent } from './components/table/thead.component';
-import { ThyNativeTableTrMeasureComponent } from './components/row/tr-measure.component';
-import { ThyNativeTableTrDirective } from './components/row/tr.directive';
-import { ThyNativeTableCellDirective } from './components/cell/cell.directive';
-import { ThyNativeTableCellFixedDirective } from './components/cell/cell-fixed.directive';
-import { ThyNativeTableThDirective } from './components/cell/th.directive';
-import { ThyNativeTableTdSelectionComponent } from './components/cell/td-selection.component';
-import { ThyNativeTableTdExpandComponent } from './components/cell/td-expand.component';
-import { ThyNativeTableThSelectionComponent } from './components/cell/th-selection.component';
-import { ThyNativeTableThSortComponent } from './components/cell/th-sort.component';
+import { ThyNativeTableComponent } from './table/table.component';
+import { ThyNativeTableInnerDefaultComponent } from './table/table-inner-default.component';
+import { ThyNativeTableInnerScrollComponent } from './table/table-inner-scroll.component';
+import { ThyNativeTableBodyComponent } from './table/tbody.component';
+import { ThyNativeTableHeaderComponent } from './table/thead.component';
+import { ThyNativeTableTrMeasureComponent } from './row/tr-measure.component';
+import { ThyNativeTableTrDirective } from './row/tr.directive';
+import { ThyNativeTableCellDirective } from './cell/cell.directive';
+import { ThyNativeTableCellFixedDirective } from './cell/cell-fixed.directive';
+import { ThyNativeTableThDirective } from './cell/th.directive';
+import { ThyNativeTableTdSelectionComponent } from './cell/td-selection.component';
+import { ThyNativeTableTdExpandComponent } from './cell/td-expand.component';
+import { ThyNativeTableThSelectionComponent } from './cell/th-selection.component';
+import { ThyNativeTableThSortComponent } from './cell/th-sort.component';
 import {
     ThyNativeTableEditableDirective,
     ThyNativeTableTdEditCloseDirective,
     ThyNativeTableTdEditOpenDirective,
     ThyNativeTableTdPopoverEditDirective
-} from './components/table-editable';
+} from './table-editable';
 
 const EDIT_COMPONENTS = [
     ThyNativeTableEditableDirective,

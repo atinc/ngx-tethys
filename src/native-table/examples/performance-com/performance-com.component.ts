@@ -5,6 +5,7 @@ import { ThyInput, ThyInputModule } from 'ngx-tethys/input';
 import { ThyTag, ThyTagModule } from 'ngx-tethys/tag';
 import { ThyAvatar } from 'ngx-tethys/avatar';
 import { ThyRate } from 'ngx-tethys/rate';
+import { ThyButton } from 'ngx-tethys/button';
 
 function perfTracker() {
     let lastDate = new Date().getTime();
@@ -22,11 +23,11 @@ function perfTracker() {
     };
 }
 @Component({
-    selector: 'thy-native-table-test-example',
-    templateUrl: './test.component.html',
-    imports: [ThyNativeTableModule, ThyInputModule, FormsModule, ThyTag, ThyAvatar, ThyRate]
+    selector: 'thy-native-table-performance-com-example',
+    templateUrl: './performance-com.component.html',
+    imports: [ThyNativeTableModule, ThyInputModule, FormsModule, ThyTag, ThyAvatar, ThyRate, ThyButton]
 })
-export class ThyNativeTableTestExampleComponent implements OnInit {
+export class ThyNativeTablePerformanceComExampleComponent implements OnInit {
     data = [
         { id: 0, name: 'Peter', age: 25, date: new Date(), rate: 3, job: 'Engineer', address: 'Beijing Dong Sheng Technology' },
         { id: 1, name: 'James', age: 26, date: new Date(), rate: 3, job: 'Designer', address: 'Xian Economic Development Zone' },

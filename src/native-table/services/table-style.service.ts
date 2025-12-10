@@ -23,6 +23,11 @@ export class ThyNativeTableStyleService {
         this.theadTemplate$.next(template);
     }
 
+    /**
+     * 设置表格底部模板的引用
+     * @param template - 表格底部模板的引用，类型为TemplateRef<any>
+     * 该方法用于将传入的模板赋值给可观察对象tfootTemplate$，以便在表格底部渲染自定义内容
+     */
     setTfootTemplate(template: TemplateRef<any>): void {
         this.tfootTemplate$.next(template);
     }

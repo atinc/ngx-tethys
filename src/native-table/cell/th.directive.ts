@@ -1,6 +1,6 @@
 import { Directive, effect, ElementRef, inject, input, OnChanges, Renderer2, SimpleChanges } from '@angular/core';
 import { Subject } from 'rxjs';
-import { ThyNativeTableThInfo } from '../../services/table-style.service';
+import { ThyNativeTableThInfo } from '../services/table-style.service';
 
 @Directive({
     selector: 'th',

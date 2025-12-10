@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, TemplateRef, booleanAttribute, inpu
 import { NgTemplateOutlet } from '@angular/common';
 
 import { ThyIcon } from 'ngx-tethys/icon';
-import { ThyNativeTableSortOrder } from '../../table.interface';
+import { ThyNativeTableSortOrder } from '../table.interface';
 
 @Component({
     selector: 'th[thySortable]',

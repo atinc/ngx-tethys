@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, input, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, OnInit, TemplateRef, ViewEncapsulation } from '@angular/core';
 
-import { ThyNativeTableLayout } from '../../table.interface';
+import { ThyNativeTableLayout } from '../table.interface';
 import { ThyNativeTableContentComponent } from './table-content.component';
 import { SafeAny } from 'ngx-tethys/types';
 
@@ -23,10 +23,12 @@ import { SafeAny } from 'ngx-tethys/types';
     host: { class: 'thy-native-table-container' },
     imports: [ThyNativeTableContentComponent]
 })
-export class ThyNativeTableInnerDefaultComponent {
+export class ThyNativeTableInnerDefaultComponent implements OnInit {
     readonly tableLayout = input<ThyNativeTableLayout>('auto');
     readonly listOfColWidth = input<ReadonlyArray<string | null>>([]);
     readonly theadTemplate = input<TemplateRef<SafeAny> | null>(null);
     readonly contentTemplate = input<TemplateRef<SafeAny> | null>(null);
     readonly tfootTemplate = input<TemplateRef<SafeAny> | null>(null);
+
+    ngOnInit(): void {}
 }

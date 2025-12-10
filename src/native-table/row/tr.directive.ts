@@ -5,7 +5,7 @@ import { map, mergeMap, startWith, switchMap } from 'rxjs/operators';
 
 import { ThyNativeTableCellFixedDirective } from '../cell/cell-fixed.directive';
 import { ThyNativeTableThDirective } from '../cell/th.directive';
-import { ThyNativeTableStyleService } from '../../services/table-style.service';
+import { ThyNativeTableStyleService } from '../services/table-style.service';
 
 @Directive({
     selector: 'tr:not([thyNativeTableMeasureRow]):not([thyNativeTableFixedRow])',

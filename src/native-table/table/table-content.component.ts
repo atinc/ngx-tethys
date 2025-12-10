@@ -2,7 +2,7 @@ import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { SafeAny } from 'ngx-tethys/types';
 
-import { ThyNativeTableLayout } from '../../table.interface';
+import { ThyNativeTableLayout } from '../table.interface';
 
 @Component({
     selector: 'table[thy-native-table-content]',

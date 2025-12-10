@@ -1,5 +1,5 @@
-<button (click)="refresh()">重新渲染</button>
-<button (click)="insertData()">插入数据</button>
+<thy-button thyButton="primary" class="mr-2" (click)="refresh()">重新渲染</thy-button>
+<thy-button thyButton="primary" (click)="insertData()">插入数据</thy-button>
 @if (!loadingDone) {
   <!-- <span>loading......</span> -->
 } @else {

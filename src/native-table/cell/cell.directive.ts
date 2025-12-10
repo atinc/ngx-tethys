@@ -1,6 +1,6 @@
 import { Directive, inject } from '@angular/core';
 
-import { ThyNativeTableStyleService } from '../../services/table-style.service';
+import { ThyNativeTableStyleService } from '../services/table-style.service';
 
 @Directive({
     selector: 'th, td',

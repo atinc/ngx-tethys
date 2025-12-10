@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, inject } from '@angular/core';
 
-import { ThyNativeTableStyleService } from '../../services/table-style.service';
+import { ThyNativeTableStyleService } from '../services/table-style.service';
 
 @Component({
     selector: 'tbody',

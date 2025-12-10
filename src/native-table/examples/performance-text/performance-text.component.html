@@ -1,0 +1,31 @@
+<thy-button thyButton="primary" class="mr-2" (click)="refresh()">重新渲染</thy-button>
+<thy-button thyButton="primary" (click)="insertData()">插入数据</thy-button>
+@if (!loadingDone) {
+} @else {
+  <thy-native-table thyEditable>
+    <thead>
+      <tr>
+        <th thyWidth="100px">Id（文本）</th>
+        <th thyWidth="100px">Name(avatar)</th>
+        <th thyWidth="100px">Age(tag)</th>
+        <th thyWidth="200px">Rate</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (row of data; track row.id) {
+        <tr>
+          <td>{{ row.id }}</td>
+          <td>
+            {{ row.name }}
+          </td>
+          <td>
+            <thy-tag>{{ row.age }}</thy-tag>
+          </td>
+          <td>
+            {{ row.rate }}
+          </td>
+        </tr>
+      }
+    </tbody>
+  </thy-native-table>
+}
