@@ -21,14 +21,14 @@ export class ThyAbstractMessageQueue<TReference extends ThyAbstractMessageRef = 
 
     add(messageRef: TReference) {
         const queues = this.queues();
-        if (queues.length >= this.defaultConfig.maxStack) {
+        if (queues.length >= this.defaultConfig.maxStack!) {
             const closedRef = queues.shift();
-            closedRef.close();
+            closedRef?.close();
         }
         this.queues.set([...queues, messageRef]);
     }
 
-    remove(id: string) {
+    remove(id: string | undefined) {
         if (!id) {
             this.queues().forEach(item => item.close());
             this.queues.set([]);

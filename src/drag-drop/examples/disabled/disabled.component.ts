@@ -53,6 +53,6 @@ export class ThyDragDropDisabledExampleComponent implements OnInit {
     ngOnInit() {}
 
     onDragDrop(event: ThyDragDropEvent<DragDropNode>) {
-        moveItemInArray(event.containerItems, event.previousIndex, event.currentIndex);
+        moveItemInArray(event.containerItems!, event.previousIndex!, event.currentIndex);
     }
 }

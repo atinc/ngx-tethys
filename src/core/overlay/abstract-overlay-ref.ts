@@ -80,13 +80,13 @@ export abstract class ThyAbstractInternalOverlayRef<
     TConfig extends ThyAbstractOverlayConfig = ThyAbstractOverlayConfig
 > extends ThyAbstractOverlayRef<T, TContainer, TResult> {
     /** The instance of component opened into the dialog. */
-    componentInstance: T;
+    componentInstance!: T;
 
     /** Whether the user is allowed to close the dialog. */
-    backdropClosable: boolean;
+    backdropClosable!: boolean;
 
     /** Whether the user is not allowed to close the dialog. */
-    disableClose: boolean;
+    disableClose!: boolean;
 
     /** Subject for notifying the user that the dialog has finished opening. */
     private readonly _afterOpened = new Subject<void>();
@@ -102,13 +102,13 @@ export abstract class ThyAbstractInternalOverlayRef<
 
     protected abstract get options(): ThyAbstractOverlayOptions;
 
-    protected overlayRef: OverlayRef;
+    protected overlayRef!: OverlayRef;
 
-    protected config: TConfig;
+    protected config!: TConfig;
 
     /** Fetches the position strategy object from the overlay ref. */
     protected getPositionStrategy(): PositionStrategy {
-        return this.overlayRef.getConfig().positionStrategy;
+        return this.overlayRef.getConfig().positionStrategy!;
     }
 
     constructor() {
@@ -119,8 +119,8 @@ export abstract class ThyAbstractInternalOverlayRef<
         this.overlayRef = overlayRef;
         this.containerInstance = containerInstance;
         this.config = config;
-        this.backdropClosable = config.backdropClosable;
-        this.disableClose = config.disableClose;
+        this.backdropClosable = config.backdropClosable!;
+        this.disableClose = config.disableClose!;
 
         // Pass the id along to the container.
         this.id = containerInstance.id = config.id ? config.id : `thy-${this.options.name}-${getUniqueId(this.options.name)}`;
@@ -161,6 +161,7 @@ export abstract class ThyAbstractInternalOverlayRef<
                 this._beforeClosed.complete();
                 this._afterClosed.next(this._result);
                 this._afterClosed.complete();
+                // @ts-expect-error: Assigning null because the instance is being destroyed; T may not allow null
                 this.componentInstance = null;
             });
 

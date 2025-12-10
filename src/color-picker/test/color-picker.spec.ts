@@ -56,7 +56,7 @@ class ThyDemoColorPickerComponent {
     private thyPopoverRef = coreInject<ThyPopoverRef<ThyColorPickerPanel>>(ThyPopoverRef);
 
     readonly colorPicker = viewChild(ThyColorPickerDirective);
-    readonly defaultPanel = viewChild(ThyColorPickerPanel);
+    readonly defaultPanel = viewChild.required(ThyColorPickerPanel);
     color = '#ddd';
 
     defaultPanelColor = '#fafafa';
@@ -69,7 +69,7 @@ class ThyDemoColorPickerComponent {
 
     hideDelay = 0;
 
-    presetColors: string[];
+    presetColors!: string[];
 
     disabled = false;
 
@@ -99,10 +99,10 @@ class ThyDemoColorDefaultPanelComponent {
     elementRef = coreInject<ElementRef<HTMLElement>>(ElementRef);
     thyPopover = coreInject(ThyPopover);
 
-    readonly defaultPanel = viewChild(ThyColorPickerPanel);
+    readonly defaultPanel = viewChild.required(ThyColorPickerPanel);
     defaultPanelColor = '#fafafa';
-    defaultColor = '';
-    transparentColorSelectable: boolean;
+    defaultColor: string | undefined = '';
+    transparentColorSelectable!: boolean;
 
     defaultPanelColorChange = (color: string) => {
         this.defaultPanelColor = color;
@@ -116,7 +116,7 @@ class ThyDemoColorDefaultPanelComponent {
 class ThyDemoPickerPanelComponent {
     elementRef = coreInject<ElementRef<HTMLElement>>(ElementRef);
 
-    readonly pickerPanel = viewChild(ThyColorPickerCustomPanel);
+    readonly pickerPanel = viewChild.required(ThyColorPickerCustomPanel);
 
     color = '#fafafa';
 
@@ -169,14 +169,14 @@ class ThyDemoCoordinatesDirectiveComponent {
 }
 
 describe(`color-picker`, () => {
-    let fixture: ComponentFixture<ThyDemoColorPickerComponent>;
-    let boxElement: HTMLElement;
-    let fixtureInstance: ThyDemoColorPickerComponent;
-    let colorPickerElement: HTMLElement;
-    let colorPickerDirective: ThyColorPickerDirective;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
-    let colorPickerDebugElement: DebugElement;
+    let fixture!: ComponentFixture<ThyDemoColorPickerComponent>;
+    let boxElement!: HTMLElement;
+    let fixtureInstance!: ThyDemoColorPickerComponent;
+    let colorPickerElement!: HTMLElement;
+    let colorPickerDirective!: ThyColorPickerDirective;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
+    let colorPickerDebugElement!: DebugElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -236,11 +236,11 @@ describe(`color-picker`, () => {
             openDefaultPanel();
             expect(overlayContainerElement).toBeTruthy();
             fixture.detectChanges();
-            const overlayPaneElement: HTMLElement = overlayContainerElement.querySelector('.cdk-overlay-pane');
+            const overlayPaneElement: HTMLElement = overlayContainerElement.querySelector('.cdk-overlay-pane')!;
             expect(overlayPaneElement).toBeTruthy();
             fixture.detectChanges();
             expect(overlayPaneElement.style.width).toEqual('286px');
-            const colorDefaultPanelElement: HTMLElement = overlayContainerElement.querySelector('.thy-color-picker-panel');
+            const colorDefaultPanelElement: HTMLElement = overlayContainerElement.querySelector('.thy-color-picker-panel')!;
             expect(colorDefaultPanelElement).toBeTruthy();
         }));
 
@@ -252,18 +252,18 @@ describe(`color-picker`, () => {
             fixture.detectChanges();
             flush();
 
-            const defaultColorPanel = overlayContainerElement.querySelector('.thy-color-picker-panel');
+            const defaultColorPanel = overlayContainerElement.querySelector('.thy-color-picker-panel')!;
             expect(defaultColorPanel).toBeTruthy();
 
             dispatchMouseEvent(defaultColorPanel, 'mousemove');
             expect(defaultColorPanel).toBeTruthy();
 
-            const moreButton: HTMLElement = overlayContainerElement.querySelector('.more-color');
+            const moreButton: HTMLElement = overlayContainerElement.querySelector('.more-color')!;
             expect(moreButton).toBeTruthy();
             dispatchMouseEvent(moreButton, 'click');
             fixture.detectChanges();
             flush();
-            const customColorPanelElement: HTMLElement = overlayContainerElement.querySelector('.thy-color-picker-custom-panel');
+            const customColorPanelElement: HTMLElement = overlayContainerElement.querySelector('.thy-color-picker-custom-panel')!;
 
             dispatchMouseEvent(customColorPanelElement, 'mousemove');
             expect(defaultColorPanel).toBeTruthy();
@@ -279,13 +279,13 @@ describe(`color-picker`, () => {
             fixture.detectChanges();
             flush();
             let defaultColorPanelElement = overlayContainerElement.querySelector('.thy-color-picker-panel');
-            const moreButton: HTMLElement = overlayContainerElement.querySelector('.more-color');
+            const moreButton: HTMLElement = overlayContainerElement.querySelector('.more-color')!;
             expect(moreButton).toBeTruthy();
 
             dispatchMouseEvent(moreButton, 'click');
             fixture.detectChanges();
             flush();
-            let customColorPanelElement: HTMLElement = overlayContainerElement.querySelector('.thy-color-picker-custom-panel');
+            let customColorPanelElement: HTMLElement = overlayContainerElement.querySelector('.thy-color-picker-custom-panel')!;
 
             expect(defaultColorPanelElement).toBeTruthy();
             expect(customColorPanelElement).toBeTruthy();
@@ -295,7 +295,7 @@ describe(`color-picker`, () => {
             fixture.detectChanges();
             flush();
             defaultColorPanelElement = overlayContainerElement.querySelector('.thy-color-picker-panel');
-            customColorPanelElement = overlayContainerElement.querySelector('.thy-color-picker-custom-panel');
+            customColorPanelElement = overlayContainerElement.querySelector('.thy-color-picker-custom-panel')!;
             expect(defaultColorPanelElement).toBeFalsy();
             expect(customColorPanelElement).toBeFalsy();
         }));
@@ -325,18 +325,18 @@ describe(`color-picker`, () => {
 
         it('should open picker panel', fakeAsync(() => {
             openDefaultPanel();
-            const moreButton: HTMLElement = overlayContainerElement.querySelector('.more-color');
+            const moreButton: HTMLElement = overlayContainerElement.querySelector('.more-color')!;
             expect(moreButton).toBeTruthy();
             dispatchMouseEvent(moreButton, 'click');
             fixture.detectChanges();
             flush();
-            let pickerPanelElement: HTMLElement = overlayContainerElement.querySelector('.thy-color-picker-custom-panel');
+            let pickerPanelElement: HTMLElement = overlayContainerElement.querySelector('.thy-color-picker-custom-panel')!;
             expect(pickerPanelElement).toBeTruthy();
 
             dispatchMouseEvent(moreButton, 'click');
             tick(100);
             fixture.detectChanges();
-            pickerPanelElement = overlayContainerElement.querySelector('.thy-color-picker-custom-panel');
+            pickerPanelElement = overlayContainerElement.querySelector('.thy-color-picker-custom-panel')!;
             expect(pickerPanelElement).toBeTruthy();
         }));
 
@@ -395,12 +395,12 @@ describe(`color-picker`, () => {
             expect(overlayContainerElement.querySelector('.thy-popover-container')).toBeTruthy();
             expect(overlayContainerElement.querySelector('.cdk-overlay-backdrop')).toBeFalsy();
 
-            const moreButton: HTMLElement = overlayContainerElement.querySelector('.more-color');
+            const moreButton: HTMLElement = overlayContainerElement.querySelector('.more-color')!;
             expect(moreButton).toBeTruthy();
             dispatchMouseEvent(moreButton, 'click');
             fixture.detectChanges();
             flush();
-            const pickerPanelElement: HTMLElement = overlayContainerElement.querySelector('.thy-color-picker-custom-panel');
+            const pickerPanelElement: HTMLElement = overlayContainerElement.querySelector('.thy-color-picker-custom-panel')!;
             dispatchMouseEvent(pickerPanelElement, 'click');
             fixture.detectChanges();
             expect(overlayContainerElement.querySelector('.thy-color-picker-panel')).toBeTruthy();
@@ -425,10 +425,10 @@ describe(`color-picker`, () => {
 });
 
 describe('color-default-panel', () => {
-    let fixture: ComponentFixture<ThyDemoColorDefaultPanelComponent>;
-    let fixtureInstance: ThyDemoColorDefaultPanelComponent;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let fixture!: ComponentFixture<ThyDemoColorDefaultPanelComponent>;
+    let fixtureInstance!: ThyDemoColorDefaultPanelComponent;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
     const closeCallback = jasmine.createSpy('popover close');
 
     beforeEach(() => {
@@ -467,7 +467,7 @@ describe('color-default-panel', () => {
     describe('default-panel-component', () => {
         it('should change default panel color after dispatch selectColor', fakeAsync(() => {
             fixture.detectChanges();
-            const defaultPanel = fixtureInstance.defaultPanel();
+            const defaultPanel = fixtureInstance.defaultPanel()!;
             defaultPanel.selectColor('#ff0000');
             fixture.detectChanges();
             expect(defaultPanel.color()).toEqual('#ff0000');
@@ -476,12 +476,12 @@ describe('color-default-panel', () => {
 
         it('should return correct icon color', fakeAsync(() => {
             fixture.detectChanges();
-            expect(fixtureInstance.defaultPanel().getIconColor('#ffffff')).toEqual('black');
-            expect(fixtureInstance.defaultPanel().getIconColor('#000000')).toEqual('white');
+            expect(fixtureInstance.defaultPanel()!.getIconColor('#ffffff')).toEqual('black');
+            expect(fixtureInstance.defaultPanel()!.getIconColor('#000000')).toEqual('white');
         }));
 
         it('should set correct recent color', fakeAsync(() => {
-            const moreButton: HTMLElement = document.querySelector('.more-color');
+            const moreButton: HTMLElement = document.querySelector('.more-color')!;
             expect(moreButton).toBeTruthy();
             dispatchMouseEvent(moreButton, 'click');
             fixture.detectChanges();
@@ -500,7 +500,7 @@ describe('color-default-panel', () => {
         }));
 
         it('should set correct recent color when recentColors has items', fakeAsync(() => {
-            const moreButton: HTMLElement = document.querySelector('.more-color');
+            const moreButton: HTMLElement = document.querySelector('.more-color')!;
             dispatchMouseEvent(moreButton, 'click');
             fixture.detectChanges();
             flush();
@@ -522,7 +522,7 @@ describe('color-default-panel', () => {
             fixtureInstance.defaultColor = quickColor;
             fixture.detectChanges();
             flush();
-            const quickColorEl = document.querySelector('.quick-color');
+            const quickColorEl = document.querySelector('.quick-color')!;
             expect(quickColorEl.textContent).toBe('默认颜色');
             expect(fixtureInstance.defaultPanelColor).not.toBe(quickColor);
             dispatchMouseEvent(quickColorEl, 'click');
@@ -538,7 +538,7 @@ describe('color-default-panel', () => {
             fixtureInstance.transparentColorSelectable = true;
             fixture.detectChanges();
             flush();
-            const quickColorEl = document.querySelector('.quick-color');
+            const quickColorEl = document.querySelector('.quick-color')!;
             expect(quickColorEl.textContent).toBe('无填充色');
             expect(fixtureInstance.defaultPanelColor).not.toBe(quickColor);
             dispatchMouseEvent(quickColorEl, 'click');
@@ -550,10 +550,10 @@ describe('color-default-panel', () => {
 });
 
 describe('picker-panel', () => {
-    let fixture: ComponentFixture<ThyDemoPickerPanelComponent>;
-    let fixtureInstance: ThyDemoPickerPanelComponent;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let fixture!: ComponentFixture<ThyDemoPickerPanelComponent>;
+    let fixtureInstance!: ThyDemoPickerPanelComponent;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -597,11 +597,11 @@ describe('picker-panel', () => {
 });
 
 describe('coordinates-directive', () => {
-    let fixture: ComponentFixture<ThyDemoCoordinatesDirectiveComponent>;
-    let fixtureInstance: ThyDemoCoordinatesDirectiveComponent;
-    let boxElement: HTMLElement;
-    let boxRect: DOMRect;
-    let coordinatesDebugElement: DebugElement;
+    let fixture!: ComponentFixture<ThyDemoCoordinatesDirectiveComponent>;
+    let fixtureInstance!: ThyDemoCoordinatesDirectiveComponent;
+    let boxElement!: HTMLElement;
+    let boxRect!: DOMRect;
+    let coordinatesDebugElement!: DebugElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -632,11 +632,11 @@ describe('coordinates-directive', () => {
 });
 
 describe(`for touch usage`, () => {
-    let fixture: ComponentFixture<ThyDemoColorPickerComponent>;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let fixture!: ComponentFixture<ThyDemoColorPickerComponent>;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
     let platform: { IOS: boolean; isBrowser: boolean; ANDROID: boolean };
-    let buttonElement: HTMLElement;
+    let buttonElement!: HTMLElement;
 
     beforeEach(() => {
         platform = { IOS: false, isBrowser: true, ANDROID: false };

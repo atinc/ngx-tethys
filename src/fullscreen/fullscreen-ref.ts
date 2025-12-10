@@ -7,15 +7,15 @@ import { takeUntil } from 'rxjs/operators';
 import { ThyFullscreenConfig, ThyFullscreenMode } from './fullscreen.config';
 
 export class ThyFullscreenRef<TResult = unknown> {
-    fullscreenConfig: ThyFullscreenConfig;
+    fullscreenConfig!: ThyFullscreenConfig;
 
     private isFullscreen = false;
 
     private ngUnsubscribe$ = new Subject<void>();
 
-    private readonly _afterLaunched = new Subject<TResult>();
+    private readonly _afterLaunched = new Subject<TResult | undefined>();
 
-    private readonly _afterExited = new Subject<TResult>();
+    private readonly _afterExited = new Subject<TResult | undefined>();
 
     constructor(
         @Inject(DOCUMENT) protected document: Document,
@@ -42,6 +42,7 @@ export class ThyFullscreenRef<TResult = unknown> {
 
     private isImmersiveFullscreen() {
         const doc = this.document;
+        // @ts-ignore
         return !!(doc['fullscreenElement'] || doc['mozFullScreenElement'] || doc['webkitFullscreenElement'] || doc['msFullscreenElement']);
     }
 
@@ -125,6 +126,7 @@ export class ThyFullscreenRef<TResult = unknown> {
         const { document } = this;
 
         const exitFullscreen: Document['exitFullscreen'] | undefined =
+            // @ts-ignore
             document.exitFullscreen || document['mozCancelFullScreen'] || document['webkitExitFullscreen'] || document['msExitFullscreen'];
 
         if (typeof exitFullscreen === 'function') {
@@ -161,11 +163,11 @@ export class ThyFullscreenRef<TResult = unknown> {
         }
     }
 
-    afterLaunched(): Observable<TResult> {
+    afterLaunched(): Observable<TResult | undefined> {
         return this._afterLaunched.asObservable();
     }
 
-    afterExited(): Observable<TResult> {
+    afterExited(): Observable<TResult | undefined> {
         return this._afterExited.asObservable();
     }
 }

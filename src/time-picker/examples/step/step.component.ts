@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
     imports: [ThyTimePicker, FormsModule]
 })
 export class ThyTimePickerStepExampleComponent implements OnInit {
-    date: Date;
+    date!: Date;
 
     constructor() {}
 

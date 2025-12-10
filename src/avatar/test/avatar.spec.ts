@@ -51,15 +51,15 @@ class ThyTestAvatarComponent {
         });
     }
 
-    useSuite: 1 | 2 | 3 | 4 | 5 | 6 | 7;
+    useSuite!: 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
     name = 'LiLei';
 
     size: number | string = 0;
 
-    errorSubscriber: Subscriber<Event>;
+    errorSubscriber!: Subscriber<Event>;
 
-    errorEmit$: Observable<Event>;
+    errorEmit$!: Observable<Event>;
 
     spyThyError = jasmine.createSpy('ThyError emit');
 
@@ -84,8 +84,8 @@ class ThyTestAvatarComponent {
 }
 
 describe('ThyAvatarComponent', () => {
-    let fixture: ComponentFixture<ThyTestAvatarComponent>;
-    let componentInstance: ThyTestAvatarComponent;
+    let fixture!: ComponentFixture<ThyTestAvatarComponent>;
+    let componentInstance!: ThyTestAvatarComponent;
 
     beforeEach(() => {
         TestBed.configureTestingModule({

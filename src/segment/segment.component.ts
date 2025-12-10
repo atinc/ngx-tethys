@@ -12,15 +12,14 @@ import {
     output,
     contentChildren
 } from '@angular/core';
-import { ThumbAnimationProps } from 'ngx-tethys/core';
-import { thumbMotion } from 'ngx-tethys/core';
+import { ThumbAnimationProps, thumbMotion } from 'ngx-tethys/core';
 import { ThySegmentItem } from './segment-item.component';
 import { IThySegmentComponent, THY_SEGMENTED_COMPONENT } from './segment.token';
 import { ThySegmentEvent } from './types';
 import { AnimationEvent } from '@angular/animations';
 
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { coerceBooleanProperty, isUndefined, isUndefinedOrNull } from 'ngx-tethys/util';
 
 export type ThySegmentSize = 'xs' | 'sm' | 'md' | 'default';
 
@@ -73,7 +72,7 @@ export class ThySegment implements IThySegmentComponent {
      * 模式
      * @type block | inline
      */
-    readonly thyMode = input<ThySegmentMode>('block');
+    readonly thyMode = input<ThySegmentMode | string>('block');
 
     /**
      * 是否禁用分段控制器
@@ -90,13 +89,13 @@ export class ThySegment implements IThySegmentComponent {
      */
     readonly thySelectChange = output<ThySegmentEvent>();
 
-    public selectedItem: ThySegmentItem;
+    public selectedItem: ThySegmentItem | null = null;
 
-    private newActiveIndex: number;
+    private newActiveIndex?: number;
 
-    private activeIndex: number;
+    private activeIndex?: number;
 
-    public animationState = signal<{ value: string; params: ThumbAnimationProps }>(null);
+    public animationState = signal<{ value: string; params: ThumbAnimationProps } | null>(null);
 
     public transitionedTo: any = null;
 
@@ -104,12 +103,12 @@ export class ThySegment implements IThySegmentComponent {
         effect(() => {
             const value = this.thyActiveIndex();
             this.newActiveIndex = value;
-            if (value < 0 || value === this.activeIndex) {
+            if (isUndefinedOrNull(value) || value < 0 || value === this.activeIndex) {
                 return;
             }
             setTimeout(() => {
                 const options = this.options();
-                const selectedItem = options?.[this.activeIndex];
+                const selectedItem = options?.[this.activeIndex!];
                 if (selectedItem) {
                     selectedItem.unselect();
                     this.changeSelectedItem(options?.[value]);
@@ -124,15 +123,17 @@ export class ThySegment implements IThySegmentComponent {
             (options || []).forEach(item => {
                 item.unselect();
             });
-            this.selectedItem = options?.[this.newActiveIndex] || options?.[0];
+            this.selectedItem = (!isUndefinedOrNull(this.newActiveIndex) && options?.[this.newActiveIndex]) || options?.[0];
             this.selectedItem?.select();
         });
     }
 
+    // @ts-ignore
     public changeSelectedItem(item: ThySegmentItem, event?: Event): void {
         const options = this.options();
         this.animationState.set({
             value: 'from',
+            // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
             params: getThumbAnimationProps(options?.[this.activeIndex || 0]?.elementRef.nativeElement!)
         });
         this.selectedItem = null;

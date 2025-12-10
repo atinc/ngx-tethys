@@ -37,7 +37,7 @@ describe(`icon-nav`, () => {
     });
 
     describe('basic', () => {
-        let fixture: ComponentFixture<IconNavBasicComponent>;
+        let fixture!: ComponentFixture<IconNavBasicComponent>;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(IconNavBasicComponent);

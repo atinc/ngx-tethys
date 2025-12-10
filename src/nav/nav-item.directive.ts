@@ -75,9 +75,9 @@ export class ThyNavItemDirective implements AfterViewInit {
         top: 0
     };
 
-    public content: HTMLElement;
+    public content!: HTMLElement;
 
-    public isActive: boolean;
+    public isActive!: boolean;
 
     private hostRenderer = useHostRenderer();
 

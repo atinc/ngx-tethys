@@ -16,7 +16,7 @@ import { ThyColor } from '../../helpers/color.class';
 export class ThyColorInputs implements OnInit {
     @HostBinding('class.thy-color-inputs') className = true;
 
-    readonly color = input<ThyColor>();
+    readonly color = input.required<ThyColor>();
 
     readonly colorChange = output<ThyColor>();
 

@@ -49,11 +49,11 @@ export class ThyTimePanel implements OnInit, OnDestroy, ControlValueAccessor {
     private ngZone = inject(NgZone);
     locale: Signal<ThyTimePickerLocale> = injectLocale('timePicker');
 
-    readonly hourListRef = viewChild<ElementRef<HTMLElement>>('hourListElement');
+    readonly hourListRef = viewChild.required<ElementRef<HTMLElement>>('hourListElement');
 
-    readonly minuteListRef = viewChild<ElementRef<HTMLElement>>('minuteListElement');
+    readonly minuteListRef = viewChild.required<ElementRef<HTMLElement>>('minuteListElement');
 
-    readonly secondListRef = viewChild<ElementRef<HTMLElement>>('secondListElement');
+    readonly secondListRef = viewChild.required<ElementRef<HTMLElement>>('secondListElement');
 
     /**
      * 展示的日期格式，支持 'HH:mm:ss' | 'HH:mm' | 'mm:ss'
@@ -148,15 +148,15 @@ export class ThyTimePanel implements OnInit, OnDestroy, ControlValueAccessor {
         return [showHour, showMinute, showSecond].filter(m => m).length || 3;
     });
 
-    value: Date;
+    value!: Date;
 
-    hour: number;
+    hour!: number;
 
-    minute: number;
+    minute!: number;
 
-    second: number;
+    second!: number;
 
-    initialScrollPosition: boolean;
+    initialScrollPosition!: boolean;
 
     onValueChangeFn: (val: Date) => void = () => void 0;
 

@@ -3,7 +3,7 @@ import { THY_DATE_PICKER_CONFIG, ThyDatePickerConfig, useDatePickerDefaultConfig
 
 @Injectable({ providedIn: 'root' })
 export class ThyDatePickerConfigService {
-    config: ThyDatePickerConfig;
+    config!: ThyDatePickerConfig;
 
     constructor() {
         const datePickerConfig = inject(THY_DATE_PICKER_CONFIG, { optional: true })!;

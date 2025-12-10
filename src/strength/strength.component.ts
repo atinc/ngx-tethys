@@ -32,7 +32,7 @@ export class ThyStrength implements OnInit, ControlValueAccessor {
 
     @HostBinding('class.password-strength-container') styleClass = true;
 
-    strength: ThyStrengthEnum;
+    strength!: ThyStrengthEnum;
 
     locale: Signal<ThyStrengthLocale> = injectLocale('strength');
 

@@ -25,23 +25,23 @@ export class ThyConfirm implements OnInit, OnDestroy {
     private defaultConfig = inject(THY_CONFIRM_DEFAULT_OPTIONS);
     private locale: Signal<ThyDialogLocale> = injectLocale('dialog');
 
-    loading: boolean;
+    loading!: boolean;
 
     readonly options = input<ThyConfirmConfig>();
 
-    public title: string;
+    public title: string | undefined;
 
-    public content: string;
+    public content!: string;
 
-    public okText: string;
+    public okText: string | undefined;
 
-    public okType: string;
+    public okType: string | undefined;
 
-    public cancelText: string;
+    public cancelText: string | undefined;
 
-    public okLoadingText: string;
+    public okLoadingText: string | undefined;
 
-    public footerAlign: ThyFormGroupFooterAlign;
+    public footerAlign: ThyFormGroupFooterAlign | undefined;
 
     constructor() {
         this.defaultConfig = {
@@ -69,8 +69,8 @@ export class ThyConfirm implements OnInit, OnDestroy {
 
     confirm() {
         this.loading = true;
-        const result = this.options().onOk();
-        if (result && result.subscribe) {
+        const result = this.options()!.onOk!();
+        if (result && result!.subscribe!) {
             result
                 .pipe(
                     finalize(() => {

@@ -1,11 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { ThyFullscreen, ThyFullscreenModule } from 'ngx-tethys/fullscreen';
+import { ThyFullscreen, ThyFullscreenModule , ThyFullscreenComponent, ThyFullscreenLaunchDirective } from 'ngx-tethys/fullscreen';
 import { fakeAsync, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Component, DebugElement, ApplicationRef } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing';
 import { ESCAPE, SHIFT, SPACE } from 'ngx-tethys/util';
-import { ThyFullscreenComponent, ThyFullscreenLaunchDirective } from 'ngx-tethys/fullscreen';
 
 export class FakeFullscreenService extends ThyFullscreen {
     launchImmersiveFullscreen() {
@@ -18,9 +17,9 @@ export class FakeFullscreenService extends ThyFullscreen {
 }
 
 describe('ThyFullscreen', () => {
-    let fixture: ComponentFixture<ThyDemoFullscreenComponent>;
-    let testComponent: ThyDemoFullscreenComponent;
-    let fullscreenComponent: DebugElement;
+    let fixture!: ComponentFixture<ThyDemoFullscreenComponent>;
+    let testComponent!: ThyDemoFullscreenComponent;
+    let fullscreenComponent!: DebugElement;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -104,9 +103,9 @@ class ThyDemoFullscreenComponent {
 }
 
 describe('Container ThyFullscreen', () => {
-    let fixture: ComponentFixture<ThyContainerFullscreenTestComponent>;
-    let testComponent: ThyContainerFullscreenTestComponent;
-    let fullscreenComponent: DebugElement;
+    let fixture!: ComponentFixture<ThyContainerFullscreenTestComponent>;
+    let testComponent!: ThyContainerFullscreenTestComponent;
+    let fullscreenComponent!: DebugElement;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -173,7 +172,7 @@ describe('Container ThyFullscreen', () => {
 });
 
 describe('`thy-fulscreen` with dynamic launch button', () => {
-    let fixture: ComponentFixture<ThyContainerFullscreenDynamicLaunchComponent>;
+    let fixture!: ComponentFixture<ThyContainerFullscreenDynamicLaunchComponent>;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({

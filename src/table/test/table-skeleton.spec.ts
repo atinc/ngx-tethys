@@ -49,26 +49,26 @@ const defaultColumns = [
     imports: [ThyTableModule]
 })
 class TestTableSkeletonBasicComponent {
-    rowCount: number;
+    rowCount!: number;
 
-    headless: boolean;
+    headless!: boolean;
 
-    theme: ThyTableTheme;
+    theme!: ThyTableTheme;
 
-    size: ThyTableSize;
+    size!: ThyTableSize;
 
-    minWidth: string | number;
+    minWidth!: string | number;
 
-    columns: ThyTableSkeletonColumn[];
+    columns!: ThyTableSkeletonColumn[];
 }
 
 describe('thy-table-skeleton', () => {
-    let fixture: ComponentFixture<TestTableSkeletonBasicComponent>;
-    let tableSkeletonElement: SafeAny;
-    let tableSkeletonInstance: ThyTableSkeleton;
-    let tableDebugElement: DebugElement;
-    let tableElement: SafeAny;
-    let testComponent: TestTableSkeletonBasicComponent;
+    let fixture!: ComponentFixture<TestTableSkeletonBasicComponent>;
+    let tableSkeletonElement!: SafeAny;
+    let tableSkeletonInstance!: ThyTableSkeleton;
+    let tableDebugElement!: DebugElement;
+    let tableElement!: SafeAny;
+    let testComponent!: TestTableSkeletonBasicComponent;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -109,7 +109,7 @@ describe('thy-table-skeleton', () => {
     });
 
     it('should support thySize', () => {
-        ['xs', 'sm', 'md', 'lg', 'xlg', 'default'].forEach((size: ThyTableSize) => {
+        (['xs', 'sm', 'md', 'lg', 'xlg', 'default'] as ThyTableSize[]).forEach((size: ThyTableSize) => {
             testComponent.size = size;
             fixture.detectChanges();
             expect(tableSkeletonInstance.thySize).toBe(size);

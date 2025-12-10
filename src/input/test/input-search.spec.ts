@@ -25,25 +25,25 @@ import { provideHttpClient } from '@angular/common/http';
     imports: [ThyInputSearch, FormsModule]
 })
 class TestInputSearchBasicComponent {
-    readonly inputSearchComponent = viewChild(ThyInputSearch);
+    readonly inputSearchComponent = viewChild.required(ThyInputSearch);
 
     searchFocus = true;
     searchText = '';
     thySize = 'sm';
     thyTheme = ``;
     disabled = false;
-    iconPosition: ThyInputSearchIconPosition;
+    iconPosition!: ThyInputSearchIconPosition;
     onClear() {}
 
     modelChange($event: string) {}
 }
 
 describe('input search', () => {
-    let fixture: ComponentFixture<TestInputSearchBasicComponent>;
-    let basicTestComponent: TestInputSearchBasicComponent;
-    let debugInputElement: DebugElement;
-    let debugSearchElement: DebugElement;
-    let searchElement: HTMLElement;
+    let fixture!: ComponentFixture<TestInputSearchBasicComponent>;
+    let basicTestComponent!: TestInputSearchBasicComponent;
+    let debugInputElement!: DebugElement;
+    let debugSearchElement!: DebugElement;
+    let searchElement!: HTMLElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -70,9 +70,9 @@ describe('input search', () => {
         expect(searchElement.classList.contains('thy-input-search')).toBeTruthy();
         expect(debugInputElement.nativeElement.classList.contains('input-search-control')).toBeTruthy();
         expect(debugInputElement.nativeElement.placeholder).toBe('Please type');
-        const prependIcon: HTMLElement = searchElement.querySelector('.input-prepend');
+        const prependIcon: HTMLElement | null = searchElement.querySelector('.input-prepend');
         expect(prependIcon).toBeTruthy();
-        expect(prependIcon.classList.contains('thy-icon-search')).toBeTruthy();
+        expect(prependIcon!.classList.contains('thy-icon-search')).toBeTruthy();
     });
 
     it('should set after icon', fakeAsync(() => {
@@ -81,17 +81,17 @@ describe('input search', () => {
         expect(searchElement.querySelector('.input-prepend')).toBeFalsy();
         const appendElement = searchElement.querySelector('.input-append');
         expect(appendElement).toBeTruthy();
-        expect(appendElement.classList.contains(`input-append-divider`)).toBeTruthy();
-        expect(appendElement.classList.contains(`input-append-divider`)).toBeTruthy();
-        expect(appendElement.querySelector('.thy-icon-search')).toBeTruthy();
+        expect(appendElement?.classList.contains(`input-append-divider`)).toBeTruthy();
+        expect(appendElement?.classList.contains(`input-append-divider`)).toBeTruthy();
+        expect(appendElement?.querySelector('.thy-icon-search')).toBeTruthy();
 
         basicTestComponent.searchText = 'New Text';
         fixture.detectChanges();
         tick();
         fixture.detectChanges();
-        expect(appendElement.querySelector('.thy-icon-search')).toBeFalsy();
-        expect(appendElement.querySelector('.thy-icon-close')).toBeTruthy();
-        expect(appendElement.querySelector('.close')).toBeTruthy();
+        expect(appendElement?.querySelector('.thy-icon-search')).toBeFalsy();
+        expect(appendElement?.querySelector('.thy-icon-close')).toBeTruthy();
+        expect(appendElement?.querySelector('.close')).toBeTruthy();
     }));
 
     it('should trigger ngModel change', fakeAsync(() => {
@@ -177,7 +177,7 @@ describe('input search', () => {
         debugSearchElement.componentInstance.thyClear.subscribe(() => {
             afterClearSpy();
         });
-        const prependIcon = searchElement.querySelector('.input-prepend');
+        const prependIcon = searchElement.querySelector('.input-prepend')!;
         dispatchMouseEvent(prependIcon, 'click');
         fixture.detectChanges();
         expect(afterClearSpy).not.toHaveBeenCalled();
@@ -215,9 +215,9 @@ describe('input search', () => {
             '__onBlurValidation'
         );
 
-        dispatchFakeEvent(fixture.componentInstance.inputSearchComponent().inputElement().nativeElement, 'focus');
+        dispatchFakeEvent(fixture.componentInstance.inputSearchComponent().inputElement()?.nativeElement, 'focus');
 
-        dispatchFakeEvent(fixture.componentInstance.inputSearchComponent().inputElement().nativeElement, 'blur');
+        dispatchFakeEvent(fixture.componentInstance.inputSearchComponent().inputElement()?.nativeElement, 'blur');
         fixture.detectChanges();
         expect(onBlurValidationSpy).toHaveBeenCalledTimes(1);
     }));
@@ -232,7 +232,7 @@ describe('input search', () => {
         );
 
         const inputAutoFocusSpy = spyOn(
-            fixture.componentInstance.inputSearchComponent().inputElement().nativeElement,
+            fixture.componentInstance.inputSearchComponent().inputElement()?.nativeElement,
             'focus'
         ).and.callThrough();
 

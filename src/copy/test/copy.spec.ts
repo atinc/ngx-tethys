@@ -8,8 +8,8 @@ import { ThyCopyDirective, ThyCopyModule } from 'ngx-tethys/copy';
 import { provideHttpClient } from '@angular/common/http';
 
 describe('thy-copy', () => {
-    let fixture: ComponentFixture<ThyCopyTestComponent>;
-    let testComponent: ThyCopyTestComponent;
+    let fixture!: ComponentFixture<ThyCopyTestComponent>;
+    let testComponent!: ThyCopyTestComponent;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -88,15 +88,15 @@ describe('thy-copy', () => {
     imports: [ThyTooltipModule, ThyNotifyModule, ThyCopyDirective]
 })
 class ThyCopyTestComponent implements OnInit {
-    copyTooltip: string;
+    copyTooltip!: string;
 
-    copyTipsOffset: number;
+    copyTipsOffset!: number;
 
     showNotify = true;
 
-    @ViewChild('copyContainer', { read: false }) copyContainer: ElementRef<Element>;
+    @ViewChild('copyContainer', { read: false }) copyContainer!: ElementRef<Element>;
 
-    @ViewChild(ThyCopyDirective, { static: true }) copyDirective: ThyCopyDirective;
+    @ViewChild(ThyCopyDirective, { static: true }) copyDirective!: ThyCopyDirective;
 
     copy = jasmine.createSpy('thyCopy callback');
 

@@ -19,7 +19,7 @@ import {
 import { Platform } from '@angular/cdk/platform';
 import { ComponentPortal } from '@angular/cdk/portal';
 
-import { ElementRef, Injectable, Injector, NgZone, OnDestroy, StaticProvider, TemplateRef, inject, DOCUMENT } from '@angular/core';
+import { ElementRef, Injectable, Injector, NgZone, OnDestroy, StaticProvider, inject, DOCUMENT } from '@angular/core';
 
 import { ThyPopoverContainer } from './popover-container.component';
 import { ThyInternalPopoverRef, ThyPopoverRef } from './popover-ref';
@@ -64,7 +64,7 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
             this._platform,
             this._overlayContainer
         );
-        const positions = getFlexiblePositions(config.placement, config.offset, 'thy-popover');
+        const positions = getFlexiblePositions(config.placement!, config.offset, 'thy-popover');
         positionStrategy.withPositions(positions);
         positionStrategy.withPush(config.canPush);
         positionStrategy.withGrowAfterOpen(true);
@@ -81,11 +81,11 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
 
     private buildScrollStrategy(config: ThyPopoverConfig): ScrollStrategy {
         if (config.scrollStrategy) {
-            return config.scrollStrategy;
+            return config.scrollStrategy!;
         } else if (this.scrollStrategy && isFunction(this.scrollStrategy)) {
             return this.scrollStrategy();
         } else {
-            this.overlay.scrollStrategies.block();
+            return this.overlay.scrollStrategies.block();
         }
     }
 
@@ -196,8 +196,8 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
     open<T, TData = unknown, TResult = unknown>(
         componentOrTemplateRef: ComponentTypeOrTemplateRef<T>,
         config?: ThyPopoverConfig<TData>
-    ): ThyPopoverRef<T, TResult> {
-        const originElement = coerceElement(config.origin);
+    ): ThyPopoverRef<T, TResult> | undefined {
+        const originElement = coerceElement(config?.origin);
         // 默认关闭之前的弹出框
         // 1. 当之前的 Popover 设置 manualClosure 为 true 时, 弹出其他 Popover 时不自动关闭 manualClosure 为 true 的 Popover
         // 2. 当前的 Origin 对应的 Popover 已经弹出，不管 manualClosure 设置为何，直接关闭并返回
@@ -239,7 +239,7 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
      * @description.en-us Finds the closest ThyPopoverRef to an element by looking at the DOM.
      * @description 通过 Dom 元素查找最近弹出的悬浮层
      */
-    getClosestPopover(element: HTMLElement): ThyPopoverRef<any> | undefined {
+    getClosestPopover(element: HTMLElement): ThyPopoverRef<any> | undefined | null {
         const parent = element.closest('.thy-popover-container');
 
         if (parent && parent.id) {

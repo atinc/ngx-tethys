@@ -14,7 +14,7 @@ export function throwPopoverContentAlreadyAttachedError(name: string) {
 export abstract class ThyAbstractOverlayContainer<TData = unknown> {
     id?: string;
 
-    animationState: string;
+    animationState!: string;
 
     animationStateChanged = new EventEmitter<AnimationEvent>();
 

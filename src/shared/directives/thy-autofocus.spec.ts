@@ -16,9 +16,9 @@ class ThyAutofocusTestComponent {
 }
 
 describe('ThyAutofocusDirective', () => {
-    let fixture: ComponentFixture<ThyAutofocusTestComponent>;
-    let testComponent: ThyAutofocusTestComponent;
-    let focusSpy: jasmine.Spy;
+    let fixture!: ComponentFixture<ThyAutofocusTestComponent>;
+    let testComponent!: ThyAutofocusTestComponent;
+    let focusSpy!: jasmine.Spy;
 
     beforeEach(() => {
         TestBed.configureTestingModule({});

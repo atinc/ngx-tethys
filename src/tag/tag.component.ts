@@ -84,7 +84,7 @@ export class ThyTag {
         this.hostRenderer.updateClass([]);
 
         if (isThemeColor(this.color())) {
-            this.hostRenderer.updateClass([`thy-tag-${this.thyTheme() === 'fill' ? '' : this.thyTheme() + '-'}${this.color()}`]);
+            this.hostRenderer.updateClass([`thy-tag-${this.thyTheme() === 'fill' ? '' : `${this.thyTheme()  }-`}${this.color()}`]);
         } else {
             if (this.thyTheme() === 'fill') {
                 this.elementRef.nativeElement.style.backgroundColor = this.color();

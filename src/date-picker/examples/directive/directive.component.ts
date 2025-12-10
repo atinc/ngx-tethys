@@ -39,7 +39,7 @@ export class ThyDatePickerDirectiveExampleComponent {
 
     dateRange = { begin: new TinyDate('2025-10')?.nativeDate, end: new TinyDate('2026-01')?.nativeDate };
 
-    dateRangeDisabled: { begin: number; end: number };
+    dateRangeDisabled!: { begin: number; end: number };
 
     weekRange = { begin: new TinyDate('2021-10-03')?.nativeDate, end: new TinyDate('2021-12-12')?.nativeDate };
 
@@ -62,7 +62,7 @@ export class ThyDatePickerDirectiveExampleComponent {
         ];
     };
 
-    flexibleDateRange: ThyDateRangeEntry;
+    flexibleDateRange!: ThyDateRangeEntry;
 
     disableDate = (date: Date) => {
         if (!(this.selectedDateRange && this.selectedDateRange.length === 1)) {

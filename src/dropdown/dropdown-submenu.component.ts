@@ -17,6 +17,7 @@ const SUBMENU_CLASS_PREFIX = 'dropdown-submenu';
  * @order 40
  */
 @Component({
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: '[thyDropdownSubmenu],thy-dropdown-submenu',
     template: '<ng-content></ng-content>',
     host: {

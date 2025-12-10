@@ -409,9 +409,9 @@ export class VirtualScrollingTreeSelectComponent implements OnInit {
 }
 
 describe('ThyTreeSelect', () => {
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
-    let platform: Platform;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
+    let platform!: Platform;
 
     function configureThyCustomSelectTestingModule(declarations: any[]) {
         TestBed.configureTestingModule({
@@ -450,8 +450,8 @@ describe('ThyTreeSelect', () => {
 
     describe('core', () => {
         describe('basic class', () => {
-            let treeSelectDebugElement: DebugElement;
-            let treeSelectElement: HTMLElement;
+            let treeSelectDebugElement!: DebugElement;
+            let treeSelectElement!: HTMLElement;
             beforeEach(waitForAsync(() => {
                 configureThyCustomSelectTestingModule([BasicTreeSelectComponent]);
                 const fixture = TestBed.createComponent(BasicTreeSelectComponent);
@@ -868,9 +868,9 @@ describe('ThyTreeSelect', () => {
     });
 
     describe('virtual scrolling tree-select', () => {
-        let treeSelectElement: HTMLElement;
-        let component: VirtualScrollingTreeSelectComponent;
-        let fixture: ComponentFixture<VirtualScrollingTreeSelectComponent>;
+        let treeSelectElement!: HTMLElement;
+        let component!: VirtualScrollingTreeSelectComponent;
+        let fixture!: ComponentFixture<VirtualScrollingTreeSelectComponent>;
 
         beforeEach(fakeAsync(() => {
             configureThyCustomSelectTestingModule([VirtualScrollingTreeSelectComponent]);

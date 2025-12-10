@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { listOfOption } from '../mock-data';
-import { THY_SELECT_CONFIG } from 'ngx-tethys/select';
-import { ThySelect } from 'ngx-tethys/select';
+import { THY_SELECT_CONFIG , ThySelect } from 'ngx-tethys/select';
 import { ThyOption } from 'ngx-tethys/shared';
 import { FormsModule } from '@angular/forms';
 
@@ -11,13 +10,13 @@ import { FormsModule } from '@angular/forms';
     styles: [
         `
             .select-container {
-                display: flex;
+                display!: flex;
                 justify-content: left;
                 flex-wrap: wrap;
             }
             thy-select {
-                flex: 0 0 auto;
-                width: 100px;
+                flex!: 0 0 auto;
+                width!: 100px;
                 margin-right: 20px;
             }
         `

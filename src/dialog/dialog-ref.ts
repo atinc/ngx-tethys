@@ -21,7 +21,7 @@ export interface ThyAbstractDialog {
 export abstract class ThyDialogRef<T, TResult = unknown> extends ThyAbstractOverlayRef<T, ThyDialogContainer, TResult> {}
 
 export class ThyInternalDialogRef<T, TResult = unknown> extends ThyAbstractInternalOverlayRef<T, ThyDialogContainer, TResult> {
-    thyDialog: ThyAbstractDialog;
+    thyDialog!: ThyAbstractDialog;
 
     protected get options(): ThyAbstractOverlayOptions {
         return dialogAbstractOverlayOptions;

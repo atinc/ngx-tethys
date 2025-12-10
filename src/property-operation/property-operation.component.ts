@@ -45,35 +45,35 @@ export class ThyPropertyOperation implements OnInit, AfterContentInit, OnDestroy
 
     private hostRenderer = useHostRenderer();
 
-    labelText: string;
+    labelText!: string;
 
     onlyHasTips = false;
 
     showClose = false;
 
-    type: ThyPropertyOperationTypes;
+    type!: ThyPropertyOperationTypes;
 
-    icon: string;
+    icon!: string;
 
-    value: string;
+    value!: string;
 
     labelHideWhenHasValue = false;
 
     /**
      * 点击移除图标时的事件回调，此函数只有在thyShowClose为true时才会发生
      */
-    @Output() thyOnRemove = new EventEmitter();
+    @Output() readonly thyOnRemove = new EventEmitter();
 
     /**
      * 点击事件回调
      */
-    @Output() thyClick = new EventEmitter<Event>();
+    @Output() readonly thyClick = new EventEmitter<Event>();
 
     @HostBinding('class.thy-property-operation') _isPropertyOperation = true;
 
-    @ContentChild('operationIcon') operationIcon: TemplateRef<any>;
+    @ContentChild('operationIcon') operationIcon?: TemplateRef<any>;
 
-    @ViewChild('contentElement', { static: true }) contentElement: ElementRef;
+    @ViewChild('contentElement', { static: true }) contentElement!: ElementRef;
 
     /**
      * 属性的 Label 文本
@@ -149,7 +149,7 @@ export class ThyPropertyOperation implements OnInit, AfterContentInit, OnDestroy
      */
     @HostBinding('class.active')
     @Input({ alias: 'thyActive', transform: coerceBooleanProperty })
-    active: boolean;
+    active!: boolean;
 
     /**
      * 禁用操作，添加后property operation中thyClick和thyOnRemove事件将会被禁用
@@ -157,7 +157,7 @@ export class ThyPropertyOperation implements OnInit, AfterContentInit, OnDestroy
      */
     @HostBinding('class.thy-property-operation-disabled')
     @Input({ alias: 'thyDisabled', transform: coerceBooleanProperty })
-    disabled: boolean;
+    disabled!: boolean;
 
     private destroy$ = new Subject<void>();
 

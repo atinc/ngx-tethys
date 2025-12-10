@@ -8,8 +8,7 @@
   [thyMultiple]="moreSetting.isMultiple"
   thyHiddenNodeKey="hidden"
   thyDisableNodeKey="disabled"
-  [(ngModel)]="moreSetting.selectedValue"
->
+  [(ngModel)]="moreSetting.selectedValue">
   <ng-template #treeNodeTemplate let-node>
     <thy-icon class="prefix-icon" [thyIconName]="node.expand ? 'folder-open-fill' : 'folder-fill'"></thy-icon>
     {{ node.title }}

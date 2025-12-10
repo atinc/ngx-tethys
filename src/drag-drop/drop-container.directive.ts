@@ -17,6 +17,7 @@ import { takeUntil, startWith, take, switchMap } from 'rxjs/operators';
 import { ThyDragDropEvent, ThyDragStartEvent, ThyDragEndEvent, ThyDragOverEvent } from './drag-drop.class';
 import { THY_DROP_CONTAINER_DIRECTIVE, IThyDropContainerDirective } from './drag-drop.token';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { SafeAny } from 'ngx-tethys/types';
 
 /**
  * @name thy-drop-container,[thyDropContainer]
@@ -50,48 +51,48 @@ export class ThyDropContainerDirective<T = any> implements OnInit, AfterContentI
      * 元数据
      * @type any[]
      */
-    @Input('thyDropContainerData') data: T[];
+    @Input('thyDropContainerData') data!: T[];
 
     /**
      * 是否禁用拖拽
      * @default false
      */
-    @Input({ alias: 'thyDropContainerDisabled', transform: coerceBooleanProperty }) disabled: boolean;
+    @Input({ alias: 'thyDropContainerDisabled', transform: coerceBooleanProperty }) disabled!: boolean;
 
     /**
      * 拖拽之前的回调，函数返回 false 则阻止拖拽
      */
-    @Input('thyBeforeDragStart') beforeStart: (e: ThyDragStartEvent<T>) => boolean;
+    @Input('thyBeforeDragStart') beforeStart!: (e: ThyDragStartEvent<T>) => boolean;
 
     /**
      * 拖拽时回调，函数返回 false 则阻止移入
      */
-    @Input('thyBeforeDragOver') beforeOver: (e: ThyDragOverEvent<T>) => boolean;
+    @Input('thyBeforeDragOver') beforeOver!: (e: ThyDragOverEvent<T>) => boolean;
 
     /**
      * 拖放到元素时回调，函数返回 false 则阻止放置
      */
-    @Input('thyBeforeDragDrop') beforeDrop: (e: ThyDragDropEvent<T>) => boolean;
+    @Input('thyBeforeDragDrop') beforeDrop!: (e: ThyDragDropEvent<T>) => boolean;
 
     /**
      * 开始拖拽时调用
      */
-    @Output('thyDragStarted') started = new EventEmitter<ThyDragStartEvent<ThyDragDirective>>();
+    @Output('thyDragStarted') readonly started = new EventEmitter<ThyDragStartEvent<ThyDragDirective>>();
 
     /**
      * dragend 触发时调用
      */
-    @Output('thyDragEnded') ended = new EventEmitter<ThyDragEndEvent<ThyDragDirective>>();
+    @Output('thyDragEnded') readonly ended = new EventEmitter<ThyDragEndEvent<ThyDragDirective>>();
 
     /**
      * dragover 触发时调用
      */
-    @Output('thyDragOvered') overed = new EventEmitter<ThyDragOverEvent<ThyDragDirective>>();
+    @Output('thyDragOvered') readonly overed = new EventEmitter<ThyDragOverEvent<ThyDragDirective>>();
 
     /**
      * drop 触发时调用
      */
-    @Output('thyDragDropped') dropped = new EventEmitter<ThyDragDropEvent<ThyDragDirective>>();
+    @Output('thyDragDropped') readonly dropped = new EventEmitter<ThyDragDropEvent<ThyDragDirective>>();
 
     /**
      * @internal
@@ -99,7 +100,7 @@ export class ThyDropContainerDirective<T = any> implements OnInit, AfterContentI
     @ContentChildren(ThyDragDirective, {
         descendants: false
     })
-    draggables: QueryList<ThyDragDirective>;
+    draggables!: QueryList<ThyDragDirective>;
 
     ngOnInit() {}
 
@@ -110,28 +111,28 @@ export class ThyDropContainerDirective<T = any> implements OnInit, AfterContentI
     }
 
     private draggableChanges() {
-        this.resetDraggableChanges(item => item.dragRef.started).subscribe(event => {
+        this.resetDraggableChanges(item => item.dragRef.started).subscribe((event: SafeAny) => {
             this.started.emit(event);
         });
-        this.resetDraggableChanges(item => item.dragRef.ended).subscribe(event => {
+        this.resetDraggableChanges(item => item.dragRef.ended).subscribe((event: SafeAny) => {
             this.ended.emit(event);
         });
-        this.resetDraggableChanges(item => item.dragRef.overed).subscribe(event => {
+        this.resetDraggableChanges(item => item.dragRef.overed).subscribe((event: SafeAny) => {
             this.overed.emit(event);
         });
-        this.resetDraggableChanges(item => item.dragRef.dropped).subscribe(event => {
+        this.resetDraggableChanges(item => item.dragRef.dropped).subscribe((event: SafeAny) => {
             this.dropped.emit(event);
         });
     }
 
-    private resetDraggableChanges(fn: (item: ThyDragDirective) => Observable<any>) {
+    private resetDraggableChanges(fn: (item: ThyDragDirective) => Observable<SafeAny>): Observable<SafeAny> {
         return defer(() => {
             if (this.draggables) {
                 return merge(...this.draggables.map(fn));
             }
             return this.ngZone.onStable.asObservable().pipe(
                 take(1),
-                switchMap(() => this.resetDraggableChanges.bind(this, fn))
+                switchMap(() => this.resetDraggableChanges.bind(this, fn) as SafeAny)
             );
         }).pipe(takeUntil(merge(this.ngUnsubscribe$, this.draggables.changes))) as Observable<any>;
     }

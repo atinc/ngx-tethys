@@ -11,6 +11,7 @@ import { ThyFileSelectEvent } from './types';
  * @order 10
  */
 @Component({
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: '[thyFileSelect],thy-file-select',
     templateUrl: './file-select.component.html'
 })
@@ -20,7 +21,7 @@ export class ThyFileSelect extends FileSelectBaseDirective {
      */
     readonly thyOnFileSelect = output<ThyFileSelectEvent>();
 
-    protected readonly fileInput = viewChild<ElementRef<HTMLInputElement>>('fileInput');
+    protected readonly fileInput = viewChild.required<ElementRef<HTMLInputElement>>('fileInput');
 
     /**
      * 文件是否多选

@@ -36,7 +36,7 @@ export interface ThyImagePreviewOptions {
 export interface ThyImagePreviewOperation {
     icon: string;
     name: string;
-    action?: (image?: ThyImageInfo) => void;
+    action?: (image: ThyImageInfo) => void;
     type?: ThyImagePreviewOperationType;
 }
 

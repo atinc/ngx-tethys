@@ -4,6 +4,7 @@ import { map, mergeMap, tap } from 'rxjs/operators';
 
 import { XhrFactory } from '@angular/common';
 import { inject, Injectable } from '@angular/core';
+import { SafeAny } from 'ngx-tethys/types';
 
 export enum ThyUploadStatus {
     pending = 'pending',
@@ -189,13 +190,13 @@ export class ThyUploadService {
                 const progressStartTime = (uploadFile.progress && uploadFile.progress.startTime) || new TinyDate().getTime();
                 estimatedTime = Math.ceil((event.total - event.loaded) / speed);
 
-                uploadFile.progress.status = ThyUploadStatus.uploading;
-                uploadFile.progress.percentage = percentage;
-                uploadFile.progress.speed = speed;
-                uploadFile.progress.speedHuman = `${humanizeBytes(speed, false, 2)}/s`;
-                uploadFile.progress.startTime = progressStartTime;
-                uploadFile.progress.estimatedTime = estimatedTime;
-                uploadFile.progress.estimatedTimeHuman = this.secondsToHuman(estimatedTime);
+                uploadFile.progress!.status = ThyUploadStatus.uploading;
+                uploadFile.progress!.percentage = percentage;
+                uploadFile.progress!.speed = speed;
+                uploadFile.progress!.speedHuman = `${humanizeBytes(speed, false, 2)}/s`;
+                uploadFile.progress!.startTime = progressStartTime;
+                uploadFile.progress!.estimatedTime = estimatedTime;
+                uploadFile.progress!.estimatedTimeHuman = this.secondsToHuman(estimatedTime);
 
                 observer.next({ status: ThyUploadStatus.uploading, uploadFile: uploadFile });
             }
@@ -205,15 +206,15 @@ export class ThyUploadService {
 
         const onReadyStateChange = () => {
             if (xhr.readyState === XMLHttpRequest.DONE) {
-                const speedTime = (new TinyDate().getTime() - uploadFile.progress.startTime) * 1000;
+                const speedTime = (new TinyDate().getTime() - uploadFile.progress!.startTime!) * 1000;
                 const speedAverage = Math.round(uploadFile.nativeFile.size / speedTime);
 
-                uploadFile.progress.status = ThyUploadStatus.done;
-                uploadFile.progress.percentage = 100;
-                uploadFile.progress.speed = speedAverage;
-                uploadFile.progress.speedHuman = `${humanizeBytes(speed, false, 2)}/s`;
-                uploadFile.progress.estimatedTime = estimatedTime;
-                uploadFile.progress.estimatedTimeHuman = this.secondsToHuman(estimatedTime || 0);
+                uploadFile.progress!.status = ThyUploadStatus.done;
+                uploadFile.progress!.percentage = 100;
+                uploadFile.progress!.speed = speedAverage;
+                uploadFile.progress!.speedHuman = `${humanizeBytes(speed, false, 2)}/s`;
+                uploadFile.progress!.estimatedTime = estimatedTime;
+                uploadFile.progress!.estimatedTimeHuman = this.secondsToHuman(estimatedTime || 0);
 
                 uploadFile.responseStatus = xhr.status;
 
@@ -232,13 +233,13 @@ export class ThyUploadService {
         };
 
         xhr.upload.addEventListener('progress', onProgress, false);
-        xhr.upload.addEventListener('error', onError);
+        xhr.upload.addEventListener('error', onError as SafeAny);
         // When using the [timeout attribute](https://xhr.spec.whatwg.org/#the-timeout-attribute) and an XHR
         // request times out, browsers trigger the `timeout` event (and executes the XHR's `ontimeout`
         // callback). Additionally, Safari 9 handles timed-out requests in the same way, even if no `timeout`
         // has been explicitly set on the XHR.
-        xhr.upload.addEventListener('timeout', onError);
-        xhr.addEventListener('timeout', onError);
+        xhr.upload.addEventListener('timeout', onError as SafeAny);
+        xhr.addEventListener('timeout', onError as SafeAny);
         xhr.addEventListener('readystatechange', onReadyStateChange);
 
         xhr.open(uploadFile.method, uploadFile.url, true);
@@ -247,8 +248,8 @@ export class ThyUploadService {
         try {
             const formData = new FormData();
 
-            Object.keys(uploadFile.data || {}).forEach(key => formData.append(key, uploadFile.data[key]));
-            Object.keys(uploadFile.headers || {}).forEach(key => xhr.setRequestHeader(key, uploadFile.headers[key]));
+            Object.keys(uploadFile.data || {}).forEach(key => formData.append(key, uploadFile.data![key]));
+            Object.keys(uploadFile.headers || {}).forEach(key => xhr.setRequestHeader(key, uploadFile.headers![key]));
 
             formData.append(uploadFile.fileField || 'file', uploadFile.nativeFile, uploadFile.fileName);
 
@@ -262,9 +263,9 @@ export class ThyUploadService {
             xhr,
             cleanup: () => {
                 xhr.upload.removeEventListener('progress', onProgress);
-                xhr.upload.removeEventListener('error', onError);
-                xhr.upload.removeEventListener('timeout', onError);
-                xhr.removeEventListener('timeout', onError);
+                xhr.upload.removeEventListener('error', onError as SafeAny);
+                xhr.upload.removeEventListener('timeout', onError as SafeAny);
+                xhr.removeEventListener('timeout', onError as SafeAny);
                 xhr.removeEventListener('readystatechange', onReadyStateChange);
             }
         };
@@ -306,10 +307,10 @@ export class ThyUploadService {
                 return this.upload(uploadFile).pipe(
                     tap(uploadResponse => {
                         if (options && options.onStarted && uploadResponse.status === ThyUploadStatus.started) {
-                            options.onStarted(uploadResponse.uploadFile);
+                            options.onStarted(uploadResponse.uploadFile!);
                         }
                         if (options && options.onDone && uploadResponse.status === ThyUploadStatus.done) {
-                            options.onDone(uploadResponse.uploadFile);
+                            options.onDone(uploadResponse.uploadFile!);
                         }
                     })
                 );

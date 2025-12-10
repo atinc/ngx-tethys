@@ -4,8 +4,7 @@
   thyShowKey="title"
   thyPlaceholder="请选择树选择的值"
   thyDisableNodeKey="disabled"
-  [(ngModel)]="selectedValue"
->
+  [(ngModel)]="selectedValue">
   <ng-template #treeNodeTemplate let-node>
     <thy-icon class="prefix-icon" [thyIconName]="node.expand ? 'folder-open-fill' : 'folder-fill'"></thy-icon>
     {{ node.title }}
@@ -26,17 +25,14 @@
   thyPlaceholder="请选择树选择的值"
   thyDisableNodeKey=""
   [thyDisableNodeFn]="disabledNodeFn"
-  [(ngModel)]="selectedValue"
->
+  [(ngModel)]="selectedValue">
   <ng-template #treeNodeTemplate let-node>
     <thy-icon class="prefix-icon" [thyIconName]="node.expand ? 'folder-open-fill' : 'folder-fill'"></thy-icon>
     {{ node.title }}
   </ng-template>
 </thy-tree-select>
 <h6 class="my-3">通过设置 <code>thyDisableNodeFn </code>来禁用节点：</h6>
-<p>
-  函数的返回值为要禁用的节点的 key。
-</p>
+<p>函数的返回值为要禁用的节点的 key。</p>
 <p>
   注意，由于 <code>thyDisableNodeFn </code>的优先级小于 <code>thyDisableNodeKey </code>并且
   <code>thyDisableNodeKey </code>有默认值，所以在使用 <code>thyDisableNodeFn </code> 时，需要将 <code>thyDisableNodeKey </code> 设置为假值。

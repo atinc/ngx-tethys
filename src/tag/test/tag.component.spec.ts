@@ -24,7 +24,7 @@ export class ThyTagBasicTestComponent implements OnInit {
     color: ThyTagColor = 'default';
     theme: 'outline' | 'fill' | 'weak-fill' = 'fill';
     shape: ThyTagShape = 'rectangle';
-    hoverable: boolean;
+    hoverable!: boolean;
 
     constructor() {}
 
@@ -32,7 +32,7 @@ export class ThyTagBasicTestComponent implements OnInit {
 }
 
 describe('thy-tag', () => {
-    let fixture: ComponentFixture<ThyTagBasicTestComponent>;
+    let fixture!: ComponentFixture<ThyTagBasicTestComponent>;
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             providers: [provideHttpClient()]

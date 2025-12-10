@@ -29,10 +29,10 @@ class ThySkeletonCircleTestComponent {
 }
 
 describe('skeleton circle', () => {
-    let fixture: ComponentFixture<ThySkeletonCircleTestComponent>;
-    let skeletonCircleComponent: ThySkeletonCircleTestComponent;
-    let circleDebugComponent: DebugElement;
-    let circleElement: HTMLElement;
+    let fixture!: ComponentFixture<ThySkeletonCircleTestComponent>;
+    let skeletonCircleComponent!: ThySkeletonCircleTestComponent;
+    let circleDebugComponent!: DebugElement;
+    let circleElement!: HTMLElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({});

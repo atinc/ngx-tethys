@@ -62,6 +62,7 @@ function baseGetTag(value: any) {
     try {
         value[symToStringTag] = undefined;
         unmasked = true;
+    // eslint-disable-next-line no-empty
     } catch (e) {}
 
     const result = toString.call(value);

@@ -10,9 +10,9 @@ describe('thy-statistic', () => {
     });
 
     describe('thy-statistic-basic', () => {
-        let fixture: ComponentFixture<ThyDemoStatisticBasicComponent>;
-        let basicTestComponent: ThyDemoStatisticBasicComponent;
-        let statisticComponent: DebugElement;
+        let fixture!: ComponentFixture<ThyDemoStatisticBasicComponent>;
+        let basicTestComponent!: ThyDemoStatisticBasicComponent;
+        let statisticComponent!: DebugElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyDemoStatisticBasicComponent);
@@ -90,9 +90,9 @@ describe('thy-statistic', () => {
     });
 
     describe('thy-statistic-template', () => {
-        let fixture: ComponentFixture<ThyDemoStatisticTemplateComponent>;
-        let templateTestComponent: ThyDemoStatisticTemplateComponent;
-        let statisticComponent: DebugElement;
+        let fixture!: ComponentFixture<ThyDemoStatisticTemplateComponent>;
+        let templateTestComponent!: ThyDemoStatisticTemplateComponent;
+        let statisticComponent!: DebugElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyDemoStatisticTemplateComponent);
@@ -126,8 +126,8 @@ describe('thy-statistic', () => {
     });
 
     describe('thy-statistic-template-outside', () => {
-        let fixture: ComponentFixture<ThyDemoStatisticTemplateOutsideComponent>;
-        let templateTestComponent: ThyDemoStatisticTemplateOutsideComponent;
+        let fixture!: ComponentFixture<ThyDemoStatisticTemplateOutsideComponent>;
+        let templateTestComponent!: ThyDemoStatisticTemplateOutsideComponent;
         let statisticComponent;
 
         beforeEach(() => {

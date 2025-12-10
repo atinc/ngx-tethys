@@ -7,7 +7,7 @@ import { ThyCarouselItemDirective } from '../carousel-item.directive';
 import { ThyCarouselBaseEngine } from '../engine/carousel-base';
 
 export class ThyCarouselFadeEngine extends ThyCarouselBaseEngine {
-    contentsEl: HTMLElement[];
+    contentsEl!: HTMLElement[];
 
     constructor(thyCarouselComponent: IThyCarouselComponent, cdr: ChangeDetectorRef, renderer: Renderer2, platform: Platform) {
         super(thyCarouselComponent, cdr, renderer, platform);
@@ -24,7 +24,7 @@ export class ThyCarouselFadeEngine extends ThyCarouselBaseEngine {
     initializeCarouselContents(contents: QueryList<ThyCarouselItemDirective> | null): void {
         this.initializeContents(contents);
         this.contentsEl = [];
-        contents.forEach((content, index) => {
+        (contents || []).forEach((content, index) => {
             this.contentsEl.push(content.el);
             this.renderer.setStyle(content.el, 'opacity', this.carouselComponent!.activeIndex === index ? '1' : '0');
             this.renderer.setStyle(content.el, 'position', 'absolute');

@@ -69,7 +69,7 @@ export class ThyAutocomplete {
     });
 
     /** Manages active item in option list based on key events. */
-    keyManager: ActiveDescendantKeyManager<ThyOptionRender>;
+    keyManager?: ActiveDescendantKeyManager<ThyOptionRender>;
 
     readonly contentTemplateRef = viewChild<TemplateRef<any>>('contentTemplate');
 
@@ -79,7 +79,7 @@ export class ThyAutocomplete {
     /**
      * @private
      */
-    @ContentChildren(ThyOption, { descendants: true }) options: QueryList<ThyOption>;
+    @ContentChildren(ThyOption, { descendants: true }) options!: QueryList<ThyOption>;
 
     readonly optionRenders = viewChildren(ThyOptionRender);
 
@@ -144,10 +144,10 @@ export class ThyAutocomplete {
         const { value, isUserInput } = event;
         const option = this.options.toArray().find(option => option.thyValue() === value);
         if (option) {
-            option.selectionChange.emit({ option, isUserInput });
+            option.selectionChange.emit({ option, isUserInput: !!isUserInput });
         }
 
         this.selectedValues.set([value]);
-        this.thyOptionSelected.emit(new ThyOptionSelectionChangeEvent(option, false));
+        this.thyOptionSelected.emit(new ThyOptionSelectionChangeEvent(option!, false));
     }
 }

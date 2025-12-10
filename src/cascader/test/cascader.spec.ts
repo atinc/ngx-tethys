@@ -357,11 +357,11 @@ const customLabelPropertyOptions = [
     imports: [FormsModule, CommonModule, OverlayModule, ThyCascaderModule, ThyFlexibleTextModule, ThyIconModule]
 })
 class CascaderBasicComponent {
-    @ViewChild(ThyCascader, { static: false }) cascader: ThyCascader;
+    @ViewChild(ThyCascader, { static: false }) cascader!: ThyCascader;
 
     public thyTriggerAction: ThyCascaderTriggerType = 'click';
     public thyExpandTriggerAction: ThyCascaderExpandTrigger = 'click';
-    public curVal: string | string[] = null;
+    public curVal: string | string[] | null = null;
     public placeholder = '';
     public thyCustomerOptions: any[] = clone(customerOptions);
     public thyChangeOnSelect = false;
@@ -374,12 +374,12 @@ class CascaderBasicComponent {
     public isOnlySelectLeaf = true;
     public isMultiple = false;
     public thyAutoExpand = true;
-    public hasBackdrop: boolean;
-    public customOptions: SafeAny[];
-    public width;
+    public hasBackdrop!: boolean;
+    public customOptions!: SafeAny[];
+    public width!: number;
     public loadingDone = true;
 
-    @ViewChild('cascader', { static: true }) cascaderRef: ThyCascader;
+    @ViewChild('cascader', { static: true }) cascaderRef!: ThyCascader;
 
     thyExpandStatusChange = jasmine.createSpy('thyExpandStatusChange callback');
 
@@ -550,7 +550,7 @@ class CascaderMultipleComponent {
 
     public disabled = false;
 
-    public customOptions: SafeAny[];
+    public customOptions!: SafeAny[];
 
     public isOnlySelectLeaf = true;
 
@@ -608,7 +608,7 @@ class CascaderCustomLabelPropertyComponent {
 
     public selectSpy = jasmine.createSpy('multiple select option');
 
-    public customOptions: SafeAny[] = [
+    public customOptions: SafeAny[] | undefined = [
         { text: '白天', _id: 'day', children: [], isLeaf: true },
         { text: '夜晚', _id: 'night', children: [], isLeaf: true }
     ];
@@ -632,11 +632,11 @@ describe('thy-cascader', () => {
     }));
 
     describe('basic', () => {
-        let fixture: ComponentFixture<CascaderBasicComponent>;
-        let component: CascaderBasicComponent;
-        let debugElement: DebugElement;
-        let overlayContainer: OverlayContainer;
-        let overlayContainerElement: HTMLElement;
+        let fixture!: ComponentFixture<CascaderBasicComponent>;
+        let component!: CascaderBasicComponent;
+        let debugElement!: DebugElement;
+        let overlayContainer!: OverlayContainer;
+        let overlayContainerElement!: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(CascaderBasicComponent);
@@ -666,7 +666,7 @@ describe('thy-cascader', () => {
                 .pipe(take(1))
                 .toPromise()
                 .then(e => {
-                    expect(e.length).toBe(0);
+                    expect(e!.length).toBe(0);
                 });
             const el = debugElement.query(By.css('.select-control-clear'));
             dispatchFakeEvent(el.nativeElement, 'click', true);
@@ -756,7 +756,7 @@ describe('thy-cascader', () => {
             });
 
             selectedVal.forEach((text, index) => {
-                const currentItem = debugElement.queryAll(By.css(`ul li`)).find(item => item.nativeElement.innerText.includes(text));
+                const currentItem = debugElement.queryAll(By.css(`ul li`)).find(item => item.nativeElement.innerText.includes(text))!;
                 dispatchFakeEvent(currentItem.nativeElement, 'click', true);
                 fixture.detectChanges();
                 tick(100);
@@ -937,7 +937,7 @@ describe('thy-cascader', () => {
             const activatedOptionsText: string[] = [];
             activatedOptions.forEach(item => activatedOptionsText.push(item.innerText.trim()));
 
-            expect(activatedOptionsText).toEqual(fixture.componentInstance.curVal[fixture.componentInstance.curVal.length - 1]);
+            expect(activatedOptionsText).toEqual(fixture.componentInstance.curVal![fixture.componentInstance.curVal!.length - 1]);
         }));
 
         it('should scroll to active item when menu open', fakeAsync(() => {
@@ -953,7 +953,7 @@ describe('thy-cascader', () => {
             const el = debugElement.query(By.css('.thy-cascader-menus')).nativeElement;
             el.style.height = 180;
             const elementRect = el.getBoundingClientRect();
-            const activatedOption = overlayContainerElement.querySelector('.thy-cascader-menu-item-active').getBoundingClientRect();
+            const activatedOption = overlayContainerElement.querySelector('.thy-cascader-menu-item-active')!.getBoundingClientRect();
             expect(activatedOption.top - elementRect.top < 180).toBeTruthy();
         }));
 
@@ -1165,7 +1165,7 @@ describe('thy-cascader', () => {
             expect(allSearchList.length).toBeGreaterThan(0);
             allSearchList.forEach(item => {
                 expect((item as HTMLElement).innerText).toMatch('xihu');
-                const optionLabel = (item as HTMLElement).querySelector('.option-label-item');
+                const optionLabel = (item as HTMLElement).querySelector('.option-label-item')!;
                 expect(optionLabel.classList.contains('text-truncate')).toBeTruthy();
                 expect(optionLabel.classList.contains('flexible-text-container')).toBeTruthy();
             });
@@ -1190,7 +1190,7 @@ describe('thy-cascader', () => {
             expect(allSearchList.length).toBeGreaterThan(0);
             allSearchList.forEach(item => {
                 expect((item as HTMLElement).innerText).toMatch('zhejiang');
-                const optionLabel = (item as HTMLElement).querySelector('.option-label-item');
+                const optionLabel = (item as HTMLElement).querySelector('.option-label-item')!;
                 expect(optionLabel.classList.contains('text-truncate')).toBeTruthy();
                 expect(optionLabel.classList.contains('flexible-text-container')).toBeTruthy();
             });
@@ -1249,13 +1249,13 @@ describe('thy-cascader', () => {
             fixture.detectChanges();
             tick(300);
             fixture.detectChanges();
-            const searchOption = overlayContainerElement.querySelector('.thy-cascader-search-list-item');
-            let text: string[] = [];
+            const searchOption = overlayContainerElement.querySelector('.thy-cascader-search-list-item')!;
+            const text: string[] = [];
             (searchOption as HTMLElement).querySelectorAll('.thy-breadcrumb-item').forEach(item => {
                 text.push((item as HTMLElement).innerText);
             });
             let options = fixture.componentInstance.thyCustomerOptions;
-            let selectedValue: string[] = [];
+            const selectedValue: string[] = [];
             while (text.length) {
                 const curText = text.shift();
                 const curOption = options.find(item => item.label === curText);
@@ -1324,9 +1324,9 @@ describe('thy-cascader', () => {
     });
 
     describe('loadData', () => {
-        let fixture: ComponentFixture<CascaderLoadComponent>;
-        let component: CascaderLoadComponent;
-        let debugElement: DebugElement;
+        let fixture!: ComponentFixture<CascaderLoadComponent>;
+        let component!: CascaderLoadComponent;
+        let debugElement!: DebugElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(CascaderLoadComponent);
@@ -1360,11 +1360,11 @@ describe('thy-cascader', () => {
     });
 
     describe('template', () => {
-        let fixture: ComponentFixture<CascaderTemplateComponent>;
-        let component: CascaderTemplateComponent;
-        let debugElement: DebugElement;
-        let overlayContainer: OverlayContainer;
-        let overlayContainerElement: HTMLElement;
+        let fixture!: ComponentFixture<CascaderTemplateComponent>;
+        let component!: CascaderTemplateComponent;
+        let debugElement!: DebugElement;
+        let overlayContainer!: OverlayContainer;
+        let overlayContainerElement!: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(CascaderTemplateComponent);
@@ -1438,11 +1438,11 @@ describe('thy-cascader', () => {
     });
 
     describe('multiple mode', () => {
-        let fixture: ComponentFixture<CascaderMultipleComponent>;
-        let component: CascaderMultipleComponent;
-        let debugElement: DebugElement;
-        let overlayContainer: OverlayContainer;
-        let overlayContainerElement: HTMLElement;
+        let fixture!: ComponentFixture<CascaderMultipleComponent>;
+        let component!: CascaderMultipleComponent;
+        let debugElement!: DebugElement;
+        let overlayContainer!: OverlayContainer;
+        let overlayContainerElement!: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(CascaderMultipleComponent);
@@ -1637,7 +1637,7 @@ describe('thy-cascader', () => {
             const firstLevelItem = getOptionByLevel();
             const firstDisabledItem = firstLevelItem.find(item =>
                 (item.nativeElement as HTMLElement).innerText.includes(originSelected[0][0])
-            );
+            )!;
             dispatchFakeEvent(firstDisabledItem.nativeElement, 'click');
             fixture.detectChanges();
             await fixture.whenStable();
@@ -1671,7 +1671,7 @@ describe('thy-cascader', () => {
             tick(300);
             fixture.detectChanges();
 
-            const searchOptionCheckbox = overlayContainerElement.querySelector('.thy-checkbox');
+            const searchOptionCheckbox = overlayContainerElement.querySelector('.thy-checkbox')!;
             expect(searchOptionCheckbox).toBeTruthy();
             flush();
             fixture.detectChanges();
@@ -1783,7 +1783,7 @@ describe('thy-cascader', () => {
             fixture.detectChanges();
             const levelUlList = debugElement.queryAll(By.css('.thy-cascader-menu'))[0];
             const divider = levelUlList.query(By.css('thy-divider'));
-            expect(divider).toBe(null);
+            expect(divider).toBeNull();
         });
 
         function getOptionByLevel(level: number = 0) {
@@ -1833,11 +1833,11 @@ describe('thy-cascader', () => {
     });
 
     describe('custom label property and custom value property', () => {
-        let fixture: ComponentFixture<CascaderCustomLabelPropertyComponent>;
-        let component: CascaderCustomLabelPropertyComponent;
-        let debugElement: DebugElement;
-        let overlayContainer: OverlayContainer;
-        let overlayContainerElement: HTMLElement;
+        let fixture!: ComponentFixture<CascaderCustomLabelPropertyComponent>;
+        let component!: CascaderCustomLabelPropertyComponent;
+        let debugElement!: DebugElement;
+        let overlayContainer!: OverlayContainer;
+        let overlayContainerElement!: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(CascaderCustomLabelPropertyComponent);
@@ -1878,7 +1878,7 @@ describe('thy-cascader', () => {
 
             const levelUlList = debugElement.queryAll(By.css('.thy-cascader-menu'))[0];
             const divider = levelUlList.query(By.css('thy-divider'));
-            expect(divider).not.toEqual(null);
+            expect(divider).not.toBeNull();
 
             const firstLevelItem = getOptionByLevel();
             firstLevelItem[clickIdx].query(By.css('label')).nativeElement.click();
@@ -1889,7 +1889,7 @@ describe('thy-cascader', () => {
             expect(component.multipleVal.length).toBe(1);
             const labels = debugElement.queryAll(By.css('.choice-item'));
             expect(labels.length).toBe(component.multipleVal.length);
-            expect(labels[0].nativeElement.innerText).toEqual(component.customOptions[clickIdx][labelProperty]);
+            expect(labels[0].nativeElement.innerText).toEqual(component.customOptions![clickIdx][labelProperty]);
         });
 
         it('should not show divider when set thyCustomOptions property to undefined', async () => {
@@ -1900,7 +1900,7 @@ describe('thy-cascader', () => {
             fixture.detectChanges();
             const levelUlList = debugElement.queryAll(By.css('.thy-cascader-menu'))[0];
             const divider = levelUlList.query(By.css('thy-divider'));
-            expect(divider).toBe(null);
+            expect(divider).toBeNull();
         });
 
         function getOptionByLevel(level: number = 0) {

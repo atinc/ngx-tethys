@@ -27,7 +27,7 @@ export class ThyColor {
             /**
              * try to find color by name in table
              */
-            let rgba: ThyRgba = ThyColorsTable[str] || null;
+            let rgba: ThyRgba = (ThyColorsTable as unknown as Record<string, ThyRgba>)[str] || null;
 
             /**
              * hex find
@@ -35,7 +35,7 @@ export class ThyColor {
             if (str[0] === '#') {
                 let hex = str.substr(1);
                 const length = hex.length;
-                let hexArray: string[] = [];
+                let hexArray: string[] | null = [];
 
                 if (length === 3) {
                     hexArray = hex.split('').map(value => value + value);
@@ -48,7 +48,7 @@ export class ThyColor {
                     hexArray = hex.match(/.{2}/g);
                 }
 
-                if (hexArray.length === 3) {
+                if (hexArray?.length === 3) {
                     rgba = new ThyRgba(parseInt(hexArray[0], 16), parseInt(hexArray[1], 16), parseInt(hexArray[2], 16), this.alpha);
                 }
             }
@@ -59,12 +59,14 @@ export class ThyColor {
                 const params = str.substr(OpenParenthesis + 1, CloseParenthesis - (OpenParenthesis + 1)).split(',');
                 switch (colorTypeName) {
                     case 'rgba':
-                        this.alpha = parseFloat(params.pop());
+                        this.alpha = parseFloat(params.pop()!);
+                    // eslint-disable-next-line no-fallthrough
                     case 'rgb':
                         rgba = new ThyRgba(parseInt(params[0], 10), parseInt(params[1], 10), parseInt(params[2], 10), this.alpha);
                         break;
                     case 'hsla':
-                        this.alpha = parseFloat(params.pop());
+                        this.alpha = parseFloat(params.pop()!);
+                    // eslint-disable-next-line no-fallthrough
                     case 'hsl':
                         rgba = this.hslaToRgba(parseInt(params[0], 10), parseInt(params[1], 10), parseInt(params[2], 10), this.alpha);
                         break;
@@ -90,7 +92,7 @@ export class ThyColor {
         return this;
     }
 
-    public setRgba(red: number = null, green: number = null, blue: number = null, alpha: number = 1): this {
+    public setRgba(red: number | null = null, green: number | null = null, blue: number | null = null, alpha: number = 1): this {
         if (red != null) {
             this.rgba.red = red;
         }
@@ -121,8 +123,8 @@ export class ThyColor {
         const Cmin = Math.min(red, green, blue);
         const delta = Cmax - Cmin;
         let hue = 0;
-        let saturation: number = Cmax === 0 ? 0 : delta / Cmax;
-        let brightness: number = Cmax;
+        const saturation: number = Cmax === 0 ? 0 : delta / Cmax;
+        const brightness: number = Cmax;
         if (Cmax !== Cmin) {
             switch (Cmax) {
                 case red:
@@ -208,7 +210,7 @@ export class ThyColor {
     }
 
     public toHexString(alpha: boolean = false): string {
-        let hex = '#' + ((1 << 24) | (this.rgba.getRed() << 16) | (this.rgba.getGreen() << 8) | this.rgba.getBlue()).toString(16).substr(1);
+        let hex = `#${((1 << 24) | (this.rgba.getRed() << 16) | (this.rgba.getGreen() << 8) | this.rgba.getBlue()).toString(16).substr(1)}`;
         if (alpha && this.rgba.alpha !== 1) {
             hex += ((1 << 8) | Math.round(this.rgba.alpha * 255)).toString(16).substr(1);
         }
@@ -270,13 +272,14 @@ export class ThyColor {
     }
 
     getFinalValue() {
-        let { hue, saturation, value, alpha, format } = this;
+        const { hue, saturation, value, alpha, format } = this;
         if (this.enableAlpha) {
             switch (format) {
-                case 'hsl':
+                case 'hsl': {
                     const hsl = hsv2hsl(hue, saturation / 100, value / 100);
                     this.displayValue = `hsla(${hue}, ${Math.round(hsl[1] * 100)}%, ${Math.round(hsl[2] * 100)}%, ${alpha})`;
                     break;
+                }
                 case 'hsv':
                     this.displayValue = `hsva(${hue}, ${Math.round(saturation)}%, ${Math.round(value)}%, ${alpha})`;
                     break;
@@ -288,10 +291,11 @@ export class ThyColor {
             }
         } else {
             switch (format) {
-                case 'hsl':
+                case 'hsl': {
                     const hsl = hsv2hsl(hue, saturation / 100, value / 100);
                     this.displayValue = `hsl(${hue}, ${Math.round(hsl[1] * 100)}%, ${Math.round(hsl[2] * 100)}%)`;
                     break;
+                }
                 case 'hsv':
                     this.displayValue = `hsv(${hue}, ${Math.round(saturation)}%, ${Math.round(value)}%)`;
                     break;

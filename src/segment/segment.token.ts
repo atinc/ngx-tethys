@@ -12,7 +12,7 @@ export interface IThySegmentItemComponent {
 export interface IThySegmentComponent {
     thyMode: InputSignal<string>;
     thyDisabled: InputSignalWithTransform<boolean, ThyBooleanInput> | InputSignal<boolean>;
-    selectedItem: IThySegmentItemComponent;
+    selectedItem: IThySegmentItemComponent | null;
     changeSelectedItem: (item: IThySegmentItemComponent, event?: Event) => void;
 }
 

@@ -1,6 +1,5 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
-import { ThyTooltipService } from 'ngx-tethys/tooltip';
-import { ThyTooltipRef } from 'ngx-tethys/tooltip';
+import { ThyTooltipService , ThyTooltipRef } from 'ngx-tethys/tooltip';
 import { ThyButton } from 'ngx-tethys/button';
 
 @Component({
@@ -11,9 +10,9 @@ import { ThyButton } from 'ngx-tethys/button';
 export class ThyTooltipManualExampleComponent implements OnInit, OnDestroy {
     private tooltipService = inject(ThyTooltipService);
 
-    @ViewChild('tooltipHost', { read: ElementRef, static: true }) tooltipHostElementRef: ElementRef<HTMLElement>;
+    @ViewChild('tooltipHost', { read: ElementRef, static: true }) tooltipHostElementRef!: ElementRef<HTMLElement>;
 
-    private tooltipRef: ThyTooltipRef;
+    private tooltipRef!: ThyTooltipRef;
 
     ngOnInit(): void {
         this.tooltipRef = this.tooltipService.create(this.tooltipHostElementRef, {

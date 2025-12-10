@@ -42,12 +42,12 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
     /**
      * 偏移量
      */
-    readonly thyCopyTipsOffset = input<number>(undefined);
+    readonly thyCopyTipsOffset = input<number>();
 
     /**
      * 当为 string 时，复制的是传入的内容；当为 ElementRef | HTMLElement 时，复制的是 dom 节点的 value 或者 textContent
      */
-    readonly thyCopyContent = input<string | ElementRef | HTMLElement>(undefined);
+    readonly thyCopyContent = input<string | ElementRef | HTMLElement>();
 
     /**
      * 是否展示通知
@@ -57,7 +57,7 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
     ngOnInit() {
         const thyCopyTips = this.thyCopyTips();
         this.tooltipDirective.setContent(thyCopyTips ? thyCopyTips : this.locale().tips);
-        this.tooltipDirective.setOffset(this.thyCopyTipsOffset());
+        this.tooltipDirective.setOffset(this.thyCopyTipsOffset()!);
     }
 
     private getContent(event: Event) {
@@ -77,7 +77,7 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
         textarea.value = this.getContent(event);
         textarea.select();
         try {
-            document.execCommand('copy', false, null);
+            document.execCommand('copy', false, '');
             this.thyCopy.emit({ isSuccess: true, event });
             if (this.thyShowNotify()) {
                 this.notifyService.success(this.thyCopySuccessText());

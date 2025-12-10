@@ -1,5 +1,5 @@
 export interface ThySegmentEvent<TValue = unknown> {
-    event: Event;
+    event?: Event;
     value: TValue;
     activeIndex: number;
 }

@@ -120,9 +120,9 @@ export class TestCalendarHeaderComponent {
 
 describe('calendar', () => {
     describe('basic', () => {
-        let component: TestCalendarBasicComponent;
-        let fixture: ComponentFixture<TestCalendarBasicComponent>;
-        let debugElement: DebugElement;
+        let component!: TestCalendarBasicComponent;
+        let fixture!: ComponentFixture<TestCalendarBasicComponent>;
+        let debugElement!: DebugElement;
 
         beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
@@ -207,9 +207,9 @@ describe('calendar', () => {
     });
 
     describe('disabledDate', () => {
-        let component: TestCalendarDisabledDateComponent;
-        let fixture: ComponentFixture<TestCalendarDisabledDateComponent>;
-        let debugElement: DebugElement;
+        let component!: TestCalendarDisabledDateComponent;
+        let fixture!: ComponentFixture<TestCalendarDisabledDateComponent>;
+        let debugElement!: DebugElement;
 
         beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
@@ -236,9 +236,9 @@ describe('calendar', () => {
 
 describe('calendar-header', () => {
     describe('basic', () => {
-        let component: TestCalendarHeaderComponent;
-        let fixture: ComponentFixture<TestCalendarHeaderComponent>;
-        let debugElement: DebugElement;
+        let component!: TestCalendarHeaderComponent;
+        let fixture!: ComponentFixture<TestCalendarHeaderComponent>;
+        let debugElement!: DebugElement;
 
         beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({

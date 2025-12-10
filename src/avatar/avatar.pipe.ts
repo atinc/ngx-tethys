@@ -7,6 +7,7 @@ import { ThyAvatarService } from './avatar.service';
  */
 const UNIFIED_IDEOGRAPHS_REGEX = /^[\u4e00-\u9fa5]+$/;
 
+// eslint-disable-next-line no-useless-escape
 const SET_OF_LETTERS_REGEX = /^[a-zA-Z\/ ]+$/;
 
 /**

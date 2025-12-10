@@ -50,12 +50,12 @@ describe('validator', () => {
                 imports: [ThyFormModule, FormsModule]
             })
             class TestMaxComponent {
-                @ViewChild('age') ngModel: NgModel;
+                @ViewChild('age') ngModel!: NgModel;
 
-                value: number;
+                value!: number;
             }
 
-            let fixture: ComponentFixture<TestMaxComponent>;
+            let fixture!: ComponentFixture<TestMaxComponent>;
 
             beforeEach(() => {
                 TestBed.configureTestingModule({});
@@ -112,12 +112,12 @@ describe('validator', () => {
                 imports: [ThyFormModule, FormsModule]
             })
             class TestMinComponent {
-                @ViewChild('age') ngModel: NgModel;
+                @ViewChild('age') ngModel!: NgModel;
 
-                value: number;
+                value!: number;
             }
 
-            let fixture: ComponentFixture<TestMinComponent>;
+            let fixture!: ComponentFixture<TestMinComponent>;
 
             beforeEach(() => {
                 TestBed.configureTestingModule({});
@@ -155,9 +155,9 @@ describe('validator', () => {
             imports: [ThyFormModule, FormsModule]
         })
         class TestUniqueCheckComponent {
-            @ViewChild('username') ngModel: NgModel;
+            @ViewChild('username') ngModel!: NgModel;
 
-            @ViewChild('thyForm') thyForm: ThyFormDirective;
+            @ViewChild('thyForm') thyForm!: ThyFormDirective;
 
             value = '';
 
@@ -176,7 +176,7 @@ describe('validator', () => {
             };
         }
 
-        let fixture: ComponentFixture<TestUniqueCheckComponent>;
+        let fixture!: ComponentFixture<TestUniqueCheckComponent>;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});

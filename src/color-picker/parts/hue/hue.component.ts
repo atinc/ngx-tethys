@@ -8,7 +8,8 @@ import {
     effect,
     inject,
     input,
-    output
+    output,
+    viewChild
 } from '@angular/core';
 import { ThyCoordinatesDirective } from '../../coordinates.directive';
 import { ThyColor } from '../../helpers/color.class';
@@ -27,12 +28,11 @@ export class ThyHue {
 
     @HostBinding('class.thy-hue') className = true;
 
-    readonly color = input<ThyColor>();
+    readonly color = input.required<ThyColor>();
 
     readonly colorChange = output<ThyColor>();
 
-    @ViewChild('pointer', { static: true })
-    public pointer: ElementRef;
+    public pointer = viewChild.required<ElementRef>('pointer');
 
     constructor() {
         effect(() => {
@@ -43,7 +43,7 @@ export class ThyHue {
     private changePointerPosition(hue?: number): void {
         const newHue = hue ?? this.color().hue;
         const x = (newHue / 360) * 100;
-        this.renderer.setStyle(this.pointer.nativeElement, 'left', `${x}%`);
+        this.renderer.setStyle(this.pointer().nativeElement, 'left', `${x}%`);
     }
 
     handleChange(event: {

@@ -104,7 +104,7 @@ export class ThyAnchor implements IThyAnchorComponent, OnDestroy, AfterViewInit 
     /**
      * 指定滚动的容器
      */
-    readonly thyContainer = input<string | HTMLElement>(undefined);
+    readonly thyContainer = input<string | HTMLElement>();
 
     /**
      * 设置导航方向

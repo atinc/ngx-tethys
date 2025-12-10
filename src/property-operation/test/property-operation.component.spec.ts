@@ -64,10 +64,10 @@ describe('ThyPropertyOperation', () => {
     });
 
     describe('test begin', () => {
-        let fixture: ComponentFixture<PropertyOperationBasicComponent>;
-        let componentInstance: PropertyOperationBasicComponent;
-        let propertyOperationDebugElement: DebugElement;
-        let propertyOperationElement: HTMLElement;
+        let fixture!: ComponentFixture<PropertyOperationBasicComponent>;
+        let componentInstance!: PropertyOperationBasicComponent;
+        let propertyOperationDebugElement!: DebugElement;
+        let propertyOperationElement!: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(PropertyOperationBasicComponent);
