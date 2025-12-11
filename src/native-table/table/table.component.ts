@@ -99,6 +99,8 @@ export class ThyNativeTableComponent<T = any> implements OnInit, AfterViewInit {
 
     readonly thyColumnSkeletonTypes = input<ThyTableColumnSkeletonType[]>(null);
 
+    public data = computed<readonly T[]>(() => this.thyData());
+
     public theadTemplate = signal<TemplateRef<any> | null>(null);
 
     public listOfManualColWidth = signal<ReadonlyArray<string | null>>([]);
