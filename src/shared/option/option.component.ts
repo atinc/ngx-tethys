@@ -1,4 +1,4 @@
-import { Component, input, TemplateRef, ChangeDetectionStrategy, viewChild, inject, output, signal } from '@angular/core';
+import { Component, input, TemplateRef, ChangeDetectionStrategy, viewChild, inject, output, signal, OnDestroy } from '@angular/core';
 import { ThySelectOptionGroup } from './group/option-group.component';
 import { SafeAny } from 'ngx-tethys/types';
 
@@ -22,7 +22,7 @@ export class ThyOptionSelectionChangeEvent {
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ThyOption {
+export class ThyOption implements OnDestroy {
     /**
      * 选项的值，具有唯一性
      */
@@ -72,5 +72,9 @@ export class ThyOption {
 
     get groupLabel() {
         return this.optionGroupComponent?.thyGroupLabel() || '';
+    }
+
+    ngOnDestroy() {
+        console.log('ThyOption ngOnDestroy');
     }
 }

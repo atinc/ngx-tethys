@@ -923,6 +923,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
                 modelValue = selectedValues[0];
             }
         }
+        console.log('ThySelect onChangeFn', modelValue);
         this.onChangeFn(modelValue);
         this.updateCdkConnectedOverlayPositions();
     }
@@ -1074,6 +1075,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     }
 
     optionClick(event: { value: SafeAny; isUserInput: boolean }) {
+        console.log('ThySelect optionClick', event);
         const { value, isUserInput } = event;
         const options = this.options();
 
@@ -1105,6 +1107,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             option.selectionChange.emit({ option, isUserInput });
         }
 
+        console.log('ThySelect optionClick emitModelValueChange');
         this.emitModelValueChange();
         if (!this.isMultiple()) {
             this.onTouchedFn();
@@ -1167,5 +1170,6 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
 
     ngOnDestroy() {
         this.unsubscribeTriggerResize();
+        console.log('ThySelect ngOnDestroy');
     }
 }
