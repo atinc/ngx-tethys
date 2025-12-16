@@ -16,7 +16,7 @@ export interface ActionBehavior<R> {
 class ActionBehaviorImpl<R, A extends (...args: any) => Observable<R>> implements ActionBehavior<R> {
     saving = signal(false);
 
-    executeParams: Parameters<A>;
+    executeParams?: Parameters<A>;
 
     takeUntilDestroyed = takeUntilDestroyed();
 
@@ -34,7 +34,7 @@ class ActionBehaviorImpl<R, A extends (...args: any) => Observable<R>> implement
         this.saving.set(true);
         const callbacks = pickBehaviorCallbacks(this.context, successOrContext, error);
         try {
-            const result = this.action.apply(undefined, this.executeParams).pipe(
+            const result = this.action.apply(undefined, this.executeParams!).pipe(
                 this.takeUntilDestroyed,
                 finalize(() => {
                     this.saving.set(false);

@@ -1,5 +1,3 @@
-import { SafeAny } from 'ngx-tethys/types';
-
 /* eslint-disable prettier/prettier */
 type GetIndexedField<T, K> = K extends keyof T
     ? T[K]
@@ -45,7 +43,7 @@ export class ObjectProducer<TEntity> {
         const split = propPath.split('.');
         const lastIndex = split.length - 1;
 
-        split.reduce((previousValue: SafeAny, part, index) => {
+        split.reduce((previousValue: any, part, index) => {
             if (index === lastIndex) {
                 previousValue[part] = value;
             } else {

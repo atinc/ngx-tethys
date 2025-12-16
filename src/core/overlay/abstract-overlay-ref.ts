@@ -4,6 +4,7 @@ import { GlobalPositionStrategy, OverlayRef, PositionStrategy } from '@angular/c
 import { ESCAPE } from 'ngx-tethys/util';
 import { ThyAbstractOverlayContainer } from './abstract-overlay-container';
 import { ThyAbstractOverlayConfig, ThyAbstractOverlayOptions, ThyAbstractOverlayPosition } from './abstract-overlay.config';
+import { SafeAny } from 'ngx-tethys/types';
 
 export abstract class ThyAbstractOverlayRef<
     TComponent = unknown,
@@ -166,7 +167,7 @@ export abstract class ThyAbstractInternalOverlayRef<
                 this._beforeClosed.complete();
                 this._afterClosed.next(this._result);
                 this._afterClosed.complete();
-                this.componentInstance = null;
+                (this.componentInstance as SafeAny) = null;
             });
 
         // ESC close

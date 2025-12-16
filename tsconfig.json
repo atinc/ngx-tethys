@@ -16,7 +16,7 @@
     "lib": ["es2020", "dom"],
     "resolveJsonModule": true,
     "useDefineForClassFields": false,
-    "strict": false,
+    "strict": true,
     "paths": {
       "ngx-tethys": ["src/public-api"],
       "ngx-tethys/*": ["src/*"],

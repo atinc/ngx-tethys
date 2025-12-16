@@ -138,7 +138,7 @@ export class ThyAffix implements AfterViewInit, OnDestroy {
 
     getOffset(element: Element, target: Element | Window | undefined): SimpleRect {
         const elemRect = element.getBoundingClientRect();
-        const containerRect = dom.getContainerRect(target);
+        const containerRect = dom.getContainerRect(target!);
 
         const scrollTop = this.scrollService.getScroll(target, true);
         const scrollLeft = this.scrollService.getScroll(target, false);
@@ -252,7 +252,7 @@ export class ThyAffix implements AfterViewInit, OnDestroy {
             scrollTop <= elementOffset.top + elemSize.height + (thyOffsetBottom as number) - targetInnerHeight &&
             offsetMode.bottom
         ) {
-            const targetBottomOffset = containerNode === window ? 0 : window.innerHeight - containerRect.bottom;
+            const targetBottomOffset = containerNode === window ? 0 : window.innerHeight - containerRect.bottom!;
             const width = elementOffset.width;
             this.setAffixStyle(e, {
                 position: 'fixed',

@@ -49,7 +49,7 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
 
     content = linkedSignal(() => {
         const value = this.thyTooltipContent();
-        return this.getValidContent(value);
+        return this.getValidContent(value!);
     });
 
     /**
