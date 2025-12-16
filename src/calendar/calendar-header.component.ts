@@ -65,11 +65,11 @@ export class ThyCalendarHeader implements OnInit {
         }
     ];
 
-    public date: DateRangeItemInfo;
+    public date!: DateRangeItemInfo;
 
-    private _currentDate: TinyDate;
+    private _currentDate!: TinyDate;
 
-    public isCurrent: boolean;
+    public isCurrent!: boolean;
 
     constructor() {
         effect(() => {
@@ -80,12 +80,12 @@ export class ThyCalendarHeader implements OnInit {
     ngOnInit(): void {}
 
     onChangeMonth(month: DateRangeItemInfo) {
-        const currentMonth = TinyDate.fromUnixTime(month.end).getMonth();
+        const currentMonth = TinyDate.fromUnixTime(month.end!).getMonth();
         this.monthChange.emit(currentMonth);
     }
 
     onChangeYear(year: DateRangeItemInfo) {
-        const currentYear = TinyDate.fromUnixTime(year.begin).getFullYear();
+        const currentYear = TinyDate.fromUnixTime(year.begin!).getFullYear();
         this.yearChange.emit(currentYear);
     }
 
@@ -104,7 +104,7 @@ export class ThyCalendarHeader implements OnInit {
     }
 
     setDate() {
-        const currentDate = this.currentDate();
+        const currentDate = this.currentDate()!;
         this.isCurrentDate(currentDate);
         if (this.isCurrent) {
             this._currentDate = currentDate;

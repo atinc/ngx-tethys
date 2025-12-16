@@ -142,6 +142,6 @@
     "eslint-plugin-prefer-arrow": "~1.2.2",
     "eslint-plugin-unused-imports": "^4.1.4",
     "angular-eslint": "^20.1.0",
-    "typescript-eslint": "^8.29.0"
+    "typescript-eslint": "^8.37.0"
   }
 }

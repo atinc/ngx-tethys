@@ -154,8 +154,8 @@ export class ThyStatistic {
     private setClassesByType() {
         const classNames = [];
         if (this.thyColor()) {
-            if (RegExp(/^#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})$/).test(this.thyColor())) {
-                this.setColor(this.thyColor());
+            if (RegExp(/^#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})$/).test(this.thyColor()!)) {
+                this.setColor(this.thyColor()!);
             } else {
                 classNames.push(`thy-statistic-${this.thyColor()}`);
             }

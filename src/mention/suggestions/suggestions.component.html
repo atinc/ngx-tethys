@@ -1,4 +1,4 @@
-@if (mention().suggestionsTemplateRef) {
+@if (mention()?.suggestionsTemplateRef) {
   <ng-container [ngTemplateOutlet]="mention().suggestionsTemplateRef" [ngTemplateOutletContext]="{ data: data() }"></ng-container>
 } @else {
   <thy-loading [thyDone]="loadingDone()"></thy-loading>

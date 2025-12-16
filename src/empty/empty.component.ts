@@ -162,14 +162,14 @@ export class ThyEmpty implements AfterViewInit {
         if (this.thyMessage()) {
             return this.thyMessage();
         } else if (this.thyTranslationKey()) {
-            return this.thyTranslate.instant(this.thyTranslationKey(), this.thyTranslationValues());
+            return this.thyTranslate.instant(this.thyTranslationKey()!, this.thyTranslationValues());
         } else if (this.thyEntityName()) {
             return this.thyTranslate.instant(this.thyEmptyConfig.noResultWithTargetTranslateKey, {
                 target: this.thyEntityName()
             });
         } else if (this.thyEntityNameTranslateKey()) {
             return this.thyTranslate.instant(this.thyEmptyConfig.noResultWithTargetTranslateKey, {
-                target: this.thyTranslate.instant(this.thyEntityNameTranslateKey())
+                target: this.thyTranslate.instant(this.thyEntityNameTranslateKey()!)
             });
         } else if (this.thyTranslate.instant(this.thyEmptyConfig.noResultTranslateKey) !== 'common.tips.NO_RESULT') {
             return this.thyTranslate.instant(this.thyEmptyConfig.noResultTranslateKey);

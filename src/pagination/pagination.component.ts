@@ -19,7 +19,7 @@ import { FormsModule } from '@angular/forms';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThySelect } from 'ngx-tethys/select';
 import { ThyEnterDirective, ThyOption } from 'ngx-tethys/shared';
-import { coerceBooleanProperty, isTemplateRef, ThyBooleanInput , isString, isArray, isBoolean } from 'ngx-tethys/util';
+import { coerceBooleanProperty, isTemplateRef, ThyBooleanInput, isString, isArray, isBoolean } from 'ngx-tethys/util';
 import { ThyPaginationConfigModel } from './pagination.class';
 import { PaginationDefaultConfig, THY_PAGINATION_CONFIG, DEFAULT_RANGE_COUNT } from './pagination.config';
 import { PaginationPerPageFormat, PaginationTotalCountFormat } from './pagination.pipe';
@@ -134,7 +134,7 @@ export class ThyPagination {
     /**
      * @type number[]
      */
-    readonly thyPageSizeOptions = input<number[]>(undefined);
+    readonly thyPageSizeOptions = input<number[] | undefined>(undefined);
 
     /**
      * 只有一页时是否隐藏分页器
@@ -169,9 +169,9 @@ export class ThyPagination {
 
     public currentPageIndex = signal(1);
 
-    public currentPageSize: WritableSignal<number> = signal(null);
+    public currentPageSize: WritableSignal<number | null> = signal(null);
 
-    public selectedPageSize: ModelSignal<number> = model();
+    public selectedPageSize: ModelSignal<number | undefined> = model();
 
     public firstIndex = 1;
 
@@ -225,7 +225,7 @@ export class ThyPagination {
 
     marginalCount = computed(() => {
         if (!this.thyMarginalCount()) {
-            return this.computedConfig().rangeCount <= DEFAULT_RANGE_COUNT ? 1 : 2;
+            return this.computedConfig()!.rangeCount! <= DEFAULT_RANGE_COUNT ? 1 : 2;
         } else {
             return this.thyMarginalCount();
         }
@@ -233,10 +233,10 @@ export class ThyPagination {
 
     computedPageCount = computed(() => {
         let pageCount = null;
-        if (this.thyCustomPages() && this.thyCustomPages().length > 0) {
-            pageCount = this.thyCustomPages()[this.thyCustomPages().length - 1];
+        if (this.thyCustomPages() && this.thyCustomPages()!.length > 0) {
+            pageCount = this.thyCustomPages()![this.thyCustomPages()!.length - 1];
         } else {
-            pageCount = this.currentPageSize() < 1 ? 1 : Math.ceil(this.thyTotal() / this.currentPageSize());
+            pageCount = this.currentPageSize()! < 1 ? 1 : Math.ceil(this.thyTotal()! / this.currentPageSize()!);
         }
         return Math.max(pageCount || 0, 1);
     });
@@ -246,16 +246,16 @@ export class ThyPagination {
         const pageIndex = this.currentPageIndex();
         const config = this.computedConfig();
 
-        if (this.thyCustomPages() && this.thyCustomPages().length > 0) {
-            return this.thyCustomPages().map(page => {
+        if (this.thyCustomPages() && this.thyCustomPages()!.length > 0) {
+            return this.thyCustomPages()!.map(page => {
                 return { index: page, text: page.toString(), active: page === +pageIndex };
             });
         }
 
         let pages = [];
-        const marginalCount = this.marginalCount();
-        const rangeCount = config.rangeCount;
-        const maxCount = config.maxCount;
+        const marginalCount = this.marginalCount()!;
+        const rangeCount = config.rangeCount!;
+        const maxCount = config.maxCount!;
         const isMaxSized = pageCount > maxCount;
         if (isMaxSized) {
             const beforePages = [];
@@ -281,12 +281,12 @@ export class ThyPagination {
             }
 
             if (pageIndex - Math.ceil(rangeCount / 2) > this.firstIndex && marginalCount + 1 < start) {
-                beforePages.push(this.makePage(Math.ceil((marginalCount + start) / 2), '···', null));
+                beforePages.push(this.makePage(Math.ceil((marginalCount + start) / 2), '···', false));
             }
 
             // afterPages
             if (pageIndex + Math.ceil(rangeCount / 2) < pageCount && pageCount - marginalCount > end) {
-                afterPages.push(this.makePage(Math.ceil((pageCount - marginalCount + 1 + end) / 2), '···', null));
+                afterPages.push(this.makePage(Math.ceil((pageCount - marginalCount + 1 + end) / 2), '···', false));
             }
             for (let i = pageCount - marginalCount + 1; i <= pageCount; i++) {
                 afterPages.push(this.makePage(i, i.toString(), i === pageIndex));
@@ -303,8 +303,8 @@ export class ThyPagination {
 
     computedRange = computed(() => {
         const pageIndex = this.currentPageIndex();
-        const pageSize = this.currentPageSize();
-        const total = this.thyTotal();
+        const pageSize = this.currentPageSize()!;
+        const total = this.thyTotal()!;
         const toPageSize = pageIndex * pageSize;
         return { from: (pageIndex - 1) * pageSize + 1, to: toPageSize > total ? total : toPageSize };
     });
@@ -313,7 +313,7 @@ export class ThyPagination {
         effect(() => {
             const pageIndex = this.thyPageIndex();
             if (Number.isInteger(pageIndex)) {
-                this.setPageIndex(pageIndex);
+                this.setPageIndex(pageIndex!);
             }
         });
 
@@ -321,8 +321,8 @@ export class ThyPagination {
             let pageSize = this.thyPageSize();
 
             if (Number.isInteger(pageSize)) {
-                this.currentPageSize.set(pageSize);
-                this.selectedPageSize.set(pageSize);
+                this.currentPageSize.set(pageSize!);
+                this.selectedPageSize.set(pageSize!);
             } else {
                 const config = this.computedConfig();
                 if (config.pageSizeOptions && config.pageSizeOptions.length > 0) {
@@ -330,8 +330,8 @@ export class ThyPagination {
                 } else {
                     pageSize = config.pageSize;
                 }
-                this.currentPageSize.set(pageSize);
-                this.selectedPageSize.set(pageSize);
+                this.currentPageSize.set(pageSize!);
+                this.selectedPageSize.set(pageSize!);
             }
         });
     }

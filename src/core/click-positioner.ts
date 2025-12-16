@@ -31,7 +31,7 @@ export class ThyClickPositioner {
             return;
         }
         this.initialized = true;
-        this.clickDispatcher.clicked(0).subscribe((event: MouseEvent) => {
+        this.clickDispatcher.clicked<MouseEvent>(0).subscribe((event: MouseEvent) => {
             this.lastPosition = { x: event.clientX, y: event.clientY };
         });
     }

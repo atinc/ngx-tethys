@@ -7,6 +7,7 @@ import { ThyPopover } from 'ngx-tethys/popover';
 import { ThyGuiderManager } from './guider-manager';
 import { ThyGuiderStep, ThyGuiderConfig, defaultGuiderPositionConfig } from './guider.class';
 import { Overlay } from '@angular/cdk/overlay';
+import { SafeAny } from 'ngx-tethys/types';
 
 /**
  * 新手引导服务
@@ -25,7 +26,7 @@ export class ThyGuider {
     private overlay = inject(Overlay);
     private document = inject(DOCUMENT);
 
-    private guiderRef: ThyGuiderRef;
+    private guiderRef!: ThyGuiderRef;
 
     private guiderRefs: ThyGuiderRef[] = [];
 
@@ -41,7 +42,7 @@ export class ThyGuider {
             this.rendererFactory,
             this.popover,
             this.router,
-            this.guiderManager,
+            (this.guiderManager as SafeAny),
             this.ngZone,
             this.overlay,
             this.document

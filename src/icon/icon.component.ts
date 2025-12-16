@@ -101,7 +101,7 @@ export class ThyIcon {
                 this.hostRenderer.updateClass([`thy-icon${namespace ? `-${namespace}` : ``}-${this.buildIconNameByType(iconName)}`]);
             } else {
                 const fontSetClass = this.thyIconSet()
-                    ? this.iconRegistry.getFontSetClassByAlias(this.thyIconSet())
+                    ? this.iconRegistry.getFontSetClassByAlias(this.thyIconSet()!)
                     : this.iconRegistry.getDefaultFontSetClass();
                 this.hostRenderer.updateClass([fontSetClass, `${fontSetClass}-${this.thyIconName()}`]);
             }
@@ -138,8 +138,8 @@ export class ThyIcon {
             const allPaths = svg.querySelectorAll('path');
             if (allPaths.length > 1) {
                 allPaths.forEach((child, index: number) => {
-                    if (child.getAttribute('id').includes('secondary-color')) {
-                        child.setAttribute('fill', this.thyTwotoneColor());
+                    if (child.getAttribute('id')!.includes('secondary-color')) {
+                        child.setAttribute('fill', this.thyTwotoneColor()!);
                     }
                 });
             }
@@ -202,10 +202,10 @@ export class ThyIcon {
         const styleElements = svg.querySelectorAll('style');
         styleElements.forEach((n: HTMLElement) => {
             if (n.style.cssText.includes('url')) {
-                n.style.fill = n.style.fill.replace('url("', `url("${  location.pathname}`);
+                n.style.fill = n.style.fill.replace('url("', `url("${location.pathname}`);
             }
             if (n.style.cssText.includes('clip-path')) {
-                n.style.clipPath = n.style.clipPath.replace('url("', `url("${  location.pathname}`);
+                n.style.clipPath = n.style.clipPath.replace('url("', `url("${location.pathname}`);
             }
         });
     }

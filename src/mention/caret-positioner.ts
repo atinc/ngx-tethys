@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { getElementOffset } from 'ngx-tethys/util';
+import { SafeAny } from 'ngx-tethys/types';
 
 export interface CaretCoordinates {
     top: number;
@@ -15,7 +16,7 @@ export interface CaretOptions {
 // Note that some browsers, such as Firefox, do not concatenate properties
 // into their shorthand (e.g. padding-top, padding-bottom etc. -> padding),
 // so we have to list every single property explicitly.
-const properties = [
+const properties: string[] = [
     'direction', // RTL support
     'boxSizing',
     'width', // on Chrome and IE, exclude the scrollbar, so the mirror div wraps exactly as the textarea does
@@ -57,6 +58,7 @@ const properties = [
 ];
 
 const isBrowser = typeof window !== 'undefined';
+// @ts-ignore
 const isFirefox = isBrowser && window['mozInnerScreenX'] != null;
 
 export type InputOrTextAreaElement = HTMLInputElement | HTMLTextAreaElement;
@@ -74,7 +76,7 @@ export class CaretPositioner {
         if (debug) {
             const el = document.querySelector('#input-textarea-caret-position-mirror-div');
             if (el) {
-                el.parentNode.removeChild(el);
+                el.parentNode?.removeChild(el);
             }
         }
 
@@ -84,6 +86,7 @@ export class CaretPositioner {
         document.body.appendChild(div);
 
         const style = div.style;
+        // @ts-ignore
         const computed = window.getComputedStyle ? window.getComputedStyle(element) : element['currentStyle']; // currentStyle for IE < 9
         const isInput = element.nodeName === 'INPUT';
 
@@ -111,7 +114,7 @@ export class CaretPositioner {
                         parseInt(computed.borderBottomWidth, 10);
                     const targetHeight = outerHeight + parseInt(computed.lineHeight, 10);
                     if (height > targetHeight) {
-                        style.lineHeight = `${height - outerHeight  }px`;
+                        style.lineHeight = `${height - outerHeight}px`;
                     } else if (height === targetHeight) {
                         style.lineHeight = computed.lineHeight;
                     } else {
@@ -121,7 +124,7 @@ export class CaretPositioner {
                     style.lineHeight = computed.height;
                 }
             } else {
-                style[prop] = computed[prop];
+                (style as Record<string, SafeAny>)[prop] = computed[prop];
             }
         });
 
@@ -166,8 +169,8 @@ export class CaretPositioner {
     }
 
     static getEditableCaretCoordinates(element: HTMLElement): CaretCoordinates {
-        if (window.getSelection().rangeCount) {
-            const range = window.getSelection().getRangeAt(0);
+        if (window.getSelection()?.rangeCount) {
+            const range = window.getSelection()!.getRangeAt(0)!;
             const rect = range.getBoundingClientRect();
             // using the start or endcontainer is... uhm yeah... difficult...? :D
             let height: string | number =
@@ -183,7 +186,7 @@ export class CaretPositioner {
                 node.style.lineHeight = '1em';
                 height = parseInt(getComputedStyle(node).lineHeight, 10);
                 node.style.lineHeight = current != null ? current : '';
-                if (!node.getAttribute('style').length) {
+                if (!node.getAttribute('style')?.length) {
                     // clean up if empty
                     node.removeAttribute('style');
                 }
@@ -216,9 +219,11 @@ export class CaretPositioner {
     static getCaretPosition(element: AllElement, position: number, options?: CaretOptions) {
         const coordinates = CaretPositioner.getCaretCoordinates(element, position, options);
         const elementOffset = getElementOffset(element);
-        return {
-            top: coordinates.top + elementOffset.top,
-            left: coordinates.left + elementOffset.left
-        };
+        if (elementOffset) {
+            return {
+                top: coordinates.top + elementOffset.top,
+                left: coordinates.left + elementOffset.left
+            };
+        }
     }
 }

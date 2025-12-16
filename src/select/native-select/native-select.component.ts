@@ -35,7 +35,7 @@ const noop = () => {};
     }
 })
 export class ThyNativeSelect extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor, OnInit {
-    readonly selectElement = viewChild<ElementRef<any>>('select');
+    readonly selectElement = viewChild.required<ElementRef<any>>('select');
 
     readonly innerValue = model<SafeAny>(null);
 

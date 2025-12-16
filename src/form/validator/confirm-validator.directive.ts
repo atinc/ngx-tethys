@@ -22,7 +22,7 @@ export class ThyConfirmValidatorDirective implements Validator {
     /**
      * 表单控件的校验值
      */
-    readonly confirm = input<string>(undefined);
+    readonly confirm = input.required<string>();
 
     validate(control: AbstractControl) {
         return confirmValidator(this.confirm())(control);

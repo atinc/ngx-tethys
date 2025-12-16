@@ -17,11 +17,11 @@ export class ThyScrollDirective implements OnInit, OnDestroy {
     private ngZone = inject(NgZone);
 
     private _destroyed = new Subject<void>();
-    private _subscription: Subscription;
+    private _subscription: Subscription | null = null;
 
     private _elementScrolled = new Observable<Event>((observer: Observer<Event>) =>
         this.ngZone.runOutsideAngular(() =>
-            fromEvent(this.elementRef.nativeElement, 'scroll', passiveEventListenerOptions)
+            fromEvent<Event>(this.elementRef.nativeElement, 'scroll', passiveEventListenerOptions)
                 .pipe(takeUntil(this._destroyed))
                 .subscribe(observer)
         )

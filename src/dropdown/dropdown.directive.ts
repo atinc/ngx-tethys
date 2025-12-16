@@ -46,7 +46,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
         return (this.thyDropdownMenu() || this.thyDropdown())!;
     });
 
-    private popoverRef: ThyPopoverRef<unknown>;
+    private popoverRef?: ThyPopoverRef<unknown>;
 
     popoverOpened = false;
 
@@ -174,18 +174,18 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
             originActiveClass: this.thyActiveClass()
         };
         this.popoverRef = this.popover.open(componentTypeOrTemplateRef, config);
-        this.popoverRef.afterOpened().subscribe(() => {
+        this.popoverRef!.afterOpened().subscribe(() => {
             this.thyActiveChange.emit(true);
         });
-        this.popoverRef.afterClosed().subscribe(() => {
+        this.popoverRef!.afterClosed().subscribe(() => {
             this.popoverOpened = false;
             this.thyActiveChange.emit(false);
         });
 
-        return this.popoverRef.getOverlayRef();
+        return this.popoverRef!.getOverlayRef();
     }
 
-    show(delay: number = this.showDelay) {
+    show(delay: number | undefined = this.showDelay) {
         if (this.hideTimeoutId) {
             clearTimeout(this.hideTimeoutId);
             this.hideTimeoutId = null;
@@ -207,7 +207,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
         }, delay);
     }
 
-    hide(delay: number = this.hideDelay) {
+    hide(delay: number | undefined = this.hideDelay) {
         if (this.showTimeoutId) {
             clearTimeout(this.showTimeoutId);
             this.showTimeoutId = null;

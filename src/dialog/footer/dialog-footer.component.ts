@@ -55,7 +55,7 @@ export class ThyDialogFooter implements OnInit {
         this.hostRenderer.updateClassByMap({
             'dialog-footer': true,
             [`dialog-footer-actions-align-${this.align()}`]: true,
-            'dialog-footer-border-top': this.divided()
+            'dialog-footer-border-top': !!this.divided()
         });
     }
 }

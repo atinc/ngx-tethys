@@ -83,12 +83,12 @@ export class ThySkeletonCircle {
     readonly afterStyles = computed(() => {
         return {
             ...(this.secondaryColor() && {
-                background: `linear-gradient(90deg, ${helpers.hexToRgb(this.secondaryColor(), 0)}, ${helpers.hexToRgb(
-                    this.secondaryColor(),
+                background: `linear-gradient(90deg, ${helpers.hexToRgb(this.secondaryColor()!, 0)}, ${helpers.hexToRgb(
+                    this.secondaryColor()!,
                     0.15
-                )}, ${helpers.hexToRgb(this.secondaryColor(), 0)}`
+                )}, ${helpers.hexToRgb(this.secondaryColor()!, 0)}`
             }),
-            animation: ![false, 'false'].includes(this.animated()) ? `thy-skeleton-animation ${this.animatedInterval()}s infinite` : 'none'
+            animation: ![false, 'false'].includes(this.animated()!) ? `thy-skeleton-animation ${this.animatedInterval()}s infinite` : 'none'
         };
     });
 }

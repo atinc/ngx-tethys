@@ -43,7 +43,7 @@ export class ThyTreeNodeComponent {
     /**
      * node 节点展现所需的数据
      */
-    readonly node = input<ThyTreeNode>(null);
+    readonly node = input.required<ThyTreeNode>();
 
     /**
      * 设置 TreeNode 是否支持异步加载
@@ -69,7 +69,7 @@ export class ThyTreeNodeComponent {
      * 点击节点的行为，`default` 为选中当前节点，`selectCheckbox` 为选中节点的 Checkbox， `thyCheckable` 为 true 时生效。
      * @default default
      */
-    readonly thyClickBehavior = input<ThyClickBehavior>(undefined);
+    readonly thyClickBehavior = input<ThyClickBehavior>();
 
     /**
      * 设置节点名称是否支持超出截取

@@ -6,13 +6,13 @@ import { ThyRadioButton } from '../button/radio-button.component';
 import { ThyRadio } from '../radio.component';
 import { IThyRadioGroupComponent, THY_RADIO_GROUP_COMPONENT } from '../radio.token';
 
-const buttonGroupSizeMap = {
-    sm: ['btn-group-sm'],
-    lg: ['btn-group-lg']
+const buttonGroupSizeMap: Record<string, string> = {
+    sm: 'btn-group-sm',
+    lg: 'btn-group-lg'
 };
 
-const radioGroupLayoutMap = {
-    flex: ['radio-group-layout-flex']
+const radioGroupLayoutMap: Record<string, string> = {
+    flex: 'radio-group-layout-flex'
 };
 
 /**
@@ -106,7 +106,7 @@ export class ThyRadioGroup implements IThyRadioGroupComponent, ControlValueAcces
         this.onTouched = fn;
     }
 
-    setDisabledState?(isDisabled: boolean): void {
+    setDisabledState(isDisabled: boolean): void {
         this.radios.forEach(radio => {
             radio.setDisabledState(isDisabled);
         });

@@ -52,7 +52,7 @@ export abstract class AbstractPickerComponent
 
     locale: Signal<ThyDatePickerLocale> = injectLocale('datePicker');
 
-    thyValue: CompatibleValue | null =null;
+    thyValue: CompatibleValue | null = null;
 
     panelMode!: ThyPanelMode | ThyPanelMode[];
 
@@ -138,7 +138,7 @@ export abstract class AbstractPickerComponent
      * 展示的日期格式
      * @default yyyy-MM-dd
      */
-    readonly thyFormat = model<string>();
+    readonly thyFormat = model.required<string>();
 
     /**
      * 区间分隔符，不传值默认为 "~"
@@ -238,7 +238,7 @@ export abstract class AbstractPickerComponent
 
     private onlyEmitDate = false;
 
-    protected innerValue!: ThyCompatibleDate;
+    protected innerValue!: ThyCompatibleDate | null;
 
     get realOpenState(): boolean {
         return this.picker().realOpenState;
@@ -360,6 +360,7 @@ export abstract class AbstractPickerComponent
         this.thyOpenChange.emit(open);
     }
 
+    // @ts-ignore
     onChangeFn: (val: ThyCompatibleDate | DateEntry | ThyDateRangeEntry | number | null) => void = () => void 0;
 
     writeValue(originalValue: ThyCompatibleDate | ThyDateRangeEntry): void {
@@ -373,7 +374,7 @@ export abstract class AbstractPickerComponent
         }
 
         this.onlyEmitDate = typeof withTime === 'undefined';
-        this.setTimePickerState(this.onlyEmitDate ? value && !!this.thyShowTime() : !!withTime);
+        this.setTimePickerState(this.onlyEmitDate ? !!(value && !!this.thyShowTime()) : !!withTime);
         this.setValue(value);
         this.setFormatRule();
         this.cdr.markForCheck();
@@ -418,11 +419,11 @@ export abstract class AbstractPickerComponent
         }
     }
 
-    public setValue(value: ThyCompatibleDate): void {
+    public setValue(value: ThyCompatibleDate | null): void {
         this.thyValue = makeValue(value, this.isRange, this.withTime, this.thyTimeZone());
     }
 
     private setValueByPrecision(value: ThyCompatibleDate | number | Date | DateEntry | ThyDateRangeEntry | SafeAny): number | number[] {
-        return setValueByTimestampPrecision(value, this.isRange, this.thyTimestampPrecision(), this.thyTimeZone());
+        return setValueByTimestampPrecision(value, this.isRange, this.thyTimestampPrecision(), this.thyTimeZone()) as number | number[] ;
     }
 }

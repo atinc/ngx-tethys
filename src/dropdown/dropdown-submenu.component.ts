@@ -50,8 +50,8 @@ export class ThyDropdownSubmenu implements OnInit {
             .subscribe(() => {
                 if (this.thyDirection() === 'auto') {
                     const element = this.dropdownMenuItem.getElement();
-                    const offset = getElementOffset(element);
-                    if (document.documentElement.clientWidth < offset.left + offset.width + offset.width) {
+                    const offset = getElementOffset(element)!;
+                    if (document.documentElement.clientWidth < offset.left + offset.width! + offset.width!) {
                         direction = 'left';
                     } else {
                         direction = 'right';

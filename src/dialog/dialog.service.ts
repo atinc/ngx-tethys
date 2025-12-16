@@ -136,7 +136,7 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
      * @description.en-us Finds the closest ThyDialogRef to an element by looking at the DOM.
      * @description 获取与指定元素最接近的 ThyDialogRef
      */
-    getClosestDialog(element: HTMLElement): ThyDialogRef<any> | undefined {
+    getClosestDialog(element: HTMLElement): ThyDialogRef<any> | undefined | null {
         let parent: HTMLElement | null = element.parentElement;
 
         while (parent && !parent.classList.contains('thy-dialog-container')) {
@@ -152,7 +152,7 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
      * Update dialog to top
      */
     toTop(idOrOverlayRef: string | ThyDialogRef<unknown, ThyDialogContainer>) {
-        let dialogRef!: ThyAbstractOverlayRef<unknown, ThyDialogContainer>;
+        let dialogRef: ThyAbstractOverlayRef<unknown, ThyDialogContainer> | undefined;
         if (isString(idOrOverlayRef)) {
             dialogRef = this.openedOverlays.find(item => item.id === idOrOverlayRef);
         } else {
@@ -161,7 +161,7 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
         if (dialogRef) {
             const overlayRef = dialogRef.getOverlayRef();
             const containerElement = this.overlayContainer.getContainerElement();
-            containerElement.appendChild(overlayRef.backdropElement);
+            containerElement.appendChild(overlayRef.backdropElement!);
             containerElement.appendChild(overlayRef.hostElement);
             this.overlayKeyboardDispatcher.remove(overlayRef);
             this.overlayKeyboardDispatcher.add(overlayRef);

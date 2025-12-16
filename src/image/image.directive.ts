@@ -26,22 +26,22 @@ export class ThyImageDirective implements IThyImageDirective, OnInit, AfterViewI
     /**
      * 图片地址
      */
-    readonly thySrc = input<string>();
+    readonly thySrc = input.required<string>();
 
     /**
      * 预览图片地址
      */
-    readonly thyPreviewSrc = input<string>();
+    readonly thyPreviewSrc = input<string>('');
 
     /**
      * 图片原图地址
      */
-    readonly thyOriginSrc = input<string>();
+    readonly thyOriginSrc = input<string>('');
 
     /**
      * 图片附加信息，包含 { name: string, size?: string | number; }
      */
-    readonly thyImageMeta = input<ThyImageMeta>();
+    readonly thyImageMeta = input.required<ThyImageMeta>();
 
     /**
      * 是否禁止预览
@@ -58,7 +58,7 @@ export class ThyImageDirective implements IThyImageDirective, OnInit, AfterViewI
         return !this.thyDisablePreview();
     }
 
-    private parentGroup: IThyImageGroupComponent;
+    private parentGroup: IThyImageGroupComponent | null = null;
 
     constructor() {
         effect(() => {
@@ -90,13 +90,13 @@ export class ThyImageDirective implements IThyImageDirective, OnInit, AfterViewI
 
     addParentImage() {
         setTimeout(() => {
-            const parentElement: HTMLElement = this.parentGroup.element.nativeElement;
+            const parentElement: HTMLElement = this.parentGroup?.element?.nativeElement;
             const images = parentElement.querySelectorAll('img[thyImage]');
             const index = Array.prototype.indexOf.call(images, this.elementRef.nativeElement);
             if (index >= 0) {
-                this.parentGroup.addImage(this, index);
+                this.parentGroup?.addImage(this, index);
             } else {
-                this.parentGroup.addImage(this, this.parentGroup.images.length);
+                this.parentGroup?.addImage(this, this.parentGroup?.images?.length);
             }
         });
     }

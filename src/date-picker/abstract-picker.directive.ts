@@ -94,13 +94,13 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
         mapTo(true)
     );
 
-    private valueChangeSubscription: OutputRefSubscription;
+    private valueChangeSubscription?: OutputRefSubscription;
 
-    private calendarChangeSubscription: OutputRefSubscription;
+    private calendarChangeSubscription?: OutputRefSubscription;
 
-    private showTimePickerChangeSubscription: OutputRefSubscription;
+    private showTimePickerChangeSubscription?: OutputRefSubscription;
 
-    private dateValueChangeSubscription: OutputRefSubscription;
+    private dateValueChangeSubscription?: OutputRefSubscription;
 
     ngOnInit() {
         this.setPanelMode();
@@ -150,6 +150,7 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
             if (this.valueChangeSubscription) {
                 this.valueChangeSubscription.unsubscribe();
             }
+            // @ts-ignore
             this.valueChangeSubscription = componentInstance.valueChange?.subscribe((event: CompatibleValue) => this.onValueChange(event));
 
             if (this.calendarChangeSubscription) {

@@ -31,7 +31,7 @@ export class ThyInputCount implements OnInit {
      */
     readonly thyInput = input<ThyInputDirective>();
 
-    maxLength = signal<number | string>(undefined);
+    maxLength = signal<number | string | null>(null);
 
     inputLength = signal(0);
 
@@ -56,11 +56,11 @@ export class ThyInputCount implements OnInit {
                     return !!input;
                 }),
                 tap(input => {
-                    this.maxLength.set(input.nativeElement.getAttribute('maxlength'));
+                    this.maxLength.set(input?.nativeElement?.getAttribute('maxlength'));
                 }),
                 takeUntilDestroyed(this.destroyRef),
                 switchMap(input => {
-                    return input.ngControl.valueChanges;
+                    return input.ngControl.valueChanges!;
                 }),
                 tap(value => {
                     this.inputLength.set(value?.length || 0);

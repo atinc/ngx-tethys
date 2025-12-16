@@ -33,14 +33,14 @@ export class ThyCascaderSearchOptionComponent implements OnInit {
 
     readonly active = input(false, { transform: coerceBooleanProperty });
 
-    readonly optionRender = input<TemplateRef<SafeAny>>(undefined);
+    readonly optionRender = input<TemplateRef<SafeAny>>();
 
     @HostListener('click', ['$event'])
     public toggleClick($event: Event) {
         if (this.multiple()) {
             return;
         }
-        this.toggleSelectChange.emit(this.option());
+        this.toggleSelectChange.emit(this.option()!);
     }
 
     readonly toggleSelectChange = output<ThyCascaderSearchOption>();
@@ -58,6 +58,6 @@ export class ThyCascaderSearchOptionComponent implements OnInit {
     }
 
     public toggleOption(value: boolean) {
-        this.toggleSelectChange.emit(this.option());
+        this.toggleSelectChange.emit(this.option()!);
     }
 }

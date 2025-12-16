@@ -86,7 +86,7 @@ export class ThyAvatar {
         if (this.isAvatarImgError()) {
             return null;
         }
-        if (this.thySrc() && this.thyAvatarService.ignoreAvatarSrcPaths.indexOf(this.thySrc()) < 0) {
+        if (this.thySrc() && this.thyAvatarService.ignoreAvatarSrcPaths.indexOf(this.thySrc()!) < 0) {
             return this.thySrc();
         }
         return null;
@@ -95,14 +95,14 @@ export class ThyAvatar {
     /**
      * 人员名称（可设置自定义名称，需通过自定义服务 ThyAvatarService，重写 nameTransform 方法去实现转换）
      */
-    readonly thyName = input<string>();
+    readonly thyName = input.required<string>();
 
     readonly avatarName: Signal<string> = computed(() => {
         const name = this.thyAvatarService.nameTransform(this.thyName());
         return isString(name) ? name : this.thyName();
     });
 
-    readonly avatarNameSafeHtml: Signal<SafeHtml> = computed(() => {
+    readonly avatarNameSafeHtml: Signal<SafeHtml | null> = computed(() => {
         const name = this.thyAvatarService.nameTransform(this.thyName());
         if (!isString(name)) {
             return name;

@@ -13,7 +13,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     }
 })
 export class ThyOptionGroupRender {
-    readonly thyGroupLabel = input<string>(undefined);
+    readonly thyGroupLabel = input<string | undefined>(undefined);
 
     readonly thyDisabled = input(false, { transform: coerceBooleanProperty });
 }

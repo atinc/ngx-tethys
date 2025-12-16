@@ -13,7 +13,7 @@ export const HIDE_STYLE = { transform: 'translateX(0)', opacity: 0, height: 0, p
 export abstract class ThyAbstractMessageComponent<TConfig extends ThyMessageBaseConfig> implements OnInit, OnDestroy {
     private _ngZone = inject(NgZone);
 
-    animationState!: string;
+    animationState?: string;
 
     iconName = '';
 

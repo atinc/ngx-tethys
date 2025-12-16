@@ -156,7 +156,7 @@ export class BasePicker extends AbstractPickerComponent implements OnInit, OnCha
                 week: this.locale().weekThFormat,
                 date: this.thyShowTime() ? 'yyyy-MM-dd HH:mm' : 'yyyy-MM-dd'
             };
-            this.thyFormat.set(this.flexible() ? inputFormats['date'] : inputFormats[this.thyMode]);
+            this.thyFormat.set(this.flexible() ? (inputFormats['date'] as string) : (inputFormats[this.thyMode] as string));
         }
     }
 

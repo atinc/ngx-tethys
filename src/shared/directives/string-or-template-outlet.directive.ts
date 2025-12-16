@@ -12,9 +12,9 @@ export class ThyStringOrTemplateOutletDirective {
     private viewContainerRef = inject(ViewContainerRef);
     private renderer = inject(Renderer2);
 
-    private viewRef: EmbeddedViewRef<any>;
+    private viewRef: EmbeddedViewRef<any> | null = null;
 
-    private textNode: Text;
+    private textNode!: Text;
 
     readonly thyStringOrTemplateOutletContext = input<any>();
 

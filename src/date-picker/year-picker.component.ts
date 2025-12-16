@@ -26,7 +26,7 @@ import { ThyPanelMode } from './standard-types';
     imports: [ThyPicker, DatePopup]
 })
 export class ThyYearPicker extends BasePicker {
-    protected elementRef: ElementRef;
+    protected elementRef?: ElementRef;
 
     /**
      * 展示的年份格式

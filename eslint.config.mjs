@@ -9,7 +9,7 @@ import unusedImports from 'eslint-plugin-unused-imports';
 
 export default tseslint.config(
   {
-    ignores: ['.*/', 'coverage/', 'demo/', 'dist/', 'scripts/', 'site/', 'typings/']
+    ignores: ['.*/', 'site/', 'coverage/', 'demo/', 'dist/', 'scripts/', 'typings/']
   },
   {
     files: ['**/*.ts'],

@@ -1,4 +1,4 @@
-import { Id } from 'ngx-tethys/types';
+import { Id, SafeAny } from 'ngx-tethys/types';
 import { coerceArray, isFunction, isUndefinedOrNull } from './helpers';
 
 export interface EntityAddOptions {
@@ -48,7 +48,7 @@ export class Producer<TEntity> {
                 const entities = [...this.entities];
                 const index =
                     this.entities.findIndex(item => {
-                        return item[this.idKey] === addOptions.afterId;
+                        return (item as SafeAny)[this.idKey] === addOptions.afterId;
                     }) + 1;
                 entities.splice(index, 0, ...addEntities);
                 this.entities = [...entities];
@@ -91,7 +91,7 @@ export class Producer<TEntity> {
 
         for (let i = 0; i < this.entities.length; i++) {
             const oldEntity = this.entities[i];
-            if (ids.indexOf(oldEntity[this.idKey]) >= 0) {
+            if (ids.indexOf((oldEntity as SafeAny)[this.idKey]) >= 0) {
                 const newState = isFunction(newStateOrFn) ? (newStateOrFn as any)(oldEntity) : newStateOrFn;
                 this.entities[i] = { ...(oldEntity as any), ...newState };
             }
@@ -118,7 +118,7 @@ export class Producer<TEntity> {
         } else {
             const ids = coerceArray(idsOrFn);
             this.entities = this.entities.filter(entity => {
-                return ids.indexOf(entity[this.idKey]) === -1;
+                return ids.indexOf((entity as SafeAny)[this.idKey]) === -1;
             });
         }
         return this.entities;
@@ -133,7 +133,7 @@ export class Producer<TEntity> {
      * produce([users]).move(5, {toIndex: 0});
      */
     move(id: Id, moveOptions?: EntityMoveOptions): TEntity[] {
-        const fromIndex = this.entities.findIndex(item => item[this.idKey] === id);
+        const fromIndex = this.entities.findIndex(item => (item as SafeAny)[this.idKey] === id);
         let toIndex = 0;
         const newEntities = [...this.entities];
 
@@ -143,7 +143,7 @@ export class Producer<TEntity> {
 
         if (moveOptions) {
             if (!isUndefinedOrNull(moveOptions.afterId)) {
-                toIndex = this.entities.findIndex(item => item[this.idKey] === moveOptions.afterId);
+                toIndex = this.entities.findIndex(item => (item as SafeAny)[this.idKey] === moveOptions.afterId);
             } else if (moveOptions.toIndex) {
                 toIndex = moveOptions.toIndex;
             }

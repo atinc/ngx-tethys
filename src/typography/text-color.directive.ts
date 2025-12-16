@@ -21,13 +21,13 @@ export class ThyTextColorDirective implements OnInit {
      * @type ThyThemeColor | ThyTextColor | string
      * @description 文本颜色，支持设置主题色和自定义颜色值，主题色为 `default`、`primary`、`success`、`info`、`warning`、`danger`、`light`、`secondary`、`muted`、`desc`、`placeholder`
      */
-    readonly thyTextColor = input<ThyThemeColor | ThyTextColor | string>(undefined);
+    readonly thyTextColor = input<ThyThemeColor | ThyTextColor | string>();
 
     constructor() {
         effect(() => {
             const color = this.thyTextColor();
             this.clearColor();
-            this.color = color;
+            this.color = color!;
             this.setColor();
         });
     }

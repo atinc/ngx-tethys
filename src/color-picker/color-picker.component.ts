@@ -141,7 +141,7 @@ export class ThyColorPickerDirective extends _BaseMixin implements OnInit, OnDes
 
     color!: string;
 
-    private popoverRef: ThyPopoverRef<ThyColorPickerPanel> | null = null;
+    private popoverRef?: ThyPopoverRef<ThyColorPickerPanel> | null = null;
 
     private closePanel = true;
 
@@ -244,7 +244,7 @@ export class ThyColorPickerDirective extends _BaseMixin implements OnInit, OnDes
                     }
                 });
         }
-        return this.popoverRef.getOverlayRef();
+        return this.popoverRef!.getOverlayRef();
     }
 
     override show(delay: number = this.showDelay!): void {

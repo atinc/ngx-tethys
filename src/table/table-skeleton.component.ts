@@ -37,13 +37,13 @@ const COLUMN_COUNT = 5;
 export class ThyTableSkeleton implements AfterViewInit {
     private cdr = inject(ChangeDetectorRef);
 
-    @ViewChild('titleTemplate') titleTemplate: ElementRef<HTMLElement>;
+    @ViewChild('titleTemplate') titleTemplate!: ElementRef<HTMLElement>;
 
-    @ViewChild('memberTemplate') memberTemplate: ElementRef<HTMLElement>;
+    @ViewChild('memberTemplate') memberTemplate!: ElementRef<HTMLElement>;
 
-    @ViewChild('defaultTemplate') defaultTemplate: ElementRef<HTMLElement>;
+    @ViewChild('defaultTemplate') defaultTemplate!: ElementRef<HTMLElement>;
 
-    @ViewChild('checkboxTemplate') checkboxTemplate: ElementRef<HTMLElement>;
+    @ViewChild('checkboxTemplate') checkboxTemplate!: ElementRef<HTMLElement>;
 
     /**
      * 骨架边框圆角
@@ -69,17 +69,17 @@ export class ThyTableSkeleton implements AfterViewInit {
     /**
      * 动画速度
      */
-    @Input() thyAnimatedInterval: string;
+    @Input() thyAnimatedInterval?: string;
 
     /**
      * 骨架主色
      */
-    @Input() thyPrimaryColor: string;
+    @Input() thyPrimaryColor?: string;
 
     /**
      * 骨架次色
      */
-    @Input() thySecondaryColor: string;
+    @Input() thySecondaryColor?: string;
 
     rowCount: number[] = [];
 

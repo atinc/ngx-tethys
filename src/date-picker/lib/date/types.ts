@@ -21,7 +21,7 @@ export interface DateCell {
     isLastMonthCell?: boolean;
     isNextMonthCell?: boolean;
     isInRange?: boolean;
-    classMap?: object;
+    classMap?: object | null;
     onClick(date?: TinyDate): void;
     onMouseEnter(): void;
 }

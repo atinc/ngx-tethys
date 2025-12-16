@@ -36,7 +36,7 @@ export class ThyTimelineItem implements OnInit {
 
     public isFirst = false;
 
-    public position!: ThyTimeMode;
+    public position?: ThyTimeMode;
 
     public reverse: boolean = false;
 

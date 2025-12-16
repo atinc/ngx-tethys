@@ -38,7 +38,7 @@ export class ThyProgressStrip {
 
     private hostRenderer = useHostRenderer();
 
-    readonly thyTips = input<string | TemplateRef<HTMLElement>>(undefined);
+    readonly thyTips = input<string | TemplateRef<HTMLElement> | undefined>(undefined);
 
     readonly thyType = input<ThyProgressType>();
 

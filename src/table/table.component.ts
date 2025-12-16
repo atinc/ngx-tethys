@@ -577,12 +577,12 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
         const leftFixedColumns = this.columns.filter(item => item.fixed === ThyFixedDirection.left);
         leftFixedColumns.forEach((item, index) => {
             const previous = leftFixedColumns[index - 1];
-            item.left = previous ? previous.left + parseInt(previous.width.toString(), 10) : 0;
+            item.left = previous ? previous.left! + parseInt(previous.width.toString(), 10) : 0;
         });
         const rightFixedColumns = this.columns.filter(item => item.fixed === ThyFixedDirection.right).reverse();
         rightFixedColumns.forEach((item, index) => {
             const previous = rightFixedColumns[index - 1];
-            item.right = previous ? previous.right + parseInt(previous.width.toString(), 10) : 0;
+            item.right = previous ? previous.right! + parseInt(previous.width.toString(), 10) : 0;
         });
     }
 
@@ -598,7 +598,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
     private _initialSelections(row: object, column: ThyTableColumnComponent) {
         if (column.selections) {
             if (column.type === 'checkbox') {
-                row[column.key] = column.selections.includes(row[this.rowKey]);
+                row[column.key!] = column.selections.includes(row[this.rowKey]);
                 this.onModelChange(row, column);
             }
             if (column.type === 'radio') {
@@ -621,7 +621,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
         });
     }
 
-    private _applyDiffChanges(changes: IterableChanges<SafeAny>) {
+    private _applyDiffChanges(changes: IterableChanges<SafeAny> | undefined | null) {
         if (changes) {
             changes.forEachAddedItem((record: IterableChangeRecord<SafeAny>) => {
                 this._refreshCustomModelValue(record.item);
@@ -961,14 +961,14 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
         this.model.forEach(row => {
             const group = groupsMap[row[this.groupBy]];
             if (group) {
-                group.children.push(row);
+                group.children!.push(row);
             }
         });
     }
 
     public expandGroup(group: ThyTableGroup) {
         group.expand = !group.expand;
-        this.expandStatusMapOfGroup[group.id] = group.expand;
+        this.expandStatusMapOfGroup[group.id!] = group.expand;
     }
 
     private expandGroups(groups: ThyTableGroup[]) {

@@ -432,7 +432,7 @@ export class ThyTree implements ControlValueAccessor {
         (keys || []).forEach(key => {
             const node = this.thyTreeService.getTreeNode(key);
             if (node) {
-                this.selectTreeNode(this.thyTreeService.getTreeNode(key));
+                this.selectTreeNode(this.thyTreeService.getTreeNode(key)!);
             }
         });
     }

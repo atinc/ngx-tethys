@@ -74,7 +74,7 @@ export class ThyHeader {
     /**
      * 头部标题
      */
-    readonly thyTitle = input<string>(undefined);
+    readonly thyTitle = input<string>();
 
     /**
      * 图标前缀，被弃用，图标使用 SVG 图标
@@ -84,7 +84,7 @@ export class ThyHeader {
     /**
      * 图标，SVG 图标名称
      */
-    readonly thyIcon = input<string>(undefined);
+    readonly thyIcon = input<string>();
 
     readonly svgIconName = computed(() => {
         const icon = this.thyIcon();

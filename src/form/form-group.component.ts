@@ -140,13 +140,13 @@ export class ThyFormGroup implements OnInit {
      * @deprecated please use content because formGroup is same name with angular formGroup directive
      */
     @ContentChild('formGroup')
-    public contentTemplateRef: TemplateRef<any>;
+    public contentTemplateRef?: TemplateRef<any>;
 
     /**
      * 内容自定义模板，`<ng-template #content></ng-template>`
      */
     @ContentChild('content')
-    public contentTemplate: TemplateRef<any>;
+    public contentTemplate?: TemplateRef<any>;
 
     constructor() {
         // effect(() => {

@@ -22,14 +22,14 @@ export class ThyFormGroupFooter implements OnInit {
 
     @HostBinding('class.row') isHorizontal = true;
 
-    @ContentChild('description') description: TemplateRef<any>;
+    @ContentChild('description') description?: TemplateRef<any>;
 
     /**
      * 对齐方式
      * @type left | right | center
      * @default left
      */
-    readonly thyAlign = input<ThyFormGroupFooterAlign>(undefined);
+    readonly thyAlign = input<ThyFormGroupFooterAlign>();
 
     public footerClassMap = {};
 

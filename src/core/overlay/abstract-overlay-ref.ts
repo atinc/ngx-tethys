@@ -10,10 +10,15 @@ export abstract class ThyAbstractOverlayRef<
     TContainer extends ThyAbstractOverlayContainer = ThyAbstractOverlayContainer,
     TResult = unknown
 > {
+    // @ts-ignore
     id: string;
+    // @ts-ignore
     componentInstance: TComponent;
+    // @ts-ignore
     backdropClosable: boolean;
+    // @ts-ignore
     disableClose: boolean;
+    // @ts-ignore
     containerInstance: TContainer;
     /**
      * 获取 OverlayRef
@@ -161,7 +166,6 @@ export abstract class ThyAbstractInternalOverlayRef<
                 this._beforeClosed.complete();
                 this._afterClosed.next(this._result);
                 this._afterClosed.complete();
-                // @ts-expect-error: Assigning null because the instance is being destroyed; T may not allow null
                 this.componentInstance = null;
             });
 

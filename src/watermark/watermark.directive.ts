@@ -129,8 +129,8 @@ export class ThyWatermarkDirective implements OnInit {
             ...DEFAULT_CANVAS_CONFIG,
             ...(this.thyCanvasConfig() || {})
         };
-        let color = { ...DEFAULT_CANVAS_CONFIG, ...(this.thyCanvasConfig() || {}) }.color;
-        color = this.thyThemeStore.normalizeColor(color);
+
+        const color = this.thyThemeStore.normalizeColor({ ...DEFAULT_CANVAS_CONFIG, ...(this.thyCanvasConfig() || {}) }.color);
 
         const [xGutter, yGutter] = gutter;
         const canvas = document.createElement('canvas');
@@ -171,7 +171,7 @@ export class ThyWatermarkDirective implements OnInit {
         ctx.font = `${parseFloat(`${fontSize}`)}px microsoft yahei`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'top';
-        ctx.fillStyle = color;
+        ctx.fillStyle = color!;
         ctx.rotate(0 - (degree * Math.PI) / 180);
         contentArr.map((k, i) => {
             ctx.fillText(k, -start + Math.ceil(canvasWidth / 2), Math.sin(angle) * canvasWidth + textLineHeight * i);

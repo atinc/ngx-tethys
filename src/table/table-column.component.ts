@@ -13,6 +13,7 @@ import {
 } from '@angular/core';
 import { coerceBooleanProperty, coerceCssPixelValue, isArray, isObject } from 'ngx-tethys/util';
 import { ThyTableSortDirection, ThyTableSortEvent } from './table.interface';
+import { SafeAny } from 'ngx-tethys/types';
 
 export interface IThyTableColumnParentComponent {
     rowKey: string;
@@ -103,7 +104,7 @@ export class ThyTableColumnComponent implements OnInit {
         if (value) {
             this._selections = isArray(value) ? value : [value];
             this._selections = this._selections.map((item: string | number | object) => {
-                return isObject(item) ? item[this.parent.rowKey] : item;
+                return isObject(item) ? (item as Record<string, SafeAny>)[this.parent.rowKey] : item;
             });
             if (!this._firstChange) {
                 this.parent.updateColumnSelections(this.key, this._selections);
@@ -153,28 +154,28 @@ export class ThyTableColumnComponent implements OnInit {
     /**
      * 设置固定列
      */
-    @Input('thyFixed') fixed: FixedDirection;
+    @Input('thyFixed') fixed?: FixedDirection;
 
     /**
      * 当前列是否是操作列，设置为 true 时会追加 thy-operation-links 样式类，文字居中
      * @default false
      */
-    @Input({ alias: 'thyOperational', transform: coerceBooleanProperty }) operational: boolean;
+    @Input({ alias: 'thyOperational', transform: coerceBooleanProperty }) operational?: boolean;
 
     /**
      * 当前列是否是次要列，设置为 true 时会追加 thy-table-column-secondary 样式类，文字颜色为 $gray-600
      * @default false
      */
-    @Input({ alias: 'thySecondary', transform: coerceBooleanProperty }) secondary: boolean;
+    @Input({ alias: 'thySecondary', transform: coerceBooleanProperty }) secondary?: boolean;
 
     /**
      * 列排序修改事件
      */
     @Output('thySortChange') readonly sortChange: EventEmitter<ThyTableSortEvent> = new EventEmitter<ThyTableSortEvent>();
 
-    @ContentChild('header', { static: true }) headerTemplateRef: TemplateRef<any>;
+    @ContentChild('header', { static: true }) headerTemplateRef?: TemplateRef<any>;
 
-    @ContentChild('cell', { static: true }) cellTemplateRef: TemplateRef<any>;
+    @ContentChild('cell', { static: true }) cellTemplateRef?: TemplateRef<any>;
 
     @ContentChild(TemplateRef, { static: true })
     set templateRef(value: TemplateRef<any>) {
@@ -185,11 +186,11 @@ export class ThyTableColumnComponent implements OnInit {
         }
     }
 
-    public key?: string;
+    public key!: string;
 
-    public left: number;
+    public left?: number;
 
-    public right: number;
+    public right?: number;
 
     private _selections: any;
 

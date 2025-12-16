@@ -74,7 +74,7 @@ export class ThyTransfer implements OnInit {
     /**
      * 右侧选择最大数量
      */
-    readonly thyRightMax = input<number, unknown>(undefined, { transform: numberAttribute });
+    readonly thyRightMax = input<number, unknown>(0, { transform: numberAttribute });
 
     /**
      * 设置是否自动移动

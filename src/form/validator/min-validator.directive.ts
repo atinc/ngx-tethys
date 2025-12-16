@@ -17,12 +17,12 @@ import { Validator, AbstractControl, NG_VALIDATORS, Validators, ValidatorFn } fr
     ]
 })
 export class ThyMinDirective implements Validator {
-    private _validator: ValidatorFn;
+    private _validator!: ValidatorFn;
     @Input() public set min(value: string) {
         this._validator = Validators.min(parseFloat(value));
     }
 
-    public validate(control: AbstractControl): { [key: string]: any } {
+    public validate(control: AbstractControl): { [key: string]: any } | null {
         return this._validator(control);
     }
 }

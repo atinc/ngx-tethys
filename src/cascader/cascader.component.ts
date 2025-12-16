@@ -365,7 +365,7 @@ export class ThyCascader
     public positions!: ConnectionPositionPair[];
 
     get selected(): SelectOptionBase | SelectOptionBase[] {
-        return this.thyMultiple() ? this.thyCascaderService.selectionModel.selected : this.thyCascaderService.selectionModel.selected[0];
+        return this.thyMultiple() ? this.thyCascaderService.selectionModel!.selected : this.thyCascaderService.selectionModel!.selected[0];
     }
 
     public menuMinWidth = 122;

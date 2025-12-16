@@ -36,7 +36,7 @@ export class DecadeTable extends CalendarTable {
 
     makeBodyRows(): DateBodyRow[] {
         const decades: DateBodyRow[] = [];
-        const currentYear = this.value() && this.value().getYear();
+        const currentYear = this.value() && this.value()!.getYear();
         const startYear = this.startYear();
         const endYear = this.endYear();
         const previousYear = startYear - 10;
@@ -55,7 +55,7 @@ export class DecadeTable extends CalendarTable {
                 const cell: DecadeCell = {
                     content,
                     title: content,
-                    isSelected: currentYear >= start && currentYear <= end,
+                    isSelected: currentYear! >= start && currentYear! <= end,
                     isLowerThanStart: end < startYear,
                     isBiggerThanEnd: start > endYear,
                     classMap: null,
@@ -76,9 +76,9 @@ export class DecadeTable extends CalendarTable {
         const prefixCls = this.prefixCls();
         return {
             [`${prefixCls}-decade-panel-cell`]: true,
-            [`${prefixCls}-decade-panel-selected-cell`]: cell.isSelected,
-            [`${prefixCls}-decade-panel-last-century-cell`]: cell.isLowerThanStart,
-            [`${prefixCls}-decade-panel-next-century-cell`]: cell.isBiggerThanEnd
+            [`${prefixCls}-decade-panel-selected-cell`]: !!cell.isSelected,
+            [`${prefixCls}-decade-panel-last-century-cell`]: !!cell.isLowerThanStart,
+            [`${prefixCls}-decade-panel-next-century-cell`]: !!cell.isBiggerThanEnd
         };
     }
 

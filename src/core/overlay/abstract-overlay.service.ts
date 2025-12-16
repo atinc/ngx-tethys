@@ -72,10 +72,10 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
 
         if (componentOrTemplateRef instanceof TemplateRef) {
             containerInstance.attachTemplatePortal(
-                new TemplatePortal<T>(componentOrTemplateRef, null, ({
+                new TemplatePortal<T>(componentOrTemplateRef, null as SafeAny, {
                     $implicit: config.initialState,
                     [`${this.options.name}Ref`]: abstractOverlayRef
-                } as any))
+                } as any)
             );
         } else {
             const injector = this.createInjector<T>(config, abstractOverlayRef, containerInstance);
@@ -84,13 +84,13 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
             );
             if (config.initialState) {
                 const metadata = reflectComponentType(componentOrTemplateRef);
-                const inputsByTemplateName = keyBy(metadata.inputs as SafeAny, 'templateName');
-                const inputsByPropName = keyBy(metadata.inputs as SafeAny, 'propName');
+                const inputsByTemplateName = keyBy(metadata?.inputs as SafeAny, 'templateName');
+                const inputsByPropName = keyBy(metadata?.inputs as SafeAny, 'propName');
                 Object.keys(config.initialState).forEach(key => {
                     const value = (config.initialState as SafeAny)[key];
                     const input: { templateName?: string; propName?: string } = inputsByTemplateName[key] || inputsByPropName[key];
                     if (input) {
-                        contentRef.setInput(input.templateName, value);
+                        contentRef.setInput(input.templateName!, value);
                     } else {
                         (contentRef.instance as SafeAny)[key] = value;
                     }
@@ -144,7 +144,7 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
             overlayConfig.backdropClass = config.backdropClass;
         }
 
-        overlayConfig.panelClass = concatArray(config.panelClass, defaultPanelClass);
+        overlayConfig.panelClass = concatArray<string>(config.panelClass, defaultPanelClass);
 
         return overlayConfig;
     }

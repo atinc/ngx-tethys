@@ -5,6 +5,7 @@ import { ElementRef, Inject, NgZone, DOCUMENT } from '@angular/core';
 import { fromEvent, merge, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ThyFullscreenConfig, ThyFullscreenMode } from './fullscreen.config';
+import { SafeAny } from 'ngx-tethys/types';
 
 export class ThyFullscreenRef<TResult = unknown> {
     fullscreenConfig!: ThyFullscreenConfig;
@@ -103,7 +104,7 @@ export class ThyFullscreenRef<TResult = unknown> {
     }
 
     protected launchImmersiveFullscreen() {
-        const { documentElement } = this.document;
+        const documentElement: SafeAny = this.document.documentElement;
 
         const requestFullscreen: HTMLElement['requestFullscreen'] | undefined =
             documentElement.requestFullscreen ||

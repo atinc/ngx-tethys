@@ -73,7 +73,7 @@ export class ThyTabs implements OnInit, AfterContentInit {
     /**
      * 附加操作
      */
-    readonly thyExtra = input<TemplateRef<unknown>>(undefined);
+    readonly thyExtra = input<TemplateRef<unknown> | undefined>(undefined);
 
     /**
      * 选项卡的位置
