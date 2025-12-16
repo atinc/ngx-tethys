@@ -43,7 +43,7 @@ import {
  */
 @Directive()
 export abstract class AbstractPickerComponent
-    extends TabIndexDisabledControlValueAccessorMixin
+    extends TabIndexDisabledControlValueAccessorMixin<ThyCompatibleDate | DateEntry | ThyDateRangeEntry | number | null>
     implements OnInit, OnChanges, ControlValueAccessor
 {
     protected destroyRef = inject(DestroyRef);

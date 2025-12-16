@@ -98,12 +98,12 @@ export class ThyAvatar {
     readonly thyName = input<string>();
 
     readonly avatarName: Signal<string> = computed(() => {
-        const name = this.thyAvatarService.nameTransform(this.thyName());
-        return isString(name) ? name : this.thyName();
+        const name = this.thyAvatarService.nameTransform(this.thyName()!);
+        return isString(name) ? name : this.thyName()!;
     });
 
     readonly avatarNameSafeHtml: Signal<SafeHtml | null> = computed(() => {
-        const name = this.thyAvatarService.nameTransform(this.thyName());
+        const name = this.thyAvatarService.nameTransform(this.thyName()!);
         if (!isString(name)) {
             return name;
         }

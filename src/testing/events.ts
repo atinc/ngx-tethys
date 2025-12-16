@@ -169,7 +169,7 @@ export function createFakeEvent(type: string, canBubble = false, cancelable = tr
     return event;
 }
 
-export function createDragEvent(type: string, dataTransfer: DataTransfer = null, canBubble = false, cancelable = true) {
+export function createDragEvent(type: string, dataTransfer: DataTransfer | null = null, canBubble = false, cancelable = true) {
     const event = document.createEvent('DragEvent');
     event.initEvent(type, canBubble, cancelable);
     defineReadonlyEventProperty(event, 'dataTransfer', dataTransfer);

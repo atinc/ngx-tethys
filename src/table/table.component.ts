@@ -598,11 +598,11 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
     private _initialSelections(row: object, column: ThyTableColumnComponent) {
         if (column.selections) {
             if (column.type === 'checkbox') {
-                row[column.key!] = column.selections.includes(row[this.rowKey]);
+                helpers.set(row, column.key, column.selections.includes(helpers.get(row, this.rowKey)));
                 this.onModelChange(row, column);
             }
             if (column.type === 'radio') {
-                if (column.selections.includes(row[this.rowKey])) {
+                if (column.selections.includes(helpers.get(row, this.rowKey))) {
                     this.selectedRadioRow = row;
                 }
             }
@@ -611,7 +611,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
 
     private _initialCustomModelValue(row: object, column: ThyTableColumnComponent) {
         if (column.type === customType.switch) {
-            row[column.key] = get(row, column.model);
+            helpers.set(row, column.key, get(row, column.model));
         }
     }
 
@@ -639,7 +639,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
         this.model.forEach(row => {
             for (const key in row) {
                 if (key.includes('[$$column]')) {
-                    delete row[key];
+                    delete (row as SafeAny)[key]
                 }
             }
         });
@@ -663,7 +663,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
     public updateColumnSelections(key: string, selections: SafeAny): void {
         const column = this.columns.find(item => item.key === key);
         this.model.forEach(row => {
-            this._initialSelections(row, column);
+            this._initialSelections(row, column!);
         });
     }
 
@@ -712,12 +712,12 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
 
     public onCheckboxChange(row: SafeAny, column: ThyTableColumnComponent) {
         this.onModelChange(row, column);
-        this.onMultiSelectChange(null, row, column);
+        this.onMultiSelectChange(null as SafeAny, row, column);
     }
 
     public onMultiSelectChange(event: Event, row: SafeAny, column: ThyTableColumnComponent) {
         const rows = this.model.filter(item => {
-            return item[column.key];
+            return helpers.get(item, column.key);
         });
         const multiSelectEvent: ThyMultiSelectEvent = {
             event: event,
@@ -789,7 +789,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
     }
 
     onDragGroupEnd(event: CdkDragEnd<unknown>) {
-        const groups = this.groups.filter(group => this.expandStatusMapOfGroupBeforeDrag[group.id]);
+        const groups = this.groups.filter(group => this.expandStatusMapOfGroupBeforeDrag[group!.id!]);
         this.expandGroups(groups);
         this.cdr.detectChanges();
     }
@@ -819,11 +819,11 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
                 }) + 1;
             const dragEvent: ThyTableDraggableEvent = {
                 model: event.item,
-                models: group.children,
+                models: group!.children,
                 oldIndex: event.previousIndex - groupIndex,
                 newIndex: event.currentIndex - groupIndex
             };
-            moveItemInArray(group.children, dragEvent.oldIndex, dragEvent.newIndex);
+            moveItemInArray(group!.children!, dragEvent.oldIndex!, dragEvent.newIndex!);
             this.thyOnDraggableChange.emit(dragEvent);
         }
     }
@@ -834,8 +834,8 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
                 const preview = this.document.getElementsByClassName(this.dragPreviewClass)[0];
                 const originalTds: HTMLCollection = event.source._dragRef.getPlaceholderElement()?.children;
                 if (preview) {
-                    Array.from(preview?.children).forEach((element: HTMLElement, index: number) => {
-                        element.style.width = `${originalTds[index]?.clientWidth}px`;
+                    Array.from(preview?.children).forEach((element, index: number) => {
+                        (element as HTMLElement).style.width = `${originalTds[index]?.clientWidth}px`;
                     });
                 }
             })
@@ -946,10 +946,10 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
         originGroups.forEach((origin: SafeAny) => {
             const group: ThyTableGroup = { id: origin[this.rowKey], children: [], origin };
 
-            if (this.expandStatusMapOfGroup.hasOwnProperty(group.id)) {
-                group.expand = this.expandStatusMapOfGroup[group.id];
+            if (this.expandStatusMapOfGroup.hasOwnProperty(group!.id!)) {
+                group.expand = this.expandStatusMapOfGroup[group!.id!];
             } else {
-                group.expand = !!(originGroupsMap[group.id] as SafeAny).expand;
+                group.expand = !!(originGroupsMap[group.id!] as SafeAny).expand;
             }
 
             this.groups.push(group);
@@ -959,7 +959,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
     private buildModel() {
         const groupsMap = keyBy(this.groups, 'id');
         this.model.forEach(row => {
-            const group = groupsMap[row[this.groupBy]];
+            const group = groupsMap[helpers.get(row, this.groupBy)];
             if (group) {
                 group.children!.push(row);
             }
@@ -1069,7 +1069,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
                                             // Note: since Chrome 56 defaults document level `touchstart` listener to passive.
                                             // The element `touchstart` listener is not passive by default
                                             // We never call `preventDefault()` on it, so we're safe making it passive too.
-                                            (passiveEventListenerOptions as AddEventListenerOptions)
+                                            passiveEventListenerOptions as AddEventListenerOptions
                                         )
                                     )
                                 ).subscribe(subscriber)

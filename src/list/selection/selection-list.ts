@@ -21,7 +21,8 @@ import {
     input,
     computed,
     effect,
-    output
+    output,
+    InputSignal
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThySelectionListChange } from './selection.interface';
@@ -89,8 +90,10 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
     /**
      * 改变 grid item 的选择模式，使其支持多选
      */
-    // @ts-ignore
-    readonly multiple = input<boolean, ThyBooleanInput>(true, { alias: 'thyMultiple', transform: coerceBooleanProperty });
+    readonly multiple: InputSignal<ThyBooleanInput> = input<boolean, ThyBooleanInput>(true, {
+        alias: 'thyMultiple',
+        transform: coerceBooleanProperty
+    }) as InputSignal<ThyBooleanInput>;
 
     /**
      * 绑定键盘事件的容器
@@ -219,7 +222,7 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
     }
 
     private instanceSelectionModel() {
-        this.selectionModel = new SelectionModel<any>(this.multiple());
+        this.selectionModel = new SelectionModel<any>(!!this.multiple());
     }
 
     private getElementBySelector(element: HTMLElement | ElementRef | string): HTMLElement | null {

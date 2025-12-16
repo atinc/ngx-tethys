@@ -44,7 +44,7 @@ export class ThyColorPickerPanel implements OnInit {
 
     newColor!: string;
 
-    customPanelPopoverRef!: ThyPopoverRef<ThyColorPickerCustomPanel>;
+    customPanelPopoverRef?: ThyPopoverRef<ThyColorPickerCustomPanel>;
 
     ngOnInit(): void {
         const colors = localStorage.getItem('recentColors');
