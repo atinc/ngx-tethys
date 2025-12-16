@@ -26,7 +26,7 @@ export class ThyMenuItemAction implements OnInit, OnDestroy {
     /**
      * 设置 Action 菜单
      */
-    readonly thyActionMenu = input.required<ComponentType<any> | TemplateRef<any>>();
+    readonly thyActionMenu = input<ComponentType<any> | TemplateRef<any>>();
 
     /**
      * 是否阻止事件冒泡

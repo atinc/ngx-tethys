@@ -35,7 +35,7 @@ export class ThyRadio extends ThyFormCheckBaseComponent implements IThyRadioComp
     /**
      * 当和 thy-radio-group 配合使用时的值，选中后的 NgModel 值
      */
-    readonly thyValue = input.required<string>();
+    readonly thyValue = input<string>();
 
     set thyChecked(value: boolean) {
         this.writeValue(coerceBooleanProperty(value));

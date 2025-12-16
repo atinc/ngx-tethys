@@ -12,14 +12,14 @@ import { ThyIcon } from 'ngx-tethys/icon';
     styles: [
         `
             .basic-container {
-                display!: flex;
+                display: flex;
                 justify-content: left;
                 flex-wrap: wrap;
             }
             thy-select,
             thy-custom-select {
-                flex!: 0 0 auto;
-                width!: 120px;
+                flex: 0 0 auto;
+                width: 120px;
                 margin-right: 20px;
             }
         `

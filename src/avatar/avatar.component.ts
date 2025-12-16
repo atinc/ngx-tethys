@@ -95,7 +95,7 @@ export class ThyAvatar {
     /**
      * 人员名称（可设置自定义名称，需通过自定义服务 ThyAvatarService，重写 nameTransform 方法去实现转换）
      */
-    readonly thyName = input.required<string>();
+    readonly thyName = input<string>();
 
     readonly avatarName: Signal<string> = computed(() => {
         const name = this.thyAvatarService.nameTransform(this.thyName());

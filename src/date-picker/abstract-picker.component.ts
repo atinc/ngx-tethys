@@ -138,7 +138,7 @@ export abstract class AbstractPickerComponent
      * 展示的日期格式
      * @default yyyy-MM-dd
      */
-    readonly thyFormat = model.required<string>();
+    readonly thyFormat = model<string>('');
 
     /**
      * 区间分隔符，不传值默认为 "~"

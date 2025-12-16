@@ -12,7 +12,7 @@ import { NgClass } from '@angular/common';
     styles: [
         `
             thy-select {
-                width!: 400px;
+                width: 400px;
                 margin-top: 15px;
             }
         `

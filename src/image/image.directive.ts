@@ -26,7 +26,7 @@ export class ThyImageDirective implements IThyImageDirective, OnInit, AfterViewI
     /**
      * 图片地址
      */
-    readonly thySrc = input.required<string>();
+    readonly thySrc = input<string>();
 
     /**
      * 预览图片地址
@@ -41,7 +41,7 @@ export class ThyImageDirective implements IThyImageDirective, OnInit, AfterViewI
     /**
      * 图片附加信息，包含 { name: string, size?: string | number; }
      */
-    readonly thyImageMeta = input.required<ThyImageMeta>();
+    readonly thyImageMeta = input<ThyImageMeta>();
 
     /**
      * 是否禁止预览
