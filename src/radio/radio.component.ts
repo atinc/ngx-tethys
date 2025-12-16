@@ -50,7 +50,7 @@ export class ThyRadio extends ThyFormCheckBaseComponent implements IThyRadioComp
 
     change() {
         if (this.thyRadioGroupComponent) {
-            this.thyRadioGroupComponent.updateValue(this.thyValue(), true);
+            this.thyRadioGroupComponent.updateValue(this.thyValue()!, true);
         } else {
             this.updateValue(!this._innerValue);
         }
