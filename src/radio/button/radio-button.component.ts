@@ -23,7 +23,7 @@ export class ThyRadioButton extends ThyRadio implements OnInit {
 
     name!: string;
 
-    readonly thyValue = input.required<string>();
+    readonly thyValue = input<string>();
 
     set thyChecked(value: boolean) {
         this.isActive = !!value;
