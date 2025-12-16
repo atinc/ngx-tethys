@@ -112,6 +112,7 @@ describe('thy-anchor', () => {
         it('should set link title', () => {
             const comp = fixture.componentInstance;
             const anchorLinkComponent = fixture.debugElement.query(By.directive(ThyAnchorLink)).componentInstance;
+            // @ts-ignore
             comp.title = 'Basic demo title';
             fixture.detectChanges();
             expect(anchorLinkComponent.title()).toEqual(comp.title);
