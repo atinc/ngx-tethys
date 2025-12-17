@@ -195,10 +195,10 @@ export class ThyAnchor implements IThyAnchorComponent, OnDestroy, AfterViewInit 
         if (!this.platform.isBrowser) {
             return;
         }
-        this.destroy$.next();
         if (this.thyDisabledContainerScroll()) {
             return;
         }
+        this.destroy$.next();
         this.zone.runOutsideAngular(() => {
             fromEvent(this.container(), 'scroll', { passive: true })
                 .pipe(throttleTime(50), takeUntil(this.destroy$))
@@ -259,32 +259,40 @@ export class ThyAnchor implements IThyAnchorComponent, OnDestroy, AfterViewInit 
         const horizontalAnchor = this.thyDirection() === 'horizontal';
 
         const ink = this.ink();
-        ink.nativeElement.style.top = horizontalAnchor ? '' : `${linkNode.offsetTop}px`;
-        ink.nativeElement.style.height = horizontalAnchor ? '' : `${linkNode.clientHeight}px`;
-        ink.nativeElement.style.left = horizontalAnchor ? `${linkNode.offsetLeft}px` : '';
-        ink.nativeElement.style.width = horizontalAnchor ? `${linkNode.clientWidth}px` : '';
+        const linkOffset = {
+            top: linkNode.offsetTop,
+            left: linkNode.offsetLeft,
+            height: linkNode.clientHeight,
+            width: linkNode.clientWidth
+        };
+        ink.nativeElement.style.top = horizontalAnchor ? '' : `${linkOffset.top}px`;
+        ink.nativeElement.style.height = horizontalAnchor ? '' : `${linkOffset.height}px`;
+        ink.nativeElement.style.left = horizontalAnchor ? `${linkOffset.left}px` : '';
+        ink.nativeElement.style.width = horizontalAnchor ? `${linkOffset.width}px` : '';
         this.visible = true;
         this.setVisible();
-        this.linkVisible(linkNode);
+        this.linkVisible(linkOffset, horizontalAnchor);
         this.thyScroll.emit(linkComponent);
     }
 
-    private linkVisible(linkNode: HTMLElement): void {
-        const wrapper = this.wrapper().nativeElement;
-        const horizontalAnchor = this.thyDirection() === 'horizontal';
+    private linkVisible(linkOffset: { top: number; left: number; height: number; width: number }, horizontalAnchor: boolean): void {
+        const wrapper = this.wrapper()?.nativeElement;
+        if (!wrapper) {
+            return;
+        }
         if (horizontalAnchor) {
-            if (linkNode.offsetLeft > wrapper.scrollLeft + wrapper.offsetWidth) {
-                wrapper.scrollLeft = linkNode.offsetLeft;
+            if (linkOffset.left + linkOffset.width > wrapper.scrollLeft + wrapper.offsetWidth) {
+                wrapper.scrollLeft = linkOffset.left;
             }
-            if (linkNode.offsetLeft < wrapper.scrollLeft) {
-                wrapper.scrollLeft = linkNode.offsetLeft;
+            if (linkOffset.left < wrapper.scrollLeft) {
+                wrapper.scrollLeft = linkOffset.left;
             }
         } else {
-            if (linkNode.offsetTop > wrapper.scrollTop + wrapper.offsetHeight) {
-                wrapper.scrollTop = linkNode.offsetTop;
+            if (linkOffset.top + linkOffset.height > wrapper.scrollTop + wrapper.offsetHeight) {
+                wrapper.scrollTop = linkOffset.top;
             }
-            if (linkNode.offsetTop < wrapper.scrollTop) {
-                wrapper.scrollTop = linkNode.offsetTop;
+            if (linkOffset.top < wrapper.scrollTop) {
+                wrapper.scrollTop = linkOffset.top;
             }
         }
     }
