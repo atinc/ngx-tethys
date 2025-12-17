@@ -20,13 +20,13 @@ import { ThyStealthView, useStealthViewRenderer } from '@tethys/cdk/dom';
 class ThyStealthViewDirectiveTestComponent {
     private injector = inject(Injector);
 
-    @ViewChild(ThyStealthView, { static: true }) thyStealthView: ThyStealthView;
+    @ViewChild(ThyStealthView, { static: true }) thyStealthView!: ThyStealthView;
 
-    templateRef = viewChild('testStealth', { read: TemplateRef });
+    templateRef = viewChild.required('testStealth', { read: TemplateRef });
 
-    nodesByDirective: Node[];
+    nodesByDirective!: Node[];
 
-    nodesByFunction: Node[];
+    nodesByFunction!: Node[];
 
     stealthViewRenderer = useStealthViewRenderer(this.templateRef);
 

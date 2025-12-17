@@ -69,7 +69,7 @@ describe('async-behavior', () => {
             const error = new Error('mock error');
             subject.error(error);
             expect(async.state()).toEqual('error');
-            expect(async.error()).toEqual(error);
+            expect(async.error!()).toEqual(error);
             expect(executeError).toEqual(error);
         });
     });
@@ -86,7 +86,7 @@ describe('async-behavior', () => {
                 error = _error;
             });
             expect(async.loading()).toEqual(false);
-            expect(async.error()).toBe(mockError);
+            expect(async.error!()).toBe(mockError);
             expect(error).toBe(mockError);
         });
     });

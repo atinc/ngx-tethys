@@ -68,6 +68,7 @@ describe('action-behavior', () => {
             expect(parameters).toEqual(['hello', 100]);
             subject.next(100);
             action.execute();
+            // @ts-ignore
             expect(parameters).toEqual([undefined, undefined]);
         });
     });
@@ -112,6 +113,7 @@ describe('action-behavior', () => {
             expect(action.saving()).toEqual(true);
             subject.complete();
             expect(action.saving()).toEqual(false);
+            // @ts-ignore
             expect(result).toEqual(undefined);
         });
     });
@@ -188,7 +190,7 @@ describe('action-behavior', () => {
                 .execute(data => {
                     success = true;
                     result = data;
-                })
+                })!
                 .subscribe({
                     next: successSpy,
                     error: errorSpy
@@ -220,7 +222,7 @@ describe('action-behavior', () => {
                     error: _error => {
                         error = _error;
                     }
-                })
+                })!
                 .subscribe({
                     next: successSpy,
                     error: errorSpy
@@ -250,7 +252,7 @@ describe('action-behavior', () => {
             action
                 .execute(undefined, _error => {
                     error = _error;
-                })
+                })!
                 .subscribe({
                     error: errorSpy,
                     next: successSpy

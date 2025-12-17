@@ -19,7 +19,7 @@ describe('immutable', () => {
         });
 
         it('should return 2 users when add []', () => {
-            const addUserEntity = [];
+            const addUserEntity: UserInfo[] = [];
             const result = produce(users).add(addUserEntity);
             expect(result).toEqual([...initialUserEntities]);
         });

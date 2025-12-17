@@ -21,9 +21,9 @@ import { createKeyboardEvent } from '@tethys/cdk/testing';
     imports: [ThyHotkeyModule]
 })
 class ThyHotkeyDirectiveTestComponent {
-    @ViewChild('input') input: ElementRef<HTMLInputElement>;
+    @ViewChild('input') input!: ElementRef<HTMLInputElement>;
 
-    @ViewChild('textarea') textarea: ElementRef<HTMLTextAreaElement>;
+    @ViewChild('textarea') textarea!: ElementRef<HTMLTextAreaElement>;
 
     save() {}
 
@@ -46,15 +46,15 @@ describe('ThyHotkeyDirective', () => {
     });
 
     it('should input focus when press Control+m ', fakeAsync(() => {
-        document.dispatchEvent(createKeyboardEvent('keydown', null, 'm', { control: true }));
-        tick();
+        document.dispatchEvent(createKeyboardEvent('keydown', undefined, 'm', { control: true }));
+        tick(100);
         expect(document.activeElement).toEqual(component.input.nativeElement);
     }));
 
     it('should call save when press Control+Enter or Meta+Enter in textarea', fakeAsync(() => {
         const saveSpy = spyOn(component, 'save');
-        const metaEnterCodeEvent = createKeyboardEvent('keydown', null, 'Enter', { meta: true });
-        const controlEnterCodeEvent = createKeyboardEvent('keydown', null, 'Enter', { control: true });
+        const metaEnterCodeEvent = createKeyboardEvent('keydown', undefined, 'Enter', { meta: true });
+        const controlEnterCodeEvent = createKeyboardEvent('keydown', undefined, 'Enter', { control: true });
         document.dispatchEvent(metaEnterCodeEvent);
         document.dispatchEvent(controlEnterCodeEvent);
         tick();
@@ -69,8 +69,8 @@ describe('ThyHotkeyDirective', () => {
 
     it('should emit hotkey listener ', fakeAsync(() => {
         const hotkeyListenerSpy = spyOn(component, 'hotkeyListener');
-        document.dispatchEvent(createKeyboardEvent('keydown', null, 'm', { control: true }));
-        tick();
+        document.dispatchEvent(createKeyboardEvent('keydown', undefined, 'm', { control: true }));
+        tick(100);
         expect(hotkeyListenerSpy).toHaveBeenCalledTimes(1);
     }));
 });
