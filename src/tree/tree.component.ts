@@ -389,7 +389,7 @@ export class ThyTree implements ControlValueAccessor {
     }
 
     private initThyNodes() {
-        this.expandedKeys = this.getExpandedNodes().map(node => node.key);
+        this.expandedKeys = this.getExpandedNodes().map(node => node.key!);
         this.selectedKeys = this.getSelectedNodes().map(node => node.key!);
         this.thyTreeService.initializeTreeNodes(this.thyNodes()!);
         this.selectTreeNodes(this.selectedKeys);

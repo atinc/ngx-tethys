@@ -32,7 +32,7 @@ export class ThyQuarterPicker extends BasePicker {
     /**
      * 展示的季度格式
      */
-    readonly thyFormat = model<string>(`yyyy-${QUARTER_FORMAT}`);
+    readonly thyFormat = model<string | undefined>(`yyyy-${QUARTER_FORMAT}`);
 
     isRange = false;
 
