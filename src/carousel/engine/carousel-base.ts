@@ -6,13 +6,13 @@ import { IThyCarouselComponent } from '../carousel.token';
 import { ThyDistanceVector, ThyCarouselEngine } from '../typings';
 
 export abstract class ThyCarouselBaseEngine implements ThyCarouselEngine {
-    protected contentWidth: number;
-    protected contentHeight: number;
+    protected contentWidth!: number;
+    protected contentHeight!: number;
     protected readonly carouselComponent: IThyCarouselComponent;
-    protected wrapperEl: HTMLElement;
-    protected playTime: number;
-    protected length: number;
-    protected contents: ThyCarouselItemDirective[];
+    protected wrapperEl!: HTMLElement;
+    protected playTime!: number;
+    protected length!: number;
+    protected contents!: ThyCarouselItemDirective[];
 
     protected get maxIndex(): number {
         return this.length - 1;
@@ -44,7 +44,7 @@ export abstract class ThyCarouselBaseEngine implements ThyCarouselEngine {
         this.contentHeight = height;
         this.contentWidth = width;
 
-        this.contents = contents?.toArray();
+        this.contents = contents?.toArray() || [];
         this.length = this.contents.length;
         if (this.platform.isBrowser && this.contents.length) {
             this.renderer.setStyle(this.wrapperEl, 'transform', 'translate3d(0, 0, 0)');

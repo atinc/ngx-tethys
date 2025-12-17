@@ -19,7 +19,7 @@ export class ThyText implements OnInit {
     /**
      * 前置图标
      */
-    readonly thyIcon = input<string>(undefined);
+    readonly thyIcon = input<string>();
 
     constructor() {}
 

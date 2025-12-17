@@ -25,8 +25,8 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { THY_TREE_ABSTRACT_TOKEN } from './tree-abstract';
-import { ThyTreeNode } from './tree.class';
 import {
+    ThyTreeNode,
     ThyTreeBeforeDragDropContext,
     ThyTreeBeforeDragStartContext,
     ThyClickBehavior,
@@ -41,7 +41,7 @@ import { ThyTreeService } from './tree.service';
 import { ThyTreeNodeComponent } from './tree-node.component';
 
 import { CdkDrag, CdkDragDrop, CdkDragEnd, CdkDragMove, CdkDragStart, CdkDropList } from '@angular/cdk/drag-drop';
-import { filter, startWith, takeUntil } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { ThyTreeNodeDraggablePipe } from './tree.pipe';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -103,9 +103,9 @@ export class ThyTree implements ControlValueAccessor {
     private document = inject(DOCUMENT);
     private destroyRef = inject(DestroyRef);
 
-    private expandedKeys: (string | number)[];
+    private expandedKeys!: (string | number)[];
 
-    private selectedKeys: (string | number)[];
+    private selectedKeys!: (string | number)[];
 
     private hostRenderer = useHostRenderer();
 
@@ -118,13 +118,13 @@ export class ThyTree implements ControlValueAccessor {
 
     private nodeDragMoved = new Subject<CdkDragMove>();
 
-    private startDragNodeClone: ThyTreeNode;
+    private startDragNodeClone: ThyTreeNode | null = null;
 
     // Node 拖动经过目标时临时记录目标id以及相对应目标的位置
     private nodeDropTarget: {
         position?: ThyTreeDropPosition;
         key?: number | string;
-    };
+    } | null = null;
 
     private dropEnterPredicate?: (context: { source: ThyTreeNode; target: ThyTreeNode; dropPosition: ThyTreeDropPosition }) => boolean =
         context => {
@@ -133,7 +133,7 @@ export class ThyTree implements ControlValueAccessor {
             );
         };
 
-    public selectionModel: SelectionModel<ThyTreeNode>;
+    public selectionModel!: SelectionModel<ThyTreeNode>;
 
     public get treeNodes() {
         return this.thyTreeService.treeNodes;
@@ -150,7 +150,7 @@ export class ThyTree implements ControlValueAccessor {
      * TreeNode 展现所需的数据
      * @type ThyTreeNodeData[]
      */
-    readonly thyNodes = model<ThyTreeNodeData[]>(undefined);
+    readonly thyNodes = model<ThyTreeNodeData[]>();
 
     /**
      * 设置 TreeNode 是否支持展开
@@ -256,12 +256,12 @@ export class ThyTree implements ControlValueAccessor {
      * 已选中的 node 节点集合
      * @default []
      */
-    readonly thySelectedKeys = input<string[]>(undefined);
+    readonly thySelectedKeys = input<string[]>();
 
     /**
      * 展开指定的树节点
      */
-    readonly thyExpandedKeys = input<(string | number)[]>(undefined);
+    readonly thyExpandedKeys = input<(string | number)[]>();
 
     /**
      * 是否展开所有树节点
@@ -277,12 +277,12 @@ export class ThyTree implements ControlValueAccessor {
     /**
      * 拖拽之前的回调，函数返回 false 则阻止拖拽
      */
-    readonly thyBeforeDragStart = input<(context: ThyTreeBeforeDragStartContext) => boolean>(undefined);
+    readonly thyBeforeDragStart = input<(context: ThyTreeBeforeDragStartContext) => boolean>();
 
     /**
      * 拖放到元素时回调，函数返回 false 则阻止拖放到当前元素
      */
-    readonly thyBeforeDragDrop = input<(context: ThyTreeBeforeDragDropContext) => boolean>(undefined);
+    readonly thyBeforeDragDrop = input<(context: ThyTreeBeforeDragDropContext) => boolean>();
 
     /**
      * 设置子 TreeNode 点击事件
@@ -348,7 +348,7 @@ export class ThyTree implements ControlValueAccessor {
         });
 
         effect(() => {
-            this.selectTreeNodes(this.thySelectedKeys());
+            this.selectTreeNodes(this.thySelectedKeys()!);
         });
 
         effect(() => {
@@ -390,8 +390,8 @@ export class ThyTree implements ControlValueAccessor {
 
     private initThyNodes() {
         this.expandedKeys = this.getExpandedNodes().map(node => node.key);
-        this.selectedKeys = this.getSelectedNodes().map(node => node.key);
-        this.thyTreeService.initializeTreeNodes(this.thyNodes());
+        this.selectedKeys = this.getSelectedNodes().map(node => node.key!);
+        this.thyTreeService.initializeTreeNodes(this.thyNodes()!);
         this.selectTreeNodes(this.selectedKeys);
         this.handleExpandedKeys();
     }
@@ -432,7 +432,7 @@ export class ThyTree implements ControlValueAccessor {
         (keys || []).forEach(key => {
             const node = this.thyTreeService.getTreeNode(key);
             if (node) {
-                this.selectTreeNode(this.thyTreeService.getTreeNode(key));
+                this.selectTreeNode(this.thyTreeService.getTreeNode(key)!);
             }
         });
     }
@@ -488,12 +488,12 @@ export class ThyTree implements ControlValueAccessor {
 
     onDragMoved(event: CdkDragMove<ThyTreeNode>) {
         // 通过鼠标位置查找对应的目标 Item 元素
-        let currentPointElement = this.document.elementFromPoint(event.pointerPosition.x, event.pointerPosition.y) as HTMLElement;
+        const currentPointElement = this.document.elementFromPoint(event.pointerPosition.x, event.pointerPosition.y) as HTMLElement;
         if (!currentPointElement) {
             this.cleanupDragArtifacts();
             return;
         }
-        let targetElement = currentPointElement.classList.contains('thy-tree-node')
+        const targetElement = currentPointElement.classList.contains('thy-tree-node')
             ? currentPointElement
             : (currentPointElement.closest('.thy-tree-node') as HTMLElement);
         if (!targetElement) {
@@ -507,12 +507,12 @@ export class ThyTree implements ControlValueAccessor {
         };
         // 执行外部传入的 dropEnterPredicate 判断是否允许拖入目标项
         if (this.dropEnterPredicate) {
-            const targetDragRef = this.nodeDragsMap.get(targetElement);
+            const targetDragRef = this.nodeDragsMap.get(targetElement)!;
             if (
                 this.dropEnterPredicate({
                     source: event.source.data,
                     target: targetDragRef.data,
-                    dropPosition: this.nodeDropTarget.position
+                    dropPosition: this.nodeDropTarget.position!
                 })
             ) {
                 this.showDropPositionPlaceholder(targetElement);
@@ -528,7 +528,7 @@ export class ThyTree implements ControlValueAccessor {
     onDragEnded(event: CdkDragEnd<ThyTreeNode>) {
         this.dragging.set(false);
         // 拖拽结束后恢复原始的展开状态
-        event.source.data.setExpanded(this.startDragNodeClone.isExpanded);
+        event.source.data.setExpanded(this.startDragNodeClone!.isExpanded);
         setTimeout(() => {
             this.startDragNodeClone = null;
         });
@@ -538,14 +538,14 @@ export class ThyTree implements ControlValueAccessor {
         if (!this.nodeDropTarget) {
             return;
         }
-        if (!this.isShowExpand(this.startDragNodeClone) && this.nodeDropTarget.position === ThyTreeDropPosition.in) {
+        if (!this.isShowExpand(this.startDragNodeClone!) && this.nodeDropTarget.position === ThyTreeDropPosition.in) {
             this.cleanupDragArtifacts();
             return;
         }
 
-        const sourceNode = this.startDragNodeClone;
+        const sourceNode = this.startDragNodeClone!;
         const sourceNodeParent = sourceNode.parentNode;
-        const targetDragRef = this.cdkDrags().find(item => item.data?.key === this.nodeDropTarget.key);
+        const targetDragRef = this.cdkDrags().find(item => item.data?.key === this.nodeDropTarget?.key);
         const targetNode = targetDragRef?.data;
         const targetNodeParent = targetNode.parentNode;
 
@@ -566,14 +566,16 @@ export class ThyTree implements ControlValueAccessor {
         this.thyTreeService.deleteTreeNode(sourceNode);
 
         switch (this.nodeDropTarget.position) {
-            case 'before':
+            case 'before': {
                 const beforeInsertIndex = (targetNodeParent?.children || this.treeNodes).indexOf(targetNode);
                 this.thyTreeService.addTreeNode(sourceNode, targetNodeParent, beforeInsertIndex);
                 break;
-            case 'after':
+            }
+            case 'after': {
                 const afterInsertIndex = (targetNodeParent?.children || this.treeNodes).indexOf(targetNode) + 1;
                 this.thyTreeService.addTreeNode(sourceNode, targetNodeParent, afterInsertIndex);
                 break;
+            }
             case 'in':
                 this.thyTreeService.addTreeNode(sourceNode, targetNode);
                 break;
@@ -581,8 +583,8 @@ export class ThyTree implements ControlValueAccessor {
 
         this.thyTreeService.syncFlattenTreeNodes();
 
-        let after: ThyTreeNode = null;
-        let targe: ThyTreeNode = null;
+        let after: ThyTreeNode | undefined = undefined;
+        let targe: ThyTreeNode | undefined = undefined;
         if (beforeDragDropContext.position === ThyTreeDropPosition.before) {
             const targetContainerNodes = targetNodeParent?.children || this.treeNodes;
             after = targetContainerNodes[targetContainerNodes.indexOf(targetNode) - 2];
@@ -596,7 +598,7 @@ export class ThyTree implements ControlValueAccessor {
         }
 
         this.thyOnDragDrop.emit({
-            dragNode: this.thyTreeService.getTreeNode(sourceNode.key),
+            dragNode: this.thyTreeService.getTreeNode(sourceNode.key!),
             targetNode: targe,
             afterNode: after
         });
@@ -647,7 +649,7 @@ export class ThyTree implements ControlValueAccessor {
         return this.thyTreeService.getTreeNode(key);
     }
 
-    getSelectedNode(): ThyTreeNode {
+    getSelectedNode(): ThyTreeNode | null {
         return this.selectionModel ? this.selectionModel.selected[0] : null;
     }
 
@@ -664,7 +666,7 @@ export class ThyTree implements ControlValueAccessor {
     }
 
     addTreeNode(node: ThyTreeNodeData, parent?: ThyTreeNode, index = -1) {
-        this.thyTreeService.addTreeNode(new ThyTreeNode(node, null, this.thyTreeService), parent, index);
+        this.thyTreeService.addTreeNode(new ThyTreeNode(node, undefined, this.thyTreeService), parent, index);
         this.thyTreeService.syncFlattenTreeNodes();
     }
 

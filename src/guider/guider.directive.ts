@@ -19,7 +19,7 @@ export class ThyGuiderTargetDirective implements OnInit, OnDestroy, AfterViewIni
     /**
      * 标记当前元素对应的新手引导中 step 的 key
      */
-    readonly target = input<string>(undefined, { alias: 'thyGuiderTarget' });
+    readonly target = input.required<string>({ alias: 'thyGuiderTarget' });
 
     ngOnInit() {
         this.guiderManager.addStepTarget(this.target(), this.el.nativeElement);

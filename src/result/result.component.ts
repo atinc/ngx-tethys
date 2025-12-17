@@ -20,25 +20,25 @@ export class ThyResult implements OnInit {
      * @description 结果的状态，决定显示的图标
      * @type success | warning | error
      */
-    readonly thyStatus = input<ThyResultStatus>(undefined);
+    readonly thyStatus = input<ThyResultStatus>();
 
     /**
      * @description 自定义 icon，作为 img 的 src 显示
      * @type string
      */
-    readonly thyIcon = input<string>(undefined);
+    readonly thyIcon = input<string>();
 
     /**
      * @description 标题
      * @type string
      */
-    readonly thyTitle = input<string>(undefined);
+    readonly thyTitle = input<string>();
 
     /**
      * @description 二级标题
      * @type string
      */
-    readonly thySubtitle = input<string>(undefined);
+    readonly thySubtitle = input<string>();
 
     /**
      * @description 自定义 icon 模板

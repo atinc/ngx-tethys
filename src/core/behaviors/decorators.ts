@@ -55,5 +55,5 @@ function makePropDecorator<T, D>(
         };
     }
 
-    return propDecorator;
+    return propDecorator as PropertyDecorator;
 }

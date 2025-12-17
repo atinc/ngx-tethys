@@ -28,7 +28,7 @@ export class ThyDialogHeader implements OnInit {
     private elementRef = inject(ElementRef);
     private dialog = inject(ThyDialog);
     private translate = inject(ThyTranslate);
-    private dialogContainer = inject(ThyDialogContainer, { optional: true })!;
+    private dialogContainer: ThyDialogContainer | null = inject(ThyDialogContainer, { optional: true })!;
 
     /**
      * 自定义头部模板
@@ -70,7 +70,7 @@ export class ThyDialogHeader implements OnInit {
     /**
      * 关闭事件
      */
-    readonly thyOnClose = output<Event>();
+    readonly thyOnClose = output<Event | undefined>();
 
     ngOnInit() {
         if (!this.dialogContainer) {

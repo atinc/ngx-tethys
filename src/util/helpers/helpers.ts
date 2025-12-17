@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-for-of */
 import { _isNumberValue, coerceCssPixelValue as coerceCssPixel } from '@angular/cdk/coercion';
 import { ElementRef, TemplateRef } from '@angular/core';
 
@@ -49,6 +50,7 @@ function baseGetTag(value: any) {
     try {
         value[symToStringTag] = undefined;
         unmasked = true;
+        // eslint-disable-next-line no-empty
     } catch (e) {}
 
     const result = toString.call(value);
@@ -89,9 +91,9 @@ export function coerceArray<T>(value: T | T[]): T[] {
 
 export function get(object: any, path: string, defaultValue?: any): any {
     const paths = path.split('.');
-    let result = object[paths.shift()];
+    let result = object[paths.shift()!];
     while (result && paths.length) {
-        result = result[paths.shift()];
+        result = result[paths.shift()!];
     }
     return result === undefined ? defaultValue : result;
 }
@@ -104,7 +106,7 @@ export function set(object: any, path: string, value: any): void {
     let index = -1;
     const length = paths.length;
     const lastIndex = length - 1;
-    let nested = object;
+    let nested: Record<string, any> = object;
     while (nested !== null && ++index < length) {
         const key = paths[index];
         if (isObject(nested)) {
@@ -113,7 +115,7 @@ export function set(object: any, path: string, value: any): void {
                 nested = nested[key];
                 break;
             } else {
-                if (nested[key] == null) {
+                if ((nested as Record<string, any>)[key] == null) {
                     nested[key] = {};
                 }
             }
@@ -138,7 +140,7 @@ export function htmlElementIsEmpty(element: HTMLElement) {
             const node = nodes[i];
             if (node.nodeType === Node.ELEMENT_NODE && (node as HTMLElement).outerHTML.toString().trim().length !== 0) {
                 return false;
-            } else if (node.nodeType === Node.TEXT_NODE && node.textContent.toString().trim().length !== 0) {
+            } else if (node.nodeType === Node.TEXT_NODE && node.textContent!.toString().trim().length !== 0) {
                 return false;
             } else if (node.nodeType !== Node.COMMENT_NODE) {
                 return false;
@@ -148,7 +150,7 @@ export function htmlElementIsEmpty(element: HTMLElement) {
     return true;
 }
 
-export function hexToRgb(hexValue: string, alpha?: number): string {
+export function hexToRgb(hexValue: string, alpha?: number): string | undefined {
     const rgx = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
     const hex = hexValue.replace(rgx, (m: any, r: any, g: any, b: any) => r + r + g + g + b + b);
     const rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -201,7 +203,7 @@ function upperFirst(string: string): string {
     return string.slice(0, 1).toUpperCase() + string.slice(1);
 }
 
-export function camelCase(values: string[]): string {
+export function camelCase(values: string[]): string | undefined {
     if (isArray(values)) {
         return values.reduce((result, word, index) => {
             word = word.toLowerCase();
@@ -299,7 +301,7 @@ export function shallowEqual(objA?: Record<string, any>, objB?: Record<string, a
     return true;
 }
 
-export function concatArray<TItem>(items: TItem | TItem[], originalItems: TItem | TItem[] = []): TItem[] {
+export function concatArray<TItem>(items: TItem | TItem[] | undefined, originalItems: TItem | TItem[] = []): TItem[] {
     let _originalItems: TItem[] = [];
     if (!originalItems) {
         _originalItems = [];

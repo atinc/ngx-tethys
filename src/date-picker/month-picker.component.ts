@@ -25,7 +25,7 @@ import { ThyPicker } from './picker.component';
     imports: [ThyPicker, DatePopup]
 })
 export class ThyMonthPicker extends BasePicker {
-    protected element: ElementRef;
+    protected element!: ElementRef;
 
     /**
      * 展示的月份格式

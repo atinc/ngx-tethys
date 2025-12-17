@@ -27,7 +27,7 @@ import { QUARTER_FORMAT } from './date-picker.config';
     imports: [ThyPicker, DatePopup]
 })
 export class ThyQuarterPicker extends BasePicker {
-    protected elementRef: ElementRef;
+    protected elementRef!: ElementRef;
 
     /**
      * 展示的季度格式

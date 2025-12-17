@@ -8,8 +8,8 @@ import { MockXhrFactory } from 'ngx-tethys/testing';
 const UPLOAD_URL = `http://example.com/upload`;
 
 describe('ThyUploadService', () => {
-    let uploader: ThyUploadService;
-    let mockXhrFactory: MockXhrFactory;
+    let uploader!: ThyUploadService;
+    let mockXhrFactory!: MockXhrFactory;
 
     beforeEach(() => {
         mockXhrFactory = new MockXhrFactory();

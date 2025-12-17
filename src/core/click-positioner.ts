@@ -12,11 +12,11 @@ export interface ThyClickPosition {
 export class ThyClickPositioner {
     private clickDispatcher = inject(ThyClickDispatcher);
 
-    private lastPosition: ThyClickPosition = null;
+    private lastPosition: ThyClickPosition | undefined = undefined;
 
     private initialized = false;
 
-    get lastClickPosition(): ThyClickPosition | null {
+    get lastClickPosition(): ThyClickPosition | undefined {
         return this.lastPosition;
     }
 
@@ -31,7 +31,7 @@ export class ThyClickPositioner {
             return;
         }
         this.initialized = true;
-        this.clickDispatcher.clicked(0).subscribe((event: MouseEvent) => {
+        this.clickDispatcher.clicked<MouseEvent>(0).subscribe((event: MouseEvent) => {
             this.lastPosition = { x: event.clientX, y: event.clientY };
         });
     }

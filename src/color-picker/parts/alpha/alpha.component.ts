@@ -27,11 +27,11 @@ export class ThyAlpha {
 
     @HostBinding('class.thy-alpha') className = true;
 
-    readonly color = input<ThyColor>();
+    readonly color = input.required<ThyColor>();
 
-    readonly pointer = viewChild<ElementRef>('pointer');
+    readonly pointer = viewChild.required<ElementRef>('pointer');
 
-    readonly gradient = viewChild<ElementRef>('gradient');
+    readonly gradient = viewChild.required<ElementRef>('gradient');
 
     readonly colorChange = output<ThyColor>();
 

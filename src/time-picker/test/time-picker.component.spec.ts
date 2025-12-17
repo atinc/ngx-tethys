@@ -1,6 +1,6 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { provideHttpClient } from '@angular/common/http';
-import { Component, DebugElement, viewChild } from '@angular/core';
+import { Component, DebugElement, Signal, viewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -9,11 +9,11 @@ import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyTimePicker, ThyTimePickerModule, TimePickerSize } from 'ngx-tethys/time-picker';
 
 describe('ThyTimePickerComponent', () => {
-    let fixture: ComponentFixture<ThyTestTimePickerBaseComponent>;
-    let fixtureInstance: ThyTestTimePickerBaseComponent;
-    let debugElement: DebugElement;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let fixture!: ComponentFixture<ThyTestTimePickerBaseComponent>;
+    let fixtureInstance!: ThyTestTimePickerBaseComponent;
+    let debugElement!: DebugElement;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -102,7 +102,7 @@ describe('ThyTimePickerComponent', () => {
             const valueChange = spyOn(fixtureInstance, 'onValueChange');
             debugElementQuery(`${clearBtnSelector} thy-icon`).nativeElement.click();
             fixture.detectChanges();
-            expect(fixtureInstance.value).toBe(null);
+            expect(fixtureInstance.value).toBeNull();
             expect(valueChange).toHaveBeenCalledWith(null);
             expect(debugElementQuery(clearBtnSelector)).toBeNull();
         }));
@@ -140,7 +140,7 @@ describe('ThyTimePickerComponent', () => {
         }));
 
         it('should support thyFormat', fakeAsync(() => {
-            let date = new Date();
+            const date = new Date();
             date.setHours(8, 20, 6);
             fixtureInstance.value = date;
             fixture.detectChanges();
@@ -249,12 +249,12 @@ describe('ThyTimePickerComponent', () => {
             openOverlay();
             dispatchFakeEvent(getTimePickerInput(), 'blur');
             tick(300);
-            expect(document.activeElement.classList.contains('thy-time-picker-input')).toBeTruthy();
+            expect(document.activeElement!.classList.contains('thy-time-picker-input')).toBeTruthy();
 
             dispatchMouseEvent(document.body, 'click');
             dispatchFakeEvent(getTimePickerInput(), 'blur');
             tick(300);
-            expect(document.activeElement.classList.contains('thy-time-picker-input')).toBeFalsy();
+            expect(document.activeElement!.classList.contains('thy-time-picker-input')).toBeFalsy();
         }));
 
         it('should emit openChange on open/close overlay', fakeAsync(() => {
@@ -315,7 +315,7 @@ describe('ThyTimePickerComponent', () => {
         it('should emit change when pick hour,minute,second and click confirm button', fakeAsync(() => {
             const date = new Date();
             date.setHours(10, 20, 3);
-            let newDate = new Date(date);
+            const newDate = new Date(date);
             fixtureInstance.value = date;
             fixture.detectChanges();
             tick(500);
@@ -443,7 +443,7 @@ describe('ThyTimePickerComponent', () => {
 class ThyTestTimePickerBaseComponent {
     readonly timePickerRef = viewChild<ThyTimePicker>('timePicker');
 
-    value: Date | number;
+    value!: Date | number;
 
     format: string = 'HH:mm:ss';
 
@@ -453,21 +453,21 @@ class ThyTestTimePickerBaseComponent {
 
     allowClear: boolean = true;
 
-    size: TimePickerSize;
+    size!: TimePickerSize;
 
-    placeholder: string;
+    placeholder!: string;
 
-    hourStep: number;
+    hourStep!: number;
 
-    minuteStep: number;
+    minuteStep!: number;
 
-    secondStep: number;
+    secondStep!: number;
 
-    popupClass: string;
+    popupClass!: string;
 
-    showSelectNow: boolean;
+    showSelectNow!: boolean;
 
-    backdrop: boolean;
+    backdrop!: boolean;
 
     onValueChange(value: Date) {}
 

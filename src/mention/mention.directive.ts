@@ -15,11 +15,11 @@ const SUGGESTION_BACKDROP_CLASS = 'thy-mention-suggestions-backdrop';
 
 const POPOVER_DEFAULT_CONFIG = { backdropClass: SUGGESTION_BACKDROP_CLASS, placement: 'bottomLeft' };
 
-const DEFAULT_MENTION_CONFIG: Partial<Mention> = {
+const DEFAULT_MENTION_CONFIG: Partial<Mention<MentionDefaultDataItem>> = {
     autoClose: true,
     emptyText: '无匹配数据，按空格完成输入',
-    search: (term: string, data: MentionDefaultDataItem[]) => {
-        return data.filter(item => {
+    search: (term: string, data?: MentionDefaultDataItem[]) => {
+        return (data || []).filter(item => {
             return !item.name || item.name.toLowerCase().includes(term.toLowerCase());
         });
     }
@@ -35,9 +35,9 @@ export class ThyMentionDirective implements OnInit, OnDestroy {
     private thyPopover = inject(ThyPopover);
     private ngControl = inject(NgControl, { optional: true, self: true })!;
 
-    private adapter: MentionAdapter = null;
+    private adapter!: MentionAdapter;
 
-    public openedSuggestionsRef: ThyPopoverRef<ThyMentionSuggestions>;
+    public openedSuggestionsRef?: ThyPopoverRef<ThyMentionSuggestions> | null;
 
     /**
      * 提及输入配置参数，同时支持多个提及规则
@@ -109,7 +109,7 @@ export class ThyMentionDirective implements OnInit, OnDestroy {
                 } else {
                     this.elementRef.nativeElement.innerText = newValue;
                 }
-                this.openedSuggestionsRef.close();
+                this.openedSuggestionsRef!.close();
                 this.thySelectSuggestion.emit(event);
             });
     }
@@ -138,9 +138,9 @@ export class ThyMentionDirective implements OnInit, OnDestroy {
     private openSuggestions(matched: MatchedMention) {
         if (!this.openedSuggestionsRef) {
             const inputElement = this.elementRef.nativeElement as HTMLInputElement;
-            const position = CaretPositioner.getCaretPosition(inputElement, matched.query.start);
+            const position = CaretPositioner.getCaretPosition(inputElement, matched.query.start)!;
             const fontSize = parseInt(getComputedStyle(this.elementRef.nativeElement).fontSize, 10);
-            this.openedSuggestionsRef = this.thyPopover.open(
+            this.openedSuggestionsRef = this.thyPopover.open<ThyMentionSuggestions>(
                 ThyMentionSuggestions,
                 Object.assign(
                     {},
@@ -153,12 +153,12 @@ export class ThyMentionDirective implements OnInit, OnDestroy {
                     this.thyPopoverConfig()
                 )
             );
-            this.openedSuggestionsRef.afterClosed().subscribe(() => {
+            this.openedSuggestionsRef!.afterClosed().subscribe(() => {
                 this.openedSuggestionsRef = null;
                 this.openedSuggestionsRef$.next(null);
             });
 
-            this.openedSuggestionsRef$.next(this.openedSuggestionsRef);
+            this.openedSuggestionsRef$.next(this.openedSuggestionsRef!);
         }
 
         if (this.openedSuggestionsRef) {

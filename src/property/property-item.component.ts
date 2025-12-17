@@ -109,7 +109,7 @@ export class ThyPropertyItem implements OnDestroy {
     /**
      * @private
      */
-    readonly itemContent = viewChild<ElementRef<HTMLElement>>('item');
+    readonly itemContent = viewChild.required<ElementRef<HTMLElement>>('item');
 
     editing = signal(false);
 
@@ -117,10 +117,10 @@ export class ThyPropertyItem implements OnDestroy {
 
     private originOverlays: OverlayRef[] = [];
 
-    private clickEventSubscription: Subscription;
+    private clickEventSubscription: Subscription | null = null;
 
     protected readonly gridColumn = computed(() => {
-        return `span ${Math.min(this.thySpan(), this.parent?.thyColumn())}`;
+        return `span ${Math.min(this.thySpan(), this.parent?.thyColumn() as number)}`;
     });
 
     readonly isVertical = computed(() => {

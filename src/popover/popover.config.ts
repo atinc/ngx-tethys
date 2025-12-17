@@ -12,7 +12,7 @@ export class ThyPopoverConfig<TData = unknown> extends ThyAbstractOverlayConfig<
      * 弹出悬浮层位置计算的 Origin Element，Connected Element
      * @description.en-us Origin Element, for overlay flexible connected to
      */
-    origin: ElementRef<any> | HTMLElement;
+    origin!: ElementRef<any> | HTMLElement;
 
     /**
      * 源点位置

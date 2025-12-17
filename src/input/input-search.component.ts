@@ -74,7 +74,7 @@ const _MixinBase: Constructor<ThyHasTabIndex> &
 export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, OnInit, OnDestroy {
     private elementRef = inject(ElementRef);
 
-    readonly inputElement = viewChild<ElementRef<any>>('input');
+    readonly inputElement = viewChild.required<ElementRef<any>>('input');
 
     private hostRenderer = useHostRenderer();
 

@@ -8,10 +8,10 @@ import { ThyAnchorModule, ThyAnchor, ThyAnchorLink } from 'ngx-tethys/anchor';
 
 describe('thy-anchor', () => {
     describe('default', () => {
-        let fixture: ComponentFixture<TestAnchorComponent>;
-        let debugElement: DebugElement;
-        let component: ThyAnchor;
-        let scrollService: ThyScrollService;
+        let fixture!: ComponentFixture<TestAnchorComponent>;
+        let debugElement!: DebugElement;
+        let component!: ThyAnchor;
+        let scrollService!: ThyScrollService;
         const id = 'components-anchor-demo-basic';
 
         beforeEach(() => {
@@ -35,7 +35,7 @@ describe('thy-anchor', () => {
         }));
 
         it(`should do anything when thy-anchor-link's thyHref element is not found`, fakeAsync(() => {
-            let invalidId = 'will-not-found-id';
+            const invalidId = 'will-not-found-id';
             const beforeClickScrollTop = scrollService.getScroll();
             const staticLink: HTMLElement = debugElement.query(By.css(`[href="#${invalidId}"]`)).nativeElement;
             dispatchFakeEvent(staticLink, 'click');
@@ -70,8 +70,8 @@ describe('thy-anchor', () => {
     });
 
     describe('thyContainer', () => {
-        let fixture: ComponentFixture<TestContainerAnchorComponent>;
-        let debugElement: DebugElement;
+        let fixture!: ComponentFixture<TestContainerAnchorComponent>;
+        let debugElement!: DebugElement;
         const id = 'components-anchor-demo-basic';
         const containerClass = '.demo-card';
 
@@ -98,7 +98,7 @@ describe('thy-anchor', () => {
     });
 
     describe('thyAnchorLink', () => {
-        let fixture: ComponentFixture<TestThyAnchorLinkComponent>;
+        let fixture!: ComponentFixture<TestThyAnchorLinkComponent>;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -112,6 +112,7 @@ describe('thy-anchor', () => {
         it('should set link title', () => {
             const comp = fixture.componentInstance;
             const anchorLinkComponent = fixture.debugElement.query(By.directive(ThyAnchorLink)).componentInstance;
+            // @ts-ignore
             comp.title = 'Basic demo title';
             fixture.detectChanges();
             expect(anchorLinkComponent.title()).toEqual(comp.title);
@@ -119,10 +120,10 @@ describe('thy-anchor', () => {
     });
 
     describe('horizontal anchor', () => {
-        let fixture: ComponentFixture<TestAnchorComponent>;
-        let debugElement: DebugElement;
-        let component: ThyAnchor;
-        let scrollService: ThyScrollService;
+        let fixture!: ComponentFixture<TestAnchorComponent>;
+        let debugElement!: DebugElement;
+        let component!: ThyAnchor;
+        let scrollService!: ThyScrollService;
         const id = 'components-anchor-demo-basic';
 
         beforeEach(() => {
@@ -319,7 +320,7 @@ class TestThyAnchorLinkComponent implements OnInit {
 
     thyOffsetTop = 60;
 
-    title: string | TemplateRef<void>;
+    title: undefined | TemplateRef<void>;
 
     ngOnInit(): void {
         this.title = this.titleTemplate();

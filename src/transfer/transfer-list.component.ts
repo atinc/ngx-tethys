@@ -20,7 +20,7 @@ import { ThyList, ThyListItem } from 'ngx-tethys/list';
 import { ThyDragDropDirective } from 'ngx-tethys/shared';
 import { InnerTransferDragEvent, ThyTransferDragEvent, ThyTransferItem, ThyTransferSelectEvent } from './transfer.interface';
 import { injectLocale, ThyTransferLocale } from 'ngx-tethys/i18n';
-import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
+import { coerceBooleanProperty, isUndefinedOrNull, ThyBooleanInput } from 'ngx-tethys/util';
 
 /**
  * @private
@@ -41,17 +41,17 @@ export class ThyTransferList implements OnInit, DoCheck {
 
     public unlockItems: ThyTransferItem[] = [];
 
-    private _diff: IterableDiffer<ThyTransferItem>;
+    private _diff!: IterableDiffer<ThyTransferItem>;
 
-    private _lockDiff: IterableDiffer<ThyTransferItem>;
+    private _lockDiff!: IterableDiffer<ThyTransferItem>;
 
-    private _unlockDiff: IterableDiffer<ThyTransferItem>;
+    private _unlockDiff!: IterableDiffer<ThyTransferItem>;
 
     locale: Signal<ThyTransferLocale> = injectLocale('transfer');
 
     readonly title = input<string>();
 
-    readonly items = input<ThyTransferItem[]>();
+    readonly items = input.required<ThyTransferItem[]>();
 
     readonly draggable = input<boolean, ThyBooleanInput>(false, { transform: coerceBooleanProperty });
 
@@ -138,7 +138,7 @@ export class ThyTransferList implements OnInit, DoCheck {
     }
 
     lockListEnterPredicate = () => {
-        return this.lockItems.length < this.maxLock();
+        return !isUndefinedOrNull(this.maxLock()) && this.lockItems.length < this.maxLock()!;
     };
 
     unlockListEnterPredicate = (event: CdkDrag<ThyTransferItem>) => {

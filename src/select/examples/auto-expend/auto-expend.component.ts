@@ -13,7 +13,7 @@ export class ThySelectAutoExpendExampleComponent implements OnInit {
 
     isAutoExpend = true;
 
-    isShow: boolean;
+    isShow!: boolean;
 
     constructor() {}
 

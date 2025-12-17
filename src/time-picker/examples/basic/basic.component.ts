@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
     imports: [ThyTimePicker, FormsModule]
 })
 export class ThyTimePickerBasicExampleComponent implements OnInit {
-    fullTime: Date;
+    fullTime!: Date;
 
     time: Date = new TinyDate()?.nativeDate;
 

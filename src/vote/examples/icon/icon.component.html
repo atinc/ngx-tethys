@@ -6,8 +6,7 @@
     [thyHasVoted]="has_voted"
     [thySize]="'sm'"
     thyIcon="star"
-    (click)="toggleVote($event)"
-  ></thy-vote>
+    (click)="toggleVote($event)"></thy-vote>
   <thy-vote
     class="mr-3"
     [thyVote]="'primary-weak'"
@@ -15,16 +14,14 @@
     [thyHasVoted]="has_voted"
     [thySize]="'sm'"
     thyIcon="bell"
-    (click)="toggleVote($event)"
-  ></thy-vote>
+    (click)="toggleVote($event)"></thy-vote>
   <thy-vote
     [thyVote]="'success-weak'"
     [thyVoteCount]="vote_count1"
     [thyHasVoted]="has_voted"
     [thyRound]="true"
     thyIcon="app-bulletin"
-    (click)="toggleVote($event)"
-  ></thy-vote>
+    (click)="toggleVote($event)"></thy-vote>
 </div>
 
 <div class="mt-3">
@@ -35,8 +32,7 @@
     [thyHasVoted]="has_voted"
     [thyRound]="true"
     thySize="sm"
-    (click)="toggleVote($event)"
-  >
+    (click)="toggleVote($event)">
     <ng-template #voteIcon>
       <img src="https://github.githubassets.com/images/icons/emoji/unicode/2764.png" />
     </ng-template>
@@ -48,8 +44,7 @@
     [thyHasVoted]="has_voted"
     [thyRound]="true"
     thySize="sm"
-    (click)="toggleVote($event)"
-  >
+    (click)="toggleVote($event)">
     <ng-template #voteIcon>
       <img src="https://github.githubassets.com/images/icons/emoji/unicode/2764.png" />
     </ng-template>
@@ -60,8 +55,7 @@
     [thyVoteCount]="vote_count"
     [thyHasVoted]="has_voted"
     [thyRound]="true"
-    (click)="toggleVote($event)"
-  >
+    (click)="toggleVote($event)">
     <ng-template #voteIcon>
       <img src="https://github.githubassets.com/images/icons/emoji/unicode/2764.png" />
     </ng-template>

@@ -24,7 +24,7 @@ export class ThyEnterDirective implements OnInit, OnDestroy {
         }
     };
 
-    private removeKeydownListenerFn: VoidFunction;
+    private removeKeydownListenerFn!: VoidFunction;
 
     ngOnInit(): void {
         this.ngZone.runOutsideAngular(() => {

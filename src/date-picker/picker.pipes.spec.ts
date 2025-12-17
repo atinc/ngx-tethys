@@ -5,7 +5,7 @@ import { ThyQuarterPickerFormatPipe } from 'ngx-tethys/date-picker';
 import { ThyDatePickerModule } from './date-picker.module';
 
 describe('thyQuarterPickerFormat', () => {
-    let quarterPickerFormatPipe: ThyQuarterPickerFormatPipe;
+    let quarterPickerFormatPipe!: ThyQuarterPickerFormatPipe;
 
     beforeEach(() => {
         TestBed.configureTestingModule({

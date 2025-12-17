@@ -23,6 +23,7 @@ import {
     isDate
 } from 'ngx-tethys/util';
 
+// eslint-disable-next-line no-sparse-arrays
 const falsey = [, null, undefined, false, 0, NaN, ''];
 const empties = [[], {}].concat(falsey.slice(1));
 
@@ -357,10 +358,12 @@ describe('#helper', () => {
         });
 
         it('should return an empty string for null', () => {
+            // @ts-ignore
             expect(coerceCssPixelValue(null)).toBe('');
         });
 
         it('should return an empty string for undefined', () => {
+             // @ts-ignore
             expect(coerceCssPixelValue(undefined)).toBe('');
         });
     });
@@ -395,6 +398,7 @@ describe('#helper', () => {
                 [100, null],
                 [true, null]
             ].forEach(([obj1, obj2]) => {
+                 // @ts-ignore
                 expect(shallowEqual(obj1 as unknown, obj2 as unknown)).toBeFalsy();
             });
         });
@@ -447,6 +451,7 @@ describe('#helper', () => {
 
         it('should return `false` for float values', () => {
             ['123a', '', undefined, null].forEach(value => {
+                 // @ts-ignore
                 expect(isFloat(value)).toEqual(false);
             });
         });
@@ -482,6 +487,7 @@ describe('#helper', () => {
             ];
 
             dateStringsWithoutTime.forEach(value => {
+                 // @ts-ignore
                 expect(hasTimeInStringDate(value)).toEqual(false, `${value} should be recognized as not containing time`);
             });
         });

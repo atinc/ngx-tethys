@@ -7,7 +7,7 @@ export class UpdateHostClassService {
 
     private _classNames: string[] = [];
 
-    private _hostElement: HTMLElement;
+    private _hostElement!: HTMLElement;
 
     initializeElement(element: HTMLElement | ElementRef<HTMLElement>) {
         if (element instanceof ElementRef) {

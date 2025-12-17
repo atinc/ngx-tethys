@@ -17,7 +17,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 export class ThyFormGroupError implements OnInit {
     private thyParentForm = inject(ThyFormDirective, { optional: true })!;
 
-    public errors: string[];
+    public errors!: string[];
 
     readonly thyShowFirst = input(true, { transform: coerceBooleanProperty });
 

@@ -24,13 +24,13 @@ import { ThyInputDirective } from 'ngx-tethys/input';
 class ThyTestMentionBasicComponent implements OnInit {
     value = `@t`;
 
-    mentions: Mention<any>[];
+    mentions!: Mention<any>[];
 
     popoverConfig = {
         panelClass: 'mention-popover-panel'
     };
 
-    @ViewChild(ThyMentionDirective, { static: true }) mentionDirective: ThyMentionDirective;
+    @ViewChild(ThyMentionDirective, { static: true }) mentionDirective!: ThyMentionDirective;
 
     constructor() {}
 
@@ -67,15 +67,15 @@ class ThyTestMentionBasicComponent implements OnInit {
 class ThyTestMentionSuggestionsTemplateComponent implements OnInit {
     value = `@`;
 
-    mentions: Mention<any>[];
+    mentions!: Mention<any>[];
 
     popoverConfig = {
         panelClass: 'mention-suggestions-template-popover-panel'
     };
 
-    @ViewChild('suggestionsTemplateRef', { static: true }) suggestionsTemplateRef: TemplateRef<{ data: [] }>;
+    @ViewChild('suggestionsTemplateRef', { static: true }) suggestionsTemplateRef!: TemplateRef<{ data: [] }>;
 
-    @ViewChild(ThyMentionDirective, { static: true }) mentionDirective: ThyMentionDirective;
+    @ViewChild(ThyMentionDirective, { static: true }) mentionDirective!: ThyMentionDirective;
 
     constructor() {}
 
@@ -114,7 +114,7 @@ class ThyTestInputMentionComponent implements OnInit {
         }
     ];
 
-    @ViewChild(ThyMentionDirective) mentionDirective: ThyMentionDirective;
+    @ViewChild(ThyMentionDirective) mentionDirective!: ThyMentionDirective;
 
     constructor() {}
 
@@ -138,9 +138,7 @@ class ThyTestContenteditableMentionComponent implements OnInit {
         }
     ];
 
-    @ViewChild(ThyMentionDirective, { static: true }) mentionDirective: ThyMentionDirective;
-
-    @ViewChild('exampleText') exampleText: ElementRef;
+    @ViewChild(ThyMentionDirective, { static: true }) mentionDirective!: ElementRef;
 
     constructor() {}
 
@@ -148,11 +146,11 @@ class ThyTestContenteditableMentionComponent implements OnInit {
 }
 
 describe('MentionDirective', () => {
-    let fixture: ComponentFixture<ThyTestMentionBasicComponent>;
-    let mentionDirective: ThyMentionDirective;
-    let inputDebugElement: DebugElement;
-    let inputElement: MentionInputorElement;
-    let popover: ThyPopover;
+    let fixture!: ComponentFixture<ThyTestMentionBasicComponent>;
+    let mentionDirective!: ThyMentionDirective;
+    let inputDebugElement!: DebugElement;
+    let inputElement!: MentionInputorElement;
+    let popover!: ThyPopover;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -186,7 +184,7 @@ describe('MentionDirective', () => {
         expect(panelElement).toBeTruthy();
         const mentionSuggestionsElement = document.querySelector('thy-mention-suggestions');
         expect(mentionSuggestionsElement).toBeTruthy();
-        expect(mentionSuggestionsElement.textContent).toContain('test1');
+        expect(mentionSuggestionsElement!.textContent).toContain('test1');
     });
 
     it('should limit effect', () => {
@@ -199,9 +197,10 @@ describe('MentionDirective', () => {
     it('should update ngModel value when select suggestion test1', () => {
         inputElement.focus();
         inputElement.setSelectionRange(2, 2);
+        // @ts-ignore
         mentionDirective['lookup'](null);
         fixture.detectChanges();
-        const panelElement = document.querySelector('.mention-popover-panel');
+        const panelElement = document.querySelector('.mention-popover-panel')!;
         expect(fixture.componentInstance.value).toEqual('@t');
         dispatchKeyboardEvent(panelElement, 'keydown', ENTER);
         expect(fixture.componentInstance.value).toEqual('@test1 ');
@@ -209,10 +208,10 @@ describe('MentionDirective', () => {
 });
 
 describe('MentionSuggestionsTemplateDirective', () => {
-    let fixture: ComponentFixture<ThyTestMentionSuggestionsTemplateComponent>;
-    let mentionDirective: ThyMentionDirective;
-    let inputDebugElement: DebugElement;
-    let popover: ThyPopover;
+    let fixture!: ComponentFixture<ThyTestMentionSuggestionsTemplateComponent>;
+    let mentionDirective!: ThyMentionDirective;
+    let inputDebugElement!: DebugElement;
+    let popover!: ThyPopover;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -239,6 +238,7 @@ describe('MentionSuggestionsTemplateDirective', () => {
     });
 
     it('should open group suggestions-template popover and show group', () => {
+        // @ts-ignore
         mentionDirective['lookup'](null);
         fixture.detectChanges();
         const panelElement = document.querySelector('.mention-suggestions-template-popover-panel');
@@ -253,10 +253,10 @@ describe('MentionSuggestionsTemplateDirective', () => {
 });
 
 describe('TestMentionInput', () => {
-    let fixture: ComponentFixture<ThyTestInputMentionComponent>;
-    let mentionDirective: ThyMentionDirective;
-    let inputDebugElement: DebugElement;
-    let inputElement: MentionInputorElement;
+    let fixture!: ComponentFixture<ThyTestInputMentionComponent>;
+    let mentionDirective!: ThyMentionDirective;
+    let inputDebugElement!: DebugElement;
+    let inputElement!: MentionInputorElement;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -293,10 +293,10 @@ describe('TestMentionInput', () => {
 });
 
 describe('TestContenteditableMention', () => {
-    let fixture: ComponentFixture<ThyTestContenteditableMentionComponent>;
-    let textDebugElement: DebugElement;
-    let textElement: MentionInputorElement;
-    let mentionDirective: ThyMentionDirective;
+    let fixture!: ComponentFixture<ThyTestContenteditableMentionComponent>;
+    let textDebugElement!: DebugElement;
+    let textElement!: MentionInputorElement;
+    let mentionDirective!: ThyMentionDirective;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -315,16 +315,18 @@ describe('TestContenteditableMention', () => {
         textElement.innerText = '@';
         fixture.detectChanges();
         dispatchFakeEvent(textElement, 'click', true);
+        // @ts-ignore
         expect(fixture.componentInstance.mentionDirective.isOpened).toBeTruthy();
     });
 
     it('should update innerText when select suggestion test1', () => {
         dispatchFakeEvent(textElement, 'click', true);
+        // @ts-ignore
         mentionDirective['lookup'](null);
         fixture.detectChanges();
         const panelElement = document.querySelector('.thy-mention-suggestions');
         expect(textElement.innerText).toEqual('@t');
-        dispatchKeyboardEvent(panelElement, 'keydown', ENTER);
+        dispatchKeyboardEvent(panelElement!, 'keydown', ENTER);
         expect(textElement.innerText).toEqual('@test1');
     });
 });

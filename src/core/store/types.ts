@@ -6,7 +6,7 @@ export const FEATURE_STATE_TOKEN = new InjectionToken<any>('FEATURE_STATE_TOKEN'
 
 export interface StoreMetaInfo {
     actions: any;
-    path: string;
+    path: string | null;
     children: any[];
     instance: any;
 }

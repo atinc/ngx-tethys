@@ -338,7 +338,7 @@ export class ThyCascader
 
     readonly cdkConnectedOverlay = viewChild<CdkConnectedOverlay>(CdkConnectedOverlay);
 
-    readonly trigger = viewChild<ElementRef<any>>('trigger');
+    readonly trigger = viewChild.required<ElementRef<any>>('trigger');
 
     readonly input = viewChild<ElementRef>('input');
 
@@ -350,11 +350,11 @@ export class ThyCascader
 
     public menuVisible = false;
 
-    public triggerRect: DOMRect;
+    public triggerRect!: DOMRect;
 
-    public menuCls: { [name: string]: any };
+    public menuCls!: { [name: string]: any };
 
-    public labelCls: { [name: string]: any };
+    public labelCls!: { [name: string]: any };
 
     private prefixCls = 'thy-cascader';
 
@@ -362,10 +362,10 @@ export class ThyCascader
 
     private hostRenderer = useHostRenderer();
 
-    public positions: ConnectionPositionPair[];
+    public positions!: ConnectionPositionPair[];
 
     get selected(): SelectOptionBase | SelectOptionBase[] {
-        return this.thyMultiple() ? this.thyCascaderService.selectionModel.selected : this.thyCascaderService.selectionModel.selected[0];
+        return this.thyMultiple() ? this.thyCascaderService.selectionModel!.selected : this.thyCascaderService.selectionModel!.selected[0];
     }
 
     public menuMinWidth = 122;
@@ -394,9 +394,9 @@ export class ThyCascader
         return this.thyCascaderService.columns;
     }
 
-    private afterChangeFn: () => void;
+    private afterChangeFn: null | (() => void) = null;
 
-    private resizeSubscription: Subscription;
+    private resizeSubscription: Subscription | null = null;
 
     constructor() {
         super();
@@ -524,7 +524,7 @@ export class ThyCascader
 
     public attached(): void {
         this.cdr.detectChanges();
-        this.cdkConnectedOverlay()
+        this.cdkConnectedOverlay()!
             .positionChange.pipe(take(1), delay(50), takeUntil(this.destroy$))
             .subscribe(() => {
                 this.scrollActiveElementIntoView();
@@ -663,12 +663,12 @@ export class ThyCascader
     public clickOption(option: ThyCascaderOption, index: number, event: Event | boolean): void {
         this.thyCascaderService.removeCustomOption();
         this.thyCascaderService.clickOption(option, index, event, this.selectOption);
-        if (this.cdkConnectedOverlay() && this.cdkConnectedOverlay().overlayRef) {
+        if (this.cdkConnectedOverlay() && this.cdkConnectedOverlay()!.overlayRef) {
             // Make sure to calculate and update the position after the submenu is opened
             this.cdr.detectChanges();
 
             // Update the position to prevent the submenu from appearing off-screen
-            this.cdkConnectedOverlay().overlayRef.updatePosition();
+            this.cdkConnectedOverlay()!.overlayRef.updatePosition();
             this.cdr.markForCheck();
         }
     }
@@ -829,8 +829,8 @@ export class ThyCascader
             }).subscribe(() => {
                 this.ngZone.run(() => {
                     this.triggerRect = this.trigger().nativeElement.getBoundingClientRect();
-                    if (this.cdkConnectedOverlay() && this.cdkConnectedOverlay().overlayRef) {
-                        this.cdkConnectedOverlay().overlayRef.updatePosition();
+                    if (this.cdkConnectedOverlay() && this.cdkConnectedOverlay()!.overlayRef) {
+                        this.cdkConnectedOverlay()!.overlayRef.updatePosition();
                     }
                     this.cdr.markForCheck();
                 });

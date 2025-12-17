@@ -36,7 +36,7 @@ export class ThyAutocompleteContainer extends ThyAbstractOverlayContainer implem
     private ngZone = inject(NgZone);
 
     @ViewChild(ThyPortalOutlet, { static: true })
-    portalOutlet: ThyPortalOutlet;
+    portalOutlet!: ThyPortalOutlet;
 
     /** State of the autocomplete animation. */
     animationState: 'void' | 'enter' | 'exit' = 'enter';
@@ -44,8 +44,8 @@ export class ThyAutocompleteContainer extends ThyAbstractOverlayContainer implem
     /** Emits when an animation state changes. */
     animationStateChanged = new EventEmitter<AnimationEvent>();
 
-    animationOpeningDone: Observable<AnimationEvent>;
-    animationClosingDone: Observable<AnimationEvent>;
+    animationOpeningDone!: Observable<AnimationEvent>;
+    animationClosingDone!: Observable<AnimationEvent>;
 
     beforeAttachPortal(): void {}
 

@@ -1,5 +1,5 @@
 import { ScrollToService } from 'ngx-tethys/core';
-import { IThyListOptionParentComponent, THY_LIST_OPTION_PARENT_COMPONENT, ThyListOption } from 'ngx-tethys/shared';
+import { IThyListOptionParentComponent, THY_LIST_OPTION_PARENT_COMPONENT, ThyListOption, ThyListLayout } from 'ngx-tethys/shared';
 import { coerceBooleanProperty, dom, helpers, keycodes, ThyBooleanInput } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
@@ -21,12 +21,13 @@ import {
     input,
     computed,
     effect,
-    output
+    output,
+    InputSignal
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ThyListLayout } from 'ngx-tethys/shared';
 import { ThySelectionListChange } from './selection.interface';
 import { startWith } from 'rxjs/operators';
+import { SafeAny } from 'ngx-tethys/types';
 
 export type ThyListSize = 'sm' | 'md' | 'lg';
 
@@ -68,28 +69,31 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
 
     private changeDetectorRef = inject(ChangeDetectorRef);
 
-    private keyManager: ActiveDescendantKeyManager<ThyListOption>;
+    private keyManager!: ActiveDescendantKeyManager<ThyListOption>;
 
-    private bindKeyEventUnsubscribe: () => void;
+    private bindKeyEventUnsubscribe!: () => void;
 
-    private modelValues: any[];
+    private modelValues!: any[];
 
     private hostRenderer = useHostRenderer();
 
     /** The currently selected options. */
-    selectionModel: SelectionModel<any>;
+    selectionModel!: SelectionModel<any>;
 
-    disabled: boolean;
+    disabled!: boolean;
 
     /**
      * @internal
      */
-    @ContentChildren(ThyListOption, { descendants: true }) options: QueryList<ThyListOption>;
+    @ContentChildren(ThyListOption, { descendants: true }) options!: QueryList<ThyListOption>;
 
     /**
      * 改变 grid item 的选择模式，使其支持多选
      */
-    readonly multiple = input<boolean, ThyBooleanInput>(true, { alias: 'thyMultiple', transform: coerceBooleanProperty });
+    readonly multiple: InputSignal<ThyBooleanInput> = input<boolean, ThyBooleanInput>(true, {
+        alias: 'thyMultiple',
+        transform: coerceBooleanProperty
+    }) as InputSignal<ThyBooleanInput>;
 
     /**
      * 绑定键盘事件的容器
@@ -165,7 +169,7 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
 
     private emitChangeEvent(option: ThyListOption, event: Event) {
         this.thySelectionChange.emit({
-            source: this,
+            source: this as SafeAny,
             value: option.thyValue(),
             option: option,
             event: event,
@@ -203,7 +207,7 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
     private toggleFocusedOption(event: KeyboardEvent): void {
         if (this.keyManager.activeItem) {
             this.ngZone.run(() => {
-                this.toggleOption(this.keyManager.activeItem, event);
+                this.toggleOption(this.keyManager.activeItem!, event);
             });
         }
     }
@@ -218,10 +222,10 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
     }
 
     private instanceSelectionModel() {
-        this.selectionModel = new SelectionModel<any>(this.multiple());
+        this.selectionModel = new SelectionModel<any>(!!this.multiple());
     }
 
-    private getElementBySelector(element: HTMLElement | ElementRef | string): HTMLElement {
+    private getElementBySelector(element: HTMLElement | ElementRef | string): HTMLElement | null {
         return dom.getHTMLElementBySelector(element, this.elementRef);
     }
 
@@ -305,7 +309,7 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
     }
 
     ngOnInit() {
-        const bindKeyEventElement = this.getElementBySelector(this.thyBindKeyEventContainer());
+        const bindKeyEventElement = this.getElementBySelector(this.thyBindKeyEventContainer()!);
         this.ngZone.runOutsideAngular(() => {
             this.bindKeyEventUnsubscribe = this.renderer.listen(bindKeyEventElement, 'keydown', this.onKeydown.bind(this));
         });
@@ -383,7 +387,7 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
             // Emit a change event because the focused option changed its state through user
             // interaction.
             this.emitModelValueChange();
-            this.emitChangeEvent(option, event);
+            this.emitChangeEvent(option, event!);
         }
     }
 
@@ -392,7 +396,7 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
     }
 
     scrollIntoView(option: ThyListOption) {
-        const scrollContainerElement = dom.getHTMLElementBySelector(this.thyScrollContainer(), this.elementRef);
+        const scrollContainerElement = dom.getHTMLElementBySelector(this.thyScrollContainer()!, this.elementRef)!;
         ScrollToService.scrollToElement(option.element.nativeElement, scrollContainerElement);
     }
 

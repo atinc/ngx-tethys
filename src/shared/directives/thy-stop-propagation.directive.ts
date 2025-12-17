@@ -1,6 +1,7 @@
 import { Directive, ElementRef, NgZone, OnDestroy, computed, effect, inject, input } from '@angular/core';
 import { fromEvent, Observable, Subject } from 'rxjs';
 import { startWith, switchMap, takeUntil } from 'rxjs/operators';
+import { SafeAny } from 'ngx-tethys/types';
 
 /**
  * 阻止事件冒泡
@@ -42,11 +43,13 @@ export class ThyStopPropagationDirective implements OnDestroy {
         this._changes$
             .pipe(
                 // Note: we start the stream immediately since the `thyStopPropagation` setter may never be reached.
-                startWith<null, null>(null),
+                startWith(null),
                 switchMap(
                     () =>
                         new Observable<Event>(subscriber =>
-                            _ngZone.runOutsideAngular(() => fromEvent(_host.nativeElement, this._eventName()).subscribe(subscriber))
+                            _ngZone.runOutsideAngular(() =>
+                                fromEvent<Event>(_host!.nativeElement! as SafeAny, this._eventName()!).subscribe(subscriber)
+                            )
                         )
                 ),
                 takeUntil(this._destroy$)

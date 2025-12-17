@@ -11,7 +11,7 @@ import { IThyRadioComponent, THY_RADIO_GROUP_COMPONENT } from './radio.token';
  * @order 10
  */
 @Component({
-    // eslint-disable-next-line @angular-eslint/component-selector
+     
     selector: '[thy-radio],[thyRadio]',
     templateUrl: './radio.component.html',
     providers: [
@@ -30,7 +30,7 @@ import { IThyRadioComponent, THY_RADIO_GROUP_COMPONENT } from './radio.token';
 export class ThyRadio extends ThyFormCheckBaseComponent implements IThyRadioComponent, OnInit {
     thyRadioGroupComponent = inject(THY_RADIO_GROUP_COMPONENT, { optional: true })!;
 
-    name: string;
+    name?: string;
 
     /**
      * 当和 thy-radio-group 配合使用时的值，选中后的 NgModel 值
@@ -39,7 +39,7 @@ export class ThyRadio extends ThyFormCheckBaseComponent implements IThyRadioComp
 
     set thyChecked(value: boolean) {
         this.writeValue(coerceBooleanProperty(value));
-        this.changeDetectorRef.markForCheck();
+        this.changeDetectorRef?.markForCheck();
     }
 
     ngOnInit() {
@@ -50,7 +50,7 @@ export class ThyRadio extends ThyFormCheckBaseComponent implements IThyRadioComp
 
     change() {
         if (this.thyRadioGroupComponent) {
-            this.thyRadioGroupComponent.updateValue(this.thyValue(), true);
+            this.thyRadioGroupComponent.updateValue(this.thyValue()!, true);
         } else {
             this.updateValue(!this._innerValue);
         }

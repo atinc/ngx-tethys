@@ -13,7 +13,7 @@ export class ThyContextMenuDirective implements OnInit, OnDestroy {
 
     readonly thyContextMenu = output<Event>();
 
-    private removeContextListenerFn: VoidFunction;
+    private removeContextListenerFn!: VoidFunction;
 
     rightClick = (event: Event) => {
         event.preventDefault();

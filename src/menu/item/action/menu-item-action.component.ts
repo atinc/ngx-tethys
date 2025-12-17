@@ -53,7 +53,7 @@ export class ThyMenuItemAction implements OnInit, OnDestroy {
                 const wrapDOM = (event.target as HTMLElement).closest('.thy-menu-item');
                 wrapDOM?.classList.add(activeClass);
                 const popoverRef = this.popover.open(
-                    this.thyActionMenu(),
+                    this.thyActionMenu()!,
                     Object.assign(
                         {
                             origin: event.currentTarget as HTMLElement,

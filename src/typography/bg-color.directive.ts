@@ -21,13 +21,13 @@ export class ThyBackgroundColorDirective {
      *  @type ThyThemeColor | ThyBgColor | string
      *  @description 背景颜色，支持设置主题色和自定义颜色值，主题色为 `primary`、`success`、`info`、`danger`、`warning`、`dark`、`secondary`、`light`、`lighter`、`bright`、`content`、`white`、`transparent`
      */
-    readonly thyBgColor = input<ThyThemeColor | ThyBgColor | string>(undefined);
+    readonly thyBgColor = input<ThyThemeColor | ThyBgColor | string>();
 
     constructor() {
         effect(() => {
             const bgColor = this.thyBgColor();
             this.clearBgColor();
-            this.bgColor = bgColor;
+            this.bgColor = bgColor!;
             this.setBgColor();
         });
     }

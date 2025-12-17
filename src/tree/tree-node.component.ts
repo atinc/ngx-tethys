@@ -13,8 +13,7 @@ import {
 } from '@angular/core';
 
 import { THY_TREE_ABSTRACT_TOKEN } from './tree-abstract';
-import { ThyTreeNode } from './tree.class';
-import { ThyTreeEmitEvent, ThyTreeNodeCheckState, ThyClickBehavior } from './tree.class';
+import { ThyTreeNode , ThyTreeEmitEvent, ThyTreeNodeCheckState, ThyClickBehavior } from './tree.class';
 import { ThyTreeService } from './tree.service';
 import { ThyLoading } from 'ngx-tethys/loading';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -28,6 +27,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
  */
 @Component({
     selector: 'thy-tree-node',
+    standalone: true,
     templateUrl: './tree-node.component.html',
     encapsulation: ViewEncapsulation.None,
     imports: [ThyIcon, NgClass, NgStyle, NgTemplateOutlet, ThyLoading],
@@ -43,7 +43,7 @@ export class ThyTreeNodeComponent {
     /**
      * node 节点展现所需的数据
      */
-    readonly node = input<ThyTreeNode>(null);
+    readonly node = input.required<ThyTreeNode>();
 
     /**
      * 设置 TreeNode 是否支持异步加载
@@ -69,7 +69,7 @@ export class ThyTreeNodeComponent {
      * 点击节点的行为，`default` 为选中当前节点，`selectCheckbox` 为选中节点的 Checkbox， `thyCheckable` 为 true 时生效。
      * @default default
      */
-    readonly thyClickBehavior = input<ThyClickBehavior>(undefined);
+    readonly thyClickBehavior = input<ThyClickBehavior>();
 
     /**
      * 设置节点名称是否支持超出截取

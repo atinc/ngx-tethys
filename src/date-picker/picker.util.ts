@@ -6,16 +6,17 @@ import { CompatibleValue, RangeAdvancedValue } from './inner-types';
 import { ThyCompatibleDate, DateEntry, ThyDateGranularity, ThyDateRangeEntry, ThyPanelMode, ThyShortcutValue } from './standard-types';
 
 export function transformDateValue(
-    value: ThyCompatibleDate | CompatibleValue | number | DateEntry | ThyDateRangeEntry | RangeAdvancedValue
+    value: ThyCompatibleDate | CompatibleValue | number | DateEntry | ThyDateRangeEntry | RangeAdvancedValue | null
 ): {
-    value: ThyCompatibleDate;
+    value: ThyCompatibleDate | null;
     withTime?: boolean;
     flexibleDateGranularity?: ThyDateGranularity;
 } {
     if (!value) {
         return { value: null };
     }
-    let withTime, flexibleDateGranularity: ThyDateGranularity;
+    let withTime;
+    let flexibleDateGranularity: ThyDateGranularity | undefined = undefined;
     if (value && typeof value === 'number') {
         value = convertDate(value);
     }
@@ -23,8 +24,8 @@ export function transformDateValue(
         if (value instanceof TinyDate) {
             value = convertDate(value.nativeDate);
         } else {
-            value[0] = convertDate(value[0].nativeDate);
-            value[1] = convertDate(value[1].nativeDate);
+            (value as SafeAny)[0] = convertDate((value as SafeAny)[0].nativeDate);
+            (value as SafeAny)[1] = convertDate((value as SafeAny)[1].nativeDate);
         }
     }
     if (value && instanceOfDateEntry(value as DateEntry)) {
@@ -69,7 +70,7 @@ export function getFlexibleAdvancedReadableValue(
         return value;
     }
     switch (flexibleDateGranularity) {
-        case 'year':
+        case 'year': {
             const yearFormatStr = locale().datePicker.yearFormat;
             if (tinyDates[0].isSameYear(tinyDates[1])) {
                 value = `${tinyDates[0].format(yearFormatStr)}`;
@@ -77,7 +78,8 @@ export function getFlexibleAdvancedReadableValue(
                 value = `${tinyDates[0].format(yearFormatStr)}${separator}${tinyDates[1].format(yearFormatStr)}`;
             }
             break;
-        case 'quarter':
+        }
+        case 'quarter': {
             const quarterFormatStr = locale().datePicker.yearQuarterFormat;
             if (tinyDates[0].isSameQuarter(tinyDates[1])) {
                 value = `${tinyDates[0].format(quarterFormatStr)}`;
@@ -85,7 +87,8 @@ export function getFlexibleAdvancedReadableValue(
                 value = `${tinyDates[0].format(quarterFormatStr)}${separator}${tinyDates[1].format(quarterFormatStr)}`;
             }
             break;
-        case 'month':
+        }
+        case 'month': {
             const monthFormatStr = locale().datePicker.yearMonthFormat;
             if (tinyDates[0].isSameMonth(tinyDates[1])) {
                 value = `${tinyDates[0].format(monthFormatStr)}`;
@@ -93,6 +96,7 @@ export function getFlexibleAdvancedReadableValue(
                 value = `${tinyDates[0].format(monthFormatStr)}${separator}${tinyDates[1].format(monthFormatStr)}`;
             }
             break;
+        }
     }
     return value;
 }
@@ -124,7 +128,7 @@ export function makeValue(
     isRange: boolean = false,
     withTime: boolean,
     timeZone?: string
-): CompatibleValue {
+): CompatibleValue | null {
     if (isRange) {
         return Array.isArray(value) ? (value as Date[]).map(val => new TinyDate(val, timeZone)) : [];
     } else {
@@ -137,7 +141,7 @@ export function makeValue(
 }
 
 export function dateAddAmount(value: TinyDate, amount: number, mode: ThyPanelMode): TinyDate {
-    let date: TinyDate;
+    let date!: TinyDate;
     switch (mode) {
         case 'decade':
             date = value.addYears(amount * 10);
@@ -215,7 +219,8 @@ export function instanceOfRangeAdvancedValue(object: RangeAdvancedValue): object
     return object['begin'] instanceof TinyDate && object['end'] instanceof TinyDate;
 }
 
-export function isSupportDateType(object: DateEntry | ThyDateRangeEntry, key: string) {
+export function isSupportDateType(object: DateEntry | ThyDateRangeEntry, key: keyof DateEntry | keyof ThyDateRangeEntry) {
+    // @ts-ignore
     return typeof object[key] === 'number' || object[key] === null || object[key] instanceof Date;
 }
 
@@ -254,7 +259,7 @@ export function setValueByTimestampPrecision(
     isRange: boolean,
     timestampPrecision: 'seconds' | 'milliseconds',
     timeZone?: string
-): number | number[] {
+): number | number[] | null[] | null {
     const { value } = transformDateValue(date);
     if (!value || (helpers.isArray(value) && !value?.length)) {
         return helpers.isArray(value) ? [null, null] : null;

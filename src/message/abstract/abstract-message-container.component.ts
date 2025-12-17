@@ -11,7 +11,7 @@ export abstract class ThyAbstractMessageContainerComponent {
 
     @HostBinding('style.top')
     get offset(): string {
-        return coerceCssPixelValue(this.defaultConfig.offset);
+        return coerceCssPixelValue(this.defaultConfig.offset!);
     }
 
     public abstract defaultConfig: ThyGlobalMessageConfig;

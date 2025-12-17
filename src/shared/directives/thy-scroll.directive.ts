@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
-const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveListenerOptions({ passive: true });
+const passiveEventListenerOptions = normalizePassiveListenerOptions({ passive: true }) as AddEventListenerOptions;
 
 /**
  * @name thyScroll
@@ -17,11 +17,11 @@ export class ThyScrollDirective implements OnInit, OnDestroy {
     private ngZone = inject(NgZone);
 
     private _destroyed = new Subject<void>();
-    private _subscription: Subscription;
+    private _subscription: Subscription | null = null;
 
-    private _elementScrolled: Observable<Event> = new Observable((observer: Observer<Event>) =>
+    private _elementScrolled = new Observable<Event>((observer: Observer<Event>) =>
         this.ngZone.runOutsideAngular(() =>
-            fromEvent(this.elementRef.nativeElement, 'scroll', passiveEventListenerOptions)
+            fromEvent<Event>(this.elementRef.nativeElement, 'scroll', passiveEventListenerOptions)
                 .pipe(takeUntil(this._destroyed))
                 .subscribe(observer)
         )
