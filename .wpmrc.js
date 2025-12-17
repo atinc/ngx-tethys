@@ -25,5 +25,6 @@ module.exports = {
     hooks: {
         prepublish: 'npm run build',
         prereleaseBranch: 'node ./scripts/pre-release.js {{version}}'
-    }
+    },
+    dryRun: true
 };
