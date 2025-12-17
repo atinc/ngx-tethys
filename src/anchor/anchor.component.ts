@@ -282,19 +282,15 @@ export class ThyAnchor implements IThyAnchorComponent, OnDestroy, AfterViewInit 
         if (!wrapper) {
             return;
         }
-        if (horizontalAnchor) {
-            if (linkOffset.left + linkOffset.width > wrapper.scrollLeft + wrapper.offsetWidth) {
-                wrapper.scrollLeft = linkOffset.left;
-            }
-            if (linkOffset.left < wrapper.scrollLeft) {
-                wrapper.scrollLeft = linkOffset.left;
-            }
-        } else {
-            if (linkOffset.top + linkOffset.height > wrapper.scrollTop + wrapper.offsetHeight) {
-                wrapper.scrollTop = linkOffset.top;
-            }
-            if (linkOffset.top < wrapper.scrollTop) {
-                wrapper.scrollTop = linkOffset.top;
+        const scrollTo = horizontalAnchor ? linkOffset.left : linkOffset.top;
+        const scrollPos = horizontalAnchor ? wrapper.scrollLeft : wrapper.scrollTop;
+        const wrapperSize = horizontalAnchor ? wrapper.offsetWidth : wrapper.offsetHeight;
+        const linkSize = horizontalAnchor ? linkOffset.width : linkOffset.height;
+        if (scrollTo < scrollPos || scrollTo + linkSize > scrollPos + wrapperSize) {
+            if (horizontalAnchor) {
+                wrapper.scrollLeft = scrollTo;
+            } else {
+                wrapper.scrollTop = scrollTo;
             }
         }
     }
