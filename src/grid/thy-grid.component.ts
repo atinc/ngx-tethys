@@ -84,15 +84,15 @@ export class ThyGrid implements ThyGridToken, OnInit {
 
     private hostRenderer = useHostRenderer();
 
-    private cols: number;
+    private cols!: number;
 
-    public xGap: number;
+    public xGap!: number;
 
-    private yGap: number;
+    private yGap!: number;
 
     private numRegex = /^\d+$/;
 
-    private responsiveContainerWidth: number;
+    private responsiveContainerWidth!: number;
 
     public gridItemPropValueChange$ = new Subject<void>();
 
@@ -144,8 +144,8 @@ export class ThyGrid implements ThyGridToken, OnInit {
             this.ngZone.runOutsideAngular(() => {
                 this.gridResizeObserver(this.elementRef.nativeElement)
                     .pipe(throttleTime(100), this.takeUntilDestroyed)
-                    .subscribe((data: ResizeObserverEntry[]) => {
-                        this.responsiveContainerWidth = data[0]?.contentRect?.width;
+                    .subscribe(data => {
+                        this.responsiveContainerWidth = (data as ResizeObserverEntry[])[0]?.contentRect?.width;
                         this.setGridStyle();
                         this.handleGridItems();
                     });
@@ -195,7 +195,7 @@ export class ThyGrid implements ThyGridToken, OnInit {
         }, {});
     }
 
-    private calculateBreakPoint(breakpointKeys: string[]): string {
+    private calculateBreakPoint(breakpointKeys: string[]): string | undefined {
         if (this.thyResponsive() === 'screen') {
             const width = this.responsiveContainerWidth || this.viewportRuler.getViewportSize().width;
             return breakpointKeys.find((key: string, index: number) => {

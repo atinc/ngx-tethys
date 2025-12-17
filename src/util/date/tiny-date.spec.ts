@@ -84,7 +84,7 @@ describe('tiny-date', () => {
     });
 
     it('support add', () => {
-        let newTinyDate: TinyDate;
+        let newTinyDate!: TinyDate;
 
         newTinyDate = date.addYears(1);
         expect(newTinyDate.getYear()).toBe(date.getYear() + 1);

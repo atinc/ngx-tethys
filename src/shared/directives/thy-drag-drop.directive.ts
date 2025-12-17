@@ -10,7 +10,7 @@ import { takeUntil, startWith } from 'rxjs/operators';
     selector: '[thyDragDrop]'
 })
 export class ThyDragDropDirective implements AfterContentInit, OnDestroy {
-    @ContentChildren(CdkDrag, { descendants: true }) draggables: QueryList<CdkDrag>;
+    @ContentChildren(CdkDrag, { descendants: true }) draggables?: QueryList<CdkDrag>;
 
     private ngUnsubscribe$ = new Subject<void>();
 
@@ -24,7 +24,7 @@ export class ThyDragDropDirective implements AfterContentInit, OnDestroy {
 
                 this.ngUnsubscribe$ = new Subject();
                 merge(
-                    ...this.draggables.toArray().map(dragRef => {
+                    ...this.draggables!.toArray().map(dragRef => {
                         return dragRef.started;
                     })
                 )
@@ -33,7 +33,7 @@ export class ThyDragDropDirective implements AfterContentInit, OnDestroy {
                         document.body.classList.add('thy-dragging-body');
                     });
 
-                merge(...this.draggables.toArray().map(dragRef => dragRef.released))
+                merge(...this.draggables!.toArray().map(dragRef => dragRef.released))
                     .pipe(takeUntil(this.ngUnsubscribe$))
                     .subscribe(() => {
                         document.body.classList.remove('thy-dragging-body');

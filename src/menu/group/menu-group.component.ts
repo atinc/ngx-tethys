@@ -141,7 +141,7 @@ export class ThyMenuGroup implements OnInit {
             event.stopPropagation();
         }
         if (this.thyActionMenu()) {
-            this.popover.open(this.thyActionMenu(), {
+            this.popover.open(this.thyActionMenu()!, {
                 origin: event.currentTarget as HTMLElement,
                 insideClosable: true,
                 placement: 'bottom'

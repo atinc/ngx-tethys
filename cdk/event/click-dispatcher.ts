@@ -10,7 +10,7 @@ const DEFAULT_CLICKED_TIME = 100;
 export class ThyClickDispatcher extends ThyEventDispatcher {
     eventName = 'click';
 
-    clicked(auditTimeInMs: number = DEFAULT_CLICKED_TIME): Observable<Event> {
-        return this.subscribe(auditTimeInMs);
+    clicked<TEvent = Event>(auditTimeInMs: number = DEFAULT_CLICKED_TIME): Observable<TEvent> {
+        return this.subscribe(auditTimeInMs) as Observable<TEvent>;
     }
 }

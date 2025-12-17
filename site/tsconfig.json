@@ -2,6 +2,7 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "baseUrl": "./",
+    "strict": false,
     "paths": {
       "ngx-tethys": ["../src/public-api"],
       "ngx-tethys/*": ["../src/*"],
@@ -9,6 +10,11 @@
     }
   },
   "angularCompilerOptions": {
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictStandalone": false,
+    "strictInjectionParameters": false,
+    "strictInputAccessModifiers": false,
+    "strictTemplates": false
   }
 }

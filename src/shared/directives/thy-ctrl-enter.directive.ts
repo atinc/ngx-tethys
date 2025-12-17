@@ -14,7 +14,7 @@ export class ThyCtrlEnterDirective implements OnInit, OnDestroy {
 
     readonly thyCtrlEnter = output<KeyboardEvent>();
 
-    private removeKeydownListenerFn: VoidFunction;
+    private removeKeydownListenerFn!: VoidFunction;
 
     onKeydown = (event: KeyboardEvent) => {
         const keyCode = event.which || event.keyCode;

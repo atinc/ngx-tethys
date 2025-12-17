@@ -1,8 +1,7 @@
 import { Component, DebugElement, ElementRef, ViewChild } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyEmpty, ThyEmptyImageFetchPriority, ThyEmptyImageLoading } from 'ngx-tethys/empty';
-import { ThyEmptyConfig, ThyEmptyModule } from 'ngx-tethys/empty';
+import { ThyEmpty, ThyEmptyImageFetchPriority, ThyEmptyImageLoading , ThyEmptyConfig, ThyEmptyModule } from 'ngx-tethys/empty';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
@@ -52,25 +51,25 @@ import { provideAnimations } from '@angular/platform-browser/animations';
     imports: [ThyEmptyModule]
 })
 class EmptyTestComponent {
-    @ViewChild('ThyEmptyComponent', { static: true }) thyEmptyComponent: ThyEmpty;
+    @ViewChild('ThyEmptyComponent', { static: true }) thyEmptyComponent!: ThyEmpty;
     thyMessage = '暂无数据';
     thyTranslationKey = '暂无活动';
-    thyTranslationValues: any;
+    thyTranslationValues!: any;
     thyEntityName = '任务';
     thyEntityNameTranslateKey = '工作项';
     thyIconName = 'copy';
     thySize: string = 'lg';
     thyMarginTop: number = 200;
     thyTopAuto: boolean = true;
-    thyContainer: ElementRef;
-    thyImageUrl: string;
+    thyContainer!: ElementRef;
+    thyImageUrl!: string;
     thyImageLoading?: ThyEmptyImageLoading;
     thyImageFetchPriority?: ThyEmptyImageFetchPriority;
 }
 
 describe('EmptyComponent', () => {
-    let componentInstance: EmptyTestComponent;
-    let fixture: ComponentFixture<EmptyTestComponent>;
+    let componentInstance!: EmptyTestComponent;
+    let fixture!: ComponentFixture<EmptyTestComponent>;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({

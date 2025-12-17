@@ -37,19 +37,19 @@ import { NgClass, NgTemplateOutlet } from '@angular/common';
     imports: [ThyIcon, NgClass, ThyViewOutletDirective, NgTemplateOutlet]
 })
 export class ThyNotify extends ThyAbstractMessageComponent<ThyNotifyConfig> {
-    @HostBinding('@flyInOut') animationState: string;
+    @HostBinding('@flyInOut') animationState?: string;
 
     extendContentClass = signal(false);
 
     isShowDetail = signal(false);
 
-    readonly contentIsString = computed(() => isString(this.config().content));
+    readonly contentIsString = computed(() => isString(this.config()?.content));
 
     protected queue = inject(ThyNotifyQueue);
 
     private placement = computed<ThyNotifyPlacement>(() => {
         const config = this.config();
-        return config.placement || 'topRight';
+        return config?.placement || 'topRight';
     });
 
     constructor() {
@@ -74,10 +74,10 @@ export class ThyNotify extends ThyAbstractMessageComponent<ThyNotifyConfig> {
 
     triggerDetail() {
         const config = this.config();
-        if (helpers.isFunction((config.detail as ThyNotifyDetail).action)) {
-            (config.detail as ThyNotifyDetail).action();
+        if ( helpers.isFunction((config?.detail as ThyNotifyDetail).action)) {
+            (config!.detail as ThyNotifyDetail)!.action!();
         }
-        if ((config.detail as ThyNotifyDetail).content) {
+        if ((config?.detail as ThyNotifyDetail).content) {
             this.showDetailToggle();
         }
     }

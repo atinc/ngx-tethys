@@ -15,19 +15,19 @@ export class ThyTab implements OnInit {
      * 自定义选项标题的模板
      * @type TemplateRef
      */
-    @ContentChild('title') titleTemplateRef: TemplateRef<unknown>;
+    @ContentChild('title') titleTemplateRef?: TemplateRef<unknown>;
 
-    @ViewChild('content', { static: true }) content: TemplateRef<HTMLElement>;
+    @ViewChild('content', { static: true }) content!: TemplateRef<HTMLElement>;
 
     /**
      * 选项标题
      */
-    readonly thyTitle = input<string>(undefined);
+    readonly thyTitle = input<string | undefined>(undefined);
 
     /**
      * 选项的唯一标识
      */
-    readonly id = input<string>(undefined);
+    readonly id = input<string | undefined>(undefined);
 
     /**
      * 是否禁用选项

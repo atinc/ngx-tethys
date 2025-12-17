@@ -73,7 +73,7 @@ export class ThyButton {
     private elementRef = inject(ElementRef);
     private renderer = inject(Renderer2);
 
-    private _originalText: string;
+    private _originalText?: string;
 
     private get nativeElement(): HTMLElement {
         return this.elementRef.nativeElement;
@@ -143,10 +143,10 @@ export class ThyButton {
         return null;
     });
 
-    protected iconClass = computed<string[]>(() => {
+    protected iconClass = computed<string[] | null>(() => {
         const icon = this.thyIcon();
         if (this.isWtfIcon()) {
-            const classes = icon.split(' ');
+            const classes = icon!.split(' ');
             if (classes.length === 1) {
                 classes.unshift('wtf');
             }
@@ -167,7 +167,7 @@ export class ThyButton {
     protected type = computed(() => {
         const type = this.buttonType();
         if (this.isRadiusSquare()) {
-            return type.replace('-square', '');
+            return type?.replace('-square', '');
         } else {
             return type;
         }

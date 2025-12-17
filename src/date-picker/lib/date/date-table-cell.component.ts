@@ -31,7 +31,7 @@ export class DateTableCell {
             return false;
         }
 
-        const result = renderFn(this.cell().value);
+        const result = renderFn(this.cell()!.value!);
         return !isUndefinedOrNull(result);
     });
 
@@ -41,6 +41,6 @@ export class DateTableCell {
 
     cellClick(event: Event) {
         event.stopPropagation();
-        this.cell().onClick();
+        this.cell()?.onClick();
     }
 }

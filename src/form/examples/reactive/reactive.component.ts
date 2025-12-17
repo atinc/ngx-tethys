@@ -126,7 +126,7 @@ export class ThyFormReactiveExampleComponent implements OnInit {
     provinceCities = provinceCities;
 
     /** ngModel value */
-    values: string[] = null;
+    values: string[] | null = null;
 
     model = {
         name: '',
@@ -154,11 +154,11 @@ export class ThyFormReactiveExampleComponent implements OnInit {
 
     date = { date: new TinyDate().nativeDate, with_time: 0 };
 
-    dateNull: number = null;
+    dateNull: number | null = null;
 
     dateRange: any = null;
 
-    formGroup: FormGroup;
+    formGroup!: FormGroup;
 
     updateOnList = [
         {

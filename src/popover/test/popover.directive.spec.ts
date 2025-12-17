@@ -42,8 +42,8 @@ class ThyDemoVisiblePopoverComponent {
 }
 
 describe(`ThyTooltip`, () => {
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
     let platform: { IOS: boolean; isBrowser: boolean; ANDROID: boolean };
 
     beforeEach(fakeAsync(() => {
@@ -70,10 +70,10 @@ describe(`ThyTooltip`, () => {
     }));
 
     describe(`popover directive`, () => {
-        let fixture: ComponentFixture<ThyDemoVisiblePopoverComponent>;
-        let popoverDirective: ThyPopoverDirective;
-        let buttonDebugElement: DebugElement;
-        let buttonElement: HTMLElement;
+        let fixture!: ComponentFixture<ThyDemoVisiblePopoverComponent>;
+        let popoverDirective!: ThyPopoverDirective;
+        let buttonDebugElement!: DebugElement;
+        let buttonElement!: HTMLElement;
 
         function getPopoverVisible() {
             return popoverDirective.popoverOpened;
@@ -202,13 +202,13 @@ class TestPopoverDirectiveClickComponent {
 }
 
 describe(`ThyPopoverDirective`, () => {
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
     let platform: { IOS: boolean; isBrowser: boolean; ANDROID: boolean };
-    let popoverDirective: ThyPopoverDirective;
-    let fixture: ComponentFixture<TestPopoverDirectiveClickComponent>;
-    let buttonDebugElement: DebugElement;
-    let buttonElement: HTMLElement;
+    let popoverDirective!: ThyPopoverDirective;
+    let fixture!: ComponentFixture<TestPopoverDirectiveClickComponent>;
+    let buttonDebugElement!: DebugElement;
+    let buttonElement!: HTMLElement;
 
     function getPopoverVisible() {
         return popoverDirective.popoverOpened;

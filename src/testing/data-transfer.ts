@@ -7,7 +7,7 @@ function removeFromArray<T>(array: T[], item: T) {
 }
 
 export class FakeDataTransferItem implements DataTransferItem {
-    type: string;
+    type!: string;
 
     constructor(
         private entry: FileSystemEntry,
@@ -31,9 +31,9 @@ export class FakeDataTransfer implements DataTransfer {
     dataByFormat = {};
     dropEffect: 'none' | 'copy' | 'link' | 'move' = 'none';
     effectAllowed: 'none' | 'copy' | 'copyLink' | 'copyMove' | 'link' | 'linkMove' | 'move' | 'all' | 'uninitialized' = 'all';
-    files: FileList;
+    files!: FileList;
     types: string[] = [];
-    items: DataTransferItemList;
+    items!: DataTransferItemList;
 
     constructor(files?: File[], items?: DataTransferItem[]) {
         this.files = files as any;
@@ -42,7 +42,7 @@ export class FakeDataTransfer implements DataTransfer {
 
     clearData(dataFormat: string) {
         if (dataFormat) {
-            delete this.dataByFormat[dataFormat];
+            delete (this.dataByFormat as any)[dataFormat];
             removeFromArray(this.types, dataFormat);
         } else {
             this.dataByFormat = {};
@@ -50,12 +50,12 @@ export class FakeDataTransfer implements DataTransfer {
         }
     }
 
-    getData = function (dataFormat: string) {
-        return this.dataByFormat[dataFormat];
+    getData = (dataFormat: string) => {
+        return (this.dataByFormat as any)[dataFormat];
     };
 
     setData(dataFormat: string, data: string) {
-        this.dataByFormat[dataFormat] = data;
+        (this.dataByFormat as any)[dataFormat] = data;
 
         if (this.types.indexOf(dataFormat) < 0) {
             this.types.push(dataFormat);

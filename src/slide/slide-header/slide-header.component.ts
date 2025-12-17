@@ -23,12 +23,12 @@ export class ThySlideHeader implements OnInit {
     /**
      * 标题
      */
-    readonly thyTitle = input<string>(undefined);
+    readonly thyTitle = input<string>();
 
     /**
      * 标题的图标
      */
-    readonly thyIcon = input<string>(undefined);
+    readonly thyIcon = input<string>();
 
     readonly isIconFont = computed(() => (this.thyIcon() || '').includes('wtf'));
 

@@ -83,9 +83,9 @@ describe(`layout`, () => {
     });
 
     describe('basic', () => {
-        let fixture: ComponentFixture<ThyDemoLayoutBasicComponent>;
-        let layoutDebugElement: DebugElement;
-        let layoutElement: HTMLElement;
+        let fixture!: ComponentFixture<ThyDemoLayoutBasicComponent>;
+        let layoutDebugElement!: DebugElement;
+        let layoutElement!: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyDemoLayoutBasicComponent);
@@ -179,9 +179,9 @@ describe(`layout`, () => {
     });
 
     describe('custom-header', () => {
-        let fixture: ComponentFixture<ThyDemoLayoutCustomHeaderComponent>;
-        let headerDebugElement: DebugElement;
-        let headerElement: HTMLElement;
+        let fixture!: ComponentFixture<ThyDemoLayoutCustomHeaderComponent>;
+        let headerDebugElement!: DebugElement;
+        let headerElement!: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyDemoLayoutCustomHeaderComponent);
@@ -212,9 +212,9 @@ describe(`layout`, () => {
     });
 
     describe('directive', () => {
-        let fixture: ComponentFixture<ThyDemoLayoutDirectiveBasicComponent>;
-        let layoutDebugElement: DebugElement;
-        let layoutElement: HTMLElement;
+        let fixture!: ComponentFixture<ThyDemoLayoutDirectiveBasicComponent>;
+        let layoutDebugElement!: DebugElement;
+        let layoutElement!: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyDemoLayoutDirectiveBasicComponent);

@@ -21,7 +21,7 @@ export class ThyFormCheckBaseComponent extends TabIndexDisabledControlValueAcces
     protected changeDetectorRef? = inject(ChangeDetectorRef);
 
     // The internal data model
-    _innerValue: boolean = null;
+    _innerValue: boolean | null = null;
 
     _disabled = false;
 
@@ -90,7 +90,7 @@ export class ThyFormCheckBaseComponent extends TabIndexDisabledControlValueAcces
         this.onTouchedCallback = fn;
     }
 
-    setDisabledState?(isDisabled: boolean): void {
+    setDisabledState(isDisabled: boolean): void {
         this._disabled = isDisabled;
         this.markForCheck();
     }

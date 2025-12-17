@@ -40,7 +40,7 @@ describe('form-validator-loader', () => {
         }
     };
 
-    let formValidatorLoader: ThyFormValidatorLoader;
+    let formValidatorLoader!: ThyFormValidatorLoader;
 
     beforeEach(() => {
         TestBed.configureTestingModule({

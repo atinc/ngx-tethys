@@ -153,7 +153,7 @@ export class ThyEmpty implements AfterViewInit {
     readonly extraTemplateRef = contentChild<TemplateRef<SafeAny>>('extra');
 
     protected readonly presetSvg = computed(() => {
-        let presetSvg = this.thyIconName() ? PRESET_SVG[this.thyIconName() as keyof typeof PRESET_SVG] : PRESET_SVG.default;
+        const presetSvg = this.thyIconName() ? PRESET_SVG[this.thyIconName() as keyof typeof PRESET_SVG] : PRESET_SVG.default;
 
         return presetSvg ? this.sanitizer.bypassSecurityTrustHtml(presetSvg) : '';
     });
@@ -162,14 +162,14 @@ export class ThyEmpty implements AfterViewInit {
         if (this.thyMessage()) {
             return this.thyMessage();
         } else if (this.thyTranslationKey()) {
-            return this.thyTranslate.instant(this.thyTranslationKey(), this.thyTranslationValues());
+            return this.thyTranslate.instant(this.thyTranslationKey()!, this.thyTranslationValues());
         } else if (this.thyEntityName()) {
             return this.thyTranslate.instant(this.thyEmptyConfig.noResultWithTargetTranslateKey, {
                 target: this.thyEntityName()
             });
         } else if (this.thyEntityNameTranslateKey()) {
             return this.thyTranslate.instant(this.thyEmptyConfig.noResultWithTargetTranslateKey, {
-                target: this.thyTranslate.instant(this.thyEntityNameTranslateKey())
+                target: this.thyTranslate.instant(this.thyEntityNameTranslateKey()!)
             });
         } else if (this.thyTranslate.instant(this.thyEmptyConfig.noResultTranslateKey) !== 'common.tips.NO_RESULT') {
             return this.thyTranslate.instant(this.thyEmptyConfig.noResultTranslateKey);
@@ -215,7 +215,7 @@ export class ThyEmpty implements AfterViewInit {
             }
         }
         if (marginTop) {
-            this.hostRenderer.setStyle('marginTop', marginTop + 'px');
+            this.hostRenderer.setStyle('marginTop', `${marginTop  }px`);
         }
     }
 

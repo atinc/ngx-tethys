@@ -66,14 +66,14 @@ class TestDialogConfig<TData = any> extends ThyAbstractOverlayConfig<TData> {
     imports: [CdkPortalOutlet]
 })
 export class TestDialogContainerComponent<TData = unknown> extends ThyAbstractOverlayContainer<TData> implements OnDestroy {
-    config: ThyAbstractOverlayConfig<TData>;
+    config!: ThyAbstractOverlayConfig<TData>;
 
-    animationOpeningDone: Observable<AnimationEvent>;
+    animationOpeningDone!: Observable<AnimationEvent>;
 
-    animationClosingDone: Observable<AnimationEvent>;
+    animationClosingDone!: Observable<AnimationEvent>;
 
     @ViewChild(CdkPortalOutlet, { static: true })
-    portalOutlet: CdkPortalOutlet;
+    portalOutlet!: CdkPortalOutlet;
 
     beforeAttachPortal(): void {}
 
@@ -204,11 +204,11 @@ export class TestDialogModule {}
 class TestDialogBasicContentComponent {
     testDialogRef = coreInject<TestDialogRef<TestDialogBasicContentComponent>>(TestDialogRef);
 
-    prop1: string;
+    prop1!: string;
 
     input1 = input('input1');
 
-    inputWithSetValue: string;
+    inputWithSetValue!: string;
 
     @Input('inputWithSetAlias') set inputWithSet(value: string) {
         this.inputWithSetValue = value;
@@ -232,9 +232,9 @@ class TestDialogViewContainerComponent {
 }
 
 describe('abstract-overlay', () => {
-    let dialog: TestDialogService;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let dialog!: TestDialogService;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
 
     beforeEach(async () => {
         TestBed.configureTestingModule({
@@ -318,7 +318,7 @@ describe('abstract-overlay', () => {
     describe('paneClass', () => {
         it('should get incorrect default pane classes', () => {
             dialog.open(TestDialogBasicContentComponent);
-            const paneElement = overlayContainerElement.querySelector('.cdk-overlay-pane');
+            const paneElement = overlayContainerElement.querySelector('.cdk-overlay-pane')!;
             expect(paneElement).toBeTruthy();
             expect(paneElement.classList.contains('dialog-overlay-pane')).toBeTruthy();
             expect(paneElement.classList.contains('dialog-md')).toBeTruthy();
@@ -326,7 +326,7 @@ describe('abstract-overlay', () => {
 
         it('should get custom pane class "one-class"', () => {
             dialog.open(TestDialogBasicContentComponent, { panelClass: 'one-class' });
-            const paneElement = overlayContainerElement.querySelector('.cdk-overlay-pane');
+            const paneElement = overlayContainerElement.querySelector('.cdk-overlay-pane')!;
             expect(paneElement.classList.contains('dialog-overlay-pane')).toBeTruthy();
             expect(paneElement.classList.contains('dialog-md')).toBeTruthy();
             expect(paneElement.classList.contains('one-class')).toBeTruthy();
@@ -334,7 +334,7 @@ describe('abstract-overlay', () => {
 
         it('should get custom pane classes ["one-class", "two-class"]', () => {
             dialog.open(TestDialogBasicContentComponent, { panelClass: ['one-class', 'two-class'] });
-            const paneElement = overlayContainerElement.querySelector('.cdk-overlay-pane');
+            const paneElement = overlayContainerElement.querySelector('.cdk-overlay-pane')!;
             expect(paneElement.classList.contains('dialog-overlay-pane')).toBeTruthy();
             expect(paneElement.classList.contains('dialog-md')).toBeTruthy();
             expect(paneElement.classList.contains('one-class')).toBeTruthy();
@@ -345,19 +345,19 @@ describe('abstract-overlay', () => {
     describe('hostClass', () => {
         it('should have not class when hostClass is null', () => {
             dialog.open(TestDialogBasicContentComponent);
-            const basicContentComponent = overlayContainerElement.querySelector('test-dialog-basic');
+            const basicContentComponent = overlayContainerElement.querySelector('test-dialog-basic')!;
             expect(basicContentComponent.classList.length).toEqual(0);
         });
 
         it('should get custom host class "test-dialog-content"', () => {
             dialog.open(TestDialogBasicContentComponent, { hostClass: 'test-dialog-content' });
-            const basicContentComponent = overlayContainerElement.querySelector('test-dialog-basic');
+            const basicContentComponent = overlayContainerElement.querySelector('test-dialog-basic')!;
             expect(basicContentComponent.classList.contains('test-dialog-content')).toBeTruthy();
         });
 
         it('should get custom host classes ["test-dialog-content", "another-test-dialog-content"]', () => {
             dialog.open(TestDialogBasicContentComponent, { hostClass: ['test-dialog-content', 'another-test-dialog-content'] });
-            const basicContentComponent = overlayContainerElement.querySelector('test-dialog-basic');
+            const basicContentComponent = overlayContainerElement.querySelector('test-dialog-basic')!;
             expect(basicContentComponent.classList.contains('test-dialog-content')).toBeTruthy();
             expect(basicContentComponent.classList.contains('another-test-dialog-content')).toBeTruthy();
         });

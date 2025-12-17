@@ -24,10 +24,10 @@ class DropdownActiveBasicTestComponent {
 }
 
 describe('dropdown-active', () => {
-    let fixture: ComponentFixture<DropdownActiveBasicTestComponent>;
-    let btnElement: HTMLElement;
-    let dropdownElement: HTMLElement;
-    let dropdown: ThyDropdownDirective;
+    let fixture!: ComponentFixture<DropdownActiveBasicTestComponent>;
+    let btnElement!: HTMLElement;
+    let dropdownElement!: HTMLElement;
+    let dropdown!: ThyDropdownDirective;
 
     beforeEach(() => {
         TestBed.configureTestingModule({ providers: [provideNoopAnimations()] });

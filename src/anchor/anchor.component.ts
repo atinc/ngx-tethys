@@ -105,7 +105,7 @@ export class ThyAnchor implements IThyAnchorComponent, OnDestroy, AfterViewInit 
     /**
      * 指定滚动的容器
      */
-    readonly thyContainer = input<string | HTMLElement>(undefined);
+    readonly thyContainer = input<string | HTMLElement>();
 
     /**
      * 设置导航方向
@@ -183,7 +183,9 @@ export class ThyAnchor implements IThyAnchorComponent, OnDestroy, AfterViewInit 
     private warningPrompt() {
         if (this.thyDirection() === 'horizontal') {
             const hasChildren = this.links.some(link =>
-                Array.from(link?.elementRef?.nativeElement?.childNodes)?.some((item: HTMLElement) => item?.nodeName === 'THY-ANCHOR-LINK')
+                Array.from(link?.elementRef?.nativeElement?.childNodes as HTMLElement[])?.some(
+                    (item: HTMLElement) => item?.nodeName === 'THY-ANCHOR-LINK'
+                )
             );
             if (hasChildren) {
                 console.warn("Anchor link nesting is not supported when 'Anchor' direction is horizontal.");
@@ -225,7 +227,7 @@ export class ThyAnchor implements IThyAnchorComponent, OnDestroy, AfterViewInit 
             }
             const target = container.querySelector(`#${sharpLinkMatch[1]}`) as HTMLElement;
             if (target) {
-                const top = getOffset(target, this.container()).top;
+                const top = getOffset(target, this.container())!.top;
                 if (top < scope) {
                     sections.push({
                         top,
@@ -314,14 +316,14 @@ export class ThyAnchor implements IThyAnchorComponent, OnDestroy, AfterViewInit 
         if (!this.thyDisabledContainerScroll()) {
             const container: HTMLElement =
                 this.container() instanceof HTMLElement ? (this.container() as HTMLElement) : (this.document as unknown as HTMLElement);
-            const linkElement: HTMLElement = container.querySelector(linkComponent.thyHref());
+            const linkElement: HTMLElement | null = container.querySelector(linkComponent.thyHref());
             if (!linkElement) {
                 return;
             }
 
             this.animating = true;
             const containerScrollTop = this.scrollService.getScroll(this.container());
-            const elementOffsetTop = getOffset(linkElement, this.container()).top;
+            const elementOffsetTop = getOffset(linkElement, this.container())!.top;
             const targetScrollTop = containerScrollTop + elementOffsetTop - (this.thyOffsetTop() || 0);
             this.scrollService.scrollTo(this.container(), targetScrollTop, undefined, () => {
                 this.animating = false;

@@ -25,7 +25,7 @@ import { ThyPicker } from './picker.component';
     imports: [ThyPicker, DatePopup]
 })
 export class ThyWeekPicker extends BasePicker {
-    protected elementRef: ElementRef;
+    protected elementRef?: ElementRef;
 
     private hostRenderer = useHostRenderer();
 

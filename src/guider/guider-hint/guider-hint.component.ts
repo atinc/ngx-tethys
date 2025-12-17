@@ -19,15 +19,15 @@ export class ThyGuiderHint implements OnInit {
 
     locale: Signal<ThyGuiderLocale> = injectLocale('guider');
 
-    public guiderRef: ThyGuiderRef;
+    public guiderRef!: ThyGuiderRef;
 
-    public stepRef: ThyGuiderStepRef;
+    public stepRef!: ThyGuiderStepRef;
 
-    public descriptionString: string;
+    public descriptionString!: string;
 
-    public descriptionTemplateRef: TemplateRef<any>;
+    public descriptionTemplateRef!: TemplateRef<any>;
 
-    public currentStepIndex: number;
+    public currentStepIndex!: number;
 
     constructor() {}
 

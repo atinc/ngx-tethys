@@ -43,7 +43,7 @@ import {
  */
 @Directive()
 export abstract class AbstractPickerComponent
-    extends TabIndexDisabledControlValueAccessorMixin
+    extends TabIndexDisabledControlValueAccessorMixin<ThyCompatibleDate | DateEntry | ThyDateRangeEntry | number | null>
     implements OnInit, OnChanges, ControlValueAccessor
 {
     protected destroyRef = inject(DestroyRef);
@@ -52,9 +52,9 @@ export abstract class AbstractPickerComponent
 
     locale: Signal<ThyDatePickerLocale> = injectLocale('datePicker');
 
-    thyValue: CompatibleValue | null;
+    thyValue: CompatibleValue | null = null;
 
-    panelMode: ThyPanelMode | ThyPanelMode[];
+    panelMode!: ThyPanelMode | ThyPanelMode[];
 
     _panelMode: ThyPanelMode = 'date';
 
@@ -102,9 +102,9 @@ export abstract class AbstractPickerComponent
      * 输入框提示文字
      * @type string | string[]
      */
-    readonly thyPlaceHolder = input<string | string[]>(undefined);
+    readonly thyPlaceHolder = input<string | string[]>();
 
-    readonly placeholder = signal<string | string[]>(undefined);
+    readonly placeholder = signal<string | string[] | undefined>(undefined);
 
     /**
      * 是否只读
@@ -138,7 +138,7 @@ export abstract class AbstractPickerComponent
      * 展示的日期格式
      * @default yyyy-MM-dd
      */
-    readonly thyFormat = model<string>();
+    readonly thyFormat = model<string | undefined>();
 
     /**
      * 区间分隔符，不传值默认为 "~"
@@ -207,7 +207,7 @@ export abstract class AbstractPickerComponent
 
     readonly thyOpenChange = output<boolean>();
 
-    readonly picker = viewChild<ThyPicker>(ThyPicker);
+    readonly picker = viewChild.required<ThyPicker>(ThyPicker);
 
     /**
      * 是否禁用
@@ -228,17 +228,17 @@ export abstract class AbstractPickerComponent
 
     disabled = false;
 
-    isRange: boolean;
+    isRange!: boolean;
 
-    withTime: boolean;
+    withTime!: boolean;
 
-    flexibleDateGranularity: ThyDateGranularity;
+    flexibleDateGranularity: ThyDateGranularity | undefined;
 
     protected isCustomPlaceHolder = false;
 
     private onlyEmitDate = false;
 
-    protected innerValue: ThyCompatibleDate;
+    protected innerValue!: ThyCompatibleDate | null;
 
     get realOpenState(): boolean {
         return this.picker().realOpenState;
@@ -360,6 +360,7 @@ export abstract class AbstractPickerComponent
         this.thyOpenChange.emit(open);
     }
 
+    // @ts-ignore
     onChangeFn: (val: ThyCompatibleDate | DateEntry | ThyDateRangeEntry | number | null) => void = () => void 0;
 
     writeValue(originalValue: ThyCompatibleDate | ThyDateRangeEntry): void {
@@ -373,7 +374,7 @@ export abstract class AbstractPickerComponent
         }
 
         this.onlyEmitDate = typeof withTime === 'undefined';
-        this.setTimePickerState(this.onlyEmitDate ? value && !!this.thyShowTime() : withTime);
+        this.setTimePickerState(this.onlyEmitDate ? !!(value && !!this.thyShowTime()) : !!withTime);
         this.setValue(value);
         this.setFormatRule();
         this.cdr.markForCheck();
@@ -418,11 +419,11 @@ export abstract class AbstractPickerComponent
         }
     }
 
-    public setValue(value: ThyCompatibleDate): void {
+    public setValue(value: ThyCompatibleDate | null): void {
         this.thyValue = makeValue(value, this.isRange, this.withTime, this.thyTimeZone());
     }
 
     private setValueByPrecision(value: ThyCompatibleDate | number | Date | DateEntry | ThyDateRangeEntry | SafeAny): number | number[] {
-        return setValueByTimestampPrecision(value, this.isRange, this.thyTimestampPrecision(), this.thyTimeZone());
+        return setValueByTimestampPrecision(value, this.isRange, this.thyTimestampPrecision(), this.thyTimeZone()) as number | number[] ;
     }
 }

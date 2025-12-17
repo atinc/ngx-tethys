@@ -46,7 +46,7 @@ export class ThyBreadcrumb {
      */
     readonly thyIcon = input<string>();
 
-    iconClasses: Signal<string[]> = computed(() => {
+    iconClasses: Signal<string[] | null> = computed(() => {
         const icon = this.thyIcon();
         if (icon && icon.includes('wtf')) {
             const classes = icon.split(' ');
@@ -59,7 +59,7 @@ export class ThyBreadcrumb {
         }
     });
 
-    svgIconName: Signal<string> = computed(() => {
+    svgIconName: Signal<string | null> = computed(() => {
         const icon = this.thyIcon();
         if (icon && !icon.includes('wtf')) {
             return icon;
@@ -96,10 +96,13 @@ export class ThyBreadcrumb {
 
     public ellipsisItemId = THY_BREADCRUMB_ITEM_ELLIPSIS_ID;
 
-    public readonly processedItems: Signal<{
-        ellipsisItems: SafeAny[];
-        showItems: SafeAny[];
-    }> = computed(() => {
+    public readonly processedItems: Signal<
+        | {
+              ellipsisItems: SafeAny[];
+              showItems: SafeAny[];
+          }
+        | undefined
+    > = computed(() => {
         const items = this.items();
         if (!items?.length) {
             return;

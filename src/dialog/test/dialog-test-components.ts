@@ -83,7 +83,7 @@ export class DialogRestoreTestComponent {
         preventScroll: true
     };
 
-    dialogRef: ThyDialogRef<DialogFullContentTestComponent>;
+    dialogRef!: ThyDialogRef<DialogFullContentTestComponent>;
 
     open() {
         this.dialogRef = this.thyDialog.open(DialogFullContentTestComponent, {
@@ -104,7 +104,7 @@ export class WithViewContainerTestDirective {
     imports: [WithViewContainerTestDirective]
 })
 export class WithChildViewContainerTestComponent {
-    readonly childWithViewContainer = viewChild(WithViewContainerTestDirective);
+    readonly childWithViewContainer = viewChild.required(WithViewContainerTestDirective);
 
     get childViewContainer() {
         return this.childWithViewContainer().viewContainerRef;
@@ -121,8 +121,8 @@ export class WithChildViewContainerTestComponent {
     imports: [ThyDialogModule]
 })
 export class WithTemplateRefTestComponent {
-    localValue: string;
-    dialogRef: ThyDialogRef<any>;
+    localValue!: string;
+    dialogRef!: ThyDialogRef<any>;
 
     readonly templateRef = viewChild(TemplateRef);
 
@@ -134,7 +134,7 @@ export class WithTemplateRefTestComponent {
 
 @Component({ template: '' })
 export class WithInjectedDataDialogTestComponent implements OnInit {
-    data: any;
+    data!: any;
 
     input1 = input();
 

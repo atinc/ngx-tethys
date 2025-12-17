@@ -14,17 +14,17 @@ import { NgClass } from '@angular/common';
     imports: [NgClass, ThyIcon]
 })
 export class DecadeHeader extends CalendarHeader {
-    readonly startYear = computed<number>(() => parseInt(`${this.value().getYear() / 100}`, 10) * 100);
+    readonly startYear = computed<number>(() => parseInt(`${this.value()!.getYear() / 100}`, 10) * 100);
 
     readonly endYear = computed<number>(() => this.startYear() + 99);
 
     superPrevious(): void {
-        const newValue = this.value().addYears(-100);
+        const newValue = this.value()!.addYears(-100);
         this.changeValue(newValue);
     }
 
     superNext(): void {
-        const newValue = this.value().addYears(100);
+        const newValue = this.value()!.addYears(100);
         this.changeValue(newValue);
     }
 

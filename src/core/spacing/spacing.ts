@@ -15,5 +15,6 @@ export function getNumericSize(size: ThySpacingSize, defaultSize?: ThySpacingSiz
     if (isNumber(size)) {
         return size;
     }
+    // @ts-ignore
     return SPACING_SIZES_MAP[size] !== undefined ? SPACING_SIZES_MAP[size] : SPACING_SIZES_MAP[defaultSize];
 }

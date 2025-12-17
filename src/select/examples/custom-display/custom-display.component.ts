@@ -15,9 +15,9 @@ import { ThyText } from 'ngx-tethys/typography';
 export class ThySelectCustomDisplayExampleComponent implements OnInit {
     optionData = taskTypes;
 
-    selectedTaskType: string;
+    selectedTaskType!: string;
 
-    selectedTaskTypes: string[];
+    selectedTaskTypes!: string[];
 
     ngOnInit() {
         this.selectedTaskType = this.optionData[0].name;

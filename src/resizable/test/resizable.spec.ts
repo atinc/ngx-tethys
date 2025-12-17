@@ -238,9 +238,9 @@ describe('resizable', () => {
     }));
 
     describe('basic', () => {
-        let fixture: ComponentFixture<ThyResizableBasicTestComponent>;
-        let testComponent: ThyResizableBasicTestComponent;
-        let resizableEle: HTMLElement;
+        let fixture!: ComponentFixture<ThyResizableBasicTestComponent>;
+        let testComponent!: ThyResizableBasicTestComponent;
+        let resizableEle!: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyResizableBasicTestComponent);
@@ -301,7 +301,7 @@ describe('resizable', () => {
         }));
 
         describe('should resize work', () => {
-            let rect: ClientRect | DOMRect;
+            let rect!: ClientRect | DOMRect;
 
             beforeEach(() => {
                 testComponent.height = 200;
@@ -561,9 +561,9 @@ describe('resizable', () => {
     });
 
     describe('customize', () => {
-        let fixture: ComponentFixture<ThyResizableCustomizeTestComponent>;
-        let testComponent: ThyResizableCustomizeTestComponent;
-        let resizableEle: HTMLElement;
+        let fixture!: ComponentFixture<ThyResizableCustomizeTestComponent>;
+        let testComponent!: ThyResizableCustomizeTestComponent;
+        let resizableEle!: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyResizableCustomizeTestComponent);
@@ -600,9 +600,9 @@ describe('resizable', () => {
     });
 
     describe('lock aspect ratio', () => {
-        let fixture: ComponentFixture<ThyResizableLockAspectRatioTestComponent>;
-        let resizableEle: HTMLElement;
-        let testComponent: ThyResizableLockAspectRatioTestComponent;
+        let fixture!: ComponentFixture<ThyResizableLockAspectRatioTestComponent>;
+        let resizableEle!: HTMLElement;
+        let testComponent!: ThyResizableLockAspectRatioTestComponent;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyResizableLockAspectRatioTestComponent);
@@ -664,8 +664,8 @@ describe('resizable', () => {
     });
 
     describe('preview', () => {
-        let fixture: ComponentFixture<ThyResizablePreviewTestComponent>;
-        let resizableEle: HTMLElement;
+        let fixture!: ComponentFixture<ThyResizablePreviewTestComponent>;
+        let resizableEle!: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyResizablePreviewTestComponent);
@@ -689,9 +689,9 @@ describe('resizable', () => {
     });
 
     describe('grid', () => {
-        let fixture: ComponentFixture<ThyResizableGridTestComponent>;
-        let resizableEle: HTMLElement;
-        let testComponent: ThyResizableGridTestComponent;
+        let fixture!: ComponentFixture<ThyResizableGridTestComponent>;
+        let resizableEle!: HTMLElement;
+        let testComponent!: ThyResizableGridTestComponent;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyResizableGridTestComponent);
@@ -737,9 +737,9 @@ describe('resizable', () => {
     });
 
     describe('bounds', () => {
-        let fixture: ComponentFixture<ThyTestResizableBoundsComponent>;
-        let resizableEle: HTMLElement;
-        let testComponent: ThyTestResizableBoundsComponent;
+        let fixture!: ComponentFixture<ThyTestResizableBoundsComponent>;
+        let resizableEle!: HTMLElement;
+        let testComponent!: ThyTestResizableBoundsComponent;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyTestResizableBoundsComponent);
@@ -836,9 +836,9 @@ describe('resizable', () => {
     });
 
     describe('resize-handles', () => {
-        let fixture: ComponentFixture<ThyResizableLineTestComponent>;
-        let resizableElement: HTMLElement;
-        let testComponent: ThyTestResizableBoundsComponent;
+        let fixture!: ComponentFixture<ThyResizableLineTestComponent>;
+        let resizableElement!: HTMLElement;
+        let testComponent!: ThyTestResizableBoundsComponent;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyResizableLineTestComponent);

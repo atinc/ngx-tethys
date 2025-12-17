@@ -51,7 +51,7 @@ export class ThyTablePaginationExampleComponent implements OnInit {
                     ];
 
                     const startIndex = (this.pagination.index - 1) * this.pagination.size;
-                    let size =
+                    const size =
                         this.pagination.total - startIndex < this.pagination.size
                             ? this.pagination.total - startIndex
                             : this.pagination.size;

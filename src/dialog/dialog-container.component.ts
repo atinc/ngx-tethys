@@ -59,14 +59,14 @@ export class ThyDialogContainer extends ThyAbstractOverlayContainer implements O
     private ngZone = inject(NgZone);
     private renderer = inject(Renderer2);
 
-    animationOpeningDone: Observable<AnimationEvent>;
-    animationClosingDone: Observable<AnimationEvent>;
+    animationOpeningDone!: Observable<AnimationEvent>;
+    animationClosingDone!: Observable<AnimationEvent>;
 
     @ViewChild(ThyPortalOutlet, { static: true })
-    portalOutlet: ThyPortalOutlet;
+    portalOutlet!: ThyPortalOutlet;
 
     @HostBinding(`attr.id`)
-    id: string;
+    id!: string;
 
     /** State of the dialog animation. */
     animationState: 'void' | 'enter' | 'exit' = 'void';
@@ -81,7 +81,7 @@ export class ThyDialogContainer extends ThyAbstractOverlayContainer implements O
     private elementFocusedBeforeDialogWasOpened: HTMLElement | null = null;
 
     /** The class that traps and manages focus within the dialog. */
-    private focusTrap: FocusTrap;
+    private focusTrap!: FocusTrap;
 
     private savePreviouslyFocusedElement() {
         if (this.document) {

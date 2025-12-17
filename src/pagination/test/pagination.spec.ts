@@ -107,10 +107,10 @@ describe('ThyPagination', () => {
     });
 
     describe('basic', () => {
-        let fixture: ComponentFixture<PaginationTestComponent>;
-        let componentInstance: PaginationTestComponent;
-        let paginationDebugElement: DebugElement;
-        let paginationElement: HTMLElement;
+        let fixture!: ComponentFixture<PaginationTestComponent>;
+        let componentInstance!: PaginationTestComponent;
+        let paginationDebugElement!: DebugElement;
+        let paginationElement!: HTMLElement;
         let pagination: { pageIndex: number; pageSize: number; total: number };
 
         beforeEach(() => {
@@ -224,9 +224,9 @@ describe('ThyPagination', () => {
     });
 
     describe('total', () => {
-        let basicTestComponent: PaginationBasicComponent;
-        let fixture: ComponentFixture<PaginationBasicComponent>;
-        let pageComponent: DebugElement;
+        let basicTestComponent!: PaginationBasicComponent;
+        let fixture!: ComponentFixture<PaginationBasicComponent>;
+        let pageComponent!: DebugElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(PaginationBasicComponent);
@@ -313,13 +313,13 @@ describe('ThyPagination', () => {
             const rangeEle = paginationLeft.querySelector('.number');
             let testValue = (rangeEle as HTMLElement).innerText.trim();
             let expectValue =
-                (basicTestComponent.pagination.index - 1) * pageSize + 1 + '-' + basicTestComponent.pagination.index * pageSize;
+                `${(basicTestComponent.pagination.index - 1) * pageSize + 1  }-${  basicTestComponent.pagination.index * pageSize}`;
             expect(testValue).toEqual(expectValue);
 
             basicTestComponent.pagination.index = 3;
             fixture.detectChanges();
             testValue = (rangeEle as HTMLElement).innerText.trim();
-            expectValue = (basicTestComponent.pagination.index - 1) * pageSize + 1 + '-' + basicTestComponent.pagination.index * pageSize;
+            expectValue = `${(basicTestComponent.pagination.index - 1) * pageSize + 1  }-${  basicTestComponent.pagination.index * pageSize}`;
             expect(testValue).toEqual(expectValue);
         });
 
@@ -418,8 +418,8 @@ describe('ThyPagination', () => {
     });
 
     describe('custom pages', () => {
-        let fixture: ComponentFixture<PaginationCustomPagesComponent>;
-        let componentInstance: PaginationCustomPagesComponent;
+        let fixture!: ComponentFixture<PaginationCustomPagesComponent>;
+        let componentInstance!: PaginationCustomPagesComponent;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(PaginationCustomPagesComponent);
@@ -454,9 +454,9 @@ describe('ThyPagination', () => {
     });
 
     describe('page sizes', () => {
-        let fixture: ComponentFixture<PaginationTestComponent>;
-        let componentInstance: PaginationTestComponent;
-        let paginationElement: HTMLElement;
+        let fixture!: ComponentFixture<PaginationTestComponent>;
+        let componentInstance!: PaginationTestComponent;
+        let paginationElement!: HTMLElement;
         beforeEach(() => {
             fixture = TestBed.createComponent(PaginationTestComponent);
             componentInstance = fixture.debugElement.componentInstance;

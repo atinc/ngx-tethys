@@ -148,15 +148,15 @@ export class ThyTimePanel implements OnInit, OnDestroy, ControlValueAccessor {
         return [showHour, showMinute, showSecond].filter(m => m).length || 3;
     });
 
-    value: Date;
+    value!: Date;
 
-    hour: number;
+    hour!: number;
 
-    minute: number;
+    minute!: number;
 
-    second: number;
+    second!: number;
 
-    initialScrollPosition: boolean;
+    initialScrollPosition!: boolean;
 
     onValueChangeFn: (val: Date) => void = () => void 0;
 
@@ -182,21 +182,21 @@ export class ThyTimePanel implements OnInit, OnDestroy, ControlValueAccessor {
         this.value.setHours(hours.value);
         this.hour = hours.value;
         this.thyPickChange.emit(this.value);
-        this.scrollTo(this.hourListRef().nativeElement, index);
+        this.scrollTo(this.hourListRef()!.nativeElement, index);
     }
 
     pickMinutes(minutes: { value: number; disabled: boolean }, index: number) {
         this.value.setMinutes(minutes.value);
         this.minute = minutes.value;
         this.thyPickChange.emit(this.value);
-        this.scrollTo(this.minuteListRef().nativeElement, index);
+        this.scrollTo(this.minuteListRef()!.nativeElement, index);
     }
 
     pickSeconds(seconds: { value: number; disabled: boolean }, index: number) {
         this.value.setSeconds(seconds.value);
         this.second = seconds.value;
         this.thyPickChange.emit(this.value);
-        this.scrollTo(this.secondListRef().nativeElement, index);
+        this.scrollTo(this.secondListRef()!.nativeElement, index);
     }
 
     selectNow() {

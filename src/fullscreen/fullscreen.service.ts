@@ -20,9 +20,9 @@ export class ThyFullscreen {
         const fullscreenRef = new ThyFullscreenRef<TResult>(this.document, this.ngZone);
         fullscreenRef.fullscreenConfig = config;
         fullscreenRef.launch();
-        this.fullscreenRefs.push(fullscreenRef);
+        (this.fullscreenRefs as ThyFullscreenRef<TResult>[]).push(fullscreenRef);
         fullscreenRef.afterExited().subscribe(() => {
-            const index = this.fullscreenRefs.indexOf(fullscreenRef);
+            const index = (this.fullscreenRefs as ThyFullscreenRef<TResult>[]).indexOf(fullscreenRef);
             if (index > -1) {
                 this.fullscreenRefs.splice(index, 1);
             }

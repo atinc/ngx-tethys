@@ -27,12 +27,12 @@ export class ThyHotkeyDirective implements OnInit, OnDestroy {
      */
     readonly thyHotkeyListener = output<KeyboardEvent>();
 
-    private subscription: Subscription = null;
+    private subscription!: Subscription;
 
     ngOnInit(): void {
         const hotkeyScope = this.thyHotkeyScope();
         const scope = isString(hotkeyScope) ? this.document.querySelector(hotkeyScope) : hotkeyScope;
-        this.subscription = this.hotkeyDispatcher.keydown(this.thyHotkey(), scope).subscribe(event => {
+        this.subscription = this.hotkeyDispatcher.keydown(this.thyHotkey()!, scope!).subscribe(event => {
             event.preventDefault();
             event.stopPropagation();
             if (isFormElement(this.elementRef)) {

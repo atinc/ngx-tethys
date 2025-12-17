@@ -135,9 +135,9 @@ export class ThyInputGroup implements OnInit, OnDestroy {
     /**
      * @private
      */
-    readonly inputDirective = contentChild(ThyInputDirective);
+    readonly inputDirective = contentChild.required(ThyInputDirective);
 
-    private disabledObservable: MutationObserver;
+    private disabledObservable: MutationObserver | null = null;
 
     constructor() {
         effect(() => {
@@ -206,7 +206,7 @@ export class ThyInputGroup implements OnInit, OnDestroy {
         });
     }
 
-    private resizeObserver(element: HTMLElement): Observable<ResizeObserverEntry[]> {
+    private resizeObserver(element: HTMLElement): Observable<ResizeObserverEntry[] | null> {
         return typeof ResizeObserver === 'undefined' || !ResizeObserver
             ? of(null)
             : new Observable(observer => {

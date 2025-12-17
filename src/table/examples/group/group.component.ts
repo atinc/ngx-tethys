@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
     imports: [ThyTable, ThyTableColumnComponent, ThySwitch, FormsModule]
 })
 export class ThyTableGroupExampleComponent implements OnInit {
-    isDraggable: boolean;
+    isDraggable!: boolean;
 
     public groups = [
         {

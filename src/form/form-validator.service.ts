@@ -1,4 +1,4 @@
-import { Dictionary } from 'ngx-tethys/types';
+import { Dictionary, SafeAny } from 'ngx-tethys/types';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
 import { of, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, switchMap, takeUntil } from 'rxjs/operators';
@@ -7,7 +7,7 @@ import { Injectable, OnDestroy, inject } from '@angular/core';
 import { AbstractControl, FormControlName, FormGroupDirective, NgControl, NgForm, ValidationErrors } from '@angular/forms';
 
 import { ERROR_VALUE_REPLACE_REGEX, ThyFormValidatorLoader } from './form-validator-loader';
-import { ThyFormValidatorConfig, ThyValidateOn, ThyValidateResult } from './form.class';
+import { ThyControlValidationResult, ThyFormValidatorConfig, ThyValidateOn, ThyValidateResult } from './form.class';
 
 /**
  * @private
@@ -16,11 +16,11 @@ import { ThyFormValidatorConfig, ThyValidateOn, ThyValidateResult } from './form
 export class ThyFormValidatorService implements OnDestroy {
     private thyFormValidateLoader = inject(ThyFormValidatorLoader);
 
-    private _ngForm: NgForm | FormGroupDirective;
+    private _ngForm!: NgForm | FormGroupDirective;
 
-    private _formElement: HTMLFormElement;
+    private _formElement!: HTMLFormElement;
 
-    private _config: ThyFormValidatorConfig;
+    private _config!: ThyFormValidatorConfig;
 
     public errors: string[] = [];
 
@@ -34,12 +34,12 @@ export class ThyFormValidatorService implements OnDestroy {
 
     private _destroy$ = new Subject<void>();
 
-    private _getElement(name: string) {
-        const element = this._formElement.elements[name];
+    private _getElement(name: string): HTMLElement {
+        const element = this._formElement.elements[name as SafeAny];
         if (element) {
-            return element;
+            return element as HTMLElement;
         } else {
-            return this._formElement.querySelector(`[name='${name}']`);
+            return this._formElement.querySelector(`[name='${name}']`) as HTMLElement;
         }
     }
 
@@ -47,12 +47,12 @@ export class ThyFormValidatorService implements OnDestroy {
         if (this.validations[name] && this.validations[name].hasError) {
             this.validations[name].hasError = false;
             this.validations[name].errorMessages = [];
-            this.thyFormValidateLoader.removeError(this._getElement(name));
+            this.thyFormValidateLoader.removeError(this._getElement(name) as HTMLElement);
         }
     }
 
     private _tryGetValidation(name: string) {
-        const controls = this._getControls();
+        const controls = this._getControls()!;
         if (!this.validations[name]) {
             this._initializeFormControlValidation(name, controls[name] as any);
         }
@@ -68,8 +68,8 @@ export class ThyFormValidatorService implements OnDestroy {
     }
 
     private _setControlValidateByChange(control: NgControl) {
-        control.valueChanges
-            .pipe(
+        control
+            .valueChanges!.pipe(
                 debounceTime(100),
                 distinctUntilChanged(),
                 filter(item => {
@@ -84,10 +84,12 @@ export class ThyFormValidatorService implements OnDestroy {
     }
 
     private _setControlValidateByBlur(control: NgControl) {
-        const element: HTMLElement = this._getElement(control.name as string);
+        const element: HTMLElement = this._getElement(control.name as string) as HTMLElement;
         if (element) {
             // 继承了 AbstractControlValueAccessor 的自定义 Accessor，通过 __onBlurValidation 控制触发验证函数
+            //@ts-ignore
             if (control.valueAccessor['__onBlurValidation']) {
+                //@ts-ignore
                 control.valueAccessor['__onBlurValidation'] = () => {
                     this.validateControl(control.name as string);
                 };
@@ -111,7 +113,7 @@ export class ThyFormValidatorService implements OnDestroy {
                 this._setControlValidateByBlur(control as NgControl);
             }
 
-            control.valueChanges.pipe(takeUntil(this._destroy$)).subscribe(item => {
+            control.valueChanges?.pipe(takeUntil(this._destroy$)).subscribe(item => {
                 this._clearElementError(name);
                 this._clearErrors();
             });
@@ -127,12 +129,12 @@ export class ThyFormValidatorService implements OnDestroy {
     }
 
     private _formatValidationMessage(name: string, message: string) {
-        const controls = this._getControls();
+        const controls = this._getControls()!;
         const control = controls[name];
         if (control) {
             return message.replace(ERROR_VALUE_REPLACE_REGEX, (tag, key) => {
                 if (key) {
-                    return isUndefinedOrNull(control.errors[key][key]) ? control.errors[key].requiredLength : control.errors[key][key];
+                    return isUndefinedOrNull(control.errors![key][key]) ? control.errors![key].requiredLength : control.errors![key][key];
                 }
             });
         } else {
@@ -172,7 +174,7 @@ export class ThyFormValidatorService implements OnDestroy {
         this.thyFormValidateLoader.showError(this._getElement(name), errorMessages);
     }
 
-    private _getValidateOn(): ThyValidateOn {
+    private _getValidateOn(): ThyValidateOn | undefined {
         return (this._config && this._config.validateOn) || this.thyFormValidateLoader.validateOn;
     }
 
@@ -196,28 +198,28 @@ export class ThyFormValidatorService implements OnDestroy {
         this._config = config;
     }
 
-    private _getControls() {
+    private _getControls(): Record<string, AbstractControl | FormControlName | NgControl> | undefined {
         if (this._ngForm instanceof NgForm) {
             return (this._ngForm as NgForm).controls;
         } else if (this._ngForm instanceof FormGroupDirective) {
-            const controls = {};
+            const controls: Record<string, AbstractControl | FormControlName | NgControl> = {};
             (this._ngForm as FormGroupDirective).directives.forEach(directive => {
-                controls[directive.name] = directive;
+                controls[directive.name!] = directive;
             });
             return controls;
         }
     }
 
     private _getControlByName(name: string): AbstractControl | FormControlName {
-        const controls = this._getControls();
-        return controls[name];
+        const controls = this._getControls()!;
+        return controls[name] as AbstractControl | FormControlName;
     }
 
     validateControl(name: string) {
         this._clearElementError(name);
         const control = this._getControlByName(name);
         if (control && control.invalid) {
-            const errorMessages = this._getValidationMessages(name, control.errors);
+            const errorMessages = this._getValidationMessages(name, control.errors!);
             this._setControlValidationError(name, errorMessages);
         }
         return {
@@ -232,7 +234,7 @@ export class ThyFormValidatorService implements OnDestroy {
         // 验证的时候循环 ngForm 的 controls 验证
         // 发现没有 validation 初始化一个，已经存在不会重新初始化，保存缓存数据
         const results = [];
-        const controls = this._getControls();
+        const controls = this._getControls()!;
         for (const name in controls) {
             if (controls.hasOwnProperty(name)) {
                 this._tryGetValidation(name);
@@ -255,18 +257,18 @@ export class ThyFormValidatorService implements OnDestroy {
     }
 
     validate($event?: Event): boolean {
-        this._ngForm.onSubmit($event);
+        this._ngForm.onSubmit($event!);
         this.validateControls();
-        return this._ngForm.valid;
+        return !!this._ngForm.valid;
     }
 
-    validateWithDetail($event?: Event): ThyValidateResult {
+    validateWithDetail($event: Event): ThyValidateResult {
         this._ngForm.onSubmit($event);
         const results = this.validateControls();
         return {
-            valid: this._ngForm.valid,
-            invalidControls: results.filter(res => !res.valid),
-            validControls: results.filter(res => res.valid)
+            valid: !!this._ngForm.valid,
+            invalidControls: results.filter(res => !res.valid) as ThyControlValidationResult[],
+            validControls: results.filter(res => res.valid) as ThyControlValidationResult[]
         };
     }
 

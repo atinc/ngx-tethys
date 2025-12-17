@@ -37,7 +37,7 @@ export class ThyBehaviorsAsyncComponent implements OnInit {
         );
     });
 
-    todos: Todo[];
+    todos?: Todo[];
 
     constructor() {
         setDefaultErrorHandler(error => {

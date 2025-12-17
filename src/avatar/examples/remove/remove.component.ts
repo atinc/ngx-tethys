@@ -9,7 +9,7 @@ import { ThyAvatar } from 'ngx-tethys/avatar';
 export class ThyAvatarRemoveExampleComponent {
     avatarSrc = 'assets/images/one-avatar.jpg';
 
-    message: string;
+    message!: string;
 
     remove(name: string) {
         this.message = `${name} remove successfully.`;

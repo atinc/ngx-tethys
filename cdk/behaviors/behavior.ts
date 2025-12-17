@@ -35,8 +35,8 @@ export function pickBehaviorCallbacks<R>(
     successOrContext: SuccessFn<R> | BehaviorContext<R>,
     error?: ErrorFn
 ) {
-    let successFn: SuccessFn<R>;
-    let errorFn: ErrorFn;
+    let successFn: SuccessFn<R> | undefined;
+    let errorFn: ErrorFn | undefined;
     if (successOrContext) {
         if (isFunction(successOrContext)) {
             successFn = successOrContext;
@@ -54,7 +54,7 @@ export function pickBehaviorCallbacks<R>(
     };
 }
 
-export function handleBehaviorError(error: Error, errorFn: ErrorFn) {
+export function handleBehaviorError(error: Error, errorFn?: ErrorFn) {
     if (errorFn) {
         errorFn(error);
     } else {

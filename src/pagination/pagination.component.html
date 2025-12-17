@@ -11,7 +11,7 @@
 @let size = thySize();
 @let showTotal = thyShowTotal();
 
-@if ((hideOnSinglePage && total > pageSize) || !hideOnSinglePage) {
+@if ((hideOnSinglePage && total! > pageSize!) || !hideOnSinglePage) {
   @if (showTotal) {
     <div
       class="thy-pagination-total"

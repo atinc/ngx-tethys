@@ -7,7 +7,7 @@ import { ThyButton } from 'ngx-tethys/button';
     imports: [ThyButton]
 })
 export class ThyButtonLoadingExampleComponent implements OnInit {
-    loading: Boolean = false;
+    loading: boolean = false;
 
     loadingSeconds = 0;
 

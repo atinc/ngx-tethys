@@ -4,8 +4,8 @@ import { ThyHotkeyDispatcher } from '@tethys/cdk';
 
 const controlEnterCode = 'Control+Enter';
 const metaEnterCode = 'Meta+Enter';
-const metaEnterCodeEvent = createKeyboardEvent('keydown', null, 'Enter', { meta: true });
-const controlEnterCodeEvent = createKeyboardEvent('keydown', null, 'Enter', { control: true });
+const metaEnterCodeEvent = createKeyboardEvent('keydown', undefined, 'Enter', { meta: true });
+const controlEnterCodeEvent = createKeyboardEvent('keydown', undefined, 'Enter', { control: true });
 
 describe('HotkeyDispatcher', () => {
     beforeEach(() => {
@@ -14,7 +14,7 @@ describe('HotkeyDispatcher', () => {
     });
 
     describe('basic usage', () => {
-        let hotkeyDispatcher: ThyHotkeyDispatcher;
+        let hotkeyDispatcher!: ThyHotkeyDispatcher;
 
         beforeEach(inject([ThyHotkeyDispatcher], (dispatcher: ThyHotkeyDispatcher) => {
             hotkeyDispatcher = dispatcher;
@@ -25,11 +25,11 @@ describe('HotkeyDispatcher', () => {
             const subscription = hotkeyDispatcher.keydown(metaEnterCode).subscribe(spy);
             expect(spy).not.toHaveBeenCalled();
             document.dispatchEvent(metaEnterCodeEvent);
-            tick();
+            tick(100);
             expect(spy).toHaveBeenCalledTimes(1);
             subscription.unsubscribe();
             document.dispatchEvent(metaEnterCodeEvent);
-            tick();
+            tick(100);
             expect(spy).toHaveBeenCalledTimes(1);
         }));
 
@@ -57,11 +57,11 @@ describe('HotkeyDispatcher', () => {
             hotkeyDispatcher.keydown(metaEnterCode).subscribe(spy1);
             input.focus();
             document.dispatchEvent(metaEnterCodeEvent);
-            tick();
+            tick(100);
             expect(spy1).not.toHaveBeenCalled();
             input.blur();
             document.dispatchEvent(metaEnterCodeEvent);
-            tick();
+            tick(100);
             expect(spy1).toHaveBeenCalledTimes(1);
 
             // bind hotkey to input

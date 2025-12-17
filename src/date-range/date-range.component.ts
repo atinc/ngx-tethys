@@ -78,13 +78,13 @@ export class ThyDateRange implements ControlValueAccessor {
      * 自定义日期选择中可选择的最小时间
      * @type Date | number
      */
-    readonly thyMinDate = input<Date | number>(undefined);
+    readonly thyMinDate = input<Date | number>();
 
     /**
      * 自定义日期选择中可选择的最大时间
      * @type Date | number
      */
-    readonly thyMaxDate = input<Date | number>(undefined);
+    readonly thyMaxDate = input<Date | number>();
 
     /**
      * 选中的时间段的展示形式，
@@ -96,12 +96,12 @@ export class ThyDateRange implements ControlValueAccessor {
     /**
      * 自定义日期展示格式，比如`yyyy年MM月`，只有当`thyCustomKey`值设为`exception`时才会生效
      */
-    readonly thyPickerFormat = input<string>(undefined);
+    readonly thyPickerFormat = input<string>();
 
     /**
      * 自定义日期禁用日期
      */
-    readonly thyDisabledDate = input<(d: Date) => boolean>(undefined);
+    readonly thyDisabledDate = input<(d: Date) => boolean>();
 
     /**
      * 区间分隔符，不传值默认为 "~"
@@ -144,13 +144,13 @@ export class ThyDateRange implements ControlValueAccessor {
     ];
 
     public optionalDateRanges = computed<DateRangeItemInfo[]>(() => {
-        if (this.thyOptionalDateRanges()?.length > 0) {
-            return this.thyOptionalDateRanges();
+        if (this.thyOptionalDateRanges() && this.thyOptionalDateRanges()!.length > 0) {
+            return this.thyOptionalDateRanges()!;
         }
         return this.defaultOptionalDateRanges;
     });
 
-    public selectedDateRange: {
+    public selectedDateRange!: {
         begin: number;
         end: number;
     };
@@ -180,16 +180,16 @@ export class ThyDateRange implements ControlValueAccessor {
 
     private _setSelectedDateRange() {
         this.selectedDateRange = {
-            begin: this.selectedDate.begin,
-            end: this.selectedDate.end
+            begin: this.selectedDate!.begin!,
+            end: this.selectedDate!.end!
         };
     }
 
     private _calculateNewTime(type: string) {
-        if (this.selectedDate.timestamp) {
-            const beginDate = new TinyDate(this.selectedDate.begin * 1000)?.nativeDate;
-            const endDate = new TinyDate(this.selectedDate.end * 1000)?.nativeDate;
-            const interval = this.selectedDate.timestamp.interval;
+        if (this.selectedDate?.timestamp) {
+            const beginDate = new TinyDate(this.selectedDate.begin! * 1000)?.nativeDate;
+            const endDate = new TinyDate(this.selectedDate.end! * 1000)?.nativeDate;
+            const interval = this.selectedDate.timestamp.interval!;
 
             if (this.selectedDate.timestamp.unit === 'day') {
                 if (type === 'previous') {
@@ -238,17 +238,17 @@ export class ThyDateRange implements ControlValueAccessor {
                 }
             }
         } else {
-            const interval: number = this.selectedDate.end - this.selectedDate.begin + allDayTimestamp;
+            const interval: number = this.selectedDate!.end! - this.selectedDate!.begin! + allDayTimestamp;
             if (type === 'previous') {
                 return {
-                    begin: this.selectedDate.begin - interval,
-                    end: this.selectedDate.end - interval,
+                    begin: this.selectedDate!.begin! - interval,
+                    end: this.selectedDate!.end! - interval,
                     key: this.thyCustomKey()
                 };
             } else {
                 return {
-                    begin: this.selectedDate.begin + interval,
-                    end: this.selectedDate.end + interval,
+                    begin: this.selectedDate!.begin! + interval,
+                    end: this.selectedDate!.end! + interval,
                     key: this.thyCustomKey()
                 };
             }

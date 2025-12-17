@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { ThySpaceItemDirective } from 'ngx-tethys/space';
+import { ThySpaceItemDirective , ThySpace } from 'ngx-tethys/space';
 import { ThyButton } from 'ngx-tethys/button';
-import { ThySpace } from 'ngx-tethys/space';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 
 @Component({

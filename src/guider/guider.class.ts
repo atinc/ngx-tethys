@@ -58,7 +58,7 @@ export class ThyGuiderConfig {
      * 新手引导步骤信息
      * @type ThyGuiderStep[]
      */
-    steps: ThyGuiderStep[];
+    steps!: ThyGuiderStep[];
 
     /**
      * 新手引导内容组件基于 target 元素的方位
@@ -94,7 +94,7 @@ export class ThyGuiderConfig {
 }
 
 export const defaultGuiderPositionConfig = {
-    hintComponent: null as Type<unknown>,
+    hintComponent: null as unknown as Type<unknown>,
     hintPlacement: 'rightBottom',
     defaultPosition: { x: 0, y: 0 },
     pointOffset: [0, 0],

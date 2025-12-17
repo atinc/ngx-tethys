@@ -16,10 +16,10 @@ export interface IThyGuiderRef {
     end: () => void;
 }
 
-export interface IThyGuiderManager {
-    updateActive: (key: string, guiderRef: IThyGuiderRef) => void;
+export interface IThyGuiderManager<TthyGuiderRef = IThyGuiderRef> {
+    updateActive: (key: string, guiderRef?: TthyGuiderRef) => void;
     addStepTarget: (key: string, el: HTMLElement) => void;
     removeStepTarget: (key: string) => void;
     getActiveTarget: (key: string) => HTMLElement;
-    getActive: () => { key: string; guiderRef: IThyGuiderRef };
+    getActive: () => { key: string; guiderRef: TthyGuiderRef };
 }

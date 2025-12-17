@@ -171,7 +171,7 @@ class ThyDemoDefaultTableComponent {
     tableMinWidth = 500;
     tableLayoutFixed = false;
     tableHeaderFixed = false;
-    tableHeight: number | string;
+    tableHeight!: number | string;
 
     @ViewChild('total', { static: true }) totalTemplate: TemplateRef<any>;
 
@@ -205,11 +205,11 @@ class ThyDemoDefaultTableComponent {
 }
 
 describe('ThyTable: basic', () => {
-    let fixture: ComponentFixture<ThyDemoDefaultTableComponent>;
-    let testComponent: ThyDemoDefaultTableComponent;
-    let tableComponent: any;
-    let table: HTMLElement;
-    let rows: any;
+    let fixture!: ComponentFixture<ThyDemoDefaultTableComponent>;
+    let testComponent!: ThyDemoDefaultTableComponent;
+    let tableComponent!: any;
+    let table!: HTMLElement;
+    let rows!: any;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -630,7 +630,7 @@ describe('ThyTable: basic', () => {
         const dragOriginTds = rows[1].querySelectorAll('td');
         tick(500);
         previewTds.forEach((item, index) => {
-            expect(item.style.width).toBe(dragOriginTds[index].clientWidth + 'px');
+            expect(item.style.width).toBe(`${dragOriginTds[index].clientWidth  }px`);
         });
         expect(spy).toHaveBeenCalled();
     }));
@@ -804,11 +804,11 @@ class ThyDemoGroupTableComponent {
 }
 
 describe('ThyTable: group', () => {
-    let fixture: ComponentFixture<ThyDemoGroupTableComponent>;
-    let testComponent: ThyDemoGroupTableComponent;
-    let tableComponent: DebugElement;
-    let table: HTMLElement;
-    let rows: any;
+    let fixture!: ComponentFixture<ThyDemoGroupTableComponent>;
+    let testComponent!: ThyDemoGroupTableComponent;
+    let tableComponent!: DebugElement;
+    let table!: HTMLElement;
+    let rows!: any;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -935,7 +935,7 @@ describe('ThyTable: group', () => {
         tick(500);
         const dragOriginTds = rows[1].querySelectorAll('td');
         previewTds.forEach((item, index) => {
-            expect(item.style.width).toBe(dragOriginTds[index].clientWidth + 'px');
+            expect(item.style.width).toBe(`${dragOriginTds[index].clientWidth  }px`);
         });
         expect(spy).toHaveBeenCalled();
     }));
@@ -962,7 +962,7 @@ describe('ThyTable: group', () => {
         tick(500);
         const dragOriginTds = rows[3].querySelectorAll('td');
         previewTds.forEach((item, index) => {
-            expect(item.style.width).toBe(dragOriginTds[index].clientWidth + 'px');
+            expect(item.style.width).toBe(`${dragOriginTds[index].clientWidth  }px`);
         });
         expect(spy).toHaveBeenCalled();
     }));
@@ -1063,9 +1063,9 @@ class ThyDemoEmptyTableComponent {
     }
 }
 describe('ThyTable: empty', () => {
-    let fixture: ComponentFixture<ThyDemoEmptyTableComponent>;
-    let testComponent: ThyDemoEmptyTableComponent;
-    let tableComponent: DebugElement;
+    let fixture!: ComponentFixture<ThyDemoEmptyTableComponent>;
+    let testComponent!: ThyDemoEmptyTableComponent;
+    let tableComponent!: DebugElement;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -1113,9 +1113,9 @@ class ThyDemoFixedTableComponent {
 }
 
 describe('ThyTable: fixed', () => {
-    let fixture: ComponentFixture<ThyDemoFixedTableComponent>;
-    let testComponent: ThyDemoFixedTableComponent;
-    let tableComponent: DebugElement;
+    let fixture!: ComponentFixture<ThyDemoFixedTableComponent>;
+    let testComponent!: ThyDemoFixedTableComponent;
+    let tableComponent!: DebugElement;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -1182,9 +1182,9 @@ class ThyDemoSortTableComponent {
 }
 
 describe('ThyTable: sort', () => {
-    let fixture: ComponentFixture<ThyDemoSortTableComponent>;
-    let testComponent: ThyDemoSortTableComponent;
-    let tableComponent: DebugElement;
+    let fixture!: ComponentFixture<ThyDemoSortTableComponent>;
+    let testComponent!: ThyDemoSortTableComponent;
+    let tableComponent!: DebugElement;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({

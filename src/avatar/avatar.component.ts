@@ -86,7 +86,7 @@ export class ThyAvatar {
         if (this.isAvatarImgError()) {
             return null;
         }
-        if (this.thySrc() && this.thyAvatarService.ignoreAvatarSrcPaths.indexOf(this.thySrc()) < 0) {
+        if (this.thySrc() && this.thyAvatarService.ignoreAvatarSrcPaths.indexOf(this.thySrc()!) < 0) {
             return this.thySrc();
         }
         return null;
@@ -98,12 +98,12 @@ export class ThyAvatar {
     readonly thyName = input<string>();
 
     readonly avatarName: Signal<string> = computed(() => {
-        const name = this.thyAvatarService.nameTransform(this.thyName());
-        return isString(name) ? name : this.thyName();
+        const name = this.thyAvatarService.nameTransform(this.thyName()!);
+        return isString(name) ? name : this.thyName()!;
     });
 
-    readonly avatarNameSafeHtml: Signal<SafeHtml> = computed(() => {
-        const name = this.thyAvatarService.nameTransform(this.thyName());
+    readonly avatarNameSafeHtml: Signal<SafeHtml | null> = computed(() => {
+        const name = this.thyAvatarService.nameTransform(this.thyName()!);
         if (!isString(name)) {
             return name;
         }

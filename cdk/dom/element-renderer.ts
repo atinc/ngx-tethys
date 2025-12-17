@@ -1,13 +1,13 @@
 import { AbstractElementRenderer } from './abstract-element-renderer';
 
 export class ElementRenderer extends AbstractElementRenderer {
-    protected element: Element;
+    protected element?: Element;
 
     setElement(element: Element) {
         this.element = element;
     }
 
-    constructor(element: Element) {
+    constructor(element?: Element) {
         super();
         this.element = element;
     }

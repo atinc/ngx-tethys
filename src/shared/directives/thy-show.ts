@@ -17,7 +17,7 @@ export class ThyShowDirective implements OnDestroy {
 
     private hostRenderer = useHostRenderer();
 
-    private unListenEvent: () => void;
+    private unListenEvent: (() => void) | null = null;
 
     private unListenDocument() {
         if (this.unListenEvent) {

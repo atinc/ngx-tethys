@@ -73,7 +73,7 @@ export class ThyImagePreview implements OnInit {
 
     images: InternalImageInfo[] = [];
     previewIndex: number = 0;
-    previewConfig: ThyImagePreviewOptions;
+    previewConfig!: ThyImagePreviewOptions;
     previewImageTransform = '';
     previewImageWrapperTransform = '';
     zoomDisabled = false;
@@ -84,7 +84,7 @@ export class ThyImagePreview implements OnInit {
     isFullScreen = false;
     isInsideScreen = true;
     currentImageMode: ThyImagePreviewMode = 'original-scale';
-    previewOperations: ThyImagePreviewOperation[];
+    previewOperations!: ThyImagePreviewOperation[];
     defaultPreviewOperations: ThyImagePreviewOperation[] = [
         {
             icon: 'zoom-out',
@@ -157,7 +157,7 @@ export class ThyImagePreview implements OnInit {
         }
     ];
 
-    private rotate: number;
+    private rotate!: number;
 
     get previewImage(): InternalImageInfo {
         const image = this.images[this.previewIndex];
@@ -168,14 +168,14 @@ export class ThyImagePreview implements OnInit {
     }
 
     get previewImageOriginSrc() {
-        let imageSrc = this.previewImage.origin?.src || this.previewImage.src;
+        const imageSrc = this.previewImage.origin?.src || this.previewImage.src;
         if (imageSrc.startsWith('./')) {
-            return window.location.host + '/' + imageSrc.split('./')[1];
+            return `${window.location.host  }/${  imageSrc.split('./')[1]}`;
         }
         return imageSrc;
     }
 
-    get defaultZoom(): number {
+    get defaultZoom(): number | undefined {
         if (this.previewConfig?.zoom && this.previewConfig?.zoom > 0) {
             return this.previewConfig.zoom >= IMAGE_MAX_ZOOM
                 ? IMAGE_MAX_ZOOM
@@ -228,7 +228,7 @@ export class ThyImagePreview implements OnInit {
     }
 
     useDefaultZoomUpdate(isUpdateImageWrapper: boolean) {
-        this.zoom = this.defaultZoom;
+        this.zoom = this.defaultZoom!;
         this.isLoadingDone = true;
         this.updatePreviewImageTransform();
         if (isUpdateImageWrapper) {
@@ -238,7 +238,7 @@ export class ThyImagePreview implements OnInit {
     }
 
     useCalculateZoomUpdate(isUpdateImageWrapper?: boolean) {
-        let img = new Image();
+        const img = new Image();
         img.src = this.previewImage.src;
         img.onload = () => {
             const { width: offsetWidth, height: offsetHeight } = getClientSize();
@@ -282,7 +282,7 @@ export class ThyImagePreview implements OnInit {
     }
 
     resolvePreviewImage() {
-        return new Observable<Boolean>(subscriber => {
+        return new Observable<boolean>(subscriber => {
             if (this.previewImage.src.startsWith('blob:')) {
                 this.previewImage.objectURL = this.sanitizer.bypassSecurityTrustUrl(this.previewImage.src);
                 subscriber.next(true);
@@ -336,7 +336,7 @@ export class ThyImagePreview implements OnInit {
             .subscribe(blob => {
                 const urlCreator = window.URL || window.webkitURL;
                 const objectURL = urlCreator.createObjectURL(blob);
-                let a = document.createElement('a');
+                const a = document.createElement('a');
                 a.download = image.name || 'default.png';
                 a.href = objectURL;
                 a.click();
@@ -382,7 +382,7 @@ export class ThyImagePreview implements OnInit {
     }
 
     fullScreen(): void {
-        const targetElement = this.host.nativeElement.querySelector('.thy-image-preview');
+        const targetElement = this.host.nativeElement.querySelector('.thy-image-preview')!;
         this.isFullScreen = true;
         const fullscreenRef = this.thyFullscreen.launch({
             target: targetElement
@@ -423,7 +423,7 @@ export class ThyImagePreview implements OnInit {
         this.isDragging = false;
         const width = this.imageRef.nativeElement.offsetWidth * this.zoom;
         const height = this.imageRef.nativeElement.offsetHeight * this.zoom;
-        const { left, top } = getOffset(this.imageRef.nativeElement, window);
+        const { left, top } = getOffset(this.imageRef.nativeElement, window)!;
         const { width: clientWidth, height: clientHeight } = getClientSize();
         const isRotate = this.rotate % 180 !== 0;
         const fitContentParams = {

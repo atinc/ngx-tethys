@@ -26,12 +26,12 @@ export class ThyPopoverHeader {
     /**
      * 头部标题
      */
-    readonly thyTitle = input<string>(undefined);
+    readonly thyTitle = input<string | undefined>(undefined);
 
     /**
      * 标题的多语言 Key
      */
-    readonly thyTitleTranslationKey = input<string>(undefined);
+    readonly thyTitleTranslationKey = input<string | undefined>(undefined);
 
     protected readonly titleSignal = computed(() => {
         const title = this.thyTitle();

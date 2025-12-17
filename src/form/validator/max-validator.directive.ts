@@ -17,12 +17,12 @@ import { Validator, AbstractControl, NG_VALIDATORS, Validators, ValidatorFn } fr
     ]
 })
 export class ThyMaxDirective implements Validator {
-    private _validator: ValidatorFn;
+    private _validator!: ValidatorFn;
     @Input() public set max(value: string) {
         this._validator = Validators.max(parseFloat(value));
     }
 
-    public validate(control: AbstractControl): { [key: string]: any } {
+    public validate(control: AbstractControl): { [key: string]: any } | null {
         return this._validator(control);
     }
 }

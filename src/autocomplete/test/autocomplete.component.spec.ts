@@ -1,4 +1,4 @@
-import { ThyInputSearch } from 'ngx-tethys/input';
+import { ThyInputSearch , ThyInputModule } from 'ngx-tethys/input';
 import {
     bypassSanitizeProvider,
     dispatchFakeEvent,
@@ -14,7 +14,6 @@ import { Component, DebugElement, viewChild, viewChildren } from '@angular/core'
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyOptionModule, ThyOption } from 'ngx-tethys/shared';
 import { ThyAutocomplete, ThyAutocompleteTriggerDirective, ThyAutocompleteModule } from 'ngx-tethys/autocomplete';
 import { provideHttpClient } from '@angular/common/http';
@@ -49,7 +48,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 class BasicSelectComponent {
     openedSpy = jasmine.createSpy('opened event spy callback');
 
-    autoActiveFirstOption: boolean;
+    autoActiveFirstOption!: boolean;
 
     foods: any[] = [
         { value: 'steak-0', viewValue: 'Steak' },
@@ -62,8 +61,8 @@ class BasicSelectComponent {
         { value: null, viewValue: 'Sushi' }
     ];
 
-    readonly autocomplete = viewChild(ThyAutocomplete);
-    readonly autocompleteDirective = viewChild(ThyAutocompleteTriggerDirective);
+    readonly autocomplete = viewChild.required(ThyAutocomplete);
+    readonly autocompleteDirective = viewChild.required(ThyAutocompleteTriggerDirective);
     readonly options = viewChildren(ThyOption);
 
     opened() {
@@ -101,7 +100,7 @@ class InputSearchSelectComponent {
         { value: 'pizza-1', viewValue: 'Pizza' }
     ];
 
-    readonly autocomplete = viewChild(ThyAutocomplete);
+    readonly autocomplete = viewChild.required(ThyAutocomplete);
     readonly options = viewChildren(ThyOption);
 }
 
@@ -132,8 +131,8 @@ describe('ThyAutocomplete', () => {
         }));
 
         describe('panel', () => {
-            let fixture: ComponentFixture<BasicSelectComponent>;
-            let trigger: HTMLElement;
+            let fixture!: ComponentFixture<BasicSelectComponent>;
+            let trigger!: HTMLElement;
 
             beforeEach(fakeAsync(() => {
                 fixture = TestBed.createComponent(BasicSelectComponent);
@@ -216,7 +215,7 @@ describe('ThyAutocomplete', () => {
                 const newActiveItem = autocompleteDirective.autocompleteComponent()?.keyManager?.activeItem;
                 expect(newActiveItem?.thyLabelText()).toContain('Steak');
 
-                const selectViaInteractionSpy = spyOn(autocompleteDirective.activeOption(), 'selectViaInteraction');
+                const selectViaInteractionSpy = spyOn<any>(autocompleteDirective.activeOption(), 'selectViaInteraction');
                 const resetActiveItemSpy = spyOn<any>(autocompleteDirective, 'resetActiveItem');
                 dispatchKeyboardEvent(trigger, 'keydown', keycodes.ENTER);
                 fixture.detectChanges();
@@ -312,8 +311,8 @@ describe('ThyAutocomplete', () => {
         });
 
         describe('input-search', () => {
-            let fixture: ComponentFixture<InputSearchSelectComponent>;
-            let debugSearchElement: DebugElement;
+            let fixture!: ComponentFixture<InputSearchSelectComponent>;
+            let debugSearchElement!: DebugElement;
 
             beforeEach(fakeAsync(() => {
                 fixture = TestBed.createComponent(InputSearchSelectComponent);
