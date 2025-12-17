@@ -31,7 +31,7 @@ export class ThyYearPicker extends BasePicker {
     /**
      * 展示的年份格式
      */
-    readonly thyFormat = model<string>('yyyy');
+    readonly thyFormat = model<string | undefined>('yyyy');
 
     isRange = false;
 
