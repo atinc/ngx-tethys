@@ -49,11 +49,11 @@ export class ThyTimePanel implements OnInit, OnDestroy, ControlValueAccessor {
     private ngZone = inject(NgZone);
     locale: Signal<ThyTimePickerLocale> = injectLocale('timePicker');
 
-    readonly hourListRef = viewChild.required<ElementRef<HTMLElement>>('hourListElement');
+    readonly hourListRef = viewChild<ElementRef<HTMLElement>>('hourListElement');
 
-    readonly minuteListRef = viewChild.required<ElementRef<HTMLElement>>('minuteListElement');
+    readonly minuteListRef = viewChild<ElementRef<HTMLElement>>('minuteListElement');
 
-    readonly secondListRef = viewChild.required<ElementRef<HTMLElement>>('secondListElement');
+    readonly secondListRef = viewChild<ElementRef<HTMLElement>>('secondListElement');
 
     /**
      * 展示的日期格式，支持 'HH:mm:ss' | 'HH:mm' | 'mm:ss'
@@ -182,21 +182,21 @@ export class ThyTimePanel implements OnInit, OnDestroy, ControlValueAccessor {
         this.value.setHours(hours.value);
         this.hour = hours.value;
         this.thyPickChange.emit(this.value);
-        this.scrollTo(this.hourListRef().nativeElement, index);
+        this.scrollTo(this.hourListRef()!.nativeElement, index);
     }
 
     pickMinutes(minutes: { value: number; disabled: boolean }, index: number) {
         this.value.setMinutes(minutes.value);
         this.minute = minutes.value;
         this.thyPickChange.emit(this.value);
-        this.scrollTo(this.minuteListRef().nativeElement, index);
+        this.scrollTo(this.minuteListRef()!.nativeElement, index);
     }
 
     pickSeconds(seconds: { value: number; disabled: boolean }, index: number) {
         this.value.setSeconds(seconds.value);
         this.second = seconds.value;
         this.thyPickChange.emit(this.value);
-        this.scrollTo(this.secondListRef().nativeElement, index);
+        this.scrollTo(this.secondListRef()!.nativeElement, index);
     }
 
     selectNow() {

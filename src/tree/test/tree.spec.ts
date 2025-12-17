@@ -71,7 +71,17 @@ describe('ThyTreeComponent', () => {
         it('test set tree property correctly', () => {
             expect(treeElement.classList).toContain('thy-tree-sm');
             expect(treeElement.classList).toContain('thy-tree-especial');
-            expect(treeElement.querySelector('.thy-tree-node-title')!.classList).toContain('thy-icon-minus-square');
+            expect(treeElement.querySelector('.thy-tree-node-title')!.classList).toContain('text-truncate');
+        });
+
+        it('test set data correctly', () => {
+            expect(treeComponent.treeNodes.length).toEqual(2);
+        });
+
+        it('test set icons correctly', () => {
+            treeInstance.options.treeIcons = { expand: 'minus-square', collapse: 'plus-square' };
+            fixture.detectChanges();
+            expect(treeElement.querySelector(expandIconSelector)!.classList).toContain('thy-icon-minus-square');
             (treeElement.querySelector(expandIconSelector) as HTMLElement).click();
             fixture.detectChanges();
             expect(treeElement.querySelector(expandIconSelector)!.classList).toContain('thy-icon-plus-square');

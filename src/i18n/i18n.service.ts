@@ -16,7 +16,7 @@ export class ThyI18nService {
         [ThyLocaleType.deDe]: inject(THY_I18N_DE_DE, { optional: true }) || deDeLocale
     };
 
-    private defaultLocaleId: ThyLocaleType = normalizeLocale(inject(THY_I18N_LOCALE_ID, { optional: true }) || '') || getDefaultLocaleId();
+    private defaultLocaleId: ThyLocaleType = normalizeLocale(inject(THY_I18N_LOCALE_ID, { optional: true })) || getDefaultLocaleId();
 
     private locale: WritableSignal<ThyI18nLocale> = signal(this.locales[this.defaultLocaleId]);
 

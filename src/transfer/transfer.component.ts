@@ -74,7 +74,7 @@ export class ThyTransfer implements OnInit {
     /**
      * 右侧选择最大数量
      */
-    readonly thyRightMax = input<number, unknown>(0, { transform: numberAttribute });
+    readonly thyRightMax = input<number, unknown>(undefined, { transform: numberAttribute });
 
     /**
      * 设置是否自动移动
@@ -153,11 +153,7 @@ export class ThyTransfer implements OnInit {
         if (event.item.isFixed) {
             return;
         }
-        if (
-            !isUndefinedOrNull(this.thyRightMax()) &&
-            this.thyRightMax()! <= this.rightDataSource.length &&
-            from === TransferDirection.left
-        ) {
+        if (this.thyRightMax()! <= this.rightDataSource.length && from === TransferDirection.left) {
             return;
         }
         const to = from === TransferDirection.left ? TransferDirection.right : TransferDirection.left;

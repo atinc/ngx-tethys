@@ -15,7 +15,7 @@ export function transformDateValue(
     if (!value) {
         return { value: null };
     }
-    let withTime = false;
+    let withTime;
     let flexibleDateGranularity: ThyDateGranularity | undefined = undefined;
     if (value && typeof value === 'number') {
         value = convertDate(value);

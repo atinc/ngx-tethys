@@ -481,7 +481,7 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
             this.inkBar().hide();
             return;
         }
-        const tabs = this.links.toArray() ?? [];
+        const tabs = this.links?.toArray() ?? [];
         const selectedItem = tabs.find(item => item.linkIsActive());
         let selectedItemElement: HTMLElement = selectedItem && selectedItem.elementRef.nativeElement;
 

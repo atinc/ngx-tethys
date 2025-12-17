@@ -135,7 +135,7 @@ export class ThySelectControl implements OnInit, AfterViewInit {
         );
     });
 
-    readonly tagsContainer = viewChild.required<ElementRef>('tagsContainer');
+    readonly tagsContainer = viewChild<ElementRef>('tagsContainer');
 
     visibleTagCount = signal(0);
 
@@ -296,7 +296,7 @@ export class ThySelectControl implements OnInit, AfterViewInit {
     private calculateVisibleTags() {
         if (!this.tagsContainer()?.nativeElement) return;
 
-        const containerWidth = this.tagsContainer().nativeElement.offsetWidth;
+        const containerWidth = this.tagsContainer()?.nativeElement.offsetWidth;
         if (containerWidth <= 0) return;
 
         const selectedOptions = coerceArray(this.thySelectedOptions());
@@ -327,7 +327,7 @@ export class ThySelectControl implements OnInit, AfterViewInit {
         let visibleCount = 0;
 
         Promise.resolve().then(() => {
-            const tagElements = this.tagsContainer().nativeElement.querySelectorAll('.choice-item.selected,.custom-choice-item');
+            const tagElements = this.tagsContainer()?.nativeElement.querySelectorAll('.choice-item.selected,.custom-choice-item');
             for (let i = 0; i < selectedOptions.length; i++) {
                 const tagWidth = (tagElements[i]?.offsetWidth || 80) + TAG_GAP;
 

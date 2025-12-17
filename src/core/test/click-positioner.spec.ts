@@ -21,14 +21,14 @@ describe('ClickDispatcher', () => {
     }));
 
     it('should not execute the global events in the Angular zone', () => {
-        expect(clickPositioner.lastClickPosition).toBeNull();
+        expect(clickPositioner.lastClickPosition).toBeUndefined();
         dispatchFakeEvent(document, 'click', false);
 
         expect(fixture.ngZone!.isStable).toBe(true);
     });
 
     it('should has value for lastClickPosition from the global click', () => {
-        expect(clickPositioner.lastClickPosition).toBeNull();
+        expect(clickPositioner.lastClickPosition).toBeUndefined();
         dispatchMouseEvent(document, 'click', 100, 200);
         expect(clickPositioner.lastClickPosition).toEqual({
             x: 100,

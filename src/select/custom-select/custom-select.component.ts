@@ -606,7 +606,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
 
     private buildAllGroupsAndOptions() {
         let allGroupsAndOptions: ThySelectFlattedItem[];
-        const isReactiveDriven = this.thyOptions()!.length > 0;
+        const isReactiveDriven = this.thyOptions() && this.thyOptions()!.length > 0;
         if (isReactiveDriven) {
             allGroupsAndOptions = this.allGroupsAndOptionsByReactive();
         } else {
@@ -877,7 +877,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         return !this.selectedValues().length;
     });
 
-    public activatedValue = signal(null);
+    public activatedValue: WritableSignal<string | string[] | number | null | undefined> = signal(null);
 
     public toggle(event: MouseEvent): void {
         if (this.panelOpen) {
@@ -938,7 +938,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             return;
         }
 
-        let toActivatedValue = this.activatedValue();
+        let toActivatedValue: string | string[] | number | null | undefined = this.activatedValue();
         const filteredOptionsMap = this.filteredOptionsMap();
         if (!toActivatedValue || !filteredOptionsMap.has(toActivatedValue)) {
             let selectedValues = this.selectedValues();
@@ -959,7 +959,6 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
                 toActivatedValue = selectedValues[0];
             } else {
                 if (this.thyAutoActiveFirstItem()) {
-                    // @ts-ignore
                     toActivatedValue = filteredOptions[0].value || null;
                 }
             }
@@ -1049,7 +1048,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             if (targetOption?.disabled) {
                 return;
             }
-            // @ts-ignore
+
             this.activatedValue.set(targetOption.value);
 
             if (!hasModifierKey(event)) {
@@ -1060,7 +1059,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         } else if (keyCode === HOME || keyCode === END) {
             event.preventDefault();
             const targetOption = keyCode === HOME ? filteredOptions[0] : filteredOptions[filteredOptions.length - 1];
-            // @ts-ignore
+
             this.activatedValue.set(targetOption.value);
             this.scrollToActivatedOption();
         } else if ((keyCode === ENTER || keyCode === SPACE) && (this.activatedValue() || !this.empty()) && !hasModifierKey(event)) {
@@ -1093,12 +1092,12 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             } else {
                 selectedValues.push(value);
             }
-            if (this.thySortComparator()) {
+            const thySortComparator = this.thySortComparator();
+            if (thySortComparator) {
                 selectedValues.sort((a: SafeAny, b: SafeAny) => {
-                    const aOption = options.find(option => option.thyValue() === a);
-                    const bOption = options.find(option => option.thyValue() === b);
-                    // @ts-ignore
-                    return this.thySortComparator()(aOption, bOption, [...options]);
+                    const aOption = options.find(option => option.thyValue() === a)!;
+                    const bOption = options.find(option => option.thyValue() === b)!;
+                    return thySortComparator(aOption, bOption, [...options]);
                 });
             }
             this.selectedValues.set([...selectedValues]);
@@ -1135,9 +1134,8 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     private subscribeTriggerResize(): void {
         this.unsubscribeTriggerResize();
         this.ngZone.runOutsideAngular(() => {
-            this.resizeSubscription = new Observable<number>(observer => {
+            this.resizeSubscription = new Observable<number | null>(observer => {
                 const resize = new ResizeObserver((entries: ResizeObserverEntry[]) => {
-                    // @ts-ignore
                     observer.next(null);
                 });
                 resize.observe(this.trigger.nativeElement);

@@ -131,9 +131,9 @@ describe('TestDateCarouselComponent', () => {
             dispatchMouseEvent(yearBtns[0], 'click');
             fixture.detectChanges();
             expect(spy).toHaveBeenCalledWith({
-                begin: null,
-                dateGranularity: null,
-                end: null
+                begin: undefined,
+                dateGranularity: undefined,
+                end: undefined
             });
         }));
 

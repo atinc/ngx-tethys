@@ -300,7 +300,7 @@ export class ThySidebar implements OnInit, OnDestroy {
     ngOnInit() {}
 
     private subscribeHotkeyEvent() {
-        this.hotkeySubscription = this.hotkeyDispatcher.keydown(['Control+/', 'Meta+/']).subscribe(() => {
+        this.hotkeySubscription = this.hotkeyDispatcher.keydown(['Control+/', 'Meta+/']).subscribe(event => {
             this.toggleCollapse();
         });
     }

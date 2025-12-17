@@ -38,10 +38,12 @@ export class ThyHotkeyDispatcher extends ThyEventDispatcher {
         const keydown = this.createKeydownObservable(scopeElement);
         return new Observable<KeyboardEvent>(subscriber => {
             const subscription = keydown
-                .pipe(filter((event) => {
-                    return hotkeys.some(key => isHotkey(event as KeyboardEvent, key));
-                }))
-                .subscribe((event) => {
+                .pipe(
+                    filter(event => {
+                        return hotkeys.some(key => isHotkey(event as KeyboardEvent, key));
+                    })
+                )
+                .subscribe(event => {
                     // 如果当前焦点的元素是表单元素并且焦点原色不是Hotkey绑定元素则忽略快捷键
                     if (isFormElement(this.document.activeElement) && this.document.activeElement !== scope) {
                         return;

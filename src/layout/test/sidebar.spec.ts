@@ -324,13 +324,13 @@ describe(`sidebar`, () => {
             testInstance.collapsible = true;
             fixture.detectChanges();
             const spy = spyOn(fixture.componentInstance, 'collapsedChange');
-            const metaEvent = createKeyboardEvent('keydown', null, '/', { meta: true });
-            const controlEvent = createKeyboardEvent('keydown', null, '/', { control: true });
+            const metaEvent = createKeyboardEvent('keydown', undefined, '/', { meta: true });
+            const controlEvent = createKeyboardEvent('keydown', undefined, '/', { control: true });
             document.dispatchEvent(metaEvent);
-            tick();
+            tick(100);
             expect(spy).toHaveBeenCalledTimes(1);
             document.dispatchEvent(controlEvent);
-            tick();
+            tick(100);
             expect(spy).toHaveBeenCalledTimes(2);
             flush();
         }));
@@ -342,11 +342,11 @@ describe(`sidebar`, () => {
             testInstance.collapsibleWidth = inputCollapseWidth;
             fixture.detectChanges();
             tick();
-            const sidebarCollapseElement = sidebarElement.querySelector('.sidebar-collapse');
+            const sidebarCollapseElement = sidebarElement.querySelector('.sidebar-collapse')!;
             dispatchMouseEvent(sidebarCollapseElement, 'click');
             fixture.detectChanges();
             expect(testInstance.isCollapsed).toEqual(true);
-            expect(sidebarDebugElement.nativeElement.style.width).toEqual(`${inputCollapseWidth  }px`);
+            expect(sidebarDebugElement.nativeElement.style.width).toEqual(`${inputCollapseWidth}px`);
             dispatchMouseEvent(sidebarCollapseElement, 'click');
             fixture.detectChanges();
             expect(testInstance.isCollapsed).toEqual(false);
@@ -360,7 +360,7 @@ describe(`sidebar`, () => {
             fixture.detectChanges();
             tick();
             expect(sidebarComponent.collapseTip()).toContain('收起');
-            const sidebarCollapseElement = sidebarElement.querySelector('.sidebar-collapse');
+            const sidebarCollapseElement = sidebarElement.querySelector('.sidebar-collapse')!;
             dispatchMouseEvent(sidebarCollapseElement, 'click');
             fixture.detectChanges();
             tick(200);
@@ -492,8 +492,8 @@ describe(`sidebar`, () => {
         });
 
         it(`should get correct custom sidebar template`, () => {
-            const sidebarHeaderTitle = sidebarHeaderElement.querySelector(`.title`);
-            const sidebarHeaderOperation = sidebarHeaderElement.querySelector('.operation');
+            const sidebarHeaderTitle = sidebarHeaderElement.querySelector(`.title`)!;
+            const sidebarHeaderOperation = sidebarHeaderElement.querySelector('.operation')!;
 
             expect(sidebarHeaderTitle).toBeTruthy();
             expect(sidebarHeaderOperation).toBeTruthy();

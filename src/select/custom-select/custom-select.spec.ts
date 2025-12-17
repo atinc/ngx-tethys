@@ -2549,6 +2549,7 @@ describe('ThyCustomSelect', () => {
 
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
+            fixture.detectChanges();
             flush();
             fixture.detectChanges();
             tick(100);
