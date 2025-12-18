@@ -54,6 +54,7 @@ const sharpMatcherRegx = /#([^#]+)$/;
         }
         <ng-template #content>
             <div
+                #wrapper
                 class="thy-anchor-wrapper"
                 [ngClass]="{ 'thy-anchor-wrapper-horizontal': thyDirection() === 'horizontal' }"
                 [ngStyle]="wrapperStyle()">
@@ -112,6 +113,11 @@ export class ThyAnchor implements IThyAnchorComponent, OnDestroy, AfterViewInit 
     readonly thyDirection = input<'vertical' | 'horizontal'>('vertical');
 
     /**
+     * 是否禁用容器滚动
+     */
+    readonly thyDisabledContainerScroll = input(false, { transform: coerceBooleanProperty });
+
+    /**
      * 点击项触发
      */
     readonly thyClick = output<ThyAnchorLink>();
@@ -137,13 +143,15 @@ export class ThyAnchor implements IThyAnchorComponent, OnDestroy, AfterViewInit 
         );
     });
 
-    private links: ThyAnchorLink[] = [];
+    public links: ThyAnchorLink[] = [];
 
     private animating = false;
 
     private destroy$ = new Subject<void>();
 
     private handleScrollTimeoutID: any = -1;
+
+    private wrapper = viewChild.required<ElementRef<HTMLDivElement>>('wrapper');
 
     registerLink(link: ThyAnchorLink): void {
         this.links.push(link);
@@ -185,6 +193,9 @@ export class ThyAnchor implements IThyAnchorComponent, OnDestroy, AfterViewInit 
 
     private registerScrollEvent(): void {
         if (!this.platform.isBrowser) {
+            return;
+        }
+        if (this.thyDisabledContainerScroll()) {
             return;
         }
         this.destroy$.next();
@@ -241,20 +252,45 @@ export class ThyAnchor implements IThyAnchorComponent, OnDestroy, AfterViewInit 
         });
     }
 
-    private handleActive(linkComponent: ThyAnchorLink): void {
+    public handleActive(linkComponent: ThyAnchorLink): void {
         this.clearActive();
         linkComponent.setActive();
         const linkNode = linkComponent.getLinkTitleElement();
         const horizontalAnchor = this.thyDirection() === 'horizontal';
 
         const ink = this.ink();
-        ink.nativeElement.style.top = horizontalAnchor ? '' : `${linkNode.offsetTop}px`;
-        ink.nativeElement.style.height = horizontalAnchor ? '' : `${linkNode.clientHeight}px`;
-        ink.nativeElement.style.left = horizontalAnchor ? `${linkNode.offsetLeft}px` : '';
-        ink.nativeElement.style.width = horizontalAnchor ? `${linkNode.clientWidth}px` : '';
+        const linkOffset = {
+            top: linkNode.offsetTop,
+            left: linkNode.offsetLeft,
+            height: linkNode.clientHeight,
+            width: linkNode.clientWidth
+        };
+        ink.nativeElement.style.top = horizontalAnchor ? '' : `${linkOffset.top}px`;
+        ink.nativeElement.style.height = horizontalAnchor ? '' : `${linkOffset.height}px`;
+        ink.nativeElement.style.left = horizontalAnchor ? `${linkOffset.left}px` : '';
+        ink.nativeElement.style.width = horizontalAnchor ? `${linkOffset.width}px` : '';
         this.visible = true;
         this.setVisible();
+        this.linkVisible(linkOffset, horizontalAnchor);
         this.thyScroll.emit(linkComponent);
+    }
+
+    private linkVisible(linkOffset: { top: number; left: number; height: number; width: number }, horizontalAnchor: boolean): void {
+        const wrapper = this.wrapper()?.nativeElement;
+        if (!wrapper) {
+            return;
+        }
+        const scrollTo = horizontalAnchor ? linkOffset.left : linkOffset.top;
+        const scrollPos = horizontalAnchor ? wrapper.scrollLeft : wrapper.scrollTop;
+        const wrapperSize = horizontalAnchor ? wrapper.offsetWidth : wrapper.offsetHeight;
+        const linkSize = horizontalAnchor ? linkOffset.width : linkOffset.height;
+        if (scrollTo < scrollPos || scrollTo + linkSize > scrollPos + wrapperSize) {
+            if (horizontalAnchor) {
+                wrapper.scrollLeft = scrollTo;
+            } else {
+                wrapper.scrollTop = scrollTo;
+            }
+        }
     }
 
     private setVisible(): void {
@@ -271,20 +307,22 @@ export class ThyAnchor implements IThyAnchorComponent, OnDestroy, AfterViewInit 
     }
 
     handleScrollTo(linkComponent: ThyAnchorLink): void {
-        const container: HTMLElement =
-            this.container() instanceof HTMLElement ? (this.container() as HTMLElement) : (this.document as unknown as HTMLElement);
-        const linkElement: HTMLElement = container.querySelector(linkComponent.thyHref());
-        if (!linkElement) {
-            return;
-        }
+        if (!this.thyDisabledContainerScroll()) {
+            const container: HTMLElement =
+                this.container() instanceof HTMLElement ? (this.container() as HTMLElement) : (this.document as unknown as HTMLElement);
+            const linkElement: HTMLElement = container.querySelector(linkComponent.thyHref());
+            if (!linkElement) {
+                return;
+            }
 
-        this.animating = true;
-        const containerScrollTop = this.scrollService.getScroll(this.container());
-        const elementOffsetTop = getOffset(linkElement, this.container()).top;
-        const targetScrollTop = containerScrollTop + elementOffsetTop - (this.thyOffsetTop() || 0);
-        this.scrollService.scrollTo(this.container(), targetScrollTop, undefined, () => {
-            this.animating = false;
-        });
+            this.animating = true;
+            const containerScrollTop = this.scrollService.getScroll(this.container());
+            const elementOffsetTop = getOffset(linkElement, this.container()).top;
+            const targetScrollTop = containerScrollTop + elementOffsetTop - (this.thyOffsetTop() || 0);
+            this.scrollService.scrollTo(this.container(), targetScrollTop, undefined, () => {
+                this.animating = false;
+            });
+        }
         this.handleActive(linkComponent);
         this.thyClick.emit(linkComponent);
     }
