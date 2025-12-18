@@ -198,12 +198,58 @@ describe('thy-anchor', () => {
             });
         });
     });
+
+    describe('vertical anchor', () => {
+        let fixture: ComponentFixture<TestAnchorComponent>;
+        let debugElement: DebugElement;
+        let component: ThyAnchor;
+        let scrollService: ThyScrollService;
+        const id = 'components-anchor-demo-basic';
+
+        beforeEach(() => {
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
+
+            fixture = TestBed.createComponent(TestAnchorComponent);
+            component = fixture.componentInstance.thyAnchorComponent();
+            debugElement = fixture.debugElement;
+            scrollService = TestBed.inject(ThyScrollService);
+            fixture.componentInstance.thyDirection = 'vertical';
+            fixture.detectChanges();
+        });
+
+        it('should not scroll container when clicked with thyDisabledContainerScroll is true', fakeAsync(() => {
+            fixture.componentInstance.thyDisabledContainerScroll = true;
+            fixture.detectChanges();
+            const spy = spyOn(scrollService, 'scrollTo');
+            const staticLink: HTMLElement = debugElement.query(By.css(`[href="#${id}"]`)).nativeElement;
+            dispatchFakeEvent(staticLink, 'click');
+            fixture.detectChanges();
+            tick(2000);
+            expect(spy).not.toHaveBeenCalled();
+        }));
+
+        it('should scroll wrapper to follow active link', () => {
+            const wrapper = debugElement.query(By.css('.thy-anchor-wrapper')).nativeElement;
+            wrapper.style.width = '100px';
+            wrapper.style.height = '50px';
+            wrapper.style.overflow = 'auto';
+            const nextWindowLink = component.links.find(k => k.thyHref() === '#components-anchor-demo-static');
+            component.handleActive(nextWindowLink);
+
+            expect(wrapper.scrollTop).toBeGreaterThan(50);
+        });
+    });
 });
 
 @Component({
     template: `
         <div class="demo-card">
-            <thy-anchor #anchor [thyDirection]="thyDirection" [thyOffsetTop]="thyOffsetTop">
+            <thy-anchor
+                #anchor
+                [thyDirection]="thyDirection"
+                [thyOffsetTop]="thyOffsetTop"
+                [thyDisabledContainerScroll]="thyDisabledContainerScroll">
                 <thy-anchor-link thyHref="#will-not-found-id" thyTitle="Basic demo"></thy-anchor-link>
                 <thy-anchor-link thyHref="#components-anchor-demo-basic" thyTitle="Basic demo"></thy-anchor-link>
                 <thy-anchor-link thyHref="#components-anchor-demo-static" thyTitle="Static demo"></thy-anchor-link>
@@ -250,6 +296,8 @@ class TestAnchorComponent implements OnInit {
     thyDirection = 'vertical';
 
     showChildren = true;
+
+    thyDisabledContainerScroll = false;
 
     ngOnInit(): void {
         for (let index = 0; index < 20; index++) {
