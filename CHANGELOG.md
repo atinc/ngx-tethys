@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [20.0.1-0](https://github.com/atinc/ngx-tethys/compare/20.0.0...20.0.1-0) (2025-12-18)
+
+
+### Features
+
+* **anchor:** add thyDisabledContainerScroll to support disabling the scrolling container jump, and keep the link activation within the visible range #TINFR-3243 ([#3643](https://github.com/atinc/ngx-tethys/issues/3643)) ([039d6fd](https://github.com/atinc/ngx-tethys/commit/039d6fdc19c6e41a9fbb62e40700b677a9c79045)), closes [#TINFR-3243](https://github.com/atinc/ngx-tethys/issues/TINFR-3243)
+
+
+
 # [20.0.0](https://github.com/atinc/ngx-tethys/compare/20.0.0-next.3...20.0.0) (2025-11-26)
 
 
