@@ -1103,7 +1103,6 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             this.selectedValues.set([...selectedValues]);
         } else {
             this.selectedValues.set([value]);
-            this.close();
         }
 
         const option = options.find(option => option.thyValue() === value);
@@ -1116,6 +1115,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         this.emitModelValueChange();
         if (!this.isMultiple()) {
             this.onTouchedFn();
+            this.close();
         }
     }
 
