@@ -1,3 +1,5 @@
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import {
     ThyDateChangeEvent,
     ThyDatePicker,
@@ -8,10 +10,8 @@ import {
     ThyRangePickerDirective,
     ThyShortcutPreset
 } from 'ngx-tethys/date-picker';
-import { Component, OnInit } from '@angular/core';
-import { addWeeks, startOfDay, startOfWeek, TinyDate } from 'ngx-tethys/util';
-import { FormsModule } from '@angular/forms';
 import { ThyPropertyOperation } from 'ngx-tethys/property-operation';
+import { addWeeks, startOfDay, startOfWeek, TinyDate } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-range-picker-shortcut-example',
@@ -31,8 +31,8 @@ export class ThyDatePickerShortcutExampleComponent implements OnInit {
     date = { date: new TinyDate().getTime(), with_time: 0 };
     minDate = new TinyDate('2023-05-30')?.nativeDate;
     maxDate = new TinyDate('2023-06-03')?.nativeDate;
-    customShortcut: ThyShortcutPreset[];
-    shortcutDatePresets: ThyShortcutPreset[];
+    customShortcut!: ThyShortcutPreset[];
+    shortcutDatePresets!: ThyShortcutPreset[];
     constructor() {}
 
     ngOnInit() {

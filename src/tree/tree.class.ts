@@ -91,12 +91,12 @@ export interface IThyTreeService {
     selectedNode: ThyTreeNode;
     flattenTreeNodes: Signal<ThyTreeNode[]>;
     treeNodes: ThyTreeNode[];
-    statusChange$: Subject<ThyTreeFormatEmitEvent>;
+    statusChange$: Subject<ThyTreeFormatEmitEvent> | null;
     initializeTreeNodes: (rootNodes: ThyTreeNodeData[]) => void;
     syncFlattenTreeNodes: () => void;
     setCheckStateResolve: (resolve: (node: ThyTreeNode) => ThyTreeNodeCheckState) => void;
     resetSortedTreeNodes: (treeNodes: ThyTreeNode[], parent?: ThyTreeNode) => void;
-    getTreeNode: (key: string | number) => ThyTreeNode;
+    getTreeNode: (key: string | number) => ThyTreeNode | undefined;
     getExpandedNodes: () => ThyTreeNode[];
     getCheckedNodes: () => ThyTreeNode[];
     deleteTreeNode: (node: ThyTreeNode) => void;
@@ -114,7 +114,7 @@ export class ThyTreeNode<T = any> {
 
     children: ThyTreeNode[];
 
-    parentNode: ThyTreeNode;
+    parentNode?: ThyTreeNode | null;
 
     level = 0;
 
@@ -130,17 +130,18 @@ export class ThyTreeNode<T = any> {
 
     itemClass?: string[];
 
-    private readonly service: IThyTreeService;
+    private readonly service: IThyTreeService | undefined;
 
-    get treeService(): IThyTreeService {
+    get treeService(): IThyTreeService | undefined {
         if (this.service) {
             return this.service;
         } else if (this.parentNode) {
             return this.parentNode.treeService;
         }
+        return ;
     }
 
-    constructor(node: ThyTreeNodeData, parent: ThyTreeNode = null, service?: IThyTreeService) {
+    constructor(node: ThyTreeNodeData, parent: ThyTreeNode | null = null, service?: IThyTreeService) {
         this.title = node.title;
         this.key = node.key;
         this.children = [];
@@ -189,23 +190,23 @@ export class ThyTreeNode<T = any> {
 
     public setExpanded(expanded: boolean, propagate = false) {
         this._setExpanded(expanded, propagate);
-        this.treeService.syncFlattenTreeNodes();
+        this.treeService?.syncFlattenTreeNodes();
     }
 
     public setLoading(loading: boolean): void {
         this.isLoading = loading;
-        this.treeService.syncFlattenTreeNodes();
+        this.treeService?.syncFlattenTreeNodes();
     }
 
     public setChecked(checked: boolean, propagateUp = true, propagateDown = true) {
-        this.treeService.setNodeChecked(this, checked, propagateUp, propagateDown);
+        this.treeService?.setNodeChecked(this, checked, propagateUp, propagateDown);
     }
 
     public syncNodeCheckState() {
-        this.treeService.syncNodeCheckState(this);
+        this.treeService?.syncNodeCheckState(this);
     }
 
-    public getParentNode(): ThyTreeNode {
+    public getParentNode(): ThyTreeNode | null | undefined {
         return this.parentNode;
     }
 
@@ -225,7 +226,7 @@ export class ThyTreeNode<T = any> {
 
         this.origin.children = this.getChildren().map(n => n.origin);
         this.setLoading(false);
-        this.treeService.statusChange$.next({
+        this.treeService?.statusChange$?.next({
             eventName: 'addChildren',
             node: this
         });

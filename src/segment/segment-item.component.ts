@@ -64,7 +64,7 @@ export class ThySegmentItem implements IThySegmentItemComponent {
         const ngZone = this.ngZone;
 
         ngZone.runOutsideAngular(() =>
-            fromEvent(elementRef.nativeElement, 'click')
+            fromEvent<Event>(elementRef.nativeElement, 'click')
                 .pipe(takeUntilDestroyed(this.destroyRef))
                 .subscribe((event: Event) => {
                     if (
@@ -74,7 +74,7 @@ export class ThySegmentItem implements IThySegmentItemComponent {
                         this.parent.selectedItem !== this
                     ) {
                         ngZone.run(() => {
-                            this.parent.selectedItem.unselect();
+                            this.parent.selectedItem!.unselect();
                             this.parent.changeSelectedItem(this, event);
                         });
                     }

@@ -100,7 +100,7 @@ export class DateTable extends CalendarTable {
                     isDisabled: false,
                     isToday: false,
                     title: title,
-                    dateCellRender: valueFunctionProp(this.cellRender(), date),
+                    dateCellRender: valueFunctionProp(this.cellRender()!, date),
                     content: `${date.getDate()}`,
                     onClick: () => this.chooseDate(date),
                     onMouseEnter: () => this.dayHover.emit(date)
@@ -125,7 +125,7 @@ export class DateTable extends CalendarTable {
                     if (date.isSameDay(endSelected)) {
                         row.isActive = true;
                     }
-                } else if (date.isSameDay(this.value())) {
+                } else if (date.isSameDay(this.value()!)) {
                     row.isActive = true;
                 }
 
@@ -158,7 +158,7 @@ export class DateTable extends CalendarTable {
             cell.isEndSingle = !startSelected && !!endSelected;
             cell.isInRange = startSelected?.isBeforeDay(date) && date.isBeforeDay(endSelected);
         } else {
-            cell.isSelected = date.isSameDay(this.value());
+            cell.isSelected = date.isSameDay(this.value()!);
         }
 
         const activeDate = this.activeDate();
@@ -173,11 +173,11 @@ export class DateTable extends CalendarTable {
         const prefixCls = this.prefixCls();
         return {
             [`${prefixCls}-cell`]: true,
-            [`${prefixCls}-today`]: cell.isToday,
-            [`${prefixCls}-last-month-cell`]: cell.isLastMonthCell,
-            [`${prefixCls}-next-month-btn-day`]: cell.isNextMonthCell,
-            [`${prefixCls}-selected-day`]: cell.isSelected,
-            [`${prefixCls}-disabled-cell`]: cell.isDisabled,
+            [`${prefixCls}-today`]: !!cell.isToday,
+            [`${prefixCls}-last-month-cell`]: !!cell.isLastMonthCell,
+            [`${prefixCls}-next-month-btn-day`]: !!cell.isNextMonthCell,
+            [`${prefixCls}-selected-day`]: !!cell.isSelected,
+            [`${prefixCls}-disabled-cell`]: !!cell.isDisabled,
             [`${prefixCls}-selected-start-date`]: !!cell.isSelectedStartDate,
             [`${prefixCls}-selected-end-date`]: !!cell.isSelectedEndDate,
             [`${prefixCls}-in-range-cell`]: !!cell.isInRange

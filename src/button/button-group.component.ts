@@ -63,7 +63,7 @@ export class ThyButtonGroup {
         if (type) {
             classNames.push(`btn-group-${type}`);
         }
-        if (buttonGroupSizeMap[size]) {
+        if (size && buttonGroupSizeMap[size]) {
             classNames = classNames.concat(...buttonGroupSizeMap[size]);
         }
         this.hostRenderer.updateClass(classNames);

@@ -12,7 +12,7 @@ const THEME_CACHE_KEY = 'docgeni-theme';
 export class ThyThemeSwitchExampleComponent implements OnInit {
     activeIndex: number = 0;
 
-    theme: ThyTheme;
+    theme!: ThyTheme;
 
     themes = [ThyTheme.light, ThyTheme.dark, ThyTheme.system];
 

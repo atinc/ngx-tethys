@@ -62,7 +62,7 @@ export class YearTable extends CalendarTable {
                     isSelected: yearNum === (value && value.getYear()),
                     isSameDecade: yearNum >= startYear && yearNum <= endYear,
                     classMap: {},
-                    onClick: () => this.chooseYear(cell.value?.getFullYear()),
+                    onClick: () => this.chooseYear(cell.value!.getFullYear()!),
                     onMouseEnter: () => {}
                 };
                 this.addCellProperty(cell, year);
@@ -89,7 +89,7 @@ export class YearTable extends CalendarTable {
             cell.isStartSingle = startSelected && !endSelected;
             cell.isEndSingle = !startSelected && !!endSelected;
             cell.isInRange = startSelected?.isBeforeYear(year) && year?.isBeforeYear(endSelected);
-        } else if (year.isSameYear(this.value())) {
+        } else if (year.isSameYear(this.value()!)) {
             cell.isSelected = true;
         }
         cell.classMap = this.getClassMap(cell);
@@ -104,9 +104,9 @@ export class YearTable extends CalendarTable {
         const prefixCls = this.prefixCls();
         return {
             [`${prefixCls}-year-panel-cell`]: true,
-            [`${prefixCls}-year-panel-selected-cell`]: cell.isSelected,
-            [`${prefixCls}-year-panel-cell-disabled`]: cell.isDisabled,
-            [`${prefixCls}-year-panel-cell-in-view`]: cell.isSameDecade,
+            [`${prefixCls}-year-panel-selected-cell`]: !!cell.isSelected,
+            [`${prefixCls}-year-panel-cell-disabled`]: !!cell.isDisabled,
+            [`${prefixCls}-year-panel-cell-in-view`]: !!cell.isSameDecade,
             [`${prefixCls}-in-range-cell`]: !!cell.isInRange
         };
     }

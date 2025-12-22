@@ -11,7 +11,7 @@ import { mimeTypeConvert } from './util';
 export class FileSelectBaseDirective {
     public elementRef: ElementRef = inject(ElementRef);
 
-    public defaultConfig: ThyUploadConfig = inject(THY_UPLOAD_DEFAULT_OPTIONS, { optional: true });
+    public defaultConfig: ThyUploadConfig = inject(THY_UPLOAD_DEFAULT_OPTIONS);
 
     readonly thySizeThreshold = input(this.defaultConfig.sizeThreshold, {
         transform: (inputValue: string | number) => {
@@ -35,8 +35,8 @@ export class FileSelectBaseDirective {
     /**
      * 指定文件后缀类型（MIME_Map），例如".xls,xlsx"，"[".doc",".docx"]"
      */
-    thyAcceptType = input(mimeTypeConvert(this.defaultConfig.acceptType), {
-        transform: (inputValue: Array<string> | string) => {
+    thyAcceptType = input(mimeTypeConvert(this.defaultConfig.acceptType!), {
+        transform: (inputValue: string[] | string) => {
             return mimeTypeConvert(inputValue);
         }
     });
@@ -44,7 +44,7 @@ export class FileSelectBaseDirective {
     constructor() {}
 
     handleSizeExceeds(event: Event, files: File[]) {
-        let sizeExceedsFiles = files.filter(item => item.size / 1024 > this.thySizeThreshold());
+        const sizeExceedsFiles = files.filter(item => item.size / 1024 > this.thySizeThreshold()!);
         if (sizeExceedsFiles.length > 0) {
             const sizeExceedContext = {
                 files: files,
@@ -52,14 +52,14 @@ export class FileSelectBaseDirective {
                 nativeEvent: event,
                 sizeThreshold: this.thySizeThreshold()
             };
-            return this.thySizeExceedsHandler()(sizeExceedContext);
+            return this.thySizeExceedsHandler()!(sizeExceedContext);
         }
         return files;
     }
 
     selectFiles(event: Event, files: File[], eventEmitter: OutputEmitterRef<ThyFileSelectEvent>) {
         let successFiles: File[] | void = files;
-        if (this.thySizeThreshold() && this.thySizeThreshold() > 0) {
+        if (this.thySizeThreshold() && this.thySizeThreshold()! > 0) {
             successFiles = this.handleSizeExceeds(event, files);
         }
         if (successFiles) {

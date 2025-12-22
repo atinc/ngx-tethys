@@ -31,12 +31,12 @@ export class ThyImageDirective implements IThyImageDirective, OnInit, AfterViewI
     /**
      * 预览图片地址
      */
-    readonly thyPreviewSrc = input<string>();
+    readonly thyPreviewSrc = input<string | undefined>('');
 
     /**
      * 图片原图地址
      */
-    readonly thyOriginSrc = input<string>();
+    readonly thyOriginSrc = input<string | undefined>('');
 
     /**
      * 图片附加信息，包含 { name: string, size?: string | number; }
@@ -58,7 +58,7 @@ export class ThyImageDirective implements IThyImageDirective, OnInit, AfterViewI
         return !this.thyDisablePreview();
     }
 
-    private parentGroup: IThyImageGroupComponent;
+    private parentGroup: IThyImageGroupComponent | null = null;
 
     constructor() {
         effect(() => {
@@ -90,13 +90,13 @@ export class ThyImageDirective implements IThyImageDirective, OnInit, AfterViewI
 
     addParentImage() {
         setTimeout(() => {
-            const parentElement: HTMLElement = this.parentGroup.element.nativeElement;
+            const parentElement: HTMLElement = this.parentGroup?.element?.nativeElement;
             const images = parentElement.querySelectorAll('img[thyImage]');
             const index = Array.prototype.indexOf.call(images, this.elementRef.nativeElement);
             if (index >= 0) {
-                this.parentGroup.addImage(this, index);
+                this.parentGroup?.addImage(this as IThyImageDirective, index);
             } else {
-                this.parentGroup.addImage(this, this.parentGroup.images.length);
+                this.parentGroup?.addImage(this as IThyImageDirective, this.parentGroup?.images?.length);
             }
         });
     }
@@ -108,10 +108,10 @@ export class ThyImageDirective implements IThyImageDirective, OnInit, AfterViewI
         if (this.parentGroup) {
             const previewAbleImages = this.parentGroup.images.filter(e => e.previewable);
             const previewImages = previewAbleImages.map(e => ({
-                src: e.thyPreviewSrc() || e.thySrc(),
+                src: (e.thyPreviewSrc() || e.thySrc())!,
                 ...e.thyImageMeta(),
                 origin: {
-                    src: e.thyOriginSrc()
+                    src: e.thyOriginSrc()!
                 }
             }));
             const startIndex = previewAbleImages.findIndex(el => this === el);
@@ -122,10 +122,10 @@ export class ThyImageDirective implements IThyImageDirective, OnInit, AfterViewI
         } else {
             const previewImages = [
                 {
-                    src: this.thyPreviewSrc() || this.thySrc(),
+                    src: (this.thyPreviewSrc() || this.thySrc())!,
                     ...this.thyImageMeta(),
                     origin: {
-                        src: this.thyOriginSrc()
+                        src: (this.thyOriginSrc())!
                     }
                 }
             ];

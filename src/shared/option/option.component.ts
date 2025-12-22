@@ -1,25 +1,6 @@
-import {
-    Component,
-    TemplateRef,
-    ChangeDetectionStrategy,
-    HostBinding,
-    HostListener,
-    ElementRef,
-    ChangeDetectorRef,
-    OnDestroy,
-    inject,
-    input,
-    viewChild,
-    WritableSignal,
-    signal,
-    output,
-    Input
-} from '@angular/core';
-import { Highlightable } from '@angular/cdk/a11y';
-import { SelectOptionBase } from './select-option-base';
-import { ENTER, SPACE, coerceBooleanProperty, hasModifierKey } from 'ngx-tethys/util';
-import { THY_OPTION_PARENT_COMPONENT } from './option.token';
-import { ThyIcon } from 'ngx-tethys/icon';
+import { Component, input, TemplateRef, ChangeDetectionStrategy, viewChild, inject, output, signal } from '@angular/core';
+import { ThySelectOptionGroup } from './group/option-group.component';
+import { SafeAny } from 'ngx-tethys/types';
 
 export class ThyOptionSelectionChangeEvent {
     constructor(
@@ -28,162 +9,68 @@ export class ThyOptionSelectionChangeEvent {
     ) {}
 }
 
-export class ThyOptionVisibleChangeEvent {
-    option: ThyOption;
-}
-
 /**
- * @private
- * @order 20
+ * 选项组件
+ * @name thy-option
  */
 @Component({
     selector: 'thy-option',
-    templateUrl: './option.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [ThyIcon],
-    host: {
-        class: 'thy-option-item',
-        '[class.disabled]': 'thyDisabled()',
-        '[class.hidden]': 'hidden()',
-        '[attr.tabindex]': `tabIndex`,
-        '[class.active]': 'selected()'
-    }
+    template: `
+        <ng-template>
+            <ng-content></ng-content>
+        </ng-template>
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ThyOption extends SelectOptionBase implements OnDestroy, Highlightable {
-    element = inject<ElementRef<HTMLElement>>(ElementRef);
-    parent = inject(THY_OPTION_PARENT_COMPONENT, { optional: true })!;
-    private cdr = inject(ChangeDetectorRef);
+export class ThyOption {
+    /**
+     * 选项的值，具有唯一性
+     */
+    readonly thyValue = input<SafeAny>();
 
-    // 继承至 SelectOptionBase，无法修改为 Signal
-    @Input() thyValue: any;
+    /**
+     * 选项的原始值
+     */
+    readonly thyRawValue = input<SafeAny>();
 
-    @Input() thyRawValue: any;
+    /**
+     * 选项的文本
+     */
+    readonly thyLabelText = input<string>();
 
-    @Input() thyLabelText: string;
-
+    /**
+     * 是否显示自定义模板
+     */
     readonly thyShowOptionCustom = input<boolean>();
 
+    /**
+     * 搜索关键字
+     */
     readonly thySearchKey = input<string>();
 
-    readonly template = viewChild(TemplateRef);
+    /**
+     * 是否禁用
+     */
+    readonly thyDisabled = input<boolean>();
 
-    readonly thyDisabled = input(false, { transform: coerceBooleanProperty });
+    /**
+     * 是否选中，会跟随 ThyOptionSelectionChangeEvent 抛出去
+     */
+    readonly selected = signal(false);
 
-    readonly hidden: WritableSignal<boolean> = signal(false);
-
-    // 继承至 Highlightable，无法修改为 Signal
-    get disabled(): boolean {
-        return this.hidden() || this.thyDisabled();
-    }
-
-    get tabIndex(): string {
-        return this.disabled ? '-1' : '0';
-    }
-
-    readonly selected: WritableSignal<boolean> = signal(false);
-
+    /**
+     * 选项被选中时的回调
+     */
     readonly selectionChange = output<ThyOptionSelectionChangeEvent>();
 
-    readonly visibleChange = output<ThyOptionVisibleChangeEvent>();
+    /**
+     * 模板
+     */
+    readonly template = viewChild<TemplateRef<SafeAny>>(TemplateRef);
 
-    constructor() {
-        super();
+    private readonly optionGroupComponent = inject(ThySelectOptionGroup, { optional: true });
+
+    get groupLabel() {
+        return this.optionGroupComponent?.thyGroupLabel() || '';
     }
-
-    getHostElement(): HTMLElement {
-        return this.element.nativeElement;
-    }
-
-    @HostListener('click', ['$event'])
-    onClick(event: Event) {
-        this.selectViaInteraction();
-    }
-
-    @HostListener('keydown', ['$event'])
-    handleKeydown(event: KeyboardEvent): void {
-        if ((event.keyCode === ENTER || event.keyCode === SPACE) && !hasModifierKey(event)) {
-            this.selectViaInteraction();
-            event.preventDefault();
-        }
-    }
-
-    selectViaInteraction(): void {
-        if (!this.disabled) {
-            const selected = this.parent.isMultiple ? !this.selected() : true;
-            this.selected.set(selected);
-            this.cdr.markForCheck();
-            this.emitSelectionChangeEvent(true);
-        }
-    }
-
-    select(event?: Event): void {
-        if (!this.disabled) {
-            if (!this.selected()) {
-                this.selected.set(true);
-                this.emitSelectionChangeEvent();
-                this.cdr.markForCheck();
-            }
-        }
-    }
-
-    deselect(): void {
-        if (this.selected() || this.disabled) {
-            this.selected.set(false);
-            this.emitSelectionChangeEvent();
-            this.cdr.markForCheck();
-        }
-    }
-
-    hideOption() {
-        if (!this.hidden()) {
-            this.hidden.set(true);
-            this.visibleChange.emit({ option: this });
-            this.cdr.markForCheck();
-        }
-    }
-
-    showOption() {
-        if (this.hidden()) {
-            this.hidden.set(false);
-            this.visibleChange.emit({ option: this });
-            this.cdr.markForCheck();
-        }
-    }
-
-    matchSearchText(searchText: string): boolean {
-        const thySearchKey = this.thySearchKey();
-        if (thySearchKey) {
-            if (thySearchKey.toLowerCase().indexOf(searchText.toLowerCase()) >= 0) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            if (this.thyLabelText.toLowerCase().indexOf(searchText.toLowerCase()) >= 0) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-    }
-
-    setActiveStyles(): void {
-        this.getHostElement().classList.add('hover');
-        this.cdr.markForCheck();
-    }
-
-    setInactiveStyles(): void {
-        this.getHostElement().classList.remove('hover');
-        this.cdr.markForCheck();
-    }
-
-    getLabel(): string {
-        return '';
-    }
-
-    private emitSelectionChangeEvent(isUserInput = false): void {
-        this.selectionChange.emit(new ThyOptionSelectionChangeEvent(this, isUserInput));
-    }
-
-    ngOnDestroy() {}
 }

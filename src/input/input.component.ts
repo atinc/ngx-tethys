@@ -84,7 +84,7 @@ export class ThyInput implements ControlValueAccessor, OnInit {
     /**
      * 输入 Label 文本
      */
-    readonly thyLabelText = input<string>(undefined);
+    readonly thyLabelText = input<string>();
 
     /**
      * 是否只读
@@ -111,7 +111,7 @@ export class ThyInput implements ControlValueAccessor, OnInit {
      */
     readonly prependTemplate = contentChild<TemplateRef<any>>('prepend');
 
-    public type = signal<string>(undefined);
+    public type = signal<string | undefined>(undefined);
 
     public value = signal('');
 
@@ -175,7 +175,7 @@ export class ThyInput implements ControlValueAccessor, OnInit {
         this.blur.emit(event);
     }
 
-    isPassword(value: string) {
+    isPassword(value?: string) {
         return value === password;
     }
 

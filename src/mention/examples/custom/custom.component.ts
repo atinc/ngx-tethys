@@ -38,7 +38,7 @@ const mockMessages = [
 export class ThyMentionCustomExampleComponent implements OnInit {
     value = `Custom insert transform and search, using # to relate task, quick reply using /`;
 
-    mentions: Mention<any>[];
+    mentions!: Mention<any>[];
 
     popoverConfig = {
         panelClass: 'mention-popover-panel'
@@ -56,14 +56,14 @@ export class ThyMentionCustomExampleComponent implements OnInit {
                 },
                 search: (term, items) => {
                     if (term) {
-                        return items.filter(item => {
+                        return (items || []).filter(item => {
                             return (
                                 item.identifier.toLowerCase().includes(term.toLowerCase()) ||
                                 item.name.toLowerCase().includes(term.toLowerCase())
                             );
                         });
                     } else {
-                        return items;
+                        return items!;
                     }
                 }
             },

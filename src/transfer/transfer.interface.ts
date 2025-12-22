@@ -30,7 +30,7 @@ export interface ThyTransferItem {
      */
     direction?: Direction;
 
-    order?: number;
+    order?: number | null;
 
     disabled?: boolean;
 

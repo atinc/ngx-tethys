@@ -9,8 +9,12 @@ export function ensureInBounds(value: number, boundValue: number): number {
 }
 
 export function setCompatibleStyle(element: HTMLElement, key: string, value: string) {
+    // @ts-ignore
     element.style[key] = value;
+    // @ts-ignore
     element.style[`-webkit-${key}`] = value;
+    // @ts-ignore
     element.style[`-moz-${key}`] = value;
+    // @ts-ignore
     element.style[`-ms-${key}`] = value;
 }

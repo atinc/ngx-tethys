@@ -516,7 +516,6 @@
   "ThyOptionModule": "shared",
   "ThyOptionGroup": "shared",
   "ThyOptionSelectionChangeEvent": "shared",
-  "ThyOptionVisibleChangeEvent": "shared",
   "ThyOption": "shared",
   "IThyOptionParent": "shared",
   "IThyOptionGroup": "shared",

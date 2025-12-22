@@ -15,11 +15,11 @@ import { provideHttpClient } from '@angular/common/http';
 registerLocaleData(zh);
 
 describe('ThyRangePickerDirective', () => {
-    let fixture: ComponentFixture<ThyTestRangePickerComponent>;
-    let fixtureInstance: ThyTestRangePickerComponent;
-    let debugElement: DebugElement;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let fixture!: ComponentFixture<ThyTestRangePickerComponent>;
+    let fixtureInstance!: ThyTestRangePickerComponent;
+    let debugElement!: DebugElement;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -216,11 +216,11 @@ describe('ThyRangePickerDirective', () => {
     imports: [ThyPropertyOperationModule, ThyDatePickerModule, FormsModule]
 })
 class ThyTestRangePickerComponent {
-    modelValue: ThyDateRangeEntry;
-    thyShowShortcut: boolean;
+    modelValue!: ThyDateRangeEntry;
+    thyShowShortcut!: boolean;
     thyShortcutPosition: ThyShortcutPosition = 'left';
-    thyShortcutPresets: CompatiblePresets;
-    mode: string;
+    thyShortcutPresets!: CompatiblePresets;
+    mode!: string;
     modelValueChange(): void {}
     thyOpenChange(): void {}
     thyOnCalendarChange(): void {}

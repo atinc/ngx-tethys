@@ -24,7 +24,7 @@ interface GlyphCategory {
 export class ThyIconAllExampleComponent implements OnInit {
     private http = inject(HttpClient);
 
-    glyphs: GlyphCategory[];
+    glyphs!: GlyphCategory[];
 
     ngOnInit() {
         this.http.get<GlyphCategory[]>(`assets/icons/glyphs.json`).subscribe(data => {

@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [20.0.2](https://github.com/atinc/ngx-tethys/compare/20.0.1...20.0.2) (2025-12-17)
+
+
+### Bug Fixes
+
+* **select:** fix custom template render after clear keywords and add thySearchKey example ([#3639](https://github.com/atinc/ngx-tethys/issues/3639)) ([01c25fd](https://github.com/atinc/ngx-tethys/commit/01c25fdd1ebf49c972c0b04c6498481c1ee79768))
+* **select:** fix filteredOptionsMap because value can be of any type ([#3637](https://github.com/atinc/ngx-tethys/issues/3637)) ([422b633](https://github.com/atinc/ngx-tethys/commit/422b6332e502214cecd2dd58d93017ace7611715))
+* **select:** fix scroll select in popover the popover closed #TINFR-3176 ([#3640](https://github.com/atinc/ngx-tethys/issues/3640)) ([662393b](https://github.com/atinc/ngx-tethys/commit/662393b7edc97be3d40a1b4a292233a86e4c79e1)), closes [#TINFR-3176](https://github.com/atinc/ngx-tethys/issues/TINFR-3176)
+
+
+### Features
+
+* enable strict ([5df7550](https://github.com/atinc/ngx-tethys/commit/5df75509df027c03ebd6f39567f269c7104e0de2))
+* **select:** support thyItemSize #TINFR-3170 ([#3635](https://github.com/atinc/ngx-tethys/issues/3635)) ([6936d02](https://github.com/atinc/ngx-tethys/commit/6936d020525a93f16f14e174633b489f5aa5c2bb)), closes [#TINFR-3170](https://github.com/atinc/ngx-tethys/issues/TINFR-3170)
+
+
+
+## [20.0.1](https://github.com/atinc/ngx-tethys/compare/20.0.0...20.0.1) (2025-12-05)
+
+
+### Performance Improvements
+
+* **select:** support virtual scroll for select to improve performance #TINFR-2694 ([#3575](https://github.com/atinc/ngx-tethys/issues/3575)) ([7ea3b43](https://github.com/atinc/ngx-tethys/commit/7ea3b43f5a82eb116023eeb7c91ec7926ab054ec)), closes [#TINFR-2694](https://github.com/atinc/ngx-tethys/issues/TINFR-2694)
+
+
+
 # [20.0.0](https://github.com/atinc/ngx-tethys/compare/20.0.0-next.3...20.0.0) (2025-11-26)
 
 

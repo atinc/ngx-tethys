@@ -61,18 +61,18 @@ class ThyDemoLayoutSidebarBasicComponent {
     isolated = false;
     isDivided = true;
     draggable = false;
-    dragMinWidth: number;
+    dragMinWidth!: number;
     dragMaxWidth = 100;
     collapsible = false;
     collapsibleWidth = 0;
-    thyTheme: ThySidebarTheme;
+    thyTheme!: ThySidebarTheme;
     isCollapsed = false;
-    dragWidth: number;
+    dragWidth!: number;
     sidebarDirection: ThySidebarDirection = 'left';
 
     @ViewChild('customTpl', { read: TemplateRef, static: true }) customTpl: TemplateRef<unknown> | undefined;
 
-    triggerTpl: TemplateRef<any> | undefined | null;
+    triggerTpl!: TemplateRef<any> | undefined | null;
 
     collapsedChange(isCollapsed: boolean) {
         this.isCollapsed = isCollapsed;
@@ -124,9 +124,9 @@ class ThyDemoLayoutCustomSidebarComponent {
 })
 class ThyDemoLayoutSidebarDirectiveComponent {
     direction = 'right';
-    theme: ThySidebarTheme;
+    theme!: ThySidebarTheme;
     isDivided = true;
-    width: number | string;
+    width!: number | string;
     isolated = false;
     isSidebarHeaderDivided = true;
 }
@@ -142,15 +142,15 @@ describe(`sidebar`, () => {
     });
 
     describe('basic', () => {
-        let fixture: ComponentFixture<ThyDemoLayoutSidebarBasicComponent>;
-        let testInstance: ThyDemoLayoutSidebarBasicComponent;
-        let layoutDebugElement: DebugElement;
-        let layoutElement: HTMLElement;
-        let sidebarDebugElement: DebugElement;
-        let sidebarElement: HTMLElement;
-        let sidebarComponent: ThySidebar;
-        let sidebarHeaderDebugElement: DebugElement;
-        let sidebarHeaderElement: HTMLElement;
+        let fixture!: ComponentFixture<ThyDemoLayoutSidebarBasicComponent>;
+        let testInstance!: ThyDemoLayoutSidebarBasicComponent;
+        let layoutDebugElement!: DebugElement;
+        let layoutElement!: HTMLElement;
+        let sidebarDebugElement!: DebugElement;
+        let sidebarElement!: HTMLElement;
+        let sidebarComponent!: ThySidebar;
+        let sidebarHeaderDebugElement!: DebugElement;
+        let sidebarHeaderElement!: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyDemoLayoutSidebarBasicComponent);
@@ -324,13 +324,13 @@ describe(`sidebar`, () => {
             testInstance.collapsible = true;
             fixture.detectChanges();
             const spy = spyOn(fixture.componentInstance, 'collapsedChange');
-            const metaEvent = createKeyboardEvent('keydown', null, '/', { meta: true });
-            const controlEvent = createKeyboardEvent('keydown', null, '/', { control: true });
+            const metaEvent = createKeyboardEvent('keydown', undefined, '/', { meta: true });
+            const controlEvent = createKeyboardEvent('keydown', undefined, '/', { control: true });
             document.dispatchEvent(metaEvent);
-            tick();
+            tick(100);
             expect(spy).toHaveBeenCalledTimes(1);
             document.dispatchEvent(controlEvent);
-            tick();
+            tick(100);
             expect(spy).toHaveBeenCalledTimes(2);
             flush();
         }));
@@ -342,11 +342,11 @@ describe(`sidebar`, () => {
             testInstance.collapsibleWidth = inputCollapseWidth;
             fixture.detectChanges();
             tick();
-            const sidebarCollapseElement = sidebarElement.querySelector('.sidebar-collapse');
+            const sidebarCollapseElement = sidebarElement.querySelector('.sidebar-collapse')!;
             dispatchMouseEvent(sidebarCollapseElement, 'click');
             fixture.detectChanges();
             expect(testInstance.isCollapsed).toEqual(true);
-            expect(sidebarDebugElement.nativeElement.style.width).toEqual(inputCollapseWidth + 'px');
+            expect(sidebarDebugElement.nativeElement.style.width).toEqual(`${inputCollapseWidth}px`);
             dispatchMouseEvent(sidebarCollapseElement, 'click');
             fixture.detectChanges();
             expect(testInstance.isCollapsed).toEqual(false);
@@ -360,7 +360,7 @@ describe(`sidebar`, () => {
             fixture.detectChanges();
             tick();
             expect(sidebarComponent.collapseTip()).toContain('收起');
-            const sidebarCollapseElement = sidebarElement.querySelector('.sidebar-collapse');
+            const sidebarCollapseElement = sidebarElement.querySelector('.sidebar-collapse')!;
             dispatchMouseEvent(sidebarCollapseElement, 'click');
             fixture.detectChanges();
             tick(200);
@@ -465,13 +465,13 @@ describe(`sidebar`, () => {
     });
 
     describe('custom-sidebar', () => {
-        let fixture: ComponentFixture<ThyDemoLayoutCustomSidebarComponent>;
-        let layoutDebugElement: DebugElement;
-        let layoutElement: HTMLElement;
-        let sidebarDebugElement: DebugElement;
-        let sidebarElement: HTMLElement;
-        let sidebarHeaderDebugElement: DebugElement;
-        let sidebarHeaderElement: HTMLElement;
+        let fixture!: ComponentFixture<ThyDemoLayoutCustomSidebarComponent>;
+        let layoutDebugElement!: DebugElement;
+        let layoutElement!: HTMLElement;
+        let sidebarDebugElement!: DebugElement;
+        let sidebarElement!: HTMLElement;
+        let sidebarHeaderDebugElement!: DebugElement;
+        let sidebarHeaderElement!: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyDemoLayoutCustomSidebarComponent);
@@ -492,8 +492,8 @@ describe(`sidebar`, () => {
         });
 
         it(`should get correct custom sidebar template`, () => {
-            const sidebarHeaderTitle = sidebarHeaderElement.querySelector(`.title`);
-            const sidebarHeaderOperation = sidebarHeaderElement.querySelector('.operation');
+            const sidebarHeaderTitle = sidebarHeaderElement.querySelector(`.title`)!;
+            const sidebarHeaderOperation = sidebarHeaderElement.querySelector('.operation')!;
 
             expect(sidebarHeaderTitle).toBeTruthy();
             expect(sidebarHeaderOperation).toBeTruthy();
@@ -504,11 +504,11 @@ describe(`sidebar`, () => {
     });
 
     describe('directive', () => {
-        let fixture: ComponentFixture<ThyDemoLayoutSidebarDirectiveComponent>;
-        let testInstance: ThyDemoLayoutSidebarDirectiveComponent;
-        let layoutElement: HTMLElement;
-        let sidebarElement: HTMLElement;
-        let sidebarHeaderElement: HTMLElement;
+        let fixture!: ComponentFixture<ThyDemoLayoutSidebarDirectiveComponent>;
+        let testInstance!: ThyDemoLayoutSidebarDirectiveComponent;
+        let layoutElement!: HTMLElement;
+        let sidebarElement!: HTMLElement;
+        let sidebarHeaderElement!: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyDemoLayoutSidebarDirectiveComponent);

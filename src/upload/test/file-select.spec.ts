@@ -22,12 +22,12 @@ import { createFile } from './utils';
     imports: [ThyFileSelect]
 })
 class FileSelectBasicComponent {
-    multiple: boolean;
+    multiple!: boolean;
     acceptType = '';
     sizeThreshold = 1;
     acceptFolder = false;
-    uploaderFileResult: Observable<ThyUploadResponse>;
-    exceedsFiles: File[];
+    uploaderFileResult!: Observable<ThyUploadResponse>;
+    exceedsFiles!: File[];
 
     selectFiles(event: { files: File[] }) {}
 
@@ -39,12 +39,12 @@ class FileSelectBasicComponent {
 }
 
 describe('ThyFileSelect', () => {
-    let fixture: ComponentFixture<FileSelectBasicComponent>;
-    let testComponent: FileSelectBasicComponent;
-    let fileSelectDebugElement: DebugElement;
-    let fileSelectComponent: ThyFileSelect;
-    let inputElement: HTMLInputElement;
-    let dataTransfer: DataTransfer;
+    let fixture!: ComponentFixture<FileSelectBasicComponent>;
+    let testComponent!: FileSelectBasicComponent;
+    let fileSelectDebugElement!: DebugElement;
+    let fileSelectComponent!: ThyFileSelect;
+    let inputElement!: HTMLInputElement;
+    let dataTransfer!: DataTransfer;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -159,11 +159,11 @@ class FileSelectStaticInputComponent {
 }
 
 describe('ThyFileSelectStaticInput', () => {
-    let fixture: ComponentFixture<FileSelectStaticInputComponent>;
-    let testComponent: FileSelectStaticInputComponent;
-    let fileSelectDebugElement: DebugElement;
-    let inputElement: HTMLInputElement;
-    let dataTransfer: DataTransfer;
+    let fixture!: ComponentFixture<FileSelectStaticInputComponent>;
+    let testComponent!: FileSelectStaticInputComponent;
+    let fileSelectDebugElement!: DebugElement;
+    let inputElement!: HTMLInputElement;
+    let dataTransfer!: DataTransfer;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({

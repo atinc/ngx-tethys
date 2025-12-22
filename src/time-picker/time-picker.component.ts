@@ -61,7 +61,7 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
 
     readonly inputRef = viewChild<ElementRef<HTMLInputElement>>('pickerInput');
 
-    readonly overlayContainer = viewChild<ElementRef<HTMLElement>>('overlayContainer');
+    readonly overlayContainer = viewChild.required<ElementRef<HTMLElement>>('overlayContainer');
 
     /**
      * 输入框大小
@@ -157,17 +157,17 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
 
     readonly showText = model<string>('');
 
-    openState: boolean;
+    openState!: boolean;
 
-    value: Date = new TinyDate().setHms(0, 0, 0).nativeDate;
+    value: Date | null = new TinyDate().setHms(0, 0, 0).nativeDate;
 
-    originValue: Date;
+    originValue!: Date | null;
 
-    keepFocus: boolean;
+    keepFocus!: boolean;
 
     private isDisabledFirstChange = true;
 
-    onValueChangeFn: (val: number | Date) => void = () => void 0;
+    onValueChangeFn: (val: number | Date | null) => void = () => void 0;
 
     onTouchedFn: () => void = () => void 0;
 
@@ -282,7 +282,7 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
                 if (!this.validateCustomizeInput(this.showText())) {
                     this.setValue(this.originValue);
                 } else {
-                    this.showText.set(new TinyDate(this.value).format(this.thyFormat()));
+                    this.showText.set(new TinyDate(this.value!).format(this.thyFormat()));
                 }
             } else {
                 if (!this.thyAllowClear()) {
@@ -329,7 +329,7 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
         this.isDisabledFirstChange = false;
     }
 
-    private setValue(value: Date, formatText: boolean = true) {
+    private setValue(value: Date | null, formatText: boolean = true) {
         if (value && isValid(value)) {
             this.value = new TinyDate(value)?.nativeDate;
             if (formatText) {
@@ -342,7 +342,7 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
         this.cdr.markForCheck();
     }
 
-    private confirmValue(value: Date) {
+    private confirmValue(value: Date | null) {
         this.setValue(value);
         this.emitValue();
         this.cdr.markForCheck();
@@ -368,7 +368,7 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
                 const minute = formatter[1] || 0;
                 const second = formatter[2] || 0;
                 this.setValue(new TinyDate().setHms(+hour, +minute, +second).nativeDate, false);
-                this.originValue = new TinyDate(this.value)?.nativeDate;
+                this.originValue = new TinyDate(this.value!)?.nativeDate;
                 this.emitValue();
             }
         } else {
@@ -377,7 +377,7 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
                 this.setValue(null);
                 this.emitValue();
             } else {
-                this.value = new TinyDate(this.originValue)?.nativeDate;
+                this.value = new TinyDate(this.originValue!)?.nativeDate;
                 this.showText.set('');
                 this.cdr.markForCheck();
             }
@@ -385,7 +385,7 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
     }
 
     private validateCustomizeInput(value: string): boolean {
-        let valid: boolean = false;
+        let valid = false;
         if (value.length > this.thyFormat().length) {
             return valid;
         }

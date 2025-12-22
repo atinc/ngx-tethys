@@ -14,13 +14,13 @@ const dropPositionClass = {
 };
 
 export class DragRef<T = any> {
-    private rootElement: HTMLElement;
+    private rootElement!: HTMLElement;
 
-    private contentElement: HTMLElement;
+    private contentElement!: HTMLElement;
 
-    private target: HTMLElement;
+    private target!: HTMLElement;
 
-    private handles: IThyDragHandleDirective[];
+    private handles?: IThyDragHandleDirective[];
 
     private ngUnsubscribe$ = new Subject();
 
@@ -86,7 +86,7 @@ export class DragRef<T = any> {
     }
 
     private registerDragDropEvents() {
-        const events = {
+        const events: Record<string, Function> = {
             dragstart: this.dragStart,
             dragover: this.dragOver,
             dragend: this.dragEnd,
@@ -145,7 +145,7 @@ export class DragRef<T = any> {
         return {
             previousItem: previousItem,
             previousContainerItems,
-            previousIndex: isEmpty(previousContainerItems) ? -1 : previousContainerItems.indexOf(previousItem)
+            previousIndex: isEmpty(previousContainerItems) ? -1 : previousContainerItems?.indexOf(previousItem!)
         };
     }
 
@@ -165,7 +165,7 @@ export class DragRef<T = any> {
 
         const dropPosition = this.calcDropPosition(event);
         const previousEventData = this.getPreviousEventData();
-        if (previousEventData.previousIndex < 0) {
+        if (previousEventData.previousIndex! < 0) {
             return;
         }
         const dragOverEvent: ThyDragOverEvent<T> = {
@@ -193,7 +193,7 @@ export class DragRef<T = any> {
         event.stopPropagation();
         this.clearDragPositionClass();
         const previousEventData = this.getPreviousEventData();
-        if (previousEventData.previousIndex < 0) {
+        if (previousEventData.previousIndex! < 0) {
             return;
         }
         const dragDropEvent: ThyDragDropEvent<T> = {

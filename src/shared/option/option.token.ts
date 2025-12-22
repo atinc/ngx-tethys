@@ -2,10 +2,6 @@ import { ElementRef, InjectionToken, InputSignal } from '@angular/core';
 import { ThyListLayout } from '../shared.type';
 import { ThyBooleanInput } from 'ngx-tethys/util';
 
-export interface IThyOptionParentComponent {
-    isMultiple: boolean;
-}
-
 export interface IThyOptionGroupComponent {
     hidden: boolean;
 }
@@ -27,11 +23,6 @@ export interface IThyListOptionParentComponent {
     scrollIntoView(option: IThyOptionComponent): void;
     isSelected(option: IThyOptionComponent): boolean;
 }
-
-/**
- * Injection token used to provide the parent component to options.
- */
-export const THY_OPTION_PARENT_COMPONENT = new InjectionToken<IThyOptionParentComponent>('THY_OPTION_PARENT_COMPONENT');
 
 /**
  * Injection token used to provide the parent component to options.

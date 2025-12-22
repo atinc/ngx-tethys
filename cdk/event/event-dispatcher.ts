@@ -6,7 +6,7 @@ const DEFAULT_EVENT_TIME = 100;
 
 @Directive()
 export abstract class ThyEventDispatcher<T = Event> implements OnDestroy {
-    private _globalSubscription: Subscription = null;
+    private _globalSubscription: Subscription | null = null;
 
     private _event$ = new Subject<T>();
 
@@ -27,7 +27,7 @@ export abstract class ThyEventDispatcher<T = Event> implements OnDestroy {
         }
     }
 
-    get globalSubscription(): Subscription {
+    get globalSubscription(): Subscription | null {
         return this._globalSubscription;
     }
 

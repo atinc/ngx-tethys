@@ -1,4 +1,4 @@
-import { ThyTagSize } from 'ngx-tethys/tag';
+import { ThyTagSize, ThyTag } from 'ngx-tethys/tag';
 import { coerceArray, coerceBooleanProperty, isUndefinedOrNull } from 'ngx-tethys/util';
 
 import {
@@ -34,7 +34,6 @@ import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
 import { ThyGridModule } from 'ngx-tethys/grid';
 import { injectLocale, ThySharedLocale } from 'ngx-tethys/i18n';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { ThyTag } from 'ngx-tethys/tag';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { Observable, of, throttleTime } from 'rxjs';
 import { SelectOptionBase } from '../../option/select-option-base';
@@ -66,7 +65,7 @@ export class ThySelectControl implements OnInit, AfterViewInit {
 
     isComposing = signal(false);
 
-    searchInputControlClass: { [key: string]: boolean };
+    searchInputControlClass!: { [key: string]: boolean };
 
     private isFirstPanelOpenedChange = true;
 
@@ -87,7 +86,7 @@ export class ThySelectControl implements OnInit, AfterViewInit {
 
     readonly thyDisabled = input(false, { transform: coerceBooleanProperty });
 
-    readonly customDisplayTemplate = input<TemplateRef<any>>(undefined);
+    readonly customDisplayTemplate = input<TemplateRef<any>>();
 
     readonly thyAllowClear = input(false, { transform: coerceBooleanProperty });
 
@@ -132,7 +131,7 @@ export class ThySelectControl implements OnInit, AfterViewInit {
     isSelectedValue = computed(() => {
         return (
             (!this.thyIsMultiple() && !isUndefinedOrNull(this.thySelectedOptions())) ||
-            (this.thyIsMultiple() && (<SelectOptionBase[]>this.thySelectedOptions()).length > 0)
+            (this.thyIsMultiple() && (this.thySelectedOptions() as SelectOptionBase[]).length > 0)
         );
     });
 
@@ -280,7 +279,7 @@ export class ThySelectControl implements OnInit, AfterViewInit {
         });
     }
 
-    private resizeObserver(element: HTMLElement): Observable<ResizeObserverEntry[]> {
+    private resizeObserver(element: HTMLElement): Observable<ResizeObserverEntry[] | null> {
         return typeof ResizeObserver === 'undefined' || !ResizeObserver
             ? of(null)
             : new Observable(observer => {
@@ -297,7 +296,7 @@ export class ThySelectControl implements OnInit, AfterViewInit {
     private calculateVisibleTags() {
         if (!this.tagsContainer()?.nativeElement) return;
 
-        const containerWidth = this.tagsContainer().nativeElement.offsetWidth;
+        const containerWidth = this.tagsContainer()?.nativeElement.offsetWidth;
         if (containerWidth <= 0) return;
 
         const selectedOptions = coerceArray(this.thySelectedOptions());
@@ -328,11 +327,9 @@ export class ThySelectControl implements OnInit, AfterViewInit {
         let visibleCount = 0;
 
         Promise.resolve().then(() => {
-            const tagElements = this.tagsContainer().nativeElement.querySelectorAll('.choice-item.selected,.custom-choice-item');
+            const tagElements = this.tagsContainer()?.nativeElement.querySelectorAll('.choice-item.selected,.custom-choice-item');
             for (let i = 0; i < selectedOptions.length; i++) {
-                let tagWidth: number;
-
-                tagWidth = (tagElements[i]?.offsetWidth || 80) + TAG_GAP;
+                const tagWidth = (tagElements[i]?.offsetWidth || 80) + TAG_GAP;
 
                 if (totalWidth + tagWidth > availableWidth) {
                     break;

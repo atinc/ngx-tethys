@@ -32,10 +32,10 @@ export class ThyTreeService implements IThyTreeService, OnDestroy {
 
     public checkStateResolve: (node: ThyTreeNode) => ThyTreeNodeCheckState = checkStateResolve;
 
-    statusChange$ = new Subject<ThyTreeFormatEmitEvent>();
+    statusChange$: Subject<ThyTreeFormatEmitEvent> | null = new Subject<ThyTreeFormatEmitEvent>();
 
     constructor() {
-        this.statusChange$.pipe().subscribe(event => {
+        this.statusChange$!.pipe().subscribe(event => {
             this.syncFlattenTreeNodes();
             this.syncNodeCheckState(event.node);
         });
@@ -43,7 +43,7 @@ export class ThyTreeService implements IThyTreeService, OnDestroy {
 
     public initializeTreeNodes(rootNodes: ThyTreeNodeData[]) {
         this.originTreeNodes = rootNodes || [];
-        this.treeNodes = (rootNodes || []).map(node => new ThyTreeNode(node, null, this));
+        this.treeNodes = (rootNodes || []).map(node => new ThyTreeNode(node, undefined, this));
     }
 
     public syncFlattenTreeNodes() {
@@ -78,7 +78,7 @@ export class ThyTreeService implements IThyTreeService, OnDestroy {
         });
     }
 
-    public getTreeNode(key: string | number): ThyTreeNode {
+    public getTreeNode(key: string | number): ThyTreeNode | undefined{
         const allNodes = this.getParallelTreeNodes(this.treeNodes);
         return allNodes.find(n => n.key === key);
     }
@@ -136,7 +136,7 @@ export class ThyTreeService implements IThyTreeService, OnDestroy {
     public expandTreeNodes(keyOrKeys: string | number | (string | number)[] | true) {
         const keys = keyOrKeys === true ? [] : coerceArray(keyOrKeys);
         const needExpandNodes = this.getParallelTreeNodes(this.treeNodes).filter(node => {
-            return keys.indexOf(node.key) > -1 || keyOrKeys === true;
+            return keys.indexOf(node.key!) > -1 || keyOrKeys === true;
         });
         needExpandNodes.forEach(node => {
             node.setExpanded(true);
@@ -173,7 +173,7 @@ export class ThyTreeService implements IThyTreeService, OnDestroy {
             }
         }
         if (propagateUp) {
-            this._syncNodeCheckState(node.parentNode);
+            this._syncNodeCheckState(node.parentNode!);
         }
     }
 
@@ -185,12 +185,12 @@ export class ThyTreeService implements IThyTreeService, OnDestroy {
     private _syncNodeCheckState(node: ThyTreeNode) {
         if (node) {
             node.isChecked = this.checkStateResolve(node);
-            this._syncNodeCheckState(node.parentNode);
+            this._syncNodeCheckState(node.parentNode!);
         }
     }
 
     ngOnDestroy(): void {
-        this.statusChange$.complete();
+        this.statusChange$!.complete();
         this.statusChange$ = null;
     }
 }

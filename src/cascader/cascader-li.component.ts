@@ -15,7 +15,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    // eslint-disable-next-line @angular-eslint/component-selector
+     
     selector: '[thy-cascader-option]',
     templateUrl: './cascader-li.component.html',
     imports: [ThyFlexibleText, ThyCheckbox, ThyRadio, FormsModule, ThyStopPropagationDirective, NgTemplateOutlet],
@@ -41,9 +41,9 @@ export class ThyCascaderOptionComponent implements OnInit {
 
     readonly selected = input(false, { transform: coerceBooleanProperty });
 
-    readonly disabled: Signal<boolean> = computed(() => this.option().disabled);
+    readonly disabled: Signal<boolean> = computed(() => !!this.option()?.disabled);
 
-    readonly expand: Signal<boolean> = computed(() => this.option() && !this.option().isLeaf);
+    readonly expand: Signal<boolean> = computed(() => !!(this.option() && !this.option()!.isLeaf));
 
     readonly labelProperty = input<string>('label');
 

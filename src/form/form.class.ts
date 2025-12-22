@@ -53,8 +53,8 @@ export interface ThyControlValidationResult {
 
 export interface ThyValidateResult {
     valid: boolean;
-    invalidControls: ThyControlValidationResult[];
-    validControls: ThyControlValidationResult[];
+    invalidControls?: ThyControlValidationResult[];
+    validControls?: ThyControlValidationResult[];
 }
 
 export const THY_VALIDATOR_CONFIG = new InjectionToken<ThyFormValidatorGlobalConfig>('VALIDATION_CONFIG');

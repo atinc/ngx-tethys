@@ -8,10 +8,10 @@ import { ThyAnchorModule, ThyAnchor, ThyAnchorLink } from 'ngx-tethys/anchor';
 
 describe('thy-anchor', () => {
     describe('default', () => {
-        let fixture: ComponentFixture<TestAnchorComponent>;
-        let debugElement: DebugElement;
-        let component: ThyAnchor;
-        let scrollService: ThyScrollService;
+        let fixture!: ComponentFixture<TestAnchorComponent>;
+        let debugElement!: DebugElement;
+        let component!: ThyAnchor;
+        let scrollService!: ThyScrollService;
         const id = 'components-anchor-demo-basic';
 
         beforeEach(() => {
@@ -35,7 +35,7 @@ describe('thy-anchor', () => {
         }));
 
         it(`should do anything when thy-anchor-link's thyHref element is not found`, fakeAsync(() => {
-            let invalidId = 'will-not-found-id';
+            const invalidId = 'will-not-found-id';
             const beforeClickScrollTop = scrollService.getScroll();
             const staticLink: HTMLElement = debugElement.query(By.css(`[href="#${invalidId}"]`)).nativeElement;
             dispatchFakeEvent(staticLink, 'click');
@@ -70,8 +70,8 @@ describe('thy-anchor', () => {
     });
 
     describe('thyContainer', () => {
-        let fixture: ComponentFixture<TestContainerAnchorComponent>;
-        let debugElement: DebugElement;
+        let fixture!: ComponentFixture<TestContainerAnchorComponent>;
+        let debugElement!: DebugElement;
         const id = 'components-anchor-demo-basic';
         const containerClass = '.demo-card';
 
@@ -98,7 +98,7 @@ describe('thy-anchor', () => {
     });
 
     describe('thyAnchorLink', () => {
-        let fixture: ComponentFixture<TestThyAnchorLinkComponent>;
+        let fixture!: ComponentFixture<TestThyAnchorLinkComponent>;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -112,6 +112,7 @@ describe('thy-anchor', () => {
         it('should set link title', () => {
             const comp = fixture.componentInstance;
             const anchorLinkComponent = fixture.debugElement.query(By.directive(ThyAnchorLink)).componentInstance;
+            // @ts-ignore
             comp.title = 'Basic demo title';
             fixture.detectChanges();
             expect(anchorLinkComponent.title()).toEqual(comp.title);
@@ -119,10 +120,10 @@ describe('thy-anchor', () => {
     });
 
     describe('horizontal anchor', () => {
-        let fixture: ComponentFixture<TestAnchorComponent>;
-        let debugElement: DebugElement;
-        let component: ThyAnchor;
-        let scrollService: ThyScrollService;
+        let fixture!: ComponentFixture<TestAnchorComponent>;
+        let debugElement!: DebugElement;
+        let component!: ThyAnchor;
+        let scrollService!: ThyScrollService;
         const id = 'components-anchor-demo-basic';
 
         beforeEach(() => {
@@ -200,12 +201,58 @@ describe('thy-anchor', () => {
             });
         });
     });
+
+    describe('vertical anchor', () => {
+        let fixture: ComponentFixture<TestAnchorComponent>;
+        let debugElement: DebugElement;
+        let component: ThyAnchor;
+        let scrollService: ThyScrollService;
+        const id = 'components-anchor-demo-basic';
+
+        beforeEach(() => {
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
+
+            fixture = TestBed.createComponent(TestAnchorComponent);
+            component = fixture.componentInstance.thyAnchorComponent();
+            debugElement = fixture.debugElement;
+            scrollService = TestBed.inject(ThyScrollService);
+            fixture.componentInstance.thyDirection = 'vertical';
+            fixture.detectChanges();
+        });
+
+        it('should not scroll container when clicked with thyDisabledContainerScroll is true', fakeAsync(() => {
+            fixture.componentInstance.thyDisabledContainerScroll = true;
+            fixture.detectChanges();
+            const spy = spyOn(scrollService, 'scrollTo');
+            const staticLink: HTMLElement = debugElement.query(By.css(`[href="#${id}"]`)).nativeElement;
+            dispatchFakeEvent(staticLink, 'click');
+            fixture.detectChanges();
+            tick(2000);
+            expect(spy).not.toHaveBeenCalled();
+        }));
+
+        it('should scroll wrapper to follow active link', () => {
+            const wrapper = debugElement.query(By.css('.thy-anchor-wrapper')).nativeElement;
+            wrapper.style.width = '100px';
+            wrapper.style.height = '50px';
+            wrapper.style.overflow = 'auto';
+            const nextWindowLink = component.links.find(k => k.thyHref() === '#components-anchor-demo-static');
+            component.handleActive(nextWindowLink);
+
+            expect(wrapper.scrollTop).toBeGreaterThan(50);
+        });
+    });
 });
 
 @Component({
     template: `
         <div class="demo-card">
-            <thy-anchor #anchor [thyDirection]="thyDirection" [thyOffsetTop]="thyOffsetTop">
+            <thy-anchor
+                #anchor
+                [thyDirection]="thyDirection"
+                [thyOffsetTop]="thyOffsetTop"
+                [thyDisabledContainerScroll]="thyDisabledContainerScroll">
                 <thy-anchor-link thyHref="#will-not-found-id" thyTitle="Basic demo"></thy-anchor-link>
                 <thy-anchor-link thyHref="#components-anchor-demo-basic" thyTitle="Basic demo"></thy-anchor-link>
                 <thy-anchor-link thyHref="#components-anchor-demo-static" thyTitle="Static demo"></thy-anchor-link>
@@ -252,6 +299,8 @@ class TestAnchorComponent implements OnInit {
     thyDirection = 'vertical';
 
     showChildren = true;
+
+    thyDisabledContainerScroll = false;
 
     ngOnInit(): void {
         for (let index = 0; index < 20; index++) {
@@ -319,7 +368,7 @@ class TestThyAnchorLinkComponent implements OnInit {
 
     thyOffsetTop = 60;
 
-    title: string | TemplateRef<void>;
+    title: undefined | TemplateRef<void>;
 
     ngOnInit(): void {
         this.title = this.titleTemplate();

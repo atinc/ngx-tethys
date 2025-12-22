@@ -10,8 +10,7 @@
     [thyHasVoted]="has_voted"
     [thySize]="'sm'"
     [thyRound]="true"
-    (click)="toggleVote($event)"
-  ></thy-vote>
+    (click)="toggleVote($event)"></thy-vote>
   <thy-vote [thyVoteCount]="vote_count1" [thyHasVoted]="has_voted" [thyRound]="true" (click)="toggleVote($event)"></thy-vote>
 </div>
 
@@ -23,13 +22,11 @@
     [thyVoteCount]="vote_count"
     [thySize]="'sm'"
     [thyHasVoted]="has_voted"
-    (click)="toggleVote($event)"
-  ></span>
+    (click)="toggleVote($event)"></span>
   <span
     [thyVote]="'success'"
     [thyLayout]="'vertical'"
     [thyVoteCount]="vote_count"
     [thyHasVoted]="has_voted"
-    (click)="toggleVote($event)"
-  ></span>
+    (click)="toggleVote($event)"></span>
 </div>

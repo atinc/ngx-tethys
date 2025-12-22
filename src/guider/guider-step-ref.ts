@@ -19,15 +19,15 @@ export class ThyGuiderStepRef {
 
     private lastPointerContainer: any;
 
-    private lastTargetElement: Element;
+    private lastTargetElement?: Element;
 
-    private targetElementObserver: Subscription;
+    private targetElementObserver?: Subscription;
 
     private lastTipContainer: any;
 
-    private guiderRef: IThyGuiderRef;
+    private guiderRef!: IThyGuiderRef;
 
-    private lastPopoverRef: ThyPopoverRef<any>;
+    private lastPopoverRef?: ThyPopoverRef<any>;
 
     constructor(
         public step: ThyGuiderStep,
@@ -52,13 +52,13 @@ export class ThyGuiderStepRef {
     }
 
     private getTargetElement(step: ThyGuiderStep) {
-        let targetElement: HTMLElement;
+        let targetElement!: HTMLElement;
 
         if (step.target && !isPositionDataType(step.target)) {
             const target = [...coerceArray(step.target)];
 
             while (target.length && isUndefinedOrNull(targetElement)) {
-                targetElement = this.document.querySelector(target.shift());
+                targetElement = this.document.querySelector(target.shift()!)!;
             }
         } else {
             targetElement = this.guiderManager.getActiveTarget(step.key);
@@ -99,7 +99,7 @@ export class ThyGuiderStepRef {
     private getPointPosition(step: ThyGuiderStep, targetElement: Element): [number, number] {
         const targetElementClientRect = targetElement.getBoundingClientRect();
         const { width: targetElementWidth, height: targetElementHeight } = targetElementClientRect;
-        const pointOffset = step.pointOffset;
+        const pointOffset = step.pointOffset!;
         // 只通过 pointOffset 控制 point 的位置，默认在 target 的右下角，
         // offset 的基点也为默认位置
         return [targetElementWidth + pointOffset[0], targetElementHeight + pointOffset[1]];
@@ -113,8 +113,8 @@ export class ThyGuiderStepRef {
             this.addPointClass(currentPointContainer, this.guiderRef.config.pointClass);
         }
         this.renderer.setStyle(currentPointContainer, 'position', 'absolute');
-        this.renderer.setStyle(currentPointContainer, 'left', pointPosition[0] + 'px');
-        this.renderer.setStyle(currentPointContainer, 'top', pointPosition[1] + 'px');
+        this.renderer.setStyle(currentPointContainer, 'left', `${pointPosition[0]  }px`);
+        this.renderer.setStyle(currentPointContainer, 'top', `${pointPosition[1]  }px`);
         this.renderer.setStyle(currentPointContainer, 'transform', 'translate(-100%,-100%)');
 
         return currentPointContainer;
@@ -155,7 +155,8 @@ export class ThyGuiderStepRef {
 
     private tipWithoutTarget(step: ThyGuiderStep) {
         const position = this.getTipPosition(step);
-        this.lastPopoverRef = this.popover.open(this.guiderRef.config.hintComponent, {
+        this.lastPopoverRef = this.popover.open(this.guiderRef.config.hintComponent!, {
+            // @ts-ignore
             origin: null,
             originPosition: position,
             originActiveClass: '',
@@ -171,7 +172,7 @@ export class ThyGuiderStepRef {
         });
     }
 
-    private getTipPosition(step: ThyGuiderStep): { x: number; y: number } {
+    private getTipPosition(step: ThyGuiderStep): { x: number; y: number } | undefined {
         if (isPositionDataType(step.target)) {
             return step.target;
         }
@@ -215,7 +216,7 @@ export class ThyGuiderStepRef {
         if (hintOffset) {
             popoverConfig.offset = hintOffset;
         }
-        this.lastPopoverRef = this.popover.open(this.guiderRef.config.hintComponent, popoverConfig);
+        this.lastPopoverRef = this.popover.open(this.guiderRef.config.hintComponent!, popoverConfig);
     }
 
     private getTipOffset(step: ThyGuiderStep, pointPosition: [number, number], targetElement: Element): number {
@@ -226,19 +227,19 @@ export class ThyGuiderStepRef {
         const pointXAxisOffset = pointPosition[0];
         const pointYAxisOffset = pointPosition[1];
 
-        if (hintPlacement.startsWith('top')) {
+        if (hintPlacement?.startsWith('top')) {
             if (pointYAxisOffset < pointContainerSize) {
                 hintOffset = hintOffset + Math.abs(pointYAxisOffset) + pointContainerSize;
             }
-        } else if (hintPlacement.startsWith('bottom')) {
+        } else if (hintPlacement?.startsWith('bottom')) {
             if (pointYAxisOffset > targetElementHeight) {
                 hintOffset = hintOffset + (pointYAxisOffset - targetElementHeight) + 10; // 10 为空隙量
             }
-        } else if (hintPlacement.startsWith('left')) {
+        } else if (hintPlacement?.startsWith('left')) {
             if (pointXAxisOffset < 0) {
                 hintOffset = hintOffset + Math.abs(pointXAxisOffset) + pointContainerSize;
             }
-        } else if (hintPlacement.startsWith('right')) {
+        } else if (hintPlacement?.startsWith('right')) {
             if (pointXAxisOffset > targetElementWidth) {
                 hintOffset = hintOffset + (pointXAxisOffset - targetElementWidth) + 10; // 10 为空隙量
             }

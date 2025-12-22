@@ -8,7 +8,7 @@ import { ThySwitch } from 'ngx-tethys/switch';
     imports: [ThySwitch, FormsModule]
 })
 export class ThySwitchDisabledExampleComponent implements OnInit {
-    isChecked: Boolean = true;
+    isChecked: boolean = true;
 
     constructor() {}
 

@@ -14,8 +14,8 @@ export default {
                     dateCellRender: (date: Date) => {
                         const formattedDate = format(date, `yyyyMMdd`);
 
-                        let isWorkdays = workingDays.includes(formattedDate);
-                        let isHolidays = restDays.includes(formattedDate);
+                        const isWorkdays = workingDays.includes(formattedDate);
+                        const isHolidays = restDays.includes(formattedDate);
 
                         if (isWorkdays || isHolidays) {
                             const dateText = date.getDate();

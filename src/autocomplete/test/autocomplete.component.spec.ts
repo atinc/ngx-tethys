@@ -1,4 +1,4 @@
-import { ThyInputSearch } from 'ngx-tethys/input';
+import { ThyInputSearch , ThyInputModule } from 'ngx-tethys/input';
 import {
     bypassSanitizeProvider,
     dispatchFakeEvent,
@@ -14,7 +14,6 @@ import { Component, DebugElement, viewChild, viewChildren } from '@angular/core'
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyOptionModule, ThyOption } from 'ngx-tethys/shared';
 import { ThyAutocomplete, ThyAutocompleteTriggerDirective, ThyAutocompleteModule } from 'ngx-tethys/autocomplete';
 import { provideHttpClient } from '@angular/common/http';
@@ -49,7 +48,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 class BasicSelectComponent {
     openedSpy = jasmine.createSpy('opened event spy callback');
 
-    autoActiveFirstOption: boolean;
+    autoActiveFirstOption!: boolean;
 
     foods: any[] = [
         { value: 'steak-0', viewValue: 'Steak' },
@@ -62,8 +61,8 @@ class BasicSelectComponent {
         { value: null, viewValue: 'Sushi' }
     ];
 
-    readonly autocomplete = viewChild(ThyAutocomplete);
-    readonly autocompleteDirective = viewChild(ThyAutocompleteTriggerDirective);
+    readonly autocomplete = viewChild.required(ThyAutocomplete);
+    readonly autocompleteDirective = viewChild.required(ThyAutocompleteTriggerDirective);
     readonly options = viewChildren(ThyOption);
 
     opened() {
@@ -101,14 +100,13 @@ class InputSearchSelectComponent {
         { value: 'pizza-1', viewValue: 'Pizza' }
     ];
 
-    readonly autocomplete = viewChild(ThyAutocomplete);
+    readonly autocomplete = viewChild.required(ThyAutocomplete);
     readonly options = viewChildren(ThyOption);
 }
 
 describe('ThyAutocomplete', () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
-    let platform: Platform;
 
     function configureThyCustomSelectTestingModule(declarations: any[]) {
         TestBed.configureTestingModule({
@@ -118,7 +116,6 @@ describe('ThyAutocomplete', () => {
         inject([OverlayContainer, Platform], (oc: OverlayContainer, p: Platform) => {
             overlayContainer = oc;
             overlayContainerElement = oc.getContainerElement();
-            platform = p;
         })();
 
         injectDefaultSvgIconSet();
@@ -134,8 +131,8 @@ describe('ThyAutocomplete', () => {
         }));
 
         describe('panel', () => {
-            let fixture: ComponentFixture<BasicSelectComponent>;
-            let trigger: HTMLElement;
+            let fixture!: ComponentFixture<BasicSelectComponent>;
+            let trigger!: HTMLElement;
 
             beforeEach(fakeAsync(() => {
                 fixture = TestBed.createComponent(BasicSelectComponent);
@@ -216,9 +213,9 @@ describe('ThyAutocomplete', () => {
                 fixture.detectChanges();
                 tick(500);
                 const newActiveItem = autocompleteDirective.autocompleteComponent()?.keyManager?.activeItem;
-                expect(newActiveItem?.thyLabelText).toContain('Steak');
+                expect(newActiveItem?.thyLabelText()).toContain('Steak');
 
-                const selectViaInteractionSpy = spyOn(autocompleteDirective.activeOption(), 'selectViaInteraction');
+                const selectViaInteractionSpy = spyOn<any>(autocompleteDirective.activeOption(), 'selectViaInteraction');
                 const resetActiveItemSpy = spyOn<any>(autocompleteDirective, 'resetActiveItem');
                 dispatchKeyboardEvent(trigger, 'keydown', keycodes.ENTER);
                 fixture.detectChanges();
@@ -244,7 +241,7 @@ describe('ThyAutocomplete', () => {
                 fixture.detectChanges();
                 tick(500);
                 const newActiveItem = autocompleteDirective.autocompleteComponent()?.keyManager?.activeItem;
-                expect(newActiveItem?.thyLabelText).toContain('Pizza');
+                expect(newActiveItem?.thyLabelText()).toContain('Pizza');
             }));
 
             it('should openPanel be called when keydown DOWN_ARROW not focusin', fakeAsync(() => {
@@ -268,12 +265,11 @@ describe('ThyAutocomplete', () => {
                 expect(resetActiveItemSpy).toHaveBeenCalled();
             }));
 
-            it('should selectionModel be clear and deselect will be called when keydown focusin and UP_ARROW', fakeAsync(() => {
+            it('should select correct option when keydown focusin and UP_ARROW', fakeAsync(() => {
                 dispatchFakeEvent(trigger, 'focusin');
                 fixture.detectChanges();
                 tick(500);
 
-                const selectionModelSpy = spyOn(fixture.componentInstance.autocomplete().selectionModel, 'clear');
                 dispatchKeyboardEvent(trigger, 'keydown', keycodes.UP_ARROW);
                 fixture.detectChanges();
                 tick(500);
@@ -282,14 +278,14 @@ describe('ThyAutocomplete', () => {
                 fixture.detectChanges();
                 tick(500);
 
-                expect(selectionModelSpy).toHaveBeenCalled();
+                expect(overlayContainerElement.textContent).not.toContain('Sushi');
             }));
 
             it('should close the panel when option is clicked', fakeAsync(() => {
                 dispatchFakeEvent(trigger, 'focusin');
                 fixture.detectChanges();
                 tick(500);
-                const option = overlayContainerElement.querySelector('thy-option') as HTMLElement;
+                const option = overlayContainerElement.querySelector('thy-option-render') as HTMLElement;
                 option.click();
                 fixture.detectChanges();
                 flush();
@@ -306,7 +302,7 @@ describe('ThyAutocomplete', () => {
                 fixture.detectChanges();
                 tick(500);
                 expect(closedSpy).not.toHaveBeenCalled();
-                const option = overlayContainerElement.querySelector('thy-option') as HTMLElement;
+                const option = overlayContainerElement.querySelector('thy-option-render') as HTMLElement;
                 option.click();
                 fixture.detectChanges();
                 flush();
@@ -315,13 +311,12 @@ describe('ThyAutocomplete', () => {
         });
 
         describe('input-search', () => {
-            let fixture: ComponentFixture<InputSearchSelectComponent>;
-            let debugSearchElement: DebugElement;
+            let fixture!: ComponentFixture<InputSearchSelectComponent>;
+            let debugSearchElement!: DebugElement;
 
             beforeEach(fakeAsync(() => {
                 fixture = TestBed.createComponent(InputSearchSelectComponent);
                 debugSearchElement = fixture.debugElement.query(By.directive(ThyInputSearch));
-                fixture.componentInstance.autocomplete().isMultiple = true;
                 fixture.detectChanges();
                 tick(100);
             }));
@@ -330,7 +325,7 @@ describe('ThyAutocomplete', () => {
                 expect(fixture.componentInstance).toBeTruthy();
                 expect(fixture.componentInstance.autocomplete().dropDownClass).toEqual({
                     'thy-select-dropdown': true,
-                    'thy-select-dropdown-': true
+                    'thy-select-dropdown-single': true
                 });
             }));
 
@@ -338,7 +333,7 @@ describe('ThyAutocomplete', () => {
                 dispatchFakeEvent(debugSearchElement.nativeElement, 'focusin');
                 fixture.detectChanges();
                 tick(500);
-                const option = overlayContainerElement.querySelector('thy-option') as HTMLElement;
+                const option = overlayContainerElement.querySelector('thy-option-render') as HTMLElement;
                 option.click();
                 fixture.detectChanges();
                 flush();

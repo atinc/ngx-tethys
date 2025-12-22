@@ -34,7 +34,7 @@ class TestTabsBasicComponent {
     imports: [ThyTabsModule]
 })
 class TestTabsTypeComponent {
-    type: ThyTabsType;
+    type!: ThyTabsType;
 }
 
 @Component({
@@ -49,7 +49,7 @@ class TestTabsTypeComponent {
     imports: [ThyTabsModule]
 })
 class TestTabsSizeComponent {
-    size: ThyTabsSize;
+    size!: ThyTabsSize;
 }
 
 @Component({
@@ -95,7 +95,7 @@ class TestTabsExtraComponent {}
     imports: [ThyTabsModule]
 })
 class TestTabsPositionComponent {
-    position: ThyTabsPosition;
+    position!: ThyTabsPosition;
 }
 
 @Component({
@@ -174,15 +174,15 @@ class TestTabsDisabledComponent {
     imports: [ThyTabsModule]
 })
 class TestTabsAnimatedComponent {
-    @ViewChild('tabs', { static: true }) tabComponent: ElementRef<ThyTabs>;
+    @ViewChild('tabs', { static: true }) tabComponent!: ElementRef<ThyTabs>;
 }
 
 describe('tabs', () => {
     describe('basic', () => {
-        let fixture: ComponentFixture<TestTabsBasicComponent>;
-        let tabsDebugElement: DebugElement;
-        let tabsElement: HTMLElement;
-        let tabsInstance: ThyTabs;
+        let fixture!: ComponentFixture<TestTabsBasicComponent>;
+        let tabsDebugElement!: DebugElement;
+        let tabsElement!: HTMLElement;
+        let tabsInstance!: ThyTabs;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -212,7 +212,7 @@ describe('tabs', () => {
     });
 
     describe('thyType', () => {
-        let fixture: ComponentFixture<TestTabsTypeComponent>;
+        let fixture!: ComponentFixture<TestTabsTypeComponent>;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -235,7 +235,7 @@ describe('tabs', () => {
     });
 
     describe('thySize', () => {
-        let fixture: ComponentFixture<TestTabsSizeComponent>;
+        let fixture!: ComponentFixture<TestTabsSizeComponent>;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -258,7 +258,7 @@ describe('tabs', () => {
     });
 
     describe('custom title template', () => {
-        let fixture: ComponentFixture<TestTabsCustomTitleComponent>;
+        let fixture!: ComponentFixture<TestTabsCustomTitleComponent>;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -275,7 +275,7 @@ describe('tabs', () => {
     });
 
     describe('thyExtra', () => {
-        let fixture: ComponentFixture<TestTabsExtraComponent>;
+        let fixture!: ComponentFixture<TestTabsExtraComponent>;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -294,7 +294,7 @@ describe('tabs', () => {
     });
 
     describe('thyPosition', () => {
-        let fixture: ComponentFixture<TestTabsPositionComponent>;
+        let fixture!: ComponentFixture<TestTabsPositionComponent>;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -324,7 +324,7 @@ describe('tabs', () => {
     });
 
     describe('thyActiveTab', () => {
-        let fixture: ComponentFixture<TestTabsActiveComponent>;
+        let fixture!: ComponentFixture<TestTabsActiveComponent>;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -366,7 +366,7 @@ describe('tabs', () => {
     });
 
     describe('add tab dynamically', () => {
-        let fixture: ComponentFixture<TestTabsDynamicAddComponent>;
+        let fixture!: ComponentFixture<TestTabsDynamicAddComponent>;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -422,7 +422,7 @@ describe('tabs', () => {
     });
 
     describe('thyDisabled', () => {
-        let fixture: ComponentFixture<TestTabsDisabledComponent>;
+        let fixture!: ComponentFixture<TestTabsDisabledComponent>;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
@@ -446,7 +446,7 @@ describe('tabs', () => {
     });
 
     describe('thyAnimated', () => {
-        let fixture: ComponentFixture<TestTabsAnimatedComponent>;
+        let fixture!: ComponentFixture<TestTabsAnimatedComponent>;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});

@@ -23,7 +23,7 @@ const defaultValidatorConfig: ThyFormValidatorGlobalConfig = {
  */
 @Injectable()
 export class ThyFormValidatorLoader {
-    private config: ThyFormValidatorGlobalConfig = inject(THY_VALIDATOR_CONFIG, { optional: true });
+    private config: ThyFormValidatorGlobalConfig | null = inject(THY_VALIDATOR_CONFIG, { optional: true });
     private locale: Signal<ThyFormLocale> = injectLocale('form');
 
     private get globalValidationMessages() {
@@ -43,7 +43,7 @@ export class ThyFormValidatorLoader {
     }
 
     private getDefaultValidationMessage(key: string) {
-        if (this.config.globalValidationMessages && this.config.globalValidationMessages[key]) {
+        if (this.config?.globalValidationMessages && this.config.globalValidationMessages[key]) {
             return this.config.globalValidationMessages[key];
         } else {
             const messages = this.globalValidationMessages;
@@ -56,14 +56,14 @@ export class ThyFormValidatorLoader {
     }
 
     get validationMessages() {
-        return this.config.validationMessages;
+        return this.config?.validationMessages || {};
     }
 
     get validateOn() {
         if (!this.config?.validateOn) {
-            this.config.validateOn = 'submit';
+            this.config!.validateOn = 'submit';
         }
-        return this.config.validateOn;
+        return this.config?.validateOn;
     }
 
     isElementInInputGroup(element: HTMLElement) {
@@ -110,11 +110,11 @@ export class ThyFormValidatorLoader {
     }
 
     removeError(element: HTMLElement) {
-        const formControlElement = this.isElementInInputGroup(element) ? element.parentElement : element;
+        const formControlElement = this.isElementInInputGroup(element) ? element.parentElement! : element;
         formControlElement.classList.remove(INVALID_CLASS);
-        if (helpers.isFunction(this.config.removeElementError)) {
+        if (helpers.isFunction(this.config?.removeElementError)) {
             this.config.removeElementError(formControlElement);
-        } else if (this.config.showElementError) {
+        } else if (this.config?.showElementError) {
             this.defaultRemoveError(formControlElement);
         } else {
             // do nothings
@@ -122,11 +122,11 @@ export class ThyFormValidatorLoader {
     }
 
     showError(element: HTMLElement, errorMessages: string[]) {
-        const formControlElement = this.isElementInInputGroup(element) ? element.parentElement : element;
+        const formControlElement = this.isElementInInputGroup(element) ? element.parentElement! : element;
         formControlElement.classList.add(INVALID_CLASS);
-        if (helpers.isFunction(this.config.showElementError)) {
+        if (helpers.isFunction(this.config?.showElementError)) {
             this.config.showElementError(formControlElement, errorMessages);
-        } else if (this.config.showElementError) {
+        } else if (this.config?.showElementError) {
             this.defaultShowError(formControlElement, errorMessages);
         } else {
             // do nothings
@@ -134,10 +134,10 @@ export class ThyFormValidatorLoader {
     }
 
     addValidationMessages(messages: ThyFormValidationMessages) {
-        Object.assign(this.config.validationMessages, messages);
+        Object.assign(this.config!.validationMessages!, messages);
     }
 
     setGlobalValidationMessages(validationMessages: Dictionary<string>) {
-        this.config.globalValidationMessages = validationMessages;
+        this.config!.globalValidationMessages = validationMessages;
     }
 }

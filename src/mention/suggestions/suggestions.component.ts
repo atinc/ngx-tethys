@@ -41,7 +41,7 @@ export class ThyMentionSuggestions<TItem = MentionDefaultDataItem> implements On
         this.search$
             .pipe(
                 switchMap(query => {
-                    const data = this.mention().search(query.term, this.mention().data);
+                    const data = this.mention()!.search!(query.term, this.mention()?.data);
                     if (data instanceof Observable) {
                         this.loadingDone.set(false);
                         return (data as Observable<TItem[]>).pipe(debounceTime(this.debounce));
@@ -59,7 +59,7 @@ export class ThyMentionSuggestions<TItem = MentionDefaultDataItem> implements On
                 this.data.set(data || []);
 
                 if (this.popoverRef) {
-                    if (this.mention().autoClose && this.data().length === 0) {
+                    if (this.mention()?.autoClose && this.data().length === 0) {
                         this.popoverRef.close();
                     }
                     this.ngZone.onStable.pipe(take(1)).subscribe(() => {
@@ -70,8 +70,8 @@ export class ThyMentionSuggestions<TItem = MentionDefaultDataItem> implements On
     }
 
     ngOnInit(): void {
-        if (this.mention().popoverClass) {
-            this.elementRef.nativeElement.classList.add(this.mention().popoverClass);
+        if (this.mention()?.popoverClass) {
+            this.elementRef.nativeElement.classList.add(this.mention()!.popoverClass!);
         }
     }
 

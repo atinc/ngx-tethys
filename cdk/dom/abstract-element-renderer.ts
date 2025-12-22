@@ -3,7 +3,7 @@ import { Renderer2, inject, RendererStyleFlags2 } from '@angular/core';
 export abstract class AbstractElementRenderer {
     private renderer = inject(Renderer2);
 
-    protected abstract element: Element;
+    protected abstract element?: Element;
 
     private classNames: string[] = [];
 

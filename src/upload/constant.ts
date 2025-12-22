@@ -1,5 +1,5 @@
 // Multipurpose Internet Mail Extensions
-export const MIME_Map = {
+export const MIME_Map: Record<string, string> = {
     '.3gp': 'video/3gpp',
     '.apk': 'application/vnd.android.package-archive',
     '.asf': 'video/x-ms-asf',

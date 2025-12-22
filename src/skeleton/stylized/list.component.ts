@@ -67,7 +67,7 @@ export class ThySkeletonList {
     /**
      * 行数
      */
-    readonly thyRowCount = input<number | string>();
+    readonly thyRowCount = input.required<number | string>();
 
     readonly rows = computed(() => {
         return Array.from({ length: +this.thyRowCount() });

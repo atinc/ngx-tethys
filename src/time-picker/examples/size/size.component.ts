@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
     imports: [ThyTimePicker, ThyButtonGroup, ThyButton, NgClass, FormsModule]
 })
 export class ThyTimePickerSizeExampleComponent implements OnInit {
-    date: Date;
+    date!: Date;
 
     sizes = [
         {

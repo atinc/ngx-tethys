@@ -50,7 +50,7 @@ export class ThyAnchorLink implements IThyAnchorLinkComponent, OnInit, OnDestroy
         return this.thyTitle() instanceof TemplateRef ? null : (this.thyTitle() as string);
     });
 
-    readonly titleTemplate: Signal<TemplateRef<any>> = computed(() => {
+    readonly titleTemplate: Signal<TemplateRef<any> | null> = computed(() => {
         return this.thyTitle() instanceof TemplateRef ? (this.thyTitle() as TemplateRef<any>) : null;
     });
 

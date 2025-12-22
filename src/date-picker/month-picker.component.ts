@@ -25,12 +25,12 @@ import { ThyPicker } from './picker.component';
     imports: [ThyPicker, DatePopup]
 })
 export class ThyMonthPicker extends BasePicker {
-    protected element: ElementRef;
+    protected element!: ElementRef;
 
     /**
      * 展示的月份格式
      */
-    readonly thyFormat = model<string>('yyyy-MM');
+    readonly thyFormat = model<string | undefined>('yyyy-MM');
 
     private hostRenderer = useHostRenderer();
 

@@ -17,6 +17,7 @@ import {
 import { SafeAny } from 'ngx-tethys/types';
 
 function hasInput(componentRef: ComponentRef<unknown>, inputKey: string) {
+    // @ts-ignore
     return componentRef['_tNode'].inputs?.[inputKey];
 }
 
@@ -46,7 +47,7 @@ export class ThyViewOutletDirective {
      */
     readonly thyViewOutletContext = input<SafeAny>();
 
-    private keyValueDiffer: KeyValueDiffer<SafeAny, SafeAny>;
+    private keyValueDiffer?: KeyValueDiffer<SafeAny, SafeAny>;
 
     private readonly isViewOutletChanged = linkedSignal({
         source: () => this.thyViewOutlet(),

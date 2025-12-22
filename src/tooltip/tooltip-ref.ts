@@ -12,13 +12,13 @@ import { ThyTooltip } from './tooltip.component';
 import { ThyTooltipConfig } from './tooltip.config';
 
 export class ThyTooltipRef {
-    private overlayRef: OverlayRef;
+    private overlayRef!: OverlayRef;
 
-    private tooltipInstance: ThyTooltip;
+    private tooltipInstance: ThyTooltip | null = null;
 
     private scrollStrategy: ScrollStrategy;
 
-    private portal: ComponentPortal<ThyTooltip>;
+    private portal?: ComponentPortal<ThyTooltip>;
 
     private readonly dispose$ = new Subject<void>();
 
@@ -87,7 +87,7 @@ export class ThyTooltipRef {
     /** Updates the position of the current tooltip. */
     private updatePosition() {
         const position = this.overlayRef.getConfig().positionStrategy as FlexibleConnectedPositionStrategy;
-        const connectionPositions = getFlexiblePositions(this.config.placement, this.config.offset, 'thy-tooltip');
+        const connectionPositions = getFlexiblePositions(this.config.placement!, this.config.offset, 'thy-tooltip');
         position.withPositions(connectionPositions);
     }
 
@@ -101,7 +101,7 @@ export class ThyTooltipRef {
     show(content: ThyTooltipContent, delay?: number): void;
     show<T extends Record<SafeAny, SafeAny>>(content: ThyTooltipContent, data: T, delay?: number): void;
     show<T extends Record<SafeAny, SafeAny>>(content: ThyTooltipContent, dataOrDelay: T | number, delay?: number) {
-        if (!content || (this.isTooltipVisible() && !this.tooltipInstance.showTimeoutId && !this.tooltipInstance.hideTimeoutId)) {
+        if (!content || (this.isTooltipVisible() && !this.tooltipInstance?.showTimeoutId && !this.tooltipInstance?.hideTimeoutId)) {
             return;
         }
         let showDelay = null;
@@ -121,8 +121,8 @@ export class ThyTooltipRef {
             .pipe(takeUntil(this.dispose$))
             .subscribe(() => this.detach());
         this.updateTooltipContent(content, initialState);
-        this.setTooltipClass(this.config.contentClass);
-        this.tooltipInstance.show(!isUndefinedOrNull(showDelay) ? showDelay : this.config.showDelay);
+        this.setTooltipClass(this.config.contentClass!);
+        this.tooltipInstance.show(!isUndefinedOrNull(showDelay) ? showDelay : this.config.showDelay!);
     }
 
     hide(delay: number = 0): void {
@@ -130,7 +130,7 @@ export class ThyTooltipRef {
             this.overlayRef['_scrollStrategy'].disable();
         }
         if (this.tooltipInstance) {
-            this.tooltipInstance.hide(!isUndefinedOrNull(delay) ? delay : this.config.hideDelay);
+            this.tooltipInstance.hide(!isUndefinedOrNull(delay) ? delay : this.config.hideDelay!);
         }
     }
 

@@ -33,7 +33,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     selector: '[thyPopover]'
 })
 export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnInit, OnDestroy {
-    elementRef: ElementRef;
+    elementRef!: ElementRef;
     private popover = inject(ThyPopover);
     private viewContainerRef = inject(ViewContainerRef);
     private cdr = inject(ChangeDetectorRef);
@@ -64,7 +64,7 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
     /**
      * 弹出悬浮层的配置
      */
-    readonly thyConfig = input<ThyPopoverConfig>(undefined);
+    readonly thyConfig = input<ThyPopoverConfig | undefined>(undefined);
 
     /**
      * 显示延迟时间
@@ -89,7 +89,7 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
         this.disabled = value;
     }
 
-    private popoverRef: ThyPopoverRef<any>;
+    private popoverRef?: ThyPopoverRef<any>;
 
     constructor() {
         const elementRef = inject(ElementRef);
@@ -126,16 +126,16 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
             },
             this.thyConfig()
         );
-        this.popoverRef = this.popover.open(this.content(), config);
+        this.popoverRef = this.popover.open(this.content()!, config);
 
-        this.popoverRef.afterClosed().subscribe(() => {
+        this.popoverRef!.afterClosed().subscribe(() => {
             this.popoverOpened = false;
         });
 
-        return this.popoverRef.getOverlayRef();
+        return this.popoverRef!.getOverlayRef();
     }
 
-    show(delay: number = this.showDelay) {
+    show(delay: number = this.showDelay!) {
         if (this.hideTimeoutId) {
             clearTimeout(this.hideTimeoutId);
             this.hideTimeoutId = null;
@@ -159,7 +159,7 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
         }, delay);
     }
 
-    hide(delay: number = this.hideDelay) {
+    hide(delay: number = this.hideDelay!) {
         if (this.showTimeoutId) {
             clearTimeout(this.showTimeoutId);
             this.showTimeoutId = null;
