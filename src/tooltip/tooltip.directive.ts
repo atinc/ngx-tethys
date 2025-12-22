@@ -1,10 +1,8 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
 import {
-    AfterViewInit,
     Directive,
     ElementRef,
-    Injector,
     NgZone,
     OnDestroy,
     OnInit,
@@ -28,10 +26,9 @@ import { ThyTooltipService } from './tooltip.service';
  * @name thyTooltip
  */
 @Directive({ selector: '[thyTooltip],[thy-tooltip]', exportAs: 'thyTooltip' })
-export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnInit, AfterViewInit, OnDestroy {
+export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnInit, OnDestroy {
     private viewContainerRef = inject(ViewContainerRef);
     private thyTooltipService = inject(ThyTooltipService);
-    private injector = inject(Injector);
 
     touchendHideDelay = 1500;
 
@@ -177,6 +174,7 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
         });
 
         afterNextRender(() => {
+            this.viewInitialized.set(true);
             const tooltipClass = this.thyTooltipClass();
             if (this.tooltipRef) {
                 this.tooltipRef.setTooltipClass(tooltipClass!);
@@ -185,10 +183,6 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
     }
 
     ngOnInit() {}
-
-    ngAfterViewInit() {
-        this.viewInitialized.set(true);
-    }
 
     private setupEventsIfNeeded(): void {
         if (this.disabled || !this.content() || !this.viewInitialized()) {
