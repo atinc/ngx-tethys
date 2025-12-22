@@ -2,7 +2,7 @@
 
 <div class="select-container">
   @for (item of listOfSelect; track item.id) {
-    <thy-select>
+    <thy-select [thyVirtualScroll]="true">
       @for (option of listOfOption; track option.value) {
         <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
       }

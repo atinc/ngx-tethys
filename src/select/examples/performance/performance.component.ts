@@ -27,17 +27,17 @@ import { FormsModule } from '@angular/forms';
 export class ThySelectPerformanceExampleComponent implements OnInit, AfterViewInit {
     private perfTracker = perfTracker();
 
-    selectCount = 22;
+    selectCount = 1;
 
-    optionCount = 250;
+    optionCount = 50;
 
     listOfSelect = Array.from({ length: this.selectCount }, (_, index) => ({
         id: index + 1
     }));
 
     listOfOption = Array.from({ length: this.optionCount }, (_, index) => ({
-        value: `${index + 1}option`,
-        text: `${index + 1} 选项`
+        value: `option ${index + 1}`,
+        text: `选项 ${index + 1} `
     }));
 
     constructor() {

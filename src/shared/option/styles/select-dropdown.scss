@@ -10,6 +10,11 @@ $optionsSize: 'sm', 'default', 'md', 'lg';
         overflow-y: hidden;
         .cdk-virtual-scroll-content-wrapper {
             width: 100%;
+
+            .thy-option-group-render {
+                height: 40px;
+                padding: 5px 0;
+            }
         }
     }
 
@@ -28,8 +33,6 @@ $optionsSize: 'sm', 'default', 'md', 'lg';
 
     .thy-option-group-render {
         flex-direction: column;
-        height: 40px;
-        padding: 5px 0;
 
         .group-name {
             width: 100%;
