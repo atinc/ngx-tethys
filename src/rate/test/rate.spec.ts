@@ -1,14 +1,14 @@
-import { Component, DebugElement, TemplateRef, viewChild } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { ThyRateModule, ThyRate } from 'ngx-tethys/rate';
-import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
-import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
-import { ThyRateTemplateExampleComponent } from '../examples/template/template.component';
-import { provideHttpClient } from '@angular/common/http';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { provideHttpClient } from '@angular/common/http';
+import { Component, DebugElement, TemplateRef, viewChild } from '@angular/core';
+import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { ThyRate, ThyRateModule } from 'ngx-tethys/rate';
+import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
+import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
+import { ThyRateTemplateExampleComponent } from '../examples/template/template.component';
 
 @Component({
     selector: 'thy-rate-basic-test',
@@ -417,6 +417,9 @@ describe('Rate tooltip component', () => {
     });
 
     it('should get correct text when tooltip work', fakeAsync(() => {
+        fixture.detectChanges();
+        // wait for afterNextRender in tooltip directive to complete and bind events
+        tick();
         fixture.detectChanges();
 
         const rateItems = (fixture.debugElement.nativeElement as HTMLElement).querySelectorAll('.thy-rate-star');

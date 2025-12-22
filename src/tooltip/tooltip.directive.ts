@@ -150,7 +150,7 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
             const viewInit = this.viewInitialized();
             if (!value && this.tooltipRef?.isTooltipVisible()) {
                 this.tooltipRef.hide(0);
-            } else if (value) {
+            } else if (value && this.tooltipRef?.isTooltipVisible()) {
                 this.tooltipRef?.updateTooltipContent(value, data);
             }
             if (value && viewInit && !this.disabled) {

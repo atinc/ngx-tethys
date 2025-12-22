@@ -1,12 +1,12 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { Platform } from '@angular/cdk/platform';
 import { Component, DebugElement, ElementRef, ViewChild, inject as coreInject } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, fakeAsync, flush, flushMicrotasks, inject, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, flush, flushMicrotasks, inject, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
-import { ThyTooltipModule, ThyTooltipDirective, ThyTooltipService, ThyTooltipRef } from 'ngx-tethys/tooltip';
-import { Platform } from '@angular/cdk/platform';
 import { dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing';
+import { ThyTooltipDirective, ThyTooltipModule, ThyTooltipRef, ThyTooltipService } from 'ngx-tethys/tooltip';
 
 const initialTooltipMessage = 'hello, this is tooltip message';
 const TOOLTIP_CLASS = `thy-tooltip`;
@@ -131,6 +131,9 @@ describe(`ThyTooltip`, () => {
         });
 
         it('should show the tooltip for tap', fakeAsync(() => {
+            // wait for afterNextRender in directive to complete and bind events
+            tick();
+            fixture.detectChanges();
             assertTooltipInstance(tooltipDirective, false);
             dispatchTouchEvent(buttonElement, 'touchstart');
             fixture.detectChanges();
@@ -143,6 +146,9 @@ describe(`ThyTooltip`, () => {
         }));
 
         it('should show the tooltip for long press', fakeAsync(() => {
+            // wait for afterNextRender in directive to complete and bind events
+            tick();
+            fixture.detectChanges();
             assertTooltipInstance(tooltipDirective, false);
             dispatchTouchEvent(buttonElement, 'touchstart');
             fixture.detectChanges();
@@ -158,6 +164,9 @@ describe(`ThyTooltip`, () => {
         });
 
         it('should close on touchend with a delay', fakeAsync(() => {
+            // wait for afterNextRender in directive to complete and bind events
+            tick();
+            fixture.detectChanges();
             dispatchTouchEvent(buttonElement, 'touchstart');
             fixture.detectChanges();
             tick(500); // Finish the animation.
@@ -182,6 +191,9 @@ describe(`ThyTooltip`, () => {
         }));
 
         it('should close on touchmove', fakeAsync(() => {
+            // wait for afterNextRender in directive to complete and bind events
+            tick();
+            fixture.detectChanges();
             dispatchTouchEvent(buttonElement, 'touchstart');
             fixture.detectChanges();
             tick(100);
@@ -226,6 +238,9 @@ describe(`ThyTooltip`, () => {
         });
 
         it('should show and hide the tooltip', fakeAsync(() => {
+            // wait for afterNextRender in directive to complete and bind events
+            tick();
+            fixture.detectChanges();
             assertTooltipInstance(tooltipDirective, false);
             // fake mouseenter event
             dispatchMouseEvent(buttonElement, 'mouseenter');
@@ -466,6 +481,9 @@ describe(`ThyTooltip`, () => {
         });
 
         it('should show and hide the tooltip', fakeAsync(() => {
+            // wait for afterNextRender in directive to complete and bind events
+            tick();
+            fixture.detectChanges();
             assertTooltipInstance(tooltipDirective, false);
             // fake mouseenter event
             dispatchMouseEvent(buttonElement, 'mouseenter');
