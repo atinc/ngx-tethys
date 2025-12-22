@@ -34,7 +34,7 @@ export class ThyInputDirective {
      * @type 'xs' | 'sm' | 'md' | 'default' | 'lg'
      * @default default
      */
-    readonly thySize = input<ThyInputSize>(undefined);
+    readonly thySize = input<ThyInputSize>();
 
     get ngControl() {
         return this.control;

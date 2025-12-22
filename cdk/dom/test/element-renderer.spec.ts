@@ -8,7 +8,7 @@ import { useElementRenderer } from '@tethys/cdk/dom';
     template: '<div #container></div>'
 })
 export class ThyDomUseElementRendererTestComponent implements OnInit {
-    @ViewChild('container', { read: ElementRef, static: true }) container: ElementRef;
+    @ViewChild('container', { read: ElementRef, static: true }) container!: ElementRef;
 
     containerRenderer = useElementRenderer();
 
@@ -27,7 +27,7 @@ export class ThyDomUseElementRendererTestComponent implements OnInit {
     template: '<div #container></div>'
 })
 export class ThyDomElementRendererWithoutElementTestComponent implements OnInit {
-    @ViewChild('container', { read: ElementRef, static: true }) container: ElementRef;
+    @ViewChild('container', { read: ElementRef, static: true }) container!: ElementRef;
 
     containerRenderer = useElementRenderer();
 
@@ -39,8 +39,8 @@ export class ThyDomElementRendererWithoutElementTestComponent implements OnInit 
 }
 
 describe('element-renderer', () => {
-    let fixture: ComponentFixture<ThyDomUseElementRendererTestComponent>;
-    let debugElement: DebugElement;
+    let fixture!: ComponentFixture<ThyDomUseElementRendererTestComponent>;
+    let debugElement!: DebugElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({});

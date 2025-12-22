@@ -17,7 +17,7 @@ export class ThyDropdownActiveDirective implements OnInit, AfterContentInit {
     private trigger = inject(ThyDropdownDirective, { optional: true });
 
     readonly classes: Signal<string[]> = computed(() => {
-        return coerceArray(this.thyDropdownActive()).filter(c => !!c);
+        return coerceArray(this.thyDropdownActive() || []).filter(c => !!c);
     });
 
     private hostRenderer = useHostRenderer();

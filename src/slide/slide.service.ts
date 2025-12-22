@@ -19,13 +19,13 @@ import { slideAbstractOverlayOptions, slideDefaultConfigValue, THY_SLIDE_DEFAULT
 @Injectable()
 export class ThySlideService extends ThyAbstractOverlayService<ThySlideConfig, ThySlideContainer> implements OnDestroy {
     private originElementAddActiveClass(config: ThySlideConfig) {
-        if (config.origin) {
+        if (config.origin && config.originActiveClass) {
             coerceElement<HTMLElement>(config.origin).classList.add(...coerceArray(config.originActiveClass));
         }
     }
 
     private originElementRemoveActiveClass(config: ThySlideConfig) {
-        if (config.origin) {
+        if (config.origin && config.originActiveClass) {
             coerceElement<HTMLElement>(config.origin).classList.remove(...coerceArray(config.originActiveClass));
         }
     }
@@ -86,7 +86,7 @@ export class ThySlideService extends ThyAbstractOverlayService<ThySlideConfig, T
     }
 
     private overlayIsOpened(config: ThySlideConfig) {
-        const openedOverlay = this.getAbstractOverlayById(config.id);
+        const openedOverlay = this.getAbstractOverlayById(config.id!);
         const slideConfig = Object.assign({}, this.defaultConfig, config);
         if (!slideConfig.disableCloseLatest) {
             this.close(openedOverlay);
@@ -109,7 +109,7 @@ export class ThySlideService extends ThyAbstractOverlayService<ThySlideConfig, T
     open<T, TData = unknown, TResult = unknown>(
         componentOrTemplateRef: ComponentTypeOrTemplateRef<T>,
         config: ThySlideConfig<TData>
-    ): ThySlideRef<T, TResult> {
+    ): ThySlideRef<T, TResult> | undefined {
         if (this.overlayIsOpened(config)) {
             return;
         }

@@ -37,7 +37,7 @@ export function isValidLimit(controls: TimePickerComponentState, newDate: Date):
     return true;
 }
 
-export function parseHours(value: string | number, isPM = false): number {
+export function parseHours(value: string | number | undefined, isPM = false): number {
     const hour = coerceNumberProperty(value);
     if (isNaN(hour) || hour < 0 || hour > (isPM ? hoursPerDayHalf : hoursPerDay)) {
         return NaN;
@@ -46,7 +46,7 @@ export function parseHours(value: string | number, isPM = false): number {
     return hour;
 }
 
-export function parseMinutes(value: string | number): number {
+export function parseMinutes(value: string | number | undefined): number {
     const minute = coerceNumberProperty(value);
     if (isNaN(minute) || minute < 0 || minute > minutesPerHour) {
         return NaN;
@@ -55,7 +55,7 @@ export function parseMinutes(value: string | number): number {
     return minute;
 }
 
-export function parseSeconds(value: string | number): number {
+export function parseSeconds(value: string | number | undefined): number {
     const seconds = coerceNumberProperty(value);
     if (isNaN(seconds) || seconds < 0 || seconds > secondsPerMinute) {
         return NaN;

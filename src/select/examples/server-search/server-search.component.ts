@@ -49,10 +49,10 @@ export class ThySelectServerSearchExampleComponent implements OnInit {
     ];
 
     ngOnInit() {
-        this.thyOnSearch('');
+        this.search('');
     }
 
-    thyOnSearch(value: string) {
+    search(value: string) {
         // fake api response data
         timer(100).subscribe(() => {
             const result = this.enterpriseList

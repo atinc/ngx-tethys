@@ -51,7 +51,7 @@ export class InnerPopup {
 
     readonly isRange = input(false, { transform: coerceBooleanProperty });
 
-    readonly activeDate = model<TinyDate>();
+    readonly activeDate = model.required<TinyDate>();
 
     readonly rangeActiveDate = input<TinyDate[]>(); // Range ONLY
 
@@ -119,7 +119,7 @@ export class InnerPopup {
             this.selectDate.emit(value);
         } else {
             this.headerChange.emit(value);
-            this.panelModeChange.emit(endPanelMode);
+            this.panelModeChange.emit(endPanelMode!);
         }
     }
 
@@ -133,7 +133,7 @@ export class InnerPopup {
             this.selectDate.emit(value);
         } else {
             this.headerChange.emit(value);
-            this.panelModeChange.emit(endPanelMode);
+            this.panelModeChange.emit(endPanelMode!);
         }
     }
 
@@ -147,7 +147,7 @@ export class InnerPopup {
             this.selectDate.emit(value);
         } else {
             this.headerChange.emit(value);
-            this.panelModeChange.emit(endPanelMode);
+            this.panelModeChange.emit(endPanelMode!);
         }
     }
 
@@ -169,7 +169,7 @@ export class InnerPopup {
         if (this.isRange()) {
             const partType = this.partType();
             if ((partType === 'left' && direction === 'next') || (partType === 'right' && direction === 'prev')) {
-                const [headerLeftDate, headerRightDate] = this.rangeActiveDate();
+                const [headerLeftDate, headerRightDate] = this.rangeActiveDate()!;
                 return isAfterMoreThanOneMonth(headerRightDate, headerLeftDate);
             } else {
                 return true;
@@ -183,7 +183,7 @@ export class InnerPopup {
         if (this.isRange()) {
             const partType = this.partType();
             if ((partType === 'left' && direction === 'next') || (partType === 'right' && direction === 'prev')) {
-                const [headerLeftDate, headerRightDate] = this.rangeActiveDate();
+                const [headerLeftDate, headerRightDate] = this.rangeActiveDate()!;
                 if (panelMode === 'date') {
                     return isAfterMoreThanLessOneYear(headerRightDate, headerLeftDate);
                 } else if (panelMode === 'month' || panelMode === 'quarter') {

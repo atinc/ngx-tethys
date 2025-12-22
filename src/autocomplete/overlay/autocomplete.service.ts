@@ -58,7 +58,7 @@ export class ThyAutocompleteService
             this._platform,
             this._overlayContainer
         );
-        const positions = getFlexiblePositions(config.placement, config.offset, 'thy-autocomplete');
+        const positions = getFlexiblePositions(config.placement!, config.offset, 'thy-autocomplete');
         positionStrategy.withPositions(positions);
         positionStrategy.withGrowAfterOpen(true);
         positionStrategy.positionChanges.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(change => {
@@ -155,7 +155,7 @@ export class ThyAutocompleteService
         componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
         config?: ThyAutocompleteConfig<TData>
     ): ThyAutocompleteRef<T, TResult> {
-        const originElement = coerceElement(config.origin);
+        const originElement = coerceElement(config?.origin);
         const autocompleteRef = this.openOverlay(componentOrTemplateRef, config) as ThyAutocompleteRef<T>;
         config = autocompleteRef.containerInstance.config;
         autocompleteRef.afterClosed().subscribe(() => {

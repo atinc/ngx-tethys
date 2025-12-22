@@ -10,8 +10,8 @@ describe('ClickDispatcher', () => {
         TestBed.compileComponents();
     });
 
-    let clickPositioner: ThyClickPositioner;
-    let fixture: ComponentFixture<ClickPositionerComponent>;
+    let clickPositioner!: ThyClickPositioner;
+    let fixture!: ComponentFixture<ClickPositionerComponent>;
 
     beforeEach(inject([ThyClickPositioner], (_clickPositioner: ThyClickPositioner) => {
         clickPositioner = _clickPositioner;
@@ -21,14 +21,14 @@ describe('ClickDispatcher', () => {
     }));
 
     it('should not execute the global events in the Angular zone', () => {
-        expect(clickPositioner.lastClickPosition).toBeNull();
+        expect(clickPositioner.lastClickPosition).toBeUndefined();
         dispatchFakeEvent(document, 'click', false);
 
-        expect(fixture.ngZone.isStable).toBe(true);
+        expect(fixture.ngZone!.isStable).toBe(true);
     });
 
     it('should has value for lastClickPosition from the global click', () => {
-        expect(clickPositioner.lastClickPosition).toBeNull();
+        expect(clickPositioner.lastClickPosition).toBeUndefined();
         dispatchMouseEvent(document, 'click', 100, 200);
         expect(clickPositioner.lastClickPosition).toEqual({
             x: 100,
@@ -59,8 +59,8 @@ class ClickPositionerComponent implements OnDestroy {
     clickPositioner = coreInject(ThyClickPositioner);
 
     clicked = 0;
-    subscription: Subscription;
-    clicked$: Observable<Event>;
+    subscription: Subscription | null = null;
+    clicked$!: Observable<Event>;
     constructor() {
         const clickPositioner = this.clickPositioner;
 

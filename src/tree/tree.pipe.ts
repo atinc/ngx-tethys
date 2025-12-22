@@ -1,12 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { ThyTreeNode } from './tree.class';
-import { ThyTreeBeforeDragStartContext } from './tree.class';
+import { ThyTreeNode , ThyTreeBeforeDragStartContext } from './tree.class';
 
 /**
  * @private
  */
 @Pipe({
-    name: 'treeNodeDraggable'
+    name: 'treeNodeDraggable',
+    standalone: true
 })
 export class ThyTreeNodeDraggablePipe implements PipeTransform {
     transform(node: ThyTreeNode, beforeDragStart: (e: ThyTreeBeforeDragStartContext) => boolean): boolean {

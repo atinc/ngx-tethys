@@ -12,8 +12,8 @@ import { ThyPopoverHeader, ThyPopoverBody } from 'ngx-tethys/popover';
     imports: [ThyPopoverHeader, ThyPopoverBody]
 })
 export class ThyPopoverPassDataContentComponent implements OnInit {
-    title: string;
-    content: string;
+    title!: string;
+    content!: string;
 
     constructor() {}
 

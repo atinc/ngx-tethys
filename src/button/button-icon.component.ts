@@ -108,10 +108,10 @@ export class ThyButtonIcon {
         return null;
     });
 
-    protected iconClasses = computed<string[]>(() => {
+    protected iconClasses = computed<string[] | null>(() => {
         const icon = this.icon();
         if (this.isWtfIcon()) {
-            const classes = icon.split(' ');
+            const classes = icon!.split(' ');
             if (classes.length === 1) {
                 classes.unshift('wtf');
             }
@@ -124,7 +124,7 @@ export class ThyButtonIcon {
         const size = this.thySize();
         const shape = this.thyShape();
         const theme = this.thyTheme();
-        const classes = sizeClassesMap[size] ? [...sizeClassesMap[size]] : [];
+        const classes = size && sizeClassesMap[size] ? [...sizeClassesMap[size]] : [];
         if (shape && shapeClassesMap[shape]) {
             shapeClassesMap[shape].forEach((className: string) => {
                 classes.push(className);

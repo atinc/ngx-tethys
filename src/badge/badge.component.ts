@@ -27,7 +27,7 @@ export class ThyBadge implements OnInit {
 
     readonly displayContent: Signal<string | number> = computed(() => {
         let content = this.value() as string;
-        if (this.value() && !isUndefined(this.thyMaxCount()) && (this.value() as number) > this.thyMaxCount()) {
+        if (this.value() && !isUndefined(this.thyMaxCount()) && (this.value() as number) > this.thyMaxCount()!) {
             content = `${this.thyMaxCount()}+`;
         }
         return content;
@@ -64,15 +64,15 @@ export class ThyBadge implements OnInit {
         return !(!this.value() && !this.thyKeepShow() && !this.thyIsDot() && !this.thyIsHollow());
     });
 
-    private readonly value: Signal<number | string> = computed(() => {
+    private readonly value: Signal<number | string | undefined> = computed(() => {
         return this.thyContent() || this.thyContext() || this.thyCount();
     });
 
-    protected readonly textColor: Signal<string> = computed(() => {
+    protected readonly textColor: Signal<string | null> = computed(() => {
         return !isTextColor(this.thyTextColor()) ? this.thyTextColor() : null;
     });
 
-    protected readonly backgroundColor: Signal<string> = computed(() => {
+    protected readonly backgroundColor: Signal<string | null> = computed(() => {
         return !isTextColor(this.thyBackgroundColor()) ? this.thyBackgroundColor() : null;
     });
 

@@ -1,4 +1,4 @@
-import { isNumber } from 'ngx-tethys/util';
+import { isNumber, isUndefinedOrNull } from 'ngx-tethys/util';
 import {
     ChangeDetectionStrategy,
     Component,
@@ -57,13 +57,13 @@ export class ThyProgress implements ThyParentProgress {
     readonly max = computed(() => {
         const setMax = this.thyMax();
         const barsTotalValue = this.barsTotalValue();
-        let result: number = 100;
+        let result = 100;
         if (isNumber(setMax) && setMax > 0) {
             result = setMax;
         } else if (isNumber(barsTotalValue)) {
             result = barsTotalValue;
         }
-        if (result < barsTotalValue) {
+        if (!isUndefinedOrNull(barsTotalValue) && result < barsTotalValue) {
             result = barsTotalValue;
         }
         return result;
@@ -109,7 +109,7 @@ export class ThyProgress implements ThyParentProgress {
     /**
      * 鼠标移入进度条时显示的提示文案或者模板
      */
-    readonly thyTips = input<string | TemplateRef<unknown>>(undefined);
+    readonly thyTips = input<string | TemplateRef<unknown> | undefined>(undefined);
 
     /**
      * 进度形状

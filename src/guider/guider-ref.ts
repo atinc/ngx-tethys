@@ -20,9 +20,9 @@ export class ThyGuiderRef implements IThyGuiderRef {
 
     private targetClicked$ = new Subject<ThyGuiderStep>();
 
-    private currentStep: ThyGuiderStep;
+    private currentStep!: ThyGuiderStep;
 
-    private currentStepIndex: number;
+    private currentStepIndex!: number;
 
     private stepsRef: ThyGuiderStepRef[];
 
@@ -91,7 +91,7 @@ export class ThyGuiderRef implements IThyGuiderRef {
         }
     }
 
-    private to(index: number): void {
+    private to(index?: number): void {
         this.removeExistedStep();
 
         if (!helpers.isNumber(index) || index >= this.steps.length || index < 0 || Number.isNaN(index)) {
@@ -104,7 +104,7 @@ export class ThyGuiderRef implements IThyGuiderRef {
         this.guiderManager.updateActive(this.currentStep.key, this);
         if (this.currentStep.route && this.currentStep.route !== this.router.url) {
             this.ngZone.run(() => {
-                this.router.navigateByUrl(this.currentStep.route);
+                this.router.navigateByUrl(this.currentStep.route!);
             });
             return;
         }

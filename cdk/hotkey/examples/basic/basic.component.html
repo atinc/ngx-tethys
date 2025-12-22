@@ -7,8 +7,7 @@
     thyTheme="naked"
     thyType="info"
     thyMessage="按 T 聚焦输入框，聚焦后按 Command + Enter 或 Control + Enter 保存内容"
-    [thyIcon]="'lightbulb'"
-  >
+    [thyIcon]="'lightbulb'">
   </thy-alert>
   <textarea class="form-control mt-2" #textarea thyHotkey="t" rows="3" [value]="content"></textarea>
   <button
@@ -17,8 +16,7 @@
     [thyHotkeyScope]="textarea"
     thyButton="primary"
     thySize="sm"
-    (click)="save()"
-  >
+    (click)="save()">
     保存
   </button>
 </div>

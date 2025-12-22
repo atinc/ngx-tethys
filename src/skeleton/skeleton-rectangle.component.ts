@@ -72,15 +72,15 @@ export class ThySkeletonRectangle {
     readonly thySecondaryColor = input<string>();
 
     readonly animatedInterval = computed(() => {
-        return this.thyAnimatedInterval() || this.parent?.thyAnimatedInterval() || this.skeletonConfigModel.thyAnimatedInterval;
+        return this.thyAnimatedInterval() || this.parent?.thyAnimatedInterval() || this.skeletonConfigModel?.thyAnimatedInterval;
     });
 
     readonly primaryColor = computed(() => {
-        return this.thyPrimaryColor() || this.parent?.thyPrimaryColor() || this.skeletonConfigModel.thyPrimaryColor;
+        return this.thyPrimaryColor() || this.parent?.thyPrimaryColor() || this.skeletonConfigModel?.thyPrimaryColor;
     });
 
     readonly secondaryColor = computed(() => {
-        return this.thySecondaryColor() || this.parent?.thySecondaryColor() || this.skeletonConfigModel.thySecondaryColor;
+        return this.thySecondaryColor() || this.parent?.thySecondaryColor() || this.skeletonConfigModel?.thySecondaryColor;
     });
 
     readonly animated = computed(() => {
@@ -90,18 +90,18 @@ export class ThySkeletonRectangle {
         if (!isUndefinedOrNull(this.parent?.thyAnimated())) {
             return this.parent.thyAnimated();
         }
-        return this.skeletonConfigModel.thyAnimated;
+        return this.skeletonConfigModel?.thyAnimated;
     });
 
     readonly afterStyles = computed(() => {
         return {
             ...(this.secondaryColor() && {
-                background: `linear-gradient(90deg, ${helpers.hexToRgb(this.secondaryColor(), 0)}, ${helpers.hexToRgb(
-                    this.secondaryColor(),
+                background: `linear-gradient(90deg, ${helpers.hexToRgb(this.secondaryColor()!, 0)}, ${helpers.hexToRgb(
+                    this.secondaryColor()!,
                     0.15
-                )}, ${helpers.hexToRgb(this.secondaryColor(), 0)}`
+                )}, ${helpers.hexToRgb(this.secondaryColor()!, 0)}`
             }),
-            animation: ![false, 'false'].includes(this.animated()) ? `thy-skeleton-animation ${this.animatedInterval()}s infinite` : 'none'
+            animation: ![false, 'false'].includes(this.animated()!) ? `thy-skeleton-animation ${this.animatedInterval()}s infinite` : 'none'
         };
     });
 }

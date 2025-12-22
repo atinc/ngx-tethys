@@ -9,16 +9,16 @@ import { IThyGuiderManager } from './guider.interface';
 @Injectable({
     providedIn: 'root'
 })
-export class ThyGuiderManager implements IThyGuiderManager {
+export class ThyGuiderManager implements IThyGuiderManager<ThyGuiderRef> {
     private targetListMap: Record<string, HTMLElement> = {};
 
-    private thyGuiderRef: ThyGuiderRef;
+    private thyGuiderRef?: ThyGuiderRef;
 
-    private activeStepKey: string;
+    private activeStepKey!: string;
 
     constructor() {}
 
-    public updateActive(key: string, guiderRef: ThyGuiderRef): void {
+    public updateActive(key: string, guiderRef?: ThyGuiderRef): void {
         this.activeStepKey = key;
         this.thyGuiderRef = guiderRef;
     }
@@ -38,7 +38,7 @@ export class ThyGuiderManager implements IThyGuiderManager {
     public getActive(): { key: string; guiderRef: ThyGuiderRef } {
         return {
             key: this.activeStepKey,
-            guiderRef: this.thyGuiderRef
+            guiderRef: this.thyGuiderRef!
         };
     }
 }

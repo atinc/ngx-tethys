@@ -12,30 +12,16 @@
     "experimentalDecorators": true,
     "skipLibCheck": false,
     "target": "ES2022",
-    "typeRoots": [
-      "node_modules/@types",
-      "@types/node",
-      "./typings"
-    ],
-    "lib": [
-      "es2020",
-      "dom"
-    ],
+    "typeRoots": ["node_modules/@types", "@types/node", "./typings"],
+    "lib": ["es2020", "dom"],
     "resolveJsonModule": true,
     "useDefineForClassFields": false,
+    "strict": true,
     "paths": {
-      "ngx-tethys": [
-        "src/public-api"
-      ],
-      "ngx-tethys/*": [
-        "src/*"
-      ],
-      "@tethys/cdk": [
-        "cdk/public-api"
-      ],
-      "@tethys/cdk/*": [
-        "cdk/*"
-      ]
+      "ngx-tethys": ["src/public-api"],
+      "ngx-tethys/*": ["src/*"],
+      "@tethys/cdk": ["cdk/public-api"],
+      "@tethys/cdk/*": ["cdk/*"]
     }
   },
   "angularCompilerOptions": {

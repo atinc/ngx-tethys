@@ -27,7 +27,7 @@ export class ThyDatePickerFormatPipe implements PipeTransform {
         }
         const currentSeparator = ` ${(separator ?? this.datePickerConfigService.separator)?.trim()} `;
         if (!Array.isArray(value)) {
-            return this.dateHelper.format(value, formatStr);
+            return this.dateHelper.format(value!, formatStr);
         } else {
             if (flexibleDateGranularity && flexibleDateGranularity !== 'day') {
                 const tinyDates = [new TinyDate(value[0]), new TinyDate(value[1])];
@@ -45,7 +45,7 @@ export class ThyDatePickerFormatPipe implements PipeTransform {
 export class ThyQuarterPickerFormatPipe implements PipeTransform {
     private datePickerConfigService = inject(ThyDatePickerConfigService);
 
-    transform(originalValue: ThyCompatibleDate | DateEntry | ThyDateRangeEntry, formatStr?: string, separator?: string): string {
+    transform(originalValue: ThyCompatibleDate | DateEntry | ThyDateRangeEntry, formatStr?: string, separator?: string): string | undefined {
         const { value } = transformDateValue(originalValue);
 
         if (!formatStr) {
@@ -92,6 +92,6 @@ export class ThyDatePickerFormatStringPipe implements PipeTransform {
 })
 export class DatePickerAdvancedShowYearTipPipe implements PipeTransform {
     transform(value: AdvancedSelectableCell, type: ThyDateGranularity): boolean {
-        return type !== 'year' && value.startValue.isSameDay(value.startValue.startOfYear());
+        return type !== 'year' && value.startValue!.isSameDay(value.startValue!.startOfYear());
     }
 }

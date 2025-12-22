@@ -36,9 +36,9 @@ const mockUsers = [
 })
 export class ThyMentionAsyncExampleComponent implements OnInit {
     value = `This is remote mention!`;
-    @ViewChild('member', { static: true }) memberDisplayTemplateRef: TemplateRef<any>;
+    @ViewChild('member', { static: true }) memberDisplayTemplateRef!: TemplateRef<any>;
 
-    mentions: Mention<any>[];
+    mentions!: Mention<any>[];
 
     constructor() {}
 

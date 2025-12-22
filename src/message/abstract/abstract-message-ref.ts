@@ -9,9 +9,9 @@ export interface IThyAbstractMessageQueue<TReferences extends ThyAbstractMessage
 }
 
 export class ThyAbstractMessageRef<TConfig extends ThyMessageBaseConfig = ThyMessageBaseConfig> {
-    id: string;
+    id?: string;
 
-    config: TConfig;
+    config!: TConfig;
 
     private overlayRef: OverlayRef;
 

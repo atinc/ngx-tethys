@@ -42,7 +42,7 @@ export class QuarterTable extends CalendarTable {
             };
             for (let colIndex = 0; colIndex < this.MAX_COL; colIndex++) {
                 const quarter = this.activeDate().setQuarter(quarterValue + 1);
-                const isDisabled = this.disabledDate() ? this.disabledDate()(quarter.nativeDate) : false;
+                const isDisabled = this.disabledDate() ? this.disabledDate()!(quarter.nativeDate) : false;
                 const content = `${quarter.format(QUARTER_FORMAT)}`;
                 const cell: DateCell = {
                     trackByIndex: colIndex,
@@ -51,7 +51,7 @@ export class QuarterTable extends CalendarTable {
                     content,
                     title: content,
                     classMap: null,
-                    isSelected: quarter.isSameQuarter(this.value()),
+                    isSelected: quarter.isSameQuarter(this.value()!),
                     onClick: () => {
                         this.chooseQuarter(quarter.getQuarter());
                     },
@@ -83,7 +83,7 @@ export class QuarterTable extends CalendarTable {
             cell.isStartSingle = startSelected && !endSelected;
             cell.isEndSingle = !startSelected && !!endSelected;
             cell.isInRange = startSelected?.isBeforeQuarter(quarter) && quarter?.isBeforeQuarter(endSelected);
-        } else if (quarter.isSameQuarter(this.value())) {
+        } else if (quarter.isSameQuarter(this.value()!)) {
             cell.isSelected = true;
         }
         cell.classMap = this.getClassMap(cell, quarter);
@@ -98,8 +98,8 @@ export class QuarterTable extends CalendarTable {
         const prefixCls = this.prefixCls();
         return {
             [`${prefixCls}-quarter-panel-cell`]: true,
-            [`${prefixCls}-quarter-panel-cell-disabled`]: cell.isDisabled,
-            [`${prefixCls}-quarter-panel-selected-cell`]: cell.isSelected,
+            [`${prefixCls}-quarter-panel-cell-disabled`]: !!cell.isDisabled,
+            [`${prefixCls}-quarter-panel-selected-cell`]: !!cell.isSelected,
             [`${prefixCls}-in-range-cell`]: !!cell.isInRange,
             [`${prefixCls}-quarter-panel-current-cell`]:
                 new TinyDate().getYear() === this.activeDate().getYear() && quarter.getQuarter() === new TinyDate().getQuarter()

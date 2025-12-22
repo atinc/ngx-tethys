@@ -13,6 +13,7 @@ import {
     isTemplateRef
 } from '@tethys/cdk';
 
+// eslint-disable-next-line no-sparse-arrays
 const falsey = [, null, undefined, false, 0, NaN, ''];
 const empties = [[], {}].concat(falsey.slice(1));
 

@@ -26,6 +26,7 @@ import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
 import { clamp, coerceBooleanProperty } from 'ngx-tethys/util';
 import { Observable, Subscription, fromEvent } from 'rxjs';
 import { distinctUntilChanged, map, pluck, takeUntil, tap } from 'rxjs/operators';
+import { SafeAny } from 'ngx-tethys/types';
 
 export type ThySliderType = 'primary' | 'success' | 'info' | 'warning' | 'danger';
 
@@ -82,11 +83,11 @@ export class ThySlider
 
     disabled = false;
 
-    readonly sliderRail = viewChild<ElementRef>('sliderRail');
+    readonly sliderRail = viewChild.required<ElementRef>('sliderRail');
 
-    readonly sliderTrack = viewChild<ElementRef>('sliderTrack');
+    readonly sliderTrack = viewChild.required<ElementRef>('sliderTrack');
 
-    readonly sliderPointer = viewChild<ElementRef>('sliderPointer');
+    readonly sliderPointer = viewChild.required<ElementRef>('sliderPointer');
 
     private typeClassName: WritableSignal<string> = signal('');
 
@@ -129,19 +130,19 @@ export class ThySlider
      */
     readonly thyAfterChange = output<{ value: number }>();
 
-    public value: number;
+    public value!: number;
 
-    private dragStartListener: Observable<number>;
+    private dragStartListener?: Observable<number>;
 
-    private dragMoveListener: Observable<number>;
+    private dragMoveListener?: Observable<number>;
 
-    private dragEndListener: Observable<Event>;
+    private dragEndListener!: Observable<Event>;
 
-    private dragStartHandler: Subscription | null;
+    private dragStartHandler?: Subscription | null;
 
-    private dragMoveHandler: Subscription | null;
+    private dragMoveHandler?: Subscription | null;
 
-    private dragEndHandler: Subscription | null;
+    private dragEndHandler?: Subscription | null;
 
     private hostRenderer = useHostRenderer();
 
@@ -178,7 +179,7 @@ export class ThySlider
 
         this.toggleDisabled();
         if (this.value === null || this.value === undefined) {
-            this.setValue(this.ensureValueInRange(null));
+            this.setValue(this.ensureValueInRange(''));
         }
     }
 
@@ -228,19 +229,19 @@ export class ThySlider
         this.onChangeCallback(this.value);
     }
 
-    private ensureValueInRange(value: number): number {
+    private ensureValueInRange(value: number | string): number {
         if (!this.valueMustBeValid(value)) {
             return this.thyMin();
         }
-        return clamp(value, this.thyMin(), this.thyMax());
+        return clamp(value as number, this.thyMin(), this.thyMax());
     }
 
-    private valueMustBeValid(value: number): boolean {
+    private valueMustBeValid(value: number | string): boolean {
         return !isNaN(typeof value !== 'number' ? parseFloat(value) : value);
     }
 
     private updateTrackAndPointer() {
-        const offset = this.valueToOffset(this.value);
+        const offset = this.valueToOffset(this.value!);
         this.updateStyle(offset / 100);
         this.cdr.markForCheck();
     }
@@ -298,7 +299,7 @@ export class ThySlider
     private mouseStopMoving(): void {
         this.pointerController(false);
         this.cdr.markForCheck();
-        this.thyAfterChange.emit({ value: this.value });
+        this.thyAfterChange.emit({ value: this.value! });
     }
 
     private pointerController(movable: boolean) {
@@ -312,8 +313,8 @@ export class ThySlider
         const orientField = this.thyVertical() ? 'pageY' : 'pageX';
 
         this.dragStartListener = this.ngZone.runOutsideAngular(() => {
-            return fromEvent(this.ref.nativeElement, 'mousedown').pipe(
-                pluck(orientField),
+            return fromEvent<Event>(this.ref.nativeElement, 'mousedown').pipe(
+                pluck<Event, SafeAny>(orientField),
                 map((position: number, index) => this.mousePositionToAdaptiveValue(position))
             );
         });
@@ -323,13 +324,13 @@ export class ThySlider
         });
 
         this.dragMoveListener = this.ngZone.runOutsideAngular(() => {
-            return fromEvent(document, 'mousemove').pipe(
+            return fromEvent<Event>(document, 'mousemove').pipe(
                 tap((e: Event) => {
                     e.stopPropagation();
                     e.preventDefault();
                 }),
-                pluck(orientField),
-                distinctUntilChanged(),
+                pluck<Event, SafeAny>(orientField),
+                distinctUntilChanged<number>(),
                 map((position: number) => this.mousePositionToAdaptiveValue(position)),
                 distinctUntilChanged(),
                 takeUntil(this.dragEndListener)
@@ -341,7 +342,7 @@ export class ThySlider
         const sliderStartPosition = this.getSliderPagePosition();
         const sliderLength = this.getRailLength();
         if (!sliderLength) {
-            return this.value;
+            return this.value!;
         }
         const ratio = this.convertPointerPositionToRatio(position, sliderStartPosition, sliderLength);
         const value = this.ratioToValue(ratio);

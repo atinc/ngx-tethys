@@ -8,7 +8,7 @@ import { ThyInputNumber } from 'ngx-tethys/input-number';
     imports: [ThyInputNumber, FormsModule]
 })
 export class ThyInputNumberSizeExampleComponent implements OnInit {
-    value: number;
+    value!: number;
 
     step = 1;
 

@@ -14,8 +14,7 @@ import {
 import { ThyResizableService } from './resizable.service';
 import { Platform } from '@angular/cdk/platform';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ThyResizeHandleMouseDownEvent } from './interface';
-import { ThyResizeEvent } from './interface';
+import { ThyResizeHandleMouseDownEvent , ThyResizeEvent } from './interface';
 import { getEventWithPoint, ensureInBounds, setCompatibleStyle } from './utils';
 import { fromEvent } from 'rxjs';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
@@ -273,10 +272,9 @@ export class ThyResizableDirective implements OnDestroy {
     }
 
     calcSize(width: number, height: number, ratio: number): ThyResizeEvent {
-        let newWidth: number;
-        let newHeight: number;
-        let maxWidth: number;
-        let maxHeight: number;
+        let newWidth!: number;
+        let newHeight!: number;
+        let maxWidth!: number;
         let col = 0;
         let spanWidth = 0;
         let minWidth = this.thyMinWidth();
@@ -302,7 +300,7 @@ export class ThyResizableDirective implements OnDestroy {
         }
 
         maxWidth = ensureInBounds(this.thyMaxWidth()!, boundWidth);
-        maxHeight = ensureInBounds(this.thyMaxHeight()!, boundHeight);
+        const maxHeight = ensureInBounds(this.thyMaxHeight()!, boundHeight);
 
         const gridColumnCount = this.thyGridColumnCount();
         if (gridColumnCount !== -1) {

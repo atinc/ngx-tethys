@@ -12,11 +12,11 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 registerLocaleData(zh);
 
 describe('ThyMonthPickerComponent', () => {
-    let fixture: ComponentFixture<TestMonthPickerComponent>;
-    let fixtureInstance: TestMonthPickerComponent;
-    let debugElement: DebugElement;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let fixture!: ComponentFixture<TestMonthPickerComponent>;
+    let fixtureInstance!: TestMonthPickerComponent;
+    let debugElement!: DebugElement;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -76,7 +76,7 @@ describe('ThyMonthPickerComponent', () => {
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
-            expect(fixtureInstance.thyValue).toBe(null);
+            expect(fixtureInstance.thyValue).toBeNull();
             expect(thyOnChange).toHaveBeenCalledWith(null);
             expect(debugElement.query(clearBtnSelector)).toBeFalsy();
         }));
@@ -273,13 +273,13 @@ describe('ThyMonthPickerComponent', () => {
     imports: [ThyDatePickerModule, FormsModule]
 })
 class TestMonthPickerComponent {
-    thyAllowClear: boolean;
-    thyDisabled: boolean;
-    thyDisabledDate: (d: Date) => boolean;
+    thyAllowClear!: boolean;
+    thyDisabled!: boolean;
+    thyDisabledDate!: (d: Date) => boolean;
     thyPlaceHolder: string = '请选择月份';
-    thyPanelClassName: string;
-    thyValue: Date;
-    thyOpen: boolean;
+    thyPanelClassName!: string;
+    thyValue!: Date;
+    thyOpen!: boolean;
     modelValueChange(): void {}
     thyDateChange(): void {}
 }

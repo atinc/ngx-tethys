@@ -112,7 +112,7 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
 
     public selectedValue = signal<any>(undefined);
 
-    public selectedNode = signal<ThyTreeSelectNode>(null);
+    public selectedNode = signal<ThyTreeSelectNode | null | undefined>(null);
 
     public selectedNodes = signal<ThyTreeSelectNode[]>([]);
 
@@ -147,11 +147,11 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
 
     readonly treeNodeTemplateRef = contentChild<TemplateRef<any>>('treeNodeTemplate');
 
-    readonly cdkOverlayOrigin = viewChild(CdkOverlayOrigin);
+    readonly cdkOverlayOrigin = viewChild.required(CdkOverlayOrigin);
 
-    readonly cdkConnectedOverlay = viewChild(CdkConnectedOverlay);
+    readonly cdkConnectedOverlay = viewChild.required(CdkConnectedOverlay);
 
-    readonly customDisplayTemplate = viewChild<TemplateRef<any>>('customDisplayTemplate');
+    readonly customDisplayTemplate = viewChild.required<TemplateRef<any>>('customDisplayTemplate');
 
     /**
      * treeNodes 数据
@@ -214,7 +214,7 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
      * 控制树选择的输入框大小
      * @type xs | sm | md | default | lg
      */
-    readonly thySize = input<InputSize>(undefined);
+    readonly thySize = input<InputSize>();
 
     /**
      * 改变空选项的情况下的提示文本
@@ -256,13 +256,13 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
      * 图标类型，支持 default | especial，已废弃
      * @deprecated
      */
-    readonly thyIconType = input<ThyTreeSelectType>(undefined);
+    readonly thyIconType = input<ThyTreeSelectType>();
 
     /**
      * 设置是否隐藏节点(不可进行任何操作),优先级低于 thyHiddenNodeKey。
      * @default (node: ThyTreeSelectNode) => boolean = (node: ThyTreeSelectNode) => node.hidden
      */
-    @Input() thyHiddenNodeFn: (node: ThyTreeSelectNode) => boolean = (node: ThyTreeSelectNode) => node.hidden;
+    @Input() thyHiddenNodeFn: (node: ThyTreeSelectNode) => boolean = (node: ThyTreeSelectNode) => !!node.hidden;
 
     /**
      * 设置是否禁用节点(不可进行任何操作)，优先级低于 thyDisableNodeKey。
@@ -274,7 +274,7 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
      * 获取节点的子节点，返回 Observable<ThyTreeSelectNode>。
      * @default (node: ThyTreeSelectNode) => Observable<ThyTreeSelectNode> = (node: ThyTreeSelectNode) => of([])
      */
-    @Input() thyGetNodeChildren: (node: ThyTreeSelectNode) => Observable<ThyTreeSelectNode> = (node: ThyTreeSelectNode) => of([]);
+    @Input() thyGetNodeChildren: (node: ThyTreeSelectNode) => Observable<ThyTreeSelectNode[]> = (node: ThyTreeSelectNode) => of([]);
 
     /**
      * 树选择组件展开和折叠状态事件
@@ -393,7 +393,7 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
         return flattenedNodes;
     }
 
-    private _findTreeNode(value: string): ThyTreeSelectNode {
+    private _findTreeNode(value: string): ThyTreeSelectNode | undefined {
         return (this.flattenTreeNodes() || []).find(item => item[this.thyPrimaryKey()] === value);
     }
 
@@ -467,7 +467,7 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
         if (this.valueIsObject()) {
             this.selectedValue.set(this.thyMultiple() ? selectedNodes : selectedNode);
         } else {
-            const value = this.thyMultiple() ? selectedNodes.map(item => item[this.thyPrimaryKey()]) : selectedNode[this.thyPrimaryKey()];
+            const value = this.thyMultiple() ? selectedNodes.map(item => item[this.thyPrimaryKey()]) : selectedNode![this.thyPrimaryKey()];
             this.selectedValue.set(value);
         }
         this.onChangeFn(this.selectedValue());
@@ -524,7 +524,7 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
             result.subscribe((data: ThyTreeSelectNode[]) => {
                 const flattenTreeNodes = this.flattenTreeNodes();
                 const nodes = this.flattenNodes(data, [...node.parentValues, node[this.thyPrimaryKey()]]);
-                const otherNodes = nodes.filter((item: ThyTreeNode) => {
+                const otherNodes = nodes.filter((item: ThyTreeSelectNode) => {
                     return !flattenTreeNodes.find(hasItem => {
                         return hasItem[this.thyPrimaryKey()] === item[this.thyPrimaryKey() as keyof ThyTreeNode];
                     });
@@ -608,7 +608,7 @@ export class ThyTreeSelectNodes {
                 return item[primaryKey] === node[primaryKey];
             });
         } else {
-            return this.selectedNode() && this.selectedNode()[primaryKey] === node[primaryKey];
+            return this.selectedNode() && this.selectedNode()![primaryKey] === node[primaryKey];
         }
     }
 
@@ -646,7 +646,7 @@ export class ThyTreeSelectNodes {
                 return item.parentValues.indexOf(node[primaryKey]) > -1;
             });
         } else {
-            isSelectedNodeParent = this.selectedNode() ? this.selectedNode().parentValues.indexOf(node[primaryKey]) > -1 : false;
+            isSelectedNodeParent = this.selectedNode() ? this.selectedNode()!.parentValues.indexOf(node[primaryKey]) > -1 : false;
         }
         const isExpand = node.expand || (Object.keys(node).indexOf('expand') < 0 && isSelectedNodeParent);
         node.expand = isExpand;
@@ -676,7 +676,7 @@ export class ThyTreeSelectNodes {
         }
 
         if (node.expand && this.parent.thyAsyncNode()) {
-            this.getNodeChildren(node).subscribe(() => {
+            this.getNodeChildren(node)?.subscribe(() => {
                 this.parent.setPosition();
             });
         }

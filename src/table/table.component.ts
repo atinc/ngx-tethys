@@ -166,7 +166,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
 
     public rowKey = '_id';
 
-    public groupBy: string;
+    public groupBy!: string;
 
     public mode: ThyTableMode = 'list';
 
@@ -176,11 +176,11 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
 
     public size: ThyTableSize = 'md';
 
-    public rowClassName: string | Function;
+    public rowClassName!: string | Function;
 
     public loadingDone = true;
 
-    public loadingText: string;
+    public loadingText!: string;
 
     public emptyOptions: ThyTableEmptyOptions = {};
 
@@ -200,7 +200,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
 
     public columns: ThyTableColumnComponent[] = [];
 
-    private _diff: IterableDiffer<SafeAny>;
+    private _diff!: IterableDiffer<SafeAny>;
 
     private initialized = false;
 
@@ -220,11 +220,11 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
      * 设置数据为空时展示的模板
      * @type TemplateRef
      */
-    @ContentChild('empty') emptyTemplate: TemplateRef<SafeAny>;
+    @ContentChild('empty') emptyTemplate!: TemplateRef<SafeAny>;
 
-    @ViewChild('table', { static: true }) tableElementRef: ElementRef<SafeAny>;
+    @ViewChild('table', { static: true }) tableElementRef!: ElementRef<SafeAny>;
 
-    @ViewChildren('rows', { read: ElementRef }) rows: QueryList<ElementRef<HTMLElement>>;
+    @ViewChildren('rows', { read: ElementRef }) rows!: QueryList<ElementRef<HTMLElement>>;
 
     /**
      * 表格展示方式，列表/分组/树
@@ -304,19 +304,19 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
      */
     @Input()
     @InputCssPixel()
-    thyMinWidth: string | number;
+    thyMinWidth!: string | number;
 
     /**
      * 设置为 fixed 布局表格，设置 fixed 后，列宽将严格按照设置宽度展示，列宽将不会根据表格内容自动调整
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyLayoutFixed: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyLayoutFixed!: boolean;
 
     /**
      * 是否表头固定，若设置为 true， 需要同步设置 thyHeight
      * @default false
      */
-    @Input({ transform: coerceBooleanProperty }) thyHeaderFixed: boolean;
+    @Input({ transform: coerceBooleanProperty }) thyHeaderFixed!: boolean;
 
     /**
      * 表格的高度
@@ -324,7 +324,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
     @HostBinding('style.height')
     @Input()
     @InputCssPixel()
-    thyHeight: string;
+    thyHeight!: string;
 
     /**
      * 设置表格的样式
@@ -478,7 +478,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
      */
     @HostBinding('class.thy-table-hover-display-operation')
     @Input({ transform: coerceBooleanProperty })
-    thyHoverDisplayOperation: boolean;
+    thyHoverDisplayOperation!: boolean;
 
     @Input() thyDragDisabledPredicate: (item: SafeAny) => boolean = () => false;
 
@@ -495,48 +495,48 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
     /**
      * 切换组件回调事件
      */
-    @Output() thyOnSwitchChange: EventEmitter<ThySwitchEvent> = new EventEmitter<ThySwitchEvent>();
+    @Output() readonly thyOnSwitchChange: EventEmitter<ThySwitchEvent> = new EventEmitter<ThySwitchEvent>();
 
     /**
      * 表格分页回调事件
      */
-    @Output() thyOnPageChange: EventEmitter<PageChangedEvent> = new EventEmitter<PageChangedEvent>();
+    @Output() readonly thyOnPageChange: EventEmitter<PageChangedEvent> = new EventEmitter<PageChangedEvent>();
 
     /**
      * 表格分页当前页改变回调事件
      */
-    @Output() thyOnPageIndexChange: EventEmitter<number> = new EventEmitter<number>();
+    @Output() readonly thyOnPageIndexChange: EventEmitter<number> = new EventEmitter<number>();
 
-    @Output() thyOnPageSizeChange: EventEmitter<number> = new EventEmitter<number>();
+    @Output() readonly thyOnPageSizeChange: EventEmitter<number> = new EventEmitter<number>();
 
     /**
      * 多选回调事件
      */
-    @Output() thyOnMultiSelectChange: EventEmitter<ThyMultiSelectEvent> = new EventEmitter<ThyMultiSelectEvent>();
+    @Output() readonly thyOnMultiSelectChange: EventEmitter<ThyMultiSelectEvent> = new EventEmitter<ThyMultiSelectEvent>();
 
     /**
      * 单选回调事件
      */
-    @Output() thyOnRadioSelectChange: EventEmitter<ThyRadioSelectEvent> = new EventEmitter<ThyRadioSelectEvent>();
+    @Output() readonly thyOnRadioSelectChange: EventEmitter<ThyRadioSelectEvent> = new EventEmitter<ThyRadioSelectEvent>();
 
     /**
      * 拖动修改事件
      */
-    @Output() thyOnDraggableChange: EventEmitter<ThyTableDraggableEvent> = new EventEmitter<ThyTableDraggableEvent>();
+    @Output() readonly thyOnDraggableChange: EventEmitter<ThyTableDraggableEvent> = new EventEmitter<ThyTableDraggableEvent>();
 
     /**
      * 表格行点击触发事件
      */
-    @Output() thyOnRowClick: EventEmitter<ThyTableRowEvent> = new EventEmitter<ThyTableRowEvent>();
+    @Output() readonly thyOnRowClick: EventEmitter<ThyTableRowEvent> = new EventEmitter<ThyTableRowEvent>();
 
     /**
      * 列排序修改事件
      */
-    @Output() thySortChange: EventEmitter<ThyTableSortEvent> = new EventEmitter<ThyTableSortEvent>();
+    @Output() readonly thySortChange: EventEmitter<ThyTableSortEvent> = new EventEmitter<ThyTableSortEvent>();
 
-    @Output() thyOnRowContextMenu: EventEmitter<ThyTableEvent> = new EventEmitter<ThyTableEvent>();
+    @Output() readonly thyOnRowContextMenu: EventEmitter<ThyTableEvent> = new EventEmitter<ThyTableEvent>();
 
-    @ContentChild('group', { static: true }) groupTemplate: TemplateRef<SafeAny>;
+    @ContentChild('group', { static: true }) groupTemplate!: TemplateRef<SafeAny>;
 
     @ContentChildren(ThyTableColumnComponent)
     set listOfColumnComponents(components: QueryList<ThyTableColumnComponent>) {
@@ -577,12 +577,12 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
         const leftFixedColumns = this.columns.filter(item => item.fixed === ThyFixedDirection.left);
         leftFixedColumns.forEach((item, index) => {
             const previous = leftFixedColumns[index - 1];
-            item.left = previous ? previous.left + parseInt(previous.width.toString(), 10) : 0;
+            item.left = previous ? previous.left! + parseInt(previous.width.toString(), 10) : 0;
         });
         const rightFixedColumns = this.columns.filter(item => item.fixed === ThyFixedDirection.right).reverse();
         rightFixedColumns.forEach((item, index) => {
             const previous = rightFixedColumns[index - 1];
-            item.right = previous ? previous.right + parseInt(previous.width.toString(), 10) : 0;
+            item.right = previous ? previous.right! + parseInt(previous.width.toString(), 10) : 0;
         });
     }
 
@@ -598,11 +598,11 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
     private _initialSelections(row: object, column: ThyTableColumnComponent) {
         if (column.selections) {
             if (column.type === 'checkbox') {
-                row[column.key] = column.selections.includes(row[this.rowKey]);
+                helpers.set(row, column.key, column.selections.includes(helpers.get(row, this.rowKey)));
                 this.onModelChange(row, column);
             }
             if (column.type === 'radio') {
-                if (column.selections.includes(row[this.rowKey])) {
+                if (column.selections.includes(helpers.get(row, this.rowKey))) {
                     this.selectedRadioRow = row;
                 }
             }
@@ -611,7 +611,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
 
     private _initialCustomModelValue(row: object, column: ThyTableColumnComponent) {
         if (column.type === customType.switch) {
-            row[column.key] = get(row, column.model);
+            helpers.set(row, column.key, get(row, column.model));
         }
     }
 
@@ -621,7 +621,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
         });
     }
 
-    private _applyDiffChanges(changes: IterableChanges<SafeAny>) {
+    private _applyDiffChanges(changes: IterableChanges<SafeAny> | undefined | null) {
         if (changes) {
             changes.forEachAddedItem((record: IterableChangeRecord<SafeAny>) => {
                 this._refreshCustomModelValue(record.item);
@@ -639,7 +639,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
         this.model.forEach(row => {
             for (const key in row) {
                 if (key.includes('[$$column]')) {
-                    delete row[key];
+                    delete (row as SafeAny)[key]
                 }
             }
         });
@@ -663,7 +663,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
     public updateColumnSelections(key: string, selections: SafeAny): void {
         const column = this.columns.find(item => item.key === key);
         this.model.forEach(row => {
-            this._initialSelections(row, column);
+            this._initialSelections(row, column!);
         });
     }
 
@@ -712,12 +712,12 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
 
     public onCheckboxChange(row: SafeAny, column: ThyTableColumnComponent) {
         this.onModelChange(row, column);
-        this.onMultiSelectChange(null, row, column);
+        this.onMultiSelectChange(null as SafeAny, row, column);
     }
 
     public onMultiSelectChange(event: Event, row: SafeAny, column: ThyTableColumnComponent) {
         const rows = this.model.filter(item => {
-            return item[column.key];
+            return helpers.get(item, column.key);
         });
         const multiSelectEvent: ThyMultiSelectEvent = {
             event: event,
@@ -789,7 +789,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
     }
 
     onDragGroupEnd(event: CdkDragEnd<unknown>) {
-        const groups = this.groups.filter(group => this.expandStatusMapOfGroupBeforeDrag[group.id]);
+        const groups = this.groups.filter(group => this.expandStatusMapOfGroupBeforeDrag[group!.id!]);
         this.expandGroups(groups);
         this.cdr.detectChanges();
     }
@@ -819,11 +819,11 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
                 }) + 1;
             const dragEvent: ThyTableDraggableEvent = {
                 model: event.item,
-                models: group.children,
+                models: group!.children,
                 oldIndex: event.previousIndex - groupIndex,
                 newIndex: event.currentIndex - groupIndex
             };
-            moveItemInArray(group.children, dragEvent.oldIndex, dragEvent.newIndex);
+            moveItemInArray(group!.children!, dragEvent.oldIndex!, dragEvent.newIndex!);
             this.thyOnDraggableChange.emit(dragEvent);
         }
     }
@@ -834,8 +834,8 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
                 const preview = this.document.getElementsByClassName(this.dragPreviewClass)[0];
                 const originalTds: HTMLCollection = event.source._dragRef.getPlaceholderElement()?.children;
                 if (preview) {
-                    Array.from(preview?.children).forEach((element: HTMLElement, index: number) => {
-                        element.style.width = `${originalTds[index]?.clientWidth}px`;
+                    Array.from(preview?.children).forEach((element, index: number) => {
+                        (element as HTMLElement).style.width = `${originalTds[index]?.clientWidth}px`;
                     });
                 }
             })
@@ -946,10 +946,10 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
         originGroups.forEach((origin: SafeAny) => {
             const group: ThyTableGroup = { id: origin[this.rowKey], children: [], origin };
 
-            if (this.expandStatusMapOfGroup.hasOwnProperty(group.id)) {
-                group.expand = this.expandStatusMapOfGroup[group.id];
+            if (this.expandStatusMapOfGroup.hasOwnProperty(group!.id!)) {
+                group.expand = this.expandStatusMapOfGroup[group!.id!];
             } else {
-                group.expand = !!(originGroupsMap[group.id] as SafeAny).expand;
+                group.expand = !!(originGroupsMap[group.id!] as SafeAny).expand;
             }
 
             this.groups.push(group);
@@ -959,16 +959,16 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
     private buildModel() {
         const groupsMap = keyBy(this.groups, 'id');
         this.model.forEach(row => {
-            const group = groupsMap[row[this.groupBy]];
+            const group = groupsMap[helpers.get(row, this.groupBy)];
             if (group) {
-                group.children.push(row);
+                group.children!.push(row);
             }
         });
     }
 
     public expandGroup(group: ThyTableGroup) {
         group.expand = !group.expand;
-        this.expandStatusMapOfGroup[group.id] = group.expand;
+        this.expandStatusMapOfGroup[group.id!] = group.expand;
     }
 
     private expandGroups(groups: ThyTableGroup[]) {
@@ -1069,7 +1069,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
                                             // Note: since Chrome 56 defaults document level `touchstart` listener to passive.
                                             // The element `touchstart` listener is not passive by default
                                             // We never call `preventDefault()` on it, so we're safe making it passive too.
-                                            <AddEventListenerOptions>passiveEventListenerOptions
+                                            passiveEventListenerOptions as AddEventListenerOptions
                                         )
                                     )
                                 ).subscribe(subscriber)

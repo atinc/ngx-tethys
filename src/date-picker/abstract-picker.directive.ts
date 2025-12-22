@@ -94,13 +94,13 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
         mapTo(true)
     );
 
-    private valueChangeSubscription: OutputRefSubscription;
+    private valueChangeSubscription?: OutputRefSubscription;
 
-    private calendarChangeSubscription: OutputRefSubscription;
+    private calendarChangeSubscription?: OutputRefSubscription;
 
-    private showTimePickerChangeSubscription: OutputRefSubscription;
+    private showTimePickerChangeSubscription?: OutputRefSubscription;
 
-    private dateValueChangeSubscription: OutputRefSubscription;
+    private dateValueChangeSubscription?: OutputRefSubscription;
 
     ngOnInit() {
         this.setPanelMode();
@@ -150,12 +150,13 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
             if (this.valueChangeSubscription) {
                 this.valueChangeSubscription.unsubscribe();
             }
+            // @ts-ignore
             this.valueChangeSubscription = componentInstance.valueChange?.subscribe((event: CompatibleValue) => this.onValueChange(event));
 
             if (this.calendarChangeSubscription) {
                 this.calendarChangeSubscription.unsubscribe();
             }
-            this.calendarChangeSubscription = componentInstance.calendarChange?.subscribe((event: CompatibleValue) => {
+            this.calendarChangeSubscription = componentInstance?.calendarChange?.subscribe((event: CompatibleValue) => {
                 const rangeValue = coerceArray(event).map(x => x.nativeDate);
                 this.thyOnCalendarChange.emit(rangeValue);
             });
@@ -163,17 +164,17 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
             if (this.showTimePickerChangeSubscription) {
                 this.showTimePickerChangeSubscription.unsubscribe();
             }
-            this.showTimePickerChangeSubscription = componentInstance.showTimePickerChange?.subscribe((event: boolean) =>
+            this.showTimePickerChangeSubscription = componentInstance?.showTimePickerChange?.subscribe((event: boolean) =>
                 this.onShowTimePickerChange(event)
             );
 
-            // eslint-disable-next-line max-len
-            componentInstance.ngOnChanges({ value: {} as SimpleChange }); // dynamically created components don't call ngOnChanges, manual call
+
+            componentInstance?.ngOnChanges({ value: {} as SimpleChange }); // dynamically created components don't call ngOnChanges, manual call
 
             if (this.dateValueChangeSubscription) {
                 this.dateValueChangeSubscription.unsubscribe();
             }
-            this.dateValueChangeSubscription = componentInstance.dateValueChange?.subscribe((event: ThyDateChangeEvent) => {
+            this.dateValueChangeSubscription = componentInstance?.dateValueChange?.subscribe((event: ThyDateChangeEvent) => {
                 this.thyDateChange.emit(event);
             });
 

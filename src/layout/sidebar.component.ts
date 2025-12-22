@@ -70,7 +70,7 @@ export class ThySidebarDirective implements OnInit {
      * @type white | light | dark
      * @default white
      */
-    readonly thyTheme = input<ThySidebarTheme>(undefined);
+    readonly thyTheme = input<ThySidebarTheme>();
 
     /**
      * 宽度，默认是 240px，传入 `lg` 大小时宽度是300px
@@ -284,7 +284,7 @@ export class ThySidebar implements OnInit, OnDestroy {
         return this.thyDragMinWidth() || this.thyCollapsedWidth();
     });
 
-    private hotkeySubscription: Subscription;
+    private hotkeySubscription!: Subscription;
 
     constructor() {
         effect(() => {
@@ -300,7 +300,7 @@ export class ThySidebar implements OnInit, OnDestroy {
     ngOnInit() {}
 
     private subscribeHotkeyEvent() {
-        this.hotkeySubscription = this.hotkeyDispatcher.keydown(['Control+/', 'Meta+/']).subscribe(() => {
+        this.hotkeySubscription = this.hotkeyDispatcher.keydown(['Control+/', 'Meta+/']).subscribe(event => {
             this.toggleCollapse();
         });
     }
@@ -309,7 +309,7 @@ export class ThySidebar implements OnInit, OnDestroy {
         if (width === this.sidebarDirective.sidebarWidth()) {
             return;
         }
-        if (this.thyCollapsible() && width < this.thyCollapsedWidth()) {
+        if (this.thyCollapsible() && width! < this.thyCollapsedWidth()) {
             return;
         }
         if (this.thyCollapsible() && width === this.thyCollapsedWidth()) {
@@ -319,8 +319,8 @@ export class ThySidebar implements OnInit, OnDestroy {
             this.isMouseEnter.set(false);
             return;
         }
-        this.sidebarDirective.sidebarWidth.set(width);
-        this.thyDragWidthChange.emit(width);
+        this.sidebarDirective.sidebarWidth.set(width!);
+        this.thyDragWidthChange.emit(width!);
     }
 
     resizeStart() {

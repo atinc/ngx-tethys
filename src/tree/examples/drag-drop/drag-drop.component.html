@@ -4,8 +4,7 @@
   [thyDraggable]="true"
   [thyBeforeDragStart]="beforeDragStart"
   [thyBeforeDragDrop]="beforeDragDrop"
-  (thyOnDragDrop)="onDragDrop($event)"
->
+  (thyOnDragDrop)="onDragDrop($event)">
   <ng-template #treeNodeTemplate let-node="node">
     <thy-icon class="thy-tree-node-icon" [thyIconName]="'folder-fill'"></thy-icon>
     <div class="thy-tree-node-title">

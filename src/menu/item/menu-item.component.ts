@@ -18,7 +18,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
 export class ThyMenuItem implements OnInit, AfterViewInit {
     private renderer = inject(Renderer2);
 
-    readonly content = viewChild('content', { read: ElementRef });
+    readonly content = viewChild.required('content', { read: ElementRef });
     /**
      * 菜单项的图标
      */

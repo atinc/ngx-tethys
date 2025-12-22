@@ -1,16 +1,16 @@
-import { Component, OnInit, Signal } from '@angular/core';
+import { Component, Signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
     DateEntry,
-    ThyDatePickerFormatPipe,
     ThyDatePickerDirective,
-    ThyRangePickerDirective,
+    ThyDatePickerFormatPipe,
     ThyDateRangeEntry,
-    ThyQuarterPickerFormatPipe
+    ThyQuarterPickerFormatPipe,
+    ThyRangePickerDirective
 } from 'ngx-tethys/date-picker';
 import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
-import { differenceInDays, endOfDay, startOfDay, subWeeks, TinyDate } from 'ngx-tethys/util';
 import { ThyPropertyOperation } from 'ngx-tethys/property-operation';
+import { differenceInDays, endOfDay, startOfDay, subWeeks, TinyDate } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-date-picker-directive-example',
@@ -24,7 +24,7 @@ import { ThyPropertyOperation } from 'ngx-tethys/property-operation';
         ThyQuarterPickerFormatPipe
     ]
 })
-export class ThyDatePickerDirectiveExampleComponent implements OnInit {
+export class ThyDatePickerDirectiveExampleComponent {
     date = { date: new TinyDate().getTime(), with_time: 0 } as DateEntry;
 
     time = {
@@ -37,9 +37,9 @@ export class ThyDatePickerDirectiveExampleComponent implements OnInit {
         with_time: 1
     } as DateEntry;
 
-    dateRange: { begin: number; end: number };
+    dateRange = { begin: new TinyDate('2025-10')?.nativeDate, end: new TinyDate('2026-01')?.nativeDate };
 
-    dateRangeDisabled: { begin: number; end: number };
+    dateRangeDisabled!: { begin: number; end: number };
 
     weekRange = { begin: new TinyDate('2021-10-03')?.nativeDate, end: new TinyDate('2021-12-12')?.nativeDate };
 
@@ -62,11 +62,7 @@ export class ThyDatePickerDirectiveExampleComponent implements OnInit {
         ];
     };
 
-    flexibleDateRange: ThyDateRangeEntry;
-
-    constructor() {}
-
-    ngOnInit() {}
+    flexibleDateRange!: ThyDateRangeEntry;
 
     disableDate = (date: Date) => {
         if (!(this.selectedDateRange && this.selectedDateRange.length === 1)) {

@@ -17,10 +17,10 @@ export class ThyUniqueCheckValidator implements AsyncValidator {
     private elementRef = inject(ElementRef);
     private thyForm = inject(ThyFormDirective, { optional: true })!;
 
-    readonly thyUniqueCheck = input<(value: any) => Observable<boolean>>(undefined);
+    readonly thyUniqueCheck = input<(value: any) => Observable<boolean>>();
 
     validate(ctrl: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
-        return this.thyUniqueCheck()(ctrl.value).pipe(
+        return this.thyUniqueCheck()!(ctrl.value).pipe(
             map((failed: boolean) => {
                 setTimeout(() => {
                     if (failed && this.thyForm && this.elementRef.nativeElement.name) {

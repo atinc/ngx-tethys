@@ -5,9 +5,9 @@ import { ThyVote } from 'ngx-tethys/vote';
 import { provideHttpClient } from '@angular/common/http';
 
 describe('ThyVote', () => {
-    let fixture: ComponentFixture<ThyDemoVoteBasicComponent>;
-    let basicTestComponent: ThyDemoVoteBasicComponent;
-    let voteComponent: DebugElement;
+    let fixture!: ComponentFixture<ThyDemoVoteBasicComponent>;
+    let basicTestComponent!: ThyDemoVoteBasicComponent;
+    let voteComponent!: DebugElement;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({

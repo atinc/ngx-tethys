@@ -53,7 +53,8 @@ export class ThyColDirective {
 
         afterNextRender(() => {
             if (this.thyRowDirective) {
-                this.thyRowDirective.actualGutter$.pipe(this.takeUntilDestroyed).subscribe(([horizontalGutter, verticalGutter]) => {
+                this.thyRowDirective.actualGutter$.pipe(this.takeUntilDestroyed).subscribe(data => {
+                    const [horizontalGutter, verticalGutter] = data as [number, number];
                     const renderGutter = (name: string, gutter: number) => {
                         this.hostRenderer.setStyle(name, `${gutter / 2}px`);
                     };

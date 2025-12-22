@@ -25,7 +25,7 @@ import { ThyPicker } from './picker.component';
     imports: [ThyPicker, DatePopup]
 })
 export class ThyRangePicker extends BasePicker implements OnInit {
-    protected elementRef: ElementRef;
+    protected elementRef!: ElementRef;
 
     isRange = true;
 

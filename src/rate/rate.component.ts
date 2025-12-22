@@ -100,7 +100,7 @@ export class ThyRate extends TabIndexDisabledControlValueAccessorMixin implement
      * 自定义模板，目前支持传单个模板或图标名称、数组(模板 | 图标名称)
      * @type string | TemplateRef<any> | string[] | TemplateRef<any>[]
      */
-    readonly thyIconTemplate = input<string | TemplateRef<any> | string[] | TemplateRef<any>[]>(null);
+    readonly thyIconTemplate = input<string | TemplateRef<any> | string[] | TemplateRef<any>[] | null>(null);
 
     /**
      * 当前值hover时的回调

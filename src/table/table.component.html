@@ -276,7 +276,7 @@
     </thy-table-skeleton>
   }
 
-  @if (pagination.total > pagination.size) {
+  @if (pagination?.total > pagination?.size) {
     <div class="thy-table-footer" [class.thy-table-footer-has-padding]="theme === 'default'">
       <thy-pagination
         [thyPageIndex]="pagination.index"

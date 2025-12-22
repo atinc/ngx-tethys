@@ -20,7 +20,7 @@ export class ThyColorPickerCustomPanel implements OnInit {
 
     readonly color = model<string>();
 
-    colorInstance: WritableSignal<ThyColor> = signal<ThyColor>(null);
+    colorInstance: WritableSignal<ThyColor | null> = signal<ThyColor | null>(null);
 
     readonly pickerColorChange = input<(color: string) => {}>();
 
@@ -32,7 +32,7 @@ export class ThyColorPickerCustomPanel implements OnInit {
 
     colorChangeEvent($event: ThyColor) {
         this.colorInstance.set($event);
-        this.color.set(this.colorInstance().displayValue);
-        this.pickerColorChange()(this.color());
+        this.color.set(this.colorInstance()!.displayValue);
+        this.pickerColorChange()!(this.color()!);
     }
 }

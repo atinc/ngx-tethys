@@ -37,7 +37,7 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
 
     protected isAutoCloseOnMobileTouch: boolean = true;
 
-    private tooltipRef: ThyTooltipRef;
+    private tooltipRef!: ThyTooltipRef;
 
     private readonly viewInitialized = signal(false);
 
@@ -55,7 +55,7 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
 
     content = linkedSignal(() => {
         const value = this.thyTooltipContent();
-        return this.getValidContent(value);
+        return this.getValidContent(value!);
     });
 
     /**
@@ -170,7 +170,7 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
 
         effect(() => {
             const disabled = this.toolTipDisabled();
-            this.disabled = disabled;
+            this.disabled = !!disabled;
             if (disabled && this.tooltipRef?.isTooltipVisible()) {
                 this.hide(0);
             }
@@ -179,7 +179,7 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
         afterNextRender(() => {
             const tooltipClass = this.thyTooltipClass();
             if (this.tooltipRef) {
-                this.tooltipRef.setTooltipClass(tooltipClass);
+                this.tooltipRef.setTooltipClass(tooltipClass!);
             }
         });
     }
@@ -198,7 +198,7 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
     }
 
     /** Shows the tooltip after the delay in ms, defaults to tooltip-delay-show 200ms */
-    show(delay: number = this.thyTooltipShowDelay()): void {
+    show(delay: number | undefined = this.thyTooltipShowDelay()): void {
         if (this.disabled) {
             return;
         }
@@ -216,7 +216,7 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
     }
 
     /** Hides the tooltip after the delay in ms, defaults to tooltip-delay-hide 100ms */
-    hide(delay: number = this.thyTooltipHideDelay()): void {
+    hide(delay: number | undefined = this.thyTooltipHideDelay()): void {
         this.tooltipRef?.hide(delay);
     }
 

@@ -100,10 +100,10 @@ export class ThyInnerTimePicker implements ControlValueAccessor, TimePickerCompo
     readonly isPM = computed(() => this.showMeridian() && this.meridian === this.meridians()[1]);
 
     // ui variables
-    hours: string;
-    minutes: string;
-    seconds: string;
-    meridian: string;
+    hours!: string;
+    minutes!: string;
+    seconds!: string;
+    meridian!: string;
 
     // min/max validation for input fields
     invalidHours = false;
@@ -111,15 +111,15 @@ export class ThyInnerTimePicker implements ControlValueAccessor, TimePickerCompo
     invalidSeconds = false;
 
     // time picker controls state
-    canIncrementHours: boolean;
-    canIncrementMinutes: boolean;
-    canIncrementSeconds: boolean;
+    canIncrementHours!: boolean;
+    canIncrementMinutes!: boolean;
+    canIncrementSeconds!: boolean;
 
-    canDecrementHours: boolean;
-    canDecrementMinutes: boolean;
-    canDecrementSeconds: boolean;
+    canDecrementHours!: boolean;
+    canDecrementMinutes!: boolean;
+    canDecrementSeconds!: boolean;
 
-    canToggleMeridian: boolean;
+    canToggleMeridian!: boolean;
 
     // control value accessor methods
     onChange = Function.prototype;
@@ -134,9 +134,9 @@ export class ThyInnerTimePicker implements ControlValueAccessor, TimePickerCompo
         this.timerPickerSubscription.add(
             _store
                 .select(state => state.value)
-                .subscribe((value: Date) => {
+                .subscribe((value: Date | null) => {
                     // update UI values if date changed
-                    this._renderTime(value);
+                    this._renderTime(value!);
                     this.onChange(value);
                     this._store.updateControls(getControlsValue(this), this.timeZone());
                 })
@@ -164,7 +164,7 @@ export class ThyInnerTimePicker implements ControlValueAccessor, TimePickerCompo
     }
 
     wheelSign($event: WheelEventInit): number {
-        return Math.sign($event.deltaY) * -1;
+        return Math.sign($event.deltaY!) * -1;
     }
 
     changeHours(step: number, source: TimeChangeSource = ''): void {
@@ -281,7 +281,7 @@ export class ThyInnerTimePicker implements ControlValueAccessor, TimePickerCompo
     }
 
     writeValue(obj: string | null | undefined | Date): void {
-        if (isValidDate(obj)) {
+        if (obj && isValidDate(obj)) {
             this._store.writeValue(parseTime(obj, this.timeZone()));
         } else if (obj == null) {
             this._store.writeValue(null);

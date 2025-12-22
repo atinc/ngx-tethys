@@ -25,8 +25,8 @@ export class ThyI18nTestComponent {
 }
 
 describe('I18n', () => {
-    let fixture: ComponentFixture<ThyI18nTestComponent>;
-    let testComponent: ThyI18nTestComponent;
+    let fixture!: ComponentFixture<ThyI18nTestComponent>;
+    let testComponent!: ThyI18nTestComponent;
 
     describe('ThyI18nService', () => {
         beforeEach(() => {

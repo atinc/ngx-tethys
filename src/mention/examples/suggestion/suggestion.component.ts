@@ -35,9 +35,9 @@ const mockUsers = [
 export class ThyMentionSuggestionExampleComponent implements OnInit {
     value = `This is text! please type @`;
 
-    @ViewChild('memberDisplayTemplate', { static: true }) memberDisplayTemplateRef: TemplateRef<any>;
+    @ViewChild('memberDisplayTemplate', { static: true }) memberDisplayTemplateRef!: TemplateRef<any>;
 
-    mentions: Mention<any>[];
+    mentions!: Mention<any>[];
 
     popoverConfig = {
         panelClass: 'mention-popover-panel'
@@ -60,14 +60,14 @@ export class ThyMentionSuggestionExampleComponent implements OnInit {
                 },
                 search: (term, items) => {
                     if (term) {
-                        return items.filter(item => {
+                        return (items || []).filter(item => {
                             return (
                                 item.identifier.toLowerCase().includes(term.toLowerCase()) ||
                                 item.name.toLowerCase().includes(term.toLowerCase())
                             );
                         });
                     } else {
-                        return items;
+                        return items!;
                     }
                 }
             },
