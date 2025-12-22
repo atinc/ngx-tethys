@@ -176,8 +176,8 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
         afterNextRender(() => {
             this.viewInitialized.set(true);
             const tooltipClass = this.thyTooltipClass();
-            if (this.tooltipRef) {
-                this.tooltipRef.setTooltipClass(tooltipClass!);
+            if (this.tooltipRef && tooltipClass) {
+                this.tooltipRef.setTooltipClass(tooltipClass);
             }
         });
     }
@@ -185,7 +185,9 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
     ngOnInit() {}
 
     private setupEventsIfNeeded(): void {
-        if (this.disabled || !this.content() || !this.viewInitialized()) {
+        const content = this.content();
+        const viewInitialized = this.viewInitialized();
+        if (this.disabled || !content || !viewInitialized) {
             return;
         }
         this.initialize();
