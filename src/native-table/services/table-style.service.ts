@@ -2,6 +2,7 @@ import { Injectable, TemplateRef, signal, computed, InputSignal } from '@angular
 import { BehaviorSubject, combineLatest, merge, ReplaySubject } from 'rxjs';
 
 import { ThyNativeTableSize, ThyNativeTableTheme } from '../table.interface';
+import { ThyTableEmptyOptions } from '../../table';
 
 export interface ThyNativeTableThInfo {
     thyWidth?: InputSignal<string | number | null>;
@@ -12,24 +13,18 @@ export interface ThyNativeTableThInfo {
 @Injectable()
 export class ThyNativeTableStyleService {
     theadTemplate$ = new ReplaySubject<TemplateRef<any>>(1);
-    tfootTemplate$ = new ReplaySubject<TemplateRef<any>>(1);
+    theadTemplate = signal<TemplateRef<any> | null>(null);
     columnCount = signal<number>(0);
     tableSize = signal<ThyNativeTableSize>('default');
     tableTheme = signal<ThyNativeTableTheme>('default');
+    showEmpty = signal<boolean>(false);
+    emptyOptions = signal<ThyTableEmptyOptions | null>(null);
 
     listOfThWidthConfigPx$ = new BehaviorSubject<ReadonlyArray<string | null>>([]);
 
     setTheadTemplate(template: TemplateRef<any>): void {
         this.theadTemplate$.next(template);
-    }
-
-    /**
-     * 设置表格底部模板的引用
-     * @param template - 表格底部模板的引用，类型为TemplateRef<any>
-     * 该方法用于将传入的模板赋值给可观察对象tfootTemplate$，以便在表格底部渲染自定义内容
-     */
-    setTfootTemplate(template: TemplateRef<any>): void {
-        this.tfootTemplate$.next(template);
+        this.theadTemplate.set(template);
     }
 
     setTableSize(size: ThyNativeTableSize): void {
@@ -38,6 +33,14 @@ export class ThyNativeTableStyleService {
 
     setTableTheme(theme: ThyNativeTableTheme): void {
         this.tableTheme.set(theme);
+    }
+
+    setShowEmpty(showEmpty: boolean): void {
+        this.showEmpty.set(showEmpty);
+    }
+
+    setEmptyOptions(emptyOptions: ThyTableEmptyOptions): void {
+        this.emptyOptions.set(emptyOptions);
     }
 
     setListOfTh(listOfTh: readonly ThyNativeTableThInfo[]): void {

@@ -41,6 +41,10 @@
     .thy-native-table-content {
         width: 100%;
     }
+    .thy-table-pagination {
+        padding: 0 20px;
+        margin-top: 1.25rem;
+    }
 }
 
 .native-table-default {
@@ -56,7 +60,7 @@
     );
 }
 
-.thy-native-table-bordered {
+.native-table-bordered {
     border: variables.$table-border-width solid variables.$table-border-color;
 
     th,

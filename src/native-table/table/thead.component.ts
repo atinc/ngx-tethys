@@ -45,7 +45,7 @@ export class ThyNativeTableHeaderComponent implements AfterContentInit, AfterVie
     private el: HTMLElement = inject(ElementRef<HTMLElement>).nativeElement;
     private renderer = inject(Renderer2);
 
-    isInsideNativeTable = !!this.styleService;
+    public isInsideNativeTable = !!this.styleService;
 
     @ViewChild('contentTemplate', { static: true }) templateRef!: TemplateRef<any>;
 

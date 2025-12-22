@@ -3,9 +3,7 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    ContentChild,
     ElementRef,
-    OnChanges,
     OnInit,
     TemplateRef,
     computed,
@@ -24,7 +22,7 @@ import { ThyNativeTableInnerDefaultComponent } from './table-inner-default.compo
 import { ThyNativeTableInnerScrollComponent } from './table-inner-scroll.component';
 import { UpdateHostClassService } from 'ngx-tethys/core';
 import { ThyPagination } from 'ngx-tethys/pagination';
-import { ThyPage, ThyTableColumnSkeletonType, ThyTableEmptyOptions } from 'ngx-tethys/table';
+import { ThyPage, ThyTableEmptyOptions } from 'ngx-tethys/table';
 
 @Component({
     selector: 'thy-native-table',
@@ -32,39 +30,7 @@ import { ThyPage, ThyTableColumnSkeletonType, ThyTableEmptyOptions } from 'ngx-t
     exportAs: 'thyNativeTable',
     providers: [ThyNativeTableStyleService, UpdateHostClassService],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    template: `
-        <div #tableMainElement class="thy-native-table-wrapper">
-            <ng-template #contentTemplate>
-                <ng-content></ng-content>
-            </ng-template>
-            @if (scrollY() || scrollX()) {
-                <thy-native-table-inner-scroll
-                    [scrollX]="scrollX()"
-                    [scrollY]="scrollY()"
-                    [contentTemplate]="contentTemplate"
-                    [listOfColWidth]="listOfManualColWidth()"
-                    [theadTemplate]="theadTemplate()"></thy-native-table-inner-scroll>
-            } @else {
-                <thy-native-table-inner-default
-                    [tableLayout]="thyTableLayout()"
-                    [listOfColWidth]="listOfManualColWidth()"
-                    [theadTemplate]="theadTemplate()"
-                    [contentTemplate]="contentTemplate"></thy-native-table-inner-default>
-            }
-            @if (thyShowPagination()) {
-                <div class="thy-table-footer">
-                    <thy-pagination
-                        [thyPageIndex]="pagination().index"
-                        [thyTotal]="pagination().total"
-                        [thyPageSize]="pagination().size"
-                        [thyPageSizeOptions]="pagination().sizeOptions"
-                        [thyShowSizeChanger]="thyShowSizeChanger()"
-                        (thyPageIndexChange)="onPageIndexChange($event)"
-                        (thyPageSizeChanged)="onPageSizeChange($event)"></thy-pagination>
-                </div>
-            }
-        </div>
-    `,
+    templateUrl: './table.component.html',
     host: {
         class: 'thy-native-table'
     },
@@ -78,12 +44,12 @@ export class ThyNativeTableComponent<T = any> implements OnInit, AfterViewInit {
     private updateHostClassService = inject(UpdateHostClassService);
 
     readonly thyTableLayout = input<ThyNativeTableLayout>('auto');
-    readonly thySize = input<ThyNativeTableSize>('default');
+    readonly thySize = input<ThyNativeTableSize>('md');
     readonly thyTheme = input<ThyNativeTableTheme>('default');
 
     readonly thyData = input<readonly T[]>([]);
 
-    readonly thyShowPagination = input<boolean>(true);
+    readonly thyShowPagination = input<boolean>(false);
     readonly thyPageIndex = input<number>(1);
     readonly thyPageSize = input<number>(20);
     readonly thyPageTotal = input<number>(0);
@@ -97,12 +63,10 @@ export class ThyNativeTableComponent<T = any> implements OnInit, AfterViewInit {
 
     readonly thyEmptyOptions = input<ThyTableEmptyOptions | null>(null);
 
-    readonly thyColumnSkeletonTypes = input<ThyTableColumnSkeletonType[]>(null);
-
+    /** data for ngFor tr */
     public data = computed<readonly T[]>(() => this.thyData());
 
     public theadTemplate = signal<TemplateRef<any> | null>(null);
-
     public listOfManualColWidth = signal<ReadonlyArray<string | null>>([]);
 
     public pagination = computed<ThyPage | null>(() => {
@@ -121,18 +85,23 @@ export class ThyNativeTableComponent<T = any> implements OnInit, AfterViewInit {
     scrollX = computed(() => this.thyScroll().x || null);
     scrollY = computed(() => this.thyScroll().y || null);
 
-    constructor() {
-        effect(() => this.updateTableClass());
+    constructor(private tableElementRef: ElementRef) {
+        effect(() => {
+            this.updateTableClass();
+            this.styleService.setEmptyOptions(this.thyEmptyOptions());
+        });
+        effect(() => {
+            const showEmpty = this.thyData()?.length === 0;
+            this.styleService.setShowEmpty(showEmpty);
+        });
+        effect(() => {
+            this.theadTemplate.set(this.styleService.theadTemplate());
+        });
     }
 
     ngOnInit(): void {
-        const { theadTemplate$, listOfThWidthConfigPx$ } = this.styleService;
-
-        // 监听表头模板变化
-        theadTemplate$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(theadTemplate => {
-            this.theadTemplate.set(theadTemplate);
-            this.cdr.markForCheck();
-        });
+        this.updateHostClassService.initializeElement(this.tableElementRef.nativeElement);
+        const { listOfThWidthConfigPx$ } = this.styleService;
         listOfThWidthConfigPx$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(listOfWidth => {
             this.listOfManualColWidth.set(listOfWidth);
             this.cdr.markForCheck();
@@ -168,7 +137,7 @@ export class ThyNativeTableComponent<T = any> implements OnInit, AfterViewInit {
         if (size || theme) {
             this.styleService.setTableSize(size);
             this.styleService.setTableTheme(theme);
-            // this.setNativeTableClass();
+            this.setNativeTableClass();
         }
     }
 }

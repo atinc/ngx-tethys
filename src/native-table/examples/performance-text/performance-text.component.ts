@@ -7,12 +7,12 @@ function perfTracker() {
     return {
         add(name: string) {
             const current = new Date().getTime();
-            console.log(`[${name}] ${current}, duration: ${current - lastDate}`);
+            // console.log(`[${name}] ${current}, duration: ${current - lastDate}`);
             lastDate = current;
         },
         reset(name: string) {
             const current = new Date().getTime();
-            console.log(`[${name}] ${current}`);
+            // console.log(`[${name}] ${current}`);
             lastDate = current;
         }
     };

@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ThyCheckbox } from 'ngx-tethys/checkbox';
 
 @Component({
-    selector: 'th[thyChecked],td[thyShowCheckbox]',
+    selector: 'td[thyChecked],td[thyShowCheckbox]',
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
