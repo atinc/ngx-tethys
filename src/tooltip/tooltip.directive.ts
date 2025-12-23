@@ -167,9 +167,7 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
         });
 
         afterNextRender(() => {
-            if (!this.disabled) {
-                this.initialize();
-            }
+            this.initialize();
             const tooltipClass = this.thyTooltipClass();
             if (this.tooltipRef && tooltipClass) {
                 this.tooltipRef.setTooltipClass(tooltipClass);
