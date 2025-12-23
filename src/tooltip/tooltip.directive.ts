@@ -36,8 +36,6 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
 
     private tooltipRef!: ThyTooltipRef;
 
-    private readonly viewInitialized = signal(false);
-
     private readonly eventsInitialized = signal(false);
 
     /**
@@ -149,14 +147,10 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
         effect(() => {
             const value = this.content();
             const data = this.data();
-            const viewInit = this.viewInitialized();
             if (!value && this.tooltipRef?.isTooltipVisible()) {
                 this.tooltipRef.hide(0);
             } else if (value && this.tooltipRef?.isTooltipVisible()) {
                 this.tooltipRef?.updateTooltipContent(value, data);
-            }
-            if (value && viewInit && !this.disabled) {
-                this.setupEventsIfNeeded();
             }
         });
 
@@ -176,7 +170,10 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
         });
 
         afterNextRender(() => {
-            this.viewInitialized.set(true);
+            if (!this.disabled && !this.eventsInitialized()) {
+                this.initialize();
+                this.eventsInitialized.set(true);
+            }
             const tooltipClass = this.thyTooltipClass();
             if (this.tooltipRef && tooltipClass) {
                 this.tooltipRef.setTooltipClass(tooltipClass);
@@ -185,20 +182,6 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
     }
 
     ngOnInit() {}
-
-    private setupEventsIfNeeded(): void {
-        const content = this.content();
-        const viewInitialized = this.viewInitialized();
-        const eventsInitialized = this.eventsInitialized();
-        if (this.disabled || !content || !viewInitialized) {
-            return;
-        }
-        if (eventsInitialized) {
-            return;
-        }
-        this.initialize();
-        this.eventsInitialized.set(true);
-    }
 
     /** Shows the tooltip after the delay in ms, defaults to tooltip-delay-show 200ms */
     show(delay: number | undefined = this.thyTooltipShowDelay()): void {
@@ -225,5 +208,6 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
 
     ngOnDestroy() {
         this.tooltipRef?.dispose();
+        (this as any).dispose?.();
     }
 }
