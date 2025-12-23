@@ -9,7 +9,6 @@ import { ThyNativeTableStyleService } from '../services/table-style.service';
 /* eslint-disable @angular-eslint/directive-selector */
 @Directive({
     selector: 'tr:not([thyNativeTableMeasureRow]):not([thyNativeTableFixedRow])',
-    standalone: true,
     host: {
         '[class.thy-native-table-row]': 'isInsideNativeTable'
     }

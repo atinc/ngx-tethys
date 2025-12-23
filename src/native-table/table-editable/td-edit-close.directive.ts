@@ -5,8 +5,7 @@ import { fromEvent } from 'rxjs';
 import { ThyNativeTableEditRef } from './edit-ref';
 
 @Directive({
-    selector: '[thyEditClose]',
-    standalone: true
+    selector: '[thyEditClose]'
 })
 export class ThyNativeTableTdEditCloseDirective {
     private editRef = inject(ThyNativeTableEditRef);

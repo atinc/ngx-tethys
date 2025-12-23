@@ -27,9 +27,7 @@ import { ThyNativeTableTrDirective } from '../row/tr.directive';
 /* eslint-disable @angular-eslint/component-selector */
 @Component({
     selector: 'thead:not(.thy-native-table-thead)',
-    standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
     template: `
         <ng-template #contentTemplate>
             <ng-content></ng-content>

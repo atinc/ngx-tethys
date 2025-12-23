@@ -6,7 +6,6 @@ import { ThyNativeTableLayout } from '../table.interface';
 
 @Component({
     selector: 'table[thy-native-table-content]',
-    standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
         @if (listOfColWidth().length > 0) {

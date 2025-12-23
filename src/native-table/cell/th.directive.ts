@@ -4,8 +4,7 @@ import { ThyNativeTableThInfo } from '../services/table-style.service';
 
 /* eslint-disable @angular-eslint/directive-selector */
 @Directive({
-    selector: 'th',
-    standalone: true
+    selector: 'th'
 })
 export class ThyNativeTableThDirective implements ThyNativeTableThInfo {
     private renderer = inject(Renderer2);

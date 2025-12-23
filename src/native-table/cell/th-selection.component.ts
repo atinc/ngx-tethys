@@ -5,28 +5,27 @@ import { ThyCheckbox } from 'ngx-tethys/checkbox';
 
 /* eslint-disable @angular-eslint/component-selector */
 @Component({
-    selector: 'th[thyChecked],th[thyShowCheckbox]',
-    standalone: true,
+    selector: 'th[thyHeaderCellChecked],th[thyHeaderCellCheckbox]',
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
         <label
             thyCheckbox
-            [ngModel]="thyChecked()"
+            [ngModel]="thyHeaderCellChecked()"
             [thyDisabled]="thyDisabled()"
             [thyIndeterminate]="thyIndeterminate()"
             (ngModelChange)="onCheckedChange($event)"></label>
     `,
     host: {
-        '[class.thy-native-table-selection-column]': 'thyShowCheckbox()'
+        '[class.thy-native-table-selection-column]': 'thyHeaderCellCheckbox()'
     },
     imports: [FormsModule, ThyCheckbox]
 })
 export class ThyNativeTableThSelectionComponent<T> implements OnInit {
-    readonly thyShowCheckbox = input(true, { transform: booleanAttribute });
+    readonly thyHeaderCellCheckbox = input(true, { transform: booleanAttribute });
 
     readonly thyDisabled = input(false, { transform: booleanAttribute });
 
-    readonly thyChecked = input(false, { transform: booleanAttribute });
+    readonly thyHeaderCellChecked = input(false, { transform: booleanAttribute });
 
     readonly thyIndeterminate = input(false, { transform: booleanAttribute });
 

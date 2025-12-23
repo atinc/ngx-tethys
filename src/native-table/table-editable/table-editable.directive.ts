@@ -13,7 +13,6 @@ import { ThyNativeTableEditEventDispatcher } from './edit-event-dispatcher.servi
 
 @Directive({
     selector: 'thy-native-table[thyEditable]',
-    standalone: true,
     providers: [ThyNativeTableEditEventDispatcher]
 })
 export class ThyNativeTableEditableDirective implements AfterViewInit {

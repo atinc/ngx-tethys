@@ -5,9 +5,7 @@ import { ThyNativeTableContentComponent } from './table-content.component';
 
 @Component({
     selector: 'thy-native-table-inner-scroll',
-    standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
     template: `
         @if (scrollY()) {
             <div #tableHeaderElement class="thy-native-table-header">

@@ -1,5 +1,4 @@
 import {
-    AfterViewInit,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -26,7 +25,6 @@ import { ThyPage, ThyTableEmptyOptions } from 'ngx-tethys/table';
 
 @Component({
     selector: 'thy-native-table',
-    standalone: true,
     exportAs: 'thyNativeTable',
     providers: [ThyNativeTableStyleService, UpdateHostClassService],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -36,7 +34,7 @@ import { ThyPage, ThyTableEmptyOptions } from 'ngx-tethys/table';
     },
     imports: [ThyNativeTableInnerDefaultComponent, ThyNativeTableInnerScrollComponent, ThyPagination]
 })
-export class ThyNativeTableComponent<T = any> implements OnInit, AfterViewInit {
+export class ThyNativeTableComponent<T = any> implements OnInit {
     private elementRef = inject(ElementRef);
     private cdr = inject(ChangeDetectorRef);
     private styleService = inject(ThyNativeTableStyleService);
@@ -128,8 +126,6 @@ export class ThyNativeTableComponent<T = any> implements OnInit, AfterViewInit {
     public onPageSizeChange(event: number) {
         this.thyPageSizeChange.emit(event);
     }
-
-    ngAfterViewInit(): void {}
 
     private updateTableClass(): void {
         const size = this.thySize();

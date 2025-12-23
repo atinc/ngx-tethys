@@ -6,9 +6,7 @@ import { SafeAny } from 'ngx-tethys/types';
 
 @Component({
     selector: 'thy-native-table-inner-default',
-    standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
     template: `
         <div class="thy-native-table-content">
             <table

@@ -19,7 +19,7 @@ import { ThyNativeTableEditRef } from './edit-ref';
 
 @Directive({
     selector: 'td[thyCellPopoverEdit]',
-    standalone: true,
+
     providers: [ThyNativeTableEditRef],
     host: {
         class: 'thy-native-table-cell-edit'

@@ -3,7 +3,7 @@
     <tr>
       <th
         thyWidth="50px"
-        [thyChecked]="checkedAll()"
+        [thyHeaderCellChecked]="checkedAll()"
         [thyIndeterminate]="indeterminate()"
         (thyCheckedChange)="onCheckedAllChange($event)"></th>
       <th thyWidth="50px">Id</th>
@@ -17,7 +17,7 @@
   <tbody>
     @for (row of nativeTable.data(); track row.id) {
       <tr>
-        <td [thyChecked]="selection.isSelected(row)" (thyCheckedChange)="onCheckedRowChange($event, row)"></td>
+        <td [thyCellChecked]="selection.isSelected(row)" (thyCheckedChange)="onCheckedRowChange($event, row)"></td>
         <td>{{ row.id }}</td>
         <td>{{ row.name }}</td>
         <td>{{ row.age }}</td>

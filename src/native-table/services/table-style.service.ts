@@ -8,8 +8,8 @@ import { ThyNativeTableThDirective } from '../cell/th.directive';
 
 export interface ThyNativeTableThInfo {
     thyWidth?: InputSignal<string | number | null>;
-    colspan?: number | string;
-    colSpan?: number | string;
+    colspan?: number | string | null;
+    colSpan?: number | string | null;
 }
 
 @Injectable()

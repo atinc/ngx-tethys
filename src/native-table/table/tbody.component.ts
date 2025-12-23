@@ -6,9 +6,7 @@ import { ThyEmpty } from 'ngx-tethys/empty';
 /* eslint-disable @angular-eslint/component-selector */
 @Component({
     selector: 'tbody',
-    standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
     template: `
         <ng-content></ng-content>
         @if (showEmpty()) {

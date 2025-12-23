@@ -6,8 +6,7 @@ import { ThyNativeTableSortOrder } from '../table.interface';
 
 /* eslint-disable @angular-eslint/component-selector */
 @Component({
-    selector: 'th[thySortable]',
-    standalone: true,
+    selector: 'th[thyHeaderCellSortable]',
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
         <ng-content></ng-content>
@@ -33,17 +32,17 @@ import { ThyNativeTableSortOrder } from '../table.interface';
         </span>
     `,
     host: {
-        '[class.thy-native-table-column-has-sorters]': 'thySortable()',
+        '[class.thy-native-table-column-has-sorters]': 'thyHeaderCellSortable()',
         '[class.thy-native-table-column-sort]': 'currentSortOrder() === "desc" || currentSortOrder() === "asc"'
     },
     imports: [NgTemplateOutlet, ThyIcon]
 })
 export class ThyNativeTableThSortComponent implements OnInit {
-    readonly thySortable = input(false, { transform: booleanAttribute });
+    readonly thyHeaderCellSortable = input(false, { transform: booleanAttribute });
 
     readonly thySortOrder = input<ThyNativeTableSortOrder | null>(null);
 
-    readonly thySortDirections = input<ThyNativeTableSortOrder[]>(['asc', 'desc', null]);
+    readonly thySortDirections = input<ThyNativeTableSortOrder[]>(['asc', 'desc']);
 
     readonly sortTriggerTemplate = input<TemplateRef<any> | null>(null);
 

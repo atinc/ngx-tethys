@@ -6,8 +6,7 @@ import { THY_NATIVE_TABLE_CELL_SELECTOR } from '../constant';
 import { ThyNativeTableEditEventDispatcher } from './edit-event-dispatcher.service';
 
 @Directive({
-    selector: '[thyEditOpen]',
-    standalone: true
+    selector: '[thyEditOpen]'
 })
 export class ThyNativeTableTdEditOpenDirective {
     readonly elementRef = inject(ElementRef<HTMLElement>);
