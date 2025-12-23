@@ -144,9 +144,10 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
         effect(() => {
             const value = this.content();
             const data = this.data();
-            if (!value && this.tooltipRef?.isTooltipVisible()) {
+            const isTooltipVisible = this.tooltipRef?.isTooltipVisible();
+            if (!value && isTooltipVisible) {
                 this.tooltipRef.hide(0);
-            } else if (value && this.tooltipRef?.isTooltipVisible()) {
+            } else if (value && isTooltipVisible) {
                 this.tooltipRef?.updateTooltipContent(value, data);
             }
         });
@@ -169,12 +170,15 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
             }
         });
 
-        afterNextRender(() => {
-            this.initialize();
+        effect(() => {
             const tooltipClass = this.thyTooltipClass();
             if (this.tooltipRef && tooltipClass) {
                 this.tooltipRef.setTooltipClass(tooltipClass);
             }
+        });
+
+        afterNextRender(() => {
+            this.initialize();
         });
     }
 
