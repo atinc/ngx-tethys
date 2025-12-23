@@ -61,7 +61,7 @@ export class ThyNativeTableComponent<T = any> implements OnInit, AfterViewInit {
 
     readonly thyScroll = input<ThyNativeTableScroll>({ x: null, y: null });
 
-    readonly thyEmptyOptions = input<ThyTableEmptyOptions | null>(null);
+    readonly thyEmptyOptions = input<ThyTableEmptyOptions>({});
 
     /** data for ngFor tr */
     public data = computed<readonly T[]>(() => this.thyData());

@@ -3,6 +3,8 @@ import { BehaviorSubject, combineLatest, merge, ReplaySubject } from 'rxjs';
 
 import { ThyNativeTableSize, ThyNativeTableTheme } from '../table.interface';
 import { ThyTableEmptyOptions } from '../../table';
+import { ThyNativeTableTrDirective } from '../row/tr.directive';
+import { ThyNativeTableThDirective } from '../cell/th.directive';
 
 export interface ThyNativeTableThInfo {
     thyWidth?: InputSignal<string | number | null>;
@@ -43,7 +45,7 @@ export class ThyNativeTableStyleService {
         this.emptyOptions.set(emptyOptions);
     }
 
-    setListOfTh(listOfTh: readonly ThyNativeTableThInfo[]): void {
+    setListOfTh(listOfTh: readonly ThyNativeTableThDirective[]): void {
         const listOfThPx = listOfTh.map(item => {
             const width = item.thyWidth();
             if (width === null || width === undefined) {

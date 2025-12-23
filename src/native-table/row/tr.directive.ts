@@ -3,7 +3,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Observable, ReplaySubject, combineLatest, merge } from 'rxjs';
 import { map, mergeMap, startWith, switchMap } from 'rxjs/operators';
 
-import { ThyNativeTableCellFixedDirective } from '../cell/cell-fixed.directive';
 import { ThyNativeTableThDirective } from '../cell/th.directive';
 import { ThyNativeTableStyleService } from '../services/table-style.service';
 
@@ -20,7 +19,6 @@ export class ThyNativeTableTrDirective implements AfterContentInit {
     private styleService = inject(ThyNativeTableStyleService, { optional: true });
 
     @ContentChildren(ThyNativeTableThDirective) listOfThDirective!: QueryList<ThyNativeTableThDirective>;
-    @ContentChildren(ThyNativeTableCellFixedDirective) listOfCellFixedDirective!: QueryList<ThyNativeTableCellFixedDirective>;
 
     private listOfColumns$ = new ReplaySubject<ThyNativeTableThDirective[]>(1);
 

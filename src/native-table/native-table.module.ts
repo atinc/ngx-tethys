@@ -5,13 +5,10 @@ import { ThyNativeTableInnerDefaultComponent } from './table/table-inner-default
 import { ThyNativeTableInnerScrollComponent } from './table/table-inner-scroll.component';
 import { ThyNativeTableBodyComponent } from './table/tbody.component';
 import { ThyNativeTableHeaderComponent } from './table/thead.component';
-import { ThyNativeTableTrMeasureComponent } from './row/tr-measure.component';
 import { ThyNativeTableTrDirective } from './row/tr.directive';
 import { ThyNativeTableCellDirective } from './cell/cell.directive';
-import { ThyNativeTableCellFixedDirective } from './cell/cell-fixed.directive';
 import { ThyNativeTableThDirective } from './cell/th.directive';
 import { ThyNativeTableTdSelectionComponent } from './cell/td-selection.component';
-import { ThyNativeTableTdExpandComponent } from './cell/td-expand.component';
 import { ThyNativeTableThSelectionComponent } from './cell/th-selection.component';
 import { ThyNativeTableThSortComponent } from './cell/th-sort.component';
 import {
@@ -35,13 +32,10 @@ const EDIT_COMPONENTS = [
         ThyNativeTableInnerDefaultComponent,
         ThyNativeTableBodyComponent,
         ThyNativeTableHeaderComponent,
-        ThyNativeTableTrMeasureComponent,
         ThyNativeTableTrDirective,
         ThyNativeTableCellDirective,
-        ThyNativeTableCellFixedDirective,
         ThyNativeTableThDirective,
         ThyNativeTableTdSelectionComponent,
-        ThyNativeTableTdExpandComponent,
         ThyNativeTableThSelectionComponent,
         ThyNativeTableThSortComponent,
         ThyNativeTableTdEditOpenDirective,
@@ -54,13 +48,10 @@ const EDIT_COMPONENTS = [
         ThyNativeTableInnerDefaultComponent,
         ThyNativeTableBodyComponent,
         ThyNativeTableHeaderComponent,
-        ThyNativeTableTrMeasureComponent,
         ThyNativeTableTrDirective,
         ThyNativeTableCellDirective,
-        ThyNativeTableCellFixedDirective,
         ThyNativeTableThDirective,
         ThyNativeTableTdSelectionComponent,
-        ThyNativeTableTdExpandComponent,
         ThyNativeTableThSelectionComponent,
         ThyNativeTableThSortComponent,
         ThyNativeTableTdEditOpenDirective,
