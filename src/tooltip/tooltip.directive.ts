@@ -38,6 +38,8 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
 
     private readonly viewInitialized = signal(false);
 
+    private readonly eventsInitialized = signal(false);
+
     /**
      * 提示消息，可以是文本，也可以是一个模板
      * @type string | TemplateRef<T>
@@ -187,10 +189,15 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
     private setupEventsIfNeeded(): void {
         const content = this.content();
         const viewInitialized = this.viewInitialized();
+        const eventsInitialized = this.eventsInitialized();
         if (this.disabled || !content || !viewInitialized) {
             return;
         }
+        if (eventsInitialized) {
+            return;
+        }
         this.initialize();
+        this.eventsInitialized.set(true);
     }
 
     /** Shows the tooltip after the delay in ms, defaults to tooltip-delay-show 200ms */
