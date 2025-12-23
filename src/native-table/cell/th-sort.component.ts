@@ -4,6 +4,7 @@ import { NgTemplateOutlet } from '@angular/common';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyNativeTableSortOrder } from '../table.interface';
 
+/* eslint-disable @angular-eslint/component-selector */
 @Component({
     selector: 'th[thySortable]',
     standalone: true,

@@ -2,6 +2,7 @@ import { Directive, effect, ElementRef, inject, input, OnChanges, Renderer2, Sim
 import { Subject } from 'rxjs';
 import { ThyNativeTableThInfo } from '../services/table-style.service';
 
+/* eslint-disable @angular-eslint/directive-selector */
 @Directive({
     selector: 'th',
     standalone: true

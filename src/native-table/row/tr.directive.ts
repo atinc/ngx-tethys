@@ -7,6 +7,7 @@ import { ThyNativeTableCellFixedDirective } from '../cell/cell-fixed.directive';
 import { ThyNativeTableThDirective } from '../cell/th.directive';
 import { ThyNativeTableStyleService } from '../services/table-style.service';
 
+/* eslint-disable @angular-eslint/directive-selector */
 @Directive({
     selector: 'tr:not([thyNativeTableMeasureRow]):not([thyNativeTableFixedRow])',
     standalone: true,

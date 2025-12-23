@@ -24,6 +24,7 @@ import { delay, map, mergeMap, startWith, switchMap } from 'rxjs/operators';
 import { ThyNativeTableStyleService } from '../services/table-style.service';
 import { ThyNativeTableTrDirective } from '../row/tr.directive';
 
+/* eslint-disable @angular-eslint/component-selector */
 @Component({
     selector: 'thead:not(.thy-native-table-thead)',
     standalone: true,

@@ -2,6 +2,7 @@ import { Directive, inject } from '@angular/core';
 
 import { ThyNativeTableStyleService } from '../services/table-style.service';
 
+/* eslint-disable @angular-eslint/directive-selector */
 @Directive({
     selector: 'th, td',
     standalone: true,

@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, inject
 import { ThyNativeTableStyleService } from '../services/table-style.service';
 import { ThyEmpty } from 'ngx-tethys/empty';
 
+/* eslint-disable @angular-eslint/component-selector */
 @Component({
     selector: 'tbody',
     standalone: true,

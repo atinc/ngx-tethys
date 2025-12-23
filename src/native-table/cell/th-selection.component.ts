@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 
 import { ThyCheckbox } from 'ngx-tethys/checkbox';
 
+/* eslint-disable @angular-eslint/component-selector */
 @Component({
     selector: 'th[thyChecked],th[thyShowCheckbox]',
     standalone: true,

@@ -14,6 +14,7 @@ import { NgTemplateOutlet } from '@angular/common';
 
 import { ThyIcon } from 'ngx-tethys/icon';
 
+/* eslint-disable @angular-eslint/component-selector */
 @Component({
     selector: 'td[thyShowExpand], td[thyExpand]',
     standalone: true,

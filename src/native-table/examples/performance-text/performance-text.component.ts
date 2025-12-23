@@ -43,7 +43,7 @@ export class ThyNativeTablePerformanceTextExampleComponent implements OnInit {
 
     newData = {
         id: `${this.lastIndex}`,
-        name: this.lastIndex + 'Tom',
+        name: `${this.lastIndex}Tom`,
         age: 10,
         job: 'Engineer',
         address: 'New Industrial Park, Shushan, Hefei, Anhui'
