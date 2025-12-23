@@ -4,6 +4,7 @@ import {
     scaleMotion,
     scaleXMotion,
     scaleYMotion,
+    ScrollToService,
     TabIndexDisabledControlValueAccessorMixin,
     ThyClickDispatcher,
     ThyPlacement
@@ -18,7 +19,9 @@ import {
     ThySelectOptionGroup,
     ThyStopPropagationDirective,
     ThyOptionGroupRender,
-    SelectOptionBase
+    SelectOptionBase,
+    ThyViewOutletDirective,
+    ThyScrollDirective
 } from 'ngx-tethys/shared';
 import {
     A,
@@ -159,6 +162,8 @@ interface ThySelectFlattedItem {
         ThyOptionRender,
         ThyOptionGroupRender,
         NgTemplateOutlet,
+        ThyViewOutletDirective,
+        ThyScrollDirective,
         ScrollingModule
     ],
     host: {
@@ -403,6 +408,13 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
      */
     readonly thyBorderless = input(false, { transform: coerceBooleanProperty });
 
+    readonly panel = viewChild<ElementRef<HTMLElement>>('panel');
+
+    /**
+     * 是否启用虚拟滚动，默认值为 false
+     */
+    readonly thyVirtualScroll = input(false, { transform: coerceBooleanProperty });
+
     private scrolledIndex = 0;
 
     readonly cdkVirtualScrollViewport = viewChild<CdkVirtualScrollViewport>(CdkVirtualScrollViewport);
@@ -474,7 +486,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     });
 
     readonly selectedValuesMap = computed<Map<SafeAny, boolean>>(() => {
-        return new Map(this.selectedValues().map(value => [value, true]));
+        return new Map((this.selectedValues() || []).map(value => [value, true]));
     });
 
     /**
@@ -786,7 +798,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         }
     }
 
-    public optionsScrolled(index: number) {
+    public optionsVirtualScrolled(index: number) {
         this.scrolledIndex = index;
 
         if (this.thyEnableScrollLoad()) {
@@ -794,6 +806,18 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             if (isScrollToBottom) {
                 this.thyOnScrollToBottom.emit();
             }
+        }
+    }
+
+    public optionsScrolled(elementRef: ElementRef) {
+        const scroll = elementRef.nativeElement.scrollTop,
+            height = elementRef.nativeElement.clientHeight,
+            scrollHeight = elementRef.nativeElement.scrollHeight;
+
+        if (scroll + height + 10 >= scrollHeight) {
+            this.ngZone.run(() => {
+                this.thyOnScrollToBottom.emit();
+            });
         }
     }
 
@@ -974,8 +998,18 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             return;
         }
 
-        if (targetIndex < this.scrolledIndex || targetIndex >= this.scrolledIndex + this.maxItemLength()) {
-            this.cdkVirtualScrollViewport()?.scrollToIndex(targetIndex || 0);
+        if (this.thyVirtualScroll()) {
+            if (targetIndex < this.scrolledIndex || targetIndex >= this.scrolledIndex + this.maxItemLength()) {
+                this.cdkVirtualScrollViewport()?.scrollToIndex(targetIndex || 0);
+            }
+        } else {
+            const panelElement = this.panel()?.nativeElement;
+            if (panelElement) {
+                const optionElement = panelElement.querySelector(`[data-option-value="${toActivatedValue}"]`) as HTMLElement;
+                if (optionElement) {
+                    ScrollToService.scrollToElement(optionElement, panelElement);
+                }
+            }
         }
 
         if (needSelect) {

@@ -48,7 +48,8 @@ interface FoodsInfo {
                 [thyOrigin]="customizeOrigin"
                 [thyFooterTemplate]="footerTmp"
                 [thyFooterClass]="footerClass"
-                [thyEmptyStateText]="emptyStateText">
+                [thyEmptyStateText]="emptyStateText"
+                [thyVirtualScroll]="enableVirtualScroll">
                 @for (food of foods; track food.value) {
                     <thy-option [thyValue]="food.value" [thyDisabled]="food.disabled" [thyLabelText]="food.viewValue"> </thy-option>
                 }
@@ -62,6 +63,8 @@ interface FoodsInfo {
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class BasicSelectComponent {
+    enableVirtualScroll = false;
+
     foods: FoodsInfo[] = [
         { value: 'steak-0', viewValue: 'Steak' },
         { value: 'pizza-1', viewValue: 'Pizza' },
@@ -988,17 +991,44 @@ describe('ThyCustomSelect', () => {
                 expect(fixture.componentInstance.select().panelOpen).toBe(false);
             }));
 
-            it('should remove activated option when mouseleave', fakeAsync(() => {
+            it('should remove activated option when mouseleave when enable virtual scroll', fakeAsync(() => {
+                fixture.componentInstance.enableVirtualScroll = true;
+                fixture.detectChanges();
+
                 trigger.click();
                 fixture.detectChanges();
                 flush();
 
                 const el = overlayContainerElement.querySelector('.thy-select-scroll-viewport') as HTMLElement;
-                dispatchMouseEvent(el, 'mouselease');
+                dispatchMouseEvent(el, 'mouseleave');
+                expect(fixture.componentInstance.select().activatedValue()).toEqual(null);
+            }));
+
+            it('should remove activated option when mouseleave', fakeAsync(() => {
+                trigger.click();
+                fixture.detectChanges();
+                flush();
+
+                const el = overlayContainerElement.querySelector('.thy-select-dropdown-options') as HTMLElement;
+                dispatchMouseEvent(el, 'mouseleave');
                 expect(fixture.componentInstance.select().activatedValue()).toEqual(null);
             }));
 
             it('should exec thyOnScrollToBottom when thyEnableScrollLoad is true', fakeAsync(() => {
+                fixture.componentInstance.enableScrollLoad = true;
+                const spy = fixture.componentInstance.thyOnScrollToBottom;
+                trigger.click();
+                fixture.detectChanges();
+                flush();
+
+                const el = overlayContainerElement.querySelector('.thy-select-dropdown-options') as HTMLElement;
+                dispatchFakeEvent(el, 'scroll');
+
+                expect(spy).toHaveBeenCalledTimes(1);
+            }));
+
+            it('should exec thyOnScrollToBottom when thyEnableScrollLoad is true and enable virtual scroll', fakeAsync(() => {
+                fixture.componentInstance.enableVirtualScroll = true;
                 fixture.componentInstance.enableScrollLoad = true;
                 const spy = fixture.componentInstance.thyOnScrollToBottom;
 
@@ -1010,13 +1040,14 @@ describe('ThyCustomSelect', () => {
                 expect(viewport).toBeTruthy();
 
                 const scrollIndex = 8;
-                fixture.componentInstance.select().optionsScrolled(scrollIndex);
+                fixture.componentInstance.select().optionsVirtualScrolled(scrollIndex);
                 fixture.detectChanges();
 
                 expect(spy).toHaveBeenCalled();
             }));
 
-            it('should not exec thyOnScrollToBottom when thyEnableScrollLoad is false', fakeAsync(() => {
+            it('should not exec thyOnScrollToBottom when thyEnableScrollLoad is false and enable virtual scroll', fakeAsync(() => {
+                fixture.componentInstance.enableVirtualScroll = true;
                 fixture.componentInstance.enableScrollLoad = false;
                 const spy = fixture.componentInstance.thyOnScrollToBottom;
 
@@ -1028,7 +1059,7 @@ describe('ThyCustomSelect', () => {
                 expect(viewport).toBeTruthy();
 
                 const scrollIndex = 8;
-                fixture.componentInstance.select().optionsScrolled(scrollIndex);
+                fixture.componentInstance.select().optionsVirtualScrolled(scrollIndex);
                 fixture.detectChanges();
 
                 expect(spy).not.toHaveBeenCalled();
