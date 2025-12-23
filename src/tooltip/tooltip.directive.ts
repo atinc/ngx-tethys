@@ -153,8 +153,11 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
 
         effect(() => {
             const trigger = this.thyTooltipTrigger();
-            const overlayPin = this.tooltipPin();
             this.trigger = trigger;
+        });
+
+        effect(() => {
+            const overlayPin = this.tooltipPin();
             this.overlayPin = overlayPin;
         });
 
@@ -202,6 +205,6 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
 
     ngOnDestroy() {
         this.tooltipRef?.dispose();
-        (this as any).dispose?.();
+        this.dispose?.();
     }
 }
