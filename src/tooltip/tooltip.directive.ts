@@ -3,16 +3,16 @@ import { Platform } from '@angular/cdk/platform';
 import {
     Directive,
     ElementRef,
-    Input,
     NgZone,
     OnDestroy,
     OnInit,
     ViewContainerRef,
-    numberAttribute,
+    afterNextRender,
+    effect,
     inject,
     input,
-    effect,
-    linkedSignal
+    linkedSignal,
+    numberAttribute
 } from '@angular/core';
 import { ThyOverlayDirectiveBase, ThyOverlayTrigger, ThyPlacement } from 'ngx-tethys/core';
 import { SafeAny } from 'ngx-tethys/types';
@@ -143,17 +143,12 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
 
         effect(() => {
             const value = this.content();
-            if (!value && this.tooltipRef?.isTooltipVisible()) {
+            const data = this.data();
+            const isTooltipVisible = this.tooltipRef?.isTooltipVisible();
+            if (!value && isTooltipVisible) {
                 this.tooltipRef.hide(0);
-            } else {
-                this.tooltipRef?.updateTooltipContent(value, this.data());
-            }
-        });
-
-        effect(() => {
-            const tooltipClass = this.thyTooltipClass();
-            if (tooltipClass) {
-                this.tooltipRef?.setTooltipClass(tooltipClass);
+            } else if (value && isTooltipVisible) {
+                this.tooltipRef?.updateTooltipContent(value, data);
             }
         });
 
@@ -163,22 +158,31 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
         });
 
         effect(() => {
+            const overlayPin = this.tooltipPin();
+            this.overlayPin = overlayPin;
+        });
+
+        effect(() => {
             const disabled = this.toolTipDisabled();
             this.disabled = !!disabled;
-            if (disabled) {
+            if (disabled && this.tooltipRef?.isTooltipVisible()) {
                 this.hide(0);
             }
         });
 
         effect(() => {
-            const overlayPin = this.tooltipPin();
-            this.overlayPin = overlayPin;
+            const tooltipClass = this.thyTooltipClass();
+            if (this.tooltipRef && tooltipClass) {
+                this.tooltipRef.setTooltipClass(tooltipClass);
+            }
+        });
+
+        afterNextRender(() => {
+            this.initialize();
         });
     }
 
-    ngOnInit() {
-        this.initialize();
-    }
+    ngOnInit() {}
 
     /** Shows the tooltip after the delay in ms, defaults to tooltip-delay-show 200ms */
     show(delay: number | undefined = this.thyTooltipShowDelay()): void {
@@ -205,5 +209,6 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
 
     ngOnDestroy() {
         this.tooltipRef?.dispose();
+        this.dispose?.();
     }
 }
