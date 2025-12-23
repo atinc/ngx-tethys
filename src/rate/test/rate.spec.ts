@@ -418,7 +418,6 @@ describe('Rate tooltip component', () => {
 
     it('should get correct text when tooltip work', fakeAsync(() => {
         fixture.detectChanges();
-        // wait for afterNextRender in tooltip directive to complete and bind events
         tick();
         fixture.detectChanges();
 

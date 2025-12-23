@@ -131,7 +131,6 @@ describe(`ThyTooltip`, () => {
         });
 
         it('should show the tooltip for tap', fakeAsync(() => {
-            // wait for afterNextRender in directive to complete and bind events
             tick();
             fixture.detectChanges();
             assertTooltipInstance(tooltipDirective, false);
@@ -146,7 +145,6 @@ describe(`ThyTooltip`, () => {
         }));
 
         it('should show the tooltip for long press', fakeAsync(() => {
-            // wait for afterNextRender in directive to complete and bind events
             tick();
             fixture.detectChanges();
             assertTooltipInstance(tooltipDirective, false);
@@ -164,7 +162,6 @@ describe(`ThyTooltip`, () => {
         });
 
         it('should close on touchend with a delay', fakeAsync(() => {
-            // wait for afterNextRender in directive to complete and bind events
             tick();
             fixture.detectChanges();
             dispatchTouchEvent(buttonElement, 'touchstart');
@@ -191,7 +188,6 @@ describe(`ThyTooltip`, () => {
         }));
 
         it('should close on touchmove', fakeAsync(() => {
-            // wait for afterNextRender in directive to complete and bind events
             tick();
             fixture.detectChanges();
             dispatchTouchEvent(buttonElement, 'touchstart');
@@ -238,7 +234,6 @@ describe(`ThyTooltip`, () => {
         });
 
         it('should show and hide the tooltip', fakeAsync(() => {
-            // wait for afterNextRender in directive to complete and bind events
             tick();
             fixture.detectChanges();
             assertTooltipInstance(tooltipDirective, false);
@@ -481,7 +476,6 @@ describe(`ThyTooltip`, () => {
         });
 
         it('should show and hide the tooltip', fakeAsync(() => {
-            // wait for afterNextRender in directive to complete and bind events
             tick();
             fixture.detectChanges();
             assertTooltipInstance(tooltipDirective, false);

@@ -159,8 +159,7 @@ class ThyDemoProgressTooltipTemplateComponent {
 }
 
 function assertTooltipInstance(tooltip: ThyTooltipDirective, shouldExist: boolean): void {
-    const tooltipRef = (tooltip as any).tooltipRef;
-    const tooltipInstance = tooltipRef ? tooltipRef.tooltipInstance : null;
+    const tooltipInstance = tooltip['tooltipRef'] ? tooltip['tooltipRef']['tooltipInstance'] : null;
     expect(!!tooltipInstance).toBe(shouldExist);
 }
 
@@ -178,8 +177,7 @@ describe(`ThyProgressComponent`, () => {
         let overlayContainerElement!: HTMLElement;
 
         function getTooltipVisible() {
-            const tooltipRef = (tooltipDirective as any).tooltipRef;
-            return tooltipRef ? tooltipRef.isTooltipVisible() : false;
+            return tooltipDirective['tooltipRef'] ? tooltipDirective['tooltipRef']['isTooltipVisible']() : false;
         }
 
         beforeEach(fakeAsync(() => {
@@ -383,7 +381,7 @@ describe(`ThyProgressComponent`, () => {
             }
 
             const pathString = `M 50,50 m ${beginPositionX},${beginPositionY} a ${radius},${radius} 0 1 1 ${endPositionX},${-endPositionY} a ${radius},${radius} 0 1 1 ${-endPositionX},${endPositionY}`;
-            expect(pathString).toBe(circlePath!.getAttribute('d')!);
+            expect(pathString).toBe(circlePath!.getAttribute('d'));
         }
 
         beforeEach(fakeAsync(() => {
@@ -692,13 +690,13 @@ describe(`ThyProgressComponent`, () => {
             expect(progressBarElements[2].style.width).toEqual('57.14%');
 
             expect((progressBarElements[0].querySelector('.progress-bar-inner') as HTMLElement).style['background-color' as any]).toEqual(
-                hexToRgb('#4e8af9')!
+                hexToRgb('#4e8af9')
             );
             expect((progressBarElements[1].querySelector('.progress-bar-inner') as HTMLElement).style['background-color' as any]).toEqual(
-                hexToRgb('#66c060')!
+                hexToRgb('#66c060')
             );
             expect((progressBarElements[2].querySelector('.progress-bar-inner') as HTMLElement).style['background-color' as any]).toEqual(
-                hexToRgb('#ffd234')!
+                hexToRgb('#ffd234')
             );
         });
     });
@@ -772,7 +770,7 @@ describe(`ThyProgressComponent`, () => {
             expect(progressBarElements[2].style.width).toEqual('11.11%');
             expect(progressBarElements[3].style.width).toEqual('16.67%');
             expect((progressBarElements[3].querySelector('.progress-bar-inner') as HTMLElement).style['background-color' as any]).toEqual(
-                hexToRgb('#7076fa')!
+                hexToRgb('#7076fa')
             );
         });
 
