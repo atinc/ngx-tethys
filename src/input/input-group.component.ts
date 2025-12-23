@@ -135,7 +135,7 @@ export class ThyInputGroup implements OnInit, OnDestroy {
     /**
      * @private
      */
-    readonly inputDirective = contentChild.required(ThyInputDirective);
+    readonly inputDirective = contentChild(ThyInputDirective);
 
     private disabledObservable: MutationObserver | null = null;
 
@@ -192,11 +192,11 @@ export class ThyInputGroup implements OnInit, OnDestroy {
 
     private determineHasScrollbar() {
         this.ngZone.runOutsideAngular(() => {
-            this.resizeObserver(this.inputDirective().nativeElement)
+            this.resizeObserver(this.inputDirective()!.nativeElement)
                 .pipe(throttleTime(100), takeUntilDestroyed(this.destroyRef))
                 .subscribe(() => {
                     const hasScrollbar =
-                        this.inputDirective().nativeElement.scrollHeight > this.inputDirective().nativeElement.clientHeight;
+                        this.inputDirective()!.nativeElement.scrollHeight > this.inputDirective()!.nativeElement.clientHeight;
                     if (this.hasScrollbar() !== hasScrollbar) {
                         this.ngZone.run(() => {
                             this.hasScrollbar.set(hasScrollbar);

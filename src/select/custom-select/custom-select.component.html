@@ -43,43 +43,11 @@
       placement() !== 'top' && placement() !== 'bottom' && placement() !== 'left' && placement() !== 'right' ? 'enter' : 'void'
     ">
     @if (filteredGroupsAndOptions()?.length > 0) {
-      <div
-        #panel
-        class="thy-select-dropdown-options thy-select-dropdown-options-{{ thySize() }} thy-select-dropdown-options-with-virtual-scroll">
-        <cdk-virtual-scroll-viewport
-          class="thy-select-scroll-viewport"
-          [itemSize]="thyItemSize()"
-          [style.height.px]="virtualHeight()"
-          (scrolledIndexChange)="optionsScrolled($event)"
-          (mouseleave)="mouseLeaveOptions()">
-          <ng-template
-            cdkVirtualFor
-            [cdkVirtualForOf]="filteredGroupsAndOptions()"
-            [cdkVirtualForTrackBy]="trackByFn"
-            [cdkVirtualForTemplateCacheSize]="0"
-            let-item>
-            @if (item.type === 'group') {
-              <thy-option-group-render [thyGroupLabel]="item.label"></thy-option-group-render>
-            } @else {
-              <thy-option-render
-                [thyValue]="item.value"
-                [thyRawValue]="item.rawValue"
-                [thyLabelText]="item.label"
-                [thyShowOptionCustom]="item.showOptionCustom"
-                [thySearchKey]="item.searchKey"
-                [thyDisabled]="item.disabled"
-                [thyTemplate]="item.template"
-                [thyShowCheckedIcon]="isMultiple()"
-                [thySelectedValuesMap]="selectedValuesMap()"
-                [thyActivatedValue]="activatedValue()"
-                (optionHover)="optionHover($event)"
-                (optionClick)="optionClick($event)">
-              </thy-option-render>
-            }
-          </ng-template>
-        </cdk-virtual-scroll-viewport>
-        <ng-content></ng-content>
-      </div>
+      @if (thyVirtualScroll()) {
+        <ng-container *thyViewOutlet="virtualScrollTemplate"> </ng-container>
+      } @else {
+        <ng-container *thyViewOutlet="defaultTemplate"> </ng-container>
+      }
     } @else {
       <thy-loading [thyDone]="thyLoadState()" thySize="sm"></thy-loading>
       <div class="thy-select-empty-content">
@@ -100,4 +68,82 @@
       </div>
     }
   </div>
+</ng-template>
+
+<ng-template #virtualScrollTemplate>
+  <div
+    #panel
+    class="thy-select-dropdown-options thy-select-dropdown-options-{{ thySize() }} thy-select-dropdown-options-with-virtual-scroll">
+    <cdk-virtual-scroll-viewport
+      class="thy-select-scroll-viewport"
+      [itemSize]="thyItemSize()"
+      [style.height.px]="virtualHeight()"
+      (scrolledIndexChange)="optionsVirtualScrolled($event)"
+      (mouseleave)="mouseLeaveOptions()">
+      <ng-template
+        cdkVirtualFor
+        [cdkVirtualForOf]="filteredGroupsAndOptions()"
+        [cdkVirtualForTrackBy]="trackByFn"
+        [cdkVirtualForTemplateCacheSize]="0"
+        let-item>
+        <ng-container
+          *thyViewOutlet="
+            renderTemplate;
+            context: {
+              $implicit: item
+            }
+          ">
+        </ng-container>
+      </ng-template>
+    </cdk-virtual-scroll-viewport>
+    <ng-content></ng-content>
+  </div>
+</ng-template>
+
+<ng-template #defaultTemplate>
+  <div
+    #panel
+    class="thy-select-dropdown-options thy-select-dropdown-options-{{ thySize() }}"
+    thyScroll
+    [thyEnable]="thyEnableScrollLoad()"
+    (thyOnScrolled)="optionsScrolled($event)"
+    (mouseleave)="mouseLeaveOptions()">
+    @for (item of filteredGroupsAndOptions(); track trackByFn($index, item)) {
+      <ng-container
+        *thyViewOutlet="
+          renderTemplate;
+          context: {
+            $implicit: item
+          }
+        ">
+      </ng-container>
+    }
+    <ng-content></ng-content>
+  </div>
+</ng-template>
+
+<ng-template #renderTemplate let-item>
+  @if (item.type === 'group') {
+    <thy-option-group-render [thyGroupLabel]="item.label"></thy-option-group-render>
+  } @else {
+    <thy-option-render
+      [attr.data-option-value]="item.value"
+      [thyValue]="item.value"
+      [thyRawValue]="item.rawValue"
+      [thyLabelText]="item.label"
+      [thyShowOptionCustom]="item.showOptionCustom"
+      [thySearchKey]="item.searchKey"
+      [thyDisabled]="item.disabled"
+      [thyTemplate]="item.template"
+      [thyShowCheckedIcon]="isMultiple()"
+      [thySelectedValuesMap]="selectedValuesMap()"
+      [thyActivatedValue]="activatedValue()"
+      (optionHover)="optionHover($event)"
+      (optionClick)="optionClick($event)">
+    </thy-option-render>
+
+    @if (item.suffixTemplate) {
+      <ng-container *thyViewOutlet="item.suffixTemplate"> </ng-container>
+    }
+  }
 </ng-template>

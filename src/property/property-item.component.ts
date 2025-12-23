@@ -176,7 +176,9 @@ export class ThyPropertyItem implements OnDestroy {
                 this.clickEventSubscription = fromEvent(itemElement, 'click')
                     .pipe(takeUntil(this.eventDestroy$))
                     .subscribe(() => {
-                        this.originOverlays = [...this.overlayOutsideClickDispatcher._attachedOverlays];
+                        if (this.thyEditTrigger() === 'click') {
+                            this.originOverlays = [...this.overlayOutsideClickDispatcher._attachedOverlays];
+                        }
                         this.setEditing(true);
                         this.bindEditorBlurEvent(itemElement);
                         itemElement.querySelector('input')?.focus();
