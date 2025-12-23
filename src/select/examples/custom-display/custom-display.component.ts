@@ -6,11 +6,12 @@ import { FormsModule } from '@angular/forms';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyTag } from 'ngx-tethys/tag';
 import { ThyText } from 'ngx-tethys/typography';
+import { ThyDivider } from 'ngx-tethys/divider';
 
 @Component({
     selector: 'thy-select-custom-display-example',
     templateUrl: './custom-display.component.html',
-    imports: [ThySelect, ThyOption, FormsModule, ThyIcon, ThyTag, ThyText]
+    imports: [ThySelect, ThyOption, FormsModule, ThyIcon, ThyTag, ThyText, ThyDivider]
 })
 export class ThySelectCustomDisplayExampleComponent implements OnInit {
     optionData = taskTypes;
@@ -20,7 +21,7 @@ export class ThySelectCustomDisplayExampleComponent implements OnInit {
     selectedTaskTypes!: string[];
 
     ngOnInit() {
-        this.selectedTaskType = this.optionData[0].name;
+        this.selectedTaskType = this.optionData[1].name;
 
         this.selectedTaskTypes = [this.optionData[0].name, this.optionData[2].name];
     }
