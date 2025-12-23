@@ -685,8 +685,17 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
 
         if (options && options.length > 0) {
             groupsAndOptions = options.map((option: ThyOption) => {
-                const { thyValue, thyRawValue, thyLabelText, thyShowOptionCustom, thyDisabled, template, thySearchKey, groupLabel } =
-                    option;
+                const {
+                    thyValue,
+                    thyRawValue,
+                    thyLabelText,
+                    thyShowOptionCustom,
+                    thyDisabled,
+                    template,
+                    suffixTemplate,
+                    thySearchKey,
+                    groupLabel
+                } = option;
 
                 return {
                     type: 'option',
@@ -696,6 +705,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
                     showOptionCustom: thyShowOptionCustom(),
                     disabled: thyDisabled(),
                     template: template(),
+                    suffixTemplate: suffixTemplate(),
                     searchKey: thySearchKey(),
                     groupLabel: groupLabel
                 };

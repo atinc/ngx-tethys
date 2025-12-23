@@ -141,5 +141,9 @@
       (optionHover)="optionHover($event)"
       (optionClick)="optionClick($event)">
     </thy-option-render>
+
+    @if (item.suffixTemplate) {
+      <ng-container *thyViewOutlet="item.suffixTemplate"> </ng-container>
+    }
   }
 </ng-template>

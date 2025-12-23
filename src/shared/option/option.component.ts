@@ -1,4 +1,4 @@
-import { Component, input, TemplateRef, ChangeDetectionStrategy, viewChild, inject, output, signal } from '@angular/core';
+import { Component, input, TemplateRef, ChangeDetectionStrategy, viewChild, inject, output, signal, contentChild } from '@angular/core';
 import { ThySelectOptionGroup } from './group/option-group.component';
 import { SafeAny } from 'ngx-tethys/types';
 
@@ -67,6 +67,8 @@ export class ThyOption {
      * 模板
      */
     readonly template = viewChild<TemplateRef<SafeAny>>(TemplateRef);
+
+    readonly suffixTemplate = contentChild<TemplateRef<SafeAny>>('suffixTemplate');
 
     private readonly optionGroupComponent = inject(ThySelectOptionGroup, { optional: true });
 
