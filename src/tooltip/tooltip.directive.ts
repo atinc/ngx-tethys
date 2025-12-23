@@ -12,8 +12,7 @@ import {
     inject,
     input,
     linkedSignal,
-    numberAttribute,
-    signal
+    numberAttribute
 } from '@angular/core';
 import { ThyOverlayDirectiveBase, ThyOverlayTrigger, ThyPlacement } from 'ngx-tethys/core';
 import { SafeAny } from 'ngx-tethys/types';
@@ -35,8 +34,6 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
     protected isAutoCloseOnMobileTouch: boolean = true;
 
     private tooltipRef!: ThyTooltipRef;
-
-    private readonly eventsInitialized = signal(false);
 
     /**
      * 提示消息，可以是文本，也可以是一个模板
@@ -170,9 +167,8 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
         });
 
         afterNextRender(() => {
-            if (!this.disabled && !this.eventsInitialized()) {
+            if (!this.disabled) {
                 this.initialize();
-                this.eventsInitialized.set(true);
             }
             const tooltipClass = this.thyTooltipClass();
             if (this.tooltipRef && tooltipClass) {
