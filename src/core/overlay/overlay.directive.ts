@@ -100,6 +100,9 @@ export abstract class ThyOverlayDirectiveBase {
     }
 
     initialize() {
+        if (this.initialized) {
+            this.clearEventListeners();
+        }
         this.initialized = true;
         const element: HTMLElement = this.elementRef.nativeElement;
         if (!this.platform.IOS && !this.platform.ANDROID) {
