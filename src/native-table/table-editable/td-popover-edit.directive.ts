@@ -73,7 +73,7 @@ export class ThyNativeTableTdPopoverEditDirective implements AfterViewInit, OnDe
             animationDisabled: true
         });
 
-        this.popoverRef.afterOpened().subscribe(() => {
+        this.popoverRef?.afterOpened().subscribe(() => {
             const popoverElement = document.querySelector('.thy-native-table-popover-edit') as HTMLElement;
             if (popoverElement) {
                 popoverElement.style.width = `${rect.width}px`;
@@ -84,7 +84,7 @@ export class ThyNativeTableTdPopoverEditDirective implements AfterViewInit, OnDe
             }
         });
 
-        this.popoverRef.afterClosed().subscribe(() => {
+        this.popoverRef?.afterClosed().subscribe(() => {
             this.popoverRef = undefined;
             this.focusoutUnsubscribe?.();
         });
