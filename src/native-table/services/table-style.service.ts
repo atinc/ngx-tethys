@@ -2,8 +2,7 @@ import { Injectable, TemplateRef, signal, computed, InputSignal } from '@angular
 import { BehaviorSubject, combineLatest, merge, ReplaySubject } from 'rxjs';
 
 import { ThyNativeTableSize, ThyNativeTableTheme } from '../table.interface';
-import { ThyTableEmptyOptions } from '../../table';
-import { ThyNativeTableTrDirective } from '../row/tr.directive';
+import { ThyTableEmptyOptions } from 'ngx-tethys/table';
 import { ThyNativeTableThDirective } from '../cell/th.directive';
 
 export interface ThyNativeTableThInfo {
@@ -14,7 +13,6 @@ export interface ThyNativeTableThInfo {
 
 @Injectable()
 export class ThyNativeTableStyleService {
-    theadTemplate$ = new ReplaySubject<TemplateRef<any>>(1);
     theadTemplate = signal<TemplateRef<any> | null>(null);
     columnCount = signal<number>(0);
     tableSize = signal<ThyNativeTableSize>('default');
@@ -25,7 +23,6 @@ export class ThyNativeTableStyleService {
     listOfThWidthConfigPx$ = new BehaviorSubject<ReadonlyArray<string | null>>([]);
 
     setTheadTemplate(template: TemplateRef<any>): void {
-        this.theadTemplate$.next(template);
         this.theadTemplate.set(template);
     }
 

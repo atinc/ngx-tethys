@@ -14,7 +14,7 @@ export class ThyNativeTableTdEditOpenDirective {
     private destroyRef = inject(DestroyRef);
 
     constructor() {
-        fromEvent(this.elementRef.nativeElement, 'click')
+        fromEvent<Event>(this.elementRef.nativeElement, 'click')
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe((event: Event) => {
                 event.stopPropagation();

@@ -38,8 +38,6 @@ const EDIT_COMPONENTS = [
         ThyNativeTableTdSelectionComponent,
         ThyNativeTableThSelectionComponent,
         ThyNativeTableThSortComponent,
-        ThyNativeTableTdEditOpenDirective,
-        ThyNativeTableTdPopoverEditDirective,
         ...EDIT_COMPONENTS
     ],
     exports: [
@@ -54,8 +52,6 @@ const EDIT_COMPONENTS = [
         ThyNativeTableTdSelectionComponent,
         ThyNativeTableThSelectionComponent,
         ThyNativeTableThSortComponent,
-        ThyNativeTableTdEditOpenDirective,
-        ThyNativeTableTdPopoverEditDirective,
         ...EDIT_COMPONENTS
     ]
 })
