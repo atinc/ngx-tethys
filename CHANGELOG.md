@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [20.0.3](https://github.com/atinc/ngx-tethys/compare/20.0.2...20.0.3) (2025-12-24)
+
+
+### Bug Fixes
+
+* **input-group:** update inputDirective usage to ensure proper type handling ([#3653](https://github.com/atinc/ngx-tethys/issues/3653)) ([48e3813](https://github.com/atinc/ngx-tethys/commit/48e3813fefde755c65e648362c836eb6bb18b576))
+* **property:** 修复hover状态下编辑下拉选择后，左上角会闪烁 #TINFR-3246 ([48df583](https://github.com/atinc/ngx-tethys/commit/48df5836d66795dfda573d4848fd28b8ff5643ca)), closes [#TINFR-3246](https://github.com/atinc/ngx-tethys/issues/TINFR-3246)
+* **select:** should call onChangeFn before close panel #TINFR-3248 ([#3645](https://github.com/atinc/ngx-tethys/issues/3645)) ([8627151](https://github.com/atinc/ngx-tethys/commit/8627151a796c5cc2fc79ec489f840ee0723e18b9)), closes [#TINFR-3248](https://github.com/atinc/ngx-tethys/issues/TINFR-3248)
+
+
+### Features
+
+* **anchor:** add thyDisabledContainerScroll to support disabling the scrolling container jump, and keep the link activation within the visible range #TINFR-3243 ([#3643](https://github.com/atinc/ngx-tethys/issues/3643)) ([ea62f9f](https://github.com/atinc/ngx-tethys/commit/ea62f9f3b6b7039dd09efe5702c6593cec5ee556)), closes [#TINFR-3243](https://github.com/atinc/ngx-tethys/issues/TINFR-3243)
+* **select:** add thyVirtualScroll parameter #TINFR-3232 ([#3651](https://github.com/atinc/ngx-tethys/issues/3651)) ([b37b73b](https://github.com/atinc/ngx-tethys/commit/b37b73b6057af624ea78a65e8c85a9307d287a3a)), closes [#TINFR-3232](https://github.com/atinc/ngx-tethys/issues/TINFR-3232)
+* **select:** support suffixTemplate for thy-option ([#3652](https://github.com/atinc/ngx-tethys/issues/3652)) ([70487b0](https://github.com/atinc/ngx-tethys/commit/70487b0373567b3e7b130573fb045d45325f85d4))
+
+
+
 ## [20.0.2](https://github.com/atinc/ngx-tethys/compare/20.0.1...20.0.2) (2025-12-17)
 
 
