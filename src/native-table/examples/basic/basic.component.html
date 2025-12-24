@@ -1,0 +1,37 @@
+<thy-native-table #nativeTable [thyData]="data" thySize="md" thyTheme="default">
+  <thead>
+    <tr>
+      <th
+        thyWidth="50px"
+        [thyHeaderCellChecked]="checkedAll()"
+        [thyIndeterminate]="indeterminate()"
+        (thyCheckedChange)="onCheckedAllChange($event)"></th>
+      <th thyWidth="50px">Id</th>
+      <th thyWidth="100px">Name</th>
+      <th thyWidth="80px">Age</th>
+      <th>Job</th>
+      <th>Address</th>
+      <th thyWidth="100px"></th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (row of nativeTable.data(); track row.id) {
+      <tr>
+        <td [thyCellChecked]="selection.isSelected(row)" (thyCheckedChange)="onCheckedRowChange($event, row)"></td>
+        <td>{{ row.id }}</td>
+        <td>{{ row.name }}</td>
+        <td>{{ row.age }}</td>
+        <td>{{ row.job }}</td>
+        <td>{{ row.address }}</td>
+        <td>
+          <a class="link-secondary mr-8" href="javascript:;">
+            <thy-icon thyIconName="user-add"></thy-icon>
+          </a>
+          <a class="link-danger-weak" href="javascript:;">
+            <thy-icon thyIconName="trash"></thy-icon>
+          </a>
+        </td>
+      </tr>
+    }
+  </tbody>
+</thy-native-table>

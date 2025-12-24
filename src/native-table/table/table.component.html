@@ -1,0 +1,31 @@
+<div #tableMainElement class="thy-native-table-wrapper">
+  <ng-template #contentTemplate>
+    <ng-content></ng-content>
+  </ng-template>
+  @if (scrollY() || scrollX()) {
+    <thy-native-table-inner-scroll
+      [scrollX]="scrollX()"
+      [scrollY]="scrollY()"
+      [contentTemplate]="contentTemplate"
+      [listOfColWidth]="listOfManualColWidth()"
+      [theadTemplate]="theadTemplate()"></thy-native-table-inner-scroll>
+  } @else {
+    <thy-native-table-inner-default
+      [tableLayout]="thyTableLayout()"
+      [listOfColWidth]="listOfManualColWidth()"
+      [theadTemplate]="theadTemplate()"
+      [contentTemplate]="contentTemplate"></thy-native-table-inner-default>
+  }
+  @if (thyShowPagination()) {
+    <div class="thy-table-pagination">
+      <thy-pagination
+        [thyPageIndex]="pagination().index"
+        [thyTotal]="pagination().total"
+        [thyPageSize]="pagination().size"
+        [thyPageSizeOptions]="pagination().sizeOptions"
+        [thyShowSizeChanger]="thyShowSizeChanger()"
+        (thyPageIndexChange)="onPageIndexChange($event)"
+        (thyPageSizeChanged)="onPageSizeChange($event)"></thy-pagination>
+    </div>
+  }
+</div>
