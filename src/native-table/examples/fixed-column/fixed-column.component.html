@@ -1,0 +1,38 @@
+<thy-native-table #nativeTable [thyData]="data" [thyScroll]="{ x: '100%' }">
+  <thead>
+    <tr>
+      <th
+        thyWidth="50px"
+        thyHeaderCellFixedLeft
+        [thyHeaderCellChecked]="checkedAll()"
+        [thyIndeterminate]="indeterminate()"
+        (thyCheckedChange)="onCheckedAllChange($event)"></th>
+      <th thyWidth="100px" thyHeaderCellFixedLeft>Id</th>
+      <th thyWidth="200px">Name</th>
+      <th thyWidth="200px">Age</th>
+      <th thyWidth="200px">Job</th>
+      <th thyWidth="300px">Address</th>
+      <th thyWidth="200px" thyHeaderCellFixedRight></th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (row of nativeTable.data(); track row.id) {
+      <tr>
+        <td thyCellFixedLeft [thyCellChecked]="selection.isSelected(row)" (thyCheckedChange)="onCheckedRowChange($event, row)"></td>
+        <td thyCellFixedLeft>{{ row.id }}</td>
+        <td>{{ row.name }}</td>
+        <td>{{ row.age }}</td>
+        <td>{{ row.job }}</td>
+        <td>{{ row.address }}</td>
+        <td thyCellFixedRight>
+          <a class="link-secondary mr-8" href="javascript:;">
+            <thy-icon thyIconName="user-add"></thy-icon>
+          </a>
+          <a class="link-danger-weak" href="javascript:;">
+            <thy-icon thyIconName="trash"></thy-icon>
+          </a>
+        </td>
+      </tr>
+    }
+  </tbody>
+</thy-native-table>

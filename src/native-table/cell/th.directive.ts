@@ -1,5 +1,4 @@
-import { Directive, effect, ElementRef, inject, input, OnChanges, Renderer2, SimpleChanges } from '@angular/core';
-import { Subject } from 'rxjs';
+import { computed, Directive, effect, ElementRef, inject, input, OnChanges, Renderer2, signal, SimpleChanges } from '@angular/core';
 import { ThyNativeTableThInfo } from '../services/table-style.service';
 
 /* eslint-disable @angular-eslint/directive-selector */
@@ -10,7 +9,9 @@ export class ThyNativeTableThDirective implements ThyNativeTableThInfo {
     private renderer = inject(Renderer2);
     private el: HTMLElement = inject(ElementRef<HTMLElement>).nativeElement;
 
-    changes$ = new Subject<void>();
+    public changes = computed(() => {
+        return !!(this.thyWidth() || this.thyColspan() || this.thyColSpan());
+    });
 
     readonly thyWidth = input<string | number | null>(null);
 
@@ -48,10 +49,6 @@ export class ThyNativeTableThDirective implements ThyNativeTableThInfo {
                 } else {
                     this.renderer.removeAttribute(this.el, 'rowspan');
                 }
-            }
-
-            if (this.thyWidth() || this.thyColspan() || this.thyColSpan()) {
-                this.changes$.next();
             }
         });
     }

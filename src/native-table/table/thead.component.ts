@@ -6,23 +6,22 @@ import {
     Component,
     ContentChildren,
     ElementRef,
-    EventEmitter,
     OnInit,
-    Output,
     QueryList,
     Renderer2,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation,
     inject,
-    DestroyRef
+    DestroyRef,
+    signal,
+    effect
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { EMPTY, Observable, merge, of } from 'rxjs';
-import { delay, map, mergeMap, startWith, switchMap } from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 
 import { ThyNativeTableStyleService } from '../services/table-style.service';
 import { ThyNativeTableTrDirective } from '../row/tr.directive';
+import { ThyNativeTableThDirective } from '../cell/th.directive';
 
 /* eslint-disable @angular-eslint/component-selector */
 @Component({
@@ -50,32 +49,34 @@ export class ThyNativeTableHeaderComponent implements AfterContentInit, AfterVie
 
     @ContentChildren(ThyNativeTableTrDirective, { descendants: true }) listOfTrDirective!: QueryList<ThyNativeTableTrDirective>;
 
+    listOfColumnsChanges = signal<ThyNativeTableThDirective[]>([]);
     ngOnInit(): void {
         if (this.styleService) {
             this.styleService.setTheadTemplate(this.templateRef);
         }
     }
+    constructor() {
+        effect(() => {
+            const listOfColumns = this.listOfColumnsChanges();
+            if (this.styleService) {
+                this.styleService.setListOfTh(listOfColumns);
+            }
+        });
+    }
 
     ngAfterContentInit(): void {
         if (this.styleService) {
-            const firstTableRow$ = this.listOfTrDirective.changes.pipe(
-                startWith(this.listOfTrDirective),
-                map(item => item && item.first),
-                takeUntilDestroyed(this.destroyRef)
-            ) as Observable<ThyNativeTableTrDirective>;
-
-            const listOfColumnsChanges$ = firstTableRow$.pipe(
-                switchMap(firstTableRow => {
-                    if (firstTableRow) {
-                        return firstTableRow.listOfColumnsChanges$;
+            this.listOfTrDirective.changes
+                .pipe(
+                    startWith(this.listOfTrDirective),
+                    map(item => item && item.first),
+                    takeUntilDestroyed(this.destroyRef)
+                )
+                .subscribe(headerRow => {
+                    if (headerRow) {
+                        this.listOfColumnsChanges.set(headerRow.listOfColumnsChanges());
                     }
-                    return EMPTY;
-                })
-            );
-
-            listOfColumnsChanges$.subscribe(data => {
-                this.styleService!.setListOfTh(data);
-            });
+                });
         }
     }
 
