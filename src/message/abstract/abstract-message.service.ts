@@ -8,9 +8,9 @@ import { ThyAbstractMessageQueue } from './abstract-message-queue.service';
  * @internal
  */
 export class ThyAbstractMessageService<TContainer extends ThyAbstractMessageContainerComponent> {
-    protected container: TContainer;
+    protected container?: TContainer;
 
-    protected overlayRef: OverlayRef;
+    protected overlayRef!: OverlayRef;
 
     private queue: ThyAbstractMessageQueue;
 

@@ -39,11 +39,11 @@ export class ThyMentionSuggestionsTemplateExampleComponent implements OnInit {
 
     value = `This is suggestion-template mention! @`;
 
-    @ViewChild(ThyMentionDirective, { static: true }) mention: ThyMentionDirective;
+    @ViewChild(ThyMentionDirective, { static: true }) mention!: ThyMentionDirective;
 
-    @ViewChild('suggestionsTemplateRef', { static: true }) suggestionsTemplateRef: TemplateRef<{ data: [] }>;
+    @ViewChild('suggestionsTemplateRef', { static: true }) suggestionsTemplateRef!: TemplateRef<{ data: [] }>;
 
-    mentions: Mention<any>[];
+    mentions!: Mention<any>[];
 
     ngOnInit() {
         this.mentions = [
@@ -54,7 +54,7 @@ export class ThyMentionSuggestionsTemplateExampleComponent implements OnInit {
                 autoClose: false,
                 suggestionsTemplateRef: this.suggestionsTemplateRef,
                 search: (term: string, data) => {
-                    const result = data.filter(item => {
+                    const result = (data || []).filter(item => {
                         return (
                             item.name.toLowerCase().includes(term.toLowerCase()) ||
                             item.display_name.toLowerCase().includes(term.toLowerCase())

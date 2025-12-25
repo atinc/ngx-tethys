@@ -22,7 +22,7 @@ describe('action-behavior', () => {
             });
             expect(action.saving()).toEqual(false);
             let success = false;
-            let result: number;
+            let result!: number;
             action.execute(data => {
                 success = true;
                 result = data;
@@ -38,14 +38,14 @@ describe('action-behavior', () => {
     it('should execute success by pass parameters', () => {
         run(() => {
             const subject = new Subject<number>();
-            let parameters: [string, number];
+            let parameters!: [string, number];
             const action = actionBehavior((param1: string, param2: number) => {
                 parameters = [param1, param2];
                 return subject.asObservable();
             });
             expect(action.saving()).toEqual(false);
             let success = false;
-            let result: number;
+            let result!: number;
             action('hello', 100).execute(data => {
                 success = true;
                 result = data;
@@ -59,7 +59,7 @@ describe('action-behavior', () => {
     it('should clear parameters of last execution ', () => {
         run(() => {
             const subject = new Subject<number>();
-            let parameters: [string, number];
+            let parameters!: [string, number];
             const action = actionBehavior((param1: string, param2: number) => {
                 parameters = [param1, param2];
                 return subject.asObservable();
@@ -68,6 +68,7 @@ describe('action-behavior', () => {
             expect(parameters).toEqual(['hello', 100]);
             subject.next(100);
             action.execute();
+            // @ts-ignore
             expect(parameters).toEqual([undefined, undefined]);
         });
     });
@@ -105,13 +106,14 @@ describe('action-behavior', () => {
                 return subject.asObservable();
             });
             expect(action.saving()).toEqual(false);
-            let result: number;
+            let result!: number;
             action.execute(data => {
                 result = data;
             });
             expect(action.saving()).toEqual(true);
             subject.complete();
             expect(action.saving()).toEqual(false);
+            // @ts-ignore
             expect(result).toEqual(undefined);
         });
     });
@@ -123,7 +125,7 @@ describe('action-behavior', () => {
                 return subject.asObservable();
             });
             expect(action.saving()).toEqual(false);
-            let error: Error;
+            let error!: Error;
             action.execute({
                 error: _error => {
                     error = _error;
@@ -144,7 +146,7 @@ describe('action-behavior', () => {
                 throw mockError;
             });
             expect(action.saving()).toEqual(false);
-            let error: Error;
+            let error!: Error;
             action.execute(undefined, _error => {
                 error = _error;
             });
@@ -160,7 +162,7 @@ describe('action-behavior', () => {
                 return subject.asObservable();
             });
             expect(action.saving()).toEqual(false);
-            let handleError: Error;
+            let handleError!: Error;
             setDefaultErrorHandler(error => {
                 handleError = error;
             });
@@ -181,14 +183,14 @@ describe('action-behavior', () => {
             });
             expect(action.saving()).toEqual(false);
             let success = false;
-            let result: number;
+            let result!: number;
             const successSpy = jasmine.createSpy('success');
             const errorSpy = jasmine.createSpy('error');
             action
                 .execute(data => {
                     success = true;
                     result = data;
-                })
+                })!
                 .subscribe({
                     next: successSpy,
                     error: errorSpy
@@ -212,7 +214,7 @@ describe('action-behavior', () => {
                 return subject.asObservable();
             });
             expect(action.saving()).toEqual(false);
-            let error: Error;
+            let error!: Error;
             const successSpy = jasmine.createSpy('success');
             const errorSpy = jasmine.createSpy('error');
             action
@@ -220,7 +222,7 @@ describe('action-behavior', () => {
                     error: _error => {
                         error = _error;
                     }
-                })
+                })!
                 .subscribe({
                     next: successSpy,
                     error: errorSpy
@@ -244,13 +246,13 @@ describe('action-behavior', () => {
                 throw mockError;
             });
             expect(action.saving()).toEqual(false);
-            let error: Error;
+            let error!: Error;
             const successSpy = jasmine.createSpy('success');
             const errorSpy = jasmine.createSpy('error');
             action
                 .execute(undefined, _error => {
                     error = _error;
-                })
+                })!
                 .subscribe({
                     error: errorSpy,
                     next: successSpy

@@ -1,5 +1,5 @@
 export abstract class SelectOptionBase {
-    thyLabelText: string;
+    thyLabelText!: string;
     thyRawValue: any;
     thyValue: any;
 }

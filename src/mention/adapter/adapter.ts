@@ -1,3 +1,4 @@
+import { SafeAny } from 'ngx-tethys/types';
 import { MentionDefaultDataItem, Mention } from '../interfaces';
 
 export interface SeekQueryResult {
@@ -15,13 +16,13 @@ export type MentionInputorElement = HTMLTextAreaElement | HTMLInputElement;
 export abstract class MentionAdapter {
     inputor: MentionInputorElement;
 
-    matchedMention: MatchedMention;
+    matchedMention: MatchedMention | null = null;
 
     constructor(inputor: MentionInputorElement) {
         this.inputor = inputor;
     }
 
-    abstract seekQuery(event: Event, mention: Mention): SeekQueryResult;
+    abstract seekQuery(event: Event, mention: Mention): SeekQueryResult | null;
 
     abstract insertMention(item: MentionDefaultDataItem): string;
 
@@ -32,7 +33,7 @@ export abstract class MentionAdapter {
             if (query) {
                 this.matchedMention = {
                     query: query,
-                    mention: mention
+                    mention: mention as SafeAny
                 };
                 break;
             }

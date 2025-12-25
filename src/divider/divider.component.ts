@@ -68,14 +68,14 @@ export class ThyDivider implements OnInit {
      */
     readonly thyText = input<string | TemplateRef<HTMLElement>>();
 
-    readonly templateContent: Signal<TemplateRef<HTMLElement>> = computed(() => {
+    readonly templateContent: Signal<TemplateRef<HTMLElement> | undefined> = computed(() => {
         const text = this.thyText();
         if (text instanceof TemplateRef) {
             return text;
         }
     });
 
-    readonly textContent: Signal<string> = computed(() => {
+    readonly textContent: Signal<string | undefined> = computed(() => {
         const text = this.thyText();
         if (typeof text === 'string') {
             return text;

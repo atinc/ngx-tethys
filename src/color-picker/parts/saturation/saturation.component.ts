@@ -15,13 +15,13 @@ export class ThySaturation {
 
     @HostBinding('class.thy-saturation') className = true;
 
-    readonly panel = viewChild<ElementRef>('panel');
+    readonly panel = viewChild.required<ElementRef>('panel');
 
-    readonly pointer = viewChild<ElementRef>('pointer');
+    readonly pointer = viewChild.required<ElementRef>('pointer');
 
     readonly colorChange = output<ThyColor>();
 
-    readonly color = input<ThyColor>();
+    readonly color = input.required<ThyColor>();
 
     constructor() {
         effect(() => {

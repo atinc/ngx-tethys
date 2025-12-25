@@ -12,14 +12,14 @@ describe('immutable', () => {
     ];
 
     describe('add', () => {
-        let users: UserInfo[];
+        let users!: UserInfo[];
 
         beforeEach(() => {
             users = [...initialUserEntities];
         });
 
         it('should return 2 users when add []', () => {
-            const addUserEntity = [];
+            const addUserEntity: UserInfo[] = [];
             const result = produce(users).add(addUserEntity);
             expect(result).toEqual([...initialUserEntities]);
         });
@@ -188,7 +188,7 @@ describe('immutable', () => {
     });
 
     describe('remove', () => {
-        let users: UserInfo[];
+        let users!: UserInfo[];
 
         beforeEach(() => {
             users = [...initialUserEntities];
@@ -234,7 +234,7 @@ describe('immutable', () => {
     });
 
     describe('update', () => {
-        let users: UserInfo[];
+        let users!: UserInfo[];
 
         beforeEach(() => {
             users = [...initialUserEntities];
@@ -325,7 +325,7 @@ describe('immutable', () => {
     });
 
     describe(`move`, () => {
-        let users: UserInfo[];
+        let users!: UserInfo[];
         const initialUsers = [
             { _id: '1', name: 'user 1' },
             { _id: '2', name: 'user 2' },

@@ -1,4 +1,4 @@
-import { TestBed, ComponentFixture, tick, fakeAsync } from '@angular/core/testing';
+import { TestBed, ComponentFixture, tick, fakeAsync, flush } from '@angular/core/testing';
 import { Component, ViewChild, TemplateRef, DebugElement } from '@angular/core';
 import { ThyPaginationModule, ThyPagination } from 'ngx-tethys/pagination';
 import { By } from '@angular/platform-browser';
@@ -53,12 +53,14 @@ class PaginationBasicComponent {
             [thyShowSizeChanger]="showSizeChanger"
             [thyUnit]="unit"
             [thySize]="size"
-            [thyPageSizeOptions]="[10, 20, 50, 100]"
+            [thyPageSizeOptions]="pageSizeOptions"
             (thyPageSizeChanged)="pageSizeChanged($event)"></thy-pagination>
     `,
     imports: [ThyPaginationModule]
 })
 class PaginationTestComponent {
+    pageSizeOptions = [10, 20, 50, 100];
+
     pagination = {
         pageIndex: 1,
         pageSize: 20,
@@ -75,7 +77,7 @@ class PaginationTestComponent {
 
     pageIndexChange = jasmine.createSpy('pageIndexChange callback');
 
-    pageSizeChanged = jasmine.createSpy('pageSizeChanged callback');
+    pageSizeChanged(size: number) {}
 }
 
 describe('ThyPagination', () => {
@@ -105,10 +107,10 @@ describe('ThyPagination', () => {
     });
 
     describe('basic', () => {
-        let fixture: ComponentFixture<PaginationTestComponent>;
-        let componentInstance: PaginationTestComponent;
-        let paginationDebugElement: DebugElement;
-        let paginationElement: HTMLElement;
+        let fixture!: ComponentFixture<PaginationTestComponent>;
+        let componentInstance!: PaginationTestComponent;
+        let paginationDebugElement!: DebugElement;
+        let paginationElement!: HTMLElement;
         let pagination: { pageIndex: number; pageSize: number; total: number };
 
         beforeEach(() => {
@@ -194,13 +196,27 @@ describe('ThyPagination', () => {
             expect(paginationElement.querySelectorAll('.thy-pagination-size').length).toEqual(1);
 
             (paginationElement.querySelectorAll('.form-control-custom')[0] as HTMLElement).click();
+            flush();
+            fixture.detectChanges();
+            tick(100);
             fixture.detectChanges();
             const el = document.querySelector('.thy-select-dropdown-options') as HTMLElement;
             expect(el.querySelectorAll('.thy-option-item')[0]?.querySelectorAll('.text-truncate')[0]?.innerHTML).toEqual('10 条/页');
+        }));
+
+        it('should support set unit', fakeAsync(() => {
+            componentInstance.showSizeChanger = true;
+            componentInstance.pagination.pageSize = 50;
+            fixture.detectChanges();
+            expect(paginationElement.querySelectorAll('.thy-pagination-size').length).toEqual(1);
 
             componentInstance.unit = '组';
             fixture.detectChanges();
+
             (paginationElement.querySelectorAll('.form-control-custom')[0] as HTMLElement).click();
+            flush();
+            fixture.detectChanges();
+            tick(100);
             fixture.detectChanges();
             const option = document.querySelector('.thy-select-dropdown-options') as HTMLElement;
             expect(option.querySelectorAll('.thy-option-item')[0]?.querySelectorAll('.text-truncate')[0]?.innerHTML).toEqual('10 组/页');
@@ -208,9 +224,9 @@ describe('ThyPagination', () => {
     });
 
     describe('total', () => {
-        let basicTestComponent: PaginationBasicComponent;
-        let fixture: ComponentFixture<PaginationBasicComponent>;
-        let pageComponent: DebugElement;
+        let basicTestComponent!: PaginationBasicComponent;
+        let fixture!: ComponentFixture<PaginationBasicComponent>;
+        let pageComponent!: DebugElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(PaginationBasicComponent);
@@ -297,13 +313,13 @@ describe('ThyPagination', () => {
             const rangeEle = paginationLeft.querySelector('.number');
             let testValue = (rangeEle as HTMLElement).innerText.trim();
             let expectValue =
-                (basicTestComponent.pagination.index - 1) * pageSize + 1 + '-' + basicTestComponent.pagination.index * pageSize;
+                `${(basicTestComponent.pagination.index - 1) * pageSize + 1  }-${  basicTestComponent.pagination.index * pageSize}`;
             expect(testValue).toEqual(expectValue);
 
             basicTestComponent.pagination.index = 3;
             fixture.detectChanges();
             testValue = (rangeEle as HTMLElement).innerText.trim();
-            expectValue = (basicTestComponent.pagination.index - 1) * pageSize + 1 + '-' + basicTestComponent.pagination.index * pageSize;
+            expectValue = `${(basicTestComponent.pagination.index - 1) * pageSize + 1  }-${  basicTestComponent.pagination.index * pageSize}`;
             expect(testValue).toEqual(expectValue);
         });
 
@@ -402,8 +418,8 @@ describe('ThyPagination', () => {
     });
 
     describe('custom pages', () => {
-        let fixture: ComponentFixture<PaginationCustomPagesComponent>;
-        let componentInstance: PaginationCustomPagesComponent;
+        let fixture!: ComponentFixture<PaginationCustomPagesComponent>;
+        let componentInstance!: PaginationCustomPagesComponent;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(PaginationCustomPagesComponent);
@@ -438,9 +454,9 @@ describe('ThyPagination', () => {
     });
 
     describe('page sizes', () => {
-        let fixture: ComponentFixture<PaginationTestComponent>;
-        let componentInstance: PaginationTestComponent;
-        let paginationElement: HTMLElement;
+        let fixture!: ComponentFixture<PaginationTestComponent>;
+        let componentInstance!: PaginationTestComponent;
+        let paginationElement!: HTMLElement;
         beforeEach(() => {
             fixture = TestBed.createComponent(PaginationTestComponent);
             componentInstance = fixture.debugElement.componentInstance;
@@ -462,8 +478,10 @@ describe('ThyPagination', () => {
             componentInstance.showSizeChanger = true;
             fixture.detectChanges();
 
+            const pageSizeChangedSpy = spyOn(componentInstance, 'pageSizeChanged');
+
             expect(componentInstance.pagination.pageSize).toBe(20);
-            expect(componentInstance.pageSizeChanged).toHaveBeenCalledTimes(0);
+            expect(pageSizeChangedSpy).toHaveBeenCalledTimes(0);
 
             const paginationDebugElement = fixture.debugElement.query(By.directive(ThyPagination));
             const paginationComponent = paginationDebugElement.componentInstance as ThyPagination;
@@ -473,8 +491,8 @@ describe('ThyPagination', () => {
             fixture.detectChanges();
             tick(300);
 
-            expect(componentInstance.pageSizeChanged).toHaveBeenCalledTimes(1);
-            expect(componentInstance.pageSizeChanged).toHaveBeenCalledWith(50);
+            expect(pageSizeChangedSpy).toHaveBeenCalledTimes(1);
+            expect(pageSizeChangedSpy).toHaveBeenCalledWith(50);
         }));
 
         it('should set size when thySize changed', fakeAsync(() => {
@@ -488,16 +506,24 @@ describe('ThyPagination', () => {
             componentInstance.showSizeChanger = true;
             componentInstance.size = 'sm';
             fixture.detectChanges();
-            tick(300);
-            expect(componentInstance.pageSizeChanged).toHaveBeenCalledTimes(0);
+
+            const pageSizeChangedSpy = spyOn(componentInstance, 'pageSizeChanged');
+            expect(pageSizeChangedSpy).toHaveBeenCalledTimes(0);
+
             (paginationElement.querySelectorAll('.form-control-custom')[0] as HTMLElement).click();
+            flush();
             fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
+
             const el = document.querySelector('.thy-select-dropdown-options') as HTMLElement;
             (el.querySelectorAll('.thy-option-item')[3] as HTMLElement).click();
+            flush();
             fixture.detectChanges();
-            tick(300);
-            expect(el.querySelectorAll('.thy-option-item')[3].classList).toContain('active');
-            expect(componentInstance.pageSizeChanged).toHaveBeenCalledTimes(1);
+            tick(100);
+            fixture.detectChanges();
+            expect(pageSizeChangedSpy).toHaveBeenCalledTimes(1);
+            expect(pageSizeChangedSpy).toHaveBeenCalledWith(componentInstance.pageSizeOptions[3]);
         }));
     });
 });

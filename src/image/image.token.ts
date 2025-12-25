@@ -3,10 +3,10 @@ import { ThyImageMeta } from './image.class';
 
 export interface IThyImageDirective {
     previewable: boolean;
-    thySrc: InputSignal<string>;
-    thyPreviewSrc: InputSignal<string>;
-    thyOriginSrc: InputSignal<string>;
-    thyImageMeta: InputSignal<ThyImageMeta>;
+    thySrc: InputSignal<string | undefined>;
+    thyPreviewSrc: InputSignal<string | undefined>;
+    thyOriginSrc: InputSignal<string | undefined>;
+    thyImageMeta: InputSignal<ThyImageMeta | undefined>;
 }
 
 export interface IThyImageGroupComponent {

@@ -17,10 +17,10 @@ export class ThyArrowSwitcherDisabledExampleComponent implements OnInit {
     ngOnInit(): void {}
 
     onPreviousClick(event: ThyArrowSwitcherEvent) {
-        console.log('点击上一条' + event.index);
+        console.log(`点击上一条${  event.index}`);
     }
 
     onNextClick(event: ThyArrowSwitcherEvent) {
-        console.log('点击下一条' + event.index);
+        console.log(`点击下一条${  event.index}`);
     }
 }

@@ -1,10 +1,10 @@
-import { ElementRef, ViewContainerRef, InjectionToken } from '@angular/core';
-import { Directionality } from '@angular/cdk/bidi';
+import { ElementRef, InjectionToken } from '@angular/core';
 import { ThyPlacement, ThyAbstractOverlayConfig } from 'ngx-tethys/core';
-import { ScrollStrategy, PositionStrategy, ScrollStrategyOptions } from '@angular/cdk/overlay';
+import { ScrollStrategy } from '@angular/cdk/overlay';
 
 export class ThyAutocompleteConfig<TData = any> extends ThyAbstractOverlayConfig<TData> {
     /** Origin Element, for overlay flexible connected to */
+    // @ts-ignore
     origin: ElementRef<any> | HTMLElement;
 
     /** Placement be relative to origin, topCenter, topLeft, topRight, bottomCenter, bottomLeft, bottomRight ...*/

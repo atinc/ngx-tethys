@@ -109,7 +109,7 @@ export class ThyPropertyItem implements OnDestroy {
     /**
      * @private
      */
-    readonly itemContent = viewChild<ElementRef<HTMLElement>>('item');
+    readonly itemContent = viewChild.required<ElementRef<HTMLElement>>('item');
 
     editing = signal(false);
 
@@ -117,10 +117,10 @@ export class ThyPropertyItem implements OnDestroy {
 
     private originOverlays: OverlayRef[] = [];
 
-    private clickEventSubscription: Subscription;
+    private clickEventSubscription: Subscription | null = null;
 
     protected readonly gridColumn = computed(() => {
-        return `span ${Math.min(this.thySpan(), this.parent?.thyColumn())}`;
+        return `span ${Math.min(this.thySpan(), this.parent?.thyColumn() as number)}`;
     });
 
     readonly isVertical = computed(() => {
@@ -176,7 +176,9 @@ export class ThyPropertyItem implements OnDestroy {
                 this.clickEventSubscription = fromEvent(itemElement, 'click')
                     .pipe(takeUntil(this.eventDestroy$))
                     .subscribe(() => {
-                        this.originOverlays = [...this.overlayOutsideClickDispatcher._attachedOverlays];
+                        if (this.thyEditTrigger() === 'click') {
+                            this.originOverlays = [...this.overlayOutsideClickDispatcher._attachedOverlays];
+                        }
                         this.setEditing(true);
                         this.bindEditorBlurEvent(itemElement);
                         itemElement.querySelector('input')?.focus();

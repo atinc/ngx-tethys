@@ -149,11 +149,11 @@ function buildDataList() {
     imports: [ThyTransferModule, ThyListModule, ThyIconModule, ThySelectModule]
 })
 class TestTransferComponent {
-    readonly comp = viewChild<ThyTransfer>('comp');
+    readonly comp = viewChild.required<ThyTransfer>('comp');
     dataSource: any[] = buildDataList();
     titles = ['Source', 'Target'];
 
-    rightMax: any;
+    rightMax!: any;
 
     change(ret: ThyTransferChangeEvent): void {}
 
@@ -197,11 +197,11 @@ class TestTransferCustomRenderContentComponent {
 }
 
 describe('transfer', () => {
-    let fixture: ComponentFixture<TestTransferComponent | TestTransferCustomRenderComponent | TestTransferCustomRenderContentComponent>;
-    let dl: DebugElement;
-    let instance: TestTransferComponent;
-    let pageObject: TransferPageObject;
-    let transferComponent: ThyTransfer;
+    let fixture!: ComponentFixture<TestTransferComponent | TestTransferCustomRenderComponent | TestTransferCustomRenderContentComponent>;
+    let dl!: DebugElement;
+    let instance!: TestTransferComponent;
+    let pageObject!: TransferPageObject;
+    let transferComponent!: ThyTransfer;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -215,7 +215,7 @@ describe('transfer', () => {
         dl = fixture.debugElement;
         instance = dl.componentInstance;
         pageObject = new TransferPageObject();
-        transferComponent = fixture.componentInstance.comp();
+        transferComponent = fixture.componentInstance.comp()!;
         fixture.detectChanges();
     });
 
@@ -308,9 +308,9 @@ describe('transfer', () => {
         checkItem(direction: 'left' | 'right', index: number): this {
             const items = (direction === 'left' ? this.leftList : this.rightList).querySelectorAll('.thy-transfer-list-content-item');
             if (direction === 'left') {
-                (items[index] as HTMLElement).querySelector('div').click();
+                (items[index] as HTMLElement).querySelector('div')!.click();
             } else {
-                (items[index] as HTMLElement).querySelector('a').click();
+                (items[index] as HTMLElement).querySelector('a')!.click();
             }
 
             fixture.detectChanges();
@@ -380,7 +380,7 @@ describe('transfer', () => {
     });
 
     describe('transfer event', () => {
-        let rightListInstance: any;
+        let rightListInstance!: any;
 
         beforeEach(() => {
             pageObject = new TransferPageObject();
@@ -391,8 +391,8 @@ describe('transfer', () => {
         it('should support transfer thyChange', () => {
             const spy = jasmine.createSpy('after thyChange subscribe spy');
             transferComponent.thyChange.subscribe((value: ThyTransferChangeEvent) => {
-                expect(value.right.unlock.length).toBe(RIGHTCOUNT - 1);
-                expect(value.items.length).toBe(1);
+                expect(value.right!.unlock!.length).toBe(RIGHTCOUNT - 1);
+                expect(value.items!.length).toBe(1);
                 spy();
             });
             pageObject.transfer('left', 0);

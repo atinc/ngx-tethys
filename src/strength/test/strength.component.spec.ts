@@ -15,10 +15,10 @@ class StrengthBasicTestComponent {
 }
 
 describe('Strength basic component', () => {
-    let fixture: ComponentFixture<StrengthBasicTestComponent>;
-    let testStrengthBasicComponent: StrengthBasicTestComponent;
-    let strengthBasicDebugComponent: DebugElement;
-    let strengthBasicElement: HTMLElement;
+    let fixture!: ComponentFixture<StrengthBasicTestComponent>;
+    let testStrengthBasicComponent!: StrengthBasicTestComponent;
+    let strengthBasicDebugComponent!: DebugElement;
+    let strengthBasicElement!: HTMLElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({});
@@ -82,10 +82,10 @@ class StrengthTestComponent {
 }
 
 describe('Strength component', () => {
-    let fixture: ComponentFixture<StrengthTestComponent>;
-    let testStrengthComponent: StrengthTestComponent;
-    let strengthDebugComponent: DebugElement;
-    let strengthElement: HTMLElement;
+    let fixture!: ComponentFixture<StrengthTestComponent>;
+    let testStrengthComponent!: StrengthTestComponent;
+    let strengthDebugComponent!: DebugElement;
+    let strengthElement!: HTMLElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({});

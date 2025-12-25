@@ -20,7 +20,7 @@ export class ThyStepHeader {
 
     readonly icon = input<string>();
 
-    readonly index = input<number, unknown>(undefined, { transform: numberAttribute });
+    readonly index = input.required<number, unknown>({ transform: numberAttribute });
 
     readonly selected = input(false, { transform: coerceBooleanProperty });
 

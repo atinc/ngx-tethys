@@ -1,20 +1,20 @@
-import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, DebugElement, TemplateRef } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, flushMicrotasks, inject, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import {
+    ThyProgress,
+    ThyProgressCircle,
+    ThyProgressModule,
+    ThyProgressStackedValue,
+    ThyProgressStrip,
+    ThyProgressType
+} from 'ngx-tethys/progress';
+import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { hexToRgb } from 'ngx-tethys/util';
-import {
-    ThyProgressStackedValue,
-    ThyProgressType,
-    ThyProgressCircle,
-    ThyProgressStrip,
-    ThyProgress,
-    ThyProgressModule
-} from 'ngx-tethys/progress';
 
 const PROGRESS_CLASS_NAME = 'progress';
 const PROGRESS_BAR_CLASS_NAME = 'progress-bar';
@@ -33,8 +33,8 @@ const TOOLTIP_TEMPLATE_MESSAGE = 'this is a template message';
 })
 class ThyDemoProgressBasicComponent {
     value = 20;
-    type: ThyProgressType;
-    size: string;
+    type!: ThyProgressType;
+    size!: string;
     tips: string | TemplateRef<HTMLElement> = TOOLTIP_MESSAGE;
     message = TOOLTIP_TEMPLATE_MESSAGE;
     changeTemplate(templateRef: TemplateRef<HTMLElement>) {
@@ -61,7 +61,7 @@ class ThyDemoProgressBasicComponent {
 })
 class ThyDemoProgressCircleComponent {
     value = 20;
-    type: ThyProgressType;
+    type!: ThyProgressType;
     size: string = 'md';
     tips: string | TemplateRef<HTMLElement> = TOOLTIP_MESSAGE;
     gapDegree = 0;
@@ -104,7 +104,7 @@ class ThyDemoProgressStackedComponent {
             value: 100
         }
     ];
-    size: string;
+    size!: string;
 }
 
 @Component({
@@ -128,7 +128,7 @@ class ThyDemoProgressStackedMaxComponent {
             value: 100
         }
     ];
-    size: string;
+    size!: string;
     max = 100;
 }
 
@@ -155,7 +155,7 @@ class ThyDemoProgressTooltipTemplateComponent {
             value: 100
         }
     ];
-    size: string;
+    size!: string;
 }
 
 function assertTooltipInstance(tooltip: ThyTooltipDirective, shouldExist: boolean): void {
@@ -165,16 +165,16 @@ function assertTooltipInstance(tooltip: ThyTooltipDirective, shouldExist: boolea
 
 describe(`ThyProgressComponent`, () => {
     describe(`basic`, () => {
-        let fixture: ComponentFixture<ThyDemoProgressBasicComponent>;
-        let basicTestComponent: ThyDemoProgressBasicComponent;
-        let progressComponent: DebugElement;
-        let progressBarComponent: DebugElement;
-        let progressElement: HTMLElement;
-        let progressBarElement: HTMLElement;
-        let progressBarInnerElement: HTMLElement;
-        let tooltipDirective: ThyTooltipDirective;
-        let overlayContainer: OverlayContainer;
-        let overlayContainerElement: HTMLElement;
+        let fixture!: ComponentFixture<ThyDemoProgressBasicComponent>;
+        let basicTestComponent!: ThyDemoProgressBasicComponent;
+        let progressComponent!: DebugElement;
+        let progressBarComponent!: DebugElement;
+        let progressElement!: HTMLElement;
+        let progressBarElement!: HTMLElement;
+        let progressBarInnerElement!: HTMLElement;
+        let tooltipDirective!: ThyTooltipDirective;
+        let overlayContainer!: OverlayContainer;
+        let overlayContainerElement!: HTMLElement;
 
         function getTooltipVisible() {
             return tooltipDirective['tooltipRef'] ? tooltipDirective['tooltipRef']['isTooltipVisible']() : false;
@@ -258,6 +258,8 @@ describe(`ThyProgressComponent`, () => {
 
         it('should be have a tooltip use string', fakeAsync(() => {
             fixture.detectChanges();
+            tick();
+            fixture.detectChanges();
             progressBarComponent = fixture.debugElement.query(By.directive(ThyProgressStrip));
             progressBarElement = progressBarComponent.nativeElement;
 
@@ -294,6 +296,8 @@ describe(`ThyProgressComponent`, () => {
             const buttonElement = buttonDebugElement.nativeElement;
             buttonElement.click();
             fixture.detectChanges();
+            tick();
+            fixture.detectChanges();
             progressBarComponent = fixture.debugElement.query(By.directive(ThyProgressStrip));
             progressBarElement = progressBarComponent.nativeElement;
 
@@ -327,16 +331,16 @@ describe(`ThyProgressComponent`, () => {
     });
 
     describe(`circle`, () => {
-        let fixture: ComponentFixture<ThyDemoProgressCircleComponent>;
-        let circleTestComponent: ThyDemoProgressCircleComponent;
-        let progressComponent: DebugElement;
-        let progressCircleComponent: DebugElement;
-        let progressElement: HTMLElement;
-        let progressCircleElement: HTMLElement;
-        let progressCircleInnerElement: HTMLElement;
-        let tooltipDirective: ThyTooltipDirective;
-        let overlayContainer: OverlayContainer;
-        let overlayContainerElement: HTMLElement;
+        let fixture!: ComponentFixture<ThyDemoProgressCircleComponent>;
+        let circleTestComponent!: ThyDemoProgressCircleComponent;
+        let progressComponent!: DebugElement;
+        let progressCircleComponent!: DebugElement;
+        let progressElement!: HTMLElement;
+        let progressCircleElement!: HTMLElement;
+        let progressCircleInnerElement!: HTMLElement;
+        let tooltipDirective!: ThyTooltipDirective;
+        let overlayContainer!: OverlayContainer;
+        let overlayContainerElement!: HTMLElement;
 
         function getTooltipVisible() {
             return tooltipDirective['tooltipRef'] ? tooltipDirective['tooltipRef']['isTooltipVisible']() : false;
@@ -350,7 +354,7 @@ describe(`ThyProgressComponent`, () => {
         }
 
         function computedPathString(position: string = 'top', strokeWidth = 6) {
-            let circlePath = progressCircleElement.querySelector('.progress-circle-path');
+            const circlePath = progressCircleElement.querySelector('.progress-circle-path');
             const radius = 50 - strokeWidth / 2;
             let beginPositionX = 0;
             let beginPositionY = -radius;
@@ -377,7 +381,7 @@ describe(`ThyProgressComponent`, () => {
             }
 
             const pathString = `M 50,50 m ${beginPositionX},${beginPositionY} a ${radius},${radius} 0 1 1 ${endPositionX},${-endPositionY} a ${radius},${radius} 0 1 1 ${-endPositionX},${endPositionY}`;
-            expect(pathString).toBe(circlePath.getAttribute('d'));
+            expect(pathString).toBe(circlePath!.getAttribute('d'));
         }
 
         beforeEach(fakeAsync(() => {
@@ -467,6 +471,8 @@ describe(`ThyProgressComponent`, () => {
 
             tooltipDirective = progressCircleComponent.injector.get<ThyTooltipDirective>(ThyTooltipDirective);
             assertTooltipInstance(tooltipDirective, false);
+            tick();
+            fixture.detectChanges();
             // fake mouseenter event
             dispatchMouseEvent(progressCircleElement, 'mouseenter');
             expect(getTooltipVisible()).toBe(false);
@@ -510,12 +516,12 @@ describe(`ThyProgressComponent`, () => {
             const strokeWidthElement = progressCircleElement.querySelector('path');
             circleTestComponent.strokeWidth = 10;
             fixture.detectChanges();
-            const strokeWidth = Number(strokeWidthElement.getAttribute('stroke-width'));
+            const strokeWidth = Number(strokeWidthElement?.getAttribute('stroke-width'));
             expect(strokeWidth).toBe(circleTestComponent.strokeWidth);
 
             circleTestComponent.strokeWidth = 20;
             fixture.detectChanges();
-            const newStrokeWidth = Number(strokeWidthElement.getAttribute('stroke-width'));
+            const newStrokeWidth = Number(strokeWidthElement?.getAttribute('stroke-width'));
             expect(newStrokeWidth).toBe(circleTestComponent.strokeWidth);
         }));
 
@@ -547,17 +553,17 @@ describe(`ThyProgressComponent`, () => {
     });
 
     describe(`stacked`, () => {
-        let fixture: ComponentFixture<ThyDemoProgressStackedComponent>;
-        let stackedTestComponent: ThyDemoProgressStackedComponent;
-        let progressComponent: DebugElement;
-        let progressBarComponents: DebugElement[];
-        let progressElement: HTMLElement;
-        let progressBarElements: HTMLElement[];
-        let progressBarElement: HTMLElement;
-        let progressTooltipBarElement: HTMLElement;
-        let overlayContainer: OverlayContainer;
-        let overlayContainerElement: HTMLElement;
-        let tooltipDirective: ThyTooltipDirective;
+        let fixture!: ComponentFixture<ThyDemoProgressStackedComponent>;
+        let stackedTestComponent!: ThyDemoProgressStackedComponent;
+        let progressComponent!: DebugElement;
+        let progressBarComponents!: DebugElement[];
+        let progressElement!: HTMLElement;
+        let progressBarElements!: HTMLElement[];
+        let progressBarElement!: HTMLElement;
+        let progressTooltipBarElement!: HTMLElement;
+        let overlayContainer!: OverlayContainer;
+        let overlayContainerElement!: HTMLElement;
+        let tooltipDirective!: ThyTooltipDirective;
 
         function getTooltipVisible() {
             return tooltipDirective['tooltipRef']['isTooltipVisible']();
@@ -605,6 +611,8 @@ describe(`ThyProgressComponent`, () => {
         });
 
         it('should be have a tooltip in second progress bar', fakeAsync(() => {
+            fixture.detectChanges();
+            tick();
             fixture.detectChanges();
             progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressStrip));
             progressBarElements = progressBarComponents.map(item => item.nativeElement);
@@ -681,27 +689,27 @@ describe(`ThyProgressComponent`, () => {
             expect(progressBarElements[1].style.width).toEqual('28.57%');
             expect(progressBarElements[2].style.width).toEqual('57.14%');
 
-            expect((progressBarElements[0].querySelector('.progress-bar-inner') as HTMLElement).style['background-color']).toEqual(
+            expect((progressBarElements[0].querySelector('.progress-bar-inner') as HTMLElement).style['background-color' as any]).toEqual(
                 hexToRgb('#4e8af9')
             );
-            expect((progressBarElements[1].querySelector('.progress-bar-inner') as HTMLElement).style['background-color']).toEqual(
+            expect((progressBarElements[1].querySelector('.progress-bar-inner') as HTMLElement).style['background-color' as any]).toEqual(
                 hexToRgb('#66c060')
             );
-            expect((progressBarElements[2].querySelector('.progress-bar-inner') as HTMLElement).style['background-color']).toEqual(
+            expect((progressBarElements[2].querySelector('.progress-bar-inner') as HTMLElement).style['background-color' as any]).toEqual(
                 hexToRgb('#ffd234')
             );
         });
     });
 
     describe(`stacked has max`, () => {
-        let fixture: ComponentFixture<ThyDemoProgressStackedMaxComponent>;
-        let stackedTestComponent: ThyDemoProgressStackedMaxComponent;
-        let progressComponent: DebugElement;
-        let progressBarComponents: DebugElement[];
-        let progressElement: HTMLElement;
-        let progressBarElements: HTMLElement[];
-        let overlayContainer: OverlayContainer;
-        let overlayContainerElement: HTMLElement;
+        let fixture!: ComponentFixture<ThyDemoProgressStackedMaxComponent>;
+        let stackedTestComponent!: ThyDemoProgressStackedMaxComponent;
+        let progressComponent!: DebugElement;
+        let progressBarComponents!: DebugElement[];
+        let progressElement!: HTMLElement;
+        let progressBarElements!: HTMLElement[];
+        let overlayContainer!: OverlayContainer;
+        let overlayContainerElement!: HTMLElement;
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
@@ -761,7 +769,7 @@ describe(`ThyProgressComponent`, () => {
             expect(progressBarElements[1].style.width).toEqual('11.11%');
             expect(progressBarElements[2].style.width).toEqual('11.11%');
             expect(progressBarElements[3].style.width).toEqual('16.67%');
-            expect((progressBarElements[3].querySelector('.progress-bar-inner') as HTMLElement).style['background-color']).toEqual(
+            expect((progressBarElements[3].querySelector('.progress-bar-inner') as HTMLElement).style['background-color' as any]).toEqual(
                 hexToRgb('#7076fa')
             );
         });
@@ -902,16 +910,16 @@ describe(`ThyProgressComponent`, () => {
     });
 
     describe(`tooltipTemplate`, () => {
-        let fixture: ComponentFixture<ThyDemoProgressTooltipTemplateComponent>;
-        let toolTipTemplateTestComponent: ThyDemoProgressTooltipTemplateComponent;
-        let progressComponent: DebugElement;
-        let progressBarComponents: DebugElement[];
-        let progressElement: HTMLElement;
-        let tooltipDirective: ThyTooltipDirective;
-        let progressBarElements: HTMLElement[];
-        let progressBarElement: HTMLElement;
-        let overlayContainer: OverlayContainer;
-        let overlayContainerElement: HTMLElement;
+        let fixture!: ComponentFixture<ThyDemoProgressTooltipTemplateComponent>;
+        let toolTipTemplateTestComponent!: ThyDemoProgressTooltipTemplateComponent;
+        let progressComponent!: DebugElement;
+        let progressBarComponents!: DebugElement[];
+        let progressElement!: HTMLElement;
+        let tooltipDirective!: ThyTooltipDirective;
+        let progressBarElements!: HTMLElement[];
+        let progressBarElement!: HTMLElement;
+        let overlayContainer!: OverlayContainer;
+        let overlayContainerElement!: HTMLElement;
 
         function getTooltipVisible() {
             return tooltipDirective['tooltipRef'] ? tooltipDirective['tooltipRef']['isTooltipVisible']() : false;
@@ -944,6 +952,8 @@ describe(`ThyProgressComponent`, () => {
         });
 
         it('should be created progress tooltip component width component', fakeAsync(() => {
+            fixture.detectChanges();
+            tick();
             fixture.detectChanges();
             progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressStrip));
             progressBarElements = progressBarComponents.map(item => item.nativeElement);

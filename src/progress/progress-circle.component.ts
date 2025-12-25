@@ -20,15 +20,15 @@ import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 export class ThyProgressCircle {
     private hostRenderer = useHostRenderer();
 
-    readonly thyType = input<ThyProgressType>(undefined);
+    readonly thyType = input<ThyProgressType | undefined>(undefined);
 
-    readonly thySize = input<string | number>(undefined);
+    readonly thySize = input<string | number | undefined>(undefined);
 
-    readonly thyValue = input<number | ThyProgressStackedValue[]>(undefined);
+    readonly thyValue = input<number | ThyProgressStackedValue[] | undefined>(undefined);
 
     readonly thyMax = input<number, unknown>(undefined, { transform: numberAttribute });
 
-    readonly thyTips = input<string | TemplateRef<unknown>>(undefined);
+    readonly thyTips = input<string | TemplateRef<unknown> | undefined>(undefined);
 
     readonly thyShape = input<ThyProgressShapeType>('strip');
 
@@ -66,11 +66,11 @@ export class ThyProgressCircle {
             let totalValue = 0;
             values = (thyValue as ThyProgressStackedValue[]).map((item, index) => {
                 totalValue += item.value;
-                const currentValue = +((totalValue / this.thyMax()) * 100).toFixed(2);
+                const currentValue = +((totalValue / this.thyMax()!) * 100).toFixed(2);
                 return { ...item, value: currentValue };
             });
         } else {
-            values = [{ value: thyValue }];
+            values = [{ value: thyValue! }];
         }
 
         const radius = 50 - this.strokeWidth() / 2;

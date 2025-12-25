@@ -2,7 +2,7 @@
   [items]="thyData()"
   [title]="leftTitle()"
   [draggable]="thyLeftDraggable()"
-  [disabled]="thyRightMax() <= rightDataSource.length"
+  [disabled]="thyRightMax()! <= rightDataSource.length"
   [renderContentRef]="leftContentRef()"
   (draggableUpdate)="onDragUpdate('left', $event)"
   [template]="leftTemplateRef"

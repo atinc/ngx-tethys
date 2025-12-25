@@ -65,15 +65,15 @@ export class ThyAction implements OnInit, AfterViewInit, OnDestroy {
 
     public readonly icon: Signal<string> = computed(() => this.thyActionIcon() || this.thyIcon());
 
-    feedback: ThyActionFeedback = null;
+    feedback: ThyActionFeedback | null = null;
 
-    feedbackOptions: ThyActionFeedbackOptions;
+    feedbackOptions: ThyActionFeedbackOptions | null = null;
 
     readonly active: Signal<boolean> = computed(() => this.thyActionActive() || this.thyActive());
 
     private hostRenderer = useHostRenderer();
 
-    private feedbackTimer: Subscription;
+    private feedbackTimer: Subscription | null = null;
 
     /**
      * 操作图标的类型
@@ -151,7 +151,7 @@ export class ThyAction implements OnInit, AfterViewInit, OnDestroy {
         this.setFeedback('error', options);
     }
 
-    private setFeedback(feedback: ThyActionFeedback, options: ThyActionFeedbackOptions) {
+    private setFeedback(feedback: ThyActionFeedback, options: ThyActionFeedbackOptions | undefined) {
         if (this.thyDisabled()) {
             return;
         }
@@ -184,7 +184,7 @@ export class ThyAction implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private updateClasses() {
-        let classNames: string[] = [];
+        const classNames: string[] = [];
         classNames.push(`action-${this.thyType()}`);
         if (this.thyTheme() === 'lite') {
             classNames.push('thy-action-lite');

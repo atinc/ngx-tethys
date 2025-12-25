@@ -20,7 +20,7 @@ import { NgTemplateOutlet } from '@angular/common';
     imports: [NgTemplateOutlet]
 })
 export class ThyCardHeader implements OnInit {
-    public iconClass: string;
+    public iconClass?: string;
 
     /**
      * 头部，标题

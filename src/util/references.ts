@@ -1,3 +1,4 @@
+import { SafeAny } from 'ngx-tethys/types';
 import { keyBy, indexKeyBy } from './helpers';
 
 // 抽取数据中的Item类型，不是数组直接返回对象的类型
@@ -41,7 +42,10 @@ export type ReferenceArrayExtractAllowKeys<T> = {
     [key in keyof ReferenceArrayExtractAllowNames<T>]?: keyof ReferenceObjectExtract<T>[key];
 };
 
-function getReferenceIdKey<TReferences>(referenceKey: string, idKeys: ReferenceArrayExtractAllowKeys<TReferences>) {
+function getReferenceIdKey<TReferences>(
+    referenceKey: keyof ReferenceArrayExtractAllowKeys<TReferences>,
+    idKeys: ReferenceArrayExtractAllowKeys<TReferences>
+) {
     if (idKeys && idKeys[referenceKey]) {
         return idKeys[referenceKey];
     } else {
@@ -68,6 +72,7 @@ export function mergeReferences<TReferences>(
     for (const key in references) {
         if (references.hasOwnProperty(key)) {
             const reference = references[key];
+            // @ts-ignore
             const referenceIdKey = getReferenceIdKey<TReferences>(key, idKeys);
             const originalReference = originalReferences[key];
             if ((typeof ngDevMode === 'undefined' || ngDevMode) && !originalReference) {
@@ -77,11 +82,12 @@ export function mergeReferences<TReferences>(
                 // original reference id index map
                 const originalReferenceIdIndexMap = indexKeyBy<ReferenceExtractAllowKeys<TReferences>>(
                     originalReferences[key] as any,
-                    referenceIdKey
+                    referenceIdKey as SafeAny
                 );
                 // append reference is array
                 if (reference instanceof Array) {
                     reference.forEach((item: TReferences[Extract<keyof TReferences, string>]) => {
+                        // @ts-ignore
                         const itemId = item[referenceIdKey];
                         const index = originalReferenceIdIndexMap[itemId];
                         if (index >= 0) {
@@ -92,6 +98,7 @@ export function mergeReferences<TReferences>(
                     });
                 } else {
                     // append reference is not array, support append signal object to array reference
+                    // @ts-ignore
                     const itemId = reference[referenceIdKey];
                     const index = originalReferenceIdIndexMap[itemId];
                     if (itemId >= 0) {
@@ -121,10 +128,10 @@ export function buildReferencesKeyBy<TReferences>(
     const result: { [key in keyof TReferences]?: { [key: string]: ArrayInferExtract<TReferences[key]> } } = {};
     for (const key in references) {
         if (references.hasOwnProperty(key)) {
-            const referenceIdKey = getReferenceIdKey<TReferences>(key, idKeys);
+            const referenceIdKey = getReferenceIdKey<TReferences>(key as any, idKeys || {});
             const reference = references[key];
             if (reference instanceof Array) {
-                const originalReferenceIdMap = keyBy<ArrayInferExtract<TReferences>>(reference, referenceIdKey);
+                const originalReferenceIdMap = keyBy<ArrayInferExtract<TReferences>>(reference, referenceIdKey as any);
                 (result as any)[key] = originalReferenceIdMap;
             }
         }

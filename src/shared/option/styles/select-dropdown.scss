@@ -6,29 +6,33 @@ $optionsSize: 'sm', 'default', 'md', 'lg';
 
 .thy-select-dropdown-options {
     @include select.thy-select-options-container();
+    &-with-virtual-scroll {
+        overflow-y: hidden;
+        .cdk-virtual-scroll-content-wrapper {
+            width: 100%;
+
+            .thy-option-group-render {
+                height: 40px;
+                padding: 5px 0;
+            }
+        }
+    }
 
     .loading-more {
         min-height: auto;
         text-align: center;
     }
 
-    .thy-option-item-group {
+    .thy-option-group-render {
         @include option.thy-option-common-layout();
     }
 
     .thy-option-item {
         @include option.thy-option();
-        &.hidden {
-            display: none;
-        }
     }
 
-    .thy-option-item-group {
+    .thy-option-group-render {
         flex-direction: column;
-
-        &.thy-select-option-group-hidden {
-            display: none;
-        }
 
         .group-name {
             width: 100%;

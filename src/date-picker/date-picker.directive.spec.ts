@@ -19,12 +19,12 @@ registerLocaleData(zh);
 
 describe('ThyPickerDirective', () => {
     describe('ThyPickerDirective', () => {
-        let fixture: ComponentFixture<ThyTestPickerComponent>;
-        let fixtureInstance: ThyTestPickerComponent;
-        let debugElement: DebugElement;
-        let overlayContainer: OverlayContainer;
-        let overlayContainerElement: HTMLElement;
-        let popover: ThyPopover;
+        let fixture!: ComponentFixture<ThyTestPickerComponent>;
+        let fixtureInstance!: ThyTestPickerComponent;
+        let debugElement!: DebugElement;
+        let overlayContainer!: OverlayContainer;
+        let overlayContainerElement!: HTMLElement;
+        let popover!: ThyPopover;
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
@@ -338,12 +338,12 @@ describe('ThyPickerDirective', () => {
     });
 
     describe('should get correct default thyPlacement and offset', () => {
-        let fixture: ComponentFixture<ThyTestPickerPlacementComponent>;
-        let fixtureInstance: ThyTestPickerPlacementComponent;
-        let debugElement: DebugElement;
-        let overlayContainer: OverlayContainer;
-        let overlayContainerElement: HTMLElement;
-        let popover: ThyPopover;
+        let fixture!: ComponentFixture<ThyTestPickerPlacementComponent>;
+        let fixtureInstance!: ThyTestPickerPlacementComponent;
+        let debugElement!: DebugElement;
+        let overlayContainer!: OverlayContainer;
+        let overlayContainerElement!: HTMLElement;
+        let popover!: ThyPopover;
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
@@ -407,7 +407,7 @@ describe('ThyPickerDirective', () => {
                     },
                     placement: 'bottom'
                 });
-                let componentInstance = popoverRef.componentInstance;
+                const componentInstance = popoverRef.componentInstance;
                 componentInstance.clearFlexibleValue();
                 componentInstance.onDayHover(componentInstance.tplInnerPopup);
                 componentInstance.setProperty('key', 1);
@@ -494,25 +494,25 @@ describe('ThyPickerDirective', () => {
     imports: [ThyPropertyOperation, ThyDatePickerDirective, FormsModule]
 })
 class ThyTestPickerComponent {
-    readonly thyDatePickerDirective = viewChild<ThyDatePickerDirective>(ThyDatePickerDirective);
-    thyPlaceHolder: string;
-    thyPanelClassName: string;
-    thyValue: Date | null;
-    thyDefaultPickerValue: Date | number;
-    thyMinDate: Date | number;
-    thyMaxDate: Date | number;
-    thyDateRender: any;
+    readonly thyDatePickerDirective = viewChild.required<ThyDatePickerDirective>(ThyDatePickerDirective);
+    thyPlaceHolder!: string;
+    thyPanelClassName!: string;
+    thyValue!: Date | null;
+    thyDefaultPickerValue!: Date | number;
+    thyMinDate!: Date | number;
+    thyMaxDate!: Date | number;
+    thyDateRender!: any;
     thyShowTime: boolean | object = false;
-    thyMode: string;
-    thyDisabled: boolean;
+    thyMode!: string;
+    thyDisabled!: boolean;
     thyOffset = 4;
     thyPlacement = 'bottomLeft';
     thyHasBackdrop = true;
-    popoverOptions: Partial<ThyPopoverConfig>;
-    thyShowShortcut: boolean;
+    popoverOptions!: Partial<ThyPopoverConfig>;
+    thyShowShortcut!: boolean;
     thyShortcutPosition: ThyShortcutPosition = 'left';
-    thyShortcutPresets: CompatiblePresets;
-    timestampPrecision: 'seconds' | 'milliseconds';
+    thyShortcutPresets!: CompatiblePresets;
+    timestampPrecision!: 'seconds' | 'milliseconds';
     thyOnChange(): void {}
     thyOnCalendarChange(): void {}
     thyOpenChange(): void {}
@@ -533,7 +533,7 @@ class ThyTestPickerComponent {
     imports: [ThyPropertyOperation, ThyDatePickerDirective, FormsModule]
 })
 class ThyTestPickerPlacementComponent {
-    thyValue: Date | null;
+    thyValue!: Date | null;
     thyShowTime: boolean | object = false;
 }
 
@@ -552,9 +552,9 @@ class ThyTestPickerStopPropagationComponent {
 }
 
 describe('should get correct default thyStopPropagation', () => {
-    let fixture: ComponentFixture<ThyTestPickerStopPropagationComponent>;
-    let fixtureInstance: ThyTestPickerStopPropagationComponent;
-    let debugElement: DebugElement;
+    let fixture!: ComponentFixture<ThyTestPickerStopPropagationComponent>;
+    let fixtureInstance!: ThyTestPickerStopPropagationComponent;
+    let debugElement!: DebugElement;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({

@@ -15,16 +15,14 @@ import {
     DOCUMENT
 } from '@angular/core';
 import { OverlayRef, Overlay } from '@angular/cdk/overlay';
-import { ThyPlacement } from 'ngx-tethys/core';
+import { ThyPlacement, ScrollToService } from 'ngx-tethys/core';
 import { ThyAutocompleteService } from './overlay/autocomplete.service';
 import { ThyAutocompleteRef } from './overlay/autocomplete-ref';
 import { ThyAutocomplete } from './autocomplete.component';
-import { ThyOption, ThyOptionSelectionChangeEvent } from 'ngx-tethys/shared';
-
+import { ThyOptionRender, ThyOptionSelectionChangeEvent } from 'ngx-tethys/shared';
 import { Subject, Observable, merge, fromEvent, of, Subscription } from 'rxjs';
 import { ESCAPE, UP_ARROW, ENTER, DOWN_ARROW, TAB, coerceBooleanProperty } from 'ngx-tethys/util';
 import { filter, map, take, delay, switchMap } from 'rxjs/operators';
-import { ScrollToService } from 'ngx-tethys/core';
 import { outputToObservable } from '@angular/core/rxjs-interop';
 
 /**
@@ -50,13 +48,13 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
     private document = inject(DOCUMENT, { optional: true })!;
     private cdr = inject(ChangeDetectorRef);
 
-    protected overlayRef: OverlayRef;
+    protected overlayRef: OverlayRef | null = null;
 
-    private autocompleteRef: ThyAutocompleteRef<ThyAutocomplete>;
+    private autocompleteRef!: ThyAutocompleteRef<ThyAutocomplete>;
 
     private readonly closeKeyEventStream = new Subject<void>();
 
-    private closingActionsSubscription: Subscription;
+    private closingActionsSubscription!: Subscription;
 
     @HostBinding(`class.thy-autocomplete-opened`) panelOpened = false;
 
@@ -74,7 +72,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
     readonly thyAutocomplete = input<ThyAutocomplete>();
 
     readonly autocompleteComponent: Signal<ThyAutocomplete> = computed(() => {
-        return this.thyAutocomplete() || this.thyAutocompleteComponent();
+        return this.thyAutocomplete() || this.thyAutocompleteComponent()!;
     });
 
     /**
@@ -97,9 +95,9 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
      */
     readonly thyIsFocusOpen = input(true, { transform: coerceBooleanProperty });
 
-    readonly activeOption: Signal<ThyOption | null> = computed(() => {
+    readonly activeOption: Signal<ThyOptionRender | null> = computed(() => {
         if (this.autocompleteComponent() && this.autocompleteComponent().keyManager) {
-            return this.autocompleteComponent().keyManager.activeItem;
+            return this.autocompleteComponent().keyManager!.activeItem;
         }
         return null;
     });
@@ -107,7 +105,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
     get panelClosingActions(): Observable<ThyOptionSelectionChangeEvent | null> {
         return merge(
             outputToObservable(this.autocompleteComponent().thyOptionSelected),
-            this.autocompleteComponent().keyManager.tabOut.pipe(filter(() => this.panelOpened)),
+            this.autocompleteComponent().keyManager!.tabOut.pipe(filter(() => this.panelOpened)),
             this.closeKeyEventStream,
             this.getOutsideClickStream(),
             this.overlayRef ? this.overlayRef.detachments().pipe(filter(() => this.panelOpened)) : of()
@@ -136,24 +134,24 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
         }
         const autocompleteComponent = this.autocompleteComponent();
         if (this.activeOption() && keyCode === ENTER && this.panelOpened) {
-            this.activeOption().selectViaInteraction();
+            this.activeOption()!.selectViaInteraction();
             this.resetActiveItem();
             event.preventDefault();
         } else if (autocompleteComponent) {
-            const prevActiveItem = autocompleteComponent.keyManager.activeItem;
+            const prevActiveItem = autocompleteComponent.keyManager!.activeItem;
             const isArrowKey = keyCode === UP_ARROW || keyCode === DOWN_ARROW;
             if (this.panelOpened || keyCode === TAB) {
-                autocompleteComponent.keyManager.onKeydown(event);
+                autocompleteComponent.keyManager!.onKeydown(event);
             } else if (isArrowKey && this.canOpen()) {
                 this.openPanel();
             }
             if (
-                (isArrowKey || autocompleteComponent.keyManager.activeItem !== prevActiveItem) &&
-                autocompleteComponent.keyManager.activeItem
+                (isArrowKey || autocompleteComponent.keyManager!.activeItem !== prevActiveItem) &&
+                autocompleteComponent.keyManager!.activeItem
             ) {
                 ScrollToService.scrollToElement(
-                    autocompleteComponent.keyManager.activeItem.element.nativeElement,
-                    autocompleteComponent.optionsContainer().nativeElement
+                    autocompleteComponent.keyManager!.activeItem.element.nativeElement,
+                    autocompleteComponent.optionsContainer()!.nativeElement
                 );
             }
         }
@@ -205,7 +203,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
             width: this.thyAutocompleteWidth() || this.elementRef.nativeElement.clientWidth
         });
         const autocompleteComponent = this.autocompleteComponent();
-        this.autocompleteRef = this.autocompleteService.open(autocompleteComponent.contentTemplateRef(), config);
+        this.autocompleteRef = this.autocompleteService.open(autocompleteComponent.contentTemplateRef()!, config);
         this.autocompleteRef.afterClosed().subscribe(() => {
             this.panelOpened = false;
             autocompleteComponent.close();
@@ -241,7 +239,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
                         this.resetActiveItem();
 
                         if (this.panelOpened) {
-                            this.overlayRef.updatePosition();
+                            this.overlayRef!.updatePosition();
                         }
                         return this.panelClosingActions;
                     }),
@@ -255,7 +253,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
 
     private setValueAndClose(event: ThyOptionSelectionChangeEvent | null): void {
         if (event && event.option) {
-            this.setValue(event.option.thyLabelText);
+            this.setValue(event.option.thyLabelText()!);
         }
         this.closePanel();
     }
@@ -299,7 +297,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
     private resetActiveItem(): void {
         const autocompleteComponent = this.autocompleteComponent();
         const index = autocompleteComponent.thyAutoActiveFirstOption() ? 0 : -1;
-        autocompleteComponent.keyManager.setActiveItem(index);
+        autocompleteComponent.keyManager!.setActiveItem(index);
     }
 
     private destroyPanel(): void {

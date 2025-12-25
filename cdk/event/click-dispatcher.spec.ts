@@ -14,8 +14,8 @@ describe('ClickDispatcher', () => {
     });
 
     describe('basic usage', () => {
-        let click: ThyClickDispatcher;
-        let fixture: ComponentFixture<ClickComponent>;
+        let click!: ThyClickDispatcher;
+        let fixture!: ComponentFixture<ClickComponent>;
 
         beforeEach(inject([ThyClickDispatcher], (s: ThyClickDispatcher) => {
             click = s;
@@ -52,7 +52,7 @@ describe('ClickDispatcher', () => {
             click.clicked(0).subscribe(() => {});
             dispatchFakeEvent(document, 'click', false);
 
-            expect(fixture.ngZone.isStable).toBe(true);
+            expect(fixture.ngZone!.isStable).toBe(true);
         });
 
         it('should be able to unsubscribe from the global click', () => {
@@ -92,7 +92,7 @@ describe('ClickDispatcher', () => {
     });
 
     describe('lazy subscription', () => {
-        let click: ThyClickDispatcher;
+        let click!: ThyClickDispatcher;
 
         beforeEach(inject([ThyClickDispatcher], (s: ThyClickDispatcher) => {
             click = s;
@@ -132,7 +132,7 @@ class ClickComponent implements OnDestroy {
     clickDispatcher = coreInject(ThyClickDispatcher);
 
     clicked = 0;
-    subscription: Subscription;
+    subscription: Subscription | null;
     clicked$: Observable<Event>;
     constructor() {
         const clickDispatcher = this.clickDispatcher;

@@ -12,7 +12,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 export class ThyFormGroupLabelDirective {
     private thyTranslate = inject(ThyTranslate);
 
-    public labelText: string;
+    public labelText!: string;
 
     @HostBinding('class.label-required') labelRequired = false;
 

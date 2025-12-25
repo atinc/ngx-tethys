@@ -24,7 +24,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
     imports: [ThySelect, ThyOption, ThyButtonGroup, FormsModule, ThyDot, NgClass, ThyTag, ThyAvatar, ThyIcon, ThyButton]
 })
 export class ThySelectVerticalCenterExampleComponent implements OnInit {
-    listOfOption: { value: string; text: string }[];
+    listOfOption!: { value: string; text: string }[];
 
     listOfSelectedValue = ['option1', 'option2'];
 

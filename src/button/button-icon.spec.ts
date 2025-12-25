@@ -25,9 +25,9 @@ describe(`button-icon`, () => {
         injectDefaultSvgIconSet();
     });
 
-    let fixture: ComponentFixture<BasicButtonIconComponent>;
-    let thyButtonDebugElement: DebugElement;
-    let thyButtonElement: HTMLElement;
+    let fixture!: ComponentFixture<BasicButtonIconComponent>;
+    let thyButtonDebugElement!: DebugElement;
+    let thyButtonElement!: HTMLElement;
 
     beforeEach(() => {
         fixture = TestBed.createComponent(BasicButtonIconComponent);

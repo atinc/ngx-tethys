@@ -49,7 +49,7 @@ export class MonthTable extends CalendarTable {
             for (let colIndex = 0; colIndex < this.MAX_COL; colIndex++) {
                 const month = this.activeDate().setMonth(monthValue);
                 const monthFormat = this.locale().monthFormat;
-                const isDisabled = this.disabledDate() ? this.disabledDate()(this.activeDate().setMonth(monthValue).nativeDate) : false;
+                const isDisabled = this.disabledDate() ? this.disabledDate()!(this.activeDate().setMonth(monthValue).nativeDate) : false;
                 const content = this.dateHelper.format(month.nativeDate, monthFormat);
                 const cell: DateCell = {
                     trackByIndex: colIndex,
@@ -58,8 +58,8 @@ export class MonthTable extends CalendarTable {
                     content,
                     title: content,
                     classMap: null,
-                    isSelected: month.isSameMonth(this.value()),
-                    onClick: () => this.chooseMonth(cell.value.getMonth()),
+                    isSelected: month.isSameMonth(this.value()!),
+                    onClick: () => this.chooseMonth(cell.value!.getMonth()),
                     onMouseEnter: () => {}
                 };
                 this.addCellProperty(cell, month);
@@ -87,7 +87,7 @@ export class MonthTable extends CalendarTable {
             cell.isStartSingle = startSelected && !endSelected;
             cell.isEndSingle = !startSelected && !!endSelected;
             cell.isInRange = startSelected?.isBeforeMonth(month) && month?.isBeforeMonth(endSelected);
-        } else if (month.isSameMonth(this.value())) {
+        } else if (month.isSameMonth(this.value()!)) {
             cell.isSelected = true;
         }
         cell.classMap = this.getClassMap(cell);
@@ -102,11 +102,11 @@ export class MonthTable extends CalendarTable {
         const prefixCls = this.prefixCls();
         return {
             [`${prefixCls}-month-panel-cell`]: true,
-            [`${prefixCls}-month-panel-cell-disabled`]: cell.isDisabled,
-            [`${prefixCls}-month-panel-selected-cell`]: cell.isSelected,
+            [`${prefixCls}-month-panel-cell-disabled`]: !!cell.isDisabled,
+            [`${prefixCls}-month-panel-selected-cell`]: !!cell.isSelected,
             [`${prefixCls}-in-range-cell`]: !!cell.isInRange,
             [`${prefixCls}-month-panel-current-cell`]:
-                new TinyDate().getYear() === this.activeDate().getYear() && cell.value.getMonth() === new TinyDate().getMonth()
+                new TinyDate().getYear() === this.activeDate().getYear() && cell.value!.getMonth() === new TinyDate().getMonth()
         };
     }
 }

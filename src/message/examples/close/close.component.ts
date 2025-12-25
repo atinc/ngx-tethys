@@ -11,9 +11,9 @@ import { ThyButton } from 'ngx-tethys/button';
 export class ThyMessageCloseExampleComponent implements OnInit {
     private messageService = inject(ThyMessageService);
 
-    openedMessageId: string;
+    openedMessageId!: string;
 
-    messageRef: ThyMessageRef;
+    messageRef!: ThyMessageRef;
 
     ngOnInit() {}
 

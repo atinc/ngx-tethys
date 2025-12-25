@@ -13,11 +13,11 @@ import { provideHttpClient } from '@angular/common/http';
 registerLocaleData(zh);
 
 describe('ThyYearPickerComponent', () => {
-    let fixture: ComponentFixture<TestYearPickerComponent>;
-    let fixtureInstance: TestYearPickerComponent;
-    let debugElement: DebugElement;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let fixture!: ComponentFixture<TestYearPickerComponent>;
+    let fixtureInstance!: TestYearPickerComponent;
+    let debugElement!: DebugElement;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -75,7 +75,7 @@ describe('ThyYearPickerComponent', () => {
             const thyOnChange = spyOn(fixtureInstance, 'modelValueChange');
             debugElement.query(clearBtnSelector).nativeElement.click();
             fixture.detectChanges();
-            expect(fixtureInstance.thyValue).toBe(null);
+            expect(fixtureInstance.thyValue).toBeNull()
             expect(thyOnChange).toHaveBeenCalledWith(null);
             expect(debugElement.query(clearBtnSelector)).toBeFalsy();
             flush();
@@ -264,13 +264,13 @@ describe('ThyYearPickerComponent', () => {
     imports: [ThyDatePickerModule, FormsModule]
 })
 class TestYearPickerComponent {
-    thyAllowClear: boolean;
-    thyDisabled: boolean;
-    thyDisabledDate: (d: Date) => boolean;
+    thyAllowClear!: boolean;
+    thyDisabled!: boolean;
+    thyDisabledDate!: (d: Date) => boolean;
     thyPlaceHolder: string = '请选择年';
-    thyPanelClassName: string;
-    thyValue: Date;
-    thyOpen: boolean;
+    thyPanelClassName!: string;
+    thyValue!: Date;
+    thyOpen!: boolean;
     modelValueChange(): void {}
     thyDateChange(): void {}
 }

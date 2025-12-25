@@ -3,16 +3,16 @@ import { Platform } from '@angular/cdk/platform';
 import {
     Directive,
     ElementRef,
-    Input,
     NgZone,
     OnDestroy,
     OnInit,
     ViewContainerRef,
-    numberAttribute,
+    afterNextRender,
+    effect,
     inject,
     input,
-    effect,
-    linkedSignal
+    linkedSignal,
+    numberAttribute
 } from '@angular/core';
 import { ThyOverlayDirectiveBase, ThyOverlayTrigger, ThyPlacement } from 'ngx-tethys/core';
 import { SafeAny } from 'ngx-tethys/types';
@@ -33,7 +33,7 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
 
     protected isAutoCloseOnMobileTouch: boolean = true;
 
-    private tooltipRef: ThyTooltipRef;
+    private tooltipRef!: ThyTooltipRef;
 
     /**
      * 提示消息，可以是文本，也可以是一个模板
@@ -49,7 +49,7 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
 
     content = linkedSignal(() => {
         const value = this.thyTooltipContent();
-        return this.getValidContent(value);
+        return this.getValidContent(value!);
     });
 
     /**
@@ -143,16 +143,13 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
 
         effect(() => {
             const value = this.content();
-            if (!value && this.tooltipRef?.isTooltipVisible()) {
+            const data = this.data();
+            const isTooltipVisible = this.tooltipRef?.isTooltipVisible();
+            if (!value && isTooltipVisible) {
                 this.tooltipRef.hide(0);
-            } else {
-                this.tooltipRef?.updateTooltipContent(value, this.data());
+            } else if (value && isTooltipVisible) {
+                this.tooltipRef?.updateTooltipContent(value, data);
             }
-        });
-
-        effect(() => {
-            const tooltipClass = this.thyTooltipClass();
-            this.tooltipRef?.setTooltipClass(tooltipClass);
         });
 
         effect(() => {
@@ -161,25 +158,34 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
         });
 
         effect(() => {
+            const overlayPin = this.tooltipPin();
+            this.overlayPin = overlayPin;
+        });
+
+        effect(() => {
             const disabled = this.toolTipDisabled();
-            this.disabled = disabled;
-            if (disabled) {
+            this.disabled = !!disabled;
+            if (disabled && this.tooltipRef?.isTooltipVisible()) {
                 this.hide(0);
             }
         });
 
         effect(() => {
-            const overlayPin = this.tooltipPin();
-            this.overlayPin = overlayPin;
+            const tooltipClass = this.thyTooltipClass();
+            if (this.tooltipRef && tooltipClass) {
+                this.tooltipRef.setTooltipClass(tooltipClass);
+            }
+        });
+
+        afterNextRender(() => {
+            this.initialize();
         });
     }
 
-    ngOnInit() {
-        this.initialize();
-    }
+    ngOnInit() {}
 
     /** Shows the tooltip after the delay in ms, defaults to tooltip-delay-show 200ms */
-    show(delay: number = this.thyTooltipShowDelay()): void {
+    show(delay: number | undefined = this.thyTooltipShowDelay()): void {
         if (this.disabled) {
             return;
         }
@@ -197,11 +203,12 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
     }
 
     /** Hides the tooltip after the delay in ms, defaults to tooltip-delay-hide 100ms */
-    hide(delay: number = this.thyTooltipHideDelay()): void {
+    hide(delay: number | undefined = this.thyTooltipHideDelay()): void {
         this.tooltipRef?.hide(delay);
     }
 
     ngOnDestroy() {
         this.tooltipRef?.dispose();
+        this.dispose?.();
     }
 }

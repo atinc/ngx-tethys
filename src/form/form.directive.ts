@@ -56,7 +56,7 @@ export class ThyFormDirective implements OnInit, AfterViewInit, OnDestroy {
      * @type horizontal | vertical | inline
      * @default horizontal
      */
-    readonly thyLayout = input<ThyFormLayout>(undefined);
+    readonly thyLayout = input<ThyFormLayout>();
 
     get isHorizontal() {
         return this.layout === 'horizontal';
@@ -71,7 +71,7 @@ export class ThyFormDirective implements OnInit, AfterViewInit, OnDestroy {
      * @type submit | alwaysSubmit | forbidSubmit
      * @default submit
      */
-    readonly thyEnterKeyMode = input<ThyEnterKeyMode>(undefined);
+    readonly thyEnterKeyMode = input<ThyEnterKeyMode>();
 
     /**
      * 表单验证规则配置项 （更多内容查看：thyFormValidatorConfig）
@@ -80,12 +80,13 @@ export class ThyFormDirective implements OnInit, AfterViewInit, OnDestroy {
 
     @HostBinding('class.was-validated') wasValidated = false;
 
+    // @ts-ignore
     onSubmitSuccess: ($event: any) => void;
 
-    private _unsubscribe: () => void;
+    private _unsubscribe: (() => void) | null = null;
 
     @ContentChildren(NgControl, { descendants: true })
-    public controls: QueryList<NgControl>;
+    public controls!: QueryList<NgControl>;
 
     constructor() {
         effect(() => {
@@ -128,7 +129,7 @@ export class ThyFormDirective implements OnInit, AfterViewInit, OnDestroy {
         if (result.valid) {
             this.onSubmitSuccess && this.onSubmitSuccess($event);
         } else {
-            const invalidElement = result.invalidControls[0].element;
+            const invalidElement = result.invalidControls![0].element;
             invalidElement.focus();
         }
     }
@@ -146,7 +147,7 @@ export class ThyFormDirective implements OnInit, AfterViewInit, OnDestroy {
     onKeydown($event: KeyboardEvent) {
         const currentInput = document.activeElement;
         const key = $event.which || $event.keyCode;
-        if (key === keycodes.ENTER && currentInput.tagName) {
+        if (key === keycodes.ENTER && currentInput?.tagName) {
             const thyEnterKeyMode = this.thyEnterKeyMode();
             if (!thyEnterKeyMode || thyEnterKeyMode === ThyEnterKeyMode.submit) {
                 // TEXTAREA或包含[contenteditable]属性的元素 Ctrl + Enter 或者 Command + Enter 阻止默认行为并提交

@@ -38,11 +38,11 @@ import { QUARTER_FORMAT } from './date-picker.config';
 export class BasePicker extends AbstractPickerComponent implements OnInit, OnChanges {
     protected element = inject(ElementRef);
 
-    initialized: boolean;
+    initialized!: boolean;
 
-    private innerPreviousDate: string;
+    private innerPreviousDate: string | null = null;
 
-    private thyPicker = viewChild<ThyPicker>('thyPicker');
+    private thyPicker = viewChild.required<ThyPicker>('thyPicker');
 
     readonly thyDateRender = input<FunctionProp<TemplateRef<Date> | string>>();
 
@@ -120,14 +120,14 @@ export class BasePicker extends AbstractPickerComponent implements OnInit, OnCha
         if (!this.flexible()) {
             this.closeOverlay();
         }
-        this.innerPreviousDate = this.thyPicker().getReadableValue(this.thyValue);
+        this.innerPreviousDate = this.thyPicker().getReadableValue(this.thyValue!);
     }
 
     onInputValueChange(formatDate: string | null | Array<null>) {
         if (!formatDate || !formatDate.length) {
-            const compatibleValue = formatDate ? (formatDate as CompatibleValue) : null;
+            const compatibleValue = formatDate ? (formatDate as unknown as CompatibleValue) : null;
             this.restoreTimePickerState(compatibleValue);
-            super.onValueChange(compatibleValue);
+            super.onValueChange(compatibleValue!);
             return;
         }
         let value = formatDate as string;
@@ -136,7 +136,7 @@ export class BasePicker extends AbstractPickerComponent implements OnInit, OnCha
         if (valueValid && valueLimitValid) {
             this.innerPreviousDate = value;
         } else {
-            value = this.innerPreviousDate;
+            value = this.innerPreviousDate!;
         }
         const tinyDate = value
             ? this.thyShowTime()
@@ -144,7 +144,7 @@ export class BasePicker extends AbstractPickerComponent implements OnInit, OnCha
                 : parseStringDate(value, this.thyTimeZone()).startOfDay()
             : null;
         this.restoreTimePickerState(tinyDate);
-        super.onValueChange(tinyDate);
+        super.onValueChange(tinyDate!);
     }
 
     setFormat() {
@@ -156,7 +156,7 @@ export class BasePicker extends AbstractPickerComponent implements OnInit, OnCha
                 week: this.locale().weekThFormat,
                 date: this.thyShowTime() ? 'yyyy-MM-dd HH:mm' : 'yyyy-MM-dd'
             };
-            this.thyFormat.set(this.flexible() ? inputFormats['date'] : inputFormats[this.thyMode]);
+            this.thyFormat.set(this.flexible() ? (inputFormats['date'] as string) : (inputFormats[this.thyMode] as string));
         }
     }
 
@@ -221,10 +221,10 @@ export class BasePicker extends AbstractPickerComponent implements OnInit, OnCha
     private isValidDateLimit(date: TinyDate): boolean {
         let disable = false;
         if (this.thyDisabledDate() !== undefined) {
-            disable = this.thyDisabledDate()(date.nativeDate);
+            disable = this.thyDisabledDate()!(date.nativeDate);
         }
-        const minDate = this.thyMinDate() ? new TinyDate(transformDateValue(this.thyMinDate()).value as Date, this.thyTimeZone()) : null;
-        const maxDate = this.thyMaxDate() ? new TinyDate(transformDateValue(this.thyMaxDate()).value as Date, this.thyTimeZone()) : null;
+        const minDate = this.thyMinDate() ? new TinyDate(transformDateValue(this.thyMinDate()!).value as Date, this.thyTimeZone()) : null;
+        const maxDate = this.thyMaxDate() ? new TinyDate(transformDateValue(this.thyMaxDate()!).value as Date, this.thyTimeZone()) : null;
         return (
             (!minDate || date.startOfDay().nativeDate >= minDate.startOfDay().nativeDate) &&
             (!maxDate || date.startOfDay().nativeDate <= maxDate.startOfDay().nativeDate) &&

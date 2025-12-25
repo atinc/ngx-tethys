@@ -1,12 +1,13 @@
 import { Component, OnInit, HostBinding, HostListener, input } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ThyRadio } from '../radio.component';
+import { IThyRadioComponent } from '../radio.token';
 
 /**
  * @name [thy-radio-button],[thyRadioButton]
  */
 @Component({
-    // eslint-disable-next-line @angular-eslint/component-selector
+
     selector: '[thy-radio-button],[thyRadioButton]',
     templateUrl: './radio-button.component.html',
     host: {
@@ -20,7 +21,7 @@ export class ThyRadioButton extends ThyRadio implements OnInit {
         return this._disabled;
     }
 
-    name: string;
+    name!: string;
 
     readonly thyValue = input<string>();
 
@@ -32,7 +33,7 @@ export class ThyRadioButton extends ThyRadio implements OnInit {
     ngOnInit() {
         this._isFormCheck = false;
         if (this.thyRadioGroupComponent) {
-            this.thyRadioGroupComponent.addRadio(this);
+            this.thyRadioGroupComponent.addRadio(this as IThyRadioComponent);
             this.thyRadioGroupComponent.setGroup();
         }
     }

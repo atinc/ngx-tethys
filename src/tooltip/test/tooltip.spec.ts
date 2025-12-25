@@ -1,12 +1,12 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { Platform } from '@angular/cdk/platform';
 import { Component, DebugElement, ElementRef, ViewChild, inject as coreInject } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, fakeAsync, flush, flushMicrotasks, inject, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, flush, flushMicrotasks, inject, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
-import { ThyTooltipModule, ThyTooltipDirective, ThyTooltipService, ThyTooltipRef } from 'ngx-tethys/tooltip';
-import { Platform } from '@angular/cdk/platform';
 import { dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing';
+import { ThyTooltipDirective, ThyTooltipModule, ThyTooltipRef, ThyTooltipService } from 'ngx-tethys/tooltip';
 
 const initialTooltipMessage = 'hello, this is tooltip message';
 const TOOLTIP_CLASS = `thy-tooltip`;
@@ -78,8 +78,8 @@ class ThyDemoTooltipTemplateComponent {
 }
 
 describe(`ThyTooltip`, () => {
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
     let platform: { IOS: boolean; isBrowser: boolean; ANDROID: boolean };
 
     beforeEach(fakeAsync(() => {
@@ -112,10 +112,10 @@ describe(`ThyTooltip`, () => {
     }
 
     describe(`touch usage`, () => {
-        let fixture: ComponentFixture<ThyDemoTooltipBasicComponent>;
-        let tooltipDirective: ThyTooltipDirective;
-        let buttonDebugElement: DebugElement;
-        let buttonElement: HTMLElement;
+        let fixture!: ComponentFixture<ThyDemoTooltipBasicComponent>;
+        let tooltipDirective!: ThyTooltipDirective;
+        let buttonDebugElement!: DebugElement;
+        let buttonElement!: HTMLElement;
 
         function getTooltipVisible() {
             return tooltipDirective['tooltipRef'] ? tooltipDirective['tooltipRef']['isTooltipVisible']() : false;
@@ -131,6 +131,8 @@ describe(`ThyTooltip`, () => {
         });
 
         it('should show the tooltip for tap', fakeAsync(() => {
+            tick();
+            fixture.detectChanges();
             assertTooltipInstance(tooltipDirective, false);
             dispatchTouchEvent(buttonElement, 'touchstart');
             fixture.detectChanges();
@@ -143,6 +145,8 @@ describe(`ThyTooltip`, () => {
         }));
 
         it('should show the tooltip for long press', fakeAsync(() => {
+            tick();
+            fixture.detectChanges();
             assertTooltipInstance(tooltipDirective, false);
             dispatchTouchEvent(buttonElement, 'touchstart');
             fixture.detectChanges();
@@ -158,6 +162,8 @@ describe(`ThyTooltip`, () => {
         });
 
         it('should close on touchend with a delay', fakeAsync(() => {
+            tick();
+            fixture.detectChanges();
             dispatchTouchEvent(buttonElement, 'touchstart');
             fixture.detectChanges();
             tick(500); // Finish the animation.
@@ -182,6 +188,8 @@ describe(`ThyTooltip`, () => {
         }));
 
         it('should close on touchmove', fakeAsync(() => {
+            tick();
+            fixture.detectChanges();
             dispatchTouchEvent(buttonElement, 'touchstart');
             fixture.detectChanges();
             tick(100);
@@ -203,12 +211,12 @@ describe(`ThyTooltip`, () => {
     });
 
     describe(`basic usage`, () => {
-        let fixture: ComponentFixture<ThyDemoTooltipBasicComponent>;
-        let basicTestComponent: ThyDemoTooltipBasicComponent;
+        let fixture!: ComponentFixture<ThyDemoTooltipBasicComponent>;
+        let basicTestComponent!: ThyDemoTooltipBasicComponent;
         // let tooltipDebugElement: DebugElement;
-        let tooltipDirective: ThyTooltipDirective;
-        let buttonDebugElement: DebugElement;
-        let buttonElement: HTMLElement;
+        let tooltipDirective!: ThyTooltipDirective;
+        let buttonDebugElement!: DebugElement;
+        let buttonElement!: HTMLElement;
 
         function getTooltipVisible() {
             return tooltipDirective['tooltipRef'] ? tooltipDirective['tooltipRef']['isTooltipVisible']() : false;
@@ -226,6 +234,8 @@ describe(`ThyTooltip`, () => {
         });
 
         it('should show and hide the tooltip', fakeAsync(() => {
+            tick();
+            fixture.detectChanges();
             assertTooltipInstance(tooltipDirective, false);
             // fake mouseenter event
             dispatchMouseEvent(buttonElement, 'mouseenter');
@@ -443,12 +453,12 @@ describe(`ThyTooltip`, () => {
     });
 
     describe(`template usage`, () => {
-        let fixture: ComponentFixture<ThyDemoTooltipTemplateComponent>;
-        let basicTestComponent: ThyDemoTooltipTemplateComponent;
+        let fixture!: ComponentFixture<ThyDemoTooltipTemplateComponent>;
+        let basicTestComponent!: ThyDemoTooltipTemplateComponent;
         // let tooltipDebugElement: DebugElement;
-        let tooltipDirective: ThyTooltipDirective;
-        let buttonDebugElement: DebugElement;
-        let buttonElement: HTMLElement;
+        let tooltipDirective!: ThyTooltipDirective;
+        let buttonDebugElement!: DebugElement;
+        let buttonElement!: HTMLElement;
 
         function getTooltipVisible() {
             return tooltipDirective['tooltipRef'] ? tooltipDirective['tooltipRef']['isTooltipVisible']() : false;
@@ -466,6 +476,8 @@ describe(`ThyTooltip`, () => {
         });
 
         it('should show and hide the tooltip', fakeAsync(() => {
+            tick();
+            fixture.detectChanges();
             assertTooltipInstance(tooltipDirective, false);
             // fake mouseenter event
             dispatchMouseEvent(buttonElement, 'mouseenter');
@@ -595,9 +607,9 @@ describe(`ThyTooltip`, () => {
     });
 
     describe(`usage with tooltip service`, () => {
-        let fixture: ComponentFixture<ThyDemoTooltipBasicComponent>;
-        let basicTestComponent: ThyDemoTooltipBasicComponent;
-        let tooltipService: ThyTooltipService;
+        let fixture!: ComponentFixture<ThyDemoTooltipBasicComponent>;
+        let basicTestComponent!: ThyDemoTooltipBasicComponent;
+        let tooltipService!: ThyTooltipService;
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyDemoTooltipBasicComponent);
             fixture.detectChanges();

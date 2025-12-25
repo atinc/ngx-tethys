@@ -1,4 +1,4 @@
-@if (!option().readonly) {
+@if (!option()!.readonly) {
   <div thyStopPropagation>
     @if (multiple()) {
       <label
@@ -28,6 +28,6 @@
   <ng-template [ngTemplateOutlet]="optionRender()" [ngTemplateOutletContext]="{ option: option() }"></ng-template>
 }
 
-@if (!option().isLeaf || (option().children && option().children.length) || option().loading) {
+@if (!option()?.isLeaf || (option()?.children && option()!.children?.length) || option()?.loading) {
   <span class="wtf wtf-angle-right thy-cascader-menu-item-expand-icon"> </span>
 }

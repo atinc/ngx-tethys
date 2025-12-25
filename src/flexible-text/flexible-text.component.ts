@@ -155,7 +155,7 @@ export class ThyFlexibleText implements AfterContentInit, OnDestroy {
     }
 
     updateContainerClass() {
-        const containerClass = isUndefinedOrNull(this.thyContainerClass()) ? 'flexible-text-container' : this.thyContainerClass();
+        const containerClass = isUndefinedOrNull(this.thyContainerClass()) ? 'flexible-text-container' : this.thyContainerClass()!;
         const flexibleTextClass = { 'text-truncate': true, [containerClass]: containerClass !== '' };
         this.hostRenderer.updateClassByMap(flexibleTextClass);
     }

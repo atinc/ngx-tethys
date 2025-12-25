@@ -60,10 +60,10 @@ const nodes: DragNodeInfo[] = [
 ];
 
 describe('drag-drop basic directive', () => {
-    let fixture: ComponentFixture<TestBasicDragDropComponent>;
-    let testComponent: TestBasicDragDropComponent;
-    let debugElement: DebugElement;
-    let dropContainerElement: HTMLElement;
+    let fixture!: ComponentFixture<TestBasicDragDropComponent>;
+    let testComponent!: TestBasicDragDropComponent;
+    let debugElement!: DebugElement;
+    let dropContainerElement!: HTMLElement;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({});
@@ -217,8 +217,8 @@ describe('drag-drop basic directive', () => {
 });
 
 describe('with handle', () => {
-    let fixture: ComponentFixture<TestWithHandleDragDropComponent>;
-    let testComponent: TestWithHandleDragDropComponent;
+    let fixture!: ComponentFixture<TestWithHandleDragDropComponent>;
+    let testComponent!: TestWithHandleDragDropComponent;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({});
@@ -302,9 +302,9 @@ export class TestBasicDragDropComponent {
 
     public disabled = false;
 
-    @ViewChild(ThyDragContentDirective, { static: true }) dropContainer: ThyDragContentDirective;
+    @ViewChild(ThyDragContentDirective, { static: true }) dropContainer!: ThyDragContentDirective;
 
-    @ViewChildren(ThyDragDirective) drags: QueryList<ThyDragDirective>;
+    @ViewChildren(ThyDragDirective) drags!: QueryList<ThyDragDirective>;
 
     beforeStartSpy = jasmine.createSpy('before drag start');
 
@@ -323,17 +323,17 @@ export class TestBasicDragDropComponent {
     beforeDragStart = (event: ThyDragStartEvent<DragNodeInfo>) => {
         this.beforeStartSpy();
 
-        return event.item.draggable;
+        return event.item!.draggable;
     };
 
     beforeDragOver = (event: ThyDragStartEvent<DragNodeInfo>) => {
         this.beforeOverSpy();
-        return event.item.draggable;
+        return event.item!.draggable;
     };
 
     beforeDragDrop = (event: ThyDragStartEvent<DragNodeInfo>) => {
         this.beforeDropSpy();
-        return event.item.draggable;
+        return event.item!.draggable;
     };
 
     onDragStart(event: ThyDragStartEvent) {
@@ -395,9 +395,9 @@ export class TestWithHandleDragDropComponent {
 
     public disabled = false;
 
-    @ViewChild(ThyDragContentDirective, { static: true }) dropContainer: ThyDragContentDirective;
+    @ViewChild(ThyDragContentDirective, { static: true }) dropContainer!: ThyDragContentDirective;
 
-    @ViewChildren(ThyDragDirective) drags: QueryList<ThyDragDirective>;
+    @ViewChildren(ThyDragDirective) drags!: QueryList<ThyDragDirective>;
 
-    @ViewChildren(ThyDragHandleDirective) dragHandles: QueryList<ThyDragHandleDirective>;
+    @ViewChildren(ThyDragHandleDirective) dragHandles!: QueryList<ThyDragHandleDirective>;
 }

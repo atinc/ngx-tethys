@@ -14,16 +14,16 @@ import { ThyLoading, ThyLoadingModule } from 'ngx-tethys/loading';
     imports: [ThyLoadingModule]
 })
 export class TestLoadingComponent {
-    loadingDone: boolean;
-    isMask: boolean;
-    tip: string;
+    loadingDone!: boolean;
+    isMask!: boolean;
+    tip!: string;
 }
 
 describe('test loading', () => {
-    let fixture: ComponentFixture<TestLoadingComponent>;
-    let testComponent: TestLoadingComponent;
-    let loadingComponent: DebugElement;
-    let loadingElement: HTMLElement;
+    let fixture!: ComponentFixture<TestLoadingComponent>;
+    let testComponent!: TestLoadingComponent;
+    let loadingComponent!: DebugElement;
+    let loadingElement!: HTMLElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({});

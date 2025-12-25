@@ -22,11 +22,11 @@ import { MIME_Map } from '../constant';
     imports: [ThyFileDropDirective]
 })
 class FileDropBasicComponent {
-    customDragOverClass: string;
-    multiple: boolean;
+    customDragOverClass!: string;
+    multiple!: boolean;
     acceptType: string = '';
     sizeThreshold = 1;
-    exceedsFiles: File[];
+    exceedsFiles!: File[];
     constructor() {}
 
     selectFiles(event: { files: File[] }) {}
@@ -41,10 +41,10 @@ class FileDropBasicComponent {
 }
 
 describe('thyFileDrop', () => {
-    let fixture: ComponentFixture<FileDropBasicComponent>;
-    let testComponent: FileDropBasicComponent;
-    let fileDropDebugElement: DebugElement;
-    let dataTransfer: DataTransfer;
+    let fixture!: ComponentFixture<FileDropBasicComponent>;
+    let testComponent!: FileDropBasicComponent;
+    let fileDropDebugElement!: DebugElement;
+    let dataTransfer!: DataTransfer;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -92,7 +92,7 @@ describe('thyFileDrop', () => {
         fixture.detectChanges();
         expect(fileDropElement.classList.contains('thy-drop-over')).toBeTruthy();
 
-        const dropEvent = createDragEvent('drop', null, true, true);
+        const dropEvent = createDragEvent('drop', undefined, true, true);
         fileDropElement.dispatchEvent(dropEvent);
         fixture.detectChanges();
         expect(fileDropElement.classList.contains('thy-drop-over')).toBeFalsy();

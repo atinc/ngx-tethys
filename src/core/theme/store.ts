@@ -21,7 +21,7 @@ export class ThyThemeStore {
         this.theme.set(theme);
     }
 
-    normalizeColor(color: string | string[]): string {
+    normalizeColor(color: string | string[]): string | undefined {
         if (typeof color === 'string') {
             return color;
         }

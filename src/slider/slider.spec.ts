@@ -35,7 +35,7 @@ import { provideHttpClient } from '@angular/common/http';
     imports: [FormsModule, ThySliderModule]
 })
 class ThyTestSliderComponent {
-    value: number;
+    value!: number;
     max = 100;
     min = 0;
     step = 1;
@@ -51,9 +51,9 @@ class ThyTestSliderComponent {
 }
 
 describe('ThyTestSliderComponent', () => {
-    let fixture: ComponentFixture<ThyTestSliderComponent>;
-    let fixtureInstance: ThyTestSliderComponent;
-    let debugElement: DebugElement;
+    let fixture!: ComponentFixture<ThyTestSliderComponent>;
+    let fixtureInstance!: ThyTestSliderComponent;
+    let debugElement!: DebugElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({

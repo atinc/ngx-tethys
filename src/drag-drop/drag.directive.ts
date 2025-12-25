@@ -31,7 +31,7 @@ export class ThyDragDirective<T = any> implements IThyDragDirective, OnDestroy {
      * 元数据
      * @type any
      */
-    @Input('thyDragData') data: T;
+    @Input('thyDragData') data!: T;
 
     @HostBinding('attr.draggable') isDraggable = true;
 

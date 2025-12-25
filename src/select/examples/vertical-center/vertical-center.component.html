@@ -64,7 +64,7 @@
         <span>!!!空</span>
       }
       @if (value) {
-        <span thyText class="w-100">
+        <span thyText class="w-100 d-flex align-items-center">
           <thy-avatar [thySrc]="avatarSrc" thyName="张学友" class="mr-2"></thy-avatar>
           <span class="text-truncate">{{ value?.text }}</span>
         </span>
@@ -74,8 +74,8 @@
   <thy-select thyPlaceHolder="请选择" [thySize]="currentSize.name" ngModel="option1" [thyAllowClear]="true" [thyShowSearch]="true">
     @for (option of listOfOption; track option.value) {
       <thy-option [thyValue]="option.value" [thyRawValue]="option" [thyLabelText]="option.text" thyShowOptionCustom="true">
-        <span thyText>
-          <thy-icon thyIconName="bell" class="mr-2"></thy-icon>
+        <span thyText class="text-truncate">
+          <thy-icon thyIconName="bell" class="mr-2 text-muted"></thy-icon>
           <span class="text-truncate">{{ option?.text }}</span>
         </span>
       </thy-option>
@@ -85,8 +85,8 @@
         <span>!!!空</span>
       }
       @if (value) {
-        <span thyText class="w-100">
-          <thy-icon thyIconName="bell" class="mr-2"></thy-icon>
+        <span thyText class="w-100 text-truncate">
+          <thy-icon thyIconName="bell" class="mr-2 text-muted"></thy-icon>
           <span class="text-truncate">{{ value?.text }}</span>
         </span>
       }
@@ -114,8 +114,8 @@
   <thy-select thyPlaceHolder="请选择" [thySize]="currentSize.name" thyMode="multiple" [(ngModel)]="listOfSelectedValue">
     @for (option of listOfOption; track option.value) {
       <thy-option [thyValue]="option.value" [thyRawValue]="option" [thyLabelText]="option.text" thyShowOptionCustom="true">
-        <span thyText>
-          <thy-icon thyIconName="bell" class="mr-2"></thy-icon>
+        <span thyText class="text-truncate">
+          <thy-icon thyIconName="bell" class="mr-2 text-muted"></thy-icon>
           <span class="text-truncate">{{ option?.text }}</span>
         </span>
       </thy-option>
@@ -125,8 +125,8 @@
         <span>!!!空</span>
       }
       @if (value) {
-        <span thyText class="w-100">
-          <thy-icon thyIconName="bell" [style.fontSize]="'12px'" class="mr-2"></thy-icon>
+        <span thyText class="w-100 text-truncate">
+          <thy-icon thyIconName="bell" [style.fontSize]="'12px'" class="mr-2 text-muted"></thy-icon>
           <span class="text-truncate">{{ value?.text }}</span>
         </span>
       }

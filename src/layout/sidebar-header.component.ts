@@ -45,7 +45,7 @@ export class ThySidebarHeader {
     /**
      * 头部标题
      */
-    readonly thyTitle = input<string>(undefined);
+    readonly thyTitle = input<string>();
 
     /**
      * 头部自定义操作模板，`<ng-template #headerOperation></ng-template>`

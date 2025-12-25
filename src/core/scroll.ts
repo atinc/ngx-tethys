@@ -43,6 +43,7 @@ export class ThyScrollService {
         const prop = top ? 'pageYOffset' : 'pageXOffset';
         const method = top ? 'scrollTop' : 'scrollLeft';
         const isWindow = target === window;
+        // @ts-ignore
         let ret = isWindow ? target[prop] : target[method];
         if (isWindow && typeof ret !== 'number') {
             ret = this.document.documentElement[method];

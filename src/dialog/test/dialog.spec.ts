@@ -31,13 +31,13 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 
 describe('ThyDialog', () => {
-    let dialog: ThyDialog;
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
+    let dialog!: ThyDialog;
+    let overlayContainer!: OverlayContainer;
+    let overlayContainerElement!: HTMLElement;
 
-    let testViewContainerRef: ViewContainerRef;
-    let viewContainerFixture: ComponentFixture<WithChildViewContainerTestComponent>;
-    let mockLocation: SpyLocation;
+    let testViewContainerRef!: ViewContainerRef;
+    let viewContainerFixture!: ComponentFixture<WithChildViewContainerTestComponent>;
+    let mockLocation!: SpyLocation;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({

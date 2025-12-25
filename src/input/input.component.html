@@ -15,8 +15,7 @@
   (ngModelChange)="onModelChange()"
   (focus)="onInputFocus($event)"
   (blur)="onInputBlur($event)"
-  [readonly]="readonly()"
-  />
+  [readonly]="readonly()" />
 <span class="input-label input-label-{{ thySize() }}" [class.active]="showLabel()">{{ thyLabelText() }}</span>
 
 @if (isPasswordType() || appendTemplate()) {

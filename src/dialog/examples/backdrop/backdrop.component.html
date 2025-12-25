@@ -5,19 +5,15 @@
     thyCheckbox
     name="backdropClosable"
     [(ngModel)]="config.backdropClosable"
-    thyLabelText="点击幕布或ESC键自动关闭"
-  ></label>
+    thyLabelText="点击幕布或ESC键自动关闭"></label>
   <label
     thyCheckbox
     name="backdropClass"
     [(ngModel)]="isCustomBackdropClass"
     (ngModelChange)="setBackdropClass()"
-    thyLabelText="自定义幕布样式"
-  ></label>
+    thyLabelText="自定义幕布样式"></label>
 </div>
 
 <div class="mt-2">
-  <button thyButton="primary" (click)="openDialog()">
-    Open
-  </button>
+  <button thyButton="primary" (click)="openDialog()">Open</button>
 </div>

@@ -28,7 +28,7 @@ export class CalendarFooter implements OnInit {
      */
     readonly mustShowTime = input(false, { transform: coerceBooleanProperty });
 
-    readonly value = model<TinyDate>();
+    readonly value = model<TinyDate | null>();
 
     readonly timeZone = input<string>();
 
@@ -73,7 +73,7 @@ export class CalendarFooter implements OnInit {
         if (this.disableTimeConfirm()) {
             return;
         }
-        this.selectTime.emit(this.value());
+        this.selectTime.emit(this.value()!);
         this.clickOk.emit();
     }
 

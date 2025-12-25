@@ -7,8 +7,8 @@ import { DomSanitizer, SafeHtml, SafeResourceUrl } from '@angular/platform-brows
 import { isString } from 'ngx-tethys/util';
 
 class SvgIconConfig {
-    url: SafeResourceUrl | null;
-    svgElement: SVGElement | null;
+    url!: SafeResourceUrl | null;
+    svgElement!: SVGElement | null;
 
     constructor(data: SafeResourceUrl | SVGElement) {
         // Note that we can't use `instanceof SVGElement` here,
@@ -80,7 +80,7 @@ export class ThyIconRegistry {
             throw Error(`Cannot fetch icon from URL "${safeUrl}".`);
         }
 
-        const url = this.sanitizer.sanitize(SecurityContext.RESOURCE_URL, safeUrl);
+        const url = this.sanitizer.sanitize(SecurityContext.RESOURCE_URL, safeUrl)!;
 
         if ((typeof ngDevMode === 'undefined' || ngDevMode) && !url) {
             throw new Error(
@@ -112,6 +112,7 @@ export class ThyIconRegistry {
     private toSvgElement(element: Element): SVGElement {
         const svg = this.svgElementFromString('<svg></svg>');
 
+        // eslint-disable-next-line @typescript-eslint/prefer-for-of
         for (let i = 0; i < element.childNodes.length; i++) {
             if (element.childNodes[i].nodeType === this.document.ELEMENT_NODE) {
                 svg.appendChild(element.childNodes[i].cloneNode(true));
@@ -287,7 +288,7 @@ export class ThyIconRegistry {
     }
 
     public buildIconKey(namespace: string, name: string) {
-        return namespace + ':' + name;
+        return `${namespace  }:${  name}`;
     }
 
     public splitIconName(iconName: string): [string, string] {
@@ -299,7 +300,7 @@ export class ThyIconRegistry {
             case 1:
                 return ['', parts[0]]; // Use default namespace.
             case 2:
-                return <[string, string]>parts;
+                return parts as [string, string];
             default:
                 throw Error(`Invalid icon name: "${iconName}"`);
         }
