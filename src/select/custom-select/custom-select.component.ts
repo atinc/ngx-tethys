@@ -1129,7 +1129,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         const options = this.options();
 
         if (this.isMultiple()) {
-            const selectedValues = this.selectedValues() || [];
+            const selectedValues = [...(this.selectedValues() || [])];
             const index = selectedValues.indexOf(value);
             if (index > -1) {
                 selectedValues.splice(index, 1);
@@ -1144,7 +1144,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
                     return thySortComparator(aOption, bOption, [...options]);
                 });
             }
-            this.selectedValues.set([...selectedValues]);
+            this.selectedValues.set(selectedValues);
         } else {
             this.selectedValues.set([value]);
         }
