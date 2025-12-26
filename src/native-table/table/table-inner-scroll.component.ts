@@ -2,6 +2,7 @@ import {
     ChangeDetectionStrategy,
     Component,
     DestroyRef,
+    AfterViewInit,
     ElementRef,
     inject,
     input,
@@ -61,7 +62,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     host: { class: 'thy-native-table-container' },
     imports: [ThyNativeTableContentComponent]
 })
-export class ThyNativeTableInnerScrollComponent<T = SafeAny> {
+export class ThyNativeTableInnerScrollComponent<T = SafeAny> implements AfterViewInit {
     readonly data = input<readonly T[]>([]);
     readonly scrollX = input<string | null>(null);
     readonly scrollY = input<string | null>(null);
