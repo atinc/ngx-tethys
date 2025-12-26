@@ -7,8 +7,7 @@
     "declarationMap": true,
     "inlineSources": true,
     "types": [],
-    "strict": false,
-    "lib": ["dom", "es2020"]
+    "strict": false
   },
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,

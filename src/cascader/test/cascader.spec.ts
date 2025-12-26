@@ -5,7 +5,7 @@ import { Subject, of } from 'rxjs';
 import { delay, take } from 'rxjs/operators';
 import { OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { CommonModule, registerLocaleData } from '@angular/common';
+import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import { Component, DebugElement, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ComponentFixture, ComponentFixtureAutoDetect, TestBed, fakeAsync, flush, inject, tick, waitForAsync } from '@angular/core/testing';
@@ -354,7 +354,7 @@ const customLabelPropertyOptions = [
             }
         `
     ],
-    imports: [FormsModule, CommonModule, OverlayModule, ThyCascaderModule, ThyFlexibleTextModule, ThyIconModule]
+    imports: [FormsModule, OverlayModule, ThyCascaderModule, ThyFlexibleTextModule, ThyIconModule]
 })
 class CascaderBasicComponent {
     @ViewChild(ThyCascader, { static: false }) cascader!: ThyCascader;
@@ -424,7 +424,7 @@ class CascaderBasicComponent {
             }
         `
     ],
-    imports: [FormsModule, CommonModule, OverlayModule, ThyCascaderModule, ThyFlexibleTextModule, ThyIconModule]
+    imports: [FormsModule, OverlayModule, ThyCascaderModule, ThyFlexibleTextModule, ThyIconModule]
 })
 class CascaderLoadComponent {
     success = true;
@@ -493,7 +493,7 @@ class CascaderLoadComponent {
             }
         `
     ],
-    imports: [FormsModule, CommonModule, OverlayModule, ThyCascaderModule, ThyFlexibleTextModule, ThyIconModule]
+    imports: [FormsModule, OverlayModule, ThyCascaderModule, ThyFlexibleTextModule, ThyIconModule]
 })
 class CascaderTemplateComponent {
     public curVal: string | string[] = 'xihu';
@@ -535,7 +535,7 @@ class CascaderTemplateComponent {
             }
         `
     ],
-    imports: [FormsModule, CommonModule, OverlayModule, ThyCascaderModule, ThyFlexibleTextModule, ThyIconModule]
+    imports: [FormsModule, OverlayModule, ThyCascaderModule, ThyFlexibleTextModule, ThyIconModule]
 })
 class CascaderMultipleComponent {
     public multipleOptions: any[] = multipleOptions;
@@ -599,7 +599,7 @@ class CascaderMultipleComponent {
             }
         `
     ],
-    imports: [FormsModule, CommonModule, OverlayModule, ThyCascaderModule, ThyFlexibleTextModule, ThyIconModule]
+    imports: [FormsModule, OverlayModule, ThyCascaderModule, ThyFlexibleTextModule, ThyIconModule]
 })
 class CascaderCustomLabelPropertyComponent {
     public multipleOptions: any[] = customLabelPropertyOptions;

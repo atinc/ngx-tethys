@@ -9,7 +9,7 @@ import {
 import { keycodes } from 'ngx-tethys/util';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { CommonModule } from '@angular/common';
+
 import { Component, DebugElement, viewChild, viewChildren } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
@@ -43,7 +43,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
             </thy-autocomplete>
         </div>
     `,
-    imports: [FormsModule, ThyOptionModule, ThyInputModule, CommonModule, ThyAutocompleteModule]
+    imports: [FormsModule, ThyOptionModule, ThyInputModule, ThyAutocompleteModule]
 })
 class BasicSelectComponent {
     openedSpy = jasmine.createSpy('opened event spy callback');

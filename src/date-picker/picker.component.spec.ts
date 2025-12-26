@@ -1,5 +1,5 @@
 import { CdkConnectedOverlay, CdkOverlayOrigin, OverlayModule } from '@angular/cdk/overlay';
-import { CommonModule, registerLocaleData } from '@angular/common';
+import { registerLocaleData } from '@angular/common';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import zh from '@angular/common/locales/zh';
@@ -133,7 +133,7 @@ describe('ThyPickerComponent', () => {
             (inputChange)="onInputChange($event)">
         </thy-picker>
     `,
-    imports: [CommonModule, OverlayModule, ThyPicker, ThyIcon]
+    imports: [OverlayModule, ThyPicker, ThyIcon]
 })
 class ThyTestPickerComponent {
     readonly thyPicker = viewChild.required<ThyPicker>('thyPicker');
