@@ -31,6 +31,7 @@ export class ThyNativeTableFixedColumnExampleComponent implements OnInit {
             this.checkedAll.set(this.selection.selected.length === this.data.length);
         });
     }
+
     onCheckedAllChange(checked: boolean): void {
         console.log('Checked all:', checked);
         if (checked) {
