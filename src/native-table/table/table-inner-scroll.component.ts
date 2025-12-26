@@ -21,7 +21,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
         @if (scrollY()) {
-            <div #tableHeaderElement class="thy-native-table-header">
+            <div #tableHeaderElement class="thy-native-table-header" [style.overflow-x]="'hidden'" [style.overflow-y]="'scroll'">
                 <table
                     thy-native-table-content
                     [tableLayout]="'fixed'"
@@ -29,7 +29,13 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
                     [listOfColWidth]="listOfColWidth()"
                     [theadTemplate]="theadTemplate()"></table>
             </div>
-            <div #tableBodyElement class="thy-native-table-body" [style.max-height]="scrollY()">
+            <div
+                #tableBodyElement
+                cdkScrollable
+                class="thy-native-table-body"
+                [style.max-height]="scrollY()"
+                [style.overflow-x]="scrollX() ? 'auto' : null"
+                [style.overflow-y]="scrollY() ? 'scroll' : 'hidden'">
                 <table
                     thy-native-table-content
                     [tableLayout]="'fixed'"
@@ -76,13 +82,17 @@ export class ThyNativeTableInnerScrollComponent<T = SafeAny> {
     private destroyRef = inject(DestroyRef);
 
     @ViewChild('tableBodyElement', { read: ElementRef }) tableBodyElement!: ElementRef;
+    @ViewChild('tableHeaderElement', { read: ElementRef }) tableHeaderElement!: ElementRef;
 
     ngAfterViewInit(): void {
         if (this.tableBodyElement) {
             this.ngZone.runOutsideAngular(() => {
-                fromEvent(this.tableBodyElement.nativeElement, 'scroll', { passive: true })
+                fromEvent(this.tableBodyElement.nativeElement, 'scroll')
                     .pipe(startWith(true), takeUntilDestroyed(this.destroyRef))
                     .subscribe(() => {
+                        if (this.scrollY() && this.tableHeaderElement) {
+                            this.tableHeaderElement.nativeElement.scrollLeft = this.tableBodyElement.nativeElement.scrollLeft;
+                        }
                         this.ngZone.run(() => {
                             this.setScrollPositionClassName();
                         });
