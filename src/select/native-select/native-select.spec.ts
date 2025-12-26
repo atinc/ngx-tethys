@@ -1,4 +1,4 @@
-import { ThyNativeSelect , ThySelectModule } from 'ngx-tethys/select';
+import { ThyNativeSelect, ThySelectModule } from 'ngx-tethys/select';
 import { Component, DebugElement, Sanitizer, SecurityContext, viewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';

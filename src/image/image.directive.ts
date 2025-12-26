@@ -125,7 +125,7 @@ export class ThyImageDirective implements IThyImageDirective, OnInit, AfterViewI
                     src: (this.thyPreviewSrc() || this.thySrc())!,
                     ...this.thyImageMeta(),
                     origin: {
-                        src: (this.thyOriginSrc())!
+                        src: this.thyOriginSrc()!
                     }
                 }
             ];

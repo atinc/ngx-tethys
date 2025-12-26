@@ -14,7 +14,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-     
+
     selector: '[thy-cascader-search-option]',
     templateUrl: './cascader-search-option.component.html',
     imports: [NgClass, ThyFlexibleText, ThyCheckbox, ThyBreadcrumb, ThyBreadcrumbItem, FormsModule, NgTemplateOutlet],

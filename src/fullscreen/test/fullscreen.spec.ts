@@ -1,5 +1,4 @@
-
-import { ThyFullscreen, ThyFullscreenModule , ThyFullscreenComponent, ThyFullscreenLaunchDirective } from 'ngx-tethys/fullscreen';
+import { ThyFullscreen, ThyFullscreenModule, ThyFullscreenComponent, ThyFullscreenLaunchDirective } from 'ngx-tethys/fullscreen';
 import { fakeAsync, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Component, DebugElement, ApplicationRef } from '@angular/core';
 import { By } from '@angular/platform-browser';

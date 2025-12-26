@@ -28,12 +28,12 @@ export class PaginationPerPageFormat implements PipeTransform {
         if (locale.id.includes('en') || locale.id.includes('de')) {
             // eg. 5 / page
             // eg. 5 / Seite
-            return ` / ${  locale.pagination.page}`;
+            return ` / ${locale.pagination.page}`;
         } else {
             // eg. 5 条/页
             // eg. 5 個/頁
             // eg. 5 条/ページ
-            return ` ${  unit  }/${  locale.pagination.page}`;
+            return ` ${unit}/${locale.pagination.page}`;
         }
     }
 }

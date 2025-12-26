@@ -36,7 +36,7 @@ export class ThyActions implements OnInit {
         actions.forEach((action: ThyAction, index) => {
             // can't set marginRight value for last item
             if (index !== actions.length - 1) {
-                action.setMarginRight(`${getNumericSize(this.thySize(), 'md')  }px`);
+                action.setMarginRight(`${getNumericSize(this.thySize(), 'md')}px`);
             }
         });
     }

@@ -44,9 +44,9 @@ export class EditableMentionAdapter extends MentionAdapter {
 
     private getInsertValue(item: MentionDefaultDataItem) {
         if (this.matchedMention?.mention.insertTransform) {
-            return `${this.matchedMention!.mention.insertTransform(item).trim()  } `;
+            return `${this.matchedMention!.mention.insertTransform(item).trim()} `;
         } else {
-            return `${`${this.matchedMention?.mention.trigger}${item['name']}`.trim()  } `;
+            return `${`${this.matchedMention?.mention.trigger}${item['name']}`.trim()} `;
         }
     }
 }

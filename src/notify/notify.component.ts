@@ -74,7 +74,7 @@ export class ThyNotify extends ThyAbstractMessageComponent<ThyNotifyConfig> {
 
     triggerDetail() {
         const config = this.config();
-        if ( helpers.isFunction((config?.detail as ThyNotifyDetail).action)) {
+        if (helpers.isFunction((config?.detail as ThyNotifyDetail).action)) {
             (config!.detail as ThyNotifyDetail)!.action!();
         }
         if ((config?.detail as ThyNotifyDetail).content) {

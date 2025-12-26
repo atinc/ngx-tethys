@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { helpers } from 'ngx-tethys/util';
 
 import { ThyGuiderRef } from './guider-ref';
-import { NgZone, inject, DOCUMENT , Injectable, RendererFactory2 } from '@angular/core';
+import { NgZone, inject, DOCUMENT, Injectable, RendererFactory2 } from '@angular/core';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { ThyGuiderManager } from './guider-manager';
 import { ThyGuiderStep, ThyGuiderConfig, defaultGuiderPositionConfig } from './guider.class';
@@ -42,7 +42,7 @@ export class ThyGuider {
             this.rendererFactory,
             this.popover,
             this.router,
-            (this.guiderManager as SafeAny),
+            this.guiderManager as SafeAny,
             this.ngZone,
             this.overlay,
             this.document

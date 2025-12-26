@@ -7,7 +7,6 @@ import { IThyRadioComponent } from '../radio.token';
  * @name [thy-radio-button],[thyRadioButton]
  */
 @Component({
-
     selector: '[thy-radio-button],[thyRadioButton]',
     templateUrl: './radio-button.component.html',
     host: {

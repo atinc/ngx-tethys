@@ -170,7 +170,7 @@ export class ThyImagePreview implements OnInit {
     get previewImageOriginSrc() {
         const imageSrc = this.previewImage.origin?.src || this.previewImage.src;
         if (imageSrc.startsWith('./')) {
-            return `${window.location.host  }/${  imageSrc.split('./')[1]}`;
+            return `${window.location.host}/${imageSrc.split('./')[1]}`;
         }
         return imageSrc;
     }

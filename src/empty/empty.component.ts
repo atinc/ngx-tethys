@@ -215,7 +215,7 @@ export class ThyEmpty implements AfterViewInit {
             }
         }
         if (marginTop) {
-            this.hostRenderer.setStyle('marginTop', `${marginTop  }px`);
+            this.hostRenderer.setStyle('marginTop', `${marginTop}px`);
         }
     }
 

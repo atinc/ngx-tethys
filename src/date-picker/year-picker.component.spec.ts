@@ -75,7 +75,7 @@ describe('ThyYearPickerComponent', () => {
             const thyOnChange = spyOn(fixtureInstance, 'modelValueChange');
             debugElement.query(clearBtnSelector).nativeElement.click();
             fixture.detectChanges();
-            expect(fixtureInstance.thyValue).toBeNull()
+            expect(fixtureInstance.thyValue).toBeNull();
             expect(thyOnChange).toHaveBeenCalledWith(null);
             expect(debugElement.query(clearBtnSelector)).toBeFalsy();
             flush();

@@ -363,7 +363,7 @@ describe('#helper', () => {
         });
 
         it('should return an empty string for undefined', () => {
-             // @ts-ignore
+            // @ts-ignore
             expect(coerceCssPixelValue(undefined)).toBe('');
         });
     });
@@ -398,7 +398,7 @@ describe('#helper', () => {
                 [100, null],
                 [true, null]
             ].forEach(([obj1, obj2]) => {
-                 // @ts-ignore
+                // @ts-ignore
                 expect(shallowEqual(obj1 as unknown, obj2 as unknown)).toBeFalsy();
             });
         });
@@ -451,7 +451,7 @@ describe('#helper', () => {
 
         it('should return `false` for float values', () => {
             ['123a', '', undefined, null].forEach(value => {
-                 // @ts-ignore
+                // @ts-ignore
                 expect(isFloat(value)).toEqual(false);
             });
         });
@@ -487,7 +487,7 @@ describe('#helper', () => {
             ];
 
             dateStringsWithoutTime.forEach(value => {
-                 // @ts-ignore
+                // @ts-ignore
                 expect(hasTimeInStringDate(value)).toEqual(false, `${value} should be recognized as not containing time`);
             });
         });

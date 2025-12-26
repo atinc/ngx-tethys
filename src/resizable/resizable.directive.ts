@@ -14,7 +14,7 @@ import {
 import { ThyResizableService } from './resizable.service';
 import { Platform } from '@angular/cdk/platform';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ThyResizeHandleMouseDownEvent , ThyResizeEvent } from './interface';
+import { ThyResizeHandleMouseDownEvent, ThyResizeEvent } from './interface';
 import { getEventWithPoint, ensureInBounds, setCompatibleStyle } from './utils';
 import { fromEvent } from 'rxjs';
 import { coerceBooleanProperty } from 'ngx-tethys/util';

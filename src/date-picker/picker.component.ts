@@ -1,4 +1,4 @@
-import { getFlexiblePositions, ThyPlacement , scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
+import { getFlexiblePositions, ThyPlacement, scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
 import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange, ConnectionPositionPair } from '@angular/cdk/overlay';
 import {

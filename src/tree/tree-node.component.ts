@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 
 import { THY_TREE_ABSTRACT_TOKEN } from './tree-abstract';
-import { ThyTreeNode , ThyTreeEmitEvent, ThyTreeNodeCheckState, ThyClickBehavior } from './tree.class';
+import { ThyTreeNode, ThyTreeEmitEvent, ThyTreeNodeCheckState, ThyClickBehavior } from './tree.class';
 import { ThyTreeService } from './tree.service';
 import { ThyLoading } from 'ngx-tethys/loading';
 import { ThyIcon } from 'ngx-tethys/icon';

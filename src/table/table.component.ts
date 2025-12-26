@@ -639,7 +639,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
         this.model.forEach(row => {
             for (const key in row) {
                 if (key.includes('[$$column]')) {
-                    delete (row as SafeAny)[key]
+                    delete (row as SafeAny)[key];
                 }
             }
         });
