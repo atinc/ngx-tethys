@@ -6,11 +6,11 @@ import { ThyIcon } from 'ngx-tethys/icon';
 import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
-    selector: 'thy-native-table-basic-example',
-    templateUrl: './basic.component.html',
+    selector: 'thy-native-table-fixed-column-example',
+    templateUrl: './fixed-column.component.html',
     imports: [ThyNativeTableModule, ThyInputModule, FormsModule, ThyIcon]
 })
-export class ThyNativeTableBasicExampleComponent implements OnInit {
+export class ThyNativeTableFixedColumnExampleComponent implements OnInit {
     data = [
         { id: 1, name: 'Peter', age: 25, job: 'Engineer', address: 'Beijing Dong Sheng Technology' },
         { id: 2, name: 'James', age: 26, job: 'Designer', address: 'Xian Economic Development Zone' },

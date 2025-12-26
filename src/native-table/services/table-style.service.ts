@@ -20,7 +20,7 @@ export class ThyNativeTableStyleService {
     showEmpty = signal<boolean>(false);
     emptyOptions = signal<ThyTableEmptyOptions | null>(null);
 
-    listOfThWidthConfigPx$ = new BehaviorSubject<ReadonlyArray<string | null>>([]);
+    listOfThWidthConfigPx = signal<ReadonlyArray<string | null>>([]);
 
     setTheadTemplate(template: TemplateRef<any>): void {
         this.theadTemplate.set(template);
@@ -53,6 +53,6 @@ export class ThyNativeTableStyleService {
             }
             return width.toString();
         });
-        this.listOfThWidthConfigPx$.next(listOfThPx);
+        this.listOfThWidthConfigPx.set(listOfThPx);
     }
 }
