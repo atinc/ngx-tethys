@@ -1,7 +1,7 @@
 import { ThyCollapse, ThyCollapseItem, ThyCollapseModule } from 'ngx-tethys/collapse';
 import { ThyIcon, ThyIconModule } from 'ngx-tethys/icon';
 import { dispatchFakeEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
-import { CommonModule } from '@angular/common';
+
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -16,7 +16,7 @@ import { provideHttpClient } from '@angular/common/http';
             <thy-collapse-panel thyTitle="这是一个头部标题3">内容区域3</thy-collapse-panel>
         </thy-collapse>
     `,
-    imports: [ThyCollapseModule, ThyIconModule, CommonModule]
+    imports: [ThyCollapseModule, ThyIconModule]
 })
 export class TestCollapseBasicComponent {
     accordion = false;
@@ -50,7 +50,7 @@ export class TestCollapseBasicComponent {
             <thy-icon class="extra-template" thyIconName="settings" (click)="$event.stopPropagation()"></thy-icon>
         </ng-template>
     `,
-    imports: [ThyCollapseModule, ThyIconModule, CommonModule]
+    imports: [ThyCollapseModule, ThyIconModule]
 })
 export class TestCollapsePanelBasicComponent {
     title = '默认标题';
