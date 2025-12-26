@@ -1,5 +1,6 @@
 import { Tree } from '@angular-devkit/schematics';
 import { ContentChange, RemoveContentChange, ReplaceContentChange, UpdateContentChange } from '../types';
+
 export class UpdateFileService {
     constructor(private tree: Tree) {}
 

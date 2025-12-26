@@ -1,4 +1,3 @@
-import { PathIsDirectoryException } from '@angular-devkit/core';
 import { Tree } from '@angular-devkit/schematics';
 import ts from 'typescript';
 
