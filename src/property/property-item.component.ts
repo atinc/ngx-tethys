@@ -74,7 +74,7 @@ export class ThyPropertyItem implements OnDestroy {
      * 设置编辑状态触发方法
      * @type 'hover' | 'click'
      */
-    readonly thyEditTrigger = input<'hover' | 'click'>('click');
+    readonly thyEditTrigger = input<'hover' | 'click'>();
 
     /**
      * 设置属性操作现实触发方式，默认 always 一直显示
@@ -182,7 +182,7 @@ export class ThyPropertyItem implements OnDestroy {
                 this.clickEventSubscription = fromEvent(itemElement, 'click')
                     .pipe(takeUntil(this.eventDestroy$))
                     .subscribe(() => {
-                        if (this.thyEditTrigger() === 'click' && !this.editing()) {
+                        if (this.thyEditTrigger() !== 'hover' && !this.editing()) {
                             this.originOverlays = [...this.overlayOutsideClickDispatcher._attachedOverlays];
                         }
                         this.setEditing(true);
