@@ -4,10 +4,23 @@ import { ThyRadio } from 'ngx-tethys/radio';
 import { ThyStopPropagationDirective } from 'ngx-tethys/shared';
 import { SafeAny } from 'ngx-tethys/types';
 import { NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit, Signal, TemplateRef, ViewEncapsulation, computed, input, output } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    OnInit,
+    Signal,
+    TemplateRef,
+    ViewEncapsulation,
+    computed,
+    inject,
+    input,
+    output
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyCascaderOption } from './types';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { ThyIcon } from 'ngx-tethys/icon';
 
 /**
  * @internal
@@ -15,10 +28,9 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-     
     selector: '[thy-cascader-option]',
     templateUrl: './cascader-li.component.html',
-    imports: [ThyFlexibleText, ThyCheckbox, ThyRadio, FormsModule, ThyStopPropagationDirective, NgTemplateOutlet],
+    imports: [ThyFlexibleText, ThyCheckbox, ThyRadio, FormsModule, ThyStopPropagationDirective, NgTemplateOutlet, ThyIcon],
     host: {
         class: 'd-flex thy-cascader-menu-item',
         '[class.thy-cascader-menu-item-active]': 'active()',
@@ -27,6 +39,8 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     }
 })
 export class ThyCascaderOptionComponent implements OnInit {
+    private cdr = inject(ChangeDetectorRef);
+
     readonly option = input<ThyCascaderOption>();
 
     readonly multiple = input(false, { transform: coerceBooleanProperty });
@@ -55,5 +69,9 @@ export class ThyCascaderOptionComponent implements OnInit {
 
     public toggleOption(value: boolean) {
         this.toggleSelectChange.emit(value);
+    }
+
+    public markForCheck(): void {
+        this.cdr.markForCheck();
     }
 }

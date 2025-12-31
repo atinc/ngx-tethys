@@ -126,6 +126,25 @@ $cascader-menu-min-width: 122px;
         &-disabled &-loading-icon {
             color: variables.$gray-400;
         }
+        &-loading {
+            position: absolute;
+            right: 10px;
+            width: 14px;
+            height: 14px;
+            margin-bottom: 2px;
+            font-size: 14px;
+            color: variables.$gray-200;
+            animation: loading-rotate 1.3s linear infinite;
+        }
+        @keyframes loading-rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(1turn);
+            }
+        }
     }
 
     &-empty-container {

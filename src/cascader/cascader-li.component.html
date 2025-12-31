@@ -29,5 +29,13 @@
 }
 
 @if (!option()?.isLeaf || (option()?.children && option()!.children?.length) || option()?.loading) {
-  <span class="wtf wtf-angle-right thy-cascader-menu-item-expand-icon"> </span>
+  @if (option().loading) {
+    <thy-icon
+      class="thy-cascader-menu-item-loading font-size-base"
+      thyIconName="loading"
+      thyIconType="twotone"
+      thyTwotoneColor="#6698ff"></thy-icon>
+  } @else {
+    <span class="wtf wtf-angle-right thy-cascader-menu-item-expand-icon"> </span>
+  }
 }

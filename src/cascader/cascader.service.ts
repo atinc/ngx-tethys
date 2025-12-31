@@ -2,9 +2,9 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Injectable } from '@angular/core';
 import { Id } from '@tethys/cdk/immutable';
 import { SelectOptionBase } from 'ngx-tethys/shared';
-import { helpers, isArray, isEmpty, isUndefinedOrNull, set, get } from 'ngx-tethys/util';
+import { helpers, isArray, isEmpty, isUndefinedOrNull, set, get, wrapIntoObservable } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
-import { debounceTime, map } from 'rxjs/operators';
+import { debounceTime, finalize, map } from 'rxjs/operators';
 import { ThyCascaderOption, ThyCascaderSearchOption } from './types';
 const defaultDisplayRender = (label: any) => label.join(' / ');
 
@@ -185,11 +185,19 @@ export class ThyCascaderService {
         }
 
         this.isLoading = true;
+        option.loading = true;
 
-        this.cascaderOptions.loadData(option, index).then(
-            () => this.handleLoadDataSuccess(option, index, success),
-            () => this.handleLoadDataFailure(option, index, failure)
-        );
+        wrapIntoObservable(this.cascaderOptions.loadData(option, index))
+            .pipe(
+                finalize(() => {
+                    this.isLoading = false;
+                    option.loading = false;
+                })
+            )
+            .subscribe({
+                next: data => this.handleLoadDataSuccess(data, index, success),
+                error: () => this.handleLoadDataFailure(option, index, failure)
+            });
     }
 
     private handleLoadDataSuccess(option: ThyCascaderOption, index: number, success?: () => void): void {

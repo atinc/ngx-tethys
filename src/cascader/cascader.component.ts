@@ -334,6 +334,8 @@ export class ThyCascader
 
     readonly cascaderOptions = viewChildren<ThyCascaderOptionComponent, ElementRef>('cascaderOptions', { read: ElementRef });
 
+    readonly cascaderItems = viewChildren<ThyCascaderOptionComponent>(ThyCascaderOptionComponent);
+
     readonly cascaderOptionContainers = viewChildren('cascaderOptionContainers', { read: ElementRef });
 
     readonly cdkConnectedOverlay = viewChild<CdkConnectedOverlay>(CdkConnectedOverlay);
@@ -420,6 +422,12 @@ export class ThyCascader
         effect(() => {
             this.setMenuClass();
         });
+
+        effect(() => {
+            if(this.cascaderItems().length > 0) {
+                this.cascaderItems().forEach(item => item.markForCheck())
+            }
+        })
     }
 
     ngOnInit(): void {

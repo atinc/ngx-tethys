@@ -436,7 +436,7 @@ class CascaderLoadComponent {
         return new Promise<void>((res, rej) => {
             if (this.success) {
                 option.children = clone(customerOptions);
-                res();
+                res(option);
             } else {
                 rej();
             }
@@ -1048,7 +1048,7 @@ describe('thy-cascader', () => {
                     if (option.label === 'zhejiang') {
                         option.children = loadDataOption.firstChildren;
                     }
-                    res();
+                    res(option);
                 });
             };
             fixture.detectChanges();
