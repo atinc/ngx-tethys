@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [20.0.4](https://github.com/atinc/ngx-tethys/compare/20.0.3...20.0.4) (2025-12-31)
+
+
+### Bug Fixes
+
+* **select:** fix TypeError: Cannot add property 0, object is not extensible #TINFR-3281 ([#3657](https://github.com/atinc/ngx-tethys/issues/3657)) ([65f8951](https://github.com/atinc/ngx-tethys/commit/65f8951b5de6998f10b572211865be25272e9153)), closes [#TINFR-3281](https://github.com/atinc/ngx-tethys/issues/TINFR-3281)
+
+
+### Features
+
+* **cascader:** support load children #TINFR-2984 ([#3660](https://github.com/atinc/ngx-tethys/issues/3660)) ([c46eaff](https://github.com/atinc/ngx-tethys/commit/c46eaffb6299b1e4d1e9e19fe5a83ac25a606a8d)), closes [#TINFR-2984](https://github.com/atinc/ngx-tethys/issues/TINFR-2984) [#TINFR-2984](https://github.com/atinc/ngx-tethys/issues/TINFR-2984)
+* **native-table:** 支持固定列 #TINFR-3268 ([#3656](https://github.com/atinc/ngx-tethys/issues/3656)) ([130c167](https://github.com/atinc/ngx-tethys/commit/130c167433b37ac4c880e5d8559b77c138e55e01)), closes [#TINFR-3268](https://github.com/atinc/ngx-tethys/issues/TINFR-3268) [#TINFR-3268](https://github.com/atinc/ngx-tethys/issues/TINFR-3268)
+* **native-table:** 支持表头 #TINFR-3276 ([#3658](https://github.com/atinc/ngx-tethys/issues/3658)) ([bf59651](https://github.com/atinc/ngx-tethys/commit/bf59651923987bf31435065aef5c128bf4ec8ffa)), closes [#TINFR-3276](https://github.com/atinc/ngx-tethys/issues/TINFR-3276)
+* **select:** set minBufferPx and maxBufferPx for virtual scroll #TINFR-3294 ([#3659](https://github.com/atinc/ngx-tethys/issues/3659)) ([e22db1a](https://github.com/atinc/ngx-tethys/commit/e22db1a89512a5c307fa50964d44d312b08cce3c)), closes [#TINFR-3294](https://github.com/atinc/ngx-tethys/issues/TINFR-3294)
+
+
+
 ## [20.0.3](https://github.com/atinc/ngx-tethys/compare/20.0.2...20.0.3) (2025-12-24)
 
 
