@@ -129,10 +129,6 @@ $cascader-menu-min-width: 122px;
         &-loading {
             position: absolute;
             right: 10px;
-            width: 14px;
-            height: 14px;
-            margin-bottom: 2px;
-            font-size: 14px;
             color: variables.$gray-200;
             animation: loading-rotate 1.3s linear infinite;
         }
