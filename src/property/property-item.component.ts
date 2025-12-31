@@ -20,7 +20,8 @@ import {
     contentChild,
     viewChild,
     signal,
-    DestroyRef
+    DestroyRef,
+    untracked
 } from '@angular/core';
 import { ThyProperties } from './properties.component';
 import { coerceBooleanProperty, helpers, ThyBooleanInput } from 'ngx-tethys/util';
@@ -131,17 +132,22 @@ export class ThyPropertyItem implements OnDestroy {
         this.originOverlays = [...this.overlayOutsideClickDispatcher._attachedOverlays];
 
         effect(() => {
-            if (this.thyEditable()) {
-                this.subscribeClick();
+            const editable = this.thyEditable();
+            if (editable) {
+                untracked(() => {
+                    this.subscribeClick();
+                });
             } else {
-                this.setEditing(false);
-                this.eventDestroy$.next();
-                this.eventDestroy$.complete();
+                untracked(() => {
+                    this.setEditing(false);
+                    this.eventDestroy$.next();
+                    this.eventDestroy$.complete();
 
-                if (this.clickEventSubscription) {
-                    this.clickEventSubscription.unsubscribe();
-                    this.clickEventSubscription = null;
-                }
+                    if (this.clickEventSubscription) {
+                        this.clickEventSubscription.unsubscribe();
+                        this.clickEventSubscription = null;
+                    }
+                });
             }
         });
     }
@@ -176,7 +182,7 @@ export class ThyPropertyItem implements OnDestroy {
                 this.clickEventSubscription = fromEvent(itemElement, 'click')
                     .pipe(takeUntil(this.eventDestroy$))
                     .subscribe(() => {
-                        if (this.thyEditTrigger() === 'click') {
+                        if ((this.thyEditTrigger() === 'click' || this.parent?.thyEditTrigger() === 'click') && !this.editing()) {
                             this.originOverlays = [...this.overlayOutsideClickDispatcher._attachedOverlays];
                         }
                         this.setEditing(true);
