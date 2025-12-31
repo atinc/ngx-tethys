@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Id } from '@tethys/cdk/immutable';
 import { SelectOptionBase } from 'ngx-tethys/shared';
 import { helpers, isArray, isEmpty, isUndefinedOrNull, set, get, wrapIntoObservable } from 'ngx-tethys/util';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { debounceTime, finalize, map } from 'rxjs/operators';
 import { ThyCascaderOption, ThyCascaderSearchOption } from './types';
 const defaultDisplayRender = (label: any) => label.join(' / ');
@@ -25,7 +25,7 @@ export class ThyCascaderService {
         isMultiple?: boolean;
         isOnlySelectLeaf?: boolean;
         isLabelRenderTemplate?: boolean;
-        loadData?: (node: ThyCascaderOption, index?: number) => PromiseLike<any>;
+        loadData?: (node: ThyCascaderOption, index?: number) => PromiseLike<ThyCascaderOption> | Observable<ThyCascaderOption>;
     };
 
     public selectedOptions: ThyCascaderOption[] = [];
@@ -72,7 +72,7 @@ export class ThyCascaderService {
         isMultiple?: boolean;
         isOnlySelectLeaf?: boolean;
         isLabelRenderTemplate?: boolean;
-        loadData?: (node: ThyCascaderOption, index?: number) => PromiseLike<any>;
+        loadData?: (node: ThyCascaderOption, index?: number) => PromiseLike<ThyCascaderOption> | Observable<ThyCascaderOption>;
     }) {
         this.cascaderOptions = { ...this.cascaderOptions, ...options };
         if (this.cascaderOptions.hasOwnProperty('isMultiple')) {

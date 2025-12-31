@@ -169,7 +169,8 @@ export class ThyCascader
     /**
      * 用于动态加载选项
      */
-    readonly thyLoadData = input<(node: ThyCascaderOption, index?: number) => PromiseLike<any>>();
+    readonly thyLoadData =
+        input<(node: ThyCascaderOption, index?: number) => PromiseLike<ThyCascaderOption> | Observable<ThyCascaderOption>>();
 
     /**
      * 控制触发状态, 支持 `click` | `hover`
@@ -424,10 +425,10 @@ export class ThyCascader
         });
 
         effect(() => {
-            if(this.cascaderItems().length > 0) {
-                this.cascaderItems().forEach(item => item.markForCheck())
+            if (this.cascaderItems().length > 0) {
+                this.cascaderItems().forEach(item => item.markForCheck());
             }
-        })
+        });
     }
 
     ngOnInit(): void {
