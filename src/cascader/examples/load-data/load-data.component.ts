@@ -1,12 +1,12 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { ThyCascader, ThyCascaderOption } from 'ngx-tethys/cascader';
-import { clone, options } from '../cascader-address-options';
 import { FormsModule } from '@angular/forms';
 import { delay, of } from 'rxjs';
 import * as _provinces from '../_china-division/provinces.json';
 import * as _cities from '../_china-division/cities.json';
 import * as _areas from '../_china-division/areas.json';
+import { keyBy } from 'ngx-tethys/util';
 
 const provincesAll = _provinces as any;
 const citiesAll = _cities as any;
@@ -28,6 +28,10 @@ export class ThyCascaderLoadDataExampleComponent implements OnInit {
 
     public values: any[] = ['12', '1201', '120102'];
 
+    provincesMapByCode = keyBy(provinces, 'code');
+
+    citiesMapByCode = keyBy(cities, 'code');
+
     ngOnInit() {
         this.areaCode = provinces.map((province: { name: any; code: any; children: any }) => ({
             label: province.name,
@@ -40,6 +44,33 @@ export class ThyCascaderLoadDataExampleComponent implements OnInit {
     }
 
     public loadData = (node: ThyCascaderOption, index?: number) => {
-        return of(node.children).pipe(delay(1000));
+        if (this.provincesMapByCode[node.value]) {
+            const data = (cities as { code: string; name: string; provinceCode: string }[])
+                .filter(item => {
+                    return item.provinceCode === node.value;
+                })
+                .map(item => {
+                    return {
+                        label: item.name,
+                        value: item.code
+                    };
+                });
+            node.children = data;
+            return of(node).pipe(delay(1000));
+        } else if (this.citiesMapByCode[node.value]) {
+            const data = (areas as { code: string; name: string; cityCode: string }[])
+                .filter(item => {
+                    return item.cityCode === node.value;
+                })
+                .map(item => {
+                    return {
+                        label: item.name,
+                        value: item.code,
+                        isLeaf: true
+                    };
+                });
+            node.children = data;
+            return of(node).pipe(delay(1000));
+        }
     };
 }

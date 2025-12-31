@@ -13,4 +13,5 @@ export * from './references';
 
 export * from './keycodes';
 export * from './logger/index';
+export * from './observable';
 export { dom, helpers, references };
