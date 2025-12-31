@@ -77,6 +77,8 @@
     <cdk-virtual-scroll-viewport
       class="thy-select-scroll-viewport"
       [itemSize]="thyItemSize()"
+      [maxBufferPx]="thyItemSize() * maxItemLength()"
+      [minBufferPx]="thyItemSize() * maxItemLength()"
       [style.height.px]="virtualHeight()"
       (scrolledIndexChange)="optionsVirtualScrolled($event)"
       (mouseleave)="mouseLeaveOptions()">
