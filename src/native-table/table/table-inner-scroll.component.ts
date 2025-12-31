@@ -1,14 +1,27 @@
-import { ChangeDetectionStrategy, Component, input, TemplateRef, ViewEncapsulation } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    DestroyRef,
+    ElementRef,
+    inject,
+    input,
+    NgZone,
+    Renderer2,
+    TemplateRef,
+    ViewChild
+} from '@angular/core';
 import { SafeAny } from 'ngx-tethys/types';
 
 import { ThyNativeTableContentComponent } from './table-content.component';
+import { fromEvent, startWith } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'thy-native-table-inner-scroll',
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
         @if (scrollY()) {
-            <div #tableHeaderElement class="thy-native-table-header">
+            <div #tableHeaderElement class="thy-native-table-header" [style.overflow-x]="'hidden'" [style.overflow-y]="'scroll'">
                 <table
                     thy-native-table-content
                     [tableLayout]="'fixed'"
@@ -16,7 +29,13 @@ import { ThyNativeTableContentComponent } from './table-content.component';
                     [listOfColWidth]="listOfColWidth()"
                     [theadTemplate]="theadTemplate()"></table>
             </div>
-            <div #tableBodyElement class="thy-native-table-body" [style.max-height]="scrollY()">
+            <div
+                #tableBodyElement
+                cdkScrollable
+                class="thy-native-table-body"
+                [style.max-height]="scrollY()"
+                [style.overflow-x]="scrollX() ? 'auto' : null"
+                [style.overflow-y]="scrollY() ? 'scroll' : 'hidden'">
                 <table
                     thy-native-table-content
                     [tableLayout]="'fixed'"
@@ -33,7 +52,7 @@ import { ThyNativeTableContentComponent } from './table-content.component';
                     [tfootTemplate]="tfootTemplate()"></table>
             </div>
         } @else {
-            <div class="thy-native-table-content" [style.overflow-x]="scrollX() ? 'auto' : null">
+            <div #tableBodyElement class="thy-native-table-content" [style.overflow-x]="scrollX() ? 'auto' : null">
                 <table
                     thy-native-table-content
                     [tableLayout]="'fixed'"
@@ -57,4 +76,46 @@ export class ThyNativeTableInnerScrollComponent<T = SafeAny> {
     readonly listOfColWidth = input<ReadonlyArray<string | null>>([]);
     readonly theadTemplate = input<TemplateRef<SafeAny> | null>(null);
     readonly tfootTemplate = input<TemplateRef<SafeAny> | null>(null);
+
+    private renderer = inject(Renderer2);
+    private ngZone = inject(NgZone);
+    private destroyRef = inject(DestroyRef);
+
+    @ViewChild('tableBodyElement', { read: ElementRef }) tableBodyElement!: ElementRef;
+    @ViewChild('tableHeaderElement', { read: ElementRef }) tableHeaderElement!: ElementRef;
+
+    ngAfterViewInit(): void {
+        if (this.tableBodyElement) {
+            this.ngZone.runOutsideAngular(() => {
+                fromEvent(this.tableBodyElement.nativeElement, 'scroll')
+                    .pipe(startWith(true), takeUntilDestroyed(this.destroyRef))
+                    .subscribe(() => {
+                        if (this.scrollY() && this.tableHeaderElement) {
+                            this.tableHeaderElement.nativeElement.scrollLeft = this.tableBodyElement.nativeElement.scrollLeft;
+                        }
+                        this.ngZone.run(() => {
+                            this.setScrollPositionClassName();
+                        });
+                    });
+            });
+        }
+    }
+    private setScrollPositionClassName(clear: boolean = false): void {
+        const { scrollWidth, scrollLeft, clientWidth } = this.tableBodyElement.nativeElement;
+        const leftClassName = 'thy-native-table-scroll-left';
+        const rightClassName = 'thy-native-table-scroll-right';
+        if ((scrollWidth === clientWidth && scrollWidth !== 0) || clear) {
+            this.renderer.removeClass(this.tableBodyElement.nativeElement, leftClassName);
+            this.renderer.removeClass(this.tableBodyElement.nativeElement, rightClassName);
+        } else if (scrollLeft === 0) {
+            this.renderer.removeClass(this.tableBodyElement.nativeElement, leftClassName);
+            this.renderer.addClass(this.tableBodyElement.nativeElement, rightClassName);
+        } else if (scrollWidth === scrollLeft + clientWidth) {
+            this.renderer.removeClass(this.tableBodyElement.nativeElement, rightClassName);
+            this.renderer.addClass(this.tableBodyElement.nativeElement, leftClassName);
+        } else {
+            this.renderer.addClass(this.tableBodyElement.nativeElement, leftClassName);
+            this.renderer.addClass(this.tableBodyElement.nativeElement, rightClassName);
+        }
+    }
 }

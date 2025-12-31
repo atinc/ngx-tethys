@@ -36,9 +36,7 @@ import { ThyPage, ThyTableEmptyOptions } from 'ngx-tethys/table';
 })
 export class ThyNativeTableComponent<T = any> implements OnInit {
     private elementRef = inject(ElementRef);
-    private cdr = inject(ChangeDetectorRef);
     private styleService = inject(ThyNativeTableStyleService);
-    private destroyRef = inject(DestroyRef);
     private updateHostClassService = inject(UpdateHostClassService);
 
     readonly thyTableLayout = input<ThyNativeTableLayout>('auto');
@@ -95,15 +93,16 @@ export class ThyNativeTableComponent<T = any> implements OnInit {
         effect(() => {
             this.theadTemplate.set(this.styleService.theadTemplate());
         });
+        effect(() => {
+            const listOfWidth = this.styleService?.listOfThWidthConfigPx();
+            if (listOfWidth && listOfWidth.length > 0) {
+                this.listOfManualColWidth.set(listOfWidth);
+            }
+        });
     }
 
-    ngOnInit(): void {
+    ngOnInit() {
         this.updateHostClassService.initializeElement(this.tableElementRef.nativeElement);
-        const { listOfThWidthConfigPx$ } = this.styleService;
-        listOfThWidthConfigPx$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(listOfWidth => {
-            this.listOfManualColWidth.set(listOfWidth);
-            this.cdr.markForCheck();
-        });
     }
 
     private setNativeTableClass() {
