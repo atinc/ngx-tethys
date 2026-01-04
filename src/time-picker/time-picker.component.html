@@ -51,11 +51,8 @@
   <div
     #overlayContainer
     style="position: relative"
-    [@scaleXMotion]="thyPlacement() === 'left' || thyPlacement() === 'right' ? 'enter' : 'void'"
-    [@scaleYMotion]="thyPlacement() === 'top' || thyPlacement() === 'bottom' ? 'enter' : 'void'"
-    [@scaleMotion]="
-      thyPlacement() !== 'left' && thyPlacement() !== 'right' && thyPlacement() !== 'top' && thyPlacement() !== 'bottom' ? 'enter' : 'void'
-    "
+    [animate.enter]="animateEnterClass()"
+    [animate.leave]="animateLeaveClass()"
     class="thy-time-picker-container">
     <!-- Compatible for overlay that not support offset dynamically and immediately -->
     <thy-time-picker-panel
