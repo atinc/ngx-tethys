@@ -1,9 +1,7 @@
 import {
     getFlexiblePositions,
     injectPanelEmptyIcon,
-    scaleMotion,
-    scaleXMotion,
-    scaleYMotion,
+    thyAnimationZoom,
     ScrollToService,
     TabIndexDisabledControlValueAccessorMixin,
     ThyClickDispatcher,
@@ -173,8 +171,7 @@ interface ThySelectFlattedItem {
         '[attr.tabindex]': 'tabIndex',
         '(focus)': 'onFocus($event)',
         '(blur)': 'onBlur($event)'
-    },
-    animations: [scaleXMotion, scaleYMotion, scaleMotion]
+    }
 })
 export class ThySelect extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor, OnInit, AfterViewInit, OnDestroy {
     private ngZone = inject(NgZone);
@@ -227,6 +224,28 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
 
     readonly placement = computed<ThyPlacement>(() => {
         return this.thyPlacement() || this.config.placement!;
+    });
+
+    readonly animateEnterClass = computed<string>(() => {
+        const placement = this.placement();
+        if (placement === 'top' || placement === 'bottom') {
+            return thyAnimationZoom.yEnter;
+        } else if (placement === 'left' || placement === 'right') {
+            return thyAnimationZoom.xEnter;
+        } else {
+            return thyAnimationZoom.enter;
+        }
+    });
+
+    readonly animateLeaveClass = computed<string>(() => {
+        const placement = this.placement();
+        if (placement === 'top' || placement === 'bottom') {
+            return thyAnimationZoom.yLeave;
+        } else if (placement === 'left' || placement === 'right') {
+            return thyAnimationZoom.xLeave;
+        } else {
+            return thyAnimationZoom.leave;
+        }
     });
 
     readonly dropDownPositions = computed<ConnectionPositionPair[]>(() => {
