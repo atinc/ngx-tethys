@@ -49,7 +49,7 @@
     [ngClass]="menuCls"
     [ngStyle]="thyMenuStyle()"
     (mouseleave)="toggleMouseLeave($event)"
-    [@scaleYMotion]="'enter'"
+    [animate.enter]="'scale-y-enter'"
     [class.thy-cascader-loading]="!thyLoadingDone()">
     @if (thyLoadingDone()) {
       @if (!isShowSearchPanel) {

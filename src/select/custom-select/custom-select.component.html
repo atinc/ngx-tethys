@@ -37,11 +37,8 @@
     thyStopPropagation
     [attr.tabindex]="-1"
     [ngClass]="dropDownClass()"
-    [@scaleYMotion]="placement() === 'top' || placement() === 'bottom' ? 'enter' : 'void'"
-    [@scaleXMotion]="placement() === 'left' || placement() === 'right' ? 'enter' : 'void'"
-    [@scaleMotion]="
-      placement() !== 'top' && placement() !== 'bottom' && placement() !== 'left' && placement() !== 'right' ? 'enter' : 'void'
-    ">
+    [animate.enter]="animationEnterClass()"
+    [animate.leave]="animationLeaveClass()">
     @if (filteredGroupsAndOptions()?.length > 0) {
       @if (thyVirtualScroll()) {
         <ng-container *thyViewOutlet="virtualScrollTemplate"> </ng-container>

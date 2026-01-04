@@ -5,9 +5,9 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
+    computed,
     effect,
     ElementRef,
-    EventEmitter,
     forwardRef,
     inject,
     input,
@@ -18,7 +18,7 @@ import {
     viewChild
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { getFlexiblePositions, scaleMotion, scaleXMotion, scaleYMotion, ThyPlacement } from 'ngx-tethys/core';
+import { getFlexiblePositions, ThyPlacement } from 'ngx-tethys/core';
 import { injectLocale, ThyTimePickerLocale } from 'ngx-tethys/i18n';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyInputDirective } from 'ngx-tethys/input';
@@ -47,8 +47,7 @@ export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
         '[class.thy-time-picker-disabled]': `thyDisabled()`,
         '[class.thy-time-picker-readonly]': `thyReadonly()`
     },
-    imports: [CdkOverlayOrigin, ThyInputDirective, FormsModule, NgTemplateOutlet, ThyIcon, NgClass, CdkConnectedOverlay, ThyTimePanel],
-    animations: [scaleXMotion, scaleYMotion, scaleMotion]
+    imports: [CdkOverlayOrigin, ThyInputDirective, FormsModule, NgTemplateOutlet, ThyIcon, NgClass, CdkConnectedOverlay, ThyTimePanel]
 })
 export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccessor {
     private cdr = inject(ChangeDetectorRef);
@@ -170,6 +169,28 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
     onValueChangeFn: (val: number | Date | null) => void = () => void 0;
 
     onTouchedFn: () => void = () => void 0;
+
+    readonly animationEnterClass = computed<string>(() => {
+        const placement = this.thyPlacement();
+        if (placement === 'top' || placement === 'bottom') {
+            return 'scale-y-enter';
+        } else if (placement === 'left' || placement === 'right') {
+            return 'scale-x-enter';
+        } else {
+            return 'scale-enter';
+        }
+    });
+
+    readonly animationLeaveClass = computed<string>(() => {
+        const placement = this.thyPlacement();
+        if (placement === 'top' || placement === 'bottom') {
+            return 'scale-y-leave';
+        } else if (placement === 'left' || placement === 'right') {
+            return 'scale-x-leave';
+        } else {
+            return 'scale-leave';
+        }
+    });
 
     constructor() {
         effect(() => {

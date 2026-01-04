@@ -1,7 +1,6 @@
 import {
     EXPANDED_DROPDOWN_POSITIONS,
     injectPanelEmptyIcon,
-    scaleYMotion,
     TabIndexDisabledControlValueAccessorMixin,
     ThyClickDispatcher
 } from 'ngx-tethys/core';
@@ -33,7 +32,6 @@ import {
     effect,
     computed,
     signal,
-    afterNextRender,
     DestroyRef,
     contentChild,
     viewChild
@@ -95,8 +93,7 @@ export function filterTreeData(treeNodes: ThyTreeSelectNode[], searchText: strin
         '[attr.tabindex]': 'tabIndex',
         '(focus)': 'onFocus($event)',
         '(blur)': 'onBlur($event)'
-    },
-    animations: [scaleYMotion]
+    }
 })
 export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor {
     elementRef = inject(ElementRef);

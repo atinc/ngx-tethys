@@ -55,11 +55,8 @@
     #overlayContainer
     style="position: relative"
     class="thy-picker-container"
-    [@scaleXMotion]="placement() === 'left' || placement() === 'right' ? 'enter' : 'void'"
-    [@scaleYMotion]="placement() === 'top' || placement() === 'bottom' ? 'enter' : 'void'"
-    [@scaleMotion]="
-      placement() !== 'left' && placement() !== 'right' && placement() !== 'top' && placement() !== 'bottom' ? 'enter' : 'void'
-    ">
+    [animate.enter]="animationEnterClass()"
+    [animate.leave]="animationLeaveClass()">
     <!-- Compatible for overlay that not support offset dynamically and immediately -->
     <ng-content></ng-content>
   </div>

@@ -29,7 +29,6 @@ import {
     DebounceTimeWrapper,
     EXPANDED_DROPDOWN_POSITIONS,
     injectPanelEmptyIcon,
-    scaleYMotion,
     TabIndexDisabledControlValueAccessorMixin,
     ThyClickDispatcher
 } from 'ngx-tethys/core';
@@ -83,8 +82,7 @@ import { ThyLoading } from 'ngx-tethys/loading';
         ScrollingModule,
         ThyCascaderOptionsPipe,
         ThyLoading
-    ],
-    animations: [scaleYMotion]
+    ]
 })
 export class ThyCascader
     extends TabIndexDisabledControlValueAccessorMixin

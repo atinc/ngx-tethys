@@ -1,7 +1,10 @@
 import { animate, AnimationTriggerMetadata, style, transition, trigger } from '@angular/animations';
 import { AnimationCurves, AnimationDuration } from './animation-consts';
 
-// The animation starts from the line and eases in and out to the left or right.
+/**
+ * @deprecated Please use the new Angular animate.enter and animate.leave APIs.
+ * @see https://angular.dev/guide/animations
+ */
 export const scaleXMotion: AnimationTriggerMetadata = trigger('scaleXMotion', [
     transition('* => enter', [
         style({
@@ -31,7 +34,10 @@ export const scaleXMotion: AnimationTriggerMetadata = trigger('scaleXMotion', [
     ])
 ]);
 
-// The animation starts from the line and eases in and out upward or downward.
+/**
+ * @deprecated Please use the new Angular animate.enter and animate.leave APIs.
+ * @see https://angular.dev/guide/animations
+ */
 export const scaleYMotion: AnimationTriggerMetadata = trigger('scaleYMotion', [
     transition('* => enter', [
         style({
@@ -61,7 +67,10 @@ export const scaleYMotion: AnimationTriggerMetadata = trigger('scaleYMotion', [
     ])
 ]);
 
-// The animation starts from the point and eases in and out.
+/**
+ * @deprecated Please use the new Angular animate.enter and animate.leave APIs.
+ * @see https://angular.dev/guide/animations
+ */
 export const scaleMotion: AnimationTriggerMetadata = trigger('scaleMotion', [
     transition('* => enter', [
         style({ opacity: 0, transform: 'scale(0.9, 0.9)' }),
