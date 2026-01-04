@@ -8,8 +8,6 @@ import {
     NgZone,
     ChangeDetectorRef,
     OnDestroy,
-    OnChanges,
-    ViewChild,
     ElementRef,
     numberAttribute,
     inject,
@@ -25,7 +23,7 @@ import { Subject, fromEvent, BehaviorSubject, EMPTY, Observable } from 'rxjs';
 import { Platform } from '@angular/cdk/platform';
 import { throttleTime, takeUntil, switchMap } from 'rxjs/operators';
 import { NgTemplateOutlet } from '@angular/common';
-import { fadeMotion, ThyScrollService } from 'ngx-tethys/core';
+import { thyAnimationFade, ThyScrollService } from 'ngx-tethys/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 
 /**
@@ -37,7 +35,6 @@ import { ThyIcon } from 'ngx-tethys/icon';
     templateUrl: './back-top.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    animations: [fadeMotion],
     imports: [ThyIcon, NgTemplateOutlet]
 })
 export class ThyBackTop implements OnInit, OnDestroy {
@@ -81,6 +78,10 @@ export class ThyBackTop implements OnInit, OnDestroy {
     readonly backTop = viewChild<ElementRef<HTMLElement>>('backTop');
 
     public visible = false;
+
+    readonly animateEnterClass = thyAnimationFade.enter;
+
+    readonly animateLeaveClass = thyAnimationFade.leave;
 
     /**
      * The subject used to store the native `<div class="thy-back-top"></div>` since

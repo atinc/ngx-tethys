@@ -61,3 +61,14 @@
         opacity 0.2s cubic-bezier(0.34, 0.69, 0.1, 1),
         transform 0.2s cubic-bezier(0.34, 0.69, 0.1, 1);
 }
+
+// fade animations
+.thy-fade-enter {
+    opacity: 1;
+    transition: opacity 0.2s;
+}
+
+.thy-fade-leave {
+    opacity: 0;
+    transition: opacity 0.2s;
+}
