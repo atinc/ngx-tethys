@@ -29,7 +29,7 @@ import {
     DebounceTimeWrapper,
     EXPANDED_DROPDOWN_POSITIONS,
     injectPanelEmptyIcon,
-    scaleYMotion,
+    thyAnimationZoom,
     TabIndexDisabledControlValueAccessorMixin,
     ThyClickDispatcher
 } from 'ngx-tethys/core';
@@ -83,8 +83,7 @@ import { ThyLoading } from 'ngx-tethys/loading';
         ScrollingModule,
         ThyCascaderOptionsPipe,
         ThyLoading
-    ],
-    animations: [scaleYMotion]
+    ]
 })
 export class ThyCascader
     extends TabIndexDisabledControlValueAccessorMixin
@@ -98,6 +97,8 @@ export class ThyCascader
     thyCascaderService = inject(ThyCascaderService);
     private locale: Signal<ThyCascaderLocale> = injectLocale('cascader');
     emptyIcon: Signal<string> = injectPanelEmptyIcon();
+
+    animateEnterClass = thyAnimationZoom.yEnter;
 
     /**
      * 选项的实际值的属性名

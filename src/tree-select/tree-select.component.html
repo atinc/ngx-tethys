@@ -39,6 +39,6 @@
     thyStopPropagation
     [thyVirtualScroll]="thyVirtualScroll()"
     [treeNodes]="thyVirtualScroll() ? virtualTreeNodes() : treeNodes()"
-    [@scaleYMotion]="'enter'">
+    [animate.enter]="animateEnterClass">
   </thy-tree-select-nodes>
 </ng-template>

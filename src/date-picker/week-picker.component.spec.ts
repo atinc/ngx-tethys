@@ -112,9 +112,18 @@ describe('ThyWeekPickerComponent', () => {
             tick(500);
             fixture.detectChanges();
             flush();
-            const currentWeekTr = document.querySelector('.thy-calendar-today')!.parentElement!;
-            expect(currentWeekTr.classList[0]).toEqual('thy-calendar-current-week');
-            expect(currentWeekTr.classList[2]).toEqual('thy-calendar-active-week');
+
+            const todayCell = queryFromOverlay('.thy-calendar-today');
+            expect(todayCell).toBeTruthy();
+            if (todayCell) {
+                const currentWeekTr = todayCell.parentElement;
+                expect(currentWeekTr).toBeTruthy();
+                if (currentWeekTr) {
+                    expect(currentWeekTr.classList.contains('thy-calendar-current-week')).toBe(true);
+                    expect(currentWeekTr.classList.contains('thy-calendar-active-week')).toBe(true);
+                }
+            }
+            flush();
         }));
 
         it('should support thyDateChange', fakeAsync(() => {
