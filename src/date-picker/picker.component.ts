@@ -1,4 +1,4 @@
-import { getFlexiblePositions, ThyPlacement , scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
+import { getFlexiblePositions, ThyPlacement, thyAnimationZoom } from 'ngx-tethys/core';
 import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange, ConnectionPositionPair } from '@angular/cdk/overlay';
 import {
@@ -10,10 +10,9 @@ import {
     inject,
     input,
     effect,
-    OnChanges,
     output,
-    SimpleChanges,
-    viewChild
+    viewChild,
+    computed
 } from '@angular/core';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { ThyI18nService } from 'ngx-tethys/i18n';
@@ -34,8 +33,7 @@ import { SafeAny } from 'ngx-tethys/types';
     exportAs: 'thyPicker',
     templateUrl: './picker.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [CdkOverlayOrigin, ThyInputDirective, ThyEnterDirective, NgTemplateOutlet, ThyIcon, NgClass, CdkConnectedOverlay],
-    animations: [scaleXMotion, scaleYMotion, scaleMotion]
+    imports: [CdkOverlayOrigin, ThyInputDirective, ThyEnterDirective, NgTemplateOutlet, ThyIcon, NgClass, CdkConnectedOverlay]
 })
 export class ThyPicker implements AfterViewInit {
     private changeDetector = inject(ChangeDetectorRef);
@@ -122,6 +120,28 @@ export class ThyPicker implements AfterViewInit {
     get readonlyState(): boolean {
         return this.isRange() || this.readonly() || this.mode() !== 'date';
     }
+
+    readonly animateEnterClass = computed<string>(() => {
+        const placement = this.placement();
+        if (placement === 'top' || placement === 'bottom') {
+            return thyAnimationZoom.yEnter;
+        } else if (placement === 'left' || placement === 'right') {
+            return thyAnimationZoom.xEnter;
+        } else {
+            return thyAnimationZoom.enter;
+        }
+    });
+
+    readonly animateLeaveClass = computed<string>(() => {
+        const placement = this.placement();
+        if (placement === 'top' || placement === 'bottom') {
+            return thyAnimationZoom.yLeave;
+        } else if (placement === 'left' || placement === 'right') {
+            return thyAnimationZoom.xLeave;
+        } else {
+            return thyAnimationZoom.leave;
+        }
+    });
 
     constructor() {
         effect(() => {
