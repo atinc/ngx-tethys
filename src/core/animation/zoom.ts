@@ -2,14 +2,14 @@ import { animate, AnimationTriggerMetadata, style, transition, trigger } from '@
 import { AnimationCurves, AnimationDuration } from './animation-consts';
 
 export const thyAnimationZoom = {
-    scaleXEnter: 'thy-scale-x-enter',
-    scaleXLeave: 'thy-scale-x-leave',
+    xEnter: 'thy-scale-x-enter',
+    xLeave: 'thy-scale-x-leave',
 
-    scaleYEnter: 'thy-scale-y-enter',
-    scaleYLeave: 'thy-scale-y-leave',
+    yEnter: 'thy-scale-y-enter',
+    yLeave: 'thy-scale-y-leave',
 
-    scaleEnter: 'thy-scale-enter',
-    scaleLeave: 'thy-scale-leave'
+    enter: 'thy-scale-enter',
+    leave: 'thy-scale-leave'
 };
 
 /**
