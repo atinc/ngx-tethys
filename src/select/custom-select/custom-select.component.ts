@@ -1,6 +1,7 @@
 import {
     getFlexiblePositions,
     injectPanelEmptyIcon,
+    thyAnimation,
     ScrollToService,
     TabIndexDisabledControlValueAccessorMixin,
     ThyClickDispatcher,
@@ -228,22 +229,22 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     readonly animateEnterClass = computed<string>(() => {
         const placement = this.placement();
         if (placement === 'top' || placement === 'bottom') {
-            return 'scale-y-enter';
+            return thyAnimation.scaleYEnter;
         } else if (placement === 'left' || placement === 'right') {
-            return 'scale-x-enter';
+            return thyAnimation.scaleXEnter;
         } else {
-            return 'scale-enter';
+            return thyAnimation.scaleEnter;
         }
     });
 
     readonly animateLeaveClass = computed<string>(() => {
         const placement = this.placement();
         if (placement === 'top' || placement === 'bottom') {
-            return 'scale-y-leave';
+            return thyAnimation.scaleYLeave;
         } else if (placement === 'left' || placement === 'right') {
-            return 'scale-x-leave';
+            return thyAnimation.scaleXLeave;
         } else {
-            return 'scale-leave';
+            return thyAnimation.scaleLeave;
         }
     });
 

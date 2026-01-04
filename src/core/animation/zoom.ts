@@ -1,6 +1,17 @@
 import { animate, AnimationTriggerMetadata, style, transition, trigger } from '@angular/animations';
 import { AnimationCurves, AnimationDuration } from './animation-consts';
 
+export const thyAnimationZoom = {
+    scaleXEnter: 'thy-scale-x-enter',
+    scaleXLeave: 'thy-scale-x-leave',
+
+    scaleYEnter: 'thy-scale-y-enter',
+    scaleYLeave: 'thy-scale-y-leave',
+
+    scaleEnter: 'thy-scale-enter',
+    scaleLeave: 'thy-scale-leave'
+};
+
 /**
  * @deprecated Please use the new Angular animate.enter and animate.leave APIs.
  * @see https://angular.dev/guide/animations

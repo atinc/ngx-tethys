@@ -1,5 +1,5 @@
 // zoom animations
-@keyframes scale-x-fade {
+@keyframes thy-scale-x-fade {
     from {
         opacity: 0;
         transform: scaleX(0.9);
@@ -9,10 +9,10 @@
         transform: scaleX(1);
     }
 }
-.scale-x-enter {
-    animation: scale-x-fade 0.2s cubic-bezier(0.34, 0.69, 0.1, 1);
+.thy-scale-x-enter {
+    animation: thy-scale-x-fade 0.2s cubic-bezier(0.34, 0.69, 0.1, 1);
 }
-.scale-x-leave {
+.thy-scale-x-leave {
     opacity: 0;
     transform: scaleX(0.9);
     transition:
@@ -20,7 +20,7 @@
         transform 0.2s cubic-bezier(0.34, 0.69, 0.1, 1);
 }
 
-@keyframes scale-y-fade {
+@keyframes thy-scale-y-fade {
     from {
         opacity: 0;
         transform: scaleY(0.9);
@@ -30,10 +30,10 @@
         transform: scaleY(1);
     }
 }
-.scale-y-enter {
-    animation: scale-y-fade 0.2s cubic-bezier(0.34, 0.69, 0.1, 1);
+.thy-scale-y-enter {
+    animation: thy-scale-y-fade 0.2s cubic-bezier(0.34, 0.69, 0.1, 1);
 }
-.scale-y-leave {
+.thy-scale-y-leave {
     opacity: 0;
     transform: scaleY(0.9);
     transition:
@@ -41,7 +41,7 @@
         transform 0.2s cubic-bezier(0.34, 0.69, 0.1, 1);
 }
 
-@keyframes scale-fade {
+@keyframes thy-scale-fade {
     from {
         opacity: 0;
         transform: scale(0.9, 0.9);
@@ -51,10 +51,10 @@
         transform: scale(1, 1);
     }
 }
-.scale-enter {
-    animation: scale-fade 0.2s cubic-bezier(0.34, 0.69, 0.1, 1);
+.thy-scale-enter {
+    animation: thy-scale-fade 0.2s cubic-bezier(0.34, 0.69, 0.1, 1);
 }
-.scale-leave {
+.thy-scale-leave {
     opacity: 0;
     transform: scale(0.9, 0.9);
     transition:
