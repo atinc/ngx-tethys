@@ -1,5 +1,5 @@
 @if (visible) {
-  <div class="thy-back-top" #backTop @fadeMotion>
+  <div class="thy-back-top" #backTop [animate.enter]="animateEnterClass" [animate.leave]="animateLeaveClass">
     <ng-template #defaultContent>
       <div class="thy-back-top-content">
         <thy-icon class="back-top-icon text-muted font-size-lg" thyIconName="arrow-up"></thy-icon>
