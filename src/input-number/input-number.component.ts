@@ -21,6 +21,7 @@ import {
     viewChild
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { SafeAny } from 'ngx-tethys/types';
 
 type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -124,6 +125,11 @@ export class ThyInputNumber extends TabIndexDisabledControlValueAccessorMixin im
     readonly thyPrecision = input<number>();
 
     /**
+     * 显示的时候根据数值精度自动补充 0  
+     */
+    readonly thyAutoFixed = input<boolean>();
+
+    /**
      * 数值后缀
      */
     readonly thySuffix = input<string>();
@@ -190,7 +196,7 @@ export class ThyInputNumber extends TabIndexDisabledControlValueAccessorMixin im
                 }
             } else {
                 if (this.isFocused) {
-                    this.displayValue.set(this.formatterValue(this.validValue));
+                    this.displayValue.set(this.formatterValue(this.fixedValue(this.validValue)));
                     this.onTouchedFn();
                     this.thyBlur.emit();
                     this.isFocused = false;
@@ -202,7 +208,7 @@ export class ThyInputNumber extends TabIndexDisabledControlValueAccessorMixin im
     writeValue(value: number | string): void {
         const _value = this.getCurrentValidValue(value);
         this.updateValidValue(_value);
-        this.displayValue.set(this.formatterValue(_value));
+        this.displayValue.set(this.formatterValue(this.fixedValue(_value)));
     }
 
     updateValidValue(value: number | string): void {
@@ -263,7 +269,6 @@ export class ThyInputNumber extends TabIndexDisabledControlValueAccessorMixin im
         if (this.autoStepTimer) {
             clearTimeout(this.autoStepTimer);
         }
-        this.displayValue.set(this.toNumber(this.displayValue()!));
     }
 
     step(type: Type, e: MouseEvent | KeyboardEvent): void {
@@ -309,15 +314,9 @@ export class ThyInputNumber extends TabIndexDisabledControlValueAccessorMixin im
 
     getMaxPrecision(value: string | number): number {
         const precision = this.thyPrecision();
-        if (!isUndefinedOrNull(precision)) {
-            return precision;
-        }
         const stepPrecision = this.getPrecision(this.thyStep());
         const currentValuePrecision = this.getPrecision(value as number);
-        if (!value) {
-            return stepPrecision;
-        }
-        return Math.max(currentValuePrecision, stepPrecision);
+        return Math.max(currentValuePrecision, stepPrecision ,(precision || 0));
     }
 
     getPrecisionFactor(activeValue: string | number): number {
@@ -359,6 +358,21 @@ export class ThyInputNumber extends TabIndexDisabledControlValueAccessorMixin im
         }
     }
 
+    fixedValue(value:  number | string, autoFixed?:boolean ):SafeAny {
+        const precision = this.thyPrecision();
+        if (isUndefinedOrNull(precision)) { 
+            return value
+        }
+        if (this.thyAutoFixed() && autoFixed) {
+            // 返回值会保留小数点后的 0
+            return Number(value).toFixed(precision)
+        } else {
+            // 返回值不会保留小数点后的 0
+            return Number(Number(value).toFixed(precision))
+         }
+
+     }
+
     parser(value: string) {
         return (
             value
@@ -396,11 +410,6 @@ export class ThyInputNumber extends TabIndexDisabledControlValueAccessorMixin im
     toNumber(num: string | number): number {
         if (this.isNotValid(num)) {
             return num as number;
-        }
-        const numStr = String(num);
-        const precision = this.thyPrecision();
-        if (numStr.indexOf('.') >= 0 && !isUndefinedOrNull(precision)) {
-            return Number(Number(num).toFixed(precision));
         }
         return Number(num);
     }
