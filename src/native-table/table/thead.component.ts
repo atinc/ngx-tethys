@@ -50,16 +50,27 @@ export class ThyNativeTableHeaderComponent implements AfterContentInit, AfterVie
     @ContentChildren(ThyNativeTableTrDirective, { descendants: true }) listOfTrDirective!: QueryList<ThyNativeTableTrDirective>;
 
     listOfColumnsChanges = signal<ThyNativeTableThDirective[]>([]);
+
     ngOnInit(): void {
         if (this.styleService) {
             this.styleService.setTheadTemplate(this.templateRef);
         }
     }
+
     constructor() {
         effect(() => {
             const listOfColumns = this.listOfColumnsChanges();
             if (this.styleService) {
                 this.styleService.setListOfTh(listOfColumns);
+            }
+        });
+
+        effect(() => {
+            const enableAutoMeasureColumnWidth = this.styleService?.enableAutoMeasureColumnWidth();
+            if (enableAutoMeasureColumnWidth && this.listOfColumnsChanges().length > 0) {
+                this.styleService?.setListOfMeasureColumnKeys(this.listOfColumnsChanges());
+            } else {
+                this.styleService?.setListOfMeasureColumnKeys([]);
             }
         });
     }

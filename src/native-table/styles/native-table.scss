@@ -35,7 +35,9 @@
         variables.$table-cell-padding
     );
     .thy-native-table-content {
-        width: 100%;
+        table {
+            width: 100%;
+        }
     }
     .thy-table-pagination {
         padding: 0 20px;

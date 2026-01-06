@@ -18,6 +18,7 @@ import {
     ThyNativeTableTdPopoverEditDirective
 } from './table-editable';
 import { ThyNativeTableCellFixedDirective } from './cell/cell-fixed.directive';
+import { ThyNativeTableTrMeasureComponent } from './row/tr-measure.component';
 
 const EDIT_COMPONENTS = [
     ThyNativeTableEditableDirective,
@@ -40,6 +41,7 @@ const EDIT_COMPONENTS = [
         ThyNativeTableThSelectionComponent,
         ThyNativeTableThSortComponent,
         ThyNativeTableCellFixedDirective,
+        ThyNativeTableTrMeasureComponent,
         ...EDIT_COMPONENTS
     ],
     exports: [

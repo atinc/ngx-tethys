@@ -43,7 +43,7 @@ export class ThyNativeTableTrDirective implements AfterContentInit {
 
     constructor() {
         effect(() => {
-            const listOfWidth = this.styleService?.listOfThWidthConfigPx();
+            const listOfWidth = this.styleService?.listOfColumnWidthPx();
             const listOfLeftCell = this.listOfFixedLeftColumnChanges();
             if (listOfLeftCell.length && listOfWidth && listOfWidth.length > 0) {
                 listOfLeftCell.forEach((cell, index) => {
@@ -58,7 +58,7 @@ export class ThyNativeTableTrDirective implements AfterContentInit {
         });
 
         effect(() => {
-            const listOfWidth = this.styleService?.listOfThWidthConfigPx();
+            const listOfWidth = this.styleService?.listOfColumnWidthPx();
             const listOfRightCell = this.listOfFixedRightColumnChanges();
             if (listOfRightCell.length && listOfWidth && listOfWidth.length > 0) {
                 listOfRightCell.forEach((_, index) => {
