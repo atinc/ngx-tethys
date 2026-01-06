@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 type GetIndexedField<T, K> = K extends keyof T
     ? T[K]
     : K extends `${number}`
