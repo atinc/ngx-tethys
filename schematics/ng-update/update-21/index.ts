@@ -6,5 +6,5 @@ import { upgradeData } from './update-data';
 const migrations: NullableDevkitMigration[] = [];
 
 export default function main(): Rule {
-    return createMigrationSchematicRule(TargetVersion.V20, migrations, upgradeData, onMigrationComplete);
+    return createMigrationSchematicRule(TargetVersion.V21, migrations, upgradeData, onMigrationComplete);
 }
