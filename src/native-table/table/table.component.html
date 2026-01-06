@@ -7,12 +7,12 @@
       [scrollX]="scrollX()"
       [scrollY]="scrollY()"
       [contentTemplate]="contentTemplate"
-      [listOfColWidth]="listOfManualColWidth()"
+      [listOfColWidth]="listOfColumnWidth()"
       [theadTemplate]="theadTemplate()"></thy-native-table-inner-scroll>
   } @else {
     <thy-native-table-inner-default
       [tableLayout]="thyTableLayout()"
-      [listOfColWidth]="listOfManualColWidth()"
+      [listOfColWidth]="listOfColumnWidth()"
       [theadTemplate]="theadTemplate()"
       [contentTemplate]="contentTemplate"></thy-native-table-inner-default>
   }

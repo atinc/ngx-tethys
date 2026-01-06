@@ -103,20 +103,21 @@ export class ThyNativeTableInnerScrollComponent<T = SafeAny> implements AfterVie
     }
     private setScrollPositionClassName(clear: boolean = false): void {
         const { scrollWidth, scrollLeft, clientWidth } = this.tableBodyElement.nativeElement;
+        const tableMain = this.tableBodyElement.nativeElement.parentElement;
         const leftClassName = 'thy-native-table-scroll-left';
         const rightClassName = 'thy-native-table-scroll-right';
         if ((scrollWidth === clientWidth && scrollWidth !== 0) || clear) {
-            this.renderer.removeClass(this.tableBodyElement.nativeElement, leftClassName);
-            this.renderer.removeClass(this.tableBodyElement.nativeElement, rightClassName);
+            this.renderer.removeClass(tableMain, leftClassName);
+            this.renderer.removeClass(tableMain, rightClassName);
         } else if (scrollLeft === 0) {
-            this.renderer.removeClass(this.tableBodyElement.nativeElement, leftClassName);
-            this.renderer.addClass(this.tableBodyElement.nativeElement, rightClassName);
+            this.renderer.removeClass(tableMain, leftClassName);
+            this.renderer.addClass(tableMain, rightClassName);
         } else if (scrollWidth === scrollLeft + clientWidth) {
-            this.renderer.removeClass(this.tableBodyElement.nativeElement, rightClassName);
-            this.renderer.addClass(this.tableBodyElement.nativeElement, leftClassName);
+            this.renderer.removeClass(tableMain, rightClassName);
+            this.renderer.addClass(tableMain, leftClassName);
         } else {
-            this.renderer.addClass(this.tableBodyElement.nativeElement, leftClassName);
-            this.renderer.addClass(this.tableBodyElement.nativeElement, rightClassName);
+            this.renderer.addClass(tableMain, leftClassName);
+            this.renderer.addClass(tableMain, rightClassName);
         }
     }
 }

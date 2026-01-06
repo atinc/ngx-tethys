@@ -33,7 +33,7 @@ import { ThyNativeTableLayout } from '../table.interface';
     host: {
         '[style.table-layout]': 'tableLayout()',
         '[style.width]': 'scrollX()',
-        '[style.min-width]': `scrollX ? '100%' : null`
+        '[style.min-width]': `scrollX() ? '100%' : null`
     },
     imports: [NgTemplateOutlet]
 })

@@ -20,7 +20,29 @@ export class ThyNativeTableStyleService {
     showEmpty = signal<boolean>(false);
     emptyOptions = signal<ThyTableEmptyOptions | null>(null);
 
-    listOfThWidthConfigPx = signal<ReadonlyArray<string | null>>([]);
+    listOfConfigColumnWidthPx = signal<ReadonlyArray<string | null>>([]);
+
+    enableAutoMeasureColumnWidth = signal<boolean>(false);
+
+    listOfAutoMeasureColumnKeys = signal<readonly string[]>([]);
+
+    listOfAutoMeasureColumnWidthPx = signal<string[]>([]);
+
+    listOfColumnWidthPx = computed(() => {
+        const measureColumnWidthPx = this.listOfAutoMeasureColumnWidthPx();
+        const configColumnWidthPx = this.listOfConfigColumnWidthPx();
+        if (measureColumnWidthPx.length === configColumnWidthPx.length) {
+            return measureColumnWidthPx.map((width, index) => {
+                if (width === '0px') {
+                    return configColumnWidthPx[index] || null;
+                } else {
+                    return configColumnWidthPx[index] || width;
+                }
+            });
+        } else {
+            return configColumnWidthPx;
+        }
+    });
 
     setTheadTemplate(template: TemplateRef<any>): void {
         this.theadTemplate.set(template);
@@ -53,6 +75,25 @@ export class ThyNativeTableStyleService {
             }
             return width.toString();
         });
-        this.listOfThWidthConfigPx.set(listOfThPx);
+        this.listOfConfigColumnWidthPx.set(listOfThPx);
+    }
+
+    setListOfMeasureColumnKeys(listOfTh: readonly ThyNativeTableThDirective[]): void {
+        const listOfKeys: string[] = [];
+        listOfTh.forEach(th => {
+            const length = (th.colspan && +th.colspan) || (th.colSpan && +th.colSpan) || 1;
+            for (let i = 0; i < length; i++) {
+                listOfKeys.push(`measure_key_${i}`);
+            }
+        });
+        this.listOfAutoMeasureColumnKeys.set(listOfKeys);
+    }
+
+    setListOfMeasureWidth(columnsWidth: number[]): void {
+        this.listOfAutoMeasureColumnWidthPx.set(columnsWidth.map(width => `${width}px`));
+    }
+
+    setEnableAutoMeasureColumnWidth(enable: boolean): void {
+        this.enableAutoMeasureColumnWidth.set(enable);
     }
 }

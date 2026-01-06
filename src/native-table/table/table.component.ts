@@ -63,7 +63,7 @@ export class ThyNativeTableComponent<T = any> implements OnInit {
     public data = computed<readonly T[]>(() => this.thyData());
 
     public theadTemplate = signal<TemplateRef<any> | null>(null);
-    public listOfManualColWidth = signal<ReadonlyArray<string | null>>([]);
+    public listOfColumnWidth = signal<ReadonlyArray<string | null>>([]);
 
     public pagination = computed<ThyPage | null>(() => {
         if (!this.thyShowPagination()) {
@@ -94,15 +94,16 @@ export class ThyNativeTableComponent<T = any> implements OnInit {
             this.theadTemplate.set(this.styleService.theadTemplate());
         });
         effect(() => {
-            const listOfWidth = this.styleService?.listOfThWidthConfigPx();
+            const listOfWidth = this.styleService?.listOfColumnWidthPx();
             if (listOfWidth && listOfWidth.length > 0) {
-                this.listOfManualColWidth.set(listOfWidth);
+                this.listOfColumnWidth.set(listOfWidth);
             }
         });
     }
 
     ngOnInit() {
         this.updateHostClassService.initializeElement(this.tableElementRef.nativeElement);
+        this.styleService.setEnableAutoMeasureColumnWidth(!!(this.scrollX() || this.scrollY()));
     }
 
     private setNativeTableClass() {
