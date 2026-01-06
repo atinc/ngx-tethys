@@ -168,7 +168,6 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
                 this.onShowTimePickerChange(event)
             );
 
-
             componentInstance?.ngOnChanges({ value: {} as SimpleChange }); // dynamically created components don't call ngOnChanges, manual call
 
             if (this.dateValueChangeSubscription) {

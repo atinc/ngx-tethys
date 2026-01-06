@@ -1094,7 +1094,7 @@ describe('ThyDatePickerComponent', () => {
 
         function assertIsDisableTimeConfirm(options: {
             selectedDate: Date | null;
-            minDate: Date| null;
+            minDate: Date | null;
             maxDate: Date | null;
             disabled: boolean;
             onOkCallTimes: number;

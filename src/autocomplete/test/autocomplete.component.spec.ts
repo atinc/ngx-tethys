@@ -1,4 +1,4 @@
-import { ThyInputSearch , ThyInputModule } from 'ngx-tethys/input';
+import { ThyInputSearch, ThyInputModule } from 'ngx-tethys/input';
 import {
     bypassSanitizeProvider,
     dispatchFakeEvent,

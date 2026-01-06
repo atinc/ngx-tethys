@@ -140,15 +140,7 @@ export class TestFormFullComponent {
             </form>
         }
     `,
-    imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    ThyFormModule,
-    ThyLayoutModule,
-    ThyButtonModule,
-    ThyInputModule,
-    ThySelectModule
-]
+    imports: [FormsModule, ReactiveFormsModule, ThyFormModule, ThyLayoutModule, ThyButtonModule, ThyInputModule, ThySelectModule]
 })
 export class TestFormReactiveComponent {
     private formBuilder = inject(FormBuilder);
