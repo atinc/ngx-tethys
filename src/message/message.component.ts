@@ -16,7 +16,7 @@ import { useHostRenderer } from '@tethys/cdk/dom';
     selector: 'thy-message',
     templateUrl: './message.component.html',
     host: {
-        '[class]': "'thy-message thy-message-' + config().type"
+        '[class]': "'thy-message thy-message-' + config()?.type"
     },
     animations: [
         trigger('flyInOut', [

@@ -5,7 +5,7 @@
       href="javascript:;"
       class="thy-nav-more-container"
       [class.d-none]="!showMore()"
-      [class.invisible]="!initialized"
+      [class.invisible]="!initialized()"
       #moreOperationContainer
       thyNavLink
       [thyNavItemActive]="moreActive"
@@ -23,7 +23,7 @@
       <ng-container [ngTemplateOutlet]="thyExtra() || extra()"></ng-container>
     </div>
   }
-  <thy-nav-ink-bar [showInkBar]="showInkBar" [isVertical]="thyVertical()"></thy-nav-ink-bar>
+  <thy-nav-ink-bar [showInkBar]="showInkBar()" [isVertical]="thyVertical()"></thy-nav-ink-bar>
 </div>
 
 <ng-template #navListPopover>
@@ -35,7 +35,7 @@
         <span
           class="thy-nav-item-more"
           thyDropdownMenuItem
-          [thyDropdownMenuItemActive]="item.isActive"
+          [thyDropdownMenuItemActive]="item.isActive()"
           (click)="navItemClick(item)"
           [innerHTML]="item.elementRef.nativeElement.innerHTML | bypassSecurityTrustHtml"></span>
       }

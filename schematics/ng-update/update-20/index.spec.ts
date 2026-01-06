@@ -16,11 +16,11 @@ describe('ng-update v20 Schematic', () => {
         tree = factory.getTree();
     });
 
-    it('should update to ng v20', async () => {
-        workspaceTree = await schematicRunner.runSchematic('migration-v20', undefined, tree);
+    it('should update to ng v21', async () => {
+        workspaceTree = await schematicRunner.runSchematic('migration-v21', undefined, tree);
         const file = workspaceTree.get('package.json');
         expect(file.content.toString()).toBeTruthy();
         const packageJSON = JSON.parse(file.content.toString());
-        expect(packageJSON['dependencies']['@angular/core']).toContain('^20.');
+        expect(packageJSON['dependencies']['@angular/core']).toContain('^21.');
     });
 });

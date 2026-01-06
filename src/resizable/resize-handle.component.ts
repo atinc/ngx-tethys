@@ -2,7 +2,7 @@ import { OnInit, Component, ChangeDetectionStrategy, NgZone, ElementRef, inject,
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { ThyResizeDirection, ThyResizeHandleMouseDownEvent } from './interface';
 import { ThyResizableService } from './resizable.service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { fromEvent, merge } from 'rxjs';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
@@ -33,7 +33,7 @@ const passiveEventListenerOptions = normalizePassiveListenerOptions({ passive: t
         '[class.thy-resizable-handle-bottomRight]': `thyDirection() === 'bottomRight'`,
         '[class.thy-resizable-handle-bottomLeft]': `thyDirection() === 'bottomLeft'`,
         '[class.thy-resizable-handle-topLeft]': `thyDirection() === 'topLeft'`,
-        '[class.thy-resizable-handle-box-hover]': 'entered'
+        '[class.thy-resizable-handle-box-hover]': 'entered()'
     },
     imports: []
 })
@@ -63,14 +63,9 @@ export class ThyResizeHandle implements OnInit {
 
     private readonly destroyRef = inject(DestroyRef);
 
+    protected entered = toSignal(this.thyResizableService.mouseEnteredOutsideAngular$);
+
     ngOnInit(): void {
-        this.thyResizableService.mouseEnteredOutsideAngular$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(entered => {
-            if (entered) {
-                this.hostRenderer.addClass('thy-resizable-handle-box-hover');
-            } else {
-                this.hostRenderer.removeClass('thy-resizable-handle-box-hover');
-            }
-        });
         this.ngZone.runOutsideAngular(() => {
             // Note: since Chrome 56 defaults document level `touchstart` listener to passive.
             // The element `touchstart` listener is not passive by default

@@ -3,7 +3,7 @@ import { listOfOption } from '../mock-data';
 import { ThySelect } from 'ngx-tethys/select';
 import { ThyOption } from 'ngx-tethys/shared';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { ThyAvatar } from 'ngx-tethys/avatar';
 
 @Component({
@@ -24,7 +24,7 @@ import { ThyAvatar } from 'ngx-tethys/avatar';
             }
         `
     ],
-    imports: [ThySelect, ThyOption, FormsModule, CommonModule, ThyAvatar]
+    imports: [ThySelect, ThyOption, FormsModule, ThyAvatar]
 })
 export class ThySelectSearchExampleComponent implements OnInit {
     listOfOption = listOfOption;

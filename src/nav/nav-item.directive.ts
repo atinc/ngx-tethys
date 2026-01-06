@@ -1,4 +1,4 @@
-import { AfterViewInit, contentChildren, DestroyRef, Directive, ElementRef, forwardRef, inject, input, NgZone } from '@angular/core';
+import { AfterViewInit, contentChildren, DestroyRef, Directive, ElementRef, forwardRef, inject, input, NgZone, computed } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLinkActive } from '@angular/router';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -77,7 +77,9 @@ export class ThyNavItemDirective implements AfterViewInit {
 
     public content!: HTMLElement;
 
-    public isActive!: boolean;
+    public isActive1 = computed(() => {
+        return this.linkIsActive();
+    });
 
     private hostRenderer = useHostRenderer();
 
@@ -87,10 +89,6 @@ export class ThyNavItemDirective implements AfterViewInit {
         this.setOffset();
 
         this.content = this.elementRef.nativeElement.outerHTML;
-
-        this.ngZone.onStable.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
-            this.isActive = this.linkIsActive();
-        });
     }
 
     setOffset() {
@@ -104,6 +102,9 @@ export class ThyNavItemDirective implements AfterViewInit {
 
     linkIsActive() {
         const links = this.links();
+        if (!links) {
+            return false;
+        }
         return (
             this.thyNavItemActive() ||
             this.thyNavLinkActive() ||

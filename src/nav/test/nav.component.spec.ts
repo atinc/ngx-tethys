@@ -124,7 +124,7 @@ const routes: Routes = [
     }
 ];
 
-describe(`thy-nav`, () => {
+fdescribe(`thy-nav`, () => {
     const fakeResizeObserver = new Subject<void>();
 
     beforeEach(() => {

@@ -24,9 +24,11 @@ import {
     SimpleChanges,
     TemplateRef,
     viewChild,
-    WritableSignal
+    WritableSignal,
+    afterNextRender,
+    afterEveryRender
 } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyPopover, ThyPopoverConfig } from 'ngx-tethys/popover';
 import { merge, Observable, of } from 'rxjs';
@@ -102,7 +104,8 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
 
     private readonly destroyRef = inject(DestroyRef);
 
-    public initialized = false;
+    public initialized = signal(false);
+
     public wrapperOffset: { height: number; width: number; left: number; top: number } = {
         height: 0,
         width: 0,
@@ -120,7 +123,7 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
 
     private hostRenderer = useHostRenderer();
 
-    private innerLinks!: QueryList<ThyNavItemDirective>;
+    // private innerLinks!: QueryList<ThyNavItemDirective>;
 
     locale: Signal<ThyNavLocale> = injectLocale('nav');
 
@@ -188,14 +191,18 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
     /**
      * @private
      */
-    @ContentChildren(ThyNavItemDirective, { descendants: true })
-    set links(value) {
-        this.innerLinks = value;
-        this.prevActiveIndex = NaN;
-    }
-    get links(): QueryList<ThyNavItemDirective> {
-        return this.innerLinks;
-    }
+    protected links = contentChildren(ThyNavItemDirective, { descendants: true });
+
+    protected linksStream$ = toObservable(this.links);
+
+    // @ContentChildren(ThyNavItemDirective, { descendants: true })
+    // set links(value) {
+    //     this.innerLinks = value;
+    //     this.prevActiveIndex = NaN;
+    // }
+    // get links(): QueryList<ThyNavItemDirective> {
+    //     return this.innerLinks;
+    // }
 
     /**
      * @private
@@ -225,15 +232,15 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
 
     readonly inkBar = viewChild.required(ThyNavInkBarDirective);
 
+    protected readonly showInkBar = computed(() => {
+        const showTypes: ThyNavType[] = ['pulled', 'tabs'];
+        return showTypes.includes(this.type());
+    });
+
     readonly horizontal = computed(() => {
         const horizontalValue = this.thyHorizontal() as string;
         return horizontalValue === 'right' ? 'end' : horizontalValue;
     });
-
-    get showInkBar(): boolean {
-        const showTypes: ThyNavType[] = ['pulled', 'tabs'];
-        return showTypes.includes(this.type());
-    }
 
     private updateClasses() {
         let classNames: string[] = [];
@@ -258,11 +265,45 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
         effect(() => {
             this.updateClasses();
         });
+
+        afterNextRender(() => {
+            if (this.navSubscription) {
+                this.navSubscription.unsubscribe();
+            }
+
+            this.navSubscription = merge(
+                this.createResizeObserver(this.elementRef.nativeElement),
+                ...this.links().map(item => this.createResizeObserver(item.elementRef.nativeElement).pipe(tap(() => item.setOffset()))),
+                ...(this.routers() || []).map(router => router?.isActiveChange)
+            )
+                .pipe(
+                    takeUntilDestroyed(this.destroyRef),
+                    tap(() => {
+                        if (this.thyPauseReCalculate()) {
+                            return;
+                        }
+
+                        if (this.thyResponsive()) {
+                            this.setMoreBtnOffset();
+                            this.resetSizes();
+                            this.setHiddenItems();
+                            this.calculateMoreIsActive();
+                        }
+
+                        if (this.type() === 'card') {
+                            this.setNavItemDivider();
+                        }
+                    })
+                )
+                .subscribe(() => {
+                    this.alignInkBarToSelectedTab();
+                });
+        });
     }
 
     ngOnInit() {
         if (!this.thyResponsive()) {
-            this.initialized = true;
+            this.initialized.set(true);
         }
     }
 
@@ -271,60 +312,26 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
             this.setMoreBtnOffset();
             this.ngZone.onStable.pipe(take(1)).subscribe(() => {
                 this.setMoreBtnOffset();
-                this.links.toArray().forEach(link => link.setOffset());
+                this.links().forEach(link => link.setOffset());
                 this.setHiddenItems();
             });
         }
-
-        this.ngZone.runOutsideAngular(() => {
-            this.links.changes.pipe(startWith(this.links), takeUntilDestroyed(this.destroyRef)).subscribe(() => {
-                if (this.navSubscription) {
-                    this.navSubscription.unsubscribe();
-                }
-
-                this.navSubscription = merge(
-                    this.createResizeObserver(this.elementRef.nativeElement),
-                    ...this.links.map(item => this.createResizeObserver(item.elementRef.nativeElement).pipe(tap(() => item.setOffset()))),
-                    ...(this.routers() || []).map(router => router?.isActiveChange)
-                )
-                    .pipe(
-                        takeUntilDestroyed(this.destroyRef),
-                        tap(() => {
-                            if (this.thyPauseReCalculate()) {
-                                return;
-                            }
-
-                            if (this.thyResponsive()) {
-                                this.setMoreBtnOffset();
-                                this.resetSizes();
-                                this.setHiddenItems();
-                                this.calculateMoreIsActive();
-                            }
-
-                            if (this.type() === 'card') {
-                                this.setNavItemDivider();
-                            }
-                        })
-                    )
-                    .subscribe(() => {
-                        this.alignInkBarToSelectedTab();
-                    });
-            });
-        });
     }
 
     ngAfterContentInit(): void {
         if (this.thyResponsive()) {
-            this.ngZone.onStable.pipe(take(1)).subscribe(() => {
-                this.resetSizes();
-            });
+            this.resetSizes();
         }
     }
 
     ngAfterContentChecked() {
         this.calculateMoreIsActive();
 
-        this.curActiveIndex = this.links && this.links.length ? this.links.toArray().findIndex(item => item.linkIsActive()) : -1;
+        console.log(
+            'this.links',
+            this.links().map(item => item.linkIsActive)
+        );
+        this.curActiveIndex = this.links && this.links.length ? this.links().findIndex(item => item.linkIsActive()) : -1;
         if (this.curActiveIndex < 0) {
             this.inkBar().hide();
         } else if (this.curActiveIndex !== this.prevActiveIndex) {
@@ -342,7 +349,7 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
     }
 
     private setNavItemDivider() {
-        const tabs = this.links.toArray();
+        const tabs = this.links();
         const activeIndex = tabs.findIndex(item => item.linkIsActive());
 
         for (let i = 0; i < tabs.length; i++) {
@@ -377,7 +384,7 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
 
     private setHiddenItems() {
         this.moreActive = false;
-        const tabs = this.links.toArray();
+        const tabs = this.links();
         if (!tabs.length) {
             this.hiddenItems = [];
             this.showMore.set(false);
@@ -397,10 +404,10 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
         });
 
         this.showMore.set(this.hiddenItems.length > 0);
-        this.initialized = true;
+        this.initialized.set(true);
     }
 
-    private getShowItemsEndIndexWhenHorizontal(tabs: ThyNavItemDirective[]) {
+    private getShowItemsEndIndexWhenHorizontal(tabs: readonly ThyNavItemDirective[]) {
         const tabsLength = tabs.length;
         let endIndex = tabsLength;
         let totalWidth = 0;
@@ -423,7 +430,7 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
         return endIndex;
     }
 
-    private getShowItemsEndIndexWhenVertical(tabs: ThyNavItemDirective[]) {
+    private getShowItemsEndIndexWhenVertical(tabs: readonly ThyNavItemDirective[]) {
         const tabsLength = tabs.length;
         let endIndex = tabsLength;
         let totalHeight = 0;
@@ -477,17 +484,19 @@ export class ThyNav implements OnInit, AfterViewInit, AfterContentInit, AfterCon
     }
 
     private alignInkBarToSelectedTab(): void {
-        if (!this.showInkBar) {
+        console.log(`thyType: ${this.thyType()}, showInkBar: ${this.showInkBar()}`);
+        if (!this.showInkBar()) {
             this.inkBar().hide();
             return;
         }
-        const tabs = this.links?.toArray() ?? [];
+        const tabs = this.links() ?? [];
         const selectedItem = tabs.find(item => item.linkIsActive());
         let selectedItemElement: HTMLElement = selectedItem && selectedItem.elementRef.nativeElement;
 
         if (selectedItem && this.moreActive) {
             selectedItemElement = this.defaultMoreOperation()!.nativeElement;
         }
+        console.log('selectedItemElement', selectedItemElement);
         if (selectedItemElement) {
             this.prevActiveIndex = this.curActiveIndex!;
             this.inkBar().alignToElement(selectedItemElement);
