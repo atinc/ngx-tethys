@@ -5,11 +5,11 @@
 # You can see what browsers were selected by your queries by running:
 #   npx browserslist
 
-# Updated to support Angular 20 (Chrome 107+, Firefox 104+, Safari 16+, Edge 107+)
-Chrome >= 107
-ChromeAndroid >= 107
-Edge >= 107
-Firefox >= 104
-FirefoxAndroid >= 104
-Safari >= 16
-iOS >= 16
+# Updated to support Angular 21 (Chrome 111+, Firefox 112+, Safari 17+, Edge 111+)
+Chrome >= 111
+ChromeAndroid >= 111
+Edge >= 111
+Firefox >= 112
+FirefoxAndroid >= 112
+Safari >= 17
+iOS >= 17
