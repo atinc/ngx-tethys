@@ -24,7 +24,6 @@ export type ThyTagSize = 'sm' | 'md' | 'lg';
         '[class.thy-tag-hover]': 'thyHoverable()',
         '[class.thy-tag-md]': 'thySize() === "md"',
         '[class.thy-tag-sm]': 'thySize() === "sm"',
-        '[class.thy-tag-xs]': 'thySize() === "xs"',
         '[class.thy-tag-lg]': 'thySize() === "lg"'
     }
 })
@@ -84,7 +83,7 @@ export class ThyTag {
         this.hostRenderer.updateClass([]);
 
         if (isThemeColor(this.color())) {
-            this.hostRenderer.updateClass([`thy-tag-${this.thyTheme() === 'fill' ? '' : `${this.thyTheme()  }-`}${this.color()}`]);
+            this.hostRenderer.updateClass([`thy-tag-${this.thyTheme() === 'fill' ? '' : `${this.thyTheme()}-`}${this.color()}`]);
         } else {
             if (this.thyTheme() === 'fill') {
                 this.elementRef.nativeElement.style.backgroundColor = this.color();

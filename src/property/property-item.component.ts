@@ -52,8 +52,9 @@ export class ThyPropertyItem implements OnDestroy {
     private clickDispatcher = inject(ThyClickDispatcher);
     private ngZone = inject(NgZone);
     private overlayOutsideClickDispatcher = inject(OverlayOutsideClickDispatcher);
-    private parent = inject(ThyProperties, { optional: true });
     private destroyRef = inject(DestroyRef);
+
+    protected parent = inject(ThyProperties, { optional: true });
 
     /**
      * 属性名称
