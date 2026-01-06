@@ -2,11 +2,11 @@
 
 import 'zone.js/testing';
 import { getTestBed } from '@angular/core/testing';
-import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
+import { BrowserTestingModule, platformBrowserTesting } from '@angular/platform-browser/testing';
 import { setPrintErrorWhenIconNotFound } from './icon';
 import { setWarnDeprecation } from './util';
 import { DebounceTimeWrapper } from './core';
-import { debounce, interval, Observable, tap } from 'rxjs';
+import { debounce, interval } from 'rxjs';
 
 /**
  * mock debounceTime for issue https://github.com/angular/angular/issues/44351
@@ -19,6 +19,6 @@ setPrintErrorWhenIconNotFound(false);
 setWarnDeprecation(false);
 
 // First, initialize the Angular testing environment.
-getTestBed().initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
+getTestBed().initTestEnvironment(BrowserTestingModule, platformBrowserTesting(), {
     teardown: { destroyAfterEach: true }
 });
