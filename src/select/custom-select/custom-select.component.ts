@@ -37,7 +37,7 @@ import {
     SPACE,
     UP_ARROW
 } from 'ngx-tethys/util';
-import { Observable, Subscription, timer } from 'rxjs';
+import { from, Observable, Subscription, timer } from 'rxjs';
 import { distinctUntilChanged, filter, map, startWith, take } from 'rxjs/operators';
 import { coerceElement } from '@angular/cdk/coercion';
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair, Overlay, ScrollStrategy } from '@angular/cdk/overlay';
@@ -616,8 +616,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
                 this.scrollToActivatedOption();
             }
 
-            this.ngZone.onStable
-                .asObservable()
+            from(Promise.resolve())
                 .pipe(take(1))
                 .subscribe(() => {
                     if (this.cdkConnectedOverlay() && this.cdkConnectedOverlay()!.overlayRef) {

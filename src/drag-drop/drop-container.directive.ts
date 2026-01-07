@@ -12,7 +12,7 @@ import {
     inject
 } from '@angular/core';
 import { ThyDragDirective } from './drag.directive';
-import { merge, Observable, defer, Subject } from 'rxjs';
+import { merge, Observable, defer, Subject, from } from 'rxjs';
 import { takeUntil, startWith, take, switchMap } from 'rxjs/operators';
 import { ThyDragDropEvent, ThyDragStartEvent, ThyDragEndEvent, ThyDragOverEvent } from './drag-drop.class';
 import { THY_DROP_CONTAINER_DIRECTIVE, IThyDropContainerDirective } from './drag-drop.token';
@@ -130,10 +130,7 @@ export class ThyDropContainerDirective<T = any> implements OnInit, AfterContentI
             if (this.draggables) {
                 return merge(...this.draggables.map(fn));
             }
-            return this.ngZone.onStable.asObservable().pipe(
-                take(1),
-                switchMap(() => this.resetDraggableChanges.bind(this, fn) as SafeAny)
-            );
+            return from(Promise.resolve()).pipe(switchMap(() => this.resetDraggableChanges.bind(this, fn) as SafeAny));
         }).pipe(takeUntil(merge(this.ngUnsubscribe$, this.draggables.changes))) as Observable<any>;
     }
 
