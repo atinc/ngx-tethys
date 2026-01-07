@@ -15,7 +15,9 @@ import {
     NgZone,
     OnDestroy,
     ViewChild,
-    inject
+    inject,
+    EnvironmentInjector,
+    afterNextRender
 } from '@angular/core';
 
 import { ThyPopoverConfig } from './popover.config';
@@ -53,6 +55,7 @@ export class ThyPopoverContainer<TData = unknown> extends ThyAbstractOverlayCont
     private thyClickDispatcher = inject(ThyClickDispatcher);
     private contentObserver = inject(ContentObserver);
     private ngZone = inject(NgZone);
+    private injector = inject(EnvironmentInjector);
 
     @ViewChild(ThyPortalOutlet, { static: true })
     portalOutlet!: ThyPortalOutlet;
@@ -109,17 +112,17 @@ export class ThyPopoverContainer<TData = unknown> extends ThyAbstractOverlayCont
         }
 
         if (this.config.autoAdaptive) {
-            const onStable$ = this.ngZone.isStable ? from(Promise.resolve()) : this.ngZone.onStable.pipe(take(1));
-            this.ngZone.runOutsideAngular(() => {
-                onStable$.pipe(takeUntil(this.containerDestroy)).subscribe(() => {
+            afterNextRender(
+                () => {
                     this.contentObserver
                         .observe(this.elementRef)
                         .pipe(takeUntil(this.containerDestroy))
                         .subscribe(() => {
                             this.updatePosition.emit();
                         });
-                });
-            });
+                },
+                { injector: this.injector }
+            );
         }
     }
 
