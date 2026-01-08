@@ -1,5 +1,5 @@
-<div style="width: 500px">
-  <span class="text-mute mr-2">Precision 1</span>
+<div>
+  <p>thyPrecision: 1</p>
   <thy-input-number
     class="d-inline-block"
     style="width: 200px"
@@ -7,12 +7,23 @@
     [(ngModel)]="value"
     (ngModelChange)="change($event)"></thy-input-number>
   <div class="mt-4">
-    <span class="text-mute mr-2">Precision 2</span>
+    <p>thyPrecision: 2</p>
     <thy-input-number
       class="d-inline-block"
       style="width: 200px"
       [thyPrecision]="2"
       [(ngModel)]="value2"
+      (ngModelChange)="change($event)"></thy-input-number>
+  </div>
+  <div class="mt-4">
+    <p>thyPrecision: 2 thyAutoFixed:false</p>
+    <p>默认情况下，thyAutoFixed 功能处于开启状态。将其关闭后，即可在输入小数时，不受预设精度位数的限制。</p>
+    <thy-input-number
+      class="d-inline-block"
+      style="width: 200px"
+      [thyPrecision]="2"
+      [thyAutoFixed]="false"
+      [(ngModel)]="value3"
       (ngModelChange)="change($event)"></thy-input-number>
   </div>
 </div>

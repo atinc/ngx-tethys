@@ -12,6 +12,8 @@ export class ThyInputNumberPrecisionExampleComponent {
 
     value2: number = 2.22;
 
+    value3: number = 3.33;
+
     precision: number = 1;
 
     change(value: number) {
