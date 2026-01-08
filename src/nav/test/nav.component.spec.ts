@@ -5,7 +5,6 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { By } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { Router, RouterModule, Routes } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyNav, ThyNavHorizontal, ThyNavItemDirective, ThyNavModule, ThyNavSize, ThyNavType } from 'ngx-tethys/nav';
 import { bypassSanitizeProvider, dispatchFakeEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
@@ -129,7 +128,7 @@ describe(`thy-nav`, () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [RouterTestingModule.withRoutes(routes)],
+            imports: [RouterModule.forRoot(routes)],
             providers: [bypassSanitizeProvider, provideHttpClient(), provideAnimations()]
         });
         TestBed.compileComponents();
