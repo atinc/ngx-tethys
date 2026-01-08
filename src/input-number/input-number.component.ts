@@ -263,7 +263,6 @@ export class ThyInputNumber extends TabIndexDisabledControlValueAccessorMixin im
         if (this.autoStepTimer) {
             clearTimeout(this.autoStepTimer);
         }
-        this.displayValue.set(this.toNumber(this.displayValue()!));
     }
 
     step(type: Type, e: MouseEvent | KeyboardEvent): void {
