@@ -124,9 +124,9 @@ export class ThyInputNumber extends TabIndexDisabledControlValueAccessorMixin im
     readonly thyPrecision = input<number>();
 
     /**
-     * 控制是否在输入的时候根据精度调整值
+     * 控制是否在输入的时候根据精度调整值，只有在设置了 thyPrecision 时，此参数才会生效
      */
-    readonly thyAutoFixed = input<boolean>(true);
+    readonly thyAutoFixed = input(true, { transform: coerceBooleanProperty });
 
     /**
      * 数值后缀

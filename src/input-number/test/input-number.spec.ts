@@ -15,6 +15,7 @@ import { provideHttpClient } from '@angular/common/http';
             [(ngModel)]="modelValue"
             [thyPrecision]="thyPrecision"
             [thySuffix]="thySuffix"
+            [thyAutoFixed]="thyAutoFixed"
             [thySize]="thySize"
             [thyAutoFocus]="thyAutoFocus"
             [thyPlaceholder]="placeholder"
@@ -31,6 +32,7 @@ import { provideHttpClient } from '@angular/common/http';
             class="thy-input-number-second"
             [(ngModel)]="modelValue"
             [thyPrecision]="thyPrecision"
+            [thyAutoFixed]="thyAutoFixed"
             [thySuffix]="thySuffix"
             [thySize]="thySize"
             [thyPlaceholder]="placeholder"
@@ -70,6 +72,8 @@ class TestInputNumberComponent {
     thyPrecision = 2;
 
     thyAutoFocus = true;
+
+    thyAutoFixed = true;
 
     thyDisabled = false;
 
@@ -187,6 +191,20 @@ describe('input-number component', () => {
         fixture.detectChanges();
         expect(inputElement.classList.contains('form-control-lg')).toBe(true);
     });
+
+    it('should thyAutoFixed work', fakeAsync(() => {
+        fixture.detectChanges();
+        inputNumberComponentInstance.inputNumberComponent().onModelChange('1.234');
+        fixture.detectChanges();
+        expect(inputNumberComponentInstance.modelValue).toBe(1.23);
+        fixture.detectChanges();
+        inputNumberComponentInstance.thyAutoFixed = false;
+        fixture.detectChanges();
+        inputNumberComponentInstance.inputNumberComponent().onModelChange('1.234');
+        fixture.detectChanges();
+        const toNumberSpy2 = spyOn(inputNumberComponentInstance.inputNumberComponent(), 'toNumber');
+        expect(toNumberSpy2).toHaveBeenCalledTimes(0);
+    }));
 
     it('should autofocus work', fakeAsync(() => {
         fixture.detectChanges();
