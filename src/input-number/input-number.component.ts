@@ -124,7 +124,7 @@ export class ThyInputNumber extends TabIndexDisabledControlValueAccessorMixin im
     readonly thyPrecision = input<number>();
 
     /**
-     * 是否根据数值精度
+     * 控制是否在输入的时候根据精度调整值
      */
     readonly thyAutoFixed = input<boolean>(true);
 
@@ -268,13 +268,9 @@ export class ThyInputNumber extends TabIndexDisabledControlValueAccessorMixin im
         if (this.autoStepTimer) {
             clearTimeout(this.autoStepTimer);
         }
-<<<<<<< Updated upstream
-        this.displayValue.set(this.toNumber(this.displayValue()!));
-=======
         if (this.thyAutoFixed()) {
             this.displayValue.set(this.toNumber(this.displayValue()!));
         }
->>>>>>> Stashed changes
     }
 
     step(type: Type, e: MouseEvent | KeyboardEvent): void {
