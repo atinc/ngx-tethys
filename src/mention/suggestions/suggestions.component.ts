@@ -12,7 +12,7 @@ import {
     signal,
     input,
     afterNextRender,
-    EnvironmentInjector
+    Injector
 } from '@angular/core';
 import { SeekQueryResult } from '../adapter/adapter';
 import { Mention, MentionDefaultDataItem, MentionSuggestionSelectEvent } from '../interfaces';
@@ -44,7 +44,7 @@ export class ThyMentionSuggestions<TItem = MentionDefaultDataItem> implements On
 
     private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
-    private injector = inject(EnvironmentInjector);
+    private injector = inject(Injector);
 
     private popoverRef = inject<ThyPopoverRef<any>>(ThyPopoverRef);
 
