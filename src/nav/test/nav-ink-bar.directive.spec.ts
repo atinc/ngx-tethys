@@ -1,6 +1,6 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, DebugElement, OnInit } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { Router, RouterLinkActive, RouterModule, Routes } from '@angular/router';
@@ -198,15 +198,17 @@ describe(`thy-nav-ink-bar`, () => {
             const type = 'pulled';
             fixture.debugElement.componentInstance.type = type;
             fixture.detectChanges();
-
+            tick();
+            fixture.detectChanges();
             const items: DebugElement[] = fixture.debugElement.queryAll(By.css('.thy-nav-item'));
             const firstItem: HTMLElement = items[0].nativeElement;
             const rect = firstItem.getBoundingClientRect();
-            expect(navInkBarElement.style.left).toEqual(`${rect.left  }px`);
+            expect(navInkBarElement.style.left).toEqual(`${rect.left}px`);
             dispatchFakeEvent(items[1].nativeElement, 'click');
+            fixture.detectChanges();
             flush();
             fixture.detectChanges();
-            expect(navInkBarElement.style.left).toEqual(`${rect.left + firstItem.offsetWidth  }px`);
+            expect(navInkBarElement.style.left).toEqual(`${rect.left + firstItem.offsetWidth}px`);
         }));
 
         xit(`should move to right position when active other item in vertical mode`, fakeAsync(() => {
@@ -221,7 +223,7 @@ describe(`thy-nav-ink-bar`, () => {
             const firstItem: HTMLElement = items[0].nativeElement;
 
             const rect = firstItem.getBoundingClientRect();
-            expect(navInkBarElement.style.top).toEqual(`${Math.round(rect.top)  }px`);
+            expect(navInkBarElement.style.top).toEqual(`${Math.round(rect.top)}px`);
 
             dispatchFakeEvent(items[1].nativeElement, 'click');
             flush();
@@ -229,7 +231,7 @@ describe(`thy-nav-ink-bar`, () => {
             const activeItem: DebugElement = fixture.debugElement.query(By.css('.active'));
             const firstActiveItem: HTMLElement = activeItem.nativeElement;
             const updateRect = firstActiveItem.getBoundingClientRect();
-            expect(navInkBarElement.style.top).toEqual(`${Math.round(updateRect.top)  }px`);
+            expect(navInkBarElement.style.top).toEqual(`${Math.round(updateRect.top)}px`);
         }));
     });
 });
@@ -283,7 +285,7 @@ describe(`thy-nav-ink-bar-router-link-active-mode`, () => {
             let activeEle: HTMLElement = activeLinks[0]['element'].nativeElement;
             let rect = activeEle.getBoundingClientRect();
 
-            expect(navInkBarElement.style.left).toEqual(`${Math.round(rect.left)  }px`);
+            expect(navInkBarElement.style.left).toEqual(`${Math.round(rect.left)}px`);
             router.navigate(['link1']);
             flush();
             fixture.detectChanges();
@@ -296,7 +298,7 @@ describe(`thy-nav-ink-bar-router-link-active-mode`, () => {
             activeEle = activeLinks[0]['element'].nativeElement;
             rect = activeEle.getBoundingClientRect();
 
-            expect(navInkBarElement.style.left).toEqual(`${rect.left  }px`);
+            expect(navInkBarElement.style.left).toEqual(`${rect.left}px`);
         }));
     });
 });
@@ -329,12 +331,15 @@ describe(`thy-nav-ink-bar-have-badge-mode`, () => {
         });
 
         it('should update width after item width changed', fakeAsync(() => {
+            fixture.detectChanges();
+            tick();
+            fixture.detectChanges();
             let activeLinks = fixture.debugElement.queryAll(By.css('.active'));
             let activeEle = activeLinks[0].nativeElement;
             let rect = activeEle.getBoundingClientRect();
             const originWidthBeforeHaveBadge = Math.round(rect.width);
 
-            expect(navInkBarElement.style.width).toEqual(`${originWidthBeforeHaveBadge  }px`);
+            expect(navInkBarElement.style.width).toEqual(`${originWidthBeforeHaveBadge}px`);
 
             // active item have badge
             fixture.componentInstance.navLinks = fixture.componentInstance.navLinks.map(item => {
@@ -352,7 +357,7 @@ describe(`thy-nav-ink-bar-have-badge-mode`, () => {
             rect = activeEle.getBoundingClientRect();
             const firstUpdateWidth = Math.round(rect.width);
             expect(firstUpdateWidth).not.toEqual(originWidthBeforeHaveBadge);
-            expect(navInkBarElement.style.width).toEqual(`${firstUpdateWidth  }px`);
+            expect(navInkBarElement.style.width).toEqual(`${firstUpdateWidth}px`);
 
             // active item remove badge
             fixture.componentInstance.navLinks = fixture.componentInstance.navLinks.map(item => {
@@ -370,7 +375,7 @@ describe(`thy-nav-ink-bar-have-badge-mode`, () => {
             rect = activeEle.getBoundingClientRect();
             const updatedWidth = Math.round(rect.width);
             expect(updatedWidth).not.toEqual(firstUpdateWidth);
-            expect(navInkBarElement.style.width).toEqual(`${updatedWidth  }px`);
+            expect(navInkBarElement.style.width).toEqual(`${updatedWidth}px`);
         }));
     });
 });

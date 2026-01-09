@@ -1,8 +1,21 @@
-import { AfterViewInit, contentChildren, DestroyRef, Directive, ElementRef, forwardRef, inject, input, NgZone } from '@angular/core';
+import {
+    afterNextRender,
+    AfterViewInit,
+    contentChildren,
+    DestroyRef,
+    Directive,
+    effect,
+    ElementRef,
+    forwardRef,
+    inject,
+    input,
+    NgZone
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLinkActive } from '@angular/router';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { from } from 'rxjs';
 
 export type ThyNavLink = '' | 'active';
 
@@ -83,15 +96,23 @@ export class ThyNavItemDirective implements AfterViewInit {
 
     private readonly destroyRef = inject(DestroyRef);
 
-    ngAfterViewInit() {
-        this.setOffset();
-
-        this.content = this.elementRef.nativeElement.outerHTML;
-
-        this.ngZone.onStable.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+    constructor() {
+        effect(() => {
             this.isActive = this.linkIsActive();
         });
+
+        afterNextRender(() => {
+            this.setOffset();
+
+            this.content = this.elementRef.nativeElement.outerHTML;
+
+            from(Promise.resolve()).subscribe(() => {
+                this.isActive = this.linkIsActive();
+            });
+        });
     }
+
+    ngAfterViewInit() {}
 
     setOffset() {
         this.offset = {
