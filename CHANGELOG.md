@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [20.0.6](https://github.com/atinc/ngx-tethys/compare/20.0.5...20.0.6) (2026-01-09)
+
+
+### Reverts
+
+* **core:** revert collapseMotion ([9b004cf](https://github.com/atinc/ngx-tethys/commit/9b004cf1bcb20243f36a2ed2945c5f27ffe34e2d))
+
+
+
 ## [20.0.5](https://github.com/atinc/ngx-tethys/compare/20.0.4...20.0.5) (2026-01-09)
 
 
