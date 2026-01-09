@@ -80,6 +80,7 @@
   "ThyCopyModule": "copy",
   "AnimationDuration": "core",
   "AnimationCurves": "core",
+  "collapseMotion": "core",
   "fadeMotion": "core",
   "Constructor": "core",
   "AnonymousClass": "core",
