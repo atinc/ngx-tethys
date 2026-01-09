@@ -1,6 +1,6 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, DebugElement, OnInit } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { Router, RouterLinkActive, RouterModule, Routes } from '@angular/router';
@@ -197,12 +197,14 @@ describe(`thy-nav-ink-bar`, () => {
             const type = 'pulled';
             fixture.debugElement.componentInstance.type = type;
             fixture.detectChanges();
-
+            tick();
+            fixture.detectChanges();
             const items: DebugElement[] = fixture.debugElement.queryAll(By.css('.thy-nav-item'));
             const firstItem: HTMLElement = items[0].nativeElement;
             const rect = firstItem.getBoundingClientRect();
             expect(navInkBarElement.style.left).toEqual(`${rect.left}px`);
             dispatchFakeEvent(items[1].nativeElement, 'click');
+            fixture.detectChanges();
             flush();
             fixture.detectChanges();
             expect(navInkBarElement.style.left).toEqual(`${rect.left + firstItem.offsetWidth}px`);
@@ -328,6 +330,9 @@ describe(`thy-nav-ink-bar-have-badge-mode`, () => {
         });
 
         it('should update width after item width changed', fakeAsync(() => {
+            fixture.detectChanges();
+            tick();
+            fixture.detectChanges();
             let activeLinks = fixture.debugElement.queryAll(By.css('.active'));
             let activeEle = activeLinks[0].nativeElement;
             let rect = activeEle.getBoundingClientRect();
