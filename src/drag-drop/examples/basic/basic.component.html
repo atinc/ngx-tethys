@@ -1,5 +1,0 @@
-<thy-list [thyDropContainer]="nodes" (thyDragDropped)="onDragDrop($event)">
-  @for (item of nodes; track item.key) {
-    <thy-list-item [thyDrag]="item">{{ item.title }}</thy-list-item>
-  }
-</thy-list>

@@ -1,8 +1,0 @@
-<thy-list cdkDropList thyDragDrop (cdkDropListDropped)="drop($event)">
-  @for (item of nodes; track $index) {
-    <thy-list-item cdkDrag>
-      <thy-icon thyIconName="drag" class="drag-handle"></thy-icon>
-      {{ item }}
-    </thy-list-item>
-  }
-</thy-list>
