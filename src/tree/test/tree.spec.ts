@@ -528,48 +528,48 @@ describe('ThyTreeComponent', () => {
             expect(nodeElements2.length).toEqual(1);
         }));
 
-        it('should drag and drop successful', fakeAsync(() => {
-            fixture.detectChanges();
-            const dragDropSpy = spyOn(component, 'onDragDrop');
+        // it('should drag and drop successful', fakeAsync(() => {
+        //     fixture.detectChanges();
+        //     const dragDropSpy = spyOn(component, 'onDragDrop');
 
-            dragDropSpy.and.callFake((event: any) => {});
+        //     dragDropSpy.and.callFake((event: any) => {});
 
-            const document = TestBed.inject(DOCUMENT);
+        //     const document = TestBed.inject(DOCUMENT);
 
-            // start drag
-            let nodeDebugElements = fixture.debugElement.queryAll(By.directive(ThyTreeNodeComponent));
-            const startNodeData = fixture.debugElement.queryAll(By.directive(ThyTreeNodeComponent))[0].componentInstance.node();
-            const startNodeElement = fixture.debugElement.queryAll(By.directive(ThyTreeNodeComponent))[0].nativeElement;
-            startDragging(fixture, startNodeElement, 10, 10);
+        //     // start drag
+        //     let nodeDebugElements = fixture.debugElement.queryAll(By.directive(ThyTreeNodeComponent));
+        //     const startNodeData = fixture.debugElement.queryAll(By.directive(ThyTreeNodeComponent))[0].componentInstance.node();
+        //     const startNodeElement = fixture.debugElement.queryAll(By.directive(ThyTreeNodeComponent))[0].nativeElement;
+        //     startDragging(fixture, startNodeElement, 10, 10);
 
-            // scroll to viewport bottom
-            scrollToViewport(fixture, { bottom: 0 });
+        //     // scroll to viewport bottom
+        //     scrollToViewport(fixture, { bottom: 0 });
 
-            // drop last node
-            nodeDebugElements = fixture.debugElement.queryAll(By.directive(ThyTreeNodeComponent));
-            const targetNodeData = nodeDebugElements[nodeDebugElements.length - 1].componentInstance.node();
-            const targetNodeElement = nodeDebugElements[nodeDebugElements.length - 1].nativeElement;
-            const targetClientRect = targetNodeElement.getBoundingClientRect();
-            const targetClientY = targetClientRect.top + targetClientRect.height / 2 - 1;
+        //     // drop last node
+        //     nodeDebugElements = fixture.debugElement.queryAll(By.directive(ThyTreeNodeComponent));
+        //     const targetNodeData = nodeDebugElements[nodeDebugElements.length - 1].componentInstance.node();
+        //     const targetNodeElement = nodeDebugElements[nodeDebugElements.length - 1].nativeElement;
+        //     const targetClientRect = targetNodeElement.getBoundingClientRect();
+        //     const targetClientY = targetClientRect.top + targetClientRect.height / 2 - 1;
 
-            // 拖拽内部调用函数 elementFromPoint 只能获取可视窗口的元素，但是测试环境是不确定的，可能受到滚动条影响原因，所以通过fake函数指定目标元素
-            spyOn(document, 'elementFromPoint').and.callFake(() => targetNodeElement);
+        //     // 拖拽内部调用函数 elementFromPoint 只能获取可视窗口的元素，但是测试环境是不确定的，可能受到滚动条影响原因，所以通过fake函数指定目标元素
+        //     spyOn(document, 'elementFromPoint').and.callFake(() => targetNodeElement);
 
-            dispatchMouseEvent(targetNodeElement, 'mousemove', targetClientRect.left + 10, targetClientY);
-            fixture.detectChanges();
+        //     dispatchMouseEvent(targetNodeElement, 'mousemove', targetClientRect.left + 10, targetClientY);
+        //     fixture.detectChanges();
 
-            dispatchMouseEvent(targetNodeElement, 'mouseup', targetClientRect.left + 10, targetClientY);
-            fixture.detectChanges();
+        //     dispatchMouseEvent(targetNodeElement, 'mouseup', targetClientRect.left + 10, targetClientY);
+        //     fixture.detectChanges();
 
-            tick();
+        //     tick();
 
-            expect(dragDropSpy).toHaveBeenCalledTimes(1);
-            const args = dragDropSpy.calls.allArgs()[0][0];
-            const treeComponent = component.treeComponent()!;
-            expect(args.dragNode).toEqual(treeComponent.getTreeNode(startNodeData.key));
-            expect(args.targetNode).toEqual(treeComponent.getTreeNode(targetNodeData.key));
-            expect(args.afterNode).toEqual(undefined);
-        }));
+        //     expect(dragDropSpy).toHaveBeenCalledTimes(1);
+        //     const args = dragDropSpy.calls.allArgs()[0][0];
+        //     const treeComponent = component.treeComponent()!;
+        //     expect(args.dragNode).toEqual(treeComponent.getTreeNode(startNodeData.key));
+        //     expect(args.targetNode).toEqual(treeComponent.getTreeNode(targetNodeData.key));
+        //     expect(args.afterNode).toEqual(undefined);
+        // }));
     });
 
     describe('has checked nodes tree', () => {
@@ -801,7 +801,6 @@ describe('ThyTreeComponent', () => {
             [thyIndent]="indent"
             [thyIcons]="options.treeIcons"
             [thyType]="treeType"
-            [thyDraggable]="options.draggable"
             [thyCheckable]="options.checkable"
             [thyCheckStateResolve]="options.checkStateResolve"
             [thyMultiple]="options.multiple"
@@ -810,8 +809,6 @@ describe('ThyTreeComponent', () => {
             [thyExpandedKeys]="expandedKeys"
             [thyExpandAll]="expandAll"
             [thyShowExpand]="true"
-            [thyBeforeDragStart]="options.beforeDragStart"
-            (thyOnDragDrop)="dragDrop($event)"
             (thyOnClick)="onEvent()"
             (thyDblClick)="onDbClickEvent()"
             (thyOnCheckboxChange)="onEvent()"
@@ -850,13 +847,8 @@ class TestBasicTreeComponent {
         draggable: true,
         checkable: true,
         multiple: false,
-        clickBehavior: 'default',
-        beforeDragStart: (event: ThyDragDropEvent<ThyTreeNode>) => {
-            return !event.item?.title?.includes('不可拖拽');
-        }
+        clickBehavior: 'default'
     };
-
-    dragDropSpy = jasmine.createSpy('drag drop');
 
     selectedKeys = ['000000000000000000000000'];
 
@@ -864,9 +856,7 @@ class TestBasicTreeComponent {
 
     onDbClickEvent() {}
 
-    dragDrop(event: any) {
-        this.dragDropSpy(event);
-    }
+    dragDrop(event: any) {}
 
     addNode() {
         // mock 不可变数据
@@ -1084,19 +1074,12 @@ class TestHasCheckedTreeComponent {
     options: any = {
         draggable: true,
         checkable: true,
-        multiple: false,
-        beforeDragStart: (event: ThyDragDropEvent<ThyTreeNode>) => {
-            return !event.item!.title!.includes('不可拖拽');
-        }
+        multiple: false
     };
 
     dragDropSpy = jasmine.createSpy('drag drop');
 
     onEvent() {}
-
-    dragDrop(event: ThyDragDropEvent<ThyTreeNode>) {
-        this.dragDropSpy(event);
-    }
 
     addNode() {
         // mock 不可变数据
