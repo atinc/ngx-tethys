@@ -11,7 +11,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
 import { ThySelectControl, ThyStopPropagationDirective } from 'ngx-tethys/shared';
 import { ThyTreeNode } from 'ngx-tethys/tree';
 import { coerceBooleanProperty, elementMatchClosest, isArray, isObject, produce } from 'ngx-tethys/util';
-import { Observable, of } from 'rxjs';
+import { from, Observable, of } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair, ViewportRuler } from '@angular/cdk/overlay';
@@ -371,8 +371,7 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
     }
 
     public setPosition() {
-        this.ngZone.onStable
-            .asObservable()
+        from(Promise.resolve())
             .pipe(take(1))
             .subscribe(() => {
                 this.cdkConnectedOverlay().overlayRef.updatePosition();

@@ -1,9 +1,0 @@
-<p><code>thyDragContent</code> 自定义可放置区域，本示例中，只可在文本部分进行放置</p>
-<thy-list [thyDropContainer]="nodes" (thyDragDropped)="onDragDrop($event)">
-  @for (item of nodes; track item.key) {
-    <thy-list-item [thyDrag]="item">
-      <span class="cursor-pointer"><thy-icon thyIconName="drag"></thy-icon></span>
-      <span thyDragContent>{{ item.title }}</span>
-    </thy-list-item>
-  }
-</thy-list>

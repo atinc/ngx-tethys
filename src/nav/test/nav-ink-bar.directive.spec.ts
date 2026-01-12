@@ -4,7 +4,6 @@ import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core
 import { By } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { Router, RouterLinkActive, RouterModule, Routes } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
 import { dispatchFakeEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 import { ThyBadgeModule } from 'ngx-tethys/badge';
 import { ThyIconModule } from 'ngx-tethys/icon';
@@ -239,7 +238,7 @@ describe(`thy-nav-ink-bar`, () => {
 describe(`thy-nav-ink-bar-router-link-active-mode`, () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [RouterTestingModule.withRoutes(routes)],
+            imports: [RouterModule.forRoot(routes)],
             providers: [provideHttpClient(), provideAnimations()]
         });
         TestBed.compileComponents();

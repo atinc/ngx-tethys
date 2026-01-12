@@ -14,7 +14,8 @@ import {
     effect,
     signal,
     output,
-    contentChild
+    contentChild,
+    afterNextRender
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -131,13 +132,13 @@ export class ThyInput implements ControlValueAccessor, OnInit {
         effect(() => {
             this.type.set(this.thyType() || this._type());
         });
-    }
 
-    ngOnInit() {
-        this.ngZone.onStable.pipe(take(1)).subscribe(() => {
+        afterNextRender(() => {
             this.isPasswordType.set(this.isPassword(this.type()));
         });
     }
+
+    ngOnInit() {}
 
     writeValue(value: any): void {
         this.value.set(value);

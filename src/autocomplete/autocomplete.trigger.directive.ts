@@ -20,7 +20,7 @@ import { ThyAutocompleteService } from './overlay/autocomplete.service';
 import { ThyAutocompleteRef } from './overlay/autocomplete-ref';
 import { ThyAutocomplete } from './autocomplete.component';
 import { ThyOptionRender, ThyOptionSelectionChangeEvent } from 'ngx-tethys/shared';
-import { Subject, Observable, merge, fromEvent, of, Subscription } from 'rxjs';
+import { Subject, Observable, merge, fromEvent, of, Subscription, from } from 'rxjs';
 import { ESCAPE, UP_ARROW, ENTER, DOWN_ARROW, TAB, coerceBooleanProperty } from 'ngx-tethys/util';
 import { filter, map, take, delay, switchMap } from 'rxjs/operators';
 import { outputToObservable } from '@angular/core/rxjs-interop';
@@ -223,7 +223,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
      * stream every time the option list changes.
      */
     private subscribeToClosingActions(): Subscription {
-        const firstStable = this.ngZone.onStable.asObservable().pipe(take(1));
+        const firstStable = from(Promise.resolve());
         const optionChanges = this.autocompleteComponent().options.changes.pipe(
             // Defer emitting to the stream until the next tick, because changing
             // bindings in here will cause "changed after checked" errors.
