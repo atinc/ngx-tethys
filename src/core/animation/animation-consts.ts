@@ -21,3 +21,6 @@ export class AnimationCurves {
     static EASE_IN_OUT_QUINT = 'cubic-bezier(0.86, 0, 0.07, 1)';
     static EASE_IN_OUT_STANDARD = 'cubic-bezier(0.34, 0.69, 0.1, 1)';
 }
+
+export const requestAnimationFrame =
+    typeof globalThis.requestAnimationFrame === 'function' ? globalThis.requestAnimationFrame : globalThis.setTimeout;
