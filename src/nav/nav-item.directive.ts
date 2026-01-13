@@ -92,7 +92,7 @@ export class ThyNavItemDirective {
 
     public template!: WritableSignal<HTMLElement>;
 
-    public isActive = computed(() => {
+    public readonly isActive = computed(() => {
         return this.linkIsActive();
     });
 

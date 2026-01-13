@@ -88,7 +88,7 @@ const tabItemRight = 20;
         BypassSecurityTrustHtmlPipe
     ]
 })
-export class ThyNav implements OnDestroy, OnInit {
+export class ThyNav implements OnDestroy {
     public elementRef = inject(ElementRef);
 
     private popover = inject(ThyPopover);
@@ -101,7 +101,7 @@ export class ThyNav implements OnDestroy, OnInit {
 
     public readonly initialized: WritableSignal<boolean> = signal(false);
 
-    private wrapperOffset: WritableSignal<{ height: number; width: number; left: number; top: number }> = signal({
+    private readonly wrapperOffset: WritableSignal<{ height: number; width: number; left: number; top: number }> = signal({
         height: 0,
         width: 0,
         left: 0,
@@ -118,7 +118,7 @@ export class ThyNav implements OnDestroy, OnInit {
         return this.hiddenItems().length > 0;
     });
 
-    private moreBtnOffset: WritableSignal<{ height: number; width: number }> = signal({ height: 0, width: 0 });
+    private readonly moreBtnOffset: WritableSignal<{ height: number; width: number }> = signal({ height: 0, width: 0 });
 
     /**
      * 导航类型
@@ -184,7 +184,7 @@ export class ThyNav implements OnDestroy, OnInit {
     /**
      * @private
      */
-    public links = contentChildren(ThyNavItemDirective, { descendants: true });
+    public readonly links = contentChildren(ThyNavItemDirective, { descendants: true });
 
     /**
      * @private
@@ -332,8 +332,6 @@ export class ThyNav implements OnDestroy, OnInit {
         });
     }
 
-    ngOnInit(): void {}
-
     private setMoreBtnOffset() {
         const defaultMoreOperation = this.defaultMoreOperation();
         const computedStyle = window.getComputedStyle(defaultMoreOperation!.nativeElement!);
@@ -402,7 +400,8 @@ export class ThyNav implements OnDestroy, OnInit {
         let totalWidth = 0;
 
         for (let i = 0; i < tabsLength; i += 1) {
-            const _totalWidth = i === tabsLength - 1 ? totalWidth + tabs[i].offset().width : totalWidth + tabs[i].offset().width + tabItemRight;
+            const _totalWidth =
+                i === tabsLength - 1 ? totalWidth + tabs[i].offset().width : totalWidth + tabs[i].offset().width + tabItemRight;
             if (_totalWidth > this.wrapperOffset().width) {
                 const moreOperationWidth = this.moreBtnOffset().width;
                 if (totalWidth + moreOperationWidth <= this.wrapperOffset().width) {
