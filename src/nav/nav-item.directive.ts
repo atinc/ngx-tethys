@@ -1,5 +1,15 @@
-import { AfterViewInit, contentChildren, DestroyRef, Directive, ElementRef, forwardRef, inject, input, NgZone } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import {
+    afterNextRender,
+    computed,
+    contentChildren,
+    Directive,
+    ElementRef,
+    forwardRef,
+    inject,
+    input,
+    signal,
+    WritableSignal
+} from '@angular/core';
 import { RouterLinkActive } from '@angular/router';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
@@ -19,10 +29,12 @@ export type ThyNavLink = '' | 'active';
         '[class.disabled]': 'thyNavItemDisabled()'
     }
 })
-export class ThyNavItemDirective implements AfterViewInit {
-    elementRef = inject(ElementRef);
+export class ThyNavItemDirective {
+    public elementRef = inject(ElementRef);
+
     private routerLinkActive = inject(RouterLinkActive, { optional: true })!;
-    private ngZone = inject(NgZone);
+
+    private hostRenderer = useHostRenderer();
 
     /**
      * 唯一标识
@@ -63,43 +75,43 @@ export class ThyNavItemDirective implements AfterViewInit {
 
     // @HostBinding('attr.href') navLinkHref = 'javascript:;';
 
-    public offset: {
+    public offset: WritableSignal<{
         width: number;
         height: number;
         left: number;
         top: number;
-    } = {
+    }> = signal({
         width: 0,
         height: 0,
         left: 0,
         top: 0
-    };
+    });
 
+    // @deprecated please use template()
     public content!: HTMLElement;
 
-    public isActive!: boolean;
+    public template!: WritableSignal<HTMLElement>;
 
-    private hostRenderer = useHostRenderer();
+    public readonly isActive = computed(() => {
+        return this.linkIsActive();
+    });
 
-    private readonly destroyRef = inject(DestroyRef);
+    constructor() {
+        afterNextRender(() => {
+            this.setOffset();
 
-    ngAfterViewInit() {
-        this.setOffset();
-
-        this.content = this.elementRef.nativeElement.outerHTML;
-
-        this.ngZone.onStable.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
-            this.isActive = this.linkIsActive();
+            this.content = this.elementRef.nativeElement.outerHTML;
+            this.template.set(this.elementRef.nativeElement.outerHTML);
         });
     }
 
     setOffset() {
-        this.offset = {
-            width: this.elementRef.nativeElement.offsetWidth || this.offset.width,
-            height: this.elementRef.nativeElement.offsetHeight || this.offset.height,
-            left: this.elementRef.nativeElement.offsetLeft || this.offset.left,
-            top: this.elementRef.nativeElement.offsetTop || this.offset.top
-        };
+        this.offset.set({
+            width: this.elementRef.nativeElement.offsetWidth || this.offset().width,
+            height: this.elementRef.nativeElement.offsetHeight || this.offset().height,
+            left: this.elementRef.nativeElement.offsetLeft || this.offset().left,
+            top: this.elementRef.nativeElement.offsetTop || this.offset().top
+        });
     }
 
     linkIsActive() {

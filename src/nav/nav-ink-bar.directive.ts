@@ -1,6 +1,5 @@
-import { ANIMATION_MODULE_TYPE, Directive, ElementRef, NgZone, computed, inject, input } from '@angular/core';
+import { ANIMATION_MODULE_TYPE, Directive, ElementRef, computed, inject, input } from '@angular/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
-import { take } from 'rxjs/operators';
 
 /**
  * @internal
@@ -14,7 +13,7 @@ import { take } from 'rxjs/operators';
 })
 export class ThyNavInkBarDirective {
     private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
-    private ngZone = inject(NgZone);
+
     animationMode? = inject(ANIMATION_MODULE_TYPE, { optional: true });
 
     readonly isVertical = input(false, { transform: coerceBooleanProperty });
@@ -25,13 +24,9 @@ export class ThyNavInkBarDirective {
 
     public alignToElement(element: HTMLElement): void {
         this.show();
-        this.ngZone.run(() => {
-            this.ngZone.onStable.pipe(take(1)).subscribe(() => {
-                this.setStyles(element);
-            });
-        });
-    }
 
+        this.setStyles(element);
+    }
     private setStyles(element: HTMLElement): void {
         const inkBar: HTMLElement = this.elementRef.nativeElement;
         if (!this.isVertical()) {

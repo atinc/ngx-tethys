@@ -1,7 +1,7 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { provideHttpClient } from '@angular/common/http';
 import { Component, DebugElement, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { Router, RouterModule, Routes } from '@angular/router';
@@ -124,7 +124,7 @@ const routes: Routes = [
 ];
 
 describe(`thy-nav`, () => {
-    const fakeResizeObserver = new Subject<void>();
+    const fakeResizeObserver = new Subject();
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -244,6 +244,10 @@ describe(`thy-nav`, () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(NavResponsiveComponent);
             overlayContainer = TestBed.inject(OverlayContainer);
+            fixture.detectChanges();
+            fixture.debugElement.componentInstance.responsive = true;
+            spyOn(fixture.componentInstance.nav, 'createResizeObserver').and.returnValue(fakeResizeObserver);
+            fixture.detectChanges();
         });
 
         afterEach(() => {
@@ -251,13 +255,8 @@ describe(`thy-nav`, () => {
         });
 
         it('should show more when responsive and overflow in horizontal direction', fakeAsync(() => {
-            fixture.debugElement.componentInstance.responsive = true;
-            fixture.detectChanges();
-
             spyLinksAndNavOffset(fixture.componentInstance.links, fixture.componentInstance.nav);
-            const createResizeSpy = spyOn(fixture.componentInstance.nav, 'createResizeObserver');
-            createResizeSpy.and.returnValue(fakeResizeObserver);
-            fakeResizeObserver.next();
+            fakeResizeObserver.next({});
             fixture.detectChanges();
             tick(300);
             fixture.detectChanges();
@@ -268,14 +267,11 @@ describe(`thy-nav`, () => {
         }));
 
         it('should active moreBtn when hidden link is active', fakeAsync(() => {
-            fixture.debugElement.componentInstance.responsive = true;
             fixture.debugElement.componentInstance.navLinks = [{ name: 'link1' }, { name: 'link2', isActive: true }, { name: 'link3' }];
             fixture.detectChanges();
 
             spyLinksAndNavOffset(fixture.componentInstance.links, fixture.componentInstance.nav);
-            const createResizeSpy = spyOn(fixture.componentInstance.nav, 'createResizeObserver');
-            createResizeSpy.and.returnValue(fakeResizeObserver);
-            fakeResizeObserver.next();
+            fakeResizeObserver.next({});
             fixture.detectChanges();
             tick(300);
             fixture.detectChanges();
@@ -286,15 +282,12 @@ describe(`thy-nav`, () => {
         }));
 
         it('should active moreBtn when hidden link router is active', fakeAsync(() => {
-            fixture.debugElement.componentInstance.responsive = true;
             const router: Router = TestBed.inject(Router);
             router.initialNavigation();
             fixture.detectChanges();
             router.navigate(['.', 'link2']);
             spyLinksAndNavOffset(fixture.componentInstance.links, fixture.componentInstance.nav);
-            const createResizeSpy = spyOn(fixture.componentInstance.nav, 'createResizeObserver');
-            createResizeSpy.and.returnValue(fakeResizeObserver);
-            fakeResizeObserver.next();
+            fakeResizeObserver.next({});
             fixture.detectChanges();
             tick(300);
             fixture.detectChanges();
@@ -306,13 +299,10 @@ describe(`thy-nav`, () => {
         }));
 
         it('should show more when responsive and overflow in vertical direction', fakeAsync(() => {
-            fixture.debugElement.componentInstance.responsive = true;
             fixture.debugElement.componentInstance.isVertical = true;
             fixture.detectChanges();
             spyLinksAndNavOffset(fixture.componentInstance.links, fixture.componentInstance.nav);
-            const createResizeSpy = spyOn(fixture.componentInstance.nav, 'createResizeObserver');
-            createResizeSpy.and.returnValue(fakeResizeObserver);
-            fakeResizeObserver.next();
+            fakeResizeObserver.next({});
             fixture.detectChanges();
             tick(300);
             fixture.detectChanges();
@@ -323,7 +313,6 @@ describe(`thy-nav`, () => {
         }));
 
         it('should hidden moreBtn when has not navLinks', fakeAsync(() => {
-            fixture.debugElement.componentInstance.responsive = true;
             fixture.debugElement.componentInstance.navLinks = [];
 
             fixture.detectChanges();
@@ -337,13 +326,12 @@ describe(`thy-nav`, () => {
         }));
 
         it('should show all navLinks when change navLinks', fakeAsync(() => {
-            fixture.debugElement.componentInstance.responsive = true;
-            fixture.detectChanges();
             spyLinksAndNavOffset(fixture.componentInstance.links, fixture.componentInstance.nav);
             fixture.detectChanges();
             tick(300);
             fixture.detectChanges();
             fixture.debugElement.componentInstance.navLinks = [...fixture.debugElement.componentInstance.navLinks, { name: 'link4' }];
+            fakeResizeObserver.next({});
             fixture.detectChanges();
             tick(300);
             fixture.detectChanges();
@@ -356,13 +344,8 @@ describe(`thy-nav`, () => {
         }));
 
         it('should show hidden links when click moreBtn', fakeAsync(() => {
-            fixture.debugElement.componentInstance.responsive = true;
-            fixture.detectChanges();
-
             spyLinksAndNavOffset(fixture.componentInstance.links, fixture.componentInstance.nav);
-            const createResizeSpy = spyOn(fixture.componentInstance.nav, 'createResizeObserver');
-            createResizeSpy.and.returnValue(fakeResizeObserver);
-            fakeResizeObserver.next();
+            fakeResizeObserver.next({});
             fixture.detectChanges();
             tick(300);
             fixture.detectChanges();
@@ -382,13 +365,8 @@ describe(`thy-nav`, () => {
         }));
 
         it('should call item event when click navLink in more popover', fakeAsync(() => {
-            fixture.debugElement.componentInstance.responsive = true;
-            fixture.detectChanges();
-
             spyLinksAndNavOffset(fixture.componentInstance.links, fixture.componentInstance.nav);
-            const createResizeSpy = spyOn(fixture.componentInstance.nav, 'createResizeObserver');
-            createResizeSpy.and.returnValue(fakeResizeObserver);
-            fakeResizeObserver.next();
+            fakeResizeObserver.next({});
             fixture.detectChanges();
             tick(300);
             fixture.detectChanges();
@@ -406,12 +384,12 @@ describe(`thy-nav`, () => {
 
 function spyLinksAndNavOffset(links: ThyNavItemDirective[], nav: ThyNav) {
     (links || []).forEach((link, index) => {
-        link.offset = {
+        link.offset.set({
             width: 30,
             height: 30,
             left: 30 * index,
             top: 30 * index
-        };
+        });
     });
 
     spyOnProperty(nav['elementRef'].nativeElement, 'offsetWidth', 'get').and.returnValue(70);
