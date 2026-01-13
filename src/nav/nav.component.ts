@@ -402,7 +402,7 @@ export class ThyNav implements OnDestroy, OnInit {
         let totalWidth = 0;
 
         for (let i = 0; i < tabsLength; i += 1) {
-            const _totalWidth = i === tabsLength - 1 ? totalWidth + tabs[i].offset.width : totalWidth + tabs[i].offset.width + tabItemRight;
+            const _totalWidth = i === tabsLength - 1 ? totalWidth + tabs[i].offset().width : totalWidth + tabs[i].offset().width + tabItemRight;
             if (_totalWidth > this.wrapperOffset().width) {
                 const moreOperationWidth = this.moreBtnOffset().width;
                 if (totalWidth + moreOperationWidth <= this.wrapperOffset().width) {
@@ -424,7 +424,7 @@ export class ThyNav implements OnDestroy, OnInit {
         let endIndex = tabsLength;
         let totalHeight = 0;
         for (let i = 0; i < tabsLength; i += 1) {
-            const _totalHeight = totalHeight + tabs[i].offset.height;
+            const _totalHeight = totalHeight + tabs[i].offset().height;
             if (_totalHeight > this.wrapperOffset().height) {
                 const moreOperationHeight = this.moreBtnOffset().height;
                 if (totalHeight + moreOperationHeight <= this.wrapperOffset().height) {

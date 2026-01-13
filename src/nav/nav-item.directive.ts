@@ -1,21 +1,18 @@
 import {
     afterNextRender,
-    AfterViewInit,
+    computed,
     contentChildren,
-    DestroyRef,
     Directive,
-    effect,
     ElementRef,
     forwardRef,
     inject,
     input,
-    NgZone
+    signal,
+    WritableSignal
 } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLinkActive } from '@angular/router';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
-import { from } from 'rxjs';
 
 export type ThyNavLink = '' | 'active';
 
@@ -32,10 +29,12 @@ export type ThyNavLink = '' | 'active';
         '[class.disabled]': 'thyNavItemDisabled()'
     }
 })
-export class ThyNavItemDirective implements AfterViewInit {
-    elementRef = inject(ElementRef);
+export class ThyNavItemDirective {
+    public elementRef = inject(ElementRef);
+
     private routerLinkActive = inject(RouterLinkActive, { optional: true })!;
-    private ngZone = inject(NgZone);
+
+    private hostRenderer = useHostRenderer();
 
     /**
      * 唯一标识
@@ -76,51 +75,43 @@ export class ThyNavItemDirective implements AfterViewInit {
 
     // @HostBinding('attr.href') navLinkHref = 'javascript:;';
 
-    public offset: {
+    public offset: WritableSignal<{
         width: number;
         height: number;
         left: number;
         top: number;
-    } = {
+    }> = signal({
         width: 0,
         height: 0,
         left: 0,
         top: 0
-    };
+    });
 
+    // @deprecated please use template()
     public content!: HTMLElement;
 
-    public isActive!: boolean;
+    public template!: WritableSignal<HTMLElement>;
 
-    private hostRenderer = useHostRenderer();
-
-    private readonly destroyRef = inject(DestroyRef);
+    public isActive = computed(() => {
+        return this.linkIsActive();
+    });
 
     constructor() {
-        effect(() => {
-            this.isActive = this.linkIsActive();
-        });
-
         afterNextRender(() => {
             this.setOffset();
 
             this.content = this.elementRef.nativeElement.outerHTML;
-
-            from(Promise.resolve()).subscribe(() => {
-                this.isActive = this.linkIsActive();
-            });
+            this.template.set(this.elementRef.nativeElement.outerHTML);
         });
     }
 
-    ngAfterViewInit() {}
-
     setOffset() {
-        this.offset = {
-            width: this.elementRef.nativeElement.offsetWidth || this.offset.width,
-            height: this.elementRef.nativeElement.offsetHeight || this.offset.height,
-            left: this.elementRef.nativeElement.offsetLeft || this.offset.left,
-            top: this.elementRef.nativeElement.offsetTop || this.offset.top
-        };
+        this.offset.set({
+            width: this.elementRef.nativeElement.offsetWidth || this.offset().width,
+            height: this.elementRef.nativeElement.offsetHeight || this.offset().height,
+            left: this.elementRef.nativeElement.offsetLeft || this.offset().left,
+            top: this.elementRef.nativeElement.offsetTop || this.offset().top
+        });
     }
 
     linkIsActive() {

@@ -384,12 +384,12 @@ describe(`thy-nav`, () => {
 
 function spyLinksAndNavOffset(links: ThyNavItemDirective[], nav: ThyNav) {
     (links || []).forEach((link, index) => {
-        link.offset = {
+        link.offset.set({
             width: 30,
             height: 30,
             left: 30 * index,
             top: 30 * index
-        };
+        });
     });
 
     spyOnProperty(nav['elementRef'].nativeElement, 'offsetWidth', 'get').and.returnValue(70);
