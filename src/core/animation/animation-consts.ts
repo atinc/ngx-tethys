@@ -24,3 +24,6 @@ export class AnimationCurves {
 
 export const requestAnimationFrame =
     typeof globalThis.requestAnimationFrame === 'function' ? globalThis.requestAnimationFrame : globalThis.setTimeout;
+
+export const cancelAnimationFrame =
+    typeof globalThis.requestAnimationFrame === 'function' ? globalThis.cancelAnimationFrame : globalThis.clearTimeout;

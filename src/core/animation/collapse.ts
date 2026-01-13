@@ -1,5 +1,5 @@
 import { animate, AnimationTriggerMetadata, state, style, transition, trigger } from '@angular/animations';
-import { AnimationCurves, requestAnimationFrame } from './animation-consts';
+import { AnimationCurves, requestAnimationFrame, cancelAnimationFrame } from './animation-consts';
 import { Directive, effect, ElementRef, inject, input, signal } from '@angular/core';
 import { coerceCssPixelValue } from '@angular/cdk/coercion';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
@@ -39,7 +39,7 @@ export class ThyAnimationCollapseDirective {
     private firstRender = signal(true);
 
     constructor() {
-        effect(() => {
+        effect(cleanup => {
             const open = this.thyOpen();
             const element = this.elementRef.nativeElement;
 
@@ -68,18 +68,28 @@ export class ThyAnimationCollapseDirective {
 
                 if (open) {
                     // Wait for next frame to get correct scrollHeight after removing hidden class
-                    requestAnimationFrame(() => {
+                    const requestAnimationFrameId = requestAnimationFrame(() => {
+                        if (!element) return;
                         const scrollHeight = this.calculateScrollHeight(element);
                         element.style.height = coerceCssPixelValue(scrollHeight);
                         element.style.opacity = '1';
+                    });
+
+                    cleanup(() => {
+                        cancelAnimationFrame(requestAnimationFrameId);
                     });
                 } else {
                     // Used for setting height to actual height when transition start
                     const scrollHeight = this.calculateScrollHeight(element);
                     element.style.height = coerceCssPixelValue(scrollHeight);
-                    requestAnimationFrame(() => {
+                    const requestAnimationFrameId = requestAnimationFrame(() => {
+                        if (!element) return;
                         element.style.height = coerceCssPixelValue(0);
                         element.style.opacity = '0';
+                    });
+
+                    cleanup(() => {
+                        cancelAnimationFrame(requestAnimationFrameId);
                     });
                 }
             }
