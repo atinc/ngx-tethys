@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [20.0.7](https://github.com/atinc/ngx-tethys/compare/20.0.4...20.0.7) (2026-01-13)
+
+
+### Features
+
+* **inputnumber:** 调整有 thyPrecision 数据的情况下才进行输入限制#TINFR-3330 ([#3682](https://github.com/atinc/ngx-tethys/issues/3682)) ([7391f7a](https://github.com/atinc/ngx-tethys/commit/7391f7ae5a1baed39a2c2dafbb9217ff148553d1)), closes [#TINFR-3330](https://github.com/atinc/ngx-tethys/issues/TINFR-3330)
+
+
+
 ## [20.0.4](https://github.com/atinc/ngx-tethys/compare/20.0.3...20.0.4) (2025-12-31)
 
 
