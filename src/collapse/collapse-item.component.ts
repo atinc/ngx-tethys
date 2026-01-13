@@ -1,3 +1,4 @@
+import { collapseMotion } from 'ngx-tethys/core';
 import {
     ChangeDetectorRef,
     Component,
@@ -29,6 +30,7 @@ const DEFAULT_ARROW_ICON = 'angle-right';
     selector: 'thy-collapse-panel, thy-collapse-item',
     templateUrl: './collapse-item.component.html',
     exportAs: 'ThyCollapseComponent',
+    animations: [collapseMotion],
     host: {
         '[class.thy-collapse-item]': 'true',
         '[class.thy-collapse-no-arrow]': '!showArrow()',
