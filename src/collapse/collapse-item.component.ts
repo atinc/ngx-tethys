@@ -1,4 +1,3 @@
-import { collapseMotion } from 'ngx-tethys/core';
 import {
     ChangeDetectorRef,
     Component,
@@ -18,6 +17,7 @@ import { SafeAny } from 'ngx-tethys/types';
 import { coerceBooleanProperty, isString } from 'ngx-tethys/util';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgTemplateOutlet } from '@angular/common';
+import { ThyAnimationCollapse } from 'ngx-tethys/core';
 
 const DEFAULT_ARROW_ICON = 'angle-right';
 
@@ -30,7 +30,6 @@ const DEFAULT_ARROW_ICON = 'angle-right';
     selector: 'thy-collapse-panel, thy-collapse-item',
     templateUrl: './collapse-item.component.html',
     exportAs: 'ThyCollapseComponent',
-    animations: [collapseMotion],
     host: {
         '[class.thy-collapse-item]': 'true',
         '[class.thy-collapse-no-arrow]': '!showArrow()',
@@ -38,7 +37,7 @@ const DEFAULT_ARROW_ICON = 'angle-right';
         '[class.thy-collapse-item-disabled]': 'thyDisabled()'
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [NgTemplateOutlet, ThyIcon]
+    imports: [NgTemplateOutlet, ThyIcon, ThyAnimationCollapse]
 })
 export class ThyCollapseItem implements IThyCollapseItemComponent, OnInit, OnDestroy {
     private cdr = inject(ChangeDetectorRef);

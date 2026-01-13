@@ -3,6 +3,8 @@ $thy-animation-duration-slow: 0.3s;
 $thy-animation-duration-base: 0.2s;
 $thy-animation-duration-fast: 0.1s;
 
+$thy-animation-duration-collapse: 0.15s;
+
 $thy-animation-curve-ease-base-out: cubic-bezier(0.7, 0.3, 0.1, 1);
 $thy-animation-curve-ease-base-in: cubic-bezier(0.9, 0, 0.3, 0.7);
 $thy-animation-curve-ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
@@ -92,4 +94,13 @@ $thy-animation-curve-ease-in-out-standard: cubic-bezier(0.34, 0.69, 0.1, 1);
 .thy-fade-leave {
     opacity: 0;
     transition: opacity $thy-animation-duration-base;
+}
+
+// collapse animations
+// Note: Class name should be the same as THY_ANIMATION_COLLAPSE_CLASS value.
+.thy-animation-collapse {
+    overflow: hidden;
+    transition:
+        height $thy-animation-duration-collapse $thy-animation-curve-ease-in-out,
+        opacity $thy-animation-duration-collapse $thy-animation-curve-ease-in-out;
 }

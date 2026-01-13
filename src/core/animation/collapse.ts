@@ -1,7 +1,13 @@
 import { animate, AnimationTriggerMetadata, state, style, transition, trigger } from '@angular/animations';
-
 import { AnimationCurves } from './animation-consts';
+import { Directive, effect, ElementRef, inject, input, signal } from '@angular/core';
+import { coerceCssPixelValue } from '@angular/cdk/coercion';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { requestAnimationFrame } from './animation-consts';
 
+/**
+ * @deprecated Use `thyAnimationCollapse` directive instead.
+ */
 export const collapseMotion: AnimationTriggerMetadata = trigger('collapseMotion', [
     state('expanded', style({ height: '*' })),
     state('collapsed', style({ height: 0, overflow: 'hidden' })),
@@ -11,3 +17,98 @@ export const collapseMotion: AnimationTriggerMetadata = trigger('collapseMotion'
     transition('collapsed => expanded', animate(`150ms ${AnimationCurves.EASE_IN_OUT}`)),
     transition('hidden => expanded', animate(`150ms ${AnimationCurves.EASE_IN_OUT}`))
 ]);
+
+const THY_ANIMATION_COLLAPSE_CLASS = 'thy-animation-collapse';
+
+/**
+ * 折叠动画指令
+ */
+@Directive({
+    selector: '[thyAnimationCollapse]',
+    host: {
+        '(transitionend)': 'transitionEnd($event)'
+    }
+})
+export class ThyAnimationCollapse {
+    private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+
+    /**
+     * 是否展开
+     */
+    readonly thyOpen = input(false, { transform: coerceBooleanProperty });
+
+    private firstRender = signal(true);
+
+    constructor() {
+        this.executeAnimation();
+    }
+
+    private executeAnimation() {
+        effect(() => {
+            const open = this.thyOpen();
+            const element = this.elementRef.nativeElement;
+
+            if (this.firstRender()) {
+                // Avoid using animations on the first load to prevent page flickering or bouncing.
+                if (open) {
+                    element.style.height = 'auto';
+                    element.style.opacity = '1';
+                } else {
+                    element.style.height = coerceCssPixelValue(0);
+                    element.style.opacity = '0';
+                }
+            } else {
+                /**
+                 * | open  | animation stage | height       | opacity |
+                 * | ----  | --------------- | ------------ | ------- |
+                 * | true  | before          | 0            |    1    |
+                 * | true  | active          | scrollHeight |    1    |
+                 * | true  | end             | auto         |    1    |
+                 *
+                 * | false | before          | scrollHeight |    0    |
+                 * | false | active          | 0            |    0    |
+                 * | false | end             | 0            |    0    |
+                 */
+                element.classList.add(THY_ANIMATION_COLLAPSE_CLASS);
+
+                if (open) {
+                    // Wait for next frame to get correct scrollHeight after removing hidden class
+                    requestAnimationFrame(() => {
+                        const scrollHeight = this.calculateScrollHeight(element);
+                        element.style.height = coerceCssPixelValue(scrollHeight);
+                        element.style.opacity = '1';
+                    });
+                } else {
+                    // Used for setting height to actual height when transition start
+                    const scrollHeight = this.calculateScrollHeight(element);
+                    element.style.height = coerceCssPixelValue(scrollHeight);
+                    requestAnimationFrame(() => {
+                        element.style.height = coerceCssPixelValue(0);
+                        element.style.opacity = '0';
+                    });
+                }
+            }
+
+            this.firstRender.set(false);
+        });
+    }
+
+    // Calculate height by summing up direct children's offsetHeight
+    // This naturally excludes collapsed nested submenus since they have height: 0
+    private calculateScrollHeight(element: HTMLElement): number {
+        return Array.from(element.children).reduce((acc, child) => acc + (child as HTMLElement).offsetHeight, 0);
+    }
+
+    protected transitionEnd(event: TransitionEvent): void {
+        if (this.firstRender() || event.target !== this.elementRef.nativeElement) {
+            return;
+        }
+
+        // Set height to auto after transition end, so that it's height can be changed along with content.
+        if (this.thyOpen()) {
+            this.elementRef.nativeElement.style.height = 'auto';
+        }
+
+        this.elementRef.nativeElement.classList.remove(THY_ANIMATION_COLLAPSE_CLASS);
+    }
+}
