@@ -23,9 +23,9 @@
     }
   },
   "peerDependencies": {
-    "@angular/core": "^20.0.0",
-    "@angular/cdk": "^20.0.0",
-    "@tethys/cdk": "^20.0.0",
+    "@angular/core": "^21.0.0",
+    "@angular/cdk": "^21.0.0",
+    "@tethys/cdk": "*",
     "date-fns": "4.1.0",
     "@date-fns/tz": "1.2.0",
     "date-fns-tz": "3.2.0",

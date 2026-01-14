@@ -4,7 +4,7 @@ import { ThyLayoutModule } from 'ngx-tethys/layout';
 import { ThySelectModule } from 'ngx-tethys/select';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing';
 import { keycodes } from 'ngx-tethys/util';
-import { CommonModule } from '@angular/common';
+
 import { Component, DebugElement, inject } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormBuilder, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -67,7 +67,7 @@ export class TestFormBasicDirectiveComponent {
             </form>
         }
     `,
-    imports: [CommonModule, FormsModule, ThyFormModule, ThyLayoutModule, ThyButtonModule, ThyInputModule]
+    imports: [FormsModule, ThyFormModule, ThyLayoutModule, ThyButtonModule, ThyInputModule]
 })
 export class TestFormFullComponent {
     model = {
@@ -140,16 +140,7 @@ export class TestFormFullComponent {
             </form>
         }
     `,
-    imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        ThyFormModule,
-        ThyLayoutModule,
-        ThyButtonModule,
-        ThyInputModule,
-        ThySelectModule
-    ]
+    imports: [FormsModule, ReactiveFormsModule, ThyFormModule, ThyLayoutModule, ThyButtonModule, ThyInputModule, ThySelectModule]
 })
 export class TestFormReactiveComponent {
     private formBuilder = inject(FormBuilder);
@@ -760,7 +751,7 @@ describe('reactive form validate', () => {
             </thy-form-group-footer>
         </form>
     `,
-    imports: [CommonModule, FormsModule, ThyFormModule, ThyLayoutModule, ThyButtonModule, ThyInputModule]
+    imports: [FormsModule, ThyFormModule, ThyLayoutModule, ThyButtonModule, ThyInputModule]
 })
 export class TestNoFormSubmitComponent {}
 

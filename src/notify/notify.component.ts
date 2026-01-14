@@ -15,7 +15,7 @@ import { NgClass, NgTemplateOutlet } from '@angular/common';
     selector: 'thy-notify',
     templateUrl: './notify.component.html',
     host: {
-        '[class]': "'thy-notify thy-notify-' + config().type"
+        '[class]': "'thy-notify thy-notify-' + config()?.type"
     },
     animations: [
         trigger('flyInOut', [
@@ -74,7 +74,7 @@ export class ThyNotify extends ThyAbstractMessageComponent<ThyNotifyConfig> {
 
     triggerDetail() {
         const config = this.config();
-        if ( helpers.isFunction((config?.detail as ThyNotifyDetail).action)) {
+        if (helpers.isFunction((config?.detail as ThyNotifyDetail).action)) {
             (config!.detail as ThyNotifyDetail)!.action!();
         }
         if ((config?.detail as ThyNotifyDetail).content) {

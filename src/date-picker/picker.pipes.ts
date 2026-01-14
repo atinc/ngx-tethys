@@ -45,7 +45,11 @@ export class ThyDatePickerFormatPipe implements PipeTransform {
 export class ThyQuarterPickerFormatPipe implements PipeTransform {
     private datePickerConfigService = inject(ThyDatePickerConfigService);
 
-    transform(originalValue: ThyCompatibleDate | DateEntry | ThyDateRangeEntry, formatStr?: string, separator?: string): string | undefined {
+    transform(
+        originalValue: ThyCompatibleDate | DateEntry | ThyDateRangeEntry,
+        formatStr?: string,
+        separator?: string
+    ): string | undefined {
         const { value } = transformDateValue(originalValue);
 
         if (!formatStr) {

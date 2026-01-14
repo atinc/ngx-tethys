@@ -78,7 +78,7 @@ export class ThyTreeService implements IThyTreeService, OnDestroy {
         });
     }
 
-    public getTreeNode(key: string | number): ThyTreeNode | undefined{
+    public getTreeNode(key: string | number): ThyTreeNode | undefined {
         const allNodes = this.getParallelTreeNodes(this.treeNodes);
         return allNodes.find(n => n.key === key);
     }

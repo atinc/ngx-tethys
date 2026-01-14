@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { provideHttpClient } from '@angular/common/http';
 import { Component, ElementRef, inject, viewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
@@ -21,7 +20,7 @@ import { dispatchEvent, dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys
             }
         `
     ],
-    imports: [CommonModule, FormsModule, ThyColorPickerModule, ThyAlpha]
+    imports: [FormsModule, ThyColorPickerModule, ThyAlpha]
 })
 class ThyDemoAlphaComponent {
     elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
@@ -38,7 +37,7 @@ class ThyDemoAlphaComponent {
 @Component({
     selector: 'thy-demo-hue',
     template: ` <thy-hue [color]="color" (colorChange)="colorChangeEvent($event)"></thy-hue> `,
-    imports: [CommonModule, FormsModule, ThyColorPickerModule, ThyHue]
+    imports: [FormsModule, ThyColorPickerModule, ThyHue]
 })
 class ThyDemoHueComponent {
     elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
@@ -55,7 +54,7 @@ class ThyDemoHueComponent {
 @Component({
     selector: 'thy-demo-saturation',
     template: ` <thy-saturation [color]="color" (colorChange)="colorChangeEvent($event)"></thy-saturation> `,
-    imports: [CommonModule, FormsModule, ThyColorPickerModule, ThySaturation]
+    imports: [FormsModule, ThyColorPickerModule, ThySaturation]
 })
 class ThyDemoSaturationComponent {
     elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
@@ -72,7 +71,7 @@ class ThyDemoSaturationComponent {
 @Component({
     selector: 'thy-demo-inputs',
     template: ` <thy-color-inputs [color]="color" (colorChange)="colorChangeEvent($event)"></thy-color-inputs> `,
-    imports: [CommonModule, FormsModule, ThyColorPickerModule, ThyColorInputs]
+    imports: [FormsModule, ThyColorPickerModule, ThyColorInputs]
 })
 class ThyDemoColorInputsComponent {
     elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
@@ -90,7 +89,7 @@ class ThyDemoColorInputsComponent {
 @Component({
     selector: 'thy-demo-indicator',
     template: ` <thy-indicator [color]="color" (colorChange)="colorChangeEvent($event)"></thy-indicator> `,
-    imports: [CommonModule, FormsModule, ThyColorPickerModule, ThyIndicator]
+    imports: [FormsModule, ThyColorPickerModule, ThyIndicator]
 })
 class ThyDemoIndicatorComponent {
     elementRef = inject<ElementRef<HTMLElement>>(ElementRef);

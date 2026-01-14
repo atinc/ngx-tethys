@@ -1,5 +1,4 @@
-import { CommonModule } from '@angular/common';
-import { ThyFullscreen, ThyFullscreenModule , ThyFullscreenComponent, ThyFullscreenLaunchDirective } from 'ngx-tethys/fullscreen';
+import { ThyFullscreen, ThyFullscreenModule, ThyFullscreenComponent, ThyFullscreenLaunchDirective } from 'ngx-tethys/fullscreen';
 import { fakeAsync, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Component, DebugElement, ApplicationRef } from '@angular/core';
 import { By } from '@angular/platform-browser';
@@ -231,7 +230,7 @@ class ThyContainerFullscreenTestComponent {
             </div>
         </thy-fullscreen>
     `,
-    imports: [CommonModule, ThyFullscreenModule]
+    imports: [ThyFullscreenModule]
 })
 class ThyContainerFullscreenDynamicLaunchComponent {
     fullscreenLaunchShown = false;

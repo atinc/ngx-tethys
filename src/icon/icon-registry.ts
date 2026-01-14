@@ -288,7 +288,7 @@ export class ThyIconRegistry {
     }
 
     public buildIconKey(namespace: string, name: string) {
-        return `${namespace  }:${  name}`;
+        return `${namespace}:${name}`;
     }
 
     public splitIconName(iconName: string): [string, string] {

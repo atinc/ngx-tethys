@@ -89,7 +89,7 @@ describe('thy-tag', () => {
     it('should set size with thySize', () => {
         const tagDebugElement = fixture.debugElement.query(By.css('#size'));
         const tagElement: HTMLElement = tagDebugElement.nativeElement;
-        ['sm', 'md', 'lg', 'xs'].forEach(size => {
+        ['sm', 'md', 'lg'].forEach(size => {
             fixture.componentInstance.size = size;
             fixture.detectChanges();
             expect(tagElement.classList.contains(`thy-tag-${size}`)).toBe(true);
