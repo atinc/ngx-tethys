@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [21.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/20.0.6...21.0.0-next.0) (2026-01-14)
+
+
+### Bug Fixes
+
+* **nav:** fix ERROR TypeError: Cannot read properties of undefined (reading 'set') ([#3701](https://github.com/atinc/ngx-tethys/issues/3701)) ([b1554c5](https://github.com/atinc/ngx-tethys/commit/b1554c5da10720ad636d215d92aace93b4415a5f))
+
+
+### Features
+
+* add animations css variables ([#3692](https://github.com/atinc/ngx-tethys/issues/3692)) ([15c952f](https://github.com/atinc/ngx-tethys/commit/15c952f176031c4a2d760499464269b65481ef28))
+* **core, collapse:** add thyAnimationCollapse directive and refactor collapse animations TINFR-3387 ([#3696](https://github.com/atinc/ngx-tethys/issues/3696)) ([73c6421](https://github.com/atinc/ngx-tethys/commit/73c6421127361b427c633e3a301c34d6fc180a8f))
+* ng update v21 TINFR-3389 ([#3698](https://github.com/atinc/ngx-tethys/issues/3698)) ([8c23459](https://github.com/atinc/ngx-tethys/commit/8c234595e30a1753c99c132f30f6e5ba795128e4))
+* remove ThyDragDrop module #TINFR-2068 ([032a67a](https://github.com/atinc/ngx-tethys/commit/032a67ac080a2b00694b53802080e39218df10ea)), closes [#TINFR-2068](https://github.com/atinc/ngx-tethys/issues/TINFR-2068)
+
+
+### Reverts
+
+* **collapse): revert ”refactor(collapse:** use native css animation TINFR-3325“ ([#3691](https://github.com/atinc/ngx-tethys/issues/3691)) ([182d5d7](https://github.com/atinc/ngx-tethys/commit/182d5d72a92927287ccb04461be018584d9f270d))
+
+
+
 ## [20.0.6](https://github.com/atinc/ngx-tethys/compare/20.0.5...20.0.6) (2026-01-09)
 
 
