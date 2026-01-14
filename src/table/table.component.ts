@@ -8,7 +8,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CdkDrag, CdkDragDrop, CdkDragEnd, CdkDragStart, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ViewportRuler } from '@angular/cdk/overlay';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
-import { isPlatformServer, NgClass, NgTemplateOutlet, NgStyle } from '@angular/common';
+import { isPlatformServer, NgTemplateOutlet, NgStyle } from '@angular/common';
 import {
     AfterViewInit,
     ChangeDetectorRef,
@@ -127,23 +127,22 @@ const passiveEventListenerOptions = normalizePassiveListenerOptions({ passive: t
         '[class.thy-table-fixed-header]': 'thyHeaderFixed'
     },
     imports: [
-        CdkScrollable,
-        NgClass,
-        NgTemplateOutlet,
-        ThyIcon,
-        ThyDragDropDirective,
-        CdkDropList,
-        CdkDrag,
-        ThyContextMenuDirective,
-        NgStyle,
-        FormsModule,
-        ThySwitch,
-        ThyEmpty,
-        ThyTableSkeleton,
-        ThyPagination,
-        TableIsValidModelValuePipe,
-        TableRowDragDisabledPipe
-    ]
+    CdkScrollable,
+    NgTemplateOutlet,
+    ThyIcon,
+    ThyDragDropDirective,
+    CdkDropList,
+    CdkDrag,
+    ThyContextMenuDirective,
+    NgStyle,
+    FormsModule,
+    ThySwitch,
+    ThyEmpty,
+    ThyTableSkeleton,
+    ThyPagination,
+    TableIsValidModelValuePipe,
+    TableRowDragDisabledPipe
+]
 })
 export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IThyTableColumnParentComponent {
     elementRef = inject(ElementRef);

@@ -1,6 +1,6 @@
 <thy-button-group thySize="sm" thyType="outline-default" class="mb-4">
-  <button thyButton (click)="operationTrigger = 'always'" [ngClass]="{ active: operationTrigger === 'always' }">Always</button>
-  <button thyButton (click)="operationTrigger = 'hover'" [ngClass]="{ active: operationTrigger === 'hover' }">Hover</button>
+  <button thyButton (click)="operationTrigger = 'always'" [class.active]="operationTrigger === 'always'">Always</button>
+  <button thyButton (click)="operationTrigger = 'hover'" [class.active]="operationTrigger === 'hover'">Hover</button>
 </thy-button-group>
 <thy-divider thyText="水平布局"></thy-divider>
 <thy-properties>

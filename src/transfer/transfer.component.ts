@@ -22,7 +22,7 @@ import {
 } from './transfer.interface';
 import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { NgClass, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { ThyTransferList } from './transfer-list.component';
 import { coerceBooleanProperty, isUndefinedOrNull, ThyBooleanInput } from 'ngx-tethys/util';
 
@@ -38,7 +38,7 @@ import { coerceBooleanProperty, isUndefinedOrNull, ThyBooleanInput } from 'ngx-t
         class: 'thy-transfer'
     },
     encapsulation: ViewEncapsulation.None,
-    imports: [ThyTransferList, ThyIcon, NgClass, NgTemplateOutlet, ThyFlexibleText]
+    imports: [ThyTransferList, ThyIcon, NgTemplateOutlet, ThyFlexibleText]
 })
 export class ThyTransfer implements OnInit {
     public leftDataSource: ThyTransferItem[] = [];

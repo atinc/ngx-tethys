@@ -14,7 +14,7 @@
   <div class="thy-guider-tip-step">
     <div class="thy-guider-tip-step-pagination">
       @for (step of guiderRef.steps; track trackByFn(i, step); let i = $index) {
-        <span class="pagination-item" [ngClass]="{ active: i === stepRef.stepIndex }"></span>
+        <span class="pagination-item" [class.active]="i === stepRef.stepIndex"></span>
       }
     </div>
     <div class="thy-guider-tip-step-btn">

@@ -1,6 +1,6 @@
 <thy-button-group class="d-block w-50 mb-3" thySize="md" thyType="outline-default">
   @for (size of btnSizes; track $index) {
-    <button thyButton (click)="currentSize = size" [ngClass]="{ active: size === currentSize }">
+    <button thyButton (click)="currentSize = size" [class.active]="size === currentSize">
       {{ size }}
     </button>
   }

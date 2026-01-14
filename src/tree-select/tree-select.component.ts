@@ -16,7 +16,7 @@ import { take } from 'rxjs/operators';
 
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair, ViewportRuler } from '@angular/cdk/overlay';
 import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { isPlatformBrowser, NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { isPlatformBrowser, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
     ChangeDetectorRef,
     Component,
@@ -545,16 +545,15 @@ const DEFAULT_ITEM_SIZE = 40;
     selector: 'thy-tree-select-nodes',
     templateUrl: './tree-select-nodes.component.html',
     imports: [
-        NgTemplateOutlet,
-        CdkVirtualScrollViewport,
-        CdkFixedSizeVirtualScroll,
-        CdkVirtualForOf,
-        ThyEmpty,
-        NgClass,
-        NgStyle,
-        ThyIcon,
-        ThyFlexibleText
-    ],
+    NgTemplateOutlet,
+    CdkVirtualScrollViewport,
+    CdkFixedSizeVirtualScroll,
+    CdkVirtualForOf,
+    ThyEmpty,
+    NgStyle,
+    ThyIcon,
+    ThyFlexibleText
+],
     host: {
         '[attr.tabindex]': '-1',
         class: 'thy-tree-select-dropdown',

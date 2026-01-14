@@ -1,7 +1,7 @@
 <div class="demo-card">
   <thy-button-group thySize="md" thyType="outline-default">
     @for (size of selectSizes; track $index) {
-      <button thyButton (click)="currentSize = size" [ngClass]="{ active: size === currentSize }">
+      <button thyButton (click)="currentSize = size" [class.active]="size === currentSize">
         {{ size.name }} - {{ size.height }}px
       </button>
     }

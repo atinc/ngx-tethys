@@ -3,7 +3,7 @@ import { ThySelect } from 'ngx-tethys/select';
 import { ThyTreeSelect, ThyTreeSelectNode } from 'ngx-tethys/tree-select';
 import { ChangeDetectorRef, Component, ElementRef, OnInit, TemplateRef, inject, viewChild } from '@angular/core';
 import { ThyProperties, ThyPropertyItem } from 'ngx-tethys/property';
-import { NgClass, NgTemplateOutlet, CommonModule } from '@angular/common';
+import { NgTemplateOutlet, CommonModule } from '@angular/common';
 import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
 import { FormsModule } from '@angular/forms';
 import { ThyPropertyEditableDateInnerComponent } from './date.component';
@@ -19,26 +19,25 @@ import { ThyTimePicker } from 'ngx-tethys/time-picker';
     templateUrl: './editable.component.html',
     styleUrls: ['./editable.component.scss'],
     imports: [
-        ThyProperties,
-        ThyPropertyItem,
-        ThyButtonGroup,
-        ThySelect,
-        ThyDialogHeader,
-        ThyDialogBody,
-        ThyTreeSelect,
-        NgTemplateOutlet,
-        ThyButton,
-        NgClass,
-        FormsModule,
-        ThyPropertyEditableDateInnerComponent,
-        ThyOption,
-        ThyTag,
-        ThyCascader,
-        ThyInputNumber,
-        ThyInputDirective,
-        CommonModule,
-        ThyTimePicker
-    ]
+    ThyProperties,
+    ThyPropertyItem,
+    ThyButtonGroup,
+    ThySelect,
+    ThyDialogHeader,
+    ThyDialogBody,
+    ThyTreeSelect,
+    NgTemplateOutlet,
+    ThyButton,
+    FormsModule,
+    ThyPropertyEditableDateInnerComponent,
+    ThyOption,
+    ThyTag,
+    ThyCascader,
+    ThyInputNumber,
+    ThyInputDirective,
+    CommonModule,
+    ThyTimePicker
+]
 })
 export class ThyPropertyEditableExampleComponent implements OnInit {
     thyDialog = inject(ThyDialog);

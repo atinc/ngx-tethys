@@ -15,7 +15,7 @@ import {
     output
 } from '@angular/core';
 
-import { NgClass, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { ThyList, ThyListItem } from 'ngx-tethys/list';
 import { ThyDragDropDirective } from 'ngx-tethys/shared';
 import { InnerTransferDragEvent, ThyTransferDragEvent, ThyTransferItem, ThyTransferSelectEvent } from './transfer.interface';
@@ -32,7 +32,7 @@ import { coerceBooleanProperty, isUndefinedOrNull, ThyBooleanInput } from 'ngx-t
         class: 'thy-transfer-list'
     },
     encapsulation: ViewEncapsulation.None,
-    imports: [CdkDropListGroup, ThyList, CdkDropList, ThyDragDropDirective, ThyListItem, CdkDrag, NgClass, NgTemplateOutlet]
+    imports: [CdkDropListGroup, ThyList, CdkDropList, ThyDragDropDirective, ThyListItem, CdkDrag, NgTemplateOutlet]
 })
 export class ThyTransferList implements OnInit, DoCheck {
     private differs = inject(IterableDiffers);

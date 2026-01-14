@@ -1,4 +1,4 @@
-import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
     Component,
     Directive,
@@ -147,7 +147,7 @@ export class ThySidebarDirective implements OnInit {
             @if (thyTrigger() !== null) {
                 <div
                     class="sidebar-collapse"
-                    [ngClass]="{ 'collapse-visible': collapseVisible(), 'collapse-hidden': collapseHidden() }"
+                    [class]="{ 'collapse-visible': collapseVisible(), 'collapse-hidden': collapseHidden() }"
                     (click)="toggleCollapse($event)"
                     [thyTooltip]="!thyTrigger() && collapseTip()">
                     <ng-template [ngTemplateOutlet]="thyTrigger() || defaultTrigger"></ng-template>
@@ -164,7 +164,7 @@ export class ThySidebarDirective implements OnInit {
             inputs: ['thyTheme', 'thyDirection', 'thyWidth', 'thyIsolated', 'thyDivided']
         }
     ],
-    imports: [NgTemplateOutlet, ThyResizeHandle, ThyResizableDirective, ThyIcon, ThyTooltipDirective, NgClass],
+    imports: [NgTemplateOutlet, ThyResizeHandle, ThyResizableDirective, ThyIcon, ThyTooltipDirective],
     host: {
         '[class.sidebar-collapse-show]': 'collapsed()',
         '[class.remove-transition]': 'isRemoveTransition()',

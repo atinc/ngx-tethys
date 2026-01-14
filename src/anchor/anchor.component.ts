@@ -22,7 +22,7 @@ import {
 import { Subject, fromEvent } from 'rxjs';
 import { takeUntil, throttleTime } from 'rxjs/operators';
 
-import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { NgStyle, NgTemplateOutlet } from '@angular/common';
 import { ThyAffix } from 'ngx-tethys/affix';
 import { ThyScrollService } from 'ngx-tethys/core';
 import { coerceBooleanProperty, getOffset } from 'ngx-tethys/util';
@@ -56,7 +56,7 @@ const sharpMatcherRegx = /#([^#]+)$/;
             <div
                 #wrapper
                 class="thy-anchor-wrapper"
-                [ngClass]="{ 'thy-anchor-wrapper-horizontal': thyDirection() === 'horizontal' }"
+                [class.thy-anchor-wrapper-horizontal]="thyDirection() === 'horizontal'"
                 [ngStyle]="wrapperStyle()">
                 <div class="thy-anchor">
                     <div class="thy-anchor-ink">
@@ -69,7 +69,7 @@ const sharpMatcherRegx = /#([^#]+)$/;
     `,
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [ThyAffix, NgTemplateOutlet, NgStyle, NgClass],
+    imports: [ThyAffix, NgTemplateOutlet, NgStyle],
     providers: [
         {
             provide: THY_ANCHOR_COMPONENT,

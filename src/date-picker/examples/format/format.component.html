@@ -1,6 +1,6 @@
 <thy-button-group class="mb-3" thySize="md" thyType="outline-default">
   @for (type of formatTypes; track $index) {
-    <button thyButton (click)="currentFormat = type" [ngClass]="{ active: type === currentFormat }">
+    <button thyButton (click)="currentFormat = type" [class.active]="type === currentFormat">
       {{ type }}
     </button>
   }
@@ -10,7 +10,7 @@
 
 <thy-button-group class="mb-3 mt-8" thySize="md" thyType="outline-default">
   @for (type of monthFormatTypes; track $index) {
-    <button thyButton (click)="monthFormat = type" [ngClass]="{ active: type === monthFormat }">
+    <button thyButton (click)="monthFormat = type" [class.active]="type === monthFormat">
       {{ type }}
     </button>
   }

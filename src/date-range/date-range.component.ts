@@ -4,7 +4,7 @@ import { ThyPopover } from 'ngx-tethys/popover';
 import { DateRangeItemInfo } from './date-range.class';
 import { OptionalDateRanges } from './optional-dates/optional-dates.component';
 
-import { NgClass } from '@angular/common';
+
 import { ThyAction } from 'ngx-tethys/action';
 import { ThyDatePickerConfigService, ThyDatePickerFormatPipe } from 'ngx-tethys/date-picker';
 import { injectLocale, ThyDateRangeLocale } from 'ngx-tethys/i18n';
@@ -42,7 +42,7 @@ const INPUT_CONTROL_VALUE_ACCESSOR: any = {
     selector: 'thy-date-range',
     templateUrl: './date-range.component.html',
     providers: [INPUT_CONTROL_VALUE_ACCESSOR],
-    imports: [ThyAction, ThyIcon, NgClass, ThyDatePickerFormatPipe]
+    imports: [ThyAction, ThyIcon, ThyDatePickerFormatPipe]
 })
 export class ThyDateRange implements ControlValueAccessor {
     private thyPopover = inject(ThyPopover);

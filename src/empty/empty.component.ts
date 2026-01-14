@@ -15,7 +15,7 @@ import {
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyTranslate } from 'ngx-tethys/core';
 
-import { NgClass, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
 import { injectLocale, ThyEmptyLocale } from 'ngx-tethys/i18n';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -62,7 +62,7 @@ export type ThyEmptyImageFetchPriority = 'high' | 'low' | 'auto';
 @Component({
     selector: 'thy-empty',
     templateUrl: './empty.component.html',
-    imports: [ThyIcon, NgClass, NgTemplateOutlet]
+    imports: [ThyIcon, NgTemplateOutlet]
 })
 export class ThyEmpty implements AfterViewInit {
     private thyTranslate = inject(ThyTranslate);

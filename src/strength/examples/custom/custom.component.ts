@@ -1,6 +1,6 @@
 import { Component, OnInit, Signal } from '@angular/core';
 import { injectLocale, ThyStrengthLocale } from 'ngx-tethys/i18n';
-import { NgClass } from '@angular/common';
+
 import { ThyButtonGroup, ThyButton } from 'ngx-tethys/button';
 import { ThyStrength } from 'ngx-tethys/strength';
 import { FormsModule } from '@angular/forms';
@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
     selector: 'app-strength-custom-example',
     templateUrl: './custom.component.html',
-    imports: [ThyStrength, FormsModule, ThyButtonGroup, ThyButton, NgClass]
+    imports: [ThyStrength, FormsModule, ThyButtonGroup, ThyButton]
 })
 export class ThyStrengthCustomExampleComponent implements OnInit {
     locale: Signal<ThyStrengthLocale> = injectLocale('strength');

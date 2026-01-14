@@ -34,7 +34,7 @@
     @if (!treeNodeIsHidden(node)) {
       <a
         class="thy-option-item"
-        [ngClass]="{ active: treeNodeIsSelected(node), 'pl-0': hasChildren }"
+        [class]="{ active: treeNodeIsSelected(node), 'pl-0': hasChildren }"
         [class.disabled]="treeNodeIsDisable(node)"
         [ngStyle]="{ 'padding-left.px': 20 * node.level + parent.icons.gap }"
         (click)="selectTreeNode($event, node)">
@@ -46,7 +46,7 @@
             class="node-expand-icon"
             [thyIconName]="treeNodeIsExpand(node) ? parent.icons.expand : parent.icons.collapse"></thy-icon>
         </span>
-        <span class="thy-tree-select-option-text" [ngClass]="{ 'ml-1': hasChildren }">
+        <span class="thy-tree-select-option-text" [class.ml-1]="hasChildren">
           @if (treeNodeTemplateRef()) {
             <ng-template [ngTemplateOutlet]="treeNodeTemplateRef()" [ngTemplateOutletContext]="{ $implicit: node }"></ng-template>
           } @else {

@@ -1,4 +1,4 @@
-import { NgClass } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
 import { ThySegment, ThySegmentItem } from 'ngx-tethys/segment';
@@ -6,7 +6,7 @@ import { ThySegment, ThySegmentItem } from 'ngx-tethys/segment';
 @Component({
     selector: 'thy-segment-size-example',
     templateUrl: './size.component.html',
-    imports: [ThySegment, ThySegmentItem, ThyButtonGroup, ThyButton, NgClass]
+    imports: [ThySegment, ThySegmentItem, ThyButtonGroup, ThyButton]
 })
 export class ThySegmentSizeExampleComponent {
     sizes = [

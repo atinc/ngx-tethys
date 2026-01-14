@@ -11,14 +11,12 @@
   @if (!(!isHorizontal && !labelText)) {
     <label
       class="form-label"
-      [ngClass]="{
+      [class]="{
         'col-sm-2 col-form-label': isHorizontal,
         'pt-0': thyLabelPaddingTopClear()
       }">
       <span
-        [ngClass]="{
-          'label-required': thyLabelRequired()
-        }"
+        [class.label-required]="thyLabelRequired()"
         >{{ labelText }}</span
       >
       @if (thyTipsMode() === 'label' && tips) {
@@ -26,7 +24,7 @@
       }
     </label>
   }
-  <div [ngClass]="{ 'col-sm-10 col-form-control': isHorizontal, 'position-relative': !isHorizontal }">
+  <div [class]="{ 'col-sm-10 col-form-control': isHorizontal, 'position-relative': !isHorizontal }">
     <ng-content></ng-content>
     @if (feedbackIcon) {
       <thy-icon class="form-control-feedback" [thyIconName]="feedbackIcon"></thy-icon>

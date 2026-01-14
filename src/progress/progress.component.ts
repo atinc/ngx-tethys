@@ -15,7 +15,7 @@ import { ThyProgressGapPositionType, ThyProgressShapeType, ThyProgressStackedVal
 import { THY_PROGRESS_COMPONENT, ThyParentProgress, ThyProgressStrip } from './progress-strip.component';
 import { ThyProgressCircle } from './progress-circle.component';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
-import { NgClass, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 
 /**
  * 进度条组件
@@ -39,7 +39,7 @@ import { NgClass, NgTemplateOutlet } from '@angular/common';
         '[class.progress-stacked]': 'isStacked()',
         '[attr.max]': 'max()'
     },
-    imports: [ThyProgressStrip, NgClass, ThyTooltipDirective, NgTemplateOutlet, ThyProgressCircle]
+    imports: [ThyProgressStrip, ThyTooltipDirective, NgTemplateOutlet, ThyProgressCircle]
 })
 export class ThyProgress implements ThyParentProgress {
     private hostRenderer = useHostRenderer();

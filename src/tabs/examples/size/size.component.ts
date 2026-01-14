@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
 import { ThyTabs, ThyTab } from 'ngx-tethys/tabs';
-import { NgClass } from '@angular/common';
+
 
 @Component({
     selector: 'thy-tabs-size-example',
     templateUrl: './size.component.html',
     styleUrls: ['./size.component.scss'],
-    imports: [ThyTabs, ThyTab, ThyButtonGroup, NgClass, ThyButton]
+    imports: [ThyTabs, ThyTab, ThyButtonGroup, ThyButton]
 })
 export class ThyTabsSizeExampleComponent implements OnInit {
     sizes = [

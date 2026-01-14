@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ThyButtonGroup, ThyButton } from 'ngx-tethys/button';
 import { FormsModule } from '@angular/forms';
 import { ThyFormDirective, ThyFormGroupFooter, ThyFormLayout, ThyFormSubmitDirective, ThyFormGroup } from 'ngx-tethys/form';
-import { NgClass } from '@angular/common';
+
 import { ThyInputDirective } from 'ngx-tethys/input';
 
 interface LayoutInfo {
@@ -14,16 +14,15 @@ interface LayoutInfo {
     selector: 'thy-form-layout-example',
     templateUrl: './layout.component.html',
     imports: [
-        ThyButtonGroup,
-        ThyButton,
-        NgClass,
-        FormsModule,
-        ThyFormDirective,
-        ThyFormGroup,
-        ThyInputDirective,
-        ThyFormGroupFooter,
-        ThyFormSubmitDirective
-    ]
+    ThyButtonGroup,
+    ThyButton,
+    FormsModule,
+    ThyFormDirective,
+    ThyFormGroup,
+    ThyInputDirective,
+    ThyFormGroupFooter,
+    ThyFormSubmitDirective
+]
 })
 export class ThyFormLayoutExampleComponent implements OnInit {
     layouts: LayoutInfo[] = [

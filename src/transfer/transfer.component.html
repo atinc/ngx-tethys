@@ -13,7 +13,7 @@
       @if (thyLeftDraggable()) {
         <thy-icon thyIconName="drag" class="drag-handle"></thy-icon>
       }
-      <div class="item-name" [ngClass]="{ 'un-select-item': item.direction !== 'right' }">
+      <div class="item-name" [class.un-select-item]="item.direction !== 'right'">
         <ng-template [ngTemplateOutlet]="thyTransferListItem" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
       </div>
       @if (item.direction === 'right') {

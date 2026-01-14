@@ -26,7 +26,7 @@
             class="thy-transfer-list-content-item text-truncate"
             cdkDrag
             [cdkDragData]="item"
-            [ngClass]="{ active: item.checked }">
+            [class.active]="item.checked">
             <ng-template [ngTemplateOutlet]="template()" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
           </thy-list-item>
         }
@@ -50,7 +50,7 @@
           class="thy-transfer-list-content-item text-truncate"
           cdkDrag
           [cdkDragData]="item"
-          [ngClass]="{ active: item.checked, disabled: disabled() && item.direction === 'left' }">
+          [class]="{ active: item.checked, disabled: disabled() && item.direction === 'left' }">
           <ng-template [ngTemplateOutlet]="template()" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
         </thy-list-item>
       }

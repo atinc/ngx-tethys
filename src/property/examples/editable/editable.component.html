@@ -11,8 +11,8 @@
   <thy-properties #properties [thyEditTrigger]="thyEditTrigger">
     <thy-property-item thyLabelText="编辑状态触发方法" thyEditable="false">
       <thy-button-group thySize="sm" thyType="outline-default">
-        <button thyButton (click)="thyEditTrigger = 'hover'" [ngClass]="{ active: thyEditTrigger === 'hover' }">Hover</button>
-        <button thyButton (click)="thyEditTrigger = 'click'" [ngClass]="{ active: thyEditTrigger === 'click' }">Click</button>
+        <button thyButton (click)="thyEditTrigger = 'hover'" [class.active]="thyEditTrigger === 'hover'">Hover</button>
+        <button thyButton (click)="thyEditTrigger = 'click'" [class.active]="thyEditTrigger === 'click'">Click</button>
       </thy-button-group>
     </thy-property-item>
 

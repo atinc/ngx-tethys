@@ -1,4 +1,4 @@
-import { NgClass, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     Component,
@@ -38,7 +38,7 @@ type TipsMode = 'default' | 'label';
     templateUrl: './form-group.component.html',
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [NgTemplateOutlet, ThyIcon, NgClass, ThyTooltipDirective],
+    imports: [NgTemplateOutlet, ThyIcon, ThyTooltipDirective],
     host: {
         class: 'form-group',
         '[class.row-fill]': 'thyRowFill()',

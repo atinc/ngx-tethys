@@ -5,7 +5,7 @@ import { By } from '@angular/platform-browser';
 import { ThyButtonIcon } from 'ngx-tethys/button';
 import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing';
 import { provideHttpClient } from '@angular/common/http';
-import { NgClass } from '@angular/common';
+
 
 @Component({
     template: `
@@ -14,7 +14,7 @@ import { NgClass } from '@angular/common';
             [thyLabelText]="thyLabelText"
             [thyType]="thyType"
             [thyValue]="thyValue"
-            [ngClass]="{ active: active }"
+            [class.active]="active"
             [thyDisabled]="disabled"
             [thyActive]="active"
             [thyLabelHasValue]="thyLabelHasValue"
@@ -23,7 +23,7 @@ import { NgClass } from '@angular/common';
             (thyClick)="thyOnclick()">
         </thy-property-operation>
     `,
-    imports: [ThyPropertyOperationModule, NgClass]
+    imports: [ThyPropertyOperationModule]
 })
 class PropertyOperationBasicComponent {
     @ViewChild(ThyPropertyOperation, { static: true }) component: ThyPropertyOperation;

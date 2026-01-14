@@ -8,7 +8,7 @@
       #pickerInput
       thyInput
       class="form-control-{{ size() }} form-control {{ prefixCls }}-picker-input"
-      [ngClass]="{ 'panel-is-opened': realOpenState }"
+      [class.panel-is-opened]="realOpenState"
       [thySize]="size()"
       [tabindex]="-1"
       [class.thy-input-disabled]="disabled()"
@@ -31,11 +31,11 @@
       <thy-icon
         thyIconName="close-circle-bold-fill"
         (click)="onClickClear($event)"
-        ngClass="remove-link remove-link-{{ size() }}"></thy-icon>
+        class="remove-link remove-link-{{ size() }}"></thy-icon>
     }
   </span>
   <span class="{{ prefixCls }}-picker-icon">
-    <thy-icon [thyIconName]="suffixIcon()" ngClass="remove-link-{{ size() ? size() : 'default' }}"></thy-icon>
+    <thy-icon [thyIconName]="suffixIcon()" class="remove-link-{{ size() ? size() : 'default' }}"></thy-icon>
   </span>
 </ng-template>
 

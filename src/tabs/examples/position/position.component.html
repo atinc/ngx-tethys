@@ -1,6 +1,6 @@
 <thy-button-group thySize="sm" thyType="outline-default" class="mb-4">
   @for (item of ['top', 'left']; track $index) {
-    <button thyButton (click)="position = item" [ngClass]="{ active: position === item }">
+    <button thyButton (click)="position = item" [class.active]="position === item">
       {{ item }}
     </button>
   }

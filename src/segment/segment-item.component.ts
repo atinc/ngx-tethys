@@ -15,7 +15,7 @@ import { assertIconOnly, coerceBooleanProperty } from 'ngx-tethys/util';
 import { fromEvent } from 'rxjs';
 import { SafeAny } from 'ngx-tethys/types';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { NgClass } from '@angular/common';
+
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
@@ -30,7 +30,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
         class: 'thy-segment-item',
         '[class.disabled]': 'thyDisabled()'
     },
-    imports: [NgClass, ThyIcon]
+    imports: [ThyIcon]
 })
 export class ThySegmentItem implements IThySegmentItemComponent {
     elementRef = inject(ElementRef);

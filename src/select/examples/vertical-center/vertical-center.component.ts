@@ -5,7 +5,7 @@ import { ThyOption } from 'ngx-tethys/shared';
 import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
 import { FormsModule } from '@angular/forms';
 import { ThyDot } from 'ngx-tethys/dot';
-import { NgClass } from '@angular/common';
+
 import { ThyTag } from 'ngx-tethys/tag';
 import { ThyAvatar } from 'ngx-tethys/avatar';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -21,7 +21,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
             }
         `
     ],
-    imports: [ThySelect, ThyOption, ThyButtonGroup, FormsModule, ThyDot, NgClass, ThyTag, ThyAvatar, ThyIcon, ThyButton]
+    imports: [ThySelect, ThyOption, ThyButtonGroup, FormsModule, ThyDot, ThyTag, ThyAvatar, ThyIcon, ThyButton]
 })
 export class ThySelectVerticalCenterExampleComponent implements OnInit {
     listOfOption!: { value: string; text: string }[];

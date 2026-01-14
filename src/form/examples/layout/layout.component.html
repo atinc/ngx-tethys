@@ -2,7 +2,7 @@
   <span class="mr-2">From Layout:</span>
   <thy-button-group thySize="md" thyType="outline-default">
     @for (layout of layouts; track layout.value) {
-      <button thyButton (click)="updateLayout(layout)" [ngClass]="{ active: layout === currentLayout }">
+      <button thyButton (click)="updateLayout(layout)" [class.active]="layout === currentLayout">
         {{ layout.text }}
       </button>
     }

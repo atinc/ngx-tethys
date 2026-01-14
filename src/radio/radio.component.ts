@@ -1,5 +1,5 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { NgClass } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, forwardRef, inject, input, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyFormCheckBaseComponent } from 'ngx-tethys/shared';
@@ -24,7 +24,7 @@ import { IThyRadioComponent, THY_RADIO_GROUP_COMPONENT } from './radio.token';
         '[attr.tabindex]': `-1`
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [NgClass]
+    
 })
 export class ThyRadio extends ThyFormCheckBaseComponent implements IThyRadioComponent, OnInit {
     thyRadioGroupComponent = inject(THY_RADIO_GROUP_COMPONENT, { optional: true })!;

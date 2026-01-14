@@ -1,4 +1,4 @@
-import { NgClass } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
 import { ThyDatePicker, ThyMonthPicker, ThyQuarterPicker, ThyRangePicker, ThyYearPicker } from 'ngx-tethys/date-picker';
@@ -6,7 +6,7 @@ import { ThyDatePicker, ThyMonthPicker, ThyQuarterPicker, ThyRangePicker, ThyYea
 @Component({
     selector: 'thy-date-picker-size-example',
     templateUrl: './size.component.html',
-    imports: [ThyButtonGroup, ThyButton, NgClass, ThyDatePicker, ThyMonthPicker, ThyQuarterPicker, ThyYearPicker, ThyRangePicker]
+    imports: [ThyButtonGroup, ThyButton, ThyDatePicker, ThyMonthPicker, ThyQuarterPicker, ThyYearPicker, ThyRangePicker]
 })
 export class ThyDatePickerSizeExampleComponent {
     currentSize = 'default';

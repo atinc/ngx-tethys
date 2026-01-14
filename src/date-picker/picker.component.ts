@@ -14,7 +14,7 @@ import {
     viewChild,
     computed
 } from '@angular/core';
-import { NgClass, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { ThyI18nService } from 'ngx-tethys/i18n';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyInputDirective } from 'ngx-tethys/input';
@@ -33,7 +33,7 @@ import { SafeAny } from 'ngx-tethys/types';
     exportAs: 'thyPicker',
     templateUrl: './picker.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [CdkOverlayOrigin, ThyInputDirective, ThyEnterDirective, NgTemplateOutlet, ThyIcon, NgClass, CdkConnectedOverlay]
+    imports: [CdkOverlayOrigin, ThyInputDirective, ThyEnterDirective, NgTemplateOutlet, ThyIcon, CdkConnectedOverlay]
 })
 export class ThyPicker implements AfterViewInit {
     private changeDetector = inject(ChangeDetectorRef);

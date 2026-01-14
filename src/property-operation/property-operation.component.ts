@@ -22,7 +22,7 @@ import { takeUntil } from 'rxjs/operators';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
 import { ThyButtonIcon } from 'ngx-tethys/button';
-import { NgTemplateOutlet, NgClass } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 
 type ThyPropertyOperationTypes = 'primary' | 'success' | 'warning' | 'danger';
 
@@ -34,7 +34,7 @@ type ThyPropertyOperationTypes = 'primary' | 'success' | 'warning' | 'danger';
 @Component({
     selector: 'thy-property-operation',
     templateUrl: './property-operation.component.html',
-    imports: [NgTemplateOutlet, NgClass, ThyButtonIcon, ThyFlexibleText, ThyIcon]
+    imports: [NgTemplateOutlet, ThyButtonIcon, ThyFlexibleText, ThyIcon]
 })
 export class ThyPropertyOperation implements OnInit, AfterContentInit, OnDestroy {
     private thyTranslate = inject(ThyTranslate);

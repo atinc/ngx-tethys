@@ -1,4 +1,4 @@
-<div class="thy-menu-group-header" [ngClass]="{ 'thy-menu-group-collapsible': thyCollapsible() }" (click)="collapseGroup()">
+<div class="thy-menu-group-header" [class.thy-menu-group-collapsible]="thyCollapsible()" (click)="collapseGroup()">
   <div class="thy-menu-group-header-content">
     @if (headerContentTemplateRef()) {
       <ng-template [ngTemplateOutlet]="headerContentTemplateRef()"></ng-template>

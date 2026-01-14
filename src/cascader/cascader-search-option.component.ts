@@ -1,4 +1,4 @@
-import { NgClass, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, HostListener, OnInit, TemplateRef, ViewEncapsulation, input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyBreadcrumb, ThyBreadcrumbItem } from 'ngx-tethys/breadcrumb';
@@ -17,7 +17,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 
     selector: '[thy-cascader-search-option]',
     templateUrl: './cascader-search-option.component.html',
-    imports: [NgClass, ThyFlexibleText, ThyCheckbox, ThyBreadcrumb, ThyBreadcrumbItem, FormsModule, NgTemplateOutlet],
+    imports: [ThyFlexibleText, ThyCheckbox, ThyBreadcrumb, ThyBreadcrumbItem, FormsModule, NgTemplateOutlet],
     host: {
         class: 'thy-cascader-search-list-item px-4 d-flex align-items-center cursor-pointer',
         '[class.multiple]': 'multiple()',

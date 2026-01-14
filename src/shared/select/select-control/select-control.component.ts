@@ -27,7 +27,7 @@ import {
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
-import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { NgStyle, NgTemplateOutlet } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
@@ -47,7 +47,7 @@ export type SelectControlSize = 'xs' | 'sm' | 'md' | 'lg' | '';
     selector: 'thy-select-control,[thySelectControl]',
     templateUrl: './select-control.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [FormsModule, NgClass, NgStyle, ThyTag, NgTemplateOutlet, ThyIcon, ThyGridModule, ThyTooltipDirective, ThyFlexibleText],
+    imports: [FormsModule, NgStyle, ThyTag, NgTemplateOutlet, ThyIcon, ThyGridModule, ThyTooltipDirective, ThyFlexibleText],
     host: {
         '[class.select-control-borderless]': 'thyBorderless()'
     }

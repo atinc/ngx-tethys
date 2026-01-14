@@ -24,7 +24,7 @@
     <div thyFlex thyWrap="wrap" thyGap="4" thyAlignItems="center" class="w-100" #tagsContainer>
       @if (thyPreset() === 'tag') {
         @for (item of selectedTags(); track trackValue($index, item)) {
-          <div thyFlexItem class="custom-choice-item text-truncate" [ngClass]="{ hidden: $index > visibleTagCount() - 1 }">
+          <div thyFlexItem class="custom-choice-item text-truncate" [class.hidden]="$index > visibleTagCount() - 1">
             <ng-template
               [ngTemplateOutlet]="customDisplayTemplate()"
               [ngTemplateOutletContext]="{ $implicit: item.thyRawValue || item.thyValue || item }">
@@ -44,7 +44,7 @@
             thyFlexItem
             thyTag
             class="choice-item selected"
-            [ngClass]="{ disabled: thyDisabled() === true, hidden: $index > visibleTagCount() - 1 }"
+            [class]="{ disabled: thyDisabled() === true, hidden: $index > visibleTagCount() - 1 }"
             [thySize]="tagSize()">
             <div class="text-truncate h-100 d-flex align-items-center">
               @if (!customDisplayTemplate()) {
@@ -73,7 +73,7 @@
           class="choice-item max-tag-count-choice"
           thyTag
           [thySize]="tagSize()"
-          [ngClass]="{ disabled: thyDisabled() === true }"
+          [class.disabled]="thyDisabled() === true"
           [thyTooltip]="maxTagTooltip">
           <div class="text-truncate">+{{ collapsedSelectedTags()?.length }}</div>
         </div>

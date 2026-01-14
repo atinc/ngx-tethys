@@ -1,6 +1,6 @@
 <input
   class="form-check-input"
-  [ngClass]="{ 'form-check-indeterminate': thyIndeterminate(), 'form-check-no-label-text': !_labelText() }"
+  [class]="{ 'form-check-indeterminate': thyIndeterminate(), 'form-check-no-label-text': !_labelText() }"
   [checked]="_innerValue"
   (change)="change()"
   type="checkbox"

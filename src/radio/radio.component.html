@@ -6,7 +6,7 @@
   [attr.tabindex]="tabIndex"
   [disabled]="_disabled"
   [attr.name]="name"
-  [ngClass]="{ 'form-check-no-label-text': !_labelText() }" />
+  [class.form-check-no-label-text]="!_labelText()" />
 @if (_labelText()) {
   <span class="form-check-label">{{ _labelText() }}</span>
 }

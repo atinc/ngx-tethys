@@ -17,7 +17,7 @@
   <div class="thy-notify-main">
     <div class="thy-notify-title">{{ notifyConfig?.title }}</div>
     @if (notifyConfig?.detail || notifyConfig?.content) {
-      <div class="thy-notify-content" [ngClass]="{ 'thy-notify-content--extend': extendContentClass() }" (click)="extendContent()">
+      <div class="thy-notify-content" [class.thy-notify-content--extend]="extendContentClass()" (click)="extendContent()">
         @if (notifyConfig?.content) {
           @if (contentIsString()) {
             {{ notifyConfig?.content }}

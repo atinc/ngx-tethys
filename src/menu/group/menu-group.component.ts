@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ComponentType } from '@angular/cdk/portal';
-import { NgClass, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     Component,
@@ -57,7 +57,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
         '[class.has-icon]': 'thyShowIcon()'
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [NgClass, NgTemplateOutlet, ThyIcon]
+    imports: [NgTemplateOutlet, ThyIcon]
 })
 export class ThyMenuGroup implements OnInit {
     private popover = inject(ThyPopover);

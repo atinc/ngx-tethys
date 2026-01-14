@@ -1,4 +1,4 @@
-import { NgClass } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
@@ -8,7 +8,7 @@ import { TinyDate } from 'ngx-tethys/util';
 @Component({
     selector: 'thy-date-picker-format-example',
     templateUrl: './format.component.html',
-    imports: [ThyButtonGroup, ThyButton, NgClass, ThyDatePicker, FormsModule, ThyRangePicker]
+    imports: [ThyButtonGroup, ThyButton, ThyDatePicker, FormsModule, ThyRangePicker]
 })
 export class ThyDatePickerFormatExampleComponent {
     monthFormat = 'yyyy/MM';

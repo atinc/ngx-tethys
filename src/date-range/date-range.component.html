@@ -6,7 +6,7 @@
     href="javascript:;"
     (click)="openOptionalDateRangesMenu($event)"
     class="thy-date-range-text"
-    [ngClass]="{ 'thy-date-range-disabled': thyHiddenMenu() }">
+    [class.thy-date-range-disabled]="thyHiddenMenu()">
     @if (selectedDate?.key === 'custom') {
       {{ selectedDate?.begin | thyDatePickerFormat }}{{ separator() }}{{ selectedDate?.end | thyDatePickerFormat }}
     }
