@@ -19,7 +19,6 @@ import { ThyDateRangeModule } from 'ngx-tethys/date-range';
 import { ThyDialogModule } from 'ngx-tethys/dialog';
 import { ThyDividerModule } from 'ngx-tethys/divider';
 import { ThyDotModule } from 'ngx-tethys/dot';
-import { ThyDragDropModule } from 'ngx-tethys/drag-drop';
 import { ThyDropdownModule } from 'ngx-tethys/dropdown';
 import { ThyEmptyModule } from 'ngx-tethys/empty';
 import { ThyFlexibleTextModule } from 'ngx-tethys/flexible-text';
@@ -143,7 +142,6 @@ const TETHYS_MODULES = [
     ThyBreadcrumbModule,
     ThyArrowSwitcherModule,
     ThyFlexibleTextModule,
-    ThyDragDropModule,
     ThySelectCommonModule,
     ThySkeletonModule,
     ThyVoteModule,

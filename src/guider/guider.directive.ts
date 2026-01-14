@@ -1,5 +1,5 @@
 import { ThyGuiderManager } from './guider-manager';
-import { AfterViewInit, Directive, ElementRef, OnDestroy, OnInit, NgZone, inject, input } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, OnDestroy, OnInit, NgZone, inject, input, afterNextRender } from '@angular/core';
 import { take } from 'rxjs/operators';
 
 /**
@@ -21,9 +21,8 @@ export class ThyGuiderTargetDirective implements OnInit, OnDestroy, AfterViewIni
      */
     readonly target = input.required<string>({ alias: 'thyGuiderTarget' });
 
-    ngOnInit() {
-        this.guiderManager.addStepTarget(this.target(), this.el.nativeElement);
-        this.ngZone.onStable.pipe(take(1)).subscribe(() => {
+    constructor() {
+        afterNextRender(() => {
             const { key, guiderRef } = this.guiderManager.getActive();
             if (key === this.target()) {
                 const index = guiderRef.steps.findIndex(step => step.key === this.target());
@@ -32,6 +31,9 @@ export class ThyGuiderTargetDirective implements OnInit, OnDestroy, AfterViewIni
                 });
             }
         });
+    }
+    ngOnInit() {
+        this.guiderManager.addStepTarget(this.target(), this.el.nativeElement);
     }
 
     ngAfterViewInit() {}

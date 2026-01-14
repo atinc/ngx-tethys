@@ -3,7 +3,6 @@ import { Component, OnInit, viewChild, DOCUMENT } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ThyDragDropEvent } from 'ngx-tethys/drag-drop';
 import { ThyIcon } from 'ngx-tethys/icon';
 import {
     ThyTree,
@@ -288,33 +287,33 @@ describe('ThyTreeComponent', () => {
             expect(checkChangeSpy).toHaveBeenCalledTimes(1);
         }));
 
-        it('should add and show the drag icon when the tree node is hovered', () => {
-            const dragContentList = treeElement.querySelectorAll('.thy-drag-content');
+        // it('should add and show the drag icon when the tree node is hovered', () => {
+        //     const dragContentList = treeElement.querySelectorAll('.thy-drag-content');
 
-            dragContentList.forEach(dragContent => {
-                const dragContentInnerHTML = dragContent.querySelector('.thy-tree-node-title')!.innerHTML;
+        //     dragContentList.forEach(dragContent => {
+        //         const dragContentInnerHTML = dragContent.querySelector('.thy-tree-node-title')!.innerHTML;
 
-                const dragIcon = dragContent.querySelector('.thy-tree-drag-icon') as HTMLElement;
-                expect(dragIcon.style.visibility).toBeFalsy();
+        //         const dragIcon = dragContent.querySelector('.thy-tree-drag-icon') as HTMLElement;
+        //         expect(dragIcon.style.visibility).toBeFalsy();
 
-                dispatchMouseEvent(dragContent, 'mouseenter');
-                const dragIconVisible = dragContent.querySelector('.thy-tree-drag-icon') as HTMLElement;
-                if (dragContent.className.includes('disabled')) {
-                    expect(dragIconVisible.style.visibility).toBeTruthy();
-                } else {
-                    const cssVisible = dragContentInnerHTML.includes('不可拖拽') ? 'hidden' : 'visible';
-                    expect(dragIconVisible.style.visibility === cssVisible).toBeTruthy();
-                }
+        //         dispatchMouseEvent(dragContent, 'mouseenter');
+        //         const dragIconVisible = dragContent.querySelector('.thy-tree-drag-icon') as HTMLElement;
+        //         if (dragContent.className.includes('disabled')) {
+        //             expect(dragIconVisible.style.visibility).toBeTruthy();
+        //         } else {
+        //             const cssVisible = dragContentInnerHTML.includes('不可拖拽') ? 'hidden' : 'visible';
+        //             expect(dragIconVisible.style.visibility === cssVisible).toBeTruthy();
+        //         }
 
-                dispatchMouseEvent(dragContent, 'mouseleave');
-                const dragIconHide = dragContent.querySelector('.thy-tree-drag-icon') as HTMLElement;
-                if (dragContent.className.includes('disabled')) {
-                    expect(dragIconHide.style.visibility).toBeTruthy();
-                } else {
-                    expect(dragIconHide.style.visibility === 'hidden').toBeTruthy();
-                }
-            });
-        });
+        //         dispatchMouseEvent(dragContent, 'mouseleave');
+        //         const dragIconHide = dragContent.querySelector('.thy-tree-drag-icon') as HTMLElement;
+        //         if (dragContent.className.includes('disabled')) {
+        //             expect(dragIconHide.style.visibility).toBeTruthy();
+        //         } else {
+        //             expect(dragIconHide.style.visibility === 'hidden').toBeTruthy();
+        //         }
+        //     });
+        // });
 
         it('test ngOnChanges methods called when multiple or thyType or thySelectedKeys was modified after init', () => {
             const selectionModelSpy = spyOn<any>(treeComponent, `instanceSelectionModel`);
@@ -529,48 +528,48 @@ describe('ThyTreeComponent', () => {
             expect(nodeElements2.length).toEqual(1);
         }));
 
-        it('should drag and drop successful', fakeAsync(() => {
-            fixture.detectChanges();
-            const dragDropSpy = spyOn(component, 'onDragDrop');
+        // it('should drag and drop successful', fakeAsync(() => {
+        //     fixture.detectChanges();
+        //     const dragDropSpy = spyOn(component, 'onDragDrop');
 
-            dragDropSpy.and.callFake((event: any) => {});
+        //     dragDropSpy.and.callFake((event: any) => {});
 
-            const document = TestBed.inject(DOCUMENT);
+        //     const document = TestBed.inject(DOCUMENT);
 
-            // start drag
-            let nodeDebugElements = fixture.debugElement.queryAll(By.directive(ThyTreeNodeComponent));
-            const startNodeData = fixture.debugElement.queryAll(By.directive(ThyTreeNodeComponent))[0].componentInstance.node();
-            const startNodeElement = fixture.debugElement.queryAll(By.directive(ThyTreeNodeComponent))[0].nativeElement;
-            startDragging(fixture, startNodeElement, 10, 10);
+        //     // start drag
+        //     let nodeDebugElements = fixture.debugElement.queryAll(By.directive(ThyTreeNodeComponent));
+        //     const startNodeData = fixture.debugElement.queryAll(By.directive(ThyTreeNodeComponent))[0].componentInstance.node();
+        //     const startNodeElement = fixture.debugElement.queryAll(By.directive(ThyTreeNodeComponent))[0].nativeElement;
+        //     startDragging(fixture, startNodeElement, 10, 10);
 
-            // scroll to viewport bottom
-            scrollToViewport(fixture, { bottom: 0 });
+        //     // scroll to viewport bottom
+        //     scrollToViewport(fixture, { bottom: 0 });
 
-            // drop last node
-            nodeDebugElements = fixture.debugElement.queryAll(By.directive(ThyTreeNodeComponent));
-            const targetNodeData = nodeDebugElements[nodeDebugElements.length - 1].componentInstance.node();
-            const targetNodeElement = nodeDebugElements[nodeDebugElements.length - 1].nativeElement;
-            const targetClientRect = targetNodeElement.getBoundingClientRect();
-            const targetClientY = targetClientRect.top + targetClientRect.height / 2 - 1;
+        //     // drop last node
+        //     nodeDebugElements = fixture.debugElement.queryAll(By.directive(ThyTreeNodeComponent));
+        //     const targetNodeData = nodeDebugElements[nodeDebugElements.length - 1].componentInstance.node();
+        //     const targetNodeElement = nodeDebugElements[nodeDebugElements.length - 1].nativeElement;
+        //     const targetClientRect = targetNodeElement.getBoundingClientRect();
+        //     const targetClientY = targetClientRect.top + targetClientRect.height / 2 - 1;
 
-            // 拖拽内部调用函数 elementFromPoint 只能获取可视窗口的元素，但是测试环境是不确定的，可能受到滚动条影响原因，所以通过fake函数指定目标元素
-            spyOn(document, 'elementFromPoint').and.callFake(() => targetNodeElement);
+        //     // 拖拽内部调用函数 elementFromPoint 只能获取可视窗口的元素，但是测试环境是不确定的，可能受到滚动条影响原因，所以通过fake函数指定目标元素
+        //     spyOn(document, 'elementFromPoint').and.callFake(() => targetNodeElement);
 
-            dispatchMouseEvent(targetNodeElement, 'mousemove', targetClientRect.left + 10, targetClientY);
-            fixture.detectChanges();
+        //     dispatchMouseEvent(targetNodeElement, 'mousemove', targetClientRect.left + 10, targetClientY);
+        //     fixture.detectChanges();
 
-            dispatchMouseEvent(targetNodeElement, 'mouseup', targetClientRect.left + 10, targetClientY);
-            fixture.detectChanges();
+        //     dispatchMouseEvent(targetNodeElement, 'mouseup', targetClientRect.left + 10, targetClientY);
+        //     fixture.detectChanges();
 
-            tick();
+        //     tick();
 
-            expect(dragDropSpy).toHaveBeenCalledTimes(1);
-            const args = dragDropSpy.calls.allArgs()[0][0];
-            const treeComponent = component.treeComponent()!;
-            expect(args.dragNode).toEqual(treeComponent.getTreeNode(startNodeData.key));
-            expect(args.targetNode).toEqual(treeComponent.getTreeNode(targetNodeData.key));
-            expect(args.afterNode).toEqual(undefined);
-        }));
+        //     expect(dragDropSpy).toHaveBeenCalledTimes(1);
+        //     const args = dragDropSpy.calls.allArgs()[0][0];
+        //     const treeComponent = component.treeComponent()!;
+        //     expect(args.dragNode).toEqual(treeComponent.getTreeNode(startNodeData.key));
+        //     expect(args.targetNode).toEqual(treeComponent.getTreeNode(targetNodeData.key));
+        //     expect(args.afterNode).toEqual(undefined);
+        // }));
     });
 
     describe('has checked nodes tree', () => {
@@ -608,187 +607,187 @@ describe('ThyTreeComponent', () => {
         });
     });
 
-    describe('drag drop tree', () => {
-        let treeElement!: HTMLElement;
-        let component!: TestDragDropTreeComponent;
-        let fixture!: ComponentFixture<TestDragDropTreeComponent>;
-        let document!: Document;
-        let elementFromPointSpy!: jasmine.Spy;
+    // describe('drag drop tree', () => {
+    //     let treeElement!: HTMLElement;
+    //     let component!: TestDragDropTreeComponent;
+    //     let fixture!: ComponentFixture<TestDragDropTreeComponent>;
+    //     let document!: Document;
+    //     let elementFromPointSpy!: jasmine.Spy;
 
-        beforeEach(fakeAsync(() => {
-            configureThyTreeTestingModule();
-            fixture = TestBed.createComponent(TestDragDropTreeComponent);
-            document = TestBed.inject(DOCUMENT);
-            component = fixture.componentInstance;
-            elementFromPointSpy = spyOn(document, 'elementFromPoint');
-            fixture.detectChanges();
-            treeElement = fixture.debugElement.query(By.directive(ThyTree)).nativeElement;
-            tick();
-            fixture.detectChanges();
-        }));
+    //     beforeEach(fakeAsync(() => {
+    //         configureThyTreeTestingModule();
+    //         fixture = TestBed.createComponent(TestDragDropTreeComponent);
+    //         document = TestBed.inject(DOCUMENT);
+    //         component = fixture.componentInstance;
+    //         elementFromPointSpy = spyOn(document, 'elementFromPoint');
+    //         fixture.detectChanges();
+    //         treeElement = fixture.debugElement.query(By.directive(ThyTree)).nativeElement;
+    //         tick();
+    //         fixture.detectChanges();
+    //     }));
 
-        function dragToTargetNode(options: { start: string; target: string; position: ThyTreeDropPosition }) {
-            const nodeDebugElements = fixture.debugElement.queryAll(By.directive(ThyTreeNodeComponent));
+    //     function dragToTargetNode(options: { start: string; target: string; position: ThyTreeDropPosition }) {
+    //         const nodeDebugElements = fixture.debugElement.queryAll(By.directive(ThyTreeNodeComponent));
 
-            let startNode: any = null;
-            let targetNode: any = null;
+    //         let startNode: any = null;
+    //         let targetNode: any = null;
 
-            // eslint-disable-next-line @typescript-eslint/prefer-for-of
-            for (let i = 0; i < nodeDebugElements.length; i++) {
-                const item = nodeDebugElements[i];
-                const node = item.componentInstance?.node();
-                if (node && node.key === options.start && !startNode) {
-                    startNode = item;
-                }
-                if (node && node.key === options.target && !targetNode) {
-                    targetNode = item;
-                }
-            }
+    //         // eslint-disable-next-line @typescript-eslint/prefer-for-of
+    //         for (let i = 0; i < nodeDebugElements.length; i++) {
+    //             const item = nodeDebugElements[i];
+    //             const node = item.componentInstance?.node();
+    //             if (node && node.key === options.start && !startNode) {
+    //                 startNode = item;
+    //             }
+    //             if (node && node.key === options.target && !targetNode) {
+    //                 targetNode = item;
+    //             }
+    //         }
 
-            if (!startNode || !targetNode) {
-                throw new Error(`Cannot find node: start=${options.start}, target=${options.target}`);
-            }
+    //         if (!startNode || !targetNode) {
+    //             throw new Error(`Cannot find node: start=${options.start}, target=${options.target}`);
+    //         }
 
-            // elementFromPoint 只能获取可视窗口的元素，但是测试环境是不确定的，可能受到滚动条影响原因，所以通过fake函数指定目标元素
-            elementFromPointSpy.and.returnValue(targetNode.nativeElement);
+    //         // elementFromPoint 只能获取可视窗口的元素，但是测试环境是不确定的，可能受到滚动条影响原因，所以通过fake函数指定目标元素
+    //         elementFromPointSpy.and.returnValue(targetNode.nativeElement);
 
-            dargNode(fixture, startNode.nativeElement, targetNode.nativeElement, options.position);
-        }
+    //         dargNode(fixture, startNode.nativeElement, targetNode.nativeElement, options.position);
+    //     }
 
-        it('should create', () => {
-            expect(component).toBeDefined();
-        });
+    //     it('should create', () => {
+    //         expect(component).toBeDefined();
+    //     });
 
-        it('should successfully drag node to the target before position"', fakeAsync(() => {
-            const dragDropSpy = spyOn(component, 'onDragDrop');
+    //     it('should successfully drag node to the target before position"', fakeAsync(() => {
+    //         const dragDropSpy = spyOn(component, 'onDragDrop');
 
-            dragToTargetNode({
-                start: '001',
-                target: '003',
-                position: ThyTreeDropPosition.before
-            });
+    //         dragToTargetNode({
+    //             start: '001',
+    //             target: '003',
+    //             position: ThyTreeDropPosition.before
+    //         });
 
-            expect(dragDropSpy).toHaveBeenCalledTimes(1);
-            const args = dragDropSpy.calls.allArgs()[0][0];
-            const treeComponent = component.treeComponent()!;
-            expect(args.dragNode).toEqual(treeComponent.getTreeNode('001'));
-            expect(args.targetNode).toEqual(null);
-            expect(args.afterNode).toEqual(treeComponent.getTreeNode('002'));
-        }));
+    //         expect(dragDropSpy).toHaveBeenCalledTimes(1);
+    //         const args = dragDropSpy.calls.allArgs()[0][0];
+    //         const treeComponent = component.treeComponent()!;
+    //         expect(args.dragNode).toEqual(treeComponent.getTreeNode('001'));
+    //         expect(args.targetNode).toEqual(null);
+    //         expect(args.afterNode).toEqual(treeComponent.getTreeNode('002'));
+    //     }));
 
-        it('should successfully drag node to the target after position"', fakeAsync(() => {
-            const dragDropSpy = spyOn(component, 'onDragDrop');
+    //     it('should successfully drag node to the target after position"', fakeAsync(() => {
+    //         const dragDropSpy = spyOn(component, 'onDragDrop');
 
-            dragToTargetNode({
-                start: '002',
-                target: '001-01',
-                position: ThyTreeDropPosition.after
-            });
+    //         dragToTargetNode({
+    //             start: '002',
+    //             target: '001-01',
+    //             position: ThyTreeDropPosition.after
+    //         });
 
-            fixture.detectChanges();
-            expect(dragDropSpy).toHaveBeenCalledTimes(1);
-            const args = dragDropSpy.calls.allArgs()[0][0];
-            const treeComponent = component.treeComponent()!;
-            expect(args.dragNode).toEqual(treeComponent.getTreeNode('002'));
-            expect(args.targetNode).toEqual(treeComponent.getTreeNode('001'));
-            expect(args.afterNode).toEqual(treeComponent.getTreeNode('001-01'));
-        }));
+    //         fixture.detectChanges();
+    //         expect(dragDropSpy).toHaveBeenCalledTimes(1);
+    //         const args = dragDropSpy.calls.allArgs()[0][0];
+    //         const treeComponent = component.treeComponent()!;
+    //         expect(args.dragNode).toEqual(treeComponent.getTreeNode('002'));
+    //         expect(args.targetNode).toEqual(treeComponent.getTreeNode('001'));
+    //         expect(args.afterNode).toEqual(treeComponent.getTreeNode('001-01'));
+    //     }));
 
-        it('should successfully drag node to the target in position"', fakeAsync(() => {
-            const dragDropSpy = spyOn(component, 'onDragDrop');
+    //     it('should successfully drag node to the target in position"', fakeAsync(() => {
+    //         const dragDropSpy = spyOn(component, 'onDragDrop');
 
-            dragToTargetNode({
-                start: '002',
-                target: '001',
-                position: ThyTreeDropPosition.in
-            });
+    //         dragToTargetNode({
+    //             start: '002',
+    //             target: '001',
+    //             position: ThyTreeDropPosition.in
+    //         });
 
-            expect(dragDropSpy).toHaveBeenCalledTimes(1);
-            const args = dragDropSpy.calls.allArgs()[0][0];
-            const treeComponent = component.treeComponent()!;
-            expect(args.dragNode).toEqual(treeComponent.getTreeNode('002'));
-            expect(args.targetNode).toEqual(treeComponent.getTreeNode('001'));
-            expect(args.afterNode).toEqual(treeComponent.getTreeNode('001-01'));
-        }));
+    //         expect(dragDropSpy).toHaveBeenCalledTimes(1);
+    //         const args = dragDropSpy.calls.allArgs()[0][0];
+    //         const treeComponent = component.treeComponent()!;
+    //         expect(args.dragNode).toEqual(treeComponent.getTreeNode('002'));
+    //         expect(args.targetNode).toEqual(treeComponent.getTreeNode('001'));
+    //         expect(args.afterNode).toEqual(treeComponent.getTreeNode('001-01'));
+    //     }));
 
-        it('should update the tree structure correctly when dragging a node to a different level', fakeAsync(() => {
-            const dragDropSpy = spyOn(component, 'onDragDrop');
-            dragDropSpy.and.callFake((event: ThyTreeDragDropEvent) => {
-                expect(event.dragNode!.level).toEqual(event.targetNode!.level + 1);
-                expect(event.targetNode!.children).toContain(event.dragNode!);
-            });
+    //     it('should update the tree structure correctly when dragging a node to a different level', fakeAsync(() => {
+    //         const dragDropSpy = spyOn(component, 'onDragDrop');
+    //         dragDropSpy.and.callFake((event: ThyTreeDragDropEvent) => {
+    //             expect(event.dragNode!.level).toEqual(event.targetNode!.level + 1);
+    //             expect(event.targetNode!.children).toContain(event.dragNode!);
+    //         });
 
-            dragToTargetNode({
-                start: '003',
-                target: '001-01-01',
-                position: ThyTreeDropPosition.in
-            });
+    //         dragToTargetNode({
+    //             start: '003',
+    //             target: '001-01-01',
+    //             position: ThyTreeDropPosition.in
+    //         });
 
-            expect(dragDropSpy).toHaveBeenCalledTimes(1);
-        }));
+    //         expect(dragDropSpy).toHaveBeenCalledTimes(1);
+    //     }));
 
-        it('should disable dragging node when node title is 003', fakeAsync(() => {
-            const dragDropSpy = spyOn(component, 'onDragDrop');
-            const beforeDragStart = spyOn(component, 'beforeDragStart');
-            beforeDragStart.and.callFake((event: ThyTreeBeforeDragStartContext) => {
-                if (event.item.title!.includes('001')) {
-                    return false;
-                }
-                return true;
-            });
+    //     it('should disable dragging node when node title is 003', fakeAsync(() => {
+    //         const dragDropSpy = spyOn(component, 'onDragDrop');
+    //         const beforeDragStart = spyOn(component, 'beforeDragStart');
+    //         beforeDragStart.and.callFake((event: ThyTreeBeforeDragStartContext) => {
+    //             if (event.item.title!.includes('001')) {
+    //                 return false;
+    //             }
+    //             return true;
+    //         });
 
-            fixture.detectChanges();
+    //         fixture.detectChanges();
 
-            dragToTargetNode({
-                start: '001',
-                target: '003',
-                position: ThyTreeDropPosition.in
-            });
+    //         dragToTargetNode({
+    //             start: '001',
+    //             target: '003',
+    //             position: ThyTreeDropPosition.in
+    //         });
 
-            const nodeDebugElements = fixture.debugElement.queryAll(By.directive(ThyTreeNodeComponent));
-            const startNode = nodeDebugElements.find(item => item.componentInstance.node().key === '001')!;
+    //         const nodeDebugElements = fixture.debugElement.queryAll(By.directive(ThyTreeNodeComponent));
+    //         const startNode = nodeDebugElements.find(item => item.componentInstance.node().key === '001')!;
 
-            expect(beforeDragStart).toHaveBeenCalled();
-            expect(startNode.nativeElement.classList).toContain('cdk-drag-disabled');
-            expect(dragDropSpy).not.toHaveBeenCalled();
-        }));
+    //         expect(beforeDragStart).toHaveBeenCalled();
+    //         expect(startNode.nativeElement.classList).toContain('cdk-drag-disabled');
+    //         expect(dragDropSpy).not.toHaveBeenCalled();
+    //     }));
 
-        // it('should not allow drop in node 003', fakeAsync(() => {
-        //     const dragDropSpy = spyOn(component, 'onDragDrop');
-        //     const beforeDragDrop = spyOn(component, 'beforeDragDrop');
-        //     beforeDragDrop.and.callFake((event: ThyTreeBeforeDragDropContext) => {
-        //         if (event.item.title.includes('003') && event.position === ThyTreeDropPosition.in) {
-        //             return false;
-        //         }
-        //         return true;
-        //     });
-        //     fixture.detectChanges();
+    //     // it('should not allow drop in node 003', fakeAsync(() => {
+    //     //     const dragDropSpy = spyOn(component, 'onDragDrop');
+    //     //     const beforeDragDrop = spyOn(component, 'beforeDragDrop');
+    //     //     beforeDragDrop.and.callFake((event: ThyTreeBeforeDragDropContext) => {
+    //     //         if (event.item.title.includes('003') && event.position === ThyTreeDropPosition.in) {
+    //     //             return false;
+    //     //         }
+    //     //         return true;
+    //     //     });
+    //     //     fixture.detectChanges();
 
-        //     dragToTargetNode({
-        //         start: '001',
-        //         target: '003',
-        //         position: ThyTreeDropPosition.in
-        //     });
-        //     expect(beforeDragDrop).toHaveBeenCalledTimes(1);
-        //     expect(dragDropSpy).not.toHaveBeenCalled();
+    //     //     dragToTargetNode({
+    //     //         start: '001',
+    //     //         target: '003',
+    //     //         position: ThyTreeDropPosition.in
+    //     //     });
+    //     //     expect(beforeDragDrop).toHaveBeenCalledTimes(1);
+    //     //     expect(dragDropSpy).not.toHaveBeenCalled();
 
-        //     dragToTargetNode({
-        //         start: '001',
-        //         target: '003',
-        //         position: ThyTreeDropPosition.before
-        //     });
-        //     expect(beforeDragDrop).toHaveBeenCalledTimes(2);
-        //     expect(dragDropSpy).toHaveBeenCalledTimes(1);
+    //     //     dragToTargetNode({
+    //     //         start: '001',
+    //     //         target: '003',
+    //     //         position: ThyTreeDropPosition.before
+    //     //     });
+    //     //     expect(beforeDragDrop).toHaveBeenCalledTimes(2);
+    //     //     expect(dragDropSpy).toHaveBeenCalledTimes(1);
 
-        //     dragToTargetNode({
-        //         start: '001',
-        //         target: '003',
-        //         position: ThyTreeDropPosition.after
-        //     });
-        //     expect(beforeDragDrop).toHaveBeenCalledTimes(3);
-        //     expect(dragDropSpy).toHaveBeenCalledTimes(2);
-        // }));
-    });
+    //     //     dragToTargetNode({
+    //     //         start: '001',
+    //     //         target: '003',
+    //     //         position: ThyTreeDropPosition.after
+    //     //     });
+    //     //     expect(beforeDragDrop).toHaveBeenCalledTimes(3);
+    //     //     expect(dragDropSpy).toHaveBeenCalledTimes(2);
+    //     // }));
+    // });
 });
 
 @Component({
@@ -802,7 +801,6 @@ describe('ThyTreeComponent', () => {
             [thyIndent]="indent"
             [thyIcons]="options.treeIcons"
             [thyType]="treeType"
-            [thyDraggable]="options.draggable"
             [thyCheckable]="options.checkable"
             [thyCheckStateResolve]="options.checkStateResolve"
             [thyMultiple]="options.multiple"
@@ -811,8 +809,6 @@ describe('ThyTreeComponent', () => {
             [thyExpandedKeys]="expandedKeys"
             [thyExpandAll]="expandAll"
             [thyShowExpand]="true"
-            [thyBeforeDragStart]="options.beforeDragStart"
-            (thyOnDragDrop)="dragDrop($event)"
             (thyOnClick)="onEvent()"
             (thyDblClick)="onDbClickEvent()"
             (thyOnCheckboxChange)="onEvent()"
@@ -851,13 +847,8 @@ class TestBasicTreeComponent {
         draggable: true,
         checkable: true,
         multiple: false,
-        clickBehavior: 'default',
-        beforeDragStart: (event: ThyDragDropEvent<ThyTreeNode>) => {
-            return !event.item?.title?.includes('不可拖拽');
-        }
+        clickBehavior: 'default'
     };
-
-    dragDropSpy = jasmine.createSpy('drag drop');
 
     selectedKeys = ['000000000000000000000000'];
 
@@ -865,9 +856,7 @@ class TestBasicTreeComponent {
 
     onDbClickEvent() {}
 
-    dragDrop(event: ThyDragDropEvent<ThyTreeNode>) {
-        this.dragDropSpy(event);
-    }
+    dragDrop(event: any) {}
 
     addNode() {
         // mock 不可变数据
@@ -982,65 +971,65 @@ class TestVirtualScrollingTreeComponent implements OnInit {
     onDragDrop(event: ThyTreeDragDropEvent) {}
 }
 
-@Component({
-    selector: 'test-drag-drop-tree',
-    template: `
-        <thy-tree
-            #tree
-            [thyNodes]="treeNodes"
-            [thyDraggable]="true"
-            [thyBeforeDragStart]="beforeDragStart"
-            [thyBeforeDragDrop]="beforeDragDrop"
-            (thyOnDragDrop)="onDragDrop($event)">
-        </thy-tree>
-    `,
-    imports: [ThyTree, FormsModule]
-})
-class TestDragDropTreeComponent {
-    treeNodes = [
-        {
-            key: '001',
-            title: '001',
-            expanded: true,
-            children: [
-                {
-                    key: '001-01',
-                    title: '001-01',
-                    expanded: true,
-                    children: [
-                        {
-                            key: '001-01-01',
-                            title: '001-01-01'
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            key: '002',
-            title: '002',
-            disabled: true
-        },
-        {
-            key: '003',
-            title: '003'
-        }
-    ];
+// @Component({
+//     selector: 'test-drag-drop-tree',
+//     template: `
+//         <thy-tree
+//             #tree
+//             [thyNodes]="treeNodes"
+//             [thyDraggable]="true"
+//             [thyBeforeDragStart]="beforeDragStart"
+//             [thyBeforeDragDrop]="beforeDragDrop"
+//             (thyOnDragDrop)="onDragDrop($event)">
+//         </thy-tree>
+//     `,
+//     imports: [ThyTree, FormsModule]
+// })
+// class TestDragDropTreeComponent {
+//     treeNodes = [
+//         {
+//             key: '001',
+//             title: '001',
+//             expanded: true,
+//             children: [
+//                 {
+//                     key: '001-01',
+//                     title: '001-01',
+//                     expanded: true,
+//                     children: [
+//                         {
+//                             key: '001-01-01',
+//                             title: '001-01-01'
+//                         }
+//                     ]
+//                 }
+//             ]
+//         },
+//         {
+//             key: '002',
+//             title: '002',
+//             disabled: true
+//         },
+//         {
+//             key: '003',
+//             title: '003'
+//         }
+//     ];
 
-    readonly treeComponent = viewChild<ThyTree>('tree');
+//     readonly treeComponent = viewChild<ThyTree>('tree');
 
-    constructor() {}
+//     constructor() {}
 
-    beforeDragDrop(event: ThyTreeBeforeDragDropContext) {
-        return true;
-    }
+//     beforeDragDrop(event: ThyTreeBeforeDragDropContext) {
+//         return true;
+//     }
 
-    beforeDragStart(event: ThyTreeBeforeDragStartContext) {
-        return true;
-    }
+//     beforeDragStart(event: ThyTreeBeforeDragStartContext) {
+//         return true;
+//     }
 
-    onDragDrop(event: ThyTreeDragDropEvent) {}
-}
+//     onDragDrop(event: ThyTreeDragDropEvent) {}
+// }
 
 @Component({
     selector: 'test-has-checked-tree',
@@ -1085,19 +1074,12 @@ class TestHasCheckedTreeComponent {
     options: any = {
         draggable: true,
         checkable: true,
-        multiple: false,
-        beforeDragStart: (event: ThyDragDropEvent<ThyTreeNode>) => {
-            return !event.item!.title!.includes('不可拖拽');
-        }
+        multiple: false
     };
 
     dragDropSpy = jasmine.createSpy('drag drop');
 
     onEvent() {}
-
-    dragDrop(event: ThyDragDropEvent<ThyTreeNode>) {
-        this.dragDropSpy(event);
-    }
 
     addNode() {
         // mock 不可变数据

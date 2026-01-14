@@ -21,7 +21,7 @@
     </div>
   }
 </div>
-<div class="thy-collapse-content" [@collapseMotion]="thyActive() ? 'expanded' : 'hidden'">
+<div class="thy-collapse-content" thyAnimationCollapse [thyOpen]="thyActive()">
   <div class="thy-collapse-content-box">
     <ng-content></ng-content>
   </div>
