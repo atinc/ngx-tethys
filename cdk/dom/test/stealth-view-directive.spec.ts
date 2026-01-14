@@ -1,4 +1,4 @@
-import { Component, Injector, TemplateRef, viewChild, ViewChild, inject, afterRenderEffect } from '@angular/core';
+import { Component, TemplateRef, viewChild, afterRenderEffect } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { ThyStealthView, useStealthViewRenderer } from '@tethys/cdk/dom';
 
@@ -18,9 +18,7 @@ import { ThyStealthView, useStealthViewRenderer } from '@tethys/cdk/dom';
     imports: [ThyStealthView]
 })
 class ThyStealthViewDirectiveTestComponent {
-    private injector = inject(Injector);
-
-    @ViewChild(ThyStealthView, { static: true }) thyStealthView!: ThyStealthView;
+    private thyStealthView = viewChild.required<ThyStealthView>(ThyStealthView);
 
     templateRef = viewChild.required('testStealth', { read: TemplateRef });
 
@@ -32,7 +30,7 @@ class ThyStealthViewDirectiveTestComponent {
 
     constructor() {
         afterRenderEffect(() => {
-            this.nodesByDirective = this.thyStealthView.rootNodes;
+            this.nodesByDirective = this.thyStealthView().rootNodes;
             this.nodesByFunction = this.stealthViewRenderer.rootNodes;
         });
     }
