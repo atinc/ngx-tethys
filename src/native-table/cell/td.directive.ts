@@ -3,6 +3,8 @@ import { ThyNativeTableStyleService } from '../services/table-style.service';
 
 import { ThyNativeTableFixedInfo } from '../table.interface';
 
+/* eslint-disable @angular-eslint/component-selector */
+
 @Directive({
     selector: 'td',
     host: {
