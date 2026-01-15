@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ThyEmpty } from 'ngx-tethys/empty';
-import { ThyColDirective , ThyRowDirective } from 'ngx-tethys/grid';
+import { ThyColDirective, ThyRowDirective } from 'ngx-tethys/grid';
 
 @Component({
     selector: 'thy-empty-basic-example',

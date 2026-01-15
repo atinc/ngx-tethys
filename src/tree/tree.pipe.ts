@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { ThyTreeNode , ThyTreeBeforeDragStartContext } from './tree.class';
+import { ThyTreeNode, ThyTreeBeforeDragStartContext } from './tree.class';
 
 /**
  * @private

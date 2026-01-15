@@ -2,6 +2,53 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [21.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/20.0.6...21.0.0-next.0) (2026-01-14)
+
+
+### Bug Fixes
+
+* **nav:** fix ERROR TypeError: Cannot read properties of undefined (reading 'set') ([#3701](https://github.com/atinc/ngx-tethys/issues/3701)) ([b1554c5](https://github.com/atinc/ngx-tethys/commit/b1554c5da10720ad636d215d92aace93b4415a5f))
+
+
+### Features
+
+* add animations css variables ([#3692](https://github.com/atinc/ngx-tethys/issues/3692)) ([15c952f](https://github.com/atinc/ngx-tethys/commit/15c952f176031c4a2d760499464269b65481ef28))
+* **core, collapse:** add thyAnimationCollapse directive and refactor collapse animations TINFR-3387 ([#3696](https://github.com/atinc/ngx-tethys/issues/3696)) ([73c6421](https://github.com/atinc/ngx-tethys/commit/73c6421127361b427c633e3a301c34d6fc180a8f))
+* ng update v21 TINFR-3389 ([#3698](https://github.com/atinc/ngx-tethys/issues/3698)) ([8c23459](https://github.com/atinc/ngx-tethys/commit/8c234595e30a1753c99c132f30f6e5ba795128e4))
+* remove ThyDragDrop module #TINFR-2068 ([032a67a](https://github.com/atinc/ngx-tethys/commit/032a67ac080a2b00694b53802080e39218df10ea)), closes [#TINFR-2068](https://github.com/atinc/ngx-tethys/issues/TINFR-2068)
+
+
+### Reverts
+
+* **collapse): revert ”refactor(collapse:** use native css animation TINFR-3325“ ([#3691](https://github.com/atinc/ngx-tethys/issues/3691)) ([182d5d7](https://github.com/atinc/ngx-tethys/commit/182d5d72a92927287ccb04461be018584d9f270d))
+
+
+
+## [20.0.6](https://github.com/atinc/ngx-tethys/compare/20.0.5...20.0.6) (2026-01-09)
+
+
+### Reverts
+
+* **core:** revert collapseMotion ([9b004cf](https://github.com/atinc/ngx-tethys/commit/9b004cf1bcb20243f36a2ed2945c5f27ffe34e2d))
+
+
+
+## [20.0.5](https://github.com/atinc/ngx-tethys/compare/20.0.4...20.0.5) (2026-01-09)
+
+
+### Bug Fixes
+
+* **property:** fix property-item exit editing abnormal  #TINFR-3305 ([#3663](https://github.com/atinc/ngx-tethys/issues/3663)) ([534d5fa](https://github.com/atinc/ngx-tethys/commit/534d5faa05674754a4cb432caae45128a554af97)), closes [#TINFR-3305](https://github.com/atinc/ngx-tethys/issues/TINFR-3305)
+
+
+### Features
+
+* **inputnumber:** 调整有 thyPrecision 数据的情况下才进行输入限制#TINFR-3330 ([#3682](https://github.com/atinc/ngx-tethys/issues/3682)) ([1ea5059](https://github.com/atinc/ngx-tethys/commit/1ea50594dc8dee33d62c64bab549c16060f06712)), closes [#TINFR-3330](https://github.com/atinc/ngx-tethys/issues/TINFR-3330)
+* **native-table:** z内部支持测量宽度，不传入宽度时滚动同步 #TINFR-3277 ([9a1fed8](https://github.com/atinc/ngx-tethys/commit/9a1fed8262f05cc672957ef777a2c5000d4ec725)), closes [#TINFR-3277](https://github.com/atinc/ngx-tethys/issues/TINFR-3277)
+* **select:** use new Angular animate.enter and animate.leave APIs #TINFR-3312 ([#3665](https://github.com/atinc/ngx-tethys/issues/3665)) ([df00f61](https://github.com/atinc/ngx-tethys/commit/df00f61c30038065c927f49253936cd7e44c597a)), closes [#TINFR-3312](https://github.com/atinc/ngx-tethys/issues/TINFR-3312)
+
+
+
 ## [20.0.4](https://github.com/atinc/ngx-tethys/compare/20.0.3...20.0.4) (2025-12-31)
 
 

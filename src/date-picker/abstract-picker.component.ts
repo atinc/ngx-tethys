@@ -424,6 +424,6 @@ export abstract class AbstractPickerComponent
     }
 
     private setValueByPrecision(value: ThyCompatibleDate | number | Date | DateEntry | ThyDateRangeEntry | SafeAny): number | number[] {
-        return setValueByTimestampPrecision(value, this.isRange, this.thyTimestampPrecision(), this.thyTimeZone()) as number | number[] ;
+        return setValueByTimestampPrecision(value, this.isRange, this.thyTimestampPrecision(), this.thyTimeZone()) as number | number[];
     }
 }

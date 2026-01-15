@@ -47,7 +47,7 @@ const typeIconsMap: Record<string, string> = {
     imports: [ThyIcon, NgTemplateOutlet]
 })
 export class ThyAlert {
-    private hidden = false;
+    protected hidden = false;
 
     private hostRenderer = useHostRenderer();
 

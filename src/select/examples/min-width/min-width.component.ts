@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { listOfOption } from '../mock-data';
-import { THY_SELECT_CONFIG , ThySelect } from 'ngx-tethys/select';
+import { THY_SELECT_CONFIG, ThySelect } from 'ngx-tethys/select';
 import { ThyOption } from 'ngx-tethys/shared';
 import { FormsModule } from '@angular/forms';
 

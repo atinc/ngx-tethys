@@ -16,7 +16,7 @@ import {
     OnDestroy,
     ViewChild,
     inject,
-    EnvironmentInjector,
+    Injector,
     afterNextRender
 } from '@angular/core';
 
@@ -55,7 +55,7 @@ export class ThyPopoverContainer<TData = unknown> extends ThyAbstractOverlayCont
     private thyClickDispatcher = inject(ThyClickDispatcher);
     private contentObserver = inject(ContentObserver);
     private ngZone = inject(NgZone);
-    private injector = inject(EnvironmentInjector);
+    private injector = inject(Injector);
 
     @ViewChild(ThyPortalOutlet, { static: true })
     portalOutlet!: ThyPortalOutlet;

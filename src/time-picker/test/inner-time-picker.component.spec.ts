@@ -184,7 +184,7 @@ describe('ThyInnerTimePickerComponent', () => {
             const hoursContainer = getHoursContainer();
             const minutesContainer = getMinutesContainer();
             const secondsContainer = getSecondsContainer();
-            const defaultPlaceholder = `${hoursContainer.placeholder  }:${  minutesContainer.placeholder  }:${  secondsContainer.placeholder}`;
+            const defaultPlaceholder = `${hoursContainer.placeholder}:${minutesContainer.placeholder}:${secondsContainer.placeholder}`;
             expect(defaultPlaceholder).toEqual('HH:MM:SS');
 
             const placeholder = '小时:分钟:秒';
@@ -194,7 +194,7 @@ describe('ThyInnerTimePickerComponent', () => {
             fixture.detectChanges();
             flush();
             fixture.detectChanges();
-            const customPlaceholder = `${hoursContainer.placeholder  }:${  minutesContainer.placeholder  }:${  secondsContainer.placeholder}`;
+            const customPlaceholder = `${hoursContainer.placeholder}:${minutesContainer.placeholder}:${secondsContainer.placeholder}`;
             expect(customPlaceholder).toEqual(placeholder);
         }));
     });
@@ -448,7 +448,7 @@ describe('ThyInnerTimePickerComponent', () => {
     }
 
     function formatTimeForLess10(minOrSec: number): string {
-        return minOrSec < 10 ? `0${  minOrSec}` : minOrSec.toString();
+        return minOrSec < 10 ? `0${minOrSec}` : minOrSec.toString();
     }
 });
 

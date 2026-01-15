@@ -3,8 +3,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Observable, combineLatest, of } from 'rxjs';
 import { debounceTime, filter, map, startWith, switchMap } from 'rxjs/operators';
 
-/* eslint-disable @angular-eslint/directive-selector */
-
 @Component({
     selector: 'tr[thy-native-table-measure-row]',
     template: `

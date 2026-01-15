@@ -19,7 +19,7 @@ order: 0
 [![npm (scoped)](https://img.shields.io/npm/v/ngx-tethys?style=flat-square)](https://www.npmjs.com/package/ngx-tethys)
 
 ## 版本规则
-`ngx-tethys` 与 `@angular/core` 保持相同的主版本号，目前支持 Angular `^20.0.0` 版本。
+`ngx-tethys` 与 `@angular/core` 保持相同的主版本号，目前支持 Angular `^21.0.0` 版本。
 
 ## 依赖第三方库
 - Components Dev Kit (CDK)

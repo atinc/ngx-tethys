@@ -138,7 +138,7 @@ export class ThyTreeNode<T = any> {
         } else if (this.parentNode) {
             return this.parentNode.treeService;
         }
-        return ;
+        return;
     }
 
     constructor(node: ThyTreeNodeData, parent: ThyTreeNode | null = null, service?: IThyTreeService) {
