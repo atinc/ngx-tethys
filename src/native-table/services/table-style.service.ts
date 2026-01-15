@@ -66,7 +66,10 @@ export class ThyNativeTableStyleService {
         this.emptyOptions.set(emptyOptions);
     }
 
-    setListOfFixedInfo(headerColumns: ThyNativeTableThDirective[], fixedHeaderColumns: ThyNativeTableThFixedDirective[]): void {
+    setListOfFixedInfo(
+        headerColumns: readonly ThyNativeTableThDirective[],
+        fixedHeaderColumns: readonly ThyNativeTableThFixedDirective[]
+    ): void {
         if (headerColumns.length > 0 && fixedHeaderColumns.length > 0) {
             const allHeaderColumns = headerColumns;
 

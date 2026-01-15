@@ -1,28 +1,21 @@
 import { NgTemplateOutlet } from '@angular/common';
 import {
-    AfterContentInit,
     AfterViewInit,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
     ElementRef,
     OnInit,
-    QueryList,
     Renderer2,
     TemplateRef,
     ViewChild,
     inject,
-    DestroyRef,
-    signal,
-    effect
+    effect,
+    contentChildren,
+    computed
 } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { map, startWith } from 'rxjs/operators';
 
 import { ThyNativeTableStyleService } from '../services/table-style.service';
 import { ThyNativeTableTrDirective } from '../row/tr.directive';
-import { ThyNativeTableThDirective } from '../cell/th.directive';
-import { ThyNativeTableThFixedDirective } from '../cell/th-fixed.directive';
 
 /* eslint-disable @angular-eslint/component-selector */
 @Component({
@@ -38,9 +31,8 @@ import { ThyNativeTableThFixedDirective } from '../cell/th-fixed.directive';
     `,
     imports: [NgTemplateOutlet]
 })
-export class ThyNativeTableHeaderComponent implements AfterContentInit, AfterViewInit, OnInit {
+export class ThyNativeTableHeaderComponent implements AfterViewInit, OnInit {
     private styleService = inject(ThyNativeTableStyleService, { optional: true });
-    private destroyRef = inject(DestroyRef);
     private el: HTMLElement = inject(ElementRef<HTMLElement>).nativeElement;
     private renderer = inject(Renderer2);
 
@@ -48,14 +40,19 @@ export class ThyNativeTableHeaderComponent implements AfterContentInit, AfterVie
 
     @ViewChild('contentTemplate', { static: true }) templateRef!: TemplateRef<any>;
 
-    @ContentChildren(ThyNativeTableTrDirective, { descendants: true }) listOfTrDirective!: QueryList<ThyNativeTableTrDirective>;
+    readonly listOfTrDirective = contentChildren<ThyNativeTableTrDirective>(ThyNativeTableTrDirective);
 
-    @ContentChildren(ThyNativeTableThFixedDirective, { descendants: true })
-    listOfThFixedDirective!: QueryList<ThyNativeTableThFixedDirective>;
+    listOfThColumns = computed(() => {
+        const rows = this.listOfTrDirective();
+        const firstRow = rows[0];
+        return firstRow && firstRow.listOfThColumnsChanges();
+    });
 
-    listOfHeaderFixedColumnsChanges = signal<ThyNativeTableThFixedDirective[]>([]);
-
-    listOfHeaderColumnsChanges = signal<ThyNativeTableThDirective[]>([]);
+    listOfThFixedColumns = computed(() => {
+        const rows = this.listOfTrDirective();
+        const firstRow = rows[0];
+        return firstRow && firstRow.listOfThFixedColumnsChanges();
+    });
 
     ngOnInit(): void {
         if (this.styleService) {
@@ -64,7 +61,7 @@ export class ThyNativeTableHeaderComponent implements AfterContentInit, AfterVie
     }
     constructor() {
         effect(() => {
-            const listOfHeaderColumns = this.listOfHeaderColumnsChanges();
+            const listOfHeaderColumns = this.listOfThColumns();
             if (this.styleService) {
                 this.styleService.setListOfTh(listOfHeaderColumns);
             }
@@ -72,42 +69,20 @@ export class ThyNativeTableHeaderComponent implements AfterContentInit, AfterVie
 
         effect(() => {
             const enableAutoMeasureColumnWidth = this.styleService?.enableAutoMeasureColumnWidth();
-            if (enableAutoMeasureColumnWidth && this.listOfHeaderColumnsChanges().length > 0) {
-                this.styleService?.setListOfMeasureColumnKeys(this.listOfHeaderColumnsChanges());
+            if (enableAutoMeasureColumnWidth && this.listOfThColumns().length > 0) {
+                this.styleService?.setListOfMeasureColumnKeys(this.listOfThColumns());
             } else {
                 this.styleService?.setListOfMeasureColumnKeys([]);
             }
         });
 
         effect(() => {
-            const headerColumns = this.listOfHeaderColumnsChanges();
-            const listOfHeaderFixedColumns = this.listOfHeaderFixedColumnsChanges();
+            const headerColumns = this.listOfThColumns();
+            const listOfHeaderFixedColumns = this.listOfThFixedColumns();
             if (headerColumns.length > 0 && listOfHeaderFixedColumns.length > 0 && this.styleService) {
                 this.styleService.setListOfFixedInfo(headerColumns, listOfHeaderFixedColumns);
             }
         });
-    }
-
-    ngAfterContentInit(): void {
-        if (this.styleService) {
-            this.listOfTrDirective.changes
-                .pipe(
-                    startWith(this.listOfTrDirective),
-                    map(item => item && item.first),
-                    takeUntilDestroyed(this.destroyRef)
-                )
-                .subscribe(headerRow => {
-                    if (headerRow) {
-                        this.listOfHeaderColumnsChanges.set(headerRow.listOfColumnsChanges());
-                    }
-                });
-
-            this.listOfThFixedDirective.changes
-                .pipe(startWith(this.listOfThFixedDirective), takeUntilDestroyed(this.destroyRef))
-                .subscribe(() => {
-                    this.listOfHeaderFixedColumnsChanges.set(this.listOfThFixedDirective.toArray());
-                });
-        }
     }
 
     ngAfterViewInit(): void {
