@@ -4,7 +4,8 @@ import { map, startWith } from 'rxjs/operators';
 
 import { ThyNativeTableThDirective } from '../cell/th.directive';
 import { ThyNativeTableStyleService } from '../services/table-style.service';
-import { ThyNativeTableCellFixedDirective } from '../cell/cell-fixed.directive';
+import { ThyNativeTableThFixedDirective } from '../cell/th-fixed.directive';
+import { ThyNativeTableTdDirective } from '../cell/td.directive';
 
 /* eslint-disable @angular-eslint/directive-selector */
 @Directive({
@@ -18,11 +19,12 @@ export class ThyNativeTableTrDirective implements AfterContentInit {
     private styleService = inject(ThyNativeTableStyleService, { optional: true });
 
     @ContentChildren(ThyNativeTableThDirective) listOfThDirective!: QueryList<ThyNativeTableThDirective>;
-    @ContentChildren(ThyNativeTableCellFixedDirective) listOfCellFixedDirective!: QueryList<ThyNativeTableCellFixedDirective>;
+    @ContentChildren(ThyNativeTableThFixedDirective) listOfCellFixedDirective!: QueryList<ThyNativeTableThFixedDirective>;
+    @ContentChildren(ThyNativeTableTdDirective) listOfTdDirective!: QueryList<ThyNativeTableTdDirective>;
 
     private listOfColumns = signal<ThyNativeTableThDirective[]>([]);
-    private listOfFixedColumns = signal<ThyNativeTableCellFixedDirective[]>([]);
-
+    private listOfFixedColumns = signal<ThyNativeTableThFixedDirective[]>([]);
+    private listOfTd = signal<ThyNativeTableTdDirective[]>([]);
     public listOfColumnsChanges = computed(() => {
         const columns = this.listOfColumns();
         columns.forEach(c => c.changes());
@@ -82,6 +84,18 @@ export class ThyNativeTableTrDirective implements AfterContentInit {
             const listOfFixedRight = this.listOfFixedRightColumnChanges();
             listOfFixedRight.forEach(cell => cell.setIsFirstRight(cell === listOfFixedRight[0]));
         });
+
+        effect(() => {
+            const listOfTd = this.listOfTd();
+            if (listOfTd.length === 0) {
+                return;
+            }
+
+            for (let i = 0; i < listOfTd.length; i++) {
+                const td = listOfTd[i];
+                td.setLogicalColumnIndex(i);
+            }
+        });
     }
 
     ngAfterContentInit(): void {
@@ -99,6 +113,11 @@ export class ThyNativeTableTrDirective implements AfterContentInit {
                         this.listOfFixedColumns.set(this.listOfCellFixedDirective.toArray());
                     }
                 });
+            this.listOfTdDirective.changes.pipe(startWith(this.listOfTdDirective), takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+                if (this.listOfTdDirective.length > 0) {
+                    this.listOfTd.set(this.listOfTdDirective.toArray());
+                }
+            });
         }
     }
 }

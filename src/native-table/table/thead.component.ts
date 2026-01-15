@@ -22,6 +22,7 @@ import { map, startWith } from 'rxjs/operators';
 import { ThyNativeTableStyleService } from '../services/table-style.service';
 import { ThyNativeTableTrDirective } from '../row/tr.directive';
 import { ThyNativeTableThDirective } from '../cell/th.directive';
+import { ThyNativeTableThFixedDirective } from '../cell/th-fixed.directive';
 
 /* eslint-disable @angular-eslint/component-selector */
 @Component({
@@ -49,28 +50,40 @@ export class ThyNativeTableHeaderComponent implements AfterContentInit, AfterVie
 
     @ContentChildren(ThyNativeTableTrDirective, { descendants: true }) listOfTrDirective!: QueryList<ThyNativeTableTrDirective>;
 
-    listOfColumnsChanges = signal<ThyNativeTableThDirective[]>([]);
+    @ContentChildren(ThyNativeTableThFixedDirective, { descendants: true })
+    listOfThFixedDirective!: QueryList<ThyNativeTableThFixedDirective>;
+
+    listOfHeaderFixedColumnsChanges = signal<ThyNativeTableThFixedDirective[]>([]);
+
+    listOfHeaderColumnsChanges = signal<ThyNativeTableThDirective[]>([]);
 
     ngOnInit(): void {
         if (this.styleService) {
             this.styleService.setTheadTemplate(this.templateRef);
         }
     }
-
     constructor() {
         effect(() => {
-            const listOfColumns = this.listOfColumnsChanges();
+            const listOfHeaderColumns = this.listOfHeaderColumnsChanges();
             if (this.styleService) {
-                this.styleService.setListOfTh(listOfColumns);
+                this.styleService.setListOfTh(listOfHeaderColumns);
             }
         });
 
         effect(() => {
             const enableAutoMeasureColumnWidth = this.styleService?.enableAutoMeasureColumnWidth();
-            if (enableAutoMeasureColumnWidth && this.listOfColumnsChanges().length > 0) {
-                this.styleService?.setListOfMeasureColumnKeys(this.listOfColumnsChanges());
+            if (enableAutoMeasureColumnWidth && this.listOfHeaderColumnsChanges().length > 0) {
+                this.styleService?.setListOfMeasureColumnKeys(this.listOfHeaderColumnsChanges());
             } else {
                 this.styleService?.setListOfMeasureColumnKeys([]);
+            }
+        });
+
+        effect(() => {
+            const headerColumns = this.listOfHeaderColumnsChanges();
+            const listOfHeaderFixedColumns = this.listOfHeaderFixedColumnsChanges();
+            if (headerColumns.length > 0 && listOfHeaderFixedColumns.length > 0 && this.styleService) {
+                this.styleService.setListOfFixedInfo(headerColumns, listOfHeaderFixedColumns);
             }
         });
     }
@@ -85,8 +98,14 @@ export class ThyNativeTableHeaderComponent implements AfterContentInit, AfterVie
                 )
                 .subscribe(headerRow => {
                     if (headerRow) {
-                        this.listOfColumnsChanges.set(headerRow.listOfColumnsChanges());
+                        this.listOfHeaderColumnsChanges.set(headerRow.listOfColumnsChanges());
                     }
+                });
+
+            this.listOfThFixedDirective.changes
+                .pipe(startWith(this.listOfThFixedDirective), takeUntilDestroyed(this.destroyRef))
+                .subscribe(() => {
+                    this.listOfHeaderFixedColumnsChanges.set(this.listOfThFixedDirective.toArray());
                 });
         }
     }

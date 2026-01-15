@@ -17,8 +17,9 @@ import {
     ThyNativeTableTdEditOpenDirective,
     ThyNativeTableTdPopoverEditDirective
 } from './table-editable';
-import { ThyNativeTableCellFixedDirective } from './cell/cell-fixed.directive';
+import { ThyNativeTableThFixedDirective } from './cell/th-fixed.directive';
 import { ThyNativeTableTrMeasureComponent } from './row/tr-measure.component';
+import { ThyNativeTableTdDirective } from './cell/td.directive';
 
 const EDIT_COMPONENTS = [
     ThyNativeTableEditableDirective,
@@ -40,8 +41,9 @@ const EDIT_COMPONENTS = [
         ThyNativeTableTdSelectionComponent,
         ThyNativeTableThSelectionComponent,
         ThyNativeTableThSortComponent,
-        ThyNativeTableCellFixedDirective,
+        ThyNativeTableThFixedDirective,
         ThyNativeTableTrMeasureComponent,
+        ThyNativeTableTdDirective,
         ...EDIT_COMPONENTS
     ],
     exports: [
@@ -56,7 +58,8 @@ const EDIT_COMPONENTS = [
         ThyNativeTableTdSelectionComponent,
         ThyNativeTableThSelectionComponent,
         ThyNativeTableThSortComponent,
-        ThyNativeTableCellFixedDirective,
+        ThyNativeTableThFixedDirective,
+        ThyNativeTableTdDirective,
         ...EDIT_COMPONENTS
     ]
 })

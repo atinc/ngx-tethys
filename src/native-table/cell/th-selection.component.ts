@@ -1,35 +1,39 @@
-import { ChangeDetectionStrategy, Component, booleanAttribute, inject, input, output, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, booleanAttribute, inject, input, output, OnInit, computed } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { ThyCheckbox } from 'ngx-tethys/checkbox';
+import { ThyNativeTableHeaderCellCheckState } from '../table.interface';
 
 /* eslint-disable @angular-eslint/component-selector */
 @Component({
-    selector: 'th[thyHeaderCellChecked],th[thyHeaderCellCheckbox]',
+    selector: 'th[thyHeaderCell="checkbox"]',
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
         <label
             thyCheckbox
-            [ngModel]="thyHeaderCellChecked()"
+            [ngModel]="checked()"
             [thyDisabled]="thyDisabled()"
-            [thyIndeterminate]="thyIndeterminate()"
+            [thyIndeterminate]="indeterminate()"
             (ngModelChange)="onCheckedChange($event)"></label>
     `,
-    host: {
-        '[class.thy-native-table-selection-column]': 'thyHeaderCellCheckbox()'
-    },
+    host: {},
     imports: [FormsModule, ThyCheckbox]
 })
 export class ThyNativeTableThSelectionComponent<T> implements OnInit {
-    readonly thyHeaderCellCheckbox = input(true, { transform: booleanAttribute });
-
     readonly thyDisabled = input(false, { transform: booleanAttribute });
 
-    readonly thyHeaderCellChecked = input(false, { transform: booleanAttribute });
-
-    readonly thyIndeterminate = input(false, { transform: booleanAttribute });
+    readonly thyChecked = input<ThyNativeTableHeaderCellCheckState>(false);
 
     readonly thyCheckedChange = output<boolean>();
+
+    readonly checked = computed(() => {
+        if (this.thyChecked() === 'indeterminate') {
+            return false;
+        }
+        return this.thyChecked();
+    });
+
+    indeterminate = computed(() => this.thyChecked() === 'indeterminate');
 
     constructor() {}
 

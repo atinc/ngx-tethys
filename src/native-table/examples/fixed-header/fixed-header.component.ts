@@ -3,7 +3,6 @@ import { FormsModule } from '@angular/forms';
 import { ThyNativeTableModule } from 'ngx-tethys/native-table';
 import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
     selector: 'thy-native-table-fixed-header-example',
@@ -39,32 +38,7 @@ export class ThyNativeTableFixedHeaderExampleComponent implements OnInit {
         { id: 25, name: 'James', age: 26, job: 'Designer', address: 'Xian Economic Development Zone' }
     ];
 
-    selection = new SelectionModel<any>(true);
-
-    indeterminate = signal<boolean>(false);
-
-    checkedAll = signal<boolean>(false);
-
     constructor() {}
 
-    ngOnInit(): void {
-        this.selection.changed.subscribe(change => {
-            this.indeterminate.set(this.selection.selected.length > 0 && this.selection.selected.length < this.data.length);
-            this.checkedAll.set(this.selection.selected.length === this.data.length);
-        });
-    }
-
-    onCheckedAllChange(checked: boolean): void {
-        console.log('Checked all:', checked);
-        if (checked) {
-            this.selection.select(...this.data);
-        } else {
-            this.selection.clear();
-        }
-    }
-
-    onCheckedRowChange(checked: boolean, row: any): void {
-        console.log('Checked:', checked, row);
-        this.selection.toggle(row);
-    }
+    ngOnInit(): void {}
 }

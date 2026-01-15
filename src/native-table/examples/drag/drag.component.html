@@ -1,7 +1,6 @@
 <thy-native-table thyEditable #basicTable [thyData]="data">
   <thead>
     <tr>
-      <th thyHeaderCellCheckbox></th>
       <th thyWidth="100px">Id</th>
       <th thyWidth="100px">Name</th>
       <th thyWidth="200px" thySortable>Age</th>
@@ -12,18 +11,9 @@
   <tbody cdkDropList (cdkDropListDropped)="drop($event)">
     @for (row of basicTable.data(); track row.id) {
       <tr cdkDrag (dragstart)="onDragStart($event)">
-        <td thyCellCheckbox [thyDisabled]="row.id === 2"></td>
         <td>{{ row.id }}</td>
         <td>{{ row.name }}</td>
-        <td [thyCellPopoverEdit]="ageEdit">
-          <span thyEditOpen>{{ row.age }}</span>
-          <ng-template #ageEdit>
-            <div class="edit-panel">
-              <input thyInput [ngModel]="row.age" placeholder="Please type (thyInput)" (ngModelChange)="onSubmitAge($event, row)" />
-            </div>
-          </ng-template>
-        </td>
-
+        <td>{{ row.age }}</td>
         <td>{{ row.job }}</td>
         <td>{{ row.address }}</td>
       </tr>
