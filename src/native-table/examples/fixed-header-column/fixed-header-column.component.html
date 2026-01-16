@@ -1,13 +1,7 @@
 <thy-native-table #nativeTable [thyData]="data" [thyScroll]="{ x: '1500px', y: '300px' }">
   <thead>
     <tr>
-      <th
-        thyWidth="50px"
-        thyHeaderCellFixedLeft
-        [thyHeaderCellChecked]="checkedAll()"
-        [thyIndeterminate]="indeterminate()"
-        (thyCheckedChange)="onCheckedAllChange($event)"></th>
-      <th thyHeaderCellFixedLeft>Id</th>
+      <th thyFixedLeft>Id</th>
       <th>Name</th>
       <th>Age</th>
       <th>Job</th>
@@ -18,7 +12,7 @@
       <th>Address4</th>
       <th>Address5</th>
       <th>Address6</th>
-      <th thyWidth="100px" thyHeaderCellFixedRight>
+      <th thyWidth="100px" thyFixedRight>
         <thy-icon thyIconName="settings"></thy-icon>
       </th>
     </tr>
@@ -26,8 +20,7 @@
   <tbody>
     @for (row of nativeTable.data(); track row.id) {
       <tr>
-        <td thyCellFixedLeft [thyCellChecked]="selection.isSelected(row)" (thyCheckedChange)="onCheckedRowChange($event, row)"></td>
-        <td thyCellFixedLeft>{{ row.id }}</td>
+        <td>{{ row.id }}</td>
         <td>{{ row.name }}</td>
         <td>{{ row.age }}</td>
         <td>{{ row.job }}</td>
@@ -38,7 +31,7 @@
         <td>{{ row.name }}</td>
         <td>{{ row.name }}</td>
         <td>{{ row.name }}</td>
-        <td thyCellFixedRight>
+        <td>
           <a class="link-secondary mr-8" href="javascript:;">
             <thy-icon thyIconName="user-add"></thy-icon>
           </a>

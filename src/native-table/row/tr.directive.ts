@@ -1,10 +1,9 @@
-import { AfterContentInit, ContentChildren, DestroyRef, Directive, QueryList, computed, effect, inject, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { map, startWith } from 'rxjs/operators';
+import { Directive, computed, contentChildren, effect, inject } from '@angular/core';
 
 import { ThyNativeTableThDirective } from '../cell/th.directive';
 import { ThyNativeTableStyleService } from '../services/table-style.service';
-import { ThyNativeTableCellFixedDirective } from '../cell/cell-fixed.directive';
+import { ThyNativeTableThFixedDirective } from '../cell/th-fixed.directive';
+import { ThyNativeTableTdDirective } from '../cell/td.directive';
 
 /* eslint-disable @angular-eslint/directive-selector */
 @Directive({
@@ -13,42 +12,39 @@ import { ThyNativeTableCellFixedDirective } from '../cell/cell-fixed.directive';
         '[class.thy-native-table-row]': 'isInsideNativeTable'
     }
 })
-export class ThyNativeTableTrDirective implements AfterContentInit {
-    private destroyRef = inject(DestroyRef);
+export class ThyNativeTableTrDirective {
     private styleService = inject(ThyNativeTableStyleService, { optional: true });
 
-    @ContentChildren(ThyNativeTableThDirective) listOfThDirective!: QueryList<ThyNativeTableThDirective>;
-    @ContentChildren(ThyNativeTableCellFixedDirective) listOfCellFixedDirective!: QueryList<ThyNativeTableCellFixedDirective>;
+    readonly listOfThColumns = contentChildren<ThyNativeTableThDirective>(ThyNativeTableThDirective);
+    readonly listOfThFixedColumns = contentChildren<ThyNativeTableThFixedDirective>(ThyNativeTableThFixedDirective);
+    readonly listOfTdColumns = contentChildren<ThyNativeTableTdDirective>(ThyNativeTableTdDirective);
 
-    private listOfColumns = signal<ThyNativeTableThDirective[]>([]);
-    private listOfFixedColumns = signal<ThyNativeTableCellFixedDirective[]>([]);
-
-    public listOfColumnsChanges = computed(() => {
-        const columns = this.listOfColumns();
+    public listOfThColumnsChanges = computed(() => {
+        const columns = this.listOfThColumns();
         columns.forEach(c => c.changes());
         return columns;
     });
 
-    private listOfFixedColumnsChanges = computed(() => {
-        const fixedColumns = this.listOfFixedColumns();
+    public listOfThFixedColumnsChanges = computed(() => {
+        const fixedColumns = this.listOfThFixedColumns();
         fixedColumns.forEach(c => c.changes());
         return fixedColumns;
     });
 
-    listOfFixedLeftColumnChanges = computed(() => this.listOfFixedColumnsChanges().filter(item => item.thyFixedLeft()));
+    listOfThFixedLeftColumns = computed(() => this.listOfThFixedColumnsChanges().filter(item => item.thyFixedLeft()));
 
-    listOfFixedRightColumnChanges = computed(() => this.listOfFixedColumnsChanges().filter(item => item.thyFixedRight()));
+    listOfThFixedRightColumns = computed(() => this.listOfThFixedColumnsChanges().filter(item => item.thyFixedRight()));
 
     isInsideNativeTable = !!this.styleService;
 
     constructor() {
         effect(() => {
             const listOfWidth = this.styleService?.listOfColumnWidthPx();
-            const listOfLeftCell = this.listOfFixedLeftColumnChanges();
-            if (listOfLeftCell.length && listOfWidth && listOfWidth.length > 0) {
-                listOfLeftCell.forEach((cell, index) => {
+            const listOfThFixedLeftColumns = this.listOfThFixedLeftColumns();
+            if (listOfThFixedLeftColumns.length && listOfWidth && listOfWidth.length > 0) {
+                listOfThFixedLeftColumns.forEach((cell, index) => {
                     if (cell.thyFixedLeft()) {
-                        const currentArray = listOfLeftCell.slice(0, index);
+                        const currentArray = listOfThFixedLeftColumns.slice(0, index);
                         const count = currentArray.length;
                         const width = listOfWidth.slice(0, count).reduce((pre, cur) => pre + parseInt(cur ?? '0', 10), 0);
                         cell.setAutoLeftWidth(`${width}px`);
@@ -59,12 +55,15 @@ export class ThyNativeTableTrDirective implements AfterContentInit {
 
         effect(() => {
             const listOfWidth = this.styleService?.listOfColumnWidthPx();
-            const listOfRightCell = this.listOfFixedRightColumnChanges();
-            if (listOfRightCell.length && listOfWidth && listOfWidth.length > 0) {
-                listOfRightCell.forEach((_, index) => {
-                    const cell = listOfRightCell[listOfRightCell.length - index - 1];
+            const listOfThFixedRightColumns = this.listOfThFixedRightColumns();
+            if (listOfThFixedRightColumns.length && listOfWidth && listOfWidth.length > 0) {
+                listOfThFixedRightColumns.forEach((_, index) => {
+                    const cell = listOfThFixedRightColumns[listOfThFixedRightColumns.length - index - 1];
                     if (cell.thyFixedRight()) {
-                        const currentArray = listOfRightCell.slice(listOfRightCell.length - index, listOfRightCell.length);
+                        const currentArray = listOfThFixedRightColumns.slice(
+                            listOfThFixedRightColumns.length - index,
+                            listOfThFixedRightColumns.length
+                        );
                         const count = currentArray.length;
                         const width = listOfWidth
                             .slice(listOfWidth.length - count, listOfWidth.length)
@@ -76,29 +75,23 @@ export class ThyNativeTableTrDirective implements AfterContentInit {
         });
 
         effect(() => {
-            const listOfFixedLeft = this.listOfFixedLeftColumnChanges();
+            const listOfFixedLeft = this.listOfThFixedLeftColumns();
             listOfFixedLeft.forEach(cell => cell.setIsLastLeft(cell === listOfFixedLeft[listOfFixedLeft.length - 1]));
 
-            const listOfFixedRight = this.listOfFixedRightColumnChanges();
+            const listOfFixedRight = this.listOfThFixedRightColumns();
             listOfFixedRight.forEach(cell => cell.setIsFirstRight(cell === listOfFixedRight[0]));
         });
-    }
 
-    ngAfterContentInit(): void {
-        if (this.styleService) {
-            this.listOfThDirective.changes.pipe(startWith(this.listOfThDirective), takeUntilDestroyed(this.destroyRef)).subscribe(() => {
-                if (this.listOfThDirective.length > 0) {
-                    this.listOfColumns.set(this.listOfThDirective.toArray());
-                }
-            });
+        effect(() => {
+            const listOfTd = this.listOfTdColumns();
+            if (listOfTd.length === 0) {
+                return;
+            }
 
-            this.listOfCellFixedDirective.changes
-                .pipe(startWith(this.listOfCellFixedDirective), takeUntilDestroyed(this.destroyRef))
-                .subscribe(() => {
-                    if (this.listOfCellFixedDirective.length > 0) {
-                        this.listOfFixedColumns.set(this.listOfCellFixedDirective.toArray());
-                    }
-                });
-        }
+            for (let i = 0; i < listOfTd.length; i++) {
+                const td = listOfTd[i];
+                td.setLogicalColumnIndex(i);
+            }
+        });
     }
 }

@@ -1,13 +1,8 @@
-<thy-native-table #nativeTable [thyData]="data" thySize="md" thyTheme="default">
+<thy-native-table #nativeTable [thyData]="data" thySize="md" [thyScroll]="{ x: '100%' }">
   <thead>
     <tr>
-      <th
-        thyWidth="50px"
-        [thyHeaderCellChecked]="checkedAll()"
-        [thyIndeterminate]="indeterminate()"
-        (thyCheckedChange)="onCheckedAllChange($event)"></th>
       <th thyWidth="50px">Id</th>
-      <th thyWidth="100px">Name</th>
+      <th>Name</th>
       <th thyWidth="80px">Age</th>
       <th>Job</th>
       <th>Address</th>
@@ -17,7 +12,6 @@
   <tbody>
     @for (row of nativeTable.data(); track row.id) {
       <tr>
-        <td [thyCellChecked]="selection.isSelected(row)" (thyCheckedChange)="onCheckedRowChange($event, row)"></td>
         <td>{{ row.id }}</td>
         <td>{{ row.name }}</td>
         <td>{{ row.age }}</td>

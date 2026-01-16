@@ -1,27 +1,23 @@
-<thy-native-table #nativeTable [thyData]="data" [thyScroll]="{ x: '100%' }">
+<thy-native-table #nativeTable [thyData]="data" thySize="md" thyTheme="default">
   <thead>
     <tr>
-      <th thyWidth="100px" thyFixedLeft>Id</th>
-      <th thyWidth="200px">Name</th>
-      <th thyWidth="200px" thyFixedLeft>Age</th>
-      <th thyWidth="200px">Job</th>
-      <th thyWidth="300px">Address</th>
-      <th thyWidth="300px">Column1</th>
-      <th thyWidth="300px">Column2</th>
-      <th thyWidth="300px">Column3</th>
-      <th thyWidth="200px" thyFixedRight></th>
+      <th thyWidth="50px" thyHeaderCell="checkbox" [thyChecked]="checkedAll()" (thyCheckedChange)="onCheckedAllChange($event)"></th>
+      <th thyWidth="50px">Id</th>
+      <th thyWidth="100px">Name</th>
+      <th thyWidth="80px">Age</th>
+      <th>Job</th>
+      <th>Address</th>
+      <th thyWidth="100px"></th>
     </tr>
   </thead>
   <tbody>
     @for (row of nativeTable.data(); track row.id) {
       <tr>
+        <td thyCell="checkbox" [thyChecked]="selection.isSelected(row)" (thyCheckedChange)="onCheckedRowChange($event, row)"></td>
         <td>{{ row.id }}</td>
         <td>{{ row.name }}</td>
         <td>{{ row.age }}</td>
         <td>{{ row.job }}</td>
-        <td>{{ row.address }}</td>
-        <td>{{ row.address }}</td>
-        <td>{{ row.address }}</td>
         <td>{{ row.address }}</td>
         <td>
           <a class="link-secondary mr-8" href="javascript:;">

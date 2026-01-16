@@ -1,9 +1,9 @@
-import { Injectable, TemplateRef, signal, computed, InputSignal } from '@angular/core';
-import { BehaviorSubject, combineLatest, merge, ReplaySubject } from 'rxjs';
+import { Injectable, TemplateRef, signal, computed, InputSignal, QueryList } from '@angular/core';
 
-import { ThyNativeTableSize, ThyNativeTableTheme } from '../table.interface';
+import { ThyNativeTableFixedInfo, ThyNativeTableSize, ThyNativeTableTheme } from '../table.interface';
 import { ThyTableEmptyOptions } from 'ngx-tethys/table';
 import { ThyNativeTableThDirective } from '../cell/th.directive';
+import { ThyNativeTableThFixedDirective } from '../cell/th-fixed.directive';
 
 export interface ThyNativeTableThInfo {
     thyWidth?: InputSignal<string | number | null>;
@@ -44,6 +44,8 @@ export class ThyNativeTableStyleService {
         }
     });
 
+    listOfFixedInfo = signal<readonly ThyNativeTableFixedInfo[]>([]);
+
     setTheadTemplate(template: TemplateRef<any>): void {
         this.theadTemplate.set(template);
     }
@@ -62,6 +64,47 @@ export class ThyNativeTableStyleService {
 
     setEmptyOptions(emptyOptions: ThyTableEmptyOptions): void {
         this.emptyOptions.set(emptyOptions);
+    }
+
+    setListOfFixedInfo(
+        headerColumns: readonly ThyNativeTableThDirective[],
+        fixedHeaderColumns: readonly ThyNativeTableThFixedDirective[]
+    ): void {
+        if (headerColumns.length > 0 && fixedHeaderColumns.length > 0) {
+            const allHeaderColumns = headerColumns;
+
+            const fixedThElementMap = new Map<HTMLElement, ThyNativeTableThFixedDirective>();
+            for (const fixed of fixedHeaderColumns) {
+                fixedThElementMap.set(fixed.element, fixed);
+            }
+            const fixedInfo: ThyNativeTableFixedInfo[] = new Array(allHeaderColumns.length).fill(null).map(() => ({ fixed: null }));
+            let currentLogicalIndex = 0;
+            for (const th of allHeaderColumns) {
+                const thElement = th.el;
+                const fixedTh = thElement ? fixedThElementMap.get(thElement) : undefined;
+                if (fixedTh) {
+                    const isLastLeft = fixedTh.isLastLeft();
+                    const isFirstRight = fixedTh.isFirstRight();
+                    if (fixedTh.thyFixedLeft()) {
+                        fixedInfo[currentLogicalIndex] = {
+                            fixed: 'left',
+                            isLastLeft: isLastLeft,
+                            leftPx: fixedTh.fixedLeftWidth()
+                        };
+                    } else if (fixedTh.thyFixedRight()) {
+                        fixedInfo[currentLogicalIndex] = {
+                            fixed: 'right',
+                            isFirstRight: isFirstRight,
+                            rightPx: fixedTh.fixedRightWidth()
+                        };
+                    }
+                }
+                currentLogicalIndex += 1;
+            }
+            this.listOfFixedInfo.set(fixedInfo);
+        } else {
+            this.listOfFixedInfo.set([]);
+        }
     }
 
     setListOfTh(listOfTh: readonly ThyNativeTableThDirective[]): void {

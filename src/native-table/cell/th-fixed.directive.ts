@@ -1,7 +1,19 @@
-import { booleanAttribute, computed, Directive, ElementRef, inject, input, Input, OnChanges, Renderer2, signal } from '@angular/core';
+import {
+    booleanAttribute,
+    computed,
+    Directive,
+    ElementRef,
+    inject,
+    input,
+    Input,
+    linkedSignal,
+    OnChanges,
+    Renderer2,
+    signal
+} from '@angular/core';
 
 @Directive({
-    selector: 'td[thyCellFixedRight],th[thyHeaderCellFixedRight],td[thyCellFixedLeft],th[thyHeaderCellFixedLeft]',
+    selector: 'th[thyFixedRight],th[thyFixedLeft]',
     host: {
         '[class.thy-table-cell-fix-right]': `thyFixedRight()`,
         '[class.thy-table-cell-fix-left]': `thyFixedLeft()`,
@@ -10,26 +22,22 @@ import { booleanAttribute, computed, Directive, ElementRef, inject, input, Input
         '[style.position]': `isFixed() ? 'sticky' : null`
     }
 })
-export class ThyNativeTableCellFixedDirective {
+export class ThyNativeTableThFixedDirective {
     private renderer = inject(Renderer2);
 
-    private element: HTMLElement = inject(ElementRef<HTMLElement>).nativeElement;
+    public element: HTMLElement = inject(ElementRef<HTMLElement>).nativeElement;
 
-    readonly thyCellFixedRight = input(false, { transform: booleanAttribute });
+    readonly thyFixedRight = input(false, { transform: booleanAttribute });
 
-    readonly thyCellFixedLeft = input(false, { transform: booleanAttribute });
-
-    readonly thyHeaderCellFixedRight = input(false, { transform: booleanAttribute });
-
-    readonly thyHeaderCellFixedLeft = input(false, { transform: booleanAttribute });
-
-    public thyFixedLeft = computed(() => this.thyCellFixedLeft() || this.thyHeaderCellFixedLeft());
-
-    public thyFixedRight = computed(() => this.thyCellFixedRight() || this.thyHeaderCellFixedRight());
+    readonly thyFixedLeft = input(false, { transform: booleanAttribute });
 
     public isLastLeft = signal(false);
 
     public isFirstRight = signal(false);
+
+    public fixedLeftWidth = signal<string | null>(null);
+
+    public fixedRightWidth = signal<string | null>(null);
 
     public isFixed = computed(() => {
         return this.thyFixedLeft() || this.thyFixedRight();
@@ -40,10 +48,12 @@ export class ThyNativeTableCellFixedDirective {
     });
 
     setAutoLeftWidth(autoLeft: string | null): void {
+        this.fixedLeftWidth.set(autoLeft);
         this.renderer.setStyle(this.element, 'left', autoLeft);
     }
 
     setAutoRightWidth(autoRight: string | null): void {
+        this.fixedRightWidth.set(autoRight);
         this.renderer.setStyle(this.element, 'right', autoRight);
     }
 

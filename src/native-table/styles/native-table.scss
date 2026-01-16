@@ -109,6 +109,12 @@
             border-bottom: 0;
         }
     }
+    .thy-native-table-thead {
+        .thy-table-cell-fix-left,
+        .thy-table-cell-fix-right {
+            background-color: variables.$table-bordered-bg;
+        }
+    }
 
     @include tables.table-set-header(
         center,

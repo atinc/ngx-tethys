@@ -7,7 +7,7 @@ import { ThyNativeTableThInfo } from '../services/table-style.service';
 })
 export class ThyNativeTableThDirective implements ThyNativeTableThInfo {
     private renderer = inject(Renderer2);
-    private el: HTMLElement = inject(ElementRef<HTMLElement>).nativeElement;
+    public el: HTMLElement = inject(ElementRef<HTMLElement>).nativeElement;
 
     public changes = computed(() => {
         return !!(this.thyWidth() || this.thyColspan() || this.thyColSpan());
