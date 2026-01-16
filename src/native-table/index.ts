@@ -12,6 +12,7 @@ export * from './cell/td-selection.component';
 export * from './cell/th-selection.component';
 export * from './cell/th-sort.component';
 export * from './cell/th-fixed.directive';
+export * from './cell/td.directive';
 
 export * from './table/table.component';
 export * from './table/thead.component';
