@@ -110,9 +110,13 @@ export class ThyNativeTableComponent<T = any> implements OnInit {
         const classNames: string[] = [];
         if (this.thySize()) {
             classNames.push(`native-table-${this.thySize()}`);
+        } else {
+            classNames.push(`native-table-md`);
         }
         if (this.thyTheme()) {
             classNames.push(`native-table-${this.thyTheme()}`);
+        } else {
+            classNames.push(`native-table-default`);
         }
         if (this.elementRef.nativeElement) {
             this.updateHostClassService.updateClass(classNames);
