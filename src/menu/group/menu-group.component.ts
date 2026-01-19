@@ -1,4 +1,3 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ComponentType } from '@angular/cdk/portal';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import {
@@ -18,6 +17,7 @@ import {
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { ThyAnimationCollapseDirective } from 'ngx-tethys/core';
 
 /**
  * 菜单分组组件
@@ -27,37 +27,13 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 @Component({
     selector: 'thy-menu-group,[thy-menu-group],[thyMenuGroup]',
     templateUrl: './menu-group.component.html',
-    animations: [
-        trigger('detailsContentAnimation', [
-            state(
-                'void',
-                style({
-                    height: '*'
-                })
-            ),
-            state(
-                '1',
-                style({
-                    height: 0,
-                    overflow: 'hidden'
-                })
-            ),
-            state(
-                '0',
-                style({
-                    height: '*'
-                })
-            ),
-            transition('* => *', animate('0ms ease-out'))
-        ])
-    ],
     host: {
         '[class.thy-menu-group]': 'true',
         '[class.collapsed]': 'thyCollapsed()',
         '[class.has-icon]': 'thyShowIcon()'
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [NgClass, NgTemplateOutlet, ThyIcon]
+    imports: [NgClass, NgTemplateOutlet, ThyIcon, ThyAnimationCollapseDirective]
 })
 export class ThyMenuGroup implements OnInit {
     private popover = inject(ThyPopover);
