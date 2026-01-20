@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ThyIcon } from 'ngx-tethys/icon';
 
@@ -24,11 +24,11 @@ interface GlyphCategory {
 export class ThyIconAllExampleComponent implements OnInit {
     private http = inject(HttpClient);
 
-    glyphs!: GlyphCategory[];
+    glyphs = signal<GlyphCategory[]>([]);
 
     ngOnInit() {
         this.http.get<GlyphCategory[]>(`assets/icons/glyphs.json`).subscribe(data => {
-            this.glyphs = data;
+            this.glyphs.set(data);
         });
     }
 }
