@@ -1,5 +1,5 @@
-import { Component, signal, ViewChild } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { Component, DebugElement, signal, ViewChild } from '@angular/core';
+import { ComponentFixture, fakeAsync, flush, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyPage } from 'ngx-tethys/table';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
@@ -71,17 +71,17 @@ class ThyNativeTableTestComponent {
         return 'onPageChange is ok';
     }
 
-    onPageIndexChange() {}
+    onPageIndexChange() { }
 
-    onPageSizeChange() {}
+    onPageSizeChange() { }
 }
 
 describe('ThyNativeTable: basic', () => {
     let fixture!: ComponentFixture<ThyNativeTableTestComponent>;
     let testComponent!: ThyNativeTableTestComponent;
-    let tableComponent!: any;
+    let tableComponent!: DebugElement;
     let table!: HTMLElement;
-    let rows!: any;
+    let rows!: HTMLElement[];
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -213,17 +213,15 @@ class ThyNativeTableCheckboxTestComponent {
 
     checkedAll = signal<boolean>(false);
 
-    onCheckedAllChange(checked: boolean): void {
-        console.log('Checked all:', checked);
-    }
+    onCheckedAllChange(checked: boolean): void { }
 
-    onCheckedRowChange(): void {}
+    onCheckedRowChange(): void { }
 }
 
 describe('ThyNativeTable: checkbox', () => {
     let fixture!: ComponentFixture<ThyNativeTableCheckboxTestComponent>;
     let testComponent!: ThyNativeTableCheckboxTestComponent;
-    let tableComponent!: any;
+    let tableComponent!: DebugElement;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -257,7 +255,7 @@ describe('ThyNativeTable: checkbox', () => {
         const checkboxThSpy = spyOn(testComponent, 'onCheckedAllChange');
         checkboxTh.click();
         fixture.detectChanges();
-        tick(500);
+        flush();
         fixture.detectChanges();
         expect(checkboxThSpy).toHaveBeenCalled();
     }));
@@ -268,7 +266,7 @@ describe('ThyNativeTable: checkbox', () => {
         const checkboxTdSpy = spyOn(testComponent, 'onCheckedRowChange');
         checkboxTd.click();
         fixture.detectChanges();
-        tick(500);
+        flush();
         fixture.detectChanges();
         expect(checkboxTdSpy).toHaveBeenCalled();
     }));
@@ -322,7 +320,7 @@ class ThyNativeTableFixedTestComponent {
 
 describe('ThyNativeTable: fixed', () => {
     let fixture!: ComponentFixture<ThyNativeTableFixedTestComponent>;
-    let tableComponent!: any;
+    let tableComponent!: DebugElement;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
