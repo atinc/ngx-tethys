@@ -8,6 +8,10 @@
     max-width: 100%;
     color: variables.$table-color;
     background-color: variables.$table-bg;
+    table {
+        border-collapse: separate;
+        border-spacing: 0;
+    }
 
     th,
     td {
@@ -66,6 +70,7 @@
     }
     .thy-table-cell-fix-left-last::after {
         right: 30px;
+        width: 31px;
     }
     .thy-table-cell-fix-right-first::before {
         left: -30px;
@@ -96,26 +101,19 @@
 }
 
 .native-table-bordered {
-    border: variables.$table-border-width solid variables.$table-border-color;
-
-    th,
-    td {
-        border: variables.$table-border-width solid variables.$table-border-color;
-    }
-
-    &:has(+ .thy-table-skeleton) > thead {
-        // 有骨架屏去掉 thead 的 border-bottom，否则会和 table 的边框重叠加粗
-        tr th {
-            border-bottom: 0;
-        }
-    }
     .thy-native-table-thead {
         .thy-table-cell-fix-left,
         .thy-table-cell-fix-right {
             background-color: variables.$table-bordered-bg;
         }
     }
-
+    .thy-native-table-wrapper {
+        border: variables.$table-border-width solid variables.$table-border-color;
+        th,
+        td {
+            border-right: variables.$table-border-width solid variables.$table-border-color;
+        }
+    }
     @include tables.table-set-header(
         center,
         middle,
@@ -129,27 +127,22 @@
 }
 
 .native-table-boxed {
-    border: variables.$table-border-width solid variables.$table-border-color;
+    .thy-native-table-thead {
+        .thy-table-cell-fix-left,
+        .thy-table-cell-fix-right {
+            background-color: variables.$table-bordered-bg;
+        }
+    }
+    .thy-native-table-wrapper {
+        border: variables.$table-border-width solid variables.$table-border-color;
+        border-radius: variables.$table-boxed-border-radius;
+    }
 
     tbody {
-        // 最后一行去掉 border-bottom，否则会和 table 的边框重叠加粗
         tr:last-child {
             td {
                 border-bottom: 0px;
             }
-        }
-    }
-
-    &:has(+ .thy-table-skeleton) {
-        // 有骨架屏 给table只设置上左边框的border-radius
-        border-radius: 0 !important;
-        border-top-left-radius: variables.$border-radius !important;
-    }
-
-    &:has(+ .thy-table-skeleton) > thead {
-        // 有骨架屏去掉 thead 的 border-bottom，否则会和 table 的边框重叠加粗
-        tr th {
-            border-bottom: 0;
         }
     }
 

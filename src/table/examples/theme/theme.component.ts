@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { ThyRadioGroup } from 'ngx-tethys/radio';
+import { ThyRadio, ThyRadioGroup } from 'ngx-tethys/radio';
 import { ThyTable, ThyTableColumnComponent, ThyTableTheme } from 'ngx-tethys/table';
 
 @Component({
     selector: 'thy-table-theme-example',
     templateUrl: './theme.component.html',
-    imports: [ThyTable, ThyTableColumnComponent, ThyIcon, ThyRadioGroup, FormsModule]
+    imports: [ThyTable, ThyTableColumnComponent, ThyIcon, ThyRadioGroup, ThyRadio, FormsModule]
 })
 export class ThyTableThemeExampleComponent implements OnInit {
     data = [
@@ -18,9 +18,9 @@ export class ThyTableThemeExampleComponent implements OnInit {
 
     theme: ThyTableTheme = 'default';
 
-    constructor() {}
+    constructor() { }
 
-    ngOnInit(): void {}
+    ngOnInit(): void { }
 
     deleteItem(item: { id: number; name: string }) {
         console.log(`delete item(${item.id}, name: ${item.name}) successfully`);
