@@ -36,33 +36,44 @@ export class ThyAnimationCollapseDirective {
      */
     readonly thyOpen = input(false, { transform: coerceBooleanProperty });
 
+    /**
+     * 折叠时的类名，用于隐藏元素
+     */
+    readonly thyLeavedClassName = input<string>('');
+
     private firstRender = signal(true);
 
     constructor() {
         effect(cleanup => {
             const open = this.thyOpen();
             const element = this.elementRef.nativeElement;
+            const leavedClassName = this.thyLeavedClassName();
+
+            if (open && leavedClassName) {
+                element.classList.remove(leavedClassName);
+            }
 
             if (this.firstRender()) {
                 // Avoid using animations on the first load to prevent page flickering or bouncing.
                 if (open) {
                     element.style.height = 'auto';
-                    element.style.opacity = '1';
                 } else {
                     element.style.height = coerceCssPixelValue(0);
-                    element.style.opacity = '0';
+                    if (leavedClassName) {
+                        element.classList.add(leavedClassName);
+                    }
                 }
             } else {
                 /**
-                 * | open  | animation stage | height       | opacity |
-                 * | ----  | --------------- | ------------ | ------- |
-                 * | true  | before          | 0            |    1    |
-                 * | true  | active          | scrollHeight |    1    |
-                 * | true  | end             | auto         |    1    |
+                 * | open  | animation stage | height       |
+                 * | ----  | --------------- | ------------ |
+                 * | true  | before          | 0            |
+                 * | true  | active          | scrollHeight |
+                 * | true  | end             | auto         |
                  *
-                 * | false | before          | scrollHeight |    0    |
-                 * | false | active          | 0            |    0    |
-                 * | false | end             | 0            |    0    |
+                 * | false | before          | scrollHeight |
+                 * | false | active          | 0            |
+                 * | false | end             | 0            |
                  */
                 element.classList.add(THY_ANIMATION_COLLAPSE_CLASS);
 
@@ -72,7 +83,6 @@ export class ThyAnimationCollapseDirective {
                         if (!element) return;
                         const scrollHeight = this.calculateScrollHeight(element);
                         element.style.height = coerceCssPixelValue(scrollHeight);
-                        element.style.opacity = '1';
                     });
 
                     cleanup(() => {
@@ -85,7 +95,6 @@ export class ThyAnimationCollapseDirective {
                     const requestAnimationFrameId = requestAnimationFrame(() => {
                         if (!element) return;
                         element.style.height = coerceCssPixelValue(0);
-                        element.style.opacity = '0';
                     });
 
                     cleanup(() => {
@@ -117,6 +126,8 @@ export class ThyAnimationCollapseDirective {
         // Set height to auto after transition end, so that it's height can be changed along with content.
         if (this.thyOpen()) {
             this.elementRef.nativeElement.style.height = 'auto';
+        } else if (this.thyLeavedClassName()) {
+            this.elementRef.nativeElement.classList.add(this.thyLeavedClassName());
         }
 
         this.elementRef.nativeElement.classList.remove(THY_ANIMATION_COLLAPSE_CLASS);

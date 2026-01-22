@@ -111,6 +111,9 @@
 
         .thy-menu-group-body {
             margin-left: variables.$menu-group-margin-left;
+            &.thy-menu-group-body-leaved {
+                display: none;
+            }
         }
 
         &.has-icon {
