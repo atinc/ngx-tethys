@@ -1,4 +1,4 @@
-import { Component, viewChild } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ThyResizableDirective, ThyResizeHandles, ThyResizeEvent } from 'ngx-tethys/resizable';
 
 @Component({
@@ -8,13 +8,14 @@ import { ThyResizableDirective, ThyResizeHandles, ThyResizeEvent } from 'ngx-tet
     imports: [ThyResizableDirective, ThyResizeHandles]
 })
 export class ThyResizableBasicExampleComponent {
-    width = 400;
-    height = 200;
-    disabled = false;
-    readonly directive = viewChild(ThyResizableDirective);
+    width = signal<number>(400);
+
+    height = signal<number>(200);
+
+    disabled = signal<boolean>(false);
 
     onResize({ width, height }: ThyResizeEvent): void {
-        this.width = width!;
-        this.height = height!;
+        this.width.set(width!);
+        this.height.set(height!);
     }
 }

@@ -1,4 +1,10 @@
-<div class="box" thyResizable [style.height.px]="height" [style.width.px]="width" thyLockAspectRatio="true" (thyResize)="onResize($event)">
+<div
+  class="box"
+  thyResizable
+  [style.height.px]="height()"
+  [style.width.px]="width()"
+  thyLockAspectRatio="true"
+  (thyResize)="onResize($event)">
   <thy-resize-handles></thy-resize-handles>
   content
 </div>

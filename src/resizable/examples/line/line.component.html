@@ -1,7 +1,7 @@
 <div class="container">
-  <div thyResizable class="left" (thyResize)="onResize($event)" [style.width.px]="width">
+  <div thyResizable class="left" (thyResize)="onResize($event)" [style.width.px]="width()">
     Left
-    <thy-resize-handles (dblclick)="reset()" [thyDirections]="directions" thyLine="true"></thy-resize-handles>
+    <thy-resize-handles (dblclick)="reset()" [thyDirections]="directions()" thyLine="true"></thy-resize-handles>
   </div>
   <div class="right">Right</div>
 </div>

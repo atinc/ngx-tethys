@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ThyColDirective, ThyRowDirective } from 'ngx-tethys/grid';
 import { ThyResizableDirective, ThyResizeEvent, ThyResizeHandles } from 'ngx-tethys/resizable';
 
@@ -9,9 +9,9 @@ import { ThyResizableDirective, ThyResizeEvent, ThyResizeHandles } from 'ngx-tet
     imports: [ThyResizableDirective, ThyResizeHandles, ThyColDirective, ThyRowDirective]
 })
 export class ThyResizableGridExampleComponent {
-    col = 8;
+    col = signal<number>(8);
 
     onResize({ col }: ThyResizeEvent): void {
-        this.col = col!;
+        this.col.set(col!);
     }
 }

@@ -7,9 +7,9 @@
     [thyMinColumn]="3"
     [thyMaxColumn]="20"
     [thyGridColumnCount]="24"
-    [thySpan]="col">
+    [thySpan]="col()">
     <thy-resize-handles [thyDirections]="['right']"></thy-resize-handles>
-    col-{{ col }}
+    col-{{ col() }}
   </div>
-  <div class="col col-right" thyCol [thySpan]="24 - col">col-{{ 24 - col }}</div>
+  <div class="col col-right" thyCol [thySpan]="24 - col()">col-{{ 24 - col() }}</div>
 </div>
