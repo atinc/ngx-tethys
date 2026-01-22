@@ -1,6 +1,6 @@
 import { Mention, MentionSuggestionSelectEvent, ThyMentionDirective } from 'ngx-tethys/mention';
 import { ThyInputDirective } from 'ngx-tethys/input';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 const mockUsers = [
@@ -31,7 +31,7 @@ const mockUsers = [
     templateUrl: './basic.component.html',
     imports: [ThyMentionDirective, FormsModule, ThyInputDirective]
 })
-export class ThyMentionBasicExampleComponent implements OnInit {
+export class ThyMentionBasicExampleComponent {
     value = ``;
 
     mentions: Mention[] = [
@@ -41,18 +41,14 @@ export class ThyMentionBasicExampleComponent implements OnInit {
         }
     ];
 
-    @ViewChild(ThyMentionDirective) mention: ThyMentionDirective;
-
-    constructor() {}
-
-    ngOnInit(): void {}
+    mention = viewChild<ThyMentionDirective>(ThyMentionDirective);
 
     selectSuggestion(event: MentionSuggestionSelectEvent) {
         console.log(event);
     }
 
     onEnter(event: KeyboardEvent) {
-        if (!this.mention.isOpened) {
+        if (!this.mention()?.isOpened) {
             console.log(event);
         }
     }
