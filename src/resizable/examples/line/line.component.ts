@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { ThyResizableDirective, ThyResizeEvent, ThyResizeHandles } from 'ngx-tethys/resizable';
+import { Component, signal } from '@angular/core';
+import { ThyResizableDirective, ThyResizeEvent, ThyResizeHandles, ThyResizeDirection } from 'ngx-tethys/resizable';
 
 @Component({
     selector: 'thy-resizable-line-example',
@@ -8,15 +8,15 @@ import { ThyResizableDirective, ThyResizeEvent, ThyResizeHandles } from 'ngx-tet
     imports: [ThyResizableDirective, ThyResizeHandles]
 })
 export class ThyResizableLineExampleComponent {
-    width = 200;
+    width = signal<number>(200);
 
-    directions = ['right'];
+    directions = signal<ThyResizeDirection[]>(['right']);
 
     onResize(event: ThyResizeEvent): void {
-        this.width = event.width;
+        this.width.set(event.width!);
     }
 
     reset() {
-        this.width = 200;
+        this.width.set(200);
     }
 }

@@ -5,8 +5,8 @@
   [thyMinWidth]="80"
   [thyMaxHeight]="200"
   [thyMinHeight]="80"
-  [style.height.px]="height"
-  [style.width.px]="width"
+  [style.height.px]="height()"
+  [style.width.px]="width()"
   (thyResize)="onResize($event)">
   <thy-resize-handle thyDirection="bottomRight">
     <thy-icon class="bottom-right" thyIconName="caret-right-down"></thy-icon>

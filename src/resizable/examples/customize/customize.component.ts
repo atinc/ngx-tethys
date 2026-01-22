@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ThyResizableDirective, ThyResizeEvent, ThyResizeHandle } from 'ngx-tethys/resizable';
 import { ThyIcon } from 'ngx-tethys/icon';
 
@@ -9,11 +9,11 @@ import { ThyIcon } from 'ngx-tethys/icon';
     imports: [ThyResizableDirective, ThyResizeHandle, ThyIcon]
 })
 export class ThyResizableCustomizeExampleComponent {
-    width = 400;
-    height = 200;
+    width = signal<number>(400);
+    height = signal<number>(200);
 
     onResize({ width, height }: ThyResizeEvent): void {
-        this.width = width!;
-        this.height = height!;
+        this.width.set(width!);
+        this.height.set(height!);
     }
 }

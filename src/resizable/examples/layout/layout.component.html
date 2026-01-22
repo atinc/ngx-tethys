@@ -3,15 +3,15 @@
   <thy-layout>
     <thy-sidebar
       thyResizable
-      [thyWidth]="sidebarWidth"
-      [thyMinWidth]="sidebarMinWidth"
+      [thyWidth]="sidebarWidth()"
+      [thyMinWidth]="sidebarMinWidth()"
       [thyMaxWidth]="500"
-      [thyCollapsible]="isCollapsible"
-      [thyCollapsed]="isCollapsed"
+      [thyCollapsible]="isCollapsible()"
+      [thyCollapsed]="isCollapsed()"
       (thyResize)="onSideResize($event)"
       (thyResizeEnd)="resizeEnd($event)"
       (thyResizeStart)="resizeStart($event)"
-      [thyCollapsedWidth]="collapsedWidth"
+      [thyCollapsedWidth]="collapsedWidth()"
       (thyCollapsedChange)="collapsedChange($event)">
       <thy-resize-handle thyDirection="right">
         <div class="sidebar-resize-line"></div>
@@ -22,7 +22,7 @@
       <div
         thyResizable
         class="resizable-box"
-        [style.height.px]="contentHeight"
+        [style.height.px]="contentHeight()"
         [thyMaxHeight]="300"
         [thyMinHeight]="50"
         (thyResize)="onContentResize($event)">

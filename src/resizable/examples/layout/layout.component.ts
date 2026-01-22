@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ThyResizableDirective, ThyResizeEvent, ThyResizeHandle } from 'ngx-tethys/resizable';
 import { ThyHeader, ThySidebar, ThyContent, ThyLayout } from 'ngx-tethys/layout';
 
@@ -9,40 +9,40 @@ import { ThyHeader, ThySidebar, ThyContent, ThyLayout } from 'ngx-tethys/layout'
     imports: [ThyResizableDirective, ThyResizeHandle, ThyLayout, ThyHeader, ThySidebar, ThyContent]
 })
 export class ThyResizableLayoutExampleComponent {
-    sidebarWidth = 120;
+    sidebarWidth = signal<number>(120);
 
-    contentHeight = 200;
+    contentHeight = signal<number>(200);
 
-    isCollapsible = true;
+    isCollapsible = signal<boolean>(true);
 
-    isCollapsed = false;
+    isCollapsed = signal<boolean>(false);
 
-    sidebarMinWidth = 80;
+    sidebarMinWidth = signal<number>(80);
 
-    collapsedWidth = 80;
+    collapsedWidth = signal<number>(80);
 
     originWidth!: number;
 
     resizeEnd({ width }: ThyResizeEvent) {
-        this.isCollapsed = width! > this.sidebarMinWidth ? false : true;
-        if (this.isCollapsed) {
-            this.sidebarWidth = this.originWidth;
+        this.isCollapsed.set(width! > this.sidebarMinWidth()! ? false : true);
+        if (this.isCollapsed()) {
+            this.sidebarWidth.set(this.originWidth!);
         }
     }
 
     onSideResize({ width }: ThyResizeEvent): void {
-        this.sidebarWidth = width!;
+        this.sidebarWidth.set(width!);
     }
 
     onContentResize({ height }: ThyResizeEvent): void {
-        this.contentHeight = height!;
+        this.contentHeight.set(height!);
     }
 
     resizeStart(event: ThyResizeEvent) {
-        this.originWidth = this.sidebarWidth;
+        this.originWidth = this.sidebarWidth();
     }
 
     collapsedChange(isCollapsed: boolean) {
-        this.isCollapsed = isCollapsed;
+        this.isCollapsed.set(isCollapsed);
     }
 }

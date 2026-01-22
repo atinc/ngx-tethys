@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ThyResizableDirective, ThyResizeEvent, ThyResizeHandles } from 'ngx-tethys/resizable';
 
 @Component({
@@ -8,11 +8,11 @@ import { ThyResizableDirective, ThyResizeEvent, ThyResizeHandles } from 'ngx-tet
     imports: [ThyResizableDirective, ThyResizeHandles]
 })
 export class ThyResizableLockAspectRatioExampleComponent {
-    width = 400;
-    height = 200;
+    width = signal<number>(400);
+    height = signal<number>(200);
 
     onResize({ width, height }: ThyResizeEvent): void {
-        this.width = width!;
-        this.height = height!;
+        this.width.set(width!);
+        this.height.set(height!);
     }
 }
