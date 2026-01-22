@@ -81,11 +81,11 @@
     [thyDragMaxWidth]="700"
     [thyCollapsible]="true"
     [(thyCollapsed)]="collapsed"
-    [thyCollapsedWidth]="collapsedWidth"
-    [thyTrigger]="trigger"
+    [thyCollapsedWidth]="collapsedWidth()"
+    [thyTrigger]="trigger()"
     (thyCollapsedChange)="collapsedChange($event)">
     Sidebar with collapsible
-    @if (collapsed) {
+    @if (collapsed()) {
       <a href="javascript:;" (click)="toggleCollapsed()">Expand</a>
     }
   </thy-sidebar>
@@ -98,12 +98,12 @@
     [thyDragMaxWidth]="700"
     [thyCollapsible]="true"
     [(thyCollapsed)]="rightCollapsed"
-    [thyCollapsedWidth]="collapsedWidth"
-    [thyTrigger]="trigger"
+    [thyCollapsedWidth]="collapsedWidth()"
+    [thyTrigger]="trigger()"
     [thyDirection]="'right'"
     (thyCollapsedChange)="collapsedChange($event)">
     Sidebar position right
-    @if (rightCollapsed) {
+    @if (rightCollapsed()) {
       <a href="javascript:;" (click)="toggleRightCollapsed()">Expand</a>
     }
   </thy-sidebar>
@@ -122,7 +122,7 @@
     class="p-2"
     [thyCollapsible]="true"
     [(thyCollapsed)]="triggerCollapsed"
-    [thyCollapsedWidth]="collapsedWidth"
+    [thyCollapsedWidth]="collapsedWidth()"
     [thyTrigger]="customTpl">
     Sidebar custom trigger
   </thy-sidebar>
@@ -130,5 +130,5 @@
 </thy-layout>
 
 <ng-template #customTpl>
-  <thy-icon class="sidebar-collapse-icon" [thyIconName]="triggerCollapsed ? 'arrow-right' : 'arrow-left'"></thy-icon>
+  <thy-icon class="sidebar-collapse-icon" [thyIconName]="triggerCollapsed() ? 'arrow-right' : 'arrow-left'"></thy-icon>
 </ng-template>
