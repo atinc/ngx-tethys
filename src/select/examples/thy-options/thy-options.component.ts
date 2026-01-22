@@ -17,7 +17,7 @@ export class ThyOptionsExampleComponent implements OnInit {
 
     value = '';
 
-    multipleValue = signal<Array<string>>([]);
+    multipleValue: Array<string> = [];
 
     loading = signal(false);
 
