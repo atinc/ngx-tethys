@@ -3,11 +3,11 @@
     class="mr-3"
     [thyVote]="'primary-weak'"
     [thyVoteCount]="vote_count"
-    [thyHasVoted]="has_voted"
+    [thyHasVoted]="has_voted()"
     thySize="sm"
     (click)="toggleVote($event)">
   </thy-vote>
-  <thy-vote class="mr-3" [thyVote]="'primary-weak'" [thyVoteCount]="vote_count" [thyHasVoted]="has_voted" (click)="toggleVote($event)">
+  <thy-vote class="mr-3" [thyVote]="'primary-weak'" [thyVoteCount]="vote_count" [thyHasVoted]="has_voted()" (click)="toggleVote($event)">
   </thy-vote>
 </div>
 <div class="mt-3">
@@ -16,14 +16,14 @@
     class="mr-3 ml-3"
     [thyVote]="'success-weak'"
     [thyVoteCount]="vote_count"
-    [thyHasVoted]="has_voted"
+    [thyHasVoted]="has_voted()"
     [thySize]="'sm'"
     [thyRound]="true"
     (click)="toggleVote($event)"></thy-vote>
   <thy-vote
     [thyVote]="'success-weak'"
     [thyVoteCount]="vote_count1"
-    [thyHasVoted]="has_voted"
+    [thyHasVoted]="has_voted()"
     [thyRound]="true"
     (click)="toggleVote($event)"></thy-vote>
 </div>
@@ -33,7 +33,7 @@
     [thyVote]="'success-weak'"
     [thyLayout]="'vertical'"
     [thyVoteCount]="vote_count"
-    [thyHasVoted]="has_voted"
+    [thyHasVoted]="has_voted()"
     thySize="sm"
     (click)="toggleVote($event)"></span>
   <span
@@ -41,6 +41,6 @@
     [thyVote]="'success-weak'"
     [thyLayout]="'vertical'"
     [thyVoteCount]="vote_count"
-    [thyHasVoted]="has_voted"
+    [thyHasVoted]="has_voted()"
     (click)="toggleVote($event)"></span>
 </div>

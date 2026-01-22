@@ -3,7 +3,7 @@
   <thy-vote
     class="mr-3 ml-3"
     [thyVoteCount]="vote_count"
-    [thyHasVoted]="has_voted"
+    [thyHasVoted]="has_voted()"
     [thySize]="'sm'"
     thyIcon="star"
     (click)="toggleVote($event)"></thy-vote>
@@ -11,14 +11,14 @@
     class="mr-3"
     [thyVote]="'primary-weak'"
     [thyVoteCount]="vote_count"
-    [thyHasVoted]="has_voted"
+    [thyHasVoted]="has_voted()"
     [thySize]="'sm'"
     thyIcon="bell"
     (click)="toggleVote($event)"></thy-vote>
   <thy-vote
     [thyVote]="'success-weak'"
     [thyVoteCount]="vote_count1"
-    [thyHasVoted]="has_voted"
+    [thyHasVoted]="has_voted()"
     [thyRound]="true"
     thyIcon="app-bulletin"
     (click)="toggleVote($event)"></thy-vote>
@@ -29,7 +29,7 @@
   <thy-vote
     class="mr-3 ml-3"
     [thyVoteCount]="vote_count"
-    [thyHasVoted]="has_voted"
+    [thyHasVoted]="has_voted()"
     [thyRound]="true"
     thySize="sm"
     (click)="toggleVote($event)">
@@ -41,7 +41,7 @@
     class="mr-3"
     [thyVote]="'primary-weak'"
     [thyVoteCount]="vote_count"
-    [thyHasVoted]="has_voted"
+    [thyHasVoted]="has_voted()"
     [thyRound]="true"
     thySize="sm"
     (click)="toggleVote($event)">
@@ -53,7 +53,7 @@
     class="mr-3"
     [thyVote]="'success-weak'"
     [thyVoteCount]="vote_count"
-    [thyHasVoted]="has_voted"
+    [thyHasVoted]="has_voted()"
     [thyRound]="true"
     (click)="toggleVote($event)">
     <ng-template #voteIcon>
