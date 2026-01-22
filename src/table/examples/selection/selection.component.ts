@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, WritableSignal, inject, signal } from '@angular/core';
 import { ThyMultiSelectEvent, ThyTable, ThyTableColumnComponent } from 'ngx-tethys/table';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { of } from 'rxjs';
@@ -22,12 +22,12 @@ export class ThyTableSelectionExampleComponent implements OnInit {
         { id: 5, name: 'Jill', age: 22, job: 'DevOps', address: 'Hangzhou' }
     ];
 
-    selections: { id: number; name: string }[] = [];
+    selections: WritableSignal<{ id: number; name: string }[]> = signal([]);
 
-    updating = false;
+    updating = signal<boolean>(false);
 
     ngOnInit(): void {
-        this.selections = [this.data[0]];
+        this.selections.set([this.data[0]]);
     }
 
     deleteItem(item: { id: number; name: string }) {
@@ -35,17 +35,17 @@ export class ThyTableSelectionExampleComponent implements OnInit {
     }
 
     onMultiSelectChange($event: ThyMultiSelectEvent) {
-        this.selections = $event.rows;
+        this.selections.set($event.rows);
     }
 
     updateItems() {
-        this.updating = true;
+        this.updating.set(true);
         of(this.selections)
             .pipe(delay(1000))
             .subscribe(items => {
-                this.updating = false;
-                this.selections = [];
-                this.notifyService.success(`update users(${items.map(item => item.name)}) successfully.`);
+                this.updating.set(false);
+                this.selections.set([]);
+                this.notifyService.success(`update users(${items().map(item => item.name)}) successfully.`);
             });
     }
 }

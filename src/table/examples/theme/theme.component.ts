@@ -18,9 +18,9 @@ export class ThyTableThemeExampleComponent implements OnInit {
 
     theme: ThyTableTheme = 'default';
 
-    constructor() { }
+    constructor() {}
 
-    ngOnInit(): void { }
+    ngOnInit(): void {}
 
     deleteItem(item: { id: number; name: string }) {
         console.log(`delete item(${item.id}, name: ${item.name}) successfully`);
