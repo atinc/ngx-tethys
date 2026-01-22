@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import {
     ThyHeaderDirective,
     ThyLayoutDirective,
@@ -25,9 +25,9 @@ import { ThyResizableDirective, ThyResizeEvent, ThyResizeHandle } from 'ngx-teth
     ]
 })
 export class ThyLayoutDirectiveExampleComponent {
-    sidebarWidth = 240;
+    sidebarWidth = signal<number>(240);
 
     onSideResize({ width }: ThyResizeEvent): void {
-        this.sidebarWidth = width;
+        this.sidebarWidth.set(width!);
     }
 }

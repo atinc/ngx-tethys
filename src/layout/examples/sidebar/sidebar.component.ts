@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, model, signal } from '@angular/core';
 import { ThyContent, ThyLayout, ThySidebarHeader, ThySidebarContent, ThySidebarFooter, ThySidebar } from 'ngx-tethys/layout';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyAction } from 'ngx-tethys/action';
@@ -21,39 +21,29 @@ import { ThyNav, ThyNavItemDirective } from 'ngx-tethys/nav';
         ThyAction
     ]
 })
-export class ThyLayoutSidebarExampleComponent implements OnInit {
-    isolated = false;
+export class ThyLayoutSidebarExampleComponent {
+    collapsedWidth = signal<number>(90);
 
-    collapsedWidth = 90;
+    trigger = signal<undefined | null>(undefined);
 
-    width = '';
+    collapsed = model<boolean>(false);
 
-    trigger: undefined | null = undefined;
+    rightCollapsed = model<boolean>(false);
 
-    @ViewChild('customTpl', { read: TemplateRef, static: true }) customTpl: TemplateRef<unknown> | undefined;
-
-    collapsed = false;
-
-    rightCollapsed = false;
-
-    triggerCollapsed = false;
-
-    constructor() {}
-
-    ngOnInit(): void {}
+    triggerCollapsed = model<boolean>(false);
 
     collapsedChange(collapsed: boolean) {
-        this.trigger = collapsed ? null : undefined;
+        this.trigger.set(collapsed ? null : undefined);
     }
 
     toggleCollapsed() {
-        this.collapsed = !this.collapsed;
-        this.trigger = this.collapsed ? null : undefined;
+        this.collapsed.set(!this.collapsed());
+        this.trigger.set(this.collapsed() ? null : undefined);
     }
 
     toggleRightCollapsed() {
-        this.rightCollapsed = !this.rightCollapsed;
-        this.trigger = this.rightCollapsed ? null : undefined;
+        this.rightCollapsed.set(!this.rightCollapsed());
+        this.trigger.set(this.rightCollapsed() ? null : undefined);
     }
 
     dragWidthChange(width: number) {}

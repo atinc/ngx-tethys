@@ -23,7 +23,7 @@
       class="p-2"
       thySidebar
       thyResizable
-      [thyWidth]="sidebarWidth"
+      [thyWidth]="sidebarWidth()"
       [thyMinWidth]="160"
       [thyMaxWidth]="500"
       (thyResize)="onSideResize($event)">
