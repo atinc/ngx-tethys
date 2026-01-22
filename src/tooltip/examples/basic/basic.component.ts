@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyButton } from 'ngx-tethys/button';
 import { ThyFormGroup, ThyFormDirective } from 'ngx-tethys/form';
@@ -24,7 +24,8 @@ import { ThyCheckbox } from 'ngx-tethys/checkbox';
     ]
 })
 export class ThyTooltipBasicExampleComponent {
-    showTooltips = true;
+    showTooltips = signal<boolean>(true);
+
     tooltipConfig = {
         trigger: 'hover',
         disabled: false,
@@ -39,10 +40,10 @@ export class ThyTooltipBasicExampleComponent {
     public triggerOptions = ['hover', 'focus', 'click'];
 
     refreshTooltips() {
-        this.showTooltips = false;
+        this.showTooltips.set(false);
 
         setTimeout(() => {
-            this.showTooltips = true;
+            this.showTooltips.set(true);
         }, 10);
     }
 
