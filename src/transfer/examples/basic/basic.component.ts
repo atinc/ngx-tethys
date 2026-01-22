@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal, WritableSignal } from '@angular/core';
 import { TransferDirection, ThyTransfer, ThyTransferItem, ThyTransferDragEvent } from 'ngx-tethys/transfer';
 
 @Component({
@@ -7,13 +7,13 @@ import { TransferDirection, ThyTransfer, ThyTransferItem, ThyTransferDragEvent }
     imports: [ThyTransfer]
 })
 export class ThyTransferBasicExampleComponent implements OnInit {
-    public lockItems: ThyTransferItem[] = [];
+    public lockItems: WritableSignal<ThyTransferItem[]> = signal([]);
 
-    public unlockItems: ThyTransferItem[] = [];
+    public unlockItems: WritableSignal<ThyTransferItem[]> = signal([]);
 
     public maxLock = 2;
 
-    public selectedLeft: ThyTransferItem[];
+    public selectedLeft: ThyTransferItem[] = [];
 
     public transferData: ThyTransferItem[] = [
         {
@@ -68,19 +68,19 @@ export class ThyTransferBasicExampleComponent implements OnInit {
     constructor() {}
 
     ngOnInit() {
-        this.lockItems = this.transferData.filter(e => e.isLock);
-        this.unlockItems = this.transferData.filter(e => e.direction === TransferDirection.right && !e.isLock);
+        this.lockItems.set(this.transferData.filter(e => e.isLock));
+        this.unlockItems.set(this.transferData.filter(e => e.direction === TransferDirection.right && !e.isLock));
     }
 
     onDragUpdate(event: ThyTransferDragEvent) {
-        this.lockItems = event.right.lock;
-        this.unlockItems = event.right.unlock;
+        this.lockItems.set(event.right?.lock ?? []);
+        this.unlockItems.set(event.right?.unlock ?? []);
         console.log(event);
     }
 
     onTransferChange(event: ThyTransferDragEvent) {
-        this.lockItems = event.right.lock;
-        this.unlockItems = event.right.unlock;
+        this.lockItems.set(event.right?.lock ?? []);
+        this.unlockItems.set(event.right?.unlock ?? []);
         console.log(event);
     }
 
