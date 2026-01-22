@@ -6,13 +6,13 @@ import {
     HostBinding,
     TemplateRef,
     OnInit,
-    inject
+    inject,
+    signal,
+    HostListener
 } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { AnimationEvent } from '@angular/animations';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyTooltipVisibility } from './interface';
-import { thyTooltipAnimations } from './tooltip-animations';
 import { coerceArray } from 'ngx-tethys/util';
 import { NgTemplateOutlet } from '@angular/common';
 
@@ -24,11 +24,9 @@ import { NgTemplateOutlet } from '@angular/common';
     templateUrl: './tooltip.component.html',
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    animations: [thyTooltipAnimations.tooltipState],
     host: {
-        '[@state]': 'visibility',
-        '(@state.start)': 'animationStart()',
-        '(@state.done)': 'animationDone($event)'
+        '[class.thy-scale-enter]': 'this.visibility() === "visible"',
+        '[class.thy-scale-leave]': 'this.visibility() === "hidden"'
     },
     imports: [NgTemplateOutlet]
 })
@@ -43,11 +41,9 @@ export class ThyTooltip implements OnInit {
 
     private readonly onHide = new Subject<void>();
 
-    private closeOnInteraction = false;
-
     private hostRenderer = useHostRenderer();
 
-    visibility: ThyTooltipVisibility = 'initial';
+    visibility = signal<ThyTooltipVisibility>('initial');
 
     showTimeoutId!: number | null | any;
 
@@ -83,7 +79,7 @@ export class ThyTooltip implements OnInit {
     }
 
     isVisible() {
-        return this.visibility === 'visible';
+        return this.visibility() === 'visible';
     }
 
     show(delay: number): void {
@@ -94,9 +90,8 @@ export class ThyTooltip implements OnInit {
         }
 
         // Body interactions should cancel the tooltip if there is a delay in showing.
-        this.closeOnInteraction = true;
         this.showTimeoutId = setTimeout(() => {
-            this.visibility = 'visible';
+            this.visibility.set('visible');
             this.showTimeoutId = null;
             this.markForCheck();
         }, delay);
@@ -108,25 +103,19 @@ export class ThyTooltip implements OnInit {
             clearTimeout(this.showTimeoutId);
             this.showTimeoutId = null;
         }
-
         this.hideTimeoutId = setTimeout(() => {
-            this.visibility = 'hidden';
+            this.visibility.set('hidden');
             this.hideTimeoutId = null;
             this.markForCheck();
         }, delay);
     }
 
-    animationStart() {
-        this.closeOnInteraction = false;
-    }
-
-    animationDone(event: AnimationEvent): void {
-        const toState = event.toState as ThyTooltipVisibility;
-        if (toState === 'hidden' && !this.isVisible()) {
-            this.onHide.next();
-        }
-        if (toState === 'visible' || toState === 'hidden') {
-            this.closeOnInteraction = true;
+    @HostListener('transitionend', ['$event'])
+    onTransitionEnd(event: TransitionEvent): void {
+        if (event.propertyName === 'opacity' || event.propertyName === 'transform') {
+            if (this.visibility() === 'hidden') {
+                this.onHide.next();
+            }
         }
     }
 

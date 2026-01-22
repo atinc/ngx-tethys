@@ -12,7 +12,15 @@
     font-size: variables.$tooltip-font-size;
     // Allow breaking very long words so they don't overflow the tooltip's bounds
     word-wrap: break-word;
-    // opacity: 0;
+
+    &:not(.thy-scale-enter):not(.thy-scale-leave) {
+        opacity: 0;
+        transform: scale(0);
+    }
+    &.thy-scale-enter {
+        opacity: 1;
+        transform: scale(1, 1);
+    }
 
     &.show {
         opacity: variables.$tooltip-opacity;
