@@ -1,5 +1,5 @@
 import { ThyNav, ThyNavItemDirective } from 'ngx-tethys/nav';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { ThyDropdownMenuComponent, ThyDropdownMenuItemDirective, ThyDropdownMenuItemActiveDirective } from 'ngx-tethys/dropdown';
 
 @Component({
@@ -16,7 +16,7 @@ import { ThyDropdownMenuComponent, ThyDropdownMenuItemDirective, ThyDropdownMenu
     ]
 })
 export class ThyNavResponsiveExampleComponent implements OnInit {
-    activeIndex = 13;
+    activeIndex = signal<number>(13);
 
     navList: { name: string; index: number }[] = [
         { name: '导航一', index: 1 },
@@ -40,7 +40,7 @@ export class ThyNavResponsiveExampleComponent implements OnInit {
     ngOnInit(): void {}
 
     select(value: number) {
-        this.activeIndex = value;
+        this.activeIndex.set(value);
     }
 
     navItemClick(item: ThyNavItemDirective) {

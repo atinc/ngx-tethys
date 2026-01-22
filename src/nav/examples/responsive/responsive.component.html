@@ -1,7 +1,12 @@
 <div class="p-3">
   <thy-nav thyType="pulled" [thyResponsive]="true" class="responsive-nav">
     @for (item of navList; track $index) {
-      <a class="nav-tab" href="javascript:;" thyNavItem [thyNavItemActive]="activeIndex === item.index" (click)="activeIndex = item.index"
+      <a
+        class="nav-tab"
+        href="javascript:;"
+        thyNavItem
+        [thyNavItemActive]="activeIndex() === item.index"
+        (click)="activeIndex.set(item.index)"
         ><span class="ml-1">{{ item.name }}</span></a
       >
     }
@@ -12,7 +17,12 @@
 
   <thy-nav thyType="tabs" [thyResponsive]="true" class="responsive-nav">
     @for (item of navList; track $index) {
-      <a class="nav-tab" href="javascript:;" thyNavItem [thyNavItemActive]="activeIndex === item.index" (click)="activeIndex = item.index">
+      <a
+        class="nav-tab"
+        href="javascript:;"
+        thyNavItem
+        [thyNavItemActive]="activeIndex() === item.index"
+        (click)="activeIndex.set(item.index)">
         <span class="ml-1">{{ item.name }}</span></a
       >
     }
@@ -36,7 +46,12 @@
   <div class="py-2 bg-default">
     <thy-nav thyType="pills" [thyResponsive]="true" class="responsive-nav">
       @for (item of navList; track $index) {
-        <a class="nav-tab" href="javascript:;" thyNavItem [thyNavItemActive]="activeIndex === item.index" (click)="activeIndex = item.index"
+        <a
+          class="nav-tab"
+          href="javascript:;"
+          thyNavItem
+          [thyNavItemActive]="activeIndex() === item.index"
+          (click)="activeIndex.set(item.index)"
           ><span class="ml-1">{{ item.name }}</span></a
         >
       }
