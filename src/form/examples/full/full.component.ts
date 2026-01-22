@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { TinyDate } from 'ngx-tethys/util';
 import { FormsModule } from '@angular/forms';
 import { ThyFormSubmitDirective, ThyFormGroupFooter, ThyFormDirective, ThyFormGroup } from 'ngx-tethys/form';
@@ -97,12 +97,12 @@ const provinceCities = [
     ]
 })
 export class ThyFormFullExampleComponent implements OnInit {
-    submitSuccess = false;
+    submitSuccess = signal<boolean>(false);
 
     provinceCities = provinceCities;
 
     /** ngModel value */
-    values: string[] = null;
+    values: string[] | null = null;
 
     model = {
         name: '',
@@ -125,7 +125,7 @@ export class ThyFormFullExampleComponent implements OnInit {
 
     date = { date: new TinyDate()?.nativeDate, with_time: 0 };
 
-    dateNull: number = null;
+    dateNull: number | null = null;
 
     dateRange: any = null;
 
@@ -135,7 +135,7 @@ export class ThyFormFullExampleComponent implements OnInit {
 
     save(form: any) {
         console.log(`submit success!`);
-        this.submitSuccess = true;
+        this.submitSuccess.set(true);
     }
 
     onChanges(event: Event) {}

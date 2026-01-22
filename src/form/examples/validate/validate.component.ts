@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import {
     ThyFormValidatorConfig,
     ThyFormGroup,
@@ -25,7 +25,9 @@ import { ThyButton } from 'ngx-tethys/button';
         ThyFormSubmitDirective
     ]
 })
-export class ThyFormValidateExampleComponent implements OnInit {
+export class ThyFormValidateExampleComponent {
+    saving = signal<boolean>(false);
+
     model = {
         name: '',
         password: '',
@@ -48,11 +50,15 @@ export class ThyFormValidateExampleComponent implements OnInit {
         }
     };
 
-    constructor() {}
-
-    ngOnInit(): void {}
-
-    submit() {}
+    submit() {
+        if (this.saving()) {
+            return;
+        }
+        this.saving.set(true);
+        setTimeout(() => {
+            this.saving.set(false);
+        }, 2000);
+    }
 
     reset(form: ThyFormDirective) {
         form.validator.reset();

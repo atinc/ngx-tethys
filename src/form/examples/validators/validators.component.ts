@@ -10,7 +10,7 @@ import {
     ThyFormDirective,
     ThyFormSubmitDirective
 } from 'ngx-tethys/form';
-import { Component, OnInit } from '@angular/core';
+import { Component, signal, WritableSignal } from '@angular/core';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FormsModule } from '@angular/forms';
@@ -40,14 +40,12 @@ import { ThyButton } from 'ngx-tethys/button';
         ThyFormSubmitDirective
     ]
 })
-export class ThyFormValidatorsExampleComponent implements OnInit {
-    submitSuccess = false;
-
+export class ThyFormValidatorsExampleComponent {
     validateOn: ThyValidateOn = 'change';
 
-    loadingDone = true;
+    loadingDone = signal<boolean>(true);
 
-    validateConfig: ThyFormValidatorConfig = {
+    validateConfig: WritableSignal<ThyFormValidatorConfig> = signal({
         validateOn: 'change',
         validationMessages: {
             username: {
@@ -67,7 +65,7 @@ export class ThyFormValidatorsExampleComponent implements OnInit {
                 confirm: 'Two passwords are inconsistent'
             }
         }
-    };
+    });
 
     model = {
         password: '',
@@ -76,20 +74,15 @@ export class ThyFormValidatorsExampleComponent implements OnInit {
         age: ''
     };
 
-    constructor() {}
-
-    ngOnInit(): void {}
-
     save() {
         console.log(`submit success!`);
-        this.submitSuccess = true;
     }
 
     changeValidateOn() {
-        this.loadingDone = false;
-        this.validateConfig.validateOn = this.validateOn;
+        this.loadingDone.set(false);
+        this.validateConfig.set({ ...this.validateConfig(), validateOn: this.validateOn });
         setTimeout(() => {
-            this.loadingDone = true;
+            this.loadingDone.set(true);
         }, 0);
     }
 

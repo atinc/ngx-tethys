@@ -1,5 +1,5 @@
 import { ThyFormDirective, ThyFormGroup, ThyFormGroupError, ThyFormGroupFooter, ThyFormSubmitDirective } from 'ngx-tethys/form';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyRowDirective, ThyColDirective } from 'ngx-tethys/grid';
 import { ThyInputDirective } from 'ngx-tethys/input';
@@ -23,15 +23,8 @@ import { ThyButton } from 'ngx-tethys/button';
         ThyFormSubmitDirective
     ]
 })
-export class ThyFormColumnsExampleComponent implements OnInit {
-    submitSuccess = false;
-
-    constructor() {}
-
-    ngOnInit(): void {}
-
+export class ThyFormColumnsExampleComponent {
     save(form: ThyFormDirective) {
         console.log(`submit success!`);
-        this.submitSuccess = true;
     }
 }
