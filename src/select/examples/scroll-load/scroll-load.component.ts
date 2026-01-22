@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { ThySelect } from 'ngx-tethys/select';
 import { ThyOption } from 'ngx-tethys/shared';
 import { timer } from 'rxjs';
@@ -11,35 +11,37 @@ import { FormsModule } from '@angular/forms';
     imports: [ThySelect, ThyOption, FormsModule]
 })
 export class ThySelectScrollLoadExampleComponent implements OnInit {
-    loadMoreData: Array<{ thyLabelText: string; _id: string }> = [];
+    loadMoreData = signal<Array<{ thyLabelText: string; _id: string }>>([]);
 
     listOfSelectedValue = '00';
 
-    loading = false;
+    loading = signal(false);
 
-    haveMore = true;
+    haveMore = signal(true);
 
-    page = 0;
+    page = signal(0);
 
     onScrollToBottom() {
-        if (!this.loading && this.haveMore) {
-            this.page++;
+        if (!this.loading() && this.haveMore()) {
+            this.page.set(this.page() + 1);
             this.fetchOptions().subscribe(() => {
-                this.loading = false;
+                this.loading.set(false);
             });
         }
     }
 
     fetchOptions() {
-        this.loading = true;
+        this.loading.set(true);
         return timer(1000).pipe(
             tap(() => {
+                const newData = [];
                 for (let index = 0; index < 10; index++) {
-                    this.loadMoreData.push({ thyLabelText: `第${this.page + 1}页 第${index + 1}个`, _id: `${this.page}${index}` });
+                    newData.push({ thyLabelText: `第${this.page() + 1}页 第${index + 1}个`, _id: `${this.page()}${index}` });
                 }
+                this.loadMoreData.set([...this.loadMoreData(), ...newData]);
 
-                if (this.page > 3) {
-                    this.haveMore = false;
+                if (this.page() > 3) {
+                    this.haveMore.set(false);
                 }
             })
         );
@@ -47,7 +49,7 @@ export class ThySelectScrollLoadExampleComponent implements OnInit {
 
     ngOnInit() {
         this.fetchOptions().subscribe(() => {
-            this.loading = false;
+            this.loading.set(false);
         });
     }
 }

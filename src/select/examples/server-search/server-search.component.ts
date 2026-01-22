@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { ThySelect } from 'ngx-tethys/select';
 import { ThyOption } from 'ngx-tethys/shared';
 import { timer } from 'rxjs';
@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
     imports: [ThySelect, ThyOption, FormsModule]
 })
 export class ThySelectServerSearchExampleComponent implements OnInit {
-    searchResultList: Array<{ _id: string; display_name: string }> = [];
+    searchResultList = signal<Array<{ _id: string; display_name: string }>>([]);
 
     defaultEnterpriseList = [
         {
@@ -68,7 +68,7 @@ export class ThySelectServerSearchExampleComponent implements OnInit {
                 .map(option => {
                     return { ...option };
                 });
-            this.searchResultList = this.defaultEnterpriseList.concat(result);
+            this.searchResultList.set(this.defaultEnterpriseList.concat(result));
         });
     }
 }

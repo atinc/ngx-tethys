@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { timer } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { ThySelect } from 'ngx-tethys/select';
@@ -11,30 +11,32 @@ import { FormsModule } from '@angular/forms';
     imports: [ThySelect, ThyOption, FormsModule]
 })
 export class ThySelectAsyncLoadDataExampleComponent implements OnInit {
-    loadMoreData: Array<{ thyLabelText: string; _id: string }> = [];
+    loadMoreData = signal<Array<{ thyLabelText: string; _id: string }>>([]);
 
     listOfSelectedValue = '00';
 
-    loading = false;
+    loading = signal(false);
 
-    haveMore = true;
+    haveMore = signal(true);
 
-    page = 0;
+    page = signal(0);
 
-    loadState = true;
+    loadState = signal(true);
 
     fetchOptions() {
-        this.loading = true;
-        this.loadState = false;
-        this.loadMoreData = [];
+        this.loading.set(true);
+        this.loadState.set(false);
+        this.loadMoreData.set([]);
         return timer(1500).pipe(
             tap(() => {
+                const newData = [];
                 for (let index = 0; index < 10; index++) {
-                    this.loadMoreData.push({ thyLabelText: `第${this.page + 1}页`, _id: `${this.page}${index}` });
+                    newData.push({ thyLabelText: `第${this.page() + 1}页`, _id: `${this.page()}${index}` });
                 }
+                this.loadMoreData.set([...this.loadMoreData(), ...newData]);
 
-                if (this.page > 3) {
-                    this.haveMore = false;
+                if (this.page() > 3) {
+                    this.haveMore.set(false);
                 }
             })
         );
@@ -42,16 +44,16 @@ export class ThySelectAsyncLoadDataExampleComponent implements OnInit {
 
     ngOnInit() {
         this.fetchOptions().subscribe(() => {
-            this.loading = false;
-            this.loadState = true;
+            this.loading.set(false);
+            this.loadState.set(true);
         });
     }
 
     expandChange(expand: boolean) {
         if (expand) {
             this.fetchOptions().subscribe(() => {
-                this.loading = false;
-                this.loadState = true;
+                this.loading.set(false);
+                this.loadState.set(true);
             });
         }
     }
