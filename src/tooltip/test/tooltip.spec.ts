@@ -111,6 +111,15 @@ describe(`ThyTooltip`, () => {
         expect(!!tooltipInstance).toBe(shouldExist);
     }
 
+    function dispatchTransitionEndEvent(tooltipElement: HTMLElement, propertyName: string): void {
+        const transitionEndEvent = new TransitionEvent('transitionend', {
+            bubbles: true,
+            cancelable: true,
+            propertyName: 'opacity'
+        });
+        tooltipElement.dispatchEvent(transitionEndEvent);
+    }
+
     describe(`touch usage`, () => {
         let fixture!: ComponentFixture<ThyDemoTooltipBasicComponent>;
         let tooltipDirective!: ThyTooltipDirective;
@@ -183,6 +192,9 @@ describe(`ThyTooltip`, () => {
             fixture.detectChanges();
             tick(500);
 
+            const tooltipElement = overlayContainerElement.querySelector(`.${TOOLTIP_CLASS}`) as HTMLElement;
+            dispatchTransitionEndEvent(tooltipElement, 'opacity');
+
             assertTooltipInstance(tooltipDirective, false);
             expect(getTooltipVisible()).toBe(false);
         }));
@@ -254,7 +266,7 @@ describe(`ThyTooltip`, () => {
             // Make sure tooltip is shown to the user and animation has finished
             const tooltipElement = overlayContainerElement.querySelector(`.${TOOLTIP_CLASS}`) as HTMLElement;
             expect(tooltipElement instanceof HTMLElement).toBe(true);
-            expect(tooltipElement.style.transform).toBe('scale(1)');
+            expect(tooltipElement.classList.contains('thy-scale-enter')).toBe(true);
             expect(overlayContainerElement.textContent).toContain(initialTooltipMessage);
             const tooltipHideDelay = 100; // default hide delay is 100
             // fake mouseleave event
@@ -267,6 +279,11 @@ describe(`ThyTooltip`, () => {
             expect(tooltipDirective['tooltipRef']['overlayRef']['_scrollStrategy']['_scrollSubscription']).toBe(null);
             assertTooltipInstance(tooltipDirective, true);
 
+            const tooltipElementAfterHide = overlayContainerElement.querySelector(`.${TOOLTIP_CLASS}`) as HTMLElement;
+            if (tooltipElementAfterHide) {
+                dispatchTransitionEndEvent(tooltipElementAfterHide, 'opacity');
+                fixture.detectChanges();
+            }
             // On animation complete, should expect that the tooltip has been detached.
             flushMicrotasks();
             assertTooltipInstance(tooltipDirective, false);
@@ -426,7 +443,7 @@ describe(`ThyTooltip`, () => {
             assertTooltipInstance(tooltipDirective, false);
             tooltipDirective.show(0);
             tick(0); // Tick for the show delay (default is 0)
-            expect(tooltipDirective['tooltipRef']['tooltipInstance'].visibility).toBe('visible');
+            expect(tooltipDirective['tooltipRef']['tooltipInstance'].visibility()).toBe('visible');
             fixture.detectChanges();
             expect(overlayContainerElement.textContent).toContain(initialTooltipMessage);
             const newMessage = 'new tooltip message';
@@ -496,7 +513,7 @@ describe(`ThyTooltip`, () => {
             // Make sure tooltip is shown to the user and animation has finished
             const tooltipElement = overlayContainerElement.querySelector(`.${TOOLTIP_CLASS}`) as HTMLElement;
             expect(tooltipElement instanceof HTMLElement).toBe(true);
-            expect(tooltipElement.style.transform).toBe('scale(1)');
+            expect(tooltipElement.classList.contains('thy-scale-enter')).toBe(true);
 
             expect(overlayContainerElement.textContent).toContain(tooltipTemplateContext.text);
 
@@ -512,6 +529,11 @@ describe(`ThyTooltip`, () => {
 
             // On animation complete, should expect that the tooltip has been detached.
             flushMicrotasks();
+            const tooltipElementAfterHide = overlayContainerElement.querySelector(`.${TOOLTIP_CLASS}`) as HTMLElement;
+            if (tooltipElementAfterHide) {
+                dispatchTransitionEndEvent(tooltipElementAfterHide, 'opacity');
+                fixture.detectChanges();
+            }
             assertTooltipInstance(tooltipDirective, false);
         }));
 
