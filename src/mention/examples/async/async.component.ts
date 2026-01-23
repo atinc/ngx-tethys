@@ -2,7 +2,7 @@ import { Mention, ThyMentionDirective } from 'ngx-tethys/mention';
 import { ThyAvatar } from 'ngx-tethys/avatar';
 import { of } from 'rxjs';
 import { delay, tap } from 'rxjs/operators';
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyInputDirective } from 'ngx-tethys/input';
 
@@ -36,7 +36,8 @@ const mockUsers = [
 })
 export class ThyMentionAsyncExampleComponent implements OnInit {
     value = `This is remote mention!`;
-    @ViewChild('member', { static: true }) memberDisplayTemplateRef!: TemplateRef<any>;
+
+    memberDisplayTemplateRef = viewChild<TemplateRef<any>>('member');
 
     mentions!: Mention<any>[];
 
@@ -47,7 +48,7 @@ export class ThyMentionAsyncExampleComponent implements OnInit {
             {
                 trigger: '@',
                 data: mockUsers,
-                displayTemplateRef: this.memberDisplayTemplateRef,
+                displayTemplateRef: this.memberDisplayTemplateRef(),
                 emptyText: '无匹配的成员',
                 autoClose: false,
                 search: (term: string) => {

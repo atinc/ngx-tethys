@@ -1,7 +1,7 @@
 import { Mention, ThyMentionDirective } from 'ngx-tethys/mention';
 import { ThySelectionList } from 'ngx-tethys/list';
 import { ThyAvatar } from 'ngx-tethys/avatar';
-import { Component, ElementRef, OnInit, TemplateRef, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, OnInit, TemplateRef, inject, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyListOption } from 'ngx-tethys/shared';
 import { ThyInputDirective } from 'ngx-tethys/input';
@@ -39,9 +39,9 @@ export class ThyMentionSuggestionsTemplateExampleComponent implements OnInit {
 
     value = `This is suggestion-template mention! @`;
 
-    @ViewChild(ThyMentionDirective, { static: true }) mention!: ThyMentionDirective;
+    readonly mention = viewChild<ThyMentionDirective>(ThyMentionDirective);
 
-    @ViewChild('suggestionsTemplateRef', { static: true }) suggestionsTemplateRef!: TemplateRef<{ data: [] }>;
+    readonly suggestionsTemplateRef = viewChild<TemplateRef<{ data: [] }>>('suggestionsTemplateRef');
 
     mentions!: Mention<any>[];
 
@@ -52,7 +52,7 @@ export class ThyMentionSuggestionsTemplateExampleComponent implements OnInit {
                 data: mockUsers,
                 emptyText: '无匹配的成员',
                 autoClose: false,
-                suggestionsTemplateRef: this.suggestionsTemplateRef,
+                suggestionsTemplateRef: this.suggestionsTemplateRef(),
                 search: (term: string, data) => {
                     const result = (data || []).filter(item => {
                         return (

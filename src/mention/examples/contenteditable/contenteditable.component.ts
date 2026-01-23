@@ -1,5 +1,5 @@
 import { Mention, MentionSuggestionSelectEvent, ThyMentionDirective } from 'ngx-tethys/mention';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 const mockUsers = [
@@ -45,15 +45,15 @@ export class ThyMentionContenteditableExampleComponent implements OnInit {
         }
     ];
 
-    @ViewChild(ThyMentionDirective) mention!: ThyMentionDirective;
+    readonly mention = viewChild<ThyMentionDirective>(ThyMentionDirective);
 
-    @ViewChild('exampleText') exampleText!: ElementRef;
+    readonly exampleText = viewChild<ElementRef>('exampleText');
 
     constructor() {}
 
     ngOnInit(): void {}
 
     selectSuggestion(event: MentionSuggestionSelectEvent) {
-        console.log(this.exampleText.nativeElement.innerText);
+        console.log(this.exampleText()?.nativeElement.innerText);
     }
 }
