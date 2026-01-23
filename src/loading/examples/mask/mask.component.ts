@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ThyLoading } from 'ngx-tethys/loading';
 
 @Component({
@@ -6,8 +6,4 @@ import { ThyLoading } from 'ngx-tethys/loading';
     templateUrl: './mask.component.html',
     imports: [ThyLoading]
 })
-export class ThyLoadingMaskExampleComponent implements OnInit {
-    constructor() {}
-
-    ngOnInit(): void {}
-}
+export class ThyLoadingMaskExampleComponent {}

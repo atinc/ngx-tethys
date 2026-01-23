@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ThyLoading } from 'ngx-tethys/loading';
 
 @Component({
@@ -6,14 +6,12 @@ import { ThyLoading } from 'ngx-tethys/loading';
     templateUrl: './basic.component.html',
     imports: [ThyLoading]
 })
-export class ThyLoadingBasicExampleComponent implements OnInit {
-    public loadingDone = false;
-
-    constructor() {}
+export class ThyLoadingBasicExampleComponent {
+    public loadingDone = signal<boolean>(false);
 
     ngOnInit(): void {
         setTimeout(() => {
-            this.loadingDone = true;
+            this.loadingDone.set(true);
         }, 3000);
     }
 }
