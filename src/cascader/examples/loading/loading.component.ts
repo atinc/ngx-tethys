@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { ThyCascader } from 'ngx-tethys/cascader';
 import { clone, options } from '../cascader-address-options';
@@ -17,7 +17,7 @@ export class ThyCascaderLoadingExampleComponent implements OnInit {
 
     public values: any[] = ['12', '1201', '120102'];
 
-    loadingDone = false;
+    loadingDone = signal<boolean>(false);
 
     ngOnInit() {
         this.areaCode = clone(options);
@@ -27,13 +27,13 @@ export class ThyCascaderLoadingExampleComponent implements OnInit {
         this.notifyService.info(`selected data is ${values}`);
     }
 
-    thyExpandStatusChange(expand) {
+    thyExpandStatusChange(expand: boolean) {
         if (expand) {
-            this.loadingDone = false;
+            this.loadingDone.set(false);
             of(true)
                 .pipe(delay(2000))
                 .subscribe(() => {
-                    this.loadingDone = true;
+                    this.loadingDone.set(true);
                 });
         }
     }

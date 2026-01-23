@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, WritableSignal, signal } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { ThyCascader } from 'ngx-tethys/cascader';
 import { clone, options } from '../cascader-address-options';
@@ -68,7 +68,7 @@ export class ThyCascaderDisabledExampleComponent implements OnInit {
 
     public value = ['jiangsu', 'nanjing', 'zhonghuamen'];
 
-    public multiOptions: any[] = [];
+    public multiOptions: WritableSignal<any[]> = signal([]);
 
     public multiValues: any[] = [
         ['12', '1201', '120102'],
@@ -76,7 +76,7 @@ export class ThyCascaderDisabledExampleComponent implements OnInit {
         ['14', '1404', '140406']
     ];
 
-    public thyCustomerOptions: any[] = null;
+    public thyCustomerOptions: any[] | null = null;
 
     ngOnInit() {
         this.areaCode = clone(options);
@@ -85,7 +85,7 @@ export class ThyCascaderDisabledExampleComponent implements OnInit {
     }
 
     private setMultiOptions() {
-        this.multiOptions = clone(options).map((area: any) => {
+        const multiOptions = clone(options).map((area: any) => {
             if (this.multiValues.map(item => item[0]).includes(area.value)) {
                 area.disabled = true;
                 area.children = area.children
@@ -115,6 +115,8 @@ export class ThyCascaderDisabledExampleComponent implements OnInit {
             }
             return area;
         });
+
+        this.multiOptions.set(multiOptions);
     }
 
     public selectChanges(values: any): void {
