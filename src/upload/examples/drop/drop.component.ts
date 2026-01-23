@@ -1,5 +1,5 @@
 import { ThyFileDropDirective, ThyUploadFile, ThyUploadService, ThyUploadStatus } from 'ngx-tethys/upload';
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal, WritableSignal } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { ThyProgress } from 'ngx-tethys/progress';
 
@@ -14,7 +14,7 @@ export class ThyUploadDropExampleComponent {
     private thyUploadService = inject(ThyUploadService);
     private notify = inject(ThyNotifyService);
 
-    queueFiles: ThyUploadFile[] = [];
+    queueFiles: WritableSignal<ThyUploadFile[]> = signal([]);
 
     onDrop(event: { files: File[] }) {
         // eslint-disable-next-line @typescript-eslint/prefer-for-of
@@ -27,12 +27,14 @@ export class ThyUploadDropExampleComponent {
                     fileName: event.files[i].name
                 })
                 .subscribe(result => {
+                    const files = this.queueFiles();
                     if (result.status === ThyUploadStatus.started) {
-                        this.queueFiles.push(result.uploadFile!);
+                        files.push(result.uploadFile!);
                     } else if (result.status === ThyUploadStatus.done) {
-                        const index = this.queueFiles.indexOf(result.uploadFile!);
-                        this.queueFiles.splice(index);
+                        const index = files.indexOf(result.uploadFile!);
+                        files.splice(index);
                     }
+                    this.queueFiles.set(files);
                 });
         }
     }
