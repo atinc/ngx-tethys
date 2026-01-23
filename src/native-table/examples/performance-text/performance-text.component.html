@@ -1,6 +1,6 @@
 <thy-button thyButton="primary" class="mr-2" (click)="refresh()">重新渲染</thy-button>
 <thy-button thyButton="primary" (click)="insertData()">插入数据</thy-button>
-@if (!loadingDone) {
+@if (!loadingDone()) {
 } @else {
   <thy-native-table thyEditable>
     <thead>
