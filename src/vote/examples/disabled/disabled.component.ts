@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ThyVote } from 'ngx-tethys/vote';
 
 @Component({
@@ -7,16 +7,14 @@ import { ThyVote } from 'ngx-tethys/vote';
     imports: [ThyVote]
 })
 export class ThyVoteDisabledExampleComponent {
-    constructor() {}
-
     vote_count = 5;
     vote_count1 = 134;
 
     vote_count_round = '圆角';
 
-    has_voted = false;
+    has_voted = signal<boolean>(false);
 
     toggleVote(event: Event) {
-        this.has_voted = !this.has_voted;
+        this.has_voted.set(!this.has_voted());
     }
 }
