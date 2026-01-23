@@ -16,8 +16,8 @@
     </thy-select>
   </div>
 </div>
-@if (loadingDone) {
-  <form thyForm name="demoForm" thyLayout="horizontal" [thyFormValidatorConfig]="validateConfig" [formGroup]="formGroup">
+@if (loadingDone()) {
+  <form thyForm name="demoForm" thyLayout="horizontal" [thyFormValidatorConfig]="validateConfig" [formGroup]="formGroup()">
     <thy-form-group thyLabelText="Input" thyLayout="horizontal" thyLabelRequired>
       <thy-input name="input" formControlName="input" placeholder="Please enter"></thy-input>
     </thy-form-group>

@@ -10,7 +10,7 @@
   </thy-form-group>
   <thy-form-group-error></thy-form-group-error>
   <thy-form-group-footer>
-    <button [thyButton]="'primary'" thyLoadingText="Saving" (thyFormSubmit)="submit()">Save</button>
+    <button [thyButton]="'primary'" [thyLoading]="saving()" thyLoadingText="Saving" (thyFormSubmit)="submit()">Save</button>
     <button [thyButton]="'primary'" (click)="demoForm.validator.setElementErrorMessage('username', 'This is custom error of username')">
       Add custom error
     </button>

@@ -6,7 +6,7 @@
   </thy-select>
 </thy-form-group>
 
-@if (loadingDone) {
+@if (loadingDone()) {
   <form thyForm name="demoForm" #demoForm="thyForm" #demoNgForm="ngForm" [thyFormValidatorConfig]="validateConfig">
     <thy-form-group thyLabelText="Username" thyTips="Type peter to indicate that it already exists" thyLabelRequired>
       <input

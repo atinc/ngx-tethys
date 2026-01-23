@@ -102,7 +102,7 @@
       <input thyInput name="displayName" [(ngModel)]="model.display_name" placeholder="Please enter display name" />
     </ng-template>
   </thy-form-group>
-  @if (submitSuccess) {
+  @if (submitSuccess()) {
     <thy-form-group>
       <div class="text text-success">Submit success!</div>
     </thy-form-group>
