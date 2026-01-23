@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { ThyTable, ThyTableColumnComponent, ThyTableSortDirection, ThyTableSortEvent } from 'ngx-tethys/table';
 
 @Component({
@@ -15,21 +15,25 @@ export class ThyTableSortableExampleComponent implements OnInit {
         { id: 5, name: 'Jill', age: 22, job: 'DevOps', address: 'Hangzhou' }
     ];
 
-    sortBy: string = '';
+    sortBy = signal<string>('');
 
-    sortDirection: ThyTableSortDirection = ThyTableSortDirection.default;
+    sortDirection = signal<ThyTableSortDirection>(ThyTableSortDirection.default);
 
     constructor() {}
 
     ngOnInit(): void {}
 
     onSortChange(event: ThyTableSortEvent) {
-        this.sortBy = event.key;
-        this.sortDirection = event.direction;
-        if (this.sortDirection === ThyTableSortDirection.asc) {
-            this.data.sort((pre, next) => pre[this.sortBy].toString().localeCompare(next[this.sortBy].toString()));
-        } else if (this.sortDirection === ThyTableSortDirection.desc) {
-            this.data.sort((pre, next) => next[this.sortBy].toString().localeCompare(pre[this.sortBy].toString()));
+        this.sortBy.set(event.key);
+        this.sortDirection.set(event.direction);
+        if (this.sortDirection() === ThyTableSortDirection.asc) {
+            this.data.sort((pre, next) =>
+                pre[this.sortBy() as keyof typeof pre].toString().localeCompare(next[this.sortBy() as keyof typeof next].toString())
+            );
+        } else if (this.sortDirection() === ThyTableSortDirection.desc) {
+            this.data.sort((pre, next) =>
+                next[this.sortBy() as keyof typeof next].toString().localeCompare(pre[this.sortBy() as keyof typeof pre].toString())
+            );
         } else {
             this.data.sort((pre, next) => pre.id - next.id);
         }

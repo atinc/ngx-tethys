@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { ThyTableRowEvent, ThyPageChangedEvent, ThyTableColumnSkeletonType, ThyTable, ThyTableColumnComponent } from 'ngx-tethys/table';
 import { of } from 'rxjs';
 import { delay, finalize } from 'rxjs/operators';
@@ -19,7 +19,7 @@ export class ThyTablePaginationExampleComponent implements OnInit {
         sizeOptions: [5, 10, 20]
     };
 
-    loadingDone = false;
+    loadingDone = signal<boolean>(false);
 
     skeletonTypes: ThyTableColumnSkeletonType[] = [
         ThyTableColumnSkeletonType.default,
@@ -32,12 +32,12 @@ export class ThyTablePaginationExampleComponent implements OnInit {
     }
 
     private generateDataByPageIndex() {
-        this.loadingDone = false;
+        this.loadingDone.set(false);
         return of(null)
             .pipe(
                 delay(1000),
                 finalize(() => {
-                    this.loadingDone = true;
+                    this.loadingDone.set(true);
                 })
             )
             .subscribe({
