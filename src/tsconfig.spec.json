@@ -11,6 +11,6 @@
     },
     "strict": false
   },
-  "files": ["test.ts", "polyfills.ts"],
+  "files": ["test.ts"],
   "include": ["**/*.ts", "**/*.d.ts"]
 }

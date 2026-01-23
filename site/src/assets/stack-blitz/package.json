@@ -8,7 +8,6 @@
     "@angular/forms": "~12.2.13",
     "@angular/platform-browser": "~12.2.13",
     "rxjs": "~6.5.4",
-    "zone.js": "~0.11.4",
     "ngx-tethys": "^12.1.1",
     "date-fns": "4.1.0",
     "@date-fns/tz": "1.2.0",
