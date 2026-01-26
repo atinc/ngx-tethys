@@ -7,6 +7,7 @@ import {
     ElementRef,
     NgZone,
     OnInit,
+    OnDestroy,
     Signal,
     TemplateRef,
     ViewContainerRef,
@@ -38,7 +39,7 @@ type ThyDropdownMenu = ThyDropdownMenuComponent | TemplateRef<SafeAny> | Compone
         class: 'thy-dropdown'
     }
 })
-export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnInit {
+export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnInit, OnDestroy {
     private viewContainerRef = inject(ViewContainerRef);
     private popover = inject(ThyPopover);
 
@@ -138,6 +139,10 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
 
     ngOnInit() {
         this.initialize();
+    }
+
+    ngOnDestroy() {
+        this.dispose();
     }
 
     createOverlay(): OverlayRef {
