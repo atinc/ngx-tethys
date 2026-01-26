@@ -1,5 +1,5 @@
 import { provideHttpClient } from '@angular/common/http';
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, signal } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyActionModule, ThyActions } from 'ngx-tethys/action';
@@ -8,10 +8,10 @@ import { injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 @Component({
     selector: 'thy-test-actions-basic',
     template: `
-        <thy-actions [thySize]="size">
+        <thy-actions [thySize]="size()">
             <a thyAction thyIcon="inbox"></a>
             <a thyAction thyIcon="search"></a>
-            @if (dynamicAdded) {
+            @if (dynamicAdded()) {
                 <a thyAction thyIcon="inbox"></a>
             }
         </thy-actions>
@@ -19,8 +19,8 @@ import { injectDefaultSvgIconSet } from 'ngx-tethys/testing';
     imports: [ThyActionModule]
 })
 class ThyActionsTestBasicComponent {
-    size = 'md';
-    dynamicAdded = false;
+    size = signal('md');
+    dynamicAdded = signal(false);
 }
 
 describe('thy-actions', () => {
@@ -95,7 +95,7 @@ describe('thy-actions', () => {
             }
         ];
         sizes.forEach(size => {
-            fixture.componentInstance.size = size.value;
+            fixture.componentInstance.size.set(size.value);
             fixture.detectChanges();
             const actions: NodeListOf<HTMLElement> = element.querySelectorAll('.thy-action');
             assertActionsExpected(actions, `${size.space}px`, `size: ${size.value} expected space is ${size.space}`);
@@ -105,7 +105,7 @@ describe('thy-actions', () => {
     it('should dynamic add action', () => {
         const element: HTMLElement = actionsDebugElement.nativeElement;
         expect(element.querySelectorAll('.thy-action').length).toEqual(2);
-        fixture.componentInstance.dynamicAdded = true;
+        fixture.componentInstance.dynamicAdded.set(true);
         fixture.detectChanges();
         const actions: NodeListOf<HTMLElement> = element.querySelectorAll('.thy-action');
         expect(actions.length).toEqual(3);

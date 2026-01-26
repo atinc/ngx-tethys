@@ -1,23 +1,25 @@
 import {
     AfterViewInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
+    DestroyRef,
     ElementRef,
     OnDestroy,
     OnInit,
     Renderer2,
     Signal,
+    WritableSignal,
     computed,
     effect,
     inject,
-    input
+    input,
+    signal
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
-
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { Subscription, timer } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 export type ThyActionType = 'primary' | 'success' | 'danger' | 'warning';
 
@@ -53,7 +55,7 @@ const defaultFeedbackOptions: Record<ThyActionFeedback, ThyActionFeedbackOptions
         class: 'thy-action',
         '[class.active]': 'active()',
         '[class.thy-action-hover-icon]': 'thyHoverIcon()',
-        '[class.thy-action-has-feedback]': '!!feedback',
+        '[class.thy-action-has-feedback]': '!!feedback()',
         '[class.disabled]': 'thyDisabled()'
     },
     imports: [ThyIcon]
@@ -61,13 +63,13 @@ const defaultFeedbackOptions: Record<ThyActionFeedback, ThyActionFeedbackOptions
 export class ThyAction implements OnInit, AfterViewInit, OnDestroy {
     private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
     private renderer = inject(Renderer2);
-    private cdr = inject(ChangeDetectorRef);
+    private destroyRef = inject(DestroyRef);
 
     public readonly icon: Signal<string> = computed(() => this.thyActionIcon() || this.thyIcon());
 
-    feedback: ThyActionFeedback | null = null;
+    feedback: WritableSignal<ThyActionFeedback | null> = signal(null);
 
-    feedbackOptions: ThyActionFeedbackOptions | null = null;
+    feedbackOptions: WritableSignal<ThyActionFeedbackOptions | null> = signal(null);
 
     readonly active: Signal<boolean> = computed(() => this.thyActionActive() || this.thyActive());
 
@@ -156,18 +158,19 @@ export class ThyAction implements OnInit, AfterViewInit, OnDestroy {
             return;
         }
         options = Object.assign({}, defaultFeedbackOptions[feedback], options);
-        this.feedback = feedback;
-        this.feedbackOptions = options;
-        this.cdr.markForCheck();
+        this.feedback.set(feedback);
+        this.feedbackOptions.set(options);
+
         if (options.duration) {
             if (this.feedbackTimer) {
                 this.feedbackTimer.unsubscribe();
             }
-            this.feedbackTimer = timer(options.duration).subscribe(() => {
-                this.feedback = null;
-                this.feedbackOptions = null;
-                this.cdr.markForCheck();
-            });
+            this.feedbackTimer = timer(options.duration)
+                .pipe(takeUntilDestroyed(this.destroyRef))
+                .subscribe(() => {
+                    this.feedback.set(null);
+                    this.feedbackOptions.set(null);
+                });
         }
     }
 
