@@ -232,15 +232,7 @@ export class ThySelectControl implements OnInit, AfterViewInit {
             if (value) {
                 let sameValue = false;
                 untracked(() => {
-                    if (this.thyIsMultiple()) {
-                        if (oldValue instanceof Array && value instanceof Array && oldValue.length === value.length) {
-                            sameValue = value.every((option, index) => option.thyValue === oldValue[index].thyValue);
-                        }
-                    } else {
-                        if (oldValue && value) {
-                            sameValue = (oldValue as SelectOptionBase).thyValue === (value as SelectOptionBase).thyValue;
-                        }
-                    }
+                    sameValue = this.compareSelectedOptions(oldValue, value);
 
                     if (this.thyPanelOpened() && this.thyShowSearch()) {
                         if (!sameValue) {
@@ -291,6 +283,47 @@ export class ThySelectControl implements OnInit, AfterViewInit {
                       resize.disconnect();
                   };
               });
+    }
+
+    /**
+     * 比较两个 thyValue 是否相等
+     * @param oldThyValue 旧的 thyValue
+     * @param newThyValue 新的 thyValue
+     * @returns 如果 thyValue 相等返回 true，否则返回 false
+     */
+    private compareThyValue(oldThyValue: any, newThyValue: any): boolean {
+        // 如果 thyValue 是数组，判断数组的每一项是否相等
+        if (Array.isArray(oldThyValue) && Array.isArray(newThyValue)) {
+            if (oldThyValue.length !== newThyValue.length) {
+                return false;
+            }
+            return oldThyValue.every((item, index) => item === newThyValue[index]);
+        }
+
+        // 否则按照常规方式判断
+        return oldThyValue === newThyValue;
+    }
+
+    /**
+     * 比较两个值的 thyValue 是否相等
+     * @param oldValue 旧值
+     * @param value 新值
+     * @returns 如果 thyValue 相等返回 true，否则返回 false
+     */
+    private compareSelectedOptions(oldValue: unknown, value: SelectOptionBase | SelectOptionBase[]): boolean {
+        if (this.thyIsMultiple()) {
+            if (oldValue instanceof Array && value instanceof Array && oldValue.length === value.length) {
+                return value.every((option, index) => this.compareThyValue(oldValue[index].thyValue, option.thyValue));
+            }
+            return false;
+        } else {
+            if (oldValue && value) {
+                const oldThyValue = (oldValue as SelectOptionBase).thyValue;
+                const newThyValue = (value as SelectOptionBase).thyValue;
+                return this.compareThyValue(oldThyValue, newThyValue);
+            }
+            return false;
+        }
     }
 
     private calculateVisibleTags() {

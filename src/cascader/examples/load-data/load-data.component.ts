@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { ThyCascader, ThyCascaderOption } from 'ngx-tethys/cascader';
 import { FormsModule } from '@angular/forms';
@@ -7,6 +7,7 @@ import * as _provinces from '../_china-division/provinces.json';
 import * as _cities from '../_china-division/cities.json';
 import * as _areas from '../_china-division/areas.json';
 import { keyBy } from 'ngx-tethys/util';
+import { clone, options } from '../cascader-address-options';
 
 const provincesAll = _provinces as any;
 const citiesAll = _cities as any;
@@ -24,19 +25,23 @@ const areas = areasAll.default;
 export class ThyCascaderLoadDataExampleComponent implements OnInit {
     private notifyService = inject(ThyNotifyService);
 
-    public areaCode: any[] = [];
+    public areaCode = signal([]);
 
-    public values: any[] = ['12', '1201', '120102'];
+    public value: any[] = ['12', '1201', '120102'];
 
     provincesMapByCode = keyBy(provinces, 'code');
 
     citiesMapByCode = keyBy(cities, 'code');
 
+    thyLoadingDone = signal(true);
+
     ngOnInit() {
-        this.areaCode = provinces.map((province: { name: any; code: any; children: any }) => ({
-            label: province.name,
-            value: province.code
-        }));
+        this.areaCode.set(
+            provinces.map((province: { name: any; code: any; children: any }) => ({
+                label: province.name,
+                value: province.code
+            }))
+        );
     }
 
     public selectChanges(values: any): void {
@@ -50,10 +55,18 @@ export class ThyCascaderLoadDataExampleComponent implements OnInit {
                     return item.provinceCode === node.value;
                 })
                 .map(item => {
-                    return {
-                        label: item.name,
-                        value: item.code
-                    };
+                    if (item.name === '石家庄市') {
+                        return {
+                            label: item.name,
+                            value: item.code,
+                            isLeaf: true
+                        };
+                    } else {
+                        return {
+                            label: item.name,
+                            value: item.code
+                        };
+                    }
                 });
             node.children = data;
             return of(node).pipe(delay(1000));
@@ -73,4 +86,13 @@ export class ThyCascaderLoadDataExampleComponent implements OnInit {
             return of(node).pipe(delay(1000));
         }
     };
+
+    public thyOnSearch(event: string) {
+        console.log(event);
+        this.thyLoadingDone.set(false);
+        setTimeout(() => {
+            this.thyLoadingDone.set(true);
+            this.areaCode.set(clone(options));
+        }, 1000);
+    }
 }
