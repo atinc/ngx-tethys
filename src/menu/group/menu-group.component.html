@@ -18,6 +18,11 @@
     <thy-icon thyIconName="angle-up" class="thy-menu-group-arrow"></thy-icon>
   }
 </div>
-<div class="thy-menu-group-body" #thyMenuGroup [@detailsContentAnimation]="thyCollapsed()">
+<div
+  class="thy-menu-group-body"
+  #thyMenuGroup
+  thyAnimationCollapse
+  [thyOpen]="isOpen()"
+  [thyLeavedClassName]="'thy-menu-group-body-leaved'">
   <ng-content></ng-content>
 </div>

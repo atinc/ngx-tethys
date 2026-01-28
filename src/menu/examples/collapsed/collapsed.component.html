@@ -1,7 +1,7 @@
 <div class="demo-menu-collapaed">
   <div class="demo-menu-container">
     一级菜单收起：
-    <thy-menu [thyCollapsed]="collapsed" [thyTheme]="'dark'">
+    <thy-menu [thyCollapsed]="collapsed()" [thyTheme]="'dark'">
       <a thyMenuItem thyIcon="dashboard" href="javascript:;"> Dashboard </a>
       <a thyMenuItem thyIcon="applications" href="javascript:;"> Apps </a>
       <a thyMenuItem thyIcon="external-user" href="javascript:;"> Teams </a>
@@ -12,15 +12,15 @@
         </span>
         Message
       </a>
-      <a thyMenuItem [thyIcon]="collapsed ? 'indent' : 'outdent'" href="javascript:;" (click)="collapsed = !collapsed">
-        <span thyMenuItemName>{{ collapsed ? '' : 'Collapse' }}</span>
+      <a thyMenuItem [thyIcon]="collapsed() ? 'indent' : 'outdent'" href="javascript:;" (click)="collapsed.set(!collapsed())">
+        <span thyMenuItemName>{{ collapsed() ? '' : 'Collapse' }}</span>
       </a>
     </thy-menu>
   </div>
 
   <div class="demo-menu-container">
     分组菜单收起：
-    <thy-menu [thyCollapsed]="collapsed" [thyTheme]="'dark'">
+    <thy-menu [thyCollapsed]="collapsed()" [thyTheme]="'dark'">
       <thy-menu-group thyTitle="Item1" thyCollapsible="true" thyIcon="dashboard" thyShowIcon="true">
         <a thyMenuItem thyIcon="inbox" href="javascript:;"> Project 1 </a>
         <a thyMenuItem thyIcon="inbox" href="javascript:;"> Project 2 </a>
@@ -36,8 +36,8 @@
         </span>
         Message
       </a>
-      <a thyMenuItem [thyIcon]="collapsed ? 'indent' : 'outdent'" href="javascript:;" (click)="collapsed = !collapsed">
-        <span thyMenuItemName>{{ collapsed ? '' : 'Collapse' }}</span>
+      <a thyMenuItem [thyIcon]="collapsed() ? 'indent' : 'outdent'" href="javascript:;" (click)="collapsed.set(!collapsed())">
+        <span thyMenuItemName>{{ collapsed() ? '' : 'Collapse' }}</span>
       </a>
     </thy-menu>
   </div>

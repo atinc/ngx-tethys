@@ -52,6 +52,9 @@ $thy-collapse-prefix-cls: 'thy-collapse';
             &-box:empty {
                 display: none;
             }
+            &.thy-collapse-content-leaved {
+                display: none;
+            }
         }
     }
     & &-item-disabled > &-header {
