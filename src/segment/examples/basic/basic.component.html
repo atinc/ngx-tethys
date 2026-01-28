@@ -1,5 +1,5 @@
 <div style="width: 386px" class="d-flex align-items-center">
-  <thy-segment [thyActiveIndex]="selectedIndex" (thySelectChange)="selectedChange($event)">
+  <thy-segment [thyActiveIndex]="selectedIndex()" (thySelectChange)="selectedChange($event)">
     <thy-segment-item thyValue="member">成员</thy-segment-item>
     <thy-segment-item thyValue="department">部门</thy-segment-item>
     <thy-segment-item thyValue="group">用户组</thy-segment-item>

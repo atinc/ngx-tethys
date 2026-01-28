@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { ThySelect, ThySelectOptionModel } from 'ngx-tethys/select/custom-select/custom-select.component';
 import { timer } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -11,45 +11,45 @@ import { FormsModule } from '@angular/forms';
     imports: [ThySelect, FormsModule]
 })
 export class ThyOptionsExampleComponent implements OnInit {
-    loadMoreOptions: ThySelectOptionModel[] = [];
+    loadMoreOptions = signal<ThySelectOptionModel[]>([]);
 
-    options = groupOptions;
+    options = signal<ThySelectOptionModel[]>(groupOptions);
 
     value = '';
 
     multipleValue: Array<string> = [];
 
-    loading = false;
+    loading = signal(false);
 
-    haveMore = true;
+    haveMore = signal(true);
 
-    page = 0;
+    page = signal(0);
 
     onScrollToBottom() {
-        if (!this.loading && this.haveMore) {
-            this.page++;
+        if (!this.loading() && this.haveMore()) {
+            this.page.set(this.page() + 1);
             this.fetchOptions().subscribe(() => {
-                this.loading = false;
+                this.loading.set(false);
             });
         }
     }
 
     fetchOptions() {
-        this.loading = true;
+        this.loading.set(true);
         return timer(1000).pipe(
             tap(() => {
+                const newData = [];
                 for (let index = 0; index < 10; index++) {
-                    this.loadMoreOptions.push({ label: `第${this.page + 1}页`, value: `${this.page}` });
+                    newData.push({ label: `第${this.page() + 1}页`, value: `${this.page()}` });
                 }
+                this.loadMoreOptions.set([...this.loadMoreOptions(), ...newData]);
 
-                this.loadMoreOptions.forEach((item, index: number) => {
+                this.loadMoreOptions().forEach((item, index: number) => {
                     item.value = `${item.value}${index}`;
                 });
 
-                this.loadMoreOptions = [...this.loadMoreOptions];
-
-                if (this.page > 3) {
-                    this.haveMore = false;
+                if (this.page() > 3) {
+                    this.haveMore.set(false);
                 }
             })
         );
@@ -57,7 +57,7 @@ export class ThyOptionsExampleComponent implements OnInit {
 
     ngOnInit() {
         this.fetchOptions().subscribe(() => {
-            this.loading = false;
+            this.loading.set(false);
         });
     }
 }

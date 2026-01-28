@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, inject, viewChild } from '@angular/core';
 import { ThyTooltipService, ThyTooltipRef } from 'ngx-tethys/tooltip';
 import { ThyButton } from 'ngx-tethys/button';
 
@@ -10,12 +10,12 @@ import { ThyButton } from 'ngx-tethys/button';
 export class ThyTooltipManualExampleComponent implements OnInit, OnDestroy {
     private tooltipService = inject(ThyTooltipService);
 
-    @ViewChild('tooltipHost', { read: ElementRef, static: true }) tooltipHostElementRef!: ElementRef<HTMLElement>;
+    tooltipHostElementRef = viewChild<ElementRef<HTMLElement>>('tooltipHost');
 
     private tooltipRef!: ThyTooltipRef;
 
     ngOnInit(): void {
-        this.tooltipRef = this.tooltipService.create(this.tooltipHostElementRef, {
+        this.tooltipRef = this.tooltipService.create(this.tooltipHostElementRef()!, {
             placement: 'top'
         });
     }
@@ -29,7 +29,6 @@ export class ThyTooltipManualExampleComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        // 销毁 tooltipRef
         this.tooltipRef.dispose();
     }
 }

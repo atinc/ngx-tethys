@@ -1,4 +1,4 @@
-<div class="box" thyResizable thyPreview [style.height.px]="height" [style.width.px]="width" (thyResizeEnd)="onResize($event)">
+<div class="box" thyResizable thyPreview [style.height.px]="height()" [style.width.px]="width()" (thyResizeEnd)="onResize($event)">
   <thy-resize-handles></thy-resize-handles>
   content
 </div>

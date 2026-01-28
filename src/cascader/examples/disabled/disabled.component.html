@@ -11,7 +11,7 @@
 
   <div class="my-2">下拉多选禁用：</div>
   <thy-cascader
-    [thyOptions]="multiOptions"
+    [thyOptions]="multiOptions()"
     [(ngModel)]="multiValues"
     [thyMultiple]="true"
     [thyLabelRender]="renderTpl"

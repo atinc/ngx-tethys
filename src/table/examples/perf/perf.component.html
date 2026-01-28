@@ -1,5 +1,5 @@
 <button thyButton="primary" thySize="md" (click)="refresh()">重新渲染</button>
-<thy-table [thyModel]="data" thyRowKey="id" [thyLoadingDone]="loadingDone">
+<thy-table [thyModel]="data" thyRowKey="id" [thyLoadingDone]="loadingDone()">
   <thy-table-column thyTitle="Id" thyModelKey="id"></thy-table-column>
   <thy-table-column thyTitle="Name" thyModelKey="name" thyWidth="15%">
     <ng-template #cell let-row>

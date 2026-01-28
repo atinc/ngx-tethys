@@ -1,4 +1,4 @@
-import { Component, OnInit, afterNextRender, AfterViewInit, AfterContentChecked, DoCheck, afterEveryRender } from '@angular/core';
+import { Component, OnInit, afterNextRender, AfterViewInit, AfterContentChecked, DoCheck, afterEveryRender, signal } from '@angular/core';
 import { ThyAvatar } from 'ngx-tethys/avatar';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyButton } from 'ngx-tethys/button';
@@ -32,12 +32,12 @@ export class ThyTablePerfExampleComponent implements OnInit, AfterViewInit, Afte
         { id: 3, name: 'Tom', age: 30, job: 'Engineer', address: 'New Industrial Park, Shushan, Hefei, Anhui' }
     ];
 
-    loadingDone = false;
+    loadingDone = signal<boolean>(false);
 
     protected perfTracker = perfTracker();
 
     constructor() {
-        for (let i = 4; i < 1000; i++) {
+        for (let i = 4; i < 100; i++) {
             this.data.push({ id: i, name: 'Tom', age: 30, job: 'Engineer', address: 'New Industrial Park, Shushan, Hefei, Anhui' });
         }
 
@@ -50,6 +50,7 @@ export class ThyTablePerfExampleComponent implements OnInit, AfterViewInit, Afte
             this.perfTracker.add('afterRenderEffect');
         });
     }
+
     ngDoCheck(): void {
         // this.perfTracker.add('ngDoCheck');
     }
@@ -59,7 +60,7 @@ export class ThyTablePerfExampleComponent implements OnInit, AfterViewInit, Afte
     }
 
     ngOnInit(): void {
-        this.loadingDone = true;
+        this.loadingDone.set(true);
         this.perfTracker.add('ngOnInit');
     }
 
@@ -69,10 +70,10 @@ export class ThyTablePerfExampleComponent implements OnInit, AfterViewInit, Afte
 
     refresh() {
         this.perfTracker.reset('loading');
-        this.loadingDone = false;
+        this.loadingDone.set(false);
         setTimeout(() => {
             this.data = [...this.data];
-            this.loadingDone = true;
+            this.loadingDone.set(true);
             this.perfTracker.reset('refreshing');
         });
     }

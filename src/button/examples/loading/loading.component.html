@@ -3,9 +3,9 @@
   <button
     thyButton="primary"
     thyIcon="plus"
-    [thyLoading]="loading"
+    [thyLoading]="loading()"
     (click)="startLoading()"
-    [thyLoadingText]="'Loading... ' + loadingSeconds + 's'">
+    [thyLoadingText]="'Loading... ' + loadingSeconds() + 's'">
     Click me!
   </button>
 </div>

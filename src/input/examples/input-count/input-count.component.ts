@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ThyFormGroup, ThyFormDirective, ThyFormGroupFooter } from 'ngx-tethys/form';
+import { ThyFormGroup, ThyFormDirective, ThyFormGroupFooter, ThyFormSubmitDirective } from 'ngx-tethys/form';
 import { ThyInputCount, ThyInputDirective, ThyInputGroup } from 'ngx-tethys/input';
 import { ThyButton } from 'ngx-tethys/button';
 
@@ -17,14 +17,11 @@ import { ThyButton } from 'ngx-tethys/button';
         ThyFormDirective,
         ThyInputGroup,
         ThyInputCount,
-        FormsModule
+        FormsModule,
+        ThyFormSubmitDirective
     ]
 })
-export class ThyInputCountExampleComponent implements OnInit {
-    constructor() {}
-
-    ngOnInit() {}
-
+export class ThyInputCountExampleComponent {
     model = {
         username: 'Alice',
         nickname: '',
@@ -32,15 +29,15 @@ export class ThyInputCountExampleComponent implements OnInit {
         address: '北京市海淀区'
     };
 
-    saving = false;
+    saving = signal<boolean>(false);
 
     login() {
-        if (this.saving) {
+        if (this.saving()) {
             return;
         }
-        this.saving = true;
+        this.saving.set(true);
         setTimeout(() => {
-            this.saving = false;
+            this.saving.set(false);
         }, 2000);
     }
 

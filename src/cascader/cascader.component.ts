@@ -847,6 +847,9 @@ export class ThyCascader
                     observer.next(null);
                 });
                 resize.observe(this.trigger().nativeElement);
+                return () => {
+                    resize.disconnect();
+                };
             }).subscribe(() => {
                 this.ngZone.run(() => {
                     this.triggerRect = this.trigger().nativeElement.getBoundingClientRect();

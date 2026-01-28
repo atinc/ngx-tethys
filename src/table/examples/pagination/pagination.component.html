@@ -8,7 +8,7 @@
   [thyPageSizeOptions]="pagination.sizeOptions"
   [thyShowTotal]="true"
   [thyShowSizeChanger]="true"
-  [thyLoadingDone]="loadingDone"
+  [thyLoadingDone]="loadingDone()"
   [thyColumnSkeletonTypes]="skeletonTypes"
   (thyOnPageChange)="onPageChange($event)"
   (thyOnPageSizeChange)="onPageSizeChange($event)">

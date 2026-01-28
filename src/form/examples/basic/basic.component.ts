@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyButton } from 'ngx-tethys/button';
 import { ThyFormDirective, ThyFormGroup, ThyFormGroupFooter, ThyFormSubmitDirective } from 'ngx-tethys/form';
@@ -9,25 +9,21 @@ import { ThyInputDirective } from 'ngx-tethys/input';
     templateUrl: './basic.component.html',
     imports: [FormsModule, ThyFormDirective, ThyFormGroup, ThyInputDirective, ThyFormGroupFooter, ThyButton, ThyFormSubmitDirective]
 })
-export class ThyFormBasicExampleComponent implements OnInit {
+export class ThyFormBasicExampleComponent {
     model = {
         name: '',
         password: ''
     };
 
-    saving = false;
-
-    constructor() {}
-
-    ngOnInit(): void {}
+    saving = signal(false);
 
     login() {
-        if (this.saving) {
+        if (this.saving()) {
             return;
         }
-        this.saving = true;
+        this.saving.set(true);
         setTimeout(() => {
-            this.saving = false;
+            this.saving.set(false);
         }, 2000);
     }
 

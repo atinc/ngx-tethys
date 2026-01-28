@@ -1,5 +1,5 @@
 import { ThyMessageService } from 'ngx-tethys/message';
-import { Component, OnInit, TemplateRef, ViewChild, inject } from '@angular/core';
+import { Component, TemplateRef, inject, viewChild } from '@angular/core';
 import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
 import { ThyButton } from 'ngx-tethys/button';
 
@@ -8,19 +8,17 @@ import { ThyButton } from 'ngx-tethys/button';
     templateUrl: './custom-content.component.html',
     imports: [ThySpace, ThySpaceItemDirective, ThyButton]
 })
-export class ThyMessageCustomContentExampleComponent implements OnInit {
+export class ThyMessageCustomContentExampleComponent {
     private messageService = inject(ThyMessageService);
 
-    @ViewChild('content', { static: true }) contentTemplate: TemplateRef<any>;
-
-    ngOnInit() {}
+    contentTemplate = viewChild<TemplateRef<any>>('content');
 
     showWithString() {
         this.messageService.success('content is string！');
     }
 
     showWithTemplateRef() {
-        this.messageService.success(this.contentTemplate);
+        this.messageService.success(this.contentTemplate()!);
     }
 
     openAction = () => {

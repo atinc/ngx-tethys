@@ -6,7 +6,7 @@ import {
     ThyFormValidatorConfig,
     ThyValidateOn
 } from 'ngx-tethys/form';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, signal, WritableSignal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TinyDate } from 'ngx-tethys/util';
 import { ThyDatePicker, ThyRangePicker } from 'ngx-tethys/date-picker';
@@ -118,10 +118,8 @@ const provinceCities = [
         ThyFormSubmitDirective
     ]
 })
-export class ThyFormReactiveExampleComponent implements OnInit {
+export class ThyFormReactiveExampleComponent {
     private formBuilder = inject(FormBuilder);
-
-    submitSuccess = false;
 
     provinceCities = provinceCities;
 
@@ -158,7 +156,7 @@ export class ThyFormReactiveExampleComponent implements OnInit {
 
     dateRange: any = null;
 
-    formGroup!: FormGroup;
+    formGroup: WritableSignal<FormGroup | undefined> = signal(undefined);
 
     updateOnList = [
         {
@@ -179,7 +177,7 @@ export class ThyFormReactiveExampleComponent implements OnInit {
 
     validateOn: ThyValidateOn = 'blur';
 
-    validateConfig: ThyFormValidatorConfig = {
+    validateConfig: WritableSignal<ThyFormValidatorConfig> = signal({
         validationMessages: {
             username: {
                 required: 'Please enter the username',
@@ -191,9 +189,9 @@ export class ThyFormReactiveExampleComponent implements OnInit {
             }
         },
         validateOn: this.validateOn
-    };
+    });
 
-    loadingDone = false;
+    loadingDone = signal<boolean>(false);
 
     listOfOption = [
         { value: 'option1', text: '选项一' },
@@ -247,56 +245,55 @@ export class ThyFormReactiveExampleComponent implements OnInit {
 
     constructor() {
         this.initFormGroup();
-        this.loadingDone = true;
+        this.loadingDone.set(true);
     }
 
     initFormGroup(updateOn = 'change') {
-        this.formGroup = this.formBuilder.group(
-            {
-                username: ['', [Validators.required, Validators.pattern('^[A-Za-z]{1}[0-9A-Za-z_]{1,19}')]],
-                input: ['', [Validators.required]],
-                search: ['', [Validators.required]],
-                number: ['', [Validators.required]],
-                customersSelect: ['', [Validators.required]],
-                customersMultiSelect: [[], [Validators.required]],
-                treeSelect: ['', [Validators.required]],
-                treeSelectMulti: [[], [Validators.required]],
-                rate: [0, [Validators.min(2)]],
-                switch: [false, [Validators.required]],
-                color: ['', [Validators.required]],
-                textarea: ['', [Validators.required]],
-                province: ['', [Validators.required]],
-                dateFull: ['', [Validators.required]],
-                dateRange: ['', [this.dateRangeValidator]],
-                radioGroup: ['', [Validators.required]],
-                radio: ['', [Validators.required]],
-                slider: [0, [Validators.min(10)]],
-                checkbox: ['', [Validators.requiredTrue]],
-                checkbox1: ['', [Validators.requiredTrue]],
-                checkbox2: ['', [Validators.requiredTrue]]
-            },
-            { updateOn }
+        this.formGroup.set(
+            this.formBuilder.group(
+                {
+                    username: ['', [Validators.required, Validators.pattern('^[A-Za-z]{1}[0-9A-Za-z_]{1,19}')]],
+                    input: ['', [Validators.required]],
+                    search: ['', [Validators.required]],
+                    number: ['', [Validators.required]],
+                    customersSelect: ['', [Validators.required]],
+                    customersMultiSelect: [[], [Validators.required]],
+                    treeSelect: ['', [Validators.required]],
+                    treeSelectMulti: [[], [Validators.required]],
+                    rate: [0, [Validators.min(2)]],
+                    switch: [false, [Validators.required]],
+                    color: ['', [Validators.required]],
+                    textarea: ['', [Validators.required]],
+                    province: ['', [Validators.required]],
+                    dateFull: ['', [Validators.required]],
+                    dateRange: ['', [this.dateRangeValidator]],
+                    radioGroup: ['', [Validators.required]],
+                    radio: ['', [Validators.required]],
+                    slider: [0, [Validators.min(10)]],
+                    checkbox: ['', [Validators.requiredTrue]],
+                    checkbox1: ['', [Validators.requiredTrue]],
+                    checkbox2: ['', [Validators.requiredTrue]]
+                },
+                { updateOn }
+            )
         );
-        this.formGroup.valueChanges.subscribe(data => {
+        this.formGroup()?.valueChanges.subscribe(data => {
             console.log(data);
         });
     }
 
-    ngOnInit(): void {}
-
     changeUpdateOn(value: string) {
-        this.loadingDone = false;
-        this.validateConfig.validateOn = this.validateOn;
+        this.loadingDone.set(false);
+        this.validateConfig.set({ ...this.validateConfig(), validateOn: this.validateOn });
         this.initFormGroup(this.updateOn);
         setTimeout(() => {
-            this.loadingDone = true;
+            this.loadingDone.set(true);
         }, 100);
     }
 
     save() {
         console.log(this.model);
         console.log(`submit success!`, this.formGroup);
-        this.submitSuccess = true;
     }
 
     onChanges(event: Event) {}

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ThyResizableDirective, ThyResizeEvent, ThyResizeHandle } from 'ngx-tethys/resizable';
 import { ThyTable, ThyTableColumnComponent } from 'ngx-tethys/table';
 
@@ -11,7 +11,7 @@ import { ThyTable, ThyTableColumnComponent } from 'ngx-tethys/table';
 export class ThyResizableTableExampleComponent {
     className = 'thy-resizable';
 
-    listOfData = [
+    listOfData = signal([
         {
             key: '1',
             title: 'name',
@@ -35,9 +35,10 @@ export class ThyResizableTableExampleComponent {
             age: 32,
             address: 'Sidney No. 1 Lake Park'
         }
-    ];
+    ]);
 
     onResize({ width }: ThyResizeEvent, col: string): void {
-        this.listOfData = this.listOfData.map(e => (e.title === col ? { ...e, width: `${width}px` } : e));
+        const data = this.listOfData().map(e => (e.title === col ? { ...e, width: `${width}px` } : e));
+        this.listOfData.set(data);
     }
 }

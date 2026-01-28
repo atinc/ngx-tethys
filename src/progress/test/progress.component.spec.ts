@@ -163,6 +163,15 @@ function assertTooltipInstance(tooltip: ThyTooltipDirective, shouldExist: boolea
     expect(!!tooltipInstance).toBe(shouldExist);
 }
 
+function dispatchTransitionEndEvent(tooltipElement: HTMLElement, propertyName: string): void {
+    const transitionEndEvent = new TransitionEvent('transitionend', {
+        bubbles: true,
+        cancelable: true,
+        propertyName: propertyName
+    });
+    tooltipElement.dispatchEvent(transitionEndEvent);
+}
+
 describe(`ThyProgressComponent`, () => {
     describe(`basic`, () => {
         let fixture!: ComponentFixture<ThyDemoProgressBasicComponent>;
@@ -287,6 +296,11 @@ describe(`ThyProgressComponent`, () => {
             assertTooltipInstance(tooltipDirective, true);
 
             // On animation complete, should expect that the tooltip has been detached.
+            const tooltipElementAfterHide = overlayContainerElement.querySelector(`.${TOOLTIP_CLASS}`) as HTMLElement;
+            if (tooltipElementAfterHide) {
+                dispatchTransitionEndEvent(tooltipElementAfterHide, 'opacity');
+                fixture.detectChanges();
+            }
             flushMicrotasks();
             assertTooltipInstance(tooltipDirective, false);
         }));
@@ -324,6 +338,11 @@ describe(`ThyProgressComponent`, () => {
             expect(getTooltipVisible()).toBe(false);
             assertTooltipInstance(tooltipDirective, true);
 
+            const tooltipElementAfterHide = overlayContainerElement.querySelector(`.${TOOLTIP_CLASS}`) as HTMLElement;
+            if (tooltipElementAfterHide) {
+                dispatchTransitionEndEvent(tooltipElementAfterHide, 'opacity');
+                fixture.detectChanges();
+            }
             // On animation complete, should expect that the tooltip has been detached.
             flushMicrotasks();
             assertTooltipInstance(tooltipDirective, false);
@@ -655,6 +674,11 @@ describe(`ThyProgressComponent`, () => {
             expect(getTooltipVisible()).toBe(false);
             assertTooltipInstance(tooltipDirective, true);
 
+            const tooltipElementAfterHide = overlayContainerElement.querySelector(`.${TOOLTIP_CLASS}`) as HTMLElement;
+            if (tooltipElementAfterHide) {
+                dispatchTransitionEndEvent(tooltipElementAfterHide, 'opacity');
+                fixture.detectChanges();
+            }
             // On animation complete, should expect that the tooltip has been detached.
             flushMicrotasks();
             assertTooltipInstance(tooltipDirective, false);
@@ -987,6 +1011,11 @@ describe(`ThyProgressComponent`, () => {
             expect(getTooltipVisible()).toBe(false);
             assertTooltipInstance(tooltipDirective, true);
 
+            const tooltipElementAfterHide = overlayContainerElement.querySelector(`.${TOOLTIP_CLASS}`) as HTMLElement;
+            if (tooltipElementAfterHide) {
+                dispatchTransitionEndEvent(tooltipElementAfterHide, 'opacity');
+                fixture.detectChanges();
+            }
             // On animation complete, should expect that the tooltip has been detached.
             flushMicrotasks();
             assertTooltipInstance(tooltipDirective, false);

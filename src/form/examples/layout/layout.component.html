@@ -2,7 +2,7 @@
   <span class="mr-2">From Layout:</span>
   <thy-button-group thySize="md" thyType="outline-default">
     @for (layout of layouts; track layout.value) {
-      <button thyButton (click)="updateLayout(layout)" [ngClass]="{ active: layout === currentLayout }">
+      <button thyButton (click)="updateLayout(layout)" [ngClass]="{ active: layout === currentLayout() }">
         {{ layout.text }}
       </button>
     }
@@ -10,7 +10,7 @@
 </div>
 
 @if (showForm) {
-  <form thyForm name="demoForm" #demoForm="ngForm" [thyLayout]="currentLayout?.value">
+  <form thyForm name="demoForm" #demoForm="ngForm" [thyLayout]="currentLayout()?.value">
     <thy-form-group thyLabelText="Username">
       <input thyInput name="username" placeholder="Please type username" />
     </thy-form-group>
@@ -18,7 +18,7 @@
       <input thyInput type="password" name="password" placeholder="Please type password" />
     </thy-form-group>
     <thy-form-group-footer>
-      <button [thyButton]="'primary'" thyLoadingText="Login" (thyFormSubmit)="login()">Login</button>
+      <button [thyButton]="'primary'" [thyLoading]="saving()" thyLoadingText="Logining" (thyFormSubmit)="login()">Login</button>
       <button [thyButton]="'link-secondary'">Cancel</button>
     </thy-form-group-footer>
   </form>

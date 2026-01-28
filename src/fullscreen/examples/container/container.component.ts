@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ThyFullscreenComponent, ThyFullscreenLaunchDirective } from 'ngx-tethys/fullscreen';
 import { ThyButton } from 'ngx-tethys/button';
 
@@ -8,15 +8,13 @@ import { ThyButton } from 'ngx-tethys/button';
     imports: [ThyFullscreenLaunchDirective, ThyFullscreenComponent, ThyButton]
 })
 export class ThyFullscreenContainerExampleComponent {
-    btnContent = '全屏';
-
-    constructor() {}
+    btnContent = signal<string>('全屏');
 
     changeFullscreen(isFullscreen: boolean) {
         if (isFullscreen) {
-            this.btnContent = '退出全屏';
+            this.btnContent.set('退出全屏');
         } else {
-            this.btnContent = '全屏';
+            this.btnContent.set('全屏');
         }
     }
 }

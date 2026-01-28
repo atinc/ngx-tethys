@@ -1,18 +1,15 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, WritableSignal, model, signal } from '@angular/core';
 import { ThyTable, ThyTableColumnComponent, ThyMultiSelectEvent, ThyRadioSelectEvent, ThySwitchEvent } from 'ngx-tethys/table';
-import { ThyNotifyService } from 'ngx-tethys/notify';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { ThyRadioGroup } from 'ngx-tethys/radio';
+import { ThyRadioGroup, ThyRadio } from 'ngx-tethys/radio';
 import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'thy-table-column-type-example',
     templateUrl: './column-type.component.html',
-    imports: [ThyTable, ThyTableColumnComponent, ThyIcon, ThyRadioGroup, FormsModule]
+    imports: [ThyTable, ThyTableColumnComponent, ThyIcon, ThyRadioGroup, ThyRadio, FormsModule]
 })
 export class ThyTableColumnTypeExampleComponent implements OnInit {
-    private notifyService = inject(ThyNotifyService);
-
     data = [
         { id: 1, name: 'Peter', age: 25, job: 'Engineer', address: 'Beijing Dong Sheng Technology' },
         { id: 2, name: 'James', age: 26, job: 'Designer', address: 'Xian Economic Development Zone' },
@@ -21,30 +18,30 @@ export class ThyTableColumnTypeExampleComponent implements OnInit {
         { id: 5, name: 'Jill', age: 22, job: 'DevOps', address: 'Hangzhou' }
     ];
 
-    selections: { id: number; name: string }[] = [];
+    selections: WritableSignal<{ id: number; name: string }[]> = signal([]);
 
-    showTable = true;
+    showTable = signal<boolean>(true);
 
-    columnType: string = 'index';
+    columnType = model<string>('index');
 
     ngOnInit(): void {
-        this.selections = [this.data[0]];
+        this.selections.set([this.data[0]]);
     }
 
     onMultiSelectChange($event: ThyMultiSelectEvent) {
-        this.selections = $event.rows;
+        this.selections.set($event.rows);
     }
 
     onRadioSelectChange($event: ThyRadioSelectEvent) {
-        this.selections = $event.row;
+        this.selections.set($event.row);
     }
 
     onSwitchChange($event: ThySwitchEvent) {}
 
     columnTypeChange() {
-        this.showTable = false;
+        this.showTable.set(false);
         setTimeout(() => {
-            this.showTable = true;
+            this.showTable.set(true);
         });
     }
 }

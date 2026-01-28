@@ -1,5 +1,5 @@
-<thy-table [thyModel]="listOfData">
-  @for (col of listOfData; track col.key) {
+<thy-table [thyModel]="listOfData()">
+  @for (col of listOfData(); track col.key) {
     <thy-table-column [thyTitle]="col.title" [thyModelKey]="col.title" [thyWidth]="col.width">
       <ng-template #header let-row>
         <div

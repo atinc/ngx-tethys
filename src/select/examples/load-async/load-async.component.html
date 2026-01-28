@@ -2,12 +2,12 @@
   [ngModel]="listOfSelectedValue"
   thyEnableScrollLoad="true"
   style="width: 500px"
-  [thyLoadState]="loadState"
+  [thyLoadState]="loadState()"
   (thyOnExpandStatusChange)="expandChange($event)">
-  @for (option of loadMoreData; track option._id) {
+  @for (option of loadMoreData(); track option._id) {
     <thy-option [thyValue]="option._id" [thyLabelText]="option.thyLabelText"> </thy-option>
   }
-  @if (loading) {
+  @if (loading()) {
     <div class="loading-more font-size-xs text-desc">加载中...</div>
   }
 </thy-select>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ThyButtonGroup, ThyButton } from 'ngx-tethys/button';
 import { FormsModule } from '@angular/forms';
 import { ThyFormDirective, ThyFormGroupFooter, ThyFormLayout, ThyFormSubmitDirective, ThyFormGroup } from 'ngx-tethys/form';
@@ -25,7 +25,7 @@ interface LayoutInfo {
         ThyFormSubmitDirective
     ]
 })
-export class ThyFormLayoutExampleComponent implements OnInit {
+export class ThyFormLayoutExampleComponent {
     layouts: LayoutInfo[] = [
         {
             value: 'horizontal',
@@ -41,30 +41,27 @@ export class ThyFormLayoutExampleComponent implements OnInit {
         }
     ];
 
-    showForm = true;
-    saving = false;
+    showForm = signal<boolean>(true);
 
-    currentLayout: LayoutInfo = this.layouts[0];
+    saving = signal<boolean>(false);
 
-    constructor() {}
-
-    ngOnInit(): void {}
+    currentLayout = signal<LayoutInfo>(this.layouts[0]);
 
     updateLayout(layout: LayoutInfo) {
-        this.showForm = false;
-        this.currentLayout = layout;
+        this.showForm.set(false);
+        this.currentLayout.set(layout);
         setTimeout(() => {
-            this.showForm = true;
+            this.showForm.set(true);
         });
     }
 
     login() {
-        if (this.saving) {
+        if (this.saving()) {
             return;
         }
-        this.saving = true;
+        this.saving.set(true);
         setTimeout(() => {
-            this.saving = false;
+            this.saving.set(false);
         }, 2000);
     }
 }

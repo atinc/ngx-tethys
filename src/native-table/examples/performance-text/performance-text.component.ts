@@ -1,4 +1,4 @@
-import { afterEveryRender, afterNextRender, ChangeDetectorRef, Component, ElementRef, inject, OnInit } from '@angular/core';
+import { afterEveryRender, afterNextRender, Component, ElementRef, inject, OnInit, signal } from '@angular/core';
 import { ThyNativeTableModule } from 'ngx-tethys/native-table';
 import { ThyButton } from 'ngx-tethys/button';
 
@@ -7,16 +7,15 @@ function perfTracker() {
     return {
         add(name: string) {
             const current = new Date().getTime();
-            // console.log(`[${name}] ${current}, duration: ${current - lastDate}`);
             lastDate = current;
         },
         reset(name: string) {
             const current = new Date().getTime();
-            // console.log(`[${name}] ${current}`);
             lastDate = current;
         }
     };
 }
+
 @Component({
     selector: 'thy-native-table-performance-text-example',
     templateUrl: './performance-text.component.html',
@@ -33,11 +32,9 @@ export class ThyNativeTablePerformanceTextExampleComponent implements OnInit {
 
     elementRef = inject(ElementRef);
 
-    cdr = inject(ChangeDetectorRef);
-
     dataLength = 100;
 
-    loadingDone = true;
+    loadingDone = signal<boolean>(true);
 
     lastIndex = 1000000000000;
 
@@ -91,10 +88,9 @@ export class ThyNativeTablePerformanceTextExampleComponent implements OnInit {
 
     refresh() {
         this.perfTracker.reset('loading');
-        this.loadingDone = false;
+        this.loadingDone.set(false);
         setTimeout(() => {
-            this.loadingDone = true;
-            this.cdr.markForCheck();
+            this.loadingDone.set(true);
             this.perfTracker.reset('refreshing');
         });
     }

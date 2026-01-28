@@ -1,6 +1,6 @@
 import { Mention, MentionSuggestionSelectEvent, ThyMentionDirective } from 'ngx-tethys/mention';
 import { ThyInputDirective } from 'ngx-tethys/input';
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyAvatar } from 'ngx-tethys/avatar';
 
@@ -35,7 +35,7 @@ const mockUsers = [
 export class ThyMentionSuggestionExampleComponent implements OnInit {
     value = `This is text! please type @`;
 
-    @ViewChild('memberDisplayTemplate', { static: true }) memberDisplayTemplateRef!: TemplateRef<any>;
+    readonly memberDisplayTemplateRef = viewChild<TemplateRef<any>>('memberDisplayTemplate');
 
     mentions!: Mention<any>[];
 
@@ -50,7 +50,7 @@ export class ThyMentionSuggestionExampleComponent implements OnInit {
             {
                 trigger: '@',
                 data: mockUsers as Array<{ name: string; display_name: string }>,
-                displayTemplateRef: this.memberDisplayTemplateRef
+                displayTemplateRef: this.memberDisplayTemplateRef()
             },
             {
                 trigger: '#',

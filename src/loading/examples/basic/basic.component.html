@@ -1,4 +1,4 @@
-@if (loadingDone) {
+@if (loadingDone()) {
   <table class="table table-bordered">
     <thead>
       <tr>
@@ -30,4 +30,4 @@
     </tbody>
   </table>
 }
-<thy-loading [thyDone]="loadingDone"></thy-loading>
+<thy-loading [thyDone]="loadingDone()"></thy-loading>

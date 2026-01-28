@@ -1,5 +1,5 @@
 import { NgStyle } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ThySegment, ThySegmentEvent, ThySegmentItem } from 'ngx-tethys/segment';
 import { ThyButton } from 'ngx-tethys/button';
 
@@ -9,14 +9,14 @@ import { ThyButton } from 'ngx-tethys/button';
     imports: [ThySegment, ThySegmentItem, NgStyle, ThyButton]
 })
 export class ThySegmentBasicExampleComponent {
-    selectedIndex: number = 2;
+    selectedIndex = signal<number>(2);
 
     selectedChange(event: ThySegmentEvent): void {
         // 使用方需要手动更新 selectedIndex
-        this.selectedIndex = event.activeIndex;
+        this.selectedIndex.set(event.activeIndex);
     }
 
     setSelectedItem(event: Event) {
-        this.selectedIndex = 1;
+        this.selectedIndex.set(1);
     }
 }

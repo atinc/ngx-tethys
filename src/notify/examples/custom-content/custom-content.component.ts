@@ -1,5 +1,5 @@
 import { ThyNotifyService } from 'ngx-tethys/notify';
-import { Component, OnInit, TemplateRef, ViewChild, inject } from '@angular/core';
+import { Component, TemplateRef, inject, viewChild } from '@angular/core';
 import { ThyNotifyContentExampleComponent } from './content.component';
 import { ThyButton } from 'ngx-tethys/button';
 import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
@@ -9,12 +9,10 @@ import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
     templateUrl: './custom-content.component.html',
     imports: [ThyButton, ThySpace, ThySpaceItemDirective]
 })
-export class ThyNotifyCustomContentExampleComponent implements OnInit {
+export class ThyNotifyCustomContentExampleComponent {
     private notifyService = inject(ThyNotifyService);
 
-    @ViewChild('content', { static: true }) contentTemplate: TemplateRef<any>;
-
-    ngOnInit() {}
+    contentTemplate = viewChild<TemplateRef<any>>('content');
 
     showWithString() {
         this.notifyService.show({
@@ -33,7 +31,7 @@ export class ThyNotifyCustomContentExampleComponent implements OnInit {
         this.notifyService.show({
             type: 'success',
             title: '成功 ',
-            content: this.contentTemplate,
+            content: this.contentTemplate()!,
             detail: '提示信息\n提示信息',
             contentInitialState: {
                 $implicit: '标题111',
