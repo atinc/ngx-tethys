@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [20.0.8](https://github.com/atinc/ngx-tethys/compare/20.0.7...20.0.8) (2026-01-28)
+
+
+### Bug Fixes
+
+* fix leak memory #TINFR-3601 ([#3734](https://github.com/atinc/ngx-tethys/issues/3734)) ([12f0947](https://github.com/atinc/ngx-tethys/commit/12f094706bd27182fc03e15cf40677b2371bbbf2)), closes [#TINFR-3601](https://github.com/atinc/ngx-tethys/issues/TINFR-3601)
+
+
+
 ## [20.0.7](https://github.com/atinc/ngx-tethys/compare/20.0.4...20.0.7) (2026-01-13)
 
 
