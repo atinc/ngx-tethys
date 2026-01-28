@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { ThyCascader, ThyCascaderOption } from 'ngx-tethys/cascader';
 import { FormsModule } from '@angular/forms';
@@ -6,7 +6,7 @@ import { delay, of } from 'rxjs';
 import * as _provinces from '../_china-division/provinces.json';
 import * as _cities from '../_china-division/cities.json';
 import * as _areas from '../_china-division/areas.json';
-import { keyBy, L } from 'ngx-tethys/util';
+import { keyBy } from 'ngx-tethys/util';
 import { clone, options } from '../cascader-address-options';
 
 const provincesAll = _provinces as any;
@@ -49,7 +49,6 @@ export class ThyCascaderLoadDataExampleComponent implements OnInit {
     }
 
     public loadData = (node: ThyCascaderOption, index?: number) => {
-        console.log(`loadData: ${node.label}`);
         if (this.provincesMapByCode[node.value]) {
             const data = (cities as { code: string; name: string; provinceCode: string }[])
                 .filter(item => {

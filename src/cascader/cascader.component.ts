@@ -416,7 +416,7 @@ export class ThyCascader
             if (this.thyCascaderService.defaultValue && columns.length) {
                 this.thyCascaderService.initOptions(0);
             }
-            if (this.searchText$.getValue() && this.searchText$.getValue() !== '') {
+            if (this.searchText$.getValue()) {
                 // local search
                 this.searchInLocal(this.searchText$.getValue());
                 this.isShowSearchPanel = true;
