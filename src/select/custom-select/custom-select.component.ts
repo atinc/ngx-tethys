@@ -1183,6 +1183,9 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
                     observer.next(null);
                 });
                 resize.observe(this.trigger.nativeElement);
+                return () => {
+                    resize.disconnect();
+                };
             })
                 .pipe(
                     startWith(),
