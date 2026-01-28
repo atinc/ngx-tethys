@@ -179,6 +179,9 @@ export class ThyCascaderService {
     }
 
     private loadChildren(option: ThyCascaderOption, index: number, success?: () => void, failure?: () => void): void {
+        if (option.isLeaf) {
+            return;
+        }
         if (!this.cascaderOptions?.loadData) {
             this.setColumnData(option.children || [], index + 1);
             return;
