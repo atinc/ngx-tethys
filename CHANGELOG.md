@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [20.0.9](https://github.com/atinc/ngx-tethys/compare/20.0.8...20.0.9) (2026-01-29)
+
+
+### Features
+
+* **cascader:** support thyOnSearch ([#3739](https://github.com/atinc/ngx-tethys/issues/3739)) ([ad5b5d7](https://github.com/atinc/ngx-tethys/commit/ad5b5d7346255cdc195d324e4d9290bf9adb0201))
+
+
+
 ## [20.0.8](https://github.com/atinc/ngx-tethys/compare/20.0.7...20.0.8) (2026-01-28)
 
 
