@@ -88,8 +88,7 @@ import { ThyLoading } from 'ngx-tethys/loading';
 })
 export class ThyCascader
     extends TabIndexDisabledControlValueAccessorMixin
-    implements ControlValueAccessor, OnInit, OnDestroy, AfterContentInit
-{
+    implements ControlValueAccessor, OnInit, OnDestroy, AfterContentInit {
     private platformId = inject(PLATFORM_ID);
     private cdr = inject(ChangeDetectorRef);
     elementRef = inject(ElementRef);
@@ -333,6 +332,11 @@ export class ThyCascader
      */
     readonly thyExpandStatusChange = output<boolean>();
 
+    /**
+    * 搜索时回调
+    */
+    readonly thyOnSearch = output<string>();
+
     readonly cascaderOptions = viewChildren<ThyCascaderOptionComponent, ElementRef>('cascaderOptions', { read: ElementRef });
 
     readonly cascaderItems = viewChildren<ThyCascaderOptionComponent>(ThyCascaderOptionComponent);
@@ -409,6 +413,11 @@ export class ThyCascader
             this.thyCascaderService.initColumns(columns);
             if (this.thyCascaderService.defaultValue && columns.length) {
                 this.thyCascaderService.initOptions(0);
+            }
+            if (this.searchText$.getValue()) {
+                // local search
+                this.searchInLocal(this.searchText$.getValue());
+                this.isShowSearchPanel = true;
             }
         });
 
@@ -782,6 +791,7 @@ export class ThyCascader
                 filter(text => text !== '')
             )
             .subscribe(searchText => {
+                this.thyOnSearch.emit(searchText);
                 this.resetSearch();
 
                 // local search

@@ -1,8 +1,11 @@
 <thy-cascader
-  [thyOptions]="areaCode"
+  [thyOptions]="areaCode()"
   [thyHasBackdrop]="false"
-  [(ngModel)]="values"
+  [(ngModel)]="value"
   (ngModelChange)="selectChanges($event)"
   [thyLoadData]="loadData"
+  [thyShowSearch]="true"
+  (thyOnSearch)="thyOnSearch($event)"
+  [thyLoadingDone]="thyLoadingDone()"
   thyColumnClassName="column-class-name">
 </thy-cascader>
