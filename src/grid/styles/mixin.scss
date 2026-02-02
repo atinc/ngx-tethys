@@ -2,7 +2,7 @@
 //
 // Generate semantic grid columns with these mixins.
 
-@use "sass:math";
+@use 'sass:math';
 
 @mixin thy-make-row($gutter: $thy-grid-gutter-width) {
     --bs-gutter-x: #{$gutter};
@@ -16,7 +16,11 @@
 
 @mixin thy-make-col-ready($gutter: $thy-grid-gutter-width) {
     // Add box sizing if only the grid is loaded
-    box-sizing: if(variable-exists(include-column-box-sizing) and $include-column-box-sizing, border-box, null);
+    @if variable-exists(include-column-box-sizing) and $include-column-box-sizing {
+        box-sizing: border-box;
+    } @else {
+        box-sizing: null;
+    }
     // Prevent columns from becoming too narrow when at smaller grid tiers by
     // always setting `width: 100%;`. This works because we set the width
     // later on to override this initial width.
@@ -40,7 +44,11 @@
 
 @mixin thy-make-col-offset($size, $columns: $thy-grid-columns) {
     $num: math.div($size, $columns);
-    margin-left: if($num == 0, 0, percentage($num));
+    @if $num == 0 {
+        margin-left: 0;
+    } @else {
+        margin-left: percentage($num);
+    }
 }
 
 // Row columns

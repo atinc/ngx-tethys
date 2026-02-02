@@ -1,5 +1,5 @@
-@use "sass:math";
-@use "sass:meta";
+@use 'sass:math';
+@use 'sass:meta';
 // stylelint-disable property-blacklist, scss/dollar-variable-default
 
 // SCSS RFS mixin
@@ -63,10 +63,16 @@ $rfs-breakpoint-unit-cache: math.unit($rfs-breakpoint);
 // Responsive font-size mixin
 @mixin rfs($fs, $important: false) {
     // Cache $fs unit
-    $fs-unit: if(meta.type-of($fs) == 'number', math.unit($fs), false);
+    $fs-unit: false;
+    @if meta.type-of($fs) == 'number' {
+        $fs-unit: math.unit($fs);
+    }
 
     // Add !important suffix if needed
-    $rfs-suffix: if($important, ' !important', '');
+    $rfs-suffix: '';
+    @if $important {
+        $rfs-suffix: ' !important';
+    }
 
     // If $fs isn't a number (like inherit) or $fs has a unit (not px or rem, like 1.5em) or $ is 0, just print the value
     @if not $fs-unit or $fs-unit != '' and $fs-unit != 'px' and $fs-unit != 'rem' or $fs == 0 {
@@ -106,10 +112,18 @@ $rfs-breakpoint-unit-cache: math.unit($rfs-breakpoint);
 
             // Base font-size formatting
             // No need to check if the unit is valid, because we did that before
-            $min-width: if($rfs-font-size-unit == rem, #{math.div($fs-min, $rfs-rem-value)}rem, #{$fs-min}px);
+            @if $rfs-font-size-unit == rem {
+                $min-width: #{math.div($fs-min, $rfs-rem-value)}rem;
+            } @else {
+                $min-width: #{$fs-min}px;
+            }
 
             // If two-dimensional, use smallest of screen width and height
-            $variable-unit: if($rfs-two-dimensional, vmin, vw);
+            @if $rfs-two-dimensional {
+                $variable-unit: vmin;
+            } @else {
+                $variable-unit: vw;
+            }
 
             // Calculate the variable width between 0 and $rfs-breakpoint
             $variable-width: #{math.div($fs-diff * 100, $rfs-breakpoint)}#{$variable-unit};
