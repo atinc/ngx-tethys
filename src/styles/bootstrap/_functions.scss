@@ -4,14 +4,14 @@
 
 // Ascending
 // Used to evaluate Sass maps like our grid breakpoints.
-@use "sass:color";
-@use "sass:list";
-@use "sass:map";
-@use "sass:math";
-@use "sass:meta";
-@use "sass:string";
+@use 'sass:color';
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:meta';
+@use 'sass:string';
 @use './functions-variables';
-@use "../variables";
+@use '../variables';
 
 @mixin assert-ascending($map, $map-name) {
     $prev-key: null;
@@ -107,7 +107,11 @@
 // Request a theme color level
 @function theme-color-level($color-name: 'primary', $level: 0) {
     $color: theme-color($color-name);
-    $color-base: if($level > 0, variables.$black, variables.$white);
+    @if $level > 0 {
+        $color-base: variables.$black;
+    } @else {
+        $color-base: variables.$white;
+    }
     $level: math.abs($level);
 
     @return color.mix($color-base, $color, $level * $theme-color-interval);
@@ -127,7 +131,11 @@
         @return $value1 + $value2;
     }
 
-    @return if($return-calc == true, calc(#{$value1} + #{$value2}), $value1 + string.unquote(' + ') + $value2);
+    @if $return-calc == true {
+        @return calc(#{$value1} + #{$value2});
+    } @else {
+        @return $value1 + string.unquote(' + ') + $value2;
+    }
 }
 
 @function subtract($value1, $value2, $return-calc: true) {
@@ -147,5 +155,9 @@
         @return $value1 - $value2;
     }
 
-    @return if($return-calc == true, calc(#{$value1} - #{$value2}), $value1 + string.unquote(' - ') + $value2);
+    @if $return-calc == true {
+        @return calc(#{$value1} - #{$value2});
+    } @else {
+        @return $value1 + string.unquote(' - ') + $value2;
+    }
 }
