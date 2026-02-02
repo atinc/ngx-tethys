@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { ThyMenu, ThyMenuGroup, ThyMenuItem, ThyMenuItemIcon, ThyMenuItemName } from 'ngx-tethys/menu';
 import { ThyIcon } from 'ngx-tethys/icon';
 
@@ -9,7 +9,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
     imports: [ThyMenu, ThyMenuItem, ThyMenuItemIcon, ThyMenuItemName, ThyIcon, ThyMenuGroup]
 })
 export class ThyMenuCollapsedExampleComponent implements OnInit {
-    collapsed = true;
+    collapsed = signal<boolean>(true);
 
     constructor() {}
 
