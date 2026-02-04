@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [20.0.10](https://github.com/atinc/ngx-tethys/compare/20.0.9...20.0.10) (2026-02-04)
+
+
+### Bug Fixes
+
+* **cascader:** #TINFR-3606 fix scroll cascader in popover the popover closed ([#3742](https://github.com/atinc/ngx-tethys/issues/3742)) ([dd84061](https://github.com/atinc/ngx-tethys/commit/dd84061dfd2b83d7bb76c7e97de6bee5b9198f8c))
+
+
+
 ## [20.0.9](https://github.com/atinc/ngx-tethys/compare/20.0.8...20.0.9) (2026-01-29)
 
 
