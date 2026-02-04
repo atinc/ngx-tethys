@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [21.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/21.0.0-next.0...21.0.0-next.1) (2026-02-04)
+
+
+### Bug Fixes
+
+* **cascader:** #TINFR-3606 fix scroll cascader in popover the popover closed ([#3743](https://github.com/atinc/ngx-tethys/issues/3743)) ([ff6c74f](https://github.com/atinc/ngx-tethys/commit/ff6c74f8f047f76a436732fd121f0e7e747a418f))
+* fix leak memory #TINFR-3601 ([#3733](https://github.com/atinc/ngx-tethys/issues/3733)) ([4ddd002](https://github.com/atinc/ngx-tethys/commit/4ddd002bfe43a47a02c9055691712367152e903c)), closes [#TINFR-3601](https://github.com/atinc/ngx-tethys/issues/TINFR-3601)
+
+
+### Features
+
+* **cascader:** support thyOnSearch ([#3737](https://github.com/atinc/ngx-tethys/issues/3737)) ([5a9943c](https://github.com/atinc/ngx-tethys/commit/5a9943c1711d4e499a4ce98dd6e5a9f6599036b3))
+* **tooltip:** use new Angular animate #TINFR-3313 ([#3718](https://github.com/atinc/ngx-tethys/issues/3718)) ([102e267](https://github.com/atinc/ngx-tethys/commit/102e267678acea013228d616d17dfbe37357428d)), closes [#TINFR-3313](https://github.com/atinc/ngx-tethys/issues/TINFR-3313) [#TINFR-3313](https://github.com/atinc/ngx-tethys/issues/TINFR-3313)
+
+
+
 # [21.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/20.0.6...21.0.0-next.0) (2026-01-14)
 
 
