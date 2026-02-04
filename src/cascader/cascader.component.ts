@@ -45,7 +45,7 @@ import { ThyCascaderOptionComponent } from './cascader-li.component';
 import { ThyCascaderSearchOptionComponent } from './cascader-search-option.component';
 import { ThyCascaderService } from './cascader.service';
 import { ThyCascaderExpandTrigger, ThyCascaderOption, ThyCascaderSearchOption, ThyCascaderTriggerType } from './types';
-import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
+import { CdkVirtualScrollViewport, ScrollDispatcher, ScrollingModule } from '@angular/cdk/scrolling';
 import { ThyCascaderOptionsPipe } from './cascader.pipe';
 import { ThyLoading } from 'ngx-tethys/loading';
 
@@ -62,6 +62,7 @@ import { ThyLoading } from 'ngx-tethys/loading';
             useExisting: forwardRef(() => ThyCascader),
             multi: true
         },
+        ScrollDispatcher,
         ThyCascaderService
     ],
     host: {
