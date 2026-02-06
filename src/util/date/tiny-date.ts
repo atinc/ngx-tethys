@@ -1,8 +1,6 @@
 import { TZDate } from '@date-fns/tz';
-import { FirstWeekContainsDate, Locale, setHours, setMinutes, setSeconds } from 'date-fns';
-import { fromZonedTime } from 'date-fns-tz';
+import { FirstWeekContainsDate, Locale, parse, parseISO, setHours, setMinutes, setSeconds } from 'date-fns';
 import { getDefaultLocaleId } from 'ngx-tethys/i18n';
-import { hasTimeInStringDate } from '../helpers';
 import {
     addDays,
     addHours,
@@ -66,6 +64,21 @@ export type WeekDayIndex = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
 export type TinyDateType = TinyDate | Date | null;
 
+export const DATE_FORMATS = [
+    'yyyy-MM-dd HH:mm:ss',
+    'yyyy-MM-dd HH:mm',
+    'yyyy-MM-dd',
+    'yyyy/MM/dd HH:mm:ss',
+    'yyyy/MM/dd HH:mm',
+    'yyyy/MM/dd',
+    'MMM d, yyyy HH:mm:ss',
+    'MMM d, yyyy HH:mm',
+    'MMM dd, yyyy HH:mm:ss',
+    'MMM dd, yyyy HH:mm',
+    'MMM d, yyyy',
+    'MMM dd, yyyy'
+];
+
 export function sortRangeValue(rangeValue: TinyDate[]): TinyDate[] {
     if (Array.isArray(rangeValue)) {
         const [start, end] = rangeValue;
@@ -94,14 +107,19 @@ export class TinyDate implements Record<string, any> {
             if (date instanceof Date) {
                 this.nativeDate = TinyDate.utcToZonedTime(date, this.useTimeZone);
             } else if (typeof date === 'string') {
-                if (hasTimeInStringDate(date)) {
-                    // If the string contains time, you need to convert the time to UTC time before passing it to TZDate
-                    const originTime = new Date(date);
-                    const zoneTime = TZDate.tz(this.useTimeZone, originTime);
-                    const utcDate = fromZonedTime(zoneTime, this.useTimeZone).toISOString();
-                    this.nativeDate = new TZDate(utcDate, this.useTimeZone);
-                } else {
-                    this.nativeDate = new TZDate(date, this.useTimeZone);
+                try {
+                    const parsed = TinyDate.parseStringDate(date, this.useTimeZone);
+                    this.nativeDate = new TZDate(
+                        parsed.year,
+                        parsed.month,
+                        parsed.day,
+                        parsed.hours,
+                        parsed.minutes,
+                        parsed.seconds,
+                        this.useTimeZone
+                    );
+                } catch {
+                    this.nativeDate = new Date(NaN);
                 }
             } else if (typeof date === 'number') {
                 this.nativeDate = new TZDate(date, this.useTimeZone);
@@ -557,5 +575,109 @@ export class TinyDate implements Record<string, any> {
 
     subDays(amount: number): TinyDate {
         return new TinyDate(subDays(this.nativeDate, amount), this.useTimeZone);
+    }
+
+    /**
+     * Supports: YYYY-MM, YYYY-MM-DD, YYYY-MM-DD HH:mm, YYYY/MM/DD, ISO formats,
+     * YYYY年MM月DD日, YYYY年MM月DD日 HH时mm分, English formats (Apr 10, 2025), etc.
+     * If no time is specified, defaults to 00:00:00.
+     */
+    private static parseStringDate(
+        dateString: string,
+        targetTimeZone: string
+    ): {
+        year: number;
+        month: number;
+        day: number;
+        hours: number;
+        minutes: number;
+        seconds: number;
+    } {
+        const hasTime = /\d{1,2}[:时]\d{1,2}/.test(dateString) || /T\d{1,2}:\d{1,2}/.test(dateString);
+
+        // 1. Chinese format: "2026年02月06日 15时00分"
+        const chineseMatch = dateString.match(/(\d{4})年(\d{1,2})月(\d{1,2})日?\s*(?:(\d{1,2})[时:](\d{1,2})分?)?/);
+        if (chineseMatch) {
+            return TinyDate.extractComponentsFromMatch(chineseMatch);
+        }
+
+        // 2. ISO format with timezone: "2026-02-06T15:00:00Z" or "2026-02-06T15:00:00+08:00"
+        if (/[Zz]|[+-]\d{2}:?\d{2}/.test(dateString)) {
+            const date = parseISO(dateString);
+            if (!isNaN(date.getTime())) {
+                return TinyDate.extractComponentsFromDate(TZDate.tz(targetTimeZone, date), true);
+            }
+        }
+
+        // 3. Try date-fns parse with common formats
+        for (const format of DATE_FORMATS) {
+            const date = parse(dateString, format, new Date(), { locale: TinyDate.dateFnsLocale });
+            if (!isNaN(date.getTime())) {
+                return TinyDate.extractComponentsFromDate(date, hasTime);
+            }
+        }
+
+        // 4. Fallback: parseISO (handles ISO format without timezone)
+        const isoDate = parseISO(dateString);
+        if (!isNaN(isoDate.getTime())) {
+            return TinyDate.extractComponentsFromDate(isoDate, hasTime);
+        }
+
+        // 5. Last resort: new Date (may parse some edge cases)
+        const nativeDate = new Date(dateString);
+        if (!isNaN(nativeDate.getTime()) && nativeDate.getFullYear() >= 1000 && nativeDate.getFullYear() <= 9999) {
+            return TinyDate.extractComponentsFromDate(nativeDate, hasTime);
+        }
+
+        throw new Error(`Unable to parse date string: ${dateString}`);
+    }
+    /**
+     * Extract date components from a Date object.
+     */
+    private static extractComponentsFromDate(
+        date: Date,
+        useTime: boolean = true
+    ): {
+        year: number;
+        month: number;
+        day: number;
+        hours: number;
+        minutes: number;
+        seconds: number;
+    } {
+        return {
+            year: date.getFullYear(),
+            month: date.getMonth(),
+            day: date.getDate(),
+            hours: useTime ? date.getHours() : 0,
+            minutes: useTime ? date.getMinutes() : 0,
+            seconds: useTime ? date.getSeconds() : 0
+        };
+    }
+
+    /**
+     * Extract date components from a regex match result.
+     */
+    private static extractComponentsFromMatch(
+        match: RegExpMatchArray,
+        hourIdx: number = 4,
+        minIdx: number = 5,
+        secIdx: number = 6
+    ): {
+        year: number;
+        month: number;
+        day: number;
+        hours: number;
+        minutes: number;
+        seconds: number;
+    } {
+        return {
+            year: parseInt(match[1], 10),
+            month: parseInt(match[2], 10) - 1,
+            day: parseInt(match[3], 10),
+            hours: match[hourIdx] ? parseInt(match[hourIdx], 10) : 0,
+            minutes: match[minIdx] ? parseInt(match[minIdx], 10) : 0,
+            seconds: match[secIdx] ? parseInt(match[secIdx], 10) : 0
+        };
     }
 }
