@@ -12,7 +12,6 @@
     "ngx-tethys": "^12.1.1",
     "date-fns": "4.1.0",
     "@date-fns/tz": "1.2.0",
-    "date-fns-tz": "3.2.0",
     "@tethys/icons": "1.1.73",
     "@angular/router": "~12.2.13"
   }

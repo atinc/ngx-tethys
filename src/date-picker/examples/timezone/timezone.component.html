@@ -1,0 +1,8 @@
+@for (date of dateArray(); track $index) {
+  <thy-date-picker
+    class="d-block w-50 mb-3"
+    [thyTimeZone]="'America/Los_Angeles'"
+    [ngModel]="date"
+    (ngModelChange)="onChange($event)"
+    thyShowTime></thy-date-picker>
+}
