@@ -64,6 +64,21 @@ export type WeekDayIndex = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
 export type TinyDateType = TinyDate | Date | null;
 
+export const DATE_FORMATS = [
+    'yyyy-MM-dd HH:mm:ss',
+    'yyyy-MM-dd HH:mm',
+    'yyyy-MM-dd',
+    'yyyy/MM/dd HH:mm:ss',
+    'yyyy/MM/dd HH:mm',
+    'yyyy/MM/dd',
+    'MMM d, yyyy HH:mm:ss',
+    'MMM d, yyyy HH:mm',
+    'MMM dd, yyyy HH:mm:ss',
+    'MMM dd, yyyy HH:mm',
+    'MMM d, yyyy',
+    'MMM dd, yyyy'
+];
+
 export function sortRangeValue(rangeValue: TinyDate[]): TinyDate[] {
     if (Array.isArray(rangeValue)) {
         const [start, end] = rangeValue;
@@ -583,41 +598,35 @@ export class TinyDate implements Record<string, any> {
         // 1. Chinese format: "2026年02月06日 15时00分"
         const chineseMatch = dateString.match(/(\d{4})年(\d{1,2})月(\d{1,2})日?\s*(?:(\d{1,2})[时:](\d{1,2})分?)?/);
         if (chineseMatch) {
-            return TinyDate.extractFromMatch(chineseMatch);
+            return TinyDate.extractComponentsFromMatch(chineseMatch);
         }
 
         // 2. ISO format with timezone: "2026-02-06T15:00:00Z" or "2026-02-06T15:00:00+08:00"
         if (/[Zz]|[+-]\d{2}:?\d{2}/.test(dateString)) {
             const date = parseISO(dateString);
             if (!isNaN(date.getTime())) {
-                return TinyDate.extractFromDate(TZDate.tz(targetTimeZone, date), true);
+                return TinyDate.extractComponentsFromDate(TZDate.tz(targetTimeZone, date), true);
             }
         }
 
-        // 3. Numeric format: "2026-02-06 15:00:00" or "2026-02-06T15:00:00"
-        const numericMatch = dateString.match(/^(\d{4})[-/](\d{1,2})[-/](\d{1,2})(?:[T\s]+(\d{1,2}):(\d{1,2})(?::(\d{1,2}))?)?/);
-        if (numericMatch) {
-            return TinyDate.extractFromMatch(numericMatch);
-        }
-
-        // 4. English format: "Feb 6, 2026 15:00"
-        const englishFormats = ['MMM d, yyyy HH:mm:ss', 'MMM d, yyyy HH:mm', 'MMM dd, yyyy HH:mm:ss', 'MMM dd, yyyy HH:mm'];
-        for (const format of englishFormats) {
+        // 3. Try date-fns parse with common formats
+        for (const format of DATE_FORMATS) {
             const date = parse(dateString, format, new Date(), { locale: TinyDate.dateFnsLocale });
             if (!isNaN(date.getTime())) {
-                return TinyDate.extractFromDate(date, hasTime);
+                return TinyDate.extractComponentsFromDate(date, hasTime);
             }
         }
 
-        // 5. parseISO or new Date
-        const fallbackDate = parseISO(dateString);
-        if (!isNaN(fallbackDate.getTime())) {
-            return TinyDate.extractFromDate(fallbackDate, hasTime);
+        // 4. Fallback: parseISO (handles ISO format without timezone)
+        const isoDate = parseISO(dateString);
+        if (!isNaN(isoDate.getTime())) {
+            return TinyDate.extractComponentsFromDate(isoDate, hasTime);
         }
 
+        // 5. Last resort: new Date (may parse some edge cases)
         const nativeDate = new Date(dateString);
         if (!isNaN(nativeDate.getTime()) && nativeDate.getFullYear() >= 1000 && nativeDate.getFullYear() <= 9999) {
-            return TinyDate.extractFromDate(nativeDate, hasTime);
+            return TinyDate.extractComponentsFromDate(nativeDate, hasTime);
         }
 
         throw new Error(`Unable to parse date string: ${dateString}`);
@@ -625,7 +634,7 @@ export class TinyDate implements Record<string, any> {
     /**
      * Extract date components from a Date object.
      */
-    private static extractFromDate(
+    private static extractComponentsFromDate(
         date: Date,
         useTime: boolean = true
     ): {
@@ -649,7 +658,7 @@ export class TinyDate implements Record<string, any> {
     /**
      * Extract date components from a regex match result.
      */
-    private static extractFromMatch(
+    private static extractComponentsFromMatch(
         match: RegExpMatchArray,
         hourIdx: number = 4,
         minIdx: number = 5,
