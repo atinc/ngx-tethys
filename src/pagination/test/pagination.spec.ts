@@ -4,7 +4,6 @@ import { ThyPaginationModule, ThyPagination } from 'ngx-tethys/pagination';
 import { By } from '@angular/platform-browser';
 import { ENTER } from 'ngx-tethys/util';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({
@@ -101,7 +100,7 @@ describe('ThyPagination', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient(), provideNoopAnimations()]
+            providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
     });

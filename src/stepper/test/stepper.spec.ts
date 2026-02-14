@@ -3,7 +3,6 @@ import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyStep, ThyStepper } from 'ngx-tethys/stepper';
 import { provideHttpClient } from '@angular/common/http';
-import { provideAnimations } from '@angular/platform-browser/animations';
 
 @Component({
     selector: 'thy-demo-stepper',
@@ -48,7 +47,7 @@ describe('ThyStepper', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient(), provideAnimations()]
+            providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
     }));

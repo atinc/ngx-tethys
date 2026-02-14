@@ -1,7 +1,6 @@
 import { Component, DebugElement, viewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { ThyBackTopModule, ThyBackTop } from 'ngx-tethys/back-top';
 import { ThyScrollService } from 'ngx-tethys/core';
 import { provideHttpClient } from '@angular/common/http';
@@ -34,7 +33,6 @@ describe('Component:thy-back-top', () => {
             providers: [
                 MockThyScrollService,
                 provideHttpClient(),
-                provideAnimations(),
                 {
                     provide: ThyScrollService,
                     useExisting: MockThyScrollService

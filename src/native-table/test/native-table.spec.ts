@@ -2,7 +2,6 @@ import { Component, DebugElement, signal, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyPage } from 'ngx-tethys/table';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
 import { ThyNativeTableModule } from '../native-table.module';
 import { FormsModule } from '@angular/forms';
@@ -71,9 +70,9 @@ class ThyNativeTableTestComponent {
         return 'onPageChange is ok';
     }
 
-    onPageIndexChange() { }
+    onPageIndexChange() {}
 
-    onPageSizeChange() { }
+    onPageSizeChange() {}
 }
 
 describe('ThyNativeTable: basic', () => {
@@ -86,7 +85,7 @@ describe('ThyNativeTable: basic', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyNativeTableModule, ThyEmptyModule],
-            providers: [provideHttpClient(), provideNoopAnimations()]
+            providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
     }));
@@ -213,9 +212,9 @@ class ThyNativeTableCheckboxTestComponent {
 
     checkedAll = signal<boolean>(false);
 
-    onCheckedAllChange(checked: boolean): void { }
+    onCheckedAllChange(checked: boolean): void {}
 
-    onCheckedRowChange(): void { }
+    onCheckedRowChange(): void {}
 }
 
 describe('ThyNativeTable: checkbox', () => {
@@ -226,7 +225,7 @@ describe('ThyNativeTable: checkbox', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyNativeTableModule, ThyEmptyModule],
-            providers: [provideHttpClient(), provideNoopAnimations()]
+            providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
     }));
@@ -325,7 +324,7 @@ describe('ThyNativeTable: fixed', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyNativeTableModule, ThyEmptyModule],
-            providers: [provideHttpClient(), provideNoopAnimations()]
+            providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
     }));

@@ -2,7 +2,6 @@ import { provideHttpClient } from '@angular/common/http';
 import { Component, ElementRef, inject } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ThyPropertyModule } from '../module';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { Overlay, OverlayOutsideClickDispatcher } from '@angular/cdk/overlay';
 import { By } from '@angular/platform-browser';
 import { ThyPropertyItem } from '../property-item.component';
@@ -56,7 +55,7 @@ describe(`thy-property-item`, () => {
         beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
                 imports: [ThyPropertyModule],
-                providers: [provideHttpClient(), provideNoopAnimations()]
+                providers: [provideHttpClient()]
             });
             TestBed.compileComponents();
         }));

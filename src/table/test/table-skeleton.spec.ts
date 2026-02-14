@@ -2,7 +2,6 @@ import { provideHttpClient } from '@angular/common/http';
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import {
     ThyTableColumnSkeletonType,
     ThyTableModule,
@@ -73,7 +72,7 @@ describe('thy-table-skeleton', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyTableModule],
-            providers: [provideHttpClient(), provideAnimations()]
+            providers: [provideHttpClient()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestTableSkeletonBasicComponent);

@@ -4,7 +4,6 @@ import { Component, DebugElement, TemplateRef, viewChild } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { ThyRate, ThyRateModule } from 'ngx-tethys/rate';
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
@@ -390,7 +389,7 @@ describe('Rate tooltip component', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyRateModule],
-            providers: [provideHttpClient(), provideNoopAnimations()]
+            providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
 

@@ -5,11 +5,10 @@ import { Component, ElementRef, OnInit, TemplateRef, viewChild } from '@angular/
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { POSITION_MAP, ThyPlacement } from 'ngx-tethys/core';
 import { ThyFormModule } from 'ngx-tethys/form';
 import { THY_SELECT_CONFIG, THY_SELECT_SCROLL_STRATEGY, ThyDropdownWidthMode, ThySelect, ThySelectModule } from 'ngx-tethys/select';
-import { SelectControlSize, ThyOption, ThyOptionGroupRender, ThyOptionRender, ThySelectOptionGroup } from 'ngx-tethys/shared';
+import { SelectControlSize, ThyOption,  ThyOptionRender, ThySelectOptionGroup } from 'ngx-tethys/shared';
 import {
     bypassSanitizeProvider,
     dispatchFakeEvent,
@@ -741,7 +740,6 @@ describe('ThyCustomSelect', () => {
                 bypassSanitizeProvider,
                 ...providers,
                 provideHttpClient(),
-                provideNoopAnimations(),
                 THY_TOOLTIP_DEFAULT_CONFIG_PROVIDER
             ]
         }).compileComponents();

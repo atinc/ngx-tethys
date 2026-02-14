@@ -11,7 +11,6 @@ import {
     ThyTableModule,
     ThyTableColumnComponent
 } from 'ngx-tethys/table';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
 import { SafeAny } from 'ngx-tethys/types';
 
@@ -214,7 +213,7 @@ describe('ThyTable: basic', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyTableModule],
-            providers: [provideHttpClient(), provideNoopAnimations()]
+            providers: [provideHttpClient()]
         });
         TestBed.compileComponents();
     }));

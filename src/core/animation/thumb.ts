@@ -6,6 +6,10 @@ export interface ThumbAnimationProps {
     width: number;
 }
 
+/**
+ * @deprecated Please use the new Angular animate.enter and animate.leave APIs.
+ * @see https://angular.dev/guide/animations
+ */
 export const thumbMotion: AnimationTriggerMetadata = trigger('thumbMotion', [
     state('from', style({ transform: 'translateX({{ transform }}px)', width: '{{ width }}px' }), {
         params: { transform: 0, width: 0 }

@@ -4,7 +4,6 @@ import { Platform } from '@angular/cdk/platform';
 import { Component, DebugElement, ElementRef, ViewChild, inject as coreInject } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush, flushMicrotasks, inject, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing';
 import { ThyTooltipDirective, ThyTooltipModule, ThyTooltipRef, ThyTooltipService } from 'ngx-tethys/tooltip';
 
@@ -86,7 +85,7 @@ describe(`ThyTooltip`, () => {
         platform = { IOS: false, isBrowser: true, ANDROID: false };
         TestBed.configureTestingModule({
             imports: [ThyTooltipModule],
-            providers: [provideNoopAnimations(), { provide: Platform, useFactory: () => platform }]
+            providers: [ { provide: Platform, useFactory: () => platform }]
         });
 
         TestBed.compileComponents();

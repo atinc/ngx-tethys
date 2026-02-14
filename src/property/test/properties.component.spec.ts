@@ -6,7 +6,6 @@ import { Component, ElementRef, inject, viewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import {
     ThyPropertyModule,
     ThyProperties,
@@ -127,7 +126,7 @@ describe(`thy-properties`, () => {
         beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
                 imports: [ThyPropertyModule],
-                providers: [provideHttpClient(), provideNoopAnimations()]
+                providers: [provideHttpClient()]
             });
             TestBed.compileComponents();
         }));
@@ -279,7 +278,7 @@ describe(`thy-properties`, () => {
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
                 imports: [ThyPropertyModule],
-                providers: [provideHttpClient(), provideNoopAnimations()]
+                providers: [provideHttpClient()]
             });
             TestBed.compileComponents();
         }));
@@ -316,7 +315,7 @@ describe(`thy-properties`, () => {
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
                 imports: [ThyPropertyModule],
-                providers: [provideHttpClient(), provideNoopAnimations()]
+                providers: [provideHttpClient()]
             });
             TestBed.compileComponents();
         }));

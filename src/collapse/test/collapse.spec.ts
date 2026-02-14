@@ -1,11 +1,9 @@
 import { ThyCollapse, ThyCollapseItem, ThyCollapseModule } from 'ngx-tethys/collapse';
 import { ThyIcon, ThyIconModule } from 'ngx-tethys/icon';
 import { dispatchFakeEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
-
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({
@@ -77,7 +75,7 @@ describe('collapse', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                providers: [provideHttpClient(), provideAnimations()]
+                providers: [provideHttpClient()]
             }).compileComponents();
             injectDefaultSvgIconSet();
         });
@@ -195,7 +193,7 @@ describe('collapse-panel', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                providers: [provideHttpClient(), provideAnimations()]
+                providers: [provideHttpClient()]
             }).compileComponents();
             injectDefaultSvgIconSet();
         });

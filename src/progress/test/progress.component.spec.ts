@@ -3,7 +3,6 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, DebugElement, TemplateRef } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, flushMicrotasks, inject, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import {
     ThyProgress,
     ThyProgressCircle,
@@ -191,8 +190,7 @@ describe(`ThyProgressComponent`, () => {
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                imports: [ThyProgressModule],
-                providers: [provideNoopAnimations()]
+                imports: [ThyProgressModule]
             });
 
             TestBed.compileComponents();
@@ -405,8 +403,7 @@ describe(`ThyProgressComponent`, () => {
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                imports: [ThyProgressModule],
-                providers: [provideNoopAnimations()]
+                imports: [ThyProgressModule]
             });
 
             TestBed.compileComponents();
@@ -590,8 +587,7 @@ describe(`ThyProgressComponent`, () => {
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                imports: [ThyProgressModule],
-                providers: [provideNoopAnimations()]
+                imports: [ThyProgressModule]
             });
 
             TestBed.compileComponents();
@@ -737,8 +733,7 @@ describe(`ThyProgressComponent`, () => {
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                imports: [ThyProgressModule],
-                providers: [provideNoopAnimations()]
+                imports: [ThyProgressModule]
             });
 
             TestBed.compileComponents();
@@ -951,8 +946,7 @@ describe(`ThyProgressComponent`, () => {
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                imports: [ThyProgressModule],
-                providers: [provideNoopAnimations()]
+                imports: [ThyProgressModule]
             });
 
             TestBed.compileComponents();

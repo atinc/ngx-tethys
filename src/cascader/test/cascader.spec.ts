@@ -7,7 +7,7 @@ import { OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
-import { Component, DebugElement, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, DebugElement, ViewChild } from '@angular/core';
 import { ComponentFixture, ComponentFixtureAutoDetect, TestBed, fakeAsync, flush, inject, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -15,7 +15,6 @@ import { ThyCascaderModule, ThyCascaderExpandTrigger, ThyCascaderTriggerType, Th
 import { ThyFlexibleTextModule } from 'ngx-tethys/flexible-text';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { provideHttpClient } from '@angular/common/http';
-import { provideAnimations } from '@angular/platform-browser/animations';
 
 registerLocaleData(zh);
 
@@ -626,7 +625,7 @@ describe('thy-cascader', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyCascaderModule],
-            providers: [provideHttpClient(), provideAnimations(), { provide: ComponentFixtureAutoDetect, useValue: true }]
+            providers: [provideHttpClient(),  { provide: ComponentFixtureAutoDetect, useValue: true }]
         });
         TestBed.compileComponents();
     }));
