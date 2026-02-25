@@ -77,6 +77,10 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
             });
         }
 
+        if (config?.providers?.length) {
+            injectionTokens.push(...config.providers)
+        }
+
         return Injector.create({ parent: userInjector || this.injector, providers: injectionTokens });
     }
 
