@@ -25,7 +25,7 @@ export class DialogSimpleContentTestComponent {
     dialogRef = inject<ThyDialogRef<DialogSimpleContentTestComponent>>(ThyDialogRef);
     dialogInjector = inject(Injector);
     directionality = inject(Directionality);
-    token = inject(MY_TOKEN)
+    token = inject(MY_TOKEN, { optional: true })
 }
 @Component({
     selector: 'thy-dialog-full-content-test-component',
