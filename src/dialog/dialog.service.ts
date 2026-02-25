@@ -56,32 +56,16 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
         return dialogRef;
     }
 
-    protected createInjector<T>(config: ThyDialogConfig, dialogRef: ThyDialogRef<T>, dialogContainer: ThyDialogContainer): Injector {
-        const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-
-        const injectionTokens: StaticProvider[] = [
+    protected createInjectorProviders<T>(
+        dialogRef: ThyDialogRef<T>, dialogContainer: ThyDialogContainer
+    ): StaticProvider[] {
+        return [
             { provide: ThyDialogContainer, useValue: dialogContainer },
             {
                 provide: ThyDialogRef,
                 useValue: dialogRef
             }
         ];
-
-        if (config?.providers?.length) {
-            injectionTokens.unshift(...config.providers)
-        }
-
-        if (config.direction && (!userInjector || !userInjector.get<Directionality | null>(Directionality, null))) {
-            injectionTokens.push({
-                provide: Directionality,
-                useValue: {
-                    value: config.direction,
-                    change: of()
-                }
-            });
-        }
-
-        return Injector.create({ parent: userInjector || this.injector, providers: injectionTokens });
     }
 
     constructor() {

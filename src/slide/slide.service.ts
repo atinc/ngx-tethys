@@ -60,29 +60,14 @@ export class ThySlideService extends ThyAbstractOverlayService<ThySlideConfig, T
         return slideRef;
     }
 
-    protected createInjector<T>(
-        config: ThySlideConfig,
+    protected createInjectorProviders<T>(
         overlayRef: ThyAbstractOverlayRef<T, ThySlideContainer, any>,
         containerInstance: ThySlideContainer
-    ): Injector {
-        const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-
-        const injectionTokens: StaticProvider[] = [
+    ): StaticProvider[] {
+        return [
             { provide: ThySlideContainer, useValue: containerInstance },
             { provide: ThySlideRef, useValue: overlayRef }
         ];
-
-        if (config.direction && (!userInjector || !userInjector.get<Directionality | null>(Directionality, null))) {
-            injectionTokens.push({
-                provide: Directionality,
-                useValue: {
-                    value: config.direction,
-                    change: of()
-                }
-            });
-        }
-
-        return Injector.create({ parent: userInjector || this.injector, providers: injectionTokens });
     }
 
     private overlayIsOpened(config: ThySlideConfig) {
