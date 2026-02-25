@@ -1,14 +1,13 @@
 import { coerceArray, concatArray, FunctionProp, keyBy } from 'ngx-tethys/util';
-import { Subject } from 'rxjs';
-
+import { of, Subject } from 'rxjs';
 import { ComponentType, Overlay, OverlayConfig, OverlayRef, ScrollStrategy } from '@angular/cdk/overlay';
 import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
-import { Injector, reflectComponentType, TemplateRef } from '@angular/core';
-
+import { Injector, reflectComponentType, StaticProvider, TemplateRef } from '@angular/core';
 import { SafeAny } from 'ngx-tethys/types';
 import { ThyAbstractOverlayContainer } from './abstract-overlay-container';
 import { ThyAbstractOverlayRef } from './abstract-overlay-ref';
 import { ThyAbstractOverlayConfig, ThyAbstractOverlayOptions } from './abstract-overlay.config';
+import { Directionality } from '@angular/cdk/bidi';
 
 export type ComponentTypeOrTemplateRef<T> = ComponentType<T> | TemplateRef<T>;
 
@@ -25,7 +24,7 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
         protected injector: Injector,
         protected defaultConfig: TConfig,
         public scrollStrategy?: FunctionProp<ScrollStrategy>
-    ) {}
+    ) { }
 
     /** Build cdk overlay config by config */
     protected abstract buildOverlayConfig(config: TConfig): OverlayConfig;
@@ -40,12 +39,39 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
         config: TConfig
     ): ThyAbstractOverlayRef<T, TContainer, TResult>;
 
+
+    /** Create injector providers for component content */
+    protected abstract createInjectorProviders<T>(
+        overlayRef: ThyAbstractOverlayRef<T, TContainer>,
+        containerInstance: TContainer
+    ): StaticProvider[];
+
     /** Create injector for component content */
-    protected abstract createInjector<T>(
+    protected createInjector<T>(
         config: TConfig,
         overlayRef: ThyAbstractOverlayRef<T, TContainer>,
         containerInstance: TContainer
-    ): Injector;
+    ): Injector {
+        const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
+
+        const injectionProviders = this.createInjectorProviders(overlayRef, containerInstance);
+
+        if (config?.providers?.length) {
+            injectionProviders.unshift(...config.providers)
+        }
+
+        if (config.direction && (!userInjector || !userInjector.get<Directionality | null>(Directionality, null))) {
+            injectionProviders.push({
+                provide: Directionality,
+                useValue: {
+                    value: config.direction,
+                    change: of()
+                }
+            });
+        }
+
+        return Injector.create({ parent: userInjector || this.injector, providers: injectionProviders });
+    };
 
     /** Attach component or template ref to overlay container */
     protected attachOverlayContent<T, TResult>(
