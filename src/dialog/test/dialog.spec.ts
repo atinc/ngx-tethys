@@ -25,7 +25,8 @@ import {
     WithInjectedDataDialogTestComponent,
     WithOnPushViewContainerTestComponent,
     WithTemplateRefTestComponent,
-    WithViewContainerTestDirective
+    WithViewContainerTestDirective,
+    MY_TOKEN
 } from './dialog-test-components';
 import { provideHttpClient } from '@angular/common/http';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
@@ -1143,7 +1144,7 @@ describe('ThyDialog', () => {
         it('should work with a confirm dialog when onOk callback return undefined', (done: DoneFn) => {
             dialog.confirm({
                 content: 'test: ok button return undefined',
-                onOk: () => {}
+                onOk: () => { }
             });
             assertConfirmBtnWork(done);
         });
@@ -1207,7 +1208,7 @@ describe('ThyDialog', () => {
             it('should show default value', () => {
                 dialog.confirm({
                     content: 'test: global custom',
-                    onOk: () => {}
+                    onOk: () => { }
                 });
                 viewContainerFixture.detectChanges();
                 expect(getConfirmElements().headerTitle.textContent).toBe('全局定义标题');
@@ -1225,7 +1226,7 @@ describe('ThyDialog', () => {
                     cancelText: '不了，谢谢',
                     okType: 'primary',
                     footerAlign: 'right',
-                    onOk: () => {}
+                    onOk: () => { }
                 });
                 viewContainerFixture.detectChanges();
                 expect(getConfirmElements().headerTitle.textContent).toBe('自定义标题');
@@ -1238,7 +1239,7 @@ describe('ThyDialog', () => {
             it('should show okText when loading and okLoadingText is not custom', () => {
                 const dialogRef = dialog.confirm({
                     content: 'test: not custom okLoadingText',
-                    onOk: () => {}
+                    onOk: () => { }
                 });
                 const okButton = getConfirmElements().okButton;
                 if (okButton) {
@@ -1253,7 +1254,7 @@ describe('ThyDialog', () => {
                 const dialogRef = dialog.confirm({
                     content: 'test: custom okLoadingText',
                     okLoadingText: '加载中...',
-                    onOk: () => {}
+                    onOk: () => { }
                 });
                 viewContainerFixture.detectChanges();
                 // 这个是因为按钮组件在 ngAfterViewInit 钩子中替换了 Dom 元素，如果不 tick 一下加载状态会修改失败
@@ -1476,6 +1477,19 @@ describe('ThyDialog', () => {
             flush();
             const changeDialogs = document.querySelectorAll('thy-dialog-container');
             expect(changeDialogs[1].id).toBe('first');
+        }));
+    });
+
+    describe('providers option', () => {
+        it('should inject providers', fakeAsync(() => {
+            const dialogRef = dialog.open(DialogSimpleContentTestComponent, {
+                providers: [
+                    { provide: MY_TOKEN, useValue: 'my token' }
+                ]
+            });
+
+            expect(dialogRef.componentInstance.token).toBe('my token');
+
         }));
     });
 });

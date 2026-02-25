@@ -31,8 +31,7 @@ import { autocompleteAbstractOverlayOptions } from './autocomplete.options';
 @Injectable()
 export class ThyAutocompleteService
     extends ThyAbstractOverlayService<ThyAutocompleteConfig, ThyAutocompleteContainer>
-    implements OnDestroy
-{
+    implements OnDestroy {
     private scrollDispatcher = inject(ScrollDispatcher);
     private ngZone = inject(NgZone);
     private _viewportRuler = inject(ViewportRuler);
@@ -101,13 +100,11 @@ export class ThyAutocompleteService
         return autocompleteRef;
     }
 
-    protected createInjector<T>(
-        config: ThyAutocompleteConfig,
+    protected createInjectorProviders<T>(
         autocompleteRef: ThyAutocompleteRef<T>,
         autocompleteContainer: ThyAutocompleteContainer
-    ): Injector {
-        const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-        const injectionTokens: StaticProvider[] = [
+    ): StaticProvider[] {
+        return [
             {
                 provide: ThyAutocompleteContainer,
                 useValue: autocompleteContainer
@@ -117,18 +114,6 @@ export class ThyAutocompleteService
                 useValue: autocompleteRef
             }
         ];
-
-        if (config.direction && (!userInjector || !userInjector.get<Directionality | null>(Directionality, null))) {
-            injectionTokens.push({
-                provide: Directionality,
-                useValue: {
-                    value: config.direction,
-                    change: of()
-                }
-            });
-        }
-
-        return Injector.create({ parent: userInjector || this.injector, providers: injectionTokens });
     }
 
     private originElementAddActiveClass(config: ThyAutocompleteConfig) {
