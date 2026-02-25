@@ -118,28 +118,16 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
         return popoverRef;
     }
 
-    protected createInjector<T>(config: ThyPopoverConfig, popoverRef: ThyPopoverRef<T>, popoverContainer: ThyPopoverContainer): Injector {
-        const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-
-        const injectionTokens: StaticProvider[] = [
+    protected createInjectorProviders<T>(
+        popoverRef: ThyPopoverRef<T>, popoverContainer: ThyPopoverContainer
+    ): StaticProvider[] {
+        return [
             { provide: ThyPopoverContainer, useValue: popoverContainer },
             {
                 provide: ThyPopoverRef,
                 useValue: popoverRef
             }
         ];
-
-        if (config.direction && (!userInjector || !userInjector.get<Directionality | null>(Directionality, null))) {
-            injectionTokens.push({
-                provide: Directionality,
-                useValue: {
-                    value: config.direction,
-                    change: of()
-                }
-            });
-        }
-
-        return Injector.create({ parent: userInjector || this.injector, providers: injectionTokens });
     }
 
     private originElementAddActiveClass(config: ThyPopoverConfig) {

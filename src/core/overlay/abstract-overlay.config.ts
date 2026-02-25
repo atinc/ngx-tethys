@@ -1,5 +1,5 @@
 import { Direction } from '@angular/cdk/bidi';
-import { ViewContainerRef } from '@angular/core';
+import { StaticProvider, ViewContainerRef } from '@angular/core';
 
 export interface ThyAbstractOverlayPosition {
     /** Override for the overlay's top position. */
@@ -149,6 +149,11 @@ export class ThyAbstractOverlayConfig<TData = unknown> {
      * @type Node[][]
      */
     projectableNodes?: Node[][];
+
+    /**
+     * 设置需要传递的 providers
+     */
+    providers?: StaticProvider[];
 }
 
 export interface ThyAbstractOverlayOptions {

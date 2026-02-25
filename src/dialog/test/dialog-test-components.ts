@@ -9,12 +9,14 @@ import {
     OnInit,
     TemplateRef,
     ViewContainerRef,
-    viewChild
+    viewChild,
+    InjectionToken
 } from '@angular/core';
 import { SafeAny } from 'ngx-tethys/types';
 import { ThyDialog, ThyDialogModule, ThyDialogRef } from 'ngx-tethys/dialog';
 import { ThyButtonModule } from 'ngx-tethys/button';
 
+export const MY_TOKEN = new InjectionToken<string>('MY_TOKEN');
 @Component({
     selector: 'thy-dialog-content-test-component',
     template: ` <div>Hello Dialog <button>Close</button></div> `
@@ -23,8 +25,8 @@ export class DialogSimpleContentTestComponent {
     dialogRef = inject<ThyDialogRef<DialogSimpleContentTestComponent>>(ThyDialogRef);
     dialogInjector = inject(Injector);
     directionality = inject(Directionality);
+    token = inject(MY_TOKEN, { optional: true })
 }
-
 @Component({
     selector: 'thy-dialog-full-content-test-component',
     template: `
@@ -138,9 +140,9 @@ export class WithInjectedDataDialogTestComponent implements OnInit {
 
     input1 = input();
 
-    constructor() {}
+    constructor() { }
 
-    ngOnInit() {}
+    ngOnInit() { }
 }
 
 @Component({
@@ -209,9 +211,9 @@ export class DialogToTopTestComponent implements OnInit {
 
     public viewContainerRef: ViewContainerRef = inject(ViewContainerRef);
 
-    constructor() {}
+    constructor() { }
 
-    ngOnInit() {}
+    ngOnInit() { }
 
     open() {
         this.openDialog(PopupFirstTestComponent, 'first', this.viewContainerRef);
