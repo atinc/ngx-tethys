@@ -67,6 +67,10 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
             }
         ];
 
+        if (config?.providers?.length) {
+            injectionTokens.unshift(...config.providers)
+        }
+
         if (config.direction && (!userInjector || !userInjector.get<Directionality | null>(Directionality, null))) {
             injectionTokens.push({
                 provide: Directionality,
@@ -75,10 +79,6 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
                     change: of()
                 }
             });
-        }
-
-        if (config?.providers?.length) {
-            injectionTokens.push(...config.providers)
         }
 
         return Injector.create({ parent: userInjector || this.injector, providers: injectionTokens });
