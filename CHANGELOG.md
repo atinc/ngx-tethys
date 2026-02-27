@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [21.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/21.0.0-next.1...21.0.0-next.2) (2026-02-27)
+
+
+### Features
+
+* **core:** ThyAbstractOverlayConfig 支持 providers 参数并且支持注入dialog 打开的组件 #TINFR-3619 ([#3750](https://github.com/atinc/ngx-tethys/issues/3750)) ([f49a11b](https://github.com/atinc/ngx-tethys/commit/f49a11b2b927bdc8a24e2d5a0863eefd9ba68497)), closes [#TINFR-3619](https://github.com/atinc/ngx-tethys/issues/TINFR-3619) [#TINFR-3619](https://github.com/atinc/ngx-tethys/issues/TINFR-3619)
+* **menu:** support animation by using thyAnimationCollapse ([5aa2b71](https://github.com/atinc/ngx-tethys/commit/5aa2b71f85d8d2c1e7dad15119bce6545697a6d3))
+* **util:** remove date-fns-tz and handle string date with timezone ([#3746](https://github.com/atinc/ngx-tethys/issues/3746)) ([fb50f90](https://github.com/atinc/ngx-tethys/commit/fb50f909f1eb55a9cc07fd941e8f2e91da949001))
+
+
+
 # [21.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/21.0.0-next.0...21.0.0-next.1) (2026-02-04)
 
 
