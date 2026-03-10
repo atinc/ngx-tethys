@@ -53,6 +53,10 @@ $optionsSize: 'sm', 'default', 'md', 'lg';
             }
         }
     }
+
+    .cdk-virtual-scroll-content-wrapper {
+        position: fixed;
+    }
 }
 .thy-select-dropdown {
     @include select.thy-select-dropdown();
