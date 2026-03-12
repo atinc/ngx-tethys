@@ -43,44 +43,6 @@ export class ThyNotifyActionsExampleComponent implements OnInit {
                     text: '关闭',
                     icon: 'close',
                     onClick: () => {}
-                },
-                {
-                    text: '打开',
-                    icon: 'publish',
-                    onClick: () => {
-                        window.open('https://www.baidu.com');
-                    }
-                },
-                {
-                    text: '最小化',
-                    icon: 'underline-pushpin',
-                    onClick: () => {
-                        location.reload();
-                    }
-                },
-                {
-                    text: '关闭',
-                    icon: 'close',
-                    onClick: () => {}
-                },
-                {
-                    text: '打开',
-                    icon: 'publish',
-                    onClick: () => {
-                        window.open('https://www.baidu.com');
-                    }
-                },
-                {
-                    text: '最小化',
-                    icon: 'underline-pushpin',
-                    onClick: () => {
-                        location.reload();
-                    }
-                },
-                {
-                    text: '关闭',
-                    icon: 'close',
-                    onClick: () => {}
                 }
             ]
         });

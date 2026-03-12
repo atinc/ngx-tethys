@@ -68,7 +68,7 @@ export interface ThyNotifyConfig extends ThyMessageBaseConfig {
     html?: ElementRef;
 
     /**
-     * 通知操作按钮，text为按钮文本，icon为按钮图标，action为点击事件
+     * 通知操作按钮，text为按钮文本，icon为按钮图标，onClick为点击事件
      */
     actions?: ThyNotifyAction[];
 }
