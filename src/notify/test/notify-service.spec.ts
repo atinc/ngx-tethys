@@ -405,6 +405,75 @@ describe('ThyNotify', () => {
             expect(notify.style.opacity === '0').toBeFalsy();
             flush();
         }));
+        
+        it('should render actions correctly', fakeAsync(() => {
+            const action1Spy = jasmine.createSpy('action1');
+            const action2Spy = jasmine.createSpy('action2');
+
+            componentInstance.option = {
+                title: 'ngx tethys notify',
+                actions: [
+                    { text: 'Action 1', onClick: action1Spy },
+                    { text: 'Action 2', icon: 'edit', onClick: action2Spy }
+                ]
+            };
+
+            fixture.detectChanges();
+            btnElement.click();
+            tick();
+
+            const notifyContainer = overlayContainerElement.querySelector('.thy-notify-topRight')!;
+            const actionButtons = notifyContainer.querySelectorAll('a[thyAction]');
+
+            expect(actionButtons.length).toBe(2);
+            expect(actionButtons[0].textContent?.trim()).toBe('Action 1');
+            expect(actionButtons[1].textContent?.trim()).toBe('Action 2');
+            expect(actionButtons[1].querySelector('thy-icon')).toBeTruthy();
+
+            flush();
+        }));
+
+        it('should call onClick when action button is clicked', fakeAsync(() => {
+            const actionSpy = jasmine.createSpy('action');
+
+            componentInstance.option = {
+                title: 'ngx tethys notify',
+                actions: [{ text: 'Click Me', onClick: actionSpy }]
+            };
+
+            fixture.detectChanges();
+            btnElement.click();
+            tick();
+
+            const actionButton = overlayContainerElement.querySelector('.thy-notify-topRight a[thyAction]') as HTMLElement;
+
+            actionButton.click();
+            fixture.detectChanges();
+
+            expect(actionSpy).toHaveBeenCalled();
+
+            flush();
+        }));
+
+        it('should hide detail link when actions exist', fakeAsync(() => {
+            componentInstance.option = {
+                title: 'ngx tethys notify',
+                content: 'content',
+                detail: 'detail',
+                actions: [{ text: 'Action', onClick: () => {} }]
+            };
+
+            fixture.detectChanges();
+            btnElement.click();
+            tick();
+
+            const notifyContainer = overlayContainerElement.querySelector('.thy-notify-topRight')!;
+
+            expect(notifyContainer.querySelector('.link-secondary')).toBeFalsy();
+            expect(notifyContainer.querySelector('.thy-notify-actions')).toBeTruthy();
+
+            flush();
+        }));
     });
 });
 

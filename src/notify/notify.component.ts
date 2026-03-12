@@ -7,6 +7,7 @@ import { ThyNotifyQueue } from './notify-queue.service';
 import { ThyViewOutletDirective } from 'ngx-tethys/shared';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
+import { ThyAction } from 'ngx-tethys/action';
 
 /**
  * @private
@@ -34,7 +35,7 @@ import { NgClass, NgTemplateOutlet } from '@angular/common';
             state('componentHide', style(HIDE_STYLE))
         ])
     ],
-    imports: [ThyIcon, NgClass, ThyViewOutletDirective, NgTemplateOutlet]
+    imports: [ThyIcon, NgClass, ThyViewOutletDirective, NgTemplateOutlet, ThyAction]
 })
 export class ThyNotify extends ThyAbstractMessageComponent<ThyNotifyConfig> {
     @HostBinding('@flyInOut') animationState?: string;
@@ -51,6 +52,8 @@ export class ThyNotify extends ThyAbstractMessageComponent<ThyNotifyConfig> {
         const config = this.config();
         return config?.placement || 'topRight';
     });
+
+    readonly actions = computed(() => this.config()?.actions || []);
 
     constructor() {
         super();
