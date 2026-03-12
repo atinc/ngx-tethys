@@ -25,13 +25,23 @@
             <ng-container *thyViewOutlet="notifyConfig?.content; context: notifyConfig?.contentInitialState || {}"></ng-container>
           }
         }
-        @if (notifyConfig?.detail) {
+        @if (notifyConfig?.detail && !actions()?.length) {
           <a href="javascript:;" class="link-secondary" (click)="triggerDetail()">{{ (notifyConfig?.detail)['link'] }}</a>
         }
       </div>
     }
     @if (isShowDetail()) {
       <div class="thy-notify-detail">{{ (notifyConfig?.detail)['content'] }}</div>
+    }
+
+    @if (actions()?.length > 0) {
+      <div class="thy-notify-actions ml-n2">
+        @for (action of actions(); track $index) {
+          <a href="javascript:;" thyAction thyTheme="lite" [thyIcon]="action?.icon" (click)="action?.onClick()">
+            {{ action?.text }}
+          </a>
+        }
+      </div>
     }
   </div>
 }
