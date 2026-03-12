@@ -26,7 +26,7 @@ export interface ThyNotifyDetail {
 export interface ThyNotifyAction {
     text: string;
     icon?: string;
-    onClick: (event?: Event) => void;
+    onClick: () => void;
 }
 
 /**
