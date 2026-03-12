@@ -28,21 +28,17 @@ export class ThyNotifyActionsExampleComponent implements OnInit {
                 {
                     text: '打开',
                     icon: 'publish',
-                    onClick: () => {
-                        window.open('https://www.baidu.com');
-                    }
+                    onClick: () => console.log('打开')
                 },
                 {
                     text: '最小化',
                     icon: 'underline-pushpin',
-                    onClick: () => {
-                        location.reload();
-                    }
+                    onClick: () => console.log('最小化')
                 },
                 {
                     text: '关闭',
                     icon: 'close',
-                    onClick: () => {}
+                    onClick: () => console.log('关闭')
                 }
             ]
         });
