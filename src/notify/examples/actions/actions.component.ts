@@ -7,12 +7,8 @@ import { ThyButton } from 'ngx-tethys/button';
     templateUrl: './actions.component.html',
     imports: [ThyButton]
 })
-export class ThyNotifyActionsExampleComponent implements OnInit {
+export class ThyNotifyActionsExampleComponent {
     private notifyService = inject(ThyNotifyService);
-
-    constructor() {}
-
-    ngOnInit() {}
 
     showNotify() {
         this.notifyService.show({
