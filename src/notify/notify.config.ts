@@ -23,6 +23,12 @@ export interface ThyNotifyDetail {
     action?: (event?: Event) => void;
 }
 
+export interface ThyNotifyAction {
+    text: string;
+    icon?: string;
+    onClick: (event?: Event) => void;
+}
+
 /**
  * 打开notify通知的配置
  * @public
@@ -60,6 +66,11 @@ export interface ThyNotifyConfig extends ThyMessageBaseConfig {
      * 自定义传入html模板
      */
     html?: ElementRef;
+
+    /**
+     * 通知操作按钮，text为按钮文本，icon为按钮图标，action为点击事件
+     */
+    actions?: ThyNotifyAction[];
 }
 
 export const THY_NOTIFY_DEFAULT_CONFIG = new InjectionToken<ThyGlobalNotifyConfig>('thy-notify-default-config');
