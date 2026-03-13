@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [20.0.11](https://github.com/atinc/ngx-tethys/compare/20.0.10...20.0.11) (2026-03-13)
+
+
+### Features
+
+* **notify:** support actions merge v20.x #TINFR-3626 ([#3761](https://github.com/atinc/ngx-tethys/issues/3761)) ([e60e1dd](https://github.com/atinc/ngx-tethys/commit/e60e1dd3a3e4d46e41e34399c6e2df50bcdf125d)), closes [#TINFR-3626](https://github.com/atinc/ngx-tethys/issues/TINFR-3626)
+
+
+
 ## [20.0.10](https://github.com/atinc/ngx-tethys/compare/20.0.9...20.0.10) (2026-02-04)
 
 
