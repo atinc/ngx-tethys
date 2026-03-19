@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [20.0.8-0](https://github.com/atinc/ngx-tethys/compare/20.0.7...20.0.8-0) (2026-03-19)
+
+
+### Bug Fixes
+
+* **shared:** 修复下拉组件开启虚拟滚动时滚动卡顿问题 ([30748c5](https://github.com/atinc/ngx-tethys/commit/30748c545c0b034bf0172dffcc11b35a916880bf))
+
+
+
 ## [20.0.7](https://github.com/atinc/ngx-tethys/compare/20.0.4...20.0.7) (2026-01-13)
 
 
