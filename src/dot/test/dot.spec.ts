@@ -82,6 +82,20 @@ describe('ThyDot', () => {
         expect(dotComponent.nativeElement.classList.contains(COMPONENT_CLASS_NAME)).toBe(true);
         expect(dotComponent.nativeElement.style.borderColor).toBeDefined();
     });
+
+    it('should remove inline border color when switch from custom color to theme color', () => {
+        const randomColor = getRandomColor();
+        basicTestComponent.thyColor = randomColor;
+        fixture.detectChanges();
+
+        expect(dotComponent.nativeElement.style.borderColor).toBeTruthy();
+
+        basicTestComponent.thyColor = 'primary';
+        fixture.detectChanges();
+
+        expect(dotComponent.nativeElement.style.borderColor).toBe('');
+        expect(dotComponent.nativeElement.classList.contains('dot-color-primary')).toBe(true);
+    });
 });
 
 @Component({
