@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [21.0.0-next.3](https://github.com/atinc/ngx-tethys/compare/21.0.0-next.2...21.0.0-next.3) (2026-03-31)
+
+
+### Bug Fixes
+
+* **dot:** fix dot color change to themeColor error #TINFR-3643 ([#3768](https://github.com/atinc/ngx-tethys/issues/3768)) ([4544cfc](https://github.com/atinc/ngx-tethys/commit/4544cfc35352b333165c20a4369c7c6357f4b0ef)), closes [#TINFR-3643](https://github.com/atinc/ngx-tethys/issues/TINFR-3643)
+* **shared:** 修复下拉组件开启虚拟滚动时滚动卡顿问题 ([e0d1a6f](https://github.com/atinc/ngx-tethys/commit/e0d1a6f5757223602237ea7df7ca7e1eaa798d2b))
+
+
+### Features
+
+* **notify:** support actions #TINFR-3626 ([#3760](https://github.com/atinc/ngx-tethys/issues/3760)) ([b31098e](https://github.com/atinc/ngx-tethys/commit/b31098edd337a349b2ea3d5e3a3dbbe3ec122b4b)), closes [#TINFR-3626](https://github.com/atinc/ngx-tethys/issues/TINFR-3626)
+
+
+
 # [21.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/21.0.0-next.1...21.0.0-next.2) (2026-02-27)
 
 
