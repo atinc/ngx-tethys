@@ -1,6 +1,6 @@
 import { isThemeColor, ThyThemeColor } from 'ngx-tethys/core';
 
-import { ChangeDetectionStrategy, Component, ElementRef, Renderer2, ViewEncapsulation, effect, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, ElementRef, inject, input, Renderer2, ViewEncapsulation } from '@angular/core';
 
 export type ThyColorType = ThyThemeColor | string;
 export type ThySizeType = 'xs' | 'sm' | 'md' | 'lg' | 'xlg';
@@ -88,7 +88,7 @@ export class ThyDot {
             .forEach(it => this.renderer.removeClass(this.nativeElement, it));
 
         if (isThemeColor(this.thyColor())) {
-            this.renderer.setStyle(this.nativeElement, 'borderColor', 'none');
+            this.renderer.removeStyle(this.nativeElement, 'borderColor');
             this.renderer.addClass(this.nativeElement, `dot-color-${this.thyColor()}`);
         } else {
             this.renderer.setStyle(this.nativeElement, 'borderColor', this.thyColor());
