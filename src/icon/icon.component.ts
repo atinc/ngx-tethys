@@ -1,21 +1,23 @@
-import { take } from 'rxjs/operators';
 import { useHostRenderer } from '@tethys/cdk/dom';
+import { take } from 'rxjs/operators';
 
 import {
     ChangeDetectionStrategy,
     Component,
     ElementRef,
     Renderer2,
+    SecurityContext,
     ViewEncapsulation,
-    numberAttribute,
+    effect,
     inject,
     input,
-    effect
+    numberAttribute
 } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
+import { coerceBooleanProperty, isImagePathSource } from 'ngx-tethys/util';
 import { getWhetherPrintErrorWhenIconNotFound } from './config';
 import { ThyIconRegistry } from './icon-registry';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 const iconSuffixMap = {
     fill: 'fill',
@@ -41,6 +43,7 @@ export class ThyIcon {
     private render = inject(Renderer2);
     private elementRef = inject(ElementRef);
     private iconRegistry = inject(ThyIconRegistry);
+    private sanitizer = inject(DomSanitizer);
 
     /**
      * 图标的类型
@@ -82,7 +85,14 @@ export class ThyIcon {
     }
 
     private updateClasses() {
-        const [namespace, iconName] = this.iconRegistry.splitIconName(this.thyIconName());
+        const rawName = this.thyIconName();
+        if (isImagePathSource(rawName)) {
+            this.hostRenderer.updateClass(['thy-icon-image']);
+            this.setImageElement(rawName.trim());
+            return;
+        }
+
+        const [namespace, iconName] = this.iconRegistry.splitIconName(rawName);
         if (iconName) {
             if (this.iconRegistry.iconMode === 'svg') {
                 this.iconRegistry
@@ -111,12 +121,28 @@ export class ThyIcon {
     private setStyleRotate() {
         if (this.thyIconRotate() !== undefined) {
             // 基于 effect 无法保证在 setSvgElement 之前执行，所以这里增加判断
-            const svg = this.elementRef.nativeElement.querySelector('svg');
-            if (!svg) {
+            const target = this.elementRef.nativeElement.querySelector('svg') || this.elementRef.nativeElement.querySelector('img');
+            if (!target) {
                 return;
             }
-            this.render.setStyle(svg, 'transform', `rotate(${this.thyIconRotate()}deg)`);
+            this.render.setStyle(target, 'transform', `rotate(${this.thyIconRotate()}deg)`);
         }
+    }
+
+    private setImageElement(src: string) {
+        this.clearSvgElement();
+
+        const img = this.render.createElement('img') as HTMLImageElement;
+        this.render.setAttribute(img, 'alt', '');
+        this.render.setAttribute(img, 'draggable', 'false');
+        const trusted = this.sanitizer.bypassSecurityTrustResourceUrl(src);
+        const safeUrl = this.sanitizer.sanitize(SecurityContext.RESOURCE_URL, trusted);
+        if (!safeUrl) {
+            return;
+        }
+        this.render.setProperty(img, 'src', safeUrl);
+        this.elementRef.nativeElement.appendChild(img);
+        this.setStyleRotate();
     }
 
     //#region svg element
@@ -174,10 +200,11 @@ export class ThyIcon {
         // we can't use innerHTML, because IE will throw if the element has a data binding.
         while (childCount--) {
             const child = layoutElement.childNodes[childCount];
+            const nodeName = child.nodeName.toLowerCase();
 
             // 1 corresponds to Node.ELEMENT_NODE. We remove all non-element nodes in order to get rid
-            // of any loose text nodes, as well as any SVG elements in order to remove any old icons.
-            if (child.nodeType !== 1 || child.nodeName.toLowerCase() === 'svg') {
+            // of any loose text nodes, as well as any SVG / img elements in order to remove any old icons.
+            if (child.nodeType !== 1 || nodeName === 'svg' || nodeName === 'img') {
                 layoutElement.removeChild(child);
             }
         }

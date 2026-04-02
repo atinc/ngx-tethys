@@ -11,6 +11,7 @@ export { EntityAddOptions as EntityAddOptions$0, EntityMoveOptions, Producer, Pr
 export * from './ng';
 export * from './references';
 
+export * from './image';
 export * from './keycodes';
 export * from './logger/index';
 export * from './observable';

@@ -157,6 +157,40 @@ describe('ThyIconComponent', () => {
             expect(iconElement.classList.contains('myset-icon-inbox'));
             iconRegistry.setIconMode('svg');
         });
+
+        it('should render img when thyIconName is an http(s) URL', () => {
+            componentInstance.iconName = 'https://cdn.example.com/icons/avatar.png';
+            fixture.detectChanges();
+            const host: HTMLElement = iconDebugElement.nativeElement;
+            expect(host.classList.contains('thy-icon-image')).toBeTruthy();
+            const img = host.querySelector('img');
+            expect(img).toBeTruthy();
+            expect(img!.getAttribute('src')).toContain('https://cdn.example.com/icons/avatar.png');
+            expect(host.querySelector('svg')).toBeFalsy();
+        });
+
+        it('should render img for relative image path and switch back to svg', () => {
+            componentInstance.iconName = '/assets/icon.webp';
+            fixture.detectChanges();
+            let host: HTMLElement = iconDebugElement.nativeElement;
+            expect(host.querySelector('img')).toBeTruthy();
+
+            componentInstance.iconName = 'check';
+            fixture.detectChanges();
+            host = iconDebugElement.nativeElement;
+            expect(host.querySelector('img')).toBeFalsy();
+            assertSvgIcon(host, 'check');
+            expect(host.classList.contains('thy-icon-image')).toBeFalsy();
+        });
+
+        it('should apply rotate to img', () => {
+            componentInstance.iconName = 'https://cdn.example.com/i.png';
+            componentInstance.rotate = 45;
+            fixture.detectChanges();
+            const img = iconDebugElement.nativeElement.querySelector('img') as HTMLElement;
+            expect(img).toBeTruthy();
+            expect(img.style.transform).toEqual('rotate(45deg)');
+        });
     });
 });
 
