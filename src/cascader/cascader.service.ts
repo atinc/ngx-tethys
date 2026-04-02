@@ -550,6 +550,15 @@ export class ThyCascaderService {
                 thyValue: labels,
                 thyLabelText: labelRenderText
             };
+            // 多选时 SelectionModel 以引用判重，每次 new 的 selectedData 会被重复加入；按选中路径去重
+            if (
+                this.cascaderOptions.isMultiple &&
+                this.selectionModel!.selected.some(item =>
+                    this.arrayEquals(this.getSubmitValue(item.thyRawValue.value), this.getSubmitValue(selectedOptions))
+                )
+            ) {
+                return;
+            }
             this.selectionModel!.select(selectedData);
         }
     }

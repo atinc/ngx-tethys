@@ -1104,7 +1104,7 @@ describe('thy-cascader', () => {
             expect(blurSpy).toHaveBeenCalled();
         }));
 
-        it('Should echo the value when the option is disabled', fakeAsync(() => {
+        it('should echo the value when the option is disabled', fakeAsync(() => {
             fixture.componentInstance.curVal = ['jiangsu', 'nanjing', 'zhonghuamen'];
             fixture.detectChanges();
             flush();
@@ -1320,6 +1320,74 @@ describe('thy-cascader', () => {
             });
             debugElement.queryAll(By.css('.thy-cascader-menu-item'))[clickIdx].nativeElement.click();
             fixture.detectChanges();
+        }));
+
+        it('should echo correct labels after options change', fakeAsync(() => {
+            component.isMultiple = true;
+            component.isOnlySelectLeaf = false;
+            component.thyTriggerAction = 'hover';
+            component.loadingDone = false;
+            const selectedPaths = [['zhejiang', 'hangzhou']] as SafeAny;
+            component.curVal = selectedPaths;
+            component.thyCustomerOptions = multipleOptions;
+            fixture.detectChanges();
+
+            const trigger = fixture.debugElement.query(By.css('input')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            tick(1000);
+            fixture.detectChanges();
+            const beforeLoadLabels = debugElement.queryAll(By.css('.choice-item'));
+            expect(beforeLoadLabels.length).toBe(selectedPaths.length);
+            expect(beforeLoadLabels[0].nativeElement.innerText).toContain('hangzhou');
+            
+            dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'mouseenter', true);
+            fixture.detectChanges();
+            expect(overlayContainerElement.querySelector('thy-loading')).toBeTruthy();
+            component.loadingDone = true;
+            component.thyCustomerOptions = [...multipleOptions];
+            fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
+            expect(overlayContainerElement.querySelector('thy-loading')).toBeFalsy();
+
+            const echoLabels = debugElement.queryAll(By.css('.choice-item'));
+            expect(echoLabels.length).toBe(selectedPaths.length);
+            expect(echoLabels[0].nativeElement.innerText).toContain('hangzhou');
+
+
+            // const trigger = fixture.debugElement.query(By.css('input')).nativeElement;
+            // trigger.click();
+            // fixture.detectChanges();
+            // tick(1000);
+            // fixture.detectChanges();
+            // const activatedOptions: NodeListOf<HTMLElement> = overlayContainerElement.querySelectorAll('.thy-cascader-menu-item-active');
+            // const activatedOptionsText: string[] = [];
+            // activatedOptions.forEach(item => activatedOptionsText.push(item.innerText.trim()));
+
+            // expect(activatedOptionsText).toEqual(fixture.componentInstance.curVal![fixture.componentInstance.curVal!.length - 1]);
+
+            // const beforeLoadLabels = debugElement.queryAll(By.css('.choice-item'));
+            // expect(beforeLoadLabels.length).toBe(selectedPaths.length);
+            // expect(beforeLoadLabels[0].nativeElement.innerText).toContain('hangzhou');
+
+            // component.loadingDone = false;
+            // fixture.detectChanges();
+            // dispatchFakeEvent(debugElement.query(By.css('.form-control')).nativeElement, 'click', true);
+            // fixture.detectChanges();
+            // tick(100);
+            // fixture.detectChanges();
+            // const loadingEl = overlayContainerElement.querySelector('thy-loading');
+            // expect(loadingEl).toBeTruthy();
+            // component.thyCustomerOptions = multipleOptions;
+            // component.loadingDone = true;
+            // fixture.detectChanges();
+            // tick(100);
+            // fixture.detectChanges();
+
+            // const echoLabels = debugElement.queryAll(By.css('.choice-item'));
+            // expect(echoLabels.length).toBe(selectedPaths.length);
+            // expect(echoLabels[0].nativeElement.innerText).toContain('hangzhou');
         }));
     });
 
