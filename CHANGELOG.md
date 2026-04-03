@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [20.0.12](https://github.com/atinc/ngx-tethys/compare/20.0.11...20.0.12) (2026-04-03)
+
+
+### Bug Fixes
+
+* **cascader:** prevent duplicate selections in multiple mode #TINFR-3662 ([#3772](https://github.com/atinc/ngx-tethys/issues/3772)) ([18d24d3](https://github.com/atinc/ngx-tethys/commit/18d24d3c365bc0464b1ebe504c498899f35fe68f)), closes [#TINFR-3662](https://github.com/atinc/ngx-tethys/issues/TINFR-3662)
+
+
+
 ## [20.0.11](https://github.com/atinc/ngx-tethys/compare/20.0.10...20.0.11) (2026-03-13)
 
 
