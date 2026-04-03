@@ -21,15 +21,10 @@
         transition: transform variables.$transition-duration-normal;
         /** 解决：点击 svg 使 tooltip 源的位置发生变化后，没有触发 tooltip 源的 mouseleave 事件 */
         pointer-events: none;
-    }
 
-    img {
-        width: 1em;
-        height: 1em;
-        object-fit: contain;
-        vertical-align: variables.$icon-vertical-align;
-        display: inline-block;
-        pointer-events: none;
+        image {
+            pointer-events: none;
+        }
     }
 
     &-legging {

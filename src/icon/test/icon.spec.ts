@@ -158,38 +158,48 @@ describe('ThyIconComponent', () => {
             iconRegistry.setIconMode('svg');
         });
 
-        it('should render img when thyIconName is an http(s) URL', () => {
+        function assertSvgWrappedImage(host: HTMLElement, expectUrlPart: string) {
+            const svg = host.querySelector('svg');
+            expect(svg).toBeTruthy();
+            expect(svg!.getAttribute('viewBox')).toBe('0 0 24 24');
+            const imageEl = svg!.querySelector('image');
+            expect(imageEl).toBeTruthy();
+            const href =
+                imageEl!.getAttribute('href') ||
+                imageEl!.getAttributeNS('http://www.w3.org/1999/xlink', 'href');
+            expect(href).toContain(expectUrlPart);
+            expect(host.querySelector('img')).toBeFalsy();
+        }
+
+        it('should render svg with image when thyIconName is an http(s) URL', () => {
             componentInstance.iconName = 'https://cdn.example.com/icons/avatar.png';
             fixture.detectChanges();
             const host: HTMLElement = iconDebugElement.nativeElement;
             expect(host.classList.contains('thy-icon-image')).toBeTruthy();
-            const img = host.querySelector('img');
-            expect(img).toBeTruthy();
-            expect(img!.getAttribute('src')).toContain('https://cdn.example.com/icons/avatar.png');
-            expect(host.querySelector('svg')).toBeFalsy();
+            assertSvgWrappedImage(host, 'https://cdn.example.com/icons/avatar.png');
         });
 
-        it('should render img for relative image path and switch back to svg', () => {
+        it('should render svg with image for relative image path and switch back to svg', () => {
             componentInstance.iconName = '/assets/icon.webp';
             fixture.detectChanges();
             let host: HTMLElement = iconDebugElement.nativeElement;
-            expect(host.querySelector('img')).toBeTruthy();
+            assertSvgWrappedImage(host, '/assets/icon.webp');
 
             componentInstance.iconName = 'check';
             fixture.detectChanges();
             host = iconDebugElement.nativeElement;
-            expect(host.querySelector('img')).toBeFalsy();
+            expect(host.querySelector('svg image')).toBeFalsy();
             assertSvgIcon(host, 'check');
             expect(host.classList.contains('thy-icon-image')).toBeFalsy();
         });
 
-        it('should apply rotate to img', () => {
+        it('should apply rotate to svg root when image icon', () => {
             componentInstance.iconName = 'https://cdn.example.com/i.png';
             componentInstance.rotate = 45;
             fixture.detectChanges();
-            const img = iconDebugElement.nativeElement.querySelector('img') as HTMLElement;
-            expect(img).toBeTruthy();
-            expect(img.style.transform).toEqual('rotate(45deg)');
+            const svg = iconDebugElement.nativeElement.querySelector('svg') as SVGSVGElement;
+            expect(svg).toBeTruthy();
+            expect(svg.style.transform).toEqual('rotate(45deg)');
         });
     });
 });

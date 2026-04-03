@@ -24,6 +24,10 @@ const iconSuffixMap = {
     twotone: 'tt'
 };
 
+const SVG_NAME_SPACE = 'http://www.w3.org/2000/svg';
+
+const XLINK_NAME_SPACE = 'http://www.w3.org/1999/xlink';
+
 /**
  * 图标组件
  * @name thy-icon,[thy-icon]
@@ -121,27 +125,43 @@ export class ThyIcon {
     private setStyleRotate() {
         if (this.thyIconRotate() !== undefined) {
             // 基于 effect 无法保证在 setSvgElement 之前执行，所以这里增加判断
-            const target = this.elementRef.nativeElement.querySelector('svg') || this.elementRef.nativeElement.querySelector('img');
-            if (!target) {
+            const svg = this.elementRef.nativeElement.querySelector('svg');
+            if (!svg) {
                 return;
             }
-            this.render.setStyle(target, 'transform', `rotate(${this.thyIconRotate()}deg)`);
+            this.render.setStyle(svg, 'transform', `rotate(${this.thyIconRotate()}deg)`);
         }
     }
 
     private setImageElement(src: string) {
         this.clearSvgElement();
 
-        const img = this.render.createElement('img') as HTMLImageElement;
-        this.render.setAttribute(img, 'alt', '');
-        this.render.setAttribute(img, 'draggable', 'false');
         const trusted = this.sanitizer.bypassSecurityTrustResourceUrl(src);
         const safeUrl = this.sanitizer.sanitize(SecurityContext.RESOURCE_URL, trusted);
         if (!safeUrl) {
             return;
         }
-        this.render.setProperty(img, 'src', safeUrl);
-        this.elementRef.nativeElement.appendChild(img);
+
+        const doc = this.elementRef.nativeElement.ownerDocument;
+        const svg = doc.createElementNS(SVG_NAME_SPACE, 'svg');
+        this.render.setAttribute(svg, 'viewBox', '0 0 24 24');
+        this.render.setAttribute(svg, 'fit', '');
+        this.render.setAttribute(svg, 'width', '1em');
+        this.render.setAttribute(svg, 'height', '1em');
+        this.render.setAttribute(svg, 'preserveAspectRatio', 'xMidYMid meet');
+        this.render.setAttribute(svg, 'focusable', 'false');
+
+        const imageEl = doc.createElementNS(SVG_NAME_SPACE, 'image');
+        this.render.setAttribute(imageEl, 'x', '0');
+        this.render.setAttribute(imageEl, 'y', '0');
+        this.render.setAttribute(imageEl, 'width', '100%');
+        this.render.setAttribute(imageEl, 'height', '100%');
+        this.render.setAttribute(imageEl, 'preserveAspectRatio', 'xMidYMid meet');
+        this.render.setAttribute(imageEl, 'href', safeUrl);
+        imageEl.setAttributeNS(XLINK_NAME_SPACE, 'xlink:href', safeUrl);
+
+        this.render.appendChild(svg, imageEl);
+        this.render.appendChild(this.elementRef.nativeElement, svg);
         this.setStyleRotate();
     }
 
@@ -200,11 +220,9 @@ export class ThyIcon {
         // we can't use innerHTML, because IE will throw if the element has a data binding.
         while (childCount--) {
             const child = layoutElement.childNodes[childCount];
-            const nodeName = child.nodeName.toLowerCase();
 
-            // 1 corresponds to Node.ELEMENT_NODE. We remove all non-element nodes in order to get rid
-            // of any loose text nodes, as well as any SVG / img elements in order to remove any old icons.
-            if (child.nodeType !== 1 || nodeName === 'svg' || nodeName === 'img') {
+            // of any loose text nodes, as well as any SVG elements in order to remove any old icons.
+            if (child.nodeType !== 1 || child.nodeName.toLowerCase() === 'svg') {
                 layoutElement.removeChild(child);
             }
         }
