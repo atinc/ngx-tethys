@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [21.0.0-next.4](https://github.com/atinc/ngx-tethys/compare/21.0.0-next.3...21.0.0-next.4) (2026-04-07)
+
+
+### Bug Fixes
+
+* **cascader:** prevent duplicate selections in multiple mode #TINFR-3662 ([#3772](https://github.com/atinc/ngx-tethys/issues/3772)) ([2617600](https://github.com/atinc/ngx-tethys/commit/261760020af8c12b4fedfac95ffa0bd938fb0bc5)), closes [#TINFR-3662](https://github.com/atinc/ngx-tethys/issues/TINFR-3662)
+* **core:** should show content when animation end #TINFR-3670 ([#3777](https://github.com/atinc/ngx-tethys/issues/3777)) ([64ae4b3](https://github.com/atinc/ngx-tethys/commit/64ae4b320a8c5b594de957e6dce62cb273560e41)), closes [#TINFR-3670](https://github.com/atinc/ngx-tethys/issues/TINFR-3670)
+
+
+
 # [21.0.0-next.3](https://github.com/atinc/ngx-tethys/compare/21.0.0-next.2...21.0.0-next.3) (2026-03-31)
 
 
