@@ -5,7 +5,7 @@ subtitle: 图标
 order: 30
 ---
 
-<alert>矢量图标与图片地址。</alert>
+<alert>矢量图标。</alert>
 
 `thy-icon` 支持图标字体与 SVG 图标；当 `thyIconName` 为图片资源地址（如 `http(s)`、`data:image/...`、带 `.png` / `.svg` 等后缀且无命名空间冒号的静态路径）时，会生成与矢量图标相同的根节点 `<svg>`，其内使用 SVG `<image>` 引用该地址，尺寸仍随 `font-size`变化。
 

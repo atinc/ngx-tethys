@@ -28,6 +28,29 @@ const SVG_NAME_SPACE = 'http://www.w3.org/2000/svg';
 
 const XLINK_NAME_SPACE = 'http://www.w3.org/1999/xlink';
 
+const SVG_EL_ATTRS: Record<string, string> = {
+    viewBox: '0 0 24 24',
+    fit: '',
+    width: '1em',
+    height: '1em',
+    preserveAspectRatio: 'xMidYMid meet',
+    focusable: 'false'
+};
+
+const IMAGE_EL_ATTRS: Record<string, string> = {
+    x: '0',
+    y: '0',
+    width: '100%',
+    height: '100%',
+    preserveAspectRatio: 'xMidYMid meet'
+};
+
+function setElementAttributes(render: Renderer2, element: Element, attributes: Record<string, string>): void {
+    for (const [name, value] of Object.entries(attributes)) {
+        render.setAttribute(element, name, value);
+    }
+}
+
 /**
  * 图标组件
  * @name thy-icon,[thy-icon]
@@ -91,7 +114,6 @@ export class ThyIcon {
     private updateClasses() {
         const rawName = this.thyIconName();
         if (isImagePathSource(rawName)) {
-            this.hostRenderer.updateClass(['thy-icon-image']);
             this.setImageElement(rawName.trim());
             return;
         }
@@ -144,20 +166,10 @@ export class ThyIcon {
 
         const doc = this.elementRef.nativeElement.ownerDocument;
         const svg = doc.createElementNS(SVG_NAME_SPACE, 'svg');
-        this.render.setAttribute(svg, 'viewBox', '0 0 24 24');
-        this.render.setAttribute(svg, 'fit', '');
-        this.render.setAttribute(svg, 'width', '1em');
-        this.render.setAttribute(svg, 'height', '1em');
-        this.render.setAttribute(svg, 'preserveAspectRatio', 'xMidYMid meet');
-        this.render.setAttribute(svg, 'focusable', 'false');
+        setElementAttributes(this.render, svg, SVG_EL_ATTRS);
 
         const imageEl = doc.createElementNS(SVG_NAME_SPACE, 'image');
-        this.render.setAttribute(imageEl, 'x', '0');
-        this.render.setAttribute(imageEl, 'y', '0');
-        this.render.setAttribute(imageEl, 'width', '100%');
-        this.render.setAttribute(imageEl, 'height', '100%');
-        this.render.setAttribute(imageEl, 'preserveAspectRatio', 'xMidYMid meet');
-        this.render.setAttribute(imageEl, 'href', safeUrl);
+        setElementAttributes(this.render, imageEl, { ...IMAGE_EL_ATTRS, href: safeUrl });
         imageEl.setAttributeNS(XLINK_NAME_SPACE, 'xlink:href', safeUrl);
 
         this.render.appendChild(svg, imageEl);
