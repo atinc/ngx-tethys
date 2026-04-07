@@ -82,7 +82,7 @@ export class ThyAnimationCollapseDirective {
                     const requestAnimationFrameId = requestAnimationFrame(() => {
                         if (!element) return;
                         const scrollHeight = this.calculateScrollHeight(element);
-                        element.style.height = coerceCssPixelValue(scrollHeight);
+                        element.style.height = scrollHeight > 0 ? coerceCssPixelValue(scrollHeight) : 'auto';
                     });
 
                     cleanup(() => {
