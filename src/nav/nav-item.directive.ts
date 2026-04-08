@@ -92,9 +92,17 @@ export class ThyNavItemDirective {
 
     public template: WritableSignal<HTMLElement | undefined> = signal(undefined);
 
-    public readonly isActive = computed(() => {
+    public readonly isActiveSignal = computed(() => {
         return this.linkIsActive();
     });
+
+    /**
+     * 已经废弃，请使用 isActiveSignal
+     * @deprecated please use isActiveSignal
+     */
+    get isActive() {
+        return this.isActiveSignal();
+    }
 
     constructor() {
         afterNextRender(() => {
