@@ -1,6 +1,6 @@
 import { animate, AnimationTriggerMetadata, state, style, transition, trigger } from '@angular/animations';
 import { AnimationCurves, requestAnimationFrame, cancelAnimationFrame } from './animation-consts';
-import { Directive, effect, ElementRef, inject, input, signal } from '@angular/core';
+import { Directive, effect, ElementRef, inject, input } from '@angular/core';
 import { coerceCssPixelValue } from '@angular/cdk/coercion';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
@@ -41,7 +41,7 @@ export class ThyAnimationCollapseDirective {
      */
     readonly thyLeavedClassName = input<string>('');
 
-    private firstRender = signal(true);
+    private firstRender = true;
 
     constructor() {
         effect(cleanup => {
@@ -53,7 +53,7 @@ export class ThyAnimationCollapseDirective {
                 element.classList.remove(leavedClassName);
             }
 
-            if (this.firstRender()) {
+            if (this.firstRender) {
                 // Avoid using animations on the first load to prevent page flickering or bouncing.
                 if (open) {
                     element.style.height = 'auto';
@@ -103,7 +103,7 @@ export class ThyAnimationCollapseDirective {
                 }
             }
 
-            this.firstRender.set(false);
+            this.firstRender = false;
         });
     }
 
@@ -119,7 +119,7 @@ export class ThyAnimationCollapseDirective {
     }
 
     protected transitionEnd(event: TransitionEvent): void {
-        if (this.firstRender() || event.target !== this.elementRef.nativeElement) {
+        if (this.firstRender || event.target !== this.elementRef.nativeElement) {
             return;
         }
 
