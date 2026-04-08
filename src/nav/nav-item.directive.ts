@@ -2,6 +2,7 @@ import {
     afterNextRender,
     computed,
     contentChildren,
+    DestroyRef,
     Directive,
     ElementRef,
     forwardRef,
@@ -10,6 +11,7 @@ import {
     signal,
     WritableSignal
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLinkActive } from '@angular/router';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
@@ -33,6 +35,8 @@ export class ThyNavItemDirective {
     public elementRef = inject(ElementRef);
 
     private routerLinkActive = inject(RouterLinkActive, { optional: true })!;
+
+    private readonly destroyRef = inject(DestroyRef);
 
     private hostRenderer = useHostRenderer();
 
@@ -92,17 +96,11 @@ export class ThyNavItemDirective {
 
     public template: WritableSignal<HTMLElement | undefined> = signal(undefined);
 
-    public readonly isActiveSignal = computed(() => {
+    private readonly routerLinkIsActive: WritableSignal<boolean> = signal(false);
+
+    public readonly isActive = computed(() => {
         return this.linkIsActive();
     });
-
-    /**
-     * 已经废弃，请使用 isActiveSignal
-     * @deprecated please use isActiveSignal
-     */
-    get isActive() {
-        return this.isActiveSignal();
-    }
 
     constructor() {
         afterNextRender(() => {
@@ -110,7 +108,24 @@ export class ThyNavItemDirective {
 
             this.content = this.elementRef.nativeElement.outerHTML;
             this.template.set(this.elementRef.nativeElement.outerHTML);
+            this.subscribeRouterLinkIsActive();
         });
+    }
+
+    // routerLinkActive 支持 signal 后移除
+    private subscribeRouterLinkIsActive() {
+        if (this.routerLinkActive) {
+            this.routerLinkActive.isActiveChange.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((isActive: boolean) => {
+                this.routerLinkIsActive.set(isActive);
+            });
+        }
+        if (this.routers().length > 0) {
+            this.routers().forEach(router => {
+                router.isActiveChange.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((isActive: boolean) => {
+                    this.routerLinkIsActive.set(isActive);
+                });
+            });
+        }
     }
 
     setOffset() {
@@ -127,8 +142,7 @@ export class ThyNavItemDirective {
         return (
             this.thyNavItemActive() ||
             this.thyNavLinkActive() ||
-            (this.routerLinkActive && this.routerLinkActive.isActive) ||
-            this.routers().some(router => router.isActive) ||
+            this.routerLinkIsActive() ||
             links.some(item => item.thyNavItemActive()) ||
             links.some(item => item.thyNavLinkActive())
         );
