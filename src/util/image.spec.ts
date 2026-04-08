@@ -29,6 +29,12 @@ describe('#isImagePathSource', () => {
         expect(isImagePathSource('pic.svg#frag')).toBe(true);
     });
 
+    it('should return true for protocol-relative image URL (including host:port)', () => {
+        expect(isImagePathSource('//127.0.0.1:30002/u/a/platform.svg')).toBe(true);
+        expect(isImagePathSource('//cdn.example.com/icons/logo.png')).toBe(true);
+        expect(isImagePathSource('  //cdn.example.com/x.webp  ')).toBe(true);
+    });
+
     it('should return false when string contains colon (e.g. icon namespace)', () => {
         expect(isImagePathSource('mat:thumbs-up')).toBe(false);
         expect(isImagePathSource('ns:icon.png')).toBe(false);
