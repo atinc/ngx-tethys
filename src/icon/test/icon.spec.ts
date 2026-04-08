@@ -1,18 +1,18 @@
-import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
-import { generateRandomStr } from 'ngx-tethys/util';
-import { of } from 'rxjs';
 import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { Component, DebugElement, inject as coreInject } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By, DomSanitizer } from '@angular/platform-browser';
 import {
-    ThyIconRegistry,
-    ThyIconModule,
     ThyIcon,
-    setPrintErrorWhenIconNotFound,
-    getWhetherPrintErrorWhenIconNotFound
+    ThyIconModule,
+    ThyIconRegistry,
+    getWhetherPrintErrorWhenIconNotFound,
+    setPrintErrorWhenIconNotFound
 } from 'ngx-tethys/icon';
+import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
+import { generateRandomStr } from 'ngx-tethys/util';
+import { of } from 'rxjs';
 
 @Component({
     template: `
@@ -162,38 +162,40 @@ describe('ThyIconComponent', () => {
             const svg = host.querySelector('svg');
             expect(svg).toBeTruthy();
             expect(svg!.getAttribute('viewBox')).toBe('0 0 24 24');
+            expect(svg!.getAttribute('width')).toBe('1em');
+            expect(svg!.getAttribute('height')).toBe('1em');
+            expect(svg!.getAttribute('preserveAspectRatio')).toBe('xMidYMid meet');
+            expect(svg!.getAttribute('focusable')).toBe('false');
+
             const imageEl = svg!.querySelector('image');
             expect(imageEl).toBeTruthy();
-            const href =
-                imageEl!.getAttribute('href') ||
-                imageEl!.getAttributeNS('http://www.w3.org/1999/xlink', 'href');
+            expect(imageEl!.getAttribute('x')).toBe('0');
+            expect(imageEl!.getAttribute('y')).toBe('0');
+            expect(imageEl!.getAttribute('width')).toBe('100%');
+            expect(imageEl!.getAttribute('height')).toBe('100%');
+            expect(imageEl!.getAttribute('preserveAspectRatio')).toBe('xMidYMid meet');
+
+            const href = imageEl!.getAttribute('href') || imageEl!.getAttributeNS('http://www.w3.org/1999/xlink', 'href');
             expect(href).toContain(expectUrlPart);
-            expect(host.querySelector('img')).toBeFalsy();
+            expect(host.querySelector('img')).toBeNull();
         }
 
-        it('should render svg with image when thyIconName is an http(s) URL', () => {
-            componentInstance.iconName = 'https://cdn.example.com/icons/avatar.png';
-            fixture.detectChanges();
-            const host: HTMLElement = iconDebugElement.nativeElement;
-            expect(host.classList.contains('thy-icon-image')).toBeTruthy();
-            assertSvgWrappedImage(host, 'https://cdn.example.com/icons/avatar.png');
-        });
-
-        it('should render svg with image for relative image path and switch back to svg', () => {
+        it('should render svg with image for path-like image url (isImagePathSource) and switch back to svg icon', async () => {
             componentInstance.iconName = '/assets/icon.webp';
             fixture.detectChanges();
+            await fixture.whenStable();
             let host: HTMLElement = iconDebugElement.nativeElement;
             assertSvgWrappedImage(host, '/assets/icon.webp');
 
             componentInstance.iconName = 'check';
             fixture.detectChanges();
+            await fixture.whenStable();
             host = iconDebugElement.nativeElement;
-            expect(host.querySelector('svg image')).toBeFalsy();
+            expect(host.querySelector('svg image')).toBeNull();
             assertSvgIcon(host, 'check');
-            expect(host.classList.contains('thy-icon-image')).toBeFalsy();
         });
 
-        it('should apply rotate to svg root when image icon', () => {
+        it('should apply thyIconRotate to svg root when icon is image path', () => {
             componentInstance.iconName = 'https://cdn.example.com/i.png';
             componentInstance.rotate = 45;
             fixture.detectChanges();
