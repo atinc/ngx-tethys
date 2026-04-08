@@ -1,26 +1,55 @@
-import { take } from 'rxjs/operators';
 import { useHostRenderer } from '@tethys/cdk/dom';
+import { take } from 'rxjs/operators';
 
 import {
     ChangeDetectionStrategy,
     Component,
     ElementRef,
     Renderer2,
+    SecurityContext,
     ViewEncapsulation,
-    numberAttribute,
+    effect,
     inject,
     input,
-    effect
+    numberAttribute
 } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
+import { coerceBooleanProperty, isImagePathSource } from 'ngx-tethys/util';
 import { getWhetherPrintErrorWhenIconNotFound } from './config';
 import { ThyIconRegistry } from './icon-registry';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 const iconSuffixMap = {
     fill: 'fill',
     twotone: 'tt'
 };
+
+const SVG_NAME_SPACE = 'http://www.w3.org/2000/svg';
+
+const XLINK_NAME_SPACE = 'http://www.w3.org/1999/xlink';
+
+const SVG_EL_ATTRS: Record<string, string> = {
+    viewBox: '0 0 24 24',
+    fit: '',
+    width: '1em',
+    height: '1em',
+    preserveAspectRatio: 'xMidYMid meet',
+    focusable: 'false'
+};
+
+const IMAGE_EL_ATTRS: Record<string, string> = {
+    x: '0',
+    y: '0',
+    width: '100%',
+    height: '100%',
+    preserveAspectRatio: 'xMidYMid meet'
+};
+
+function setElementAttributes(render: Renderer2, element: Element, attributes: Record<string, string>): void {
+    for (const [name, value] of Object.entries(attributes)) {
+        render.setAttribute(element, name, value);
+    }
+}
 
 /**
  * 图标组件
@@ -41,6 +70,7 @@ export class ThyIcon {
     private render = inject(Renderer2);
     private elementRef = inject(ElementRef);
     private iconRegistry = inject(ThyIconRegistry);
+    private sanitizer = inject(DomSanitizer);
 
     /**
      * 图标的类型
@@ -82,7 +112,13 @@ export class ThyIcon {
     }
 
     private updateClasses() {
-        const [namespace, iconName] = this.iconRegistry.splitIconName(this.thyIconName());
+        const rawName = this.thyIconName();
+        if (isImagePathSource(rawName)) {
+            this.setImageElement(rawName.trim());
+            return;
+        }
+
+        const [namespace, iconName] = this.iconRegistry.splitIconName(rawName);
         if (iconName) {
             if (this.iconRegistry.iconMode === 'svg') {
                 this.iconRegistry
@@ -117,6 +153,28 @@ export class ThyIcon {
             }
             this.render.setStyle(svg, 'transform', `rotate(${this.thyIconRotate()}deg)`);
         }
+    }
+
+    private setImageElement(src: string) {
+        this.clearSvgElement();
+
+        const trusted = this.sanitizer.bypassSecurityTrustResourceUrl(src);
+        const safeUrl = this.sanitizer.sanitize(SecurityContext.RESOURCE_URL, trusted);
+        if (!safeUrl) {
+            return;
+        }
+
+        const doc = this.elementRef.nativeElement.ownerDocument;
+        const svg = doc.createElementNS(SVG_NAME_SPACE, 'svg');
+        setElementAttributes(this.render, svg, SVG_EL_ATTRS);
+
+        const imageEl = doc.createElementNS(SVG_NAME_SPACE, 'image');
+        setElementAttributes(this.render, imageEl, { ...IMAGE_EL_ATTRS, href: safeUrl });
+        imageEl.setAttributeNS(XLINK_NAME_SPACE, 'xlink:href', safeUrl);
+
+        this.render.appendChild(svg, imageEl);
+        this.render.appendChild(this.elementRef.nativeElement, svg);
+        this.setStyleRotate();
     }
 
     //#region svg element
@@ -175,7 +233,6 @@ export class ThyIcon {
         while (childCount--) {
             const child = layoutElement.childNodes[childCount];
 
-            // 1 corresponds to Node.ELEMENT_NODE. We remove all non-element nodes in order to get rid
             // of any loose text nodes, as well as any SVG elements in order to remove any old icons.
             if (child.nodeType !== 1 || child.nodeName.toLowerCase() === 'svg') {
                 layoutElement.removeChild(child);

@@ -7,7 +7,7 @@ order: 30
 
 <alert>矢量图标。</alert>
 
-`thy-icon`使得在应用程序中更容易使用基于矢量的图标，此组件支持图标字体和SVG图标，但不支持基于位图的格式（png、jpg等）
+`thy-icon` 支持图标字体与 SVG 图标；当 `thyIconName` 为图片资源地址（如 `http(s)`、`data:image/...`、带 `.png` / `.svg` 等后缀且无命名空间冒号的静态路径）时，会生成与矢量图标相同的根节点 `<svg>`，其内使用 SVG `<image>` 引用该地址，尺寸仍随 `font-size`变化。
 
 ## 模块导入
 
@@ -60,6 +60,17 @@ iconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl(`assets/i
 
 ```
 <example name="thy-icon-basic-example" />
+
+## 图片地址
+
+通过 `thyIconName` 传入图片 URL 或 data URL 等，可用作自定义图标（例如用户头像、品牌图）。可与 `thyIconRotate` 等属性配合。
+
+```html
+<thy-icon thyIconName="https://example.com/icon.png"></thy-icon>
+<thy-icon [thyIconName]="assetsPathOrDataUrl"></thy-icon>
+```
+
+<example name="thy-icon-image-example" />
 
 ## 双色图标 twotone
 双色图标需要设置类型为`twotone`，同时设置`thyTwotoneColor`，对于双色图标的 SVG 来说需要包含id包含`secondary-color`的`path`，会填充该`path`的`fill`属性为传入的`thyTwotoneColor`
