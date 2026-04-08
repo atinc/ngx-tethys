@@ -180,6 +180,14 @@ describe('ThyIconComponent', () => {
             expect(host.querySelector('img')).toBeNull();
         }
 
+        it('should render svg with image for protocol-relative url with host:port', async () => {
+            const url = '//127.0.0.1:30002/res/platform.svg';
+            componentInstance.iconName = url;
+            fixture.detectChanges();
+            await fixture.whenStable();
+            assertSvgWrappedImage(iconDebugElement.nativeElement, url);
+        });
+
         it('should render svg with image for path-like image url (isImagePathSource) and switch back to svg icon', async () => {
             componentInstance.iconName = '/assets/icon.webp';
             fixture.detectChanges();
