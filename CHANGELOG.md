@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [21.0.0-next.6](https://github.com/atinc/ngx-tethys/compare/21.0.0-next.5...21.0.0-next.6) (2026-04-08)
+
+
+### Bug Fixes
+
+* **core:** the effect should not be entered a second time when first render #TINFR-3681 ([#3787](https://github.com/atinc/ngx-tethys/issues/3787)) ([a6f47d6](https://github.com/atinc/ngx-tethys/commit/a6f47d68fb50c369ea6347d386216e30f45eca34)), closes [#TINFR-3681](https://github.com/atinc/ngx-tethys/issues/TINFR-3681)
+* **nav:** #TINFR-3668 【Nav】responsive 时候，下拉列表中高亮状态错误 ([#3785](https://github.com/atinc/ngx-tethys/issues/3785)) ([5ddc949](https://github.com/atinc/ngx-tethys/commit/5ddc94903921f90012f3abb3ac9eae79d9c6e26c)), closes [#TINFR-3668](https://github.com/atinc/ngx-tethys/issues/TINFR-3668)
+
+
+
 # [21.0.0-next.5](https://github.com/atinc/ngx-tethys/compare/21.0.0-next.4...21.0.0-next.5) (2026-04-08)
 
 ### Feature
