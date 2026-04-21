@@ -172,22 +172,23 @@
 }
 
 // expect supper-lg
-.dialog-md,
-.dialog-sm,
-.dialog-lg,
-.dialog-max-lg {
-    max-height: variables.$dialog-default-max-height;
-}
+.cdk-overlay-pane {
+    &.dialog-md,
+    &.dialog-sm,
+    &.dialog-lg,
+    &.dialog-max-lg {
+        max-height: variables.$dialog-default-max-height;
+    }
 
-// supper lg
-.dialog-supper-lg,
-.dialog-super-lg {
-    width: variables.$dialog-super-lg-width;
-    height: variables.$dialog-super-lg-height;
-    max-width: variables.$dialog-super-lg-max-width;
-    max-height: variables.$dialog-super-lg-max-height;
+    // supper lg
+    &.dialog-supper-lg,
+    &.dialog-super-lg {
+        width: variables.$dialog-super-lg-width;
+        height: variables.$dialog-super-lg-height;
+        max-width: variables.$dialog-super-lg-max-width;
+        max-height: variables.$dialog-super-lg-max-height;
+    }
 }
-
 .thy-confirm-footer {
     display: flex;
     .thy-confirm-cancel {
