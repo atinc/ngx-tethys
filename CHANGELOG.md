@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [21.0.1](https://github.com/atinc/ngx-tethys/compare/21.0.0...21.0.1) (2026-04-23)
+
+
+### Bug Fixes
+
+* #TINFR-3689 【Dialog】.cdk-overlay-pane 的 max-height 覆盖了 dialog-size 的 max-height 导致内容多时超出屏幕 ([#3793](https://github.com/atinc/ngx-tethys/issues/3793)) ([081bff7](https://github.com/atinc/ngx-tethys/commit/081bff7f21f8ac43fed6bb424378e9d35dc62a1b)), closes [#TINFR-3689](https://github.com/atinc/ngx-tethys/issues/TINFR-3689)
+* **button:** move the transition to the hover-focus #TINFR-3691 ([0bb32cc](https://github.com/atinc/ngx-tethys/commit/0bb32cce122260802ec323d118ccbf1e8ca3f48f)), closes [#TINFR-3691](https://github.com/atinc/ngx-tethys/issues/TINFR-3691)
+* **tag:** outline tag default border color use gray-300 #NEXUS-1533 ([#3795](https://github.com/atinc/ngx-tethys/issues/3795)) ([f5df531](https://github.com/atinc/ngx-tethys/commit/f5df5318d84d0f067b67aee69c17823a376e6332)), closes [#NEXUS-1533](https://github.com/atinc/ngx-tethys/issues/NEXUS-1533)
+
+
+
 # [21.0.0](https://github.com/atinc/ngx-tethys/compare/21.0.0-next.6...21.0.0) (2026-04-09)
 
 
