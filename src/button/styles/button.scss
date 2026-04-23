@@ -44,10 +44,9 @@
         @include mixin.btn-icon-only-variant(variables.$btn-padding-y, 0.625rem);
     }
 
-    @include transition.transition(bootstrap-variables.$btn-transition); // Share hover and focus styles
-
     @include hover.hover-focus {
         text-decoration: none;
+        @include transition.transition(bootstrap-variables.$btn-transition); // Share hover and focus styles
     }
 
     &:focus,
