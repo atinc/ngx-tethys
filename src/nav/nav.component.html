@@ -33,7 +33,6 @@
     <thy-dropdown-menu thyImmediateRender>
       @for (item of hiddenItems(); track $index) {
         <span
-          class="thy-nav-item-more"
           thyDropdownMenuItem
           [thyDropdownMenuItemActive]="item.isActive()"
           (click)="navItemClick(item)"

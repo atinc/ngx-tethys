@@ -293,12 +293,12 @@
     .thy-nav-item-hidden {
         display: block;
     }
-    .thy-nav-item-more,
-    .thy-nav-item-more * {
+
+    a.thy-nav-item {
+        color: variables.$nav-item-color;
         text-decoration: none;
-        color: variables.$secondary;
         &:hover {
-            color: variables.$gray-800;
+            color: variables.$nav-item-color;
         }
     }
 }
