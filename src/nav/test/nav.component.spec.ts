@@ -354,7 +354,7 @@ describe(`thy-nav`, () => {
 
             const popover = overlayContainer.getContainerElement().querySelector('thy-popover-container');
             expect(popover).toBeTruthy();
-            expect(popover?.querySelectorAll('.thy-nav-item-more').length).toEqual(2);
+            expect(popover?.querySelectorAll('.dropdown-menu-item').length).toEqual(2);
         }));
 
         it('should support set thyInsideClosable', fakeAsync(() => {
@@ -373,7 +373,7 @@ describe(`thy-nav`, () => {
             const moreBtn: DebugElement = fixture.debugElement.query(By.css('.thy-nav-more-container'));
             dispatchFakeEvent(moreBtn.nativeElement, 'click');
             const popover = overlayContainer.getContainerElement().querySelector('thy-popover-container');
-            const link = popover?.querySelectorAll('.thy-nav-item-more')[0];
+            const link = popover?.querySelectorAll('.dropdown-menu-item')[0];
             const linkSpy = spyOn(fixture.componentInstance.linksElement.toArray()[1].nativeElement, 'click');
             dispatchFakeEvent(link!, 'click');
             fixture.detectChanges();

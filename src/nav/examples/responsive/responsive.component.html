@@ -32,7 +32,6 @@
         <span thyDropdownMenuItem>自定义</span>
         @for (item of context; track $index) {
           <span
-            class="thy-nav-item-more"
             thyDropdownMenuItem
             [thyDropdownMenuItemActive]="item.isActive()"
             (click)="navItemClick(item)"
