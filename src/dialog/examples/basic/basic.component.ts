@@ -96,10 +96,7 @@ export class ThyDialogBasicExampleComponent implements OnInit, OnDestroy {
             ...this.config,
             header: {
                 title: '自定义 title',
-                icon: {
-                    name: 'bulb',
-                    color: '#ff4d4f'
-                }
+                icon: { name: 'bulb', color: '#ff4d4f' } // 或者 icon: 'bulb'
             }
         });
     }
