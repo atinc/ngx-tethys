@@ -1,9 +1,10 @@
-import { Component, OnInit, TemplateRef, Renderer2, OnDestroy, inject, DestroyRef } from '@angular/core';
-import { ThyDialogConfig, ThyDialogSizes, ThyDialog, ThyDialogHeader, ThyDialogBody, ThyDialogFooter } from 'ngx-tethys/dialog';
-import { keycodes } from 'ngx-tethys/util';
-import { ThyDialogBasicContentComponent } from './dialog-content.component';
+import { Component, DestroyRef, OnDestroy, OnInit, Renderer2, TemplateRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ThyButton } from 'ngx-tethys/button';
+import { ThyDialog, ThyDialogBody, ThyDialogConfig, ThyDialogFooter, ThyDialogHeader, ThyDialogSizes } from 'ngx-tethys/dialog';
+import { keycodes } from 'ngx-tethys/util';
+import { ThyDialogBasicContentComponent } from './dialog-content.component';
+import { ThyDialogBasicPlainContentComponent } from './plain-dialog-content.component';
 
 @Component({
     selector: 'thy-dialog-basic-example',
@@ -87,6 +88,14 @@ export class ThyDialogBasicExampleComponent implements OnInit, OnDestroy {
         dialogRef.afterClosed().subscribe(result => {
             this.hasShowDialog = false;
             console.log(`Dialog afterClosed result: ${result}`);
+        });
+    }
+
+    openPlainComponentDialog() {
+        this.thyDialog.open(ThyDialogBasicPlainContentComponent, {
+            ...this.config,
+            title: '自定义 title',
+            icon: 'https://github.githubassets.com/images/icons/emoji/unicode/2764.png'
         });
     }
 

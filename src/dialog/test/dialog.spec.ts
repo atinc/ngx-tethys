@@ -173,6 +173,30 @@ describe('ThyDialog', () => {
         assertDialogSimpleContentComponent(dialogRef);
     });
 
+    it('should render default header when title and icon are configured', () => {
+        dialog.open(DialogSimpleContentTestComponent, {
+            title: 'Default Dialog Title',
+            icon: 'inbox'
+        });
+
+        viewContainerFixture.detectChanges();
+
+        const headerElement = getElementByDialogContainer('.thy-dialog-header');
+        expect(headerElement).toBeTruthy();
+        expect(headerElement.textContent).toContain('Default Dialog Title');
+        expect(headerElement.querySelector('thy-icon')).toBeTruthy();
+    });
+
+    it('should not render default header when only icon is configured', () => {
+        dialog.open(DialogSimpleContentTestComponent, {
+            icon: 'inbox'
+        });
+
+        viewContainerFixture.detectChanges();
+
+        expect(getElementByDialogContainer('.thy-dialog-header')).toBeNull();
+    });
+
     it('should open a dialog with a template', () => {
         const templateRefFixture = TestBed.createComponent(WithTemplateRefTestComponent);
         templateRefFixture.componentInstance.localValue = 'Bees';

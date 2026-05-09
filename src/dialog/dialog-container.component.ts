@@ -10,27 +10,34 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
+    DOCUMENT,
     ElementRef,
     EventEmitter,
+    forwardRef,
     HostBinding,
+    inject,
     NgZone,
     OnDestroy,
     Renderer2,
-    ViewChild,
-    inject,
-    DOCUMENT
+    ViewChild
 } from '@angular/core';
 
 import { thyDialogAnimations } from './dialog-animations';
 import { ThyDialogConfig } from './dialog.config';
 import { dialogAbstractOverlayOptions } from './dialog.options';
+import { ThyDialogHeader } from './header/dialog-header.component';
 
 /**
  * @private
  */
 @Component({
     selector: 'thy-dialog-container',
-    template: ` <ng-template thyPortalOutlet></ng-template> `,
+    template: `
+        @if (config.title) {
+            <thy-dialog-header [thyTitle]="config.title" [thyIcon]="config.icon"></thy-dialog-header>
+        }
+        <ng-template thyPortalOutlet></ng-template>
+    `,
     // Using OnPush for dialogs caused some sync issues, e.g. custom ngModel can't to detect changes
     // Disabled until we can track them down.
     changeDetection: ChangeDetectionStrategy.Default,
@@ -48,7 +55,7 @@ import { dialogAbstractOverlayOptions } from './dialog.options';
         '(@dialogContainer.start)': 'onAnimationStart($event)',
         '(@dialogContainer.done)': 'onAnimationDone($event)'
     },
-    imports: [PortalModule, ThyPortalOutlet]
+    imports: [PortalModule, ThyPortalOutlet, forwardRef(() => ThyDialogHeader)]
 })
 export class ThyDialogContainer extends ThyAbstractOverlayContainer implements OnDestroy {
     private elementRef = inject(ElementRef);

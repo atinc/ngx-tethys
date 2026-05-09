@@ -28,6 +28,18 @@ export enum ThyDialogSizes {
  */
 export class ThyDialogConfig<TData = unknown> extends ThyAbstractOverlayConfig<TData> {
     /**
+     * 模态框标题，设置后会在内容前显示默认头部
+     * @description.en-us Dialog title. When set, a default header will be rendered before the dialog content.
+     */
+    title?: string;
+
+    /**
+     * 模态框头部图标（需同时设置 title 才会显示）
+     * @description.en-us Dialog header icon.
+     */
+    icon?: string;
+
+    /**
      * 对话框元素的 ARIA 角色
      * @description.en-us The ARIA role of the dialog element.
      */
