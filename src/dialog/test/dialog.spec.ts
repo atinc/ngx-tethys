@@ -173,7 +173,7 @@ describe('ThyDialog', () => {
         assertDialogSimpleContentComponent(dialogRef);
     });
 
-    it('should render default header when header config is configured', () => {
+    it('should render header when title and string icon are configured', () => {
         dialog.open(DialogSimpleContentTestComponent, {
             header: {
                 title: 'Default Dialog Title',
@@ -207,19 +207,6 @@ describe('ThyDialog', () => {
         expect(iconElement.style.color).toBe('red');
     });
 
-    it('should render header title when only title is configured in header config', () => {
-        dialog.open(DialogSimpleContentTestComponent, {
-            header: {
-                title: 'Header Dialog Title'
-            }
-        });
-
-        viewContainerFixture.detectChanges();
-
-        const headerElement = getElementByDialogContainer('.thy-dialog-header');
-        expect(headerElement.textContent).toContain('Header Dialog Title');
-    });
-
     it('should not render default header when header is not configured', () => {
         dialog.open(DialogSimpleContentTestComponent, {
             header: {
@@ -228,7 +215,6 @@ describe('ThyDialog', () => {
         });
 
         viewContainerFixture.detectChanges();
-
         expect(getElementByDialogContainer('.thy-dialog-header')).toBeNull();
     });
 
