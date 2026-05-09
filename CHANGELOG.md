@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [21.0.3](https://github.com/atinc/ngx-tethys/compare/21.0.2...21.0.3) (2026-05-09)
+
+
+### Features
+
+* **dialog:** support header config in dialog ([#3802](https://github.com/atinc/ngx-tethys/issues/3802)) ([6013d92](https://github.com/atinc/ngx-tethys/commit/6013d9220ea761f79ace50a73d8058c2be459270))
+
+
+
 ## [21.0.2](https://github.com/atinc/ngx-tethys/compare/21.0.1...21.0.2) (2026-04-24)
 
 
