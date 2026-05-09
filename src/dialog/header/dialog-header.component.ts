@@ -1,12 +1,13 @@
-import { Component, TemplateRef, OnInit, ElementRef, inject, input, output, contentChild, computed, Signal } from '@angular/core';
-import { ThyDialog } from '../dialog.service';
-import { ThyDialogContainer } from '../dialog-container.component';
-import { ThyTranslate } from 'ngx-tethys/core';
-import { ThyInternalDialogRef } from '../dialog-ref';
-import { ThyAction } from 'ngx-tethys/action';
-import { ThyIcon } from 'ngx-tethys/icon';
 import { NgTemplateOutlet } from '@angular/common';
+import { Component, computed, contentChild, ElementRef, inject, input, OnInit, output, Signal, TemplateRef } from '@angular/core';
+import { ThyAction } from 'ngx-tethys/action';
+import { ThyTranslate } from 'ngx-tethys/core';
+import { ThyIcon } from 'ngx-tethys/icon';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { ThyDialogContainer } from '../dialog-container.component';
+import { ThyInternalDialogRef } from '../dialog-ref';
+import { ThyDialogHeaderIcon } from '../dialog.config';
+import { ThyDialog } from '../dialog.service';
 
 /**
  * 模态框头部组件
@@ -65,7 +66,17 @@ export class ThyDialogHeader implements OnInit {
     /**
      * 头部图标
      */
-    readonly thyIcon = input<string>();
+    readonly thyIcon = input<string | ThyDialogHeaderIcon>();
+
+    readonly iconName: Signal<string> = computed(() => {
+        const icon = this.thyIcon();
+        return typeof icon === 'string' ? icon : icon?.name || '';
+    });
+
+    readonly iconColor: Signal<string | undefined> = computed(() => {
+        const icon = this.thyIcon();
+        return typeof icon === 'string' ? undefined : icon?.color;
+    });
 
     /**
      * 关闭事件

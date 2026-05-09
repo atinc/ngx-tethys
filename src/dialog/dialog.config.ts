@@ -6,6 +6,16 @@ import { InjectionToken } from '@angular/core';
 /** Valid ARIA roles for a dialog element. */
 export type ThyDialogRole = 'dialog' | 'alertdialog';
 
+export interface ThyDialogHeaderIcon {
+    name: string;
+    color?: string;
+}
+
+export interface ThyDialogHeaderConfig {
+    title?: string;
+    icon?: string | ThyDialogHeaderIcon;
+}
+
 export enum ThyDialogSizes {
     lg = 'lg',
     /**
@@ -27,6 +37,12 @@ export enum ThyDialogSizes {
  * @order 20
  */
 export class ThyDialogConfig<TData = unknown> extends ThyAbstractOverlayConfig<TData> {
+    /**
+     * 模态框头部配置，设置后会在内容前显示默认头部
+     * @description.en-us Dialog header config. When set, a default header will be rendered before the dialog content.
+     */
+    header?: ThyDialogHeaderConfig;
+
     /**
      * 对话框元素的 ARIA 角色
      * @description.en-us The ARIA role of the dialog element.
