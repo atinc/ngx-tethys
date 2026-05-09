@@ -1,35 +1,35 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Location } from '@angular/common';
+import { provideHttpClient } from '@angular/common/http';
 import { SpyLocation } from '@angular/common/testing';
 import { ViewContainerRef } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, flushMicrotasks, inject, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { dispatchKeyboardEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
-import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { helpers, A, ESCAPE } from 'ngx-tethys/util';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import {
-    ThyDialogContainer,
-    ThyDialogRef,
-    ThyDialogSizes,
     THY_CONFIRM_DEFAULT_OPTIONS,
     ThyDialog,
-    ThyDialogModule
+    ThyDialogContainer,
+    ThyDialogModule,
+    ThyDialogRef,
+    ThyDialogSizes
 } from 'ngx-tethys/dialog';
+import { dispatchKeyboardEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
+import { A, ESCAPE, helpers } from 'ngx-tethys/util';
+import { of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import {
     DialogFullContentTestComponent,
     DialogRestoreTestComponent,
     DialogSimpleContentTestComponent,
     DialogToTopTestComponent,
+    MY_TOKEN,
     WithChildViewContainerTestComponent,
     WithInjectedDataDialogTestComponent,
     WithOnPushViewContainerTestComponent,
     WithTemplateRefTestComponent,
-    WithViewContainerTestDirective,
-    MY_TOKEN
+    WithViewContainerTestDirective
 } from './dialog-test-components';
-import { provideHttpClient } from '@angular/common/http';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
 
 describe('ThyDialog', () => {
     let dialog!: ThyDialog;
@@ -173,10 +173,12 @@ describe('ThyDialog', () => {
         assertDialogSimpleContentComponent(dialogRef);
     });
 
-    it('should render default header when title and icon are configured', () => {
+    it('should render default header when header config is configured', () => {
         dialog.open(DialogSimpleContentTestComponent, {
-            title: 'Default Dialog Title',
-            icon: 'inbox'
+            header: {
+                title: 'Default Dialog Title',
+                icon: 'inbox'
+            }
         });
 
         viewContainerFixture.detectChanges();
@@ -187,9 +189,42 @@ describe('ThyDialog', () => {
         expect(headerElement.querySelector('thy-icon')).toBeTruthy();
     });
 
-    it('should not render default header when only icon is configured', () => {
+    it('should render icon color when header icon is object type', () => {
         dialog.open(DialogSimpleContentTestComponent, {
-            icon: 'inbox'
+            header: {
+                title: 'Default Dialog Title',
+                icon: {
+                    name: 'inbox',
+                    color: 'red'
+                }
+            }
+        });
+
+        viewContainerFixture.detectChanges();
+
+        const iconElement = getElementByDialogContainer('.thy-dialog-header thy-icon');
+        expect(iconElement).toBeTruthy();
+        expect(iconElement.style.color).toBe('red');
+    });
+
+    it('should render header title when only title is configured in header config', () => {
+        dialog.open(DialogSimpleContentTestComponent, {
+            header: {
+                title: 'Header Dialog Title'
+            }
+        });
+
+        viewContainerFixture.detectChanges();
+
+        const headerElement = getElementByDialogContainer('.thy-dialog-header');
+        expect(headerElement.textContent).toContain('Header Dialog Title');
+    });
+
+    it('should not render default header when header is not configured', () => {
+        dialog.open(DialogSimpleContentTestComponent, {
+            header: {
+                icon: 'inbox'
+            }
         });
 
         viewContainerFixture.detectChanges();
@@ -1168,7 +1203,7 @@ describe('ThyDialog', () => {
         it('should work with a confirm dialog when onOk callback return undefined', (done: DoneFn) => {
             dialog.confirm({
                 content: 'test: ok button return undefined',
-                onOk: () => { }
+                onOk: () => {}
             });
             assertConfirmBtnWork(done);
         });
@@ -1232,7 +1267,7 @@ describe('ThyDialog', () => {
             it('should show default value', () => {
                 dialog.confirm({
                     content: 'test: global custom',
-                    onOk: () => { }
+                    onOk: () => {}
                 });
                 viewContainerFixture.detectChanges();
                 expect(getConfirmElements().headerTitle.textContent).toBe('全局定义标题');
@@ -1250,7 +1285,7 @@ describe('ThyDialog', () => {
                     cancelText: '不了，谢谢',
                     okType: 'primary',
                     footerAlign: 'right',
-                    onOk: () => { }
+                    onOk: () => {}
                 });
                 viewContainerFixture.detectChanges();
                 expect(getConfirmElements().headerTitle.textContent).toBe('自定义标题');
@@ -1263,7 +1298,7 @@ describe('ThyDialog', () => {
             it('should show okText when loading and okLoadingText is not custom', () => {
                 const dialogRef = dialog.confirm({
                     content: 'test: not custom okLoadingText',
-                    onOk: () => { }
+                    onOk: () => {}
                 });
                 const okButton = getConfirmElements().okButton;
                 if (okButton) {
@@ -1278,7 +1313,7 @@ describe('ThyDialog', () => {
                 const dialogRef = dialog.confirm({
                     content: 'test: custom okLoadingText',
                     okLoadingText: '加载中...',
-                    onOk: () => { }
+                    onOk: () => {}
                 });
                 viewContainerFixture.detectChanges();
                 // 这个是因为按钮组件在 ngAfterViewInit 钩子中替换了 Dom 元素，如果不 tick 一下加载状态会修改失败
@@ -1507,13 +1542,10 @@ describe('ThyDialog', () => {
     describe('providers option', () => {
         it('should inject providers', fakeAsync(() => {
             const dialogRef = dialog.open(DialogSimpleContentTestComponent, {
-                providers: [
-                    { provide: MY_TOKEN, useValue: 'my token' }
-                ]
+                providers: [{ provide: MY_TOKEN, useValue: 'my token' }]
             });
 
             expect(dialogRef.componentInstance.token).toBe('my token');
-
         }));
     });
 });

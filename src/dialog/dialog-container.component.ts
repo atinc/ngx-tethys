@@ -33,8 +33,8 @@ import { ThyDialogHeader } from './header/dialog-header.component';
 @Component({
     selector: 'thy-dialog-container',
     template: `
-        @if (config.title) {
-            <thy-dialog-header [thyTitle]="config.title" [thyIcon]="config.icon"></thy-dialog-header>
+        @if (config.header?.title) {
+            <thy-dialog-header [thyTitle]="config.header?.title" [thyIcon]="config.header?.icon"></thy-dialog-header>
         }
         <ng-template thyPortalOutlet></ng-template>
     `,

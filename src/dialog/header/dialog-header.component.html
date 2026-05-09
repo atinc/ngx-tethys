@@ -1,9 +1,9 @@
 @if (headerTemplate()) {
   <template [ngTemplateOutlet]="headerTemplate()"></template>
 } @else {
-  <h3 class="dialog-title">
-    @if (thyIcon()) {
-      <thy-icon class="mr-2" [thyIconName]="thyIcon()"></thy-icon>
+  <h3 class="dialog-title d-flex align-items-center">
+    @if (iconName()) {
+      <thy-icon class="mr-2" [thyIconName]="iconName()" [style.color]="iconColor()" [style.borderColor]="iconColor()"></thy-icon>
     }
     <span>{{ title() }}</span>
   </h3>

@@ -94,8 +94,13 @@ export class ThyDialogBasicExampleComponent implements OnInit, OnDestroy {
     openPlainComponentDialog() {
         this.thyDialog.open(ThyDialogBasicPlainContentComponent, {
             ...this.config,
-            title: '自定义 title',
-            icon: 'https://github.githubassets.com/images/icons/emoji/unicode/2764.png'
+            header: {
+                title: '自定义 title',
+                icon: {
+                    name: 'bulb',
+                    color: '#ff4d4f'
+                }
+            }
         });
     }
 
