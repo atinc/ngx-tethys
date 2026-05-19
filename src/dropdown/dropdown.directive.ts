@@ -6,8 +6,8 @@ import {
     Directive,
     ElementRef,
     NgZone,
-    OnInit,
     OnDestroy,
+    OnInit,
     Signal,
     TemplateRef,
     ViewContainerRef,
@@ -86,10 +86,10 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
     });
 
     /**
-     * 弹出框的参数，底层使用 Popover 组件, 默认为`{ placement: "bottomLeft", insideClosable: true, minWidth: "240px", outsideClosable: true }`
+     * 弹出框的参数，底层使用 Popover 组件, 默认为`{ placement: "bottomLeft", insideClosable: true, minWidth: "240px", outsideClosable: true, manualClosure: false }`
      */
     readonly thyPopoverOptions =
-        input<Pick<ThyPopoverConfig, 'placement' | 'height' | 'insideClosable' | 'minWidth' | 'outsideClosable'>>();
+        input<Pick<ThyPopoverConfig, 'placement' | 'height' | 'insideClosable' | 'minWidth' | 'outsideClosable' | 'manualClosure'>>();
 
     /**
      * 弹出框的显示位置，会覆盖 thyPopoverOptions 中的 placement，`top` | `topLeft` | `topRight` | `bottom` | `bottomLeft` | `bottomRight` | `left` | `leftTop` | `leftBottom` | `right` | `rightTop` | `rightBottom`
@@ -159,8 +159,8 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
             }
         }
 
-        const { placement, height, insideClosable, outsideClosable, minWidth } = Object.assign(
-            { placement: 'bottomLeft', insideClosable: true, outsideClosable: true },
+        const { placement, height, insideClosable, outsideClosable, minWidth, manualClosure } = Object.assign(
+            { placement: 'bottomLeft', insideClosable: true, outsideClosable: true, manualClosure: false },
             this.thyPopoverOptions()
         );
         const thyPlacement = this.thyPlacement();
@@ -174,6 +174,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
             placement: thyPlacement ? thyPlacement : placement,
             height,
             outsideClosable,
+            manualClosure,
             insideClosable: helpers.isUndefined(thyMenuInsideClosable) ? insideClosable : thyMenuInsideClosable,
             minWidth,
             originActiveClass: this.thyActiveClass()
