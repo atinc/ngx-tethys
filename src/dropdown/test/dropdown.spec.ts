@@ -1018,6 +1018,7 @@ describe('dropdown options', () => {
             expect(calledConfig!.height).toBeUndefined();
             expect(calledConfig!.insideClosable).toBeTruthy();
             expect(calledConfig!.outsideClosable).toBeTruthy();
+            expect(calledConfig!.manualClosure).toBeFalsy();
             expect(calledConfig!.hasBackdrop).toBeFalsy();
             expect(calledConfig!.offset).toBe(0);
             expect(calledConfig!.originActiveClass).toEqual('thy-dropdown-origin-active');
@@ -1034,6 +1035,7 @@ describe('dropdown options', () => {
             expect(calledConfig!.height).toBeUndefined();
             expect(calledConfig!.insideClosable).toBeTruthy();
             expect(calledConfig!.outsideClosable).toBeTruthy();
+            expect(calledConfig!.manualClosure).toBeFalsy();
             expect(calledConfig!.hasBackdrop).toBeFalsy();
             expect(calledConfig!.offset).toBe(0);
             expect(calledConfig!.originActiveClass).toEqual('active');
@@ -1095,6 +1097,16 @@ describe('dropdown options', () => {
 
             expect(calledConfig).toBeTruthy();
             expect(calledConfig!.outsideClosable).toBeFalsy();
+        });
+
+        it('should set manualClosure', () => {
+            dropdown.thyPopoverOptions()!.manualClosure = true;
+
+            expect(calledConfig).toBeUndefined();
+            dropdown.createOverlay();
+
+            expect(calledConfig).toBeTruthy();
+            expect(calledConfig!.manualClosure).toBeTruthy();
         });
 
         it('should set panel class', () => {
