@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [21.0.4](https://github.com/atinc/ngx-tethys/compare/21.0.3...21.0.4) (2026-05-19)
+
+
+### Features
+
+* **dropdown:** support popover options manualClosure config ([#3805](https://github.com/atinc/ngx-tethys/issues/3805)) ([9dc99e3](https://github.com/atinc/ngx-tethys/commit/9dc99e3d47cb3105a6686fe2e43ccba6459074d1))
+
+
+
 ## [21.0.3](https://github.com/atinc/ngx-tethys/compare/21.0.2...21.0.3) (2026-05-09)
 
 
