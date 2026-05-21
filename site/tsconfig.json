@@ -6,7 +6,10 @@
     "paths": {
       "ngx-tethys": ["../src/public-api"],
       "ngx-tethys/*": ["../src/*"],
-      "@tethys/cdk/*": ["../cdk/*"]
+      "@tethys/cdk": ["../cdk/public-api"],
+      "@tethys/cdk/*": ["../cdk/*"],
+      "@pc-nexus/ng-uikit": ["../projects/ng-uikit/public-api.ts"],
+      "@pc-nexus/ng-uikit/*": ["../projects/ng-uikit/*"]
     }
   },
   "angularCompilerOptions": {
