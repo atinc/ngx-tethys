@@ -147,6 +147,32 @@
         }
       }
     },
+    "ng-uikit": {
+      "projectType": "library",
+      "root": "projects/ng-uikit",
+      "sourceRoot": "projects/ng-uikit",
+      "prefix": "nx",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "options": {
+            "tsConfig": "projects/ng-uikit/tsconfig.lib.json",
+            "project": "projects/ng-uikit/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ng-uikit/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["projects/ng-uikit/**/*.ts"]
+          }
+        }
+      }
+    },
     "cdk": {
       "projectType": "library",
       "root": "cdk",

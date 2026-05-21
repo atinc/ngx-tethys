@@ -1,0 +1,30 @@
+<div class="ng-uikit-demo p-4">
+  <h2 class="mb-3">@pc-nexus/ng-uikit · Button 示例</h2>
+  <p class="text-muted mb-4">
+    使用 <code>import &#123; NxButton &#125; from '@pc-nexus/ng-uikit/button'</code>，在 <code>imports</code> 中注册
+    <code>NxButton</code>，模板使用 <code>nxButton</code> / <code>nxType</code>。
+  </p>
+  <div class="d-flex gap-2 flex-wrap">
+    <button nxButton nxType="primary" (click)="buttonClick('主按钮', $event)">NxButton 主按钮</button>
+    <button nxButton nxType="default" (click)="buttonClick('默认', $event)">默认按钮</button>
+    <button nxButton nxType="danger" (click)="buttonClick('危险', $event)">危险按钮</button>
+  </div>
+  @if (lastClick()) {
+    <p class="mt-3 text-muted">最近一次点击：{{ lastClick() }}</p>
+  }
+  <hr class="my-4" />
+  <h2 class="mb-3">@pc-nexus/ng-uikit · Avatar 示例</h2>
+  <p class="text-muted mb-4">
+    使用 <code>import &#123; NxAvatar &#125; from '@pc-nexus/ng-uikit/avatar'</code>，在 <code>imports</code> 中注册
+    <code>NxAvatar</code>（需自行 <code>provide: NxAvatarService, useClass: NxDefaultAvatarService</code>），模板使用
+    <code>nx-avatar</code>、<code>nxShowName</code>、
+    <code>nxRemovable</code>、<code>(nxRemove)</code>。
+  </p>
+  <div class="d-flex gap-3 flex-wrap align-items-start">
+    <nx-avatar nxName="张学友" nxShowName></nx-avatar>
+    <nx-avatar nxName="Peter" nxShowName nxRemovable (nxRemove)="avatarRemove('Peter', $event)"></nx-avatar>
+  </div>
+  @if (lastRemove()) {
+    <p class="mt-3 text-muted">最近一次移除：{{ lastRemove() }}</p>
+  }
+</div>

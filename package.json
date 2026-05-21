@@ -22,6 +22,8 @@
     "copy-md": "cpx \"./README.md\" dist/tethys && cpx \"./CHANGELOG.md\" dist/tethys",
     "build-testing": "cpx \"./src/core/testing/**/*.ts\" ./dist/tethys/core/testing",
     "build-cdk": "ng build cdk --configuration production",
+    "generate:ng-uikit": "ts-node --project scripts/tsconfig.json scripts/generate-ng-uikit.ts",
+    "build:ng-uikit": "npm run build-cdk && npm run build-tethys && npm run generate:ng-uikit && ng build ng-uikit --configuration production",
     "release-only": "wpm release",
     "release": "wpm release --release-branch-format release-auto-v{{version}}",
     "release-next": "wpm release --release-branch-format release-auto-next-v{{version}}",

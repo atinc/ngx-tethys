@@ -1,9 +1,17 @@
 {
-  "extends": "../tsconfig.json",
+  "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/site",
     "types": [],
-    "strict": false
+    "strict": false,
+    "paths": {
+      "ngx-tethys": ["../src/public-api.ts"],
+      "ngx-tethys/*": ["../src/*"],
+      "@tethys/cdk": ["../cdk/public-api.ts"],
+      "@tethys/cdk/*": ["../cdk/*"],
+      "@pc-nexus/ng-uikit": ["../projects/ng-uikit/public-api.ts"],
+      "@pc-nexus/ng-uikit/*": ["../projects/ng-uikit/*"]
+    }
   },
   "exclude": ["**/*.spec.ts"],
   "angularCompilerOptions": {

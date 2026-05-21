@@ -69,7 +69,8 @@ import { ThyWatermarkModule } from 'ngx-tethys/watermark';
 import { DestroyRef, NgModule, inject } from '@angular/core';
 import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterModule, Routes } from '@angular/router';
+import { NgUIKitDemoComponent } from './ng-uikit-demo/ng-uikit-demo.component';
 import { DocgeniTemplateModule, RootComponent } from '@docgeni/template';
 
 import { MutationObserverFactory } from '@angular/cdk/observers';
@@ -94,6 +95,13 @@ registerLocaleData(localezhHant, 'zh-Hant');
 registerLocaleData(localeEn, 'en');
 registerLocaleData(localeJa, 'ja');
 registerLocaleData(localeDe, 'de');
+
+const SITE_ROUTES: Routes = [
+    {
+        path: 'ng-uikit-demo',
+        component: NgUIKitDemoComponent
+    }
+];
 
 const TETHYS_MODULES = [
     ThyLayoutModule,
@@ -172,7 +180,8 @@ const TETHYS_MODULES = [
         BrowserModule,
         BrowserAnimationsModule,
         DocgeniTemplateModule,
-        RouterModule.forRoot([]),
+        RouterModule.forRoot(SITE_ROUTES),
+        NgUIKitDemoComponent,
         ...TETHYS_MODULES,
         ...EXAMPLE_MODULES
     ],

@@ -1,0 +1,62 @@
+{
+  "packageName": "@pc-nexus/ng-uikit",
+  "version": "0.0.1",
+  "outputDir": "projects/ng-uikit",
+  "modules": ["button", "avatar"],
+  "secondaryEntryPoints": true,
+  "rename": {
+    "fromPrefix": "Thy",
+    "toPrefix": "Nx"
+  },
+  "exports": {
+    "button": {
+      "include": ["ThyButton", "ThyButtonModule", "ThyButtonType"],
+      "wrappers": {
+        "ThyButton": {
+          "selector": "nx-button,[nx-button],[nxButton]",
+          "inputs": {
+            "thyButton": "nxButton",
+            "thyType": "nxType",
+            "thyLoading": "nxLoading",
+            "thyLoadingText": "nxLoadingText",
+            "thySize": "nxSize",
+            "thyIcon": "nxIcon",
+            "thyBlock": "nxBlock"
+          }
+        }
+      }
+    },
+    "avatar": {
+      "include": [
+        "ThyAvatar",
+        "ThyAvatarModule",
+        "ThyAvatarList",
+        "ThyAvatarLoading",
+        "ThyAvatarFetchPriority",
+        "ThyAvatarService",
+        "ThyDefaultAvatarService"
+      ],
+      "wrappers": {
+        "ThyAvatar": {
+          "selector": "nx-avatar",
+          "exposeInputsOnly": true,
+          "exposeOutputsOnly": true,
+          "inputs": {
+            "thyShowName": "nxShowName",
+            "thySrc": "nxSrc",
+            "thyName": "nxName",
+            "thySize": "nxSize",
+            "thyRemovable": "nxRemovable",
+            "thyDisabled": "nxDisabled",
+            "thyImgClass": "nxImgClass",
+            "thyLoading": "nxLoading",
+            "thyFetchPriority": "nxFetchPriority"
+          },
+          "outputs": {
+            "thyRemove": "nxRemove"
+          }
+        }
+      }
+    }
+  }
+}
