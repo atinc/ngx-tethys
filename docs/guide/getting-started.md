@@ -7,9 +7,25 @@ order: 10
 ## 使用 CLI 搭建本地项目
 我们强烈建议使用官方的 @angular/cli 工具链辅助进行开发，下面我们用一个简单的示例来说明，你可以阅读 [官网文档搭建环境](https://angular.cn/guide/setup-local) 搭建本地开发环境和工作空间。
 ### 安装脚手架工具
-```bash
+
+<tabs mode="code-group">
+ <tab label="npm">
+ ```bash
 npm install -g @angular/cli
 ```
+ </tab>
+ <tab label="pnpm">
+ ```bash
+pnpm add @angular/cli -g 
+```
+ </tab>
+ <tab label="yarn">
+ ```bash
+yarn add @angular/cli -g 
+```
+ </tab>
+</tabs>
+
 ### 创建一个项目
 > 在创建项目之前，请确保 `@angular/cli` 已被成功安装。
 
@@ -23,7 +39,7 @@ ng new my-app
 进入项目文件夹，执行以下命令后将自动完成 ngx-tethys 的初始化配置，包括引入导入模块，引入样式文件，引入图标库等工作。
 
 ```
-$ ng add ngx-tethys
+ng add ngx-tethys
 ```
 
 <img class="mb-2" src="./assets/images/ng-add.png" />
@@ -34,8 +50,8 @@ $ ng add ngx-tethys
 ### 开发调试
 一键启动调试，运行成功后显示欢迎页面。
 
-```
-$ ng serve --port 0 --open
+```bash
+ng serve --port 0 --open
 ```
 
 ### 构建和部署
@@ -45,15 +61,27 @@ $ ng serve --port 0 --open
 ## 手动安装
 ### 安装组件
 
+<tabs mode="code-group">
+<tab label="npm">
 ```bash
-$ npm install ngx-tethys --save
-// or
-$ yarn add ngx-tethys
+npm install ngx-tethys --save
 ```
+</tab>
+<tab label="pnpm">
+```bash
+pnpm add ngx-tethys --save
+```
+</tab>
+<tab label="yarn">
+```bash
+yarn add ngx-tethys --save
+```
+</tab>
+</tabs>
 
 ### 安装依赖
 
-```
+```bash
 npm i @tethys/icons @angular/cdk date-fns@^2.6.0 --save
 ```
 
@@ -79,7 +107,7 @@ npm i @tethys/icons @angular/cdk date-fns@^2.6.0 --save
 
 在`angular.json`中`architect.build.options.assets`引入`assets`配置
 
-  ```
+  ```json
     "assets": [
         ...
         {

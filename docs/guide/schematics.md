@@ -17,6 +17,6 @@ order: 20
 快速生成模板代码，每个官网的代码演示都附有可生成的模板，开发者可以通过展开每个组件的代码演示部分获取其生成代码。
 
 ### 命令
-```
-$ ng g ngx-tethys:[schematic] <name> [options]
+```bash
+ng g ngx-tethys:[schematic] <name> [options]
 ```

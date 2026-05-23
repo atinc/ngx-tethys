@@ -29,9 +29,9 @@ order: 0
 我们强烈推荐使用官方的 `@angular/cli` 工具链辅助进行开发，在实际项目开发中，它可以很好的满足对 TypeScript 代码的构建、调试、代理、打包部署等一系列工程化的需求。
 
 ```bash
-$ ng new PROJECT_NAME
-$ cd PROJECT_NAME
-$ ng add ngx-tethys
+ng new PROJECT_NAME
+cd PROJECT_NAME
+ng add ngx-tethys
 ```
 > 如果你想了解更多 CLI 工具链的功能和命令，建议访问 [Angular CLI](https://github.com/angular/angular-cli) 了解更多
 
