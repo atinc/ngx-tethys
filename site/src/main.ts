@@ -1,6 +1,6 @@
-import { platformBrowser } from '@angular/platform-browser';
-import { AppModule } from './app/app.module';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { RootComponent } from '@docgeni/template';
 
-platformBrowser()
-    .bootstrapModule(AppModule, { applicationProviders: [] })
-    .catch(err => console.error(err));
+import { appConfig } from './app/app.config';
+
+bootstrapApplication(RootComponent, appConfig).catch(err => console.error(err));

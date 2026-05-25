@@ -26,8 +26,7 @@ import { ThyFormModule } from 'ngx-tethys/form';
 import { ThyFullscreenModule } from 'ngx-tethys/fullscreen';
 import { ThyGridModule } from 'ngx-tethys/grid';
 import { ThyGuiderModule } from 'ngx-tethys/guider';
-import { ThyI18nService } from 'ngx-tethys/i18n';
-import { ThyIconModule, ThyIconRegistry } from 'ngx-tethys/icon';
+import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyInputNumberModule } from 'ngx-tethys/input-number';
 import { ThyLayoutModule } from 'ngx-tethys/layout';
@@ -66,16 +65,11 @@ import { ThyUploadModule } from 'ngx-tethys/upload';
 import { ThyVoteModule } from 'ngx-tethys/vote';
 import { ThyWatermarkModule } from 'ngx-tethys/watermark';
 
-import { DestroyRef, NgModule, inject } from '@angular/core';
-import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavigationEnd, Router, RouterModule } from '@angular/router';
-import { DocgeniTemplateModule, RootComponent } from '@docgeni/template';
-
-import { MutationObserverFactory } from '@angular/cdk/observers';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ThyTheme, ThyThemeStore } from 'ngx-tethys/core';
-import { Observable, Subject } from 'rxjs';
+import { RouterModule } from '@angular/router';
+import { DocgeniTemplateModule } from '@docgeni/template';
 import { EXAMPLE_MODULES } from './content/example-modules';
 import { DOCGENI_SITE_PROVIDERS } from './content/index';
 
@@ -86,7 +80,6 @@ import localeJa from '@angular/common/locales/ja';
 import localeZh from '@angular/common/locales/zh';
 import localeZhHans from '@angular/common/locales/zh-Hans';
 import localezhHant from '@angular/common/locales/zh-Hant';
-import { TinyDate } from 'ngx-tethys/util';
 
 registerLocaleData(localeZh, 'zh');
 registerLocaleData(localeZhHans, 'zh-Hans');
@@ -176,60 +169,6 @@ const TETHYS_MODULES = [
         ...TETHYS_MODULES,
         ...EXAMPLE_MODULES
     ],
-    providers: [...DOCGENI_SITE_PROVIDERS],
-    bootstrap: [RootComponent]
+    providers: [...DOCGENI_SITE_PROVIDERS]
 })
-export class AppModule {
-    private themeObserver: MutationObserver;
-    private readonly destroyRef = inject(DestroyRef);
-    private thyThemeStore = inject(ThyThemeStore);
-
-    constructor() {
-        const iconRegistry = inject(ThyIconRegistry);
-        const sanitizer = inject(DomSanitizer);
-        const router = inject(Router);
-        const destroyRef = inject(DestroyRef);
-        const i18n = inject(ThyI18nService);
-
-        const iconSvgUrl = `assets/icons/defs/svg/sprite.defs.svg`;
-        iconRegistry.addSvgIconSet(sanitizer.bypassSecurityTrustResourceUrl(iconSvgUrl));
-
-        this.observeTheme()
-            .pipe(takeUntilDestroyed(this.destroyRef))
-            .subscribe(() => {});
-
-        router.events.pipe(takeUntilDestroyed(destroyRef)).subscribe(event => {
-            if (event instanceof NavigationEnd) {
-                let localeId = router.url.split('/')[1];
-                i18n.setLocale(localeId);
-                TinyDate.setDefaultLocale(localeId);
-            }
-        });
-    }
-
-    private observeTheme() {
-        this.themeObserver?.disconnect();
-        return new Observable(observe => {
-            const stream = new Subject<MutationRecord[]>();
-            this.themeObserver = new MutationObserverFactory().create(mutations => stream.next(mutations));
-            if (this.themeObserver) {
-                this.themeObserver.observe(document.documentElement, {
-                    attributes: true,
-                    attributeFilter: ['theme']
-                });
-            }
-            stream.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(mutations => {
-                for (const mutation of mutations) {
-                    if (mutation.type === 'attributes' && mutation.attributeName === 'theme') {
-                        const theme = (document.documentElement.getAttribute('theme') as ThyTheme) || ThyTheme.light;
-                        this.thyThemeStore.setTheme(theme);
-                    }
-                }
-            });
-            observe.next(stream);
-            return () => {
-                this.themeObserver?.disconnect();
-            };
-        });
-    }
-}
+export class AppModule {}
