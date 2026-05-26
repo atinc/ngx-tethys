@@ -7,6 +7,7 @@ module.exports = {
     siteProjectName: 'site',
     repoUrl: 'https://github.com/atinc/ngx-tethys',
     logoUrl: './assets/images/logo.png',
+    // renderMode: 'ssr',
     navs: [
         null,
         {
