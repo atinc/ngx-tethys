@@ -20,9 +20,11 @@ order: 50
 在你报告一个缺陷之前，请先确保已经搜索过已有的工作项和阅读了我们的常见问题。
 
 ## 新增功能
+
 如果你有改进我们的 API 或者新增功能的想，直接在看板中添加一个工作项，并详细描述一下你的需求和使用场景。
 
 ## 第一次贡献
+
 为了能帮助你开始你的第一次尝试，我们用 Good First Issue 标记了一些比较比较容易修复的缺陷和小功能。这些 Issue 可以很好地做为你的首次尝试。
 
 如果你打算开始处理一个 Issue，请先检查一下 Issue 下面的留言以确保没有别人正在处理这个 Issue。如果当前没有人在处理的话你可以分配给自己并留言告知其他人你将会处理这个 Issue，以免别人重复劳动。
@@ -30,14 +32,15 @@ order: 50
 如果之前有分配者并留言说会处理这个 Issue 但是一两个星期都没有动静，那么你也可以接手处理这个 Issue，当然还是需要留言告知其他人。
 
 ## 贡献代码
+
 ngx-tethys 团队会关注所有的 Pull Request，我们会 Code Review 以及合并你的代码，也有可能要求你做一些修改或者告诉你我们为什么不能接受这样的修改。
 
 在你发送 Pull Request 之前，请确认你是按照下面的步骤来做的：
 
-1. 在项目根目录下运行了 `npm install`
+1. 在项目根目录下运行了 `pnpm install`
 1. 如果你修复了一个缺陷或者新增了一个功能，请确保写了相应的单元测试，这很重要
-1. 确认所有的测试都是通过的 `npm run test`。
-1. 确保你的代码通过了 lint 检查 `npm run lint`。
+1. 确认所有的测试都是通过的 `pnpm run test`。
+1. 确保你的代码通过了 lint 检查 `pnpm run lint`。
 1. 确保你的代码在提交之前经过了正确的 [Rebase](https://www.digitalocean.com/community/tutorials/how-to-rebase-and-update-a-pull-request)。
 1. 确保你的提交信息符合我们的 [Commit 规范](https://at.pingcode.com/wiki/spaces/5e6b391d48453503714bea3e/pages/5e7088fa0909b20a485572e8)。
 

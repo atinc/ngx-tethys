@@ -24,7 +24,7 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
         protected injector: Injector,
         protected defaultConfig: TConfig,
         public scrollStrategy?: FunctionProp<ScrollStrategy>
-    ) { }
+    ) {}
 
     /** Build cdk overlay config by config */
     protected abstract buildOverlayConfig(config: TConfig): OverlayConfig;
@@ -38,7 +38,6 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
         containerInstance: TContainer,
         config: TConfig
     ): ThyAbstractOverlayRef<T, TContainer, TResult>;
-
 
     /** Create injector providers for component content */
     protected abstract createInjectorProviders<T>(
@@ -57,7 +56,7 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
         const injectionProviders = this.createInjectorProviders(overlayRef, containerInstance);
 
         if (config?.providers?.length) {
-            injectionProviders.unshift(...config.providers)
+            injectionProviders.unshift(...config.providers);
         }
 
         if (config.direction && (!userInjector || !userInjector.get<Directionality | null>(Directionality, null))) {
@@ -71,7 +70,7 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
         }
 
         return Injector.create({ parent: userInjector || this.injector, providers: injectionProviders });
-    };
+    }
 
     /** Attach component or template ref to overlay container */
     protected attachOverlayContent<T, TResult>(

@@ -71,9 +71,9 @@ class ThyNativeTableTestComponent {
         return 'onPageChange is ok';
     }
 
-    onPageIndexChange() { }
+    onPageIndexChange() {}
 
-    onPageSizeChange() { }
+    onPageSizeChange() {}
 }
 
 describe('ThyNativeTable: basic', () => {
@@ -213,9 +213,9 @@ class ThyNativeTableCheckboxTestComponent {
 
     checkedAll = signal<boolean>(false);
 
-    onCheckedAllChange(checked: boolean): void { }
+    onCheckedAllChange(checked: boolean): void {}
 
-    onCheckedRowChange(): void { }
+    onCheckedRowChange(): void {}
 }
 
 describe('ThyNativeTable: checkbox', () => {

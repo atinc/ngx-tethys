@@ -37,7 +37,7 @@ const cssVariables = {
 };
 
 const tsContent = `
-// You can update this file by executing 'npm run extract-css-variables' command
+// You can update this file by executing 'pnpm run extract-css-variables' command
 
 export const cssVariables = ${JSON.stringify(cssVariables, null, 2)};`;
 
