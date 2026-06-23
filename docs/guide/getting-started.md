@@ -11,9 +11,9 @@ order: 10
 ### 安装脚手架工具
 
 <tabs mode="code-group">
- <tab label="pnpm">
+ <tab label="npm">
  ```bash
-pnpm install -g @angular/cli
+npm install -g @angular/cli
 ```
  </tab>
  <tab label="pnpm">
