@@ -5,15 +5,15 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "command": "npm run build-docs",
-      "name": "Run npm build-docs",
+      "command": "pnpm run build-docs",
+      "name": "Run pnpm build-docs",
       "request": "launch",
       "type": "node-terminal",
       "skipFiles": ["<node_internals>/**"]
     },
     {
-      "command": "npm run start",
-      "name": "Run npm start",
+      "command": "pnpm run start",
+      "name": "Run pnpm start",
       "request": "launch",
       "type": "node-terminal",
       "skipFiles": ["<node_internals>/**"]

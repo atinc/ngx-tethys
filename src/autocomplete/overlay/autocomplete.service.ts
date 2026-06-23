@@ -31,7 +31,8 @@ import { autocompleteAbstractOverlayOptions } from './autocomplete.options';
 @Injectable()
 export class ThyAutocompleteService
     extends ThyAbstractOverlayService<ThyAutocompleteConfig, ThyAutocompleteContainer>
-    implements OnDestroy {
+    implements OnDestroy
+{
     private scrollDispatcher = inject(ScrollDispatcher);
     private ngZone = inject(NgZone);
     private _viewportRuler = inject(ViewportRuler);

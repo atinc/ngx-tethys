@@ -25,7 +25,7 @@ export class DialogSimpleContentTestComponent {
     dialogRef = inject<ThyDialogRef<DialogSimpleContentTestComponent>>(ThyDialogRef);
     dialogInjector = inject(Injector);
     directionality = inject(Directionality);
-    token = inject(MY_TOKEN, { optional: true })
+    token = inject(MY_TOKEN, { optional: true });
 }
 @Component({
     selector: 'thy-dialog-full-content-test-component',
@@ -140,9 +140,9 @@ export class WithInjectedDataDialogTestComponent implements OnInit {
 
     input1 = input();
 
-    constructor() { }
+    constructor() {}
 
-    ngOnInit() { }
+    ngOnInit() {}
 }
 
 @Component({
@@ -211,9 +211,9 @@ export class DialogToTopTestComponent implements OnInit {
 
     public viewContainerRef: ViewContainerRef = inject(ViewContainerRef);
 
-    constructor() { }
+    constructor() {}
 
-    ngOnInit() { }
+    ngOnInit() {}
 
     open() {
         this.openDialog(PopupFirstTestComponent, 'first', this.viewContainerRef);

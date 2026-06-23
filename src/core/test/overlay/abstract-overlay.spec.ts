@@ -75,7 +75,7 @@ export class TestDialogContainerComponent<TData = unknown> extends ThyAbstractOv
     @ViewChild(CdkPortalOutlet, { static: true })
     portalOutlet!: CdkPortalOutlet;
 
-    beforeAttachPortal(): void { }
+    beforeAttachPortal(): void {}
 
     constructor() {
         const changeDetectorRef = coreInject(ChangeDetectorRef);
@@ -98,7 +98,7 @@ export class TestDialogContainerComponent<TData = unknown> extends ThyAbstractOv
     }
 }
 
-abstract class TestDialogRef<T = unknown, TResult = unknown> extends ThyAbstractOverlayRef<T, TestDialogContainerComponent, TResult> { }
+abstract class TestDialogRef<T = unknown, TResult = unknown> extends ThyAbstractOverlayRef<T, TestDialogContainerComponent, TResult> {}
 class InternalTestDialogRef<T = unknown, TResult = unknown, TData = unknown> extends ThyAbstractInternalOverlayRef<
     T,
     TestDialogContainerComponent<TData>,
@@ -190,7 +190,7 @@ export class TestDialogService extends ThyAbstractOverlayService<TestDialogConfi
     exports: [],
     providers: []
 })
-export class TestDialogModule { }
+export class TestDialogModule {}
 
 @Component({
     selector: 'test-dialog-basic',

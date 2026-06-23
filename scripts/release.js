@@ -97,13 +97,13 @@ function bumpVersion() {
 
 function updateChangelog() {
     logger.info('updating changelog...');
-    execSync('npm run changelog');
+    execSync('pnpm run changelog');
     logger.success('✔ changelog generated!');
 }
 
 function buildDocs() {
     logger.info('running build:docs script...');
-    execSync('npm run build:docs', { stdio: [0, 1, 2] });
+    execSync('pnpm run build:docs', { stdio: [0, 1, 2] });
     logger.info('✔ docs generated!');
 }
 
