@@ -52,8 +52,9 @@ export class ThyCollapseItem implements IThyCollapseItemComponent, OnInit, OnDes
     /**
      * 是否处于激活展开状态
      */
-    thyActiveInput = input<boolean>(false, { alias: 'thyActive' });
-    thyActive = linkedSignal(this.thyActiveInput);
+    readonly thyActiveInput = input<boolean>(false, { alias: 'thyActive' });
+
+    readonly thyActive = linkedSignal(this.thyActiveInput);
 
     /**
      * 是否禁用当前面板
