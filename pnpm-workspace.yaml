@@ -7,3 +7,5 @@ allowBuilds:
   msgpackr-extract: true
 minimumReleaseAgeExclude:
   - '@docgeni/*'
+patchedDependencies:
+  '@docgeni/template@2.8.0-next.7': patches/@docgeni__template@2.8.0-next.7.patch
