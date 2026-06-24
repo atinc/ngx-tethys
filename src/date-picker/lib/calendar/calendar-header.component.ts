@@ -1,4 +1,4 @@
-import { Directive, OnInit, Signal, effect, inject, input, model, output, linkedSignal } from '@angular/core';
+import { Directive, OnInit, Signal, effect, inject, input, model, output } from '@angular/core';
 import { ThyPanelMode } from '../../standard-types';
 import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
 import { DateHelperService } from '../../date-helper.service';
@@ -28,10 +28,7 @@ export abstract class CalendarHeader implements OnInit {
 
     readonly showNextBtn = input(true, { transform: coerceBooleanProperty });
 
-    readonly valueInput = input<TinyDate>(undefined, { alias: 'value' });
-    readonly value = linkedSignal(this.valueInput);
-
-    readonly valueChange = output<TinyDate>();
+    readonly value = model<TinyDate>();
 
     readonly panelModeChange = output<ThyPanelMode>();
 
@@ -95,7 +92,6 @@ export abstract class CalendarHeader implements OnInit {
     public changeValue(value: TinyDate): void {
         if (this.value() !== value) {
             this.value.set(value);
-            this.valueChange.emit(value);
         }
     }
 

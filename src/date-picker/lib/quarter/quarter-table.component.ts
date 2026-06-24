@@ -24,7 +24,6 @@ export class QuarterTable extends CalendarTable {
     private chooseQuarter(quarter: number): void {
         const newValue = this.activeDate().setQuarter(quarter);
         this.value.set(newValue);
-        this.valueChange.emit(newValue);
         this.render();
     }
 

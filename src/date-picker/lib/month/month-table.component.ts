@@ -30,7 +30,6 @@ export class MonthTable extends CalendarTable {
     private chooseMonth(month: number): void {
         const newValue = this.activeDate().setMonth(month);
         this.value.set(newValue);
-        this.valueChange.emit(newValue);
         this.render();
     }
 
