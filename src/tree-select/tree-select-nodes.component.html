@@ -4,29 +4,33 @@
 @let isVirtualScroll = thyVirtualScroll();
 @let showKey = this.parent.thyShowKey();
 
-@if (nodeList?.length > 0) {
-  <div class="thy-tree-select-options">
-    <div class="thy-tree-select-node">
-      @if (!isVirtualScroll) {
-        @for (node of nodeList; track $index) {
-          <ng-container [ngTemplateOutlet]="treeSelectNode" [ngTemplateOutletContext]="{ $implicit: node }"></ng-container>
-        }
-      }
-      @if (isVirtualScroll) {
-        <cdk-virtual-scroll-viewport #viewport [itemSize]="defaultItemSize" [style.height]="virtualHeight">
-          <ng-container *cdkVirtualFor="let node of nodeList; trackBy: tabTrackBy">
-            <ng-template [ngTemplateOutlet]="treeSelectNode" [ngTemplateOutletContext]="{ $implicit: node }"></ng-template>
-          </ng-container>
-        </cdk-virtual-scroll-viewport>
-      }
-    </div>
-  </div>
+@if (!parent.thyLoadState()) {
+  <thy-loading [thyDone]="parent.thyLoadState()" thySize="sm"></thy-loading>
 } @else {
-  <thy-empty
-    class="thy-select-empty-content"
-    thySize="sm"
-    [thyMessage]="parent.thyEmptyOptionsText()"
-    [thyIconName]="emptyIcon()"></thy-empty>
+  @if (nodeList?.length > 0) {
+    <div class="thy-tree-select-options">
+      <div class="thy-tree-select-node">
+        @if (!isVirtualScroll) {
+          @for (node of nodeList; track $index) {
+            <ng-container [ngTemplateOutlet]="treeSelectNode" [ngTemplateOutletContext]="{ $implicit: node }"></ng-container>
+          }
+        }
+        @if (isVirtualScroll) {
+          <cdk-virtual-scroll-viewport #viewport [itemSize]="defaultItemSize" [style.height]="virtualHeight">
+            <ng-container *cdkVirtualFor="let node of nodeList; trackBy: tabTrackBy">
+              <ng-template [ngTemplateOutlet]="treeSelectNode" [ngTemplateOutletContext]="{ $implicit: node }"></ng-template>
+            </ng-container>
+          </cdk-virtual-scroll-viewport>
+        }
+      </div>
+    </div>
+  } @else {
+    <thy-empty
+      class="thy-select-empty-content"
+      thySize="sm"
+      [thyMessage]="parent.thyEmptyOptionsText()"
+      [thyIconName]="emptyIcon()"></thy-empty>
+  }
 }
 
 <ng-template #treeSelectNode let-node>

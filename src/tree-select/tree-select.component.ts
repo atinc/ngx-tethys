@@ -8,6 +8,7 @@ import {
 import { ThyEmpty } from 'ngx-tethys/empty';
 import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
 import { ThyIcon } from 'ngx-tethys/icon';
+import { ThyLoading } from 'ngx-tethys/loading';
 import { ThySelectControl, ThyStopPropagationDirective } from 'ngx-tethys/shared';
 import { ThyTreeNode } from 'ngx-tethys/tree';
 import { coerceBooleanProperty, elementMatchClosest, isArray, isObject, produce } from 'ngx-tethys/util';
@@ -160,6 +161,9 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
     readonly thyTreeNodes = input<ThyTreeSelectNode[]>([]);
 
     treeNodes = computed(() => {
+        if (this.thyServerSearch()) {
+            return this.thyTreeNodes();
+        }
         return filterTreeData(this.thyTreeNodes(), this.searchText(), this.thyShowKey());
     });
 
@@ -251,6 +255,23 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
      * @type boolean
      */
     readonly thyShowSearch = input(false, { transform: coerceBooleanProperty });
+
+    /**
+     * 是否使用服务端搜索，当为 true 时，将不再在前端进行过滤
+     * @type boolean
+     */
+    readonly thyServerSearch = input(false, { transform: coerceBooleanProperty });
+
+    /**
+     * 搜索时回调
+     */
+    readonly thyOnSearch = output<string>();
+
+    /**
+     * 异步加载 loading 状态，false 表示加载中，true 表示加载完成
+     * @type boolean
+     */
+    readonly thyLoadState = input(true, { transform: coerceBooleanProperty });
 
     /**
      * 图标类型，支持 default | especial，已废弃
@@ -368,6 +389,9 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
 
     searchValue(searchText: string) {
         this.searchText.set(searchText.trim());
+        if (this.thyServerSearch()) {
+            this.thyOnSearch.emit(searchText);
+        }
     }
 
     public setPosition() {
@@ -550,6 +574,7 @@ const DEFAULT_ITEM_SIZE = 40;
         CdkFixedSizeVirtualScroll,
         CdkVirtualForOf,
         ThyEmpty,
+        ThyLoading,
         NgClass,
         NgStyle,
         ThyIcon,

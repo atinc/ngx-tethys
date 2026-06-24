@@ -1,0 +1,11 @@
+<div class="mb-2 mt-2">服务端搜索</div>
+<thy-tree-select
+  [thyTreeNodes]="treeSelectNodes()"
+  [(ngModel)]="selectedValue"
+  [thyShowSearch]="true"
+  [thyServerSearch]="true"
+  [thyLoadState]="loadState()"
+  (thyOnSearch)="search($event)"
+  style="width: 500px">
+</thy-tree-select>
+<p class="my-3">选择的值的 _id：{{ selectedValue | json }}</p>
