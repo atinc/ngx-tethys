@@ -595,6 +595,11 @@ export class ThyTreeSelectNodes {
 
     readonly thyVirtualScroll = input<boolean>(false);
 
+    /**
+     * 异步加载 loading 状态，false 表示加载中，true 表示加载完成
+     */
+    readonly loadState = input(true, { transform: coerceBooleanProperty });
+
     public readonly isMultiple = computed(() => this.parent.thyMultiple());
 
     public readonly childCountKey = computed(() => this.parent.thyChildCountKey());

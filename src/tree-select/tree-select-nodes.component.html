@@ -4,8 +4,8 @@
 @let isVirtualScroll = thyVirtualScroll();
 @let showKey = this.parent.thyShowKey();
 
-@if (!parent.thyLoadState()) {
-  <thy-loading [thyDone]="parent.thyLoadState()" thySize="sm"></thy-loading>
+@if (!loadState()) {
+  <thy-loading [thyDone]="loadState()" thySize="sm"></thy-loading>
 } @else {
   @if (nodeList?.length > 0) {
     <div class="thy-tree-select-options">
