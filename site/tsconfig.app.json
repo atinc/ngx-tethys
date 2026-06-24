@@ -8,12 +8,6 @@
   "exclude": ["**/*.spec.ts"],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
-    "extendedDiagnostics": {
-      "checks": {
-        "nullishCoalescingNotNullable": "suppress",
-        "optionalChainNotNullable": "suppress"
-      }
-    },
     "strictStandalone": false,
     "strictInjectionParameters": false,
     "strictInputAccessModifiers": false,

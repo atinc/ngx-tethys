@@ -13,12 +13,5 @@
   },
   "files": ["test.ts", "polyfills.ts"],
   "include": ["**/*.ts", "**/*.d.ts"],
-  "angularCompilerOptions": {
-    "extendedDiagnostics": {
-      "checks": {
-        "nullishCoalescingNotNullable": "suppress",
-        "optionalChainNotNullable": "suppress"
-      }
-    }
-  }
+  "angularCompilerOptions": {}
 }

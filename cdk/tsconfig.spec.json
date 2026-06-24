@@ -7,12 +7,5 @@
   },
   "files": ["test.ts"],
   "include": ["**/*.ts", "**/*.spec.ts"],
-  "angularCompilerOptions": {
-    "extendedDiagnostics": {
-      "checks": {
-        "nullishCoalescingNotNullable": "suppress",
-        "optionalChainNotNullable": "suppress"
-      }
-    }
-  }
+  "angularCompilerOptions": {}
 }

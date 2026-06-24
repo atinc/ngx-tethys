@@ -18,12 +18,5 @@
     }
   },
   "exclude": ["test.ts", "*/test/*.ts", "**/*.spec.ts", "**/examples/**"],
-  "angularCompilerOptions": {
-    "extendedDiagnostics": {
-      "checks": {
-        "nullishCoalescingNotNullable": "suppress",
-        "optionalChainNotNullable": "suppress"
-      }
-    }
-  }
+  "angularCompilerOptions": {}
 }
